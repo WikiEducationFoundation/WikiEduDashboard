@@ -65,19 +65,13 @@ const DatePicker = React.createClass({
   },
 
   getTimeDropdownOptions(type) {
-    const options = _.range(0, type === 'hour' ? 24 : 60).map(value => {
+    return _.range(0, type === 'hour' ? 24 : 60).map(value => {
       return (
         <option value={value} key={`timedropdown-${type}-${value}`}>
           {value}
         </option>
       );
     });
-
-    return (
-      <select>
-        {options}
-      </select>
-    );
   },
 
   handleDatePickerChange(e, selectedDate, modifiers) {
@@ -262,7 +256,7 @@ const DatePicker = React.createClass({
       );
 
       return (
-        <div className={`form-group ${inputClass}`}>
+        <div className={`form-group datetime-control ${inputClass}`}>
           <span className={`form-group date-picker--form-group ${inputClass}`}>
             <label htmlFor={this.state.id}className={labelClass}>{label}</label>
             {dateInput}

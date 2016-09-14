@@ -7,8 +7,8 @@
 #  title                 :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
-#  start                 :date
-#  end                   :date
+#  start                 :datetime
+#  end                   :datetime
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
@@ -22,8 +22,8 @@
 #  description           :text(65535)
 #  submitted             :boolean          default(FALSE)
 #  passcode              :string(255)
-#  timeline_start        :date
-#  timeline_end          :date
+#  timeline_start        :datetime
+#  timeline_end          :datetime
 #  day_exceptions        :string(2000)     default("")
 #  weekdays              :string(255)      default("0000000")
 #  new_article_count     :integer          default(0)
@@ -62,5 +62,9 @@ class LegacyCourse < Course
 
   def string_prefix
     'courses'
+  end
+
+  def use_start_and_end_times
+    false
   end
 end

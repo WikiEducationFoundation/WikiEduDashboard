@@ -165,6 +165,7 @@ const Details = React.createClass({
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
           date_props={dateProps.timeline_start}
+          showTime={this.props.course.use_start_and_end_times}
           required={true}
         />
       );
@@ -177,6 +178,7 @@ const Details = React.createClass({
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
           date_props={dateProps.timeline_end}
+          showTime={this.props.course.use_start_and_end_times}
           required={true}
         />
       );
@@ -238,6 +240,7 @@ const Details = React.createClass({
               validation={CourseDateUtils.isDateValid}
               editable={this.props.editable}
               label={I18n.t('courses.start')}
+              showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
             <DatePicker
@@ -249,6 +252,7 @@ const Details = React.createClass({
               label={I18n.t('courses.end')}
               date_props={dateProps.end}
               enabled={Boolean(this.props.course.start)}
+              showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
             {timelineStart}
