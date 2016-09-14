@@ -31,23 +31,46 @@ const Wp10Graph = React.createClass({
     const articleId = this.props.article.id;
     const vlSpec = {
       data: { url: `/articles/${articleId}.json` },
-      mark: 'circle',
-      encoding: {
-        x: {
-          field: 'date',
-          type: 'temporal'
+      layers: [
+        {
+          mark: 'area',
+          encoding: {
+            x: {
+              field: 'date',
+              type: 'temporal',
+              axis: { labelAngle: 0 }
+            },
+            y: {
+              field: 'wp10',
+              type: 'quantitative',
+              scale: { domain: [0, 100] },
+              axis: { title: I18n.t('articles.wp10'), offset: 10 },
+            }
+          },
+          config: {
+            cell: { width: 500, height: 300 },
+            mark: { fill: '#676EB4', interpolate: 'step-before' },
+            timeFormat: '%b %d'
+          }
         },
-        y: {
-          field: 'wp10',
-          type: 'quantitative',
-          scale: { domain: [0, 100] },
-          axis: { title: I18n.t('articles.wp10'), offset: 10 }
+        {
+          mark: 'circle',
+          encoding: {
+            x: {
+              field: 'date',
+              type: 'temporal'
+            },
+            y: {
+              field: 'wp10',
+              type: 'quantitative',
+              scale: { domain: [0, 100] }
+            }
+          },
+          config: {
+            mark: { size: 100, fill: '#359178' }
+          }
         }
-      },
-      config: {
-        cell: { width: 500, height: 300 },
-        mark: { size: 100, fill: '#359178' }
-      }
+      ]
     };
     const embedSpec = {
       mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler
