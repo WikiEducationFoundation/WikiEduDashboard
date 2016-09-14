@@ -148,9 +148,9 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_css('button.dark[disabled=""]')
       start_input = find('input.start', match: :first).value
       sleep 1
-      expect(start_input).to eq(start_date)
+      expect(start_input.to_date).to eq(start_date.to_date)
       end_input = find('input.end', match: :first).value
-      expect(end_input).to eq(end_date)
+      expect(end_input.to_date).to eq(end_date.to_date)
 
       # capybara doesn't like trying to click the calendar
       # to set a blackout date
