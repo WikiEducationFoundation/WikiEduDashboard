@@ -39,6 +39,11 @@ describe CourseAlertManager do
   end
 
   describe '#create_no_students_alerts' do
+    before :each do
+      # These alerts are only created if the course is approved.
+      create(:cohorts_course, course_id: course.id, cohort_id: Cohort.first.id)
+    end
+
     it 'creates an Alert record and emails a greeter' do
       expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       subject.create_no_students_alerts
