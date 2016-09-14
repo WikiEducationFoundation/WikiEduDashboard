@@ -13,6 +13,7 @@ const DatePicker = React.createClass({
     value_key: React.PropTypes.string,
     spacer: React.PropTypes.string,
     label: React.PropTypes.string,
+    timeLabel: React.PropTypes.string,
     valueClass: React.PropTypes.string,
     editable: React.PropTypes.bool,
     enabled: React.PropTypes.bool,
@@ -25,7 +26,8 @@ const DatePicker = React.createClass({
     onFocus: React.PropTypes.func,
     onClick: React.PropTypes.func,
     append: React.PropTypes.string,
-    date_props: React.PropTypes.object
+    date_props: React.PropTypes.object,
+    showTime: React.PropTypes.bool
   },
 
   mixins: [InputMixin],
@@ -38,28 +40,67 @@ const DatePicker = React.createClass({
 
   getInitialState() {
     return {
-      value: this.props.value,
+      value: moment(this.props.value).utc(),
       datePickerVisible: false
     };
   },
 
   componentWillReceiveProps(nextProps) {
     if (this.state.value === null) {
-      this.setState({ value: nextProps.value });
+      this.setState({ value: moment(nextProps.value).utc() });
     }
+  },
+
+  getDate() {
+    return moment(this.state.value).utc();
+  },
+
+  getFormattedDate() {
+    return this.getDate().format('YYYY-MM-DD');
+  },
+
+  getFormattedDateTime() {
+    const format = `YYYY-MM-DD${this.props.showTime ? ' HH:mm (UTC)' : ''}`;
+    return this.getDate().format(format);
+  },
+
+  getTimeDropdownOptions(type) {
+    const options = _.range(0, type === 'hour' ? 24 : 60).map(value => {
+      return (
+        <option value={value} key={`timedropdown-${type}-${value}`}>
+          {value}
+        </option>
+      );
+    });
+
+    return (
+      <select>
+        {options}
+      </select>
+    );
   },
 
   handleDatePickerChange(e, selectedDate, modifiers) {
     if (_.includes(modifiers, 'disabled')) {
       return;
     }
-    const date = moment(selectedDate).format('YYYY-MM-DD');
+    const date = moment(selectedDate).utc().format('YYYY-MM-DD');
     this.onChange({ target: { value: date } });
     this.refs.datefield.focus();
     this.setState({ datePickerVisible: false });
   },
 
   handleDateFieldChange(e) {
+    const { value } = e.target;
+    this.onChange({ target: { value } });
+  },
+
+  handleHourFieldChange(e) {
+    const { value } = e.target;
+    this.onChange({ target: { value } });
+  },
+
+  handleMinuteFieldChange(e) {
     const { value } = e.target;
     this.onChange({ target: { value } });
   },
@@ -88,19 +129,19 @@ const DatePicker = React.createClass({
   },
 
   isDaySelected(date) {
-    const currentDate = moment(date).format('YYYY-MM-DD');
-    return currentDate === this.state.value;
+    const currentDate = moment(date).utc().format('YYYY-MM-DD');
+    return currentDate === moment(this.state.value).utc().format('YYYY-MM-DD');
   },
 
   isDayDisabled(date) {
-    const currentDate = moment(date);
+    const currentDate = moment(date).utc();
     if (this.props.date_props) {
-      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
+      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc().startOf('day');
       if (minDate.isValid() && currentDate < minDate) {
         return true;
       }
 
-      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
+      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD').utc().endOf('day');
       if (maxDate.isValid() && currentDate > maxDate) {
         return true;
       }
@@ -114,6 +155,7 @@ const DatePicker = React.createClass({
   render() {
     const spacer = this.props.spacer || ': ';
     let label;
+    let timeLabel;
     let currentMonth;
 
     if (this.props.label) {
@@ -121,7 +163,15 @@ const DatePicker = React.createClass({
       label += spacer;
     }
 
-    const { value } = this.props;
+    if (this.props.timeLabel) {
+      timeLabel = this.props.timeLabel;
+      timeLabel += spacer;
+    } else {
+      // use unicode for &nbsp; to account for spacing when there is no label
+      timeLabel = '\u00A0';
+    }
+
+    const value = moment(this.props.value).utc();
 
     let valueClass = 'text-input-component__value ';
     if (this.props.valueClass) { valueClass += this.props.valueClass; }
@@ -135,17 +185,16 @@ const DatePicker = React.createClass({
         inputClass += 'invalid';
       }
 
-      const date = moment(this.state.value, 'YYYY-MM-DD');
       let minDate;
       if (this.props.date_props && this.props.date_props.minDate) {
-        const minDateValue = moment(this.props.date_props.minDate, 'YYYY-MM-DD');
+        const minDateValue = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc();
         if (minDateValue.isValid()) {
           minDate = minDateValue;
         }
       }
 
-      if (date.isValid()) {
-        currentMonth = date.toDate();
+      if (value.isValid()) {
+        currentMonth = value.toDate();
       } else if (minDate) {
         currentMonth = minDate.toDate();
       } else {
@@ -157,12 +206,12 @@ const DatePicker = React.createClass({
         disabled: this.isDayDisabled
       };
 
-      const input = (
+      const dateInput = (
         <div className="date-input">
           <input
             id={this.state.id}
             ref="datefield"
-            value={this.state.value}
+            value={this.getFormattedDate()}
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
@@ -187,10 +236,38 @@ const DatePicker = React.createClass({
         </div>
       );
 
+      const timeControlNode = (
+        <span className={`form-group time-picker--form-group ${inputClass}`}>
+          <label htmlFor={`${this.state.id}-hour`} className={labelClass}>
+            {timeLabel}
+          </label>
+          <div className="time-input">
+            <select
+              className="time-input__hour"
+              onChange={this.handleHourFieldChange}
+              value={value.utc().hour()}
+            >
+              {this.getTimeDropdownOptions('hour')}
+            </select>
+            :
+            <select
+              className="time-input__minute"
+              onChange={this.handleMinuteFieldChange}
+              value={value.utc().minute()}
+            >
+              {this.getTimeDropdownOptions('minute')}
+            </select>
+          </div>
+        </span>
+      );
+
       return (
         <div className={`form-group ${inputClass}`}>
-          <label htmlFor={this.state.id}className={labelClass}>{label}</label>
-          {input}
+          <span className={`form-group date-picker--form-group ${inputClass}`}>
+            <label htmlFor={this.state.id}className={labelClass}>{label}</label>
+            {dateInput}
+          </span>
+          {this.props.showTime ? timeControlNode : null}
         </div>
       );
     } else if (this.props.label !== null) {
@@ -198,7 +275,9 @@ const DatePicker = React.createClass({
         <p className={this.props.p_tag_classname}>
           <span className="text-input-component__label"><strong>{label}</strong></span>
           <span>{(this.props.value !== null || this.props.editable) && !this.props.label ? spacer : null}</span>
-          <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>{value}</span>
+          <span onBlur={this.props.onBlur} onClick={this.props.onClick} className={valueClass}>
+            {this.getFormattedDateTime()}
+          </span>
           {this.props.append}
         </p>
       );

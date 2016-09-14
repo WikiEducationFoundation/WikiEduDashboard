@@ -1,3 +1,20 @@
+// align date and time controls side by side
+.datetime-control
+  display flex
+
+  .form-group
+    display inline-block
+
+    .date-input
+      margin-right 20px
+
+    .time-input
+      white-space nowrap
+
+      // specificity to override overview/sidebar rules
+      select
+        width auto
+
 .date-input
   position relative
 
@@ -18,3 +35,12 @@
 
 .date-input .DayPicker--visible
   display block
+
+.time-picker--form-group
+  display inline-block
+
+.time-input__hour
+  margin-right 5px
+
+.time-input__minute
+  margin-left 5px
