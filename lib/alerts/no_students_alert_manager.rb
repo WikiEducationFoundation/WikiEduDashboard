@@ -6,6 +6,7 @@ class NoStudentsAlertManager
 
   def create_alerts
     @courses.each do |course|
+      next if course.cohorts.empty? # No alerts needed for unapproved courses
       next unless course.students.empty?
       next unless within_no_student_alert_period?(course.timeline_start)
 
