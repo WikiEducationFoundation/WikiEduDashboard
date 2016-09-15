@@ -59,7 +59,14 @@ class WikiResponse
     end
   end
 
+  # These represent well-known messages that we do not need to capture.
+  # Bypassing Sentry capture avoids a performance hit.
+  MESSAGES_TO_IGNORE = [
+    'Successful edit',
+    'tokens query'
+  ].freeze
   def send_to_sentry
+    return if MESSAGES_TO_IGNORE.include?(@title)
     Raven.capture_message @title,
                           level: @level,
                           tags: { username: @current_user[:username],
