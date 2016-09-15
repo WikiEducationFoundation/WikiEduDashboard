@@ -57,13 +57,15 @@ class UploadImporter
   def self.import_upload(file)
     uploaded_at = file['timestamp']
     file_name = file['title']
-    username = file['user']
-    user_id = User.find_by(username: username).id
+    user = User.find_by(username: file['user'])
+    # If the file page was overwritten by a different user, the username may not
+    # be in the database.
+    return unless user
     id = file['pageid']
     upload = CommonsUpload.new(id: id,
                                uploaded_at: uploaded_at,
                                file_name: file_name,
-                               user_id: user_id)
+                               user_id: user.id)
     upload.save unless CommonsUpload.exists?(id)
   end
 
