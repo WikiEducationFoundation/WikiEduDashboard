@@ -182,6 +182,7 @@ class Course < ActiveRecord::Base
   #############
   before_save :ensure_required_params
   before_save :order_weeks
+  before_save :set_end_times
 
   ####################
   # Instance methods #
@@ -301,5 +302,12 @@ class Course < ActiveRecord::Base
     return false unless [title, school, term, slug].count(nil).zero?
     self.timeline_start ||= start
     self.timeline_end ||= self.end
+  end
+
+  def set_end_times
+    unless self.use_start_and_end_times
+      self.end = self.end.end_of_day
+      self.timeline_end = self.timeline_end.end_of_day
+    end
   end
 end

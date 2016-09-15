@@ -14,14 +14,12 @@ module.exports = {
     props =
       end:
         minDate: startDate
-        useEndOfDay: true
       timeline_start:
         minDate: startDate
         maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
       timeline_end:
         minDate: moment(course.timeline_start, 'YYYY-MM-DD')
         maxDate: moment(course.end, 'YYYY-MM-DD')
-        useEndOfDay: true
 
     return props
 
