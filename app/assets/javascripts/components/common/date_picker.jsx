@@ -48,11 +48,13 @@ const DatePicker = React.createClass({
   componentWillReceiveProps(nextProps) {
     if (this.state.value === null) {
       this.setState({ value: moment(nextProps.value).utc() });
+    } else {
+      this.setState({ value: moment(this.state.value).utc() });
     }
   },
 
   getDate() {
-    return moment(this.state.value).utc();
+    return this.state.value.utc();
   },
 
   getFormattedDate() {
@@ -68,7 +70,7 @@ const DatePicker = React.createClass({
     return _.range(0, type === 'hour' ? 24 : 60).map(value => {
       return (
         <option value={value} key={`timedropdown-${type}-${value}`}>
-          {value}
+          {(`00${value}`).slice(-2)}
         </option>
       );
     });
@@ -78,25 +80,32 @@ const DatePicker = React.createClass({
     if (_.includes(modifiers, 'disabled')) {
       return;
     }
-    const date = moment(selectedDate).utc().format('YYYY-MM-DD');
-    this.onChange({ target: { value: date } });
+    let date = moment(selectedDate).utc();
+    date = date.hour(this.state.value.hour());
+    date = date.minute(this.state.value.minute());
     this.refs.datefield.focus();
-    this.setState({ datePickerVisible: false });
+    this.setState({
+      datePickerVisible: false,
+      value: date
+    });
   },
 
   handleDateFieldChange(e) {
     const { value } = e.target;
-    this.onChange({ target: { value } });
+    let newValue = moment(value, 'YYYY-MM-DD').utc();
+    newValue = newValue.hour(this.state.hour());
+    newValue = newValue.minute(this.state.minute());
+    this.setState({ value: newValue });
   },
 
   handleHourFieldChange(e) {
-    const { value } = e.target;
-    this.onChange({ target: { value } });
+    const hour = e.target.value;
+    this.setState({ value: this.state.value.hour(hour).utc() });
   },
 
   handleMinuteFieldChange(e) {
-    const { value } = e.target;
-    this.onChange({ target: { value } });
+    const minute = e.target.value;
+    this.setState({ value: this.state.value.minute(minute).utc() });
   },
 
   handleClickOutside() {
@@ -124,7 +133,7 @@ const DatePicker = React.createClass({
 
   isDaySelected(date) {
     const currentDate = moment(date).utc().format('YYYY-MM-DD');
-    return currentDate === moment(this.state.value).utc().format('YYYY-MM-DD');
+    return currentDate === this.state.value.format('YYYY-MM-DD');
   },
 
   isDayDisabled(date) {
@@ -165,7 +174,7 @@ const DatePicker = React.createClass({
       timeLabel = '\u00A0';
     }
 
-    const value = moment(this.props.value).utc();
+    const value = this.state.value;
 
     let valueClass = 'text-input-component__value ';
     if (this.props.valueClass) { valueClass += this.props.valueClass; }

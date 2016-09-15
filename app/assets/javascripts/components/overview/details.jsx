@@ -151,7 +151,6 @@ const Details = React.createClass({
       );
     }
 
-
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
