@@ -62,7 +62,7 @@ const ThisWeek = React.createClass({
     }
 
     if (week) {
-      let meetingsProp = weekMeetings ? thisWeekMeetings : false;
+      let meetingsProp = weekMeetings ? thisWeekMeetings : ' ';
       weekComponent = (
         <Week
           week={week}
