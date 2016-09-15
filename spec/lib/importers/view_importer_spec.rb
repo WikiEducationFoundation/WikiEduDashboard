@@ -91,7 +91,6 @@ describe ViewImporter do
         # Update again with this article.
         ViewImporter.update_new_views
         ViewImporter.update_all_views
-        pp Article.last.views
       end
     end
   end
