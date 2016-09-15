@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alexmar983
+# Author: Anto
 # Author: Beta16
 # Author: Einreiher
 # Author: Macofe
@@ -150,6 +151,10 @@ it:
         vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
         le date per tenere conto di settimane che non hanno incontri programmati.'
       clone_successful: Corso clonato correttamente
+      clone_successful_details: Il corso è stato clonato, compresi gli elementi della
+        cronologia degli eventi (settimane e blocchi). Assicurari di aggiungere le
+        date, che non sono riportati. E' stato tuo cambiato altro del tuo corso ?
+        Non esitare  ad aggiornarlo.
       course_description: Descrizione del corso
       course_language: Lingua principale
       course_project: Progetto pricipale

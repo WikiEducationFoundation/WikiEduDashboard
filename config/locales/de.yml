@@ -183,8 +183,9 @@ de:
         keine geplanten Treffen haben, an.
       clone_successful: Kurs erfolgreich geklont
       clone_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
-        (Wochen und Blöcke). Hat sich noch etwas an deinem Kurs geändert? Tu dir keinen
-        Zwang an, ihn jetzt zu aktualisieren.
+        (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
+        nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
+        keinen Zwang an, ihn jetzt zu aktualisieren.
       course_description: Kursbeschreibung
       course_language: Heimatsprache
       course_project: Heimatprojekt
@@ -448,7 +449,7 @@ de:
     empty_week_1: Um anzufangen,
     empty_week_2: beginne mit dem Bearbeiten in dieser Woche
     empty_week_3: ' oder&nbsp;'
-    empty_week_4: starte von einer vorerstellten Zuweisung.
+    empty_week_4: verwende den Zuweisungsassistenten, um eine Zeitleiste zu erstellen.
     first_week_title: Erste aktive Woche
     gradeable_value: Wert
     gradeables_none: Diese Zeitleiste hat keine Zuweisungen, die als eingeteilt markiert
