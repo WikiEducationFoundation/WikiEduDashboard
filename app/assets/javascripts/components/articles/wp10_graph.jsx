@@ -89,9 +89,9 @@ const Wp10Graph = React.createClass({
           title: I18n.t('articles.wp10')
         }
       ],
-      // ////////////////
-      //  Data Sources //
-      // ////////////////
+      // ///////////////
+      // Data Sources //
+      // ///////////////
       data: [
         {
           name: 'wp10_scores',
@@ -115,7 +115,7 @@ const Wp10Graph = React.createClass({
             data: 'wp10_scores',
             transform: [{ type: 'sort', by: '-date' }]
           },
-          properties: { update: {
+          properties: { enter: {
             orient: { value: 'vertical' },
             x: { scale: 'x', field: 'date' },
             y: { scale: 'y', field: 'wp10' },
@@ -134,13 +134,24 @@ const Wp10Graph = React.createClass({
             transform: [{ type: 'sort', by: '-date' }]
           },
           properties: {
-            update: {
+            enter: {
               x: { scale: 'x', field: 'date' },
               y: { scale: 'y', field: 'wp10' },
               size: { value: 100 },
               shape: { value: 'circle' },
               fill: { value: '#359178' },
               opacity: { value: 0.7 }
+            },
+            update: {
+              fill: {
+                rule: [
+                  {
+                    predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
+                    value: '#333',
+                  },
+                  { value: '#359178' }
+                ]
+              }
             }
           }
         },
