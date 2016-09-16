@@ -29,52 +29,114 @@ const Wp10Graph = React.createClass({
 
   renderGraph() {
     const articleId = this.props.article.id;
-    const vlSpec = {
-      data: { url: `/articles/${articleId}.json` },
-      layers: [
+    const graphWidth = 500;
+    const graphHeight = 300;
+    const vegaSpec = {
+      width: graphWidth,
+      height: graphHeight,
+      padding: 'auto',
+      data: [
         {
-          mark: 'area',
-          encoding: {
-            x: {
-              field: 'date',
-              type: 'temporal',
-              axis: { labelAngle: 0 }
-            },
-            y: {
-              field: 'wp10',
-              type: 'quantitative',
-              scale: { domain: [0, 100] },
-              axis: { title: I18n.t('articles.wp10'), offset: 10 },
-            }
+          name: 'wp10_scores',
+          url: `/articles/${articleId}.json`,
+          format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
+          transform: [{
+            type: 'filter',
+            test: 'datum[\"date\"] !== null && !isNaN(datum[\"date\"]) && datum[\"wp10\"] !== null && !isNaN(datum[\"wp10\"])'
+          }]
+        }
+      ],
+      marks: [
+        {
+          name: 'area_marks',
+          type: 'area',
+          from: {
+            data: 'wp10_scores',
+            transform: [{ type: 'sort', by: '-date' }]
           },
-          config: {
-            cell: { width: 500, height: 300 },
-            mark: { fill: '#676EB4', interpolate: 'step-before' },
-            timeFormat: '%b %d'
+          properties: { update: {
+            orient: { value: 'vertical' },
+            x: { scale: 'x', field: 'date' },
+            y: { scale: 'y', field: 'wp10' },
+            y2: { scale: 'y', value: 0 },
+            fill: { value: '#676EB4' },
+            opacity: { value: 0.7 },
+            interpolate: { value: 'step-before' }
+          } }
+        },
+        {
+          name: 'circle_marks',
+          type: 'symbol',
+          from: {
+            data: 'wp10_scores',
+            transform: [{ type: 'sort', by: '-date' }]
+          },
+          properties: { update: {
+            x: { scale: 'x', field: 'date' },
+            y: { scale: 'y', field: 'wp10' },
+            size: { value: 100 },
+            shape: { value: 'circle' },
+            fill: { value: '#359178' },
+            opacity: { value: 0.7 }
+          } }
+        }
+      ],
+      scales: [
+        {
+          name: 'x',
+          type: 'time',
+          domain: {
+            fields: [{
+              data: 'wp10_scores',
+              field: 'date',
+              sort: { field: 'date', op: 'min' }
+            }]
+          },
+          rangeMin: 0,
+          rangeMax: graphWidth,
+          round: true
+        },
+        {
+          name: 'y',
+          type: 'linear',
+          domain: [0, 100, 0, 100],
+          rangeMin: graphHeight,
+          rangeMax: 0,
+          round: true,
+          nice: true,
+          zero: false
+        }
+      ],
+      axes: [
+        {
+          type: 'x',
+          scale: 'x',
+          grid: true,
+          layer: 'back',
+          ticks: 5,
+          title: 'Date',
+          properties: {
+            labels: {
+              text: { template: '{{datum[\"data\"] | time:\'%b %d\'}}' },
+              angle: { value: 0 }
+            }
           }
         },
         {
-          mark: 'circle',
-          encoding: {
-            x: {
-              field: 'date',
-              type: 'temporal'
-            },
-            y: {
-              field: 'wp10',
-              type: 'quantitative',
-              scale: { domain: [0, 100] }
-            }
-          },
-          config: {
-            mark: { size: 100, fill: '#359178' }
-          }
+          type: 'y',
+          scale: 'y',
+          format: 's',
+          grid: true,
+          layer: 'back',
+          offset: 10,
+          title: I18n.t('articles.wp10')
         }
       ]
     };
+
     const embedSpec = {
-      mode: 'vega-lite', // Instruct Vega-Embed to use the Vega-Lite compiler
-      spec: vlSpec,
+      mode: 'vega',
+      spec: vegaSpec,
       actions: false
     };
     vg.embed(`#${this.graphId()}`, embedSpec);
