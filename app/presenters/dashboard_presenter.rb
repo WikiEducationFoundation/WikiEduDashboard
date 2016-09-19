@@ -82,7 +82,7 @@ class DashboardPresenter
   end
 
   def default_use_start_and_end_times
-    false
+    default_course_type.constantize.new.use_start_and_end_times
   end
 
   private

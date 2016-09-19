@@ -293,7 +293,7 @@ const CourseCreator = React.createClass({
                   placeholder={I18n.t('courses.creator.start_date_placeholder')}
                   blank
                   isClearable={false}
-                  showTime={this.state.course.use_start_and_end_times}
+                  showTime={this.state.use_start_and_end_times}
                 />
                 <DatePicker
                   id="course_end"
@@ -309,7 +309,7 @@ const CourseCreator = React.createClass({
                   date_props={dateProps.end}
                   enabled={!!this.state.course.start}
                   isClearable={false}
-                  showTime={this.state.course.use_start_and_end_times}
+                  showTime={this.state.use_start_and_end_times}
                 />
               </div>
             </div>
