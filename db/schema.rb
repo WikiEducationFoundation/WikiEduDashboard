@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160911210531) do
+ActiveRecord::Schema.define(version: 20160911210535) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",      limit: 4

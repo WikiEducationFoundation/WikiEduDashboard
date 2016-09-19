@@ -470,6 +470,7 @@ describe Course, type: :model do
 
   describe 'callbacks' do
     let(:course) { create(:course) }
+
     describe '#before_save' do
       subject { course.update_attributes(course_attrs) }
       context 'params are legit' do
@@ -500,6 +501,22 @@ describe Course, type: :model do
         let(:course_attrs) { { term: nil } }
         it 'fails' do
           expect(subject).to eq(false)
+        end
+      end
+    end
+
+    describe '#set_default_times' do
+      subject { course }
+      context 'end is at the beginning of day' do
+        let(:course_attrs) { { end: 1.year.from_now.beginning_of_day } }
+        it 'converts to end of day' do
+          expect(subject.end).to eq(1.year.from_now.end_of_day)
+        end
+      end
+      context 'timeline_end is at the beginning of day' do
+        let(:course_attrs) { { timeline_end: 1.year.from_now.beginning_of_day } }
+        it 'converts to end of day' do
+          expect(subject.timeline_end).to eq(1.year.from_now.end_of_day)
         end
       end
     end

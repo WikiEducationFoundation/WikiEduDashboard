@@ -182,7 +182,7 @@ class Course < ActiveRecord::Base
   #############
   before_save :ensure_required_params
   before_save :order_weeks
-  before_save :set_end_times
+  before_save :set_default_times
 
   ####################
   # Instance methods #
@@ -304,10 +304,13 @@ class Course < ActiveRecord::Base
     self.timeline_end ||= self.end
   end
 
-  def set_end_times
-    unless self.use_start_and_end_times
-      self.end = self.end.end_of_day
-      self.timeline_end = self.timeline_end.end_of_day
-    end
+  # Override start and end times if the controls are hidden from the interface.
+  # use_start_and_end_times is true when the times are user-supplied.
+  def set_default_times
+    return if use_start_and_end_times
+    self.start = self.start.beginning_of_day
+    self.end = self.end.end_of_day
+    self.timeline_start = self.timeline_start.beginning_of_day
+    self.timeline_end = self.timeline_end.end_of_day
   end
 end
