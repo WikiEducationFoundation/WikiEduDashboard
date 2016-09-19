@@ -81,6 +81,10 @@ class DashboardPresenter
     default_course_type.constantize.new.string_prefix
   end
 
+  def default_use_start_and_end_times
+    false
+  end
+
   private
 
   # Determine if an instructor has completed orientation

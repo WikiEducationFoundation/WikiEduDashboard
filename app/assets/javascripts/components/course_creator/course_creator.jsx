@@ -20,7 +20,7 @@ import TransitionGroup from 'react-addons-css-transition-group';
 import _ from 'lodash';
 
 import { getUserId } from '../../stores/user_id_store.js';
-import { getDefaultCourseType, getCourseStringPrefix } from '../../stores/course_attributes_store';
+import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } from '../../stores/course_attributes_store';
 
 const getState = () => {
   return {
@@ -42,7 +42,8 @@ const CourseCreator = React.createClass({
       shouldShowForm: false,
       showCourseDropdown: false,
       default_course_type: getDefaultCourseType(),
-      course_string_prefix: getCourseStringPrefix()
+      course_string_prefix: getCourseStringPrefix(),
+      use_start_and_end_times: getUseStartAndEndTimes()
     };
     return $.extend({}, inits, getState());
   },
@@ -292,6 +293,7 @@ const CourseCreator = React.createClass({
                   placeholder={I18n.t('courses.creator.start_date_placeholder')}
                   blank
                   isClearable={false}
+                  showTime={this.state.course.use_start_and_end_times}
                 />
                 <DatePicker
                   id="course_end"
@@ -307,6 +309,7 @@ const CourseCreator = React.createClass({
                   date_props={dateProps.end}
                   enabled={!!this.state.course.start}
                   isClearable={false}
+                  showTime={this.state.course.use_start_and_end_times}
                 />
               </div>
             </div>
