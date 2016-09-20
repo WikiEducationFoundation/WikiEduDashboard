@@ -160,7 +160,7 @@ Course = React.createClass(
         alerts.push(
           <div className='notification notification--survey' key='upcoming_module' key={"survey_notification_#{notification.id}"}>
             <div className='container'>
-              <p>{CourseUtils.i18n('survey.notification_message',@state.course.string_prefix)}</p>
+              <p>{notification.message || CourseUtils.i18n('survey.notification_message', @state.course.string_prefix)}</p>
               <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link',@state.course.string_prefix)}</a>
               <button className='button small pull-right border inverse-border' onClick={=> @dismissSurvey(notification.id)}>{I18n.t("courses.dismiss_survey")}</button>
             </div>

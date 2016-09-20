@@ -40,6 +40,10 @@
       = f.label :send_date_days, "days after first notification", class: 'inline-label'
 
     .form_row
+      = f.label :custom_banner_message
+      = f.text_field :custom_banner_message
+
+    .form_row
       = f.label :email_template
       = email_template_select(f)
 

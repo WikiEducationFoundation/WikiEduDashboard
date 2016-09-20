@@ -59,6 +59,14 @@ class SurveyAssignment < ActiveRecord::Base
     custom_email['signature'] if custom_email
   end
 
+  ##############################
+  # Custom notification banner #
+  ##############################
+  def custom_banner_message
+    # This is stored within custom_email for convenience.
+    custom_email['banner_message'] if custom_email
+  end
+
   ####################
   # Instance methods #
   ####################

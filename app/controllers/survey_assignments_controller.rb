@@ -90,10 +90,11 @@ class SurveyAssignmentsController < ApplicationController
 
   def set_custom_email
     @custom_email = {
-      subject: custom_email_params[:custom_email_subject],
-      headline: custom_email_params[:custom_email_headline],
-      body: custom_email_params[:custom_email_body],
-      signature: custom_email_params[:custom_email_signature]
+      subject: custom_message_params[:custom_email_subject],
+      headline: custom_message_params[:custom_email_headline],
+      body: custom_message_params[:custom_email_body],
+      signature: custom_message_params[:custom_email_signature],
+      banner_message: custom_message_params[:custom_banner_message]
     }
   end
 
@@ -106,9 +107,9 @@ class SurveyAssignmentsController < ApplicationController
                   :notes, :email_template, cohort_ids: [])
   end
 
-  def custom_email_params
+  def custom_message_params
     params.require(:survey_assignment)
           .permit(:custom_email_subject, :custom_email_headline,
-                  :custom_email_body, :custom_email_signature)
+                  :custom_email_body, :custom_email_signature, :custom_banner_message)
   end
 end
