@@ -47,11 +47,7 @@ const DatePicker = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.value === null) {
-      this.setState({ value: moment(nextProps.value).utc() });
-    } else {
-      this.setState({ value: moment(this.state.value).utc() });
-    }
+    this.setState({ value: moment(nextProps.value).utc() });
   },
 
   getDate() {
@@ -276,7 +272,7 @@ const DatePicker = React.createClass({
       );
 
       return (
-        <div className={`form-group datetime-control ${inputClass}`}>
+        <div className={`form-group datetime-control ${this.props.id}-datetime-control ${inputClass}`}>
           <span className={`form-group date-picker--form-group ${inputClass}`}>
             <label htmlFor={this.state.id}className={labelClass}>{label}</label>
             {dateInput}

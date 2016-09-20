@@ -6,8 +6,8 @@ cached_default_course_type = ENV['default_course_type']
 def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
-  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(Date.new(2017, 1, 4))
-  find('input[placeholder="End date (YYYY-MM-DD)"]').set(Date.new(2017, 2, 1))
+  find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
+  find('.course_start-datetime-control input').set(Date.new(2017, 2, 1))
   page.find('body').click
 end
 
@@ -33,6 +33,8 @@ describe 'open course creation', type: :feature, js: true do
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
+    find('.course_start-datetime-control .time-input__hour').set(15)
+    find('.course_start-datetime-control .time-input__minute').set(35)
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
     expect(Course.last.cohorts.count).to eq(1)
