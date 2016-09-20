@@ -46,17 +46,7 @@ const CourseCreator = React.createClass({
       use_start_and_end_times: getUseStartAndEndTimes()
     };
 
-    // ensure initial defaults are at start and end of day
-    // $.extend will write to initialState, so ignore rule
-    /* eslint-disable prefer-const */
-    let initialState = $.extend({}, inits, getState());
-    $.extend(initialState.course, {
-      start: moment().utc().startOf('day').format(),
-      end: moment().utc().endOf('day').format()
-    });
-
-    // FIXME: this.state.course.start and end somehow get overriden as null after first render
-    return initialState;
+    return $.extend({}, inits, getState());
   },
 
   componentWillMount() {
