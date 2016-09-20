@@ -40,6 +40,14 @@ class TrainingProgressManager
   end
   alias assignment_deadline_status assignment_status_css_class
 
+  # This is shown in the StudentDrawer
+  def status
+    return 'Completed' if module_completed?
+    return 'Started' if module_started?
+    return 'Not started'
+  end
+
+  # This is shown for the logged in user where the module is listed
   def assignment_status
     if @due_date_manager.blocks_with_module_assigned(@training_module).any?
       parenthetical = "due #{overall_due_date}"

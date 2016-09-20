@@ -48,6 +48,18 @@ API =
         logErrorMessage(obj)
         rej obj
 
+  fetchTrainingStatus: (studentId, courseId) ->
+    new Promise (res, rej) ->
+      url = "/training_status.json?user_id=#{studentId}&course_id=#{courseId}"
+      $.ajax
+        type: 'GET',
+        url: url
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        logErrorMessage(obj)
+        rej obj
+
   fetchDykArticles: (opts={}) ->
     new Promise (res, rej) ->
       $.ajax

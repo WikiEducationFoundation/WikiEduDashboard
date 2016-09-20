@@ -1,9 +1,11 @@
 import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import RevisionStore from '../../stores/revision_store.js';
+import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
 
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
+const getTrainingStatus = () => TrainingStatusStore.getModels();
 
 const StudentDrawer = React.createClass({
   displayName: 'StudentDrawer',
@@ -13,10 +15,13 @@ const StudentDrawer = React.createClass({
     is_open: React.PropTypes.bool
   },
 
-  mixins: [RevisionStore.mixin],
+  mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
 
   getInitialState() {
-    return { revisions: getRevisions(this.props.student.id) };
+    return {
+      revisions: getRevisions(this.props.student.id),
+      trainingModules: getTrainingStatus()
+    };
   },
 
   getKey() {
@@ -24,7 +29,10 @@ const StudentDrawer = React.createClass({
   },
 
   storeDidChange() {
-    return this.setState({ revisions: getRevisions(this.props.student.id) });
+    return this.setState({
+      revisions: getRevisions(this.props.student.id),
+      trainingModules: getTrainingStatus()
+    });
   },
 
   render() {
@@ -75,21 +83,19 @@ const StudentDrawer = React.createClass({
     return (
         <tr className={className}>
           <td colSpan="7">
-            <TrainingStatus />
-            <div>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>{I18n.t('users.contributions')}</th>
-                    <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
-                    <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
-                    <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
-                    <th className="desktop-only-tc"></th>
-                  </tr>
-                </thead>
-                <tbody>{revisionsRows}</tbody>
-              </table>
-            </div>
+            <TrainingStatus trainingModules={this.state.trainingModules} />
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>{I18n.t('users.contributions')}</th>
+                  <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
+                  <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
+                  <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
+                  <th className="desktop-only-tc"></th>
+                </tr>
+              </thead>
+              <tbody>{revisionsRows}</tbody>
+            </table>
           </td>
         </tr>
     );

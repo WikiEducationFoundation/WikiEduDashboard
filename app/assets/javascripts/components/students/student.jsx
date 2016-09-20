@@ -4,6 +4,7 @@ import ServerActions from '../../actions/server_actions.js';
 import AssignCell from './assign_cell.jsx';
 
 import RevisionStore from '../../stores/revision_store.js';
+import TrainingStatusStore from '../../stores/training_status_store.js';
 import UIStore from '../../stores/ui_store.coffee';
 import UIActions from '../../actions/ui_actions.js';
 import { trunc } from '../../utils/strings';
@@ -35,7 +36,9 @@ const Student = React.createClass({
   },
   openDrawer() {
     RevisionStore.clear();
+    TrainingStatusStore.clear();
     ServerActions.fetchRevisions(this.props.student.id, this.props.course.id);
+    ServerActions.fetchTrainingStatus(this.props.student.id, this.props.course.id);
     return UIActions.open(`drawer_${this.props.student.id}`);
   },
   buttonClick(e) {

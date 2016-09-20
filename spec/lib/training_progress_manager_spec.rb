@@ -103,15 +103,15 @@ describe TrainingProgressManager do
   describe '#module_completed?' do
     context 'user is nil' do
       let(:user) { nil }
-      it 'returns nil' do
-        expect(subject.module_completed?).to be_nil
+      it 'returns false' do
+        expect(subject.module_completed?).to eq(false)
       end
     end
 
     context 'tmu is nil' do
       before { TrainingModulesUsers.where(user_id: user.id).destroy_all }
-      it 'returns nil' do
-        expect(subject.module_completed?).to be_nil
+      it 'returns false' do
+        expect(subject.module_completed?).to eq(false)
       end
     end
 

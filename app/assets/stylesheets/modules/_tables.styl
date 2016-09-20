@@ -95,7 +95,7 @@
       border-left none
       border-right none
 
-  > tbody .drawer tr:last-child
+  > tbody .drawer table:last-child tr:last-child
     td
       border-bottom 1px solid $brand_primary
 
@@ -147,7 +147,7 @@
       .sortable-indicator:before
         @extends .icon-arrow-down:before
     &.desc
-      color #222
+      color #24px
       .sortable-indicator:before
         @extends .icon-arrow-up:before
 
@@ -179,7 +179,13 @@
   margin -13px -24px
   width calc(100% + 48px)
 
+  &:first-child
+    margin-bottom 0
+
+  &:last-child
+    margin-top 0
+
   // Give nested tables darker row colors
   > tbody
     > tr
-      background-color #fafafa
+      background-color #F9F9F9
