@@ -8,6 +8,9 @@ const TrainingStatus = React.createClass({
   },
 
   render() {
+    if (!this.props.trainingModules.length) {
+      return <div></div>;
+    }
     const moduleRows = this.props.trainingModules.map((trainingModule) => {
       let moduleStatus;
       if (trainingModule.completion_date) {
