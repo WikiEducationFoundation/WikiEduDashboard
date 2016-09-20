@@ -24,6 +24,7 @@ const DatePicker = React.createClass({
     p_tag_classname: React.PropTypes.string,
     onBlur: React.PropTypes.func,
     onFocus: React.PropTypes.func,
+    onChange: React.PropTypes.func,
     onClick: React.PropTypes.func,
     append: React.PropTypes.string,
     date_props: React.PropTypes.object,
@@ -87,7 +88,7 @@ const DatePicker = React.createClass({
     this.setState({
       datePickerVisible: false,
       value: date
-    });
+    }, this.initiateOnChangeCallback);
   },
 
   handleDateFieldChange(e) {
@@ -95,17 +96,23 @@ const DatePicker = React.createClass({
     let newValue = moment(value, 'YYYY-MM-DD').utc();
     newValue = newValue.hour(this.state.hour());
     newValue = newValue.minute(this.state.minute());
-    this.setState({ value: newValue });
+    this.setState({
+      value: newValue
+    }, this.initiateOnChangeCallback);
   },
 
   handleHourFieldChange(e) {
     const hour = e.target.value;
-    this.setState({ value: this.state.value.hour(hour).utc() });
+    this.setState({
+      value: this.state.value.hour(hour).utc()
+    }, this.initiateOnChangeCallback);
   },
 
   handleMinuteFieldChange(e) {
     const minute = e.target.value;
-    this.setState({ value: this.state.value.minute(minute).utc() });
+    this.setState({
+      value: this.state.value.minute(minute).utc()
+    }, this.initiateOnChangeCallback);
   },
 
   handleClickOutside() {
@@ -129,6 +136,10 @@ const DatePicker = React.createClass({
     if (_.includes([9, 13, 27], e.keyCode)) {
       this.setState({ datePickerVisible: false });
     }
+  },
+
+  initiateOnChangeCallback() {
+    this.props.onChange(this.props.value_key, this.state.value.utc().format());
   },
 
   isDaySelected(date) {
