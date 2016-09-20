@@ -80,6 +80,12 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
+  fetchTrainingStatus(studentId, courseId) {
+    return API.fetchTrainingStatus(studentId, courseId)
+      .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))
+      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  },
+
   fetchDYKArticles(opts = {}) {
     return API.fetchDykArticles(opts)
       .then(resp => ({ actionType: 'RECEIVE_DYK', data: resp }))

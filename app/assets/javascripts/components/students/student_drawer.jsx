@@ -1,35 +1,44 @@
 import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import RevisionStore from '../../stores/revision_store.js';
+import TrainingStatusStore from '../../stores/training_status_store.js';
+import TrainingStatus from './training_status.jsx';
 
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
+const getTrainingStatus = () => TrainingStatusStore.getModels();
 
 const StudentDrawer = React.createClass({
   displayName: 'StudentDrawer',
 
   propTypes: {
-    student_id: React.PropTypes.number,
+    student: React.PropTypes.object,
     is_open: React.PropTypes.bool
   },
 
-  mixins: [RevisionStore.mixin],
+  mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
 
   getInitialState() {
-    return { revisions: getRevisions(this.props.student_id) };
+    return {
+      revisions: getRevisions(this.props.student.id),
+      trainingModules: getTrainingStatus()
+    };
   },
 
   getKey() {
-    return `drawer_${this.props.student_id}`;
+    return `drawer_${this.props.student.id}`;
   },
 
   storeDidChange() {
-    return this.setState({ revisions: getRevisions(this.props.student_id) });
+    return this.setState({
+      revisions: getRevisions(this.props.student.id),
+      trainingModules: getTrainingStatus()
+    });
   },
 
   render() {
     if (!this.props.is_open) { return <tr></tr>; }
 
-    let revisions = (this.state.revisions || []).map((rev) => {
+    const revisionsRows = (this.state.revisions || []).map((rev) => {
       let details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
@@ -50,9 +59,9 @@ const StudentDrawer = React.createClass({
       );
     });
 
-    if (this.props.is_open && revisions.length === 0) {
-      revisions = (
-        <tr>
+    if (this.props.is_open && revisionsRows.length === 0) {
+      revisionsRows.push(
+        <tr key={`${this.props.student.id}-no-revisions`}>
           <td colSpan="7" className="text-center">
             <p>{I18n.t('users.no_revisions')}</p>
           </td>
@@ -60,13 +69,21 @@ const StudentDrawer = React.createClass({
       );
     }
 
+    revisionsRows.push(
+      <tr key={`${this.props.student.id}-contribs`}>
+        <td colSpan="7" className="text-center">
+          <p><a href={this.props.student.contribution_url} target="_blank">{I18n.t('users.contributions_history_full')}</a></p>
+        </td>
+      </tr>
+    );
+
     let className = 'drawer';
     className += !this.props.is_open ? ' closed' : '';
 
     return (
-      <tr className={className}>
-        <td colSpan="7">
-          <div>
+        <tr className={className}>
+          <td colSpan="7">
+            <TrainingStatus trainingModules={this.state.trainingModules} />
             <table className="table">
               <thead>
                 <tr>
@@ -77,11 +94,10 @@ const StudentDrawer = React.createClass({
                   <th className="desktop-only-tc"></th>
                 </tr>
               </thead>
-              <tbody>{revisions}</tbody>
+              <tbody>{revisionsRows}</tbody>
             </table>
-          </div>
-        </td>
-      </tr>
+          </td>
+        </tr>
     );
   }
 }

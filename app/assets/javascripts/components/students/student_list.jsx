@@ -63,7 +63,8 @@ const StudentList = React.createClass({
     const drawers = this.props.users.map(student => {
       return (
         <StudentDrawer
-          student_id={student.id}
+          student={student}
+          course_id={this.props.course.id}
           key={`${student.id}_drawer`}
           ref={`${student.id}_drawer`}
         />
