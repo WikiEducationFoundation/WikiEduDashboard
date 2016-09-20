@@ -10,7 +10,7 @@
   %body.training
     = render "shared/flash"
     %div.wrapper
-      = render "shared/nav", fluid: true
+      = render "shared/nav"
       %main#main{"data-user-id" => current_user&.id, :role => "main"}
         = yield
       .push

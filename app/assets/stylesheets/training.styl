@@ -13,11 +13,13 @@ $body_font_size = 21px
 $body_leading = 1.6
 $body_letter_spacing = 0.01em
 
-
 /* colors */
 $body_bg = #F7F7F7
 $body_color = $type_dark
 $card_type_color = $type_light
+
+// This is the main base color from the 'main' stylesheet
+$type_medium = #6a6a6a
 
 $type_dark = #324446
 $type_light = #666
@@ -63,10 +65,15 @@ $wide-desktop = 1200px
 fix-mqs ?= false
 old-ie ?= false
 
+@import "../../../vendor/jquery.uls/css/jquery.uls.css"
+@import "../../../vendor/jquery.uls/css/jquery.uls.grid.css"
+@import "../../../vendor/jquery.uls/css/jquery.uls.lcd.css"
+
 @import "_reset"
 @import "../../../node_modules/jeet/stylus/jeet"
 @import "_utils"
 @import "_icons"
 @import "_training_base"
+@import "modules/_uls"
 @import "modules/_nav"
 @import "training_modules/*"

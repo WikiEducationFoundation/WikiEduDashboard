@@ -142,7 +142,6 @@ TrainingSlideHandler = React.createClass(
       )
 
     <div>
-      {loginWarning}
       <header>
         <div className="pull-right training__slide__nav" onClick={@toggleMenuOpen}>
           <div className="pull-right hamburger">
@@ -163,6 +162,7 @@ TrainingSlideHandler = React.createClass(
           enabledSlides={@state.enabledSlides}
           slides={@state.slides} />
       </header>
+      {loginWarning}
       <article className="training__slide">
         {titlePrefix}
         <h1>{@state.currentSlide.title}</h1>

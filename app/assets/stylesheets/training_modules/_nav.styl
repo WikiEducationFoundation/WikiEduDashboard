@@ -3,7 +3,8 @@ body.training .breadcrumbs
 
 body.training nav.top-nav
   position relative
-
+  color $type_medium
+ 
 .training__slide__nav h3 a
   color #fff
   text-decoration none
@@ -16,7 +17,7 @@ body.training nav.top-nav
     margin 0
 
 .training__slide-header
-  padding 12px 16px 16px 16px
+  padding 12px 0 16px 0
   height 55px
   background $training_primary
   ol.breadcrumbs
@@ -24,6 +25,7 @@ body.training nav.top-nav
     color $breadcrumb_light_text
     text-align left
     margin-top 4px
+    padding 0 12px 
     a
       color #fff
       text-decoration none
@@ -61,8 +63,8 @@ a.slide-nav
   cursor pointer
   display inline-block
   position absolute
-  right 6px
-  top $nav_height
+  right 0px
+  top -90px
   color #fff
   height 55px
   width 192px
@@ -93,8 +95,8 @@ a.slide-nav
 .slide__menu__nav__dropdown
   float left
   position absolute
-  top $nav_height
-  right 16px
+  top -90px
+  right 10px
   background $light_bg
   padding 5px 0
   width 275px
