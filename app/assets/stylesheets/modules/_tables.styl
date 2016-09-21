@@ -178,14 +178,16 @@
 .table .table
   margin -13px -24px
   width calc(100% + 48px)
-
-  &:first-child
-    margin-bottom 0
-
-  &:last-child
-    margin-top 0
-
+  
   // Give nested tables darker row colors
   > tbody
     > tr
       background-color #F9F9F9
+
+  &:first-child
+    margin-bottom 0
+
+.table .table + .table
+  &:last-child
+    margin-top 0
+
