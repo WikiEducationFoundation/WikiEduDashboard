@@ -102,9 +102,9 @@
         - if @question_group.questions.length > 1
           %div
             %label
-              <input type='checkbox' #{@question_form.conditionals ? "checked" : ""} data-conditional-option-checkbox />
+              <input type='checkbox' #{@question_form.conditionals.blank? ? "" : "checked"} data-conditional-option-checkbox />
               Conditionally show this question
-          %div{:class => @question_form.conditionals.nil? ? 'hidden' : '', "data-conditional-options" => ""}
+          %div{:class => @question_form.conditionals.blank? ? 'hidden' : '', "data-conditional-options" => ""}
             %h4 Conditional
             %p Question will only display if conditional returns true
             .survey__question__option-row
@@ -115,6 +115,6 @@
                 %select.hidden{"data-conditional-operator-select" => ""}
                 %select.hidden{"data-conditional-value-select" => ""}
                 %input.hidden{"data-conditional-value-number" => "", :type => "number"}/
-                %button.hidden{"data-clear-conditional" => ""} Reset
+                %button{"data-clear-conditional" => ""} Reset
                 = f.hidden_field :conditionals, :data => {:conditional_field_input => true}
       = f.submit submit_text, :class => 'button button--no-margin'
