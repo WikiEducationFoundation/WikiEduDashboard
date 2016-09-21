@@ -20,6 +20,12 @@ require 'csv'
 # regardless of whether they have a SurveyNotification for it.
 # The `closed` attr represents a survey that has finished and is no longer
 # available for any users to take it.
+
+# The `confidential_results` attr represents whether a survey is formal research
+# that has IRB-imposed data restriction protocols.
+# It can be set manually to make the Results page for a survey inaccessible even
+# to admins. It also switches to an 'agree/not agree' interface in the survey
+# intro, which is assumed to be a consent form.
 class Survey < ActiveRecord::Base
   has_paper_trail
   has_many :survey_assignments, dependent: :destroy
