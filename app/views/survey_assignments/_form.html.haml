@@ -11,7 +11,7 @@
 
     .form__row
       = f.label :courses_user_role
-      = user_role_select(f)
+      = user_role_select(f, selected: @survey_assignment.courses_user_role)
 
     .form__row
       = f.check_box :published
