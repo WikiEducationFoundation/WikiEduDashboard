@@ -273,9 +273,7 @@ class Course < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches
-    Course.transaction do
-      Course.current.each(&:update_cache)
-    end
+    Course.current.each(&:update_cache)
   end
 
   RANDOM_PASSCODE_LENGTH = 8

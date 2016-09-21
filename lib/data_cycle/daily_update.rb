@@ -11,6 +11,7 @@ require "#{Rails.root}/lib/data_cycle/cache_updater"
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
   include BatchUpdateLogging
+  include CacheUpdater
 
   def initialize
     setup_logger
@@ -33,7 +34,7 @@ class DailyUpdate
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
     update_commons_uploads
-    CacheUpdater.update_all_caches
+    update_all_caches
     log_end_of_update 'Daily update finished.'
   end
 

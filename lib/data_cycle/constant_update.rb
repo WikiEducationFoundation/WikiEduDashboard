@@ -15,6 +15,7 @@ require "#{Rails.root}/lib/student_greeter"
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
   include BatchUpdateLogging
+  include CacheUpdater
 
   def initialize
     setup_logger
@@ -38,7 +39,7 @@ class ConstantUpdate
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
-    CacheUpdater.update_all_caches
+    update_all_caches
     greet_ungreeted_students
     generate_alerts
     log_end_of_update 'Constant update finished.'
