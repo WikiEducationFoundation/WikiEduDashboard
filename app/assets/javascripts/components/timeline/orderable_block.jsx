@@ -5,7 +5,7 @@ const OrderableBlock = React.createClass({
   displayName: 'OrderableBlock',
 
   propTypes: {
-    title: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string,
     kind: React.PropTypes.string.isRequired,
     disableUp: React.PropTypes.bool.isRequired,
     disableDown: React.PropTypes.bool.isRequired,
