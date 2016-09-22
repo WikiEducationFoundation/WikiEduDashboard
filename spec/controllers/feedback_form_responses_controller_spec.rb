@@ -10,19 +10,19 @@ describe FeedbackFormResponsesController do
 
     describe 'sets ivars' do
       describe 'subject' do
-        context 'referrer in query params' do
-          let(:referrer) { 'wikipedia.org' }
-          it 'sets referrer from params' do
-            get :new, referrer: referrer
-            expect(assigns(:subject)).to eq(referrer)
+        context 'referer in query params' do
+          let(:referer) { 'wikipedia.org' }
+          it 'sets referer from params' do
+            get :new, referer: referer
+            expect(assigns(:subject)).to eq(referer)
           end
         end
-        context 'referrer on request object' do
-          let(:referrer) { 'bananas.com' }
-          before { allow(request).to receive(:referrer).and_return(referrer) }
-          it 'sets referrer from request object' do
+        context 'referer on request object' do
+          let(:referer) { 'bananas.com' }
+          before { allow(request).to receive(:referer).and_return(referer) }
+          it 'sets referer from request object' do
             get :new
-            expect(assigns(:subject)).to eq(referrer)
+            expect(assigns(:subject)).to eq(referer)
           end
         end
       end
