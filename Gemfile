@@ -18,7 +18,7 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 
 gem 'validates_email_format_of'
 
-gem 'deep_cloneable', '~> 2.1.1'
+gem 'deep_cloneable', '~> 2.2.1'
 
 gem 'sentry-raven'
 gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git'
