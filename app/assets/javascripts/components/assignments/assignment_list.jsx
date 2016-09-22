@@ -16,13 +16,22 @@ const AssignmentList = React.createClass({
     assignments: React.PropTypes.array,
     course: React.PropTypes.object
   },
+
+  hasAssignedUser(group) {
+    const firstUserId = group.find((assignment) => {
+      return assignment.user_id !== null;
+    });
+    if (firstUserId) { return true; }
+    return false;
+  },
+
   render() {
     const allAssignments = this.props.assignments;
     const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
     const grouped = _.groupBy(sortedAssignments, ass => ass.article_title);
     let elements = Object.keys(grouped).map(title => {
       let group = grouped[title];
-      if (!group[0].user_id) { return null; }
+      if (!this.hasAssignedUser(group)) { return null; }
       const article = ArticleStore.getFiltered({ title })[0];
       return (
         <Assignment
