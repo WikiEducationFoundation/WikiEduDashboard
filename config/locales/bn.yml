@@ -4,6 +4,7 @@
 # Author: Aftabuzzaman
 # Author: Bodhisattwa
 # Author: Kayser Ahmad
+# Author: আজিজ
 ---
 bn:
   application:
@@ -42,6 +43,7 @@ bn:
     title_example: নিবন্ধের শিরোনাম
     view: নিবন্ধ দেখুন
     view_all: সব দেখুন
+    wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
     reviewers: নিরীক্ষক(গণ)
   cohort:
@@ -106,6 +108,8 @@ bn:
     date_time: তারিখ/সময়
     diff: পার্থক্য
     title: শিরোনাম
+  timeline:
+    no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
   training:
     start: শুরু করুন
     view: দেখুন

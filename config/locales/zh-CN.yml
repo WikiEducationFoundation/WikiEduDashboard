@@ -147,7 +147,7 @@ zh-CN:
       checking_for_uniqueness: 这个课程正在检查其独立性。
       cloned_course_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请勾选“我没有班级假日”。克隆的时间轴将利用没有预定会议的周，自动对账户调整日期。
       clone_successful: 课程已成功克隆
-      clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。您的课程有什么别的东西更改么？请现在随意地更新它吧。
+      clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。请确保添加日期，这没有延续。您的课程有什么别的东西更改么？请现在随意地更新它吧。
       course_description: 课程描述
       course_language: 主语言
       course_project: 主项目
@@ -373,7 +373,7 @@ zh-CN:
     empty_week_1: 要开始，
     empty_week_2: 开始编辑本周
     empty_week_3: 或
-    empty_week_4: 从预制分配开始。
+    empty_week_4: 使用分配向导创建时间轴。
     first_week_title: 首个活跃周
     gradeable_value: 值
     grading_header: 正在分级（总计：%{total}%）
@@ -413,6 +413,7 @@ zh-CN:
     assignees: 委托人
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
+    contributions_history_full: 在维基百科查看完整贡献历史
     contributions_more: 查看更多贡献
     course_passcode: 密码：
     editors: 学生编辑者
@@ -451,6 +452,8 @@ zh-CN:
     training_modules_completed:
       one: '%{completed_count}/%{count}培训模块已完成'
       other: '%{completed_count}/%{count}培训模块已完成'
+    training_module_name: 培训模块
+    training_module_status: 状态
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名

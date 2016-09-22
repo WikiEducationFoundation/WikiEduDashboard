@@ -305,6 +305,7 @@ ko:
     remove_confirmation: '%{username}님을 제거하겠습니까?'
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
+    training_module_status: 상태
     username: 사용자 이름
     username_placeholder: 사용자 이름
   wiki_edits:

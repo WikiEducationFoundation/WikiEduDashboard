@@ -8,6 +8,7 @@
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
+# Author: Туллук
 # Author: Ядерный Трамвай
 ---
 ru:
@@ -97,6 +98,9 @@ ru:
     course_description: Курсы
     courses: Курсы
     creator:
+      clone_successful_details: Ваш курс был клонирован, включая элементы времени
+        (недели и блоки). Убедитесь, что данные которые не передаются, добавляются.
+        Что-нибудь изменилось на вашем курсе ? Теперь вы можете обновить его
       course_description: Описание курса
       course_school: Школьный курс
       course_subject: Предмет курса
@@ -210,6 +214,7 @@ ru:
     assigned: Назначенные статьи
     assignees: Назначение(я)
     contributions: Вклад участника
+    contributions_history_full: Просмотреть полную историю вклада в Википедию
     contributions_more: Просмотреть вклад подробнее
     editors: Редакторы (студенты)
     loading: Загрузка участников...
@@ -224,6 +229,8 @@ ru:
       other: завершили тренинг
     training_complete_count: '%{count} завершили тренинг'
     training_incomplete: Тренинг не завершён
+    training_module_name: Учебный модуль
+    training_module_status: Состояние
   wizard:
     assignment_dates: Даты назначения
     assignment_description: Выберите даты начала и завершения этого назначения.

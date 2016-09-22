@@ -500,6 +500,7 @@ de:
       entfernten Inhalts erhöht ebenfalls diese Summe.
     chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
     contributions: Benutzerbeiträge
+    contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
     contributions_more: Weitere Beiträge ansehen
     course_passcode: 'Passcode:'
     editors: Autoren
@@ -541,6 +542,8 @@ de:
     training_modules_completed:
       one: '%{completed_count}/%{count} abgeschlossenes Ausbildungsmodul'
       other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
+    training_module_name: Ausbildungsmodul
+    training_module_status: Status
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername

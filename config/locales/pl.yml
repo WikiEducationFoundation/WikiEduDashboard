@@ -167,6 +167,8 @@ pl:
     remove_confirmation: Czy na pewno chcesz usunąć %{username}?
     revisions_doc: Liczba edycji dokonanych przez tego edytora w ciągu ostatnich 7
       dni
+    training_module_name: Moduł szkoleniowy
+    training_module_status: Status
     username: Nazwa użytkownika
     username_placeholder: Nazwa użytkownika
   wizard:

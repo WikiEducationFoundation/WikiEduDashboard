@@ -91,6 +91,15 @@ it:
     view_all: Mostra tutto
     view_doc: La somma di tutte le visite ad ogni voce durante il periodo del corso
     views_added: Aggiunte %{count} nuove viste per %{title}
+    wp10: Completezza strutturale
+    wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
+      una voce si avvicina al modello di una voce di Wikipedia matura, basato sul
+      Servizio di revisione e valutazione obiettivo di apprendimento della macchina  (https://ores.wikimedia.org/).
+      Questi punteggi sono calcolati in base alla dimensione di una voce, il numero
+      di riferimenti e wikilink e altre caratteristiche di base del testo. Un punteggio
+      più alto indica in genere che una voce segue le convenzioni di Wikipedia per
+      la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
+      punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
   assignments:
     already_exists: Questa assegnazione esiste già!
     assignees: Assegnatario/i
@@ -152,9 +161,9 @@ it:
         le date per tenere conto di settimane che non hanno incontri programmati.'
       clone_successful: Corso clonato correttamente
       clone_successful_details: Il corso è stato clonato, compresi gli elementi della
-        cronologia degli eventi (settimane e blocchi). Assicurari di aggiungere le
-        date, che non sono riportati. E' stato tuo cambiato altro del tuo corso ?
-        Non esitare  ad aggiornarlo.
+        cronologia degli eventi (settimane e blocchi). Assicurati di aggiungere le
+        date, che non sono riportate. È stato cambiato altro del tuo corso? Non esitare  ad
+        aggiornarlo.
       course_description: Descrizione del corso
       course_language: Lingua principale
       course_project: Progetto pricipale
@@ -366,6 +375,8 @@ it:
     empty_week_1: Per iniziare,
     empty_week_2: avvia la modifica di questa settimana
     empty_week_3: o
+    empty_week_4: utilizza la procedura guidata di assegnazione per creare una linea
+      temporale.
     first_week_title: Prima settimana attiva
     gradeable_value: Valore
     move_block_down: Sposta il blocco in basso
@@ -439,6 +450,7 @@ it:
     training_modules_completed:
       one: '%{completed_count}/%{count} modulo formativo completato'
       other: '%{completed_count}/%{count} moduli formativi completati'
+    training_module_status: Stato
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente
     username_placeholder: Nome utente

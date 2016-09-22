@@ -1,0 +1,284 @@
+# Messages for Belarusian (беларуская)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kevit
+# Author: Liashko
+# Author: Mr. Zabej
+---
+be:
+  accessibility:
+    number_field: Гэта лічбавае поле. Кнопкі малююцца у большасцi браўзэраў  павялічаныя
+      і паменшаныя.
+  application:
+    cancel: Адмяніць
+    dashboard: Панэль Wiki Ed
+    error: 'Адбылася памылка:'
+    explore: Азнаёміцца
+    field_required: Гэтае поле абавязковае
+    field_invalid_characters: Гэтае поле ўтрымлівае недапушчальныя сімвалы
+    field_invalid_date: Гэта поле патрабуе дату ў фармаце ГГГГ-мм-ДД
+    greeting2: Вітаем!
+    greeting_extended: Вітаем у Вікіпедыі
+    greeting: Прывітанне!
+    help: Даведка
+    home: Галоўная
+    log_in_extended: Увайсці праз Вікіпедыю
+    log_in: Увайсці
+    log_out: Выйсці
+    my_dashboard: Мая панэль
+    recent_activity: Нядаўняя актыўнасць
+    search: задаць пытанне
+    sign_up_extended: Зарэгіструйцеся праз Вікіпедыю
+    sign_up_log_in_extended: праз Вікіпедыю
+    sign_up: Зарэгістравацца
+    submit: Даслаць
+    training: Навучанне
+    change: Змяніць
+  dashboard:
+    create_note: Націсніце на "Стварыць курс" для стварэння вашага першага курсу.
+    create_preparation_note: Будзьце ўпэўненыя, каб мець свой акадэмічны каляндар
+      пад рукой, перш чым пачаць; інструмент будзе выкарыстоўваць патрэбныя сустрэчы
+      для вашага класа, уключаючы школьныя канікулы і святаў, каб адпавядаць графіку
+      ў дыяпазоне дат, якія вы вылучыце. Памятайце, што вы заўсёды можаце змяніць
+      графік, каб адпавядаць вашым патрэбам.
+    explore_course_pages: Даследуйце старонкі курсу
+    explore_examples: Прыклады
+    join_note: Пасля таго як вы атрымаеце пароль ад вашага інструктара, націснiце
+      на "Знайсці свой курс", каб знайсці курс і далучыцца да яго.
+    no_courses_instructor: Падобна на тое, што ў вас няма ніякіх курсаў.
+    no_courses_student: Падобна на тое, што ты яшчэ не далучыўся да курсаў
+    opt_out: Запрасiць ўхілiцца ад арыентацыі
+    orientation_notice: Перш чым стварыць курс, звярнiце ўвагу да арыентацыi, каб
+      дапамагчы вам пачаць працу. (Яна займае каля 30 хвілін.)
+    review_orientation: Заўвага да арыентацыi
+    start_orientation: Пачніце Арыентацыю
+    blog_headline: Апошнія навіны ад Wiki Ed
+  home:
+    explore: Азнаёміцца
+    log_in: Увайсці праз Вікіпедыю
+    sign_up: Зарэгіструйцеся праз Вікіпедыю
+    sign_up_help: Каб выкарыстоўваць панэль, неабходна ўвайсці ў Вікіпедыю і даць
+      дазвол на доступ да Вашага ўліковага запісу. Вы можаце ўвайсці ў сістэму з існуючага
+      ўліковага запісу ў Вікіпедыі, або стварыць новы.
+  activity:
+    all: Актыўнасць
+    edited_by: Праўлена
+    label: Актыўнасць
+  articles:
+    assigned: Прызначаныя Артыкулы
+    available: Даступныя Артыкулы
+    assigned_to: Прызначыць для
+    character_doc: Сума знакаў, дададзеныя  да артыкулаў рэдактарамi паміж датамі
+      пачатку і заканчэння
+    edited: Адрэдагаваныя артыкулы
+    edited_mobile: Артыкулы
+    label: Артыкулы
+    loading: Загрузка артыкулаў
+    new: (новы)
+    none: Гэты курс не мае рэдагаваных артыкулаў.
+    rating: Клас
+    rating_doc: Рэйтынг артыкула быў прысвоены праз WikiProjects ў Вікіпедыі. Гэтыя
+      рэйтынгі могуць адпавядаць больш раннім версіям, такiм разам, яны толькі прыблізны
+      паказчык сталасці.
+    rating_docs:
+      fa: Выбраныя артыкулы — высокі рэйтынг Вікіпедыі, напэўна, занадта стары артыкул
+        для асноўнага праекта новай рэдакцыі
+      fl: Лепшы спіс — высокі рэйтынг Вікіпедыі ў спісах
+      a: А-клас — вельмі добрыя артыкулы, якія могуць быць занадта годным артыкулам
+        для асноўнага праекта новай рэдакцыі
+      ga: Добрая артыкулы — добра развітыя артыкулы, якія могуць быць занадта добрым
+        артыкулам для асноўнага праекта новай рэдакцыі
+      b: B-клас — умерана развітыя артыкулы
+      c: C-Клас — сярэднiя артыкулы з магчымасцямi для паляпшэння
+      start: Старт-клас — базавыя артыкулы з вялікай колькасцю месц для паляпшэння
+      stub: Стаб-клас — кароткі пачатковы артыкул, патрабуе больш змесцiва
+    title: Назва
+    title_example: Назва артыкула
+    view: Прагляд артыкула
+    view_all: Праглядзець усё
+    wp10: Структурная паўната
+  assignments:
+    assignees: Выканавец(ы)
+    assign_other: Прызначыць артыкул
+    add_available: Дадаць да свабодных артыкулаў
+    assign_self: Прысвоіць сабе артыкул
+    confirm_add_available: Вы ўпэўненыя, што хочаце дадаць %{назва}?
+    label: Прызначыць
+    loading: Загрузка заданняў...
+    none_short: Няма прызначаных артыкулаў
+    none: Гэты курс не мае назначаных артыкулаў.
+    no_available: Гэты курс не мае даступных артыкулаў.
+    remove: Выдаліць
+    reviewers: Вывяраючыя
+    review_other: Прызначыць разгляд
+    review_self: Каментар да артыкулу
+    select: Выбраць
+  blocks:
+    milestones:
+      title: Вехі
+  cohort:
+    none: Нічога
+    view_other: Прагледзець іншыя кагорты
+  courses:
+    activity: Актыўнасць
+    already_enrolled: Вы ўжо з'яўляецеся часткай '%{title}'!
+    already_exists: Гэта ўжо існуе на гэтым курсе!
+    archived: Архіваваныя курсы
+    actions: Дзеянні
+    articles: Артыкулы
+    articles_none: Гэты курс не мае рэдагаваных артыкулаў.
+    assignment_end: Канец задання
+    assignments_none: Гэты курс не мае прызначаных артыкулаў.
+    assignment_start: Пачатак задання
+    calendar:
+      legend: Легенда
+      legend_class_canceled: Свята/Адменены
+      legend_class_meeting: Сустрэча класа
+      legend_class_not_meeting: Няма запланаваных сустрэч
+      select_meeting_days: Вылучыце дні тыдня, па якіх ваш клас збіраецца.
+    cohorts: 'Кагорты:'
+    course_description: Курсы
+    courses: Курсы
+    creation_date: Дата стварэння
+    creator:
+      assignment_end: Канец задання
+      assignment_end_placeholder: Прызначэнне сканчаецца (ГГГГ-мм-ДД)
+      assignment_start: Пачатак задання
+      assignment_start_placeholder: Прызначэнне пачынаецца (ГГГГ-мм-ДД)
+      clone_successful: Курс паспяхова кланаваны
+      course_language: Родная мова
+      course_project: Дамашні праект
+      course_school: Школьны курс
+      course_subject: Прадмет курса
+      course_term: Тэрмін навучання
+      course_term_placeholder: Тэрмін
+      course_title: Назва курса
+      create_button: Стварыць мой курс!
+      create_label: Стварыць новы курс
+      create_new: Стварыць новы курс
+      create_short: Стварыць курс
+      end_date: Дата заканчэння
+      end_date_placeholder: Дата заканчэння (ГГГГ-мм-ДД)
+      expected_number: Чаканая колькасць студэнтаў
+      find: Знайсці свой курс
+      save_cloned_course: Захаваць новы курс
+      start_date: Дата пачатку
+      subject: Прадмет
+    current: Бягучыя курсы
+    delete_course: Выдаліць курс
+    dismiss_survey: Прапусціць
+    dismiss_survey_confirm: Вы ўпэўненыя, што хочаце назаўсёды закрыць гэтае апытанне?
+    duration: Працягласць курсу
+    edit_course_dates: Правіць даты курса
+    end: Канец
+    enroll: Далучыцца
+    enrollment: Залічэнне
+    instructors: Інструктары
+    join: Далучыцца
+    join_course: Далучыцца да курса
+    join_prompt: Далучыцца да %{title}?
+    join_successful: Вы паспяхова далучыліся да %{title}.
+    leave_confirmation: Вы упэўненыя, што хочаце далучыцца да гэтага курса?
+    leave_course: Пакінуць курс
+    loading: Загрузка...
+    milestones_none: Гэты курс не мае бягучых задач.
+    my_articles: Мае артыкулы
+    new_week: Дадаць новы тыдзень
+    none: Нічога
+    overview: Агляд
+    passcode: Парольны код
+    passcode_none: Няма парольнага коду
+    school: Школа
+    start: Пачатак
+    start_typing: Пачатак уводу
+    students: Студэнты
+    students_count: '# Студэнты'
+    students_short: Студэнты
+    term: Тэрмін
+    title: Назва
+    training_nav: Перайсці да навучання
+    untrained: Ненавучаныя
+    view_page: Прагляд старонкі курса
+    yourcourses: Вашы Курсы
+    survey:
+      link: Прайсці апытанне
+  courses_generic:
+    courses: Праграмы
+    creator:
+      course_school: Установа
+      course_title: Назва праграмы
+      create_button: Стварыць маю праграму!
+      create_label: Стварыць новую праграму
+      create_new: Стварыць новую праграму
+      create_short: Стварыць праграму
+      find: Шукаць праграму
+    enroll: Дадаць наглядальніка
+    enrollment: Удзел
+    school: Установа
+    students: Даглядальнікі
+    students_short: Даглядальнікі
+    term: Калі
+  editable:
+    edit: Правіць
+    cancel: Адмяніць
+    save: Запісаць
+  metrics:
+    activity: Нядаўняя актыўнасць
+    articles_created: Створаныя артыкулы
+    edit_count_description: Усяго правак
+    revisions: Апошнія праўкі
+    view: Віды
+    word_count: Дададзеныя словы
+  namespace:
+    main: Асноўная прастора
+    user: Прастора карыстальніка
+    user_ns: Карыстальнік
+  recent_activity:
+    article_title: Назва артыкула
+    datetime: Дата/Час
+    image: Малюнак
+    file_name: Назва файла
+    recent_edits: Апошнія праўкі
+    revision_score: Вынік перагляду
+    show_courses: Паказваць толькі мае курсы
+    uploaded_by: Загружаныя
+    usage_count: Лічыльнік выкарыстання
+  revisions:
+    class: Клас
+    date_time: Дата/Час
+    diff: diff
+    edited_by: Праўлена
+    loading: Загрузка версій
+    title: Назва
+  timeline:
+    block_in_class: У класе
+    course_dates: Даты курса
+    course_end: Канец курса
+    due_default: На наступым тыдні
+    empty_week_3: або
+    gradeable_value: Значэнне
+    save_all_changes: Захаваць усё
+    this_week_title_default: На гэтым тыдні
+  uploads:
+    image: Выява
+  users:
+    assign_articles_done: Гатова
+    course_passcode: Парольны код
+    editors: Даглядальнікі
+    first_name: Імя
+    last_name: Прозвішча
+    name: Імя
+    reviewers: Рэцэнзенты
+    reviewing: Агляд
+    training_incomplete: Няскончанае навучанне
+    username: Лагін
+    username_placeholder: Лагін
+  wizard:
+    summary: Падсумаванне
+  login_error:
+    header: Памылка ўваходу
+  survey:
+    email:
+      headline: Прывітанне, %{username}
+      link: Прайсці апытанне
+...

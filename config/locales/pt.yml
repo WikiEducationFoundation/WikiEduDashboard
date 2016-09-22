@@ -408,6 +408,7 @@ pt:
     arrange_timeline: Organizar Cronograma
     arrange_timeline_instructions: Organizar cronograma "arrastando e soltando" blocos
       nos locais/semanas desejados ou recolocar os blocos usando as setas no cartão.
+    no_activity_this_week: Nenhuma reunião programada para esta semana
     title: Linha do tempo
   training:
     view: Ver

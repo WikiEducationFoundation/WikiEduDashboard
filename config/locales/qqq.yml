@@ -563,6 +563,7 @@ qqq:
       training. This applies only to courses that took place in 2015 or earlier.
     training_modules_completed: Label indicating how many of the training modules
       assigned to the course that an editor has completed
+    training_module_status: '{{Identical|Status}}'
     username: '{{Identical|Username}}'
     username_placeholder: '{{Identical|Username}}'
   wiki_edits:

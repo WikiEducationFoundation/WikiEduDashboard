@@ -196,9 +196,10 @@ fr:
         Le planning cloné ajustera automatiquement les dates pour tenir compte des
         semaines sans réunions programmées.
       clone_successful: Cours dupliqué avec succès
-      clone_successful_details: Ce cours a été dupliqué, y compris les éléments du
-        planning (semaines et blocages). Quelque chose d’autre au sujet de votre cours
-        a-t-il changé ? N’hésitez pas à le mettre à jour maintenant.
+      clone_successful_details: Votre cours a été dupliqué, y compris les éléments
+        du planning (semaines et blocages). Assurez-vous d’ajouter les dates qui e
+        sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
+        N’hésitez pas à le mettre à jour maintenant.
       course_description: Description du cours
       course_language: Langue du site
       course_project: Projet personnel
@@ -462,7 +463,7 @@ fr:
     empty_week_1: Pour commencer,
     empty_week_2: commencer à modifier cette semaine
     empty_week_3: ou
-    empty_week_4: commencer depuis une affectation prédéfinie.
+    empty_week_4: utiliser l’assistant d’affectation pour créer un planning.
     first_week_title: Première semaine active
     gradeable_value: Valeur
     gradeables_none: Ce planning n’a aucune affectation marquée comme évaluée.
@@ -512,6 +513,8 @@ fr:
       supprimé augmentera également ce total.
     chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
     contributions: Contributions de l’utilisateur
+    contributions_history_full: Afficher l’historique complet des contributions sur
+      Wikipédia
     contributions_more: Afficher plus de contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
@@ -552,6 +555,8 @@ fr:
     training_modules_completed:
       one: '%{completed_count}/%{count} module de formation terminé'
       other: '%{completed_count}/%{count} modules de formation terminés'
+    training_module_name: Module de formation
+    training_module_status: État
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
