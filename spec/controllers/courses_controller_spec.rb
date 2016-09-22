@@ -167,6 +167,9 @@ describe CoursesController do
     context 'course is new' do
       let(:submitted_2) { true }
       it 'announces course and emails the instructor' do
+        # FIXME: Remove workaround after Rails 5.0.1
+        # See https://github.com/rails/rails/issues/26075
+        request.content_type = 'application/json'
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         put :update, id: course.slug, course: course_params, format: :json

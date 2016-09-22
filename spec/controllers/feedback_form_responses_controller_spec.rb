@@ -19,7 +19,8 @@ describe FeedbackFormResponsesController do
         end
         context 'referer on request object' do
           let(:referer) { 'bananas.com' }
-          before { allow(request).to receive(:referer).and_return(referer) }
+          # workaround for https://github.com/rspec/rspec-rails/issues/1655
+          before { request.env['HTTP_REFERER'] = referer }
           it 'sets referer from request object' do
             get :new
             expect(assigns(:subject)).to eq(referer)

@@ -10,7 +10,13 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
       def index
         error_message = 'No such file or directory @ rb_sysopen - '\
                         '/home/me/WikiEduDashboard/public/assets/stylesheets/rev-manifest.json'
-        raise ActionView::Template::Error.new(error_message, StandardError.new(error_message))
+        # First we raise a standard error to set the original error, which
+        # is needed by ActionView::Template::Error
+        raise StandardError, error_message
+      rescue
+        # Then we raise the actual template error, which takes a template path
+        # as its argument and pulls the original error object from $!
+        raise ActionView::Template::Error, 'app/views/layouts/application.html.haml'
       end
     end
 

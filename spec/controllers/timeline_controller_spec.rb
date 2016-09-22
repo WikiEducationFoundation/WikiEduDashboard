@@ -29,6 +29,9 @@ describe TimelineController do
     before { allow(controller).to receive(:current_user).and_return(admin) }
     describe 'setting training_module_ids' do
       it 'sets the training_module_ids to value provided' do
+        # FIXME: Remove workaround after Rails 5.0.1
+        # See https://github.com/rails/rails/issues/26075
+        request.content_type = 'application/json'
         post :update_timeline, post_params
         expect(block.reload.training_module_ids).to eq(ids)
       end
@@ -37,6 +40,9 @@ describe TimelineController do
         # like it does irl, so…
         let(:ids) { nil }
         it 'sets training_module_ids to [] as expected' do
+          # FIXME: Remove workaround after Rails 5.0.1
+          # See https://github.com/rails/rails/issues/26075
+          request.content_type = 'application/json'
           post :update_timeline, post_params
           expect(block.reload.training_module_ids).to eq([])
         end
