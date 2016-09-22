@@ -44,17 +44,17 @@ describe 'feedback form' do
   context 'with a query param' do
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
-    let(:referrer) { 'wikipedia.org' }
+    let(:referer) { 'wikipedia.org' }
     it 'submits successfully' do
       login_as user
-      visit "/feedback?referrer=#{referrer}"
+      visit "/feedback?referer=#{referer}"
       fill_in 'feedback_form_response_body', with: body
       click_button 'Submit'
       expect(page).to have_content 'Thank you.'
       form = FeedbackFormResponse.last
       expect(form.body).to eq(body)
       expect(form.user_id).to eq(user.id)
-      expect(form.subject).to match(referrer)
+      expect(form.subject).to match(referer)
     end
   end
 
