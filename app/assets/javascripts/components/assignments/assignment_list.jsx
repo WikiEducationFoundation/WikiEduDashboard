@@ -18,11 +18,9 @@ const AssignmentList = React.createClass({
   },
 
   hasAssignedUser(group) {
-    const firstUserId = group.find((assignment) => {
-      return assignment.user_id !== null;
+    return group.some((assignment) => {
+      return assignment.user_id;
     });
-    if (firstUserId) { return true; }
-    return false;
   },
 
   render() {
