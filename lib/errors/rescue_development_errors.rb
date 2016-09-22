@@ -9,15 +9,14 @@ module Errors
     end
 
     REV_MANIFEST_EXPLANATION =
-      '  This error occurs when the asset build process has not generated '\
+      '<p>This error occurs when the asset build process has not generated '\
       'the required rev-manifest.json files, which specify the filenames '\
-      'of the compiled stylesheet and javascript files.'\
-      "\n\n  "\
-      'Run `gulp` or `gulp build` and make sure there are no build errors.'
+      'of the compiled stylesheet and javascript files.</p>'\
+      '<p>Run `gulp` or `gulp build` and make sure there are no build errors.</p>'
     def self.rescue_from_rev_manifest(base)
       base.rescue_from ActionView::Template::Error do |e|
         raise e unless e.message =~ /rev-manifest.json/
-        explanation = String.new(e.message) + "\n\n"
+        explanation = '<p><code>' + String.new(e.message) + '</p></code>'
         explanation << REV_MANIFEST_EXPLANATION
 
         render plain: explanation,

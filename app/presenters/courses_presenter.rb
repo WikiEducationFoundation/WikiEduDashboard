@@ -17,12 +17,12 @@ class CoursesPresenter
 
   def cohort
     return NullCohort.new if cohort_param == 'none'
-    return unless Cohort.exists?(slug: cohort_param)
-    Cohort.find_by(slug: cohort_param)
+    @cohort ||= Cohort.find_by(slug: cohort_param)
+    raise NoCohortError if @cohort.nil? && cohort_param == ENV['default_cohort']
+    @cohort
   end
 
   def courses
-    raise NoCohortError unless cohort
     cohort.courses
   end
 
