@@ -76,7 +76,6 @@ group :development do
   gem 'capistrano-passenger'
   gem 'rack-mini-profiler'
   gem 'rails-erd'
-  gem 'squeel', git: 'https://github.com/activerecord-hackery/squeel.git', branch: 'master'
   gem 'annotate', '~> 2.7.1'
 end
 

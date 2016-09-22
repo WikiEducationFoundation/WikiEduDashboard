@@ -9,16 +9,6 @@ GIT
       rails (>= 3.2.13)
 
 GIT
-  remote: https://github.com/activerecord-hackery/squeel.git
-  revision: 5542266d502db8022e14105f9dfb455a79d6fc4a
-  branch: master
-  specs:
-    squeel (1.2.3)
-      activerecord (>= 3.0)
-      activesupport (>= 3.0)
-      polyamorous (~> 1.1.0)
-
-GIT
   remote: https://github.com/halfdan/piwik-ruby-tracking.git
   revision: 00942cf25e43d6cc02af33ca802959074e1022f4
   specs:
@@ -297,8 +287,6 @@ GEM
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
-    polyamorous (1.1.0)
-      activerecord (>= 3.0)
     powerpack (0.1.1)
     premailer (1.8.7)
       css_parser (>= 1.4.5)
@@ -534,7 +522,6 @@ DEPENDENCIES
   shoulda-matchers (~> 3.1)
   simple_form
   simplecov
-  squeel!
   timecop
   uglifier
   validates_email_format_of
