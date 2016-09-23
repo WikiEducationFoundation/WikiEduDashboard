@@ -19,10 +19,6 @@ setWeeks = (data, persisted=false) ->
   _isLoading = false
   WeekStore.emitChange()
 
-updatePersisted = ->
-  for week_id in Object.keys(_weeks)
-    _persisted[week_id] = $.extend(true, {}, _weeks[week_id])
-
 setWeek = (data) ->
   _weeks[data.id] = data
   WeekStore.emitChange()

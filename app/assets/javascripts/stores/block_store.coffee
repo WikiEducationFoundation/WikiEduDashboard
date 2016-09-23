@@ -17,10 +17,6 @@ setBlocks = (data, persisted=false) ->
       _persisted[block.id] = $.extend(true, {}, block) if persisted
   BlockStore.emitChange()
 
-updatePersisted = ->
-  for block_id  in Object.keys(_blocks)
-    _persisted[block_id] = $.extend(true, {}, _blocks[block_id])
-
 setBlock = (data, quiet) ->
   _blocks[data.id] = data
   BlockStore.emitChange() unless quiet
@@ -89,8 +85,7 @@ setEditableBlockId = (blockId) ->
   BlockStore.emitChange()
 
 
-# Store
-BlockStore = Flux.createStore
+storeMethods =
   getBlock: (block_id) ->
     return _blocks[block_id]
   getBlocks: ->
@@ -119,7 +114,9 @@ BlockStore = Flux.createStore
   editingAddedBlock: ->
     return _editingAddedBlock
 
-, (payload) ->
+
+# Store
+BlockStore = Flux.createStore storeMethods, (payload) ->
   data = payload.data
   switch(payload.actionType)
     when 'RECEIVE_TIMELINE', 'SAVED_TIMELINE', 'WIZARD_SUBMITTED'

@@ -85,10 +85,6 @@ class Store
         @persisted[@getKey(model)] = $.extend(true, {}, model) if persisted
     @store.emitChange()
 
-  updatePersisted: ->
-    for model_id in Object.keys(@models)
-      @persisted[model_id] = $.extend(true, {}, @models[model_id])
-
   setModel: (data) ->
     @models[@getKey(data)] = data
     @store.emitChange()

@@ -19,10 +19,6 @@ setGradeables = (data, persisted=false) ->
         _persisted[gradeable.id] = $.extend(true, {}, gradeable) if persisted
   GradeableStore.emitChange()
 
-updatePersisted = ->
-  for gradeable_id in Object.keys(_gradeables)
-    _persisted[gradeable_id] = $.extend(true, {}, _gradeables[gradeable_id])
-
 setGradeable = (data) ->
   _gradeables[data.id] = data
   GradeableStore.emitChange()
