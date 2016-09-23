@@ -4,6 +4,8 @@ require "#{Rails.root}/lib/analytics/course_statistics"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
+  layout 'admin'
+
   ########################
   # Routing entry points #
   ########################

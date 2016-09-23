@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 #= Controller for cohort data
 class CohortsController < ApplicationController
+  layout 'admin'
   before_action :require_admin_permissions,
                 only: [:create]
 

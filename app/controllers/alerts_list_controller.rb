@@ -2,6 +2,8 @@
 
 # Controller for showing Alert records
 class AlertsListController < ApplicationController
+  layout 'admin'
+
   def index
     check_user_auth
     @alerts = Alert.order(id: :desc).first(100)
