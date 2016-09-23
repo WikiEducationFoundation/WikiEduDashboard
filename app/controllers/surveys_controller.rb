@@ -57,6 +57,11 @@ class SurveysController < ApplicationController
                   flash: { notice: 'Sorry, You do not have access to this survey' })
       return
     end
+    # The surveys are highly inaccessible via screen reader.
+    # Disabling the javascript and css bypasses many of the UI features of
+    # the surveys and puts all questions on display at once, but it is gets
+    # around the accessibility probems.
+    @accessibility_mode = true if params['accessibility'] == 'true'
     render 'show'
   end
 
@@ -181,9 +186,8 @@ class SurveysController < ApplicationController
   end
 
   def check_if_closed
-    if @survey.closed
-      redirect_to(main_app.root_path, flash: { notice: 'Sorry, this survey has been closed.' })
-    end
+    return unless @survey.closed
+    redirect_to(main_app.root_path, flash: { notice: 'Sorry, this survey has been closed.' })
   end
 
   def set_notification

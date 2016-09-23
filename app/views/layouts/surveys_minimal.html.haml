@@ -1,6 +1,6 @@
 - content_for :head do
-  = dashboard_stylesheet_tag("main")
-  = dashboard_stylesheet_tag("surveys")
+  = dashboard_stylesheet_tag("main") unless @accessibility_mode
+  = dashboard_stylesheet_tag("surveys") unless @accessibility_mode
 
 - content_for :javascripts do
   /
@@ -15,6 +15,6 @@
     %main#main{"data-user-id" => current_user&.id, :role => "main"}
       = yield
     = render "shared/foot"
-    = hot_javascript_tag("survey")
+    = hot_javascript_tag("survey") unless @accessibility_mode
     - if can_administer?
       = hot_javascript_tag("survey_admin")
