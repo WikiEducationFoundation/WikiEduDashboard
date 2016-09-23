@@ -31,14 +31,14 @@ class Article < ActiveRecord::Base
   has_many :revisions
   has_many :editors, through: :revisions, source: :user
   has_many :articles_courses, class_name: ArticlesCourses
-  has_many :courses, -> { uniq }, through: :articles_courses
+  has_many :courses, -> { distinct }, through: :articles_courses
   has_many :assignments
   belongs_to :wiki
 
   alias_attribute :page_id, :mw_page_id
 
   scope :live, -> { where(deleted: false) }
-  scope :current, -> { joins(:courses).merge(Course.current).uniq }
+  scope :current, -> { joins(:courses).merge(Course.current).distinct }
   scope :namespace, -> (ns) { where(namespace: ns) }
 
   validates :title, presence: true

@@ -22,9 +22,9 @@ class ArticlesCourses < ActiveRecord::Base
   belongs_to :article
   belongs_to :course
 
-  scope :live, -> { joins(:article).where(articles: { deleted: false }).uniq }
+  scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }
-  scope :current, -> { joins(:course).merge(Course.current).uniq }
+  scope :current, -> { joins(:course).merge(Course.current).distinct }
 
   ####################
   # Instance methods #

@@ -53,8 +53,8 @@ class Course < ActiveRecord::Base
   # Users for a course #
   ######################
   has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
-  has_many :users, -> { uniq }, through: :courses_users,
-                                after_remove: :cleanup_articles
+  has_many :users, -> { distinct }, through: :courses_users,
+                                    after_remove: :cleanup_articles
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
   has_many :nonstudents, -> { where('courses_users.role > 0') },
@@ -83,8 +83,8 @@ class Course < ActiveRecord::Base
   end, through: :students)
 
   has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
-  has_many :articles, -> { uniq }, through: :articles_courses
-  has_many :pages_edited, -> { uniq }, source: :article, through: :revisions
+  has_many :articles, -> { distinct }, through: :articles_courses
+  has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
 
   has_many :assignments, dependent: :destroy
 

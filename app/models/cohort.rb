@@ -17,9 +17,9 @@ require 'csv'
 class Cohort < ActiveRecord::Base
   has_many :cohorts_courses, class_name: CohortsCourses
   has_many :courses, through: :cohorts_courses
-  has_many :students, -> { uniq }, through: :courses
-  has_many :instructors, -> { uniq }, through: :courses
-  has_many :nonstudents, -> { uniq }, through: :courses
+  has_many :students, -> { distinct }, through: :courses
+  has_many :instructors, -> { distinct }, through: :courses
+  has_many :nonstudents, -> { distinct }, through: :courses
   has_and_belongs_to_many :survey_assignments
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals

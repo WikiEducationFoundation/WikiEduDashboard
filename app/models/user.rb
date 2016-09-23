@@ -47,10 +47,10 @@ class User < ActiveRecord::Base
 
   has_many :courses_users, class_name: CoursesUsers
   has_many :survey_notifications, through: :courses_users
-  has_many :courses, -> { uniq }, through: :courses_users
+  has_many :courses, -> { distinct }, through: :courses_users
   has_many :revisions, -> { where(system: false) }
   has_many :all_revisions, class_name: Revision
-  has_many :articles, -> { uniq }, through: :revisions
+  has_many :articles, -> { distinct }, through: :revisions
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
-  scope :current, -> { joins(:courses).merge(Course.current).uniq }
+  scope :current, -> { joins(:courses).merge(Course.current).distinct }
   scope :role, lambda { |role|
     roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
               'instructor' => CoursesUsers::Roles::INSTRUCTOR_ROLE,

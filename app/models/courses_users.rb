@@ -30,7 +30,7 @@ class CoursesUsers < ActiveRecord::Base
 
   validates :course_id, uniqueness: { scope: [:user_id, :role] }
 
-  scope :current, -> { joins(:course).merge(Course.current).uniq }
+  scope :current, -> { joins(:course).merge(Course.current).distinct }
 
   ####################
   # CONSTANTS        #
