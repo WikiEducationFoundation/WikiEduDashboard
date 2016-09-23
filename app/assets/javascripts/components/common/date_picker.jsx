@@ -40,24 +40,55 @@ const DatePicker = React.createClass({
   },
 
   getInitialState() {
+    const dateObj = moment(this.props.value).utc();
     return {
-      value: moment(this.props.value).utc(),
+      value: dateObj.format('YYYY-MM-DD'),
+      hour: dateObj.hour(),
+      minute: dateObj.minute(),
       datePickerVisible: false
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ value: moment(nextProps.value).utc() });
+    const dateObj = moment(nextProps.value).utc();
+    if (dateObj.isValid()) {
+      this.setState({
+        value: dateObj.format('YYYY-MM-DD'),
+        hour: dateObj.hour(),
+        minute: dateObj.minute()
+      });
+    }
   },
 
+  /**
+   * Update parent component with new date value.
+   * Used instead of onChange() in InputMixin because we need to
+   *   call this.props.onChange with the full date string, not just YYYY-MM-DD
+   * @return {null}
+   */
+  onChangeHandler() {
+    this.props.onChange(this.props.value_key, this.getDate().format());
+  },
+
+  /**
+   * Get moment object of currently select date, hour and minute
+   * @return {moment}
+   */
   getDate() {
-    return this.state.value.utc();
+    let dateObj = moment(this.state.value, 'YYYY-MM-DD').utc();
+    dateObj = dateObj.hour(this.state.hour);
+    return dateObj.minute(this.state.minute);
   },
 
   getFormattedDate() {
     return this.getDate().format('YYYY-MM-DD');
   },
 
+  /**
+   * Get formatted date to be displayed as text,
+   *   based on whether or not to include the time
+   * @return {String} formatted date
+   */
   getFormattedDateTime() {
     const format = `YYYY-MM-DD${this.props.showTime ? ' HH:mm (UTC)' : ''}`;
     return this.getDate().format(format);
@@ -73,42 +104,54 @@ const DatePicker = React.createClass({
     });
   },
 
-  handleDatePickerChange(e, selectedDate, modifiers) {
-    if (_.includes(modifiers, 'disabled')) {
+  handleDatePickerChange(e, selectedDate) {
+    const date = moment(selectedDate).utc();
+    if (this.isDayDisabled(date)) {
       return;
     }
-    let date = moment(selectedDate).utc();
-    date = date.hour(this.state.value.hour());
-    date = date.minute(this.state.value.minute());
     this.refs.datefield.focus();
     this.setState({
-      datePickerVisible: false,
-      value: date
-    }, this.initiateOnChangeCallback);
+      value: date.format('YYYY-MM-DD'),
+      datePickerVisible: false
+    }, this.onChangeHandler);
   },
 
+  /**
+   * Update value of date input field.
+   * Does not issue callbacks to parent component.
+   * @param  {Event} e - input change event
+   * @return {null}
+   */
   handleDateFieldChange(e) {
     const { value } = e.target;
-    let newValue = moment(value, 'YYYY-MM-DD').utc();
-    newValue = newValue.hour(this.state.hour());
-    newValue = newValue.minute(this.state.minute());
-    this.setState({
-      value: newValue
-    }, this.initiateOnChangeCallback);
+    this.setState({ value });
+  },
+
+  /**
+   * When they blur out of the date input field,
+   * update the state if valid or revert back to last valid value
+   * @param  {Event} e - blur event
+   * @return {null}
+   */
+  handleDateFieldBlur(e) {
+    const { value } = e.target;
+    if (this.isValidDate(value) && !this.isDayDisabled(value)) {
+      this.setState({ value }, this.onChangeHandler);
+    } else {
+      this.setState({ value: this.getInitialState().value });
+    }
   },
 
   handleHourFieldChange(e) {
-    const hour = e.target.value;
     this.setState({
-      value: this.state.value.hour(hour).utc()
-    }, this.initiateOnChangeCallback);
+      hour: e.target.value
+    }, this.onChangeHandler);
   },
 
   handleMinuteFieldChange(e) {
-    const minute = e.target.value;
     this.setState({
-      value: this.state.value.minute(minute).utc()
-    }, this.initiateOnChangeCallback);
+      minute: e.target.value
+    }, this.onChangeHandler);
   },
 
   handleClickOutside() {
@@ -134,13 +177,9 @@ const DatePicker = React.createClass({
     }
   },
 
-  initiateOnChangeCallback() {
-    this.props.onChange(this.props.value_key, this.state.value.utc().format());
-  },
-
   isDaySelected(date) {
     const currentDate = moment(date).utc().format('YYYY-MM-DD');
-    return currentDate === this.state.value.format('YYYY-MM-DD');
+    return currentDate === this.state.value;
   },
 
   isDayDisabled(date) {
@@ -156,6 +195,17 @@ const DatePicker = React.createClass({
         return true;
       }
     }
+  },
+
+  /**
+   * Validates given date string (should be similar to YYYY-MM-DD).
+   * This is implemented here to be self-contained within DatePicker.
+   * @param  {String} value - date string
+   * @return {Boolean} valid or not
+   */
+  isValidDate(value) {
+    const validationRegex = /^20\d\d\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])/;
+    return validationRegex.test(value) && moment(value, 'YYYY-MM-DD').isValid();
   },
 
   showCurrentDate() {
@@ -181,7 +231,7 @@ const DatePicker = React.createClass({
       timeLabel = '\u00A0';
     }
 
-    const value = this.state.value;
+    const date = moment(this.state.value, 'YYYY-MM-DD').utc();
 
     let valueClass = 'text-input-component__value ';
     if (this.props.valueClass) { valueClass += this.props.valueClass; }
@@ -203,8 +253,8 @@ const DatePicker = React.createClass({
         }
       }
 
-      if (value.isValid()) {
-        currentMonth = value.toDate();
+      if (date.isValid()) {
+        currentMonth = date.toDate();
       } else if (minDate) {
         currentMonth = minDate.toDate();
       } else {
@@ -221,7 +271,7 @@ const DatePicker = React.createClass({
           <input
             id={this.state.id}
             ref="datefield"
-            value={this.getFormattedDate()}
+            value={this.state.value}
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
@@ -255,7 +305,7 @@ const DatePicker = React.createClass({
             <select
               className="time-input__hour"
               onChange={this.handleHourFieldChange}
-              value={value.utc().hour()}
+              value={this.state.hour}
             >
               {this.getTimeDropdownOptions('hour')}
             </select>
@@ -263,7 +313,7 @@ const DatePicker = React.createClass({
             <select
               className="time-input__minute"
               onChange={this.handleMinuteFieldChange}
-              value={value.utc().minute()}
+              value={this.state.minute}
             >
               {this.getTimeDropdownOptions('minute')}
             </select>
@@ -294,7 +344,7 @@ const DatePicker = React.createClass({
     }
 
     return (
-      <span>{value}</span>
+      <span>{date}</span>
     );
   }
 });

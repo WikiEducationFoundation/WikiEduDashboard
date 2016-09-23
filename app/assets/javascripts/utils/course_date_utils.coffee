@@ -4,7 +4,7 @@ module.exports = {
     return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
 
   isDateValid: (date) ->
-    return moment(date).isValid()
+    return false unless date.match(/^20\d{2}\-\d{2}\-\d{2}/) && moment(date).isValid()
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->
