@@ -43,6 +43,20 @@ class UsersController < ApplicationController
     end
   end
 
+  ####################################################
+  # Page for showing course info for particular user #
+  ####################################################
+  def show
+    @user = User.find_by_username(params[:username])
+    if @user
+      @course = @user.courses
+    else
+      flash[:notice] = 'User not found'
+      redirect_to controller: 'dashboard', action: 'index'
+    end
+  end
+
+
   private
 
   #################
