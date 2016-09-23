@@ -6,13 +6,13 @@ class FeedbackFormResponsesController < ApplicationController
   end
 
   def index
-    check_user_auth
+    check_user_auth { return }
     @responses = FeedbackFormResponse.order(id: :desc).where.not(body: '').first(100)
     render layout: 'admin'
   end
 
   def show
-    check_user_auth
+    check_user_auth { return }
     @response = FeedbackFormResponse.find(params[:id])
     @username = User.find(@response.user_id).username if @response.user_id
   end
@@ -37,5 +37,6 @@ class FeedbackFormResponsesController < ApplicationController
     return if current_user&.admin?
     flash[:notice] = "You don't have access to that page."
     redirect_to root_path
+    yield
   end
 end
