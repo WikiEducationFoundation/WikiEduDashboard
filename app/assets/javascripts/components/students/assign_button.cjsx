@@ -69,10 +69,6 @@ AssignButton = React.createClass(
       role: @props.role
 
     if assignment.title == "" || assignment.title == "undefined"
-      NotificationActions.addNotification
-        message: I18n.t('error.article_required')
-        closable: true
-        type: 'error'
       return
 
     article_title = assignment.title
