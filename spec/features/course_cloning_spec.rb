@@ -35,12 +35,31 @@ describe 'cloning a course', js: true do
     expect(page).to have_content 'Course Successfully Cloned'
 
     # interact_with_clone_form
+    find('input#course_term').click
+    # For some reason, only the last character actually shows up, so we'll just add one.
+    fill_in 'course_term', with: 'A'
+    fill_in 'course_subject', with: 'B'
+    find('#course_start').click
+    all('div.DayPicker-Day', text: '11')[0].click
+    find('#course_end').click
+    all('div.DayPicker-Day', text: '28')[0].click
+    find('#timeline_start').click
+    all('div.DayPicker-Day', text: '12')[0].click
+    find('#timeline_end').click
+    all('div.DayPicker-Day', text: '27')[0].click
+    find('attr', text: 'MO').click
+    find('attr', text: 'WE').click
+    find('input[type="checkbox"]').click
+    click_button 'Save New Course'
+    sleep 1
 
-    # form not working right now
     visit "/courses/#{Course.last.slug}"
     course.reload
 
     new_course = Course.last
+    expect(new_course.term).to eq('A')
+    expect(new_course.subject).to eq('B')
+    expect(new_course.weekdays).to eq('0101000')
     expect(Week.count).to eq(2) # make sure the weeks are distinct
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
     expect(new_course.blocks.first.due_date)
