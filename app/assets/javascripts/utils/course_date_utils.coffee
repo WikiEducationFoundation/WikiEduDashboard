@@ -5,6 +5,7 @@ module.exports = {
 
   isDateValid: (date) ->
     return false unless date.match(/^20\d{2}\-\d{2}\-\d{2}/) && moment(date).isValid()
+    return true
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->
