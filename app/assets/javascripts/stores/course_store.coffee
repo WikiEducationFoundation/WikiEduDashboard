@@ -38,8 +38,8 @@ addCourse = ->
     term: ""
     subject: ""
     expected_students: "0"
-    start: moment().utc().startOf('day').format()
-    end: moment().utc().endOf('day').format()
+    start: null
+    end: null
     day_exceptions: ""
     weekdays: "0000000"
     editingSyllabus: false

@@ -3,6 +3,7 @@ import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import InputMixin from '../../mixins/input_mixin.js';
 import Conditional from '../high_order/conditional.jsx';
+import CourseDateUtils from '../../utils/course_date_utils.coffee';
 
 const DatePicker = React.createClass({
   displayName: 'DatePicker',
@@ -40,11 +41,19 @@ const DatePicker = React.createClass({
   },
 
   getInitialState() {
-    const dateObj = moment(this.props.value).utc();
+    if (this.props.value) {
+      const dateObj = moment(this.props.value).utc();
+      return {
+        value: dateObj.format('YYYY-MM-DD'),
+        hour: dateObj.hour(),
+        minute: dateObj.minute(),
+        datePickerVisible: false
+      };
+    }
     return {
-      value: dateObj.format('YYYY-MM-DD'),
-      hour: dateObj.hour(),
-      minute: dateObj.minute(),
+      value: null,
+      hour: 0,
+      minute: 0,
       datePickerVisible: false
     };
   },
@@ -90,8 +99,7 @@ const DatePicker = React.createClass({
    * @return {String} formatted date
    */
   getFormattedDateTime() {
-    const format = `YYYY-MM-DD${this.props.showTime ? ' HH:mm (UTC)' : ''}`;
-    return this.getDate().format(format);
+    return CourseDateUtils.formattedDateTime(this.getDate(), this.props.showTime);
   },
 
   getTimeDropdownOptions(type) {
@@ -136,7 +144,10 @@ const DatePicker = React.createClass({
   handleDateFieldBlur(e) {
     const { value } = e.target;
     if (this.isValidDate(value) && !this.isDayDisabled(value)) {
-      this.setState({ value }, this.onChangeHandler);
+      this.setState({ value }, () => {
+        this.onChangeHandler();
+        this.validate(); // make sure validations are set as valid
+      });
     } else {
       this.setState({ value: this.getInitialState().value });
     }
@@ -178,11 +189,13 @@ const DatePicker = React.createClass({
   },
 
   isDaySelected(date) {
+    if (!this.isValidDate(date)) return false;
     const currentDate = moment(date).utc().format('YYYY-MM-DD');
     return currentDate === this.state.value;
   },
 
   isDayDisabled(date) {
+    if (!this.isValidDate(date)) return false;
     const currentDate = moment(date).utc();
     if (this.props.date_props) {
       const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc().startOf('day');
@@ -231,8 +244,6 @@ const DatePicker = React.createClass({
       timeLabel = '\u00A0';
     }
 
-    const date = moment(this.state.value, 'YYYY-MM-DD').utc();
-
     let valueClass = 'text-input-component__value ';
     if (this.props.valueClass) { valueClass += this.props.valueClass; }
 
@@ -253,8 +264,8 @@ const DatePicker = React.createClass({
         }
       }
 
-      if (date.isValid()) {
-        currentMonth = date.toDate();
+      if (this.isValidDate(this.state.value)) {
+        currentMonth = this.getDate().toDate();
       } else if (minDate) {
         currentMonth = minDate.toDate();
       } else {
@@ -344,7 +355,7 @@ const DatePicker = React.createClass({
     }
 
     return (
-      <span>{date}</span>
+      <span>{this.getFormattedDateTime()}</span>
     );
   }
 });
