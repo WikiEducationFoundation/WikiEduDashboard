@@ -506,7 +506,10 @@ describe Course, type: :model do
     end
 
     describe '#set_default_times' do
-      subject { course }
+      subject do
+        course.update_attributes(course_attrs)
+        course
+      end
       context 'end is at the beginning of day' do
         let(:course_attrs) { { end: 1.year.from_now.beginning_of_day } }
         it 'converts to end of day' do
@@ -599,7 +602,9 @@ describe Course, type: :model do
     end
 
     context 'when `n` days after their course end is Today' do
-      let(:course_end) { Time.zone.today - n.days }
+      # By default, course end dates are end-of-day. So we shift by 1 day to test
+      # the case where the course ended within the last 24 hours.
+      let(:course_end) { Time.zone.today - n.days - 1.day }
       let(:before) { false }
       let(:relative_to) { 'end' }
 

@@ -103,9 +103,8 @@ describe CoursesController do
     let(:course_params) do
       { title: 'New title',
         description: 'New description',
-        # Don't use 2.months.ago; it'll return a datetime, not a date
-        start: Time.zone.today - 2.months,
-        end: Time.zone.today + 2.months,
+        start: 2.months.ago.beginning_of_day,
+        end: 2.months.from_now.end_of_day,
         term: 'pizza',
         slug: 'food',
         subject: 'cooking',
@@ -123,7 +122,14 @@ describe CoursesController do
     it 'updates all values' do
       put :update, id: course.slug, course: course_params, format: :json
       course_params.each do |key, value|
-        expect(course.reload.send(key)).to eq(value)
+        # There's some variability the precision of datetimes between what
+        # comes out of MySQL and a raw Ruby datetime object. So we add a bit
+        # of imprecision to work around that.
+        if key == :end
+          expect(course.reload.send(key)).to be_within(1.second).of(value)
+        else
+          expect(course.reload.send(key)).to eq(value)
+        end
       end
     end
 
@@ -248,9 +254,8 @@ describe CoursesController do
         let(:course_params) do
           { title: 'New title',
             description: 'New description',
-            # Don't use 2.months.ago; it'll return a datetime, not a date
-            start: Time.zone.today - 2.months,
-            end: Time.zone.today + 2.months,
+            start: 2.months.ago.beginning_of_day,
+            end: 2.months.from_now.end_of_day,
             school: 'burritos',
             term: 'pizza',
             slug: 'food',
@@ -264,7 +269,7 @@ describe CoursesController do
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, course: course_params, format: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
-          expect(Course.last.timeline_end).to eq(course_params[:end])
+          expect(Course.last.timeline_end).to be_within(1.second).of(course_params[:end])
         end
       end
     end
