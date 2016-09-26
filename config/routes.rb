@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # Users
   controller :users do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
+    get 'users/:username' => 'users#show'
   end
 
   resources :assignments
