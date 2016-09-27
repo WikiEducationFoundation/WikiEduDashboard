@@ -7,7 +7,7 @@ def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
   find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
-  find('.course_start-datetime-control input').set(Date.new(2017, 2, 1))
+  find('.course_end-datetime-control input').set(Date.new(2017, 2, 1))
   page.find('body').click
 end
 

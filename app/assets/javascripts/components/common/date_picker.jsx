@@ -132,7 +132,9 @@ const DatePicker = React.createClass({
    */
   handleDateFieldChange(e) {
     const { value } = e.target;
-    this.setState({ value });
+    if (value !== this.state.value) {
+      this.setState({ value });
+    }
   },
 
   /**
@@ -189,13 +191,11 @@ const DatePicker = React.createClass({
   },
 
   isDaySelected(date) {
-    if (!this.isValidDate(date)) return false;
     const currentDate = moment(date).utc().format('YYYY-MM-DD');
     return currentDate === this.state.value;
   },
 
   isDayDisabled(date) {
-    if (!this.isValidDate(date)) return false;
     const currentDate = moment(date).utc();
     if (this.props.date_props) {
       const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc().startOf('day');
@@ -264,12 +264,14 @@ const DatePicker = React.createClass({
         }
       }
 
-      if (this.isValidDate(this.state.value)) {
-        currentMonth = this.getDate().toDate();
+      // don't validate YYYY-MM-DD format so we can update the daypicker as they type
+      const date = moment(this.state.value, 'YYYY-MM-DD');
+      if (date.isValid()) {
+        currentMonth = date.utc().toDate();
       } else if (minDate) {
-        currentMonth = minDate.toDate();
+        currentMonth = minDate.utc().toDate();
       } else {
-        currentMonth = new Date();
+        currentMonth = moment().utc().toDate();
       }
 
       const modifiers = {

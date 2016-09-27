@@ -11,8 +11,8 @@ def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
-  find('input[placeholder="Start date (YYYY-MM-DD)"]').set('2015-01-04')
-  find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-02-01')
+  find('.course_start-datetime-control input').set('2015-01-04')
+  find('.course_end-datetime-control input').set('2015-02-01')
   find('div.wizard__panel').click # click to escape the calendar popup
   click_button 'Create my Course!'
 end
@@ -21,8 +21,8 @@ def interact_with_clone_form
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course description:', with: 'A new course'
 
-  find('input[placeholder="Start date (YYYY-MM-DD)"]').set(course.start)
-  find('input[placeholder="End date (YYYY-MM-DD)"]').set(course.end)
+  find('.course_start-datetime-control input').set(course.start)
+  find('.course_end-datetime-control input').set(course.end)
 
   within('.wizard__form') { click_button 'Save New Course' }
 
@@ -129,9 +129,9 @@ describe 'New course creation and editing', type: :feature do
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'
-      find('input[placeholder="Start date (YYYY-MM-DD)"]').set(start_date)
+      find('.course_start-datetime-control input').set(start_date)
       find('div.DayPicker-Day--selected', text: '1').click
-      find('input[placeholder="End date (YYYY-MM-DD)"]').set('2015-12-01')
+      find('.course_end-datetime-control input').set('2015-12-01')
       find('div.DayPicker-Day', text: '15').click
 
       sleep 1
