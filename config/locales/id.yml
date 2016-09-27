@@ -69,6 +69,5 @@ id:
       ini. Desain alat tugas ini akan membuat rancangan waktu yang pas timeline tanggal
       yang Anda pilih.
   error:
-    article_required: Sebuah artikel diperlukan.
     invalid_assignment: Tugas tidak sah
 ...

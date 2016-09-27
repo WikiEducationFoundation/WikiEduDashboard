@@ -233,6 +233,7 @@ sv:
       one: '%{count} artikel'
       other: '%{count} artiklar'
     recent_revisions: Senaste redigeringar
+    training_module_status: Status
     username: Användarnamn
     username_placeholder: Användarnamn
   wizard:
@@ -241,7 +242,6 @@ sv:
     read_more: Läs mer
     summary: Sammanfattning
   error:
-    article_required: En artikel krävs.
     form_errors: Var god kolla efter fel i formuläret.
     invalid_assignment: Ogiltig uppgift
     unsupported_browser:

@@ -586,7 +586,6 @@ de:
       hinzufügen möchtest.
     summary: Zusammenfassung
   error:
-    article_required: Es ist ein Artikel erforderlich.
     form_errors: Bitte kontrolliere das Formular auf Fehler.
     invalid_assignment: Ungültige Zuweisung
     invalid_file_format: Die Datei konnte nicht gespeichert werden. Bitte lade ein

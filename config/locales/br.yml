@@ -301,7 +301,6 @@ br:
     read_more: Lenn muioc'h
     summary: Diverradur
   error:
-    article_required: Ezhomm zo eus ur pennad
     form_errors: Gwiriit, mar plij, fazioù ar furmskrid.
   error_401:
     header: Nann aotreet >:-(

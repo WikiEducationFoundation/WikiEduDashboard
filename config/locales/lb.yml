@@ -253,6 +253,8 @@ lb:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
     training_incomplete: Formatioun net komplett
+    training_module_name: Formatiounsmodul
+    training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
   wizard:

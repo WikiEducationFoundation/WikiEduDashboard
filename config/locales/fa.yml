@@ -467,7 +467,6 @@ fa:
       کنید.
     summary: خلاصه
   error:
-    article_required: یک مقاله الزامی است.
     form_errors: لطفاً فُرم را به‌دلیل خطاها بررسی کنید.
     invalid_assignment: تکلیف ناموجود
     invalid_file_format: این فایل نمی‌تواند ذخیره‌شود. لطفاً یک سند PDF یا Word بارگذاری

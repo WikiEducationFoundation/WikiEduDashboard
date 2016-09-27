@@ -6,6 +6,4 @@
 ia:
   application:
     change: Cambiar
-  error:
-    article_required: Un articulo es requirite.
 ...

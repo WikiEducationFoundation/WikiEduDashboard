@@ -118,12 +118,12 @@ bn:
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
+    contributions_history_full: উইকিপিডিয়ায় অবদানের পূর্ণ ইতিহাস দেখুন
     name: নাম
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)
     reviewing: নিরীক্ষণ চলছে
+    training_module_status: অবস্থা
   wizard:
     summary: সারাংশ
-  error:
-    article_required: একটি নিবন্ধ প্রয়োজন।
 ...

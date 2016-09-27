@@ -10,7 +10,11 @@ gl:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
     explore: Explorar
+    greeting2: Benvido!
+    greeting_extended: Benvido a Wikipedia
+    greeting: Ola!
     help: Axuda
+    home: Inicio
     recent_activity: Actividade recente
     submit: Enviar
   home:

@@ -496,7 +496,6 @@ zh-TW:
     select_assignment: 選擇您希望加到您的時間表的任務類型
     summary: 摘要
   error:
-    article_required: 需要一個條目
     form_errors: 請檢查表單裡的錯誤。
     invalid_assignment: 無效分派
     invalid_file_format: 檔案無法儲存。請上傳PDF或Word文件格式檔案。

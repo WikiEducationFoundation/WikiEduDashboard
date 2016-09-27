@@ -180,7 +180,6 @@ ksh:
   wizard:
     summary: Zosammejefaß
   error:
-    article_required: Enne Atikel weed jebruch.
     invalid_assignment: Onjölltijje Zohdeijlong
     unsupported_browser:
       explanation: Do bes ene Brauser aam bruche, dä mem <i lang="en" xml:lang="en"

@@ -468,7 +468,6 @@ it:
     read_more: Leggi di più
     summary: Sommario
   error:
-    article_required: È necessaria una voce.
     form_errors: Controlla il modulo per gli errori.
     invalid_assignment: Assegnazione non valida
     invalid_file_format: Il file non può essere salvato. Carica un PDF o un documento

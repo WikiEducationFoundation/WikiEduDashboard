@@ -3,75 +3,624 @@
 # Export driver: phpyaml
 # Author: Mikahama
 # Author: Nike
+# Author: Olimar
 # Author: Pitke
 # Author: Silvonen
 ---
 fi:
+  accessibility:
+    number_field: Tämä kenttä on numeroita varten. Useimpien selainten tuottamat painikkeet
+      suurentavat ja pienentävät syötettä.
+  application:
+    cancel: Peruuta
+    dashboard: Wiki Ed -ohjauspaneeli
+    error: 'Tapahtui virhe:'
+    explore: Tutustu
+    field_required: Tämä kenttä on pakollinen
+    field_invalid_characters: Tämä kenttä sisältää virheellisiä merkkejä
+    field_invalid_date: Tämä kenttä vaatii päivämäärän muodossa VVVV-KK-PP
+    greeting2: Tervetuloa!
+    greeting_extended: Tervetuloa Wikipediaan
+    greeting: Terve!
+    help: Ohje
+    home: Etusivu
+    log_in_extended: Kirjaudu sisään Wikipedian kautta
+    log_in: Kirjaudu sisään
+    log_out: Kirjaudu ulos
+    my_dashboard: Oma ohjauspaneeli
+    recent_activity: Tuoreet muutokset
+    search: esitä kysymys
+    sign_up_extended: Luo tunnus Wikipedian kautta
+    sign_up_log_in_extended: Wikipedian kautta
+    sign_up: Luo tunnus
+    submit: Lähetä
+    training: Harjoittelu
+    change: Muuta
+  dashboard:
+    create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
+    create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
+      ennen aloittamista. Tehtävän luontityökalu käyttää kurssin kokoontumispäiviä
+      (mukaan lukien väliviikot ja mahdolliset lomat) mukauttaakseen aikataulun sinun
+      valitsemaasi aikajänteeseen. Muista, että voit aina muokata aikataulua tarpeidesi
+      mukaan.
+    explore_course_pages: Tutustu kurssisivuihin
+    explore_examples: Tutustu esimerkkeihin
+    join_note: Kun olet saanut salasanan kurssiohjaajaltasi, etsi kurssisi klikkaamalla
+      Etsi kurssisi ja liity kurssille.
+    no_courses_instructor: Näyttää siltä, että et ole millään kurssilla.
+    no_courses_student: Näyttää siltä, että et ole vielä liittynyt kurssille.
+    opt_out: Jätä aloitusopastus väliin
+    orientation_notice: Käy läpi aloitusopas ennen kurssin luomista. (Opastus kestää
+      noin 30 minuuttia.)
+    review_orientation: Tarkastele opastusta
+    start_orientation: Aloita opastus
+    blog_headline: Tuoreet uutiset Wiki Edistä
+  home:
+    explore: Tutustu
+    log_in: Kirjaudu sisään Wikipedian kautta
+    sign_up: Luo tunnus Wikipedian kautta
+    sign_up_help: Sinun täytyy kirjautua Wikipedian kautta ja antaa ohjauspaneelille
+      oikeus käyttää tiliäsi. Voit käyttää olemassaolevaa Wikipediatunnusta tai luoda
+      uuden.
+  activity:
+    all: Toiminta
+    edited_by: Muokannut
+    label: Toiminta
   articles:
+    assigned: Tehtäväksi annetut artikkelit
+    available: Käytettävissä olevat artikkelit
+    assigned_to: Käsittelijä
+    character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
+      välisenä aikana.
     edited: Muokattuja artikkeleita
+    edited_mobile: Artikkelit
+    label: Artikkelit
     loading: Ladataan artikkeleita...
+    new: (uusi)
     none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
+    rating: Luokitus
+    rating_doc: Artikkelin laatuluokitus Wikipediassa. Suomenkielisessä Wikipediassa
+      vain tietyn laatutason artikkelit arvioidaan.
     rating_docs:
       fa: Suositeltu artikkeli — Wikipedian korkein luokittelu, todennäköisesti liian
-        valmis opiskelijamuokkaajan pääprojektiksi
-      fl: Suositellut luettelot — Wikipedian korkein luokitus luetteloille
+        haastava uuden muokkaajan pääprojektin tavoitteeksi.
+      fl: Suositeltu luettelo — Wikipedian korkein luokitus luetteloille
+      a: A-luokka — erittäin kehittynyt artikkeli, joka voi olla liian haastava uuden
+        muokkaajan pääprojektiksi.
+      ga: Hyvä artikkeli — kehittynyt artikkeli, joka ei ole aivan suositellun tasoa.
+        Voi olla liian haastava tavoite uuden muokkaajan pääprojektiksi.
+      b: B-luokka — kohtalaisen kehittynyt artikkeli (ei käytössä suomenkielisessä
+        Wikipediassa)
+      c: CA-luokka — keskitason artikkeli, jota voi kehittää
+      start: Aloitus-luokka — aloitustason artikkeli, jossa on paljon kehitettävää
+      stub: Tynkä-luokka — lyhyt artikkelin aloitus, joka tarvitsee lisää sisältöä
+      list: Luettelo-luokka — luettelo eikä artikkeli
+      '?': Arvioimaton — artikkelia ei ole vielä arvioitu Wikipedian laatuasteikoilla.
     title: Otsikko
+    title_example: Artikkelin nimi
     view: Näytä artikkeli
     view_all: Näytä kaikki
+    view_doc: Kaikkien artikkelien näyttökerrat kurssin ajalta
+    views_added: Lisätty %{count} uutta näyttökertaa artikkelille %{title}
+    wp10: Rakenteellinen eheys
+    wp10_doc: '''Rakenteellinen eheys'' -pisteytys kuvaa, kuinka hyvin artikkeli vastaa
+      kehittyneitä Wikipedian artikkeleita, ja perustuu koneoppimiseen pohjautuvaa
+      Objective Revision Evaluation Service -palveluun (https://ores.wikimedia.org/).
+      Pisteet lasketaan artikkelin pituuden, viitteiden ja wikilinkkien lukumäärän
+      sekä muiden tekstin ominaisuuksien perusteella. Korkea pistemäärä yleensä osoittaa,
+      että artikkeli noudattaa Wikipedian käytänteitä ja rakennetta hyville artikkeleille,
+      mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
+      englanninkielisen Wikipedian artikkeleille.)'
   assignments:
+    already_exists: Tehtävä on jo luotu!
+    assignees: Tehtävän tekijät
+    assign_other: Anna artikkeli tehtäväksi
+    add_available: Lisää saatavilla oleva artikkeli
+    assign_self: Anna itsellesi artikkeli tehtäväksi
+    confirm_add_available: Haluatko varmasti lisätä artikkelin %{title}
+    confirm_addition: Haluatko varmasti antaa artikkelin %{title} tehtäväksi muokkaajalle
+      %{username}?
     confirm_deletion: Haluatko varmasti poistaa tämän tehtävän?
+    label: Anna tehtäväksi
     loading: Ladataan tehtäviä...
+    none_short: Ei yhtään artikkelia tehtävänä
+    none: Tällä kurssilla ei ole yhtään artikkelia tehtävänä.
+    no_available: Tällä kurssilla ei ole yhtään tehtäväksi annettavaa artikelia.
+    remove: Poista
+    reviewers: Arvioija(t)
+    review_other: Anna tehtäväksi arvioiminen
+    review_self: Arvioi artikkeli
+    select: Valitse
+  blocks:
+    milestones:
+      title: Virstanpylväät
+  cohort:
+    none: Ei mitään
+    view_other: Näytä muut joukot
   courses:
+    activity: Toiminta
+    already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
+    already_exists: Tämä on jo olemassa kurssilla!
+    archived: Arkistoidut kurssit
+    actions: Toiminnot
+    articles: Artikkelit
+    articles_none: Tämän kurssin osallistujat eivät ole muokanneet yhtään artikkelia.
+    assignment_end: Tehtävän loppumispäivä
+    assignments_none: Tällä kurssilla ei ole yhtään artikkelia tehtävänä.
+    assignment_start: Tehtävä alkaa
+    calendar:
+      legend: Selite
+      legend_class_canceled: Loma/Peruttu
+      legend_class_meeting: Ryhmän tapaaminen
+      legend_class_not_meeting: Ei suunnitelua tapaamista
+      select_meeting_days: Valitse viikonpäivät, jolloin ryhmä kokoontuu.
+    character_doc: Osallistujien kurssin aikana päänimiavaruuteen lisäämien merkkien
+      yhteenlaskettu määrä.
+    cohorts: 'Joukot:'
+    confirm_course_deletion: Haluatko varmasti poistaa kurssin %{title}? Jos, niin
+      kirjoita kurssin nimi jatkaaksesi.
+    confirm_course_deletion_failed: '"%{title}" ei ole kurssin nimi. Kurssia ei poistettu.'
+    course_dates_calendar_instructions: Valitse päivämäärät, jotka haluat poistaa
+      tai lisätä kalenterista (esim. lomat). Klikkaa päivämäärää vaihtaaksesi eri
+      tilojen välillä (valitsematon, valittu ja loma). Kurssiaktiviteettien päivämäärät
+      vaihtuvat viikoille, joilla ei ole suunniteltuja tapaamisia.
+    course_description: Kurssit
     courses: Kurssit
+    creation_date: Luontipäivämäärä
     creator:
+      already_exists: Tämä kurssi on jo olemassa. Kannattaa vaihtaa nimi, oppilaitos
+        tai lukukausi, jotta siitä tulee ainutkertainen.
+      assignment_end: Tehtävä loppuu
+      assignment_end_placeholder: Tehtävän lopetus (VVVV-KK-PP)
+      assignment_start: Tehtävä alkaa
+      assignment_start_placeholder: Tehtävän aloitus (VVVV-KK-PP)
+      checking_for_uniqueness: Kurssin ainutkertaisuutta tarkistetaan.
+      cloned_course_calendar_instructions: Valitse päivämäärät, jotka haluat poistaa
+        tai lisätä kalenterista (esim. lomat). Klikkaa päivämäärää vaihtaaksesi eri
+        tilojen välillä (valitsematon, valittu ja loma). Jos kurssilla ei ole lomia,
+        valitse "kurssilla ei ole lomia". Kopioitu aikajana muuntaa automaattisesti
+        päivämäärät viikoille, joilla ei ole suunniteltuja tapaamisia.
+      clone_successful: Kurssin kopiointi onnistui
+      clone_successful_details: Kurssisi on kopioitu, mukaan lukien aikajanan elementit
+        (viikot ja lohkot). Muista lisätä päivämäärät, jotka eivät siirtyneet. Onko
+        mitään muuta muuttunut kurssistasi? Voit päivittää kurssia nyt vapaasti.
+      course_description: Kurssin kuvaus
+      course_language: Kotikieli
+      course_project: Projektin kotisivu
+      course_school: Kurssin oppilaitos
+      course_subject: Kurssin aihe
+      course_term: Kurssin lukukausi
+      course_term_placeholder: Lukukausi
+      course_title: Kurssin nimi
+      create_button: Luo oma Kurssi!
+      create_label: Luo uusi kurssi
+      create_new: Luo uusi kurssi
+      create_short: Luo kurssi
+      end_date: Päättymispäivä
+      end_date_placeholder: Päättymispäivä (VVVV-KK-PP)
+      expected_number: Opiskelijoiden odotettu lukumäärä
+      find: Etsi kurssi
+      intro: Nimi, oppilaitos ja lukukausi muodostavat kurssin url-linkin, joten niitä
+        ei voi vaihtaa. Kaikkea muuta voit muokata myöhemmin. Klikkaa "luo oma kurssi!"
+        aloittaaksesi Wikipedia-tehtävän aikajanan luomisen.
+      no_class_holidays: Ryhmälläni ei ole lomia.
       save_cloned_course: Tallenna uusi kurssi
+      start_date: Alkamispäivä
+      start_date_placeholder: Alkamispäivä (VVVV-KK-PP)
+      subject: Aihe
+    current: Meneillään olevat kurssit
     delete_course: Poista kurssi
+    dismiss_survey: Ohita
+    dismiss_survey_confirm: Oletko varma, että haluat pysyvästi ohittaa tämän kyselyn?
     duration: Kurssin kesto
+    edit_course_dates: Muokkaa kurssin päivämääriä
+    end: Loppu
+    enroll: Ilmoittaudu
+    enrollment: Ilmoittautuminen
+    error:
+      exists: Kurssi on jo olemassa! Yritä uudelleen eri nimellä, oppilaitoksella
+        tai lukukaudella.
+      user_exists: Pahoittelut, muokkaajaa %{username} ei ole olemassa.
+      invalid_language_or_project: Virheellinen kieli/projekti
+    expected_students: Odotetut osallistujat
+    gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
     instructor:
       one: ohjaaja
       other: ohjaajat
+    instructors: Ohjaajat
+    invitation: Sinut on kutsuttu ilmoittautumaan kurssille %{title}. Ilmoittautuaksesi
+      kurssille sinun täytyy kirjautua sisään Wikipedia-tunnuksella. Jos sinulla ei
+      ole tunnusta, luo se nyt.
+    join: Ilmoittaudu
+    join_course: Ilmoittaudu kurssille
+    join_prompt: Ilmoittaudu kurssille '%{title}'?
+    join_successful: Ilmoittautumisesi kurssille %{title} onnistui.
+    leave_confirmation: Haluatko varmasti keskeyttää kurssin?
+    leave_course: Keskeytä kurssi
+    loading: Ladataan…
+    milestones_none: Tällä kurssilla ei toistaiseksi ole virstanpylväitä.
+    my_articles: Omat artikkelit
+    new_week: Lisää uusi viikko
+    nocourses: Et ole ilmoittautunut millekään kurssille.
+    none: Ei mitään
+    notify_untrained_confirmation: Tämä lähettää muistutusviestin niille osallistujille,
+      jotka eivät ole vielä tehneet harjoitusta. Haluatko varmasti tehdä tämän?
+    no_available_actions: Ei käytettävissä olevia toimintoja.
+    overview: Yleiskatsaus
+    passcode: Salasana
+    passcode_none: Ei salasanaa
+    passcode_prompt: Anna salasana, jonka olet saanut kurssisi ohjaajalta
+    published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
+      linkin kautta:'
+    review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
+      lähetä se hyväksyttäväksi Wiki Edin henkilökunnalle. Kun aikajana on hyväksytty,
+      saat ilmoittausumislinkin, jota opiskelijat voivat käyttää ilmoittautumiseen.
+      (Voit muokata aikajanaa myöhemmin.)
+    revisions_doc: Muokkausten lukumäärä viimeisten %{timeframe} päivän aikana
+    revisions_none: Tällä kurssilla ei ole viimeaikaisia muokkauksia Wikipediassa.
+    school: Oppilaitos
+    start: Aloitus
+    start_typing: Aloita kirjoittaminen
     students: Opiskelijat
+    students_count: '# Opiskelijat'
+    student_editors: Opiskelijamuokkaajat
+    students_none: Tällä kurssilla ei ole opiskelijoita.
     students_short: Opiskelijat
+    submitted_admin: Kurssin luoja on lähettänyt tämän kurssin hyväksyttäväksi. Hyväksyäsi
+      sen, lisää se johonkin joukkoon yleiskatsaussivulla.
+    submitted_and_pending_heading: Lähetetty & Odottaa hyväksyntää
+    submitted_heading: Lisätyt kurssit
+    submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
+      mikäli kysyttävää ilmenee.
+    term: Lukukausi
     timeline: Tehtävän tiedot
+    timeline_link: Aikajana
     title: Otsikko
+    training_due: Kurssin tehtäväksi on lisätty harjoitusmoduuli "%{title}", ja sen
+      viimeinen suorituspäivä on %{date}.
+    training_nav: Aloita harjoitus
+    training_overdue: Kurssin tehtävänä on harjoitusmoduuli "%{title}", ja sen viimeinen
+      suorituspäivä oli %{date}.
+    unsubmitted: Lisäämättömät kurssit
+    untrained: Harjoittelematon
+    uploads_none: Ryhmä ei ole tallentanut kuvia tai muita mediatiedostoja Wikimedia
+      Commonsiin.
+    weeks_none: Kurssilla ei ole vielä aikajanaa.
     view: Näytä kurssi
-    view_doc: Yhteenlaskettu latausmäärä kaikille oppilaitten muokkaamille artikkeleille
-      alkaen ensimmäisistä heidän tekemistään muokkauksista per artikkeli.
+    view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
+      alkaen heidän ensimmäisistä artikkeleihin tekemistä muutoksista.
+    view_page: Näytä kurssin sivu
     view_wiki: Näytä Wikipediassa
+    volunteer:
+      one: Vapaaehtoinen
+      other: Vapaaehtoiset
+    warn_mirrored: Kun lähetät kurssin, se tallennetaan automaattisesti Wikipediaan
+      käyttäjätunnuksellasi. Sen jälkeen kaikki muokkaukset aikajanalle peilataan
+      Wikipediaan. Haluatko varmasti tehdä tämän?
+    wiki_staff: Wiki Ed -henkilökunta
+    word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
+      artikkeleihin lukukauden ajalta.
     yourcourses: Omat kurssisi
     survey:
-      notification_message: Tähän kurssiin liittyy kysely
+      notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
+  courses_generic:
+    articles_none: Tämän projektin osallistujat eivät ole vielä muokanneet yhtään
+      artikkelia.
+    assignment_end: Aikajanan loppu
+    assignments_none: Tällä projektilla ei ole tehtäväksi annettuja artikkeleita.
+    assignment_start: Aikajanan alku
+    courses: Ohjelmat
+    creator:
+      checking_for_uniqueness: Ohjelman ainutkertaisuutta tarkistetaan.
+      course_description: Ohjelman kuvaus
+      course_school: Instituutio
+      course_title: Ohjelman nimi
+      create_button: Luo oma ohjelma!
+      create_label: Luo uusi ohjelma
+      create_new: Luo uusi ohjelma
+      create_short: Luo ohjelma
+      find: Etsi ohjelma
+      intro: Ohjelman nimi vaaditaan, kaiken muun voi täydentää myöhemmin. Klikkaa
+        "Luo oma ohjelma" aloittaaksesi wikiohjelmasi sivun täydentämisen.
+    edit_course_dates: Muokkaa ohjelman päivämääriä
+    enroll: Lisää muokkaaja
+    enrollment: Osallistuminen
+    expected_students: Odotetut muokkaajat
+    instructors: Järjestäjät
+    milestones_none: Tällä ohjelmalla ei ole virstanpylväitä toistaiseksi.
+    published: 'Ohjelma on julkaistu! Muokkaajat voivat ilmoittautua seuraavan linkin
+      kautta:'
+    revisions_none: Tällä projektin osallistujat eivät ole tehneet muokkauksia viime
+      aikoina.
+    school: Instituutio
+    student_editors: Muokkaajat
+    students: Muokkaajat
+    students_none: Tähän projektiin ei ole ilmoittautunut yksikään muokkaaja.
+    students_short: Muokkaajat
+    term: Päiväys
+    uploads_none: Tämä projekti ei ole tuottanut yhtään kuvaa tai muuta mediatiedostoa
+      Wikimedia Commonsiin.
+  editable:
+    edit: Muokkaa
+    cancel: Peruuta
+    save: Tallenna
+  metrics:
+    activity: Tuoreet muutokset
+    are_trained: on suorittanut harjoituksen
+    articles_created: Luotuja artikkeleita
+    articles_edited: Muokattuja artikkeleita
+    characters: Merkkejä
+    char_added: Lisättyjä merkkejä
+    char_changed: Muutettuja merkkejä
+    char: Lisättyjä merkkejä
+    date_time: Päiväys/Aika
+    edit_count_description: Muokkaukset yhteensä
+    per_user: '%{number}/muokkaaja'
+    revisions: Tuoreet muutokset
+    upload_count: Tallennukset Commonsiin
+    uploads_in_use_count:
+      one: tiedosto käytössä artikkelissa
+      other: tiedostoa käytössä artikkeleissa
+    upload_usages_count:
+      one: kokonaiskäyttö eri kieliversioissa
+      other: kokonaiskäytöt eri kieliversioissa
+    view_count_description: Artikkelin näyttökerrat
+    view: Näyttökerrat
+    word_count: Lisätyt sanat
+  namespace:
+    main: Päänimiavaruus
+    main_char_added: Päänimiavaruuteen lisätyt merkit
+    user: Käyttäjänimiavaruus
+    user_char_added: Käyttäjänimiavaruuteen lisätyt merkit
+    user_ns: Käyttäjä
   recent_activity:
-    possible_plagiarism: Mahdollinen plagiaatti
-  revisions:
-    loading: Ladataan versioita...
-    none: Tämän kurssin osallistujat eivät ole muokanneet Wikipediaa viime aikoina.
-  timeline:
-    empty_week_3: tai
-    save_all_changes: Tallenna kaikki
-    week_number: Viikko %{number}
-  uploads:
+    active_courses: Artikkeli on käsittelyssä
+    article_title: Artikkelin nimi
+    datetime: Päiväys/Aika
+    did_you_know_eligible: Tiesitkö, että -kelpoinen
+    image: Kuva
     file_name: Tiedostonimi
-    loading: Ladataan latauksia...
+    no_dyk_eligible: Tällä hetkellä ei ole yhtään Tiesitkö, että -kelpoista artikkelia.
+    no_plagiarism: Tällä hetkellä ei ole yhtään versiota, joka olisi epäilty plagiaatti.
+    no_edits: Tuoreita muutoksia ei ole.
+    plagiarism_report: Plagiaattiraportti
+    possible_plagiarism: Mahdollinen plagiaatti
+    recent_edits: Tuoreet muutokset
+    recent_uploads: Tuoreet tallennukset
+    revision_author: Version kirjoittaja
+    revision_datetime: Version päiväys/aika
+    revision_score: Version pisteytys
+    show_courses: Näytä vain omat kurssit
+    uploaded_by: Tallentanut
+    usage_count: Käyttökerrat
+  revisions:
+    chars_added: Lis. merkit
+    class: Ryhmä
+    date_time: Päiväys/Aika
+    diff: ero
+    edited_by: Muokannut
+    loading: Ladataan versioita...
+    none: Tämän kurssin osallistujat eivät ole tehneet muokkauksia viime aikoina.
+    time_doc: Jokaisen version ajankohta paikallisessa ajassa
+    title: Nimi
+  tasks:
+    conseq: Toimi %{task} on jo käynnissä!
+    constant: Toimea %{task} ei voi suorittaa samaan aikaan kun toimi update_daily
+      on käynnissä.
+    paused: Toimea %{task} ei voi suorittaa, koska ajastetut päivitykset on pysäytetty.
+      Suorita 'rake batch:resume' päivitysten jatkamiseksi.
+  timeline:
+    add_week: Lisää viikko
+    arrange_timeline: Järjestä aikajanaa
+    arrange_timeline_instructions: Järjestä aikajanaa vetämällä ja pudottamalla lohkoja
+      haluttuihin sijainteihin/viikkoihin, tai uudelleensijoita lohkot käyttämällä
+      kortin nuolia.
+    assignment_dates_instructions: Valitse aloitus- ja lopetuspäivä Wikipedia-tehtävälle
+      aikajanalta. Aloituspäivän vaihtaminen siirtää kaikkia päivämääriä aikajanalla.
+    blackout_week_created: Tälle viikolle on ajastettuja lohkoja. Siirrä ne toiselle
+      viikolle, ennen kuin poistat viimeisen ryhmäkokoontuminen tältä viikolta.
+    block_assignment: Tehtävä
+    block_custom: Mukautettu
+    block_in_class: Ryhmässä
+    block_milestone: Virstanpylväs
+    block_type: Lohkotyyppiä käytetään kertomaan opiskelijoille tästä kohteesta heidän
+      aikajanallaan ja hyödyllisten työkalujen luomiseen sinulle (kuten virstanpylväät
+      yleiskatsaussivulla).
+    course_dates: Kurssin päivämäärät
+    course_dates_instructions: Valitse alkamis- ja loppumispäivä koko kurssille (ei
+      vain Wikipedia-tehtävälle).
+    course_end: Kurssin loppu
+    course_start: Kurssin alku
+    delete_week_confirmation: "Haluatko varmasti poistaa tämän viikon? Toiminto poistaa
+      pysyvästi viikon ja kaikki siihen liittyvät lohkot. \n\nTätä ei voi peruuttaa."
+    discard_all_changes: Hylkää kaikki muutokset
+    due_default: Ensi viikolla
+    empty_week_1: Aloittaaksesi,
+    empty_week_2: aloita muokkaaminen tällä viikolla
+    empty_week_3: tai
+    empty_week_4: käytä ohjattua toimintoa aikajanan luomiseksi.
+    first_week_title: Ensimmäinen aktiivinen viikko
+    gradeable_value: Arvo
+    gradeables_none: Tällä aikajanalla ei ole yhtään arvosteltua tehtävää.
+    grading_header: 'Arvosteltu (Yhteensä: %{total}%)'
+    move_block_down: Siirrä lohko alas
+    move_block_up: Siirrä lohko ylös
+    no_class_holidays: Luokalla ei ole lomia
+    no_timeline: Kurssilla ei ole aikajanaa.
+    no_activity_this_week: Tällä viikolla ei ole suunniteltua tapaamista
+    nothing_this_week: Kalenterissa ei ole mitään tälle viikolle.
+    save_all_changes: Tallenna kaikki
+    this_week_title_default: Tällä viikolla
+    title: Aikajana
+    unable_to_add_week: Et voi lisätä uusia viikkoja, kun aikajanasi on täynnä. Poista
+      vähintään yksi viikko tai muuta tehtäväsi päivämääriä tehdäksesi tilaa uudelle
+      viikolle.
+    week_number: Viikko %{number}
+  training:
+    continue: Jatka (%{progress})
+    start: Aloita
+    view: Näytä
+    logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
+      ellet kirjaudu sisään.
+  uploads:
+    datetime: Päiväys/Aika
+    file_name: Tiedostonimi
+    header: Wikimedia Commonsiin tallennetut tiedostot
+    image: Kuva
+    label: Tallennukset
+    loading: Ladataan tallennuksia...
     none: Tämä luokka ei ole tallentanut kuvia tai muita tiedostoja Wikimedia Commonsiin.
+    time_doc: Tallennusten ajankohdat paikallisessa ajassa
+    uploaded_by: Tallentanut
+    usage_count: Käyttömäärä
+    usages: Käyttöjä
   users:
-    character_doc: Kokonaismäärä sisällöstä, jonka käyttäjä on lisännyt tähän nimiavaruuteen.
-      Lasketaan yhteen lisättyjen merkkien määrät niistä muokkauksista, jotka nostivat
-      sivun merkkimäärää. Tämä luku sisältää myös poistettua sisältöä palauttaneet
-      muokkaukset, eikä se välttämättä vastaa käyttäjän lisäämän uuden sisällön määrää.
+    already_enrolled: Tämä käyttäjä on jo rekisteröitynyt!
+    assign_articles: Anna artikkelit tehtäväksi
+    assign_articles_done: Valmis
+    assigned: Tehtäväksi annetut artikkelit
+    assignees: Tehtävän tekijät
+    character_doc: Muokkaajan tähän nimiavaruuteen lisäämän sisällön kokonaismäärä,
+      johon lasketaan kaikkien sivun kokoa kasvattaneiden muokkausten merkkimäärät.
+      Luku sisältää myös poistettua sisältöä palauttaneet muokkaukset, eikä se välttämättä
+      vastaa käyttäjän lisäämän uuden sisällön määrää.
+    chars_added: Lisättyjä merkkejä<br>(päänimiavaruus|käyttäjänimiavaruus)
     contributions: Käyttäjän muokkaukset
+    contributions_history_full: Näytä koko muokkaushistoria Wikipediassa
     contributions_more: Näytä lisää muokkauksia
+    course_passcode: 'Salasana:'
+    editors: Muokkaajat
+    enroll_confirmation: Oletko varma, että haluat lisätä muokkaajan %{username}?
+    enroll_url: 'Muokkaajat voivat ilmoittautua tämän linkin kautta:'
+    enrolled_success: Muokkaajan %{username} lisäys onnistui!
     first_name: Etunimi
     last_name: Sukunimi
     loading: Ladataan käyttäjiä...
+    characters_added_mainspace: Lis. merkit päänimiavaruuteen
+    characters_added_short: 'Päänimiavaruus: %{mainspace}, Käyttäjänimiavaruus: %{userspace}'
+    characters_added_userspace: Lis. merkit käyttäjänimiavaruuteen
+    my_assigned: 'Tehtävänä:'
+    my_reviewing: 'Arvioitavana:'
     name: Nimi
-    none: Tällä kurssilla ei ole opiskelijoita.
+    none: Tällä kurssilla ei ole osallistujia.
+    no_articles: Ei artikkeleita
+    no_revisions: Tämä muokkaaja ei ole tehnyt muutoksia.
+    number_of_articles:
+      one: '%{count} artikkeli'
+      other: '%{count} artikkelia'
+    recent_revisions: Tuoreet muutokset
+    remove_confirmation: Haluatko varmasti poistaa muokkaajan %{username}?
+    revision_characters_and_views: 'Lisättyjä merkkejä: %{characters}, Näyttökertoja:
+      %{views}'
+    revisions_doc: Muokkaajan tekemät muokkaukset edelliselstä seitsemältä päivältä
+    reviewers: Arvioija(t)
+    reviewing: Arvioitavana
     training_complete:
-      one: on valmistunut koulutuksesta
-      other: ovat valmistuneet koulutuksesta
+      one: on suorittanut harjoituksen
+      other: ovat suorittaneet harjoituksen
+    training_complete_count:
+      one: '%{count} suorittanut harjoituksen'
+      other: '%{count} suorittanut harjoituksen'
+    training_doc: Kaikki harjoitusmoduulit määräpäivään mennessä suorittaneet muokkaajat
+      on laskettu harjoituksen suorittaneisiin muokkaajiin.
+    training_incomplete: harjoitus on suorittamatta
+    training_modules_completed:
+      one: '%{completed_count}/%{count} harjoitusmoduulia suoritettuna'
+      other: '%{completed_count}/%{count} harjoitusmoduulia suoritettuna'
+    training_module_name: Harjoitusmoduuli
+    training_module_status: Tila
+    up_to_date_with_training: on suorittanut harjoituksen
+    username: Käyttäjätunnus
+    username_placeholder: Käyttäjätunnus
+  wiki_edits:
+    notify_overdue:
+      confirm: Tämä lähettää muistutusviestin kaikille niille osallistujille, jotka
+        eivät ole suorittaneet harjoitusta määräaikaan mennessä. Haluatko varmasti
+        tehdä tämän?
+      header: Harjoituksesi suorittaminen on myöhässä.
+      message: Ole hyvä ja suorita tehtäväksi annetut [%{link} harjoitusmoduulit].
+      summary: opiskelijan harjoitus myöhässä
+  wizard:
+    assignment_dates: Tehtävän päivämäärät
+    assignment_description: Valitse alkamis- ja loppumispäivä tehtäväsi aikajanalle.
+      Esimerkiksi jos haluat Wikipedia-projektisi alkavan kurssin toiselta viikolta,
+      aseta tehtävän alkamispäiväksi viikko kurssin alkamispäivän jälkeen. Tämä tehtävän
+      suunnittelutyökalu luo luonnoksen aikajanasta valitsemiesi päivämäärien välille.
+    assignment_type: Tehtävätyyppi
+    calendar_instructions: Valitse päivämäärät lisätäksesi tai poistaaksesi ne aikataulusta
+      (esim. lomat). Tämä helpottaa kurssin luontityökalua jaksottamaan tehtävät oikein.
+      Klikkaa päivämäärää tilan vaihtamiseksi (valitsematon, valittu ja loma). Jos
+      kurssin aikana ei ole lomaa, valitse "Kurssilla ei ole lomaa".
+    confirm_dates: Valitse kurssipäivät, viikottaiset tapaamiset ja lomat.
+    course_dates: Kurssin päivämäärät
+    min_weeks: Tehtävä vaatii vähintään %{min_weeks} viikkoa. Muuta tehtäväsi alkamis-
+      ja loppumispäivää, jos haluat käyttää tämäntyyppistä tehtävää.
+    select_one_option: Valitse yksi vaihtoehto.
+    minimum_options:
+      one: Valitse %{count} tai useampia vaihtoehtoja.
+      other: valitse %{count} tai useampia vaihtoehtoja.
+    read_less: Lue vähemmän
+    read_more: Lue vähemmän
+    review_selections: Tarkasta valintasi alta. Klikkaa muokataksesi valintaa. Kun
+      olet valmis, klikkaa 'Lähetä', ja ala rakentaa aikajanaasi.
+    select_assignment: Valitse tehtävätyyppi, jonka haluat lisätä aikajanallesi.
+    summary: Yhteenveto
+  error:
+    form_errors: Tarkista onko lomakkeessa virheitä.
+    invalid_assignment: Virheellinen tehtävä
+    invalid_file_format: Tiedostoa ei voitu tallentaa. Lataa joko Pdf- tai Word-tiedosto.
+    oauth_invalid: Wikipedia-valtuutuksesi on päättynyt. Kirjaudu sisään uudestaan.
+    unsupported_browser:
+      header: Selain ei ole tuettu. :-(
+      explanation: Käytät selainta, joka ei ole yhteensopiva ohjauspaneelin kanssa.
+        Sivusto toimii hyvin Internet Explorer 11:n tai myöhemmän version kanssa,
+        viimeisimpien Chromen ja Firefoxin versioiden kanssa sekä muilla nykyaikaisilla
+        selaimilla.
+  error_401:
+    header: Ei lupaa. >:-(
+    explanation: Sinulla ei ole lupaa suorittaa tätä pyyntöä. Jos uskot, että ilmoitus
+      on virheellinen, kerro ongelmasta ohjauspaneelin ylläpitäjille.
+  error_incorrect_passcode:
+    header: Väärä salasana. :-(
+    explanation: Salasana, jolla yritit ilmoittautua kurssille, on väärä. Pyydä kurssin
+      vetäjältä oikea salasana kurssille ilmoittautumista varten.
+  error_404:
+    header: Sivua ei ole. :-(
+    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjauspaneeliin, kurssia
+      ei välttämättä ole rekisteröity tähän siihen. Jos kurssi rekisteröitiin hiljattain,
+      sen lisäämiseen voi mennä hetki.
+  error_422:
+    header: 422 — kohdetta ei voi käsitellä.  :-(
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+  error_500:
+    header: 500 — palvelinvirhe. :-(
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+  login_error:
+    header: Sisäänkirjautumisvirhe
+    explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
+      joskus.) Ole hyvä ja yritä uudelleen.
   survey:
+    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjauspaneeliin
+      kyselyn täyttämiseksi.
+    notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
+      sähköpostia muistutusaikataulun mukaisesti selaimen sisäisten ilmoitusten lisäksi.
+      Jos kohtaa ei ole valittuna, muokkaajat saavat vain selaimen sisäisiä ilmoituksia.
+    notification_schedule_explanation: Jos kohta on valittuna, ilmoitukset sisältävät
+      selaimen sisäiset ilmoitukset ja sähköpostit.
+    follow_up_explanation: Jätä tyhjäksi, jos ilmoituksia ei haluta sähköpostiin.
     email:
+      headline: Hei, %{username}
+      message_line1: Toivottavasti lukukautesi on mainio! Wiki Ed kaipaa palautettasi,
+        jotta voimme kehittää resurssejamme ja tukea Wikipedia-tehtäviä.
+      message_line2: Oletko valmis käyttämään 15 minuuttia vastataksesi ohjaajasi
+        tekemään kyselyyn? Klikkaa alla olevaa painiketta, ja autat meitä tekemään
+        Wikipedian soveltamisesta opintoihin vieläkin palkitsevamman kokemuksen.
       course: 'Kurssi: %{course_info}'
+      closing: Ystävällisin terveisin,
+      signed: '- Wiki Ed -tiimi'
       link: Vastaa kyselyyn
+    follow_up:
+      message: Tämä on muistutus kurssisi %{course_title} kyselystä. Palautteesi auttaa
+        meitä tehtävien kehittämisessä.
 ...

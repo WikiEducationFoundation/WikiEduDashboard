@@ -521,7 +521,6 @@ ca:
       temporal.
     summary: Resum
   error:
-    article_required: Es requereix un article.
     form_errors: Si us plau revisa si hi han errors.
     invalid_assignment: Tasca invàlida
     oauth_invalid: La teva sessió a la Viquipèdia ha caducat. Si us plau torna a entrar

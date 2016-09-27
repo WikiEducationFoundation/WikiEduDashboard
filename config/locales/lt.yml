@@ -118,8 +118,11 @@ lt:
   uploads:
     usages: Panaudojimai
   users:
+    contributions_history_full: Peržiūrėti visą indėlio istoriją Vikipedijoje
     name: Pavadinimas
     recent_revisions: Naujausi keitimai
+    training_module_name: Mokymo modulis
+    training_module_status: Būsena
   wizard:
     assignment_type: Užduoties tipas
     course_dates: Kurso datos

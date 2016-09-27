@@ -192,8 +192,9 @@ es:
         de las semanas que no tienen reuniones programadas.
       clone_successful: Curso clonado cn éxito
       clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
-        cronograma (semanas y bloques). ¿Ha cambiado algo más acerca de tu curso?
-        Siéntase libre de actualizarlo ahora.
+        cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
+        se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
+        actualizarlo ahora.
       course_description: Descripción del curso
       course_language: Idioma principal
       course_project: Proyecto principal
@@ -455,7 +456,7 @@ es:
     empty_week_1: Para empezar,
     empty_week_2: empieza a editar esta semana
     empty_week_3: o
-    empty_week_4: iniciar de una tarea prefabricada.
+    empty_week_4: usar al asistente de asignaciones para crear una línea de tiempo.
     first_week_title: Primera semana activa
     gradeable_value: Valor
     gradeables_none: Este cronograma no tiene tareas marcadas como graduadas.
@@ -505,6 +506,7 @@ es:
       eliminado también aumentará este total.
     chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
     contributions: Contribuciones del usuario
+    contributions_history_full: Ver el historial completo de contribuciones a Wikipedia
     contributions_more: Ver más contribuciones
     course_passcode: 'Código de acceso:'
     editors: Editores estudiantiles
@@ -545,6 +547,8 @@ es:
     training_modules_completed:
       one: '%{completed_count}/%{count} módulo de entenamiento completado'
       other: '%{completed_count}/%{count} módulos de entenamiento completados'
+    training_module_name: Módulo de entrenamiento
+    training_module_status: Estado
     up_to_date_with_training: al día con el entrenamiento
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
@@ -586,7 +590,6 @@ es:
     select_assignment: Selecciona el tipo de tarea que quieres añadir a tu cronograma.
     summary: Resumen
   error:
-    article_required: Se requiere un artículo.
     form_errors: Verifica que el formulario no tenga errores.
     invalid_assignment: Asignación no válida
     invalid_file_format: El archivo no se pudo guardar. Sube un documento PDF o Word.

@@ -480,7 +480,6 @@ zh-CN:
     select_assignment: 选择您希望添加至您的时间轴的任务类型。
     summary: 摘要
   error:
-    article_required: 需要一个条目。
     form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
     invalid_file_format: 文件不能被保存。请上传PDF或Word文档。

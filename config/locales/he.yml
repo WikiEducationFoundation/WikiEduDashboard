@@ -459,7 +459,6 @@ he:
     select_assignment: נא לבחור את סוג המטלה שברצונך להוסיף לציר הזמן שלך.
     summary: סיכום
   error:
-    article_required: דרוש ערך.
     form_errors: נא לבדוק אם יש שגיאות בטופס.
     invalid_assignment: משימה לא תקינה
     oauth_invalid: ההזדהות שלך מול וייקפדיה פגה. נא להיכנס שוב.

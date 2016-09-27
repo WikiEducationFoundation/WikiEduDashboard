@@ -569,7 +569,6 @@ pt-br:
     select_assignment: Selecionar o tipo de tarefa que pretende adicionar a seu cronograma.
     summary: Sumário
   error:
-    article_required: Exige-se um artigo.
     form_errors: Por favor, verifique o formulário de erros.
     invalid_assignment: Tarefa inválida
     oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.

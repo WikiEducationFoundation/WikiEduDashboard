@@ -97,7 +97,6 @@ mr:
     read_more: अधिक वाचा
     summary: सारांश
   error:
-    article_required: एक लेख आवश्यक आहे.
     form_errors: फॉर्म त्रुटींसाठी तपासून बघा.
     unsupported_browser:
       header: असाहाय्यीकृत न्याहाळक. :-(

@@ -597,7 +597,6 @@ fr:
       planning.
     summary: Résumé
   error:
-    article_required: Un article est nécessaire.
     form_errors: Veuillez vérifier les erreurs du formulaire.
     invalid_assignment: Affectation non valide
     invalid_file_format: Le fichier n’a pas pu être enregistré. Veuillez téléverser
