@@ -116,7 +116,7 @@ const Details = React.createClass({
           editable={this.props.editable && this.props.current_user.admin}
           type="text"
           label={CourseUtils.i18n('term', this.props.course.string_prefix)}
-          required={true}
+          required={false}
         />
       );
     }
