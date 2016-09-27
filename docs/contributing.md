@@ -18,7 +18,7 @@ Possible improvements that are not bugs per-se — mostly ones that are independ
 * [code quality](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22code+quality%22) - Developer-facing improvements that make the dashboard easier to work with or otherwise improve the quality of the code-base.
 
 If you're a new developer and you're looking for an easy way to get involved, try one of the bugs tagged as easy:
-* [easy](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3Aeasy) - These are probably fairly simple to fix, without needing to understand the entire application or make extensive changes.
+* [newcomer friendly](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22newcomer+friendly%22) - These are probably fairly simple to fix, without needing to understand the entire application or make extensive changes. We try to keep a few of these open for "microcontributions" for Outreachy applicants. If you can't find one you like, ask Sage!
 
 #### Developer Resources
 
@@ -26,30 +26,31 @@ If you're a new developer and you're looking for an easy way to get involved, tr
 - [MediaWiki API Sandbox](https://en.wikipedia.org/wiki/Special%3aApiSandbox)
 - [Quarry](http://quarry.wmflabs.org/): Public querying interface for the Labs replica database. Very useful for testing SQL queries and for figuring out what data is available.
 - [Guide to the front end](frontend.md)
-- [Vagrant](https://github.com/marxarelli/wikied-vagrant): a configuration to quickly get a development environment up and running using Vagrant. If you already have VirtualBox and/or Vagrant on your machine, this is probably the simplest way to set up a dev environment.
+- [Vagrant](https://github.com/marxarelli/wikied-vagrant): a configuration to quickly get a development environment up and running using Vagrant. If you already have VirtualBox and/or Vagrant on your machine, this might be a simple way to set up a dev environment. However, it is not actively maintained. If you try it and run into problems, let us know!
 
 #### Code Style
 This project adheres as strictly as possible to the community [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). [Rubocop](https://github.com/bbatsov/rubocop) is used for this purpose and its associated editor integrations are highly recommended for contributors.
 
+The project has a mix of templating and compiled languages, including both erb and haml for Rails templates, and a mix of coffeescript, cjsx, pure javascript, and jsx for the frontend. We're trying to standardize on haml, javascript, and jsx for everything. **Please use haml, javascript, and/or jsx** for new files; erb, coffeescript, and cjsx are deprecated.
+
 #### Tests
-Please see the more complete document on [testing](testing.md).
+Please see the more complete document on [testing](testing.md). Pull requests should be passing for both the Ruby test suite (`rake spec`) and the javascript test suite (`npm test`). Ideally, pull requests should include new tests for any new features, as well.
 
 #### Translations
-Copy translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. The JS files providing the translations to the front end must be regenerated whenever a change is made by running `rake i18n:js:export`.
+Interface message translations live at /config/locales and the fallback for missing strings is `en`. [i18n.js](https://github.com/fnando/i18n-js) is used to make these translations available on the frontend. If you add a new interface message, you should add it to both `en.yml` (the default language) and `qqq.yml` (the message documentation file, to help translators understand the meaning and context of the message).
 
 To help translate the interface, please visit [translatewiki.net](https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard).
 
-## Pre-push checklist
+#### Schema changes
+Migrations that change the schema should be as isolated as possible. If existing tables are being modified, each migration should change only one column. Data migrations should be done with separate migrations, rather than combined into the same migration as a schema change.
+
+If your changes modify the model schema, please regenerate `erd.pdf` and regenerate the model schema annotations.
+		$ `rake erd orientation=vertical`
+		$ `annotate`
+
+Also, ensure that the corresponding schema.rb changes only reflect the new migrations.
+
+## Pull request checklist
+- Rebase your branch on master if it is behind.
+- Optionally, squash your work into a single commit.
 - If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`bower.json`, `package.json`, or `Gemfile`).
-
-- If your changes modify the model schema please regenerate `erd.pdf`.
-
-		$ rake erd orientation=vertical
-
-- If your changes include copy changes please ensure that you are using the i18n pipeline and that you have regenerated the front-end i18n JS files.
-
-		$ rake i18n:js:export
-
-- If your changes modify the JS or CSS of the application (or if you have added external libraries via Bower or NPM) you must rebuild fingerprinted assets (for proper cache busting). This will add some gunk to your `git status`as the old assets will be deleted and the new assets must be added.
-
-		$ gulp build
