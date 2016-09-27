@@ -4,7 +4,7 @@ module.exports = {
     return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
 
   isDateValid: (date) ->
-    return date.match(/^20\d{2}\-\d{2}\-\d{2}/) && moment(date).isValid()
+    return /^20\d{2}\-\d{2}\-\d{2}/.test(date) && moment(date).isValid()
 
   formattedDateTime: (datetime, showTime = false) ->
     format = "YYYY-MM-DD#{if showTime then ' HH:mm (UTC)' else ''}"
