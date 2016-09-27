@@ -42,6 +42,10 @@ module.exports = {
       updatedCourse.timeline_end = updatedCourse.timeline_start
     if moment(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(updatedCourse.end, 'YYYY-MM-DD') && value_key != 'end'
       updatedCourse.end = updatedCourse.timeline_end
+    if moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && value_key != 'timeline_start'
+      updatedCourse.timeline_start = updatedCourse.start
+    if moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.end) && value_key != 'timeline_start'
+      updatedCourse.timeline_start = updatedCourse.end
 
     # If the dates were changed by extending the course end, and the assignment end
     # was previously the same as the course end, then extend the timeline end to match.

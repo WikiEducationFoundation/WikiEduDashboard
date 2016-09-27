@@ -101,7 +101,7 @@ CourseClonedModal = React.createClass(
         <p>{I18n.t('courses.creator.clone_successful_details')}</p>
         {errorMessage}
         <div className='wizard__form'>
-          <div className='column'>
+          <div className='column' id='details_column'>
             <TextInput
               id='course_title'
               onChange={@updateCourse}
@@ -191,7 +191,6 @@ CourseClonedModal = React.createClass(
               enabled={@props.course.start?}
               isClearable=false
             />
-
             <DatePicker
               id='timeline_start'
               onChange={@updateCourseDates}
@@ -206,7 +205,6 @@ CourseClonedModal = React.createClass(
               enabled={@props.course.start?}
               isClearable=false
             />
-
             <DatePicker
               id='timeline_end'
               onChange={@updateCourseDates}
@@ -221,7 +219,6 @@ CourseClonedModal = React.createClass(
               enabled={@props.course.start?}
               isClearable=false
             />
-
           </div>
 
           <div className='column'>
