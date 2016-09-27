@@ -31,7 +31,7 @@ The Dashboard allows instructors to create a course page, which students can joi
 - [Testing](docs/testing.md)
 
 ### Other
-- [Contributing](docs/contributing.md)
+- [Contributing](CONTRIBUTING.md)
 - [Interface strings & Internationalization](docs/i18n.md)
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
