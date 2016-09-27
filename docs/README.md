@@ -9,7 +9,7 @@
 - [Analytics Pipeline](importers.md)
 
 ### Other
-- [Contributing](contributing.md)
+- [Contributing](../CONTRIBUTING.md)
 - [Deployment](deploy.md)
 - [Upgrading dependencies](upgrading_dependencies.md)
 - [Tools & Integrations](tools.md)
