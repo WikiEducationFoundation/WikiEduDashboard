@@ -6,7 +6,7 @@ import McFly from 'mcfly';
 const Flux = new McFly();
 const { dispatcher } = Flux;
 
-import NotificationStore from '../../../app/assets/javascripts/stores/notification_store.coffee';
+import NotificationStore from '../../../app/assets/javascripts/stores/notification_store.js';
 import Notifications from '../../../app/assets/javascripts/components/common/notifications.jsx';
 
 describe('Notifications', () => {

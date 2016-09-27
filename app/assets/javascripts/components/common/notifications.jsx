@@ -1,5 +1,5 @@
 import React from 'react';
-import NotificationStore from '../../stores/notification_store.coffee';
+import NotificationStore from '../../stores/notification_store.js';
 import NotificationActions from '../../actions/notification_actions.js';
 
 const Notifications = React.createClass({
