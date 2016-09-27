@@ -47,8 +47,8 @@ describe 'cloning a course', js: true do
     all('div.DayPicker-Day', text: '12')[0].click
     find('#timeline_end').click
     all('div.DayPicker-Day', text: '27')[0].click
-    find('attr', text: 'MO').click
-    find('attr', text: 'WE').click
+    find('attr', text: 'MO').trigger('click')
+    find('attr', text: 'WE').trigger('click')
     find('input[type="checkbox"]').click
     click_button 'Save New Course'
     sleep 1
