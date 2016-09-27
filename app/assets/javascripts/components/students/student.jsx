@@ -5,7 +5,7 @@ import AssignCell from './assign_cell.jsx';
 
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
-import UIStore from '../../stores/ui_store.coffee';
+import UIStore from '../../stores/ui_store.js';
 import UIActions from '../../actions/ui_actions.js';
 import { trunc } from '../../utils/strings';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import UIActions from '../../actions/ui_actions.js';
-import UIStore from '../../stores/ui_store.coffee';
+import UIStore from '../../stores/ui_store.js';
 
 const Expandable = function (Component) {
   return React.createClass({
