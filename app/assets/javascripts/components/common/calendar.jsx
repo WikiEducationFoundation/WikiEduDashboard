@@ -110,7 +110,7 @@ const Calendar = React.createClass({
       },
       ['bordered']: day => {
         if (day <= 7) { return false; }
-        if ((this.props.course.day_exceptions !== undefined) || !this.props.course.weekdays) { return false; }
+        if (!this.props.course.day_exceptions || !this.props.course.weekdays) { return false; }
         const formatted = moment(day).format('YYYYMMDD');
         const inrange = this.inrange(day);
         const exception = __in__(formatted, this.props.course.day_exceptions.split(','));
