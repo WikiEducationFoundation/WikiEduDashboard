@@ -15,7 +15,7 @@ class QuestionsController < Rapidfire::ApplicationController
   def results
     respond_to do |format|
       format.csv do
-        filename = "Question##{@question.id}-results#{Date.today}.csv"
+        filename = "Question##{@question.id}-results#{Time.zone.today}.csv"
         send_data @question.to_csv, filename: filename
       end
     end

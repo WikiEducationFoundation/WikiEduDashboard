@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 json.course do
-  user_role = if current_user
-                current_user.role(@course)
-              else
-                -1
-              end
+  user_role = current_user&.role(@course) || CoursesUsers::Roles::VISITOR_ROLE
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,

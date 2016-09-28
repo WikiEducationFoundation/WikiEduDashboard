@@ -71,7 +71,7 @@ module SurveysHelper
   end
 
   def can_administer?
-    current_user && current_user.admin?
+    current_user&.admin?
   end
 
   def question_type(answer)

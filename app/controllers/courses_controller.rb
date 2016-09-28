@@ -185,7 +185,7 @@ class CoursesController < ApplicationController
   # page, so that they don't make edits that fail upon save.
   def verify_edit_credentials
     return if Features.disable_wiki_output?
-    return unless current_user && current_user.can_edit?(@course)
+    return unless current_user&.can_edit?(@course)
     return if WikiEdits.new.oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield

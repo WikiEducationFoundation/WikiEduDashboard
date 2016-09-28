@@ -22,16 +22,14 @@ class ApplicationController < ActionController::Base
            status: 404
   end
 
+  force_ssl if: :ssl_configured?
+
   before_action :check_for_sitenotice
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
   before_action :check_onboarded
-
-  force_ssl if: :ssl_configured?
-
-  before_filter :set_locale
-
-  before_filter :set_paper_trail_whodunnit
+  before_action :set_locale
+  before_action :set_paper_trail_whodunnit
 
   def after_sign_out_path_for(_resource_or_scope)
     '/'

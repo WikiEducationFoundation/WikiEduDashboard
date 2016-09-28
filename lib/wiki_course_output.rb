@@ -63,15 +63,15 @@ class WikiCourseOutput
   end
 
   def instructor_username
-    @first_instructor.username unless @first_instructor.nil?
+    @first_instructor&.username
   end
 
   def instructor_realname
-    @first_instructor.real_name unless @first_instructor.nil?
+    @first_instructor&.real_name
   end
 
   def support_staff_username
-    @first_support_staff.username unless @first_support_staff.nil?
+    @first_support_staff&.username
   end
 
   def course_prefix
