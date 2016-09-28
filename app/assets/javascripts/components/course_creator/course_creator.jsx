@@ -89,6 +89,7 @@ const CourseCreator = React.createClass({
       } else {
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
         ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
+        this.setState({ isSubmitting: false });
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
