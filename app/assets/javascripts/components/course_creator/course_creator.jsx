@@ -76,20 +76,21 @@ const CourseCreator = React.createClass({
     if (this.state.shouldRedirect === true) {
       window.location = `/courses/${this.state.course.slug}?modal=true`;
     }
-    if (!this.state.isSubmitting) { return; }
+    if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
 
     if (ValidationStore.isValid()) {
-      if (this.state.course.slug) {
+      if (this.state.course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
           window.location = `/courses/${this.state.course.slug}/timeline/wizard`;
         } else {
           window.location = `/courses/${this.state.course.slug}`;
         }
-      } else {
+      } else if (!this.state.justSubmitted) {
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
         ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
         this.setState({ isSubmitting: false });
+        this.setState({ justSubmitted: true });
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
