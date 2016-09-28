@@ -327,7 +327,6 @@ API =
         contentType: 'application/json',
         data: JSON.stringify(req_data)
         success: (data) ->
-          console.log 'Saved course!'
           res data
       .fail (obj, status) ->
         @obj = obj

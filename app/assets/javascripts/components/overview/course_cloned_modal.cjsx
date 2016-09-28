@@ -16,41 +16,47 @@ CourseUtils   = require('../../utils/course_utils.js').default
 CourseDateUtils = require '../../utils/course_date_utils.coffee'
 
 
-getState = ->
-  error_message: ValidationStore.firstMessage()
-
 CourseClonedModal = React.createClass(
   displayName: 'CourseClonedModal'
   mixins: [ValidationStore.mixin, CourseStore.mixin]
   cloneCompletedStatus: 2
 
   storeDidChange: ->
-    @setState getState()
-    @state.tempCourseId = CourseUtils.generateTempId(@props.course)
     @handleCourse()
+    @setState
+      error_message: ValidationStore.firstMessage()
+      tempCourseId: CourseUtils.generateTempId(@state.course)
 
   getInitialState: ->
-    getState()
+    error_message: ValidationStore.firstMessage()
+    course: @props.course
 
   updateCourse: (value_key, value) ->
-    updatedCourse = $.extend(true, {}, @props.course)
+    updatedCourse = $.extend(true, {}, @state.course)
     updatedCourse[value_key] = value
-    CourseActions.updateCourse updatedCourse
     if value_key in ['title', 'school', 'term']
       ValidationActions.setValid 'exists'
-    @setState valuesUpdated: true
+    @setState
+      valuesUpdated: true
+      course: updatedCourse
+    CourseActions.updateCourse(updatedCourse)
 
   updateCourseDates: (value_key, value) ->
-    updatedCourse = CourseDateUtils.updateCourseDates(@props.course, value_key, value)
-    CourseActions.updateCourse updatedCourse
-    @setState dateValuesUpdated: true
+    updatedCourse = CourseDateUtils.updateCourseDates(@state.course, value_key, value)
+    @setState
+      dateValuesUpdated: true
+      course: updatedCourse
+    CourseActions.updateCourse(updatedCourse)
 
   saveCourse: ->
-    @updateCourse('cloned_status', @cloneCompletedStatus)
     if ValidationStore.isValid()
+      @updateCourse('cloned_status', @cloneCompletedStatus)
       ValidationActions.setInvalid 'exists', I18n.t('courses.creator.checking_for_uniqueness'), true
       setTimeout =>
-        CourseActions.updateClonedCourse($.extend(true, {}, { course: @props.course }), @props.course.slug, CourseUtils.generateTempId(@props.course))
+        updatedCourse = $.extend(true, {}, { course: @state.course })
+        slug = @state.course.slug
+        id = CourseUtils.generateTempId(@state.course)
+        CourseActions.updateClonedCourse(updatedCourse, slug, id)
         @setState isPersisting: true
       , 0
 
@@ -69,7 +75,7 @@ CourseClonedModal = React.createClass(
 
   saveEnabled: ->
     return false unless @state.valuesUpdated && @state.dateValuesUpdated
-    if @props.course.weekdays?.indexOf(1) >= 0 && (@props.course.day_exceptions?.length > 0 || @props.course.no_day_exceptions)
+    if @state.course.weekdays?.indexOf(1) >= 0 && (@state.course.day_exceptions?.length > 0 || @state.course.no_day_exceptions)
       true
     else
       false
@@ -87,14 +93,14 @@ CourseClonedModal = React.createClass(
   render: ->
     buttonClass = 'button dark'
     buttonClass += if @state.isPersisting then ' working' else ''
-    slug = @props.course.slug
+    slug = @state.course.slug
     [school, title] = slug.split('/')
 
     errorMessage = if @state.error_message then (
       <div className='warning'>{@state.error_message}</div>
     )
 
-    dateProps = CourseDateUtils.dateProps(@props.course)
+    dateProps = CourseDateUtils.dateProps(@state.course)
     <Modal>
       <div className='wizard__panel active cloned-course'>
         <h3>{I18n.t('courses.creator.clone_successful')}</h3>
@@ -105,7 +111,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_title'
               onChange={@updateCourse}
-              value={@props.course.title}
+              value={@state.course.title}
               value_key='title'
               required=true
               validation={/^[\w\-\s\,\']+$/}
@@ -117,7 +123,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_school'
               onChange={@updateCourse}
-              value={@props.course.school}
+              value={@state.course.school}
               value_key='school'
               required=true
               validation={/^[\w\-\s\,\']+$/}
@@ -129,7 +135,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_term'
               onChange={@updateCourse}
-              value={@props.course.term}
+              value={@state.course.term}
               value_key='term'
               required=true
               validation={/^[\w\-\s\,\']+$/}
@@ -141,7 +147,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_subject'
               onChange={@updateCourse}
-              value={@props.course.subject}
+              value={@state.course.subject}
               value_key='subject'
               editable=true
               label={I18n.t('courses.creator.course_subject')}
@@ -150,7 +156,7 @@ CourseClonedModal = React.createClass(
             <TextInput
               id='course_expected_students'
               onChange={@updateCourse}
-              value={@props.course.expected_students.toString()}
+              value={@state.course.expected_students.toString()}
               value_key='expected_students'
               editable=true
               type='number'
@@ -160,7 +166,7 @@ CourseClonedModal = React.createClass(
             <TextAreaInput
               id='course_description'
               onChange={@updateCourse}
-              value={@props.course.description}
+              value={@state.course.description}
               value_key='description'
               editable=true
               placeholder={I18n.t('courses.creator.course_description')}
@@ -168,7 +174,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='course_start'
               onChange={@updateCourseDates}
-              value={@props.course.start if @state.dateValuesUpdated}
+              value={@state.course.start if @state.dateValuesUpdated}
               value_key='start'
               required=true
               editable=true
@@ -180,7 +186,7 @@ CourseClonedModal = React.createClass(
             <DatePicker
               id='course_end'
               onChange={@updateCourseDates}
-              value={@props.course.end if @state.dateValuesUpdated}
+              value={@state.course.end if @state.dateValuesUpdated}
               value_key='end'
               required=true
               editable=true
@@ -188,13 +194,13 @@ CourseClonedModal = React.createClass(
               placeholder={I18n.t('courses.creator.end_date_placeholder')}
               date_props={dateProps.end}
               validation={CourseDateUtils.isDateValid}
-              enabled={@props.course.start?}
+              enabled={@state.course.start?}
               isClearable=false
             />
             <DatePicker
               id='timeline_start'
               onChange={@updateCourseDates}
-              value={@props.course.timeline_start if @state.dateValuesUpdated}
+              value={@state.course.timeline_start if @state.dateValuesUpdated}
               value_key='timeline_start'
               required=true
               editable=true
@@ -202,13 +208,13 @@ CourseClonedModal = React.createClass(
               placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
               date_props={dateProps.timeline_start}
               validation={CourseDateUtils.isDateValid}
-              enabled={@props.course.start?}
+              enabled={@state.course.start?}
               isClearable=false
             />
             <DatePicker
               id='timeline_end'
               onChange={@updateCourseDates}
-              value={@props.course.timeline_end if @state.dateValuesUpdated}
+              value={@state.course.timeline_end if @state.dateValuesUpdated}
               value_key='timeline_end'
               required=true
               editable=true
@@ -216,13 +222,13 @@ CourseClonedModal = React.createClass(
               placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
               date_props={dateProps.timeline_end}
               validation={CourseDateUtils.isDateValid}
-              enabled={@props.course.start?}
+              enabled={@state.course.start?}
               isClearable=false
             />
           </div>
 
           <div className='column'>
-            <Calendar course={@props.course}
+            <Calendar course={@state.course}
               editable=true
               setAnyDatesSelected={@setAnyDatesSelected}
               setBlackoutDatesSelected={@setBlackoutDatesSelected}
