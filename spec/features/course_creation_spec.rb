@@ -383,16 +383,15 @@ describe 'New course creation and editing', type: :feature do
         find('.week-nav__add-week').click
       end
       sleep 1
+      page.save_screenshot
       within '.timeline__weeks' do
         expect(page).to have_content 'Week 1'
-        within '.week-1' do
-          find('.week__add-block').click
-          find('input.title').set('block title')
-          within('.block__block-actions') do
-            click_button 'Save'
-          end
-          sleep 1
+        find('.week__add-block').click
+        find('input.title').set('block title')
+        within('.block__block-actions') do
+          click_button 'Save'
         end
+        sleep 1
       end
       # is it still there after reloading?
       visit current_path
