@@ -51,8 +51,8 @@ class SurveyUpdate
       # Don't send emails too quickly, to avoid being throttled by gmail
       sleep 2 unless Rails.env == 'test'
     end
-  rescue Net::SMTPAuthenticationError => e
-    log_message "SMTP authentication error #{@error_count += 1}"
+  rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy => e
+    log_message "SMTP error #{@error_count += 1}"
     sleep 10 unless Rails.env == 'test'
     retry unless @error_count >= 3
     log_end_of_update 'Survey update errored'
