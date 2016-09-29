@@ -7,46 +7,176 @@
 ---
 eu:
   application:
-    greeting: Kaixo,
+    cancel: Utzi
+    dashboard: Wiki Ed Aginte-panela
+    error: 'Errore bat dago:'
+    explore: Esploratu
+    field_required: Eremu hau beharrezkoa da
+    field_invalid_date: Eremu honek data UUUU-HH-EE formatuan behar du
+    greeting2: Ongi etorri!
+    greeting_extended: Ongi Etorri Wikipediara
+    greeting: Kaixo!
     help: Laguntza
+    home: Hasiera
+    log_in_extended: Saioa hasi Wikipedian
+    log_in: Saioa hasi
     log_out: Saioa itxi
+    my_dashboard: Aginte-panela
+    recent_activity: Azken jarduera
+    search: Galdera egin
+    sign_up_extended: Wikipediarekin saioa hasi
+    sign_up_log_in_extended: Wikipediarekin
+    sign_up: Eman izena
+    submit: Bidali
+    training: Trebakuntza
+    change: Aldatu
+  dashboard:
+    explore_course_pages: Esploratu Ikastaro Orrialdeak
+    explore_examples: Adibideetan Arakatu
+    review_orientation: Orientazioa Berrikusi
+    start_orientation: Orientazioa Hasi
+  home:
+    explore: Esploratu
+    log_in: Saioa hasi Wikipedian
+    sign_up: Wikipediarekin saioa hasi
   activity:
     all: Jarduera
+    edited_by: Nork Editatua
+    label: Jarduera
   articles:
+    assigned: Esleitutako Artikuluak
     assigned_to: 'Nori Esleitua:'
     edited: Editatutako artikuluak
     edited_mobile: Artikuluak
+    label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
     rating: Klasea
     title: Izenburua
+    title_example: Artikuluaren izenburua
+    view: Artikulua ikusi
     view_all: Denak ikusi
+    wp10: Egituraren Trinkotasuna
   assignments:
+    assignees: Esleitua(k)
+    assign_other: Artikulu bat esleitu
+    assign_self: Neure buruari artikulu bat esleitu
+    label: Esleitu
+    remove: Kendu
     reviewers: Berrikuslea(k)
+    review_other: Berrikuspen bat esleitu
+    review_self: Artikulua berrikusi
+    select: Aukeratu
   blocks:
     milestones:
       title: Mugarriak
   cohort:
+    none: Bat ere ez
     view_other: Ikusi beste kohorteak
   courses:
     activity: Jarduera
+    actions: Ekintzak
     articles: Artikuluak
+    assignment_end: Esleipen Amaiera
+    calendar:
+      legend: Azalpena
+      legend_class_canceled: Oporretan/Bertan behera
+    cohorts: 'Taldeak:'
+    course_description: Ikastaroak
     courses: Ikastaroak
+    creation_date: Sorrera data
     creator:
+      assignment_end: Esleipen amaiera
+      assignment_end_placeholder: Esleipen amaiera (UUUU-HH-EE)
+      assignment_start: Esleipen hasiera
+      assignment_start_placeholder: Esleipen hasiera(UUUU-HH-EE)
+      course_language: Hizkuntza nagusia
+      course_project: Proiektu nagusia
+      course_subject: Ikastaroaren gaia
+      course_term: Ikastaroaren epealdia
+      course_term_placeholder: Epealdia
+      course_title: Ikastaroaren izenburua
+      create_button: Sortu nire Ikastaroa!
+      create_label: Ikastaro Berri bat sortu
+      create_new: Ikastaro Berri bat sortu
+      create_short: Sortu Ikastaroa
+      end_date: Amaiera data
       end_date_placeholder: Amaiera data (YYYY-MM-DD)
+      expected_number: Espero den ikasle kopurua
+      find: Bilatu Zure Ikastaroa
       save_cloned_course: Gorde Ikastaro Berria
+      start_date: Hasiera data
       start_date_placeholder: Hasiera data (YYYY-MM-DD)
+      subject: Gaia
+    current: Oraingo ikastaroak
     delete_course: Ezabatu ikastaroa
+    dismiss_survey: Baztertu
+    duration: Ikastaroaren Iraupena
+    edit_course_dates: Aldatu ikastaroaren datak
+    end: Amaitu
+    enroll: Izena eman
+    enrollment: Izen ematea
+    expected_students: Espero diren Ikasleak
+    instructor:
+      one: Irakaslea
+      other: Irakasleak
+    instructors: Irakasleak
+    leave_course: Utzi ikastaroa
+    loading: Kargatzen...
     my_articles: Nire artikuluak
+    nocourses: Ez duzu inongo ikastarotan parte hartzen.
+    none: Bat ere ez
     overview: Ikuspegi orokorra
+    passcode: Pasahitza
+    passcode_none: Pasahitzik ez
+    passcode_prompt: Sartu zure bideratzaileak eman dizun ikastaro honetarako pasahitza
+    school: Eskola
+    start: Hasi
+    start_typing: Hasi idazten
     students: Ikasleak
+    students_count: '# Ikasleak'
+    student_editors: Ikasle Editoreak
+    students_none: Ikastaroak ez du ikaslerik.
     students_short: Ikasleak
+    term: Epealdia
+    timeline: Esleipenaren Xehetasunak
+    timeline_link: Denbora-lerroa
     title: Izenburua
+    training_nav: Zoaz trebakuntzara
+    untrained: Trebatu gabe
+    view: Ikusi Ikastaroa
+    view_page: Ikusi Ikastaroaren Orrialdea
     view_wiki: Wikipedia-n ikusi
+    wiki_staff: Wiki Ed-eko Pertsonala
     yourcourses: Zure ikastaroak
+  courses_generic:
+    assignment_end: Denbora-lerroaren Amaiera
+    assignment_start: Denbora-lerroaren Hasiera
+    courses: Programak
+    creator:
+      course_school: Erakundea
+      course_title: Programaren izena
+      create_button: Sortu nire Programa!
+      create_label: Proiektu Berria Sortu
+      create_new: Programa Berri bat sortu
+      create_short: Sortu Programa
+      find: Programa bat bilatu
+    edit_course_dates: Aldatu Proiektuaren Datak
+    enroll: Gehitu Editorea
+    enrollment: Parte-hartzea
+    expected_students: Espero diren editoreak
+    instructors: Bideratzaileak
+    school: Erakundea
+    student_editors: Editoreak
+    students: Editoreak
+    students_short: Editoreak
+    term: Noiz
   editable:
+    edit: Aldatu
+    cancel: Utzi
     save: Gorde
   metrics:
+    activity: Azken jarduera
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
     characters: Karaktereak
@@ -55,31 +185,113 @@ eu:
     char: Gehitutako karaktereak
     date_time: Data/Ordua
     edit_count_description: Aldaketak guztira
+    per_user: '%{number}/erabiltzaile'
+    revisions: Azken Aldaketak
+    upload_count: Commons Igoerak
     view_count_description: Artikuluaren ikustaldiak
     view: Ikustaldiak
+    word_count: Gehitutako Hitzak
+  namespace:
+    user_ns: Erabiltzailea
   recent_activity:
+    article_title: Artikuluaren Izenburua
     datetime: Data/Ordua
     image: Irudia
+    file_name: Fitxategiaren izena
+    plagiarism_report: Plagio Txostena
+    possible_plagiarism: Ustezko Plagioa
+    recent_edits: Azken Aldaketak
+    recent_uploads: Azken Igoerak
+    revision_author: Berrikuspen Egilea
+    revision_datetime: Berrikusi Data/Ordua
+    uploaded_by: Nork Igota
+    usage_count: Erabilera Kontagailua
   revisions:
+    chars_added: Gehitutako karaktereak
+    class: Ikasgela
     date_time: Data/Ordua
+    diff: ezb
+    edited_by: Nork Editatua
+    loading: Berrikuspenak kargatzen...
+    none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     title: Izenburua
+  timeline:
+    add_week: Gehitu Astea
+    arrange_timeline: Denbora-lerroa berrantolatu
+    block_assignment: Esleipena
+    block_custom: Pertsonalizatua
+    block_in_class: Ikasgelan
+    block_milestone: Mugarria
+    course_dates: Ikastaroaren Datak
+    course_end: Ikastaro Amaiera
+    course_start: Ikastaro Hasiera
+    empty_week_3: edo
+    gradeable_value: Balioa
+    save_all_changes: Guztia Gorde
+    this_week_title_default: Aste hau
+    title: Denbora-lerroa
+    week_number: Aste %{number}
+  training:
+    continue: Jarraitu %{progress}
+    start: Hasi
+    view: Ikusi
   uploads:
+    datetime: Data/Ordua
+    file_name: Fitxategiaren izena
+    header: Wikimedia Commonsera Igotako Fitxategiak
+    image: Irudia
+    label: Igoerak
     loading: Igoerak kargatzen...
+    uploaded_by: Nork Igota
+    usage_count: Erabilera Kontagailua
     usages: Erabilerak
   users:
+    assign_articles: Artikuluak Esleitu
+    assign_articles_done: Egina
+    assigned: Esleitutako Artikuluak
+    assignees: Esleitua(k)
     contributions: Lankidearen ekarpenak
+    course_passcode: 'Pasahitza:'
+    editors: Editoreak
+    first_name: Izena
+    last_name: Abizena
     loading: Erabiltzaileak kargatzen...
+    my_assigned: 'Esleitua:'
+    my_reviewing: 'Berrikusten:'
     name: Izena
+    none: Ez dago partaiderik.
+    no_articles: Artikulurik ez
+    recent_revisions: Azken Aldaketak
+    revision_characters_and_views: 'Gehitutako Karaktereak:%{characters}, Ikustaldiak:
+      %{views}'
     reviewers: Berrikuslea(k)
+    reviewing: Berrikusten
+    training_module_name: Trebakuntza moduloa
+    training_module_status: Egoera
+    username: Erabiltzaile izena
+    username_placeholder: Erabiltzaile izena
   wizard:
+    assignment_dates: Esleipen Datak
+    course_dates: Ikastaroaren Datak
     read_less: Irakurri gutxiago
     read_more: Irakurri gehiago
+    summary: Laburpena
   error_401:
     header: Ez duzu baimenik. >:-(
+  error_incorrect_passcode:
+    header: Pasahitz okerra. :-(
   error_404:
     header: Orria ez da aurkitu :-(
   error_422:
     header: 422 — entitate prozesaezina.  :-(
   error_500:
     header: 500 — zerbitzariaren barne-errorea.  :-(
+  login_error:
+    header: Errorea saioa hastean
+  survey:
+    email:
+      headline: Kaixo, %{username}
+      course: Ikastaroa:%{course_info}
+      signed: '- Wiki Ed taldea'
+      link: Inkesta Bete
 ...

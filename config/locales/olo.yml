@@ -19,7 +19,7 @@ olo:
   courses:
     activity: Aktiivizus
     articles: Stuat'at
-    course_description: Wiki Ed -kursat
+    course_description: Kursat
     courses: Kursat
     current: Nygöizet kursat
     duration: Kursan piduhus
@@ -45,7 +45,7 @@ olo:
     constant: Tehtävy %{task} ei voi ruadua kuni tehtävy update_daily ruadau.
   users:
     name: Nimi
-    none: Täl kursal ei ole opastujua.
+    none: Täl kursal ei ole ozanottajii.
     reviewers: Tarkistuslugii(-lugijat)
     reviewing: Tarkistusluvetah
   wizard:

@@ -5,6 +5,7 @@
 # Author: Nike
 # Author: Olimar
 # Author: Pitke
+# Author: Pyscowicz
 # Author: Silvonen
 ---
 fi:
@@ -268,7 +269,7 @@ fi:
     students_short: Opiskelijat
     submitted_admin: Kurssin luoja on lähettänyt tämän kurssin hyväksyttäväksi. Hyväksyäsi
       sen, lisää se johonkin joukkoon yleiskatsaussivulla.
-    submitted_and_pending_heading: Lähetetty & Odottaa hyväksyntää
+    submitted_and_pending_heading: Lähetetty & odottaa hyväksyntää
     submitted_heading: Lisätyt kurssit
     submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
       mikäli kysyttävää ilmenee.
@@ -377,7 +378,7 @@ fi:
   recent_activity:
     active_courses: Artikkeli on käsittelyssä
     article_title: Artikkelin nimi
-    datetime: Päiväys/Aika
+    datetime: Päiväys/aika
     did_you_know_eligible: Tiesitkö, että -kelpoinen
     image: Kuva
     file_name: Tiedostonimi

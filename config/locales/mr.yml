@@ -91,6 +91,7 @@ mr:
     revisions_doc: या संपादकाने मागील ७ दिवसात केलेली संपादने
     reviewers: पुनरावलोकक
     reviewing: पुनरावलोकन करणे
+    training_module_status: स्थिती
   wizard:
     course_dates: अभ्यासक्रमाच्या तारखा
     read_less: कमी वाचा
