@@ -39,14 +39,12 @@ CourseClonedModal = React.createClass(
     @setState
       valuesUpdated: true
       course: updatedCourse
-    CourseActions.updateCourse(updatedCourse)
 
   updateCourseDates: (value_key, value) ->
     updatedCourse = CourseDateUtils.updateCourseDates(@state.course, value_key, value)
     @setState
       dateValuesUpdated: true
       course: updatedCourse
-    CourseActions.updateCourse(updatedCourse)
 
   saveCourse: ->
     if ValidationStore.isValid()

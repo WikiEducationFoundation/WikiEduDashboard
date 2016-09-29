@@ -1,6 +1,8 @@
+import shallowCompare from 'react-addons-shallow-compare';
 import ValidationStore from '../stores/validation_store.coffee';
 import ValidationActions from '../actions/validation_actions.js';
 import UUID from 'node-uuid';
+
 
 // This needs to be implemented as a mixin for state reasons.
 // If there's a good way for high-order components to set state on
@@ -11,6 +13,10 @@ const InputMixin = {
 
   storeDidChange() {
     return this.setState({ invalid: !ValidationStore.getValidation(this.props.value_key) });
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
   },
 
   onChange(e) {

@@ -90,6 +90,7 @@
     "raven-js": "^3.5.1",
     "react": "0.14.8",
     "react-addons-css-transition-group": "^0.14.8",
+    "react-addons-shallow-compare": "https://registry.npmjs.org/react-addons-shallow-compare/-/react-addons-shallow-compare-0.14.8.tgz",
     "react-addons-test-utils": "^0.14.8",
     "react-day-picker": "2.4.1",
     "react-dnd": "^2.1.4",
