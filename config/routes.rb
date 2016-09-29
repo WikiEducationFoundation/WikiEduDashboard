@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # Users
   controller :users do
     get 'users/revisions' => 'users#revisions', :as => :user_revisions
-    get 'users/:username' => 'users#show'
+    get 'users/:username' => 'users#show', constraints: { username: /.*/ }
   end
 
   resources :assignments
