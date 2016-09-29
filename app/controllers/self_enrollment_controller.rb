@@ -49,6 +49,7 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_course_ended
     return unless course_ended?
+    flash[:notice] = 'You cannot join this course. It has already ended.'
     redirect_to course_slug_path(@course.slug)
     yield
   end
