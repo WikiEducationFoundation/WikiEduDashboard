@@ -584,7 +584,13 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
-
+    role:
+      visitor: Visitor 
+      student: Student
+      instructor: Instructor
+      campus_volunteer: Campus Volunteer
+      online_volunteer: Online Volunteer
+      wiki_ed_staff: Wiki Ed Staff
   wiki_edits:
     notify_overdue:
       confirm: >

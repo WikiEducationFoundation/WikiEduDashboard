@@ -49,7 +49,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_username(params[:username])
     if @user
-      @course = @user.courses
+      @courses_user = @user.courses_users
     else
       flash[:notice] = 'User not found'
       redirect_to controller: 'dashboard', action: 'index'

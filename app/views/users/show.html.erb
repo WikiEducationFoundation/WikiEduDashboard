@@ -2,14 +2,14 @@
 <br>
 <br>
 <div class='container'>
-  <h2>Course Details for <%= @user.username %></h2>
-  <% @course.each do |c| %>
-    <a class='course' href='/courses/<%=c.slug%>'>
+  <h2>Course Details For <%= @user.username %></h2>
+  <% @courses_user.each do |c| %>
+    <a class='course' href='/courses/<%=c.course.slug%>'>
       <span class='button border'>
         View Course Page
       </span>    
       <div class='course-title'>
-          <%= c.title%>
+          <%= c.course.title%>
       </div>
       <div class='course-details'>
         <div class='col'>
@@ -17,7 +17,7 @@
             School
           </div>
           <div class='course-details_value'>
-            <%= c.school%>
+            <%= c.course.school%>
           </div>
         </div>
         <div class='col'>
@@ -25,7 +25,7 @@
             Term
           </div>
           <div class='course-details_value'>
-            <%= c.term%>
+            <%= c.course.term%>
           </div>
         </div>
         <div class='col'>
@@ -33,7 +33,15 @@
             #Students
           </div>
           <div class='course-details_value'>
-            <%= c.user_count%>
+            <%= c.course.user_count%>
+          </div>
+        </div>
+        <div class='col'>
+          <div class='course-details_title'>
+            Role
+          </div>
+          <div class='course-details_value'>
+            <%= course_role_name(c.role) %>
           </div>
         </div>
       </div>
