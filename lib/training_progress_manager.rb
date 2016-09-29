@@ -36,7 +36,7 @@ class TrainingProgressManager
   # where modules could belong to any number of courses
   def assignment_status_css_class
     return 'completed' if module_completed?
-    overall_due_date.present? && overall_due_date < Date.today ? 'overdue' : nil
+    overall_due_date.present? && overall_due_date < Time.zone.today ? 'overdue' : nil
   end
   alias assignment_deadline_status assignment_status_css_class
 

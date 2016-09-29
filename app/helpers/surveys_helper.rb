@@ -157,10 +157,9 @@ module SurveysHelper
   end
 
   def conditional_string(answer)
-    if answer.question.conditionals?
-      string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
-      "data-conditional-question=#{string}"
-    end
+    return unless answer.question.conditionals?
+    string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
+    "data-conditional-question=#{string}"
   end
 
   def is_radio_type(answer)

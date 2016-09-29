@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 i = 0
 json.array! @article.revisions.each do |revision|
   i += 1

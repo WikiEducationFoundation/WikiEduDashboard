@@ -134,7 +134,7 @@ class ApplicationController < ActionController::Base
   end
 
   def preferred_locale_from_user
-    return unless current_user && current_user.locale
+    return unless current_user&.locale
     http_accept_language.user_preferred_languages.unshift(current_user.locale)
   end
 

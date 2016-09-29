@@ -15,11 +15,8 @@ class RevisionScoreImporter
   end
 
   def update_revision_scores(revisions=nil)
-    revisions = if revisions
-                  revisions.select { |rev| rev.wiki_id == @wiki.id }
-                else
-                  unscored_mainspace_userspace_and_draft_revisions
-                end
+    revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
+    revisions ||= unscored_mainspace_userspace_and_draft_revisions
 
     batches = revisions.count / 50 + 1
     revisions.each_slice(50).with_index do |rev_batch, i|

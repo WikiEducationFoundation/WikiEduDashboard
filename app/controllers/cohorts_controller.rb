@@ -36,7 +36,7 @@ class CohortsController < ApplicationController
     @cohort = Cohort.find_by(slug: csv_params[:slug])
     respond_to do |format|
       format.csv do
-        filename = "#{@cohort.slug}-#{role}-#{Date.today}.csv"
+        filename = "#{@cohort.slug}-#{role}-#{Time.zone.today}.csv"
         send_data @cohort.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
