@@ -130,7 +130,7 @@ en:
     title_example: Article title
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the course term
+    view_doc: The sum of all views to each article during the program period
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
     wp10: Structural Completeness
@@ -152,7 +152,7 @@ en:
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this assignment?
+    confirm_deletion: Are you sure you want to delete this article?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
@@ -171,6 +171,7 @@ en:
   cohort:
     none: None
     view_other: View other cohorts
+    view_other_campaigns: View other campaigns
 
   courses:
     activity: Activity
@@ -189,6 +190,7 @@ en:
       legend_class_meeting: Class Meeting
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
+    campaigns: 'Campaigns: '
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     cohorts: 'Cohorts: '
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
@@ -208,6 +210,8 @@ en:
       assignment_start: Assignment start
       assignment_start_placeholder: Assignment start (YYYY-MM-DD)
       checking_for_uniqueness: This course is being checked for uniqueness.
+      clone_previous: Clone Previous Program
+      clone_this: Clone This Program
       cloned_course_calendar_instructions: >
         Select dates to add or remove them from the schedule (e.g., holidays, no
         school). Click the date to change between unselected, selected, and
@@ -269,6 +273,7 @@ en:
       If you don’t have a Wikipedia account yet, sign up for one now.
     join: Join
     join_course: Join course
+    join_program: Join program
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
     leave_confirmation: Are you sure you want to leave this course?
@@ -284,6 +289,7 @@ en:
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
     overview: Overview
+    participators_count: Number of participants
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: Enter the passcode given to you by your instructor for this course
@@ -326,7 +332,7 @@ en:
     weeks_none: This course does not have a timeline yet.
     view: View Course
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
-    view_page: View Course Page
+    view_page: View Program Page
     view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer
@@ -337,9 +343,8 @@ en:
 
       Are you sure you want to do this?
     wiki_staff: Wiki Ed Staff
-    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
     yourcourses: Your Courses
-
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
@@ -350,9 +355,12 @@ en:
     assignment_end: Timeline End
     assignments_none: This project has no assigned articles.
     assignment_start: Timeline Start
+    cancel: Cancel
     courses: Programs
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
+      clone_previous: Clone Previous Program
+      clone_this: Clone This Program
       course_description: Program description
       course_school: Institution
       course_title: Program title

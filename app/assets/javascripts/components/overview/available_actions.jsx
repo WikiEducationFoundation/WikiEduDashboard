@@ -64,7 +64,7 @@ const AvailableActions = React.createClass({
     } else {
       controls.push((
         <p key="join">
-          <button onClick={this.join} className="button">{I18n.t('courses.join_course')}</button>
+          <button onClick={this.join} className="button">{I18n.t('courses.join_program')}</button>
         </p>
       ));
     }

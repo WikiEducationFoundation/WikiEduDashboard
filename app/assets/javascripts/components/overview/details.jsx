@@ -222,10 +222,6 @@ const Details = React.createClass({
         </div>
         <div className="module__data extra-line-height">
           {instructors}
-          {online}
-          {campus}
-          {staff}
-          {school}
           {title}
           {term}
           <form>
@@ -255,7 +251,7 @@ const Details = React.createClass({
             {timelineEnd}
           </form>
           <div>
-            <span><strong>{I18n.t('courses.cohorts')}</strong>{cohorts}</span>
+            <span><strong>{I18n.t('courses.campaigns')}</strong>{cohorts}</span>
             <CohortButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse') } />
           </div>
           {subject}

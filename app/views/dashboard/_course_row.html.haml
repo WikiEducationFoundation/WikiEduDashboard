@@ -6,22 +6,12 @@
   .course-details
     .col
       .course-details_title
-        = t("courses.instructors")
+        = t("courses_generic.instructors")
       .course-details_value
         - course.instructors.each do |user|
           = user.username
     .col
       .course-details_title
-        = t("courses.school")
-      .course-details_value
-        = course.school
-    .col
-      .course-details_title
-        = t("courses.term")
-      .course-details_value
-        = course.term
-    .col
-      .course-details_title
-        = t("courses.students_count")
+        = t("courses.participators_count")
       .course-details_value
         = course.students.length
