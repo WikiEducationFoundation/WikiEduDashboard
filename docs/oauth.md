@@ -4,7 +4,7 @@
 
 **If you have not already completed the [dashboard setup](setup.md) portion of the documentation, please head over there first.**
 
-In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a MediaWiki OAuth consumer.
+In order to use and develop the authenticated features of the application (course creation, the assignment design wizard, user management, etc) you will need to create a MediaWiki OAuth consumer. You can skip this setup process and use the consumer provided in `config/application.example.yml` to get started; this consumer cannot be used to make edits or update preferences on Wikipedia, but can be used to log in.
 
 If you haven't already set an email address for your Wikimedia project account, [log in to a Wikimedia site](https://www.mediawiki.org/w/index.php?title=Special:UserLogin&returnto=Special%3AUserLogout&returntoquery=noreturnto%3D) with your username and password. Once you're logged in, click on "Preferences" in the upper right-hand corner. In the "User profile" tab under "Preferences" (selected by default), set your email address. You'll need this to confirm your account and get your token and secret key in the next step.
 
