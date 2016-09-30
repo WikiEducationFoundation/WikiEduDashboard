@@ -1,5 +1,6 @@
 let defaultCourseType;
 let courseStringPrefix;
+let useStartAndEndTimes;
 
 export function setDefaultCourseType(courseType) {
   defaultCourseType = courseType;
@@ -17,3 +18,10 @@ export function getCourseStringPrefix() {
   return courseStringPrefix;
 }
 
+export function setUseStartAndEndTimes(value) {
+  useStartAndEndTimes = value;
+}
+
+export function getUseStartAndEndTimes() {
+  return useStartAndEndTimes;
+}

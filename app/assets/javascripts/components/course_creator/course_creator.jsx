@@ -20,7 +20,7 @@ import TransitionGroup from 'react-addons-css-transition-group';
 import _ from 'lodash';
 
 import { getUserId } from '../../stores/user_id_store.js';
-import { getDefaultCourseType, getCourseStringPrefix } from '../../stores/course_attributes_store';
+import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } from '../../stores/course_attributes_store';
 
 const getState = () => {
   return {
@@ -42,8 +42,10 @@ const CourseCreator = React.createClass({
       shouldShowForm: false,
       showCourseDropdown: false,
       default_course_type: getDefaultCourseType(),
-      course_string_prefix: getCourseStringPrefix()
+      course_string_prefix: getCourseStringPrefix(),
+      use_start_and_end_times: getUseStartAndEndTimes()
     };
+
     return $.extend({}, inits, getState());
   },
 
@@ -74,19 +76,21 @@ const CourseCreator = React.createClass({
     if (this.state.shouldRedirect === true) {
       window.location = `/courses/${this.state.course.slug}?modal=true`;
     }
-    if (!this.state.isSubmitting) { return; }
+    if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
 
     if (ValidationStore.isValid()) {
-      if (this.state.course.slug) {
+      if (this.state.course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
           window.location = `/courses/${this.state.course.slug}/timeline/wizard`;
         } else {
           window.location = `/courses/${this.state.course.slug}`;
         }
-      } else {
+      } else if (!this.state.justSubmitted) {
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
         ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
+        this.setState({ isSubmitting: false });
+        this.setState({ justSubmitted: true });
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
@@ -286,12 +290,12 @@ const CourseCreator = React.createClass({
                   value={this.state.course.start}
                   value_key="start"
                   required
-                  validation={CourseDateUtils.isDateValid}
                   editable
                   label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.start_date_placeholder')}
                   blank
                   isClearable={false}
+                  showTime={this.state.use_start_and_end_times}
                 />
                 <DatePicker
                   id="course_end"
@@ -299,7 +303,6 @@ const CourseCreator = React.createClass({
                   value={this.state.course.end}
                   value_key="end"
                   required
-                  validation={CourseDateUtils.isDateValid}
                   editable
                   label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
                   placeholder={I18n.t('courses.creator.end_date_placeholder')}
@@ -307,6 +310,7 @@ const CourseCreator = React.createClass({
                   date_props={dateProps.end}
                   enabled={!!this.state.course.start}
                   isClearable={false}
+                  showTime={this.state.use_start_and_end_times}
                 />
               </div>
             </div>

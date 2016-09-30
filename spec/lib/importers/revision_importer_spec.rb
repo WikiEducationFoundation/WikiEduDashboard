@@ -70,8 +70,8 @@ describe RevisionImporter do
       end
     end
 
-    it 'includes revisions on the final day of a course' do
-      create(:course, id: 1, start: '2016-03-20', end: '2016-03-31')
+    it 'includes revisions on the final day of a course up to the end time' do
+      create(:course, id: 1, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
       create(:user, id: 1, username: 'Tedholtby')
       create(:courses_user, course_id: 1,
                             user_id: 1,

@@ -7,8 +7,8 @@
 #  title                 :string(255)
 #  created_at            :datetime
 #  updated_at            :datetime
-#  start                 :date
-#  end                   :date
+#  start                 :datetime
+#  end                   :datetime
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
@@ -22,8 +22,8 @@
 #  description           :text(65535)
 #  submitted             :boolean          default(FALSE)
 #  passcode              :string(255)
-#  timeline_start        :date
-#  timeline_end          :date
+#  timeline_start        :datetime
+#  timeline_end          :datetime
 #  day_exceptions        :string(2000)     default("")
 #  weekdays              :string(255)      default("0000000")
 #  new_article_count     :integer          default(0)
@@ -245,6 +245,23 @@ describe Course, type: :model do
                    title: 'History Class',
                    slug: 'History_Class')
     expect(course.to_param).to eq('History_Class')
+  end
+
+  it 'should update start/end times when changing course type' do
+    course = create(:basic_course,
+                   start: DateTime.new(2016, 1, 1, 12, 45, 0),
+                   end: DateTime.new(2016, 1, 10, 15, 30, 0),
+                   title: 'History Class')
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
+    course = course.becomes!(ClassroomProgramCourse)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 23, 59, 59))
+    course = course.becomes!(BasicCourse)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 23, 59, 59))
+    course.end = DateTime.new(2016, 1, 10, 15, 30, 0)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
   end
 
   describe '#url' do
@@ -470,6 +487,7 @@ describe Course, type: :model do
 
   describe 'callbacks' do
     let(:course) { create(:course) }
+
     describe '#before_save' do
       subject { course.update_attributes(course_attrs) }
       context 'params are legit' do
@@ -500,6 +518,25 @@ describe Course, type: :model do
         let(:course_attrs) { { term: nil } }
         it 'fails' do
           expect(subject).to eq(false)
+        end
+      end
+    end
+
+    describe '#set_default_times' do
+      subject do
+        course.update_attributes(course_attrs)
+        course
+      end
+      context 'end is at the beginning of day' do
+        let(:course_attrs) { { end: 1.year.from_now.beginning_of_day } }
+        it 'converts to end of day' do
+          expect(subject.end).to eq(1.year.from_now.end_of_day)
+        end
+      end
+      context 'timeline_end is at the beginning of day' do
+        let(:course_attrs) { { timeline_end: 1.year.from_now.beginning_of_day } }
+        it 'converts to end of day' do
+          expect(subject.timeline_end).to eq(1.year.from_now.end_of_day)
         end
       end
     end
@@ -582,7 +619,9 @@ describe Course, type: :model do
     end
 
     context 'when `n` days after their course end is Today' do
-      let(:course_end) { Time.zone.today - n.days }
+      # By default, course end dates are end-of-day. So we shift by 1 day to test
+      # the case where the course ended within the last 24 hours.
+      let(:course_end) { Time.zone.today - n.days - 1.day }
       let(:before) { false }
       let(:relative_to) { 'end' }
 

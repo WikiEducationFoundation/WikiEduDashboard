@@ -4,8 +4,11 @@ module.exports = {
     return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
 
   isDateValid: (date) ->
-    return false unless date.match(/^20\d{2}\-\d{2}\-\d{2}$/)
-    return moment(date, 'YYYY-MM-DD').isValid()
+    return /^20\d{2}\-\d{2}\-\d{2}/.test(date) && moment(date).isValid()
+
+  formattedDateTime: (datetime, showTime = false) ->
+    format = "YYYY-MM-DD#{if showTime then ' HH:mm (UTC)' else ''}"
+    return moment(datetime).format(format);
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->
@@ -39,6 +42,10 @@ module.exports = {
       updatedCourse.timeline_end = updatedCourse.timeline_start
     if moment(updatedCourse.timeline_end, 'YYYY-MM-DD').isAfter(updatedCourse.end, 'YYYY-MM-DD') && value_key != 'end'
       updatedCourse.end = updatedCourse.timeline_end
+    if moment(updatedCourse.start, 'YYYY-MM-DD').isAfter(updatedCourse.timeline_start, 'YYYY-MM-DD') && value_key != 'timeline_start'
+      updatedCourse.timeline_start = updatedCourse.start
+    if moment(updatedCourse.timeline_start, 'YYYY-MM-DD').isAfter(updatedCourse.end) && value_key != 'timeline_start'
+      updatedCourse.timeline_start = updatedCourse.end
 
     # If the dates were changed by extending the course end, and the assignment end
     # was previously the same as the course end, then extend the timeline end to match.
