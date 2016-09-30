@@ -48,6 +48,11 @@
           = f.hidden_field :thanks , id: 'thanks', value: @survey.thanks
           = f.text_area :thanks
 
+        %div.light-text
+          = f.label :optout, "Opt out message"
+          = f.hidden_field :optout , id: 'optout', value: @survey.optout
+          = f.text_area :optout
+
         .form__actions
           = f.button :submit, :class => 'button dark'
           = link_to "Preview Survey", survey_preview_url(@survey), :class => 'button'

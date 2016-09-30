@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160911210535) do
+ActiveRecord::Schema.define(version: 20160930190451) do
 
   create_table "alerts", force: :cascade do |t|
     t.integer  "course_id",      limit: 4
@@ -316,6 +316,7 @@ ActiveRecord::Schema.define(version: 20160911210535) do
     t.boolean  "open",                               default: false
     t.boolean  "closed",                             default: false
     t.boolean  "confidential_results",               default: false
+    t.text     "optout",               limit: 65535
   end
 
   create_table "surveys_question_groups", force: :cascade do |t|

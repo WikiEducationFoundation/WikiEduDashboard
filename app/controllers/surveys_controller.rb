@@ -165,6 +165,7 @@ class SurveysController < ApplicationController
     params.require(:survey).permit(:name,
                                    :intro,
                                    :thanks,
+                                   :optout,
                                    :closed,
                                    :open,
                                    rapidfire_question_group_ids: [])
