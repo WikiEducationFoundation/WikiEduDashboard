@@ -5,6 +5,10 @@ import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-
 import App from '../components/app.jsx';
 import Course from '../components/course.cjsx';
 import Onboarding from '../components/onboarding/index.jsx';
+import OnboardingIntro from '../components/onboarding/intro.jsx';
+import OnboardingForm from '../components/onboarding/form.jsx';
+import OnboardingPermissions from '../components/onboarding/permissions.jsx';
+import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
 import Dates from '../components/timeline/meetings.cjsx';
 import CourseCreator from '../components/course_creator/course_creator.jsx';
@@ -49,11 +53,11 @@ browserHistory.listen(location => {
 
 const routes = (
   <Route path="/" component={App}>
-    <Route path="onboarding" component={Onboarding.Root}>
-      <IndexRoute component={Onboarding.Intro} />
-      <Route path="form" component={Onboarding.Form} />
-      <Route path="permissions" component={Onboarding.Permissions} />
-      <Route path="finish" component={Onboarding.Finished} />
+    <Route path="onboarding" component={Onboarding}>
+      <IndexRoute component={OnboardingIntro} />
+      <Route path="form" component={OnboardingForm} />
+      <Route path="permissions" component={OnboardingPermissions} />
+      <Route path="finish" component={OnboardingFinished} />
     </Route>
     <Route path="recent-activity" component={RecentActivityHandler}>
       <IndexRedirect to="dyk" />
