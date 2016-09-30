@@ -48,10 +48,10 @@ CourseClonedModal = React.createClass(
 
   saveCourse: ->
     if ValidationStore.isValid()
-      @updateCourse('cloned_status', @cloneCompletedStatus)
       ValidationActions.setInvalid 'exists', I18n.t('courses.creator.checking_for_uniqueness'), true
       setTimeout =>
         updatedCourse = $.extend(true, {}, { course: @state.course })
+        updatedCourse.course.cloned_status = @cloneCompletedStatus
         slug = @state.course.slug
         id = CourseUtils.generateTempId(@state.course)
         CourseActions.updateClonedCourse(updatedCourse, slug, id)
@@ -59,9 +59,8 @@ CourseClonedModal = React.createClass(
       , 0
 
   isNewCourse: (course) ->
-    # it's "new" if it was updated fewer than 10 seconds ago.
-    updated = new Date(course.updated_at)
-    ((Date.now() - updated) / 1000) < 10
+    # it's "new" if the cloned_course status comes back from the server as updated.
+    course.cloned_status == 2
 
   handleCourse: ->
     return unless @state.isPersisting
