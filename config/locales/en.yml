@@ -130,7 +130,7 @@ en:
     title_example: Article title
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the course term
+    view_doc: The sum of all views to each article during the project
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
     wp10: Structural Completeness
@@ -152,7 +152,7 @@ en:
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this assignment?
+    confirm_deletion: Are you sure you want to delete this article assignment?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
@@ -170,7 +170,6 @@ en:
 
   cohort:
     none: None
-    view_other: View other cohorts
 
   courses:
     activity: Activity
@@ -189,6 +188,7 @@ en:
       legend_class_meeting: Class Meeting
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
+    cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     cohorts: 'Cohorts: '
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
@@ -208,6 +208,8 @@ en:
       assignment_start: Assignment start
       assignment_start_placeholder: Assignment start (YYYY-MM-DD)
       checking_for_uniqueness: This course is being checked for uniqueness.
+      clone_previous: Clone Previous Course
+      clone_this: Clone This Course
       cloned_course_calendar_instructions: >
         Select dates to add or remove them from the schedule (e.g., holidays, no
         school). Click the date to change between unselected, selected, and
@@ -325,7 +327,7 @@ en:
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
-    weeks_none: This course does not have a timeline yet.
+    view_other: View other cohorts
     view: View Course
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
@@ -333,6 +335,7 @@ en:
     volunteer:
       one: Volunteer
       other: Volunteers
+    weeks_none: This course does not have a timeline yet.
     warn_mirrored: >
       Upon submission, this course will be automatically posted to Wikipedia with your user account.
       After that, new edits to the timeline will be mirrored to Wikipedia.
@@ -341,7 +344,6 @@ en:
     wiki_staff: Wiki Ed Staff
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     yourcourses: Your Courses
-
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
@@ -352,9 +354,13 @@ en:
     assignment_end: Timeline End
     assignments_none: This project has no assigned articles.
     assignment_start: Timeline Start
+    cancel: Cancel
     courses: Programs
+    cohorts: 'Campaigns: '
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
+      clone_previous: Clone Previous Program
+      clone_this: Clone This Program
       course_description: Program description
       course_school: Institution
       course_title: Program title
@@ -366,11 +372,14 @@ en:
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
+    delete_course: Delete program
     edit_course_dates: Edit Project Dates
     enroll: Add Editor
     enrollment: Participation
     expected_students: Expected Editors
     instructors: Facilitators
+    join_course: Join program
+    leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     revisions_none: This project has no recent editing activity.
@@ -379,8 +388,13 @@ en:
     students: Editors
     students_none: This project has no editors enrolled.
     students_short: Editors
+    students_count: Number of participants
     term: When
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    view_other: View other campaigns
+    view_page: View Program Page
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+
 
   editable:
     edit: Edit

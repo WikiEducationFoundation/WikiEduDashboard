@@ -22,4 +22,12 @@ module CourseHelper
     return 'table-row--info' if course.start > 1.week.ago
     return ''
   end
+
+  def course_i18n(message_key)
+    if Features.wiki_ed?
+      return I18n.t("courses.#{message_key}")
+    else
+      return I18n.t("courses_generic.#{message_key}")
+    end
+  end
 end

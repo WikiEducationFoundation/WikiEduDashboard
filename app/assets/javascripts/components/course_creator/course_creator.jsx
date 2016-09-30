@@ -237,12 +237,12 @@ const CourseCreator = React.createClass({
             <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
             <div className={cloneOptions}>
               <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
-              <button className="button dark" onClick={this.showCourseDropdown}>Clone Previous Course</button>
+              <button className="button dark" onClick={this.showCourseDropdown}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
             </div>
             <div className={selectClassName}>
               <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
-              <button className="button dark" onClick={this.useThisClass}>Clone This Course</button>
-              <button className="button dark right" onClick={this.cancelClone}>Cancel</button>
+              <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
+              <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
             </div>
             <div className={formClass}>
               <div className="column">
