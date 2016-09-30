@@ -530,13 +530,13 @@ describe Course, type: :model do
       context 'end is at the beginning of day' do
         let(:course_attrs) { { end: 1.year.from_now.beginning_of_day } }
         it 'converts to end of day' do
-          expect(subject.end).to eq(1.year.from_now.end_of_day)
+          expect(subject.end).to be_within(1.second).of(1.year.from_now.end_of_day)
         end
       end
       context 'timeline_end is at the beginning of day' do
         let(:course_attrs) { { timeline_end: 1.year.from_now.beginning_of_day } }
         it 'converts to end of day' do
-          expect(subject.timeline_end).to eq(1.year.from_now.end_of_day)
+          expect(subject.timeline_end).to be_within(1.second).of(1.year.from_now.end_of_day)
         end
       end
     end
