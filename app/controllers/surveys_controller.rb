@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 class SurveysController < ApplicationController
   layout 'surveys_minimal', only: [:show]
+  layout 'application', only: [:optout]
+
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
@@ -9,6 +11,7 @@ class SurveysController < ApplicationController
   before_action :require_admin_permissions, except: [:show]
   before_action :set_survey, only: [
     :show,
+    :optout,
     :edit,
     :update,
     :destroy,
@@ -63,6 +66,9 @@ class SurveysController < ApplicationController
     # around the accessibility probems.
     @accessibility_mode = true if params['accessibility'] == 'true'
     render 'show'
+  end
+
+  def optout
   end
 
   def course_select

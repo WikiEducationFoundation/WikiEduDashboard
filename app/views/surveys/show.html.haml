@@ -12,7 +12,7 @@
           - if @survey.confidential_results
             = @survey.intro.html_safe
             .survey__block-nav
-              %a.button.survey__prev.border{"href" => "/"}
+              %a.button.survey__prev.border{"href" => "optout"}
                 %span No, I do not agree
               %button.button.survey__next.dark{"data-next-survey-block" => "", "agree-to-terms" => "", "data-no-validate" => true}
                 %span Yes, I agree

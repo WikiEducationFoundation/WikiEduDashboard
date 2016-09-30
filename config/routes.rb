@@ -174,6 +174,7 @@ Rails.application.routes.draw do
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
   post '/surveys/update_question_group_position' => 'surveys#update_question_group_position'
   resources :surveys
+  get '/surveys/:id/optout' => 'surveys#optout', as: 'optout'
   get '/surveys/select_course/:id' => 'surveys#course_select'
   put '/survey_notification' => 'survey_notifications#update'
   post '/survey_notification/create' => 'survey_assignments#create_notifications', as: 'create_notifications'
