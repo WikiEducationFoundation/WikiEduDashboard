@@ -247,6 +247,23 @@ describe Course, type: :model do
     expect(course.to_param).to eq('History_Class')
   end
 
+  it 'should update start/end times when changing course type' do
+    course = create(:basic_course,
+                   start: DateTime.new(2016, 1, 1, 12, 45, 0),
+                   end: DateTime.new(2016, 1, 10, 15, 30, 0),
+                   title: 'History Class')
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
+    course = course.becomes!(ClassroomProgramCourse)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 23, 59, 59))
+    course = course.becomes!(BasicCourse)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 23, 59, 59))
+    course.end = DateTime.new(2016, 1, 10, 15, 30, 0)
+    course.save!
+    expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
+  end
+
   describe '#url' do
     it 'should return the url of a course page' do
       # A legacy course
