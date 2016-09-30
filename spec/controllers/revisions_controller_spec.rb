@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 describe RevisionsController do
+  # This spec involves multiple course types to check the behaviour of course start/end times
+  #   and how they interact with the Course.revisions scope
   describe '#index' do
     let(:course_start) { DateTime.new(2015, 1, 1, 0, 0, 0) }
     let(:course_end) { DateTime.new(2016, 1, 1, 20, 0, 0) }
@@ -55,7 +57,7 @@ describe RevisionsController do
       end
     end
 
-    it 'does not return revisions that happened after the basic course ended' do
+    it 'does return revisions from the final day of the basic course but not after it ended' do
       get :index, params2
       non_basic_course_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
