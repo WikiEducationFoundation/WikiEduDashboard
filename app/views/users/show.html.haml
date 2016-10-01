@@ -1,0 +1,33 @@
+%br/
+%br/
+.container
+  %h2
+    = t("courses.course_details")
+    #{@user.username}
+  - @courses_user.each do |c|
+    %a.course{:href => "/courses/#{c.course.slug}"}
+      %span.button.border
+        = t("courses.view_page")
+      .course-title
+        = c.course.title
+      .course-details
+        .col
+          .course-details_title
+            = t("courses.school")
+          .course-details_value
+            = c.course.school
+        .col
+          .course-details_title
+            = t("courses.term")
+          .course-details_value
+            = c.course.term
+        .col
+          .course-details_title
+            = t("courses.students_count")
+          .course-details_value
+            = c.course.user_count
+        .col
+          .course-details_title
+            = t("courses.user_role")
+          .course-details_value
+            = course_role_name(c.role)
