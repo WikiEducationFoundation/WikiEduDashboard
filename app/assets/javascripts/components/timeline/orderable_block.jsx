@@ -1,5 +1,5 @@
 import React from 'react';
-import Reorderable from '../high_order/reorderable.cjsx';
+import Reorderable from '../high_order/reorderable.jsx';
 
 const OrderableBlock = React.createClass({
   displayName: 'OrderableBlock',
