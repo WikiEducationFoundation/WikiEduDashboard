@@ -34,7 +34,7 @@ json.course do
       if notification.course.id == @course.id
         json.id notification.id
         json.survey_url course_survey_url(notification).to_s
-        # json.message notification.survey_assignment.custom_banner_message
+        json.message notification.survey_assignment.custom_banner_message
       end
     end
   end
