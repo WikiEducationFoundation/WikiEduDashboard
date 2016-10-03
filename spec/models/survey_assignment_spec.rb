@@ -161,4 +161,21 @@ RSpec.describe SurveyAssignment, type: :model do
       ).length).to eq(0)
     end
   end
+
+  describe '#custom_email' do
+    context 'when nil' do
+      it 'causes no problems' do
+        expect(@survey_assignment.custom_email).to eq(nil)
+        expect(@survey_assignment.custom_email_subject).to eq(nil)
+      end
+    end
+    context 'when set with a hash' do
+      it 'serializes, saves, and returns the hash' do
+        @survey_assignment.custom_email = { 'subject' => 'foo' }
+        @survey_assignment.save
+        expect(@survey_assignment.custom_email).to eq('subject' => 'foo')
+        expect(@survey_assignment.custom_email_subject).to eq('foo')
+      end
+    end
+  end
 end
