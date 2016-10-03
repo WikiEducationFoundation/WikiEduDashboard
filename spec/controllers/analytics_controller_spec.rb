@@ -19,19 +19,19 @@ describe AnalyticsController do
 
   describe '#results' do
     it 'returns a monthly report' do
-      post 'results', monthly_report: true
+      post 'results', params: { monthly_report: true }
       expect(response.status).to eq(200)
     end
 
     it 'returns cohort statistics' do
-      post 'results', cohort_stats: true
+      post 'results', params: { cohort_stats: true }
       expect(response.status).to eq(200)
     end
 
     it 'return cohort intersection statistics' do
-      post 'results', cohort_intersection: true,
-                      cohort_1: { id: 1 },
-                      cohort_2: { id: 2 }
+      post 'results', params: { cohort_intersection: true,
+                                cohort_1: { id: 1 },
+                                cohort_2: { id: 2 } }
       expect(response.status).to eq(200)
     end
   end

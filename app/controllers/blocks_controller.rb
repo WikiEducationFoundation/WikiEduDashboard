@@ -4,6 +4,6 @@ class BlocksController < ApplicationController
 
   def destroy
     Block.find(params[:id]).destroy
-    render nothing: true
+    render plain: '', status: 200
   end
 end

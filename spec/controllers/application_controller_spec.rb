@@ -6,7 +6,7 @@ describe ApplicationController do
 
   controller do
     def index
-      render nothing: true, status: 200
+      head 200
     end
   end
 
@@ -31,7 +31,7 @@ describe ApplicationController do
     controller do
       def index
         require_admin_permissions
-        render nothing: true
+        head 200
       end
     end
 
@@ -57,7 +57,7 @@ describe ApplicationController do
     controller do
       def index
         require_signed_in
-        render nothing: true
+        head 200
       end
     end
 
@@ -91,12 +91,12 @@ describe ApplicationController do
     end
 
     it 'sets the locale from a param' do
-      get :index, locale: 'zh-hant'
+      get :index, params: { locale: 'zh-hant' }
       expect(I18n.locale).to eq(:'zh-hant')
     end
 
     it 'falls back to a default if locale is not available' do
-      get :index, locale: 'not-a-real-locale'
+      get :index, params: { locale: 'not-a-real-locale' }
       expect(I18n.locale).to eq(:en)
     end
   end

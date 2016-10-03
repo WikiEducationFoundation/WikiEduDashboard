@@ -10,14 +10,16 @@ describe CoursesController do
 
     context 'for an valid course path' do
       it 'renders a 200' do
-        get :show, school: school, titleterm: titleterm
+        course_params = { school: school, titleterm: titleterm }
+        get :show, params: course_params
         expect(response.status).to eq(200)
       end
     end
 
     context 'when a spider tries index.php' do
       it 'renders a plain text 404' do
-        get :show, school: school, titleterm: titleterm, endpoint: 'index', format: 'php'
+        course_params = { school: school, titleterm: titleterm, endpoint: 'index' }
+        get :show, params: course_params, format: 'php'
         expect(response.status).to eq(404)
         expect(response.headers['Content-Type']).to match %r{text/plain}
       end
@@ -50,7 +52,7 @@ describe CoursesController do
 
     it 'calls update methods via WikiCourseEdits' do
       expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-      delete :destroy, id: "#{course.slug}.json", format: :json
+      delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
     end
 
     context 'destroy callbacks' do
@@ -60,7 +62,7 @@ describe CoursesController do
       end
 
       it 'destroys associated models' do
-        delete :destroy, id: "#{course.slug}.json", format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
 
         %w(CoursesUsers ArticlesCourses CohortsCourses).each do |model|
           expect do
@@ -78,12 +80,12 @@ describe CoursesController do
       end
 
       it 'returns success' do
-        delete :destroy, id: "#{course.slug}.json", format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
         expect(response).to be_success
       end
 
       it 'deletes the course' do
-        delete :destroy, id: "#{course.slug}.json", format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
         expect(Course.find_by_slug(course.slug)).to be_nil
       end
     end
@@ -120,7 +122,8 @@ describe CoursesController do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
     end
     it 'updates all values' do
-      put :update, id: course.slug, course: course_params, format: :json
+      params = { id: course.slug, course: course_params }
+      put :update, params: params, format: :json
       course_params.each do |key, value|
         # There's some variability the precision of datetimes between what
         # comes out of MySQL and a raw Ruby datetime object. So we add a bit
@@ -137,18 +140,21 @@ describe CoursesController do
       let(:course) { create(:course) }
       before { course.update_attribute(:passcode, nil) }
       it 'sets if it is nil and not in params' do
-        put :update, id: course.slug, course: { title: 'foo' }, format: :json
+        params = { id: course.slug, course: { title: 'foo' } }
+        put :update, params: params, format: :json
         expect(course.reload.passcode).to match(/[a-z]{8}/)
       end
     end
 
     it 'raises if course is not found' do
-      expect { put :update, id: 'peanut-butter', course: course_params, format: :json }
+      params = { id: 'peanut-butter', course: course_params }
+      expect { put :update, params: params, format: :json }
         .to raise_error(ActionController::RoutingError)
     end
 
     it 'returns the new course as json' do
-      put :update, id: course.slug, course: course_params, format: :json
+      params = { id: course.slug, course: course_params }
+      put :update, params: params, format: :json
       # created ats differ by milliseconds, so check relevant attrs
       expect(response.body['title']).to eq(course.reload.to_json['title'])
       expect(response.body['term']).to eq(course.reload.to_json['term'])
@@ -160,7 +166,8 @@ describe CoursesController do
       let(:submitted_2) { true }
       it 'does not announce course' do
         expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
-        put :update, id: course.slug, course: course_params, format: :json
+        params = { id: course.slug, course: course_params }
+        put :update, params: params, format: :json
       end
     end
 

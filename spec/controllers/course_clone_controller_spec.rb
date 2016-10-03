@@ -16,13 +16,13 @@ describe CourseCloneController do
       end
       it 'clones the course' do
         expect_any_instance_of(CourseCloneManager).to receive(:clone!)
-        post :clone, id: course.id
+        post :clone, params: { id: course.id }
       end
     end
     context 'when the user is not the original instructor' do
       it 'returns a 401 error' do
         expect(CourseCloneManager).not_to receive(:new)
-        post :clone, id: course.id
+        post :clone, params: { id: course.id }
         expect(response.status).to eq(401)
       end
     end

@@ -60,7 +60,9 @@ Rails.application.routes.draw do
     post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
   end
 
-  get 'lookups/(:action)(.:format)' => 'lookups'
+  get 'lookups/cohort(.:format)' => 'lookups#cohort'
+  get 'lookups/tag(.:format)' => 'lookups#tag'
+  get 'lookups/article(.:format)' => 'lookups#article'
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do

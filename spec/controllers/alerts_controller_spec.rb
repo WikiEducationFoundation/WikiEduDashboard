@@ -19,7 +19,7 @@ describe AlertsController do
     end
 
     it 'should create Need Help alert and send email' do
-      post :create, alert_params, format: :json
+      post :create, params: alert_params, format: :json
 
       expect(response.status).to eq(200)
       expect(ActionMailer::Base.deliveries).not_to be_empty
@@ -33,7 +33,7 @@ describe AlertsController do
 
     it 'renders a 500 if alert creation fails' do
       allow_any_instance_of(Alert).to receive(:save).and_return(false)
-      post :create, alert_params, format: :json
+      post :create, params: alert_params, format: :json
       expect(response.status).to eq(500)
     end
 
@@ -43,7 +43,7 @@ describe AlertsController do
       end
 
       it 'raises a 400' do
-        post :create, alert_params, format: :json
+        post :create, params: alert_params, format: :json
         expect(response.status).to eq(400)
       end
     end

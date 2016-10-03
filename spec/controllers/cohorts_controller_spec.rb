@@ -24,19 +24,19 @@ describe CohortsController do
       end
 
       it 'creates new cohorts' do
-        post :create, cohort_params
+        post :create, params: cohort_params
         expect(Cohort.last.slug).to eq(expected_slug)
       end
 
       it 'does not create duplicate titles' do
         Cohort.create(title: title, slug: 'foo')
-        post :create, cohort_params
+        post :create, params: cohort_params
         expect(Cohort.last.slug).to eq('foo')
       end
 
       it 'does not create duplicate slugs' do
         Cohort.create(title: 'foo', slug: expected_slug)
-        post :create, cohort_params
+        post :create, params: cohort_params
         expect(Cohort.last.title).to eq('foo')
       end
     end
@@ -47,7 +47,7 @@ describe CohortsController do
       end
 
       it 'returns a 401 and does not create a cohort' do
-        post :create, cohort_params
+        post :create, params: cohort_params
         expect(response.status).to eq(401)
         expect(Cohort.count).to eq(1)
       end
@@ -69,7 +69,7 @@ describe CohortsController do
       let(:request_params) { { slug: cohort.slug, format: :csv } }
 
       it 'returns a csv of student usernames' do
-        get :students, request_params
+        get :students, params: request_params
         expect(response.body).to have_content(student.username)
       end
     end
@@ -78,7 +78,7 @@ describe CohortsController do
       let(:request_params) { { slug: cohort.slug, course: true, format: :csv } }
 
       it 'returns a csv of student usernames with course slugs' do
-        get :students, request_params
+        get :students, params: request_params
         expect(response.body).to have_content(student.username)
         expect(response.body).to have_content(course.slug)
       end
@@ -100,7 +100,7 @@ describe CohortsController do
       let(:request_params) { { slug: cohort.slug, format: :csv } }
 
       it 'returns a csv of instructor usernames' do
-        get :instructors, request_params
+        get :instructors, params: request_params
         expect(response.body).to have_content(instructor.username)
       end
     end
@@ -109,7 +109,7 @@ describe CohortsController do
       let(:request_params) { { slug: cohort.slug, course: true, format: :csv } }
 
       it 'returns a csv of instructor usernames with course slugs' do
-        get :instructors, request_params
+        get :instructors, params: request_params
         expect(response.body).to have_content(instructor.username)
         expect(response.body).to have_content(course.slug)
       end

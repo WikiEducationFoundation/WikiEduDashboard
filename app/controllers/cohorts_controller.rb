@@ -14,7 +14,7 @@ class CohortsController < ApplicationController
     # Strip everything but letters and digits, and convert spaces to underscores
     @slug = @title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_')
     if already_exists?
-      render nothing: true, status: :ok
+      head :ok
       return
     end
 

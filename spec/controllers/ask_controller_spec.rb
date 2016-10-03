@@ -7,7 +7,7 @@ describe AskController do
   end
 
   describe '#search' do
-    let(:subject) { get 'search', query }
+    let(:subject) { get 'search', params: query }
 
     context 'when query is not blank' do
       let(:query) { { q: 'Help! I cannot enroll!' } }

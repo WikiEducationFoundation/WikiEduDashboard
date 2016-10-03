@@ -13,7 +13,7 @@ describe AssignmentsController do
 
     before do
       allow(Assignment).to receive(:where).and_return(assignment)
-      get :index, course_id: course.slug
+      get :index, params: { course_id: course.slug }
     end
     it 'sets assignments ivar' do
       expect(assigns(:assignments)).to eq(assignment)
@@ -39,7 +39,7 @@ describe AssignmentsController do
       context 'when the assignment_id is provided' do
         let(:params) { { course_id: course.slug } }
         before do
-          delete :destroy, { id: assignment.id }.merge(params)
+          delete :destroy, params: { id: assignment.id }.merge(params)
         end
         it 'destroys the assignment' do
           expect(Assignment.count).to eq(0)
@@ -57,7 +57,7 @@ describe AssignmentsController do
             article_title: assignment.article_title, role: assignment.role }
         end
         before do
-          delete :destroy, { id: 'undefined' }.merge(params)
+          delete :destroy, params: { id: 'undefined' }.merge(params)
         end
         # This happens when an assignment is deleted right after it has been created.
         # The version in the AssignmentStore will not have an assignment_id until
@@ -72,7 +72,7 @@ describe AssignmentsController do
       let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id + 1) }
       let(:params) { { course_id: course.slug } }
       before do
-        delete :destroy, { id: assignment }.merge(params)
+        delete :destroy, params: { id: assignment }.merge(params)
       end
 
       it 'does not destroy the assignment' do
@@ -91,7 +91,7 @@ describe AssignmentsController do
           article_title: assignment.article_title, role: assignment.role }
       end
       before do
-        delete :destroy, { id: 'undefined' }.merge(params)
+        delete :destroy, params: { id: 'undefined' }.merge(params)
       end
       # This happens when an assignment is deleted right after it has been created.
       # The version in the AssignmentStore will not have an assignment_id until
@@ -116,7 +116,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, assignment_params
+            put :create, params: assignment_params
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('Pizza')
@@ -137,7 +137,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, wiktionary_params
+            put :create, params: wiktionary_params
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('selfie')
@@ -154,7 +154,7 @@ describe AssignmentsController do
         it 'sets assignments ivar with a default wiki' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, assignment_params
+          put :create, params: assignment_params
           assignment = assigns(:assignment)
           expect(assignment).to be_a_kind_of(Assignment)
           expect(assignment.wiki.language).to eq('en')
@@ -164,7 +164,7 @@ describe AssignmentsController do
         it 'renders a json response' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, assignment_params
+          put :create, params: assignment_params
           json_response = JSON.parse(response.body)
           # response makes created_at differ by milliseconds, which is weird,
           # so test attrs that actually matter rather than whole record
@@ -187,7 +187,7 @@ describe AssignmentsController do
         it 'sets the wiki based on language and project params' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, assignment_params_with_language_and_project
+          put :create, params: assignment_params_with_language_and_project
           assignment = assigns(:assignment)
           expect(assignment).to be_a_kind_of(Assignment)
           expect(assignment.wiki_id).to eq(es_wikibooks.id)
@@ -201,7 +201,7 @@ describe AssignmentsController do
         { user_id: user.id + 1, course_id: course.slug, title: 'pizza', role: 0 }
       end
       before do
-        put :create, assignment_params
+        put :create, params: assignment_params
       end
 
       it 'does not create the assignment' do
@@ -220,7 +220,7 @@ describe AssignmentsController do
           language: 'en', project: 'bulbapedia' }
       end
       before do
-        put :create, invalid_wiki_params
+        put :create, params: invalid_wiki_params
       end
       it 'renders a 404' do
         expect(response.status).to eq(404)
@@ -234,14 +234,14 @@ describe AssignmentsController do
 
     context 'when the update succeeds' do
       it 'renders a 200' do
-        post :update, { id: assignment }.merge(update_params)
+        post :update, params: { id: assignment }.merge(update_params)
         expect(response.status).to eq(200)
       end
     end
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        post :update, { id: assignment }.merge(update_params)
+        post :update, params: { id: assignment }.merge(update_params)
         expect(response.status).to eq(500)
       end
     end

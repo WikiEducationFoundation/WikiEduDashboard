@@ -19,7 +19,7 @@ describe ArticleFinderController do
     it 'invokes CategoryImporter' do
       params = { category: 'Feminism' }
       expect_any_instance_of(CategoryImporter).to receive(:show_category)
-      post :results, params
+      post :results, params: params
       expect(response.status).to eq(200)
     end
   end
