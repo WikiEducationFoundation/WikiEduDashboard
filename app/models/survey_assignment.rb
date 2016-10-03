@@ -41,7 +41,7 @@ class SurveyAssignment < ActiveRecord::Base
   ###########################
   # Custom email attributes #
   ###########################
-  serialize :custom_email
+  serialize :custom_email, Hash
 
   def custom_email_subject
     custom_email['subject'] if custom_email

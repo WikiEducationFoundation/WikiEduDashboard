@@ -39,7 +39,7 @@ class Revision < ActiveRecord::Base
   validates :mw_rev_id, presence: true
   validates :wiki_id, presence: true
 
-  serialize :features
+  serialize :features, Hash
 
   include ArticleHelper
 
