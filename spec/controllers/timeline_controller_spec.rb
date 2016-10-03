@@ -32,7 +32,7 @@ describe TimelineController do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
         request.content_type = 'application/json'
-        post :update_timeline, post_params
+        post :update_timeline, params: post_params
         expect(block.reload.training_module_ids).to eq(ids)
       end
       context 'sending nil as training_module_ids param' do
@@ -43,7 +43,7 @@ describe TimelineController do
           # FIXME: Remove workaround after Rails 5.0.1
           # See https://github.com/rails/rails/issues/26075
           request.content_type = 'application/json'
-          post :update_timeline, post_params
+          post :update_timeline, params: post_params
           expect(block.reload.training_module_ids).to eq([])
         end
       end

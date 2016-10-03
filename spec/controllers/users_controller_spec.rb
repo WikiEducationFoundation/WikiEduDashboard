@@ -27,7 +27,7 @@ describe UsersController do
         { id: course.slug,
           user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
-      before { post 'enroll', post_params }
+      before { post 'enroll', params: post_params }
       it 'does not create a CoursesUsers' do
         expect(CoursesUsers.count).to eq(0)
       end
@@ -49,7 +49,7 @@ describe UsersController do
             user: { user_id: user.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
         end
         before do
-          post 'enroll', post_params
+          post 'enroll', params: post_params
         end
         it 'returns a 404' do
           expect(subject).to eq(404)
@@ -65,7 +65,7 @@ describe UsersController do
             user: { username: another_user.username, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
         end
         before do
-          post 'enroll', post_params
+          post 'enroll', params: post_params
         end
         it 'returns a 200' do
           expect(subject).to eq(200)
@@ -86,7 +86,7 @@ describe UsersController do
           user: { user_id: admin.id, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
       end
       before do
-        post 'enroll', post_params
+        post 'enroll', params: post_params
       end
       it 'returns a 200' do
         expect(subject).to eq(200)
@@ -106,7 +106,7 @@ describe UsersController do
           user: { user_id: admin.id, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }.as_json }
       end
       before do
-        post 'enroll', post_params
+        post 'enroll', params: post_params
       end
       it 'returns a 200' do
         expect(subject).to eq(200)
@@ -130,7 +130,7 @@ describe UsersController do
                course_id: course.id,
                user_id: user.id,
                article_id: article.id)
-        delete 'enroll', delete_params
+        delete 'enroll', params: delete_params
       end
       it 'destroys the courses user' do
         expect(CoursesUsers.count).to eq(0)
@@ -149,13 +149,13 @@ describe UsersController do
     end
 
     it 'returns a 422 if locale is invalid' do
-      put 'update_locale', locale: 'bad-locale'
+      put 'update_locale', params: { locale: 'bad-locale' }
       expect(response.status).to eq(422)
       expect(user.locale).to eq('fr')
     end
 
     it 'updates user locale and returns a 200 if locale is valid' do
-      put 'update_locale', locale: 'es'
+      put 'update_locale', params: { locale: 'es' }
       expect(response.status).to eq(200)
       expect(user.locale).to eq('es')
     end

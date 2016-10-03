@@ -179,7 +179,8 @@ describe CoursesController do
         request.content_type = 'application/json'
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
-        put :update, id: course.slug, course: course_params, format: :json
+        params = { id: course.slug, course: course_params }
+        put :update, params: params, format: :json
       end
     end
   end
@@ -203,7 +204,7 @@ describe CoursesController do
             end: '2015-12-20' }
         end
         it 'sets slug correctly' do
-          post :create, course: course_params, format: :json
+          post :create, params: { course: course_params }, format: :json
           expect(Course.last.slug).to eq(expected_slug)
         end
       end
@@ -214,7 +215,7 @@ describe CoursesController do
             title: 'How to Wiki' }
         end
         it 'does not set slug (and does not create course)' do
-          post :create, course: course_params, format: :json
+          post :create, params: { course: course_params }, format: :json
           expect(Course.all).to be_empty
         end
       end
@@ -231,13 +232,13 @@ describe CoursesController do
         end
 
         it 'sets the non-default home_wiki' do
-          post :create, course: course_params, format: :json
+          post :create, params: { course: course_params }, format: :json
           expect(Course.last.home_wiki.language).to eq('ar')
           expect(Course.last.home_wiki.project).to eq('wikibooks')
         end
 
         it 'assigns the new course to @course' do
-          post :create, course: course_params, format: :json
+          post :create, params: { course: course_params }, format: :json
           expect(assigns(:course)).to be_a_kind_of(Course)
         end
       end
@@ -254,7 +255,7 @@ describe CoursesController do
         end
 
         it 'renders a 404 and does not create the course' do
-          post :create, course: course_params, format: :json
+          post :create, params: { course: course_params }, format: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
         end
@@ -277,7 +278,7 @@ describe CoursesController do
             no_day_exceptions: true }
         end
         it 'sets timeline start/end to course start/end if not in params' do
-          put :create, course: course_params, format: :json
+          put :create, params: { course: course_params }, format: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
           expect(Course.last.timeline_end).to be_within(1.second).of(course_params[:end])
         end
@@ -297,7 +298,8 @@ describe CoursesController do
 
     context 'when cohort is not found' do
       it 'gives a failure message' do
-        post :list, id: course.slug, cohort: { title: 'non-existent-cohort' }
+        params = { id: course.slug, cohort: { title: 'non-existent-cohort' } }
+        post :list, params: params
         expect(response.status).to eq(404)
         expect(response.body).to match(/Sorry/)
       end
@@ -312,7 +314,8 @@ describe CoursesController do
         end
 
         it 'creates a CohortsCourse' do
-          post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
+          params = { id: course.slug, cohort: { title: cohort.title } }
+          post :list, params: params, format: :json
           last_cohort = CohortsCourses.last
           expect(last_cohort.course_id).to eq(course.id)
           expect(last_cohort.cohort_id).to eq(cohort.id)
@@ -320,13 +323,15 @@ describe CoursesController do
 
         it 'sends an email if course has not previous cohorts' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification)
-          post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
+          params = { id: course.slug, cohort: { title: cohort.title } }
+          post :list, params: params, format: :json
         end
 
         it 'does not send an email if course is already approved' do
           course.cohorts << create(:cohort)
           expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
-          post :list, id: course.slug, cohort: { title: cohort.title }, format: :json
+          params = { id: course.slug, cohort: { title: cohort.title } }
+          post :list, params: params, format: :json
         end
       end
 
@@ -336,7 +341,8 @@ describe CoursesController do
         end
 
         it 'deletes CohortsCourse' do
-          delete :list, id: course.slug, cohort: { title: cohort.title }, format: :json
+          params = { id: course.slug, cohort: { title: cohort.title } }
+          delete :list, params: params, format: :json
           expect(CohortsCourses.find_by(course_id: course.id, cohort_id: cohort.id)).to be_nil
         end
       end
@@ -355,7 +361,8 @@ describe CoursesController do
     context 'post request' do
       let(:tag) { 'pizza' }
       it 'creates a tag' do
-        post :tag, id: course.slug, tag: { tag: tag }, format: :json
+        params = { id: course.slug, tag: { tag: tag } }
+        post :tag, params: params, format: :json
         expect(Tag.last.tag).to eq(tag)
         expect(Tag.last.course_id).to eq(course.id)
       end
@@ -364,7 +371,8 @@ describe CoursesController do
     context 'delete request' do
       let(:tag) { Tag.create(tag: 'pizza', course_id: course.id) }
       it 'deletes the tag' do
-        delete :tag, id: course.slug, tag: { tag: tag.tag }, format: :json
+        params = { id: course.slug, tag: { tag: tag.tag } }
+        delete :tag, params: params, format: :json
         expect { Tag.find(tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -386,7 +394,7 @@ describe CoursesController do
       allow(controller).to receive(:user_signed_in?).and_return(true)
     end
 
-    let(:subject) { get :notify_untrained, id: course.slug }
+    let(:subject) { get :notify_untrained, params: { id: course.slug } }
 
     context 'user is admin' do
       before do
@@ -438,7 +446,7 @@ describe CoursesController do
 
     it 'saves a pdf' do
       file = fixture_file_upload('syllabus.pdf', 'application/pdf')
-      post :update_syllabus, id: course.id, syllabus: file
+      post :update_syllabus, params: { id: course.id, syllabus: file }
       expect(response.status).to eq(200)
       expect(course.syllabus).not_to be_nil
     end
@@ -448,13 +456,13 @@ describe CoursesController do
       course.syllabus = file
       course.save
       expect(course.syllabus.exists?).to eq(true)
-      post :update_syllabus, id: course.id, syllabus: 'null'
+      post :update_syllabus, params: { id: course.id, syllabus: 'null' }
       expect(course.syllabus.exists?).to eq(false)
     end
 
     it 'renders an error for disallowed file types' do
       file = fixture_file_upload('syllabus.torrent', 'application/x-bittorrent')
-      post :update_syllabus, id: course.id, syllabus: file
+      post :update_syllabus, params: { id: course.id, syllabus: file }
       expect(response.status).to eq(422)
     end
   end

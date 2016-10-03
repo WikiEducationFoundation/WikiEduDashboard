@@ -33,7 +33,7 @@ describe SurveyAssignmentsController do
     end
     before { allow(controller).to receive(:current_user).and_return(admin) }
     it 'allows create and sets appropriate params' do
-      post :create, post_params
+      post :create, params: post_params
       expect(SurveyAssignment.last.follow_up_days_after_first_notification).to eq(follow_up)
       expect(SurveyAssignment.last.send_email).to eq(send_email)
       expect(SurveyAssignment.last.custom_email).to be_a(Hash)
@@ -78,7 +78,7 @@ describe SurveyAssignmentsController do
     before { allow(controller).to receive(:current_user).and_return(admin) }
     it 'invokes SurveyTestEmailManager and redirects' do
       expect_any_instance_of(SurveyTestEmailManager).to receive(:send_email)
-      post :send_test_email, params
+      post :send_test_email, params: params
       expect(response.status).to eq(302)
     end
   end

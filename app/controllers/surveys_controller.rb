@@ -146,7 +146,7 @@ class SurveysController < ApplicationController
       rapidfire_question_group_id: params[:question_group_id]
     )
     question_group.insert_at(params[:position].to_i)
-    render nothing: true
+    head :ok
   end
 
   private

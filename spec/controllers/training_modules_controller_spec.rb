@@ -6,7 +6,9 @@ describe TrainingModulesUsersController do
     let(:user) { create(:user) }
     let(:training_module) { TrainingModule.all.first }
     let(:slide) { TrainingModule.find(training_module.id).slides.first }
-    let!(:tmu) { TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id) }
+    let!(:tmu) do
+      TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
+    end
 
     let(:request_params1) do
       { user_id: user.id, module_id: training_module.slug, slide_id: slide.slug }
@@ -16,7 +18,7 @@ describe TrainingModulesUsersController do
       context 'current slide has an index higher than last slide completed' do
         before do
           allow(controller).to receive(:current_user).and_return(user)
-          post 'create_or_update', request_params1
+          post 'create_or_update', params: request_params1
         end
         it 'sets last slide completed' do
           expect(TrainingModulesUsers.last.last_slide_completed)
@@ -29,12 +31,14 @@ describe TrainingModulesUsersController do
         # should still be 5
         let(:slide) { TrainingModule.find(training_module.id).slides.last }
         let(:request_params2) do
-          { user_id: user.id, module_id: training_module.slug, slide_id: TrainingModule.find(training_module.id).slides.first.slug }
+          { user_id: user.id,
+            module_id: training_module.slug,
+            slide_id: TrainingModule.find(training_module.id).slides.first.slug }
         end
         before do
           allow(controller).to receive(:current_user).and_return(user)
-          post 'create_or_update', request_params1
-          post 'create_or_update', request_params2
+          post 'create_or_update', params: request_params1
+          post 'create_or_update', params: request_params2
         end
 
         it 'maintains last_slide_completed' do
@@ -49,7 +53,7 @@ describe TrainingModulesUsersController do
 
       before do
         allow(controller).to receive(:current_user).and_return(user)
-        post 'create_or_update', request_params1
+        post 'create_or_update', params: request_params1
       end
 
       it 'creates a TrainingModulesUser' do

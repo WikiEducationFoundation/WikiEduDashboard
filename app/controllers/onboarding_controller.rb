@@ -20,7 +20,7 @@ class OnboardingController < ApplicationController
                             permissions: @permissions,
                             onboarded: true)
 
-    render nothing: true, status: 204
+    head :no_content
   end
 
   private

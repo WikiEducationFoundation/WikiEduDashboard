@@ -9,7 +9,7 @@ describe RevisionFeedbackController do
     context 'when the revision is in the database' do
       before do
         revision.save
-        get :index, params
+        get :index, params: params
       end
 
       it 'renders without error' do
@@ -22,7 +22,7 @@ describe RevisionFeedbackController do
         expect(Revision.count).to eq(0)
         expect(Revision).to receive(:new).and_return(revision)
         expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
-        get :index, params
+        get :index, params: params
         expect(response.status).to eq(200)
         expect(Revision.count).to eq(1)
       end

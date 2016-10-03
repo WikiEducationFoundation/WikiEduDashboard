@@ -9,7 +9,7 @@ class QuestionsController < Rapidfire::ApplicationController
 
   def update_position
     @question.insert_at(params[:position].to_i)
-    render nothing: true
+    head :ok
   end
 
   def results

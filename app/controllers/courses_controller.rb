@@ -105,14 +105,14 @@ class CoursesController < ApplicationController
   def manual_update
     @course = find_course_by_slug(params[:id])
     @course.manual_update if user_signed_in?
-    render nothing: true, status: :ok
+    render plain: '', status: :ok
   end
   helper_method :manual_update
 
   def notify_untrained
     @course = find_course_by_slug(params[:id])
     WikiEdits.new(@course.home_wiki).notify_untrained(@course, current_user)
-    render nothing: true, status: :ok
+    render plain: '', status: :ok
   end
   helper_method :notify_untrained
 

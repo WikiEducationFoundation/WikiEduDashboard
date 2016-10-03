@@ -8,7 +8,7 @@ describe TrainingController do
 
   describe 'show' do
     before  { allow(controller).to receive(:current_user).and_return(user) }
-    subject { get :show, request_params }
+    subject { get :show, params: request_params }
     let(:request_params) { { library_id: library_id } }
     context 'library is legit' do
       it 'sets the library' do
@@ -32,7 +32,7 @@ describe TrainingController do
       }
     end
     before { allow(controller).to receive(:current_user).and_return(user) }
-    subject { get :training_module, request_params }
+    subject { get :training_module, params: request_params }
     context 'module is legit' do
       it 'sets the presenter' do
         subject

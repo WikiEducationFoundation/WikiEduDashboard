@@ -9,7 +9,7 @@ describe RecentActivityController do
   end
 
   describe '.plagiarism_report' do
-    let(:subject) { get :plagiarism_report, ithenticate_id: 123 }
+    let(:subject) { get :plagiarism_report, params: { ithenticate_id: 123 } }
     it 'fetches an iThenticate url and redirects' do
       expect(PlagiabotImporter).to receive(:api_get_url)
         .with(ithenticate_id: '123').and_return(root_path)

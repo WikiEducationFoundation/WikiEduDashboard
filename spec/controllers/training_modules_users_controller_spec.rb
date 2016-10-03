@@ -15,13 +15,13 @@ describe TrainingModulesUsersController do
     before { allow(controller).to receive(:current_user).and_return(user) }
 
     it 'sets a slide complete' do
-      post :create_or_update, post_params, format: :json
+      post :create_or_update, params: post_params, format: :json
       expect(TrainingModulesUsers.last.last_slide_completed).to eq(slide.slug)
     end
 
     context 'first slide' do
       it 'does not set the module complete' do
-        post :create_or_update, post_params, format: :json
+        post :create_or_update, params: post_params, format: :json
         expect(TrainingModulesUsers.last.completed_at).to be_nil
       end
     end
@@ -29,7 +29,7 @@ describe TrainingModulesUsersController do
     context 'last slide' do
       let(:slide) { t_mod.slides.last }
       it 'does set the module complete' do
-        post :create_or_update, post_params, format: :json
+        post :create_or_update, params: post_params, format: :json
         expect(TrainingModulesUsers.last.completed_at)
           .to be_between(1.minute.ago, 1.minute.from_now)
       end
@@ -42,7 +42,7 @@ describe TrainingModulesUsersController do
       end
 
       it 'renders a response' do
-        post :create_or_update, nonexistent_slide_params, format: :json
+        post :create_or_update, params: nonexistent_slide_params, format: :json
         expect(response.status).to eq(200)
       end
     end

@@ -4,6 +4,6 @@ class WeeksController < ApplicationController
 
   def destroy
     Week.find(params[:id]).destroy
-    render nothing: true
+    render plain: '', status: :ok
   end
 end

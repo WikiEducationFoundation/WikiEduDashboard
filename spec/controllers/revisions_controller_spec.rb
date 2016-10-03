@@ -44,28 +44,28 @@ describe RevisionsController do
     let(:params2) { { course_id: basic_course.id, user_id: user.id, format: 'json' } }
 
     it 'returns revisions that happened during the course' do
-      get :index, params
+      get :index, params: params
       course_revisions.each do |revision|
         expect(assigns(:revisions)).to include(revision)
       end
     end
 
     it 'does not return revisions that happened after the last day of the course' do
-      get :index, params
+      get :index, params: params
       non_course_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end
     end
 
     it 'does return revisions from the final day of the basic course but not after it ended' do
-      get :index, params2
+      get :index, params: params2
       non_basic_course_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end
     end
 
     it 'does not return course revisions by other users' do
-      get :index, params
+      get :index, params: params
       non_user_revisions.each do |revision|
         expect(assigns(:revisions)).not_to include(revision)
       end

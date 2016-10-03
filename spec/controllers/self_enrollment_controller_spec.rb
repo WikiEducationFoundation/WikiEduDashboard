@@ -23,7 +23,7 @@ describe SelfEnrollmentController do
           expect(course.user_count).to eq(0)
           expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
           expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
-          get 'enroll_self', request_params
+          get 'enroll_self', params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(1)
           expect(course.reload.user_count).to eq(1)
@@ -40,7 +40,7 @@ describe SelfEnrollmentController do
 
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get 'enroll_self', request_params
+          get 'enroll_self', params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(0)
         end
@@ -51,7 +51,7 @@ describe SelfEnrollmentController do
 
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get 'enroll_self', request_params
+          get 'enroll_self', params: request_params
           expect(subject).to eq(302)
           expect(course.students.count).to eq(0)
         end
@@ -61,7 +61,7 @@ describe SelfEnrollmentController do
     # This is the HTTP verb that MS Word links use (for some reason)
     context 'HEAD' do
       it "doesn't error" do
-        head 'enroll_self', request_params
+        head 'enroll_self', params: request_params
         expect(subject).to eq(200)
       end
     end
@@ -72,7 +72,7 @@ describe SelfEnrollmentController do
       end
 
       it 'should redirect to mediawiki for OAuth' do
-        expect(get('enroll_self', request_params)).to redirect_to(/.*mediawiki.*/)
+        expect(get('enroll_self', params: request_params)).to redirect_to(/.*mediawiki.*/)
       end
     end
   end
