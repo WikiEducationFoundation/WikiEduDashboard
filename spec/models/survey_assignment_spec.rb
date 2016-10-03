@@ -165,8 +165,8 @@ RSpec.describe SurveyAssignment, type: :model do
   describe '#custom_email' do
     context 'when nil' do
       it 'causes no problems' do
-        expect(@survey_assignment.custom_email).to eq(nil)
-        expect(@survey_assignment.custom_email_subject).to eq(nil)
+        expect(@survey_assignment.custom_email).to be_empty
+        expect(@survey_assignment.custom_email_subject).to be_nil
       end
     end
     context 'when set with a hash' do
