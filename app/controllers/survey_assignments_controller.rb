@@ -36,17 +36,16 @@ class SurveyAssignmentsController < ApplicationController
   def create
     @survey_assignment = SurveyAssignment.new(survey_assignment_params)
     @survey_assignment.save!
+    update_custom_email
+
     redirect_to survey_assignments_path, notice: 'Survey assignment was successfully created.'
   end
 
   # PATCH/PUT /survey_assignments/1
   def update
-    # SurveyAssignment#custom_email is serialized, so we handle it separately from the params
-    # that correspond directly to model attributes.
-    set_custom_email
-    updated_assignment_data = survey_assignment_params.merge(custom_email: @custom_email)
+    @survey_assignment.update!(survey_assignment_params)
+    update_custom_email
 
-    @survey_assignment.update!(updated_assignment_data)
     redirect_to survey_assignments_path, notice: 'Survey assignment was successfully updated.'
   end
 
@@ -88,7 +87,9 @@ class SurveyAssignmentsController < ApplicationController
     @send_relative_to_options = SEND_RELATIVE_TO_OPTIONS
   end
 
-  def set_custom_email
+  def update_custom_email
+    # SurveyAssignment#custom_email is serialized, so we handle it separately from the params
+    # that correspond directly to model attributes.
     @custom_email = {
       subject: custom_message_params[:custom_email_subject],
       headline: custom_message_params[:custom_email_headline],
@@ -96,6 +97,8 @@ class SurveyAssignmentsController < ApplicationController
       signature: custom_message_params[:custom_email_signature],
       banner_message: custom_message_params[:custom_banner_message]
     }
+    # Save the @survey_assignment separately as a plain hash, which gets serialized.
+    @survey_assignment.update!(custom_email: @custom_email)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

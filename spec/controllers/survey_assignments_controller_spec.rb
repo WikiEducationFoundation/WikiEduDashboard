@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe SurveyAssignmentsController do
   let(:admin) { create(:admin) }
-  let(:survey)      { create(:survey) }
+  let(:survey) { create(:survey) }
 
   describe '#create' do
     let(:follow_up)   { 7 }
@@ -23,7 +23,11 @@ describe SurveyAssignmentsController do
           follow_up_days_after_first_notification: follow_up,
           published: true,
           notes: 'foo',
-          send_email: send_email
+          send_email: send_email,
+          custom_email_subject: 'bar',
+          custom_email_body: 'baz',
+          custom_email_signature: '',
+          custom_banner_message: 'ohai'
         }
       }
     end
@@ -32,6 +36,7 @@ describe SurveyAssignmentsController do
       post :create, post_params
       expect(SurveyAssignment.last.follow_up_days_after_first_notification).to eq(follow_up)
       expect(SurveyAssignment.last.send_email).to eq(send_email)
+      expect(SurveyAssignment.last.custom_email).to be_a(Hash)
     end
   end
 
