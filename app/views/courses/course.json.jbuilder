@@ -6,10 +6,10 @@ json.course do
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
-            :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count)
+            :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count,
+            :cloned_status)
 
   json.term @course.cloned_status == 1 ? '' : @course.term
-  json.cloned_status @course.cloned_status
   json.legacy @course.legacy?
   json.ended !current?(@course) && @course.start < Time.zone.now
   json.published CohortsCourses.exists?(course_id: @course.id)

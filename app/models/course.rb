@@ -46,6 +46,9 @@ require "#{Rails.root}/lib/course_cache_manager"
 require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
 require "#{Rails.root}/lib/revision_stat"
+require "#{Rails.root}/lib/trained_students_manager"
+require "#{Rails.root}/lib/word_count"
+require "#{Rails.root}/lib/training_module"
 
 #= Course model
 class Course < ActiveRecord::Base
