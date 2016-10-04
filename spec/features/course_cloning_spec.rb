@@ -28,6 +28,8 @@ describe 'cloning a course', js: true do
 
   let!(:course) do
     create(:course, id: 10001, start: 1.year.from_now.to_date,
+                    title: 'CourseToClone',
+                    school: 'OriginalSchool',
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0)
   end
@@ -38,8 +40,8 @@ describe 'cloning a course', js: true do
   end
   let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
-  let!(:term)      { 'Spring 2016' }
-  let!(:desc)      { 'A new course' }
+  let(:term) { 'Spring2016' }
+  let(:subject) { 'Advanced Foo' }
 
   it 'copies relevant attributes of an existing course' do
     login_as user, scope: :user, run_callbacks: false
@@ -54,9 +56,8 @@ describe 'cloning a course', js: true do
 
     # interact_with_clone_form
     find('input#course_term').click
-    # For some reason, only the last character actually shows up, so we'll just add one.
-    fill_in 'course_term', with: 'A'
-    fill_in 'course_subject', with: 'B'
+    fill_in 'course_term', with: term
+    fill_in 'course_subject', with: subject
     within '#details_column' do
       find('input#course_start').click
       find('div.DayPicker-Day', text: course_start).click
@@ -74,11 +75,11 @@ describe 'cloning a course', js: true do
     expect(page).not_to have_button('Save New Course', disabled: true)
     click_button 'Save New Course'
 
-    expect(page).to have_current_path(/\(A\)/)
+    expect(page).to have_current_path("/courses/OriginalSchool/CourseToClone_(#{term})")
 
     new_course = Course.last
-    expect(new_course.term).to eq('A')
-    expect(new_course.subject).to eq('B')
+    expect(new_course.term).to eq(term)
+    expect(new_course.subject).to eq(subject)
     expect(new_course.weekdays).not_to eq('0000000')
     expect(Week.count).to eq(2) # make sure the weeks are distinct
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
