@@ -209,6 +209,7 @@ essentials:
 
       -
         if: medical_topics
+        title: Review the rules for medical topics
         kind: 1
         training_module_ids: [11] # Editing Medical topics
         content: |
