@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_slide"
+
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/wiki_edits"
+require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/wiki_preferences_manager"
 
 #= Controller for students enrolling in courses

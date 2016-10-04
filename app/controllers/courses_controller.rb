@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/list_course_manager"
 require "#{Rails.root}/lib/tag_manager"
+require "#{Rails.root}/lib/course_creation_manager"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
