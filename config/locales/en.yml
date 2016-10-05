@@ -130,7 +130,7 @@ en:
     title_example: Article title
     view: View Article
     view_all: View All
-    view_doc: The sum of all views to each article during the program period
+    view_doc: The sum of all views to each article during the project
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
     wp10: Structural Completeness
@@ -152,7 +152,7 @@ en:
     assign_self: Assign myself an article
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
-    confirm_deletion: Are you sure you want to delete this article?
+    confirm_deletion: Are you sure you want to delete this article assignment?
     label: Assign
     loading: Loading assignments...
     none_short: No articles assigned
@@ -340,7 +340,7 @@ en:
 
       Are you sure you want to do this?
     wiki_staff: Wiki Ed Staff
-    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     yourcourses: Your Courses
     survey:
       notification_message: Take our survey for this course.
@@ -391,6 +391,8 @@ en:
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
     view_other: View other campaigns
     view_page: View Program Page
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+
 
   editable:
     edit: Edit

@@ -6,22 +6,22 @@
   .course-details
     .col
       .course-details_title
-        = Features.wiki_ed? ? t("courses.instructors") : t("courses_generic.instructors")
+        = course_i18n("courses.instructors")
       .course-details_value
         - course.instructors.each do |user|
           = user.username
     .col
       .course-details_title
-        = Features.wiki_ed? ? t("courses.school") : t("courses_generic.school")
+        = course_i18n("courses.school")
       .course-details_value
         = course.school
     .col
       .course-details_title
-        = Features.wiki_ed? ? t("courses.term") : t("courses_generic.term")
+        = course_i18n("courses.term")
       .course-details_value
         = course.term
     .col
       .course-details_title
-        = Features.wiki_ed? ? t("courses.students_count") : t("courses_generic.students_count")
+        = course_i18n("courses.students_count")
       .course-details_value
         = course.students.length

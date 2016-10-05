@@ -70,25 +70,27 @@ const Details = React.createClass({
 
   render() {
     let instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
-    let online = <InlineUsers {...this.props} users={this.props.online} role={2} title="Online Volunteers" />;
-    let campus = <InlineUsers {...this.props} users={this.props.campus} role={3} title="Campus Volunteers" />;
+    let online;
+    let campus;
     let staff;
+    let school;
     if (Features.wikiEd) {
       staff = <InlineUsers {...this.props} users={this.props.staff} role={4} title="Wiki Ed Staff" />;
-    }
-    let school;
-    if (this.props.course.school || this.props.current_user.admin) {
-      school = (
-        <TextInput
-          onChange={this.updateSlugPart}
-          value={this.props.course.school}
-          value_key="school"
-          editable={this.props.editable && this.props.current_user.admin}
-          type="text"
-          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
-          required={true}
-        />
-      );
+      online = <InlineUsers {...this.props} users={this.props.online} role={2} title="Online Volunteers" />;
+      campus = <InlineUsers {...this.props} users={this.props.campus} role={3} title="Campus Volunteers" />;
+      if (this.props.course.school || this.props.current_user.admin) {
+        school = (
+            <TextInput
+                onChange={this.updateSlugPart}
+                value={this.props.course.school}
+                value_key="school"
+                editable={this.props.editable && this.props.current_user.admin}
+                type="text"
+                label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+                required={true}
+            />
+        );
+      }
     }
 
     let title;
@@ -222,10 +224,10 @@ const Details = React.createClass({
         </div>
         <div className="module__data extra-line-height">
           {instructors}
-          {Features.wikiEd ? online : null}
-          {Features.wikiEd ? campus : null}
-          {Features.wikiEd ? staff : null}
-          {Features.wikiEd ? school : null}
+          {online}
+          {campus}
+          {staff}
+          {school}
           {title}
           {term}
           <form>

@@ -18,7 +18,7 @@
     <div class="cohort-select">
       <select class="cohorts">
         <option selected disabled>
-        <%= Features.wiki_ed? ? t("courses.view_other") : t("courses_generic.view_other") %></option>
+        <%= course_i18n("view_other") %></option>
         <% Cohort.all.each do |c| %>
           <% unless presenter.cohort.slug == c.slug %>
             <option value="<%= c.slug %>"><%= c.title %></option>
@@ -53,7 +53,7 @@
             <span class="sortable-indicator"></span>
             <span class="tooltip-indicator"></span>
             <div class="tooltip dark">
-              <p><%= t("courses.word_count_doc") %></p>
+              <p><%= course_i18n("word_count_doc") %></p>
             </div>
           </div>
         </th>

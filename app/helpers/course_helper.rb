@@ -23,7 +23,11 @@ module CourseHelper
     return ''
   end
 
-  def course_i18n(prefix, messageKey)
-    return t(`${prefix}.${messageKey}`);
+  def course_i18n(messageKey)
+    if Features.wiki_ed?
+      return t(`courses.#{messageKey}`);
+    else
+      return t(`courses_generic.#{messageKey}`);
+    end
   end
 end
