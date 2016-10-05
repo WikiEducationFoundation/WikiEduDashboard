@@ -38,6 +38,8 @@ class SurveyNotification < ActiveRecord::Base
   # Instance methods #
   ####################
 
+  # This should return something falsey if no email was sent, and something
+  # truthy if an email was sent. SurveyUpdate relies on this behavior.
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']
     return if %w(development staging).include?(Rails.env) && !ENV['survey_test_email'].split(',').include?(user.email)
@@ -47,6 +49,8 @@ class SurveyNotification < ActiveRecord::Base
     update_attribute(:email_sent_at, Time.now)
   end
 
+  # This should return something falsey if no email was sent, and something
+  # truthy if an email was sent. SurveyUpdate relies on this behavior.
   def send_follow_up
     return unless survey_assignment.follow_up_days_after_first_notification.present?
     return if user.email.nil?

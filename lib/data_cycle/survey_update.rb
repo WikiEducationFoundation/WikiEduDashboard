@@ -47,7 +47,9 @@ class SurveyUpdate
 
   def try_to_process_notifications(method)
     SurveyNotification.active.each do |notification|
-      notification.send(method)
+      # Sending an email and updating the record returns true.
+      # When no email needs to be sent, the email methods return nil.
+      next unless notification.send(method)
       # Don't send emails too quickly, to avoid being throttled by gmail
       sleep 2 unless Rails.env == 'test'
     end
