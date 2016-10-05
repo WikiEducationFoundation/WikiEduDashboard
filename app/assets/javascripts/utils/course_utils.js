@@ -12,13 +12,11 @@ const CourseUtils = class {
     }
     return slug;
   }
-
   slugify(text) {
     if (typeof text !== 'undefined' && text !== null) {
       return text.split(' ').join('_');
     }
   }
-  
   cleanupCourseSlugComponents(course) {
     const cleanedCourse = course;
     cleanedCourse.title = course.title.trim();

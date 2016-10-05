@@ -94,9 +94,9 @@ end
 
 group :test do
   gem 'rake', '>= 11.0'
-  gem 'capybara'
-  gem 'capybara-webkit'
-  gem 'capybara-screenshot'
+  # gem 'capybara'
+  # gem 'capybara-webkit'
+  # gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr'
