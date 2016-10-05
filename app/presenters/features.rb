@@ -8,6 +8,10 @@ class Features
     false
   end
 
+  def self.default_course_type
+    ENV['default_course_type'] || 'ClassroomProgramCourse'
+  end
+
   def self.disable_onboarding?
     ENV['disable_onboarding'] == 'true'
   end
