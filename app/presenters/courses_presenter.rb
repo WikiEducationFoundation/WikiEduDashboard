@@ -36,15 +36,11 @@ class CoursesPresenter
   end
 
   def default_course_type
-    ENV['default_course_type'] || 'ClassroomProgramCourse'
+    Features.default_course_type
   end
 
   def course_string_prefix
-    if default_course_type == 'ClassroomProgramCourse'
-      'courses'
-    else
-      'courses_generic'
-    end
+    Features.default_course_string_prefix
   end
 
   def uploads_in_use_count

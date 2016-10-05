@@ -73,12 +73,7 @@ class DashboardPresenter
   end
 
   def default_course_type
-    ENV['default_course_type'] || 'ClassroomProgramCourse'
-  end
-
-  # FIXME: Horrible hack.
-  def default_course_string_prefix
-    default_course_type.constantize.new.string_prefix
+    Features.default_course_type
   end
 
   def default_use_start_and_end_times

@@ -23,11 +23,9 @@ module CourseHelper
     return ''
   end
 
-  def course_i18n(message_key)
-    if Features.wiki_ed?
-      return I18n.t("courses.#{message_key}")
-    else
-      return I18n.t("courses_generic.#{message_key}")
-    end
+  def course_i18n(message_key, course = nil)
+    string_prefix = course&.string_prefix
+    string_prefix ||= Features.default_course_string_prefix
+    I18n.t("#{string_prefix}.#{message_key}")
   end
 end

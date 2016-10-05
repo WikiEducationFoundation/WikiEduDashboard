@@ -1,7 +1,7 @@
 - content_for :after_title, " - " + t("application.my_dashboard")
 
 #react_root{data: {default_course_type: @pres.default_course_type,
-                   course_string_prefix: @pres.default_course_string_prefix,
+                   course_string_prefix: Features.default_course_string_prefix,
                    use_start_and_end_times: @pres.default_use_start_and_end_times ? 'true' : 'false'}}
 .container.dashboard
   %header
