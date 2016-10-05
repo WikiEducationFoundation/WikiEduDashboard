@@ -6,22 +6,22 @@
   .course-details
     .col
       .course-details_title
-        = course_i18n("courses.instructors")
+        = course_i18n("instructors")
       .course-details_value
         - course.instructors.each do |user|
           = user.username
     .col
       .course-details_title
-        = course_i18n("courses.school")
+        = course_i18n("school")
       .course-details_value
         = course.school
     .col
       .course-details_title
-        = course_i18n("courses.term")
+        = course_i18n("term")
       .course-details_value
         = course.term
     .col
       .course-details_title
-        = course_i18n("courses.students_count")
+        = course_i18n("students_count")
       .course-details_value
         = course.students.length
