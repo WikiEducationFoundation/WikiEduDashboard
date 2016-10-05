@@ -170,8 +170,6 @@ en:
 
   cohort:
     none: None
-    view_other: View other cohorts
-    view_other_campaigns: View other campaigns
 
   courses:
     activity: Activity
@@ -190,7 +188,7 @@ en:
       legend_class_meeting: Class Meeting
       legend_class_not_meeting: No Scheduled Meeting
       select_meeting_days: Select the days of the week on which your class meets.
-    campaigns: 'Campaigns: '
+    cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     cohorts: 'Cohorts: '
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
@@ -210,8 +208,8 @@ en:
       assignment_start: Assignment start
       assignment_start_placeholder: Assignment start (YYYY-MM-DD)
       checking_for_uniqueness: This course is being checked for uniqueness.
-      clone_previous: Clone Previous Program
-      clone_this: Clone This Program
+      clone_previous: Clone Previous Course
+      clone_this: Clone This Course
       cloned_course_calendar_instructions: >
         Select dates to add or remove them from the schedule (e.g., holidays, no
         school). Click the date to change between unselected, selected, and
@@ -273,7 +271,6 @@ en:
       If you don’t have a Wikipedia account yet, sign up for one now.
     join: Join
     join_course: Join course
-    join_program: Join program
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
     leave_confirmation: Are you sure you want to leave this course?
@@ -289,7 +286,6 @@ en:
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
     overview: Overview
-    participators_count: Number of participants
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: Enter the passcode given to you by your instructor for this course
@@ -329,14 +325,15 @@ en:
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
-    weeks_none: This course does not have a timeline yet.
+    view_other: View other cohorts
     view: View Course
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
-    view_page: View Program Page
+    view_page: View Course Page
     view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer
       other: Volunteers
+    weeks_none: This course does not have a timeline yet.
     warn_mirrored: >
       Upon submission, this course will be automatically posted to Wikipedia with your user account.
       After that, new edits to the timeline will be mirrored to Wikipedia.
@@ -357,6 +354,7 @@ en:
     assignment_start: Timeline Start
     cancel: Cancel
     courses: Programs
+    cohorts: 'Campaigns: '
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
       clone_previous: Clone Previous Program
@@ -372,11 +370,14 @@ en:
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
+    delete_course: Delete program
     edit_course_dates: Edit Project Dates
     enroll: Add Editor
     enrollment: Participation
     expected_students: Expected Editors
     instructors: Facilitators
+    join_course: Join program
+    leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     revisions_none: This project has no recent editing activity.
@@ -385,8 +386,11 @@ en:
     students: Editors
     students_none: This project has no editors enrolled.
     students_short: Editors
+    students_count: Number of participants
     term: When
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    view_other: View other campaigns
+    view_page: View Program Page
 
   editable:
     edit: Edit

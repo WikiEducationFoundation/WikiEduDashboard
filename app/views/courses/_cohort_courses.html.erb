@@ -17,7 +17,8 @@
     </div>
     <div class="cohort-select">
       <select class="cohorts">
-        <option selected disabled><%= t("cohort.view_other_campaigns") %></option>
+        <option selected disabled>
+        <%= Features.wiki_ed? ? t("courses.view_other") : t("courses_generic.view_other") %></option>
         <% Cohort.all.each do |c| %>
           <% unless presenter.cohort.slug == c.slug %>
             <option value="<%= c.slug %>"><%= c.title %></option>

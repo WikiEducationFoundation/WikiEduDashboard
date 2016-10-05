@@ -1,6 +1,7 @@
 import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
 import CourseStore from '../../stores/course_store.coffee';
+import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -52,19 +53,19 @@ const AvailableActions = React.createClass({
     if ((user.role !== undefined) || user.admin) {
       if (user.role === 0) {
         controls.push((
-          <p key="leave"><button onClick={this.leave} className="button">{I18n.t('courses.leave_course')}</button></p>
+          <p key="leave"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', this.state.course.string_prefix)}</button></p>
         ));
       }
       if ((user.role === 1 || user.admin) && !this.state.course.published) {
         controls.push((
-          <p key="delete"><button className="button danger" onClick={this.delete}>{I18n.t('courses.delete_course')}</button></p>
+          <p key="delete"><button className="button danger" onClick={this.delete}>{CourseUtils.i18n('delete_course', this.state.course_string_prefix)}</button></p>
         ));
       }
     // If user has no role or is logged out
     } else {
       controls.push((
         <p key="join">
-          <button onClick={this.join} className="button">{I18n.t('courses.join_program')}</button>
+          <button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button>
         </p>
       ));
     }

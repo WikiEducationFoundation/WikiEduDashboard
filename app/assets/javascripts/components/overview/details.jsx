@@ -222,6 +222,10 @@ const Details = React.createClass({
         </div>
         <div className="module__data extra-line-height">
           {instructors}
+          {Features.wikiEd ? online : null}
+          {Features.wikiEd ? campus : null}
+          {Features.wikiEd ? staff : null}
+          {Features.wikiEd ? school : null}
           {title}
           {term}
           <form>
@@ -251,7 +255,7 @@ const Details = React.createClass({
             {timelineEnd}
           </form>
           <div>
-            <span><strong>{I18n.t('courses.campaigns')}</strong>{cohorts}</span>
+            <span><strong>{CourseUtils.i18n('cohorts', this.props.course.string_prefix)} </strong>{cohorts}</span>
             <CohortButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse') } />
           </div>
           {subject}

@@ -22,4 +22,8 @@ module CourseHelper
     return 'table-row--info' if course.start > 1.week.ago
     return ''
   end
+
+  def course_i18n(prefix, messageKey)
+    return t(`${prefix}.${messageKey}`);
+  end
 end
