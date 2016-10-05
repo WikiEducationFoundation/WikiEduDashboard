@@ -25,9 +25,9 @@ module CourseHelper
 
   def course_i18n(messageKey)
     if Features.wiki_ed?
-      return I18n.t(`courses.#{messageKey}`)
+      return I18n.t("courses.#{messageKey}")
     else
-      return I18n.t(`courses_generic.#{messageKey}`)
+      return I18n.t("courses_generic.#{messageKey}")
     end
   end
 end
