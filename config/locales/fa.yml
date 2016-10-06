@@ -126,7 +126,6 @@ fa:
       title: نقاط عطف
   cohort:
     none: هیچ‌کدام
-    view_other: نمایش دیگر گروه‌ها
   courses:
     activity: فعالیت
     already_enrolled: شما از قبل بخشی از %{title} هستید!
@@ -250,20 +249,20 @@ fa:
     title: عنوان
     training_due: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده‌است و در
       %{date} تنظیم شده‌است.
-    training_nav: رفتن آموزش
+    training_nav: رفتن به آموزش
     training_overdue: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده‌است و
       در %{date} تنظیم شده‌بود.
     unsubmitted: دوره‌های ثبت‌نشده
     untrained: آموزش‌ندیده
     uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
       نداشته‌است.
-    weeks_none: این دوره هنوز جدول زمانی ندارد.
     view: مشاهدهٔ دوره
     view_page: مشاهدهٔ صفحهٔ دوره
     view_wiki: مشاهده در ویکی‌پدیا
     volunteer:
       one: داوطلب
       other: داوطلبان
+    weeks_none: این دوره هنوز جدول زمانی ندارد.
     wiki_staff: کارمندان ویکی‌آموزش
     yourcourses: دوره‌های شما
     survey:
@@ -286,7 +285,7 @@ fa:
       create_short: ایجاد برنامه
       find: برنامه‌ای را پیدا کنید
       intro: تکمیل عنوان برنامه الزامی است، باقی موارد را می‌توان بعداً نیز پُر کرد.
-        برای ایجاد صفحهٔ برنامه، روی «ایجاد برنامهٔ!» کلیک کنید.
+        برای ایجاد صفحهٔ برنامه، روی «ایجاد برنامه!» کلیک کنید.
     edit_course_dates: ویرایش تاریخ‌های پروژه
     enroll: افزودن ویراستار
     enrollment: مشارکت
@@ -339,7 +338,7 @@ fa:
     active_courses: مقاله فعال است در
     article_title: عنوان مقاله
     datetime: تاریخ/زمان
-    did_you_know_eligible: واجد شرایط می‌دانستید
+    did_you_know_eligible: واجد شرایط آیا می‌دانستید
     image: تصویر
     file_name: نام پرونده
     no_dyk_eligible: در حال حاضر هیچ مقالهٔ واجد شرایط آیا می‌دانستید موجود نیست.
@@ -451,8 +450,16 @@ fa:
     reviewers: 'بازبینی‌کننده‌(ها):'
     reviewing: 'بازبینی‌کردن:'
     training_incomplete: آموزش ناقص
+    training_module_status: وضعیت
     username: نام کاربری
     username_placeholder: نام کاربری
+    role:
+      visitor: بازدیدکننده
+      student: دانشجو
+      instructor: استاد
+      campus_volunteer: داوطلب دانشگاهی
+      online_volunteer: داوطلب برخط
+      wiki_ed_staff: کارمندان ویکی‌آموزش
   wiki_edits:
     notify_overdue:
       summary: سررسید موعد آموزش دانشجو

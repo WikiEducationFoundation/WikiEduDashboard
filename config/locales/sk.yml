@@ -110,7 +110,6 @@ sk:
       title: Míľniky
   cohort:
     none: Žiadne
-    view_other: Zobraziť ďalšie skupiny
   courses:
     activity: Aktivita
     already_enrolled: Už si súčasťou kurzu %{title}!

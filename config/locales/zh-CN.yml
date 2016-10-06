@@ -112,7 +112,6 @@ zh-CN:
       title: 里程碑
   cohort:
     none: 无
-    view_other: 查看其它同班同学
   courses:
     activity: 活动
     already_enrolled: 您已经是“%{title}”的一部分！
@@ -226,6 +225,8 @@ zh-CN:
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
+    user_role: 角色
+    course_details: 课程详情用于
     term: 学期
     timeline: 分配详细信息
     timeline_link: 时间轴
@@ -236,7 +237,6 @@ zh-CN:
     unsubmitted: 未提交的课程
     untrained: 未经训练
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
-    weeks_none: 此课程尚无时间线。
     view: 查看课程
     view_doc: 所有由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量之和
     view_page: 查看课程页面
@@ -244,6 +244,7 @@ zh-CN:
     volunteer:
       one: 志愿者
       other: 志愿者
+    weeks_none: 此课程尚无时间线。
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
     wiki_staff: Wiki Ed职员
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
@@ -457,6 +458,13 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
+    role:
+      visitor: 访问者
+      student: 学生
+      instructor: 导师
+      campus_volunteer: 校园志愿者
+      online_volunteer: 在线志愿者
+      wiki_ed_staff: Wiki Ed职员
   wiki_edits:
     notify_overdue:
       confirm: 这将在讨论页为所有有逾期培训的学生发布一则提示。您确定要这样做么？

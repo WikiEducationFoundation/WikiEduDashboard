@@ -115,7 +115,6 @@ nl:
       title: Mijlpalen
   cohort:
     none: Geen
-    view_other: Andere cohorten bekijken
   courses:
     activity: Activiteit
     already_enrolled: Je bent onderdeel van "%{title}"!
@@ -258,7 +257,6 @@ nl:
     untrained: Ongetraind
     uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
       aan Wikimedia Commons.
-    weeks_none: Deze cursus heeft nog geen tijdlijn.
     view: Cursus weergeven
     view_doc: Het aantal weergaven van artikelen die door deelnemende bewerkers zijn
       bewerkt sinds de bewerkers hun eerste bewerking hebben gemaakt aan elk artikel
@@ -267,6 +265,7 @@ nl:
     volunteer:
       one: Vrijwilliger
       other: Vrijwilligers
+    weeks_none: Deze cursus heeft nog geen tijdlijn.
     warn_mirrored: Bij indiening wordt de cursus automatisch op Wikipedia geplaatst
       met je gebruikersaccount. Nadien worden nieuwe bewerkingen aan de tijdlijn synchroon
       gehouden op Wikipedia. Weet je zeker dat je dit wilt doen?

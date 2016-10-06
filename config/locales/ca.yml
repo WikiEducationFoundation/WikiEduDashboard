@@ -117,7 +117,6 @@ ca:
       title: Fites
   cohort:
     none: Cap
-    view_other: Veure altres grups
   courses:
     activity: Activitat
     already_enrolled: Ja formeu part de la '%{title}'!
@@ -265,7 +264,6 @@ ca:
     untrained: No entrenat
     uploads_none: Aquesta classe encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
-    weeks_none: Aquest curs encara no té línia temporal.
     view: Vegeu el curs
     view_doc: La suma de totes les visites a articles editats pels estudiants apuntats
       des de que van fer la primera modificació.
@@ -274,6 +272,7 @@ ca:
     volunteer:
       one: Voluntari
       other: Voluntaris
+    weeks_none: Aquest curs encara no té línia temporal.
     warn_mirrored: Amb l'enviament aquest curs serà automàticament penjat a la Viquipèdia
       amb el teu compte d'usuari. Després d'això, les noves edicions a la línia de
       temps seran automàticament reflectides a la Viquipèdia. N'estàs segur què vols

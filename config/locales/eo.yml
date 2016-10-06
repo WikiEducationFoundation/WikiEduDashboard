@@ -83,4 +83,9 @@ eo:
     number_of_articles: '%{number} artikoloj'
     username: Uzantnomo
     username_placeholder: Uzantnomo
+    role:
+      visitor: Vizitanto
+      student: Studanto
+      instructor: Instruisto
+      online_volunteer: Enreta volontulo
 ...

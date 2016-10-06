@@ -43,12 +43,12 @@ bcl:
     students_short: Mga Estudyante
     timeline: Katokahang mga Detalye
     title: Titulo
-    weeks_none: '%{title} mayo nin mga katokahan'
     view: Tanawon an Kurso
     view_doc: An kabilogan kan gabos na mga hiniling sa mga artikulong pinagliwat
       nin mga estudyante magpoon na an mga estudyante naghimo kan saindang enot na
       pagliwat sa lambang artikulo
     view_wiki: Tanawon sa Wikipedia
+    weeks_none: '%{title} mayo nin mga katokahan'
     yourcourses: An saimong mga Kurso
   metrics:
     characters: Mga Letra

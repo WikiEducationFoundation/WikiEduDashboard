@@ -143,7 +143,6 @@ es:
       title: Hitos
   cohort:
     none: Ninguno
-    view_other: Ver otras cohortes
   courses:
     activity: Actividad
     already_enrolled: Ya eres parte de '%{title}'.
@@ -300,7 +299,6 @@ es:
     untrained: Sin entrenamiento
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
-    weeks_none: Este curso aún no tiene un cronograma.
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
       desde que el editor hizo su primera edición en cada artículo
@@ -309,6 +307,7 @@ es:
     volunteer:
       one: Voluntario
       other: Voluntarios
+    weeks_none: Este curso aún no tiene un cronograma.
     warn_mirrored: |-
       Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
       ¿Estás seguro de que quieres hacer esto?

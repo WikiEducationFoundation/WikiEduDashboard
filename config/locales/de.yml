@@ -134,7 +134,6 @@ de:
       title: Meilensteine
   cohort:
     none: Keine
-    view_other: Andere Jahrgänge ansehen
   courses:
     activity: Aktivität
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
@@ -278,6 +277,8 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    user_role: Rolle
+    course_details: Kursdetails für
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_link: Zeitleiste
@@ -291,7 +292,6 @@ de:
     untrained: Unausgebildet
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
-    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
     view: Kurs anzeigen
     view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
       bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
@@ -301,6 +301,7 @@ de:
     volunteer:
       one: Freiwilliger
       other: Freiwillige
+    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
     warn_mirrored: |-
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
@@ -547,6 +548,13 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
+    role:
+      visitor: Besucher
+      student: Student
+      instructor: Kursleiter
+      campus_volunteer: Campus-Volontär
+      online_volunteer: Online-Volontär
+      wiki_ed_staff: Mitarbeiter von Wiki Ed
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

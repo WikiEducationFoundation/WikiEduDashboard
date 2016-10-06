@@ -137,7 +137,6 @@ fi:
       title: Virstanpylväät
   cohort:
     none: Ei mitään
-    view_other: Näytä muut joukot
   courses:
     activity: Toiminta
     already_enrolled: Olet jo ilmoittautunut kurssille '%{title}'!
@@ -286,7 +285,6 @@ fi:
     untrained: Harjoittelematon
     uploads_none: Ryhmä ei ole tallentanut kuvia tai muita mediatiedostoja Wikimedia
       Commonsiin.
-    weeks_none: Kurssilla ei ole vielä aikajanaa.
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
       alkaen heidän ensimmäisistä artikkeleihin tekemistä muutoksista.
@@ -295,6 +293,7 @@ fi:
     volunteer:
       one: Vapaaehtoinen
       other: Vapaaehtoiset
+    weeks_none: Kurssilla ei ole vielä aikajanaa.
     warn_mirrored: Kun lähetät kurssin, se tallennetaan automaattisesti Wikipediaan
       käyttäjätunnuksellasi. Sen jälkeen kaikki muokkaukset aikajanalle peilataan
       Wikipediaan. Haluatko varmasti tehdä tämän?

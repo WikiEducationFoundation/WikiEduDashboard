@@ -133,14 +133,16 @@ lb:
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
+    user_role: Roll
+    course_details: Detailer vum Cours
     timeline_link: Chronologie
     title: Titel
-    weeks_none: Dëse Cours huet nach keen Zäitplang.
     view: Cours weisen
     view_wiki: Op Wikipedia kucken
     volunteer:
       one: Fräiwëllegen
       other: Fräiwëlleger
+    weeks_none: Dëse Cours huet nach keen Zäitplang.
     yourcourses: Är Coursen
     survey:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
@@ -231,6 +233,8 @@ lb:
     assign_articles_done: Fäerdeg
     assigned: Assignéiert Artikelen
     contributions: Benotzerkontributiounen
+    contributions_history_full: Déi komplett Lëscht vun de Versiounen op Wikipedia
+      weisen
     contributions_more: Méi Kontributioune weisen
     course_passcode: 'Passcode:'
     editors: Auteuren
@@ -257,6 +261,13 @@ lb:
     training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
+    role:
+      visitor: Visiteur
+      student: Student
+      instructor: Instrukter
+      campus_volunteer: Campus-Fräiwëllegen
+      online_volunteer: Online-Fräiwëllegen
+      wiki_ed_staff: Mataarbechter vu Wiki Ed
   wizard:
     course_dates: Datume vun de Coursen
     select_one_option: Wielt w.e.g. eng Optioun eraus.

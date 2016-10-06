@@ -124,6 +124,8 @@ sv:
     student_editors: Studentredigerare
     students_none: Den här kursen har inga studenter.
     students_short: Studenter
+    user_role: Roll
+    course_details: Kursdetaljer för
     timeline_link: Tidslinje
     title: Titel
     view_wiki: Se på Wikipedia
@@ -236,6 +238,12 @@ sv:
     training_module_status: Status
     username: Användarnamn
     username_placeholder: Användarnamn
+    role:
+      visitor: Besökare
+      student: Student
+      instructor: Instruktör
+      campus_volunteer: '{{SITENAME}}ambassadör'
+      online_volunteer: Onlineambassadör
   wizard:
     select_one_option: Välj 1 alternativ.
     read_less: Läs mindre

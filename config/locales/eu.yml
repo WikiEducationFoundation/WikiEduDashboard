@@ -24,7 +24,7 @@ eu:
     my_dashboard: Aginte-panela
     recent_activity: Azken jarduera
     search: Galdera egin
-    sign_up_extended: Wikipediarekin saioa hasi
+    sign_up_extended: Izena eman Wikipedian
     sign_up_log_in_extended: Wikipediarekin
     sign_up: Eman izena
     submit: Bidali
@@ -45,6 +45,7 @@ eu:
     label: Jarduera
   articles:
     assigned: Esleitutako Artikuluak
+    available: Artikulu erabilgarriak
     assigned_to: 'Nori Esleitua:'
     edited: Editatutako artikuluak
     edited_mobile: Artikuluak
@@ -60,8 +61,16 @@ eu:
   assignments:
     assignees: Esleitua(k)
     assign_other: Artikulu bat esleitu
+    add_available: Gehitu artikulu erabilgarri bat
     assign_self: Neure buruari artikulu bat esleitu
+    confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
+    confirm_addition: Ziur zaude %{title} %{username} lankideari esleitu nahi diozula?
+    confirm_deletion: Ziur zaude esleipen hau ezabatu nahi duzula?
     label: Esleitu
+    loading: Esleipenak kargatzen...
+    none_short: Artikulu esleipenik gabe
+    none: Ikastaro honek ez du esleitutako artikulurik.
+    no_available: Ikastaro honek ez du artikulu eskuragarririk.
     remove: Kendu
     reviewers: Berrikuslea(k)
     review_other: Berrikuspen bat esleitu
@@ -72,12 +81,16 @@ eu:
       title: Mugarriak
   cohort:
     none: Bat ere ez
-    view_other: Ikusi beste kohorteak
   courses:
     activity: Jarduera
+    already_enrolled: Dagoeneko %{title} ikastaroaren partaide zara!
+    already_exists: Hori dagoeneko existitzen da ikastaro honetan!
+    archived: Artxibatutako Ikastaroak
     actions: Ekintzak
     articles: Artikuluak
+    articles_none: Ikastaro honek ez du artikulurik editatu.
     assignment_end: Esleipen Amaiera
+    assignments_none: Ikastaro honek ez du esleitutako artikulurik.
     calendar:
       legend: Azalpena
       legend_class_canceled: Oporretan/Bertan behera
@@ -90,8 +103,10 @@ eu:
       assignment_end_placeholder: Esleipen amaiera (UUUU-HH-EE)
       assignment_start: Esleipen hasiera
       assignment_start_placeholder: Esleipen hasiera(UUUU-HH-EE)
+      course_description: Ikastaroaren deskribapena
       course_language: Hizkuntza nagusia
       course_project: Proiektu nagusia
+      course_school: Ikastaroaren eskola
       course_subject: Ikastaroaren gaia
       course_term: Ikastaroaren epealdia
       course_term_placeholder: Epealdia
@@ -116,14 +131,23 @@ eu:
     end: Amaitu
     enroll: Izena eman
     enrollment: Izen ematea
+    error:
+      user_exists: Barka, %{username} lankide ez da existitzen.
+      invalid_language_or_project: HiKuntza/proiektu ez baliagarria
     expected_students: Espero diren Ikasleak
     instructor:
       one: Irakaslea
       other: Irakasleak
     instructors: Irakasleak
+    join: Bat egin
+    join_course: Ikastaroan sartu
+    join_prompt: Bat egin %{title}?
+    join_successful: Ondo bat egin duzu %{title} ikastaroarekin.
+    leave_confirmation: Ziur zaude ikastaro hau utzi nahi duzula?
     leave_course: Utzi ikastaroa
     loading: Kargatzen...
     my_articles: Nire artikuluak
+    new_week: Gehitu Aste Berria
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
     none: Bat ere ez
     overview: Ikuspegi orokorra
@@ -154,6 +178,7 @@ eu:
     assignment_start: Denbora-lerroaren Hasiera
     courses: Programak
     creator:
+      course_description: Programaren deskribapena
       course_school: Erakundea
       course_title: Programaren izena
       create_button: Sortu nire Programa!
@@ -166,6 +191,7 @@ eu:
     enrollment: Parte-hartzea
     expected_students: Espero diren editoreak
     instructors: Bideratzaileak
+    milestones_none: Proeiktu honek ez du gaur egun mugarririk.
     school: Erakundea
     student_editors: Editoreak
     students: Editoreak
@@ -270,6 +296,10 @@ eu:
     training_module_status: Egoera
     username: Erabiltzaile izena
     username_placeholder: Erabiltzaile izena
+    role:
+      student: Ikaslea
+      instructor: Irakaslea
+      wiki_ed_staff: Wiki Ed Lantaldea
   wizard:
     assignment_dates: Esleipen Datak
     course_dates: Ikastaroaren Datak

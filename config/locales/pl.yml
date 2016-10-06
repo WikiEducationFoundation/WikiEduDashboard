@@ -171,6 +171,9 @@ pl:
     training_module_status: Status
     username: Nazwa użytkownika
     username_placeholder: Nazwa użytkownika
+    role:
+      student: Student
+      instructor: Instruktor
   wizard:
     summary: Podsumowanie
   error:

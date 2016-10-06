@@ -119,7 +119,6 @@ sr-ec:
       title: Миљоказ
   cohort:
     none: Ништа
-    view_other: Погледај друге кохорте
   courses:
     activity: Активност
     already_enrolled: Већ сте део %{title}'!
@@ -220,7 +219,6 @@ sr-ec:
     title: Наслов
     training_nav: Иди на тренинг
     unsubmitted: Непослати курсеви
-    weeks_none: '%{title} нема задатака'
     view: Види курс
     view_doc: Сума свих прегледа чланака које су уредили студенти откад су направили
       своје прво уређивање сваком чланку
@@ -229,6 +227,7 @@ sr-ec:
     volunteer:
       one: волонтер
       other: волонтера
+    weeks_none: '%{title} нема задатака'
     wiki_staff: Особље Вики Ед-а
     yourcourses: Ваши курсеви
     survey:

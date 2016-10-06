@@ -116,7 +116,6 @@ cs:
       title: Milníky
   cohort:
     none: Žádné
-    view_other: Zobrazit další kohorty
   courses:
     activity: Aktivita
     already_enrolled: Již jste součástí kurzu '%{title}'!
@@ -261,7 +260,6 @@ cs:
     untrained: Netrénovaný
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
-    weeks_none: Tento kurz ještě nemá žádný časový plán.
     view: Zobrazit kurz
     view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
       od doby, kdy účastník provedl v článku první editaci).
@@ -270,6 +268,7 @@ cs:
     volunteer:
       one: Dobrovolník
       other: Dobrovolníci
+    weeks_none: Tento kurz ještě nemá žádný časový plán.
     wiki_staff: Wiki Ed personál
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu

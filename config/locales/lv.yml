@@ -84,6 +84,8 @@ lv:
     students_none: Šim kursam nav studentu.
     students_short: Studenti
     submitted_heading: Iesniegti kursi
+    user_role: Loma
+    course_details: Kursa dati par
     term: Semestris
     title: Nosaukums
     view: Apskatīt kursu
@@ -118,6 +120,12 @@ lv:
     none: Dalībnieku nav.
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
+    role:
+      visitor: Apmeklētājs
+      student: Students
+      instructor: Pasniedzējs
+      campus_volunteer: Iestādes brīvprātīgais
+      online_volunteer: Tiešsaistes brīvprātīgais
   wizard:
     read_less: Lasīt mazāk
     read_more: Lasīt vairāk

@@ -116,7 +116,6 @@ zh-TW:
       title: 里程碑
   cohort:
     none: 無
-    view_other: 查看其他同學
   courses:
     activity: 活躍度
     already_enrolled: 你已經成為  '%{title}' 課程的一份子！
@@ -237,6 +236,8 @@ zh-TW:
     submitted_note: |-
       您的課程已提交。
       Wiki ED的工作人員將審核此課程，若有任何問題會與您聯繫。
+    user_role: 身份
+    course_details: 課程詳細內容用於
     term: 學期
     timeline: 作業細節
     timeline_link: 時間表
@@ -247,13 +248,13 @@ zh-TW:
     unsubmitted: 尚未提交的課程。
     untrained: 未受訓
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
-    weeks_none: 此課程尚未建立時間表。
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
     view_wiki: 在維基百科上檢視
     volunteer:
       other: 志工
+    weeks_none: 此課程尚未建立時間表。
     warn_mirrored: |-
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間表上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
@@ -472,6 +473,13 @@ zh-TW:
     up_to_date_with_training: 最近培訓
     username: 使用者名稱
     username_placeholder: 使用者名稱
+    role:
+      visitor: 訪客
+      student: 學生
+      instructor: 講師
+      campus_volunteer: 校園志工
+      online_volunteer: 線上志工
+      wiki_ed_staff: Wiki Ed工作人員
   wiki_edits:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？

@@ -91,7 +91,6 @@ br:
       title: Mein-bonn
   cohort:
     none: Hini ebet
-    view_other: Diskwel ar bagadoù all
   courses:
     activity: Obererezh
     articles: Pennadoù
@@ -153,13 +152,13 @@ br:
     untrained: Hep stummadur
     uploads_none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe
       gant restr vedia ebet e Wikipedia Commons
-    weeks_none: N'eus implij amzer ebet evit ar gentel-mañ c'hoazh.
     view: Diskwel ar gentel
     view_page: Diskwel pajenn ar gentel
     view_wiki: Diskwel war Wikipedia
     volunteer:
       one: Den a-youl vat
       other: Tud a-youl vat
+    weeks_none: N'eus implij amzer ebet evit ar gentel-mañ c'hoazh.
     wiki_staff: Skipailh embann wiki
     yourcourses: Ho kentelioù
     survey:

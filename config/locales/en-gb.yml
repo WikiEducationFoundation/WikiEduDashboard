@@ -120,7 +120,6 @@ en-gb:
       title: Milestones
   cohort:
     none: None
-    view_other: View other cohorts
   courses:
     activity: Activity
     already_enrolled: You are already a part of '%{title}'!

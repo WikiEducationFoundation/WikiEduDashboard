@@ -112,8 +112,7 @@ fr:
     title_example: Titre de l’article
     view: Afficher l’article
     view_all: Tout afficher
-    view_doc: Le total de toutes les vues sur chaque article durant le déroulement
-      du cours
+    view_doc: Le total de toutes les vues sur chaque article durant le projet
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
     wp10: Intégrité structurale 
     wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
@@ -132,7 +131,7 @@ fr:
     assign_self: M’affecter un article
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
-    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation ?
+    confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
     label: Assigner
     loading: Chargement des affectations…
     none_short: Aucun article affecté
@@ -148,7 +147,6 @@ fr:
       title: Jalons
   cohort:
     none: Aucun
-    view_other: Afficher les autres cohortes
   courses:
     activity: Activité
     already_enrolled: Vous faites déjà partie de '%{title}' !
@@ -167,6 +165,7 @@ fr:
       legend_class_not_meeting: Aucune réunion programmée
       select_meeting_days: Sélectionner les jours de la semaine pendant lesquels votre
         classe se réunit.
+    cancel: Annuler
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     cohorts: 'Complices :'
@@ -189,6 +188,8 @@ fr:
       assignment_start: Début de l’affectation
       assignment_start_placeholder: Début de l’affectation (AAAA-MM-JJ)
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
+      clone_previous: Dupliquer le cours précédent
+      clone_this: Dupliquer ce cours
       cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
         du calendrier (par ex. les jours fériés, les vacances). Cliquer sur la date
         pour la faire basculer entre non sélectionnée, sélectionnée, et état d’absence.
@@ -293,6 +294,8 @@ fr:
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
       contactera pour toute question.
+    user_role: Rôle
+    course_details: Détails du cours pour
     term: Période
     timeline: Détails d'assignement
     timeline_link: Calendrier
@@ -306,7 +309,7 @@ fr:
     untrained: Sans formation
     uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
       ni autre fichier de média
-    weeks_none: Ce cours n’a pas encore de planning.
+    view_other: Afficher les autres cohortes
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
       depuis que ces derniers ont édité pour la première fois chacun des articles.
@@ -315,6 +318,7 @@ fr:
     volunteer:
       one: Bénévole
       other: Bénévoles
+    weeks_none: Ce cours n’a pas encore de planning.
     warn_mirrored: |-
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
@@ -330,9 +334,13 @@ fr:
     assignment_end: Fin de la chronologie
     assignments_none: Ce projet n’a pas d’article affecté.
     assignment_start: Début de la chronologie
+    cancel: Annuler
     courses: Programmes
+    cohorts: 'Campagnes :'
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
+      clone_previous: Dupliquer le programme précédent
+      clone_this: Dupliquer ce programme
       course_description: Description du programme
       course_school: Institution
       course_title: Titre du programme
@@ -344,11 +352,14 @@ fr:
       intro: Le titre du programme est obligatoire, tout le reste pourra être rempli
         plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
         la page de votre programme wiki.
+    delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
     enroll: Ajouter éditeur
     enrollment: Participation
     expected_students: Éditeurs attendus
     instructors: Animateurs
+    join_course: Rejoindre le programme
+    leave_course: Quitter le programme
     milestones_none: Ce projet n’a actuellement aucun jalon.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
@@ -358,9 +369,14 @@ fr:
     students: Éditeurs
     students_none: Ce projet n’a pas d’éditeurs inscrits.
     students_short: Éditeurs
+    students_count: Nombre de participants
     term: Quand
     uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
       autre fichier média.
+    view_other: Afficher les autres campagnes
+    view_page: Afficher la page du programme
+    word_count_doc: Un nombre estimé de mots ajouté aux articles de l’espace principal
+      par les éditeurs du programme durant son déroulement
   editable:
     edit: Modifier
     cancel: Annuler
@@ -560,6 +576,13 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
+    role:
+      visitor: Visiteur
+      student: Étudiant
+      instructor: Formateur
+      campus_volunteer: Bénévole du campus
+      online_volunteer: Bénévole en ligne
+      wiki_ed_staff: Équipe d’édition du wiki
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

@@ -261,7 +261,7 @@ ko:
     grading_header: '점수 (총: %{total}%)'
     no_class_holidays: 휴일 수업이 없습니다
     no_timeline: 이 과정에는 타임라인이 없습니다.
-    no_activity_this_week: 이 주에 활동 없음
+    no_activity_this_week: 이 주에 예정된 미팅 없음
     nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
     save_all_changes: 모두 저장
     this_week_title_default: 이번 주
@@ -308,6 +308,13 @@ ko:
     training_module_status: 상태
     username: 사용자 이름
     username_placeholder: 사용자 이름
+    role:
+      visitor: 방문자
+      student: 학생
+      instructor: 강사
+      campus_volunteer: 캠퍼스 지원자
+      online_volunteer: 온라인 지원자
+      wiki_ed_staff: 위키 에듀 임원
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.

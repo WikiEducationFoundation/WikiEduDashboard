@@ -239,6 +239,8 @@ it:
     submitted_heading: Corsi presentati
     submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
       e si metterà in contatto per tutte le domande.
+    user_role: Ruolo
+    course_details: Dettagli del corso per
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline
@@ -252,7 +254,6 @@ it:
     untrained: Inesperto
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
-    weeks_none: Questo corso non ha ancora una linea temporale.
     view: Visualizza corso
     view_doc: La somma di tutte le visite alle voci modificate dagli editori iscritti
       da quando gli editori hanno fatto la loro prima modifica ad ogni voce
@@ -261,6 +262,7 @@ it:
     volunteer:
       one: Volontario
       other: Volontari
+    weeks_none: Questo corso non ha ancora una linea temporale.
     wiki_staff: Staff Wiki Ed
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
@@ -414,6 +416,7 @@ it:
     assigned: Voci assegnate
     chars_added: Caratteri aggiunti<br>(namespace principale | utente)
     contributions: Contributi dell'utente
+    contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
     contributions_more: Visualizza Ulteriori Contributi
     editors: Editori
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
@@ -454,6 +457,13 @@ it:
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente
     username_placeholder: Nome utente
+    role:
+      visitor: Visitatore
+      student: Studente
+      instructor: Insegnante
+      campus_volunteer: Volontario del campus
+      online_volunteer: Volontario online
+      wiki_ed_staff: Staff Wiki Ed
   wizard:
     assignment_dates: Date di assegnazione
     assignment_type: Tipo di assegnazione

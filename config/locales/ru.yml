@@ -89,7 +89,6 @@ ru:
       title: Этапы
   cohort:
     none: Нет
-    view_other: Посмотреть другие группы.
   courses:
     activity: Деятельность
     articles: Статьи
@@ -135,7 +134,6 @@ ru:
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
     title: Заголовок
-    weeks_none: '%{title} не имеет назначений'
     view: Просмотр курса
     view_doc: Сумма всех просмотров статей, изменённых студентами с момента их первой
       правки каждой статьи.
@@ -144,6 +142,7 @@ ru:
     volunteer:
       one: Доброволец
       other: Добровольцы
+    weeks_none: '%{title} не имеет назначений'
     wiki_staff: Сотрудники Wiki Ed
     yourcourses: Ваши курсы
   courses_generic:

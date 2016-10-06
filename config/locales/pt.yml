@@ -128,7 +128,6 @@ pt:
       title: Marcos
   cohort:
     none: Nenhum
-    view_other: Ver outras turmas
   courses:
     activity: Atividade
     already_enrolled: Já faz parte de '%{title}'!
@@ -266,6 +265,7 @@ pt:
     submitted_heading: Cursos submetidos
     submitted_note: O seu curso foi submetido. A equipa do Wiki Ed irá analisá-lo
       e entrar em contacto em caso de eventuais dúvidas.
+    user_role: Função
     term: Período
     timeline: Detalhes da tarefa
     timeline_link: Cronograma
@@ -279,7 +279,6 @@ pt:
     untrained: Sem treinamento
     uploads_none: Esta classe não contribuiu com nenhuma imagem ou outros arquivos
       de mídia no Wikimedia Commons.
-    weeks_none: Este curso não tem um cronograma ainda.
     view: Ver Curso
     view_doc: A soma de todas as visitas a artigos editados por editores inscritos
       desde que o editor fez sua primeira edição em cada artigo
@@ -288,6 +287,7 @@ pt:
     volunteer:
       one: Voluntário
       other: Voluntários
+    weeks_none: Este curso não tem um cronograma ainda.
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
@@ -426,6 +426,10 @@ pt:
       Se os editores estudantes passaram pelo curso mas não completaram o passo de
       comentário, podem regressar ao final do curso aqui: https://en.wikipedia.org/wiki/wikipedia:Training/For_students/Training_complete.'
     training_incomplete: Formação incompleta
+    training_module_name: Módulo de formação
+    training_module_status: Estado
+    role:
+      student: Estudante
   wizard:
     assignment_type: Tipo de atribuição
     read_more: Ler mais

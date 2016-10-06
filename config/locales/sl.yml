@@ -1,0 +1,15 @@
+# Messages for Slovenian (slovenščina)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Pickle12
+---
+sl:
+  users:
+    role:
+      visitor: Obiskovalec
+      student: Študent/učenec
+      instructor: Inštruktor
+      campus_volunteer: Prostovoljec kampusa
+      online_volunteer: Spletni prostovoljec
+      wiki_ed_staff: Wiki Ed osebje
+...

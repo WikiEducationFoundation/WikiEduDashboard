@@ -48,8 +48,6 @@ gl:
   blocks:
     milestones:
       title: Fitos
-  cohort:
-    view_other: Ver outras cohortes
   courses:
     activity: Actividade
     articles: Artigos

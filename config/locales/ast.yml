@@ -135,7 +135,6 @@ ast:
       title: Finxos
   cohort:
     none: Nengunu
-    view_other: Ver otres cohortes
   courses:
     activity: Actividá
     already_enrolled: Yá yes parte de '%{title}'.
@@ -229,7 +228,6 @@ ast:
     students_short: Estudiantes
     timeline: Detalles de la xera
     title: Títulu
-    weeks_none: Esti cursu entá nun tien un cronograma.
     view: Ver el cursu
     view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
       desque ficieron la primera edición en cada artículu
@@ -237,6 +235,7 @@ ast:
     volunteer:
       one: Voluntariu
       other: Voluntarios
+    weeks_none: Esti cursu entá nun tien un cronograma.
     wiki_staff: Personal de Wiki Ed
     word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
       a los artículos del espaciu principal nel periodu del cursu

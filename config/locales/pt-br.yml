@@ -134,7 +134,6 @@ pt-br:
       title: Marco
   cohort:
     none: Nenhum
-    view_other: Ver outros colegas
   courses:
     activity: Atividade
     already_enrolled: Você já é parte de '%{title}'!
@@ -287,7 +286,6 @@ pt-br:
     untrained: Sem treinamento
     uploads_none: Esta classe não contribuiu nenhuma imagem ou outros arquivos de
       mídia no Wikimedia Commons.
-    weeks_none: Este curso não tem um cronograma ainda.
     view: Ver curso
     view_doc: A soma de todas as visitas a artigos editados por editores inscritos
       desde que o editor fez sua primeira edição em cada artigo
@@ -296,6 +294,7 @@ pt-br:
     volunteer:
       one: Volunteer
       other: Voluntários
+    weeks_none: Este curso não tem um cronograma ainda.
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?

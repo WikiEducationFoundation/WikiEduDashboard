@@ -6,9 +6,13 @@
 # Author: Maroen1990
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
+# Author: ديفيد
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
+  accessibility:
+    number_field: هذا هو حقل الأرقام، والأزرار التي تقدمها معظم المتصفحات ستزيد وتنقص
+      المدخلات.
   application:
     cancel: ألغ
     explore: استكشف
@@ -99,6 +103,9 @@ ar:
   users:
     editors: محررون
     name: الاسم
+    role:
+      visitor: زائر
+      student: طالب
   wizard:
     select_one_option: الرجاء تحديد اختيار واحد
     read_more: اقرأ المزيد
