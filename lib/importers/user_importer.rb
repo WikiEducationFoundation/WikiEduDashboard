@@ -32,7 +32,10 @@ class UserImporter
     # All mediawiki usernames have the first letter capitalized, although
     # the API returns data if you replace it with lower case.
     username = String.new(username)
+    # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
     username[0] = username[0].mb_chars.capitalize.to_s
+    # Remove any leading or trailing whitespace that snuck through.
+    username.strip!
     user = User.find_by(username: username)
     return user if user
 
