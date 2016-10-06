@@ -39,6 +39,7 @@
 #  syllabus_file_size    :integer
 #  syllabus_updated_at   :datetime
 #  home_wiki_id          :integer
+#  timezone              :string           default("UTC")
 #
 
 require "#{Rails.root}/lib/course_cleanup_manager"
@@ -186,6 +187,7 @@ class Course < ActiveRecord::Base
   before_save :ensure_required_params
   before_save :order_weeks
   before_save :set_default_times
+  before_save :convert_timezone
 
   ####################
   # Instance methods #
@@ -317,5 +319,10 @@ class Course < ActiveRecord::Base
     self.end = self.end.end_of_day
     self.timeline_start = timeline_start.beginning_of_day
     self.timeline_end = timeline_end.end_of_day
+  end
+
+  def convert_timezone
+    self.start = self.start.in_time_zone('UTC')
+    self.end = self.end.in_time_zone('UTC')
   end
 end

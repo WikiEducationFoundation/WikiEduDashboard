@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930190451) do
+ActiveRecord::Schema.define(version: 20161005185412) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -155,6 +155,7 @@ ActiveRecord::Schema.define(version: 20160930190451) do
     t.integer  "syllabus_file_size"
     t.datetime "syllabus_updated_at"
     t.integer  "home_wiki_id"
+    t.string   "time_zone",                           default: "UTC"
     t.index ["slug"], name: "index_courses_on_slug", using: :btree
   end
 
@@ -197,8 +198,8 @@ ActiveRecord::Schema.define(version: 20160930190451) do
 
   create_table "rapidfire_answer_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_group_id"
-    t.string   "user_type"
     t.integer  "user_id"
+    t.string   "user_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id", using: :btree

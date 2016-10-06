@@ -7,6 +7,7 @@ import CourseTypeSelector from './course_type_selector.jsx';
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
+import TimeZone from '../common/time_zone.jsx';
 import CourseActions from '../../actions/course_actions.js';
 
 import CourseStore from '../../stores/course_store.coffee';
@@ -185,6 +186,17 @@ const Details = React.createClass({
       );
     }
 
+    const timeZoneNode = (
+      <TimeZone
+        id="time_zone"
+        onChange={this.updateDetails}
+        value={this.props.course.time_zone}
+        value_key="time_zone"
+        editable={this.props.editable}
+        enabled
+      />
+    );
+
     let cohorts = this.props.cohorts.length > 0 ?
       _.map(this.props.cohorts, 'title').join(', ')
     : I18n.t('courses.none');
@@ -258,6 +270,7 @@ const Details = React.createClass({
             />
             {timelineStart}
             {timelineEnd}
+            {this.props.course.use_start_and_end_times ? timeZoneNode : null}
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('cohorts', this.props.course.string_prefix)} </strong>{cohorts}</span>
