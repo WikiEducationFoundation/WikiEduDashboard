@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DatePicker = React.createClass({
+const TimeZone = React.createClass({
   displayName: 'TimeZone',
 
   propTypes: {
@@ -89,4 +89,4 @@ const DatePicker = React.createClass({
   }
 });
 
-export default DatePicker;
+export default TimeZone;

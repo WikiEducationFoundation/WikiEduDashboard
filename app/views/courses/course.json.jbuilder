@@ -2,7 +2,7 @@
 json.course do
   user_role = current_user&.role(@course) || CoursesUsers::Roles::VISITOR_ROLE
 
-  json.call(@course, :id, :title, :description, :start, :end, :school,
+  json.call(@course, :id, :title, :description, :start, :end, :time_zone, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,

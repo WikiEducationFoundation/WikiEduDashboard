@@ -349,6 +349,9 @@ qqq:
     submitted_note: Message that your course has been successfully submitted
     user_role: '{{Identical|Role}}'
     timeline_link: '{{Identical|Timeline}}'
+    time_zone: |-
+      Label for time zone input
+      {{Identical|Time zone}}
     title: |-
       Label for the title of each course
       {{Identical|Title}}
