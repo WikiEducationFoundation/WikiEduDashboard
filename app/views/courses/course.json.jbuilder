@@ -24,6 +24,9 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
 
+  json.start = @course.start.in_time_zone(@course.time_zone)
+  json.end = @course.end.in_time_zone(@course.time_zone)
+
   if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)
     json.incomplete_assigned_modules ctpm.incomplete_assigned_modules
