@@ -32,6 +32,9 @@ class UntrainedStudentsAlertManager
     assignment_dates = training_blocks.map do |block|
       block.week.meeting_dates.last
     end
+    # Courses without enough meeting dates to fit all Week records can have nil
+    # assignment dates.
+    assignment_dates.reject!(&:nil?)
     assignment_dates.select { |date| date < Time.now }.sort
   end
 end
