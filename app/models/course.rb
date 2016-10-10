@@ -322,7 +322,8 @@ class Course < ActiveRecord::Base
   end
 
   def convert_timezone
-    self.start = self.start.in_time_zone('UTC')
-    self.end = self.end.in_time_zone('UTC')
+    offset = ActiveSupport::TimeZone[self.time_zone].formatted_offset
+    self.start = DateTime.parse(start.strftime("%Y-%m-%d %H:%M:%S #{offset}")).in_time_zone('UTC')
+    self.end = DateTime.parse(self.end.strftime("%Y-%m-%d %H:%M:%S #{offset}")).in_time_zone('UTC')
   end
 end

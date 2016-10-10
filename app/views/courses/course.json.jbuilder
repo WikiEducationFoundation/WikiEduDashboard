@@ -9,6 +9,9 @@ json.course do
             :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count,
             :cloned_status)
 
+  json.start DateTime.parse(@course.start.strftime("%Y-%m-%d %H:%M:%S UTC")).in_time_zone(@course.time_zone)
+  json.end DateTime.parse(@course.end.strftime("%Y-%m-%d %H:%M:%S UTC")).in_time_zone(@course.time_zone)
+
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended !current?(@course) && @course.start < Time.zone.now
@@ -23,9 +26,6 @@ json.course do
   json.word_count number_to_human @course.word_count
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
-
-  json.start = @course.start.in_time_zone(@course.time_zone)
-  json.end = @course.end.in_time_zone(@course.time_zone)
 
   if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)

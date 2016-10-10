@@ -19,7 +19,8 @@ const TimeZone = React.createClass({
 
   getDefaultProps() {
     return {
-      label: I18n.t('courses.time_zone')
+      label: I18n.t('courses.time_zone'),
+      value: 'UTC'
     };
   },
 
