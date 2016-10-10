@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/WikiEducationFoundation/rapidfire
-  revision: 6e4dd79e06349cbdf145c5ce9a2c3079d1e05d4d
+  revision: 8cf76075f18f004e9493988e5033658d6658b364
   branch: master
   specs:
     rapidfire (2.1.0)
@@ -77,7 +77,7 @@ GEM
     annotate (2.7.1)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 12.0)
-    arel (7.1.2)
+    arel (7.1.4)
     ast (2.3.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
@@ -259,9 +259,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (3.16.2.321)
     nio4r (1.2.1)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     notiffany (0.1.1)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -285,7 +284,6 @@ GEM
       mimemagic (~> 0.3.0)
     parser (2.3.1.4)
       ast (~> 2.2)
-    pkg-config (1.1.7)
     poltergeist (1.10.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
