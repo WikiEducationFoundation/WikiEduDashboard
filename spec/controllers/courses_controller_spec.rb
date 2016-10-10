@@ -107,6 +107,7 @@ describe CoursesController do
         description: 'New description',
         start: 2.months.ago.beginning_of_day,
         end: 2.months.from_now.end_of_day,
+        time_zone: 'UTC',
         term: 'pizza',
         slug: 'food',
         subject: 'cooking',
@@ -201,7 +202,8 @@ describe CoursesController do
             title: 'How to Wiki',
             term: 'Fall 2015',
             start: '2015-01-05',
-            end: '2015-12-20' }
+            end: '2015-12-20',
+            time_zone: 'UTC' }
         end
         it 'sets slug correctly' do
           post :create, params: { course: course_params }, format: :json
@@ -227,6 +229,7 @@ describe CoursesController do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
+            time_zone: 'UTC',
             language: 'ar',
             project: 'wikibooks' }
         end
@@ -250,6 +253,7 @@ describe CoursesController do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
+            time_zone: 'UTC',
             language: 'arrr',
             project: 'wikipirates' }
         end
@@ -267,6 +271,7 @@ describe CoursesController do
             description: 'New description',
             start: 2.months.ago.beginning_of_day,
             end: 2.months.from_now.end_of_day,
+            time_zone: 'UTC',
             school: 'burritos',
             term: 'pizza',
             slug: 'food',

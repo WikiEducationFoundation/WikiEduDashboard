@@ -8,7 +8,7 @@ module.exports = {
 
   formattedDateTime: (datetime, showTime = false) ->
     format = "YYYY-MM-DD#{if showTime then ' HH:mm' else ''}"
-    return moment(datetime).format(format);
+    return moment(datetime).format(format)
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->

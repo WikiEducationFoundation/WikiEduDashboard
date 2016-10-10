@@ -187,7 +187,6 @@ class Course < ActiveRecord::Base
   before_save :ensure_required_params
   before_save :order_weeks
   before_save :set_default_times
-  before_save :convert_timezone
 
   ####################
   # Instance methods #
@@ -319,11 +318,5 @@ class Course < ActiveRecord::Base
     self.end = self.end.end_of_day
     self.timeline_start = timeline_start.beginning_of_day
     self.timeline_end = timeline_end.end_of_day
-  end
-
-  def convert_timezone
-    offset = ActiveSupport::TimeZone[self.time_zone].formatted_offset
-    self.start = DateTime.parse(start.strftime("%Y-%m-%d %H:%M:%S #{offset}")).in_time_zone('UTC')
-    self.end = DateTime.parse(self.end.strftime("%Y-%m-%d %H:%M:%S #{offset}")).in_time_zone('UTC')
   end
 end

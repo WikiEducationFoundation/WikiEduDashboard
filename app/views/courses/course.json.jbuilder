@@ -2,15 +2,12 @@
 json.course do
   user_role = current_user&.role(@course) || CoursesUsers::Roles::VISITOR_ROLE
 
-  json.call(@course, :id, :title, :description, :time_zone, :school,
+  json.call(@course, :id, :title, :description, :start, :end, :time_zone, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count,
             :cloned_status)
-
-  json.start DateTime.parse(@course.start.strftime("%Y-%m-%d %H:%M:%S UTC")).in_time_zone(@course.time_zone)
-  json.end DateTime.parse(@course.end.strftime("%Y-%m-%d %H:%M:%S UTC")).in_time_zone(@course.time_zone)
 
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?

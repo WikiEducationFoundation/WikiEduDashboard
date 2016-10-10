@@ -5,6 +5,8 @@ import InputMixin from '../../mixins/input_mixin.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
 
+let timeZoneOffset = '+00:00'; // default to UTC
+
 const DatePicker = React.createClass({
   displayName: 'DatePicker',
 
@@ -29,24 +31,32 @@ const DatePicker = React.createClass({
     onClick: React.PropTypes.func,
     append: React.PropTypes.string,
     date_props: React.PropTypes.object,
-    showTime: React.PropTypes.bool
+    showTime: React.PropTypes.bool,
+    timeZone: React.PropTypes.string
   },
 
   mixins: [InputMixin],
 
   getDefaultProps() {
     return {
-      invalidMessage: I18n.t('application.field_invalid_date')
+      invalidMessage: I18n.t('application.field_invalid_date'),
+      timeZone: 'UTC'
     };
   },
 
   getInitialState() {
+    const timeZoneName = _.invert(window.TimeZones)[this.props.timeZone];
+    timeZoneOffset = timeZoneName.match(/GMT([+-]\d\d:\d\d)/)[1];
+
     if (this.props.value) {
-      const dateObj = moment(this.props.value).utc();
+      const convertedTime = this.dateTimeWithZone(
+        moment(this.props.value).utc()
+      );
+
       return {
-        value: dateObj.format('YYYY-MM-DD'),
-        hour: dateObj.hour(),
-        minute: dateObj.minute(),
+        value: convertedTime.format('YYYY-MM-DD'),
+        hour: convertedTime.hour(),
+        minute: convertedTime.minute(),
         datePickerVisible: false
       };
     }
@@ -59,7 +69,9 @@ const DatePicker = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const dateObj = moment(nextProps.value).utc();
+    const dateObj = this.dateTimeWithZone(
+      moment(nextProps.value).utc()
+    );
     if (dateObj.isValid()) {
       this.setState({
         value: dateObj.format('YYYY-MM-DD'),
@@ -76,17 +88,27 @@ const DatePicker = React.createClass({
    * @return {null}
    */
   onChangeHandler() {
-    this.props.onChange(this.props.value_key, this.getDate().format());
+    this.props.onChange(this.props.value_key, this.getDate(true).format());
   },
 
   /**
    * Get moment object of currently select date, hour and minute
+   * @param {Boolean} [convertToUTC] - whether to convert the time to UTC
+   *   based on this.props.timeZone
    * @return {moment}
    */
-  getDate() {
+  getDate(convertToUTC = false) {
     let dateObj = moment(this.state.value, 'YYYY-MM-DD').utc();
     dateObj = dateObj.hour(this.state.hour);
-    return dateObj.minute(this.state.minute);
+    dateObj = dateObj.minute(this.state.minute);
+
+    if (convertToUTC) {
+      dateObj = moment(
+        dateObj.format('YYYY-MM-DDTHH:mm:00+00:00')
+      ).utc();
+    }
+
+    return dateObj;
   },
 
   getFormattedDate() {
@@ -110,6 +132,12 @@ const DatePicker = React.createClass({
         </option>
       );
     });
+  },
+
+  dateTimeWithZone(dateObj) {
+    return moment(
+      dateObj.format(`YYYY-MM-DDTHH:mm:00${timeZoneOffset}`)
+    ).utc();
   },
 
   handleDatePickerChange(e, selectedDate) {
