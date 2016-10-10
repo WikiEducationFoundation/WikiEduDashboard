@@ -92,7 +92,7 @@ Rails.application.config.to_prepare do
     end
 
     def set_tags
-      @available_tags = Tag.uniq.pluck(:tag)
+      @available_tags = Tag.distinct.pluck(:tag)
     end
   end
 
