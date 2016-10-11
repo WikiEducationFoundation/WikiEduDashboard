@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 class SurveysController < ApplicationController
-  layout 'surveys_minimal', only: [:show]
-  layout 'application', only: [:optout]
-
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
@@ -64,10 +61,11 @@ class SurveysController < ApplicationController
     # the surveys and puts all questions on display at once, but it is gets
     # around the accessibility probems.
     @accessibility_mode = true if params['accessibility'] == 'true'
-    render 'show'
+    render layout: 'surveys_minimal'
   end
 
   def optout
+    render layout: 'application'
   end
 
   def course_select

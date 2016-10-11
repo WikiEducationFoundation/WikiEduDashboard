@@ -181,7 +181,6 @@ module SurveysHelper
   def set_course_for_question_group
     @course = find_course_by_slug(params[:course_slug]) if course_slug?
     return if @course
-    return unless course_questions?(@question_group)
     @courses = Course.all
     render 'course_select'
   end
@@ -203,10 +202,6 @@ module SurveysHelper
 
   def course_slug?
     params.key?('course_slug')
-  end
-
-  def course_questions?(question_group)
-    !question_group.questions.course_data_questions.empty?
   end
 
   def questions_in_same_group?(first, second)
