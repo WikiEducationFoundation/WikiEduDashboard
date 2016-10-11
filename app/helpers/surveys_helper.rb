@@ -178,20 +178,10 @@ module SurveysHelper
 
   private
 
-  def set_course
-    @course = find_course_by_slug(params[:course_slug]) if course_slug?
-  end
-
-  def set_course_for_survey
-    set_course
-    return unless survey_has_course_questions? && !course_slug?
-    @courses = Course.all
-    render 'course_select'
-  end
-
   def set_course_for_question_group
-    set_course
-    return unless course_questions?(@question_group) && !course_slug?
+    @course = find_course_by_slug(params[:course_slug]) if course_slug?
+    return if @course
+    return unless course_questions?(@question_group)
     @courses = Course.all
     render 'course_select'
   end
@@ -222,12 +212,5 @@ module SurveysHelper
   def questions_in_same_group?(first, second)
     return false if first.nil? || second.nil?
     grouped_question(first) == grouped_question(second)
-  end
-
-  def survey_has_course_questions?
-    @surveys_question_groups.each do |sqg|
-      return true if course_questions?(sqg.question_group)
-    end
-    false
   end
 end

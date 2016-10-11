@@ -28,7 +28,7 @@ class SurveysController < ApplicationController
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
-  before_action :set_course_for_survey, only: [:show]
+  before_action :set_course, only: [:show]
 
   # GET /surveys
   # GET /surveys.json
@@ -54,7 +54,6 @@ class SurveysController < ApplicationController
   # GET /surveys/1
   # GET /surveys/1.json
   def show
-    @courses = Course.all
     unless validate_user_for_survey
       redirect_to(main_app.root_path,
                   flash: { notice: 'Sorry, You do not have access to this survey' })
@@ -201,10 +200,35 @@ class SurveysController < ApplicationController
     @notification = user_is_assigned_to_survey(true)
   end
 
+  # If at all possible, find the course to associate with this survey.
+  # Setting a course is necessary for conditional features of surveys — question
+  # groups that only apply to certain cohorts, or for courses with certain tags
+  # — to work.
+  # First go based on slug. Next, go based on notification.
+  # For preview mode, fall back to the course_select dropdown.
+  # For a real survey, fall back to the user's latest course.
   def set_course
     @course = find_course_by_slug(params[:course_slug]) if course_slug?
-    return unless @course.nil?
-    @course = @notification.course if @notification.instance_of?(SurveyNotification)
+    @course ||= @notification.course if @notification.instance_of?(SurveyNotification)
+    return if @course
+    if preview_mode?
+      set_course_via_select
+    else
+      fall_back_to_last_course_for_user
+    end
+  end
+
+  def set_course_via_select
+    @courses = Course.all
+    render 'course_select'
+  end
+
+  def fall_back_to_last_course_for_user
+    @course = current_user.courses.last
+  end
+
+  def preview_mode?
+    params.key?(:preview)
   end
 
   def course_slug?
