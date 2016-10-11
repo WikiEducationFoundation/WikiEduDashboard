@@ -45,8 +45,7 @@ const DatePicker = React.createClass({
   },
 
   getInitialState() {
-    const timeZoneName = _.invert(window.TimeZones)[this.props.timeZone];
-    timeZoneOffset = timeZoneName.match(/GMT([+-]\d\d:\d\d)/)[1];
+    timeZoneOffset = window.TimeZones[this.props.timeZone];
 
     if (this.props.value) {
       const convertedTime = this.dateTimeWithZone(

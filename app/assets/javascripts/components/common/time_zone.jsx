@@ -33,11 +33,11 @@ const TimeZone = React.createClass({
   },
 
   getDropdownOptions() {
-    return Object.keys(window.TimeZones).map((tz, index) => {
-      const value = window.TimeZones[tz];
+    return Object.keys(window.TimeZones).map((name, index) => {
+      const offset = window.TimeZones[name];
       return (
-        <option value={value} key={`timezone-dropdown-${index}`}>
-          {tz}
+        <option value={name} key={`timezone-dropdown-${index}`}>
+          {`(GMT${offset}) ${name}`}
         </option>
       );
     });
