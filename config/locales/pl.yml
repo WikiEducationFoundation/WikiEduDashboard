@@ -66,6 +66,7 @@ pl:
     assignments_none: Ten kurs nie ma przypisanych artykułów.
     calendar:
       legend: Legenda
+    cancel: Anuluj
     course_description: Kursy
     courses: Kursy
     creation_date: Data utworzenia
@@ -92,18 +93,24 @@ pl:
     start: Początek
     students: Studenci
     students_short: Studenci
+    user_role: Rola
     title: Tytuł
     view: Zobacz Kursy
     view_wiki: Zobacz w Wikipedii
     yourcourses: Twoje Kursy
   courses_generic:
     assignments_none: Ten projekt nie ma przypisanych artykułów.
+    cancel: Anuluj
     courses: Programy
     creator:
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       course_school: Instytucja
+    delete_course: Skasuj program
     enrollment: Uczestnictwo
+    join_course: Dołącz do programu
+    leave_course: Opuść program
     school: Instytucja
+    students_count: Liczba uczestników
   editable:
     edit: Edytuj
     cancel: Anuluj

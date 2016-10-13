@@ -100,7 +100,7 @@ zh-TW:
     assign_self: 指定自己一個條目
     confirm_add_available: 您確定您想要添加 %{title} 嗎？
     confirm_addition: 您確定要將%{title}分配給%{username}？
-    confirm_deletion: 您確定要刪除此項作業嗎？
+    confirm_deletion: 您確定要刪除此條目分配嗎？
     label: 分配
     loading: 載入作業中...
     none_short: 沒有分配任何條目
@@ -133,6 +133,7 @@ zh-TW:
       legend_class_meeting: 上課時段
       legend_class_not_meeting: 無課時段
       select_meeting_days: 選擇一週中上課的日子
+    cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主名字空間的條目之總位元組數。（1中文字=3位元組）
     cohorts: 同學：
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
@@ -148,6 +149,8 @@ zh-TW:
       assignment_start: 作業開始繳交
       assignment_start_placeholder: 作業繳交開始日（年-月-日，格式YYYY-MM-DD）
       checking_for_uniqueness: 正在確認是否有重複的課程。
+      clone_previous: 複製前一個課程
+      clone_this: 複製此課程
       cloned_course_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。點擊一個日期可以從不上課時段、上課時段、以及休假時段三種設定之間轉換。若您開課期間沒有遇到假日，點擊「我的課程沒有休假時段」。複製完成的時間表將會隨著不上課時段的星期自動坐相對應的調整。
       clone_successful: 課程成功複製
       clone_successful_details: 您的課程已經被複製，包含時間表的各種內容（所有的星期以及障礙）。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
@@ -269,6 +272,7 @@ zh-TW:
     assignment_end: 時間軸終點
     assignments_none: 此項目沒有任何條目被分配。
     assignment_start: 時間軸起點
+    cancel: 取消
     courses: 方案
     creator:
       checking_for_uniqueness: 正在確認是否有重複的方案。

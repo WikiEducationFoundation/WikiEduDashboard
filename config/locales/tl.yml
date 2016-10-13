@@ -1,6 +1,7 @@
 # Messages for Tagalog (Tagalog)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Emem.calist
 # Author: Leeheonjin
 ---
 tl:
@@ -10,6 +11,12 @@ tl:
     log_out: Mag-logout
     recent_activity: Kamakailang Aktibidad
     search: hanapin ang ask.wikiedu.org
+  courses:
+    view_other: Ipakita ang ibang kasabwat
+  courses_generic:
+    delete_course: Tanggalin ang programa
+    leave_course: Iwanan ang programa
+    view_page: Ipakita ang Programa Pahina
   revisions:
     date_time: Petsa/Oras
     edited_by: Inedit ni/ng

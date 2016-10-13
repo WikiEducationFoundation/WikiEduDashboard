@@ -68,9 +68,12 @@ sv:
     calendar:
       legend_class_meeting: Klassmöte
       legend_class_not_meeting: Inget schemalagt möte
+    cancel: Avbryt
     course_description: Kurser
     courses: Kurser
     creator:
+      clone_previous: Klona tidigare kurs
+      clone_this: Klona denna kurs
       course_description: Kursbeskrivning
       course_language: Hemspråk
       course_project: Hemprojekt
@@ -132,7 +135,11 @@ sv:
     volunteer:
       other: en=Volontär
   courses_generic:
+    cancel: Avbryt
+    cohorts: 'Kampanjer:'
     creator:
+      clone_previous: Klona tidigare program
+      clone_this: Klona detta program
       course_description: Program beskrivning
       course_school: Institution
       course_title: Program namn
@@ -143,11 +150,17 @@ sv:
       find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
+    delete_course: Radera program
     edit_course_dates: Redigera projektdatum
     enroll: Lägg till redigerare
     enrollment: Deltagande
     expected_students: Förväntade redigerare
+    join_course: Gå med i program
+    leave_course: Lämna program
+    students_count: Antal deltagare
     term: När
+    view_other: Visa andra kampanjer
+    view_page: Visa programsida
   editable:
     edit: Redigera
     cancel: Avbryt

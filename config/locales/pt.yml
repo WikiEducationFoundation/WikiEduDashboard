@@ -145,6 +145,7 @@ pt:
       legend_class_meeting: Reunião de turma
       legend_class_not_meeting: Nenhuma reunião marcada
       select_meeting_days: Selecionar os dias da semana em que a turma se reúne.
+    cancel: Cancelar
     character_doc: A soma dos carateres adicionados a artigos no domínio principal
       por estudantes do curso durante o prazo do curso
     cohorts: 'Grupos:'
@@ -303,7 +304,9 @@ pt:
     assignment_end: Fim do Cronograma
     assignments_none: Este projeto não tem artigos indicados.
     assignment_start: Início do Cronograma
+    cancel: Cancelar
     courses: Programas
+    cohorts: 'Campanhas:'
     creator:
       checking_for_uniqueness: Verificando se este curso é único.
       course_description: Descrição do programa
@@ -331,9 +334,11 @@ pt:
     students: Editores
     students_none: Este projeto não tem editores registados.
     students_short: Editores
+    students_count: Número de participantes
     term: Quando
     uploads_none: Este projeto não contribuiu com nenhuma imagem ou outro ficheiro
       multimédia no Wikimedia Commons.
+    view_other: Ver outras campanhas
   editable:
     edit: Editar
     cancel: Cancelar
@@ -429,6 +434,7 @@ pt:
     training_module_name: Módulo de formação
     training_module_status: Estado
     role:
+      visitor: Visitante
       student: Estudante
   wizard:
     assignment_type: Tipo de atribuição

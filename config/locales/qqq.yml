@@ -209,6 +209,7 @@ qqq:
         the does not meet (Wiki Ed only)
       select_meeting_days: Instructions for using a calendar to select the days that
         a course meets (Wiki Ed only)
+    cancel: '{{Identical|Cancel}}'
     character_doc: Explanation of what 'characters added' means
     cohorts: Label for a list of cohorts a program is part of. A "cohort" essentially
       means a group of courses with something in common, in this context.
@@ -382,7 +383,9 @@ qqq:
   courses_generic:
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
+    cancel: '{{Identical|Cancel}}'
     courses: '{{Identical|Program}}'
+    cohorts: '{{Identical|Campaign}}'
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course

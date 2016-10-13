@@ -45,9 +45,12 @@ lv:
       legend: Apzīmējumi
       legend_class_canceled: Brīvdiena/atcelts
       legend_class_meeting: Klases sapulce
+    cancel: Atcelt
     course_description: Kursi
     courses: Kursi
     creator:
+      clone_previous: Klonēt iepriekšējo kursu
+      clone_this: Klonēt šo kursu
       course_description: Kursa apraksts
       course_school: Kursa skola
       course_subject: Kursa temats
@@ -90,7 +93,14 @@ lv:
     title: Nosaukums
     view: Apskatīt kursu
   courses_generic:
+    cancel: Atcelt
     courses: Programmas
+    cohorts: 'Kampaņas:'
+    creator:
+      clone_previous: Klonēt iepriekšējo programmu
+      clone_this: Klonēt šo programmu
+    delete_course: Dzēst programmu
+    join_course: Pievienoties programmai
     student_editors: Redaktori
   metrics:
     articles_created: Izveidotie raksti

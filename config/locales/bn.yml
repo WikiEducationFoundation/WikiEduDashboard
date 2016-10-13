@@ -53,6 +53,7 @@ bn:
     none: কোনটিই নয়
   courses:
     articles: নিবন্ধসমূহ
+    cancel: বাতিল
     creator:
       course_project: মূল প্রকল্প
       course_school: কোর্স বিদ্যালয়

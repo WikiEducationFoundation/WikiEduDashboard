@@ -99,7 +99,7 @@ ast:
     title_example: Títulu del artículu
     view: Ver artículu
     view_all: Ver toos
-    view_doc: La suma de toles visites a cada artículu demientres el periodu del cursu
+    view_doc: La suma de toles visites a cada artículu demientres el proyectu
     views_added: Amestáronse %{count} visites nueves a %{title}
     wp10: Integridá estructural
     wp10_doc: La puntuación «Integridá estructural» representa lo averáu qu'un artículu
@@ -119,7 +119,7 @@ ast:
     assign_self: Asiname un artículu
     confirm_add_available: ¿Tas seguru de que quieres añadir %{title}?
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
-    confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación?
+    confirm_deletion: ¿Tas seguru de que quies desaniciar esta designación d'artículu?
     label: Asinar
     loading: Cargando xeres...
     none_short: Nun hai artículos asinaos
@@ -152,6 +152,7 @@ ast:
       legend_class_meeting: Xunta de la Clase
       legend_class_not_meeting: Nenguna xunta programada
       select_meeting_days: Escueye los díes de la selmana en qu'aconceya la to clase.
+    cancel: Encaboxar
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     cohorts: 'Cohortes:'
@@ -175,6 +176,8 @@ ast:
       assignment_start: Entamu de la xera
       assignment_start_placeholder: Entamu de la xera (AAAA-MM-DD)
       checking_for_uniqueness: Ta comprobándose qu'esti cursu sía únicu.
+      clone_previous: Clonar el cursu anterior
+      clone_this: Clonar esti cursu
       cloned_course_calendar_instructions: Escueye dates p'asedir o quitar del calendariu
         (por casu, vacaciones, cuando nun hai clases). Fai clic na dataa pa camudar
         ente los estaos «ensin escoyer», «escoyíu» y «vacaciones». Si nun tienes vacaciones,

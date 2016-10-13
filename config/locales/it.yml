@@ -89,7 +89,7 @@ it:
     title_example: Titolo della voce
     view: Visualizza voce
     view_all: Mostra tutto
-    view_doc: La somma di tutte le visite ad ogni voce durante il periodo del corso
+    view_doc: La somma di tutte le visite ad ogni voce durante il progetto
     views_added: Aggiunte %{count} nuove viste per %{title}
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
@@ -137,6 +137,7 @@ it:
       legend_class_not_meeting: Nessuna riunione in programma
       select_meeting_days: Seleziona i giorni della settimana in cui la tua classe
         si riunisce.
+    cancel: Annulla
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
     confirm_course_deletion: Cancellare il corso intitolato %{title}? Scrivi il titolo
@@ -154,6 +155,8 @@ it:
       assignment_start: Inizio assegnazione
       assignment_start_placeholder: Inizio assegnazione (YYYY-MM-DD)
       checking_for_uniqueness: Controllo dell'unicità di questo corso in esecuzione.
+      clone_previous: Clona corso precedente
+      clone_this: Clona questo corso
       cloned_course_calendar_instructions: 'Seleziona le date per aggiungerle o rimuoverle
         dalla pianificazione (ad esempio: vacanze, niente scuola). Clicca su una data
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
@@ -275,9 +278,13 @@ it:
     assignment_end: Fine timeline
     assignments_none: Questo progetto non ha voci assegnate.
     assignment_start: Inizio timeline
+    cancel: Annulla
     courses: Programmi
+    cohorts: 'Campagne:'
     creator:
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
+      clone_previous: Clona programma precedente
+      clone_this: Clona questo programma
       course_description: Descrizione del programma
       course_school: Istituto
       course_title: Titolo del programma
@@ -289,11 +296,14 @@ it:
       intro: Il titolo del programma è obbligatorio, tutto il resto può essere riempito
         in seguito. Clicca su "Crea il mio programma!" per iniziare a costruire la
         pagina wiki del programma.
+    delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor
     enrollment: Partecipazione
     expected_students: Editori previsti
     instructors: Facilitatori
+    join_course: Partecipa al programma
+    leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
@@ -303,9 +313,13 @@ it:
     students: Editori
     students_none: Questo progetto non ha editori iscritti.
     students_short: Editori
+    students_count: Numero di partecipanti
     term: Quando
     uploads_none: Questo progetto non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
+    view_other: Vedi altre campagne
+    word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
+      principale dagli studenti del programma durante il periodo del programma
   editable:
     edit: Modifica
     cancel: Annulla

@@ -136,6 +136,7 @@ sr-ec:
       legend_class_meeting: Састанак разреда/секције
       legend_class_not_meeting: Нема договорених састанака
       select_meeting_days: Изабери дане у недељи којима се састаје твој разред/секција.
+    cancel: Откажи
     character_doc: Сума знакова доданих чланцима у главном именском простору студентских
       курсева током курсног термина
     confirm_course_deletion: Да ли си сигуран/на да желиш да избришеш курс под називом
@@ -238,6 +239,7 @@ sr-ec:
     assignment_end: Крај рока
     assignments_none: Овај курс не садржи додељене чланке.
     assignment_start: Почетак рока
+    cancel: Откажи
     courses: Програми
     creator:
       checking_for_uniqueness: Проверава се јединственост овог курса.
@@ -399,6 +401,8 @@ sr-ec:
     training_incomplete: Незавршен тренинг
     username: Корисничко име
     username_placeholder: Корисничко име
+    role:
+      student: Студент
   wiki_edits:
     notify_overdue:
       header: Имате задатак чије је време за израду истекло.

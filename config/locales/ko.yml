@@ -107,6 +107,7 @@ ko:
       legend_class_canceled: 휴강/취소됨
       legend_class_meeting: 수업 미팅
       legend_class_not_meeting: 예정된 미팅 없음
+    cancel: 취소
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
@@ -161,6 +162,7 @@ ko:
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
+    user_role: 역할
     term: 기간
     timeline: 숙제 상세사항
     timeline_link: 타임라인
@@ -181,6 +183,7 @@ ko:
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
+    cancel: 취소
     courses: 프로그램
     creator:
       course_description: 프로그램 설명
@@ -193,6 +196,7 @@ ko:
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가
     enrollment: 참여
+    join_course: 프로그램 참가
     revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
     school: 기관
     student_editors: 편집자

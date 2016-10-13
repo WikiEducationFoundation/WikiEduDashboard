@@ -1,0 +1,13 @@
+# Messages for Greek (Ελληνικά)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Glavkos
+---
+el:
+  courses:
+    cancel: Ακύρωση
+  courses_generic:
+    cancel: Ακύρωση
+    delete_course: Διαγραφή προγράμματος
+    view_page: Δείτε τη Σελίδα του Προγράμματος
+...

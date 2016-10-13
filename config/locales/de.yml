@@ -98,7 +98,7 @@ de:
     title_example: Artikelname
     view: Artikel anzeigen
     view_all: Alles anzeigen
-    view_doc: Die Summe aller Aufrufe für jeden Artikel während der Kursdauer
+    view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
     wp10: Strukturelle Vollständigkeit
     wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
@@ -118,7 +118,7 @@ de:
     assign_self: Einen Artikel selbst zuweisen
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
-    confirm_deletion: Möchtest du diese Zuordnung wirklich löschen?
+    confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
     label: Zuweisen
     loading: Lade Zuordnungen…
     none_short: Keine zugewiesenen Artikel
@@ -151,6 +151,7 @@ de:
       legend_class_meeting: Klassentreffen
       legend_class_not_meeting: Kein geplantes Treffen
       select_meeting_days: Wähle die Wochentage aus, an denen sich deine Klasse trifft.
+    cancel: Abbrechen
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     cohorts: 'Jahrgänge:'
@@ -174,6 +175,8 @@ de:
       assignment_start: Zuweisungsbeginn
       assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
+      clone_previous: Vorherigen Kurs klonen
+      clone_this: Diesen Kurs klonen
       cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
         oder aus ihm zu entfernen (z.&nbsp;B. Feiertage, schulfrei). Klicke das Datum
         an, um zwischen nicht ausgewählt, ausgewählt und Feiertagsstatus auszuwählen.
@@ -292,6 +295,7 @@ de:
     untrained: Unausgebildet
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    view_other: Weitere Jahrgänge ansehen
     view: Kurs anzeigen
     view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
       bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
@@ -317,9 +321,13 @@ de:
     assignment_end: Zeitleisten-Ende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Zeitleisten-Beginn
+    cancel: Abbrechen
     courses: Programme
+    cohorts: 'Kampagnen:'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
+      clone_previous: Vorheriges Programm klonen
+      clone_this: Dieses Programm klonen
       course_description: Programmbeschreibung
       course_school: Einrichtung
       course_title: Programmtitel
@@ -331,11 +339,14 @@ de:
       intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
         Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
         dein Wikiprogramm anzufangen.
+    delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
     enroll: Autor hinzufügen
     enrollment: Teilnahme
     expected_students: Erwartete Autoren
     instructors: Vermittler
+    join_course: Dem Programm beitreten
+    leave_course: Programm verlassen
     milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
     published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
       der folgenden URL einschreiben:'
@@ -345,9 +356,14 @@ de:
     students: Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
     students_short: Autoren
+    students_count: Anzahl der Teilnehmer
     term: Wann
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    view_other: Weitere Kampagnen ansehen
+    view_page: Programmseite ansehen
+    word_count_doc: Eine Schätzung der Anzahl der während der Programmdauer durch
+      die Programmautoren in Hauptnamensraum-Artikeln hinzugefügten Wörter
   editable:
     edit: Bearbeiten
     cancel: Abbrechen

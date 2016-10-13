@@ -106,8 +106,7 @@ es:
     title_example: Título del artículo
     view: Ver artículo
     view_all: Ver todos
-    view_doc: La suma de todas las visitas a cada artículo durante el período del
-      curso
+    view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     wp10: Integridad estructural
     wp10_doc: La puntuación "Integridad estructural" representa cuán cerca un artículo
@@ -127,7 +126,7 @@ es:
     assign_self: Asignarme un artículo
     confirm_add_available: ¿Estás seguro que deseas añadir %{title}?
     confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
-    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea?
+    confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
     label: Asignar
     loading: Cargando tareas...
     none_short: No hay artículos asignados
@@ -160,6 +159,7 @@ es:
       legend_class_meeting: Reunión de la Clase
       legend_class_not_meeting: Ninguna reunión programada
       select_meeting_days: Selecciona los días de la semana en que se reúne tu clase.
+    cancel: Cancelar
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     cohorts: 'Cohortes:'
@@ -183,6 +183,8 @@ es:
       assignment_start: Inicio de la tarea
       assignment_start_placeholder: Inicio de la tarea (AAAA-MM-DD)
       checking_for_uniqueness: Se está comprobando que este curso sea único.
+      clone_previous: Clonar el curso previo
+      clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
         del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
         la fecha para cambiar entre los estados «no seleccionado», «seleccionado»
@@ -299,6 +301,7 @@ es:
     untrained: Sin entrenamiento
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    view_other: Ver otras cohortes
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
       desde que el editor hizo su primera edición en cada artículo
@@ -323,9 +326,13 @@ es:
     assignment_end: Final del cronograma
     assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Inicio del cronograma
+    cancel: Cancelar
     courses: Programas
+    cohorts: 'Campañas:'
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
+      clone_previous: Clonar el programa previo
+      clone_this: Clonar este programa
       course_description: Descripción del programa
       course_school: Institución
       course_title: Título del programa
@@ -337,11 +344,14 @@ es:
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
+    delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     enroll: Añadir editor
     enrollment: Participación
     expected_students: Editores esperados
     instructors: Facilitadores
+    join_course: Unirse al programa
+    leave_course: Dejar programa
     milestones_none: Este proyecto actualmente no tiene ningún hito.
     published: '¡Este proyecto ha sido publicado! Los editores pueden inscribirse
       visitando el siguiente URL:'
@@ -351,9 +361,12 @@ es:
     students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
     students_short: Editores
+    students_count: Número de participantes
     term: Cuando
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    view_other: Ver otras campañas
+    view_page: ver la página del programa
   editable:
     edit: Editar
     cancel: Cancelar
@@ -551,6 +564,12 @@ es:
     up_to_date_with_training: al día con el entrenamiento
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
+    role:
+      visitor: Visitante
+      student: Estudiante
+      instructor: Instructor
+      campus_volunteer: Voluntario de campus
+      online_volunteer: Voluntario en línea
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos

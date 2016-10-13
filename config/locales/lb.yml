@@ -66,8 +66,7 @@ lb:
     title_example: Titel vum Artikel
     view: Artikel weisen
     view_all: All weisen
-    view_doc: D'Zomme vun de Kéiere wou all Artikel während der Dauer vum Cours gewise
-      gouf
+    view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
   assignments:
     add_available: En disponibelen Artikel derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
@@ -84,10 +83,13 @@ lb:
     articles: Artikelen
     calendar:
       legend: Erklärung
+    cancel: Ofbriechen
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
     creator:
+      clone_previous: Virege Cours klonen
+      clone_this: Dëse Cours klonen
       clone_successful: Cours gekloont
       course_description: Beschreiwung vum Cours
       course_language: Originalsprooch
@@ -148,17 +150,27 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    cancel: Ofbriechen
     courses: Programmer
+    cohorts: 'Campagnen:'
     creator:
+      clone_previous: Virege Programm klonen
+      clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
       course_title: Titel vum Programm
       find: E Programm sichen
+    delete_course: Programm läschen
     enroll: Auteur derbäisetzen
     enrollment: Participatioun
+    join_course: Beim Programm matmaachen
+    leave_course: Programm verloossen
     school: Institutioun
     students_short: Auteuren
+    students_count: Zuel vu Participanten
     term: Wéini
+    view_other: Aner Campagne weisen
+    view_page: Säit vum Programm weisen
   editable:
     edit: Änneren
     cancel: Ofbriechen
