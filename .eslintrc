@@ -29,6 +29,7 @@
     "_": true,
     "moment": true,
     "Raven": true,
+    "SurveyDetails": true,
     "Features": true
   }
 }

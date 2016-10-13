@@ -87,7 +87,7 @@ const Survey = {
     $('[data-next-survey]').on('click', this.nextSurvey.bind(this));
     this.$main.on('click', '[data-next-survey-block]', this.validateCurrentQuestion.bind(this));
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
-    this.$main.on('click', '[agree-to-terms]', this.surveyStarted.bind(this));
+    this.$main.on('click', '[start-survey]', this.surveyStarted.bind(this));
     $('[data-submit-survey]').on('click', this.submitAllQuestionGroups.bind(this));
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
@@ -95,7 +95,12 @@ const Survey = {
   },
 
   surveyStarted() {
-    Raven.captureMessage('Survey started', { level: 'info' });
+    try {
+      // SurveyDetails is set in app/views/surveys/show.html.haml
+      Raven.captureMessage(`Survey ${SurveyDetails.id} started`, { level: 'info' });
+    } catch (e) {
+      // nothing
+    }
   },
 
   indexQuestionGroups() {
@@ -221,7 +226,7 @@ const Survey = {
 
   submitAllQuestionGroups() {
     try {
-      Raven.captureMessage('Survey submitted', { level: 'info' });
+      Raven.captureMessage(`Survey ${SurveyDetails.id} submitted`, { level: 'info' });
     } catch (e) {
       // nothing
     }
