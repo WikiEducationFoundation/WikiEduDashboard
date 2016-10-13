@@ -151,6 +151,14 @@ describe 'Surveys', type: :feature, js: true do
              courses_users_id: @courses_user.id)
     end
 
+    it 'sets the course and shows the progress bar' do
+      login_as(@instructor, scope: :user)
+      visit survey_path(@survey)
+      # Sets the course automatically
+      expect(page).to have_content 'Survey for My Active Course'
+      expect(page).to have_content 'progress'
+    end
+
     it 'navigates correctly between each question and submits' do
       Capybara.current_driver = :selenium
 
@@ -161,8 +169,7 @@ describe 'Surveys', type: :feature, js: true do
       expect(SurveyNotification.last.completed).to eq(false)
       login_as(@instructor, scope: :user)
       visit survey_path(@survey)
-      select('My Active Course', from: 'course_slug')
-      click_button('Start Survey', visible: true)
+
       click_button('Start')
 
       sleep 1
