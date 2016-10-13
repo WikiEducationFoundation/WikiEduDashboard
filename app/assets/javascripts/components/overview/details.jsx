@@ -52,6 +52,7 @@ const Details = React.createClass({
   },
 
   updateDetails(valueKey, value) {
+    console.log(`updateDetails: ${valueKey} = ${value}`);
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     return CourseActions.updateCourse(updatedCourse);

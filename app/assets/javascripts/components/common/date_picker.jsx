@@ -1,11 +1,10 @@
 import React from 'react';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
-import InputMixin from '../../mixins/input_mixin.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
-
-let timeZoneOffset = '+00:00'; // default to UTC
+import ValidationStore from '../../stores/validation_store.coffee';
+import ValidationActions from '../../actions/validation_actions.js';
 
 const DatePicker = React.createClass({
   displayName: 'DatePicker',
@@ -32,10 +31,17 @@ const DatePicker = React.createClass({
     append: React.PropTypes.string,
     date_props: React.PropTypes.object,
     showTime: React.PropTypes.bool,
-    timeZone: React.PropTypes.string
+    timeZone: React.PropTypes.string,
+    required: React.PropTypes.bool,
+    disableSave: React.PropTypes.bool,
+    invalidMessage: React.PropTypes.string,
+    validation: React.PropTypes.oneOfType([
+      React.PropTypes.func,
+      React.PropTypes.instanceOf(RegExp)
+    ])
   },
 
-  mixins: [InputMixin],
+  mixins: [ValidationStore.mixin],
 
   getDefaultProps() {
     return {
@@ -45,39 +51,50 @@ const DatePicker = React.createClass({
   },
 
   getInitialState() {
-    timeZoneOffset = window.TimeZones[this.props.timeZone];
-
     if (this.props.value) {
-      const convertedTime = this.dateTimeWithZone(
-        moment(this.props.value).utc()
-      );
+      const offset = window.TimeZones[this.props.timeZone];
+      const convertedTime = moment(this.props.value).utc().utcOffset(offset);
 
       return {
         value: convertedTime.format('YYYY-MM-DD'),
         hour: convertedTime.hour(),
         minute: convertedTime.minute(),
-        datePickerVisible: false
+        datePickerVisible: false,
+        timeZone: this.props.timeZone
       };
     }
+
     return {
       value: null,
       hour: 0,
       minute: 0,
-      datePickerVisible: false
+      datePickerVisible: false,
+      timeZone: this.props.timeZone
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    const dateObj = this.dateTimeWithZone(
-      moment(nextProps.value).utc()
-    );
-    if (dateObj.isValid()) {
+    if (!moment(nextProps.value).isSame(this.getDate(true))) {
+      console.log(`INCOMING (${this.props.value_key}): value = ${nextProps.value}, timeZone = ${nextProps.timeZone}`);
+      const offset = window.TimeZones[nextProps.timeZone];
+      const convertedTime = moment(nextProps.value).utc().utcOffset(offset);
+      console.log(`         (${this.props.value_key}): hour = ${convertedTime.hour()}`);
+
       this.setState({
-        value: dateObj.format('YYYY-MM-DD'),
-        hour: dateObj.hour(),
-        minute: dateObj.minute()
+        value: convertedTime.format('YYYY-MM-DD'),
+        hour: convertedTime.hour(),
+        minute: convertedTime.minute()
       });
+    } else if (nextProps.timeZone !== this.state.timeZone) {
+      console.log(`INCOMING (${this.props.value_key}): timeZone: ${nextProps.timeZone}`);
+      this.setState({ timeZone: nextProps.timeZone }, this.onChangeHandler);
     }
+  },
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return _.some(['value', 'hour', 'minute'], key => {
+      return nextProps[key] !== nextState[key];
+    });
   },
 
   /**
@@ -87,13 +104,14 @@ const DatePicker = React.createClass({
    * @return {null}
    */
   onChangeHandler() {
+    console.log(`OUTGOING (${this.props.value_key}): value = ${this.getDate(true).format()}, timeZone = ${this.state.timeZone}`);
     this.props.onChange(this.props.value_key, this.getDate(true).format());
   },
 
   /**
    * Get moment object of currently select date, hour and minute
    * @param {Boolean} [convertToUTC] - whether to convert the time to UTC
-   *   based on this.props.timeZone
+   *   based on this.state.timeZone
    * @return {moment}
    */
   getDate(convertToUTC = false) {
@@ -102,9 +120,9 @@ const DatePicker = React.createClass({
     dateObj = dateObj.minute(this.state.minute);
 
     if (convertToUTC) {
-      dateObj = moment(
-        dateObj.format('YYYY-MM-DDTHH:mm:00+00:00')
-      ).utc();
+      dateObj = this.dateTimeWithZone(
+        this.dateTimeWithZone(dateObj) // with this.state.timeZone
+      , 'UTC');
     }
 
     return dateObj;
@@ -133,9 +151,10 @@ const DatePicker = React.createClass({
     });
   },
 
-  dateTimeWithZone(dateObj) {
+  dateTimeWithZone(dateObj, timeZone = this.state.timeZone) {
+    const offset = window.TimeZones[timeZone];
     return moment(
-      dateObj.format(`YYYY-MM-DDTHH:mm:00${timeZoneOffset}`)
+      dateObj.format(`YYYY-MM-DDTHH:mm:00${offset}`)
     ).utc();
   },
 
@@ -250,6 +269,32 @@ const DatePicker = React.createClass({
 
   showCurrentDate() {
     return this.refs.daypicker.showMonth(this.state.month);
+  },
+
+  storeDidChange() {
+    return this.setState({ invalid: !ValidationStore.getValidation(this.props.value_key) });
+  },
+
+  validate() {
+    if (this.props.required || this.props.validation) {
+      const filled = (this.state.value && this.state.value.length > 0);
+      let charcheck;
+      if (this.props.validation instanceof RegExp) {
+        charcheck = (new RegExp(this.props.validation)).test(this.state.value);
+      } else if (typeof(this.props.validation) === 'function') {
+        charcheck = this.props.validation(this.state.value);
+      }
+      if (this.props.required && !filled) {
+        if (_.has(this.props, 'disableSave')) {
+          this.props.disableSave(true);
+        }
+        return ValidationActions.setInvalid(this.props.value_key, I18n.t('application.field_required'));
+      } else if (this.props.validation && !charcheck) {
+        const invalidMessage = this.props.invalidMessage || I18n.t('application.field_invalid_characters');
+        return ValidationActions.setInvalid(this.props.value_key, invalidMessage);
+      }
+      return ValidationActions.setValid(this.props.value_key);
+    }
   },
 
   render() {

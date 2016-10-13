@@ -35,12 +35,13 @@ describe 'open course creation', type: :feature, js: true do
     fill_in 'Home project', with: 'wiktionary'
     all('.time-input__hour')[0].find('option[value="15"]').select_option
     all('.time-input__minute')[0].find('option[value="35"]').select_option
+    all('.time-input__zone')[0].find('option[value="Eastern Time (US & Canada)"]').select_option
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
     expect(Course.last.cohorts.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
-    expect(Course.last.start).to eq(DateTime.parse('2017-01-04 15:35:00'))
+    expect(Course.last.start).to eq(DateTime.parse('2017-01-04 10:35:00'))
   end
 
   it 'defaults to English Wikipedia' do

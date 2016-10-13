@@ -108,6 +108,7 @@ const CourseCreator = React.createClass({
   },
 
   updateCourseDates(key, value) {
+    console.log(this.state.course.time_zone);
     const updatedCourse = CourseDateUtils.updateCourseDates(this.state.course, key, value);
     CourseActions.updateCourse(updatedCourse);
   },
@@ -308,6 +309,7 @@ const CourseCreator = React.createClass({
                   blank
                   isClearable={false}
                   showTime={this.state.use_start_and_end_times}
+                  timeZone={this.state.course.time_zone}
                 />
                 <DatePicker
                   id="course_end"
@@ -323,6 +325,7 @@ const CourseCreator = React.createClass({
                   enabled={!!this.state.course.start}
                   isClearable={false}
                   showTime={this.state.use_start_and_end_times}
+                  timeZone={this.state.course.time_zone}
                 />
                 {this.state.use_start_and_end_times ? timeZoneNode : null}
               </div>
