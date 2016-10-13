@@ -44,19 +44,19 @@ class SurveyAssignment < ActiveRecord::Base
   serialize :custom_email, Hash
 
   def custom_email_subject
-    custom_email['subject'] if custom_email
+    custom_email[:subject]
   end
 
   def custom_email_headline
-    custom_email['headline'] if custom_email
+    custom_email[:headline]
   end
 
   def custom_email_body
-    custom_email['body'] if custom_email
+    custom_email[:body]
   end
 
   def custom_email_signature
-    custom_email['signature'] if custom_email
+    custom_email[:signature]
   end
 
   ##############################
@@ -64,7 +64,7 @@ class SurveyAssignment < ActiveRecord::Base
   ##############################
   def custom_banner_message
     # This is stored within custom_email for convenience.
-    custom_email['banner_message'] if custom_email
+    custom_email[:banner_message]
   end
 
   ####################
