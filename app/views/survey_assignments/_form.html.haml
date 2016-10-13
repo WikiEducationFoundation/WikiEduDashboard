@@ -45,7 +45,7 @@
 
     .form_row
       = f.label :email_template
-      = email_template_select(f)
+      = email_template_select(f, selected: @survey_assignment.email_template)
 
     .form_row
       = f.label :custom_email_subject
