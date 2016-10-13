@@ -155,6 +155,12 @@ describe 'Survey Administration', type: :feature, js: true do
       # end
       fill_in('survey_assignment_send_date_days', with: '7')
       check 'survey_assignment_published'
+      fill_in('survey_assignment_custom_email_subject', with: 'My Custom Subject!')
+      fill_in('survey_assignment_custom_email_headline', with: 'My Custom Headline!')
+      fill_in('survey_assignment_custom_email_body', with: 'My Custom Body!')
+      fill_in('survey_assignment_custom_email_signature', with: 'My Custom Signature!')
+      fill_in('survey_assignment_custom_banner_message', with: 'My Custom Banner!')
+
       page.find('input.button').click
       sleep 1
       expect(SurveyAssignment.count).to eq(1)
@@ -164,6 +170,17 @@ describe 'Survey Administration', type: :feature, js: true do
 
       # Update the SurveyAssignment
       click_link 'Edit'
+      expect(page).to have_field('survey_assignment_custom_email_subject',
+                                 with: 'My Custom Subject!')
+      expect(page).to have_field('survey_assignment_custom_email_headline',
+                                 with: 'My Custom Headline!')
+      expect(page).to have_field('survey_assignment_custom_email_body',
+                                 with: 'My Custom Body!')
+      expect(page).to have_field('survey_assignment_custom_email_signature',
+                                 with: 'My Custom Signature!')
+      expect(page).to have_field('survey_assignment_custom_banner_message',
+                                 with: 'My Custom Banner!')
+
       fill_in('survey_assignment_notes', with: 'This is a test.')
       page.find('input.button').click
 
