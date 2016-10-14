@@ -224,6 +224,12 @@ const CourseCreator = React.createClass({
 
     const dateProps = CourseDateUtils.dateProps(this.state.course, this.state.default_course_type);
 
+    const timeZoneMessage = (
+      <p className="form-help-text">
+        {I18n.t('courses.time_zone_message')}
+      </p>
+    );
+
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -312,6 +318,7 @@ const CourseCreator = React.createClass({
                   isClearable={false}
                   showTime={this.state.use_start_and_end_times}
                 />
+                {this.state.use_start_and_end_times ? timeZoneMessage : null}
               </div>
             </div>
             <div className={controlClass}>
