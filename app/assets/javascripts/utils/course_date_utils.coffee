@@ -7,7 +7,7 @@ module.exports = {
     return /^20\d{2}\-\d{2}\-\d{2}/.test(date) && moment(date).isValid()
 
   formattedDateTime: (datetime, showTime = false) ->
-    timeZoneAbbr = ' ' + (new Date).toString().split('(')[1].slice(0, -1)
+    timeZoneAbbr = ' ' + moment(datetime).toDate().toString().split('(')[1].slice(0, -1)
     format = "YYYY-MM-DD#{if showTime then ' HH:mm'}"
     return moment(datetime).format(format) + "#{if showTime then timeZoneAbbr}";
 
