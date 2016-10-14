@@ -7,6 +7,7 @@ import CourseTypeSelector from './course_type_selector.jsx';
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
+import TimeZone from '../common/time_zone.jsx';
 import CourseActions from '../../actions/course_actions.js';
 
 import CourseStore from '../../stores/course_store.coffee';
@@ -51,6 +52,7 @@ const Details = React.createClass({
   },
 
   updateDetails(valueKey, value) {
+    console.log(`updateDetails: ${valueKey} = ${value}`);
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     return CourseActions.updateCourse(updatedCourse);
@@ -167,6 +169,7 @@ const Details = React.createClass({
           label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
           date_props={dateProps.timeline_start}
           showTime={this.props.course.use_start_and_end_times}
+          timeZone={this.props.course.time_zone}
           required={true}
         />
       );
@@ -180,10 +183,22 @@ const Details = React.createClass({
           label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
           date_props={dateProps.timeline_end}
           showTime={this.props.course.use_start_and_end_times}
+          timeZone={this.props.course.time_zone}
           required={true}
         />
       );
     }
+
+    const timeZoneNode = (
+      <TimeZone
+        id="time_zone"
+        onChange={this.updateDetails}
+        value={this.props.course.time_zone}
+        value_key="time_zone"
+        editable={this.props.editable}
+        enabled
+      />
+    );
 
     let cohorts = this.props.cohorts.length > 0 ?
       _.map(this.props.cohorts, 'title').join(', ')
@@ -242,6 +257,7 @@ const Details = React.createClass({
               editable={this.props.editable}
               label={I18n.t('courses.start')}
               showTime={this.props.course.use_start_and_end_times}
+              timeZone={this.props.course.time_zone}
               required={true}
             />
             <DatePicker
@@ -254,10 +270,12 @@ const Details = React.createClass({
               date_props={dateProps.end}
               enabled={Boolean(this.props.course.start)}
               showTime={this.props.course.use_start_and_end_times}
+              timeZone={this.props.course.time_zone}
               required={true}
             />
             {timelineStart}
             {timelineEnd}
+            {this.props.course.use_start_and_end_times ? timeZoneNode : null}
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('cohorts', this.props.course.string_prefix)} </strong>{cohorts}</span>

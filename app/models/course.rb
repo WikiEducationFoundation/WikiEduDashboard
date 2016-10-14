@@ -39,6 +39,7 @@
 #  syllabus_file_size    :integer
 #  syllabus_updated_at   :datetime
 #  home_wiki_id          :integer
+#  timezone              :string           default("UTC")
 #
 
 require "#{Rails.root}/lib/course_cleanup_manager"

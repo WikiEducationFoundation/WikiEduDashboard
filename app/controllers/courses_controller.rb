@@ -178,8 +178,8 @@ class CoursesController < ApplicationController
       .require(:course)
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
-              :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type)
+              :timeline_start, :timeline_end, :time_zone, :day_exceptions,
+              :weekdays, :no_day_exceptions, :cloned_status, :type)
   end
 
   # If the user could make an edit to the course, this verifies that

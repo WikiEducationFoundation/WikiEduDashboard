@@ -18,6 +18,7 @@ const momentRecur = require('moment-recur');
 const I18n = require('../public/assets/javascripts/i18n.js');
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
+const TimeZones = { UTC: '+00:00' };
 
 global.$ = $;
 global._ = _;
@@ -33,6 +34,7 @@ global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
 global.Features = {};
+global.window.TimeZones = TimeZones;
 
 require('../public/assets/javascripts/i18n/en');
 

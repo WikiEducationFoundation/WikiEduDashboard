@@ -40,6 +40,7 @@ addCourse = ->
     expected_students: "0"
     start: null
     end: null
+    time_zone: 'UTC'
     day_exceptions: ""
     weekdays: "0000000"
     editingSyllabus: false

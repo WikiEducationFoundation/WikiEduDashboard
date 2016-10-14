@@ -15,6 +15,8 @@
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
 
+  TimeZones = #{ActiveSupport::TimeZone.all.each_with_object({}) { |v,h| h[v.name] = v.formatted_offset }.to_json};
+
   currentUser = {
     id: "#{current_user&.id || ''}",
     username: "#{current_user&.username || ''}"

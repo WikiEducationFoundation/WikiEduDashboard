@@ -317,6 +317,7 @@ en:
     course_details: Course Details For
     term: Term
     timeline: Assignment Details
+    time_zone: Time zone
     timeline_link: Timeline
     title: Title
     training_due:
@@ -601,7 +602,7 @@ en:
     username: Username
     username_placeholder: Username
     role:
-      visitor: Visitor 
+      visitor: Visitor
       student: Student
       instructor: Instructor
       campus_volunteer: Campus Volunteer

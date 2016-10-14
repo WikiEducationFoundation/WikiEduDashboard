@@ -12,6 +12,7 @@ import ServerActions from '../../actions/server_actions.js';
 import Modal from '../common/modal.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
+import TimeZone from '../common/time_zone.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
@@ -107,6 +108,7 @@ const CourseCreator = React.createClass({
   },
 
   updateCourseDates(key, value) {
+    console.log(this.state.course.time_zone);
     const updatedCourse = CourseDateUtils.updateCourseDates(this.state.course, key, value);
     CourseActions.updateCourse(updatedCourse);
   },
@@ -222,6 +224,17 @@ const CourseCreator = React.createClass({
       );
     }
 
+    const timeZoneNode = (
+      <TimeZone
+        id="time_zone"
+        onChange={this.updateCourse}
+        value={this.state.course.time_zone}
+        value_key="time_zone"
+        editable
+        enabled
+      />
+    );
+
     const dateProps = CourseDateUtils.dateProps(this.state.course, this.state.default_course_type);
 
     return (
@@ -296,6 +309,7 @@ const CourseCreator = React.createClass({
                   blank
                   isClearable={false}
                   showTime={this.state.use_start_and_end_times}
+                  timeZone={this.state.course.time_zone}
                 />
                 <DatePicker
                   id="course_end"
@@ -311,7 +325,9 @@ const CourseCreator = React.createClass({
                   enabled={!!this.state.course.start}
                   isClearable={false}
                   showTime={this.state.use_start_and_end_times}
+                  timeZone={this.state.course.time_zone}
                 />
+                {this.state.use_start_and_end_times ? timeZoneNode : null}
               </div>
             </div>
             <div className={controlClass}>
