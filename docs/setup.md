@@ -11,9 +11,9 @@
 - Fork this repo, so that you can make changes and push them freely to GitHub.  
 - Clone the new WikiEduDashboard repo and enter that directory.
 - Make sure you are in the "sudo" group.
-- Install Ruby 2.1.5 (RVM is recommended)
+- Install Ruby 2.3.1 (RVM is recommended)
     - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-    - `rvm install ruby-2.1.5`
+    - `rvm install ruby-2.3.1`
 - Install Node: `apt-get install nodejs npm`
 
 - Install Gems:
