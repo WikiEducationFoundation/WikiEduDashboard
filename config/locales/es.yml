@@ -5,6 +5,7 @@
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Fitoschido
+# Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
 # Author: Themasterriot
@@ -288,6 +289,8 @@ es:
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
       pondrá en contacto ante cualquier pregunta.
+    user_role: Oficio
+    course_details: Detalles del curso para
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma
@@ -366,7 +369,7 @@ es:
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     view_other: Ver otras campañas
-    view_page: ver la página del programa
+    view_page: Ver la página del programa
   editable:
     edit: Editar
     cancel: Cancelar
@@ -570,6 +573,7 @@ es:
       instructor: Instructor
       campus_volunteer: Voluntario de campus
       online_volunteer: Voluntario en línea
+      wiki_ed_staff: Personal de Wiki Ed
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
