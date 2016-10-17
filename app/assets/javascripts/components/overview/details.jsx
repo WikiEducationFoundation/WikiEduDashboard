@@ -140,7 +140,7 @@ const Details = React.createClass({
     }
 
     let expectedStudents;
-    if (this.props.course.expected_students) {
+    if (this.props.course.expected_students || this.props.course.expected_students === 0) {
       expectedStudents = (
         <TextInput
           onChange={this.updateDetails}
