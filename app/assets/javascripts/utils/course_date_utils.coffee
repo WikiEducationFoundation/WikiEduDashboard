@@ -8,8 +8,8 @@ module.exports = {
 
   formattedDateTime: (datetime, showTime = false) ->
     timeZoneAbbr = ' ' + moment(datetime).toDate().toString().split('(')[1].slice(0, -1)
-    format = "YYYY-MM-DD#{if showTime then ' HH:mm'}"
-    return moment(datetime).format(format) + "#{if showTime then timeZoneAbbr}";
+    format = "YYYY-MM-DD#{if showTime then ' HH:mm' else ''}"
+    return moment(datetime).format(format) + "#{if showTime then timeZoneAbbr else ''}";
 
   # Returns an object of minDate and maxDate props for each date field of a course
   dateProps: (course, type) ->
