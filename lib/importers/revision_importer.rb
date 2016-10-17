@@ -85,11 +85,6 @@ class RevisionImporter
     data.each_slice(8000) do |sub_data|
       import_revisions_slice(sub_data)
     end
-
-    # Some Assignments are for article titles that don't exist initially.
-    # Some newly added Articles may correspond to those Assignments, in which
-    # case the article_ids should be added.
-    AssignmentImporter.update_assignment_article_ids
   end
 
   ###########
@@ -131,7 +126,6 @@ class RevisionImporter
       process_article_and_revisions(article_data)
     end
 
-    AssignmentImporter.update_article_ids(@articles, @wiki)
     DuplicateArticleDeleter.new(@wiki).resolve_duplicates(@articles)
     Revision.import @revisions
   end

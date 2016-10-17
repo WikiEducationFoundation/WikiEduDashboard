@@ -157,48 +157,6 @@ describe RevisionImporter do
     end
   end
 
-  describe '.update_assignment_article_ids' do
-    it 'adds article ids to assignments after importing revisions' do
-      VCR.use_cassette 'revisions/update_all_revisions' do
-        VCR.use_cassette 'wiki/course_data' do
-          LegacyCourseImporter.update_all_courses(false, cohort: [351])
-        end
-        # .update_all_revisions calls .update_assignment_article_ids at the end.
-        RevisionImporter.update_all_revisions nil, true
-        # Only assignments that had revisions by course participants should have
-        # an article_id.
-        expect(Assignment.all.count).to eq(27)
-        expect(Assignment.where(role: 0).count).to eq(11)
-        expect(Assignment.where.not(article_id: nil).count).to eq(26)
-      end
-    end
-
-    it 'only updates article_ids for mainspace titles' do
-      create(:course, id: 1)
-      create(:assignment,
-             id: 1,
-             article_title: 'Foo',
-             article_id: nil,
-             course_id: 1)
-      create(:assignment,
-             id: 2,
-             article_title: 'Bar',
-             article_id: nil,
-             course_id: 1)
-      create(:article,
-             id: 123,
-             title: 'Foo',
-             namespace: 0)
-      create(:article,
-             id: 456,
-             title: 'Bar',
-             namespace: 2)
-      expect(Assignment.where.not(article_id: nil).count).to eq(0)
-      AssignmentImporter.update_assignment_article_ids
-      expect(Assignment.where.not(article_id: nil).count).to eq(1)
-    end
-  end
-
   describe '.move_or_delete_revisions' do
     it 'updates the article_id for a moved revision' do
       # https://en.wikipedia.org/w/index.php?title=Selfie&oldid=547645475

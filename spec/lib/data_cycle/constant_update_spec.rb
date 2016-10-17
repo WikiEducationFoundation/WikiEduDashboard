@@ -8,6 +8,7 @@ describe ConstantUpdate do
       expect(LegacyCourseImporter).to receive(:update_all_courses)
       expect(UserImporter).to receive(:update_users)
       expect(RevisionImporter).to receive(:update_all_revisions)
+      expect(AssignmentImporter).to receive(:update_assignment_article_ids_and_titles)
       expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
       expect(Article).to receive(:update_all_caches)
@@ -26,7 +27,7 @@ describe ConstantUpdate do
       expect(Raven).to receive(:capture_message).and_call_original
       update = ConstantUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
-      expect(sentry_logs.grep(/Updating all revisions/).any?).to eq(true)
+      expect(sentry_logs.grep(/Importing revisions and articles/).any?).to eq(true)
     end
   end
 end

@@ -28,14 +28,14 @@ describe AssignmentImporter do
     it 'updates assignments with only titles to include an article_id' do
       article = create(:article, title: 'Deep_Sea_Fishing')
       expect(assignment.article_id).to eq(nil)
-      AssignmentImporter.update_assignment_article_ids
+      AssignmentImporter.update_assignment_article_ids_and_titles
       expect(Assignment.find(assignment.id).article_id).to eq(article.id)
       expect(another_assignment.article_id).to eq(nil)
     end
 
     it 'updates assignment titles to exactly match article titles' do
       create(:article, title: 'Deep_sea_FISHing')
-      AssignmentImporter.update_assignment_article_ids
+      AssignmentImporter.update_assignment_article_ids_and_titles
       expect(Assignment.find(assignment.id).article_title).to eq('Deep_sea_FISHing')
     end
 
@@ -50,7 +50,7 @@ describe AssignmentImporter do
       let!(:article) { create(:article, title: 'Deep_sea_FISHing') }
       let!(:another_article) { create(:article, title: 'Scuba_DIVING') }
       it 'updates the records it can and does not raise an error' do
-        AssignmentImporter.update_assignment_article_ids
+        AssignmentImporter.update_assignment_article_ids_and_titles
         expect(Assignment.find(assignment.id).article_title).to eq('Deep_Sea_Fishing')
         expect(Assignment.find(another_assignment.id).article_title).to eq('Scuba_DIVING')
       end
