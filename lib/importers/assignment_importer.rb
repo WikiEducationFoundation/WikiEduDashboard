@@ -3,28 +3,19 @@
 class AssignmentImporter
   # Update article ids for Assignments that lack them, if an Article with the
   # same title exists in mainspace.
+  # This does a case-insensitive match, so it will find cases where no article
+  # with the exact title was found when the assignment was first created, but
+  # the user edited the actual intended article and so it got imported later.
   def self.update_assignment_article_ids
     ActiveRecord::Base.transaction do
       Assignment.where(article_id: nil).each do |assignment|
         title = assignment.article_title.tr(' ', '_')
         article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
-        assignment.article_id = article.nil? ? nil : article.id
+        next if article.nil?
+        assignment.article_id = article.id
+        assignment.article_title = article.title # update assignment to match case
         assignment.save
       end
-    end
-  end
-
-  def self.update_article_ids(raw_articles, wiki)
-    articles = Article
-               .where(title: raw_articles.map(&:title))
-               .where(namespace: 0, wiki_id: wiki.id)
-    Assignment.where(
-      article_title: articles.pluck(:title),
-      article_id: nil,
-      wiki_id: wiki.id
-    ).each do |assignment|
-      article = articles.find_by(title: assignment.article_title)
-      assignment.update(article_id: article.id)
     end
   end
 end

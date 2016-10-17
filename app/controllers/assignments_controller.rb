@@ -32,8 +32,7 @@ class AssignmentsController < ApplicationController
     update_onwiki_course_and_assignments
     render json: @assignment
   rescue AssignmentManager::DuplicateAssignmentError => e
-    render json: { errors: e },
-           status: 500
+    render json: { errors: e }, status: 500
   end
 
   def update
@@ -56,9 +55,7 @@ class AssignmentsController < ApplicationController
   end
 
   def remove_assignment_template
-    WikiCourseEdits.new(action: :remove_assignment,
-                        course: @course,
-                        current_user: current_user,
+    WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user: current_user,
                         assignment: @assignment)
   end
 
