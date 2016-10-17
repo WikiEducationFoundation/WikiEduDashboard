@@ -2,7 +2,6 @@
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/duplicate_article_deleter"
 require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/assignment_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter

@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/importers/revision_importer"
-require "#{Rails.root}/lib/importers/assignment_importer"
+require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 require "#{Rails.root}/lib/importers/view_importer"
@@ -64,7 +64,7 @@ class ConstantUpdate
     RevisionImporter.update_all_revisions
 
     log_message 'Matching assignments to articles and syncing titles'
-    AssignmentImporter.update_assignment_article_ids_and_titles
+    AssignmentUpdater.update_assignment_article_ids_and_titles
 
     log_message 'Importing wp10 scores for all en.wiki revisions'
     RevisionScoreImporter.new.update_revision_scores

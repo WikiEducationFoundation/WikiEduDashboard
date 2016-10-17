@@ -8,7 +8,7 @@ describe ConstantUpdate do
       expect(LegacyCourseImporter).to receive(:update_all_courses)
       expect(UserImporter).to receive(:update_users)
       expect(RevisionImporter).to receive(:update_all_revisions)
-      expect(AssignmentImporter).to receive(:update_assignment_article_ids_and_titles)
+      expect(AssignmentUpdater).to receive(:update_assignment_article_ids_and_titles)
       expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
       expect(Article).to receive(:update_all_caches)

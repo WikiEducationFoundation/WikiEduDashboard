@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #= Keeps assignments updated to match moving articles
-class AssignmentImporter
+class AssignmentUpdater
   # Update article ids for Assignments that lack them, if an Article with the
   # same title exists in mainspace.
   # This does a case-insensitive match, so it will find cases where no article
