@@ -31,6 +31,9 @@ class AssignmentsController < ApplicationController
     set_new_assignment
     update_onwiki_course_and_assignments
     render json: @assignment
+  rescue AssignmentManager::DuplicateAssignmentError => e
+    render json: { errors: e },
+           status: 500
   end
 
   def update

@@ -226,6 +226,45 @@ describe AssignmentsController do
         expect(response.status).to eq(404)
       end
     end
+
+    context 'when the same assignment already exists' do
+      let(:title) { 'My article' }
+      let!(:assignment) do
+        create(:assignment, course_id: course.id, user_id: user.id, role: 0, article_title: title)
+      end
+      let(:duplicate_assignment_params) do
+        { user_id: user.id, course_id: course.slug, title: title, role: 0 }
+      end
+      before do
+        put :create, params: duplicate_assignment_params
+      end
+
+      it 'renders an error message with the article title' do
+        expect(response.status).to eq(500)
+        expect(response.body).to include('My_article')
+      end
+    end
+
+    context 'when a case-variant of the assignment already exists' do
+      let(:title) { 'My article' }
+      let(:variant_title) { 'MY ARTICLE' }
+      let!(:assignment) do
+        create(:assignment, course_id: course.id, user_id: user.id, role: 0, article_title: title)
+      end
+      let(:case_variant_assignment_params) do
+        { user_id: user.id, course_id: course.slug, title: variant_title, role: 0 }
+      end
+      before do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        put :create, params: case_variant_assignment_params
+      end
+
+      it 'creates the case-variant assignment' do
+        expect(response.status).to eq(200)
+        expect(Assignment.last.article_title).to eq('MY_ARTICLE')
+      end
+    end
   end
 
   describe '#update' do
