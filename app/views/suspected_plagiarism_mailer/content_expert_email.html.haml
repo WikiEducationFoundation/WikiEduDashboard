@@ -1,7 +1,13 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
-%p.paragraph= "Suspected plagiarism from User:#{@user.username}"
-%p.paragraph= "Course: #{@course.title}"
-%p.paragraph= "Article: #{@article.title}"
+%p.paragraph
+  Suspected plagiarism from
+  %a{href: "https://#{ENV['dashboard_url']}/users/#{@user.username}"}= "User:#{@user.username}"
+%p.paragraph
+  Course:
+  %a{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}= @course.title
+%p.paragraph
+  Article:
+  %a{href: @article_url}= @article.title
 %p.paragraph
   %a{href: @revision.url} diff
 %p.paragraph

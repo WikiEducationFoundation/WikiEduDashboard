@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class SuspectedPlagiarismMailer < ApplicationMailer
+  include ArticleHelper
+
   def self.alert_content_expert(revision)
     return unless Features.email?
     content_expert = content_expert_for(revision)
@@ -11,6 +13,7 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @revision = revision
     @user = revision.user
     @article = revision.article
+    @article_url = article_url(@article)
     @course = @user.courses.last
     @report_url = 'https://dashboard.wikiedu.org' + @revision.plagiarism_report_link
     mail(to: content_expert.email, subject: "Suspected plagiarism from #{@course.title}")
