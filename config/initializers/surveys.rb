@@ -154,7 +154,13 @@ Rails.application.config.to_prepare do
 
   Rapidfire::AnswerGroupsController.class_eval do
     include SurveysHelper
-    before_action :set_course_for_question_group, only: [:new]
+    before_action :set_course, only: [:new, :create]
+    after_action :add_course_to_answer_group, only: [:create]
+
+    def add_course_to_answer_group
+      answer_group = @answer_group_builder.to_model
+      answer_group.update_attribute(:course_id, @course&.id)
+    end
   end
 
   Rapidfire::QuestionForm.class_eval do

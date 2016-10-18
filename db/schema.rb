@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017173906) do
+ActiveRecord::Schema.define(version: 20161017235429) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20161017173906) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "course_id"
     t.index ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id", using: :btree
     t.index ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type", using: :btree
   end

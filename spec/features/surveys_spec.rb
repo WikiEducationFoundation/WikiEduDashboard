@@ -68,14 +68,14 @@ describe 'Surveys', type: :feature, js: true do
   describe 'Instructor takes survey' do
     before do
       @instructor = create(:user)
-      course = create(:course, title: 'My Active Course')
+      @course = create(:course, title: 'My Active Course')
       article = create(:article)
-      create(:articles_course, article_id: article.id, course_id: course.id)
+      create(:articles_course, article_id: article.id, course_id: @course.id)
 
       @courses_user = create(
         :courses_user,
         user_id: @instructor.id,
-        course_id: course.id,
+        course_id: @course.id,
         role: 1
       )
 
@@ -146,7 +146,7 @@ describe 'Surveys', type: :feature, js: true do
         survey_id: @survey.id
       )
       create(:survey_notification,
-             course_id: course.id,
+             course_id: @course.id,
              survey_assignment_id: survey_assignment.id,
              courses_users_id: @courses_user.id)
     end
@@ -213,6 +213,7 @@ describe 'Surveys', type: :feature, js: true do
       click_button('Submit Survey', visible: true) # 11
       expect(page).to have_content 'You made it!'
       expect(Rapidfire::Answer.count).to eq(19)
+      expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
 
       puts 'PASSED'

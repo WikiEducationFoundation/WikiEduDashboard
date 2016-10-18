@@ -178,13 +178,6 @@ module SurveysHelper
 
   private
 
-  def set_course_for_question_group
-    @course = find_course_by_slug(params[:course_slug]) if course_slug?
-    return if @course
-    @courses = Course.all
-    render 'course_select'
-  end
-
   def survey_notification_id(notification)
     return nil if notification == false || notification.nil?
     return notification.id
@@ -194,6 +187,45 @@ module SurveysHelper
     current_path_segments = req.path.split('/').reject(&:blank?)
     active_path = path.split('/').reject(&:blank?).last
     current_path_segments.last == active_path ? 'active' : nil
+  end
+
+  ######################
+  # Setting the course #
+  ######################
+
+  # If at all possible, find the course to associate with this survey.
+  # Setting a course is necessary for conditional features of surveys — question
+  # groups that only apply to certain cohorts, or for courses with certain tags
+  # — to work.
+  # First go based on slug. Next, go based on notification.
+  # For preview mode, fall back to the course_select dropdown.
+  # For a real survey, fall back to the user's latest course.
+  def set_course
+    @course = find_course_by_slug(params[:course_slug]) if course_slug?
+    @course ||= @notification.course if @notification.instance_of?(SurveyNotification)
+    return if @courseq
+    if preview_mode?
+      set_course_via_select
+    else
+      fall_back_to_last_course_for_user
+    end
+  end
+
+  def set_course_via_select
+    @courses = Course.all
+    render 'course_select'
+  end
+
+  def fall_back_to_last_course_for_user
+    @course = current_user.courses.last
+  end
+
+  def preview_mode?
+    params.key?(:preview)
+  end
+
+  def course_slug?
+    params.key?(:course_slug)
   end
 
   ######################################
