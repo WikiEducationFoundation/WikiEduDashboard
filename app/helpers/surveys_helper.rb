@@ -203,7 +203,7 @@ module SurveysHelper
   def set_course
     @course = find_course_by_slug(params[:course_slug]) if course_slug?
     @course ||= @notification.course if @notification.instance_of?(SurveyNotification)
-    return if @courseq
+    return if @course
     if preview_mode?
       set_course_via_select
     else
