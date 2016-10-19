@@ -22,6 +22,10 @@ class AlertPreview < ActionMailer::Preview
     AlertMailer.alert(Alert.where(type: 'ContinuedCourseActivityAlert').last, example_user)
   end
 
+  def need_help_alert
+    AlertMailer.alert(Alert.where(type: 'NeedHelpAlert').last, example_user)
+  end
+
   private
 
   def example_user
