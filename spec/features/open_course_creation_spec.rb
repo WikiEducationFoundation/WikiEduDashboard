@@ -14,6 +14,8 @@ end
 describe 'open course creation', type: :feature, js: true do
   let(:user) { create(:user) }
   before do
+    @system_time_zone = Time.zone
+    Time.zone = 'Eastern Time (US & Canada)'
     ENV['default_course_type'] = 'BasicCourse'
     Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
@@ -24,11 +26,11 @@ describe 'open course creation', type: :feature, js: true do
   end
 
   after do
+    Time.zone = @system_time_zone
     ENV['default_course_type'] = cached_default_course_type
   end
 
   it 'lets a user create a course immediately', js: true do
-    Time.zone = 'Eastern Time (US & Canada)'
     visit root_path
     click_link 'Create a New Program'
     fill_out_open_course_creator_form
