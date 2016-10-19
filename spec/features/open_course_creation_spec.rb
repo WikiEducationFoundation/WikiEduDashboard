@@ -28,6 +28,7 @@ describe 'open course creation', type: :feature, js: true do
   end
 
   it 'lets a user create a course immediately', js: true do
+    Time.zone = 'Eastern Time (US & Canada)'
     visit root_path
     click_link 'Create a New Program'
     fill_out_open_course_creator_form
@@ -40,7 +41,7 @@ describe 'open course creation', type: :feature, js: true do
     expect(Course.last.cohorts.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
-    expect(Course.last.start).to eq(DateTime.parse('2017-01-04 15:35:00'))
+    expect(Course.last.start).to eq(Time.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
   end
 
   it 'defaults to English Wikipedia' do

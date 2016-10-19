@@ -271,9 +271,9 @@ const DatePicker = React.createClass({
       // don't validate YYYY-MM-DD format so we can update the daypicker as they type
       const date = moment(this.state.value, 'YYYY-MM-DD');
       if (date.isValid()) {
-        currentMonth = date.toDate();
+        currentMonth = this.moment(date).toDate();
       } else if (minDate) {
-        currentMonth = minDate.toDate();
+        currentMonth = this.moment(minDate).toDate();
       } else {
         currentMonth = this.moment().toDate();
       }
