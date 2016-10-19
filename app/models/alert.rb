@@ -74,4 +74,8 @@ class Alert < ActiveRecord::Base
   def url
     raise NotImplementedError
   end
+
+  def reply_to
+    nil
+  end
 end
