@@ -13,7 +13,7 @@ enable_get_help_button: 'true'
 
 wikipedia_token: <SECRET>
 wikipedia_secret: <SECRET>
-oauth_ids: '218,306'
+oauth_ids: '218,306,542'
 
 course_prefix: "Wikipedia:Wiki_Ed"
 course_announcement_page: 'Wikipedia:Education_noticeboard'
