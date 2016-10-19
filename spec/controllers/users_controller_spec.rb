@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe UsersController do
   describe '#enroll' do
-    let!(:course) { create(:course) }
+    let(:course) { create(:course) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
     end
@@ -17,6 +17,7 @@ describe UsersController do
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
+      course.cohorts << Cohort.first
     end
 
     subject { response.status }
