@@ -158,7 +158,7 @@ class Replica
   def compile_oauth_tags
     oauth_ids = ENV['oauth_ids']
     return '' if oauth_ids.nil?
-    oauth_id_tags = oauth_ids.split(',').map { |id| "'OAuth CID: #{id}'" }
+    oauth_id_tags = oauth_ids.split(',').map { |id| "OAuth CID: #{id}" }
     { oauth_tags: oauth_id_tags }.to_query
   end
 

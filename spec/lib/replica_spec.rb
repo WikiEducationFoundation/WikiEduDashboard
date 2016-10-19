@@ -85,6 +85,19 @@ describe Replica do
       end
     end
 
+    it 'returns system parameter for dashboard edits' do
+      VCR.use_cassette 'replica/system_edits' do
+        all_users = [
+          build(:user, username: 'Petra Sen')
+        ]
+        rev_start = 2016_09_20_003430
+        rev_end = 2016_09_22_003430
+        response = Replica.new.get_revisions(all_users, rev_start, rev_end)
+        dashboard_edit_system_status = response.dig('51688052','revisions',0,'system')
+        expect(dashboard_edit_system_status).to eq('true')
+      end
+    end
+
     it 'returns global ids' do
       VCR.use_cassette 'replica/training' do
         all_users = [
