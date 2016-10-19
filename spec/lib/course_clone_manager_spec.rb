@@ -31,6 +31,8 @@ describe CourseCloneManager do
     create(:block,
            id: 1, week_id: 1, content: 'First Assignment',
            kind: 1, due_date: 10.months.ago, gradeable_id: 1)
+    create(:week, id: 2, course_id: 1, order: 2)
+    create(:week, id: 3, course_id: 1, order: 3)
     create(:gradeable,
            id: 1, gradeable_item_type: 'block',
            gradeable_item_id: 1, points: 15)
@@ -71,6 +73,7 @@ describe CourseCloneManager do
     end
 
     it 'has weeks and block content from original' do
+      expect(clone.weeks.count).to eq(3)
       expect(clone.weeks.first.order).to eq(1)
       expect(clone.weeks.first.blocks.first.content).to eq('First Assignment')
     end
@@ -81,8 +84,9 @@ describe CourseCloneManager do
       expect(clone.weeks.first.blocks.first.due_date).to be_nil
     end
 
-    it 'carries over gradeables' do
+    it 'carries over gradeables as new records' do
       # Gradeables should carry over.
+      expect(clone.weeks.first.blocks.first.gradeable.id).not_to eq(1)
       expect(clone.weeks.first.blocks.first.gradeable.points).to eq(15)
     end
 

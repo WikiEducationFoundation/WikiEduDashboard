@@ -7,10 +7,11 @@ class CourseCloneManager
   end
 
   def clone!
-    @clone = @course.deep_clone include: [{ weeks:  { blocks: :gradeable } }]
+    @clone = @course.dup
     set_placeholder_start_and_end_dates
     sanitize_clone_info
     update_title_and_slug
+    duplicate_timeline
     clear_meeting_days_and_due_dates
     set_instructor
     tag_course
@@ -36,7 +37,7 @@ class CourseCloneManager
     @clone.submitted = false
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
-    @clone.save
+    @clone.save!
     @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
     @clone.update_cache
   end
@@ -46,6 +47,18 @@ class CourseCloneManager
       title: @clone.title,
       slug: @clone.slug
     )
+  end
+
+  def duplicate_timeline
+    # Be sure to create them in the correct order, to ensure that Course#order_weeks
+    # does not misorder them on save. deep_clone does not necessarily create records
+    # in the original order, so we clone each week rather than deep_clone the whole
+    # course.
+    @course.weeks.sort_by(&:order).each do |week|
+      clone_week = week.deep_clone include: [{ blocks: :gradeable }]
+      clone_week.course_id = @clone.id
+      clone_week.save!
+    end
   end
 
   def clear_meeting_days_and_due_dates

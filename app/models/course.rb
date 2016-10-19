@@ -295,6 +295,11 @@ class Course < ActiveRecord::Base
     TrainedStudentsManager.new(self)
   end
 
+  # Ensures weeks for a course have order 1..weeks.count
+  # This is dangerous if creating or reordering timeline content except via
+  # TimelineController, where every week is processed from the submitted params,
+  # and blocks get resorted to the appropriate week if necessary.
+  # Weeks are expected to have the same order as their ids.
   def order_weeks
     weeks.each_with_index do |week, i|
       week.update_attribute(:order, i + 1)
