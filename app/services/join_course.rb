@@ -15,14 +15,14 @@ class JoinCourse
   private
 
   def process_join_request
-    validate { return }
+    validate_request { return }
     create_courses_user
     update_course_user_count
     @result = { success: 'User added to course.' }
   end
 
-  def validate
-    return unless user_already_enrolled?
+  def validate_request
+    return unless user_already_enrolled? || course_not_approved?
     @result = { failure: 'Users may not join the same course twice.' }
     yield
   end
@@ -33,6 +33,10 @@ class JoinCourse
   def user_already_enrolled?
     CoursesUsers.exists?(user_id: @user.id,
                          course_id: @course.id)
+  end
+
+  def course_not_approved?
+    @course.cohorts.empty?
   end
 
   def create_courses_user

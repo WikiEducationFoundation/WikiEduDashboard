@@ -18,42 +18,58 @@ describe SelfEnrollmentController do
     subject { response.status }
 
     context 'GET' do
-      context 'when the user is not enrolled yet' do
-        it 'enrolls user (and redirects) and updates the user count' do
-          expect(course.user_count).to eq(0)
-          expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
-          expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
+      context 'when the course is not approved' do
+        # Course is not in any cohorts, so enrollment will fail.
+        it 'redirects without enrolling the user' do
+          expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
           get 'enroll_self', params: request_params
           expect(subject).to eq(302)
-          expect(course.students.count).to eq(1)
-          expect(course.reload.user_count).to eq(1)
+          expect(course.students.count).to eq(0)
         end
       end
 
-      context 'when the user is enrolled as an instructor' do
+      context 'when the course is approved' do
         before do
-          create(:courses_user,
-                 course_id: course.id,
-                 user_id: user.id,
-                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          course.cohorts << Cohort.first
         end
 
-        it 'redirects without enrolling the user' do
-          expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get 'enroll_self', params: request_params
-          expect(subject).to eq(302)
-          expect(course.students.count).to eq(0)
+        context 'when the user is not enrolled yet' do
+          it 'enrolls user (and redirects) and updates the user count' do
+            expect(course.user_count).to eq(0)
+            expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
+            expect_any_instance_of(WikiPreferencesManager).to receive(:enable_visual_editor)
+            get 'enroll_self', params: request_params
+            expect(subject).to eq(302)
+            expect(course.students.count).to eq(1)
+            expect(course.reload.user_count).to eq(1)
+          end
         end
-      end
 
-      context 'when the course has already ended' do
-        let(:course) { create(:course, end: 1.day.ago) }
+        context 'when the user is enrolled as an instructor' do
+          before do
+            create(:courses_user,
+                   course_id: course.id,
+                   user_id: user.id,
+                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          end
 
-        it 'redirects without enrolling the user' do
-          expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
-          get 'enroll_self', params: request_params
-          expect(subject).to eq(302)
-          expect(course.students.count).to eq(0)
+          it 'redirects without enrolling the user' do
+            expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+            get 'enroll_self', params: request_params
+            expect(subject).to eq(302)
+            expect(course.students.count).to eq(0)
+          end
+        end
+
+        context 'when the course has already ended' do
+          let(:course) { create(:course, end: 1.day.ago) }
+
+          it 'redirects without enrolling the user' do
+            expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
+            get 'enroll_self', params: request_params
+            expect(subject).to eq(302)
+            expect(course.students.count).to eq(0)
+          end
         end
       end
     end
@@ -71,7 +87,7 @@ describe SelfEnrollmentController do
         allow(controller).to receive(:current_user).and_return(nil)
       end
 
-      it 'should redirect to mediawiki for OAuth' do
+      it 'redirects to mediawiki for OAuth' do
         expect(get('enroll_self', params: request_params)).to redirect_to(/.*mediawiki.*/)
       end
     end
