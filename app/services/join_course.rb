@@ -22,8 +22,13 @@ class JoinCourse
   end
 
   def validate_request
-    return unless user_already_enrolled? || course_not_approved?
-    @result = { failure: 'Users may not join the same course twice.' }
+    if user_already_enrolled?
+      @result = { failure: 'Users may not join the same course twice.' }
+    elsif course_not_approved?
+      @result = { failure: 'This course has not yet been approved for enrollment.' }
+    else
+      return
+    end
     yield
   end
 
