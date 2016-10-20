@@ -342,6 +342,7 @@ describe 'the course page', type: :feature, js: true do
         course_id: Course.find_by(slug: slug).id,
         user_id: User.first.id
       )
+      CoursesUsers.update_all_caches CoursesUsers.all
     end
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
