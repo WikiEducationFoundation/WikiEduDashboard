@@ -1,5 +1,5 @@
 import React from 'react';
-import AssignButton from './assign_button.cjsx';
+import AssignButton from './assign_button.jsx';
 import { trunc } from '../../utils/strings';
 import CourseUtils from '../../utils/course_utils.js';
 

@@ -30,6 +30,8 @@
     "moment": true,
     "Raven": true,
     "SurveyDetails": true,
-    "Features": true
+    "Features": true,
+    "WikiLanguages": true,
+    "WikiProjects": true
   }
 }
