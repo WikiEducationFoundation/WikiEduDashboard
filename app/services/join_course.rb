@@ -24,7 +24,7 @@ class JoinCourse
   def validate_request
     if user_already_enrolled?
       @result = { failure: 'Users may not join the same course twice.' }
-    elsif course_not_approved?
+    elsif student_joining_before_approval?
       @result = { failure: 'This course has not yet been approved for enrollment.' }
     else
       return
@@ -40,8 +40,13 @@ class JoinCourse
                          course_id: @course.id)
   end
 
-  def course_not_approved?
+  def student_joining_before_approval?
+    return false unless student_role?
     @course.cohorts.empty?
+  end
+
+  def student_role?
+    @role == CoursesUsers::Roles::STUDENT_ROLE
   end
 
   def create_courses_user
@@ -54,7 +59,7 @@ class JoinCourse
 
   def update_course_user_count
     # The course user count is the number of students.
-    return unless @role == CoursesUsers::Roles::STUDENT_ROLE
+    return unless student_role?
     CourseCacheManager.new(@course).update_user_count
     @course.save
   end
