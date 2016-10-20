@@ -14,6 +14,8 @@ end
 describe 'open course creation', type: :feature, js: true do
   let(:user) { create(:user) }
   before do
+    @system_time_zone = Time.zone
+    Time.zone = 'Eastern Time (US & Canada)'
     ENV['default_course_type'] = 'BasicCourse'
     Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
@@ -24,6 +26,7 @@ describe 'open course creation', type: :feature, js: true do
   end
 
   after do
+    Time.zone = @system_time_zone
     ENV['default_course_type'] = cached_default_course_type
   end
 
@@ -40,7 +43,7 @@ describe 'open course creation', type: :feature, js: true do
     expect(Course.last.cohorts.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
-    expect(Course.last.start).to eq(DateTime.parse('2017-01-04 15:35:00'))
+    expect(Course.last.start).to eq(Time.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
   end
 
   it 'defaults to English Wikipedia' do

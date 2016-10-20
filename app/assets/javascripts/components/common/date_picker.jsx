@@ -42,7 +42,7 @@ const DatePicker = React.createClass({
 
   getInitialState() {
     if (this.props.value) {
-      const dateObj = moment(this.props.value).utc();
+      const dateObj = this.moment(this.props.value);
       return {
         value: dateObj.format('YYYY-MM-DD'),
         hour: dateObj.hour(),
@@ -59,7 +59,7 @@ const DatePicker = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const dateObj = moment(nextProps.value).utc();
+    const dateObj = this.moment(nextProps.value);
     if (dateObj.isValid()) {
       this.setState({
         value: dateObj.format('YYYY-MM-DD'),
@@ -84,7 +84,7 @@ const DatePicker = React.createClass({
    * @return {moment}
    */
   getDate() {
-    let dateObj = moment(this.state.value, 'YYYY-MM-DD').utc();
+    let dateObj = this.moment(this.state.value, 'YYYY-MM-DD');
     dateObj = dateObj.hour(this.state.hour);
     return dateObj.minute(this.state.minute);
   },
@@ -113,7 +113,7 @@ const DatePicker = React.createClass({
   },
 
   handleDatePickerChange(e, selectedDate) {
-    const date = moment(selectedDate).utc();
+    const date = this.moment(selectedDate);
     if (this.isDayDisabled(date)) {
       return;
     }
@@ -191,19 +191,19 @@ const DatePicker = React.createClass({
   },
 
   isDaySelected(date) {
-    const currentDate = moment(date).utc().format('YYYY-MM-DD');
+    const currentDate = this.moment(date).format('YYYY-MM-DD');
     return currentDate === this.state.value;
   },
 
   isDayDisabled(date) {
-    const currentDate = moment(date).utc();
+    const currentDate = this.moment(date);
     if (this.props.date_props) {
-      const minDate = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc().startOf('day');
+      const minDate = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD').startOf('day');
       if (minDate.isValid() && currentDate < minDate) {
         return true;
       }
 
-      const maxDate = moment(this.props.date_props.maxDate, 'YYYY-MM-DD').utc().endOf('day');
+      const maxDate = this.moment(this.props.date_props.maxDate, 'YYYY-MM-DD').endOf('day');
       if (maxDate.isValid() && currentDate > maxDate) {
         return true;
       }
@@ -219,6 +219,10 @@ const DatePicker = React.createClass({
   isValidDate(value) {
     const validationRegex = /^20\d\d\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])/;
     return validationRegex.test(value) && moment(value, 'YYYY-MM-DD').isValid();
+  },
+
+  moment(...args) {
+    return this.props.showTime ? moment(...args) : moment(...args).utc();
   },
 
   showCurrentDate() {
@@ -258,7 +262,7 @@ const DatePicker = React.createClass({
 
       let minDate;
       if (this.props.date_props && this.props.date_props.minDate) {
-        const minDateValue = moment(this.props.date_props.minDate, 'YYYY-MM-DD').utc();
+        const minDateValue = this.moment(this.props.date_props.minDate, 'YYYY-MM-DD');
         if (minDateValue.isValid()) {
           minDate = minDateValue;
         }
@@ -267,11 +271,11 @@ const DatePicker = React.createClass({
       // don't validate YYYY-MM-DD format so we can update the daypicker as they type
       const date = moment(this.state.value, 'YYYY-MM-DD');
       if (date.isValid()) {
-        currentMonth = date.utc().toDate();
+        currentMonth = this.moment(date).toDate();
       } else if (minDate) {
-        currentMonth = minDate.utc().toDate();
+        currentMonth = this.moment(minDate).toDate();
       } else {
-        currentMonth = moment().utc().toDate();
+        currentMonth = this.moment().toDate();
       }
 
       const modifiers = {
