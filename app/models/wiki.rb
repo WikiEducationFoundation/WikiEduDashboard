@@ -46,8 +46,6 @@ class Wiki < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :language, in: LANGUAGES
 
-  # Is this useful?: has_many :article_wiki, :course_wiki, :user_wiki
-
   def base_url
     "https://#{language}.#{project}.org"
   end

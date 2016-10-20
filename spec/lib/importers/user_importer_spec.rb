@@ -38,6 +38,17 @@ describe UserImporter do
       end
     end
 
+    it 'creates an new user who has no account on the default wiki' do
+      VCR.use_cassette 'user/new_from_username_nondefault_wiki' do
+        # This test assumes User:마티즈 has not been created on en.wiki:
+        # https://en.wikipedia.org/wiki/Special:Log/%EB%A7%88%ED%8B%B0%EC%A6%88
+        username = '마티즈'
+        user = UserImporter.new_from_username(username)
+        expect(user).to be_a(User)
+        expect(user.username).to eq(username)
+      end
+    end
+
     it 'returns an existing user' do
       VCR.use_cassette 'user/new_from_username' do
         create(:user, id: 500, username: 'Ragesoss')

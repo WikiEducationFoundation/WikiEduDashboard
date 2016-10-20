@@ -28,7 +28,7 @@ class UserImporter
     user
   end
 
-  def self.new_from_username(username, wiki: nil)
+  def self.new_from_username(username)
     # All mediawiki usernames have the first letter capitalized, although
     # the API returns data if you replace it with lower case.
     username = String.new(username)
@@ -39,7 +39,10 @@ class UserImporter
     user = User.find_by(username: username)
     return user if user
 
-    id = WikiApi.new(wiki).get_user_id(username)
+    # All users are expected to have an account on the central wiki, no matter
+    # which is their home wiki.
+    central_wiki = MetaWiki.new
+    id = WikiApi.new(central_wiki).get_user_id(username)
     return unless id
 
     User.find_or_create_by(username: username)
