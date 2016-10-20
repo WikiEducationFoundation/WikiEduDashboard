@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017235429) do
+ActiveRecord::Schema.define(version: 20161020224219) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20161017235429) do
     t.integer  "revision_count",         default: 0
     t.string   "assigned_article_title"
     t.integer  "role",                   default: 0
+    t.integer  "recent_revisions",       default: 0
   end
 
   create_table "feedback_form_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

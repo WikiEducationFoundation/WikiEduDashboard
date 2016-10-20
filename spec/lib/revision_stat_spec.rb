@@ -50,8 +50,8 @@ describe RevisionStat do
   end
 
   describe '#recent_revisions_for_user_and_course' do
-    let!(:courses_users) { create(:courses_user, course_id: course.id, user_id: user.id) }
-    subject { RevisionStat.recent_revisions_for_user_and_course(user, course) }
+    let(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
+    subject { RevisionStat.recent_revisions_for_courses_user(courses_user) }
     context 'date' do
       context 'older than 7 days' do
         let(:created_date) { 8.days.ago }
@@ -86,13 +86,13 @@ describe RevisionStat do
     context 'revisions' do
       context 'user has revisions' do
         it 'is not empty' do
-          expect(subject).not_to be_empty
+          expect(subject.count).to be > 0
         end
       end
       context 'user has no revisions' do
         before { revision.update_attribute(:user_id, (user.id - 1)) }
         it 'is empty' do
-          expect(subject).to be_empty
+          expect(subject.count).to eq(0)
         end
       end
     end

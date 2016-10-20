@@ -73,6 +73,11 @@ class CoursesUsers < ActiveRecord::Base
     self[:revision_count]
   end
 
+  def recent_revisions
+    update_cache unless self[:recent_revisions]
+    self[:recent_revisions]
+  end
+
   def assigned_article_title
     update_cache unless self[:assigned_article_title]
     self[:assigned_article_title]
@@ -87,13 +92,11 @@ class CoursesUsers < ActiveRecord::Base
   end
 
   def update_cache
-    revisions = course.revisions.joins(:article)
-                      .where(user_id: user.id)
+    revisions = course.revisions.joins(:article).where(user_id: user.id)
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
-    self.revision_count = revisions
-                          .where(articles: { deleted: false })
-                          .size || 0
+    self.revision_count = revisions.where(articles: { deleted: false }).size || 0
+    self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
     assignments = user.assignments.where(course_id: course.id)
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     save
