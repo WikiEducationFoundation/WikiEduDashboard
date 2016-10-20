@@ -87,6 +87,8 @@ const TimelineHandler = React.createClass({
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
     let outlet;
+    // This passes props to Meetings and Wizard, which are children specified in
+    // router.jsx.
     if (this.props.children) {
       outlet = React.cloneElement(this.props.children, {
         key: 'wizard_handler',

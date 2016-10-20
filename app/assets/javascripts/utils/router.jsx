@@ -10,7 +10,7 @@ import OnboardingForm from '../components/onboarding/form.jsx';
 import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
-import Dates from '../components/timeline/meetings.cjsx';
+import Meetings from '../components/timeline/meetings.jsx';
 import CourseCreator from '../components/course_creator/course_creator.jsx';
 
 import OverviewHandler from '../components/overview/overview_handler.jsx';
@@ -72,7 +72,7 @@ const routes = (
         <Route path="overview" component={OverviewHandler} />
         <Route path="timeline" component={TimelineHandler}>
           <Route path="wizard" component={Wizard} />
-          <Route path="dates" component={Dates} />
+          <Route path="dates" component={Meetings} />
         </Route>
         <Route path="activity" component={RevisionsHandler} />
         <Route path="students" component={StudentsHandler} />
