@@ -4,6 +4,8 @@ import InlineUsers from './inline_users.jsx';
 import CohortButton from './cohort_button.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
+import SubmittedSelector from './submitted_selector.jsx';
+
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -193,6 +195,7 @@ const Details = React.createClass({
     let subject;
     let tags;
     let courseTypeSelector;
+    let submittedSelector;
     if (this.props.current_user.admin) {
       let tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -211,6 +214,12 @@ const Details = React.createClass({
       );
       courseTypeSelector = (
         <CourseTypeSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+      submittedSelector = (
+        <SubmittedSelector
           course={this.props.course}
           editable={this.props.editable}
         />
@@ -266,6 +275,7 @@ const Details = React.createClass({
           {subject}
           {tags}
           {courseTypeSelector}
+          {submittedSelector}
         </div>
       </div>
     );
