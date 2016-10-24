@@ -51,11 +51,11 @@ class WikiCourseEdits
   # Adds a template to the enrolling student's userpage, and also
   # adds a template to their /sandbox page — creating it if it does not
   # already exist.
-  def enroll_in_course(*)
+  def enroll_in_course(enrolling_user:)
     # Add a template to the user page
     template = "{{student editor|course = [[#{@course.wiki_title}]] }}\n"
-    user_page = "User:#{@current_user.username}"
-    summary = "I am enrolled in [[#{@course.wiki_title}]]."
+    user_page = "User:#{enrolling_user.username}"
+    summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Pre-create the user's sandbox

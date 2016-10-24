@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 describe WikiCourseEdits do
   let!(:course) { create(:course, id: 1, submitted: true) }
   let(:user) { create(:user) }
+  let(:enrolling_user) { create(:user, username: 'EnrollingUser') }
 
   describe '#update_course' do
     it 'edits a Wikipedia page representing a course' do
@@ -51,7 +52,8 @@ describe WikiCourseEdits do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
       WikiCourseEdits.new(action: :enroll_in_course,
                           course: course,
-                          current_user: user)
+                          current_user: user,
+                          enrolling_user: enrolling_user)
     end
   end
 

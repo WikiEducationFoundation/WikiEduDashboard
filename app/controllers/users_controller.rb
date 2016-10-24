@@ -70,6 +70,9 @@ class UsersController < ApplicationController
     ensure_enrollment_success { return }
 
     WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    # Posts templates to userpage and sandbox
+    WikiCourseEdits.new(action: :enroll_in_course, course: @course,
+                        current_user: current_user, enrolling_user: @user)
     render 'users', formats: :json
   end
 

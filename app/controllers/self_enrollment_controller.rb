@@ -97,7 +97,8 @@ class SelfEnrollmentController < ApplicationController
     # Posts templates to userpage and sandbox
     WikiCourseEdits.new(action: :enroll_in_course,
                         course: @course,
-                        current_user: current_user)
+                        current_user: current_user,
+                        enrolling_user: current_user)
     # Adds user to course page by updating course page with latest course info
     WikiCourseEdits.new(action: :update_course,
                         course: @course,

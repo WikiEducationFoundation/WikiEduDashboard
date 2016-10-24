@@ -12,7 +12,6 @@ describe UsersController do
     let(:another_user) { create(:user, username: 'StudentUser') }
 
     before do
-      allow_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
@@ -66,6 +65,7 @@ describe UsersController do
             user: { username: another_user.username, role: CoursesUsers::Roles::STUDENT_ROLE }.as_json }
         end
         before do
+          expect_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course)
           post 'enroll', params: post_params
         end
         it 'returns a 200' do
