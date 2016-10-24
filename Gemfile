@@ -9,6 +9,7 @@ gem 'crack'
 gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
+gem 'sidekiq'
 gem 'activerecord-import'
 
 gem 'browser'

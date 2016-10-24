@@ -2,6 +2,7 @@
 require 'uri'
 require "#{Rails.root}/lib/assignment_manager"
 require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/app/workers/wiki_course_edits/update_assignments_worker"
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController
@@ -50,7 +51,7 @@ class AssignmentsController < ApplicationController
   private
 
   def update_onwiki_course_and_assignments
-    WikiCourseEdits.new(action: :update_assignments, course: @course, current_user: current_user)
+    UpdateAssignmentsWorker.schedule_edits(course: @course, editing_user: current_user)
     WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
   end
 
