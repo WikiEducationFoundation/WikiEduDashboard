@@ -108,6 +108,9 @@ GEM
     capistrano-rvm (0.1.2)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -479,6 +482,7 @@ DEPENDENCIES
   capistrano-passenger
   capistrano-rails
   capistrano-rvm
+  capistrano-sidekiq
   capybara
   capybara-screenshot
   capybara-webkit
