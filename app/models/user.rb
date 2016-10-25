@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
     joins(:courses_users).where(courses_users: { role: roles[role] })
   }
 
-  scope :trained, -> { where(trained: true) }
   scope :ungreeted, -> { where(greeted: false) }
 
   ####################
