@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/list_course_manager"
 require "#{Rails.root}/lib/tag_manager"
 require "#{Rails.root}/lib/course_creation_manager"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -39,7 +40,7 @@ class CoursesController < ApplicationController
     slug_from_params if should_set_slug?
     @course.update course: course_params
     ensure_passcode_set
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   end
 

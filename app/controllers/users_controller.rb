@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for user functionality
 class UsersController < ApplicationController
@@ -69,7 +70,7 @@ class UsersController < ApplicationController
                              role: enroll_params[:role]).result
     ensure_enrollment_success { return }
 
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     # Posts templates to userpage and sandbox
     WikiCourseEdits.new(action: :enroll_in_course, course: @course,
                         current_user: current_user, enrolling_user: @user)
@@ -107,7 +108,7 @@ class UsersController < ApplicationController
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
 
   # If the user has Assignments, update article talk pages to remove them from
@@ -115,9 +116,7 @@ class UsersController < ApplicationController
   def remove_assignment_templates
     assignments = @course_user.assignments
     assignments.each do |assignment|
-      WikiCourseEdits.new(action: :remove_assignment,
-                          course: @course,
-                          current_user: current_user,
+      WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user: current_user,
                           assignment: assignment)
     end
   end

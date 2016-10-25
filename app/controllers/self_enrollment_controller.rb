@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/wiki_preferences_manager"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for students enrolling in courses
 class SelfEnrollmentController < ApplicationController
@@ -100,8 +101,6 @@ class SelfEnrollmentController < ApplicationController
                         current_user: current_user,
                         enrolling_user: current_user)
     # Adds user to course page by updating course page with latest course info
-    WikiCourseEdits.new(action: :update_course,
-                        course: @course,
-                        current_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
 end
