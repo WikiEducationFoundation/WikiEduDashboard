@@ -65,15 +65,11 @@ class UsersController < ApplicationController
   def add
     set_course_and_user
     ensure_user_exists { return }
-    @result = JoinCourse.new(course: @course,
-                             user: @user,
-                             role: enroll_params[:role]).result
+    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role]).result
     ensure_enrollment_success { return }
 
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
-    # Posts templates to userpage and sandbox
-    WikiCourseEdits.new(action: :enroll_in_course, course: @course,
-                        current_user: current_user, enrolling_user: @user)
+    make_enrollment_edits
     render 'users', formats: :json
   end
 
@@ -87,9 +83,15 @@ class UsersController < ApplicationController
 
   def ensure_enrollment_success
     return unless @result[:failure]
-    render json: { message: @result[:failure] },
-           status: 404
+    render json: { message: @result[:failure] }, status: 404
     yield
+  end
+
+  def make_enrollment_edits
+    return unless enroll_params[:role] == CoursesUsers::Roles::STUDENT_ROLE
+    # for students only, posts templates to userpage and sandbox
+    WikiCourseEdits.new(action: :enroll_in_course, course: @course,
+                        current_user: current_user, enrolling_user: @user)
   end
 
   ###################
