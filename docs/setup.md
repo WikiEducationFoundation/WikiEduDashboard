@@ -42,6 +42,8 @@
     - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
     - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
+- Install Redis
+
 ## Initialize
 1. **Migrate the database**
       $ `rake db:migrate`

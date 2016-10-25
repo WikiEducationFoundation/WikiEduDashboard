@@ -201,6 +201,11 @@ Rails.application.routes.draw do
   resources :admin
   resources :alerts_list
 
+  require 'sidekiq/web'
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   get '/styleguide' => 'styleguide#index'
 
   # Errors

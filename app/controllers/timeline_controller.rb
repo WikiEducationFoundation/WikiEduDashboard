@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
@@ -12,7 +12,7 @@ class TimelineController < ApplicationController
     Array.wrap(timeline_params['weeks']).each do |week|
       update_week week
     end
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render 'timeline'
   end
 

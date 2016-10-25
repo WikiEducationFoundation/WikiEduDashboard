@@ -2,6 +2,8 @@
 require 'uri'
 require "#{Rails.root}/lib/assignment_manager"
 require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/app/workers/update_assignments_worker"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 # Controller for Assignments
 class AssignmentsController < ApplicationController
@@ -19,9 +21,9 @@ class AssignmentsController < ApplicationController
     set_assignment { return }
     @course = @assignment.course
     check_permissions(@assignment.user_id)
-    update_onwiki_course_and_assignments
     remove_assignment_template
     @assignment.destroy
+    update_onwiki_course_and_assignments
     render json: { article: @id }
   end
 
@@ -50,11 +52,12 @@ class AssignmentsController < ApplicationController
   private
 
   def update_onwiki_course_and_assignments
-    WikiCourseEdits.new(action: :update_assignments, course: @course, current_user: current_user)
-    WikiCourseEdits.new(action: :update_course, course: @course, current_user: current_user)
+    UpdateAssignmentsWorker.schedule_edits(course: @course, editing_user: current_user)
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
 
   def remove_assignment_template
+    # This is done syncronously because the assignment gets destroyed.
     WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user: current_user,
                         assignment: @assignment)
   end
