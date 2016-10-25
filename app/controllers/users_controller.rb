@@ -88,7 +88,7 @@ class UsersController < ApplicationController
   end
 
   def make_enrollment_edits
-    return unless enroll_params[:role] == CoursesUsers::Roles::STUDENT_ROLE
+    return unless enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
     # for students only, posts templates to userpage and sandbox
     WikiCourseEdits.new(action: :enroll_in_course, course: @course,
                         current_user: current_user, enrolling_user: @user)

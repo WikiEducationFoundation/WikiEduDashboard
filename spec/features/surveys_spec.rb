@@ -83,7 +83,8 @@ describe 'Surveys', type: :feature, js: true do
         :survey,
         name: 'Instructor Survey',
         intro: 'Welcome to survey',
-        thanks: 'You made it!'
+        thanks: 'You made it!',
+        open: true
       )
 
       question_group = create(:question_group, id: 1, name: 'Basic Questions')
@@ -162,9 +163,6 @@ describe 'Surveys', type: :feature, js: true do
     it 'navigates correctly between each question and submits' do
       Capybara.current_driver = :selenium
 
-      # FIXME: form actions fail on travis, although they works locally.
-      pending 'passes locally but not on travis-ci'
-
       expect(Rapidfire::Answer.count).to eq(0)
       expect(SurveyNotification.last.completed).to eq(false)
       login_as(@instructor, scope: :user)
@@ -215,9 +213,6 @@ describe 'Surveys', type: :feature, js: true do
       expect(Rapidfire::Answer.count).to eq(19)
       expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
     end
 
     it 'loads a question group preview' do
