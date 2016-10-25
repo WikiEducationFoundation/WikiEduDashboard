@@ -79,7 +79,7 @@ eu:
   blocks:
     milestones:
       title: Mugarriak
-  cohort:
+  campaign:
     none: Bat ere ez
   courses:
     activity: Jarduera
@@ -94,7 +94,7 @@ eu:
     calendar:
       legend: Azalpena
       legend_class_canceled: Oporretan/Bertan behera
-    cohorts: 'Taldeak:'
+    campaigns: 'Taldeak:'
     course_description: Ikastaroak
     courses: Ikastaroak
     creation_date: Sorrera data

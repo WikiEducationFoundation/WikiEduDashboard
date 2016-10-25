@@ -153,7 +153,7 @@ describe User do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
     let(:approve_course) do
-      create(:cohorts_course, cohort_id: Cohort.first.id, course_id: course.id)
+      create(:campaigns_course, campaign_id: Campaign.first.id, course_id: course.id)
     end
 
     context 'when user has no courses' do

@@ -1,0 +1,29 @@
+.container.dashboard
+  %header
+    %h1
+      Campaigns
+%section
+  .container
+    %hr
+    %h1
+      Create New Campaign
+    %div
+      =form_tag do
+        = text_field :campaign, 'title', placeholder: 'Title'
+        = submit_tag 'Create Campaign', class: 'button dark'
+%section
+  .container
+    %hr
+    %h1
+      Campaigns
+    %ul
+      - @campaigns.each do |campaign|
+        %li
+          = campaign.title
+          = " (CSVs: "
+          = link_to 'students', "/campaigns/#{campaign.slug}/students.csv"
+          = ", "
+          = link_to 'students by course', "/campaigns/#{campaign.slug}/students.csv?course=true"
+          = ", "
+          = link_to 'instructors by course', "/campaigns/#{campaign.slug}/instructors.csv?course=true"
+          = ")"

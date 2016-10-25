@@ -135,7 +135,7 @@ fi:
   blocks:
     milestones:
       title: Virstanpylväät
-  cohort:
+  campaign:
     none: Ei mitään
   courses:
     activity: Toiminta
@@ -156,7 +156,7 @@ fi:
       select_meeting_days: Valitse viikonpäivät, jolloin ryhmä kokoontuu.
     character_doc: Osallistujien kurssin aikana päänimiavaruuteen lisäämien merkkien
       yhteenlaskettu määrä.
-    cohorts: 'Joukot:'
+    campaigns: 'Joukot:'
     confirm_course_deletion: Haluatko varmasti poistaa kurssin %{title}? Jos, niin
       kirjoita kurssin nimi jatkaaksesi.
     confirm_course_deletion_failed: '"%{title}" ei ole kurssin nimi. Kurssia ei poistettu.'

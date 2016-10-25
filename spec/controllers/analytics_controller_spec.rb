@@ -4,10 +4,10 @@ require 'rails_helper'
 describe AnalyticsController do
   before do
     allow(controller).to receive(:current_user).and_return(nil)
-    create(:cohort, id: 1, slug: 'first_cohort')
-    create(:cohort, id: 2, slug: 'second_cohort')
+    create(:campaign, id: 1, slug: 'first_campaign')
+    create(:campaign, id: 2, slug: 'second_campaign')
     create(:course, id: 1, start: 1.year.ago, end: Time.zone.today)
-    create(:cohorts_course, course_id: 1, cohort_id: 1)
+    create(:campaigns_course, course_id: 1, campaign_id: 1)
   end
 
   describe '#index' do
@@ -23,15 +23,15 @@ describe AnalyticsController do
       expect(response.status).to eq(200)
     end
 
-    it 'returns cohort statistics' do
-      post 'results', params: { cohort_stats: true }
+    it 'returns campaign statistics' do
+      post 'results', params: { campaign_stats: true }
       expect(response.status).to eq(200)
     end
 
-    it 'return cohort intersection statistics' do
-      post 'results', params: { cohort_intersection: true,
-                                cohort_1: { id: 1 },
-                                cohort_2: { id: 2 } }
+    it 'return campaign intersection statistics' do
+      post 'results', params: { campaign_intersection: true,
+                                campaign_1: { id: 1 },
+                                campaign_2: { id: 2 } }
       expect(response.status).to eq(200)
     end
   end

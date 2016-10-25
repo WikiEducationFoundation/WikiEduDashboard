@@ -41,7 +41,7 @@ lt:
     title_example: Straipsnio pavadinimas
     view: Peržiūrėti straipsnį
     view_all: Rodyti visus
-  cohort:
+  campaign:
     none: Nėra
   courses:
     activity: Veikla

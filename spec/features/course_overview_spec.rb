@@ -19,8 +19,8 @@ describe 'course overview page', type: :feature, js: true do
            description: 'This is a great course',
            weekdays: '1001001')
   end
-  let(:cohort) { create(:cohort) }
-  let!(:cohorts_course) { create(:cohorts_course, cohort_id: cohort.id, course_id: course.id) }
+  let(:campaign) { create(:campaign) }
+  let!(:campaigns_course) { create(:campaigns_course, campaign_id: campaign.id, course_id: course.id) }
   let(:week) { create(:week, course_id: course.id) }
   let(:content) { 'Edit Wikipedia' }
   let!(:block)  { create(:block, week_id: week.id, content: content) }

@@ -12,7 +12,7 @@ json.course do
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended !current?(@course) && @course.start < Time.zone.now
-  json.published CohortsCourses.exists?(course_id: @course.id)
+  json.published CampaignsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
 
   json.created_count number_to_human @course.new_article_count

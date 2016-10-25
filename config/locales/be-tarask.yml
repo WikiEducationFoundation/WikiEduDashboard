@@ -129,7 +129,7 @@ be-tarask:
   blocks:
     milestones:
       title: Дасягненьні
-  cohort:
+  campaign:
     none: Няма
   courses:
     activity: Актыўнасьць
@@ -150,7 +150,7 @@ be-tarask:
       select_meeting_days: Выберыце дні тыдню, па якіх зьбіраецца Вашая кляса.
     character_doc: Сума знакаў, дададзеных да артыкулаў з асноўнай прасторы студэнтамі
       курсу на працягу тэрміну курсу
-    cohorts: 'Групы:'
+    campaigns: 'Групы:'
     confirm_course_deletion: Вы ўпэўнены, што жадаеце выдаліць курс пад назовам %{title}?
       Калі так, дык набярыце ягоную назву дзеля працягу.
     confirm_course_deletion_failed: «%{title}» — гэта ня назва курсу. Курс ня быў

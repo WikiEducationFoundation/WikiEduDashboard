@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-#= Routines for adding or removing a course to/from a cohort
+#= Routines for adding or removing a course to/from a campaign
 class ListCourseManager
-  def initialize(course, cohort, request)
+  def initialize(course, campaign, request)
     @course = course
     @already_approved = course_approved?
-    @cohort = cohort
+    @campaign = campaign
     @request = request
-    @cohorts_courses_attrs = { course_id: @course.id, cohort_id: @cohort.id }
+    @campaigns_courses_attrs = { course_id: @course.id, campaign_id: @campaign.id }
   end
 
   def manage
@@ -16,18 +16,18 @@ class ListCourseManager
   private
 
   def handle_post
-    return if CohortsCourses.find_by(@cohorts_courses_attrs).present?
-    CohortsCourses.create(@cohorts_courses_attrs)
+    return if CampaignsCourses.find_by(@campaigns_courses_attrs).present?
+    CampaignsCourses.create(@campaigns_courses_attrs)
     send_approval_notification_emails unless @already_approved
   end
 
   def handle_delete
-    return unless CohortsCourses.find_by(@cohorts_courses_attrs).present?
-    CohortsCourses.find_by(@cohorts_courses_attrs).destroy
+    return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
+    CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
   end
 
   def course_approved?
-    @course.cohorts.any?
+    @course.campaigns.any?
   end
 
   def send_approval_notification_emails

@@ -9,13 +9,13 @@ describe SurveyAssignmentsController do
     let(:follow_up)   { 7 }
     let(:send_days)   { 7 }
     let(:send_email)  { true }
-    let(:cohort)      { create(:cohort) }
+    let(:campaign)      { create(:campaign) }
     let(:instructor)  { 1 }
     let(:post_params) do
       {
         survey_assignment: {
           survey_id: survey.id,
-          cohort_ids: cohort.id,
+          campaign_ids: campaign.id,
           courses_user_role: instructor,
           send_date_days: send_days,
           send_before: false,

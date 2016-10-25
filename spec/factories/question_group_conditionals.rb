@@ -5,7 +5,7 @@
 #
 #  id                          :integer          not null, primary key
 #  rapidfire_question_group_id :integer
-#  cohort_id                   :integer
+#  campaign_id                   :integer
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #

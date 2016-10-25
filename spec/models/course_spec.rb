@@ -47,7 +47,7 @@ require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 describe Course, type: :model do
   it 'should update data for all courses on demand' do
     VCR.use_cassette 'wiki/course_data' do
-      LegacyCourseImporter.update_all_courses(false, cohort: [351])
+      LegacyCourseImporter.update_all_courses(false, campaign: [351])
 
       course = Course.first
       course.update_cache
@@ -62,7 +62,7 @@ describe Course, type: :model do
     error = MediawikiApi::ApiError.new
     stub_request(:any, %r{.*wikipedia\.org/w/api\.php.*})
       .to_raise(error)
-    LegacyCourseImporter.update_all_courses(false, cohort: [798, 800])
+    LegacyCourseImporter.update_all_courses(false, campaign: [798, 800])
 
     course = create(:legacy_course, id: 519)
     course.manual_update
@@ -72,7 +72,7 @@ describe Course, type: :model do
     VCR.use_cassette 'wiki/initial' do
       expect(Course.all.count).to eq(0)
       # This should check for course_ids up to 5.
-      LegacyCourseImporter.update_all_courses(true, cohort: [5])
+      LegacyCourseImporter.update_all_courses(true, campaign: [5])
       # On English Wikipedia, courses 1 and 3 do not exist.
       expect(Course.all.count).to eq(3)
     end
@@ -104,7 +104,7 @@ describe Course, type: :model do
 
   it 'should update assignments when updating courses' do
     VCR.use_cassette 'wiki/update_many_courses' do
-      LegacyCourseImporter.update_all_courses(false, cohort: [351, 500, 577])
+      LegacyCourseImporter.update_all_courses(false, campaign: [351, 500, 577])
 
       expect(Assignment.where(role: Assignment::Roles::ASSIGNED_ROLE).count).to eq(81)
       # Check that users with multiple assignments are handled properly.
@@ -587,19 +587,19 @@ describe Course, type: :model do
 
   describe '#ready_for_survey' do
     let(:survey) { create(:survey) }
-    let(:cohort) { create(:cohort, title: 'Test', slug: 'test') }
+    let(:campaign) { create(:campaign, title: 'Test', slug: 'test') }
     let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id, published: true) }
     let(:course) { create(:course, start: course_start, end: course_end) }
     let(:course_start) { Time.zone.today - 1.month }
     let(:course_end) { Time.zone.today + 1.month }
 
     before do
-      survey_assignment.cohorts << cohort
+      survey_assignment.campaigns << campaign
     end
 
     let(:n) { 7 }
     let(:course_scope) do
-      survey_assignment.cohorts.first.courses.ready_for_survey(
+      survey_assignment.campaigns.first.courses.ready_for_survey(
         days: n,
         before: before,
         relative_to: relative_to
@@ -612,7 +612,7 @@ describe Course, type: :model do
       let(:relative_to) { 'end' }
 
       it 'include the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)
       end
@@ -626,7 +626,7 @@ describe Course, type: :model do
       let(:relative_to) { 'end' }
 
       it 'includes the Course ' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)
       end
@@ -638,7 +638,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)
       end
@@ -650,7 +650,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(1)
       end
@@ -662,7 +662,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'does not include the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_scope.length).to eq(0)
       end
@@ -671,19 +671,19 @@ describe Course, type: :model do
 
   describe '#will_be_ready_for_survey' do
     let(:survey) { create(:survey) }
-    let(:cohort) { create(:cohort, title: 'Test', slug: 'test') }
+    let(:campaign) { create(:campaign, title: 'Test', slug: 'test') }
     let(:survey_assignment) { create(:survey_assignment, survey_id: survey.id, published: true) }
     let(:course) { create(:course, start: course_start, end: course_end) }
     let(:course_start) { Time.zone.today - 1.month }
     let(:course_end) { Time.zone.today + 1.month }
 
     before do
-      survey_assignment.cohorts << cohort
+      survey_assignment.campaigns << campaign
     end
 
     let(:n) { 7 }
     let(:course_will_be_ready_scope) do
-      survey_assignment.cohorts.first.courses.will_be_ready_for_survey(
+      survey_assignment.campaigns.first.courses.will_be_ready_for_survey(
         days: n,
         before: before,
         relative_to: relative_to
@@ -696,7 +696,7 @@ describe Course, type: :model do
       let(:relative_to) { 'end' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_will_be_ready_scope.length).to eq(1)
       end
@@ -708,7 +708,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_will_be_ready_scope.length).to eq(1)
       end
@@ -720,7 +720,7 @@ describe Course, type: :model do
       let(:relative_to) { 'end' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_will_be_ready_scope.length).to eq(1)
       end
@@ -732,7 +732,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'includes the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_will_be_ready_scope.length).to eq(1)
       end
@@ -744,7 +744,7 @@ describe Course, type: :model do
       let(:relative_to) { 'start' }
 
       it 'does not include the Course' do
-        course.cohorts << cohort
+        course.campaigns << campaign
         course.save
         expect(course_will_be_ready_scope.length).to eq(0)
       end

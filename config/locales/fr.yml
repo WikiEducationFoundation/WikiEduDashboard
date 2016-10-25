@@ -145,7 +145,7 @@ fr:
   blocks:
     milestones:
       title: Jalons
-  cohort:
+  campaign:
     none: Aucun
   courses:
     activity: Activité
@@ -168,7 +168,7 @@ fr:
     cancel: Annuler
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
-    cohorts: 'Complices :'
+    campaigns: 'Complices :'
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
@@ -289,7 +289,7 @@ fr:
     students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiants
     submitted_admin: Ce cours a été soumis à approbation par son créateur. Pour l’approuver,
-      l’ajouter à une cohorte sur la page de Présentation.
+      l’ajouter à une campaigne sur la page de Présentation.
     submitted_and_pending_heading: Soumis et en attente d’approbation
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
@@ -309,7 +309,7 @@ fr:
     untrained: Sans formation
     uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
       ni autre fichier de média
-    view_other: Afficher les autres cohortes
+    view_other: Afficher les autres campaignes
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits
       depuis que ces derniers ont édité pour la première fois chacun des articles.
@@ -336,7 +336,7 @@ fr:
     assignment_start: Début de la chronologie
     cancel: Annuler
     courses: Programmes
-    cohorts: 'Campagnes :'
+    campaigns: 'Campagnes :'
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       clone_previous: Dupliquer le programme précédent

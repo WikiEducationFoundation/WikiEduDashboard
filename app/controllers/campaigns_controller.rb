@@ -1,16 +1,16 @@
 # frozen_string_literal: true
-#= Controller for cohort data
-class CohortsController < ApplicationController
+#= Controller for campaign data
+class CampaignsController < ApplicationController
   layout 'admin'
   before_action :require_admin_permissions,
                 only: [:create]
 
   def index
-    @cohorts = Cohort.all
+    @campaigns = Campaign.all
   end
 
   def create
-    @title = cohort_params[:title]
+    @title = campaign_params[:title]
     # Strip everything but letters and digits, and convert spaces to underscores
     @slug = @title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_')
     if already_exists?
@@ -18,8 +18,8 @@ class CohortsController < ApplicationController
       return
     end
 
-    Cohort.create(title: @title, slug: @slug)
-    redirect_to '/cohorts'
+    Campaign.create(title: @title, slug: @slug)
+    redirect_to '/campaigns'
   end
 
   def students
@@ -33,22 +33,22 @@ class CohortsController < ApplicationController
   private
 
   def csv_for_role(role)
-    @cohort = Cohort.find_by(slug: csv_params[:slug])
+    @campaign = Campaign.find_by(slug: csv_params[:slug])
     respond_to do |format|
       format.csv do
-        filename = "#{@cohort.slug}-#{role}-#{Time.zone.today}.csv"
-        send_data @cohort.users_to_csv(role, course: csv_params[:course]),
+        filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
+        send_data @campaign.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
     end
   end
 
   def already_exists?
-    Cohort.exists?(slug: @slug) || Cohort.exists?(title: @title)
+    Campaign.exists?(slug: @slug) || Campaign.exists?(title: @title)
   end
 
-  def cohort_params
-    params.require(:cohort)
+  def campaign_params
+    params.require(:campaign)
           .permit(:title)
   end
 

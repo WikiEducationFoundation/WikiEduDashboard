@@ -168,7 +168,7 @@ en:
     milestones:
       title: Milestones
 
-  cohort:
+  campaign:
     none: None
 
   courses:
@@ -190,7 +190,7 @@ en:
       select_meeting_days: Select the days of the week on which your class meets.
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
-    cohorts: 'Cohorts: '
+    campaigns: 'Campaigns: '
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     course_dates_calendar_instructions: >
@@ -307,7 +307,7 @@ en:
     students_short: Students
     submitted_admin: >
       This course has been submitted for approval by its creator. To approve it,
-      add it to a cohort on the Overview page.
+      add it to a campaign on the Overview page.
     submitted_and_pending_heading: Submitted & Pending Approval
     submitted_heading: Submitted Courses
     submitted_note: >
@@ -328,7 +328,7 @@ en:
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
-    view_other: View other cohorts
+    view_other: View other campaigns
     view: View Course
     view_doc: The sum of all views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
@@ -357,7 +357,7 @@ en:
     assignment_start: Timeline Start
     cancel: Cancel
     courses: Programs
-    cohorts: 'Campaigns: '
+    campaigns: 'Campaigns: '
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
       clone_previous: Clone Previous Program

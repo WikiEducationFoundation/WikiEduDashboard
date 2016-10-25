@@ -95,8 +95,8 @@ class Course < ActiveRecord::Base
   ############
   belongs_to :home_wiki, class_name: Wiki
 
-  has_many :cohorts_courses, class_name: CohortsCourses, dependent: :destroy
-  has_many :cohorts, through: :cohorts_courses
+  has_many :campaigns_courses, class_name: CampaignsCourses, dependent: :destroy
+  has_many :campaigns, through: :campaigns_courses
 
   has_many :tags, dependent: :destroy
 
@@ -117,13 +117,13 @@ class Course < ActiveRecord::Base
   scope :legacy, -> { where(type: 'LegacyCourse') }
 
   def self.submitted_but_unapproved
-    Course.includes(:cohorts).where('cohorts.id IS NULL')
-          .where(submitted: true).references(:cohorts)
+    Course.includes(:campaigns).where('campaigns.id IS NULL')
+          .where(submitted: true).references(:campaigns)
   end
 
   def self.unsubmitted
-    Course.includes(:cohorts).where('cohorts.id IS NULL')
-          .where(submitted: false).references(:cohorts)
+    Course.includes(:campaigns).where('campaigns.id IS NULL')
+          .where(submitted: false).references(:campaigns)
   end
 
   scope :strictly_current, -> { where('? BETWEEN start AND end', Time.zone.now) }

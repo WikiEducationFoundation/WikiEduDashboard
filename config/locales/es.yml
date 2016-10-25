@@ -141,7 +141,7 @@ es:
   blocks:
     milestones:
       title: Hitos
-  cohort:
+  campaign:
     none: Ninguno
   courses:
     activity: Actividad
@@ -163,7 +163,7 @@ es:
     cancel: Cancelar
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
-    cohorts: 'Cohortes:'
+    campaigns: 'Campaignes:'
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: '"%{title}" no es el título de este curso. El
@@ -284,7 +284,7 @@ es:
     students_none: Este curso no tiene estudiantes.
     students_short: Estudiantes
     submitted_admin: Este curso se ha presentado para su aprobación por parte de su
-      creador. Para aprobarlo, añádelo a una cohorte en la página de información general.
+      creador. Para aprobarlo, añádelo a una campaigne en la página de información general.
     submitted_and_pending_heading: Presentado y pendiente de aprobación
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
@@ -304,7 +304,7 @@ es:
     untrained: Sin entrenamiento
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
-    view_other: Ver otras cohortes
+    view_other: Ver otras campaignes
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
       desde que el editor hizo su primera edición en cada artículo
@@ -331,7 +331,7 @@ es:
     assignment_start: Inicio del cronograma
     cancel: Cancelar
     courses: Programas
-    cohorts: 'Campañas:'
+    campaigns: 'Campañas:'
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       clone_previous: Clonar el programa previo

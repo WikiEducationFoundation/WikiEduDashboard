@@ -2,9 +2,9 @@
 module QuestionGroupsHelper
   def check_conditionals(question_group)
     return true if @course.nil?
-    @question_group_cohorts = question_group.cohorts.pluck(:id)
+    @question_group_campaigns = question_group.campaigns.pluck(:id)
     @question_group_tags = question_group.tags.nil? ? [] : question_group.tags.split(',')
-    course_has_tags && course_in_cohorts
+    course_has_tags && course_in_campaigns
   end
 
   def course_has_tags
@@ -16,11 +16,11 @@ module QuestionGroupsHelper
     matching.length == @question_group_tags.length
   end
 
-  def course_in_cohorts
-    return true if @question_group_cohorts.empty?
-    matching = @question_group_cohorts.select do |cohort_id|
-      CohortsCourses.where(course_id: @course.id, cohort_id: cohort_id).count.positive?
+  def course_in_campaigns
+    return true if @question_group_campaigns.empty?
+    matching = @question_group_campaigns.select do |campaign_id|
+      CampaignsCourses.where(course_id: @course.id, campaign_id: campaign_id).count.positive?
     end
-    matching.count == @question_group_cohorts.count
+    matching.count == @question_group_campaigns.count
   end
 end

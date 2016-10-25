@@ -60,7 +60,7 @@ oc:
     reviewers: Relector(s)
     review_other: Atribuir una revision
     review_self: Repassar un article
-  cohort:
+  campaign:
     none: Pas cap
   courses:
     activity: Activitat

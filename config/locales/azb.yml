@@ -45,7 +45,7 @@ azb:
   assignments:
     remove: سیل
     select: سئچ
-  cohort:
+  campaign:
     none: هئچ بیری
   courses:
     activity: چالیشما

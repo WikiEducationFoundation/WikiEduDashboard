@@ -8,7 +8,7 @@
 
 ## Project Setup
 
-- Fork this repo, so that you can make changes and push them freely to GitHub.  
+- Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
 - Make sure you are in the "sudo" group.
 - Install Ruby 2.3.1 (RVM is recommended)
@@ -48,8 +48,8 @@
 1. **Migrate the database**
       $ `rake db:migrate`
 
-2. **Create the cohorts specified in `application.yml`**
-      $ `rake cohort:add_cohorts`
+2. **Create the campaigns specified in `application.yml`**
+      $ `rake campaign:add_campaigns`
 
 ## [Set up OAuth integration](oauth.md) (optional)
 

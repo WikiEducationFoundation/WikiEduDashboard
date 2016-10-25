@@ -43,7 +43,7 @@ Rails.application.routes.draw do
 
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
-    match 'courses/*id/cohort' => 'courses#list',
+    match 'courses/*id/campaign' => 'courses#list',
           constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/tag' => 'courses#tag',
           constraints: { id: /.*/ }, via: [:post, :delete]
@@ -60,7 +60,7 @@ Rails.application.routes.draw do
     post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
   end
 
-  get 'lookups/cohort(.:format)' => 'lookups#cohort'
+  get 'lookups/campaign(.:format)' => 'lookups#campaign'
   get 'lookups/tag(.:format)' => 'lookups#tag'
   get 'lookups/article(.:format)' => 'lookups#article'
 
@@ -92,12 +92,12 @@ Rails.application.routes.draw do
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
 
-  # Cohorts
-  resources :cohorts, only: [:index, :create]
+  # Campaigns
+  resources :campaigns, only: [:index, :create]
 
-  controller :cohorts do
-    get 'cohorts/:slug/students' => 'cohorts#students'
-    get 'cohorts/:slug/instructors' => 'cohorts#instructors'
+  controller :campaigns do
+    get 'campaigns/:slug/students' => 'campaigns#students'
+    get 'campaigns/:slug/instructors' => 'campaigns#instructors'
   end
 
   # Recent Activity

@@ -117,7 +117,7 @@ sr-ec:
   blocks:
     milestones:
       title: Миљоказ
-  cohort:
+  campaign:
     none: Ништа
   courses:
     activity: Активност

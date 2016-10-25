@@ -11,7 +11,7 @@ describe 'Student users', type: :feature, js: true do
   let(:user) { create(:user, id: 200, wiki_token: 'foo', wiki_secret: 'bar') }
 
   before :each do
-    create(:cohort,
+    create(:campaign,
            id: 1)
     create(:course,
            id: 10001,
@@ -30,8 +30,8 @@ describe 'Student users', type: :feature, js: true do
            user_id: 100,
            course_id: 10001,
            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    create(:cohorts_course,
-           cohort_id: 1,
+    create(:campaigns_course,
+           campaign_id: 1,
            course_id: 10001)
     create(:user,
            id: 101,

@@ -23,9 +23,9 @@ $(() => {
     });
   }
 
-  $('select.cohorts').change(() => {
-    const cohort = $('select.cohorts option:selected').val();
-    return window.location = `/explore?cohort=${encodeURIComponent(cohort)}`;
+  $('select.campaigns').change(() => {
+    const campaign = $('select.campaigns option:selected').val();
+    return window.location = `/explore?campaign=${encodeURIComponent(campaign)}`;
   });
 
   return $('select.sorts').change(function () {

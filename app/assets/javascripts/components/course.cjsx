@@ -6,12 +6,12 @@ ServerActions     = require('../actions/server_actions.js').default
 CourseActions     = require('../actions/course_actions.js').default
 CourseStore       = require '../stores/course_store.coffee'
 UserStore         = require('../stores/user_store.js').default
-CohortStore       = require('../stores/cohort_store.js').default
+CampaignStore     = require('../stores/campaign_store.js').default
 NotificationStore = require('../stores/notification_store.js').default
 Affix             = require('./common/affix.jsx').default
 CourseUtils       = require('../utils/course_utils.js').default
 GetHelpButton     = require('../components/common/get_help_button.jsx').default
-EnrollCard       = require('./enroll/enroll_card.jsx').default
+EnrollCard        = require('./enroll/enroll_card.jsx').default
 
 getState = ->
   current = $('#react_root').data('current_user')
@@ -27,7 +27,7 @@ Course = React.createClass(
   componentWillMount: ->
     ServerActions.fetch 'course', @getCourseID()
     ServerActions.fetch 'users', @getCourseID()
-    ServerActions.fetch 'cohorts', @getCourseID()
+    ServerActions.fetch 'campaigns', @getCourseID()
   getInitialState: ->
     getState()
   storeDidChange: ->

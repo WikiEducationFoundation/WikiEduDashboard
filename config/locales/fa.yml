@@ -124,7 +124,7 @@ fa:
   blocks:
     milestones:
       title: نقاط عطف
-  cohort:
+  campaign:
     none: هیچ‌کدام
   courses:
     activity: فعالیت
@@ -146,7 +146,7 @@ fa:
         شود را انتخاب کنید.
     character_doc: مجموع کاراکترهای افزوده‌شده به فضای اصلی مقاله‌ها توسط دانشجویان
       دوره در طول مدت دوره
-    cohorts: 'گروه‌ها:'
+    campaigns: 'گروه‌ها:'
     confirm_course_deletion: از حذف دورهٔ آموزشی تحت عنوان %{title} اطمینان دارید؟
       اگر بله، عنوان دوره را برای ادامهٔ فرآیند تایپ کنید.
     confirm_course_deletion_failed: «%{title}» عنوان این دوره نیست. دورهٔ خواسته‌شده

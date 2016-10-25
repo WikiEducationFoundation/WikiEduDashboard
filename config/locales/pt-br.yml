@@ -132,7 +132,7 @@ pt-br:
   blocks:
     milestones:
       title: Marco
-  cohort:
+  campaign:
     none: Nenhum
   courses:
     activity: Atividade
@@ -153,7 +153,7 @@ pt-br:
       select_meeting_days: Selecionar os dias da semana em que a turma se encontra.
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso
-    cohorts: 'Grupos:'
+    campaigns: 'Grupos:'
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
     confirm_course_deletion_failed: '"%{title}" não é o título deste curso. O curso

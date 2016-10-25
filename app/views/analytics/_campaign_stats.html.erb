@@ -1,6 +1,6 @@
-<h3><% @cohort_stats.each do |cohort, cohort_data| %>
-  <%= cohort.to_s %><br/>
-  <% cohort_data.each do |stat, value| %>
+<h3><% @campaign_stats.each do |campaign, campaign_data| %>
+  <%= campaign.to_s %><br/>
+  <% campaign_data.each do |stat, value| %>
     <li><%= stat %>: <%= value %>
   <% end %>
 <br /></br />

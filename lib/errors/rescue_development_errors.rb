@@ -5,7 +5,7 @@ module Errors
   module RescueDevelopmentErrors
     def self.included(base)
       rescue_from_rev_manifest(base)
-      rescue_from_no_cohorts(base)
+      rescue_from_no_campaigns(base)
     end
 
     REV_MANIFEST_EXPLANATION =
@@ -24,14 +24,14 @@ module Errors
       end
     end
 
-    NO_COHORTS_EXPLANATION =
-      'Error: The default cohort does not exist.' \
+    NO_CAMPAIGNS_EXPLANATION =
+      'Error: The default campaign does not exist.' \
       "\n\n" \
-      'Run `rake cohort:add_cohorts` or go to "/cohorts" to create one called ' \
-      "#{ENV['default_cohort']}."
-    def self.rescue_from_no_cohorts(base)
-      base.rescue_from CoursesPresenter::NoCohortError do
-        render plain: NO_COHORTS_EXPLANATION,
+      'Run `rake campaign:add_campaigns` or go to "/campaigns" to create one called ' \
+      "#{ENV['default_campaign']}."
+    def self.rescue_from_no_campaigns(base)
+      base.rescue_from CoursesPresenter::NoCampaignError do
+        render plain: NO_CAMPAIGNS_EXPLANATION,
                status: 500
       end
     end

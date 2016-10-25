@@ -352,7 +352,7 @@ describe 'New course creation and editing', type: :feature do
              course_id: 1,
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      create(:cohorts_course, course_id: 1, cohort_id: Cohort.first.id)
+      create(:campaigns_course, course_id: 1, campaign_id: Campaign.first.id)
     end
 
     it 'should have the option of starting with no timeline' do

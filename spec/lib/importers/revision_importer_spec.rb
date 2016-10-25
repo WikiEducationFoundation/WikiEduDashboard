@@ -53,7 +53,7 @@ describe RevisionImporter do
 
         # Now add a course with users
         VCR.use_cassette 'wiki/course_data' do
-          LegacyCourseImporter.update_all_courses(false, cohort: [351])
+          LegacyCourseImporter.update_all_courses(false, campaign: [351])
         end
 
         RevisionImporter.update_all_revisions nil, true

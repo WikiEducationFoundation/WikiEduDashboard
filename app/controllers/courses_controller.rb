@@ -91,14 +91,14 @@ class CoursesController < ApplicationController
   # JSON method for listing/unlisting course
   def list
     @course = find_course_by_slug(params[:id])
-    cohort = Cohort.find_by(title: cohort_params[:title])
-    unless cohort
+    campaign = Campaign.find_by(title: campaign_params[:title])
+    unless campaign
       render json: {
-        message: "Sorry, #{cohort_params[:title]} is not a valid cohort."
+        message: "Sorry, #{campaign_params[:title]} is not a valid campaign."
       }, status: 404
       return
     end
-    ListCourseManager.new(@course, cohort, request).manage
+    ListCourseManager.new(@course, campaign, request).manage
   end
 
   def tag
@@ -122,8 +122,8 @@ class CoursesController < ApplicationController
 
   private
 
-  def cohort_params
-    params.require(:cohort).permit(:title)
+  def campaign_params
+    params.require(:campaign).permit(:title)
   end
 
   def handle_syllabus_params

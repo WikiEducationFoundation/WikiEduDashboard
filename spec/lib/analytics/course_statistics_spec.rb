@@ -28,7 +28,7 @@ describe CourseStatistics do
   end
 
   describe '#report_statistics' do
-    it 'should work for empty cohorts' do
+    it 'should work for empty campaigns' do
       output = CourseStatistics.new([]).report_statistics
       expect(output[:course_count]).to eq(0)
       expect(output[:students_excluding_instructors]).to eq(0)
@@ -51,7 +51,7 @@ describe CourseStatistics do
   end
 
   describe '#articles_edited' do
-    it 'should work for empty cohorts' do
+    it 'should work for empty campaigns' do
       output = CourseStatistics.new([]).articles_edited
       expect(output).to be_empty
     end

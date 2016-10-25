@@ -114,7 +114,7 @@ zh-TW:
   blocks:
     milestones:
       title: 里程碑
-  cohort:
+  campaign:
     none: 無
   courses:
     activity: 活躍度
@@ -135,7 +135,7 @@ zh-TW:
       select_meeting_days: 選擇一週中上課的日子
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主名字空間的條目之總位元組數。（1中文字=3位元組）
-    cohorts: 同學：
+    campaigns: 同學：
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。點擊一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程裡的活動章節將會隨著沒有上課的星期而調整。

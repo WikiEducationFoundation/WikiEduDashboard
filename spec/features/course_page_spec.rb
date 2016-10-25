@@ -43,8 +43,8 @@ describe 'the course page', type: :feature, js: true do
                     school: 'This university.foo',
                     term: 'term 2015',
                     description: 'This is a great course')
-    cohort = create(:cohort)
-    course.cohorts << cohort
+    campaign = create(:campaign)
+    course.campaigns << campaign
 
     (1..user_count).each do |i|
       create(:user,

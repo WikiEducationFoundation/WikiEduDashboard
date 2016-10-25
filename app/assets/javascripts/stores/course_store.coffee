@@ -74,7 +74,7 @@ CourseStore = Flux.createStore
     when 'DISMISS_SURVEY_NOTIFICATION'
       _dismissNotification payload
       break
-    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'COHORT_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE', 'PERSISTED_COURSE'
+    when 'RECEIVE_COURSE', 'CREATED_COURSE', 'CAMPAIGN_MODIFIED', 'SAVED_COURSE', 'CHECK_COURSE', 'PERSISTED_COURSE'
       setCourse data.course, true
       break
     when 'UPDATE_CLONE', 'RECEIVE_COURSE_CLONE'

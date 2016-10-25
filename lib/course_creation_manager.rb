@@ -21,7 +21,7 @@ class CourseCreationManager
     set_slug
     set_passcode
     set_course_type
-    set_initial_cohort
+    set_initial_campaign
     @course = Course.create(@course_params.merge(@overrides))
     add_instructor_to_course
     add_tags_to_course
@@ -53,8 +53,8 @@ class CourseCreationManager
     @overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
   end
 
-  def set_initial_cohort
-    @overrides[:cohorts] = [Cohort.default_cohort] if Features.open_course_creation?
+  def set_initial_campaign
+    @overrides[:campaigns] = [Campaign.default_campaign] if Features.open_course_creation?
   end
 
   def add_instructor_to_course

@@ -113,7 +113,7 @@ nl:
   blocks:
     milestones:
       title: Mijlpalen
-  cohort:
+  campaign:
     none: Geen
   courses:
     activity: Activiteit
@@ -134,7 +134,7 @@ nl:
       select_meeting_days: Selecteer de dagen van de week waarop uw klas samenkomt.
     character_doc: Het aantal tekens dat tijdens de cursus is toegevoegd aan pagina's
       in de hoofdnaamruimte door studenten van de cursus
-    cohorts: 'Cohorten:'
+    campaigns: 'Campaignen:'
     confirm_course_deletion: Weet je zeker dat je de cursus met de titel %{title}
       wilt verwijderen? Als dat zo is, typ dan de titel van de cursus om verder te
       gaan.
@@ -239,7 +239,7 @@ nl:
     students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
     submitted_admin: Deze cursus is ingediend voor goedkeuring door de aanmaker. Om
-      deze goed te keuren, voegt je deze toe aan een cohort op de overzichtspagina.
+      deze goed te keuren, voegt je deze toe aan een campaign op de overzichtspagina.
     submitted_and_pending_heading: Ingediend en in afwachting van goedkeuring
     submitted_heading: Ingediend cursussen
     submitted_note: Je cursus is ingediend. Wiki Ed-personeel zal deze bekijken en

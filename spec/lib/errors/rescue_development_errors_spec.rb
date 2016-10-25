@@ -26,18 +26,18 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
     end
   end
 
-  describe 'when CoursesPresenter::NoCohortError is raised' do
+  describe 'when CoursesPresenter::NoCampaignError is raised' do
     controller(ApplicationController) do
       include Errors::RescueDevelopmentErrors
 
       def index
-        raise CoursesPresenter::NoCohortError
+        raise CoursesPresenter::NoCampaignError
       end
     end
 
     it 'renders an explanation with helpful advice' do
       get :index
-      expect(response.body).to match(/default cohort/)
+      expect(response.body).to match(/default campaign/)
     end
   end
 end

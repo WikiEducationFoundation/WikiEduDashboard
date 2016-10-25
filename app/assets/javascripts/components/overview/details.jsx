@@ -1,7 +1,7 @@
 import React from 'react';
 
 import InlineUsers from './inline_users.jsx';
-import CohortButton from './cohort_button.jsx';
+import CampaignButton from './campaign_button.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -14,16 +14,16 @@ import CourseActions from '../../actions/course_actions.js';
 import CourseStore from '../../stores/course_store.coffee';
 import TagStore from '../../stores/tag_store.js';
 import UserStore from '../../stores/user_store.js';
-import CohortStore from '../../stores/cohort_store.js';
+import CampaignStore from '../../stores/campaign_store.js';
 
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';
-// For some reason getState is not being triggered when CohortStore gets updated
+// For some reason getState is not being triggered when CampaignStore gets updated
 
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
-    cohorts: CohortStore.getModels(),
+    campaigns: CampaignStore.getModels(),
     instructors: UserStore.getFiltered({ role: 1 }),
     online: UserStore.getFiltered({ role: 2 }),
     campus: UserStore.getFiltered({ role: 3 }),
@@ -42,7 +42,7 @@ const Details = React.createClass({
     online: React.PropTypes.array,
     campus: React.PropTypes.array,
     staff: React.PropTypes.array,
-    cohorts: React.PropTypes.array,
+    campaigns: React.PropTypes.array,
     tags: React.PropTypes.array,
     controls: React.PropTypes.func,
     editable: React.PropTypes.bool
@@ -187,8 +187,8 @@ const Details = React.createClass({
       );
     }
 
-    let cohorts = this.props.cohorts.length > 0 ?
-      _.map(this.props.cohorts, 'title').join(', ')
+    let campaigns = this.props.campaigns.length > 0 ?
+      _.map(this.props.campaigns, 'title').join(', ')
     : I18n.t('courses.none');
 
 
@@ -269,8 +269,8 @@ const Details = React.createClass({
             {timelineEnd}
           </form>
           <div>
-            <span><strong>{CourseUtils.i18n('cohorts', this.props.course.string_prefix)} </strong>{cohorts}</span>
-            <CohortButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse') } />
+            <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
+            <CampaignButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse') } />
           </div>
           {subject}
           {tags}
@@ -283,4 +283,4 @@ const Details = React.createClass({
 }
 );
 
-export default Editable(Details, [CourseStore, UserStore, CohortStore, TagStore], CourseActions.persistCourse, getState, 'Edit Details');
+export default Editable(Details, [CourseStore, UserStore, CampaignStore, TagStore], CourseActions.persistCourse, getState, 'Edit Details');

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'csv'
 
-cohort = Cohort.find_by(slug: 'spring_2016')
+campaign = Campaign.find_by(slug: 'spring_2016')
 
-# CSV of all assigned training modules for courses in the cohort:
+# CSV of all assigned training modules for courses in the campaign:
 # course slug, training module, due date
 
-courses = cohort.courses
+courses = campaign.courses
 csv_data = []
 courses.each do |course|
   course.training_modules.each do |training_module|
@@ -29,11 +29,11 @@ CSV.open('/home/sage/spring_2016_training_due_dates.csv', 'wb') do |csv|
   end
 end
 
-# CSV of all training module progress for students in the cohort:
+# CSV of all training module progress for students in the campaign:
 # username, training module, last slide completed, module completion date
 
 user_csv_data = []
-cohort.students.each do |student|
+campaign.students.each do |student|
   student.training_modules_users.each do |tmu|
     user_csv_data << [student.username,
                       tmu.training_module.slug,
