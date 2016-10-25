@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020224219) do
+ActiveRecord::Schema.define(version: 20161025202439) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20161020224219) do
     t.integer  "syllabus_file_size"
     t.datetime "syllabus_updated_at"
     t.integer  "home_wiki_id"
+    t.integer  "recent_revision_count",               default: 0
     t.index ["slug"], name: "index_courses_on_slug", using: :btree
   end
 

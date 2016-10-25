@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/revision_stat"
+require "#{Rails.root}/lib/course_training_progress_manager"
 
 #= Service for updating the counts that are cached on Course objects
 class CourseCacheManager
@@ -12,6 +14,7 @@ class CourseCacheManager
     update_user_count
     update_trained_count
     update_revision_count
+    update_recent_revision_count
     update_article_count
     update_new_article_count
     update_upload_count
@@ -57,6 +60,10 @@ class CourseCacheManager
 
   def update_revision_count
     @course.revision_count = @course.revisions.size
+  end
+
+  def update_recent_revision_count
+    @course.recent_revision_count = RevisionStat.get_records(course_id: @course.id)
   end
 
   def update_article_count
