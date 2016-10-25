@@ -89,7 +89,7 @@ ON YOUR MACHINE
 - Start the Capistrano deployment (on production). Enter the app's directory, then:
   - $ `cap production deploy`
   - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, secrets.yml, and newrelic.yml
-   - If it fails but you do't get a message about one of those files, try it again.
+   - If it fails but you don't get a message about one of those files, try it again.
 
 
 ON THE SERVER
@@ -105,6 +105,10 @@ ON THE SERVER
   - Paste the standard file, then save.
   - $ `touch /var/www/dashboard/shared/config/newrelic.yml`
   - (No file content is necessary unless you're using New Relic monitoring.)
+- Create the tmp directory for pid files
+  - $ `mkdir /var/www/dashboard/shared/tmp/pids`
+  - (Sidekiq will create a pid file in this directory upon deployment. If it is unable to do so, background jobs will not be performed.)
+
 
 ON YOUR MACHINE
 -------------
