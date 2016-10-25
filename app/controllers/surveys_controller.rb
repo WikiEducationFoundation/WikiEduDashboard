@@ -176,7 +176,7 @@ class SurveysController < ApplicationController
   end
 
   def user_is_assigned_to_survey(return_notification = false)
-    notifications = current_user.survey_notifications.collect do |n|
+    notifications = current_user.survey_notifications.select do |n|
       n if n.survey.id == @survey.id
     end
     return false if notifications.empty?
