@@ -93,11 +93,13 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
 
   # Campaigns
-  resources :campaigns, only: [:index, :create]
-
-  controller :campaigns do
-    get 'campaigns/:slug/students' => 'campaigns#students'
-    get 'campaigns/:slug/instructors' => 'campaigns#instructors'
+  resources :campaigns, param: :slug do
+    member do
+      get 'overview'
+      get 'programs'
+      get 'students'
+      get 'instructors'
+    end
   end
 
   # Recent Activity

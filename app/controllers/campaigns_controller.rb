@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 #= Controller for campaign data
 class CampaignsController < ApplicationController
-  layout 'admin'
+  layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
                 only: [:create]
 
@@ -20,6 +20,10 @@ class CampaignsController < ApplicationController
 
     Campaign.create(title: @title, slug: @slug)
     redirect_to '/campaigns'
+  end
+
+  def show
+    @campaign = Campaign.find_by(slug: params[:slug])
   end
 
   def students
