@@ -12,7 +12,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
     login_as(admin)
-    course.cohorts << Cohort.last
+    course.campaigns << Campaign.last
     create(:courses_user, course_id: course.id, user_id: user.id,
                           role: CoursesUsers::Roles::STUDENT_ROLE)
   end

@@ -108,7 +108,7 @@ sk:
   blocks:
     milestones:
       title: Míľniky
-  cohort:
+  campaign:
     none: Žiadne
   courses:
     activity: Aktivita
@@ -130,7 +130,7 @@ sk:
         stretávať.
     character_doc: Počet znakov, ktoré boli študentmi pridané do hlavného menného
       priestoru počas kurzu
-    cohorts: 'Skupiny:'
+    campaigns: 'Skupiny:'
     confirm_course_deletion: Skutočne chcete zmazať kurz %{title}? Ak áno, prosím
       vpíšte názov kurzu.
     confirm_course_deletion_failed: „%{title}“ nie je názov kurzu. Kurz nebol odstránený.

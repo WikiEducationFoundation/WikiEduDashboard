@@ -4,9 +4,9 @@ class ExploreController < ApplicationController
   respond_to :html
 
   def index
-    cohort = params[:cohort] || ENV['default_cohort']
-    @presenter = CoursesPresenter.new(current_user, cohort)
+    campaign = params[:campaign] || ENV['default_campaign']
+    @presenter = CoursesPresenter.new(current_user, campaign)
     raise ActionController::RoutingError
-      .new('Not Found'), 'Cohort does not exist' unless @presenter.cohort
+      .new('Not Found'), 'Campaign does not exist' unless @presenter.campaign
   end
 end

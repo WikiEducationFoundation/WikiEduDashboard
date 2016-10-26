@@ -127,7 +127,7 @@ nb:
   blocks:
     milestones:
       title: Milepæler
-  cohort:
+  campaign:
     none: Ingen
   courses:
     activity: Aktivitet
@@ -149,7 +149,7 @@ nb:
     cancel: Avbryt
     character_doc: Summen av tegn lagt til i artikler i hovednavnerommet av kursets
       studenter i løpet av kursterminen
-    cohorts: 'Kohorter:'
+    campaigns: 'Kohorter:'
     confirm_course_deletion: Er du sikker på at du vil slette kurset med navn %{title}?
       Hvis du er det, skriv inn kursets tittel for å fortsette.
     confirm_course_deletion_failed: «%{title}» er ikke tittelen til dette kurset.
@@ -311,7 +311,7 @@ nb:
     assignment_start: Tidslinjestart
     cancel: Avbryt
     courses: Programmer
-    cohorts: 'Kampanjer:'
+    campaigns: 'Kampanjer:'
     creator:
       checking_for_uniqueness: Dette programmet sjekkes for unikhet
       clone_previous: Klon tidligere program

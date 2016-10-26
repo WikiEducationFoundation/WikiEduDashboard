@@ -3,7 +3,7 @@ require 'csv'
 
 # == Schema Information
 #
-# Table name: cohorts
+# Table name: campaigns
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)
@@ -13,10 +13,10 @@ require 'csv'
 #  updated_at :datetime
 #
 
-#= Cohort model
-class Cohort < ActiveRecord::Base
-  has_many :cohorts_courses, class_name: CohortsCourses
-  has_many :courses, through: :cohorts_courses
+#= Campaign model
+class Campaign < ActiveRecord::Base
+  has_many :campaigns_courses, class_name: CampaignsCourses
+  has_many :courses, through: :campaigns_courses
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
@@ -59,20 +59,20 @@ class Cohort < ActiveRecord::Base
   # Class methods #
   #################
 
-  # Create new cohorts from application.yml entries
-  def self.initialize_cohorts
-    ENV['cohorts'].split(',').each do |cohort|
-      next if Cohort.exists?(slug: cohort)
-      Cohort.new(
-        'title' => cohort.tr('_', ' ').capitalize,
-        'slug' => cohort,
-        'url' => ENV['cohort_' + cohort]
+  # Create new campaigns from application.yml entries
+  def self.initialize_campaigns
+    ENV['campaigns'].split(',').each do |campaign|
+      next if Campaign.exists?(slug: campaign)
+      Campaign.new(
+        'title' => campaign.tr('_', ' ').capitalize,
+        'slug' => campaign,
+        'url' => ENV['campaign_' + campaign]
       ).save
-      Rails.logger.info "Created cohort #{cohort}."
+      Rails.logger.info "Created campaign #{campaign}."
     end
   end
 
-  def self.default_cohort
-    find_by(slug: ENV['default_cohort'])
+  def self.default_campaign
+    find_by(slug: ENV['default_campaign'])
   end
 end

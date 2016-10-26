@@ -23,18 +23,18 @@ class WikiLegacyCourses
   end
 
   def self.course_list
-    # Based on the cohorts and wiki pages defined in application.yml, get the list
-    # of courses for each cohort.
+    # Based on the campaigns and wiki pages defined in application.yml, get the list
+    # of courses for each campaign.
     response = {}
-    Cohort.all.each do |cohort|
-      content = WikiApi.new.get_page_content(cohort.url)
+    Campaign.all.each do |campaign|
+      content = WikiApi.new.get_page_content(campaign.url)
       next if content.nil?
       lines = content.split(/\n/)
       # Only integers can be valid ids.
       integers = /^[1-9][0-9]*$/
       raw_ids = lines.select { |id| integers.match(id) }
       raw_ids = raw_ids.map(&:to_i)
-      response[cohort.slug] = raw_ids
+      response[campaign.slug] = raw_ids
     end
     response
   end

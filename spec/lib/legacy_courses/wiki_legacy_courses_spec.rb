@@ -40,7 +40,7 @@ describe WikiLegacyCourses do
   describe '.course_list' do
     it 'returns the list of courses' do
       VCR.use_cassette 'wiki_legacy_courses/course_list' do
-        create(:cohort)
+        create(:campaign)
         response = WikiLegacyCourses.course_list
         expect(response.count).to be >= 1
       end

@@ -136,7 +136,7 @@ sv:
       other: en=Volontär
   courses_generic:
     cancel: Avbryt
-    cohorts: 'Kampanjer:'
+    campaigns: 'Kampanjer:'
     creator:
       clone_previous: Klona tidigare program
       clone_this: Klona detta program

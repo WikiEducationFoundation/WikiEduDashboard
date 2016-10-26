@@ -12,19 +12,19 @@ CSV.open('/root/all_course_participants.csv', 'wb') do |csv|
   end
 end
 
-# student usernames by cohort
-Cohort.all.each do |cohort|
-  CSV.open("/root/#{cohort.slug}_students.csv", 'wb') do |csv|
-    cohort.students.each do |student|
+# student usernames by campaign
+Campaign.all.each do |campaign|
+  CSV.open("/root/#{campaign.slug}_students.csv", 'wb') do |csv|
+    campaign.students.each do |student|
       csv << [student.username]
     end
   end
 end
 
-# student usernames and courses, by cohort
-Cohort.all.each do |cohort|
-  CSV.open("/root/#{cohort.slug}_students.csv", 'wb') do |csv|
-    cohort.courses.each do |course|
+# student usernames and courses, by campaign
+Campaign.all.each do |campaign|
+  CSV.open("/root/#{campaign.slug}_students.csv", 'wb') do |csv|
+    campaign.courses.each do |course|
       course.students.each do |student|
         csv << [student.username, course.slug]
       end

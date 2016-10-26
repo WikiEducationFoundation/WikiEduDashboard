@@ -178,8 +178,8 @@ qqq:
   blocks:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
-  cohort:
-    none: Option for a course with no cohort
+  campaign:
+    none: Option for a course with no campaign
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
@@ -211,14 +211,14 @@ qqq:
         a course meets (Wiki Ed only)
     cancel: '{{Identical|Cancel}}'
     character_doc: Explanation of what 'characters added' means
-    cohorts: Label for a list of cohorts a program is part of. A "cohort" essentially
+    campaigns: Label for a list of campaigns a program is part of. A "campaign" essentially
       means a group of courses with something in common, in this context.
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
-      Label for the number of courses in a cohort
+      Label for the number of courses in a campaign
       {{Identical|Course}}
-    courses: Label for the number of courses in a cohort
+    courses: Label for the number of courses in a campaign
     creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
@@ -313,7 +313,7 @@ qqq:
     nocourses: Message indicating that the logged in user is not part of any courses
     none: Default placeholder to indicate that there are no items in a list. Used
       to indicate that there are no instructors in a course, or the course is part
-      of no cohorts. '{{Identical|None}}'
+      of no campaigns. '{{Identical|None}}'
     notify_untrained_confirmation: Confirmation message explaning that talk page notification
       will be posted. (Wiki Ed only)
     no_available_actions: Placeholder message when no action buttons are available
@@ -357,7 +357,7 @@ qqq:
     training_due: Training is due for this course (Wiki Ed only)
     training_nav: Link to go to the training page (Wiki Ed only)
     training_overdue: Training due date has passed for this course (Wiki Ed only)
-    unsubmitted: Name for pseudo-cohort of unsubmitted courses (Wiki Ed only)
+    unsubmitted: Name for pseudo-campaign of unsubmitted courses (Wiki Ed only)
     untrained: '{{Identical|Untrained}}'
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means
@@ -386,7 +386,7 @@ qqq:
     assignments_none: Message indicating that there are no assigned articles
     cancel: '{{Identical|Cancel}}'
     courses: '{{Identical|Program}}'
-    cohorts: '{{Identical|Campaign}}'
+    campaigns: '{{Identical|Campaign}}'
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course

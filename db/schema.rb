@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20161025202439) do
     t.text     "training_module_ids", limit: 65535
   end
 
-  create_table "cohorts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
     t.string   "slug"
     t.string   "url"
@@ -91,18 +91,18 @@ ActiveRecord::Schema.define(version: 20161025202439) do
     t.datetime "updated_at"
   end
 
-  create_table "cohorts_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "cohort_id"
+  create_table "campaigns_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "campaign_id"
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "cohorts_survey_assignments", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "campaigns_survey_assignments", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "survey_assignment_id"
-    t.integer "cohort_id"
-    t.index ["cohort_id"], name: "index_cohorts_survey_assignments_on_cohort_id", using: :btree
-    t.index ["survey_assignment_id"], name: "index_cohorts_survey_assignments_on_survey_assignment_id", using: :btree
+    t.integer "campaign_id"
+    t.index ["campaign_id"], name: "index_campaigns_survey_assignments_on_campaign_id", using: :btree
+    t.index ["survey_assignment_id"], name: "index_campaigns_survey_assignments_on_survey_assignment_id", using: :btree
   end
 
   create_table "commons_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -189,10 +189,10 @@ ActiveRecord::Schema.define(version: 20161025202439) do
 
   create_table "question_group_conditionals", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "rapidfire_question_group_id"
-    t.integer  "cohort_id"
+    t.integer  "campaign_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.index ["cohort_id"], name: "index_question_group_conditionals_on_cohort_id", using: :btree
+    t.index ["campaign_id"], name: "index_question_group_conditionals_on_campaign_id", using: :btree
     t.index ["rapidfire_question_group_id"], name: "index_question_group_conditionals_on_rapidfire_question_group_id", using: :btree
   end
 

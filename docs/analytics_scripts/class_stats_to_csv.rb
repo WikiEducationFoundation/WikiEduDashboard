@@ -1,12 +1,12 @@
 # frozen_string_literal: true
-# This can be run in the rails console to get a CSV for each cohort
+# This can be run in the rails console to get a CSV for each campaign
 
 require 'csv'
 
-Cohort.all.each do |cohort|
-  CSV.open("/root/#{cohort.slug}.csv", 'wb') do |csv|
+Campaign.all.each do |campaign|
+  CSV.open("/root/#{campaign.slug}.csv", 'wb') do |csv|
     csv << %w(course_slug students characters_added)
-    cohort.courses.each do |course|
+    campaign.courses.each do |course|
       csv << [course.slug, course.students.count, course.character_sum]
     end
   end

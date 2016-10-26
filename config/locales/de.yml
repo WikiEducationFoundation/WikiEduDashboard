@@ -132,7 +132,7 @@ de:
   blocks:
     milestones:
       title: Meilensteine
-  cohort:
+  campaign:
     none: Keine
   courses:
     activity: Aktivität
@@ -154,7 +154,7 @@ de:
     cancel: Abbrechen
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
-    cohorts: 'Jahrgänge:'
+    campaigns: 'Jahrgänge:'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
@@ -323,7 +323,7 @@ de:
     assignment_start: Zeitleisten-Beginn
     cancel: Abbrechen
     courses: Programme
-    cohorts: 'Kampagnen:'
+    campaigns: 'Kampagnen:'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       clone_previous: Vorheriges Programm klonen

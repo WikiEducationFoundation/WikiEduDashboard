@@ -32,7 +32,7 @@ describe 'Survey Administration', type: :feature, js: true do
 
     before do
       course = create(:course)
-      course.cohorts << Cohort.last
+      course.campaigns << Campaign.last
       course.courses_users << create(:courses_user, user_id: instructor.id, role: 1)
     end
 
@@ -53,7 +53,7 @@ describe 'Survey Administration', type: :feature, js: true do
       fill_in('question_group_name', with: 'New Question Group')
 
       # FIXME: Fails to find the div with Poltergeist
-      # within('div#question_group_cohort_ids_chosen') do
+      # within('div#question_group_campaign_ids_chosen') do
       #   find('input').set('Spring 2015')
       #   find('input').native.send_keys(:return)
       # end
@@ -149,7 +149,7 @@ describe 'Survey Administration', type: :feature, js: true do
       click_link 'New Survey Assignment'
 
       # FIXME: Fails to find the div with Poltergeist
-      # within('div#survey_assignment_cohort_ids_chosen') do
+      # within('div#survey_assignment_campaign_ids_chosen') do
       #   find('input').set('Spring 2015')
       #   find('input').native.send_keys(:return)
       # end

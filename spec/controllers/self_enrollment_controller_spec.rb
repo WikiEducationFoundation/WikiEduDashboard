@@ -19,7 +19,7 @@ describe SelfEnrollmentController do
 
     context 'GET' do
       context 'when the course is not approved' do
-        # Course is not in any cohorts, so enrollment will fail.
+        # Course is not in any campaigns, so enrollment will fail.
         it 'redirects without enrolling the user' do
           expect_any_instance_of(WikiCourseEdits).not_to receive(:enroll_in_course)
           get 'enroll_self', params: request_params
@@ -30,7 +30,7 @@ describe SelfEnrollmentController do
 
       context 'when the course is approved' do
         before do
-          course.cohorts << Cohort.first
+          course.campaigns << Campaign.first
         end
 
         context 'when the user is not enrolled yet' do

@@ -53,7 +53,7 @@ class Survey < ActiveRecord::Base
     'User',
     'User Role',
     'Course Slug',
-    'Course Cohorts',
+    'Course Campaigns',
     'Course Tags'
   ].freeze
 
@@ -75,7 +75,7 @@ class Survey < ActiveRecord::Base
   def csv_row(question_group, question, answer)
     course = answer.course(id)
     course_slug = course.nil? ? nil : course.slug
-    cohorts = course.nil? ? nil : course.cohorts.collect(&:title).join(', ')
+    campaigns = course.nil? ? nil : course.campaigns.collect(&:title).join(', ')
     tags = course.nil? ? nil : course.tags.collect(&:tag).join(', ')
 
     [
@@ -89,7 +89,7 @@ class Survey < ActiveRecord::Base
       answer.user.username,
       answer.courses_user_role(id),
       course_slug,
-      cohorts,
+      campaigns,
       tags
     ]
   end

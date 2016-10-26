@@ -107,7 +107,7 @@ class SurveyAssignmentsController < ApplicationController
           .permit(:survey_id, :send_before, :send_date_relative_to,
                   :send_date_days, :courses_user_role, :published,
                   :follow_up_days_after_first_notification, :send_email,
-                  :notes, :email_template, cohort_ids: [])
+                  :notes, :email_template, campaign_ids: [])
   end
 
   def custom_message_params

@@ -4,10 +4,10 @@
     <small><%= t("#{presenter.course_string_prefix}.courses") %></small>
     </div>
   <div class="stat-display__stat tooltip-trigger">
-    <div class="stat-display__value"><%= presenter.cohort.students_without_nonstudents.count %></div>
+    <div class="stat-display__value"><%= presenter.campaign.students_without_nonstudents.count %></div>
     <small><%= t("#{presenter.course_string_prefix}.students") %></small>
     <div class="tooltip dark">
-      <h4><%= number_to_human presenter.cohort.trained_percent %>%</h4>
+      <h4><%= number_to_human presenter.campaign.trained_percent %>%</h4>
       <p><%= t("users.up_to_date_with_training") %></p>
     </div>
   </div>

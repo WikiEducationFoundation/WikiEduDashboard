@@ -1,7 +1,7 @@
 .survey__admin-row.survey__admin-row--assignment
   .survey__admin-row__title
-    .contextual Target Cohort#{survey_assignment.cohorts.count > 1 ? 's' : ''}:
-    %strong= survey_assignment.cohorts.pluck(:title).join(', ')
+    .contextual Target Campaign#{survey_assignment.campaigns.count > 1 ? 's' : ''}:
+    %strong= survey_assignment.campaigns.pluck(:title).join(', ')
     .contextual Target User:
     %span.emphasis= user_role(survey_assignment)
     .contextual Survey:
@@ -68,8 +68,8 @@
   -#           %button{:class => 'sort', :data => {:sort => 'id'}} Id
   -#
   -#     %tbody.list
-  -#       - survey_assignment.cohorts.each do |cohort|
-  -#         - cohort.courses.each do |course|
+  -#       - survey_assignment.campaigns.each do |campaign|
+  -#         - campaign.courses.each do |course|
   -#           %tr
   -#             %td{ :class => 'title' }= pretty_course_title(course)
   -#             %td{ :class => 'id' }= course.id

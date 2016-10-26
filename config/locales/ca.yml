@@ -115,7 +115,7 @@ ca:
   blocks:
     milestones:
       title: Fites
-  cohort:
+  campaign:
     none: Cap
   courses:
     activity: Activitat
@@ -137,7 +137,7 @@ ca:
         a classe.
     character_doc: La suma dels caràcters afegits a l'espai principal (articles) per
       part dels estudiants durant aquest curs
-    cohorts: 'Grups:'
+    campaigns: 'Grups:'
     confirm_course_deletion: Esteu segurs que voleu suprimir el curs titulat %{title}?
       Si és així, escriviu el títol del curs per a procedir.
     confirm_course_deletion_failed: '"%{title}" no és el títol d''aquest curs. El

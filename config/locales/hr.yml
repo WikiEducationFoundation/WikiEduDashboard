@@ -6,7 +6,7 @@
 ---
 hr:
   courses_generic:
-    cohorts: 'Kampanje:'
+    campaigns: 'Kampanje:'
     students_count: Broj sudionika
   users:
     training_incomplete: Nepotpun trening

@@ -15,8 +15,8 @@ describe CourseCloneManager do
            timeline_end: 9.months.ago,
            slug: 'School/Title_(Term)',
            passcode: 'code')
-    create(:cohort, id: 1)
-    create(:cohorts_course, course_id: 1, cohort_id: 1)
+    create(:campaign, id: 1)
+    create(:campaigns_course, course_id: 1, campaign_id: 1)
     create(:user, id: 1)
     create(:courses_user,
            user_id: 1,
@@ -68,8 +68,8 @@ describe CourseCloneManager do
       expect(clone.timeline_end).not_to eq(original.timeline_end)
     end
 
-    it 'does not carry over cohorts' do
-      expect(clone.cohorts).to be_empty
+    it 'does not carry over campaigns' do
+      expect(clone.campaigns).to be_empty
     end
 
     it 'has weeks and block content from original' do

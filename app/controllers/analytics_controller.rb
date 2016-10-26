@@ -15,10 +15,10 @@ class AnalyticsController < ApplicationController
   def results
     if params[:monthly_report]
       monthly_report
-    elsif params[:cohort_stats]
-      cohort_stats
-    elsif params[:cohort_intersection]
-      cohort_intersection
+    elsif params[:campaign_stats]
+      campaign_stats
+    elsif params[:campaign_intersection]
+      campaign_intersection
     end
     render 'index'
   end
@@ -31,31 +31,31 @@ class AnalyticsController < ApplicationController
     @monthly_report = MonthlyReport.run
   end
 
-  def cohort_stats
-    @cohort_stats = {}
+  def campaign_stats
+    @campaign_stats = {}
     @articles_edited = {}
-    Cohort.all.each do |cohort|
-      course_ids = cohort.courses.pluck(:id)
-      stats = CourseStatistics.new(course_ids, cohort: cohort.slug)
-      @cohort_stats.merge! stats.report_statistics
+    Campaign.all.each do |campaign|
+      course_ids = campaign.courses.pluck(:id)
+      stats = CourseStatistics.new(course_ids, campaign: campaign.slug)
+      @campaign_stats.merge! stats.report_statistics
     end
   end
 
-  def cohort_intersection
-    set_cohorts
-    cohort_name = @cohort_1.title + ' + ' + @cohort_2.title
-    cohort_1_course_ids = @cohort_1.courses.pluck(:id)
-    course_ids = @cohort_2.courses.where(id: cohort_1_course_ids).pluck(:id)
+  def campaign_intersection
+    set_campaigns
+    campaign_name = @campaign_1.title + ' + ' + @campaign_2.title
+    campaign_1_course_ids = @campaign_1.courses.pluck(:id)
+    course_ids = @campaign_2.courses.where(id: campaign_1_course_ids).pluck(:id)
 
-    stats = CourseStatistics.new(course_ids, cohort: cohort_name)
-    @cohort_stats = stats.report_statistics
+    stats = CourseStatistics.new(course_ids, campaign: campaign_name)
+    @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
   end
 
   private
 
-  def set_cohorts
-    @cohort_1 = Cohort.find(params[:cohort_1][:id])
-    @cohort_2 = Cohort.find(params[:cohort_2][:id])
+  def set_campaigns
+    @campaign_1 = Campaign.find(params[:campaign_1][:id])
+    @campaign_2 = Campaign.find(params[:campaign_2][:id])
   end
 end

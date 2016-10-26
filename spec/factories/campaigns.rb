@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # == Schema Information
 #
-# Table name: cohorts
+# Table name: campaigns
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)
@@ -12,12 +12,12 @@
 #
 
 FactoryGirl.define do
-  factory :cohort do
+  factory :campaign do
     title 'Spring 2016'
     slug 'spring_2016'
   end
 
-  factory :cohort_two, class: Cohort do
+  factory :campaign_two, class: Campaign do
     title 'Fall 2014'
     slug 'fall_2014'
     url 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids'

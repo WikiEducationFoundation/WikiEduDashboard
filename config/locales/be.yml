@@ -134,7 +134,7 @@ be:
   blocks:
     milestones:
       title: Асноўныя этапы курса
-  cohort:
+  campaign:
     none: Нічога
   courses:
     activity: Актыўнасць
@@ -155,7 +155,7 @@ be:
       select_meeting_days: Выберыце дні тыдню, па якіх збіраецца ваш клас.
     character_doc: Сума знакаў, дададзеных да артыкулаў асноўнай прасторы студэнтамі
       курса на працягу тэрміна курса
-    cohorts: 'Групы:'
+    campaigns: 'Групы:'
     confirm_course_deletion: Упэўнены, што хочаце выдаліць курс з назвай %{title}?
       Калі так, набярыце назву гэтага курса для працягу.
     confirm_course_deletion_failed: '"%{title}" не назва гэтага курса. Курс не быў

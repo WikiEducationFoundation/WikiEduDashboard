@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: cohorts
+# Table name: campaigns
 #
 #  id         :integer          not null, primary key
 #  title      :string(255)

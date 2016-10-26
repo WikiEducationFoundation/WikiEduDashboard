@@ -25,9 +25,9 @@ require 'spec_helper'
 RSpec.describe SurveyAssignment, type: :model do
   before(:each) do
     @survey = create(:survey)
-    @cohort = create(:cohort, title: 'Test', slug: 'test')
+    @campaign = create(:campaign, title: 'Test', slug: 'test')
     @survey_assignment = create(:survey_assignment, survey_id: @survey.id, published: true)
-    @survey_assignment.cohorts << @cohort
+    @survey_assignment.campaigns << @campaign
   end
 
   let(:course) { create(:course, start: course_start, end: course_end) }
@@ -38,8 +38,8 @@ RSpec.describe SurveyAssignment, type: :model do
     expect(@survey_assignment.survey).to be_instance_of(Survey)
   end
 
-  it 'has one Cohort' do
-    expect(@survey_assignment.cohorts.length).to eq(1)
+  it 'has one Campaign' do
+    expect(@survey_assignment.campaigns.length).to eq(1)
   end
 
   describe '#send_at' do
@@ -58,7 +58,7 @@ RSpec.describe SurveyAssignment, type: :model do
 
   describe '#active?' do
     it 'returns true if there are yet-to-be-notified courses' do
-      course.cohorts << @cohort
+      course.campaigns << @campaign
       course.save
       @survey_assignment.update(
         send_date_days: 7,
@@ -96,8 +96,8 @@ RSpec.describe SurveyAssignment, type: :model do
       let(:published) { true }
 
       it 'returns `Active`' do
-        course.cohorts << @cohort
-        survey_assignment.cohorts << @cohort
+        course.campaigns << @campaign
+        survey_assignment.campaigns << @campaign
         create(:user, id: 1)
         create(:courses_user, user_id: 1, course_id: course.id, role: 1)
         expect(subject).to eq('Active')
@@ -109,8 +109,8 @@ RSpec.describe SurveyAssignment, type: :model do
       let(:closed) { true }
 
       it 'returns `Closed`' do
-        course.cohorts << @cohort
-        survey_assignment.cohorts << @cohort
+        course.campaigns << @campaign
+        survey_assignment.campaigns << @campaign
         create(:user, id: 1)
         create(:courses_user, user_id: 1, course_id: course.id, role: 1)
         expect(subject).to eq('Closed')
@@ -120,7 +120,7 @@ RSpec.describe SurveyAssignment, type: :model do
 
   describe '#total_notifications' do
     it 'returns the total number of users who will receive a notification' do
-      course.cohorts << @cohort
+      course.campaigns << @campaign
       course.save
 
       create(:user, id: 1)

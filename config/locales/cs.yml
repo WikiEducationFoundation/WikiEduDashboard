@@ -114,7 +114,7 @@ cs:
   blocks:
     milestones:
       title: Milníky
-  cohort:
+  campaign:
     none: Žádné
   courses:
     activity: Aktivita
@@ -133,7 +133,7 @@ cs:
       legend_class_not_meeting: Neexistuje žádná naplánovaná schůzka
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
-    cohorts: 'Skupiny:'
+    campaigns: 'Skupiny:'
     confirm_course_deletion: Jste si jistý, že chcete odstranit kurz %{title}? Pokud
       ano, napište název kurzu do pole níže.
     confirm_course_deletion_failed: '%{title} není správný název kurzu. Kurz nebyl

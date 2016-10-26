@@ -116,11 +116,11 @@ API =
         logErrorMessage(obj)
         rej obj
 
-  fetchCohorts: ->
+  fetchCampaigns: ->
     new Promise (res, rej) ->
       $.ajax
         type: 'GET',
-        url: '/cohorts.json',
+        url: '/campaigns.json',
         success: (data) ->
           res data
       .fail (obj, status) ->

@@ -42,7 +42,7 @@ describe 'Admin users', type: :feature, js: true do
            course_id: 10002,
            role: 1)
 
-    create(:cohort,
+    create(:campaign,
            id: 1,
            title: 'Fall 2015')
     user = create(:admin,
@@ -61,17 +61,17 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'adding a course to a cohort' do
+  describe 'adding a course to a campaign' do
     it 'should make the course live' do
       stub_oauth_edit
 
       visit "/courses/#{Course.first.slug}"
       sleep 1
 
-      # Edit details and add cohort
+      # Edit details and add campaign
       click_button('Edit Details')
       page.all('.button.border.plus')[4].click
-      select 'Fall 2015', from: 'cohort'
+      select 'Fall 2015', from: 'campaign'
       find('.pop button', visible: true).click
       sleep 1
 
@@ -83,18 +83,18 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'removing a course from a cohort' do
+  describe 'removing a course from a campaign' do
     it 'should make a course not live' do
       stub_oauth_edit
-      create(:cohorts_course,
-             cohort_id: 1,
+      create(:campaigns_course,
+             campaign_id: 1,
              course_id: 10001)
       visit "/courses/#{Course.first.slug}"
       sleep 1
 
       expect(page).to have_content 'Your course has been published'
 
-      # Edit details and remove cohort
+      # Edit details and remove campaign
       click_button('Edit Details')
       page.all('.button.border.plus')[4].click
       page.all('.button.border.plus')[5].click
@@ -141,9 +141,9 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'visiting the None cohort' do
+  describe 'visiting the None campaign' do
     it 'should see unsubmitted courses' do
-      visit '/explore?cohort=none'
+      visit '/explore?campaign=none'
       sleep 1
       expect(page).to have_content 'Unsubmitted Courses'
       expect(page).to have_content 'My Unsubmitted Course'

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/word_count"
 
-#= Presenter for courses / cohort view
+#= Presenter for courses / campaign view
 class CoursesPresenter
-  attr_reader :current_user, :cohort_param
+  attr_reader :current_user, :campaign_param
 
-  def initialize(current_user, cohort_param)
+  def initialize(current_user, campaign_param)
     @current_user = current_user
-    @cohort_param = cohort_param
+    @campaign_param = campaign_param
   end
 
   def user_courses
@@ -15,15 +15,15 @@ class CoursesPresenter
     current_user.courses.current_and_future
   end
 
-  def cohort
-    return NullCohort.new if cohort_param == 'none'
-    @cohort ||= Cohort.find_by(slug: cohort_param)
-    raise NoCohortError if @cohort.nil? && cohort_param == ENV['default_cohort']
-    @cohort
+  def campaign
+    return NullCampaign.new if campaign_param == 'none'
+    @campaign ||= Campaign.find_by(slug: campaign_param)
+    raise NoCampaignError if @campaign.nil? && campaign_param == ENV['default_campaign']
+    @campaign
   end
 
   def courses
-    cohort.courses
+    campaign.courses
   end
 
   def courses_by_recent_edits
@@ -53,11 +53,11 @@ class CoursesPresenter
     @upload_usage_count
   end
 
-  class NoCohortError < StandardError; end
+  class NoCampaignError < StandardError; end
 end
 
-#= Pseudo-Cohort that displays all unsubmitted, non-deleted courses
-class NullCohort
+#= Pseudo-Campaign that displays all unsubmitted, non-deleted courses
+class NullCampaign
   def title
     I18n.t('courses.unsubmitted')
   end

@@ -34,7 +34,7 @@ lv:
   blocks:
     milestones:
       title: Atskaites punkti
-  cohort:
+  campaign:
     none: Nav
   courses:
     activity: Aktivitāte
@@ -95,7 +95,7 @@ lv:
   courses_generic:
     cancel: Atcelt
     courses: Programmas
-    cohorts: 'Kampaņas:'
+    campaigns: 'Kampaņas:'
     creator:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu

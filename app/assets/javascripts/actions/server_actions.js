@@ -68,9 +68,9 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchCohorts() {
-    return API.fetchCohorts()
-      .then(resp => ({ actionType: 'RECEIVE_COHORTS', data: resp }))
+  fetchCampaigns() {
+    return API.fetchCampaigns()
+      .then(resp => ({ actionType: 'RECEIVE_CAMPAIGNS', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

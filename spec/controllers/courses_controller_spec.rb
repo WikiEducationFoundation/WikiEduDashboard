@@ -36,7 +36,7 @@ describe CoursesController do
     end
 
     let!(:assignment)       { create(:assignment, course_id: course.id) }
-    let!(:cohorts_courses)  { create(:cohorts_course, course_id: course.id) }
+    let!(:campaigns_courses)  { create(:campaigns_course, course_id: course.id) }
     let!(:week)             { create(:week, course_id: course.id) }
 
     let!(:gradeable) do
@@ -64,7 +64,7 @@ describe CoursesController do
       it 'destroys associated models' do
         delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
 
-        %w(CoursesUsers ArticlesCourses CohortsCourses).each do |model|
+        %w(CoursesUsers ArticlesCourses CampaignsCourses).each do |model|
           expect do
             # metaprogramming for: CoursesUser.find(courses_user.id)
             Object.const_get(model).send(:find, send(model.underscore).id)
@@ -288,7 +288,7 @@ describe CoursesController do
 
   describe '#list' do
     let(:course) { create(:course) }
-    let(:cohort) { Cohort.last }
+    let(:campaign) { Campaign.last }
     let(:user)   { create(:admin) }
 
     before do
@@ -296,16 +296,16 @@ describe CoursesController do
       allow(controller).to receive(:user_signed_in?).and_return(true)
     end
 
-    context 'when cohort is not found' do
+    context 'when campaign is not found' do
       it 'gives a failure message' do
-        params = { id: course.slug, cohort: { title: 'non-existent-cohort' } }
+        params = { id: course.slug, campaign: { title: 'non-existent-campaign' } }
         post :list, params: params
         expect(response.status).to eq(404)
         expect(response.body).to match(/Sorry/)
       end
     end
 
-    context 'when cohort is found' do
+    context 'when campaign is found' do
       context 'post request' do
         before do
           create(:courses_user, user_id: user.id,
@@ -313,37 +313,37 @@ describe CoursesController do
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         end
 
-        it 'creates a CohortsCourse' do
-          params = { id: course.slug, cohort: { title: cohort.title } }
+        it 'creates a CampaignsCourse' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
           post :list, params: params, format: :json
-          last_cohort = CohortsCourses.last
-          expect(last_cohort.course_id).to eq(course.id)
-          expect(last_cohort.cohort_id).to eq(cohort.id)
+          last_campaign = CampaignsCourses.last
+          expect(last_campaign.course_id).to eq(course.id)
+          expect(last_campaign.campaign_id).to eq(campaign.id)
         end
 
-        it 'sends an email if course has not previous cohorts' do
+        it 'sends an email if course has not previous campaigns' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification)
-          params = { id: course.slug, cohort: { title: cohort.title } }
+          params = { id: course.slug, campaign: { title: campaign.title } }
           post :list, params: params, format: :json
         end
 
         it 'does not send an email if course is already approved' do
-          course.cohorts << create(:cohort)
+          course.campaigns << create(:campaign)
           expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
-          params = { id: course.slug, cohort: { title: cohort.title } }
+          params = { id: course.slug, campaign: { title: campaign.title } }
           post :list, params: params, format: :json
         end
       end
 
       context 'delete request' do
-        let!(:cohorts_course) do
-          create(:cohorts_course, cohort_id: cohort.id, course_id: course.id)
+        let!(:campaigns_course) do
+          create(:campaigns_course, campaign_id: campaign.id, course_id: course.id)
         end
 
-        it 'deletes CohortsCourse' do
-          params = { id: course.slug, cohort: { title: cohort.title } }
+        it 'deletes CampaignsCourse' do
+          params = { id: course.slug, campaign: { title: campaign.title } }
           delete :list, params: params, format: :json
-          expect(CohortsCourses.find_by(course_id: course.id, cohort_id: cohort.id)).to be_nil
+          expect(CampaignsCourses.find_by(course_id: course.id, campaign_id: campaign.id)).to be_nil
         end
       end
     end

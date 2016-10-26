@@ -118,7 +118,7 @@ en-gb:
   blocks:
     milestones:
       title: Milestones
-  cohort:
+  campaign:
     none: None
   courses:
     activity: Activity
@@ -139,7 +139,7 @@ en-gb:
       select_meeting_days: Select the days of the week on which your class meets.
     character_doc: The sum of characters added to mainspace articles by the course's
       students during the course term
-    cohorts: 'Cohorts:'
+    campaigns: 'Campaigns:'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}?
       If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The

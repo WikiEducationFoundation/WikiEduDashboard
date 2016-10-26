@@ -94,7 +94,7 @@ ko:
   blocks:
     milestones:
       title: 이정표
-  cohort:
+  campaign:
     none: 없음
   courses:
     activity: 활동

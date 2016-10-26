@@ -133,7 +133,7 @@ ast:
   blocks:
     milestones:
       title: Finxos
-  cohort:
+  campaign:
     none: Nengunu
   courses:
     activity: Actividá
@@ -155,7 +155,7 @@ ast:
     cancel: Encaboxar
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
-    cohorts: 'Cohortes:'
+    campaigns: 'Campaignes:'
     confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
       Si ye asina, escribe'l títulu del cursu pa siguir.
     confirm_course_deletion_failed: '"%{title}" nun ye''l títulu d''esti cursu. El

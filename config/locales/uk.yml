@@ -127,7 +127,7 @@ uk:
   blocks:
     milestones:
       title: Досягнення
-  cohort:
+  campaign:
     none: Немає
   courses:
     activity: Активність
@@ -148,7 +148,7 @@ uk:
       select_meeting_days: Виберіть дні тижня, за якими ваш клас збирається.
     character_doc: Сума символів, доданих до статей в основному просторі назв студентами
       курсу впродовж семестру курсу
-    cohorts: 'Когорти:'
+    campaigns: 'Когорти:'
     confirm_course_deletion: Ви впевнені, що хочете видалити курс «%{title}»? Якщо
       так, вкажіть назву курсу, щоб продовжити.
     confirm_course_deletion_failed: «%{title}» не є назвою курса. Курс не був видалений.

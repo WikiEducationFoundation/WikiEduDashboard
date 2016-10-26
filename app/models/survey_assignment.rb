@@ -23,7 +23,7 @@
 class SurveyAssignment < ActiveRecord::Base
   has_paper_trail
   belongs_to :survey
-  has_and_belongs_to_many :cohorts
+  has_and_belongs_to_many :campaigns
   has_many :survey_notifications
 
   before_destroy :remove_notifications
@@ -79,7 +79,7 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def total_notifications
-    users = cohorts.collect do |c|
+    users = campaigns.collect do |c|
       c.courses.collect do |course|
         course.courses_users.where(role: courses_user_role)
       end
@@ -103,15 +103,15 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def courses_users_ready_for_notifications
-    cohorts.collect { |cohort| cohort.courses.ready_for_survey(send_at) }.flatten
+    campaigns.collect { |campaign| campaign.courses.ready_for_survey(send_at) }.flatten
   end
 
   def courses_with_pending_notifications
-    cohorts.collect { |cohort| cohort.courses.will_be_ready_for_survey(send_at) }.flatten
+    campaigns.collect { |campaign| campaign.courses.will_be_ready_for_survey(send_at) }.flatten
   end
 
   def target_courses
-    cohorts.collect(&:courses).flatten
+    campaigns.collect(&:courses).flatten
   end
 
   def target_user_count

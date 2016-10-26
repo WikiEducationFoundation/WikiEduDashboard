@@ -106,7 +106,7 @@ zh-hans:
   blocks:
     milestones:
       title: 里程碑
-  cohort:
+  campaign:
     none: 无
     view_other: 查看其它同班同学
   courses:
@@ -126,7 +126,7 @@ zh-hans:
       legend_class_meeting: 班会
       legend_class_not_meeting: 没有预定会议
       select_meeting_days: 选择一周内您要开班会的几天。
-    cohorts: 同生群：
+    campaigns: 同生群：
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
     course_description: 课程

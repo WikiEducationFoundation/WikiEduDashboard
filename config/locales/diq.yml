@@ -66,7 +66,7 @@ diq:
   blocks:
     milestones:
       title: Siyê kilometri
-  cohort:
+  campaign:
     none: Çıniyo
   courses:
     activity: Fealiyet
@@ -74,7 +74,7 @@ diq:
     articles: Wesiqey
     calendar:
       legend: Kıtabek
-    cohorts: 'Kohorti:'
+    campaigns: 'Kohorti:'
     course_description: Kursi
     courses: Qursi
     creator:

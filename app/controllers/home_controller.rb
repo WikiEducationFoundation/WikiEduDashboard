@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   layout 'home'
 
   def index
-    cohort = ENV['default_cohort']
-    @presenter = CoursesPresenter.new(current_user, cohort)
+    campaign = ENV['default_campaign']
+    @presenter = CoursesPresenter.new(current_user, campaign)
   end
 end

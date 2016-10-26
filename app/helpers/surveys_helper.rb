@@ -195,7 +195,7 @@ module SurveysHelper
 
   # If at all possible, find the course to associate with this survey.
   # Setting a course is necessary for conditional features of surveys — question
-  # groups that only apply to certain cohorts, or for courses with certain tags
+  # groups that only apply to certain campaigns, or for courses with certain tags
   # — to work.
   # First go based on slug. Next, go based on notification.
   # For preview mode, fall back to the course_select dropdown.

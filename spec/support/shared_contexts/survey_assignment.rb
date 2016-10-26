@@ -8,7 +8,7 @@ shared_context 'survey_assignment' do
     @user = create(:user, username: 'Jonathan', email: 'jonathan@wintr.us')
     @user2 = create(:user, username: 'Sage', email: 'sage@wikiedu.org')
     @survey1 = create(:survey)
-    @cohort1 = create(:cohort, title: 'Test', slug: 'test')
+    @campaign1 = create(:campaign, title: 'Test', slug: 'test')
 
     # Survey Assignment for Instructors in Courses which end 3 days from today.
     @survey_assignment_params = {
@@ -22,14 +22,14 @@ shared_context 'survey_assignment' do
     }
     @survey_assignment1 = create(:survey_assignment, @survey_assignment_params)
 
-    # Add the Cohort to our survey assignment
-    @survey_assignment1.cohorts << @cohort1
+    # Add the Campaign to our survey assignment
+    @survey_assignment1.campaigns << @campaign1
     @survey_assignment1.save
 
     # Un-published Survey Assignment
     @survey_assignment2 = create(:survey_assignment,
                                  @survey_assignment_params.merge(published: false))
-    @survey_assignment2.cohorts << @cohort1
+    @survey_assignment2.campaigns << @campaign1
     @survey_assignment2.save
 
     # Course with end date that matches Today for the SurveyAssignment
@@ -42,7 +42,7 @@ shared_context 'survey_assignment' do
       title: 'Underwater basket-weaving'
     }
 
-    # Add 2 Courses to our Cohort each with an instructor
+    # Add 2 Courses to our Campaign each with an instructor
     2.times do |i|
       course = create(:course, { id: i + 1 }.merge(@course_params))
       course.courses_users << create(:courses_user,
@@ -55,8 +55,8 @@ shared_context 'survey_assignment' do
                                      role: 1) # instructor
       course.save
 
-      @cohort1.courses << course
+      @campaign1.courses << course
     end
-    @cohort1.save
+    @campaign1.save
   end
 end

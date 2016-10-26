@@ -152,7 +152,7 @@ lb:
   courses_generic:
     cancel: Ofbriechen
     courses: Programmer
-    cohorts: 'Campagnen:'
+    campaigns: 'Campagnen:'
     creator:
       clone_previous: Virege Programm klonen
       clone_this: Dëse Programm klonen

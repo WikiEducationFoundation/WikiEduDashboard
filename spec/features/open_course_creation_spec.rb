@@ -40,7 +40,7 @@ describe 'open course creation', type: :feature, js: true do
     all('.time-input__minute')[0].find('option[value="35"]').select_option
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
-    expect(Course.last.cohorts.count).to eq(1)
+    expect(Course.last.campaigns.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('ta')
     expect(Course.last.home_wiki.project).to eq('wiktionary')
     expect(Course.last.start).to eq(Time.parse('2017-01-04 15:35:00').in_time_zone('UTC'))
@@ -52,7 +52,7 @@ describe 'open course creation', type: :feature, js: true do
     fill_out_open_course_creator_form
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'
-    expect(Course.last.cohorts.count).to eq(1)
+    expect(Course.last.campaigns.count).to eq(1)
     expect(Course.last.home_wiki.language).to eq('en')
     expect(Course.last.home_wiki.project).to eq('wikipedia')
   end

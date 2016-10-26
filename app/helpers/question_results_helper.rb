@@ -27,13 +27,13 @@ module QuestionResultsHelper
     analyzer.load_defaults
     question.answers.map do |a|
       course = a.course(@survey.id)
-      cohorts = course.cohorts unless course.nil?
+      campaigns = course.campaigns unless course.nil?
       tags = course.tags unless course.nil?
       {
         data: a,
         user: a.user,
         course: course,
-        cohorts: cohorts,
+        campaigns: campaigns,
         tags: tags,
         sentiment: calculate_sentiment(question, a)
       }

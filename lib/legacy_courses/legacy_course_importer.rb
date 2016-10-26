@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/legacy_courses/legacy_course_user_importer"
-require "#{Rails.root}/lib/legacy_courses/legacy_cohort_importer"
+require "#{Rails.root}/lib/legacy_courses/legacy_campaign_importer"
 
 #= Imports and updates courses from Wikipedia into the dashboard database
 class LegacyCourseImporter
@@ -54,8 +54,8 @@ class LegacyCourseImporter
     end
     Course.import courses, on_duplicate_key_update: [:start, :end]
 
-    # Update cohort membership
-    LegacyCohortImporter.update_cohorts raw_ids
+    # Update campaign membership
+    LegacyCampaignImporter.update_campaigns raw_ids
 
     import_users participants
     import_assignments participants

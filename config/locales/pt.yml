@@ -126,7 +126,7 @@ pt:
   blocks:
     milestones:
       title: Marcos
-  cohort:
+  campaign:
     none: Nenhum
   courses:
     activity: Atividade
@@ -148,7 +148,7 @@ pt:
     cancel: Cancelar
     character_doc: A soma dos carateres adicionados a artigos no domínio principal
       por estudantes do curso durante o prazo do curso
-    cohorts: 'Grupos:'
+    campaigns: 'Grupos:'
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
     confirm_course_deletion_failed: '"%{title}" não é o título deste curso. O curso
@@ -306,7 +306,7 @@ pt:
     assignment_start: Início do Cronograma
     cancel: Cancelar
     courses: Programas
-    cohorts: 'Campanhas:'
+    campaigns: 'Campanhas:'
     creator:
       checking_for_uniqueness: Verificando se este curso é único.
       course_description: Descrição do programa

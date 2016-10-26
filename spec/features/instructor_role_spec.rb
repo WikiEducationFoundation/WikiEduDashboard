@@ -48,11 +48,11 @@ describe 'Instructor users', type: :feature, js: true do
            user_id: 102,
            course_id: 10001,
            role: 0)
-    create(:cohort,
+    create(:campaign,
            id: 1,
            title: 'Fall 2015')
-    create(:cohorts_course,
-           cohort_id: 1,
+    create(:campaigns_course,
+           campaign_id: 1,
            course_id: 10001)
 
     login_as(instructor, scope: :user)
