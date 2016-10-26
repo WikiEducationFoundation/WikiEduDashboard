@@ -1,0 +1,9 @@
+.campaign-nav__wrapper
+  .campaign_navigation
+    .container
+      %a
+        %h2.title= @campaign.title
+      %nav
+        %ul
+          = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
+          = nav_link(t('courses.programs'), programs_campaign_path(@campaign.slug))

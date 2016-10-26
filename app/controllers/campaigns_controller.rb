@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 #= Controller for campaign data
 class CampaignsController < ApplicationController
-  layout 'admin'
+  layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
                 only: [:create]
+  before_action :set_campaign, only: [:overview, :programs, :edit]
 
   def index
     @campaigns = Campaign.all
@@ -22,6 +23,15 @@ class CampaignsController < ApplicationController
     redirect_to '/campaigns'
   end
 
+  def overview
+  end
+
+  def programs
+  end
+
+  def edit
+  end
+
   def students
     csv_for_role(:students)
   end
@@ -31,6 +41,10 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def set_campaign
+    @campaign = Campaign.find_by(slug: params[:slug])
+  end
 
   def csv_for_role(role)
     @campaign = Campaign.find_by(slug: csv_params[:slug])

@@ -5,12 +5,15 @@ require 'csv'
 #
 # Table name: campaigns
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  slug       :string(255)
-#  url        :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  id           :integer          not null, primary key
+#  title        :string(255)
+#  slug         :string(255)
+#  url          :string(255)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  description  :text(65535)
+#  start        :datetime
+#  end          :datetime
 #
 
 #= Campaign model

@@ -93,12 +93,15 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
 
   # Campaigns
-  resources :campaigns, only: [:index, :create]
-
-  controller :campaigns do
-    get 'campaigns/:slug/students' => 'campaigns#students'
-    get 'campaigns/:slug/instructors' => 'campaigns#instructors'
+  resources :campaigns, param: :slug, except: :show do
+    member do
+      get 'overview'
+      get 'programs'
+      get 'students'
+      get 'instructors'
+    end
   end
+  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
