@@ -4,6 +4,7 @@ class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
                 only: [:create]
+  before_action :set_campaign, only: [:overview, :programs, :edit]
 
   def index
     @campaigns = Campaign.all
@@ -23,11 +24,12 @@ class CampaignsController < ApplicationController
   end
 
   def overview
-    @campaign = Campaign.find_by(slug: params[:slug])
   end
 
   def programs
-    @campaign = Campaign.find_by(slug: params[:slug])
+  end
+
+  def edit
   end
 
   def students
@@ -39,6 +41,10 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def set_campaign
+    @campaign = Campaign.find_by(slug: params[:slug])
+  end
 
   def csv_for_role(role)
     @campaign = Campaign.find_by(slug: csv_params[:slug])
