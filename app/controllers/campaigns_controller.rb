@@ -22,7 +22,11 @@ class CampaignsController < ApplicationController
     redirect_to '/campaigns'
   end
 
-  def show
+  def overview
+    @campaign = Campaign.find_by(slug: params[:slug])
+  end
+
+  def programs
     @campaign = Campaign.find_by(slug: params[:slug])
   end
 

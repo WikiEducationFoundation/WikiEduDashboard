@@ -5,11 +5,5 @@
         %h2.title= @campaign.title
       %nav
         %ul
-          %li.nav__item#overview-link
-            %p
-              %a{href: overview_campaign_path(@campaign.slug)}
-                = t('courses.overview')
-          %li.nav__item#programs-link
-            %p
-              %a{href: programs_campaign_path(@campaign.slug)}
-                = t('courses.programs')
+          = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
+          = nav_link(t('courses.programs'), programs_campaign_path(@campaign.slug))

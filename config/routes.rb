@@ -93,7 +93,7 @@ Rails.application.routes.draw do
   post 'analytics(/*any)' => 'analytics#results'
 
   # Campaigns
-  resources :campaigns, param: :slug do
+  resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'
       get 'programs'
@@ -101,6 +101,7 @@ Rails.application.routes.draw do
       get 'instructors'
     end
   end
+  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
