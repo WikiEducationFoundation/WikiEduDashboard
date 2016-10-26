@@ -27,4 +27,4 @@ staging:
 production:
   <<: *default
   database: <production-database-name>
-  pool: 25
+  pool: 40
