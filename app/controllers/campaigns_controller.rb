@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
@@ -40,17 +42,28 @@ class CampaignsController < ApplicationController
     csv_for_role(:instructors)
   end
 
+  def courses
+    set_campaign
+    filename = "#{@campaign.slug}-courses-#{Time.zone.today}.csv"
+    respond_to do |format|
+      format.csv do
+        send_data CampaignCsvBuilder.new(@campaign).courses_to_csv,
+                  filename: filename
+      end
+    end
+  end
+
   private
 
   def set_campaign
-    @campaign = Campaign.find_by(slug: params[:slug])
+    @campaign = Campaign.find_by(slug: csv_params[:slug])
   end
 
   def csv_for_role(role)
-    @campaign = Campaign.find_by(slug: csv_params[:slug])
+    set_campaign
+    filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
         send_data @campaign.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
