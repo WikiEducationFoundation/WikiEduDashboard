@@ -5,7 +5,7 @@
   %p= @response.created_at
 
   %h3 Username
-  %p= @username
+  %p= link_to @username, "/users/#{@username}"
 
   %h3 Subject
   %p= link_to @response.module, @response.subject
