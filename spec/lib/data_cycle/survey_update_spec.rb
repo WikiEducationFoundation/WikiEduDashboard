@@ -38,6 +38,13 @@ describe SurveyUpdate do
       expect(ActionMailer::Base.deliveries.count).to eq(2)
     end
 
+    # This doesn't really test the effects of the error handling, but it does exercise it.
+    it 're-raises common SMTP errors if they recur' do
+      allow_any_instance_of(SurveyNotification).to receive(:send_email)
+        .and_raise(Net::SMTPAuthenticationError)
+      expect { SurveyUpdate.new }.to raise_error Net::SMTPAuthenticationError
+    end
+
     private
 
     def recipients(recipient_position)
