@@ -43,6 +43,7 @@ class Alert < ActiveRecord::Base
   end
 
   def email_content_expert
+    return if emails_disabled?
     content_expert = course.nonstudents.find_by(greeter: true)
     return if content_expert.nil?
     AlertMailer.alert(self, content_expert).deliver_now
@@ -50,6 +51,7 @@ class Alert < ActiveRecord::Base
   end
 
   def email_course_admins
+    return if emails_disabled?
     admins = course.nonstudents.where(permissions: 1)
     admins.each do |admin|
       AlertMailer.alert(self, admin).deliver_now
@@ -58,11 +60,17 @@ class Alert < ActiveRecord::Base
   end
 
   def email_target_user
+    return if emails_disabled?
     return if target_user.nil?
     AlertMailer.alert(self, target_user).deliver_now
     update_attribute(:email_sent_at, Time.now)
   end
 
+  # Disable emails for specific alert types in application.yml, like so:
+  #   ProductCourseAlert_email_disabled: 'true'
+  def emails_disabled?
+    ENV["#{self.class}_emails_disabled"] == 'true'
+  end
   #########################
   # Type-specific methods #
   #########################

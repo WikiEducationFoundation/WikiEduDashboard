@@ -55,4 +55,22 @@ describe Alert do
       end
     end
   end
+
+  describe 'sending emails' do
+    before { ENV['ProductiveCourseAlert_emails_disabled'] = 'true' }
+    after { ENV['ProductiveCourseAlert_emails_disabled'] = 'false' }
+
+    it 'can be disabled for a single alert type' do
+      expect(AlertMailer).not_to receive(:alert)
+      Alert.create(type: 'ProductiveCourseAlert',
+                   article_id: article.id,
+                   course_id: course.id,
+                   revision_id: revision.id,
+                   user_id: user.id,
+                   target_user_id: user.id)
+      Alert.last.email_content_expert
+      Alert.last.email_course_admins
+      Alert.last.email_target_user
+    end
+  end
 end
