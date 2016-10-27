@@ -13,7 +13,7 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    @title = campaign_params[:title]
+    @title = create_campaign_params[:title]
     # Strip everything but letters and digits, and convert spaces to underscores
     @slug = @title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_')
     if already_exists?
@@ -56,7 +56,7 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find_by(slug: csv_params[:slug])
+    @campaign = Campaign.find_by(slug: campaign_params[:slug])
   end
 
   def csv_for_role(role)
@@ -64,7 +64,7 @@ class CampaignsController < ApplicationController
     filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        send_data @campaign.users_to_csv(role, course: csv_params[:course]),
+        send_data @campaign.users_to_csv(role, course: campaign_params[:course]),
                   filename: filename
       end
     end
@@ -74,12 +74,12 @@ class CampaignsController < ApplicationController
     Campaign.exists?(slug: @slug) || Campaign.exists?(title: @title)
   end
 
-  def campaign_params
+  def create_campaign_params
     params.require(:campaign)
           .permit(:title)
   end
 
-  def csv_params
+  def campaign_params
     params.permit(:slug, :course)
   end
 end
