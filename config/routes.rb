@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       get 'programs'
       get 'students'
       get 'instructors'
+      get 'courses'
     end
   end
   get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
