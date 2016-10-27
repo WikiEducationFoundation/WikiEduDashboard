@@ -224,16 +224,12 @@ module SurveysHelper
     params.key?(:preview)
   end
 
-  def course_slug?
-    params.key?(:course_slug)
-  end
-
   ######################################
   # Methods called only from this file #
   ######################################
 
   def course_slug?
-    params.key?('course_slug')
+    params.key?(:course_slug)
   end
 
   def questions_in_same_group?(first, second)
