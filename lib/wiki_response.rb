@@ -63,7 +63,8 @@ class WikiResponse
   # Bypassing Sentry capture avoids a performance hit.
   MESSAGES_TO_IGNORE = [
     'Successful edit',
-    'tokens query'
+    'tokens query',
+    'Successful options update'
   ].freeze
   def send_to_sentry
     return if MESSAGES_TO_IGNORE.include?(@title)
