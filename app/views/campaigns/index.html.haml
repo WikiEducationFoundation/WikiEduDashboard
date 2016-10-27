@@ -19,11 +19,13 @@
     %ul
       - @campaigns.each do |campaign|
         %li
-          = campaign.title
+          = link_to campaign.title, "/campaigns/#{campaign.slug}"
           = " (CSVs: "
           = link_to 'students', "/campaigns/#{campaign.slug}/students.csv"
           = ", "
           = link_to 'students by course', "/campaigns/#{campaign.slug}/students.csv?course=true"
           = ", "
           = link_to 'instructors by course', "/campaigns/#{campaign.slug}/instructors.csv?course=true"
+          = ", "
+          = link_to 'course data', "/campaigns/#{campaign.slug}/courses.csv"
           = ")"

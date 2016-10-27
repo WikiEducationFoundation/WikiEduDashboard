@@ -17,7 +17,7 @@ class CampaignCsvBuilder
   ).freeze
   def courses_to_csv
     csv_data = [COURSE_CSV_HEADERS]
-    course.each do |course|
+    @campaign.courses.each do |course|
       csv_data << course_row(course)
     end
 

@@ -115,4 +115,21 @@ describe CampaignsController do
       end
     end
   end
+
+  describe '#courses' do
+    let(:course) { create(:course, user_count: 1) }
+    let(:campaign) { create(:campaign) }
+    let(:instructor) { create(:user) }
+    let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+    before do
+      campaign.courses << course
+      create(:courses_user, course_id: course.id, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+    it 'returns a csv of course data' do
+      get :courses, params: request_params
+      expect(response.body).to have_content(course.slug)
+    end
+  end
 end
