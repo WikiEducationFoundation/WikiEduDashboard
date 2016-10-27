@@ -161,4 +161,13 @@ describe UsersController do
       expect(user.locale).to eq('es')
     end
   end
+
+  describe '#show' do
+    context 'when user not found' do
+      it 'redirects to the home page' do
+        get :show, params: { username: 'non existing user' }
+        expect(response.body).to redirect_to(root_path)
+      end
+    end
+  end
 end
