@@ -85,7 +85,10 @@ class User < ActiveRecord::Base
   end
 
   def url_encoded_username
-    CGI.escape(username)
+    # Convert spaces to underscores, then URL-encode the rest
+    # The spaces-to-underscores is the MediaWiki convention, which we replicate
+    # for handling usernames in dashboard urls.
+    CGI.escape(username.tr(' ', '_'))
   end
 
   def admin?

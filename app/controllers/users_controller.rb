@@ -48,7 +48,9 @@ class UsersController < ApplicationController
   # Page for showing course info for particular user #
   ####################################################
   def show
-    @user = User.find_by_username(params[:username])
+    # Per MediaWiki convention, underscores in username urls represent spaces
+    username = params[:username].tr('_', ' ')
+    @user = User.find_by_username(username)
     if @user
       @courses_user = @user.courses_users
     else
