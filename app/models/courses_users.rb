@@ -50,12 +50,12 @@ class CoursesUsers < ActiveRecord::Base
   ####################
 
   def contribution_url
-    "#{course.home_wiki.base_url}/wiki/Special:Contributions/#{user.wiki_id}"
+    "#{course.home_wiki.base_url}/wiki/Special:Contributions/#{user.url_encoded_username}"
   end
 
   # Provides a link to the list of all of a user's subpages, ie, sandboxes.
   def sandbox_url
-    "#{course.home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{user.wiki_id}"
+    "#{course.home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{user.url_encoded_username}"
   end
 
   def character_sum_ms

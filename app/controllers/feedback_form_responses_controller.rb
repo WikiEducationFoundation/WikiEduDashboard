@@ -14,7 +14,7 @@ class FeedbackFormResponsesController < ApplicationController
   def show
     check_user_auth { return }
     @response = FeedbackFormResponse.find(params[:id])
-    @username = User.find(@response.user_id).username if @response.user_id
+    @user = User.find(@response.user_id) if @response.user_id
   end
 
   def create

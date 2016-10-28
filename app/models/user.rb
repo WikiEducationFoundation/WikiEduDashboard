@@ -81,7 +81,11 @@ class User < ActiveRecord::Base
   end
 
   def talk_page
-    "User_talk:#{username}"
+    "User_talk:#{url_encoded_username}"
+  end
+
+  def url_encoded_username
+    CGI.escape(username)
   end
 
   def admin?

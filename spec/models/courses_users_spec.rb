@@ -90,6 +90,15 @@ describe CoursesUsers, type: :model do
       courses_user2 = create(:courses_user, user_id: user.id, course_id: es_wiktionary_course.id)
       expect(courses_user2.contribution_url).to eq('https://es.wiktionary.org/wiki/Special:Contributions/Ragesoss')
     end
+
+    context 'when the username ends with a question mark' do
+      let(:user) { create(:user, username: 'Ahneechanges?') }
+
+      it 'correctly encodes the url' do
+        courses_user = create(:courses_user, user_id: user.id, course_id: en_wiki_course.id)
+        expect(courses_user.contribution_url).to eq('https://en.wikipedia.org/wiki/Special:Contributions/Ahneechanges%3F')
+      end
+    end
   end
 
   context 'when a nonstudent user is an admin and a greeter' do

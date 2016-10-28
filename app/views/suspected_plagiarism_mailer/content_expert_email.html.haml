@@ -1,7 +1,7 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
 %p.paragraph
   Suspected plagiarism from
-  %a{href: "https://#{ENV['dashboard_url']}/users/#{@user.username}"}= "User:#{@user.username}"
+  %a{href: "https://#{ENV['dashboard_url']}/users/#{@user.url_encoded_username}"}= "User:#{@user.username}"
 %p.paragraph
   Course:
   %a{href: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"}= @course.title
