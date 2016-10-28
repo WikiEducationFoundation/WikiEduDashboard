@@ -1,4 +1,5 @@
 import React from 'react';
+import DiffViewer from './diff_viewer.jsx';
 
 const Revision = React.createClass({
   displayName: 'Revision',
@@ -28,7 +29,7 @@ const Revision = React.createClass({
         <td className="desktop-only-tc">{this.props.revision.characters}</td>
         <td className="desktop-only-tc date">{moment(this.props.revision.date).format('YYYY-MM-DD   h:mm A')}</td>
         <td>
-          <a className="inline" href={this.props.revision.url} target="_blank">{I18n.t('revisions.diff')}</a>
+          <DiffViewer revision={this.props.revision} />
         </td>
       </tr>
     );
