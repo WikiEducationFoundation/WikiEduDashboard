@@ -36,6 +36,16 @@ describe FromYaml do
         expect(TrainingSlide.all).not_to be_empty
       end
     end
+
+    context 'when training_path not is set' do
+      before do
+        allow(ENV).to receive(:[]).with('training_path').and_return(nil)
+      end
+      it 'loads trainings from the default path' do
+        TrainingSlide.load
+        expect(TrainingSlide.all).not_to be_empty
+      end
+    end
   end
 
   describe '.all' do
