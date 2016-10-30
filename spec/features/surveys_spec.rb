@@ -160,6 +160,12 @@ describe 'Surveys', type: :feature, js: true do
       expect(page).to have_content 'progress'
     end
 
+    it 'renders an optout page' do
+      login_as(@instructor, scope: :user)
+      visit "#{survey_path(@survey)}/optout"
+      expect(page).to have_content 'opted out'
+    end
+
     it 'navigates correctly between each question and submits' do
       Capybara.current_driver = :selenium
 

@@ -5,7 +5,7 @@ class SurveysController < ApplicationController
   include SurveysHelper
   include QuestionGroupsHelper
 
-  before_action :require_admin_permissions, except: [:show]
+  before_action :require_admin_permissions, except: [:show, :optout]
   before_action :set_survey, only: [
     :show,
     :optout,
