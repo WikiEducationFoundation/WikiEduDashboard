@@ -35,10 +35,6 @@ class CoursesPresenter
     WordCount.from_characters courses.sum(:character_sum)
   end
 
-  def default_course_type
-    Features.default_course_type
-  end
-
   def course_string_prefix
     Features.default_course_string_prefix
   end
