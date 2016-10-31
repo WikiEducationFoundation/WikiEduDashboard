@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe 'course overview page', type: :feature, js: true do
   let(:slug)         { 'This_university.foo/This.course_(term_2015)' }
-  let(:course_start) { '2025-02-10'.to_date } # a Monday
+  let(:course_start) { '2025-02-11'.to_date } # a Tuesday
   let(:course_end)   { course_start + 6.months }
   let(:course) do
     create(:course,
@@ -20,7 +20,9 @@ describe 'course overview page', type: :feature, js: true do
            weekdays: '1001001')
   end
   let(:campaign) { create(:campaign) }
-  let!(:campaigns_course) { create(:campaigns_course, campaign_id: campaign.id, course_id: course.id) }
+  let!(:campaigns_course) do
+    create(:campaigns_course, campaign_id: campaign.id, course_id: course.id)
+  end
   let(:week) { create(:week, course_id: course.id) }
   let(:content) { 'Edit Wikipedia' }
   let!(:block)  { create(:block, week_id: week.id, content: content) }
@@ -62,7 +64,8 @@ describe 'course overview page', type: :feature, js: true do
       end
       within '.week__week-dates' do
         expect(page).to have_content(timeline_start.beginning_of_week(:sunday).strftime('%m/%d'))
-        # Class normally meets on Sun, W, Sat, but timeline starts on Monday.
+        # Class normally meets on Sun, W, Sat, but timeline starts on Tuesday.
+
         expect(page).to have_content('(Wed, Sat)')
       end
       within '.week-index' do
