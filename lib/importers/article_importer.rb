@@ -22,13 +22,12 @@ class ArticleImporter
 
   def import_articles_by_title(titles)
     titles.each_slice(40) do |some_article_titles|
-      query = { prop: 'info',
-                titles: some_article_titles }
+      query = { prop: 'info', titles: some_article_titles }
       response = WikiApi.new(@wiki).query(query)
-      next if response.nil?
-      results = response.data
-      next if results.empty?
+      results = response&.data
+      next if results.blank?
       results = results['pages']
+      next if results.blank?
       import_articles_from_title_query(results)
     end
   end
