@@ -163,10 +163,26 @@ describe UsersController do
   end
 
   describe '#show' do
+    render_views
+
     context 'when user not found' do
       it 'redirects to the home page' do
         get :show, params: { username: 'non existing user' }
         expect(response.body).to redirect_to(root_path)
+      end
+    end
+
+    context 'when the user is enrolled in a course' do
+      let(:course) { create(:course) }
+      let(:user) { create(:user) }
+      let!(:courses_user) do
+        create(:courses_user, course_id: course.id,
+                              user_id: user.id,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+      it 'lists the course' do
+        get :show, params: { username: user.username }
+        expect(response.body).to have_content course.title
       end
     end
   end
