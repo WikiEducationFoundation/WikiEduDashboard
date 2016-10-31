@@ -255,7 +255,7 @@ GEM
     minitest (5.9.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    mysql2 (0.4.4)
+    mysql2 (0.4.5)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
