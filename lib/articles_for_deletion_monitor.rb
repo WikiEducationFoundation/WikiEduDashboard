@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/importers/category_importer"
 
+# This class identifies articles involved in deletion processes on
+# English Wikipedia and creates alerts for them.
+# It works by first finding all the article titles, and then matching those
+# up with articles edited by students (ie, ArticlesCourses).
 class ArticlesForDeletionMonitor
   def self.create_alerts_for_course_articles
     new.create_alerts_from_page_titles
@@ -9,7 +13,9 @@ class ArticlesForDeletionMonitor
   def initialize
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     find_deletion_discussions
-    find_page_titles
+    extract_page_titles_from_deletion_discussions
+    find_proposed_deletions
+    normalize_titles
   end
 
   def create_alerts_from_page_titles
@@ -28,13 +34,26 @@ class ArticlesForDeletionMonitor
     @afd_titles ||= CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
-  def find_page_titles
-    titles = @afd_titles.map do |afd_title|
-      title = afd_title[%r{Wikipedia:Articles for deletion/(.*)}, 1]
+  def find_proposed_deletions
+    category = 'Category:All articles proposed for deletion'
+    depth = 0
+    @prod_article_titles ||= CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
+  end
+
+  def extract_page_titles_from_deletion_discussions
+    @afd_article_titles = @afd_titles.map do |afd_title|
+      afd_title[%r{Wikipedia:Articles for deletion/(.*)}, 1]
+    end
+  end
+
+  def normalize_titles
+    all_titles = @prod_article_titles + @afd_article_titles
+    @page_titles = all_titles.map do |title|
       next if title.blank?
       title.tr(' ', '_')
     end
-    @page_titles = titles.compact!
+    @page_titles.compact!
+    @page_titles.uniq!
   end
 
   def create_alert(articles_course)
