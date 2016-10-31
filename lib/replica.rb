@@ -185,7 +185,7 @@ class Replica
   def report_exception(error, endpoint, query, level='error')
     Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if typical_errors.include?(error.class)
-    Raven.capture_exception error, level: level, extras: {
+    Raven.capture_exception error, level: level, extra: {
       query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
     }
     return nil
