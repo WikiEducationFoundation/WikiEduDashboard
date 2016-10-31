@@ -31,13 +31,13 @@ class ArticlesForDeletionMonitor
   def find_deletion_discussions
     category = 'Category:AfD debates'
     depth = 2
-    @afd_titles ||= CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
+    @afd_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
   def find_proposed_deletions
     category = 'Category:All articles proposed for deletion'
     depth = 0
-    @prod_article_titles ||= CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
+    @prod_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
   def extract_page_titles_from_deletion_discussions

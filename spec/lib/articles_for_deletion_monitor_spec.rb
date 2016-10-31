@@ -7,7 +7,7 @@ def mock_mailer
 end
 
 describe ArticlesForDeletionMonitor do
-  describe '.create_alerts_for_new_articles' do
+  describe '.create_alerts_for_course_articles' do
     let(:course) { create(:course) }
     let(:student) { create(:user, username: 'student') }
     let(:courses_user) do
@@ -16,10 +16,12 @@ describe ArticlesForDeletionMonitor do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
     let(:content_expert) { create(:user, greeter: true) }
-    let(:article) { create(:article, title: 'One_page', namespace: 0) }
-    let!(:article2) { create(:article, title: 'Another_page', namespace: 0) }
-    let(:prod) { create(:article, title: 'PRODded_page', namespace: 0) }
 
+    # Article that hasn't been edited by students
+    let!(:article2) { create(:article, title: 'Another_page', namespace: 0) }
+
+    # AFD article
+    let(:article) { create(:article, title: 'One_page', namespace: 0) }
     let(:revision) do
       create(:revision, article_id: article.id,
                         user_id: student.id,
@@ -32,7 +34,8 @@ describe ArticlesForDeletionMonitor do
                                new_article: article_is_new)
     end
 
-    # PRODded articles
+    # PRODded article
+    let(:prod) { create(:article, title: 'PRODded_page', namespace: 0) }
     let!(:prod_revision) do
       create(:revision, article_id: prod.id,
                         user_id: student.id,
