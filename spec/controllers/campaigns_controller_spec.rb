@@ -132,4 +132,24 @@ describe CampaignsController do
       expect(response.body).to have_content(course.slug)
     end
   end
+
+  describe '#overview' do
+    render_views
+    let(:campaign) { create(:campaign) }
+
+    it 'renders 200' do
+      get :overview, params: { slug: campaign.slug }
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe '#programs' do
+    render_views
+    let(:campaign) { create(:campaign) }
+
+    it 'renders 200' do
+      get :programs, params: { slug: campaign.slug }
+      expect(response.status).to eq(200)
+    end
+  end
 end
