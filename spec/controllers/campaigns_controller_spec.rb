@@ -145,11 +145,26 @@ describe CampaignsController do
 
   describe '#programs' do
     render_views
+    let(:course) { create(:course) }
+    let(:course2) { create(:course, title: 'Skydiving basket-weaving') }
     let(:campaign) { create(:campaign) }
 
-    it 'renders 200' do
+    before do
+      campaign.courses << course << course2
       get :programs, params: { slug: campaign.slug }
+    end
+
+    it 'renders 200' do
       expect(response.status).to eq(200)
+    end
+
+    it 'shows the right campaign' do
+      expect(response.body).to have_content(campaign.title)
+    end
+
+    it 'lists the programs for the given campaign' do
+      expect(response.body).to have_content(course.title)
+      expect(response.body).to have_content(course2.title)
     end
   end
 end
