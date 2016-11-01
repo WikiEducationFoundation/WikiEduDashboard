@@ -169,7 +169,9 @@ en:
       title: Milestones
 
   campaign:
+    campaign: Campaign
     none: None
+    programs: '%{title} Programs'
 
   courses:
     activity: Activity

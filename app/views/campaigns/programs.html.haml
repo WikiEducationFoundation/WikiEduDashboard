@@ -7,7 +7,8 @@
 .container
   %section#courses
     .section-header
-      %h3= @campaign.title
+      %h3
+        = t('campaign.programs', title: @campaign.title)
       .sort-select
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}

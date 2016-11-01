@@ -182,6 +182,11 @@ qqq:
     none: |-
       Option for a course with no campaign
       {{Identical|None}}
+    campaign: |-
+      Direct translation for campaign. Should be a singilar version of the courses.campaigns message
+      {{Identical|Campaign}}
+    programs: |-
+      The title of a campaign followed by an identical translation for 'Programs'
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
