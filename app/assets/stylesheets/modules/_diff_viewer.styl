@@ -1,14 +1,32 @@
-.diff
+.diff-viewer
   background-color white
   padding 10px
   position absolute
+  top 0
+  left 0
   z-index 10
   border 1px solid mischka
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
 
+.diff-lineno
+  display none
+
+.diff-marker
+  display none
+
+.diff-empty
+  display none
+
+.diff-context
+  display none
+
 .diff-addedline
-  background-color #dff0d8
+  border 2px solid #dff0d8
+  .diffchange-inline
+    background-color #dff0d8
 
 .diff-deletedline
-  background-color #fcf8e3
+  border 2px solid #fcf8e3
+  .diffchange-inline
+    background-color #fcf8e3

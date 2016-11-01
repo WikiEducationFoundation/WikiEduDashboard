@@ -44,14 +44,17 @@ const DiffViewer = React.createClass({
       button = <button onClick={this.hideDiff} className="button dark">Hide diff</button>;
     } else {
       style = 'hidden';
-      button = <button onClick={this.showDiff} className="button dark">Show diff</button>;
+      button = <button onClick={this.showDiff} className="button dark">Show</button>;
     }
-    const className = `diff ${style}`;
+    const className = `diff-viewer ${style}`;
     return (
       <div>
         {button}
         <div className={className}>
-          <p><a className="inline" href={this.props.revision.url} target="_blank">{I18n.t('revisions.diff')}</a></p>
+          <p>
+            <a className="button dark" href={this.props.revision.url} target="_blank">View on wiki</a>
+            {button}
+          </p>
           <table><tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} /></table>
         </div>
       </div>
