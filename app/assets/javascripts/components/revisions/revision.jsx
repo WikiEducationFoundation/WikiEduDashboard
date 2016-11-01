@@ -27,7 +27,7 @@ const Revision = React.createClass({
         </td>
         <td className="desktop-only-tc">{this.props.revision.revisor}</td>
         <td className="desktop-only-tc">{this.props.revision.characters}</td>
-        <td className="desktop-only-tc date">{moment(this.props.revision.date).format('YYYY-MM-DD   h:mm A')}</td>
+        <td className="desktop-only-tc date"><a href={this.props.revision.url}>{moment(this.props.revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
         <td>
           <DiffViewer revision={this.props.revision} />
         </td>

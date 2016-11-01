@@ -1,4 +1,5 @@
 import React from 'react';
+import OnClickOutside from 'react-onclickoutside';
 
 const DiffViewer = React.createClass({
   displayName: 'DiffViweer',
@@ -20,6 +21,10 @@ const DiffViewer = React.createClass({
 
   hideDiff() {
     this.setState({ showDiff: false });
+  },
+
+  handleClickOutside() {
+    this.hideDiff();
   },
 
   fetchDiff() {
@@ -62,4 +67,4 @@ const DiffViewer = React.createClass({
   }
 });
 
-export default DiffViewer;
+export default OnClickOutside(DiffViewer);
