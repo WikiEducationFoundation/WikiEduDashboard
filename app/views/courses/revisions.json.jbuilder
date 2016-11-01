@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 json.course do
   json.revisions @course.revisions.live.eager_load(:article).order(date: :desc).limit(50) do |rev|
-    json.call(rev, :id, :url, :characters, :date, :user_id)
+    json.call(rev, :id, :url, :characters, :date, :user_id, :api_url, :mw_rev_id, :mw_page_id)
 
     json.call(rev.article, :rating)
     json.article_url article_url(rev.article)

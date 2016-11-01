@@ -23,20 +23,37 @@ const DiffViewer = React.createClass({
   },
 
   fetchDiff() {
-    console.log('ohai')
     $.ajax(
       {
         dataType: 'jsonp',
-        url: "https://en.wikipedia.org/w/api.php?action=compare&fromrev=139992&torev=139993&format=json",
-        success: (data) => { console.log(data); }
+        url: this.props.revision.api_url, // "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev",
+        success: (data) => {
+          this.setState({
+            diff: data.query.pages[this.props.revision.mw_page_id].revisions[0].diff['*'],
+            fetched: true
+          });
+        }
       });
   },
 
   render() {
+    let style;
+    let button;
+    if (this.state.showDiff) {
+      style = '';
+      button = <button onClick={this.hideDiff} className="button dark">Hide diff</button>;
+    } else {
+      style = 'hidden';
+      button = <button onClick={this.showDiff} className="button dark">Show diff</button>;
+    }
+    const className = `diff ${style}`;
     return (
       <div>
-        <button onClick={this.fetchDiff} className="button dark">ohai</button>
-        <a className="inline" href={this.props.revision.url} target="_blank">{I18n.t('revisions.diff')}</a>
+        {button}
+        <div className={className}>
+          <p><a className="inline" href={this.props.revision.url} target="_blank">{I18n.t('revisions.diff')}</a></p>
+          <table><tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} /></table>
+        </div>
       </div>
     );
   }

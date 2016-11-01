@@ -47,12 +47,18 @@ class Revision < ActiveRecord::Base
   # Instance methods #
   ####################
 
-  # Returns the diff url for the revision, e.g.,
+  # Returns the web diff url for the revision, e.g.,
   # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
   def url
     return if article.nil?
     title = escaped_full_title(article)
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
+  end
+
+  # Returns the API diff url for the revision, e.g.
+  # https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=655980945&rvdiffto=prev
+  def api_url
+    "#{wiki.base_url}/w/api.php?action=query&prop=revisions&revids=#{mw_rev_id}&rvdiffto=prev&format=json"
   end
 
   def update(data={}, save=true)
