@@ -48,10 +48,10 @@ const DiffViewer = React.createClass({
     let button;
     if (this.state.showDiff) {
       style = '';
-      button = <button onClick={this.hideDiff} className="button dark small">Hide</button>;
+      button = <button onClick={this.hideDiff} className="button dark small">{I18n.t('revisions.diff_hide')}</button>;
     } else {
       style = 'hidden';
-      button = <button onClick={this.showDiff} className="button dark small">Show</button>;
+      button = <button onClick={this.showDiff} className="button dark small">{I18n.t('revisions.diff_show')}</button>;
     }
     const className = `diff-viewer ${style}`;
 
@@ -67,7 +67,7 @@ const DiffViewer = React.createClass({
         {button}
         <div className={className}>
           <p>
-            <a className="button dark small" href={this.props.revision.url} target="_blank">View diff on wiki</a>
+            <a className="button dark small" href={this.props.revision.url} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
             {button}
           </p>
           <table>

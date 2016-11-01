@@ -462,11 +462,15 @@ en:
     class: Class
     date_time: Date/Time
     diff: diff
+    diff_show: Show
+    diff_hide: Hide
     edited_by: Edited By
     loading: Loading revisions...
     none: This course has no recent editing activity.
     time_doc: The time of each revision in your local time
     title: Title
+    view_on_wiki: View diff on wiki
+
 
   # These are maintenance script messages.
   tasks:
