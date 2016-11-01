@@ -67,7 +67,7 @@ const DiffViewer = React.createClass({
         {button}
         <div className={className}>
           <p>
-            <a className="button dark small" href={this.props.revision.url} target="_blank">View on wiki</a>
+            <a className="button dark small" href={this.props.revision.url} target="_blank">View diff on wiki</a>
             {button}
           </p>
           <table>
