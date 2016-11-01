@@ -57,7 +57,7 @@ const DiffViewer = React.createClass({
 
     let diff;
     if (this.state.diff === '') {
-      diff = '<div>[no change]</div>';
+      diff = '<div> — </div>';
     } else {
       diff = this.state.diff;
     }
