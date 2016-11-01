@@ -1,13 +1,18 @@
 .diff-viewer
   background-color white
   padding 10px
-  position absolute
-  top 0
-  left 0
+  position fixed
+  top 70px
+  left 50%
+  width 100%
+  max-width 1200px
+  max-height 90vh
   z-index 10
   border 1px solid mischka
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
+  transform translateX(-50%)
+  overflow-x scroll
 
 .diff-comment
   text-align center
