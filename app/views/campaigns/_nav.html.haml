@@ -2,7 +2,8 @@
   .campaign_navigation
     .container
       %a
-        %h2.title= @campaign.title
+        %h2.title
+          = "#{t('campaign.campaign')}: #{@campaign.title}"
       %nav
         %ul
           = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))

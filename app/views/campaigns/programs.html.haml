@@ -1,1 +1,64 @@
 = render 'nav'
+
+%header.main-page
+  .container
+    = render 'courses/header_stats', presenter: @presenter
+
+.container
+  %section#courses
+    .section-header
+      %h3
+        = t('campaign.programs', title: @campaign.title)
+      .sort-select
+        %select.sorts{rel: 'courses'}
+          %option{rel: 'asc', value: 'title'}
+            = t("courses.title")
+          %option{rel: 'desc', value: 'revisions'}
+            = t("metrics.revisions")
+          %option{rel: 'desc', value: 'characters'}
+            = t("metrics.word_count")
+          %option{rel: 'desc', value: 'average-words'}
+            = t("metrics.average_word_count")
+          %option{rel: 'desc', value: 'views'}
+            = t("metrics.view")
+          %option{rel: 'desc', value: 'students'}
+            = t("users.editors")
+          %option{rel: 'desc', value: 'creation-date'}
+            = t("courses.creation_date")
+          - unless Features.disable_training?
+            %option{rel: 'desc', value: 'untrained'}
+              = t("courses.untrained")
+
+    %table.table.table--hoverable.table--sortable
+      %thead
+        %tr
+          %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
+            = t("#{@presenter.course_string_prefix}.courses")
+            %span.sortable-indicator
+          %th.sort.sortable{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
+            .tooltip-trigger
+              = t('metrics.revisions')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('courses.revisions_doc', timeframe: RevisionStat::REVISION_TIMEFRAME)
+          %th.sort.sortable{style: 'width: 172px;', 'data-default-order' => 'desc', 'data-sort' => 'characters'}
+            .tooltip-trigger
+              = t('metrics.word_count')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= course_i18n('word_count_doc')
+          %th.sort.sortable{style: 'width: 125px;', 'data-default-order' => 'desc', 'data-sort' => 'views'}
+            .tooltip-trigger
+              = t('metrics.view')
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t('courses.view_doc')
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
+            = t('users.editors')
+            %span.sortable-indicator
+      %tbody.list
+        - @presenter.courses_by_recent_edits.each do |c|
+          = render 'courses/row', course: c, admin: false, user: false
