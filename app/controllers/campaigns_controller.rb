@@ -29,6 +29,7 @@ class CampaignsController < ApplicationController
   end
 
   def programs
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
   end
 
   def edit
