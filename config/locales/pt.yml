@@ -270,6 +270,8 @@ pt:
     term: Período
     timeline: Detalhes da tarefa
     timeline_link: Cronograma
+    time_zone_message: Os horários de início e fim são mostrados no seu fuso horário
+      local.
     title: Título
     training_due: O módulo de treinamento "%{title}" foi indicado para este curso
       e deve ser realizado até %{date}.

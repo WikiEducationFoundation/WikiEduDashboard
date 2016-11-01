@@ -9,6 +9,7 @@
 # Author: Liuxinyu970226
 # Author: Reke
 # Author: Shangkuanlc
+# Author: Wehwei
 ---
 zh-TW:
   accessibility:
@@ -88,7 +89,7 @@ zh-TW:
     title_example: 條目標題
     view: 檢視條目
     view_all: 檢視全部
-    view_doc: 在課程學期中每個條目的訪問量總數
+    view_doc: 在專案中每個條目的訪問總數
     views_added: 為%{title} 增加 %{count} 個新的瀏覽量
     wp10: 結構完整性
     wp10_doc: 「結構完整性」評分，是以採用機器學習的版本評估服務（https://ores.wikimedia.org/）為依據，來代表著一篇條目內容符合一篇完整維基條目內容程度。評分計算的基準在於條目長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的條目通常代表著它遵循著維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
@@ -244,6 +245,7 @@ zh-TW:
     term: 學期
     timeline: 作業細節
     timeline_link: 時間表
+    time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
     training_due: 訓練模組「%{title}」已經發派到這個課程中，截止日期為%{date}。
     training_nav: 前往培訓
@@ -251,6 +253,7 @@ zh-TW:
     unsubmitted: 尚未提交的課程。
     untrained: 未受訓
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    view_other: 查看其他同伴
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
@@ -276,6 +279,8 @@ zh-TW:
     courses: 方案
     creator:
       checking_for_uniqueness: 正在確認是否有重複的方案。
+      clone_previous: 複製前一個方案
+      clone_this: 複製此方案
       course_description: 方案描述
       course_school: 機構
       course_title: 方案標題
@@ -285,11 +290,14 @@ zh-TW:
       create_short: 建立方案
       find: 找尋一個方案
       intro: 需要方案標題，其它項目則可日後填上。點擊「創建我的方案！」來開始製作您的維基項目頁面。
+    delete_course: 刪除方案
     edit_course_dates: 編輯項目日期
     enroll: 增加編輯者
     enrollment: 參與
     expected_students: 預期編輯者
     instructors: 主持者
+    join_course: 加入方案
+    leave_course: 退出方案
     milestones_none: 此項目裡目前沒有任何里程碑。
     published: 此項目已發佈！編者可利用下列URL位址登記：
     revisions_none: 此項目目前沒有編輯活動。
@@ -301,6 +309,9 @@ zh-TW:
     students_count: 參與者數量
     term: 於
     uploads_none: 此項目沒有提供任何圖像或媒體檔案至維基共享資源裡。
+    view_other: 檢視其它發起運動
+    view_page: 檢視方案頁面
+    word_count_doc: 一個由方案編輯者在方案學期期間增加至條目主空間的估計數量
   editable:
     edit: 編輯
     cancel: 取消

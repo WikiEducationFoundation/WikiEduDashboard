@@ -80,6 +80,8 @@ bn:
     student_editors: '# ছাত্র সম্পাদকগণ'
     students_short: ছাত্রগণ
     timeline_link: সময়ক্রম
+    time_zone_message: আপনার স্থানীয় সময় অঞ্চল অনুসারে শুরুর এবং শেষের সময় প্রদর্শন
+      করা হয়।
     title: শিরোনাম
     view_wiki: উইকিপিডিয়ায় দেখুন
     volunteer:

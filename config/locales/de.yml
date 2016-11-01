@@ -154,7 +154,7 @@ de:
     cancel: Abbrechen
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
-    campaigns: 'Jahrgänge:'
+    campaigns: 'Kampagnen:'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
@@ -275,7 +275,7 @@ de:
     students_none: Dieser Kurs hat keine Studenten.
     students_short: Studenten
     submitted_admin: Dieser Kurs wurde von seinem Ersteller zur Zulassung eingereicht.
-      Um ihn zuzulassen, füge ihn auf der Übersichtsseite zum Jahrgang hinzu.
+      Um ihn zuzulassen, füge ihn auf der Übersichtsseite zur Kampagne hinzu.
     submitted_and_pending_heading: Eingereicht & Zulassung ausstehend
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
@@ -285,6 +285,8 @@ de:
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_link: Zeitleiste
+    time_zone_message: Die Start- und Endzeiten werden in deiner lokalen Zeitzone
+      angezeigt.
     title: Titel
     training_due: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und ist
       fällig am %{date}.
@@ -295,7 +297,7 @@ de:
     untrained: Unausgebildet
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
-    view_other: Weitere Jahrgänge ansehen
+    view_other: Weitere Kampagnen ansehen
     view: Kurs anzeigen
     view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
       bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht

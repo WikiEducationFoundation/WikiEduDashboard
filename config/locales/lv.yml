@@ -46,6 +46,7 @@ lv:
       legend_class_canceled: Brīvdiena/atcelts
       legend_class_meeting: Klases sapulce
     cancel: Atcelt
+    campaigns: 'Kampaņas:'
     course_description: Kursi
     courses: Kursi
     creator:
@@ -91,6 +92,7 @@ lv:
     course_details: Kursa dati par
     term: Semestris
     title: Nosaukums
+    view_other: Skatīt citas kampaņas
     view: Apskatīt kursu
   courses_generic:
     cancel: Atcelt

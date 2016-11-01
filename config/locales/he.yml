@@ -8,6 +8,7 @@
 # Author: LaG roiL
 # Author: Macofe
 # Author: MojoMann
+# Author: Or
 # Author: פוילישער
 ---
 he:
@@ -134,6 +135,7 @@ he:
       legend_class_meeting: קלאס באטרעף
       legend_class_not_meeting: אין פגישה מתוכננת
       select_meeting_days: נא לבחור את הימים שבהם יש פגישה עם הכיתה שלך.
+    cancel: ביטול
     character_doc: סך התווים שנוספו לערכים במרחב הראשי על־ידי התלמידים בקורס במהלך
       תקופת הקורס
     confirm_course_deletion: האם ברצונך למחוק את הקורס "%{title}"? אם כן, יש להקליד
@@ -268,6 +270,7 @@ he:
     assignment_end: סוף ציר זמן
     assignments_none: לא הוקצו ערכים למיזם הזה.
     assignment_start: תחילת ציר זמן
+    cancel: ביטול
     courses: תוכניות
     creator:
       course_description: תיאור התוכנית
@@ -439,6 +442,8 @@ he:
     training_incomplete: ההכשרה לא הושלמה
     username: שם משתמש
     username_placeholder: שם משתמש
+    role:
+      student: תלמיד
   wizard:
     assignment_dates: תאריכי המטלה
     assignment_description: יש לבחור תאריכי התחלה וסוף לציר הזמן של המטלות. למשל,

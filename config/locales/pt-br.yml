@@ -151,6 +151,7 @@ pt-br:
       legend_class_meeting: Encontro de turma
       legend_class_not_meeting: Nenhuma reunião marcada
       select_meeting_days: Selecionar os dias da semana em que a turma se encontra.
+    cancel: Cancelar
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso
     campaigns: 'Grupos:'
@@ -173,6 +174,8 @@ pt-br:
       assignment_start: Início da tarefa
       assignment_start_placeholder: Início da tarefa (AAAA-MM-DD)
       checking_for_uniqueness: Verificando se este curso é único.
+      clone_previous: Clonar curso anterior
+      clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecione datas para adicioná-las ou removê-las
         da agenda (por exemplo, férias, sem aulas). Clique na data para escolher entre
         não selecionada, selecionada e período de férias. Se não há férias, selecione

@@ -60,6 +60,8 @@ pl:
     no_available: Ten kurs nie ma dostępnych artykułów.
     remove: Usuń
     select: Wybierz
+  campaign:
+    none: Brak
   courses:
     activity: Aktywność
     articles: Artykuły

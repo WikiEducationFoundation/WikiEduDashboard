@@ -140,6 +140,7 @@ it:
     cancel: Annulla
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
+    campaigns: 'Campagne:'
     confirm_course_deletion: Cancellare il corso intitolato %{title}? Scrivi il titolo
       del corso per procedere.
     confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
@@ -237,7 +238,7 @@ it:
     students_none: Questo corso non ha studenti.
     students_short: Studenti
     submitted_admin: Questo corso è stato presentato per l'approvazione da parte del
-      suo creatore. Per approvarlo, aggiungerlo a un gruppo nella pagina panoramica.
+      suo creatore. Per approvarlo, aggiungerlo a una campagna nella pagina panoramica.
     submitted_and_pending_heading: Presentato e in attesa di approvazione
     submitted_heading: Corsi presentati
     submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
@@ -247,6 +248,8 @@ it:
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline
+    time_zone_message: I tempi di inizio e fine vengono visualizzati nel fuso orario
+      locale.
     title: Titolo
     training_due: Il modulo di formazione "%{title}" è stato assegnato per questo
       corso, ed è previsto per il %{date}.
@@ -257,6 +260,7 @@ it:
     untrained: Inesperto
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
+    view_other: Vedi altre campagne
     view: Visualizza corso
     view_doc: La somma di tutte le visite alle voci modificate dagli editori iscritti
       da quando gli editori hanno fatto la loro prima modifica ad ogni voce

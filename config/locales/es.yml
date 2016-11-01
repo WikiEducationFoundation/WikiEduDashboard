@@ -5,6 +5,7 @@
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Fitoschido
+# Author: Irus
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
@@ -39,7 +40,7 @@ es:
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
     submit: Enviar
-    training: Entrenamiento
+    training: Capacitación
     change: Cambiar
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
@@ -50,8 +51,8 @@ es:
       para que se ajuste a tus necesidades.
     explore_course_pages: Explorar las páginas del curso
     explore_examples: Explorar ejemplos
-    join_note: Una vez que recibes un código de acceso de tu instructor, haz clic
-      en Encuentra tu curso para encontrarlo y unirtele.
+    join_note: Una vez que recibas un código de acceso de tu instructor, haz clic
+      en Encuentra tu curso para encontrarlo y unírtele.
     no_courses_instructor: Parece no tienes ningún curso.
     no_courses_student: Parece que aún no te has unido a un curso.
     opt_out: Solicita la exclusión de la orientación
@@ -65,7 +66,7 @@ es:
     log_in: Iniciar sesión con Wikipedia
     sign_up: Regístrate con Wikipedia
     sign_up_help: Para utilizar el panel de control, tendrás que iniciar sesión a
-      través de Wikipiedia y darle permiso para acceder a tu cuenta. Puedes iniciar
+      través de Wikipedia y darle permiso para acceder a tu cuenta. Puedes iniciar
       sesión con una cuenta de Wikipedia existente o crear una nueva.
   activity:
     all: Actividad
@@ -82,20 +83,20 @@ es:
     label: Artículos
     loading: Cargando artículos...
     new: (nuevo)
-    none: Este curso no ha editado ningún artículo.
+    none: En este curso no se ha editado ningún artículo.
     rating: Clase
-    rating_doc: La calificación que ha recibido un artículo de Wikiproyectos en la
+    rating_doc: La calificación que ha recibido un artículo de wikiproyectos en la
       Wikipedia. Estas calificaciones pueden corresponder a versiones mucho más antiguas,
-      por lo que son sólo un indicador aproximado de la madurez del artículo.
+      por lo que son solo un indicador aproximado de la madurez del artículo.
     rating_docs:
-      fa: 'Artículo destacado: la calificación más alta de Wikipedia, probablemente
+      fa: 'Artículo destacado: la calificación más alta de Wikipedia; probablemente
         sea un artículo demasiado maduro como para ser el proyecto principal de un
         editor nuevo'
       fl: 'Lista destacada: la calificación más alta de Wikipedia para las listas'
       a: 'Clase A: un artículo bastante desarrollado que puede ser demasiado maduro
-        para el proyecto principal de un editor nuevo'
+        para ser el proyecto principal de un editor nuevo'
       ga: 'Artículo bueno: un artículo bien desarrollado que puede ser demasiado maduro
-        para el proyecto principal de un editor nuevo'
+        para ser el proyecto principal de un editor nuevo'
       b: 'Clase B: un artículo moderadamente desarrollado'
       c: 'Clase C: un artículo intermedio con posibilidades de mejoras'
       start: 'Clase inicial: un artículo preliminar con muchas posibilidades de mejoras'
@@ -110,15 +111,15 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     wp10: Integridad estructural
-    wp10_doc: La puntuación "Integridad estructural" representa cuán cerca un artículo
-      encaja en el molde de una artículo de la Wikipedia maduro, basado en el Servicio
+    wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
+      encaja en el molde de un artículo maduro de la Wikipedia, según el Servicio
       de Evaluación de Revisiones Objetivo (https://ores.wikimedia.org/), una herramienta
       automatizada basada en aprendizaje. Estas puntuaciones se calculan basándose
-      en el tamaño de un artículo, el número de referencias y enlaces wikis, y otras
+      en el tamaño de un artículo, el número de referencias y enlaces wikis y otras
       características básicas del texto. Una puntuación alta generalmente indica que
       un artículo sigue las convenciones de Wikipedia sobre la estructura de un buen
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
-      sólo están disponibles para los artículos de la Wikipedia en inglés.)
+      solo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
     already_exists: ¡Esta tarea ya existe!
     assignees: Asignado(s)
@@ -145,29 +146,29 @@ es:
     none: Ninguno
   courses:
     activity: Actividad
-    already_enrolled: Ya eres parte de '%{title}'.
+    already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
     archived: Cursos archivados
     actions: Acciones
     articles: Artículos
-    articles_none: Este curso no ha editado ningún artículo.
+    articles_none: En este curso no se ha editado ningún artículo.
     assignment_end: Fin de la tarea
     assignments_none: Este curso no tiene artículos asignados.
     assignment_start: Inicio de la tarea
     calendar:
       legend: Leyenda
       legend_class_canceled: Vacaciones/cancelada
-      legend_class_meeting: Reunión de la Clase
+      legend_class_meeting: Reunión de la clase
       legend_class_not_meeting: Ninguna reunión programada
       select_meeting_days: Selecciona los días de la semana en que se reúne tu clase.
     cancel: Cancelar
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
-    campaigns: 'Campaignes:'
+    campaigns: 'Campañas:'
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
-    confirm_course_deletion_failed: '"%{title}" no es el título de este curso. El
-      curso no se ha eliminado.'
+    confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
+      no se ha eliminado.
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -235,7 +236,7 @@ es:
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
-      user_exists: Lo siento, %{username} no es un usuario existente.
+      user_exists: El usuario «%{username}» no existe.
       invalid_language_or_project: Idioma/proyecto no válido
     expected_students: Estudiantes esperados
     gradeables_none: Este curso no tiene tareas calificables.
@@ -259,7 +260,7 @@ es:
     nocourses: No participas de ningún curso.
     none: Ninguno
     notify_untrained_confirmation: Esto publicará un recordatorio en las páginas de
-      discusión de todos los estudiantes que no hayan completado los módulos de entrenamiento
+      discusión de todos los estudiantes que no hayan completado los módulos de capacitación
       asignados. ¿Estás seguro de que quieres hacer esto?
     no_available_actions: No hay acciones disponibles
     overview: Resumen
@@ -276,7 +277,7 @@ es:
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
-    start: Iniciar
+    start: Inicio
     start_typing: Empieza a escribir
     students: Estudiantes
     students_count: '# Estudiantes'
@@ -284,7 +285,7 @@ es:
     students_none: Este curso no tiene estudiantes.
     students_short: Estudiantes
     submitted_admin: Este curso se ha presentado para su aprobación por parte de su
-      creador. Para aprobarlo, añádelo a una campaigne en la página de información general.
+      creador. Para aprobarlo, añádelo a una campaña en la página de información general.
     submitted_and_pending_heading: Presentado y pendiente de aprobación
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
@@ -294,17 +295,19 @@ es:
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma
+    time_zone_message: Los tiempos de comienzo y finalización se muestran en tu huso
+      horario local.
     title: Título
-    training_due: El módulo de entrenamiento "%{title}" está asignado para este curso,
+    training_due: El módulo de capacitación «%{title}» está asignado para este curso,
       y se espera el %{date}.
-    training_nav: Ir al entrenamiento
-    training_overdue: El módulo de entrenamiento "%{title}" está asignado para este
+    training_nav: Ir a la capacitación
+    training_overdue: El módulo de capacitación «%{title}» está asignado para este
       curso, y se esperaba el %{date}.
     unsubmitted: Cursos no presentados
-    untrained: Sin entrenamiento
+    untrained: Sin capacitación
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
-    view_other: Ver otras campaignes
+    view_other: Ver otras campañas
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
       desde que el editor hizo su primera edición en cada artículo
@@ -370,13 +373,15 @@ es:
       a Wikimedia Commons.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
+    word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
+      por los editores del programa durante el plazo de programa
   editable:
     edit: Editar
     cancel: Cancelar
     save: Guardar
   metrics:
     activity: Actividad reciente
-    are_trained: están al día con el entrenamiento
+    are_trained: están al día con la capacitación
     articles_created: Artículos creados
     articles_edited: Artículos editados
     characters: Caracteres
@@ -551,20 +556,20 @@ es:
     reviewers: Revisor(es)
     reviewing: Revisando
     training_complete:
-      one: está al día con el entrenamiento
-      other: están al día con el entrenamiento
+      one: está al día con la capacitación
+      other: están al día con la capacitación
     training_complete_count:
-      one: '%{count} con entrenamiento al día'
-      other: '%{count} con entrenamiento al día'
-    training_doc: Los editores que hayan completado todos los módulos de entrenamiento
-      asignados se cuentan como al día con su entrenamiento.
+      one: '%{count} con capacitación al día'
+      other: '%{count} con capacitación al día'
+    training_doc: Los editores que hayan completado todos los módulos de capacitación
+      asignados se cuentan como al día con su capacitación.
     training_incomplete: Entranamiento incompleto
     training_modules_completed:
-      one: '%{completed_count}/%{count} módulo de entenamiento completado'
-      other: '%{completed_count}/%{count} módulos de entenamiento completados'
-    training_module_name: Módulo de entrenamiento
+      one: '%{completed_count}/%{count} módulo de capacitación completado'
+      other: '%{completed_count}/%{count} módulos de capacitación completados'
+    training_module_name: Módulo de capacitación
     training_module_status: Estado
-    up_to_date_with_training: al día con el entrenamiento
+    up_to_date_with_training: al día con la capacitación
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
     role:
@@ -577,10 +582,10 @@ es:
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
-        los estudiantes que no hayan completado el entrenamiento. ¿Estás seguro de
+        los estudiantes que no hayan completado la capacitación. ¿Estás seguro de
         que quieres hacer esto?
       header: Tienes una tarea de entrenamiento atrasada.
-      message: Completa los [%{link} módulos de entrenamiento] asignados.
+      message: Completa los [%{link} módulos de capacitación] asignados.
       summary: retraso en el entrenamiento de estudiantes
   wizard:
     assignment_dates: Fechas de la tarea

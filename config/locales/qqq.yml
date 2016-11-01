@@ -179,7 +179,9 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
-    none: Option for a course with no campaign
+    none: |-
+      Option for a course with no campaign
+      {{Identical|None}}
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
@@ -211,8 +213,9 @@ qqq:
         a course meets (Wiki Ed only)
     cancel: '{{Identical|Cancel}}'
     character_doc: Explanation of what 'characters added' means
-    campaigns: Label for a list of campaigns a program is part of. A "campaign" essentially
-      means a group of courses with something in common, in this context.
+    campaigns: |-
+      Label for a list of campaigns a program is part of. A "campaign" essentially means a group of courses with something in common, in this context.
+      {{Identical|Campaign}}
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
@@ -350,7 +353,8 @@ qqq:
     submitted_note: Message that your course has been successfully submitted
     user_role: '{{Identical|Role}}'
     timeline_link: '{{Identical|Timeline}}'
-    time_zone_message: Message explaining that times are shown to the user in their local time zone
+    time_zone_message: Message explaining that times are shown to the user in their
+      local time zone
     title: |-
       Label for the title of each course
       {{Identical|Title}}

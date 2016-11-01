@@ -299,6 +299,8 @@ fr:
     term: Période
     timeline: Détails d'assignement
     timeline_link: Calendrier
+    time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
+      horaire local.
     title: Titre
     training_due: Le module de formation « %{title} » est affecté pour ce cours, et
       est attendu le %{date}.

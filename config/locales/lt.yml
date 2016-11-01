@@ -46,6 +46,7 @@ lt:
   courses:
     activity: Veikla
     articles: Straipsniai
+    campaigns: 'Kampanijos:'
     course_description: Kursai
     courses: Kursai
     creation_date: Sukūrimo data
@@ -80,8 +81,10 @@ lt:
     timeline: Užduoties detalės
     timeline_link: Laiko juosta
     title: Pavadinimas
+    view_other: Žiūrėti kitas kampanijas
     yourcourses: Jūsų kursai
   courses_generic:
+    campaigns: Kampanijos
     creator:
       course_description: Programos aprašymas
       course_school: Institucija

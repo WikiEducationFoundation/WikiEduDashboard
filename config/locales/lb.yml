@@ -76,6 +76,8 @@ lb:
   blocks:
     milestones:
       title: Kilometersténg
+  campaign:
+    none: Keng
   courses:
     activity: Aktivitéit
     archived: Archivéiert Coursen
@@ -84,6 +86,7 @@ lb:
     calendar:
       legend: Erklärung
     cancel: Ofbriechen
+    campaigns: 'Campagnen:'
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
@@ -139,6 +142,7 @@ lb:
     course_details: Detailer vum Cours
     timeline_link: Chronologie
     title: Titel
+    view_other: Aner Campagne kucken
     view: Cours weisen
     view_wiki: Op Wikipedia kucken
     volunteer:
