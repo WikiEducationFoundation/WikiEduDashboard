@@ -3,6 +3,7 @@ import Expandable from '../high_order/expandable.jsx';
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
+import DiffViewer from '../revisions/diff_viewer.jsx';
 
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
 const getTrainingStatus = () => TrainingStatusStore.getModels();
@@ -49,11 +50,11 @@ const StudentDrawer = React.createClass({
               <small className="tablet-only-ib">{details}</small>
             </p>
           </td>
-          <td className="desktop-only-tc date">{moment(rev.date).format('YYYY-MM-DD   h:mm A')}</td>
+          <td className="desktop-only-tc date"><a href={rev.url} target="_blank">{moment(rev.date).format('YYYY-MM-DD   h:mm A')}</a></td>
           <td className="desktop-only-tc">{rev.characters}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
-            <a href={rev.url} target="_blank">{I18n.t('revisions.diff')}</a>
+            <DiffViewer revision={rev} />
           </td>
         </tr>
       );
