@@ -73,7 +73,7 @@ const DiffViewer = React.createClass({
             {button}
           </p>
           <table>
-            <thead><p className="diff-comment">{this.state.comment}</p></thead>
+            <thead><tr><th colSpan="4"><p className="diff-comment">{this.state.comment}</p></th></tr></thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
           </table>
         </div>

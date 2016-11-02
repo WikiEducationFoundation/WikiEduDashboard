@@ -52,6 +52,7 @@ const ActivityTable = React.createClass({
 
       return (
         <ActivityTableRow
+          revision={revision}
           key={revision.key}
           rowId={revision.key}
           articleUrl={revision.article_url}

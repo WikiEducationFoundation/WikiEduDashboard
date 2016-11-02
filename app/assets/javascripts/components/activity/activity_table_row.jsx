@@ -1,6 +1,7 @@
 import React from 'react';
 import UIStore from '../../stores/ui_store.js';
 import UIActions from '../../actions/ui_actions.js';
+import DiffViewer from '../revisions/diff_viewer.jsx';
 
 const ActivityTableRow = React.createClass({
   displayName: 'ActivityTableRow',
@@ -18,7 +19,8 @@ const ActivityTableRow = React.createClass({
     articleUrl: React.PropTypes.string,
     talkPageLink: React.PropTypes.string,
     author: React.PropTypes.string,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+    revision: React.PropTypes.object
   },
 
   mixins: [UIStore.mixin],
@@ -62,20 +64,25 @@ const ActivityTableRow = React.createClass({
       );
     }
 
+    let diffViewer;
+    if (this.props.revision && this.props.revision.api_url) {
+      diffViewer = <DiffViewer revision={this.props.revision} />;
+    }
+
     return (
-      <tr className={className} onClick={this.openDrawer} key={this.props.key}>
-        <td>
+      <tr className={className} key={this.props.key}>
+        <td onClick={this.openDrawer}>
           <a href={this.props.articleUrl}>{this.props.title}</a>
         </td>
         {col2}
-        <td>
+        <td onClick={this.openDrawer}>
           <a href={this.props.talkPageLink}>{this.props.author}</a>
         </td>
-        <td>
+        <td onClick={this.openDrawer}>
           {revisionDateTime}
         </td>
         <td>
-          <button className="icon icon-arrow table-expandable-indicator"></button>
+          {diffViewer}
         </td>
       </tr>
     );

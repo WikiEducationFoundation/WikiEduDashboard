@@ -2,6 +2,7 @@
 json.revisions do
   json.array! @revisions do |revision|
     article = revision.article
+    json.call(revision, :api_url, :mw_rev_id, :mw_page_id)
     json.key revision.id
     json.title full_title(article)
     json.article_url article_url(article)
