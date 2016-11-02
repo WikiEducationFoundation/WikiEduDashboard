@@ -6,7 +6,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 import ActivityTableRow from '../../../app/assets/javascripts/components/activity/activity_table_row.jsx';
 import { click } from '../../customUtils.js';
 
-describe('ActivtyTableRow', () => {
+describe('ActivityTableRow', () => {
   const TestRow = ReactTestUtils.renderIntoDocument(
     <table>
       <tbody>
@@ -31,11 +31,12 @@ describe('ActivtyTableRow', () => {
 
   it('changes class open to class closed when state is_open', (done) => {
     const row = TestRow.querySelector('tr');
+    const testCell = TestRow.querySelectorAll('td')[0];
 
     expect(row.className).to.eq('closed');
 
-    click(row).then(r => {
-      expect(r.className).to.eq('open');
+    click(testCell).then(() => {
+      expect(row.className).to.eq('open');
       done();
     });
   });

@@ -6,7 +6,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
 import { click } from '../../customUtils.js';
 
-describe('ActivtyTable', () => {
+describe('ActivityTable', () => {
   const activities = [{
     key: 2,
     article_url: 'articleUrl2',
