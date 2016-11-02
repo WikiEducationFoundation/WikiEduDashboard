@@ -20,7 +20,7 @@ const UploadTable = React.createClass({
   _renderUploads() {
     return this.state.uploads.map((upload) => {
       return (
-        <Upload upload={upload} key={upload.id} />
+        <Upload upload={upload} key={upload.id} linkUsername={true} />
       );
     });
   },

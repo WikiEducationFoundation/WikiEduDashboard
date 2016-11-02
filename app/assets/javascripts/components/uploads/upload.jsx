@@ -4,7 +4,8 @@ const Upload = React.createClass({
   displayName: 'Upload',
 
   propTypes: {
-    upload: React.PropTypes.object
+    upload: React.PropTypes.object,
+    linkUsername: React.PropTypes.bool
   },
 
   render() {
@@ -36,6 +37,14 @@ const Upload = React.createClass({
       imageFile = this.props.upload.thumburl;
     }
 
+    let uploader;
+    if (this.props.linkUsername) {
+      const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
+      uploader = <a href={profileLink}>{this.props.upload.uploader}</a>;
+    } else {
+      uploader = this.props.upload.uploader;
+    }
+
     return (
       <tr className="upload">
         <td>
@@ -47,7 +56,7 @@ const Upload = React.createClass({
         <td className="desktop-only-tc">
           <a href={this.props.upload.url} target="_blank">{fileName}</a>
         </td>
-        <td className="desktop-only-tc">{this.props.upload.uploader}</td>
+        <td className="desktop-only-tc">{uploader}</td>
         <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
         <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
         <td></td>
