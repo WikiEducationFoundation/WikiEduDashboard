@@ -80,7 +80,7 @@ describe('ActivityTable', () => {
     );
 
     const rowElements = TestTable.querySelectorAll('tbody tr');
-    expect(rowElements.length).to.eq(4);
+    expect(rowElements.length).to.eq(6);
   });
 
   it('renders no-activity message when no activities exist', () => {
