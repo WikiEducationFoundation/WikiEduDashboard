@@ -4,18 +4,24 @@ import OnClickOutside from 'react-onclickoutside';
 const DiffViewer = React.createClass({
   displayName: 'DiffViweer',
 
+  // Diff viewer takes a main (final) revision, and optionally a first revision.
+  // If a first revision is supplied, it fetches a diff from the parent of the
+  // first revision all the way to the main revision.
   propTypes: {
-    revision: React.PropTypes.object
+    revision: React.PropTypes.object.isRequired,
+    first_revision: React.PropTypes.object
   },
 
   getInitialState() {
-    return { showDiff: false };
+    return {
+      showDiff: false
+    };
   },
 
   showDiff() {
     this.setState({ showDiff: true });
     if (!this.state.fetched) {
-      this.fetchDiff();
+      this.initiateDiffFetch();
     }
   },
 
@@ -27,11 +33,64 @@ const DiffViewer = React.createClass({
     this.hideDiff();
   },
 
-  fetchDiff() {
+  // If a first and current revision are provided, find the parent of the first revision
+  // and get a diff from that parent to the current revision.
+  // If only a current revision is provided, get diff to the previous revision.
+  initiateDiffFetch() {
+    if (this.props.first_revision) {
+      return this.findParentOfFirstRevision();
+    }
+
+    this.fetchDiff(this.diffUrl());
+  },
+
+  wikiUrl() {
+    return `https://${this.props.revision.wiki.language}.${this.props.revision.wiki.project}.org`;
+  },
+
+  diffUrl() {
+    const wikiUrl = this.wikiUrl();
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
+    // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
+    let diffUrl;
+    if (this.state.parentRevisionId) {
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
+    } else {
+      diffUrl = `${queryBase}&revids=${this.props.revision.mw_rev_id}&rvdiffto=prev&format=json`;
+    }
+
+    return diffUrl;
+  },
+
+  webDiffUrl() {
+    if (this.state.parentRevisionId) {
+      return `${this.wikiUrl()}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
+    }
+    return `${this.wikiUrl()}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
+  },
+
+  findParentOfFirstRevision() {
+    const wikiUrl = `https://${this.props.first_revision.wiki.language}.${this.props.first_revision.wiki.project}.org`;
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
+    const diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}&format=json`;
     $.ajax(
       {
         dataType: 'jsonp',
-        url: this.props.revision.api_url, // "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev",
+        url: diffUrl,
+        success: (data) => {
+          const revisionData = data.query.pages[this.props.first_revision.mw_page_id].revisions[0];
+          const parentRevisionId = revisionData.parentid;
+          this.setState({ parentRevisionId });
+          this.fetchDiff(this.diffUrl());
+        }
+      });
+  },
+
+  fetchDiff(diffUrl) {
+    $.ajax(
+      {
+        dataType: 'jsonp',
+        url: diffUrl,
         success: (data) => {
           const revisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
           this.setState({
@@ -64,12 +123,13 @@ const DiffViewer = React.createClass({
       diff = this.state.diff;
     }
 
+    const wikiDiffUrl = this.webDiffUrl();
     return (
       <div>
         {button}
         <div className={className}>
           <p>
-            <a className="button dark small" href={this.props.revision.url} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
+            <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
             {button}
           </p>
           <table>
