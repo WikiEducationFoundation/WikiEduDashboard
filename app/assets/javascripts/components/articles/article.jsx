@@ -1,5 +1,7 @@
 import React from 'react';
 import Wp10Graph from './wp10_graph.jsx';
+import UIStore from '../../stores/ui_store.js';
+import UIActions from '../../actions/ui_actions.js';
 
 const Article = React.createClass({
   displayName: 'Article',
@@ -8,8 +10,24 @@ const Article = React.createClass({
     article: React.PropTypes.object
   },
 
+  mixins: [UIStore.mixin],
+
+  getInitialState() {
+    return { is_open: false };
+  },
+
+  storeDidChange() {
+    return this.setState({ is_open: UIStore.getOpenKey() === (`drawer_${this.props.article.id}`) });
+  },
+
+  openDrawer() {
+    return UIActions.open(`drawer_${this.props.article.id}`);
+  },
+
   render() {
-    const className = 'article';
+    let className = 'article';
+    className += this.state.is_open ? ' open' : '';
+
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
@@ -21,7 +39,7 @@ const Article = React.createClass({
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
-      <tr className={className}>
+      <tr className={className} onClick={this.openDrawer}>
         <td className="tooltip-trigger desktop-only-tc">
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>

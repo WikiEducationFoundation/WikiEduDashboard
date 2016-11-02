@@ -3,6 +3,7 @@ import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
 import Article from './article.jsx';
+import ArticleDrawer from './article_drawer.jsx';
 import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -22,9 +23,21 @@ const ArticleList = React.createClass({
   },
 
   render() {
-    const elements = this.props.articles.map(article => {
+    const articles = this.props.articles.map(article => {
       return <Article article={article} key={article.id} {...this.props} />;
     });
+
+    const articleDrawers = this.props.articles.map(article => {
+      return (
+        <ArticleDrawer
+          article={article}
+          key={`${article.id}_drawer`}
+          ref={`${article.id}_drawer`}
+        />
+      );
+    });
+
+    let elements = _.flatten(_.zip(articles, articleDrawers));
 
     const keys = {
       rating_num: {
@@ -60,6 +73,7 @@ const ArticleList = React.createClass({
         keys={keys}
         sortable={true}
         table_key="articles"
+        className="table--expandable table--hoverable"
         none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
         store={ArticleStore}
       />
