@@ -7,6 +7,8 @@ const DiffViewer = React.createClass({
   // Diff viewer takes a main (final) revision, and optionally a first revision.
   // If a first revision is supplied, it fetches a diff from the parent of the
   // first revision all the way to the main revision.
+  // If there is no parent of the first revision — typically because it's the start
+  // of a new article — then it uses the first revision as the starting point.
   propTypes: {
     revision: React.PropTypes.object.isRequired,
     first_revision: React.PropTypes.object,
