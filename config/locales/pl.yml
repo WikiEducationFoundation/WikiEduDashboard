@@ -135,6 +135,8 @@ pl:
     class: Klasa
     date_time: Data/Czas
     diff: różn.
+    diff_show: Pokaż
+    diff_hide: Ukryj
     loading: Wczytywanie wersji...
     title: Tytuł
   timeline:

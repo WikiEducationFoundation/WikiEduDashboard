@@ -77,7 +77,9 @@ lb:
     milestones:
       title: Kilometersténg
   campaign:
+    campaign: Campagne
     none: Keng
+    programs: '%{title} Programmer'
   courses:
     activity: Aktivitéit
     archived: Archivéiert Coursen
@@ -192,6 +194,7 @@ lb:
       one: Fichier deen an Artikele benotzt gëtt
       other: Fichieren déi an Artikele  benotzt ginn
     word_count: Wierder derbäigesat
+    word_count_average: Duerchschnëttlech Zuel vu Wierder
   namespace:
     user: Benotzernummraum
     user_ns: Benotzer
@@ -208,11 +211,14 @@ lb:
   revisions:
     date_time: Datum/Zäit
     diff: Ënnerscheed
+    diff_show: Weisen
+    diff_hide: Verstoppen
     edited_by: Geännert Vum
     loading: Versioune lueden...
     none: Dëse Cours huet keng rezent Ännerungsaktivitéit.
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
+    view_on_wiki: Ënnerscheed op der Wiki weisen
   timeline:
     add_week: Woch dobäisetzen
     block_custom: Personaliséiert

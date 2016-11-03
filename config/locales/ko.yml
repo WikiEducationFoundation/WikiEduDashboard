@@ -96,6 +96,7 @@ ko:
       title: 이정표
   campaign:
     none: 없음
+    programs: '%{title} 프로그램'
   courses:
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!
@@ -242,9 +243,12 @@ ko:
     class: 클래스
     date_time: 날짜/시간
     diff: 차이
+    diff_show: 보기
+    diff_hide: 숨기기
     edited_by: '편집자:'
     loading: 판을 불러오는 중...
     title: 제목
+    view_on_wiki: 위키에서 차이 보기
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   timeline:

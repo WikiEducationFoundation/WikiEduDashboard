@@ -133,7 +133,9 @@ de:
     milestones:
       title: Meilensteine
   campaign:
+    campaign: Kampagne
     none: Keine
+    programs: Programme von %{title}
   courses:
     activity: Aktivität
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
@@ -393,6 +395,7 @@ de:
     view_count_description: Artikelaufrufe
     view: Aufrufe
     word_count: Hinzugefügte Wörter
+    word_count_average: Durchschnittliche Wortanzahl
   namespace:
     main: Hauptnamensraum
     main_char_added: Hauptnamensraum-Zeichen hinzugefügt
@@ -425,11 +428,14 @@ de:
     class: Klasse
     date_time: Datum/Uhrzeit
     diff: Unterschied
+    diff_show: Anzeigen
+    diff_hide: Ausblenden
     edited_by: Bearbeitet von
     loading: Lade Versionen …
     none: Dieser Kurs hat keine letzte Bearbeitungsaktivität.
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
+    view_on_wiki: Unterschied auf dem Wiki ansehen
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe

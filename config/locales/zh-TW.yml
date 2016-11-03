@@ -136,7 +136,7 @@ zh-TW:
       select_meeting_days: 選擇一週中上課的日子
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主名字空間的條目之總位元組數。（1中文字=3位元組）
-    campaigns: 同學：
+    campaigns: 同夥：
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。點擊一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程裡的活動章節將會隨著沒有上課的星期而調整。
@@ -234,7 +234,7 @@ zh-TW:
     student_editors: 學生編輯者
     students_none: 此課程尚未有學生。
     students_short: 學生
-    submitted_admin: 這個課程已經由創建者發佈開設申請。想要准許申請的話，請在概述頁添增一群學生。
+    submitted_admin: 這個課程已經由創建者發佈開設申請。想要准許申請的話，請在概述頁添增同夥。
     submitted_and_pending_heading: 已提交，待批閱
     submitted_heading: 已提交的課程。
     submitted_note: |-
@@ -253,7 +253,7 @@ zh-TW:
     unsubmitted: 尚未提交的課程。
     untrained: 未受訓
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
-    view_other: 查看其他同伴
+    view_other: 查看其他同夥
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
@@ -277,6 +277,7 @@ zh-TW:
     assignment_start: 時間軸起點
     cancel: 取消
     courses: 方案
+    campaigns: 同夥：
     creator:
       checking_for_uniqueness: 正在確認是否有重複的方案。
       clone_previous: 複製前一個方案
@@ -309,7 +310,7 @@ zh-TW:
     students_count: 參與者數量
     term: 於
     uploads_none: 此項目沒有提供任何圖像或媒體檔案至維基共享資源裡。
-    view_other: 檢視其它發起運動
+    view_other: 檢視其它同夥
     view_page: 檢視方案頁面
     word_count_doc: 一個由方案編輯者在方案學期期間增加至條目主空間的估計數量
   editable:

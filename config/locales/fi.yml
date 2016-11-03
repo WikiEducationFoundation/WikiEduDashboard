@@ -101,7 +101,7 @@ fi:
     title_example: Artikkelin nimi
     view: Näytä artikkeli
     view_all: Näytä kaikki
-    view_doc: Kaikkien artikkelien näyttökerrat kurssin ajalta
+    view_doc: Kaikkien artikkelien näyttökerrat projektin ajalta
     views_added: Lisätty %{count} uutta näyttökertaa artikkelille %{title}
     wp10: Rakenteellinen eheys
     wp10_doc: '''Rakenteellinen eheys'' -pisteytys kuvaa, kuinka hyvin artikkeli vastaa
@@ -136,6 +136,7 @@ fi:
     milestones:
       title: Virstanpylväät
   campaign:
+    campaign: Kampanja
     none: Ei mitään
   courses:
     activity: Toiminta
@@ -154,6 +155,7 @@ fi:
       legend_class_meeting: Ryhmän tapaaminen
       legend_class_not_meeting: Ei suunnitelua tapaamista
       select_meeting_days: Valitse viikonpäivät, jolloin ryhmä kokoontuu.
+    cancel: Peruuta
     character_doc: Osallistujien kurssin aikana päänimiavaruuteen lisäämien merkkien
       yhteenlaskettu määrä.
     campaigns: 'Joukot:'
@@ -175,6 +177,8 @@ fi:
       assignment_start: Tehtävä alkaa
       assignment_start_placeholder: Tehtävän aloitus (VVVV-KK-PP)
       checking_for_uniqueness: Kurssin ainutkertaisuutta tarkistetaan.
+      clone_previous: Kopioi edellinen projekti
+      clone_this: Kopioi tämä projekti
       cloned_course_calendar_instructions: Valitse päivämäärät, jotka haluat poistaa
         tai lisätä kalenterista (esim. lomat). Klikkaa päivämäärää vaihtaaksesi eri
         tilojen välillä (valitsematon, valittu ja loma). Jos kurssilla ei ole lomia,
@@ -266,15 +270,18 @@ fi:
     student_editors: Opiskelijamuokkaajat
     students_none: Tällä kurssilla ei ole opiskelijoita.
     students_short: Opiskelijat
-    submitted_admin: Kurssin luoja on lähettänyt tämän kurssin hyväksyttäväksi. Hyväksyäsi
-      sen, lisää se johonkin joukkoon yleiskatsaussivulla.
+    submitted_admin: Projektin luoja on lähettänyt tämän kurssin hyväksyttäväksi.
+      Hyväksyäsi sen, lisää se johonkin kampanjaan yleiskatsaussivulla.
     submitted_and_pending_heading: Lähetetty & odottaa hyväksyntää
     submitted_heading: Lisätyt kurssit
     submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
       mikäli kysyttävää ilmenee.
+    user_role: Rooli
+    course_details: Tiedot projektille
     term: Lukukausi
     timeline: Tehtävän tiedot
     timeline_link: Aikajana
+    time_zone_message: Aloitus- ja lopetusajat näkyvät paikallisessa ajassa.
     title: Otsikko
     training_due: Kurssin tehtäväksi on lisätty harjoitusmoduuli "%{title}", ja sen
       viimeinen suorituspäivä on %{date}.
@@ -285,6 +292,7 @@ fi:
     untrained: Harjoittelematon
     uploads_none: Ryhmä ei ole tallentanut kuvia tai muita mediatiedostoja Wikimedia
       Commonsiin.
+    view_other: Selaa muita kampanjoita
     view: Näytä kurssi
     view_doc: Yhteenlasketut näyttökerrat kaikille osallistujien muokkaamille artikkeleille,
       alkaen heidän ensimmäisistä artikkeleihin tekemistä muutoksista.
@@ -310,9 +318,13 @@ fi:
     assignment_end: Aikajanan loppu
     assignments_none: Tällä projektilla ei ole tehtäväksi annettuja artikkeleita.
     assignment_start: Aikajanan alku
+    cancel: Peruuta
     courses: Ohjelmat
+    campaigns: 'Kampanjat:'
     creator:
       checking_for_uniqueness: Ohjelman ainutkertaisuutta tarkistetaan.
+      clone_previous: Kopioi edellinen Ohjelma
+      clone_this: Kopioi tämä ohjelma
       course_description: Ohjelman kuvaus
       course_school: Instituutio
       course_title: Ohjelman nimi
@@ -323,11 +335,14 @@ fi:
       find: Etsi ohjelma
       intro: Ohjelman nimi vaaditaan, kaiken muun voi täydentää myöhemmin. Klikkaa
         "Luo oma ohjelma" aloittaaksesi wikiohjelmasi sivun täydentämisen.
+    delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
     enroll: Lisää muokkaaja
     enrollment: Osallistuminen
     expected_students: Odotetut muokkaajat
     instructors: Järjestäjät
+    join_course: Liity ohjelmaan
+    leave_course: Jätä ohjelma
     milestones_none: Tällä ohjelmalla ei ole virstanpylväitä toistaiseksi.
     published: 'Ohjelma on julkaistu! Muokkaajat voivat ilmoittautua seuraavan linkin
       kautta:'
@@ -338,9 +353,14 @@ fi:
     students: Muokkaajat
     students_none: Tähän projektiin ei ole ilmoittautunut yksikään muokkaaja.
     students_short: Muokkaajat
+    students_count: Osallistujien määrä
     term: Päiväys
     uploads_none: Tämä projekti ei ole tuottanut yhtään kuvaa tai muuta mediatiedostoa
       Wikimedia Commonsiin.
+    view_other: Selaa muita kampanjoita
+    view_page: Näytä ohjelmasivu
+    word_count_doc: Osallistujien lisäämien sanojen arvioitu lukumäärä päänimiavaruuden
+      artikkeleihin lukukauden ajalta.
   editable:
     edit: Muokkaa
     cancel: Peruuta
@@ -368,6 +388,7 @@ fi:
     view_count_description: Artikkelin näyttökerrat
     view: Näyttökerrat
     word_count: Lisätyt sanat
+    word_count_average: Keskimääräinen sanamäärä
   namespace:
     main: Päänimiavaruus
     main_char_added: Päänimiavaruuteen lisätyt merkit
@@ -533,6 +554,13 @@ fi:
     up_to_date_with_training: on suorittanut harjoituksen
     username: Käyttäjätunnus
     username_placeholder: Käyttäjätunnus
+    role:
+      visitor: Vierailija
+      student: Opiskelija
+      instructor: Ohjaaja
+      campus_volunteer: Vapaaehtoinen kampuksella
+      online_volunteer: Vapaaehtoinen verkossa
+      wiki_ed_staff: Wiki Ed -henkilökunta
   wiki_edits:
     notify_overdue:
       confirm: Tämä lähettää muistutusviestin kaikille niille osallistujille, jotka

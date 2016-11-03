@@ -179,14 +179,15 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
-    none: |-
-      Option for a course with no campaign
-      {{Identical|None}}
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}
+    none: |-
+      Option for a course with no campaign
+      {{Identical|None}}
     programs: |-
       The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Program}}
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
@@ -492,6 +493,8 @@ qqq:
       {{Identical|Class}}
     date_time: Label for date and time of revision
     diff: '{{Identical|Diff}}'
+    diff_show: '{{Identical|Show}}'
+    diff_hide: '{{Identical|Hide}}'
     edited_by: Label for author of the last edition
     loading: Message about loading revisions
     none: Message stating there's no editing activity

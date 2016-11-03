@@ -146,7 +146,9 @@ fr:
     milestones:
       title: Jalons
   campaign:
+    campaign: Campagne
     none: Aucun
+    programs: Programmes de %{title}
   courses:
     activity: Activité
     already_enrolled: Vous faites déjà partie de '%{title}' !
@@ -289,7 +291,7 @@ fr:
     students_none: Ce cours n’a aucun étudiant.
     students_short: Étudiants
     submitted_admin: Ce cours a été soumis à approbation par son créateur. Pour l’approuver,
-      l’ajouter à une campaigne sur la page de Présentation.
+      l’ajouter à une campagne sur la page de présentation.
     submitted_and_pending_heading: Soumis et en attente d’approbation
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
@@ -406,6 +408,7 @@ fr:
     view_count_description: Articles vus
     view: Vues
     word_count: Mots ajoutés
+    word_count_average: Nombre moyen de mots
   namespace:
     main: Espace principal
     main_char_added: Caractères ajoutés à l’espace principal
@@ -437,11 +440,14 @@ fr:
     class: Classe
     date_time: Date/Heure
     diff: Différence
+    diff_show: Afficher
+    diff_hide: Masquer
     edited_by: Modifié par
     loading: Chargement des révisions…
     none: Ce cours n’a pas été récemment modifié.
     time_doc: Le temps de chaque révision à votre heure locale.
     title: Titre
+    view_on_wiki: Afficher la différence sur le wiki
   tasks:
     conseq: La tâche %{task} tourne déjà !
     constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily
@@ -613,6 +619,8 @@ fr:
       ajuster vos dates de début et de fin de tâche si vous voulez utiliser ce type
       de tâche.
     select_one_option: Veuillez sélectionner 1 option
+    minimum_options:
+      one: Veuillez sélectionner au moins %{count} options.
     read_less: Lire moins
     read_more: Lire plus
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier

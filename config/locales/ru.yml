@@ -6,6 +6,7 @@
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
+# Author: Kareyac
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
@@ -91,7 +92,9 @@ ru:
     milestones:
       title: Этапы
   campaign:
+    campaign: Кампания
     none: Нет
+    programs: '% {title} программы'
   courses:
     activity: Деятельность
     actions: Действия
@@ -99,6 +102,7 @@ ru:
     cancel: Отмена
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
+    campaigns: Кампании
     course_description: Курсы
     courses: Курсы
     creation_date: Дата создания
@@ -143,6 +147,7 @@ ru:
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
     title: Заголовок
+    view_other: Посмотреть другие кампании
     view: Просмотр курса
     view_doc: Сумма всех просмотров статей, изменённых студентами с момента их первой
       правки каждой статьи.
@@ -156,6 +161,7 @@ ru:
     yourcourses: Ваши курсы
   courses_generic:
     cancel: Отмена
+    campaigns: Кампании
     creator:
       course_school: Учреждение
       course_title: Название программы
@@ -185,6 +191,7 @@ ru:
     revisions: Последние правки
     view_count_description: Просмотров статей
     view: Просмотров
+    word_count_average: Среднее количество слов
   namespace:
     main: Основное пространство
     main_char_added: Добавлено символов в основном пространстве

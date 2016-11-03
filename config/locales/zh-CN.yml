@@ -118,7 +118,9 @@ zh-CN:
     milestones:
       title: 里程碑
   campaign:
+    campaign: 运动
     none: 无
+    programs: '%{title}程序'
   courses:
     activity: 活动
     already_enrolled: 您已经是“%{title}”的一部分！
@@ -334,6 +336,7 @@ zh-CN:
     view_count_description: 条目查阅
     view: 查看
     word_count: 添加的文字
+    word_count_average: 平均字数
   namespace:
     main: 主名字空间
     main_char_added: 主名字空间字符已添加
@@ -365,11 +368,14 @@ zh-CN:
     class: 等级
     date_time: 日期/时间
     diff: 差异
+    diff_show: 显示
+    diff_hide: 隐藏
     edited_by: 编辑者
     loading: 正在加载修订……
     none: 此课程没有最近编辑活动。
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
+    view_on_wiki: 在wiki上查看差异
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。
@@ -541,6 +547,7 @@ zh-CN:
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
   survey:
     login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
+    notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。
     notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。
     follow_up_explanation: 如果不要求跟随电子邮件通知则留空。
     email:

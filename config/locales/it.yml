@@ -118,7 +118,9 @@ it:
     review_self: Revisiona una voce
     select: Seleziona
   campaign:
+    campaign: Campagna
     none: Nessuno
+    programs: Programmi %{title}
   courses:
     activity: Attività
     already_enrolled: Fai già parte di '%{title}'!
@@ -350,6 +352,7 @@ it:
     view_count_description: Visite alla voce
     view: Visualizzazioni
     word_count: Parole aggiunte
+    word_count_average: Conteggio medio parole
   namespace:
     main: Ambiente principale
     main_char_added: Caratteri aggiunti namespace principale

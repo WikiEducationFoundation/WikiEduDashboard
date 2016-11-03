@@ -60,6 +60,8 @@ sv:
   blocks:
     milestones:
       title: Milstolpar
+  campaign:
+    none: Ingen
   courses:
     activity: Aktivitet
     actions: Åtgärder
@@ -69,6 +71,7 @@ sv:
       legend_class_meeting: Klassmöte
       legend_class_not_meeting: Inget schemalagt möte
     cancel: Avbryt
+    campaigns: 'Kampanjer:'
     course_description: Kurser
     courses: Kurser
     creator:
@@ -130,7 +133,9 @@ sv:
     user_role: Roll
     course_details: Kursdetaljer för
     timeline_link: Tidslinje
+    time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
+    view_other: Visa andra kampanjer
     view_wiki: Se på Wikipedia
     volunteer:
       other: en=Volontär

@@ -1,4 +1,4 @@
-# Messages for Bengali (বাংলা)
+# Messages for Bangla (বাংলা)
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aftabuzzaman
@@ -50,7 +50,9 @@ bn:
   assignments:
     reviewers: নিরীক্ষক(গণ)
   campaign:
+    campaign: প্রচারাভিযান
     none: কোনটিই নয়
+    programs: '%{title} প্রোগ্রামগুলি'
   courses:
     articles: নিবন্ধসমূহ
     cancel: বাতিল
@@ -106,6 +108,7 @@ bn:
     edit_count_description: মোট সম্পাদনা
     revisions: সাম্প্রতিক সম্পাদনাসমূহ
     word_count: যুক্ত শব্দসমূহ
+    word_count_average: গড় শব্দ গণনা
   namespace:
     main: নামস্থান
     user: ব্যবহারকারীস্থান
@@ -113,7 +116,10 @@ bn:
   revisions:
     date_time: তারিখ/সময়
     diff: পার্থক্য
+    diff_show: দেখাও
+    diff_hide: আড়াল করো
     title: শিরোনাম
+    view_on_wiki: উইকিতে পার্থক্য দেখুন
   timeline:
     no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
   training:
