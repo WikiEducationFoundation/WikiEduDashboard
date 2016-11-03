@@ -3,7 +3,7 @@
 
 import McFly from 'mcfly';
 const Flux = new McFly();
-import CourseStore from './course_store.coffee';
+import CourseStore from './course_store.js';
 import ServerActions from '../actions/server_actions.js';
 
 // Data

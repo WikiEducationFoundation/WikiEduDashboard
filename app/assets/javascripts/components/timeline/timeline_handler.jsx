@@ -10,7 +10,7 @@ import CourseDateUtils from '../../utils/course_date_utils.coffee';
 import ServerActions from '../../actions/server_actions.js';
 import TimelineActions from '../../actions/timeline_actions.js';
 
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import WeekStore from '../../stores/week_store.coffee';
 import BlockStore from '../../stores/block_store.coffee';
 import GradeableStore from '../../stores/gradeable_store.coffee';

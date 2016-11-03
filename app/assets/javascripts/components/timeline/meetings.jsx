@@ -3,7 +3,7 @@ import CourseLink from '../common/course_link.jsx';
 import Calendar from '../common/calendar.jsx';
 import Modal from '../common/modal.jsx';
 import DatePicker from '../common/date_picker.jsx';
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import ValidationStore from '../../stores/validation_store.coffee';
 import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.coffee';

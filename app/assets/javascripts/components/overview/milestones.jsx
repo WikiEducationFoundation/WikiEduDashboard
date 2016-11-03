@@ -1,7 +1,7 @@
 import React from 'react';
 import BlockStore from '../../stores/block_store.coffee';
 import WeekStore from '../../stores/week_store.coffee';
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 const md = require('../../utils/markdown_it.js').default();
 
 const getState = () =>

@@ -5,7 +5,7 @@ import Description from './description.jsx';
 import Milestones from './milestones.jsx';
 import Details from './details.jsx';
 import ThisWeek from './this_week.jsx';
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.coffee';
 import ServerActions from '../../actions/server_actions.js';

@@ -2,7 +2,7 @@ React         = require 'react'
 ReactDOM      = require 'react-dom'
 Modal         = require('../common/modal.jsx').default
 
-CourseStore        = require '../../stores/course_store.coffee'
+CourseStore        = require '../../stores/course_store.js'
 ValidationStore    = require '../../stores/validation_store.coffee'
 ValidationActions  = require('../../actions/validation_actions.js').default
 
