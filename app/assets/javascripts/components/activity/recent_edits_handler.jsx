@@ -1,5 +1,5 @@
 import React from 'react';
-import RecentEditsStore from '../../stores/recent_edits_store.coffee';
+import RecentEditsStore from '../../stores/recent_edits_store.js';
 import ActivityTable from './activity_table.jsx';
 import ServerActions from '../../actions/server_actions.js';
 

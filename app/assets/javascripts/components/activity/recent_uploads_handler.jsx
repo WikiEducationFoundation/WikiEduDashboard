@@ -1,5 +1,5 @@
 import React from 'react';
-import RecentUploadsStore from '../../stores/recent_uploads_store.coffee';
+import RecentUploadsStore from '../../stores/recent_uploads_store.js';
 import UploadTable from './upload_table.jsx';
 import ServerActions from '../../actions/server_actions.js';
 
