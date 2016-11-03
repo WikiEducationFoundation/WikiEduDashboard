@@ -61,7 +61,7 @@ const Article = React.createClass({
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
-        <td></td>
+        <td><button onClick={this.buttonClick} className="icon icon-arrow table-expandable-indicator" ></button></td>
       </tr>
     );
   }
