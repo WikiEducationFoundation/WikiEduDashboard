@@ -1,5 +1,4 @@
 import React from 'react';
-import Wp10Graph from './wp10_graph.jsx';
 import UIStore from '../../stores/ui_store.js';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
@@ -49,9 +48,6 @@ const Article = React.createClass({
           <div className="tooltip dark">
             <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`)}</p>
           </div>
-        </td>
-        <td className="desktop-only-tc">
-          <Wp10Graph article={this.props.article} />
         </td>
         <td>
           <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>

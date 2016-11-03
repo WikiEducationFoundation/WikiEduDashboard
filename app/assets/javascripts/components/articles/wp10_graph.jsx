@@ -1,5 +1,6 @@
 /* global vg */
 import React from 'react';
+import OnClickOutside from 'react-onclickoutside';
 
 const Wp10Graph = React.createClass({
   displayName: 'Wp10Graph',
@@ -21,6 +22,10 @@ const Wp10Graph = React.createClass({
 
   hideGraph() {
     this.setState({ showGraph: false });
+  },
+
+  handleClickOutside() {
+    this.hideGraph();
   },
 
   graphId() {
@@ -227,7 +232,7 @@ const Wp10Graph = React.createClass({
       button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
     } else {
       style = ' hidden';
-      button = <button onClick={this.showGraph} className="button dark">Show graph</button>;
+      button = <button onClick={this.showGraph} className="button dark">Show Structural Completeness</button>;
     }
     const className = `vega-graph ${style}`;
     return (
@@ -239,4 +244,4 @@ const Wp10Graph = React.createClass({
   }
 });
 
-export default Wp10Graph;
+export default OnClickOutside(Wp10Graph);

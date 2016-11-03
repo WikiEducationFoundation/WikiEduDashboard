@@ -9,13 +9,30 @@ const DiffViewer = React.createClass({
   // first revision all the way to the main revision.
   propTypes: {
     revision: React.PropTypes.object.isRequired,
-    first_revision: React.PropTypes.object
+    first_revision: React.PropTypes.object,
+    showButtonLabel: React.PropTypes.string,
+    hideButtonLabel: React.PropTypes.string,
+    largeButton: React.PropTypes.bool
   },
 
   getInitialState() {
     return {
       showDiff: false
     };
+  },
+
+  showButtonLabel() {
+    if (this.props.showButtonLabel) {
+      return this.props.showButtonLabel;
+    }
+    return I18n.t('revisions.diff_show');
+  },
+
+  hideButtonLabel() {
+    if (this.props.hideButtonLabel) {
+      return this.props.hideButtonLabel;
+    }
+    return I18n.t('revisions.diff_hide');
   },
 
   showDiff() {
@@ -104,10 +121,17 @@ const DiffViewer = React.createClass({
 
   render() {
     let button;
-    if (this.state.showDiff) {
-      button = <button onClick={this.hideDiff} className="button dark small">{I18n.t('revisions.diff_hide')}</button>;
+    let showButtonStyle;
+    if (this.props.largeButton) {
+      showButtonStyle = 'button dark';
     } else {
-      button = <button onClick={this.showDiff} className="button dark small">{I18n.t('revisions.diff_show')}</button>;
+      showButtonStyle = 'button dark small';
+    }
+
+    if (this.state.showDiff) {
+      button = <button onClick={this.hideDiff} className="button dark small">{this.hideButtonLabel()}</button>;
+    } else {
+      button = <button onClick={this.showDiff} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
 
     let style = 'hidden';
@@ -133,7 +157,7 @@ const DiffViewer = React.createClass({
             {button}
           </p>
           <table>
-            <thead><tr><th colSpan="4"><p className="diff-comment">{this.state.comment}</p></th></tr></thead>
+            <thead><tr><th colSpan="4" className="diff-header"><p className="diff-comment">{this.state.comment}</p></th></tr></thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
           </table>
         </div>
