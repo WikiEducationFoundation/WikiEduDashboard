@@ -72,6 +72,8 @@ const DiffViewer = React.createClass({
     let diffUrl;
     if (this.state.parentRevisionId) {
       diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
+    } else if (this.props.first_revision) {
+      diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
     } else {
       diffUrl = `${queryBase}&revids=${this.props.revision.mw_rev_id}&rvdiffto=prev&format=json`;
     }
@@ -82,6 +84,8 @@ const DiffViewer = React.createClass({
   webDiffUrl() {
     if (this.state.parentRevisionId) {
       return `${this.wikiUrl()}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
+    } else if (this.props.first_revision) {
+      return `${this.wikiUrl()}/w/index.php?oldid=${this.props.first_revision.mw_rev_id}&diff=${this.props.revision.mw_rev_id}`;
     }
     return `${this.wikiUrl()}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
   },

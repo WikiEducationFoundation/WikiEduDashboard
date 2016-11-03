@@ -126,6 +126,7 @@ en:
       stub: Stub-class — a short beginning of an article that needs more content
       list: List-class — a list rather than a conventional article
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
+    show_cumulative_changes: Show Cumulative Changes
     title: Title
     title_example: Article title
     view: View Article

@@ -44,18 +44,13 @@ const ArticleDrawer = React.createClass({
         <DiffViewer
           revision={this.state.articleDetails.last_revision}
           first_revision={this.state.articleDetails.first_revision}
-          showButtonLabel="Show Cumulative Changes"
+          showButtonLabel={I18n.t('articles.show_cumulative_changes')}
           largeButton={true}
         />
       );
+    } else {
+      diffViewer = <button className="button dark">{I18n.t('articles.show_cumulative_changes')}</button>;
     }
-
-    // structural_completeness: {
-    //   label: I18n.t('articles.wp10'),
-    //   desktop_only: true,
-    //   info_key: 'articles.wp10_doc',
-    //   sortable: false
-    // },
 
     return (
       <tr className={className}>
