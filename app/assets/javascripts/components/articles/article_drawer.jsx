@@ -2,7 +2,7 @@ import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 
-const getArticleDetails = () => ArticleDetailsStore.getModels();
+const getArticleDetails = () => ArticleDetailsStore.getArticleDetails();
 
 const ArticleDrawer = React.createClass({
   displayName: 'ArticleDrawer',

@@ -1,8 +1,29 @@
-import StockStore from './stock_store.coffee';
+import McFly from 'mcfly';
+const Flux = new McFly();
 
-const ArticleDetailsStore = new StockStore({
-  modelKey: 'article_details'
-}
-);
+let _articleDetails = {};
 
-export default ArticleDetailsStore.store;
+const setDetails = function (data) {
+  return _articleDetails = data.article_details;
+};
+
+const storeMethods = {
+  getArticleDetails() {
+    return _articleDetails;
+  }
+};
+
+const ArticleDetailsStore = Flux.createStore(storeMethods, (payload) => {
+  const { data } = payload;
+  switch (payload.actionType) {
+    case 'RECEIVE_ARTICLE_DETAILS':
+      setDetails(data);
+      return ArticleDetailsStore.emitChange();
+    default:
+      // no default
+  }
+});
+
+ArticleDetailsStore.setMaxListeners(0);
+
+export default ArticleDetailsStore;
