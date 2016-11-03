@@ -24,6 +24,11 @@ const ArticleDetailsStore = Flux.createStore(storeMethods, (payload) => {
   }
 });
 
+ArticleDetailsStore.clear = function () {
+  _articleDetails = {};
+  return ArticleDetailsStore.emitChange();
+};
+
 ArticleDetailsStore.setMaxListeners(0);
 
 export default ArticleDetailsStore;
