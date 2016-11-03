@@ -2,12 +2,15 @@ import React from 'react';
 import Wp10Graph from './wp10_graph.jsx';
 import UIStore from '../../stores/ui_store.js';
 import UIActions from '../../actions/ui_actions.js';
+import ServerActions from '../../actions/server_actions.js';
+import ArticleDetailsStore from '../../stores/article_details_store.js';
 
 const Article = React.createClass({
   displayName: 'Article',
 
   propTypes: {
-    article: React.PropTypes.object
+    article: React.PropTypes.object,
+    course: React.PropTypes.object
   },
 
   mixins: [UIStore.mixin],
@@ -21,6 +24,8 @@ const Article = React.createClass({
   },
 
   openDrawer() {
+    ArticleDetailsStore.clear();
+    ServerActions.fetchArticleDetails(this.props.article.id, this.props.course.id);
     return UIActions.open(`drawer_${this.props.article.id}`);
   },
 

@@ -31,6 +31,7 @@ const ArticleList = React.createClass({
       return (
         <ArticleDrawer
           article={article}
+          course={this.props.course}
           key={`${article.id}_drawer`}
           ref={`${article.id}_drawer`}
         />

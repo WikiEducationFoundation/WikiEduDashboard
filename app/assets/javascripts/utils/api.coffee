@@ -60,6 +60,18 @@ API =
         logErrorMessage(obj)
         rej obj
 
+  fetchArticleDetails: (articleId, courseId) ->
+    new Promise (res, rej) ->
+      url = "/articles/details.json?article_id=#{articleId}&course_id=#{courseId}"
+      $.ajax
+        type: 'GET',
+        url: url
+        success: (data) ->
+          res data
+      .fail (obj, status) ->
+        logErrorMessage(obj)
+        rej obj
+
   fetchDykArticles: (opts={}) ->
     new Promise (res, rej) ->
       $.ajax

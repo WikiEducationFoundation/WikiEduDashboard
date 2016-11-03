@@ -1,5 +1,8 @@
 import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
+import ArticleDetailsStore from '../../stores/article_details_store.js';
+
+const getArticleDetails = () => ArticleDetailsStore.getModels();
 
 const ArticleDrawer = React.createClass({
   displayName: 'ArticleDrawer',
@@ -9,8 +12,22 @@ const ArticleDrawer = React.createClass({
     is_open: React.PropTypes.bool
   },
 
+  mixins: [ArticleDetailsStore.mixin],
+
+  getInitialState() {
+    return {
+      articleDetails: getArticleDetails()
+    };
+  },
+
   getKey() {
     return `drawer_${this.props.article.id}`;
+  },
+
+  storeDidChange() {
+    return this.setState({
+      articleDetails: getArticleDetails()
+    });
   },
 
   render() {

@@ -77,7 +77,8 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
-  get 'articles/:article_id' => 'articles#wp10'
+  get 'articles/wp10' => 'articles#wp10'
+  get 'articles/details' => 'articles#details'
 
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create]

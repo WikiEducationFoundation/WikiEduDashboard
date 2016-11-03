@@ -95,7 +95,7 @@ const Wp10Graph = React.createClass({
       data: [
         {
           name: 'wp10_scores',
-          url: `/articles/${articleId}.json`,
+          url: `/articles/wp10.json?article_id=${articleId}`,
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
