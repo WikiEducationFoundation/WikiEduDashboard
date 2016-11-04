@@ -1,6 +1,7 @@
 import React from 'react';
 import Week from '../timeline/week.cjsx';
 import DateUtils from '../../utils/course_date_utils.coffee';
+import { Link } from 'react-router';
 
 const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;
@@ -86,10 +87,13 @@ const ThisWeek = React.createClass({
       );
     }
 
+    const timelineUrl = `/courses/${this.props.course.slug}/timeline`;
+
     return (
       <div className="module course__this-week">
         <div className="section-header">
           <h3>{title || I18n.t('timeline.this_week_title_default')}</h3>
+          <Link to={timelineUrl} className="pull-right button ghost-button block__edit-block" >{I18n.t('timeline.view_full_timeline')}</Link>
         </div>
         <ul className="list-unstyled">
           {weekComponent}
