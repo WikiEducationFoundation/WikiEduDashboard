@@ -8,6 +8,7 @@ const getState = () =>
   ({
     contentExperts: UserStore.getFiltered({ content_expert: true, role: 4 }),
     programManagers: UserStore.getFiltered({ program_manager: true, role: 4 }),
+    staffUsers: UserStore.getFiltered({ role: 4 }),
     alertSubmitting: AlertsStore.getNeedHelpAlertSubmitting(),
     alertCreated: AlertsStore.getNeedHelpAlertSubmitted()
   })
@@ -82,43 +83,78 @@ const GetHelpButton = React.createClass({
     AlertActions.submitNeedHelpAlert(messageData);
   },
 
+  wikipediaHelpUser() {
+    if (this.state.contentExperts.length > 0) {
+      return this.state.contentExperts[0];
+    } else if (this.state.programManagers.length > 0) {
+      return this.state.programExperts[0];
+    }
+    return this.state.staffUsers[0];
+  },
+
+  programHelpUser() {
+    if (this.state.programManagers.length > 0) {
+      return this.state.programManagers[0];
+    } else if (this.state.contentExperts.length > 0) {
+      return this.state.contentExperts[0];
+    }
+    return this.state.staffUsers[0];
+  },
+
+  dashboardHelpUser() {
+    return { username: 'Technical help staff' };
+  },
+
   render() {
-    let programManagers;
-    let contentExperts;
-    let targetUsers;
     let content;
     let faqLink;
 
-    contentExperts = this.state.contentExperts.map((user) => {
-      return (
-        <span className="content-experts" key={`${user.username}-content-expert`}>
-          <a href="#" className="content-expert-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Content Expert)
+    let wikipediaHelpButton;
+    if (this.state.staffUsers.length > 0) {
+      const wikipediaHelpUser = this.wikipediaHelpUser();
+      wikipediaHelpButton = (
+        <span className="content-experts" key={`${wikipediaHelpUser.username}-content-expert`}>
+          <a href="#" className="content-expert-link button dark small stacked" onClick={(e) => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
           <br />
         </span>
       );
-    });
-
-    if (this.props.current_user.role > 0) {
-      programManagers = this.state.programManagers.map((user) => {
-        return (
-          <span className="program-managers" key={`${user.username}-program-manager`}>
-            <a href="#" className="program-manager-link" onClick={(e) => this.updateTargetUser(user, e)}>{user.username}</a> (Program Manager)
-            <br />
-          </span>
-        );
-      });
-    } else {
-      programManagers = [];
     }
 
-    if (programManagers.length > 0 || contentExperts.length > 0) {
-      targetUsers = (
-        <p className="target-users">
-          If you still need help, reach out to the appropriate person:
+    let programHelpButton;
+    if (this.state.staffUsers.length > 0) {
+      const programHelpUser = this.programHelpUser();
+      programHelpButton = (
+        <span className="program-managers" key={`${programHelpUser.username}-program-managers`}>
+          <a href="#" className="program-manager-link button dark stacked small" onClick={(e) => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
           <br />
-          {contentExperts}
-          {programManagers}
-        </p>
+        </span>
+      );
+    }
+
+    let dashboardHelpButton;
+    if (this.state.staffUsers.length > 0) {
+      const dashboardHelpUser = this.dashboardHelpUser();
+      dashboardHelpButton = (
+        <span className="program-managers" key={`${dashboardHelpUser.username}-program-managers`}>
+          <a href="#" className="program-manager-link button dark stacked small" onClick={(e) => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
+          <br />
+        </span>
+      );
+    }
+
+    let contactStaff;
+    if (wikipediaHelpButton || programHelpButton || dashboardHelpButton) {
+      contactStaff = (
+        <div>
+          <hr />
+          <p className="target-users">
+            Still need help? Get in touch with Wiki Ed staff if you have a:
+            <br />
+            {wikipediaHelpButton}
+            {programHelpButton}
+            {dashboardHelpButton}
+          </p>
+        </div>
       );
     }
 
@@ -158,11 +194,11 @@ const GetHelpButton = React.createClass({
     } else {
       if (this.props.current_user.role > 0) {
         faqLink = (
-          <a href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">FAQ</a>
+          <a className="button dark stacked" href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
         );
       } else {
         faqLink = (
-          <a href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">FAQ</a>
+          <a className="button dark stacked" href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">Student FAQ</a>
         );
       }
 
@@ -170,7 +206,7 @@ const GetHelpButton = React.createClass({
         <div className="get-help-info">
           <p>
             <strong>
-              Hi, if you need help with your Wikipedia assignment, you've come
+              Hi! if you need help with your Wikipedia assignment, you've come
               to the right place!
             </strong>
           </p>
@@ -190,11 +226,11 @@ const GetHelpButton = React.createClass({
           </p>
 
           <p>
-            <a href="/training" target="blank">Interactive Training</a><br />
+            <a className="button dark" href="/training" target="blank">Interactive Training</a><br />
             {faqLink}
           </p>
 
-          {targetUsers}
+          {contactStaff}
         </div>
       );
     }
