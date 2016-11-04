@@ -12,6 +12,11 @@ GetHelpButton.__Rewire__('UserStore', {
     if (JSON.stringify(args) === JSON.stringify({ program_manager: true, role: 4 })) {
       return [{ email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
     }
+
+    if (JSON.stringify(args) === JSON.stringify({ role: 4 })) {
+      return [{ email: 'expert@wikiedu.org', username: 'Wiki Expert' },
+              { email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
+    }
   }
 });
 
@@ -64,7 +69,7 @@ describe('GetHelpButton', () => {
     });
 
     it('should switch to form', (done) => {
-      const expertLink = popContainer.querySelectorAll('.content-expert-link')[0];
+      const expertLink = popContainer.querySelectorAll('.wikipedia-help-link')[0];
       expect(ReactTestUtils.isDOMComponent(expertLink)).to.eq(true);
       ReactTestUtils.Simulate.click(expertLink);
       setImmediate(() => {
@@ -84,11 +89,11 @@ describe('GetHelpButton', () => {
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
 
-    it('lists the both program manager and content expert', () => {
-      const contentExperts = popContainer.querySelectorAll('.content-experts');
-      const programManagers = popContainer.querySelectorAll('.program-managers');
-      expect(contentExperts[0].textContent).to.eq('Wiki Expert (Content Expert)');
-      expect(programManagers[0].textContent).to.eq('Wiki Manager (Program Manager)');
+    it('lists the both wikipedia help and program help', () => {
+      const wikipediaHelp = popContainer.querySelector('.contact-wikipedia-help');
+      const programHelp = popContainer.querySelector('.contact-program-help');
+      expect(wikipediaHelp.textContent).to.eq('question about editing Wikipedia');
+      expect(programHelp.textContent).to.eq('question about Wiki Ed or your assignment');
     });
   });
 
@@ -102,9 +107,9 @@ describe('GetHelpButton', () => {
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
 
     it('only lists the content expert', () => {
-      const contentExperts = popContainer.querySelectorAll('.content-experts');
-      expect(contentExperts[0].textContent).to.eq('Wiki Expert (Content Expert)');
-      expect(popContainer.querySelectorAll('.program-managers').length).to.eq(0);
+      const contentExperts = popContainer.querySelector('.contact-wikipedia-help');
+      expect(contentExperts.textContent).to.eq('question about editing Wikipedia');
+      expect(popContainer.querySelectorAll('.contact-program-help').length).to.eq(0);
     });
   });
 });

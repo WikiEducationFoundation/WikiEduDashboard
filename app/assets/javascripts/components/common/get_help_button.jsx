@@ -84,18 +84,18 @@ const GetHelpButton = React.createClass({
   },
 
   wikipediaHelpUser() {
-    if (this.state.contentExperts.length > 0) {
+    if (this.state.contentExperts && this.state.contentExperts.length > 0) {
       return this.state.contentExperts[0];
-    } else if (this.state.programManagers.length > 0) {
-      return this.state.programExperts[0];
+    } else if (this.state.programManagers && this.state.programManagers.length > 0) {
+      return this.state.programManagers[0];
     }
     return this.state.staffUsers[0];
   },
 
   programHelpUser() {
-    if (this.state.programManagers.length > 0) {
+    if (this.state.programManagers && this.state.programManagers.length > 0) {
       return this.state.programManagers[0];
-    } else if (this.state.contentExperts.length > 0) {
+    } else if (this.state.contentExperts && this.state.contentExperts.length > 0) {
       return this.state.contentExperts[0];
     }
     return this.state.staffUsers[0];
@@ -110,33 +110,36 @@ const GetHelpButton = React.createClass({
     let faqLink;
 
     let wikipediaHelpButton;
-    if (this.state.staffUsers.length > 0) {
+    let programHelpButton;
+    let dashboardHelpButton;
+
+    // Only show these contact buttons if there are staff assigned to the course.
+    if (this.state.staffUsers && this.state.staffUsers.length > 0) {
+      // Show the Wikipedia help button to everyone.
       const wikipediaHelpUser = this.wikipediaHelpUser();
       wikipediaHelpButton = (
-        <span className="content-experts" key={`${wikipediaHelpUser.username}-content-expert`}>
-          <a href="#" className="content-expert-link button dark small stacked" onClick={(e) => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
+        <span className="contact-wikipedia-help" key={`${wikipediaHelpUser.username}-wikipedia-help`}>
+          <a href="#" className="wikipedia-help-link button dark small stacked" onClick={(e) => this.updateTargetUser(wikipediaHelpUser, e)}>question about editing Wikipedia</a>
           <br />
         </span>
       );
-    }
 
-    let programHelpButton;
-    if (this.state.staffUsers.length > 0) {
-      const programHelpUser = this.programHelpUser();
-      programHelpButton = (
-        <span className="program-managers" key={`${programHelpUser.username}-program-managers`}>
-          <a href="#" className="program-manager-link button dark stacked small" onClick={(e) => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
-          <br />
-        </span>
-      );
-    }
+      // Show the program help button only to instructors and other non-students.
+      if (this.props.current_user.role > 0) {
+        const programHelpUser = this.programHelpUser();
+        programHelpButton = (
+          <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
+            <a href="#" className="program-help-link button dark stacked small" onClick={(e) => this.updateTargetUser(programHelpUser, e)}>question about Wiki Ed or your assignment</a>
+            <br />
+          </span>
+        );
+      }
 
-    let dashboardHelpButton;
-    if (this.state.staffUsers.length > 0) {
+      // Show the dashboard help button to everyone.
       const dashboardHelpUser = this.dashboardHelpUser();
       dashboardHelpButton = (
-        <span className="program-managers" key={`${dashboardHelpUser.username}-program-managers`}>
-          <a href="#" className="program-manager-link button dark stacked small" onClick={(e) => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
+        <span className="contact-dashboard-help" key={`${dashboardHelpUser.username}-dashboard-help`}>
+          <a href="#" className="dashboard-help-link button dark stacked small" onClick={(e) => this.updateTargetUser(dashboardHelpUser, e)}>question about the dashboard</a>
           <br />
         </span>
       );
