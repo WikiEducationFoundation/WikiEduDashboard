@@ -125,4 +125,8 @@
   survey_test_email: 'developmer@yourdomain.me'
 
 # Username of communications manager who receives certain alert emails
+# Can be left blank.
   communications_manager: 'Eryk (Wiki Ed)'
+# Username of user who will receive requests for technical help from the Get Help button
+# Can be left blank.
+  technical_help_staff: 'Sage (Wiki Ed)'

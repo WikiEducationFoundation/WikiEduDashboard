@@ -38,4 +38,5 @@ logo_file: "wiki-logo.png"
 favicon_file: favicon.ico"
 favicon_dev_file: "favicon_dev.png"
 
-communications_manager: 'Eryk (Wiki Ed)'
+communications_manager: ''
+technical_help_staff: 'Sage (Wiki Ed)'
