@@ -62,6 +62,7 @@ lb:
       list: Klass Lëscht - éischter eng Lëscht wéi e konventionellen Artikel
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
+    show_cumulative_changes: Kumulativ Ännerunge weisen
     title: Titel
     title_example: Titel vum Artikel
     view: Artikel weisen

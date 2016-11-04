@@ -108,6 +108,7 @@ fr:
       list: Classe liste — une liste plutôt qu’un article habituel
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
+    show_cumulative_changes: Afficher les modifications cumulatives
     title: Titre
     title_example: Titre de l’article
     view: Afficher l’article

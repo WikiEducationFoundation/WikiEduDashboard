@@ -35,7 +35,9 @@ lv:
     milestones:
       title: Atskaites punkti
   campaign:
+    campaign: Kampaņa
     none: Nav
+    programs: '%{title} programmas'
   courses:
     activity: Aktivitāte
     archived: Arhivētie kursi
@@ -109,6 +111,7 @@ lv:
     articles_edited: Labotie raksti
     view_count_description: Rakstu skatījumi
     word_count: Pievienotie vārdi
+    word_count_average: Vidējais vārdu skaits
   revisions:
     loading: Ielādē versijas...
   timeline:

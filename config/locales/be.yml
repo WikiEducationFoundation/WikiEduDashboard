@@ -6,6 +6,7 @@
 # Author: Kevit
 # Author: Liashko
 # Author: Maksim L.
+# Author: Mechanizatar
 # Author: Mr. Zabej
 # Author: Svetit
 # Author: Visem
@@ -401,6 +402,8 @@ be:
     class: Клас
     date_time: Дата/Час
     diff: розн.
+    diff_show: Паказаць
+    diff_hide: Схаваць
     edited_by: Праўлена
     loading: Загрузка версій...
     none: У курсе няма нядаўніх правак.

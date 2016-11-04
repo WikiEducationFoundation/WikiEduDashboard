@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Fúlvio
 # Author: Gato Preto
+# Author: Hamilton Abreu
 # Author: Jkb8
 # Author: Joalpe
 # Author: Macofe
@@ -14,7 +15,7 @@ pt:
       vão aumentar ou reduzir o resultado.
   application:
     cancel: Cancelar
-    dashboard: Painel do Programa de Educação
+    dashboard: Painel do Programa Educativo
     error: 'Ocorreu um erro:'
     explore: Explorar
     field_required: Este campo é obrigatório

@@ -94,6 +94,7 @@ de:
       list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
+    show_cumulative_changes: Kumulative Änderungen anzeigen
     title: Titel
     title_example: Artikelname
     view: Artikel anzeigen

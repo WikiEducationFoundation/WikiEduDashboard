@@ -378,6 +378,8 @@ it:
     class: Classe
     date_time: Data/Ora
     diff: confronto tra versioni
+    diff_show: Mostra
+    diff_hide: Nascondi
     edited_by: Modificato da
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.

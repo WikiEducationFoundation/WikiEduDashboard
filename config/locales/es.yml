@@ -143,6 +143,7 @@ es:
     milestones:
       title: Hitos
   campaign:
+    campaign: Campaña
     none: Ninguno
   courses:
     activity: Actividad
@@ -433,11 +434,14 @@ es:
     class: Clase
     date_time: Fecha/hora
     diff: dif
+    diff_show: Mostrar
+    diff_hide: Ocultar
     edited_by: Editado por
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes.
     time_doc: El tiempo de cada revisión en tu hora local
     title: Título
+    view_on_wiki: Ver diff en wiki
   tasks:
     conseq: La tarea %{task} ya se está ejecutando.
     constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily
