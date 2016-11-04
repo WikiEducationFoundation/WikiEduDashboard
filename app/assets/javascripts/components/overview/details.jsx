@@ -11,7 +11,7 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import CourseActions from '../../actions/course_actions.js';
 
-import CourseStore from '../../stores/course_store.js';
+import CourseStore from '../../stores/course_store.coffee';
 import TagStore from '../../stores/tag_store.js';
 import UserStore from '../../stores/user_store.js';
 import CampaignStore from '../../stores/campaign_store.js';
