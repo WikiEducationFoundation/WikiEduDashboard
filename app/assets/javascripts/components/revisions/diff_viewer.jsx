@@ -161,6 +161,7 @@ const DiffViewer = React.createClass({
           <p>
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
             {button}
+            <a className="pull-right button small" href="/feedback?subject=diff_viewer" target="_blank">Submit feedback about this feature</a>
           </p>
           <table>
             <thead><tr><th colSpan="4" className="diff-header"><p className="diff-comment">{this.state.comment}</p></th></tr></thead>

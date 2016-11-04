@@ -1,8 +1,13 @@
 .container.form-container
-  %h1 Training module feedback
-  %p How was the training module you just completed? What did you like? What didn't you like?
-  %p Was there something you wanted to know about that was missing? Did anything feel unnecessary?
-  %p Any feedback you have will be very helpful!
+  - if @is_training_module
+    %h1 Training module feedback
+    %p How was the training module you just completed? What did you like? What didn't you like?
+    %p Was there something you wanted to know about that was missing? Did anything feel unnecessary?
+    %p Any feedback you have will be very helpful!
+  - else
+    %h1 Dashboard feature feedback
+    %p How is this feature working for you? How could it be improved?
+    %p Any feedback you have will be very helpful!
 
   = simple_form_for @feedback_form_response do |f|
     = f.input :subject,  as: :hidden, input_html: { value: @subject }

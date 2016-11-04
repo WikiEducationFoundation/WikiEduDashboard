@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 class FeedbackFormResponsesController < ApplicationController
   def new
-    @subject = request.referer || params['referer']
+    @subject = params['subject']
+    @subject ||= request.referer || params['referer']
+    @is_training_module = true if @subject =~ %r{/training/}
     @feedback_form_response = FeedbackFormResponse.new
   end
 
