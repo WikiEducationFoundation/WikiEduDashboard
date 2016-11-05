@@ -9,5 +9,5 @@
     - @responses.each do |response|
       %tr
         %td= response.created_at
-        %td= response.module
+        %td= response.topic
         %td= link_to response.body.truncate(100), "/feedback_form_responses/#{response.id}"

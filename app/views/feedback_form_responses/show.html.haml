@@ -8,7 +8,7 @@
   %p= link_to @user.username, "/users/#{@user.url_encoded_username}"
 
   %h3 Subject
-  %p= link_to @response.module, @response.subject
+  %p= @response.subject
 
   %h3 Body
   %p= @response.body
