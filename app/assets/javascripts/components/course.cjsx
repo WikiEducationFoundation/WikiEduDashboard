@@ -46,7 +46,7 @@ Course = React.createClass(
   _courseLinkParams: ->
     "/courses/#{@props.params.course_school}/#{@props.params.course_title}"
   _onCourseIndex: ->
-    @props.location.pathname.split('/').length is 3
+    @props.location.pathname.split('/').length is 4
   dismissSurvey: (surveyNotificationId) ->
     if confirm I18n.t('courses.dismiss_survey_confirm')
       CourseActions.dismissNotification(surveyNotificationId)
