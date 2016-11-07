@@ -10,10 +10,10 @@ content: |
   and Available Articles.
 
   The **Articles Edited** table shows every live Wikipedia article your students
-  have made changes to, along with how much content they added and how many page
+  have edited, along with how much content they added and how many page
   views the article has had since students started editing.
 
-  Zoom in on an edited article for some additional tools: the Diff Viewer that
+  Zoom in on an article for some additional tools: the Diff Viewer that
   shows you the cumulative changes to the article from the students' first edit
   to their last, and a graph of the "Structural Completeness" of the article
   over time.
@@ -23,5 +23,5 @@ content: |
   reviewers, and to see which students are collaborating on the same article.
 
   The **Available Articles** table gives you the option of creating a list of
-  good topics for students to work on before the course begins. When a student
-  chooses one of the Available Articles to work on, it is removed from the list.
+  good topics for students to work on. When a student chooses one of the
+  Available Articles, it is removed from the list.
