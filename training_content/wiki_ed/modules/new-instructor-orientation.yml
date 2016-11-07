@@ -41,7 +41,11 @@ slides:
   - slug: wiki-ed-staff # 330
   - slug: training-for-students # 331
   - slug: course-dashboards # 332
-  - slug: dashboard-tabs # 336
+  - slug: dashboard-overview-tab # 336
+  - slug: dashboard-timeline-tab # 340
+  - slug: dashboard-students-tab # 341
+  - slug: dashboard-articles-tab # 342
+  - slug: dashboard-uploads-and-activity-tabs # 343
   - slug: finding-articles-to-work-on # 338
   - slug: ask-dot-wikiedu-dot-org # 333
   - slug: orientation-for-health-related-content # 334
