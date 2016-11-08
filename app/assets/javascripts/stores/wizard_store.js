@@ -1,20 +1,20 @@
 import McFly from 'mcfly';
-let Flux            = new McFly();
+const Flux = new McFly();
 
 import ServerActions from '../actions/server_actions.js';
 
-let _active_index = 0;
+let _activeIndex = 0;
 let _summary = false;
-let _wizard_key = null;
-let _panels = [{
-  title:  I18n.t('wizard.course_dates'),
+let _wizardKey = null;
+const _panels = [{
+  title: I18n.t('wizard.course_dates'),
   description: '',
   active: true,
   options: [],
   type: -1,
   minimum: 0,
   key: 'dates'
-},{
+}, {
   title: I18n.t('wizard.assignment_type'),
   description: I18n.t('wizard.select_assignment'),
   active: false,
@@ -22,7 +22,7 @@ let _panels = [{
   type: 1,
   minimum: 1,
   key: 'index'
-},{
+}, {
   title: I18n.t('wizard.summary'),
   description: I18n.t('wizard.review_selections'),
   active: false,
@@ -33,119 +33,119 @@ let _panels = [{
 }];
 
 // Utilities
-let setIndex = function(index) {
+const setIndex = function (index) {
   // index of the assignment panel
   _panels[1].options = index;
   return WizardStore.emitChange();
 };
 
-let setPanels = function(panels) {
+const setPanels = function (panels) {
   // 3 hard-coded panels: course dates, assignments, summary
   // _panels.length will change when more are inserted
-  let to_remove = _panels.length - 3;
+  const toRemove = _panels.length - 3;
   // insert retrieved panels after hardcoded panels, but before summary
   // also remove if you chose a different assignment but went back
   // 3 (for now) is index of the first to remove (the first retrieved panel)
-  _panels.splice.apply(_panels, [2, to_remove].concat(panels));
-  if (_active_index > 0) { moveWizard(); }
+  _panels.splice.apply(_panels, [2, toRemove].concat(panels));
+  if (_activeIndex > 0) { moveWizard(); }
   return WizardStore.emitChange();
 };
 
-let updateActivePanels = function() {
+const updateActivePanels = function () {
   if (_panels.length > 0) {
     _panels.forEach(panel => panel.active = false);
-    return _panels[_active_index].active = true;
+    return _panels[_activeIndex].active = true;
   }
 };
 
-let selectOption = function(panel_index, option_index, value=true) {
-  let panel = _panels[panel_index];
-  let option = panel.options[option_index];
+const selectOption = function (panelIndex, optionIndex) {
+  const panel = _panels[panelIndex];
+  const option = panel.options[optionIndex];
   if (panel.type !== 0) {  // multiple choice
-    panel.options.forEach(option => option.selected = false);
+    panel.options.forEach(panelOption => panelOption.selected = false);
   }
   option.selected = !(option.selected || false);
   verifyPanelSelections(panel);
-  _summary = _summary && !(_active_index === 1 && _summary);
+  _summary = _summary && !(_activeIndex === 1 && _summary);
   return WizardStore.emitChange();
 };
 
-let expandOption = function(panel_index, option_index) {
-  let panel = _panels[panel_index];
-  let option = panel.options[option_index];
+const expandOption = function (panelIndex, optionIndex) {
+  const panel = _panels[panelIndex];
+  const option = panel.options[optionIndex];
   option.expanded = !(option.expanded || false);
   return WizardStore.emitChange();
 };
 
-var moveWizard = function(backwards=false, to_index=null) {
-  let active_panel = _panels[_active_index];
+const moveWizard = function (backwards = false, toIndex = null) {
+  const activePanel = _panels[_activeIndex];
   let increment = backwards ? -1 : 0;
 
-  if (!backwards && verifyPanelSelections(active_panel)) {
+  if (!backwards && verifyPanelSelections(activePanel)) {
     increment = 1;
-    if (_active_index === 1) { // assignment step
-      let selected_wizard = _.find(_panels[_active_index].options, o => o.selected);
-      if (selected_wizard.key !== _wizard_key) {
-        _wizard_key = selected_wizard.key;
-        ServerActions.fetchWizardPanels(selected_wizard.key);
+    if (_activeIndex === 1) { // assignment step
+      const selectedWizard = _.find(_panels[_activeIndex].options, o => o.selected);
+      if (selectedWizard.key !== _wizardKey) {
+        _wizardKey = selectedWizard.key;
+        ServerActions.fetchWizardPanels(selectedWizard.key);
         increment = 0;
       }
     }
   }
 
-  if (to_index != null) {
-    _active_index = to_index;
+  if (toIndex != null) {
+    _activeIndex = toIndex;
   } else {
-    _active_index += increment;
+    _activeIndex += increment;
   }
 
-  if (backwards) { _summary = (to_index != null); }
+  if (backwards) { _summary = (toIndex != null); }
 
-  if (_active_index === -1) {
-    _active_index = 0;
-  } else if (_active_index === _panels.length || (_summary && !backwards)) {
-    _active_index = _panels.length - 1;
+  if (_activeIndex === -1) {
+    _activeIndex = 0;
+  } else if (_activeIndex === _panels.length || (_summary && !backwards)) {
+    _activeIndex = _panels.length - 1;
   }
 
-  //####
+  // ####
   // THIS IS CHECK TO SEE IF WE NEED TO SCROLL PANEL TO TOP BEFORE TRANSITION
-  // THERE IS PERHAPS A BETTER PLACE THEN THIS FILE TO PUT THIS EVENT/TRANSITION
-  //####
-  let timeoutTime = increment !== 0 ? 150 : 0;
+  // THERE IS PERHAPS A BETTER PLACE THAN THIS FILE TO PUT THIS EVENT/TRANSITION
+  // ####
+  const timeoutTime = increment !== 0 ? 150 : 0;
   if (timeoutTime > 0) {
     if ($('.wizard').scrollTop() > 0) {
       $('.wizard').animate(
-        {scrollTop: 0}
-      ,timeoutTime);
+        { scrollTop: 0 }
+      , timeoutTime);
     }
   }
 
-  return setTimeout(function() {
+  return setTimeout(() => {
     updateActivePanels();
     return WizardStore.emitChange();
   }
-  ,timeoutTime);
+  , timeoutTime);
 };
 
-var verifyPanelSelections = function(panel) {
+const verifyPanelSelections = function (panel) {
   if (panel.options === undefined || panel.options.length === 0) { return true; }
-  let selection_count = panel.options.reduce((selected, option) => selected += option.selected ? 1 : 0
+  const selectionCount = panel.options.reduce((selected, option) => selected += option.selected ? 1 : 0
   , 0);
-  let verified = selection_count >= panel.minimum;
+  const verified = selectionCount >= panel.minimum;
   if (verified) {
     panel.error = null;
   } else {
-    let error_message = I18n.t('wizard.minimum_options', { minimum: panel.minimum });
-    panel.error = error_message;
+    const errorMessage = I18n.t('wizard.minimum_options', { minimum: panel.minimum });
+    panel.error = errorMessage;
   }
   return verified;
 };
 
 let restore = function() {
   _summary = false;
-  _active_index = 0;
+  _activeIndex = 0;
   updateActivePanels();
-  _wizard_key = null;
+  _wizardKey = null;
   setPanels([]);
   _panels[0].options.forEach(option => option.selected = false);
   return WizardStore.emitChange();
@@ -157,7 +157,7 @@ var WizardStore = Flux.createStore({
     return $.extend([], _panels, true);
   },
   getWizardKey() {
-    return _wizard_key;
+    return _wizardKey;
   },
   getSummary() {
     return _summary;

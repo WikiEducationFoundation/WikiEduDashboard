@@ -62,20 +62,20 @@ const GradeableStore = Flux.createStore({
     return _gradeables[gradeableId];
   },
   getGradeables() {
-    let gradeable_list = [];
-    let iterable = Object.keys(_gradeables);
+    const gradeableList = [];
+    const iterable = Object.keys(_gradeables);
     for (let i = 0; i < iterable.length; i++) {
-      let gradeable_id = iterable[i];
-      gradeable_list.push(_gradeables[gradeable_id]);
+      const gradeableId = iterable[i];
+      gradeableList.push(_gradeables[gradeableId]);
     }
-    return gradeable_list;
+    return gradeableList;
   },
-  getGradeableByBlock(block_id) {
-    let iterable = Object.keys(_gradeables);
+  getGradeableByBlock(blockId) {
+    const iterable = Object.keys(_gradeables);
     for (let i = 0; i < iterable.length; i++) {
-      let gradeable_id = iterable[i];
-      if (_gradeables[gradeable_id].gradeable_item_id === block_id) {
-        return _gradeables[gradeable_id];
+      const gradeableId = iterable[i];
+      if (_gradeables[gradeableId].gradeable_item_id === blockId) {
+        return _gradeables[gradeableId];
       }
     }
   },
@@ -84,9 +84,9 @@ const GradeableStore = Flux.createStore({
     return GradeableStore.emitChange();
   }
 }
-, function(payload) {
-  let { data } = payload;
-  switch(payload.actionType) {
+, (payload) => {
+  const { data } = payload;
+  switch (payload.actionType) {
     case 'RECEIVE_TIMELINE': case 'SAVED_TIMELINE': case 'WIZARD_SUBMITTED':
       Flux.dispatcher.waitFor([BlockStore.dispatcherID]);
       _gradeables = {};
@@ -101,6 +101,8 @@ const GradeableStore = Flux.createStore({
     case 'DELETE_GRADEABLE':
       removeGradeable(data.gradeable_id);
       break;
+    default:
+      // no default
   }
   return true;
 });

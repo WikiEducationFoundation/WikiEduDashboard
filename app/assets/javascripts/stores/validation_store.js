@@ -1,14 +1,14 @@
 import McFly from 'mcfly';
-let Flux            = new McFly();
+const Flux = new McFly();
 
 
 // Data
-let _validations = {};
-let _errorQueue = [];
+const _validations = {};
+const _errorQueue = [];
 
 
 // Utilities
-let setValidation = function(key, valid, message, changed=true, quiet=false) {
+const setValidation = function (key, valid, message, changed = true, quiet = false) {
   if (!valid && changed && !(__in__(key, _errorQueue))) { // key is invalid
     _errorQueue.push(key);
   } else if (valid && __in__(key, _errorQueue)) {
@@ -24,12 +24,12 @@ let setValidation = function(key, valid, message, changed=true, quiet=false) {
 
 
 // Store
-var ValidationStore = Flux.createStore({
+const ValidationStore = Flux.createStore({
   isValid() {
     let valid = true;
-    let iterable = Object.keys(_validations);
+    const iterable = Object.keys(_validations);
     for (let i = 0; i < iterable.length; i++) {
-      let key = iterable[i];
+      const key = iterable[i];
       if (!_validations[key].changed && !_validations[key].valid) {
         setValidation(key, false, _validations[key].message, true);
       }
@@ -41,23 +41,23 @@ var ValidationStore = Flux.createStore({
     return _validations;
   },
   getValidation(key) {
-    if ((_validations[key] != null) && _validations[key].changed) {
+    if ((_validations[key]) && _validations[key].changed) {
       return _validations[key].valid;
-    } else { return true; }
+    }
+    return true;
   },
   firstMessage() {
     if (_errorQueue.length > 0) {
       return _validations[_errorQueue[0]].message;
-    } else {
-      return null;
     }
+    return null;
   }
 }
-, function(payload) {
-  let { data } = payload;
-  switch(payload.actionType) {
+, (payload) => {
+  const { data } = payload;
+  switch (payload.actionType) {
     case 'INITIALIZE':
-      if (!(_validations[data.key] != null)) {
+      if (_validations[data.key]) {
         setValidation(data.key, false, data.message, false, true);
       }
       break;
@@ -68,8 +68,10 @@ var ValidationStore = Flux.createStore({
       setValidation(data.key, false, data.message, true, data.quiet);
       break;
     case 'CHECK_SERVER':
-      setValidation(data.key, !(data.message != null), data.message);
+      setValidation(data.key, !data.message, data.message);
       break;
+    default:
+      // no default
   }
   return true;
 });

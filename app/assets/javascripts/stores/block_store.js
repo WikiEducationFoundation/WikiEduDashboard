@@ -66,7 +66,7 @@ const insertBlock = function (block, toWeek, targetIndex) {
   const fromWeekId = block.week_id;
   block.week_id = toWeek.id;
 
-  if (targetIndex !== null) {
+  if (targetIndex !== undefined) {
     if (toWeek.id === fromWeekId) {
       block.order = block.order > targetIndex ? targetIndex - 0.5 : targetIndex + 0.5;
     } else {

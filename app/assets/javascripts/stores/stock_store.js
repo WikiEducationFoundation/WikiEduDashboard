@@ -1,32 +1,35 @@
 // General purpose store covering typical use cases for several of our models
-
 import McFly from 'mcfly';
-let Flux  = new McFly();
+const Flux = new McFly();
 
-let StockStore = function(helper, model_key, default_model, triggers) {
-  let plural_model_key = model_key + 's';
-  let base_model = () =>
+function __in__(needle, haystack) {
+  return haystack.indexOf(needle) >= 0;
+}
+
+const StockStore = function (helper, modelKey, defaultModel, triggers) {
+  const pluralModelKey = `${modelKey}s`;
+  const baseModel = () =>
     _.assign({
       id: Date.now(), // could THEORETICALLY collide but highly unlikely
       is_new: true // remove ids from objects with is_new when persisting
-    }, default_model)
+    }, defaultModel)
   ;
 
   return Flux.createStore({
     getFiltered(options) {
-      let filtered_models = [];
-      let iterable = this.getModels();
+      const filteredModels = [];
+      const iterable = this.getModels();
       for (let i = 0; i < iterable.length; i++) {
-        let model = iterable[i];
+        const model = iterable[i];
         let add = true;
-        let iterable1 = Object.keys(options);
+        const iterable1 = Object.keys(options);
         for (let j = 0; j < iterable1.length; j++) {
-          let criterion = iterable1[j];
-          add = add && model[criterion] === options[criterion] && !model['deleted'];
+          const criterion = iterable1[j];
+          add = add && model[criterion] === options[criterion] && !model.deleted;
         }
-        if (add) { filtered_models.push(model); }
+        if (add) { filteredModels.push(model); }
       }
-      return filtered_models;
+      return filteredModels;
     },
 
     clear() {
@@ -35,13 +38,13 @@ let StockStore = function(helper, model_key, default_model, triggers) {
     },
 
     getModels() {
-      let model_list = [];
-      let iterable = Object.keys(helper.models);
+      const modelList = [];
+      const iterable = Object.keys(helper.models);
       for (let i = 0; i < iterable.length; i++) {
-        let model_id = iterable[i];
-        model_list.push(helper.models[model_id]);
+        const modelId = iterable[i];
+        modelList.push(helper.models[modelId]);
       }
-      let sorted = _.sortBy(model_list, helper.sortKey);
+      let sorted = _.sortBy(modelList, helper.sortKey);
       if (!helper.sortAsc) { sorted = _(sorted).reverse().value(); }
       return sorted;
     },
@@ -59,27 +62,29 @@ let StockStore = function(helper, model_key, default_model, triggers) {
       return this.emitChange();
     }
   }
-  , function(payload) {
-    let { data } = payload;
-    switch(payload.actionType) {
-      case `RECEIVE_${plural_model_key.toUpperCase()}`: case `${model_key.toUpperCase()}_MODIFIED`:
-        helper.setModels(data.course[plural_model_key], true);
+  , (payload) => {
+    const { data } = payload;
+    switch (payload.actionType) {
+      case `RECEIVE_${pluralModelKey.toUpperCase()}`: case `${modelKey.toUpperCase()}_MODIFIED`:
+        helper.setModels(data.course[pluralModelKey], true);
         break;
-      case `SORT_${plural_model_key.toUpperCase()}`:
+      case `SORT_${pluralModelKey.toUpperCase()}`:
         helper.sortByKey(data.key);
         break;
-      case `ADD_${model_key.toUpperCase()}`:
-        helper.setModel(_.assign(data, base_model()));
+      case `ADD_${modelKey.toUpperCase()}`:
+        helper.setModel(_.assign(data, baseModel()));
         break;
-      case `UPDATE_${model_key.toUpperCase()}`:
-        helper.setModel(data[model_key]);
+      case `UPDATE_${modelKey.toUpperCase()}`:
+        helper.setModel(data[modelKey]);
         break;
-      case `DELETE_${model_key.toUpperCase()}`:
-        helper.removeModel(data['model']);
+      case `DELETE_${modelKey.toUpperCase()}`:
+        helper.removeModel(data.model);
         break;
+      default:
+        // no default
     }
-    if ((triggers != null) && __in__(payload.actionType, triggers)) {
-      helper.setModels(data.course[plural_model_key], true);
+    if (triggers && __in__(payload.actionType, triggers)) {
+      helper.setModels(data.course[pluralModelKey], true);
     }
     return true;
   });
@@ -104,13 +109,13 @@ class Store {
     ).join();
   }
 
-  setModels(data, persisted=false) {
+  setModels(data, persisted = false) {
     this.loaded = true;
     this.models = {};
     if (persisted) { this.persisted = {}; }
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
-        let model = data[i];
+        const model = data[i];
         this.models[this.getKey(model)] = model;
         if (persisted) { this.persisted[this.getKey(model)] = $.extend(true, {}, model); }
       }
@@ -124,12 +129,12 @@ class Store {
   }
 
   removeModel(model) {
-    let model_id = this.getKey(model);
+    const modelId = this.getKey(model);
     if (model.is_new) {
-      delete this.models[model_id];
+      delete this.models[modelId];
     } else {
-      model = this.models[model_id];
-      model['deleted'] = true;
+      model = this.models[modelId];
+      model.deleted = true;
     }
     return this.store.emitChange();
   }
@@ -138,7 +143,7 @@ class Store {
     if (this.sortKey === key) {
       this.sortAsc = !this.sortAsc;
     } else {
-      this.sortAsc = !(this.descKeys[key] != null);
+      this.sortAsc = !this.descKeys[key];
       this.sortKey = key;
     }
     return this.store.emitChange();
@@ -162,7 +167,3 @@ class Store {
 }
 
 export default Store;
-
-function __in__(needle, haystack) {
-  return haystack.indexOf(needle) >= 0;
-}

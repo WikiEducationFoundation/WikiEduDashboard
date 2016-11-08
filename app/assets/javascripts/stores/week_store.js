@@ -1,20 +1,20 @@
 import McFly from 'mcfly';
-let Flux            = new McFly();
+const Flux = new McFly();
 import BlockStore from './block_store.js';
 import GradeableStore from './gradeable_store.js';
 
 
 // Data
 let _weeks = {};
-let _persisted = {};
+const _persisted = {};
 let _editableWeekId = 0;
 let _isLoading = true;
 
 
 // Utilities
-let setWeeks = function(data, persisted=false) {
+const setWeeks = function (data, persisted = false) {
   for (let i = 0; i < data.length; i++) {
-    let week = data[i];
+    const week = data[i];
     _weeks[week.id] = week;
     if (persisted) { _persisted[week.id] = $.extend(true, {}, week); }
   }
@@ -22,12 +22,12 @@ let setWeeks = function(data, persisted=false) {
   return WeekStore.emitChange();
 };
 
-let setWeek = function(data) {
+const setWeek = function (data) {
   _weeks[data.id] = data;
   return WeekStore.emitChange();
 };
 
-let addWeek = () =>
+const addWeek = () =>
   setWeek({
     id: Date.now(), // could THEORETICALLY collide but highly unlikely
     is_new: true, // remove ids from objects with is_new when persisting
@@ -35,32 +35,32 @@ let addWeek = () =>
   })
 ;
 
-let removeWeek = function(week_id) {
-  delete _weeks[week_id];
+const removeWeek = function (weekId) {
+  delete _weeks[weekId];
   return WeekStore.emitChange();
 };
 
-let setEditableWeekId = function(week_id) {
-  _editableWeekId = week_id;
+const setEditableWeekId = function (weekId) {
+  _editableWeekId = weekId;
   return WeekStore.emitChange();
 };
 
 // Store
-var WeekStore = Flux.createStore({
+const WeekStore = Flux.createStore({
   getLoadingStatus() {
     return _isLoading;
   },
-  getWeek(week_id) {
-    return _weeks[week_id];
+  getWeek(weekId) {
+    return _weeks[weekId];
   },
   getWeeks() {
-    let week_list = [];
-    let iterable = Object.keys(_weeks);
+    const weekList = [];
+    const iterable = Object.keys(_weeks);
     for (let i = 0; i < iterable.length; i++) {
-      let week_id = iterable[i];
-      week_list.push(_weeks[week_id]);
+      const weekId = iterable[i];
+      weekList.push(_weeks[weekId]);
     }
-    return week_list;
+    return weekList;
   },
   restore() {
     _weeks = $.extend(true, {}, _persisted);
@@ -74,9 +74,9 @@ var WeekStore = Flux.createStore({
     return WeekStore.emitChange();
   }
 }
-, function(payload) {
-  let { data } = payload;
-  switch(payload.actionType) {
+, (payload) => {
+  const { data } = payload;
+  switch (payload.actionType) {
     case 'RECEIVE_TIMELINE': case 'SAVED_TIMELINE': case 'WIZARD_SUBMITTED':
       Flux.dispatcher.waitFor([BlockStore.dispatcherID, GradeableStore.dispatcherID]);
       _weeks = {};
@@ -94,6 +94,8 @@ var WeekStore = Flux.createStore({
     case 'SET_WEEK_EDITABLE':
       setEditableWeekId(data.week_id);
       break;
+    default:
+      // no default
   }
   return true;
 });
