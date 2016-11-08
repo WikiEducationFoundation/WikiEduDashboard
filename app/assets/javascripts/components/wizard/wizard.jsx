@@ -6,7 +6,7 @@ import SummaryPanel from './summary_panel.cjsx';
 import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
 import ServerActions from '../../actions/server_actions.js';
-import WizardStore from '../../stores/wizard_store.coffee';
+import WizardStore from '../../stores/wizard_store.js';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 const getState = () =>

@@ -2,7 +2,7 @@
 React         = require 'react'
 ServerActions = require('../../actions/server_actions.js').default
 WizardActions = require('../../actions/wizard_actions.js').default
-WizardStore   = require '../../stores/wizard_store.coffee'
+WizardStore   = require('../../stores/wizard_store.js').default
 Panel         = require('./panel.jsx').default
 
 ReactRouter   = require 'react-router'

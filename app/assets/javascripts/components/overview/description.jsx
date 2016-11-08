@@ -1,7 +1,7 @@
 import React from 'react';
 import Editable from '../high_order/editable.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import CourseActions from '../../actions/course_actions.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });

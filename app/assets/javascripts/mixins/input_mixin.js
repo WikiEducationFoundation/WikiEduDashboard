@@ -1,5 +1,5 @@
 import shallowCompare from 'react-addons-shallow-compare';
-import ValidationStore from '../stores/validation_store.coffee';
+import ValidationStore from '../stores/validation_store.js';
 import ValidationActions from '../actions/validation_actions.js';
 import UUID from 'node-uuid';
 

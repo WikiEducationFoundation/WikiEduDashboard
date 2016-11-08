@@ -1,4 +1,4 @@
-import StockStore from './stock_store.coffee';
+import StockStore from './stock_store.js';
 
 const UploadStore = new StockStore({
   sortKey: 'file_name',

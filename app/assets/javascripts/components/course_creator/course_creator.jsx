@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import UserCoursesStore from '../../stores/user_courses_store.js';
 import CourseActions from '../../actions/course_actions.js';
-import ValidationStore from '../../stores/validation_store.coffee';
+import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 

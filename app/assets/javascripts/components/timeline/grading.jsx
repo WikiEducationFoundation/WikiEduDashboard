@@ -1,6 +1,6 @@
 import React from 'react';
 import Gradeable from './gradeable.jsx';
-import BlockStore from '../../stores/block_store.coffee';
+import BlockStore from '../../stores/block_store.js';
 
 const Grading = React.createClass({
   displayName: 'Grading',

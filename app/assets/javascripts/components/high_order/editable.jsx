@@ -2,7 +2,7 @@
 
 import React from 'react';
 import UIActions from '../../actions/ui_actions.js';
-import ValidationStore from '../../stores/validation_store.coffee';
+import ValidationStore from '../../stores/validation_store.js';
 
 const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) =>
   React.createClass({

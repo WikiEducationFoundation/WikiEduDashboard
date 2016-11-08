@@ -1,4 +1,4 @@
-import StockStore from './stock_store.coffee';
+import StockStore from './stock_store.js';
 
 const TagStore = new StockStore(
   { modelKey: 'tag' }

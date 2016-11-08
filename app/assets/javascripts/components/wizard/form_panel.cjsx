@@ -6,7 +6,7 @@ Calendar      = require('../common/calendar.jsx').default
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
 CourseDateUtils = require('../../utils/course_date_utils.coffee')
-ValidationStore = require '../../stores/validation_store.coffee'
+ValidationStore = require('../../stores/validation_store.js').default
 
 getState = (course_id) ->
   course = CourseStore.getCourse()

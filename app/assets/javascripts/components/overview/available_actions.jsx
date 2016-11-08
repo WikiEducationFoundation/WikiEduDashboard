@@ -1,6 +1,6 @@
 import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
-import CourseStore from '../../stores/course_store.coffee';
+import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });

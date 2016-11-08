@@ -1,5 +1,5 @@
 import React from 'react';
-import LookupStore from '../../stores/lookup_store.coffee';
+import LookupStore from '../../stores/lookup_store.js';
 
 const LookupWrapper = function (Component) {
   const getState = (model, exclude) =>
