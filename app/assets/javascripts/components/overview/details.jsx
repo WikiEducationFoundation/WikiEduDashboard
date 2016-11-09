@@ -229,7 +229,7 @@ const Details = React.createClass({
     return (
       <div className="module course-details">
         <div className="section-header">
-          <h3>Details</h3>
+          <h3>{I18n.t('application.details')}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data extra-line-height">
@@ -283,4 +283,4 @@ const Details = React.createClass({
 }
 );
 
-export default Editable(Details, [CourseStore, UserStore, CampaignStore, TagStore], CourseActions.persistCourse, getState, 'Edit Details');
+export default Editable(Details, [CourseStore, UserStore, CampaignStore, TagStore], CourseActions.persistCourse, getState, I18n.t('editable.edit_details'));

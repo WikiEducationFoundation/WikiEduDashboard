@@ -6,7 +6,7 @@ class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
                 only: [:create]
-  before_action :set_campaign, only: [:overview, :programs, :edit]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update]
 
   def index
     @campaigns = Campaign.all
@@ -26,6 +26,7 @@ class CampaignsController < ApplicationController
   end
 
   def overview
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
   end
 
   def programs
@@ -33,6 +34,11 @@ class CampaignsController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    @campaign.update(campaign: campaign_params)
+    render :overview, slug: @campaign.slug
   end
 
   def students
@@ -81,6 +87,6 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    params.permit(:slug, :course)
+    params.permit(:slug, :course, :description)
   end
 end

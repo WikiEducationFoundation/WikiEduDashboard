@@ -66,6 +66,9 @@ qqq:
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
     change: Link to change the language and/or project when inputting an article title
+    details: |-
+      Heading for part of the interface that shows details about something
+      {{Identical|Details}}
   dashboard:
     create_note: |-
       Instructions on how to create a course.
@@ -429,6 +432,8 @@ qqq:
     save: |-
       Label for button to save an edit
       {{Identical|Save}}
+    edit_description: Label for button to edit the description of something
+    edit_details: Label for button to edit the details of something
   metrics:
     activity: Label for activity feed.
     are_trained: Label that follows the number of users who are do not have assigned

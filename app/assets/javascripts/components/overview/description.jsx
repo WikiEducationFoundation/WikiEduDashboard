@@ -45,4 +45,4 @@ const Description = React.createClass({
 }
 );
 
-export default Editable(Description, [CourseStore], CourseActions.persistCourse, getState, 'Edit Description');
+export default Editable(Description, [CourseStore], CourseActions.persistCourse, getState, I18n.t('editable.edit_description'));

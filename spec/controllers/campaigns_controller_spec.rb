@@ -137,9 +137,20 @@ describe CampaignsController do
     render_views
     let(:campaign) { create(:campaign) }
 
-    it 'renders 200' do
+    before do
       get :overview, params: { slug: campaign.slug }
+    end
+
+    it 'renders 200' do
       expect(response.status).to eq(200)
+    end
+
+    it 'shows the right campaign' do
+      expect(response.body).to have_content(campaign.title)
+    end
+
+    it 'shows properties of the campaign' do
+      expect(response.body).to have_content(campaign.description)
     end
   end
 

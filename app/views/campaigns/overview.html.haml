@@ -1,1 +1,29 @@
 = render 'nav'
+
+.container.campaign_main
+  %section.overview.container
+    .stat-display
+      = render 'courses/header_stats', presenter: @presenter
+    .primary
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description editable' }) do
+        = hidden_field(:campaign, :slug)
+        .section-header
+          %h3
+            = succeed ':' do
+              = t('campaign.campaign')
+            = @campaign.title
+          .controls
+            %button.dark.button.editable-edit
+              = t('editable.edit_description')
+        .module__data.editable-field
+          %p.editable-content
+            = @campaign.description
+          = text_area(:campaign, :description, class: 'editable-input', style: 'display:none')
+    .sidebar
+      .module.campaign-details
+        .section-header
+          %h3
+            = t('application.details')
+          .controls
+            .button.dark
+              = t('editable.edit_details')
