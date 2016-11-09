@@ -93,7 +93,7 @@ const ThisWeek = React.createClass({
       <div className="module course__this-week">
         <div className="section-header">
           <h3>{title || I18n.t('timeline.this_week_title_default')}</h3>
-          <Link to={timelineUrl} className="pull-right button ghost-button block__edit-block" >{I18n.t('timeline.view_full_timeline')}</Link>
+          <Link to={timelineUrl} className="pull-right button ghost-button block__this-week-button" >{I18n.t('timeline.view_full_timeline')}</Link>
         </div>
         <ul className="list-unstyled">
           {weekComponent}

@@ -152,7 +152,7 @@ const AssignButton = React.createClass({
     if (this.props.assignments.length > 1 || (this.props.assignments.length > 0 && this.props.permitted)) {
       let buttonText;
       if (this.props.is_open) {
-        buttonText = 'done';
+        buttonText = I18n.t('users.assign_articles_done');
       } else {
         buttonText = '+/-';
       }
