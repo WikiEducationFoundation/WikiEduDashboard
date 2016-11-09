@@ -9,7 +9,7 @@ class DeletedUploadsAlertManager
       next unless too_many_deleted_uploads?(course)
       next if Alert.exists?(course_id: course.id, type: 'DeletedUploadsAlert')
       alert = Alert.create(type: 'DeletedUploadsAlert', course_id: course.id)
-      alert.email_course_admins
+      alert.email_content_expert
     end
   end
 
