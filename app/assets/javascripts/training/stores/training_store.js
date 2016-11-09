@@ -70,7 +70,7 @@ const storeMethods = {
     return _isLoading;
   },
   isFirstSlide() {
-    return _currentSlide.index && _currentSlide.index === 1;
+    return (_currentSlide && _currentSlide.index === 1);
   },
   getTrainingModule() {
     return _module;
