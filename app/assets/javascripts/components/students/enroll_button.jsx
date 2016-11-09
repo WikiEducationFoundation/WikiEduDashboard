@@ -90,7 +90,7 @@ const EnrollButton = React.createClass({
 
     if (this.props.role === 0) {
       let massEnrollmentLink;
-      if (Features.wikiEd) {
+      if (!Features.wikiEd) {
         const massEnrollmentUrl = `/mass_enrollment/${this.props.course.slug}`;
         massEnrollmentLink = <p><a href={massEnrollmentUrl}>Add multiple users at once.</a></p>;
       }
