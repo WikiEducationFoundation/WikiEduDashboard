@@ -6,8 +6,9 @@
     %p Any feedback you have will be very helpful!
   - else
     %h1 #{@subject} feedback
+    %p #{@subject} is a new feature of this website, and we're asking for feedback.
     %p How is this feature working for you? How could it be improved?
-    %p Any feedback you have will be very helpful!
+    %p Any ideas you have will be very helpful!
 
   = simple_form_for @feedback_form_response do |f|
     = f.input :subject,  as: :hidden, input_html: { value: @subject }
