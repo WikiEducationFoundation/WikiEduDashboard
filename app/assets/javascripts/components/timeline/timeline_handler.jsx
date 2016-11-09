@@ -5,7 +5,7 @@ import Timeline from './timeline.cjsx';
 import Grading from './grading.jsx';
 import Editable from '../high_order/editable.jsx';
 
-import CourseDateUtils from '../../utils/course_date_utils.coffee';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 import ServerActions from '../../actions/server_actions.js';
 import TimelineActions from '../../actions/timeline_actions.js';

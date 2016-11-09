@@ -5,7 +5,7 @@ logErrorMessage = (obj, prefix) ->
   # requests resolved.
   return if obj.readyState == 0
   message = prefix || 'Error: '
-  message += obj.responseJSON?.message || obj.statusText
+  message += (obj.responseJSON && obj.responseJSON.message) || obj.statusText
   console.log message
 
 RavenLogger = {}

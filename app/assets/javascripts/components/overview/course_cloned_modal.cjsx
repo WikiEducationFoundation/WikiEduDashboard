@@ -13,7 +13,7 @@ DatePicker    = require('../common/date_picker.jsx').default
 TextAreaInput = require('../common/text_area_input.jsx').default
 Calendar      = require('../common/calendar.jsx').default
 CourseUtils   = require('../../utils/course_utils.js').default
-CourseDateUtils = require '../../utils/course_date_utils.coffee'
+CourseDateUtils = require('../../utils/course_date_utils.js').default
 
 
 CourseClonedModal = React.createClass(

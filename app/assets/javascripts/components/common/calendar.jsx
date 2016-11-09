@@ -2,7 +2,7 @@ import React from 'react';
 import DayPicker from 'react-day-picker';
 import WeekdayPicker from 'react-weekday-picker';
 import CourseActions from '../../actions/course_actions.js';
-import CourseDateUtils from '../../utils/course_date_utils.coffee';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;

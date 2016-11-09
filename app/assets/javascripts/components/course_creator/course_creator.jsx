@@ -14,7 +14,7 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
-import CourseDateUtils from '../../utils/course_date_utils.coffee';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 import _ from 'lodash';
@@ -222,7 +222,7 @@ const CourseCreator = React.createClass({
       );
     }
 
-    const dateProps = CourseDateUtils.dateProps(this.state.course, this.state.default_course_type);
+    const dateProps = CourseDateUtils.dateProps(this.state.course);
 
     const timeZoneMessage = (
       <p className="form-help-text">

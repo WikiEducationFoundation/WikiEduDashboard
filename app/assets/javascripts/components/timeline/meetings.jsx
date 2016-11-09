@@ -6,7 +6,7 @@ import DatePicker from '../common/date_picker.jsx';
 import CourseStore from '../../stores/course_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseActions from '../../actions/course_actions.js';
-import CourseDateUtils from '../../utils/course_date_utils.coffee';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = function () {
   const course = CourseStore.getCourse();

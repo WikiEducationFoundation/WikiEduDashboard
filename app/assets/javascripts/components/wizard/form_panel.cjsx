@@ -5,7 +5,7 @@ DatePicker    = require('../common/date_picker.jsx').default
 Calendar      = require('../common/calendar.jsx').default
 CourseActions = require('../../actions/course_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
-CourseDateUtils = require('../../utils/course_date_utils.coffee')
+CourseDateUtils = require('../../utils/course_date_utils.js').default
 ValidationStore = require('../../stores/validation_store.js').default
 
 getState = (course_id) ->

@@ -17,7 +17,7 @@ import UserStore from '../../stores/user_store.js';
 import CampaignStore from '../../stores/campaign_store.js';
 
 import CourseUtils from '../../utils/course_utils.js';
-import CourseDateUtils from '../../utils/course_date_utils.coffee';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 // For some reason getState is not being triggered when CampaignStore gets updated
 
 const getState = () =>
