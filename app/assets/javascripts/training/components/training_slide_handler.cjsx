@@ -1,5 +1,5 @@
 React = require 'react'
-TrainingStore = require '../stores/training_store.coffee'
+TrainingStore = require('../stores/training_store.js').default
 TrainingActions = require('../actions/training_actions.js').default
 ServerActions = require('../../actions/server_actions.js').default
 ReactRouter     = require 'react-router'

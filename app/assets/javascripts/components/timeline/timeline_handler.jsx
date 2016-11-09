@@ -14,7 +14,7 @@ import CourseStore from '../../stores/course_store.js';
 import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
 import GradeableStore from '../../stores/gradeable_store.js';
-import TrainingStore from '../../training/stores/training_store.coffee';
+import TrainingStore from '../../training/stores/training_store.js';
 
 const getState = () =>
   ({

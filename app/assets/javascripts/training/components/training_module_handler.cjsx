@@ -1,5 +1,5 @@
 React = require 'react'
-TrainingStore = require '../stores/training_store.coffee'
+TrainingStore = require('../stores/training_store.js').default
 ServerActions = require('../../actions/server_actions.js').default
 
 getState = ->
