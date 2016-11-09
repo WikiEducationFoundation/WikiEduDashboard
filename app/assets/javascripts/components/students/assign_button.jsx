@@ -153,9 +153,12 @@ const AssignButton = React.createClass({
       let buttonText;
       if (this.props.is_open) {
         buttonText = I18n.t('users.assign_articles_done');
-      } else {
+      } else if (this.props.permitted) {
         buttonText = '+/-';
+      } else {
+        buttonText = '…';
       }
+
       showButton = <button className={`${className}`} onClick={this.props.open}>{buttonText}</button>;
     } else if (this.props.permitted) {
       let assignText;
