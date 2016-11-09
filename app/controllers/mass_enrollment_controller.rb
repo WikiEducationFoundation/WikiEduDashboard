@@ -18,7 +18,6 @@ class MassEnrollmentController < ApplicationController
     usernames_list.each do |username|
       @results[username] = add_user(username)
     end
-    pp @results
     render :index
   end
 
