@@ -132,7 +132,7 @@ describe 'Instructor users', type: :feature, js: true do
         click_button 'Assign'
       end
       sleep 1
-      page.first('button.border.dark.plus').click
+      page.first('button.border.assign-button').click
       sleep 1
 
       # Assign a review
@@ -142,23 +142,27 @@ describe 'Instructor users', type: :feature, js: true do
         click_button 'Assign'
       end
       sleep 1
-      page.all('button.border.dark.plus')[0].click
+      page.all('button.border.assign-button')[0].click
       sleep 1
 
       # Leave editing mode
-      click_button 'Done'
+      within 'div.controls' do
+        click_button 'Done'
+      end
       expect(page).to have_content 'Article 1'
       expect(page).to have_content 'Article 2'
 
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students"
       click_button 'Assign Articles'
-      page.first('button.border.plus').click
+      page.first('button.border.assign-button').click
       page.accept_confirm do
         click_button '-'
       end
       sleep 1
-      click_button 'Done'
+      within 'div.controls' do
+        click_button 'Done'
+      end
       expect(page).not_to have_content 'Article 1'
     end
 
