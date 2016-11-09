@@ -78,7 +78,9 @@ class ApplicationController < ActionController::Base
 
   def require_participating_user
     course = Course.find_by_slug(params[:id])
-    return if user_signed_in? && current_user.role(course) >= 0
+    # Course roles for non-students are greater than STUDENT_ROLE.
+    # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
+    return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
     raise exception
   end

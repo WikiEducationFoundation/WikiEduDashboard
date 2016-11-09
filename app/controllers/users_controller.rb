@@ -6,8 +6,7 @@ require "#{Rails.root}/app/workers/update_course_worker"
 #= Controller for user functionality
 class UsersController < ApplicationController
   respond_to :html, :json
-  before_action :require_participating_user,
-                only: [:save_assignments, :enroll]
+  before_action :require_participating_user, only: [:enroll]
 
   before_action :require_signed_in, only: [:update_locale]
 
@@ -36,6 +35,10 @@ class UsersController < ApplicationController
   #########################
   # Enrollment management #
   #########################
+
+  # This method is for one user, such as an instructor or admin, to add another
+  # user to a course. Students joining a course themselves are handled via
+  # SelfEnrollmentController.
   def enroll
     if request.post?
       add

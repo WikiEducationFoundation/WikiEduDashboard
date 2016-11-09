@@ -86,13 +86,22 @@ const EnrollButton = React.createClass({
     let enrollUrl = window.location.origin + this._courseLinkParams() + enrollParam + this.props.course.passcode;
 
     let editRows = [];
+
+
     if (this.props.role === 0) {
+      let massEnrollmentLink;
+      if (Features.wikiEd) {
+        const massEnrollmentUrl = `/mass_enrollment/${this.props.course.slug}`;
+        massEnrollmentLink = <p><a href={massEnrollmentUrl}>Add multiple users at once.</a></p>;
+      }
+
       editRows.push(
         <tr className="edit" key="enroll_students">
           <td>
             <p>{I18n.t('users.course_passcode')}<b>{this.props.course.passcode}</b></p>
             <p>{I18n.t('users.enroll_url')}</p>
             <input type="text" readOnly={true} value={enrollUrl} style={{ width: '100%' }} />
+            {massEnrollmentLink}
           </td>
         </tr>
       );
