@@ -144,13 +144,19 @@ const AssignButton = React.createClass({
     return ServerActions.deleteAssignment(assignment);
   },
   render() {
-    let className = 'button border';
+    let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
 
     let showButton;
     let editButton;
     if (this.props.assignments.length > 1 || (this.props.assignments.length > 0 && this.props.permitted)) {
-      showButton = <button className={`${className} plus`} onClick={this.props.open}>+</button>;
+      let buttonText;
+      if (this.props.is_open) {
+        buttonText = 'done';
+      } else {
+        buttonText = '+/-';
+      }
+      showButton = <button className={`${className}`} onClick={this.props.open}>{buttonText}</button>;
     } else if (this.props.permitted) {
       let assignText;
       let reviewText;
