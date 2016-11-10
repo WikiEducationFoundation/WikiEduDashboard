@@ -15,6 +15,20 @@ class RevisionImporter
     import_revisions(new_revisions_for_course)
   end
 
+  def import_revisions(data)
+    # Use revision data fetched from Replica to add new Revisions as well as
+    # new Articles where appropriate.
+    # Limit it to 8000 per slice to avoid running out of memory.
+    data.each_slice(8000) do |sub_data|
+      import_revisions_slice(sub_data)
+    end
+  end
+
+  ###########
+  # Helpers #
+  ###########
+  private
+
   # Given a Course, get new revisions for the users in that course.
   def new_revisions_for_course
     results = []
@@ -37,45 +51,6 @@ class RevisionImporter
     end
     results
   end
-
-  def move_or_delete_revisions(revisions=nil)
-    # NOTE: All revisions passed to this method should be from the same @wiki.
-    revisions ||= Revision.where(wiki_id: @wiki.id)
-    return if revisions.empty?
-
-    synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.new(@wiki).get_existing_revisions_by_id block
-    end
-    synced_rev_ids = synced_revisions.map { |r| r['rev_id'].to_i }
-
-    deleted_rev_ids = revisions.pluck(:mw_rev_id) - synced_rev_ids
-    Revision.where(wiki_id: @wiki.id, mw_rev_id: deleted_rev_ids)
-            .update_all(deleted: true)
-    Revision.where(wiki_id: @wiki.id, mw_rev_id: synced_rev_ids)
-            .update_all(deleted: false)
-
-    moved_ids = synced_rev_ids - deleted_rev_ids
-    moved_revisions = synced_revisions.reduce([]) do |moved, rev|
-      moved.push rev if moved_ids.include? rev['rev_id'].to_i
-    end
-    moved_revisions.each do |moved|
-      handle_moved_revision moved
-    end
-  end
-
-  def import_revisions(data)
-    # Use revision data fetched from Replica to add new Revisions as well as
-    # new Articles where appropriate.
-    # Limit it to 8000 per slice to avoid running out of memory.
-    data.each_slice(8000) do |sub_data|
-      import_revisions_slice(sub_data)
-    end
-  end
-
-  ###########
-  # Helpers #
-  ###########
-  private
 
   # Get revisions made by a set of users between two dates.
   def get_revisions(users, start, end_date)
@@ -149,24 +124,6 @@ class RevisionImporter
                  new_article: string_to_boolean(rev_data['new_article']),
                  system: string_to_boolean(rev_data['system']),
                  wiki_id: rev_data['wiki_id'])
-  end
-
-  def handle_moved_revision(moved)
-    mw_page_id = moved['rev_page']
-
-    unless Article.exists?(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-      ArticleImporter.new(@wiki).import_articles([mw_page_id])
-    end
-
-    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
-
-    # Don't update the revision to point to a new article if there isn't one.
-    # This may happen if the article gets moved and then deleted, and there's
-    # some inconsistency or timing delay in the update process.
-    return unless article
-
-    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
-            .update(article_id: article.id, mw_page_id: mw_page_id)
   end
 
   def string_to_boolean(string)

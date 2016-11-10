@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/modified_revisions_manager"
 
 #= Deletes duplicate Article records that differ by ID but match by title and namespace
 class DuplicateArticleDeleter
@@ -21,7 +21,7 @@ class DuplicateArticleDeleter
     # At this stage check to see if the deleted articles' revisions still exist
     # if so, move them to their new article ID
     limbo_revisions = Revision.where(article_id: @deleted_ids)
-    RevisionImporter.new(@wiki).move_or_delete_revisions limbo_revisions
+    ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
   #################

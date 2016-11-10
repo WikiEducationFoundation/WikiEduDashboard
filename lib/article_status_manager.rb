@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/modified_revisions_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
@@ -45,7 +45,7 @@ class ArticleStatusManager
     articles.where(mw_page_id: @synced_ids).update_all(deleted: false)
     ArticlesCourses.where(article_id: @deleted_page_ids).destroy_all
     limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
-    RevisionImporter.new(@wiki).move_or_delete_revisions limbo_revisions
+    ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
   end
 
   ##################
