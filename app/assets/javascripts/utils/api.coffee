@@ -384,6 +384,18 @@ API =
           console.error 'Couldn\'t delete week'
           rej obj
 
+  needsUpdate: (course_id) ->
+    new Promise (res, rej) ->
+      $.ajax
+        type: 'GET'
+        url: '/courses/' + course_id + '/needs_update.json'
+        success: (data) ->
+          alert data.result
+          res data
+      .fail (obj, status) ->
+        console.error 'Couldn\'t request update'
+        rej obj
+
   notifyOverdue: (course_id) ->
     new Promise (res, rej) ->
       $.ajax

@@ -175,6 +175,10 @@ const CourseDateUtils = {
       if (meetingString !== '()') { return openWeekCount += 1; }
     });
     return openWeekCount;
+  },
+
+  isEnded(course) {
+    return moment(course.end, 'YYYY-MM-DD').isBefore();
   }
 };
 

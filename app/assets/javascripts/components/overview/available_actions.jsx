@@ -2,6 +2,7 @@ import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -45,20 +46,32 @@ const AvailableActions = React.createClass({
     }
   },
 
+  needsUpdate() {
+    ServerActions.needsUpdate(this.state.course.slug);
+  },
+
   render() {
     let controls = [];
     const user = this.props.current_user;
 
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
+      // If user is a student, show the 'leave' button.
       if (user.role === 0) {
         controls.push((
           <p key="leave"><button onClick={this.leave} className="button">{CourseUtils.i18n('leave_course', this.state.course.string_prefix)}</button></p>
         ));
       }
+      // If course is not published, show the 'delete' button to instructors and admins.
       if ((user.role === 1 || user.admin) && !this.state.course.published) {
         controls.push((
           <p key="delete"><button className="button danger" onClick={this.delete}>{CourseUtils.i18n('delete_course', this.state.course_string_prefix)}</button></p>
+        ));
+      }
+      // If the course is ended, show the 'needs update' button.
+      if (CourseDateUtils.isEnded(this.state.course)) {
+        controls.push((
+          <p key="needs_update"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></p>
         ));
       }
     // If user has no role or is logged out

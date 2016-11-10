@@ -113,6 +113,12 @@ class CoursesController < ApplicationController
   end
   helper_method :manual_update
 
+  def needs_update
+    @course = find_course_by_slug(params[:id])
+    @course.update_attribute(:needs_update, true)
+    render json: { result: 'Update scheduled.' }, status: :ok
+  end
+
   def notify_untrained
     @course = find_course_by_slug(params[:id])
     WikiEdits.new(@course.home_wiki).notify_untrained(@course, current_user)

@@ -216,9 +216,9 @@ const ServerActions = Flux.createActions({
       .then(resp => ({ actionType: 'DELETED_COURSE', data: resp }));
   },
 
-  manualUpdate(courseId) {
-    return API.manualUpdate(courseId)
-      .then(resp => ({ actionType: 'MANUAL_UPDATE', data: resp }))
+  needsUpdate(courseId) {
+    return API.needsUpdate(courseId)
+      .then(resp => ({ actionType: 'NEEDS_UPDATE', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
