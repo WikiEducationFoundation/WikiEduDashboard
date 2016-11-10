@@ -18,7 +18,7 @@ import urlParse from 'url-parse';
 // Required Internal Modules
 //--------------------------------------------------------
 
-const Utils = require('./SurveyUtils.coffee');
+import Utils from './SurveyUtils.js';
 
 //--------------------------------------------------------
 // Survey Module Misc Options

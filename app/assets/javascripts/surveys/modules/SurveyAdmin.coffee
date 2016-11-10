@@ -3,7 +3,7 @@ require('jquery-ui/sortable')
 require('jquery-ui/tabs')
 autosize = require('autosize')
 striptags = require('striptags')
-Utils = require './SurveyUtils.coffee'
+Utils = require('./SurveyUtils.js').default
 CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged'
 CONDITIONAL_COMPARISON_OPERATORS = """
   <option>></option>
