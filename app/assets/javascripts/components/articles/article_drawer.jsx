@@ -52,6 +52,11 @@ const ArticleDrawer = React.createClass({
       diffViewer = <button className="button dark">{I18n.t('articles.show_cumulative_changes')}</button>;
     }
 
+    let editedBy;
+    if (this.state.articleDetails.editors) {
+      editedBy = <p>{I18n.t('articles.edited_by')} {this.state.articleDetails.editors.join(', ')}</p>;
+    }
+
     return (
       <tr className={className}>
         <td colSpan="7">
@@ -64,6 +69,11 @@ const ArticleDrawer = React.createClass({
                 </td>
                 <td colSpan="3">
                   <Wp10Graph article={this.props.article} />
+                </td>
+              </tr>
+              <tr>
+                <td colSpan="7">
+                  {editedBy}
                 </td>
               </tr>
             </tbody>

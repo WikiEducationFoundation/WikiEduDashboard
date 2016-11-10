@@ -108,6 +108,7 @@ en:
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     edited: Articles Edited
+    edited_by: 'Edited by:'
     edited_mobile: Articles
     label: Articles
     loading: Loading articles...

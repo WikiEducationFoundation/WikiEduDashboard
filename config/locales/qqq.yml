@@ -108,6 +108,7 @@ qqq:
     assigned_to: Table header for the user who is assigned to work on an article
     character_doc: Documentation for an article's character total add and remove count.
     edited: Label for a list of articles edited.
+    edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
     label: |-
       Short name for articles
