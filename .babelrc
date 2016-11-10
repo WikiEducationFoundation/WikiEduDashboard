@@ -1,4 +1,4 @@
 {
   "presets": ["react", "es2015"],
-  "plugins": ["babel-plugin-rewire"]
+  "plugins": ["babel-plugin-rewire", "babel-plugin-add-module-exports"]
 }
