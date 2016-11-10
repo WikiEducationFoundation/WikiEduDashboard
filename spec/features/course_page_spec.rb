@@ -392,7 +392,7 @@ describe 'the course page', type: :feature, js: true do
 
       Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
       allow(UserImporter).to receive(:update_users)
-      allow(RevisionImporter).to receive(:update_all_revisions)
+      allow(CourseRevisionUpdater).to receive(:import_new_revisions)
       allow(ViewImporter).to receive(:update_views)
       allow(RatingImporter).to receive(:update_ratings)
 

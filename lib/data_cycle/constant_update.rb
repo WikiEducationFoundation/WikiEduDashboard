@@ -2,7 +2,7 @@
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 require "#{Rails.root}/lib/importers/user_importer"
-require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
@@ -61,7 +61,7 @@ class ConstantUpdate
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'
-    RevisionImporter.update_all_revisions
+    CourseRevisionUpdater.import_new_revisions
 
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles

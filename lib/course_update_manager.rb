@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
+require "#{Rails.root}/lib/course_revision_updater"
 
 #= Class for performing updates on data related to an individual Course
 class CourseUpdateManager
@@ -29,7 +30,7 @@ class CourseUpdateManager
     Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
 
     UserImporter.update_users users
-    RevisionImporter.update_all_revisions course
+    CourseRevisionUpdater.import_new_revisions(course)
     ViewImporter.update_views articles.namespace(0)
       .find_in_batches(batch_size: 30) unless course.legacy?
     RatingImporter.update_ratings articles.namespace(0)

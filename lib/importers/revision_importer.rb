@@ -10,23 +10,7 @@ class RevisionImporter
     @course = course
   end
 
-  ################
-  # Entry points #
-  ################
-
-  def self.update_all_revisions(courses=nil, all_time=false)
-    courses = [courses] if courses.is_a? Course
-    courses ||= all_time ? Course.all : Course.current
-    courses.each do |course|
-      wiki_ids = course.assignments.pluck(:wiki_id) + [course.home_wiki.id]
-      wiki_ids.uniq.each do |wiki_id|
-        new(Wiki.find(wiki_id), course).run
-      end
-      ArticlesCourses.update_from_course(course)
-    end
-  end
-
-  def run
+  def import_new_revisions_for_course
     return if @course.students.empty?
     import_revisions(new_revisions_for_course)
   end
