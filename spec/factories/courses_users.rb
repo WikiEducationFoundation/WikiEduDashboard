@@ -13,6 +13,7 @@
 #  revision_count         :integer          default(0)
 #  assigned_article_title :string(255)
 #  role                   :integer          default(0)
+#  recent_revisions       :integer          default(0)
 #
 
 FactoryGirl.define do

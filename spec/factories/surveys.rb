@@ -12,6 +12,7 @@
 #  open                 :boolean          default(FALSE)
 #  closed               :boolean          default(FALSE)
 #  confidential_results :boolean          default(FALSE)
+#  optout               :text(65535)
 #
 
 FactoryGirl.define do

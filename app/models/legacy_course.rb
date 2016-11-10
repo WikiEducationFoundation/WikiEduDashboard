@@ -39,6 +39,8 @@
 #  syllabus_file_size    :integer
 #  syllabus_updated_at   :datetime
 #  home_wiki_id          :integer
+#  recent_revision_count :integer          default(0)
+#  needs_update          :boolean          default(FALSE)
 #
 
 require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
