@@ -420,6 +420,7 @@ zh-CN:
     this_week_title_default: 本周
     title: 时间轴
     unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
+    view_full_timeline: 查看完整时间轴
     week_number: 第%{number}周
   training:
     continue: 继续（%{progress}）

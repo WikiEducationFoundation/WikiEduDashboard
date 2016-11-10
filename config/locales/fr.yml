@@ -505,6 +505,7 @@ fr:
     unable_to_add_week: Vous ne pouvez pas ajouter de nouvelles semaines quand votre
       planning est plein. Supprimez au moins une semaine ou modifiez vos dates d’affectation
       pour faire de la place pour une nouvelle semaine.
+    view_full_timeline: Voir l'intégralité de l'échelle des temps
     week_number: Semaine %{number}
   training:
     continue: Continuer (%{progress})
@@ -621,7 +622,8 @@ fr:
       de tâche.
     select_one_option: Veuillez sélectionner 1 option
     minimum_options:
-      one: Veuillez sélectionner au moins %{count} options.
+      one: Veuillez sélectionner %{count} option au moins.
+      other: Veuillez sélectionner %{count} options au moins.
     read_less: Lire moins
     read_more: Lire plus
     review_selections: Veuillez vérifier vos sélections ci-dessous. Cliquez pour modifier

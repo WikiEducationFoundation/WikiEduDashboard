@@ -4,6 +4,7 @@
 # Author: Alex00728
 # Author: Asdfqwer51
 # Author: Hwangjy9
+# Author: Jerrykim306
 # Author: Jonghaya
 # Author: Mooozi
 # Author: Priviet
@@ -221,6 +222,7 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     view: 보기
+    word_count_average: 평균 단어 개수
   namespace:
     user: 사용자 공간
     user_ns: 사용자
@@ -274,6 +276,7 @@ ko:
     save_all_changes: 모두 저장
     this_week_title_default: 이번 주
     title: 타임라인
+    view_full_timeline: 전체 타임라인 보기
     week_number: '%{number} 주'
   training:
     continue: 계속 (%{progress})

@@ -308,6 +308,8 @@ sr-ec:
   revisions:
     chars_added: Додато знакова
     date_time: Датум/време
+    diff_show: Прикажи
+    diff_hide: Сакриј
     edited_by: 'Изменио/ла:'
     loading: Учитавам верзије...
     none: Овај курс не садржи недавну уређивачку активност.

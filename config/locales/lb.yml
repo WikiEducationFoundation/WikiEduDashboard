@@ -237,6 +237,7 @@ lb:
     save_all_changes: All späicheren
     this_week_title_default: Dës Woch
     title: Chronologie
+    view_full_timeline: Kompletten Zäitplang weisen
     week_number: Woch %{number}
   training:
     continue: Virufueren (%{progress})

@@ -430,6 +430,7 @@ zh-TW:
     this_week_title_default: 本週
     title: 時間表
     unable_to_add_week: 在時間表已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
+    view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
   training:
     continue: 進度 (%{progress})

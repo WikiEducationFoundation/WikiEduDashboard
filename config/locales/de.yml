@@ -493,6 +493,7 @@ de:
     unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
       voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
       um Platz für ein neues zu schaffen.
+    view_full_timeline: Vollständige Zeitleiste ansehen
     week_number: Woche %{number}
   training:
     continue: Fortfahren (%{progress})

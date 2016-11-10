@@ -1,0 +1,124 @@
+# Messages for Thai (ไทย)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Pon44695
+---
+th:
+  application:
+    cancel: ยกเลิก
+    dashboard: แดชบอร์ดของวิกิการศึกษา
+    explore: สำรวจ
+    field_required: ต้องใส่ข้อมูลในช่องนี้
+    field_invalid_characters: ช่องนี้มีตัวอักษรที่ไม่ถูกต้อง
+    field_invalid_date: ช่องนี้ต้องใส่วันที่ในรูปแบบ ปปปป-ดด-วว
+    greeting2: ยินดีต้อนรับ!
+    greeting_extended: ยินดีต้อนรับสู่วิกิพีเดีย
+    greeting: สวัสดี!
+    help: วิธีใช้
+    home: หน้าหลัก
+    log_in_extended: ลงชื่อเข้าใช้ด้วยวิกิพีเดีย
+    log_in: ลงชื่อเข้าใช้
+    log_out: ออกจากระบบ
+    my_dashboard: แผงควบคุมของฉัน
+    search: ถามคำถาม
+    sign_up_extended: เข้าร่วมด้วยวิกิพีเดีย
+    sign_up_log_in_extended: ด้วยวิกิพีเดีย
+    sign_up: เข้าร่วม
+    submit: ตกลง
+    training: การอบรม
+    change: ความเปลี่ยนแปลง
+  dashboard:
+    create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
+    explore_course_pages: สำรวจหน้าหลักสูตร
+    explore_examples: ตัวอย่างการสำรวจ
+    join_note: ทันทีที่คุณได้รับรหัสผ่านจากผู้สอนของคุณ คลิกที่ หาหลักสูตรของคุณ เพื่อค้นหาและเข้าร่วม
+    no_courses_instructor: ดูเหมือนว่าคุณไม่มีหลักสูตรใดเลย
+    no_courses_student: ดูเหมือนว่าคุณยังไม่มีการเข้าร่วมหลักสูตรใดเลย
+    blog_headline: ข่าวล่าสุดจากวิกิการศึกษา
+  home:
+    explore: สำรวจ
+    log_in: ลงชื่อเข้าใช้ด้วยวิกิพีเดีย
+    sign_up: เข้าร่วมด้วยวิกิพีเดีย
+  activity:
+    all: กิจกรรม
+    edited_by: ถูกแก้ไขโดย
+    label: กิจกรรม
+  articles:
+    edited_mobile: บทความ
+    label: บทความ
+    loading: กำลังโหลดบทความ...
+    new: (ใหม่)
+    rating: ชั้นเรียน
+    title: ชื่อเรื่อง
+    title_example: ชื่อบทความ
+    view: ดูบทความ
+    view_all: ดูทั้งหมด
+    view_doc: ผลรวมของการดูทั้งหมดแต่ละบทความระหว่างโครงการ
+    views_added: เพิ่ม %{count} การดูใหม่สำหรับ %{title}
+  assignments:
+    assign_other: กำหนดบทความ
+    add_available: เพิ่มบทความที่สามารถใช้ได้
+    assign_self: กำหนดบทความโดยฉัน
+    confirm_add_available: คุณแน่ใจหรือไม่ที่จะเพิ่ม %{title}
+    confirm_addition: คุณแน่ใจหรือไม่ที่จะกำหนด %{title} ไปยัง %{username}
+    confirm_deletion: คุณแน่ใจหรือไม่ที่จะลบงานบทความนี้
+    label: กำหนด
+    loading: กำลังโหลดงาน...
+    none_short: ไม่มีบทความที่ถูกกำหนด
+    none: หลักสูตรนี้ไม่มีบทความที่ถูกกำหนด
+    no_available: หลักสูตรนี้ไม่มีบทความพร้อมบริการ
+    remove: ลบออก
+    reviewers: ผู้ตรวจทาน
+    review_other: กำหนดการตรวจทาน
+    review_self: ตรวจทานบทความ
+    select: เลือก
+  blocks:
+    milestones:
+      title: หินไมล์
+  campaign:
+    campaign: การณรงค์
+    none: ไม่มี
+  courses:
+    activity: กิจกรรม
+    archived: เก็บถาวรหลักสูตร
+    actions: การกระทำ
+    articles: บทความ
+    articles_none: หลักสูตรนี้ยังไม่มีการแก้ไขบทความใด ๆ
+    calendar:
+      legend: คำอธิบายสัญลักษณ์
+      legend_class_canceled: วันหยุด/ยกเลิก
+      legend_class_meeting: การพบปะชั้นเรียน
+      legend_class_not_meeting: ไม่มีตารางการพบปะ
+      select_meeting_days: เลือกวันในสัปดาห์ซึ่งคุณจะพบปะชั้นเรียน
+    cancel: ยกเลิก
+    campaigns: 'การรณรงค์:'
+    course_description: หลักสูตร
+    courses: หลักสูตร
+    creator:
+      assignment_end: สิ้นสุดงาน
+      assignment_end_placeholder: สิ้นสุดงาน (ปปปป-ดด-วว)
+      assignment_start: เริ่มต้นงาน
+      assignment_start_placeholder: เริ่มต้นงาน (ปปปป-ดด-วว)
+      clone_this: โคลนหลักสูตรนี้
+      course_description: คำอธิบายหลักสูตร
+    school: โรงเรียน
+    start: เริ่ม
+    students: นักเรียน
+    students_count: '# นักเรียน'
+    student_editors: บรรณาธิการนักเรียน
+    students_none: หลักสูตรนี้ไม่มีนักเรียน
+    students_short: นักเรียน
+    submitted_admin: หลักสูตรนี้ถูกเสนอเนื่องจากการเห็นพ้องโดยผู้สร้าง เพื่อการอนุมัติ
+      เพิ่มหลักสูตรไปยังการรณรงค์บนหน้าภาพรวม
+    submitted_and_pending_heading: เสนอแล้ว และ อยู่ในการพิจารณาอนุมัติ
+    submitted_heading: เสนอหลักสูตร
+    submitted_note: หลักสูตรของคุณถูกเสนอแล้ว ทีมงานวิกิการศึกษาจะตรวจทานและติดต่อไปหากมีคำถามใด
+      ๆ
+    user_role: หน้าที่
+    course_details: รายละเอียดหลักสูตรสำหรับ
+    term: ภาคเรียน
+    timeline: รายละเอียดงาน
+    timeline_link: เส้นเวลา
+    time_zone_message: เวลาเริ่มและสิ้นสุดแสดงผลในเขตเวลาท้องถิ่นของคุณ
+    title: ชื่อเรื่อง
+...
