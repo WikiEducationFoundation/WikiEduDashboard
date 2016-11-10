@@ -7,6 +7,7 @@ class CourseRevisionUpdater
     courses = [courses] if courses.is_a? Course
     courses ||= Course.current
     courses.each do |course|
+      next if course.students.empty?
       new(course).update_revisions_for_relevant_wikis
       ArticlesCourses.update_from_course(course)
     end

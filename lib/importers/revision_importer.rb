@@ -5,23 +5,13 @@ require "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
-  def initialize(wiki, course = nil)
+  def initialize(wiki, course)
     @wiki = wiki
     @course = course
   end
 
   def import_new_revisions_for_course
-    return if @course.students.empty?
     import_revisions(new_revisions_for_course)
-  end
-
-  def import_revisions(data)
-    # Use revision data fetched from Replica to add new Revisions as well as
-    # new Articles where appropriate.
-    # Limit it to 8000 per slice to avoid running out of memory.
-    data.each_slice(8000) do |sub_data|
-      import_revisions_slice(sub_data)
-    end
   end
 
   ###########
@@ -37,7 +27,7 @@ class RevisionImporter
     # Users with no revisions are considered "new". For them, we search for
     # revisions starting from the beginning of the course, in case they were
     # just added to the course.
-    new_users = users_with_no_revisions(@course)
+    new_users = users_with_no_revisions
     results += get_revisions(new_users, start, end_of_update_period) unless new_users.empty?
 
     # For users who already have revisions during the course, we assume that
@@ -50,6 +40,15 @@ class RevisionImporter
       results += get_revisions(old_users, start, end_of_update_period)
     end
     results
+  end
+
+  def import_revisions(data)
+    # Use revision data fetched from Replica to add new Revisions as well as
+    # new Articles where appropriate.
+    # Limit it to 8000 per slice to avoid running out of memory.
+    data.each_slice(8000) do |sub_data|
+      import_revisions_slice(sub_data)
+    end
   end
 
   # Get revisions made by a set of users between two dates.
@@ -69,10 +68,10 @@ class RevisionImporter
     (@course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
   end
 
-  def users_with_no_revisions(course)
-    course.users.role('student')
-          .joins(:courses_users)
-          .where(courses_users: { revision_count: 0 })
+  def users_with_no_revisions
+    @course.users.role('student')
+           .joins(:courses_users)
+           .where(courses_users: { revision_count: 0 })
   end
 
   def latest_revision_of_course

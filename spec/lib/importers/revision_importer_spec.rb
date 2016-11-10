@@ -28,11 +28,13 @@ describe RevisionImporter do
     before { CoursesUsers.all.collect(&:update_cache) }
 
     it 'returns users who have no revisions for the given course' do
-      expect(subject.send(:users_with_no_revisions, course_2)).to include(user)
+      result = RevisionImporter.new(Wiki.default_wiki, course_2).send(:users_with_no_revisions)
+      expect(result).to include(user)
     end
 
     it 'does not return users who have revisions for the course' do
-      expect(subject.send(:users_with_no_revisions, course_1)).not_to include(user)
+      result = RevisionImporter.new(Wiki.default_wiki, course_1).send(:users_with_no_revisions)
+      expect(result).not_to include(user)
     end
   end
 end

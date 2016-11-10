@@ -42,7 +42,7 @@ describe CourseRevisionUpdater do
     end
   end
 
-  describe '.update_all_revisions' do
+  describe '.import_new_revisions' do
     it 'fetches revisions for existing courses' do
       VCR.use_cassette 'revisions/update_all_revisions' do
         # Try it with no courses.
