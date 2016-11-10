@@ -154,6 +154,15 @@ const DiffViewer = React.createClass({
     }
 
     const wikiDiffUrl = this.webDiffUrl();
+
+    let diffComment;
+    // Only show the edit summary for a single revision; for cumulative diffs,
+    // the edit summary is for the *parent* of the first revision, so it's
+    // irrelevant and confusing to show that.
+    if (!this.props.first_revision) {
+      diffComment = <p className="diff-comment">{this.state.comment}</p>;
+    }
+
     return (
       <div>
         {button}
@@ -164,7 +173,7 @@ const DiffViewer = React.createClass({
             <a className="pull-right button small" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
           </p>
           <table>
-            <thead><tr><th colSpan="4" className="diff-header"><p className="diff-comment">{this.state.comment}</p></th></tr></thead>
+            <thead><tr><th colSpan="4" className="diff-header">{diffComment}</th></tr></thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
           </table>
         </div>
