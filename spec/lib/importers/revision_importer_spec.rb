@@ -127,7 +127,7 @@ describe RevisionImporter do
   end
 
   describe '.users_with_no_revisions' do
-    let(:subject)   { RevisionImporter.new }
+    let(:subject)   { RevisionImporter.new(Wiki.default_wiki) }
     let(:user)      { create(:user) }
     let(:course_1)  { create(:course, start: '2015-01-01', end: '2015-12-31') }
     let(:course_2)  { create(:course, start: '2016-01-01', end: '2016-12-31') }
@@ -165,7 +165,7 @@ describe RevisionImporter do
              mw_page_id: 1,
              article_id: 1) # Not the actual article_id
       revision = Revision.all
-      RevisionImporter.new.move_or_delete_revisions(revision)
+      RevisionImporter.new(Wiki.default_wiki).move_or_delete_revisions(revision)
       article = Revision.find_by(mw_rev_id: 547645475).article
       expect(article.mw_page_id).to eq(38956275)
       expect(Article.exists?(mw_page_id: 38956275)).to be true

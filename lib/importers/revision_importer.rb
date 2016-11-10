@@ -5,9 +5,9 @@ require "#{Rails.root}/lib/importers/article_importer"
 
 #= Imports and updates revisions from Wikipedia into the dashboard database
 class RevisionImporter
-  def initialize(wiki = nil)
-    wiki ||= Wiki.default_wiki
+  def initialize(wiki, course = nil)
     @wiki = wiki
+    @course = course
   end
 
   ################
@@ -20,34 +20,36 @@ class RevisionImporter
     courses.each do |course|
       wiki_ids = course.assignments.pluck(:wiki_id) + [course.home_wiki.id]
       wiki_ids.uniq.each do |wiki_id|
-        importer = new(Wiki.find(wiki_id))
-        results = importer.get_revisions_for_course(course)
-        importer.import_revisions(results)
+        new(Wiki.find(wiki_id), course).run
       end
       ArticlesCourses.update_from_course(course)
     end
   end
 
+  def run
+    return if @course.students.empty?
+    import_revisions(new_revisions_for_course)
+  end
+
   # Given a Course, get new revisions for the users in that course.
-  def get_revisions_for_course(course)
+  def new_revisions_for_course
     results = []
-    return results if course.students.empty?
-    start = course_start_date(course)
-    end_date = end_of_update_period(course)
-    new_users = users_with_no_revisions(course)
+    start = course_start_date
 
-    old_users = course.students - new_users
+    # Users with no revisions are considered "new". For them, we search for
+    # revisions starting from the beginning of the course, in case they were
+    # just added to the course.
+    new_users = users_with_no_revisions(@course)
+    results += get_revisions(new_users, start, end_of_update_period) unless new_users.empty?
 
-    # rubocop:disable Style/IfUnlessModifier
-    unless new_users.empty?
-      results += get_revisions(new_users, start, end_date)
-    end
-    # rubocop:enable Style/IfUnlessModifier
-
+    # For users who already have revisions during the course, we assume that
+    # previous updates imported their revisions prior to the latest revisions.
+    # We only need to import revisions
+    old_users = @course.students - new_users
     unless old_users.empty?
-      first_rev = first_revision(course)
+      first_rev = latest_revision_of_course
       start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
-      results += get_revisions(old_users, start, end_date)
+      results += get_revisions(old_users, start, end_of_update_period)
     end
     results
   end
@@ -98,14 +100,14 @@ class RevisionImporter
     end
   end
 
-  def course_start_date(course)
-    course.start.strftime('%Y%m%d')
+  def course_start_date
+    @course.start.strftime('%Y%m%d')
   end
 
   DAYS_TO_IMPORT_AFTER_COURSE_END = 30
-  def end_of_update_period(course)
+  def end_of_update_period
     # Add one day so that the query does not end at the beginning of the last day.
-    (course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
+    (@course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
   end
 
   def users_with_no_revisions(course)
@@ -114,8 +116,8 @@ class RevisionImporter
           .where(courses_users: { revision_count: 0 })
   end
 
-  def first_revision(course)
-    course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
+  def latest_revision_of_course
+    @course.revisions.where(wiki_id: @wiki.id).order('date DESC').first
   end
 
   def import_revisions_slice(sub_data)
