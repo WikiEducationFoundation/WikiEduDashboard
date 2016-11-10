@@ -378,6 +378,18 @@ describe CoursesController do
     end
   end
 
+  describe '#needs_update' do
+    render_views
+    let(:course) { create(:course, needs_update: false) }
+    before do
+      allow(controller).to receive(:user_signed_in?).and_return(true)
+    end
+    it 'sets "needs_update" to true' do
+      get :needs_update, params: { id: course.slug }
+      expect(course.reload.needs_update).to eq(true)
+    end
+  end
+
   describe '#notify_untrained' do
     let(:course) { create(:course) }
     let(:user) { create(:user) }
