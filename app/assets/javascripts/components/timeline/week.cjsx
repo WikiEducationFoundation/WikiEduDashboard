@@ -58,34 +58,35 @@ Week = React.createClass(
     blocks = @props.blocks.map (block, i) =>
       unless block.deleted
         if @props.reorderable
+          orderableBlock = (value) =>
+            rounded = Math.round(value.y)
+            animating = rounded != i * 75
+            willChange = if animating then 'top' else 'initial'
+            style =
+              top: rounded
+              position: 'absolute'
+              width: '100%'
+              left: 0
+              willChange: willChange
+              marginLeft: 0
+            <li style={style}>
+              <OrderableBlock
+                block={block}
+                canDrag={true}
+                animating={animating}
+                onDrag={@props.onBlockDrag.bind(null, i)}
+                onMoveUp={@props.onMoveBlockUp.bind(null, block.id)}
+                onMoveDown={@props.onMoveBlockDown.bind(null, block.id)}
+                disableDown={!@props.canBlockMoveDown(block, i)}
+                disableUp={!@props.canBlockMoveUp(block, i)}
+                index={i}
+                title={block.title}
+                kind={[I18n.t('timeline.block_in_class'), I18n.t('timeline.block_assignment'), I18n.t('timeline.block_milestone'), I18n.t('timeline.block_custom')][block.kind]}
+              />
+            </li>
+
           <Motion key={block.id} defaultStyle={{y: i * 75}} style={{y: spring(i * 75, [220, 30])}}>
-            {(value) =>
-              rounded = Math.round(value.y)
-              animating = rounded != i * 75
-              willChange = if animating then 'top' else 'initial'
-              style =
-                top: rounded
-                position: 'absolute'
-                width: '100%'
-                left: 0
-                willChange: willChange
-                marginLeft: 0
-              <li style={style}>
-                <OrderableBlock
-                  block={block}
-                  canDrag={true}
-                  animating={animating}
-                  onDrag={@props.onBlockDrag.bind(null, i)}
-                  onMoveUp={@props.onMoveBlockUp.bind(null, block.id)}
-                  onMoveDown={@props.onMoveBlockDown.bind(null, block.id)}
-                  disableDown={!@props.canBlockMoveDown(block, i)}
-                  disableUp={!@props.canBlockMoveUp(block, i)}
-                  index={i}
-                  title={block.title}
-                  kind={[I18n.t('timeline.block_in_class'), I18n.t('timeline.block_assignment'), I18n.t('timeline.block_milestone'), I18n.t('timeline.block_custom')][block.kind]}
-                />
-              </li>
-            }
+            {orderableBlock}
           </Motion>
         else
           <Block
