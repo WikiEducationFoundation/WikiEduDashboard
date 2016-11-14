@@ -6,16 +6,6 @@ const WeekActions = Flux.createActions({
   addWeek() {
     return { actionType: 'ADD_WEEK' };
   },
-
-  updateWeek(week) {
-    return {
-      actionType: 'UPDATE_WEEK',
-      data: {
-        week
-      }
-    };
-  },
-
   deleteWeek(weekId) {
     return API.deleteWeek(weekId)
       .then(data => ({
@@ -26,15 +16,6 @@ const WeekActions = Flux.createActions({
       }))
       .catch(data => ({ actionType: 'API_FAIL', data }));
   },
-
-  setWeekEditable(weekId) {
-    return {
-      actionType: 'SET_WEEK_EDITABLE',
-      data: {
-        week_id: weekId
-      }
-    };
-  }
 });
 
 export default WeekActions;

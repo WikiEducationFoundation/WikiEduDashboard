@@ -4,7 +4,7 @@ RDnD            = require 'react-dnd'
 Touch           = require('react-dnd-touch-backend').default
 DDContext       = RDnD.DragDropContext
 
-Week            = require './week.cjsx'
+Week            = require('./week.jsx').default
 EmptyWeek       = require('./empty_week.jsx').default
 Loading         = require('../common/loading.jsx').default
 CourseLink      = require('../common/course_link.jsx').default
@@ -154,14 +154,12 @@ Timeline = React.createClass(
         )
         i++
 
-      isEditable = @props.editable_week_id == week.id
       week_components.push (
         <div key={week.id}>
           <a className="timeline__anchor" name={"week-#{i + 1}"} />
           <Week
             week={week}
             index={i + 1}
-            editable={isEditable}
             reorderable={@props.reorderable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             deleteWeek={@deleteWeek.bind(this, week.id)}

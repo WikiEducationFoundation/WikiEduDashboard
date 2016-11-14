@@ -7,7 +7,6 @@ import GradeableStore from './gradeable_store.js';
 // Data
 let _weeks = {};
 const _persisted = {};
-let _editableWeekId = 0;
 let _isLoading = true;
 
 
@@ -40,11 +39,6 @@ const removeWeek = function (weekId) {
   return WeekStore.emitChange();
 };
 
-const setEditableWeekId = function (weekId) {
-  _editableWeekId = weekId;
-  return WeekStore.emitChange();
-};
-
 // Store
 const WeekStore = Flux.createStore({
   getLoadingStatus() {
@@ -65,13 +59,6 @@ const WeekStore = Flux.createStore({
   restore() {
     _weeks = $.extend(true, {}, _persisted);
     return WeekStore.emitChange();
-  },
-  getEditableWeekId() {
-    return _editableWeekId;
-  },
-  clearEditableWeekId() {
-    setEditableWeekId(null);
-    return WeekStore.emitChange();
   }
 }
 , (payload) => {
@@ -85,14 +72,8 @@ const WeekStore = Flux.createStore({
     case 'ADD_WEEK':
       addWeek();
       break;
-    case 'UPDATE_WEEK':
-      setWeek(data.week);
-      break;
     case 'DELETE_WEEK':
       removeWeek(data.week_id);
-      break;
-    case 'SET_WEEK_EDITABLE':
-      setEditableWeekId(data.week_id);
       break;
     default:
       // no default

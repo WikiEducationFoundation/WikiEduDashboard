@@ -24,7 +24,6 @@ const getState = () =>
     gradeables: GradeableStore.getGradeables(),
     all_training_modules: TrainingStore.getAllModules(),
     editable_block_ids: BlockStore.getEditableBlockIds(),
-    editable_week_id: WeekStore.getEditableWeekId(),
     course: CourseStore.getCourse()
   })
 ;
@@ -42,7 +41,6 @@ const TimelineHandler = React.createClass({
     gradeables: React.PropTypes.array,
     loading: React.PropTypes.bool,
     editable_block_ids: React.PropTypes.array,
-    editable_week_id: React.PropTypes.number,
     all_training_modules: React.PropTypes.array
   },
 
@@ -74,7 +72,6 @@ const TimelineHandler = React.createClass({
     this.setState({ reorderable: false });
     const toSave = $.extend(true, {}, this.props);
     TimelineActions.persistTimeline(toSave, this.props.course_id);
-    WeekStore.clearEditableWeekId();
     if (editableBlockId > 0) {
       return BlockStore.cancelBlockEditable(editableBlockId);
     }
@@ -129,7 +126,6 @@ const TimelineHandler = React.createClass({
           weeks={this.props.weeks}
           week_meetings={weekMeetings}
           editable_block_ids={this.props.editable_block_ids}
-          editable_week_id={this.props.editable_week_id}
           reorderable={this.state.reorderable}
           controls={this.props.controls}
           saveGlobalChanges={this.saveTimeline}

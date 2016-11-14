@@ -1,5 +1,5 @@
 import React from 'react';
-import Week from '../timeline/week.cjsx';
+import Week from '../timeline/week.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { Link } from 'react-router';
 

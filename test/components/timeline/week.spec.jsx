@@ -4,7 +4,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
 import TestUtils, { Simulate } from 'react-addons-test-utils';
-import Week from '../../../app/assets/javascripts/components/timeline/week.cjsx';
+import Week from '../../../app/assets/javascripts/components/timeline/week.jsx';
 import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 
 const noOp = () => {};
@@ -16,7 +16,6 @@ const createWeek = (opts = {}) => {
       meetings={opts.meetings || null}
       edit_permissions={opts.edit_permissions || false}
       reorderable={opts.reorderable || false }
-      editing_added_block={opts.editing_added_block || false }
       week={{ is_new: opts.is_new || false }}
       deleteWeek={opts.deleteWeek || noOp}
     />
@@ -45,7 +44,7 @@ describe('Week', () => {
   describe('week add/delete', () => {
     describe('week meetings and edit permissions', () => {
       it('displays', () => {
-        const TestWeek = createWeek({ edit_permissions: true, meetings: true });
+        const TestWeek = createWeek({ edit_permissions: true, meetings: '(Tue)' });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
         expect(containerNode.innerHTML).to.contain('Add Block');
@@ -54,7 +53,7 @@ describe('Week', () => {
     });
     describe('edit permissions, but no week meetings', () => {
       it('displays', () => {
-        const TestWeek = createWeek({ edit_permissions: true, meetings: false });
+        const TestWeek = createWeek({ edit_permissions: true, meetings: '' });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
         expect(containerNode.innerHTML).to.contain('Delete Week');
@@ -62,7 +61,7 @@ describe('Week', () => {
     });
     describe('week meetings, but no edit permissions', () => {
       it('does not display', () => {
-        const TestWeek = createWeek({ edit_permissions: false, meetings: true });
+        const TestWeek = createWeek({ edit_permissions: false, meetings: '(Tue)' });
         const container = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__week-add-delete')[0];
         const containerNode = findDOMNode(container);
         expect(containerNode).to.be.null;
@@ -71,10 +70,10 @@ describe('Week', () => {
   });
 
   describe('add block button', () => {
-    const permissionsOpts = { meetings: true, edit_permissions: true };
+    const permissionsOpts = { meetings: '(Tue)', edit_permissions: true };
     describe('not reorderable, not editing added block failing', () => {
       it('displays', () => {
-        const opts = { reorderable: false, editing_added_block: false };
+        const opts = { reorderable: false };
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
         const spanNode = findDOMNode(span);
@@ -83,16 +82,7 @@ describe('Week', () => {
     });
     describe('reorderable, not editing added block', () => {
       it('does not display', () => {
-        const opts = { reorderable: true, editing_added_block: false };
-        const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
-        const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
-        const spanNode = findDOMNode(span);
-        expect(spanNode).to.be.null;
-      });
-    });
-    describe('not reorderable, editing added block', () => {
-      it('does not display', () => {
-        const opts = { reorderable: false, editing_added_block: true };
+        const opts = { reorderable: true };
         const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
         const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
         const spanNode = findDOMNode(span);
@@ -100,7 +90,7 @@ describe('Week', () => {
       });
     });
     describe('click handler', () => {
-      const opts = { reorderable: false, editing_added_block: false };
+      const opts = { reorderable: false };
       const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
       const method = sinon.spy(TestWeek, '_scrollToAddedBlock');
       const action = sinon.spy(BlockActions, 'addBlock');
@@ -114,7 +104,7 @@ describe('Week', () => {
   });
 
   describe('delete week button', () => {
-    const permissionsOpts = { meetings: true, edit_permissions: true };
+    const permissionsOpts = { meetings: '(Tue)', edit_permissions: true };
     describe('not reorderable, week is not new', () => {
       it('displays', () => {
         const opts = { reorderable: false, is_new: false };
