@@ -4,9 +4,11 @@ class ExploreController < ApplicationController
   respond_to :html
 
   def index
-    campaign = params[:campaign] || ENV['default_campaign']
+    # 'cohort' is the old name for campaign. We accept 'cohort' as an alternative
+    # parameter to keep old incoming links from breaking.
+    campaign = params[:campaign] || params[:cohort] || ENV['default_campaign']
     @presenter = CoursesPresenter.new(current_user, campaign)
-    raise ActionController::RoutingError
-      .new('Not Found'), 'Campaign does not exist' unless @presenter.campaign
+    return unless @presenter.campaign.nil?
+    raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 end
