@@ -5,7 +5,7 @@
     .stat-display
       = render 'courses/header_stats', presenter: @presenter
     .primary
-      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description editable' }) do
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
         = hidden_field(:campaign, :slug)
         .section-header
           %h3
@@ -13,19 +13,19 @@
               = t('campaign.campaign')
             = @campaign.title
           .controls
-            - if current_user&.admin?
-              %button.dark.button.editable-edit
-                = t('editable.edit_description')
-        .module__data.editable-field
-          %p.editable-content
+            - if @editable
+              %button.dark.button.rails_editable-edit
+                = t('rails_editable.edit_description')
+        .module__data.rails_editable-field
+          %p.rails_editable-content
             = @campaign.description
-          = text_area(:campaign, :description, class: 'editable-input', style: 'display:none')
+          = text_area(:campaign, :description, class: 'rails_editable-input', style: 'display:none')
     .sidebar
       .module.campaign-details
         .section-header
           %h3
             = t('application.details')
           .controls
-            - if current_user&.admin?
+            - if @editable
               .button.dark
-                = t('editable.edit_details')
+                = t('rails_editable.edit_details')
