@@ -37,10 +37,12 @@ describe 'campaign overview page', type: :feature, js: true do
     end
 
     it 'updates the campaign when you click save' do
+      new_description = 'This is my new description'
       find('.campaign-description .rails_editable-edit').click
-      fill_in('campaign_description', with: 'This is my new description')
+      fill_in('campaign_description', with: new_description)
       find('.campaign-description .rails_editable-save').click
-      expect(campaign.reload.description).to eq('This is my new description')
+      expect(page).to have_content('Campaign updated')
+      expect(campaign.reload.description).to eq(new_description)
     end
   end
 end

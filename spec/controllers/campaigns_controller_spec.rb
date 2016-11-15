@@ -68,7 +68,7 @@ describe CampaignsController do
     it 'updates the campaign if the user is an admin' do
       allow(controller).to receive(:current_user).and_return(admin)
       post :update, params: { campaign: campaign_params, slug: campaign.slug }
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302) # redirect to /overview
       expect(campaign.reload.description).to eq(description)
     end
   end

@@ -185,6 +185,7 @@ qqq:
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}
+    campaign_updated: Message indicating a campaign was successfully updated
     none: |-
       Option for a course with no campaign
       {{Identical|None}}

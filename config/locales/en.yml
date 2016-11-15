@@ -172,6 +172,7 @@ en:
 
   campaign:
     campaign: Campaign
+    campaign_updated: Campaign updated
     none: None
     programs: '%{title} Programs'
 

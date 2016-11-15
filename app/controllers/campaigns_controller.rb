@@ -40,7 +40,8 @@ class CampaignsController < ApplicationController
   def update
     @campaign.update(campaign_params)
     @presenter = CoursesPresenter.new(current_user, @campaign.slug)
-    render :overview, slug: @campaign.slug
+    flash[:notice] = t('campaign.campaign_updated')
+    redirect_to overview_campaign_path(@campaign.slug)
   end
 
   def students
