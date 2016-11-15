@@ -37,7 +37,8 @@ class CampaignsController < ApplicationController
   end
 
   def update
-    @campaign.update(campaign: campaign_params)
+    @campaign.update(campaign_params)
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
     render :overview, slug: @campaign.slug
   end
 
@@ -63,7 +64,7 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find_by(slug: campaign_params[:slug])
+    @campaign = Campaign.find_by(slug: params[:slug])
   end
 
   def csv_for_role(role)
@@ -71,7 +72,7 @@ class CampaignsController < ApplicationController
     filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        send_data @campaign.users_to_csv(role, course: campaign_params[:course]),
+        send_data @campaign.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
     end
@@ -86,7 +87,12 @@ class CampaignsController < ApplicationController
           .permit(:title)
   end
 
+  def csv_params
+    params.permit(:slug, :course)
+  end
+
   def campaign_params
-    params.permit(:slug, :course, :description)
+    params.require(:campaign)
+          .permit(:slug, :description)
   end
 end

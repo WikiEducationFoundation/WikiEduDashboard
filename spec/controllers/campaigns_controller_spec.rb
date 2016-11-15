@@ -54,6 +54,18 @@ describe CampaignsController do
     end
   end
 
+  describe '#update' do
+    let(:campaign) { create(:campaign) }
+    let(:description) { 'My new campaign is the best campaign ever!' }
+    let(:campaign_params) { { slug: campaign.slug, description: description } }
+
+    it 'updates the campaign' do
+      post :update, params: { campaign: campaign_params, slug: campaign.slug }
+      expect(response.status).to eq(200)
+      expect(campaign.reload.description).to eq(description)
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
