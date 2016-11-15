@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
-                only: [:create]
+                only: [:create, :update]
   before_action :set_campaign, only: [:overview, :programs, :edit, :update]
 
   def index

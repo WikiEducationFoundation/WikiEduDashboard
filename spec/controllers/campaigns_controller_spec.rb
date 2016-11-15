@@ -55,11 +55,18 @@ describe CampaignsController do
   end
 
   describe '#update' do
+    let(:admin) { create(:admin) }
     let(:campaign) { create(:campaign) }
     let(:description) { 'My new campaign is the best campaign ever!' }
     let(:campaign_params) { { slug: campaign.slug, description: description } }
 
-    it 'updates the campaign' do
+    it 'returns a 401 if the user is not an admin' do
+      post :update, params: { campaign: campaign_params, slug: campaign.slug }
+      expect(response.status).to eq(401)
+    end
+
+    it 'updates the campaign if the user is an admin' do
+      allow(controller).to receive(:current_user).and_return(admin)
       post :update, params: { campaign: campaign_params, slug: campaign.slug }
       expect(response.status).to eq(200)
       expect(campaign.reload.description).to eq(description)

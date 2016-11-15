@@ -3,6 +3,7 @@ require 'rails_helper'
 
 describe 'campaign overview page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
+  let(:user) { create(:user) }
   let(:admin) { create(:admin) }
   let(:campaign) {
     create(:campaign,
@@ -17,12 +18,18 @@ describe 'campaign overview page', type: :feature, js: true do
     stub_token_request
   end
 
-  before :each do
-    login_as(admin, scope: :user)
+  context 'as an user' do
+    it 'should not show the edit buttons' do
+      login_as(user, scope: user)
+      visit "/campaigns/#{campaign.slug}"
+      sleep 1
+      expect(page).to have_no_css('.campaign-description .editable-edit')
+    end
   end
 
-  context 'updating a campaign' do
+  context 'as an admin' do
     before do
+      login_as(admin, scope: :user)
       visit "/campaigns/#{campaign.slug}"
       sleep 1
     end

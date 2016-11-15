@@ -13,8 +13,9 @@
               = t('campaign.campaign')
             = @campaign.title
           .controls
-            %button.dark.button.editable-edit
-              = t('editable.edit_description')
+            - if current_user&.admin?
+              %button.dark.button.editable-edit
+                = t('editable.edit_description')
         .module__data.editable-field
           %p.editable-content
             = @campaign.description
@@ -25,5 +26,6 @@
           %h3
             = t('application.details')
           .controls
-            .button.dark
-              = t('editable.edit_details')
+            - if current_user&.admin?
+              .button.dark
+                = t('editable.edit_details')
