@@ -61,6 +61,7 @@ class SurveysController < ApplicationController
     # the surveys and puts all questions on display at once, but it is gets
     # around the accessibility probems.
     @accessibility_mode = true if params['accessibility'] == 'true'
+    filter_inapplicable_question_groups
     render layout: 'surveys_minimal'
   end
 
@@ -155,6 +156,18 @@ class SurveysController < ApplicationController
   def set_question_groups
     @question_groups = Rapidfire::QuestionGroup.all
     @surveys_question_groups = SurveysQuestionGroup.by_position(params[:id])
+  end
+
+  # This removes the question groups that do not apply to the course, because
+  # of the 'tags' parameter that makes the question group apply only to courses
+  # with that tag.
+  def filter_inapplicable_question_groups
+    @surveys_question_groups.reject! do |survey_question_group|
+      tags = survey_question_group.rapidfire_question_group.tags
+      next if tags.blank?
+      next if @course.tags.pluck(:tag).include?(tags)
+      true
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
