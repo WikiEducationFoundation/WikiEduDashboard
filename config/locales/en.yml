@@ -61,6 +61,7 @@ en:
     submit: Submit
     training: Training
     change: Change
+    details: Details
 
   dashboard:
     create_note:
@@ -172,6 +173,7 @@ en:
 
   campaign:
     campaign: Campaign
+    campaign_updated: Campaign updated
     none: None
     programs: '%{title} Programs'
 
@@ -406,6 +408,8 @@ en:
     edit: Edit
     cancel: Cancel
     save: Save
+    edit_description: Edit Description
+    edit_details: Edit Details
 
   metrics:
     activity: Recent Activity

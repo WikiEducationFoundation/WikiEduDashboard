@@ -5,8 +5,8 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
   before_action :require_admin_permissions,
-                only: [:create]
-  before_action :set_campaign, only: [:overview, :programs, :edit]
+                only: [:create, :update]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update]
 
   def index
     @campaigns = Campaign.all
@@ -26,6 +26,8 @@ class CampaignsController < ApplicationController
   end
 
   def overview
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+    @editable = current_user&.admin?
   end
 
   def programs
@@ -33,6 +35,13 @@ class CampaignsController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    @campaign.update(campaign_params)
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+    flash[:notice] = t('campaign.campaign_updated')
+    redirect_to overview_campaign_path(@campaign.slug)
   end
 
   def students
@@ -57,7 +66,7 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find_by(slug: campaign_params[:slug])
+    @campaign = Campaign.find_by(slug: params[:slug])
   end
 
   def csv_for_role(role)
@@ -65,7 +74,7 @@ class CampaignsController < ApplicationController
     filename = "#{@campaign.slug}-#{role}-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        send_data @campaign.users_to_csv(role, course: campaign_params[:course]),
+        send_data @campaign.users_to_csv(role, course: csv_params[:course]),
                   filename: filename
       end
     end
@@ -80,7 +89,12 @@ class CampaignsController < ApplicationController
           .permit(:title)
   end
 
-  def campaign_params
+  def csv_params
     params.permit(:slug, :course)
+  end
+
+  def campaign_params
+    params.require(:campaign)
+          .permit(:slug, :description)
   end
 end
