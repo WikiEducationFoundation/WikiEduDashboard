@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: alerts
@@ -15,6 +14,7 @@
 #  updated_at     :datetime         not null
 #  message        :text(65535)
 #  target_user_id :integer
+#  subject_id     :integer
 #
 
 class Alert < ActiveRecord::Base
@@ -34,12 +34,17 @@ class Alert < ActiveRecord::Base
     NeedHelpAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
+    SurveyResponseAlert
     UntrainedStudentsAlert
   ).freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
+  end
+
+  def user_profile_url
+    "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
   def email_content_expert

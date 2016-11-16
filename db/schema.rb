@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110201753) do
+ActiveRecord::Schema.define(version: 20161116003326) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20161110201753) do
     t.datetime "updated_at",                   null: false
     t.text     "message",        limit: 65535
     t.integer  "target_user_id"
+    t.integer  "subject_id"
     t.index ["article_id"], name: "index_alerts_on_article_id", using: :btree
     t.index ["course_id"], name: "index_alerts_on_course_id", using: :btree
     t.index ["revision_id"], name: "index_alerts_on_revision_id", using: :btree
@@ -244,6 +245,7 @@ ActiveRecord::Schema.define(version: 20161110201753) do
     t.string   "course_data_type"
     t.string   "placeholder_text"
     t.boolean  "track_sentiment",                       default: false
+    t.text     "alert_conditions",        limit: 65535
     t.index ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id", using: :btree
   end
 

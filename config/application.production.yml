@@ -40,3 +40,7 @@ favicon_dev_file: "favicon_dev.png"
 
 communications_manager: ''
 technical_help_staff: 'Sage (Wiki Ed)'
+survey_alerts_recipient: 'Samantha (Wiki Ed)'
+
+# disable emails for individual Alert types
+ProductiveCourseAlert_emails_disabled: 'true'

@@ -17,14 +17,15 @@
 #  subject_id     :integer
 #
 
-# Alert for a course that is highly productive
-# Similar to ActiveCourseAlert, but with a different productivity threshold
-class ProductiveCourseAlert < Alert
+# Alert for a course that has become moderately active in mainspace, intended for
+# Wiki Ed's communication staff to follow up with media outlets related to the course.
+# Similar to ProductiveCourseAlert, but with a different productivity threshold
+class SurveyResponseAlert < Alert
   def main_subject
-    course.slug
+    user.username
   end
 
   def url
-    course_url
+    user_profile_url
   end
 end

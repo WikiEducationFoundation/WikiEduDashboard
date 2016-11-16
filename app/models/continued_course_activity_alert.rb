@@ -14,6 +14,7 @@
 #  updated_at     :datetime         not null
 #  message        :text(65535)
 #  target_user_id :integer
+#  subject_id     :integer
 #
 
 # Alert for a course that has been editing in mainspace after the end date

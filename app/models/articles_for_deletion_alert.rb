@@ -14,6 +14,7 @@
 #  updated_at     :datetime         not null
 #  message        :text(65535)
 #  target_user_id :integer
+#  subject_id     :integer
 #
 
 # Alert for when an article has been nominated for deletion on English Wikipedia

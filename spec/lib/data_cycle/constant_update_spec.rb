@@ -24,6 +24,7 @@ describe ConstantUpdate do
       expect_any_instance_of(CourseAlertManager).to receive(:create_deleted_uploads_alerts)
       expect_any_instance_of(CourseAlertManager)
         .to receive(:create_continued_course_activity_alerts)
+      expect_any_instance_of(SurveyResponseAlertManager).to receive(:create_alerts)
       expect(Raven).to receive(:capture_message).and_call_original
       update = ConstantUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)

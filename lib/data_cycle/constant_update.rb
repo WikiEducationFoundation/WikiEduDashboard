@@ -10,6 +10,7 @@ require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/articles_for_deletion_monitor"
 require "#{Rails.root}/lib/course_alert_manager"
+require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/student_greeter"
 
@@ -114,6 +115,9 @@ class ConstantUpdate
     course_alert_manager.create_deleted_uploads_alerts
     log_message 'Generating continued course activity alerts'
     course_alert_manager.create_continued_course_activity_alerts
+
+    log_message 'Generating survey response alerts'
+    SurveyResponseAlertManager.new.create_alerts
   end
 
   #################################

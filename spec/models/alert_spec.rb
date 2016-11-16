@@ -14,6 +14,7 @@
 #  updated_at     :datetime         not null
 #  message        :text(65535)
 #  target_user_id :integer
+#  subject_id     :integer
 #
 
 require 'rails_helper'
