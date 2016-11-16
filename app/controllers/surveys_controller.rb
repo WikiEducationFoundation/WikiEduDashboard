@@ -160,13 +160,12 @@ class SurveysController < ApplicationController
 
   # This removes the question groups that do not apply to the course, because
   # of the 'tags' parameter that makes the question group apply only to courses
-  # with that tag.
+  # with (all) those tags, or to courses in all the specified campaigns.
   def filter_inapplicable_question_groups
-    @surveys_question_groups.reject! do |survey_question_group|
-      tags = survey_question_group.rapidfire_question_group.tags
-      next if tags.blank?
-      next if @course.tags.pluck(:tag).include?(tags)
-      true
+    @surveys_question_groups.select! do |survey_question_group|
+      next false if survey_question_group.question_group.questions.empty?
+      # Via QuestionGroupsHelper
+      course_meets_conditions_for_question_group?(survey_question_group.question_group)
     end
   end
 

@@ -33,8 +33,7 @@
 
 
   - @surveys_question_groups.each_with_index do |group, index|
-    - if course_meets_conditions_for_question_group?(group.question_group) && !group.question_group.questions.empty?
-      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
+    = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
 
   .block__container
     .block.block--text.block--clear.block--thank-you.disabled.not-seen{data: {thank_you: true}}
