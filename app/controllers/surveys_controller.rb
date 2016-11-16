@@ -25,6 +25,8 @@ class SurveysController < ApplicationController
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
+
+  # via SurveysHelper
   before_action :set_course, only: [:show]
 
   # GET /surveys
@@ -164,7 +166,7 @@ class SurveysController < ApplicationController
   def filter_inapplicable_question_groups
     @surveys_question_groups.select! do |survey_question_group|
       next false if survey_question_group.question_group.questions.empty?
-      # Via QuestionGroupsHelper
+      # via QuestionGroupsHelper
       course_meets_conditions_for_question_group?(survey_question_group.question_group)
     end
   end
