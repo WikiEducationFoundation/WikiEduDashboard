@@ -71,8 +71,6 @@ const Survey = {
     this.initRangeSliders();
     this.setFormValidationSections();
     this.getNotificationId();
-
-    window.processQuestionGroupData = this.processQuestionGroupData;
   },
 
   cacheSelectors() {
