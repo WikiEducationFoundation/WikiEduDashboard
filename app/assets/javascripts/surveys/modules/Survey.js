@@ -53,6 +53,7 @@ const Survey = {
 
   currentBlock: 0,
   submitted: [],
+  submittedAll: false,
   surveyConditionals: {},
   previewMode: false,
   detachedParentBlocks: {},
@@ -234,6 +235,7 @@ const Survey = {
     if (!this.previewMode) {
       this.updateSurveyNotification();
       this.$surveyForm.each(this.submitQuestionGroup.bind(this));
+      this.submittedAll = true;
     }
   },
 
@@ -430,9 +432,13 @@ const Survey = {
     } else {
       currentIndex = $currentBlock.data('progress-index');
     }
-    const progressWidth = (currentIndex / total) * 100;
-    const width = `${progressWidth}%`;
+    const progress = (currentIndex / total) * 100;
+    const width = `${progress}%`;
     this.surveyProgress.css('width', width);
+
+    if (progress === 100 && !this.submittedAll) {
+      this.submitAllQuestionGroups()
+    }
   },
 
   removeNextButton({ target }) {
