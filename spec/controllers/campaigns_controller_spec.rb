@@ -28,6 +28,11 @@ describe CampaignsController do
         expect(Campaign.last.slug).to eq(expected_slug)
       end
 
+      it 'creates a campaign user for the current user' do
+        post :create, params: campaign_params
+        expect(CampaignsUsers.last.user_id).to eq(admin.id)
+      end
+
       it 'does not create duplicate titles' do
         Campaign.create(title: title, slug: 'foo')
         post :create, params: campaign_params

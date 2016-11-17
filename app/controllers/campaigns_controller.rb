@@ -21,8 +21,9 @@ class CampaignsController < ApplicationController
       return
     end
 
-    Campaign.create(title: @title, slug: @slug)
-    redirect_to '/campaigns'
+    @campaign = Campaign.create(title: @title, slug: @slug)
+    add_organizer_to_campaign
+    redirect_to overview_campaign_path(@slug)
   end
 
   def overview
@@ -67,6 +68,12 @@ class CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.find_by(slug: params[:slug])
+  end
+
+  def add_organizer_to_campaign
+    CampaignsUsers.create(user: current_user,
+                          campaign: @campaign,
+                          role: CampaignsUsers::Roles::ORGANIZER_ROLE)
   end
 
   def csv_for_role(role)

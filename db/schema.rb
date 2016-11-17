@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161116003326) do
+ActiveRecord::Schema.define(version: 20161117211803) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -107,6 +107,16 @@ ActiveRecord::Schema.define(version: 20161116003326) do
     t.integer "campaign_id"
     t.index ["campaign_id"], name: "index_campaigns_survey_assignments_on_campaign_id", using: :btree
     t.index ["survey_assignment_id"], name: "index_campaigns_survey_assignments_on_survey_assignment_id", using: :btree
+  end
+
+  create_table "campaigns_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "campaign_id"
+    t.integer  "user_id"
+    t.integer  "role",        default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["campaign_id"], name: "index_campaigns_users_on_campaign_id", using: :btree
+    t.index ["user_id"], name: "index_campaigns_users_on_user_id", using: :btree
   end
 
   create_table "commons_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
