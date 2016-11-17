@@ -51,6 +51,7 @@ lt:
     available: Prieinami Straipsniai
     assigned_to: Priskirta
     edited: Redaguoti straipsniai
+    edited_by: 'Redagavo:'
     edited_mobile: Straipsniai
     label: Straipsniai
     loading: Įkeliami straipsniai...
@@ -165,6 +166,7 @@ lt:
     loading: Įkeliama...
     milestones_none: Kursas šiuo metu neturi jokių gairių.
     my_articles: Mano Straipsniai
+    needs_update: Suplanuoti Duomenų Atnaujinimą
     new_week: Pridėti naują savaitę
     nocourses: Jūs nedalyvaujate jokiuose kursuose.
     none: Nėra

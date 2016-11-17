@@ -1,6 +1,7 @@
 # Messages for Bulgarian (български)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Kareyac
 # Author: StanProg
 # Author: Termininja
 # Author: V111P
@@ -27,6 +28,9 @@ bg:
   editable:
     cancel: Отказ
     save: Съхраняване
+  revisions:
+    diff_show: Показване
+    diff_hide: Скриване
   users:
     assign_articles_done: Готово
     loading: Зареждане на потребители...

@@ -38,6 +38,7 @@ it:
     submit: Invia
     training: Formazione
     change: Modifica
+    details: Dettagli
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso
@@ -64,6 +65,7 @@ it:
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
     edited: Articoli modificati
+    edited_by: 'Modificato da:'
     edited_mobile: Voci
     label: Voci
     loading: Caricamento articoli...
@@ -119,6 +121,7 @@ it:
     select: Seleziona
   campaign:
     campaign: Campagna
+    campaign_updated: Campagna aggiornata
     none: Nessuno
     programs: Programmi %{title}
   courses:
@@ -219,6 +222,7 @@ it:
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
     my_articles: Le mie voci
+    needs_update: Aggiornamento dati programmato
     new_week: Aggiungi nuova settimana
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
@@ -330,6 +334,8 @@ it:
     edit: Modifica
     cancel: Annulla
     save: Salva
+    edit_description: Modifica descrizione
+    edit_details: Modifica dettagli
   metrics:
     activity: Attività recente
     articles_created: Voci create

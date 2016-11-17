@@ -91,6 +91,7 @@ ku-latn:
     datetime: Dîrok/Katjimêr
     image: Wêne
   revisions:
+    diff_hide: Veşêre
     title: Sernav
   timeline:
     add_week: Hefteyê lê zêde bike

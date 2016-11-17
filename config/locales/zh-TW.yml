@@ -39,6 +39,7 @@ zh-TW:
     submit: 送出
     training: 培訓
     change: 修改
+    details: 詳細內容
   dashboard:
     create_note: 點選建立課程以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
@@ -68,6 +69,7 @@ zh-TW:
     assigned_to: 分配給
     character_doc: 從開始到結束日，由登記編輯在文章中增加的位元組總和。 (1 中文字=3 位元組)
     edited: 編輯的條目
+    edited_by: 編輯自：
     edited_mobile: 文章
     label: 文章
     loading: 讀取文章中...
@@ -120,6 +122,7 @@ zh-TW:
       title: 里程碑
   campaign:
     campaign: 活動
+    campaign_updated: 活動已更新
     none: 無
     programs: '%{title}方案'
   courses:
@@ -215,6 +218,7 @@ zh-TW:
     loading: 載入中⋯⋯
     milestones_none: 此課程現在並沒有任何里程碑。
     my_articles: 我的所有文章。
+    needs_update: 行事曆資料更新
     new_week: 新增新的一週
     nocourses: 您尚未參加任何課程。
     none: 空白
@@ -324,6 +328,8 @@ zh-TW:
     edit: 編輯
     cancel: 取消
     save: 儲存
+    edit_description: 編輯描述
+    edit_details: 編輯詳細內容
   metrics:
     activity: 最近活躍度
     are_trained: 最近培訓
@@ -425,7 +431,7 @@ zh-TW:
     no_class_holidays: 我的開課時段沒有遭遇假日
     no_timeline: 此課程沒有時間表。
     no_activity_this_week: 本週沒有預訂的會議
-    nothing_this_week: 這星期的時間表沒有任何活動。
+    nothing_this_week: 這星期的行事曆沒有任何活動。
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間表

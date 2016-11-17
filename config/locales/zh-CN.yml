@@ -35,6 +35,7 @@ zh-CN:
     submit: 提交
     training: 培训
     change: 更改
+    details: 详情
   dashboard:
     create_note: 点击创建课程以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
@@ -63,6 +64,7 @@ zh-CN:
     assigned_to: 分配给
     character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
     edited: 编辑的条目
+    edited_by: 编辑者：
     edited_mobile: 条目
     label: 条目
     loading: 正在加载条目...
@@ -120,6 +122,7 @@ zh-CN:
       title: 里程碑
   campaign:
     campaign: 运动
+    campaign_updated: 活动已更新
     none: 无
     programs: '%{title}程序'
   courses:
@@ -213,6 +216,7 @@ zh-CN:
     loading: 正在载入…
     milestones_none: 此课程目前没有任何里程碑。
     my_articles: 我的条目
+    needs_update: 计划数据更新
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
     none: 无
@@ -314,6 +318,8 @@ zh-CN:
     edit: 编辑
     cancel: 取消
     save: 保存
+    edit_description: 编辑描述
+    edit_details: 编辑详情
   metrics:
     activity: 最近活跃
     are_trained: 最近培训

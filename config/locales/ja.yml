@@ -35,6 +35,7 @@ ja:
     all: 活動
     label: 活動
   articles:
+    edited_by: '編集者:'
     edited_mobile: 記事
     label: 記事
     loading: 記事を読み込んでいます...

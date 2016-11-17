@@ -60,6 +60,7 @@ ko:
     available: 이용 가능한 글
     assigned_to: 할당됨
     edited: 문서 편집됨
+    edited_by: '편집자:'
     edited_mobile: 문서
     label: 문서
     loading: 문서 불러오는 중...

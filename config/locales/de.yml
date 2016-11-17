@@ -33,6 +33,7 @@ de:
     submit: Absenden
     training: Ausbildung
     change: Ändern
+    details: Einzelheiten
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -70,6 +71,7 @@ de:
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.
     edited: Bearbeitete Artikel
+    edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
     label: Artikel
     loading: Lade Artikel …
@@ -135,6 +137,7 @@ de:
       title: Meilensteine
   campaign:
     campaign: Kampagne
+    campaign_updated: Kampagne aktualisiert
     none: Keine
     programs: Programme von %{title}
   courses:
@@ -249,6 +252,7 @@ de:
     loading: Lade …
     milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
     my_articles: Meine Artikel
+    needs_update: Plandatenaktualisierung
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
     none: Keine
@@ -373,6 +377,8 @@ de:
     edit: Bearbeiten
     cancel: Abbrechen
     save: Speichern
+    edit_description: Beschreibung bearbeiten
+    edit_details: Einzelheiten bearbeiten
   metrics:
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden

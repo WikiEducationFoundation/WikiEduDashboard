@@ -4,6 +4,7 @@
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: Mirws
+# Author: Presidenvolksraad
 # Author: Rachmat.Wahidi
 ---
 id:
@@ -31,6 +32,7 @@ id:
     log_in: Masuk dengan Wikipedia
     sign_up: Masuk dengan Wikipedia
   articles:
+    edited_by: 'Disunting oleh:'
     loading: Memuat artikel...
     rating_docs:
       start: Mulai kelas - artikel awal dengan banyak ruang untuk perbaikan
@@ -40,6 +42,7 @@ id:
     reviewers: Peninjau
   courses:
     course_description: Kursus
+    needs_update: Jadwal Pembaruan Data
     word_count_doc: Perkiraan jumlah kata ditambahkan ke artikel mainspace oleh siswa
       kursus selama jangka kursus
   courses_generic:

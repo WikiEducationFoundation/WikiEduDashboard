@@ -31,6 +31,7 @@ sv:
     sign_up: Skapa ett konto
     submit: Skicka
     change: Ändra
+    details: Detaljer
   activity:
     all: Aktivitet
     edited_by: Redigerad av
@@ -61,6 +62,7 @@ sv:
     milestones:
       title: Milstolpar
   campaign:
+    campaign_updated: Kampanj uppdaterades
     none: Ingen
   courses:
     activity: Aktivitet
@@ -170,6 +172,8 @@ sv:
     edit: Redigera
     cancel: Avbryt
     save: Spara
+    edit_description: Redigera beskrivning
+    edit_details: Redigera detaljer
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar

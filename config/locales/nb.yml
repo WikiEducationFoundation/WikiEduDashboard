@@ -70,6 +70,7 @@ nb:
     character_doc: Summen av antall tegn som er lagt til i artikler av innmeldte brukere
       mellom start- og sluttdatoene.
     edited: Artikler redigert
+    edited_by: 'Redigert av:'
     edited_mobile: Artikler
     label: Artikler
     loading: Laster artikler...
@@ -90,6 +91,7 @@ nb:
       stub: Stubb-klasse – en veldig kort artikkel som trenger mer innhold
       list: Liste-klasse – en liste heller enn en vanlig artikkel
       '?': Urangert – en artikkel som ennå ikke har fått en rating på Wikipedias kvalitetsskala
+    show_cumulative_changes: Vis kumulative endringer
     title: Tittel
     title_example: Artikkeltittel
     view: Vis artikkel
@@ -128,7 +130,9 @@ nb:
     milestones:
       title: Milepæler
   campaign:
+    campaign: Kampanje
     none: Ingen
+    programs: '%{title}-programmer'
   courses:
     activity: Aktivitet
     already_enrolled: Du er allerede del av «%{title}»!
@@ -236,6 +240,7 @@ nb:
     loading: Laster ...
     milestones_none: Dette kurset har for tiden ingen milepæler.
     my_articles: Mine artikler
+    needs_update: Planlegg dataoppdatering
     new_week: Legg til ny uke
     nocourses: Du deltar ikke i noen kurs.
     none: Ingen
@@ -264,7 +269,7 @@ nb:
     students_none: Dette kurset har ingen studenter.
     students_short: Studenter
     submitted_admin: Dette kurset har blitt sendt inn for godkjenning av den som opprettet
-      det. For å godkjenne det, legg det til en kohort på oversiktssiden.
+      det. For å godkjenne det, legg det til en kampanje på oversiktssiden.
     submitted_and_pending_heading: Innsendt og venter på godkjenning
     submitted_heading: Innsendte kurs
     submitted_note: Kurset ditt har blitt sendt inn. Wiki Ed-ansatte vil gå gjennom
@@ -274,6 +279,7 @@ nb:
     term: Termin
     timeline: Oppgavedetaljer
     timeline_link: Tidslinje
+    time_zone_message: Start- og sluttider vises i din lokale tidssone.
     title: Tittel
     training_due: Treningsmodulen «%{title}» er tildelt dette kurset, og har frist
       %{date}.
@@ -284,7 +290,7 @@ nb:
     untrained: Utrent
     uploads_none: Denne klassen har ikke bidratt med bilder eller andre mediefiler
       på Wikimedia Commons.
-    view_other: Vis andre kohorter
+    view_other: Vis andre kampanjer
     view: Vis kurs
     view_doc: Summen av alle visninger på artikler redigert av påmeldte bidragsytere
       siden bidragsyteren gjorde sin første redigering i hver artikkel
@@ -378,6 +384,7 @@ nb:
     view_count_description: Artikkelvisninger
     view: Visninger
     word_count: Ord lagt til
+    word_count_average: Gjennomsnittlig antall ord
   namespace:
     main: Hovednavnerom
     main_char_added: Tegn lagt til i hovednavnerommet
@@ -410,11 +417,14 @@ nb:
     class: Klasse
     date_time: Dato/tid
     diff: forskjell
+    diff_show: Vis
+    diff_hide: Skjul
     edited_by: Redigert av
     loading: Laster revisjoner ...
     none: Dette kurset har ingen nylig redigeringsaktivitet.
     time_doc: Tiden for hver revisjon i din lokale tid
     title: Tittel
+    view_on_wiki: Vis diff på wiki
   tasks:
     conseq: Jobben %{task} kjører allerede!
     constant: Jobben %{task} kan ikke kjøres mens jobben update_daily kjører.
@@ -466,6 +476,7 @@ nb:
     title: Tidslinje
     unable_to_add_week: Du kan ikke legge til nye uker når tidslinja di er full. Slett
       minst éi uke eller endre oppgavedatoene for å gi plass til en ny.
+    view_full_timeline: Vis full tidslinje
     week_number: Uke %{number}
   training:
     continue: Fortsett (%{progress})

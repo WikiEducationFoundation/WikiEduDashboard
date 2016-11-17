@@ -28,6 +28,7 @@ bn:
     submit: জমা দিন
     training: প্রশিক্ষণ
     change: পরিবর্তন
+    details: বিস্তারিত
   home:
     log_in: উইকিপিডিয়া দিয়ে প্রবেশ করুন
     sign_up: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
@@ -38,9 +39,11 @@ bn:
     all: কর্মকাণ্ড
     label: কর্মকাণ্ড
   articles:
+    edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
     label: নিবন্ধসমূহ
     loading: নিবন্ধ লোড হচ্ছে...
+    new: (নতুন)
     rating: শ্রেণী
     title: শিরোনাম
     title_example: নিবন্ধের শিরোনাম
@@ -48,13 +51,22 @@ bn:
     view_all: সব দেখুন
     wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
+    remove: অপসারণ করুন
     reviewers: নিরীক্ষক(গণ)
+    select: নির্বাচন করুন
+  blocks:
+    milestones:
+      title: মাইলফলক
   campaign:
     campaign: প্রচারাভিযান
     none: কোনটিই নয়
     programs: '%{title} প্রোগ্রামগুলি'
   courses:
+    activity: কর্মকাণ্ড
+    actions: কার্যসমূহ
     articles: নিবন্ধসমূহ
+    calendar:
+      legend_class_canceled: ছুটি/বাতিল
     cancel: বাতিল
     creator:
       course_project: মূল প্রকল্প
@@ -69,18 +81,24 @@ bn:
       expected_number: শিক্ষার্থীদের প্রত্যাশিত সংখ্যা
       find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
+      subject: বিষয়
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
+    end: শেষ
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
     my_articles: আমার নিবন্ধ
+    new_week: নতুন সপ্তাহ যোগ করুন
+    none: কোনটিই নয়
     school: বিদ্যালয়
+    start: শুরু করুন
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'
     student_editors: '# ছাত্র সম্পাদকগণ'
     students_short: ছাত্রগণ
+    user_role: ভূমিকা
     timeline_link: সময়ক্রম
     time_zone_message: আপনার স্থানীয় সময় অঞ্চল অনুসারে শুরুর এবং শেষের সময় প্রদর্শন
       করা হয়।
@@ -90,6 +108,7 @@ bn:
       one: স্বেচ্ছাসেবক
       other: স্বেচ্ছাসেবক
   courses_generic:
+    cancel: বাতিল
     creator:
       course_description: প্রকল্পের বর্ণনা
       course_school: প্রতিষ্ঠান
@@ -98,14 +117,23 @@ bn:
       create_new: একটি নতুন প্রকল্প তৈরি করুন
       create_short: প্রোগ্রাম তৈরি করুন
       find: একটি প্রোগ্রাম খুঁজুন
+    enroll: সম্পাদক যোগ করুন
     enrollment: অংশগ্রহণ
     school: প্রতিষ্ঠান
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
     students_short: সম্পাদকগণ
+  editable:
+    edit: সম্পাদনা
+    cancel: বাতিল
+    save: সংরক্ষণ
+    edit_description: বিবরণ সম্পাদনা করুন
   metrics:
+    activity: সাম্প্রতিক কার্যকালাপ
+    articles_edited: সম্পাদিত নিবন্ধসমূহ
     date_time: তারিখ/সময়
     edit_count_description: মোট সম্পাদনা
+    per_user: '%{number}/ব্যবহারকারী'
     revisions: সাম্প্রতিক সম্পাদনাসমূহ
     word_count: যুক্ত শব্দসমূহ
     word_count_average: গড় শব্দ গণনা
@@ -113,6 +141,14 @@ bn:
     main: নামস্থান
     user: ব্যবহারকারীস্থান
     user_ns: ব্যবহারকারী
+  recent_activity:
+    article_title: নিবন্ধের শিরোনাম
+    datetime: তারিখ/সময়
+    image: চিত্র
+    file_name: ফাইলের নাম
+    recent_edits: সাম্প্রতিক সম্পাদনাসমূহ
+    recent_uploads: সাম্প্রতিক আপলোডসমূহ
+    revision_author: সংশোধন লেখক
   revisions:
     date_time: তারিখ/সময়
     diff: পার্থক্য
@@ -121,29 +157,47 @@ bn:
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
   timeline:
+    add_week: সপ্তাহ যোগ করুন
     no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
   training:
     start: শুরু করুন
     view: দেখুন
   uploads:
+    datetime: তারিখ/সময়
+    file_name: ফাইলের নাম
+    header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
+    image: চিত্র
     label: আপলোডসমূহ
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
     contributions_history_full: উইকিপিডিয়ায় অবদানের পূর্ণ ইতিহাস দেখুন
+    editors: সম্পাদকগণ
+    first_name: প্রথম নাম
+    last_name: শেষ নাম
     name: নাম
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)
     reviewing: নিরীক্ষণ চলছে
     training_module_status: অবস্থা
+    username: ব্যবহারকারী নাম
+    username_placeholder: ব্যবহারকারী নাম
     role:
       student: ছাত্র
       online_volunteer: অনলাইন স্বেচ্ছাসেবক
   wizard:
+    read_more: আরও পড়ুন
     summary: সারাংশ
   error:
     unsupported_browser:
       explanation: আপনি এমন একটি ব্রাউজার ব্যবহার করছেন যা এই যতিফলকের সাথে সামঞ্জস্যপূর্ণ
         নয়। এই সাইটটি ইন্টারনেট ব্রাউজারের ১১ তম সংস্করণ, সাম্প্রতিকতম ক্রম ও ফায়ারফক্স
         এবং আধুনিক ব্রাউজারগুলিতে ভালো কাজ করে।
+  error_500:
+    header: ৫০০ — আভ্যন্তরীণ সার্ভার ত্রুটি
+  login_error:
+    header: প্রবেশ ত্রুটি
+  survey:
+    email:
+      headline: নমস্কার, %{username}
 ...

@@ -10,11 +10,13 @@ lb:
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
+    field_invalid_characters: Dëst Feld huet net valabel Zeechen
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
     greeting2: Wëllkomm!
     greeting_extended: Wëllkomm op Wikipedia
     greeting: Salut!
     help: Hëllef
+    home: Haaptsäit
     log_in_extended: Mat Wikipedia aloggen
     log_in: Aloggen
     log_out: Ausloggen
@@ -25,6 +27,7 @@ lb:
     sign_up: Schreift Iech an
     training: Formatioun
     change: Änneren
+    details: Detailer
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -42,6 +45,7 @@ lb:
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
     edited: Geännert Artikelen
+    edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
     label: Artikelen
     loading: Artikele lueden...
@@ -79,6 +83,7 @@ lb:
       title: Kilometersténg
   campaign:
     campaign: Campagne
+    campaign_updated: Campagne aktualiséiert
     none: Keng
     programs: '%{title} Programmer'
   courses:
@@ -101,10 +106,12 @@ lb:
       course_language: Originalsprooch
       course_subject: Sujet vum Cours
       course_title: Titel vum Cours
+      create_label: Neie Cours uleeën
       end_date: Schlussdatum
       end_date_placeholder: Schlussdatum (JJJJ-MM-DD)
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
+      no_class_holidays: Ech hu keng Schoulvakanzen
       save_cloned_course: Neie Cours späicheren
       start_date: Ufanksdatum
       start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
@@ -124,8 +131,13 @@ lb:
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
+    instructor:
+      one: Instrukter
+      other: Instrukteren
+    instructors: Instrukteren
     join: Matmaachen
     join_course: Beim Cours matmaachen
+    leave_confirmation: Sidd Dir sécher datt Dir aus dësem Cours erausgoe wëllt?
     leave_course: Aus dem Cours erausgoen
     loading: Lueden...
     my_articles: Meng Artikelen
@@ -137,6 +149,7 @@ lb:
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     start: Ufank
+    start_typing: Fänkt u mat Tippen
     students: Studenten
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
@@ -182,6 +195,8 @@ lb:
     edit: Änneren
     cancel: Ofbriechen
     save: Späicheren
+    edit_description: Beschreiwung änneren
+    edit_details: Detailer änneren
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -207,6 +222,7 @@ lb:
     no_edits: Et gouf keng rezent Ännerungen.
     possible_plagiarism: Méiglecht Plagiat
     recent_edits: Rezent Ännerungen
+    recent_uploads: Rezent eropgeluede Fichieren
     show_courses: Nëmme meng Course weisen
     uploaded_by: Eropgeluede Vum
   revisions:
@@ -230,6 +246,7 @@ lb:
     due_default: Nächst Woch fälleg
     empty_week_1: Fir unzefänken.
     empty_week_3: oder
+    first_week_title: Éischt aktiv Woch
     gradeable_value: Wäert
     move_block_down: Block erofréckelen
     move_block_up: Block eropréckelen

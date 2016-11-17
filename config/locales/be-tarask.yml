@@ -1,6 +1,7 @@
 # Messages for Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Kareyac
 # Author: Red Winged Duck
 # Author: Renessaince
 ---
@@ -219,6 +220,9 @@ be-tarask:
       быў быць выкананы да %{date}.
     unsubmitted: Няздадзеныя курсы
     untrained: Ненавучаныя
+  revisions:
+    diff_show: Паказаць
+    diff_hide: Схаваць
   uploads:
     label: Загрузкі
 ...

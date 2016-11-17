@@ -32,7 +32,7 @@ es:
     home: Inicio
     log_in_extended: Inicia sesión con Wikipedia
     log_in: Iniciar sesión
-    log_out: Cerrar sesión
+    log_out: Salir
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
     search: preguntar
@@ -42,6 +42,7 @@ es:
     submit: Enviar
     training: Capacitación
     change: Cambiar
+    details: Detalles
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -79,6 +80,7 @@ es:
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin
     edited: Artículos editados
+    edited_by: 'Editado por:'
     edited_mobile: Artículos
     label: Artículos
     loading: Cargando artículos...
@@ -104,6 +106,7 @@ es:
       list: 'Clase lista: una lista en lugar de un artículo convencional'
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
+    show_cumulative_changes: Mostrar cambios acumulativos
     title: Título
     title_example: Título del artículo
     view: Ver artículo
@@ -144,7 +147,9 @@ es:
       title: Hitos
   campaign:
     campaign: Campaña
+    campaign_updated: Campaña actualizada
     none: Ninguno
+    programs: Programas de %{title}
   courses:
     activity: Actividad
     already_enrolled: Ya eres parte de «%{title}».
@@ -257,6 +262,7 @@ es:
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
     my_articles: Mis artículos
+    needs_update: Actualización de datos del programa
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
     none: Ninguno
@@ -380,6 +386,8 @@ es:
     edit: Editar
     cancel: Cancelar
     save: Guardar
+    edit_description: Editar descripción
+    edit_details: Editar detalles
   metrics:
     activity: Actividad reciente
     are_trained: están al día con la capacitación
@@ -403,6 +411,7 @@ es:
     view_count_description: Visualizaciones del artículo
     view: Visualizaciones
     word_count: Palabras añadidas
+    word_count_average: Promedio de recuento de palabras
   namespace:
     main: Espacio principal
     main_char_added: Caracteres añadidos en el espacio principal
@@ -441,7 +450,7 @@ es:
     none: Este curso no tiene ediciones recientes.
     time_doc: El tiempo de cada revisión en tu hora local
     title: Título
-    view_on_wiki: Ver diff en wiki
+    view_on_wiki: Ver diferencias en wiki
   tasks:
     conseq: La tarea %{task} ya se está ejecutando.
     constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily
@@ -497,6 +506,7 @@ es:
     unable_to_add_week: No puedes agregar semanas nuevas cuando tu cronograma está
       completo. Elimina al menos una semana o cambia las fechas de tareas para hacer
       espacio para una nueva.
+    view_full_timeline: Ver la línea de tiempo completa
     week_number: Semana %{number}
   training:
     continue: Continuar (%{progress})

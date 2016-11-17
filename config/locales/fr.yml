@@ -46,6 +46,7 @@ fr:
     submit: Soumettre
     training: Formation
     change: Modifier
+    details: Détails
   dashboard:
     create_note: Cliquer sur Créer un cours pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
@@ -83,6 +84,7 @@ fr:
     character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
       inscrits entre les dates de début et de fin
     edited: Articles modifiés
+    edited_by: 'Modifié par :'
     edited_mobile: Articles
     label: Articles
     loading: Chargement des articles...
@@ -148,6 +150,7 @@ fr:
       title: Jalons
   campaign:
     campaign: Campagne
+    campaign_updated: Campagne mise à jour
     none: Aucun
     programs: Programmes de %{title}
   courses:
@@ -262,6 +265,7 @@ fr:
     loading: Chargement…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     my_articles: Mes articles
+    needs_update: Calendrier de la mise à jour des données
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     none: Aucun
@@ -386,6 +390,8 @@ fr:
     edit: Modifier
     cancel: Annuler
     save: Enregistrer
+    edit_description: Modifier la description
+    edit_details: Modifier les détails
   metrics:
     activity: Activité récente
     are_trained: sont à jour dans leur formation

@@ -7,6 +7,7 @@
 # Author: Pitke
 # Author: Pyscowicz
 # Author: Silvonen
+# Author: Valtlait
 ---
 fi:
   accessibility:
@@ -74,6 +75,7 @@ fi:
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
     edited: Muokattuja artikkeleita
+    edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
     label: Artikkelit
     loading: Ladataan artikkeleita...
@@ -365,6 +367,7 @@ fi:
     edit: Muokkaa
     cancel: Peruuta
     save: Tallenna
+    edit_description: Muokkaa kuvausta
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
@@ -420,6 +423,7 @@ fi:
     class: Ryhmä
     date_time: Päiväys/Aika
     diff: ero
+    diff_hide: Piilota
     edited_by: Muokannut
     loading: Ladataan versioita...
     none: Tämän kurssin osallistujat eivät ole tehneet muokkauksia viime aikoina.
@@ -477,6 +481,7 @@ fi:
     unable_to_add_week: Et voi lisätä uusia viikkoja, kun aikajanasi on täynnä. Poista
       vähintään yksi viikko tai muuta tehtäväsi päivämääriä tehdäksesi tilaa uudelle
       viikolle.
+    view_full_timeline: Näytä koko aikajana
     week_number: Viikko %{number}
   training:
     continue: Jatka (%{progress})

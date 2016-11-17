@@ -15,19 +15,28 @@ ar:
       المدخلات.
   application:
     cancel: ألغ
+    dashboard: لوحة ويكي إد
+    error: يوجد خطأ
     explore: استكشف
+    field_invalid_characters: هذا الحقل به أحرف غير صالحة
+    field_invalid_date: يتطلب هذا الحقل تاريخ بالشكل YYYY-MM-DD
     greeting2: مرحبا!
+    greeting_extended: مرحبا بكم في ويكيبيديا
     greeting: أهلاّ بك!
     help: مساعدة
     home: الرئيسية
     log_in_extended: تسجيل الدخول إلى ويكيبيديا
     log_in: تسجيل الدخول
     log_out: تسجيل الخروج
+    my_dashboard: لوحتي
     recent_activity: النشاطات الحديثة
+    search: طرح سؤال
+    sign_up_extended: تسجيل الدخول إلى ويكيبيديا
     sign_up_log_in_extended: مع ويكبيديا
     sign_up: أنشئ حسابًا
     submit: إرسال
     training: تدريب
+    change: تغيير
   activity:
     all: النشاط
     edited_by: عدل بواسطة

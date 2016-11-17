@@ -25,6 +25,7 @@ pl:
     sign_up: Zarejestruj się
     submit: Wyślij
     training: Szkolenie
+    details: Szczegóły
   dashboard:
     explore_course_pages: Odkryj strony kursów
     explore_examples: Odkryj przykłady
@@ -43,6 +44,7 @@ pl:
     character_doc: Liczba znaków dodanych do artykułów przez uczestników kursu w czasie
       jego trwania
     edited: Edytowane artykuły
+    edited_by: 'Edytowane przez:'
     edited_mobile: Artykuły
     label: Artykuły
     loading: Wczytywanie artykułów...

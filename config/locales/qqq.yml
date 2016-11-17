@@ -307,7 +307,9 @@ qqq:
       other: |-
         Instructor|Label for several instructors of a course (Wiki Ed only)
         {{Identical|Instructor}}}}
-    instructors: Label for the list of instructors for a program.
+    instructors: |-
+      Label for the list of instructors for a program.
+      {{Identical|Instructor}}
     invitation: Message that you have been invited to a course
     join: |-
       Button to join a course
