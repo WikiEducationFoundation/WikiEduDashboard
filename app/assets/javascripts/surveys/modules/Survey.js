@@ -71,6 +71,8 @@ const Survey = {
     this.initRangeSliders();
     this.setFormValidationSections();
     this.getNotificationId();
+
+    window.processQuestionGroupData = this.processQuestionGroupData;
   },
 
   cacheSelectors() {
@@ -726,7 +728,7 @@ const Survey = {
     } else {
       $question.detach();
     }
-    $question.find('input, textarea').val('');
+    $question.find('input[type=text], textarea').val('');
     $question.find('input:checked').removeAttr('checked');
     $question.find('select').prop('selectedIndex', 0);
     $question.find('.survey__next.hidden').removeClass('hidden');
