@@ -261,6 +261,26 @@ describe CoursesController do
         end
       end
 
+      context 'when a course with the same slug already exists' do
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20' }
+        end
+        before do
+          post :create, params: { course: course_params }, format: :json
+        end
+
+        it 'renders a 404 and does not create the course' do
+          expect(Course.count).to eq(1)
+          post :create, params: { course: course_params }, format: :json
+          expect(response.status).to eq(404)
+          expect(Course.count).to eq(1)
+        end
+      end
+
       describe 'timeline dates' do
         let(:course_params) do
           { title: 'New title',

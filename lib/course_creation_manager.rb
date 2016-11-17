@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/tag_manager"
 
 #= Factory for handling the initial creation of a course
 class CourseCreationManager
-  attr_reader :wiki
+  attr_reader :wiki, :invalid_reason
 
   def initialize(course_params, wiki_params, current_user)
     @course_params = course_params
@@ -11,14 +11,21 @@ class CourseCreationManager
     @instructor = current_user
     @overrides = {}
     set_wiki
+    set_slug
   end
 
-  def invalid_wiki?
-    @wiki.id.nil?
+  def valid?
+    if invalid_wiki?
+      @invalid_reason = 'Invalid language/project'
+      return false
+    elsif duplicate_slug?
+      @invalid_reason = "Another program called #{@slug} already exists."
+      return false
+    end
+    true
   end
 
   def create
-    set_slug
     set_passcode
     set_course_type
     set_initial_campaign
@@ -42,7 +49,16 @@ class CourseCreationManager
   def set_slug
     slug = String.new("#{@course_params[:school]}/#{@course_params[:title]}")
     slug << "_(#{@course_params[:term]})" unless @course_params[:term].blank?
-    @overrides[:slug] = slug.tr(' ', '_')
+    @slug = slug.tr(' ', '_')
+    @overrides[:slug] = @slug
+  end
+
+  def invalid_wiki?
+    @wiki.id.nil?
+  end
+
+  def duplicate_slug?
+    Course.find_by(slug: @slug).present?
   end
 
   def set_passcode

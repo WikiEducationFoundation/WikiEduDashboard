@@ -26,8 +26,8 @@ class CoursesController < ApplicationController
 
   def create
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params, current_user)
-    if course_creation_manager.invalid_wiki?
-      render json: { message: 'Invalid language/project' },
+    unless course_creation_manager.valid?
+      render json: { message: course_creation_manager.invalid_reason },
              status: 404
       return
     end
