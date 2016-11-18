@@ -18,8 +18,9 @@ require 'csv'
 #= Campaign model
 class Campaign < ActiveRecord::Base
   has_many :campaigns_courses, class_name: CampaignsCourses
-  has_many :campaigns_users, class_name: CampaignsUsers
+  has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
   has_many :courses, through: :campaigns_courses
+  has_many :users, -> { distinct }, through: :campaigns_users
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses

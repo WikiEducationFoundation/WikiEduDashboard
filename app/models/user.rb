@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
-  has_many :courses_users, class_name: CoursesUsers
+  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
+  has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
   has_many :revisions, -> { where(system: false) }
