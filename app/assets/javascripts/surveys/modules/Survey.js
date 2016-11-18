@@ -89,7 +89,7 @@ const Survey = {
     this.$main.on('click', '[data-next-survey-block]', this.validateCurrentQuestion.bind(this));
     this.$main.on('click', '[data-prev-survey-block]', this.previousBlock.bind(this));
     this.$main.on('click', '[start-survey]', this.surveyStarted.bind(this));
-    $(document).on('click', '[data-submit-survey]',this.submitAllQuestionGroups.bind(this));
+    $(document).on('click', '[data-submit-survey]', this.submitAllQuestionGroups.bind(this));
     $('[data-void-checkboxes]').on('click', this.voidCheckboxSelections.bind(this));
     $('.survey__multiple-choice-field input[type=checkbox]').on('change', this.uncheckVoid.bind(this));
     $('.block input, .block textarea, .block select').on('change keydown', this.removeErrorState.bind(this));
@@ -437,7 +437,7 @@ const Survey = {
     this.surveyProgress.css('width', width);
 
     if (progress === 100 && !this.submittedAll) {
-      this.submitAllQuestionGroups()
+      this.submitAllQuestionGroups();
     }
   },
 
