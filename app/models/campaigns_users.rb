@@ -11,8 +11,6 @@
 #  role        :integer          default(0)
 #
 
-require "#{Rails.root}/lib/utils"
-
 #= Campaign + User join model
 class CampaignsUsers < ActiveRecord::Base
   belongs_to :campaign
@@ -20,11 +18,9 @@ class CampaignsUsers < ActiveRecord::Base
 
   validates :campaign_id, uniqueness: { scope: [:user_id, :role] }
 
-  scope :current, -> { joins(:campaign).merge(Campiagn.current).distinct }
-
-  ####################
-  # CONSTANTS        #
-  ####################
+  ##############
+  # CONSTANTS  #
+  ##############
 
   module Roles
     ORGANIZER_ROLE = 1
