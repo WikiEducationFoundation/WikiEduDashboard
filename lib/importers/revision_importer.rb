@@ -22,24 +22,29 @@ class RevisionImporter
   # Given a Course, get new revisions for the users in that course.
   def new_revisions_for_course
     results = []
-    start = course_start_date
 
     # Users with no revisions are considered "new". For them, we search for
     # revisions starting from the beginning of the course, in case they were
     # just added to the course.
-    new_users = users_with_no_revisions
-    results += get_revisions(new_users, start, end_of_update_period) unless new_users.empty?
+    @new_users = users_with_no_revisions
+    results += revisions_from_new_users unless @new_users.empty?
 
     # For users who already have revisions during the course, we assume that
     # previous updates imported their revisions prior to the latest revisions.
     # We only need to import revisions
-    old_users = @course.students - new_users
-    unless old_users.empty?
-      first_rev = latest_revision_of_course
-      start = first_rev.date.strftime('%Y%m%d') unless first_rev.blank?
-      results += get_revisions(old_users, start, end_of_update_period)
-    end
+    @old_users = @course.students - @new_users
+    results += revisions_from_old_users unless @old_users.empty?
     results
+  end
+
+  def revisions_from_new_users
+    get_revisions(@new_users, course_start_date, end_of_update_period)
+  end
+
+  def revisions_from_old_users
+    first_rev = latest_revision_of_course
+    start = first_rev.blank? ? course_start_date : first_rev.date.strftime('%Y%m%d')
+    get_revisions(@old_users, start, end_of_update_period)
   end
 
   def import_revisions(data)
