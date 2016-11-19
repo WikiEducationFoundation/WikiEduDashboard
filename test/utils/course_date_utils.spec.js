@@ -91,6 +91,27 @@ describe('courseDateUtils.isDateValid', () => {
   });
 });
 
+describe('CourseDateUtils.validationRegex', () => {
+  it('returns a regex that matches YYYY-[M]M-[D]D', () => {
+    const validationRegex = CourseDateUtils.validationRegex();
+    expect('2015-02-24'.match(validationRegex)[0]).to.eq('2015-02-24');
+    expect('2015-13-25'.match(validationRegex)).to.be.null;
+  });
+});
+
+describe('CourseDateUtils.formattedDateTime', () => {
+  it('returns a date string', () => {
+    const input = new Date(2016, 10, 19, 17, 15, 14);
+    const output = CourseDateUtils.formattedDateTime(input);
+    expect(output).to.eq('2016-11-19');
+  });
+  it('returns a datetime string with timezone if showTime is true', () => {
+    const input = new Date(2016, 10, 19, 17, 15, 14);
+    const output = CourseDateUtils.formattedDateTime(input, true);
+    expect(output).to.contain('2016-11-19 17:15');
+  });
+});
+
 // describe 'CourseDateUtils.wouldCreateBlackoutWeek', ->
 //   one_of_two_meetings = '2015-11-24'
 //   result = CourseDateUtils.wouldCreateBlackoutWeek(typicalCourse, one_of_two_meetings, exceptions)
