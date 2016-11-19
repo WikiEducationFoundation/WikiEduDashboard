@@ -3,10 +3,12 @@ require 'rails_helper'
 
 describe AlertsController do
   describe '#create' do
-    let!(:course)           { create(:course) }
-    let!(:user)             { create(:user) }
-    let!(:target_user)      { create(:admin, email: 'email@email.com') }
-    let!(:courses_users)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+    let(:course) { create(:course) }
+    let!(:user) { create(:user) }
+    let(:target_user) { create(:admin, email: 'email@email.com') }
+    let!(:courses_users) do
+      create(:courses_user, course_id: course.id, user_id: user.id)
+    end
 
     let(:alert_params) do
       { message: 'hello?', target_user_id: target_user.id, course_id: course.id }
@@ -35,6 +37,17 @@ describe AlertsController do
       allow_any_instance_of(Alert).to receive(:save).and_return(false)
       post :create, params: alert_params, format: :json
       expect(response.status).to eq(500)
+    end
+
+    context 'when no target user is provided' do
+      let(:alert_params) do
+        { message: 'hello?', course_id: course.id }
+      end
+      it 'still works' do
+        post :create, params: alert_params, format: :json
+        expect(response.status).to eq(200)
+        expect(NeedHelpAlert.count).to eq(1)
+      end
     end
 
     context 'when the help button feature is disabled' do
