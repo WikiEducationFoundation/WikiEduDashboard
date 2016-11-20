@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import config from '../config.js';
 import flipper from 'gulp-css-flipper';
+import rename from 'gulp-rename';
 import revDel from 'rev-del';
 
 import loadPlugins from 'gulp-load-plugins';
@@ -26,21 +27,20 @@ gulp.task('stylesheets', () => {
 
   return stream.on('end', () => {
     const versionedStream = gulp.src([`${config.outputPath}/${config.cssDirectory}/${config.cssMainFiles}.css`])
-      .pipe(plugins.rev())
-      .pipe(gulp.dest(styleDir))
-      .pipe(plugins.rev.manifest())
+      .pipe(plugins.rev()) // apply revision hash to the file name
+      .pipe(gulp.dest(styleDir)) // save the files
+      .pipe(plugins.rev.manifest()) // create rev.manifest file with the revision hashes
       .pipe(revDel({ dest: styleDir }))
       .pipe(gulp.dest(styleDir));
 
+    // Generate RTL stylesheets
     versionedStream.on('end', () => {
-      const rtlDir = `${config.outputPath}/${config.cssDirectory}/rtl`;
-      gulp.src([`${config.outputPath}/${config.cssDirectory}/${config.cssMainFiles}.css`])
-        .pipe(flipper())
-        .pipe(plugins.rev())
-        .pipe(gulp.dest(rtlDir))
-        .pipe(plugins.rev.manifest())
-        .pipe(revDel({ dest: rtlDir }))
-        .pipe(gulp.dest(rtlDir));
+      gulp.src([`${styleDir}/${config.cssMainFiles}.css`])
+        .pipe(plugins.rev()) // apply revision hashes before flipping,
+                             // so it matches the already-created rev.manifest
+        .pipe(flipper()) // do the css flip
+        .pipe(rename({ prefix: 'rtl-' })) // add the file prefix rtl-
+        .pipe(gulp.dest(styleDir)); // save in the same directory
     });
   });
 });
@@ -61,5 +61,8 @@ gulp.task('stylesheets-livereload', () => {
     }))
     .pipe(plugins.autoprefixer())
     .pipe(plugins.sourcemaps.write())
+    .pipe(gulp.dest(styleDir))
+    .pipe(flipper())
+    .pipe(rename({ prefix: 'rtl-' }))
     .pipe(gulp.dest(styleDir));
 });
