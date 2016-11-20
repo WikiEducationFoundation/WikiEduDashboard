@@ -32,7 +32,7 @@ wizard-width = 860px
   .wizard__panel
     background-color white
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
-    left -150%
+    /*@noflip*/ left -150%
     margin-bottom 20px
     max-width wizard-width
     opacity 0
@@ -45,12 +45,12 @@ wizard-width = 860px
     width 100%
     visibility hidden
     &.active
-      left 50%
+      /*@noflip*/ left 50%
       opacity 1
       transition left panel_speed ease-in-out, opacity .01s
       visibility visible
     &.active ~ .wizard__panel
-      left 150%
+      /*@noflip*/ left 150%
     &.is-submitting
       opacity: 0.5
     > h3
