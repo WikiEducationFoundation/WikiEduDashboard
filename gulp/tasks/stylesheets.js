@@ -61,8 +61,5 @@ gulp.task('stylesheets-livereload', () => {
     }))
     .pipe(plugins.autoprefixer())
     .pipe(plugins.sourcemaps.write())
-    .pipe(gulp.dest(styleDir))
-    .pipe(flipper())
-    .pipe(rename({ prefix: 'rtl-' }))
     .pipe(gulp.dest(styleDir));
 });
