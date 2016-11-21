@@ -87,11 +87,8 @@ module SurveysHelper
   end
 
   def is_grouped_question(answer)
-    if answer.nil? || answer.question.nil?
-      false
-    else
-      answer.question.validation_rules[:grouped].to_i == 1
-    end
+    return false if answer.nil? || answer.question.nil?
+    answer.question.validation_rules[:grouped].to_i == 1
   end
 
   def grouped_question(answer)

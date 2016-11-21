@@ -101,7 +101,8 @@ describe 'Surveys', type: :feature, js: true do
       create(:q_checkbox, question_group_id: question_group.id, conditionals: '')
 
       # Q3
-      q_radio = create(:q_radio, question_group_id: question_group.id, conditionals: '4|=|hindi|multi')
+      q_radio = create(:q_radio, question_group_id: question_group.id,
+                                 conditionals: '4|=|hindi|multi')
       q_radio.rules[:presence] = '0'
       q_radio.save!
 
@@ -111,6 +112,7 @@ describe 'Surveys', type: :feature, js: true do
       # Q5
       q_select = create(:q_select, question_group_id: question_group.id)
       q_select.rules[:presence] = '0'
+      q_select.follow_up_question_text = 'Anything else?'
       q_select.save!
 
       # Q6
@@ -129,16 +131,20 @@ describe 'Surveys', type: :feature, js: true do
       q_numeric.rules[:minimum] = '1'
       q_numeric.save!
 
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '',
+                          course_data_type: 'Students')
       # Q9
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
-      create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '',
+                          course_data_type: 'Articles')
+      create(:q_checkbox, question_group_id: question_group.id, answer_options: '',
+                          course_data_type: 'WikiEdu Staff')
 
       # Q10
       create(:q_rangeinput, question_group_id: question_group.id)
 
       # Q11 — this question will be removed because there are no WikiEdu staff to select from for this course.
-      q_select3 = create(:q_select, question_group_id: question_group.id, course_data_type: 'WikiEdu Staff')
+      q_select3 = create(:q_select, question_group_id: question_group.id,
+                                    course_data_type: 'WikiEdu Staff')
       q_select3.rules[:presence] = '0'
       q_select3.answer_options = ''
       q_select3.save!
