@@ -11,7 +11,7 @@ class RapidfireQuestionPresenter
 
   # The 'text' question type represents a card of text, not an actual question.
   def text_only?
-    question_type(answer) == 'text'
+    question_type(@answer) == 'text'
   end
 
   def results_view?
