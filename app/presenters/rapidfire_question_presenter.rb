@@ -54,7 +54,7 @@ class RapidfireQuestionPresenter
   end
 
   def follow_up_question?
-    @answer.question.follow_up_question_text?
+    @answer.question.follow_up_question_text.present?
   end
 
   private

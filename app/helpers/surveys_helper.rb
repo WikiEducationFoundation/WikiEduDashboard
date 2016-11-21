@@ -102,32 +102,6 @@ module SurveysHelper
     answer.question.follow_up_question_text? && !answer.question.follow_up_question_text.empty?
   end
 
-  def start_of_group(options = {})
-    answers = options[:answers]
-    index = options[:index]
-    answer = answers[index]
-    return false unless is_grouped_question(answer)
-    return true if index.zero?
-
-    previous_answer = answers[index - 1]
-    return true unless is_grouped_question(previous_answer)
-    return true unless questions_in_same_group?(answer, previous_answer)
-    return false
-  end
-
-  def end_of_group(answer, answer_group_builder, index)
-    return false unless is_grouped_question(answer)
-
-    total_questions = answer_group_builder.answers.length
-    is_last_question = (index + 1 == total_questions)
-    return true if is_last_question
-
-    next_question = answer_group_builder.answers[index + 1]
-    return true unless questions_in_same_group?(answer, next_question)
-
-    return false
-  end
-
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
@@ -160,10 +134,6 @@ module SurveysHelper
     return unless answer.question.conditionals?
     string = strip_tags(answer.question.conditionals).tr(' ', '_').tr("'", "\\'")
     "data-conditional-question=#{string}"
-  end
-
-  def is_radio_type(answer)
-    question_type(answer) == 'radio'
   end
 
   def numeric_min(answer)
@@ -230,10 +200,5 @@ module SurveysHelper
 
   def course_slug?
     params.key?(:course_slug)
-  end
-
-  def questions_in_same_group?(first, second)
-    return false if first.nil? || second.nil?
-    grouped_question(first) == grouped_question(second)
   end
 end
