@@ -107,8 +107,6 @@ describe 'Surveys', type: :feature, js: true do
 
       # Q4
       q_long = create(:q_long, question_group_id: question_group.id)
-      q_long.rules[:presence] = '0'
-      q_long.save
 
       # Q5
       q_select = create(:q_select, question_group_id: question_group.id)

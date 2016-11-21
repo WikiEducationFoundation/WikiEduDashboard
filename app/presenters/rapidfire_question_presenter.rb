@@ -29,7 +29,7 @@ class RapidfireQuestionPresenter
   end
 
   def end_of_group?
-    return false unless grouped_question?
+    return true unless grouped_question?
 
     total_questions = @answers_in_group.length
     is_last_question = (@index + 1 == total_questions)
@@ -45,8 +45,8 @@ class RapidfireQuestionPresenter
     answer_is_for_grouped_question?(@answer)
   end
 
-  def required?
-    @answer.question.validation_rules[:presence].to_i == 1
+  def required_class
+    required? ? ' required' : ''
   end
 
   def start_of_radio_matrix?
@@ -58,6 +58,10 @@ class RapidfireQuestionPresenter
   end
 
   private
+
+  def required?
+    @answer.question.validation_rules[:presence].to_i == 1
+  end
 
   def radio_type?
     question_type(@answer) == 'radio'
