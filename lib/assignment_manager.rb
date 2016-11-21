@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# Tested via AssignmentsController
 require "#{Rails.root}/lib/article_utils"
 
 class AssignmentManager
@@ -15,8 +16,8 @@ class AssignmentManager
     set_article_from_database
     import_article_from_wiki unless @article
 
-    Assignment.create!(user_id: @user_id, course_id: @course.id,
-                       article_title: @clean_title, wiki_id: @wiki.id, article_id: @article_id,
+    Assignment.create!(user_id: @user_id, course: @course,
+                       article_title: @clean_title, wiki: @wiki, article: @article,
                        role: @role)
   rescue ActiveRecord::RecordInvalid
     raise DuplicateAssignmentError, "#{@clean_title} is already assigned to this user."
