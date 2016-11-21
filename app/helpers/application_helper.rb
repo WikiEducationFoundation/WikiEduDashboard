@@ -60,19 +60,16 @@ module ApplicationHelper
   # Rapidfire Survey patches #
   ############################
 
-  # FIXME: document exactly why these monkey patches are needed, or get
-  # rid of them if possible.
-
-  def method_missing(method, *args, &block)
-    # puts "LOOKING FOR ROUTES #{method}"
-    return super unless method.to_s.end_with?('_path', '_url')
-    return super unless main_app.respond_to?(method)
-    main_app.send(method, *args)
-  end
-
-  def respond_to?(method, include_all=false)
-    return super unless method.to_s.end_with?('_path', '_url')
-    return super unless main_app.respond_to?(method)
-    true
+  # When called from a /rapidfire/ view, shared templates will use
+  # the rapidfire engine's routes to respond to _path and _url helpers, rather
+  # than the main app's routes.
+  # We define them here explicitly and send them to the main app.
+  SHARED_ROUTES = [:explore_path, :destroy_user_session_path, :training_path,
+                   :surveys_path, :results_path, :survey_assignments_path,
+                   :user_mediawiki_omniauth_authorize_path].freeze
+  SHARED_ROUTES.each do |method|
+    define_method method do
+      main_app.send(method)
+    end
   end
 end
