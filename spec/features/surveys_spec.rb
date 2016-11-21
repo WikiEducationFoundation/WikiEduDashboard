@@ -89,7 +89,7 @@ describe 'Surveys', type: :feature, js: true do
 
       question_group = create(:question_group, id: 1, name: 'Basic Questions')
       @survey.rapidfire_question_groups << question_group
-      @survey.save
+      @survey.save!
 
       # Q1
       # Matrix question at the start
@@ -103,7 +103,7 @@ describe 'Surveys', type: :feature, js: true do
       # Q3
       q_radio = create(:q_radio, question_group_id: question_group.id, conditionals: '4|=|hindi|multi')
       q_radio.rules[:presence] = '0'
-      q_radio.save
+      q_radio.save!
 
       # Q4
       q_long = create(:q_long, question_group_id: question_group.id)
@@ -111,23 +111,23 @@ describe 'Surveys', type: :feature, js: true do
       # Q5
       q_select = create(:q_select, question_group_id: question_group.id)
       q_select.rules[:presence] = '0'
-      q_select.save
+      q_select.save!
 
       # Q6
       q_select2 = create(:q_select, question_group_id: question_group.id)
       q_select2.rules[:presence] = '0'
       q_select2.multiple = true
-      q_select2.save
+      q_select2.save!
 
       # Q7
       q_short = create(:q_short, question_group_id: question_group.id)
       q_short.rules[:presence] = '0'
-      q_short.save
+      q_short.save!
       # Q8
       q_numeric = create(:q_numeric, question_group_id: question_group.id)
       q_numeric.rules[:maximum] = '500'
       q_numeric.rules[:minimum] = '1'
-      q_numeric.save
+      q_numeric.save!
 
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
       # Q9
