@@ -13,14 +13,14 @@
 
       <% if is_start_of_group %>
         <div class='block__container' data-block-index='<%= index %>' data-survey-index='<%= %>'>
-          <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>">
+          <div class="block not-seen disabled survey__question--matrix <%= question_presenter.question_type %>">
       <% end %>
 
       <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
         <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name} %>
 
         <% if !question_presenter.grouped_question? %>
-          <div class='block__container'><div id="question_<%= answer.question.id %>" class="block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %><%= question_presenter.required_class %>" data-survey-block="<%= index + 1 %>">
+          <div class='block__container'><div id="question_<%= answer.question.id %>" class="block disabled not-seen question-type--<%= question_presenter.question_type %> <% if answer.errors.any? %>block--errors<% end %><%= question_presenter.required_class %>" data-survey-block="<%= index + 1 %>">
         <% end %>
 
         <% if question_presenter.start_of_radio_matrix? %>

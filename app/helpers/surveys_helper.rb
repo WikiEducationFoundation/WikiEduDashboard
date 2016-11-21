@@ -10,12 +10,6 @@ module SurveysHelper
     end
   end
 
-  def render_answer_form_helper(answer, form)
-    partial = question_type(answer)
-    render partial: "rapidfire/answers/#{partial}",
-           locals: { f: form, answer: answer, course: @course }
-  end
-
   def render_matrix_answer_labels(answer)
     render partial: 'rapidfire/answers/matrix_answer_labels',
            locals: { answer: answer, course: @course }
@@ -72,14 +66,6 @@ module SurveysHelper
 
   def can_administer?
     current_user&.admin?
-  end
-
-  def question_type(answer)
-    question_type_to_string(answer.question)
-  end
-
-  def question_type_to_string(question)
-    question.type.to_s.split('::').last.downcase
   end
 
   def is_required_question?(answer)

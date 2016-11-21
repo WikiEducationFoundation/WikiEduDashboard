@@ -69,4 +69,12 @@ module QuestionResultsHelper
     label.pluralize if total > 1
     "#{total} #{label}"
   end
+
+  ########################################
+  # Helper method used only in this file #
+  ########################################
+
+  def question_type_to_string(question)
+    question.type.to_s.split('::').last.downcase
+  end
 end

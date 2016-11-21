@@ -9,9 +9,13 @@ class RapidfireQuestionPresenter
     @is_results_view = is_results_view
   end
 
+  def question_type
+    question_type_to_string(@answer.question)
+  end
+
   # The 'text' question type represents a card of text, not an actual question.
   def text_only?
-    question_type(@answer) == 'text'
+    question_type == 'text'
   end
 
   def results_view?
@@ -64,11 +68,7 @@ class RapidfireQuestionPresenter
   end
 
   def radio_type?
-    question_type(@answer) == 'radio'
-  end
-
-  def question_type(answer)
-    question_type_to_string(answer.question)
+    question_type == 'radio'
   end
 
   def question_type_to_string(question)
