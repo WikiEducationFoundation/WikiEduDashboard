@@ -5,47 +5,45 @@
 
   <div <% if !results %>data-question-group-blocks="<%= question_group_index %>"<% end %>>
     <%- @answer_group_builder.answers.each_with_index do |answer, index| %>
+      <% question_presenter = RapidfireQuestionPresenter.new(answer, index: index, answer_group_builder: @answer_group_builder, is_results_view: results) %>
+      <% next if question_presenter.results_view? && question_presenter.text_only? %>
+      <% is_start_of_group = question_presenter.start_of_group? %>
+      <% is_end_of_group = question_presenter.end_of_group? %>
 
-    <% next if results && question_type(answer) == 'text' %>
-
-    <% is_start_of_group = start_of_group(answers:@answer_group_builder.answers, index: index) %>
-    <% is_end_of_group = end_of_group(answer, @answer_group_builder, index) %>
-
-    <% if is_start_of_group %>
-      <div class='block__container' data-block-index='<%= index %>' data-survey-index='<%= %>'>
-        <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>">
-    <% end %>
-
-      <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
-
-      <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name} %>
-
-      <% if !is_grouped_question(answer) %>
-        <div class='block__container'><div id="question_<%= answer.question.id %>" class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if is_required_question?(answer) %>required<% end %>' data-survey-block='<%= index + 1 %>'>
+      <% if is_start_of_group %>
+        <div class='block__container' data-block-index='<%= index %>' data-survey-index='<%= %>'>
+          <div class="block not-seen disabled survey__question--matrix <%= question_type(answer) %>">
       <% end %>
 
-          <% if !results && is_grouped_question(answer) && is_start_of_group && is_radio_type(answer) %>
-            <div class='survey__question-row first matrix-row' data-block-index='<%= index %>'>
-              <%= render_matrix_answer_labels(answer) %>
-            </div>
+      <%= f.fields_for("#{answer.question.id}", answer) do |answer_form| %>
+        <%= render partial: "rapidfire/answers/matrix_question_text", locals: {f: f, answer: answer, name: question_group.name} %>
+
+        <% if !question_presenter.grouped_question? %>
+          <div class='block__container'><div id="question_<%= answer.question.id %>" class='block disabled not-seen question-type--<%= question_type(answer) %> <% if answer.errors.any? %>block--errors<% end %> <% if question_presenter.required? %>required<% end %>' data-survey-block='<%= index + 1 %>'>
+        <% end %>
+
+        <% if question_presenter.start_of_radio_matrix? %>
+          <div class='survey__question-row first matrix-row' data-block-index='<%= index %>'>
+            <%= render_matrix_answer_labels(answer) %>
+          </div>
+        <% end %>
+
+        <div <% if question_presenter.grouped_question? %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= question_presenter.grouped_question? ? 'matrix-row' : '' %> <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if question_presenter.required? %>required<% end %>' <%= conditional_string(answer) %>>
+          <% if results %>
+            <%= render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer} %>
+            <%= render partial: "question_results", locals: { question: answer.question } %>
+          <% else %>
+            <%= render_answer_form_helper(answer, answer_form) %>
+          <% end %>
+        </div>
+
+
+        <% if !question_presenter.grouped_question? || is_end_of_group  || question_presenter.grouped_question? && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
+          <% if question_presenter.follow_up_question? && !results %>
+            <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer } %>
           <% end %>
 
-          <div <% if is_grouped_question(answer) %>id="question_<%= answer.question.id %>"<% end %> data-question-group="<%= question_group_index %>" class='survey__question-row <%= is_grouped_question(answer) ? 'matrix-row' : '' %> <%= index.even? ? '' : 'odd' %>  <%= is_end_of_group ? "last" : "" %> <% if is_required_question?(answer) %>required<% end %>' <%= conditional_string(answer) %>>
-            <% if results %>
-              <%= render partial: "rapidfire/answers/question_text", locals: {f: answer_form, answer: answer} %>
-              <%= render partial: "question_results", locals: { question: answer.question } %>
-            <% else %>
-              <%= render_answer_form_helper(answer, answer_form) %>
-            <% end %>
-          </div>
-
-
-          <% if !is_grouped_question(answer) || is_end_of_group  || is_grouped_question(answer) && !is_grouped_question(@answer_group_builder.answers[index + 1]) %>
-            <% if has_follow_up_question(answer) && !results %>
-              <%= render partial: "rapidfire/answers/follow_up_question", locals: {f: answer_form, answer: answer } %>
-            <% end %>
-
-            <% if !results %>
+          <% if !results %>
             <div class='survey__block-nav'>
               <button tabindex="-1" class='button survey__prev border' data-prev-survey-block>Previous</button>
               <div class='survey__block-nav__next-container'>
@@ -57,15 +55,14 @@
                 <% end %>
               </div>
             </div>
-            <% end %>
           <% end %>
-        <% if !is_grouped_question(answer) %>
-        </div></div>
+        <% end %>
+        <% if !question_presenter.grouped_question? %>
+          </div></div>
         <% end %>
       <% end %><!-- End of  fields_for -->
 
-    <% if is_end_of_group %></div></div><% end %>
-
+      <% if is_end_of_group %></div></div><% end %>
     <% end %><!-- End of  @answer_group_builder.answers.each_with_index -->
 
   </div>

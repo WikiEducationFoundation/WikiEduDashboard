@@ -10,4 +10,4 @@
 
   .results
     - @surveys_question_groups.each_with_index do |group, index|
-      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, true)
+      = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: true)

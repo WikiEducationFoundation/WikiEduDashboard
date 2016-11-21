@@ -33,7 +33,7 @@
 
 
   - @surveys_question_groups.each_with_index do |group, index|
-    = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length)
+    = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: false)
 
   .block__container
     .block.block--text.block--clear.block--thank-you.disabled.not-seen{data: {thank_you: true}}

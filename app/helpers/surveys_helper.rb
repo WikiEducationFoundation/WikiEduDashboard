@@ -128,7 +128,7 @@ module SurveysHelper
     return false
   end
 
-  def question_group_locals(surveys_question_group, index, total, results = false)
+  def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
                                                               user: current_user,
@@ -139,7 +139,7 @@ module SurveysHelper
       question_group_index: index,
       surveys_question_group: surveys_question_group,
       total: total,
-      results: results
+      results: is_results_view
     }
   end
 
