@@ -81,10 +81,6 @@ module SurveysHelper
     answer.question.validation_rules[:grouped_question]
   end
 
-  def has_follow_up_question(answer)
-    answer.question.follow_up_question_text? && !answer.question.follow_up_question_text.empty?
-  end
-
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
