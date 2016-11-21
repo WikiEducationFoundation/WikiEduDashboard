@@ -15,9 +15,6 @@ class AssignmentManager
     set_article_from_database
     import_article_from_wiki unless @article
 
-    # We double check that the titles are equal to avoid false matches of case variants.
-    # We can revise this once the database is set to use case-sensitive collation.
-    @article_id = @article.id if @article && @article.title == @clean_title
     Assignment.create!(user_id: @user_id, course_id: @course.id,
                        article_title: @clean_title, wiki_id: @wiki.id, article_id: @article_id,
                        role: @role)
@@ -38,8 +35,12 @@ class AssignmentManager
   end
 
   def set_article_from_database
-    @article = Article.find_by(title: @clean_title, wiki_id: @wiki.id,
-                               namespace: Article::Namespaces::MAINSPACE)
+    # We double check that the titles are equal to avoid false matches of case variants.
+    # We can revise this once the database is set to use case-sensitive collation.
+    articles = Article.where(title: @clean_title, wiki_id: @wiki.id,
+                             namespace: Article::Namespaces::MAINSPACE)
+    exact_title_matches = articles.select { |article| article.title == @clean_title }
+    @article = exact_title_matches.first
   end
 
   def import_article_from_wiki
