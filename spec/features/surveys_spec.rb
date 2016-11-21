@@ -112,30 +112,43 @@ describe 'Surveys', type: :feature, js: true do
       q_select = create(:q_select, question_group_id: question_group.id)
       q_select.rules[:presence] = '0'
       q_select.save
+
       # Q6
+      q_select2 = create(:q_select, question_group_id: question_group.id)
+      q_select2.rules[:presence] = '0'
+      q_select2.multiple = true
+      q_select2.save
+
+      # Q7
       q_short = create(:q_short, question_group_id: question_group.id)
       q_short.rules[:presence] = '0'
       q_short.save
-      # Q7
+      # Q8
       q_numeric = create(:q_numeric, question_group_id: question_group.id)
       q_numeric.rules[:maximum] = '500'
       q_numeric.rules[:minimum] = '1'
       q_numeric.save
 
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Students')
-      # Q8
+      # Q9
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'Articles')
       create(:q_checkbox, question_group_id: question_group.id, answer_options: '', course_data_type: 'WikiEdu Staff')
 
-      # Q9
+      # Q10
       create(:q_rangeinput, question_group_id: question_group.id)
 
+      # Q11 — this question will be removed because there are no WikiEdu staff to select from for this course.
+      q_select3 = create(:q_select, question_group_id: question_group.id, course_data_type: 'WikiEdu Staff')
+      q_select3.rules[:presence] = '0'
+      q_select3.answer_options = ''
+      q_select3.save!
+
       # Matrix questions back-to-back, and matrix question at the end of survey
-      # Q10
+      # Q12
       create(:matrix_question, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question, question_text: 'third line', question_group_id: question_group.id)
-      # Q11
+      # Q13
       create(:matrix_question2, question_text: 'first line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'second line', question_group_id: question_group.id)
       create(:matrix_question2, question_text: 'third line', question_group_id: question_group.id)
@@ -193,28 +206,33 @@ describe 'Surveys', type: :feature, js: true do
       sleep 1
       click_button('Next', visible: true) # Q5
 
-      fill_in('answer_group_8_answer_text', with: 'testing')
       sleep 1
       click_button('Next', visible: true) # Q6
 
+      fill_in('answer_group_9_answer_text', with: 'testing')
       sleep 1
-      fill_in('answer_group_9_answer_text', with: '50')
       click_button('Next', visible: true) # Q7
 
-      find('.label', text: 'None of the above').click
       sleep 1
+      fill_in('answer_group_10_answer_text', with: '50')
       click_button('Next', visible: true) # Q8
 
+      find('.label', text: 'None of the above').click
       sleep 1
       click_button('Next', visible: true) # Q9
 
       sleep 1
       click_button('Next', visible: true) # Q10
 
+      # Q11 not rendered
+
+      sleep 1
+      click_button('Next', visible: true) # Q12
+
       expect(page).not_to have_content 'You made it!'
-      click_button('Submit Survey', visible: true) # 11
+      click_button('Submit Survey', visible: true) # Q13
       expect(page).to have_content 'You made it!'
-      expect(Rapidfire::Answer.count).to eq(19)
+      expect(Rapidfire::Answer.count).to eq(21)
       expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
     end
