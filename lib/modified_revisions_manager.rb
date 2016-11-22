@@ -14,27 +14,42 @@ class ModifiedRevisionsManager
     revisions ||= Revision.where(wiki_id: @wiki.id)
     return if revisions.empty?
 
-    synced_revisions = Utils.chunk_requests(revisions, 100) do |block|
-      Replica.new(@wiki).get_existing_revisions_by_id block
-    end
+    synced_revisions = fetch_existing_revisions_from(revisions)
     synced_rev_ids = synced_revisions.map { |r| r['rev_id'].to_i }
 
     deleted_rev_ids = revisions.pluck(:mw_rev_id) - synced_rev_ids
-    Revision.where(wiki_id: @wiki.id, mw_rev_id: deleted_rev_ids)
-            .update_all(deleted: true)
-    Revision.where(wiki_id: @wiki.id, mw_rev_id: synced_rev_ids)
-            .update_all(deleted: false)
+    update_deleted_revisions(deleted_rev_ids)
+    update_nondeleted_revisions(synced_rev_ids)
 
     moved_ids = synced_rev_ids - deleted_rev_ids
+    update_moved_revisions(synced_revisions, moved_ids)
+  end
+
+  private
+
+  def fetch_existing_revisions_from(revisions)
+    Utils.chunk_requests(revisions, 100) do |block|
+      Replica.new(@wiki).get_existing_revisions_by_id block
+    end
+  end
+
+  def update_moved_revisions(synced_revisions, moved_ids)
     moved_revisions = synced_revisions.reduce([]) do |moved, rev|
       moved.push rev if moved_ids.include? rev['rev_id'].to_i
     end
+
     moved_revisions.each do |moved|
       handle_moved_revision moved
     end
   end
 
-  private
+  def update_deleted_revisions(rev_ids)
+    Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids).update_all(deleted: true)
+  end
+
+  def update_nondeleted_revisions(rev_ids)
+    Revision.where(wiki_id: @wiki.id, mw_rev_id: rev_ids).update_all(deleted: false)
+  end
 
   def handle_moved_revision(moved)
     mw_page_id = moved['rev_page']
