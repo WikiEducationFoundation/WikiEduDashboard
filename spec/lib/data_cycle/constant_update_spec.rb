@@ -17,7 +17,7 @@ describe ConstantUpdate do
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
       expect(Article).to receive(:update_all_caches)
       expect(ArticlesCourses).to receive(:update_all_caches)
-      expect(CoursesUsers).to receive(:update_all_caches)
+      expect(CoursesUsers).to receive(:update_all_caches_concurrently)
       expect(Course).to receive(:update_all_caches)
       expect(StudentGreeter).to receive(:greet_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
