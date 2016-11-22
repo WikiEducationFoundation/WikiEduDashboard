@@ -25,6 +25,7 @@ class ArticlesCourses < ActiveRecord::Base
   scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }
   scope :current, -> { joins(:course).merge(Course.current).distinct }
+  scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
 
   ####################
   # Instance methods #

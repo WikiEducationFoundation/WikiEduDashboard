@@ -39,7 +39,8 @@ class Article < ActiveRecord::Base
 
   scope :live, -> { where(deleted: false) }
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
-  scope :namespace, -> (ns) { where(namespace: ns) }
+  scope :ready_for_update, -> { joins(:courses).merge(Course.ready_for_update).distinct }
+  scope :namespace, ->(ns) { where(namespace: ns) }
 
   validates :title, presence: true
   validates :wiki_id, presence: true

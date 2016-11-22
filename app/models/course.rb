@@ -143,6 +143,8 @@ class Course < ActiveRecord::Base
     where('end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
+  scope :ready_for_update, -> { current.or(where(needs_update: true)) }
+
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.now
@@ -274,7 +276,7 @@ class Course < ActiveRecord::Base
   # Class methods #
   #################
   def self.update_all_caches
-    Course.current.each(&:update_cache)
+    ready_for_update.each(&:update_cache)
   end
 
   RANDOM_PASSCODE_LENGTH = 8
