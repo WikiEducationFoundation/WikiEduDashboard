@@ -7,12 +7,11 @@ class AlertsController < ApplicationController
 
     @alert = NeedHelpAlert.new(alert_params)
     @alert.user = current_user
-    Rails.logger.warn alert_params
     # :target_user_id will be nil for the 'dashboard help' option
     set_default_target_user unless alert_params[:target_user_id]
 
     if @alert.save
-      @alert.email_target_user if @alert.target_user&.email.present?
+      email_target_user
       render json: {}, status: 200
     else
       render json: { errors: @alert.errors, message: 'unable to create alert' }, status: 500
@@ -20,6 +19,10 @@ class AlertsController < ApplicationController
   end
 
   private
+
+  def email_target_user
+    @alert.email_target_user if @alert.target_user&.email.present?
+  end
 
   def ensure_alerts_are_enabled
     return if Features.enable_get_help_button?
