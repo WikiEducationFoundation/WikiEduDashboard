@@ -62,6 +62,8 @@ en:
     training: Training
     change: Change
     details: Details
+    confirm: OK
+    cancel: Cancel
 
   dashboard:
     create_note:
