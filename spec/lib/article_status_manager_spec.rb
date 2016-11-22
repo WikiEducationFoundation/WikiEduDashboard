@@ -160,5 +160,17 @@ describe ArticleStatusManager do
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)
     end
+
+    it 'marks an undeleted article as not deleted' do
+      create(:article,
+             id: 50661367,
+             mw_page_id: 52228477,
+             title: 'Antiochis_of_Tlos',
+             namespace: 0,
+             deleted: true)
+      create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
+      described_class.update_article_status
+      expect(Article.find(50661367).deleted).to eq(false)
+    end
   end
 end
