@@ -11,13 +11,12 @@ require "#{Rails.root}/lib/data_cycle/cache_updater"
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
   include BatchUpdateLogging
-  include CacheUpdater
 
   def initialize
     setup_logger
     return if updates_paused?
     return if daily_update_running?
-    wait_until_constant_update_finishes
+    wait_until_constant_update_finishes if constant_update_running?
 
     begin
       create_pid_file
@@ -34,7 +33,6 @@ class DailyUpdate
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
     update_commons_uploads
-    update_all_caches
     log_end_of_update 'Daily update finished.'
   end
 
@@ -81,14 +79,15 @@ class DailyUpdate
   #################################
 
   def wait_until_constant_update_finishes
-    return unless constant_update_running?
-
+    sleep_time = 0
+    log_message 'Delaying daily until current update finishes...'
     begin
       File.open(SLEEP_FILE, 'w') { |f| f.puts Process.pid }
       while constant_update_running?
-        log_message 'Delaying update_daily task for 5 minutes...'
+        sleep_time += 5
         sleep(5.minutes)
       end
+      log_message "Starting daily update after waiting #{sleep_time} minutes"
     ensure
       File.delete SLEEP_FILE if File.exist? SLEEP_FILE
     end

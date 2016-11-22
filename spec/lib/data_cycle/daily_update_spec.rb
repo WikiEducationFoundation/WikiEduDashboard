@@ -14,10 +14,6 @@ describe DailyUpdate do
       expect(UploadImporter).to receive(:import_all_uploads)
       expect(UploadImporter).to receive(:update_usage_count_by_course)
       expect(UploadImporter).to receive(:import_urls_in_batches)
-      expect(Article).to receive(:update_all_caches)
-      expect(ArticlesCourses).to receive(:update_all_caches)
-      expect(CoursesUsers).to receive(:update_all_caches)
-      expect(Course).to receive(:update_all_caches)
       expect(Raven).to receive(:capture_message).and_call_original
       update = DailyUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
