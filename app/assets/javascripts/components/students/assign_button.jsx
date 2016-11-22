@@ -3,6 +3,9 @@ import Select from 'react-select';
 import Expandable from '../high_order/expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
+import Confirm from '../common/confirm.jsx';
+import ConfirmActions from '../../actions/confirm_actions.js';
+import ConfirmationStore from '../../stores/confirmation_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import AssignmentStore from '../../stores/assignment_store.js';
@@ -25,12 +28,15 @@ const AssignButton = React.createClass({
     open: React.PropTypes.func.isRequired
   },
 
+  mixins: [ConfirmationStore.mixin],
+
   getInitialState() {
     return ({
       showOptions: false,
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
-      title: ''
+      title: '',
+      showConfirm: false
     });
   },
 
@@ -44,6 +50,10 @@ const AssignButton = React.createClass({
       return tag + this.props.student.id;
     }
     return tag;
+  },
+
+  storeDidChange() {
+    return this.setState(this.getInitialState());
   },
 
   stop(e) {
@@ -113,12 +123,28 @@ const AssignButton = React.createClass({
       return;
     }
 
+
     // Confirm
     if (this.props.student) {
-      if (!confirm(I18n.t('assignments.confirm_addition', {
-        title: articleTitle,
-        username: this.props.student.username
-      }))) { return; }
+      const onConfirm = function () {
+        // Update the store
+        AssignmentActions.addAssignment(assignment);
+        // Post the new assignment to the server
+        ServerActions.addAssignment(assignment);
+        // Send the confirm signal
+        return ConfirmActions.actionConfirmed();
+      };
+
+      const onCancel = function () {
+        return ConfirmActions.actionCancelled();
+      };
+
+      this.setState({ onConfirm, onCancel, showConfirm: true });
+
+      // if (!confirm(I18n.t('assignments.confirm_addition', {
+      //   title: articleTitle,
+      //   username: this.props.student.username
+      // }))) { return; }
     }
 
     if (!this.props.student) {
@@ -126,16 +152,8 @@ const AssignButton = React.createClass({
         title: articleTitle
       }))) { return; }
     }
-
-    // Send
-    if (assignment) {
-      // Update the store
-      AssignmentActions.addAssignment(assignment);
-      // Post the new assignment to the server
-      ServerActions.addAssignment(assignment);
-      return this.setState(this.getInitialState());
-    }
   },
+
   unassign(assignment) {
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
     // Update the store
@@ -143,7 +161,14 @@ const AssignButton = React.createClass({
     // Send the delete request to the server
     return ServerActions.deleteAssignment(assignment);
   },
+
+
   render() {
+    let confirmationDialog;
+    if (this.state.showConfirm) {
+      confirmationDialog = <Confirm onConfirm={this.state.onConfirm} onCancel={this.state.onCancel} />;
+    }
+
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
 
@@ -266,6 +291,7 @@ const AssignButton = React.createClass({
 
     return (
       <div className="pop__container" onClick={this.stop}>
+        {confirmationDialog}
         {showButton}
         {editButton}
         <Popover
