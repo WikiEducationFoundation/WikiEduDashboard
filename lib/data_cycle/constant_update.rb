@@ -8,16 +8,15 @@ require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
-require "#{Rails.root}/lib/articles_for_deletion_monitor"
-require "#{Rails.root}/lib/course_alert_manager"
-require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
+require "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
 require "#{Rails.root}/lib/student_greeter"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
   include BatchUpdateLogging
   include CacheUpdater
+  include UpdateCycleAlertGenerator
 
   def initialize
     setup_logger
@@ -47,10 +46,10 @@ class ConstantUpdate
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
-    update_all_caches
+    update_all_caches # from CacheUpdater
     remove_needs_update_flags
     greet_ungreeted_students
-    generate_alerts
+    generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
   end
 
@@ -98,33 +97,6 @@ class ConstantUpdate
   def greet_ungreeted_students
     log_message 'Greeting students in classes with greeters'
     StudentGreeter.greet_all_ungreeted_students
-  end
-
-  ##########
-  # Alerts #
-  ##########
-
-  def generate_alerts
-    log_message 'Generating AfD alerts'
-    ArticlesForDeletionMonitor.create_alerts_for_course_articles
-
-    course_alert_manager = CourseAlertManager.new
-
-    log_message 'Generating no-enrolled-students alerts'
-    course_alert_manager.create_no_students_alerts
-    log_message 'Generating untrained-students alerts'
-    course_alert_manager.create_untrained_students_alerts
-    log_message 'Generating productive course alerts'
-    course_alert_manager.create_productive_course_alerts
-    log_message 'Generating active course alerts'
-    course_alert_manager.create_active_course_alerts
-    log_message 'Generating deleted uploads alerts'
-    course_alert_manager.create_deleted_uploads_alerts
-    log_message 'Generating continued course activity alerts'
-    course_alert_manager.create_continued_course_activity_alerts
-
-    log_message 'Generating survey response alerts'
-    SurveyResponseAlertManager.new.create_alerts
   end
 
   #################################
