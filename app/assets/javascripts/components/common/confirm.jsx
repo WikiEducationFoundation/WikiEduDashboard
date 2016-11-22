@@ -1,11 +1,13 @@
 import React from 'react';
+import Modal from './modal.jsx';
 
 const Confirm = React.createClass({
   displayName: 'Confirm',
 
   propTypes: {
-    onConfirm: React.PropTypes.func,
-    onCancel: React.PropTypes.func
+    onConfirm: React.PropTypes.func.isRequired,
+    onCancel: React.PropTypes.func.isRequired,
+    message: React.PropTypes.string.isRequired
   },
 
   getInitialState() {
@@ -25,11 +27,17 @@ const Confirm = React.createClass({
   render() {
     if (!this.state.open) { return <div></div>; }
     return (
-        <div className="modal wizard">
-          Are you sure?
-          <button className="button danger" onClick={this.onCancel}>Cancel</button>
-          <button className="button dark" onClick={this.onConfirm}>Yes</button>
+      <Modal>
+        <div className="confirm-modal modal">
+          {this.props.message}
+          <br />
+          <br />
+          <div className="pop_container pull-right">
+            <button className="button ghost-button" onClick={this.onCancel}>Cancel</button>
+            <button className="button dark" onClick={this.onConfirm}>Yes</button>
+          </div>
         </div>
+      </Modal>
     );
   }
 });

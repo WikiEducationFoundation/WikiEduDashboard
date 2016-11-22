@@ -139,18 +139,12 @@ const AssignButton = React.createClass({
         return ConfirmActions.actionCancelled();
       };
 
-      this.setState({ onConfirm, onCancel, showConfirm: true });
+      const confirmMessage = I18n.t('assignments.confirm_addition', {
+        title: articleTitle,
+        username: this.props.student.username
+      });
 
-      // if (!confirm(I18n.t('assignments.confirm_addition', {
-      //   title: articleTitle,
-      //   username: this.props.student.username
-      // }))) { return; }
-    }
-
-    if (!this.props.student) {
-      if (!confirm(I18n.t('assignments.confirm_add_available', {
-        title: articleTitle
-      }))) { return; }
+      this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
     }
   },
 
@@ -166,7 +160,13 @@ const AssignButton = React.createClass({
   render() {
     let confirmationDialog;
     if (this.state.showConfirm) {
-      confirmationDialog = <Confirm onConfirm={this.state.onConfirm} onCancel={this.state.onCancel} />;
+      confirmationDialog = (
+        <Confirm
+          onConfirm={this.state.onConfirm}
+          onCancel={this.state.onCancel}
+          message={this.state.confirmMessage}
+        />
+      );
     }
 
     let className = 'button border small assign-button';
