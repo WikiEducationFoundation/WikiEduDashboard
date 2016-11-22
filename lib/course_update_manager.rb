@@ -30,7 +30,7 @@ class CourseUpdateManager
     Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
 
     UserImporter.update_users users
-    CourseRevisionUpdater.import_new_revisions(course)
+    CourseRevisionUpdater.import_new_revisions([course])
     ViewImporter.update_views articles.namespace(0)
       .find_in_batches(batch_size: 30) unless course.legacy?
     RatingImporter.update_ratings articles.namespace(0)

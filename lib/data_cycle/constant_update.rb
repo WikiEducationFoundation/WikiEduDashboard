@@ -21,6 +21,7 @@ class ConstantUpdate
 
   def initialize
     setup_logger
+    set_courses_to_update
     return if updates_paused?
     return unless no_other_updates_running?
 
@@ -34,6 +35,11 @@ class ConstantUpdate
 
   private
 
+  def set_courses_to_update
+    @courses = Course.ready_for_update.to_a
+    log_message "Ready to update #{@courses.count} courses"
+  end
+
   def run_update
     log_start_of_update
     update_legacy_courses if Features.enable_legacy_courses?
@@ -42,6 +48,7 @@ class ConstantUpdate
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
     update_all_caches
+    remove_needs_update_flags
     greet_ungreeted_students
     generate_alerts
     log_end_of_update 'Constant update finished.'
@@ -62,7 +69,7 @@ class ConstantUpdate
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'
-    CourseRevisionUpdater.import_new_revisions
+    CourseRevisionUpdater.import_new_revisions(@courses)
 
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles
@@ -123,6 +130,12 @@ class ConstantUpdate
   #################################
   # Logging and process managment #
   #################################
+
+  def remove_needs_update_flags
+    @courses.select(&:needs_update).each do |course|
+      course.update_attribute(:needs_update, false)
+    end
+  end
 
   def no_other_updates_running?
     return false if daily_update_running?

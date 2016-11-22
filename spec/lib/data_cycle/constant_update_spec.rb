@@ -4,7 +4,11 @@ require "#{Rails.root}/lib/data_cycle/constant_update"
 
 describe ConstantUpdate do
   describe 'on initialization' do
-    it 'calls lots of update routines' do
+    before do
+      create(:course, start: '2015-03-20', end: '2015-03-31', needs_update: true)
+    end
+
+    it 'calls lots of update routines and resets :needs_update flag on courses' do
       expect(LegacyCourseImporter).to receive(:update_all_courses)
       expect(UserImporter).to receive(:update_users)
       expect(CourseRevisionUpdater).to receive(:import_new_revisions)
@@ -29,6 +33,7 @@ describe ConstantUpdate do
       update = ConstantUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Importing revisions and articles/).any?).to eq(true)
+      expect(Course.where(needs_update: true).count).to eq(0)
     end
   end
 end
