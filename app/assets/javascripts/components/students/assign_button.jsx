@@ -123,29 +123,36 @@ const AssignButton = React.createClass({
       return;
     }
 
+    const onConfirm = function () {
+      // Update the store
+      AssignmentActions.addAssignment(assignment);
+      // Post the new assignment to the server
+      ServerActions.addAssignment(assignment);
+      // Send the confirm signal
+      return ConfirmActions.actionConfirmed();
+    };
 
-    // Confirm
+    const onCancel = function () {
+      return ConfirmActions.actionCancelled();
+    };
+
+
+    let confirmMessage;
+
+    // Confirm for assigning an article to a student
     if (this.props.student) {
-      const onConfirm = function () {
-        // Update the store
-        AssignmentActions.addAssignment(assignment);
-        // Post the new assignment to the server
-        ServerActions.addAssignment(assignment);
-        // Send the confirm signal
-        return ConfirmActions.actionConfirmed();
-      };
-
-      const onCancel = function () {
-        return ConfirmActions.actionCancelled();
-      };
-
-      const confirmMessage = I18n.t('assignments.confirm_addition', {
+      confirmMessage = I18n.t('assignments.confirm_addition', {
         title: articleTitle,
         username: this.props.student.username
       });
-
-      this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
+    // Confirm for adding an unassigned available article
+    } else {
+      confirmMessage = I18n.t('assignments.confirm_add_available', {
+        title: articleTitle
+      });
     }
+
+    this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
   },
 
   unassign(assignment) {

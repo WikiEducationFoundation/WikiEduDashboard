@@ -226,9 +226,8 @@ describe 'Student users', type: :feature, js: true do
       # Add an assigned article
       find('button.border', match: :first).click
       within('#users') { find('input', match: :first).set('Selfie') }
-      accept_confirm do
-        page.all('button.border')[1].click
-      end
+      page.all('button.border')[1].click
+      click_button 'OK'
       sleep 1
       page.all('button.border')[0].click
       sleep 1
@@ -252,9 +251,8 @@ describe 'Student users', type: :feature, js: true do
 
       page.all('button.border')[1].click
       within('#users') { find('input', match: :first).set('Self-portrait') }
-      accept_confirm do
-        page.all('button.border')[2].click
-      end
+      page.all('button.border')[2].click
+      click_button 'OK'
       page.all('button.border')[1].click
       expect(page).to have_content 'Self-portrait'
     end

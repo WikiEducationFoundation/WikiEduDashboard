@@ -25,9 +25,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       within('#users') do
         first('input').set('https://ta.wiktionary.org/wiki/%E0%AE%86%E0%AE%99%E0%AF%8D%E0%AE%95%E0%AE%BF%E0%AE%B2%E0%AE%AE%E0%AF%8D')
       end
-      page.accept_confirm do
-        click_button 'Assign'
-      end
+      click_button 'Assign'
+      click_button 'OK'
       visit "/courses/#{course.slug}/students"
 
       expect(page).to have_content 'ta:wiktionary:ஆங்கிலம்'
@@ -56,9 +55,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
         first('.project-select .Select-option', text: 'wikibooks').click
       end
 
-      page.accept_confirm do
-        click_button 'Assign'
-      end
+      click_button 'Assign'
+      click_button 'OK'
 
       visit "/courses/#{course.slug}/students"
 

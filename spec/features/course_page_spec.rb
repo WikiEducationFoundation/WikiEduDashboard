@@ -283,6 +283,7 @@ describe 'the course page', type: :feature, js: true do
       click_button 'Add an available article'
       page.first(:css, '#available-articles .pop.open').first('input').set('Education')
       click_button 'Assign'
+      click_button 'OK'
       assigned_articles_table = page.first(:css, '#available-articles table.articles')
       expect(assigned_articles_table).to have_content 'Education'
     end

@@ -128,9 +128,8 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       page.all('button.border')[0].click
       within('#users') { first('input').set('Article 1') }
-      page.accept_confirm do
-        click_button 'Assign'
-      end
+      click_button 'Assign'
+      click_button 'OK'
       sleep 1
       page.first('button.border.assign-button').click
       sleep 1
@@ -138,9 +137,8 @@ describe 'Instructor users', type: :feature, js: true do
       # Assign a review
       page.all('button.border')[1].click
       within('#users') { first('input').set('Article 2') }
-      page.accept_confirm do
-        click_button 'Assign'
-      end
+      click_button 'Assign'
+      click_button 'OK'
       sleep 1
       page.all('button.border.assign-button')[0].click
       sleep 1
