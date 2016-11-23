@@ -20,8 +20,12 @@ class ErrorsController < ApplicationController
   end
 
   def login_error
+    if user_signed_in?
+      redirect_to root_path
     # a status in the 500 range will automatically bypass this and
     # render internal_server_error
-    render status: 200
+    else
+      render status: 200
+    end
   end
 end
