@@ -32,6 +32,8 @@ module ArticleHelper
     "#{prefix}#{article.title}"
   end
 
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity
   def rating_priority(rating)
     case rating
     when 'fa'
@@ -56,6 +58,8 @@ module ArticleHelper
       9
     end
   end
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   # Try to find the Wikipedia 1.0 rating of an article by parsing its talk page
   # contents.
