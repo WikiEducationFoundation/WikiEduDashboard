@@ -10,22 +10,15 @@ const Confirm = React.createClass({
     message: React.PropTypes.string.isRequired
   },
 
-  getInitialState() {
-    return { open: true };
-  },
-
   onConfirm() {
-    this.setState({ open: false });
     this.props.onConfirm();
   },
 
   onCancel() {
-    this.setState({ open: false });
     this.props.onCancel();
   },
 
   render() {
-    if (!this.state.open) { return <div></div>; }
     return (
       <Modal modalClass="confirm-modal-overlay">
         <div className="confirm-modal">

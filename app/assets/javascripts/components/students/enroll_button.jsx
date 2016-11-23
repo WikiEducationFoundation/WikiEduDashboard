@@ -6,6 +6,9 @@ import UserStore from '../../stores/user_store.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import NotificationActions from '../../actions/notification_actions.js';
+import Confirm from '../common/confirm.jsx';
+import ConfirmActions from '../../actions/confirm_actions.js';
+import ConfirmationStore from '../../stores/confirmation_store.js';
 
 const EnrollButton = React.createClass({
   displayName: 'EnrollButton',
@@ -23,13 +26,28 @@ const EnrollButton = React.createClass({
     current_user: React.PropTypes.object
   },
 
-  mixins: [UserStore.mixin],
+  mixins: [UserStore.mixin, ConfirmationStore.mixin],
+
+  getInitialState() {
+    return ({
+      showConfirm: false,
+      onConfirm: null,
+      onCancel: null,
+      confirmMessage: null
+    });
+  },
 
   getKey() {
     return `add_user_role_${this.props.role}`;
   },
 
   storeDidChange() {
+    // This handles closing the Confirm dialog after it has been clicked.
+    if (!ConfirmationStore.isConfirmationActive()) {
+      this.setState(this.getInitialState());
+    }
+
+    // This handles an added user showing up in the UserStore
     if (!this.refs.username) { return; }
     const username = this.refs.username.value;
     if (UserStore.getFiltered({ username, role: this.props.role }).length > 0) {
@@ -45,20 +63,51 @@ const EnrollButton = React.createClass({
   enroll(e) {
     e.preventDefault();
     const username = this.refs.username.value;
+    const courseId = this.props.course_id;
     const userObject = { username, role: this.props.role };
-    if (UserStore.getFiltered({ username, role: this.props.role }).length === 0 && confirm(I18n.t('users.enroll_confirmation', { username }))) {
-      return ServerActions.add('user', this.props.course_id, { user: userObject });
+
+    const onConfirm = function () {
+      // Post the new user to the server
+      ServerActions.add('user', courseId, { user: userObject });
+      // Send the confirm signal
+      return ConfirmActions.actionConfirmed();
+    };
+    const onCancel = function () {
+      return ConfirmActions.actionCancelled();
+    };
+    const confirmMessage = I18n.t('users.enroll_confirmation', { username });
+
+    // If the user is not already enrolled
+    if (UserStore.getFiltered({ username, role: this.props.role }).length === 0) {
+      ConfirmActions.confirmationInitiated();
+      return this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
     }
-    return alert(I18n.t('users.already_enrolled'));
+    // If the user us already enrolled
+    return NotificationActions.addNotification({
+      message: I18n.t('users.already_enrolled'),
+      closable: true,
+      type: 'error'
+    });
   },
 
   unenroll(userId) {
     const user = UserStore.getFiltered({ id: userId, role: this.props.role })[0];
+    const courseId = this.props.course_id;
     const userObject = { user_id: userId, role: this.props.role };
-    if (confirm(I18n.t('users.remove_confirmation', { username: user.username }))) {
-      return ServerActions.remove('user', this.props.course_id, { user: userObject });
-    }
+
+    const onConfirm = function () {
+      // Post the new user to the server
+      ServerActions.remove('user', courseId, { user: userObject });
+      // Send the confirm signal
+      return ConfirmActions.actionConfirmed();
+    };
+    const onCancel = function () {
+      return ConfirmActions.actionCancelled();
+    };
+    const confirmMessage = I18n.t('users.remove_confirmation', { username: user.username });
+    this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
   },
+
   stop(e) {
     return e.stopPropagation();
   },
@@ -68,6 +117,17 @@ const EnrollButton = React.createClass({
   },
 
   render() {
+    let confirmationDialog;
+    if (this.state.showConfirm) {
+      confirmationDialog = (
+        <Confirm
+          onConfirm={this.state.onConfirm}
+          onCancel={this.state.onCancel}
+          message={this.state.confirmMessage}
+        />
+      );
+    }
+
     let users = this.props.users.map(user => {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
@@ -132,6 +192,7 @@ const EnrollButton = React.createClass({
 
     return (
       <div className="pop__container" onClick={this.stop}>
+        {confirmationDialog}
         {button}
         <Popover
           is_open={this.props.is_open}

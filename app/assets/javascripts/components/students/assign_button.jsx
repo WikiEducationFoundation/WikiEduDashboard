@@ -131,14 +131,11 @@ const AssignButton = React.createClass({
       // Send the confirm signal
       return ConfirmActions.actionConfirmed();
     };
-
     const onCancel = function () {
       return ConfirmActions.actionCancelled();
     };
 
-
     let confirmMessage;
-
     // Confirm for assigning an article to a student
     if (this.props.student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
