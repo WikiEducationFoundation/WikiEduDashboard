@@ -83,9 +83,9 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       click_button 'Enrollment'
       within('#users') { all('input')[1].set('Risker') }
-      page.accept_confirm do
-        click_button 'Enroll'
-      end
+      click_button 'Enroll'
+      click_button 'OK'
+
       expect(page).to have_content 'Risker was added successfully'
     end
 
@@ -95,9 +95,8 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       click_button 'Enrollment'
       within('#users') { all('input')[1].set('NotARealUser') }
-      page.accept_confirm do
-        click_button 'Enroll'
-      end
+      click_button 'Enroll'
+      click_button 'OK'
       expect(page).to have_content 'NotARealUser is not an existing user.'
     end
 
@@ -109,9 +108,9 @@ describe 'Instructor users', type: :feature, js: true do
       click_button 'Enrollment'
       sleep 1
       # Remove a user
-      page.accept_confirm do
-        page.all('button.border.plus')[1].click
-      end
+
+      page.all('button.border.plus')[1].click
+      click_button 'OK'
       sleep 1
 
       visit "/courses/#{Course.first.slug}/students"
@@ -168,9 +167,8 @@ describe 'Instructor users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
 
       click_button 'Enrollment'
-      page.accept_confirm do
-        page.first('button.border.plus').click
-      end
+      page.first('button.border.plus').click
+      click_button 'OK'
       sleep 1
       expect(page).not_to have_content 'Student A'
     end
