@@ -34,7 +34,7 @@ const Confirm = React.createClass({
           <br />
           <div className="pop_container pull-right">
             <button className="button ghost-button" onClick={this.onCancel}>{I18n.t('application.cancel')}</button>
-            <button className="button dark" onClick={this.onConfirm}>{I18n.t('application.confirm')}</button>
+            <button autoFocus className="button dark" onClick={this.onConfirm}>{I18n.t('application.confirm')}</button>
           </div>
         </div>
       </Modal>
