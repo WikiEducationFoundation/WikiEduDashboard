@@ -1,11 +1,26 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/importers/revision_importer"
+require "#{Rails.root}/lib/replica"
 
 #= Fetches and imports new revisions for courses
 class CourseRevisionUpdater
   ###############
   # Entry point #
   ###############
+
+  def self.import_new_revisions_concurrently(courses)
+    # Revision data is imported via Replica, and its capacity may be the
+    # bottleneck in this process.
+    concurrency = Replica::CONCURRENCY_LIMIT
+    course_groups = courses.to_a.in_groups(concurrency, false)
+    threads = course_groups.map.with_index do |course_group, i|
+      Thread.new(i) do
+        import_new_revisions(course_group)
+      end
+    end
+    threads.each(&:join)
+  end
+
   def self.import_new_revisions(courses)
     courses.each do |course|
       next if course.students.empty?

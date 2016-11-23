@@ -68,7 +68,7 @@ class ConstantUpdate
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'
-    CourseRevisionUpdater.import_new_revisions(@courses)
+    CourseRevisionUpdater.import_new_revisions_concurrently(@courses)
 
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles

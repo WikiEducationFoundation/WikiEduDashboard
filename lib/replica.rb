@@ -12,6 +12,10 @@ class Replica
     @wiki = wiki
   end
 
+  # This is the maximum number of concurrent queries the system should run
+  # against the wmflabs replica endpoint.
+  CONCURRENCY_LIMIT = 3
+
   ################
   # Entry points #
   ################

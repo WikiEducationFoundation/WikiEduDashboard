@@ -68,6 +68,9 @@ describe CourseRevisionUpdater do
       end
     end
 
+
+
+
     it 'includes revisions on the final day of a course up to the end time' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
       create(:user, id: 1, username: 'Tedholtby')
@@ -121,6 +124,15 @@ describe CourseRevisionUpdater do
         CourseRevisionUpdater.import_new_revisions(Course.all)
         expect(Revision.all.count > 1).to be true
       end
+    end
+  end
+
+  describe '.import_new_revisions_concurrently' do
+    let!(:course) { create(:course) }
+    it 'calls import_new_revisions multiple times' do
+      expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+        .exactly(Replica::CONCURRENCY_LIMIT).times
+      CourseRevisionUpdater.import_new_revisions_concurrently(Course.all)
     end
   end
 end

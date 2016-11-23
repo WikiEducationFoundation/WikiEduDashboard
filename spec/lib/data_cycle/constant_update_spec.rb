@@ -11,7 +11,7 @@ describe ConstantUpdate do
     it 'calls lots of update routines and resets :needs_update flag on courses' do
       expect(LegacyCourseImporter).to receive(:update_all_courses)
       expect(UserImporter).to receive(:update_users)
-      expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+      expect(CourseRevisionUpdater).to receive(:import_new_revisions_concurrently)
       expect(AssignmentUpdater).to receive(:update_assignment_article_ids_and_titles)
       expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
