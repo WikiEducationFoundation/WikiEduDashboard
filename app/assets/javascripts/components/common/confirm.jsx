@@ -27,8 +27,8 @@ const Confirm = React.createClass({
   render() {
     if (!this.state.open) { return <div></div>; }
     return (
-      <Modal>
-        <div className="confirm-modal modal">
+      <Modal modalClass="confirm-modal-overlay">
+        <div className="confirm-modal">
           {this.props.message}
           <br />
           <br />
