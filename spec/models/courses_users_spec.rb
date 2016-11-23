@@ -143,4 +143,12 @@ describe CoursesUsers, type: :model do
       expect(subject.program_manager).to eq(true)
     end
   end
+
+  describe '.update_all_caches_concurrently' do
+    it 'calls .update_all_caches multiple times' do
+      expect(CoursesUsers).to receive(:update_all_caches)
+        .exactly(CoursesUsers::CACHE_UPDATE_CONCURRENCY).times
+      CoursesUsers.update_all_caches_concurrently
+    end
+  end
 end
