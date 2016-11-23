@@ -197,9 +197,6 @@ class Replica
 
   # These are typical network errors that we expect to encounter.
   def typical_errors
-    [Errno::ETIMEDOUT,
-     Net::ReadTimeout,
-     Errno::ECONNREFUSED,
-     JSON::ParserError]
+    [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED, JSON::ParserError]
   end
 end
