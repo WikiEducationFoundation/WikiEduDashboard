@@ -28,7 +28,7 @@
 # to the wiki.
   disable_wiki_output: 'true'
 
-# Setting 'open_course_creation' to 'true' means that any use can create a
+# Setting 'open_course_creation' to 'true' means that any user can create a
 # course, and it will be automatically added to the default campaign and be ready
 # for use.
   open_course_creation: 'false'
@@ -41,7 +41,7 @@
   wikipedia_token: 6e171fe7c5fc549ecce52471d22a6b0a
   wikipedia_secret: 7f345a52566194a19d2adba5fcbb802e8c79f7ef
 
-# The language version of Wikipedia: <wiki_language>.wikipedia.org
+# The default language version of Wikipedia: <wiki_language>.wikipedia.org
   wiki_language: en
 
 # The prefix for all course pages that get posted on behalf of users.

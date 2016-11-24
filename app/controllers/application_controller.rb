@@ -11,20 +11,18 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken do
-    render plain: t('error_401.explanation'),
-           status: :unauthorized
+    render plain: t('error_401.explanation'), status: :unauthorized
   end
 
   # Stop index.php routes from causing the kinds of errors that get reported
   # to Sentry.
   rescue_from ActionController::UnknownFormat do
-    render plain: t('error_404.explanation'),
-           status: 404
+    render plain: t('error_404.explanation'), status: 404
   end
 
   force_ssl if: :ssl_configured?
 
-  before_action :check_for_sitenotice
+  before_action :set_sitenotice
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
   before_action :check_onboarded
@@ -39,21 +37,18 @@ class ApplicationController < ActionController::Base
     request.env['omniauth.origin'] || '/'
   end
 
-  def check_for_sitenotice
-    return if ENV['sitenotice'].blank?
-    flash[:notice] = ENV['sitenotice']
+  def set_sitenotice
+    flash[:notice] = ENV['sitenotice'] unless ENV['sitenotice'].blank?
   end
 
+  NON_REDIRECT_PATHS = [onboarding_path, onboard_path, new_user_session_path,
+                        destroy_user_session_path, true_destroy_user_session_path].freeze
   def check_onboarded
     return unless current_user
     return if Features.disable_onboarding? || current_user.onboarded
     full_path = request.fullpath
-    non_redirect_paths = [onboarding_path,
-                          onboard_path,
-                          new_user_session_path,
-                          destroy_user_session_path,
-                          true_destroy_user_session_path]
-    return if non_redirect_paths.any? { |path| full_path.starts_with? path }
+
+    return if NON_REDIRECT_PATHS.any? { |path| full_path.starts_with? path }
     redirect_to onboarding_path(return_to: full_path)
   end
 
