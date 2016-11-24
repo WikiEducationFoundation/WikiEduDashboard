@@ -78,7 +78,7 @@ hy:
     milestones:
       title: Փուլեր
   campaign:
-    programs: '%{{title} Նաագծեր'
+    programs: '%{title} ծրագրեր'
   courses:
     activity: Ակտիվություն
     course_description: Դասընթացներ

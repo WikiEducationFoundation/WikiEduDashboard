@@ -9,6 +9,7 @@
 # Author: Macofe
 # Author: MojoMann
 # Author: Or
+# Author: המקיסט
 # Author: פוילישער
 ---
 he:
@@ -37,6 +38,7 @@ he:
     submit: שליחה
     training: הדרכה
     change: שינוי
+    details: פרטים
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.
@@ -364,6 +366,7 @@ he:
     edit: עריכה
     cancel: ביטול
     save: שמירה
+    edit_details: ערוך פרטים
   metrics:
     activity: פעילות לאחרונה
     are_trained: משתתפים אשר השלימו הדרכה

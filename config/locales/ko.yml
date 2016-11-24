@@ -42,6 +42,7 @@ ko:
     sign_up: 가입하기
     submit: 보내기
     change: 수정
+    details: 자세한 사항
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
@@ -210,6 +211,8 @@ ko:
     edit: 편집
     cancel: 취소
     save: 저장
+    edit_description: 설명 편집
+    edit_details: 자세한 사항 편집
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨

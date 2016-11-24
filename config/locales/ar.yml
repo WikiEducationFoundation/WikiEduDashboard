@@ -37,30 +37,114 @@ ar:
     submit: إرسال
     training: تدريب
     change: تغيير
+  dashboard:
+    create_note: انقر فوق إنشاء ملعب لإنشاء الدورة الأولى الخاصة بك.
+    explore_course_pages: استكشاف صفحات الدورات
+    explore_examples: استكشاف أمثلة
+    join_note: مرة واحدة تتلقى رمز مرور من معلمك، انقر على البحث عن دورتك لإيجادها
+      والانضمام إليها.
+    no_courses_instructor: يبدو أنه ليس لديك أي مقرر دراسي.
+    no_courses_student: يبدو أنك لم تنضم لدورة حتى الان.
+    opt_out: طلب الانسحاب من التوجه
+    orientation_notice: قبل إنشاء دورة، دعنا نذهب من خلال التوجه إلى مساعدتك في البدء.
+      (تستغرق حوالي 30 دقيقة لإكمالها.)
+    review_orientation: مراجعة التوجيه
+    start_orientation: بدء التوجيه
+    blog_headline: آخر الأخبار من ويكي إد
+  home:
+    log_in: تسجيل الدخول عبر ويكيبيديا
+    sign_up: تسجيل الدخول إلى ويكيبيديا
   activity:
     all: النشاط
     edited_by: عدل بواسطة
     label: النشاط
   articles:
     assigned: المقالات المخصصة
+    available: المواد المتاحة
+    assigned_to: 'مُسندة إلى:'
+    character_doc: مجموع الأحرف تضاف إلى المقالات من قبل المحررين المسجلين بين تاريخي
+      البدء والانتهاء
     edited: المقالات التي تم تعديلها
+    edited_by: عُدِّلت بواسطة
     edited_mobile: المقالات
     label: المقالات
     loading: تحميل المقالات ...
+    none: هذه الدورة لم تحرر أية مقالات.
     rating: رتبة
+    rating_docs:
+      fa: مقالة مختارة - أعلى تصنيف ويكيبيديا، ربما مقالة ناضجة جدا للمشروع الرئيسي
+        لمحرر جديد
+      fl: قائمة مختارة - أعلى تصنيف لقوائم ويكيبيديا
+      a: الفئة أ- ربما تكون مقالة ناضجة جدا للمشروع الرئيسي لمحرر جديد
+      ga: مقالة جيدة - مقالة متطورة قد تكون أيضا ناضجة لمقال للمشروع الرئيسي لمحرر
+        جديد
+      b: الفئة ب — مقالة متطورة متوسطة
+      c: الفئة ج - مقالة متوسطة في مجال التحسين
+      start: فئة البداية - مقالة أولية في مجال للتحسين الكثير
+      stub: فئة البذرة - بداية قصيرة لمقال يحتاج المزيد من المحتوى
+      list: فئة القائمة - قائمة بدلا من المقالة التقليدية
+      '?': غير مصنفة - مقالة غير مصنفة على أساس جودة ويكيبيديا
+    show_cumulative_changes: أظهر التغييرات التراكمية
     title: العنوان
     title_example: عنوان المقال
+    view: عرض المقالة
     view_all: عرض الكل
+    view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
+    views_added: أضيفت %{count} وجهات نظر جديدة ل %{title}
+    wp10: اكتمال هيكلي
   assignments:
+    already_exists: هذه المهمة موجودة بالفعل!
+    assign_other: تعيين مقال
+    add_available: إضافة مقالة متاحة
+    assign_self: تعيين مقالة لنفسي
+    confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
+    confirm_addition: هل أنت متأكد أنك تريد إضافة %{title} ل %{username}?
+    loading: تحميل الواجبات...
+    none_short: لا توجد مقالات معينة
+    none: هذه الدورة ليست بها مقالات معينة.
+    no_available: هذه الدورة ليست بها مواد متاحة.
+    review_other: تعيين مراجعة
+    review_self: مراجعة مقال
     select: اختر
+  blocks:
+    milestones:
+      title: معالم
   campaign:
+    campaign_updated: تم تجديد الحملة
     none: لا شيء
   courses:
     activity: النشاط
+    already_enrolled: أنت بالفعل جزء من '%{title}'!
+    already_exists: موجود بالفعل لهذه الدورة!
+    archived: دورات مؤرشفة
     articles: المقالات
+    articles_none: هذه الدورة لم تحرر أية مقالات.
+    assignments_none: هذه الدورة ليست بها مقالات معينة.
+    assignment_start: بدء التعيين
+    calendar:
+      legend_class_canceled: عطلة/تم الإلغاء
+      legend_class_meeting: اجتماع فئة
+      legend_class_not_meeting: لا يوجد اجتماع مقرر
+      select_meeting_days: تحديد أيام الأسبوع التي يجتمع فيها صفك.
+    confirm_course_deletion: هل أنت متأكد أنك تريد حذف الدورة بعنوان %{title}؟ إذا
+      كان الأمر كذلك، اكتب عنوان الدورة للقيام بذلك.
+    confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة. لم يتم حذفه الدورة.'
+    courses: الدورات
     creation_date: تاريخ الإنشاء
     creator:
+      already_exists: هذه الدورة موجودة بالفعل. جرب تغيير الاسم، أوالمدرسة، أو المصطلح
+        لجعله فريدًا من نوعه.
+      assignment_end: نهاية التعيين
+      assignment_end_placeholder: نهاية التعيين (YYYY-MM-DD)
+      assignment_start: بداية التعيين
+      assignment_start_placeholder: بداية التعيين (YYYY-MM-DD)
+      checking_for_uniqueness: يتم التحقق من هذه الدورة من حيث التفرد.
+      clone_previous: استنساخ دورة سابقة
+      clone_this: استنساخ هذه الدورة
+      clone_successful: تم استنساخ الدورة بنجاح
       course_description: وصف المساق
+      course_language: اللغة الرئيسية
+      course_project: المشروع الرئيسي
       course_school: مدرسة المساق
       course_subject: موضوع المساق
       course_title: عنوان المساق
@@ -69,19 +153,84 @@ ar:
       create_new: أنشئ مساقًا جديدًا
       create_short: أنشئ المساق
       end_date: تاريخ الانتهاء
+      end_date_placeholder: تاريخ النهاية (YYYY-MM-DD)
       expected_number: عدد الطلاب المتوقع
+      find: البحث عن دراستك
+      no_class_holidays: ليست لدي عطل
+      save_cloned_course: حفظ دورة جديدة
       start_date: تاريخ البدء
+      start_date_placeholder: تاريخ البدء (YYYY-MM-DD)
+    current: الدورات الحالية
+    delete_course: حذف دورة
+    dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
+    duration: مدة الدورة
+    edit_course_dates: تواريخ دورة التحرير
+    enrollment: تسجيل
+    error:
+      user_exists: عذرا، %{username} ليس مستخدما موجودا.
+      invalid_language_or_project: لغة/مشروع غير صالح
+    expected_students: الطلاب المتوقعون
     join: انضم
+    join_course: انضم للدورة
+    join_successful: لقد انضممت بنجاح %{title}.
+    leave_confirmation: هل أنت متأكد أنك تريد أن تترك هذه الدورة؟
+    leave_course: ترك الدورة
+    milestones_none: هذه الدورة ليست بها أية معالم حاليا.
+    my_articles: مقالاتي
+    needs_update: تحديث بيانات الجدول الزمني
+    new_week: إضافة أسبوع جديد
+    nocourses: إنك لم تشارك في أي دورة.
+    no_available_actions: لا توجد إجراءات متاحة
+    overview: نظرة عامة
+    passcode_none: لا يوجد رمز مرور
+    passcode_prompt: أدخل رمز المرور المعطى لك من قبل معلمك لهذه الدورة
+    published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة الرابط
+      التالي:'
+    revisions_doc: عدد عمليات التحرير في %{timeframe} يوما الماضية
+    revisions_none: هذه الدورة ليس لها نشاط في تحرير ويكيبيديا مؤخرا.
     school: مدرسة
+    start_typing: ابدأ الطباعة
     students: الطلاب
+    student_editors: الطلاب المحررون
+    students_none: هذه الدورة ليس بها طلاب.
     students_short: الطلاب
+    submitted_admin: قد تم تقديم هذه الدورة للموافقة عليها بواسطة منشئها. للموافقة
+      عليها; أضفها إلى حملة على صفحة نظرة عامة.
+    submitted_and_pending_heading: قدمت وبانتظار الموافقة
+    submitted_heading: الدورات المقدمة
+    course_details: تفاصيل الدورة ل
     term: المصطلح
+    timeline: تفاصيل المهمة
     timeline_link: خط زمني
+    time_zone_message: أوقات البداية والنهاية معروضة في المنطقة الزمنية المحلية.
     title: العنوان
+    training_due: وحدة التدريب "%{title}" يتم تعيين لهذه الدورة، وهذا يرجع إلى %{date}.
     training_nav: اذهب للتدريب
+    unsubmitted: الدورات التي لم يتم إرسالها
     untrained: غير مدرب
+    uploads_none: لم تساهم هذه الفئة بأية صور أو ملفات وسائط أخرى إلى ويكيميديا ​​كومنز.
+    view_other: عرض حملات أخرى
+    view: عرض الدورة
+    view_page: عرض صفحة الدورة
+    view_wiki: عرض على ويكيبيديا
+    weeks_none: ليس لهذه الدورة جدول زمني حتى الآن.
+    warn_mirrored: عند الإرسال، سيتم نشر هذه الدورة تلقائيا إلى ويكيبيديا بحساب المستخدم
+      الخاص بك، بعد ذلك، سوف تنعكس التعديلات الجديدة على الجدول الزمني على ويكيبيديا.
+      هل أنت متأكد أنك تريد أن تفعل هذا؟
+    wiki_staff: موظفو ويكي إد
+    yourcourses: دوراتك
+    survey:
+      notification_message: شارك في استبياننا لهذه الدورة.
+      link: المشاركة في استبيان
   courses_generic:
+    articles_none: لا توجد مقالات محررة لهذا المشروع حتى الآن.
+    assignment_end: نهاية الجدول الزمني
+    assignments_none: هذه الدورة ليست بها مقالات معينة.
+    assignment_start: بداية الجدول الزمني
     creator:
+      checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
+      clone_previous: استنساخ برنامج سابق
+      clone_this: استنساخ هذا البرنامج
       course_description: وصف البرنامج
       course_school: المؤسسة
       course_title: اسم البرنامج
@@ -89,38 +238,247 @@ ar:
       create_label: أنشئ برنامج جديد
       create_new: انشئ برنامج جديد
       create_short: أنشئ البرنامج
+      find: البحث عن برنامج
+      intro: مطلوب عنوان البرنامج، كل شيء يمكن ملؤه في وقت لاحق. انقر فوق "إنشاء برنامجي!"
+        لبدء إنشاء صفحة لبرنامج الويكي الخاص بك.
+    delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
+    enroll: إضافة محرر
+    enrollment: مشاركة
+    expected_students: المحررون المتوقعون
+    instructors: الوسطاء
+    join_course: انضم للبرنامج
+    leave_course: اترك البرنامج
+    milestones_none: هذا المشروع ليست به أية معالم حاليا.
+    published: 'تم نشر هذا المشروع! المحررون يمكنهم التسجيل عن طريق زيارة الرابط التالي:'
+    revisions_none: هذا المشروع ليس لديه نشاط تحريري مؤخرا.
+    school: مؤسسة
+    students_none: هذا المشروع ليس لديه محررون مسجلون.
+    students_count: عدد المشاركين
+    term: متى
+    uploads_none: لم يساهم هذا المشروع بأية صور أو ملفات وسائط أخرى إلى ويكيميديا
+      ​​كومنز.
+    view_other: عرض حملات أخرى
+    view_page: عرض صفحة البرنامج
+  editable:
+    edit_description: عدل الوصف
+    edit_details: عدل التفاصيل
   metrics:
+    activity: آخر نشاط
+    articles_created: المقالات التي تم إنشاؤها
+    articles_edited: المقالات التي تم تعديلها
+    characters: الأحرف
+    char_added: الحروف المضافة
+    char_changed: الحروف التي تم تغييرها
+    char: الحروف المضافة
+    date_time: تاريخ/وقت
     edit_count_description: إجمالي التعديلات
+    per_user: '%{number}/مستخدم'
+    revisions: تعديلات حديثة
+    upload_count: تحميلات كومنز
+    uploads_in_use_count:
+      one: ملف مستخدم في مقالة
+      other: ملفات مستخدمة في مقالات
+    upload_usages_count:
+      one: إجمالي الاستخدام عبر اللغات
+      other: إجمالي الاستخدامات عبر اللغات
+    view_count_description: مشاهدات المقالة
+    view: المشاهدات
+    word_count: الكلمات المضافة
+    word_count_average: متوسط ​​عدد الكلمات
   namespace:
+    main: النطاق الرئيسي
+    user: نطاق المستخدم
+    user_char_added: الحروف المضافة لنطاق المستخدم
     user_ns: مستخدم
   recent_activity:
+    active_courses: المقالة نشطة في
+    article_title: عنوان المقالة
+    datetime: تاريخ/وقت
     did_you_know_eligible: هل تعلم مؤهَّل
+    no_dyk_eligible: حاليا لا توجد أية مقالات مؤهلة ل "هل تعلم".
     no_edits: لا توجد تعديلات حديثة.
+    plagiarism_report: تقرير الانتحال
+    possible_plagiarism: انتحال محتمل
     recent_edits: تعديلات حديثة
+    recent_uploads: أحدث التحميلات
+    revision_author: 'مؤلف المراجعة:'
+    revision_datetime: مراجعة التاريخ/الوقت
+    revision_score: نتيجة المراجعة
     show_courses: أظهر مساقاتي فقط
+    uploaded_by: تم الرفع بواسطة
+    usage_count: عدد الاستخدامات
   revisions:
+    chars_added: الحروف المضافة
     class: رتبة
+    date_time: تاريخ/وقت
+    edited_by: عُدِّلت بواسطة
+    loading: جارٍ تحميل المراجعات...
+    none: هذه الدورة ليس لها نشاط تحريري مؤخرا.
+    time_doc: وقت كل مراجعة في وقتك المحلي
     title: عنوان
+    view_on_wiki: عرض الفرق على الويكي
+  tasks:
+    conseq: المهمة %{task} قيد التشغيل بالفعل!
+    paused: المهمة %{task} لا يمكن تشغيلها لأنه قد تم إيقاف التحديثات المجدولة. شغِّل
+      'rake batch:resume' لاستئناف التحديثات.
   timeline:
+    add_week: إضافة أسبوع
+    arrange_timeline: ترتيب الجدول الزمني
+    arrange_timeline_instructions: ترتيب زمني بواسطة "سحب وإسقاط" قطع في الموقع/الأسبوع
+      المطلوب، أو إعادة القطع باستخدام الأسهم على البطاقة.
+    assignment_dates_instructions: تحديد تواريخ البدء والانتهاء لتعيين الجدول الزمني
+      لويكيبيديا، وتغيير تاريخ بدء تحويل مواعيد الجدول الزمني بأكمله.
+    block_assignment: تعيين
+    block_in_class: في الفصل
+    course_dates: تواريخ الدورات
+    course_dates_instructions: تحديد تواريخ بدء وانتهاء الدورة كاملةً (وليست مهمة
+      ويكيبيديا فقط).
+    course_end: نهاية الدورة
+    course_start: بدء دورة
+    delete_week_confirmation: هل أنت متأكد أنك تريد حذف هذا الأسبوع؟ سيؤدي ذلك إلى
+      حذف أسبوع وجميع عناصره. هذا لا يمكن التراجع عنه.
+    discard_all_changes: تجاهل جميع التغييرات
+    due_default: يُعقَد الأسبوع المقبل
+    empty_week_1: للبدء،
+    empty_week_2: بدء التحرير هذا الأسبوع
+    empty_week_4: استخدام معالج المهمات لوضع جدول زمني.
+    first_week_title: الأسبوع النشط الأول
+    gradeables_none: هذا الجدول الزمني ليست به مهام عُلِّمَت كمتدرجة.
+    grading_header: 'التدريج (مجموع: %{total}%)'
+    no_class_holidays: ليست لدي عطل
+    no_timeline: هذه الدورة ليس لها جدول زمني.
+    no_activity_this_week: ليست هناك أية جلسات مجدولة هذا الأسبوع
+    nothing_this_week: لا يوجد شيء على الجدول الزمني لهذا الأسبوع.
+    save_all_changes: احفظ الكل
+    this_week_title_default: هذا الأسبوع
     title: خط زمني
+    unable_to_add_week: لا يمكنك إضافة أسابيع الجديدة عندما يكون الجدول الزمني الخاص
+      بك ممتلئا; احذف أسبوعا واحدا على الأقل أو غيِّر مواعيد مهمة لإفساح المجال أمام
+      واحدة جديدة.
+    view_full_timeline: عرض الجدول الزمني كاملا
   training:
+    continue: متابعة (%{progress})
     start: بداية
     view: اعرض
+    logged_out: قمت بتسجيل الخروج. لن تتلقى الائتمان لإكمال هذه الوحدة إلا إذا قمت
+      بتسجيل الدخول.
   uploads:
+    datetime: تاريخ/وقت
+    file_name: اسم الملف
+    header: الملفات التي تم تحميلها على ويكيميديا ​​كومنز
     label: المرفوعات
+    loading: تحميل المرفوعات...
+    none: لم تساهم هذه الفئة بأية صور أو ملفات وسائط أخرى إلى ويكيميديا ​​كومنز.
+    time_doc: وقت كل تحميل بوقتك المحلي
+    uploaded_by: تم الرفع بواسطة
+    usage_count: عدد الاستخدامات
+    usages: الاستخدامات
   users:
+    already_enrolled: تم التحق من هذا المستخدم بالفعل!
+    assign_articles: تعيين مقالات
+    assigned: المقالات المخصصة
+    assignees: التعيين(ات)
+    chars_added: حروف مضافة <br>(النطاق الرئيسي|نطاق المستخدم)
+    contributions: مساهمات المستخدم
+    contributions_history_full: عرض تاريخ المساهمات كاملا في ويكيبيديا
+    contributions_more: عرض المزيد من المساهمات
+    course_passcode: 'رمز العبور:'
     editors: محررون
+    enroll_confirmation: هل أنت متأكد أنك تريد إضافة %{username}
+    enroll_url: 'يمكن للمستخدمين الانضمام من خلال زيارة هذا الرابط:'
+    enrolled_success: تمت إضافة %{username} بنجاح!
+    loading: تحميل المستخدمين...
+    characters_added_mainspace: الحروف المضافة للنطاق الرئيسي
+    characters_added_short: 'النطاف الرئيسي: %{mainspace}، نطاق المستخدم: %{userspace}'
+    characters_added_userspace: الحروف المضافة لنطاق المستخدم
+    my_assigned: 'تم تعيينها:'
+    my_reviewing: 'مراجعة:'
     name: الاسم
+    none: لا يوجد مشاركون.
+    no_articles: لا توجد مقالات
+    no_revisions: هذا المحرر لم يقم بأية مراجعة.
+    recent_revisions: تعديلات حديثة
+    remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
+    revision_characters_and_views: 'احروف مضافة: %{characters}، مشاهدات: %{views}'
+    revisions_doc: عدد التعديلات التي أجراها هذا المحرر في السبعة أيام الماضية
+    reviewers: المراجع(ون)
+    reviewing: مراجعة
+    training_complete:
+      one: أنهى التدريب حتى الآن
+      other: أنهوا التدريب حتى الآن
+    training_incomplete: تدريب غير مكتمل
+    training_modules_completed:
+      one: '%{completed_count}/%{count} وحدة تدريب اكتملت'
+      other: '%{completed_count}/%{count} وحدات تدريب اكتملت'
+    training_module_name: وحدة التدريب
     role:
       visitor: زائر
       student: طالب
+      campus_volunteer: سفير الجامعة
+      online_volunteer: سفير ويب
+      wiki_ed_staff: موظفو ويكي إد
+  wiki_edits:
+    notify_overdue:
+      header: لديك مهمة تدريب طال انتظارها.
+      message: يرجى استكمال [%{link} وحدات التدريب] المعينة.
+      summary: تدريب الطالب متأخر
   wizard:
+    assignment_dates: تواريخ المهمة
+    assignment_type: نوع المهمة
+    confirm_dates: اختيار مواعيد الدورة، اجتماعات أسبوعية، وأيام عطل دراستك.
+    course_dates: تواريخ الدورات
+    min_weeks: تتطلب هذه المهمة على الأقل %{min_weeks} أسابيع متاحة. يُرجَى تعديل
+      تواريخ بدء وانتهاء المهمة إذا كنت ترغب في استخدام هذا النوع من المهمات.
     select_one_option: الرجاء تحديد اختيار واحد
+    minimum_options:
+      one: الرجاء تحديد %{count} أو المزيد من الخيارات.
+      other: الرجاء تحديد %{count} أو المزيد من الخيارات.
+    read_less: اقرأ أقل
     read_more: اقرأ المزيد
+    review_selections: الرجاء مراجعة الاختيارات أدناه. انقر لتحرير الاختيار. عند الانتهاء،
+      انقر فوق "إرسال" لإنهاء المعالج وبناء جدولك الزمني.
+    select_assignment: حدد نوع المهمة التي تريد إضافتها إلى جدولك الزمني.
     summary: ملخص
   error:
+    invalid_assignment: مهمة غير صالحة
     invalid_file_format: تعذر حفظ هذا الملف. برجاء رفع ملف PDF أو ملف Word.
+    oauth_invalid: انتهى إذن ويكيبيديا الخاص بك; الرجاء تسجيل الدخول مرة أخرى.
+    unsupported_browser:
+      header: متصفح غير مدعوم.  :-(
+      explanation: إذا كنت تستخدم متصفح غير متوافق مع اللوحة، هذا الموقع يعمل بشكل
+        جيد على إنترنت إكسبلورر الإصدار 11 أو إصدار لاحق، وعلى الإصدارات الأخيرة من
+        كروم وفايرفوكس، وعلى المتصفحات الحديثة الأخرى.
+  error_401:
+    header: غير مصرح. >:-(
+    explanation: غير مسموح لك لتنفيذ هذا الطلب. إذا كنت تعتقد أنه قد وصل إليك هذا
+      الإشعار عن طريق الخطأ، يُرجَى الاتصال بمشرفي اللوحة ليحلوا هذه المشكلة.
+  error_incorrect_passcode:
+    header: رمز المرور غير صحيح.  :-(
+    explanation: رمز المرور للتسجيل في هذه الدورة في غير صحيح; من فضلك اطلب من المدرب
+      رمز المرور الحالي للالتحاق بهذه الدورة.
+  error_404:
+    header: الصفحة غير موجودة. :-(
+  error_422:
+    explanation: حدث خطأ.يُرجَى الاتصال بمشرفي اللوحة ليحلوا هذه المشكلة.
+  error_500:
+    header: 500 — خطأ داخلي في الخادم.  :-(
+    explanation: حدث خطأ.يُرجَى الاتصال بمشرفي اللوحة ليحلوا هذه المشكلة.
   login_error:
     header: خطأ في الدخول
+    explanation: يبدو أن هناك مشكلة في عملية تسجيل الدخول. (عذرا عن ذلك!هذا يحدث في
+      بعض الأحيان.) يُرجَى محاولة تسجيل الدخول أو تسجيل حساب جديد.
+  survey:
+    login_message: شكرا لك على وقتك. الرجاء تسجيل الدخول إلى حسابك في لوحة ويكي إد
+      للصول على الاستبيان.
+    notification_schedule_explanation: الإخطارات بما في ذلك المتصفح والبريد الإلكتروني
+      إذا تم التمكين أعلاه.
+    follow_up_explanation: اتركه فارغا إذا لم ترغب في متابعة أيا من إخطارات رسائل
+      البريد الإلكتروني.
+    email:
+      message_line2: هل أنت على استعداد لإعطائنا 15 دقيقة لملء استطلاع تدريبنا؟ انقر
+        على الزر أدناه لمساعدتنا على جعل التدريس مع ويكيبيديا تجربة أكثر جدوى وقيمة.
+      closing: بإخلاص
+      signed: '- فريق ويكي إد'
+      link: المشاركة في استبيان
 ...

@@ -30,6 +30,7 @@ lt:
     submit: Pateikti
     training: Mokymas
     change: Keisti
+    details: Informacija
   dashboard:
     explore_course_pages: Naršyti Kurso Puslapius
     explore_examples: Naršyti Pavyzdžius
@@ -85,6 +86,7 @@ lt:
       title: Gairės
   campaign:
     campaign: Kampanija
+    campaign_updated: Kampanija atnaujinta
     none: Nėra
     programs: '%{title} Programos'
   courses:
@@ -246,6 +248,8 @@ lt:
     edit: Redaguoti
     cancel: Atšaukti
     save: Išsaugoti
+    edit_description: Redaguoti Aprašymą
+    edit_details: Redaguoti Informaciją
   metrics:
     activity: Naujausia Veikla
     articles_created: Sukurti straipsniai

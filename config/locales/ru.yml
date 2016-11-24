@@ -207,6 +207,7 @@ ru:
     cancel: Отмена
     save: Сохранить
     edit_description: Редактирование описание
+    edit_details: Редактировать подробности
   metrics:
     activity: Недавние действия
     articles_created: Статей создано

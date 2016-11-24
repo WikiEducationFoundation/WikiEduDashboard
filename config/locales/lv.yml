@@ -106,6 +106,9 @@ lv:
     delete_course: Dzēst programmu
     join_course: Pievienoties programmai
     student_editors: Redaktori
+  editable:
+    edit_description: Labot aprakstu
+    edit_details: Labot datus
   metrics:
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti

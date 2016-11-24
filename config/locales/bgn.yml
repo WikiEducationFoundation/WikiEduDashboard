@@ -6,6 +6,9 @@
 bgn:
   application:
     greeting: سلام علیکم
+  users:
+    username: کار زوروکین نام
+    username_placeholder: کار زوروکین نام
   survey:
     email:
       headline: سلام علیکم، %{username}
