@@ -43,6 +43,7 @@ ko:
     submit: 보내기
     change: 수정
     details: 자세한 사항
+    confirm: 확인
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.

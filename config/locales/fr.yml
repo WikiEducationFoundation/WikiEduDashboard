@@ -47,6 +47,7 @@ fr:
     training: Formation
     change: Modifier
     details: Détails
+    confirm: OK
   dashboard:
     create_note: Cliquer sur Créer un cours pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la

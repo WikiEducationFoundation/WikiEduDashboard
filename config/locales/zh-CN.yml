@@ -36,6 +36,7 @@ zh-CN:
     training: 培训
     change: 更改
     details: 详情
+    confirm: 确定
   dashboard:
     create_note: 点击创建课程以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。

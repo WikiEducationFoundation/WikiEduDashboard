@@ -40,6 +40,8 @@ be:
     submit: Даслаць
     training: Навучанне
     change: Змяніць
+    details: Падрабязнасці
+    confirm: Добра
   dashboard:
     create_note: Націсніце кнопку "Стварыць курс", каб стварыць ваш першы курс.
     create_preparation_note: 'Перад пачаткам упэўніцеся, што ў вас пад рукой ёсць
@@ -77,6 +79,7 @@ be:
     character_doc: Сума знакаў, дададзеных да артыкулаў рэдактарамі паміж датамі пачатку
       і заканчэння
     edited: Праўленыя артыкулы
+    edited_by: Праўлена
     edited_mobile: Артыкулы
     label: Артыкулы
     loading: Загрузка артыкулаў...
@@ -154,6 +157,7 @@ be:
       legend_class_meeting: Сустрэча класа
       legend_class_not_meeting: Няма запланаваных сустрэч
       select_meeting_days: Выберыце дні тыдню, па якіх збіраецца ваш клас.
+    cancel: Скасаваць
     character_doc: Сума знакаў, дададзеных да артыкулаў асноўнай прасторы студэнтамі
       курса на працягу тэрміна курса
     campaigns: 'Групы:'
@@ -312,6 +316,7 @@ be:
     assignment_end: Канец раскладу
     assignments_none: У праекце няма прызначаных артыкулаў
     assignment_start: Пачатак раскладу
+    cancel: Скасаваць
     courses: Праграмы
     creator:
       checking_for_uniqueness: Праграма правяраецца на ўнікальнасць.
@@ -346,6 +351,7 @@ be:
     edit: Правіць
     cancel: Адмяніць
     save: Запісаць
+    edit_details: Рэдагаваць падрабязнасці
   metrics:
     activity: Нядаўняя актыўнасць
     are_trained: адноўлены з навучаннем

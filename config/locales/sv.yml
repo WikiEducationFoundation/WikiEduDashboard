@@ -32,6 +32,7 @@ sv:
     submit: Skicka
     change: Ändra
     details: Detaljer
+    confirm: OK
   activity:
     all: Aktivitet
     edited_by: Redigerad av

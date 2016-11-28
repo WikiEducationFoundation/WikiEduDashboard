@@ -1,9 +1,12 @@
 # Messages for Greek (Ελληνικά)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Geraki
 # Author: Glavkos
 ---
 el:
+  application:
+    confirm: Εντάξει
   courses:
     cancel: Ακύρωση
   courses_generic:

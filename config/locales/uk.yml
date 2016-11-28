@@ -39,6 +39,7 @@ uk:
     training: Навчання
     change: Змінити
     details: Подробиці
+    confirm: Гаразд
   dashboard:
     create_note: Натисніть на «Створити курс», щоб створити свій перший курс.
     create_preparation_note: Майте Ваш навчальний план під рукою коли починаєте; інструмент

@@ -39,6 +39,7 @@ it:
     training: Formazione
     change: Modifica
     details: Dettagli
+    confirm: OK
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso

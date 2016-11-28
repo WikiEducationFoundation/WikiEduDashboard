@@ -34,6 +34,8 @@ nb:
     submit: Send inn
     training: Trening
     change: Endre
+    details: Detaljer
+    confirm: OK
   dashboard:
     create_note: Klikk på «Opprett kurs» for å opprette ditt første kurs.
     create_preparation_note: Sørg for at du har den akademiske kalenderen tilgjengelig
@@ -131,6 +133,7 @@ nb:
       title: Milepæler
   campaign:
     campaign: Kampanje
+    campaign_updated: Kampanje oppdatert
     none: Ingen
     programs: '%{title}-programmer'
   courses:
@@ -361,6 +364,8 @@ nb:
     edit: Rediger
     cancel: Avbryt
     save: Lagre
+    edit_description: Rediger beskrivelse
+    edit_details: Rediger detaljer
   metrics:
     activity: Nylig aktivitet
     are_trained: er ajour med treningen

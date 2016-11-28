@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Eduardo Martinez
+# Author: Fitoschido
 # Author: Kippelboy
 # Author: Lluis tgn
 # Author: Macofe
@@ -221,7 +222,7 @@ ca:
     loading: S'està carregant...
     milestones_none: Aquest curs actualment no té cap fita.
     my_articles: Els Meus Articles
-    new_week: Afegir una Nova Setmana
+    new_week: Afegeix una setmana nova
     nocourses: No fas cap curs.
     none: Cap
     notify_untrained_confirmation: Aquest missatge és un recordatori per a les pàgines

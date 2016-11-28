@@ -106,7 +106,7 @@ es:
       list: 'Clase lista: una lista en lugar de un artículo convencional'
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
-    show_cumulative_changes: Mostrar cambios acumulativos
+    show_cumulative_changes: Mostrar cambios acumulados
     title: Título
     title_example: Título del artículo
     view: Ver artículo

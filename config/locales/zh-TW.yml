@@ -40,6 +40,7 @@ zh-TW:
     training: 培訓
     change: 修改
     details: 詳細內容
+    confirm: 好
   dashboard:
     create_note: 點選建立課程以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)

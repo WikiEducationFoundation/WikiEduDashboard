@@ -69,6 +69,7 @@ qqq:
     details: |-
       Heading for part of the interface that shows details about something
       {{Identical|Details}}
+    confirm: '{{Identical|OK}}'
   dashboard:
     create_note: |-
       Instructions on how to create a course.
