@@ -31,10 +31,6 @@ const SlideMenu = React.createClass({
     return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
   },
 
-  _doNothing() {
-    return function () { };
-  },
-
   render() {
     if (!this.props.slides) { return <div></div>; }
     // need the slide index because overflow: hidden cuts off li numbering
@@ -49,7 +45,7 @@ const SlideMenu = React.createClass({
       const enabled = (slide.enabled === true || this.props.enabledSlides.indexOf(slide.id) >= 0) && !current;
       return (
         <li key={[slide.id, loopIndex].join('-')} onClick={this.props.onClick} className={liClass}>
-          <a disabled={!enabled} href={!enabled && this._doNothing || slideLink}>
+          <a disabled={!enabled} href={slideLink}>
             {loopIndex + 1}. {slide.title}
           </a>
         </li>
