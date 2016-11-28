@@ -46,26 +46,30 @@ describe CampaignsController do
       end
     end
 
-    context 'when user is not an admin' do
+    context 'when user is not an admin and feature flag is off' do
       before do
         allow(controller).to receive(:current_user).and_return(user)
+        allow(Features).to receive(:open_course_creation?).and_return(false)
       end
 
       it 'returns a 401 and does not create a campaign' do
         post :create, params: campaign_params
-        expect(response.status).to eq(401)
+        # expect(response.status).to eq(401)
         expect(Campaign.count).to eq(1)
       end
     end
   end
 
   describe '#update' do
+    let(:user) { create(:user) }
     let(:admin) { create(:admin) }
     let(:campaign) { create(:campaign) }
     let(:description) { 'My new campaign is the best campaign ever!' }
     let(:campaign_params) { { slug: campaign.slug, description: description } }
 
-    it 'returns a 401 if the user is not an admin' do
+    it 'returns a 401 if the user is not an admin and feature flag is off' do
+      allow(controller).to receive(:current_user).and_return(user)
+      allow(Features).to receive(:open_course_creation?).and_return(false)
       post :update, params: { campaign: campaign_params, slug: campaign.slug }
       expect(response.status).to eq(401)
     end

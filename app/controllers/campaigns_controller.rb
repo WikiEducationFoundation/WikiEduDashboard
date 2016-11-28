@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :require_admin_permissions,
+  before_action :require_write_permissions,
                 only: [:create, :update]
   before_action :set_campaign, only: [:overview, :programs, :edit, :update]
 
@@ -65,6 +65,13 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+  def require_write_permissions
+    require_permissions
+    unless Features.open_course_creation?
+      require_admin_permissions
+    end
+  end
 
   def set_campaign
     @campaign = Campaign.find_by(slug: params[:slug])
