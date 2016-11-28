@@ -115,13 +115,13 @@ class RevisionScoreImporter
 
   def extract_score(ores_data)
     return ores_data if ores_data.blank?
-    scores = ores_data['scores']['enwiki']['wp10']['scores']
+    scores = ores_data.dig('scores', 'enwiki', 'wp10', 'scores')
     scores || {}
   end
 
   def extract_features(ores_data)
     return ores_data if ores_data.blank?
-    features = ores_data['scores']['enwiki']['wp10']['features']
+    features = ores_data.dig('scores', 'enwiki', 'wp10', 'features')
     features || {}
   end
 end
