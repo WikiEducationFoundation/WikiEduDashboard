@@ -3,7 +3,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/category_importer"
 
 describe CategoryImporter do
-  let(:category) { 'Category:"Crocodile" Dundee' }
+  let(:category) { 'Category:Crocodile Dundee' }
   let(:article_in_cat) { 'Michael_"Crocodile"_Dundee' }
   let(:article_in_subcat) { 'Crocodile_Dundee_in_Los_Angeles' }
   let(:wiki) { Wiki.default_wiki }
