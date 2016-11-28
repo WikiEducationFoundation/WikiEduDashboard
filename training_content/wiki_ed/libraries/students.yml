@@ -1,7 +1,8 @@
 name: Student Training Modules
+id: 2
 introduction: |
-  This set of modules helps students get started with Wikipedia. This page lists every module, including 
-  specialized modules for particular classes. Check your course timeline to see which modules you should take, 
+  This set of modules helps students get started with Wikipedia. This page lists every module, including
+  specialized modules for particular classes. Check your course timeline to see which modules you should take,
   and when!
 categories:
   - title: Basics
@@ -19,7 +20,7 @@ categories:
         description: Advice for thinking critically about Wikipedia article quality
   - title: Special topics
     description: |
-      These modules are for special class projects. 
+      These modules are for special class projects.
     modules:
       - slug: editing-medical-topics
         name: Editing Medical Topics

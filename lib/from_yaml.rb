@@ -5,7 +5,7 @@ class FromYaml
     attr_accessor :cache_key, :path_to_yaml
   end
 
-  attr_accessor :slug
+  attr_accessor :slug, :id
 
   #################
   # Class methods #
@@ -23,6 +23,7 @@ class FromYaml
     end
     Rails.cache.write args[:cache_key], collection
     check_for_duplicate_slugs
+    check_for_duplicate_ids
   end
 
   def self.new_from_file(yaml_file, trim_id)
@@ -52,6 +53,14 @@ class FromYaml
     raise DuplicateSlugError, "duplicate #{type} slug detected: #{duplicate_slug}"
   end
 
+  def self.check_for_duplicate_ids
+    all_ids = all.map(&:id)
+    duplicate_id = all_ids.detect { |id| all_ids.count(id) > 1 }
+    return if duplicate_id.nil?
+    type = all[0].class
+    raise DuplicateIdError, "duplicate #{type} id detected: #{duplicate_id}"
+  end
+
   def self.base_path
     if ENV['training_path']
       "#{Rails.root}/#{ENV['training_path']}"
@@ -61,6 +70,9 @@ class FromYaml
   end
 
   class DuplicateSlugError < StandardError
+  end
+
+  class DuplicateIdError < StandardError
   end
 
   ####################

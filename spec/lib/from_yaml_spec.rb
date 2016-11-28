@@ -18,12 +18,23 @@ describe FromYaml do
 
     context 'when there are duplicate slugs' do
       let(:subject) do
-        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_slugs/*.yml",
+        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_slugs/*.yml",
                       cache_key: 'test',
                       trim_id_from_filename: true)
       end
       it 'raises an error noting the duplicate slug name' do
         expect { subject }.to raise_error(FromYaml::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
+      end
+    end
+
+    context 'when there are duplicate ids' do
+      let(:subject) do
+        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_ids/*.yml",
+                      cache_key: 'test',
+                      trim_id_from_filename: true)
+      end
+      it 'raises an error noting the duplicate id' do
+        expect { subject }.to raise_error(FromYaml::DuplicateIdError)
       end
     end
 

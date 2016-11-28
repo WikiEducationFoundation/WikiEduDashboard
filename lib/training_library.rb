@@ -2,7 +2,7 @@
 require 'from_yaml'
 
 class TrainingLibrary < FromYaml
-  attr_accessor :name, :modules, :introduction, :categories
+  attr_accessor :name, :modules, :introduction, :categories, :id
   alias raw_modules modules
   alias raw_categories categories
 
