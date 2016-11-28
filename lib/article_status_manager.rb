@@ -41,8 +41,8 @@ class ArticleStatusManager
     update_article_ids @deleted_page_ids
 
     # Delete and undelete articles as appropriate
-    articles.where(mw_page_id: @deleted_page_ids).update_all(deleted: true)
-    articles.where(mw_page_id: @synced_ids).update_all(deleted: false)
+    update_deleted_articles(articles)
+    update_undeleted_articles(articles)
     ArticlesCourses.where(article_id: @deleted_page_ids).destroy_all
     limbo_revisions = Revision.where(mw_page_id: @deleted_page_ids)
     ModifiedRevisionsManager.new(@wiki).move_or_delete_revisions limbo_revisions
@@ -89,6 +89,15 @@ class ArticleStatusManager
     end
   end
 
+  def update_deleted_articles(articles)
+    return unless @failed_request_count.zero?
+    articles.where(mw_page_id: @deleted_page_ids).update_all(deleted: true)
+  end
+
+  def update_undeleted_articles(articles)
+    articles.where(mw_page_id: @synced_ids).update_all(deleted: false)
+  end
+
   def data_matches_article?(article_data, article)
     return false unless article.title == article_data['page_title']
     return false unless article.namespace == article_data['page_namespace'].to_i
@@ -104,7 +113,9 @@ class ArticleStatusManager
 
     # These pages have titles that match Articles in our DB with deleted ids
     same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
-      Replica.new(@wiki).get_existing_articles_by_title block
+      request_results = Replica.new(@wiki).get_existing_articles_by_title block
+      @failed_request_count += 1 if request_results.nil?
+      request_results
     end
 
     # Update articles whose IDs have changed (keyed on title and namespace)

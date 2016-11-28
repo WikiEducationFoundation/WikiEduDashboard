@@ -161,6 +161,26 @@ describe ArticleStatusManager do
       expect(Article.find(1).deleted).to eq(false)
     end
 
+    it 'does not delete articles by mistake if Replica goes right before trying to fetch titles' do
+      create(:article,
+             id: 848,
+             mw_page_id: 848,
+             title: 'Audi',
+             namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 848, user: user)
+      create(:article,
+             id: 1,
+             mw_page_id: 1,
+             title: 'Noarticle',
+             namespace: 0)
+      create(:revision, date: 1.day.ago, article_id: 1, user: user)
+
+      allow_any_instance_of(Replica).to receive(:get_existing_articles_by_title).and_return(nil)
+      described_class.update_article_status
+      expect(Article.find(848).deleted).to eq(false)
+      expect(Article.find(1).deleted).to eq(false)
+    end
+
     it 'marks an undeleted article as not deleted' do
       create(:article,
              id: 50661367,
