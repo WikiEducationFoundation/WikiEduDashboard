@@ -25,9 +25,7 @@ const WizardActions = Flux.createActions({
   rewindWizard(toIndex = null) {
     return {
       actionType: 'WIZARD_REWIND',
-      data: {
-        to_index: toIndex
-      }
+      data: { toIndex }
     };
   },
 
