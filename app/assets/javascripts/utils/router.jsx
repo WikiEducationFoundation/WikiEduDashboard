@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
 import App from '../components/app.jsx';
-import Course from '../components/course.cjsx';
+import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
 import OnboardingIntro from '../components/onboarding/intro.jsx';
 import OnboardingForm from '../components/onboarding/form.jsx';
