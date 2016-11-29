@@ -2,7 +2,7 @@ import React from 'react';
 const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 import CourseLink from '../common/course_link.jsx';
-import Option from './option.cjsx';
+import Option from './option.jsx';
 
 const Panel = React.createClass({
   displayName: 'Panel',
