@@ -1,7 +1,7 @@
 import React from 'react';
 import Panel from './panel.jsx';
-import FormPanel from './form_panel.cjsx';
-import SummaryPanel from './summary_panel.cjsx';
+import FormPanel from './form_panel.jsx';
+import SummaryPanel from './summary_panel.jsx';
 
 import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
