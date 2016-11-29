@@ -51,14 +51,14 @@ const TextInput = React.createClass({
     if (this.props.valueClass) { valueClass += this.props.valueClass; }
 
     if (this.props.editable) {
-      let title;
       let labelClass = '';
-      let inputClass = this.props.inline ? ' inline' : '';
+      let inputClass = this.props.inline ? 'inline' : '';
       if (this.state.invalid) {
         labelClass += 'red';
-        inputClass += 'invalid';
+        inputClass += ' invalid';
       }
 
+      let title;
       if (this.props.type === 'number') {
         title = I18n.t('accessibility.number_field');
       }

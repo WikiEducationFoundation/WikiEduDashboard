@@ -1,17 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-# This lets us switch between Poltergeist and Selenium without changing the spec.
-# Some .click actions don't work on Poltergeist because of overlapping elements,
-# but .trigger('click') is only available in Poltergeist.
-def omniclick(node)
-  if Capybara.current_driver == :poltergeist
-    node.trigger('click')
-  else
-    node.click
-  end
-end
-
 describe 'Survey Administration', type: :feature, js: true do
   include Rapidfire::QuestionSpecHelper
   include Rapidfire::AnswerSpecHelper

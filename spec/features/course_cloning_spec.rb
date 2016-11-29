@@ -30,6 +30,7 @@ describe 'cloning a course', js: true do
     create(:course, id: 10001, start: 1.year.from_now.to_date,
                     title: 'CourseToClone',
                     school: 'OriginalSchool',
+                    subject: 'OrginalSubject',
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0)
   end
@@ -58,6 +59,7 @@ describe 'cloning a course', js: true do
     find('input#course_term').click
     fill_in 'course_term', with: term
     fill_in 'course_subject', with: subject
+
     within '#details_column' do
       find('input#course_start').click
       find('div.DayPicker-Day', text: course_start).click
@@ -68,8 +70,8 @@ describe 'cloning a course', js: true do
       find('input#timeline_end').click
       find('div.DayPicker-Day', text: timeline_end).click
     end
-    find('attr', text: 'MO').trigger('click')
-    find('attr', text: 'WE').trigger('click')
+    omniclick find('attr', text: 'MO')
+    omniclick find('attr', text: 'WE')
     expect(page).to have_button('Save New Course', disabled: true)
     find('input[type="checkbox"]').click
     expect(page).not_to have_button('Save New Course', disabled: true)

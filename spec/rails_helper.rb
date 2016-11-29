@@ -96,3 +96,14 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# This lets us switch between Poltergeist and Selenium without changing the spec.
+# Some .click actions don't work on Poltergeist because of overlapping elements,
+# but .trigger('click') is only available in Poltergeist.
+def omniclick(node)
+  if Capybara.current_driver == :poltergeist
+    node.trigger('click')
+  else
+    node.click
+  end
+end

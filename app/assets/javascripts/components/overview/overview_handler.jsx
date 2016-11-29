@@ -10,7 +10,7 @@ import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import Loading from '../common/loading.jsx';
-import CourseClonedModal from './course_cloned_modal.cjsx';
+import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';

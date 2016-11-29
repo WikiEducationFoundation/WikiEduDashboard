@@ -91,7 +91,7 @@ const StyleguideExamples = {
               edit_row={editRow}
               rows={rows}
             />
-          </ div>
+          </div>
         );
       }
     });
