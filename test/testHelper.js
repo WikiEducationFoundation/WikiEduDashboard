@@ -1,11 +1,12 @@
 const jsdom = require('jsdom');
 
-global.document = jsdom.jsdom('<!doctype html><html><body><div></div></body></html>', {
+global.document = jsdom.jsdom("<!doctype html><html><body><div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div></body></html>", {
   url: 'http://localhost',
   skipWindowCheck: true
 });
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
+
 
 const sinon = require('sinon');
 const React = require('react');
