@@ -1,5 +1,5 @@
 import '../../testHelper';
-import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.cjsx';
+import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import SlideMenu from '../../../app/assets/javascripts/training/components/slide_menu.jsx';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';

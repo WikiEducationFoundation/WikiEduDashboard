@@ -4,7 +4,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 import ReactDOM from 'react-dom';
 
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
-import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.cjsx';
+import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 global.sinon.stub(ServerActions, 'fetchTrainingModule');
 
