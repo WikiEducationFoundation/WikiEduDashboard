@@ -80,7 +80,7 @@
     "mcfly": "1.0.0",
     "merge-stream": "^1.0.0",
     "mkdirp": "^0.5.1",
-    "mocha": "3.0.2",
+    "mocha": "^3.2.0",
     "mocha-jsdom": "^1.0.0",
     "moment": "2.10.3",
     "moment-recur": "^1.0.4",
