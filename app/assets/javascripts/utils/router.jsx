@@ -28,7 +28,7 @@ import RecentUploadsHandler from '../components/activity/recent_uploads_handler.
 
 import TrainingApp from '../training/components/training_app.jsx';
 import TrainingModuleHandler from '../training/components/training_module_handler.jsx';
-import TrainingSlideHandler from '../training/components/training_slide_handler.cjsx';
+import TrainingSlideHandler from '../training/components/training_slide_handler.jsx';
 
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
