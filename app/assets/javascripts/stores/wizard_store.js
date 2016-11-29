@@ -77,7 +77,7 @@ const expandOption = function (panelIndex, optionIndex) {
   return WizardStore.emitChange();
 };
 
-const moveWizard = function (backwards = false, toIndex = undefined) {
+const moveWizard = function (backwards = false, toIndex = null) {
   const activePanel = _panels[_activeIndex];
   let increment = backwards ? -1 : 0;
 
@@ -93,13 +93,13 @@ const moveWizard = function (backwards = false, toIndex = undefined) {
     }
   }
 
-  if (toIndex !== undefined) {
+  if (toIndex != null) {
     _activeIndex = toIndex;
   } else {
     _activeIndex += increment;
   }
 
-  if (backwards) { _summary = (toIndex !== undefined); }
+  if (backwards) { _summary = (toIndex != null); }
 
   if (_activeIndex === -1) {
     _activeIndex = 0;
@@ -127,12 +127,6 @@ const moveWizard = function (backwards = false, toIndex = undefined) {
   , timeoutTime);
 };
 
-const exitWizard = function () {
-  const loc = window.location.pathname.split('/');
-  // split off /wizard, go back to timeline and reload course
-  window.location = `/${loc.splice(1, 4).join('/')}`;
-};
-
 const verifyPanelSelections = function (panel) {
   if (panel.options === undefined || panel.options.length === 0) { return true; }
   const selectionCount = panel.options.reduce((selected, option) => selected += option.selected ? 1 : 0
@@ -147,7 +141,7 @@ const verifyPanelSelections = function (panel) {
   return verified;
 };
 
-const restore = function () {
+let restore = function() {
   _summary = false;
   _activeIndex = 0;
   updateActivePanels();
@@ -158,7 +152,7 @@ const restore = function () {
 };
 
 // Store
-const WizardStore = Flux.createStore({
+var WizardStore = Flux.createStore({
   getPanels() {
     return $.extend([], _panels, true);
   },
@@ -169,14 +163,13 @@ const WizardStore = Flux.createStore({
     return _summary;
   },
   getAnswers() {
-    const answers = [];
-    _panels.forEach((panel, i) => {
+    let answers = [];
+    _panels.forEach(function(panel, i) {
       if (i === _panels.length - 1) { return; }
-      const answer = { title: panel.title, selections: [] };
+      let answer = { title: panel.title, selections: [] };
       if (panel.options !== undefined && panel.options.length > 0) {
-        panel.options.map((option) => {
+        panel.options.map(function(option) {
           if (option.selected) { return answer.selections.push(option.title); }
-          return null;
         });
         if (answer.selections.length === 0) { answer.selections = ['No selections']; }
       }
@@ -186,26 +179,26 @@ const WizardStore = Flux.createStore({
   },
   getOutput() {
     let output = [];
-    const logic = [];
-    const tags = [];
-    _panels.forEach((panel) => {
+    let logic = [];
+    let tags = [];
+    _panels.forEach(function(panel) {
       if ($.isArray(panel.output)) {
         output = output.concat(panel.output);
       } else {
         output.push(panel.output);
       }
       if (panel.options !== undefined && panel.options.length > 0) {
-        return panel.options.forEach((option) => {
+        return panel.options.forEach(function(option) {
           if (!option.selected) { return; }
-          if (option.output !== undefined) {
+          if (option.output != null) {
             if ($.isArray(option.output)) {
               output = output.concat(option.output);
             } else {
               output.push(option.output);
             }
           }
-          if (option.logic) { logic.push(option.logic); }
-          if (option.tag) { return tags.push({ key: panel.key, tag: option.tag }); }
+          if (option.logic != null) { logic.push(option.logic); }
+          if (option.tag != null) { return tags.push({ key: panel.key, tag: option.tag }); }
         });
       }
     });
@@ -213,9 +206,9 @@ const WizardStore = Flux.createStore({
   }
 }
 
-, (payload) => {
-  const { data } = payload;
-  switch (payload.actionType) {
+, function(payload) {
+  let { data } = payload;
+  switch(payload.actionType) {
     case 'RECEIVE_WIZARD_INDEX':
       setIndex(data.wizard_index);
       break;
@@ -236,10 +229,10 @@ const WizardStore = Flux.createStore({
       break;
     case 'WIZARD_RESET': case 'WIZARD_SUBMITTED':
       restore();
-      exitWizard();
+      let loc = window.location.pathname.split('/');
+      // split off /wizard, go back to timeline and reload course
+      window.location = `/${loc.splice(1, 4).join('/')}`;
       break;
-    default:
-      // no default
   }
   return true;
 });
