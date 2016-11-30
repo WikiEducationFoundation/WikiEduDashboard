@@ -6,18 +6,10 @@ require "#{Rails.root}/lib/wiki_api"
 class UserImporter
   def self.from_omniauth(auth)
     user = User.find_by(username: auth.info.name)
-    if user.nil?
-      user = User.find_by(global_id: auth.uid)
-      user&.update_attribute(:username, auth.info.name)
-    end
+    user ||= User.find_by(global_id: auth.uid)
 
-    if user.nil?
-      user = new_from_omniauth(auth)
-    else
-      user.update(global_id: auth.uid,
-                  wiki_token: auth.credentials.token,
-                  wiki_secret: auth.credentials.secret)
-    end
+    return new_from_omniauth(auth) if user.nil?
+    update_user_from_auth(user, auth)
     user
   end
 
@@ -44,17 +36,18 @@ class UserImporter
     user = User.find_by(username: username)
     return user if user
 
-    # User doesn't exist, so let's create it.
+    # All users are expected to have an account on the central wiki, no matter
+    # which is their home wiki.
     return unless user_exists_on_meta?(username)
-    # Check that user isn't a new username for an existing user.
-    global_id = get_global_id(username)
-    existing_user = User.find_by(global_id: global_id)
-    if user_with_same_global_id_exists?(username)
-      existing_user.update_attribute(:username, username)
-      return existing_user
-    else
-      return User.find_or_create_by(username: username)
-    end
+
+    # We may already have a user record, but the user has been renamed.
+    # We check for a user with the same global_id, and update the username if
+    # we find one.
+    update_username_for_for_global_id(username)
+
+    # At this point, if we still can't find a record with this username,
+    # we finally create and return it.
+    return User.find_or_create_by(username: username)
   end
 
   def self.update_users(users=nil)
@@ -69,17 +62,26 @@ class UserImporter
     end
   end
 
+  def self.update_user_from_auth(user, auth)
+    user.update(global_id: auth.uid,
+                username: auth.info.name,
+                wiki_token: auth.credentials.token,
+                wiki_secret: auth.credentials.secret)
+  end
+
   def self.user_exists_on_meta?(username)
-    # All users are expected to have an account on the central wiki, no matter
-    # which is their home wiki.
     WikiApi.new(MetaWiki.new).get_user_id(username).present?
   end
 
-  def self.user_with_same_global_id_exists?(username)
+  def self.update_username_for_for_global_id(username)
+    existing_user = user_with_same_global_id(username)
+    existing_user&.update_attribute(:username, username)
+  end
+
+  def self.user_with_same_global_id(username)
     global_id = get_global_id(username)
-    return false unless global_id
-    existing_user = User.find_by(global_id: global_id)
-    existing_user.present?
+    return unless global_id
+    User.find_by(global_id: global_id)
   end
 
   def self.get_global_id(username)
