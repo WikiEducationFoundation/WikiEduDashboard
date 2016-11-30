@@ -4,11 +4,11 @@
 # Table name: campaigns_users
 #
 #  id          :integer          not null, primary key
-#  created_at  :datetime
-#  updated_at  :datetime
 #  campaign_id :integer
 #  user_id     :integer
 #  role        :integer          default(0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 
 #= Campaign + User join model
