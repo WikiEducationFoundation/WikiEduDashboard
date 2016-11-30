@@ -15,7 +15,7 @@ describe('courseUtils.generateTempId', () => {
   it('trims unnecessary whitespace', () => {
     const course = {
       term: ' Fall 2015',
-      school: '   University of Wikipedia ',
+      school: '   University of Wikipedia ', // includes a non-breaking space
       title: ' Introduction to Editing     '
     };
     const slug = courseUtils.generateTempId(course);
