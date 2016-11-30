@@ -64,10 +64,6 @@ describe CampaignsController do
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
     let(:campaign) { create(:campaign) }
-    let(:campaign_user) do
-      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
-                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
-    end
     let(:description) { 'My new campaign is the best campaign ever!' }
     let(:campaign_params) { { slug: campaign.slug, description: description } }
 
@@ -79,7 +75,9 @@ describe CampaignsController do
     end
 
     it 'updates the campaign if the user is an organizer of the campaign' do
-      allow(controller).to receive(:current_user).and_return(campaign_user)
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      allow(controller).to receive(:current_user).and_return(user)
       post :update, params: { campaign: campaign_params, slug: campaign.slug }
       expect(response.status).to eq(302) # redirect to /overview
       expect(campaign.reload.description).to eq(description)

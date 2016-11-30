@@ -90,8 +90,7 @@ class CampaignsController < ApplicationController
   end
 
   def is_organizer?
-    @campaigns_user = @campaign.campaigns_users.where(user_id: current_user.id).first
-    @campaigns_user && @campaigns_user.role == CampaignsUsers::Roles::ORGANIZER_ROLE
+    @campaign.campaigns_users.where(user_id: current_user.id, role: CampaignsUsers::Roles::ORGANIZER_ROLE).any?
   end
 
   def csv_for_role(role)
