@@ -1,7 +1,7 @@
 import React from 'react';
 import TransitionGroup from 'react-addons-css-transition-group';
 
-import Timeline from './timeline.cjsx';
+import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
 import Editable from '../high_order/editable.jsx';
 
