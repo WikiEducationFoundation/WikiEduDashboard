@@ -14,7 +14,7 @@ const CourseUtils = class {
   }
   slugify(text) {
     if (typeof text !== 'undefined' && text !== null) {
-      return text.split(' ').join('_');
+      return text.split(/\s/).join('_');
     }
   }
   cleanupCourseSlugComponents(course) {
