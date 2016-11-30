@@ -26,6 +26,18 @@ describe UserImporter do
       auth = UserImporter.from_omniauth(hash)
       expect(auth.id).to eq(existing.id)
     end
+
+    it 'should update the username if it has changed' do
+      existing = create(:user, id: 1, username: 'Old Username', global_id: 1234)
+      info = OpenStruct.new(name: 'New Username')
+      credentials = OpenStruct.new(token: 'foo', secret: 'bar')
+      hash = OpenStruct.new(uid: '1234',
+                            info: info,
+                            credentials: credentials)
+      auth = UserImporter.from_omniauth(hash)
+      expect(auth.id).to eq(existing.id)
+      expect(User.find(1).username).to eq('New Username')
+    end
   end
 
   describe '.new_from_username' do
@@ -77,6 +89,16 @@ describe UserImporter do
         username = 'áragetest'
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Áragetest')
+      end
+    end
+
+    it 'updates the username of an existing user' do
+      VCR.use_cassette 'user/new_from_renamed_user' do
+        create(:user, id: 1, username: 'Old Username', global_id: '14093230')
+        user = UserImporter.new_from_username('Ragesock')
+        expect(user.username).to eq('Ragesock')
+        expect(user.id).to eq(1)
+        expect(user.global_id).to eq(14093230)
       end
     end
   end

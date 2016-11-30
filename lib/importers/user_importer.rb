@@ -7,6 +7,11 @@ class UserImporter
   def self.from_omniauth(auth)
     user = User.find_by(username: auth.info.name)
     if user.nil?
+      user = User.find_by(global_id: auth.uid)
+      user&.update_attribute(:username, auth.info.name)
+    end
+
+    if user.nil?
       user = new_from_omniauth(auth)
     else
       user.update(global_id: auth.uid,
@@ -39,13 +44,17 @@ class UserImporter
     user = User.find_by(username: username)
     return user if user
 
-    # All users are expected to have an account on the central wiki, no matter
-    # which is their home wiki.
-    central_wiki = MetaWiki.new
-    id = WikiApi.new(central_wiki).get_user_id(username)
-    return unless id
-
-    User.find_or_create_by(username: username)
+    # User doesn't exist, so let's create it.
+    return unless user_exists_on_meta?(username)
+    # Check that user isn't a new username for an existing user.
+    global_id = get_global_id(username)
+    existing_user = User.find_by(global_id: global_id)
+    if user_with_same_global_id_exists?(username)
+      existing_user.update_attribute(:username, username)
+      return existing_user
+    else
+      return User.find_or_create_by(username: username)
+    end
   end
 
   def self.update_users(users=nil)
@@ -58,6 +67,26 @@ class UserImporter
         update_user_from_replica_data(user_data)
       end
     end
+  end
+
+  def self.user_exists_on_meta?(username)
+    # All users are expected to have an account on the central wiki, no matter
+    # which is their home wiki.
+    WikiApi.new(MetaWiki.new).get_user_id(username).present?
+  end
+
+  def self.user_with_same_global_id_exists?(username)
+    global_id = get_global_id(username)
+    return false unless global_id
+    existing_user = User.find_by(global_id: global_id)
+    existing_user.present?
+  end
+
+  def self.get_global_id(username)
+    user_data = Replica.new.get_user_info [User.new(username: username)]
+    user_data = user_data[0]
+    return unless user_data
+    user_data['global_id'].to_i
   end
 
   def self.update_user_from_replica_data(user_data)
