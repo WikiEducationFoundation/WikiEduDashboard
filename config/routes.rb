@@ -107,6 +107,8 @@ Rails.application.routes.draw do
       get 'students'
       get 'instructors'
       get 'courses'
+      put 'add_organizer'
+      put 'remove_organizer'
     end
   end
   get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')

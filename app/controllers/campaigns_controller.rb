@@ -4,9 +4,9 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy, :add_organizer]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_write_permissions, only: [:update, :destroy]
+  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer]
 
   def index
     @campaigns = Campaign.all
@@ -22,7 +22,7 @@ class CampaignsController < ApplicationController
     end
 
     @campaign = Campaign.create(title: @title, slug: @slug)
-    add_organizer_to_campaign
+    add_organizer_to_campaign(current_user)
     redirect_to overview_campaign_path(@slug)
   end
 
@@ -50,6 +50,23 @@ class CampaignsController < ApplicationController
     flash[:notice] = t('campaign.campaign_deleted', title: @campaign.title)
     redirect_to campaigns_path
   end
+
+  def add_organizer
+    user = User.find_by(username: params[:username])
+
+    if user.nil?
+      flash[:error] = I18n.t('courses.error.user_exists', username: params[:username])
+    else
+      add_organizer_to_campaign(user)
+      flash[:notice] = t('campaign.organizer_added', user: params[:username], title: @campaign.title)
+    end
+
+    redirect_to overview_campaign_path(@campaign.slug)
+  end
+
+  #######################
+  # CSV-related actions #
+  #######################
 
   def students
     csv_for_role(:students)
@@ -89,8 +106,8 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find_by(slug: params[:slug])
   end
 
-  def add_organizer_to_campaign
-    CampaignsUsers.create(user: current_user,
+  def add_organizer_to_campaign(user)
+    CampaignsUsers.create(user: user,
                           campaign: @campaign,
                           role: CampaignsUsers::Roles::ORGANIZER_ROLE)
   end

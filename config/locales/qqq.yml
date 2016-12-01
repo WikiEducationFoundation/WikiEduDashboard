@@ -203,6 +203,9 @@ qqq:
     programs: |-
       The title of a campaign followed by an identical translation for 'Programs'
       {{Identical|Program}}
+    title: |-
+      Label for the input to change the title of a campaign
+      {{Identical|Title}}
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course

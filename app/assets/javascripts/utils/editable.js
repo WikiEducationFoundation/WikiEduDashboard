@@ -10,12 +10,14 @@
  * - Add an edit button somewhere within the form with the class '.rails_editable-edit'.
  *
  * - When the Edit button is clicked:
+ *   - The class '.rails_editable-editing' is added to '.rails_editable'
  *   - The script will prevent the form from being submitted, so you can use a <button> element.
  *   - The inputs are supplied with the content of the associated text blocks, and the text blocks are hidden.
  *   - Textareas will have the same size as the corresponding text block
  *   - Cancel and Save buttons are appended to the parent. Construct your markup accordingly.
  *   - Cancel will revert back to showing the text blocks and hide the inputs.
  *   - Save will submit the form as a normal submit button would.
+ *
  * - Events, fired on the parent .rails_editable
  *   - editable:edit - when the edit button is clicked
  *   - editable:cancel - when the cancel button is clicked
@@ -25,6 +27,7 @@
 $(() => {
   const readMode = $parent => {
     $parent.trigger('editable:read');
+    $parent.removeClass('rails_editable-editing');
     $parent.find('.rails_editable-cancel, .rails_editable-save').remove();
     $parent.find('.rails_editable-edit').show();
     $parent.find('.rails_editable-content').show();
@@ -35,6 +38,7 @@ $(() => {
     e.preventDefault();
     const $parent = $(e.target).parents('.rails_editable');
     $parent.trigger('editable:edit');
+    $parent.addClass('rails_editable-editing');
     $(e.target).hide();
     $(e.target).parent().append(`
       <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>

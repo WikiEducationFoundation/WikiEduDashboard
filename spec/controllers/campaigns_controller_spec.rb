@@ -112,6 +112,29 @@ describe CampaignsController do
     end
   end
 
+  describe '#add_organizer' do
+    let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
+    let(:campaign) { create(:campaign) }
+
+    it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
+      allow(controller).to receive(:current_user).and_return(user)
+      put :add_organizer, params: { slug: campaign.slug, username: 'MusikAnimal' }
+      expect(response.status).to eq(401)
+      expect(Campaign.find_by_slug(campaign.slug)).not_to be_nil
+    end
+
+    it 'adds the given user as an organizer of the campaign if the current user is a campaign organizer' do
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      user2 = create(:user, username: 'MusikAnimal')
+      allow(controller).to receive(:current_user).and_return(user)
+      put :add_organizer, params: { slug: campaign.slug, username: user2.username }
+      expect(response.status).to eq(302) # redirect to /overview
+      expect(CampaignsUsers.last.user_id).to eq(user2.id)
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }

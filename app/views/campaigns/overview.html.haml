@@ -34,30 +34,41 @@
               %button.button.dark.rails_editable-edit
                 = t('editable.edit_details')
         .module__data.extra-line-height
-          %span.campaign-organizers
-            %div
-              %strong
-                = succeed ':' do
-                  = t('campaign.organizers')
-              %span
-                - @campaign.organizers.each do |organizer|
-                  = organizer.username
-          %span.pop__container
-            %button.button.border.plus{style: 'display:none'} +
-            .pop
-              %table
-                %tbody
-                  %tr.edit
-                    %td
-                      = form_for(@campaign, url: campaign_path(@campaign.slug)) do
-                        %input
-                        %button.button.border Add organizer
+          %div
+            %span.campaign-organizers
+              %div
+                %strong
+                  = succeed ':' do
+                    = t('campaign.organizers')
+                %span
                   - @campaign.organizers.each do |organizer|
-                    %tr
+                    = organizer.username
+            %span.pop__container
+              %button.button.border.plus{style: 'display:none'} +
+              .pop
+                %table
+                  %tbody
+                    %tr.edit
                       %td
-                        %span
-                          = organizer.username
-                        %button.button.border.plus -
+                        = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug)) do
+                          %input{placeholder: t('users.username_placeholder'), name: 'username', required: true}
+                          %button.button.border Add organizer
+                    - @campaign.organizers.each do |organizer|
+                      %tr
+                        %td
+                          = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug)) do
+                            %span
+                              = organizer.username
+                            %button.button.border.plus -
+
+          = form_for(@campaign, url: campaign_path(@campaign.slug)) do
+            = hidden_field(:campaign, :slug)
+
+            %div.campaign-title.hidden-form-group.form-group
+              %label
+                = t('campaign.title')
+              %input.title{value: @campaign.title}
+
       - if @editable
         = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
           %button.button.danger
