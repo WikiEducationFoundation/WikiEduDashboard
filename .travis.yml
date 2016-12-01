@@ -4,6 +4,7 @@ env:
 language: ruby
 rvm: 2.3.1
 sudo: required
+group: deprecated
 dist: trusty
 cache:
   apt: true
