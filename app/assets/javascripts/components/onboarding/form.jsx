@@ -1,6 +1,6 @@
 import React from 'react';
 import { browserHistory } from 'react-router';
-import API from '../../utils/api.coffee';
+import API from '../../utils/api.js';
 import NotificationActions from '../../actions/notification_actions.js';
 
 const Form = React.createClass({

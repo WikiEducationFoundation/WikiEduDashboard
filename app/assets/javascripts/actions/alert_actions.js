@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
 const Flux = new McFly();
-import API from '../utils/api.coffee';
+import API from '../utils/api.js';
 
 const AlertActions = Flux.createActions({
   submitNeedHelpAlert(data) {

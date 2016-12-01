@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
 const Flux = new McFly();
-import API from '../utils/api.coffee';
+import API from '../utils/api.js';
 
 const TimelineActions = Flux.createActions({
   persistTimeline(data, courseId) {
