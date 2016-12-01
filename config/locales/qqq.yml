@@ -184,10 +184,11 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
+    add_organizer: Button to add an organizer
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}
-    campaign_updated: Message indicating a campaign was successfully deleted.
+    campaign_deleted: Message indicating a campaign was successfully deleted.
       'title' is the title of the campaign.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
@@ -196,6 +197,9 @@ qqq:
     none: |-
       Option for a course with no campaign
       {{Identical|None}}
+    organizers: |-
+      Label for the list of organizers for a campaign.
+      {{Identical|Organizer}}
     programs: |-
       The title of a campaign followed by an identical translation for 'Programs'
       {{Identical|Program}}

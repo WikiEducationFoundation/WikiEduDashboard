@@ -15,21 +15,49 @@
             = @campaign.title
           .controls
             - if @editable
-              %button.dark.button.rails_editable-edit
+              %button.button.dark.rails_editable-edit
                 = t('editable.edit_description')
         .module__data.rails_editable-field
           %p.rails_editable-content
             = @campaign.description
           = text_area(:campaign, :description, class: 'rails_editable-input', style: 'display:none')
     .sidebar
-      .module.campaign-details
+      .campaign-create
+        %button.button.dark
+          = t('courses_generic.creator.create_short')
+      .module.campaign-details.rails_editable
         .section-header
           %h3
             = t('application.details')
           .controls
             - if @editable
-              .button.dark
+              %button.button.dark.rails_editable-edit
                 = t('editable.edit_details')
+        .module__data.extra-line-height
+          %span.campaign-organizers
+            %div
+              %strong
+                = succeed ':' do
+                  = t('campaign.organizers')
+              %span
+                - @campaign.organizers.each do |organizer|
+                  = organizer.username
+          %span.pop__container
+            %button.button.border.plus{style: 'display:none'} +
+            .pop
+              %table
+                %tbody
+                  %tr.edit
+                    %td
+                      = form_for(@campaign, url: campaign_path(@campaign.slug)) do
+                        %input
+                        %button.button.border Add organizer
+                  - @campaign.organizers.each do |organizer|
+                    %tr
+                      %td
+                        %span
+                          = organizer.username
+                        %button.button.border.plus -
       - if @editable
         = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
           %button.button.danger

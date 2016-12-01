@@ -23,6 +23,7 @@ class Campaign < ActiveRecord::Base
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
+  has_many :organizers, through: :campaigns_users, source: :user
   has_and_belongs_to_many :survey_assignments
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals

@@ -174,6 +174,7 @@ en:
       title: Milestones
 
   campaign:
+    add_organizer: Add organizer
     campaign: Campaign
     campaign_deleted: Campaign "%{title}" has been deleted
     campaign_updated: Campaign updated
@@ -181,6 +182,7 @@ en:
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
     delete_campaign: Delete this campaign
     none: None
+    organizers: Organizers
     programs: '%{title} Programs'
 
   courses:

@@ -16,9 +16,15 @@
  *   - Cancel and Save buttons are appended to the parent. Construct your markup accordingly.
  *   - Cancel will revert back to showing the text blocks and hide the inputs.
  *   - Save will submit the form as a normal submit button would.
+ * - Events, fired on the parent .rails_editable
+ *   - editable:edit - when the edit button is clicked
+ *   - editable:cancel - when the cancel button is clicked
+ *   - editable:save - when the save button is clicked
+ *   - editable:read - when reverting back to the initial read-only view, either via Cancel or Save buttons
  */
 $(() => {
   const readMode = $parent => {
+    $parent.trigger('editable:read');
     $parent.find('.rails_editable-cancel, .rails_editable-save').remove();
     $parent.find('.rails_editable-edit').show();
     $parent.find('.rails_editable-content').show();
@@ -28,6 +34,7 @@ $(() => {
   const editMode = e => {
     e.preventDefault();
     const $parent = $(e.target).parents('.rails_editable');
+    $parent.trigger('editable:edit');
     $(e.target).hide();
     $(e.target).parent().append(`
       <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>
@@ -37,15 +44,23 @@ $(() => {
     $.each($parent.find('.rails_editable-field'), (_i, field) => {
       const $content = $(field).find('.rails_editable-content');
       const $input = $(field).find('.rails_editable-input');
+      const text = $content.text().trim();
       $content.hide();
-      $input.val($content.text().trim());
+      $input.val(text);
       if ($input.prop('type') === 'textarea') {
-        $input.height($content.innerHeight());
+        $input.height(text ? $content.innerHeight() : 'auto');
       }
-      $input.show();
+      $input.show().focus();
     });
 
-    $('.rails_editable-cancel').on('click', readMode.bind(this, $parent));
+    $parent.find('.rails_editable-cancel').on('click', () => {
+      $parent.trigger('editable:cancel');
+      readMode.call(this, $parent);
+    });
+
+    $parent.find('.rails_editable-save').on('click', () => {
+      $parent.trigger('editable:save');
+    });
   };
 
   $('.rails_editable-edit').on('click', editMode);
