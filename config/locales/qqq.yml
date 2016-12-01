@@ -190,6 +190,9 @@ qqq:
     campaign_updated: Message indicating a campaign was successfully deleted.
       'title' is the title of the campaign.
     campaign_updated: Message indicating a campaign was successfully updated
+    confirm_campaign_deletion: Confirmation dialog for deleting a campaign
+    confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
+    delete_campaign: Button to delete a campaign
     none: |-
       Option for a course with no campaign
       {{Identical|None}}

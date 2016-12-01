@@ -1,4 +1,5 @@
 = render 'nav'
+= hot_javascript_tag 'campaigns'
 
 .container.campaign_main
   %section.overview.container
@@ -29,3 +30,7 @@
             - if @editable
               .button.dark
                 = t('editable.edit_details')
+      - if @editable
+        = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
+          %button.button.danger
+            = t('campaign.delete_campaign')

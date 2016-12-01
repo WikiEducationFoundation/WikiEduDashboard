@@ -4,7 +4,6 @@ require 'rails_helper'
 describe 'campaign overview page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
-  let(:admin) { create(:admin) }
   let(:campaign) do
     create(:campaign,
            id: 10001,
@@ -21,9 +20,11 @@ describe 'campaign overview page', type: :feature, js: true do
     end
   end
 
-  context 'as an admin' do
+  context 'as a campaign organizer' do
     before do
-      login_as(admin, scope: :user)
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      login_as(user, scope: :user)
       visit "/campaigns/#{campaign.slug}"
     end
 
@@ -39,6 +40,14 @@ describe 'campaign overview page', type: :feature, js: true do
       find('.campaign-description .rails_editable-save').click
       expect(page).to have_content('Campaign updated')
       expect(campaign.reload.description).to eq(new_description)
+    end
+
+    it 'deletes the campaign when you click on delete' do
+      accept_prompt(with: campaign.title) do
+        find('.campaign-delete .button').click
+      end
+      expect(page).to have_content('has been deleted')
+      expect(Campaign.find_by_slug(campaign.slug)).to be_nil
     end
   end
 end

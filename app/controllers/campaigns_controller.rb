@@ -28,7 +28,7 @@ class CampaignsController < ApplicationController
 
   def overview
     @presenter = CoursesPresenter.new(current_user, @campaign.slug)
-    @editable = current_user&.admin?
+    @editable = current_user && (current_user.admin? || is_organizer?)
   end
 
   def programs
