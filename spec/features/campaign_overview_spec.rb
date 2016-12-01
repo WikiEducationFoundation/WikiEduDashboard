@@ -49,5 +49,14 @@ describe 'campaign overview page', type: :feature, js: true do
       expect(page).to have_content('has been deleted')
       expect(Campaign.find_by_slug(campaign.slug)).to be_nil
     end
+
+    it 'throws an error if you enter the wrong campaign title when trying to delete it' do
+      wrong_title = 'Not the title of the campaign'
+      accept_alert(with: /"#{wrong_title}"/) do
+        accept_prompt(with: wrong_title) do
+          find('.campaign-delete .button').click
+        end
+      end
+    end
   end
 end
