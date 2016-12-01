@@ -4,9 +4,9 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_update_permissions, only: [:update]
+  before_action :require_write_permissions, only: [:update, :destroy]
 
   def index
     @campaigns = Campaign.all
@@ -45,6 +45,12 @@ class CampaignsController < ApplicationController
     redirect_to overview_campaign_path(@campaign.slug)
   end
 
+  def destroy
+    @campaign.destroy
+    flash[:notice] = t('campaign.campaign_deleted', title: @campaign.title)
+    redirect_to campaigns_path
+  end
+
   def students
     csv_for_role(:students)
   end
@@ -72,7 +78,7 @@ class CampaignsController < ApplicationController
     end
   end
 
-  def require_update_permissions
+  def require_write_permissions
     return if current_user&.admin? || is_organizer?
 
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')

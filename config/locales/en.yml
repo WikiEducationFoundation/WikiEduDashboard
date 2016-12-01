@@ -175,6 +175,7 @@ en:
 
   campaign:
     campaign: Campaign
+    campaign_deleted: Campaign "%{title}" has been deleted
     campaign_updated: Campaign updated
     none: None
     programs: '%{title} Programs'

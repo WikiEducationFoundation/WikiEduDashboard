@@ -54,7 +54,7 @@ describe CampaignsController do
 
       it 'returns a 401 and does not create a campaign' do
         post :create, params: campaign_params
-        # expect(response.status).to eq(401)
+        expect(response.status).to eq(401)
         expect(Campaign.count).to eq(1)
       end
     end
@@ -69,8 +69,7 @@ describe CampaignsController do
 
     it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
       allow(controller).to receive(:current_user).and_return(user)
-      allow(Features).to receive(:open_course_creation?).and_return(false)
-      post :update, params: { campaign: campaign_params, slug: campaign.slug }
+      delete :update, params: { campaign: campaign_params, slug: campaign.slug }
       expect(response.status).to eq(401)
     end
 
@@ -88,6 +87,28 @@ describe CampaignsController do
       post :update, params: { campaign: campaign_params, slug: campaign.slug }
       expect(response.status).to eq(302) # redirect to /overview
       expect(campaign.reload.description).to eq(description)
+    end
+  end
+
+  describe '#destroy' do
+    let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
+    let(:campaign) { create(:campaign) }
+
+    it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
+      allow(controller).to receive(:current_user).and_return(user)
+      delete :destroy, params: { slug: campaign.slug }
+      expect(response.status).to eq(401)
+      expect(Campaign.find_by_slug(campaign.slug)).not_to be_nil
+    end
+
+    it 'deletes the campaign if the user is a campaign organizer' do
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      allow(controller).to receive(:current_user).and_return(user)
+      delete :destroy, params: { slug: campaign.slug }
+      expect(response.status).to eq(302) # redirect to /campaigns
+      expect(Campaign.find_by_slug(campaign.slug)).to be_nil
     end
   end
 
