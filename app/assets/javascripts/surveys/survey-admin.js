@@ -1,4 +1,4 @@
-import SurveyAdmin from './modules/SurveyAdmin.coffee';
+import SurveyAdmin from './modules/SurveyAdmin.js';
 import SurveyAssignmentAdmin from './modules/SurveyAssignmentAdmin.js';
 
 $(() => {
