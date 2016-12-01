@@ -200,6 +200,8 @@ qqq:
     organizers: |-
       Label for the list of organizers for a campaign.
       {{Identical|Organizer}}
+    organizer_added: Message indicating a user was successfully added as an organizer of a campaign
+    organizer_removed: Message indicating a user was successfully removed as an organizer of a campaign
     programs: |-
       The title of a campaign followed by an identical translation for 'Programs'
       {{Identical|Program}}

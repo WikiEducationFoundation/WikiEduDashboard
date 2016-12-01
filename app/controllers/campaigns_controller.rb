@@ -4,9 +4,9 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy, :add_organizer]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy, :add_organizer, :remove_organizer]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer]
+  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer, :remove_organizer]
 
   def index
     @campaigns = Campaign.all
@@ -59,6 +59,18 @@ class CampaignsController < ApplicationController
     else
       add_organizer_to_campaign(user)
       flash[:notice] = t('campaign.organizer_added', user: params[:username], title: @campaign.title)
+    end
+
+    redirect_to overview_campaign_path(@campaign.slug)
+  end
+
+  def remove_organizer
+    organizer = CampaignsUsers.find_by(user_id: params[:id],
+                                       campaign: @campaign,
+                                       role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+    unless organizer.nil?
+      flash[:notice] = t('campaign.organizer_removed', user: organizer.user.username, title: @campaign.title)
+      organizer.destroy
     end
 
     redirect_to overview_campaign_path(@campaign.slug)

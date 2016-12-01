@@ -31,4 +31,10 @@ $(() => {
     $(e.target).find('.plus').hide();
     $(e.target).find('.pop__container').removeClass('open');
   });
+
+  $('.remove-organizer-form').on('submit', e => {
+    if (!confirm(I18n.t('users.remove_confirmation', { username: e.target.dataset.username }))) {
+      e.preventDefault();
+    }
+  });
 });

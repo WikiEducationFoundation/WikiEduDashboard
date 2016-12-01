@@ -184,6 +184,7 @@ en:
     none: None
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
+    organizer_removed: '%{user} has been removed as an organizer of the "%{title}" campaign'
     programs: '%{title} Programs'
     title: Title
 

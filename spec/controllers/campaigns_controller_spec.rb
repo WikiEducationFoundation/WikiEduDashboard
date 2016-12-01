@@ -135,6 +135,32 @@ describe CampaignsController do
     end
   end
 
+  describe '#remove_organizer' do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let(:campaign) { create(:campaign) }
+    let(:organizer) do
+      create(:campaigns_user, user_id: user2.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+    end
+
+    it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
+      allow(controller).to receive(:current_user).and_return(user)
+      put :remove_organizer, params: { slug: campaign.slug, id: organizer.id }
+      expect(response.status).to eq(401)
+      expect(CampaignsUsers.find_by_id(organizer.id)).not_to be_nil
+    end
+
+    it 'removes the given organizer from the campaign if the current user is a campaign organizer' do
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                                                role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      allow(controller).to receive(:current_user).and_return(user)
+      put :remove_organizer, params: { slug: campaign.slug, id: user2.id }
+      expect(response.status).to eq(302) # redirect to /overview
+      expect(CampaignsUsers.find_by_id(organizer.id)).to be_nil
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
