@@ -86,6 +86,46 @@ describe WikiAssignmentOutput do
         expect(output).to eq(expected_output)
       end
 
+      it 'puts assignment templates after a nested template like {{WikiProject banner shell}} ends' do
+        assignment_tag = '{{template|foo=bar}}'
+        initial_talk_page_content = <<-KANYEWESTTALK
+{{Talk header}}
+{{Controversial}}
+{{User:MiszaBot/config
+  | algo=old(90d)
+  | archive=Talk:Kanye West/Archive %(counter)d
+  | counter=1
+  | maxarchivesize=75K
+  | archiveheader={{Automatic archive navigator}}
+  | minthreadsleft=5
+  | minthreadstoarchive=2
+}}
+{{Article history
+|action1=GAN
+|action1date=20:38, 27 April 2008 (UTC)
+|action1link=Talk:Kanye West/Archive 2#GA review
+|action1result=passed
+|action1oldid=208600243
+|currentstatus=GA
+|topic=music
+}}
+{{WikiProject banner shell|collapsed=yes|blp=yes|1=
+{{WikiProject Biography|living=yes|class=GA|musician-priority=Mid|listas=West, Kanye|musician-work-group=yes}}
+{{WikiProject Hip hop|class=GA|importance=high}}
+{{WikiProject Chicago|class=GA|importance=mid}}
+{{WikiProject Illinois|class=GA|importance=Mid}}
+{{WikiProject Record Production|class=GA|importance=High}}
+}}
+{{findnotice}}
+{{high traffic|date=17 February 2016|url=/news/article-3450364/Loser-com-redirects-Kanye-s-Wikipedia-page-recent-string-Twitter-rants.html|notlinked=yes|site=Mail Online}}
+        KANYEWESTTALK
+        output = wiki_assignment_output
+                 .build_assignment_page_content(assignment_tag,
+                                                initial_talk_page_content)
+        expected_output = initial_talk_page_content + assignment_tag + "\n"
+        expect(output).to eq(expected_output)
+      end
+
       it 'returns nil if the assignment template is already present' do
         assignment_tag = "{{dashboard.wikiedu.org assignment | course = #{course.wiki_title}"
         talk_page_templates = "{{some template}}\n{{some other template}}\n"

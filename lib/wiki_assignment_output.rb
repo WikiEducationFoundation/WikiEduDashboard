@@ -85,15 +85,11 @@ class WikiAssignmentOutput
 
     # Add new tag at top (if there wasn't an existing tag already)
     unless page_content.include?(new_tag)
-      # FIXME: Allow whitespace before the beginning of the first template.
-      # FIXME: Account for templates within templates, which is common on pages
-      # that are part of multiple WikiProjects, where all the project banners are
-      # wrapped in another template.
-
       # Append after existing templates, but only if there is no additional content
       # on the line where the templates end.
-      if starts_with_template?(page_content) && end_of_template_is_end_of_line?(page_content)
-        page_content.sub!(/\}\}\n(?!\{\{)/, "}}\n#{new_tag}\n")
+      if starts_with_template?(page_content) && matches_talk_template_pattern?(page_content)
+        # Insert the assignment tag the end of the page-top templates
+        page_content.sub!(end_of_templates_pattern, "}}\n#{new_tag}\n")
       else # Add the tag to the top of the page
         page_content = "#{new_tag}\n\n#{page_content}"
       end
@@ -103,11 +99,33 @@ class WikiAssignmentOutput
   end
 
   def starts_with_template?(page_content)
-    page_content[0..1] == '{{'
+    initial_template_matcher = /
+      \A   # beginning of page
+      \s*  # optional whitespace
+      \{\{ # beginning of a template
+    /x
+
+    initial_template_matcher.match(page_content)
   end
 
-  def end_of_template_is_end_of_line?(page_content)
-    /\}\}\n(?!\{\{)/.match(page_content)
+  # Regex to match "}}" at the end of a line where the next line does
+  # NOT start with (optional whitespace and then) "|" or "{" or "}".
+  # That covers the main syntax patterns of heavily-bannered talk pages,
+  # which typically use something like the {{WikiProject banner shell}}
+  # template that includes other templates within it.
+  def end_of_templates_pattern
+    /
+      \}\}       # End of a template
+      \n         # then a newline
+      (?!        # that does not start with
+        \s*      # optional whitespace and
+        [\{\|\}] # any of these characters: {|}
+      )
+    /x
+  end
+
+  def matches_talk_template_pattern?(page_content)
+    end_of_templates_pattern.match(page_content)
   end
 
   def build_wikitext_user_list(role)
