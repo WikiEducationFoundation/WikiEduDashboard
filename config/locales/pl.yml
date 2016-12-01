@@ -13,19 +13,25 @@ pl:
     field_required: Wypełnienie tego pola jest obowiązkowe
     field_invalid_characters: To pole zawiera niedozwolone znaki
     field_invalid_date: To pole wymaga daty w formacie RRRR-MM-DD
+    greeting2: Witaj!
+    greeting_extended: Witaj w Wikipedii
     greeting: Witaj!
     help: Pomoc
     home: Strona główna
+    log_in_extended: Zaloguj się za pomocą Wikipedii
     log_in: Zaloguj się
     log_out: Wyloguj
     my_dashboard: Mój panel
     recent_activity: Ostatnia aktywność
     search: zadaj pytanie
+    sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
     sign_up: Zarejestruj się
     submit: Wyślij
     training: Szkolenie
+    change: Zmień
     details: Szczegóły
+    confirm: Ok
   dashboard:
     explore_course_pages: Odkryj strony kursów
     explore_examples: Odkryj przykłady

@@ -43,6 +43,7 @@ ru:
     training: Обучение
     change: Изменить
     details: Подробности
+    confirm: OK
   dashboard:
     create_note: Нажмите на ссылку Создать курс, чтобы создать свой первый курс.
     create_preparation_note: Будьте уверены, чтобы иметь свой академический календарь
