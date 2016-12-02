@@ -418,40 +418,7 @@ slide_id=${opts.slide_id}`,
     });
     return promise;
   },
-  saveGradeables(courseId, data) {
-    return new Promise((res, rej) => {
-      const cleanup = function (array) {
-        const result = [];
-        _.forEach(array, (obj) => {
-          let item;
-          if (obj.is_new) {
-            delete obj.id;
-            item = delete obj.is_new;
-          }
-          result.push(item);
-        });
-        return result;
-      }
 
-      const { gradeables } = data;
-      cleanup(gradeables);
-
-      return $.ajax({
-        type: 'POST',
-        url: `/courses/${courseId}/gradeables.json`,
-        contentType: 'application/json',
-        data: JSON.stringify({ gradeables }),
-        success(data) {
-          console.log('Saved gradeables!');
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        console.error('Couldn\'t save gradeables!');
-        return rej(obj);
-      });
-    });
-  },
   saveCourse(data, courseId = null) {
     console.log("API: saveCourse");
     const append = (courseId != null) ? `/${courseId}` : '';

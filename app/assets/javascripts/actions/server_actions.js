@@ -182,12 +182,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  saveGradeables(data, courseId) {
-    return API.saveGradeables(courseId, data)
-      .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   submitWizard(courseId, wizardId, data) {
     return API.submitWizard(courseId, wizardId, data)
       .then(resp => ({ actionType: 'WIZARD_SUBMITTED', data: resp }))
