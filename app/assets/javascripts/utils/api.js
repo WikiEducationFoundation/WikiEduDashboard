@@ -420,20 +420,18 @@ slide_id=${opts.slide_id}`,
   },
   saveGradeables(courseId, data) {
     return new Promise((res, rej) => {
-      const cleanup = array =>
-        (() => {
-          const result = [];
-          for (const obj of array) {
-            let item;
-            if (obj.is_new) {
-              delete obj.id;
-              item = delete obj.is_new;
-            }
-            result.push(item);
+      const cleanup = function (array) {
+        const result = [];
+        _.forEach(array, (obj) => {
+          let item;
+          if (obj.is_new) {
+            delete obj.id;
+            item = delete obj.is_new;
           }
-          return result;
-        })()
-      ;
+          result.push(item);
+        });
+        return result;
+      }
 
       const { gradeables } = data;
       cleanup(gradeables);
