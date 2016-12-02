@@ -30,6 +30,7 @@
 
 - Install Pandoc
     - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
+    - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
 
 - Add config files:
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
