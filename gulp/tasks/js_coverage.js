@@ -6,27 +6,16 @@ gulp.task('js_coverage', jsxCoverage.createTask({
     'test/*.spec.js',
     'test/**/*.spec.js',
     'test/**/*.spec.jsx',
-    'test/**/*.spec.cjsx',
-    'test/**/*.spec.coffee',
 
-    'app/assets/javascripts/*.coffee',
-    'app/assets/javascripts/utils/*.coffee',
     'app/assets/javascripts/*.js',
     'app/assets/javascripts/utils/*.js',
 
-    'app/assets/javascripts/components/*.cjsx',
-    'app/assets/javascripts/components/**/*.cjsx',
     'app/assets/javascripts/components/*.jsx',
     'app/assets/javascripts/components/**/*.jsx',
 
-    'app/assets/javascripts/stores/*.coffee',
-    'app/assets/javascripts/actions/*.coffee',
     'app/assets/javascripts/stores/*.js',
     'app/assets/javascripts/actions/*.js',
 
-    'app/assets/javascripts/training/components/*.cjsx',
-    'app/assets/javascripts/training/actions/*.coffee',
-    'app/assets/javascripts/training/stores/*.coffee',
     'app/assets/javascripts/training/components/*.jsx',
     'app/assets/javascripts/training/actions/*.js',
     'app/assets/javascripts/training/stores/*.js',
@@ -41,15 +30,6 @@ gulp.task('js_coverage', jsxCoverage.createTask({
     babel: {
       include: /\.jsx?$/,
       exclude: /node_modules|public/,
-    },
-    coffee: {
-      include: /\.coffee$/,
-      omitExt: ['.coffee'],
-      exclude: /node_modules|public/,
-    },
-    cjsx: {
-      include: /\.cjsx$/,
-      exclude: /node_modules|public/,
     }
   },
   coverage: {
@@ -58,8 +38,5 @@ gulp.task('js_coverage', jsxCoverage.createTask({
   },
   mocha: {
     reporter: 'spec'
-  },
-  coffee: {
-    sourceMap: true
   }
 }));

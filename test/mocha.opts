@@ -1,4 +1,3 @@
---compilers coffee:coffee-react/register,js:babel-core/register
---require coffee-coverage/register-istanbul
+--compilers js:babel-core/register
 --recursive
---watch-extensions js,coffee,jsx
+--watch-extensions js,jsx
