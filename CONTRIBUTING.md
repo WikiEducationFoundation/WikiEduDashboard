@@ -18,7 +18,7 @@ Possible improvements that are not bugs per-se — mostly ones that are independ
 * [code quality](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22code+quality%22) - Developer-facing improvements that make the dashboard easier to work with or otherwise improve the quality of the code-base.
 
 If you're a new developer and you're looking for an easy way to get involved, try one of the bugs tagged as newcomer friendly:
-* [newcomer friendly](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22newcomer+friendly%22) - These are probably fairly simple to fix, without needing to understand the entire application or make extensive changes. We try to keep a few of these open for "microcontributions" for Outreachy applicants. If you can't find one you like, ask Sage!
+* [newcomer friendly](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22newcomer+friendly%22) - These range from very simple to moderately complex, but won't require you to understand the entire application or make extensive changes. We try to keep a few of these open for "microcontributions" for Outreachy applicants and others looking for an easy-to-intermediate task. If you can't find one you like, ask Sage!
 
 #### Developer Resources
 
