@@ -356,37 +356,35 @@ slide_id=${opts.slide_id}`,
   // /////////
   saveTimeline(courseId, data) {
     const promise = new Promise((res, rej) => {
-      const cleanup = array =>
-        (() => {
-          const result = [];
-          for (const obj of array) {
-            let item;
-            if (obj.is_new) {
-              delete obj.id;
-              item = delete obj.is_new;
-            }
-            result.push(item);
+      const cleanup = function (array) {
+        const result = [];
+        _.forEach(array, (obj) => {
+          let item;
+          if (obj.is_new) {
+            delete obj.id;
+            item = delete obj.is_new;
           }
-          return result;
-        })()
-      ;
+          result.push(item);
+        });
+        return result;
+      }
 
       const { weeks } = data;
       const { blocks } = data;
       const { gradeables } = data;
 
-      for (const week of weeks) {
+      _.forEach(weeks, (week) => {
         week.blocks = [];
-        for (const block of blocks) {
+        _.forEach(blocks, (block) => {
           if (block.week_id === week.id) { week.blocks.push(block); }
-          for (const gradeable of gradeables) {
+          _.forEach(gradeables, (gradeable) => {
             if (gradeable.gradeable_item_id === block.id) {
               block.gradeable = gradeable;
               if (block.is_new) { delete gradeable.gradeable_item_id; }
             }
-          }
-        }
-      }
+          });
+        });
+      });
 
       cleanup(weeks);
       cleanup(blocks);
