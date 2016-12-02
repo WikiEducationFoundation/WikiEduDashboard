@@ -149,7 +149,7 @@ const CourseCreator = React.createClass({
     // This regex is intended to match ascii word characters, dash,
     // whitespace, comma, apostrophe, and any unicode "letter".
     // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
-    const courseSlugRegex = /^[\w\-\s\,\'\u00BF-\u1FFF\u2C00-\uD7FF]+$/;
+    const courseSlugRegex = /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]+$/;
 
     let term;
     let subject;

@@ -79,7 +79,7 @@ const Wp10Graph = React.createClass({
           title: 'Date',
           properties: {
             labels: {
-              text: { template: '{{datum[\"data\"] | time:\'%b %d\'}}' },
+              text: { template: '{{datum["data"] | time:\'%b %d\'}}' },
               angle: { value: 0 }
             }
           }
@@ -104,7 +104,7 @@ const Wp10Graph = React.createClass({
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum[\"date\"] !== null && !isNaN(datum[\"date\"]) && datum[\"wp10\"] !== null && !isNaN(datum[\"wp10\"])'
+            test: 'datum["date"] !== null && !isNaN(datum["date"]) && datum["wp10"] !== null && !isNaN(datum["wp10"])'
           }]
         }
       ],

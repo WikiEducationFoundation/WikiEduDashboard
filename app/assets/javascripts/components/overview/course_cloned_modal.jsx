@@ -123,7 +123,7 @@ const CourseClonedModal = React.createClass({
     const dateProps = CourseDateUtils.dateProps(this.state.course);
     const saveDisabled = this.saveEnabled() ? '' : 'disabled';
 
-    const slugPartValidationRegex = /^[\w\-\s\,\']+$/;
+    const slugPartValidationRegex = /^[\w\-\s,']+$/;
 
     return (
       <Modal>
