@@ -32,7 +32,7 @@
     - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
 
 - Add config files:
-    - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. Fill in your Wikipedia account login details in `application.yml` (for API access). The default settings in `database.yml` will suffice for a development environment.
+    - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
 
 - Create mysql development and test database:
     - Install mysql-server and start a mysql command line
