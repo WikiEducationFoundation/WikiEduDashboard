@@ -12,7 +12,6 @@ const logErrorMessage = function (obj, prefix) {
 const RavenLogger = {};
 
 /* eslint-disable */
-
 const API = {
   // /////////
   // Getters /
@@ -26,7 +25,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       });
@@ -43,7 +42,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -60,7 +59,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       });
@@ -77,7 +76,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       });
@@ -94,7 +93,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       });
@@ -110,7 +109,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -126,7 +125,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -142,7 +141,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -158,7 +157,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -175,7 +174,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -191,7 +190,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -207,7 +206,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -223,7 +222,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -241,7 +240,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -259,7 +258,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -277,7 +276,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -293,14 +292,14 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
     );
   },
 
-  fetchAllTrainingModules(opts) {
+  fetchAllTrainingModules() {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',
@@ -309,7 +308,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -325,7 +324,7 @@ const API = {
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -345,7 +344,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -451,7 +450,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         console.error('Couldn\'t save gradeables!');
         return rej(obj);
       });
@@ -502,7 +501,7 @@ slide_id=${opts.slide_id}`,
         return window.location = '/';
       }
     })
-    .fail((obj, status) => console.error('Couldn\'t delete course'));
+    .fail(() => console.error('Couldn\'t delete course'));
   },
 
   deleteBlock(block_id) {
@@ -514,7 +513,7 @@ slide_id=${opts.slide_id}`,
           return res({ block_id });
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         console.error('Couldn\'t delete block');
         return rej(obj);
       })
@@ -530,7 +529,7 @@ slide_id=${opts.slide_id}`,
           return res({ week_id });
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         console.error('Couldn\'t delete week');
         return rej(obj);
       })
@@ -547,7 +546,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         console.error('Couldn\'t request update');
         return rej(obj);
       })
@@ -564,7 +563,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj, 'Couldn\'t notify students! ');
         return rej(obj);
       })
@@ -583,7 +582,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         getErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
         return rej(obj);
       })
@@ -603,7 +602,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj, `${capitalize(model)} not ${verb}: `);
         return rej(obj);
       })
@@ -621,7 +620,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -639,7 +638,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
@@ -661,7 +660,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       });
@@ -678,7 +677,7 @@ slide_id=${opts.slide_id}`,
           return res(data);
         }
       })
-      .fail((obj, status) => {
+      .fail((obj) => {
         logErrorMessage(obj);
         return rej(obj);
       })
