@@ -219,8 +219,8 @@ const TrainingSlideHandler = React.createClass({
           <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }}></div>
           {quiz}
           <footer className="training__slide__footer">
-           <span className="pull-left">{previousLink}</span>
-           <span className="pull-right">{nextLink}</span>
+            <span className="pull-left">{previousLink}</span>
+            <span className="pull-right">{nextLink}</span>
           </footer>
         </article>
       </div>

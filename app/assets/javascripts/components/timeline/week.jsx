@@ -158,13 +158,13 @@ const Week = React.createClass({
           height: blocks.length * 75,
           transition: 'height 500ms ease-in-out'
         },
-        <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
-          {blocks}
-        </ReactCSSTG>)
+          <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
+            {blocks}
+          </ReactCSSTG>)
       :
-        <ul className="week__block-list list-unstyled">
-          {blocks}
-        </ul>
+          <ul className="week__block-list list-unstyled">
+            {blocks}
+          </ul>
     );
 
     let weekClassName = `week week-${this.props.index}`;

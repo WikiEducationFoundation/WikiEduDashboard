@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import BarGraph from './BarGraph';
-import TextResults from './TextResults';
-import RangeGraph from './RangeGraph';
-import FollowUpQuestionResults from './FollowUpQuestionResults';
+import BarGraph from './BarGraph.jsx';
+import TextResults from './TextResults.jsx';
+import RangeGraph from './RangeGraph.jsx';
+import FollowUpQuestionResults from './FollowUpQuestionResults.jsx';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 export default class QuestionResults extends Component {

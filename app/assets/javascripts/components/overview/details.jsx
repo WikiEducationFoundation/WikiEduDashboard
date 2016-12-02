@@ -82,15 +82,15 @@ const Details = React.createClass({
       campus = <InlineUsers {...this.props} users={this.props.campus} role={3} title="Campus Volunteers" />;
       if (this.props.course.school || this.props.current_user.admin) {
         school = (
-            <TextInput
-              onChange={this.updateSlugPart}
-              value={this.props.course.school}
-              value_key="school"
-              editable={this.props.editable && this.props.current_user.admin}
-              type="text"
-              label={CourseUtils.i18n('school', this.props.course.string_prefix)}
-              required={true}
-            />
+          <TextInput
+            onChange={this.updateSlugPart}
+            value={this.props.course.school}
+            value_key="school"
+            editable={this.props.editable && this.props.current_user.admin}
+            type="text"
+            label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+            required={true}
+          />
         );
       }
     }

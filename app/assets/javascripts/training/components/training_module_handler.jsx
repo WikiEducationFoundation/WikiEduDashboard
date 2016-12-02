@@ -47,7 +47,7 @@ const TrainingModuleHandler = React.createClass({
       <div className="training__toc-container">
         <h1 className="h4 capitalize">Table of Contents <span className="pull-right total-slides">({slidesAry.length})</span></h1>
         <ol>
-        {slides}
+          {slides}
         </ol>
       </div>
     );

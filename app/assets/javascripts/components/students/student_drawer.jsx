@@ -82,23 +82,23 @@ const StudentDrawer = React.createClass({
     className += !this.props.is_open ? ' closed' : '';
 
     return (
-        <tr className={className}>
-          <td colSpan="7">
-            <TrainingStatus trainingModules={this.state.trainingModules} />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>{I18n.t('users.contributions')}</th>
-                  <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
-                  <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
-                  <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
-                  <th className="desktop-only-tc"></th>
-                </tr>
-              </thead>
-              <tbody>{revisionsRows}</tbody>
-            </table>
-          </td>
-        </tr>
+      <tr className={className}>
+        <td colSpan="7">
+          <TrainingStatus trainingModules={this.state.trainingModules} />
+          <table className="table">
+            <thead>
+              <tr>
+                <th>{I18n.t('users.contributions')}</th>
+                <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
+                <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
+                <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
+                <th className="desktop-only-tc"></th>
+              </tr>
+            </thead>
+            <tbody>{revisionsRows}</tbody>
+          </table>
+        </td>
+      </tr>
     );
   }
 }

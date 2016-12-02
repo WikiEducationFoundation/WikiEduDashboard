@@ -19,9 +19,9 @@ const BlockTypeSelect = React.createClass({
     const labelClass = 'tooltip-trigger';
     const label = 'Block type:';
     const tooltip = (
-            <div className="tooltip dark">
-              <p>{I18n.t('timeline.block_type')}</p>
-            </div>
+      <div className="tooltip dark">
+        <p>{I18n.t('timeline.block_type')}</p>
+      </div>
           );
 
     const options = this.props.options.map((option, i) => {
@@ -36,7 +36,7 @@ const BlockTypeSelect = React.createClass({
           value={this.state.value}
           onChange={this.onChange}
         >
-        {options}
+          {options}
         </select>
       </div>);
     }
