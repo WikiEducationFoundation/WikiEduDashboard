@@ -62,7 +62,7 @@ gulp.task('webpack', ['bower'], (cb) => {
       filename: doHot ? '[name].js' : '[name].[hash].js'
     },
     resolve: {
-      extension: ['', '.js', '.jsx', '.coffee', '.cjsx'],
+      extension: ['', '.js', '.jsx'],
       root: [path.resolve(appRoot, 'vendor'), path.resolve(appRoot, 'node_modules')]
     },
     module: {
@@ -73,12 +73,6 @@ gulp.task('webpack', ['bower'], (cb) => {
         query: {
           cacheDirectory: true
         }
-      }, {
-        test: /\.coffee$/,
-        loaders: ['coffee-loader']
-      }, {
-        test: /\.cjsx$/,
-        loaders: ['coffee', 'cjsx']
       }, {
         test: /\.json$/,
         loader: 'json-loader'
