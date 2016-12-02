@@ -24,7 +24,7 @@ const BlockTypeSelect = React.createClass({
             </div>
           );
 
-    let options = this.props.options.map((option, i) => {
+    const options = this.props.options.map((option, i) => {
       return <option value={i} key={i}>{option}</option>;
     });
 

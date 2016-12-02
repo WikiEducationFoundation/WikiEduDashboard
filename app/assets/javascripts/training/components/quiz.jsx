@@ -35,7 +35,6 @@ const Quiz = React.createClass({
     return this.setSelectedAnswer(this.state.selectedAnswerId);
   },
 
-
   correctStatus(answer) {
     if (this.props.correctAnswer === answer) {
       return ' correct';
@@ -51,12 +50,12 @@ const Quiz = React.createClass({
   },
 
   render() {
-    let answers = this.props.answers.map((answer, i) => {
+    const answers = this.props.answers.map((answer, i) => {
       let explanationClass = 'assessment__answer-explanation';
       explanationClass += this.correctStatus(answer.id);
       explanationClass += this.visibilityStatus(answer.id);
-      let defaultChecked = parseInt(this.props.selectedAnswer) === answer.id;
-      let checked = this.state.selectedAnswerId ? parseInt(this.state.selectedAnswerId) === answer.id : defaultChecked;
+      const defaultChecked = parseInt(this.props.selectedAnswer) === answer.id;
+      const checked = this.state.selectedAnswerId ? parseInt(this.state.selectedAnswerId) === answer.id : defaultChecked;
       let liClass = this.visibilityStatus(answer.id) === ' shown' ? ' revealed' : undefined;
       liClass += this.correctStatus(answer.id);
       const rawExplanationHtml = md.render(answer.explanation);
@@ -92,9 +91,6 @@ const Quiz = React.createClass({
       </form>
     );
   }
-}
-
-
-);
+});
 
 export default Quiz;

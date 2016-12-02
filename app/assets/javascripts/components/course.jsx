@@ -71,7 +71,7 @@ const Course = React.createClass({
     }
   },
   render() {
-    let alerts = [];
+    const alerts = [];
 
     let courseLink;
     if (this.state.course.url) {
@@ -88,14 +88,14 @@ const Course = React.createClass({
     if (this.getCurrentUser().id) {
       userObject = UserStore.getFiltered({ id: this.getCurrentUser().id })[0];
     }
-    let userRole = userObject ? userObject.role : -1;
+    const userRole = userObject ? userObject.role : -1;
 
     // ///////////////
     // Timeline link /
     // ///////////////
     let timeline;
     if (this.state.course.type === 'ClassroomProgramCourse') {
-      let timelineLink = `${this._courseLinkParams()}/timeline`;
+      const timelineLink = `${this._courseLinkParams()}/timeline`;
       timeline = (
         <div className="nav__item" id="timeline-link">
           <p><Link to={timelineLink} activeClassName="active">{I18n.t('courses.timeline_link')}</Link></p>
@@ -158,7 +158,7 @@ const Course = React.createClass({
 
     if ((userRole > 0 || this.getCurrentUser().admin) && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
-      let url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
+      const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
       alerts.push((
         <div className="notification" key="enroll">
           <div className="container">
@@ -195,9 +195,9 @@ const Course = React.createClass({
     // //////////////////////
     if (this.state.course.survey_notifications && this.state.course.survey_notifications.length) {
       this.state.course.survey_notifications.map(notification => {
-        let dismissOnClick = () => this.dismissSurvey(notification.id);
+        const dismissOnClick = () => this.dismissSurvey(notification.id);
         return alerts.push(
-          <div className="notification notification--survey" key="upcoming_module" key={"survey_notification_#{notification.id}"}>
+          <div className="notification notification--survey" key={"survey_notification_#{notification.id}"}>
             <div className="container">
               <p>{notification.message || CourseUtils.i18n('survey.notification_message', this.state.course.string_prefix)}</p>
               <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', this.state.course.string_prefix)}</a>
@@ -228,11 +228,11 @@ const Course = React.createClass({
 
     let overviewLinkClassName;
     if (this._onCourseIndex()) { overviewLinkClassName = 'active'; }
-    let overviewLink = `${this._courseLinkParams()}/overview`;
-    let studentsLink = `${this._courseLinkParams()}/students`;
-    let articlesLink = `${this._courseLinkParams()}/articles`;
-    let uploadsLink = `${this._courseLinkParams()}/uploads`;
-    let activityLink = `${this._courseLinkParams()}/activity`;
+    const overviewLink = `${this._courseLinkParams()}/overview`;
+    const studentsLink = `${this._courseLinkParams()}/students`;
+    const articlesLink = `${this._courseLinkParams()}/articles`;
+    const uploadsLink = `${this._courseLinkParams()}/uploads`;
+    const activityLink = `${this._courseLinkParams()}/activity`;
 
     return (
       <div>

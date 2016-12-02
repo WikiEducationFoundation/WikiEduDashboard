@@ -23,7 +23,7 @@ const Gradeable = React.createClass({
     if (!block) {
       return <div></div>;
     }
-    let title = block.title;
+    const title = block.title;
 
     let className = 'block-title';
     if (this.props.editable) {

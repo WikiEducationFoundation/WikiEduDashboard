@@ -51,7 +51,7 @@ const AvailableActions = React.createClass({
   },
 
   render() {
-    let controls = [];
+    const controls = [];
     const user = this.props.current_user;
 
     // If user has a role in the course or is an admin

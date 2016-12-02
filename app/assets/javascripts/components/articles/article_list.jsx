@@ -38,7 +38,7 @@ const ArticleList = React.createClass({
       );
     });
 
-    let elements = _.flatten(_.zip(articles, articleDrawers));
+    const elements = _.flatten(_.zip(articles, articleDrawers));
 
     const keys = {
       rating_num: {

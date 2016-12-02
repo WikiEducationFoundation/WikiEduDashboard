@@ -151,7 +151,7 @@ const Timeline = React.createClass({
       return <Loading />;
     }
 
-    let weekComponents = [];
+    const weekComponents = [];
     let i = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
@@ -175,8 +175,8 @@ const Timeline = React.createClass({
     // weeks are included in this numbering scheme.
     this.props.weeks.forEach((week, weekIndex) => {
       while (this.props.week_meetings[i] === '()') {
-        let emptyWeekKey = `empty-week-${i}`;
-        let weekAnchorName = `week-${i + 1}`;
+        const emptyWeekKey = `empty-week-${i}`;
+        const weekAnchorName = `week-${i + 1}`;
         weekComponents.push((
           <div key={emptyWeekKey}>
             <a className="timeline__anchor" name={weekAnchorName} />
@@ -193,7 +193,7 @@ const Timeline = React.createClass({
         i++;
       }
 
-      let weekAnchorName = `week-${i + 1}`;
+      const weekAnchorName = `week-${i + 1}`;
       weekComponents.push((
         <div key={week.id}>
           <a className="timeline__anchor" name={weekAnchorName} />
@@ -243,11 +243,11 @@ const Timeline = React.createClass({
 
     let wizardLink;
     if (weekComponents.length <= 0) {
-      let wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
+      const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }
 
-    let controls = this.props.reorderable || __guard__(this.props, x => x.editable_block_ids.length) > 1 ? (
+    const controls = this.props.reorderable || __guard__(this.props, x => x.editable_block_ids.length) > 1 ? (
       <div>
         <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
           {I18n.t('timeline.save_all_changes')}
@@ -277,7 +277,7 @@ const Timeline = React.createClass({
         );
       }
 
-      let courseLink = `/courses/${this.props.course.slug}/timeline/dates`;
+      const courseLink = `/courses/${this.props.course.slug}/timeline/dates`;
       editCourseDates = (
         <CourseLink className="week-nav__action week-nav__link" to={courseLink}>{CourseUtils.i18n('edit_course_dates', this.props.course.string_prefix)}</CourseLink>
       );
@@ -301,15 +301,15 @@ const Timeline = React.createClass({
       );
     }
 
-    let weekNav = weekComponents.map((week, navIndex) => {
+    const weekNav = weekComponents.map((week, navIndex) => {
       let navClassName = 'week-nav__item';
       if (navIndex === 0) {
         navClassName += ' is-current';
       }
 
       const dateCalc = new DateCalculator(this.props.course.timeline_start, this.props.course.timeline_end, navIndex, { zeroIndexed: true });
-      let navWeekKey = `week-${navIndex}`;
-      let navWeekLink = `#week-${navIndex + 1}`;
+      const navWeekKey = `week-${navIndex}`;
+      const navWeekLink = `#week-${navIndex + 1}`;
       return (
         <li className={navClassName} key={navWeekKey}>
           <a href={navWeekLink}>{week.title || I18n.t('timeline.week_number', { number: navIndex + 1 })}</a>
@@ -318,7 +318,7 @@ const Timeline = React.createClass({
       );
     });
 
-    let sidebar = this.props.course.id ? (
+    const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
           <section className="timeline-ctas float-container">

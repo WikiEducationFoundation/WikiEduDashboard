@@ -65,7 +65,7 @@ const Meetings = React.createClass({
     const dateProps = CourseDateUtils.dateProps(this.state.course);
     let courseLinkClass = 'dark button ';
     courseLinkClass += this.saveDisabledClass();
-    let courseLinkTarget = `/courses/${this.state.course.slug}/timeline`;
+    const courseLinkTarget = `/courses/${this.state.course.slug}/timeline`;
 
     return (
       <Modal >

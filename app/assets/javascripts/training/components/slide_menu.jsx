@@ -36,7 +36,7 @@ const SlideMenu = React.createClass({
     // need the slide index because overflow: hidden cuts off li numbering
     const slides = this.props.slides.map((slide, loopIndex) => {
       const current = slide.id === this.props.currentSlide.id;
-      let liClass = current ? 'current' : '';
+      const liClass = current ? 'current' : '';
       const newParams = _.extend(this.linkParams(this.props), { slide_id: slide.slug });
       const slideLink = this._slideLink(newParams);
       // a slide is enabled if it comes back from the API as such,

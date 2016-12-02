@@ -53,8 +53,8 @@ const Form = React.createClass({
   },
 
   render() {
-    let submitText = this.state.sending ? 'Sending' : 'Submit';
-    let disabled = this.state.sending;
+    const submitText = this.state.sending ? 'Sending' : 'Submit';
+    const disabled = this.state.sending;
     return (
       <div className="form">
         <h1>Let’s get some business out of the way.</h1>

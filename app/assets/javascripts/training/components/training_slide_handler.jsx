@@ -137,7 +137,7 @@ const TrainingSlideHandler = React.createClass({
         />
       );
     } else {
-      let nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+      const nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
       nextLink = <a href={nextHref} className="btn btn-primary pull-right">Done!</a>;
     }
 
@@ -167,7 +167,7 @@ const TrainingSlideHandler = React.createClass({
     if (this.state.currentSlide.content) {
       rawHtml = md.render(this.state.currentSlide.content);
     }
-    let menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
+    const menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
 
     let quiz;
     if (this.state.currentSlide.assessment) {

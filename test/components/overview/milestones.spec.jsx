@@ -3,10 +3,10 @@ import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import rewire from 'rewire';
 
-let Milestones = rewire('../../../app/assets/javascripts/components/overview/milestones.jsx').default;
+const Milestones = rewire('../../../app/assets/javascripts/components/overview/milestones.jsx').default;
 
 describe('Milestones', () => {
-  let course = { string_prefix: 'courses' };
+  const course = { string_prefix: 'courses' };
   const block = { id: 1, kind: 2, content: 'Tacos are great' };
   const week = { order: 1, blocks: [block] };
   const week2 = { order: 2, blocks: [] };

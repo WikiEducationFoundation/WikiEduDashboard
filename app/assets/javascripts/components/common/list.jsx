@@ -17,10 +17,10 @@ const List = React.createClass({
   render() {
     const sorting = this.props.store.getSorting();
     const sortClass = sorting.asc ? 'asc' : 'desc';
-    let headers = [];
+    const headers = [];
     const iterable = Object.keys(this.props.keys);
     for (let i = 0; i < iterable.length; i++) {
-      let key = iterable[i];
+      const key = iterable[i];
       const keyObj = this.props.keys[key];
       let headerOnClick;
       let headerClass = sorting.key === key ? sortClass : '';

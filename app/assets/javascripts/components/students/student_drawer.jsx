@@ -40,7 +40,7 @@ const StudentDrawer = React.createClass({
     if (!this.props.is_open) { return <tr></tr>; }
 
     const revisionsRows = (this.state.revisions || []).map((rev) => {
-      let details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
+      const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
           <td>

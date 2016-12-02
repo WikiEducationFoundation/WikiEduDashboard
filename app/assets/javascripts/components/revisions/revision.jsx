@@ -9,8 +9,8 @@ const Revision = React.createClass({
   },
 
   render() {
-    let ratingClass = `rating ${this.props.revision.rating}`;
-    let ratingMobileClass = `${ratingClass} tablet-only`;
+    const ratingClass = `rating ${this.props.revision.rating}`;
+    const ratingMobileClass = `${ratingClass} tablet-only`;
 
     return (
       <tr className="revision">

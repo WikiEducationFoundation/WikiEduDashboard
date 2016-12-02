@@ -18,7 +18,7 @@ const InlineUsers = React.createClass({
     const lastUserIndex = this.props.users.length - 1;
     let userList = this.props.users.map((user, index) => {
       let extraInfo;
-      let link = `${baseUrl}${user.username}`;
+      const link = `${baseUrl}${user.username}`;
       if (user.real_name) {
         const email = user.email ? ` / ${user.email}` : '';
         extraInfo = ` (${user.real_name}${email})`;
@@ -36,8 +36,8 @@ const InlineUsers = React.createClass({
       inlineList = <span><strong>{this.props.title}:</strong> {userList}</span>;
     }
 
-    let allowed = this.props.role !== 4 || (this.props.current_user.role === 4 || this.props.current_user.admin);
-    let button = <EnrollButton {...this.props} users={this.props.users} role={this.props.role} inline={true} allowed={allowed} show={this.props.editable && allowed} />;
+    const allowed = this.props.role !== 4 || (this.props.current_user.role === 4 || this.props.current_user.admin);
+    const button = <EnrollButton {...this.props} users={this.props.users} role={this.props.role} inline={true} allowed={allowed} show={this.props.editable && allowed} />;
 
     return <div>{inlineList}{button}</div>;
   }

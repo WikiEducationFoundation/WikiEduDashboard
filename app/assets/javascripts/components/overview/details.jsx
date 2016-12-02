@@ -71,7 +71,7 @@ const Details = React.createClass({
   },
 
   render() {
-    let instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
+    const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
     let staff;
@@ -187,7 +187,7 @@ const Details = React.createClass({
       );
     }
 
-    let campaigns = this.props.campaigns.length > 0 ?
+    const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, 'title').join(', ')
     : I18n.t('courses.none');
 
@@ -197,7 +197,7 @@ const Details = React.createClass({
     let courseTypeSelector;
     let submittedSelector;
     if (this.props.current_user.admin) {
-      let tagsList = this.props.tags.length > 0 ?
+      const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
       : I18n.t('courses.none');
 
@@ -270,7 +270,7 @@ const Details = React.createClass({
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse') } />
+            <CampaignButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse')} />
           </div>
           {subject}
           {tags}

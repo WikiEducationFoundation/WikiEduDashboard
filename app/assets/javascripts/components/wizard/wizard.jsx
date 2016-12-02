@@ -44,7 +44,7 @@ const Wizard = React.createClass({
     return routes.join('/');
   },
   render() {
-    let panels = this.state.panels.map((panel, i) => {
+    const panels = this.state.panels.map((panel, i) => {
       const panelCount = this.state.panels.length;
       const stepNumber = i + 1;
       let outOf;
@@ -53,7 +53,7 @@ const Wizard = React.createClass({
       } else {
         outOf = '';
       }
-      let step = `Step ${stepNumber}${outOf}`;
+      const step = `Step ${stepNumber}${outOf}`;
       if (i === 0) {
         return (
           <FormPanel

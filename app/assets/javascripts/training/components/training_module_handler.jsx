@@ -22,8 +22,8 @@ const TrainingModuleHandler = React.createClass({
 
   render() {
     const slidesAry = _.compact(this.state.training_module.slides);
-    let slides = slidesAry.map((slide, i) => {
-      let disabled = !slide.enabled;
+    const slides = slidesAry.map((slide, i) => {
+      const disabled = !slide.enabled;
       const slideLink = `${this.state.training_module.slug}/${slide.slug}`;
       let liClassName;
       if (disabled) { liClassName = 'disabled'; }

@@ -28,7 +28,7 @@ const AssignmentList = React.createClass({
     const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
     const grouped = _.groupBy(sortedAssignments, ass => ass.article_title);
     let elements = Object.keys(grouped).map(title => {
-      let group = grouped[title];
+      const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
       const article = ArticleStore.getFiltered({ title })[0];
       return (
@@ -42,7 +42,7 @@ const AssignmentList = React.createClass({
     });
     elements = _.compact(elements);
 
-    let keys = {
+    const keys = {
       rating_num: {
         label: I18n.t('articles.rating'),
         desktop_only: true

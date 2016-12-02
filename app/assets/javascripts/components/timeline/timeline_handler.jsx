@@ -80,7 +80,7 @@ const TimelineHandler = React.createClass({
 
   render() {
     const meetings = CourseDateUtils.meetings(this.props.course);
-    let weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
+    const weekMeetings = CourseDateUtils.weekMeetings(meetings, this.props.course, this.props.course.day_exceptions);
     const openWeeks = CourseDateUtils.openWeeks(weekMeetings);
 
     let outlet;
@@ -108,7 +108,7 @@ const TimelineHandler = React.createClass({
     } else {
       showGrading = true;
     }
-    let grading = showGrading ? <Grading {...this.props} /> : null;
+    const grading = showGrading ? <Grading {...this.props} /> : null;
 
     return (
       <div>

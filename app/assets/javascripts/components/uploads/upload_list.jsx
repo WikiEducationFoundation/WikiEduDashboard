@@ -18,11 +18,11 @@ const UploadList = React.createClass({
   },
 
   render() {
-    let elements = this.props.uploads.map(upload => {
+    const elements = this.props.uploads.map(upload => {
       return <Upload upload={upload} key={upload.id} />;
     });
 
-    let keys = {
+    const keys = {
       image: {
         label: I18n.t('uploads.image'),
         desktop_only: false

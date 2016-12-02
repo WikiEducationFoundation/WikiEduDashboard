@@ -82,7 +82,7 @@ const Calendar = React.createClass({
     return start < day && day < end;
   },
   render() {
-    let modifiers = {
+    const modifiers = {
       ['outrange']: day => {
         return !this.inrange(day);
       },
@@ -119,8 +119,8 @@ const Calendar = React.createClass({
       }
     };
 
-    let editDaysText = I18n.t('courses.calendar.select_meeting_days');
-    let editCalendarText = this.props.calendarInstructions;
+    const editDaysText = I18n.t('courses.calendar.select_meeting_days');
+    const editCalendarText = this.props.calendarInstructions;
 
     let editingDays;
     let editingCalendar;
@@ -139,8 +139,8 @@ const Calendar = React.createClass({
     }
 
 
-    let onWeekdayClick = this.props.editable ? this.selectWeekday : null;
-    let onDayClick = this.props.editable ? this.selectDay : null;
+    const onWeekdayClick = this.props.editable ? this.selectWeekday : null;
+    const onDayClick = this.props.editable ? this.selectDay : null;
 
     return (
       <div>

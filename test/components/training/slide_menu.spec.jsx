@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 describe('SlideMenu', () => {
   const emptyFunction = function () { };
-  let params = { library_id: 'foo', module_id: 'bar', slide_id: 'kittens' };
+  const params = { library_id: 'foo', module_id: 'bar', slide_id: 'kittens' };
   const slide = { id: 1, enabled: true, title: 'How to Kitten', slug: 'kittens' };
   const TestMenu = ReactTestUtils.renderIntoDocument(
     <TrainingSlideHandler

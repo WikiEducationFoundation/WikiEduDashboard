@@ -33,7 +33,7 @@ const TrainingModules = React.createClass({
   },
 
   trainingSelector() {
-    let options = _.compact(this.props.all_modules).map(module => ({ value: module.id, label: module.name }));
+    const options = _.compact(this.props.all_modules).map(module => ({ value: module.id, label: module.name }));
     return (
       <div className="block__training-modules">
         <div>
@@ -57,8 +57,8 @@ const TrainingModules = React.createClass({
       return this.trainingSelector();
     }
 
-    let modules = this.props.block_modules.map(module => {
-      let link = `/training/students/${module.slug}`;
+    const modules = this.props.block_modules.map(module => {
+      const link = `/training/students/${module.slug}`;
       let iconClassName = 'icon ';
       let progressClass;
       let linkText;
@@ -84,7 +84,7 @@ const TrainingModules = React.createClass({
         deadlineStatus = `(due on ${module.due_date})`;
       }
 
-      let moduleStatus = module.module_progress && module.deadline_status ? (
+      const moduleStatus = module.module_progress && module.deadline_status ? (
         <div>
           {module.module_progress}
           &nbsp;
