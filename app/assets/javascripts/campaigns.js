@@ -24,6 +24,11 @@ $(() => {
         }
       });
     });
+
+    // campaign details form submission
+    $('.campaign-details .rails_editable-save').on('click', () => {
+      $('#edit_campaign_details').trigger('submit');
+    });
   });
 
   // close out the popup and hide pop button if existing edit mode

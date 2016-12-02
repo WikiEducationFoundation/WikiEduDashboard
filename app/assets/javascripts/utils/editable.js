@@ -19,7 +19,7 @@
  *   - Save will submit the form as a normal submit button would.
  *
  * - Events, fired on the parent .rails_editable
- *   - editable:edit - when the edit button is clicked
+ *   - editable:edit - when the edit button is clicked, after DOM is updated
  *   - editable:cancel - when the cancel button is clicked
  *   - editable:save - when the save button is clicked
  *   - editable:read - when reverting back to the initial read-only view, either via Cancel or Save buttons
@@ -37,7 +37,6 @@ $(() => {
   const editMode = e => {
     e.preventDefault();
     const $parent = $(e.target).parents('.rails_editable');
-    $parent.trigger('editable:edit');
     $parent.addClass('rails_editable-editing');
     $(e.target).hide();
     $(e.target).parent().append(`
@@ -65,6 +64,8 @@ $(() => {
     $parent.find('.rails_editable-save').on('click', () => {
       $parent.trigger('editable:save');
     });
+
+    $parent.trigger('editable:edit');
   };
 
   $('.rails_editable-edit').on('click', editMode);

@@ -7,7 +7,6 @@
       = render 'courses/header_stats', presenter: @presenter
     .primary
       = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
-        = hidden_field(:campaign, :slug)
         .section-header
           %h3
             = succeed ':' do
@@ -63,13 +62,11 @@
                                   = organizer.username
                                 %button.button.border.plus -
 
-          = form_for(@campaign, url: campaign_path(@campaign.slug)) do
-            = hidden_field(:campaign, :slug)
-
+          = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
             %div.campaign-title.hidden-form-group.form-group
               %label
                 = t('campaign.title')
-              %input.title{value: @campaign.title}
+              = text_field(:campaign, :title, required: true, class: 'title')
 
       - if @editable
         = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
