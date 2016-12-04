@@ -8,6 +8,15 @@
 
 ## Project Setup
 
+- Pre-requisites for setup on OSX (Mac)
+    - You will need to have xcode installed in order to have `git` on your machine.  If you run `git` and it is not there, you will be prompted to install xcode.
+    - To install rvm, you'll first need a gpg utility. You can install the GPG Suite from gpgtools.org
+    - Homebrew will install itself when you run the rvm install command, if you don't have it already.
+    - If you do not have mysql installed, install is via: `brew install mysql`.
+    - Install pre-requisites for capybara-webkit:
+      - https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
+      - Workaround for xcode 8.0 may be necessary
+
 - Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
 - Make sure you are in the "sudo" group.
@@ -15,6 +24,7 @@
     - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
     - `rvm install ruby-2.3.1`
 - Install Node: `apt-get install nodejs npm`
+  - On OSX (Mac): `brew install node` (this assumes you are using [homebrew](brew.sh))
 
 - Install Gems:
     - $ `gem install bundler`
@@ -43,7 +53,12 @@
     - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
     - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
-- Install Redis
+- Install Redis: `apt-get install redis-server`
+  - On OSX: `brew install redis`
+
+- Install Gulp (if not already installed)
+  - On OSX: `sudo npm install —global gulp-cli`
+    - If Gulp fails to start (see "Develop" below), try also executing: `npm install —save-dev gulp` on the app home directory.
 
 ## Initialize
 1. **Migrate the database**
