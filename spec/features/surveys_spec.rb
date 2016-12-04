@@ -184,7 +184,7 @@ describe 'Surveys', type: :feature, js: true do
     end
 
     it 'navigates correctly between each question and submits' do
-      Capybara.current_driver = :selenium
+      Capybara.current_driver = :poltergeist
 
       expect(Rapidfire::Answer.count).to eq(0)
       expect(SurveyNotification.last.completed).to eq(false)
@@ -193,51 +193,64 @@ describe 'Surveys', type: :feature, js: true do
 
       click_button('Start')
 
-      sleep 1
-      click_button('Next', visible: true) # Q1
+      within('div[data-progress-index="2"]') do
+        click_button('Next', visible: true) # Q1
+      end
 
       find('.label', text: 'hindi').click
-      sleep 1
-      click_button('Next', visible: true) # Q2
+      within('div[data-progress-index="3"]') do
+        click_button('Next', visible: true) # Q2
+      end
 
       find('.label', text: 'female').click
-      sleep 1
-      click_button('Next', visible: true) # Q3
+      within('div[data-progress-index="4"]') do
+        click_button('Next', visible: true) # Q3
+      end
 
       fill_in('answer_group_6_answer_text', with: 'testing')
-      sleep 1
-      click_button('Next', visible: true) # Q4
+      within('div[data-progress-index="5"]') do
+        click_button('Next', visible: true) # Q4
+      end
 
       select('mac', from: 'answer_group_7_answer_text')
-      sleep 1
-      click_button('Next', visible: true) # Q5
+      within('div[data-progress-index="6"]') do
+        click_button('Next', visible: true) # Q5
+      end
 
       sleep 1
-      click_button('Next', visible: true) # Q6
+      within('div[data-progress-index="7"]') do
+        click_button('Next', visible: true) # Q6
+      end
 
       fill_in('answer_group_9_answer_text', with: 'testing')
-      sleep 1
-      click_button('Next', visible: true) # Q7
+      within('div[data-progress-index="8"]') do
+        click_button('Next', visible: true) # Q7
+      end
 
-      sleep 1
       fill_in('answer_group_10_answer_text', with: '50')
-      click_button('Next', visible: true) # Q8
+      within('div[data-progress-index="9"]') do
+        click_button('Next', visible: true) # Q8
+      end
 
-      find('.label', text: 'None of the above').click
-      sleep 1
-      click_button('Next', visible: true) # Q9
+      within('div[data-progress-index="10"]') do
+        find('.label', text: 'None of the above').click
+        click_button('Next', visible: true) # Q9
+      end
 
-      sleep 1
-      click_button('Next', visible: true) # Q10
+      within('div[data-progress-index="11"]') do
+        click_button('Next', visible: true) # Q10
+      end
 
       # Q11 not rendered
 
-      sleep 1
-      click_button('Next', visible: true) # Q12
+      within('div[data-progress-index="12"]') do
+        click_button('Next', visible: true) # Q12
+      end
 
-      expect(page).not_to have_content 'You made it!'
+      # expect(page).not_to have_content 'You made it!'
       click_button('Submit Survey', visible: true) # Q13
       expect(page).to have_content 'You made it!'
+      sleep 1
       expect(Rapidfire::Answer.count).to eq(21)
       expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
