@@ -43,12 +43,12 @@ const AvailableArticle = React.createClass({
 
   render() {
     let actionButton;
-    let className = 'assignment';
+    const className = 'assignment';
     const { assignment } = this.props;
     const article = CourseUtils.articleFromAssignment(assignment);
-    let ratingClass = `rating ${assignment.article_rating}`;
-    let ratingMobileClass = `${ratingClass} tablet-only`;
-    let articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
+    const ratingClass = `rating ${assignment.article_rating}`;
+    const ratingMobileClass = `${ratingClass} tablet-only`;
+    const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
 
     if (this.props.current_user.admin || this.props.current_user.role > 0) {
       actionButton = (

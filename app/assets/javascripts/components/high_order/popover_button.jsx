@@ -61,7 +61,7 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     },
     render() {
       let lookup;
-      let placeholder = capitalize(Key);
+      const placeholder = capitalize(Key);
       if (IsSelect) {
         lookup = (
           <LookupSelect model={Key}
@@ -81,7 +81,7 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
           />
         );
       }
-      let editRow = (
+      const editRow = (
         <tr className="edit">
           <td>
             <form onSubmit={this.add}>

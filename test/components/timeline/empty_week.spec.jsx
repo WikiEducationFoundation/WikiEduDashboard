@@ -1,7 +1,6 @@
 import '../../testHelper';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { findDOMNode } from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';

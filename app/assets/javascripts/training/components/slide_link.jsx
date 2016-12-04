@@ -29,7 +29,7 @@ const SlideLink = React.createClass({
     const buttonClasses = ' btn btn-primary icon icon-rt_arrow';
     let linkClass = 'slide-nav';
     linkClass += this.props.button ? buttonClasses : '';
-    let href = this._slideLink(linkParams);
+    const href = this._slideLink(linkParams);
     return (
       <Link data-href={href} disabled={this.props.disabled} className={linkClass} to={href}>
         {this.props.direction} Page

@@ -264,7 +264,7 @@ const SurveyAdmin = {
   },
 
   sanitizeAnswerValue(string) {
-    return striptags(string).replace('\'', '&#39;').replace('\"', '&#34;').split(' ').join('_');
+    return striptags(string).replace('\'', '&#39;').replace('"', '&#34;').split(' ').join('_');
   },
     // string.replace('\'', '&#39;').replace('\"', '&#34;')
 

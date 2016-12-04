@@ -128,7 +128,7 @@ const EnrollButton = React.createClass({
       );
     }
 
-    let users = this.props.users.map(user => {
+    const users = this.props.users.map(user => {
       let removeButton;
       if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
         removeButton = (
@@ -143,9 +143,9 @@ const EnrollButton = React.createClass({
     });
 
     const enrollParam = '?enroll=';
-    let enrollUrl = window.location.origin + this._courseLinkParams() + enrollParam + this.props.course.passcode;
+    const enrollUrl = window.location.origin + this._courseLinkParams() + enrollParam + this.props.course.passcode;
 
-    let editRows = [];
+    const editRows = [];
 
 
     if (this.props.role === 0) {
@@ -185,10 +185,10 @@ const EnrollButton = React.createClass({
 
     let buttonClass = 'button';
     buttonClass += this.props.inline ? ' border plus' : ' dark';
-    let buttonText = this.props.inline ? '+' : CourseUtils.i18n('enrollment', this.props.course.string_prefix);
+    const buttonText = this.props.inline ? '+' : CourseUtils.i18n('enrollment', this.props.course.string_prefix);
 
     // Remove this check when we re-enable adding users by username
-    let button = <button className={buttonClass} onClick={this.props.open}>{buttonText}</button>;
+    const button = <button className={buttonClass} onClick={this.props.open}>{buttonText}</button>;
 
     return (
       <div className="pop__container" onClick={this.stop}>

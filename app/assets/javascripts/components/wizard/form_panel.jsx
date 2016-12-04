@@ -52,12 +52,12 @@ const FormPanel = React.createClass({
   render() {
     const dateProps = CourseDateUtils.dateProps(this.props.course);
 
-    let step1 = this.props.shouldShowSteps ?
-              <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
-            :
-              <p>Confirm the course’s start and end dates.</p>;
+    const step1 = this.props.shouldShowSteps ?
+      <h2><span>1.</span><small> Confirm the course’s start and end dates.</small></h2>
+    :
+      <p>Confirm the course’s start and end dates.</p>;
 
-    let rawOptions = (
+    const rawOptions = (
       <div>
         <div className="course-dates__step">
           {step1}

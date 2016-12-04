@@ -15,8 +15,8 @@ const LookupSelect = React.createClass({
     return this.refs.entry.value = 'placeholder';
   },
   render() {
-    let placeholder = `Select a ${this.props.placeholder}` || 'Select one';
-    let options = this.props.models.map((model) => {
+    const placeholder = `Select a ${this.props.placeholder}` || 'Select one';
+    const options = this.props.models.map((model) => {
       return <option value={model} key={model}>{model}</option>;
     });
 

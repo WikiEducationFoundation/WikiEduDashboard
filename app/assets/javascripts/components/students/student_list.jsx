@@ -70,7 +70,7 @@ const StudentList = React.createClass({
         />
       );
     });
-    let elements = _.flatten(_.zip(users, drawers));
+    const elements = _.flatten(_.zip(users, drawers));
 
     let addStudent;
     if (this.props.course.published) {
@@ -82,7 +82,7 @@ const StudentList = React.createClass({
       notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify"></button>;
     }
 
-    let keys = {
+    const keys = {
       username: {
         label: I18n.t('users.name'),
         desktop_only: false

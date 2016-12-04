@@ -57,7 +57,7 @@ const Student = React.createClass({
     let className = 'students';
     className += this.state.is_open ? ' open' : '';
 
-    let userName = this._shouldShowRealName() ? (
+    const userName = this._shouldShowRealName() ? (
       <span>
         <strong>{trunc(this.props.student.real_name)}</strong>
         &nbsp;

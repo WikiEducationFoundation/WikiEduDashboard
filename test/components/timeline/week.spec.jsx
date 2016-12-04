@@ -15,7 +15,7 @@ const createWeek = (opts = {}) => {
       blocks={opts.blocks || []}
       meetings={opts.meetings || null}
       edit_permissions={opts.edit_permissions || false}
-      reorderable={opts.reorderable || false }
+      reorderable={opts.reorderable || false}
       week={{ is_new: opts.is_new || false }}
       deleteWeek={opts.deleteWeek || noOp}
     />

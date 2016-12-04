@@ -41,7 +41,7 @@ const Lookup = React.createClass({
   },
 
   render() {
-    let placeholder = this.props.placeholder || I18n.t('courses.start_typing');
+    const placeholder = this.props.placeholder || I18n.t('courses.start_typing');
     if (!this.props.disabled) {
       return (
         <Typeahead

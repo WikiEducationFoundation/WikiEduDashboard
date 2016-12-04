@@ -63,8 +63,8 @@ const Block = React.createClass({
   },
 
   render() {
-    let isEditable = this._isEditable();
-    let isGraded = this.props.gradeable !== undefined && !this.props.gradeable.deleted;
+    const isEditable = this._isEditable();
+    const isGraded = this.props.gradeable !== undefined && !this.props.gradeable.deleted;
     let className = 'block';
     className += ` block-kind-${this.props.block.kind}`;
 
@@ -137,7 +137,7 @@ const Block = React.createClass({
       );
     }
 
-    let content = (
+    const content = (
       <div className="block__editor-container">
         <TextAreaInput
           onChange={this.updateBlock}
@@ -154,11 +154,11 @@ const Block = React.createClass({
       </div>
     );
 
-    let dueDateSpacer = this.props.block.due_date ? (
+    const dueDateSpacer = this.props.block.due_date ? (
       <span className="block__due-date-spacer"> - </span>
     ) : undefined;
 
-    let editButton = this.props.editPermissions ? (
+    const editButton = this.props.editPermissions ? (
       <div className="block__edit-button-container">
         <button className="pull-right button ghost-button block__edit-block" onClick={this._setEditable}>Edit</button>
       </div>

@@ -69,7 +69,7 @@ const Option = React.createClass({
       );
     }
 
-    let title = `${this.props.option.title}${this.props.option.recommended ? ' (recommended)' : ''}`;
+    const title = `${this.props.option.title}${this.props.option.recommended ? ' (recommended)' : ''}`;
 
     let onClick;
     if (!disabled) { onClick = this.select; }

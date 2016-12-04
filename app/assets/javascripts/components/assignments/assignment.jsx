@@ -24,13 +24,13 @@ const Assignment = React.createClass({
       );
     }
 
-    let className = 'assignment';
-    let ratingClass = `rating ${article.rating}`;
-    let ratingMobileClass = `${ratingClass} tablet-only`;
-    let articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
+    const className = 'assignment';
+    const ratingClass = `rating ${article.rating}`;
+    const ratingMobileClass = `${ratingClass} tablet-only`;
+    const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
 
-    let assignees = [];
-    let reviewers = [];
+    const assignees = [];
+    const reviewers = [];
     const iterable = _.sortBy(this.props.assignmentGroup, 'username');
     for (let i = 0; i < iterable.length; i++) {
       const assignment = iterable[i];

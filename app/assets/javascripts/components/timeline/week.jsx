@@ -74,15 +74,15 @@ const Week = React.createClass({
     }
 
 
-    let blocks = this.props.blocks.map((block, i) => {
+    const blocks = this.props.blocks.map((block, i) => {
       if (block.deleted) {
         return null;
       }
       // If in reorderable mode
       if (this.props.reorderable) {
-        let orderableBlock = value => {
+        const orderableBlock = value => {
           const rounded = Math.round(value.y);
-          let animating = rounded !== i * 75;
+          const animating = rounded !== i * 75;
           const willChange = animating ? 'top' : 'initial';
           const blockLineStyle = {
             top: rounded,
@@ -136,35 +136,35 @@ const Week = React.createClass({
       );
     });
 
-    let addBlock = !this.props.reorderable ? (
+    const addBlock = !this.props.reorderable ? (
       <span className="pull-right week__add-block" href="" onClick={this.addBlock}>Add Block</span>
     ) : undefined;
 
-    let deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
+    const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
       <span className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week</span>
     ) : undefined;
 
-    let weekAddDelete = this.props.edit_permissions ? (
+    const weekAddDelete = this.props.edit_permissions ? (
       <div className="week__week-add-delete pull-right">
         {addBlock}
         {deleteWeek}
       </div>
     ) : undefined;
 
-    let weekContent = (
+    const weekContent = (
       this.props.reorderable ?
         (style = {
           position: 'relative',
           height: blocks.length * 75,
           transition: 'height 500ms ease-in-out'
         },
-        <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
-          {blocks}
-        </ReactCSSTG>)
+          <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
+            {blocks}
+          </ReactCSSTG>)
       :
-        <ul className="week__block-list list-unstyled">
-          {blocks}
-        </ul>
+          <ul className="week__block-list list-unstyled">
+            {blocks}
+          </ul>
     );
 
     let weekClassName = `week week-${this.props.index}`;

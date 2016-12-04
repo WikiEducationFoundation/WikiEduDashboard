@@ -1,11 +1,11 @@
 const CourseDateUtils = {
   validationRegex() {
     // Matches YYYY-MM-DD
-    return /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+    return /^\d{4}-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])$/;
   },
 
   isDateValid(date) {
-    return /^20\d{2}\-\d{2}\-\d{2}/.test(date) && moment(date).isValid();
+    return /^20\d{2}-\d{2}-\d{2}/.test(date) && moment(date).isValid();
   },
 
 

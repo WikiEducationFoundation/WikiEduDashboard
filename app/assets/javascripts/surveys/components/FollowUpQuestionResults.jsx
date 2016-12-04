@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
-import TextResults from './TextResults';
+import TextResults from './TextResults.jsx';
 
 export default class FollowUpQuestionResults extends Component {
   render() {

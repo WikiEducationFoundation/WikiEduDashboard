@@ -1,11 +1,12 @@
 # Only mysql — and probably mariadb — are supported.
 # Create a database with utf8 encoding and ut8_unicode_ci collation for development or production.
+# Setting up a non-root user and using a password are good ideas.
 
 default: &default
   adapter: mysql2
   encoding: utf8
-  username: <username>
-  password: <password>
+  username: root
+  password:
   host: 127.0.0.1
   port: 3306
 

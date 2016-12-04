@@ -80,7 +80,7 @@ const Overview = React.createClass({
       );
     }
 
-    let primaryContent = this.state.loading ? (
+    const primaryContent = this.state.loading ? (
       <Loading />
     ) : (
       <div>
@@ -100,7 +100,7 @@ const Overview = React.createClass({
       );
     }
 
-    let sidebar = this.state.course.id ? (
+    const sidebar = this.state.course.id ? (
       <div className="sidebar">
         {userArticles}
         <Details {...this.props} />

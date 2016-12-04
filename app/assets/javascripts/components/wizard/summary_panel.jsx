@@ -24,7 +24,7 @@ const SummaryPanel = React.createClass({
     return WizardActions.rewindWizard(toIndex);
   },
   render() {
-    let rawOptions = WizardStore.getAnswers().map((answer, i) => {
+    const rawOptions = WizardStore.getAnswers().map((answer, i) => {
       // summary of the Course Dates panel
       let details;
       if (i === 0) {

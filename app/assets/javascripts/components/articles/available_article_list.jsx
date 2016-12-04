@@ -14,7 +14,7 @@ const AvailableArticlesList = React.createClass({
     elements: React.PropTypes.array
   },
   render() {
-    let keys = {
+    const keys = {
       rating_num: {
         label: I18n.t('articles.rating'),
         desktop_only: true

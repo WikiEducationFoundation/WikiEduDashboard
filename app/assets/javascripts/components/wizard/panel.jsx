@@ -57,8 +57,8 @@ const Panel = React.createClass({
       rewindTop = <a href="" onClick={this.rewind} className="icon icon-left_arrow">Previous</a>;
     }
 
-    let options1 = [];
-    let options2 = [];
+    const options1 = [];
+    const options2 = [];
 
     if (this.props.panel.options !== undefined) {
       this.props.panel.options.forEach((option, i) => {
@@ -76,7 +76,7 @@ const Panel = React.createClass({
       });
     }
 
-    let options = this.props.raw_options || (
+    const options = this.props.raw_options || (
       <div>
         <div className="left">{options1}</div>
         <div className="right">{options2}</div>
@@ -84,9 +84,9 @@ const Panel = React.createClass({
     );
     let classes = 'wizard__panel';
     if (this.props.panel.active) { classes += ' active'; }
-    let advance = this.props.advance || this.advance;
+    const advance = this.props.advance || this.advance;
 
-    let nextText = this.props.button_text || (this.props.summary ? 'Summary' : 'Next');
+    const nextText = this.props.button_text || (this.props.summary ? 'Summary' : 'Next');
 
 
     let reqsMet = true;
@@ -107,10 +107,10 @@ const Panel = React.createClass({
       }
     }
 
-    let helperText = this.props.helperText || '';
-    let errorClass = this.props.panel.error ? 'red' : '';
-    let nextDisabled = reqsMet && this.nextEnabled() ? '' : 'disabled';
-    let courseLink = `/courses/${this.props.course.slug}/timeline`;
+    const helperText = this.props.helperText || '';
+    const errorClass = this.props.panel.error ? 'red' : '';
+    const nextDisabled = reqsMet && this.nextEnabled() ? '' : 'disabled';
+    const courseLink = `/courses/${this.props.course.slug}/timeline`;
 
     return (
       <div className={classes}>

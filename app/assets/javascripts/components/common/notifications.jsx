@@ -57,7 +57,7 @@ const Notifications = React.createClass({
   },
 
   render() {
-    let notifications = this.state.notifications.map((n, i) => this._renderNotification(n, i));
+    const notifications = this.state.notifications.map((n, i) => this._renderNotification(n, i));
 
     return (
       <div className="notifications">

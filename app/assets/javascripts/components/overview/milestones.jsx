@@ -31,7 +31,7 @@ const Milestones = React.createClass({
   },
 
   render() {
-    let blocks = [];
+    const blocks = [];
     this.state.weeks.map(week => {
       const milestoneBlocks = _.filter(week.blocks, block => block.kind === this.milestoneBlockType);
       return milestoneBlocks.map(block => {

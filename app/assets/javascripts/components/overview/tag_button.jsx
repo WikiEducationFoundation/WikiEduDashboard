@@ -6,7 +6,7 @@ const tagIsNew = tag => TagStore.getFiltered({ tag }).length === 0;
 
 const tags = (props, remove) =>
   props.tags.map(tag => {
-    let removeButton = (
+    const removeButton = (
       <button className="button border plus" onClick={remove.bind(null, tag.id)}>-</button>
     );
     return (

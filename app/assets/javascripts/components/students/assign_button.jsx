@@ -235,11 +235,11 @@ const AssignButton = React.createClass({
     if (this.props.permitted) {
       let options;
       if (this.state.showOptions) {
-        let languageOptions = WikiLanguages.map(language => {
+        const languageOptions = WikiLanguages.map(language => {
           return { label: language, value: language };
         });
 
-        let projectOptions = WikiProjects.map(project => {
+        const projectOptions = WikiProjects.map(project => {
           return { label: project, value: project };
         });
 

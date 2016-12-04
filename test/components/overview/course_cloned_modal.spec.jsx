@@ -5,7 +5,7 @@ import '../../testHelper';
 import CourseClonedModal from '../../../app/assets/javascripts/components/overview/course_cloned_modal.jsx';
 
 describe('CourseClonedModal', () => {
-  let course = {
+  const course = {
     slug: 'foo/bar_(baz)',
     school: 'foo',
     term: 'baz',

@@ -18,11 +18,11 @@ const RevisionList = React.createClass({
   },
 
   render() {
-    let elements = this.props.revisions.map(revision => {
+    const elements = this.props.revisions.map(revision => {
       return <Revision revision={revision} key={revision.id} />;
     });
 
-    let keys = {
+    const keys = {
       rating_num: {
         label: I18n.t('revisions.class'),
         desktop_only: true

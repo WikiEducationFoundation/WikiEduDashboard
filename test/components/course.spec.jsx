@@ -11,11 +11,11 @@ window.currentUser = { id: '', username: '' };
 global.sinon.stub(ServerActions, 'fetch');
 
 describe('Course', () => {
-  let params = {
+  const params = {
     course_school: 'test',
     course_title: 'test',
   };
-  let location = {
+  const location = {
     pathname: '/foo/bar/baz',
     query: ''
   };

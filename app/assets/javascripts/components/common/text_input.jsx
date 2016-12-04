@@ -68,7 +68,7 @@ const TextInput = React.createClass({
       // of a course, which combines three TextInput values, will not exceed
       // the maximum string size of 255.
       const maxLength = this.props.maxLength || '75';
-      let input = (
+      const input = (
         <input
           ref="input"
           className={className}

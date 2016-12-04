@@ -6,7 +6,7 @@ const campaignIsNew = campaign => CampaignStore.getFiltered({ title: campaign })
 
 const campaigns = (props, remove) =>
   props.campaigns.map(campaign => {
-    let removeButton = (
+    const removeButton = (
       <button className="button border plus" onClick={remove.bind(null, campaign.id)}>-</button>
     );
     return (

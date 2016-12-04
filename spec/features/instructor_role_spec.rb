@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'Instructor users', type: :feature, js: true do
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -120,27 +120,22 @@ describe 'Instructor users', type: :feature, js: true do
 
     it 'should be able to assign articles' do
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
 
       # Assign an article
       click_button 'Assign Articles'
-      sleep 1
-      page.all('button.border')[0].click
-      within('#users') { first('input').set('Article 1') }
+      find('button.border', text: 'Assign an article', match: :first).click
+      within('#users') { find('input', match: :first).set('Article 1') }
       click_button 'Assign'
       click_button 'OK'
-      sleep 1
-      page.first('button.border.assign-button').click
-      sleep 1
+      find('button.border.assign-button', match: :first).click
 
       # Assign a review
-      page.all('button.border')[1].click
-      within('#users') { first('input').set('Article 2') }
+      find('button.border', text: 'Assign a review', match: :first).click
+      sleep 1
+      within('#users') { find('input', match: :first).set('Article 2') }
       click_button 'Assign'
       click_button 'OK'
-      sleep 1
-      page.all('button.border.assign-button')[0].click
-      sleep 1
+      find('button.border.assign-button', match: :first).click
 
       # Leave editing mode
       within 'div.controls' do
@@ -152,7 +147,7 @@ describe 'Instructor users', type: :feature, js: true do
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students"
       click_button 'Assign Articles'
-      page.first('button.border.assign-button').click
+      find('button.border.assign-button', match: :first).click
       page.accept_confirm do
         click_button '-'
       end
@@ -167,7 +162,7 @@ describe 'Instructor users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
 
       click_button 'Enrollment'
-      page.first('button.border.plus').click
+      find('button.border.plus', match: :first).click
       click_button 'OK'
       sleep 1
       expect(page).not_to have_content 'Student A'
@@ -179,7 +174,7 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       # Notify users with overdue training
       page.accept_confirm do
-        page.first('button.notify_overdue').click
+        find('button.notify_overdue').click
       end
       sleep 1
     end
