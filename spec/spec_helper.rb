@@ -112,8 +112,6 @@ RSpec.configure do |config|
   # rubocop:enable Style/BlockComments
 end
 
-WebMock.disable_net_connect!(allow: 'http://sentry.ragesoss.com:8080')
-
 VCR.configure do |c|
   c.allow_http_connections_when_no_cassette = true
   c.cassette_library_dir = 'fixtures/vcr_cassettes'
