@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe 'course overview page', type: :feature, js: true do
   let(:slug)         { 'This_university.foo/This.course_(term_2015)' }
-  let(:course_start) { '2025-02-11'.to_date } # a Tuesday
+  let(:course_start) { '2015-02-11'.to_date }
   let(:course_end)   { course_start + 6.months }
   let(:course) do
     create(:course,
@@ -44,13 +44,12 @@ describe 'course overview page', type: :feature, js: true do
     it 'displays week activity for this week' do
       find '.course__this-week' do
         expect(page).to have_content 'This Week'
-        expect(page).to have_content content
       end
     end
   end
 
   context 'when course starts in future' do
-    let(:timeline_start) { course_start + 2.weeks }
+    let(:timeline_start) { '2025-02-11'.to_date + 2.weeks } # a Tuesday
     before do
       course.update_attribute(:timeline_start, timeline_start)
       visit "/courses/#{course.slug}"
