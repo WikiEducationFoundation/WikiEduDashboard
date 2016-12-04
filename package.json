@@ -128,7 +128,6 @@
   },
   "devDependencies": {
     "copy-to-clipboard": "^3.0.5",
-    "gulp": "https://registry.npmjs.org/gulp/-/gulp-3.9.1.tgz",
     "react-copy-to-clipboard": "^4.1.0"
   }
 }
