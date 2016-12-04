@@ -128,12 +128,16 @@ describe 'Admin users', type: :feature, js: true do
 
       # Add the same tag again
       click_button('Edit Details')
-      page.all('.button.border.plus')[5].click
+      within('div.tags') do
+        page.find('.button.border.plus').click
+      end
       page.find('section.overview input[placeholder="Tag"]').set 'My Tag'
       page.all('.pop button', visible: true)[1].click
 
       # Delete the tag
-      page.all('.button.border.plus')[5].click
+      within('div.tags') do
+        click_button '-'
+      end
       sleep 1
       visit "/courses/#{Course.first.slug}"
       sleep 1
