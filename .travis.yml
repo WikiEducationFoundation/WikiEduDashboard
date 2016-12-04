@@ -36,6 +36,7 @@ install:
 - npm install gulp -g
 - npm install bower -g
 - npm install codeclimate-test-reporter -g
+- npm install -g phantomjs-prebuilt@latest
 - npm install
 - bower install
 - bundle install --jobs=3 --retry=3 --deployment
