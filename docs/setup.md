@@ -47,7 +47,10 @@
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
 
 - Create mysql development and test database:
-    - Install mysql-server and start a mysql command line
+    - Install mysql-server
+        - Debian: `apt install mysql-server`
+        - OSX: `brew install mysql`
+    - Start a mysql command line: `sudo mysql`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
 
