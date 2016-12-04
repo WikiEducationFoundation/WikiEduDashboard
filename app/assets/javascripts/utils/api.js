@@ -546,7 +546,7 @@ slide_id=${opts.slide_id}`,
         }
       })
       .fail((obj) => {
-        getErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
+        logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
         return rej(obj);
       })
     );
