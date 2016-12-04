@@ -12,7 +12,6 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
-
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true)
 end
@@ -20,13 +19,6 @@ end
 Capybara.configure do |config|
   config.javascript_driver = :poltergeist
   config.default_max_wait_time = 10
-end
-
-Capybara::Webkit.configure do |config|
-  config.allow_url 'fonts.googleapis.com'
-  config.allow_url 'maxcdn.bootstrapcdn.com'
-  config.allow_url 'cdn.ravenjs.com'
-  config.block_unknown_urls
 end
 
 Capybara::Screenshot.prune_strategy = :keep_last_run
