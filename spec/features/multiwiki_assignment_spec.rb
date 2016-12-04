@@ -7,7 +7,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
   let(:user) { create(:user) }
 
   before do
-    Capybara.current_driver = :selenium
+    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
