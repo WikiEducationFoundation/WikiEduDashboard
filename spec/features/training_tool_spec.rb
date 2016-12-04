@@ -10,7 +10,6 @@ describe 'Training', type: :feature, js: true do
 
   before do
     login_as(user, scope: :user)
-    Capybara.current_driver = :poltergeist
     page.driver.browser.url_blacklist = ['https://www.youtube.com', 'https://upload.wikimedia.org']
   end
 

@@ -2,10 +2,6 @@
 require 'rails_helper'
 
 describe 'activity page', type: :feature, js: true do
-  before do
-    Capybara.current_driver = :poltergeist
-  end
-
   before :each do
     login_as(user, scope: :user)
     visit '/'

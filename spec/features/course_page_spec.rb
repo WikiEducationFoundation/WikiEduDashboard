@@ -29,7 +29,6 @@ course_end = '2015-12-31'
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   before do
-    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     course = create(:course,
@@ -413,9 +412,5 @@ describe 'the course page', type: :feature, js: true do
         expect(page).not_to have_content 'Add Week'
       end
     end
-  end
-
-  after do
-    Capybara.use_default_driver
   end
 end

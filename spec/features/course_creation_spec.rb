@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 def set_up_suite
-  Capybara.current_driver = :poltergeist
   page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
 end
@@ -405,7 +404,6 @@ describe 'New course creation and editing', type: :feature do
 
   after do
     logout
-    Capybara.use_default_driver
   end
 end
 

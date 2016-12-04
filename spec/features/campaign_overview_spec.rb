@@ -13,10 +13,6 @@ describe 'campaign overview page', type: :feature, js: true do
            description: 'This is the best campaign')
   end
 
-  before do
-    Capybara.current_driver = :poltergeist
-  end
-
   context 'as an user' do
     it 'should not show the edit buttons' do
       login_as(user, scope: user)

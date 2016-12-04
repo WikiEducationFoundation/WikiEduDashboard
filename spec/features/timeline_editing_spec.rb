@@ -38,7 +38,6 @@ describe 'timeline editing', type: :feature, js: true do
 
   before do
     include Devise::TestHelpers, type: :feature
-    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1080)
 
     create_course

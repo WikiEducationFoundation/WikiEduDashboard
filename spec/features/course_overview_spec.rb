@@ -29,7 +29,6 @@ describe 'course overview page', type: :feature, js: true do
   let(:admin)   { create(:admin) }
 
   before do
-    Capybara.current_driver = :poltergeist
     stub_token_request
   end
 

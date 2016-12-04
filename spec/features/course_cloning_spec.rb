@@ -3,7 +3,6 @@ require 'rails_helper'
 
 describe 'cloning a course', js: true do
   before do
-    Capybara.current_driver = :poltergeist
     page.current_window.resize_to(1920, 1920)
     stub_oauth_edit
   end
@@ -98,6 +97,5 @@ describe 'cloning a course', js: true do
 
   after do
     logout
-    Capybara.use_default_driver
   end
 end
