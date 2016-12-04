@@ -23,8 +23,9 @@
 - Install Ruby 2.3.1 (RVM is recommended)
     - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
     - `rvm install ruby-2.3.1`
-- Install Node: `apt-get install nodejs npm`
-  - On OSX (Mac): `brew install node` (this assumes you are using [homebrew](brew.sh))
+- Install Node:
+  - Debian: `apt install nodejs npm`
+  - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
 
 - Install Gems:
     - $ `gem install bundler`
@@ -49,16 +50,13 @@
     - Install mysql-server and start a mysql command line
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - Grant access to these databases to your user.
-    - `GRANT ALL ON dashboard.* TO <USER>@localhost identified by <PASSWORD>;`
-    - `GRANT ALL ON dashboard_testing.* TO <USER>@localhost identified by <PASSWORD>;`
 
-- Install Redis: `apt-get install redis-server`
-  - On OSX: `brew install redis`
+- Install Redis:
+  - Debian: `apt install redis-server`
+  - OSX: `brew install redis`
 
 - Install Gulp (if not already installed)
-  - On OSX: `sudo npm install —global gulp-cli`
-    - If Gulp fails to start (see "Develop" below), try also executing: `npm install —save-dev gulp` on the app home directory.
+  - `sudo npm install —global gulp-cli`
 
 ## Initialize
 1. **Migrate the database**
