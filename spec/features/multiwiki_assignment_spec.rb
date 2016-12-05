@@ -44,8 +44,8 @@ describe 'multiwiki assignments', type: :feature, js: true do
       click_button 'Assign an article'
 
       within('#users') do
-        first('input').set('No le des prisa, dolor')
-        first(:link, 'Change').click
+        find('input', visible: true).set('No le des prisa, dolor')
+        click_link 'Change'
         find('div.language-select').click
         within('.language-select') do
           find('input').trigger('click')
