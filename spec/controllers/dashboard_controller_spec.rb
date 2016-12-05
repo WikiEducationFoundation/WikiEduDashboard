@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe DashboardController do
   describe '#index' do
-    let(:course) { create(:course, end: 1.day.ago) }
+    let(:course) { create(:course, end: 2.days.ago) }
     let(:admin) { create(:admin) }
 
     context 'when the user is not logged it' do
