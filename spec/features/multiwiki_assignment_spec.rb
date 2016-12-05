@@ -44,14 +44,23 @@ describe 'multiwiki assignments', type: :feature, js: true do
       click_button 'Assign an article'
 
       within('#users') do
-        first('input').set('Livre_de_cuisine')
+        first('input').set('No le des prisa, dolor')
         first(:link, 'Change').click
         find('div.language-select').click
-        first('.language-select .Select-input input').set('fr')
-        first('.language-select .Select-option', text: 'fr').click
+        within('.language-select') do
+          find('input').trigger('click')
+        end
+
+        within('.language-select.Select--single') do
+          all('div', text: 'es')[2].click
+        end
         find('div.project-select').click
-        first('.project-select .Select-input input').set('wikibooks')
-        first('.project-select .Select-option', text: 'wikibooks').click
+        within('.project-select') do
+          find('.Select-value').trigger('click')
+        end
+        within('.project-select.Select--single') do
+          find('div', text: 'wikisource', match: :first).click
+        end
       end
 
       click_button 'Assign'
@@ -59,12 +68,13 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       visit "/courses/#{course.slug}/students"
 
-      expect(page).to have_content 'fr:wikibooks:Livre de cuisine'
-      expect(Assignment.last.wiki.language).to eq('fr')
-      expect(Assignment.last.wiki.project).to eq('wikibooks')
-      expect(Assignment.last.article.title).to eq('Livre_de_cuisine')
-      expect(Assignment.last.article.wiki.language).to eq('fr')
-      expect(Assignment.last.article.wiki.project).to eq('wikibooks')
+      expect(page).to have_content 'es:wikisource:No le des prisa, dolor'
+
+      expect(Assignment.last.wiki.language).to eq('es')
+      expect(Assignment.last.wiki.project).to eq('wikisource')
+      expect(Assignment.last.article.title).to eq('No_le_des_prisa,_dolor')
+      expect(Assignment.last.article.wiki.language).to eq('es')
+      expect(Assignment.last.article.wiki.project).to eq('wikisource')
     end
   end
 end

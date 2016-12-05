@@ -81,11 +81,11 @@ const AssignButton = React.createClass({
   },
   handleChangeLanguage(val) {
     return this.setState(
-      { language: val });
+      { language: val.value });
   },
   handleChangeProject(val) {
     return this.setState(
-      { project: val });
+      { project: val.value });
   },
 
   assign(e) {
