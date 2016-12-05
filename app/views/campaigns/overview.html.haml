@@ -63,10 +63,13 @@
                                 %button.button.border.plus -
 
           = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
-            %div.campaign-title.hidden-form-group.form-group
-              %label
-                = t('campaign.title')
-              = text_field(:campaign, :title, required: true, class: 'title')
+            %div.campaign-title.form-group.rails_editable-field
+              %label{for: 'campaign_title'}
+                = succeed ':' do
+                  = t('campaign.title')
+              %span.rails_editable-content
+                = @campaign.title
+              = text_field(:campaign, :title, required: true, class: 'title rails_editable-input')
 
       - if @editable
         = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
