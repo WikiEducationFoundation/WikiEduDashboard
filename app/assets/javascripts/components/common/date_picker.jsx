@@ -51,7 +51,7 @@ const DatePicker = React.createClass({
       };
     }
     return {
-      value: null,
+      value: '',
       hour: 0,
       minute: 0,
       datePickerVisible: false
@@ -294,7 +294,6 @@ const DatePicker = React.createClass({
             onClick={this.handleDateFieldClick}
             disabled={this.props.enabled && !this.props.enabled}
             autoFocus={this.props.focus}
-            isClearable={this.props.isClearable}
             onFocus={this.handleDateFieldFocus}
             onBlur={this.handleDateFieldBlur}
             onKeyDown={this.handleDateFieldKeyDown}

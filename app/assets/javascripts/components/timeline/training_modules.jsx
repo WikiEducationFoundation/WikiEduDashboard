@@ -19,9 +19,10 @@ const TrainingModules = React.createClass({
     return { value: ids };
   },
 
-  onChange(value, values) {
-    this.setState({ value: values });
-    return this.props.onChange(value, values);
+  onChange(selections) {
+    const trainingModuleIds = selections.map(trainingModule => trainingModule.value);
+    this.setState({ value: trainingModuleIds });
+    return this.props.onChange(trainingModuleIds);
   },
 
   progressClass(progress) {

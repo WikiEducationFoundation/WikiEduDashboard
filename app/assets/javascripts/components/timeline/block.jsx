@@ -31,9 +31,8 @@ const Block = React.createClass({
     return BlockActions.updateBlock(toPass);
   },
 
-  passedUpdateBlock(_, modules) {
+  passedUpdateBlock(selectedIds) {
     const newBlock = $.extend(true, {}, this.props.block);
-    const selectedIds = modules.map(module => module.value);
     newBlock.training_module_ids = selectedIds;
     return BlockActions.updateBlock(newBlock);
   },
