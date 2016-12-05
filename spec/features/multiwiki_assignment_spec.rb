@@ -48,18 +48,12 @@ describe 'multiwiki assignments', type: :feature, js: true do
         click_link 'Change'
         find('div.language-select').click
         within('.language-select') do
-          find('input').trigger('click')
+          find('div.Select--single div.Select-value').send_keys('es', :enter)
         end
 
-        within('.language-select.Select--single') do
-          all('div', text: 'es')[2].click
-        end
         find('div.project-select').click
         within('.project-select') do
-          find('.Select-value').trigger('click')
-        end
-        within('.project-select.Select--single') do
-          find('div', text: 'wikisource', match: :first).click
+          find('div.Select--single div.Select-value').send_keys('wikisource', :enter)
         end
       end
 

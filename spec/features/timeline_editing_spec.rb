@@ -56,12 +56,9 @@ describe 'timeline editing', type: :feature, js: true do
     end
     sleep 1
     within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
-      find('.Select-control').click
-
-      within('.Select-menu-outer') do
-        all('div', text: unassigned_module_name)[1].click
-      end
+      find('div.Select--multi').send_keys(unassigned_module_name, :enter)
     end
+
     within('.block__block-actions') { click_button 'Save' }
 
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
