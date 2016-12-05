@@ -12,10 +12,6 @@
     - You will need to have xcode installed in order to have `git` on your machine.  If you run `git` and it is not there, you will be prompted to install xcode.
     - To install rvm, you'll first need a gpg utility. You can install the GPG Suite from gpgtools.org
     - Homebrew will install itself when you run the rvm install command, if you don't have it already.
-    - If you do not have mysql installed, install is via: `brew install mysql`.
-    - Install pre-requisites for capybara-webkit:
-      - https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit
-      - Workaround for xcode 8.0 may be necessary
 
 - Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
@@ -34,6 +30,9 @@
 
 - Install NPM modules:
     - $ `npm install`
+
+- Install PhantomJS:
+    - $ `sudo npm install -g phantomjs-prebuilt`
 
 - Install Bower and Bower modules:
     - $ `sudo npm install bower -g`
