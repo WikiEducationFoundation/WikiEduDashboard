@@ -288,7 +288,7 @@ const DatePicker = React.createClass({
           <input
             id={this.state.id}
             ref="datefield"
-            value={this.state.value}
+            value={this.state.value || ''}
             className={`${inputClass} ${this.props.value_key}`}
             onChange={this.handleDateFieldChange}
             onClick={this.handleDateFieldClick}
