@@ -145,6 +145,7 @@ describe 'Instructor users', type: :feature, js: true do
 
       # Delete an assignments
       visit "/courses/#{Course.first.slug}/students"
+      sleep 1
       click_button 'Assign Articles'
       find('button.border.assign-button', match: :first).click
       page.accept_confirm do
