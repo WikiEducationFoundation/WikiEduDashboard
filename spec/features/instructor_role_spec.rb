@@ -161,7 +161,7 @@ describe 'Instructor users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}/students"
 
       click_button 'Enrollment'
-      find('button.border.plus', match: :first).click
+      find('button.border.plus', text: '-', match: :first).click
       click_button 'OK'
       sleep 1
       expect(page).not_to have_content 'Student A'
