@@ -7,7 +7,6 @@ const ActivityTableRow = React.createClass({
   displayName: 'ActivityTableRow',
 
   propTypes: {
-    key: React.PropTypes.string,
     rowId: React.PropTypes.number,
     diffUrl: React.PropTypes.string,
     revisionDateTime: React.PropTypes.string,
@@ -70,7 +69,7 @@ const ActivityTableRow = React.createClass({
     }
 
     return (
-      <tr className={className} key={this.props.key}>
+      <tr className={className} key={this.props.rowId}>
         <td onClick={this.openDrawer}>
           <a href={this.props.articleUrl}>{this.props.title}</a>
         </td>
