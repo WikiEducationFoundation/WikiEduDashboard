@@ -55,9 +55,8 @@ after_success:
 - "$AFTER_SUCCESS"
 notifications:
   slack:
-    rooms:
-    - secure: OZcMEKx3prPJva4P6W0E55pSMWnTWdm7d6bBZ6B66LewU9Ge6parEJcaUAAH+sNbi0lvDvMG7Ivs9FKHDU3DoJXNmKG1ow4QpZ0EIMkaBxUWgQRELw2l375G+8vz/VpH3W4zTmVsYWmcaMSER+PmclnBMGQma8vR8JVLVuIDMHU=
-
+    # https://agileventures.slack.com/messages/wiki_edu-notify/
+    secure: LDzHmtPo8jt9wrnH51F8PHTHl2gwOj117+bvWYgtVa4VM7SW1SL+BuiD3+DMs83VTNptek8I/kOduR0lRxIgQMqddYrQRz1O10vOcIXGLOrWbXcx0tgCQjnDcLp4BdBd3k5Ybn1pc/uf7cQXGgCUQ9lAXzAEE+V6CkrCmaCYrVE=
 deploy:
   provider: heroku
   api_key:
