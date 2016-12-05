@@ -9,11 +9,11 @@
       margin 2px
       padding 3px 0
     &.is-disabled
-      .Select-item
+      .Select-value
         background-color #f2f2f2
         border 1px solid #d9d9d9
         color #888888
-      .Select-item-icon
+      .Select-value-icon
         cursor not-allowed
         border-right 1px solid #d9d9d9
 
@@ -82,17 +82,18 @@
     & > .Select-loading
       right 46px
 
-.Select-value
-  color #aaaaaa
-  padding 8px 52px 8px 10px
-  position absolute
-  top 0
-  left 0
-  right -15px
-  max-width 100%
-  overflow hidden
-  text-overflow ellipsis
-  white-space nowrap
+ .Select--single
+   .Select-value
+      color #aaaaaa
+      padding 8px 52px 8px 10px
+      position absolute
+      top 0
+      left 0
+      right -15px
+      max-width 100%
+      overflow hidden
+      text-overflow ellipsis
+      white-space nowrap
 
 .Select-input
   & > input
@@ -202,30 +203,34 @@
   display block
   padding 8px 10px
 
-.Select-item
-  background-color border_lt + 10
-  border-radius 2px
-  border 1px solid border_lt
-  color bayoux
-  display inline-block
-  font-size 1em
-  margin 2px
+.Select-aria-only
+  display none
 
-.Select-item-icon,
-.Select-item-label
+.Select--multi
+  .Select-value
+    background-color border_lt + 10
+    border-radius 2px
+    border 1px solid border_lt
+    color bayoux
+    display inline-block
+    font-size 1em
+    margin 2px
+
+.Select-value-icon,
+.Select-value-label
   display inline-block
   vertical-align middle
 
-.Select-item-label
+.Select-value-label
   cursor default
   border-bottom-right-radius 2px
   border-top-right-radius 2px
   padding 3px 5px
-  .Select-item-label__a
+  .Select-value-label__a
     color #0088cc
     cursor pointer
 
-.Select-item-icon
+.Select-value-icon
   cursor pointer
   border-bottom-left-radius 2px
   border-top-left-radius 2px
@@ -235,13 +240,12 @@
     background-color bayoux
     color #fff
 
-.Select-item-icon:hover,
-.Select-item-icon:focus
+.Select-value-icon:hover,
+.Select-value-icon:focus
   background-color bayoux
   color #fff
 
-.Select.is-multi.is-disabled .Select-item-icon:hover,
-.Select.is-multi.is-disabled .Select-item-icon:focus,
-.Select.is-multi.is-disabled .Select-item-icon:active
+.Select.is-multi.is-disabled .Select-value-icon:hover,
+.Select.is-multi.is-disabled .Select-value-icon:focus,
+.Select.is-multi.is-disabled .Select-value-icon:active
   background-color #f2f2f2
-
