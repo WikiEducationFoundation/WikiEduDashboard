@@ -66,7 +66,6 @@ const Quiz = React.createClass({
               <input
                 onChange={this.setAnswer}
                 data-answer-id={answer.id}
-                defaultChecked={defaultChecked}
                 checked={checked}
                 type="radio"
                 name="answer"
