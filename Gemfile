@@ -51,7 +51,7 @@ gem 'factory_girl_rails'
 
 gem 'paper_trail'
 
-gem "paperclip", "~> 5.0.0"
+gem "paperclip"
 
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
