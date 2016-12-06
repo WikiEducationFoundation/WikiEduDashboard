@@ -55,10 +55,9 @@ const TextAreaInput = React.createClass({
       } else {
         inputElement = (
           <textarea
-            ref="input"
             id={this.state.id}
             rows={this.props.rows || '8'}
-            value={this.state.value}
+            value={this.state.value || ''}
             onChange={this.onChange}
             autoFocus={this.props.focus}
             onFocus={this.focus}

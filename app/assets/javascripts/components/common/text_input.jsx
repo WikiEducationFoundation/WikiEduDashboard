@@ -70,10 +70,9 @@ const TextInput = React.createClass({
       const maxLength = this.props.maxLength || '75';
       const input = (
         <input
-          ref="input"
           className={className}
           id={this.state.id}
-          value={this.state.value}
+          value={this.state.value || ''}
           onChange={this.onChange}
           autoFocus={this.props.focus}
           onFocus={this.focus}
