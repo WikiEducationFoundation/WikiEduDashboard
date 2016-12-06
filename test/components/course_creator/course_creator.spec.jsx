@@ -89,6 +89,7 @@ describe('CourseCreator', () => {
       });
     });
     describe('save course', () => {
+      sinon.stub(TestCourseCreator, 'expectedStudentsIsValid', () => true);
       const checkCourse = sinon.spy(ServerActions, 'checkCourse');
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
       it('calls the appropriate methods on the actions', () => {
