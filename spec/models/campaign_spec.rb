@@ -46,4 +46,59 @@ describe Campaign do
     it { should have_many(:question_group_conditionals) }
     it { should have_many(:rapidfire_question_groups).through(:question_group_conditionals) }
   end
+
+  describe 'date validation' do
+    let(:campaign) { create(:campaign) }
+
+    it 'should convert date-like strings to date object and save them' do
+      campaign.start = '2016-01-10'
+      campaign.end = '20160210'
+      expect(campaign.valid?).to eq(true)
+      expect(campaign.start).to eq(Date.civil(2016, 1, 10))
+      expect(campaign.end).to eq(Date.civil(2016, 2, 10))
+    end
+
+    it 'should add an error if a date string is invalid' do
+      campaign.start = '2016-01-10'
+      campaign.end = 'not a valid date'
+      expect(campaign.valid?).to eq(false)
+      expect(campaign.start).to eq(Date.civil(2016, 1, 10)) # retains attempted value that was valid
+      expect(campaign.errors.messages.keys).to include(:end)
+    end
+
+    it 'should add an error if the start date is after the end date' do
+      campaign.start = '2016-02-10'
+      campaign.end = '2016-01-10'
+      expect(campaign.valid?).to eq(false)
+      expect(campaign.errors.messages[:start]).to include(I18n.t('error.start_date_before_end_date'))
+    end
+
+    it 'should allow the date values to be changed to nil' do
+      campaign.start = '2016-02-10'
+      campaign.end = '2016-01-10'
+      campaign.save
+      campaign.start = nil
+      campaign.end = '' # blank should be converted to nil
+      expect(campaign.valid?).to eq(true)
+      expect(campaign.start).to eq(nil)
+      expect(campaign.end).to eq(nil)
+    end
+
+    it 'should set the default times for the dates' do
+      campaign.start = '2016-01-10'
+      campaign.end = '2016-02-10'
+      campaign.save
+      expect(campaign.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
+      expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+    end
+
+    it 'should set both dates to nil if one of them is nil' do
+      campaign.start = '2016-01-10'
+      campaign.end = nil
+      expect(campaign.valid?).to eq(true)
+      campaign.save
+      expect(campaign.start).to eq(nil)
+      expect(campaign.end).to eq(nil)
+    end
+  end
 end

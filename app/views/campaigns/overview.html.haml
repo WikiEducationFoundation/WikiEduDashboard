@@ -1,6 +1,15 @@
 = render 'nav'
 = hot_javascript_tag 'campaigns'
 
+- if @campaign.errors.any?
+  .notice
+    %strong
+      = t('campaign.campaign_not_updated')
+    %ul
+      - @campaign.errors.messages.each do |_key, message|
+        %li
+          = message.first
+
 .container.campaign_main
   %section.overview.container
     .stat-display
@@ -24,7 +33,7 @@
       .campaign-create
         %button.button.dark
           = t('courses_generic.creator.create_short')
-      .module.campaign-details.rails_editable
+      .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3
             = t('application.details')
@@ -63,13 +72,36 @@
                                 %button.button.border.plus -
 
           = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
-            %div.campaign-title.form-group.rails_editable-field
+            .campaign-title.form-group.rails_editable-field
               %label{for: 'campaign_title'}
                 = succeed ':' do
                   = t('campaign.title')
               %span.rails_editable-content
                 = @campaign.title
-              = text_field(:campaign, :title, required: true, class: 'title rails_editable-input')
+              = text_field(:campaign, :title, required: true, class: 'rails_editable-input')
+
+            .campaign-use-dates.form-group.rails_editable-field
+              - use_dates = @campaign.start && @campaign.end
+              %label
+                = check_box_tag(:use_dates, '1', use_dates)
+                = t('campaign.use_start_end_dates')
+
+            .campaign-dates{class: use_dates ? '' : 'hidden'}
+              .campaign-start.form-group.rails_editable-field
+                %label{for: 'campaign_start'}
+                  = succeed ':' do
+                    = t('courses.creator.start_date_placeholder')
+                %span.rails_editable-content
+                  = @campaign.start.try(:strftime, '%Y-%m-%d')
+                = date_field(:campaign, :start, class: 'rails_editable-input')
+
+              .campaign-end.form-group.rails_editable-field
+                %label{for: 'campaign_end'}
+                  = succeed ':' do
+                    = t('courses.creator.end_date_placeholder')
+                %span.rails_editable-content
+                  = @campaign.end.try(:strftime, '%Y-%m-%d')
+                = date_field(:campaign, :end, class: 'rails_editable-input')
 
       - if @editable
         = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do

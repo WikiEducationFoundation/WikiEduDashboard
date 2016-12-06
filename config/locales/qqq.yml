@@ -190,6 +190,7 @@ qqq:
       {{Identical|Campaign}}
     campaign_deleted: Message indicating a campaign was successfully deleted.
       'title' is the title of the campaign.
+    campaign_not_updated: Message indicating a campaign could not be updated.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
     confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
@@ -208,6 +209,7 @@ qqq:
     title: |-
       Label for the input to change the title of a campaign
       {{Identical|Title}}
+    use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
   courses:
     activity: Label for link to the 'recent activity' list for a course
     already_enrolled: Message displayed when the user attempts to enroll in a course
@@ -646,6 +648,10 @@ qqq:
       {{Identical|Summary}}
   error:
     form_errors: Generic error for form invalidation
+    invalid_date: |-
+      Error shown when the given date is invalid
+      key is the name of the date field, such as 'start' or 'end'
+    start_date_before_end_date: Error shown when the given start date is after the end date
     unsupported_browser:
       header: Error message indicating that the user's browser is not supported
   error_incorrect_passcode:
