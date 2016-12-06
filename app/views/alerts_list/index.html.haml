@@ -10,6 +10,6 @@
     - @alerts.each do |alert|
       %tr
         %td= alert.created_at
-        %td= alert.type
+        %td= link_to(alert.type, "/alerts_list/#{alert.id}")
         %td= link_to(alert.course.slug, "/courses/#{alert.course.slug}") if alert.course
         %td= link_to(alert.user.username, "/users/#{alert.user.url_encoded_username}") if alert.user
