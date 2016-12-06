@@ -91,11 +91,15 @@ class ArticleStatusManager
 
   def update_deleted_articles(articles)
     return unless @failed_request_count.zero?
-    articles.where(mw_page_id: @deleted_page_ids).update_all(deleted: true)
+    articles.where(mw_page_id: @deleted_page_ids).each do |article|
+      article.update_attribute(:deleted, true)
+    end
   end
 
   def update_undeleted_articles(articles)
-    articles.where(mw_page_id: @synced_ids).update_all(deleted: false)
+    articles.where(mw_page_id: @synced_ids).each do |article|
+      article.update_attribute(:deleted, false)
+    end
   end
 
   def data_matches_article?(article_data, article)
