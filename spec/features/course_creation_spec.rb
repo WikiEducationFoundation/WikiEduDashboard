@@ -10,6 +10,7 @@ def fill_out_course_creator_form
   fill_in 'Course title:', with: 'My course'
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
+  find('#course_expected_students').set('20')
   find('.course_start-datetime-control input').set('2015-01-04')
   find('.course_end-datetime-control input').set('2015-02-01')
   find('div.wizard__panel').click # click to escape the calendar popup
@@ -257,6 +258,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_school').set('University')
       find('#course_term').set('Term')
       find('#course_subject').set('Advanced Studies')
+      find('#course_expected_students').set('15')
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'

@@ -61,7 +61,7 @@ const CourseCreator = React.createClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid()) {
+    if (ValidationStore.isValid() && this.expectedStudentsIsValid()) {
       this.setState({ isSubmitting: true });
       ValidationActions.setInvalid(
         'exists',
@@ -109,6 +109,14 @@ const CourseCreator = React.createClass({
   updateCourseDates(key, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.state.course, key, value);
     CourseActions.updateCourse(updatedCourse);
+  },
+
+  expectedStudentsIsValid() {
+    if (this.state.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
+      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
   },
 
   showForm() {
@@ -187,6 +195,7 @@ const CourseCreator = React.createClass({
           value={String(this.state.course.expected_students)}
           value_key="expected_students"
           editable
+          required
           type="number"
           max="999"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
