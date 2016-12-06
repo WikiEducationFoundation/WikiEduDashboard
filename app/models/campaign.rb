@@ -17,11 +17,13 @@ require 'csv'
 
 #= Campaign model
 class Campaign < ActiveRecord::Base
-  has_many :campaigns_courses, class_name: CampaignsCourses
+  has_many :campaigns_courses, class_name: CampaignsCourses, dependent: :destroy
+  has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
   has_many :courses, through: :campaigns_courses
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
+  has_many :organizers, through: :campaigns_users, source: :user
   has_and_belongs_to_many :survey_assignments
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals

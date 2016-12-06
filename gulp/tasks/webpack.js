@@ -18,7 +18,8 @@ gulp.task('webpack', ['bower'], (cb) => {
     styleguide: [`${jsSource}/styleguide/styleguide.jsx`],
     survey: [`${jsSource}/surveys/survey.js`],
     survey_admin: [`${jsSource}/surveys/survey-admin.js`],
-    survey_results: [`${jsSource}/surveys/survey-results.jsx`]
+    survey_results: [`${jsSource}/surveys/survey-results.jsx`],
+    campaigns: [`${jsSource}/campaigns.js`]
   };
 
   // Set up plugins based on dev/prod mode

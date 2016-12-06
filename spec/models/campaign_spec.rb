@@ -41,6 +41,8 @@ describe Campaign do
   end
 
   describe 'association' do
+    it { should have_many(:campaigns_courses) }
+    it { should have_many(:campaigns_users) }
     it { should have_many(:question_group_conditionals) }
     it { should have_many(:rapidfire_question_groups).through(:question_group_conditionals) }
   end

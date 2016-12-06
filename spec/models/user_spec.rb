@@ -34,6 +34,19 @@ describe User do
     end
   end
 
+  describe 'user deletion' do
+    it 'destroys the User and associated CampaignsUsers and CoursesUsers' do
+      user = create(:user)
+      courses_user = create(:courses_user, user_id: user.id)
+      campaigns_users = create(:campaigns_user, user_id: user.id)
+      expect(CoursesUsers.count).to eq(1)
+      expect(CampaignsUsers.count).to eq(1)
+      user.destroy
+      expect(CoursesUsers.count).to eq(0)
+      expect(CampaignsUsers.count).to eq(0)
+    end
+  end
+
   describe '#role' do
     it 'grants instructor permission for a user creating a new course' do
       course = nil
