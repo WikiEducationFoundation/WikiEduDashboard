@@ -35,10 +35,10 @@ const Assignment = React.createClass({
     for (let i = 0; i < iterable.length; i++) {
       const assignment = iterable[i];
       const usernameLink = userLink(assignment.username, this.props.course.home_wiki);
-      if (assignment.role === 0 && assignment.user_id) {
+      if (assignment.role === 0 && assignment.user_id && assignment.username) {
         assignees.push(usernameLink);
         assignees.push(', ');
-      } else if (assignment.role === 1 && assignment.user_id) {
+      } else if (assignment.role === 1 && assignment.user_id && assignment.username) {
         reviewers.push(usernameLink);
         reviewers.push(', ');
       }
