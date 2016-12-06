@@ -158,7 +158,6 @@ const Calendar = React.createClass({
             <DayPicker
               modifiers={modifiers}
               onDayClick={onDayClick}
-              onWeekdayClick={onWeekdayClick}
               initialMonth={this.state.initialMonth}
             />
             <div className="course-dates__calendar-key">
