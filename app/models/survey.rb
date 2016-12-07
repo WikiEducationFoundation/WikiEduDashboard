@@ -43,55 +43,75 @@ class Survey < ActiveRecord::Base
     '--'
   end
 
-  CSV_HEADER = [
-    'Question Group',
-    'Grouped Question',
-    'Question Id',
-    'Question',
-    'Answer',
-    'Follow Up Question',
-    'Follow Up Answer',
-    'User',
-    'User Role',
-    'Course Slug',
-    'Course Campaigns',
-    'Course Tags'
-  ].freeze
-
   def to_csv
     CSV.generate do |csv|
-      csv << CSV_HEADER
-      rapidfire_question_groups.each do |question_group|
-        question_group.questions.each do |question|
-          question.answers.each do |answer|
-            csv << csv_row(question_group, question, answer)
-          end
-        end
+      csv << csv_header
+      respondents.each do |respondent|
+        response_row = [respondent.username, course_for(respondent)] + response(respondent)
+        csv << response_row
       end
     end
   end
 
   private
 
-  def csv_row(question_group, question, answer)
-    course = answer.course(id)
-    course_slug = course.nil? ? nil : course.slug
-    campaigns = course.nil? ? nil : course.campaigns.collect(&:title).join(', ')
-    tags = course.nil? ? nil : course.tags.collect(&:tag).join(', ')
+  def respondents
+    user_ids = Rapidfire::AnswerGroup
+               .where(question_group_id: rapidfire_question_groups.pluck(:id))
+               .pluck(:user_id)
+    User.where(id: user_ids)
+  end
 
-    [
-      question_group.name,
-      question.validation_rules[:grouped_question],
-      question.id,
-      question.question_text,
-      answer.answer_text,
-      question.follow_up_question_text,
-      answer.follow_up_answer_text,
-      answer.user.username,
-      answer.courses_user_role(id),
-      course_slug,
-      campaigns,
-      tags
-    ]
+  def csv_header
+    question_headers = questions_with_separate_followups.map do |question_hash|
+      question_id = question_hash[:question].id
+      column_name = "Q#{question_id}"
+      column_name += '_followup' if question_hash[:followup]
+      column_name
+    end
+    %w(username course) + question_headers
+  end
+
+  def response(user)
+    answer_group_ids = Rapidfire::AnswerGroup.where(user_id: user.id).pluck(:id)
+    questions_with_separate_followups.map do |question_hash|
+      answer = Rapidfire::Answer.where(answer_group_id: answer_group_ids,
+                                       question_id: question_hash[:question].id).first
+      question_hash[:followup] ? answer&.follow_up_answer_text : answer&.answer_text
+    end
+  end
+
+  def course_for(user)
+    @survey_assignment_ids ||= SurveyAssignment.where(survey_id: id).pluck(:id)
+    notification = user.survey_notifications
+                       .where(survey_assignment_id: @survey_assignment_ids)
+                       .first
+    if notification&.course_id
+      Course.find(notification.course_id).slug
+    else
+      user.courses.last&.slug
+    end
+  end
+
+  def question_groups_in_order
+    @question_groups_in_order ||= SurveysQuestionGroup.where(survey_id: id).order(:position)
+                                                      .map(&:rapidfire_question_group)
+  end
+
+  def questions_in_order
+    @questions_in_order ||= question_groups_in_order.map do |question_group|
+      question_group.questions.order(:position)
+    end.to_a.flatten
+  end
+
+  def questions_with_separate_followups
+    return @separated_questions unless @separated_questions.nil?
+    @separated_questions = []
+    questions_in_order.each do |question|
+      @separated_questions << { question: question, followup: false }
+      next if question.follow_up_question_text.blank?
+      @separated_questions << { question: question, followup: true }
+    end
+    @separated_questions
   end
 end
