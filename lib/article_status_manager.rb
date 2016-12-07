@@ -4,8 +4,7 @@ require "#{Rails.root}/lib/modified_revisions_manager"
 #= Updates articles to reflect deletion and page moves on Wikipedia
 class ArticleStatusManager
   def initialize(wiki = nil)
-    wiki ||= Wiki.default_wiki
-    @wiki = wiki
+    @wiki = wiki || Wiki.default_wiki
   end
 
   ###############
@@ -133,10 +132,7 @@ class ArticleStatusManager
     mw_page_id = same_title_page['page_id']
     namespace = same_title_page['page_namespace']
 
-    article = Article.find_by(wiki_id: @wiki.id,
-                              title: title,
-                              namespace: namespace,
-                              deleted: false)
+    article = Article.find_by(wiki_id: @wiki.id, title: title, namespace: namespace, deleted: false)
 
     return unless article_data_matches?(article, title, deleted_page_ids)
     update_article_page_id(article, mw_page_id)
