@@ -162,9 +162,9 @@ const Week = React.createClass({
             {blocks}
           </ReactCSSTG>)
       :
-          <ul className="week__block-list list-unstyled">
-            {blocks}
-          </ul>
+        (<ul className="week__block-list list-unstyled">
+          {blocks}
+        </ul>)
     );
 
     let weekClassName = `week week-${this.props.index}`;

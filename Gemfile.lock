@@ -286,7 +286,7 @@ GEM
       mimemagic (~> 0.3.0)
     parser (2.3.3.1)
       ast (~> 2.2)
-    poltergeist (1.11.0)
+    poltergeist (1.12.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)

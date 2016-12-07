@@ -1,5 +1,5 @@
-import 'jquery-ui/sortable';
-import 'jquery-ui/tabs';
+import 'jquery-ui/ui/widgets/sortable';
+import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
