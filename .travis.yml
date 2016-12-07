@@ -1,6 +1,6 @@
 env:
 - TEST_SUITE='~type:feature' AFTER_SUCCESS='./travis-deploy.sh'
-- TEST_SUITE=type:feature AFTER_SUCCESS=''
+- TEST_SUITE='~type:foo' AFTER_SUCCESS='' # Run all tests in job 2
 language: ruby
 rvm: 2.3.1
 sudo: required
