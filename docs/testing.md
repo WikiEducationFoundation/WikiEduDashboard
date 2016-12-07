@@ -5,7 +5,7 @@
 Testing is very important to the health of the Wiki Ed Dashboard as a whole. As part of a wholistic testing strategy, the project utilizes the following testing stack:
 
 * [RSpec](https://github.com/rspec/rspec) for unit tests (model and controller specs, and specs for plain old Ruby object)
-* [Capybara](https://github.com/jnicklas/capybara), [Capybara-webkit](https://github.com/thoughtbot/capybara-webkit), [Selenium](https://github.com/SeleniumHQ/selenium), and [Poltegeist](https://github.com/teampoltergeist/poltergeist) for end-to-end integration testing.
+* [Poltegeist](https://github.com/teampoltergeist/poltergeist) for end-to-end integration testing.
 * [Mocha](https://mochajs.org/) for testing front-end utilities and React.js components
 
 The tests are run on Travis for continuous integration purposes. Upon a successful unit test run — excluding feature tests — on the `production` branch, Travis will deploy the `production` branch to the production environment.

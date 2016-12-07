@@ -88,7 +88,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'zeus'
-  gem 'selenium-webdriver'
   gem 'launchy'
   gem 'timecop'
   gem 'poltergeist'
