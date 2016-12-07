@@ -52,11 +52,18 @@ describe TrainingModuleDueDateManager do
         let(:expected) { (t_start + 2.weeks).end_of_week(:sunday) }
         let(:t_module2) { TrainingModule.find(11) }
         let(:ids2) { [t_module2.id] }
-        let!(:block2) do
+        let(:block2) do
           create(:block, week_id: week2.id, training_module_ids: ids2, due_date: nil)
         end
+
         it 'uses the Saturday of the correct week' do
-          result = described_class.new(course: course, training_module: t_module2, user: user)
+          blackout_week_course = create(:course, timeline_start: t_start, timeline_end: t_start + 3.weeks,
+                                                 day_exceptions: day_exc, weekdays: '0010000')
+          first_week = create(:week, course_id: blackout_week_course.id, order: 1)
+          create(:block, week_id: first_week.id)
+          second_week = create(:week, course_id: blackout_week_course.id, order: 2)
+          create(:block, week_id: second_week.id, training_module_ids: ids2)
+          result = described_class.new(course: blackout_week_course, training_module: t_module2)
                                   .computed_due_date
           expect(result).to eq(expected)
         end
@@ -183,7 +190,7 @@ describe TrainingModuleDueDateManager do
         context 'one block has a due date, the other does not' do
           let(:due_date2) { nil }
           it 'uses the earlier of the existent block due date or the end of the week of the block without a date' do
-            expect(subject).to eq(Date.today.end_of_week(start_day = :sunday))
+            expect(subject).to eq(Date.today.end_of_week(:sunday))
           end
         end
 
