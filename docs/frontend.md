@@ -54,7 +54,5 @@ The [router.jsx](/app/assets/javascripts/utils/router.jsx) file contains an impl
 #### API
 The [api.js](/app/assets/javascripts/utils/api.js) file contains all AJAX requests for the application. Many methods are named according to their  purpose excepting the `fetch` and `modify` methods. These are written to be widely reused by `ServerActions` and require some extra hand-holding to ensure that the proper endpoint is reached.
 
-## NPM Shrinkwrap
-When dependencies need to be updated, do so using the `--save` flag. With `npm v3.x`, it will automatically update the shrinkwrap file. If that fails for some reason, you can manually run `npm shrinkwrap` once your dependencies are fixed.
-
-E.g., `npm install react@15.0.0 --save` will install a specific version, save it to your package.json, and update the shrinkwrap file.
+## Yarn dependency management
+When dependencies need to be added or updated, do so using Yarn — for example, `yarn add <package_name>`. This will automatically update the yarn.lock file.

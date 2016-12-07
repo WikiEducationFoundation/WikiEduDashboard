@@ -28,8 +28,9 @@
     - $ `bundle install`
     - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
 
-- Install NPM modules:
-    - $ `npm install`
+- Install NPM modules via Yarn:
+    - $ `sudo npm install yarn -g`
+    - $ `yarn`
 
 - Install PhantomJS:
     - $ `sudo npm install -g phantomjs-prebuilt`
