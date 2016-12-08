@@ -94,15 +94,23 @@ class Campaign < ActiveRecord::Base
   private
 
   def validate_dates
+    blank_dates = []
+
     [:start, :end].each do |date_type|
       begin
         # intercept Rails typecasting and add error if given string cannot be parsed into a date
         if value = self.send("#{date_type}_before_type_cast").presence
           self[date_type] = value.is_a?(Date) ? value : DateTime.parse(value)
+        else
+          blank_dates << date_type
         end
       rescue ArgumentError
         errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
       end
+    end
+
+    if blank_dates.length == 1
+      errors.add(blank_dates.first, I18n.t('error.invalid_date', key: blank_dates.first.capitalize))
     end
 
     if start && self.end && start > self.end
@@ -111,12 +119,6 @@ class Campaign < ActiveRecord::Base
   end
 
   def set_default_times
-    # make both values nil if one of them is blank
-    if start.blank? || self.end.blank?
-      self.start = nil
-      self.end = nil
-    end
-
     self.start = start.beginning_of_day if start
     self.end = self.end.end_of_day if self.end
   end

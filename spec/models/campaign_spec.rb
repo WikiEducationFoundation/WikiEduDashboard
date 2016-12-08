@@ -66,6 +66,15 @@ describe Campaign do
       expect(campaign.errors.messages.keys).to include(:end)
     end
 
+    it 'should add an error if one date is blank but the other is valid' do
+      campaign.start = '2016-01-10'
+      campaign.end = ''
+      expect(campaign.valid?).to eq(false)
+      expect(campaign.start).to eq(Date.civil(2016, 1, 10))
+      expect(campaign.errors.messages.keys).to include(:end)
+      expect(campaign.reload.start).to eq(nil)
+    end
+
     it 'should add an error if the start date is after the end date' do
       campaign.start = '2016-02-10'
       campaign.end = '2016-01-10'
@@ -90,15 +99,6 @@ describe Campaign do
       campaign.save
       expect(campaign.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
       expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
-    end
-
-    it 'should set both dates to nil if one of them is nil' do
-      campaign.start = '2016-01-10'
-      campaign.end = nil
-      expect(campaign.valid?).to eq(true)
-      campaign.save
-      expect(campaign.start).to eq(nil)
-      expect(campaign.end).to eq(nil)
     end
   end
 end

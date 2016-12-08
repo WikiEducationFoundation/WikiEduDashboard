@@ -30,9 +30,10 @@
             = @campaign.description
           = text_area(:campaign, :description, class: 'rails_editable-input', required: true)
     .sidebar
-      .campaign-create
-        %button.button.dark
-          = t('courses_generic.creator.create_short')
+      / - if Features.open_course_creation?
+      /   .campaign-create
+      /     %button.button.dark
+      /       = t('courses_generic.creator.create_short')
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3
@@ -57,12 +58,12 @@
                       %tr.edit
                         %td
                           = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
-                            %input{placeholder: t('users.username_placeholder'), name: 'username', required: true}
-                            %button.button.border Add organizer
+                            = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
+                            %button.button.border.add-organizer-button Add organizer
                       - @campaign.organizers.each do |organizer|
                         %tr
                           %td
-                            - if organizer.username == current_user.username
+                            - if organizer.username == current_user&.username
                               %span
                                 = organizer.username
                             - else
@@ -81,7 +82,7 @@
               = text_field(:campaign, :title, required: true, class: 'rails_editable-input')
 
             .campaign-use-dates.form-group.rails_editable-field
-              - use_dates = @campaign.start && @campaign.end
+              - use_dates = @campaign.start || @campaign.end
               %label
                 = check_box_tag(:use_dates, '1', use_dates)
                 = t('campaign.use_start_end_dates')
