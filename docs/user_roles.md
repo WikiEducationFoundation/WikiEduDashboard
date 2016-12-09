@@ -22,6 +22,7 @@ can be made on Wikipedia, and you are responsible for the content of them.
 
 You probably want to give your main account admin permissions for the dashboard.
 You can do so from the rails console:
+
     - $ `rails c`
     - > `User.find_by(username: '<your username').update_attribute(:permissions, 1)`
 
