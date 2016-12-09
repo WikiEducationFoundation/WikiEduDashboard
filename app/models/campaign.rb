@@ -28,6 +28,12 @@ class Campaign < ActiveRecord::Base
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
 
+  before_validation :set_slug
+
+  validates :title, presence: true
+  validates_uniqueness_of :title
+  validates_uniqueness_of :slug
+
   validate :validate_dates
 
   before_save :set_default_times
@@ -116,6 +122,11 @@ class Campaign < ActiveRecord::Base
     if start && self.end && start > self.end
       errors.add(:start, I18n.t('error.start_date_before_end_date'))
     end
+  end
+
+  def set_slug
+    # Strip everything but letters and digits, and convert spaces to underscores
+    self.slug = title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_') unless self.slug.present?
   end
 
   def set_default_times

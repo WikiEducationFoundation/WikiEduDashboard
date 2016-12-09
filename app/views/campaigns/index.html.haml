@@ -1,21 +1,21 @@
+= hot_javascript_tag 'campaigns'
+
 .container.dashboard
   %header
     %h1
-      Campaigns
+      = t('campaign.campaigns')
 %section
   .container
     %hr
-    %h1
-      Create New Campaign
     %div
-      =form_tag do
-        = text_field :campaign, 'title', placeholder: 'Title'
-        = submit_tag 'Create Campaign', class: 'button dark'
-%section
+      %button.button.dark.create-campaign-button
+        = t('campaign.create_campaign')
+
+    %div.create-modal-wrapper.hidden{class: @campaign.errors.any? ? 'show-create-modal' : ''}
+      = render 'create_modal'
+
+%section.campaign-list
   .container
-    %hr
-    %h1
-      Campaigns
     %ul
       - @campaigns.each do |campaign|
         %li
