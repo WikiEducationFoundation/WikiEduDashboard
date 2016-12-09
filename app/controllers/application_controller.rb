@@ -5,7 +5,7 @@ gem 'browser'
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
-  include Errors::RescueDevelopmentErrors if Rails.env == 'development'
+  include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.

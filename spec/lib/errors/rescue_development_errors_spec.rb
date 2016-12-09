@@ -21,8 +21,9 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
     end
 
     it 'renders an explanation with helpful advice' do
-      get :index
-      expect(response.body).to match(/gulp/)
+      # In development environment, this renders the page.
+      # In test environment, it raises an error with the explanation
+      expect { get :index }.to raise_error(/gulp/)
     end
   end
 
