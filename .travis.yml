@@ -26,8 +26,8 @@ before_install:
 - export DISPLAY=:99.0
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
 - sh -e /etc/init.d/xvfb start
-- nvm install v5.8.0
-- nvm use v5.8.0
+- nvm install stable
+- nvm use stable
 - node --version
 - npm --version
 install:
