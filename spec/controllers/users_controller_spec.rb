@@ -185,5 +185,34 @@ describe UsersController do
         expect(response.body).to have_content course.title
       end
     end
+
+    context 'when current_user is same user' do
+      let(:user) { create(:user, email: 'fake_email@gmail.com') }
+      it 'shows the email id' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :show, params: { username: user.username }
+        expect(response.body).to have_content user.email
+      end
+    end
+
+    context 'when current_user is admin' do
+      let(:user) { create(:user, email: 'fake_email@gmail.com') }
+      let(:admin) { create(:admin) }
+      it 'shows the email id' do
+        allow(controller).to receive(:current_user).and_return(admin)
+        get :show, params: { username: user.username }
+        expect(response.body).to have_content user.email
+      end
+    end
+ 
+    context 'when current_user is not the same user nor an admin' do
+      let(:user) { create(:user, email: 'fake_email@gmail.com') }
+      let(:unauthorised_user) { create(:user) }
+      it 'does not shows the email id' do
+        allow(controller).to receive(:current_user).and_return(unauthorised_user)
+        get :show, params: { username: user.username }
+        expect(response.body).not_to have_content user.email
+      end
+    end
   end
 end
