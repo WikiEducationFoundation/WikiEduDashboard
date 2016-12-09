@@ -68,7 +68,7 @@
 2. **Create the campaigns specified in `application.yml`**
       $ `rake campaign:add_campaigns`
 
-## [Set up OAuth integration](oauth.md) (optional)
+## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
 
 ## Develop
 1. **Start Zeus**
@@ -84,6 +84,8 @@
       $ `gulp`
 
 4. The frontend is now visible at http://localhost:3000/
+
+5. To set up test users and data, see [User Roles](user_roles.md)
 
 ## Maintain
 

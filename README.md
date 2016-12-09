@@ -22,6 +22,7 @@ The Dashboard allows instructors to create a course page, which students can joi
 ## Documentation
 ### Setup
 - [Dashboard Setup](docs/setup.md)
+- [Using the Dashboard in development](docs/user_roles.md)
 - [OAuth Setup](docs/oauth.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
