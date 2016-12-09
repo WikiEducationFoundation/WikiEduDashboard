@@ -18,21 +18,6 @@ are working on features related to making Wikipedia edits, you won't need to wor
 about this. If you are working on Wikipedia edits, be aware that live public edits
 can be made on Wikipedia, and you are responsible for the content of them.
 
-## Wiki Ed configuration vs. Programs & Events configuration
-
-The dashboard has two production deployments, which are configured differently.
-
-The Wiki Ed dashboard (dashboard.wikiedu.org) is for Wiki Education Foundation,
-and is built around the "Classroom Program" involving college students and instructors.
-It is more locked down, required approval from an admin before a course can proceed.
-
-The Wikimedia Programs & Events dashboard (outreachdashboard.wmflabs.org) is for
-the global Wikipedia/Wikimedia community, across many languages. With this configuration,
-courses are by default called "Programs", and they are approved by default upon creation.
-
-Some features are only enabled for one configuration or the other, and some of the
-interface messages differ between them: Course vs. Program, Student vs. Editor, etc.
-
 ## Admin permissions
 
 You probably want to give your main account admin permissions for the dashboard.
@@ -81,3 +66,18 @@ arbitrary activity data.
 3. Run the 'constant_update' and 'daily_update' routines (which run via cron job in production) to pull in activity from those users.
     * $ `rake batch:update_constantly`
     * $ `rake batch:update_daily`
+
+## Wiki Ed configuration vs. Programs & Events configuration
+
+The dashboard has two production deployments, which are configured differently.
+
+The Wiki Ed dashboard (dashboard.wikiedu.org) is for Wiki Education Foundation,
+and is built around the "Classroom Program" involving college students and instructors.
+It is more locked down, required approval from an admin before a course can proceed.
+
+The Wikimedia Programs & Events dashboard (outreachdashboard.wmflabs.org) is for
+the global Wikipedia/Wikimedia community, across many languages. With this configuration,
+courses are by default called "Programs", and they are approved by default upon creation.
+
+Some features are only enabled for one configuration or the other, and some of the
+interface messages differ between them: Course vs. Program, Student vs. Editor, etc.
