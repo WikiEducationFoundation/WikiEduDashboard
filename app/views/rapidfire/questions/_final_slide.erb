@@ -1,0 +1,16 @@
+<div class='block survey__slide-form'>
+<%= form_for @question_group do |f| %>
+  <%- if @question_group.errors.any? %>
+    <ul>
+      <%- @question_group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div><%= f.label :final_slide, "Survey Final Slide" %></div>
+  <div><%= f.hidden_field :final_slide , id: 'final_slide', value: @question_group.final_slide %>
+  <trix-editor input="final_slide"></trix-editor>
+  <%= f.submit 'Save Final Slide', :class => 'button button--no-margin'%></div>
+<% end %>
+</div>
