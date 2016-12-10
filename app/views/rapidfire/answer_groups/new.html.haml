@@ -1,0 +1,18 @@
+- if params.key?("preview")
+  .survey-previewing Preview Mode
+.loading{"data-survey-form-container" => ""}
+  = render partial: "surveys/question_group", locals: { |
+      question_group: @question_group,                  |
+      answer_group_builder: @answer_group_builder,      |
+      question_group_index: 0,                          |
+      total: 1,                                         |
+      results: false                                    |
+    }                                                   |
+  %div{"data-question-group-blocks" => "1"}
+    .block__container
+      .block.block--text.block--clear.block--thank-you.disabled.not-seen{"data-thank-you" => ""}
+        .block--thank-you__container
+          %h2.big-title Thank You!
+          %p.text-center
+            = @question_group.name
+            Question Group submitted

@@ -1,0 +1,12 @@
+.block.survey__slide-form
+  = form_for @question_group do |f|
+    - if @question_group.errors.any?
+      %ul
+        - @question_group.errors.full_messages.each do |message|
+          %li= message
+    %div= f.label :intro_slide, "Survey Introduction"
+    %div
+      %div
+        = f.hidden_field :intro_slide , id: 'intro_slide', value: @question_group.intro_slide
+        %trix-editor{:input => "intro_slide"}
+        = f.submit 'Save Intro', :class => 'button button--no-margin'
