@@ -4,11 +4,13 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy, :add_organizer, :remove_organizer]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update,
+                                      :destroy, :add_organizer, :remove_organizer]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer, :remove_organizer]
+  before_action :require_write_permissions, only: [:update, :destroy,
+                                                   :add_organizer, :remove_organizer]
 
-  DETAILS_FIELDS = %w(title start end)
+  DETAILS_FIELDS = %w(title start end).freeze
 
   def index
     @campaigns = Campaign.all
@@ -30,15 +32,14 @@ class CampaignsController < ApplicationController
 
   def overview
     set_presenter
-    @editable = current_user && (current_user.admin? || is_organizer?)
+    @editable = current_user&.admin? || user_is_organizer?
   end
 
   def programs
     set_presenter
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @campaign.update(campaign_params)
@@ -46,10 +47,10 @@ class CampaignsController < ApplicationController
       redirect_to overview_campaign_path(@campaign.slug)
     else
       set_presenter
-      @editable = current_user && (current_user.admin? || is_organizer?)
+      @editable = true
 
       # If one of the Details fields was invalid, passing instance variable
-      #   used to show the Details form in 'edit mode'
+      # used to show the Details form in 'edit mode'
       @open_details = (@campaign.errors.messages.keys & DETAILS_FIELDS).empty?
 
       render :overview
@@ -69,7 +70,8 @@ class CampaignsController < ApplicationController
       flash[:error] = I18n.t('courses.error.user_exists', username: params[:username])
     else
       add_organizer_to_campaign(user)
-      flash[:notice] = t('campaign.organizer_added', user: params[:username], title: @campaign.title)
+      flash[:notice] = t('campaign.organizer_added', user: params[:username],
+                                                     title: @campaign.title)
     end
 
     redirect_to overview_campaign_path(@campaign.slug)
@@ -80,7 +82,8 @@ class CampaignsController < ApplicationController
                                        campaign: @campaign,
                                        role: CampaignsUsers::Roles::ORGANIZER_ROLE)
     unless organizer.nil?
-      flash[:notice] = t('campaign.organizer_removed', user: organizer.user.username, title: @campaign.title)
+      flash[:notice] = t('campaign.organizer_removed', user: organizer.user.username,
+                                                       title: @campaign.title)
       organizer.destroy
     end
 
@@ -113,13 +116,11 @@ class CampaignsController < ApplicationController
   private
 
   def require_create_permissions
-    unless Features.open_course_creation?
-      require_admin_permissions
-    end
+    require_admin_permissions unless Features.open_course_creation?
   end
 
   def require_write_permissions
-    return if current_user&.admin? || is_organizer?
+    return if current_user&.admin? || user_is_organizer?
 
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
     raise exception
@@ -139,8 +140,10 @@ class CampaignsController < ApplicationController
                           role: CampaignsUsers::Roles::ORGANIZER_ROLE)
   end
 
-  def is_organizer?
-    @campaign.campaigns_users.where(user_id: current_user.id, role: CampaignsUsers::Roles::ORGANIZER_ROLE).any?
+  def user_is_organizer?
+    return false unless current_user
+    @campaign.campaigns_users.where(user_id: current_user.id,
+                                    role: CampaignsUsers::Roles::ORGANIZER_ROLE).any?
   end
 
   def csv_for_role(role)
