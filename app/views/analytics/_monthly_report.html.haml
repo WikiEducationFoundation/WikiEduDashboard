@@ -1,0 +1,8 @@
+%h3
+  - @monthly_report.each do |month, data|
+    = month.to_s
+    %br/
+    - data.each do |stat, value|
+        #{stat.to_s}: #{value}
+      %br/
+    %br/
