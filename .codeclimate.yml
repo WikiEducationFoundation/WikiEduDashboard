@@ -1,8 +1,6 @@
 engines:
   rubocop:
     enabled: true
-  coffeelint:
-    enabled: true
   eslint:
     enabled: true
   csslint:
@@ -12,10 +10,8 @@ engines:
 ratings:
   paths:
   - "**.rb"
-  - "**.coffee"
   - "**.js"
   - "**.jsx"
-  - "**.cjsx"
   - "**.css"
   - Gemfile.lock
 
