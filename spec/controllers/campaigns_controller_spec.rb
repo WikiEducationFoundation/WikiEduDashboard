@@ -242,9 +242,12 @@ describe CampaignsController do
 
   describe '#overview' do
     render_views
+    let(:user) { create(:user) }
     let(:campaign) { create(:campaign) }
 
     before do
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       get :overview, params: { slug: campaign.slug }
     end
 

@@ -59,6 +59,52 @@ describe 'campaign overview page', type: :feature, js: true do
         expect(page).to have_content('Campaign updated')
         expect(campaign.reload.title).to eq(new_title)
       end
+
+      it 'shows an error if you try to add a nonexistent user as an organizer' do
+        find('.campaign-details .rails_editable-edit').click
+        find('.campaign-details .button.plus').click
+        username = 'Nonexistent user'
+        fill_in('username', with: username)
+        find('.add-organizer-button').click
+        expect(page).to have_content(I18n.t('courses.error.user_exists', username: username))
+        expect(campaign.reload.organizers.collect(&:username)).not_to include(username)
+      end
+
+      context 'start and end dates' do
+        it "hides the start and end dates unless the 'Use start and end dates' is checked" do
+          find('.campaign-details .rails_editable-edit').click
+          find('#campaign_start', visible: false)
+          find('#use_dates').click
+          find('#campaign_start', visible: true)
+        end
+
+        it 'shows an error for invalid dates' do
+          find('.campaign-details .rails_editable-edit').click
+          find('#use_dates').click
+          fill_in('campaign_start', with: '2016-01-10')
+          fill_in('campaign_end', with: 'Invalid date')
+          find('.campaign-details .rails_editable-save').click
+          expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
+          find('#campaign_end', visible: true) # field with the error should be visible
+        end
+
+        it "updates the date fields properly, and to nil if the 'Use start and end dates' become unchecked" do
+          find('.campaign-details .rails_editable-edit').click
+          find('#use_dates').click
+          fill_in('campaign_start', with: '2016-01-10')
+          fill_in('campaign_end', with: '2016-02-10')
+          find('.campaign-details .rails_editable-save').click
+          expect(campaign.reload.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
+          expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+          find('.campaign-details .rails_editable-edit').click
+          find('#use_dates').click # uncheck
+          find('#campaign_start', visible: false)
+          find('.campaign-details .rails_editable-save').click
+          find('#campaign_start', visible: false)
+          expect(campaign.reload.start).to be_nil
+          expect(campaign.end).to be_nil
+        end
+      end
     end
 
     describe 'campaign deletion' do

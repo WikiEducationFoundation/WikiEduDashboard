@@ -8,6 +8,8 @@ class CampaignsController < ApplicationController
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: [:update, :destroy, :add_organizer, :remove_organizer]
 
+  DETAILS_FIELDS = %w(title start end)
+
   def index
     @campaigns = Campaign.all
   end
@@ -27,22 +29,31 @@ class CampaignsController < ApplicationController
   end
 
   def overview
-    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+    set_presenter
     @editable = current_user && (current_user.admin? || is_organizer?)
   end
 
   def programs
-    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+    set_presenter
   end
 
   def edit
   end
 
   def update
-    @campaign.update(campaign_params)
-    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
-    flash[:notice] = t('campaign.campaign_updated')
-    redirect_to overview_campaign_path(@campaign.slug)
+    if @campaign.update(campaign_params)
+      flash[:notice] = t('campaign.campaign_updated')
+      redirect_to overview_campaign_path(@campaign.slug)
+    else
+      set_presenter
+      @editable = current_user && (current_user.admin? || is_organizer?)
+
+      # If one of the Details fields was invalid, passing instance variable
+      #   used to show the Details form in 'edit mode'
+      @open_details = (@campaign.errors.messages.keys & DETAILS_FIELDS).empty?
+
+      render :overview
+    end
   end
 
   def destroy
@@ -118,6 +129,10 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.find_by(slug: params[:slug])
   end
 
+  def set_presenter
+    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+  end
+
   def add_organizer_to_campaign(user)
     CampaignsUsers.create(user: user,
                           campaign: @campaign,
@@ -154,6 +169,6 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign)
-          .permit(:slug, :description, :title)
+          .permit(:slug, :description, :title, :start, :end)
   end
 end

@@ -23,6 +23,8 @@
  *   - editable:cancel - when the cancel button is clicked
  *   - editable:save - when the save button is clicked
  *   - editable:read - when reverting back to the initial read-only view, either via Cancel or Save buttons
+ *
+ * To make an .rails_editable area be in "edit mode" when the script is loaded, append .rails_editable-editing
  */
 $(() => {
   const readMode = $parent => {
@@ -53,7 +55,7 @@ $(() => {
       if ($input.prop('type') === 'textarea') {
         $input.height(text ? $content.innerHeight() : 'auto');
       }
-      $input.show().focus();
+      $input.show();
     });
 
     $parent.find('.rails_editable-cancel').on('click', () => {
@@ -69,4 +71,9 @@ $(() => {
   };
 
   $('.rails_editable-edit').on('click', editMode);
+
+  // if rails_editable-editing is present, enable edit mode on that element
+  $.each($('.rails_editable-editing'), (_i, field) => {
+    $(field).find('.rails_editable-edit').trigger('click');
+  });
 });

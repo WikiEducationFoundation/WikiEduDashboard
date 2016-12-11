@@ -28,6 +28,16 @@ class Campaign < ActiveRecord::Base
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
 
+  validate :validate_dates
+
+  before_save :set_default_times
+
+  ##########
+  # Scopes #
+  ##########
+
+  scope :active, -> { where('end > ?', Time.zone.now) }
+
   ####################
   # Instance methods #
   ####################
@@ -59,6 +69,7 @@ class Campaign < ActiveRecord::Base
 
     CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
+
   #################
   # Class methods #
   #################
@@ -78,5 +89,37 @@ class Campaign < ActiveRecord::Base
 
   def self.default_campaign
     find_by(slug: ENV['default_campaign'])
+  end
+
+  private
+
+  def validate_dates
+    blank_dates = []
+
+    [:start, :end].each do |date_type|
+      begin
+        # intercept Rails typecasting and add error if given string cannot be parsed into a date
+        if value = self.send("#{date_type}_before_type_cast").presence
+          self[date_type] = value.is_a?(Date) ? value : DateTime.parse(value)
+        else
+          blank_dates << date_type
+        end
+      rescue ArgumentError
+        errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
+      end
+    end
+
+    if blank_dates.length == 1
+      errors.add(blank_dates.first, I18n.t('error.invalid_date', key: blank_dates.first.capitalize))
+    end
+
+    if start && self.end && start > self.end
+      errors.add(:start, I18n.t('error.start_date_before_end_date'))
+    end
+  end
+
+  def set_default_times
+    self.start = start.beginning_of_day if start
+    self.end = self.end.end_of_day if self.end
   end
 end

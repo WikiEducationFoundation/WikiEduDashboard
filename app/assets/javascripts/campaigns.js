@@ -42,4 +42,12 @@ $(() => {
       e.preventDefault();
     }
   });
+
+  $('#use_dates').on('change', e => {
+    $('.campaign-dates').toggleClass('hidden', !e.target.checked);
+    if (!e.target.checked) {
+      $('#campaign_start').val('');
+      $('#campaign_end').val('');
+    }
+  });
 });
