@@ -7,11 +7,12 @@
 %section
   .container
     %hr
-    %div
-      %button.button.dark.create-campaign-button
-        = t('campaign.create_campaign')
+    - if current_user && Features.open_course_creation?
+      %div
+        %button.button.dark.create-campaign-button
+          = t('campaign.create_campaign')
 
-    %div.create-modal-wrapper.hidden{class: @campaign.errors.any? ? 'show-create-modal' : ''}
+    %div.create-modal-wrapper{class: @campaign.errors.any? ? 'show-create-modal' : 'hidden'}
       = render 'create_modal'
 
 %section.campaign-list

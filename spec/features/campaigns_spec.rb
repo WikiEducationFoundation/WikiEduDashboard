@@ -2,14 +2,20 @@
 require 'rails_helper'
 
 describe 'campaigns page', type: :feature, js: true do
-  let(:user)  { create(:user) }
+  let(:user) { create(:user) }
 
-  context 'when feature flag is off' do
-    it 'should not show the create button' do
+  context 'hiding campaign creation' do
+    it 'should not show the create button if the feature flag is off' do
       allow(Features).to receive(:open_course_creation?).and_return(false)
       login_as(user, scope: user)
       visit '/campaigns'
-      find('.create-campaign-button', visible: false)
+      expect(page).to have_no_css('.create-campaign-button')
+    end
+
+    it 'should not show the create button if the user is logged out' do
+      allow(Features).to receive(:open_course_creation?).and_return(false)
+      visit '/campaigns'
+      expect(page).to have_no_css('.create-campaign-button')
     end
   end
 
@@ -26,6 +32,7 @@ describe 'campaigns page', type: :feature, js: true do
 
   context 'campaign create modal' do
     before do
+      allow(Features).to receive(:open_course_creation?).and_return(true)
       login_as(user, scope: user)
       visit '/campaigns'
     end
@@ -47,7 +54,8 @@ describe 'campaigns page', type: :feature, js: true do
     it 'should show errors if the created campaign is invalid with the modal is open' do
       find('.create-campaign-button').click
       fill_in('campaign_title', with: 'My Campaign Test')
-      fill_in('campaign_start', '2016-01-10') # end date not supplied
+      find('#use_dates').click
+      fill_in('campaign_start', with: '2016-01-10') # end date not supplied
       find('.wizard__form .button__submit').click
       find('.wizard__panel', visible: true)
       expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
