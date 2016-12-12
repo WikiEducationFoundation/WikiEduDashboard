@@ -7,7 +7,7 @@ class LegacyCampaignImporter
   def self.update_campaigns(raw_ids)
     Course.transaction do
       raw_ids.each do |slug, course_ids|
-        campaign = Campaign.find_or_create_by(slug: slug)
+        campaign = Campaign.find_or_create_by(slug: slug, title: slug)
         ids_in_campaign = campaign.courses.legacy.map(&:id)
 
         new_course_ids = course_ids - ids_in_campaign

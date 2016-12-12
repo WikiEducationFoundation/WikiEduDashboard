@@ -78,15 +78,17 @@ describe CoursesPresenter do
     let!(:course) { create(:course, submitted: false, id: 10001) }
     subject { described_class.new(user, 'none').courses }
 
-    context 'campaign is "none"' do
+    context 'when the campaign is "none"' do
       it 'returns unsubmitted courses' do
         expect(subject).to include(course)
       end
     end
 
-    context 'campaign is a valid campaign' do
+    context 'when the campaign is a valid campaign' do
       let!(:course2) { create(:course, submitted: false, id: 10002) }
-      let(:campaign_param)    { Figaro.env.default_campaign }
+      let(:campaign_param)    { 'My Awesome Campaign' }
+      puts Campaign.all.inspect
+      puts Figaro.env.default_campaign.inspect
       let(:campaign)          { create(:campaign, slug: campaign_param) }
       let!(:campaigns_course) { create(:campaigns_course, campaign_id: campaign.id, course_id: course.id) }
       it 'returns courses for the campaign' do

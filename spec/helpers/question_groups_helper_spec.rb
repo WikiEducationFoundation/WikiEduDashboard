@@ -69,7 +69,7 @@ describe QuestionGroupsHelper, type: :helper do
         survey_assignment_id: @survey_assignment.id,
         course_id: @course.id
       )
-      campaign = create(:campaign)
+      campaign = create(:campaign, title: 'My Second Campaign')
       question_group = create(:question_group, tags: '')
       question_group.campaigns << campaign
 
