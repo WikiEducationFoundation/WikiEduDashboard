@@ -28,15 +28,23 @@ const Article = React.createClass({
     return UIActions.open(`drawer_${this.props.article.id}`);
   },
 
+  shouldShowLanguagePrefix() {
+    return this.props.article.language !== this.props.course.home_wiki.language;
+  },
+
+  shouldShowProjectPrefix() {
+    return this.props.article.project !== this.props.course.home_wiki.project;
+  },
+
   render() {
     let className = 'article';
     className += this.state.is_open ? ' open' : '';
 
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
-    const languagePrefix = this.props.article.language ? `${this.props.article.language}:` : '';
+    const languagePrefix = this.shouldShowLanguagePrefix() ? `${this.props.article.language}:` : '';
     // The default project is Wikipedia.
-    const project = this.props.article.project ? `${this.props.article.project}:` : 'wikipedia:';
+    const project = this.shouldShowProjectPrefix() ? `${this.props.article.project}:` : 'wikipedia:';
     // Do not use a project prefix for Wikipedia.
     const projectPrefix = project === 'wikipedia:' ? '' : project;
     const formattedTitle = `${languagePrefix}${projectPrefix}${this.props.article.title}`;

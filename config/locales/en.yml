@@ -113,6 +113,7 @@ en:
     edited: Articles Edited
     edited_by: 'Edited by:'
     edited_mobile: Articles
+    hide: Hide
     label: Articles
     loading: Loading articles...
     new: (new)
@@ -131,11 +132,13 @@ en:
       list: List-class — a list rather than a conventional article
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
     show_cumulative_changes: Show Cumulative Changes
+    show_current_version: Show Current Version
     title: Title
     title_example: Article title
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the project
+    view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
     wp10: Structural Completeness

@@ -2,6 +2,8 @@ import React from 'react';
 import Expandable from '../high_order/expandable.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
+import ArticleViewer from '../common/article_viewer.jsx';
+
 import Wp10Graph from './wp10_graph.jsx';
 
 const getArticleDetails = () => ArticleDetailsStore.getArticleDetails();
@@ -52,6 +54,8 @@ const ArticleDrawer = React.createClass({
       diffViewer = <button className="button dark">{I18n.t('articles.show_cumulative_changes')}</button>;
     }
 
+    const articleViewer = <ArticleViewer article={this.props.article} largeButton={true} />;
+
     let editedBy;
     if (this.state.articleDetails.editors) {
       editedBy = <p>{I18n.t('articles.edited_by')} {this.state.articleDetails.editors.join(', ')}</p>;
@@ -64,10 +68,13 @@ const ArticleDrawer = React.createClass({
           <table className="table">
             <tbody>
               <tr>
-                <td colSpan="4">
+                <td colSpan="3">
                   {diffViewer}
                 </td>
-                <td colSpan="3">
+                <td colSpan="2">
+                  {articleViewer}
+                </td>
+                <td colSpan="2">
                   <Wp10Graph article={this.props.article} />
                 </td>
               </tr>
