@@ -7,7 +7,7 @@ describe 'campaigns page', type: :feature, js: true do
   context 'hiding campaign creation' do
     it 'should not show the create button if the feature flag is off' do
       allow(Features).to receive(:open_course_creation?).and_return(false)
-      login_as(user, scope: user)
+      login_as(user, scope: :user)
       visit '/campaigns'
       expect(page).to have_no_css('.create-campaign-button')
     end
@@ -33,7 +33,7 @@ describe 'campaigns page', type: :feature, js: true do
   context 'campaign create modal' do
     before do
       allow(Features).to receive(:open_course_creation?).and_return(true)
-      login_as(user, scope: user)
+      login_as(user, scope: :user)
       visit '/campaigns'
     end
 
@@ -59,6 +59,22 @@ describe 'campaigns page', type: :feature, js: true do
       find('.wizard__form .button__submit').click
       find('.wizard__panel', visible: true)
       expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
+    end
+
+    it 'should create a campaign with the given values' do
+      title = 'My Campaign Test'
+      description = 'My description'
+      find('.create-campaign-button').click
+      fill_in('campaign_title', with: title)
+      fill_in('campaign_description', with: description)
+      find('#use_dates').click
+      fill_in('campaign_start', with: '2016-01-10')
+      fill_in('campaign_end', with: '2016-02-10')
+      find('.wizard__form .button__submit').click
+      expect(Campaign.last.title).to eq(title)
+      expect(Campaign.last.description).to eq(description)
+      expect(Campaign.last.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
+      expect(Campaign.last.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
     end
   end
 end

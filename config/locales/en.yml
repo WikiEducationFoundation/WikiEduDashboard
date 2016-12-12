@@ -175,6 +175,7 @@ en:
 
   campaign:
     add_organizer: Add organizer
+    already_exists: That campaign already exists! Please try again with a different title or slug.
     campaign: Campaign
     campaigns: Campaigns
     campaign_deleted: Campaign "%{title}" has been deleted

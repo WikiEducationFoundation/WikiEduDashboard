@@ -185,6 +185,7 @@ qqq:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
     add_organizer: Button to add an organizer
+    already_exists: Error shown when a new campaign has the same name or slug of another campaign.
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}

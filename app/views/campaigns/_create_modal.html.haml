@@ -33,8 +33,11 @@
               = text_area(:campaign, :description)
 
         .wizard__panel__controls.wizard__form
-          .left
           .right
+            / show only one error at a time
+            - if @campaign.errors.any?
+              %span.red{style: 'margin-right:10px'}
+                = @campaign.errors.messages.first[1].first
             %button.button.button__cancel
               = t('editable.cancel')
             %button.button.dark.button__submit

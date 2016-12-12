@@ -31,8 +31,8 @@ class Campaign < ActiveRecord::Base
   before_validation :set_slug
 
   validates :title, presence: true
-  validates_uniqueness_of :title
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :title, message: I18n.t('campaign.already_exists')
+  validates_uniqueness_of :slug, message: I18n.t('campaign.already_exists')
 
   validate :validate_dates
 
@@ -106,7 +106,7 @@ class Campaign < ActiveRecord::Base
       begin
         # intercept Rails typecasting and add error if given string cannot be parsed into a date
         if value = self.send("#{date_type}_before_type_cast").presence
-          self[date_type] = value.is_a?(Date) ? value : DateTime.parse(value)
+          self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : DateTime.parse(value)
         else
           blank_dates << date_type
         end
