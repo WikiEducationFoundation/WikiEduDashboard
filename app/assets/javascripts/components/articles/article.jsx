@@ -8,8 +8,8 @@ const Article = React.createClass({
   displayName: 'Article',
 
   propTypes: {
-    article: React.PropTypes.object,
-    course: React.PropTypes.object
+    article: React.PropTypes.object.isRequired,
+    course: React.PropTypes.object.isRequired
   },
 
   mixins: [UIStore.mixin],

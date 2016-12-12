@@ -110,10 +110,7 @@ const ArticleViewer = React.createClass({
             {button}
             <a className="pull-right button small" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
           </p>
-          <table>
-            <thead><tr><th colSpan="4" className="article-header"></th></tr></thead>
-            <tbody dangerouslySetInnerHTML={{ __html: article }} />
-          </table>
+          <div dangerouslySetInnerHTML={{ __html: article }} />
         </div>
       </div>
     );
