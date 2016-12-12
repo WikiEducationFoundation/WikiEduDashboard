@@ -17,6 +17,7 @@ describe 'campaign overview page', type: :feature, js: true do
       login_as(user, scope: user)
       visit "/campaigns/#{campaign.slug}"
       expect(page).to have_no_css('.campaign-description .rails_editable-edit')
+      expect(page).to have_no_css('.campaign-create')
     end
   end
 

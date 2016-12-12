@@ -181,6 +181,25 @@ const API = {
     );
   },
 
+  fetchCampaign(campaignId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'GET',
+        url: '/campaigns.json',
+        data: {
+          id: campaignId
+        },
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchCampaigns() {
     return new Promise((res, rej) =>
       $.ajax({
