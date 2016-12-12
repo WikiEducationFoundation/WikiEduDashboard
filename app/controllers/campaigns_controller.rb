@@ -18,10 +18,13 @@ class CampaignsController < ApplicationController
   end
 
   def create
-    if @campaign = Campaign.create(campaign_params)
+    @campaign = Campaign.create(campaign_params)
+
+    if @campaign.valid?
       add_organizer_to_campaign(current_user)
       redirect_to overview_campaign_path(@campaign.slug)
     else
+      @campaigns = Campaign.all
       render :index
     end
   end
