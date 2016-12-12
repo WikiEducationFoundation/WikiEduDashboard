@@ -5,7 +5,7 @@ import ReactTestUtils from 'react-addons-test-utils';
 
 import ArticleList from '../../../app/assets/javascripts/components/articles/article_list.jsx';
 
-describe('Article', () => {
+describe('ArticleList', () => {
   it('renders articles', () => {
     const articles = [{
       id: 1,
@@ -45,7 +45,7 @@ describe('Article', () => {
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticleList articles={articles} course={{}} />
+        <ArticleList articles={articles} course={{ home_wiki: {} }} />
       </div>
     );
 
