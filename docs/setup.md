@@ -48,18 +48,18 @@
 
 - Create mysql development and test database:
     - Install mysql-server
-        - Debian: `apt install mysql-server`
+        - Debian: `sudo apt-get install mysql-server`
         - OSX: `brew install mysql`
     - Start a mysql command line: `sudo mysql`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
 
 - Install Redis:
-  - Debian: `apt install redis-server`
+  - Debian: `sudo apt-get install redis-server`
   - OSX: `brew install redis`
 
 - Install Gulp (if not already installed)
-  - `sudo npm install —global gulp-cli`
+  - `sudo npm install --global gulp-cli`
 
 ## Initialize
 1. **Migrate the database**
