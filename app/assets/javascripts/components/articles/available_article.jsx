@@ -21,7 +21,10 @@ const AvailableArticle = React.createClass({
       role: 0
     };
 
-    return ServerActions.updateAssignment(assignment);
+    const title = this.props.assignment.article_title;
+
+    if (confirm(I18n.t('assignments.confirm_add_available', { title })))
+      ServerActions.updateAssignment(assignment);
   },
 
   onRemoveHandler(e) {
