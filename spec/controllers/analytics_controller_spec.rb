@@ -4,8 +4,8 @@ require 'rails_helper'
 describe AnalyticsController do
   before do
     allow(controller).to receive(:current_user).and_return(nil)
-    create(:campaign, id: 1, slug: 'first_campaign')
-    create(:campaign, id: 2, slug: 'second_campaign')
+    create(:campaign, id: 1, title: 'First Campaign')
+    create(:campaign, id: 2, title: 'Second Campaign')
     create(:course, id: 1, start: 1.year.ago, end: Time.zone.today)
     create(:campaigns_course, course_id: 1, campaign_id: 1)
   end

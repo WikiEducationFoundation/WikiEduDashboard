@@ -14,20 +14,19 @@ class CampaignsController < ApplicationController
 
   def index
     @campaigns = Campaign.all
+    @campaign = Campaign.new
   end
 
   def create
-    @title = create_campaign_params[:title]
-    # Strip everything but letters and digits, and convert spaces to underscores
-    @slug = @title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_')
-    if already_exists?
-      head :ok
-      return
-    end
+    @campaign = Campaign.create(campaign_params)
 
-    @campaign = Campaign.create(title: @title, slug: @slug)
-    add_organizer_to_campaign(current_user)
-    redirect_to overview_campaign_path(@slug)
+    if @campaign.valid?
+      add_organizer_to_campaign(current_user)
+      redirect_to overview_campaign_path(@campaign.slug)
+    else
+      @campaigns = Campaign.all
+      render :index
+    end
   end
 
   def overview
@@ -155,15 +154,6 @@ class CampaignsController < ApplicationController
                   filename: filename
       end
     end
-  end
-
-  def already_exists?
-    Campaign.exists?(slug: @slug) || Campaign.exists?(title: @title)
-  end
-
-  def create_campaign_params
-    params.require(:campaign)
-          .permit(:title)
   end
 
   def csv_params

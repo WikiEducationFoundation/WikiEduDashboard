@@ -47,6 +47,13 @@ describe Campaign do
     it { should have_many(:rapidfire_question_groups).through(:question_group_conditionals) }
   end
 
+  describe 'slug' do
+    it 'should create a slug for the campaign based on the title' do
+      campaign = Campaign.create(title: 'My awesome 2016 campaign')
+      expect(campaign.slug).to eq('my_awesome_2016_campaign')
+    end
+  end
+
   describe 'date validation' do
     let(:campaign) { create(:campaign) }
 

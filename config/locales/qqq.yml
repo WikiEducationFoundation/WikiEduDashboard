@@ -185,15 +185,22 @@ qqq:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
     add_organizer: Button to add an organizer
+    already_exists: Error shown when a new campaign has the same name or slug of another campaign.
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}
+    campaigns: |-
+      Plural of 'campaign'
+      {{Identical|Campaigns}}
     campaign_deleted: Message indicating a campaign was successfully deleted.
       'title' is the title of the campaign.
     campaign_not_updated: Message indicating a campaign could not be updated.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
     confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
+    create_campaign: Header for the page to create a new campaign
+    create_my_campaign: Label for the button to create a new campaign
+    description: Label for the description field when creating a new campaign
     delete_campaign: Button to delete a campaign
     none: |-
       Option for a course with no campaign
