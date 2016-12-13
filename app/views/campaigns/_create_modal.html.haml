@@ -30,7 +30,7 @@
           .column
             .form-group
               = label(:campaign, :description, t('campaign.description') + ':')
-              = text_area(:campaign, :description)
+              = text_area(:campaign, :description, maxlength: 65535)
 
         .wizard__panel__controls.wizard__form
           .right

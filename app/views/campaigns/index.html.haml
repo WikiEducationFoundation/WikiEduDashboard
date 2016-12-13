@@ -8,7 +8,7 @@
 %section
   .container
     %hr
-    - if current_user && Features.open_course_creation?
+    - if current_user && (current_user.admin? || Features.open_course_creation?)
       %div
         %button.button.dark.create-campaign-button
           = t('campaign.create_campaign')

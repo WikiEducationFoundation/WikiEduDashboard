@@ -28,7 +28,7 @@
         .module__data.rails_editable-field
           %p.rails_editable-content
             = @campaign.description
-          = text_area(:campaign, :description, class: 'rails_editable-input', required: true)
+          = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
     .sidebar
       / - if Features.open_course_creation?
       /   .campaign-create
