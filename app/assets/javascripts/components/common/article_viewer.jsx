@@ -52,8 +52,8 @@ const ArticleViewer = React.createClass({
 
   parsedArticleUrl() {
     const wikiUrl = this.wikiUrl();
-    const queryBase = `${wikiUrl}/w/api.php?action=parse&disableeditsection=true&format=json`;
-    const articleUrl = `${queryBase}&page=${this.props.article.title}`;
+    const queryBase = `${wikiUrl}/api/rest_v1/page/html/`;
+    const articleUrl = `${queryBase}${this.props.article.title}`;
 
     return articleUrl;
   },
@@ -61,11 +61,10 @@ const ArticleViewer = React.createClass({
   fetchParsedArticle() {
     $.ajax(
       {
-        dataType: 'jsonp',
         url: this.parsedArticleUrl(), // parseUrl,
-        success: (data) => {
+        success: (html) => {
           this.setState({
-            parsedArticle: data.parse.text['*'],
+            parsedArticle: html,
             fetched: true
           });
         }
@@ -110,7 +109,7 @@ const ArticleViewer = React.createClass({
             {button}
             <a className="pull-right button small" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
           </p>
-          <div dangerouslySetInnerHTML={{ __html: article }} />
+          <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
         </div>
       </div>
     );
