@@ -61,7 +61,8 @@ const ArticleViewer = React.createClass({
   fetchParsedArticle() {
     $.ajax(
       {
-        url: this.parsedArticleUrl(), // parseUrl,
+        url: this.parsedArticleUrl(),
+        crossDomain: true,
         success: (html) => {
           this.setState({
             parsedArticle: html,
@@ -93,10 +94,12 @@ const ArticleViewer = React.createClass({
     const className = `article-viewer ${style}`;
 
     let article;
-    if (this.state.diff === '') {
+    // Even if we have the diff, we need to not render it — even hidden — or else
+    // it will prevent other ajax request from working, since we include the whole
+    // contents of a Wikipedia html page, including domain info that ajax uses.
+    if (this.state.diff === '' || !this.state.showArticle) {
       article = '<div />';
     } else {
-      // diff = this.state.diff;
       article = this.state.parsedArticle;
     }
 
