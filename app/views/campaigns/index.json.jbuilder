@@ -4,5 +4,6 @@ if @campaign
     json.id @campaign.id
     json.title @campaign.title
     json.slug @campaign.slug
+    json.description @campaign.description
   end
 end

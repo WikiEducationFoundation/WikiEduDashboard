@@ -30,7 +30,7 @@
             = @campaign.description
           = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
     .sidebar
-      - if Features.open_course_creation?
+      - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
           = hidden_field_tag(:campaign_id, @campaign.id)
           %button.button.dark

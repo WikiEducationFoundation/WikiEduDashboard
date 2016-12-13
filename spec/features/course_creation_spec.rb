@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+cached_default_course_type = ENV['default_course_type']
+
 def set_up_suite
   page.current_window.resize_to(1920, 1080)
   stub_oauth_edit
@@ -343,6 +345,33 @@ describe 'New course creation and editing', type: :feature do
       within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
         expect(page).to have_content module_name
       end
+    end
+  end
+
+  describe 'course created from a campaign', js: true do
+    before do
+      ENV['default_course_type'] = 'BasicCourse'
+      create(:campaign,
+             id: 10001,
+             title: 'My awesome Spring 2016 campaign',
+             description: 'This is the best campaign')
+    end
+
+    after do
+      ENV['default_course_type'] = cached_default_course_type
+    end
+
+    it 'should create a course belonging to the given campaign' do
+      visit course_creator_path(:campaign_id => 10001)
+      fill_in 'Program title:', with: '한국어'
+      fill_in 'Institution:', with: 'العَرَبِية'
+      find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
+      find('.course_end-datetime-control input').set(Date.new(2017, 2, 1))
+      page.find('body').click
+      click_button 'Create my Program!'
+      sleep 1
+      expect(CampaignsCourses.last.campaign_id).to eq(10001)
+      expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
     end
   end
 

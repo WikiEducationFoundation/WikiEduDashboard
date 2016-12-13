@@ -25,7 +25,7 @@ class CoursesController < ApplicationController
   ################
 
   def create
-    course_creation_manager = CourseCreationManager.new(course_params, wiki_params, current_user)
+    course_creation_manager = CourseCreationManager.new(course_params, wiki_params, initial_campaign_params, current_user)
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: 404
@@ -172,6 +172,12 @@ class CoursesController < ApplicationController
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
     @course.update_attribute(:passcode, Course.generate_passcode)
+  end
+
+  def initial_campaign_params
+    params
+      .require(:course)
+      .permit(:initial_campaign_id)
   end
 
   def wiki_params

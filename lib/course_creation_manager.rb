@@ -5,9 +5,10 @@ require "#{Rails.root}/lib/tag_manager"
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
-  def initialize(course_params, wiki_params, current_user)
+  def initialize(course_params, wiki_params, initial_campaign_params, current_user)
     @course_params = course_params
     @wiki_params = wiki_params
+    @initial_campaign_params = initial_campaign_params
     @instructor = current_user
     @overrides = {}
     set_wiki
@@ -70,7 +71,11 @@ class CourseCreationManager
   end
 
   def set_initial_campaign
-    @overrides[:campaigns] = [Campaign.default_campaign] if Features.open_course_creation?
+    if @initial_campaign_params.present?
+      @overrides[:campaigns] = [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
+    elsif Features.open_course_creation?
+      @overrides[:campaigns] = [Campaign.default_campaign]
+    end
   end
 
   def add_instructor_to_course

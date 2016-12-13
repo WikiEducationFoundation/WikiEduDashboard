@@ -106,6 +106,10 @@ const CourseStore = Flux.createStore({
     case 'ADD_COURSE':
       addCourse();
       break;
+    case 'RECEIVE_INITIAL_CAMPAIGN':
+      setCourse(
+        { initial_campaign_id: data.campaign.id });
+      break;
     default:
       // no default
   }
