@@ -99,33 +99,29 @@ const ArticleViewer = React.createClass({
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
 
-    let style = 'hidden';
-    if (this.state.showArticle && this.state.fetched) {
-      style = '';
-    }
-    const className = `article-viewer ${style}`;
-
-    let article;
-    // Even if we have the diff, we need to not render it — even hidden — or else
+    let articleModal;
+    // Even if we have the content, we need to not render it — even hidden — or else
     // it will prevent other ajax request from working, since we include the whole
     // contents of a Wikipedia html page, including domain info that ajax uses.
-    if (this.state.diff === '' || !this.state.showArticle) {
-      article = '<div />';
+    if (!this.state.parsedArticle || !this.state.showArticle) {
+      articleModal = <div />;
     } else {
-      article = this.state.parsedArticle;
+      articleModal = (
+        <div className="article-viewer">
+          <p>
+            <a className="button dark small" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
+            {button}
+            <a className="pull-right button small" href={`${window.location.origin}/feedback?subject=Article Viewer`} target="_blank">How did the article viewer work for you?</a>
+          </p>
+          <div className="parsed-article" dangerouslySetInnerHTML={{ __html: this.state.parsedArticle }} />
+        </div>
+      );
     }
 
     return (
       <div>
         {button}
-        <div className={className}>
-          <p>
-            <a className="button dark small" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
-            {button}
-            <a className="pull-right button small" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
-          </p>
-          <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
-        </div>
+        {articleModal}
       </div>
     );
   }
