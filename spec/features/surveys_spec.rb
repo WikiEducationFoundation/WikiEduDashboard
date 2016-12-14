@@ -256,6 +256,8 @@ describe 'Surveys', type: :feature, js: true do
       expect(Rapidfire::AnswerGroup.last.course_id).to eq(@course.id)
       expect(SurveyNotification.last.completed).to eq(true)
 
+      expect(Survey.last.to_csv).to match('username,') # beginning of header
+      expect(Survey.last.to_csv).to match(@instructor.username + ',') # beginning of response row
       puts 'PASSED'
       raise 'this test passed — this time'
     end
