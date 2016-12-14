@@ -58,6 +58,18 @@ const ArticleViewer = React.createClass({
     return articleUrl;
   },
 
+  processHtml(html) {
+    // The mediawiki RESTbase API can return html that uses the 'base' attribute
+    // to correctly style the HTML of an article. However, the page-local anchor
+    // links for footnotes and references are broken, because they use the 'base'
+    // attribute and end up pointing to the wiki (on the wrong page).
+    // To correct this, we replace all those page-local anchor links with absolute
+    // links to the current location.
+    const absoluteAnchorLink = `<a href="${window.location.href.split('#')[0]}#`;
+    const samePageAnchorMatcher = /<a href="#/g;
+    return html.replace(samePageAnchorMatcher, absoluteAnchorLink);
+  },
+
   fetchParsedArticle() {
     $.ajax(
       {
@@ -65,7 +77,7 @@ const ArticleViewer = React.createClass({
         crossDomain: true,
         success: (html) => {
           this.setState({
-            parsedArticle: html,
+            parsedArticle: this.processHtml(html),
             fetched: true
           });
         }
