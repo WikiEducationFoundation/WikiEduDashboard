@@ -1,19 +1,22 @@
+// This template is shared across the main app and the rapidfire survey engine.
+// To make sure the path and url helpers work in both contexts, we must send them
+// explicitly to main_app.
 %nav.top-nav{class: local_assigns.fetch(:fluid, false) ? 'fluid' : nil}
   .container
     .top-nav__site-logo
-      %a.logo__link{href: root_url}= logo_tag
+      %a.logo__link{href: main_app.root_url}= logo_tag
     %ul.top-nav__main-links
-      %li= link_to t('application.explore'), explore_url, class: class_for_path(request, explore_path)
+      %li= link_to t('application.explore'), main_app.explore_url, class: class_for_path(request, main_app.explore_path)
       - if user_signed_in?
         %li= link_to t('application.my_dashboard'), main_app.root_url, class: class_for_path(request, main_app.root_path)
       - if current_user&.admin?
         %li= link_to 'Admin', '/admin', class: class_for_path(request, '/admin')
       - unless Features.disable_training?
-        %li= link_to t('application.training'), training_url, class: class_for_path(request, training_path)
+        %li= link_to t('application.training'), main_app.training_url, class: class_for_path(request, main_app.training_path)
       - if Features.wiki_ed? && current_user&.permissions == User::Permissions::NONE
         %li= link_to 'My Sandbox', "https://en.wikipedia.org/wiki/Special:MyPage/sandbox"
       - unless Features.disable_help? || user_signed_in?
-        %li= link_to t('application.help'), ask_url, target: '_blank'
+        %li= link_to t('application.help'), main_app.ask_url, target: '_blank'
     - if user_signed_in?
       - unless Features.disable_help?
         .top-nav__faq-search
@@ -28,12 +31,12 @@
           %button.uls-trigger= I18n.locale
       - if user_signed_in?
         %li
-          %b>= link_to current_user.username, root_url, class: 'current-user'
-        %li= link_to t('application.log_out'), destroy_user_session_url
+          %b>= link_to current_user.username, main_app.root_url, class: 'current-user'
+        %li= link_to t('application.log_out'), main_app.destroy_user_session_url
 
       - else
         %li
-          = link_to user_mediawiki_omniauth_authorize_url do
+          = link_to main_app.user_mediawiki_omniauth_authorize_url do
             %i.icon.icon-wiki-logo
             = t('application.log_in')
             -# FIXME: without the lego message

@@ -56,21 +56,4 @@ module ApplicationHelper
     return 'survey-page' if survey_paths.include?(base_path)
     return 'fixed-nav'
   end
-
-  ############################
-  # Rapidfire Survey patches #
-  ############################
-
-  # When called from a /rapidfire/ view, shared templates will use
-  # the rapidfire engine's routes to respond to _path and _url helpers, rather
-  # than the main app's routes.
-  # We define them here explicitly and send them to the main app.
-  SHARED_ROUTES = [:explore_path, :destroy_user_session_path, :training_path,
-                   :surveys_path, :results_path, :survey_assignments_path,
-                   :user_mediawiki_omniauth_authorize_path].freeze
-  SHARED_ROUTES.each do |method|
-    define_method method do
-      main_app.send(method)
-    end
-  end
 end
