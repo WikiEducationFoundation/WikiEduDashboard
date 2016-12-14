@@ -52,7 +52,7 @@ const CourseCreator = React.createClass({
   componentWillMount() {
     CourseActions.addCourse();
 
-    const campaignParam = location.search.match(/\?.*?campaign_id=(\d+)/);
+    const campaignParam = window.location.search.match(/\?.*?campaign_id=(\d+)/);
     if (campaignParam && campaignParam[1]) {
       ServerActions.fetchCampaign(campaignParam[1]);
     }
