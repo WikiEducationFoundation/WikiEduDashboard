@@ -1,4 +1,0 @@
-<%= render partial: "rapidfire/answers/errors", locals: {answer: answer} %>
-<%= render partial: "rapidfire/answers/question_text", locals: {f: f, answer: answer} %>
-
-<%= f.text_field :answer_text, required: is_required_question?(answer), tabindex:'-1' %>
