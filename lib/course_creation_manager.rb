@@ -71,9 +71,11 @@ class CourseCreationManager
   end
 
   def set_initial_campaign
+    return unless Features.open_course_creation?
+
     if @initial_campaign_params.present?
       @overrides[:campaigns] = [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
-    elsif Features.open_course_creation?
+    else
       @overrides[:campaigns] = [Campaign.default_campaign]
     end
   end

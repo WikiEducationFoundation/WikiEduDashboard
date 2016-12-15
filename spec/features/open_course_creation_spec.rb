@@ -13,6 +13,13 @@ end
 
 describe 'open course creation', type: :feature, js: true do
   let(:user) { create(:user) }
+  let(:campaign) do
+    create(:campaign,
+           id: 10001,
+           title: 'My Awesome Campaign',
+           description: 'This is the best campaign')
+  end
+
   before do
     @system_time_zone = Time.zone
     Time.zone = 'Eastern Time (US & Canada)'
@@ -60,5 +67,14 @@ describe 'open course creation', type: :feature, js: true do
     visit root_path
     click_link 'Find a Program'
     page.find('section#courses')
+  end
+
+  it 'should create a course belonging to a given campaign' do
+    visit course_creator_path(campaign_slug: campaign.slug)
+    fill_out_open_course_creator_form
+    click_button 'Create my Program!'
+    sleep 1
+    expect(CampaignsCourses.last.campaign_id).to eq(campaign.id)
+    expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
   end
 end
