@@ -17,6 +17,14 @@ class CampaignsController < ApplicationController
     @campaign = Campaign.new
   end
 
+  def show
+    respond_to do |format|
+      format.json do
+        @campaign = Campaign.find_by_slug(params[:slug]) if params[:slug]
+      end
+    end
+  end
+
   def create
     @campaign = Campaign.create(campaign_params)
 

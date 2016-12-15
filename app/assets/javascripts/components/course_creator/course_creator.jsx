@@ -7,6 +7,7 @@ import UserCoursesStore from '../../stores/user_courses_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
+import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
 import Modal from '../common/modal.jsx';
@@ -51,6 +52,14 @@ const CourseCreator = React.createClass({
 
   componentWillMount() {
     CourseActions.addCourse();
+
+    // If a campaign slug is provided, fetch the campaign.
+    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
+    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
+    if (campaignParam && campaignParam[1]) {
+      CourseCreationActions.fetchCampaign(campaignParam[1]);
+    }
+
     return ServerActions.fetchCoursesForUser(getUserId());
   },
 

@@ -111,6 +111,9 @@ Rails.application.routes.draw do
       put 'remove_organizer'
     end
   end
+  get 'campaigns/:slug.json',
+      controller: :campaigns,
+      action: :show
   get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
 
   # Recent Activity
