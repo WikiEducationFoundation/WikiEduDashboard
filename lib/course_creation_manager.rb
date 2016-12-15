@@ -67,7 +67,7 @@ class CourseCreationManager
   end
 
   def set_course_type
-    @overrides[:type] = ENV['default_course_type'] if ENV['default_course_type']
+    @overrides[:type] = Features.default_course_type
   end
 
   def set_initial_campaign

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-cached_default_course_type = ENV['default_course_type']
-
 def fill_out_open_course_creator_form
   fill_in 'Program title:', with: '한국어'
   fill_in 'Institution:', with: 'العَرَبِية'
@@ -23,17 +21,17 @@ describe 'open course creation', type: :feature, js: true do
   before do
     @system_time_zone = Time.zone
     Time.zone = 'Eastern Time (US & Canada)'
-    ENV['default_course_type'] = 'BasicCourse'
     page.current_window.resize_to(1920, 1080)
 
     allow(Features).to receive(:open_course_creation?).and_return(true)
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
+    allow(Features).to receive(:default_course_type).and_return('BasicCourse')
+
     login_as(user)
   end
 
   after do
     Time.zone = @system_time_zone
-    ENV['default_course_type'] = cached_default_course_type
   end
 
   it 'lets a user create a course immediately', js: true do
