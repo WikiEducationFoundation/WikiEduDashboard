@@ -74,6 +74,7 @@ de:
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
+    hide: Ausblenden
     label: Artikel
     loading: Lade Artikel …
     new: (neu)
@@ -98,11 +99,13 @@ de:
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
     show_cumulative_changes: Kumulative Änderungen anzeigen
+    show_current_version: Aktuelle Version anzeigen
     title: Titel
     title_example: Artikelname
     view: Artikel anzeigen
     view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
+    view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
     wp10: Strukturelle Vollständigkeit
     wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
@@ -137,10 +140,30 @@ de:
     milestones:
       title: Meilensteine
   campaign:
+    add_organizer: Organisator hinzufügen
+    already_exists: Diese Kampagne ist bereits vorhanden! Bitte versuche es mit einem
+      anderen Titel erneut.
     campaign: Kampagne
+    campaigns: Kampagnen
+    campaign_deleted: Die Kampagne „%{title}“ wurde gelöscht
+    campaign_not_updated: Die Kampagne konnte nicht aktualisiert werden
     campaign_updated: Kampagne aktualisiert
+    confirm_campaign_deletion: Bist du sicher, dass du die Kampagne mit dem Namen
+      „%{title}“ löschen möchtest? Falls ja, gib zum Fortfahren den Kampagnentitel
+      ein.
+    confirm_campaign_deletion_failed: „%{title}“ ist nicht der Titel dieser Kampagne.
+      Sie wurde nicht gelöscht.
+    create_campaign: Eine neue Kampagne erstellen
+    create_my_campaign: Meine Kampagne erstellen!
+    description: Beschreibung
+    delete_campaign: Diese Kampagne löschen
     none: Keine
+    organizers: Organisatoren
+    organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
+    organizer_removed: '%{user} wurde als Organisator der Kampagne „%{title}“ entfernt'
     programs: Programme von %{title}
+    title: Titel
+    use_start_end_dates: Start- und Enddaten verwenden
   courses:
     activity: Aktivität
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
@@ -289,7 +312,7 @@ de:
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
     user_role: Rolle
-    course_details: Kursdetails für
+    course_details: Kursdetails
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_link: Zeitleiste
@@ -629,9 +652,11 @@ de:
   error:
     form_errors: Bitte kontrolliere das Formular auf Fehler.
     invalid_assignment: Ungültige Zuweisung
+    invalid_date: Das Datum %{key} ist ungültig
     invalid_file_format: Die Datei konnte nicht gespeichert werden. Bitte lade ein
       PDF- oder Word-Dokument hoch.
     oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
+    start_date_before_end_date: Das Startdatum muss vor dem Enddatum liegen
     unsupported_browser:
       header: Nicht unterstützter Browser. :-(
       explanation: Du benutzt einen Browser, der nicht mit dem Dashboard kompatibel

@@ -68,6 +68,7 @@ it:
     edited: Articoli modificati
     edited_by: 'Modificato da:'
     edited_mobile: Voci
+    hide: Nascondi
     label: Voci
     loading: Caricamento articoli...
     new: (nuovo)
@@ -122,7 +123,10 @@ it:
     select: Seleziona
   campaign:
     campaign: Campagna
+    campaigns: Campagne
     campaign_updated: Campagna aggiornata
+    create_campaign: Crea una nuova campagna
+    description: Descrizione
     none: Nessuno
     programs: Programmi %{title}
   courses:
@@ -251,7 +255,7 @@ it:
     submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
       e si metterà in contatto per tutte le domande.
     user_role: Ruolo
-    course_details: Dettagli del corso per
+    course_details: Dettagli del corso
     term: Termine
     timeline: Dettagli dell'incarico
     timeline_link: Timeline

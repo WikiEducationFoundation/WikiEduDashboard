@@ -25,6 +25,9 @@ mk:
     sign_up: Регистрација
     submit: Поднеси
     training: Обука
+    change: Смени
+    details: Подробно
+    confirm: ОК
   dashboard:
     explore_course_pages: Истражете ги курсните страници
     explore_examples: Истражете примери
@@ -73,21 +76,39 @@ mk:
     confirm_addition: Дали сте сигурни дека сакате да му ја зададете статијата %{title}
       на уредникот %{username}?
     confirm_deletion: Дали сте сигурни дека сакате да ја избришете задачава?
+    label: Додели
     loading: Ги вчитувам задачите...
+    none_short: Нема доделени задачи
     none: Овој курс нема зададени статии.
+    no_available: Курсов нема достапни статии.
+    remove: Отстрани
     reviewers: Оценувач(и)
+    review_other: Додели преглед
+    review_self: Прегледај статија
+    select: Избери
   blocks:
     milestones:
       title: Пресвртници
+  campaign:
+    add_organizer: Додај приредувач
+    campaign: Поход
+    campaign_deleted: Походот „%{title}“ е избришан
+    campaign_updated: Походот е подновен
+    organizers: Приредувачи
+    title: Наслов
   courses:
     activity: Активност
     articles: Статии
     articles_none: Овој курс засега нема уредени статии.
     assignment_end: Крај на задачата
-    assignments_none: Овој курс нема зададени статии за Википедија.
+    assignments_none: Овој курс нема зададени статии.
     assignment_start: Почеток на задачата
+    calendar:
+      legend: Легенда
+    cancel: Откажи
     character_doc: Збир од сите знаци додадени во статии од главниот именски простор
       од учениците на курсот во текот на неговото траење
+    campaigns: 'Походи:'
     course_dates_calendar_instructions: Изберете ги датумите зада ги додадете или
       остраните од распоредот (на пр. празници, слободни денови). Стиснете на датумот
       за да префрлите меѓу неизбрани, избрани и одмори. Датумите на курсот ќе се сменат

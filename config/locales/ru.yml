@@ -81,6 +81,7 @@ ru:
     edited: Статей отредактировано
     edited_by: 'Под редакцией:'
     edited_mobile: Статьи
+    hide: Скрыть
     label: Статьи
     loading: Загрузка статей...
     new: (новая)
@@ -102,11 +103,13 @@ ru:
       stub: Заглушка — очень короткая статья, которую нужно дополнить.
       list: Лист-класс — больше похоже на список, чем на полноценную статью.
       '?': Без рейтинга — этой статье ещё не был присвоен рейтинг по шкале Википедии.
+    show_current_version: Показать текущую версию
     title: Заголовок
     title_example: Название статьи
     view: Просмотр статьи
     view_all: Просмотреть все
     view_doc: Сумма всех Просмотров каждой статьи в рамках проекта
+    view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
   assignments:
     assignees: Назначенный(е)
@@ -121,8 +124,16 @@ ru:
       title: Этапы
   campaign:
     campaign: Кампания
+    campaign_deleted: Кампания "%{title}" была удалена
     campaign_updated: Кампании обновлены
+    confirm_campaign_deletion_failed: '"%{title}" - это не название этой кампании.
+      Кампания не была удалена.'
+    description: Описание
+    delete_campaign: Удалить эту кампанию
     none: Нет
+    organizers: Организаторы
+    organizer_added: '%{user} теперь является организатором "%{title}" кампании'
+    organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     programs: '%{title} программы'
   courses:
     activity: Деятельность

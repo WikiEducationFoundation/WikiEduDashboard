@@ -48,6 +48,7 @@ lb:
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
+    hide: Verstoppen
     label: Artikelen
     loading: Artikele lueden...
     new: (nei)
@@ -68,11 +69,13 @@ lb:
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
     show_cumulative_changes: Kumulativ Ännerunge weisen
+    show_current_version: Aktuell Versioun weisen
     title: Titel
     title_example: Titel vum Artikel
     view: Artikel weisen
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
+    view_on_wiki: Op der Wiki weisen
   assignments:
     add_available: En disponibelen Artikel derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
@@ -83,10 +86,18 @@ lb:
     milestones:
       title: Kilometersténg
   campaign:
+    add_organizer: Organisateur derbäisetzen
     campaign: Campagne
+    campaigns: Campagnen
+    campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
+    description: Beschreiwung
+    delete_campaign: Dës Campagne läschen
     none: Keng
+    organizers: Organisateuren
     programs: '%{title} Programmer'
+    title: Titel
+    use_start_end_dates: Ufanks- a Schlussdatumer benotzen
   courses:
     activity: Aktivitéit
     archived: Archivéiert Coursen
@@ -320,8 +331,10 @@ lb:
     summary: Resumé
   error:
     form_errors: Kuckt de Formulaire w.e.g. no Feeler no.
+    invalid_date: '%{key} Datum ass net valabel'
     invalid_file_format: De Fichier konnt net gespäichert ginn. Lued w.e.g. e PDF
       oder e Word-Dokument erop.
+    start_date_before_end_date: Den Ufanksdatum muss virum Schlussdatum leien
     unsupported_browser:
       header: Net ënnerstëtzte Browser. :-(
   error_401:

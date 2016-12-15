@@ -64,6 +64,7 @@ ko:
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
+    hide: 숨기기
     label: 문서
     loading: 문서 불러오는 중...
     new: (새)
@@ -80,10 +81,12 @@ ko:
       stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
       list: 목록 &mdash; 일반 글이 아닌 목록
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
+    show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
     view: 문서 보기
     view_all: 모두 보기
+    view_on_wiki: 위키에서 보기
   assignments:
     assignees: 담당자
     add_available: 이용 가능한 글 추가
@@ -101,6 +104,7 @@ ko:
   campaign:
     none: 없음
     programs: '%{title} 프로그램'
+    title: 제목
   courses:
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!

@@ -72,6 +72,7 @@ zh-TW:
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 文章
+    hide: 隱藏
     label: 文章
     loading: 讀取文章中...
     new: ' (新)'
@@ -90,11 +91,13 @@ zh-TW:
       list: 清單等級 — 並非傳統條目的一個清單
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
     show_cumulative_changes: 顯示累積更改次數
+    show_current_version: 顯示目前版本
     title: 標題
     title_example: 文章標題
     view: 檢視文章
     view_all: 檢視全部
     view_doc: 在專案中每個文章的檢視數
+    view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
     wp10: 結構完整性
     wp10_doc: ' "結構完整性" 評分，是以採用機器學習的版本評估服務 (https://ores.wikimedia.org/) 為依據，來代表著一篇文章內容符合一篇完整維基文章內容程度。評分計算的基準在於文章長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的文章通常代表著它遵循著維基百科上對於良好文章架構的共識。
@@ -122,10 +125,26 @@ zh-TW:
     milestones:
       title: 里程碑
   campaign:
+    add_organizer: 添加組織者
+    already_exists: 此活動已存在！請以不同標題或指向內容再重試看看。
     campaign: 活動
+    campaigns: 活動
+    campaign_deleted: 活動「%{title}」已被刪除
+    campaign_not_updated: 活動不能被更新
     campaign_updated: 活動已更新
+    confirm_campaign_deletion: 您確定您要刪除標題為「%{title}」的活動？如果是，請輸入該活動的標題以進行處理。
+    confirm_campaign_deletion_failed: 「%{title}」不是此活動的標題。活動未被刪除
+    create_campaign: 創建新活動
+    create_my_campaign: 創建我的活動！
+    description: 描述
+    delete_campaign: 刪除此活動
     none: 無
+    organizers: 組織者
+    organizer_added: '%{user}現在是活動「%{title}」的組織者'
+    organizer_removed: '%{user}已被移除活動「%{title}」的組織者身份'
     programs: '%{title}方案'
+    title: 標題
+    use_start_end_dates: 使用起始和結束時間
   courses:
     activity: 活躍度
     already_enrolled: 你已經成為  '%{title}' 課程的一份子！
@@ -253,7 +272,7 @@ zh-TW:
       您的課程已送出。
       Wiki ED 的工作人員將審核此課程，若有任何問題會與您聯繫。
     user_role: 身份
-    course_details: 課程詳細內容用於
+    course_details: 課程詳細內容
     term: 學期
     timeline: 作業細節
     timeline_link: 時間表
@@ -542,8 +561,10 @@ zh-TW:
   error:
     form_errors: 請檢查表單裡的錯誤。
     invalid_assignment: 無效分派
+    invalid_date: '%{key}日期無效'
     invalid_file_format: 檔案無法儲存。請上傳 PDF 或 Word 文件格式檔案。
     oauth_invalid: 您已登出維基百科。請重新登入。
+    start_date_before_end_date: 起始時間必須在結束時間之前
     unsupported_browser:
       header: 未受支援的瀏覽器。  :-(
       explanation: 您使用的瀏覽器與此資訊看板不相容。請使用 Internet Explorer 11 或更新版本、Chrome 和 Firefox

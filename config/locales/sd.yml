@@ -19,9 +19,9 @@ sd:
     greeting: سلام!
     help: مدد
     home: گھر
-    log_in_extended: وڪيپيڊيا ۾ لاگ اِن ٿيو
-    log_in: لاگ ان
-    log_out: لاگ آئوٽ ٿيو
+    log_in_extended: وڪيپيڊيا سان داخل ٿيو
+    log_in: داخل ٿيو
+    log_out: خارج ٿيو
     recent_activity: تازي سرگرمي
     search: ڪو سوال پڇو
     sign_up_extended: وڪيپيڊيا ۾ کاتو کوليو
@@ -37,7 +37,7 @@ sd:
     blog_headline: وڪي ايڊ مان تازيون خبرون
   home:
     explore: کوجيو
-    log_in: وڪيپيڊيا ۾ لاگ اِن ٿيو
+    log_in: وڪيپيڊيا سان داخل ٿيو
     sign_up: وڪيپيڊيا ۾ کاتو کوليو
     sign_up_help: To use the dashboard, you'll need to sign in through Wikipiedia
       and give it permission to access your account. You can log in with an existing
@@ -192,7 +192,7 @@ sd:
     select_assignment: پنهنجي اوقاتي خط ۾ شامل ڪرڻ لاءِ مشقن جو قسم چونڊيو.
     summary: تَتُ
   error:
-    oauth_invalid: توهان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آهي. ٻيهر لاگ اِن ٿيو.
+    oauth_invalid: توھان جو وڪيپيڊيا مختيارنامو ختم ٿي چڪو آھي. ٻيھر داخل ٿيو.
     unsupported_browser:
       header: اڻ ٽيڪيل جھانگُو
       explanation: توهان اهڙو جھانگُو استعمال ڪري رهيا آهيو، جيڪو ڊيشبورڊ سان موافق
@@ -210,5 +210,5 @@ sd:
     explanation: ڪا خرابي ٿي وئي. هن ڊيشبورڊ جو رک رکاءُ ڪندڙن سان رابطو ڪريو ۽ کين
       اهڙي آگاهي ڏيو.
   login_error:
-    header: لاگ ان چڪ
+    header: داخل ٿيڻ چڪ
 ...

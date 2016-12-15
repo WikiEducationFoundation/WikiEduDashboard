@@ -44,9 +44,12 @@ qqq:
       Link to http://ask.wikiedu.org
       (Wiki Ed only)
       {{Identical|Help}}
-    home: Link to the main page
-    log_in_extended: Short text (< 14 characters) to make clear that authentication
-      is via wikipedia
+    home: |-
+      Link to the main page
+      {{Identical|Home}}
+    log_in_extended: |-
+      Short text (< 14 characters) to make clear that authentication is via wikipedia
+      {{Identical|Log in}}
     log_in: |-
       Button for logging in (for registered users)
       {{Identical|Log in}}
@@ -60,12 +63,16 @@ qqq:
       is via wikipedia
     sign_up_log_in_extended: Short (lego) text (< 14 characters) to make clear that
       authentication is via wikipedia
-    sign_up: Sign up (for new users)
+    sign_up: |-
+      Sign up (for new users)
+      {{Identical|Sign up}}
     submit: |-
       Submit link
       {{Identical|Submit}}
     training: '{{Identical|Training}}'
-    change: Link to change the language and/or project when inputting an article title
+    change: |-
+      Link to change the language and/or project when inputting an article title
+      {{Identical|Change}}
     details: |-
       Heading for part of the interface that shows details about something
       {{Identical|Details}}
@@ -114,6 +121,7 @@ qqq:
     edited: Label for a list of articles edited.
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
+    hide: '{{Identical|Hide}}'
     label: |-
       Short name for articles
       {{Identical|Article}}
@@ -122,7 +130,9 @@ qqq:
       Message after an article title indicating that it is a newly-created article
       {{Identical|New}}
     none: Message stating that no articles have been edited.
-    rating: Label for an article's quality rating on the Wikipedia 1.0 scale
+    rating: |-
+      Label for an article's quality rating on the Wikipedia 1.0 scale
+      {{Identical|Class}}
     rating_doc: Explanation of where an article's quality rating comes from and what
       it means
     rating_docs:
@@ -185,22 +195,25 @@ qqq:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
     add_organizer: Button to add an organizer
-    already_exists: Error shown when a new campaign has the same name or slug of another campaign.
+    already_exists: Error shown when a new campaign has the same name or slug of another
+      campaign.
     campaign: |-
       Direct translation for campaign. Should be a singilar version of the courses.campaigns message
       {{Identical|Campaign}}
     campaigns: |-
       Plural of 'campaign'
-      {{Identical|Campaigns}}
-    campaign_deleted: Message indicating a campaign was successfully deleted.
-      'title' is the title of the campaign.
+      {{Identical|Campaign}}
+    campaign_deleted: Message indicating a campaign was successfully deleted. 'title'
+      is the title of the campaign.
     campaign_not_updated: Message indicating a campaign could not be updated.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
     confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
     create_campaign: Header for the page to create a new campaign
     create_my_campaign: Label for the button to create a new campaign
-    description: Label for the description field when creating a new campaign
+    description: |-
+      Label for the description field when creating a new campaign
+      {{Identical|Description}}
     delete_campaign: Button to delete a campaign
     none: |-
       Option for a course with no campaign
@@ -208,8 +221,10 @@ qqq:
     organizers: |-
       Label for the list of organizers for a campaign.
       {{Identical|Organizer}}
-    organizer_added: Message indicating a user was successfully added as an organizer of a campaign
-    organizer_removed: Message indicating a user was successfully removed as an organizer of a campaign
+    organizer_added: Message indicating a user was successfully added as an organizer
+      of a campaign
+    organizer_removed: Message indicating a user was successfully removed as an organizer
+      of a campaign
     programs: |-
       The title of a campaign followed by an identical translation for 'Programs'
       {{Identical|Program}}
@@ -389,6 +404,7 @@ qqq:
       but have not yet been approved. (Wiki Ed only)
     submitted_note: Message that your course has been successfully submitted
     user_role: '{{Identical|Role}}'
+    term: '{{Identical|Term}}'
     timeline_link: '{{Identical|Timeline}}'
     time_zone_message: Message explaining that times are shown to the user in their
       local time zone
@@ -540,6 +556,7 @@ qqq:
     constant: Maintenance script message indicating that a conflicting task is running
     paused: Maintenance script message indicating that update tasks are paused
   timeline:
+    block_assignment: '{{Identical|Assignment}}'
     block_custom: '{{Identical|Custom}}'
     block_milestone: '{{Identical|Milestone}}'
     empty_week_3: '{{Identical|Or}}'
@@ -658,7 +675,8 @@ qqq:
     invalid_date: |-
       Error shown when the given date is invalid
       key is the name of the date field, such as 'start' or 'end'
-    start_date_before_end_date: Error shown when the given start date is after the end date
+    start_date_before_end_date: Error shown when the given start date is after the
+      end date
     unsupported_browser:
       header: Error message indicating that the user's browser is not supported
   error_incorrect_passcode:

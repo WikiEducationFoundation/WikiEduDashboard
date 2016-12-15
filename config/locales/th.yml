@@ -20,6 +20,7 @@ th:
     log_in: ลงชื่อเข้าใช้
     log_out: ออกจากระบบ
     my_dashboard: แผงควบคุมของฉัน
+    recent_activity: กิจกรรมล่าสุด
     search: ถามคำถาม
     sign_up_extended: เข้าร่วมด้วยวิกิพีเดีย
     sign_up_log_in_extended: ด้วยวิกิพีเดีย
@@ -27,6 +28,8 @@ th:
     submit: ตกลง
     training: การอบรม
     change: ความเปลี่ยนแปลง
+    details: รายละเอียด
+    confirm: ตกลง
   dashboard:
     create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
     explore_course_pages: สำรวจหน้าหลักสูตร
@@ -121,4 +124,90 @@ th:
     timeline_link: เส้นเวลา
     time_zone_message: เวลาเริ่มและสิ้นสุดแสดงผลในเขตเวลาท้องถิ่นของคุณ
     title: ชื่อเรื่อง
+  courses_generic:
+    creator:
+      create_button: สร้างโปรแกรมของฉัน!
+      create_label: สร้างโปรแกรมใหม่
+      create_new: สร้างโปรแแกรมใหม่
+      create_short: สร้างโปรแกรม
+      find: ค้นหาโปรแกรม
+    delete_course: ลบโปรแกรม
+    edit_course_dates: แก้ไขวันที่โครงการ
+    enroll: เพิ่มผู้แก้ไข
+    enrollment: การมีส่วนร่วม
+    expected_students: ผู้แก้ไขที่คาดหวังไว้
+    instructors: ผู้ให้บริการ
+    join_course: เข้าร่วมโปรแกรม
+    leave_course: ออกจากโปรแกรม
+    school: สถาบัน
+    student_editors: ผู้แก้ไข
+    students: ผู้แก้ไข
+    term: เมื่อไหร่
+  editable:
+    cancel: ยกเลิก
+    save: บันทึก
+    edit_description: แก้ไขคำอธิบาย
+    edit_details: แก้ไขรายละเอียด
+  metrics:
+    activity: กิจกรรมล่าสุด
+    articles_created: สร้างบทความแล้ว
+    articles_edited: แก้ไขบทความแล้ว
+    date_time: วันที่/เวลา
+    edit_count_description: การแก้ไขทั้งหมด
+    per_user: '%{number}/ผู้ใช้'
+    revisions: การแก้ไขล่าสุด
+    upload_count: อัปโหลดไปยังคอมมอนส์
+    view_count_description: จำนวนการดูบทความ
+    view: ดู
+    word_count: เพิ่มคำแล้ว
+    word_count_average: การนับคำเฉลี่ย
+  namespace:
+    main: เมนสเปซ
+  recent_activity:
+    article_title: ชื่อบทความ
+    datetime: วันที่/เวลา
+  users:
+    first_name: ชื่อจริง
+    last_name: นามสกุล
+    loading: กำลังโหลดผู้ใช้...
+    characters_added_mainspace: เพิ่ม MS Chars แล้ว
+    characters_added_userspace: เพิ่ม US Chars แล้ว
+    name: ชื่อ
+    no_articles: ไม่มีบทความ
+    training_incomplete: การอบรมยังไม่สมบูรณ์
+    training_module_name: หลักสูตรการอบรม
+    training_module_status: สถานะ
+    role:
+      student: นักเรียน
+      instructor: ผู้สอน
+      wiki_ed_staff: สตาฟของ Wiki Ed
+  wiki_edits:
+    notify_overdue:
+      confirm: นี่จะโพสต์แจ้งเตือนในหน้าพูดคุยของนัดเรียนทุกคนที่พ้นกำหนดการอบรมแล้ว
+        คุณแน่ใจว่าคุณต้องการทำสิ่งนี้
+      header: คุณมีงานที่พ้นกำหนดการอบรมแล้ว
+      summary: พ้นกำหนดการอบรมนักเรียน
+  wizard:
+    assignment_dates: วันที่งาน
+    assignment_type: ประเภทงาน
+    course_dates: วันที่หลักสูตร
+    select_one_option: กรุณาเลือก 1 ตัวเลือก
+    read_less: อ่านน้อยลง
+    read_more: อ่านเพิ่มเติม
+  error:
+    unsupported_browser:
+      header: เบราว์เซอร์ไม่รองรับ :-(
+  error_incorrect_passcode:
+    header: รหัสผ่านไม่ถูกต้อง :-(
+  error_404:
+    header: ไม่พบหน้า :-(
+  error_500:
+    header: 500 — เซิร์ฟเวอร์ภายในมีข้อผิดพลาด :-(
+  login_error:
+    header: การเข้าสู่ระบบผิดพลาด
+  survey:
+    email:
+      headline: สวัสดี %{username}
+      closing: ด้วยความนับถือ
+      link: ทำแบบสำรวจ
 ...

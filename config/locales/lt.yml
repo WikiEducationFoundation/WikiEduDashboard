@@ -85,10 +85,21 @@ lt:
     milestones:
       title: Gairės
   campaign:
+    add_organizer: Pridėti organizatorių
     campaign: Kampanija
+    campaign_deleted: Kampanija „%{title}“ ištrinta
     campaign_updated: Kampanija atnaujinta
+    confirm_campaign_deletion: Ar tikrai norite ištrinti kampaniją pavadinimu „%{title}“?
+      Jei taip, įrašykite kampanijos pavadinimą, kad tęstumėte.
+    confirm_campaign_deletion_failed: „%{title}“ nėra šios kampanijos pavadinimas.
+      Kampanija nebuvo ištrinta.
+    delete_campaign: Ištrinti šią kampaniją
     none: Nėra
+    organizers: Organizatoriai
+    organizer_added: '%{user} dabar yra „%{title}“ kampanijos organizatorius'
+    organizer_removed: '%{user} buvo pašalintas kaip „%{title}“ kampanijos organizatorius'
     programs: '%{title} Programos'
+    title: Pavadinimas
   courses:
     activity: Veikla
     already_enrolled: Jau esate prisijungęs prie '%{title}'!

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
+# Author: Kingu
 # Author: Tarjeimo
 ---
 nb:
@@ -25,7 +26,7 @@ nb:
     log_in_extended: Logg inn med Wikipedia
     log_in: Logg inn
     log_out: Logg ut
-    my_dashboard: Mitt dashboard
+    my_dashboard: Min oversikt
     recent_activity: Nylig aktivitet
     search: still et spørsmål
     sign_up_extended: Registrer deg med Wikipedia
@@ -98,7 +99,7 @@ nb:
     title_example: Artikkeltittel
     view: Vis artikkel
     view_all: Vis alle
-    view_doc: Summen av sidevisninger til hvert artikkel i løpet av prosjektet
+    view_doc: Summen av alle artikkelvisninger i løpet av prosjektet
     views_added: La til %{count} nye visninger for %{title}
     wp10: Strukturell fullstendighet
     wp10_doc: Skåren for «Strukturell fullstendighet» representerer hvor nært artikkelen
@@ -132,10 +133,23 @@ nb:
     milestones:
       title: Milepæler
   campaign:
+    add_organizer: Legg til arrangør
     campaign: Kampanje
+    campaign_deleted: Kampanjen «%{title}» har blitt slettet
+    campaign_not_updated: Kampanjen kunne ikke oppdateres
     campaign_updated: Kampanje oppdatert
+    confirm_campaign_deletion: Er du sikker på at du vil slette kampanjen «%{title}»?
+      Hvis du er sikker, skriv inn kampanjens tittel for å fortsette.
+    confirm_campaign_deletion_failed: «%{title}» er ikke denne kampanjens tittel.
+      Kampanjen har ikke blitt slettet.
+    delete_campaign: Slett denne kampanjen
     none: Ingen
+    organizers: Arrangører
+    organizer_added: '%{user} er nå arrangør av kampanjen «%{title}»'
+    organizer_removed: '%{user} har blitt fjernet som arrangør av kampanjen «%{title}»'
     programs: '%{title}-programmer'
+    title: Tittel
+    use_start_end_dates: Bruk start- og sluttdatoer
   courses:
     activity: Aktivitet
     already_enrolled: Du er allerede del av «%{title}»!
@@ -278,7 +292,7 @@ nb:
     submitted_note: Kurset ditt har blitt sendt inn. Wiki Ed-ansatte vil gå gjennom
       det og kontakte deg med eventuelle spørsmål.
     user_role: Rolle
-    course_details: Kursdetaljer for
+    course_details: Kursdetaljer
     term: Termin
     timeline: Oppgavedetaljer
     timeline_link: Tidslinje
@@ -293,7 +307,7 @@ nb:
     untrained: Utrent
     uploads_none: Denne klassen har ikke bidratt med bilder eller andre mediefiler
       på Wikimedia Commons.
-    view_other: Vis andre kampanjer
+    view_other: Vis andre prosjekter
     view: Vis kurs
     view_doc: Summen av alle visninger på artikler redigert av påmeldte bidragsytere
       siden bidragsyteren gjorde sin første redigering i hver artikkel
@@ -356,7 +370,7 @@ nb:
     term: Når
     uploads_none: Dette prosjektet har ikke bidratt med bilder eller andre mediefiler
       på Wikimedia Commons.
-    view_other: Vis andre kampanjer
+    view_other: Vis andre prosjekter
     view_page: Vis programside
     word_count_doc: Et estimat for antall ord lagt til i artikler av programmets bidragsytere
       i løpet av programterminen
@@ -379,7 +393,7 @@ nb:
     edit_count_description: Totalt antall endringer
     per_user: '%{number}/bruker'
     revisions: Nylige redigeringer
-    upload_count: Common-opplastinger
+    upload_count: Commons-opplastinger
     uploads_in_use_count:
       one: fil brukt i en artikkel
       other: filer brukt i artikler
@@ -437,7 +451,7 @@ nb:
       satt på pause. Kjør «rake batch:resume» for å fortsette oppdateringer.
   timeline:
     add_week: Legg til uke
-    arrange_timeline: Arranger tidslinjen
+    arrange_timeline: Organiser tidslinjen
     arrange_timeline_instructions: Organiser tidslinjen ved å dra og slippe blokker
       til den ønskede plassen/uka, eller flytt blokker ved å bruke pilene på kortet.
     assignment_dates_instructions: Velg start- og sluttdatoene for Wikipedia-oppgavens
@@ -570,8 +584,10 @@ nb:
   error:
     form_errors: Sjekk skjemaet for feil.
     invalid_assignment: Ugyldig oppgave
+    invalid_date: '%{key}-datoen er ugyldig'
     invalid_file_format: Filen kunne ikke lagres. Last opp et PDF- eller Word-dokument.
     oauth_invalid: Wikipedia-autoriseringen din har utløpt. Logg inn igjen.
+    start_date_before_end_date: Startdatoen må være før sluttdatoen
     unsupported_browser:
       header: Nettleseren støttes ikke. :-(
       explanation: Du bruker en nettlesersom ikke er kompatibel med dashbordet. Denne
@@ -605,6 +621,9 @@ nb:
       Sånt skjer av og til.) PRøv å logge inn eller melde deg på igjen.
   survey:
     login_message: Takk for tiden din. Logg inn på Wiki Ed-dashbordet for å ta undersøkelsen.
+    notification_explanation: Om boksen nedenfor er merket av vil brukere få epost
+      i følge varselplanen, i tillegg til å få varsel i nettleseren. Om den ikke er
+      merket av vil kun varsler i nettleseren vises.
     notification_schedule_explanation: Varsler inkluderer nettleservarsler og eposter,
       om det er slått på ovenfor.
     follow_up_explanation: La den være tom om du ikke ønsker oppfølgingsepost.

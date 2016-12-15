@@ -4,6 +4,7 @@
 # Author: Alebecerrasj
 # Author: Codynguyen1116
 # Author: Copper12
+# Author: Dgstranz
 # Author: Fitoschido
 # Author: Irus
 # Author: Koavf
@@ -43,6 +44,7 @@ es:
     training: Capacitación
     change: Cambiar
     details: Detalles
+    confirm: Aceptar
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -146,10 +148,21 @@ es:
     milestones:
       title: Hitos
   campaign:
+    add_organizer: Añadir organizador
     campaign: Campaña
+    campaign_deleted: La campaña "%{title}" se ha eliminado
     campaign_updated: Campaña actualizada
+    confirm_campaign_deletion: ¿Estás seguro de que quieres eliminar la campaña titulada
+      "%{title}"? Si es así, escribe el título de la campaña para continuar.
+    confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
+      La campaña no se ha eliminado.
+    delete_campaign: Eliminar esta campaña
     none: Ninguno
+    organizers: Organizadores
+    organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
+    organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
     programs: Programas de %{title}
+    title: Título
   courses:
     activity: Actividad
     already_enrolled: Ya eres parte de «%{title}».

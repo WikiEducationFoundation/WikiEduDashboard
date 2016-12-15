@@ -14,7 +14,7 @@ zh-CN:
     cancel: 取消
     dashboard: Wiki Ed控制面板
     error: 发生了错误：
-    explore: 浏览
+    explore: 探索
     field_required: 此字段是必需的
     field_invalid_characters: 此字段有无效字符
     field_invalid_date: 此字段要求日期为YYYY-MM-DD格式
@@ -46,9 +46,9 @@ zh-CN:
     no_courses_instructor: 看起来您没有任何课程。
     no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
-    orientation_notice: 在您创建课程之前，让我们通过定位以帮助您了解如何入门。（这需要约30分钟完成。）
-    review_orientation: 复核迎新会
-    start_orientation: 开始迎新
+    orientation_notice: 在您创建课程之前，让我们通过迎新活动以帮助您了解如何入门。（这需要约30分钟完成。）
+    review_orientation: 复核迎新活动
+    start_orientation: 开始迎新活动
     blog_headline: 来自Wiki Ed的最新新闻
   home:
     explore: 探索
@@ -67,6 +67,7 @@ zh-CN:
     edited: 编辑的条目
     edited_by: 编辑者：
     edited_mobile: 条目
+    hide: 隐藏
     label: 条目
     loading: 正在加载条目...
     new: （新）
@@ -85,11 +86,13 @@ zh-CN:
       list: 列表级 — 一个列表，而不是一篇传统条目
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
     show_cumulative_changes: 显示累计更改
+    show_current_version: 显示当前版本
     title: 标题
     title_example: 条目标题
     view: 查看条目
     view_all: 查看全部
     view_doc: 在项目期间每个条目的访问量总数
+    view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数represents how closely an article fits the mold of a mature
@@ -122,10 +125,26 @@ zh-CN:
     milestones:
       title: 里程碑
   campaign:
+    add_organizer: 添加组织者
+    already_exists: 该运动已存在！请使用不同的标题或片段再试。
     campaign: 运动
+    campaigns: 运动
+    campaign_deleted: 活动“%{title}”已被删除
+    campaign_not_updated: 运动不能更新
     campaign_updated: 活动已更新
+    confirm_campaign_deletion: 您确定要删除标题为“%{title}”的运动么？如果是，请输入运动标题以进行。
+    confirm_campaign_deletion_failed: “%{title}”不是此运动的标题。运动未被删除。
+    create_campaign: 创建新的运动
+    create_my_campaign: 创建我的运动！
+    description: 描述
+    delete_campaign: 删除此运动
     none: 无
+    organizers: 组织者
+    organizer_added: '%{user}现为“%{title}”运动的组织者'
+    organizer_removed: '%{user}已从“%{title}”运动的组织者中被移除'
     programs: '%{title}程序'
+    title: 标题
+    use_start_end_dates: 使用开始和结束日期
   courses:
     activity: 活动
     already_enrolled: 您已经是“%{title}”的一部分！
@@ -196,7 +215,7 @@ zh-CN:
     enroll: 注册
     enrollment: 登记
     error:
-      exists: 那个课程已存在！请使用不同的标题、学校或学期再试。
+      exists: 该课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
       invalid_language_or_project: 无效语言/项目
     expected_students: 预期学生
@@ -244,7 +263,7 @@ zh-CN:
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
     user_role: 角色
-    course_details: 课程详情用于
+    course_details: 课程详情
     term: 学期
     timeline: 分配详细信息
     timeline_link: 时间轴
@@ -531,8 +550,10 @@ zh-CN:
   error:
     form_errors: 请检查表单中的错误。
     invalid_assignment: 无效分配
+    invalid_date: '%{key}日期无效'
     invalid_file_format: 文件不能被保存。请上传PDF或Word文档。
     oauth_invalid: 您的维基百科授权已过期。请重新登录。
+    start_date_before_end_date: 开始日期必须在结束日期之前
     unsupported_browser:
       header: 浏览器不受支持。:-(
       explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Internet Explorer 11或更高版本、Chrome和Firefox浏览器的最新版本以及其他现代浏览器上正常工作。

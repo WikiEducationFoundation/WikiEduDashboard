@@ -4,7 +4,9 @@
 # Author: Aktron
 # Author: Dominikmatus
 # Author: Dvorapa
+# Author: Frettie
 # Author: Martin Urbanec
+# Author: Mormegil
 # Author: Urbanecm
 # Author: Vojtěch Dostál
 # Author: Walter Klosse
@@ -35,6 +37,8 @@ cs:
     submit: Potvrdit
     training: Průvodce
     change: Změnit
+    details: Podrobnosti
+    confirm: OK
   dashboard:
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
     explore_course_pages: Prozkoumat kurzové stránky
@@ -47,6 +51,7 @@ cs:
     orientation_notice: Předtím, než si vytvořit kurz, projděte si průvodce, který
       vám pomůže začít (trvá asi 30 minut).
     start_orientation: Spustit průvodce
+    blog_headline: Nedávné zprávy z Wiki Ed
   home:
     explore: Prozkoumat
     log_in: Přihlásit se účtem na Wikipedii
@@ -62,6 +67,7 @@ cs:
     character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
       období mezi začátkem a koncem kurzu
     edited: Editované články
+    edited_by: 'Editoval:'
     edited_mobile: Články
     label: Články
     loading: Načítání článků...
@@ -86,6 +92,7 @@ cs:
       stub: Příliš stručný článek — krátký úvod k tématu vyžadující rozpracování
       list: Článek seznamového typu
       '?': Neohodnocený článek — článek, jehož kvalita ještě nebyla ohodnocena
+    show_cumulative_changes: Zobrazit kumulované změny
     title: Název
     title_example: Název článku
     view: Zobrazit článek
@@ -115,7 +122,13 @@ cs:
     milestones:
       title: Milníky
   campaign:
+    campaign: Kampaň
+    campaign_deleted: Kampaň "%{title}" byla smazána
+    campaign_updated: Kampaň byla aktualizována
+    delete_campaign: Odstranit tuto kampaň
     none: Žádné
+    organizers: Organizátoři
+    organizer_added: '%{user} je organizátorem "%{title}" kampaně'
   courses:
     activity: Aktivita
     already_enrolled: Již jste součástí kurzu '%{title}'!
@@ -131,6 +144,7 @@ cs:
       legend_class_canceled: Prázdniny/Zrušeno
       legend_class_meeting: Třídní besídka
       legend_class_not_meeting: Neexistuje žádná naplánovaná schůzka
+    cancel: Zrušit
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
     campaigns: 'Skupiny:'
@@ -149,14 +163,17 @@ cs:
       already_exists: Tento kurz nyní existuje. Zkuste změnit jeho jméno, školu anebo
         termín, aby byl jedinečný.
       checking_for_uniqueness: Pro tento kurz je kontrolována jedinečnost.
+      clone_previous: Kopírovat předchozí kurz
+      clone_this: Kopírovat tento kurz
       cloned_course_calendar_instructions: Vyberte data, která chcete přidat či odstranit
         z časového plánu (např. prázdniny, období bez výuky). Kliknutím na datum můžete
         nastavovat neoznačený, označený a prázdninový stav. Pokud nemáte žádné období
         volna, prosím vyberte možnost "Bez volna ve výuce". Časový plán automaticky
         upraví délku podle období, kdy výuka neprobíhá.
       clone_successful: Kurz byl úspěšně naklonován.
-      clone_successful_details: Váš kurz byl naklonován, včetně částí časové osy (týdnů
-        a bloků). Chcete něco jiného ve vašem kurzu upravit? Upravte to nyní.
+      clone_successful_details: Váš kurz byl zkopírován, včetně částí časové osy (týdnů
+        a bloků). Přidejte data, která nebyla zkopírována. Chcete něco jiného ve vašem
+        kurzu upravit? Upravte to nyní.
       course_description: Popis kurzu
       course_language: Domovský jazyk
       course_project: Domácí projekt
@@ -247,9 +264,12 @@ cs:
     submitted_heading: Kurzy podané ke schválení
     submitted_note: Kurz byl podán ke schválení. Brzy ho zkontrolujeme a případně
       vás zkontaktujeme s dotazy.
+    user_role: Role
+    course_details: Podrobnosti kurzu
     term: Semestr
     timeline: Detaily zadání
     timeline_link: Časová osa
+    time_zone_message: Časy začátku a konce jsou zobrazeny podle vašeho časového pásma.
     title: Název
     training_due: Výukový modul "%{title}" je přiřazen k tomuto kurzu; termín splnění
       %{date}.
@@ -260,6 +280,7 @@ cs:
     untrained: Netrénovaný
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
+    view_other: Zobrazit další kampaně
     view: Zobrazit kurz
     view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
       od doby, kdy účastník provedl v článku první editaci).
@@ -278,8 +299,13 @@ cs:
       link: Spustit dotazník
   courses_generic:
     assignments_none: Tento kurz nemá žádné přidělené články.
+    cancel: Zrušit
+    courses: Programy
+    campaigns: 'Kampaně:'
     creator:
       checking_for_uniqueness: Pro tento program je kontrolována jeho jedinečnost.
+      clone_previous: Kopírovat předchozí program
+      clone_this: Kopírovat tento program
       course_description: Popis programu
       course_school: Instituce
       course_title: Název programu
@@ -290,25 +316,35 @@ cs:
       find: Najít program
       intro: Název programu je vyžadován, všechno ostatní může být vyplněno později.
         Klikněte na Vytvořit můj program a začněte vytvářet stránku pro váš program
+    delete_course: Odstranit program
+    edit_course_dates: Upravit data projektu
     enroll: Přidat editora
     enrollment: Účastníci
     expected_students: Očekávaní editoři
     instructors: Spolupracovníci
+    join_course: Připojit se k programu
+    leave_course: Opustit program
     milestones_none: Tento kurz v současné době nemá žádné milníky.
     published: 'Tento kurz byl publikován. Studenti se mohou zapsat navštívením následující
       URL:'
+    revisions_none: Tento projekt nemá nedávnou editační aktivitu.
     school: Instituce
     student_editors: Editoři
     students: Editoři
     students_none: Tento projekt nemá žádné zapsané studenty.
     students_short: Editoři
+    students_count: Počet účastníků
     term: Kdy
     uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
       mediálními soubory do Wikimedia Commons.
+    view_other: Zobrazit další kampaně
+    view_page: Zobrazit stránku programu
   editable:
     edit: Editovat
     cancel: Zrušit
     save: Uložit
+    edit_description: Upravit popis
+    edit_details: Upravit podrobnosti
   metrics:
     activity: Nedávná aktivita
     articles_created: Vytvořené články
@@ -321,6 +357,7 @@ cs:
     edit_count_description: Celkový počet editací
     per_user: '%{number}/uživatel'
     revisions: Poslední editace
+    upload_count: Nahrané soubory na Commons
     uploads_in_use_count:
       one: soubor použitý v článku
       other: soubory použité v článcích
@@ -330,6 +367,7 @@ cs:
     view_count_description: Návštěvnost článku
     view: Návštěvnost
     word_count: Přidáno slov
+    word_count_average: Průměrný počet slov
   namespace:
     main: Hlavní jmenný prostor
     main_char_added: Přidáno znaků v hlavním jmenném prostoru
@@ -337,19 +375,78 @@ cs:
     user_char_added: Přidáno znaků v hlavním uživatelském prostoru
     user_ns: Uživatel
   recent_activity:
+    active_courses: Článek je aktivní v
     article_title: Název článku
     datetime: Datum/čas
     image: Obrázek
+    file_name: Název souboru
+    no_edits: Nejsou žádné nedávné změny.
+    plagiarism_report: Zpráva o plagiátorství
+    possible_plagiarism: Možný plagiát
     recent_edits: Poslední editace
+    recent_uploads: Poslední nahrané soubory
+    revision_author: Autor revize
+    revision_datetime: Datum/Čas revize
+    revision_score: Skóre revize
     show_courses: Ukázat pouze mé kurzy
+    uploaded_by: Načteno uživatelem
+    usage_count: Počet užití
   revisions:
     chars_added: Přidáno znaků
     class: Třída
     date_time: Datum/Čas
     diff: rozdíl
+    diff_show: Zobrazit
+    diff_hide: Skrýt
+    edited_by: Upraveno {{GENDER:|uživatelem|uživatelkou}}
+    loading: Načítání revizí...
+    time_doc: Čas každé revize v místním čase
+    view_on_wiki: Zobrazit rozdíly na wiki
+  tasks:
+    conseq: Úkol %{task} je již spuštěn!
+    constant: Úkol %{task} nelze spustit, zatímco běží úkol update_daily.
+    paused: Úkol %{task} nelze spustit, protože plánované aktualizace byly pozastaveny.
+      Spusťte 'rake batch:resume' chcete-li obnovit aktualizace.
+  timeline:
+    add_week: Přidat týden
+    block_custom: Vlastní
+    block_in_class: Ve třídě
+    block_milestone: Milník
+    course_dates: Termíny kurzů
+    course_end: Konec kurzu
+    course_start: Začátek kurzu
+    delete_week_confirmation: |-
+      Opravdu chcete odstranit tento týden? Tato akce odstraní celý týden a všechny přiřazené bloky.
+
+      Tuto akci nelze vrátit zpět.
+    discard_all_changes: Zrušit všechny změny
+    due_default: Příští týden
+    empty_week_1: Chcete-li začít,
+    empty_week_3: nebo
+    first_week_title: První aktivní týden
+    gradeable_value: Hodnota
+    move_block_down: Přesunout blok dolů
+    move_block_up: Přesunout blok nahoru
+    no_activity_this_week: Žádné plánované setkání tento týden
+    save_all_changes: Uložit vše
+    this_week_title_default: Tento týden
+    title: Časová osa
+    view_full_timeline: Zobrazit kompletní časovou osu
+    week_number: Týden %{number}
+  training:
+    continue: Pokračovat (%{progress})
+    view: Zobrazit
+    logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,
+      do té doby, než se opět přihlásíte.
   uploads:
+    datetime: Datum/Čas
+    file_name: Název souboru
+    header: Soubory nahrané na Wikimedia Commons
     image: Obrázek
+    label: Načtené soubory
     loading: Načítání nahrávek...
+    none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia Commons.
+    time_doc: Čas každého nahraného souboru v místním čase
     uploaded_by: Načteno uživatelem
     usage_count: Počet užití
     usages: Použití
@@ -357,7 +454,11 @@ cs:
     already_enrolled: Tento uživatel již byl zapsán
     assign_articles: Přiřadit články
     assign_articles_done: Hotovo
+    assigned: Přiřazené články
+    assignees: Přiřazení
+    chars_added: Přidané znaky<br>(v hlavním jmenném prostoru | uživatelském prostoru)
     contributions: Příspěvky uživatele
+    contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
     contributions_more: Zobrazit více Příspěvků
     course_passcode: 'Heslo:'
     editors: Studenti
@@ -367,19 +468,59 @@ cs:
     first_name: Křestní jméno
     last_name: Příjmení
     loading: Načítám uživatele...
+    characters_added_mainspace: Přidáno znaků v HP
+    characters_added_short: 'HP: %{mainspace}, UP: %{userspace}'
+    characters_added_userspace: Přidáno znaků v UP
     my_assigned: 'Přiřazeno:'
     my_reviewing: 'Kontroluje:'
     name: Jméno
     none: Nejsou žádní účastníci
     no_articles: Žádné články
+    no_revisions: Tento editor neprovedl žádnou revizi.
     number_of_articles:
       one: '%{count} článek'
       other: '%{count} články'
     recent_revisions: Poslední editace
     remove_confirmation: Jste si jist, že chcete odebrat %{username}?
+    revision_characters_and_views: 'Přidáno znaků: %{characters}, Zobrazení stránky:
+      %{views}'
+    revisions_doc: Počet editací provedených tímto editorem v posledních 7 dnech
+    reviewers: Recenzent(i)
+    reviewing: Recenzuje
+    training_module_status: Stav
+    username: Uživatelské jméno
+    username_placeholder: Uživatelské jméno
+    role:
+      visitor: Návštěvník
+      student: Student
+      instructor: Instruktor
+      campus_volunteer: Dobrovolník dostupný osobně
+      online_volunteer: Online dobrovolník
+      wiki_ed_staff: Wiki Ed personál
   wizard:
+    course_dates: Termíny kurzů
+    select_one_option: Prosím vyberte 1 možnost.
     read_less: Zobrazit méně
     read_more: Číst dál
+    summary: Shrnutí
   error:
     form_errors: Prosím, zkontrolujte chybné položky ve formuláři.
+    invalid_assignment: Neplatné přiřazení
+    unsupported_browser:
+      header: Nepodporovaný prohlížeč. :-(
+  error_incorrect_passcode:
+    header: Nesprávné heslo. :-(
+  error_404:
+    header: Stránka nebyla nalezena. :-(
+  error_500:
+    header: 500 — vnitřní chyba serveru. :-(
+  login_error:
+    header: Chyba při přihlašování
+  survey:
+    email:
+      headline: Dobrý den, %{username}
+      course: 'Kurz: %{course_info}'
+      closing: S pozdravem,
+      signed: '- Wiki Ed tým'
+      link: Spustit dotazník
 ...

@@ -110,8 +110,12 @@ ar:
     milestones:
       title: معالم
   campaign:
+    add_organizer: أضف منظمًا
+    campaign_deleted: أزيلت حملة "%{title}"
     campaign_updated: تم تجديد الحملة
     none: لا شيء
+    organizers: المنظمون
+    title: العنوان
   courses:
     activity: النشاط
     already_enrolled: أنت بالفعل جزء من '%{title}'!

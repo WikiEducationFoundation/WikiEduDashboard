@@ -87,6 +87,7 @@ fr:
     edited: Articles modifiés
     edited_by: 'Modifié par :'
     edited_mobile: Articles
+    hide: Masquer
     label: Articles
     loading: Chargement des articles...
     new: (nouveau)
@@ -112,11 +113,13 @@ fr:
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
+    show_current_version: Afficher la version courante
     title: Titre
     title_example: Titre de l’article
     view: Afficher l’article
     view_all: Tout afficher
     view_doc: Le total de toutes les vues sur chaque article durant le projet
+    view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
     wp10: Intégrité structurale 
     wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
@@ -150,10 +153,29 @@ fr:
     milestones:
       title: Jalons
   campaign:
+    add_organizer: Ajouter un organisateur
+    already_exists: Cette campagne existe déjà ! Veuillez réessayer avec un autre
+      titre ou libellé court.
     campaign: Campagne
+    campaigns: Campagnes
+    campaign_deleted: La campagne « %{title} » a été supprimée
+    campaign_not_updated: La campagne n’a pas pu être mise à jour
     campaign_updated: Campagne mise à jour
+    confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne appelée
+      « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
+    confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
+      La campagne n’a pas été supprimée.
+    create_campaign: Créer une nouvelle campagne
+    create_my_campaign: Créer ma campagne !
+    description: Description
+    delete_campaign: Supprimer cette campagne
     none: Aucun
+    organizers: Organisateurs
+    organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
+    organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
     programs: Programmes de %{title}
+    title: Titre
+    use_start_end_dates: Utiliser les dates de début et de fin
   courses:
     activity: Activité
     already_enrolled: Vous faites déjà partie de '%{title}' !
@@ -303,7 +325,7 @@ fr:
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
       contactera pour toute question.
     user_role: Rôle
-    course_details: Détails du cours pour
+    course_details: Détails du cours
     term: Période
     timeline: Détails d'assignement
     timeline_link: Calendrier
@@ -642,9 +664,12 @@ fr:
   error:
     form_errors: Veuillez vérifier les erreurs du formulaire.
     invalid_assignment: Affectation non valide
+    invalid_date: La date %{key} n’est pas valide
     invalid_file_format: Le fichier n’a pas pu être enregistré. Veuillez téléverser
       un document PDF ou Word.
     oauth_invalid: Votre autorisation sur Wikipédia a expiré. Veuillez vous reconnecter.
+    start_date_before_end_date: La date de début doit être antérieure à la date de
+      fin
     unsupported_browser:
       header: Navigateur non pris en charge. :-(
       explanation: Vous utilisez un navigateur qui n'est pas compatible avec le tableau

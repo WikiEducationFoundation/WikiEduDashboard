@@ -63,8 +63,15 @@ sv:
     milestones:
       title: Milstolpar
   campaign:
+    add_organizer: Lägg till organiserare
+    campaign_not_updated: Kampanjen kunde inte uppdateras
     campaign_updated: Kampanj uppdaterades
+    confirm_campaign_deletion_failed: '"%{title}" är inte titeln för denna kampanj.
+      Kampanjen har inte raderats.'
+    delete_campaign: Radera denna kampanj
     none: Ingen
+    title: Titel
+    use_start_end_dates: Använd start- och slutdatum
   courses:
     activity: Aktivitet
     actions: Åtgärder
@@ -134,7 +141,7 @@ sv:
     students_none: Den här kursen har inga studenter.
     students_short: Studenter
     user_role: Roll
-    course_details: Kursdetaljer för
+    course_details: Kursdetaljer
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
@@ -275,6 +282,8 @@ sv:
   error:
     form_errors: Var god kolla efter fel i formuläret.
     invalid_assignment: Ogiltig uppgift
+    invalid_date: '%{key}datumet är ogiltigt'
+    start_date_before_end_date: Startdatumet måste vara innan slutdatumet
     unsupported_browser:
       header: Webbläsaren stöds inte. :-(
   error_401:

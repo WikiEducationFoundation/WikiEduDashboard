@@ -67,6 +67,7 @@ sr-ec:
       и крајњих датума
     edited: Уређени чланци
     edited_mobile: Чланци
+    hide: Сакриј
     label: Чланци
     loading: Учитавам чланке...
     new: (ново)
@@ -118,6 +119,7 @@ sr-ec:
     milestones:
       title: Миљоказ
   campaign:
+    description: Опис
     none: Ништа
   courses:
     activity: Активност

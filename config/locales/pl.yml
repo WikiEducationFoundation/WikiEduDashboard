@@ -70,6 +70,7 @@ pl:
     select: Wybierz
   campaign:
     none: Brak
+    title: Tytuł
   courses:
     activity: Aktywność
     articles: Artykuły
@@ -198,6 +199,7 @@ pl:
   error:
     form_errors: Sprawdź czy w formularzu nie ma błędów.
     invalid_assignment: Nieprawidłowe przypisanie
+    start_date_before_end_date: Data rozpoczęcia musi być wcześniejsza niż data zakończenia
   survey:
     email:
       headline: Witaj, %{username}

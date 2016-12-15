@@ -141,10 +141,22 @@ uk:
     milestones:
       title: Досягнення
   campaign:
+    add_organizer: Додати організатора
     campaign: Кампанія
+    campaign_deleted: Курс "%{title}" був вилучений
+    campaign_not_updated: Курс не може бути змінений
     campaign_updated: Кампанії оновлено
+    confirm_campaign_deletion: Ви впевнені, що хочете видалити курс «%{title}»? Якщо
+      так, вкажіть назву курсу, щоб продовжити.
+    confirm_campaign_deletion_failed: «%{title}» не є назвою курса. Курс не був видалений.
+    delete_campaign: Вилучити цей курс
     none: Немає
+    organizers: Організатори
+    organizer_added: '%{user} тепер є організатором курсу «%{title}»'
+    organizer_removed: Користувач «%{user}» був вилучений як організатор курсу «%{title}»
     programs: Програми %{title}
+    title: Заголовок
+    use_start_end_dates: Зазначте дати початку та закінчення
   courses:
     activity: Активність
     already_enrolled: Ви вже є частиною «%{title}»!
@@ -287,7 +299,7 @@ uk:
     submitted_note: Ваш курс було надіслано. Штатні працівники Wiki Ed перевірять
       його та зв'яжуться з Вами в разі виникнення будь-яких питань.
     user_role: Роль
-    course_details: Деталі курсу для
+    course_details: Деталі курсу
     term: Семестр
     timeline: Деталі завдання
     timeline_link: Графік
@@ -616,10 +628,12 @@ uk:
   error:
     form_errors: Будь ласка, перевірте форму на предмет наявності помилок.
     invalid_assignment: Неправильне завдання
+    invalid_date: Дата %{key} не є недійсною
     invalid_file_format: Файл не вдалося зберегти. Будь ласка, завантажте у форматі
       PDF або документ Word.
     oauth_invalid: Ваша авторизація у Вікіпедія стекла. Будь ласка, увійдіть до системи
       повторно.
+    start_date_before_end_date: Дата початку повинна бути ранішою, ніж дата закінчення
     unsupported_browser:
       header: Браузер не підтримується. :-(
       explanation: Ви використовуєте браузер, що не є сумісним з панеллю. Цей сайт
