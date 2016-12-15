@@ -1,0 +1,35 @@
+id: 607
+title: "Quiz: Good license, bad license"
+summary:
+content:
+assessment:
+  correct_answer_id: 3
+  question: |
+    Which of the following licenses is NOT something you can use on Wikipedia?
+  answers:
+    - id: 1
+      text: |
+        A license that says the work can be reused if credit goes to the original
+        author (CC-BY)
+      explanation: |
+        Incorrect! Wikipedia’s images credit the original author if the author
+        requires it.
+    - id: 2
+      text: |
+         A license that says the work must be shared under the same license (CC-BY-SA)
+      explanation: |
+        Incorrect! Wikipedia's text will always be “ShareAlike”, and images with
+        the ShareAlike requirement are also allowed.
+    - id: 3
+      text: |
+        A license that says the work cannot be sold (CC-BY-NC)
+      explanation: |
+        Correct! Wikipedia’s content may be sold by others, or incorporated into
+        works which are sold. You can’t use images that require non-commercial
+        use.
+    - id: 4
+      text: |
+        A license that says there are no restrictions on use of the work (CC-ZERO)
+      explanation: |
+        Incorrect! If there is clear agreement from the original author that the
+        work is shared with no restrictions, you can use the image.
