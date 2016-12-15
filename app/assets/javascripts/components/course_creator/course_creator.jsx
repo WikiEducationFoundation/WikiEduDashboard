@@ -53,7 +53,8 @@ const CourseCreator = React.createClass({
   componentWillMount() {
     CourseActions.addCourse();
 
-    // If a campaign slug is provided, fetch the campaign
+    // If a campaign slug is provided, fetch the campaign.
+    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
     const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
     if (campaignParam && campaignParam[1]) {
       CourseCreationActions.fetchCampaign(campaignParam[1]);
