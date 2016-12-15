@@ -32,7 +32,7 @@
     .sidebar
       - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
-          = hidden_field_tag(:campaign_id, @campaign.id)
+          = hidden_field_tag(:slug, @campaign.slug)
           %button.button.dark
             = t('courses_generic.creator.create_short')
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}

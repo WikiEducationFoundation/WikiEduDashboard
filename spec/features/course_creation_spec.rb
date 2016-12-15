@@ -349,12 +349,15 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course created from a campaign', js: true do
-    before do
-      ENV['default_course_type'] = 'BasicCourse'
+    let(:campaign) do
       create(:campaign,
              id: 10001,
-             title: 'My awesome Spring 2016 campaign',
+             title: 'My Awesome Campaign',
              description: 'This is the best campaign')
+    end
+
+    before do
+      ENV['default_course_type'] = 'BasicCourse'
     end
 
     after do
@@ -362,7 +365,7 @@ describe 'New course creation and editing', type: :feature do
     end
 
     it 'should create a course belonging to the given campaign' do
-      visit course_creator_path(:campaign_id => 10001)
+      visit course_creator_path(slug: campaign.slug)
       fill_in 'Program title:', with: '한국어'
       fill_in 'Institution:', with: 'العَرَبِية'
       find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
@@ -370,7 +373,7 @@ describe 'New course creation and editing', type: :feature do
       page.find('body').click
       click_button 'Create my Program!'
       sleep 1
-      expect(CampaignsCourses.last.campaign_id).to eq(10001)
+      expect(CampaignsCourses.last.campaign_id).to eq(campaign.id)
       expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
     end
   end

@@ -13,13 +13,14 @@ class CampaignsController < ApplicationController
   DETAILS_FIELDS = %w(title start end).freeze
 
   def index
+    @campaigns = Campaign.all
+    @campaign = Campaign.new
+  end
+
+  def show
     respond_to do |format|
-      format.html do
-        @campaigns = Campaign.all
-        @campaign = Campaign.new
-      end
       format.json do
-        @campaign = Campaign.find_by_id(params[:id]) if params[:id]
+        @campaign = Campaign.find_by_slug(params[:slug]) if params[:slug]
       end
     end
   end

@@ -181,14 +181,11 @@ const API = {
     );
   },
 
-  fetchCampaign(campaignId) {
+  fetchCampaign(slug) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',
-        url: '/campaigns.json',
-        data: {
-          id: campaignId
-        },
+        url: `/campaigns/${slug}.json`,
         success(data) {
           return res(data);
         }
