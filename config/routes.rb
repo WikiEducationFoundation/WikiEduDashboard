@@ -86,8 +86,6 @@ Rails.application.routes.draw do
   get 'articles/wp10' => 'articles#wp10'
   get 'articles/details' => 'articles#details'
 
-  get 'wikiwho/:title' => 'wikiwho#show'
-
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create]
 
