@@ -328,7 +328,7 @@ essentials:
         kind: 1
         graded: true
         points: 20
-        training_module_ids: [9] # Sandboxes
+        training_module_ids: [9,15] # Sandboxes, Plagiarism
         content: |
           <p>You've picked a topic and found your sources. Now it's time to start writing.</p>
           <p><strong>Creating a new article?</strong></p>
