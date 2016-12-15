@@ -53,7 +53,8 @@ const CourseCreator = React.createClass({
   componentWillMount() {
     CourseActions.addCourse();
 
-    const campaignParam = window.location.search.match(/\?.*?slug=(.*?)(?:$|&)/);
+    // If a campaign slug is provided, fetch the campaign
+    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
     if (campaignParam && campaignParam[1]) {
       CourseCreationActions.fetchCampaign(campaignParam[1]);
     }

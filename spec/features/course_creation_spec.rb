@@ -365,7 +365,7 @@ describe 'New course creation and editing', type: :feature do
     end
 
     it 'should create a course belonging to the given campaign' do
-      visit course_creator_path(slug: campaign.slug)
+      visit course_creator_path(campaign_slug: campaign.slug)
       fill_in 'Program title:', with: '한국어'
       fill_in 'Institution:', with: 'العَرَبِية'
       find('.course_start-datetime-control input').set(Date.new(2017, 1, 4))
