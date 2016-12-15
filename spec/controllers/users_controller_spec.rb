@@ -204,7 +204,7 @@ describe UsersController do
         expect(response.body).to have_content user.email
       end
     end
- 
+
     context 'when current_user is not the same user nor an admin' do
       let(:user) { create(:user, email: 'fake_email@gmail.com') }
       let(:unauthorised_user) { create(:user) }
