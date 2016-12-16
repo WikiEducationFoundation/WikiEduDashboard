@@ -170,6 +170,6 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign)
-          .permit(:slug, :description, :title, :start, :end)
+          .permit(:slug, :description, :template_description, :title, :start, :end)
   end
 end

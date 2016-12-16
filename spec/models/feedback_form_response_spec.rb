@@ -1,4 +1,15 @@
 # frozen_string_literal: true
+# == Schema Information
+#
+# Table name: feedback_form_responses
+#
+#  id         :integer          not null, primary key
+#  subject    :string(255)
+#  body       :text(65535)
+#  user_id    :integer
+#  created_at :datetime
+#
+
 require 'rails_helper'
 
 describe FeedbackFormResponse do

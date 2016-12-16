@@ -15,7 +15,8 @@ describe 'open course creation', type: :feature, js: true do
     create(:campaign,
            id: 10001,
            title: 'My Awesome Campaign',
-           description: 'This is the best campaign')
+           description: 'This is the best campaign',
+           template_description: 'This is the template description')
   end
 
   before do
@@ -74,5 +75,6 @@ describe 'open course creation', type: :feature, js: true do
     sleep 1
     expect(CampaignsCourses.last.campaign_id).to eq(campaign.id)
     expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
+    expect(Course.last.description).to eq(campaign.template_description)
   end
 end
