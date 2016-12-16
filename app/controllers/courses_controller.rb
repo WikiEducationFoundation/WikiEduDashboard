@@ -177,7 +177,7 @@ class CoursesController < ApplicationController
   def initial_campaign_params
     params
       .require(:course)
-      .permit(:initial_campaign_id)
+      .permit(:initial_campaign_id, :template_description)
   end
 
   def wiki_params
