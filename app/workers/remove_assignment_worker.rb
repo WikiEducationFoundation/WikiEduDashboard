@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
 
-class RemoveAssignmentsWorker
+class RemoveAssignmentWorker
   include Sidekiq::Worker
 
   def self.schedule_edits(course:, editing_user:, assignment:)
