@@ -164,6 +164,7 @@ describe TrainingProgressManager do
 
     context 'completed' do
       let(:completed_at) { Time.now }
+      let(:last_slide_completed) { slides.last.slug }
       it 'returns "completed"' do
         expect(subject.module_progress).to eq('Complete')
       end
