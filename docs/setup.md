@@ -82,7 +82,7 @@
 3. **Start Gulp to watch JS and CSS**
 
       $ `gulp`
-      
+
 4. The frontend is now visible at http://localhost:3000/
 
 5. To set up test users and data, see [User Roles](user_roles.md)
