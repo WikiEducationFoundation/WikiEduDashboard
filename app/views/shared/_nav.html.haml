@@ -6,7 +6,8 @@
     .top-nav__site-logo
       %a.logo__link{href: main_app.root_url}= logo_tag
     %ul.top-nav__main-links
-      %li= link_to t('application.explore'), main_app.explore_url, class: class_for_path(request, main_app.explore_path)
+      %li
+        = link_to t(Features.wiki_ed? ? 'application.explore' : 'courses_generic.explore'), main_app.explore_path, class: class_for_path(request, explore_path)
       - if user_signed_in?
         %li= link_to t('application.my_dashboard'), main_app.root_url, class: class_for_path(request, main_app.root_path)
       - if current_user&.admin?

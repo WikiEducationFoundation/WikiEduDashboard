@@ -1,0 +1,77 @@
+%section#campaigns
+  .section-header
+    %h3
+      = t('campaign.active_campaigns')
+      - if current_user && (current_user.admin? || Features.open_course_creation?)
+        = link_to(t('campaign.create_campaign'), new_campaign_path(create: true), class: 'button dark')
+    .sort-select
+      %select.sorts{:rel => "courses"}
+        %option{:rel => "asc", :value => "title"}= t("courses.title")
+        %option{:rel => "desc", :value => "revisions"}= t("metrics.revisions")
+        %option{:rel => "desc", :value => "characters"}= t("metrics.word_count")
+        %option{:rel => "desc", :value => "average-words"}= t("metrics.word_count_average")
+        %option{:rel => "desc", :value => "views"}= t("metrics.view")
+        %option{:rel => "desc", :value => "students"}= t("users.editors")
+        %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
+        - unless Features.disable_training?
+          %option{:rel => "desc", :value => "untrained"}= t("courses.untrained")
+    %table.table.table--hoverable.table--sortable
+      %thead
+        %tr
+          %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
+            = t('campaign.campaigns')
+            %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "courses", style: "width: 150px"}
+            .tooltip-trigger
+              = t("#{Features.default_course_string_prefix}.courses")
+              %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "artciles-created", style: "width: 180px"}
+            .tooltip-trigger
+              = t('metrics.articles_created')
+              %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "characters", style: "width: 172px;"}
+            .tooltip-trigger
+              = t("metrics.word_count")
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= course_i18n("word_count_doc")
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "views", style: "width: 125px;"}
+            .tooltip-trigger
+              = t("metrics.view")
+              %span.sortable-indicator
+              %span.tooltip-indicator
+              .tooltip.dark
+                %p= t("courses.view_doc")
+          %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", style: "width: 150px;"}
+            = t("users.editors")
+            %span.sortable-indicator
+      %tbody.list
+        - campaigns.each do |campaign|
+          - presenter = CoursesPresenter.new(current_user, campaign.slug)
+          %tr{"data-link" => "#{campaign_path(campaign.slug)}"}
+            %td.title{role: "button", tabindex: "0"}
+              = campaign.title
+              %span.creation-date.hidden
+                = campaign.created_at
+            %td.programs
+              = number_to_human(presenter.courses.count)
+            %td.articles-created
+              = number_to_human(presenter.courses.sum(:new_article_count))
+            %td
+              %span.characters-human
+                = number_to_human(presenter.word_count)
+              %span.characters.hidden
+                = presenter.word_count
+              / %small.average-words-human
+              /   (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
+              / %span.average-words.hidden
+              /   = course.average_word_count
+            %td
+              %span.views-human
+                = number_to_human(presenter.courses.sum(:view_sum))
+              %span.views.hidden
+                = presenter.courses.sum(:view_sum)
+            %td
+              %span.students
+                = presenter.campaign.students_without_nonstudents.count

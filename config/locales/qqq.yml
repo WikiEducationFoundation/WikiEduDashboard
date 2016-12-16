@@ -194,6 +194,7 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
+    active_campaign: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     already_exists: Error shown when a new campaign has the same name or slug of another
       campaign.
@@ -461,6 +462,9 @@ qqq:
       create_short: Short version of link to start a new program
       find: Button to find an existing program
       intro: Explanation of how to use the program creation form
+    explore: |-
+      The alternative wording for generic courses.
+      {{Identical|Find programs}}
     expected_students: Label for expected number of participants
     instructors: Label for users who are organizing the program
     milestones_none: Message indicating that there are no timeline milestone to show

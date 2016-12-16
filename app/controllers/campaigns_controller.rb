@@ -25,6 +25,10 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def new
+    redirect_to campaigns_path(create: true)
+  end
+
   def create
     @campaign = Campaign.create(campaign_params)
 

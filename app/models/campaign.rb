@@ -43,7 +43,7 @@ class Campaign < ActiveRecord::Base
   # Scopes #
   ##########
 
-  scope :active, -> { where('end > ?', Time.zone.now) }
+  scope :active, -> { where('end > ? OR (start IS NULL AND end IS NULL)', Time.zone.now) }
 
   ####################
   # Instance methods #
