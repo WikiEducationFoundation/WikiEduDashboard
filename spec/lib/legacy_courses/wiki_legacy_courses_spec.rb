@@ -19,14 +19,6 @@ describe WikiLegacyCourses do
       end
     end
 
-    it 'should handle a nonexistent course' do
-      VCR.use_cassette 'wiki_legacy_courses/no_course' do
-        # A single course that doesn't exist
-        response = WikiLegacyCourses.get_course_info 2155897
-        expect(response).to eq([])
-      end
-    end
-
     it 'return course info for multiple courses' do
       VCR.use_cassette 'wiki_legacy_courses/missing_courses' do
         # Several courses, including some that don't exist

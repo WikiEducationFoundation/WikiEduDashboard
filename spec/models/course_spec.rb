@@ -70,16 +70,6 @@ describe Course, type: :model do
     course.manual_update
   end
 
-  it 'should seek data for all possible courses' do
-    VCR.use_cassette 'wiki/initial' do
-      expect(Course.all.count).to eq(0)
-      # This should check for course_ids up to 5.
-      LegacyCourseImporter.update_all_courses(true, campaign: [5])
-      # On English Wikipedia, courses 1 and 3 do not exist.
-      expect(Course.all.count).to eq(3)
-    end
-  end
-
   it 'should update data for single courses' do
     VCR.use_cassette 'wiki/manual_course_data' do
       course = create(:legacy_course, id: 519)
