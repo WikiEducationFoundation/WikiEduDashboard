@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/app/workers/remove_assignment_worker"
 require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for user functionality
@@ -123,8 +124,7 @@ class UsersController < ApplicationController
   def remove_assignment_templates
     assignments = @course_user.assignments
     assignments.each do |assignment|
-      WikiCourseEdits.new(action: :remove_assignment, course: @course, current_user: current_user,
-                          assignment: assignment)
+      RemoveAssignmentWorker.schedule_edits(course: @course, editing_user: current_user, assignment: assignment)
     end
   end
 
