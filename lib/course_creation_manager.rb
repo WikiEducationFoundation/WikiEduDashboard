@@ -74,9 +74,7 @@ class CourseCreationManager
     return unless Features.open_course_creation?
 
     if @initial_campaign_params.present?
-      parent_campaign = Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])
-      @overrides[:campaigns] = [parent_campaign]
-      @overrides[:description] = parent_campaign.template_description
+      @overrides[:campaigns] = [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
     else
       @overrides[:campaigns] = [Campaign.default_campaign]
     end

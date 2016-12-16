@@ -75,6 +75,6 @@ describe 'open course creation', type: :feature, js: true do
     sleep 1
     expect(CampaignsCourses.last.campaign_id).to eq(campaign.id)
     expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
-    expect(Courses.last.description).to eq(campaign.template_description)
+    expect(Course.last.description).to eq(campaign.template_description)
   end
 end
