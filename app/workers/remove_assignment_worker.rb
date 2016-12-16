@@ -12,6 +12,6 @@ class RemoveAssignmentWorker
     course = Course.find(course_id)
     editing_user = User.find(editing_user_id)
     assignment = Assignment.find(assignment_id);
-    WikiCourseEdits.new(action: :remove_assignments, course: course, current_user: editing_user, assignment: assignment)
+    WikiCourseEdits.new(action: :remove_assignment, course: course, current_user: editing_user, assignment: assignment)
   end
 end
