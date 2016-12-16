@@ -82,6 +82,8 @@
 3. **Start Gulp to watch JS and CSS**
 
       $ `gulp`
+if you are getting message "Error: EACCES: permission denied, open '/home/rlot/.babel.json'", use 
+      $ `BABEL_DISABLE_CACHE=1 gulp`
 
 4. The frontend is now visible at http://localhost:3000/
 
