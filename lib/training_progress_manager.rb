@@ -21,7 +21,8 @@ class TrainingProgressManager
 
   def slide_enabled?
     return true if slide_completed? || @user.nil?
-    (@tmu.nil? || @tmu.last_slide_completed.nil?) && slug_index(@slide).zero?
+    return true if slug_index(@slide).zero?
+    false
   end
 
   def module_completed?
@@ -65,6 +66,7 @@ class TrainingProgressManager
   def module_progress
     return unless module_started?
     last_completed_index = slug_index(@tmu.last_slide_completed)
+    return if last_completed_index.zero?
     quotient = (last_completed_index + 1) / @training_module.slides.length.to_f
     percentage = (quotient * 100).round
     module_completed? ? 'Complete' : "#{percentage}% Complete"
