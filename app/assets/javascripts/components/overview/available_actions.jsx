@@ -3,6 +3,9 @@ import ServerActions from '../../actions/server_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import Confirm from '../common/confirm.jsx';
+import ConfirmActions from '../../actions/confirm_actions.js';
+import ConfirmationStore from '../../stores/confirmation_store.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -13,21 +16,37 @@ const AvailableActions = React.createClass({
     current_user: React.PropTypes.object
   },
 
-  mixins: [CourseStore.mixin],
+  mixins: [CourseStore.mixin, ConfirmationStore.mixin],
 
   getInitialState() {
-    return getState();
+    return ({
+      course: CourseStore.getCourse(),
+      showConfirm: false,
+      onConfirm: null,
+      onCancel: null,
+      confirmMessage: null,
+    });
   },
 
   storeDidChange() {
+    // This handles closing the Confirm dialog after it has been clicked.
+    if (!ConfirmationStore.isConfirmationActive()) {
+      this.setState(this.getInitialState());
+    }
     return this.setState(getState());
   },
 
   join() {
-    const passcode = prompt(I18n.t('courses.passcode_prompt'));
-    if (passcode) {
-      return window.location = this.state.course.enroll_url + passcode;
-    }
+    const EnrollURL = this.state.course.enroll_url;
+    const onConfirm = function (passcode) {
+      ConfirmActions.actionConfirmed();
+      return window.location = EnrollURL + passcode;
+    };
+    const onCancel = function () {
+      return ConfirmActions.actionCancelled();
+    };
+    const confirmMessage = I18n.t('courses.passcode_prompt');
+    this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
   },
 
   leave() {
@@ -53,6 +72,18 @@ const AvailableActions = React.createClass({
   render() {
     const controls = [];
     const user = this.props.current_user;
+
+    let confirmationDialog;
+    if (this.state.showConfirm) {
+      confirmationDialog = (
+        <Confirm
+          onConfirm={this.state.onConfirm}
+          onCancel={this.state.onCancel}
+          message={this.state.confirmMessage}
+          showInput= {true}
+        />
+      );
+    }
 
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
@@ -96,6 +127,7 @@ const AvailableActions = React.createClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
+          {confirmationDialog}
           {controls}
         </div>
       </div>
