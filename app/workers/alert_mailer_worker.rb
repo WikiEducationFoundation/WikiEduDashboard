@@ -3,7 +3,7 @@
 class AlertMailerWorker
   include Sidekiq::Worker
 
-  def self.schedule_email(alert_id)
+  def self.schedule_email(alert_id:)
     perform_async(alert_id)
   end
 
