@@ -277,6 +277,7 @@ describe 'the course page', type: :feature, js: true do
     it 'should allow instructor to add an available article' do
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
+      stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
       click_button 'Add an available article'
@@ -292,6 +293,7 @@ describe 'the course page', type: :feature, js: true do
       sleep 1
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
+      stub_oauth_edit
       course = Course.first
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
