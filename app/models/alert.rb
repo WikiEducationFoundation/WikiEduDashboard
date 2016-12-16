@@ -67,7 +67,8 @@ class Alert < ActiveRecord::Base
   def email_target_user
     return if emails_disabled?
     return if target_user.nil?
-    AlertMailerWorker.schedule_email(alert: self, user: target_user)
+    AlertMailer.alert(self, target_user).deliver_now
+    update_attribute(:email_sent_at, Time.now)
   end
 
   # Disable emails for specific alert types in application.yml, like so:

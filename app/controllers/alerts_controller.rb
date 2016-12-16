@@ -21,7 +21,7 @@ class AlertsController < ApplicationController
   private
 
   def email_target_user
-    @alert.email_target_user if @alert.target_user&.email.present?
+    AlertMailerWorker.schedule_email(@alert) if @alert.target_user&.email.present?
   end
 
   def ensure_alerts_are_enabled
