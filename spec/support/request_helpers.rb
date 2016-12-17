@@ -19,6 +19,12 @@ module RequestHelpers
       .to_return(status: 200, body: token_error, headers: {})
   end
 
+  def stub_wikimediadown
+    wikimedia_error = '<html><h1>Wikimedia is down</h1></html>'
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: 503, body: wikimedia_error, headers: {})
+  end
+
   def stub_oauth_edit_with_empty_response
     stub_token_request
     stub_request(:post, /.*wikipedia.*/)
