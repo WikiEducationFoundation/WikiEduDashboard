@@ -113,8 +113,11 @@ class WikiEdits
     return { status: 'no current user' } unless current_user
     @access_token = oauth_access_token(current_user)
     get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json")
-
-    token_response = JSON.parse(get_token.body)
+    begin
+      token_response = JSON.parse(get_token.body)
+    rescue JSON::ParserError => e
+      Raven.capture_exception(e)
+    end
     WikiResponse.capture(token_response, current_user: current_user,
                                          type: 'tokens')
     return { status: 'failed' } unless token_response.key?('query')
