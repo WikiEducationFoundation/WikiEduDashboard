@@ -11,6 +11,7 @@ class DeleteCourseWorker
   def perform(course_id, current_user_id)
     course = Course.find(course_id)
     current_user = User.find(current_user_id)
+    course.destroy
     WikiCourseEdits.new(action: :update_course,
                         course: course,
                         current_user: current_user,
