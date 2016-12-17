@@ -19,9 +19,15 @@ module RequestHelpers
       .to_return(status: 200, body: token_error, headers: {})
   end
 
-  def stub_wikimediadown
-    wikimedia_error = '<html><h1>Wikimedia is down</h1></html>'
-    stub_request(:get, /.*wikipedia.*/)
+  def stub_wikimedia_error
+    wikimedia_error = '<meta charset=utf-8><title>Wikimedia Error</title><div class="content" role="main">
+      <a href="//www.wikimedia.org"><img src="//www.wikimedia.org/static/images/wmf.png" srcset="//www.wikimedia.org/static/images/wmf-2x.png 2x" alt=Wikimedia width=135 height=135></a>
+      <h1>Error</h1>
+      <p>Our servers are currently under maintenance or experiencing a technical problem. Please <a href="" title="Reload this page" onclick="window.location.reload(false); return false">try again</a> in a few&nbsp;minutes.</p><p>See the error message at the bottom of this page for more&nbsp;information.</p></div>
+      <div class="footer">
+      <p>If you report this error to the Wikimedia System Administrators, please include the details below.</p>
+      <p class="text-muted"><code>'
+      stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 503, body: wikimedia_error, headers: {})
   end
 

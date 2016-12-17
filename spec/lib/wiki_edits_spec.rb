@@ -97,7 +97,7 @@ describe WikiEdits do
     end
 
     it 'returns true if Wikipedia API is down' do
-        stub_wikimediadown
+        stub_wikimedia_error
         response = WikiEdits.new.oauth_credentials_valid?(User.first)
         expect(response).to eq(true)
     end
