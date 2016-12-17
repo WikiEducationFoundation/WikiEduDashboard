@@ -23,7 +23,7 @@ const AvailableActions = React.createClass({
       course: CourseStore.getCourse(),
       showConfirm: null,
       onConfirm: null,
-      onCancel: null,
+      onCancel: null
     });
   },
 
