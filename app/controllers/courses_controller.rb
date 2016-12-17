@@ -46,7 +46,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
-    DeleteCourseWorker.schedule_edits(course: @course, current_user: current_user)
+    DeleteCourseWorker.schedule_deletion(course: @course, current_user: current_user)
     render json: { success: true }
   end
 
