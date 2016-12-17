@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 class DeleteCourseWorker
   include Sidekiq::Worker
 
-  def self.schedule_edits(course:, current_user:)
+  def self.schedule_deletion(course:, current_user:)
     perform_async(course.id, current_user.id)
   end
 
