@@ -114,7 +114,14 @@ class WikiEdits
     @access_token = oauth_access_token(current_user)
     get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json")
 
+    # Handle 503 response for when MediaWiki API is down
+    if get_token.code == "503"
+      Raven.capture_message( 'Wikimedia API is down' )
+      return { status: 'failed' } 
+    end
+
     token_response = JSON.parse(get_token.body)
+
     WikiResponse.capture(token_response, current_user: current_user,
                                          type: 'tokens')
     return { status: 'failed' } unless token_response.key?('query')
