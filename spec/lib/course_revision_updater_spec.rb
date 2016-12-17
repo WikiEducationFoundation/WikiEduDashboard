@@ -43,34 +43,6 @@ describe CourseRevisionUpdater do
   end
 
   describe '.import_new_revisions' do
-    it 'fetches revisions for existing courses' do
-      VCR.use_cassette 'revisions/update_all_revisions' do
-        # Try it with no courses.
-        CourseRevisionUpdater.import_new_revisions(Course.all)
-        expect(Revision.all.count).to eq(0)
-
-        # Now add a course with users
-        VCR.use_cassette 'wiki/course_data' do
-          LegacyCourseImporter.update_all_courses(false, campaign: [351])
-        end
-
-        CourseRevisionUpdater.import_new_revisions(Course.all)
-        # When the non-students are included, Revisions count is 1919.
-        expect(Revision.all.count).to eq(519)
-        # When the non-students are included, ArticlesCourses count is 224.
-        expect(ArticlesCourses.all.count).to eq(10)
-
-        # Update the revision counts, then try update_all_revisions again
-        # to test how it handles old users.
-        CourseRevisionUpdater.import_new_revisions(Course.all)
-        expect(Revision.all.count).to eq(519)
-        expect(ArticlesCourses.all.count).to eq(10)
-      end
-    end
-
-
-
-
     it 'includes revisions on the final day of a course up to the end time' do
       create(:course, id: 1, start: '2016-03-20', end: '2016-03-31'.to_date.end_of_day)
       create(:user, id: 1, username: 'Tedholtby')

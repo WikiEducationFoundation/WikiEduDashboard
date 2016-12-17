@@ -43,7 +43,6 @@
 #  needs_update          :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/course_cleanup_manager"
 require "#{Rails.root}/lib/course_cache_manager"
 require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
@@ -57,8 +56,7 @@ class Course < ActiveRecord::Base
   # Users for a course #
   ######################
   has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
-  has_many :users, -> { distinct }, through: :courses_users,
-                                    after_remove: :cleanup_articles
+  has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
   has_many :nonstudents, -> { where('courses_users.role > 0') },
@@ -225,7 +223,6 @@ class Course < ActiveRecord::Base
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  # LegacyCourse overrides this.
   def update(data={}, should_save=true)
     self.attributes = data[:course]
     save if should_save
@@ -263,13 +260,6 @@ class Course < ActiveRecord::Base
 
   def manual_update
     CourseUpdateManager.manual_update self
-  end
-
-  ####################
-  # Callback methods #
-  ####################
-  def cleanup_articles(user)
-    CourseCleanupManager.new(self, user).cleanup_articles
   end
 
   #################

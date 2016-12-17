@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
 require "#{Rails.root}/lib/course_revision_updater"
 
 #= Class for performing updates on data related to an individual Course
@@ -9,8 +8,6 @@ class CourseUpdateManager
   ################
 
   def self.manual_update(course)
-    LegacyCourseUpdater.update_from_wiki(course) if course.legacy?
-
     users = course.users
     articles = course.articles
     articles_courses = course.articles_courses
