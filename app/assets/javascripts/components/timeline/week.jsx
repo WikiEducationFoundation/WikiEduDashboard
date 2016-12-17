@@ -137,11 +137,11 @@ const Week = React.createClass({
     });
 
     const addBlock = !this.props.reorderable ? (
-      <span className="pull-right week__add-block" href="" onClick={this.addBlock}>Add Block</span>
+      <button className="pull-right week__add-block" href="" onClick={this.addBlock}>Add Block</button>
     ) : undefined;
 
     const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
-      <span className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week</span>
+      <button className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>Delete Week</button>
     ) : undefined;
 
     const weekAddDelete = this.props.edit_permissions ? (
