@@ -37,8 +37,9 @@ describe User do
   describe 'user deletion' do
     it 'destroys the User and associated CampaignsUsers and CoursesUsers' do
       user = create(:user)
-      courses_user = create(:courses_user, user_id: user.id)
-      campaigns_users = create(:campaigns_user, user_id: user.id)
+      course = create(:course)
+      create(:courses_user, user_id: user.id, course_id: course.id)
+      create(:campaigns_user, user_id: user.id)
       expect(CoursesUsers.count).to eq(1)
       expect(CampaignsUsers.count).to eq(1)
       user.destroy
