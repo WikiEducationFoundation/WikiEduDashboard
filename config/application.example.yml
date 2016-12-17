@@ -53,10 +53,6 @@
 # This is the community discussion page where new courses should be announced.
   course_announcement_page: 'User:Ragesock'
 
-# Setting to enable pulling data for legacy courses from the MediaWiki
-# EducationProgram extension (DEPRECATED).
-  enable_legacy_courses: 'false'
-
 # Set the default course type for newly created courses.
 # default_course_type: ClassroomProgramCourse
 

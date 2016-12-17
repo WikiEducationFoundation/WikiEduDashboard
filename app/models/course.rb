@@ -43,7 +43,6 @@
 #  needs_update          :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/course_cleanup_manager"
 require "#{Rails.root}/lib/course_cache_manager"
 require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
@@ -57,8 +56,7 @@ class Course < ActiveRecord::Base
   # Users for a course #
   ######################
   has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
-  has_many :users, -> { distinct }, through: :courses_users,
-                                    after_remove: :cleanup_articles
+  has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
   has_many :nonstudents, -> { where('courses_users.role > 0') },

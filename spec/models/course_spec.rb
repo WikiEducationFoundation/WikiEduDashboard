@@ -46,29 +46,29 @@
 require 'rails_helper'
 
 describe Course, type: :model do
-  it 'should update data for single courses' do
-    VCR.use_cassette 'wiki/manual_course_data' do
-      course = create(:legacy_course, id: 519)
-
-      course.manual_update
-
-      # Check course information
-      expect(course.term).to eq('January 2015')
-
-      # Check articles
-      expect(course.articles.count).to eq(4)
-
-      # Check users
-      expect(course.user_count).to eq(6)
-      expect(User.all.role('student').count).to eq(course.user_count)
-      expect(course.users.role('instructor').first.instructor?(course))
-        .to be true
-
-      # FIXME: This should be tested with a non-legacy course, with a check for
-      # pageviews included. Pageview import has been disabled for legacy courses
-      # for the switch to the new WikiPageviews API.
-    end
-  end
+  # it 'should update data for single courses' do
+  #   VCR.use_cassette 'wiki/manual_course_data' do
+  #     course = create(:legacy_course, id: 519)
+  #
+  #     course.manual_update
+  #
+  #     # Check course information
+  #     expect(course.term).to eq('January 2015')
+  #
+  #     # Check articles
+  #     expect(course.articles.count).to eq(4)
+  #
+  #     # Check users
+  #     expect(course.user_count).to eq(6)
+  #     expect(User.all.role('student').count).to eq(course.user_count)
+  #     expect(course.users.role('instructor').first.instructor?(course))
+  #       .to be true
+  #
+  #     # FIXME: This should be tested with a non-legacy course, with a check for
+  #     # pageviews included. Pageview import has been disabled for legacy courses
+  #     # for the switch to the new WikiPageviews API.
+  #   end
+  # end
 
   it 'should cache revision data for students' do
     build(:user,

@@ -17,6 +17,7 @@
 #
 
 require "#{Rails.root}/lib/utils"
+require "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model
 class CoursesUsers < ActiveRecord::Base
@@ -24,7 +25,7 @@ class CoursesUsers < ActiveRecord::Base
   belongs_to :user
   before_destroy :cleanup
 
-  has_many :assignments, -> (ac) { where(course_id: ac.course_id) },
+  has_many :assignments, ->(ac) { where(course_id: ac.course_id) },
            through: :user
 
   has_many :survey_notifications
@@ -117,6 +118,7 @@ class CoursesUsers < ActiveRecord::Base
   def cleanup
     Assignment.where(user_id: user_id, course_id: course_id).destroy_all
     survey_notifications.destroy_all
+    CourseCleanupManager.new(course, user).cleanup_articles
   end
 
   #################
@@ -128,7 +130,9 @@ class CoursesUsers < ActiveRecord::Base
 
   CACHE_UPDATE_CONCURRENCY = 3
   def self.update_all_caches_concurrently
-    threads = CoursesUsers.ready_for_update.in_groups(CACHE_UPDATE_CONCURRENCY, false).map.with_index do |courses_users_batch, i|
+    threads = CoursesUsers.ready_for_update
+                          .in_groups(CACHE_UPDATE_CONCURRENCY, false)
+                          .map.with_index do |courses_users_batch, i|
       Thread.new(i) do
         update_all_caches(courses_users_batch)
       end
