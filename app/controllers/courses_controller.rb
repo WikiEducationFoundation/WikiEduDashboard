@@ -46,11 +46,8 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    DeleteCourseWorker.schedule_edits(course: @course, current_user: current_user)
     @course.destroy
-    WikiCourseEdits.new(action: :update_course,
-                        course: @course,
-                        current_user: current_user,
-                        delete: true)
     render json: { success: true }
   end
 
