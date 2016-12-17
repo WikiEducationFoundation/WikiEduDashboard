@@ -117,7 +117,7 @@ class WikiEdits
     # If Wikimedia API is down, return false
     if get_token.code == "503"
       Raven.capture_message( 'Wikimedia API is down' )
-      return false
+      return { status: 'failed' } 
     end
 
     token_response = JSON.parse(get_token.body)
