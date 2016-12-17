@@ -86,11 +86,8 @@ class Survey < ActiveRecord::Base
     notification = user.survey_notifications
                        .where(survey_assignment_id: @survey_assignment_ids)
                        .first
-    if notification&.course_id
-      Course.find(notification.course_id).slug
-    else
-      user.courses.last&.slug
-    end
+    # If there's no course from a notification, fall back to the user's latest course
+    notification&.course_id ? Course.find(notification.course_id).slug : user.courses.last&.slug
   end
 
   def question_groups_in_order
