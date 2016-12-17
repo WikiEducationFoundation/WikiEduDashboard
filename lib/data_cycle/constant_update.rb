@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/legacy_courses/legacy_course_importer"
 require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
@@ -41,7 +40,6 @@ class ConstantUpdate
 
   def run_update
     log_start_of_update
-    update_legacy_courses if Features.enable_legacy_courses?
     update_users
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
@@ -56,10 +54,6 @@ class ConstantUpdate
   ###############
   # Data import #
   ###############
-  def update_legacy_courses
-    log_message 'Updating data for legacy course'
-    LegacyCourseImporter.update_all_courses
-  end
 
   def update_users
     log_message 'Updating global ids and training status'

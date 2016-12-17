@@ -225,7 +225,6 @@ class Course < ActiveRecord::Base
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  # LegacyCourse overrides this.
   def update(data={}, should_save=true)
     self.attributes = data[:course]
     save if should_save

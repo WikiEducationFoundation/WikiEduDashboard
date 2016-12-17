@@ -43,8 +43,6 @@
 #  needs_update          :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/legacy_courses/legacy_course_updater"
-
 # Course type for courses imported from the MediaWiki EducationProgram extension
 class LegacyCourse < Course
   def wiki_edits_enabled?
@@ -55,11 +53,6 @@ class LegacyCourse < Course
     prefix = 'Education_Program:'
     escaped_slug = slug.tr(' ', '_')
     "#{prefix}#{escaped_slug}"
-  end
-
-  # Pulls new data from the MediaWiki ListStudents API
-  def update(data={}, should_save=true)
-    LegacyCourseUpdater.update_from_wiki(self, data, should_save)
   end
 
   def string_prefix
