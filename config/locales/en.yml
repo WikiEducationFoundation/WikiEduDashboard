@@ -153,6 +153,7 @@ en:
       itself. (These scores are only available for English Wikipedia articles.)
 
   assignments:
+    article: The article %{title} was assigned
     already_exists: This assignment already exists!
     assignees: Assignee(s)
     assign_other: Assign an article
