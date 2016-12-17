@@ -262,13 +262,6 @@ class Course < ActiveRecord::Base
     CourseUpdateManager.manual_update self
   end
 
-  ####################
-  # Callback methods #
-  ####################
-  def cleanup_articles(user)
-    CourseCleanupManager.new(self, user).cleanup_articles
-  end
-
   #################
   # Class methods #
   #################
