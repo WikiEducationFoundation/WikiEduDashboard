@@ -16,6 +16,7 @@ class Wiki < ActiveRecord::Base
 
   PROJECTS = %w(
     wikibooks
+    wikidata
     wikinews
     wikipedia
     wikiquote
@@ -25,6 +26,10 @@ class Wiki < ActiveRecord::Base
     wiktionary
   ).freeze
   validates_inclusion_of :project, in: PROJECTS
+
+  SIMPLE_PROJECTS = {
+    'wikidata' => 'www.wikidata.org',
+  }.freeze
 
   LANGUAGES = %w(
     aa ab ace af ak als am an ang ar arc arz as ast av ay az azb
@@ -47,7 +52,10 @@ class Wiki < ActiveRecord::Base
   validates_inclusion_of :language, in: LANGUAGES
 
   def base_url
-    "https://#{language}.#{project}.org"
+    if SIMPLE_PROJECTS.include?(project)
+       "https://#{SIMPLE_PROJECTS[project]}"
+    else
+       "https://#{language}.#{project}.org"
   end
 
   def api_url
