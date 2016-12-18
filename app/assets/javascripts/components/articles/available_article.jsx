@@ -50,7 +50,6 @@ const AvailableArticle = React.createClass({
   },
 
   render() {
-    let actionButton;
     const className = 'assignment';
     const { assignment } = this.props;
     const article = CourseUtils.articleFromAssignment(assignment);
@@ -58,13 +57,16 @@ const AvailableArticle = React.createClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
 
-    if (this.props.current_user.admin || this.props.current_user.role > 0) {
-      actionButton = (
-        <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
-      );
-    } else {
+    let actionButton;
+    // Show 'Select' button to students
+    if (this.props.current_user.role === 0) {
       actionButton = (
         <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
+      );
+    // Show 'Remove' button to admins and facilitators
+    } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
+      actionButton = (
+        <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
       );
     }
 
