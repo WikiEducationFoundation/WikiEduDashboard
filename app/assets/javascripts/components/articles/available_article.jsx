@@ -2,6 +2,7 @@ import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
+import NotificationActions from '../../actions/notification_actions.js';
 
 const AvailableArticle = React.createClass({
   displayName: 'AvailableArticle',
@@ -20,6 +21,13 @@ const AvailableArticle = React.createClass({
       user_id: this.props.current_user.id,
       role: 0
     };
+
+    const title = this.props.assignment.article_title;
+    NotificationActions.addNotification({
+      message: I18n.t('assignments.article', { title }),
+      closable: true,
+      type: 'success'
+    });
 
     return ServerActions.updateAssignment(assignment);
   },
