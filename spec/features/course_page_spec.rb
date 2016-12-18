@@ -316,6 +316,8 @@ describe 'the course page', type: :feature, js: true do
     it 'should allow student to select an available article' do
       user = create(:user, id: user_count + 100)
       course = Course.first
+      create(:courses_user, course_id: course.id, user_id: user.id,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
                             course: course,
