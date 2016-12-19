@@ -6,7 +6,7 @@ const CourseUtils = class {
     const school = this.slugify(course.school.trim());
     let term = '';
     let slug = `${school}/${title}`;
-    if (course.term !== null && typeof course.term !== 'undefined') {
+    if (course.term) {
       term = this.slugify(course.term.trim());
       slug = `${slug}_(${term})`;
     }

@@ -65,7 +65,12 @@ const CourseCreator = React.createClass({
 
   storeDidChange() {
     this.setState(getState());
-    this.state.tempCourseId = CourseUtils.generateTempId(this.state.course);
+    if (this.state.course.school !== '' && this.state.title !== '') {
+      this.state.tempCourseId = CourseUtils.generateTempId(this.state.course);
+    }
+    else {
+      this.state.tempCourseId = '';
+    }
     return this.handleCourse();
   },
 
