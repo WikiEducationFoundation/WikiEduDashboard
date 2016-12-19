@@ -32,7 +32,7 @@ class Wiki < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :project, in: PROJECTS
 
-  LANGUAGES = [nil] + %w(
+  LANGUAGES = %w(
     aa ab ace af ak als am an ang ar arc arz as ast av ay az azb
     ba bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co cr crh cs csb cu
@@ -50,7 +50,7 @@ class Wiki < ActiveRecord::Base
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
   ).freeze
-  validates_inclusion_of :language, in: LANGUAGES
+  validates_inclusion_of :language, in: LANGUAGES + [nil]
 
   MULTILINGUAL_PROJECTS = {
     'wikidata' => 'www.wikidata.org'
