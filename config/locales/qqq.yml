@@ -195,6 +195,7 @@ qqq:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
     active_campaign: Heading for the list of active campaigns
+    archived: Section heading for archived campaigns
     add_organizer: Button to add an organizer
     already_exists: Error shown when a new campaign has the same name or slug of another
       campaign.

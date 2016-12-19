@@ -27,7 +27,7 @@ class CoursesPresenter
   end
 
   def courses
-    campaign.courses
+    campaign.courses.current_and_future
   end
 
   def courses_by_recent_edits
