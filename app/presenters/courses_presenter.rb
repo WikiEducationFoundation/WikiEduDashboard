@@ -22,6 +22,10 @@ class CoursesPresenter
     @campaign
   end
 
+  def campaigns
+    Campaign.active
+  end
+
   def courses
     campaign.courses
   end
@@ -29,6 +33,15 @@ class CoursesPresenter
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
     courses.sort_by { |course| [-course.recent_revision_count, course.title] }
+  end
+
+  def campaigns_by_num_courses
+    # Sort first by number of courses, then by campaign title
+    campaigns.sort_by { |campaign| [-campaign.courses.count, campaign.title] }
+  end
+
+  def can_create?
+    current_user && (current_user.admin? || Features.open_course_creation?)
   end
 
   def word_count

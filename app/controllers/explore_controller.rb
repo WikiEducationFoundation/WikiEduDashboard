@@ -5,10 +5,12 @@ class ExploreController < ApplicationController
 
   def index
     # 'cohort' is the old name for campaign. We accept 'cohort' as an alternative
-    # parameter to keep old incoming links from breaking.
-    campaign = params[:campaign] || params[:cohort] || ENV['default_campaign']
-    @presenter = CoursesPresenter.new(current_user, 'none')
-    @campaigns = Campaign.active
+    # Redirect to new campaign overview page if a parameter is given, for backwards compatibility
+    if campaign = params[:campaign] || params[:cohort]
+      redirect_to campaign_path(campaign)
+    end
+
+    @presenter = CoursesPresenter.new(current_user, ENV['default_campaign'])
     return unless @presenter.campaign.nil?
     raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end

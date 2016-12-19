@@ -2,7 +2,7 @@
   .section-header
     %h3
       = t('campaign.active_campaigns')
-      - if current_user && (current_user.admin? || Features.open_course_creation?)
+      - if presenter.can_create?
         = link_to(t('campaign.create_campaign'), new_campaign_path(create: true), class: 'button dark')
     .sort-select
       %select.sorts{:rel => "courses"}
@@ -47,31 +47,31 @@
             = t("users.editors")
             %span.sortable-indicator
       %tbody.list
-        - campaigns.each do |campaign|
-          - presenter = CoursesPresenter.new(current_user, campaign.slug)
+        - presenter.campaigns_by_num_courses.each do |campaign|
+          - campaign_presenter = CoursesPresenter.new(current_user, campaign.slug)
           %tr{"data-link" => "#{campaign_path(campaign.slug)}"}
             %td.title{role: "button", tabindex: "0"}
               = campaign.title
               %span.creation-date.hidden
                 = campaign.created_at
             %td.programs
-              = number_to_human(presenter.courses.count)
+              = number_to_human(campaign_presenter.courses.count)
             %td.articles-created
-              = number_to_human(presenter.courses.sum(:new_article_count))
+              = number_to_human(campaign_presenter.courses.sum(:new_article_count))
             %td
               %span.characters-human
-                = number_to_human(presenter.word_count)
+                = number_to_human(campaign_presenter.word_count)
               %span.characters.hidden
-                = presenter.word_count
+                = campaign_presenter.word_count
               / %small.average-words-human
               /   (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
               / %span.average-words.hidden
               /   = course.average_word_count
             %td
               %span.views-human
-                = number_to_human(presenter.courses.sum(:view_sum))
+                = number_to_human(campaign_presenter.courses.sum(:view_sum))
               %span.views.hidden
-                = presenter.courses.sum(:view_sum)
+                = campaign_presenter.courses.sum(:view_sum)
             %td
               %span.students
-                = presenter.campaign.students_without_nonstudents.count
+                = campaign_presenter.campaign.students_without_nonstudents.count
