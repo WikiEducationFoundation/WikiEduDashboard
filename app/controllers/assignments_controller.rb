@@ -102,7 +102,7 @@ class AssignmentsController < ApplicationController
     home_wiki = @course.home_wiki
     language = params[:language].present? ? params[:language] : home_wiki.language
     project = params[:project].present? ? params[:project] : home_wiki.project
-    @wiki = Wiki.find_or_create_by(language: language, project: project) || home_wiki
+    @wiki = Wiki.get(language: language, project: project) || home_wiki
   end
 
   def set_new_assignment

@@ -14,8 +14,14 @@ class Wiki < ActiveRecord::Base
   has_many :revisions
   has_many :courses
 
+  before_validation :ensure_valid_project
+
+  # Language / project combination must be unique
+  validates_uniqueness_of :project, scope: :language
+
   PROJECTS = %w(
     wikibooks
+    wikidata
     wikinews
     wikipedia
     wikiquote
@@ -26,7 +32,7 @@ class Wiki < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :project, in: PROJECTS
 
-  LANGUAGES = %w(
+  LANGUAGES = [nil] + %w(
     aa ab ace af ak als am an ang ar arc arz as ast av ay az azb
     ba bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co cr crh cs csb cu
@@ -46,21 +52,51 @@ class Wiki < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :language, in: LANGUAGES
 
+  MULTILINGUAL_PROJECTS = {
+    'wikidata' => 'www.wikidata.org'
+  }.freeze
+
   def base_url
-    "https://#{language}.#{project}.org"
+    if language
+      "https://#{language}.#{project}.org"
+    else
+      "https://#{MULTILINGUAL_PROJECTS[project]}"
+    end
   end
 
   def api_url
     "#{base_url}/w/api.php"
   end
 
+  #############
+  # Callbacks #
+  #############
+
+  def ensure_valid_project
+    # Multilingual projects must have language == nil.
+    # Standard projects must have a language.
+    if MULTILINGUAL_PROJECTS.include?(project)
+      self.language = nil
+    elsif language.nil?
+      raise InvalidWikiError
+    end
+    # TODO: Validate the language/project combination by pinging its API.
+  end
+
+  class InvalidWikiError < StandardError; end
+
+  #################
+  # Class methods #
+  #################
+
+  # This provides fallback values for when a course is created without setting
+  # an explicit home wiki language or project
   def self.default_wiki
-    # FIXME: Deprecate immediately--this is just a transitional method that allows
-    # us to leave some multiwiki support undone in the UI, and the User and Course models.
     get language: ENV['wiki_language'], project: 'wikipedia'
   end
 
-  def self.get(params)
-    where(params).first_or_create
+  def self.get(language:, project:)
+    language = nil if MULTILINGUAL_PROJECTS.include?(project)
+    find_or_create_by(language: language, project: project)
   end
 end

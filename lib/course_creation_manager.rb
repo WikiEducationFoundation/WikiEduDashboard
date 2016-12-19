@@ -43,7 +43,7 @@ class CourseCreationManager
     project_param = @wiki_params[:project]
     language = language_param.present? ? language_param : Wiki.default_wiki.language
     project = project_param.present? ? project_param : Wiki.default_wiki.project
-    @wiki = Wiki.find_or_create_by(language: language.downcase, project: project.downcase)
+    @wiki = Wiki.get(language: language.downcase, project: project.downcase)
     @overrides[:home_wiki] = @wiki
   end
 
