@@ -23,15 +23,23 @@ $(() => {
     });
   }
 
-  $('select.campaigns').change(() => {
-    const campaign = $('select.campaigns option:selected').val();
-    return window.location = `/explore?campaign=${encodeURIComponent(campaign)}`;
-  });
+  // Campaign sorting
+  // only sort if there are tables to sort
+  let campaignList;
+  if ($('#campaigns table').length) {
+    campaignList = new List('campaigns', {
+      page: 500,
+      valueNames: [
+        'title', 'num-courses', 'articles-created', 'characters', 'views', 'students', 'creation-date'
+      ]
+    });
+  }
 
-  return $('select.sorts').change(function () {
+  return $('select.sorts').on('change', function () {
     const list = (() => {
       switch ($(this).attr('rel')) {
         case 'courses': return courseList;
+        case 'campaigns': return campaignList;
         default: break;
       } })();
     if (list) {
