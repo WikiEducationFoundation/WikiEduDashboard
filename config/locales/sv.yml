@@ -45,16 +45,20 @@ sv:
       under kursen
     edited: Redigerade artiklar
     edited_mobile: Artiklar
+    hide: Dölj
     loading: Laddar artiklar...
     new: (ny)
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
+    show_current_version: Visa aktuell version
     title: Titel
     view: Visa artikel
     view_all: Visa alla
     view_doc: Summan av alla läsningar av varje artikel under kursen
+    view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
   assignments:
+    article: Artikeln %{title} har tilldelats
     add_available: Lägg till en tillgänglig artikel
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
     remove: Ta bort
@@ -64,12 +68,17 @@ sv:
       title: Milstolpar
   campaign:
     add_organizer: Lägg till organiserare
+    campaigns: Kampanjer
     campaign_not_updated: Kampanjen kunde inte uppdateras
     campaign_updated: Kampanj uppdaterades
     confirm_campaign_deletion_failed: '"%{title}" är inte titeln för denna kampanj.
       Kampanjen har inte raderats.'
+    create_campaign: Skapa en ny kampanj
+    create_my_campaign: Skapa min kampanj!
+    description: Beskrivning
     delete_campaign: Radera denna kampanj
     none: Ingen
+    program_template: Programmall
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
   courses:

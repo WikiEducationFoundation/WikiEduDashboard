@@ -16,9 +16,13 @@ eo:
     change: Ŝanĝi
   articles:
     edited_mobile: Artikoloj
+    hide: Kaŝi
     new: (nova)
     rating: Klaso
+    show_current_version: Montri nunan version
     title: Titolo
+  campaign:
+    description: Priskribo
   courses:
     activity: Aktiveco
     actions: Agoj

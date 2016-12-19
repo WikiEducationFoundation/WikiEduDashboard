@@ -40,6 +40,8 @@ fa:
     submit: ثبت
     training: آموزش
     change: تغییر
+    details: جزئیات
+    confirm: تأیید
   dashboard:
     create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
     explore_course_pages: در صفحات دوره‌ها کاوش کنید
@@ -73,6 +75,7 @@ fa:
       در بین تاریخ آغاز و پایان
     edited: مقالات ویرایش‌شده
     edited_mobile: مقاله‌ها
+    hide: نهفتن
     label: مقاله‌ها
     loading: در حال بارگذاری مقاله‌ها ...
     new: (نو)
@@ -101,6 +104,7 @@ fa:
     view: مشاهدهٔ مقاله
     view_all: مشاهدهٔ همه
     view_doc: مجموع تمام بازديدها به مقالات در طول مدت دوره
+    view_on_wiki: نمایش در ویکی
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
   assignments:
     already_exists: این تکلیف از پیش وجود دارد!
@@ -125,7 +129,11 @@ fa:
     milestones:
       title: نقاط عطف
   campaign:
+    campaign: کمپین
+    campaigns: کمپین‌ها
+    description: توضیحات
     none: هیچ‌کدام
+    title: عنوان
   courses:
     activity: فعالیت
     already_enrolled: شما از قبل بخشی از %{title} هستید!
@@ -144,6 +152,7 @@ fa:
       legend_class_not_meeting: جلسه‌ای برنامه‌ریزی‌نشده
       select_meeting_days: روزهای هفته‌ای که می‌خواهید جلسهٔ کلاسی‌تان در آن برگزار
         شود را انتخاب کنید.
+    cancel: لغو
     character_doc: مجموع کاراکترهای افزوده‌شده به فضای اصلی مقاله‌ها توسط دانشجویان
       دوره در طول مدت دوره
     campaigns: 'گروه‌ها:'
@@ -243,6 +252,7 @@ fa:
     submitted_heading: دوره‌های ثبت‌شده
     submitted_note: دورهٔ شما ثبت شده‌است. کارمندان ویکی برنامهٔ آموزشی آن را بازبینی
       خواهند کرد و با شما در تماس خواهند بود.
+    user_role: نقش
     term: ترم
     timeline: جزئیات تکلیف
     timeline_link: جدول زمانی
@@ -272,7 +282,9 @@ fa:
     assignment_end: پایان جدول زمانی
     assignments_none: این پروژه هیچ مقالهٔ اختصاص‌یافته‌ای ندارد.
     assignment_start: آغاز جدول زمانی
+    cancel: لغو
     courses: برنامه‌ها
+    campaigns: 'کمپین‌ها:'
     creator:
       checking_for_uniqueness: این برنامه برای آزمایش منحصر به فرد بودن در حال بررسی
         است.
@@ -306,6 +318,8 @@ fa:
     edit: ویرایش
     cancel: لغو
     save: ذخیره
+    edit_description: ویرایش توضیحات
+    edit_details: ویرایش جزئیات
   metrics:
     activity: فعالیت‌های اخیر
     articles_created: مقاله‌های ایجادشده
@@ -358,6 +372,8 @@ fa:
     class: کلاس
     date_time: تاریخ/زمان
     diff: تفاوت
+    diff_show: نمایش
+    diff_hide: نهفتن
     edited_by: ویراستهٔ
     loading: در حال بارگیری بازبینی‌ها ...
     none: این دوره فعالیت‌های اخیر ویرایشی ویکی‌پدیایی ندارد.

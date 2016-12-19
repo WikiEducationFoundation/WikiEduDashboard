@@ -103,6 +103,7 @@ zh-CN:
       conventions for the structure of a good article, but it does not take into account
       the content itself. (These scores are only available for English Wikipedia articles.)
   assignments:
+    article: 条目%{title}已被分配
     already_exists: 此分配已存在！
     assignees: 委托人
     assign_other: 分配一个条目
@@ -143,6 +144,8 @@ zh-CN:
     organizer_added: '%{user}现为“%{title}”运动的组织者'
     organizer_removed: '%{user}已从“%{title}”运动的组织者中被移除'
     programs: '%{title}程序'
+    program_template: 程序模板
+    program_template_tooltip: 当组织者在此运动中创建程序时，此区域的文本将被复制为程序页面上的描述
     title: 标题
     use_start_end_dates: 使用开始和结束日期
   courses:
@@ -231,6 +234,7 @@ zh-CN:
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
+    join_details: 要加入该程序，您需要获取密码——或包含密码的登记链接——来自导师。如果您尚未接收到密码，请联络您的导师。
     leave_confirmation: 您确定要离开这个课程么？
     leave_course: 离开课程
     loading: 正在载入…
@@ -245,7 +249,7 @@ zh-CN:
     overview: 概述
     passcode: 密码
     passcode_none: 无密码
-    passcode_prompt: 输入由该课程的导师向您提供的密码
+    passcode_prompt: 输入密码以加入：
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
@@ -301,24 +305,25 @@ zh-CN:
     campaigns: 运动：
     creator:
       checking_for_uniqueness: 这个程序正在检查其独立性。
-      clone_previous: 克隆上一个计划
+      clone_previous: 克隆上一个程序
       clone_this: 克隆此计划
-      course_description: 项目描述
+      course_description: 程序描述
       course_school: 机构
-      course_title: 项目标题
-      create_button: 创建我的项目！
+      course_title: 程序标题
+      create_button: 创建我的程序！
       create_label: 创建新项目
-      create_new: 创建一个新项目
+      create_new: 创建一个新程序
       create_short: 创建项目
-      find: 找到一个项目
-      intro: 需要项目标题，其他的可以日后再填写。点击“创建我的项目！”以开始构造用于您wiki项目的页面。
+      find: 找到一个程序
+      intro: 需要程序标题，其他的可以日后再填写。点击“创建我的程序！”以开始构造用于您wiki程序的页面。
     delete_course: 删除计划
     edit_course_dates: 编辑项目日期
     enroll: 添加编辑者
     enrollment: 参与
     expected_students: 预期编辑者
     instructors: 促进者
-    join_course: 加入计划
+    join_course: 加入程序
+    join_details: 要加入此程序，您需要获取密码——或包含密码的链接——来自引导者。
     leave_course: 离开计划
     milestones_none: 此课程目前没有任何里程碑。
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
@@ -332,8 +337,8 @@ zh-CN:
     term: 何时
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
     view_other: 查看其它运动
-    view_page: 查看计划页面
-    word_count_doc: 在课程的学期期间，由课程的编辑者添加至主名字空间条目字数的估计
+    view_page: 查看程序页面
+    word_count_doc: 在课程的学期期间，由程序的编辑者添加至主名字空间条目字数的估计
   editable:
     edit: 编辑
     cancel: 取消
@@ -471,6 +476,10 @@ zh-CN:
     assign_articles_done: 完成
     assigned: 分配的条目
     assignees: 委托人
+    character_doc: 用户添加至此名字空间的内容总数，calculated by adding up the added characters for
+      all edits that increased page size. This number doesn't necessarily reflect
+      the amount of new content the user added. Restoring removed content will also
+      increase this total.
     chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
     contributions: 用户贡献
     contributions_history_full: 在维基百科查看完整贡献历史

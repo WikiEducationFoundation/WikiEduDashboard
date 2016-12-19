@@ -49,6 +49,7 @@ hy:
     assigned_to: Հանձնարարված
     edited: Խմբագրված հոդվածներ
     edited_mobile: Հոդվածներ
+    hide: Թաքցնել
     label: Հոդվածներ
     loading: Բեռնվում են հոդվածները
     new: (նոր)
@@ -56,10 +57,12 @@ hy:
     rating_docs:
       b: B-դաս — չափավոր զարգացած հոդված.
       start: Մեկնարկի դաս — կարճ հոդված է, որը պետք է լրացնել.
+    show_current_version: Ցույց տալ ընթացիկ տարբերակը
     title: Վերնագիր
     title_example: Հոդվածի անվանումը
     view: Դիտել հոդվածը
     view_all: Դիտել բոլորը
+    view_on_wiki: Դիտել Վիքիյում
   assignments:
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ
@@ -78,6 +81,7 @@ hy:
     milestones:
       title: Փուլեր
   campaign:
+    organizers: Կազմակերպիչներ
     programs: '%{title} ծրագրեր'
   courses:
     activity: Ակտիվություն

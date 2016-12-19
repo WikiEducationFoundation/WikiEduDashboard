@@ -42,14 +42,17 @@ bn:
   articles:
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
+    hide: আড়াল করো
     label: নিবন্ধসমূহ
     loading: নিবন্ধ লোড হচ্ছে...
     new: (নতুন)
     rating: শ্রেণী
+    show_current_version: বর্তমান সংস্করণ দেখান
     title: শিরোনাম
     title_example: নিবন্ধের শিরোনাম
     view: নিবন্ধ দেখুন
     view_all: সব দেখুন
+    view_on_wiki: উইকিতে দেখুন
     wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
     remove: অপসারণ করুন

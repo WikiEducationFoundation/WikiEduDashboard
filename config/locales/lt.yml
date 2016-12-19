@@ -54,16 +54,19 @@ lt:
     edited: Redaguoti straipsniai
     edited_by: 'Redagavo:'
     edited_mobile: Straipsniai
+    hide: Slėpti
     label: Straipsniai
     loading: Įkeliami straipsniai...
     new: (naujas)
     none: Šis kursas neredagavo jokių straipsnių.
     rating: Klasė
     show_cumulative_changes: Rodyti Kaupiamuosius Pakeitimus
+    show_current_version: Rodyti Dabartinę Versiją
     title: Pavadinimas
     title_example: Straipsnio pavadinimas
     view: Peržiūrėti straipsnį
     view_all: Rodyti visus
+    view_on_wiki: Peržiūrėti viki
   assignments:
     assign_other: Priskirti straipsnį
     add_available: Pridėti prieinamą straipsnį
@@ -87,19 +90,26 @@ lt:
   campaign:
     add_organizer: Pridėti organizatorių
     campaign: Kampanija
+    campaigns: Kampanijos
     campaign_deleted: Kampanija „%{title}“ ištrinta
+    campaign_not_updated: Kampanija negali būti atnaujinta
     campaign_updated: Kampanija atnaujinta
     confirm_campaign_deletion: Ar tikrai norite ištrinti kampaniją pavadinimu „%{title}“?
       Jei taip, įrašykite kampanijos pavadinimą, kad tęstumėte.
     confirm_campaign_deletion_failed: „%{title}“ nėra šios kampanijos pavadinimas.
       Kampanija nebuvo ištrinta.
+    create_campaign: Kurti Naują Kampaniją
+    create_my_campaign: Sukurti mano Kampaniją!
+    description: Aprašymas
     delete_campaign: Ištrinti šią kampaniją
     none: Nėra
     organizers: Organizatoriai
     organizer_added: '%{user} dabar yra „%{title}“ kampanijos organizatorius'
     organizer_removed: '%{user} buvo pašalintas kaip „%{title}“ kampanijos organizatorius'
     programs: '%{title} Programos'
+    program_template: Programos Šablonas
     title: Pavadinimas
+    use_start_end_dates: Naudoti pradžios ir pabaigos datas
   courses:
     activity: Veikla
     already_enrolled: Jau esate prisijungęs prie '%{title}'!
@@ -174,6 +184,9 @@ lt:
     join_course: Prisijungti prie kurso
     join_prompt: Prisijungti prie '%{title}'?
     join_successful: Sėkmingai prisijungėte prie %{title}.
+    join_details: Kad prisijungtumėte prie šio kurso jums reikia gauti slaptažodį
+      - arba stojimo nuorodos, kurioje yra slaptažodis - iš dėstytojo. Jei jo negavote,
+      susiekite su savo dėstytoju.
     leave_confirmation: Ar tikrai norite nebedalyvauti šiame kurse?
     leave_course: Palikti kursą
     loading: Įkeliama...
@@ -185,6 +198,7 @@ lt:
     none: Nėra
     no_available_actions: Nėra galimų veiksmų
     overview: Apžvalga
+    passcode_prompt: 'Įveskite slaptažodį, norėdami prisijungti:'
     school: Mokykla
     start: Pradžia
     start_typing: Pradėkite rašyti
@@ -197,7 +211,7 @@ lt:
     submitted_note: Jūsų kursas buvo išsiųstas. Viki Ed darbuotojai jį peržiūrės ir
       susisieks su jumis jei kils klausimų.
     user_role: Vaidmuo
-    course_details: Kurso Duomenys Skirtos
+    course_details: Kurso Duomenys
     term: Terminas
     timeline: Užduoties detalės
     timeline_link: Laiko juosta
@@ -241,6 +255,8 @@ lt:
     enrollment: Dalyvavimas
     expected_students: Tikimasi Redaktorių
     join_course: Prisijungti prie programos
+    join_details: Kad prisijungtumėte prie šios programos jums reikia slaptažodžio
+      - arba stojimo nuorodos, kurioje yra slaptažodis - iš organizatoriaus.
     leave_course: Palikti programą
     milestones_none: Projektas šiuo metu neturi jokių gairių.
     published: 'Šis projektas buvo publikuotas! Redaktoriai gali registruotis apsilankę
@@ -388,6 +404,8 @@ lt:
     course_dates: Kurso datos
     summary: Apibendrinimas
   error:
+    invalid_date: '%{key} data yra negalima'
+    start_date_before_end_date: Pradžios data turi būti prieš pabaigos datą
     unsupported_browser:
       header: Nepalaikoma naršyklė :-(
   survey:

@@ -102,8 +102,10 @@ ko:
     milestones:
       title: 이정표
   campaign:
+    description: 설명
     none: 없음
     programs: '%{title} 프로그램'
+    program_template: 프로그램 틀
     title: 제목
   courses:
     activity: 활동
@@ -162,6 +164,7 @@ ko:
     overview: 둘러보기
     passcode: 패스코드
     passcode_none: 비밀코드 없음
+    passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
     school: 학교
     start: 시작
     start_typing: 입력 시작
@@ -348,6 +351,7 @@ ko:
     read_more: 더 보기
     summary: 요약
   error:
+    invalid_date: '%{key} 날짜는 유효하지 않음'
     invalid_file_format: 파일을 저장할 수 없습니다. PDF나 워드 문서를 업로드해 주십시오.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(

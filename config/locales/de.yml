@@ -118,6 +118,7 @@ de:
       Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
       verfügbar.
   assignments:
+    article: Der Artikel %{title} wurde zugewiesen
     already_exists: Diese Zuweisung ist bereits vorhanden!
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
@@ -162,6 +163,10 @@ de:
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
     organizer_removed: '%{user} wurde als Organisator der Kampagne „%{title}“ entfernt'
     programs: Programme von %{title}
+    program_template: Programmvorlage
+    program_template_tooltip: Wenn ein Organisator ein Programm in dieser Kampagne
+      erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
+      darüberkopiert.
     title: Titel
     use_start_end_dates: Start- und Enddaten verwenden
   courses:
@@ -271,6 +276,9 @@ de:
     join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten.
+    join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
+      oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
+      erhalten hast, kontaktiere deinen Kursleiter.
     leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
     leave_course: Kurs verlassen
     loading: Lade …
@@ -287,7 +295,7 @@ de:
     overview: Übersicht
     passcode: Passcode
     passcode_none: Kein Passcode
-    passcode_prompt: Gib den Passcode ein, den du von deinem Kursleiter erhalten hast.
+    passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
@@ -379,6 +387,8 @@ de:
     expected_students: Erwartete Autoren
     instructors: Vermittler
     join_course: Dem Programm beitreten
+    join_details: Um diesem Programm beizutreten, benötigst du vom Vermittler den
+      Passcode oder einen Link, der den Passcode enthält.
     leave_course: Programm verlassen
     milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
     published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen

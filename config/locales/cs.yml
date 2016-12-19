@@ -123,7 +123,7 @@ cs:
       title: Milníky
   campaign:
     campaign: Kampaň
-    campaign_deleted: Kampaň "%{title}" byla smazána
+    campaign_deleted: Kampaň „%{title}“ byla smazána
     campaign_updated: Kampaň byla aktualizována
     delete_campaign: Odstranit tuto kampaň
     none: Žádné
@@ -390,7 +390,7 @@ cs:
     revision_score: Skóre revize
     show_courses: Ukázat pouze mé kurzy
     uploaded_by: Načteno uživatelem
-    usage_count: Počet užití
+    usage_count: Počet použití
   revisions:
     chars_added: Přidáno znaků
     class: Třída
@@ -412,7 +412,7 @@ cs:
     block_custom: Vlastní
     block_in_class: Ve třídě
     block_milestone: Milník
-    course_dates: Termíny kurzů
+    course_dates: Termíny kurzu
     course_end: Konec kurzu
     course_start: Začátek kurzu
     delete_week_confirmation: |-
@@ -432,7 +432,7 @@ cs:
     this_week_title_default: Tento týden
     title: Časová osa
     view_full_timeline: Zobrazit kompletní časovou osu
-    week_number: Týden %{number}
+    week_number: '%{number}. týden'
   training:
     continue: Pokračovat (%{progress})
     view: Zobrazit

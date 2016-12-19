@@ -103,6 +103,7 @@ zh-TW:
     wp10_doc: ' "結構完整性" 評分，是以採用機器學習的版本評估服務 (https://ores.wikimedia.org/) 為依據，來代表著一篇文章內容符合一篇完整維基文章內容程度。評分計算的基準在於文章長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的文章通常代表著它遵循著維基百科上對於良好文章架構的共識。
       (這些評分僅適用於英語維基百科)'
   assignments:
+    article: 條目%{title}已被分配
     already_exists: 此條目已存在！
     assignees: 被分配者
     assign_other: 指定一個文章
@@ -143,6 +144,8 @@ zh-TW:
     organizer_added: '%{user}現在是活動「%{title}」的組織者'
     organizer_removed: '%{user}已被移除活動「%{title}」的組織者身份'
     programs: '%{title}方案'
+    program_template: 方案模板
+    program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
     use_start_end_dates: 使用起始和結束時間
   courses:
@@ -233,6 +236,7 @@ zh-TW:
     join_course: 加入課程
     join_prompt: 加入'%{title}'嗎？
     join_successful: 您已成功加入 %{title}。
+    join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     leave_confirmation: 您確定要離開這個課程嗎？
     leave_course: 離開課程
     loading: 載入中⋯⋯
@@ -247,7 +251,7 @@ zh-TW:
     overview: 概述
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
-    passcode_prompt: 請輸入這堂課程的導師提供給你的選課代碼
+    passcode_prompt: 請輸入選課代碼來加入：
     published: |-
       您的課程已經發布！
       學生可透過此 URL 參與課程：
@@ -329,6 +333,7 @@ zh-TW:
     expected_students: 預期編輯者
     instructors: 主持者
     join_course: 加入方案
+    join_details: 要加入此方案，您需要獲得課程代碼 — 或來自引導者的包含選課代碼連結。
     leave_course: 退出方案
     milestones_none: 此項目裡目前沒有任何里程碑。
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：

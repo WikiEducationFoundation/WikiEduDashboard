@@ -77,6 +77,7 @@ fi:
     edited: Muokattuja artikkeleita
     edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
+    hide: Piilota
     label: Artikkelit
     loading: Ladataan artikkeleita...
     new: (uusi)
@@ -99,11 +100,13 @@ fi:
       stub: Tynkä-luokka — lyhyt artikkelin aloitus, joka tarvitsee lisää sisältöä
       list: Luettelo-luokka — luettelo eikä artikkeli
       '?': Arvioimaton — artikkelia ei ole vielä arvioitu Wikipedian laatuasteikoilla.
+    show_current_version: Näytä nykyinen versio
     title: Otsikko
     title_example: Artikkelin nimi
     view: Näytä artikkeli
     view_all: Näytä kaikki
     view_doc: Kaikkien artikkelien näyttökerrat projektin ajalta
+    view_on_wiki: Näytä wikissä
     views_added: Lisätty %{count} uutta näyttökertaa artikkelille %{title}
     wp10: Rakenteellinen eheys
     wp10_doc: '''Rakenteellinen eheys'' -pisteytys kuvaa, kuinka hyvin artikkeli vastaa
@@ -139,6 +142,10 @@ fi:
       title: Virstanpylväät
   campaign:
     campaign: Kampanja
+    campaigns: Kampanjat
+    create_campaign: Uuden kampanjan luonti
+    create_my_campaign: Luo kampanja!
+    description: Kuvaus
     none: Ei mitään
   courses:
     activity: Toiminta
@@ -279,7 +286,7 @@ fi:
     submitted_note: Kurssisi on lisätty. Henkilökunta arvioi sen ja ottaa yhteyttä,
       mikäli kysyttävää ilmenee.
     user_role: Rooli
-    course_details: Tiedot projektille
+    course_details: Kurssin tiedot
     term: Lukukausi
     timeline: Tehtävän tiedot
     timeline_link: Aikajana

@@ -52,6 +52,7 @@ pl:
     edited: Edytowane artykuły
     edited_by: 'Edytowane przez:'
     edited_mobile: Artykuły
+    hide: Ukryj
     label: Artykuły
     loading: Wczytywanie artykułów...
     new: (nowy)
@@ -105,6 +106,7 @@ pl:
     students: Studenci
     students_short: Studenci
     user_role: Rola
+    course_details: Szczegóły kursu
     title: Tytuł
     view: Zobacz Kursy
     view_wiki: Zobacz w Wikipedii

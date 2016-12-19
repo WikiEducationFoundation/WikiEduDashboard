@@ -231,7 +231,8 @@ qqq:
     program_template: |-
       Label for the field to enter a default description for a program.
       A direct translation of 'Program template' should be suitable.
-    program_template_tooltip: Tooltip explaining what the 'program template' of a campaign is.
+    program_template_tooltip: Tooltip explaining what the 'program template' of a
+      campaign is.
     title: |-
       Label for the input to change the title of a campaign
       {{Identical|Title}}

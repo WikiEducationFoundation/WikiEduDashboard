@@ -135,6 +135,7 @@ ru:
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     programs: '%{title} программы'
+    use_start_end_dates: Использовать даты начала и окончания
   courses:
     activity: Деятельность
     actions: Действия
@@ -180,6 +181,7 @@ ru:
     new_week: Добавить новую неделю
     nocourses: Вы не участвуете ни в одном курсе.
     overview: Обзор
+    passcode_prompt: 'Введите пароль, чтобы присоединиться к:'
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     students: Студенты
@@ -210,6 +212,8 @@ ru:
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+    join_details: Присоединиться к этой программе, вам нужно получить код доступа
+      или ссылку, которая включает пароль от посредника.
     school: Учреждение
     student_editors: Редакторы
     students: Редакторы
@@ -331,6 +335,7 @@ ru:
     summary: Итог
   error:
     oauth_invalid: Ваша авторизация в Википедии истекла. Пожалуйста, войдите ещё раз.
+    start_date_before_end_date: Дата начала должна быть раньше даты окончания
     unsupported_browser:
       header: Ваш браузер не поддерживается.  :-(
   error_401:
