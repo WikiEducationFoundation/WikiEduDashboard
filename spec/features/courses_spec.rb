@@ -100,25 +100,20 @@ describe 'the explore page', type: :feature do
   end
 
   describe 'control bar' do
-    it 'should allow sorting via dropdown and loading of campaigns', js: true do
+    it 'should allow sorting via dropdown', js: true do
       visit '/explore'
 
       # sorting via dropdown
-      find('select.sorts').find(:xpath, 'option[2]').select_option
+      find('#courses select.sorts').find(:xpath, 'option[2]').select_option
       expect(page).to have_selector('[data-sort="revisions"].sort.desc')
-      find('select.sorts').find(:xpath, 'option[3]').select_option
+      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
       expect(page).to have_selector('[data-sort="characters"].sort.desc')
-      find('select.sorts').find(:xpath, 'option[5]').select_option
+      find('#courses select.sorts').find(:xpath, 'option[5]').select_option
       expect(page).to have_selector('[data-sort="views"].sort.desc')
-      find('select.sorts').find(:xpath, 'option[6]').select_option
+      find('#courses select.sorts').find(:xpath, 'option[6]').select_option
       expect(page).to have_selector('[data-sort="students"].sort.desc')
-      find('select.sorts').find(:xpath, 'option[1]').select_option
+      find('#courses select.sorts').find(:xpath, 'option[1]').select_option
       expect(page).to have_selector('[data-sort="title"].sort.asc')
-
-      # loading a different campaign
-      expect(page).to have_content(Campaign.first.title)
-      find('select.campaigns').find(:xpath, 'option[2]').select_option
-      expect(page).to have_content(Campaign.last.title)
     end
   end
 
@@ -127,27 +122,27 @@ describe 'the explore page', type: :feature do
       visit '/explore'
 
       # Sortable by title
-      expect(page).to have_selector('[data-sort="title"].sort.asc')
-      find('[data-sort="title"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="title"].sort.desc')
+      expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
+      find('#courses [data-sort="title"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
 
       # Sortable by character count
-      find('[data-sort="characters"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="characters"].sort.desc')
-      find('[data-sort="characters"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="characters"].sort.asc')
+      find('#courses [data-sort="characters"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="characters"].sort.desc')
+      find('#courses [data-sort="characters"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
 
       # Sortable by view count
-      find('[data-sort="views"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="views"].sort.desc')
-      find('[data-sort="views"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="views"].sort.asc')
+      find('#courses [data-sort="views"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="views"].sort.desc')
+      find('#courses [data-sort="views"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="views"].sort.asc')
 
       # Sortable by student count
-      find('[data-sort="students"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="students"].sort.desc')
-      find('[data-sort="students"].sort').trigger('click')
-      expect(page).to have_selector('[data-sort="students"].sort.asc')
+      find('#courses [data-sort="students"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="students"].sort.desc')
+      find('#courses [data-sort="students"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="students"].sort.asc')
     end
   end
 
@@ -156,15 +151,6 @@ describe 'the explore page', type: :feature do
       visit '/explore'
       find('#courses .table tbody tr:first-child').click
       expect(current_path).to eq("/courses/#{Course.first.slug}")
-    end
-  end
-
-  describe 'campaign pages' do
-    it 'should load courses from the right campaign' do
-      # load courses from a different campaign
-      visit "/explore?campaign=#{Campaign.last.slug}"
-      last_course = Campaign.last.courses.last
-      expect(page).to have_content last_course.title
     end
   end
 
