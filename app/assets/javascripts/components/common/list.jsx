@@ -1,4 +1,5 @@
 import React from 'react';
+import Loading from './loading.jsx';
 import UIActions from '../../actions/ui_actions.js';
 
 const List = React.createClass({
@@ -57,18 +58,25 @@ const List = React.createClass({
     if (this.props.sortable) { className += ' table--sortable'; }
 
     let { elements } = this.props;
-    let text;
+
+    // Handle the case of no elements:
+    // Show a none message if data is already loaded, or
+    // show the Loading spinner if data is not yet loaded.
     if (elements.length === 0) {
+      let emptyMessage;
       if (this.props.store.isLoaded()) {
-        text = this.props.none_message;
-        if (typeof text === 'undefined' || text === null) { text = I18n.t(`${this.props.table_key}.none`); }
+        let noneMessage = this.props.none_message;
+        if (typeof noneMessage === 'undefined' || noneMessage === null) {
+          noneMessage = I18n.t(`${this.props.table_key}.none`);
+        }
+        emptyMessage = <span>{noneMessage}</span>;
       } else {
-        text = I18n.t(`${this.props.table_key}.none`);
+        emptyMessage = <Loading />;
       }
       elements = (
         <tr className="disabled">
           <td colSpan={headers.length + 1} className="text-center">
-            <span>{text}</span>
+            {emptyMessage}
           </td>
         </tr>
       );
