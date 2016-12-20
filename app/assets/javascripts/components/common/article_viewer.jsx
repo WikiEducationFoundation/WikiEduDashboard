@@ -66,27 +66,54 @@ const ArticleViewer = React.createClass({
     return articleUrl;
   },
 
+  articleMetadataUrl() {
+    const wikiUrl = this.wikiUrl();
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&rvlimit=1&rvprop=ids|content&format=json`;
+    const metadataUrl = `${queryBase}&titles=${this.props.article.title}`;
+
+    return metadataUrl;
+  },
+
+  processWikiwhoData() {
+    console.log('you do!')
+  },
+
   fetchParsedArticle() {
-    $.ajax(
-      {
-        dataType: 'jsonp',
-        url: this.parsedArticleUrl(), // parseUrl,
-        success: (data) => {
-          this.setState({
-            parsedArticle: data.parse.text['*'],
-            fetched: true
-          });
-        }
-      });
+    $.ajax({
+      dataType: 'jsonp',
+      url: this.parsedArticleUrl(),
+      success: (data) => {
+        this.setState({
+          parsedArticle: data.parse.text['*'],
+          articlePageId: data.parse.pageid,
+          fetched: true
+        });
+        this.fetchArticleMetadata(); // TODO: only do this for enwiki
+      }
+    });
+  },
+
+  fetchArticleMetadata() {
+    $.ajax({
+      dataType: 'jsonp',
+      url: this.articleMetadataUrl(),
+      success: (data) => {
+        console.log(data.query.pages[this.state.articlePageId].revisions[0]['*'])
+        this.setState({
+          articleMarkup: data.query.pages[this.state.articlePageId].revisions[0]['*'],
+          metadataFetched: true
+        });
+      }
+    });
   },
 
   fetchWikiwho() {
-    console.log('who do?')
+    console.log('voodoo')
     $.ajax({
       url: this.wikiwhoUrl(),
       crossDomain: true,
       success: (json) => {
-        console.log('voodoo')
+        console.log('who do?')
         this.setState({
           wikiwho: json.wikiwho,
           wikiwhoFetched: true
@@ -108,6 +135,10 @@ const ArticleViewer = React.createClass({
       button = <button onClick={this.hideArticle} className="button dark small">{this.hideButtonLabel()}</button>;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
+    }
+
+    if (this.state.metadataFetched && this.state.wikiwhoFetched && !this.state.wikiwhoProcessed) {
+      this.processWikiwhoData();
     }
 
     let style = 'hidden';
