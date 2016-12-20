@@ -36,6 +36,10 @@ const ArticleViewer = React.createClass({
     if (!this.state.fetched) {
       this.fetchParsedArticle();
     }
+    if (!this.state.wikiwhoFetched) {
+      // TODO: only do this for enwiki
+      this.fetchWikiwho();
+    }
   },
 
   hideArticle() {
@@ -48,6 +52,10 @@ const ArticleViewer = React.createClass({
 
   wikiUrl() {
     return `https://${this.props.article.language}.${this.props.article.project}.org`;
+  },
+
+  wikiwhoUrl() {
+    return `/wikiwho/${this.props.article.title}.json`;
   },
 
   parsedArticleUrl() {
@@ -70,6 +78,21 @@ const ArticleViewer = React.createClass({
           });
         }
       });
+  },
+
+  fetchWikiwho() {
+    console.log('who do?')
+    $.ajax({
+      url: this.wikiwhoUrl(),
+      crossDomain: true,
+      success: (json) => {
+        console.log('voodoo')
+        this.setState({
+          wikiwho: json.wikiwho,
+          wikiwhoFetched: true
+        });
+      }
+    });
   },
 
   render() {

@@ -94,6 +94,8 @@ Rails.application.routes.draw do
   get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
 
+  get 'wikiwho/:title' => 'wikiwho#show'
+
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create] do
     member do
