@@ -1,9 +1,11 @@
 import React from 'react';
 import UIActions from '../../actions/ui_actions.js';
 import UIStore from '../../stores/ui_store.js';
+import OnClickOutside from 'react-onclickoutside';
+import Conditional from '../high_order/conditional.jsx';
 
 const Expandable = function (Component) {
-  return React.createClass({
+  const component = React.createClass({
     displayName: 'Expandable',
     mixins: [UIStore.mixin],
 
@@ -22,6 +24,13 @@ const Expandable = function (Component) {
       return UIActions.open(this.refs.component.getKey());
     },
 
+    handleClickOutside() {
+      // TODO: Fire UIActions.close?
+      this.setState({
+        is_open: false
+      });
+    },
+
     render() {
       return (
         <Component {...this.state} {...this.props}
@@ -32,6 +41,7 @@ const Expandable = function (Component) {
       );
     }
   });
+  return Conditional(OnClickOutside(component));
 };
 
 export default Expandable;
