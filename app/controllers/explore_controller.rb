@@ -11,7 +11,5 @@ class ExploreController < ApplicationController
     end
 
     @presenter = CoursesPresenter.new(current_user, ENV['default_campaign'])
-    return unless @presenter.campaign.nil?
-    raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 end

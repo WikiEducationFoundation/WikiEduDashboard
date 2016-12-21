@@ -145,15 +145,6 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'visiting the None campaign' do
-    it 'should see unsubmitted courses' do
-      visit '/explore?campaign=none'
-      sleep 1
-      expect(page).to have_content 'Unsubmitted Courses'
-      expect(page).to have_content 'My Unsubmitted Course'
-    end
-  end
-
   after do
     logout
   end

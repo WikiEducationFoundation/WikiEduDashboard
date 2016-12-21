@@ -138,7 +138,8 @@ class CampaignsController < ApplicationController
   end
 
   def set_campaign
-    @campaign = Campaign.find_by(slug: params[:slug])
+    return if @campaign = Campaign.find_by(slug: params[:slug])
+    raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 
   def set_presenter

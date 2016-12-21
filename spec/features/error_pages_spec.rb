@@ -24,7 +24,7 @@ describe 'error pages' do
 
   describe 'for non-existent campaigns' do
     it 'describes the 404 problem' do
-      visit '/explore?campaign=not_real'
+      visit '/campaigns/not_real'
       expect(page).to have_content 'Page not found'
       expect(page.status_code).to eq(404)
     end
