@@ -147,6 +147,21 @@ describe Replica do
         expect(response.count).to eq(24)
       end
     end
+
+    it 'functions identically on non-English wikis' do
+      VCR.use_cassette 'replica/es_revisions' do
+        all_users = [
+          build(:user, username: 'Ragesoss')
+        ]
+
+        rev_start = 2016_03_09_003430
+        rev_end = 2016_12_02_003430
+
+        wikidata = Wiki.new(language: nil, project: 'wikidata')
+        response = Replica.new(wikidata).get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(12)
+      end
+    end
   end
 
   describe 'error handling' do
