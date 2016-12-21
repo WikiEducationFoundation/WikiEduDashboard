@@ -178,8 +178,8 @@ en:
 
   campaign:
     active_campaigns: Active Campaigns
-    archived: Archived Campaigns
     add_organizer: Add organizer
+    all_campaigns: All Campaigns
     already_exists: That campaign already exists! Please try again with a different title or slug.
     campaign: Campaign
     campaigns: Campaigns
