@@ -78,13 +78,26 @@ const ArticleViewer = React.createClass({
     console.log('you do!')
   },
 
+  processHtml(html) {
+    // The mediawiki parse API returns the same HTML as the rendered article on
+    // Wikipedia. This means relative links to other articles are broken.
+    // Here we turn them into full urls pointing back to the wiki.
+    // However, the page-local anchor links for footnotes and references are
+    // fine; they should link to the footnotes within the ArticleViewer.
+    const absoluteLink = `<a href="${this.wikiUrl()}/`;
+    // This matches links that don't start with # or http. These are
+    // assumed to be relative links to other wiki pages.
+    const relativeLinkMatcher = /(<a href=")(?!http)[^#]/g;
+    return html.replace(relativeLinkMatcher, absoluteLink);
+  },
+
   fetchParsedArticle() {
     $.ajax({
       dataType: 'jsonp',
       url: this.parsedArticleUrl(),
       success: (data) => {
         this.setState({
-          parsedArticle: data.parse.text['*'],
+          parsedArticle: this.processHtml(data.parse.text['*']),
           articlePageId: data.parse.pageid,
           fetched: true
         });
