@@ -92,10 +92,10 @@ class Wiki < ActiveRecord::Base
   # This provides fallback values for when a course is created without setting
   # an explicit home wiki language or project
   def self.default_wiki
-    get language: ENV['wiki_language'], project: 'wikipedia'
+    get_or_create language: ENV['wiki_language'], project: 'wikipedia'
   end
 
-  def self.get(language:, project:)
+  def self.get_or_create(language:, project:)
     language = nil if MULTILINGUAL_PROJECTS.include?(project)
     find_or_create_by(language: language, project: project)
   end
