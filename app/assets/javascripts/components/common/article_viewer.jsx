@@ -1,6 +1,5 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
-import WikiwhoPreparser from '../../utils/wikiwho_preparser.js';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -55,10 +54,6 @@ const ArticleViewer = React.createClass({
     return `https://${this.props.article.language}.${this.props.article.project}.org`;
   },
 
-  wikiwhoUrl() {
-    return `/wikiwho/${this.props.article.title}.json`;
-  },
-
   whocolorUrl() {
     return `https://api.wikicolor.net/whocolor/index.php?title=${this.props.article.title}`;
   },
@@ -69,21 +64,6 @@ const ArticleViewer = React.createClass({
     const articleUrl = `${queryBase}&page=${this.props.article.title}`;
 
     return articleUrl;
-  },
-
-  articleMetadataUrl() {
-    const wikiUrl = this.wikiUrl();
-    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&rvlimit=1&rvprop=ids|content&format=json`;
-    const metadataUrl = `${queryBase}&titles=${this.props.article.title}`;
-
-    return metadataUrl;
-  },
-
-  processWikiwhoData() {
-    console.log('you do!')
-    console.log(this.state.articleMarkup)
-    const extendedMarkup = WikiwhoPreparser.extendMarkup(this.state.articleMarkup, this.state.wikiwho);
-    console.log(extendedMarkup);
   },
 
   processHtml(html) {
@@ -99,6 +79,16 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
+  highlightAuthor(authorId) {
+    const html = this.state.whocolorHtml;
+    const styledAuthorSpan = `<span style="background: red" class="author-token token-authorid-${authorId}"`;
+    const authorSpanMatcher = new RegExp(`<span class="author-token token-authorid-${authorId}`, 'g');
+    const highlightedHtml = html.replace(authorSpanMatcher, styledAuthorSpan);
+    this.setState({
+      highlightedHtml: highlightedHtml
+    });
+  },
+
   fetchParsedArticle() {
     $.ajax({
       dataType: 'jsonp',
@@ -109,53 +99,23 @@ const ArticleViewer = React.createClass({
           articlePageId: data.parse.pageid,
           fetched: true
         });
-        this.fetchArticleMetadata(); // TODO: only do this for enwiki
-      }
-    });
-  },
-
-  fetchArticleMetadata() {
-    $.ajax({
-      dataType: 'jsonp',
-      url: this.articleMetadataUrl(),
-      success: (data) => {
-        this.setState({
-          articleMarkup: data.query.pages[this.state.articlePageId].revisions[0]['*'],
-          metadataFetched: true
-        });
-      }
-    });
-  },
-
-  fetchWikiwho() {
-    console.log('voodoo')
-    $.ajax({
-      url: this.wikiwhoUrl(),
-      crossDomain: true,
-      success: (json) => {
-        this.setState({
-          wikiwho: json.wikiwho,
-          wikiwhoFetched: true
-        });
       }
     });
   },
 
   fetchWhocolorHtml() {
-    console.log('voodoo')
     $.ajax({
       url: this.whocolorUrl(),
       crossDomain: true,
       success: (json) => {
-        console.log('who do?')
         this.setState({
-          whocolorHtml: json.html,
+          whocolorHtml: this.processHtml(json.html),
           whocolorFetched: true
         });
+        this.highlightAuthor(23536234);
       }
     });
   },
-
 
   render() {
     let button;
@@ -172,10 +132,6 @@ const ArticleViewer = React.createClass({
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
 
-    if (this.state.metadataFetched && this.state.wikiwhoFetched && !this.state.wikiwhoProcessed) {
-      this.processWikiwhoData();
-    }
-
     let style = 'hidden';
     if (this.state.showArticle && this.state.fetched) {
       style = '';
@@ -186,8 +142,7 @@ const ArticleViewer = React.createClass({
     if (this.state.diff === '') {
       article = '<div />';
     } else {
-      // diff = this.state.diff;
-      article = this.state.whocolorHtml || this.state.parsedArticle;
+      article = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
     }
 
     return (
