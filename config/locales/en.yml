@@ -206,6 +206,8 @@ en:
 
   courses:
     activity: Activity
+    active_courses: Active %{course_type}
+    all_courses: All Courses
     already_enrolled: You are already a part of '%{title}'!
     already_exists: That already exists for this course!
     archived: Archived Courses
@@ -426,6 +428,7 @@ en:
     students_short: Editors
     students_count: Number of participants
     term: When
+    unsubmitted: Unsubmitted Programs
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
     view_other: View other campaigns
     view_page: View Program Page

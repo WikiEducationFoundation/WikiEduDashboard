@@ -240,6 +240,10 @@ qqq:
     use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
   courses:
     activity: Label for link to the 'recent activity' list for a course
+    active_courses: |-
+      Heading for the list of active courses. 'course_type' is either the courses.courses or campaign.campaigns message.
+      So in English, the message would say either 'Active Courses' or 'Active Campaigns'.
+    all_courses: Button to view the list of all courses
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
     already_exists: Message indicating that whatever was just added by the user already
@@ -474,6 +478,9 @@ qqq:
     student_editors: '{{Identical|Editor}}'
     students: '{{Identical|Editor}}'
     students_short: '{{Identical|Editor}}'
+    unsubmitted: |-
+      Alternative wording for generic courses.
+      {{Identical|Unsubmitted Programs}}
     uploads_none: Message indicating that there are no Commons contributions to show
   editable:
     edit: |-
