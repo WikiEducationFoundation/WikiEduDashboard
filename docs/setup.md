@@ -75,11 +75,15 @@
 
       $ `zeus start`
 
-2. **Start Guard**
+2. **Start Redis** (if not already running as daemon)
+
+      $ `redis-server`
+
+3. **Start Guard**
 
       $ `guard`
 
-3. **Start Gulp to watch JS and CSS**
+4. **Start Gulp to watch JS and CSS**
 
       $ `gulp`
 
