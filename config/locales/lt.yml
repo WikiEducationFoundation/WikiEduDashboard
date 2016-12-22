@@ -68,6 +68,7 @@ lt:
     view_all: Rodyti visus
     view_on_wiki: Peržiūrėti viki
   assignments:
+    article: Straipsnis %{title} buvo priskirtas
     assign_other: Priskirti straipsnį
     add_available: Pridėti prieinamą straipsnį
     assign_self: Priskirti straipsnį sau

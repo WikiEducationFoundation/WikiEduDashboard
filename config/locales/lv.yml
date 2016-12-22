@@ -36,6 +36,9 @@ lv:
       title: Atskaites punkti
   campaign:
     campaign: Kampaņa
+    campaigns: Kampaņas
+    create_campaign: Izveidot jaunu kampaņu
+    description: Apraksts
     none: Nav
     programs: '%{title} programmas'
   courses:

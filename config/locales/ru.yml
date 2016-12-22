@@ -135,6 +135,7 @@ ru:
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     programs: '%{title} программы'
+    program_template: Шаблон программы
     use_start_end_dates: Использовать даты начала и окончания
   courses:
     activity: Деятельность

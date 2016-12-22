@@ -131,6 +131,7 @@ fr:
       d’un bon article, mais il ne prend pas en compte le contenu lui-même. (Ces statistiques
       ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
   assignments:
+    article: L’article %{title} a été affecté
     already_exists: Cette affectation existe déjà !
     assignees: Affectation(s)
     assign_other: Affecter un article
@@ -174,6 +175,9 @@ fr:
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
     organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
     programs: Programmes de %{title}
+    program_template: Modèle de programme
+    program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
+      le texte dans cette zone sera copié comme une description sur la page du programme
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
   courses:
@@ -283,6 +287,9 @@ fr:
     join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
     join_successful: Vous avez bien rejoint %{title}.
+    join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
+      un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
+      pas reçu, contactez votre formateur.
     leave_confirmation: Êtes-vous sûr de vouloir abandonner ce cours ?
     leave_course: Quitter le cours
     loading: Chargement…
@@ -299,8 +306,8 @@ fr:
     overview: Vue d'ensemble
     passcode: Mot de passe
     passcode_none: Aucun mot de passe
-    passcode_prompt: Entrer le mot de passe qui vous a été donné par votre instructeur
-      pour ce cours
+    passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
+      cours :'
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     review_timeline: Veuillez consulter ce calendrier et faire les modifications.
@@ -391,6 +398,8 @@ fr:
     expected_students: Éditeurs attendus
     instructors: Animateurs
     join_course: Rejoindre le programme
+    join_details: Pour rejoindre ce programme, vous devez obtenir le code d’accès
+      — ou un lien qui l’inclut — de la part de l’animateur.
     leave_course: Quitter le programme
     milestones_none: Ce projet n’a actuellement aucun jalon.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant

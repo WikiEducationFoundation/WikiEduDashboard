@@ -68,6 +68,8 @@ sv:
       title: Milstolpar
   campaign:
     add_organizer: Lägg till organiserare
+    already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
+      slug.
     campaigns: Kampanjer
     campaign_not_updated: Kampanjen kunde inte uppdateras
     campaign_updated: Kampanj uppdaterades

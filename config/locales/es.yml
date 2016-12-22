@@ -150,12 +150,15 @@ es:
   campaign:
     add_organizer: Añadir organizador
     campaign: Campaña
+    campaigns: Campañas
     campaign_deleted: La campaña "%{title}" se ha eliminado
     campaign_updated: Campaña actualizada
     confirm_campaign_deletion: ¿Estás seguro de que quieres eliminar la campaña titulada
       "%{title}"? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
       La campaña no se ha eliminado.
+    create_campaign: Crear una campaña nueva
+    description: Descripción
     delete_campaign: Eliminar esta campaña
     none: Ninguno
     organizers: Organizadores
@@ -311,7 +314,7 @@ es:
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
       pondrá en contacto ante cualquier pregunta.
     user_role: Oficio
-    course_details: Detalles del curso para
+    course_details: Detalles del curso
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma

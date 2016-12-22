@@ -107,6 +107,7 @@ ko:
     programs: '%{title} 프로그램'
     program_template: 프로그램 틀
     title: 제목
+    use_start_end_dates: 시작 및 끝 날짜 사용
   courses:
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!
@@ -353,6 +354,7 @@ ko:
   error:
     invalid_date: '%{key} 날짜는 유효하지 않음'
     invalid_file_format: 파일을 저장할 수 없습니다. PDF나 워드 문서를 업로드해 주십시오.
+    start_date_before_end_date: 시작 날짜는 끝 날짜보다 앞서야 합니다.
     unsupported_browser:
       header: 지원되지 않는 브라우저입니다. :-(
       explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의
