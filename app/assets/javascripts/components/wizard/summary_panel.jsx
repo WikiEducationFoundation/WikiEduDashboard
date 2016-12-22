@@ -54,7 +54,7 @@ const SummaryPanel = React.createClass({
         {...this.props}
         advance={this.submit}
         raw_options={rawOptions}
-        button_text="Submit"
+        button_text="Generate Timeline"
       />
     );
   }

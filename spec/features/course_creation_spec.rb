@@ -80,7 +80,7 @@ def go_through_researchwrite_wizard
   click_button 'Next' # No DYK/GA
   sleep 1
 
-  click_button 'Submit'
+  click_button 'Generate Timeline'
   sleep 1
 end
 
@@ -179,7 +179,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
       click_button 'Summary'
       sleep 1
-      click_button 'Submit'
+      click_button 'Generate Timeline'
 
       # Now we're back at the timeline, having completed the wizard.
       sleep 1
@@ -375,7 +375,7 @@ describe 'New course creation and editing', type: :feature do
       sleep 1
 
       # Finish the wizard
-      click_button 'Submit'
+      click_button 'Generate Timeline'
       expect(page).to have_content 'Add Assignment'
       sleep 1
 
