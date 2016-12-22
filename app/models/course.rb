@@ -250,6 +250,11 @@ class Course < ActiveRecord::Base
     word_count / user_count
   end
 
+  # Overidden by ClassroomProgramCourse
+  def assignment_edits_enabled?
+    wiki_edits_enabled?
+  end
+
   #################
   # Cache methods #
   #################
