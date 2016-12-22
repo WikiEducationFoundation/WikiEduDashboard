@@ -5,6 +5,7 @@
 /node_modules
 /js_coverage
 /vendor/*
+.nyc_output
 
 *.rbc
 capybara-*.html
