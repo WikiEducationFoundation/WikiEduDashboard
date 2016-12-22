@@ -87,8 +87,6 @@ describe CoursesPresenter do
     context 'when the campaign is a valid campaign' do
       let!(:course2) { create(:course, submitted: false, id: 10002) }
       let(:campaign_param)    { 'My Awesome Campaign' }
-      puts Campaign.all.inspect
-      puts Figaro.env.default_campaign.inspect
       let(:campaign)          { create(:campaign, slug: campaign_param) }
       let!(:campaigns_course) { create(:campaigns_course, campaign_id: campaign.id, course_id: course.id) }
       it 'returns courses for the campaign' do

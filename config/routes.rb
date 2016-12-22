@@ -165,6 +165,7 @@ Rails.application.routes.draw do
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
+  get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # ask.wikiedu.org search box

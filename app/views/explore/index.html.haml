@@ -1,4 +1,4 @@
-- content_for :after_title, " - #{@presenter.campaign.title}"
+- content_for :after_title, " - #{t(Features.wiki_ed? ? 'application.explore' : 'courses_generic.explore')}"
 
 %header.main-page
   .container
@@ -6,4 +6,6 @@
     = render 'courses/header_stats', presenter: @presenter
 
 .container
+  = render 'campaigns/campaigns', presenter: @presenter
+  %hr
   = render 'courses/campaign_courses', presenter: @presenter

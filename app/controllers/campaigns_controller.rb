@@ -25,6 +25,10 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def new
+    redirect_to campaigns_path(create: true)
+  end
+
   def create
     @campaign = Campaign.create(campaign_params)
 
@@ -135,6 +139,8 @@ class CampaignsController < ApplicationController
 
   def set_campaign
     @campaign = Campaign.find_by(slug: params[:slug])
+    return if @campaign
+    raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 
   def set_presenter

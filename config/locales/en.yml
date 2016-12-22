@@ -178,7 +178,9 @@ en:
       title: Milestones
 
   campaign:
+    active_campaigns: Active Campaigns
     add_organizer: Add organizer
+    all_campaigns: All Campaigns
     already_exists: That campaign already exists! Please try again with a different title or slug.
     campaign: Campaign
     campaigns: Campaigns
@@ -205,6 +207,8 @@ en:
 
   courses:
     activity: Activity
+    active_courses: Active %{course_type}
+    all_courses: All Courses
     already_enrolled: You are already a part of '%{title}'!
     already_exists: That already exists for this course!
     archived: Archived Courses
@@ -409,6 +413,7 @@ en:
         Click "Create my Program!" to start building the page for your wiki program.
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
+    explore: Find Programs
     enroll: Add Editor
     enrollment: Participation
     expected_students: Expected Editors
@@ -426,6 +431,7 @@ en:
     students_short: Editors
     students_count: Number of participants
     term: When
+    unsubmitted: Unsubmitted Programs
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
     view_other: View other campaigns
     view_page: View Program Page

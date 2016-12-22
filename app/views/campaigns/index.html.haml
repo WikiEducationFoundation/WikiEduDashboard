@@ -13,7 +13,7 @@
         %button.button.dark.create-campaign-button
           = t('campaign.create_campaign')
 
-    %div.create-modal-wrapper{class: @campaign.errors.any? ? 'show-create-modal' : 'hidden'}
+    %div.create-modal-wrapper{class: @campaign.errors.any? || params[:create] ? 'show-create-modal' : 'hidden'}
       = render 'create_modal'
 
 %section.campaign-list
