@@ -112,7 +112,7 @@ const ArticleViewer = React.createClass({
           whocolorHtml: this.processHtml(json.html),
           whocolorFetched: true
         });
-        this.highlightAuthor(23536234);
+        this.highlightAuthor(319203); // User:Ragesoss
       }
     });
   },
