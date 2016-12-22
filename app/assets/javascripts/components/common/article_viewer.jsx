@@ -1,5 +1,6 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
+import WikiwhoPreparser from '../../utils/wikiwho_preparser.js';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -36,9 +37,9 @@ const ArticleViewer = React.createClass({
     if (!this.state.fetched) {
       this.fetchParsedArticle();
     }
-    if (!this.state.wikiwhoFetched) {
+    if (!this.state.whocolorFetched) {
       // TODO: only do this for enwiki
-      this.fetchWikiwho();
+      this.fetchWhocolorHtml();
     }
   },
 
@@ -56,6 +57,10 @@ const ArticleViewer = React.createClass({
 
   wikiwhoUrl() {
     return `/wikiwho/${this.props.article.title}.json`;
+  },
+
+  whocolorUrl() {
+    return `https://api.wikicolor.net/whocolor/index.php?title=${this.props.article.title}`;
   },
 
   parsedArticleUrl() {
@@ -76,6 +81,9 @@ const ArticleViewer = React.createClass({
 
   processWikiwhoData() {
     console.log('you do!')
+    console.log(this.state.articleMarkup)
+    const extendedMarkup = WikiwhoPreparser.extendMarkup(this.state.articleMarkup, this.state.wikiwho);
+    console.log(extendedMarkup);
   },
 
   processHtml(html) {
@@ -111,7 +119,6 @@ const ArticleViewer = React.createClass({
       dataType: 'jsonp',
       url: this.articleMetadataUrl(),
       success: (data) => {
-        console.log(data.query.pages[this.state.articlePageId].revisions[0]['*'])
         this.setState({
           articleMarkup: data.query.pages[this.state.articlePageId].revisions[0]['*'],
           metadataFetched: true
@@ -126,7 +133,6 @@ const ArticleViewer = React.createClass({
       url: this.wikiwhoUrl(),
       crossDomain: true,
       success: (json) => {
-        console.log('who do?')
         this.setState({
           wikiwho: json.wikiwho,
           wikiwhoFetched: true
@@ -134,6 +140,22 @@ const ArticleViewer = React.createClass({
       }
     });
   },
+
+  fetchWhocolorHtml() {
+    console.log('voodoo')
+    $.ajax({
+      url: this.whocolorUrl(),
+      crossDomain: true,
+      success: (json) => {
+        console.log('who do?')
+        this.setState({
+          whocolorHtml: json.html,
+          whocolorFetched: true
+        });
+      }
+    });
+  },
+
 
   render() {
     let button;
@@ -165,7 +187,7 @@ const ArticleViewer = React.createClass({
       article = '<div />';
     } else {
       // diff = this.state.diff;
-      article = this.state.parsedArticle;
+      article = this.state.whocolorHtml || this.state.parsedArticle;
     }
 
     return (
