@@ -9,7 +9,7 @@ json.assignments course.assignments do |assignment|
     json.article_rating_num rating_priority(assignment.article.rating)
     json.article_pretty_rating rating_display(assignment.article.rating)
   else
-    json.article_rating nil
+    json.article_rating 'does_not_exist'
     json.article_rating_num nil
     json.article_pretty_rating '∅'
   end
