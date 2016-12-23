@@ -2,6 +2,22 @@
 require 'rails_helper'
 
 describe 'the explore page', type: :feature, js: true do
+  let(:campaign) { Campaign.default_campaign }
+  let!(:course) do
+    create(:course, start: '2014-01-01'.to_date,
+                    end: Time.zone.today + 2.days)
+  end
+  let!(:campaign_course) do
+    CampaignsCourses.create(campaign_id: campaign.id, course_id: course.id)
+  end
+  let!(:user) { create(:user, trained: true) }
+  let!(:cu) do
+    create(:courses_user,
+           course_id: course.id,
+           user_id: user.id,
+           role: CoursesUsers::Roles::STUDENT_ROLE)
+  end
+
   describe 'control bar' do
     it 'should allow sorting via dropdown' do
       visit '/explore'
@@ -50,23 +66,6 @@ describe 'the explore page', type: :feature, js: true do
   end
 
   describe 'rows' do
-    before do
-      campaign = Campaign.default_campaign
-      course = create(:course,
-        id: 1,
-        start: '2014-01-01'.to_date,
-        end: Time.zone.today + 2.days)
-      CampaignsCourses.create(
-        campaign_id: campaign.id,
-        course_id: 1)
-      user = create(:user, id: 1, trained: true)
-      create(:courses_user,
-             id: 1,
-             course_id: 1,
-             user_id: 1,
-             role: CoursesUsers::Roles::STUDENT_ROLE)
-    end
-
     it 'should allow navigation to a campaign page' do
       visit '/explore'
       find('#campaigns .table tbody tr:first-child').click
@@ -80,8 +79,7 @@ describe 'the explore page', type: :feature, js: true do
     end
 
     it 'should show the stats accurately' do
-      article = create(:article,
-                       id: 1,
+      create(:article, id: 1,
                        title: 'Selfie',
                        namespace: 0)
       create(:articles_course,
@@ -93,6 +91,7 @@ describe 'the explore page', type: :feature, js: true do
              article_id: 1,
              date: 6.days.ago,
              characters: 9000)
+      Course.update_all_caches
       visit '/explore'
 
       # Number of courses
