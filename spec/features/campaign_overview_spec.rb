@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+campaign_course_count = 10
+
+module ResetLocale
+  RSpec.configuration.before do
+    I18n.locale = 'en'
+  end
+end
+
 describe 'campaign overview page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
@@ -10,6 +18,112 @@ describe 'campaign overview page', type: :feature, js: true do
            title: 'My awesome Spring 2016 campaign',
            slug: slug,
            description: 'This is the best campaign')
+  end
+
+  describe 'header' do
+    before do
+      campaign_two = create(:campaign_two)
+
+      (1..campaign_course_count).each do |i|
+        course1 = create(:course,
+                         id: i,
+                         title: "course #{i}",
+                         slug: "school/course_#{i}_(term)",
+                         start: '2014-01-01'.to_date,
+                         end: Time.zone.today + 2.days)
+        course1.campaigns << campaign
+        course2 = create(:course,
+                         id: (i + campaign_course_count),
+                         title: "course #{i + campaign_course_count}",
+                         slug: "school/course_#{i + campaign_course_count}_(term)",
+                         start: '2014-01-01'.to_date,
+                         end: Time.zone.today + 2.days)
+        course2.campaigns << campaign_two
+
+        # STUDENTS, one per course
+        create(:user, id: i, trained: true)
+        create(:courses_user,
+               id: i,
+               course_id: i,
+               user_id: i,
+               role: CoursesUsers::Roles::STUDENT_ROLE)
+
+        # INSTRUCTORS, one per course
+        create(:user, id: i + campaign_course_count, trained: true)
+        create(:courses_user,
+               id: i + campaign_course_count,
+               course_id: i,
+               user_id: i + campaign_course_count,
+               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        # The instructors are also enrolled as students.
+        create(:courses_user,
+               id: i + campaign_course_count * 2,
+               course_id: i,
+               user_id: i + campaign_course_count,
+               role: CoursesUsers::Roles::STUDENT_ROLE)
+
+        # article = create(:article,
+        #                  id: i,
+        #                  title: 'Selfie',
+        #                  namespace: 0)
+        # create(:articles_course,
+        #        course_id: course1.id,
+        #        article_id: article.id)
+        # create(:revision,
+        #        id: i,
+        #        user_id: i,
+        #        article_id: i,
+        #        date: 6.days.ago,
+        #        characters: 9000)
+      end
+      Course.update_all_caches
+    end
+
+    it 'should display stats accurately' do
+      visit "/campaigns/#{campaign.slug}/overview"
+
+      # Number of courses
+      course_count = Campaign.first.courses.count
+      stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
+      expect(page.find('.stat-display')).to have_content stat_text
+
+      # Number of students
+      # one non-instructor student per course
+      student_count = campaign_course_count
+      stat_text = "#{student_count} #{I18n.t('courses.students')}"
+      expect(page.find('.stat-display')).to have_content stat_text
+
+      # Words added
+      word_count = WordCount.from_characters Course.all.sum(:character_sum)
+      stat_text = "#{word_count} #{I18n.t('metrics.word_count')}"
+      expect(page.find('.stat-display')).to have_content stat_text
+
+      # Views
+      view_count = Course.all.sum(:view_sum)
+      stat_text = "#{view_count} #{I18n.t('metrics.view_count_description')}"
+      expect(page.find('.stat-display')).to have_content stat_text
+    end
+
+    describe 'non-default locales' do
+      include ResetLocale
+
+      it 'should switch languages' do
+        visit "/campaigns/#{campaign.slug}/overview?locale=qqq"
+        expect(page.find('.stat-display')).to have_content 'Long label for the number'
+      end
+
+      it 'falls back when locale is not available' do
+        visit "/campaigns/#{campaign.slug}/overview?locale=aa"
+        expect(page.find('.stat-display')).to have_content '10 Students'
+      end
+
+      # TODO: Test somewhere that has access to the request.
+      # it 'gets preferred language from header' do
+      #   request.env['HTTP_ACCEPT_LANGUAGE'] = 'es-MX,fr'
+      #   get ':index'
+      #   expect(response).to have_content '10 Estudiantes'
+      # end
+    end
   end
 
   context 'as an user' do

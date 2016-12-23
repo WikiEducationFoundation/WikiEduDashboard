@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-#= Controller for campaign/course functionality
 class UnsubmittedCoursesController < ApplicationController
   respond_to :html
 
