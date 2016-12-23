@@ -531,7 +531,6 @@ const Survey = {
       }
 
       this.addConditionalQuestionToStore(question_id, $question);
-      
       this.addListenersToConditional($question, conditionalOptions);
       this.surveyConditionals[question_id].currentAnswers = [];
 
