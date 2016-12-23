@@ -531,11 +531,19 @@ const Survey = {
       }
 
       this.addConditionalQuestionToStore(question_id, $question);
-
-      if ((typeof value !== 'undefined' && value !== null)) { this.surveyConditionals[question_id][value] = $question; }
+      
+      this.addListenersToConditional($question, conditionalOptions);
       this.surveyConditionals[question_id].currentAnswers = [];
 
-      this.addListenersToConditional($question, conditionalOptions);
+      if (typeof value === 'undefined' && value === null) return;
+
+      const $currentQuestionValue = this.surveyConditionals[question_id][value];
+      if ($currentQuestionValue) {
+        const $newQuestionSet = $currentQuestionValue.add($question);
+        this.surveyConditionals[question_id][value] = $newQuestionSet;
+      } else {
+        this.surveyConditionals[question_id][value] = $question;
+      }
     });
   },
 
@@ -670,7 +678,6 @@ const Survey = {
   handleParentPresenceConditionalChange(params) {
     const { present, conditionalGroup, $parent } = params;
     const $question = $(conditionalGroup.question);
-
     if (present && !conditionalGroup.present) {
       conditionalGroup.present = true;
       this.activateConditionalQuestion($question, $parent);
