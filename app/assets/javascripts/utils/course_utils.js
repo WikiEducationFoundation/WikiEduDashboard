@@ -76,7 +76,7 @@ const CourseUtils = class {
     );
     const article = {
       rating: assignment.article_rating,
-      rating_num: null,
+      rating_num: assignment.article_rating_num,
       pretty_rating: assignment.article_pretty_rating,
       url: articleUrl,
       title: assignment.article_title,
