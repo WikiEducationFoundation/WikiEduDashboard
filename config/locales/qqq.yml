@@ -146,6 +146,7 @@ qqq:
       stub: Explanation of what a Stub-class article is
       list: Explanation of what a List-class page is
       '?': Explanation of what an unrated article is
+      does_not_exist: Explanation of the Ø  symbol, which indicates than the article does not exist on Wikipedia
     title: |-
       Label for an article title.
       {{Identical|Title}}
