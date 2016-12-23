@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
+  has_many :campaigns, -> { distinct }, through: :campaigns_users
   has_many :revisions, -> { where(system: false) }
   has_many :all_revisions, class_name: Revision
   has_many :articles, -> { distinct }, through: :revisions
@@ -108,6 +109,17 @@ class User < ActiveRecord::Base
 
   def student?(course)
     course.users.role('student').include? self
+  end
+
+  def campaign_organizer?
+    organized_campaigns.any?
+  end
+
+  def organized_campaigns
+    CampaignsUsers.where(
+      user_id: id,
+      role: CampaignsUsers::Roles::ORGANIZER_ROLE
+    ).collect(&:campaign).compact
   end
 
   def role(course)

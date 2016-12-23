@@ -103,6 +103,21 @@ describe User do
     end
   end
 
+  describe '#organized_campaigns' do
+    it 'returns campaigns that the user is an organizer of' do
+      user = create(:user)
+      campaign = create(:campaign, title: 'My awesome campaign')
+      campaign2 = create(:campaign, title: 'My other awesome campaign')
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id)
+      create(:campaigns_user, user_id: user.id,
+                              campaign_id: campaign2.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      campaign_ids = user.organized_campaigns.collect(&:id)
+      expect(campaign_ids).to_not include(campaign.id)
+      expect(campaign_ids).to include(campaign2.id)
+    end
+  end
+
   describe '#can_edit?' do
     it 'returns true for users with non-student roles' do
       course = create(:course,
