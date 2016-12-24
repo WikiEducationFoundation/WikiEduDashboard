@@ -97,7 +97,7 @@ describe 'Admin users', type: :feature, js: true do
       # Edit details and remove campaign
       click_button('Edit Details')
       page.all('.button.border.plus')[4].click
-      page.all('.button.border.plus')[5].click
+      page.find('.button.border.plus', text: '-').click
       sleep 1
 
       expect(page).to have_content 'This course has been submitted'
