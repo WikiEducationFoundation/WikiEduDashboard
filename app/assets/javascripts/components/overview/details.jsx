@@ -186,11 +186,15 @@ const Details = React.createClass({
         />
       );
     }
-
+    const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
-      _.map(this.props.campaigns, 'title').join(', ')
+      _.map(this.props.campaigns, (campaign, index) => {
+        let comma = '';
+        const url = `/campaigns/${campaign.slug}/overview`;
+        if (index !== lastIndex) { comma = ', '; }
+        return <span><a href={url}>{campaign.title}</a>{comma}</span>;
+      })
     : I18n.t('courses.none');
-
 
     let subject;
     let tags;
