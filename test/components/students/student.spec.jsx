@@ -25,12 +25,13 @@ describe('Student', () => {
     }
   ];
   const course = {
-    home_wiki: { language: 'en', project: 'wikipedia', published: true }
+    published: true,
+    home_wiki: { language: 'en', project: 'wikipedia' }
   };
   const studentElement = ReactTestUtils.renderIntoDocument(
-    <div>
+    <table>
       <Student student={studentUser} course={course} editable={false} published={true} current_user ={currentUser} assigned={assigned} />
-    </div>
+    </table>
   );
   it('displays the name of the user', () => {
     expect(studentElement.textContent).to.contain('Adam');
