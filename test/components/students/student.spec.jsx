@@ -18,6 +18,7 @@ describe('Student', () => {
     {
       id: 9,
       article_title: "Foo",
+      course_id: "Couse_school/Foo_(Couse_term)",
       assignment_id: 9,
       article_url: "https://en.wikipedia.org/wiki/Foo",
       username: "Adam",
