@@ -37,8 +37,8 @@ describe('Student', () => {
   }
   );
   it('opens drawer when clicked', () => {
-    expect(row.className).to.eq('students');
     const row = studentElement.querySelector('tr');
+    expect(row.className).to.eq('students');
     click(row).then(() => {
       expect(row.className).to.contain('open');
       done();
