@@ -21,8 +21,7 @@ describe('Student', () => {
       course_id: "Couse_school/Foo_(Couse_term)",
       assignment_id: 9,
       article_url: "https://en.wikipedia.org/wiki/Foo",
-      username: "Adam",
-      course_id: "Couse_school/Test_Course_(Couse_term)"
+      username: "Adam"
     }
   ];
   const course = {
@@ -31,7 +30,7 @@ describe('Student', () => {
   };
   const studentElement = ReactTestUtils.renderIntoDocument(
     <table>
-      <Student student={studentUser} course={course} editable={false} published={true} current_user ={currentUser} assigned={assigned} />
+      <Student student={studentUser} course={course} editable={false} published={true} current_user ={currentUser} assigned={assigned} assignments={assigned} reviewing={assigned} />
     </table>
   );
   it('displays the name of the user', () => {
