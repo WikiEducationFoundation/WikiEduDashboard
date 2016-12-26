@@ -32,11 +32,12 @@ describe('Student', () => {
       <Student student={studentUser} course={course} editable={false} published={true} current_user ={currentUser} assigned={assigned} />
     </div>
   );
-  it('renders', () => {
+  it('displays the name of the user', () => {
     expect(studentElement.textContent).to.contain('Adam');
   }
   );
-  it('opens drawer', () => {
+  it('opens drawer when clicked', () => {
+    expect(row.className).to.eq('students');
     const row = studentElement.querySelector('tr');
     click(row).then(() => {
       expect(row.className).to.contain('open');
