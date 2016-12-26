@@ -169,6 +169,7 @@ const Survey = {
       this.groupSliders.push(slider);
     });
     $(this.parentSlider).removeClass('loading');
+    this.updateButtonText();
   },
 
   toggleTabNavigationForQuestion(enable, slick, current) {
@@ -441,6 +442,11 @@ const Survey = {
     }
   },
 
+  updateButtonText() {
+    $('.survey__next-text').text('Next');
+    $('.survey__next-text').last().text('Submit Survey');
+  },
+
   removeNextButton({ target }) {
     const $el = $(target).closest('.button');
     if (!(typeof target !== 'undefined' && target !== null)) { return; }
@@ -626,7 +632,7 @@ const Survey = {
 
       // Check if conditional was present and is no longer
       currentAnswers.forEach((a) => {
-        if (value.indexOf(a === -1)) {
+        if (value.indexOf(a) === -1) {
           const index = currentAnswers.indexOf(a);
           if (currentAnswers.length === 1) {
             currentAnswers = [];
@@ -637,7 +643,8 @@ const Survey = {
       });
       // Check if value matches a conditional question
       value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined) {
+        if (conditionalGroup[v] !== undefined &&
+            currentAnswers.indexOf(v) === -1) {
           conditional = conditionalGroup[v];
           currentAnswers.push(v);
           conditionalGroup.currentAnswers = currentAnswers;
@@ -756,6 +763,7 @@ const Survey = {
       $slider.slick('slickAdd', $question, parentIndex);
       this.indexBlocks();
     }
+    this.updateButtonText();
   },
 
   attachMatrixParentBlock($question, questionGroupIndex) {
