@@ -194,24 +194,34 @@ describe 'Surveys', type: :feature, js: true do
 
       click_button('Start')
 
+      sleep 1
+
       within('div[data-progress-index="2"]') do
         click_button('Next', visible: true) # Q1
       end
+
+      sleep 1
 
       find('.label', text: 'hindi').click
       within('div[data-progress-index="3"]') do
         click_button('Next', visible: true) # Q2
       end
 
+      sleep 1
+
       find('.label', text: 'female').click
       within('div[data-progress-index="4"]') do
         click_button('Next', visible: true) # Q3
       end
 
+      sleep 1
+
       fill_in('answer_group_6_answer_text', with: 'testing')
       within('div[data-progress-index="5"]') do
         click_button('Next', visible: true) # Q4
       end
+
+      sleep 1
 
       select('mac', from: 'answer_group_7_answer_text')
       within('div[data-progress-index="6"]') do
@@ -219,24 +229,33 @@ describe 'Surveys', type: :feature, js: true do
       end
 
       sleep 1
+
       within('div[data-progress-index="7"]') do
         click_button('Next', visible: true) # Q6
       end
+
+      sleep 1
 
       fill_in('answer_group_9_answer_text', with: 'testing')
       within('div[data-progress-index="8"]') do
         click_button('Next', visible: true) # Q7
       end
 
+      sleep 1
+
       fill_in('answer_group_10_answer_text', with: '50')
       within('div[data-progress-index="9"]') do
         click_button('Next', visible: true) # Q8
       end
 
+      sleep 1
+
       within('div[data-progress-index="10"]') do
         find('.label', text: 'None of the above').click
         click_button('Next', visible: true) # Q9
       end
+
+      sleep 1
 
       within('div[data-progress-index="11"]') do
         click_button('Next', visible: true) # Q10
@@ -244,9 +263,13 @@ describe 'Surveys', type: :feature, js: true do
 
       # Q11 not rendered
 
+      sleep 1
+
       within('div[data-progress-index="12"]') do
         click_button('Next', visible: true) # Q12
       end
+
+      sleep 1
 
       # expect(page).not_to have_content 'You made it!'
       click_button('Submit Survey', visible: true) # Q13
