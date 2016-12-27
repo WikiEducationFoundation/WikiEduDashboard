@@ -5,9 +5,9 @@ content: |
   The new page will say "Move page." In a big window in the center of that page
   (marked "Move page") you'll be asked for two fields.
 
-  1. First, to the left, you'll see a box that says "User." Click and change it
-  to "Article." That tells the page that you want to change your sandbox into an
-  article.
+  1. First, to the left, you'll see a box that says "User." Click and change it to "(Article)"
+  This field is the "namespace". Be sure that it says "(Article)" and **not**
+  "Wikipedia"
   2. To the right of that, you'll see a box asking for a title. Write out your
   article's title. Pay attention to punctuation and spelling, because this can
   be hard to change once you make it!
