@@ -27,8 +27,19 @@ describe.only('Expandable', () => {
     );
 
     expect(dom.querySelector('.component')).to.exist;
+
+    // FIXME: This selector is not found!
+    // We need something outside the component to click on and collapse it.
     expect(dom.querySelector('.wrapper')).to.exist;
 
+    // TODO: Expand the component
     ReactTestUtils.Simulate.click(dom.querySelector('.component'));
+
+    // TODO: Asset that the component is expanded.
+
+    // TODO: Collapse the component clicking outside.
+    ReactTestUtils.Simulate.click(dom.querySelector('.wrapper'));
+
+    // TODO: Assert that the component is collapsed.
   });
 });
