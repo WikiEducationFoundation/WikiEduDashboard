@@ -69,6 +69,35 @@
       logic: illustrate
 
 -
+  key: working_in_groups
+  title: Working in groups
+  description: |
+    Wikipedia writing assignments can work well as group projects as well as
+    individual projects. When students work individually, students' articles
+    tend to have a wider range of quality: you're more likely to see really
+    excellent work, but also more likely to see some work that doesn't meet
+    Wikipedia's standards.
+
+    If you decide to have your students work in groups for their Wikipedia assignment,
+    your timeline will include some recommendations to ensure that each student
+    gets credit for their work on Wikipedia.
+
+    <br>
+
+    **Will your students be working in groups or individually?**
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: In groups
+      tag: working_in_groups
+      logic: working_in_groups
+    -
+      title: Individually
+      tag: working_individually
+      logic: working_individually
+
+-
   key: choosing_articles
   title: Choosing articles
   description: |
