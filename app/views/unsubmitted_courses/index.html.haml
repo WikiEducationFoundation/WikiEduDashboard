@@ -24,6 +24,9 @@
           %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "creation-date"}
+            = t("courses.creation_date")
+            %span.sortable-indicator
           %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "revisions", :style => "width: 165px;"}
             .tooltip-trigger
               = t("metrics.revisions")
@@ -50,4 +53,4 @@
             %span.sortable-indicator
       %tbody.list
         - @presenter.courses_by_recent_edits.each do |c|
-          = render 'courses/row', course: c, admin: false, user: false
+          = render 'unsubmitted_courses/row', course: c, admin: false, user: false
