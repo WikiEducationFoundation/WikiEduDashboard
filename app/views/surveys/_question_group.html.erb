@@ -48,12 +48,8 @@
           <div class='survey__block-nav'>
             <button tabindex="-1" class='button survey__prev border' data-prev-survey-block>Previous</button>
             <div class='survey__block-nav__next-container'>
-                <div data-errors></div>
-              <% if question_group_index + 1 == total && @answer_group_builder.answers.length == index + 1 %>
-                <button tabindex="-1" class='button dark' data-next-survey-block data-submit-survey data-no-validate>Submit Survey<span class='icon icon-rt_arrow'></span></button>
-              <% else %>
-                <button tabindex="-1" class='button survey__next dark' data-next-survey-block>Next <span class='icon icon-rt_arrow'></span></button>
-              <% end %>
+              <div data-errors></div>
+              <button tabindex="-1" class='button survey__next dark' data-next-survey-block><span class="survey__next-text">Next</span> <span class='icon icon-rt_arrow'></span></button>
             </div>
           </div>
         <% end %>

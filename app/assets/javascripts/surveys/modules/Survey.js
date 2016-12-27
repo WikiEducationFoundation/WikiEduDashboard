@@ -169,6 +169,7 @@ const Survey = {
       this.groupSliders.push(slider);
     });
     $(this.parentSlider).removeClass('loading');
+    this.updateButtonText();
   },
 
   toggleTabNavigationForQuestion(enable, slick, current) {
@@ -441,6 +442,11 @@ const Survey = {
     }
   },
 
+  updateButtonText() {
+    $('.survey__next-text').text('Next');
+    $('.survey__next-text').last().text('Submit Survey');
+  },
+
   removeNextButton({ target }) {
     const $el = $(target).closest('.button');
     if (!(typeof target !== 'undefined' && target !== null)) { return; }
@@ -531,11 +537,18 @@ const Survey = {
       }
 
       this.addConditionalQuestionToStore(question_id, $question);
-
-      if ((typeof value !== 'undefined' && value !== null)) { this.surveyConditionals[question_id][value] = $question; }
+      this.addListenersToConditional($question, conditionalOptions);
       this.surveyConditionals[question_id].currentAnswers = [];
 
-      this.addListenersToConditional($question, conditionalOptions);
+      if (typeof value === 'undefined' && value === null) return;
+
+      const $currentQuestionValue = this.surveyConditionals[question_id][value];
+      if ($currentQuestionValue) {
+        const $newQuestionSet = $currentQuestionValue.add($question);
+        this.surveyConditionals[question_id][value] = $newQuestionSet;
+      } else {
+        this.surveyConditionals[question_id][value] = $question;
+      }
     });
   },
 
@@ -619,7 +632,7 @@ const Survey = {
 
       // Check if conditional was present and is no longer
       currentAnswers.forEach((a) => {
-        if (value.indexOf(a === -1)) {
+        if (value.indexOf(a) === -1) {
           const index = currentAnswers.indexOf(a);
           if (currentAnswers.length === 1) {
             currentAnswers = [];
@@ -630,7 +643,8 @@ const Survey = {
       });
       // Check if value matches a conditional question
       value.forEach((v) => {
-        if (conditionalGroup[v] !== undefined) {
+        if (conditionalGroup[v] !== undefined &&
+            currentAnswers.indexOf(v) === -1) {
           conditional = conditionalGroup[v];
           currentAnswers.push(v);
           conditionalGroup.currentAnswers = currentAnswers;
@@ -670,7 +684,6 @@ const Survey = {
   handleParentPresenceConditionalChange(params) {
     const { present, conditionalGroup, $parent } = params;
     const $question = $(conditionalGroup.question);
-
     if (present && !conditionalGroup.present) {
       conditionalGroup.present = true;
       this.activateConditionalQuestion($question, $parent);
@@ -750,6 +763,7 @@ const Survey = {
       $slider.slick('slickAdd', $question, parentIndex);
       this.indexBlocks();
     }
+    this.updateButtonText();
   },
 
   attachMatrixParentBlock($question, questionGroupIndex) {
