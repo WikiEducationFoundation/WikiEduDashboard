@@ -47,7 +47,7 @@
 
   - if @pres.show_your_courses_label?
     %h2
-      = t("courses.yourcourses")
+      = t("#{@pres.course_string_prefix}.yourcourses")
 
   - # Empty courses state
   - if @pres.current.empty? && @pres.past.empty?
@@ -81,7 +81,7 @@
     - # Archived/past courses
     - if @pres.past.any?
       %h2
-        = t("courses.archived")
+        = t("#{@pres.course_string_prefix}.archived")
       - @pres.past.each do |course|
         = link_to course_slug_path(course.slug), {class: 'course course-past'} do
           %span.button.border
@@ -92,3 +92,44 @@
 
   - if @blog_posts.present?
     = render "blog"
+
+  - if @pres.is_campaign_organizer?
+
+    %h2= t("campaign.campaigns")
+
+    %section#campaigns
+      %table.table.table--hoverable.table--sortable
+        %thead
+          %tr
+            %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
+              = t('campaign.campaigns')
+              %span.sortable-indicator
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "num-courses", style: "width: 150px"}
+              .tooltip-trigger
+                = t("#{Features.default_course_string_prefix}.courses")
+                %span.sortable-indicator
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "articles-created", style: "width: 180px"}
+              .tooltip-trigger
+                = t('metrics.articles_created')
+                %span.sortable-indicator
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "characters", style: "width: 172px;"}
+              .tooltip-trigger
+                = t("metrics.word_count")
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= course_i18n("word_count_doc")
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "views", style: "width: 125px;"}
+              .tooltip-trigger
+                = t("metrics.view")
+                %span.sortable-indicator
+                %span.tooltip-indicator
+                .tooltip.dark
+                  %p= t("courses.view_doc")
+            %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "students", style: "width: 150px;"}
+              = t("users.editors")
+              %span.sortable-indicator
+        %tbody.list
+          - @pres.campaigns.each do |campaign|
+            - campaign_presenter = CoursesPresenter.new(current_user, campaign.slug)
+            = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign
