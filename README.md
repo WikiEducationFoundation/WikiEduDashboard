@@ -14,10 +14,8 @@ The Dashboard allows instructors to create a course page, which students can joi
 
  * The system shows information for based on list course IDs defined by a page on Wikipedia.
  * The system uses a set of endpoints on Wikimedia Labs (see [WikiEduDashboardTools](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)) and the Wikipedia API to perform queries on a replica Wikipedia database, for information about articles and revisions related to the courses.
- * The system pulls page views (from [stats.grok.se](http://stats.grok.se)) for relevant articles on a daily basis.
- * The system pulls revision metadata from ores.wmflabs.org on a daily basis.
-
- (The system can also pull information from the EducationProgram extension's liststudents API to identify which users are part of courses. These are 'legacy' courses, and have limited support.)
+ * The system pulls page views (from the [Wikimedia pageviews API](https://wikimedia.org/api/rest_v1/#!/Pageviews_data/get_metrics_pageviews)) for relevant articles on a daily basis.
+ * The system pulls revision metadata from ores.wikimedia.org on a daily basis.
 
 ## Documentation
 ### Setup
