@@ -247,6 +247,37 @@ essentials:
           </ul>
 
       -
+        if: working_in_groups
+        title: Best practices for working in groups
+        kind: 1
+        content: |
+          <ul>
+            <li>
+              Make sure everyone in the group is assigned to the same Wikipedia
+              article on the Students tab of this course page.
+            </li>
+            <li>
+              Select one group member whose Sandbox space you'll all share to
+              draft your article. Each person should link to that shared Sandbox
+              from their own Sandbox page. A sandbox is like any other page on
+              Wikipedia, and anyone can edit it.
+            </li>
+            <li>
+              Wikipedia doesn't allow multiple people to edit from different
+              devices at the same time. If you're working together in person,
+              one person should add the work to the Sandbox. If you are all
+              working independently, make small edits and save often to avoid
+              "editing conflicts" with classmates. Make sure that you're logged
+              in under your own Wikipedia account while editing in your
+              classmate's sandbox to ensure your edits are recorded.
+            </li>
+            <li>
+              Don't create a group account for your project. Group accounts are
+              prohibited.
+            </li>
+          </ul>
+
+      -
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
@@ -574,10 +605,38 @@ essentials:
         graded: true
         points: 10
         content: |
+          <p>Present about your Wikipedia editing experience.</p>
+          <p>Consider the following questions as you reflect on your Wikipedia assignment:</p>
           <ul>
-            <li>Present about your Wikipedia editing experience.</li>
+            <li>
+              <strong>Critiquing articles:</strong> What did you learn about Wikipedia during
+              the article evaluation? How did you approach critiquing the article
+              you selected for this assignment? How did you decide what to add
+              to your chosen article?
+            </li>
+            <li>
+              <strong>Summarizing your contributions:</strong> include a summary of your edits
+              and why you felt they were a valuable addition to the article. How
+              does your article compare to earlier versions?
+            </li>
+            <li>
+              <strong>Peer Review:</strong> If your class did peer review, include information
+              about the peer review process. What did you contribute in your
+              review of your peers article? What did your peers recommend you
+              change on your article?
+            </li>
+            <li>
+              <strong>Feedback:</strong> Did you receive feedback from other Wikipedia editors,
+              and if so, how did you respond to and handle that feedback?
+            </li>
+            <li>
+              <strong>Wikipedia generally:</strong> What did you learn from contributing to
+              Wikipedia? How does a Wikipedia assignment compare to other
+              assignments you've done in the past? How can Wikipedia be used to
+              improve public understanding of our field/your topic? Why is this
+              important?
+            </li>
           </ul>
-
       -
         title: Final article
         kind: 1
@@ -597,10 +656,38 @@ essentials:
         graded: true
         points: 10
         content: |
+          <p>Write a reflective essay (2–5 pages) on your Wikipedia contributions.</p>
+          <p>Consider the following questions as you reflect on your Wikipedia assignment:</p>
           <ul>
-            <li>Write a reflective essay (2–5 pages) on your Wikipedia contributions.</li>
+            <li>
+              <strong>Critiquing articles:</strong> What did you learn about Wikipedia during
+              the article evaluation? How did you approach critiquing the article
+              you selected for this assignment? How did you decide what to add
+              to your chosen article?
+            </li>
+            <li>
+              <strong>Summarizing your contributions:</strong> include a summary of your edits
+              and why you felt they were a valuable addition to the article. How
+              does your article compare to earlier versions?
+            </li>
+            <li>
+              <strong>Peer Review:</strong> If your class did peer review, include information
+              about the peer review process. What did you contribute in your
+              review of your peers article? What did your peers recommend you
+              change on your article?
+            </li>
+            <li>
+              <strong>Feedback:</strong> Did you receive feedback from other Wikipedia editors,
+              and if so, how did you respond to and handle that feedback?
+            </li>
+            <li>
+              <strong>Wikipedia generally:</strong> What did you learn from contributing to
+              Wikipedia? How does a Wikipedia assignment compare to other
+              assignments you've done in the past? How can Wikipedia be used to
+              improve public understanding of our field/your topic? Why is this
+              important?
+            </li>
           </ul>
-
       -
         if: original_analytical_paper
         title: Original analytical paper

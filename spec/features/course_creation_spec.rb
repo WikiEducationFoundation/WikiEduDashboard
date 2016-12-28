@@ -62,6 +62,11 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default getting started options
   sleep 1
 
+  # Working in groups
+  find('.wizard__option', match: :first).find('button', match: :first).click
+  click_button 'Next'
+  sleep 1
+
   # Instructor prepares list
   find('.wizard__option', match: :first).find('button', match: :first).click
   click_button 'Next'
@@ -102,7 +107,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 21 }
+    let(:expected_course_blocks) { 22 }
     let(:module_name) { 'Practicing the basics' }
 
     it 'should allow the user to create a course' do
@@ -437,7 +442,7 @@ describe 'timeline editing', js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
 
-    # Different Capybaray drivers have slightly different behavior for disabled vs. not.
+    # Different Capybara drivers have slightly different behavior for disabled vs. not.
     truthy_values = [true, 'true']
     falsy_values = [nil, false, 'false']
 
