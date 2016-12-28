@@ -3,7 +3,7 @@
     %thead
       %tr
         %th.sort.sortable{"data-sort" => "title"}
-          = t("courses.courses")
+          = t("#{@pres.course_string_prefix}.courses")
           %span.sortable-indicator
         %th.sort.sortable{"data-sort" => "revisions", :style => "width: 165px;"}
           .tooltip-trigger

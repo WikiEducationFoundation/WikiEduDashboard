@@ -451,6 +451,9 @@ qqq:
         only)
       link: Link to begin course survey (Wiki Ed only)
   courses_generic:
+    archived: |-
+      The alternative wording for generic courses.
+      {{Identical|Archived Programs}}
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
     cancel: '{{Identical|Cancel}}'
@@ -484,6 +487,9 @@ qqq:
       Alternative wording for generic courses.
       {{Identical|Unsubmitted Programs}}
     uploads_none: Message indicating that there are no Commons contributions to show
+    yourcourses: |-
+      The alternative wording for generic courses.
+      {{Identical|Your Programs}}
   editable:
     edit: |-
       Label for an edit button

@@ -23,6 +23,14 @@ class DashboardPresenter
     current_user.permissions == User::Permissions::ADMIN
   end
 
+  def is_campaign_organizer?
+    organized_campaigns.any?
+  end
+
+  def organized_campaigns
+    @campaigns ||= current_user.organized_campaigns
+  end
+
   # Show the 'Your Courses' label if there are current, submitted courses
   # OR you're an instructor with existing courses but you still haven't completed orientation
   def show_your_courses_label?
@@ -78,6 +86,10 @@ class DashboardPresenter
 
   def default_use_start_and_end_times
     default_course_type.constantize.new.use_start_and_end_times
+  end
+
+  def course_string_prefix
+    Features.default_course_string_prefix
   end
 
   private
