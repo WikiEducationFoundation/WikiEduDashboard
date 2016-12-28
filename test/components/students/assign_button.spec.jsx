@@ -1,8 +1,11 @@
 import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
+<<<<<<< HEAD
 import ReactDom from 'react-dom';
 
+=======
+>>>>>>> 0f1fa6e94eb84d5db50205f2ff83ef47339000fa
 import AssignButton from '../../../app/assets/javascripts/components/students/assign_button.jsx';
 import { click } from '../../customUtils.js';
 
@@ -44,11 +47,16 @@ describe('AssignButton', () => {
     expect(assignbutton.textContent).to.contain('Foo');
   }
   );
+<<<<<<< HEAD
   it('runs assign()', () => {
+=======
+  it('opens popover', () => {
+>>>>>>> 0f1fa6e94eb84d5db50205f2ff83ef47339000fa
     const assignbutton = ReactTestUtils.renderIntoDocument(
       <AssignButton student={student} course={course} course_id={courseId} is_open={false} role={0} current_user={currentUser} assignments={assigned} />
     );
     expect(assignbutton.props.is_open).to.eq(false);
+<<<<<<< HEAD
     const pop = ReactTestUtils.findRenderedDOMComponentWithClass(assignbutton, 'pop__container');
     click(pop).then(() => {
       expect(assignbutton.props.is_open).to.eq(true);
@@ -63,6 +71,12 @@ describe('AssignButton', () => {
       done();
     });
 
+=======
+    click(assignbutton).then(() => {
+      expect(assignbutton.props.is_open).to.eq(true);
+      done();
+    });
+>>>>>>> 0f1fa6e94eb84d5db50205f2ff83ef47339000fa
   }
   );
 }
