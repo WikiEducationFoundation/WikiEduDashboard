@@ -111,17 +111,6 @@ class User < ActiveRecord::Base
     course.users.role('student').include? self
   end
 
-  def campaign_organizer?
-    organized_campaigns.any?
-  end
-
-  def organized_campaigns
-    CampaignsUsers.where(
-      user_id: id,
-      role: CampaignsUsers::Roles::ORGANIZER_ROLE
-    ).collect(&:campaign).compact
-  end
-
   def role(course)
     # If this is a new course, grant permissions.
     return CoursesUsers::Roles::INSTRUCTOR_ROLE if course.nil?

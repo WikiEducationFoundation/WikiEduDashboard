@@ -24,11 +24,11 @@ class DashboardPresenter
   end
 
   def is_campaign_organizer?
-    organized_campaigns.any?
+    campaigns.any?
   end
 
-  def organized_campaigns
-    @campaigns ||= current_user.organized_campaigns
+  def campaigns
+    current_user.campaigns
   end
 
   # Show the 'Your Courses' label if there are current, submitted courses

@@ -130,6 +130,6 @@
               = t("users.editors")
               %span.sortable-indicator
         %tbody.list
-          - @pres.organized_campaigns.each do |campaign|
+          - @pres.campaigns.each do |campaign|
             - campaign_presenter = CoursesPresenter.new(current_user, campaign.slug)
             = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign
