@@ -19,11 +19,16 @@ class RatingImporter
 
   def self.update_new_ratings
     wiki_id = en_wiki.id # English Wikipedia only, see above.
-    articles = Article.current
-                      .where(rating_updated_at: nil).namespace(0)
-                      .where(wiki_id: wiki_id)
-                      .find_in_batches(batch_size: 30)
-    update_ratings(articles)
+    edited_articles = Article.current
+                             .where(rating_updated_at: nil).namespace(0)
+                             .where(wiki_id: wiki_id)
+                             .find_in_batches(batch_size: 30)
+    update_ratings(edited_articles)
+    assigned_articles = Article.assigned
+                               .where(rating_updated_at: nil).namespace(0)
+                               .where(wiki_id: wiki_id)
+                               .find_in_batches(batch_size: 30)
+    update_ratings(assigned_articles)
   end
 
   ##############
