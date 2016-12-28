@@ -48,7 +48,7 @@ describe('Student', () => {
     expect(studentList.textContent).to.contain('Name');
   }
   );
-  it('calls ServerActions.notifyOverdue', () => {
+  it('triggers a server action when notify button is clicked', () => {
     const studentList = ReactTestUtils.renderIntoDocument(
       <StudentList params={params} editable={true} users={users} course={course} current_user ={currentUser} assignments={assignments} />
     );
