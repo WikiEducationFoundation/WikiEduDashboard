@@ -7,4 +7,4 @@
       %nav
         %ul
           = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
-          = nav_link(t('courses.programs'), programs_campaign_path(@campaign.slug))
+          = nav_link(t("#{Features.default_course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
