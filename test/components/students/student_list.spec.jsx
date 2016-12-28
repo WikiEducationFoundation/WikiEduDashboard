@@ -4,7 +4,7 @@ import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
-describe('Student', () => {
+describe('StudentList', () => {
 
   const currentUser = { id: 1, admin: true, role: 1 };
   const users = [{
