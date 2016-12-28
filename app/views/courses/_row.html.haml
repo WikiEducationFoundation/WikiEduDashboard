@@ -24,3 +24,7 @@
       = course.user_count
     - unless Features.disable_training?
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
+  - if show_remove
+    %td
+      %button.button.danger.remove-course
+        = t('assignments.remove')

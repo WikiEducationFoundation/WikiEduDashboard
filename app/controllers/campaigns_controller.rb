@@ -4,11 +4,11 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create, :edit]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update,
-                                      :destroy, :add_organizer, :remove_organizer]
+  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy,
+                                      :add_organizer, :remove_organizer, :remove_course]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_write_permissions, only: [:update, :destroy,
-                                                   :add_organizer, :remove_organizer]
+  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer,
+                                                   :remove_organizer, :remove_course]
 
   DETAILS_FIELDS = %w(title start end).freeze
 
@@ -98,6 +98,12 @@ class CampaignsController < ApplicationController
       organizer.destroy
     end
 
+    redirect_to overview_campaign_path(@campaign.slug)
+  end
+
+  def remove_course
+    campaigns_course = CampaignsCourses.find_by(course_id: params[:id], campaign_id: @campaign.id)
+    campaigns_course.destroy if campaigns_course
     redirect_to overview_campaign_path(@campaign.slug)
   end
 
