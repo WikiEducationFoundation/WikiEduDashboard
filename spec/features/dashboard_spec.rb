@@ -147,7 +147,7 @@ describe 'dashboard', type: :feature, js: true do
     end
   end
 
-  context 'campaigns', focus: true do
+  context 'campaigns' do
     let(:permissions) { User::Permissions::NONE }
 
     before do
