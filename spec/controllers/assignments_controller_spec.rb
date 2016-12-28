@@ -121,6 +121,8 @@ describe AssignmentsController do
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('Pizza')
             expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+            expect(assignment.article.rating).not_to be_nil
+            expect(assignment.article.updated_at).not_to be_nil
           end
         end
       end

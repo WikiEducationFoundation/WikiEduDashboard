@@ -31,12 +31,17 @@ class RatingImporter
     update_ratings(assigned_articles)
   end
 
+  def self.update_rating_for_article(article)
+    return unless article.wiki_id == en_wiki.id # English Wikipedia only, see above.
+    update_ratings([[article]])
+  end
+
   ##############
   # API Access #
   ##############
   def self.update_ratings(article_groups)
     require './lib/wiki_api'
-    article_groups.with_index do |articles, _batch|
+    article_groups.each do |articles|
       titles = articles.map(&:title)
       # NOTE: English Wikipedia only, per above.
       ratings = WikiApi.new(en_wiki).get_article_rating(titles).inject(&:merge)

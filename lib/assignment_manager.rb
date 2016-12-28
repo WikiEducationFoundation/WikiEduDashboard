@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 # Tested via AssignmentsController
 require "#{Rails.root}/lib/article_utils"
+require "#{Rails.root}/lib/importers/rating_importer"
+require "#{Rails.root}/lib/importers/article_importer"
 
 class AssignmentManager
   def initialize(course:, user_id:, wiki:, title:, role:)
@@ -15,6 +17,8 @@ class AssignmentManager
     set_clean_title
     set_article_from_database
     import_article_from_wiki unless @article
+    # TODO: update rating via Sidekiq worker
+    update_article_rating if @article
 
     Assignment.create!(user_id: @user_id, course: @course,
                        article_title: @clean_title, wiki: @wiki, article: @article,
@@ -47,6 +51,10 @@ class AssignmentManager
   def import_article_from_wiki
     ArticleImporter.new(@wiki).import_articles_by_title([@clean_title])
     set_article_from_database
+  end
+
+  def update_article_rating
+    RatingImporter.update_rating_for_article(@article)
   end
 
   class DuplicateAssignmentError < StandardError; end
