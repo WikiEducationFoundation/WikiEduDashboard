@@ -5,7 +5,7 @@ $(() => {
     // skip if a button was clicked (used for other actions)
     if (e.target.tagName === 'BUTTON') return;
 
-    const loc = $(this).attr('data-link');
+    const loc = e.currentTarget.dataset.link;
     if (e.metaKey || (window.navigator.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
       window.open(loc, '_blank');
     } else {
