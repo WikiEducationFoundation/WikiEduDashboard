@@ -297,7 +297,7 @@ en:
       user_exists: "Sorry, %{username} is not an existing user."
       invalid_language_or_project: Invalid language/project
     expected_students: Expected Students
-    expected_students_doc: Number of expected students count
+    expected_students_doc: Expected students count
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
@@ -335,7 +335,7 @@ en:
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
       will be given an enrollment URL that students can use to join the course.
       (You'll still be able to make edits later.)
-    instructor_doc: The name of first instructor
+    instructor_doc: The name of the first instructor
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     start: Start
@@ -459,7 +459,6 @@ en:
     char: Chars Added
     date_time: Date/Time
     edit_count_description: Total Edits
-    expected_students: Expected students
     per_user: '%{number}/user'
     revisions: Recent Edits
     tags: Tags
