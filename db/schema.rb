@@ -214,8 +214,8 @@ ActiveRecord::Schema.define(version: 20161215213721) do
 
   create_table "rapidfire_answer_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "question_group_id"
-    t.integer  "user_id"
     t.string   "user_type"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "course_id"
