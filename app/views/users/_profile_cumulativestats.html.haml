@@ -1,3 +1,5 @@
+%h3
+  Total Impact by #{@user.username}
 .stat-display
   .stat-display__stat
     .stat-display__value= presenter.courses.count
@@ -10,6 +12,10 @@
         = number_to_human presenter.trained_count
         \%
       %p= t("users.up_to_date_with_training")
+
+%h3
+  Total Impact made by #{@user.username}'s Students
+.stat-display
   .stat-display__stat
     .stat-display__value= number_to_human presenter.word_count
     %small= t("metrics.word_count")

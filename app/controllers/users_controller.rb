@@ -57,6 +57,8 @@ class UsersController < ApplicationController
     @user = User.find_by_username(username)
     if @user
       @courses_user = @user.courses_users
+      @courses_list = @user.courses.where('courses_users.role = 1')
+      @presenter = CoursesPresenter.new(current_user, nil, @courses_list)
     else
       flash[:notice] = 'User not found'
       redirect_to controller: 'dashboard', action: 'index'

@@ -608,6 +608,7 @@ en:
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions
+    contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
     enroll_confirmation: Are you sure you want to add %{username}?
