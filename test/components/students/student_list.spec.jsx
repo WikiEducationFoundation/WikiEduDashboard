@@ -6,7 +6,6 @@ import StudentList from '../../../app/assets/javascripts/components/students/stu
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 
 describe('StudentList', () => {
-  let confirmSpy;
   const currentUser = { id: 1, admin: true, role: 1 };
   const users = [{
     role: 0,
@@ -36,32 +35,37 @@ describe('StudentList', () => {
     published: true,
     home_wiki: { language: 'en', project: 'wikipedia' }
   };
-  beforeEach(function() {
-        confirmSpy = sinon.spy(window, 'confirm');
-  });
+
   it('displays \'Name\' column', () => {
     const studentList = ReactTestUtils.renderIntoDocument(
-      <table>
-        <StudentList params={params} users={users} course={course} editable={true} current_user ={currentUser} assignments={assignments} />
-      </table>
+      <div>
+        <StudentList
+          params={params}
+          users={users}
+          course={course}
+          editable={true}
+          current_user ={currentUser}
+          assignments={assignments}
+        />
+      </div>
     );
     expect(studentList.textContent).to.contain('Name');
-  }
-  );
+  });
+
   it('triggers a server action when notify button is clicked', () => {
+    global.Features = { wikiEd: true };
+    global.confirm = function () { return true; };
+    const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
+
     const studentList = ReactTestUtils.renderIntoDocument(
       <StudentList params={params} editable={true} users={users} course={course} current_user ={currentUser} assignments={assignments} />
     );
     studentList.setState({ users: users });
     studentList.setState({ assignments: assignments });
 
-    const controls = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'controls');
-    const button = controls.querySelectorAll('button.notify_overdue')[0];
-    global.Features = { wikiEd: true };
-    const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
+    const button = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'notify_overdue');
     ReactTestUtils.Simulate.click(button);
     expect(notifyOverdue.callCount).to.eq(1);
-  }
-  );
+  });
 }
 );
