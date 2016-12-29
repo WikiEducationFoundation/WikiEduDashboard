@@ -17,7 +17,6 @@ class CoursesPresenter
   end
 
   def campaign
-    return NullCampaign.new if campaign_param == 'none'
     @campaign ||= Campaign.find_by(slug: campaign_param)
     raise NoCampaignError if @campaign.nil? && campaign_param == ENV['default_campaign']
     @campaign
@@ -85,19 +84,4 @@ class CoursesPresenter
   end
 
   class NoCampaignError < StandardError; end
-end
-
-#= Pseudo-Campaign that displays all unsubmitted, non-deleted courses
-class NullCampaign
-  def title
-    I18n.t('courses.unsubmitted')
-  end
-
-  def slug
-    'none'
-  end
-
-  def courses
-    Course.unsubmitted.order(created_at: :desc)
-  end
 end

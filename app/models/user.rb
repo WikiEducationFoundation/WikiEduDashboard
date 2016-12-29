@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
 
   def isinstructor?
-    permissions == Permissions::INSTRUCTOR
+    courses.any? { |course| instructor?(course) }
   end
 
   def instructor?(course)

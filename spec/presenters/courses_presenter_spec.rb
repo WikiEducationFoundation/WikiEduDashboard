@@ -40,13 +40,6 @@ describe CoursesPresenter do
     let(:campaign_param) { campaign_param }
     subject { described_class.new(user, campaign_param).campaign }
 
-    context 'campaign is "none"' do
-      let(:campaign_param) { 'none' }
-      it 'returns a null campaign object' do
-        expect(subject).to be_an_instance_of(NullCampaign)
-      end
-    end
-
     context 'campaigns' do
       context 'default campaign' do
         let(:campaign) { Campaign.find_by(slug: ENV['default_campaign']) }
@@ -68,29 +61,6 @@ describe CoursesPresenter do
         it 'returns nil' do
           expect(subject).to be_nil
         end
-      end
-    end
-  end
-
-  describe '#courses' do
-    let(:user) { create(:admin) }
-    let(:campaign_param) { 'none' }
-    let!(:course) { create(:course, submitted: false, id: 10001) }
-    subject { described_class.new(user, 'none').courses }
-
-    context 'when the campaign is "none"' do
-      it 'returns unsubmitted courses' do
-        expect(subject).to include(course)
-      end
-    end
-
-    context 'when the campaign is a valid campaign' do
-      let!(:course2) { create(:course, submitted: false, id: 10002) }
-      let(:campaign_param)    { 'My Awesome Campaign' }
-      let(:campaign)          { create(:campaign, slug: campaign_param) }
-      let!(:campaigns_course) { create(:campaigns_course, campaign_id: campaign.id, course_id: course.id) }
-      it 'returns courses for the campaign' do
-        expect(subject).to include(course2)
       end
     end
   end
