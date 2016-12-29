@@ -7,7 +7,7 @@
     %small= t("#{presenter.course_string_prefix}.students")
     .tooltip.dark
       %h4
-        = number_to_human presenter.trained_count
+        = number_to_human presenter.trained_percent
         \%
       %p= t("users.up_to_date_with_training")
   .stat-display__stat
