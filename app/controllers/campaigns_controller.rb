@@ -106,7 +106,7 @@ class CampaignsController < ApplicationController
     campaigns_course.destroy if campaigns_course
     flash[:notice] = t('campaign.course_removed', title: params[:course_title],
                                                   campaign_title: @campaign.title)
-    redirect_to overview_campaign_path(@campaign.slug)
+    redirect_to programs_campaign_path(@campaign.slug)
   end
 
   #######################
