@@ -6,7 +6,7 @@
   %td.creation-date
     = course.created_at.strftime('%Y-%m-%d')
   %td.instructor
-    = course.instructors.first.username
+    = course.instructors.first&.username
   %td.expected
     = course.expected_students
   %td.tags
