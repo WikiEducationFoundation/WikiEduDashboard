@@ -146,7 +146,8 @@ qqq:
       stub: Explanation of what a Stub-class article is
       list: Explanation of what a List-class page is
       '?': Explanation of what an unrated article is
-      does_not_exist: Explanation of the Ø  symbol, which indicates than the article does not exist on Wikipedia
+      does_not_exist: Explanation of the Ø  symbol, which indicates than the article
+        does not exist on Wikipedia
     title: |-
       Label for an article title.
       {{Identical|Title}}
@@ -195,7 +196,6 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
-    active_campaign: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
     already_exists: Error shown when a new campaign has the same name or slug of another

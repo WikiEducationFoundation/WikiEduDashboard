@@ -85,6 +85,7 @@ zh-CN:
       stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
       list: 列表级 — 一个列表，而不是一篇传统条目
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
+      does_not_exist: 此条目在维基百科不存在
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
     title: 标题
@@ -126,7 +127,9 @@ zh-CN:
     milestones:
       title: 里程碑
   campaign:
+    active_campaigns: 活跃的运动
     add_organizer: 添加组织者
+    all_campaigns: 所有运动
     already_exists: 该运动已存在！请使用不同的标题或片段再试。
     campaign: 运动
     campaigns: 运动
@@ -150,6 +153,8 @@ zh-CN:
     use_start_end_dates: 使用开始和结束日期
   courses:
     activity: 活动
+    active_courses: 激活%{course_type}
+    all_courses: 所有课程
     already_enrolled: 您已经是“%{title}”的一部分！
     already_exists: 已存在于该课程中！
     archived: 已存档的课程
@@ -296,6 +301,7 @@ zh-CN:
       notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
+    archived: 存档的程序
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点
     assignments_none: 此项目没有分配的条目。
@@ -318,6 +324,7 @@ zh-CN:
       intro: 需要程序标题，其他的可以日后再填写。点击“创建我的程序！”以开始构造用于您wiki程序的页面。
     delete_course: 删除计划
     edit_course_dates: 编辑项目日期
+    explore: 找到程序
     enroll: 添加编辑者
     enrollment: 参与
     expected_students: 预期编辑者
@@ -335,10 +342,12 @@ zh-CN:
     students_short: 编辑者
     students_count: 参与者数量
     term: 何时
+    unsubmitted: 未提交的程序
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
     view_other: 查看其它运动
     view_page: 查看程序页面
     word_count_doc: 在课程的学期期间，由程序的编辑者添加至主名字空间条目字数的估计
+    yourcourses: 您的程序
   editable:
     edit: 编辑
     cancel: 取消

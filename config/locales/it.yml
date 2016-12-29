@@ -122,6 +122,8 @@ it:
     review_self: Revisiona una voce
     select: Seleziona
   campaign:
+    active_campaigns: Campagne attive
+    all_campaigns: Tutte le campagne
     campaign: Campagna
     campaigns: Campagne
     campaign_updated: Campagna aggiornata
@@ -131,6 +133,8 @@ it:
     programs: Programmi %{title}
   courses:
     activity: Attività
+    active_courses: '%{course_type} attivo/a'
+    all_courses: Tutti i corsi
     already_enrolled: Fai già parte di '%{title}'!
     already_exists: Quello che hai aggiunto esiste già per questo corso!
     archived: Corsi archiviati
@@ -313,6 +317,7 @@ it:
         pagina wiki del programma.
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
+    explore: Trova programmi
     enroll: Aggiungi editor
     enrollment: Partecipazione
     expected_students: Editori previsti

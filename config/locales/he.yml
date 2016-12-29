@@ -11,6 +11,7 @@
 # Author: Or
 # Author: המקיסט
 # Author: פוילישער
+# Author: תומר ט
 ---
 he:
   application:
@@ -100,6 +101,7 @@ he:
         נוסף.
       list: רשימה – רשימה, ולא ערך רגיל
       '?': לא מדורג – ערך שעדיין לא דורג בסולם האיכות של ויקיפדיה
+      does_not_exist: הערך אינו קיים בוויקיפדיה
     show_cumulative_changes: הצגת שינויים מצטברים
     title: כותרת \ שם
     title_example: שם הערך
@@ -140,6 +142,7 @@ he:
       title: אבני דרך
   campaign:
     campaign: מיזם \ פרויקט \ קמפיין
+    description: תיאור
     none: אין
     programs: תוכניות %{title}
   courses:

@@ -68,6 +68,7 @@ lb:
       list: Klass Lëscht - éischter eng Lëscht wéi e konventionellen Artikel
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
+      does_not_exist: Dësen Artikel gëtt et net op Wikipedia
     show_cumulative_changes: Kumulativ Ännerunge weisen
     show_current_version: Aktuell Versioun weisen
     title: Titel
@@ -100,6 +101,8 @@ lb:
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
   courses:
     activity: Aktivitéit
+    active_courses: Aktiv %{course_type}
+    all_courses: All Coursen
     archived: Archivéiert Coursen
     actions: Aktiounen
     articles: Artikelen
@@ -182,6 +185,7 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    archived: Archivéiert Programmer
     cancel: Ofbriechen
     courses: Programmer
     campaigns: 'Campagnen:'
@@ -203,6 +207,7 @@ lb:
     term: Wéini
     view_other: Aner Campagne weisen
     view_page: Säit vum Programm weisen
+    yourcourses: Är Programmer
   editable:
     edit: Änneren
     cancel: Ofbriechen

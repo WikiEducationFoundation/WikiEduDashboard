@@ -84,6 +84,7 @@ es:
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
+    hide: Ocultar
     label: Artículos
     loading: Cargando artículos...
     new: (nuevo)
@@ -109,11 +110,13 @@ es:
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
     show_cumulative_changes: Mostrar cambios acumulados
+    show_current_version: Mostrar la versión actual
     title: Título
     title_example: Título del artículo
     view: Ver artículo
     view_all: Ver todos
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
+    view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
@@ -148,10 +151,13 @@ es:
     milestones:
       title: Hitos
   campaign:
+    active_campaigns: Campañas activas
     add_organizer: Añadir organizador
+    all_campaigns: Todas las campañas
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: La campaña "%{title}" se ha eliminado
+    campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
     confirm_campaign_deletion: ¿Estás seguro de que quieres eliminar la campaña titulada
       "%{title}"? Si es así, escribe el título de la campaña para continuar.
@@ -168,6 +174,7 @@ es:
     title: Título
   courses:
     activity: Actividad
+    all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
     archived: Cursos archivados
@@ -375,6 +382,7 @@ es:
         de tu programa wiki.
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
+    explore: Encuentra programas
     enroll: Añadir editor
     enrollment: Participación
     expected_students: Editores esperados
@@ -392,6 +400,7 @@ es:
     students_short: Editores
     students_count: Número de participantes
     term: Cuando
+    unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     view_other: Ver otras campañas

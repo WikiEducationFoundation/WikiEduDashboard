@@ -6,6 +6,8 @@
 ---
 dty:
   articles:
+    rating_docs:
+      does_not_exist: यो लेख विकिपिडियामी उपलब्ध आथिन
     wp10: संरचनात्मक पूर्णता
   courses:
     students: इस्कुल्या

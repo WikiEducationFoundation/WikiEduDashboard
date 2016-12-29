@@ -98,6 +98,7 @@ de:
       list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
+      does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
     title: Titel
@@ -141,7 +142,9 @@ de:
     milestones:
       title: Meilensteine
   campaign:
+    active_campaigns: Aktive Kampagnen
     add_organizer: Organisator hinzufügen
+    all_campaigns: Alle Kampagnen
     already_exists: Diese Kampagne ist bereits vorhanden! Bitte versuche es mit einem
       anderen Titel erneut.
     campaign: Kampagne
@@ -171,6 +174,8 @@ de:
     use_start_end_dates: Start- und Enddaten verwenden
   courses:
     activity: Aktivität
+    active_courses: Aktive %{course_type}
+    all_courses: Alle Kurse
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
     already_exists: Dies ist bereits für diesen Kurs vorhanden!
     archived: Archivierte Kurse
@@ -358,6 +363,7 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
@@ -382,6 +388,7 @@ de:
         dein Wikiprogramm anzufangen.
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
+    explore: Programme finden
     enroll: Autor hinzufügen
     enrollment: Teilnahme
     expected_students: Erwartete Autoren
@@ -401,12 +408,14 @@ de:
     students_short: Autoren
     students_count: Anzahl der Teilnehmer
     term: Wann
+    unsubmitted: Nicht eingereichte Programme
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
     view_other: Weitere Kampagnen ansehen
     view_page: Programmseite ansehen
     word_count_doc: Eine Schätzung der Anzahl der während der Programmdauer durch
       die Programmautoren in Hauptnamensraum-Artikeln hinzugefügten Wörter
+    yourcourses: Deine Programme
   editable:
     edit: Bearbeiten
     cancel: Abbrechen

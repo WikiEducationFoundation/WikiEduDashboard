@@ -81,6 +81,7 @@ ko:
       stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
       list: 목록 &mdash; 일반 글이 아닌 목록
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목

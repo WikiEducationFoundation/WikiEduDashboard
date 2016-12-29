@@ -1,6 +1,7 @@
 # Messages for Zazaki (Zazaki)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 1917 Ekim Devrimi
 # Author: Gorizon
 # Author: Kumkumuk
 # Author: Mirzali
@@ -150,12 +151,14 @@ diq:
     datetime: Tarix/Zeman
     image: Resim
     file_name: Namey dosya
+  revisions:
+    diff_show: Bımotne
   timeline:
     week_number: Hefte %{number}
   training:
     continue: Dewam keno %{progress}
     start: Suru bık
-    view: Bıvêne
+    view: Asayış
   uploads:
     label: Barkerdışi
     usages: Karidayışi

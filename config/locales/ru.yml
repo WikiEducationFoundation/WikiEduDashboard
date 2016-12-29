@@ -7,6 +7,7 @@
 # Author: Iniquity
 # Author: Irus
 # Author: Kareyac
+# Author: Mailman
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
@@ -103,6 +104,7 @@ ru:
       stub: Заглушка — очень короткая статья, которую нужно дополнить.
       list: Лист-класс — больше похоже на список, чем на полноценную статью.
       '?': Без рейтинга — этой статье ещё не был присвоен рейтинг по шкале Википедии.
+      does_not_exist: Эта статья не существует в Википедии
     show_current_version: Показать текущую версию
     title: Заголовок
     title_example: Название статьи
@@ -123,6 +125,8 @@ ru:
     milestones:
       title: Этапы
   campaign:
+    active_campaigns: Активные кампании
+    all_campaigns: Все кампании
     campaign: Кампания
     campaign_deleted: Кампания "%{title}" была удалена
     campaign_updated: Кампании обновлены
@@ -182,7 +186,7 @@ ru:
     new_week: Добавить новую неделю
     nocourses: Вы не участвуете ни в одном курсе.
     overview: Обзор
-    passcode_prompt: 'Введите пароль, чтобы присоединиться к:'
+    passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     students: Студенты
@@ -213,6 +217,7 @@ ru:
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+    explore: Найти программы
     join_details: Присоединиться к этой программе, вам нужно получить код доступа
       или ссылку, которая включает пароль от посредника.
     school: Учреждение

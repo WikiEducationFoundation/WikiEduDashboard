@@ -67,7 +67,9 @@ sv:
     milestones:
       title: Milstolpar
   campaign:
+    active_campaigns: Aktiva kampanjer
     add_organizer: Lägg till organiserare
+    all_campaigns: Alla kampanjer
     already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
       slug.
     campaigns: Kampanjer
@@ -85,6 +87,7 @@ sv:
     use_start_end_dates: Använd start- och slutdatum
   courses:
     activity: Aktivitet
+    all_courses: Alla kurser
     actions: Åtgärder
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
@@ -178,6 +181,7 @@ sv:
         mitt Program!" för att börja bygga sidan för ditt wiki program.
     delete_course: Radera program
     edit_course_dates: Redigera projektdatum
+    explore: Hitta program
     enroll: Lägg till redigerare
     enrollment: Deltagande
     expected_students: Förväntade redigerare

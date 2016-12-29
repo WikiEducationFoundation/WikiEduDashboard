@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Mainframe98
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
@@ -65,6 +66,7 @@ nl:
       ingeschreven studenten tussen de begin- en einddatum
     edited: Pagina's bewerkt
     edited_mobile: Pagina's
+    hide: Verbergen
     label: Pagina's
     loading: Bezig met pagina's laden...
     new: (nieuw)
@@ -90,6 +92,8 @@ nl:
       list: Lijstklasse - een lijst in plaats van een conventionele pagina
       '?': Zonder beoordeling — een pagina die nog niet is beoordeeld op de kwaliteitsschaal
         van Wikipedia
+      does_not_exist: Dit artikel bestaat niet op Wikipedia
+    show_current_version: Huidige versie bekijken
     title: Naam
     title_example: Paginanaam
     view: Pagina bekijken
@@ -114,7 +118,11 @@ nl:
     milestones:
       title: Mijlpalen
   campaign:
+    add_organizer: Voeg organisator toe
+    description: Beschrijving
     none: Geen
+    organizers: Organisatoren
+    title: Titel
   courses:
     activity: Activiteit
     already_enrolled: Je bent onderdeel van "%{title}"!

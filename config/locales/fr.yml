@@ -112,6 +112,7 @@ fr:
       list: Classe liste — une liste plutôt qu’un article habituel
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
+      does_not_exist: Cet article n'existe pas sur Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
     title: Titre
@@ -154,7 +155,9 @@ fr:
     milestones:
       title: Jalons
   campaign:
+    active_campaigns: Campagnes actives
     add_organizer: Ajouter un organisateur
+    all_campaigns: Toutes les campagnes
     already_exists: Cette campagne existe déjà ! Veuillez réessayer avec un autre
       titre ou libellé court.
     campaign: Campagne
@@ -182,6 +185,8 @@ fr:
     use_start_end_dates: Utiliser les dates de début et de fin
   courses:
     activity: Activité
+    active_courses: '%{course_type} actifs'
+    all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de '%{title}' !
     already_exists: Cela existe déjà pour ce cours !
     archived: Cours archivés
@@ -369,6 +374,7 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie
     assignments_none: Ce projet n’a pas d’article affecté.
@@ -393,6 +399,7 @@ fr:
         la page de votre programme wiki.
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
+    explore: Trouver des programmes
     enroll: Ajouter éditeur
     enrollment: Participation
     expected_students: Éditeurs attendus
@@ -412,12 +419,14 @@ fr:
     students_short: Éditeurs
     students_count: Nombre de participants
     term: Quand
+    unsubmitted: Programmes non soumis
     uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
       autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
     word_count_doc: Estimé du nombre de mots ajoutés aux articles de l’espace principal
       par les éditeurs du programme durant son déroulement
+    yourcourses: Vos programmes
   editable:
     edit: Modifier
     cancel: Annuler

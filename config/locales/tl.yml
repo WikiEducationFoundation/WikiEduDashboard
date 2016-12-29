@@ -11,6 +11,9 @@ tl:
     log_out: Mag-logout
     recent_activity: Kamakailang Aktibidad
     search: hanapin ang ask.wikiedu.org
+  articles:
+    rating_docs:
+      does_not_exist: Itong artikulo ay walang itinala sa Wikipedia
   courses:
     view_other: Ipakita ang ibang kasabwat
   courses_generic:
