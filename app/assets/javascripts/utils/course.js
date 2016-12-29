@@ -1,7 +1,10 @@
 const List = window.List;
 $(() => {
   // Find tables with rows with data-link attribute, then make them clickable
-  $('tr[data-link]').on('click', function (e) {
+  $('tr[data-link]').on('click', e => {
+    // skip if a button was clicked (used for other actions)
+    if (e.target.tagName === 'BUTTON') return;
+
     const loc = $(this).attr('data-link');
     if (e.metaKey || (window.navigator.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
       window.open(loc, '_blank');
@@ -34,6 +37,17 @@ $(() => {
       ]
     });
   }
+
+  // for use on campaign/programs page
+  $('.remove-course').on('click', e => {
+    const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
+      title: e.target.dataset.title,
+      campaign_title: e.target.dataset.campaignTitle
+    }));
+    if (!confirmed) {
+      e.preventDefault();
+    }
+  });
 
   return $('select.sorts').on('change', function () {
     const list = (() => {

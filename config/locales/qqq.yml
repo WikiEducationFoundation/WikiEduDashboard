@@ -212,6 +212,10 @@ qqq:
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
     confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
+    confirm_course_removal: |-
+      Confirmation dialog for removing a course from a campaign.
+      'title' is the title of the course, and 'campaign_title' is the title of the campaign.
+    course_removed: Message indicating a course was successfully removed from a campaign.
     create_campaign: Header for the page to create a new campaign
     create_my_campaign: Label for the button to create a new campaign
     description: |-
