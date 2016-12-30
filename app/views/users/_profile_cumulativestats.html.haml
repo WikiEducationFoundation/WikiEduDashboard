@@ -1,8 +1,9 @@
 %h3
-  Contribution Statistics
+  = t("users.contribution_statistics")
 %br/
 %h5
-  = t("users.user_impact") #{@user.username}
+  = t("users.user_impact")
+  #{@user.username}
 .profile-stats
   .stat-display
     .stat-display__stat
@@ -19,7 +20,8 @@
 %br/
 %br/
 %h5
-  = t("users.user_impact") #{@user.username}'s
+  = t("users.user_impact")
+  #{@user.username}'s
   = t("courses.students")
 .stat-display
   .stat-display__stat
