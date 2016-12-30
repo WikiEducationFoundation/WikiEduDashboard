@@ -64,4 +64,4 @@
               = t('courses.actions')
       %tbody.list
         - @presenter.courses_by_recent_edits.each do |c|
-          = render 'courses/row', course: c, admin: false, user: false, show_remove: @presenter.can_remove_course?
+          = render 'courses/row', course: c, admin: false, user: false
