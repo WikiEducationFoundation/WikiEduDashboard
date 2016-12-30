@@ -109,18 +109,19 @@
           %button.button.danger
             = t('campaign.delete_campaign')
 
-      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
-        .section-header
-          %span.tooltip-trigger
-            %h3
-              = t('campaign.program_template')
-            .tooltip.dark
-              = t('campaign.program_template_tooltip')
-          .controls
-            - if @editable
-              %button.button.dark.rails_editable-edit
-                = t('editable.edit_description')
-        .module__data.rails_editable-field
-          %p.rails_editable-content
-            = @campaign.template_description
-          = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
+      - if @editable || @campaign.template_description.present?
+        = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
+          .section-header
+            %span.tooltip-trigger
+              %h3
+                = t('campaign.program_template')
+              .tooltip.dark
+                = t('campaign.program_template_tooltip')
+            .controls
+              - if @editable
+                %button.button.dark.rails_editable-edit
+                  = t('editable.edit_description')
+          .module__data.rails_editable-field
+            %p.rails_editable-content
+              = @campaign.template_description
+            = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
