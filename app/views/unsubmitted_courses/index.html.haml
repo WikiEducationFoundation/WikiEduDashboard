@@ -10,9 +10,6 @@
       .sort-select
         %select.sorts{:rel => "courses"}
           %option{:rel => "asc", :value => "title"}= t("courses.title")
-          %option{:rel => "desc", :value => "instructor"}= t("courses.instructor.one")
-          %option{:rel => "desc", :value => "expected_students"}= t("courses.expected_students")
-          %option{:rel => "desc", :value => "tags"}= t("metrics.tags")
           %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
     %table.table.table--hoverable.table--sortable
       %thead
@@ -24,19 +21,9 @@
             = t("courses.creation_date")
             %span.sortable-indicator
           %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "instructor", :style => "width: 165px;"}
-            .tooltip-trigger
-              = t("courses.instructor.one")
-              %span.sortable-indicator
-              %span.tooltip-indicator
-              .tooltip.dark
-                %p= t("courses.instructor_doc", timeframe: RevisionStat::REVISION_TIMEFRAME)
+             = t("courses.instructor.one")
           %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "expected_students", :style => "width: 200px;"}
-            .tooltip-trigger
-              = t("courses.expected_students")
-              %span.sortable-indicator
-              %span.tooltip-indicator
-              .tooltip.dark
-                %p= t("courses.expected_students_doc")
+             = t("courses.expected_students")
           %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "tags", :style => "width: 125px;"}
             = t("metrics.tags")
             %span.sortable-indicator
