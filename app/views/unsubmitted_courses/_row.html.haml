@@ -5,24 +5,10 @@
       = course.created_at
   %td.creation-date
     = course.created_at.strftime('%Y-%m-%d')
-  %td.revisions
-    = course.recent_revision_count
-  %td
-    %span.characters-human
-      = number_to_human course.word_count
-    %span.characters.hidden
-      = course.word_count
-    %small.average-words-human
-      (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
-    %span.average-words.hidden
-      = course.average_word_count
-  %td
-    %span.views-human
-      = number_to_human course.view_sum
-    %span.views.hidden
-      = course.view_sum
-  %td
-    %span.students
-      = course.user_count
-    - unless Features.disable_training?
-      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+  %td.instructor
+    = course.instructors.first&.username
+  %td.expected
+    = course.expected_students
+  %td.tags
+    - tags = course.tags.map(&:tag)
+    = tags.join(', ')
