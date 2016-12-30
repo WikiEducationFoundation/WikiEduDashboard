@@ -297,7 +297,6 @@ en:
       user_exists: "Sorry, %{username} is not an existing user."
       invalid_language_or_project: Invalid language/project
     expected_students: Expected Students
-    expected_students_doc: Expected students count
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
@@ -336,7 +335,6 @@ en:
       will be given an enrollment URL that students can use to join the course.
       (You'll still be able to make edits later.)
     instructor_doc: The name of the first instructor
-    revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     start: Start
