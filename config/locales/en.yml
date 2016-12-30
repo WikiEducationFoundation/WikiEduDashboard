@@ -334,7 +334,7 @@ en:
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
       will be given an enrollment URL that students can use to join the course.
       (You'll still be able to make edits later.)
-    instructor_doc: The name of the first instructor
+    revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     start: Start
