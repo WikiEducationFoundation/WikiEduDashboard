@@ -32,7 +32,7 @@ describe('Assignment', () => {
       </table>
     );
 
-    expect(TestAssignment.textContent).to.contain('Ragesoss')
+    expect(TestAssignment.textContent).to.contain('Ragesoss');
     expect(TestAssignment.textContent).to.contain(article.title);
   });
 
@@ -62,7 +62,7 @@ describe('Assignment', () => {
       </table>
     );
 
-    expect(TestAssignment.textContent).to.contain('Ragesock')
+    expect(TestAssignment.textContent).to.contain('Ragesock');
     expect(TestAssignment.textContent).to.contain(article.title);
   });
 });
