@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/word_count"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user, campaign_param: nil, courses_list: nil)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil)
     @current_user = current_user
     @campaign_param = campaign_param
     @courses_list = courses_list || campaign&.courses
