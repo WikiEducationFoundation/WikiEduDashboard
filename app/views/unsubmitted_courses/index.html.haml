@@ -26,7 +26,6 @@
             = t("courses.expected_students")
           %th.sort.sortable{"data-default-order" => "desc", "data-sort" => "tags", :style => "width: 125px;"}
             = t("metrics.tags")
-            %span.sortable-indicator
       %tbody.list
         - @presenter.courses_by_recent_edits.each do |c|
           = render 'unsubmitted_courses/row', course: c, admin: false, user: false
