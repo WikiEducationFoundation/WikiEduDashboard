@@ -20,11 +20,11 @@
           %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "creation-date"}
             = t("courses.creation_date")
             %span.sortable-indicator
-          %th.sort.sortable{:style => "width: 165px;"}
+          %th.{:style => "width: 165px;"}
             = t("courses.instructor.one")
-          %th.sort.sortable{:style => "width: 200px;"}
+          %th.{:style => "width: 200px;"}
             = t("courses.expected_students")
-          %th.sort.sortable{:style => "width: 125px;"}
+          %th.{:style => "width: 125px;"}
             = t("metrics.tags")
       %tbody.list
         - @presenter.courses_by_recent_edits.each do |c|
