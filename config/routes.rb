@@ -114,7 +114,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show
-  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
+  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/programs')
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
