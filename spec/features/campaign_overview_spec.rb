@@ -83,7 +83,7 @@ describe 'campaign overview page', type: :feature, js: true do
       visit "/campaigns/#{campaign.slug}/overview"
 
       # Number of courses
-      course_count = Campaign.first.courses.count
+      course_count = Campaign.find(campaign.id).courses.count
       stat_text = "#{course_count} #{I18n.t('courses.course_description')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
@@ -140,7 +140,7 @@ describe 'campaign overview page', type: :feature, js: true do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       login_as(user, scope: :user)
-      visit "/campaigns/#{campaign.slug}"
+      visit "/campaigns/#{campaign.slug}/overview"
     end
 
     describe 'campaign description' do
