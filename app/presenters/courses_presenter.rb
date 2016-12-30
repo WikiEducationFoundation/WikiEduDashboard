@@ -32,7 +32,7 @@ class CoursesPresenter
   end
 
   def active_courses
-    campaign.courses.current_and_future
+    courses.current_and_future
   end
 
   def courses_by_recent_edits

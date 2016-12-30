@@ -1,14 +1,24 @@
 # frozen_string_literal: true
 require 'rails_helper'
 require_relative '../../app/presenters/courses_presenter'
-require 'ostruct'
 
 describe CoursesPresenter do
+  describe 'initialization via courses_list' do
+    let!(:course) { create(:course, user_count: 2, trained_count: 1) }
+    subject { described_class.new(current_user: nil, courses_list: Course.all) }
+    it 'works with #courses, #active_courses, #user_count, #trained_count, #trained_percent' do
+      expect(subject.courses.first).to eq(course)
+      expect(subject.active_courses).not_to be_nil
+      expect(subject.user_count).to eq(2)
+      expect(subject.trained_count).to eq(1)
+      expect(subject.trained_percent).to eq(50.0)
+    end
+  end
+
   describe '#user_courses' do
-    let(:admin)  { create(:admin) }
-    let(:user)   { user }
+    let(:admin) { create(:admin) }
     let(:campaign) { nil }
-    subject { described_class.new(user, campaign).user_courses }
+    subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
     context 'not signed in' do
       let(:user) { nil }
       it 'is nil' do
@@ -24,8 +34,7 @@ describe CoursesPresenter do
     end
 
     context 'user is admin' do
-      let!(:user)     { admin }
-      let!(:is_admin) { true }
+      let!(:user) { admin }
       let!(:course)  { create(:course, end: Time.zone.today + 4.months) }
       let!(:c_user)  { create(:courses_user, course_id: course.id, user_id: user.id) }
 
@@ -38,7 +47,7 @@ describe CoursesPresenter do
   describe '#campaign' do
     let(:user)         { create(:admin) }
     let(:campaign_param) { campaign_param }
-    subject { described_class.new(user, campaign_param).campaign }
+    subject { described_class.new(current_user: user, campaign_param: campaign_param).campaign }
 
     context 'campaigns' do
       context 'default campaign' do
