@@ -44,33 +44,34 @@
                 = t('editable.edit_details')
         .module__data.extra-line-height
           %div
-            %span.campaign-organizers
-              %strong
-                = succeed ':' do
-                  = t('campaign.organizers')
-              %span
-                = @campaign.organizers.collect(&:username).join(', ')
-              %span.pop__container
-                %button.button.border.plus +
-                .pop
-                  %table
-                    %tbody
-                      %tr.edit
-                        %td
-                          = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
-                            = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
-                            %button.button.border.add-organizer-button Add organizer
-                      - @campaign.organizers.each do |organizer|
-                        %tr
+            - if @editable || @campaign.organizers.any?
+              %span.campaign-organizers
+                %strong
+                  = succeed ':' do
+                    = t('campaign.organizers')
+                %span
+                  = @campaign.organizers.collect(&:username).join(', ')
+                %span.pop__container
+                  %button.button.border.plus +
+                  .pop
+                    %table
+                      %tbody
+                        %tr.edit
                           %td
-                            - if organizer.username == current_user&.username
-                              %span
-                                = organizer.username
-                            - else
-                              = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
+                            = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
+                              = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
+                              %button.button.border.add-organizer-button Add organizer
+                        - @campaign.organizers.each do |organizer|
+                          %tr
+                            %td
+                              - if organizer.username == current_user&.username
                                 %span
                                   = organizer.username
-                                %button.button.border.plus -
+                              - else
+                                = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
+                                  %span
+                                    = organizer.username
+                                  %button.button.border.plus -
 
           = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
             .campaign-title.form-group.rails_editable-field

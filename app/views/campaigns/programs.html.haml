@@ -8,7 +8,7 @@
   %section#courses
     .section-header
       %h3
-        = t('campaign.programs', title: @campaign.title)
+        = t("#{Features.default_course_string_prefix}.campaign_courses", title: @campaign.title)
       .sort-select
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}

@@ -228,9 +228,6 @@ qqq:
       of a campaign
     organizer_removed: Message indicating a user was successfully removed as an organizer
       of a campaign
-    programs: |-
-      The title of a campaign followed by an identical translation for 'Programs'
-      {{Identical|Program}}
     program_template: |-
       Label for the field to enter a default description for a program.
       A direct translation of 'Program template' should be suitable.
@@ -278,6 +275,9 @@ qqq:
     campaigns: |-
       Label for a list of campaigns a program is part of. A "campaign" essentially means a group of courses with something in common, in this context.
       {{Identical|Campaign}}
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Program}}
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
@@ -459,6 +459,9 @@ qqq:
     cancel: '{{Identical|Cancel}}'
     courses: '{{Identical|Program}}'
     campaigns: '{{Identical|Campaign}}'
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Program}}
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course

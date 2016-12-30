@@ -198,7 +198,6 @@ en:
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
     organizer_removed: '%{user} has been removed as an organizer of the "%{title}" campaign'
-    programs: '%{title} Programs'
     program_template: Program Template
     program_template_tooltip: >
       When an organizer creates a program in this campaign,
@@ -228,6 +227,7 @@ en:
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
+    campaign_courses: '%{title} Courses'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     course_dates_calendar_instructions: >
@@ -398,6 +398,7 @@ en:
     cancel: Cancel
     courses: Programs
     campaigns: 'Campaigns: '
+    campaign_courses: '%{title} Programs'
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
       clone_previous: Clone Previous Program
