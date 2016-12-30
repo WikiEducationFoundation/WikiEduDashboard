@@ -237,6 +237,7 @@ en:
       weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
+    courses_taught: Courses Taught
     creation_date: Creation Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
@@ -319,6 +320,7 @@ en:
     needs_update: Schedule Data Update
     new_week: Add New Week
     nocourses: You are not participating in any courses.
+    nocourse: has not participated in any courses.
     none: None
     notify_untrained_confirmation: >
       This will post a reminder on the talk pages for all students who overdue
@@ -397,6 +399,7 @@ en:
     assignment_start: Timeline Start
     cancel: Cancel
     courses: Programs
+    courses_taught: Programs Taught
     campaigns: 'Campaigns: '
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.

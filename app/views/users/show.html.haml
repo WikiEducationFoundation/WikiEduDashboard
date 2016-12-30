@@ -2,20 +2,23 @@
   = render 'users/profile_nav'
 
 #profile
-  %h2
+  %h3
     User: #{@user.username}
   - if current_user == @user || current_user&.admin?
-    %h4
+    %h5
       &#x2709; #{@user.email}
 
 .container
   - if @user&.isinstructor?
     #statistics
-      %br/
       = render 'users/profile_cumulativestats', presenter: @presenter
+      %hr
 
   #coursedetails
     - if @courses_user.present?
+      %br/
+      %br/
+      %br/
       %h3
         = t("courses.course_details")
       %br/
@@ -48,4 +51,5 @@
                 = course_role_name(c.role)
     -else
       %h4
-        #{@user.username} is not a part of any Course yet!
+        #{@user.username}
+        = t("courses.nocourse")
