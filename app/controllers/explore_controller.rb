@@ -9,6 +9,6 @@ class ExploreController < ApplicationController
     campaign = params[:campaign] || params[:cohort]
     redirect_to campaign_path(campaign) if campaign
 
-    @presenter = CoursesPresenter.new(current_user, ENV['default_campaign'])
+    @presenter = CoursesPresenter.new(current_user: current_user, campaign_param: ENV['default_campaign'])
   end
 end

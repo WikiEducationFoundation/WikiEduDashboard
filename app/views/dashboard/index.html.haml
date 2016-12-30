@@ -131,5 +131,5 @@
               %span.sortable-indicator
         %tbody.list
           - @pres.campaigns.each do |campaign|
-            - campaign_presenter = CoursesPresenter.new(current_user, campaign.slug)
+            - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
             = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign

@@ -2,7 +2,7 @@
   Contribution Statistics
 %br/
 %h5
-  Total Impact by #{@user.username}
+  = t("users.user_impact") #{@user.username}
 .profile-stats
   .stat-display
     .stat-display__stat
@@ -19,7 +19,8 @@
 %br/
 %br/
 %h5
-  Total Impact made by #{@user.username}'s Students
+  = t("users.user_impact") #{@user.username}'s
+  = t("courses.students")
 .stat-display
   .stat-display__stat
     .stat-display__value= number_to_human presenter.word_count

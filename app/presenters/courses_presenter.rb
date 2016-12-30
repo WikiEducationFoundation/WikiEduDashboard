@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/word_count"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user, campaign_param, courses_list=nil)
+  def initialize(current_user, campaign_param: nil, courses_list: nil)
     @current_user = current_user
     @campaign_param = campaign_param
     @courses_list = courses_list || campaign&.courses
@@ -17,6 +17,7 @@ class CoursesPresenter
   end
 
   def campaign
+    return @courses_list if campaign_param == 'none'
     @campaign ||= Campaign.find_by(slug: campaign_param)
     raise NoCampaignError if @campaign.nil? && campaign_param == ENV['default_campaign']
     @campaign
