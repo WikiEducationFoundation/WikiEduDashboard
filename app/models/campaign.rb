@@ -49,18 +49,9 @@ class Campaign < ActiveRecord::Base
   # Instance methods #
   ####################
 
+  # Count of total students eliminating other users in the course.
   def students_without_nonstudents
     students.where.not(id: nonstudents.pluck(:id))
-  end
-
-  def trained_count
-    courses.sum(:trained_count)
-  end
-
-  def trained_percent
-    student_count = students_without_nonstudents.count
-    return 100 if student_count.zero?
-    100 * trained_count.to_f / student_count
   end
 
   def users_to_csv(role, opts = {})

@@ -144,7 +144,7 @@ class CampaignsController < ApplicationController
   end
 
   def set_presenter
-    @presenter = CoursesPresenter.new(current_user, @campaign.slug)
+    @presenter = CoursesPresenter.new(current_user: current_user, campaign_param: @campaign.slug)
   end
 
   def add_organizer_to_campaign(user)

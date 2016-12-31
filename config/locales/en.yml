@@ -237,6 +237,7 @@ en:
       weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
+    courses_taught: Courses Taught
     creation_date: Creation Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
@@ -319,6 +320,7 @@ en:
     needs_update: Schedule Data Update
     new_week: Add New Week
     nocourses: You are not participating in any courses.
+    nocourse: has not participated in any courses.
     none: None
     notify_untrained_confirmation: >
       This will post a reminder on the talk pages for all students who overdue
@@ -397,6 +399,7 @@ en:
     assignment_start: Timeline Start
     cancel: Cancel
     courses: Programs
+    courses_taught: Programs Taught
     campaigns: 'Campaigns: '
     campaign_courses: '%{title} Programs'
     creator:
@@ -610,6 +613,7 @@ en:
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions
+    contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
     enroll_confirmation: Are you sure you want to add %{username}?
@@ -654,6 +658,8 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
+    user_impact: Total impact made by %{username}
+    student_impact: Total impact made by %{username}'s Students
     role:
       visitor: Visitor
       student: Student
@@ -661,6 +667,7 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Ed Staff
+
   wiki_edits:
     notify_overdue:
       confirm: >

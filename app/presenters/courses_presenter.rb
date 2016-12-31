@@ -5,9 +5,10 @@ require "#{Rails.root}/lib/word_count"
 class CoursesPresenter
   attr_reader :current_user, :campaign_param
 
-  def initialize(current_user, campaign_param)
+  def initialize(current_user:, campaign_param: nil, courses_list: nil)
     @current_user = current_user
     @campaign_param = campaign_param
+    @courses_list = courses_list || campaign&.courses
   end
 
   def user_courses
@@ -16,7 +17,6 @@ class CoursesPresenter
   end
 
   def campaign
-    return NullCampaign.new if campaign_param == 'none'
     @campaign ||= Campaign.find_by(slug: campaign_param)
     raise NoCampaignError if @campaign.nil? && campaign_param == ENV['default_campaign']
     @campaign
@@ -27,11 +27,11 @@ class CoursesPresenter
   end
 
   def courses
-    campaign.courses
+    @courses_list
   end
 
   def active_courses
-    campaign.courses.current_and_future
+    courses.current_and_future
   end
 
   def courses_by_recent_edits
@@ -70,28 +70,18 @@ class CoursesPresenter
     @upload_usage_count
   end
 
-  class NoCampaignError < StandardError; end
-end
-
-#= Pseudo-Campaign that displays all unsubmitted, non-deleted courses
-class NullCampaign
-  def title
-    I18n.t('courses.unsubmitted')
-  end
-
-  def slug
-    'none'
-  end
-
-  def courses
-    Course.unsubmitted.order(created_at: :desc)
-  end
-
-  def students_without_nonstudents
-    []
+  def trained_count
+    courses.sum(:trained_count)
   end
 
   def trained_percent
-    0
+    return 100 if user_count.zero?
+    100 * trained_count.to_f / user_count
   end
+
+  def user_count
+    courses.sum(:user_count)
+  end
+
+  class NoCampaignError < StandardError; end
 end
