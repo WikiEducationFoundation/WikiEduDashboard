@@ -656,7 +656,8 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
-    user_impact: Total impact made by
+    user_impact: Total impact made by %{username}
+    student_impact: Total impact made by %{username}'s Students
     role:
       visitor: Visitor
       student: Student

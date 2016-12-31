@@ -2,8 +2,7 @@
   = t("users.contribution_statistics")
 %br/
 %h5
-  = t("users.user_impact")
-  #{@user.username}
+  = t("users.user_impact", username: @user.username)
 .profile-stats
   .stat-display
     .stat-display__stat
@@ -20,9 +19,7 @@
 %br/
 %br/
 %h5
-  = t("users.user_impact")
-  #{@user.username}'s
-  = t("courses.students")
+  = t("users.student_impact", username: @user.username)
 .stat-display
   .stat-display__stat
     .stat-display__value= number_to_human presenter.word_count
