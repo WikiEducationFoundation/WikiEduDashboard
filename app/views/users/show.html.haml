@@ -11,7 +11,7 @@
 .container
   - if @user&.isinstructor?
     #statistics
-      = render 'users/profile_cumulativestats', presenter: @presenter
+      = render 'users/profile_cumulative_stats', presenter: @presenter
       %hr
 
   #coursedetails
