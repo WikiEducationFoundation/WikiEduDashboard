@@ -83,7 +83,6 @@ hy:
       title: Փուլեր
   campaign:
     organizers: Կազմակերպիչներ
-    programs: '%{title} ծրագրեր'
   courses:
     activity: Ակտիվություն
     course_description: Դասընթացներ

@@ -146,7 +146,6 @@ zh-TW:
     organizers: 組織者
     organizer_added: '%{user}現在是活動「%{title}」的組織者'
     organizer_removed: '%{user}已被移除活動「%{title}」的組織者身份'
-    programs: '%{title}方案'
     program_template: 方案模板
     program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
@@ -173,11 +172,13 @@ zh-TW:
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主命名空間的文章之總位元組數。 (1 中文字=3 位元組)
     campaigns: 活動：
+    campaign_courses: '%{title}課程'
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候)。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程活動的日期會更改帳號沒有預定會議的星期。
     course_description: 課程
     courses: 課程
+    courses_taught: 教授的課程
     creation_date: 建立日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
@@ -250,6 +251,7 @@ zh-TW:
     needs_update: 行事曆資料更新
     new_week: 新增新的一週
     nocourses: 您尚未參加任何課程。
+    nocourse: 未參與任何課程。
     none: 空白
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
@@ -318,7 +320,9 @@ zh-TW:
     assignment_start: 時間軸起點
     cancel: 取消
     courses: 方案
+    courses_taught: 教授的方案
     campaigns: 活動：
+    campaign_courses: '%{title}方案'
     creator:
       checking_for_uniqueness: 正在確認是否有重複的方案。
       clone_previous: 複製前一個方案
@@ -377,6 +381,7 @@ zh-TW:
     edit_count_description: 總編輯數
     per_user: '%{number}/使用者'
     revisions: 近期編輯
+    tags: 標籤
     upload_count: 維基共享資源上傳
     uploads_in_use_count:
       one: 文章中使用的檔案
@@ -500,6 +505,7 @@ zh-TW:
     contributions: 使用者貢獻
     contributions_history_full: 在維基百科上檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
+    contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
     enroll_confirmation: 您確定要增加 %{username}？
@@ -542,6 +548,8 @@ zh-TW:
     up_to_date_with_training: 最近培訓
     username: 使用者名稱
     username_placeholder: 使用者名稱
+    user_impact: 由%{username}做出的所有影響
+    student_impact: 由%{username}的學生做出的所有影響
     role:
       visitor: 訪客
       student: 學生

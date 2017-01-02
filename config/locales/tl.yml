@@ -15,8 +15,10 @@ tl:
     rating_docs:
       does_not_exist: Itong artikulo ay walang itinala sa Wikipedia
   courses:
+    campaign_courses: Mga Kurso
     view_other: Ipakita ang ibang kasabwat
   courses_generic:
+    campaign_courses: Mga Programa
     delete_course: Tanggalin ang programa
     leave_course: Iwanan ang programa
     view_page: Ipakita ang Programa Pahina

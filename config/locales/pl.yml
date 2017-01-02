@@ -136,6 +136,7 @@ pl:
     save: Zapisz
   metrics:
     date_time: Data/Czas
+    tags: Znaczniki
     uploads_in_use_count:
       one: plik użyty w artykule
       other: pliki użyty w artykułach

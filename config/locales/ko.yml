@@ -105,7 +105,6 @@ ko:
   campaign:
     description: 설명
     none: 없음
-    programs: '%{title} 프로그램'
     program_template: 프로그램 틀
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
@@ -235,6 +234,7 @@ ko:
     edit_count_description: 총 편집
     per_user: '%{number}/사용자'
     revisions: 최신 편집
+    tags: 태그
     view: 보기
     word_count_average: 평균 단어 개수
   namespace:

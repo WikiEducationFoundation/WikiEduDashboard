@@ -277,13 +277,15 @@ qqq:
       {{Identical|Campaign}}
     campaign_courses: |-
       The title of a campaign followed by an identical translation for 'Programs'
-      {{Identical|Program}}
+      {{Identical|Course}}
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
       Label for the number of courses in a campaign
       {{Identical|Course}}
-    courses: Label for the number of courses in a campaign
+    courses: |-
+      Label for the number of courses in a campaign
+      {{Identical|Course}}
     creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
@@ -520,6 +522,7 @@ qqq:
     per_user: The average number of words contributed to articles per user, for a
       program. 'number' is a number of words.
     revisions: Label for the number of recent edits/revisions.
+    tags: '{{Identical|Tag}}'
     upload_count: Label for the number of files uploaded to Wikimedia Commons
     uploads_in_use_count: Label for the number of Wikimedia Commons files being used
       in articles. Preceded by %{count}.

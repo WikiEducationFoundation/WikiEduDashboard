@@ -6,6 +6,7 @@
 # Author: Copper12
 # Author: Dgstranz
 # Author: Fitoschido
+# Author: Fortega
 # Author: Irus
 # Author: Koavf
 # Author: Lemondoge
@@ -109,6 +110,7 @@ es:
       list: 'Clase lista: una lista en lugar de un artículo convencional'
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
+      does_not_exist: Este artículo no existe en Wikipedia
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
     title: Título
@@ -170,7 +172,6 @@ es:
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
-    programs: Programas de %{title}
     title: Título
   courses:
     activity: Actividad
@@ -194,6 +195,7 @@ es:
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
+    campaign_courses: Curso de «%{title}»
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
@@ -288,6 +290,7 @@ es:
     needs_update: Actualización de datos del programa
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
+    nocourse: no ha participado en ningún curso.
     none: Ninguno
     notify_untrained_confirmation: Esto publicará un recordatorio en las páginas de
       discusión de todos los estudiantes que no hayan completado los módulos de capacitación
@@ -358,6 +361,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
     assignment_end: Final del cronograma
     assignments_none: Este proyecto no tiene artículos asignados.
@@ -365,6 +369,7 @@ es:
     cancel: Cancelar
     courses: Programas
     campaigns: 'Campañas:'
+    campaign_courses: Programa de «%{title}»
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       clone_previous: Clonar el programa previo
@@ -407,6 +412,7 @@ es:
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
       por los editores del programa durante el plazo de programa
+    yourcourses: Tus programas
   editable:
     edit: Editar
     cancel: Cancelar
@@ -426,6 +432,7 @@ es:
     edit_count_description: Ediciones totales
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
+    tags: Etiquetas
     upload_count: Subidas a Commons
     uploads_in_use_count:
       one: archivo utilizado en un artículos

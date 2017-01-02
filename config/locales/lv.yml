@@ -40,7 +40,6 @@ lv:
     create_campaign: Izveidot jaunu kampaņu
     description: Apraksts
     none: Nav
-    programs: '%{title} programmas'
   courses:
     activity: Aktivitāte
     archived: Arhivētie kursi

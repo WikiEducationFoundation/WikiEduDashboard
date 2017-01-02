@@ -147,7 +147,6 @@ nb:
     organizers: Arrangører
     organizer_added: '%{user} er nå arrangør av kampanjen «%{title}»'
     organizer_removed: '%{user} har blitt fjernet som arrangør av kampanjen «%{title}»'
-    programs: '%{title}-programmer'
     title: Tittel
     use_start_end_dates: Bruk start- og sluttdatoer
   courses:

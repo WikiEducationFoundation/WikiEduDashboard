@@ -130,7 +130,6 @@ it:
     create_campaign: Crea una nuova campagna
     description: Descrizione
     none: Nessuno
-    programs: Programmi %{title}
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'

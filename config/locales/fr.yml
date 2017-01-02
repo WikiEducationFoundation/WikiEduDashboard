@@ -177,7 +177,6 @@ fr:
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
     organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
-    programs: Programmes de %{title}
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
@@ -207,6 +206,7 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     campaigns: 'Complices :'
+    campaign_courses: '%{title} Cours'
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
@@ -217,6 +217,7 @@ fr:
       cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
     course_description: Cours
     courses: Cours
+    courses_taught: Cours enseignés
     creation_date: Date de création
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
@@ -303,6 +304,7 @@ fr:
     needs_update: Calendrier de la mise à jour des données
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
+    nocourse: a participé à aucun cours.
     none: Aucun
     notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
@@ -381,7 +383,9 @@ fr:
     assignment_start: Début de la chronologie
     cancel: Annuler
     courses: Programmes
+    courses_taught: Programmes enseignés
     campaigns: 'Campagnes :'
+    campaign_courses: '%{title} Programmes'
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       clone_previous: Dupliquer le programme précédent
@@ -446,6 +450,7 @@ fr:
     edit_count_description: Total des modifications
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
+    tags: Balises
     upload_count: Téléversement de Commons
     uploads_in_use_count:
       one: fichier utilisé dans un article
@@ -589,6 +594,7 @@ fr:
     contributions_history_full: Afficher l’historique complet des contributions sur
       Wikipédia
     contributions_more: Afficher plus de contributions
+    contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
@@ -633,6 +639,8 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
+    user_impact: Impact Total réalisé par %{username}
+    student_impact: Impact total fait par les étudiants de %{username}
     role:
       visitor: Visiteur
       student: Étudiant

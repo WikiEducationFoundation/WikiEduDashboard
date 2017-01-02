@@ -144,7 +144,6 @@ he:
     campaign: מיזם \ פרויקט \ קמפיין
     description: תיאור
     none: אין
-    programs: תוכניות %{title}
   courses:
     activity: פעילות
     already_enrolled: הינך כבר חלק מ%{title}!

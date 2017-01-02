@@ -30,6 +30,8 @@ eu:
     submit: Bidali
     training: Trebakuntza
     change: Aldatu
+    details: Xehetasunak
+    confirm: OK
   dashboard:
     explore_course_pages: Esploratu Ikastaro Orrialdeak
     explore_examples: Adibideetan Arakatu
@@ -49,6 +51,7 @@ eu:
     assigned_to: 'Nori Esleitua:'
     edited: Editatutako artikuluak
     edited_mobile: Artikuluak
+    hide: Ezkutatu
     label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
@@ -65,7 +68,7 @@ eu:
     assign_self: Neure buruari artikulu bat esleitu
     confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
     confirm_addition: Ziur zaude %{title} %{username} lankideari esleitu nahi diozula?
-    confirm_deletion: Ziur zaude esleipen hau ezabatu nahi duzula?
+    confirm_deletion: Ziur zaude artikulu honen esleipen hau ezabatu nahi duzula?
     label: Esleitu
     loading: Esleipenak kargatzen...
     none_short: Artikulu esleipenik gabe
@@ -153,7 +156,7 @@ eu:
     overview: Ikuspegi orokorra
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
-    passcode_prompt: Sartu zure bideratzaileak eman dizun ikastaro honetarako pasahitza
+    passcode_prompt: 'Sartu zure pasahitza:'
     school: Eskola
     start: Hasi
     start_typing: Hasi idazten

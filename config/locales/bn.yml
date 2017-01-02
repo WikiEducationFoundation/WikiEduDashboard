@@ -64,7 +64,6 @@ bn:
   campaign:
     campaign: প্রচারাভিযান
     none: কোনটিই নয়
-    programs: '%{title} প্রোগ্রামগুলি'
   courses:
     activity: কর্মকাণ্ড
     actions: কার্যসমূহ

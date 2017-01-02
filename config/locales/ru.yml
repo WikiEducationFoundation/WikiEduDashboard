@@ -138,7 +138,6 @@ ru:
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
-    programs: '%{title} программы'
     program_template: Шаблон программы
     use_start_end_dates: Использовать даты начала и окончания
   courses:
@@ -149,6 +148,7 @@ ru:
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     campaigns: Кампании
+    campaign_courses: '%{title} курсы'
     course_description: Курсы
     courses: Курсы
     creation_date: Дата создания
@@ -209,6 +209,7 @@ ru:
   courses_generic:
     cancel: Отмена
     campaigns: Кампании
+    campaign_courses: '%{title} программы'
     creator:
       course_school: Учреждение
       course_title: Название программы
@@ -241,6 +242,7 @@ ru:
     date_time: Дата/время
     edit_count_description: Всего правок
     revisions: Последние правки
+    tags: Теги
     view_count_description: Просмотров статей
     view: Просмотров
     word_count_average: Среднее количество слов

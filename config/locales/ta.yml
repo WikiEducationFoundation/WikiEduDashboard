@@ -1,9 +1,16 @@
 # Messages for Tamil (தமிழ்)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: ElangoRamanujam
 # Author: Rakeshonwiki
 ---
 ta:
+  articles:
+    hide: மறைக்கவும்
+  campaign:
+    add_organizer: ஒழுங்கமைப்பாளரைச் சேர்க்கவும்
+    organizers: ஒழுங்கமைப்பாளர்கள்
+    title: தலைப்பு
   courses:
     creator:
       clone_successful_details: காலவரிசையின்  கூற்றுக்களுடன் (வாரங்கள் மற்றும் தொகுதிகள்)

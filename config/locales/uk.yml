@@ -167,7 +167,6 @@ uk:
     organizers: Організатори
     organizer_added: '%{user} тепер є організатором курсу «%{title}»'
     organizer_removed: Користувач «%{user}» був вилучений як організатор курсу «%{title}»
-    programs: Програми %{title}
     program_template: Шаблон програми
     program_template_tooltip: Коли організатор створює програму в цій кампанії, текст
       у цій ділянці буде скопійовано і вставлено як опис на сторінці програми
@@ -196,6 +195,7 @@ uk:
     character_doc: Сума символів, доданих до статей в основному просторі назв студентами
       курсу впродовж семестру курсу
     campaigns: 'Когорти:'
+    campaign_courses: Курси %{title}
     confirm_course_deletion: Ви впевнені, що хочете видалити курс «%{title}»? Якщо
       так, вкажіть назву курсу, щоб продовжити.
     confirm_course_deletion_failed: «%{title}» не є назвою курса. Курс не був видалений.
@@ -366,6 +366,7 @@ uk:
     cancel: Скасувати
     courses: Програми
     campaigns: 'Кампанії:'
+    campaign_courses: Програми %{title}
     creator:
       checking_for_uniqueness: Ця програма перевіряється на унікальність.
       clone_previous: Клонувати попередню програму

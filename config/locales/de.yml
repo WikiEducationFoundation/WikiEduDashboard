@@ -165,7 +165,6 @@ de:
     organizers: Organisatoren
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
     organizer_removed: '%{user} wurde als Organisator der Kampagne „%{title}“ entfernt'
-    programs: Programme von %{title}
     program_template: Programmvorlage
     program_template_tooltip: Wenn ein Organisator ein Programm in dieser Kampagne
       erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
@@ -195,6 +194,7 @@ de:
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Kurse'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
@@ -206,6 +206,7 @@ de:
       haben.
     course_description: Kurse
     courses: Kurse
+    courses_taught: Unterrichtete Kurse
     creation_date: Erstelldatum
     creator:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
@@ -292,6 +293,7 @@ de:
     needs_update: Plandatenaktualisierung
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
+    nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
     notify_untrained_confirmation: Dies sendet eine Erinnerung an die Diskussionsseiten
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
@@ -370,7 +372,9 @@ de:
     assignment_start: Zeitleisten-Beginn
     cancel: Abbrechen
     courses: Programme
+    courses_taught: Unterrichtete Programme
     campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Programme'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       clone_previous: Vorheriges Programm klonen
@@ -435,6 +439,7 @@ de:
     edit_count_description: Gesamte Bearbeitungen
     per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
+    tags: Markierungen
     upload_count: Auf Commons hochgeladene Dateien
     uploads_in_use_count:
       one: in einem Artikel verwendete Datei
@@ -578,6 +583,7 @@ de:
     contributions: Benutzerbeiträge
     contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
     contributions_more: Weitere Beiträge ansehen
+    contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
@@ -623,6 +629,8 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
+    user_impact: Gesamtauswirkung durch %{username}
+    student_impact: Gesamtauswirkung durch die Studenten von %{username}
     role:
       visitor: Besucher
       student: Student
