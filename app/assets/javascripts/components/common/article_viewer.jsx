@@ -8,7 +8,8 @@ const ArticleViewer = React.createClass({
     article: React.PropTypes.object.isRequired,
     showButtonLabel: React.PropTypes.string,
     hideButtonLabel: React.PropTypes.string,
-    largeButton: React.PropTypes.bool
+    largeButton: React.PropTypes.bool,
+    users: React.PropTypes.array
   },
 
   getInitialState() {
@@ -35,6 +36,10 @@ const ArticleViewer = React.createClass({
     this.setState({ showArticle: true });
     if (!this.state.fetched) {
       this.fetchParsedArticle();
+    }
+    if (!this.state.userIdsFetched) {
+      // TODO: only do this for enwiki
+      this.fetchUserIds();
     }
     if (!this.state.whocolorFetched) {
       // TODO: only do this for enwiki
@@ -79,13 +84,19 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
-  highlightAuthor(authorId) {
-    const html = this.state.whocolorHtml;
-    const styledAuthorSpan = `<span style="background: red" class="author-token token-authorid-${authorId}"`;
-    const authorSpanMatcher = new RegExp(`<span class="author-token token-authorid-${authorId}`, 'g');
-    const highlightedHtml = html.replace(authorSpanMatcher, styledAuthorSpan);
+  colors: ['red', 'blue', 'green', 'yellow'],
+
+  highlightAuthors() {
+    let html = this.state.whocolorHtml;
+    let i = 0;
+    _.forEach(this.state.users, (user) => {
+      const styledAuthorSpan = `<span style="background: ${this.colors[i]}" class="author-token token-authorid-${user.userid}"`;
+      const authorSpanMatcher = new RegExp(`<span class="author-token token-authorid-${user.userid}`, 'g');
+      html = html.replace(authorSpanMatcher, styledAuthorSpan);
+      i += 1;
+    });
     this.setState({
-      highlightedHtml: highlightedHtml
+      highlightedHtml: html
     });
   },
 
@@ -112,12 +123,49 @@ const ArticleViewer = React.createClass({
           whocolorHtml: this.processHtml(json.html),
           whocolorFetched: true
         });
-        this.highlightAuthor(319203); // User:Ragesoss
+        this.highlightAuthors();
+      }
+    });
+  },
+
+  wikiUserQueryUrl() {
+    const baseUrl = `https://${this.props.article.language}.${this.props.article.project}.org/w/api.php`;
+    const usersParam = this.props.users.join('|');
+    return `${baseUrl}?action=query&list=users&format=json&ususers=${usersParam}`;
+  },
+
+  // These are mediawiki user ids, and don't necessarily match the dashboard
+  // database user ids, so we must fetch them by username from the wiki.
+  fetchUserIds() {
+    $.ajax({
+      dataType: 'jsonp',
+      url: this.wikiUserQueryUrl(),
+      success: (json) => {
+        this.setState({
+          users: json.query.users,
+          usersIdsFetched: true
+        });
       }
     });
   },
 
   render() {
+    let colorLegend;
+    if (this.state.highlightedHtml) {
+      const rows = this.state.users.map((user, i) => {
+        return (
+          <tr key={`legend-${user.name}`}>
+            <td>{user.name}</td>
+            <td>{this.colors[i]}</td>
+          </tr>
+        );
+      });
+      colorLegend = (
+        <table>
+          <tbody>{rows}</tbody>
+        </table>
+      );
+    }
     let button;
     let showButtonStyle;
     if (this.props.largeButton) {
@@ -149,6 +197,7 @@ const ArticleViewer = React.createClass({
       <div>
         {button}
         <div className={className}>
+          {colorLegend}
           <p>
             <a className="button dark small" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
             {button}
