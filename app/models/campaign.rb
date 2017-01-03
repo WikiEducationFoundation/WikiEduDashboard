@@ -92,33 +92,34 @@ class Campaign < ActiveRecord::Base
   private
 
   def validate_dates
-    blank_dates = []
+    # It's fine to have no dates at all.
+    return if start.nil? && self.end.nil?
 
+    # If any are present, all must be valid and self-consistent.
     [:start, :end].each do |date_type|
-      begin
-        # intercept Rails typecasting and add error if given string cannot be parsed into a date
-        if value = self.send("#{date_type}_before_type_cast").presence
-          self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : DateTime.parse(value)
-        else
-          blank_dates << date_type
-        end
-      rescue ArgumentError
-        errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
-      end
+      validate_date_attribute(date_type)
     end
 
-    if blank_dates.length == 1
-      errors.add(blank_dates.first, I18n.t('error.invalid_date', key: blank_dates.first.capitalize))
-    end
+    errors.add(:start, I18n.t('error.start_date_before_end_date')) unless valid_start_and_end_dates?
+  end
 
-    if start && self.end && start > self.end
-      errors.add(:start, I18n.t('error.start_date_before_end_date'))
-    end
+  # Intercept Rails typecasting and add error if given value cannot be parsed into a date.
+  def validate_date_attribute(date_type)
+    value = send("#{date_type}_before_type_cast")
+    self[date_type] = value.is_a?(Date) || value.is_a?(Time) ? value : DateTime.parse(value)
+  rescue ArgumentError, TypeError
+    errors.add(date_type, I18n.t('error.invalid_date', key: date_type.capitalize))
+  end
+
+  # Start must not be after end.
+  def valid_start_and_end_dates?
+    return false unless start && self.end
+    start <= self.end
   end
 
   def set_slug
     # Strip everything but letters and digits, and convert spaces to underscores
-    self.slug = title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_') unless self.slug.present?
+    self.slug = title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_') unless slug.present?
   end
 
   def set_default_times
