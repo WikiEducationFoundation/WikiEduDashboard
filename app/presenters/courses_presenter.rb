@@ -22,6 +22,10 @@ class CoursesPresenter
     @campaign
   end
 
+  def can_remove_course?
+    current_user && (current_user.admin? || @campaign.organizers.collect(&:id).include?(current_user.id))
+  end
+
   def campaigns
     Campaign.active
   end

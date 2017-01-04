@@ -24,3 +24,9 @@
       = course.user_count
     - unless Features.disable_training?
       %small.untrained= t("users.training_complete_count", count: course.trained_count)
+  - if @presenter&.can_remove_course?
+    %td
+      = form_for(@campaign, url: remove_course_campaign_path(@campaign.slug, course_id: course.id), method: :put, html: { class: 'remove-program-form' }) do
+        = hidden_field_tag('course_title', course.title)
+        %button.button.danger.remove-course{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title}
+          = t('assignments.remove')

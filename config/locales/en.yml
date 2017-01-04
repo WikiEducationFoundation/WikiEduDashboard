@@ -190,6 +190,9 @@ en:
     campaign_updated: Campaign updated
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
+    confirm_course_removal: Are you sure you want to remove "%{title}" from the "%{campaign_title}" campaign?
+    course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
+    course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     description: Description

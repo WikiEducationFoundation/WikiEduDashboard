@@ -59,6 +59,9 @@
           %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'desc', 'data-sort' => 'students'}
             = t('users.editors')
             %span.sortable-indicator
+          - if @presenter.can_remove_course?
+            %th{style: 'width:100px'}
+              = t('courses.actions')
       %tbody.list
         - @presenter.courses_by_recent_edits.each do |c|
           = render 'courses/row', course: c, admin: false, user: false

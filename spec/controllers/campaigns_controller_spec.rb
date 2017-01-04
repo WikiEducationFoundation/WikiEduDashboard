@@ -161,6 +161,32 @@ describe CampaignsController do
     end
   end
 
+  describe '#remove_course' do
+    let(:user) { create(:user) }
+    let(:campaign) { create(:campaign) }
+    let(:course) { create(:course) }
+    let!(:campaigns_course) do
+      create(:campaigns_course, campaign_id: campaign.id,
+                                course_id: course.id)
+    end
+
+    it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
+      allow(controller).to receive(:current_user).and_return(user)
+      put :remove_course, params: { slug: campaign.slug, course_id: course.id }
+      expect(response.status).to eq(401)
+      expect(CampaignsCourses.find_by_id(campaigns_course.id)).not_to be_nil
+    end
+
+    it 'removes the course from the campaign if the current user is a campaign organizer' do
+      create(:campaigns_user, id: 5, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      allow(controller).to receive(:current_user).and_return(user)
+      put :remove_course, params: { slug: campaign.slug, course_id: course.id }
+      expect(response.status).to eq(302) # redirect to /overview
+      expect(CampaignsCourses.find_by_id(campaigns_course.id)).to be_nil
+    end
+  end
+
   describe '#students' do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
@@ -286,6 +312,25 @@ describe CampaignsController do
     it 'lists the programs for the given campaign' do
       expect(response.body).to have_content(course.title)
       expect(response.body).to have_content(course2.title)
+    end
+
+    it 'shows a remove button for the programs if the user is an organizer or admin' do
+      # don't show it if they are not an organizer or admin
+      expect(response.body).to_not have_content(I18n.t('assignments.remove'))
+
+      # when they are an organizer...
+      user = create(:user)
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      allow(controller).to receive(:current_user).and_return(user)
+      get :programs, params: { slug: campaign.slug }
+      expect(response.body).to have_content(I18n.t('assignments.remove'))
+
+      # when they are an admin...
+      admin = create(:admin)
+      allow(controller).to receive(:current_user).and_return(user)
+      get :programs, params: { slug: campaign.slug }
+      expect(response.body).to have_content(I18n.t('assignments.remove'))
     end
   end
 end
