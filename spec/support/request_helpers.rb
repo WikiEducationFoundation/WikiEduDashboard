@@ -19,10 +19,10 @@ module RequestHelpers
       .to_return(status: 200, body: token_error, headers: {})
   end
 
-  def stub_wikimedia_error
+  def stub_wikimedia_error(code: 503)
     wikimedia_error = '<!DOCTYPE html><html lang=en><meta charset=utf-8><title>Wikimedia Error</title></html>'
-      stub_request(:get, /.*wikipedia.*/)
-      .to_return(status: 503, body: wikimedia_error, headers: {})
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: code, body: wikimedia_error, headers: {})
   end
 
   def stub_oauth_edit_with_empty_response

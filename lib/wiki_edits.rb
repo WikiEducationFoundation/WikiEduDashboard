@@ -116,8 +116,8 @@ class WikiEdits
     @access_token = oauth_access_token(current_user)
     get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json")
 
-    # Handle 503 response for when MediaWiki API is down
-    handle_mediawiki_503_error(get_token) { return { status: 'failed' } }
+    # Handle 5XX response for when MediaWiki API is down
+    handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }
 
     # Handle Mediawiki API response
     token_response = JSON.parse(get_token.body)
@@ -142,8 +142,8 @@ class WikiEdits
                            current_user.wiki_secret
   end
 
-  def handle_mediawiki_503_error(response)
-    return unless response.code == '503'
+  def handle_mediawiki_server_errors(response)
+    return unless response.code =~ /^5../
     Raven.capture_message('Wikimedia API is down')
     yield
   end

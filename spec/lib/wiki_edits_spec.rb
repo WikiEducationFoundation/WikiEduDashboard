@@ -96,10 +96,16 @@ describe WikiEdits do
       expect(response).to eq(true)
     end
 
-    it 'returns true if Wikipedia API is down' do
-        stub_wikimedia_error
-        response = WikiEdits.new.oauth_credentials_valid?(User.first)
-        expect(response).to eq(true)
+    it 'returns true if Wikipedia API is down with 503 error' do
+      stub_wikimedia_error(code: 503)
+      response = WikiEdits.new.oauth_credentials_valid?(User.first)
+      expect(response).to eq(true)
+    end
+
+    it 'returns true if Wikipedia is down with 500 error' do
+      stub_wikimedia_error(code: 500)
+      response = WikiEdits.new.oauth_credentials_valid?(User.first)
+      expect(response).to eq(true)
     end
   end
 end
