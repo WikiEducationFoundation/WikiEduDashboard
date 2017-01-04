@@ -215,6 +215,7 @@ qqq:
     confirm_course_removal: |-
       Confirmation dialog for removing a course from a campaign.
       'title' is the title of the course, and 'campaign_title' is the title of the campaign.
+    course_removed: Message shown when a user tries to remove a course from a campaing but it has already been removed.
     course_removed: Message indicating a course was successfully removed from a campaign.
     create_campaign: Header for the page to create a new campaign
     create_my_campaign: Label for the button to create a new campaign

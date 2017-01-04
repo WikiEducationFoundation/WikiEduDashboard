@@ -172,7 +172,7 @@ describe CampaignsController do
 
     it 'returns a 401 if the user is not an admin and not an organizer of the campaign' do
       allow(controller).to receive(:current_user).and_return(user)
-      put :remove_course, params: { slug: campaign.slug, id: course.id }
+      put :remove_course, params: { slug: campaign.slug, course_id: course.id }
       expect(response.status).to eq(401)
       expect(CampaignsCourses.find_by_id(campaigns_course.id)).not_to be_nil
     end
@@ -181,7 +181,7 @@ describe CampaignsController do
       create(:campaigns_user, id: 5, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       allow(controller).to receive(:current_user).and_return(user)
-      put :remove_course, params: { slug: campaign.slug, id: course.id }
+      put :remove_course, params: { slug: campaign.slug, course_id: course.id }
       expect(response.status).to eq(302) # redirect to /overview
       expect(CampaignsCourses.find_by_id(campaigns_course.id)).to be_nil
     end
