@@ -39,22 +39,26 @@ class ViewImporter
     save_updated_views
   end
 
+  private
+
   def update_views_for_articles_batch
     threads = @articles.each_with_index.map do |article, i|
       start = earliest_course_start_date(article)
-      article_id = article.id
-      article.wiki # FIXME: Non-default wiki spec fails with article.wiki -> nil without this line.
       Thread.new(i) do
-        @views_updated_at[article_id] = article.views_updated_at || start
-        if @views_updated_at[article_id] < Time.zone.yesterday
-          since = @all_time ? start : @views_updated_at[article_id] + 1.day
-          @views[article_id] = WikiPageviews
-                               .new(article).views_for_article(start_date: since,
-                                                               end_date: Time.zone.yesterday)
-        end
+        fetch_views_in_thread(article, start)
       end
     end
     threads.each(&:join)
+  end
+
+  def fetch_views_in_thread(article, start)
+    article_id = article.id
+    @views_updated_at[article_id] = article.views_updated_at || start
+    return unless @views_updated_at[article_id] < Time.zone.yesterday
+    since = @all_time ? start : @views_updated_at[article_id] + 1.day
+    @views[article_id] = WikiPageviews
+                         .new(article).views_for_article(start_date: since,
+                                                         end_date: Time.zone.yesterday)
   end
 
   ###########
@@ -72,22 +76,22 @@ class ViewImporter
   end
 
   def update_views_for_article(article, views=nil)
+    return if views.nil? # This will be the case if there are no views in the date range.
     return unless article.views_updated_at < Time.zone.yesterday
 
-    since = views_since_when(article)
-
-    # Update views on all revisions and the article
-    views ||= WikiPageviews.new(article).views_for_article(start_date: since,
-                                                           end_date: Time.zone.yesterday)
-    return if views.nil? # This will be the case if there are no views in the date range.
     add_views_to_revisions(article, views)
+    update_views_updated_at(article, views)
 
-    last = views_last_updated(since, views)
-    article.views_updated_at = last.nil? ? article.views_updated_at : last
-    if article.revisions.count.positive?
+    if article.revisions.any?
       article.views = article.revisions.order('date ASC').first.views
     end
     article.save
+  end
+
+  def update_views_updated_at(article, views)
+    since = views_since_when(article)
+    last = views_last_updated(since, views)
+    article.views_updated_at = last.nil? ? article.views_updated_at : last
   end
 
   def views_since_when(article)
