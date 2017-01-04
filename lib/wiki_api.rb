@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'mediawiki_api'
 require 'json'
+require "#{Rails.root}/lib/article_class_extractor"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
@@ -74,7 +75,7 @@ class WikiApi
     return nil if raw_talk['missing']
 
     wikitext = raw_talk['revisions'][0]['*']
-    ApplicationController.helpers.find_article_class wikitext
+    ArticleClassExtractor.new(wikitext).extract
   end
 
   #####################
