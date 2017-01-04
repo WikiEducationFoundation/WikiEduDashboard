@@ -13,6 +13,8 @@ class ArticleClassExtractor
     @wikitext = wikitext
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/PerceivedComplexity
   def extract
     # Handle empty talk page
     return nil unless @wikitext.is_a? String
@@ -29,6 +31,8 @@ class ArticleClassExtractor
 
     # For other niche ratings like "cur" and "future", count them as unrated.
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/PerceivedComplexity
 
   private
 
