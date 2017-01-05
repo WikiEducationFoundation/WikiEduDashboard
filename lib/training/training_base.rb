@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class FromYaml
+class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
     attr_accessor :cache_key, :path_to_yaml, :wiki_root_page

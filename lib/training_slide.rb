@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-require 'from_yaml'
+require "#{Rails.root}/lib/training/training_base"
 
 #= Class representing an individual training slide
-class TrainingSlide < FromYaml
+class TrainingSlide < TrainingBase
   attr_accessor :name, :content, :title_prefix, :title, :summary, :id, :slug, :assessment
 
   #################

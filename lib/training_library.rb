@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-require 'from_yaml'
+require "#{Rails.root}/lib/training/training_base"
 
-class TrainingLibrary < FromYaml
+class TrainingLibrary < TrainingBase
   attr_accessor :name, :modules, :introduction, :categories, :id
   alias raw_modules modules
   alias raw_categories categories

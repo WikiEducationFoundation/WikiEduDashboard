@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 require 'rails_helper'
-require "#{Rails.root}/lib/from_yaml"
+require "#{Rails.root}/lib/training/training_base"
 require "#{Rails.root}/lib/training_module"
 
-describe FromYaml do
+describe TrainingBase do
   describe '.load' do
     context 'when a file is misformatted' do
       let(:subject) do
-        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
-                      cache_key: 'test')
+        TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
+                          cache_key: 'test')
       end
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
@@ -18,28 +18,29 @@ describe FromYaml do
 
     context 'when there are duplicate slugs' do
       let(:subject) do
-        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_slugs/*.yml",
-                      cache_key: 'test',
-                      trim_id_from_filename: true)
+        TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_slugs/*.yml",
+                          cache_key: 'test',
+                          trim_id_from_filename: true)
       end
       it 'raises an error noting the duplicate slug name' do
-        expect { subject }.to raise_error(FromYaml::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
+        expect { subject }.to raise_error(TrainingBase::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
       end
     end
 
     context 'when there are duplicate ids' do
       let(:subject) do
-        FromYaml.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_ids/*.yml",
-                      cache_key: 'test',
-                      trim_id_from_filename: true)
+        TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_ids/*.yml",
+                          cache_key: 'test',
+                          trim_id_from_filename: true)
       end
       it 'raises an error noting the duplicate id' do
-        expect { subject }.to raise_error(FromYaml::DuplicateIdError)
+        expect { subject }.to raise_error(TrainingBase::DuplicateIdError)
       end
     end
 
     context 'when training_path is set' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return('training_content/generic')
       end
       it 'loads trainings from that path' do
@@ -50,6 +51,7 @@ describe FromYaml do
 
     context 'when training_path not is set' do
       before do
+        allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return(nil)
       end
       it 'loads trainings from the default path' do
