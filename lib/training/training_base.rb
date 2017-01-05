@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/training/training_loader"
+
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
-    attr_accessor :cache_key, :path_to_yaml, :wiki_root_page
+    attr_accessor :cache_key, :path_to_yaml
   end
 
   attr_accessor :slug, :id
@@ -11,42 +13,17 @@ class TrainingBase
   # Class methods #
   #################
 
-  # called from the initializers/training_content.rb
+  # called for each child class in initializers/training_content.rb
   def self.load(args)
-    collection = []
-
     self.cache_key = args[:cache_key]
     self.path_to_yaml = args[:path_to_yaml]
-    self.wiki_root_page = 'User:Ragesoss/data.json'
 
-    Dir.glob(path_to_yaml) do |yaml_file|
-      collection << new_from_file(yaml_file, args[:trim_id_from_filename])
-    end
-    wiki_source_pages.each do |wiki_page|
-      collection << new_from_wiki_page(wiki_page)
-    end
-
-    Rails.cache.write args[:cache_key], collection
+    TrainingLoader.new(content_class: self,
+                       cache_key: cache_key,
+                       path_to_yaml: path_to_yaml,
+                       trim_id_from_filename: args[:trim_id_from_filename]).load
     check_for_duplicate_slugs
     check_for_duplicate_ids
-  end
-
-  def self.wiki_source_pages
-    [wiki_root_page]
-  end
-
-  def self.new_from_wiki_page(wiki_page)
-    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
-    content = JSON.parse(wikitext).to_hashugar
-    new(content, content.slug)
-  end
-
-  def self.new_from_file(yaml_file, trim_id)
-    slug = File.basename(yaml_file, '.yml')
-    slug.gsub!(/^[0-9]+-/, '') if trim_id
-
-    content = YAML.load_file(yaml_file).to_hashugar
-    new(content, slug)
   end
 
   def self.all
@@ -94,7 +71,7 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  # called in load
+  # called for each training unit in TrainingLoader
   def initialize(content, slug)
     self.slug = slug
     content.each do |key, value|
@@ -103,5 +80,10 @@ class TrainingBase
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e
+  end
+
+  # Overridden by each child class
+  def valid?
+    false
   end
 end
