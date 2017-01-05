@@ -49,6 +49,7 @@ ko:
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
     blog_headline: Wiki Ed의 최근 뉴스
   home:
+    explore: 찾아보기
     log_in: 위키백과에 로그인하기
     sign_up: 위키백과에 등록하기
     sign_up_help: 대시보드를 사용하려면 위키백과에 로그인하여 사용자 계정에 권한을 제공해야 합니다. 기존의 위키백과 계정으로 로그인하거나
@@ -134,8 +135,10 @@ ko:
       course_language: 주 언어
       course_project: 주 프로젝트
       course_term_placeholder: 학기
+      end_date: 종료일
       no_class_holidays: 휴강이 없습니다
       save_cloned_course: 새 코스 저장
+      start_date: 시작일
       start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
       subject: 제목
     current: 현재 과정
@@ -311,6 +314,7 @@ ko:
     assign_articles_done: 완료
     contributions: 사용자 기여
     contributions_more: 기여 더 보기
+    contribution_statistics: 기여 통계
     course_passcode: '패스코드:'
     editors: 편집자
     enroll_confirmation: '%{username}님을 추가하시겠습니까?'

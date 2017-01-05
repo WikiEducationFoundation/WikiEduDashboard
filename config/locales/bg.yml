@@ -18,6 +18,11 @@ bg:
   assignments:
     remove: Премахване
     select: Избиране
+  campaign:
+    confirm_course_removal: Сигурни ли сте, че искате да изтриете "%{title}" от кампанията
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" вече е изтрита от кампанията "%{campaign_title}"'
+    course_removed: '"%{title}" е отстранен от кампанията "%{campaign_title}"'
   courses:
     enroll: Записване
     my_articles: Моите статии

@@ -138,6 +138,9 @@ zh-TW:
     campaign_updated: 活動已更新
     confirm_campaign_deletion: 您確定您要刪除標題為「%{title}」的活動？如果是，請輸入該活動的標題以進行處理。
     confirm_campaign_deletion_failed: 「%{title}」不是此活動的標題。活動未被刪除
+    confirm_course_removal: 您確定您要從活動「%{campaign_title}」中移除「%{title}」？
+    course_already_removed: '%{title}已從活動「%{campaign_title}」中移除'
+    course_removed: '%{title}已從活動「%{campaign_title}」中移除'
     create_campaign: 創建新活動
     create_my_campaign: 創建我的活動！
     description: 描述

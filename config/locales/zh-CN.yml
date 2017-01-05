@@ -138,6 +138,9 @@ zh-CN:
     campaign_updated: 活动已更新
     confirm_campaign_deletion: 您确定要删除标题为“%{title}”的运动么？如果是，请输入运动标题以进行。
     confirm_campaign_deletion_failed: “%{title}”不是此运动的标题。运动未被删除。
+    confirm_course_removal: 您确定要从“%{campaign_title}”活动中移除“%{title}”么？
+    course_already_removed: “%{title}”已经从“%{campaign_title}”活动中移除
+    course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
     create_campaign: 创建新的运动
     create_my_campaign: 创建我的运动！
     description: 描述

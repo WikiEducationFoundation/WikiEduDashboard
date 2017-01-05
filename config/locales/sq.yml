@@ -237,7 +237,7 @@ sq:
     dismiss_survey: Largoje
     dismiss_survey_confirm: A jeni të sigurt që doni përgjithmonë të largoni këtë
       sondazh?
-    duration: Kohëzgjatjae Lëndës
+    duration: Kohëzgjatja e Lëndës
     edit_course_dates: Ndrysho Datat e Lëndës
     end: Fundi
     enroll: Regjistrohu
@@ -246,11 +246,12 @@ sq:
       exists: Ajo fushatë tashmë ekziston! Ju lutemi provoni përsëri me një tjetër
         titull, shkollë ose periudhë.
       user_exists: Na vjen keq, %{username} nuk është një përdorues ekzistues.
-      invalid_language_or_project: Gjuhë/projekt i pavflefshëm
+      invalid_language_or_project: Gjuhë/projekt i pavlefshëm
     expected_students: Nxënësit e Pritur
     gradeables_none: Kjo lëndë nuk ka detyra me notë.
     instructor:
-      other: një=Instruktori
+      one: Instruktori
+      other: Instruktorët
     instructors: Instruktorët
     invitation: |-
       Jeni ftuar për t'u bashkuar me %{title}. Të bëheni pjesë e lëndës, duhet të hyni me një llogari të Wikipedia-s.
@@ -267,7 +268,7 @@ sq:
     loading: Duke u ngarkuar...
     milestones_none: Kjo lëndë aktualisht nuk ka asnjë cak.
     my_articles: Artikujt e Mi
-    needs_update: Vendos Orarin e Freskimin e të Dhënave
+    needs_update: Vendos orarin e freskimit të të dhënave
     new_week: Shto Javë të Re
     nocourses: Ju nuk po merrni pjesë në ndonjë lëndë.
     nocourse: nuk ka marrë pjesë në ndonjë lëndë.
@@ -305,6 +306,7 @@ sq:
     training_due: Moduli i trajnimit "%{title}" është caktuar për këtë lëndë, dhe
       kërkohet deri më %{date}.
     training_nav: Shko te trajnimi
+    unsubmitted: Lëndët e Padorëzuara
     untrained: Patrajnuar
     uploads_none: Kjo klasë nuk ka kontribuar ndonjë fotografi ose skedarë të tjerë
       medial në Wikimedia Commons.
@@ -318,9 +320,16 @@ sq:
     volunteer:
       other: një=Vullnetar
     weeks_none: Kjo lëndë end nuk ka një afat kohor.
+    warn_mirrored: |-
+      Pas dorëzimit, kjo lëndë do të jetë automatikisht e postuar në Wikipedia me llogarinë tuaj. Pas kësaj, redaktimet e reja në kohështrirje do të pasqyrohet në Wikipedia.
+      A jeni të sigurt që ju doni të bëni këtë?
+    wiki_staff: Stafi i Wiki Ed
     word_count_doc: Përllogaritja e numrit të fjalëve të shtuar në artikuj nga studentët
       e lëndës gjatë afatit
     yourcourses: Lëndët Tuaja
+    survey:
+      notification_message: Bëj anketën për këtë lëndë.
+      link: Filloni anketën
   courses_generic:
     archived: Programet e Arkivuara
     articles_none: Ende nuk ka artikuj të redaktuar për këtë projekt.
@@ -425,6 +434,7 @@ sq:
     recent_uploads: Ngarkimet e Fundit
     revision_author: Autori i Ndryshimeve
     revision_datetime: Data/Koha e Ndryshimit
+    revision_score: Rezultati i Recenzionit
     show_courses: Trego Vetëm Lëndët e Mia
     uploaded_by: Ngarkuar Nga
     usage_count: Nunëri i Përdorimeve
@@ -599,6 +609,9 @@ sq:
       shkollor" më poshtë.
     course_dates: Datat e Lëndës
     select_one_option: Ju lutem zgjidhni 1 opsion.
+    read_less: Lexo më pak
+    read_more: Lexo më shumë
+    summary: Përmbledhje
   error:
     form_errors: Ju lutem shikoni formularin për gabime.
     invalid_assignment: Detyrë e pavlefshme
@@ -640,6 +653,8 @@ sq:
       për këtë! Kjo ndodh herë pas here.) Ju lutemi provoni të hyni ose regjistrohuni
       përsëri.
   survey:
+    login_message: Faleminderit për kohën tuaj. Ju lutem, hyni në panelin tuaj të
+      Wiki Ed për të bërë anketën.
     notification_explanation: Nëse më poshtë është aktive, përdoruesit do të marrin
       email në bazë të afateve të njoftimit, përveç njoftimeve në shfletues. Nëse
       jo, vetëm njoftimet në shfletues do të tregohen.
@@ -650,5 +665,6 @@ sq:
       headline: Përshëndetje, %{username}
       course: 'Lënda: %{course_info}'
       closing: Sinqerisht,
+      signed: '- ekipi i Wiki Ed'
       link: Merrni Anketën
 ...

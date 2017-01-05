@@ -165,6 +165,10 @@ es:
       "%{title}"? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
       La campaña no se ha eliminado.
+    confirm_course_removal: ¿Estás seguro de que quieres eliminar "%{title}" de la
+      campaña "%{campaign_title}"?
+    course_already_removed: '"%{title}" ya se había eliminado de la campaña "%{campaign_title}"'
+    course_removed: '"%{title}" se ha eliminado de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
     description: Descripción
     delete_campaign: Eliminar esta campaña
@@ -299,8 +303,7 @@ es:
     overview: Resumen
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
-    passcode_prompt: Escribe el código de acceso proporcionado por tu instructor de
-      este curso
+    passcode_prompt: 'Escribe el código de acceso para unirte:'
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho

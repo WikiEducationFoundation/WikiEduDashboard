@@ -69,6 +69,7 @@ cs:
     edited: Editované články
     edited_by: 'Editoval:'
     edited_mobile: Články
+    hide: Skrýt
     label: Články
     loading: Načítání článků...
     new: (nový)
@@ -92,13 +93,17 @@ cs:
       stub: Příliš stručný článek — krátký úvod k tématu vyžadující rozpracování
       list: Článek seznamového typu
       '?': Neohodnocený článek — článek, jehož kvalita ještě nebyla ohodnocena
+      does_not_exist: Tento článek na Wikipedii ještě není
     show_cumulative_changes: Zobrazit kumulované změny
+    show_current_version: Zobrazit aktuální verzi
     title: Název
     title_example: Název článku
     view: Zobrazit článek
     view_all: Zobrazit vše
     view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
+    view_on_wiki: Zobrazit na wiki
     views_added: Přidáno %{count} nových zobrazení pro %{title}
+    wp10: Kompletnost
   assignments:
     already_exists: Tento článek už byl zadán!
     assignees: Přiřazení
@@ -398,7 +403,7 @@ cs:
     diff: rozdíl
     diff_show: Zobrazit
     diff_hide: Skrýt
-    edited_by: Upraveno {{GENDER:|uživatelem|uživatelkou}}
+    edited_by: Editoval(a)
     loading: Načítání revizí...
     time_doc: Čas každé revize v místním čase
     view_on_wiki: Zobrazit rozdíly na wiki

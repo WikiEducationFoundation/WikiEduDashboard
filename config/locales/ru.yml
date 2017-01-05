@@ -132,6 +132,10 @@ ru:
     campaign_updated: Кампании обновлены
     confirm_campaign_deletion_failed: '"%{title}" - это не название этой кампании.
       Кампания не была удалена.'
+    confirm_course_removal: Вы уверены, что хотите удалить "%{title}" из кампании
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" уже удалена из кампании "%{campaign_title}"'
+    course_removed: '"%{title}" был удален из кампании "%{campaign_title}"'
     description: Описание
     delete_campaign: Удалить эту кампанию
     none: Нет
@@ -185,6 +189,7 @@ ru:
     my_articles: Мои статьи
     new_week: Добавить новую неделю
     nocourses: Вы не участвуете ни в одном курсе.
+    nocourse: не участвовал в каких-либо курсах.
     overview: Обзор
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     revisions_doc: Число правок за последние %{timeframe} дней
@@ -297,6 +302,7 @@ ru:
     contributions: Вклад участника
     contributions_history_full: Просмотреть полную историю вклада в Википедию
     contributions_more: Просмотреть вклад подробнее
+    contribution_statistics: Статистика вклада
     editors: Редакторы (студенты)
     first_name: Имя
     last_name: Фамилия
@@ -316,6 +322,7 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    user_impact: Общее влияние %{username}
     role:
       visitor: Посетитель
       student: Студент

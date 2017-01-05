@@ -96,6 +96,7 @@ sv:
       legend_class_not_meeting: Inget schemalagt möte
     cancel: Avbryt
     campaigns: 'Kampanjer:'
+    campaign_courses: '%{title} Kurser'
     course_description: Kurser
     courses: Kurser
     creator:
@@ -142,6 +143,7 @@ sv:
     my_articles: Mina artiklar
     new_week: Lägg till ny vecka
     nocourses: Du deltar inte i alla kurser.
+    nocourse: har inte deltagit i några kurser.
     none: Ingen
     no_available_actions: Inga tillgängliga åtgärder
     overview: Översikt
@@ -166,6 +168,7 @@ sv:
   courses_generic:
     cancel: Avbryt
     campaigns: 'Kampanjer:'
+    campaign_courses: '%{title} Program'
     creator:
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
@@ -208,6 +211,7 @@ sv:
     date_time: Datum/Tid
     per_user: '%{number}/user'
     revisions: Senaste redigeringar
+    tags: Märken
     uploads_in_use_count:
       one: fil används i en artikel
       other: filer används i artiklar

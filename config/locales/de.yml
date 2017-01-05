@@ -157,6 +157,11 @@ de:
       ein.
     confirm_campaign_deletion_failed: „%{title}“ ist nicht der Titel dieser Kampagne.
       Sie wurde nicht gelöscht.
+    confirm_course_removal: Bist du sicher, dass du „%{title}“ von der Kampagne „%{campaign_title}“
+      entfernen möchtest?
+    course_already_removed: „%{title}“ wurde bereits von der Kampagne „%{campaign_title}“
+      entfernt
+    course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
     description: Beschreibung

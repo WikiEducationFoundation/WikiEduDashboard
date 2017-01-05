@@ -82,6 +82,10 @@ hy:
     milestones:
       title: Փուլեր
   campaign:
+    confirm_course_removal: Դուք համոզված եք, որ ցանկանում եք ջնջել "%{title}"  "%{campaign_title}"
+      քարոզարշավից?
+    course_already_removed: '"%{title}" արդեն հեռացվել է %{campaign_title}" քարոզարշավից'
+    course_removed: '"%{title}" հեռացվել է %{campaign_title}" քարոզարշավից'
     organizers: Կազմակերպիչներ
   courses:
     activity: Ակտիվություն

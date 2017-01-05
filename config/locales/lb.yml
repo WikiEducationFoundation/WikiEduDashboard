@@ -225,6 +225,7 @@ lb:
     edit_count_description: Total vun den Ännerungen
     per_user: '%{number}/Benotzer'
     revisions: Rezent Ännerungen
+    tags: Markéierungen
     uploads_in_use_count:
       one: Fichier deen an Artikele benotzt gëtt
       other: Fichieren déi an Artikele  benotzt ginn

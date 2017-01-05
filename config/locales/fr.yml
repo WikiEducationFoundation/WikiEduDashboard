@@ -4,6 +4,7 @@
 # Author: Appleuseryu
 # Author: C13m3n7
 # Author: Dcausse
+# Author: Eric.LEWIN
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Mabroukb
@@ -19,8 +20,8 @@
 ---
 fr:
   accessibility:
-    number_field: C’est un champ numérique. Les boutons générés sur la plupart des
-      navigateurs incrémenteront et décrémenteront l’entrée.
+    number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
+      des navigateurs incrémenteront et décrémenteront cette entrée.
   application:
     cancel: Annuler
     dashboard: Tableau de bord de modification du wiki
@@ -47,9 +48,9 @@ fr:
     training: Formation
     change: Modifier
     details: Détails
-    confirm: OK
+    confirm: Ok
   dashboard:
-    create_note: Cliquer sur Créer un cours pour créer votre premier cours
+    create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
       dates de réunion de votre classe — y compris les pauses scolaires et les vacances
@@ -58,7 +59,7 @@ fr:
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
-      cliquez sur Trouver votre cours pour le trouver et le rejoindre.
+      cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
     no_courses_instructor: Il semble que vous n’avez pas de cours.
     no_courses_student: Il semble que vous n’êtes encore inscrit à aucun cours.
     opt_out: Demande de retrait de l’orientation
@@ -169,6 +170,10 @@ fr:
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
     confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
       La campagne n’a pas été supprimée.
+    confirm_course_removal: Êtes-vous sûr de vouloir supprimer « %{title} » de la
+      campagne « %{campaign_title} » ?
+    course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
+    course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
     description: Description
