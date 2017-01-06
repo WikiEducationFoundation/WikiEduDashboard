@@ -9,9 +9,11 @@ class TrainingLibrary < TrainingBase
   #################
   # Class methods #
   #################
-  def self.load(*)
+  def self.load(load_all: false, **)
     super path_to_yaml: "#{base_path}/libraries/*.yml",
-          cache_key: 'libraries'
+          wiki_base_page: 'User:Ragesoss/libraries',
+          cache_key: 'libraries',
+          load_all: load_all
   end
 
   ####################
@@ -21,5 +23,10 @@ class TrainingLibrary < TrainingBase
   # transform categories hash into nested objects for view simplicity
   def categories
     raw_categories.to_hashugar
+  end
+
+  def valid?
+    required_attributes = [id, name, slug, introduction, categories]
+    required_attributes.all?
   end
 end

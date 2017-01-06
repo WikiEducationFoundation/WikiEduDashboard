@@ -8,9 +8,11 @@ class TrainingModule < TrainingBase
   #################
   # Class methods #
   #################
-  def self.load(*)
+  def self.load(load_all: false, **)
     super path_to_yaml: "#{base_path}/modules/*.yml",
-          cache_key: 'modules'
+          wiki_base_page: 'User:Ragesoss/modules',
+          cache_key: 'modules',
+          load_all: load_all
   end
 
   def self.find(id)
@@ -27,5 +29,10 @@ class TrainingModule < TrainingBase
     slides = TrainingSlide.all.select { |slide| raw_slides.collect(&:slug).include?(slide.slug) }
     slugs = raw_slides.collect(&:slug)
     slides.sort { |a, b| slugs.index(a.slug) <=> slugs.index(b.slug) }
+  end
+
+  def valid?
+    required_attributes = [id, name, slug, description, slides]
+    required_attributes.all?
   end
 end

@@ -14,14 +14,17 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(args)
-    self.cache_key = args[:cache_key]
-    self.path_to_yaml = args[:path_to_yaml]
+  def self.load(cache_key:, path_to_yaml:, wiki_base_page:,
+                trim_id_from_filename: false, load_all: false)
+    self.cache_key = cache_key
+    self.path_to_yaml = path_to_yaml
 
-    TrainingLoader.new(content_class: self,
-                       cache_key: cache_key,
-                       path_to_yaml: path_to_yaml,
-                       trim_id_from_filename: args[:trim_id_from_filename]).load
+    loader = TrainingLoader.new(content_class: self, cache_key: cache_key,
+                                path_to_yaml: path_to_yaml, wiki_base_page: wiki_base_page,
+                                trim_id_from_filename: trim_id_from_filename)
+
+    load_all ? loader.load_all : loader.load
+
     check_for_duplicate_slugs
     check_for_duplicate_ids
   end
@@ -82,8 +85,8 @@ class TrainingBase
     raise e
   end
 
-  # Overridden by each child class
+  # Implemented by each child class
   def valid?
-    false
+    raise NotImplementedError
   end
 end
