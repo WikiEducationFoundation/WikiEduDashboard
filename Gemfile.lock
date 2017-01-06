@@ -81,6 +81,7 @@ GEM
     arel (7.1.4)
     ast (2.3.0)
     bcrypt (3.1.11)
+    bcrypt (3.1.11-x64-mingw32)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -169,6 +170,7 @@ GEM
     faraday_middleware (0.10.1)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.14)
+    ffi (1.9.14-x64-mingw32)
     figaro (1.1.1)
       thor (~> 0.14)
     formatador (0.2.5)
@@ -252,6 +254,7 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     mysql2 (0.4.5)
+    mysql2 (0.4.5-x64-mingw32)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -260,6 +263,8 @@ GEM
     newrelic_rpm (3.17.1.326)
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
+      mini_portile2 (~> 2.1.0)
+    nokogiri (1.6.8.1-x64-mingw32)
       mini_portile2 (~> 2.1.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -362,6 +367,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rest-client (2.0.0-x64-mingw32)
+      ffi (~> 1.9)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -433,11 +443,14 @@ GEM
     timecop (0.8.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2016.10)
+      tzinfo (>= 1.0.0)
     uglifier (3.0.4)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
+    unf_ext (0.0.7.2-x64-mingw32)
     unicode-display_width (1.1.2)
     validates_email_format_of (1.6.3)
       i18n
@@ -460,6 +473,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
 
 DEPENDENCIES
   activerecord-import
@@ -528,6 +542,7 @@ DEPENDENCIES
   simple_form
   simplecov
   timecop
+  tzinfo-data
   uglifier
   validates_email_format_of
   vcr
@@ -539,4 +554,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
