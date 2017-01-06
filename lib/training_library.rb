@@ -9,7 +9,7 @@ class TrainingLibrary < TrainingBase
   #################
   # Class methods #
   #################
-  def self.load(load_all: false, **)
+  def self.load(load_all: true, **)
     super path_to_yaml: "#{base_path}/libraries/*.yml",
           wiki_base_page: 'User:Ragesoss/libraries',
           cache_key: 'libraries',

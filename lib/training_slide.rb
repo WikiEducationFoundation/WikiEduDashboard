@@ -8,7 +8,7 @@ class TrainingSlide < TrainingBase
   #################
   # Class Methods #
   #################
-  def self.load(load_all: false, **)
+  def self.load(load_all: true, **)
     super path_to_yaml: File.join("#{base_path}/slides/**", '*.yml'),
           trim_id_from_filename: true,
           wiki_base_page: 'User:Ragesoss/slides',

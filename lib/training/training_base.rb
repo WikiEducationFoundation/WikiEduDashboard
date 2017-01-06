@@ -36,7 +36,9 @@ class TrainingBase
   end
 
   def self.all
-    load_all if Rails.cache.read(cache_key).nil?
+    if Rails.cache.read(cache_key).nil?
+      load(cache_key: cache_key, path_to_yaml: path_to_yaml, load_all: true)
+    end
     Rails.cache.read(cache_key)
   end
 
