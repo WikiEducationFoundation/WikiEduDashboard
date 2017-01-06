@@ -1,3 +1,3 @@
-TrainingLibrary.load()
-TrainingModule.load()
-TrainingSlide.load()
+TrainingLibrary.load
+TrainingModule.load
+TrainingSlide.load

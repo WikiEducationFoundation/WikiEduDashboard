@@ -15,7 +15,7 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load(cache_key:, path_to_yaml:, wiki_base_page:,
-                trim_id_from_filename: false, load_all: false)
+                trim_id_from_filename: false, load_all: true)
     self.cache_key = cache_key
     self.path_to_yaml = path_to_yaml
 
@@ -36,9 +36,7 @@ class TrainingBase
   end
 
   def self.all
-    if Rails.cache.read(cache_key).nil?
-      load(cache_key: cache_key, path_to_yaml: path_to_yaml, load_all: true)
-    end
+    load_all if Rails.cache.read(cache_key).nil?
     Rails.cache.read(cache_key)
   end
 
