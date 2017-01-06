@@ -29,6 +29,12 @@ class TrainingBase
     check_for_duplicate_ids
   end
 
+  def self.load_all
+    TrainingLibrary.load(load_all: true)
+    TrainingModule.load(load_all: true)
+    TrainingSlide.load(load_all: true)
+  end
+
   def self.all
     if Rails.cache.read(cache_key).nil?
       load(cache_key: cache_key, path_to_yaml: path_to_yaml)

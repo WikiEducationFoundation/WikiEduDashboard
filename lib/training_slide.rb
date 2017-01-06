@@ -3,7 +3,7 @@ require "#{Rails.root}/lib/training/training_base"
 
 #= Class representing an individual training slide
 class TrainingSlide < TrainingBase
-  attr_accessor :content, :title_prefix, :title, :summary, :id, :slug, :assessment
+  attr_accessor :content, :title_prefix, :title, :summary, :id, :slug, :assessment, :translations
 
   #################
   # Class Methods #
