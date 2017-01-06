@@ -8,7 +8,8 @@ describe TrainingBase do
     context 'when a file is misformatted' do
       let(:subject) do
         TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/bad_yaml_file.yml",
-                          cache_key: 'test')
+                          cache_key: 'test',
+                          wiki_base_page: nil)
       end
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
@@ -20,7 +21,8 @@ describe TrainingBase do
       let(:subject) do
         TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_slugs/*.yml",
                           cache_key: 'test',
-                          trim_id_from_filename: true)
+                          trim_id_from_filename: true,
+                          wiki_base_page: nil)
       end
       it 'raises an error noting the duplicate slug name' do
         expect { subject }.to raise_error(TrainingBase::DuplicateSlugError, /.*duplicate-yaml-slug.*/)
@@ -31,7 +33,8 @@ describe TrainingBase do
       let(:subject) do
         TrainingBase.load(path_to_yaml: "#{Rails.root}/spec/support/duplicate_yaml_ids/*.yml",
                           cache_key: 'test',
-                          trim_id_from_filename: true)
+                          trim_id_from_filename: true,
+                          wiki_base_page: nil)
       end
       it 'raises an error noting the duplicate id' do
         expect { subject }.to raise_error(TrainingBase::DuplicateIdError)
