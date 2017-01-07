@@ -314,6 +314,10 @@ en:
     join_course: Join course
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
+    join_failed: Enrollment failed.
+    join_failure_details:
+      cannot_join_twice: Users may not join the same course twice.
+      not_yet_approved: This course has not yet been approved for enrollment.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course

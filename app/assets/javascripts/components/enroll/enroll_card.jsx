@@ -9,19 +9,30 @@ const EnrollCard = React.createClass({
     course: React.PropTypes.object,
     courseLink: React.PropTypes.string,
     passcode: React.PropTypes.string,
-    enrolledParam: React.PropTypes.string
+    enrolledParam: React.PropTypes.string,
+    enrollFailureReason: React.PropTypes.string
   },
 
   render() {
     let messageBody;
-    // Enrollment is complete
     if (this.props.enrolledParam !== undefined) {
-      messageBody = (
-        <div>
-          <h1>{I18n.t('application.greeting2')}</h1>
-          <p>{I18n.t('courses.join_successful', { title: this.props.course.title || '' })}</p>
-        </div>
-      );
+      // Enrollment is complete
+      if (this.props.enrolledParam === 'true') {
+        messageBody = (
+          <div>
+            <h1>{I18n.t('application.greeting2')}</h1>
+            <p>{I18n.t('courses.join_successful', { title: this.props.course.title || '' })}</p>
+          </div>
+        );
+      // Enrollment failed (not approved?)
+      } else if (this.props.enrolledParam === 'false') {
+        messageBody = (
+          <div>
+            <h1>{I18n.t('courses.join_failed')}</h1>
+            <p>{I18n.t(`courses.join_failure_details.${this.props.enrollFailureReason}`)}</p>
+          </div>
+        );
+      }
     // User is logged in and ready to enroll
     } else if (this.props.user.id && this.props.userRole === -1) {
       messageBody = (
@@ -53,9 +64,9 @@ const EnrollCard = React.createClass({
     }
 
     const closeLink = (
-      <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{ fill: 'currentcolor', verticalAlign: 'middle', width: '32px', height: '32px' }} >
-        <g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
-      </svg>
+        <svg className="close" tabIndex="0" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" style={{ fill: 'currentcolor', verticalAlign: 'middle', width: '32px', height: '32px' }} >
+            <g><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"></path></g>
+        </svg>
     );
 
     return (

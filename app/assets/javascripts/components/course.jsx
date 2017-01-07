@@ -222,6 +222,7 @@ const Course = React.createClass({
           courseLink={this._courseLinkParams()}
           passcode={this.props.location.query.enroll}
           enrolledParam={this.props.location.query.enrolled}
+          enrollFailureReason={this.props.location.query.failure_reason}
         />
       );
     }
