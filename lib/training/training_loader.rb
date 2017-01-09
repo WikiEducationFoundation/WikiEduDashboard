@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/training/wiki_slide_parser"
+
 class TrainingLoader
   def initialize(content_class:, cache_key:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
     @collection = []
@@ -45,47 +47,15 @@ class TrainingLoader
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     content = JSON.parse(wikitext)
     if content['wiki_page']
-      base_text = WikiApi.new(MetaWiki.new).get_page_content(content['wiki_page'])
-      content['title'] = title_from_translatable_wikitext(base_text)
-      content['content'] = content_from_translatable_wikitext(base_text)
+      content.merge! slide_hash_from_wiki_page(content['wiki_page'])
       content['translations'] = {}
       translated_wiki_pages(base_page: content['wiki_page']).each do |translated_page|
-        translated_text = WikiApi.new(MetaWiki.new).get_page_content(translated_page)
         language = translated_page.split('/').last
-        pp translated_text if language == 'es'
-        translated_title = title_from_translated_wikitext(translated_text)
-        translated_content = content_from_translated_wikitext(translated_text)
-        content['translations'][language] = { 'title' => translated_title,
-                                              'content' => translated_content }
+        content['translations'][language] = slide_hash_from_wiki_page(translated_page)
       end
     end
     content = content.to_hashugar
     @content_class.new(content, content.slug)
-  end
-
-  def title_from_translatable_wikitext(wikitext)
-    clean_text = wikitext.split(%r{(</translate>)})[0].gsub(/.*<translate>/m, '').force_encoding("UTF-8")
-    clean_text = clean_text.gsub(/<!--.+?-->/, '') # remove translation marker comments
-    clean_text
-  end
-
-  def content_from_translatable_wikitext(wikitext)
-    clean_text = wikitext.split(%r{(</translate>)})[2..-1]&.join&.force_encoding("UTF-8")
-    converter = PandocRuby.new(clean_text, from: :mediawiki, to: :markdown)
-    converter.convert
-  end
-
-  def title_from_translated_wikitext(wikitext)
-    clean_text = wikitext.gsub(%r{(<noinclude>.*?</noinclude>\n*)}, '').force_encoding("UTF-8")
-    clean_text.lines.first.chomp
-
-  end
-
-  def content_from_translated_wikitext(wikitext)
-    clean_text = wikitext.gsub(%r{(<noinclude>.*?</noinclude>\n*)}, '').force_encoding("UTF-8")
-    clean_text = clean_text.lines[1..-1].join
-    converter = PandocRuby.new(clean_text, from: :mediawiki, to: :markdown)
-    converter.convert
   end
 
   def wiki_source_pages(base_page: nil)
@@ -115,11 +85,11 @@ class TrainingLoader
     return translations
   end
 
-  # rubocop: disable Style/RegexpLiteral
-  def extract_text_from_translate_tags(wikitext)
-    wikitext.gsub(%r{.*<translate>}, '').gsub(%r{</translate>.*}, '')
+  def slide_hash_from_wiki_page(wiki_page)
+    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+    parser = WikiSlideParser.new(wikitext)
+    { title: parser.title, content: parser.content }
   end
-  # rubocop: enable Style/RegexpLiteral
 
   def new_from_file(yaml_file)
     slug = File.basename(yaml_file, '.yml')

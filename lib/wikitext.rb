@@ -22,6 +22,11 @@ class Wikitext
     wikitext
   end
 
+  def self.mediawiki_to_markdown(item)
+    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown)
+    markdown
+  end
+
   # Replace instances of <code></code> with <nowiki></nowiki>
   # This lets us use backticks to format blocks of mediawiki code that we don't
   # want to be parsed in the on-wiki version of a course page.
