@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class TrainingLoader
   def initialize(content_class:, cache_key:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
     @collection = []
@@ -54,8 +53,8 @@ class TrainingLoader
         translated_text = WikiApi.new(MetaWiki.new).get_page_content(translated_page)
         language = translated_page.split('/').last
         pp translated_text if language == 'es'
-        translated_title = title_from_translatable_wikitext(translated_text)
-        translated_content = content_from_translatable_wikitext(translated_text)
+        translated_title = title_from_translated_wikitext(translated_text)
+        translated_content = content_from_translated_wikitext(translated_text)
         content['translations'][language] = { 'title' => translated_title,
                                               'content' => translated_content }
       end
@@ -65,11 +64,28 @@ class TrainingLoader
   end
 
   def title_from_translatable_wikitext(wikitext)
-    wikitext.dup.split(%r{(</translate>)})[0].gsub(/.*<translate>/m, '').force_encoding("UTF-8")
+    clean_text = wikitext.split(%r{(</translate>)})[0].gsub(/.*<translate>/m, '').force_encoding("UTF-8")
+    clean_text = clean_text.gsub(/<!--.+?-->/, '') # remove translation marker comments
+    clean_text
   end
 
   def content_from_translatable_wikitext(wikitext)
-    wikitext.dup.split(%r{(</translate>)})[2..-1]&.join&.force_encoding("UTF-8")
+    clean_text = wikitext.split(%r{(</translate>)})[2..-1]&.join&.force_encoding("UTF-8")
+    converter = PandocRuby.new(clean_text, from: :mediawiki, to: :markdown)
+    converter.convert
+  end
+
+  def title_from_translated_wikitext(wikitext)
+    clean_text = wikitext.gsub(%r{(<noinclude>.*?</noinclude>\n*)}, '').force_encoding("UTF-8")
+    clean_text.lines.first.chomp
+
+  end
+
+  def content_from_translated_wikitext(wikitext)
+    clean_text = wikitext.gsub(%r{(<noinclude>.*?</noinclude>\n*)}, '').force_encoding("UTF-8")
+    clean_text = clean_text.lines[1..-1].join
+    converter = PandocRuby.new(clean_text, from: :mediawiki, to: :markdown)
+    converter.convert
   end
 
   def wiki_source_pages(base_page: nil)
