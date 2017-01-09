@@ -12,7 +12,8 @@ class WikiSlideParser
 
   # The first translated line is the slide title
   def title
-    @wikitext.lines.first.chomp
+    title = @wikitext.lines.first.chomp
+    title.gsub(/==+/, '') # remove header markup for level 2 or lower
   end
 
   # Everything after the first translated line is the slide content

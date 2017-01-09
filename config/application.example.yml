@@ -24,9 +24,9 @@
 # Set to true to disable mandatory training.
   disable_training: 'false'
   enable_wiki_trainings: 'true'
-  training_slides_wiki_page: 'User:Ragesoss/slide_test'
-  training_modules_wiki_page: 'User:Ragesoss/module_test'
-  training_libraries_wiki_page: 'User:Ragesoss/library_test'
+  training_slides_wiki_page: 'Training modules/dashboard/slides'
+  training_modules_wiki_page: 'Training modules/dashboard/modules'
+  training_libraries_wiki_page: 'Training modules/dashboard/libraries'
 
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki.
