@@ -59,4 +59,8 @@ class Features
   def self.enable_revision_feedback?
     Rails.env != 'production'
   end
+
+  def self.wiki_trainings?
+    ENV['enable_wiki_trainings'] == 'true'
+  end
 end

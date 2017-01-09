@@ -15,7 +15,7 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load(cache_key:, path_to_yaml:, wiki_base_page:,
-                trim_id_from_filename: false, load_all: true)
+                trim_id_from_filename: false)
     self.cache_key = cache_key
     self.path_to_yaml = path_to_yaml
 
@@ -23,21 +23,21 @@ class TrainingBase
                                 path_to_yaml: path_to_yaml, wiki_base_page: wiki_base_page,
                                 trim_id_from_filename: trim_id_from_filename)
 
-    load_all ? loader.load_all : loader.load
+    Features.wiki_trainings? ? loader.load_local_and_wiki_content : loader.load_local_content
 
     check_for_duplicate_slugs
     check_for_duplicate_ids
   end
 
   def self.load_all
-    TrainingLibrary.load(load_all: true)
-    TrainingModule.load(load_all: true)
-    TrainingSlide.load(load_all: true)
+    TrainingLibrary.load
+    TrainingModule.load
+    TrainingSlide.load
   end
 
   def self.all
     if Rails.cache.read(cache_key).nil?
-      load(cache_key: cache_key, path_to_yaml: path_to_yaml, load_all: true)
+      load(cache_key: cache_key, path_to_yaml: path_to_yaml)
     end
     Rails.cache.read(cache_key)
   end

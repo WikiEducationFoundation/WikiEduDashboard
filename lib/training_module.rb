@@ -8,11 +8,10 @@ class TrainingModule < TrainingBase
   #################
   # Class methods #
   #################
-  def self.load(load_all: true, **)
+  def self.load(**)
     super path_to_yaml: "#{base_path}/modules/*.yml",
-          wiki_base_page: 'User:Ragesoss/module_test',
-          cache_key: 'modules',
-          load_all: load_all
+          wiki_base_page: ENV['training_modules_wiki_page'],
+          cache_key: 'modules'
   end
 
   def self.find(id)

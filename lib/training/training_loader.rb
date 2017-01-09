@@ -12,12 +12,12 @@ class TrainingLoader
     @trim_id_from_filename = trim_id_from_filename
   end
 
-  def load
+  def load_local_content
     load_from_yaml
     write_to_cache
   end
 
-  def load_all
+  def load_local_and_wiki_content
     load_from_yaml
     load_from_wiki
     write_to_cache
@@ -81,7 +81,6 @@ class TrainingLoader
       next unless language['total'] == language['translated']
       translations << base_page + '/' + language['code']
     end
-    pp translations
     return translations
   end
 

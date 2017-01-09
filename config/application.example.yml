@@ -6,14 +6,14 @@
 # Values required for WikiEduDashboard include:
 
 # The name of the dashboard
-  dashboard_title: Wiki Education Foundation Dashboard
+  dashboard_title: Programs and Events Dashboard
 # The root url of the dashboard
-  dashboard_url: dashboard.wikiedu.org
+  dashboard_url: outreachdashboard.wmflabs.org
 # description of the dashboard for the 'meta' html tag, which is used by search
 # engines
-  meta_description: Wiki Education Foundation dashboard for Wikipedia editing projects
+  meta_description: Programs and Events dashboard for Wikimedia editing projects
 
-  contact_email: 'contact@wikedu.org'
+  contact_email: 'contact@wikiedu.org'
 
 # a message to display to all users at the top of each page
 # sitenotice: "NOTICE: The system will go down for maintenance soon."
@@ -23,6 +23,10 @@
 
 # Set to true to disable mandatory training.
   disable_training: 'false'
+  enable_wiki_trainings: 'true'
+  training_slides_wiki_page: 'User:Ragesoss/slide_test'
+  training_modules_wiki_page: 'User:Ragesoss/module_test'
+  training_libraries_wiki_page: 'User:Ragesoss/library_test'
 
 # Setting disable_wiki_output to 'true' means course pages will not be mirrored
 # to the wiki.
@@ -31,7 +35,7 @@
 # Setting 'open_course_creation' to 'true' means that any use can create a
 # course, and it will be automatically added to the default campaign and be ready
 # for use.
-  open_course_creation: 'false'
+  open_course_creation: 'true'
 
 # Wikimedia OAuth consumer details. Register a consumer at:
 # https://meta.wikimedia.org/wiki/Special:OAuthConsumerRegistration/propose
@@ -122,7 +126,7 @@
 
 # Username of communications manager who receives certain alert emails
 # Can be left blank.
-  communications_manager: 'Eryk (Wiki Ed)'
+  communications_manager: 'Sage (Wiki Ed)'
 # Username of user who will receive requests for technical help from the Get Help button
 # Can be left blank.
   technical_help_staff: 'Sage (Wiki Ed)'
