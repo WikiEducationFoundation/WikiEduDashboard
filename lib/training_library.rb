@@ -11,7 +11,7 @@ class TrainingLibrary < TrainingBase
   #################
   def self.load(load_all: true, **)
     super path_to_yaml: "#{base_path}/libraries/*.yml",
-          wiki_base_page: 'User:Ragesoss/libraries',
+          wiki_base_page: 'User:Ragesoss/library_test',
           cache_key: 'libraries',
           load_all: load_all
   end

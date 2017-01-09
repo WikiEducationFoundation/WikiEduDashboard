@@ -42,6 +42,36 @@ class TrainingLoader
     Rails.cache.write @cache_key, @collection
   end
 
+  def new_from_wiki_page(wiki_page)
+    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+    content = JSON.parse(wikitext)
+    if content['wiki_page']
+      base_text = WikiApi.new(MetaWiki.new).get_page_content(content['wiki_page'])
+      content['title'] = title_from_translatable_wikitext(base_text)
+      content['content'] = content_from_translatable_wikitext(base_text)
+      content['translations'] = {}
+      translated_wiki_pages(base_page: content['wiki_page']).each do |translated_page|
+        translated_text = WikiApi.new(MetaWiki.new).get_page_content(translated_page)
+        language = translated_page.split('/').last
+        pp translated_text if language == 'es'
+        translated_title = title_from_translatable_wikitext(translated_text)
+        translated_content = content_from_translatable_wikitext(translated_text)
+        content['translations'][language] = { 'title' => translated_title,
+                                              'content' => translated_content }
+      end
+    end
+    content = content.to_hashugar
+    @content_class.new(content, content.slug)
+  end
+
+  def title_from_translatable_wikitext(wikitext)
+    wikitext.dup.split(%r{(</translate>)})[0].gsub(/.*<translate>/m, '').force_encoding("UTF-8")
+  end
+
+  def content_from_translatable_wikitext(wikitext)
+    wikitext.dup.split(%r{(</translate>)})[2..-1]&.join&.force_encoding("UTF-8")
+  end
+
   def wiki_source_pages(base_page: nil)
     link_source = base_page || @wiki_base_page
     query_params = { prop: 'links', titles: link_source }
@@ -53,27 +83,20 @@ class TrainingLoader
     end
   end
 
-  def new_from_wiki_page(wiki_page)
-    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
-    content = JSON.parse(wikitext)
-    if content['wiki_page']
-      base_text = WikiApi.new(MetaWiki.new).get_page_content(content['wiki_page'])
-      base_title = base_text.lines.first.chomp
-      base_content = base_text.lines[1..-1].join
-      content['title'] = extract_text_from_translate_tags(base_title)
-      content['content'] = base_content
-      content['translations'] = {}
-      wiki_source_pages(base_page: content['wiki_page']).each do |translated_page|
-        translated_text = WikiApi.new(MetaWiki.new).get_page_content(translated_page)
-        language = translated_page.split('/').last
-        translated_title = extract_text_from_translate_tags(translated_text.lines.first.chomp)
-        translated_content = translated_text.lines[1..-1].join
-        content['translations'][language] = { 'title' => translated_title,
-                                              'content' => translated_content }
-      end
+  def translated_wiki_pages(base_page:)
+    return [] unless base_page
+    translations_query = { meta: 'messagegroupstats',
+                           mgsgroup: "page-#{base_page}" }
+    response = WikiApi.new(MetaWiki.new).query(translations_query)
+    return [] unless response
+    translations = []
+    response.data['messagegroupstats'].each do |language|
+      next if language['total'].zero?
+      next unless language['total'] == language['translated']
+      translations << base_page + '/' + language['code']
     end
-    content = content.to_hashugar
-    @content_class.new(content, content.slug)
+    pp translations
+    return translations
   end
 
   # rubocop: disable Style/RegexpLiteral
