@@ -35,6 +35,7 @@ class TrainingModulePresenter
   end
 
   def should_show_ttc?
+    return false unless @training_module.estimated_ttc
     training_modules_user.nil? || @progress_manager.module_completed?
   end
 
