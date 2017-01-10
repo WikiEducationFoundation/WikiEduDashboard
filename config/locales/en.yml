@@ -287,6 +287,10 @@ en:
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)
       subject: Subject
+      update_scheduled: >
+        Update scheduled. The data will be updated along with all current
+        programs during the next update cycle. This typically takes
+        several hours.
     current: Current Courses
     delete_course: Delete course
     dismiss_survey: Dismiss
