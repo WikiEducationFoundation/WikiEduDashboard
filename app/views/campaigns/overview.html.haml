@@ -1,4 +1,7 @@
+- content_for :before_title, "#{@campaign.title} Overview  — "
+
 = render 'nav'
+
 = hot_javascript_tag 'campaigns'
 
 - if @campaign.errors.any?
