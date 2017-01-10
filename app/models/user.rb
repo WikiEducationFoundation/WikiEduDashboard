@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
     permissions == Permissions::ADMIN
   end
 
-  def isinstructor?
+  def course_instructor?
     courses.any? { |course| instructor?(course) }
   end
 
@@ -113,6 +113,10 @@ class User < ActiveRecord::Base
 
   def student?(course)
     course.users.role('student').include? self
+  end
+
+  def course_student?
+    courses.any? { |course| student?(course) }
   end
 
   def role(course)

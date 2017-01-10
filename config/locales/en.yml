@@ -296,6 +296,7 @@ en:
     end: End
     enroll: Enroll
     enrollment: Enrollment
+    courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
@@ -429,6 +430,7 @@ en:
     explore: Find Programs
     enroll: Add Editor
     enrollment: Participation
+    courses_enrolled: Programs participated
     expected_students: Expected Editors
     instructors: Facilitators
     join_course: Join program
