@@ -9,19 +9,30 @@ const EnrollCard = React.createClass({
     course: React.PropTypes.object,
     courseLink: React.PropTypes.string,
     passcode: React.PropTypes.string,
-    enrolledParam: React.PropTypes.string
+    enrolledParam: React.PropTypes.string,
+    enrollFailureReason: React.PropTypes.string
   },
 
   render() {
     let messageBody;
-    // Enrollment is complete
     if (this.props.enrolledParam !== undefined) {
-      messageBody = (
-        <div>
-          <h1>{I18n.t('application.greeting2')}</h1>
-          <p>{I18n.t('courses.join_successful', { title: this.props.course.title || '' })}</p>
-        </div>
-      );
+      // Enrollment is complete
+      if (this.props.enrolledParam === 'true') {
+        messageBody = (
+          <div>
+            <h1>{I18n.t('application.greeting2')}</h1>
+            <p>{I18n.t('courses.join_successful', { title: this.props.course.title || '' })}</p>
+          </div>
+        );
+      // Enrollment failed (not approved?)
+      } else if (this.props.enrolledParam === 'false') {
+        messageBody = (
+          <div>
+            <h1>{I18n.t('courses.join_failed')}</h1>
+            <p>{I18n.t(`courses.join_failure_details.${this.props.enrollFailureReason}`)}</p>
+          </div>
+        );
+      }
     // User is logged in and ready to enroll
     } else if (this.props.user.id && this.props.userRole === -1) {
       messageBody = (

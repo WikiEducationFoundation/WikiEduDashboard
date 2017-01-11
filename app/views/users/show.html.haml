@@ -1,39 +1,55 @@
+- if @user&.isinstructor?
+  = render 'users/profile_nav'
+
 #profile
-  %h2
+  %h3
     User: #{@user.username}
   - if current_user == @user || current_user&.admin?
-    %h4
+    %h5
       &#x2709; #{@user.email}
 
-%br/
 .container
-  %h3
-    = t("courses.course_details")
-  - @courses_user.each do |c|
-    %a.course{:href => "/courses/#{c.course.slug}"}
-      %span.button.border
-        = t("courses.view_page")
-      .course-title
-        = c.course.title
-      .course-details
-        .col
-          .course-details_title
-            = t("courses.school")
-          .course-details_value
-            = c.course.school
-        .col
-          .course-details_title
-            = t("courses.term")
-          .course-details_value
-            = c.course.term
-        .col
-          .course-details_title
-            = t("courses.students_count")
-          .course-details_value
-            = c.course.user_count
-        .col
-          .course-details_title
-            = t("courses.user_role")
-          .course-details_value
-            = course_role_name(c.role)
-            
+  - if @user&.isinstructor?
+    #statistics
+      = render 'users/profile_cumulative_stats', presenter: @presenter
+      %hr
+
+  #coursedetails
+    - if @courses_user.present?
+      %br/
+      %br/
+      %br/
+      %h3
+        = t("courses.course_details")
+      %br/
+      - @courses_user.each do |c|
+        %a.course{:href => "/courses/#{c.course.slug}"}
+          %span.button.border
+            = t("courses.view_page")
+          .course-title
+            = c.course.title
+          .course-details
+            .col
+              .course-details_title
+                = t("courses.school")
+              .course-details_value
+                = c.course.school
+            .col
+              .course-details_title
+                = t("courses.term")
+              .course-details_value
+                = c.course.term
+            .col
+              .course-details_title
+                = t("courses.students_count")
+              .course-details_value
+                = c.course.user_count
+            .col
+              .course-details_title
+                = t("courses.user_role")
+              .course-details_value
+                = course_role_name(c.role)
+    -else
+      %h4
+        #{@user.username}
+        = t("courses.nocourse")

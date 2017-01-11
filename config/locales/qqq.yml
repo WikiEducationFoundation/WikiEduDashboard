@@ -8,6 +8,7 @@
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: MojoMann
+# Author: Nemo bis
 # Author: Ragesoss
 # Author: Robby
 # Author: Vojtěch Dostál
@@ -146,7 +147,8 @@ qqq:
       stub: Explanation of what a Stub-class article is
       list: Explanation of what a List-class page is
       '?': Explanation of what an unrated article is
-      does_not_exist: Explanation of the Ø  symbol, which indicates than the article does not exist on Wikipedia
+      does_not_exist: Explanation of the Ø  symbol, which indicates than the article
+        does not exist on Wikipedia
     title: |-
       Label for an article title.
       {{Identical|Title}}
@@ -195,7 +197,6 @@ qqq:
     milestones:
       title: Label for the Milestone section of a course page (Wiki Ed only)
   campaign:
-    active_campaign: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
     already_exists: Error shown when a new campaign has the same name or slug of another
@@ -212,6 +213,10 @@ qqq:
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
     confirm_campaign_deletion_failed: Message indicating that a campaign was not deleted
+    confirm_course_removal: |-
+      Confirmation dialog for removing a course from a campaign.
+      'title' is the title of the course, and 'campaign_title' is the title of the campaign.
+    course_removed: Message indicating a course was successfully removed from a campaign.
     create_campaign: Header for the page to create a new campaign
     create_my_campaign: Label for the button to create a new campaign
     description: |-
@@ -228,9 +233,6 @@ qqq:
       of a campaign
     organizer_removed: Message indicating a user was successfully removed as an organizer
       of a campaign
-    programs: |-
-      The title of a campaign followed by an identical translation for 'Programs'
-      {{Identical|Program}}
     program_template: |-
       Label for the field to enter a default description for a program.
       A direct translation of 'Program template' should be suitable.
@@ -278,12 +280,17 @@ qqq:
     campaigns: |-
       Label for a list of campaigns a program is part of. A "campaign" essentially means a group of courses with something in common, in this context.
       {{Identical|Campaign}}
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Course}}
     confirm_course_deletion: Confirmation dialog for deleting a course
     confirm_course_deletion_failed: Message indicating that a course was not deleted
     course_description: |-
       Label for the number of courses in a campaign
       {{Identical|Course}}
-    courses: Label for the number of courses in a campaign
+    courses: |-
+      Label for the number of courses in a campaign
+      {{Identical|Course}}
     creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
@@ -459,6 +466,9 @@ qqq:
     cancel: '{{Identical|Cancel}}'
     courses: '{{Identical|Program}}'
     campaigns: '{{Identical|Campaign}}'
+    campaign_courses: |-
+      The title of a campaign followed by an identical translation for 'Programs'
+      {{Identical|Program}}
     creator:
       checking_for_uniqueness: Status message while course data is being validated
       course_description: Label for the description of a course
@@ -517,12 +527,14 @@ qqq:
     per_user: The average number of words contributed to articles per user, for a
       program. 'number' is a number of words.
     revisions: Label for the number of recent edits/revisions.
+    tags: '{{Identical|Tag}}'
     upload_count: Label for the number of files uploaded to Wikimedia Commons
     uploads_in_use_count: Label for the number of Wikimedia Commons files being used
       in articles. Preceded by %{count}.
     upload_usages_count: Label for the number of times Wikimedia Commons files are
       used across all languages and projects. Preceded by %{count}.
-    view_count_description: Long label for the number of article views.
+    view_count_description: Long label for the number of views for the article or
+      articles involved.
     view: Label for the number of article views.
   namespace:
     main: Long label for the Main namespace.

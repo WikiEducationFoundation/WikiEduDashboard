@@ -60,6 +60,8 @@ lt:
     new: (naujas)
     none: Šis kursas neredagavo jokių straipsnių.
     rating: Klasė
+    rating_docs:
+      does_not_exist: Šis straipsnis neegzistuoja Vikipedijoje
     show_cumulative_changes: Rodyti Kaupiamuosius Pakeitimus
     show_current_version: Rodyti Dabartinę Versiją
     title: Pavadinimas
@@ -89,7 +91,9 @@ lt:
     milestones:
       title: Gairės
   campaign:
+    active_campaigns: Aktyvios Kampanijos
     add_organizer: Pridėti organizatorių
+    all_campaigns: Visos Kampanijos
     campaign: Kampanija
     campaigns: Kampanijos
     campaign_deleted: Kampanija „%{title}“ ištrinta
@@ -107,12 +111,13 @@ lt:
     organizers: Organizatoriai
     organizer_added: '%{user} dabar yra „%{title}“ kampanijos organizatorius'
     organizer_removed: '%{user} buvo pašalintas kaip „%{title}“ kampanijos organizatorius'
-    programs: '%{title} Programos'
     program_template: Programos Šablonas
     title: Pavadinimas
     use_start_end_dates: Naudoti pradžios ir pabaigos datas
   courses:
     activity: Veikla
+    active_courses: Aktyvus %{course_type}
+    all_courses: Visi Kursai
     already_enrolled: Jau esate prisijungęs prie '%{title}'!
     already_exists: Tai jau kurse egzistuoja!
     archived: Archyvuoti Kursai
@@ -252,6 +257,7 @@ lt:
       find: Rasti Programą
     delete_course: Trinti programą
     edit_course_dates: Redaguoti Projekto Datas
+    explore: Rasti Programas
     enroll: Pridėti Redaktorių
     enrollment: Dalyvavimas
     expected_students: Tikimasi Redaktorių

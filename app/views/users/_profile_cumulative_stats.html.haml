@@ -1,15 +1,26 @@
+%h3
+  = t("users.contribution_statistics")
+%br/
+%h5
+  = t("users.user_impact", username: @user.username)
+.profile-stats
+  .stat-display
+    .stat-display__stat
+      .stat-display__value= presenter.courses.count
+      %small= t("#{presenter.course_string_prefix}.courses_taught")
+    .stat-display__stat.tooltip-trigger
+      .stat-display__value= presenter.user_count
+      %small= t("#{presenter.course_string_prefix}.students")
+      .tooltip.dark
+        %h4
+          = number_to_human presenter.trained_percent
+          \%
+        %p= t("users.up_to_date_with_training")
+%br/
+%br/
+%h5
+  = t("users.student_impact", username: @user.username)
 .stat-display
-  .stat-display__stat
-    .stat-display__value= presenter.courses.count
-    %small= t("#{presenter.course_string_prefix}.courses")
-  .stat-display__stat.tooltip-trigger
-    .stat-display__value= presenter.user_count
-    %small= t("#{presenter.course_string_prefix}.students")
-    .tooltip.dark
-      %h4
-        = number_to_human presenter.trained_percent
-        \%
-      %p= t("users.up_to_date_with_training")
   .stat-display__stat
     .stat-display__value= number_to_human presenter.word_count
     %small= t("metrics.word_count")

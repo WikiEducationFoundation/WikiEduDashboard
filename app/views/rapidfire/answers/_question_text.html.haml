@@ -1,5 +1,5 @@
 .survey__question-text
   = f.label :answer_text, question_plain_text_from_markdown(answer.question.question_text), class: 'screen-reader', tabindex: '-1'
   %div= question_text_html_from_markdown(answer.question.question_text).html_safe
-  - if !is_required_question?(answer)
+  - if !required_question?(answer)
     %span.contextual (optional)

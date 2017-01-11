@@ -8,4 +8,4 @@
 - range = min..max
 .range-input
   %div{"data-divisions" => divisions, "data-format" => format, "data-max" => max, "data-min" => min, "data-range" => "", "data-step" => inc}
-  = f.number_field :answer_text, :required => is_required_question?(answer), :data => {:range_field => true}, tabindex:'-1'
+  = f.number_field :answer_text, :required => required_question?(answer), :data => {:range_field => true}, tabindex:'-1'

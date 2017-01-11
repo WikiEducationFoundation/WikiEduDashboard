@@ -56,6 +56,11 @@ describe ViewImporter do
     end
 
     it 'works for non-default wikis' do
+      # Wiki lookup happens in a Thread. We must fake the database lookup,
+      # since the rspec database operations are done in-memory and are not
+      # available in other threads.
+      allow_any_instance_of(Article).to receive(:wiki).and_return(es_wiki)
+
       create(:article, id: 1, title: 'Wikipedia', namespace: 0,
                        wiki_id: es_wiki.id,
                        views_updated_at: Date.today - 2.days)

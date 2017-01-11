@@ -190,6 +190,9 @@ en:
     campaign_updated: Campaign updated
     confirm_campaign_deletion: Are you sure you want to delete the campaign titled "%{title}"? If so, type the title of the campaign to proceed.
     confirm_campaign_deletion_failed: '"%{title}" is not the title of this campaign. The campaign has not been deleted.'
+    confirm_course_removal: Are you sure you want to remove "%{title}" from the "%{campaign_title}" campaign?
+    course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
+    course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     description: Description
@@ -198,7 +201,6 @@ en:
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
     organizer_removed: '%{user} has been removed as an organizer of the "%{title}" campaign'
-    programs: '%{title} Programs'
     program_template: Program Template
     program_template_tooltip: >
       When an organizer creates a program in this campaign,
@@ -228,6 +230,7 @@ en:
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
+    campaign_courses: '%{title} Courses'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
     course_dates_calendar_instructions: >
@@ -237,6 +240,7 @@ en:
       weeks that have no scheduled meetings.
     course_description: Courses
     courses: Courses
+    courses_taught: Courses Taught
     creation_date: Creation Date
     creator:
       already_exists: This course already exists. Consider changing the name, school, or term to make it unique.
@@ -310,6 +314,10 @@ en:
     join_course: Join course
     join_prompt: Join '%{title}'?
     join_successful: You’ve successfully joined %{title}.
+    join_failed: Enrollment failed.
+    join_failure_details:
+      cannot_join_twice: Users may not join the same course twice.
+      not_yet_approved: This course has not yet been approved for enrollment.
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     leave_confirmation: Are you sure you want to leave this course?
     leave_course: Leave course
@@ -319,6 +327,7 @@ en:
     needs_update: Schedule Data Update
     new_week: Add New Week
     nocourses: You are not participating in any courses.
+    nocourse: has not participated in any courses.
     none: None
     notify_untrained_confirmation: >
       This will post a reminder on the talk pages for all students who overdue
@@ -397,7 +406,9 @@ en:
     assignment_start: Timeline Start
     cancel: Cancel
     courses: Programs
+    courses_taught: Programs Taught
     campaigns: 'Campaigns: '
+    campaign_courses: '%{title} Programs'
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
       clone_previous: Clone Previous Program
@@ -460,6 +471,7 @@ en:
     edit_count_description: Total Edits
     per_user: '%{number}/user'
     revisions: Recent Edits
+    tags: Tags
     upload_count: Commons Uploads
     uploads_in_use_count:
       one: file used in an article
@@ -608,6 +620,7 @@ en:
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions
+    contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
     enroll_confirmation: Are you sure you want to add %{username}?
@@ -652,6 +665,8 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
+    user_impact: Total impact made by %{username}
+    student_impact: Total impact made by %{username}'s Students
     role:
       visitor: Visitor
       student: Student
@@ -659,6 +674,7 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Ed Staff
+
   wiki_edits:
     notify_overdue:
       confirm: >

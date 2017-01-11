@@ -26,7 +26,7 @@ describe UnsubmittedCoursesController do
 
     it 'should show course creation date' do
       get :index
-      expect(response.body).to have_content(Date.today.strftime('%Y-%m-%d'))
+      expect(response.body).to have_content(course.created_at.strftime('%Y-%m-%d'))
     end
   end
 end

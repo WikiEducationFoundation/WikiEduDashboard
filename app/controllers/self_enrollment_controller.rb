@@ -69,7 +69,7 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_enrollment_failed
     return unless @result[:failure]
-    redirect_to course_slug_path(@course.slug, enrolled: false)
+    redirect_to course_slug_path(@course.slug, enrolled: false, failure_reason: @result[:failure])
     yield
   end
 

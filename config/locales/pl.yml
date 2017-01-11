@@ -4,8 +4,12 @@
 # Author: Chrumps
 # Author: Halibutt
 # Author: The Polish
+# Author: Woytecr
 ---
 pl:
+  accessibility:
+    number_field: To jest pole numeryczne. Przyciski renderowane przez większość przeglądarek
+      zwiększają i zmniejszają wprowadzoną wartość.
   application:
     cancel: Anuluj
     error: 'Wystąpił błąd:'
@@ -57,6 +61,8 @@ pl:
     loading: Wczytywanie artykułów...
     new: (nowy)
     rating: Klasa
+    rating_docs:
+      does_not_exist: Tego artykułu nie ma w Wikipedii
     title: Tytuł
     title_example: Tytuł artykułu
     view: Zobacz artykuł
@@ -130,6 +136,7 @@ pl:
     save: Zapisz
   metrics:
     date_time: Data/Czas
+    tags: Znaczniki
     uploads_in_use_count:
       one: plik użyty w artykule
       other: pliki użyty w artykułach

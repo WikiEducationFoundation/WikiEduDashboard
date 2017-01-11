@@ -85,6 +85,7 @@ zh-CN:
       stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
       list: 列表级 — 一个列表，而不是一篇传统条目
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
+      does_not_exist: 此条目在维基百科不存在
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
     title: 标题
@@ -126,7 +127,9 @@ zh-CN:
     milestones:
       title: 里程碑
   campaign:
+    active_campaigns: 活跃的运动
     add_organizer: 添加组织者
+    all_campaigns: 所有运动
     already_exists: 该运动已存在！请使用不同的标题或片段再试。
     campaign: 运动
     campaigns: 运动
@@ -135,6 +138,9 @@ zh-CN:
     campaign_updated: 活动已更新
     confirm_campaign_deletion: 您确定要删除标题为“%{title}”的运动么？如果是，请输入运动标题以进行。
     confirm_campaign_deletion_failed: “%{title}”不是此运动的标题。运动未被删除。
+    confirm_course_removal: 您确定要从“%{campaign_title}”活动中移除“%{title}”么？
+    course_already_removed: “%{title}”已经从“%{campaign_title}”活动中移除
+    course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
     create_campaign: 创建新的运动
     create_my_campaign: 创建我的运动！
     description: 描述
@@ -143,13 +149,14 @@ zh-CN:
     organizers: 组织者
     organizer_added: '%{user}现为“%{title}”运动的组织者'
     organizer_removed: '%{user}已从“%{title}”运动的组织者中被移除'
-    programs: '%{title}程序'
     program_template: 程序模板
     program_template_tooltip: 当组织者在此运动中创建程序时，此区域的文本将被复制为程序页面上的描述
     title: 标题
     use_start_end_dates: 使用开始和结束日期
   courses:
     activity: 活动
+    active_courses: 激活%{course_type}
+    all_courses: 所有课程
     already_enrolled: 您已经是“%{title}”的一部分！
     already_exists: 已存在于该课程中！
     archived: 已存档的课程
@@ -168,11 +175,13 @@ zh-CN:
     cancel: 取消
     character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
     campaigns: 运动：
+    campaign_courses: '%{title}课程'
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
     course_dates_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。课程活动的日期将利用没有预定会议的周，对账户做出更改。
     course_description: 课程
     courses: 课程
+    courses_taught: 教授的课程
     creation_date: 创建日期
     creator:
       already_exists: 此课程已存在。考虑更改名称、学校或学期以使其独立。
@@ -234,6 +243,10 @@ zh-CN:
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
+    join_failed: 登记失败。
+    join_failure_details:
+      cannot_join_twice: 用户不可以2次加入同一课程。
+      not_yet_approved: 此课程尚未批准登记。
     join_details: 要加入该程序，您需要获取密码——或包含密码的登记链接——来自导师。如果您尚未接收到密码，请联络您的导师。
     leave_confirmation: 您确定要离开这个课程么？
     leave_course: 离开课程
@@ -243,6 +256,7 @@ zh-CN:
     needs_update: 计划数据更新
     new_week: 添加新的一周
     nocourses: 您未参加任何课程。
+    nocourse: 未参加任何课程。
     none: 无
     notify_untrained_confirmation: 这将在讨论页为所有未能完成分配训练模块的学生发布一则提示。您确定要这样做么？
     no_available_actions: 无可用操作
@@ -296,13 +310,16 @@ zh-CN:
       notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
+    archived: 存档的程序
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点
     assignments_none: 此项目没有分配的条目。
     assignment_start: 时间轴起点
     cancel: 取消
     courses: 程序
+    courses_taught: 教授的程序
     campaigns: 运动：
+    campaign_courses: '%{title}程序'
     creator:
       checking_for_uniqueness: 这个程序正在检查其独立性。
       clone_previous: 克隆上一个程序
@@ -318,6 +335,7 @@ zh-CN:
       intro: 需要程序标题，其他的可以日后再填写。点击“创建我的程序！”以开始构造用于您wiki程序的页面。
     delete_course: 删除计划
     edit_course_dates: 编辑项目日期
+    explore: 找到程序
     enroll: 添加编辑者
     enrollment: 参与
     expected_students: 预期编辑者
@@ -335,10 +353,12 @@ zh-CN:
     students_short: 编辑者
     students_count: 参与者数量
     term: 何时
+    unsubmitted: 未提交的程序
     uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
     view_other: 查看其它运动
     view_page: 查看程序页面
     word_count_doc: 在课程的学期期间，由程序的编辑者添加至主名字空间条目字数的估计
+    yourcourses: 您的程序
   editable:
     edit: 编辑
     cancel: 取消
@@ -358,6 +378,7 @@ zh-CN:
     edit_count_description: 总计编辑
     per_user: '%{number}/用户'
     revisions: 最近编辑
+    tags: 标签
     upload_count: 共享资源上传
     uploads_in_use_count:
       one: 条目中使用的文件
@@ -484,6 +505,7 @@ zh-CN:
     contributions: 用户贡献
     contributions_history_full: 在维基百科查看完整贡献历史
     contributions_more: 查看更多贡献
+    contribution_statistics: 贡献统计
     course_passcode: 密码：
     editors: 学生编辑者
     enroll_confirmation: 您确定要添加%{username}么？
@@ -526,6 +548,8 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
+    user_impact: 由%{username}做出的总影响
+    student_impact: 由%{username}的学生做出的总影响
     role:
       visitor: 访问者
       student: 学生

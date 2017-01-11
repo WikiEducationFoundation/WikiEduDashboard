@@ -6,11 +6,13 @@
 # Author: Copper12
 # Author: Dgstranz
 # Author: Fitoschido
+# Author: Fortega
 # Author: Irus
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
 # Author: Themasterriot
+# Author: Tusca
 # Author: Yllelder
 # Author: YoViajo
 ---
@@ -84,6 +86,7 @@ es:
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
+    hide: Ocultar
     label: Artículos
     loading: Cargando artículos...
     new: (nuevo)
@@ -108,12 +111,15 @@ es:
       list: 'Clase lista: una lista en lugar de un artículo convencional'
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
+      does_not_exist: Este artículo no existe en Wikipedia
     show_cumulative_changes: Mostrar cambios acumulados
+    show_current_version: Mostrar la versión actual
     title: Título
     title_example: Título del artículo
     view: Ver artículo
     view_all: Ver todos
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
+    view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
@@ -148,15 +154,22 @@ es:
     milestones:
       title: Hitos
   campaign:
+    active_campaigns: Campañas activas
     add_organizer: Añadir organizador
+    all_campaigns: Todas las campañas
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: La campaña "%{title}" se ha eliminado
+    campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
     confirm_campaign_deletion: ¿Estás seguro de que quieres eliminar la campaña titulada
       "%{title}"? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
       La campaña no se ha eliminado.
+    confirm_course_removal: ¿Estás seguro de que quieres eliminar "%{title}" de la
+      campaña "%{campaign_title}"?
+    course_already_removed: '"%{title}" ya se había eliminado de la campaña "%{campaign_title}"'
+    course_removed: '"%{title}" se ha eliminado de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
     description: Descripción
     delete_campaign: Eliminar esta campaña
@@ -164,10 +177,10 @@ es:
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
-    programs: Programas de %{title}
     title: Título
   courses:
     activity: Actividad
+    all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
     archived: Cursos archivados
@@ -187,6 +200,7 @@ es:
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
+    campaign_courses: Curso de «%{title}»
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
@@ -273,6 +287,10 @@ es:
     join_course: Únete al curso
     join_prompt: ¿Unirse a '%{title}'?
     join_successful: Te has unido con éxito a %{title}.
+    join_failed: Falló la inscripción.
+    join_failure_details:
+      cannot_join_twice: Los usuarios no pueden ingresar dos veces al mismo curso.
+      not_yet_approved: Este curso no ha sido aprobado para la inscripción.
     leave_confirmation: ¿Estás seguro de que quieres dejar este curso?
     leave_course: Deja el curso
     loading: Cargando…
@@ -281,6 +299,7 @@ es:
     needs_update: Actualización de datos del programa
     new_week: Agregar una semana nueva
     nocourses: No participas de ningún curso.
+    nocourse: no ha participado en ningún curso.
     none: Ninguno
     notify_untrained_confirmation: Esto publicará un recordatorio en las páginas de
       discusión de todos los estudiantes que no hayan completado los módulos de capacitación
@@ -289,8 +308,7 @@ es:
     overview: Resumen
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
-    passcode_prompt: Escribe el código de acceso proporcionado por tu instructor de
-      este curso
+    passcode_prompt: 'Escribe el código de acceso para unirte:'
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
@@ -351,6 +369,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
     assignment_end: Final del cronograma
     assignments_none: Este proyecto no tiene artículos asignados.
@@ -358,6 +377,7 @@ es:
     cancel: Cancelar
     courses: Programas
     campaigns: 'Campañas:'
+    campaign_courses: Programa de «%{title}»
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       clone_previous: Clonar el programa previo
@@ -375,6 +395,7 @@ es:
         de tu programa wiki.
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
+    explore: Encuentra programas
     enroll: Añadir editor
     enrollment: Participación
     expected_students: Editores esperados
@@ -392,12 +413,14 @@ es:
     students_short: Editores
     students_count: Número de participantes
     term: Cuando
+    unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
       por los editores del programa durante el plazo de programa
+    yourcourses: Tus programas
   editable:
     edit: Editar
     cancel: Cancelar
@@ -417,6 +440,7 @@ es:
     edit_count_description: Ediciones totales
     per_user: '%{number}/usuario'
     revisions: Ediciones recientes
+    tags: Etiquetas
     upload_count: Subidas a Commons
     uploads_in_use_count:
       one: archivo utilizado en un artículos

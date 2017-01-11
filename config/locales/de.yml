@@ -98,6 +98,7 @@ de:
       list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
+      does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
     title: Titel
@@ -141,7 +142,9 @@ de:
     milestones:
       title: Meilensteine
   campaign:
+    active_campaigns: Aktive Kampagnen
     add_organizer: Organisator hinzufügen
+    all_campaigns: Alle Kampagnen
     already_exists: Diese Kampagne ist bereits vorhanden! Bitte versuche es mit einem
       anderen Titel erneut.
     campaign: Kampagne
@@ -154,6 +157,11 @@ de:
       ein.
     confirm_campaign_deletion_failed: „%{title}“ ist nicht der Titel dieser Kampagne.
       Sie wurde nicht gelöscht.
+    confirm_course_removal: Bist du sicher, dass du „%{title}“ von der Kampagne „%{campaign_title}“
+      entfernen möchtest?
+    course_already_removed: „%{title}“ wurde bereits von der Kampagne „%{campaign_title}“
+      entfernt
+    course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
     description: Beschreibung
@@ -162,7 +170,6 @@ de:
     organizers: Organisatoren
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
     organizer_removed: '%{user} wurde als Organisator der Kampagne „%{title}“ entfernt'
-    programs: Programme von %{title}
     program_template: Programmvorlage
     program_template_tooltip: Wenn ein Organisator ein Programm in dieser Kampagne
       erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
@@ -171,6 +178,8 @@ de:
     use_start_end_dates: Start- und Enddaten verwenden
   courses:
     activity: Aktivität
+    active_courses: Aktive %{course_type}
+    all_courses: Alle Kurse
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
     already_exists: Dies ist bereits für diesen Kurs vorhanden!
     archived: Archivierte Kurse
@@ -190,6 +199,7 @@ de:
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Kurse'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
@@ -201,6 +211,7 @@ de:
       haben.
     course_description: Kurse
     courses: Kurse
+    courses_taught: Unterrichtete Kurse
     creation_date: Erstelldatum
     creator:
       already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
@@ -276,6 +287,10 @@ de:
     join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten.
+    join_failed: Einschreiben fehlgeschlagen.
+    join_failure_details:
+      cannot_join_twice: Benutzer können sich nicht zweimal in den gleichen Kurs einschreiben.
+      not_yet_approved: Dieser Kurs wurde noch nicht zur Einschreibung freigegeben.
     join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
       erhalten hast, kontaktiere deinen Kursleiter.
@@ -287,6 +302,7 @@ de:
     needs_update: Plandatenaktualisierung
     new_week: Neue Woche hinzufügen
     nocourses: Du nimmst an keinen Kursen teil.
+    nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
     notify_untrained_confirmation: Dies sendet eine Erinnerung an die Diskussionsseiten
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
@@ -358,13 +374,16 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Zeitleisten-Beginn
     cancel: Abbrechen
     courses: Programme
+    courses_taught: Unterrichtete Programme
     campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Programme'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       clone_previous: Vorheriges Programm klonen
@@ -382,6 +401,7 @@ de:
         dein Wikiprogramm anzufangen.
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
+    explore: Programme finden
     enroll: Autor hinzufügen
     enrollment: Teilnahme
     expected_students: Erwartete Autoren
@@ -401,12 +421,14 @@ de:
     students_short: Autoren
     students_count: Anzahl der Teilnehmer
     term: Wann
+    unsubmitted: Nicht eingereichte Programme
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
     view_other: Weitere Kampagnen ansehen
     view_page: Programmseite ansehen
     word_count_doc: Eine Schätzung der Anzahl der während der Programmdauer durch
       die Programmautoren in Hauptnamensraum-Artikeln hinzugefügten Wörter
+    yourcourses: Deine Programme
   editable:
     edit: Bearbeiten
     cancel: Abbrechen
@@ -426,6 +448,7 @@ de:
     edit_count_description: Gesamte Bearbeitungen
     per_user: '%{number}/Benutzer'
     revisions: Letzte Bearbeitungen
+    tags: Markierungen
     upload_count: Auf Commons hochgeladene Dateien
     uploads_in_use_count:
       one: in einem Artikel verwendete Datei
@@ -569,6 +592,7 @@ de:
     contributions: Benutzerbeiträge
     contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
     contributions_more: Weitere Beiträge ansehen
+    contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
@@ -614,6 +638,8 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
+    user_impact: Gesamtauswirkung durch %{username}
+    student_impact: Gesamtauswirkung durch die Studenten von %{username}
     role:
       visitor: Besucher
       student: Student

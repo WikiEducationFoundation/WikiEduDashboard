@@ -18,6 +18,8 @@
         %li= link_to 'My Sandbox', "https://en.wikipedia.org/wiki/Special:MyPage/sandbox"
       - unless Features.disable_help? || user_signed_in?
         %li= link_to t('application.help'), main_app.ask_url, target: '_blank'
+      - unless Features.wiki_ed?
+        %li= link_to 'Documentation', 'https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard'
     - if user_signed_in?
       - unless Features.disable_help?
         .top-nav__faq-search

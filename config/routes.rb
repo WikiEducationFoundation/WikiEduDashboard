@@ -109,12 +109,13 @@ Rails.application.routes.draw do
       get 'courses'
       put 'add_organizer'
       put 'remove_organizer'
+      put 'remove_course'
     end
   end
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show
-  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/overview')
+  get 'campaigns/:slug', to: redirect('campaigns/%{slug}/programs')
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'

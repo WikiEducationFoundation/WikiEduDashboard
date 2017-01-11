@@ -220,6 +220,7 @@ const CourseCreator = React.createClass({
 
     let language;
     let project;
+    let campaign;
     if (this.state.default_course_type !== 'ClassroomProgramCourse') {
       language = (
         <TextInput
@@ -241,6 +242,14 @@ const CourseCreator = React.createClass({
           editable
           label={I18n.t('courses.creator.course_project')}
           placeholder="wikipedia"
+        />
+      );
+    }
+    if (this.state.course.initial_campaign_title) {
+      campaign = (
+        <TextInput
+          value={this.state.course.initial_campaign_title}
+          label={I18n.t('campaign.campaign')}
         />
       );
     }
@@ -276,6 +285,7 @@ const CourseCreator = React.createClass({
             <div className={formClass}>
               <div className="column">
 
+                {campaign}
                 <TextInput
                   id="course_title"
                   onChange={this.updateCourse}

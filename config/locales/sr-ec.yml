@@ -282,6 +282,7 @@ sr-ec:
     edit_count_description: Укупно измена
     per_user: '%{number}/user'
     revisions: Скорашње измене
+    tags: Ознаке
     view_count_description: Прегледа чланка
     view: Прегледа
     word_count: Додате речи

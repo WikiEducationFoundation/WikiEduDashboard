@@ -4,6 +4,7 @@
 # Author: Appleuseryu
 # Author: C13m3n7
 # Author: Dcausse
+# Author: Eric.LEWIN
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Mabroukb
@@ -19,8 +20,8 @@
 ---
 fr:
   accessibility:
-    number_field: C’est un champ numérique. Les boutons générés sur la plupart des
-      navigateurs incrémenteront et décrémenteront l’entrée.
+    number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
+      des navigateurs incrémenteront et décrémenteront cette entrée.
   application:
     cancel: Annuler
     dashboard: Tableau de bord de modification du wiki
@@ -47,9 +48,9 @@ fr:
     training: Formation
     change: Modifier
     details: Détails
-    confirm: OK
+    confirm: Ok
   dashboard:
-    create_note: Cliquer sur Créer un cours pour créer votre premier cours
+    create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
       main avant de commencer ; l’outil de prévision des affectations utilisera les
       dates de réunion de votre classe — y compris les pauses scolaires et les vacances
@@ -58,7 +59,7 @@ fr:
     explore_course_pages: Explorer les pages de cours
     explore_examples: Explorer les exemples
     join_note: Une fois que vous aurez reçu un code d’accès de la part de votre formateur,
-      cliquez sur Trouver votre cours pour le trouver et le rejoindre.
+      cliquez sur « Trouver votre cours » pour le trouver et le rejoindre.
     no_courses_instructor: Il semble que vous n’avez pas de cours.
     no_courses_student: Il semble que vous n’êtes encore inscrit à aucun cours.
     opt_out: Demande de retrait de l’orientation
@@ -112,6 +113,7 @@ fr:
       list: Classe liste — une liste plutôt qu’un article habituel
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
+      does_not_exist: Cet article n'existe pas sur Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
     title: Titre
@@ -154,7 +156,9 @@ fr:
     milestones:
       title: Jalons
   campaign:
+    active_campaigns: Campagnes actives
     add_organizer: Ajouter un organisateur
+    all_campaigns: Toutes les campagnes
     already_exists: Cette campagne existe déjà ! Veuillez réessayer avec un autre
       titre ou libellé court.
     campaign: Campagne
@@ -166,6 +170,10 @@ fr:
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
     confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
       La campagne n’a pas été supprimée.
+    confirm_course_removal: Êtes-vous sûr de vouloir supprimer « %{title} » de la
+      campagne « %{campaign_title} » ?
+    course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
+    course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
     description: Description
@@ -174,7 +182,6 @@ fr:
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
     organizer_removed: '%{user} n’est plus un organisateur de la campagne « %{title} »'
-    programs: Programmes de %{title}
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
@@ -182,6 +189,8 @@ fr:
     use_start_end_dates: Utiliser les dates de début et de fin
   courses:
     activity: Activité
+    active_courses: '%{course_type} actifs'
+    all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de '%{title}' !
     already_exists: Cela existe déjà pour ce cours !
     archived: Cours archivés
@@ -202,6 +211,7 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     campaigns: 'Complices :'
+    campaign_courses: '%{title} Cours'
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
@@ -212,6 +222,7 @@ fr:
       cours seront modifiées pour tenir compte des semaines sans rendez-vous planifié.
     course_description: Cours
     courses: Cours
+    courses_taught: Cours enseignés
     creation_date: Date de création
     creator:
       already_exists: Ce cours existe déjà. Changez plutôt le nom, l’école ou l’échéance
@@ -287,6 +298,11 @@ fr:
     join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
     join_successful: Vous avez bien rejoint %{title}.
+    join_failed: L'inscription a échoué.
+    join_failure_details:
+      cannot_join_twice: Les utilisateurs ne peuvent pas rejoindre le même cours deux
+        fois.
+      not_yet_approved: Ce cours n'a pas encore été approuvé pour l'inscription.
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
@@ -298,6 +314,7 @@ fr:
     needs_update: Calendrier de la mise à jour des données
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
+    nocourse: a participé à aucun cours.
     none: Aucun
     notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
@@ -369,13 +386,16 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie
     assignments_none: Ce projet n’a pas d’article affecté.
     assignment_start: Début de la chronologie
     cancel: Annuler
     courses: Programmes
+    courses_taught: Programmes enseignés
     campaigns: 'Campagnes :'
+    campaign_courses: '%{title} Programmes'
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       clone_previous: Dupliquer le programme précédent
@@ -393,6 +413,7 @@ fr:
         la page de votre programme wiki.
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
+    explore: Trouver des programmes
     enroll: Ajouter éditeur
     enrollment: Participation
     expected_students: Éditeurs attendus
@@ -412,12 +433,14 @@ fr:
     students_short: Éditeurs
     students_count: Nombre de participants
     term: Quand
+    unsubmitted: Programmes non soumis
     uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
       autre fichier média.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
     word_count_doc: Estimé du nombre de mots ajoutés aux articles de l’espace principal
       par les éditeurs du programme durant son déroulement
+    yourcourses: Vos programmes
   editable:
     edit: Modifier
     cancel: Annuler
@@ -437,6 +460,7 @@ fr:
     edit_count_description: Total des modifications
     per_user: '%{number}/utilisateur'
     revisions: Modifications récentes
+    tags: Balises
     upload_count: Téléversement de Commons
     uploads_in_use_count:
       one: fichier utilisé dans un article
@@ -580,6 +604,7 @@ fr:
     contributions_history_full: Afficher l’historique complet des contributions sur
       Wikipédia
     contributions_more: Afficher plus de contributions
+    contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
@@ -624,6 +649,8 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
+    user_impact: Impact Total réalisé par %{username}
+    student_impact: Impact total fait par les étudiants de %{username}
     role:
       visitor: Visiteur
       student: Étudiant

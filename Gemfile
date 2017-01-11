@@ -53,6 +53,9 @@ gem 'paper_trail'
 
 gem "paperclip"
 
+# TZ information is not available on Windows, needs to be installed separately
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'
@@ -87,7 +90,7 @@ group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
   gem 'rubocop', require: false
-  gem 'zeus'
+  gem 'zeus', platforms: :ruby # zeus doesn't work on Windows
   gem 'launchy'
   gem 'timecop'
   gem 'poltergeist'
@@ -110,3 +113,4 @@ group :production do
   gem 'uglifier'
   gem 'rails_12factor'
 end
+

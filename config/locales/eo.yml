@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Lucas
 # Author: Ochilov
+# Author: Rafaneta
 # Author: Robin van der Vliet
 # Author: 1490493253
 ---
@@ -19,6 +20,8 @@ eo:
     hide: Kaŝi
     new: (nova)
     rating: Klaso
+    rating_docs:
+      does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
     show_current_version: Montri nunan version
     title: Titolo
   campaign:

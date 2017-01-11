@@ -13,15 +13,22 @@
     - To install rvm, you'll first need a gpg utility. You can install the GPG Suite from gpgtools.org
     - Homebrew will install itself when you run the rvm install command, if you don't have it already.
 
+- Pre-requisites for setup on Windows:
+    - Install Git from [the official Windows package](https://git-scm.com/download/win)
+
 - Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
-- Make sure you are in the "sudo" group.
+- On OSX/Debian, make sure you are in the "sudo" group.
 - Install Ruby 2.3.1 (RVM is recommended)
-    - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-    - `rvm install ruby-2.3.1`
+    - OSX/Debian:
+       - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
+       - `rvm install ruby-2.3.1`
+    - Windows:
+       - Use [RailsInstaller](http://railsinstaller.org/en)
 - Install Node:
   - Debian: `apt install nodejs npm`
   - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
+  - Windows: [Download the installer](https://nodejs.org/)
 
 - Install Gems:
     - $ `gem install bundler`
@@ -50,16 +57,21 @@
     - Install mysql-server
         - Debian: `sudo apt-get install mysql-server`
         - OSX: `brew install mysql`
-    - Start a mysql command line: `sudo mysql`
+        - Windows: Install [XAMPP](https://www.apachefriends.org/index.html)
+    - Start a mysql command line: 
+        - OSX/Debian: `sudo mysql`
+        - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `exit`
 
 - Install Redis:
   - Debian: `sudo apt-get install redis-server`
   - OSX: `brew install redis`
+  - Windows: Download [the Windows port](https://github.com/MSOpenTech/redis/releases) by the Microsoft Open Tech Group
 
 - Install Gulp (if not already installed)
-  - `sudo npm install --global gulp-cli`
+  - `sudo npm install -g gulp-cli`
 
 ## Initialize
 1. **Migrate the database**
@@ -71,7 +83,7 @@
 ## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
 
 ## Develop
-1. **Start Zeus**
+1. **Start Zeus (on OSX/Debian)**
 
       $ `zeus start`
 
@@ -79,9 +91,15 @@
 
       $ `redis-server`
 
-3. **Start Guard**
+3. **Start the server**
+
+    - OSX/Debian:
 
       $ `guard`
+      
+    - Windows:
+    
+      $ `rails s`
 
 4. **Start Gulp to watch JS and CSS**
 

@@ -90,6 +90,7 @@ zh-TW:
       stub: 小作品等級 — 剛開始、還需要更多內容的短小文章。
       list: 清單等級 — 並非傳統條目的一個清單
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
+      does_not_exist: 條目不存在於維基百科上
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
     title: 標題
@@ -126,7 +127,9 @@ zh-TW:
     milestones:
       title: 里程碑
   campaign:
+    active_campaigns: 活躍活動
     add_organizer: 添加組織者
+    all_campaigns: 所有活動
     already_exists: 此活動已存在！請以不同標題或指向內容再重試看看。
     campaign: 活動
     campaigns: 活動
@@ -135,6 +138,9 @@ zh-TW:
     campaign_updated: 活動已更新
     confirm_campaign_deletion: 您確定您要刪除標題為「%{title}」的活動？如果是，請輸入該活動的標題以進行處理。
     confirm_campaign_deletion_failed: 「%{title}」不是此活動的標題。活動未被刪除
+    confirm_course_removal: 您確定您要從活動「%{campaign_title}」中移除「%{title}」？
+    course_already_removed: '%{title}已從活動「%{campaign_title}」中移除'
+    course_removed: '%{title}已從活動「%{campaign_title}」中移除'
     create_campaign: 創建新活動
     create_my_campaign: 創建我的活動！
     description: 描述
@@ -143,13 +149,14 @@ zh-TW:
     organizers: 組織者
     organizer_added: '%{user}現在是活動「%{title}」的組織者'
     organizer_removed: '%{user}已被移除活動「%{title}」的組織者身份'
-    programs: '%{title}方案'
     program_template: 方案模板
     program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
     use_start_end_dates: 使用起始和結束時間
   courses:
     activity: 活躍度
+    active_courses: 啟動%{course_type}
+    all_courses: 所有課程
     already_enrolled: 你已經成為  '%{title}' 課程的一份子！
     already_exists: 已存在於該課程中！
     archived: 存檔的課程
@@ -168,11 +175,13 @@ zh-TW:
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主命名空間的文章之總位元組數。 (1 中文字=3 位元組)
     campaigns: 活動：
+    campaign_courses: '%{title}課程'
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候)。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程活動的日期會更改帳號沒有預定會議的星期。
     course_description: 課程
     courses: 課程
+    courses_taught: 教授的課程
     creation_date: 建立日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
@@ -245,6 +254,7 @@ zh-TW:
     needs_update: 行事曆資料更新
     new_week: 新增新的一週
     nocourses: 您尚未參加任何課程。
+    nocourse: 未參與任何課程。
     none: 空白
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
@@ -306,13 +316,16 @@ zh-TW:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
   courses_generic:
+    archived: 存檔的方案
     articles_none: 此項目裡目前無編輯的文章。
     assignment_end: 時間軸終點
     assignments_none: 此項目沒有任何文章被分配。
     assignment_start: 時間軸起點
     cancel: 取消
     courses: 方案
+    courses_taught: 教授的方案
     campaigns: 活動：
+    campaign_courses: '%{title}方案'
     creator:
       checking_for_uniqueness: 正在確認是否有重複的方案。
       clone_previous: 複製前一個方案
@@ -328,6 +341,7 @@ zh-TW:
       intro: 需要方案標題，其它項目則可日後填上。點選 "建立我的方案！" 來開始製作您的維基項目頁面。
     delete_course: 刪除方案
     edit_course_dates: 編輯項目日期
+    explore: 尋找方案
     enroll: 增加編輯者
     enrollment: 參與
     expected_students: 預期編輯者
@@ -345,10 +359,12 @@ zh-TW:
     students_short: 編輯者
     students_count: 參與者數量
     term: 於
+    unsubmitted: 未提交方案
     uploads_none: 此項目沒有提供任何圖片或媒體檔案至維基共享資源裡。
     view_other: 檢視其它活動
     view_page: 檢視方案頁面
     word_count_doc: 一個由方案編輯者在方案學期期間增加至文章主空間的估計數量
+    yourcourses: 您的方案
   editable:
     edit: 編輯
     cancel: 取消
@@ -368,6 +384,7 @@ zh-TW:
     edit_count_description: 總編輯數
     per_user: '%{number}/使用者'
     revisions: 近期編輯
+    tags: 標籤
     upload_count: 維基共享資源上傳
     uploads_in_use_count:
       one: 文章中使用的檔案
@@ -491,6 +508,7 @@ zh-TW:
     contributions: 使用者貢獻
     contributions_history_full: 在維基百科上檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
+    contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
     enroll_confirmation: 您確定要增加 %{username}？
@@ -533,6 +551,8 @@ zh-TW:
     up_to_date_with_training: 最近培訓
     username: 使用者名稱
     username_placeholder: 使用者名稱
+    user_impact: 由%{username}做出的所有影響
+    student_impact: 由%{username}的學生做出的所有影響
     role:
       visitor: 訪客
       student: 學生

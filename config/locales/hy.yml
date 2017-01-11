@@ -57,6 +57,7 @@ hy:
     rating_docs:
       b: B-դաս — չափավոր զարգացած հոդված.
       start: Մեկնարկի դաս — կարճ հոդված է, որը պետք է լրացնել.
+      does_not_exist: Այս հոդվածը գոյություն չունի ՝ Վիքիպեդիայում
     show_current_version: Ցույց տալ ընթացիկ տարբերակը
     title: Վերնագիր
     title_example: Հոդվածի անվանումը
@@ -81,8 +82,11 @@ hy:
     milestones:
       title: Փուլեր
   campaign:
+    confirm_course_removal: Դուք համոզված եք, որ ցանկանում եք ջնջել "%{title}"  "%{campaign_title}"
+      քարոզարշավից?
+    course_already_removed: '"%{title}" արդեն հեռացվել է %{campaign_title}" քարոզարշավից'
+    course_removed: '"%{title}" հեռացվել է %{campaign_title}" քարոզարշավից'
     organizers: Կազմակերպիչներ
-    programs: '%{title} ծրագրեր'
   courses:
     activity: Ակտիվություն
     course_description: Դասընթացներ

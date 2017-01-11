@@ -46,7 +46,7 @@
           %span.sortable-indicator
     %tbody.list
       - presenter.campaigns_by_num_courses.each do |campaign|
-        - campaign_presenter = CoursesPresenter.new(current_user, campaign.slug)
+        - campaign_presenter = CoursesPresenter.new(current_user: current_user, campaign_param: campaign.slug)
         = render 'campaigns/row', presenter: campaign_presenter, campaign: campaign
   .campaigns-actions
     - if presenter.can_create?

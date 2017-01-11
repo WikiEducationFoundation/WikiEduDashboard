@@ -23,9 +23,9 @@ class JoinCourse
 
   def validate_request
     if user_already_enrolled?
-      @result = { failure: 'Users may not join the same course twice.' }
+      @result = { failure: :cannot_join_twice }
     elsif student_joining_before_approval?
-      @result = { failure: 'This course has not yet been approved for enrollment.' }
+      @result = { failure: :not_yet_approved }
     else
       return
     end

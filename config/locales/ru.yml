@@ -7,6 +7,7 @@
 # Author: Iniquity
 # Author: Irus
 # Author: Kareyac
+# Author: Mailman
 # Author: Nzeemin
 # Author: Okras
 # Author: SmartNart12
@@ -103,6 +104,7 @@ ru:
       stub: Заглушка — очень короткая статья, которую нужно дополнить.
       list: Лист-класс — больше похоже на список, чем на полноценную статью.
       '?': Без рейтинга — этой статье ещё не был присвоен рейтинг по шкале Википедии.
+      does_not_exist: Эта статья не существует в Википедии
     show_current_version: Показать текущую версию
     title: Заголовок
     title_example: Название статьи
@@ -123,18 +125,23 @@ ru:
     milestones:
       title: Этапы
   campaign:
+    active_campaigns: Активные кампании
+    all_campaigns: Все кампании
     campaign: Кампания
     campaign_deleted: Кампания "%{title}" была удалена
     campaign_updated: Кампании обновлены
     confirm_campaign_deletion_failed: '"%{title}" - это не название этой кампании.
       Кампания не была удалена.'
+    confirm_course_removal: Вы уверены, что хотите удалить "%{title}" из кампании
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" уже удалена из кампании "%{campaign_title}"'
+    course_removed: '"%{title}" был удален из кампании "%{campaign_title}"'
     description: Описание
     delete_campaign: Удалить эту кампанию
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
-    programs: '%{title} программы'
     program_template: Шаблон программы
     use_start_end_dates: Использовать даты начала и окончания
   courses:
@@ -145,6 +152,7 @@ ru:
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     campaigns: Кампании
+    campaign_courses: '%{title} курсы'
     course_description: Курсы
     courses: Курсы
     creation_date: Дата создания
@@ -177,12 +185,15 @@ ru:
       other: Инструкторы
     instructors: Инструкторы
     join: Присоединиться
+    join_failure_details:
+      not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
     my_articles: Мои статьи
     new_week: Добавить новую неделю
     nocourses: Вы не участвуете ни в одном курсе.
+    nocourse: не участвовал в каких-либо курсах.
     overview: Обзор
-    passcode_prompt: 'Введите пароль, чтобы присоединиться к:'
+    passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     students: Студенты
@@ -205,6 +216,7 @@ ru:
   courses_generic:
     cancel: Отмена
     campaigns: Кампании
+    campaign_courses: '%{title} программы'
     creator:
       course_school: Учреждение
       course_title: Название программы
@@ -213,6 +225,7 @@ ru:
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+    explore: Найти программы
     join_details: Присоединиться к этой программе, вам нужно получить код доступа
       или ссылку, которая включает пароль от посредника.
     school: Учреждение
@@ -236,6 +249,7 @@ ru:
     date_time: Дата/время
     edit_count_description: Всего правок
     revisions: Последние правки
+    tags: Теги
     view_count_description: Просмотров статей
     view: Просмотров
     word_count_average: Среднее количество слов
@@ -290,6 +304,7 @@ ru:
     contributions: Вклад участника
     contributions_history_full: Просмотреть полную историю вклада в Википедию
     contributions_more: Просмотреть вклад подробнее
+    contribution_statistics: Статистика вклада
     editors: Редакторы (студенты)
     first_name: Имя
     last_name: Фамилия
@@ -309,6 +324,7 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    user_impact: Общее влияние %{username}
     role:
       visitor: Посетитель
       student: Студент
