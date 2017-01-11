@@ -243,6 +243,10 @@ zh-CN:
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
     join_successful: 您已成功加入%{title}。
+    join_failed: 登记失败。
+    join_failure_details:
+      cannot_join_twice: 用户不可以2次加入同一课程。
+      not_yet_approved: 此课程尚未批准登记。
     join_details: 要加入该程序，您需要获取密码——或包含密码的登记链接——来自导师。如果您尚未接收到密码，请联络您的导师。
     leave_confirmation: 您确定要离开这个课程么？
     leave_course: 离开课程

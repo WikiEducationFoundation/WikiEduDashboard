@@ -369,7 +369,7 @@ cs:
     upload_usages_count:
       one: použití celkem napříč jazykovými mutacemi
       other: použití celkem napříč jazykovými mutacemi
-    view_count_description: Návštěvnost článku
+    view_count_description: Návštěvnost článků
     view: Návštěvnost
     word_count: Přidáno slov
     word_count_average: Průměrný počet slov

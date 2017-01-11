@@ -298,6 +298,11 @@ fr:
     join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
     join_successful: Vous avez bien rejoint %{title}.
+    join_failed: L'inscription a échoué.
+    join_failure_details:
+      cannot_join_twice: Les utilisateurs ne peuvent pas rejoindre le même cours deux
+        fois.
+      not_yet_approved: Ce cours n'a pas encore été approuvé pour l'inscription.
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.

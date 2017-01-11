@@ -10,7 +10,11 @@ lv:
     greeting_extended: Laipni lūdzam Vikipēdijā
     help: Palīdzība
     home: Sākums
+    recent_activity: Nesenās darbības
     submit: Iesniegt
+  activity:
+    all: Aktivitāte
+    label: Aktivitāte
   articles:
     assigned: Piešķirtie raksti
     edited: Labotie raksti
@@ -93,7 +97,7 @@ lv:
     students_short: Studenti
     submitted_heading: Iesniegti kursi
     user_role: Loma
-    course_details: Kursa dati par
+    course_details: Kursa informācija
     term: Semestris
     title: Nosaukums
     view_other: Skatīt citas kampaņas
@@ -106,14 +110,19 @@ lv:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu
     delete_course: Dzēst programmu
+    expected_students: Plānotie dalībnieki
     join_course: Pievienoties programmai
     student_editors: Redaktori
+    students: Redaktori
   editable:
     edit_description: Labot aprakstu
     edit_details: Labot datus
   metrics:
+    activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti
+    edit_count_description: Labojumi kopā
+    upload_count: Augšupielādes Vikikrātuvē
     view_count_description: Rakstu skatījumi
     word_count: Pievienotie vārdi
     word_count_average: Vidējais vārdu skaits

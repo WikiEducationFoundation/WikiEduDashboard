@@ -152,6 +152,9 @@ lb:
     instructors: Instrukteren
     join: Matmaachen
     join_course: Beim Cours matmaachen
+    join_failed: Aschreiwung huet net funktionéiert.
+    join_failure_details:
+      cannot_join_twice: Benotzer kënne sech net zweemol an deeselwechte Cours aschreiwen.
     leave_confirmation: Sidd Dir sécher datt Dir aus dësem Cours erausgoe wëllt?
     leave_course: Aus dem Cours erausgoen
     loading: Lueden...
@@ -324,6 +327,7 @@ lb:
     username: Benotzernumm
     username_placeholder: Benotzernumm
     user_impact: Gesamtimpakt vum %{username}
+    student_impact: Gesamtimpakt vun de Studente vum %{username}
     role:
       visitor: Visiteur
       student: Student

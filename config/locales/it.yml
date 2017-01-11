@@ -7,6 +7,7 @@
 # Author: Einreiher
 # Author: Macofe
 # Author: Matteocng
+# Author: Nemo bis
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -65,7 +66,7 @@ it:
     assigned_to: Assegnato a
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
-    edited: Articoli modificati
+    edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
     hide: Nascondi
@@ -348,7 +349,7 @@ it:
   metrics:
     activity: Attività recente
     articles_created: Voci create
-    articles_edited: Articoli modificati
+    articles_edited: Voci modificate
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
@@ -364,7 +365,7 @@ it:
     upload_usages_count:
       one: utilizzo totale nelle varie lingue
       other: utilizzi totali nelle varie lingue
-    view_count_description: Visite alla voce
+    view_count_description: Visite alle voci
     view: Visualizzazioni
     word_count: Parole aggiunte
     word_count_average: Conteggio medio parole
@@ -456,7 +457,7 @@ it:
     contributions: Contributi dell'utente
     contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
     contributions_more: Visualizza Ulteriori Contributi
-    editors: Editori
+    editors: Contributori
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
     enroll_url: 'Gli utenti possono partecipare visitando questo URL:'
     enrolled_success: '%{username} è stato aggiunto con successo!'

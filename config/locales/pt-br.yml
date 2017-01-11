@@ -5,6 +5,7 @@
 # Author: Caçador de Palavras
 # Author: Cristofer Alves
 # Author: Dianakc
+# Author: Eduardo Addad de Oliveira
 # Author: HenriqueCrang
 # Author: Ixocactus
 # Author: Joalpe
@@ -43,6 +44,8 @@ pt-br:
     submit: Enviar
     training: Treinamento
     change: Mudar
+    details: Detalhes
+    confirm: OK
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
@@ -80,7 +83,9 @@ pt-br:
     character_doc: A soma de caracteres adicionados a artigos por editores inscritos
       durante as datas de começo e fim
     edited: Artigos editados
+    edited_by: 'Editado por:'
     edited_mobile: Artigos
+    hide: Ocultar
     label: Artigos
     loading: Carregando artigos...
     new: (novo)
@@ -109,6 +114,7 @@ pt-br:
     view: Ver artigo
     view_all: Ver tudo
     view_doc: A soma de todas visualizações de cada artigo durante o prazo do curso
+    view_on_wiki: Ver na wiki
     views_added: '%{count} novas visualizações para %{title}'
   assignments:
     already_exists: Essa atribuição já existe!
@@ -133,6 +139,8 @@ pt-br:
     milestones:
       title: Marco
   campaign:
+    campaign: Campanha
+    campaigns: Campanhas
     none: Nenhum
   courses:
     activity: Atividade

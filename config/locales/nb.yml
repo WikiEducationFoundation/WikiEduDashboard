@@ -75,6 +75,7 @@ nb:
     edited: Artikler redigert
     edited_by: 'Redigert av:'
     edited_mobile: Artikler
+    hide: Skjul
     label: Artikler
     loading: Laster artikler...
     new: (ny)
@@ -94,12 +95,15 @@ nb:
       stub: Stubb-klasse – en veldig kort artikkel som trenger mer innhold
       list: Liste-klasse – en liste heller enn en vanlig artikkel
       '?': Urangert – en artikkel som ennå ikke har fått en rating på Wikipedias kvalitetsskala
+      does_not_exist: Denne artikkelen finnes ikke på Wikipedia
     show_cumulative_changes: Vis kumulative endringer
+    show_current_version: Vis nåværende versjon
     title: Tittel
     title_example: Artikkeltittel
     view: Vis artikkel
     view_all: Vis alle
     view_doc: Summen av alle artikkelvisninger i løpet av prosjektet
+    view_on_wiki: Vis på wikien
     views_added: La til %{count} nye visninger for %{title}
     wp10: Strukturell fullstendighet
     wp10_doc: Skåren for «Strukturell fullstendighet» representerer hvor nært artikkelen
@@ -111,6 +115,7 @@ nb:
       men tar ikke hensyn til selve innholdet. (Disse skårene er kun tilgjengelige
       for artikler på Wikipedia på engelsk.)
   assignments:
+    article: Artikkelen %{title} ble tildelt
     already_exists: Denne tildelingen finnes fra før!
     assignees: Tildelt til
     assign_other: Tildel en artikkel
@@ -133,8 +138,13 @@ nb:
     milestones:
       title: Milepæler
   campaign:
+    active_campaigns: Aktive kampanjer
     add_organizer: Legg til arrangør
+    all_campaigns: Alle kampanjer
+    already_exists: Den kampanjen finnes allerede! Prøv igjen med en annen tittel
+      eller «slug».
     campaign: Kampanje
+    campaigns: Kampanjer
     campaign_deleted: Kampanjen «%{title}» har blitt slettet
     campaign_not_updated: Kampanjen kunne ikke oppdateres
     campaign_updated: Kampanje oppdatert
@@ -142,6 +152,13 @@ nb:
       Hvis du er sikker, skriv inn kampanjens tittel for å fortsette.
     confirm_campaign_deletion_failed: «%{title}» er ikke denne kampanjens tittel.
       Kampanjen har ikke blitt slettet.
+    confirm_course_removal: Er du sikker på at du vil fjerne «%{title}» fra kampanjen
+      «%{campaign_title}»?
+    course_already_removed: «%{title}» har allerede blitt fjernet fra kampanjen «%{campaign_title}»
+    course_removed: «%{title}» har blitt fjernet fra kampanjen «%{campaign_title}»
+    create_campaign: Opprett en ny kampanje
+    create_my_campaign: Opprett kampanjen min!
+    description: Beskrivelse
     delete_campaign: Slett denne kampanjen
     none: Ingen
     organizers: Arrangører
@@ -151,6 +168,7 @@ nb:
     use_start_end_dates: Bruk start- og sluttdatoer
   courses:
     activity: Aktivitet
+    all_courses: Alle kurs
     already_enrolled: Du er allerede del av «%{title}»!
     already_exists: Dette finnes allerede for dette kurset!
     archived: Arkiverte kurs

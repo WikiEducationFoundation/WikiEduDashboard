@@ -138,6 +138,7 @@ bn:
     edit_count_description: মোট সম্পাদনা
     per_user: '%{number}/ব্যবহারকারী'
     revisions: সাম্প্রতিক সম্পাদনাসমূহ
+    tags: ট্যাগসমূহ
     word_count: যুক্ত শব্দসমূহ
     word_count_average: গড় শব্দ গণনা
   namespace:
@@ -175,6 +176,7 @@ bn:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
     contributions_history_full: উইকিপিডিয়ায় অবদানের পূর্ণ ইতিহাস দেখুন
+    contribution_statistics: অবদানের পরিসংখ্যান
     editors: সম্পাদকগণ
     first_name: প্রথম নাম
     last_name: শেষ নাম

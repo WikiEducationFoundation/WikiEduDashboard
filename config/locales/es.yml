@@ -12,6 +12,7 @@
 # Author: Lemondoge
 # Author: Macofe
 # Author: Themasterriot
+# Author: Tusca
 # Author: Yllelder
 # Author: YoViajo
 ---
@@ -286,6 +287,10 @@ es:
     join_course: Únete al curso
     join_prompt: ¿Unirse a '%{title}'?
     join_successful: Te has unido con éxito a %{title}.
+    join_failed: Falló la inscripción.
+    join_failure_details:
+      cannot_join_twice: Los usuarios no pueden ingresar dos veces al mismo curso.
+      not_yet_approved: Este curso no ha sido aprobado para la inscripción.
     leave_confirmation: ¿Estás seguro de que quieres dejar este curso?
     leave_course: Deja el curso
     loading: Cargando…

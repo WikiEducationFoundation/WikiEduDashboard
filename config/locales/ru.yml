@@ -185,6 +185,8 @@ ru:
       other: Инструкторы
     instructors: Инструкторы
     join: Присоединиться
+    join_failure_details:
+      not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
     my_articles: Мои статьи
     new_week: Добавить новую неделю

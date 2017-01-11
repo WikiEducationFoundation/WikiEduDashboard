@@ -7,6 +7,7 @@
 # Author: IKhitron
 # Author: LaG roiL
 # Author: Macofe
+# Author: Mikey641
 # Author: MojoMann
 # Author: Or
 # Author: המקיסט
@@ -40,6 +41,7 @@ he:
     training: הדרכה
     change: שינוי
     details: פרטים
+    confirm: אישור
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.
@@ -76,7 +78,9 @@ he:
     character_doc: 'סך התווים שנוספו לערכים על־ידי עורכים הרשומים לתוכנית בין תאריכי
       ההתחלה והסיום:'
     edited: ערכים שנערכו
+    edited_by: 'נערך על־ידי:'
     edited_mobile: ערכים
+    hide: הסתרה
     label: ערכים
     loading: טעינת ערכים...
     new: (חדש)
@@ -103,11 +107,13 @@ he:
       '?': לא מדורג – ערך שעדיין לא דורג בסולם האיכות של ויקיפדיה
       does_not_exist: הערך אינו קיים בוויקיפדיה
     show_cumulative_changes: הצגת שינויים מצטברים
+    show_current_version: הצג גרסה נוכחית
     title: כותרת \ שם
     title_example: שם הערך
     view: הצגת הערך
     view_all: הצג הכל
     view_doc: סך מספר הצפיות בכל ערך במהלך התוכנית
+    view_on_wiki: הצג בוויקי
     views_added: נוספו %{count} צפיות חדשות לדף %{title}
     wp10: שלמות מבנית
     wp10_doc: "הציון עבור \"שלמות מבנית\" מייצג עד כמה הערך מתאים לתבנית של ערך ויקיפדיה

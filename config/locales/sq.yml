@@ -292,7 +292,7 @@ sq:
     students_short: Studentët
     submitted_admin: Kjo lëndë është dorëzuar për miratim nga krijuesi i saj. Për
       ta miratuar atë, shtoni atë në një fushatë në faqen Vështrim.
-    submitted_and_pending_heading: Të Paraqitura dhe në Pritje të Miratimit
+    submitted_and_pending_heading: Miratimet e Dorëzuara dhe në Pritje
     submitted_heading: Lëndët e Dorëzuara
     submitted_note: Kursi juaj është dorëzuar. Stafi i Wiki Ed do të shqyrtojë atë
       dhe do t'ju kontaktoj me ndonjë pyetje.
@@ -430,6 +430,8 @@ sq:
     image: Imazhe
     file_name: Emri i Skedarit
     no_edits: Nuk ka redaktime së fundi.
+    plagiarism_report: Raport i Plagjiaturave
+    possible_plagiarism: Mund të jetë Plagjiaturë
     recent_edits: Redaktimet së fundi
     recent_uploads: Ngarkimet e Fundit
     revision_author: Autori i Ndryshimeve
@@ -595,6 +597,11 @@ sq:
       campus_volunteer: Vullnetar i shkollës
       online_volunteer: Vullnetar Online
       wiki_ed_staff: Stafi Wiki Ed
+  wiki_edits:
+    notify_overdue:
+      confirm: Kjo do të postoj një përkujtues në faqen e diskutimit të të gjithë
+        studentëve të cilët janë vonuar në trajnim. A jeni i sigurt se dëshironi të
+        bëni këtë?
   wizard:
     assignment_description: Zgjidhni datën e fillimit dhe fundit për kohën e zhvillimit
       të detyrës. Për shembull, nëse doni të filloni projektin tuaj në Wikipedia javën

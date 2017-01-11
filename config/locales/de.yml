@@ -287,6 +287,10 @@ de:
     join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
     join_successful: Du bist %{title} erfolgreich beigetreten.
+    join_failed: Einschreiben fehlgeschlagen.
+    join_failure_details:
+      cannot_join_twice: Benutzer können sich nicht zweimal in den gleichen Kurs einschreiben.
+      not_yet_approved: Dieser Kurs wurde noch nicht zur Einschreibung freigegeben.
     join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
       erhalten hast, kontaktiere deinen Kursleiter.
