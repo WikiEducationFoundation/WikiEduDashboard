@@ -23,6 +23,7 @@ ko:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
     error: '오류가 있었습니다:'
+    explore: 찾아보기
     field_required: 이 칸은 반드시 입력해야 합니다
     field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
     field_invalid_date: 이 필드에는 YYYY-MM-DD 형식의 날짜가 필요합니다.
@@ -41,6 +42,7 @@ ko:
     sign_up_log_in_extended: 위키백과와 함께합니다
     sign_up: 가입하기
     submit: 보내기
+    training: 교육 중
     change: 수정
     details: 자세한 사항
     confirm: 확인
@@ -136,6 +138,7 @@ ko:
       course_project: 주 프로젝트
       course_term_placeholder: 학기
       end_date: 종료일
+      end_date_placeholder: 종료 날짜 (YYYY-MM-DD)
       no_class_holidays: 휴강이 없습니다
       save_cloned_course: 새 코스 저장
       start_date: 시작일
@@ -196,6 +199,7 @@ ko:
     survey:
       link: 설문 조사 참가
   courses_generic:
+    archived: 보존된 프로그램
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
@@ -209,6 +213,7 @@ ko:
       create_new: 새로운 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
+    delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가
     enrollment: 참여
@@ -324,6 +329,7 @@ ko:
     last_name: 성
     loading: 사용자를 불러오는 중...
     characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
+    my_reviewing: '검토 중:'
     name: 이름
     none: 참여자가 없습니다.
     no_articles: 문서 없음
@@ -334,6 +340,7 @@ ko:
     remove_confirmation: '%{username}님을 제거하겠습니까?'
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
+    reviewing: 검토 중
     training_module_status: 상태
     username: 사용자 이름
     username_placeholder: 사용자 이름
@@ -354,6 +361,7 @@ ko:
     minimum_options:
       one: '%{count}개 이상의 옵션을 선택해 주십시오.'
       other: '%{count}개 이상의 옵션을 선택해 주십시오.'
+    read_less: 덜 보기
     read_more: 더 보기
     summary: 요약
   error:
@@ -373,6 +381,7 @@ ko:
   error_404:
     header: 페이지를 찾을 수 없습니다. :-(
   error_422:
+    header: 422 — 처리할 수 없는 엔티티. :-(
     explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
   error_500:
     header: 500 — 내부 서버 오류.  :-(
