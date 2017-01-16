@@ -1,4 +1,4 @@
-- content_for :before_title, "#{@campaign.title} Programs — "
+- content_for :before_title, t("#{Features.default_course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
 
 = render 'nav'
 
