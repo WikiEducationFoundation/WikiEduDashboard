@@ -69,6 +69,7 @@ const routes = (
     <Route path="courses">
       <Route path=":course_school/:course_title" component={Course}>
         <IndexRoute component={OverviewHandler} />
+        <Route path="home" component={OverviewHandler} />
         <Route path="overview" component={OverviewHandler} />
         <Route path="timeline" component={TimelineHandler}>
           <Route path="wizard" component={Wizard} />
