@@ -121,6 +121,10 @@
 
 6. To set up test users and data, see [User Roles](user_roles.md)
 
+## Design
+
+The living style guide illustrates many of the design building blocks of the dashboard, which you can use for creating new features: http://localhost:3000/styleguide
+
 ## Maintain
 
 The Dashboard includes several rake tasks intended to keep the database synced with Wikipedia:
