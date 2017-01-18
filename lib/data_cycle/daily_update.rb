@@ -34,7 +34,12 @@ class DailyUpdate
     update_article_views unless ENV['no_views'] == 'true'
     update_commons_uploads
     log_end_of_update 'Daily update finished.'
+  # rubocop:disable Lint/RescueException
+  rescue Exception => e
+    log_end_of_update 'Daily update failed.'
+    raise e
   end
+  # rubocop:enable Lint/RescueException
 
   ###############
   # Data import #
