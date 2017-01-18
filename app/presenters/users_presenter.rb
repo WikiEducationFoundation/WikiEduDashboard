@@ -8,7 +8,7 @@ class UsersPresenter
   end
 
   def individual_courses
-    @user.courses.where('courses_users.role = 0')
+    @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::STUDENT_ROLE)
   end
 
   def course_string_prefix
@@ -36,11 +36,11 @@ class UsersPresenter
   end
 
   def individual_article_count
-    article_ids = 0
+    article_ids = []
     individual_courses.each do |c|
-      article_ids += c.all_revisions.where(user_id: @user.id).pluck(:article_id).uniq.count
+      article_ids += c.all_revisions.where(user_id: @user.id).pluck(:article_id).uniq
     end
-    article_ids
+    article_ids.uniq.count
   end
 
   def individual_article_views
@@ -48,17 +48,18 @@ class UsersPresenter
     individual_courses.each do |c|
       individual_articles = c.articles
       individual_articles.each do |a|
-        article_views += a.revisions.where(user_id: @user.id).order('date ASC').first.views
+        earliest_revision = a.revisions.where(user_id: @user.id).order('date ASC').first
+        article_views += earliest_revision.views if earliest_revision.present?
       end
     end
     article_views
   end
 
   def individual_articles_created
-    articles_created = 0
+    new_article_count = 0
     individual_courses.each do |c|
-      articles_created += c.all_revisions.where(user_id: @user.id).where(new_article: true).count
+      new_article_count += c.all_revisions.where(user_id: @user.id).where(new_article: true).count
     end
-    articles_created
+    new_article_count
   end
 end
