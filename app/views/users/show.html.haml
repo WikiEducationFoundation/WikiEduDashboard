@@ -2,11 +2,12 @@
   = render 'users/profile_nav'
 
 #profile
-  %h3
-    User: #{@user.username}
-  - if current_user == @user || current_user&.admin?
-    %h5
-      &#x2709; #{@user.email}
+  .container
+    %h3
+      User: #{@user.username}
+    - if current_user == @user || current_user&.admin?
+      %h5
+        &#x2709; #{@user.email}
 
 .container
   #statistics
