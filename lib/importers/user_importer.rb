@@ -31,6 +31,8 @@ class UserImporter
     username = String.new(username)
     # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
     username[0] = username[0].mb_chars.capitalize.to_s
+    # Replace underlines with whitespace
+    username.gsub!(/_/, ' ')
     # Remove any leading or trailing whitespace that snuck through.
     username.strip!
     user = User.find_by(username: username)

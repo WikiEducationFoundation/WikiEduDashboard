@@ -50,6 +50,15 @@ describe UserImporter do
       end
     end
 
+    it 'replaces underlines with whitespace in username' do
+      VCR.use_cassette 'user/new_from_username' do
+        username = 'Rob_(Wiki Ed)'
+        user = UserImporter.new_from_username(username)
+        expect(user).to be_a(User)
+        expect(user.username).to eq('Rob (Wiki Ed)')
+      end
+    end
+
     it 'creates an new user who has no account on the default wiki' do
       VCR.use_cassette 'user/new_from_username_nondefault_wiki' do
         # This test assumes User:마티즈 has not been created on en.wiki:
