@@ -227,8 +227,8 @@ const Course = React.createClass({
       );
     }
 
-    let overviewLinkClassName;
-    if (this._onCourseIndex()) { overviewLinkClassName = 'active'; }
+    let homeLinkClassName;
+    if (this._onCourseIndex()) { homeLinkClassName = 'active'; }
     const homeLink = `${this._courseLinkParams()}/home`;
     const studentsLink = `${this._courseLinkParams()}/students`;
     const articlesLink = `${this._courseLinkParams()}/articles`;
@@ -243,7 +243,7 @@ const Course = React.createClass({
               {courseLink}
               <nav>
                 <div className="nav__item" id="overview-link">
-                  <p><Link to={homeLink} className={overviewLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
+                  <p><Link to={homeLink} className={homeLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
                 </div>
                 {timeline}
                 <div className="nav__item" id="students-link">
