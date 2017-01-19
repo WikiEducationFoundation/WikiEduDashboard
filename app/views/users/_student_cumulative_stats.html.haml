@@ -2,27 +2,27 @@
   = t("users.contribution_statistics")
 %br/
 %h5
-  = t("users.user_impact", username: @user.username)
-
-.stat-display
-  .stat-display__stat
-    .stat-display__value= presenter.individual_courses.count
-    %small= t("#{presenter.course_string_prefix}.courses_enrolled")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.individual_word_count
-    %small= t("metrics.word_count")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.individual_article_views
-    %small= t("metrics.view_count_description")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.individual_article_count
-    %small= t("metrics.articles_edited")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.individual_articles_created
-    %small= t("metrics.articles_created")
-  .stat-display__stat.tooltip-trigger
-    .stat-display__value= number_to_human presenter.individual_upload_count
-    %small= t("metrics.upload_count")
-    .tooltip.dark
-      %h4= number_to_human presenter.individual_upload_usage_count
-      %p= t("metrics.upload_usages_count", count: presenter.individual_upload_usage_count)
+  = t("users.student_impact", username: @user.username)
+.user_stats
+  .stat-display
+    .stat-display__stat
+      .stat-display__value= presenter.individual_courses.count
+      %small= t("#{presenter.course_string_prefix}.courses_enrolled")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.individual_word_count
+      %small= t("metrics.word_count")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.individual_article_views
+      %small= t("metrics.view_count_description")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.individual_article_count
+      %small= t("metrics.articles_edited")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.individual_articles_created
+      %small= t("metrics.articles_created")
+    .stat-display__stat.tooltip-trigger
+      .stat-display__value= number_to_human presenter.individual_upload_count
+      %small= t("metrics.upload_count")
+      .tooltip.dark
+        %h4= number_to_human presenter.individual_upload_usage_count
+        %p= t("metrics.upload_usages_count", count: presenter.individual_upload_usage_count)
