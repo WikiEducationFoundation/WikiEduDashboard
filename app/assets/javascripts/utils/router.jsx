@@ -69,6 +69,8 @@ const routes = (
     <Route path="courses">
       <Route path=":course_school/:course_title" component={Course}>
         <IndexRoute component={OverviewHandler} />
+        <Route path="home" component={OverviewHandler} />
+        {/* The overview route path should not be removed in order to preserve the default url */}
         <Route path="overview" component={OverviewHandler} />
         <Route path="timeline" component={TimelineHandler}>
           <Route path="wizard" component={Wizard} />

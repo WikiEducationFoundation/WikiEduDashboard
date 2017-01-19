@@ -334,7 +334,7 @@ en:
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
-    overview: Overview
+    overview: Home
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"

@@ -150,7 +150,7 @@ describe 'the course page', type: :feature, js: true do
       expect(page.find('.sidebar')).to have_content endf
 
       # Links
-      link = "/courses/#{slug}/overview"
+      link = "/courses/#{slug}/home"
       expect(page.has_link?('', href: link)).to be true
 
       link = "/courses/#{slug}/timeline"
