@@ -124,7 +124,7 @@ pt-br:
     assign_self: Atribuir um artigo a mim mesmo
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
-    confirm_deletion: Você tem certeza que deseja excluir esta atribuição ?
+    confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
     label: Atribuir
     loading: Carregando atribuições...
     none_short: Nenhum artigo atribuído
@@ -260,7 +260,7 @@ pt-br:
     overview: Visão geral
     passcode: Código de acesso
     passcode_none: Sem senha
-    passcode_prompt: Entre com a senha dada por seu professor para este curso
+    passcode_prompt: 'Digite a senha para entrar:'
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
     review_timeline: Por favor, reveja esta linha do tempo e faça alterações. Quando
@@ -451,7 +451,7 @@ pt-br:
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
-    empty_week_4: começar com uma tarefa pré-fabricada
+    empty_week_4: utilizar assistente para criar uma linha do tempo.
     first_week_title: Primeira Semana Ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
@@ -460,7 +460,7 @@ pt-br:
     move_block_up: Mover bloco para cima
     no_class_holidays: Não há férias
     no_timeline: Este curso não tem cronograma.
-    no_activity_this_week: Não há atividade neste semana
+    no_activity_this_week: Não há reuniões agendadas esta semana
     nothing_this_week: Não há nada agendado para esta semana.
     save_all_changes: Salvar Tudo
     this_week_title_default: Esta Semana
@@ -570,7 +570,9 @@ pt-br:
     min_weeks: Esta tarefa requer pelo menos %{min_weeks} semanas disponíveis. Por
       favor ajuste as datas de início e fim da tarefa se quiser usar esse tipo de
       tarefa.
-    minimum_options: Por favor, selecione ao menos %{minimum} opção/opções.
+    minimum_options:
+      one: Por favor selecione %{count} ou mais opções.
+      other: Por favor selecione %{count} ou mais opções.
     read_less: Ler menos
     read_more: Ler mais
     review_selections: Por favor, revise suas opções abaixo. Clique para editar uma

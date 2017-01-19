@@ -38,6 +38,11 @@ sq:
     confirm: Në rregull
   dashboard:
     create_note: Shtyp në Krijo Kurs për të krijuar kursin tuaj të parë.
+    create_preparation_note: Sigurohu që të keni kalendarin tuaj afër para se të filloni;
+      mjeti i projektimit të detyrave do të përdorë datat e takimit të klasës tuaj
+      — duke përfshirë çdo pushim dhe festë — të përshtat afatin tuaj kohor në datat
+      që ju zgjidhni. Mos harroni se ju gjithmonë mund të redaktoni afatet për të
+      përshtatur nevojat tuaja.
     explore_course_pages: Eksploroni faqet e kursit
     explore_examples: Eksploroni Shembujt
     join_note: Pasi të keni marrë një kod kalimi nga instruktori juaj, klikoni mbi
@@ -260,6 +265,7 @@ sq:
     join_course: Bëhu pjesë e lëndës
     join_prompt: Bashkohu '%{title}'?
     join_successful: Jeni bërë pjesë e lëndës %{title}.
+    join_failed: Regjistrimi dështoi.
     join_details: Për t'u bashkuar me këtë lëndë, ju duhet të merrni një kod -- apo
       një lidhje regjistrimi që përfshinë kodin e hyrjes — nga instruktori. Nëse nuk
       e keni marrë këtë, kontaktoni instruktorin tuaj.
@@ -413,7 +419,7 @@ sq:
     upload_usages_count:
       one: përdorimi i përgjithshëm nëpër gjuhë
       other: gjithsej përdorime nëpër gjuhë
-    view_count_description: Leximet e Artikullit
+    view_count_description: Lexime të artikujve
     view: Shikime
     word_count: Fjalët e Shtuara
     word_count_average: Numri Mesatar i Fjalëve
