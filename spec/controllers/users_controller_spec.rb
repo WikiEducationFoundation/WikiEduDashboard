@@ -178,8 +178,7 @@ describe UsersController do
       let(:user) { create(:user) }
       let!(:courses_user) do
         create(:courses_user, course_id: course.id,
-                              user_id: user.id,
-                              role: CoursesUsers::Roles::STUDENT_ROLE)
+                              user_id: user.id)
       end
       it 'lists the course' do
         get :show, params: { username: user.username }
@@ -213,6 +212,64 @@ describe UsersController do
         allow(controller).to receive(:current_user).and_return(unauthorised_user)
         get :show, params: { username: user.username }
         expect(response.body).not_to have_content user.email
+      end
+    end
+
+    context 'when user is an instructor' do
+      let(:course) { create(:course) }
+      let(:user) { create(:user) }
+      let!(:courses_user) do
+        create(:courses_user, course_id: course.id,
+                              user_id: user.id,
+                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+      it 'displays the profile navbar' do
+        get :show, params: { username: user.username }
+        expect(response).to render_template(partial: '_profile_nav')
+      end
+      it 'displays instructor cumulative statistics' do
+        get :show, params: { username: user.username }
+        expect(response).to render_template(partial: '_instructor_cumulative_stats')
+      end
+    end
+
+    context 'when user is a student' do
+      let(:course) { create(:course) }
+      let(:user) { create(:user) }
+      let!(:courses_user) do
+        create(:courses_user, course_id: course.id,
+                              user_id: user.id,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+      it 'displays the profile navbar' do
+        get :show, params: { username: user.username }
+        expect(response).to render_template(partial: '_profile_nav')
+      end
+      it 'displays student cumulative statistics' do
+        get :show, params: { username: user.username }
+        expect(response).to render_template(partial: '_student_cumulative_stats')
+      end
+    end
+
+    context 'when user is neither a student nor an instructor' do
+      let(:course) { create(:course) }
+      let(:user) { create(:user) }
+      let!(:courses_user) do
+        create(:courses_user, course_id: course.id,
+                              user_id: user.id,
+                              role: CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE)
+      end
+      it 'does not display the profile navbar' do
+        get :show, params: { username: user.username }
+        expect(response).not_to render_template(partial: '_profile_nav')
+      end
+      it 'does not display student cumulative statistics' do
+        get :show, params: { username: user.username }
+        expect(response).not_to render_template(partial: '_student_cumulative_stats')
+      end
+      it 'does not display instructor cumulative statistics' do
+        get :show, params: { username: user.username }
+        expect(response).not_to render_template(partial: '_instructor_cumulative_stats')
       end
     end
   end
