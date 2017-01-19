@@ -58,7 +58,7 @@ class ModifiedRevisionsManager
       ArticleImporter.new(@wiki).import_articles([mw_page_id])
     end
 
-    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id)
+    article = Article.find_by(wiki_id: @wiki.id, mw_page_id: mw_page_id, deleted: false)
 
     # Don't update the revision to point to a new article if there isn't one.
     # This may happen if the article gets moved and then deleted, and there's
