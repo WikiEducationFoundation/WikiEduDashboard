@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/word_count"
 
-#= Presenter for users view
+# Presenter to provide statistics about a user's individual contributions during courses in which the user was a student.
 class IndividualStatisticsPresenter
   def initialize(user:)
     @user = user

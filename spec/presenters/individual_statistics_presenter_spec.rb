@@ -3,14 +3,14 @@ require 'rails_helper'
 require_relative '../../app/presenters/individual_statistics_presenter'
 
 describe IndividualStatisticsPresenter do
-  describe 'articles view count ' do
+  describe 'individual_article_views' do
     let(:course1) { create(:course) }
     let(:course2) { create(:course) }
     let(:user) { create(:user) }
     let(:article) { create(:article) }
     subject { described_class.new(user: user) }
 
-    context 'Select unique articles' do
+    context 'when a user is in two courses that overlap' do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)
@@ -25,7 +25,7 @@ describe IndividualStatisticsPresenter do
       end
     end
 
-    context 'Select revisions made during the course' do
+    context 'when there are revisions made before the course started ' do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)
