@@ -74,8 +74,9 @@
   - `sudo npm install -g gulp-cli`
 
 ## Initialize
-1. **Migrate the database**
+1. **Migrate the development and test databases**
       $ `rake db:migrate`
+      $ `rake db:migrate RAILS_ENV=test`
 
 2. **Create the campaigns specified in `application.yml`**
       $ `rake campaign:add_campaigns`
