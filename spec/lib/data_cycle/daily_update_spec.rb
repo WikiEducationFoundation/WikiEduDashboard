@@ -19,6 +19,13 @@ describe DailyUpdate do
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Updating Commons uploads/).any?).to eq(true)
     end
+
+    it 'reports logs to sentry even when it errors out' do
+      allow(Raven).to receive(:capture_message)
+      allow(UploadImporter).to receive(:find_deleted_files).and_raise(StandardError)
+      expect { DailyUpdate.new }.to raise_error(StandardError)
+      expect(Raven).to have_received(:capture_message)
+    end
   end
 
   describe '#wait_until_constant_update_finishes' do

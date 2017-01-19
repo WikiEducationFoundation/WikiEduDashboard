@@ -18,8 +18,9 @@ describe Replica do
 
         # This count represents the number of pages in a subset of namespaces
         # edited by the users, not the number of revisions. Revisions are child
-        # elements of the page ids.
-        expect(response.count).to eq(223)
+        # elements of the page ids. Value may change slightly if old revisions
+        # get deleted on Wikipedia.
+        expect(response.count).to eq(222)
 
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_05_05

@@ -8,6 +8,7 @@
 # Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: Reke
+# Author: S8321414
 # Author: Shangkuanlc
 # Author: Wehwei
 ---
@@ -58,7 +59,7 @@ zh-TW:
   home:
     explore: 探索
     log_in: 登入至維基百科
-    sign_up: 登入至維基百科
+    sign_up: 註冊維基百科
     sign_up_help: 要使用資訊看板，您需要使用維基百科帳號登入，並允許資訊看板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。
   activity:
     all: 活動
@@ -227,7 +228,7 @@ zh-TW:
     edit_course_dates: 編輯課程日期
     end: 結束
     enroll: 報名
-    enrollment: 報名
+    enrollment: 登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
       user_exists: 抱歉，%{username} 並非存在的使用者。
@@ -245,6 +246,10 @@ zh-TW:
     join_course: 加入課程
     join_prompt: 加入'%{title}'嗎？
     join_successful: 您已成功加入 %{title}。
+    join_failed: 登記失敗。
+    join_failure_details:
+      cannot_join_twice: 用戶不可加入同一課程兩次。
+      not_yet_approved: 此課程尚未批准開放登記。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
     leave_confirmation: 您確定要離開這個課程嗎？
     leave_course: 離開課程

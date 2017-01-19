@@ -30,15 +30,35 @@ class DailyUpdate
 
   def run_update
     log_start_of_update
+    update_commons_uploads
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
-    update_commons_uploads
     log_end_of_update 'Daily update finished.'
+  # rubocop:disable Lint/RescueException
+  rescue Exception => e
+    log_end_of_update 'Daily update failed.'
+    raise e
   end
+  # rubocop:enable Lint/RescueException
 
   ###############
   # Data import #
   ###############
+
+  def update_commons_uploads
+    log_message 'Identifying deleted Commons uploads'
+    UploadImporter.find_deleted_files(CommonsUpload.where(deleted: false))
+
+    log_message 'Updating Commons uploads for current students'
+    UploadImporter.import_all_uploads(User.current.role('student'))
+
+    log_message 'Updating Commons uploads usage counts'
+    UploadImporter.update_usage_count_by_course(Course.all)
+
+    log_message 'Getting thumbnail urls for Commons uploads'
+    thumbless_uploads = CommonsUpload.where(thumburl: nil, deleted: false)
+    UploadImporter.import_urls_in_batches(thumbless_uploads)
+  end
 
   def update_article_data
     log_message 'Finding articles that match assignment titles'
@@ -57,21 +77,6 @@ class DailyUpdate
   def update_article_views
     log_message 'Updating article views'
     ViewImporter.update_all_views(true)
-  end
-
-  def update_commons_uploads
-    log_message 'Identifying deleted Commons uploads'
-    UploadImporter.find_deleted_files(CommonsUpload.where(deleted: false))
-
-    log_message 'Updating Commons uploads for current students'
-    UploadImporter.import_all_uploads(User.current.role('student'))
-
-    log_message 'Updating Commons uploads usage counts'
-    UploadImporter.update_usage_count_by_course(Course.all)
-
-    log_message 'Getting thumbnail urls for Commons uploads'
-    thumbless_uploads = CommonsUpload.where(thumburl: nil, deleted: false)
-    UploadImporter.import_urls_in_batches(thumbless_uploads)
   end
 
   #################################

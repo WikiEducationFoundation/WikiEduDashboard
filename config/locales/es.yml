@@ -582,6 +582,7 @@ es:
     contributions: Contribuciones del usuario
     contributions_history_full: Ver el historial completo de contribuciones a Wikipedia
     contributions_more: Ver más contribuciones
+    contribution_statistics: Estadísticas de contribuciones
     course_passcode: 'Código de acceso:'
     editors: Editores estudiantiles
     enroll_confirmation: ¿Estás seguro que deseas añadir a %{username}?

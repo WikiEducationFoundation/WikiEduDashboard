@@ -75,6 +75,7 @@ describe User do
       role = user.role(course)
       expect(role).to eq(0)
       expect(user.student?(course)).to eq(true)
+      expect(user.course_student?).to eq(true)
       expect(user.instructor?(course)).to eq(false)
 
       # Now let's make this user also an instructor.
@@ -83,6 +84,7 @@ describe User do
              user_id: 1,
              role: 1) # instructor
       expect(user.instructor?(course)).to eq(true)
+      expect(user.course_instructor?).to eq(true)
 
       # User is only an instructor, not an admin.
       adminship = user.roles(course)[:admin]

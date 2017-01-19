@@ -4,6 +4,28 @@
 # Author: McDutchie
 ---
 ia:
+  accessibility:
+    number_field: Isto es un campo de numero. Le buttones generate sur le major parte
+      de navigatores incrementa e decrementa le entrata.
   application:
+    cancel: Cancellar
+    error: 'Un error ha occurrite:'
+    explore: Explorar
+    field_required: Iste campo es obligatori
+    field_invalid_characters: Iste campo ha characteres invalide
+    field_invalid_date: Iste campo require un data in formato AAAA-MM-DD
+    greeting2: Benvenite!
+    greeting_extended: Benvenite a Wikipedia
+    greeting: Salute!
+    help: Adjuta
+    home: Initio
+    log_in_extended: Aperir session con Wikipedia
+    log_in: Aperir session
+    log_out: Clauder session
+    my_dashboard: Mi pannello
+    recent_activity: Activitate recente
+    search: poner un question
+    sign_up_extended: Inscriber te con Wikipedia
+    sign_up_log_in_extended: con Wikipedia
     change: Cambiar
 ...
