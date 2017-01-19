@@ -142,12 +142,12 @@ const Course = React.createClass({
           )
           );
         } else {
-          const overviewLink = `${this._courseLinkParams()}/overview`;
+          const homeLink = `${this._courseLinkParams()}/home`;
           alerts.push((
             <div className="notification" key="publish">
               <div className="container">
                 <p>{I18n.t('courses.submitted_admin')}</p>
-                <CourseLink to={overviewLink} className="button">{I18n.t('courses.overview')}</CourseLink>
+                <CourseLink to={homeLink} className="button">{I18n.t('courses.overview')}</CourseLink>
               </div>
             </div>
           )
@@ -229,7 +229,7 @@ const Course = React.createClass({
 
     let overviewLinkClassName;
     if (this._onCourseIndex()) { overviewLinkClassName = 'active'; }
-    const overviewLink = `${this._courseLinkParams()}/overview`;
+    const homeLink = `${this._courseLinkParams()}/home`;
     const studentsLink = `${this._courseLinkParams()}/students`;
     const articlesLink = `${this._courseLinkParams()}/articles`;
     const uploadsLink = `${this._courseLinkParams()}/uploads`;
@@ -243,7 +243,7 @@ const Course = React.createClass({
               {courseLink}
               <nav>
                 <div className="nav__item" id="overview-link">
-                  <p><Link to={overviewLink} className={overviewLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
+                  <p><Link to={homeLink} className={overviewLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
                 </div>
                 {timeline}
                 <div className="nav__item" id="students-link">
