@@ -30,6 +30,8 @@ import TrainingApp from '../training/components/training_app.jsx';
 import TrainingModuleHandler from '../training/components/training_module_handler.jsx';
 import TrainingSlideHandler from '../training/components/training_slide_handler.jsx';
 
+import RocketChat from '../components/common/rocket_chat.jsx';
+
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
   setTimeout(() => {
@@ -80,6 +82,7 @@ const routes = (
         <Route path="students" component={StudentsHandler} />
         <Route path="articles" component={ArticlesHandler} />
         <Route path="uploads" component={UploadsHandler} />
+        <Route path="chat" component={RocketChat} />
       </Route>
     </Route>
     <Route path="course_creator" component={CourseCreator} />
