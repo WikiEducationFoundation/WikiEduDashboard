@@ -4,7 +4,10 @@ const RocketChat = React.createClass({
   displayName: 'RocketChat',
 
   getInitialState() {
-    return { showChat: false };
+    return {
+      showChat: false,
+      channel: '11200' // TODO: Get the course id, which is used as the channel name.
+    };
   },
 
   login() {
@@ -28,7 +31,8 @@ const RocketChat = React.createClass({
     let chatFrame;
     // TODO: Hide chat until login succeeds.
     if (this.state.showChat) {
-      chatFrame = <iframe id="chat" style={{ display: 'block', width: '100%', height: '1000px' }} src="https://dashboardchat.wmflabs.org/channel/general?layout=embedded" />;
+      const chatUrl = `https://dashboardchat.wmflabs.org/channel/${this.state.channel}?layout=embedded`;
+      chatFrame = <iframe id="chat" style={{ display: 'block', width: '100%', height: '1000px' }} src={chatUrl} />;
     }
 
     return (
