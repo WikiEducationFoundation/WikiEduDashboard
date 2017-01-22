@@ -5,12 +5,14 @@ class RocketChat
   def initialize(user: nil, course: nil)
     @user = user
     @course = course
+    # Spaces are not allowed in Rocket.Chat usernames
+    @username = user.username.tr(' ', '_')
     @admin_username = ENV['chat_admin_username']
     @admin_password = ENV['chat_admin_password']
   end
 
-  def login_token
-    # TODO
+  def login_credentials
+    get_auth_data(@username, @user.chat_password)
   end
 
   CREATE_ROOM_ENDPOINT = '/api/v1/channels.create'
@@ -21,13 +23,20 @@ class RocketChat
 
   CREATE_USER_ENDPOINT = '/api/v1/users.create'
   def create_chat_account
+    return if @user.chat_password
+    @user.chat_password = random_password
     data = {
-      username: @user.username,
+      username: @username,
       name: @user.username,
-      password: 'testing',
+      password: @user.chat_password,
+      # This field is required by Rocket.Chat, but we don't want to expose this
+      # to users or copy their emails to another database.
       email: 'dashboard@wikiedu.org'
     }
-    api_post(CREATE_USER_ENDPOINT, data, admin_auth_header)
+    response = api_post(CREATE_USER_ENDPOINT, data, admin_auth_header)
+    raise StandardError unless response.status == 200
+    # TODO: verify success better
+    @user.save
   end
 
   private
@@ -62,6 +71,12 @@ class RocketChat
     login_uri = URI("#{CHAT_SERVER}/api/v1/login")
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
+    pp response
     JSON.parse(response.body).dig('data')
+  end
+
+  RANDOM_PASSWORD_LENGTH = 12
+  def random_password
+    ('a'..'z').to_a.sample(RANDOM_PASSWORD_LENGTH).join
   end
 end
