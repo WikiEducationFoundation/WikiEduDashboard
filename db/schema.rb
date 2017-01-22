@@ -370,6 +370,7 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.boolean  "greeted",             default: false
     t.boolean  "greeter",             default: false
     t.string   "locale"
+    t.string   "chat_password"
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
