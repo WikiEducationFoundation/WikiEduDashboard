@@ -25,16 +25,11 @@ class RocketChat
   def create_chat_account
     return if @user.chat_password
     @user.chat_password = random_password
-    data = {
-      username: @username,
-      name: @user.username,
-      password: @user.chat_password,
-      # This field is required by Rocket.Chat, but we don't want to expose this
-      # to users or copy their emails to another database.
-      email: 'dashboard@wikiedu.org'
-    }
-    response = api_post(CREATE_USER_ENDPOINT, data, admin_auth_header)
-    raise StandardError unless response.status == 200
+    response = api_post(CREATE_USER_ENDPOINT, new_chat_account_data, admin_auth_header)
+    unless response.code == '200'
+      pp response.body
+      raise StandardError
+    end
     # TODO: verify success better
     @user.save
   end
@@ -67,11 +62,25 @@ class RocketChat
     }
   end
 
+  def new_chat_account_data
+    {
+      username: @username,
+      name: @user.username,
+      password: @user.chat_password,
+      # This field is required by Rocket.Chat, but we don't want to expose this
+      # to users or copy their emails to another database.
+      email: 'dashboard@wikiedu.org'
+    }
+  end
+
   def get_auth_data(username, password)
     login_uri = URI("#{CHAT_SERVER}/api/v1/login")
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
-    pp response
+    unless response.code == '200'
+      pp response.body
+      raise StandardError
+    end
     JSON.parse(response.body).dig('data')
   end
 
