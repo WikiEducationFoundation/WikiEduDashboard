@@ -32,6 +32,7 @@ class RocketChat
     end
     # TODO: verify success better
     @user.save
+    # Maybe instead: @user.update_attribute(:chat_password, @user.chat_password)
   end
 
   private

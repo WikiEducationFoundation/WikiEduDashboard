@@ -1,17 +1,35 @@
 import React from 'react';
+import ChatActions from '../../actions/chat_actions.js';
+import ChatStore from '../../stores/chat_store.js';
 
 const RocketChat = React.createClass({
   displayName: 'RocketChat',
 
+  mixins: [ChatStore.mixin],
+
   getInitialState() {
     return {
       showChat: false,
-      channel: '11200' // TODO: Get the course id, which is used as the channel name.
+      channel: '11200', // TODO: Get the course id, which is used as the channel name.
+      authToken: ChatStore.getAuthToken()
     };
   },
 
+  componentWillMount() {
+    if (!this.state.authToken) {
+      ChatActions.requestAuthToken();
+    }
+  },
+
+  storeDidChange() {
+    this.setState({
+      authToken: ChatStore.getAuthToken(),
+      showChat: true
+    });
+  },
+
   login() {
-    this.setState({ showChat: true });
+    // this.setState({ showChat: true });
 
     // TODO:
     // If possible, start by checking if the user is already logged in to RocketChat.
@@ -21,7 +39,7 @@ const RocketChat = React.createClass({
     // On success, use that token to log in:
     document.querySelector('iframe').contentWindow.postMessage({
       externalCommand: 'login-with-token',
-      token: 'TOKEN-FROM-SERVER'
+      token: this.state.authToken
     }, '*');
     // Verify login success
     this.setState({ loggedIn: true });
@@ -37,7 +55,7 @@ const RocketChat = React.createClass({
 
     return (
       <div className="modal">
-        <button className="button dark" onClick={this.login} >Chat!</button>
+        <button className="button dark" onClick={this.login} >Login!</button>
         {chatFrame}
       </div>
     );
