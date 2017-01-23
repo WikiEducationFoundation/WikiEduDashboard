@@ -227,8 +227,9 @@ zh-TW:
     duration: 開課期間
     edit_course_dates: 編輯課程日期
     end: 結束
-    enroll: 報名
+    enroll: 登記
     enrollment: 登記
+    courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
       user_exists: 抱歉，%{username} 並非存在的使用者。
@@ -263,13 +264,13 @@ zh-TW:
     none: 空白
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
-    overview: 概述
+    overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
     passcode_prompt: 請輸入選課代碼來加入：
     published: |-
       您的課程已經發布！
-      學生可透過此 URL 參與課程：
+      學生可透過此 URL 登記課程：
     review_timeline: |-
       請再次確認您的計畫時間表並做修改。
       一旦您確認時間表無誤，請將其送出給 Wiki Ed staff 審核。
@@ -349,6 +350,7 @@ zh-TW:
     explore: 尋找方案
     enroll: 增加編輯者
     enrollment: 參與
+    courses_enrolled: 方案已參與
     expected_students: 預期編輯者
     instructors: 主持者
     join_course: 加入方案
@@ -503,7 +505,7 @@ zh-TW:
     usage_count: 使用量
     usages: 使用狀況
   users:
-    already_enrolled: 這位使用者已經報名！
+    already_enrolled: 這位使用者已經登記！
     assign_articles: 分配文章
     assign_articles_done: 完成
     assigned: 已經分配的文章
@@ -556,8 +558,9 @@ zh-TW:
     up_to_date_with_training: 最近培訓
     username: 使用者名稱
     username_placeholder: 使用者名稱
-    user_impact: 由%{username}做出的所有影響
-    student_impact: 由%{username}的學生做出的所有影響
+    student_impact: 由%{username}以學生身份做出的所有影響
+    instructor_impact: 由%{username}以導師身份做出的所有影響
+    instructors_student_impact: 由%{username}的學生做出的所有影響
     role:
       visitor: 訪客
       student: 學生
@@ -605,8 +608,8 @@ zh-TW:
   error_incorrect_passcode:
     header: 選課代碼錯誤。 :-(
     explanation: |-
-      選課代碼錯誤，無法註冊此課程。
-      請向導師索取正確選課代碼後再註冊此課程。
+      選課代碼錯誤，無法登記此課程。
+      請向導師索取正確選課代碼後再登記此課程。
   error_404:
     header: 查無頁面。:-(
     explanation: |-
@@ -621,7 +624,7 @@ zh-TW:
     explanation: 發生錯誤。請聯絡此資訊看板的維護人員，讓他們知道這個問題。
   login_error:
     header: 登入錯誤
-    explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或註冊。"
+    explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或登記。"
   survey:
     login_message: 感謝您挪出時間。請登入您的 Wiki Ed 資訊看板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不；僅會顯示訊息於瀏覽器裡。

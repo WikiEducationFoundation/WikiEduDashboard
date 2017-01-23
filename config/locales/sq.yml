@@ -594,7 +594,6 @@ sq:
     up_to_date_with_training: trajnimi i përfunduar
     username: Përdoruesi
     username_placeholder: Përdoruesi
-    user_impact: Ndikimi i përgjithshëm i bërë nga %{username}
     student_impact: Ndikimi i përgjithshëm i bërë nga studentët e %{username}
     role:
       visitor: Vizitor

@@ -280,6 +280,7 @@ fr:
     end: Fin
     enroll: S’inscrire
     enrollment: Inscription
+    courses_enrolled: Inscrit aux cours
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
         ou échéance.
@@ -320,7 +321,7 @@ fr:
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
       affectés. Êtes-vous sûr de vouloir faire cela ?
     no_available_actions: Aucune action disponible
-    overview: Vue d'ensemble
+    overview: Accueil
     passcode: Mot de passe
     passcode_none: Aucun mot de passe
     passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
@@ -416,6 +417,7 @@ fr:
     explore: Trouver des programmes
     enroll: Ajouter éditeur
     enrollment: Participation
+    courses_enrolled: Participé aux programmes
     expected_students: Éditeurs attendus
     instructors: Animateurs
     join_course: Rejoindre le programme
@@ -649,8 +651,9 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
-    user_impact: Impact Total réalisé par %{username}
-    student_impact: Impact total fait par les étudiants de %{username}
+    student_impact: Impact total fait par %{username} en tant qu’étudiant
+    instructor_impact: Impact total fait par %{username} en tant que formateur
+    instructors_student_impact: Impact total fait par les étudiants de %{username}
     role:
       visitor: Visiteur
       student: Étudiant
