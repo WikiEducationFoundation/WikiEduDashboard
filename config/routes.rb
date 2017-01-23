@@ -222,7 +222,9 @@ Rails.application.routes.draw do
   get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
 
   # Chat
-  get '/chat/login' => 'chat#login'
+  if Features.enable_chat?
+    get '/chat/login' => 'chat#login'
+  end
 
   resources :admin
   resources :alerts_list

@@ -63,4 +63,8 @@ class Features
   def self.wiki_trainings?
     ENV['enable_wiki_trainings'] == 'true'
   end
+
+  def self.enable_chat?
+    ENV['enable_chat'] == 'true'
+  end
 end

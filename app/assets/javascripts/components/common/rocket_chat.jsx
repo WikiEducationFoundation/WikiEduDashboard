@@ -5,12 +5,14 @@ import ChatStore from '../../stores/chat_store.js';
 const RocketChat = React.createClass({
   displayName: 'RocketChat',
 
+  propTypes: {
+    course: React.PropTypes.object
+  },
+
   mixins: [ChatStore.mixin],
 
   getInitialState() {
     return {
-      showChat: false,
-      channel: '11200', // TODO: Get the course id, which is used as the channel name.
       authToken: ChatStore.getAuthToken()
     };
   },
@@ -23,39 +25,30 @@ const RocketChat = React.createClass({
 
   storeDidChange() {
     this.setState({
-      authToken: ChatStore.getAuthToken(),
-      showChat: true
+      authToken: ChatStore.getAuthToken()
     });
+    this.loginOnFrameLoad();
+  },
+
+  loginOnFrameLoad() {
+    document.querySelector('iframe').onload = this.login;
   },
 
   login() {
-    // this.setState({ showChat: true });
-
-    // TODO:
-    // If possible, start by checking if the user is already logged in to RocketChat.
-    // If not, proceed with login flow.
-    // First, request auth token from dashboard server
-
-    // On success, use that token to log in:
     document.querySelector('iframe').contentWindow.postMessage({
       externalCommand: 'login-with-token',
       token: this.state.authToken
     }, '*');
-    // Verify login success
-    this.setState({ loggedIn: true });
   },
 
   render() {
-    let chatFrame;
-    // TODO: Hide chat until login succeeds.
-    if (this.state.showChat) {
-      const chatUrl = `https://dashboardchat.wmflabs.org/channel/${this.state.channel}?layout=embedded`;
-      chatFrame = <iframe id="chat" style={{ display: 'block', width: '100%', height: '1000px' }} src={chatUrl} />;
-    }
+    // Rocket.Chat appears to double-encode the channel name to produce the URI.
+    const channel = encodeURIComponent(encodeURIComponent(this.props.course.slug));
+    const chatUrl = `https://dashboardchat.wmflabs.org/channel/${channel}?layout=embedded`;
+    const chatFrame = <iframe id="chat" style={{ display: 'block', width: '100%', height: '1000px' }} src={chatUrl} />;
 
     return (
       <div className="modal">
-        <button className="button dark" onClick={this.login} >Login!</button>
         {chatFrame}
       </div>
     );

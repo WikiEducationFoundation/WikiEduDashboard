@@ -3,21 +3,23 @@ class RocketChat
   CHAT_SERVER = 'https://dashboardchat.wmflabs.org'
 
   def initialize(user: nil, course: nil)
+    raise ChatDisabledError unless Features.enable_chat?
     @user = user
     @course = course
-    # Spaces are not allowed in Rocket.Chat usernames
-    @username = user.username.tr(' ', '_')
+    # Rocket.Chat must be configured to permit all valid user/channel names.
+    @username = user.username.tr(' ', '_') if @user
     @admin_username = ENV['chat_admin_username']
     @admin_password = ENV['chat_admin_password']
   end
 
   def login_credentials
+    create_chat_account unless @user.chat_password
     get_auth_data(@username, @user.chat_password)
   end
 
   CREATE_ROOM_ENDPOINT = '/api/v1/channels.create'
-  def create_room_for_course
-    data = { name: @course.id.to_s }
+  def create_channel_for_course
+    data = { name: @course.slug }
     api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
   end
 
@@ -31,8 +33,7 @@ class RocketChat
       raise StandardError
     end
     # TODO: verify success better
-    @user.save
-    # Maybe instead: @user.update_attribute(:chat_password, @user.chat_password)
+    @user.update_attribute(:chat_password, @user.chat_password)
   end
 
   private
@@ -69,8 +70,9 @@ class RocketChat
       name: @user.username,
       password: @user.chat_password,
       # This field is required by Rocket.Chat, but we don't want to expose this
-      # to users or copy their emails to another database.
-      email: 'dashboard@wikiedu.org'
+      # to users or copy their emails to another database. Rocket.Chat requires
+      # unique emails, so we set it to their username.
+      email: @user.id.to_s + '@wikiedu.org'
     }
   end
 
@@ -89,4 +91,6 @@ class RocketChat
   def random_password
     ('a'..'z').to_a.sample(RANDOM_PASSWORD_LENGTH).join
   end
+
+  class ChatDisabledError < StandardError; end
 end
