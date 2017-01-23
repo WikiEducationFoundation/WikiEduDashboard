@@ -34,7 +34,7 @@ class TrainingLoader
   def load_from_wiki
     wiki_source_pages.each do |wiki_page|
       content = new_from_wiki_page(wiki_page)
-      next unless content.valid?
+      next unless content&.valid?
       @collection << new_from_wiki_page(wiki_page)
     end
   end
@@ -46,6 +46,7 @@ class TrainingLoader
   def new_from_wiki_page(wiki_page)
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     content = JSON.parse(wikitext)
+    return unless content # Handle wiki pages that don't exist.
     if content['wiki_page']
       content.merge! slide_hash_from_wiki_page(content['wiki_page'])
       content['translations'] = {}
