@@ -23,20 +23,17 @@ class RocketChat
     api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
   end
 
+  private
+
   CREATE_USER_ENDPOINT = '/api/v1/users.create'
   def create_chat_account
     return if @user.chat_password
     @user.chat_password = random_password
     response = api_post(CREATE_USER_ENDPOINT, new_chat_account_data, admin_auth_header)
-    unless response.code == '200'
-      pp response.body
-      raise StandardError
-    end
+    raise StandardError unless response.code == '200'
     # TODO: verify success better
     @user.update_attribute(:chat_password, @user.chat_password)
   end
-
-  private
 
   def api_post(endpoint, data, header = {})
     uri = URI.parse(CHAT_SERVER + endpoint)
@@ -80,10 +77,7 @@ class RocketChat
     login_uri = URI("#{CHAT_SERVER}/api/v1/login")
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
-    unless response.code == '200'
-      pp response.body
-      raise StandardError
-    end
+    raise StandardError unless response.code == '200'
     JSON.parse(response.body).dig('data')
   end
 
