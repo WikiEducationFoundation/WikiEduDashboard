@@ -6,19 +6,21 @@ const RocketChat = React.createClass({
   displayName: 'RocketChat',
 
   propTypes: {
-    course: React.PropTypes.object
+    course: React.PropTypes.object,
+    current_user: React.PropTypes.object
   },
 
   mixins: [ChatStore.mixin],
 
   getInitialState() {
     return {
-      authToken: ChatStore.getAuthToken()
+      authToken: ChatStore.getAuthToken(),
+      showChat: false
     };
   },
 
   componentWillMount() {
-    if (!this.state.authToken) {
+    if (this.props.current_user.id && !this.state.authToken) {
       ChatActions.requestAuthToken();
     }
   },
@@ -39,13 +41,18 @@ const RocketChat = React.createClass({
       externalCommand: 'login-with-token',
       token: this.state.authToken
     }, '*');
+    this.setState({ showChat: true });
   },
 
   render() {
     // Rocket.Chat appears to double-encode the channel name to produce the URI.
     const channel = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/channel/${channel}?layout=embedded`;
-    const chatFrame = <iframe id="chat" className="iframe" src={chatUrl} />;
+    let chatClass = 'iframe';
+    if (!this.state.showChat) {
+      chatClass += ' hidden';
+    }
+    const chatFrame = <iframe id="chat" className={chatClass} src={chatUrl} />;
 
     return (
       <div className="rocket-chat">
