@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 describe ChatController do
-  before { allow(Features).to receive(:enable_chat?).and_return(true) }
-
   describe 'login' do
     let(:subject) { get 'login' }
 
