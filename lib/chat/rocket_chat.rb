@@ -7,7 +7,7 @@ class RocketChat
     @user = user
     @course = course
     # Rocket.Chat must be configured to permit all valid user/channel names.
-    @username = user.username.tr(' ', '_') if @user
+    @username = @user.username.tr(' ', '_') if @user
     @admin_username = ENV['chat_admin_username']
     @admin_password = ENV['chat_admin_password']
   end

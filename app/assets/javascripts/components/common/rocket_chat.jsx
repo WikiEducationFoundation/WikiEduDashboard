@@ -45,10 +45,10 @@ const RocketChat = React.createClass({
     // Rocket.Chat appears to double-encode the channel name to produce the URI.
     const channel = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/channel/${channel}?layout=embedded`;
-    const chatFrame = <iframe id="chat" style={{ display: 'block', width: '100%', height: '1000px' }} src={chatUrl} />;
+    const chatFrame = <iframe id="chat" className="iframe" src={chatUrl} />;
 
     return (
-      <div className="modal">
+      <div className="rocket-chat">
         {chatFrame}
       </div>
     );
