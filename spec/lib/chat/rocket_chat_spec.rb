@@ -2,36 +2,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/chat/rocket_chat"
 
-def stub_login_success
-  success_response = {
-    'status' => 'success',
-    'data': {
-      'authToken' => 'fakeAuthToken',
-      'userId' => 'chatIdForUser'
-    }
-  }
-  stub_request(:post, /.*login/)
-    .to_return(status: 200, body: success_response.to_json, headers: {})
-end
-
-def stub_user_create_success
-  success_response = {
-    'success' => true,
-    'user': {}
-  }
-  stub_request(:post, /.*users.create/)
-    .to_return(status: 200, body: success_response.to_json, headers: {})
-end
-
-def stub_channel_create_success
-  success_response = {
-    'success' => true,
-    'channel': {}
-  }
-  stub_request(:post, /.*channels.create/)
-    .to_return(status: 200, body: success_response.to_json, headers: {})
-end
-
 describe RocketChat do
   let(:user) { nil }
   let(:course) { nil }
@@ -42,7 +12,7 @@ describe RocketChat do
 
     context 'when the user already has a Rocket.Chat account' do
       let(:chat_password) { 'random_password' }
-      before { stub_login_success }
+      before { stub_chat_login_success }
       it 'returns an authToken and userId' do
         expect(subject.login_credentials).to eq('authToken' => 'fakeAuthToken',
                                                 'userId' => 'chatIdForUser')
@@ -52,8 +22,8 @@ describe RocketChat do
     context 'when the user does not have a chat account' do
       let(:chat_password) { nil }
       before do
-        stub_login_success
-        stub_user_create_success
+        stub_chat_login_success
+        stub_chat_user_create_success
       end
 
       it 'creates an account, then returns an authToken and userId' do
@@ -73,8 +43,8 @@ describe RocketChat do
     let(:course) { create(:course) }
 
     before do
-      stub_login_success
-      stub_channel_create_success
+      stub_chat_login_success
+      stub_chat_channel_create_success
     end
 
     it 'returns Rocket.Chat response' do

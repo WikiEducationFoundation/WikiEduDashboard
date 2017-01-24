@@ -7,8 +7,7 @@ class ChatController < ApplicationController
 
   def login
     chatter = RocketChat.new(user: current_user)
-    chatter.create_chat_account unless current_user.chat_password
-    credentials = chatter.login_credentials
+    credentials = chatter.login_credentials # creates chat account if necessary
     render json: { auth_token: credentials['authToken'], user_id: credentials['userId'] }
   end
 
