@@ -130,3 +130,9 @@
 # Username of user who will receive requests for technical help from the Get Help button
 # Can be left blank.
   technical_help_staff: 'Sage (Wiki Ed)'
+
+# Rocket.Chat integration for courses, which requires access to an admin
+# account on the Rocket.Chat server.
+  enable_chat: 'false'
+  chat_admin_username: 'admin'
+  chat_admin_password: 'passwiord'
