@@ -66,6 +66,7 @@ describe 'Admin users', type: :feature, js: true do
   describe 'adding a course to a campaign' do
     it 'should make the course live' do
       stub_oauth_edit
+      stub_chat_channel_create_success
 
       visit "/courses/#{Course.first.slug}"
       sleep 1
