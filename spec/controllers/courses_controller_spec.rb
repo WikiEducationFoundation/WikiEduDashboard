@@ -342,8 +342,14 @@ describe CoursesController do
           expect(last_campaign.campaign_id).to eq(campaign.id)
         end
 
-        it 'sends an email if course has not previous campaigns' do
+        it 'sends an email if course has no previous campaigns' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification)
+          params = { id: course.slug, campaign: { title: campaign.title } }
+          post :list, params: params, format: :json
+        end
+
+        it 'creates a chat channel if course has no previous campaigns' do
+          expect_any_instance_of(RocketChat).to receive(:create_channel_for_course)
           params = { id: course.slug, campaign: { title: campaign.title } }
           post :list, params: params, format: :json
         end
