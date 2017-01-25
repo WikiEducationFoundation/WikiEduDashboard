@@ -20,7 +20,7 @@ const RocketChat = React.createClass({
   },
 
   componentWillMount() {
-    if (this.props.current_user.id && !this.state.authToken) {
+    if (Features.enableChat && !this.state.authToken) {
       ChatActions.requestAuthToken();
     }
   },
