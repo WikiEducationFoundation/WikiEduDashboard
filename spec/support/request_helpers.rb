@@ -148,6 +148,7 @@ module RequestHelpers
   end
 
   def stub_chat_channel_create_success
+    stub_chat_login_success # Admin login happens before channel creation
     success_response = {
       'success' => true,
       'channel': {}

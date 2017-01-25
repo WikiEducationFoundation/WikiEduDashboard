@@ -309,7 +309,7 @@ describe CoursesController do
   describe '#list' do
     let(:course) { create(:course) }
     let(:campaign) { Campaign.last }
-    let(:user)   { create(:admin) }
+    let(:user) { create(:admin) }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
@@ -331,6 +331,7 @@ describe CoursesController do
           create(:courses_user, user_id: user.id,
                                 course_id: course.id,
                                 role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+          stub_chat_channel_create_success
         end
 
         it 'creates a CampaignsCourse' do
