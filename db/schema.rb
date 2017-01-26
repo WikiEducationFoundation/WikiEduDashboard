@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.integer  "home_wiki_id"
     t.integer  "recent_revision_count",               default: 0
     t.boolean  "needs_update",                        default: false
+    t.string   "chatroom_id"
     t.index ["slug"], name: "index_courses_on_slug", using: :btree
   end
 
@@ -371,6 +372,7 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.boolean  "greeter",             default: false
     t.string   "locale"
     t.string   "chat_password"
+    t.string   "chat_id"
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
