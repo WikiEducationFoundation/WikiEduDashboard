@@ -2,7 +2,7 @@ import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 
 const DiffViewer = React.createClass({
-  displayName: 'DiffViweer',
+  // displayName: 'DiffViewer',
 
   // Diff viewer takes a main (final) revision, and optionally a first revision.
   // If a first revision is supplied, it fetches a diff from the parent of the
@@ -19,7 +19,8 @@ const DiffViewer = React.createClass({
 
   getInitialState() {
     return {
-      showDiff: false
+      showDiff: false,
+      chars: this.props.charCount
     };
   },
 
@@ -69,13 +70,13 @@ const DiffViewer = React.createClass({
 
   diffUrl() {
     const wikiUrl = this.wikiUrl();
-    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
+    const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&rvprop=ids|timestamp|comment`;
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${this.props.revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
     } else if (this.props.first_revision) {
-      diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}|${this.props.revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
     } else {
       diffUrl = `${queryBase}&revids=${this.props.revision.mw_rev_id}&rvdiffto=prev&format=json`;
     }
@@ -115,11 +116,13 @@ const DiffViewer = React.createClass({
         dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
-          const revisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
+          const revisionData = data.query.pages[this.props.revision.mw_page_id].revisions;
           this.setState({
-            diff: revisionData.diff['*'],
-            comment: revisionData.comment,
-            fetched: true
+            diff: revisionData[0].diff['*'],
+            comment: revisionData[0].comment,
+            fetched: true,
+            firstRevDateTime: revisionData[0].timestamp,
+            lastRevDateTime: revisionData.length === 2 ? revisionData[1].timestamp : null
           });
         }
       });
@@ -156,11 +159,40 @@ const DiffViewer = React.createClass({
     const wikiDiffUrl = this.webDiffUrl();
 
     let diffComment;
-    // Only show the edit summary for a single revision; for cumulative diffs,
-    // the edit summary is for the *parent* of the first revision, so it's
-    // irrelevant and confusing to show that.
+    let revisionDateTime;
+    let firstRevTime, lastRevTime, days, hours, minutes;
+    let timeSpan = '';
+
+    // Edit summary for a single revision:
+    //  > Edit date and number of characters added
+    // Edit summary for range of revisions:
+    //  > Span of time for edits to article (from first applicable rev to last),
+    //    and total number of characters added across all edits
     if (!this.props.first_revision) {
-      diffComment = <p className="diff-comment">{this.state.comment}</p>;
+      revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
+      diffComment = <p className="diff-comment">{this.state.comment}&nbsp;
+                       (Edited on {revisionDateTime}; {this.state.chars} chars changed)</p>;
+    } else {
+      firstRevTime = moment(this.state.firstRevDateTime);
+      lastRevTime = moment(this.state.lastRevDateTime);
+      days = lastRevTime.diff(firstRevTime, 'days');
+      hours = lastRevTime.diff(firstRevTime, 'hours') - days*24;
+      minutes = lastRevTime.diff(firstRevTime, 'minutes') - (days*24 + hours)*60;
+      if (days !== 0) {
+        timeSpan = `${days} day${days>1 ? 's' : ''}, `;
+      }
+      if (hours !== 0) {
+        timeSpan += `${hours} hour${hours>1 ? 's' : ''}, `;
+      }
+      if (minutes !== 0) {
+        timeSpan += `${minutes} minute${minutes>1 ? 's' : ''}`;
+      }
+      if (!timeSpan) {
+        timeSpan = 'less than a minute';
+      }
+      diffComment = <p className="diff-comment">
+                       (Edits spanned time range of {timeSpan};&nbsp;
+                        {this.state.chars} total chars changed)</p>;
     }
 
     return (
@@ -173,7 +205,11 @@ const DiffViewer = React.createClass({
             <a className="pull-right button small" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
           </p>
           <table>
-            <thead><tr><th colSpan="4" className="diff-header">{diffComment}</th></tr></thead>
+            <thead>
+              <tr>
+                <th colSpan="4" className="diff-header">{diffComment}</th>
+              </tr>
+            </thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
           </table>
         </div>

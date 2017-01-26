@@ -48,6 +48,7 @@ const ArticleDrawer = React.createClass({
           first_revision={this.state.articleDetails.first_revision}
           showButtonLabel={I18n.t('articles.show_cumulative_changes')}
           largeButton={true}
+          charCount={this.props.article.character_sum}
         />
       );
     } else {
