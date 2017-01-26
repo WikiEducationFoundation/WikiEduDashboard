@@ -305,7 +305,7 @@ es:
       discusión de todos los estudiantes que no hayan completado los módulos de capacitación
       asignados. ¿Estás seguro de que quieres hacer esto?
     no_available_actions: No hay acciones disponibles
-    overview: Resumen
+    overview: Inicio
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
     passcode_prompt: 'Escribe el código de acceso para unirte:'
