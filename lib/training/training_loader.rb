@@ -79,7 +79,7 @@ class TrainingLoader
     translations = []
     response.data['messagegroupstats'].each do |language|
       next if language['total'].zero?
-      next unless language['total'] == language['translated']
+      next if language['translated'].zero?
       translations << base_page + '/' + language['code']
     end
     return translations
