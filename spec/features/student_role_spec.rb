@@ -40,6 +40,7 @@ describe 'Student users', type: :feature, js: true do
            user_id: 101,
            course_id: 10001,
            role: CoursesUsers::Roles::STUDENT_ROLE)
+    stub_add_user_to_channel_success
   end
 
   describe 'clicking log out' do
