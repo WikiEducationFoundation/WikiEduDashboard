@@ -117,11 +117,8 @@ const DiffViewer = React.createClass({
         success: (data) => {
           const firstRevisionData = data.query.pages[this.props.revision.mw_page_id]
                                       .revisions[0];
-          let lastRevisionData = null;
-          if (data.query.pages[this.props.revision.mw_page_id].revisions.length === 2) {
-            lastRevisionData = data.query.pages[this.props.revision.mw_page_id]
+          const lastRevisionData = data.query.pages[this.props.revision.mw_page_id]
                                       .revisions[1];
-          }
           this.setState({
             diff: firstRevisionData.diff['*'],
             comment: firstRevisionData.comment,
