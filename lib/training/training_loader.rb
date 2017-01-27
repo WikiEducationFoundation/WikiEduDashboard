@@ -34,7 +34,12 @@ class TrainingLoader
   def load_from_wiki
     wiki_source_pages.each do |wiki_page|
       content = new_from_wiki_page(wiki_page)
-      next unless content&.valid?
+      unless content&.valid?
+        Raven.capture_message 'Invalid wiki training content',
+                              level: 'warn',
+                              extra_data: { content: content }
+        next
+      end
       @collection << new_from_wiki_page(wiki_page)
     end
   end
@@ -61,7 +66,9 @@ class TrainingLoader
 
   def wiki_source_pages(base_page: nil)
     link_source = base_page || @wiki_base_page
-    query_params = { prop: 'links', titles: link_source }
+    # To handle more than 500 pages linked from the source page,
+    # we'll need to update this to use 'continue'.
+    query_params = { prop: 'links', titles: link_source, pllimit: 500 }
     response = WikiApi.new(MetaWiki.new).query(query_params)
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
