@@ -4,6 +4,11 @@ import UIStore from '../../stores/ui_store.js';
 import OnClickOutside from 'react-onclickoutside';
 import Conditional from '../high_order/conditional.jsx';
 
+// This is a variant version of Expandable which closes upon
+// outside click. Use Expandable where the 'open' state should
+// persist until it is explicitly closed, and use this
+// for popover buttons and other situations where users would
+// expect a click elsewhere to toggle the state.
 const PopoverExpandable = function (Component) {
   const component = React.createClass({
     displayName: 'PopoverExpandable',
