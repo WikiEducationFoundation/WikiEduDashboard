@@ -65,9 +65,7 @@ const ActivityTableRow = React.createClass({
 
     let diffViewer;
     if (this.props.revision && this.props.revision.api_url) {
-      diffViewer = <DiffViewer revision={this.props.revision}
-                               charCount={this.props.revision.characters}
-                   />;
+      diffViewer = <DiffViewer revision={this.props.revision} />;
     }
 
     return (

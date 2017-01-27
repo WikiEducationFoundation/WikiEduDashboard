@@ -2,7 +2,7 @@ import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 
 const DiffViewer = React.createClass({
-  // displayName: 'DiffViewer',
+  displayName: 'DiffViewer',
 
   // Diff viewer takes a main (final) revision, and optionally a first revision.
   // If a first revision is supplied, it fetches a diff from the parent of the
@@ -20,7 +20,6 @@ const DiffViewer = React.createClass({
   getInitialState() {
     return {
       showDiff: false,
-      chars: this.props.charCount
     };
   },
 
@@ -116,13 +115,19 @@ const DiffViewer = React.createClass({
         dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
-          const revisionData = data.query.pages[this.props.revision.mw_page_id].revisions;
+          const firstRevisionData = data.query.pages[this.props.revision.mw_page_id]
+                                      .revisions[0];
+          let lastRevisionData = null;
+          if (data.query.pages[this.props.revision.mw_page_id].revisions.length === 2) {
+            lastRevisionData = data.query.pages[this.props.revision.mw_page_id]
+                                      .revisions[1];
+          }
           this.setState({
-            diff: revisionData[0].diff['*'],
-            comment: revisionData[0].comment,
+            diff: firstRevisionData.diff['*'],
+            comment: firstRevisionData.comment,
             fetched: true,
-            firstRevDateTime: revisionData[0].timestamp,
-            lastRevDateTime: revisionData.length === 2 ? revisionData[1].timestamp : null
+            firstRevDateTime: firstRevisionData.timestamp,
+            lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
           });
         }
       });
@@ -160,7 +165,11 @@ const DiffViewer = React.createClass({
 
     let diffComment;
     let revisionDateTime;
-    let firstRevTime, lastRevTime, days, hours, minutes;
+    let firstRevTime;
+    let lastRevTime;
+    let days;
+    let hours;
+    let minutes;
     let timeSpan = '';
 
     // Edit summary for a single revision:
@@ -171,28 +180,28 @@ const DiffViewer = React.createClass({
     if (!this.props.first_revision) {
       revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
       diffComment = <p className="diff-comment">{this.state.comment}&nbsp;
-                       (Edited on {revisionDateTime}; {this.state.chars} chars changed)</p>;
+                       (Edited on {revisionDateTime};&nbsp;
+                       {this.props.revision.characters} chars changed)</p>;
     } else {
       firstRevTime = moment(this.state.firstRevDateTime);
       lastRevTime = moment(this.state.lastRevDateTime);
       days = lastRevTime.diff(firstRevTime, 'days');
-      hours = lastRevTime.diff(firstRevTime, 'hours') - days*24;
-      minutes = lastRevTime.diff(firstRevTime, 'minutes') - (days*24 + hours)*60;
+      hours = lastRevTime.diff(firstRevTime, 'hours') - days * 24;
+      minutes = lastRevTime.diff(firstRevTime, 'minutes') - (days * 24 + hours) * 60;
       if (days !== 0) {
-        timeSpan = `${days} day${days>1 ? 's' : ''}, `;
+        timeSpan = `${days} day${days > 1 ? 's' : ''}, `;
       }
       if (hours !== 0) {
-        timeSpan += `${hours} hour${hours>1 ? 's' : ''}, `;
+        timeSpan += `${hours} hour${hours > 1 ? 's' : ''}, `;
       }
       if (minutes !== 0) {
-        timeSpan += `${minutes} minute${minutes>1 ? 's' : ''}`;
+        timeSpan += `${minutes} minute${minutes > 1 ? 's' : ''}`;
       }
       if (!timeSpan) {
         timeSpan = 'less than a minute';
       }
       diffComment = <p className="diff-comment">
-                       (Edits spanned time range of {timeSpan};&nbsp;
-                        {this.state.chars} total chars changed)</p>;
+                       (Edits spanned time range of {timeSpan})</p>;
     }
 
     return (
