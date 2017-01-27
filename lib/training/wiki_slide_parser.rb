@@ -13,7 +13,8 @@ class WikiSlideParser
   # The first translated line is the slide title
   def title
     title = @wikitext.lines.first.chomp
-    title.gsub(/==+/, '') # remove header markup for level 2 or lower
+    # remove header markup for level 2 or lower
+    title.gsub(/==+/, '').strip
   end
 
   # Everything after the first translated line is the slide content
@@ -34,11 +35,15 @@ class WikiSlideParser
   end
 
   def remove_translation_markers
-    @wikitext.gsub!(/<!--.+?-->\n*/, '')
+    # Remove both marker and any trailing whitespace after it,
+    # which may interfere with correct markdown conversion.
+    @wikitext.gsub!(/<!--.+?-->\s*\n*/, '')
   end
 
   def remove_translate_tags
-    @wikitext.gsub!(/<translate>/, '')
-    @wikitext.gsub!(%r{</translate>}, '')
+    # Remove both the tags and any excess whitespace within them,
+    # which may interfere with correct markdown conversion.
+    @wikitext.gsub!(/<translate>\s*/, '')
+    @wikitext.gsub!(%r{\s*</translate>}, '')
   end
 end
