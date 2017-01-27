@@ -17,22 +17,51 @@ class RocketChat
     get_auth_data(@username, @user.chat_password)
   end
 
-  CREATE_ROOM_ENDPOINT = '/api/v1/channels.create'
+  # Creates a private group channel, vs. 'channels.create' for a public channel
+  CREATE_ROOM_ENDPOINT = '/api/v1/groups.create'
   def create_channel_for_course
+    return if @course.chatroom_id
     data = { name: @course.slug }
-    api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
+    response = api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
+    pp response.body
+    raise StandardError unless response.code == '200'
+    room_id = JSON.parse(response.body).dig('group', '_id')
+    raise StandardError unless room_id
+    @course.update_attribute(:chatroom_id, room_id)
+    pp @course
+  end
+
+  LIST_CHANNELS_ENDPOINT = '/api/v1/groups.list'
+  def list_channels
+    response = api_get(LIST_CHANNELS_ENDPOINT, admin_auth_header)
+  end
+
+  ADD_TO_CHANNEL_ENDPOINT = '/api/v1/groups.invite'
+  def add_user_to_course_channel
+    create_chat_account unless @user.chat_id
+    create_channel_for_course unless @course.chatroom_id
+    pp
+    add_user_data = {
+      roomId: @course.chatroom_id.encode(Encoding::ASCII_8BIT),
+      userId: @user.chat_id
+    }
+    response = api_post(CREATE_USER_ENDPOINT, add_user_data, admin_auth_header)
+    pp response.body
+    raise StandardError unless response.code == '200'
   end
 
   private
 
   CREATE_USER_ENDPOINT = '/api/v1/users.create'
   def create_chat_account
-    return if @user.chat_password
+    return if @user.chat_id
     @user.chat_password = random_password
     response = api_post(CREATE_USER_ENDPOINT, new_chat_account_data, admin_auth_header)
     raise StandardError unless response.code == '200'
     # TODO: verify success better
-    @user.update_attribute(:chat_password, @user.chat_password)
+    chat_id = JSON.parse(response.body).dig('user', '_id')
+    raise StandardError unless chat_id
+    @user.update(chat_password: @user.chat_password, chat_id: chat_id)
   end
 
   def api_post(endpoint, data, header = {})
@@ -41,8 +70,18 @@ class RocketChat
     http.use_ssl = true
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
+    pp data.to_json
     response = http.request(post)
     response
+  end
+
+  def api_get(endpoint, header = {})
+    uri = URI.parse(CHAT_SERVER + endpoint)
+    http = Net::HTTP.new(uri.host, 443)
+    http.use_ssl = true
+    get = Net::HTTP::Get.new(uri.path, header)
+    response = http.request(get)
+    pp response.body
   end
 
   def admin_login
@@ -57,7 +96,7 @@ class RocketChat
     {
       'X-Auth-Token' => @admin_token,
       'X-User-Id' => @admin_id,
-      'Content-Type' => 'application/json'
+      'Content-type' => 'application/json'
     }
   end
 

@@ -141,7 +141,9 @@ module RequestHelpers
   def stub_chat_user_create_success
     success_response = {
       'success' => true,
-      'user': {}
+      'user': {
+        '_id': 'userId'
+      }
     }
     stub_request(:post, /.*users.create/)
       .to_return(status: 200, body: success_response.to_json, headers: {})
@@ -151,7 +153,9 @@ module RequestHelpers
     stub_chat_login_success # Admin login happens before channel creation
     success_response = {
       'success' => true,
-      'channel': {}
+      'channel': {
+        '_id': 'channelId'
+      }
     }
     stub_request(:post, /.*channels.create/)
       .to_return(status: 200, body: success_response.to_json, headers: {})
