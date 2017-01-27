@@ -28,25 +28,22 @@ class RocketChat
     room_id = JSON.parse(response.body).dig('group', '_id')
     raise StandardError unless room_id
     @course.update_attribute(:chatroom_id, room_id)
-    pp @course
   end
 
   LIST_CHANNELS_ENDPOINT = '/api/v1/groups.list'
   def list_channels
-    response = api_get(LIST_CHANNELS_ENDPOINT, admin_auth_header)
+    api_get(LIST_CHANNELS_ENDPOINT, admin_auth_header)
   end
 
   ADD_TO_CHANNEL_ENDPOINT = '/api/v1/groups.invite'
   def add_user_to_course_channel
     create_chat_account unless @user.chat_id
     create_channel_for_course unless @course.chatroom_id
-    pp
     add_user_data = {
-      roomId: @course.chatroom_id.encode(Encoding::ASCII_8BIT),
+      roomId: @course.chatroom_id,
       userId: @user.chat_id
     }
-    response = api_post(CREATE_USER_ENDPOINT, add_user_data, admin_auth_header)
-    pp response.body
+    response = api_post(ADD_TO_CHANNEL_ENDPOINT, add_user_data, admin_auth_header)
     raise StandardError unless response.code == '200'
   end
 
@@ -68,9 +65,9 @@ class RocketChat
     uri = URI.parse(CHAT_SERVER + endpoint)
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
+    http.set_debug_output($stdout)
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
-    pp data.to_json
     response = http.request(post)
     response
   end
@@ -81,7 +78,7 @@ class RocketChat
     http.use_ssl = true
     get = Net::HTTP::Get.new(uri.path, header)
     response = http.request(get)
-    pp response.body
+    response
   end
 
   def admin_login
