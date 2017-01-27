@@ -25,6 +25,8 @@ ENV['enable_get_help_button'] = 'true'
 ENV['enable_language_switcher'] = 'true'
 ENV['training_path'] = 'training_content/wiki_ed'
 ENV['enable_chat'] = 'true'
+ENV['chat_admin_username'] = 'username'
+ENV['chat_admin_password'] = 'password'
 
 Rails.application.configure do
   # Settings specified here will take
