@@ -153,11 +153,22 @@ module RequestHelpers
     stub_chat_login_success # Admin login happens before channel creation
     success_response = {
       'success' => true,
-      'channel': {
+      'group': {
         '_id': 'channelId'
       }
     }
-    stub_request(:post, /.*channels.create/)
+    stub_request(:post, /.*groups.create/)
+      .to_return(status: 200, body: success_response.to_json, headers: {})
+  end
+
+  def stub_add_user_to_channel_success
+    # These happen before adding the user, if the user and room don't exist already.
+    stub_chat_user_create_success
+    stub_chat_channel_create_success
+    success_response = {
+      'success' => true
+    }
+    stub_request(:post, /.*groups.invite/)
       .to_return(status: 200, body: success_response.to_json, headers: {})
   end
 end

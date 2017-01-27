@@ -23,8 +23,6 @@ class RocketChat
     return if @course.chatroom_id
     data = { name: @course.slug }
     response = api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
-    pp response.body
-    raise StandardError unless response.code == '200'
     room_id = JSON.parse(response.body).dig('group', '_id')
     raise StandardError unless room_id
     @course.update_attribute(:chatroom_id, room_id)
@@ -43,8 +41,7 @@ class RocketChat
       roomId: @course.chatroom_id,
       userId: @user.chat_id
     }
-    response = api_post(ADD_TO_CHANNEL_ENDPOINT, add_user_data, admin_auth_header)
-    raise StandardError unless response.code == '200'
+    api_post(ADD_TO_CHANNEL_ENDPOINT, add_user_data, admin_auth_header)
   end
 
   private
@@ -54,7 +51,6 @@ class RocketChat
     return if @user.chat_id
     @user.chat_password = random_password
     response = api_post(CREATE_USER_ENDPOINT, new_chat_account_data, admin_auth_header)
-    raise StandardError unless response.code == '200'
     # TODO: verify success better
     chat_id = JSON.parse(response.body).dig('user', '_id')
     raise StandardError unless chat_id
@@ -65,10 +61,15 @@ class RocketChat
     uri = URI.parse(CHAT_SERVER + endpoint)
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
-    http.set_debug_output($stdout)
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
     response = http.request(post)
+    unless response.code == '200'
+      Raven.capture_message 'Rocket.Chat API error',
+                            level: 'error',
+                            extra: { response_data: response.body }
+      raise RocketChatAPIError
+    end
     response
   end
 
@@ -113,7 +114,7 @@ class RocketChat
     login_uri = URI("#{CHAT_SERVER}/api/v1/login")
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
-    raise StandardError unless response.code == '200'
+    raise RocketChatAPIError unless response.code == '200'
     JSON.parse(response.body).dig('data')
   end
 
@@ -123,4 +124,5 @@ class RocketChat
   end
 
   class ChatDisabledError < StandardError; end
+  class RocketChatAPIError < StandardError; end
 end

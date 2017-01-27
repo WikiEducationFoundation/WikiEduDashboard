@@ -17,6 +17,7 @@ describe UsersController do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
       course.campaigns << Campaign.first
+      stub_add_user_to_channel_success
     end
 
     subject { response.status }
@@ -81,6 +82,7 @@ describe UsersController do
       before do
         allow(controller).to receive(:current_user).and_return(admin)
         stub_oauth_edit
+
       end
 
       let(:post_params) do
