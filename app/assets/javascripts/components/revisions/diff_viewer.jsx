@@ -164,40 +164,24 @@ const DiffViewer = React.createClass({
     let revisionDateTime;
     let firstRevTime;
     let lastRevTime;
-    let days;
-    let hours;
-    let minutes;
-    let timeSpan = '';
+    let timeSpan;
 
     // Edit summary for a single revision:
     //  > Edit date and number of characters added
     // Edit summary for range of revisions:
-    //  > Span of time for edits to article (from first applicable rev to last)
+    //  > First and last times for edits to article (from first applicable rev to last)
     if (!this.props.first_revision) {
       revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
       diffComment = <p className="diff-comment">{this.state.comment}&nbsp;
-                       (Edited on {revisionDateTime};&nbsp;
-                       {this.props.revision.characters} chars changed)</p>;
+        ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
+        {this.props.revision.characters}&nbsp;
+        {I18n.t('revisions.chars_added')})</p>;
     } else {
-      firstRevTime = moment(this.state.firstRevDateTime);
-      lastRevTime = moment(this.state.lastRevDateTime);
-      days = lastRevTime.diff(firstRevTime, 'days');
-      hours = lastRevTime.diff(firstRevTime, 'hours') - days * 24;
-      minutes = lastRevTime.diff(firstRevTime, 'minutes') - (days * 24 + hours) * 60;
-      if (days !== 0) {
-        timeSpan = `${days} day${days > 1 ? 's' : ''}, `;
-      }
-      if (hours !== 0) {
-        timeSpan += `${hours} hour${hours > 1 ? 's' : ''}, `;
-      }
-      if (minutes !== 0) {
-        timeSpan += `${minutes} minute${minutes > 1 ? 's' : ''}`;
-      }
-      if (!timeSpan) {
-        timeSpan = 'less than a minute';
-      }
-      diffComment = <p className="diff-comment">
-                       (Edits spanned time range of {timeSpan})</p>;
+      firstRevTime = moment(this.state.firstRevDateTime).format('YYYY/MM/DD h:mm a');
+      lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');
+      timeSpan = I18n.t('revisions.edit_time_span',
+                        { first_time: firstRevTime, last_time: lastRevTime });
+      diffComment = <p className="diff-comment">({timeSpan})</p>;
     }
 
     return (
