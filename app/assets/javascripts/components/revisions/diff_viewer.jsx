@@ -175,8 +175,7 @@ const DiffViewer = React.createClass({
     // Edit summary for a single revision:
     //  > Edit date and number of characters added
     // Edit summary for range of revisions:
-    //  > Span of time for edits to article (from first applicable rev to last),
-    //    and total number of characters added across all edits
+    //  > Span of time for edits to article (from first applicable rev to last)
     if (!this.props.first_revision) {
       revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
       diffComment = <p className="diff-comment">{this.state.comment}&nbsp;
