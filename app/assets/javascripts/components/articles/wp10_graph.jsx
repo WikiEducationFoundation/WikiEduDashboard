@@ -40,6 +40,10 @@ const Wp10Graph = React.createClass({
       width: graphWidth,
       height: graphHeight,
       padding: { top: 40, left: 70, right: 20, bottom: 35 },
+      // ////////////////
+      // articlesize ////
+      // ///////////////
+
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -61,12 +65,21 @@ const Wp10Graph = React.createClass({
         {
           name: 'y',
           type: 'linear',
-          domain: [0, 100, 0, 100],
+          domain: {
+            data: 'wp10_scores',
+            field: 'characters'
+          },
           rangeMin: graphHeight,
           rangeMax: 0,
           round: true,
           nice: true,
-          zero: false
+          zero: true
+        },
+        {
+          name: 'color',
+          type: 'ordinal',
+          domain: ["characters", "wp10"],
+          range: ["#359178", "#33f"]
         }
       ],
       axes: [
@@ -101,11 +114,12 @@ const Wp10Graph = React.createClass({
         {
           name: 'wp10_scores',
           url: `/articles/wp10.json?article_id=${articleId}`,
-          format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
+          format: { type: 'json', parse: { date: 'date', wp10: 'number', characters: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum["date"] !== null && !isNaN(datum["date"]) && datum["wp10"] !== null && !isNaN(datum["wp10"])'
-          }]
+            test: 'datum["date"] !== null && !isNaN(datum["date"]) && datum["wp10"] !== null && !isNaN(datum["wp10"]) && datum["characters"] !== null && !isNaN(datum["characters"])'
+          }
+          ]
         }
       ],
       // //////////////
@@ -122,99 +136,41 @@ const Wp10Graph = React.createClass({
           },
           properties: { enter: {
             orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'date' },
-            y: { scale: 'y', field: 'wp10' },
-            y2: { scale: 'y', value: 0 },
-            fill: { value: '#676EB4' },
             opacity: { value: 0.7 },
             interpolate: { value: 'step-before' }
-          } }
-        },
-        // Revision point marks
-        {
-          name: 'circle_marks',
-          type: 'symbol',
-          from: {
-            data: 'wp10_scores',
-            transform: [{ type: 'sort', by: '-date' }]
           },
-          properties: {
-            enter: {
+            update: {
               x: { scale: 'x', field: 'date' },
-              y: { scale: 'y', field: 'wp10' },
-              size: { value: 100 },
-              shape: { value: 'circle' },
-              fill: { value: '#359178' },
-              opacity: { value: 0.7 }
-            },
-            update: {
-              fill: {
-                rule: [
-                  {
-                    predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
-                    value: '#333',
-                  },
-                  { value: '#359178' }
-                ]
-              }
+              y: { scale: 'y', field: 'characters' },
+              y2: { scale: 'y', value: 0 },
+              fill: [
+                {
+                  test: "datum.characters > datum.index",
+                  value: 'blue'
+                },
+                { value: 'red' }
+              ]
             }
           }
-        },
-        // Labels on revision mouseover
-        {
-          name: 'revision_detail_marks',
-          type: 'text',
-          properties: {
-            enter: {
-              x: { value: 70 },
-              y: { value: -15 },
-              align: { value: 'center' },
-              fill: { value: '#333' },
-              fontSize: { value: 28 }
-            },
-            update: {
-              text: { signal: 'revisionDetails.username' },
-              fillOpacity: {
-                rule: [
-                  {
-                    predicate: { name: 'ifRevisionDetails', id: { value: null } },
-                    value: 0
-                  },
-                  { value: 1 }
-                ]
-              }
-            }
-          }
-        }
-      ],
-      // ///////////////
-      // Interactions //
-      // ///////////////
-      signals: [
-        {
-          name: 'revisionDetails',
-          init: {},
-          streams: [
-            { type: 'symbol:mouseover', expr: 'datum' },
-            { type: 'symbol:mouseout', expr: '{}' }
-          ]
-        }
-      ],
-      predicates: [
-        {
-          name: 'ifRevisionDetails',
-          type: '==',
-          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }]
         }
       ]
     };
 
     const embedSpec = {
-      mode: 'vega',
+      mode: 'vega', // instruct Vega-Embed to use vega compiler.
+      parameters: [
+        {
+          signal: "graph",
+          type: "radio",
+          value: "structural completeness",
+          options: ["article size", "structural completeness"]
+        }
+      ],
       spec: vegaSpec,
       actions: false
     };
-    vg.embed(`#${this.graphId()}`, embedSpec);
+    // emded the visualization in the container with id vega-graph-article_id
+    vg.embed(`#${this.graphId()}`, embedSpec); // Callback receiving View instance and parsed Vega spec
     this.setState({ rendered: true });
   },
 
@@ -231,7 +187,7 @@ const Wp10Graph = React.createClass({
       style = '';
       button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
     } else {
-      style = ' hidden';
+      style = ' hidden'; // hides the element, but it still takes up space in the layout.
       button = <button onClick={this.showGraph} className="button dark">Show Structural Completeness</button>;
     }
     const className = `vega-graph ${style}`;
@@ -244,4 +200,4 @@ const Wp10Graph = React.createClass({
   }
 });
 
-export default OnClickOutside(Wp10Graph);
+export default OnClickOutside(Wp10Graph); // high order component to listen to clicks outside this element
