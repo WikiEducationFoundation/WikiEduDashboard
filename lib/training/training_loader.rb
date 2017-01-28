@@ -53,11 +53,11 @@ class TrainingLoader
     content = JSON.parse(wikitext)
     return unless content # Handle wiki pages that don't exist.
     if content['wiki_page']
-      content.merge! slide_hash_from_wiki_page(content['wiki_page'])
+      content.merge! training_hash_from_wiki_page(content['wiki_page'])
       content['translations'] = {}
       translated_wiki_pages(base_page: content['wiki_page']).each do |translated_page|
         language = translated_page.split('/').last
-        content['translations'][language] = slide_hash_from_wiki_page(translated_page)
+        content['translations'][language] = training_hash_from_wiki_page(translated_page)
       end
     end
     content = content.to_hashugar
@@ -92,10 +92,15 @@ class TrainingLoader
     return translations
   end
 
-  def slide_hash_from_wiki_page(wiki_page)
+  def training_hash_from_wiki_page(wiki_page)
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     parser = WikiSlideParser.new(wikitext)
-    { title: parser.title, content: parser.content }
+    case @content_class.to_s
+    when 'TrainingSlide'
+      { title: parser.title, content: parser.content }
+    when 'TrainingModule'
+      { name: parser.title, description: parser.content }
+    end
   end
 
   def new_from_file(yaml_file)
