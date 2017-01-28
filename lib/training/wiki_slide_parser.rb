@@ -8,6 +8,7 @@ class WikiSlideParser
     remove_noinclude
     remove_translation_markers
     remove_translate_tags
+    extract_quiz_template
   end
 
   # The first translated line is the slide title
@@ -22,6 +23,13 @@ class WikiSlideParser
     wikitext = @wikitext.lines[1..-1].join
     wikitext.gsub!(/^\n*/) # Remove leading newlines
     Wikitext.mediawiki_to_markdown(wikitext)
+  end
+
+  def quiz
+    return unless @quiz_template
+    { correct_answer_id: quiz_correct_answer,
+      question: quiz_question,
+      answers: quiz_answers }
   end
 
   private
@@ -45,5 +53,45 @@ class WikiSlideParser
     # which may interfere with correct markdown conversion.
     @wikitext.gsub!(/<translate>\s*/, '')
     @wikitext.gsub!(%r{\s*</translate>}, '')
+  end
+
+  def extract_quiz_template
+    @wikitext.gsub!(/(?<template>{{Training module quiz.*\n}})/m, '')
+    @quiz_template = Regexp.last_match && Regexp.last_match['template']
+  end
+
+  def quiz_correct_answer
+    # Looks like:
+    # | correct_answer_id = 3
+    Integer(quiz_parameter_value('correct_answer_id'))
+  end
+
+  def quiz_question
+    # Looks like:
+    # | question = What... is your favorite colour?
+    quiz_parameter_value('question')
+  end
+
+  def quiz_answers
+    answers = (1..9).map do |answer_number|
+      answer_hash(answer_number)
+    end
+    answers.compact
+  end
+
+  def answer_hash(number)
+    text = quiz_parameter_value("answer_#{number}")
+    return unless text
+    explanation = quiz_parameter_value("explanation_#{number}")
+    { id: number,
+      text: text,
+      explanation: explanation }
+  end
+
+  def quiz_parameter_value(parameter)
+    # Extract value from something like:
+    # | parameter_name = value
+    match = @quiz_template.match(/\|\s*#{parameter}\s*=\s*(?<value>.*)/)
+    match && match['value']
   end
 end

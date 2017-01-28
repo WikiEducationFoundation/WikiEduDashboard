@@ -97,7 +97,7 @@ class TrainingLoader
     parser = WikiSlideParser.new(wikitext)
     case @content_class.to_s
     when 'TrainingSlide'
-      { title: parser.title, content: parser.content }
+      { title: parser.title, content: parser.content, assessment: parser.quiz }
     when 'TrainingModule'
       { name: parser.title, description: parser.content }
     end
