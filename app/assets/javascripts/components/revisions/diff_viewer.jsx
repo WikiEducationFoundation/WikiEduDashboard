@@ -165,6 +165,7 @@ const DiffViewer = React.createClass({
     let firstRevTime;
     let lastRevTime;
     let timeSpan;
+    let editDate;
 
     // Edit summary for a single revision:
     //  > Edit date and number of characters added
@@ -172,16 +173,22 @@ const DiffViewer = React.createClass({
     //  > First and last times for edits to article (from first applicable rev to last)
     if (!this.props.first_revision) {
       revisionDateTime = moment(this.props.revision.date).format('YYYY/MM/DD h:mm a');
-      diffComment = <p className="diff-comment">{this.state.comment}&nbsp;
+
+      diffComment = <p className="diff-comment">{this.state.comment}</p>;
+
+      editDate = <p className="diff-comment">
         ({I18n.t('revisions.edited_on', { edit_date: revisionDateTime })};&nbsp;
         {this.props.revision.characters}&nbsp;
         {I18n.t('revisions.chars_added')})</p>;
+
     } else {
       firstRevTime = moment(this.state.firstRevDateTime).format('YYYY/MM/DD h:mm a');
       lastRevTime = moment(this.state.lastRevDateTime).format('YYYY/MM/DD h:mm a');
+
       timeSpan = I18n.t('revisions.edit_time_span',
                         { first_time: firstRevTime, last_time: lastRevTime });
-      diffComment = <p className="diff-comment">({timeSpan})</p>;
+
+      editDate = <p className="diff-comment">({timeSpan})</p>;
     }
 
     return (
@@ -197,6 +204,9 @@ const DiffViewer = React.createClass({
             <thead>
               <tr>
                 <th colSpan="4" className="diff-header">{diffComment}</th>
+              </tr>
+              <tr>
+                <th colSpan="4" className="diff-header">{editDate}</th>
               </tr>
             </thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
