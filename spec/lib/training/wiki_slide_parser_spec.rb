@@ -52,6 +52,21 @@ WIKISLIDE
 WIKISLIDE
   end
 
+  let(:image_wikitext) do
+    <<-WIKISLIDE
+== Five Pillars: The core rules of Wikipedia ==
+
+{{Training module image
+| image = File:Palace_of_Fine_Arts%2C_five_pillars.jpg
+| source = https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg
+| layout = alt-layout-40-right
+| credit = Photo by Eryk Salvaggio
+}}
+
+Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboration behind every article. You'll work with many people to build Wikipedia.
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = WikiSlideParser.new(source_wikitext.dup).title
@@ -69,6 +84,10 @@ WIKISLIDE
       expect(output).to match(/\*\*Minor to moderate safe spaces violations\*\*/)
       output = WikiSlideParser.new(translated_wikitext.dup).content
       expect(output).to match(/\*\*Transgresiones sutiles o moderadas a los espacios seguros\*\*/)
+    end
+    it 'converts an image template into figure markup' do
+      output = WikiSlideParser.new(image_wikitext.dup).content
+      expect(output).to match(/Eryk Salvaggio/)
     end
   end
 
