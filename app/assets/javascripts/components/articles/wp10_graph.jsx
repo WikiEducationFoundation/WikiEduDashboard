@@ -1,49 +1,22 @@
 /* global vg */
 import React from 'react';
-import OnClickOutside from 'react-onclickoutside';
 
 const Wp10Graph = React.createClass({
   displayName: 'Wp10Graph',
 
   propTypes: {
-    article: React.PropTypes.object
-  },
-
-  getInitialState() {
-    return { showGraph: false };
-  },
-
-  showGraph() {
-    this.setState({ showGraph: true });
-    if (!this.state.rendered) {
-      this.renderGraph();
-    }
-  },
-
-  hideGraph() {
-    this.setState({ showGraph: false });
-  },
-
-  handleClickOutside() {
-    this.hideGraph();
-  },
-
-  graphId() {
-    return `vega-graph-${this.props.article.id}`;
+    article: React.PropTypes.object,
+    graphid: React.PropTypes.string,
+    articleId: React.PropTypes.number,
+    graphWidth: React.PropTypes.number,
+    graphHeight: React.PropTypes.number
   },
 
   renderGraph() {
-    const articleId = this.props.article.id;
-    const graphWidth = 500;
-    const graphHeight = 300;
     const vegaSpec = {
-      width: graphWidth,
-      height: graphHeight,
+      width: this.props.graphWidth,
+      height: this.props.graphHeight,
       padding: { top: 40, left: 70, right: 20, bottom: 35 },
-      // ////////////////
-      // articlesize ////
-      // ///////////////
-
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -59,27 +32,18 @@ const Wp10Graph = React.createClass({
             }]
           },
           rangeMin: 0,
-          rangeMax: graphWidth,
+          rangeMax: this.props.graphWidth,
           round: true
         },
         {
           name: 'y',
           type: 'linear',
-          domain: {
-            data: 'wp10_scores',
-            field: 'characters'
-          },
-          rangeMin: graphHeight,
+          domain: [0, 100, 0, 100],
+          rangeMin: this.props.graphHeight,
           rangeMax: 0,
           round: true,
           nice: true,
-          zero: true
-        },
-        {
-          name: 'color',
-          type: 'ordinal',
-          domain: ["characters", "wp10"],
-          range: ["#359178", "#33f"]
+          zero: false
         }
       ],
       axes: [
@@ -113,13 +77,12 @@ const Wp10Graph = React.createClass({
       data: [
         {
           name: 'wp10_scores',
-          url: `/articles/wp10.json?article_id=${articleId}`,
-          format: { type: 'json', parse: { date: 'date', wp10: 'number', characters: 'number' } },
+          url: `/articles/article_data.json?article_id=${this.props.articleId}`,
+          format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum["date"] !== null && !isNaN(datum["date"]) && datum["wp10"] !== null && !isNaN(datum["wp10"]) && datum["characters"] !== null && !isNaN(datum["characters"])'
-          }
-          ]
+            test: 'datum.date !== null && !isNaN(datum.date) && datum.wp10 !== null && !isNaN(datum.wp10)'
+          }]
         }
       ],
       // //////////////
@@ -136,68 +99,109 @@ const Wp10Graph = React.createClass({
           },
           properties: { enter: {
             orient: { value: 'vertical' },
+            x: { scale: 'x', field: 'date' },
+            y: { scale: 'y', field: 'wp10' },
+            y2: { scale: 'y', value: 0 },
+            fill: { value: '#676EB4' },
             opacity: { value: 0.7 },
             interpolate: { value: 'step-before' }
+          } }
+        },
+        // Revision point marks
+        {
+          name: 'circle_marks',
+          type: 'symbol',
+          from: {
+            data: 'wp10_scores',
+            transform: [{ type: 'sort', by: '-date' }]
           },
-            update: {
+          properties: {
+            enter: {
               x: { scale: 'x', field: 'date' },
-              y: { scale: 'y', field: 'characters' },
-              y2: { scale: 'y', value: 0 },
-              fill: [
-                {
-                  test: "datum.characters > datum.index",
-                  value: 'blue'
-                },
-                { value: 'red' }
-              ]
+              y: { scale: 'y', field: 'wp10' },
+              size: { value: 100 },
+              shape: { value: 'circle' },
+              fill: { value: '#359178' },
+              opacity: { value: 0.7 }
+            },
+            update: {
+              fill: {
+                rule: [
+                  {
+                    predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
+                    value: '#333',
+                  },
+                  { value: '#359178' }
+                ]
+              }
             }
           }
+        },
+        // Labels on revision mouseover
+        {
+          name: 'revision_detail_marks',
+          type: 'text',
+          properties: {
+            enter: {
+              x: { value: 70 },
+              y: { value: -15 },
+              align: { value: 'center' },
+              fill: { value: '#333' },
+              fontSize: { value: 28 }
+            },
+            update: {
+              text: { signal: 'revisionDetails.username' },
+              fillOpacity: {
+                rule: [
+                  {
+                    predicate: { name: 'ifRevisionDetails', id: { value: null } },
+                    value: 0
+                  },
+                  { value: 1 }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      // ///////////////
+      // Interactions //
+      // ///////////////
+      signals: [
+        {
+          name: 'revisionDetails',
+          init: {},
+          streams: [
+            { type: 'symbol:mouseover', expr: 'datum' },
+            { type: 'symbol:mouseout', expr: '{}' }
+          ]
+        }
+      ],
+      predicates: [
+        {
+          name: 'ifRevisionDetails',
+          type: '==',
+          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }]
         }
       ]
     };
 
     const embedSpec = {
-      mode: 'vega', // instruct Vega-Embed to use vega compiler.
-      parameters: [
-        {
-          signal: "graph",
-          type: "radio",
-          value: "structural completeness",
-          options: ["article size", "structural completeness"]
-        }
-      ],
+      mode: 'vega',
       spec: vegaSpec,
       actions: false
     };
-    // emded the visualization in the container with id vega-graph-article_id
-    vg.embed(`#${this.graphId()}`, embedSpec); // Callback receiving View instance and parsed Vega spec
-    this.setState({ rendered: true });
+    vg.embed(`#${this.props.graphid}`, embedSpec);
   },
 
   render() {
-    // Only render the button if it is an en.wikipedia article, since only
-    // those articles have wp10 scores.
-    if (!this.props.article.url.match(/en.wikipedia/)) {
-      return <div></div>;
-    }
-
-    let style;
-    let button;
-    if (this.state.showGraph) {
-      style = '';
-      button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
-    } else {
-      style = ' hidden'; // hides the element, but it still takes up space in the layout.
-      button = <button onClick={this.showGraph} className="button dark">Show Structural Completeness</button>;
-    }
-    const className = `vega-graph ${style}`;
+    this.renderGraph();
     return (
       <div>
-        {button}
-        <div id={this.graphId()} className={className} />
+        <div id={this.props.graphid} />
       </div>
     );
   }
 });
 
-export default OnClickOutside(Wp10Graph); // high order component to listen to clicks outside this element
+export default Wp10Graph;

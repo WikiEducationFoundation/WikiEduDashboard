@@ -83,7 +83,7 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
-  get 'articles/wp10' => 'articles#wp10'
+  get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
 
   resources :courses_users, only: [:index]
