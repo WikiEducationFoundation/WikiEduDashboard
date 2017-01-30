@@ -10,6 +10,7 @@
 # Author: Mabroukb
 # Author: Macofe
 # Author: PifyZ
+# Author: The RedBurn
 # Author: Trial
 # Author: Tuxxic
 # Author: Urhixidur
@@ -272,7 +273,7 @@ fr:
       subject: Sujet
     current: Cours actuels
     delete_course: Supprimer le cours
-    dismiss_survey: Rejeter
+    dismiss_survey: Fermer
     dismiss_survey_confirm: Êtes-vous sûr de vouloir rejeter de façon définitive ce
       sondage ?
     duration: Durée du cours
