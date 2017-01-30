@@ -269,6 +269,7 @@ de:
     end: Ende
     enroll: Einschreiben
     enrollment: Einschreibung
+    courses_enrolled: Eingeschriebene Kurse
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
         anderen Titel, einer anderen Schule oder Dauer.
@@ -308,7 +309,7 @@ de:
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
       überfällig sind. Bist du sicher, dass du dies tun möchtest?
     no_available_actions: Keine verfügbaren Aktionen
-    overview: Übersicht
+    overview: Start
     passcode: Passcode
     passcode_none: Kein Passcode
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
@@ -404,6 +405,7 @@ de:
     explore: Programme finden
     enroll: Autor hinzufügen
     enrollment: Teilnahme
+    courses_enrolled: Teilgenommene Programme
     expected_students: Erwartete Autoren
     instructors: Vermittler
     join_course: Dem Programm beitreten
@@ -638,8 +640,9 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
-    user_impact: Gesamtauswirkung durch %{username}
-    student_impact: Gesamtauswirkung durch die Studenten von %{username}
+    student_impact: Gesamtauswirkung durch %{username} als Student
+    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
+    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
     role:
       visitor: Besucher
       student: Student

@@ -324,7 +324,6 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
-    user_impact: Общее влияние %{username}
     role:
       visitor: Посетитель
       student: Студент

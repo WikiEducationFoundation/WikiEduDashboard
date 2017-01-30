@@ -16,6 +16,7 @@ tl:
       does_not_exist: Itong artikulo ay walang itinala sa Wikipedia
   courses:
     campaign_courses: Mga Kurso
+    overview: Pangunang Pahina (Ang Pinagmulan)
     view_other: Ipakita ang ibang kasabwat
   courses_generic:
     campaign_courses: Mga Programa

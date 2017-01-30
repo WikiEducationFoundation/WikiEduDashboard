@@ -1,5 +1,5 @@
 import React from 'react';
-import Expandable from '../high_order/expandable.jsx';
+import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -105,7 +105,7 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     }
   }
   );
-  return Conditional(Expandable(component));
+  return Conditional(PopoverExpandable(component));
 };
 
 

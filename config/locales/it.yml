@@ -8,6 +8,7 @@
 # Author: Macofe
 # Author: Matteocng
 # Author: Nemo bis
+# Author: NumaPompilius3
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -90,11 +91,13 @@ it:
       list: Elenco di classe — un elenco piuttosto che una voce tradizionale
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
+      does_not_exist: Questa voce non esiste su Wikipedia
     title: Titolo
     title_example: Titolo della voce
     view: Visualizza voce
     view_all: Mostra tutto
     view_doc: La somma di tutte le visite ad ogni voce durante il progetto
+    view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
@@ -131,6 +134,7 @@ it:
     create_campaign: Crea una nuova campagna
     description: Descrizione
     none: Nessuno
+    title: Titolo
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'
@@ -239,7 +243,7 @@ it:
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
     no_available_actions: Nessuna azione disponibile
-    overview: Panoramica
+    overview: Pagina principale
     passcode: Codice di accesso
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
       corso, visitando il seguente URL:'

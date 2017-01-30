@@ -391,7 +391,9 @@ qqq:
     notify_untrained_confirmation: Confirmation message explaning that talk page notification
       will be posted. (Wiki Ed only)
     no_available_actions: Placeholder message when no action buttons are available
-    overview: Label for link to the overview page for a course
+    overview: |-
+      Label for link to the overview page for a course
+      {{Identical|Home}}
     passcode: |-
       Label for course passcode field
       {{Identical|Passcode}}
@@ -641,7 +643,9 @@ qqq:
     characters_added_userspace: '"US" means User Space'
     my_assigned: Label for a list of article assignments.
     my_reviewing: Label for a list of articles to review.
-    name: Label for usernames of students
+    name: |-
+      Label for usernames of students
+      {{Identical|Name}}
     none: Message indicating that a course has no students enrolled
     no_articles: Label for an empty assignments list.
     number_of_articles: |-

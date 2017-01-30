@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Aftabuzzaman
 # Author: Bodhisattwa
+# Author: Elias Ahmmad
 # Author: Kayser Ahmad
 # Author: আজিজ
 ---
@@ -71,6 +72,8 @@ bn:
     calendar:
       legend_class_canceled: ছুটি/বাতিল
     cancel: বাতিল
+    campaign_courses: '%{title} কোর্স'
+    courses_taught: কোর্সের ধারণা
     creator:
       course_project: মূল প্রকল্প
       course_school: কোর্স বিদ্যালয়
@@ -89,12 +92,15 @@ bn:
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
     end: শেষ
+    courses_enrolled: কোর্স ভর্তি
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
     my_articles: আমার নিবন্ধ
     new_week: নতুন সপ্তাহ যোগ করুন
+    nocourse: কোন কোর্সে অংশগ্রহণ করেননি।
     none: কোনটিই নয়
+    overview: প্রধান পাতা
     school: বিদ্যালয়
     start: শুরু করুন
     students: ছাত্রগণ
@@ -112,6 +118,8 @@ bn:
       other: স্বেচ্ছাসেবক
   courses_generic:
     cancel: বাতিল
+    courses_taught: প্রোগ্রামের ধারণা
+    campaign_courses: '%{title} প্রোগ্রাম'
     creator:
       course_description: প্রকল্পের বর্ণনা
       course_school: প্রতিষ্ঠান
@@ -122,6 +130,7 @@ bn:
       find: একটি প্রোগ্রাম খুঁজুন
     enroll: সম্পাদক যোগ করুন
     enrollment: অংশগ্রহণ
+    courses_enrolled: প্রোগ্রাম অংশগ্রহণ করেছে
     school: প্রতিষ্ঠান
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ

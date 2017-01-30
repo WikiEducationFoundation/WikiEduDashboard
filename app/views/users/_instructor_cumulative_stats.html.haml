@@ -1,41 +1,45 @@
-%h3
-  = t("users.contribution_statistics")
-%br/
-%h5
-  = t("users.user_impact", username: @user.username)
-.instructor-profile-stats
+-if @user.course_student?
+  = render 'users/student_cumulative_stats', presenter: @individual_stats_presenter
+-else
+  %h3
+    = t("users.contribution_statistics")
+  %br/
+.user_stats
+  #instructor-profile-stats
+    %h5
+      = t("users.instructor_impact", username: @user.username)
+    .stat-display
+      .stat-display__stat
+        .stat-display__value= presenter.courses.count
+        %small= t("#{presenter.course_string_prefix}.courses_taught")
+      .stat-display__stat.tooltip-trigger
+        .stat-display__value= presenter.user_count
+        %small= t("#{presenter.course_string_prefix}.students")
+        .tooltip.dark
+          %h4
+            = number_to_human presenter.trained_percent
+            \%
+          %p= t("users.up_to_date_with_training")
+  %h5
+    = t("users.instructors_student_impact", username: @user.username)
   .stat-display
     .stat-display__stat
-      .stat-display__value= presenter.courses.count
-      %small= t("#{presenter.course_string_prefix}.courses_taught")
+      .stat-display__value= number_to_human presenter.word_count
+      %small= t("metrics.word_count")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.courses.sum(:view_sum)
+      %small= t("metrics.view_count_description")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.courses.sum(:article_count)
+      %small= t("metrics.articles_edited")
+    .stat-display__stat
+      .stat-display__value= number_to_human presenter.courses.sum(:new_article_count)
+      %small= t("metrics.articles_created")
     .stat-display__stat.tooltip-trigger
-      .stat-display__value= presenter.user_count
-      %small= t("#{presenter.course_string_prefix}.students")
+      .stat-display__value= number_to_human presenter.courses.sum(:upload_count)
+      %small= t("metrics.upload_count")
       .tooltip.dark
-        %h4
-          = number_to_human presenter.trained_percent
-          \%
-        %p= t("users.up_to_date_with_training")
-%h5
-  = t("users.student_impact", username: @user.username)
-.stat-display
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.word_count
-    %small= t("metrics.word_count")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:view_sum)
-    %small= t("metrics.view_count_description")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:article_count)
-    %small= t("metrics.articles_edited")
-  .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:new_article_count)
-    %small= t("metrics.articles_created")
-  .stat-display__stat.tooltip-trigger
-    .stat-display__value= number_to_human presenter.courses.sum(:upload_count)
-    %small= t("metrics.upload_count")
-    .tooltip.dark
-      %h4= number_to_human presenter.uploads_in_use_count
-      %p= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count)
-      %h4= number_to_human presenter.upload_usage_count
-      %p= t("metrics.upload_usages_count", count: presenter.upload_usage_count)
+        %h4= number_to_human presenter.uploads_in_use_count
+        %p= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count)
+        %h4= number_to_human presenter.upload_usage_count
+        %p= t("metrics.upload_usages_count", count: presenter.upload_usage_count)

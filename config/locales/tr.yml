@@ -25,11 +25,13 @@ tr:
     creator:
       end_date: Bitiş tarihi
       start_date: Başlangıç tarihi
+    courses_enrolled: Kaydolunan dersler
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
     untrained: Eğitimsiz
   courses_generic:
     creator:
       course_title: Program adı
+    courses_enrolled: Katılınan programlar
   metrics:
     char_changed: Karakterler Değişti
   namespace:

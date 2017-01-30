@@ -58,7 +58,7 @@ class TrainingModuleDueDateManager
   def blocks_with_training_modules_for_user
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
-         .where(courses_users: { user_id: @user.id })
+         .where(courses_users: { user_id: @user.id, role: CoursesUsers::Roles::STUDENT_ROLE })
          .where.not('training_module_ids = ?', [].to_yaml)
   end
 

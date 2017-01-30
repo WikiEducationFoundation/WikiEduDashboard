@@ -10,10 +10,14 @@ dty:
       does_not_exist: यो लेख विकिपिडियामी उपलब्ध आथिन
     wp10: संरचनात्मक पूर्णता
   courses:
+    overview: घर
     students: इस्कुल्या
     students_short: इस्कुल्या
   users:
     name: नाऊ
+    student_impact: विद्यार्थीया रूपमी %{username}ले पाण्याऽ कूल प्रभाव
+    instructor_impact: प्रशिक्षकआ रूपमी %{username}ले पाण्याऽ कूल प्रभाव
+    instructors_student_impact: '%{username}आ विद्यार्थीइनले पाण्याऽ कूल प्रभाव'
   wizard:
     select_one_option: कृपया १ विकल्प छानअ।
   error:

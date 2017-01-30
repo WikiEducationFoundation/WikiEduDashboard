@@ -226,6 +226,7 @@ zh-CN:
     end: 结束
     enroll: 注册
     enrollment: 登记
+    courses_enrolled: 课程已登记
     error:
       exists: 该课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
@@ -260,7 +261,7 @@ zh-CN:
     none: 无
     notify_untrained_confirmation: 这将在讨论页为所有未能完成分配训练模块的学生发布一则提示。您确定要这样做么？
     no_available_actions: 无可用操作
-    overview: 概述
+    overview: 首页
     passcode: 密码
     passcode_none: 无密码
     passcode_prompt: 输入密码以加入：
@@ -338,6 +339,7 @@ zh-CN:
     explore: 找到程序
     enroll: 添加编辑者
     enrollment: 参与
+    courses_enrolled: 程序已参与
     expected_students: 预期编辑者
     instructors: 促进者
     join_course: 加入程序
@@ -548,8 +550,9 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
-    user_impact: 由%{username}做出的总影响
-    student_impact: 由%{username}的学生做出的总影响
+    student_impact: 由%{username}作为学生做出的总影响
+    instructor_impact: 由%{username}作为导师做出的总影响
+    instructors_student_impact: 由%{username}的学生做出的总影响
     role:
       visitor: 访问者
       student: 学生

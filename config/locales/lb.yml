@@ -164,7 +164,7 @@ lb:
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
     no_available_actions: Keng disponibel Aktiounen
-    overview: Iwwersiicht
+    overview: Haaptsäit
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     start: Ufank
@@ -326,8 +326,9 @@ lb:
     training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    user_impact: Gesamtimpakt vum %{username}
-    student_impact: Gesamtimpakt vun de Studente vum %{username}
+    student_impact: Gesamtimpakt vum %{username} als Student
+    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
+    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
     role:
       visitor: Visiteur
       student: Student
