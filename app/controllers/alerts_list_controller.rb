@@ -6,7 +6,7 @@ class AlertsListController < ApplicationController
   before_action :check_user_auth
 
   def index
-    @alerts = Alert.order(id: :desc).first(100)
+    @alerts = Alert.where(resolved: false).order(id: :desc).first(100)
   end
 
   def show

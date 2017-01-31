@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class AlertsController < ApplicationController
   before_action :require_signed_in
+  before_action :set_alert, only: [:resolve]
 
   def create
     ensure_alerts_are_enabled { return }
@@ -16,6 +17,14 @@ class AlertsController < ApplicationController
     else
       render json: { errors: @alert.errors, message: 'unable to create alert' }, status: 500
     end
+  end
+
+  def resolve
+    ensure_alerts_are_enabled { return}
+
+    @alert.update resolved: true
+
+    render json: { alert: @alert }
   end
 
   private
@@ -36,5 +45,9 @@ class AlertsController < ApplicationController
 
   def set_default_target_user
     @alert.target_user_id = User.find_by(username: ENV['technical_help_staff'])&.id
+  end
+
+  def set_alert
+    @alert = Alert.find(params[:id])
   end
 end

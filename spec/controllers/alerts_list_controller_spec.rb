@@ -7,13 +7,26 @@ describe AlertsListController do
 
   describe '#index' do
     let!(:alert) { create(:alert) }
+    let!(:another_alert) { create(:alert, resolved: true) }
+
     context 'for admins' do
       render_views
       before { allow(controller).to receive(:current_user).and_return(admin) }
+
       it 'renders the alerts list' do
         get :index
+
         expect(response.status).to eq(200)
         expect(response.body).to have_content(alert.type)
+      end
+
+      it 'should not render resolved alerts' do
+        alert.destroy!
+
+        get :index
+
+        expect(response.status).to eq(200)
+        expect(response.body).to_not have_content(alert.type)
       end
     end
 

@@ -61,4 +61,22 @@ describe AlertsController do
       end
     end
   end
+
+  describe '#resolve' do
+    let(:alert) { create(:alert) }
+    let(:user) { create(:user) }
+
+    before do
+      allow(controller).to receive(:current_user).and_return(user)
+      allow(controller).to receive(:user_signed_in?).and_return(true)
+      # controller.instance_variable_set(:@alert)
+    end
+
+    it 'should update Alert resolved column to true' do
+      put :resolve, params: { id: alert.id }, format: :json
+
+      expect(response.status).to eq(200)
+      expect(alert.reload.resolved).to be(true)
+    end
+  end
 end
