@@ -74,9 +74,14 @@ describe Campaign do
   end
 
   describe 'slug' do
-    it 'should create a slug for the campaign based on the title' do
+    it 'creates a slug for the campaign based on the title' do
       campaign = Campaign.create(title: 'My awesome 2016 campaign')
       expect(campaign.slug).to eq('my_awesome_2016_campaign')
+    end
+    it 'handles non-ascii campaign titles' do
+      title = 'Карыстальнік Група Беларусь 2016'
+      campaign = Campaign.create(title: title)
+      expect(campaign.slug).to eq('Карыстальнік_Група_Беларусь_2016')
     end
   end
 
