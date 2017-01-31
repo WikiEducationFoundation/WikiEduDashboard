@@ -521,7 +521,9 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
+    edit_time_span: Edits occurred from %{first_time} to %{last_time}
     edited_by: Edited By
+    edited_on: Edited on %{edit_date}
     loading: Loading revisions...
     none: This course has no recent editing activity.
     time_doc: The time of each revision in your local time
