@@ -64,12 +64,10 @@ describe AlertsController do
 
   describe '#resolve' do
     let(:alert) { create(:alert) }
-    let(:user) { create(:user) }
+    let(:admin) { create(:admin) }
 
     before do
-      allow(controller).to receive(:current_user).and_return(user)
-      allow(controller).to receive(:user_signed_in?).and_return(true)
-      # controller.instance_variable_set(:@alert)
+      allow(controller).to receive(:current_user).and_return(admin)
     end
 
     it 'should update Alert resolved column to true' do
@@ -77,6 +75,14 @@ describe AlertsController do
 
       expect(response.status).to eq(200)
       expect(alert.reload.resolved).to be(true)
+    end
+
+    it 'should not update Alert unless its resolvable' do
+      alert.update resolved: true
+
+      put :resolve, params: { id: alert.id }, format: :json
+
+      expect(response.status).to eq(422)
     end
   end
 end

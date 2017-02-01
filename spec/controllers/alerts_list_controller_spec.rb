@@ -7,7 +7,6 @@ describe AlertsListController do
 
   describe '#index' do
     let!(:alert) { create(:alert) }
-    let!(:another_alert) { create(:alert, resolved: true) }
 
     context 'for admins' do
       render_views
@@ -20,13 +19,11 @@ describe AlertsListController do
         expect(response.body).to have_content(alert.type)
       end
 
-      it 'should not render resolved alerts' do
-        alert.destroy!
-
+      it 'renders resolve button for resolvable alerts' do
         get :index
 
         expect(response.status).to eq(200)
-        expect(response.body).to_not have_content(alert.type)
+        expect(response.body).to have_content('Resolve')
       end
     end
 
@@ -42,14 +39,29 @@ describe AlertsListController do
   describe '#show' do
     let(:course) { create(:course) }
     let(:user) { create(:user) }
-    let!(:alert) { create(:alert, type: 'NeedHelpAlert', course_id: course.id, user_id: user.id) }
+    let(:article) { create(:article) }
+
+    let(:alert) { create(:alert, type: 'NeedHelpAlert', course_id: course.id, user_id: user.id) }
+    let(:articles_for_deletion_alert) { create(:alert, article_id: article.id,
+                                               course_id: course.id,
+                                               type: 'ArticlesForDeletionAlert') }
+
     context 'for admins' do
       render_views
       before { allow(controller).to receive(:current_user).and_return(admin) }
+
       it 'renders the alert' do
         get :show, params: { id: alert.id }
+
         expect(response.status).to eq(200)
         expect(response.body).to have_content(alert.type)
+      end
+
+      it 'renders the alert with resolve button' do
+        get :show, params: { id: articles_for_deletion_alert.id }
+
+        expect(response.status).to eq(200)
+        expect(response.body).to have_content('Resolve')
       end
     end
 

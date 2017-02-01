@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 class AlertsController < ApplicationController
-  before_action :require_signed_in
+  before_action :require_signed_in, only: [:create]
+  before_action :require_admin_permissions, only: [:resolve]
   before_action :set_alert, only: [:resolve]
 
+  # Creates only NeedHelpAlert. Doesn't require admin permission.
+  # Other type of alerts are created via the update cycle, not directly by users.
   def create
     ensure_alerts_are_enabled { return }
 
@@ -19,8 +22,12 @@ class AlertsController < ApplicationController
     end
   end
 
+  # Resolves alert if it is resolvable? Requires admin permission.
+  # Normally, same alerts won't be created for the second time.
+  # Resolving alert, allows it to be created for the second time if conditions are met.
   def resolve
-    ensure_alerts_are_enabled { return}
+    ensure_alerts_are_enabled { return }
+    ensure_alert_is_resolvable { return }
 
     @alert.update resolved: true
 
@@ -36,6 +43,12 @@ class AlertsController < ApplicationController
   def ensure_alerts_are_enabled
     return if Features.enable_get_help_button?
     render json: {}, status: 400
+    yield
+  end
+
+  def ensure_alert_is_resolvable
+    return if @alert.resolvable?
+    render json: {}, status: 422
     yield
   end
 

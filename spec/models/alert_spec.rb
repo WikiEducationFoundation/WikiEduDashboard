@@ -25,6 +25,8 @@ describe Alert do
   let(:course) { create(:course) }
   let(:revision) { create(:revision) }
   let(:user) { create(:user) }
+  let(:alert) { create(:alert, type: 'ArticlesForDeletionAlert') }
+  let(:another_alert) { create(:alert, type: 'ActiveCourseAlert') }
 
   describe 'abstract parent class' do
     it 'raises errors for required template methods' do
@@ -55,6 +57,16 @@ describe Alert do
                      user_id: user.id)
         expect(Alert.last.url).to be_a(String)
       end
+    end
+
+    it 'should be resolvable for ArticleDeletionAlert' do
+      expect(alert.resolvable?).to be(true)
+      expect(another_alert.resolvable?).to be(false)
+    end
+
+    it 'should not be resolvable if already resolved' do
+      alert.update resolved: true
+      expect(alert.resolvable?).to be(false)
     end
   end
 
