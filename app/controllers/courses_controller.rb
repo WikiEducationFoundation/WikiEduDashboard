@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/list_course_manager"
 require "#{Rails.root}/lib/tag_manager"
 require "#{Rails.root}/lib/course_creation_manager"
 require "#{Rails.root}/app/workers/update_course_worker"
+require "#{Rails.root}/app/workers/notify_untrained_users_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
