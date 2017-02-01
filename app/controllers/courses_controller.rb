@@ -117,7 +117,7 @@ class CoursesController < ApplicationController
 
   def notify_untrained
     @course = find_course_by_slug(params[:id])
-    WikiEdits.new(@course.home_wiki).notify_untrained(@course, current_user)
+    NotifyUntrainedUsersWorker.schedule_notifications(course: @course, notifying_user: current_user)
     render plain: '', status: :ok
   end
   helper_method :notify_untrained
