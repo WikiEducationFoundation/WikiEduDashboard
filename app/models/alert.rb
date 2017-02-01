@@ -78,11 +78,6 @@ class Alert < ActiveRecord::Base
     ENV["#{self.class}_emails_disabled"] == 'true'
   end
 
-  def resolvable?
-    return true if type == 'ArticlesForDeletionAlert' && resolved == false
-    return false
-  end
-
   #########################
   # Type-specific methods #
   #########################
@@ -97,5 +92,9 @@ class Alert < ActiveRecord::Base
 
   def reply_to
     nil
+  end
+
+  def resolvable?
+    false
   end
 end

@@ -19,7 +19,7 @@
 #
 
 FactoryGirl.define do
-  factory :alert do
-    type 'ArticlesForDeletionAlert'
-  end
+  factory :alert, class: 'ArticlesForDeletionAlert'
+
+  factory :active_course_alert, class: 'ActiveCourseAlert'
 end

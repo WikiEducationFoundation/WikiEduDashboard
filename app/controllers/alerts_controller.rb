@@ -26,7 +26,6 @@ class AlertsController < ApplicationController
   # Normally, same alerts won't be created for the second time.
   # Resolving alert, allows it to be created for the second time if conditions are met.
   def resolve
-    ensure_alerts_are_enabled { return }
     ensure_alert_is_resolvable { return }
 
     @alert.update resolved: true

@@ -27,4 +27,8 @@ class ArticlesForDeletionAlert < Alert
   def url
     article_url(article)
   end
+
+  def resolvable?
+    !resolved
+  end
 end
