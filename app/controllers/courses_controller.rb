@@ -112,7 +112,8 @@ class CoursesController < ApplicationController
   def needs_update
     @course = find_course_by_slug(params[:id])
     @course.update_attribute(:needs_update, true)
-    render json: { result: 'Update scheduled.' }, status: :ok
+    render json: { result: I18n.t('courses.creator.update_scheduled') },
+           status: :ok
   end
 
   def notify_untrained
