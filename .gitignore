@@ -6,6 +6,7 @@
 /js_coverage
 /vendor/*
 .nyc_output
+.idea/
 
 *.rbc
 capybara-*.html
