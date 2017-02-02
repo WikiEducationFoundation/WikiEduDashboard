@@ -5,11 +5,10 @@ const Wp10Graph = React.createClass({
   displayName: 'Wp10Graph',
 
   propTypes: {
-    article: React.PropTypes.object,
     graphid: React.PropTypes.string,
-    articleId: React.PropTypes.number,
     graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    graphHeight: React.PropTypes.number,
+    articleData: React.PropTypes.array
   },
 
   renderGraph() {
@@ -77,7 +76,7 @@ const Wp10Graph = React.createClass({
       data: [
         {
           name: 'wp10_scores',
-          url: `/articles/article_data.json?article_id=${this.props.articleId}`,
+          values: this.props.articleData,
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',

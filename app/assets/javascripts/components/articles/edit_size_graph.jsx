@@ -5,11 +5,10 @@ const EditSizeGraph = React.createClass({
   displayName: 'EditSizeGraph',
 
   propTypes: {
-    article: React.PropTypes.object,
     graphid: React.PropTypes.string,
-    articleId: React.PropTypes.number,
     graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    graphHeight: React.PropTypes.number,
+    articleData: React.PropTypes.array
   },
 
   renderGraph() {
@@ -80,7 +79,7 @@ const EditSizeGraph = React.createClass({
       data: [
         {
           name: 'characters_added',
-          url: `/articles/article_data.json?article_id=${this.props.articleId}`,
+          values: this.props.articleData,
           format: { type: 'json', parse: { date: 'date', characters: 'number' } },
           transform: [{
             type: 'filter',

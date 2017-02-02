@@ -18,8 +18,24 @@ const ArticleGraphs = React.createClass({
     };
   },
 
+  getData() {
+    const articleId = this.props.article.id;
+    const articledataUrl = `/articles/article_data.json?article_id=${articleId}`;
+    $.ajax(
+      {
+        dataType: 'json',
+        url: articledataUrl,
+        success: (data) => {
+          this.setState({
+            articleData: data
+          });
+        }
+      });
+  },
+
   showGraph() {
     this.state.selectedRadio = 'wp10_score';
+    this.getData();
     this.setState({ showGraph: true });
   },
 
@@ -89,22 +105,20 @@ const ArticleGraphs = React.createClass({
       {
         graph = (
           <Wp10Graph
-            article = {this.props.article}
             graphid = {this.graphId()}
-            articleId = {this.props.article.id}
             graphWidth = {graphWidth}
             graphHeight = {graphHeight}
+            articleData = {this.state.articleData}
           />
         );
       }
       else {
         graph = (
           <EditSizeGraph
-            article = {this.props.article}
             graphid ={this.graphId()}
-            articleId = {this.props.article.id}
             graphWidth = {graphWidth}
             graphHeight = {graphHeight}
+            articleData = {this.state.articleData}
           />
         );
       }
@@ -115,11 +129,10 @@ const ArticleGraphs = React.createClass({
       );
       graph = (
         <EditSizeGraph
-          article = {this.props.article}
           graphid ={this.graphId()}
-          articleId = {this.props.article.id}
           graphWidth = {graphWidth}
           graphHeight = {graphHeight}
+          articleData = {this.state.articleData}
         />
       );
     }
