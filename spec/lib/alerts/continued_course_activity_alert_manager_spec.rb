@@ -49,11 +49,34 @@ describe ContinuedCourseActivityAlertManager do
   context 'when there is significant after the course ends' do
     let(:character_count) { 5000 }
     let(:revision_date) { course.end + 2.days }
+
     it 'creates an alert' do
       expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       revision
       subject.create_alerts
       expect(Alert.count).to eq(1)
+    end
+
+    it 'should not create alert for the second time' do
+      expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
+      revision
+      subject.create_alerts
+
+      # Attempt to create for the second time
+      subject.create_alerts
+
+      expect(Alert.count).to eq(1)
+    end
+
+    it 'should create another alert if the first alert is resolved' do
+      revision
+      subject.create_alerts
+
+      Alert.first.update_attribute(:resolved, true)
+
+      subject.create_alerts
+
+      expect(Alert.count).to eq(2)
     end
   end
 end
