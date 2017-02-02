@@ -7,4 +7,5 @@ json.array! @article.revisions.each do |revision|
   json.wp10 revision.wp10
   json.date revision.date
   json.username revision.user.username
+  json.characters revision.characters
 end
