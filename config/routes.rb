@@ -87,7 +87,11 @@ Rails.application.routes.draw do
   get 'articles/details' => 'articles#details'
 
   resources :courses_users, only: [:index]
-  resources :alerts, only: [:create]
+  resources :alerts, only: [:create] do
+    member do
+      put 'resolve'
+    end
+  end
 
   # Article Finder
   if Features.enable_article_finder?

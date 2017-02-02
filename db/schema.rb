@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215213721) do
+ActiveRecord::Schema.define(version: 20170131065625) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 20161215213721) do
     t.integer  "revision_id"
     t.string   "type"
     t.datetime "email_sent_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.text     "message",        limit: 65535
     t.integer  "target_user_id"
     t.integer  "subject_id"
+    t.boolean  "resolved",                     default: false
     t.index ["article_id"], name: "index_alerts_on_article_id", using: :btree
     t.index ["course_id"], name: "index_alerts_on_course_id", using: :btree
     t.index ["revision_id"], name: "index_alerts_on_revision_id", using: :btree

@@ -15,6 +15,7 @@
 #  message        :text(65535)
 #  target_user_id :integer
 #  subject_id     :integer
+#  resolved       :boolean          default(FALSE)
 #
 
 class Alert < ActiveRecord::Base
@@ -76,6 +77,7 @@ class Alert < ActiveRecord::Base
   def emails_disabled?
     ENV["#{self.class}_emails_disabled"] == 'true'
   end
+
   #########################
   # Type-specific methods #
   #########################
@@ -90,5 +92,9 @@ class Alert < ActiveRecord::Base
 
   def reply_to
     nil
+  end
+
+  def resolvable?
+    false
   end
 end

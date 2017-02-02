@@ -15,6 +15,7 @@
 #  message        :text(65535)
 #  target_user_id :integer
 #  subject_id     :integer
+#  resolved       :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -24,6 +25,8 @@ describe Alert do
   let(:course) { create(:course) }
   let(:revision) { create(:revision) }
   let(:user) { create(:user) }
+  let(:alert) { create(:alert, type: 'ArticlesForDeletionAlert', resolved: false) }
+  let(:active_course_alert) { create(:active_course_alert) }
 
   describe 'abstract parent class' do
     it 'raises errors for required template methods' do
@@ -54,6 +57,16 @@ describe Alert do
                      user_id: user.id)
         expect(Alert.last.url).to be_a(String)
       end
+    end
+
+    it 'should be resolvable only for ArticlesForDeletionAlert' do
+      expect(alert.resolvable?).to be(true)
+      expect(active_course_alert.resolvable?).to be(false)
+    end
+
+    it 'should not be resolvable if already resolved' do
+      alert.update resolved: true
+      expect(alert.resolvable?).to be(false)
     end
   end
 
