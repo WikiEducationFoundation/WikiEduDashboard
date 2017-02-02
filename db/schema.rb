@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131065625) do
+ActiveRecord::Schema.define(version: 20170202172744) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -173,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.integer  "recent_revision_count",               default: 0
     t.boolean  "needs_update",                        default: false
     t.string   "chatroom_id"
+    t.text     "flags",                 limit: 65535
     t.index ["slug"], name: "index_courses_on_slug", using: :btree
   end
 
