@@ -53,17 +53,29 @@ describe RocketChat do
   end
 
   describe '#create_channel_for_course' do
-    let(:course) { create(:course) }
-
     before do
       stub_chat_login_success
       stub_chat_channel_create_success
     end
 
-    it 'saves the course\'s room ID' do
-      expect(course.chatroom_id).to be_nil
-      subject.create_channel_for_course
-      expect(course.chatroom_id).not_to be_nil
+    context 'when the enable_chat flag is set for the course' do
+      let(:course) { create(:course, flags: { enable_chat: true }) }
+
+      it 'saves the course\'s room ID' do
+        expect(course.chatroom_id).to be_nil
+        subject.create_channel_for_course
+        expect(course.chatroom_id).not_to be_nil
+      end
+    end
+
+    context 'when the enable_chat flag is not set for the course' do
+      let(:course) { create(:course, flags: {}) }
+
+      it 'does nothing' do
+        expect(course.chatroom_id).to be_nil
+        subject.create_channel_for_course
+        expect(course.chatroom_id).to be_nil
+      end
     end
   end
 end

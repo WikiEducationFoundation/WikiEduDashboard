@@ -20,6 +20,7 @@ class RocketChat
   # Creates a private group channel, vs. 'channels.create' for a public channel
   CREATE_ROOM_ENDPOINT = '/api/v1/groups.create'
   def create_channel_for_course
+    return unless Features.enable_course_chat?(@course)
     return if @course.chatroom_id
     data = { name: @course.slug }
     response = api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
@@ -35,6 +36,7 @@ class RocketChat
 
   ADD_TO_CHANNEL_ENDPOINT = '/api/v1/groups.invite'
   def add_user_to_course_channel
+    return unless Features.enable_course_chat?(@course)
     create_chat_account unless @user.chat_id
     create_channel_for_course unless @course.chatroom_id
     add_user_data = {
