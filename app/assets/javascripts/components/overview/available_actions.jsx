@@ -112,8 +112,8 @@ const AvailableActions = React.createClass({
           <p key="needs_update"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></p>
         ));
       }
-      // If chat is not enabled, show the 'enable chat' button.
-      if (!this.state.course.flags.enable_chat) {
+      // If chat is available but not enabled for course, show the 'enable chat' button.
+      if (Features.enableChat && !this.state.course.flags.enable_chat) {
         controls.push((
           <p key="enable_chat"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></p>
         ));
