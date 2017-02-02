@@ -59,7 +59,9 @@ class TrainingBase
     duplicate_id = all_ids.detect { |id| all_ids.count(id) > 1 }
     return if duplicate_id.nil?
     type = all[0].class
-    raise DuplicateIdError, "duplicate #{type} id detected: #{duplicate_id}"
+    collisions = all.select { |training| training.id == duplicate_id }
+    slugs = collisions.map(&:slug)
+    raise DuplicateIdError, "Duplicate #{type} id detected: #{duplicate_id}. Slugs: #{slugs}"
   end
 
   def self.base_path
