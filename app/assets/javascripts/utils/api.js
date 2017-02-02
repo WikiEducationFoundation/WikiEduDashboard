@@ -660,6 +660,22 @@ slide_id=${opts.slide_id}`,
         return rej(obj);
       })
     );
+  },
+
+  enableChat(courseId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: `/chat/enable_for_course/${courseId}.json`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
   }
 };
 

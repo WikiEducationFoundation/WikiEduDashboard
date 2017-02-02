@@ -224,6 +224,7 @@ Rails.application.routes.draw do
   # Chat
   if Features.enable_chat?
     get '/chat/login' => 'chat#login'
+    put '/chat/enable_for_course/:course_id' => 'chat#enable_for_course'
   end
 
   resources :admin
