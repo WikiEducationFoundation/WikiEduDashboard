@@ -209,6 +209,9 @@ en:
     title: Title
     use_start_end_dates: Use start and end dates
 
+  chat:
+    label: Chat
+
   courses:
     activity: Activity
     active_courses: Active %{course_type}

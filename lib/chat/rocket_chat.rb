@@ -66,12 +66,7 @@ class RocketChat
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
     response = http.request(post)
-    unless response.code == '200'
-      Raven.capture_message 'Rocket.Chat API error',
-                            level: 'error',
-                            extra: { response_data: response.body }
-      raise RocketChatAPIError
-    end
+    validate_api_response(response)
     response
   end
 
@@ -81,7 +76,16 @@ class RocketChat
     http.use_ssl = true
     get = Net::HTTP::Get.new(uri.path, header)
     response = http.request(get)
+    validate_api_response(response)
     response
+  end
+
+  def validate_api_response(response)
+    return if response.code == '200'
+    Raven.capture_message 'Rocket.Chat API error',
+                          level: 'error',
+                          extra: { response_data: response.body }
+    raise RocketChatAPIError
   end
 
   def admin_login
@@ -116,7 +120,7 @@ class RocketChat
     login_uri = URI("#{CHAT_SERVER}/api/v1/login")
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
-    raise RocketChatAPIError unless response.code == '200'
+    validate_api_response(response)
     JSON.parse(response.body).dig('data')
   end
 

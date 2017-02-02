@@ -45,6 +45,9 @@ const RocketChat = React.createClass({
   },
 
   render() {
+    if (!(this.props.course && this.props.course.flags && this.props.course.flags.enable_chat)) {
+      return <div />;
+    }
     // Rocket.Chat appears to double-encode the channel name to produce the URI.
     const room = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/group/${room}?layout=embedded`;
