@@ -22,4 +22,6 @@ FactoryGirl.define do
   factory :alert, class: 'ArticlesForDeletionAlert'
 
   factory :active_course_alert, class: 'ActiveCourseAlert'
+
+  factory :continued_course_activity_alert, class: 'ContinuedCourseActivityAlert'
 end

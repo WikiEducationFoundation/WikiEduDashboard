@@ -40,6 +40,11 @@ class Alert < ActiveRecord::Base
   ).freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 
+  RESOLVABLE_ALERT_TYPES = %w(
+    ArticlesForDeletionAlert
+    ContinuedCourseActivityAlert
+  ).freeze
+
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
   end

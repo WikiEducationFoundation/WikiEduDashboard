@@ -59,9 +59,24 @@ describe Alert do
       end
     end
 
-    it 'should be resolvable only for ArticlesForDeletionAlert' do
-      expect(alert.resolvable?).to be(true)
-      expect(active_course_alert.resolvable?).to be(false)
+    it 'should be resolvable for resolvable alert types' do
+      Alert::RESOLVABLE_ALERT_TYPES.each do |type|
+        # Equals to ArticlesForDeletionAlert.new
+        alert = type.constantize.new
+
+        expect(alert.resolvable?).to be(true)
+      end
+    end
+
+    it 'should not be resolvable for certain types' do
+      unresolvable_alert_types =
+        Alert::ALERT_TYPES - Alert::RESOLVABLE_ALERT_TYPES
+
+      unresolvable_alert_types.each do |type|
+        alert = type.constantize.new
+
+        expect(alert.resolvable?).to be(false)
+      end
     end
 
     it 'should not be resolvable if already resolved' do

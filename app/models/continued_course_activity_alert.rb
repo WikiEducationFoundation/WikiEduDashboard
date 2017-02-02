@@ -27,4 +27,8 @@ class ContinuedCourseActivityAlert < Alert
   def url
     course_url
   end
+
+  def resolvable?
+    !resolved
+  end
 end
