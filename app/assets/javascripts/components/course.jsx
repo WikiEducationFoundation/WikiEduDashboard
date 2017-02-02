@@ -1,14 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router';
 import CourseLink from './common/course_link.jsx';
+import CourseNavigation from './common/course_navigation.jsx';
 import ServerActions from '../actions/server_actions.js';
 import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
 import UserStore from '../stores/user_store.js';
-import NotificationStore from '../stores/notification_store.js';
-import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
-import GetHelpButton from '../components/common/get_help_button.jsx';
 import EnrollCard from './enroll/enroll_card.jsx';
 
 const getState = function () {
@@ -29,7 +26,7 @@ const Course = React.createClass({
     children: React.PropTypes.node
   },
 
-  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin],
+  mixins: [CourseStore.mixin, UserStore.mixin],
 
   getInitialState() {
     return getState();
@@ -59,9 +56,7 @@ const Course = React.createClass({
   _courseLinkParams() {
     return `/courses/${this.props.params.course_school}/${this.props.params.course_title}`;
   },
-  _onCourseIndex() {
-    return this.props.location.pathname.split('/').length === 4;
-  },
+
   dismissSurvey(surveyNotificationId) {
     if (confirm(I18n.t('courses.dismiss_survey_confirm'))) {
       return CourseActions.dismissNotification(surveyNotificationId);
@@ -70,47 +65,11 @@ const Course = React.createClass({
   render() {
     const alerts = [];
 
-    let courseLink;
-    if (this.state.course.url) {
-      courseLink = (
-        <a href={this.state.course.url} target="_blank">
-          <h2 className="title">{this.state.course.title}</h2>
-        </a>
-      );
-    } else {
-      courseLink = <a><h2 className="title">{this.state.course.title}</h2></a>;
-    }
-
     let userObject;
     if (this.state.current_user.id) {
       userObject = UserStore.getFiltered({ id: this.state.current_user.id })[0];
     }
     const userRole = userObject ? userObject.role : -1;
-
-    // ///////////////
-    // Timeline link /
-    // ///////////////
-    let timeline;
-    if (this.state.course.type === 'ClassroomProgramCourse') {
-      const timelineLink = `${this._courseLinkParams()}/timeline`;
-      timeline = (
-        <div className="nav__item" id="timeline-link">
-          <p><Link to={timelineLink} activeClassName="active">{I18n.t('courses.timeline_link')}</Link></p>
-        </div>
-      );
-    }
-
-    // /////////////////
-    // Get Help button /
-    // /////////////////
-    let getHelp;
-    if (Features.enableGetHelpButton) {
-      getHelp = (
-        <div className="nav__button" id="get-help-button">
-          <GetHelpButton course={this.state.course} current_user={this.state.current_user} key="get_help" />
-        </div>
-      );
-    }
 
     // //////////////////////////////////
     // Admin / Instructor notifications /
@@ -224,52 +183,14 @@ const Course = React.createClass({
       );
     }
 
-    let homeLinkClassName;
-    if (this._onCourseIndex()) { homeLinkClassName = 'active'; }
-    const homeLink = `${this._courseLinkParams()}/home`;
-    const studentsLink = `${this._courseLinkParams()}/students`;
-    const articlesLink = `${this._courseLinkParams()}/articles`;
-    const uploadsLink = `${this._courseLinkParams()}/uploads`;
-    const activityLink = `${this._courseLinkParams()}/activity`;
-    let chatNav;
-    if (this.state.course && this.state.course.flags && this.state.course.flags.enable_chat) {
-      const chatLink = `${this._courseLinkParams()}/chat`;
-      chatNav = (
-        <div className="nav__item" id="activity-link">
-          <p><Link to={chatLink} activeClassName="active">{I18n.t('chat.label')}</Link></p>
-        </div>
-      );
-    }
-
     return (
       <div>
-        <div className="course-nav__wrapper">
-          <Affix className="course_navigation" offset={57 + NotificationStore.getNotifications().length * 52}>
-            <div className="container">
-              {courseLink}
-              <nav>
-                <div className="nav__item" id="overview-link">
-                  <p><Link to={homeLink} className={homeLinkClassName} activeClassName="active">{I18n.t('courses.overview')}</Link></p>
-                </div>
-                {timeline}
-                <div className="nav__item" id="students-link">
-                  <p><Link to={studentsLink} activeClassName="active">{CourseUtils.i18n('students_short', this.state.course.string_prefix)}</Link></p>
-                </div>
-                <div className="nav__item" id="articles-link">
-                  <p><Link to={articlesLink} activeClassName="active">{I18n.t('articles.label')}</Link></p>
-                </div>
-                <div className="nav__item" id="uploads-link">
-                  <p><Link to={uploadsLink} activeClassName="active">{I18n.t('uploads.label')}</Link></p>
-                </div>
-                <div className="nav__item" id="activity-link">
-                  <p><Link to={activityLink} activeClassName="active">{I18n.t('activity.label')}</Link></p>
-                </div>
-                {chatNav}
-                {getHelp}
-              </nav>
-            </div>
-          </Affix>
-        </div>
+        <CourseNavigation
+          course={this.state.course}
+          current_user={this.state.current_user}
+          location={this.props.location}
+          baseUrl={this._courseLinkParams()}
+        />
         <div className="course-alerts">
           {alerts}
         </div>
