@@ -25,7 +25,7 @@ describe Alert do
   let(:course) { create(:course) }
   let(:revision) { create(:revision) }
   let(:user) { create(:user) }
-  let(:alert) { create(:alert) }
+  let(:alert) { create(:alert, type: 'ArticlesForDeletionAlert', resolved: false) }
   let(:active_course_alert) { create(:active_course_alert) }
 
   describe 'abstract parent class' do
@@ -59,7 +59,7 @@ describe Alert do
       end
     end
 
-    it 'should be resolvable only for ArticleDeletionAlert' do
+    it 'should be resolvable only for ArticlesForDeletionAlert' do
       expect(alert.resolvable?).to be(true)
       expect(active_course_alert.resolvable?).to be(false)
     end
