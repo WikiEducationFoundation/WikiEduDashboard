@@ -48,6 +48,11 @@ const RocketChat = React.createClass({
     if (!(this.props.course && this.props.course.flags && this.props.course.flags.enable_chat)) {
       return <div />;
     }
+
+    const privacyInfo = (
+      <p>This chatroom is accessible to students and instructors participating in the course, as well as Wiki Ed staff.</p>
+    );
+
     // Rocket.Chat appears to double-encode the channel name to produce the URI.
     const room = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/group/${room}?layout=embedded`;
@@ -59,6 +64,7 @@ const RocketChat = React.createClass({
 
     return (
       <div className="rocket-chat">
+        {privacyInfo}
         {chatFrame}
       </div>
     );
