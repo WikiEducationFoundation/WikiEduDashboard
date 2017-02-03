@@ -66,7 +66,7 @@ class CampaignsController < ApplicationController
       # used to show the Details form in 'edit mode'
       @open_details = (@campaign.errors.messages.keys & DETAILS_FIELDS).empty?
 
-      render :overview
+      render :edit
     end
   end
 

@@ -53,7 +53,7 @@ $(() => {
       $content.hide();
       $input.val(text);
       if ($input.prop('type') === 'textarea') {
-        $input.height(text ? $content.innerHeight() : 'auto');
+        $input.height('400px');
       }
       $input.show();
     });

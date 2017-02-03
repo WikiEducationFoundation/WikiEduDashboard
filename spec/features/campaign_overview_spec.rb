@@ -200,7 +200,7 @@ describe 'campaign overview page', type: :feature, js: true do
           fill_in('campaign_end', with: 'Invalid date')
           find('.campaign-details .rails_editable-save').click
           expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
-          find('.campaign-end', visible: true) # field with the error should be visible
+          find('#campaign_end', visible: true) # field with the error should be visible
         end
 
         it "updates the date fields properly, and to nil if the 'Use start and end dates' become unchecked" do
