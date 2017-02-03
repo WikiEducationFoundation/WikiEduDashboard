@@ -29,7 +29,7 @@
         .module__data.rails_editable-field
           %p.rails_editable-content
             = preserve @campaign.description
-          = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535, height: '60%')
+          = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
     .sidebar
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
