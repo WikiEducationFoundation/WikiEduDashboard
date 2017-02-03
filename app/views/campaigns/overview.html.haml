@@ -23,31 +23,27 @@
             = succeed ':' do
               = t('campaign.campaign')
             = @campaign.title
-          .controls
-            - if @editable
-              %button.button.dark.rails_editable-edit
-                = t('editable.edit_description')
         .module__data.rails_editable-field
           %p.rails_editable-content
-            = @campaign.description
-          = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
+            = html_from_markdown @campaign.description
     .sidebar
       - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
           %button.button.dark
             = t('courses_generic.creator.create_short')
+      - if @editable
+        = form_tag('./edit', method: :get, class: 'campaign-create') do
+          = hidden_field_tag(:campaign_slug, @campaign.slug)
+          %button.button.dark
+            = t('campaigns.edit')
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3
             = t('application.details')
-          .controls
-            - if @editable
-              %button.button.dark.rails_editable-edit
-                = t('editable.edit_details')
         .module__data.extra-line-height
           %div
-            - if @editable || @campaign.organizers.any?
+            - if @campaign.organizers.any?
               %span.campaign-organizers
                 %strong
                   = succeed ':' do
@@ -83,7 +79,6 @@
                   = t('campaign.title')
               %span.rails_editable-content
                 = @campaign.title
-              = text_field(:campaign, :title, required: true, class: 'rails_editable-input')
 
             .campaign-use-dates.form-group.rails_editable-field
               - use_dates = @campaign.start || @campaign.end
@@ -98,7 +93,6 @@
                     = t('courses.creator.start_date')
                 %span.rails_editable-content
                   = @campaign.start.try(:strftime, '%Y-%m-%d')
-                = date_field(:campaign, :start, placeholder: '2016-12-31', class: 'rails_editable-input')
 
               .campaign-end.form-group.rails_editable-field
                 %label{for: 'campaign_end'}
@@ -106,14 +100,8 @@
                     = t('courses.creator.end_date')
                 %span.rails_editable-content
                   = @campaign.end.try(:strftime, '%Y-%m-%d')
-                = date_field(:campaign, :end, placeholder: '2016-12-31', class: 'rails_editable-input')
 
-      - if @editable
-        = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
-          %button.button.danger
-            = t('campaign.delete_campaign')
-
-      - if @editable || @campaign.template_description.present?
+      - if @campaign.template_description.present?
         = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
           .section-header
             %span.tooltip-trigger
@@ -121,11 +109,6 @@
                 = t('campaign.program_template')
               .tooltip.dark
                 = t('campaign.program_template_tooltip')
-            .controls
-              - if @editable
-                %button.button.dark.rails_editable-edit
-                  = t('editable.edit_description')
           .module__data.rails_editable-field
             %p.rails_editable-content
-              = @campaign.template_description
-            = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
+              = html_from_markdown @campaign.template_description
