@@ -1,13 +1,16 @@
 .container
   %h1 Feedback Form Responses
 
-  %table.list-basic
-    %tr
-      %th Date/Time
-      %th Subject
-      %th Body
-    - @responses.each do |response|
+  - if @responses.empty?
+    %p= I18n.t 'feedback_form_responses.no_responses'
+  - else
+    %table.list-basic
       %tr
-        %td= response.created_at
-        %td= response.topic
-        %td= link_to response.body.truncate(100), "/feedback_form_responses/#{response.id}"
+        %th Date/Time
+        %th Subject
+        %th Body
+      - @responses.each do |response|
+        %tr
+          %td= response.created_at
+          %td= response.topic
+          %td= link_to response.body.truncate(200, separator: ' '), "/feedback_form_responses/#{response.id}"
