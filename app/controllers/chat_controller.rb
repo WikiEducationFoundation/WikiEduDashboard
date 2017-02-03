@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/chat/rocket_chat"
 class ChatController < ApplicationController
   respond_to :json
   before_action :require_signed_in, :check_chat_permission
-  before_action :require_admin_permissions, only: [:enable_chat_for_course]
+  before_action :require_admin_permissions, only: [:enable_for_course]
 
   def login
     chatter = RocketChat.new(user: current_user)
