@@ -28,7 +28,7 @@
               = t('editable.edit_description')
         .module__data.rails_editable-field
           %p.rails_editable-content
-            = @campaign.description
+            = preserve @campaign.description
           = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
     .sidebar
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
@@ -112,7 +112,7 @@
               = t('editable.edit_description')
         .module__data.rails_editable-field
           %p.rails_editable-content
-            = @campaign.template_description
+            = preserve @campaign.template_description
           = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
 
       = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do

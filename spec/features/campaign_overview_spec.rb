@@ -140,7 +140,7 @@ describe 'campaign overview page', type: :feature, js: true do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       login_as(user, scope: :user)
-      visit "/campaigns/#{campaign.slug}/overview"
+      visit "/campaigns/#{campaign.slug}/edit"
     end
 
     describe 'campaign description' do
@@ -193,7 +193,7 @@ describe 'campaign overview page', type: :feature, js: true do
           find('#campaign_start', visible: true)
         end
 
-        it 'shows an error for invalid dates' do
+        it 'shows an error for invalid dates', focus: true do
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click
           fill_in('campaign_start', with: '2016-01-10')
