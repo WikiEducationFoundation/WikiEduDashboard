@@ -1,6 +1,10 @@
 %nav.profile-nav
   .container
     %ul.top-nav__main-links
+      #highlight
+        %li
+          %h5
+            #{@user.username}'s
       %li
         %a{:href => "#statistics"}
           = t("users.contribution_statistics")

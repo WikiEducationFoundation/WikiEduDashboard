@@ -16,6 +16,7 @@ $(() => {
   require('events').EventEmitter.defaultMaxListeners = 30;
   require('./utils/language_switcher.js');
   require('./utils/editable.js');
+  require('./utils/users_profile.js');
 });
 
 // Polyfills
