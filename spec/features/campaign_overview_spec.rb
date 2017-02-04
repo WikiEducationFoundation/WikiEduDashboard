@@ -88,8 +88,8 @@ describe 'campaign overview page', type: :feature, js: true do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Number of students
-      # one non-instructor student per course
-      student_count = campaign_course_count
+      # one non-instructor student per course and one instructor-student per course
+      student_count = campaign_course_count * 2
       stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
@@ -114,7 +114,7 @@ describe 'campaign overview page', type: :feature, js: true do
 
       it 'falls back when locale is not available' do
         visit "/campaigns/#{campaign.slug}/overview?locale=aa"
-        expect(page.find('.stat-display')).to have_content '10 Students'
+        expect(page.find('.stat-display')).to have_content '20 Students'
       end
 
       # TODO: Test somewhere that has access to the request.
