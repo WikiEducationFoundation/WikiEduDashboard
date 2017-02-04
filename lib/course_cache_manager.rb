@@ -24,7 +24,7 @@ class CourseCacheManager
   end
 
   def update_user_count
-    @course.user_count = @course.students_without_nonstudents.size
+    @course.user_count = @course.students.size
   end
 
   private
@@ -53,7 +53,7 @@ class CourseCacheManager
     trained_count = if past_training_cutoff?
                       @course.students_up_to_date_with_training.count
                     else
-                      @course.students_without_nonstudents.trained.size
+                      @course.students.trained.size
                     end
     @course.trained_count = trained_count
   end
