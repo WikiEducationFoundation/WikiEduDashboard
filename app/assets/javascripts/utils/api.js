@@ -505,13 +505,12 @@ slide_id=${opts.slide_id}`,
         type: 'GET',
         url: `/courses/${courseId}/needs_update.json`,
         success(data) {
-          alert(data.result);
           return res(data);
         }
       })
       .fail((obj) => {
         console.error('Couldn\'t request update');
-        return rej(obj);
+        rej(obj);
       })
     );
   },

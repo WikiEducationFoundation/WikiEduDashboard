@@ -15,6 +15,7 @@
 #  message        :text(65535)
 #  target_user_id :integer
 #  subject_id     :integer
+#  resolved       :boolean          default(FALSE)
 #
 
 # Alert for a course that has been editing in mainspace after the end date
@@ -25,5 +26,9 @@ class ContinuedCourseActivityAlert < Alert
 
   def url
     course_url
+  end
+
+  def resolvable?
+    !resolved
   end
 end

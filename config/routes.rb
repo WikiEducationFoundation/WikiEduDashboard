@@ -83,11 +83,15 @@ Rails.application.routes.draw do
 
   get 'revisions' => 'revisions#index'
 
-  get 'articles/wp10' => 'articles#wp10'
+  get 'articles/article_data' => 'articles#article_data'
   get 'articles/details' => 'articles#details'
 
   resources :courses_users, only: [:index]
-  resources :alerts, only: [:create]
+  resources :alerts, only: [:create] do
+    member do
+      put 'resolve'
+    end
+  end
 
   # Article Finder
   if Features.enable_article_finder?

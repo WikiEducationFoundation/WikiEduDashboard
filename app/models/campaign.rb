@@ -118,8 +118,8 @@ class Campaign < ActiveRecord::Base
   end
 
   def set_slug
-    # Strip everything but letters and digits, and convert spaces to underscores
-    self.slug = title.downcase.gsub(/[^\w0-9 ]/, '').tr(' ', '_') unless slug.present?
+    # Strip everything but unicode letters and digits, and convert spaces to underscores.
+    self.slug = title.downcase.gsub(/[^\p{L}0-9 ]/, '').tr(' ', '_') unless slug.present?
   end
 
   def set_default_times

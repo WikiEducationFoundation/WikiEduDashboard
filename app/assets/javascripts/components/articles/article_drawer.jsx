@@ -3,8 +3,7 @@ import Expandable from '../high_order/expandable.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleViewer from '../common/article_viewer.jsx';
-
-import Wp10Graph from './wp10_graph.jsx';
+import ArticleGraphs from './article_graphs.jsx';
 
 const getArticleDetails = () => ArticleDetailsStore.getArticleDetails();
 
@@ -75,7 +74,7 @@ const ArticleDrawer = React.createClass({
                   {articleViewer}
                 </td>
                 <td colSpan="2">
-                  <Wp10Graph article={this.props.article} />
+                  <ArticleGraphs article={this.props.article} />
                 </td>
               </tr>
               <tr>

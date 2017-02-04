@@ -62,4 +62,8 @@ class LegacyCourse < Course
   def use_start_and_end_times
     false
   end
+
+  def multiple_roles_allowed?
+    true
+  end
 end

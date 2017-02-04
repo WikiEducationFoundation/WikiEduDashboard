@@ -85,4 +85,3 @@ const Confirm = React.createClass({
 });
 
 export default Confirm;
-

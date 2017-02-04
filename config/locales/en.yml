@@ -142,6 +142,8 @@ en:
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
+    characters_added: Characters Added
+    edit_size: Edit Size
     wp10: Structural Completeness
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
@@ -287,6 +289,10 @@ en:
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)
       subject: Subject
+      update_scheduled: >
+        Update scheduled. The data will be updated along with all current
+        programs during the next update cycle. This typically takes
+        several hours.
     current: Current Courses
     delete_course: Delete course
     dismiss_survey: Dismiss
@@ -521,7 +527,9 @@ en:
     diff: diff
     diff_show: Show
     diff_hide: Hide
+    edit_time_span: Edits occurred from %{first_time} to %{last_time}
     edited_by: Edited By
+    edited_on: Edited on %{edit_date}
     loading: Loading revisions...
     none: This course has no recent editing activity.
     time_doc: The time of each revision in your local time
@@ -791,3 +799,6 @@ en:
       link: "Take Survey"
     follow_up:
       message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."
+
+  feedback_form_responses:
+    no_responses: "There are no feedback responses yet."

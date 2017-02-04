@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :set_course, only: [:details]
 
   # returns revision score data for vega graphs
-  def wp10
+  def article_data
     @article = Article.find(params[:article_id])
   end
 

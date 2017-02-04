@@ -582,7 +582,9 @@ qqq:
     diff: '{{Identical|Diff}}'
     diff_show: '{{Identical|Show}}'
     diff_hide: '{{Identical|Hide}}'
+    edit_time_span: Message with start and end datetimes for edits to article
     edited_by: Label for author of the last edition
+    edited_on: Label with datetime of edit to article
     loading: Message about loading revisions
     none: Message stating there's no editing activity
     time_doc: Explanation of what 'time' means

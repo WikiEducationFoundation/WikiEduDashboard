@@ -12,3 +12,7 @@
 
   %h3 message
   %p= @alert.message
+
+  -if @alert.resolvable?
+    %h3 Resolve Status
+    %p= @alert.resolved? ? 'Resolved' : link_to('Resolve', resolve_alert_path(@alert.id), method: :put)

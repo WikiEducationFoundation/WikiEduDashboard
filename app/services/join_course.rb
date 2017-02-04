@@ -32,12 +32,16 @@ class JoinCourse
     yield
   end
 
-  # A user with any CoursesUsers record for the course is considered to be
-  # enrolled already, even if they are not enrolled in the STUDENT role.
+  # For Wiki Ed courses, a user with any CoursesUsers record for the course is
+  # considered to be enrolled already, even if they are not enrolled in the STUDENT role.
   # Instructors should not be enrolled as students.
+  # For other course types, enrollment in multiple roles is allowed.
   def user_already_enrolled?
-    CoursesUsers.exists?(user_id: @user.id,
-                         course_id: @course.id)
+    if @course.multiple_roles_allowed?
+      CoursesUsers.exists?(user_id: @user.id, course_id: @course.id, role: @role)
+    else
+      CoursesUsers.exists?(user_id: @user.id, course_id: @course.id)
+    end
   end
 
   def student_joining_before_approval?

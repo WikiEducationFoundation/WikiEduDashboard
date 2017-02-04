@@ -88,8 +88,8 @@ describe 'campaign overview page', type: :feature, js: true do
       expect(page.find('.stat-display')).to have_content stat_text
 
       # Number of students
-      # one non-instructor student per course
-      student_count = campaign_course_count
+      # one non-instructor student per course and one instructor-student per course
+      student_count = campaign_course_count * 2
       stat_text = "#{student_count} #{I18n.t('courses.students')}"
       expect(page.find('.stat-display')).to have_content stat_text
 
@@ -114,7 +114,7 @@ describe 'campaign overview page', type: :feature, js: true do
 
       it 'falls back when locale is not available' do
         visit "/campaigns/#{campaign.slug}/overview?locale=aa"
-        expect(page.find('.stat-display')).to have_content '10 Students'
+        expect(page.find('.stat-display')).to have_content '20 Students'
       end
 
       # TODO: Test somewhere that has access to the request.
@@ -140,7 +140,7 @@ describe 'campaign overview page', type: :feature, js: true do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       login_as(user, scope: :user)
-      visit "/campaigns/#{campaign.slug}/overview"
+      visit "/campaigns/#{campaign.slug}/edit"
     end
 
     describe 'campaign description' do
@@ -211,11 +211,12 @@ describe 'campaign overview page', type: :feature, js: true do
           find('.campaign-details .rails_editable-save').click
           expect(campaign.reload.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
           expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+          click_button 'Edit'
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click # uncheck
           find('#campaign_start', visible: false)
           find('.campaign-details .rails_editable-save').click
-          find('#campaign_start', visible: false)
+          find('.campaign-start', visible: false)
           expect(campaign.reload.start).to be_nil
           expect(campaign.end).to be_nil
         end

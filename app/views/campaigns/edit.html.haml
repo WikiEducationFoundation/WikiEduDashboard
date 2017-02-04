@@ -1,1 +1,120 @@
+- content_for :before_title, "#{@campaign.title} Overview  — "
+
 = render 'nav'
+
+= hot_javascript_tag 'campaigns'
+
+- if @campaign.errors.any?
+  .notice
+    %strong
+      = t('campaign.campaign_not_updated')
+    %ul
+      - @campaign.errors.messages.each do |_key, message|
+        %li
+          = message.first
+
+.container.campaign_main
+  %section.overview.container
+    = render 'courses/header_stats', presenter: @presenter
+    .primary
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-description rails_editable' }) do
+        .section-header
+          %h3
+            = succeed ':' do
+              = t('campaign.campaign')
+            = @campaign.title
+          .controls
+            %button.button.dark.rails_editable-edit
+              = t('editable.edit_description')
+        .module__data.rails_editable-field
+          %p.rails_editable-content
+            = preserve @campaign.description
+          = text_area(:campaign, :description, class: 'rails_editable-input', required: true, maxlength: 65535)
+    .sidebar
+      .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
+        .section-header
+          %h3
+            = t('application.details')
+          .controls
+            %button.button.dark.rails_editable-edit
+              = t('editable.edit_details')
+        .module__data.extra-line-height
+          %div
+            %span.campaign-organizers
+              %strong
+                = succeed ':' do
+                  = t('campaign.organizers')
+              %span
+                = @campaign.organizers.collect(&:username).join(', ')
+              %span.pop__container
+                %button.button.border.plus +
+                .pop
+                  %table
+                    %tbody
+                      %tr.edit
+                        %td
+                          = form_for(@campaign, url: add_organizer_campaign_path(@campaign.slug), method: :put) do
+                            = text_field_tag(:username, '', { required: true, placeholder: t('users.username_placeholder') })
+                            %button.button.border.add-organizer-button Add organizer
+                      - @campaign.organizers.each do |organizer|
+                        %tr
+                          %td
+                            - if organizer.username == current_user&.username
+                              %span
+                                = organizer.username
+                            - else
+                              = form_for(@campaign, url: remove_organizer_campaign_path(@campaign.slug, id: organizer.id), html: { method: :put, class: 'remove-organizer-form', 'data-username' => organizer.username }) do
+                                %span
+                                  = organizer.username
+                                %button.button.border.plus -
+
+          = form_for(@campaign, url: campaign_path(@campaign.slug), html: { id: 'edit_campaign_details' }) do
+            .campaign-title.form-group.rails_editable-field
+              %label{for: 'campaign_title'}
+                = succeed ':' do
+                  = t('campaign.title')
+              %span.rails_editable-content
+                = @campaign.title
+              = text_field(:campaign, :title, required: true, class: 'rails_editable-input')
+
+            .campaign-use-dates.form-group.rails_editable-field
+              - use_dates = @campaign.start || @campaign.end
+              %label
+                = check_box_tag(:use_dates, '1', use_dates)
+                = t('campaign.use_start_end_dates')
+
+            .campaign-dates{class: use_dates ? '' : 'hidden'}
+              .campaign-start.form-group.rails_editable-field
+                %label{for: 'campaign_start'}
+                  = succeed ':' do
+                    = t('courses.creator.start_date')
+                %span.rails_editable-content
+                  = @campaign.start.try(:strftime, '%Y-%m-%d')
+                = date_field(:campaign, :start, placeholder: '2016-12-31', class: 'rails_editable-input')
+
+              .campaign-end.form-group.rails_editable-field
+                %label{for: 'campaign_end'}
+                  = succeed ':' do
+                    = t('courses.creator.end_date')
+                %span.rails_editable-content
+                  = @campaign.end.try(:strftime, '%Y-%m-%d')
+                = date_field(:campaign, :end, placeholder: '2016-12-31', class: 'rails_editable-input')
+
+      = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do
+        .section-header
+          %span.tooltip-trigger
+            %h3
+              = t('campaign.program_template')
+            .tooltip.dark
+              = t('campaign.program_template_tooltip')
+          .controls
+            %button.button.dark.rails_editable-edit
+              = t('editable.edit_description')
+        .module__data.rails_editable-field
+          %p.rails_editable-content
+            = preserve @campaign.template_description
+          = text_area(:campaign, :template_description, class: 'rails_editable-input', maxlength: 65535)
+
+      = form_for(@campaign, url: campaign_path(@campaign.slug), method: :delete, html: { class: 'campaign-delete', 'data-title' => @campaign.title }) do
+        %button.button.danger
+          = t('campaign.delete_campaign')

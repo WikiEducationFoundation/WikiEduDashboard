@@ -6,8 +6,11 @@ class ContinuedCourseActivityAlertManager
 
   def create_alerts
     @courses.each do |course|
+      next if Alert.exists?(course_id: course.id,
+                            type: 'ContinuedCourseActivityAlert',
+                            resolved: false)
+
       next if course.students.empty?
-      next if Alert.exists?(course_id: course.id, type: 'ContinuedCourseActivityAlert')
 
       next unless significant_activity_after_course_end?(course)
 

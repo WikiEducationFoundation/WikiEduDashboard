@@ -71,6 +71,7 @@ class ArticlesForDeletionMonitor
   def alert_already_exists?(articles_course)
     Alert.exists?(article_id: articles_course.article_id,
                   course_id: articles_course.course_id,
-                  type: 'ArticlesForDeletionAlert')
+                  type: 'ArticlesForDeletionAlert',
+                  resolved: false)
   end
 end
