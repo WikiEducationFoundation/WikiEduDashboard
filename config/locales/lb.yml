@@ -254,6 +254,7 @@ lb:
     diff_show: Weisen
     diff_hide: Verstoppen
     edited_by: Geännert Vum
+    edited_on: Geännert de(n) %{edit_date}
     loading: Versioune lueden...
     none: Dëse Cours huet keng rezent Ännerungsaktivitéit.
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit

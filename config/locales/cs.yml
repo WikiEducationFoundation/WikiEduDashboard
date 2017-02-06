@@ -243,7 +243,7 @@ cs:
     notify_untrained_confirmation: Toto přidá upozornění na diskusi všem studentům,
       kteří ještě nedokončili přiřazené trénovací moduly. Jste si jist, že toto chcete?
     no_available_actions: Žádné možnosti k dispozici
-    overview: Přehled
+    overview: Domů
     passcode: Heslo
     passcode_none: Žádné heslo
     passcode_prompt: Zadejte heslo, které jste dostal od vašeho instruktora

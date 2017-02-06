@@ -121,6 +121,8 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
+    characters_added: Caracteres añadidos
+    edit_size: Editar tamaño
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
       encaja en el molde de un artículo maduro de la Wikipedia, según el Servicio
@@ -485,7 +487,9 @@ es:
     diff: dif
     diff_show: Mostrar
     diff_hide: Ocultar
+    edit_time_span: Las oediciones ocurrieron desde %{first_time} hasta %{last_time}
     edited_by: Editado por
+    edited_on: Editado el %{edit_date}
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes.
     time_doc: El tiempo de cada revisión en tu hora local

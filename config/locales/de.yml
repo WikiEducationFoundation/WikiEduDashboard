@@ -108,6 +108,8 @@ de:
     view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
     view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
+    characters_added: Hinzugefügte Zeichen
+    edit_size: Bearbeitungsgröße
     wp10: Strukturelle Vollständigkeit
     wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
       Artikel dem Modell eines reifen Wikipedia-Artikels entspricht, basierend auf
@@ -259,6 +261,9 @@ de:
       start_date: Startdatum
       start_date_placeholder: Startdatum (JJJJ-MM-TT)
       subject: Thema
+      update_scheduled: Aktualisierung geplant. Die Daten werden zusammen mit allen
+        aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
+        Dies kann typischerweise mehrere Stunden dauern.
     current: Aktuelle Kurse
     delete_course: Kurs löschen
     dismiss_survey: Ausblenden
@@ -496,7 +501,9 @@ de:
     diff: Unterschied
     diff_show: Anzeigen
     diff_hide: Ausblenden
+    edit_time_span: Bearbeitungen traten auf von %{first_time} bis %{last_time}
     edited_by: Bearbeitet von
+    edited_on: Bearbeitet am %{edit_date}
     loading: Lade Versionen …
     none: Dieser Kurs hat keine letzte Bearbeitungsaktivität.
     time_doc: Die Zeit jeder Version in deiner Ortszeit
@@ -758,4 +765,6 @@ de:
       message: Dies ist eine Erinnerung an die Umfrage für deinen Kurs „%{course_title}“.
         Rückmeldungen zu dieser Umfrage helfen uns dabei, die Unterstützung für Wikipedia-Zuweisungen
         wie deine zu verbessern.
+  feedback_form_responses:
+    no_responses: Es gibt noch keine Rückmeldungsantworten.
 ...

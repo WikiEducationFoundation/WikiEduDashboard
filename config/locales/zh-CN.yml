@@ -95,6 +95,8 @@ zh-CN:
     view_doc: 在项目期间每个条目的访问量总数
     view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
+    characters_added: 添加的字符
+    edit_size: 编辑大小
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数represents how closely an article fits the mold of a mature
       Wikipedia article, based on the machine learning-based Objective Revision Evaluation
@@ -217,6 +219,7 @@ zh-CN:
       start_date: 开始日期
       start_date_placeholder: 开始日期（YYYY-MM-DD）
       subject: 主题
+      update_scheduled: 已安排更新。数据将连同所有当前程序一起，在下次更新周期时进行更新。这通常需要数小时。
     current: 当前课程
     delete_course: 删除课程
     dismiss_survey: 关闭
@@ -425,7 +428,9 @@ zh-CN:
     diff: 差异
     diff_show: 显示
     diff_hide: 隐藏
+    edit_time_span: 从%{first_time}到%{last_time}期间发生的编辑
     edited_by: 编辑者
+    edited_on: 于%{edit_date}时的编辑
     loading: 正在加载修订……
     none: 此课程没有最近编辑活动。
     time_doc: 在您本地时间内，每个修订的时间
@@ -626,4 +631,6 @@ zh-CN:
       link: 接受调查
     follow_up:
       message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
+  feedback_form_responses:
+    no_responses: 目前没有反馈响应。
 ...
