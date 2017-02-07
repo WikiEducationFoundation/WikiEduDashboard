@@ -1,0 +1,22 @@
+.container
+
+  %h1 Search
+
+  =form_tag users_path, method: :get do
+    = text_field_tag :term, params[:term], placeholder: 'Search for emails...'
+
+  %hr
+
+  %h1 Users
+  %span= params[:term].present? ? "Results for: \"#{params[:term]}\"" : nil
+
+  %table.table.table--hoverable
+    %thead
+      %tr
+        %th Username
+        %th E-mail
+    %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.username
+        %td= user.email

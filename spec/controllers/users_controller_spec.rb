@@ -163,6 +163,41 @@ describe UsersController do
     end
   end
 
+  describe '#index' do
+
+    context 'when user is NOT admin' do
+      let(:user) { create(:user) }
+
+      before { allow(controller).to receive(:current_user).and_return(user) }
+
+      it 'should redirect to root path' do
+        get :index
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    render_views
+    context 'when user IS admin' do
+      let(:admin) { create(:admin) }
+
+      before do
+        allow(controller).to receive(:current_user).and_return(admin)
+      end
+
+      it 'should list users' do
+        get :index
+        expect(response.body).to have_content admin.email
+      end
+
+      let(:search_user) { create(:user, email: 'findme@example.com') }
+
+      it 'should accept keyword and return associated user' do
+        get :index, params: { term: search_user.email }
+        expect(response.body).to have_content search_user.email
+      end
+    end
+  end
+
   describe '#show' do
     render_views
 

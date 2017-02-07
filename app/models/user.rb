@@ -73,6 +73,13 @@ class User < ActiveRecord::Base
   scope :ungreeted, -> { where(greeted: false) }
 
   ####################
+  # Class method(s)  #
+  ####################
+  def self.search(term)
+    User.where('lower(email) like ?', "#{term}%")
+  end
+
+  ####################
   # Instance methods #
   ####################
   def roles(_course)

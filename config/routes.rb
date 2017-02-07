@@ -20,9 +20,10 @@ Rails.application.routes.draw do
   end
 
   # Users
-  controller :users do
-    get 'users/revisions' => 'users#revisions', :as => :user_revisions
-    get 'users/:username' => 'users#show', constraints: { username: /.*/ }
+  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
+    collection do
+      get 'revisions'
+    end
   end
 
   resources :assignments

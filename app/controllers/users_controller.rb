@@ -7,9 +7,12 @@ require "#{Rails.root}/app/workers/update_course_worker"
 #= Controller for user functionality
 class UsersController < ApplicationController
   respond_to :html, :json
-  before_action :require_participating_user, only: [:enroll]
 
+  before_action :require_participating_user, only: [:enroll]
   before_action :require_signed_in, only: [:update_locale]
+  before_action :check_user_auth, only: [:index]
+
+  layout 'admin', only: [:index]
 
   def signout
     if current_user.nil?
@@ -46,6 +49,17 @@ class UsersController < ApplicationController
     elsif request.delete?
       remove
     end
+  end
+
+  ####################################################
+  # User listing page for Admins                     #
+  ####################################################
+  def index
+    @users = if params[:term].present?
+               User.search(params[:term])
+             else
+               User.all
+             end
   end
 
   ####################################################
@@ -147,6 +161,12 @@ class UsersController < ApplicationController
     username = enroll_params[:username]
     @user = User.find_by(username: username)
     @user = UserImporter.new_from_username(username) if @user.nil?
+  end
+
+  def check_user_auth
+    return if current_user&.admin?
+    flash[:notice] = "You don't have access to that page."
+    redirect_to root_path
   end
 
   def enroll_params
