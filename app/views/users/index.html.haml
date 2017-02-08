@@ -3,20 +3,22 @@
   %h1 Search
 
   =form_tag users_path, method: :get do
-    = text_field_tag :term, params[:term], placeholder: 'Search for emails...'
+    = text_field_tag :email, params[:email], placeholder: 'Search for emails...'
 
   %hr
 
   %h1 Users
-  %span= params[:term].present? ? "Results for: \"#{params[:term]}\"" : nil
+  %span= params[:email].present? ? "Results for: \"#{params[:email]}\"" : nil
 
   %table.table.table--hoverable
     %thead
       %tr
         %th Username
+        %th Real Name
         %th E-mail
     %tbody
     - @users.each do |user|
       %tr
-        %td= user.username
+        %td= link_to user.username, user_path(user.username)
+        %td= user.real_name
         %td= user.email

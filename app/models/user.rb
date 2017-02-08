@@ -58,6 +58,7 @@ class User < ActiveRecord::Base
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
 
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
+  scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
@@ -75,8 +76,8 @@ class User < ActiveRecord::Base
   ####################
   # Class method(s)  #
   ####################
-  def self.search(term)
-    User.where('lower(email) like ?', "#{term}%")
+  def self.search_by_email(email)
+    User.where('lower(email) like ?', "#{email}%")
   end
 
   ####################

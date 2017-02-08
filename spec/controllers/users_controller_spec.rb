@@ -164,35 +164,44 @@ describe UsersController do
   end
 
   describe '#index' do
+    render_views
 
     context 'when user is NOT admin' do
       let(:user) { create(:user) }
 
       before { allow(controller).to receive(:current_user).and_return(user) }
 
-      it 'should redirect to root path' do
+      it 'should not authorize' do
         get :index
-        expect(response).to redirect_to root_path
+        expect(response.body).to have_content('You are not authorized')
       end
     end
 
-    render_views
     context 'when user IS admin' do
-      let(:admin) { create(:admin) }
+      let(:admin) { create(:admin, email: 'admin@email.com') }
 
       before do
         allow(controller).to receive(:current_user).and_return(admin)
       end
 
-      it 'should list users' do
+      let!(:instructor) { create(:user, email: 'instructor@school.edu',
+                                real_name: 'Sare Goss', username: 'saregoss',
+                                permissions: User::Permissions::INSTRUCTOR) }
+
+      it 'should list instructors by default' do
         get :index
-        expect(response.body).to have_content admin.email
+
+        expect(response.body).to have_content instructor.username
+        expect(response.body).to have_content instructor.real_name
+        expect(response.body).to have_content instructor.email
+
+        expect(response.body).to_not have_content admin.email
       end
 
       let(:search_user) { create(:user, email: 'findme@example.com') }
 
-      it 'should accept keyword and return associated user' do
-        get :index, params: { term: search_user.email }
+      it 'should accept email param and return associated user' do
+        get :index, params: { email: search_user.email }
         expect(response.body).to have_content search_user.email
       end
     end
