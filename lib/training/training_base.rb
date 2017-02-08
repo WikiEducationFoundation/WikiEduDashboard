@@ -1,5 +1,7 @@
 # frozen_string_literal: true
-class FromYaml
+require "#{Rails.root}/lib/training/training_loader"
+
+class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
     attr_accessor :cache_key, :path_to_yaml
@@ -11,27 +13,26 @@ class FromYaml
   # Class methods #
   #################
 
-  # called from the initializers/training_content.rb
-  def self.load(args)
-    collection = []
+  # called for each child class in initializers/training_content.rb
+  def self.load(cache_key:, path_to_yaml:, wiki_base_page:,
+                trim_id_from_filename: false)
+    self.cache_key = cache_key
+    self.path_to_yaml = path_to_yaml
 
-    self.cache_key = args[:cache_key]
-    self.path_to_yaml = args[:path_to_yaml]
+    loader = TrainingLoader.new(content_class: self, cache_key: cache_key,
+                                path_to_yaml: path_to_yaml, wiki_base_page: wiki_base_page,
+                                trim_id_from_filename: trim_id_from_filename)
 
-    Dir.glob(path_to_yaml) do |yaml_file|
-      collection << new_from_file(yaml_file, args[:trim_id_from_filename])
-    end
-    Rails.cache.write args[:cache_key], collection
+    Features.wiki_trainings? ? loader.load_local_and_wiki_content : loader.load_local_content
+
     check_for_duplicate_slugs
     check_for_duplicate_ids
   end
 
-  def self.new_from_file(yaml_file, trim_id)
-    slug = File.basename(yaml_file, '.yml')
-    slug.gsub!(/^[0-9]+-/, '') if trim_id
-
-    content = YAML.load_file(yaml_file).to_hashugar
-    new(content, slug)
+  def self.load_all
+    TrainingLibrary.load
+    TrainingModule.load
+    TrainingSlide.load
   end
 
   def self.all
@@ -58,7 +59,9 @@ class FromYaml
     duplicate_id = all_ids.detect { |id| all_ids.count(id) > 1 }
     return if duplicate_id.nil?
     type = all[0].class
-    raise DuplicateIdError, "duplicate #{type} id detected: #{duplicate_id}"
+    collisions = all.select { |training| training.id == duplicate_id }
+    slugs = collisions.map(&:slug)
+    raise DuplicateIdError, "Duplicate #{type} id detected: #{duplicate_id}. Slugs: #{slugs}"
   end
 
   def self.base_path
@@ -79,14 +82,19 @@ class FromYaml
   # Instance methods #
   ####################
 
-  # called in load
+  # called for each training unit in TrainingLoader
   def initialize(content, slug)
     self.slug = slug
-    content.each do |k, v|
-      instance_variable_set("@#{k}", v)
+    content.each do |key, value|
+      instance_variable_set("@#{key}", value)
     end
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e
+  end
+
+  # Implemented by each child class
+  def valid?
+    raise NotImplementedError
   end
 end
