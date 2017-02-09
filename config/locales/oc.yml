@@ -26,6 +26,9 @@ oc:
     sign_up: S'inscriure
     submit: Sometre
     training: Formacion
+    change: Modificar
+    details: Detalhs
+    confirm: D'acòrdi
   dashboard:
     explore_course_pages: Explorar las paginas de cors
     explore_examples: Explorar los exemples
@@ -42,14 +45,18 @@ oc:
     assigned: Articles afectats
     assigned_to: Assignat a
     edited: Articles modificats
+    edited_by: 'Modificat per :'
     edited_mobile: Articles
+    hide: Amagar
     label: Articles
     loading: Cargament dels articles...
+    new: (novèl)
     rating: Classa
     title: Títol
     title_example: Títol de l’article
     view: Afichar l’article
     view_all: Afichar tot
+    view_on_wiki: Veire sul wiki
   assignments:
     assignees: Afectacion(s)
     assign_other: Afectar un article
@@ -57,32 +64,87 @@ oc:
     label: Assignar
     loading: Cargament de las afectacions…
     none_short: Cap d'article pas afectat
+    remove: Suprimir
     reviewers: Relector(s)
     review_other: Atribuir una revision
     review_self: Repassar un article
+    select: Seleccionar
   campaign:
+    active_campaigns: Campanhas activas
+    add_organizer: Apondre un organizator
+    all_campaigns: Totas las campanhas
+    campaign: Campanha
+    campaigns: Campanhas
+    description: Descripcion
     none: Pas cap
+    organizers: Organizators
+    title: Títol
   courses:
     activity: Activitat
+    all_courses: Totes los corses
+    actions: Accions
     articles: Articles
     assignment_end: Fin d’afectacion
     assignment_start: Començament d’afectacion
+    calendar:
+      legend: Legenda
+    cancel: Anullar
+    campaigns: 'Campanhas :'
+    campaign_courses: '%{title} Corses'
     course_description: Corses
     courses: Corses
+    courses_taught: Corses ensenhats
+    creation_date: Data de creacion
+    creator:
+      assignment_end: Fin de l’afectacion
+      assignment_end_placeholder: Fin de l’afectacion (AAAA-MM-JJ)
+      assignment_start: Començament de l’afectacion
+      assignment_start_placeholder: Debuta de l’afectacion (AAAA-MM-JJ)
+      course_description: Descripcion del cors
+      course_language: Lenga del site
+      course_project: Projècte personal
+      course_school: Escòla del cors
+      course_subject: Subjècte del cors
+      course_term: Periòde del cors
+      course_term_placeholder: Periòde
+      course_title: Títol del cors
+      create_button: Crear mon cors !
+      create_label: Crear un cors novèl
+      create_new: ‎Crear un cors novèl
+      create_short: ‎Crear un cors
+      end_date: Data de fin
+      end_date_placeholder: Data de fin (AAAA-MM-JJ)
+      start_date: Data de començament
+      subject: Subjècte
     current: Corses actuals
+    dismiss_survey: Tampar
     duration: Durada del cors
     edit_course_dates: Modificar las datas del cors
+    end: Fin
+    enroll: S’inscriure
+    enrollment: Inscripcion
+    courses_enrolled: Inscrit als corses
+    expected_students: Estudiants esperats
+    instructor:
+      one: Instructor
+      other: Instructors
     instructors: Formators
     join: Rejónher
     join_prompt: Rejónher '%{title}' ?
+    leave_course: Abandonar lo cors
+    loading: Cargament en cors…
+    my_articles: Mos articles
     new_week: Apondre una novèla setmana
+    none: Pas cap
     overview: Acuèlh
     passcode: Senhal
     school: Escòla
+    start: Aviar
     students: Estudiants
     students_count: '# Estudiants'
     student_editors: Editors estudiants
     students_short: Estudiants
+    user_role: Ròtle
     term: Periòde
     timeline_link: Calendièr
     title: Títol

@@ -124,6 +124,8 @@ fr:
     view_doc: Le total de toutes les vues sur chaque article durant le projet
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
+    characters_added: Caractères ajoutés
+    edit_size: Modifier la taille
     wp10: Intégrité structurale 
     wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
       d’un article avec le modèle d’un article mature de Wikipedia, donné par le service
@@ -271,6 +273,9 @@ fr:
       start_date: Date de début
       start_date_placeholder: Date de début (AAAA-MM-JJ)
       subject: Sujet
+      update_scheduled: Mise à jour programmée. La donnée sera mise à jour régulièrement
+        avec tous les programmes actuels lors du prochain cycle de mise à jour. Cela
+        a lieu en général toutes les heures.
     current: Cours actuels
     delete_course: Supprimer le cours
     dismiss_survey: Fermer
@@ -508,7 +513,9 @@ fr:
     diff: Différence
     diff_show: Afficher
     diff_hide: Masquer
+    edit_time_span: Modifications effectuées de %{first_time} à %{last_time}
     edited_by: Modifié par
+    edited_on: Modifié le %{edit_date}
     loading: Chargement des révisions…
     none: Ce cours n’a pas été récemment modifié.
     time_doc: Le temps de chaque révision à votre heure locale.
@@ -770,4 +777,6 @@ fr:
       message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
         Les résultats de ce sondage nous aideront à améliorer notre support des affectations
         de Wikipédia comme la vôtre.
+  feedback_form_responses:
+    no_responses: Il n’y a pas encore de réponses de commentaire.
 ...

@@ -91,6 +91,7 @@ ko:
     view: 문서 보기
     view_all: 모두 보기
     view_on_wiki: 위키에서 보기
+    edit_size: 편집 크기
   assignments:
     assignees: 담당자
     add_available: 이용 가능한 글 추가
