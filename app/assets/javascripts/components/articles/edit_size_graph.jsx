@@ -25,7 +25,7 @@ const EditSizeGraph = React.createClass({
           type: 'time',
           domain: {
             fields: [{
-              data: 'characters_added',
+              data: 'characters_edited',
               field: 'date',
               sort: { field: 'date', op: 'min' }
             }]
@@ -38,7 +38,7 @@ const EditSizeGraph = React.createClass({
           name: 'y',
           type: 'linear',
           domain: {
-            data: 'characters_added',
+            data: 'characters_edited',
             field: 'characters'
           },
           rangeMin: this.props.graphHeight,
@@ -58,8 +58,9 @@ const EditSizeGraph = React.createClass({
           title: 'Date',
           properties: {
             labels: {
-              text: { template: '{{datum["data"] | time:\'%b %d\'}}' },
-              angle: { value: 0 }
+              text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
+              angle: { value: 0 },
+              fontSize: { value: 9 }
             }
           }
         },
@@ -70,7 +71,7 @@ const EditSizeGraph = React.createClass({
           grid: true,
           layer: 'back',
           offset: 10,
-          title: I18n.t('articles.characters_added')
+          title: I18n.t('metrics.characters')
         }
       ],
       // ///////////////
@@ -78,12 +79,12 @@ const EditSizeGraph = React.createClass({
       // ///////////////
       data: [
         {
-          name: 'characters_added',
+          name: 'characters_edited',
           values: this.props.articleData,
           format: { type: 'json', parse: { date: 'date', characters: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters > 0'
+            test: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters !== 0'
           }
           ]
         }
@@ -93,45 +94,140 @@ const EditSizeGraph = React.createClass({
       // //////////////
       marks: [
         {
-          name: 'line_marks',
-          type: 'line',
+          type: "rule",
+          properties: {
+            update: {
+              x: { value: 0 },
+              x2: { value: this.props.graphWidth },
+              y: { scale: "y", value: 0 },
+              stroke: { value: "#000000" },
+              strokeWidth: { value: 1 },
+              strokeOpacity: { value: 0.5 }
+            }
+          }
+        },
+
+        {
+          type: "rule",
           from: {
-            data: 'characters_added',
+            data: "characters_edited",
             transform: [{ type: 'sort', by: '-date' }]
           },
-          properties: { enter: {
-            orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'date' },
-            y: { scale: 'y', field: 'characters' },
-            y2: { scale: 'y', value: 0 },
-            stroke: { value: '#676EB4' },
-            strokeWidth: { value: 1 },
-            strokeOpacity: { value: 0.4 }
-          }
+          properties:
+          {
+            update: {
+              x: { scale: "x", field: "date" },
+              y: { scale: "y", field: "characters" },
+              y2: { scale: "y", value: 0 },
+              strokeWidth: { value: 2 },
+              strokeOpacity: { value: 0.3 },
+              stroke: [
+                {
+                  test: "datum.characters > 0",
+                  value: "#0000ff"
+                },
+                { value: "#ff0000" }
+              ]
+            }
           }
         },
         {
           name: 'circle_marks',
           type: 'symbol',
           from: {
-            data: 'characters_added',
+            data: 'characters_edited',
             transform: [{ type: 'sort', by: '-date' }]
           },
           properties: { enter: {
             orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'date' },
-            y: { scale: 'y', field: 'characters' },
-            y2: { scale: 'y', value: 0 },
-            size: { value: 100 },
-            shape: { value: 'circle' },
-            fill: { value: '#359178' },
-            opacity: { value: 0.7 }
+            opacity: { value: 0.5 }
+          },
+            update: {
+              x: { scale: 'x', field: 'date' },
+              y: { scale: 'y', field: 'characters' },
+              y2: { scale: 'y' },
+              size: { value: 100 },
+              shape: { value: 'circle' },
+              fill: [
+                {
+                  test: "datum.characters > 0",
+                  value: '#0000ff'
+                },
+                { value: '#ff0000' }
+              ]
+            }
           }
+        },
+        {
+          type: 'text',
+          from: {
+            data: 'characters_edited'
+          },
+          properties: {
+            enter: {
+              x: { signal: "width", mult: 0.68 },
+              y: { value: -10 },
+              text: { template: "Additions" },
+              fill: { value: "#0000ff" },
+              fontSize: { value: 13 },
+              align: { value: "right" },
+              fillOpacity: { value: 0.2 }
+            }
+          }
+        },
+        {
+          type: 'text',
+          from: {
+            data: 'characters_edited'
+          },
+          properties: {
+            enter: {
+              x: { signal: "width", mult: 0.73 },
+              y: { value: -10 },
+              text: { template: "and" },
+              fill: { value: "#A9A9A9" },
+              fontSize: { value: 13 },
+              align: { value: "right" },
+              fillOpacity: { value: 1 }
+            }
+          }
+        },
+        {
+          type: 'text',
+          from: {
+            data: 'characters_edited'
+          },
+          properties: {
+            enter: {
+              x: { signal: "width", mult: 0.86 },
+              y: { value: -10 },
+              text: { template: "Deletions" },
+              fill: { value: "#ff0000" },
+              fontSize: { value: 13 },
+              align: { value: "right" },
+              fillOpacity: { value: 0.2 }
+            }
+          }
+        },
+        {
+          type: 'text',
+          from: {
+            data: 'characters_edited'
+          },
+          properties: {
+            enter: {
+              x: { signal: "width", mult: 0.99 },
+              y: { value: -10 },
+              text: { template: "over time" },
+              fill: { value: "#A9A9A9" },
+              fontSize: { value: 13 },
+              align: { value: "right" },
+              fillOpacity: { value: 1 }
+            }
           }
         }
       ]
     };
-
     const embedSpec = {
       mode: 'vega', // instruct Vega-Embed to use vega compiler.
       spec: vegaSpec,
