@@ -142,7 +142,6 @@ en:
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
-    characters_added: Characters Added
     edit_size: Edit Size
     wp10: Structural Completeness
     wp10_doc: >
