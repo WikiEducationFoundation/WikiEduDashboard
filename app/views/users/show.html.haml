@@ -15,12 +15,16 @@
   .container
     - if @user.course_instructor? || @user.course_student?
       #statistics
-        - if @user.course_instructor?
-          = render 'users/instructor_cumulative_stats', presenter: @courses_presenter
-          %hr
-        -elsif @user.course_student?
-          = render 'users/student_cumulative_stats', presenter: @individual_stats_presenter
-          %hr
+        %h3
+          = t("users.contribution_statistics")
+        %br/
+        #inner_statistics
+          - if @user.course_instructor?
+            = render 'users/instructor_cumulative_stats', presenter: @courses_presenter
+            %hr
+          -elsif @user.course_student?
+            = render 'users/student_cumulative_stats', presenter: @individual_stats_presenter
+            %hr
 
     #course-details
       - if @courses_users.present?
