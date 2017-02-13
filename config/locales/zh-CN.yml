@@ -95,7 +95,6 @@ zh-CN:
     view_doc: 在项目期间每个条目的访问量总数
     view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
-    characters_added: 添加的字符
     edit_size: 编辑大小
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数represents how closely an article fits the mold of a mature

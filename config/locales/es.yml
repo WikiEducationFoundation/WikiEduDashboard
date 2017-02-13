@@ -121,7 +121,6 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
-    characters_added: Caracteres añadidos
     edit_size: Editar tamaño
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo

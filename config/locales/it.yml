@@ -99,7 +99,6 @@ it:
     view_doc: La somma di tutte le visite ad ogni voce durante il progetto
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
-    characters_added: Caratteri aggiunti
     edit_size: Modifica dimensione
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente

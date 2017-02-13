@@ -112,7 +112,6 @@ fi:
     view_doc: Kaikkien artikkelien näyttökerrat projektin ajalta
     view_on_wiki: Näytä wikissä
     views_added: Lisätty %{count} uutta näyttökertaa artikkelille %{title}
-    characters_added: Merkkiä lisätty
     edit_size: Muokkaa kokoa
     wp10: Rakenteellinen eheys
     wp10_doc: '''Rakenteellinen eheys'' -pisteytys kuvaa, kuinka hyvin artikkeli vastaa

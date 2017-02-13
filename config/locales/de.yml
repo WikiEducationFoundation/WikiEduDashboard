@@ -108,7 +108,6 @@ de:
     view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
     view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
-    characters_added: Hinzugefügte Zeichen
     edit_size: Bearbeitungsgröße
     wp10: Strukturelle Vollständigkeit
     wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein

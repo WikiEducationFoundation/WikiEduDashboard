@@ -124,7 +124,6 @@ fr:
     view_doc: Le total de toutes les vues sur chaque article durant le projet
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
-    characters_added: Caractères ajoutés
     edit_size: Modifier la taille
     wp10: Intégrité structurale 
     wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
@@ -273,9 +272,9 @@ fr:
       start_date: Date de début
       start_date_placeholder: Date de début (AAAA-MM-JJ)
       subject: Sujet
-      update_scheduled: Mise à jour programmée. La donnée sera mise à jour régulièrement
-        avec tous les programmes actuels lors du prochain cycle de mise à jour. Cela
-        a lieu en général toutes les heures.
+      update_scheduled: Mise à jour programmée. La donnée sera mise à jour avec tous
+        les programmes actuels lors du prochain cycle de mise à jour. Cela prend en
+        général plusieurs heures.
     current: Cours actuels
     delete_course: Supprimer le cours
     dismiss_survey: Fermer

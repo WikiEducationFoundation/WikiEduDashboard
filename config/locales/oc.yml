@@ -204,6 +204,7 @@ oc:
   users:
     assignees: Afectat(s)
     contributions: Contribucions de l’utilizaire
+    contributions_more: Afichar mai de contribucions
     name: Nom
     recent_revisions: Darrièrs cambiaments
     reviewers: Relector(s)
