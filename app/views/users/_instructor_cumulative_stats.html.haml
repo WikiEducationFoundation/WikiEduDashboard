@@ -1,9 +1,6 @@
 -if @user.course_student?
   = render 'users/student_cumulative_stats', presenter: @individual_stats_presenter
 -else
-  %h3
-    = t("users.contribution_statistics")
-  %br/
 .user_stats
   #instructor-profile-stats
     %h5
