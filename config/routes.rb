@@ -19,6 +19,12 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
+  #UserProfilesController
+  controller :user_profiles do
+    get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
+    post 'users/update/:username' => 'user_profiles#update'
+  end
+
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
     collection do

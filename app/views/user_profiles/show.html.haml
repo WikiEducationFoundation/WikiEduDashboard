@@ -1,0 +1,58 @@
+.container
+  .profile_container
+    = render 'user_profiles/user_form'
+
+    #userprofile_navbar
+      - if @user.course_instructor? || @user.course_student?
+        = render 'user_profiles/profile_nav'
+
+    #profile_details
+      - if @user.course_instructor? || @user.course_student?
+        #statistics
+          %h3
+            = t("users.contribution_statistics")
+          %br/
+          #inner_statistics
+            - if @user.course_instructor?
+              = render 'user_profiles/instructor_cumulative_stats', presenter: @courses_presenter
+              %hr
+            -elsif @user.course_student?
+              = render 'user_profiles/student_cumulative_stats', presenter: @individual_stats_presenter
+              %hr
+
+      #course-details
+        - if @courses_users.present?
+          %h3
+            = t("courses.course_details")
+          %br/
+          - @courses_users.each do |c|
+            %a.course{:href => "/courses/#{c.course.slug}"}
+              %span.button.border
+                = t("courses.view_page")
+              .course-title
+                = c.course.title
+              .course-details
+                .col
+                  .course-details_title
+                    = t("courses.school")
+                  .course-details_value
+                    = c.course.school
+                .col
+                  .course-details_title
+                    = t("courses.term")
+                  .course-details_value
+                    = c.course.term
+                .col
+                  .course-details_title
+                    = t("courses.students_count")
+                  .course-details_value
+                    = c.course.user_count
+                .col
+                  .course-details_title
+                    = t("courses.user_role")
+                  .course-details_value
+                    = course_role_name(c.role)
+        -else
+          %h4
+            #{@user.username}
+            = t("courses.nocourse")
