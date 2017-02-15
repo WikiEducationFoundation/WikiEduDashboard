@@ -3,7 +3,7 @@
 #= Takes wikitext for an on-wiki slide and extracts title and content
 class WikiSlideParser
   def initialize(wikitext)
-    @wikitext = wikitext
+    @wikitext = wikitext || String.new
     set_utf8_encoding
     remove_noinclude
     remove_translation_markers
@@ -14,6 +14,7 @@ class WikiSlideParser
 
   # The first translated line is the slide title
   def title
+    return '' if @wikitext.blank?
     title = @wikitext.lines.first.chomp
     # remove header markup for level 2 or lower
     title.gsub(/==+/, '').strip
@@ -21,6 +22,7 @@ class WikiSlideParser
 
   # Everything after the first translated line is the slide content
   def content
+    return '' if @wikitext.blank?
     wikitext = @wikitext.lines[1..-1].join
     wikitext.gsub!(/^\n*/) # Remove leading newlines
     Wikitext.mediawiki_to_markdown(wikitext)
