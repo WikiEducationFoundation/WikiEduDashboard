@@ -19,6 +19,11 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
+  #UsersController
+  controller :users  do
+    post 'users/edit/:username' => 'users#edit'
+  end
+
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
     collection do
@@ -26,7 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :assignments
+
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }

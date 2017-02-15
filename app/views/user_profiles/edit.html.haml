@@ -1,0 +1,25 @@
+#profile
+  #profile_left
+    #user_name
+      %p
+        User: #{@user.username}
+      #user_bio
+        = form_for UserProfile.new do |f|
+          = f.label :bio
+          = f.text_field :bio
+          = f.submit
+    #user_id
+      - if current_user == @user || current_user&.admin?
+        #icon
+          &#x2709;
+        %p
+          #{@user.email}
+  - if current_user == @user
+    #profile_right
+      #edit_profile.rails_editable
+        .controls
+          %button.button.rails_editable-edit
+            #icon
+              &#x270E;
+            %p
+              Edit Profile

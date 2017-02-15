@@ -172,6 +172,8 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.integer  "home_wiki_id"
     t.integer  "recent_revision_count",               default: 0
     t.boolean  "needs_update",                        default: false
+    t.string   "chatroom_id"
+    t.text     "flags",                 limit: 65535
     t.index ["slug"], name: "index_courses_on_slug", using: :btree
   end
 
@@ -353,6 +355,11 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.datetime "completed_at"
   end
 
+  create_table "user_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string  "bio"
+    t.integer "user_id"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "username"
     t.datetime "created_at"
@@ -370,6 +377,8 @@ ActiveRecord::Schema.define(version: 20170131065625) do
     t.boolean  "greeted",             default: false
     t.boolean  "greeter",             default: false
     t.string   "locale"
+    t.string   "chat_password"
+    t.string   "chat_id"
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
