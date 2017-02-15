@@ -40,7 +40,7 @@ class TrainingLoader
                               extra_data: { content: content }
         next
       end
-      @collection << new_from_wiki_page(wiki_page)
+      @collection << content
     end
   end
 
