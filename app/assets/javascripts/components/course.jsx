@@ -6,6 +6,7 @@ import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
 import UserStore from '../stores/user_store.js';
 import NotificationStore from '../stores/notification_store.js';
+import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
 import GetHelpButton from '../components/common/get_help_button.jsx';
@@ -16,7 +17,8 @@ const getState = function () {
   const cu = UserStore.getFiltered({ id: current.id })[0];
   return {
     course: CourseStore.getCourse(),
-    current_user: cu || current
+    current_user: cu || current,
+    weeks: WeekStore.getWeeks()
   };
 };
 
@@ -29,7 +31,7 @@ const Course = React.createClass({
     children: React.PropTypes.node
   },
 
-  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin],
+  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
 
   getInitialState() {
     return getState();
@@ -115,20 +117,39 @@ const Course = React.createClass({
     // //////////////////////////////////
     // Admin / Instructor notifications /
     // //////////////////////////////////
+
+    // For unpublished courses, when viewed by an instructor or admin
     if ((userRole > 0 || this.state.current_user.admin) && !this.state.course.legacy && !this.state.course.published) {
+      // If it's an unsubmitted ClassroomProgramCourse
       if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse') {
-        alerts.push((
-          <div className="notification" key="submit">
-            <div className="container">
-              <p>{I18n.t('courses.review_timeline')}</p>
-              <a href="#" onClick={this.submit} className="button">{I18n.t('application.submit')}</a>
+        // Show submit button if there is a timeline, or user is admin.
+        if (this.state.weeks.length || this.state.current_user.admin) {
+          alerts.push((
+            <div className="notification" key="submit">
+              <div className="container">
+                <p>{I18n.t('courses.review_timeline')}</p>
+                <a href="#" onClick={this.submit} className="button">{I18n.t('application.submit')}</a>
+              </div>
             </div>
-          </div>
-        )
-        );
+          )
+          );
+        // Show 'create a timeline' message if there is no timeline.
+        } else {
+          alerts.push((
+            <div className="notification" key="submit">
+              <div className="container">
+                <p>Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed's best practices.</p>
+                <a href={`${this._courseLinkParams()}/timeline`} className="button">Launch the Wizard</a>
+              </div>
+            </div>
+          )
+          );
+        }
       }
 
+      // When the course has been submitted
       if (this.state.course.submitted) {
+        // Show instructors the 'submitted' notice.
         if (!this.state.current_user.admin) {
           alerts.push((
             <div className="notification" key="submit">
@@ -138,6 +159,7 @@ const Course = React.createClass({
             </div>
           )
           );
+        // Instruct admins to approve the course by adding a campaign.
         } else {
           const homeLink = `${this._courseLinkParams()}/home`;
           alerts.push((
@@ -153,6 +175,7 @@ const Course = React.createClass({
       }
     }
 
+    // For published courses with no students, highlight the enroll link
     if ((userRole > 0 || this.state.current_user.admin) && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
