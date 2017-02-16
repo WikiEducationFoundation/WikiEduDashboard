@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 class RocketChat
-  CHAT_SERVER = 'https://dashboardchat.wmflabs.org'
-
   def initialize(user: nil, course: nil)
     raise ChatDisabledError unless Features.enable_chat?
     @user = user
     @course = course
     # Rocket.Chat must be configured to permit all valid user/channel names.
     @username = @user.username.tr(' ', '_') if @user
+    @chat_server = ENV['chat_server']
     @admin_username = ENV['chat_admin_username']
     @admin_password = ENV['chat_admin_password']
   end
@@ -60,31 +59,33 @@ class RocketChat
   end
 
   def api_post(endpoint, data, header = {})
-    uri = URI.parse(CHAT_SERVER + endpoint)
+    uri = URI.parse(@chat_server + endpoint)
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
     response = http.request(post)
-    validate_api_response(response)
+    validate_api_response(response, endpoint)
     response
   end
 
   def api_get(endpoint, header = {})
-    uri = URI.parse(CHAT_SERVER + endpoint)
+    uri = URI.parse(@chat_server + endpoint)
     http = Net::HTTP.new(uri.host, 443)
     http.use_ssl = true
     get = Net::HTTP::Get.new(uri.path, header)
     response = http.request(get)
-    validate_api_response(response)
+    validate_api_response(response, endpoint)
     response
   end
 
-  def validate_api_response(response)
+  def validate_api_response(response, endpoint)
     return if response.code == '200'
     Raven.capture_message 'Rocket.Chat API error',
                           level: 'error',
-                          extra: { response_data: response.body }
+                          extra: { response_data: response.body,
+                                   endpoint: endpoint,
+                                   user: @username }
     raise RocketChatAPIError
   end
 
@@ -116,11 +117,12 @@ class RocketChat
     }
   end
 
+  LOGIN_ENDPOINT = '/api/v1/login'
   def get_auth_data(username, password)
-    login_uri = URI("#{CHAT_SERVER}/api/v1/login")
+    login_uri = URI(@chat_server + LOGIN_ENDPOINT)
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
-    validate_api_response(response)
+    validate_api_response(response, LOGIN_ENDPOINT)
     JSON.parse(response.body).dig('data')
   end
 

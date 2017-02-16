@@ -134,5 +134,6 @@
 # Rocket.Chat integration for courses, which requires access to an admin
 # account on the Rocket.Chat server.
   enable_chat: 'false'
+  chat_server: 'https://your.rocket.chat'
   chat_admin_username: 'admin'
   chat_admin_password: 'passwiord'
