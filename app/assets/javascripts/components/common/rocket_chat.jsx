@@ -25,6 +25,12 @@ const RocketChat = React.createClass({
     }
   },
 
+  componentDidMount() {
+    if (Features.enableChat && this.state.authToken && !this.state.showChat) {
+      this.loginOnFrameLoad();
+    }
+  },
+
   storeDidChange() {
     this.setState({
       authToken: ChatStore.getAuthToken()
@@ -57,13 +63,14 @@ const RocketChat = React.createClass({
     const room = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/group/${room}?layout=embedded`;
     let chatClass = 'iframe';
-    if (!this.state.showChat) {
+    if (!this.state.authToken) {
       chatClass += ' hidden';
     }
     const chatFrame = <iframe id="chat" className={chatClass} src={chatUrl} />;
 
     return (
       <div className="rocket-chat">
+        <a className="pull-right button small" href={`${window.location.origin}/feedback?subject=Course Chat`} target="_blank">Have a problem with chat? Let us know.</a>
         {privacyInfo}
         {chatFrame}
       </div>
