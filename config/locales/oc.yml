@@ -21,7 +21,7 @@ oc:
     my_dashboard: Mon tablèu de bòrd
     recent_activity: Activitat recenta
     search: pausar una question
-    sign_up_extended: S’inscriure sus Wikipèdia
+    sign_up_extended: S’inscriure amb Wikipèdia
     sign_up_log_in_extended: amb Wikipèdia
     sign_up: S'inscriure
     submit: Sometre
@@ -57,6 +57,7 @@ oc:
     view: Afichar l’article
     view_all: Afichar tot
     view_on_wiki: Veire sul wiki
+    views_added: '%{count} novèlas vistas apondudas per %{title}'
   assignments:
     assignees: Afectacion(s)
     assign_other: Afectar un article
@@ -193,7 +194,10 @@ oc:
     loading: Cargament de las revisions...
     title: Títol
   timeline:
+    gradeables_none: Aqueste planning a pas cap d'afectacion de marcada coma evaluada.
+    nothing_this_week: I a pas res de programat per aquesta setmana.
     save_all_changes: Enregistrar tot
+    this_week_title_default: Aquesta setmana
     title: Planning
   training:
     start: Aviar
@@ -206,14 +210,20 @@ oc:
     contributions: Contribucions de l’utilizaire
     contributions_more: Afichar mai de contribucions
     name: Nom
+    no_articles: Pas cap d'article
+    no_revisions: Aqueste editor a pas fait cap de revision.
     recent_revisions: Darrièrs cambiaments
     reviewers: Relector(s)
     reviewing: Relectura
+  wiki_edits:
+    notify_overdue:
+      header: Avètz una afectacion de formacion en retard.
   wizard:
     read_less: Legir mens
     read_more: Legir mai
     summary: Resumit
   error:
+    oauth_invalid: Vòstra autorizacion sus Wikipèdia a expirat. Reconnectatz-vos.
     unsupported_browser:
       header: Navegador pas suportat. :-(
   error_401:
@@ -222,8 +232,13 @@ oc:
     header: Senhal erronèu. :-(
   error_404:
     header: Pagina pas trobada. :-(
+  error_422:
+    explanation: Quicòm a trucat. Contactatz los manteneires d'aqueste tablèu de bòrd
+      per los informar del problèma.
   error_500:
     header: 500 — error intèrna del servidor.  :-(
+    explanation: Quicòm a trucat. Contactatz los manteneires d'aqueste tablèu de bòrd
+      per los informar del problèma.
   login_error:
     header: Error de connexion
 ...

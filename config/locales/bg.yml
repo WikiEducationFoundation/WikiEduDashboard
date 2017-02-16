@@ -33,10 +33,16 @@ bg:
   editable:
     cancel: Отказ
     save: Съхраняване
+  recent_activity:
+    recent_uploads: Последни качвания
   revisions:
     diff_show: Показване
     diff_hide: Скриване
+  uploads:
+    label: Качвания
   users:
     assign_articles_done: Готово
     loading: Зареждане на потребители...
+    username: Потребителско име
+    username_placeholder: Потребителско име
 ...
