@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/chat/rocket_chat"
+
 #= Routines for adding or removing a course to/from a campaign
 class ListCourseManager
   def initialize(course, campaign, request)
@@ -18,7 +20,11 @@ class ListCourseManager
   def handle_post
     return if CampaignsCourses.find_by(@campaigns_courses_attrs).present?
     CampaignsCourses.create(@campaigns_courses_attrs)
-    send_approval_notification_emails unless @already_approved
+
+    return if @already_approved
+    # Task for when a course is initially approved
+    send_approval_notification_emails
+    RocketChat.new(course: @course).create_channel_for_course if Features.enable_chat?
   end
 
   def handle_delete

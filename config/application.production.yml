@@ -44,3 +44,9 @@ survey_alerts_recipient: 'Samantha (Wiki Ed)'
 
 # disable emails for individual Alert types
 ProductiveCourseAlert_emails_disabled: 'true'
+
+# Rocket.Chat integration
+enable_chat: 'true'
+chat_server: 'https://dashboardchat.wmflabs.org'
+chat_admin_username: <SECRET>
+chat_admin_password: <SECRET>

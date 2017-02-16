@@ -45,9 +45,6 @@ const Course = React.createClass({
     const { params } = this.props;
     return `${params.course_school}/${params.course_title}`;
   },
-  getCurrentUser() {
-    return this.state.current_user;
-  },
 
   storeDidChange() {
     return this.setState(getState());
@@ -85,8 +82,8 @@ const Course = React.createClass({
     }
 
     let userObject;
-    if (this.getCurrentUser().id) {
-      userObject = UserStore.getFiltered({ id: this.getCurrentUser().id })[0];
+    if (this.state.current_user.id) {
+      userObject = UserStore.getFiltered({ id: this.state.current_user.id })[0];
     }
     const userRole = userObject ? userObject.role : -1;
 
@@ -110,7 +107,7 @@ const Course = React.createClass({
     if (Features.enableGetHelpButton) {
       getHelp = (
         <div className="nav__button" id="get-help-button">
-          <GetHelpButton course={this.state.course} current_user={this.getCurrentUser()} key="get_help" />
+          <GetHelpButton course={this.state.course} current_user={this.state.current_user} key="get_help" />
         </div>
       );
     }
@@ -118,7 +115,7 @@ const Course = React.createClass({
     // //////////////////////////////////
     // Admin / Instructor notifications /
     // //////////////////////////////////
-    if ((userRole > 0 || this.getCurrentUser().admin) && !this.state.course.legacy && !this.state.course.published) {
+    if ((userRole > 0 || this.state.current_user.admin) && !this.state.course.legacy && !this.state.course.published) {
       if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse') {
         alerts.push((
           <div className="notification" key="submit">
@@ -132,7 +129,7 @@ const Course = React.createClass({
       }
 
       if (this.state.course.submitted) {
-        if (!this.getCurrentUser().admin) {
+        if (!this.state.current_user.admin) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -156,7 +153,7 @@ const Course = React.createClass({
       }
     }
 
-    if ((userRole > 0 || this.getCurrentUser().admin) && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
+    if ((userRole > 0 || this.state.current_user.admin) && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
       alerts.push((
@@ -216,7 +213,7 @@ const Course = React.createClass({
     if (this.props.location.query.enroll || this.props.location.query.enrolled) {
       enrollCard = (
         <EnrollCard
-          user={this.getCurrentUser()}
+          user={this.state.current_user}
           userRole={userRole}
           course={this.state.course}
           courseLink={this._courseLinkParams()}
@@ -234,6 +231,15 @@ const Course = React.createClass({
     const articlesLink = `${this._courseLinkParams()}/articles`;
     const uploadsLink = `${this._courseLinkParams()}/uploads`;
     const activityLink = `${this._courseLinkParams()}/activity`;
+    let chatNav;
+    if (this.state.course && this.state.course.flags && this.state.course.flags.enable_chat) {
+      const chatLink = `${this._courseLinkParams()}/chat`;
+      chatNav = (
+        <div className="nav__item" id="activity-link">
+          <p><Link to={chatLink} activeClassName="active">{I18n.t('chat.label')}</Link></p>
+        </div>
+      );
+    }
 
     return (
       <div>
@@ -258,6 +264,7 @@ const Course = React.createClass({
                 <div className="nav__item" id="activity-link">
                   <p><Link to={activityLink} activeClassName="active">{I18n.t('activity.label')}</Link></p>
                 </div>
+                {chatNav}
                 {getHelp}
               </nav>
             </div>
@@ -268,7 +275,7 @@ const Course = React.createClass({
         </div>
         <div className="course_main container">
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: this.getCourseID(), current_user: this.getCurrentUser(), course: this.state.course })}
+          {React.cloneElement(this.props.children, { course_id: this.getCourseID(), current_user: this.state.current_user, course: this.state.course })}
         </div>
       </div>
     );
