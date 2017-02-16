@@ -14,11 +14,10 @@ const InlineUsers = React.createClass({
   },
 
   render() {
-    const baseUrl = `https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/User:`;
     const lastUserIndex = this.props.users.length - 1;
     let userList = this.props.users.map((user, index) => {
       let extraInfo;
-      const link = `${baseUrl}${user.username}`;
+      const link = `/users/${user.username}`; // User profile page
       if (user.real_name) {
         const email = user.email ? ` / ${user.email}` : '';
         extraInfo = ` (${user.real_name}${email})`;
