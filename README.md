@@ -6,7 +6,9 @@
 
 The Wiki Ed Dashboard is a web application that supports Wikipedia education assignments, provides data and course management features for groups of Wikipedia users — instructors, students, and others — who are working on a common Wikipedia project. Users log in with their Wikipedia accounts (through OAuth) and allow the dashboard to make edits on their behalf. The dashboard automates many of the standard elements of organizing and participating in a Wikipedia classroom assignment.
 
-This is a project of Wiki Education Foundation, developed in partnership with WINTR, intended for our education programs on English Wikipedia. To see it in action, visit [dashboard.wikiedu.org](https://dashboard.wikiedu.org).
+The dashboard code runs two main projects: the Wiki Education Foundation Dashboard — [dashboard.wikiedu.org](https://dashboard.wikiedu.org) — and the Wikimedia Programs & Events Dashboard — [outreachdashboard.wmflabs.org](https://outreachdashboard.wmflabs.org). dashboard.wikiedu.org is used for Wiki Education Foundation programs, primarily focused on higher education in the United States and Canada. outreachdashboard.wmflabs.org is for the global Wikimedia community to organize all kinds of programs, including edit-a-thons, education programs, and other events.
+
+This is a project of [Wiki Education Foundation](https://wikiedu.org).
 
 ## What it does
 
