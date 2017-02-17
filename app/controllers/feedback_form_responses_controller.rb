@@ -2,6 +2,7 @@
 class FeedbackFormResponsesController < ApplicationController
   def new
     @subject = params['subject']
+    @has_explicit_subject = true if @subject
     @subject ||= request.referer || params['referer']
     @is_training_module = true if @subject =~ %r{/training/}
     @feedback_form_response = FeedbackFormResponse.new
@@ -26,8 +27,7 @@ class FeedbackFormResponsesController < ApplicationController
     redirect_to feedback_confirmation_path
   end
 
-  def confirmation
-  end
+  def confirmation; end
 
   private
 
