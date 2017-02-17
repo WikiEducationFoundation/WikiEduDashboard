@@ -59,7 +59,8 @@
         - OSX: `brew install mysql`
         - Windows: Install [XAMPP](https://www.apachefriends.org/index.html)
     - Start a mysql command line:
-        - OSX/Debian: `sudo mysql`
+        - Debian: `sudo mysql`
+        - OSX: `mysql.server start` then `sudo mysql`
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
@@ -97,6 +98,10 @@
     you may need to start it manually.
 
       $ `redis-server`
+
+      OR, if you used homebrew to install redis:
+
+      $ `redis-server /usr/local/etc/redis.conf`
 
 3. **Start the server**
 
