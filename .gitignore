@@ -46,3 +46,4 @@ npm-debug.log.*
 Session.vim
 1
 .byebug_history
+.ruby-gemset
