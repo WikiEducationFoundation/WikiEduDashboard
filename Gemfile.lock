@@ -9,6 +9,16 @@ GIT
       rails (>= 3.2.13)
 
 GIT
+  remote: https://github.com/ejholmes/restforce.git
+  revision: 19d70d87fcb33814dabf3d5f6b2ba3737dff2c26
+  specs:
+    restforce (2.5.0)
+      faraday (>= 0.9.0, <= 1.0)
+      faraday_middleware (>= 0.8.8, <= 1.0)
+      hashie (>= 1.2.0, < 4.0)
+      json (>= 1.7.5)
+
+GIT
   remote: https://github.com/halfdan/piwik-ruby-tracking.git
   revision: 34a3d3c8d25fa3323f054d887c64a7e249b07e58
   specs:
@@ -533,6 +543,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   redcarpet
+  restforce!
   rspec-rails
   rubocop
   sentimental
