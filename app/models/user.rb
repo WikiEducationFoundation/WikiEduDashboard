@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -21,6 +20,8 @@
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
 #  locale              :string(255)
+#  chat_password       :string(255)
+#  chat_id             :string(255)
 #
 
 require "#{Rails.root}/lib/utils"

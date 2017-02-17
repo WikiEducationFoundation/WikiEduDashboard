@@ -170,6 +170,11 @@ fi:
     delete_campaign: Poista tämän kampanja
     none: Ei mitään
     organizers: Järjestäjät
+    organizer_added: '%{user} on nyt järjestäjä kampanjassa "%{title}"'
+    organizer_removed: '%{user} ei ole enää järjestäjä kampanjassa "%{title}"'
+    program_template: Ohjelmakaavio
+    program_template_tooltip: Kun järjestäjä luo ohjelman tähän kampanjaan, tässä
+      osiossa oleva teksti kopioidaan ohjelman kuvaukseen.
     title: Otsikko
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
   courses:
@@ -205,6 +210,7 @@ fi:
       vaihtuvat viikoille, joilla ei ole suunniteltuja tapaamisia.
     course_description: Kurssit
     courses: Kurssit
+    courses_taught: Opetetut kurssit
     creation_date: Luontipäivämäärä
     creator:
       already_exists: Tämä kurssi on jo olemassa. Kannattaa vaihtaa nimi, oppilaitos
@@ -249,6 +255,9 @@ fi:
       start_date: Alkamispäivä
       start_date_placeholder: Alkamispäivä (VVVV-KK-PP)
       subject: Aihe
+      update_scheduled: Päivitys on ajastettu. Tiedot päivitetään muiden käynnissä
+        olevien ohjelmien kanssa seuraavalla päivityskerralla. Siinä kestää useampi
+        tunti.
     current: Meneillään olevat kurssit
     delete_course: Poista kurssi
     dismiss_survey: Ohita
@@ -276,6 +285,7 @@ fi:
     join_course: Ilmoittaudu kurssille
     join_prompt: Ilmoittaudu kurssille '%{title}'?
     join_successful: Ilmoittautumisesi kurssille %{title} onnistui.
+    join_failed: Ilmoittautuminen epäonnistui
     leave_confirmation: Haluatko varmasti keskeyttää kurssin?
     leave_course: Keskeytä kurssi
     loading: Ladataan…

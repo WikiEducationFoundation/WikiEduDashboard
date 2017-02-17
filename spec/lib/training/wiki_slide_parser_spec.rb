@@ -76,6 +76,10 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
       output = WikiSlideParser.new(translated_wikitext.dup).title
       expect(output).to eq('E3: Situaciones que podrías enfrentar')
     end
+    it 'handles nil input' do
+      output = WikiSlideParser.new(''.dup).title
+      expect(output).to eq('')
+    end
   end
 
   describe '#content' do
@@ -88,6 +92,10 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
     it 'converts an image template into figure markup' do
       output = WikiSlideParser.new(image_wikitext.dup).content
       expect(output).to match(/Eryk Salvaggio/)
+    end
+    it 'handles nil input' do
+      output = WikiSlideParser.new(''.dup).content
+      expect(output).to eq('')
     end
   end
 

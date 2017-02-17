@@ -41,6 +41,8 @@
 #  home_wiki_id          :integer
 #  recent_revision_count :integer          default(0)
 #  needs_update          :boolean          default(FALSE)
+#  chatroom_id           :string(255)
+#  flags                 :text(65535)
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
@@ -99,6 +101,8 @@ class Course < ActiveRecord::Base
   has_many :campaigns, through: :campaigns_courses
 
   has_many :tags, dependent: :destroy
+
+  serialize :flags, Hash
 
   module ClonedStatus
     NOT_A_CLONE = 0

@@ -92,7 +92,7 @@ bn:
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
     end: শেষ
-    courses_enrolled: কোর্স ভর্তি
+    courses_enrolled: কোর্সে ভর্তি
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।

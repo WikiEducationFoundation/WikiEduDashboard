@@ -63,4 +63,15 @@ class Features
   def self.wiki_trainings?
     ENV['enable_wiki_trainings'] == 'true'
   end
+
+  # Determines whether chat is available at all within the dashboard
+  def self.enable_chat?
+    ENV['enable_chat'] == 'true'
+  end
+
+  # Determines whether chat is enabled for an individual course
+  def self.enable_course_chat?(course)
+    return false unless enable_chat?
+    course.flags[:enable_chat] == true
+  end
 end

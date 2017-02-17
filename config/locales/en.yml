@@ -209,6 +209,9 @@ en:
     title: Title
     use_start_end_dates: Use start and end dates
 
+  chat:
+    label: Chat
+
   courses:
     activity: Activity
     active_courses: Active %{course_type}
@@ -298,6 +301,7 @@ en:
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     duration: Course Duration
     edit_course_dates: Edit Course Dates
+    enable_chat: Enable chat
     end: End
     enroll: Enroll
     enrollment: Enrollment

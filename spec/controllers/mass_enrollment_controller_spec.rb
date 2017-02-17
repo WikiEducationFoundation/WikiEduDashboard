@@ -30,6 +30,7 @@ describe MassEnrollmentController do
       before do
         allow(controller).to receive(:current_user).and_return(admin)
         course.campaigns << Campaign.first
+        stub_add_user_to_channel_success
       end
       it 'adds only real users to a course' do
         expect(UserImporter).to receive(:new_from_username)

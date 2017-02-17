@@ -1,5 +1,6 @@
 import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
+import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -70,6 +71,10 @@ const AvailableActions = React.createClass({
     ServerActions.needsUpdate(this.state.course.slug);
   },
 
+  enableChat() {
+    ChatActions.enableForCourse(this.state.course.id);
+  },
+
   render() {
     const controls = [];
     const user = this.props.current_user;
@@ -105,6 +110,12 @@ const AvailableActions = React.createClass({
       if (CourseDateUtils.isEnded(this.state.course)) {
         controls.push((
           <p key="needs_update"><button className="button" onClick={this.needsUpdate}>{I18n.t('courses.needs_update')}</button></p>
+        ));
+      }
+      // If chat is available but not enabled for course, show the 'enable chat' button.
+      if (Features.enableChat && !this.state.course.flags.enable_chat) {
+        controls.push((
+          <p key="enable_chat"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></p>
         ));
       }
     // If user has no role or is logged out
