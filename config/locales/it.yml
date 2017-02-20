@@ -136,6 +136,8 @@ it:
     description: Descrizione
     none: Nessuno
     title: Titolo
+  chat:
+    label: Chat
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'
@@ -217,6 +219,7 @@ it:
       sondaggio?
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
+    enable_chat: Attiva chat
     end: Fine
     enroll: Iscriversi
     enrollment: Iscrizione

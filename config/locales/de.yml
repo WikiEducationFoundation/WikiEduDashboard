@@ -177,6 +177,8 @@ de:
       darüberkopiert.
     title: Titel
     use_start_end_dates: Start- und Enddaten verwenden
+  chat:
+    label: Chat
   courses:
     activity: Aktivität
     active_courses: Aktive %{course_type}
@@ -270,6 +272,7 @@ de:
       möchtest?
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
+    enable_chat: Chat aktivieren
     end: Ende
     enroll: Einschreiben
     enrollment: Einschreibung

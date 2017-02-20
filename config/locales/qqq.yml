@@ -242,10 +242,10 @@ qqq:
       Label for the input to change the title of a campaign
       {{Identical|Title}}
     use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
-
   chat:
-    label: Short label for chat / discussion channel
-
+    label: |-
+      Short label for chat / discussion channel
+      {{Identical|Chat}}
   courses:
     activity: Label for link to the 'recent activity' list for a course
     active_courses: |-

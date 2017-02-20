@@ -179,6 +179,8 @@ es:
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
     title: Título
+  chat:
+    label: Chat
   courses:
     activity: Actividad
     all_courses: Todos los cursos
@@ -267,6 +269,7 @@ es:
       esta encuesta?
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
+    enable_chat: Activar el chat
     end: Fin
     enroll: Inscribirse
     enrollment: Inscripción

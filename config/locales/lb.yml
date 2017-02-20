@@ -98,6 +98,8 @@ lb:
     organizers: Organisateuren
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
+  chat:
+    label: Chat
   courses:
     activity: Aktivitéit
     active_courses: Aktiv %{course_type}
@@ -138,6 +140,7 @@ lb:
       wëllt?
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
+    enable_chat: Chat aktivéieren
     end: Schluss
     enroll: Aschreiwen
     enrollment: Aschreiwung

@@ -7,15 +7,22 @@
 ---
 te:
   application:
+    cancel: రద్దుచేయి
     explore: అన్వేషించండి
+    greeting2: స్వాగతం!
+    greeting_extended: వికీపీడియాకు స్వాగతం
+    greeting: నమస్తే!
     help: సహాయం
     home: ముంగిలి
     log_in: ప్రవేశించండి
     log_out: నిష్క్రమించండి
     my_dashboard: నా డాష్ బోర్డు
+    recent_activity: ఇటీవలి కార్యకలాపం
     sign_up_log_in_extended: వికీపీడియా తో
     sign_up: నమోదు
     training: శిక్షణ
+    details: వివరాలు
+    confirm: సరే
   dashboard:
     explore_examples: ఉదాహరణల కోసం అన్వేషించండి
   home:
@@ -27,14 +34,27 @@ te:
     edited_by: సవరించినవారు
   articles:
     edited_mobile: వ్యాసాలు
+    hide: దాచు
+    label: వ్యాసాలు
+    new: (కొత్తది)
     rating: తరగతి
+  assignments:
+    remove: తీసివెయ్యి
+  campaign:
+    description: వివరణ
   courses:
+    cancel: రద్దుచేయి
     duration: కోర్సు కాలపరిమితి
-    overview: అవలోకనం
+    overview: ముంగిలి
     students: విద్యార్థులు
     students_short: విద్యార్థులు
     title: శీర్షిక
     view: కోర్సును చూపించు
+  courses_generic:
+    cancel: రద్దుచేయి
+  editable:
+    cancel: రద్దుచేయి
+    save: భద్రపరచు
   metrics:
     activity: ఇటీవలి కార్యకలాపం
     articles_edited: సవరించబడిన వ్యాసాలు
@@ -42,4 +62,23 @@ te:
     date_time: తేదీ/సమయం
     edit_count_description: మొత్తం దిద్దుబాట్లు
     word_count: చేర్చిన పదాలు
+  namespace:
+    user_ns: వాడుకరి
+  recent_activity:
+    datetime: తేదీ/సమయం
+    recent_uploads: ఇటీవలి ఎక్కింపులు
+  revisions:
+    diff_show: చూపించు
+    diff_hide: దాచు
+  timeline:
+    gradeable_value: విలువ
+  uploads:
+    datetime: తేదీ/సమయం
+  users:
+    name: పేరు
+    training_module_status: స్థితి
+    username: వాడుకరి పేరు
+    username_placeholder: వాడుకరి పేరు
+  wizard:
+    summary: సారాంశం
 ...

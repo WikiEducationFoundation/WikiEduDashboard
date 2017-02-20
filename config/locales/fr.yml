@@ -189,6 +189,8 @@ fr:
       le texte dans cette zone sera copié comme une description sur la page du programme
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
+  chat:
+    label: Discussion
   courses:
     activity: Activité
     active_courses: '%{course_type} actifs'
@@ -282,6 +284,7 @@ fr:
       sondage ?
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
+    enable_chat: Activer la discussion
     end: Fin
     enroll: S’inscrire
     enrollment: Inscription

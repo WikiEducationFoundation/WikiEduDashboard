@@ -78,6 +78,8 @@ pl:
   campaign:
     none: Brak
     title: Tytuł
+  chat:
+    label: Czat
   courses:
     activity: Aktywność
     articles: Artykuły

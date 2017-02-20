@@ -155,6 +155,8 @@ zh-TW:
     program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
     use_start_end_dates: 使用起始和結束時間
+  chat:
+    label: 聊天
   courses:
     activity: 活躍度
     active_courses: 啟動%{course_type}
@@ -228,6 +230,7 @@ zh-TW:
     dismiss_survey_confirm: 您確定要永久刪除此調查？
     duration: 開課期間
     edit_course_dates: 編輯課程日期
+    enable_chat: 啟用聊天
     end: 結束
     enroll: 登記
     enrollment: 登記

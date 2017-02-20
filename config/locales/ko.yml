@@ -112,6 +112,8 @@ ko:
     program_template: 프로그램 틀
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
+  chat:
+    label: 채팅
   courses:
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!
@@ -151,6 +153,7 @@ ko:
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
+    enable_chat: 채팅 사용하기
     end: 종료
     error:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
@@ -271,6 +274,7 @@ ko:
     diff_show: 보기
     diff_hide: 숨기기
     edited_by: '편집자:'
+    edited_on: '%{edit_date}에 편집함'
     loading: 판을 불러오는 중...
     title: 제목
     view_on_wiki: 위키에서 차이 보기

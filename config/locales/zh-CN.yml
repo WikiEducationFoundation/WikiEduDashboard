@@ -154,6 +154,8 @@ zh-CN:
     program_template_tooltip: 当组织者在此运动中创建程序时，此区域的文本将被复制为程序页面上的描述
     title: 标题
     use_start_end_dates: 使用开始和结束日期
+  chat:
+    label: 聊天
   courses:
     activity: 活动
     active_courses: 激活%{course_type}
@@ -225,6 +227,7 @@ zh-CN:
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
+    enable_chat: 启用聊天
     end: 结束
     enroll: 注册
     enrollment: 登记

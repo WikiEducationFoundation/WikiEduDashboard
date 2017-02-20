@@ -86,6 +86,8 @@ sv:
     program_template: Programmall
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
+  chat:
+    label: Chatta
   courses:
     activity: Aktivitet
     all_courses: Alla kurser
@@ -127,6 +129,7 @@ sv:
       subject: Ämne
     delete_course: Radera kurs
     dismiss_survey: Stäng
+    enable_chat: Aktivera chatt
     end: Slut
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
