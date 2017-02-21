@@ -30,8 +30,6 @@ Note:
 ## Step 2: Update local repo development branch
 Reason: Your **local repo** *master* branch needs to stay in sync with the **project repo** *master* branch.  This is because you want to have your feature branch (to be created below) to have the latest project code before you start adding code for the feature you’re working on.
 
-Mechanics (on your machine):
-
     git checkout master
     git fetch upstream
     git merge upstream/master
@@ -40,8 +38,6 @@ You should not have merge conflicts in step 3, unless you’ve made changes to y
 
 ## Step 3: Create the feature branch in your local and github repos
 Reason: All of your development should occur in feature branches - ideally, one branch per Waffle ticket.  This keeps your local *master* branch clean (reflecting *upstream* master branch), allows you to abandon development approaches easily if required (e.g., simply delete the feature branch), and also allows you to maintain multiple work-in-process branches if you need to (e.g., work on a feature branch while also working own fixing a critical bug - each in its own branch).
-
-Mechanics (on your machine):
 
 1. Create a branch whose name contains the Waffle story number. For example, if you are going to work on story #78 (which is, say, a new feature for ‘forgot password’ management):
 
@@ -83,7 +79,7 @@ Reason: We will now push the feature branch code to github so that we can create
     git push origin <feature-branch-name>
 
 ## Step 8: Create Pull Request (PR)
-In the github website:
+On the github website:
 
 1. Go to your personal repo on Github
 2. Select the *master* branch in the “Branch: “ pull-down menu
