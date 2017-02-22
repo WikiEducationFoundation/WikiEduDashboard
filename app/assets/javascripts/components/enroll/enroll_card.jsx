@@ -15,7 +15,13 @@ const EnrollCard = React.createClass({
 
   render() {
     let messageBody;
-    if (this.props.enrolledParam !== undefined) {
+    if (this.props.course.ended) {
+      messageBody = (
+        <div>
+          <h1>{I18n.t('courses.ended')}</h1>
+        </div>
+      );
+    } else if (this.props.enrolledParam !== undefined) {
       // Enrollment is complete
       if (this.props.enrolledParam === 'true') {
         messageBody = (
@@ -35,21 +41,13 @@ const EnrollCard = React.createClass({
       }
     // User is logged in and ready to enroll
     } else if (this.props.user.id && this.props.userRole === -1) {
-      if (this.props.course.ended) {
-        messageBody = (
-          <div>
-            <h1>{I18n.t('courses.ended')}</h1>
-          </div>
-        );
-      } else {
-        messageBody = (
-          <div>
-            <h1>{I18n.t('courses.join_prompt', { title: this.props.course.title || '' })}</h1>
-            <a className="button dark" href={this.props.course.enroll_url + this.props.passcode}>{I18n.t('courses.join')}</a>
-            <a className="button border" href={this.props.courseLink}>{I18n.t('application.cancel')}</a>
-          </div>
-        );
-      }
+      messageBody = (
+        <div>
+          <h1>{I18n.t('courses.join_prompt', { title: this.props.course.title || '' })}</h1>
+          <a className="button dark" href={this.props.course.enroll_url + this.props.passcode}>{I18n.t('courses.join')}</a>
+          <a className="button border" href={this.props.courseLink}>{I18n.t('application.cancel')}</a>
+        </div>
+      );
     // User is already enrolled
     } else if (this.props.userRole >= 0) {
       messageBody = <h1>{I18n.t('courses.already_enrolled', { title: this.props.course.title })}</h1>;
