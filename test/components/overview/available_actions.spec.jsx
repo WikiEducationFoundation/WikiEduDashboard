@@ -14,7 +14,7 @@ describe('AvailableActions', () => {
       course: {
         ended: true
       }
-    })
+    });
     const p = ReactTestUtils.findRenderedDOMComponentWithTag(TestAvailableActions, 'p');
     expect(p.textContent).to.eq('No available actions');
   });
