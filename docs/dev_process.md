@@ -9,7 +9,8 @@ regardless of whether the pull request is for a feature, a bug or a chore.
 We use Waffle as our story board for this project.  The waffle board for this
 project is [here](https://waffle.io/WikiEducationFoundation/WikiEduDashboard).
 
-Make sure you are added as a "collaborator" to the project - confirm with the AV coordinator if there is any question.
+Make sure you are added as a "collaborator" to the project - confirm with the AV coordinator if there is any question (post a message about this to the project
+slack channel if unsure about who to contact).
 
 ## Process Outline
 
@@ -37,7 +38,7 @@ Reason: Your **local repo** *master* branch needs to stay in sync with the **pro
 You should not have merge conflicts in step 3, unless you’ve made changes to your local *master* branch directly (which you should not do).
 
 ## Step 3: Create the feature branch in your local and github repos
-Reason: All of your development should occur in feature branches - ideally, one branch per Waffle ticket.  This keeps your local *master* branch clean (reflecting *upstream* master branch), allows you to abandon development approaches easily if required (e.g., simply delete the feature branch), and also allows you to maintain multiple work-in-process branches if you need to (e.g., work on a feature branch while also working own fixing a critical bug - each in its own branch).
+Reason: All of your development should occur in feature branches - ideally, one branch per Waffle ticket.  This keeps your local *master* branch clean (reflecting *upstream* master branch), allows you to abandon development approaches easily if required (e.g., simply delete the feature branch), and also allows you to maintain multiple work-in-process branches if you need to (e.g., work on a feature branch while also working on fixing a critical bug - each in its own branch).
 
 1. Create a branch whose name contains the Waffle story number. For example, if you are going to work on story #78 (which is, say, a new feature for ‘forgot password’ management):
 
@@ -57,8 +58,9 @@ Develop the code for your feature (or chore/bug) as usual.  You can make interim
 When you have completed development, make your final commit to the feature branch in your local repo.
 
 ## Step 5: Update local repo **master** branch
-Didn’t we just do this is step 2?  Yes, but we should do it again in cause any commits have occurred to the *master* branch in the project repo since you performed step 1.
+Didn’t we just do this is step 2?  Yes, but we should do it again in case any commits have occurred to the *master* branch in the project repo since you performed step 1.
 
+    git checkout master
     git fetch upstream
     git merge upstream/master
 
