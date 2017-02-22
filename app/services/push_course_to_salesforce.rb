@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "#{Rails.root}/lib/word_count"
 
 #= Enables chat features for a course and adds all participants to course chat channel
 class PushCourseToSalesforce
@@ -39,7 +40,12 @@ class PushCourseToSalesforce
       Name: @course.title,
       Course_Page__c: @course.url,
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",
-      Program__c: program_id
+      Program__c: program_id,
+      Estimated_No_of_Participants__c: @course.expected_students,
+      Articles_edited__c: @course.article_count,
+      Total_edits__c: @course.revision_count,
+      Words_added_in_thousands__c: words_added_in_thousands,
+      Actual_No_of_Participants__c: @course.user_count
     }
   end
 
@@ -50,5 +56,9 @@ class PushCourseToSalesforce
     when 'VisitingScholarship'
       ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']
     end
+  end
+
+  def words_added_in_thousands
+    WordCount.from_characters(@course.character_sum).to_f / 1000
   end
 end
