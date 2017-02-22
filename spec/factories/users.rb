@@ -20,6 +20,8 @@
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
 #  locale              :string(255)
+#  chat_password       :string(255)
+#  chat_id             :string(255)
 #
 
 FactoryGirl.define do

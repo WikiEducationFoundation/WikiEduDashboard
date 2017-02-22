@@ -121,6 +121,7 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
+    edit_size: Editar tamaño
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
       encaja en el molde de un artículo maduro de la Wikipedia, según el Servicio
@@ -178,6 +179,8 @@ es:
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
     title: Título
+  chat:
+    label: Chat
   courses:
     activity: Actividad
     all_courses: Todos los cursos
@@ -266,6 +269,7 @@ es:
       esta encuesta?
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
+    enable_chat: Activar el chat
     end: Fin
     enroll: Inscribirse
     enrollment: Inscripción
@@ -485,7 +489,9 @@ es:
     diff: dif
     diff_show: Mostrar
     diff_hide: Ocultar
+    edit_time_span: Las oediciones ocurrieron desde %{first_time} hasta %{last_time}
     edited_by: Editado por
+    edited_on: Editado el %{edit_date}
     loading: Cargando revisiones...
     none: Este curso no tiene ediciones recientes.
     time_doc: El tiempo de cada revisión en tu hora local

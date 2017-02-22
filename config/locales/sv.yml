@@ -57,6 +57,7 @@ sv:
     view_doc: Summan av alla läsningar av varje artikel under kursen
     view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
+    edit_size: Redigera storlek
   assignments:
     article: Artikeln %{title} har tilldelats
     add_available: Lägg till en tillgänglig artikel
@@ -85,6 +86,8 @@ sv:
     program_template: Programmall
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
+  chat:
+    label: Chatta
   courses:
     activity: Aktivitet
     all_courses: Alla kurser
@@ -126,6 +129,7 @@ sv:
       subject: Ämne
     delete_course: Radera kurs
     dismiss_survey: Stäng
+    enable_chat: Aktivera chatt
     end: Slut
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
@@ -232,7 +236,9 @@ sv:
   revisions:
     class: Klass
     diff: skillnad
+    edit_time_span: Redigeringar skedde från %{first_time} till %{last_time}
     edited_by: Redigerad av
+    edited_on: Redigerades %{edit_date}
     title: Titel
   timeline:
     add_week: Lägg till vecka
@@ -325,4 +331,6 @@ sv:
       message: Detta är en påminnelse om undersökningen för din kurs, %{course_title}.
         Feedback från den här undersökningen hjälper oss att förbättra vårt stöd till
         Wikipedia-uppgifter likt din.
+  feedback_form_responses:
+    no_responses: Det finns inga återkopplingssvar ännu.
 ...

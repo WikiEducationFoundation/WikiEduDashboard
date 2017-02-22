@@ -47,7 +47,7 @@ class UserImporter
     # We may already have a user record, but the user has been renamed.
     # We check for a user with the same global_id, and update the username if
     # we find one.
-    update_username_for_for_global_id(username)
+    update_username_for_global_id(username)
 
     # At this point, if we still can't find a record with this username,
     # we finally create and return it.
@@ -77,7 +77,7 @@ class UserImporter
     WikiApi.new(MetaWiki.new).get_user_id(username).present?
   end
 
-  def self.update_username_for_for_global_id(username)
+  def self.update_username_for_global_id(username)
     existing_user = user_with_same_global_id(username)
     existing_user&.update_attribute(:username, username)
   end

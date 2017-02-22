@@ -114,6 +114,11 @@ const CourseStore = Flux.createStore({
           description: data.campaign.template_description
         });
       break;
+    case 'ENABLE_CHAT_SUCCEEDED':
+      setCourse(
+        { flags: { enable_chat: true } }
+      );
+      break;
     default:
       // no default
   }

@@ -1,12 +1,14 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: ASHmed
 # Author: Ayatun
 # Author: Haytham morsy
 # Author: Maroen1990
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
 # Author: ديفيد
+# Author: علاء
 # Author: محمد أحمد عبد الفتاح
 ---
 ar:
@@ -37,6 +39,7 @@ ar:
     submit: إرسال
     training: تدريب
     change: تغيير
+    details: التفاصيل
   dashboard:
     create_note: انقر فوق إنشاء ملعب لإنشاء الدورة الأولى الخاصة بك.
     explore_course_pages: استكشاف صفحات الدورات
@@ -92,6 +95,7 @@ ar:
     view_all: عرض الكل
     view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
     views_added: أضيفت %{count} وجهات نظر جديدة ل %{title}
+    edit_size: تعديل الحجم
     wp10: اكتمال هيكلي
   assignments:
     already_exists: هذه المهمة موجودة بالفعل!
@@ -112,6 +116,7 @@ ar:
       title: معالم
   campaign:
     add_organizer: أضف منظمًا
+    campaigns: الحملات
     campaign_deleted: أزيلت حملة "%{title}"
     campaign_updated: تم تجديد الحملة
     none: لا شيء
@@ -131,6 +136,7 @@ ar:
       legend_class_meeting: اجتماع فئة
       legend_class_not_meeting: لا يوجد اجتماع مقرر
       select_meeting_days: تحديد أيام الأسبوع التي يجتمع فيها صفك.
+    campaigns: 'الحملات:'
     confirm_course_deletion: هل أنت متأكد أنك تريد حذف الدورة بعنوان %{title}؟ إذا
       كان الأمر كذلك، اكتب عنوان الدورة للقيام بذلك.
     confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة. لم يتم حذفه الدورة.'
@@ -170,6 +176,7 @@ ar:
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
     duration: مدة الدورة
     edit_course_dates: تواريخ دورة التحرير
+    end: نهاية
     enrollment: تسجيل
     error:
       user_exists: عذرا، %{username} ليس مستخدما موجودا.
@@ -186,7 +193,8 @@ ar:
     new_week: إضافة أسبوع جديد
     nocourses: إنك لم تشارك في أي دورة.
     no_available_actions: لا توجد إجراءات متاحة
-    overview: نظرة عامة
+    overview: الرئيسية
+    passcode: رمز المرور
     passcode_none: لا يوجد رمز مرور
     passcode_prompt: أدخل رمز المرور المعطى لك من قبل معلمك لهذه الدورة
     published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة الرابط
@@ -194,6 +202,7 @@ ar:
     revisions_doc: عدد عمليات التحرير في %{timeframe} يوما الماضية
     revisions_none: هذه الدورة ليس لها نشاط في تحرير ويكيبيديا مؤخرا.
     school: مدرسة
+    start: البداية
     start_typing: ابدأ الطباعة
     students: الطلاب
     student_editors: الطلاب المحررون
@@ -248,6 +257,7 @@ ar:
         لبدء إنشاء صفحة لبرنامج الويكي الخاص بك.
     delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
+    explore: البحث عن برنامج
     enroll: إضافة محرر
     enrollment: مشاركة
     expected_students: المحررون المتوقعون

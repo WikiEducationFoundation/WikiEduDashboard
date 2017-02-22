@@ -99,6 +99,7 @@ it:
     view_doc: La somma di tutte le visite ad ogni voce durante il progetto
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
+    edit_size: Modifica dimensione
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
       una voce si avvicina al modello di una voce di Wikipedia matura, basato sul
@@ -135,6 +136,8 @@ it:
     description: Descrizione
     none: Nessuno
     title: Titolo
+  chat:
+    label: Chat
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'
@@ -216,6 +219,7 @@ it:
       sondaggio?
     duration: Durata del corso
     edit_course_dates: Modifica date del corso
+    enable_chat: Attiva chat
     end: Fine
     enroll: Iscriversi
     enrollment: Iscrizione
@@ -400,7 +404,9 @@ it:
     diff: confronto tra versioni
     diff_show: Mostra
     diff_hide: Nascondi
+    edit_time_span: Modifiche avvenute dal %{first_time} al %{last_time}
     edited_by: Modificato da
+    edited_on: Modificata il %{edit_date}
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo

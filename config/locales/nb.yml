@@ -105,6 +105,7 @@ nb:
     view_doc: Summen av alle artikkelvisninger i løpet av prosjektet
     view_on_wiki: Vis på wikien
     views_added: La til %{count} nye visninger for %{title}
+    edit_size: Redigeringsstørrelse
     wp10: Strukturell fullstendighet
     wp10_doc: Skåren for «Strukturell fullstendighet» representerer hvor nært artikkelen
       passer med formen til en moden Wikipedia-artikkel, basert på den maskinlæringsbaserte
@@ -164,6 +165,9 @@ nb:
     organizers: Arrangører
     organizer_added: '%{user} er nå arrangør av kampanjen «%{title}»'
     organizer_removed: '%{user} har blitt fjernet som arrangør av kampanjen «%{title}»'
+    program_template: Programmal
+    program_template_tooltip: Når en arrangør oppretter et program i denne kampanjen
+      vil teksten i dette feltet kopieres over som beskrivelse på programsiden
     title: Tittel
     use_start_end_dates: Bruk start- og sluttdatoer
   courses:
@@ -269,6 +273,9 @@ nb:
     join_course: Bli med i kurs
     join_prompt: Bli med i «%{title}»?
     join_successful: Du har blitt med i %{title}.
+    join_failure_details:
+      cannot_join_twice: Brukere kan ikke bli med i samme kurs to ganger.
+      not_yet_approved: Dette kurset er ennå ikke åpnet for innskriving.
     leave_confirmation: Er du sikker på at du vil forlate dette kurset?
     leave_course: Forlat kurs
     loading: Laster ...
@@ -277,12 +284,13 @@ nb:
     needs_update: Planlegg dataoppdatering
     new_week: Legg til ny uke
     nocourses: Du deltar ikke i noen kurs.
+    nocourse: har ikke deltatt i noen kurs.
     none: Ingen
     notify_untrained_confirmation: Dette vil poste en påminnelse på diskusjonssidene
       til alle studenter som har gått over fristen for å fullføre tildelte treningsmoduler.
       Er du sikker på at du vil gjøre det?
     no_available_actions: Ingen tilgjengelige handlinger
-    overview: Oversikt
+    overview: Hjem
     passcode: Passkode
     passcode_none: Ingen passkode
     passcode_prompt: Skriv inn passkoden du fikk fra instruktøren din i dette kurset
@@ -345,6 +353,7 @@ nb:
       notification_message: Ta en undersøkelse om dette kurset.
       link: Ta undersøkelse
   courses_generic:
+    archived: Arkiverte programmer
     articles_none: Det er ingen redigerte artikler for dette prosjektet ennå.
     assignment_end: Tidslinjeslutt
     assignments_none: Dette prosjektet har ingen tildelte artikler
@@ -368,6 +377,7 @@ nb:
         «Opprett mitt program!» for å begynne å bygge siden for ditt wikiprogram.
     delete_course: Slett program
     edit_course_dates: Rediger prosjektdatoer
+    explore: Finn programmer
     enroll: Legg til bidragsyter
     enrollment: Deltakelse
     expected_students: Forventede bidragsytere
@@ -391,6 +401,7 @@ nb:
     view_page: Vis programside
     word_count_doc: Et estimat for antall ord lagt til i artikler av programmets bidragsytere
       i løpet av programterminen
+    yourcourses: Dine programmer
   editable:
     edit: Rediger
     cancel: Avbryt
@@ -410,6 +421,7 @@ nb:
     edit_count_description: Totalt antall endringer
     per_user: '%{number}/bruker'
     revisions: Nylige redigeringer
+    tags: Tagger
     upload_count: Commons-opplastinger
     uploads_in_use_count:
       one: fil brukt i en artikkel
@@ -455,7 +467,9 @@ nb:
     diff: forskjell
     diff_show: Vis
     diff_hide: Skjul
+    edit_time_span: Redigeringer skjedde fra %{first_time} til %{last_time}
     edited_by: Redigert av
+    edited_on: Ble redigert %{edit_date}
     loading: Laster revisjoner ...
     none: Dette kurset har ingen nylig redigeringsaktivitet.
     time_doc: Tiden for hver revisjon i din lokale tid
@@ -548,6 +562,7 @@ nb:
     contributions: Brukerbidrag
     contributions_history_full: Vis full bidragshistorikk på Wikipedia
     contributions_more: Vis flere bidrag
+    contribution_statistics: Bidragsstatistikk
     course_passcode: 'Passkode:'
     editors: Bidragsytere
     enroll_confirmation: Er du sikker på at du vil legge til %{username}?
@@ -574,8 +589,13 @@ nb:
     training_complete:
       one: er ajour med treningen
       other: er ajour med treningen
+    training_complete_count:
+      one: '%{count} ajour med trening'
+      other: '%{count} ajour med trening'
+    training_incomplete: Ikke ajour med trening
     training_module_name: Treningsmodul
     training_module_status: Status
+    up_to_date_with_training: ajour med trening
     username: Brukernavn
     username_placeholder: Brukernavn
     role:

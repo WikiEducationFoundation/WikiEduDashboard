@@ -101,6 +101,7 @@ zh-TW:
     view_doc: 在專案中每個文章的檢視數
     view_on_wiki: 在wiki上查看
     views_added: 為 %{title} 增加 %{count} 個新的檢視數
+    edit_size: 編輯大小
     wp10: 結構完整性
     wp10_doc: ' "結構完整性" 評分，是以採用機器學習的版本評估服務 (https://ores.wikimedia.org/) 為依據，來代表著一篇文章內容符合一篇完整維基文章內容程度。評分計算的基準在於文章長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的文章通常代表著它遵循著維基百科上對於良好文章架構的共識。
       (這些評分僅適用於英語維基百科)'
@@ -154,6 +155,8 @@ zh-TW:
     program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
     use_start_end_dates: 使用起始和結束時間
+  chat:
+    label: 聊天
   courses:
     activity: 活躍度
     active_courses: 啟動%{course_type}
@@ -220,12 +223,14 @@ zh-TW:
       start_date: 開始日期
       start_date_placeholder: 開始日期 (YYYY-MM-DD)
       subject: 領域主題
+      update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
     current: 目前的課程
     delete_course: 刪除課程
     dismiss_survey: 關閉
     dismiss_survey_confirm: 您確定要永久刪除此調查？
     duration: 開課期間
     edit_course_dates: 編輯課程日期
+    enable_chat: 啟用聊天
     end: 結束
     enroll: 登記
     enrollment: 登記
@@ -436,7 +441,9 @@ zh-TW:
     diff: 差異
     diff_show: 顯示
     diff_hide: 隱藏
+    edit_time_span: 從%{first_time}至%{last_time}發生的編輯數
     edited_by: 編輯者為
+    edited_on: 編輯於%{edit_date}
     loading: 正在載入修訂⋯⋯
     none: 本課程最近沒有編輯活動。
     time_doc: 每個修訂版本的時間 (顯示為您使用的本地時間)
@@ -640,4 +647,6 @@ zh-TW:
       link: 參加調查
     follow_up:
       message: 這是有關您對課程 %{course_title}調查的提醒。來自此調查的回饋將幫助我們改進像您在維基百科上的事項。
+  feedback_form_responses:
+    no_responses: 目前尚未有意見回饋反應。
 ...

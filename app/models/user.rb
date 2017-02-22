@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -21,6 +20,8 @@
 #  greeted             :boolean          default(FALSE)
 #  greeter             :boolean          default(FALSE)
 #  locale              :string(255)
+#  chat_password       :string(255)
+#  chat_id             :string(255)
 #
 
 require "#{Rails.root}/lib/utils"
@@ -58,6 +59,7 @@ class User < ActiveRecord::Base
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
 
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
+  scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
@@ -71,6 +73,13 @@ class User < ActiveRecord::Base
   }
 
   scope :ungreeted, -> { where(greeted: false) }
+
+  ####################
+  # Class method(s)  #
+  ####################
+  def self.search_by_email(email)
+    User.where('lower(email) like ?', "#{email}%")
+  end
 
   ####################
   # Instance methods #

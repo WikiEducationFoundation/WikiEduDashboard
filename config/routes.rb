@@ -20,9 +20,10 @@ Rails.application.routes.draw do
   end
 
   # Users
-  controller :users do
-    get 'users/revisions' => 'users#revisions', :as => :user_revisions
-    get 'users/:username' => 'users#show', constraints: { username: /.*/ }
+  resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
+    collection do
+      get 'revisions'
+    end
   end
 
   resources :assignments
@@ -219,6 +220,12 @@ Rails.application.routes.draw do
   get '/feedback_form_responses/:id' => 'feedback_form_responses#show', as: :feedback_form_response
   post '/feedback_form_responses' => 'feedback_form_responses#create'
   get '/feedback/confirmation' => 'feedback_form_responses#confirmation'
+
+  # Chat
+  if Features.enable_chat?
+    get '/chat/login' => 'chat#login'
+    put '/chat/enable_for_course/:course_id' => 'chat#enable_for_course'
+  end
 
   resources :admin
   resources :alerts_list

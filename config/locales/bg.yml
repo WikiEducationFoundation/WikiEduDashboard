@@ -23,6 +23,8 @@ bg:
       "%{campaign_title}"?
     course_already_removed: '"%{title}" вече е изтрита от кампанията "%{campaign_title}"'
     course_removed: '"%{title}" е отстранен от кампанията "%{campaign_title}"'
+  chat:
+    label: Чат
   courses:
     enroll: Записване
     my_articles: Моите статии
@@ -33,10 +35,17 @@ bg:
   editable:
     cancel: Отказ
     save: Съхраняване
+  recent_activity:
+    recent_uploads: Последни качвания
   revisions:
     diff_show: Показване
     diff_hide: Скриване
+  uploads:
+    header: Качени файлове в Общомедия
+    label: Качвания
   users:
     assign_articles_done: Готово
     loading: Зареждане на потребители...
+    username: Потребителско име
+    username_placeholder: Потребителско име
 ...

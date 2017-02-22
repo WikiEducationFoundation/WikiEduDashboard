@@ -122,4 +122,53 @@ module RequestHelpers
     stub_request(:get, /.*commons.wikimedia.org.*/)
       .to_return(status: 503, body: '', headers: {})
   end
+
+  ###################
+  # Rocket.Chat API #
+  ###################
+  def stub_chat_login_success
+    success_response = {
+      'status' => 'success',
+      'data': {
+        'authToken' => 'fakeAuthToken',
+        'userId' => 'chatIdForUser'
+      }
+    }
+    stub_request(:post, /.*login/)
+      .to_return(status: 200, body: success_response.to_json, headers: {})
+  end
+
+  def stub_chat_user_create_success
+    success_response = {
+      'success' => true,
+      'user': {
+        '_id': 'userId'
+      }
+    }
+    stub_request(:post, /.*users.create/)
+      .to_return(status: 200, body: success_response.to_json, headers: {})
+  end
+
+  def stub_chat_channel_create_success
+    stub_chat_login_success # Admin login happens before channel creation
+    success_response = {
+      'success' => true,
+      'group': {
+        '_id': 'channelId'
+      }
+    }
+    stub_request(:post, /.*groups.create/)
+      .to_return(status: 200, body: success_response.to_json, headers: {})
+  end
+
+  def stub_add_user_to_channel_success
+    # These happen before adding the user, if the user and room don't exist already.
+    stub_chat_user_create_success
+    stub_chat_channel_create_success
+    success_response = {
+      'success' => true
+    }
+    stub_request(:post, /.*groups.invite/)
+      .to_return(status: 200, body: success_response.to_json, headers: {})
+  end
 end

@@ -12,7 +12,7 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
-url_blacklist = ['https://wikiedu.org']
+url_blacklist = ['https://wikiedu.org', 'https://fonts.googleapis.com']
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blacklist)
 end

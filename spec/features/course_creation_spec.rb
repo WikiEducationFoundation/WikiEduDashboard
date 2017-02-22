@@ -381,7 +381,8 @@ describe 'New course creation and editing', type: :feature do
 
       # Finish the wizard
       click_button 'Generate Timeline'
-      expect(page).to have_content 'Add Assignment'
+      expect(page).to have_content 'Launch the Wizard' # 'no timeline' banner above the Timeline
+      expect(page).to have_content 'Add Assignment' # Button in the Timeline
       sleep 1
 
       # Add a week
@@ -389,7 +390,6 @@ describe 'New course creation and editing', type: :feature do
         find('.week-nav__add-week').click
       end
       sleep 1
-      page.save_screenshot
       within '.timeline__weeks' do
         expect(page).to have_content 'Week 1'
         find('.week__add-block').click
