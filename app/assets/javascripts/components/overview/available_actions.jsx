@@ -120,11 +120,11 @@ const AvailableActions = React.createClass({
       }
     // If user has no role or is logged out
     } else {
-      controls.push((
-        <p key="join">
-          <button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button>
-        </p>
-      ));
+      if (!this.state.course.ended) {
+        controls.push((
+          <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
+        ));
+      }
     }
 
     // If no controls are available
