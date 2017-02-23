@@ -7,6 +7,7 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
+import SalesforceLink from './salesforce_link.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -142,6 +143,7 @@ const AvailableActions = React.createClass({
         <div className="module__data">
           {confirmationDialog}
           {controls}
+          <SalesforceLink course={this.state.course} current_user={this.props.current_user} />
         </div>
       </div>
     );

@@ -56,6 +56,8 @@ gem "paperclip"
 # TZ information is not available on Windows, needs to be installed separately
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
+gem 'restforce', git: 'https://github.com/ejholmes/restforce.git'
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'

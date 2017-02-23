@@ -160,6 +160,18 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
+  describe 'linking a course to its Salesforce record' do
+    it 'makes the Link to Salesforce button appear' do
+      stub_token_request
+      visit "/courses/#{Course.first.slug}"
+      accept_prompt(with: 'https://cs54.salesforce.com/a0f1a011101Xyas?foo=bar') do
+        click_button 'Link to Salesforce'
+      end
+      expect(page).to have_content 'Open in Salesforce'
+      expect(Course.first.flags[:salesforce_id]).to eq('a0f1a011101Xyas')
+    end
+  end
+
   after do
     logout
   end

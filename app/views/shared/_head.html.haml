@@ -31,6 +31,7 @@
   WikiLanguages = #{Wiki::LANGUAGES}
 
   SentryDsn = "#{ENV['sentry_public_dsn']}"
+  SalesforceServer = "#{ENV['SF_SERVER']}"
 
 - unless ENV['DISABLE_SENTRY']
   = hot_javascript_tag("raven")
