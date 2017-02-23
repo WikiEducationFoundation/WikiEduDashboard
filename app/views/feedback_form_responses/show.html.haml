@@ -5,7 +5,7 @@
   %p= @response.created_at
 
   %h3 Username
-  %p= link_to @user.username, "/users/#{@user.url_encoded_username}"
+  %p= link_to @user.username, "/users/#{@user.url_encoded_username}" if @user
 
   %h3 Subject
   %p= @response.subject
