@@ -303,6 +303,7 @@ en:
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
     end: End
+    ended: The course has ended.
     enroll: Enroll
     enrollment: Enrollment
     courses_enrolled: Courses enrolled

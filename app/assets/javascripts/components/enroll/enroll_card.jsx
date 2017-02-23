@@ -15,7 +15,13 @@ const EnrollCard = React.createClass({
 
   render() {
     let messageBody;
-    if (this.props.enrolledParam !== undefined) {
+    if (this.props.course.ended) {
+      messageBody = (
+        <div>
+          <h1>{I18n.t('courses.ended')}</h1>
+        </div>
+      );
+    } else if (this.props.enrolledParam !== undefined) {
       // Enrollment is complete
       if (this.props.enrolledParam === 'true') {
         messageBody = (
