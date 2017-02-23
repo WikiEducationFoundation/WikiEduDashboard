@@ -679,7 +679,6 @@ slide_id=${opts.slide_id}`,
   },
 
   linkToSalesforce(courseId, salesforceId) {
-    console.log(salesforceId);
     return new Promise((res, rej) =>
       $.ajax({
         type: 'PUT',
