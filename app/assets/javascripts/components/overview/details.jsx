@@ -5,7 +5,6 @@ import CampaignButton from './campaign_button.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
-import SalesforceLink from './salesforce_link.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -281,7 +280,6 @@ const Details = React.createClass({
           {tags}
           {courseTypeSelector}
           {submittedSelector}
-          <SalesforceLink course={this.props.course} current_user={this.props.current_user} />
         </div>
       </div>
     );

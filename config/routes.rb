@@ -227,6 +227,11 @@ Rails.application.routes.draw do
     put '/chat/enable_for_course/:course_id' => 'chat#enable_for_course'
   end
 
+  # Salesforce
+  if true # Features.wiki_ed?
+    put '/salesforce/link/:course_id' => 'salesforce#link'
+  end
+
   resources :admin
   resources :alerts_list
 
