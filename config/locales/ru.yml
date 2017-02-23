@@ -119,6 +119,7 @@ ru:
     confirm_deletion: Вы уверены, что хотите удалить это назначение?
     loading: Загрузка назначений...
     none: Этот курс не имеет назначенных статей.
+    remove: Удалить
     reviewers: Проверяющий(е)
     select: Выбрать
   blocks:
@@ -143,9 +144,13 @@ ru:
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     program_template: Шаблон программы
+    title: Заголовок
     use_start_end_dates: Использовать даты начала и окончания
+  chat:
+    label: Чат
   courses:
     activity: Деятельность
+    all_courses: Все курсы
     actions: Действия
     articles: Статьи
     cancel: Отмена
@@ -174,7 +179,9 @@ ru:
       find: Найти свой курс
       start_date: Дата начала
     current: Текущие курсы
+    delete_course: Удалить курс
     duration: Продолжительность курса
+    enable_chat: Включить чат
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.
@@ -185,6 +192,7 @@ ru:
       other: Инструкторы
     instructors: Инструкторы
     join: Присоединиться
+    join_course: Присоединиться к курсу
     join_failure_details:
       not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
@@ -200,6 +208,7 @@ ru:
     students_count: '# Студенты'
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
+    user_role: Роль
     title: Заголовок
     view_other: Посмотреть другие кампании
     view: Просмотр курса
@@ -215,6 +224,7 @@ ru:
     yourcourses: Ваши курсы
   courses_generic:
     cancel: Отмена
+    courses: Программы
     campaigns: Кампании
     campaign_courses: '%{title} программы'
     creator:
@@ -225,14 +235,18 @@ ru:
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+    delete_course: Удалить программу
     explore: Найти программы
+    join_course: Присоединиться к программе
     join_details: Присоединиться к этой программе, вам нужно получить код доступа
       или ссылку, которая включает пароль от посредника.
+    leave_course: Покинуть программу
     school: Учреждение
     student_editors: Редакторы
     students: Редакторы
     students_short: Խմբագիրներ
     term: Когда
+    yourcourses: Ваши программы
   editable:
     cancel: Отмена
     save: Сохранить
@@ -260,6 +274,7 @@ ru:
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
   recent_activity:
+    datetime: Дата/время
     image: Изображение
     file_name: Имя файла
     recent_edits: Последние правки
@@ -282,6 +297,7 @@ ru:
       были приостановлены. Запустите 'rake batch:resume', чтобы возобновить обновления.
   timeline:
     empty_week_3: или
+    gradeable_value: Значение
     save_all_changes: Сохранить всё
     title: Хронология
   training:
@@ -289,6 +305,8 @@ ru:
     start: Начать
     view: Просмотр
   uploads:
+    datetime: Дата/время
+    file_name: Имя файла
     image: Изображение
     label: Загрузки
     loading: Загрузка приложений...

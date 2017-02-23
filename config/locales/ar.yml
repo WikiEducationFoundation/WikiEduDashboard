@@ -176,6 +176,7 @@ ar:
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
     duration: مدة الدورة
     edit_course_dates: تواريخ دورة التحرير
+    enable_chat: تفعيل الدردشة
     end: نهاية
     enrollment: تسجيل
     error:

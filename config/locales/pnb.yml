@@ -1,0 +1,35 @@
+# Messages for Western Punjabi (پنجابی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Abbas dhothar
+---
+pnb:
+  application:
+    cancel: کینسل
+    dashboard: وکی ای ڈی ڈیش بورڈ
+    error: ایتھے اک غلطی سی
+    explore: لبھو
+    field_required: اس فیلڈ دی لوڑ اے
+    field_invalid_characters: اس فیلڈ وچ غلط کریکٹر نیں
+    greeting2: جی آیاں نوں!
+    greeting_extended: وکیپیڈیا وچ جی آیاں نوں
+    greeting: سلام!
+    help: مدد
+    home: گھر
+    log_in_extended: وکیپیڈیا نال لاگ اِن
+    log_in: اندر آؤ
+    log_out: باہر آؤ
+    my_dashboard: میرا ڈیش بورڈ
+    recent_activity: نیڑلی سرگرمی
+    search: سوال پُچھو
+    sign_up_extended: وکیپیڈیا نال سائن اپ
+    sign_up_log_in_extended: وکیپیڈیا نال
+    sign_up: سائن اپ
+    submit: بھیجو
+    training: تربیت
+    change: بدلو
+    details: تفصیل
+    confirm: اوکے
+  dashboard:
+    explore_examples: مثالاں لبھو
+...

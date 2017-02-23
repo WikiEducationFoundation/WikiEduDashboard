@@ -65,6 +65,8 @@ bn:
   campaign:
     campaign: প্রচারাভিযান
     none: কোনটিই নয়
+  chat:
+    label: চ্যাট
   courses:
     activity: কর্মকাণ্ড
     actions: কার্যসমূহ
@@ -91,6 +93,7 @@ bn:
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
+    enable_chat: চ্যাট সক্রিয় করুন
     end: শেষ
     courses_enrolled: কোর্সে ভর্তি
     join: যোগ দিন

@@ -5,6 +5,7 @@
 # Author: HakanIST
 # Author: Hbseren
 # Author: JackUKElliott
+# Author: Katpatuka
 # Author: KorkmazO
 # Author: Mavrikant
 # Author: Sayginer
@@ -21,10 +22,13 @@ tr:
   blocks:
     milestones:
       title: Kilometre taşları
+  chat:
+    label: Sohbet
   courses:
     creator:
       end_date: Bitiş tarihi
       start_date: Başlangıç tarihi
+    enable_chat: Sohbeti etkinleştir
     courses_enrolled: Kaydolunan dersler
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
     untrained: Eğitimsiz
