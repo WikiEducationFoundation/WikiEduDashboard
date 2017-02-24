@@ -1,31 +1,142 @@
-#profile
-	height 100px
-	padding-top 14px
-	margin 0 auto
-	border 1px solid $border_lt
-
-	h3,h5
-		color #808080
-
-#course-details
-	padding-top 30px
-
-#statistics
-	padding-top 20px
-
-#inner_statistics
-	padding-top 10px
-
 .profile_container
-	margin 50px 7% 0 7%
+	margin-top 50px
 	border 1px solid $border_lt
+
+#profile
+	margin 0 auto
+	position relative
+	height 100px
+	width 100%
+	border 1px solid #808080
+	background-color 	#575d99
+	display block
+	color #f8f8ff
+	font-size 20px
+	padding-bottom 10px
+
+	#disclaimer
+		display none
+		.module
+			margin 0 auto
+
+			.module__data
+				font-size 12px
+				color black
+
+	#profile_left
+		float left
+		padding-top 10px
+		width 90%
+
+	#profile_right
+		float right
+		width 10%
+
+		#edit_profile
+			.controls
+				padding unset
+				position relative
+
+			.button
+				padding-left 14.2%
+				padding-right 14.3%
+
+			#icon
+				text-align center
+
+			p
+				margin-top -9px
+				text-align center
+
+#user_name
+	float left
+	width 50%
+	padding-left 2%
+
+	p
+		font-weight 700
+		margin 0 auto
+		text-decoration underline
+
+#user_bio
+	.rails_editable-input
+		height 40px !important
+		width 90% !important
+		background-color: inherit;
+		color white
+		display none
+
+	p
+		font-size 12px
+		display inline-block
+		width 70%
+		padding-left 1%
+		text-decoration none
+
+#user_id
+	float right
+	width 50%
+	border-left 2px solid white
+	padding-left 3%
+	border-left 2px solid #fff
+
+	#icon
+		font-weight 900
+		display inline
+
+	p
+		font-size 18px
+		display inline
+
+#profile_details
+	padding-left 5%
+	padding-right 5%
+
+	#user_form
+	background-color orange
+	color red
+
+	#statistics
+		padding-top 20px
+
+		#inner_statistics
+			padding-top 10px
+
+	#course-details
+		padding-top 30px
+
+
 
 // making user profile pages responsive
 @media only screen and (max-width: 500px)
 	#profile
-		height 50px
-		padding-top 14px
-		border 1px solid $border_lt
 
-		h3,h5
-			color brown
+		#profile_right
+			display none
+
+		#profile_left
+			#user_name
+				padding 0
+				width 100%
+				float none
+				p
+					font-weight 0
+					font-size 12px
+
+			#user_bio
+				p
+					width 100%
+					font-size 8px
+
+			#user_id
+				float none
+				width 100%
+				border-left 1px
+				padding-left 0
+
+				#icon
+					font-size 12px
+					font-weight 0
+
+				p
+					font-size 10px

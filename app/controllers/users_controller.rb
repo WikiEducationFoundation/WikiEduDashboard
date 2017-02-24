@@ -75,13 +75,28 @@ class UsersController < ApplicationController
       @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
       @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
       @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
+      @user_profile = UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
       redirect_to controller: 'dashboard', action: 'index'
     end
   end
 
+  def edit
+    @user = User.find_by(username: params[:username])
+    @user_profile = @user.user_profile
+    if @user_profile.nil?
+      @user_profile = @user.create_user_profile
+    end
+    @user_profile.update(user_profile_params)
+    redirect_to controller: 'users', action: 'show'
+  end
+
   private
+
+  def user_profile_params
+    params.require(:user_profile).permit(:bio)
+  end
 
   #################
   # Adding a user #

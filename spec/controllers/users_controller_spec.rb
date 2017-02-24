@@ -2,6 +2,17 @@
 require 'rails_helper'
 
 describe UsersController do
+  describe '#edit' do
+    context 'when user has a profile' do
+      let(:user) { create(:user) }
+      let(:profile) { create(:user_profile, user_id: user.id)}
+      it "updates the bio" do
+        post :edit, params: { username: user.username, user_profile: {id: profile.id, user_id: profile.user_id, bio: "Howdy"}}
+        expect(user.user_profile.bio).to eq 'Howdy'
+      end
+    end
+  end
+
   describe '#enroll' do
     let(:course) { create(:course) }
     let(:request_params) do
