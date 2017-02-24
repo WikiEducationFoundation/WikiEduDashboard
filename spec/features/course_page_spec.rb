@@ -225,7 +225,7 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'articles edited view' do
-    it 'should display a list of articles, and sort articles by class' do
+    it 'displays a list of articles, and sort articles by class' do
       js_visit "/courses/#{slug}/articles"
       # List of articles
       sleep 1
@@ -245,7 +245,8 @@ describe 'the course page', type: :feature, js: true do
       expect(title).to have_content 'es:wiktionary:Article'
     end
 
-    it 'should have a list of available articles' do
+    it 'includes a list of available articles' do
+      stub_info_query
       course = Course.first
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
@@ -259,13 +260,13 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Education'
     end
 
-    it 'should not have an "Add an available article" button for students' do
+    it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
       expect(page).to_not have_content 'Add an available article'
     end
 
-    it 'should have an "Add an available article" button for instructors/admins' do
+    it 'shows an "Add an available article" button for instructors/admins' do
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
@@ -274,7 +275,8 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_section).to have_content 'Add an available article'
     end
 
-    it 'should allow instructor to add an available article' do
+    it 'allow instructor to add an available article' do
+      stub_info_query
       admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       stub_oauth_edit
@@ -288,7 +290,9 @@ describe 'the course page', type: :feature, js: true do
       expect(assigned_articles_table).to have_content 'Education'
     end
 
-    it 'should allow instructor to remove an available article' do
+    it 'allows instructor to remove an available article' do
+      stub_info_query
+      stub_raw_action
       Assignment.destroy_all
       sleep 1
       admin = create(:admin, id: User.last.id + 1)
@@ -313,7 +317,8 @@ describe 'the course page', type: :feature, js: true do
       # expect(Assignment.count).to eq(0)
     end
 
-    it 'should allow student to select an available article' do
+    it 'allows student to select an available article' do
+      stub_info_query
       user = create(:user, id: user_count + 100)
       course = Course.first
       create(:courses_user, course_id: course.id, user_id: user.id,

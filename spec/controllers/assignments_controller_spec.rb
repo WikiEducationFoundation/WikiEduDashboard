@@ -156,17 +156,21 @@ describe AssignmentsController do
         it 'sets assignments ivar with a default wiki' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, params: assignment_params
-          assignment = assigns(:assignment)
-          expect(assignment).to be_a_kind_of(Assignment)
-          expect(assignment.wiki.language).to eq('en')
-          expect(assignment.wiki.project).to eq('wikipedia')
+          VCR.use_cassette 'assignment_import' do
+            put :create, params: assignment_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.wiki.language).to eq('en')
+            expect(assignment.wiki.project).to eq('wikipedia')
+          end
         end
 
         it 'renders a json response' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, params: assignment_params
+          VCR.use_cassette 'assignment_import' do
+            put :create, params: assignment_params
+          end
           json_response = JSON.parse(response.body)
           # response makes created_at differ by milliseconds, which is weird,
           # so test attrs that actually matter rather than whole record
@@ -238,7 +242,9 @@ describe AssignmentsController do
         { user_id: user.id, course_id: course.slug, title: title, role: 0 }
       end
       before do
-        put :create, params: duplicate_assignment_params
+        VCR.use_cassette 'assignment_import' do
+          put :create, params: duplicate_assignment_params
+        end
       end
 
       it 'renders an error message with the article title' do
@@ -259,7 +265,9 @@ describe AssignmentsController do
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
         expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-        put :create, params: case_variant_assignment_params
+        VCR.use_cassette 'assignment_import' do
+          put :create, params: case_variant_assignment_params
+        end
       end
 
       it 'creates the case-variant assignment' do
