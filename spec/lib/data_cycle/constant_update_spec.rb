@@ -5,7 +5,8 @@ require "#{Rails.root}/lib/data_cycle/constant_update"
 describe ConstantUpdate do
   describe 'on initialization' do
     before do
-      create(:course, start: '2015-03-20', end: '2015-03-31', needs_update: true)
+      create(:course, start: '2015-03-20', end: '2015-03-31', needs_update: true,
+                      flags: { salesforce_id: 'a0f1a9063a1Wyad' })
     end
 
     it 'calls lots of update routines and resets :needs_update flag on courses' do
@@ -27,6 +28,7 @@ describe ConstantUpdate do
       expect_any_instance_of(CourseAlertManager).to receive(:create_deleted_uploads_alerts)
       expect_any_instance_of(CourseAlertManager)
         .to receive(:create_continued_course_activity_alerts)
+      expect(PushCourseToSalesforce).to receive(:new)
       expect_any_instance_of(SurveyResponseAlertManager).to receive(:create_alerts)
       expect(Raven).to receive(:capture_message).and_call_original
       update = ConstantUpdate.new
