@@ -37,7 +37,10 @@ class PushCourseToSalesforce
 
   def course_salesforce_fields
     {
-      Name: @course.title,
+      # NOTE: Course name in Salesforce is sometimes modified to include term for
+      # courses on the quarter system. We need to find a new convention for documenting
+      # quarter system terms before including course name in the synced data.
+      # Name: @course.title,
       Course_Page__c: @course.url,
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",
       Program__c: program_id,

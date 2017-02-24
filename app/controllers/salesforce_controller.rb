@@ -8,6 +8,7 @@ class SalesforceController < ApplicationController
     @course = Course.find(params[:course_id])
     @course.flags[:salesforce_id] = params[:salesforce_id]
     @course.save
+    PushCourseToSalesforce.new(@course)
     render json: { success: true, flags: @course.flags }
   end
 

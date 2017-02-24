@@ -10,7 +10,8 @@ describe SalesforceController do
     context 'when user is an admin' do
       before { allow(controller).to receive(:current_user).and_return(admin) }
 
-      it 'saves a valid Salesforce ID on the course' do
+      it 'pushes to Salesforces and saves a valid Salesforce ID on the course' do
+        expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
         put :link, params: { course_id: course.id, salesforce_id: 'a0f1a000001Wyar' }
         expect(course.reload.flags[:salesforce_id]).to eq('a0f1a000001Wyar')
       end

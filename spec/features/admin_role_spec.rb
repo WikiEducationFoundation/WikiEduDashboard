@@ -163,6 +163,8 @@ describe 'Admin users', type: :feature, js: true do
   describe 'linking a course to its Salesforce record' do
     it 'makes the Link to Salesforce button appear' do
       stub_token_request
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+
       visit "/courses/#{Course.first.slug}"
       accept_prompt(with: 'https://cs54.salesforce.com/a0f1a011101Xyas?foo=bar') do
         click_button 'Link to Salesforce'
