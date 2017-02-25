@@ -1,9 +1,10 @@
 import markdownIt from 'markdown-it';
 import _ from 'lodash';
+import footnotes from 'markdown-it-footnote';
 
 export default function (opts) {
   const mergedOpts = _.assign({}, opts, { html: true, linkify: true });
-  const md = markdownIt(mergedOpts);
+  const md = markdownIt(mergedOpts).use(footnotes);
 
   if (mergedOpts.openLinksExternally) {
     // Remember old renderer, if overriden, or proxy to default renderer
