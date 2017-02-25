@@ -36,21 +36,22 @@ class TrainingLoader
     source_pages = wiki_source_pages
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
-      Thread.new(i) do
-        wiki_page_group.each do |wiki_page|
-          content = new_from_wiki_page(wiki_page)
-          unless content&.valid?
-            Raven.capture_message 'Invalid wiki training content',
-                                  level: 'warn',
-                                  extra_data: { content: content }
-            next
-          end
-          pp wiki_page
-          @collection << content
-        end
-      end
+      Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
     end
     threads.each(&:join)
+  end
+
+  def add_trainings_to_collection(wiki_pages)
+    wiki_pages.each do |wiki_page|
+      content = new_from_wiki_page(wiki_page)
+      unless content&.valid?
+        Raven.capture_message 'Invalid wiki training content',
+                              level: 'warn',
+                              extra_data: { content: content }
+        next
+      end
+      @collection << content
+    end
   end
 
   def write_to_cache
