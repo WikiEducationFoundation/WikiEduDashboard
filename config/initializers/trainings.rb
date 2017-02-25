@@ -1,0 +1,1 @@
+TrainingModule.load_all
