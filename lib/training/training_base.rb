@@ -22,8 +22,7 @@ class TrainingBase
     loader = TrainingLoader.new(content_class: self, cache_key: cache_key,
                                 path_to_yaml: path_to_yaml, wiki_base_page: wiki_base_page,
                                 trim_id_from_filename: trim_id_from_filename)
-
-    Features.wiki_trainings? ? loader.load_local_and_wiki_content : loader.load_local_content
+    loader.load_content
 
     check_for_duplicate_slugs
     check_for_duplicate_ids

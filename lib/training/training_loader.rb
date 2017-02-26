@@ -12,14 +12,9 @@ class TrainingLoader
     @trim_id_from_filename = trim_id_from_filename
   end
 
-  def load_local_content
+  def load_content
     load_from_yaml
-    write_to_cache
-  end
-
-  def load_local_and_wiki_content
-    load_from_yaml
-    load_from_wiki
+    load_from_wiki if Features.wiki_trainings?
     write_to_cache
   end
 
@@ -95,11 +90,13 @@ class TrainingLoader
     return [] unless response
     translations = []
     response.data['messagegroupstats'].each do |language|
-      next if language['total'].zero?
-      next if language['translated'].zero?
-      translations << base_page + '/' + language['code']
+      translations << base_page + '/' + language['code'] if any_translations?(language)
     end
     return translations
+  end
+
+  def any_translations?(language)
+    language['total'].positive? && language['translated'].positive?
   end
 
   def training_hash_from_wiki_page(wiki_page)
