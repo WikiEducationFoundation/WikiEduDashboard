@@ -1,10 +1,10 @@
 -if @user.course_student?
-  = render 'users/student_cumulative_stats', presenter: @individual_stats_presenter
+  = render 'user_profiles/student_cumulative_stats', presenter: @individual_stats_presenter
 -else
 .user_stats
   #instructor-profile-stats
     %h5
-      = t("users.instructor_impact", username: @user.username)
+      = t("user_profiles.instructor_impact", username: @user.username)
     .stat-display
       .stat-display__stat
         .stat-display__value= presenter.courses.count
@@ -18,7 +18,7 @@
             \%
           %p= t("users.up_to_date_with_training")
   %h5
-    = t("users.instructors_student_impact", username: @user.username)
+    = t("user_profiles.instructors_student_impact", username: @user.username)
   .stat-display
     .stat-display__stat
       .stat-display__value= number_to_human presenter.word_count
