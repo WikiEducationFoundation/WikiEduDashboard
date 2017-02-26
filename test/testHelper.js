@@ -16,7 +16,7 @@ const $ = require('jquery');
 const _ = require('lodash');
 const moment = require('moment');
 const momentRecur = require('moment-recur');
-const I18n = require('../public/assets/javascripts/i18n.js');
+const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-line import/no-unresolved
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 
@@ -35,6 +35,6 @@ global.expect = chai.expect;
 global.assert = chai.assert;
 global.Features = {};
 
-require('../public/assets/javascripts/i18n/en');
+require('../public/assets/javascripts/i18n/en'); // eslint-disable-line import/no-unresolved
 
 chai.use(sinonChai);
