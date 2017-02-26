@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/training/training_base"
+require "#{Rails.root}/lib/training_slide"
 
 class TrainingModule < TrainingBase
   attr_accessor :name, :slides, :description, :estimated_ttc, :id
