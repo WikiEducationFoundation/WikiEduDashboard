@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class UserProfilesController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user
   before_action :set_user_profile, only: [:update, :destroy]
   before_action :require_write_permissions, only: [:update, :destroy]
 
@@ -31,26 +31,26 @@ class UserProfilesController < ApplicationController
 
   private
 
-    def require_write_permissions
-      return if current_user == @user
+  def require_write_permissions
+    return if current_user == @user
 
-      exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-      raise exception
-    end
+    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise exception
+  end
 
-    def user_profile_params
-      params.require(:user_profile).permit(:bio)
-    end
+  def user_profile_params
+    params.require(:user_profile).permit(:bio)
+  end
 
-    def set_user
-      # Per MediaWiki convention, underscores in username urls represent spaces
-      username = params[:username].tr('_', ' ')
-      @user = User.find_by_username(username)
-    end
+  def set_user
+    # Per MediaWiki convention, underscores in username urls represent spaces
+    username = params[:username].tr('_', ' ')
+    @user = User.find_by_username(username)
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_profile
-      @user_profile = @user.user_profile
-      @user_profile = @user.create_user_profile if @user_profile.nil?
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_profile
+    @user_profile = @user.user_profile
+    @user_profile = @user.create_user_profile if @user_profile.nil?
+  end
 end

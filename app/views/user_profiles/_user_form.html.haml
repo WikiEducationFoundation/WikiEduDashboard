@@ -3,7 +3,7 @@
     #disclaimer
       .module
         .module__data
-          = t("users.disclaimer")
+          = t("user_profiles.disclaimer")
     .header
       #user_name
         %p
@@ -13,14 +13,14 @@
         #edit_profile
           .controls
             %button.button.rails_editable-edit
-              Edit Profile
+              = t('editable.edit_details')
 
     #details
       .rails_editable-field
         #user_bio
           %p.rails_editable-content
             = preserve @user&.user_profile&.bio
-          = text_area(:user_profile, :bio, class: 'rails_editable-input',placeholder: 'Add your Bio (optional)')
+          = text_area(:user_profile, :bio, class: 'rails_editable-input',placeholder: t("user_profiles.bio_placeholder"))
 
       #user_id
         - if current_user == @user || current_user&.admin?
