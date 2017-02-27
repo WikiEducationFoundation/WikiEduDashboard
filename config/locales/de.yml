@@ -274,6 +274,7 @@ de:
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
     end: Ende
+    ended: Der Kurs ist beendet.
     enroll: Einschreiben
     enrollment: Einschreibung
     courses_enrolled: Eingeschriebene Kurse
@@ -649,9 +650,6 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
-    student_impact: Gesamtauswirkung durch %{username} als Student
-    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
-    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
     role:
       visitor: Besucher
       student: Student
@@ -659,6 +657,10 @@ de:
       campus_volunteer: Campus-Volontär
       online_volunteer: Online-Volontär
       wiki_ed_staff: Mitarbeiter von Wiki Ed
+  user_profiles:
+    student_impact: Gesamtauswirkung durch %{username} als Student
+    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
+    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

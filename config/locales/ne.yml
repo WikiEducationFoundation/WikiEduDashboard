@@ -2,11 +2,138 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: जनक राज भट्ट
+# Author: सरोज कुमार ढकाल
 ---
 ne:
+  accessibility:
+    number_field: यो सङ्ख्या फिल्ड हो। The buttons rendered by most browsers will
+      increment and decrement the input.
   application:
+    cancel: रद्द गर्नुहोस्
+    dashboard: विकी एड ड्यासबोर्ड
+    error: 'त्रुटी भयो:'
+    explore: अन्वेषण
+    field_required: यो फिल्ड आवस्यकता छ
+    field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
+    greeting2: स्वागत!
+    greeting_extended: विकिपिडियामा स्वागत् छ
+    greeting: नमस्ते!
     help: सहायता
+    home: गृह
+    log_in_extended: विकिपिडियाले लग इन गर्नुहोस्
+    log_in: लग इन
+    log_out: लग आउट गर्नुहोस्
+    my_dashboard: मेरो ड्यसबोर्ड
+    recent_activity: हालको कृयाकलाप
+    search: प्रश्न सोध्नुहोस्
+    sign_up_extended: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
     sign_up_log_in_extended: विकिपेडिया संग
-    sign_up: साइन अप
+    sign_up: साइन अप गर्नुहोस्
+    submit: पेश गर्नुहोस्
     training: तालिम
+    change: परिवर्तन गर्नुहोस्
+    details: विवरण
+    confirm: ठीक छ
+  home:
+    explore: अन्वेषण
+    log_in: विकिपिडियाले लग इन गर्नुहोस्
+    sign_up: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
+  activity:
+    all: क्रियाकलाप
+    edited_by: सम्पादनकर्ता
+    label: क्रियाकलाप
+  articles:
+    assigned: निर्दिष्ट गरिएका लेखहरू
+    available: उपलब्ध लेखहरू
+    assigned_to: निर्दिष्ट गरिएको
+    edited: सम्पादन गरिएका लेखहरू
+    edited_by: 'सम्पादनकर्ता:'
+    edited_mobile: लेखहरू
+    hide: लुकाउनुहोस्
+    label: लेखहरू
+    title: शीर्षक
+    title_example: लेख शीर्षक
+    view: लेख हेर्नुहोस्
+    view_all: सबै हेर्नुहोस्
+    view_on_wiki: विकीमा हेर्नुहोस्
+  assignments:
+    remove: हटाउनुहोस्
+    select: चयन गर्नुहोस्
+  campaign:
+    description: वर्णन
+    none: कुनै पनि होइन
+    title: शीर्षक
+  courses:
+    activity: क्रियाकलाप
+    actions: विभागहरू
+    articles: लेखहरू
+    calendar:
+      legend: लेजेन्ड
+    cancel: रद्द गर्नुहोस्
+    course_description: पाठ्यक्रम
+    courses: पाठ्यक्रम
+    creator:
+      end_date: अन्त्य मिति
+      start_date: सुरु मिति
+      subject: विषय
+    dismiss_survey: खारेज गर्नुहोस्
+    end: अन्तिम
+    loading: लोड गर्दैछ...
+    none: कुनै पनि होइन
+    overview: गृह
+    school: विद्यालय
+    start: सुरु गर्नुहोस्
+    timeline_link: समयरेखा
+    title: शीर्षक
+  courses_generic:
+    cancel: रद्द गर्नुहोस्
+    courses: कार्यक्रम
+    term: कहिले
+  editable:
+    edit: सम्पादन
+    cancel: रद्द गर्नुहोस्
+    save: सङ्ग्रह गर्नुहोस्
+  metrics:
+    activity: हालको कृयाकलाप
+    articles_edited: सम्पादन गरिएका लेखहरू
+    characters: क्यारेक्टरहरू
+    date_time: मिति/समय
+    tags: ट्यागहरू
+    view: दृश्यहरू
+  namespace:
+    user_ns: प्रयोगकर्ता
+  recent_activity:
+    datetime: मिति/समय
+    image: छवि
+    file_name: फाइल नाम
+  revisions:
+    date_time: मिति/समय
+    diff_show: देखाउनुहोस्
+    diff_hide: लुकाउनुहोस्
+    edited_by: सम्पादनकर्ता
+    title: शीर्षक
+  timeline:
+    block_custom: अनुकूल
+    block_milestone: कोसेढुङ्गा
+    empty_week_3: ' या \'
+    gradeable_value: मान
+    title: समयरेखा
+  training:
+    start: सुरु गर्नुहोस्
+    view: अवलोकन गर्ने
+  uploads:
+    datetime: मिति/समय
+    file_name: फाइल नाम
+    image: छवि
+  users:
+    assign_articles_done: भयो
+    assigned: निर्दिष्ट गरिएका लेखहरू
+    first_name: पहिलो नाम
+    last_name: अन्तिम नाम
+    name: नाम
+    training_module_status: वस्तुस्थिति
+    username: प्रयोगकर्ताको नाम
+    username_placeholder: प्रयोगकर्ताको नाम
+  wizard:
+    summary: सारांश
 ...

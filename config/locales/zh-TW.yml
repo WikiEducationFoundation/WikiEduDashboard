@@ -232,6 +232,7 @@ zh-TW:
     edit_course_dates: 編輯課程日期
     enable_chat: 啟用聊天
     end: 結束
+    ended: 課程已結束。
     enroll: 登記
     enrollment: 登記
     courses_enrolled: 課程已登記
@@ -565,9 +566,6 @@ zh-TW:
     up_to_date_with_training: 最近培訓
     username: 使用者名稱
     username_placeholder: 使用者名稱
-    student_impact: 由%{username}以學生身份做出的所有影響
-    instructor_impact: 由%{username}以導師身份做出的所有影響
-    instructors_student_impact: 由%{username}的學生做出的所有影響
     role:
       visitor: 訪客
       student: 學生
@@ -575,6 +573,10 @@ zh-TW:
       campus_volunteer: 校園志工
       online_volunteer: 線上志工
       wiki_ed_staff: Wiki Ed 工作人員
+  user_profiles:
+    student_impact: 由%{username}以學生身份做出的所有影響
+    instructor_impact: 由%{username}以導師身份做出的所有影響
+    instructors_student_impact: 由%{username}的學生做出的所有影響
   wiki_edits:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？

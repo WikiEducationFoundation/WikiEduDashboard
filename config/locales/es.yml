@@ -271,6 +271,7 @@ es:
     edit_course_dates: Editar las fechas del curso
     enable_chat: Activar el chat
     end: Fin
+    ended: El curso ha terminado.
     enroll: Inscribirse
     enrollment: Inscripción
     error:

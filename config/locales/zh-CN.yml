@@ -229,6 +229,7 @@ zh-CN:
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
     end: 结束
+    ended: 课程已启用。
     enroll: 注册
     enrollment: 登记
     courses_enrolled: 课程已登记
@@ -557,9 +558,6 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
-    student_impact: 由%{username}作为学生做出的总影响
-    instructor_impact: 由%{username}作为导师做出的总影响
-    instructors_student_impact: 由%{username}的学生做出的总影响
     role:
       visitor: 访问者
       student: 学生
@@ -567,6 +565,10 @@ zh-CN:
       campus_volunteer: 校园志愿者
       online_volunteer: 在线志愿者
       wiki_ed_staff: Wiki Ed职员
+  user_profiles:
+    student_impact: 由%{username}作为学生做出的总影响
+    instructor_impact: 由%{username}作为导师做出的总影响
+    instructors_student_impact: 由%{username}的学生做出的总影响
   wiki_edits:
     notify_overdue:
       confirm: 这将在讨论页为所有有逾期培训的学生发布一则提示。您确定要这样做么？

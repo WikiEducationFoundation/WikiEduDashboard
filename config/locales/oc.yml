@@ -58,6 +58,7 @@ oc:
     view_all: Afichar tot
     view_on_wiki: Veire sul wiki
     views_added: '%{count} novèlas vistas apondudas per %{title}'
+    edit_size: Modificar la talha
   assignments:
     assignees: Afectacion(s)
     assign_other: Afectar un article
@@ -80,8 +81,11 @@ oc:
     none: Pas cap
     organizers: Organizators
     title: Títol
+  chat:
+    label: Discussion
   courses:
     activity: Activitat
+    active_courses: '%{course_type} actius'
     all_courses: Totes los corses
     actions: Accions
     articles: Articles
@@ -161,6 +165,15 @@ oc:
   courses_generic:
     assignment_end: Fin de la cronologia
     assignment_start: Començament de la cronologia
+    cancel: Anullar
+    courses: Programas
+    courses_taught: Programas ensenhats
+    campaigns: 'Campanhas :'
+    campaign_courses: '%{title} Programas'
+    creator:
+      course_school: Institucion
+      course_title: Títol del programa
+      create_button: Crear mon programa !
     expected_students: Editors esperats
     instructors: Animators
     school: Institucion
@@ -168,6 +181,12 @@ oc:
     students: Editors
     students_short: Editors
     term: Quand
+  editable:
+    edit: Modificar
+    cancel: Anullar
+    save: Enregistrar
+    edit_description: Modificar la descripcion
+    edit_details: Modificar los detalhs
   metrics:
     activity: Activitat recenta
     articles_created: Articles creats
@@ -178,7 +197,9 @@ oc:
     char: Caractèrs aponduts
     date_time: Data/Ora
     edit_count_description: Total de las modificacions
+    per_user: '%{number}/utilizaire'
     revisions: Darrièrs cambiaments
+    tags: Balisas
     view_count_description: Articles vistes
     view: Vistas
     word_count: Mots aponduts
@@ -186,14 +207,27 @@ oc:
     main: Espaci principal
     user: Espaci utilizaire
     user_ns: Utilizaire
+  recent_activity:
+    article_title: Títol de l'article
+    datetime: Data/Ora
+    image: Imatge
+    file_name: Nom del fichièr
   revisions:
     chars_added: Caractèrs aponduts
     class: Classa
     date_time: Data/Ora
+    diff: dif
+    diff_show: Afichar
+    diff_hide: Amagar
     edited_by: Modificat per
     loading: Cargament de las revisions...
     title: Títol
   timeline:
+    block_assignment: Afectacion
+    block_custom: Personalizat
+    block_in_class: Dins la classa
+    empty_week_3: o
+    gradeable_value: Valor
     gradeables_none: Aqueste planning a pas cap d'afectacion de marcada coma evaluada.
     nothing_this_week: I a pas res de programat per aquesta setmana.
     save_all_changes: Enregistrar tot
@@ -203,18 +237,41 @@ oc:
     start: Aviar
     view: Afichar
   uploads:
+    datetime: Data/Ora
+    file_name: Nom de fichièr
+    image: Imatge
     label: Telecargaments
     usages: Utilizacions
   users:
+    assign_articles_done: Fait
     assignees: Afectat(s)
     contributions: Contribucions de l’utilizaire
     contributions_more: Afichar mai de contribucions
+    course_passcode: 'Còdi d''accès :'
+    editors: Editors estudiants
+    first_name: Pichon nom
+    last_name: Nom d'ostal
+    my_assigned: 'Assignat :'
     name: Nom
     no_articles: Pas cap d'article
     no_revisions: Aqueste editor a pas fait cap de revision.
+    number_of_articles:
+      one: '%{count} article'
+      other: '%{count} articles'
     recent_revisions: Darrièrs cambiaments
     reviewers: Relector(s)
     reviewing: Relectura
+    training_module_name: Modul de formacion
+    training_module_status: Estat
+    username: Nom d'utilizaire
+    username_placeholder: Nom d'utilizaire
+    role:
+      visitor: Visitor
+      student: Estudiant
+      instructor: Formator
+      campus_volunteer: Benevòl del campus
+      online_volunteer: Benevòl en linha
+      wiki_ed_staff: Equipa d’edicion del wiki
   wiki_edits:
     notify_overdue:
       header: Avètz una afectacion de formacion en retard.
@@ -241,4 +298,11 @@ oc:
       per los informar del problèma.
   login_error:
     header: Error de connexion
+  survey:
+    email:
+      headline: Bonjorn, %{username}
+      course: 'Cors : %{course_info}'
+      closing: Sincèrament,
+      signed: '- l’equipa Wiki Ed'
+      link: Participar al sondatge
 ...

@@ -131,6 +131,7 @@ sv:
     dismiss_survey: Stäng
     enable_chat: Aktivera chatt
     end: Slut
+    ended: Kursen har slutat.
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
     invitation: |-

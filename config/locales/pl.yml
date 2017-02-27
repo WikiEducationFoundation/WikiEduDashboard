@@ -99,6 +99,7 @@ pl:
     delete_course: Usuń kurs
     dismiss_survey: Odrzuć
     end: Koniec
+    ended: Kurs zakończony.
     enroll: Zapisz się
     enrollment: Rejestracja
     error:

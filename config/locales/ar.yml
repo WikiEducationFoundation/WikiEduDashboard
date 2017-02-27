@@ -122,6 +122,8 @@ ar:
     none: لا شيء
     organizers: المنظمون
     title: العنوان
+  chat:
+    label: دردشة
   courses:
     activity: النشاط
     already_enrolled: أنت بالفعل جزء من '%{title}'!

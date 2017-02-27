@@ -10,6 +10,7 @@
 # Author: Mailman
 # Author: Nzeemin
 # Author: Okras
+# Author: Redredsonia
 # Author: SmartNart12
 # Author: Туллук
 # Author: Ядерный Трамвай
@@ -182,6 +183,7 @@ ru:
     delete_course: Удалить курс
     duration: Продолжительность курса
     enable_chat: Включить чат
+    ended: Курс завершен.
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.

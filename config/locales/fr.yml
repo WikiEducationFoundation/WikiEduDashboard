@@ -286,6 +286,7 @@ fr:
     edit_course_dates: Modifier les dates du cours
     enable_chat: Activer la discussion
     end: Fin
+    ended: Le cours est terminé.
     enroll: S’inscrire
     enrollment: Inscription
     courses_enrolled: Inscrit aux cours
@@ -661,9 +662,6 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
-    student_impact: Impact total fait par %{username} en tant qu’étudiant
-    instructor_impact: Impact total fait par %{username} en tant que formateur
-    instructors_student_impact: Impact total fait par les étudiants de %{username}
     role:
       visitor: Visiteur
       student: Étudiant
@@ -671,6 +669,10 @@ fr:
       campus_volunteer: Bénévole du campus
       online_volunteer: Bénévole en ligne
       wiki_ed_staff: Équipe d’édition du wiki
+  user_profiles:
+    student_impact: Impact total fait par %{username} en tant qu’étudiant
+    instructor_impact: Impact total fait par %{username} en tant que formateur
+    instructors_student_impact: Impact total fait par les étudiants de %{username}
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

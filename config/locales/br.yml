@@ -1,6 +1,7 @@
 # Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Fulup
 # Author: Gwenn-Ael
 # Author: Macofe
 ---
@@ -72,6 +73,7 @@ br:
       start: Klas loc'hañ - ur pennad kent gant doareoù gwellaat a-leizh.
       list: Klas roll - ur roll kentoc'h eget ur pennad kustum
       '?': Nann rummet - ur pennad n'eo ket notennet c'hoazh war skeulenn galite Wikipedia
+      does_not_exist: N'eus ket eus ar pennad-mañ e Wikipedia
     show_cumulative_changes: Diskwel ar c'hemmoù dassammadel
     show_current_version: Diskwel an doare red
     title: Titl
@@ -81,6 +83,7 @@ br:
     view_doc: Hollad an holl welioù war bep pennad e-pad ar raktres
     view_on_wiki: Diskwel war ar wiki
     views_added: '%{count} gwel nevez ouzhpennet evit %{title}'
+    edit_size: Cheñch ment
     wp10: Anterinded frammus
   assignments:
     assignees: Deverkadenn(où)
@@ -122,6 +125,8 @@ br:
     program_template: Patrom koulzad
     title: Titl
     use_start_end_dates: Implijout an deiziadoù deroù ha dibenn
+  chat:
+    label: Flap
   courses:
     activity: Obererezh
     active_courses: '%{course_type}oberiant'
@@ -182,7 +187,9 @@ br:
     dismiss_survey: Disteurel
     duration: Pad ar gentel
     edit_course_dates: Kemmañ deiziadoù ar gentel
+    enable_chat: Aotren ar flap
     end: Dibenn
+    ended: Echu eo ar gentel.
     enroll: En em enskrivañ
     enrollment: Enskrivadur
     courses_enrolled: Enskrivet er c'hentelioù
@@ -194,6 +201,9 @@ br:
       one: Kelenner
       other: Kelennerien
     instructors: Stummerien
+    join: Emezelañ
+    join_course: Emezelañ er gentel
+    leave_course: Kuitaat ar gentel
     loading: O kargañ...
     my_articles: Ma fennadoù
     new_week: Ouzhpennañ ur sizhunvezh nevez
@@ -282,7 +292,7 @@ br:
     edit_count_description: Hollad ar c'hemmoù
     per_user: '%{number}/implijer'
     revisions: Kemmoù nevez
-    tags: Balizennoù
+    tags: Tikedennoù
     uploads_in_use_count:
       one: restr implijet en ur pennad
       other: restroù implijet e pennadoù

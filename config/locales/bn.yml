@@ -95,6 +95,7 @@ bn:
       ইচ্ছুক?
     enable_chat: চ্যাট সক্রিয় করুন
     end: শেষ
+    ended: কোর্সটি শেষ হয়েছে।
     courses_enrolled: কোর্সে ভর্তি
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'

@@ -142,6 +142,7 @@ lb:
     edit_course_dates: Datume vum Cours änneren
     enable_chat: Chat aktivéieren
     end: Schluss
+    ended: De Cours ass eriwwer.
     enroll: Aschreiwen
     enrollment: Aschreiwung
     error:
@@ -330,9 +331,6 @@ lb:
     training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    student_impact: Gesamtimpakt vum %{username} als Student
-    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
-    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
     role:
       visitor: Visiteur
       student: Student
@@ -340,6 +338,10 @@ lb:
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Ed
+  user_profiles:
+    student_impact: Gesamtimpakt vum %{username} als Student
+    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
+    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
   wizard:
     course_dates: Datume vun de Coursen
     select_one_option: Wielt w.e.g. eng Optioun eraus.
