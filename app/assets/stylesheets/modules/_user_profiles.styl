@@ -43,9 +43,10 @@
 			.controls
 				padding 2px 0
 				position relative
-				
+
 	#details
 		width 100%
+
 		#user_bio
 			float left
 			width 38%
@@ -80,6 +81,14 @@
 				font-size 18px
 				display inline
 
+		#user_image
+			clear both
+			width 100%
+			margin -5px 0 0 2%
+
+			.rails_editable-input
+				background-color: #e7e7e7;
+				display none
 
 
 #profile_details
@@ -104,26 +113,26 @@
 // making user profile pages responsive
 @media only screen and (max-width: 500px)
 	#profile
-
-		#profile_right
-			display none
-
-		#profile_left
+		padding unset
+		.header
+			height unset
 			#user_name
-				padding 0
 				width 100%
 				float none
 				p
 					font-weight 0
 					font-size 12px
 
+			#edit_profile
+				display none
+
+		#details
 			#user_bio
+				padding-left 2%
 				p
 					font-size 8px
 
 			#user_id
-				float none
-				width 100%
 				border-left 1px
 				padding-left 0
 

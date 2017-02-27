@@ -1,5 +1,5 @@
 #profile
-  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable' }) do
+  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable',  multipart: true }) do
     #disclaimer
       .module
         .module__data
@@ -28,3 +28,9 @@
             &#x2709;
           %p
             #{@user.email}
+
+      .rails_editable-field
+        #user_image
+          - if @user&.user_profile&.image.present?
+            = image_tag @user.user_profile.image.url(:thumb)
+          = file_field(:user_profile, :image, class: 'rails_editable-input')
