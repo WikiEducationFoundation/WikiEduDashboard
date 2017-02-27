@@ -39,7 +39,7 @@ class UserProfilesController < ApplicationController
   end
 
   def user_profile_params
-    params.require(:user_profile).permit(:bio, :image)
+    params.require(:user_profile).permit(:bio, :image, :location, :work_status)
   end
 
   def set_user

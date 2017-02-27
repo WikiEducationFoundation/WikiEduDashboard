@@ -22,5 +22,18 @@ $(() => {
         scrollTop: $(id).offset().top - navbarHeight
       }, 500);
     });
+    $('input[type=radio][name=work_status]').change(function () {
+      if (this.value === 'student')
+      {
+        $('#profile').css({ 'background-color': 'orange' });
+        console.log('student');
+      }
+      else if (this.value === 'employed') {
+        $('#profile').css({ 'background-color': 'red' });
+        console.log('employed');
+      }
+      // check radio button value by this.value
+      // hide div blocks by $('div#id').hide();
+    });
   }
 });

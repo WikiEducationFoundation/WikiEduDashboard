@@ -20,7 +20,7 @@
         #user_bio
           %p.rails_editable-content
             = preserve @user&.user_profile&.bio
-          = text_area(:user_profile, :bio, class: 'rails_editable-input',placeholder: t("user_profiles.bio_placeholder"))
+          = text_area(:user_profile, :bio, class: 'rails_editable-input', placeholder: t("user_profiles.bio_placeholder"))
 
       #user_id
         - if current_user == @user || current_user&.admin?
@@ -34,3 +34,23 @@
           - if @user&.user_profile&.image.present?
             = image_tag @user.user_profile.image.url(:thumb)
           = file_field(:user_profile, :image, class: 'rails_editable-input')
+
+      .rails_editable-field
+        #user_location
+          Location:
+          %p.rails_editable-content
+            = @user&.user_profile&.location
+          = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: 'Add your location(optional)')
+          .rails_editable-field
+
+      .rails_editable-field
+        #work_status
+          Student
+          %input{:name => "work_status", :type => "radio", :value => "student"}
+          Employed
+          %input{:name => "work_status", :type => "radio", :value => "employed"}
+          %br/
+          Work place:
+          %p.rails_editable-content
+            = @user&.user_profile&.work_status
+          = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder: 'Institution name(optional)')
