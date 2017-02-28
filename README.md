@@ -33,6 +33,7 @@ The Dashboard allows instructors to create a course page, which students can joi
 
 ### Other
 - [Contributing](CONTRIBUTING.md)
+- [Development Process for Agile Ventures members](docs/dev_process.md)
 - [Interface strings & Internationalization](docs/i18n.md)
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
