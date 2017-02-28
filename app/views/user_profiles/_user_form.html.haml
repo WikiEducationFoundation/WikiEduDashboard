@@ -44,21 +44,23 @@
                   #{@user.email}
 
           .section
-            - if @user&.user_profile&.location.present?
-              #user_location
+            #user_location
+              - if @user&.user_profile&.location.present?
                 #icon
                   %img{:src => "/assets/images/location.png", :alt => "location logo"}
-                .rails_editable-field
+              .rails_editable-field
+                - if @user&.user_profile&.location.present?
                   %p.rails_editable-content
                     = @user.user_profile.location
-                  = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: 'Add your location(optional)')
+                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: 'Add your location(optional)')
 
           .section
-            -if @user&.user_profile&.work_status
-              #work_status
+            #work_status
+              -if @user&.user_profile&.work_status.present?
                 #icon
                   %img{:src => "/assets/images/institution.png", :alt => "institution logo"}
-                .rails_editable-field
+              .rails_editable-field
+                - if @user&.user_profile&.work_status.present?
                   %p.rails_editable-content
                     = @user.user_profile.work_status
-                  = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder: 'Institution name(optional)')
+                = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder: 'Institution name(optional)')
