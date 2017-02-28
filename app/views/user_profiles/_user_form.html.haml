@@ -14,16 +14,15 @@
 
     #profile_right
       .header
-        #header_right
-          #user_name
-            %p
-              User: #{@user.username}
+        #user_name
+          %p
+            User: #{@user.username}
 
-          - if current_user == @user
-            #edit_profile
-              .controls
-                %button.button.rails_editable-edit
-                  = t('editable.edit_details')
+        - if current_user == @user
+          #edit_profile
+            .controls
+              %button.button.rails_editable-edit
+                = t('editable.edit_details')
 
       #details
         #details_left
@@ -52,7 +51,7 @@
                 - if @user&.user_profile&.location.present?
                   %p.rails_editable-content
                     = @user.user_profile.location
-                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: 'Add your location(optional)')
+                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
 
           .section
             #work_status
@@ -63,4 +62,4 @@
                 - if @user&.user_profile&.work_status.present?
                   %p.rails_editable-content
                     = @user.user_profile.work_status
-                = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder: 'Institution name(optional)')
+                = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))

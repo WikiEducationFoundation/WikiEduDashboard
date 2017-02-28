@@ -95,16 +95,12 @@
 						width 85%
 						text-decoration none
 
-
-
 			#details_right
 				float right
 				width 60%
 
-
 				.section
 					width 100%
-					border-left 2px solid white
 					padding-left 3%
 					border-left 2px solid #fff
 
@@ -127,22 +123,9 @@
 						font-weight 900
 						display inline
 
-						#work_icon
-							display none
-
-						#student_icon
-							display none
-
-					#user_field
-						display none
-
 #profile_details
 	padding-left 5%
 	padding-right 5%
-
-	#user_form
-	background-color orange
-	color red
 
 	#statistics
 		padding-top 20px
@@ -159,31 +142,46 @@
 @media only screen and (max-width: 500px)
 	#profile
 		padding unset
-		.header
-			height unset
-			#user_name
-				width 100%
-				float none
-				p
-					font-weight 0
-					font-size 12px
 
-			#edit_profile
-				display none
+		#profile_left
+			#user_image
+				img
+					height 100px
+					width 100px
 
-		#details
-			#user_bio
-				padding-left 2%
-				p
-					font-size 8px
+		#profile_right
+			.header
+				height unset
+				#user_name
+					width 100%
+					float none
+					p
+						font-weight 0
+						font-size 12px
 
-			#user_id
-				border-left 1px
-				padding-left 0
+				#edit_profile
+					display none
 
-				#icon
-					font-size 12px
-					font-weight 0
+			#details
+				#details_left
+					width 50%
 
-				p
-					font-size 10px
+					#user_bio
+						p
+							font-size 9px
+							width 98%
+
+				#details_right
+					width 50%
+					line-height initial
+
+					.section
+						#icon
+							font-size 12px
+							font-weight 0
+
+							img
+								width 13px
+
+						p
+							font-size 10px
