@@ -8,7 +8,7 @@ describe AssignmentsController do
     allow(controller).to receive(:current_user).and_return(user)
   end
 
-  describe 'GET index' do
+  describe 'GET #index' do
     let!(:assignment) { create(:assignment, course_id: 1) }
 
     before do
@@ -23,7 +23,7 @@ describe AssignmentsController do
     end
   end
 
-  describe 'DELETE destroy' do
+  describe 'DELETE #destroy' do
     context 'when the user owns the assignment' do
       let(:assignment) do
         create(:assignment, course_id: course.id, user_id: user.id,
@@ -102,7 +102,7 @@ describe AssignmentsController do
     end
   end
 
-  describe '#create' do
+  describe 'POST #create' do
     context 'when the user has permission to create the assignment' do
       let(:course) { create(:course) }
       let(:assignment_params) do
@@ -277,20 +277,20 @@ describe AssignmentsController do
     end
   end
 
-  describe '#update' do
+  describe 'PATCH #update' do
     let(:assignment) { create(:assignment, course_id: course.id, user_id: user.id, role: 0) }
     let(:update_params) { { role: 1 } }
 
     context 'when the update succeeds' do
       it 'renders a 200' do
-        post :update, params: { id: assignment }.merge(update_params)
+        post :update, params: { course_id: course.id, id: assignment }.merge(update_params), format: :json
         expect(response.status).to eq(200)
       end
     end
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        post :update, params: { id: assignment }.merge(update_params)
+        post :update, params: { course_id: course.id, id: assignment }.merge(update_params), format: :json
         expect(response.status).to eq(500)
       end
     end

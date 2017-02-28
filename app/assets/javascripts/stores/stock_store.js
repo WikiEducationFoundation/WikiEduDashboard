@@ -65,7 +65,8 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
   , (payload) => {
     const { data } = payload;
     switch (payload.actionType) {
-      case `RECEIVE_${pluralModelKey.toUpperCase()}`: case `${modelKey.toUpperCase()}_MODIFIED`:
+      case `RECEIVE_${pluralModelKey.toUpperCase()}`:
+      case `${modelKey.toUpperCase()}_MODIFIED`:
         helper.setModels(data.course[pluralModelKey], true);
         break;
       case `SORT_${pluralModelKey.toUpperCase()}`:
