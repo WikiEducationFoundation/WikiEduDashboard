@@ -163,6 +163,7 @@ Rails.application.routes.draw do
   get 'training/:library_id' => 'training#show', as: :training_library
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
   post 'training_modules_users' => 'training_modules_users#create_or_update'
+  get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
 

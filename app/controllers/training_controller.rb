@@ -36,6 +36,13 @@ class TrainingController < ApplicationController
     add_module_breadcrumb
   end
 
+  def reload
+    TrainingModule.load_all
+    render plain: 'done!'
+  rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError => e
+    render plain: e.message
+  end
+
   private
 
   def add_training_root_breadcrumb
