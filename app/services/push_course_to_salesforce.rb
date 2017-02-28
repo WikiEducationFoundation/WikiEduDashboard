@@ -33,6 +33,10 @@ class PushCourseToSalesforce
 
   def update_salesforce_record
     @result = @client.update!('Course__c', { Id: @salesforce_id }.merge(course_salesforce_fields))
+  # When Salesforce API is unavailable, it returns an HTML response that causes
+  # a parsing error.
+  rescue Faraday::ParsingError => e
+    Raven.capture_exception e
   end
 
   def course_salesforce_fields

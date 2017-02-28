@@ -12,6 +12,12 @@ describe PushCourseToSalesforce do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
       expect(subject.result).to eq(true)
     end
+
+    it 'handles Salesforce API downtime gracefully' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!)
+        .and_raise(Faraday::ParsingError.new('Salesforce is down'))
+      expect(subject.result).to be_nil
+    end
   end
 
   context 'when a course does not have a Salesforce record' do
