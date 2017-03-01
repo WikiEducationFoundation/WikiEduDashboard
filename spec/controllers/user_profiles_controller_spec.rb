@@ -113,12 +113,44 @@ describe UserProfilesController do
     end
   end
   describe '#update' do
-    context 'when user has a profile' do
+    context 'user profile is of the current user' do
       let(:user) { create(:user) }
-      let(:profile) { create(:user_profile, user_id: user.id, bio: 'Howdy') }
-      it "updates the bio" do
-        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, bio: profile.bio} }
+      let(:profile) { create(:user_profile, user_id: user.id) }
+      it 'updates the bio' do
+        allow(controller).to receive(:current_user).and_return(user)
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, bio: 'Howdy'} }
         expect(user.user_profile.bio).to eq 'Howdy'
+      end
+
+      it 'updates the location' do
+        allow(controller).to receive(:current_user).and_return(user)
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, location: 'Seattle'} }
+        expect(user.user_profile.location).to eq 'Seattle'
+      end
+
+      it 'updates the Institution' do
+        allow(controller).to receive(:current_user).and_return(user)
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, work_status: 'Institution'} }
+        expect(user.user_profile.work_status).to eq 'Institution'
+      end
+    end
+
+    context 'user profile is not of the current user' do
+      let(:user) { create(:user) }
+      let(:profile) { create(:user_profile, user_id: user.id) }
+      it 'doesn\'t update the bio' do
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, bio: 'Howdy'} }
+        expect(user.user_profile.bio).not_to eq 'Howdy'
+      end
+
+      it ' doesn\'t update the location' do
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, location: 'Seattle'} }
+        expect(user.user_profile.location).not_to eq 'Seattle'
+      end
+
+      it 'doesn\'t update the Institution' do
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, work_status: 'Institution'} }
+        expect(user.user_profile.work_status).not_to eq 'Institution'
       end
     end
   end
