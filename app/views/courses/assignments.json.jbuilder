@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 json.course do
-  json.partial! 'courses/assignments', course: @course
+  json.partial! 'assignments', course: @course
 end
