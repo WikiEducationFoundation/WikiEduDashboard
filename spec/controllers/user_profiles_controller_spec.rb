@@ -130,8 +130,8 @@ describe UserProfilesController do
       end
 
       it 'updates the Institution' do
-        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, work_status: 'Institution'} }
-        expect(user.user_profile.work_status).to eq 'Institution'
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, institution: 'Institution'} }
+        expect(user.user_profile.institution).to eq 'Institution'
       end
 
 
@@ -157,8 +157,8 @@ describe UserProfilesController do
       end
 
       it 'doesn\'t update the Institution' do
-        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, work_status: 'Institution'} }
-        expect(user.user_profile.work_status).not_to eq 'Institution'
+        post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, institution: 'Institution'} }
+        expect(user.user_profile.institution).not_to eq 'Institution'
       end
 
       it 'doesn\'t update the Image' do

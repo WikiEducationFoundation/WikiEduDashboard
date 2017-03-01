@@ -54,12 +54,12 @@
                 = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
 
           .section
-            #work_status
-              -if @user&.user_profile&.work_status.present?
+            #user_institution
+              -if @user&.user_profile&.institution.present?
                 #icon
                   %img{:src => "/assets/images/institution.png", :alt => "institution logo"}
               .rails_editable-field
-                - if @user&.user_profile&.work_status.present?
+                - if @user&.user_profile&.institution.present?
                   %p.rails_editable-content
-                    = @user.user_profile.work_status
-                = text_area(:user_profile, :work_status, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
+                    = @user.user_profile.institution
+                = text_area(:user_profile, :institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
