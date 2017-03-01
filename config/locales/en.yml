@@ -694,6 +694,8 @@ en:
     instructors_student_impact: Total impact made by %{username}'s students
     disclaimer: The information you provide will be made available publicly.
     bio_placeholder: Add your Bio (optional)
+    location_placeholder: Add your location (optional)
+    institution_placeholder: Institution name (optional)
 
   wiki_edits:
     notify_overdue:

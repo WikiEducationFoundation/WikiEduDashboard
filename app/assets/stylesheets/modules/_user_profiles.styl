@@ -25,70 +25,110 @@
 				font-size 12px
 				color black
 
-  .header
-		width: 100%;
-		height: 40px;
-
-		#user_name
-			float left
-			padding-left 2%
-			padding-top 8px
-
-			p
-				font-weight 700
-				margin 0 auto
-				text-decoration underline
-
-		#edit_profile
-			.controls
-				padding 2px 0
-				position relative
-				
-	#details
-		width 100%
-		#user_bio
-			float left
-			width 38%
-			margin -5px 0 0 2%
+	#profile_left
+		width 15%
+		float left
+		#user_image
+			img
+				height 150px
+				border-radius 100%
+				width 130px
+				border 1px solid transparent
+				margin-top 3px
+				float right
 
 			.rails_editable-input
-				height 40px !important
-				width 90% !important
 				background-color: #e7e7e7;
-				color #000
+				max-width 140% !important
+				margin-left 1%
+				border-radius 5px
 				display none
 
-			p
-				font-size 12px
-				font-weight 700
-				display inline-block
-				width 70%
-				text-decoration none
+	#profile_right
+		width 85%
+		float right
+	  .header
+			height: 40px;
 
-		#user_id
-			float right
-			width 60%
-			border-left 2px solid white
-			padding-left 3%
-			border-left 2px solid #fff
+			#user_name
+				float left
+				padding-top 8px
 
-			#icon
-				font-weight 900
-				display inline
+				p
+					font-weight 700
+					margin 0 auto
+					text-decoration underline
 
-			p
-				font-size 18px
-				display inline
+			#edit_profile
+				.controls
+					padding 2px 0
+					position relative
 
+		#details
+			width 100%
 
+			#details_left
+				float left
+				width 40%
+
+				#user_bio
+					float left
+					width 100%
+
+					.rails_editable-input
+						height 100px !important
+						width 95% !important
+						font-weight 500
+						background-color: #e7e7e7;
+						font-size: 13px;
+						color #000
+						border-radius 5px
+						margin-left 2%
+						display none
+
+					p
+						font-size 13px
+						font-weight 600
+						display inline-block
+						line-height 1.8
+						padding-left  3%
+						width 85%
+						text-decoration none
+
+			#details_right
+				float right
+				width 60%
+
+				.section
+					width 100%
+					padding-left 3%
+					border-left 2px solid #fff
+
+					.rails_editable-field
+						display inline
+
+						.rails_editable-input
+							height 40px !important
+							width 50% !important
+							background-color: #e7e7e7;
+							border-radius 5px
+							color #000
+							display none
+					p
+						font-size 18px
+						padding-left 1%
+						display inline
+
+					#icon
+						font-weight 900
+						display inline
+
+						img
+							background-color #fff
 
 #profile_details
 	padding-left 5%
 	padding-right 5%
-
-	#user_form
-	background-color orange
-	color red
 
 	#statistics
 		padding-top 20px
@@ -104,32 +144,47 @@
 // making user profile pages responsive
 @media only screen and (max-width: 500px)
 	#profile
-
-		#profile_right
-			display none
+		padding unset
 
 		#profile_left
-			#user_name
-				padding 0
-				width 100%
-				float none
-				p
-					font-weight 0
-					font-size 12px
+			#user_image
+				img
+					height 100px
+					width 100px
 
-			#user_bio
-				p
-					font-size 8px
+		#profile_right
+			.header
+				height unset
+				#user_name
+					width 100%
+					float none
+					p
+						font-weight 0
+						font-size 12px
 
-			#user_id
-				float none
-				width 100%
-				border-left 1px
-				padding-left 0
+				#edit_profile
+					display none
 
-				#icon
-					font-size 12px
-					font-weight 0
+			#details
+				#details_left
+					width 50%
 
-				p
-					font-size 10px
+					#user_bio
+						p
+							font-size 9px
+							width 98%
+
+				#details_right
+					width 50%
+					line-height initial
+
+					.section
+						#icon
+							font-size 12px
+							font-weight 0
+
+							img
+								width 13px
+
+						p
+							font-size 10px
