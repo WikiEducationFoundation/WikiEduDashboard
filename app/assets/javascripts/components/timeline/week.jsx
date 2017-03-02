@@ -9,8 +9,6 @@ import { Motion, spring } from 'react-motion';
 
 import DateCalculator from '../../utils/date_calculator.js';
 
-import EmptyReorderable from './empty_reorderable.jsx';
-
 const Week = React.createClass({
   displayName: 'Week',
   propTypes: {
@@ -161,7 +159,7 @@ const Week = React.createClass({
           transition: 'height 500ms ease-in-out'
         },
           <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
-            {blocks.length > 0 ? blocks : <EmptyReorderable canDrag={true} block={{ "id": 0, "week_id": this.props.week.id }} onDrop={this.props.onBlockDrag.bind(null, 0)} />}
+            {blocks}
           </ReactCSSTG>)
       :
         (<ul className="week__block-list list-unstyled">

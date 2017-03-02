@@ -61,9 +61,6 @@ const Timeline = React.createClass({
   },
 
   _handleBlockDrag(targetIndex, block, target) {
-    if (!target || !target.week_id) {
-      return;
-    }
     const originalIndexCheck = BlockStore.getBlocksInWeek(block.week_id).indexOf(block);
     if (originalIndexCheck !== targetIndex || block.week_id !== target.week_id) {
       const toWeek = WeekStore.getWeek(target.week_id);
