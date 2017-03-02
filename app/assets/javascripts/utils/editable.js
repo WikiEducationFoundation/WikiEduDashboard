@@ -42,6 +42,7 @@ $(() => {
     $parent.addClass('rails_editable-editing');
     $(e.target).hide();
     $parent.find('#disclaimer').css({ display: 'unset' });
+    $parent.find('#profile_left #user_image').css({ height: '150px' });
     $(e.target).parent().append(`
       <button class='rails_editable rails_editable-cancel button'>${I18n.t('editable.cancel')}</button>
       <button class='rails_editable rails_editable-save button dark'>${I18n.t('editable.save')}</button>
@@ -61,6 +62,7 @@ $(() => {
 
     $parent.find('.rails_editable-cancel').on('click', () => {
       $parent.find('#disclaimer').css({ display: 'none' });
+      $parent.find('#profile_left #user_image').css({ height: 'unset' });
       $parent.trigger('editable:cancel');
       readMode.call(this, $parent);
     });
