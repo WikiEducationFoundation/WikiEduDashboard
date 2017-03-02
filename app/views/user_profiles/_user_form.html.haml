@@ -10,6 +10,8 @@
         #user_image
           - if @user&.user_profile&.image.present?
             = image_tag @user.user_profile.image.url(:thumb)
+          - else
+            %img{:src => "/assets/images/user.svg", :alt => "user default logo"}
           = file_field(:user_profile, :image, class: 'rails_editable-input')
 
     #profile_right
