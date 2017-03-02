@@ -9,3 +9,5 @@
 - **"Error: EACCES: permission denied, open '/home/username/.babel.json'"** This happen, when babel don't have acces to ~/. To fix this, use command: `BABEL_DISABLE_CACHE=1 gulp`
 
 - **"sh: 1: node: not found"** This usually happen on Ubuntu 16.04, when nodejs is not linked as 'node'. To fix this, use command: `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+
+- **"Gem::Ext::BuildError: ERROR: Failed to build gem native extension. *.rb can't find header files on running `bundle install`"** This happens when header files required are not installed in the system. To fix this install a package, using command:  `sudo apt-get install ruby2.3-dev`
