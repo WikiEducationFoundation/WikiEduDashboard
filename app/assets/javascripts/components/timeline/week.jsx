@@ -9,6 +9,24 @@ import { Motion, spring } from 'react-motion';
 
 import DateCalculator from '../../utils/date_calculator.js';
 
+import { DropTarget } from 'react-dnd';
+
+const spec = {
+  drop(props, monitor) {
+    props.onBlockDrag(0, monitor.getItem().item, { week_id: props.week.id });
+  }
+};
+
+function collect(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver(),
+    isOverCurrent: monitor.isOver({ shallow: true }),
+    canDrop: monitor.canDrop(),
+    itemType: monitor.getItemType()
+  };
+}
+
 const Week = React.createClass({
   displayName: 'Week',
   propTypes: {
@@ -29,7 +47,8 @@ const Week = React.createClass({
     saveBlockChanges: React.PropTypes.func,
     cancelBlockEditable: React.PropTypes.func,
     deleteWeek: React.PropTypes.func,
-    all_training_modules: React.PropTypes.array
+    all_training_modules: React.PropTypes.array,
+    connectDropTarget: React.PropTypes.func
   },
   getInitialState() {
     return { focusedBlockId: null };
@@ -172,7 +191,7 @@ const Week = React.createClass({
       weekClassName += ' timeline-warning';
     }
 
-    return (
+    return this.props.connectDropTarget(
       <li className={weekClassName}>
         <div className="week__week-header">
           {weekAddDelete}
@@ -185,7 +204,7 @@ const Week = React.createClass({
   }
 });
 
-export default Week;
+export default DropTarget('block', spec, collect)(Week);
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
