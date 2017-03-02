@@ -58,10 +58,11 @@ class CoursesController < ApplicationController
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     verify_edit_credentials { return }
+    set_endpoint
 
     respond_to do |format|
       format.html { render }
-      format.json { render params[:endpoint] }
+      format.json { render @endpoint }
     end
   end
 
@@ -191,6 +192,15 @@ class CoursesController < ApplicationController
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type)
+  end
+
+  SHOW_ENDPOINTS = %w(articles assignments campaigns check course revisions tag tags
+                      timeline uploads users).freeze
+  # Show responds to multiple endpoints to provide different sets of json data
+  # about a course. Checking for a valid endpoint prevents an arbitrary render
+  # vulnerability.
+  def set_endpoint
+    @endpoint = params[:endpoint] if SHOW_ENDPOINTS.include?(params[:endpoint])
   end
 
   # If the user could make an edit to the course, this verifies that
