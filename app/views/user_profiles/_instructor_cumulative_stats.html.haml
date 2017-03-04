@@ -1,6 +1,3 @@
--if @user.course_student?
-  = render 'user_profiles/student_cumulative_stats', presenter: @individual_stats_presenter
--else
 .user_stats
   #instructor-profile-stats
     %h5
@@ -40,3 +37,6 @@
         %p= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count)
         %h4= number_to_human presenter.upload_usage_count
         %p= t("metrics.upload_usages_count", count: presenter.upload_usage_count)
+
+-if @user.course_student?
+  = render 'user_profiles/student_cumulative_stats', presenter: @individual_stats_presenter
