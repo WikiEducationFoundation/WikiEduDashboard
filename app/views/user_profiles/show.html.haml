@@ -7,6 +7,9 @@
         = render 'user_profiles/profile_nav'
 
     #profile_details
+
+      #react_root
+
       - if @user.course_instructor? || @user.course_student?
         #statistics
           %h3
