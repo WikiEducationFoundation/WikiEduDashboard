@@ -151,10 +151,9 @@ class CoursesController < ApplicationController
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
     CourseSubmissionMailer.send_submission_confirmation(@course, instructor)
-    WikiCourseEdits.new(action: 'announce_course',
-                        course: @course,
-                        current_user: current_user,
-                        instructor: instructor)
+    AnnounceCourseWorker.schedule_announcement(course: @course,
+                                               editing_user: current_user,
+                                               instructor: instructor)
   end
 
   def should_set_slug?
