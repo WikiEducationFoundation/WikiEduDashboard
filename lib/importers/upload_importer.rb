@@ -35,6 +35,15 @@ class UploadImporter
     end
   end
 
+  def self.import_all_missing_urls
+    CommonsUpload.where(thumburl: nil, deleted: false).find_in_batches do |batch|
+      import_urls_in_batches(batch)
+    end
+  end
+
+  ################
+  # Data methods #
+  ################
   def self.import_urls_in_batches(commons_uploads)
     # Larger values (50) per batch choke the MediaWiki API on this query.
     Utils.chunk_requests(commons_uploads, 10) do |file_batch|
@@ -43,9 +52,6 @@ class UploadImporter
     end
   end
 
-  ###################
-  # Parsing methods #
-  ###################
   def self.import_uploads(uploads)
     ActiveRecord::Base.transaction do
       uploads.each do |file|
