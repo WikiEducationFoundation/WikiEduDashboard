@@ -25,7 +25,7 @@
           %h3
             = t("courses.course_details")
           %br/
-          - @courses_users.each do |c|
+          - @courses_users.reverse_each do |c|
             %a.course{:href => "/courses/#{c.course.slug}"}
               %span.button.border
                 = t("courses.view_page")
