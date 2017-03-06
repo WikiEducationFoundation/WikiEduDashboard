@@ -96,9 +96,9 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
       expect(output).to match(/Eryk Salvaggio/)
     end
     it 'includes a forced newline after figure markup' do
-      # Markdown interprets a literal backslash followed by a newline
-      # as a forced newline. This ensures that the first line after a figure
-      # is correctly parsed as the beginning of a new paragraph.
+      # Markdown conversion outputs just one newline after figure markup, which
+      # can result in the next line getting misparsed. Two newlines ensures that
+      # the following content gets parsed as a new paragraph.
       output = WikiSlideParser.new(image_wikitext.dup).content
       expect(output).to include("figure>\n\n")
     end
