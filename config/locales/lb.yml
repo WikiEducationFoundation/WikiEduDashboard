@@ -342,6 +342,8 @@ lb:
     student_impact: Gesamtimpakt vum %{username} als Student
     instructor_impact: Gesamtimpakt vum %{username} als Instrukter
     instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
+    location_placeholder: Setzt Är Plaz derbäi (fakultativ)
+    institution_placeholder: Numm vun der Institutioun (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
     select_one_option: Wielt w.e.g. eng Optioun eraus.

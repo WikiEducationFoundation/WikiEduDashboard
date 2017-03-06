@@ -11,17 +11,23 @@ lv:
     help: Palīdzība
     home: Sākums
     recent_activity: Nesenās darbības
+    search: uzdot jautājumu
     submit: Iesniegt
+    training: Apmācības
+    change: Mainīt
+    confirm: Labi
   activity:
     all: Aktivitāte
     label: Aktivitāte
   articles:
     assigned: Piešķirtie raksti
     edited: Labotie raksti
+    edited_by: 'Labotāji:'
     edited_mobile: Raksti
+    hide: Paslēpt
     label: Raksti
     loading: Ielādē rakstus...
-    new: (jauni)
+    new: (jauns)
     rating: Klase
     title: Nosaukums
     title_example: Raksta nosaukums
@@ -44,8 +50,10 @@ lv:
     create_campaign: Izveidot jaunu kampaņu
     description: Apraksts
     none: Nav
+    organizers: Organizatori
   courses:
     activity: Aktivitāte
+    all_courses: Visi kursi
     archived: Arhivētie kursi
     actions: Darbības
     articles: Raksti
@@ -55,6 +63,7 @@ lv:
       legend_class_meeting: Klases sapulce
     cancel: Atcelt
     campaigns: 'Kampaņas:'
+    campaign_courses: '%{title} kursi'
     course_description: Kursi
     courses: Kursi
     creator:
@@ -75,6 +84,7 @@ lv:
       subject: Temats
     current: Aktīvie kursi
     delete_course: Dzēst kursu
+    dismiss_survey: Paslēpt
     duration: Kursa ilgums
     edit_course_dates: Labot kursa datumus
     end: Beigas
@@ -91,6 +101,7 @@ lv:
     overview: Sākums
     passcode: Piekļuves kods
     passcode_none: Nav piekļuves koda
+    revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
     school: Skola
     students: Studenti
     students_none: Šim kursam nav studentu.
@@ -102,6 +113,8 @@ lv:
     title: Nosaukums
     view_other: Skatīt citas kampaņas
     view: Apskatīt kursu
+    volunteer:
+      other: Brīvprātīgie
   courses_generic:
     cancel: Atcelt
     courses: Programmas
@@ -109,24 +122,41 @@ lv:
     creator:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu
+      course_school: Iestāde
+      course_title: Programmas nosaukums
     delete_course: Dzēst programmu
     expected_students: Plānotie dalībnieki
     join_course: Pievienoties programmai
     student_editors: Redaktori
     students: Redaktori
+    yourcourses: Tavas programmas
   editable:
+    edit: Labot
+    cancel: Atcelt
+    save: Saglabāt
     edit_description: Labot aprakstu
     edit_details: Labot datus
   metrics:
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti
+    char_added: Rakstzīmes pievienotas
+    char: Rakstzīmes pievienotas
+    date_time: Datums/laiks
     edit_count_description: Labojumi kopā
+    revisions: Neseni labojumi
     upload_count: Augšupielādes Vikikrātuvē
     view_count_description: Rakstu skatījumi
+    view: Skatījumi
     word_count: Pievienotie vārdi
     word_count_average: Vidējais vārdu skaits
+  recent_activity:
+    image: Attēls
+    file_name: Faila nosaukums
+    no_edits: Nav nesenu labojumu
+    recent_edits: Neseni labojumi
   revisions:
+    chars_added: Rakstzīmes pievienotas
     loading: Ielādē versijas...
   timeline:
     week_number: '%{number}. nedēļa'
@@ -142,11 +172,15 @@ lv:
     label: Augšupielādes
     loading: Ielādē augšupielādes...
   users:
+    assigned: Piešķirtie raksti
+    chars_added: Pievienotās rakstzīmes<br>(rakstos | smilškastē)
     contributions: Dalībieka devums
     editors: Redaktori
     loading: Ielādē lietotājus...
     name: Nosaukums
     none: Dalībnieku nav.
+    recent_revisions: Neseni labojumi
+    revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
     role:

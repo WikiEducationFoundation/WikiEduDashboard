@@ -14,7 +14,7 @@
 cs:
   application:
     cancel: Zrušit
-    dashboard: Wiki Ed Dashboard
+    dashboard: Nástěnka programů
     error: 'Došlo k chybě:'
     explore: Prozkoumat
     field_required: Toto pole je povinné
@@ -28,7 +28,7 @@ cs:
     log_in_extended: Přihlásit se účtem na Wikipedii
     log_in: Přihlásit se
     log_out: Odhlásit se
-    my_dashboard: Nástěnka
+    my_dashboard: Moje nástěnka
     recent_activity: Nedávná aktivita
     search: Zeptat se
     sign_up_extended: Zaregistrovat se skrze Wikipedii
@@ -323,6 +323,7 @@ cs:
         Klikněte na Vytvořit můj program a začněte vytvářet stránku pro váš program
     delete_course: Odstranit program
     edit_course_dates: Upravit data projektu
+    explore: Aktuální projekty
     enroll: Přidat editora
     enrollment: Účastníci
     expected_students: Očekávaní editoři
@@ -352,6 +353,7 @@ cs:
     edit_details: Upravit podrobnosti
   metrics:
     activity: Nedávná aktivita
+    are_trained: účastníků projektu
     articles_created: Vytvořené články
     articles_edited: Editované stránky
     characters: Znaky

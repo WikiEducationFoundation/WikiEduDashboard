@@ -348,6 +348,10 @@ ru:
       visitor: Посетитель
       student: Студент
       instructor: Инструктор
+  user_profiles:
+    disclaimer: Предоставленная Вами информация будет доступна публично.
+    bio_placeholder: Добавьте свою биографию (необязательно)
+    location_placeholder: Добавить свое местоположение (необязательно)
   wizard:
     assignment_dates: Даты Назначений
     assignment_description: Выбрать начальную и конечную даты для любого назначения.

@@ -592,7 +592,7 @@ es:
     contribution_statistics: Estadísticas de contribuciones
     course_passcode: 'Código de acceso:'
     editors: Editores estudiantiles
-    enroll_confirmation: ¿Estás seguro que deseas añadir a %{username}?
+    enroll_confirmation: ¿Confirmas que quieres añadir a %{username}?
     enroll_url: 'Los usuarios pueden unirse visitando este URL:'
     enrolled_success: ¡%{username} añadido con éxito!
     first_name: Nombre
@@ -641,6 +641,11 @@ es:
       campus_volunteer: Voluntario de campus
       online_volunteer: Voluntario en línea
       wiki_ed_staff: Personal de Wiki Ed
+  user_profiles:
+    disclaimer: La información que proporciones estará disponible públicamente.
+    bio_placeholder: Añade tu biografía (opcional)
+    location_placeholder: Añade tu ubicación (opcional)
+    institution_placeholder: Nombre de la institución (opcional)
   wiki_edits:
     notify_overdue:
       confirm: Esto publicará un recordatorio en las páginas de discusión de todos
