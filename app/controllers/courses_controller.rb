@@ -7,6 +7,7 @@ require "#{Rails.root}/lib/tag_manager"
 require "#{Rails.root}/lib/course_creation_manager"
 require "#{Rails.root}/app/workers/update_course_worker"
 require "#{Rails.root}/app/workers/notify_untrained_users_worker"
+require "#{Rails.root}/app/workers/announce_course_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -151,10 +152,9 @@ class CoursesController < ApplicationController
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
     CourseSubmissionMailer.send_submission_confirmation(@course, instructor)
-    WikiCourseEdits.new(action: 'announce_course',
-                        course: @course,
-                        current_user: current_user,
-                        instructor: instructor)
+    AnnounceCourseWorker.schedule_announcement(course: @course,
+                                               editing_user: current_user,
+                                               instructor: instructor)
   end
 
   def should_set_slug?
