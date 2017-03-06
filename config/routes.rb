@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
+    get 'users/student_stats_data' => 'user_profiles#student_stats_data'
+    get 'users/instructor_stats_data' => 'user_profiles#instructor_stats_data'
     post 'users/update/:username' => 'user_profiles#update'
   end
 
