@@ -27,11 +27,8 @@ class UserProfilesController < ApplicationController
     end
   end
 
-  def student_stats_data
+  def stats_data
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
-  end
-
-  def instructor_stats_data
     @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
   end

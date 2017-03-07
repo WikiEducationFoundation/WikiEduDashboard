@@ -9,8 +9,11 @@ const ContributionStats = React.createClass({
     params: React.PropTypes.object
   },
 
-  // const studentdataUrl = `/users/student_stats_data.json?username=${ this.props.params.username }`;
-  // const instructordataUrl = `/users/instructor_stats_data.json?username=${ this.props.params.username }`;
+  // const studentdataUrl = `/users/stats_data.json?username=${ this.props.params.username }`;
+  // ProfileActions.fetch_stats(userId)
+  // getState() function in the stats component to fetch data from the profile store,
+  //  have the store implement .getLoadingStatus() so as to render a loading spinner
+  //  before the data arrives.
   mixins: [ProfileStore.mixin],
 
   getInitialState() {
