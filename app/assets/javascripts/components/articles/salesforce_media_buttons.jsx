@@ -31,7 +31,7 @@ const SalesforceMediaButtons = React.createClass({
     return (
       <div>
         <p>
-          Create Salesforce media record for:
+          Create a new Salesforce "Media" record for this article, credited to:
         </p>
         {salesforceButtons}
       </div>
