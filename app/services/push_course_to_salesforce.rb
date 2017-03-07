@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/word_count"
 
-#= Enables chat features for a course and adds all participants to course chat channel
+#= Pushes course data to Salesforce, either by creating a new record or updating an existing one
 class PushCourseToSalesforce
   attr_reader :result
 
