@@ -50,7 +50,7 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}"
       expect(page).to have_content 'Log out'
       expect(page).not_to have_content 'Log in'
-      find('a', text: 'Log out').click
+      click_link 'Log out'
       expect(page).to have_content 'Log in'
       expect(page).not_to have_content 'Log out'
     end
@@ -59,8 +59,7 @@ describe 'Student users', type: :feature, js: true do
       login_as(user, scope: :user)
 
       visit "/courses/#{Course.first.slug}"
-      find('a', text: 'Log out').click
-      sleep 1
+      click_link 'Log out'
       visit '/sign_out'
     end
   end
