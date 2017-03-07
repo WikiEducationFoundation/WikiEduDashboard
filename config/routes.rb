@@ -235,8 +235,9 @@ Rails.application.routes.draw do
   end
 
   # Salesforce
-  if true # Features.wiki_ed?
+  if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
+    get '/salesforce/create_media' => 'salesforce#create_media'
   end
 
   resources :admin
