@@ -19,6 +19,7 @@ describe('AlertActions', () => {
     expect($.ajax.calledOnce).to.be.true;
     AlertActions.resetNeedHelpAlert().then(() => {
       expect(AlertsStore.getNeedHelpAlertSubmitted()).to.be.false;
+      expect(AlertsStore.getNeedHelpAlertSubmitting()).to.be.false;
     });
   });
 });
