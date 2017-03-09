@@ -48,4 +48,7 @@ bg:
     loading: Зареждане на потребители...
     username: Потребителско име
     username_placeholder: Потребителско име
+  user_profiles:
+    location_placeholder: Добавяне на местоположение (незадължително)
+    institution_placeholder: Име на институцията (незадължително)
 ...

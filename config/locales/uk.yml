@@ -113,6 +113,7 @@ uk:
     view_doc: Сума всіх переглядів кожної зі статей впродовж проекту
     view_on_wiki: Переглянути у вікі
     views_added: '%{count} нових переглядів статті %{title}'
+    edit_size: Розмір редагування
     wp10: Структурна повнота
     wp10_doc: Оцінка «Структурної повноти» репрезентує те, наскільки точно стаття
       відповідає критеріям повноцінної вікіпедійної статті, і базується на оцінювальному
@@ -159,6 +160,10 @@ uk:
     confirm_campaign_deletion: Ви впевнені, що хочете видалити курс «%{title}»? Якщо
       так, вкажіть назву курсу, щоб продовжити.
     confirm_campaign_deletion_failed: «%{title}» не є назвою курса. Курс не був видалений.
+    confirm_course_removal: Ви впевнені, що хочете вилучити «%{title}» з кампанії
+      «%{campaign_title}»?
+    course_already_removed: «%{title}» вже вилучено з кампанії «%{campaign_title}»
+    course_removed: «%{title}» вилучено з кампанії «%{campaign_title}»
     create_campaign: Створити нову кампанію
     create_my_campaign: Створити свою кампанію!
     description: Опис
@@ -172,6 +177,8 @@ uk:
       у цій ділянці буде скопійовано і вставлено як опис на сторінці програми
     title: Заголовок
     use_start_end_dates: Зазначте дати початку та закінчення
+  chat:
+    label: Чат
   courses:
     activity: Активність
     active_courses: Активні %{course_type}
@@ -205,6 +212,7 @@ uk:
       будуть змінюватися із врахуванням тижнів, які не мають жодних запланованих занять.
     course_description: Курси
     courses: Курси
+    courses_taught: Викладання курсів
     creation_date: Дата створення
     creator:
       already_exists: Цей курс вже існує. Розгляньте можливість зміни назви, навчального
@@ -250,15 +258,21 @@ uk:
       start_date: Початкова дата
       start_date_placeholder: Дата початку (РРРР-ММ-ДД)
       subject: Тема
+      update_scheduled: Оновлення заплановано. Ці дані буде оновлено разом з іншими
+        програмами протягом наступного циклу оновлення. Зазвичай це займає декілька
+        годин.
     current: Поточні курси
     delete_course: Вилучити курс
     dismiss_survey: Приховати
     dismiss_survey_confirm: Ви впевнені, що хочете назавжди приховати це опитування?
     duration: Тривалість курсу
     edit_course_dates: Редагувати дати курсу
+    enable_chat: Увімкнути чат
     end: Кінець
+    ended: Курс завершено.
     enroll: Записатись
     enrollment: Запис
+    courses_enrolled: Записано на курси
     error:
       exists: Такий курс уже існує! Будь ласка, спробуйте знову з іншою назвою, навчальним
         закладом або семестром.
@@ -277,6 +291,12 @@ uk:
     join_course: Приєднатися до курсу
     join_prompt: Приєднатися до «%{title}»?
     join_successful: Ви успішно приєдналися до «%{title}».
+    join_failed: Не вдалося записатись.
+    join_failure_details:
+      cannot_join_twice: Користувачі не можуть приєднуватись до одного й того ж курсу
+        двічі.
+      not_yet_approved: Цей курс ще не затверджений для можливості записування на
+        нього.
     join_details: Щоб долучитися до цього курсу, Вам потрібен код доступу — або посилання
       для реєстрації, яке містить такий код доступу у собі — від інструктора. Якщо
       Ви не отримали нічого з цього, зв'яжіться з Вашим інструктором.
@@ -288,12 +308,13 @@ uk:
     needs_update: Запланувати оновлення даних
     new_week: Додати новий тиждень
     nocourses: Ви не берете участь в жодних курсах.
+    nocourse: ще не брав участі у жодних курсах.
     none: Немає
     notify_untrained_confirmation: Ця дія напише нагадування на сторінки обговорення
       всіх студентів, які запізнились з виконанням заданих навчальних модулів. Ви
       дійсно хочете це зробити?
     no_available_actions: Немає доступних дій
-    overview: Огляд
+    overview: Головна
     passcode: Код доступу
     passcode_none: Немає коду доступу
     passcode_prompt: 'Уведіть код доступу, щоб приєднатися:'
@@ -365,6 +386,7 @@ uk:
     assignment_start: Початок графіку
     cancel: Скасувати
     courses: Програми
+    courses_taught: Викладання програм
     campaigns: 'Кампанії:'
     campaign_courses: Програми %{title}
     creator:
@@ -387,6 +409,7 @@ uk:
     explore: Знайти програми
     enroll: Додати редактора
     enrollment: Участь
+    courses_enrolled: Участь у програмах
     expected_students: Очікувані редактори
     instructors: Посередники
     join_course: Приєднатися до програми
@@ -431,6 +454,7 @@ uk:
     edit_count_description: Всього редагувань
     per_user: '%{number} на користувача'
     revisions: Недавні редагування
+    tags: Теги
     upload_count: Завантаження у Вікісховище
     uploads_in_use_count:
       one: файл використовується у статті
@@ -475,7 +499,9 @@ uk:
     diff: різн.
     diff_show: Показати
     diff_hide: Приховати
+    edit_time_span: Редагування відбувались із %{first_time} по %{last_time}
     edited_by: Редаговано
+    edited_on: Редаговано %{edit_date}
     loading: Завантаження редагувань…
     none: У цьому курсі немає недавньої активності з редагування.
     time_doc: Час кожного редагування у Вашому місцевому часі
@@ -567,6 +593,7 @@ uk:
     contributions: Внесок користувача
     contributions_history_full: Переглянути всю історію внеску у Вікіпедії
     contributions_more: Переглянути більше внесків
+    contribution_statistics: Статистика внеску
     course_passcode: 'Код доступу:'
     editors: Студентів-редакторів
     enroll_confirmation: Ви дійсно хочете додати %{username}?
@@ -617,6 +644,14 @@ uk:
       campus_volunteer: Доброволець кампусу
       online_volunteer: Онлайн-доброволець
       wiki_ed_staff: Співробітник Wiki Ed
+  user_profiles:
+    student_impact: Загальний вплив, здійснений %{username} як студентом
+    instructor_impact: Загальний вплив, здійснений %{username} як інструктором
+    instructors_student_impact: Загальний вплив, здійснений студентами %{username}
+    disclaimer: Інформація, яку Ви надаєте, буде публічно доступною.
+    bio_placeholder: Додайте свою біографію (необов'язково)
+    location_placeholder: Додайте своє розташування (необов'язково)
+    institution_placeholder: Назва установи (необов'язково)
   wiki_edits:
     notify_overdue:
       confirm: Цим на сторінки обговорення всіх студентів, які мають протерміноване
@@ -721,4 +756,6 @@ uk:
       message: Це нагадування про анкету на ваш курс «%{course_title}». Відгуки з
         цієї анкети допоможуть нам поліпшити нашу підтримку для наступних, як ваша,
         Вікіпедійних зустрічей.
+  feedback_form_responses:
+    no_responses: Ще немає жодних відгуків.
 ...
