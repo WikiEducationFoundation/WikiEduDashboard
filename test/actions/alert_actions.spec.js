@@ -6,20 +6,24 @@ import sinon from 'sinon';
 
 describe('AlertActions', () => {
   beforeEach(() => {
-    sinon.stub($, 'ajax').yieldsTo('success', { success: true });
+    sinon.stub($, "ajax").yieldsTo("success", { success: true });
   });
   afterEach(() => {
     $.ajax.restore();
+    AlertActions.resetNeedHelpAlert();
   });
 
-  it('makes an ajax call for submitNeedHelpAlert', () => {
+  it('.submitNeedHelpAlert sets getNeedHelpAlertSubmitting to true', (done) => {
     AlertActions.submitNeedHelpAlert({}).then(() => {
-      expect(AlertsStore.getNeedHelpAlertSubmitted()).to.be.true;
+      expect(AlertsStore.getNeedHelpAlertSubmitting()).to.be.true;
+      done();
     });
-    expect($.ajax.calledOnce).to.be.true;
-    AlertActions.resetNeedHelpAlert().then(() => {
-      expect(AlertsStore.getNeedHelpAlertSubmitted()).to.be.false;
-      expect(AlertsStore.getNeedHelpAlertSubmitting()).to.be.false;
+  });
+
+  it('.createNeedHelpAlert sets getNeedHelpAlertSubmitted to true', (done) => {
+    AlertActions.createNeedHelpAlert({}).then(() => {
+      expect(AlertsStore.getNeedHelpAlertSubmitted()).to.be.true;
+      done();
     });
   });
 });
