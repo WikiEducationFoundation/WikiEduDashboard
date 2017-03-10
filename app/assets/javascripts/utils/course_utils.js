@@ -117,10 +117,10 @@ const CourseUtils = class {
     }
     function weekHasTrainings(week) {
       if (!week.blocks.length) { return false; }
-      return Boolean(week.blocks.find(blockHasTrainings));
+      return Boolean(_.find(week.blocks, blockHasTrainings));
     }
     if (!weeks.length) { return false; }
-    return Boolean(weeks.find(weekHasTrainings));
+    return Boolean(_.find(weeks, weekHasTrainings));
   }
 };
 
