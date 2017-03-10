@@ -15,7 +15,7 @@ class UntrainedStudentsAlertManager
 
   private
 
-  UNTRAINED_GRACE_PERIOD = 19
+  UNTRAINED_GRACE_PERIOD = 30
   EXPECTED_COMPLETION_RATE = 0.75
   def training_very_overdue?(course)
     return false if course.user_count.zero?
