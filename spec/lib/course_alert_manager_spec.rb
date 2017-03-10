@@ -60,7 +60,7 @@ describe CourseAlertManager do
   end
 
   describe '#create_untrained_students_alerts' do
-    let(:course_start) { 1.month.ago }
+    let(:course_start) { 2.month.ago }
 
     context 'when a course has no students' do
       it 'does not create an alert' do
