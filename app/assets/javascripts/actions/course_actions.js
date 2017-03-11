@@ -39,12 +39,6 @@ const CourseActions = Flux.createActions({
     };
   },
 
-  save() {
-    return {
-      actionType: 'SAVE_COURSE'
-    };
-  },
-
   addCourse() {
     return {
       actionType: 'ADD_COURSE'
