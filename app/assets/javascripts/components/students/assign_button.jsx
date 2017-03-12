@@ -109,6 +109,10 @@ const AssignButton = React.createClass({
 
     if (assignment.title === '' || assignment.title === 'undefined') {
       return;
+    } else if (assignment.title.length > 255) {
+      // Title shouldn't exceed 255 chars to prevent mysql errors
+      alert(I18n.t('assignments.title_too_large'));
+      return;
     }
 
     const articleTitle = assignment.title;
