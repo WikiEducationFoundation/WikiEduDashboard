@@ -78,9 +78,14 @@ class Alert < ActiveRecord::Base
   end
 
   # Disable emails for specific alert types in application.yml, like so:
-  #   ProductCourseAlert_email_disabled: 'true'
+  #   ProductiveCourseAlert_email_disabled: 'true'
   def emails_disabled?
     ENV["#{self.class}_emails_disabled"] == 'true'
+  end
+
+  # This can be used to copy dashboard emails to Salesforce
+  def bcc_to_salesforce_email
+    ENV['bcc_to_salesforce_email']
   end
 
   #########################

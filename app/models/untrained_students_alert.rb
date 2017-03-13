@@ -27,4 +27,18 @@ class UntrainedStudentsAlert < Alert
   def url
     course_url
   end
+
+  def send_email
+    return if emails_disabled?
+    UntrainedStudentsAlertMailer.email(self).deliver_now
+    update_attribute(:email_sent_at, Time.now)
+  end
+
+  def from_user
+    @from_user ||= User.find_by(username: ENV['communications_manager'])
+  end
+
+  def reply_to
+    from_user.email
+  end
 end

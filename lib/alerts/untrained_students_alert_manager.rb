@@ -6,10 +6,11 @@ class UntrainedStudentsAlertManager
 
   def create_alerts
     @courses.each do |course|
+      next unless course.type == 'ClassroomProgramCourse'
       next if Alert.exists?(course_id: course.id, type: 'UntrainedStudentsAlert')
       next unless training_very_overdue?(course)
       alert = Alert.create(type: 'UntrainedStudentsAlert', course_id: course.id)
-      alert.email_course_admins
+      alert.send_email
     end
   end
 
