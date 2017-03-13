@@ -12,6 +12,7 @@ eu:
     error: 'Errore bat dago:'
     explore: Esploratu
     field_required: Eremu hau beharrezkoa da
+    field_invalid_characters: Eremun karaktere ez baliagarriak ditu
     field_invalid_date: Eremu honek data UUUU-HH-EE formatuan behar du
     greeting2: Ongi etorri!
     greeting_extended: Ongi Etorri Wikipediara
@@ -33,14 +34,22 @@ eu:
     details: Xehetasunak
     confirm: OK
   dashboard:
+    create_note: Klik egin Ikastaroa Sortu zure lehenengo ikastaroa sortzeko
     explore_course_pages: Esploratu Ikastaro Orrialdeak
     explore_examples: Adibideetan Arakatu
+    join_note: Irakaslearen pasahitza jasotakoan, klik egin Zure Ikastaroa Bilatun
+      ikastaroa aurkitzeko eta ikastaroari batu.
+    no_courses_instructor: Badirudi irastarorik ez duzula.
+    no_courses_student: Badirudi oraindik ez duzula ikastarorik atxiki.
     review_orientation: Orientazioa Berrikusi
     start_orientation: Orientazioa Hasi
   home:
     explore: Esploratu
     log_in: Saioa hasi Wikipedian
     sign_up: Wikipediarekin saioa hasi
+    sign_up_help: Aginte-panela erabiltzeko, Wikipediaren bitartez saioa hasi eta
+      konturako sarbidea ematea baimendu beharko duzu. Wikipedian existitzen den kontu
+      batekin erregistratu zaitezke, ala kontu berri bat sortu.
   activity:
     all: Jarduera
     edited_by: Nork Editatua
@@ -49,19 +58,29 @@ eu:
     assigned: Esleitutako Artikuluak
     available: Artikulu erabilgarriak
     assigned_to: 'Nori Esleitua:'
+    character_doc: Hasiera eta amaiera daten artean, atxikitako editoreek artikuluetan
+      gehitutako karaktere kopurua.
     edited: Editatutako artikuluak
+    edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
     hide: Ezkutatu
     label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
+    none: Ikastaro honek ez du artikulurik editatu.
     rating: Klasea
+    show_cumulative_changes: Erakutsi Aldaketa Metagarriak
+    show_current_version: Erakutsi Oraingo Bertsioa
     title: Izenburua
     title_example: Artikuluaren izenburua
     view: Artikulua ikusi
     view_all: Denak ikusi
+    view_on_wiki: Ikus wikian
+    edit_size: Tamaina Aldatu
     wp10: Egituraren Trinkotasuna
   assignments:
+    article: '%{title} artikulua esleitua izan da'
+    already_exists: Dagoeneko esleitua dago!
     assignees: Esleitua(k)
     assign_other: Artikulu bat esleitu
     add_available: Gehitu artikulu erabilgarri bat
@@ -83,9 +102,32 @@ eu:
     milestones:
       title: Mugarriak
   campaign:
+    active_campaigns: Kanpaina Aktiboak
+    add_organizer: Antolatzailea gehitu
+    all_campaigns: Kanpaina Guztiak
+    already_exists: Kanpaina hori dagoeneko existitzen da! Mesedez, saiatu berriro
+      izenburu desberdin batekin.
+    campaign: Kanpaina
+    campaigns: Kanpainak
+    campaign_deleted: '%{title} kanpaina ezabatua izan da'
+    campaign_not_updated: Kanpaina ezin izan da eguneratu
+    campaign_updated: Kanpaina eguneratua
+    create_campaign: Kanpaina Berria Sortu
+    create_my_campaign: Sortu Nire Kanpaina!
+    description: Deskribapena
+    delete_campaign: Ezabatu kanpaina hau
     none: Bat ere ez
+    organizers: Antolatzaileak
+    organizer_added: '%{user} orain %{title} kanpainako antolatzsile bat da'
+    program_template: Programa Txantiloia
+    title: Izenburua
+    use_start_end_dates: Hasiera eta amaiera datak erabili
+  chat:
+    label: Txata
   courses:
     activity: Jarduera
+    active_courses: '%{course_type} aktiboak'
+    all_courses: Ikastaro Guztiak
     already_enrolled: Dagoeneko %{title} ikastaroaren partaide zara!
     already_exists: Hori dagoeneko existitzen da ikastaro honetan!
     archived: Artxibatutako Ikastaroak
@@ -94,18 +136,23 @@ eu:
     articles_none: Ikastaro honek ez du artikulurik editatu.
     assignment_end: Esleipen Amaiera
     assignments_none: Ikastaro honek ez du esleitutako artikulurik.
+    assignment_start: Esleipen Hasiera
     calendar:
       legend: Azalpena
       legend_class_canceled: Oporretan/Bertan behera
+    cancel: Utzi
     campaigns: 'Taldeak:'
+    campaign_courses: '%{title} Ikastaroak'
     course_description: Ikastaroak
     courses: Ikastaroak
+    courses_taught: Irakatsitako Ikastaroak
     creation_date: Sorrera data
     creator:
       assignment_end: Esleipen amaiera
       assignment_end_placeholder: Esleipen amaiera (UUUU-HH-EE)
       assignment_start: Esleipen hasiera
       assignment_start_placeholder: Esleipen hasiera(UUUU-HH-EE)
+      clone_successful: Ikastaroa Ondo Klonatu da
       course_description: Ikastaroaren deskribapena
       course_language: Hizkuntza nagusia
       course_project: Proiektu nagusia
@@ -132,6 +179,7 @@ eu:
     duration: Ikastaroaren Iraupena
     edit_course_dates: Aldatu ikastaroaren datak
     end: Amaitu
+    ended: Ikastaroa amaituta dago.
     enroll: Izena eman
     enrollment: Izen ematea
     error:
@@ -153,10 +201,11 @@ eu:
     new_week: Gehitu Aste Berria
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
     none: Bat ere ez
-    overview: Ikuspegi orokorra
+    overview: Hasiera
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
     passcode_prompt: 'Sartu zure pasahitza:'
+    revisions_doc: Azken %{timeframe} egunetan egindako aldaketa kopurua
     school: Eskola
     start: Hasi
     start_typing: Hasi idazten
@@ -171,6 +220,7 @@ eu:
     title: Izenburua
     training_nav: Zoaz trebakuntzara
     untrained: Trebatu gabe
+    view_other: Ikus beste kanpainak
     view: Ikusi Ikastaroa
     view_page: Ikusi Ikastaroaren Orrialdea
     view_wiki: Wikipedia-n ikusi
@@ -179,8 +229,12 @@ eu:
   courses_generic:
     assignment_end: Denbora-lerroaren Amaiera
     assignment_start: Denbora-lerroaren Hasiera
+    cancel: Utzi
     courses: Programak
+    campaigns: 'Kanpainak:'
+    campaign_courses: '%{title} Programak'
     creator:
+      clone_this: Klonatu programa hau
       course_description: Programaren deskribapena
       course_school: Erakundea
       course_title: Programaren izena
@@ -189,22 +243,32 @@ eu:
       create_new: Programa Berri bat sortu
       create_short: Sortu Programa
       find: Programa bat bilatu
+      intro: Programaren izenburua ezinbestekoa, gainerako guztia geroago bete daiteke.
+        Klik egin "Nire programa sortu!" botoian eta hasi zure wikiprogramaren orria
+        osatzen.
+    delete_course: Ezabatu programa
     edit_course_dates: Aldatu Proiektuaren Datak
+    explore: Programak bilatu
     enroll: Gehitu Editorea
     enrollment: Parte-hartzea
     expected_students: Espero diren editoreak
     instructors: Bideratzaileak
     join_course: Programan parte hartu
+    leave_course: Programa utzi
     milestones_none: Proeiktu honek ez du gaur egun mugarririk.
     school: Erakundea
     student_editors: Editoreak
     students: Editoreak
     students_short: Editoreak
+    students_count: Parte hartzaile kopurua
     term: Noiz
+    yourcourses: Zure Programak
   editable:
     edit: Aldatu
     cancel: Utzi
     save: Gorde
+    edit_description: Aldatu Deskribapena
+    edit_details: Aldatu Xehetasunak
   metrics:
     activity: Azken jarduera
     articles_created: Sortutako artikuluak
@@ -217,6 +281,7 @@ eu:
     edit_count_description: Aldaketak guztira
     per_user: '%{number}/erabiltzaile'
     revisions: Azken Aldaketak
+    tags: Etiketak
     upload_count: Commons Igoerak
     view_count_description: Artikuluaren ikustaldiak
     view: Ikustaldiak
@@ -241,10 +306,14 @@ eu:
     class: Ikasgela
     date_time: Data/Ordua
     diff: ezb
+    diff_show: Erakutsi
+    diff_hide: Ezkutatu
     edited_by: Nork Editatua
+    edited_on: 'Noiz editatua: %{edit_date}'
     loading: Berrikuspenak kargatzen...
     none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     title: Izenburua
+    view_on_wiki: Ikus ezb wikian
   timeline:
     add_week: Gehitu Astea
     arrange_timeline: Denbora-lerroa berrantolatu
@@ -281,6 +350,7 @@ eu:
     assigned: Esleitutako Artikuluak
     assignees: Esleitua(k)
     contributions: Lankidearen ekarpenak
+    contributions_history_full: Ikusi Wikipedian egindako ekarpenen historia osoa
     course_passcode: 'Pasahitza:'
     editors: Editoreak
     first_name: Izena
@@ -291,9 +361,11 @@ eu:
     name: Izena
     none: Ez dago partaiderik.
     no_articles: Artikulurik ez
+    no_revisions: Editore honek ez du aldaketarik egin.
     recent_revisions: Azken Aldaketak
     revision_characters_and_views: 'Gehitutako Karaktereak:%{characters}, Ikustaldiak:
       %{views}'
+    revisions_doc: Lankide honen azken 7 egunetan egindako aldaketa kopurua
     reviewers: Berrikuslea(k)
     reviewing: Berrikusten
     training_module_name: Trebakuntza moduloa

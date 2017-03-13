@@ -133,6 +133,7 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
+    article: Se asignó el artículo %{title}
     already_exists: ¡Esta tarea ya existe!
     assignees: Asignado(s)
     assign_other: Asignar un artículo
@@ -172,17 +173,23 @@ es:
     course_already_removed: '"%{title}" ya se había eliminado de la campaña "%{campaign_title}"'
     course_removed: '"%{title}" se ha eliminado de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
+    create_my_campaign: ¡Crear mi campaña!
     description: Descripción
     delete_campaign: Eliminar esta campaña
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
     organizer_removed: '%{user} ya no es organizador de la campaña "%{title}"'
+    program_template: Plantilla de programa
+    program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
+      el texto de esta área se copiará como una descripción en la página del programa
     title: Título
+    use_start_end_dates: Usar fechas de inicio y fin
   chat:
     label: Chat
   courses:
     activity: Actividad
+    active_courses: '%{course_type} activos'
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
@@ -642,6 +649,9 @@ es:
       online_volunteer: Voluntario en línea
       wiki_ed_staff: Personal de Wiki Ed
   user_profiles:
+    student_impact: Impacto total de %{username} como estudiante
+    instructor_impact: Impacto total de %{username} como instructor
+    instructors_student_impact: Impacto total de los estudiantes de %{username}
     disclaimer: La información que proporciones estará disponible públicamente.
     bio_placeholder: Añade tu biografía (opcional)
     location_placeholder: Añade tu ubicación (opcional)
@@ -686,8 +696,10 @@ es:
   error:
     form_errors: Verifica que el formulario no tenga errores.
     invalid_assignment: Asignación no válida
+    invalid_date: La fecha de %{key} no es válida
     invalid_file_format: El archivo no se pudo guardar. Sube un documento PDF o Word.
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
+    start_date_before_end_date: La fecha inicial debe ser anterior a la fecha final.
     unsupported_browser:
       header: Navegador no soportado. :-(
       explanation: Está utilizando un navegador que no es compatible con el panel
@@ -747,4 +759,6 @@ es:
       message: Este es un recordatorio acerca de la encuesta para tu curso, %{course_title}.
         Cualquier comentario recibido a través de esta encuesta nos ayuda a mejorar
         nuestro apoyo a tareas en la Wikipedia, como las tuyas.
+  feedback_form_responses:
+    no_responses: Todavía no hay respuestas/comentarios.
 ...
