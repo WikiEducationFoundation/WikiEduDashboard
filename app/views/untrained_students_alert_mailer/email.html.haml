@@ -27,4 +27,4 @@
                 Best regards,
                 %br
                 %em
-                  = @alert.from_user.real_name
+                  = @alert.from_user&.real_name || 'Wiki Ed'
