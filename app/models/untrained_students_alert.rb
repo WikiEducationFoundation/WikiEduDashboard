@@ -39,6 +39,6 @@ class UntrainedStudentsAlert < Alert
   end
 
   def reply_to
-    from_user.email
+    from_user&.email
   end
 end
