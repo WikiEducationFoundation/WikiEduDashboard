@@ -83,6 +83,22 @@ const API = {
     });
   },
 
+  fetchStatsData(username){
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'GET',
+        url: `/user_stats.json?username=${ username }`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchArticleDetails(articleId, courseId) {
     return new Promise((res, rej) => {
       const url = `/articles/details.json?article_id=${articleId}&course_id=${courseId}`;
@@ -130,6 +146,23 @@ const API = {
         return rej(obj);
       })
     );
+  },
+
+  fetchProfileStatsData(opts) {
+      return new Promise((res, rej) =>
+        $.ajax({
+          type: 'GET',
+          url: `/users/stats_data.json?username=${opts}`,
+          success(data) {
+            console.log('Received profile stats data');
+            return res(data);
+          }
+        })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+      );
   },
 
   fetchRecentEdits(opts = {}) {

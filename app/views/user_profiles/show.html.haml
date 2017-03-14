@@ -8,7 +8,7 @@
 
     #profile_details
 
-      #react_root
+      #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
 
       - if @user.course_instructor? || @user.course_student?
         #statistics
