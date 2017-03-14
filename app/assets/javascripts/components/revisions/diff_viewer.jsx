@@ -194,22 +194,21 @@ const DiffViewer = React.createClass({
       <div>
         {button}
         <div className={className}>
-          <p>
-            <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
+          <div className="diff-header">
+            <h3>Article Name</h3>
             {button}
-            <a className="pull-right button small" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
-          </p>
+          </div>
           <table>
             <thead>
-              <tr>
-                <th colSpan="4" className="diff-header">{diffComment}</th>
-              </tr>
-              <tr>
-                <th colSpan="4" className="diff-header">{editDate}</th>
-              </tr>
             </thead>
             <tbody dangerouslySetInnerHTML={{ __html: diff }} />
           </table>
+          <div className="diff-footer">
+            <p> Edited by Ivan Cruz </p>
+            {diffComment}
+            {editDate}
+            <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
+          </div>
         </div>
       </div>
     );
