@@ -8,20 +8,13 @@
 
     #profile_details
 
-      #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
-
       - if @user.course_instructor? || @user.course_student?
         #statistics
           %h3
             = t("users.contribution_statistics")
           %br/
           #inner_statistics
-            - if @user.course_instructor?
-              = render 'user_profiles/instructor_cumulative_stats', presenter: @courses_presenter
-              %hr
-            -elsif @user.course_student?
-              = render 'user_profiles/student_cumulative_stats', presenter: @individual_stats_presenter
-              %hr
+            #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
 
       #course-details
         - if @courses_users.present?

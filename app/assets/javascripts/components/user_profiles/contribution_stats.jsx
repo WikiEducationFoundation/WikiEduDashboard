@@ -1,7 +1,6 @@
 import React from 'react';
 import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
-import ByStudents from './by_students.jsx';
 import ProfileStore from '../../stores/profile_store.js';
 import ProfileActions from '../../actions/profile_actions.js';
 
@@ -63,82 +62,15 @@ const ContributionStats = React.createClass({
     console.log('store_data');
     console.log(this.state.stats);
     let contriStats;
-    let navElements;
-    let statistics;
-
-    if (this.state.selectedLink === 'instructor_stats')
-    {
+    if (this.state.isinstructor.instructor) {
       contriStats = <InstructorStats />;
     }
-    else if (this.state.selectedLink === 'student_stats') {
+    else if (this.state.isstudent.student) {
       contriStats = <StudentStats />;
     }
-    else if (this.state.selectedLink === 'bystudents_stats') {
-      contriStats = <ByStudents />;
-    }
-
-
-    if (this.state.isstudent.student || this.state.isinstructor.instructor)
-    {
-      if (this.state.isstudent.student && this.state.isinstructor.instructor) {
-        navElements = (
-          <ul className = "top-nav__main-links">
-            <li>
-              <button onClick={this.setInstructor} className="button dark">As an Instructor</button>
-            </li>
-            <li>
-              <button onClick={this.setStudent} className="button dark">As a student</button>
-            </li>
-            <li>
-              <button onClick={this.setByStudents} className="button dark">By his/her students</button>
-            </li>
-          </ul>
-        );
-      }
-      else if (this.state.isstudent.student) {
-        navElements = (
-          <ul className = "top-nav__main-links">
-            <li>
-              <button onClick={this.setStudent} className="button dark">As a student</button>
-            </li>
-          </ul>
-        );
-      }
-      else if (this.state.isinstructor.instructor) {
-        navElements = (
-          <ul className = "top-nav__main-links">
-            <li>
-              <button onClick={this.setInstructor} className="button dark">As an Instructor</button>
-            </li>
-            <li>
-              <button onClick={this.setByStudents} className="button dark">By his/her students</button>
-            </li>
-          </ul>
-        );
-      }
-
-      statistics = (
-        <div>
-          <div id = "react-profile">
-            <div id = "react-info">
-              <h4>
-                Total Impact made by { this.props.params.username }
-              </h4>
-            </div>
-            <div id = "react-nav">
-              <nav className ="profile-nav">
-                {navElements}
-              </nav>
-            </div>
-          </div>
-          {contriStats}
-        </div>
-      );
-    }
-
     return (
       <div>
-        { statistics }
+        {contriStats}
       </div>
     );
   }
