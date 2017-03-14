@@ -21,10 +21,24 @@
 # Alert for a course that has no enrolled students after it is underway
 class NoEnrolledStudentsAlert < Alert
   def main_subject
-    course.slug
+    "Enrolling students for #{course.slug}"
   end
 
   def url
     course_url
+  end
+
+  def send_email
+    return if emails_disabled?
+    NoEnrolledStudentsAlertMailer.email(self).deliver_now
+    update_attribute(:email_sent_at, Time.now)
+  end
+
+  def from_user
+    @from_user ||= User.find_by(username: ENV['communications_manager'])
+  end
+
+  def reply_to
+    from_user&.email
   end
 end

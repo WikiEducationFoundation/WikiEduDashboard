@@ -21,7 +21,7 @@
 # Alert for a course that has no enrolled students after it is underway
 class UntrainedStudentsAlert < Alert
   def main_subject
-    course.slug
+    "Student training for #{course.slug}"
   end
 
   def url

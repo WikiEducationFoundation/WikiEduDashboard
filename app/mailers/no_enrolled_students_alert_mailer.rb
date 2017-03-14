@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class UntrainedStudentsAlertMailer < ApplicationMailer
+class NoEnrolledStudentsAlertMailer < ApplicationMailer
   def email(alert)
     return unless Features.email?
     @alert = alert
@@ -16,6 +16,8 @@ class UntrainedStudentsAlertMailer < ApplicationMailer
 
   def set_course_and_users
     @course = @alert.course
+    @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
+    @enroll_link = "#{@course_link}?enroll=#{@course.passcode}"
     @admins = @course.nonstudents.where(permissions: 1)
     @instructors = @course.instructors
     @greeted_users = @instructors.pluck(:username).to_sentence # eg, "User, User2, and User3"

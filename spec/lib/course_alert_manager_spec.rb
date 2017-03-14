@@ -45,7 +45,7 @@ describe CourseAlertManager do
     end
 
     it 'creates an Alert record and emails a greeter' do
-      expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
+      expect_any_instance_of(NoEnrolledStudentsAlertMailer).to receive(:email).and_return(mock_mailer)
       subject.create_no_students_alerts
       expect(Alert.count).to eq(1)
       expect(Alert.last.email_sent_at).not_to be_nil
