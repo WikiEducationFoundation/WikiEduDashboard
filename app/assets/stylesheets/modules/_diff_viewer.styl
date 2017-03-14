@@ -1,6 +1,6 @@
 .diff-viewer
   background-color white
-  padding 10px
+  padding 0
   position fixed
   top 70px
   /*@noflip*/ left 50%
@@ -10,42 +10,77 @@
   z-index 10
   border 1px solid mischka
   border-radius 3px
-  box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
+  box-shadow 0 0 20px 0 rgba(0, 0, 0, .2)
   transform translateX(-50%)
   overflow-x scroll
 
-.diff-comment
-  text-align center
+  .diff-header
+    border-bottom 1px solid $border_lt
+    align-items center
+    display flex
+    justify-content space-between
+    padding 16px
 
-.diff-header
-  border none !important
+    h3,
+    p
+      margin 0
 
-.diff-lineno
-  display none
+  .diff-footer
+    border-top 1px solid $border_lt
+    align-items center
+    display flex
+    justify-content space-between
+    padding 16px
 
-.diff-marker
-  border none !important
-  padding-top 0 !important
-  padding-bottom 0 !important
-  padding-left 12px !important
-  padding-right 12px !important
+  .diff-comment
+    text-align center
 
-.diff-empty
-  border none !important
+  table
+    width 100%
+    position relative
 
-.diff-context
-  display none
+  table > tbody > tr
 
-.diff-addedline
-  border 2px solid #dff0d8 !important
-  max-width 600px
-  overflow hidden
-  .diffchange-inline
-    background-color #dff0d8
+    td
+      border none !important
+      vertical-align baseline
 
-.diff-deletedline
-  border 2px solid #f2dede !important
-  max-width 500px
-  overflow hidden
-  .diffchange-inline
-    background-color #f2dede
+    .diff-th,
+    .diff-lineno,
+    .diff-marker,
+    .diff-empty
+      display none
+
+    .diff-addedline,
+    .diff-deletedline,
+    .diff-context,
+    .diff-empty
+      overflow hidden
+      padding 24px
+      width 50%
+      max-width 50% !important
+
+    // .diffchange-inline
+    //   display block
+    //   padding 16px
+
+    .diff-context
+      color rgba(0,0,0,0.40)
+      border 1px solid $border_lt !important
+
+    .diff-addedline
+      border-left 1px solid $border_lt !important
+      background-color rgba(150,232,134,0.10)
+
+      .diffchange-inline
+        background-color rgba(150,232,134,0.27)
+
+    .diff-deletedline
+      background-color rgba(255,0,0,0.05)
+      border-right 1px solid $border_lt !important
+
+      .diffchange-inline
+        background-color rgba(255,0,0,0.10)
+
+    del, ins
+      text-decoration none !important
