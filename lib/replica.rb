@@ -14,7 +14,7 @@ class Replica
 
   # This is the maximum number of concurrent queries the system should run
   # against the wmflabs replica endpoint.
-  CONCURRENCY_LIMIT = 3
+  CONCURRENCY_LIMIT = 10
 
   ################
   # Entry points #
