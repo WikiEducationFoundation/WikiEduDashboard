@@ -13,6 +13,13 @@ describe PushCourseToSalesforce do
       expect(subject.result).to eq(true)
     end
 
+    it 'works for a VisitingScholarship' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+      visiting_scholarship = create(:visiting_scholarship, flags: flags)
+      subject = described_class.new(visiting_scholarship)
+      expect(subject.result).to eq(true)
+    end
+
     it 'handles Salesforce API downtime gracefully' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!)
         .and_raise(Faraday::ParsingError.new('Salesforce is down'))
