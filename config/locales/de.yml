@@ -661,6 +661,10 @@ de:
     student_impact: Gesamtauswirkung durch %{username} als Student
     instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
     instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
+    disclaimer: Die angegebenen Informationen werden öffentlich verfügbar gemacht.
+    bio_placeholder: Ergänze deine Biografie (optional)
+    location_placeholder: Ergänze deinen Standort (optional)
+    institution_placeholder: Name der Einrichtung (optional)
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

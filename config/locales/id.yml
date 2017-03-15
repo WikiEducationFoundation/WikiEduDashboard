@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Arief
 # Author: Arifin.wijaya
+# Author: Hidayatsrf
 # Author: Mirws
 # Author: Presidenvolksraad
 # Author: Rachmat.Wahidi
@@ -72,6 +73,8 @@ id:
     training_complete:
       one: telah diperbarui dengan pelatihan
       other: telah diperbarui dengan pelatihan
+  user_profiles:
+    institution_placeholder: Nama institusi (opsional)
   wizard:
     assignment_description: Pilih tanggal mulai dan akhir untuk waktu tugas Anda.
       Sebagai contoh, jika Anda ingin memulai proyek Wikipedia Anda minggu kedua kelas,

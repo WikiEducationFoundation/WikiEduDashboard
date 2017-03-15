@@ -128,7 +128,7 @@ class CoursesUsers < ActiveRecord::Base
     Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
   end
 
-  CACHE_UPDATE_CONCURRENCY = 3
+  CACHE_UPDATE_CONCURRENCY = 5
   def self.update_all_caches_concurrently
     threads = CoursesUsers.ready_for_update
                           .in_groups(CACHE_UPDATE_CONCURRENCY, false)

@@ -13,13 +13,27 @@ class ArticleStatusManager
 
   # Queries deleted state and namespace for all articles
   def self.update_article_status
-    Course.current.each do |course|
-      course_articles = course.pages_edited
-      Wiki.all.each do |wiki|
-        articles = course_articles.where(wiki_id: wiki.id)
-        next if articles.empty?
-        new(wiki).update_status(articles)
+    threads = Course.current
+                    .in_groups(Replica::CONCURRENCY_LIMIT, false)
+                    .map.with_index do |course_batch, i|
+      Thread.new(i) do
+        course_batch.each do |course|
+          update_article_status_for_course(course)
+        end
       end
+    end
+    threads.each(&:join)
+  end
+
+  #################
+  # Class helpers #
+  #################
+  def self.update_article_status_for_course(course)
+    course_articles = course.pages_edited
+    Wiki.all.each do |wiki|
+      articles = course_articles.where(wiki_id: wiki.id)
+      next if articles.empty?
+      new(wiki).update_status(articles)
     end
   end
 

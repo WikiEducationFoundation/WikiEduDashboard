@@ -7,6 +7,7 @@ require "#{Rails.root}/lib/tag_manager"
 require "#{Rails.root}/lib/course_creation_manager"
 require "#{Rails.root}/app/workers/update_course_worker"
 require "#{Rails.root}/app/workers/notify_untrained_users_worker"
+require "#{Rails.root}/app/workers/announce_course_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -58,10 +59,11 @@ class CoursesController < ApplicationController
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     verify_edit_credentials { return }
+    set_endpoint
 
     respond_to do |format|
       format.html { render }
-      format.json { render params[:endpoint] }
+      format.json { render @endpoint }
     end
   end
 
@@ -149,11 +151,10 @@ class CoursesController < ApplicationController
   def handle_course_announcement(instructor)
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
-    CourseSubmissionMailer.send_submission_confirmation(@course, instructor)
-    WikiCourseEdits.new(action: 'announce_course',
-                        course: @course,
-                        current_user: current_user,
-                        instructor: instructor)
+    CourseSubmissionMailerWorker.schedule_email(@course, instructor)
+    AnnounceCourseWorker.schedule_announcement(course: @course,
+                                               editing_user: current_user,
+                                               instructor: instructor)
   end
 
   def should_set_slug?
@@ -191,6 +192,15 @@ class CoursesController < ApplicationController
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type)
+  end
+
+  SHOW_ENDPOINTS = %w(articles assignments campaigns check course revisions tag tags
+                      timeline uploads users).freeze
+  # Show responds to multiple endpoints to provide different sets of json data
+  # about a course. Checking for a valid endpoint prevents an arbitrary render
+  # vulnerability.
+  def set_endpoint
+    @endpoint = params[:endpoint] if SHOW_ENDPOINTS.include?(params[:endpoint])
   end
 
   # If the user could make an edit to the course, this verifies that

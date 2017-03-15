@@ -1,0 +1,30 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hi #{@greeted_users}."
+                I hope your term is going well. Our student training modules provide
+                students with critical information as they learn how to contribute
+                to Wikipedia. I noticed that some of your students are not up-to-date
+                with the student training modules as outlined on your course timeline.
+              %p.paragraph
+                The trainings can be easy to overlook, but they truly help your
+                students as they navigate Wikipedia.
+              %p.paragraph
+                Of course, if your schedule has changed, just let us know and update it on your course page.
+              %p.paragraph
+                Looking forward to seeing all the great contributions your students make this term.
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  = @alert.from_user&.real_name || 'Wiki Ed'

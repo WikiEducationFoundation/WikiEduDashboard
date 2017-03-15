@@ -20,7 +20,7 @@ class ArticlesForDeletionMonitor
 
   def create_alerts_from_page_titles
     course_articles = ArticlesCourses.joins(:article)
-                                     .where(articles: { title: @page_titles })
+                                     .where(articles: { title: @page_titles, wiki_id: @wiki.id })
     course_articles.each do |articles_course|
       create_alert(articles_course)
     end

@@ -56,8 +56,7 @@ class DailyUpdate
     UploadImporter.update_usage_count_by_course(Course.all)
 
     log_message 'Getting thumbnail urls for Commons uploads'
-    thumbless_uploads = CommonsUpload.where(thumburl: nil, deleted: false)
-    UploadImporter.import_urls_in_batches(thumbless_uploads)
+    UploadImporter.import_all_missing_urls
   end
 
   def update_article_data

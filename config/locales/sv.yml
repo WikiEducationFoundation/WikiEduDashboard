@@ -300,6 +300,9 @@ sv:
       instructor: Instruktör
       campus_volunteer: '{{SITENAME}}ambassadör'
       online_volunteer: Onlineambassadör
+  user_profiles:
+    disclaimer: Informationen du uppger kommer att vara offentlig.
+    bio_placeholder: Lägg till din bio (valfritt)
   wizard:
     select_one_option: Välj 1 alternativ.
     read_less: Läs mindre

@@ -45,8 +45,8 @@ nb:
       du alltids kan endre tidslinja til å passe dine behov.
     explore_course_pages: Utforsk kurssidene
     explore_examples: Utforsk eksempler
-    join_note: Når du har mottatt en passkode fra instruktøren din, klikk på «Finn
-      ditt kurs» for å finne og bli med i det.
+    join_note: Når du har mottatt en påmeldingskode fra instruktøren din, klikk på
+      «Finn ditt kurs» for å finne og bli med i det.
     no_courses_instructor: Det ser ut som du ikke har noen kurs.
     no_courses_student: Det ser ut som du ikke har blitt med i noen kurs ennå.
     opt_out: Spør om å hoppe over orienteringen
@@ -81,6 +81,9 @@ nb:
     new: (ny)
     none: Dette kurset har ikke redigert noen artikler.
     rating: Klasse
+    rating_doc: Rangeringen en artikkel har blitt gitt av underprosjekter på Wikipedia.
+      Disse rangeringene korresponderer ofte til mye eldre versjoner av artikkelen,
+      så de er bare en grov indikator på artikkelens nåværende form.
     rating_docs:
       fa: Utmerket artikkel – Wikipedias høyeste rating, troligvis for vanskelig å
         oppnå til å være en ny brukers hovedprosjekt
@@ -170,6 +173,8 @@ nb:
       vil teksten i dette feltet kopieres over som beskrivelse på programsiden
     title: Tittel
     use_start_end_dates: Bruk start- og sluttdatoer
+  chat:
+    label: Chat
   courses:
     activity: Aktivitet
     all_courses: Alle kurs
@@ -246,13 +251,18 @@ nb:
       start_date: Startdato
       start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
       subject: Emne
+      update_scheduled: Oppdatering planlagt. Dataene vil bli oppdatert sammen med
+        alle gjeldende programmer under neste oppdateringssyklus. Dette tar ofte flere
+        timer.
     current: Nåværende kurs
     delete_course: Slett kurs
     dismiss_survey: Avvis
     dismiss_survey_confirm: Er du sikker på at du vil avvise denne undersøkelsen permanent?
     duration: Kursvarighet
     edit_course_dates: Rediger kursdatoer
+    enable_chat: Slå på chat
     end: Slutt
+    ended: Kurset er avsluttet.
     enroll: Meld deg på
     enrollment: Påmelding
     error:
@@ -291,9 +301,9 @@ nb:
       Er du sikker på at du vil gjøre det?
     no_available_actions: Ingen tilgjengelige handlinger
     overview: Hjem
-    passcode: Passkode
-    passcode_none: Ingen passkode
-    passcode_prompt: Skriv inn passkoden du fikk fra instruktøren din i dette kurset
+    passcode: Påmeldingskode
+    passcode_none: Ingen påmeldingskode
+    passcode_prompt: 'Skriv inn påmeldingskoden for å melde deg på:'
     published: 'Kurset ditt har blitt publisert! Studenter kan føre seg inn i kurset
       ved å besøke følgende URL:'
     review_timeline: Gå gjennom denne tidslinja og gjør forandringer. Når du er fornøyd,
@@ -383,6 +393,8 @@ nb:
     expected_students: Forventede bidragsytere
     instructors: Tilretteleggere
     join_course: Bli med i program
+    join_details: For å bli med i dette programmet må du få påmeldingskoden – eller
+      ei lenke som inkluderer påmeldingskoden – fra arrangøren.
     leave_course: Forlat program
     milestones_none: Dette prosjektet har for tiden ingen milepæler.
     published: 'Dette prosjektet har blitt publisert! Bidragsytere kan melde seg på
@@ -563,7 +575,7 @@ nb:
     contributions_history_full: Vis full bidragshistorikk på Wikipedia
     contributions_more: Vis flere bidrag
     contribution_statistics: Bidragsstatistikk
-    course_passcode: 'Passkode:'
+    course_passcode: 'Påmeldingskode:'
     editors: Bidragsytere
     enroll_confirmation: Er du sikker på at du vil legge til %{username}?
     enroll_url: 'Brukere kan bli med ved å besøke denne URL-en:'
@@ -603,6 +615,15 @@ nb:
       student: Student
       instructor: Instruktør
       wiki_ed_staff: Wiki Ed-ansatte
+  user_profiles:
+    disclaimer: Informasjonen du oppgir vil bli gjort offentlig.
+    bio_placeholder: Legg til biografi (valgfritt)
+    location_placeholder: Legg til sted (valgfritt)
+    institution_placeholder: Institusjonsnavn (valgfritt)
+  wiki_edits:
+    notify_overdue:
+      confirm: Dette vil poste en påminnelse på diskusjonssiden til alle studenter
+        som ikke har fullført øvelsene. Er du sikker på at du vil gjøre dette?
   wizard:
     assignment_dates: Oppgavedatoer
     assignment_type: Oppgavetype
@@ -636,9 +657,9 @@ nb:
       du har fått denne beskjeden ved en feil, kontakt dashbordets vedlikeholdere
       for å la dem vite om feilen.
   error_incorrect_passcode:
-    header: Gal passkode. :-(
-    explanation: Passkoden for påmelding til dette kurset er feil. Spør en instruktør
-      om den nåværende passkoden for å melde deg på dette kurset.
+    header: Feil påmeldingskode. :-(
+    explanation: Påmeldingskoden til dette kurset er feil. Spør en instruktør om den
+      gjeldende påmeldingskoden for å melde deg på dette kurset.
   error_404:
     header: Side ikke funnet. :-(
     explanation: Denne siden finnes ikke. Om du prøvde å nå dashbordet for et kurs
@@ -673,4 +694,10 @@ nb:
       closing: Med vennlig hilsen,
       signed: – Wiki Ed-teamet
       link: Ta undersøkelsen
+    follow_up:
+      message: Dette er en påminnelse om undersøkelsen for kurset ditt, %{course_title}.
+        Tilbakemeldinger fra denne undersøkelsen hjelper oss å forbedre støtten vår
+        til Wikipedia-oppgaver som den du har gjort.
+  feedback_form_responses:
+    no_responses: Ingen tilbakemeldinger ennå.
 ...

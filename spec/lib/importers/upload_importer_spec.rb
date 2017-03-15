@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/importers/upload_importer"
 
 describe UploadImporter do
   describe '.import_all_uploads' do
-    it 'should find and record files uploaded to Commons' do
+    it 'finds and saves files uploaded to Commons' do
       create(:user,
              username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
@@ -23,7 +23,7 @@ describe UploadImporter do
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
-    it 'should count and record how many times files are used' do
+    it 'counts and saves how many times files are used' do
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
       end
@@ -55,8 +55,19 @@ describe UploadImporter do
     end
   end
 
+  describe '.import_all_missing_urls' do
+    it 'processes all files that need thumbnails' do
+      create(:commons_upload, file_name: 'File:Magnolia × soulangeana blossom.jpg')
+      expect(CommonsUpload.last.thumburl).to be_nil
+      VCR.use_cassette 'commons/import_all_missing_urls' do
+        UploadImporter.import_all_missing_urls
+      end
+      expect(CommonsUpload.last.thumburl).not_to be_nil
+    end
+  end
+
   describe '.import_urls_in_batches' do
-    it 'should find and record Commons thumbnail urls' do
+    it 'finds and saves Commons thumbnail urls' do
       create(:user,
              username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do

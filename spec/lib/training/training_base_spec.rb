@@ -4,6 +4,13 @@ require "#{Rails.root}/lib/training/training_base"
 require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
+  describe 'abstract parent class' do
+    it 'raises errors for required template methods' do
+      subject = TrainingBase.new({}, 'foo')
+      expect { subject.valid? }.to raise_error(NotImplementedError)
+    end
+  end
+
   describe '.load' do
     context 'when a file is misformatted' do
       let(:subject) do

@@ -203,6 +203,10 @@ bn:
     role:
       student: ছাত্র
       online_volunteer: অনলাইন স্বেচ্ছাসেবক
+  user_profiles:
+    bio_placeholder: আপনার জীবনী যোগ করুন (ঐচ্ছিক)
+    location_placeholder: আপনার অবস্থান যোগ করুন (ঐচ্ছিক)
+    institution_placeholder: ইনস্টিটিউটের নাম (ঐচ্ছিক)
   wizard:
     read_more: আরও পড়ুন
     summary: সারাংশ

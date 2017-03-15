@@ -24,9 +24,11 @@ class WikiSlideParser
   # Everything after the first translated line is the slide content
   def content
     return '' if @wikitext.blank?
-    wikitext = @wikitext.lines[1..-1].join
-    wikitext.gsub!(/^\n*/) # Remove leading newlines
-    Wikitext.mediawiki_to_markdown(wikitext)
+    wikitext = @wikitext.lines[1..-1].join # Line 0 is the title
+    wikitext[0] = '' while wikitext[0] == "\n" # Remove leading newlines
+    markdown = Wikitext.mediawiki_to_markdown(wikitext)
+    # Make sure first line after a figure gets parsed as a new paragraph
+    markdown.gsub("figure>\n", "figure>\n\n")
   end
 
   def quiz

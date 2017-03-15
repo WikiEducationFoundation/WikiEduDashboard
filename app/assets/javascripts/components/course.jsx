@@ -122,8 +122,8 @@ const Course = React.createClass({
     if ((userRole > 0 || this.state.current_user.admin) && !this.state.course.legacy && !this.state.course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
       if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse') {
-        // Show submit button if there is a timeline, or user is admin.
-        if (this.state.weeks.length || this.state.current_user.admin) {
+        // Show submit button if there is a timeline with trainings, or user is admin.
+        if (CourseUtils.hasTrainings(this.state.weeks) || this.state.current_user.admin) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -131,8 +131,17 @@ const Course = React.createClass({
                 <a href="#" onClick={this.submit} className="button">{I18n.t('application.submit')}</a>
               </div>
             </div>
-          )
-          );
+          ));
+        // Show 'add trainings' message if there is a timeline with no trainings
+        } else if (this.state.weeks.length) {
+          alerts.push((
+            <div className="notification" key="submit">
+              <div className="container">
+                <p>Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.</p>
+                <a href={`${this._courseLinkParams()}/timeline`} className="button">Go to Timeline</a>
+              </div>
+            </div>
+          ));
         // Show 'create a timeline' message if there is no timeline.
         } else {
           alerts.push((
@@ -142,8 +151,7 @@ const Course = React.createClass({
                 <a href={`${this._courseLinkParams()}/timeline`} className="button">Launch the Wizard</a>
               </div>
             </div>
-          )
-          );
+          ));
         }
       }
 
@@ -157,8 +165,7 @@ const Course = React.createClass({
                 <p>{I18n.t('courses.submitted_note')}</p>
               </div>
             </div>
-          )
-          );
+          ));
         // Instruct admins to approve the course by adding a campaign.
         } else {
           const homeLink = `${this._courseLinkParams()}/home`;
@@ -169,8 +176,7 @@ const Course = React.createClass({
                 <CourseLink to={homeLink} className="button">{I18n.t('courses.overview')}</CourseLink>
               </div>
             </div>
-          )
-          );
+          ));
         }
       }
     }

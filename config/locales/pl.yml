@@ -208,6 +208,9 @@ pl:
     role:
       student: Student
       instructor: Instruktor
+  user_profiles:
+    location_placeholder: Dodaj swoją lokalizację (opcjonalnie)
+    institution_placeholder: Nazwa instytucji (opcjonalnie)
   wizard:
     summary: Podsumowanie
   error:

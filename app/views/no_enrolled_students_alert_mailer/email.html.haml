@@ -1,0 +1,29 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hi #{@greeted_users}."
+                I hope your term is going well. I noticed that your students hadn't
+                yet enrolled on your&nbsp;
+                %a{href: @alert.url}> course page
+                , and I just wanted to reach out to see if you needed any help or
+                had any questions. Again, your students can enroll with this link:
+              %p.paragraph
+                = @enroll_link
+              %p.paragraph
+                It's critical that they enroll on the dashboard so both you and
+                my team can see what work they're doing on Wikipedia.
+            %td.expander
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                Best regards,
+                %br
+                %em
+                  = @alert.from_user&.real_name || 'Wiki Ed'

@@ -125,3 +125,17 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Palo_para_autofoto');
   });
 });
+
+describe('courseUtils.hasTrainings', () => {
+  it('returns false for a weeks array with no trainings', () => {
+    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [] }] }];
+    const output = courseUtils.hasTrainings(weeks);
+    expect(output).to.be.false;
+  });
+
+  it('returns true for a weeks array with trainings', () => {
+    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [1] }] }];
+    const output = courseUtils.hasTrainings(weeks);
+    expect(output).to.be.true;
+  });
+});
