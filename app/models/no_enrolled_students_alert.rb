@@ -35,7 +35,7 @@ class NoEnrolledStudentsAlert < Alert
   end
 
   def from_user
-    @from_user ||= User.find_by(username: ENV['communications_manager'])
+    @from_user ||= User.find_by(username: ENV['classroom_program_manager'])
   end
 
   def reply_to
