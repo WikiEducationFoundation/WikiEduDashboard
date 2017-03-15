@@ -3,8 +3,8 @@ class UserProfilesController < ApplicationController
   respond_to :html, :json
 
   before_action :set_user
-  before_action :set_user_profile, only: [:update, :destroy]
-  before_action :require_write_permissions, only: [:update, :destroy]
+  before_action :set_user_profile, only: [:update]
+  before_action :require_write_permissions, only: [:update]
 
   def show
     if @user
@@ -31,10 +31,6 @@ class UserProfilesController < ApplicationController
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
-  end
-
-  def destroy
-    @user_profile.destroy
   end
 
   private
