@@ -30,7 +30,7 @@ zh-CN:
     recent_activity: 最近活动
     search: 提问问题
     sign_up_extended: 注册维基百科
-    sign_up_log_in_extended: 与维基百科
+    sign_up_log_in_extended: 通过维基百科
     sign_up: 注册
     submit: 提交
     training: 培训
@@ -42,7 +42,7 @@ zh-CN:
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
     explore_course_pages: 浏览课程页面
     explore_examples: 浏览示例
-    join_note: 一旦您从您的导师接收到一段密码，点击查找您的课程以寻找并加入。
+    join_note: 一旦您从您的导师处收到密码，就可点击找到您的课程来查找并加入它。
     no_courses_instructor: 看起来您没有任何课程。
     no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
@@ -569,6 +569,10 @@ zh-CN:
     student_impact: 由%{username}作为学生做出的总影响
     instructor_impact: 由%{username}作为导师做出的总影响
     instructors_student_impact: 由%{username}的学生做出的总影响
+    disclaimer: 您提供的信息将公开可用。
+    bio_placeholder: 添加您的个人简历（可选）
+    location_placeholder: 添加您的位置（可选）
+    institution_placeholder: 机构名称（可选）
   wiki_edits:
     notify_overdue:
       confirm: 这将在讨论页为所有有逾期培训的学生发布一则提示。您确定要这样做么？

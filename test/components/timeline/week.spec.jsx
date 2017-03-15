@@ -92,8 +92,16 @@ describe('Week', () => {
     describe('click handler', () => {
       const opts = { reorderable: false };
       const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
-      const method = sinon.spy(TestWeek, '_scrollToAddedBlock');
-      const action = sinon.spy(BlockActions, 'addBlock');
+      let method;
+      let action;
+      before(() => {
+        method = sinon.spy(TestWeek, '_scrollToAddedBlock');
+        action = sinon.spy(BlockActions, 'addBlock');
+      });
+      after(() => {
+        TestWeek._scrollToAddedBlock.restore();
+        BlockActions.addBlock.restore();
+      });
       const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
       it('calls the appropriate functions', () => {
         Simulate.click(span);

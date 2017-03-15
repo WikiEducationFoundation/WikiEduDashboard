@@ -23,6 +23,7 @@ it:
     explore: Esplora
     field_required: Questo campo è obbligatorio
     field_invalid_characters: Questo campo contiene caratteri non validi
+    field_invalid_date: Questo campo richiede una data nel formato YYYY-MM-DD
     greeting2: Benvenuto/a!
     greeting_extended: Benvenuto su Wikipedia
     greeting: Ciao!
@@ -133,7 +134,9 @@ it:
     campaigns: Campagne
     campaign_updated: Campagna aggiornata
     create_campaign: Crea una nuova campagna
+    create_my_campaign: Crea la mia campagna!
     description: Descrizione
+    delete_campaign: Cancella questa campagna
     none: Nessuno
     title: Titolo
   chat:
@@ -221,6 +224,7 @@ it:
     edit_course_dates: Modifica date del corso
     enable_chat: Attiva chat
     end: Fine
+    ended: Il corso si è concluso.
     enroll: Iscriversi
     enrollment: Iscrizione
     error:
@@ -513,6 +517,9 @@ it:
       campus_volunteer: Volontario del campus
       online_volunteer: Volontario online
       wiki_ed_staff: Staff Wiki Ed
+  user_profiles:
+    location_placeholder: Aggiungi la tua posizione (opzionale)
+    institution_placeholder: Nome dell'istituto (opzionale)
   wizard:
     assignment_dates: Date di assegnazione
     assignment_type: Tipo di assegnazione

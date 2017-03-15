@@ -110,6 +110,18 @@ const CourseUtils = class {
 
     return `${languagePrefix}${projectPrefix}${articleTitle}`;
   }
+
+  hasTrainings(weeks) {
+    function blockHasTrainings(block) {
+      return Boolean(block.training_module_ids && block.training_module_ids.length);
+    }
+    function weekHasTrainings(week) {
+      if (!week.blocks.length) { return false; }
+      return Boolean(_.find(week.blocks, blockHasTrainings));
+    }
+    if (!weeks.length) { return false; }
+    return Boolean(_.find(weeks, weekHasTrainings));
+  }
 };
 
 export default new CourseUtils();

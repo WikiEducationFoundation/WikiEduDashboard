@@ -1,6 +1,7 @@
 # Messages for Hungarian (magyar)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BanKris
 # Author: R-Joe
 # Author: Uno20001
 # Author: Wolf Rex
@@ -77,6 +78,9 @@ hu:
     editors: Szerkesztők
     loading: Felhasználók betöltése...
     name: Név
+  user_profiles:
+    location_placeholder: Add meg az elhelyezkedésed (opcionális)
+    institution_placeholder: Intézmény neve (opcionális)
   wizard:
     summary: Összefoglaló
   error:

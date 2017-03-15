@@ -8,6 +8,12 @@ describe ArticleStatusManager do
   let!(:courses_user) { create(:courses_user, course: course, user: user) }
 
   describe '.update_article_status' do
+    it 'runs without error' do
+      described_class.update_article_status
+    end
+  end
+
+  describe '.update_article_status_for_course' do
     it 'marks deleted articles as "deleted"' do
       create(:article,
              id: 1,
@@ -16,7 +22,7 @@ describe ArticleStatusManager do
              namespace: 0)
       create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find(1).deleted).to be true
     end
 
@@ -39,7 +45,7 @@ describe ArticleStatusManager do
              wiki_id: 2)
       create(:revision, date: 1.day.ago, article_id: 100000001, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
 
       expect(Article.find_by(title: 'Audi', wiki_id: 1).mw_page_id).to eq(848)
       expect(Article.find_by(title: 'Audi', wiki_id: 2).mw_page_id).to eq(4976786)
@@ -59,7 +65,7 @@ describe ArticleStatusManager do
              namespace: 0)
       create(:revision, date: 1.day.ago, article_id: 848, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find_by(mw_page_id: 100).deleted).to eq(true)
     end
 
@@ -71,7 +77,7 @@ describe ArticleStatusManager do
              namespace: 2)
       create(:revision, date: 1.day.ago, article_id: 848, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find(848).namespace).to eq(0)
       expect(Article.find(848).title).to eq('Audi')
     end
@@ -96,7 +102,7 @@ describe ArticleStatusManager do
              namespace: 0)
       create(:revision, date: 1.day.ago, article_id: 46364485, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
     end
 
     it 'handles case-variant titles' do
@@ -115,7 +121,7 @@ describe ArticleStatusManager do
                         namespace: 1)
       create(:revision, date: 1.day.ago, article_id: 46394760, user: user)
 
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(article1.id).to eq(3914927)
       expect(article2.id).to eq(46394760)
     end
@@ -132,7 +138,7 @@ describe ArticleStatusManager do
              article_id: 2262715,
              mw_page_id: 2262715,
              mw_rev_id: 648515801)
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
 
       new_article = Article.find_by(title: 'Kostanay')
       expect(new_article.mw_page_id).to eq(46349871)
@@ -156,7 +162,7 @@ describe ArticleStatusManager do
       create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
       allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id).and_return(nil)
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)
     end
@@ -176,7 +182,7 @@ describe ArticleStatusManager do
       create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
       allow_any_instance_of(Replica).to receive(:get_existing_articles_by_title).and_return(nil)
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)
     end
@@ -189,7 +195,7 @@ describe ArticleStatusManager do
              namespace: 0,
              deleted: true)
       create(:revision, date: 1.day.ago, article_id: 50661367, user: user)
-      described_class.update_article_status
+      described_class.update_article_status_for_course(course)
       expect(Article.find(50661367).deleted).to eq(false)
     end
   end

@@ -29,34 +29,9 @@ const CourseActions = Flux.createActions({
     };
   },
 
-  setValid(key, isValid) {
-    return {
-      actionType: 'SET_INVALID_KEY',
-      data: {
-        key,
-        valid: isValid
-      }
-    };
-  },
-
-  save() {
-    return {
-      actionType: 'SAVE_COURSE'
-    };
-  },
-
   addCourse() {
     return {
       actionType: 'ADD_COURSE'
-    };
-  },
-
-  setCourse(course) {
-    return {
-      actionType: 'RECEIVE_COURSE',
-      data: {
-        course
-      }
     };
   },
 

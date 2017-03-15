@@ -12,7 +12,9 @@ const ArticleDrawer = React.createClass({
 
   propTypes: {
     article: React.PropTypes.object,
-    is_open: React.PropTypes.bool
+    is_open: React.PropTypes.bool,
+    current_user: React.PropTypes.object,
+    course: React.PropTypes.object
   },
 
   mixins: [ArticleDetailsStore.mixin],
@@ -41,12 +43,17 @@ const ArticleDrawer = React.createClass({
 
     let diffViewer;
     if (this.state.articleDetails.first_revision) {
+      const showSalesforceButton = Boolean(Features.wikiEd && this.props.current_user.admin);
       diffViewer = (
         <DiffViewer
           revision={this.state.articleDetails.last_revision}
           first_revision={this.state.articleDetails.first_revision}
           showButtonLabel={I18n.t('articles.show_cumulative_changes')}
           largeButton={true}
+          editors={this.state.articleDetails.editors}
+          showSalesforceButton={showSalesforceButton}
+          course={this.props.course}
+          article={this.props.article}
         />
       );
     } else {

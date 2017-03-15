@@ -356,6 +356,9 @@ ko:
       campus_volunteer: 캠퍼스 지원자
       online_volunteer: 온라인 지원자
       wiki_ed_staff: 위키 에듀 임원
+  user_profiles:
+    disclaimer: 입력한 정보는 공개됩니다.
+    bio_placeholder: 자기소개 추가 (선택 사항)
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.

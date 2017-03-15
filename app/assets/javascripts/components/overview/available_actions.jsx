@@ -73,7 +73,9 @@ const AvailableActions = React.createClass({
   },
 
   enableChat() {
-    ChatActions.enableForCourse(this.state.course.id);
+    if (confirm('Are you sure you want to enable chat?')) {
+      return ChatActions.enableForCourse(this.state.course.id);
+    }
   },
 
   render() {
@@ -114,7 +116,7 @@ const AvailableActions = React.createClass({
         ));
       }
       // If chat is available but not enabled for course, show the 'enable chat' button.
-      if (Features.enableChat && !this.state.course.flags.enable_chat) {
+      if (Features.enableChat && !this.state.course.flags.enable_chat && user.admin) {
         controls.push((
           <p key="enable_chat"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></p>
         ));

@@ -37,21 +37,21 @@ describe 'campaigns page', type: :feature, js: true do
       visit '/campaigns'
     end
 
-    it 'should show the create campaign modal when you click on the create button' do
+    it 'appears when you click on the create button' do
       find('.create-campaign-button', visible: true)
       find('.wizard__panel', visible: false)
       find('.create-campaign-button').click
       find('.wizard__panel', visible: true)
     end
 
-    it 'should hide the create campaign modal when you click on cancel' do
+    it 'disappears when you click on cancel' do
       find('.create-campaign-button').click
       find('.wizard__panel', visible: true)
       find('.wizard__form .button__cancel').click
       find('.wizard__panel', visible: false)
     end
 
-    it 'should show errors if the created campaign is invalid with the modal is open' do
+    it 'show errors if the created campaign is invalid with the modal is open' do
       find('.create-campaign-button').click
       fill_in('campaign_title', with: 'My Campaign Test')
       find('#use_dates').click
@@ -61,7 +61,7 @@ describe 'campaigns page', type: :feature, js: true do
       expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
     end
 
-    it 'should create a campaign with the given values' do
+    it 'creates a campaign with the given values when submitted' do
       title = 'My Campaign Test'
       description = 'My description'
       find('.create-campaign-button').click
@@ -75,6 +75,12 @@ describe 'campaigns page', type: :feature, js: true do
       expect(Campaign.last.description).to eq(description)
       expect(Campaign.last.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
       expect(Campaign.last.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+    end
+
+    it 'can be reached from the explore page' do
+      visit '/explore'
+      click_link 'Create a New Campaign'
+      find('.wizard__panel', visible: true)
     end
   end
 end

@@ -27,6 +27,9 @@ tl:
     date_time: Petsa/Oras
     edited_by: Inedit ni/ng
     title: Pamagat
+  user_profiles:
+    disclaimer: Ang impormasyon na iyong ilalathala ay magiging 'available' para sa
+      publiko.
   wiki_edits:
     notify_overdue:
       header: Mayroong kang takdang pangkasanayan na lumampas na sa panahon
