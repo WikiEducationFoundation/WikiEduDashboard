@@ -47,7 +47,7 @@ class ConstantUpdate
     update_all_caches # from CacheUpdater
     push_course_data_to_salesforce if Features.wiki_ed?
     remove_needs_update_flags
-    greet_ungreeted_students
+    greet_ungreeted_students unless ENV['no_greeting'] == 'true'
     generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
   end
