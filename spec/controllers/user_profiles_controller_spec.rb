@@ -66,10 +66,6 @@ describe UserProfilesController do
         get :show, params: { username: user.username }
         expect(response).to render_template(partial: '_profile_nav')
       end
-      it 'displays instructor cumulative statistics' do
-        get :show, params: { username: user.username }
-        expect(response).to render_template(partial: '_instructor_cumulative_stats')
-      end
     end
 
     context 'when user is a student' do
@@ -84,10 +80,6 @@ describe UserProfilesController do
         get :show, params: { username: user.username }
         expect(response).to render_template(partial: '_profile_nav')
       end
-      it 'displays student cumulative statistics' do
-        get :show, params: { username: user.username }
-        expect(response).to render_template(partial: '_student_cumulative_stats')
-      end
     end
 
     context 'when user is neither a student nor an instructor' do
@@ -101,14 +93,6 @@ describe UserProfilesController do
       it 'does not display the profile navbar' do
         get :show, params: { username: user.username }
         expect(response).not_to render_template(partial: '_profile_nav')
-      end
-      it 'does not display student cumulative statistics' do
-        get :show, params: { username: user.username }
-        expect(response).not_to render_template(partial: '_student_cumulative_stats')
-      end
-      it 'does not display instructor cumulative statistics' do
-        get :show, params: { username: user.username }
-        expect(response).not_to render_template(partial: '_instructor_cumulative_stats')
       end
     end
   end
