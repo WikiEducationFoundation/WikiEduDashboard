@@ -34,6 +34,14 @@ const ByStudents = React.createClass({
               {this.props.stats.article_count}
             </div>
             <small>
+              {I18n.t('metrics.articles_edited')}
+            </small>
+          </div>
+          <div className= "stat-display__stat">
+            <div className="stat-display__value">
+              {this.props.stats.new_article_count}
+            </div>
+            <small>
               {I18n.t('metrics.articles_created')}
             </small>
           </div>
