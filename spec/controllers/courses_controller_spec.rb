@@ -258,6 +258,42 @@ describe CoursesController do
           post :create, params: { course: course_params }, format: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
+          expect(response.body).to have_content('Invalid language/project')
+        end
+      end
+
+      context 'when blank values are given for course school, title or both' do
+        let(:course_params) do
+          { school: ' ',
+            title: '  ',
+            term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20',
+            language: 'en',
+            project: 'wikipedia' }
+        end
+
+        it 'renders a 404 and does not create the course when school is blank' do
+          course_params[:title] = 'Test Title'
+          post :create, params: { course: course_params }, format: :json
+          expect(response.status).to eq(404)
+          expect(Course.count).to eq(0)
+          expect(response.body).to have_content('Blank school/title for course.')
+        end
+
+        it 'renders a 404 and does not create the course when title is blank' do
+          course_params[:school] = 'Test School'
+          post :create, params: { course: course_params }, format: :json
+          expect(response.status).to eq(404)
+          expect(Course.count).to eq(0)
+          expect(response.body).to have_content('Blank school/title for course')
+        end
+
+        it 'renders a 404 and does not create the course when both school and title are blank' do
+          post :create, params: { course: course_params }, format: :json
+          expect(response.status).to eq(404)
+          expect(Course.count).to eq(0)
+          expect(response.body).to have_content('Blank school/title for course')
         end
       end
 
@@ -278,6 +314,9 @@ describe CoursesController do
           post :create, params: { course: course_params }, format: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(1)
+          expect(response.body).to have_content(
+            'Another program called Wiki_University/How_to_Wiki_(Fall_2015) already exists'
+          )
         end
       end
 

@@ -312,6 +312,8 @@ en:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
       invalid_language_or_project: Invalid language/project
+      invalid_slug: Blank school/title for course.
+      duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:

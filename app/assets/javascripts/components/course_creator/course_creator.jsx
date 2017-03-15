@@ -168,11 +168,6 @@ const CourseCreator = React.createClass({
     const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
-    // This regex is intended to match ascii word characters, dash,
-    // whitespace, comma, apostrophe, and any unicode "letter".
-    // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
-    const courseSlugRegex = /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]+$/;
-
     let term;
     let subject;
     let expectedStudents;
@@ -185,7 +180,7 @@ const CourseCreator = React.createClass({
           value={this.state.course.term}
           value_key="term"
           required
-          validation={courseSlugRegex}
+          validation={CourseUtils.courseSlugRegex()}
           editable
           label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', this.state.course_string_prefix)}
@@ -292,7 +287,7 @@ const CourseCreator = React.createClass({
                   value={this.state.course.title}
                   value_key="title"
                   required
-                  validation={courseSlugRegex}
+                  validation={CourseUtils.courseSlugRegex()}
                   editable
                   label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
                   placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
@@ -303,7 +298,7 @@ const CourseCreator = React.createClass({
                   value={this.state.course.school}
                   value_key="school"
                   required
-                  validation={courseSlugRegex}
+                  validation={CourseUtils.courseSlugRegex()}
                   editable
                   label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
                   placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}

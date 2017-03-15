@@ -32,6 +32,19 @@ describe('courseUtils.generateTempId', () => {
   });
 });
 
+describe('CourseUtils.courseSlugRegex', () => {
+  it('returns a regex that validates course slug', () => {
+    const courseSlugRegex = courseUtils.courseSlugRegex();
+    expect(courseSlugRegex.test(' 維基醫學專案 ')).to.eq(true);
+    expect(courseSlugRegex.test(' North-Cap University')).to.eq(true);
+    expect(courseSlugRegex.test(' مركز حملة')).to.eq(true);
+    expect(courseSlugRegex.test('UW, Bothell')).to.eq(true);
+    expect(courseSlugRegex.test('वसंत 2017')).to.eq(true);
+    expect(courseSlugRegex.test('  ')).to.eq(false);
+    expect(courseSlugRegex.test('')).to.eq(false);
+  });
+});
+
 describe('courseUtils.cleanupCourseSlugComponents', () =>
   it('trims whitespace from the slug-related fields of a course object', () => {
     const course = {
