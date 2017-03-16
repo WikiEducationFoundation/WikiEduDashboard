@@ -122,6 +122,7 @@ de:
   assignments:
     article: Der Artikel %{title} wurde zugewiesen
     already_exists: Diese Zuweisung ist bereits vorhanden!
+    title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
     add_available: Einen verfügbaren Artikel hinzufügen
@@ -331,6 +332,7 @@ de:
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
+    school_and_term: Einrichtung/Dauer
     start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
@@ -425,6 +427,7 @@ de:
       der folgenden URL einschreiben:'
     revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
+    school_and_term: Einrichtung/Wann
     student_editors: Autoren
     students: Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.

@@ -164,7 +164,8 @@ qqq:
       when page view data is being imported.)
   assignments:
     already_exists: Message displayed when trying to create a duplicate assignment
-    title_too_large: Message displayed when title entered exceeds 255 characters to prevent mysql error
+    title_too_large: Message displayed when title entered exceeds 255 characters to
+      prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
     add_available: Button to add an article title to the list of articles available

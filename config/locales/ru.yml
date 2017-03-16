@@ -115,6 +115,7 @@ ru:
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
   assignments:
+    title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это назначение?

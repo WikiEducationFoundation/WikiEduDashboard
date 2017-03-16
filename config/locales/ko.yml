@@ -93,6 +93,7 @@ ko:
     view_on_wiki: 위키에서 보기
     edit_size: 편집 크기
   assignments:
+    title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     add_available: 이용 가능한 글 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
@@ -359,6 +360,8 @@ ko:
   user_profiles:
     disclaimer: 입력한 정보는 공개됩니다.
     bio_placeholder: 자기소개 추가 (선택 사항)
+    location_placeholder: 당신의 위치 추가 (선택사항)
+    institution_placeholder: 기관 이름 (선택사항)
   wiki_edits:
     notify_overdue:
       header: 제출 기간이 지난 교육 과제가 있습니다.

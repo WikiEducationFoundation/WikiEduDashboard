@@ -108,6 +108,7 @@ zh-TW:
   assignments:
     article: 條目%{title}已被分配
     already_exists: 此條目已存在！
+    title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 指定一個文章
     add_available: 加入一篇尚待分配的文章
@@ -284,6 +285,7 @@ zh-TW:
     revisions_doc: 最近 %{timeframe} 天內的編輯數量。%{timeframe}
     revisions_none: 此課程最近沒有編輯。
     school: 學校
+    school_and_term: 機構/學期
     start: 開始日
     start_typing: 開始輸入
     students: 學生
@@ -366,6 +368,7 @@ zh-TW:
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
     revisions_none: 此項目目前沒有編輯活動。
     school: 機構
+    school_and_term: 機構/何時
     student_editors: 編輯者
     students: 編輯者
     students_none: 此項目目前沒有編輯者登記。
