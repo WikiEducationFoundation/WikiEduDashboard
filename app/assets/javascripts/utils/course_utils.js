@@ -58,6 +58,19 @@ const CourseUtils = class {
       };
     }
 
+    const wikiSourceUrlParts = /wikisource\.org\/wiki\/([^#]*)/.exec(articleTitle);
+    if (wikiSourceUrlParts) {
+      const title = decodeURIComponent(wikiSourceUrlParts[1]).replace(/_/g, ' ');
+      const project = 'wikisource'
+      const language = 'www'
+      return {
+        title,
+        project,
+        language,
+        article_url: articleTitle
+      };
+    }
+
     return {
       title: articleTitleInput,
       project: null,
