@@ -12,6 +12,7 @@ const getState = function () {
   return {
     isStudent: isStudent,
     isInstructor: isInstructor,
+    statsGraphsData: null,
     stats: ProfileStore.getStats(),
     loading: ProfileStore.getLoadingStatus(),
   };
@@ -29,6 +30,22 @@ const ContributionStats = React.createClass({
 
   componentDidMount() {
     ProfileActions.fetch_stats(this.props.params.username);
+    this.getData();
+  },
+
+  getData() {
+    const username = this.props.params.username;
+    const statsdataUrl = `/stats_graphs.json?username=${username}`;
+    $.ajax(
+      {
+        dataType: 'json',
+        url: statsdataUrl,
+        success: (data) => {
+          this.setState({
+            statsGraphsData: data
+          });
+        }
+      });
   },
 
   storeDidChange() {
@@ -39,14 +56,17 @@ const ContributionStats = React.createClass({
       }
     );
   },
+
   render() {
     let contriStats;
+    console.log(this.state.statsGraphsData);
     if (this.state.isInstructor.instructor) {
       contriStats = (
         <InstructorStats
           username = {this.props.params.username}
           stats = {this.state.stats}
           isStudent = {this.state.isStudent.student}
+          statsGraphsData = {this.state.statsGraphsData}
         />
       );
     }
