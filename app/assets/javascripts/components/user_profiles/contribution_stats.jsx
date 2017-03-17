@@ -6,12 +6,12 @@ import ProfileActions from '../../actions/profile_actions.js';
 import Loading from '../common/loading.jsx';
 
 const getState = function () {
-  const isstudent = $('#react_root').data('isstudent');
-  const isinstructor = $('#react_root').data('isinstructor');
+  const isStudent = $('#react_root').data('isstudent');
+  const isInstructor = $('#react_root').data('isinstructor');
 
   return {
-    isstudent: isstudent,
-    isinstructor: isinstructor,
+    isStudent: isStudent,
+    isInstructor: isInstructor,
     stats: ProfileStore.getStats(),
     loading: ProfileStore.getLoadingStatus(),
   };
@@ -41,20 +41,20 @@ const ContributionStats = React.createClass({
   },
   render() {
     let contriStats;
-    if (this.state.isinstructor.instructor) {
+    if (this.state.isInstructor.instructor) {
       contriStats = (
         <InstructorStats
           username = {this.props.params.username}
           stats = {this.state.stats}
-          isstudent = {this.state.isstudent.student}
+          isStudent = {this.state.isStudent.student}
         />
       );
     }
-    else if (this.state.isstudent.student) {
+    else if (this.state.isStudent.student) {
       contriStats = (
         <StudentStats
           username = {this.props.params.username}
-          stats = {this.state.stats}
+          stats = {this.state.stats.as_student}
         />
     );
     }

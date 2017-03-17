@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ByStudents = React.createClass({
+const ByStudentsStats = React.createClass({
 
   propTypes: {
     username: React.PropTypes.string,
@@ -71,4 +71,4 @@ const ByStudents = React.createClass({
   }
 });
 
-export default ByStudents;
+export default ByStudentsStats;

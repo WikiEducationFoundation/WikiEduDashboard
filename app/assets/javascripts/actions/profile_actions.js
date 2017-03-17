@@ -4,7 +4,7 @@ import API from '../utils/api.js';
 
 const ProfileActions = Flux.createActions({
   fetch_stats(username) {
-    return API.fetchStatsData(username)
+    return API.fetchUserProfileStats(username)
       .then(resp => ({ actionType: 'RECEIVE_STATISTICS', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   }

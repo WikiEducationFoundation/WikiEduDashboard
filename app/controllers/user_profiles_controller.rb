@@ -9,11 +9,7 @@ class UserProfilesController < ApplicationController
   def show
     if @user
       @courses_users = @user.courses_users
-      @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
-      @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
       @user_profile = UserProfile.new(user_id: @user.id)
-      @editable = current_user == @user
     else
       flash[:notice] = 'User not found'
       redirect_to controller: 'dashboard', action: 'index'
@@ -27,7 +23,7 @@ class UserProfilesController < ApplicationController
     end
   end
 
-  def stats_data
+  def stats
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)

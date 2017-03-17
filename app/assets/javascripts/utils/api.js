@@ -83,7 +83,7 @@ const API = {
     });
   },
 
-  fetchStatsData(username){
+  fetchUserProfileStats(username){
     return new Promise((res, rej) =>
       $.ajax({
         type: 'GET',

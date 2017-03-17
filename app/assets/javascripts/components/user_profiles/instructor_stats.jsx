@@ -1,22 +1,22 @@
 import React from 'react';
-import ByStudents from './by_students.jsx';
+import ByStudentsStats from './by_students_stats.jsx';
 import StudentStats from './student_stats.jsx';
 
 const InstructorStats = React.createClass({
   propTypes: {
     username: React.PropTypes.string,
     stats: React.PropTypes.object,
-    isstudent: React.PropTypes.bool
+    isStudent: React.PropTypes.bool
   },
 
   render() {
     let asStudent;
 
-    if (this.props.isstudent) {
+    if (this.props.isStudent) {
       asStudent = (
         <StudentStats
           username = {this.props.username}
-          stats = {this.props.stats}
+          stats = {this.props.stats.as_student}
         />
       );
     }
@@ -29,22 +29,22 @@ const InstructorStats = React.createClass({
           <div className= "stat-display">
             <div className= "stat-display__stat">
               <div className="stat-display__value">
-                {this.props.stats.courses_count}
+                {this.props.stats.as_instructor.courses_count}
               </div>
               <small>
-                {I18n.t(`${this.props.stats.course_string_prefix}.courses_taught`)}
+                {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.courses_taught`)}
               </small>
             </div>
             <div className ="stat-display__stat tooltip-trigger">
               <div className="stat-display__value">
-                {this.props.stats.user_count}
+                {this.props.stats.as_instructor.user_count}
               </div>
               <small>
-                {I18n.t(`${this.props.stats.course_string_prefix}.students`)}
+                {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.students`)}
               </small>
               <div className="tooltip dark">
                 <h4>
-                  {this.props.stats.trained_percent}
+                  {this.props.stats.as_instructor.trained_percent}
                   \%
                 </h4>
                 <p>
@@ -54,9 +54,9 @@ const InstructorStats = React.createClass({
             </div>
           </div>
         </div>
-        < ByStudents
+        < ByStudentsStats
           username = {this.props.username}
-          stats = {this.props.stats}
+          stats = {this.props.stats.by_students}
         />
         {asStudent}
       </div>
