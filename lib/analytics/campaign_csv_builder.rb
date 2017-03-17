@@ -12,8 +12,11 @@ class CampaignCsvBuilder
     institution
     new_or_returning
     student_count
+    articles_edited
+    articles_created
     bytes_added
     edit_count
+    article_views
     upload_count
     training_completion_rate
   ).freeze
@@ -34,8 +37,11 @@ class CampaignCsvBuilder
     row << course.school
     row << new_or_returning_tag(course)
     row << course.user_count
+    row << course.article_count
+    row << course.new_article_count
     row << course.character_sum
     row << course.revision_count
+    row << course.view_sum
     row << course.upload_count
     row << training_completion_rate(course)
     row
