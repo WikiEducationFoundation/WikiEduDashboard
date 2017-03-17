@@ -112,6 +112,7 @@ it:
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
   assignments:
     already_exists: Questa assegnazione esiste già!
+    title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna una voce
     add_available: Aggiungi una voce disponibile

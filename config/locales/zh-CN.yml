@@ -107,6 +107,7 @@ zh-CN:
   assignments:
     article: 条目%{title}已被分配
     already_exists: 此分配已存在！
+    title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配一个条目
     add_available: 添加一个可用条目
@@ -276,6 +277,7 @@ zh-CN:
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
+    school_and_term: 机构/学期
     start: 开始
     start_typing: 开始输入
     students: 学生
@@ -355,6 +357,7 @@ zh-CN:
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
     revisions_none: 此项目没有最近编辑活动。
     school: 机构
+    school_and_term: 机构/何时
     student_editors: 编辑者
     students: 编辑者
     students_none: 此项目没有编辑者登记。

@@ -137,6 +137,7 @@ fr:
   assignments:
     article: L’article %{title} a été affecté
     already_exists: Cette affectation existe déjà !
+    title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter un article
     add_available: Ajouter un article disponible
@@ -345,6 +346,7 @@ fr:
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
+    school_and_term: Institution/Terme
     start: Démarrer
     start_typing: Commencer à taper
     students: Étudiants
@@ -438,6 +440,7 @@ fr:
       sur l’URL suivante :'
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
+    school_and_term: Institution/Quand
     student_editors: Éditeurs
     students: Éditeurs
     students_none: Ce projet n’a pas d’éditeurs inscrits.

@@ -263,6 +263,8 @@ describe CampaignsController do
     it 'returns a csv of course data' do
       get :courses, params: request_params
       expect(response.body).to have_content(course.slug)
+      expect(response.body).to have_content(course.title)
+      expect(response.body).to have_content(course.school)
     end
   end
 

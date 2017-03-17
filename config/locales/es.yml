@@ -135,6 +135,7 @@ es:
   assignments:
     article: Se asignó el artículo %{title}
     already_exists: ¡Esta tarea ya existe!
+    title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
     add_available: Añadir un artículo disponible

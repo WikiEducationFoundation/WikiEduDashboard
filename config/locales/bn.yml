@@ -56,6 +56,7 @@ bn:
     view_on_wiki: উইকিতে দেখুন
     wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
+    title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
     remove: অপসারণ করুন
     reviewers: নিরীক্ষক(গণ)
     select: নির্বাচন করুন
