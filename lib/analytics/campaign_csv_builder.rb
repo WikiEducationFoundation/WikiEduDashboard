@@ -8,6 +8,8 @@ class CampaignCsvBuilder
 
   COURSE_CSV_HEADERS = %w(
     course_slug
+    title
+    institution
     new_or_returning
     student_count
     bytes_added
@@ -28,6 +30,8 @@ class CampaignCsvBuilder
 
   def course_row(course)
     row = [course.slug]
+    row << course.title
+    row << course.school
     row << new_or_returning_tag(course)
     row << course.user_count
     row << course.character_sum
