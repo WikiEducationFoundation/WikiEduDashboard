@@ -2,11 +2,11 @@
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 
 class TrainingLoader
-  def initialize(content_class:, cache_key:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
+  def initialize(content_class:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
     @collection = []
     @content_class = content_class
 
-    @cache_key = cache_key
+    @cache_key = content_class.cache_key
     @path_to_yaml = path_to_yaml
     @wiki_base_page = wiki_base_page
     @trim_id_from_filename = trim_id_from_filename

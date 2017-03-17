@@ -11,12 +11,15 @@ class TrainingModule < TrainingBase
   #################
   def self.load(**)
     super path_to_yaml: "#{base_path}/modules/*.yml",
-          wiki_base_page: ENV['training_modules_wiki_page'],
-          cache_key: 'modules'
+          wiki_base_page: ENV['training_modules_wiki_page']
   end
 
   def self.find(id)
     all.detect { |training_module| training_module.id == id }
+  end
+
+  def self.cache_key
+    'modules'
   end
 
   ####################

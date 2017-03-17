@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/training/training_loader"
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
   class << self
-    attr_accessor :cache_key, :path_to_yaml
+    attr_accessor :path_to_yaml
   end
 
   attr_accessor :slug, :id
@@ -14,13 +14,12 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(cache_key:, path_to_yaml:, wiki_base_page:,
+  def self.load(path_to_yaml:, wiki_base_page:,
                 trim_id_from_filename: false)
-    self.cache_key = cache_key
     self.path_to_yaml = path_to_yaml
 
-    loader = TrainingLoader.new(content_class: self, cache_key: cache_key,
-                                path_to_yaml: path_to_yaml, wiki_base_page: wiki_base_page,
+    loader = TrainingLoader.new(content_class: self, path_to_yaml: path_to_yaml,
+                                wiki_base_page: wiki_base_page,
                                 trim_id_from_filename: trim_id_from_filename)
     loader.load_content
 
@@ -35,10 +34,12 @@ class TrainingBase
   end
 
   def self.all
-    if Rails.cache.read(cache_key).nil?
-      load(cache_key: cache_key, path_to_yaml: path_to_yaml)
+    cached = Rails.cache.read(cache_key)
+    if cached.nil?
+      load(path_to_yaml: path_to_yaml)
+      cached = Rails.cache.read(cache_key)
     end
-    Rails.cache.read(cache_key)
+    cached
   end
 
   def self.find_by(opts)
@@ -93,6 +94,10 @@ class TrainingBase
   end
 
   # Implemented by each child class
+  def self.cache_key
+    raise NotImplementedError
+  end
+
   def valid?
     raise NotImplementedError
   end
