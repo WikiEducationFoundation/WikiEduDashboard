@@ -361,6 +361,8 @@ qqq:
       user_exists: Error message indicating an invalid Wikimedia username
       invalid_language_or_project: Error message indicating the language and project
         do not correspond to a valid wiki
+      invalid_slug: Error message indicating blank school/title in course slug.
+      duplicate_slug: Error message indicating duplicate course slug.
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
     instructor:

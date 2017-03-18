@@ -17,10 +17,13 @@ class CourseCreationManager
 
   def valid?
     if invalid_wiki?
-      @invalid_reason = 'Invalid language/project'
+      @invalid_reason = I18n.t('courses.error.invalid_language_or_project')
+      return false
+    elsif invalid_slug?
+      @invalid_reason = I18n.t('courses.error.invalid_slug')
       return false
     elsif duplicate_slug?
-      @invalid_reason = "Another program called #{@slug} already exists."
+      @invalid_reason = I18n.t('courses.error.duplicate_slug', slug: @slug)
       return false
     end
     true
@@ -48,14 +51,23 @@ class CourseCreationManager
   end
 
   def set_slug
-    slug = String.new("#{@course_params[:school]}/#{@course_params[:title]}")
-    slug << "_(#{@course_params[:term]})" unless @course_params[:term].blank?
+    slug = @course_params[:school].blank? ? '' : "#{@course_params[:school]}"
+    slug += "/#{@course_params[:title]}" unless @course_params[:title].blank?
+    slug += "_(#{@course_params[:term]})" unless @course_params[:term].blank?
     @slug = slug.tr(' ', '_')
     @overrides[:slug] = @slug
   end
 
   def invalid_wiki?
     @wiki.id.nil?
+  end
+
+  def invalid_slug?
+    # A valid slug should contain some non-blank text, followed by a forward slash,
+    # followed by some more non-blank text. At least two non-blank parts should hence be present.
+    slug_parts = @slug.split('/')
+    slug_parts.reject! { |slug_part| slug_part.blank? }
+    slug_parts.size <= 1
   end
 
   def duplicate_slug?
