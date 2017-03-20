@@ -29,6 +29,12 @@ class UserProfilesController < ApplicationController
     @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
   end
 
+  def stats_graphs
+    @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
+    @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
+  end
+
   private
 
   def require_write_permissions
