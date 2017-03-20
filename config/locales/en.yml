@@ -414,6 +414,7 @@ en:
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
+    all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.
     assignment_end: Timeline End

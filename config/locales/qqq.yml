@@ -468,6 +468,9 @@ qqq:
         only)
       link: Link to begin course survey (Wiki Ed only)
   courses_generic:
+    all_courses: |-
+      Button to view the list of all courses. Uses alternative word for generic courses.
+      {{Identical|Programs}}
     archived: |-
       The alternative wording for generic courses.
       {{Identical|Archived Programs}}

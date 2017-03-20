@@ -51,5 +51,5 @@
       = link_to(t("#{presenter.course_string_prefix}.creator.create_new"), course_creator_path, class: 'button dark')
 
     %a.button{href: programs_campaign_path(presenter.campaign.slug)}
-      = t('courses.all_courses')
+      = t("#{Features.default_course_string_prefix}.all_courses")
       %span.icon.icon-rt_arrow
