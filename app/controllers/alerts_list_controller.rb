@@ -2,6 +2,7 @@
 
 # Controller for showing Alert records
 class AlertsListController < ApplicationController
+  include AlertsHelper
   layout 'admin'
   before_action :check_user_auth
 
