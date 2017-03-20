@@ -83,6 +83,22 @@ const API = {
     });
   },
 
+  fetchUserProfileStats(username){
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'GET',
+        url: `/user_stats.json?username=${ username }`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchArticleDetails(articleId, courseId) {
     return new Promise((res, rej) => {
       const url = `/articles/details.json?article_id=${articleId}&course_id=${courseId}`;

@@ -32,6 +32,8 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 
 import RocketChat from '../components/common/rocket_chat.jsx';
 
+import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
   setTimeout(() => {
@@ -90,6 +92,7 @@ const routes = (
       <Route path=":library_id/:module_id" component={TrainingModuleHandler} />
       <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
+    <Route path="users/:username" component={ContributionStats} />
   </Route>
 );
 
