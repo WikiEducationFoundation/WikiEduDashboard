@@ -48,7 +48,7 @@ class Wiki < ActiveRecord::Base
     sg sgs sh si simple sk sl sm sn so sq sr srn ss st stq su sv sw szl ta te
     tet tg th ti tk tl tn to tpi tr ts tt tum tw ty tyv udm ug uk ur uz ve
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
-    zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
+    zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu www
   ).freeze
   validates_inclusion_of :language, in: LANGUAGES + [nil]
 

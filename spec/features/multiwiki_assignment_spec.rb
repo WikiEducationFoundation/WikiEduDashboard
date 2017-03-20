@@ -28,19 +28,14 @@ describe 'multiwiki assignments', type: :feature, js: true do
       click_button 'OK'
       visit "/courses/#{course.slug}/students"
 
-      expect(page).to have_content 'ta:wiktionary:ஆங்கிலம்'
-      expect(Assignment.last.wiki.language).to eq('ta')
-      expect(Assignment.last.wiki.project).to eq('wiktionary')
-      expect(Assignment.last.article.title).to eq('ஆங்கிலம்')
-      expect(Assignment.last.article.wiki.language).to eq('ta')
-      expect(Assignment.last.article.wiki.project).to eq('wiktionary')
+      within('#users') do
+        expect(page).to have_content 'ta:wiktionary:ஆங்கிலம்'
+      end
     end
   end
 
   it 'creates a valid assignment from an article and an alternative project and language' do
     VCR.use_cassette 'multiwiki_assignment' do
-      pending 'This sometimes fails on travis.'
-
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
       click_button 'Assign an article'
@@ -64,16 +59,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
 
       visit "/courses/#{course.slug}/students"
 
-      expect(page).to have_content 'es:wikisource:No le des prisa, dolor'
-
-      expect(Assignment.last.wiki.language).to eq('es')
-      expect(Assignment.last.wiki.project).to eq('wikisource')
-      expect(Assignment.last.article.title).to eq('No_le_des_prisa,_dolor')
-      expect(Assignment.last.article.wiki.language).to eq('es')
-      expect(Assignment.last.article.wiki.project).to eq('wikisource')
-
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      within('#users') do
+        expect(page).to have_content 'es:wikisource:No le des prisa, dolor'
+      end
     end
   end
 

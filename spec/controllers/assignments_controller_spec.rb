@@ -148,6 +148,30 @@ describe AssignmentsController do
         end
       end
 
+      context 'when the assignment is for Wikisource' do
+        let!(:www_wikisource) { create(:wiki, language: 'www', project: 'wikisource') }
+        let(:wikisource_params) do
+          { user_id: user.id, course_id: course.slug, title: 'Heyder Cansa', role: 0,
+            language: 'www', project: 'wikisource' }
+        end
+
+        before do
+          expect(Article.find_by(title: 'Heyder Cansa')).to be_nil
+        end
+
+        it 'imports the article' do
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            put :create, params: wikisource_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Heyder_Cansa')
+            expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+          end
+        end
+      end
+
       context 'when the article exists' do
         before do
           create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)

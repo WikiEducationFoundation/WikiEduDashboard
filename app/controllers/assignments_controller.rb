@@ -110,7 +110,8 @@ class AssignmentsController < ApplicationController
                                         course: @course,
                                         wiki: @wiki,
                                         title: assignment_params[:title],
-                                        role: assignment_params[:role]).create_assignment
+                                        role: assignment_params[:role]
+                                       ).create_assignment
   end
 
   def check_permissions(user_id)
