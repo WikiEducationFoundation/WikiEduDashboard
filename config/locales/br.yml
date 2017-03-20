@@ -480,6 +480,8 @@ br:
   login_error:
     header: Fazi kevreañ
   survey:
+    notification_schedule_explanation: Ma vez aotreet ar c'hemennoù a-us e talvezo
+      ivez evit ar c'hemennoù er merdeer ha dre bostel
     email:
       headline: Demat, %{username}
       course: 'Cours : %{course_info}'

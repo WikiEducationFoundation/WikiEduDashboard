@@ -7,7 +7,7 @@
 mk:
   application:
     cancel: Откажи
-    dashboard: Контролна табла на Образовниот програм
+    dashboard: Управувачница на Образовниот програм
     explore: Истражете
     greeting2: Добре дојдовте!
     greeting_extended: Добре дојдовте на Википедија
@@ -17,7 +17,7 @@ mk:
     log_in_extended: Најава со Википедија
     log_in: Најава
     log_out: Одјава
-    my_dashboard: Моја контролна табла
+    my_dashboard: Моја управувачница
     recent_activity: Скорешни активности
     search: пребарај на ask.wikiedu.org
     sign_up_extended: Регистрација со Википедија

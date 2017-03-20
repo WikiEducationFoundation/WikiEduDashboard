@@ -238,6 +238,8 @@ zh-CN:
       exists: 该课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
       invalid_language_or_project: 无效语言/项目
+      invalid_slug: 清空课程所属学校/标题。
+      duplicate_slug: 另一个叫%{slug}的课程已存在。
     expected_students: 预期学生
     gradeables_none: 此课程没有可批改作业。
     instructor:

@@ -159,6 +159,7 @@ ko:
     error:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
+      duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자

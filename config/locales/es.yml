@@ -287,6 +287,8 @@ es:
         diferentes.
       user_exists: El usuario «%{username}» no existe.
       invalid_language_or_project: Idioma/proyecto no válido
+      invalid_slug: Escuela/título vacío para el curso.
+      duplicate_slug: Ya existe otro programa llamado %{slug}.
     expected_students: Estudiantes esperados
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:

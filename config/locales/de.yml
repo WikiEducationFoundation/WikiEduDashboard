@@ -284,6 +284,9 @@ de:
         anderen Titel, einer anderen Schule oder Dauer.
       user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
       invalid_language_or_project: Ungültige Sprache/Ungültiges Projekt
+      invalid_slug: Leeres Schul- oder Kurstitel-Feld.
+      duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
+        ist.
     expected_students: Erwartete Studenten
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:

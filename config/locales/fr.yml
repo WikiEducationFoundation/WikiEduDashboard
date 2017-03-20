@@ -296,6 +296,8 @@ fr:
         ou échéance.
       user_exists: Désolé, %{username} n’existe pas.
       invalid_language_or_project: Langue/projet invalide
+      invalid_slug: Ecole ou titre du cours non renseigné.
+      duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
     gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:

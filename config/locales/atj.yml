@@ -1,0 +1,59 @@
+# Messages for Atikamekw (Atikamekw)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Benoit Rochon
+---
+atj:
+  application:
+    cancel: Ponipita
+    greeting: Kwei!
+    help: Witcihici
+    home: Otitikowin
+    log_in: Posi
+    log_out: Piskeapikenakan
+    confirm: OK
+  articles:
+    edited_mobile: Ka atisokateki
+    hide: Kata
+    label: Ka atisokateki
+    title: Icinikatew
+    title_example: E icinikatek masinihikan
+  assignments:
+    remove: Manina
+  campaign:
+    description: E witcikemakak
+    title: Icinikatew
+  courses:
+    articles: Ka atisokateki
+    cancel: Ponipita
+    overview: Otitikowin
+    title: Icinikatew
+  courses_generic:
+    cancel: Ponipita
+  editable:
+    edit: Meckotcita
+    cancel: Ponipita
+    save: Kinokepitcikanik
+  metrics:
+    date_time: Tatokonakisitc/Tato tipahikaneak
+  namespace:
+    user_ns: Ka mitatc
+  recent_activity:
+    article_title: E icinikatek masinihikan
+    image: Masinasowin
+  revisions:
+    diff: pitoc
+    diff_show: Wapata
+    diff_hide: Kata
+    title: Icinikatew
+  training:
+    view: Tapwatcike
+  uploads:
+    datetime: Tatokonakisitc/Tato tipahikaneak
+    image: Masinasowin
+  wizard:
+    summary: Nosem
+  survey:
+    email:
+      headline: Kwei, %{username}
+...

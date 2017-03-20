@@ -98,6 +98,8 @@ bn:
     end: শেষ
     ended: কোর্সটি শেষ হয়েছে।
     courses_enrolled: কোর্সে ভর্তি
+    error:
+      invalid_slug: কোর্সের জন্য ফাঁকা বিদ্যালয়/শিরোনাম।
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
@@ -107,6 +109,7 @@ bn:
     none: কোনটিই নয়
     overview: প্রধান পাতা
     school: বিদ্যালয়
+    school_and_term: প্রতিষ্ঠান/মেয়াদ
     start: শুরু করুন
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'
@@ -137,6 +140,7 @@ bn:
     enrollment: অংশগ্রহণ
     courses_enrolled: প্রোগ্রাম অংশগ্রহণ করেছে
     school: প্রতিষ্ঠান
+    school_and_term: প্রতিষ্ঠান/কখন
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
     students_short: সম্পাদকগণ
