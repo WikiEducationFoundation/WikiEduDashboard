@@ -44,7 +44,7 @@
   minimum: 0
   options:
     -
-      title: Critique an article
+      title: Evaluate an article
       recommended: true
       blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
       # description:

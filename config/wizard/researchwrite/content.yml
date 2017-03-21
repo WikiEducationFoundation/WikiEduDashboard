@@ -46,7 +46,7 @@ essentials:
 
       -
         if: graded_training
-        title: Practicing the basics
+        title: Get started on Wikipedia
         kind: 1
         graded: true
         training_module_ids: [1,2] # Wikipedia essentials, Editing basics
@@ -69,7 +69,7 @@ essentials:
 
       -
         if: ungraded_training
-        title: Practicing the basics
+        title: Get started on Wikipedia
         kind: 1
         training_module_ids: [1,2] # Wikipedia essentials, Editing basics
         content: |
@@ -109,33 +109,48 @@ essentials:
     weight: 6
     blocks:
       -
-        title: Critique an article
+        title: Evaluate Wikipedia
         kind: 1
         training_module_ids: [7] # Evaluate an article
         graded: true
         points: 10
         content: |
           <p>
-            It's time to think critically about Wikipedia articles. You'll
-            evaluate a Wikipedia article, and leave suggestions for improving it
-            on the article's Talk page.
+            It's time to think critically about Wikipedia articles. You'll evaluate
+            a Wikipedia article related to the course and leave suggestions for
+            improving it on the article's Talk page.
           </p>
           <ul>
             <li>Complete the "Evaluating Articles and Sources" training (linked below).</li>
-            <li>Choose an article, and consider some questions (but don't feel limited to these):
+            <li>
+              Create a section in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>
+              titled "Article evaluation" where you'll leave notes about your observations and learnings.
+            </li>
+            <li>
+              Choose an article on Wikipedia related to your course to read and evaluate.
+              As you read, consider the following questions (but don't feel limited to these):
               <ul>
-                <li>Is each fact referenced with an appropriate, reliable reference?</li>
                 <li>Is everything in the article relevant to the article topic? Is there anything that distracted you?</li>
                 <li>Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?</li>
-                <li>Where does the information come from? Are these neutral sources? If biased, is that bias noted?</li>
                 <li>Are there viewpoints that are overrepresented, or underrepresented?</li>
-                <li>Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?</li>
+                <li>Check a few citations. Do the links work? Does the source support the claims in the article?</li>
+                <li>
+                  Is each fact referenced with an appropriate, reliable reference?
+                  Where does the information come from? Are these neutral sources?
+                  If biased, is that bias noted?
+                </li>
                 <li>Is any information out of date? Is anything missing that could be added?</li>
+                <li>
+                  Check out the Talk page of the article. What kinds of conversations,
+                  if any, are going on behind the scenes about how to represent this topic?
+                </li>
+                <li>How is the article rated? Is it a part of any WikiProjects?</li>
+                <li>How does the way Wikipedia discusses this topic differ from the way we've talked about it in class?</li>
               </ul>
             </li>
             <li>
-              Choose at least 2 questions relevant to the article you're evaluating.
-              Leave your evaluation on the article's Talk page. Be sure to sign
+              Optional: Choose at least 1 question relevant to the article you're evaluating
+               and leave your evaluation on the article's Talk page. Be sure to sign
               your feedback with four tildes — <code>~~~~</code>.
             </li>
           </ul>
@@ -285,11 +300,17 @@ essentials:
           <ul>
             <li>Review page 6 of your <a href="http://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>
             <li>
-              Choose 3–5 potential articles that you can tackle, and post links
-              to them on your Wikipedia user page. For articles that already exist,
-              check the Talk page to see what other Wikipedians might be doing.
-              Finally, present your choices to your instructor for feedback.
+              Look up 3-5 potential topics related to the course that you might
+              want to update on Wikipedia. Review the content of the article and
+              check the Talk page to see what other Wikipedians are already
+              contributing. Identify one or two areas from each that you could improve.
             </li>
+            <li>
+              Choose 2-3 potential articles from that list that you can tackle,
+              and post links to the articles and your notes about what you might
+              improve in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
+            </li>
+            <li>Finally, present your choices to your instructor for feedback.</li>
           </ul>
 
       -
@@ -307,7 +328,7 @@ essentials:
               assign it to yourself.
             </li>
             <li>
-              In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>,
+              In <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>,
               write a few sentences about what you plan to contribute to the selected article.
               <ul>
                 <li>
@@ -336,7 +357,7 @@ essentials:
           <ul>
             <li>On the <strong>Students</strong> tab, assign your chosen topic to yourself.</li>
             <li>
-              In <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>,
+              In <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>,
               write a few sentences about what you plan to contribute to the selected article.
               <ul>
                 <li>
@@ -367,7 +388,7 @@ essentials:
             <li>
               Write an outline of that topic in the form
               of a standard Wikipedia article's "lead section." Write it in
-              <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.
+              <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
               <ul>
                 <li>
                   A "lead" section is not a traditional introduction. It should
@@ -386,7 +407,7 @@ essentials:
             <li>
               Identify what's missing from the current form of the article. Think
               back to the skills you learned while critiquing an article. Make
-              notes for improvement in <a href="https://en.wikipedia.org/wiki/Special:Mypage/sandbox">your sandbox</a>.
+              notes for improvement in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
             </li>
           </ul>
           <hr />
@@ -419,7 +440,10 @@ essentials:
         content: |
           <ul>
             <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
-            <li>If you'd like a Content Expert to review your draft, now is the time! Click the "Get Help" button in your sandbox to request notes.</li>
+            <li>
+              If you'd like a Content Expert to review your draft, now is the time!
+              Click the "Get Help" button in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a> to request notes.
+            </li>
           </ul>
 
       - # 1 peer review
@@ -536,7 +560,16 @@ essentials:
           <p><strong>Editing an existing article?</strong></p>
           <ul>
             <li>NEVER copy and paste your draft of an article over the entire article. Instead, edit small sections at a time.</li>
-            <li>Copy your edits into the article. Make many small edits, saving each time, and leaving an edit summary. Never replace more than one to two sentences without saving!</li>
+            <li>
+              Copy your edits into the article. Make many small edits, saving
+              each time, and leaving an edit summary. Never replace more than one
+              to two sentences without saving!
+            </li>
+            <li>
+              Be sure to copy text from your sandbox while the sandbox page is in
+              'Edit' or 'Edit source' mode. This ensures that the formatting is
+              transferred correctly.
+            </li>
           </ul>
           <p><strong>Creating a new article?</strong></p>
           <ul>
