@@ -25,4 +25,19 @@ if @user.course_instructor?
       end
     end
   end
+
+  json.bystudents_stats do
+    json.word_count do
+      i = 0
+      result = []
+      @courses_presenter.courses.each do |course|
+        result += json.array! course.revisions.each do |revision|
+          i += 1
+          json.index i
+          json.date revision.date
+          json.characters revision.characters
+        end
+      end
+    end
+  end
 end

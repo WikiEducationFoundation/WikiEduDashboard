@@ -60,6 +60,8 @@ const ContributionStats = React.createClass({
   render() {
     let contriStats;
     console.log(this.state.statsGraphsData);
+    const graphWidth = 500;
+    const graphHeight = 200;
     if (this.state.isInstructor.instructor) {
       contriStats = (
         <InstructorStats
@@ -67,6 +69,8 @@ const ContributionStats = React.createClass({
           stats = {this.state.stats}
           isStudent = {this.state.isStudent.student}
           statsGraphsData = {this.state.statsGraphsData}
+          graphWidth = {graphWidth}
+          graphHeight = {graphHeight}
         />
       );
     }

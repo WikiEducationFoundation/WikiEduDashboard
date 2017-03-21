@@ -1,15 +1,18 @@
 import React from 'react';
 import ByStudentsStats from './by_students_stats.jsx';
 import StudentStats from './student_stats.jsx';
-import CoursesTaughtGraph from './courses_taught_graph.jsx';
-import StudentsTaughtGraph from './students_taught_graph.jsx';
+import CoursesTaughtGraph from './graphs/as_instructor_graphs/courses_taught_graph.jsx';
+import StudentsTaughtGraph from './graphs/as_instructor_graphs/students_taught_graph.jsx';
+import Loading from '../common/loading.jsx';
 
 const InstructorStats = React.createClass({
   propTypes: {
     username: React.PropTypes.string,
     stats: React.PropTypes.object,
     isStudent: React.PropTypes.bool,
-    statsGraphsData: React.PropTypes.object
+    statsGraphsData: React.PropTypes.object,
+    graphWidth: React.PropTypes.number,
+    graphHeight: React.PropTypes.number
   },
 
   getInitialState() {
@@ -35,11 +38,18 @@ const InstructorStats = React.createClass({
     let statsVisualizations;
     if (this.state.selectedGraph === 'courses_count')
     {
-      statsVisualizations = (
-        <CoursesTaughtGraph
-          statsData = {this.props.statsGraphsData.asinstructor_stats.courses_count}
-        />
-       );
+      if (this.props.statsGraphsData != null) {
+        statsVisualizations = (
+          <CoursesTaughtGraph
+            statsData = {this.props.statsGraphsData.asinstructor_stats.courses_count}
+            graphWidth = {this.props.graphWidth}
+            graphHeight = {this.props.graphHeight}
+          />
+         );
+      }
+      else {
+        statsVisualizations = <Loading />;
+      }
     } else if (this.state.selectedGraph === 'students_count') {
       statsVisualizations = (
         <StudentsTaughtGraph
