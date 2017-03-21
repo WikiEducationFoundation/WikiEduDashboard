@@ -61,6 +61,10 @@ class CoursesUsers < ActiveRecord::Base
     "#{course.home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{user.url_encoded_username}"
   end
 
+  def talk_page_url
+    "#{course.home_wiki.base_url}/wiki/User_talk:#{user.url_encoded_username}"
+  end
+
   def character_sum_ms
     update_cache unless self[:character_sum_ms]
     self[:character_sum_ms]
