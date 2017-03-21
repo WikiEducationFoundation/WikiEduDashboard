@@ -50,7 +50,7 @@ class ArticleImporter
   def import_articles_from_title_query(results)
     articles = []
     results.each do |_id, page_data|
-      next if page_data['missing'].present?
+      next if page_data['missing']
       articles << Article.new(mw_page_id: page_data['pageid'].to_i,
                               title: page_data['title'].tr(' ', '_'),
                               wiki_id: @wiki.id,
