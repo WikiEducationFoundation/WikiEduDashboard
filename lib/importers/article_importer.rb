@@ -30,8 +30,6 @@ class ArticleImporter
       next if results.blank?
       import_articles_from_title_query(results)
     end
-
-
   end
 
   private
