@@ -1,5 +1,4 @@
 import React from 'react';
-import Notifications from './common/notifications.jsx';
 
 const App = React.createClass({
   displayName: 'App',
@@ -11,7 +10,6 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <Notifications />
         {this.props.children}
       </div>
     );

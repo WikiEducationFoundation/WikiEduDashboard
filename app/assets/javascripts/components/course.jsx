@@ -10,6 +10,7 @@ import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
+import Notifications from './common/notifications.jsx';
 
 const getState = function () {
   const current = $('#react_root').data('current_user');
@@ -221,10 +222,11 @@ const Course = React.createClass({
     return (
       <div>
         <div className="course-nav__wrapper">
-          <Affix className="course_navigation" offset={57 + NotificationStore.getNotifications().length * 52}>
+          <Affix className="course_navigation" offset={57}>
             <CourseNavbar {...this.props} {...this.state}
               courseLink={this._courseLinkParams()}
             />
+            <Notifications />
           </Affix>
         </div>
         <div className="course-alerts">
