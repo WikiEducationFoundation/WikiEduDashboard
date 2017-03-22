@@ -79,12 +79,12 @@ class Wiki < ActiveRecord::Base
     case project
     when 'wikidata'
       self.language = nil
+      return
     when 'wikisource'
       self.language = nil if language == 'www'
+      return
     else
-      if self.language.nil?
-        raise InvalidWikiError
-      end
+      raise InvalidWikiError if self.language.nil?
     end
   end
 
