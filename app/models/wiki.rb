@@ -76,10 +76,15 @@ class Wiki < ActiveRecord::Base
   def ensure_valid_project
 		# Multilingual projects must have language == nil.
     # TODO: Validate the language/project combination by pinging it's API.
-    if MULTILINGUAL_PROJECTS.include?(project)
+    case project
+    when 'wikidata'
       self.language = nil
-    elsif language.nil?
-      raise InvalidWikiError
+    when 'wikisource'
+      self.language = nil if language == 'www'
+    else
+      if self.language.nil?
+        raise InvalidWikiError
+      end
     end
   end
 
@@ -96,7 +101,18 @@ class Wiki < ActiveRecord::Base
   end
 
   def self.get_or_create(language:, project:)
-    language = nil if MULTILINGUAL_PROJECTS.include?(project)
+    language = language_for_multilingual(language: language, project: project)
     find_or_create_by(language: language, project: project)
+  end
+
+
+  def self.language_for_multilingual(language:, project:)
+    case project
+    when 'wikidata'
+      language = nil
+    when 'wikisource'
+      language = nil if language == 'www'
+    end
+    language
   end
 end

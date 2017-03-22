@@ -94,6 +94,7 @@ describe Wiki do
             new_wiki   = create(:wiki, language: "es", project: 'wikisource')
             found_wiki = Wiki.get_or_create(language: "es", project: 'wikisource')
             expect(new_wiki).to eq(found_wiki), -> { "Unfortunately the correct Wiki object was not returned" }
+            expect(new_wiki.language).to eq('es')
           end
         end
 
