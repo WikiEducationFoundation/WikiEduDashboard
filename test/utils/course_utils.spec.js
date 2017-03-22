@@ -86,9 +86,19 @@ describe('courseUtils.articleFromTitleInput', () => {
   it('converts Wikipedia urls into titles', () => {
     const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
+
     expect(output.title).to.eq('Robot selfie');
     expect(output.project).to.eq('wikipedia');
     expect(output.language).to.eq('en');
+    expect(output.article_url).to.eq(input);
+  });
+
+  it("correctly parses multilingual wikisource url's", () => {
+    const input = 'https://wikisource.org/wiki/Heyder_Cansa';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).to.eq('Heyder Cansa');
+    expect(output.project).to.eq('wikisource');
+    expect(output.language).to.eq('www');
     expect(output.article_url).to.eq(input);
   });
 
