@@ -20,12 +20,12 @@ const CoursesTaughtGraph = React.createClass({
           type: 'time',
           domain: {
             fields: [{
-              data: 'courses_count',
+              data: 'courses_data',
               field: 'course_start',
               sort: { field: 'date', op: 'min' }
             },
               {
-                data: 'courses_count',
+                data: 'courses_data',
                 field: 'course_end',
                 sort: { field: 'date', op: 'min' }
               }
@@ -37,8 +37,11 @@ const CoursesTaughtGraph = React.createClass({
         },
         {
           name: 'y',
-          type: 'linear',
-          domain: [0, 50, 0, 50],
+          type: 'ordinal',
+          domain: {
+            data: 'courses_data',
+            field: 'course_title'
+          },
           rangeMin: this.props.graphHeight,
           rangeMax: 0,
           round: true,
@@ -52,8 +55,8 @@ const CoursesTaughtGraph = React.createClass({
           scale: 'x',
           grid: true,
           layer: 'back',
-          ticks: 10,
           title: 'Date',
+          ticks: 10,
           properties: {
             labels: {
               text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
@@ -65,11 +68,12 @@ const CoursesTaughtGraph = React.createClass({
         {
           type: 'y',
           scale: 'y',
-          format: 's',
+          title: 'Courses Taught',
           grid: true,
           layer: 'back',
           offset: 10,
-          title: "Courses Taught"
+          ticks: 0,
+          values: []
         }
       ],
       // ///////////////
@@ -77,7 +81,7 @@ const CoursesTaughtGraph = React.createClass({
       // ///////////////
       data: [
         {
-          name: 'courses_count',
+          name: 'courses_data',
           values: this.props.statsData,
           format: { type: 'json', parse: { course_start: 'date', course_end: 'date' } },
           transform: [{
@@ -92,21 +96,41 @@ const CoursesTaughtGraph = React.createClass({
       // //////////////
       marks: [
         {
-          name: 'area_marks',
-          type: 'area',
+          name: 'text_marks',
+          type: 'text',
           from: {
-            data: 'courses_count',
+            data: 'courses_data',
             transform: [{ type: 'sort', by: '-date' }]
           },
           properties: { enter: {
             orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'course_end' },
-            y: { scale: 'y', value: 10 },
-            y2: { scale: 'y', value: 0 },
-            fill: { value: '#676EB4' },
-            opacity: { value: 0.7 },
-            interpolate: { value: 'step-before' }
+            x: { scale: 'x', field: 'course_start' },
+            y: { scale: 'y', field: 'course_title', offset: -3 },
+            fill: { value: '#000' },
+            text: { field: 'course_title' },
+            font: { value: 'Helvetica Neue' },
+            fontSize: { value: 10 }
           } }
+        },
+        {
+          name: 'rect_marks',
+          type: 'rect',
+          from: {
+            data: 'courses_data',
+            transform: [{ type: 'sort', by: '-date' }]
+          },
+          properties: { enter: {
+            x: { scale: 'x', field: 'course_start' },
+            x2: { scale: 'x', field: 'course_end' },
+            y: { scale: 'y', field: 'course_title', offset: -1 },
+            height: {
+              value: 5
+            },
+            fill: {
+              value: '#575d99'
+            }
+          }
+          }
         }
       ]
     };
@@ -124,7 +148,7 @@ const CoursesTaughtGraph = React.createClass({
     console.log('courses count');
     console.log(this.props.statsData);
     return (
-      <div>
+      <div id ="stats_graph">
         <h5>CoursesTaughtGraph </h5>
         <div id= "CoursesTaughtGraph" />
       </div>
