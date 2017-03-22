@@ -28,7 +28,10 @@ const CourseStats = React.createClass({
           <small>{I18n.t('metrics.edit_count_description')}</small>
         </div>
         <div className="stat-display__stat tooltip-trigger" id="student-editors">
-          <div className="stat-display__value">{this.props.course.student_count}</div>
+          <div className="stat-display__value">
+            {this.props.course.student_count}
+            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          </div>
           <small>{CourseUtils.i18n('student_editors', this.props.course.string_prefix)}</small>
           <div className="tooltip dark" id="trained-count">
             <h4 className="stat-display__value">{this.props.course.trained_count}</h4>
@@ -44,7 +47,10 @@ const CourseStats = React.createClass({
           <small>{I18n.t('metrics.view_count_description')}</small>
         </div>
         <div className="stat-display__stat tooltip-trigger" id="upload-count">
-          <div className="stat-display__value">{this.props.course.upload_count}</div>
+          <div className="stat-display__value">
+            {this.props.course.upload_count}
+            <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          </div>
           <small>{I18n.t('metrics.upload_count')}</small>
           <div className="tooltip dark" id="upload-usage">
             <h4 className="stat-display__value">{this.props.course.upload_usages_count}</h4>
