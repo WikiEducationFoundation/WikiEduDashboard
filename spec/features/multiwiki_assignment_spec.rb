@@ -65,7 +65,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
     end
   end
 
-  it 'will create a valid assignment for multiliungual wikisource projects' do
+  it 'will create a valid assignment for multilingual wikisource projects' do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'

@@ -41,8 +41,6 @@ class AssignmentManager
   def set_article_from_database
     # We double check that the titles are equal to avoid false matches of case variants.
     # We can revise this once the database is set to use case-sensitive collation.
-    #
-    #
     articles = Article.where(title: @clean_title, wiki_id: @wiki.id,
                              namespace: Article::Namespaces::MAINSPACE)
     exact_title_matches = articles.select { |article| article.title == @clean_title }
