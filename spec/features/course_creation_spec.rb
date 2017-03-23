@@ -79,6 +79,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default 2 peer reviews
   sleep 1
 
+  click_button 'Next' # Default 3 discussions
+  sleep 1
+
   click_button 'Next' # No supplementary assignments
   sleep 1
 
