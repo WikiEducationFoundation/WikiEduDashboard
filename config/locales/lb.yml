@@ -197,6 +197,7 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    all_courses: All Progtrammer
     archived: Archivéiert Programmer
     cancel: Ofbriechen
     courses: Programmer
@@ -344,9 +345,9 @@ lb:
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Ed
   user_profiles:
-    student_impact: Gesamtimpakt vum %{username} als Student
-    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
-    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
+    student_impact: Gesamtimpakt duerch %{username} als Student
+    instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
+    instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
     disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
     bio_placeholder: Är Biographie dobäisetzen (fakultativ)
     location_placeholder: Setzt Är Plaz derbäi (fakultativ)

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: BanKris
+# Author: Notramo
 # Author: R-Joe
 # Author: Uno20001
 # Author: Wolf Rex
@@ -52,6 +53,7 @@ hu:
     timeline_link: Idővonal
     title: Cím
   courses_generic:
+    all_courses: Minden program
     creator:
       course_school: Intézmény
     student_editors: Szerkesztők

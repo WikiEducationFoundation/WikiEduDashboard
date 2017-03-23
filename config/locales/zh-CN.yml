@@ -321,6 +321,7 @@ zh-CN:
       notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
+    all_courses: 所有计划
     archived: 存档的程序
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点

@@ -205,6 +205,7 @@ ko:
     survey:
       link: 설문 조사 참가
   courses_generic:
+    all_courses: 모든 프로그램
     archived: 보존된 프로그램
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝

@@ -384,6 +384,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
     assignment_end: Final del cronograma

@@ -232,6 +232,7 @@ it:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
       invalid_language_or_project: Lingua/progetto non valido
+      duplicate_slug: Un altro programma chiamato %{slug} esiste già.
     expected_students: Studenti previsti
     instructor:
       one: Insegnante
@@ -306,6 +307,7 @@ it:
       notification_message: Partecipa al nostro sondaggio per questo corso.
       link: Rispondi sondaggio
   courses_generic:
+    all_courses: Tutti i programmi
     articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_end: Fine timeline
     assignments_none: Questo progetto non ha voci assegnate.

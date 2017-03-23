@@ -400,6 +400,7 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    all_courses: Tous les programmes
     archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie

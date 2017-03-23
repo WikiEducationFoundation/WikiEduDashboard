@@ -388,6 +388,7 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    all_courses: Alle Programme
     archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende

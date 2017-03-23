@@ -125,6 +125,7 @@ bn:
       one: স্বেচ্ছাসেবক
       other: স্বেচ্ছাসেবক
   courses_generic:
+    all_courses: সকল কার্যক্রমসমুহ
     cancel: বাতিল
     courses_taught: প্রোগ্রামের ধারণা
     campaign_courses: '%{title} প্রোগ্রাম'
