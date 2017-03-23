@@ -156,6 +156,7 @@ essentials:
           </ul>
 
       -
+        if: content_gaps_discussion
         title: "Discussion: What's a content gap?"
         kind: 0
         content: |
@@ -212,6 +213,7 @@ essentials:
     weight: 6
     blocks:
       -
+        if: sources_and_plagiarism_discussion
         title: "Discussion: Thinking about sources and plagiarism"
         kind: 0
         content: |
@@ -424,6 +426,7 @@ essentials:
     weight: 3
     blocks:
       -
+        if: thinking_about_wikipedia_discussion
         title: "Discussion: Thinking about Wikipedia"
         kind: 0
         content: |
