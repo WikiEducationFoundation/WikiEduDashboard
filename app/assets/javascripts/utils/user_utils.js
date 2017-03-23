@@ -2,6 +2,7 @@ const UserUtils = class {
   userRoles(currentUser, userStore) {
     // Role values correspond to the CoursesUsers roles defined
     const roles = {};
+    if (!currentUser) { return roles; }
     if (userStore.getFiltered({ id: currentUser.id, role: 0 })[0]) {
       roles.isStudent = true;
       roles.isEnrolled = true;

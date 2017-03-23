@@ -3,6 +3,8 @@ import AssignCell from '../students/assign_cell.jsx';
 import AvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_article_list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
+import UserStore from '../../stores/user_store.js';
+import UserUtils from '../../utils/user_utils.js';
 
 function getState() {
   return {
@@ -32,7 +34,6 @@ const AvailableArticles = React.createClass({
   render() {
     let assignCell;
     let availableArticles;
-    let adminUser;
     let elements = [];
 
     if (this.state.assignments.length > 0) {
@@ -65,13 +66,8 @@ const AvailableArticles = React.createClass({
       );
     }
 
-    if (this.props.current_user && (this.props.current_user.admin || this.props.current_user.role > 0)) {
-      adminUser = true;
-    } else {
-      adminUser = false;
-    }
-
-    const showAvailableArticles = elements.length > 0 || adminUser;
+    const userRoles = UserUtils.userRoles(this.props.current_user, UserStore);
+    const showAvailableArticles = elements.length > 0 || userRoles.isNonstudent;
 
     if (showAvailableArticles) {
       availableArticles = (
