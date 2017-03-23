@@ -8,6 +8,7 @@ import NotificationStore from '../stores/notification_store.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
+import UserUtils from '../utils/user_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
@@ -73,23 +74,18 @@ const Course = React.createClass({
   render() {
     const alerts = [];
 
-    let userObject;
-    if (this.state.current_user.id) {
-      userObject = UserStore.getFiltered({ id: this.state.current_user.id })[0];
-    }
-    const userRole = userObject ? userObject.role : -1;
-
+    const userRoles = UserUtils.userRoles(this.state.current_user, UserStore);
 
     // //////////////////////////////////
     // Admin / Instructor notifications /
     // //////////////////////////////////
 
     // For unpublished courses, when viewed by an instructor or admin
-    if ((userRole > 0 || this.state.current_user.admin) && !this.state.course.legacy && !this.state.course.published) {
+    if (userRoles.isNonstudent && !this.state.course.legacy && !this.state.course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
       if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse') {
         // Show submit button if there is a timeline with trainings, or user is admin.
-        if (CourseUtils.hasTrainings(this.state.weeks) || this.state.current_user.admin) {
+        if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -124,7 +120,7 @@ const Course = React.createClass({
       // When the course has been submitted
       if (this.state.course.submitted) {
         // Show instructors the 'submitted' notice.
-        if (!this.state.current_user.admin) {
+        if (!userRoles.isAdmin) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -148,7 +144,7 @@ const Course = React.createClass({
     }
 
     // For published courses with no students, highlight the enroll link
-    if ((userRole > 0 || this.state.current_user.admin) && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
+    if (userRoles.isNonstudent && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
       alerts.push((
@@ -209,7 +205,7 @@ const Course = React.createClass({
       enrollCard = (
         <EnrollCard
           user={this.state.current_user}
-          userRole={userRole}
+          userRoles={userRoles}
           course={this.state.course}
           courseLink={this._courseLinkParams()}
           passcode={this.props.location.query.enroll}
