@@ -27,6 +27,11 @@
       margin 0
       font-weight 300
 
+      img
+        max-width 12%
+        position absolute
+        top 9px
+
     small
       color #666
       font-size 1em
@@ -51,3 +56,9 @@
 
       .stat-display__stat
         margin 0 20px 0 20px
+
+@media only screen and (max-width: 910px)
+  .stat-display
+    .stat-display__value
+      img
+        display none

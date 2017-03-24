@@ -48,6 +48,7 @@ const ByStudentsStats = React.createClass({
           <div className ="stat-display__stat tooltip-trigger">
             <div className="stat-display__value">
               {this.props.stats.upload_count}
+              <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
             </div>
             <small>
               {I18n.t('metrics.upload_count')}

@@ -38,6 +38,7 @@ const InstructorStats = React.createClass({
             <div className ="stat-display__stat tooltip-trigger">
               <div className="stat-display__value">
                 {this.props.stats.as_instructor.user_count}
+                <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
               </div>
               <small>
                 {I18n.t(`${this.props.stats.as_instructor.course_string_prefix}.students`)}
