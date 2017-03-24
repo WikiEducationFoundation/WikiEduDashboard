@@ -97,6 +97,7 @@ Rails.application.routes.draw do
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create] do
     member do
+      get 'resolve'
       put 'resolve'
     end
   end
