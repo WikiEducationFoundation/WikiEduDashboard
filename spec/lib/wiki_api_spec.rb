@@ -13,16 +13,34 @@ describe WikiApi do
     end
   end
 
+  describe '.fetch_all' do
+    it 'returns the same data as a single complete query would' do
+      VCR.use_cassette 'wiki/continue_response' do
+        titles = %(apple Fruit ecosystem Pear)
+        # With a low palimit, this query will need to continue
+        continue_query = { titles: titles,
+                           prop: 'pageassessments',
+                           redirects: 'true',
+                           palimit: 2 }
+        # With a high palimit, this query will not need to continue
+        complete_query = continue_query.merge(palimit: 50)
+        complete = WikiApi.new.send(:fetch_all, complete_query)
+        continue = WikiApi.new.send(:fetch_all, continue_query)
+        expect(complete).to eq(continue)
+      end
+    end
+  end
+
   describe 'API article ratings' do
     it 'should return the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do
         # A single article
         response = WikiApi.new.get_article_rating('History_of_biology')
-        expect(response[0]['History_of_biology']).to eq('fa')
+        expect(response['History_of_biology']).to eq('fa')
 
         # A single non-existant article
         response = WikiApi.new.get_article_rating('THIS_IS_NOT_A_REAL_ARTICLE_TITLE')
-        expect(response[0]['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
+        expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
 
         # A mix of existing and non-existant, including ones with niche ratings.
         # Some of these ratings may change over time.
@@ -31,14 +49,14 @@ describe WikiApi do
           'A_Clash_of_Kings', # c
           'Ecology', # ga
           'Fast_inverse_square_root', # ga
-          'Nansenflua', # unassessed
+          'Nansenflua', # c
           'List_of_Oregon_ballot_measures', # list
           'The_American_Monomyth', # stub
           'Drug_Trafficking_Safe_Harbor_Elimination_Act', # start
           'Energy_policy_of_the_United_States', # b
           'List_of_camouflage_methods', # fl
           'THIS_IS_NOT_A_REAL_ARTICLE_TITLE', # does not exist
-          '1804_Snow_hurricane', # a/ga ?
+          '1804_Snow_hurricane', # a
           'Barton_S._Alexander', # a
           'Bell_number', # bplus
           'List_of_Canadian_plants_by_family_S', # sl
@@ -46,26 +64,17 @@ describe WikiApi do
           '2015_Pacific_typhoon_season', # cur, as of 2015-02-27
           "Cycling_at_the_2016_Summer_Olympics_–_Men's_Omnium", # future, as of 2015-02-27
           'Selfie_(disambiguation)', # no talk page
-          'Sex_trafficking' # blank talk page
+          'Sex_trafficking', # blank talk page
+          'American_Civil_War_prison_camps' # cl
         ]
 
         response = WikiApi.new.get_article_rating(articles)
-        expect(response).to include('History_of_biology' => 'fa')
-        expect(response).to include('THIS_IS_NOT_A_REAL_ARTICLE_TITLE' => nil)
-        expect(response.count).to eq(20)
-      end
-    end
-
-    it 'should return the raw page contents' do
-      VCR.use_cassette 'wiki/article_ratings_raw' do
-        articles = [
-          'Talk:Selfie_(disambiguation)', # probably doesn't exist; the corresponding article does
-          'Talk:The_American_Monomyth', # exists
-          'Talk:THIS_PAGE_WILL_NEVER_EXIST,_RIGHT?', # definitely doesn't exist
-          'Talk:List_of_Canadian_plants_by_family_S' # exists
-        ]
-        response = WikiApi.new.get_raw_page_content(articles)
-        expect(response.count).to eq(4)
+        expect(response['History_of_biology']).to eq('fa')
+        expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
+        expect(response['American_Civil_War_prison_camps']).to eq('list')
+        expect(response['Bell_number']).to eq('b')
+        expect(response['Nansenflua']).to eq(nil)
+        expect(response['Antarctica_(disambiguation)']).to eq(nil)
       end
     end
   end
