@@ -54,6 +54,8 @@ const InstructorStats = React.createClass({
       statsVisualizations = (
         <StudentsTaughtGraph
           statsData = {this.props.statsGraphsData.asinstructor_stats.students_count}
+          graphWidth = {this.props.graphWidth}
+          graphHeight = {this.props.graphHeight}
         />
        );
     }
