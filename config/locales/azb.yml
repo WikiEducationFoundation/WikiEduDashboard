@@ -9,6 +9,8 @@ azb:
     cancel: وازگئچ
     dashboard: ویکی‌اد داشبوردو
     error: بیر خطا باش وئردی.
+    explore: آختار
+    field_required: بو مورد گرکدیر
     greeting2: خوش گلدینیز!
     greeting_extended: ویکی‌پدیایا خوش گلدینیز
     greeting: سالام!
@@ -26,7 +28,10 @@ azb:
     submit: گؤندر
     training: اؤیردیم
     change: دَییشدیر
+    details: جوزئیات
+    confirm: اوْلسون
   home:
+    explore: آختار
     log_in: ویکی‌پدیا ایله گیر
     sign_up: ویکی‌پدیا ایله آد یازدیر
   activity:
@@ -35,26 +40,41 @@ azb:
     label: چالیشما
   articles:
     edited_mobile: مقاله‌لر
+    hide: گیزلت
     label: مقاله‌لر
     loading: مقاله‌لر یۆکلنیر...
     new: (یئنی)
+    rating: کیلاس
     title: باشلیق
     title_example: مقاله باشلیغی
     view: مقاله‌یه باخ
     view_all: هامی‌سینا باخ
+    view_on_wiki: ویکیده باخ
   assignments:
     remove: سیل
     select: سئچ
   campaign:
+    description: توضیح
     none: هئچ بیری
+    title: باشلیق
+  chat:
+    label: چت
   courses:
     activity: چالیشما
     articles: مقاله‌لر
+    cancel: وازگئچ
+    campaigns: 'کمپینلر:'
+    creator:
+      subject: موضوع
+    end: سوْن
     join: قوْشول
+    overview: ائو
     school: مدرسه
+    start: باشلا
     term: ترم
     title: باشلیق
   courses_generic:
+    cancel: وازگئچ
     term: هاچان
   namespace:
     user_ns: ایشلدن
