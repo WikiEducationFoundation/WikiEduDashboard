@@ -49,7 +49,7 @@ describe WikiCourseEdits do
   describe '#enroll_in_course' do
     it 'posts to the userpage of the enrolling student and their sandbox' do
       stub_oauth_edit
-      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
+      expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
       WikiCourseEdits.new(action: :enroll_in_course,
                           course: course,
                           current_user: user,

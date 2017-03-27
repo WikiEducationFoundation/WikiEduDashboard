@@ -58,6 +58,12 @@ class WikiCourseEdits
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
+    # Add a template to the user's talk page
+    talk_template = "{{#{@dashboard_url} user talk|course = [[#{@course.wiki_title}]] }}\n"
+    talk_page = "User_talk:#{enrolling_user.username}"
+    talk_summary = "adding {{#{@dashboard_url} user talk}}"
+    @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
+
     # Pre-create the user's sandbox
     # TODO: Do this more selectively, replacing the default template if
     # it is present.
