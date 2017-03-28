@@ -33,6 +33,8 @@ class CoursesController < ApplicationController
              status: 404
       return
     end
+    # TODO: Add strict datetime validations to course creation and
+    # add a clause to handle validation errors
     @course = course_creation_manager.create
   end
 

@@ -191,6 +191,7 @@ class Course < ActiveRecord::Base
   before_save :ensure_required_params
   before_save :order_weeks
   before_save :set_default_times
+  before_save :check_course_times
 
   ####################
   # Instance methods #
@@ -320,5 +321,13 @@ class Course < ActiveRecord::Base
     self.end = self.end.end_of_day
     self.timeline_start = timeline_start.beginning_of_day
     self.timeline_end = timeline_end.end_of_day
+  end
+
+  # Check if course times are invalid and if yes, set the end time to be the same
+  # as that of the start time
+  def check_course_times
+    if start > self.end
+      self.end = start
+    end
   end
 end

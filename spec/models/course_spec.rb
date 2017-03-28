@@ -131,6 +131,14 @@ describe Course, type: :model do
     expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
   end
 
+  it 'updates end time to equal start time it the times are invalid' do
+    course = build(:course,
+                    start: DateTime.now,
+                    end: DateTime.now - 2.months)
+    course.save
+    expect(course.end).to eq(course.start)
+  end
+
   describe '#url' do
     it 'should return the url of a course page' do
       # A legacy course

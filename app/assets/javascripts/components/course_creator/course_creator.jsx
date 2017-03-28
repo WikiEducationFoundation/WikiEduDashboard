@@ -75,7 +75,7 @@ const CourseCreator = React.createClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid() && this.expectedStudentsIsValid()) {
+    if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
       ValidationActions.setInvalid(
         'exists',
@@ -128,6 +128,17 @@ const CourseCreator = React.createClass({
   expectedStudentsIsValid() {
     if (this.state.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
       ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  },
+
+  dateTimesAreValid() {
+    const startDateTime = new Date(this.state.course.start);
+    const endDateTime = new Date(this.state.course.end);
+
+    if (startDateTime >= endDateTime) {
+      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
     return true;
@@ -256,7 +267,6 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
-
     return (
       <TransitionGroup
         transitionName="wizard"
