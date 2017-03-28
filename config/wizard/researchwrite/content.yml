@@ -581,7 +581,7 @@ essentials:
           </ul>
 
       -
-        if: DYK
+        if: did_you_know
         title: Did You Know
         kind: 1
         content: |
