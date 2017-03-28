@@ -74,8 +74,7 @@ class User < ActiveRecord::Base
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
   scope :strictly_current, -> { joins(:courses).merge(Course.strictly_current) }
   scope :from_courses, lambda { |courses|
-    course_ids = courses.map(&:id)
-    joins(:courses_users).where(courses_users: { course_id: course_ids })
+    joins(:courses_users).where(courses_users: { course: courses })
   }
   scope :role, lambda { |role|
     roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
