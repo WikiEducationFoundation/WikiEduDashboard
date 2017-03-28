@@ -2,7 +2,7 @@
   .notification= flash[:notice]
 
 - if flash[:sitenotice]
-  .notification= raw flash[:sitenotice]
+  .notification.sitenotice= raw flash[:sitenotice]
 
 - if flash[:error]
   .notice.notice--error= flash[:error]

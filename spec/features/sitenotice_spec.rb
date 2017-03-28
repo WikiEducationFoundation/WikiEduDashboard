@@ -11,7 +11,7 @@ describe 'sitenotice', type: :feature do
 
     it 'is displayed if set' do
       visit root_path
-      expect(first('.notification')).to have_content notice
+      expect(first('.notification.sitenotice')).to have_content notice
     end
   end
 
