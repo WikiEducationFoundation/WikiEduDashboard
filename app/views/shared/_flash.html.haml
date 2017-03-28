@@ -1,8 +1,8 @@
 - if flash[:notice]
   .notification= flash[:notice]
 
-- if flash[:sitenotice]
-  .notification.sitenotice= raw flash[:sitenotice]
+- unless ENV['sitenotice'].blank?
+  .notification.sitenotice= raw ENV['sitenotice']
 
 - if flash[:error]
   .notice.notice--error= flash[:error]
