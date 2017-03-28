@@ -9,7 +9,7 @@ require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
-require "#{Rails.root}/lib/student_greeter"
+require "#{Rails.root}/lib/student_greeting_checker"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
@@ -47,7 +47,7 @@ class ConstantUpdate
     update_all_caches # from CacheUpdater
     push_course_data_to_salesforce if Features.wiki_ed?
     remove_needs_update_flags
-    greet_ungreeted_students unless ENV['no_greeting'] == 'true'
+    update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
   end
@@ -99,9 +99,9 @@ class ConstantUpdate
   # Batch edits #
   ###############
 
-  def greet_ungreeted_students
-    log_message 'Greeting students in classes with greeters'
-    StudentGreeter.greet_all_ungreeted_students
+  def update_status_of_ungreeted_students
+    log_message 'Updating greeting status of ungreeted students'
+    StudentGreetingChecker.check_all_ungreeted_students
   end
 
   #################################

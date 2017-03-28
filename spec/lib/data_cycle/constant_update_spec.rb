@@ -19,7 +19,7 @@ describe ConstantUpdate do
       expect(ArticlesCourses).to receive(:update_all_caches)
       expect(CoursesUsers).to receive(:update_all_caches_concurrently)
       expect(Course).to receive(:update_all_caches)
-      expect(StudentGreeter).to receive(:greet_all_ungreeted_students)
+      expect(StudentGreetingChecker).to receive(:check_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
       expect_any_instance_of(CourseAlertManager).to receive(:create_no_students_alerts)
       expect_any_instance_of(CourseAlertManager).to receive(:create_untrained_students_alerts)
