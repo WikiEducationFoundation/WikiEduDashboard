@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
 
   def check_for_sitenotice
     return if ENV['sitenotice'].blank?
-    flash[:notice] = ENV['sitenotice']
+    flash[:sitenotice] = ENV['sitenotice']
   end
 
   def check_onboarded
