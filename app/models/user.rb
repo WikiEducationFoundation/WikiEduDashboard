@@ -29,8 +29,6 @@ require "#{Rails.root}/lib/utils"
 #= User model
 class User < ActiveRecord::Base
   alias_attribute :wiki_id, :username
-
-  validates :permissions, inclusion: { in: [0, 1, 2] }
   before_validation :ensure_valid_email
 
   #############
@@ -41,6 +39,9 @@ class User < ActiveRecord::Base
     ADMIN = 1
     INSTRUCTOR = 2
   end
+  validates :permissions, inclusion: {
+    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR]
+  }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -51,9 +52,11 @@ class User < ActiveRecord::Base
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
 
-  has_many :instructor_roles, -> { where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE) }, class_name: CoursesUsers
+  has_many :instructor_roles, -> { where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE) },
+           class_name: CoursesUsers
   has_many :instructed_courses, through: :instructor_roles, source: :course
-  has_many :staff_roles, -> { where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE) }, class_name: CoursesUsers
+  has_many :staff_roles, -> { where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE) },
+           class_name: CoursesUsers
   has_many :supported_courses, -> { distinct }, through: :staff_roles, source: :course
 
   has_many :campaigns, -> { distinct }, through: :campaigns_users
