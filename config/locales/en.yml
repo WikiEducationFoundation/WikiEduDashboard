@@ -43,7 +43,7 @@ en:
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
     field_invalid_date: This field requires a date in YYYY-MM-DD format
-    field_invalid_date_time: The end time should be chronologically after the start time
+    field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
     greeting: Hello!
