@@ -152,7 +152,18 @@ class Replica
 
   def compile_query_url(endpoint, query)
     base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-    "#{base_url}#{endpoint}?lang=#{@wiki.language}&project=#{@wiki.project}&#{query}"
+    "#{base_url}#{endpoint}?#{language_and_project_params}&#{query}"
+  end
+
+  # We must special-case Multilingual Wikisource because its labs database name
+  # does not follow the normal pattern; it is called 'sourceswiki', which is the
+  # same one we'd get if a Wikipedia's language was "sources".
+  def language_and_project_params
+    if @wiki.project == 'wikisource' && @wiki.language.nil?
+      'lang=sources&project=wikipedia'
+    else
+      "lang=#{@wiki.language}&project=#{@wiki.project}"
+    end
   end
 
   def compile_usernames_query(users)
