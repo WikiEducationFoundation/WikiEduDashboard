@@ -22,6 +22,7 @@ class Wiki < ActiveRecord::Base
   PROJECTS = %w(
     wikibooks
     wikidata
+    wikimedia
     wikinews
     wikipedia
     wikiquote
@@ -38,11 +39,11 @@ class Wiki < ActiveRecord::Base
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co cr crh cs csb cu
     cv cy cz da de diq dk dsb dv dz ee egl el eml en eo epo es et eu ext fa
     ff fi fiu-vro fj fo fr frp frr fur fy ga gag gan gd gl glk gn gom got gsw
-    gu gv ha hak haw he hi hif ho hr hsb ht hu hy hz ia id ie ig ii ik ilo io
-    is it iu ja jbo jp jv ka kaa kab kbd kg ki kj kk kl km kn ko koi kr krc
-    ks ksh ku kv kw ky la lad lb lbe lez lg li lij lmo ln lo lrc lt ltg lv
-    lzh mai map-bms mdf mg mh mhr mi min minnan mk ml mn mo mr mrj ms mt mus
-    mwl my myv mzn na nah nan nap nb nds nds-nl ne new ng nl nn no nov nrm
+    gu gv ha hak haw he hi hif ho hr hsb ht hu hy hz ia id ie ig ii ik ilo
+    incubator io is it iu ja jbo jp jv ka kaa kab kbd kg ki kj kk kl km kn ko
+    koi kr krc ks ksh ku kv kw ky la lad lb lbe lez lg li lij lmo ln lo lrc lt
+    ltg lv lzh mai map-bms mdf mg mh mhr mi min minnan mk ml mn mo mr mrj ms mt
+    mus mwl my myv mzn na nah nan nap nb nds nds-nl ne new ng nl nn no nov nrm
     nso nv ny oc om or os pa pag pam pap pcd pdc pfl pi pih pl pms pnb pnt ps
     pt qu rm rmy rn ro roa-rup roa-tara ru rue rup rw sa sah sc scn sco sd se
     sg sgs sh si simple sk sl sm sn so sq sr srn ss st stq su sv sw szl ta te
@@ -75,6 +76,8 @@ class Wiki < ActiveRecord::Base
 
   def ensure_valid_project
 		# Multilingual projects must have language == nil.
+    # Doesn't apply to multilingual Wikimedia projects, subdomain is accepted
+    # as language there.
     # TODO: Validate the language/project combination by pinging it's API.
     case project
     when 'wikidata'
@@ -112,6 +115,8 @@ class Wiki < ActiveRecord::Base
       language = nil
     when 'wikisource'
       language = nil if language == 'www'
+    when 'wikimedia'
+      language = nil unless language == 'incubator'
     end
     language
   end

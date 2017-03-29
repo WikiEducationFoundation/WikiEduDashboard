@@ -82,4 +82,22 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
     end
   end
+
+  it 'will create a valid assignment for multilingual wikimedia incubator projects' do
+    VCR.use_cassette 'multiwiki_assignment' do
+      visit "/courses/#{course.slug}/students"
+      click_button 'Assign Articles'
+      click_button 'Assign an article'
+      within('#users') do
+        first('input').set('https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa')
+      end
+      click_button 'Assign'
+      click_button 'OK'
+      visit "/courses/#{course.slug}/students"
+
+      within('#users') do
+        expect(page).to have_content 'incubator:wikimedia:Wp/kiu/Heyder Cansa'
+      end
+    end
+  end
 end
