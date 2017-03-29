@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
@@ -40,7 +39,6 @@ class ConstantUpdate
 
   def run_update
     log_start_of_update
-    update_users
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
@@ -55,11 +53,6 @@ class ConstantUpdate
   ###############
   # Data import #
   ###############
-
-  def update_users
-    log_message 'Updating global ids and training status'
-    UserImporter.update_users
-  end
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'

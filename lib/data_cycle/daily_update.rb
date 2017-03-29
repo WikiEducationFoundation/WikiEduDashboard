@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/rating_importer"
@@ -30,6 +31,7 @@ class DailyUpdate
 
   def run_update
     log_start_of_update
+    update_users
     update_commons_uploads
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
@@ -44,6 +46,11 @@ class DailyUpdate
   ###############
   # Data import #
   ###############
+
+  def update_users
+    log_message 'Updating global ids and training status'
+    UserImporter.update_users
+  end
 
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
