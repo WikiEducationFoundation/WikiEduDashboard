@@ -279,10 +279,9 @@ class Course < ActiveRecord::Base
     ready_for_update.each(&:update_cache)
   end
 
-  CACHE_UPDATE_CONCURRENCY = 5
-  def self.update_all_caches_concurrently
+  def self.update_all_caches_concurrently(concurrency = 2)
     threads = ready_for_update
-              .in_groups(CACHE_UPDATE_CONCURRENCY, false)
+              .in_groups(concurrency, false)
               .map.with_index do |course_batch, i|
       Thread.new(i) { course_batch.each(&:update_cache) }
     end

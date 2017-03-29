@@ -146,9 +146,10 @@ describe CoursesUsers, type: :model do
 
   describe '.update_all_caches_concurrently' do
     it 'calls .update_all_caches multiple times' do
+      concurrency = 6
       expect(CoursesUsers).to receive(:update_all_caches)
-        .exactly(CoursesUsers::CACHE_UPDATE_CONCURRENCY).times
-      CoursesUsers.update_all_caches_concurrently
+        .exactly(concurrency).times
+      CoursesUsers.update_all_caches_concurrently(concurrency)
     end
   end
 end
