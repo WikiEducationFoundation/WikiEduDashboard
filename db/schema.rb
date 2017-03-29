@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329000554) do
+ActiveRecord::Schema.define(version: 20170329161549) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -284,6 +284,7 @@ ActiveRecord::Schema.define(version: 20170329000554) do
     t.text     "features",       limit: 65535
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
     t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id", using: :btree
+    t.index ["user_id"], name: "index_revisions_on_user_id", using: :btree
   end
 
   create_table "survey_assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
