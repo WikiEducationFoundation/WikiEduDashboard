@@ -8,7 +8,7 @@ module CacheUpdater
     log_message 'Updating CoursesUsers cache'
     CoursesUsers.update_all_caches_concurrently
     log_message 'Updating Course cache'
-    Course.update_all_caches
+    Course.update_all_caches_concurrently
     log_message 'Finished updating cached values'
   end
 end

@@ -279,6 +279,16 @@ class Course < ActiveRecord::Base
     ready_for_update.each(&:update_cache)
   end
 
+  CACHE_UPDATE_CONCURRENCY = 5
+  def self.update_all_caches_concurrently
+    threads = ready_for_update
+              .in_groups(CACHE_UPDATE_CONCURRENCY, false)
+              .map.with_index do |course_batch, i|
+      Thread.new(i) { course_batch.each(&:update_cache) }
+    end
+    threads.each(&:join)
+  end
+
   RANDOM_PASSCODE_LENGTH = 8
   def self.generate_passcode
     ('a'..'z').to_a.sample(RANDOM_PASSCODE_LENGTH).join
