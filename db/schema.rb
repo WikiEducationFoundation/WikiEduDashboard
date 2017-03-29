@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304003631) do
+ActiveRecord::Schema.define(version: 20170329000554) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.date     "average_views_updated_at"
     t.integer  "wiki_id"
     t.integer  "mw_page_id"
+    t.index ["mw_page_id"], name: "index_articles_on_mw_page_id", using: :btree
   end
 
   create_table "articles_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -282,6 +283,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.integer  "mw_page_id"
     t.text     "features",       limit: 65535
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+    t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id", using: :btree
   end
 
   create_table "survey_assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
