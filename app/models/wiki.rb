@@ -50,7 +50,6 @@ class Wiki < ActiveRecord::Base
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
   ).freeze
-  validates_inclusion_of :language, in: LANGUAGES + [nil]
 
   MULTILINGUAL_PROJECTS = {
     'wikidata' => 'www.wikidata.org',
