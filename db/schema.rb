@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329191358) do
+ActiveRecord::Schema.define(version: 20170329200802) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20170329191358) do
     t.integer  "wiki_id"
     t.integer  "mw_page_id"
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id", using: :btree
+    t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title", using: :btree
   end
 
   create_table "articles_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
