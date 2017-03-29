@@ -35,6 +35,7 @@ class DailyUpdate
     update_commons_uploads
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
+    push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
   rescue Exception => e
@@ -83,6 +84,16 @@ class DailyUpdate
   def update_article_views
     log_message 'Updating article views'
     ViewImporter.update_all_views(true)
+  end
+
+  ###############
+  # Data export #
+  ###############
+  def push_course_data_to_salesforce
+    log_message 'Pushing course data to Salesforce'
+    Course.current.each do |course|
+      PushCourseToSalesforce.new(course) if course.flags[:salesforce_id]
+    end
   end
 
   #################################

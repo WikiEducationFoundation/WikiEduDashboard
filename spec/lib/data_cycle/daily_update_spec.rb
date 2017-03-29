@@ -3,6 +3,11 @@ require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/daily_update"
 
 describe DailyUpdate do
+  before do
+    create(:course, start: '2015-03-20', end: 1.month.from_now,
+                    flags: { salesforce_id: 'a0f1a9063a1Wyad' })
+  end
+
   describe 'on initialization' do
     it 'calls lots of update routines' do
       expect(UserImporter).to receive(:update_users)
@@ -15,6 +20,7 @@ describe DailyUpdate do
       expect(UploadImporter).to receive(:import_all_uploads)
       expect(UploadImporter).to receive(:update_usage_count_by_course)
       expect(UploadImporter).to receive(:import_all_missing_urls)
+      expect(PushCourseToSalesforce).to receive(:new)
       expect(Raven).to receive(:capture_message).and_call_original
       update = DailyUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)

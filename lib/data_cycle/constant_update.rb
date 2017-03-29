@@ -43,7 +43,6 @@ class ConstantUpdate
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
     update_all_caches # from CacheUpdater
-    push_course_data_to_salesforce if Features.wiki_ed?
     remove_needs_update_flags
     update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
@@ -77,20 +76,6 @@ class ConstantUpdate
     log_message 'Updating ratings for new articles'
     RatingImporter.update_new_ratings
   end
-
-  ###############
-  # Data export #
-  ###############
-  def push_course_data_to_salesforce
-    log_message 'Pushing course data to Salesforce'
-    @courses.each do |course|
-      PushCourseToSalesforce.new(course) if course.flags[:salesforce_id]
-    end
-  end
-
-  ###############
-  # Batch edits #
-  ###############
 
   def update_status_of_ungreeted_students
     log_message 'Updating greeting status of ungreeted students'
