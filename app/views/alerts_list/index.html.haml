@@ -14,4 +14,4 @@
         %td= link_to(alert.type, "/alerts_list/#{alert.id}")
         %td= link_to(alert.course.slug, "/courses/#{alert.course.slug}") if alert.course
         %td= link_to(alert.user.username, "/users/#{alert.user.url_encoded_username}") if alert.user
-        %td= alert.resolvable? ? link_to('Resolve', resolve_alert_path(alert.id), method: :put) : 'N/A'
+        %td= alert_display(alert)
