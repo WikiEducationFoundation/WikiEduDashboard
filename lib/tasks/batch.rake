@@ -7,6 +7,7 @@ require "#{Rails.root}/lib/data_cycle/survey_update"
 namespace :batch do
   desc 'Constant data updates'
   task update_constantly: :environment do
+    Rails.application.eager_load!
     ConstantUpdate.new
   end
 
