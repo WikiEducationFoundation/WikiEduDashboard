@@ -7,6 +7,7 @@
 # Author: Iniquity
 # Author: Irus
 # Author: Kareyac
+# Author: Lizalizaufa
 # Author: Mailman
 # Author: Nzeemin
 # Author: Okras
@@ -27,6 +28,7 @@ ru:
     field_required: Это поле обязательно для заполнения
     field_invalid_characters: Данное поле содержит недопустимые символы
     field_invalid_date: Это поле требует дату в формате YYYY-MM-DD
+    field_invalid_date_time: Завершится после старта.(Требуемое время от 0 до 23 часов.)
     greeting2: Добро пожаловать!
     greeting_extended: Добро пожаловать в Википедию
     greeting: Здравствуйте!

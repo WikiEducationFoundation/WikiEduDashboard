@@ -16,6 +16,8 @@ de:
     field_required: Dieses Feld ist erforderlich
     field_invalid_characters: Dieses Feld hat ungültige Zeichen
     field_invalid_date: Dieses Feld erfordert ein Datum im Format JJJJ-MM-TT
+    field_invalid_date_time: Das Ende muss nach dem Start liegen (Stunden müssen von
+      0 bis 23 gehen).
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
     greeting: Hallo!

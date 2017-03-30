@@ -30,6 +30,8 @@ azb:
     change: دَییشدیر
     details: جوزئیات
     confirm: اوْلسون
+  dashboard:
+    explore_examples: میثاللاردا آختار
   home:
     explore: آختار
     log_in: ویکی‌پدیا ایله گیر
@@ -39,6 +41,8 @@ azb:
     edited_by: دییشدیرن
     label: چالیشما
   articles:
+    edited: مقاله لر دییشدیریلیبدیر
+    edited_by: 'دییشدیرن:'
     edited_mobile: مقاله‌لر
     hide: گیزلت
     label: مقاله‌لر
@@ -50,11 +54,17 @@ azb:
     view: مقاله‌یه باخ
     view_all: هامی‌سینا باخ
     view_on_wiki: ویکیده باخ
+    edit_size: دییشدیرمه اؤلچوسو
   assignments:
     remove: سیل
     select: سئچ
   campaign:
+    campaign: کمپین
+    campaigns: کمپینلر
+    create_campaign: یئنی بیر کمپین یارات
+    create_my_campaign: منیم کمپینیمی یارات!
     description: توضیح
+    delete_campaign: بو کمپینی سیل
     none: هئچ بیری
     title: باشلیق
   chat:

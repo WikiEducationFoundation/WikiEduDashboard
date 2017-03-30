@@ -7,6 +7,7 @@
 # Author: Maroen1990
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
+# Author: Youssef
 # Author: ديفيد
 # Author: علاء
 # Author: محمد أحمد عبد الفتاح
@@ -22,6 +23,7 @@ ar:
     explore: استكشف
     field_invalid_characters: هذا الحقل به أحرف غير صالحة
     field_invalid_date: يتطلب هذا الحقل تاريخ بالشكل YYYY-MM-DD
+    field_invalid_date_time: يجب أن تكون النهاية بعد البداية. (الساعات من 0 إلى 23.)
     greeting2: مرحبا!
     greeting_extended: مرحبا بكم في ويكيبيديا
     greeting: أهلاّ بك!

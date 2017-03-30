@@ -1,6 +1,7 @@
 # Messages for Bashkir (башҡортса)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Lizalizaufa
 # Author: Азат Хәлилов
 # Author: Вильданова Гюзель
 # Author: Ләйсән
@@ -8,6 +9,8 @@
 ---
 ba:
   application:
+    field_invalid_date_time: Яңынан башлағас тамамланасаҡ. (0-дән 23 сәғәткә тиклем
+      арауыҡта.)
     change: Үҙгәртергә
   articles:
     new: (яңы)

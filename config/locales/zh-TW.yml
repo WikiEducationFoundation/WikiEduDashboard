@@ -23,6 +23,7 @@ zh-TW:
     field_required: 此欄位為必填欄位
     field_invalid_characters: 此欄位有無效的字符
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
+    field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
     greeting2: 歡迎
     greeting_extended: 歡迎來到維基百科
     greeting: 您好！

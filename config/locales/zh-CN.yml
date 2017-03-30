@@ -18,6 +18,7 @@ zh-CN:
     field_required: 此字段是必需的
     field_invalid_characters: 此字段有无效字符
     field_invalid_date: 此字段要求日期为YYYY-MM-DD格式
+    field_invalid_date_time: 结束时间必须在开始时间之后。（小时数在0~23之间。）
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
     greeting: 您好！

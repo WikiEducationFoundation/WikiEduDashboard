@@ -6,6 +6,7 @@
 # Author: Chicocvenancio
 # Author: Cristofer Alves
 # Author: Dianakc
+# Author: EVinente
 # Author: Eduardo Addad de Oliveira
 # Author: HenriqueCrang
 # Author: Ixocactus
@@ -29,6 +30,7 @@ pt-br:
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem caracteres inválidos
     field_invalid_date: Este campo requer a data no formato AAAA-MM-DD
+    field_invalid_date_time: O fim deve vir após o início. (Horas vão de 0 a 23.)
     greeting2: Bem-vindo(a)!
     greeting_extended: Bem-vindo à Wikipédia
     greeting: Olá!

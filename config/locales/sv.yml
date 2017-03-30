@@ -171,6 +171,7 @@ sv:
     volunteer:
       other: en=Volontär
   courses_generic:
+    all_courses: Alla program
     cancel: Avbryt
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
@@ -303,6 +304,8 @@ sv:
   user_profiles:
     disclaimer: Informationen du uppger kommer att vara offentlig.
     bio_placeholder: Lägg till din bio (valfritt)
+    location_placeholder: Lägg till din plats (valfritt)
+    institution_placeholder: Institutionsnamn (valfritt)
   wizard:
     select_one_option: Välj 1 alternativ.
     read_less: Läs mindre
