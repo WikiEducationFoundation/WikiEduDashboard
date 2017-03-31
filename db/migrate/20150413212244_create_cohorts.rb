@@ -24,7 +24,7 @@ class CreateCohorts < ActiveRecord::Migration[4.2]
         FROM courses co
         WHERE cohort IS NOT NULL
     )
-    Course.uniq.pluck(:cohort).each do |cohort|
+    Course.distinct.pluck(:cohort).each do |cohort|
       next if cohort.nil?
       url = ENV['cohort_' + cohort]
       execute %(
