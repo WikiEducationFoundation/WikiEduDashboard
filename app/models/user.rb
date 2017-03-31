@@ -47,24 +47,24 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
-  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
-  has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
+  has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
+  has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
 
   has_many :instructor_roles, -> { where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE) },
-           class_name: CoursesUsers
+           class_name: 'CoursesUsers'
   has_many :instructed_courses, through: :instructor_roles, source: :course
   has_many :staff_roles, -> { where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE) },
-           class_name: CoursesUsers
+           class_name: 'CoursesUsers'
   has_many :supported_courses, -> { distinct }, through: :staff_roles, source: :course
 
   has_many :campaigns, -> { distinct }, through: :campaigns_users
   has_many :revisions, -> { where(system: false) }
-  has_many :all_revisions, class_name: Revision
+  has_many :all_revisions, class_name: 'Revision'
   has_many :articles, -> { distinct }, through: :revisions
   has_many :assignments
-  has_many :uploads, class_name: CommonsUpload
+  has_many :uploads, class_name: 'CommonsUpload'
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
   has_one :user_profile, dependent: :destroy
 

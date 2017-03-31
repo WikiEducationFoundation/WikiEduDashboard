@@ -57,7 +57,7 @@ class Course < ActiveRecord::Base
   ######################
   # Users for a course #
   ######################
-  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
+  has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user

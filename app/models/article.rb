@@ -30,7 +30,7 @@ require "#{Rails.root}/lib/importers/article_importer"
 class Article < ActiveRecord::Base
   has_many :revisions
   has_many :editors, through: :revisions, source: :user
-  has_many :articles_courses, class_name: ArticlesCourses
+  has_many :articles_courses, class_name: 'ArticlesCourses'
   has_many :courses, -> { distinct }, through: :articles_courses
   has_many :assignments
   belongs_to :wiki
