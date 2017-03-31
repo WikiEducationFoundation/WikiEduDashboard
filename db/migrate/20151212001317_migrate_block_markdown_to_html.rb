@@ -1,4 +1,4 @@
-class MigrateBlockMarkdownToHtml < ActiveRecord::Migration
+class MigrateBlockMarkdownToHtml < ActiveRecord::Migration[4.2]
   def change
     Block.all.each do |block|
       p "migrating block #{block.id}"

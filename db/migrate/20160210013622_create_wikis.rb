@@ -1,4 +1,4 @@
-class CreateWikis < ActiveRecord::Migration
+class CreateWikis < ActiveRecord::Migration[4.2]
   def change
     create_table :wikis do |t|
       t.string :language, limit: 16

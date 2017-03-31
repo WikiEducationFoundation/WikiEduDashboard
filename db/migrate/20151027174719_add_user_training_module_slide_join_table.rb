@@ -1,4 +1,4 @@
-class AddUserTrainingModuleSlideJoinTable < ActiveRecord::Migration
+class AddUserTrainingModuleSlideJoinTable < ActiveRecord::Migration[4.2]
   def change
     create_table :training_modules_users do |t|
       t.integer :user_id

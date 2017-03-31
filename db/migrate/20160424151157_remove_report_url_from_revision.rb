@@ -1,4 +1,4 @@
-class RemoveReportUrlFromRevision < ActiveRecord::Migration
+class RemoveReportUrlFromRevision < ActiveRecord::Migration[4.2]
   def up
     remove_column :revisions, :report_url
   end

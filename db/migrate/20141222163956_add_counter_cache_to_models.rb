@@ -1,4 +1,4 @@
-class AddCounterCacheToModels < ActiveRecord::Migration
+class AddCounterCacheToModels < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :course_count, :integer
     add_column :users, :article_count, :integer

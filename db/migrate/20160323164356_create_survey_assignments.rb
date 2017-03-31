@@ -1,4 +1,4 @@
-class CreateSurveyAssignments < ActiveRecord::Migration
+class CreateSurveyAssignments < ActiveRecord::Migration[4.2]
   def change
     create_table :survey_assignments do |t|
       t.integer :courses_user_role

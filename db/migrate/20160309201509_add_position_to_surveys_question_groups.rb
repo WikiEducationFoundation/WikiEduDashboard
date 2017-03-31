@@ -1,4 +1,4 @@
-class AddPositionToSurveysQuestionGroups < ActiveRecord::Migration
+class AddPositionToSurveysQuestionGroups < ActiveRecord::Migration[4.2]
   def change
     add_column :surveys_question_groups, :id, :primary_key
     add_column :surveys_question_groups, :position, :integer

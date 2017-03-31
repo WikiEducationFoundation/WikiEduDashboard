@@ -1,4 +1,4 @@
-class SetDefaultColumnValues < ActiveRecord::Migration
+class SetDefaultColumnValues < ActiveRecord::Migration[4.2]
   def change
     change_column_default :articles, :views, 0
     change_column_default :articles, :character_sum, 0

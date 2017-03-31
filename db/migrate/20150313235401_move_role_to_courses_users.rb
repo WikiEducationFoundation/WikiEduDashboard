@@ -1,4 +1,4 @@
-class MoveRoleToCoursesUsers < ActiveRecord::Migration
+class MoveRoleToCoursesUsers < ActiveRecord::Migration[4.2]
   def self.up
     add_column :courses_users, :role, :integer, :default => 0
     execute "UPDATE courses_users cu, users u SET cu.role = u.role WHERE cu.user_id = u.id"

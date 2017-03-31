@@ -1,4 +1,4 @@
-class ChangeBlockDueAndWeekStartColumns < ActiveRecord::Migration
+class ChangeBlockDueAndWeekStartColumns < ActiveRecord::Migration[4.2]
   def change
     remove_column :weeks, :start, :date
     remove_column :blocks, :due_date, :date

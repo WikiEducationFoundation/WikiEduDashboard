@@ -1,4 +1,4 @@
-class IncreaseMaxCourseDayExceptionLength < ActiveRecord::Migration
+class IncreaseMaxCourseDayExceptionLength < ActiveRecord::Migration[4.2]
   def up
     change_column :courses, :day_exceptions, :string, limit: 2000
   end

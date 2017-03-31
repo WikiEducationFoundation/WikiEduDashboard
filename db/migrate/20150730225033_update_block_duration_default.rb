@@ -1,4 +1,4 @@
-class UpdateBlockDurationDefault < ActiveRecord::Migration
+class UpdateBlockDurationDefault < ActiveRecord::Migration[4.2]
   def self.up
     change_column_default :blocks, :duration, 1
     execute "UPDATE blocks SET duration = 1 WHERE duration = 0"

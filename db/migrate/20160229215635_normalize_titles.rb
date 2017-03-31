@@ -1,4 +1,4 @@
-class NormalizeTitles < ActiveRecord::Migration
+class NormalizeTitles < ActiveRecord::Migration[4.2]
   # Causing migration issues, commenting out
 
   # def up

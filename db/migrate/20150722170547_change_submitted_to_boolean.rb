@@ -1,4 +1,4 @@
-class ChangeSubmittedToBoolean < ActiveRecord::Migration
+class ChangeSubmittedToBoolean < ActiveRecord::Migration[4.2]
   def self.up
     change_column :courses, :submitted, :boolean, default: false
   end

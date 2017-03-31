@@ -1,5 +1,5 @@
 # This migration comes from rapidfire (originally 20130502195310)
-class CreateRapidfireQuestions < ActiveRecord::Migration
+class CreateRapidfireQuestions < ActiveRecord::Migration[4.2]
   def change
     create_table :rapidfire_questions do |t|
       t.references :question_group

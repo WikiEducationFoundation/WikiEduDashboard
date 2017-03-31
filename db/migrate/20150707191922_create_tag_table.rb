@@ -1,4 +1,4 @@
-class CreateTagTable < ActiveRecord::Migration
+class CreateTagTable < ActiveRecord::Migration[4.2]
   def change
     create_table :tags do |t|
       t.integer :course_id

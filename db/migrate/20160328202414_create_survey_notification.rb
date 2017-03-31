@@ -1,4 +1,4 @@
-class CreateSurveyNotification < ActiveRecord::Migration
+class CreateSurveyNotification < ActiveRecord::Migration[4.2]
   def change
     create_table :survey_notifications do |t|
       t.belongs_to :courses_user, index: true

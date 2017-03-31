@@ -1,4 +1,4 @@
-class IncreaseMaxThumburlLength < ActiveRecord::Migration
+class IncreaseMaxThumburlLength < ActiveRecord::Migration[4.2]
   def up
     change_column :commons_uploads, :thumburl, :string, limit: 2000
   end

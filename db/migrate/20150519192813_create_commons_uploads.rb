@@ -1,4 +1,4 @@
-class CreateCommonsUploads < ActiveRecord::Migration
+class CreateCommonsUploads < ActiveRecord::Migration[4.2]
   def change
     create_table :commons_uploads do |t|
       t.integer :user_id
