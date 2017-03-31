@@ -124,19 +124,32 @@ describe WikiCourseEdits do
                             course: course,
                             current_user: user)
       end
-    end
 
-    it 'does not post if assignment has no article_id' do
-      expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
-      create(:assignment,
-             user_id: user.id,
-             course_id: course.id,
-             article_title: 'Selfie',
-             article_id: nil,
-             role: Assignment::Roles::ASSIGNED_ROLE)
-      WikiCourseEdits.new(action: :update_assignments,
-                          course: course,
-                          current_user: user)
+      it 'does not post if assignment has no article_id' do
+        expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+        create(:assignment,
+               user_id: user.id,
+               course_id: course.id,
+               article_title: 'Selfie',
+               article_id: nil,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+        WikiCourseEdits.new(action: :update_assignments,
+                            course: course,
+                            current_user: user)
+      end
+
+      it 'does not post if assignment is an Available Article with no assigned user' do
+        expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+        create(:assignment,
+               user_id: nil,
+               course_id: course.id,
+               article_title: 'Selfie',
+               article_id: selfie.id,
+               role: Assignment::Roles::ASSIGNED_ROLE)
+        WikiCourseEdits.new(action: :update_assignments,
+                            course: course,
+                            current_user: user)
+      end
     end
   end
 

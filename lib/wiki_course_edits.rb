@@ -136,9 +136,11 @@ class WikiCourseEdits
   end
 
   def homewiki_assignments_grouped_by_article
-    # Only do on-wiki updates for articles that are on the course's home wiki.
-    @course.assignments.where(wiki_id: @home_wiki.id)
+    # Only do on-wiki updates for articles that are on the course's home wiki
+    # and that are not 'available articles' with no assigned user.
+    @course.assignments.where(wiki: @home_wiki)
            .where.not(article_id: nil)
+           .where.not(user_id: nil)
            .group_by(&:article_id)
   end
 
