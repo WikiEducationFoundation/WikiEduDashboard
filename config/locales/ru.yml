@@ -7,9 +7,11 @@
 # Author: Iniquity
 # Author: Irus
 # Author: Kareyac
+# Author: Lizalizaufa
 # Author: Mailman
 # Author: Nzeemin
 # Author: Okras
+# Author: Redredsonia
 # Author: SmartNart12
 # Author: Туллук
 # Author: Ядерный Трамвай
@@ -26,6 +28,7 @@ ru:
     field_required: Это поле обязательно для заполнения
     field_invalid_characters: Данное поле содержит недопустимые символы
     field_invalid_date: Это поле требует дату в формате YYYY-MM-DD
+    field_invalid_date_time: Завершится после старта.(Требуемое время от 0 до 23 часов.)
     greeting2: Добро пожаловать!
     greeting_extended: Добро пожаловать в Википедию
     greeting: Здравствуйте!
@@ -114,11 +117,13 @@ ru:
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
   assignments:
+    title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это назначение?
     loading: Загрузка назначений...
     none: Этот курс не имеет назначенных статей.
+    remove: Удалить
     reviewers: Проверяющий(е)
     select: Выбрать
   blocks:
@@ -143,9 +148,13 @@ ru:
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     program_template: Шаблон программы
+    title: Заголовок
     use_start_end_dates: Использовать даты начала и окончания
+  chat:
+    label: Чат
   courses:
     activity: Деятельность
+    all_courses: Все курсы
     actions: Действия
     articles: Статьи
     cancel: Отмена
@@ -174,17 +183,22 @@ ru:
       find: Найти свой курс
       start_date: Дата начала
     current: Текущие курсы
+    delete_course: Удалить курс
     duration: Продолжительность курса
+    enable_chat: Включить чат
+    ended: Курс завершен.
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.
       user_exists: К сожалению, участника %{username} не существует.
+      duplicate_slug: Другая программа под названием %{slug} уже существует.
     gradeables_none: У этого курса нет оцениваемых назначений.
     instructor:
       one: Инструктор
       other: Инструкторы
     instructors: Инструкторы
     join: Присоединиться
+    join_course: Присоединиться к курсу
     join_failure_details:
       not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
@@ -200,6 +214,7 @@ ru:
     students_count: '# Студенты'
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
+    user_role: Роль
     title: Заголовок
     view_other: Посмотреть другие кампании
     view: Просмотр курса
@@ -214,7 +229,9 @@ ru:
     wiki_staff: Сотрудники Wiki Ed
     yourcourses: Ваши курсы
   courses_generic:
+    all_courses: Все программы
     cancel: Отмена
+    courses: Программы
     campaigns: Кампании
     campaign_courses: '%{title} программы'
     creator:
@@ -225,14 +242,18 @@ ru:
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+    delete_course: Удалить программу
     explore: Найти программы
+    join_course: Присоединиться к программе
     join_details: Присоединиться к этой программе, вам нужно получить код доступа
       или ссылку, которая включает пароль от посредника.
+    leave_course: Покинуть программу
     school: Учреждение
     student_editors: Редакторы
     students: Редакторы
     students_short: Խմբագիրներ
     term: Когда
+    yourcourses: Ваши программы
   editable:
     cancel: Отмена
     save: Сохранить
@@ -260,6 +281,7 @@ ru:
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
   recent_activity:
+    datetime: Дата/время
     image: Изображение
     file_name: Имя файла
     recent_edits: Последние правки
@@ -282,6 +304,7 @@ ru:
       были приостановлены. Запустите 'rake batch:resume', чтобы возобновить обновления.
   timeline:
     empty_week_3: или
+    gradeable_value: Значение
     save_all_changes: Сохранить всё
     title: Хронология
   training:
@@ -289,6 +312,8 @@ ru:
     start: Начать
     view: Просмотр
   uploads:
+    datetime: Дата/время
+    file_name: Имя файла
     image: Изображение
     label: Загрузки
     loading: Загрузка приложений...
@@ -328,6 +353,10 @@ ru:
       visitor: Посетитель
       student: Студент
       instructor: Инструктор
+  user_profiles:
+    disclaimer: Предоставленная Вами информация будет доступна публично.
+    bio_placeholder: Добавьте свою биографию (необязательно)
+    location_placeholder: Добавить свое местоположение (необязательно)
   wizard:
     assignment_dates: Даты Назначений
     assignment_description: Выбрать начальную и конечную даты для любого назначения.

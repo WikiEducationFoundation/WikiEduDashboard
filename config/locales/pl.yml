@@ -68,6 +68,7 @@ pl:
     view: Zobacz artykuł
     view_all: Zobacz wszystkie
   assignments:
+    title_too_large: Nazwa nie może przekraczać 255 znaków
     add_available: Dodaj dostępny artykuł
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
@@ -99,6 +100,7 @@ pl:
     delete_course: Usuń kurs
     dismiss_survey: Odrzuć
     end: Koniec
+    ended: Kurs zakończony.
     enroll: Zapisz się
     enrollment: Rejestracja
     error:
@@ -207,6 +209,9 @@ pl:
     role:
       student: Student
       instructor: Instruktor
+  user_profiles:
+    location_placeholder: Dodaj swoją lokalizację (opcjonalnie)
+    institution_placeholder: Nazwa instytucji (opcjonalnie)
   wizard:
     summary: Podsumowanie
   error:

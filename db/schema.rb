@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202172744) do
+ActiveRecord::Schema.define(version: 20170329200802) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20170202172744) do
     t.date     "average_views_updated_at"
     t.integer  "wiki_id"
     t.integer  "mw_page_id"
+    t.index ["mw_page_id"], name: "index_articles_on_mw_page_id", using: :btree
+    t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title", using: :btree
   end
 
   create_table "articles_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -123,7 +125,7 @@ ActiveRecord::Schema.define(version: 20170202172744) do
 
   create_table "commons_uploads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
-    t.string   "file_name"
+    t.string   "file_name",   limit: 2000
     t.datetime "uploaded_at"
     t.integer  "usage_count"
     t.datetime "created_at"
@@ -132,6 +134,7 @@ ActiveRecord::Schema.define(version: 20170202172744) do
     t.string   "thumbwidth"
     t.string   "thumbheight"
     t.boolean  "deleted",                  default: false
+    t.index ["user_id"], name: "index_commons_uploads_on_user_id", using: :btree
   end
 
   create_table "courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -282,6 +285,8 @@ ActiveRecord::Schema.define(version: 20170202172744) do
     t.integer  "mw_page_id"
     t.text     "features",       limit: 65535
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+    t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id", using: :btree
+    t.index ["user_id"], name: "index_revisions_on_user_id", using: :btree
   end
 
   create_table "survey_assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -353,6 +358,17 @@ ActiveRecord::Schema.define(version: 20170202172744) do
     t.integer  "training_module_id"
     t.string   "last_slide_completed"
     t.datetime "completed_at"
+  end
+
+  create_table "user_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "bio"
+    t.integer  "user_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "location"
+    t.string   "institution"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

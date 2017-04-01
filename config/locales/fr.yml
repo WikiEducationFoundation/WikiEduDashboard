@@ -31,6 +31,8 @@ fr:
     field_required: Ce champ est obligatoire
     field_invalid_characters: Ce champ contient des caractères non valides
     field_invalid_date: Ce champ requiert une date au format AAAA-MM-JJ
+    field_invalid_date_time: La fin doit être avant le début (les heures vont de 0
+      à 23).
     greeting2: Bienvenue !
     greeting_extended: Bienvenue dans Wikipédia
     greeting: Bonjour !
@@ -137,6 +139,7 @@ fr:
   assignments:
     article: L’article %{title} a été affecté
     already_exists: Cette affectation existe déjà !
+    title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter un article
     add_available: Ajouter un article disponible
@@ -286,6 +289,7 @@ fr:
     edit_course_dates: Modifier les dates du cours
     enable_chat: Activer la discussion
     end: Fin
+    ended: Le cours est terminé.
     enroll: S’inscrire
     enrollment: Inscription
     courses_enrolled: Inscrit aux cours
@@ -294,6 +298,8 @@ fr:
         ou échéance.
       user_exists: Désolé, %{username} n’existe pas.
       invalid_language_or_project: Langue/projet invalide
+      invalid_slug: Ecole ou titre du cours non renseigné.
+      duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
     gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:
@@ -344,6 +350,7 @@ fr:
     revisions_doc: Le nombre de modifications dans les %{timeframe} jours passés
     revisions_none: Ce cours n’a pas d’activité récente de modification de Wikipédia.
     school: École
+    school_and_term: Institution/Terme
     start: Démarrer
     start_typing: Commencer à taper
     students: Étudiants
@@ -395,6 +402,7 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    all_courses: Tous les programmes
     archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
     assignment_end: Fin de la chronologie
@@ -437,6 +445,7 @@ fr:
       sur l’URL suivante :'
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
+    school_and_term: Institution/Quand
     student_editors: Éditeurs
     students: Éditeurs
     students_none: Ce projet n’a pas d’éditeurs inscrits.
@@ -661,9 +670,6 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
-    student_impact: Impact total fait par %{username} en tant qu’étudiant
-    instructor_impact: Impact total fait par %{username} en tant que formateur
-    instructors_student_impact: Impact total fait par les étudiants de %{username}
     role:
       visitor: Visiteur
       student: Étudiant
@@ -671,6 +677,14 @@ fr:
       campus_volunteer: Bénévole du campus
       online_volunteer: Bénévole en ligne
       wiki_ed_staff: Équipe d’édition du wiki
+  user_profiles:
+    student_impact: Impact total fait par %{username} en tant qu’étudiant
+    instructor_impact: Impact total fait par %{username} en tant que formateur
+    instructors_student_impact: Impact total fait par les étudiants de %{username}
+    disclaimer: L’information que vous avez fournie sera rendue publique.
+    bio_placeholder: Ajouter votre biographie (facultatif)
+    location_placeholder: Ajouter votre emplacement (facultatif)
+    institution_placeholder: Nom de l’établissement (facultatif)
   wiki_edits:
     notify_overdue:
       confirm: Cela publiera un rappel sur les pages de discussion de tous les étudiants

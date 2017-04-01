@@ -594,7 +594,6 @@ sq:
     up_to_date_with_training: trajnimi i përfunduar
     username: Përdoruesi
     username_placeholder: Përdoruesi
-    student_impact: Ndikimi i përgjithshëm i bërë nga studentët e %{username}
     role:
       visitor: Vizitor
       student: Nxënës
@@ -602,6 +601,8 @@ sq:
       campus_volunteer: Vullnetar i shkollës
       online_volunteer: Vullnetar Online
       wiki_ed_staff: Stafi Wiki Ed
+  user_profiles:
+    student_impact: Ndikimi i përgjithshëm i bërë nga studentët e %{username}
   wiki_edits:
     notify_overdue:
       confirm: Kjo do të postoj një përkujtues në faqen e diskutimit të të gjithë

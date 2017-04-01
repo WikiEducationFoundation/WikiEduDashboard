@@ -18,6 +18,7 @@ zh-CN:
     field_required: 此字段是必需的
     field_invalid_characters: 此字段有无效字符
     field_invalid_date: 此字段要求日期为YYYY-MM-DD格式
+    field_invalid_date_time: 结束时间必须在开始时间之后。（小时数在0~23之间。）
     greeting2: 欢迎！
     greeting_extended: 欢迎来到维基百科
     greeting: 您好！
@@ -30,7 +31,7 @@ zh-CN:
     recent_activity: 最近活动
     search: 提问问题
     sign_up_extended: 注册维基百科
-    sign_up_log_in_extended: 与维基百科
+    sign_up_log_in_extended: 通过维基百科
     sign_up: 注册
     submit: 提交
     training: 培训
@@ -42,7 +43,7 @@ zh-CN:
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
     explore_course_pages: 浏览课程页面
     explore_examples: 浏览示例
-    join_note: 一旦您从您的导师接收到一段密码，点击查找您的课程以寻找并加入。
+    join_note: 一旦您从您的导师处收到密码，就可点击找到您的课程来查找并加入它。
     no_courses_instructor: 看起来您没有任何课程。
     no_courses_student: 看起来您还没有加入一个课程。
     opt_out: 请求不参加迎新活动
@@ -107,6 +108,7 @@ zh-CN:
   assignments:
     article: 条目%{title}已被分配
     already_exists: 此分配已存在！
+    title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配一个条目
     add_available: 添加一个可用条目
@@ -229,6 +231,7 @@ zh-CN:
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
     end: 结束
+    ended: 课程已启用。
     enroll: 注册
     enrollment: 登记
     courses_enrolled: 课程已登记
@@ -236,6 +239,8 @@ zh-CN:
       exists: 该课程已存在！请使用不同的标题、学校或学期再试。
       user_exists: 对不起，%{username}不是一位存在的用户。
       invalid_language_or_project: 无效语言/项目
+      invalid_slug: 清空课程所属学校/标题。
+      duplicate_slug: 另一个叫%{slug}的课程已存在。
     expected_students: 预期学生
     gradeables_none: 此课程没有可批改作业。
     instructor:
@@ -275,6 +280,7 @@ zh-CN:
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
+    school_and_term: 机构/学期
     start: 开始
     start_typing: 开始输入
     students: 学生
@@ -316,6 +322,7 @@ zh-CN:
       notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
+    all_courses: 所有计划
     archived: 存档的程序
     articles_none: 目前此项目尚无编辑的条目。
     assignment_end: 时间轴终点
@@ -354,6 +361,7 @@ zh-CN:
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
     revisions_none: 此项目没有最近编辑活动。
     school: 机构
+    school_and_term: 机构/何时
     student_editors: 编辑者
     students: 编辑者
     students_none: 此项目没有编辑者登记。
@@ -557,9 +565,6 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
-    student_impact: 由%{username}作为学生做出的总影响
-    instructor_impact: 由%{username}作为导师做出的总影响
-    instructors_student_impact: 由%{username}的学生做出的总影响
     role:
       visitor: 访问者
       student: 学生
@@ -567,6 +572,14 @@ zh-CN:
       campus_volunteer: 校园志愿者
       online_volunteer: 在线志愿者
       wiki_ed_staff: Wiki Ed职员
+  user_profiles:
+    student_impact: 由%{username}作为学生做出的总影响
+    instructor_impact: 由%{username}作为导师做出的总影响
+    instructors_student_impact: 由%{username}的学生做出的总影响
+    disclaimer: 您提供的信息将公开可用。
+    bio_placeholder: 添加您的个人简历（可选）
+    location_placeholder: 添加您的位置（可选）
+    institution_placeholder: 机构名称（可选）
   wiki_edits:
     notify_overdue:
       confirm: 这将在讨论页为所有有逾期培训的学生发布一则提示。您确定要这样做么？

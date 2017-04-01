@@ -134,6 +134,8 @@ fa:
     description: توضیحات
     none: هیچ‌کدام
     title: عنوان
+  chat:
+    label: گفتگو
   courses:
     activity: فعالیت
     already_enrolled: شما از قبل بخشی از %{title} هستید!

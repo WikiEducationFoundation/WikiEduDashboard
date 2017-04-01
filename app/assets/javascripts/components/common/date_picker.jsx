@@ -319,7 +319,7 @@ const DatePicker = React.createClass({
           </label>
           <div className="time-input">
             <select
-              className="time-input__hour"
+              className={`time-input__hour ${inputClass}`}
               onChange={this.handleHourFieldChange}
               value={this.state.hour}
             >
@@ -327,7 +327,7 @@ const DatePicker = React.createClass({
             </select>
             :
             <select
-              className="time-input__minute"
+              className={`time-input__minute ${inputClass}`}
               onChange={this.handleMinuteFieldChange}
               value={this.state.minute}
             >

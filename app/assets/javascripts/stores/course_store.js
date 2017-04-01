@@ -119,6 +119,11 @@ const CourseStore = Flux.createStore({
         { flags: { enable_chat: true } }
       );
       break;
+    case 'LINKED_TO_SALESFORCE':
+      setCourse(
+        { flags: data.flags }
+      );
+      break;
     default:
       // no default
   }

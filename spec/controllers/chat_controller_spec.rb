@@ -24,6 +24,12 @@ describe ChatController do
         expect(response['auth_token']).to be
         expect(response['user_id']).to be
       end
+
+      it 'raises an error if chat is not enabled' do
+        allow(Features).to receive(:enable_chat?).and_return(false)
+        subject
+        expect(response.status).to eq(401)
+      end
     end
 
     context 'when the user is signed out' do
@@ -32,7 +38,7 @@ describe ChatController do
       end
 
       it 'raises Unauthorized' do
-        expect(subject.code).to eq('401')
+        expect(subject.status).to eq(401)
       end
     end
   end
@@ -68,7 +74,7 @@ describe ChatController do
 
       it 'raises Unauthorized' do
         put :enable_for_course, params: { course_id: course.id }
-        expect(response.code).to eq('401')
+        expect(response.status).to eq(401)
       end
     end
   end

@@ -46,4 +46,18 @@ describe TrainingController do
       end
     end
   end
+
+  describe '#reload' do
+    it 'returns the result upon success' do
+      get :reload
+      expect(response.body).to have_content 'done!'
+    end
+
+    it 'displays an error message upon failure' do
+      allow(TrainingBase).to receive(:load_all)
+        .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
+      get :reload
+      expect(response.body).to have_content 'oh noes!'
+    end
+  end
 end

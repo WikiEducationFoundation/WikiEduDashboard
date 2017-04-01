@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/analytics/monthly_report"
 require "#{Rails.root}/lib/analytics/course_statistics"
+require "#{Rails.root}/lib/analytics/ungreeted_list"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
@@ -50,6 +51,15 @@ class AnalyticsController < ApplicationController
     stats = CourseStatistics.new(course_ids, campaign: campaign_name)
     @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
+  end
+
+  def ungreeted
+    respond_to do |format|
+      format.csv do
+        send_data UngreetedList.new(current_user).csv,
+                  filename: "ungreeted-#{current_user.username}-#{Time.zone.today}.csv"
+      end
+    end
   end
 
   private

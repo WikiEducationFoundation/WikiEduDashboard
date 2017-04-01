@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
@@ -9,7 +8,7 @@ require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
-require "#{Rails.root}/lib/student_greeter"
+require "#{Rails.root}/lib/student_greeting_checker"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
@@ -40,13 +39,12 @@ class ConstantUpdate
 
   def run_update
     log_start_of_update
-    update_users
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
     update_all_caches # from CacheUpdater
     remove_needs_update_flags
-    greet_ungreeted_students
+    update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
   end
@@ -54,11 +52,6 @@ class ConstantUpdate
   ###############
   # Data import #
   ###############
-
-  def update_users
-    log_message 'Updating global ids and training status'
-    UserImporter.update_users
-  end
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'
@@ -84,13 +77,9 @@ class ConstantUpdate
     RatingImporter.update_new_ratings
   end
 
-  ###############
-  # Batch edits #
-  ###############
-
-  def greet_ungreeted_students
-    log_message 'Greeting students in classes with greeters'
-    StudentGreeter.greet_all_ungreeted_students
+  def update_status_of_ungreeted_students
+    log_message 'Updating greeting status of ungreeted students'
+    StudentGreetingChecker.check_all_ungreeted_students
   end
 
   #################################

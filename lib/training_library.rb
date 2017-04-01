@@ -11,8 +11,11 @@ class TrainingLibrary < TrainingBase
   #################
   def self.load(**)
     super path_to_yaml: "#{base_path}/libraries/*.yml",
-          wiki_base_page: ENV['training_libraries_wiki_page'],
-          cache_key: 'libraries'
+          wiki_base_page: ENV['training_libraries_wiki_page']
+  end
+
+  def self.cache_key
+    'libraries'
   end
 
   ####################

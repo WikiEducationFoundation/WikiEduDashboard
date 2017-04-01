@@ -2,6 +2,7 @@ import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import GetHelpButton from '../../../app/assets/javascripts/components/common/get_help_button.jsx';
+import AlertActions from '../../../app/assets/javascripts/actions/alert_actions.js';
 
 GetHelpButton.__Rewire__('UserStore', {
   getFiltered: (args) => {
@@ -37,9 +38,11 @@ describe('GetHelpButton', () => {
     });
 
     it('has an ask search field', () => {
-      const searchField = popContainer.querySelectorAll('input[type=text]');
-      expect(searchField.length).to.eq(1);
-      expect(searchField[0].getAttribute('placeholder')).to.eq('Search Help Forum');
+      AlertActions.resetNeedHelpAlert().then(() => {
+        const searchField = popContainer.querySelectorAll('input[type=text]');
+        expect(searchField.length).to.eq(1);
+        expect(searchField[0].getAttribute('placeholder')).to.eq('Search Help Forum');
+      });
     });
   });
 

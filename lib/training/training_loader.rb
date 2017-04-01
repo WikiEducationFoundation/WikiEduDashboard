@@ -2,24 +2,19 @@
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 
 class TrainingLoader
-  def initialize(content_class:, cache_key:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
+  def initialize(content_class:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
     @collection = []
     @content_class = content_class
 
-    @cache_key = cache_key
+    @cache_key = content_class.cache_key
     @path_to_yaml = path_to_yaml
     @wiki_base_page = wiki_base_page
     @trim_id_from_filename = trim_id_from_filename
   end
 
-  def load_local_content
+  def load_content
     load_from_yaml
-    write_to_cache
-  end
-
-  def load_local_and_wiki_content
-    load_from_yaml
-    load_from_wiki
+    load_from_wiki if Features.wiki_trainings?
     write_to_cache
   end
 
@@ -31,8 +26,18 @@ class TrainingLoader
     end
   end
 
+  CONCURRENCY = 30
   def load_from_wiki
-    wiki_source_pages.each do |wiki_page|
+    source_pages = wiki_source_pages
+    thread_count = [CONCURRENCY, source_pages.count].min
+    threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
+      Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
+    end
+    threads.each(&:join)
+  end
+
+  def add_trainings_to_collection(wiki_pages)
+    wiki_pages.each do |wiki_page|
       content = new_from_wiki_page(wiki_page)
       unless content&.valid?
         Raven.capture_message 'Invalid wiki training content',
@@ -78,18 +83,20 @@ class TrainingLoader
   end
 
   def translated_wiki_pages(base_page:)
-    return [] unless base_page
+    return [] unless base_page&.include? '<translate>'
     translations_query = { meta: 'messagegroupstats',
                            mgsgroup: "page-#{base_page}" }
     response = WikiApi.new(MetaWiki.new).query(translations_query)
     return [] unless response
     translations = []
     response.data['messagegroupstats'].each do |language|
-      next if language['total'].zero?
-      next if language['translated'].zero?
-      translations << base_page + '/' + language['code']
+      translations << base_page + '/' + language['code'] if any_translations?(language)
     end
     return translations
+  end
+
+  def any_translations?(language)
+    language['total'].positive? && language['translated'].positive?
   end
 
   def training_hash_from_wiki_page(wiki_page)

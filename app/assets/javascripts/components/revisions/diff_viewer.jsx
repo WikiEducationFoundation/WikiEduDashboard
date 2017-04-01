@@ -1,5 +1,6 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
+import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 
 const DiffViewer = React.createClass({
   displayName: 'DiffViewer',
@@ -14,7 +15,11 @@ const DiffViewer = React.createClass({
     first_revision: React.PropTypes.object,
     showButtonLabel: React.PropTypes.string,
     hideButtonLabel: React.PropTypes.string,
-    largeButton: React.PropTypes.bool
+    largeButton: React.PropTypes.bool,
+    editors: React.PropTypes.array,
+    showSalesforceButton: React.PropTypes.bool,
+    article: React.PropTypes.object,
+    course: React.PropTypes.object
   },
 
   getInitialState() {
@@ -190,6 +195,19 @@ const DiffViewer = React.createClass({
       editDate = <p className="diff-comment">({timeSpan})</p>;
     }
 
+    let salesforceButtons;
+    if (this.props.showSalesforceButton) {
+      salesforceButtons = (
+        <SalesforceMediaButtons
+          course={this.props.course}
+          article={this.props.article}
+          editors={this.props.editors}
+          before_rev_id={this.state.parentRevisionId}
+          after_rev_id={this.props.revision.mw_rev_id}
+        />
+      );
+    }
+
     return (
       <div>
         {button}
@@ -199,6 +217,7 @@ const DiffViewer = React.createClass({
             {button}
             <a className="pull-right button small" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
           </p>
+          {salesforceButtons}
           <table>
             <thead>
               <tr>

@@ -3,7 +3,9 @@
     .stat-display__value= presenter.courses.count
     %small= t("#{presenter.course_string_prefix}.courses")
   .stat-display__stat.tooltip-trigger
-    .stat-display__value= presenter.user_count
+    .stat-display__value
+      = presenter.user_count
+      %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("#{presenter.course_string_prefix}.students")
     .tooltip.dark
       %h4
@@ -23,7 +25,9 @@
     .stat-display__value= number_to_human presenter.courses.sum(:new_article_count)
     %small= t("metrics.articles_created")
   .stat-display__stat.tooltip-trigger
-    .stat-display__value= number_to_human presenter.courses.sum(:upload_count)
+    .stat-display__value
+      = number_to_human presenter.courses.sum(:upload_count)
+      %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.upload_count")
     .tooltip.dark
       %h4= number_to_human presenter.uploads_in_use_count

@@ -164,6 +164,8 @@ qqq:
       when page view data is being imported.)
   assignments:
     already_exists: Message displayed when trying to create a duplicate assignment
+    title_too_large: Message displayed when title entered exceeds 255 characters to
+      prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
     add_available: Button to add an article title to the list of articles available
@@ -359,6 +361,8 @@ qqq:
       user_exists: Error message indicating an invalid Wikimedia username
       invalid_language_or_project: Error message indicating the language and project
         do not correspond to a valid wiki
+      invalid_slug: Error message indicating blank school/title in course slug.
+      duplicate_slug: Error message indicating duplicate course slug.
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
     instructor:
@@ -464,6 +468,9 @@ qqq:
         only)
       link: Link to begin course survey (Wiki Ed only)
   courses_generic:
+    all_courses: |-
+      Button to view the list of all courses. Uses alternative word for generic courses.
+      {{Identical|Programs}}
     archived: |-
       The alternative wording for generic courses.
       {{Identical|Archived Programs}}

@@ -19,6 +19,13 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
+  #UserProfilesController
+  controller :user_profiles do
+    get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
+    get 'user_stats' => 'user_profiles#stats'
+    post 'users/update/:username' => 'user_profiles#update'
+  end
+
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ } do
     collection do
@@ -90,6 +97,7 @@ Rails.application.routes.draw do
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create] do
     member do
+      get 'resolve'
       put 'resolve'
     end
   end
@@ -103,6 +111,7 @@ Rails.application.routes.draw do
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
+  get 'ungreeted' => 'analytics#ungreeted'
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
@@ -157,6 +166,7 @@ Rails.application.routes.draw do
   get 'training/:library_id' => 'training#show', as: :training_library
   get 'training/:library_id/:module_id' => 'training#training_module', as: :training_module
   post 'training_modules_users' => 'training_modules_users#create_or_update'
+  get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
 
@@ -225,6 +235,12 @@ Rails.application.routes.draw do
   if Features.enable_chat?
     get '/chat/login' => 'chat#login'
     put '/chat/enable_for_course/:course_id' => 'chat#enable_for_course'
+  end
+
+  # Salesforce
+  if Features.wiki_ed?
+    put '/salesforce/link/:course_id' => 'salesforce#link'
+    get '/salesforce/create_media' => 'salesforce#create_media'
   end
 
   resources :admin

@@ -263,6 +263,8 @@ describe CampaignsController do
     it 'returns a csv of course data' do
       get :courses, params: request_params
       expect(response.body).to have_content(course.slug)
+      expect(response.body).to have_content(course.title)
+      expect(response.body).to have_content(course.school)
     end
   end
 
@@ -312,6 +314,8 @@ describe CampaignsController do
     it 'lists the programs for the given campaign' do
       expect(response.body).to have_content(course.title)
       expect(response.body).to have_content(course2.title)
+      expect(response.body).to have_content(course.school)
+      expect(response.body).to have_content(course.term)
     end
 
     it 'shows a remove button for the programs if the user is an organizer or admin' do

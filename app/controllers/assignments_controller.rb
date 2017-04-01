@@ -40,9 +40,9 @@ class AssignmentsController < ApplicationController
   def update
     check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
-    @assignment.update_attributes(assignment_params)
-    if @assignment.save
-      render json: { assignment: @assignment }, status: 200
+    if @assignment.update_attributes(assignment_params)
+      render partial: 'updated_assignment', locals: {
+        assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
              status: 500
@@ -110,7 +110,8 @@ class AssignmentsController < ApplicationController
                                         course: @course,
                                         wiki: @wiki,
                                         title: assignment_params[:title],
-                                        role: assignment_params[:role]).create_assignment
+                                        role: assignment_params[:role]
+                                       ).create_assignment
   end
 
   def check_permissions(user_id)

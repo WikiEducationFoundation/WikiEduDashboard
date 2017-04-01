@@ -3,12 +3,16 @@
 # Export driver: phpyaml
 # Author: Geraki
 # Author: Glavkos
+# Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
   application:
     confirm: Εντάξει
+  chat:
+    label: Συνομιλία
   courses:
     cancel: Ακύρωση
+    enable_chat: Ενεργοποίηση συνομιλίας
   courses_generic:
     cancel: Ακύρωση
     delete_course: Διαγραφή προγράμματος

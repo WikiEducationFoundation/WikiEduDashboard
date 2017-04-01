@@ -32,6 +32,19 @@ describe('courseUtils.generateTempId', () => {
   });
 });
 
+describe('CourseUtils.courseSlugRegex', () => {
+  it('returns a regex that validates course slug', () => {
+    const courseSlugRegex = courseUtils.courseSlugRegex();
+    expect(courseSlugRegex.test(' 維基醫學專案 ')).to.eq(true);
+    expect(courseSlugRegex.test(' North-Cap University')).to.eq(true);
+    expect(courseSlugRegex.test(' مركز حملة')).to.eq(true);
+    expect(courseSlugRegex.test('UW, Bothell')).to.eq(true);
+    expect(courseSlugRegex.test('वसंत 2017')).to.eq(true);
+    expect(courseSlugRegex.test('  ')).to.eq(false);
+    expect(courseSlugRegex.test('')).to.eq(false);
+  });
+});
+
 describe('courseUtils.cleanupCourseSlugComponents', () =>
   it('trims whitespace from the slug-related fields of a course object', () => {
     const course = {
@@ -73,9 +86,19 @@ describe('courseUtils.articleFromTitleInput', () => {
   it('converts Wikipedia urls into titles', () => {
     const input = 'https://en.wikipedia.org/wiki/Robot_selfie';
     const output = courseUtils.articleFromTitleInput(input);
+
     expect(output.title).to.eq('Robot selfie');
     expect(output.project).to.eq('wikipedia');
     expect(output.language).to.eq('en');
+    expect(output.article_url).to.eq(input);
+  });
+
+  it("correctly parses multilingual wikisource url's", () => {
+    const input = 'https://wikisource.org/wiki/Heyder_Cansa';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).to.eq('Heyder Cansa');
+    expect(output.project).to.eq('wikisource');
+    expect(output.language).to.eq('www');
     expect(output.article_url).to.eq(input);
   });
 
@@ -123,5 +146,19 @@ describe('courseUtils.articleFromAssignment', () => {
     };
     const article = courseUtils.articleFromAssignment(assignment);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Palo_para_autofoto');
+  });
+});
+
+describe('courseUtils.hasTrainings', () => {
+  it('returns false for a weeks array with no trainings', () => {
+    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [] }] }];
+    const output = courseUtils.hasTrainings(weeks);
+    expect(output).to.be.false;
+  });
+
+  it('returns true for a weeks array with trainings', () => {
+    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [1] }] }];
+    const output = courseUtils.hasTrainings(weeks);
+    expect(output).to.be.true;
   });
 });

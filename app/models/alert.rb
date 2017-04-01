@@ -53,6 +53,10 @@ class Alert < ActiveRecord::Base
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
+  def user_contributions_url
+    courses_user&.contribution_url
+  end
+
   def email_content_expert
     return if emails_disabled?
     content_expert = course.nonstudents.find_by(greeter: true)
@@ -78,9 +82,14 @@ class Alert < ActiveRecord::Base
   end
 
   # Disable emails for specific alert types in application.yml, like so:
-  #   ProductCourseAlert_email_disabled: 'true'
+  #   ProductiveCourseAlert_email_disabled: 'true'
   def emails_disabled?
     ENV["#{self.class}_emails_disabled"] == 'true'
+  end
+
+  # This can be used to copy dashboard emails to Salesforce
+  def bcc_to_salesforce_email
+    ENV['bcc_to_salesforce_email']
   end
 
   #########################
@@ -101,5 +110,10 @@ class Alert < ActiveRecord::Base
 
   def resolvable?
     false
+  end
+
+  def courses_user
+    return unless course && user
+    @courses_user ||= CoursesUsers.find_by(course_id: course.id, user_id: user.id)
   end
 end

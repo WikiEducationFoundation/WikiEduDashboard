@@ -29,8 +29,6 @@ require "#{Rails.root}/lib/utils"
 #= User model
 class User < ActiveRecord::Base
   alias_attribute :wiki_id, :username
-
-  validates :permissions, inclusion: { in: [0, 1, 2] }
   before_validation :ensure_valid_email
 
   #############
@@ -41,6 +39,9 @@ class User < ActiveRecord::Base
     ADMIN = 1
     INSTRUCTOR = 2
   end
+  validates :permissions, inclusion: {
+    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR]
+  }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -50,6 +51,14 @@ class User < ActiveRecord::Base
   has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
+
+  has_many :instructor_roles, -> { where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE) },
+           class_name: CoursesUsers
+  has_many :instructed_courses, through: :instructor_roles, source: :course
+  has_many :staff_roles, -> { where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE) },
+           class_name: CoursesUsers
+  has_many :supported_courses, -> { distinct }, through: :staff_roles, source: :course
+
   has_many :campaigns, -> { distinct }, through: :campaigns_users
   has_many :revisions, -> { where(system: false) }
   has_many :all_revisions, class_name: Revision
@@ -57,12 +66,19 @@ class User < ActiveRecord::Base
   has_many :assignments
   has_many :uploads, class_name: CommonsUpload
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
+  has_one :user_profile, dependent: :destroy
 
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
   scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
+  scope :ungreeted, -> { where(greeted: false) }
+
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
+  scope :strictly_current, -> { joins(:courses).merge(Course.strictly_current) }
+  scope :from_courses, lambda { |courses|
+    joins(:courses_users).where(courses_users: { course: courses })
+  }
   scope :role, lambda { |role|
     roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
               'instructor' => CoursesUsers::Roles::INSTRUCTOR_ROLE,
@@ -71,8 +87,6 @@ class User < ActiveRecord::Base
               'wiki_ed_staff' => CoursesUsers::Roles::WIKI_ED_STAFF_ROLE }
     joins(:courses_users).where(courses_users: { role: roles[role] })
   }
-
-  scope :ungreeted, -> { where(greeted: false) }
 
   ####################
   # Class method(s)  #

@@ -53,7 +53,8 @@ class Wiki < ActiveRecord::Base
   validates_inclusion_of :language, in: LANGUAGES + [nil]
 
   MULTILINGUAL_PROJECTS = {
-    'wikidata' => 'www.wikidata.org'
+    'wikidata' => 'www.wikidata.org',
+    'wikisource' => 'wikisource.org'
   }.freeze
 
   def base_url
@@ -73,14 +74,18 @@ class Wiki < ActiveRecord::Base
   #############
 
   def ensure_valid_project
-    # Multilingual projects must have language == nil.
-    # Standard projects must have a language.
-    if MULTILINGUAL_PROJECTS.include?(project)
+		# Multilingual projects must have language == nil.
+    # TODO: Validate the language/project combination by pinging it's API.
+    case project
+    when 'wikidata'
       self.language = nil
-    elsif language.nil?
-      raise InvalidWikiError
+      return
+    when 'wikisource'
+      self.language = nil if language == 'www'
+      return
+    else
+      raise InvalidWikiError if self.language.nil?
     end
-    # TODO: Validate the language/project combination by pinging its API.
   end
 
   class InvalidWikiError < StandardError; end
@@ -96,7 +101,18 @@ class Wiki < ActiveRecord::Base
   end
 
   def self.get_or_create(language:, project:)
-    language = nil if MULTILINGUAL_PROJECTS.include?(project)
+    language = language_for_multilingual(language: language, project: project)
     find_or_create_by(language: language, project: project)
+  end
+
+
+  def self.language_for_multilingual(language:, project:)
+    case project
+    when 'wikidata'
+      language = nil
+    when 'wikisource'
+      language = nil if language == 'www'
+    end
+    language
   end
 end

@@ -109,6 +109,10 @@ const AssignButton = React.createClass({
 
     if (assignment.title === '' || assignment.title === 'undefined') {
       return;
+    } else if (assignment.title.length > 255) {
+      // Title shouldn't exceed 255 chars to prevent mysql errors
+      alert(I18n.t('assignments.title_too_large'));
+      return;
     }
 
     const articleTitle = assignment.title;
@@ -123,7 +127,16 @@ const AssignButton = React.createClass({
       return;
     }
 
+    // Close the popup after adding an available article
+    const closePopup = this.props.open;
+    // While adding other assignments, popup can remain open to assign multiple assignments at once
+    const closeOnConfirm = this.props.add_available;
+
     const onConfirm = function () {
+      // Close the popup after confirmation
+      if (closeOnConfirm) {
+        closePopup(e);
+      }
       // Update the store
       AssignmentActions.addAssignment(assignment);
       // Post the new assignment to the server

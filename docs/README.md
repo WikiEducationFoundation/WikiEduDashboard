@@ -10,6 +10,7 @@
 
 ### Other
 - [Contributing](../CONTRIBUTING.md)
+- [Development Process for Agile Ventures members](dev_process.md)
 - [Deployment](deploy.md)
 - [Upgrading dependencies](upgrading_dependencies.md)
 - [Tools & Integrations](tools.md)

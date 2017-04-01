@@ -14,7 +14,8 @@ describe CourseCloneManager do
            timeline_start: 11.months.ago,
            timeline_end: 9.months.ago,
            slug: 'School/Title_(Term)',
-           passcode: 'code')
+           passcode: 'code',
+           flags: { first_flag: 'something' })
     create(:campaign, id: 1)
     create(:campaigns_course, course_id: 1, campaign_id: 1)
     create(:user, id: 1)
@@ -104,6 +105,10 @@ describe CourseCloneManager do
 
     it 'marks the cloned status as PENDING' do
       expect(clone.cloned_status).to eq(Course::ClonedStatus::PENDING)
+    end
+
+    it 'does not carry over the course flags' do
+      expect(clone.flags).to eq({})
     end
   end
 

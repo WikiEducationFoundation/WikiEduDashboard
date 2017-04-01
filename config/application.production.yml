@@ -39,6 +39,7 @@ favicon_file: favicon.ico"
 favicon_dev_file: "favicon_dev.png"
 
 communications_manager: ''
+classroom_program_manager: 'Helaine (Wiki Ed)'
 technical_help_staff: 'Sage (Wiki Ed)'
 survey_alerts_recipient: 'Samantha (Wiki Ed)'
 
@@ -50,3 +51,14 @@ enable_chat: 'true'
 chat_server: 'https://dashboardchat.wmflabs.org'
 chat_admin_username: <SECRET>
 chat_admin_password: <SECRET>
+
+SALESFORCE_USERNAME: <SECRET>
+SALESFORCE_PASSWORD: <SECRET>
+SALESFORCE_SECURITY_TOKEN: <SECRET>
+SALESFORCE_CLIENT_ID: <SECRET>
+SALESFORCE_CLIENT_SECRET: <SECRET>
+SALESFORCE_API_VERSION: '38.0'
+SF_SERVER: 'https://na24.salesforce.com/'
+SF_CLASSROOM_PROGRAM_ID: <SECRET>
+SF_VISITING_SCHOLARS_PROGRAM_ID: <SECRET>
+bcc_to_salesforce_email: <SECRET>

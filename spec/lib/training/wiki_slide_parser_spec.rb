@@ -7,6 +7,8 @@ describe WikiSlideParser do
     <<-WIKISLIDE
 <noinclude><languages /></noinclude>
 == <translate> <!--T:1--> E3: Situations you might encounter </translate> ==
+
+
 <translate><!--T:2--> Even though all efforts should be made to ensure that events are safe spaces for contributors to meet, congregate, and collaborate, there may be instances where you may observe situations that may make you or others feel uncomfortable, in a minor or major way. All of these violations can and should be addressed whether they occur against you or whether you observe them occurring against another person. This list is not meant to be exclusive – rare or unusual cases can always come up.</translate>
 
 * '''<translate><!--T:3--> Minor to moderate safe spaces violations</translate>'''<translate> <!--T:4--> usually consist of inappropriate comments, on-wiki arguments becoming a hostile or heated in-person debate, or inappropriate content that may be displayed in a presentation. These violations, especially, may not always be intentionally designed to upset others, but should nevertheless be addressed if they occur.</translate>
@@ -92,6 +94,17 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
     it 'converts an image template into figure markup' do
       output = WikiSlideParser.new(image_wikitext.dup).content
       expect(output).to match(/Eryk Salvaggio/)
+    end
+    it 'includes a forced newline after figure markup' do
+      # Markdown conversion outputs just one newline after figure markup, which
+      # can result in the next line getting misparsed. Two newlines ensures that
+      # the following content gets parsed as a new paragraph.
+      output = WikiSlideParser.new(image_wikitext.dup).content
+      expect(output).to include("figure>\n\n")
+    end
+    it 'removes leading newlines' do
+      output = WikiSlideParser.new(source_wikitext.dup).content
+      expect(output[0..10]).to eq('Even though')
     end
     it 'handles nil input' do
       output = WikiSlideParser.new(''.dup).content

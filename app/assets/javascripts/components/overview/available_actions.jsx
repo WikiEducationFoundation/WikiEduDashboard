@@ -7,6 +7,7 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
+import SalesforceLink from './salesforce_link.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -72,7 +73,9 @@ const AvailableActions = React.createClass({
   },
 
   enableChat() {
-    ChatActions.enableForCourse(this.state.course.id);
+    if (confirm('Are you sure you want to enable chat?')) {
+      return ChatActions.enableForCourse(this.state.course.id);
+    }
   },
 
   render() {
@@ -113,17 +116,15 @@ const AvailableActions = React.createClass({
         ));
       }
       // If chat is available but not enabled for course, show the 'enable chat' button.
-      if (Features.enableChat && !this.state.course.flags.enable_chat) {
+      if (Features.enableChat && !this.state.course.flags.enable_chat && user.admin) {
         controls.push((
           <p key="enable_chat"><button className="button" onClick={this.enableChat}>{I18n.t('courses.enable_chat')}</button></p>
         ));
       }
     // If user has no role or is logged out
-    } else {
+    } else if (!this.state.course.ended) {
       controls.push((
-        <p key="join">
-          <button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button>
-        </p>
+        <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
 
@@ -142,6 +143,7 @@ const AvailableActions = React.createClass({
         <div className="module__data">
           {confirmationDialog}
           {controls}
+          <SalesforceLink course={this.state.course} current_user={this.props.current_user} />
         </div>
       </div>
     );

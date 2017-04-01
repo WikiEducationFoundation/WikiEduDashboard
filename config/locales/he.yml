@@ -10,6 +10,8 @@
 # Author: Mikey641
 # Author: MojoMann
 # Author: Or
+# Author: Uziel302
+# Author: YaronSh
 # Author: המקיסט
 # Author: פוילישער
 # Author: תומר ט
@@ -126,6 +128,7 @@ he:
       \nשימו לב שנכון להיום הציון הזה זמין רק לערכים שנכתבו בוויקיפדיה האנגלית."
   assignments:
     already_exists: הקצאה זו כבר קיימת!
+    title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
     assign_other: שיוך ערך
     add_available: הוספת ערך הזמין לעבודה במסגת התוכנית \ הקורס \ המיזם
@@ -241,6 +244,8 @@ he:
         או מועד אחר.
       user_exists: סליחה, %{username} אינו משתמש קיים במערכת.
       invalid_language_or_project: שפה או מיזם לא חוקי
+      invalid_slug: שם בית הספר או הקורס לא מולאו.
+      duplicate_slug: תוכנית אחרת בשם %{slug} כבר קיימת.
     expected_students: משתתפים מצופים
     gradeables_none: לתוכנית \ לקורס \ למיזם הזה אין הקצאות שאפשר לתת להן ציונים.
     instructor:
@@ -567,6 +572,8 @@ he:
       campus_volunteer: מתנדב\ת קמפוס
       online_volunteer: חונכות וחונכים מקוונים
       wiki_ed_staff: צוות מיזמי החינוך
+  user_profiles:
+    location_placeholder: הוספת המיקום שלך (רשות)
   wiki_edits:
     notify_overdue:
       confirm: פעולה זו תפרסם תזכורת בדפי השיחה של המשתתפים שלא השלימו את ההדרכה בזמן.

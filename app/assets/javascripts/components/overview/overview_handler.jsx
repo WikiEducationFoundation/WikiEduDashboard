@@ -7,6 +7,8 @@ import Details from './details.jsx';
 import ThisWeek from './this_week.jsx';
 import CourseStore from '../../stores/course_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
+import UserStore from '../../stores/user_store.js';
+import UserUtils from '../../utils/user_utils.js';
 import WeekStore from '../../stores/week_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import Loading from '../common/loading.jsx';
@@ -49,6 +51,8 @@ const Overview = React.createClass({
   },
 
   render() {
+    const userRoles = UserUtils.userRoles(this.props.current_user, UserStore);
+
     if (this.props.location.query.modal === 'true' && this.state.course.id) {
       return (
         <CourseClonedModal
@@ -90,7 +94,7 @@ const Overview = React.createClass({
     );
 
     let userArticles;
-    if (this.props.current_user.role === 0 && this.state.course.id) {
+    if (userRoles.isStudent && this.state.course.id) {
       userArticles = (
         <MyArticles
           course={this.state.course}

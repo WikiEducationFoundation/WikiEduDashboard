@@ -35,6 +35,7 @@ hi:
     student_editors: छात्र संपादक
     term: अवधि
   courses_generic:
+    all_courses: सभी पाठ्यक्रम
     school: संस्थान
     student_editors: सम्पादक
     students_short: संपादक

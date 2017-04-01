@@ -45,11 +45,11 @@ class ArticlesCourses < ActiveRecord::Base
   end
 
   def manual_revisions
-    course.revisions.where(article_id: article.id)
+    course.revisions.where(article_id: article_id)
   end
 
   def all_revisions
-    course.all_revisions.where(article_id: article.id)
+    course.all_revisions.where(article_id: article_id)
   end
 
   def update_cache

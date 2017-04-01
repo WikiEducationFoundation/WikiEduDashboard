@@ -12,6 +12,8 @@ lb:
     field_required: Dëst Feld ass obligatoresch
     field_invalid_characters: Dëst Feld huet net valabel Zeechen
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
+    field_invalid_date_time: De Schluss muss nom Ufank sinn. (Stonne gi vun 0 bis
+      23.)
     greeting2: Wëllkomm!
     greeting_extended: Wëllkomm op Wikipedia
     greeting: Salut!
@@ -78,6 +80,7 @@ lb:
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
   assignments:
+    title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
     add_available: En disponibelen Artikel derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
@@ -142,6 +145,7 @@ lb:
     edit_course_dates: Datume vum Cours änneren
     enable_chat: Chat aktivéieren
     end: Schluss
+    ended: De Cours ass eriwwer.
     enroll: Aschreiwen
     enrollment: Aschreiwung
     error:
@@ -149,6 +153,8 @@ lb:
         aneren Titel, enger anerer Schoul oder enger anerer Dauer.
       user_exists: Pardon, de Benotzer %{username} gëtt et net.
       invalid_language_or_project: Net valabel Sprooch/Projet
+      invalid_slug: Schoul/Titel eidel fir de Cours.
+      duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -170,6 +176,7 @@ lb:
     overview: Haaptsäit
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
+    school_and_term: Institutioun/Dauer
     start: Ufank
     start_typing: Fänkt u mat Tippen
     students: Studenten
@@ -192,6 +199,7 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    all_courses: All Progtrammer
     archived: Archivéiert Programmer
     cancel: Ofbriechen
     courses: Programmer
@@ -210,6 +218,7 @@ lb:
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
     school: Institutioun
+    school_and_term: Institiutioun/Wéini
     students_short: Auteuren
     students_count: Zuel vu Participanten
     term: Wéini
@@ -330,9 +339,6 @@ lb:
     training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
-    student_impact: Gesamtimpakt vum %{username} als Student
-    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
-    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
     role:
       visitor: Visiteur
       student: Student
@@ -340,6 +346,14 @@ lb:
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Ed
+  user_profiles:
+    student_impact: Gesamtimpakt duerch %{username} als Student
+    instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
+    instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
+    disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
+    bio_placeholder: Är Biographie dobäisetzen (fakultativ)
+    location_placeholder: Setzt Är Plaz derbäi (fakultativ)
+    institution_placeholder: Numm vun der Institutioun (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
     select_one_option: Wielt w.e.g. eng Optioun eraus.

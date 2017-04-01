@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/rating_importer"
@@ -30,9 +31,11 @@ class DailyUpdate
 
   def run_update
     log_start_of_update
+    update_users
     update_commons_uploads
     update_article_data
     update_article_views unless ENV['no_views'] == 'true'
+    push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
   rescue Exception => e
@@ -45,6 +48,11 @@ class DailyUpdate
   # Data import #
   ###############
 
+  def update_users
+    log_message 'Updating global ids and training status'
+    UserImporter.update_users
+  end
+
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
     UploadImporter.find_deleted_files(CommonsUpload.where(deleted: false))
@@ -56,8 +64,7 @@ class DailyUpdate
     UploadImporter.update_usage_count_by_course(Course.all)
 
     log_message 'Getting thumbnail urls for Commons uploads'
-    thumbless_uploads = CommonsUpload.where(thumburl: nil, deleted: false)
-    UploadImporter.import_urls_in_batches(thumbless_uploads)
+    UploadImporter.import_all_missing_urls
   end
 
   def update_article_data
@@ -77,6 +84,16 @@ class DailyUpdate
   def update_article_views
     log_message 'Updating article views'
     ViewImporter.update_all_views(true)
+  end
+
+  ###############
+  # Data export #
+  ###############
+  def push_course_data_to_salesforce
+    log_message 'Pushing course data to Salesforce'
+    Course.current.each do |course|
+      PushCourseToSalesforce.new(course) if course.flags[:salesforce_id]
+    end
   end
 
   #################################

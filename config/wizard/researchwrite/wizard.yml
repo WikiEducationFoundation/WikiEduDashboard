@@ -44,7 +44,7 @@
   minimum: 0
   options:
     -
-      title: Critique an article
+      title: Evaluate an article
       recommended: true
       blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
       # description:
@@ -217,6 +217,52 @@
     -
       title: 3
       logic: 3_peer_reviewers
+
+-
+  key: in_class_discussions
+  title: In-class Wikipedia discussions
+  description: |
+    Setting aside some class time to discuss your Wikipedia assignment can be a
+    great way to keep your students on track as well as provide them with an
+    opportunity to think more critically about Wikipedia. The following are
+    discussion prompts that you may choose to include in your Wikipedia assignment.
+    You may wish to include these as scheduled in-class discussions or use them
+    as prompts for blog posts, reflection pieces, small break out groups, or as
+    thought pieces for your students to consider throughout their assignment.
+
+    You can always customize the prompts by editing their text, changing their
+    scheduled date, or deleting them all together from your course page timeline.
+
+    **Which discussion prompts would you like to include in your course timeline?**
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Content gaps
+      selected: true
+      blurb: >
+        This prompt will explore why and how gaps in content coverage arise on
+        Wikipedia and how your students can fill in these gaps.
+      description:
+      logic: content_gaps_discussion
+    -
+      title: Sources and plagiarism
+      selected: true
+      blurb: >
+        This prompt will explore how Wikipedia defines good sources of information
+        and how the community decided on these norms. It will also address close
+        paraphrasing and how to avoid it.
+      description:
+      logic: sources_and_plagiarism_discussion
+    -
+      title: Thinking about Wikipedia
+      selected: true
+      blurb: >
+        This prompt will ask students to think more deeply about Wikipedia,
+        including an exploration of neutrality, notability, and bias.
+      description:
+      logic: thinking_about_wikipedia_discussion
+
 -
   key: supplementary_assignments
   title: Supplementary assignments

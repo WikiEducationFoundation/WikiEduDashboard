@@ -63,6 +63,7 @@ const EnrollButton = React.createClass({
   enroll(e) {
     e.preventDefault();
     const username = this.refs.username.value;
+    if (!username) { return; }
     const courseId = this.props.course_id;
     const userObject = { username, role: this.props.role };
 

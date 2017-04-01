@@ -11,20 +11,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken do
-    render plain: t('error_401.explanation'),
-           status: :unauthorized
+    render plain: t('error_401.explanation'), status: :unauthorized
   end
 
   # Stop index.php routes from causing the kinds of errors that get reported
   # to Sentry.
   rescue_from ActionController::UnknownFormat do
-    render plain: t('error_404.explanation'),
-           status: 404
+    render plain: t('error_404.explanation'), status: 404
   end
 
   force_ssl if: :ssl_configured?
 
-  before_action :check_for_sitenotice
   before_action :check_for_expired_oauth_credentials
   before_action :check_for_unsupported_browser
   before_action :check_onboarded
@@ -37,11 +34,6 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(_resource_or_scope)
     request.env['omniauth.origin'] || '/'
-  end
-
-  def check_for_sitenotice
-    return if ENV['sitenotice'].blank?
-    flash[:notice] = ENV['sitenotice']
   end
 
   def check_onboarded

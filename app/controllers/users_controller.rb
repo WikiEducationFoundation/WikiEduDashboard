@@ -63,24 +63,6 @@ class UsersController < ApplicationController
              end
   end
 
-  ####################################################
-  # Page for showing course info for particular user #
-  ####################################################
-  def show
-    # Per MediaWiki convention, underscores in username urls represent spaces
-    username = params[:username].tr('_', ' ')
-    @user = User.find_by_username(username)
-    if @user
-      @courses_users = @user.courses_users
-      @courses_list = @user.courses.where('courses_users.role = ?', CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      @courses_presenter = CoursesPresenter.new(current_user: current_user, courses_list: @courses_list)
-      @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
-    else
-      flash[:notice] = 'User not found'
-      redirect_to controller: 'dashboard', action: 'index'
-    end
-  end
-
   private
 
   #################
@@ -114,8 +96,9 @@ class UsersController < ApplicationController
   def make_enrollment_edits
     return unless enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
     # for students only, posts templates to userpage and sandbox
-    WikiCourseEdits.new(action: :enroll_in_course, course: @course,
-                        current_user: current_user, enrolling_user: @user)
+    EnrollInCourseWorker.schedule_edits(course: @course,
+                                        editing_user: current_user,
+                                        enrolling_user: @user)
   end
 
   ###################

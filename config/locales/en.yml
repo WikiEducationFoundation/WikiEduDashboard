@@ -43,6 +43,7 @@ en:
     field_required: This field is required
     field_invalid_characters: This field has invalid characters
     field_invalid_date: This field requires a date in YYYY-MM-DD format
+    field_invalid_date_time: The end must be after the start. (Hours go from 0 to 23.)
     greeting2: Welcome!
     greeting_extended: Welcome to Wikipedia
     greeting: Hello!
@@ -157,6 +158,7 @@ en:
   assignments:
     article: The article %{title} was assigned
     already_exists: This assignment already exists!
+    title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
     assign_other: Assign an article
     add_available: Add an available article
@@ -303,6 +305,7 @@ en:
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
     end: End
+    ended: The course has ended.
     enroll: Enroll
     enrollment: Enrollment
     courses_enrolled: Courses enrolled
@@ -310,6 +313,8 @@ en:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
       invalid_language_or_project: Invalid language/project
+      invalid_slug: Blank school/title for course.
+      duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
     gradeables_none: This course has no gradeable assignments.
     instructor:
@@ -356,6 +361,7 @@ en:
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
+    school_and_term: Institution/Term
     start: Start
     start_typing: Start typing
     students: Students
@@ -409,6 +415,7 @@ en:
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
+    all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.
     assignment_end: Timeline End
@@ -449,6 +456,7 @@ en:
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     revisions_none: This project has no recent editing activity.
     school: Institution
+    school_and_term: Institution/When
     student_editors: Editors
     students: Editors
     students_none: This project has no editors enrolled.
@@ -678,9 +686,7 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
-    student_impact: Total impact made by %{username} as a student
-    instructor_impact: Total impact made by %{username} as an instructor
-    instructors_student_impact: Total impact made by %{username}'s students
+
     role:
       visitor: Visitor
       student: Student
@@ -688,6 +694,15 @@ en:
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
       wiki_ed_staff: Wiki Ed Staff
+
+  user_profiles:
+    student_impact: Total impact made by %{username} as a student
+    instructor_impact: Total impact made by %{username} as an instructor
+    instructors_student_impact: Total impact made by %{username}'s students
+    disclaimer: The information you provide will be made available publicly.
+    bio_placeholder: Add your Bio (optional)
+    location_placeholder: Add your location (optional)
+    institution_placeholder: Institution name (optional)
 
   wiki_edits:
     notify_overdue:

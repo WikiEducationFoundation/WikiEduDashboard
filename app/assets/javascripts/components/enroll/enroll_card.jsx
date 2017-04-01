@@ -5,7 +5,7 @@ const EnrollCard = React.createClass({
 
   propTypes: {
     user: React.PropTypes.object,
-    userRole: React.PropTypes.number,
+    userRoles: React.PropTypes.object,
     course: React.PropTypes.object,
     courseLink: React.PropTypes.string,
     passcode: React.PropTypes.string,
@@ -15,7 +15,13 @@ const EnrollCard = React.createClass({
 
   render() {
     let messageBody;
-    if (this.props.enrolledParam !== undefined) {
+    if (this.props.course.ended) {
+      messageBody = (
+        <div>
+          <h1>{I18n.t('courses.ended')}</h1>
+        </div>
+      );
+    } else if (this.props.enrolledParam !== undefined) {
       // Enrollment is complete
       if (this.props.enrolledParam === 'true') {
         messageBody = (
@@ -34,7 +40,7 @@ const EnrollCard = React.createClass({
         );
       }
     // User is logged in and ready to enroll
-    } else if (this.props.user.id && this.props.userRole === -1) {
+    } else if (this.props.user.id && this.props.userRoles.notEnrolled) {
       messageBody = (
         <div>
           <h1>{I18n.t('courses.join_prompt', { title: this.props.course.title || '' })}</h1>
@@ -43,7 +49,7 @@ const EnrollCard = React.createClass({
         </div>
       );
     // User is already enrolled
-    } else if (this.props.userRole >= 0) {
+    } else if (this.props.userRoles.isEnrolled) {
       messageBody = <h1>{I18n.t('courses.already_enrolled', { title: this.props.course.title })}</h1>;
     // User is not logged in
     } else if (!this.props.user.id) {

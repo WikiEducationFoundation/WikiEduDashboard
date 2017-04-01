@@ -56,6 +56,7 @@ bn:
     view_on_wiki: উইকিতে দেখুন
     wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
+    title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না
     remove: অপসারণ করুন
     reviewers: নিরীক্ষক(গণ)
     select: নির্বাচন করুন
@@ -65,6 +66,8 @@ bn:
   campaign:
     campaign: প্রচারাভিযান
     none: কোনটিই নয়
+  chat:
+    label: চ্যাট
   courses:
     activity: কর্মকাণ্ড
     actions: কার্যসমূহ
@@ -91,8 +94,12 @@ bn:
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
+    enable_chat: চ্যাট সক্রিয় করুন
     end: শেষ
+    ended: কোর্সটি শেষ হয়েছে।
     courses_enrolled: কোর্সে ভর্তি
+    error:
+      invalid_slug: কোর্সের জন্য ফাঁকা বিদ্যালয়/শিরোনাম।
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
@@ -102,6 +109,7 @@ bn:
     none: কোনটিই নয়
     overview: প্রধান পাতা
     school: বিদ্যালয়
+    school_and_term: প্রতিষ্ঠান/মেয়াদ
     start: শুরু করুন
     students: ছাত্রগণ
     students_count: '# ছাত্রগণ'
@@ -117,6 +125,7 @@ bn:
       one: স্বেচ্ছাসেবক
       other: স্বেচ্ছাসেবক
   courses_generic:
+    all_courses: সকল কার্যক্রমসমুহ
     cancel: বাতিল
     courses_taught: প্রোগ্রামের ধারণা
     campaign_courses: '%{title} প্রোগ্রাম'
@@ -132,6 +141,7 @@ bn:
     enrollment: অংশগ্রহণ
     courses_enrolled: প্রোগ্রাম অংশগ্রহণ করেছে
     school: প্রতিষ্ঠান
+    school_and_term: প্রতিষ্ঠান/কখন
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
     students_short: সম্পাদকগণ
@@ -199,6 +209,10 @@ bn:
     role:
       student: ছাত্র
       online_volunteer: অনলাইন স্বেচ্ছাসেবক
+  user_profiles:
+    bio_placeholder: আপনার জীবনী যোগ করুন (ঐচ্ছিক)
+    location_placeholder: আপনার অবস্থান যোগ করুন (ঐচ্ছিক)
+    institution_placeholder: ইনস্টিটিউটের নাম (ঐচ্ছিক)
   wizard:
     read_more: আরও পড়ুন
     summary: সারাংশ

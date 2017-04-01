@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aursani
+# Author: Indus Asia
 # Author: Macofe
 # Author: Mehtab ahmed
 ---
@@ -111,6 +112,7 @@ sd:
     courses: ڪورسز
     current: حاليہ ڪورسز
     duration: ڪورس جو دورانيو
+    ended: ڪورس ختم ٿي ويو آهي.
     error:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
       user_exists: معاف ڪندا، %{username} نالي يُوزر حالي وجود نہ ٿو رکي.
@@ -131,6 +133,9 @@ sd:
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
     wiki_staff: وڪي ايڊيٽر عملو
     yourcourses: توهان جا ڪورسز
+  courses_generic:
+    all_courses: سڀ سٽاءَ (پروگرام)
+    school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
   metrics:
     activity: تازي سرگرمي
     articles_created: تخليقيل مضمون
@@ -182,6 +187,9 @@ sd:
     reviewing: جائزي هيٺ
     training_complete_count: '%{count} تربيت حاصل ڪئي'
     training_incomplete: تربيت نامڪمل
+  user_profiles:
+    location_placeholder: پنهنجو هنڌ (لوڪيشن) شامل ڪيو (اختياري)
+    institution_placeholder: اداري (انسٽيٽيوشن) جو نالو (اختياري)
   wizard:
     assignment_dates: مشقن جون تاريخون
     assignment_description: هن مشق جون آغازي ۽ انجامي تاريخون چونڊيو

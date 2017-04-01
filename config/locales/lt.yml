@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Eitvys200
+# Author: Nersip
 # Author: Zygimantus
 ---
 lt:
@@ -71,6 +72,7 @@ lt:
     view_on_wiki: Peržiūrėti viki
   assignments:
     article: Straipsnis %{title} buvo priskirtas
+    title_too_large: Pavadinimas neturėtų viršyti 255 simbolių
     assign_other: Priskirti straipsnį
     add_available: Pridėti prieinamą straipsnį
     assign_self: Priskirti straipsnį sau
@@ -180,6 +182,7 @@ lt:
     error:
       user_exists: Atsiprašome, %{username} neegzistuoja.
       invalid_language_or_project: Negalima kalba/projektas
+      duplicate_slug: Kita programa, pavadinta %{slug}, jau egzistuoja.
     expected_students: Tikimasi Studentų
     gradeables_none: Šis kursas neturi vertinamų užduočių.
     instructor:
@@ -236,6 +239,7 @@ lt:
       notification_message: Atlikite šio kurso apklausą.
       link: Atlikti apklausą
   courses_generic:
+    all_courses: Visos Programos
     articles_none: Dar nėra redaguotų straipsnių šiam projektui.
     assignment_end: Laiko Juostos Pabaigą
     assignments_none: Šis projektas neturi priskirtų straipsnių.
@@ -407,6 +411,9 @@ lt:
       campus_volunteer: Universiteto Miestelio Savanoris
       online_volunteer: Internetinis Savanoris
       wiki_ed_staff: Viki Ed Darbuotojai
+  user_profiles:
+    disclaimer: Jūsų pateikta informacija bus vieša.
+    bio_placeholder: Pridėkite savo biografiją (neprivaloma)
   wizard:
     assignment_type: Užduoties tipas
     course_dates: Kurso datos

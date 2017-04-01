@@ -64,6 +64,7 @@ gl:
     instructor:
       one: Monitor
       other: Monitores
+    join_prompt: Unirse a '%{title}'?
     new_week: Engadir nova semana
     nocourses: Non está a participar en ningún curso.
     revisions_doc: Número de edicións nos pasados %{timeframe} días

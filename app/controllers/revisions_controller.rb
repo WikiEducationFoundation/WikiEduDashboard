@@ -10,7 +10,7 @@ class RevisionsController < ApplicationController
     course = Course.find(params[:course_id])
 
     @revisions = course.revisions.where(user_id: user.id)
-                       .order('revisions.created_at DESC')
+                       .order('revisions.date DESC')
                        .eager_load(:article)
                        .limit(params[:limit] || DEFAULT_REVISION_LIMIT)
   end

@@ -16,6 +16,8 @@ de:
     field_required: Dieses Feld ist erforderlich
     field_invalid_characters: Dieses Feld hat ungültige Zeichen
     field_invalid_date: Dieses Feld erfordert ein Datum im Format JJJJ-MM-TT
+    field_invalid_date_time: Das Ende muss nach dem Start liegen (Stunden müssen von
+      0 bis 23 gehen).
     greeting2: Willkommen!
     greeting_extended: Willkommen bei Wikipedia
     greeting: Hallo!
@@ -122,6 +124,7 @@ de:
   assignments:
     article: Der Artikel %{title} wurde zugewiesen
     already_exists: Diese Zuweisung ist bereits vorhanden!
+    title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
     add_available: Einen verfügbaren Artikel hinzufügen
@@ -274,6 +277,7 @@ de:
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
     end: Ende
+    ended: Der Kurs ist beendet.
     enroll: Einschreiben
     enrollment: Einschreibung
     courses_enrolled: Eingeschriebene Kurse
@@ -282,6 +286,9 @@ de:
         anderen Titel, einer anderen Schule oder Dauer.
       user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
       invalid_language_or_project: Ungültige Sprache/Ungültiges Projekt
+      invalid_slug: Leeres Schul- oder Kurstitel-Feld.
+      duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
+        ist.
     expected_students: Erwartete Studenten
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
@@ -330,6 +337,7 @@ de:
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
+    school_and_term: Einrichtung/Dauer
     start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
@@ -382,6 +390,7 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    all_courses: Alle Programme
     archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
     assignment_end: Zeitleisten-Ende
@@ -424,6 +433,7 @@ de:
       der folgenden URL einschreiben:'
     revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
+    school_and_term: Einrichtung/Wann
     student_editors: Autoren
     students: Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
@@ -649,9 +659,6 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
-    student_impact: Gesamtauswirkung durch %{username} als Student
-    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
-    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
     role:
       visitor: Besucher
       student: Student
@@ -659,6 +666,14 @@ de:
       campus_volunteer: Campus-Volontär
       online_volunteer: Online-Volontär
       wiki_ed_staff: Mitarbeiter von Wiki Ed
+  user_profiles:
+    student_impact: Gesamtauswirkung durch %{username} als Student
+    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
+    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
+    disclaimer: Die angegebenen Informationen werden öffentlich verfügbar gemacht.
+    bio_placeholder: Ergänze deine Biografie (optional)
+    location_placeholder: Ergänze deinen Standort (optional)
+    institution_placeholder: Name der Einrichtung (optional)
   wiki_edits:
     notify_overdue:
       confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,

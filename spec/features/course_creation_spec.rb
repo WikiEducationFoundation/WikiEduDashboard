@@ -79,6 +79,9 @@ def go_through_researchwrite_wizard
   click_button 'Next' # Default 2 peer reviews
   sleep 1
 
+  click_button 'Next' # Default 3 discussions
+  sleep 1
+
   click_button 'Next' # No supplementary assignments
   sleep 1
 
@@ -108,7 +111,7 @@ describe 'New course creation and editing', type: :feature do
 
   describe 'course workflow', js: true do
     let(:expected_course_blocks) { 22 }
-    let(:module_name) { 'Practicing the basics' }
+    let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do
       click_link 'Create Course'
