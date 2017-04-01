@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 show_email_and_real_name = user_signed_in? && current_user.role(course).positive?
 
-json.users course.courses_users.eager_load(:user) do |cu|
+json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu, :character_sum_ms, :character_sum_us, :role, :recent_revisions,
             :content_expert, :program_manager, :contribution_url, :sandbox_url)
   json.call(cu.user, :id, :username)
