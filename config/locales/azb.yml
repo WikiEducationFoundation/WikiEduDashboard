@@ -75,17 +75,27 @@ azb:
     cancel: وازگئچ
     campaigns: 'کمپینلر:'
     creator:
+      course_term_placeholder: ترم
       subject: موضوع
     end: سوْن
     join: قوْشول
+    loading: یوکلنیر...
+    none: هئچ بیری
     overview: ائو
     school: مدرسه
     start: باشلا
+    user_role: نقش
     term: ترم
     title: باشلیق
   courses_generic:
     cancel: وازگئچ
+    campaigns: 'کمپینلر:'
     term: هاچان
+  editable:
+    edit: دَییشدیر
+    cancel: وازگئچ
+    save: ذخیره ائت
+    edit_description: آچیقلامانی دَییشدیر
   namespace:
     user_ns: ایشلدن
   revisions:

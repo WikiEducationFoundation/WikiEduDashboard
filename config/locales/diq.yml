@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 1917 Ekim Devrimi
+# Author: Asmen
 # Author: Gorizon
 # Author: Kumkumuk
 # Author: Mirzali
@@ -29,7 +30,7 @@ diq:
     sign_up: Qeyd be
     submit: deqew
     training: Mısnayış
-    change: Bıvurne
+    change: Bıvırne
   dashboard:
     explore_examples: Misal keşıf
     review_orientation: Vênayena oryantasyoni
@@ -130,7 +131,7 @@ diq:
     students_short: Editori
     term: Key
   editable:
-    edit: Bıvurne
+    edit: Bıvırne
     cancel: Bıtexelne
     save: Qeyd ke
   metrics:
