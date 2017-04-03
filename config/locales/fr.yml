@@ -193,7 +193,7 @@ fr:
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
   chat:
-    label: Discussion
+    label: Clavardage
   courses:
     activity: Activité
     active_courses: '%{course_type} actifs'
@@ -287,7 +287,7 @@ fr:
       sondage ?
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
-    enable_chat: Activer la discussion
+    enable_chat: Activer le clavardage
     end: Fin
     ended: Le cours est terminé.
     enroll: S’inscrire

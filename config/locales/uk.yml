@@ -21,6 +21,8 @@ uk:
     field_required: Це поле є обов'язковим
     field_invalid_characters: У цьому полі містяться недопустимі символи
     field_invalid_date: Це поле вимагає дату в форматі РРРР-ММ-ДД
+    field_invalid_date_time: Кінець має бути після початку. (Години йдуть від 0 до
+      23.)
     greeting2: Ласкаво просимо!
     greeting_extended: Ласкаво просимо до Вікіпедії
     greeting: Привіт!
@@ -126,6 +128,7 @@ uk:
   assignments:
     article: Було призначено статтю %{title}
     already_exists: Це призначення вже існує!
+    title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити статтю
     add_available: Додати доступну статтю
@@ -278,6 +281,8 @@ uk:
         закладом або семестром.
       user_exists: Вибачте, користувач %{username} не існує.
       invalid_language_or_project: Неправильна мова/проект
+      invalid_slug: Очистити школу/назву курсу
+      duplicate_slug: Вже існує інша програма з назвою %{slug}.
     expected_students: Очікувані студенти
     gradeables_none: Цей курс не має жодних завдань, що можуть оцінюватись.
     instructor:
@@ -327,6 +332,7 @@ uk:
     revisions_doc: Число змін за останні %{timeframe} днів
     revisions_none: У цьому курсі немає недавньої активності з редагування Вікіпедії.
     school: Школа
+    school_and_term: Установа/Термін
     start: Початок
     start_typing: Розпочніть друк
     students: Студенти
@@ -379,6 +385,7 @@ uk:
       notification_message: Пройдіть наше опитування для цього курсу.
       link: Взяти участь в опитуванні
   courses_generic:
+    all_courses: Усі програми
     archived: Архівовані програми
     articles_none: У цьому проекті ще немає редагованих статей
     assignment_end: Кінець графіку
@@ -421,6 +428,7 @@ uk:
       перейшовши за таким URL:'
     revisions_none: У цьому проекті немає недавньої активності з редагування.
     school: Установа
+    school_and_term: Установа/Коли
     student_editors: Редактори
     students: Редактори
     students_none: У цьому проекті немає записаних редакторів.
