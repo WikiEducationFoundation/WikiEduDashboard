@@ -87,4 +87,10 @@ describe TrainingBase do
       expect(TrainingSlide.all).not_to be_empty
     end
   end
+
+  describe '.load_all' do
+    it 'runs without error' do
+      TrainingBase.load_all
+    end
+  end
 end
