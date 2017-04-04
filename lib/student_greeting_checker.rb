@@ -29,8 +29,8 @@ class StudentGreetingChecker
 
     def update_greeting_status
       return if talk_page_blank?
-      contributor_ids = ids_of_contributors_to_page(@student.talk_page)
-      return if (@all_greeters.pluck(:id) & contributor_ids).empty?
+      contributor_names = contributors_to_page(@student.talk_page)
+      return if (@all_greeters.pluck(:username) & contributor_names).empty?
       # Mark student as greeted if a greeter has already edited their talk page
       @student.update_attributes(greeted: true)
     end
@@ -41,7 +41,7 @@ class StudentGreetingChecker
       WikiApi.new(@wiki).get_page_content(@student.talk_page).nil?
     end
 
-    def ids_of_contributors_to_page(page_title)
+    def contributors_to_page(page_title)
       contributors_response = WikiApi.new(@wiki).query contributors_query(page_title)
       # TODO: Add exception handling for unexpected response data.
       # Currently, that will just cause a NoMethodError, which is okay but not
@@ -51,8 +51,8 @@ class StudentGreetingChecker
       # If there are no non-anonymous contributors, the page exists but will
       # return no 'contributors' data.
       return [] if contributors.nil?
-      contributor_ids = contributors.map { |user| user['userid'] }
-      contributor_ids
+      contributor_usernames = contributors.map { |user| user['name'].tr(' ', '_') }
+      contributor_usernames
     end
 
     def contributors_query(page_title)

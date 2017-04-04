@@ -8,9 +8,9 @@ describe StudentGreetingChecker do
 
     before do
       create(:course, id: 1, start: 2.weeks.ago, end: Date.today + 2.weeks)
-      create(:user, id: 1, username: 'Greeter', greeter: true)
+      create(:user, id: 1, username: 'Danny', greeter: true)
       create(:courses_user, id: 1, course_id: 1, user_id: 1, role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
-      create(:user, id: 2, username: 'Ungreeted Student')
+      create(:user, id: 2, username: 'Ragesoss')
       create(:courses_user, id: 2, course_id: 1, user_id: 2, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
@@ -28,11 +28,9 @@ describe StudentGreetingChecker do
     end
 
     it 'updates students whose talk pages have been edited by greeters' do
-      allow_any_instance_of(StudentGreetingChecker::Check).to receive(:ids_of_contributors_to_page)
-        .and_return([1])
-      stub_raw_action
-
-      # The relevant response stubs are not active, so this will fail an edit is attempted.
+      # This returns the respected response for when 'Danny' has edited the talk
+      # page of 'Ragesoss'.
+      stub_contributors_query
       subject
       expect(User.find(2).greeted).to eq(true)
     end
