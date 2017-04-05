@@ -102,6 +102,15 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.article_url).to.eq(input);
   });
 
+  it("correctly parses the wikimedia incubator url", () => {
+    const input = 'https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa';
+    const output = courseUtils.articleFromTitleInput(input);
+    expect(output.title).to.eq('Wp/kiu/Heyder Cansa');
+    expect(output.project).to.eq('wikimedia');
+    expect(output.language).to.eq('incubator');
+    expect(output.article_url).to.eq(input);
+  });
+
   it('handles url-encoded characters in Wikipedia urls', () => {
     const input = 'https://es.wikipedia.org/wiki/Jalape%C3%B1o';
     const output = courseUtils.articleFromTitleInput(input);

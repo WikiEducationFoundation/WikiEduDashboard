@@ -30,7 +30,7 @@ describe Wiki do
         expect(Wiki.last.language).to be_nil
       end
 
-      it 'allows nil for wikisource' do
+      it 'allows nil language for wikisource' do
         wiki = create(:wiki, language: nil, project: 'wikisource')
         expect(wiki).to be_valid
       end
@@ -69,6 +69,12 @@ describe Wiki do
         expect { create(:wiki, language: nil, project: 'wikisource') }
           .to raise_error(ActiveRecord::RecordInvalid)
       end
+
+      it "it does not allow duplicate wikimedia incubator projects" do
+        create(:wiki, language: 'incubator', project: 'wikimedia')
+        expect { create(:wiki, language: 'incubator', project: 'wikimedia') }
+          .to raise_error(ActiveRecord::RecordInvalid)
+      end
     end
   end
 
@@ -81,7 +87,7 @@ describe Wiki do
       end
 
       context 'when the wiki project does not have language support' do
-        it 'will ignore language but still return a record' do
+        it 'will ignore language but still return a record for wikidata' do
           new_wiki   = create(:wiki, language: nil, project: 'wikidata')
           found_wiki = Wiki.get_or_create(language: 'es', project: 'wikidata')
           expect(new_wiki).to eq(found_wiki), -> { "we did not find wikidata for language: 'es'" }
@@ -146,6 +152,11 @@ describe Wiki do
     it 'returns the correct url for wikidata' do
       wiki = Wiki.get_or_create(language: nil, project: 'wikidata')
       expect(wiki.base_url).to eq('https://www.wikidata.org')
+    end
+
+    it 'returns the correct url for wikimedia incubator' do
+      wiki = Wiki.get_or_create(language: 'incubator', project: 'wikimedia')
+      expect(wiki.base_url).to eq('https://incubator.wikimedia.org')
     end
   end
 end
