@@ -11,8 +11,9 @@ class BlockDateManager
   end
 
   def date
+    weekdays_until_first_meeting = @course.weekdays.index('1')
     (@course.timeline_start + weeks_from_start.weeks)
-      .to_date.beginning_of_week(first_meeting_of_week)
+      .to_date.beginning_of_week(:sunday) + weekdays_until_first_meeting.days
   end
 
   def due_date
