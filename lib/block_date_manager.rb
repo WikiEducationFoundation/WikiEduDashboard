@@ -27,20 +27,6 @@ class BlockDateManager
 
   private
 
-  DAYS_OF_THE_WEEK = {
-    0 => :sunday,
-    1 => :monday,
-    2 => :tuesday,
-    3 => :wednesday,
-    4 => :thursday,
-    5 => :friday,
-    6 => :saturday
-  }.freeze
-  def first_meeting_of_week
-    # Find the first selected — 1 — weekday from the seven-digit weekdays string
-    DAYS_OF_THE_WEEK[@course.weekdays.index('1')]
-  end
-
   def weeks_from_start
     return @weeks_from_start unless @weeks_from_start.nil?
     weeks_from_start = (@week.order - 1).to_i
