@@ -35,6 +35,8 @@ class UserImporter
     username.tr!('_', ' ')
     # Remove any leading or trailing whitespace that snuck through.
     username.strip!
+    username.gsub!(/^[[:space:]]+/, '')
+    username.gsub!(/[[:space:]]+$/, '')
     # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
     username[0] = username[0].mb_chars.capitalize.to_s
 
