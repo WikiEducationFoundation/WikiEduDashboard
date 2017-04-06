@@ -73,7 +73,7 @@
   - else
     - # Courses list
     - if @pres.is_admin?
-      = render "courses/user_courses"
+      = render "admin_courses"
     - else
       - @pres.current.each do |course|
         = render "course_row", course: course

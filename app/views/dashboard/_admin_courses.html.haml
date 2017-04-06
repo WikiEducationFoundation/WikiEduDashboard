@@ -32,4 +32,4 @@
           %td.empty{:colspan => "5"}= t("courses.nocourses")
       - else
         - @pres.strictly_current.each do |c|
-          = render 'courses/row', course: c, user: true
+          = render 'admin_course_row', course: c, user: true
