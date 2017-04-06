@@ -41,7 +41,7 @@ essentials:
           </ul>
 
       -
-        title: Practicing the basics
+        title: Get started on Wikipedia
         kind: 1
         graded: true
         points: 5
@@ -62,38 +62,53 @@ essentials:
             </li>
           </ul>
 
-critique:
-  - # CRITIQUE
+evaluate_an_article:
+  - # EVALUATE
     weight: 1
     blocks:
       -
-        title: Critique an article
+        title: Evaluate a Wikipedia article
         kind: 1
         graded: true
         points: 10
         training_module_ids: [7] # Evaluate an article
         content: |
           <p>
-            It's time to think critically about Wikipedia articles. You'll
-            evaluate a Wikipedia article, and leave suggestions for improving it
-            on the article's Talk page.
+            It's time to think critically about Wikipedia articles. You'll evaluate
+            a Wikipedia article related to the course and leave suggestions for
+            improving it on the article's Talk page.
           </p>
           <ul>
             <li>Complete the "Evaluating Articles and Sources" training (linked below).</li>
-            <li>Choose an article, and consider some questions (but don't feel limited to these):
+            <li>
+              Create a section in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>
+              titled "Article evaluation" where you'll leave notes about your observations and learnings.
+            </li>
+            <li>
+              Choose an article on Wikipedia related to your course to read and evaluate.
+              As you read, consider the following questions (but don't feel limited to these):
               <ul>
-                <li>Is each fact referenced with an appropriate, reliable reference?</li>
                 <li>Is everything in the article relevant to the article topic? Is there anything that distracted you?</li>
                 <li>Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?</li>
-                <li>Where does the information come from? Are these neutral sources? If biased, is that bias noted?</li>
                 <li>Are there viewpoints that are overrepresented, or underrepresented?</li>
-                <li>Check a few citations. Do the links work? Is there any close paraphrasing or plagiarism in the article?</li>
+                <li>Check a few citations. Do the links work? Does the source support the claims in the article?</li>
+                <li>
+                  Is each fact referenced with an appropriate, reliable reference?
+                  Where does the information come from? Are these neutral sources?
+                  If biased, is that bias noted?
+                </li>
                 <li>Is any information out of date? Is anything missing that could be added?</li>
+                <li>
+                  Check out the Talk page of the article. What kinds of conversations,
+                  if any, are going on behind the scenes about how to represent this topic?
+                </li>
+                <li>How is the article rated? Is it a part of any WikiProjects?</li>
+                <li>How does the way Wikipedia discusses this topic differ from the way we've talked about it in class?</li>
               </ul>
             </li>
             <li>
-              Choose at least 2 questions relevant to the article you're evaluating.
-              Leave your evaluation on the article's Talk page. Be sure to sign
+              Optional: Choose at least 1 question relevant to the article you're evaluating
+               and leave your evaluation on the article's Talk page. Be sure to sign
               your feedback with four tildes — <code>~~~~</code>.
             </li>
           </ul>
