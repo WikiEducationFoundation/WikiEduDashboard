@@ -17,6 +17,10 @@ describe TrainingBase do
 
   describe '.load' do
     let(:subject) { TrainingSlide.load }
+    before(:each) do
+      TrainingSlide.flush
+    end
+
     context 'when a file is misformatted' do
       before do
         allow(TrainingBase).to receive(:base_path)
@@ -81,6 +85,12 @@ describe TrainingBase do
       expect(TrainingLibrary.all).not_to be_empty
       expect(TrainingModule.all).not_to be_empty
       expect(TrainingSlide.all).not_to be_empty
+    end
+  end
+
+  describe '.load_all' do
+    it 'runs without error' do
+      TrainingBase.load_all
     end
   end
 end

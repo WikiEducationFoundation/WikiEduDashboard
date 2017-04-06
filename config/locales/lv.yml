@@ -21,6 +21,8 @@ lv:
     label: Aktivitāte
   articles:
     assigned: Piešķirtie raksti
+    available: Pieejamie raksti
+    assigned_to: Piešķirts
     edited: Labotie raksti
     edited_by: 'Labotāji:'
     edited_mobile: Raksti

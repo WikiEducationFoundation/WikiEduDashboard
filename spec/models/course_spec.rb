@@ -48,6 +48,16 @@
 require 'rails_helper'
 
 describe Course, type: :model do
+  describe '.update_all_caches_concurrently' do
+    before do
+      create(:course, needs_update: true)
+      create(:course, needs_update: true)
+    end
+    it 'runs without error for multiple courses' do
+      Course.update_all_caches_concurrently
+    end
+  end
+
   it 'should cache revision data for students' do
     build(:user,
           id: 1,

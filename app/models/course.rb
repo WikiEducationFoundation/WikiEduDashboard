@@ -233,10 +233,6 @@ class Course < ActiveRecord::Base
     save if should_save
   end
 
-  def students_without_nonstudents
-    students.where.not(id: nonstudents.pluck(:id))
-  end
-
   def new_articles
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end

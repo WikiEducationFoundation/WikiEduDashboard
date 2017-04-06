@@ -12,10 +12,10 @@
       output: essentials
       selected: true
     -
-      title: Critique an article
+      title: Evaluate an article
       blurb: Critically evaluate an existing Wikipedia article related to the class, and leave suggestions for improving it on the article’s talk page.
       # description:
-      output: critique
+      output: evaluate_an_article
     -
       title: Add to an article
       blurb: Using course readings or other relevant secondary sources, add 1–2 sentences of new information to a Wikipedia article related to the class. Be sure to integrate it well into the existing article, and include a citation to the source.

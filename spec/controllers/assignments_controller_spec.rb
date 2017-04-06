@@ -172,6 +172,30 @@ describe AssignmentsController do
         end
       end
 
+      context 'when the assignment is for Wikimedia incubator' do
+        let!(:wikimedia_incubator) { create(:wiki, language: 'incubator', project: 'wikimedia') }
+        let(:wikimedia_params) do
+          { user_id: user.id, course_id: course.slug, title: 'Wp/kiu/Heyder Cansa', role: 0,
+            language: 'incubator', project: 'wikimedia' }
+        end
+
+        before do
+          expect(Article.find_by(title: 'Wp/kiu/Heyder Cansa')).to be_nil
+        end
+
+        it 'imports the article' do
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            put :create, params: wikimedia_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Wp/kiu/Heyder_Cansa')
+            expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+          end
+        end
+      end
+
       context 'when the article exists' do
         before do
           create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
