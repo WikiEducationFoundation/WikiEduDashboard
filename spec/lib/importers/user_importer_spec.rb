@@ -89,8 +89,8 @@ describe UserImporter do
 
     it 'creates a user with the correct username capitalization' do
       VCR.use_cassette 'user/new_from_username' do
-        # Basic lower case letter at the beginning
-        username = 'zimmer1048'
+        # Basic lower case letter at the beginning, and whitespace
+        username = ' zimmer1048 '
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Zimmer1048')
 
