@@ -29,6 +29,7 @@ course_end = '2015-12-31'
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
   before do
+    stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
 
     course = create(:course,

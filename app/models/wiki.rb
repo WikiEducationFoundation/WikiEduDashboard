@@ -16,6 +16,7 @@ class Wiki < ActiveRecord::Base
   has_many :courses
 
   before_validation :ensure_valid_project
+  after_validation :ensure_wiki_exists
 
   # Language / project combination must be unique
   validates_uniqueness_of :project, scope: :language
@@ -87,20 +88,17 @@ class Wiki < ActiveRecord::Base
       self.language = nil if language == 'www'
       return
     else
-      raise InvalidWikiError if self.language.nil? || check_wiki_exists? == false
+      raise InvalidWikiError unless LANGUAGES.include?(language)
     end
+    raise InvalidWikiError unless PROJECTS.include?(project)
   end
 
-  def check_wiki_exists?
-    wiki_exists = false
-    api = WikiApi.new(self).query(meta: :siteinfo)
-    api_server_name = if api.nil?
-                        ''
-                      else
-                        "https://#{api.data['general']['servername']}"
-                      end
-    wiki_exists = true if base_url == api_server_name
-    wiki_exists
+  def ensure_wiki_exists
+    return if errors.any? # Skip this check if the wiki had a validation error.
+    site_info = WikiApi.new(self).query(meta: :siteinfo)
+    raise InvalidWikiError if site_info.nil?
+    servername = site_info.data.dig('general', 'servername')
+    raise InvalidWikiError unless base_url == "https://#{servername}"
   end
 
   class InvalidWikiError < StandardError; end

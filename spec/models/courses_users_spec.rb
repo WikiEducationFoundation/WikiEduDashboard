@@ -19,6 +19,8 @@
 require 'rails_helper'
 
 describe CoursesUsers, type: :model do
+  before { stub_wiki_validation }
+
   describe '.update_all_caches' do
     it 'updates data for course-user relationships' do
       # Add a user, a course, an article, and a revision.

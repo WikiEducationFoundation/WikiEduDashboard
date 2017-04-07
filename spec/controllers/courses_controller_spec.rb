@@ -2,6 +2,7 @@
 require 'rails_helper'
 
 describe CoursesController do
+  before { stub_wiki_validation }
   describe '#show' do
     let(:course) { create(:course) }
     let(:slug) { course.slug }
