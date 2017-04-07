@@ -9,7 +9,6 @@ class SalesforceController < ApplicationController
     @course.flags[:salesforce_id] = params[:salesforce_id]
     @course.save
     PushCourseToSalesforce.new(@course)
-    AddCourseMilestonesToSalesforce.new(@course)
     render json: { success: true, flags: @course.flags }
   end
 
