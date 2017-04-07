@@ -30,7 +30,8 @@ class AddCourseMilestonesToSalesforce
   end
 
   def editing_in_sandbox_block
-    @sandbox_block ||= @course.blocks.find { |block| block.title =~ /Draft your article/ }
+    title_matcher = /Draft your article/
+    @sandbox_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
   end
 
   def create_editing_in_mainspace_milestone
@@ -45,6 +46,7 @@ class AddCourseMilestonesToSalesforce
   end
 
   def editing_in_mainspace_block
-    @mainspace_block ||= @course.blocks.find { |block| block.title =~ /Begin moving your work to Wikipedia/ }
+    title_matcher = /Begin moving your work to Wikipedia/
+    @mainspace_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
   end
 end
