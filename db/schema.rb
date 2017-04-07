@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329200802) do
+ActiveRecord::Schema.define(version: 20170407203227) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -191,6 +191,8 @@ ActiveRecord::Schema.define(version: 20170329200802) do
     t.string   "assigned_article_title"
     t.integer  "role",                   default: 0
     t.integer  "recent_revisions",       default: 0
+    t.index ["course_id"], name: "index_courses_users_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_courses_users_on_user_id", using: :btree
   end
 
   create_table "feedback_form_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
