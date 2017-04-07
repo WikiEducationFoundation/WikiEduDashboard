@@ -17,9 +17,6 @@ describe TrainingBase do
 
   describe '.load' do
     let(:subject) { TrainingSlide.load }
-    before(:each) do
-      TrainingSlide.flush
-    end
 
     context 'when a file is misformatted' do
       before do

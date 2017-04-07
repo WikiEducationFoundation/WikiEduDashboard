@@ -15,7 +15,7 @@ class TrainingLoader
   def load_content
     load_from_yaml
     load_from_wiki if Features.wiki_trainings?
-    write_to_cache
+    return @collection
   end
 
   private
@@ -28,6 +28,7 @@ class TrainingLoader
 
   CONCURRENCY = 30
   def load_from_wiki
+    Raven.capture_message 'Loading trainings from wiki'
     source_pages = wiki_source_pages
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
