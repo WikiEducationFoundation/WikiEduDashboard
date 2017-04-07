@@ -14,17 +14,12 @@ describe TrainingLoader do
     end
     before do
       allow(Features).to receive(:wiki_trainings?).and_return(true)
-      Rails.cache.clear
     end
-    after do
-      Rails.cache.clear
-    end
-    it 'populates the training cache' do
-      expect(Rails.cache.read('slides')).to be_nil
+    it 'returns an array of training content' do
       VCR.use_cassette 'training/load_from_wiki' do
-        subject.load_content
+        slides = subject.load_content
+        expect(slides.first.content).not_to be_empty
       end
-      expect(Rails.cache.read('slides')).not_to be_empty
     end
   end
 end
