@@ -275,11 +275,11 @@ describe AssignmentsController do
         { user_id: user.id, course_id: course.slug, title: 'Pikachu', role: 0,
           language: 'en', project: 'bulbapedia' }
       end
-      before do
+      let(:subject) do
         put :create, params: invalid_wiki_params
       end
-      it 'renders a 404' do
-        expect(response.status).to eq(404)
+      it 'raises an invalid wiki error' do
+        expect { subject }.to raise_error(Wiki::InvalidWikiError)
       end
     end
 
