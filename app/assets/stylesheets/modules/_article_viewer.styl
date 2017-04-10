@@ -1,6 +1,5 @@
 .article-viewer
   background-color white
-  padding 10px
   position fixed
   top 70px
   /*@noflip*/ left 50%
@@ -12,18 +11,63 @@
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
   transform translateX(-50%)
-  overflow-x scroll
 
 .article-header
   border none !important
+  padding 10px
+  border-bottom 1px solid mischka !important
+
+.article-footer
+  border none !important
+  padding 10px
+
+.user-legend
+  float left
+  margin 10px
+  padding 10px
+  border-radius 15px
+
+.user-highlight-1
+  background-color #e5ddf2
+
+.user-highlight-2
+  background-color #e9fafe
+
+.user-highlight-3
+  background-color #f8f2e0
+
+
+.article-viewer-title
+  font-size 200%
+  color bayoux
+
+.article-scrollbox
+  max-height 75vh
+  overflow-x scroll
 
 .parsed-article
   margin 30px
+  a
+   color #0645ad
+   text-decoration none
 
   h2
   h3
   h4
     color black
+  #toc
+    display table
+    border 1px solid border black !important
+    background-color #f8f9fa
+    font-size 85%
+    padding 10px
+    ul
+      list-style none
+      color black
+    #toctitle
+      text-align center
+      font-size 60%
+
   .tright
     clear right
     float right
@@ -34,3 +78,18 @@
     background #f8f9fa
   .mw-editsection
     display none
+  .infobox
+    float right
+    clear right
+    font-size 88%
+    border 1px solid #a2a9b1 !important
+    border-spacing 3px
+    margin 0.5em 0 0.5em 1em
+    padding 0.2em
+    light-height 1.5em
+  .navbox
+    display none
+
+  sup
+    vertical-align super
+    font-size smaller

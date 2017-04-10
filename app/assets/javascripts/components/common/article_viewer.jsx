@@ -84,13 +84,15 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
-  colors: ['red', 'blue', 'green', 'yellow'],
+  colors: ['user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4', 'user-highlight-5'],
 
   highlightAuthors() {
     let html = this.state.whocolorHtml;
     let i = 0;
     _.forEach(this.state.users, (user) => {
-      const styledAuthorSpan = `<span style="background: ${this.colors[i]}" class="author-token token-authorid-${user.userid}"`;
+      // Move spaces inside spans, so that background color is continuous
+      html = html.replace(/ (<span class="author-token.*?>)/g, '$1 ');
+      const styledAuthorSpan = `<span title="${user.name}" class="author-token token-authorid-${user.userid} ${this.colors[i]}"`;
       const authorSpanMatcher = new RegExp(`<span class="author-token token-authorid-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
       i += 1;
@@ -152,18 +154,17 @@ const ArticleViewer = React.createClass({
   render() {
     let colorLegend;
     if (this.state.highlightedHtml) {
-      const rows = this.state.users.map((user, i) => {
+      const users = this.state.users.map((user, i) => {
         return (
-          <tr key={`legend-${user.name}`}>
-            <td>{user.name}</td>
-            <td>{this.colors[i]}</td>
-          </tr>
+          <div key={`legend-${user.name}`} className={`user-legend ${this.colors[i]}`}>
+            {user.name}
+          </div>
         );
       });
       colorLegend = (
-        <table>
-          <tbody>{rows}</tbody>
-        </table>
+        <div>
+          {users}
+        </div>
       );
     }
     let button;
@@ -175,7 +176,7 @@ const ArticleViewer = React.createClass({
     }
 
     if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="button dark small">{this.hideButtonLabel()}</button>;
+      button = <button onClick={this.hideArticle} className="button dark small pull-right">{this.hideButtonLabel()}</button>;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
@@ -197,13 +198,20 @@ const ArticleViewer = React.createClass({
       <div>
         {button}
         <div className={className}>
-          {colorLegend}
-          <p>
-            <a className="button dark small" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
-            {button}
-            <a className="pull-right button small" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
-          </p>
-          <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+          <div className="article-header">
+            <p>
+              <span className="article-viewer-title">{this.props.article.title}</span>
+              {button}
+              <a className="button small pull-right" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
+            </p>
+          </div>
+          <div className="article-scrollbox">
+            <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+          </div>
+          <div className="article-footer">
+            <a className="button dark small pull-right" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
+            {colorLegend}
+          </div>
         </div>
       </div>
     );
