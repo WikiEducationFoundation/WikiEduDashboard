@@ -37,6 +37,8 @@ tr:
     creator:
       course_title: Program adı
     courses_enrolled: Katılınan programlar
+  editable:
+    edit: Düzenle
   metrics:
     char_changed: Karakterler Değişti
   namespace:

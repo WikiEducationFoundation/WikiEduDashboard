@@ -80,6 +80,7 @@ azb:
     end: سوْن
     join: قوْشول
     loading: یوکلنیر...
+    my_articles: منیم مقاله‌لریم
     none: هئچ بیری
     overview: ائو
     school: مدرسه
@@ -96,10 +97,20 @@ azb:
     cancel: وازگئچ
     save: ذخیره ائت
     edit_description: آچیقلامانی دَییشدیر
+  metrics:
+    tags: اِتیکتلر
   namespace:
     user_ns: ایشلدن
+  recent_activity:
+    image: عکس
+    file_name: فایل آدی
   revisions:
+    diff: فرق
+    diff_show: گؤستر
+    diff_hide: گیزلت
     title: باشلیق
+  timeline:
+    gradeable_value: دیر
   training:
     start: باشلا
     view: باخ

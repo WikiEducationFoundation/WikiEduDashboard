@@ -390,6 +390,9 @@ eu:
     read_less: Irakurri gutxiago
     read_more: Irakurri gehiago
     summary: Laburpena
+  error:
+    start_date_before_end_date: Hasiera data amaiera data baino lehenagokoa izan behar
+      du.
   error_401:
     header: Ez duzu baimenik. >:-(
   error_incorrect_passcode:
