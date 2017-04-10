@@ -84,7 +84,7 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
-  colors: ['user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4', 'user-highlight-5'],
+  colors: ['user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4', 'user-highlight-5', 'user-highlight-6'],
 
   highlightAuthors() {
     let html = this.state.whocolorHtml;
@@ -166,6 +166,8 @@ const ArticleViewer = React.createClass({
           {users}
         </div>
       );
+    } else {
+      colorLegend = <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>;
     }
     let button;
     let showButtonStyle;
@@ -210,6 +212,7 @@ const ArticleViewer = React.createClass({
           </div>
           <div className="article-footer">
             <a className="button dark small pull-right" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
+            <div className="user-legend">Edits by: </div>
             {colorLegend}
           </div>
         </div>
