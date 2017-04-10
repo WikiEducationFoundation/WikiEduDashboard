@@ -37,12 +37,13 @@ const ArticleViewer = React.createClass({
     if (!this.state.fetched) {
       this.fetchParsedArticle();
     }
+
+    // WhoColor is only available for English Wikipedia
+    if (!this.isEnWiki()) { return; }
     if (!this.state.userIdsFetched) {
-      // TODO: only do this for enwiki
       this.fetchUserIds();
     }
     if (!this.state.whocolorFetched) {
-      // TODO: only do this for enwiki
       this.fetchWhocolorHtml();
     }
   },
@@ -69,6 +70,10 @@ const ArticleViewer = React.createClass({
     const articleUrl = `${queryBase}&page=${this.props.article.title}`;
 
     return articleUrl;
+  },
+
+  isEnWiki() {
+    return this.props.article.language === 'en' && this.props.article.project === 'wikipedia';
   },
 
   processHtml(html) {
@@ -163,11 +168,17 @@ const ArticleViewer = React.createClass({
       });
       colorLegend = (
         <div>
+          <div className="user-legend">Edits by: </div>
           {users}
         </div>
       );
-    } else {
-      colorLegend = <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>;
+    } else if (this.isEnWiki()) {
+      colorLegend = (
+        <div>
+          <div className="user-legend">Edits by: </div>
+          <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+        </div>
+      );
     }
     let button;
     let showButtonStyle;
@@ -212,7 +223,6 @@ const ArticleViewer = React.createClass({
           </div>
           <div className="article-footer">
             <a className="button dark small pull-right" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
-            <div className="user-legend">Edits by: </div>
             {colorLegend}
           </div>
         </div>
