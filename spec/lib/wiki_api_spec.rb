@@ -49,7 +49,7 @@ describe WikiApi do
           'A_Clash_of_Kings', # c
           'Ecology', # ga
           'Fast_inverse_square_root', # ga
-          'Nansenflua', # c
+          'Nansenflua', # unassessed
           'List_of_Oregon_ballot_measures', # list
           'The_American_Monomyth', # stub
           'Drug_Trafficking_Safe_Harbor_Elimination_Act', # start
@@ -60,21 +60,18 @@ describe WikiApi do
           'Barton_S._Alexander', # a
           'Bell_number', # bplus
           'List_of_Canadian_plants_by_family_S', # sl
-          'Antarctica_(disambiguation)', # dab
-          '2015_Pacific_typhoon_season', # cur, as of 2015-02-27
-          "Cycling_at_the_2016_Summer_Olympics_–_Men's_Omnium", # future, as of 2015-02-27
-          'Selfie_(disambiguation)', # no talk page
-          'Sex_trafficking', # blank talk page
+          'Antarctica_(disambiguation)', # disambig
+          '2015_Pacific_typhoon_season', # start
+          'Sex_trafficking', # c
           'American_Civil_War_prison_camps' # cl
         ]
 
         response = WikiApi.new.get_article_rating(articles)
         expect(response['History_of_biology']).to eq('fa')
         expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
-        expect(response['American_Civil_War_prison_camps']).to eq('list')
-        expect(response['Bell_number']).to eq('b')
+        expect(response['American_Civil_War_prison_camps']).to eq('cl')
+        expect(response['Bell_number']).to eq('bplus')
         expect(response['Nansenflua']).to eq(nil)
-        expect(response['Antarctica_(disambiguation)']).to eq(nil)
       end
     end
   end
