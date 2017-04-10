@@ -2,6 +2,7 @@
 
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_output"
+require "#{Rails.root}/lib/wiki_assignment_output"
 require "#{Rails.root}/lib/wikitext"
 
 #= Class for making wiki edits for a particular course
