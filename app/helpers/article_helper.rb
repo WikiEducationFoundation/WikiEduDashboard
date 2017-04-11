@@ -80,7 +80,7 @@ module ArticleHelper
       return 'b'
     elsif rating.eql? 'a/ga'
       return 'a'
-    elsif %w{al bl cl sl}.include? rating
+    elsif %w(al bl cl sl).include? rating
       return 'list'
     else
       return nil
