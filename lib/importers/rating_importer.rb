@@ -44,7 +44,7 @@ class RatingImporter
     article_groups.each do |articles|
       titles = articles.map(&:title)
       # NOTE: English Wikipedia only, per above.
-      ratings = WikiApi.new(en_wiki).get_article_rating(titles).inject(&:merge)
+      ratings = WikiApi.new(en_wiki).get_article_rating(titles)
       next if ratings.blank?
       update_article_ratings(articles, ratings)
     end
