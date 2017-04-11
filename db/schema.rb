@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170407203227) do
+ActiveRecord::Schema.define(version: 20170411152612) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(version: 20170407203227) do
   end
 
   create_table "user_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "bio"
+    t.text     "bio",                limit: 65535
     t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
