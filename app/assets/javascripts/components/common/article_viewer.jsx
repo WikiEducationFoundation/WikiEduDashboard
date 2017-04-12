@@ -22,6 +22,9 @@ const ArticleViewer = React.createClass({
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
+    if (this.isEnWiki()) {
+      return 'Current Version w/ Authorship Highlighting';
+    }
     return I18n.t('articles.show_current_version');
   },
 
