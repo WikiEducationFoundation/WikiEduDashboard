@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/wikitext"
 #= Takes wikitext for an on-wiki slide and extracts title and content
 class WikiSlideParser
   def initialize(wikitext)
-    @wikitext = wikitext || String.new
+    @wikitext = wikitext.dup || String.new
     set_utf8_encoding
     remove_noinclude
     remove_translation_markers

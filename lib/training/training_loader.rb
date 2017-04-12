@@ -55,13 +55,14 @@ class TrainingLoader
   end
 
   def new_from_wiki_page(wiki_page)
-    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
-    content = JSON.parse(wikitext)
+    json_wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+    content = JSON.parse(json_wikitext)
     return unless content # Handle wiki pages that don't exist.
     if content['wiki_page']
-      content.merge! training_hash_from_wiki_page(content['wiki_page'])
+      wikitext = WikiApi.new(MetaWiki.new).get_page_content(content['wiki_page'])
+      content.merge! training_hash_from_wiki_page(content['wiki_page'], wikitext: wikitext)
       content['translations'] = {}
-      translated_wiki_pages(base_page: content['wiki_page']).each do |translated_page|
+      translated_wiki_pages(base_page: content['wiki_page'], base_page_wikitext: wikitext).each do |translated_page|
         language = translated_page.split('/').last
         content['translations'][language] = training_hash_from_wiki_page(translated_page)
       end
@@ -83,8 +84,9 @@ class TrainingLoader
     end
   end
 
-  def translated_wiki_pages(base_page:)
-    return [] unless base_page&.include? '<translate>'
+  def translated_wiki_pages(base_page:, base_page_wikitext:)
+    return [] unless base_page_wikitext&.include? '<translate>'
+    pp base_page
     translations_query = { meta: 'messagegroupstats',
                            mgsgroup: "page-#{base_page}" }
     response = WikiApi.new(MetaWiki.new).query(translations_query)
@@ -100,8 +102,8 @@ class TrainingLoader
     language['total'].positive? && language['translated'].positive?
   end
 
-  def training_hash_from_wiki_page(wiki_page)
-    wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+  def training_hash_from_wiki_page(wiki_page, wikitext: nil)
+    wikitext ||= WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     parser = WikiSlideParser.new(wikitext)
     case @content_class.to_s
     when 'TrainingSlide'
