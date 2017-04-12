@@ -77,6 +77,9 @@ const ArticleViewer = React.createClass({
   },
 
   processHtml(html) {
+    if (!html) {
+      return this.setState({ whocolorFailed: true });
+    }
     // The mediawiki parse API returns the same HTML as the rendered article on
     // Wikipedia. This means relative links to other articles are broken.
     // Here we turn them into full urls pointing back to the wiki.
@@ -93,6 +96,8 @@ const ArticleViewer = React.createClass({
 
   highlightAuthors() {
     let html = this.state.whocolorHtml;
+    if (!html) { return; }
+
     let i = 0;
     _.forEach(this.state.users, (user) => {
       // Move spaces inside spans, so that background color is continuous
@@ -157,8 +162,23 @@ const ArticleViewer = React.createClass({
   },
 
   render() {
+    let colorDataStatus;
+    if (!this.state.highlightedHtml) {
+      if (this.state.whocolorFailed) {
+        colorDataStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
+      } else {
+        colorDataStatus = (
+          <div>
+            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+            <div className="user-legend authorship-status">loading authorship data</div>
+            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+          </div>
+        );
+      }
+    }
+
     let colorLegend;
-    if (this.state.highlightedHtml) {
+    if (this.state.usersIdsFetched) {
       const users = this.state.users.map((user, i) => {
         return (
           <div key={`legend-${user.name}`} className={`user-legend ${this.colors[i]}`}>
@@ -170,6 +190,7 @@ const ArticleViewer = React.createClass({
         <div>
           <div className="user-legend">Edits by: </div>
           {users}
+          {colorDataStatus}
         </div>
       );
     } else if (this.isEnWiki()) {
@@ -180,6 +201,7 @@ const ArticleViewer = React.createClass({
         </div>
       );
     }
+
     let button;
     let showButtonStyle;
     if (this.props.largeButton) {
