@@ -86,7 +86,6 @@ class TrainingLoader
 
   def translated_wiki_pages(base_page:, base_page_wikitext:)
     return [] unless base_page_wikitext&.include? '<translate>'
-    pp base_page
     translations_query = { meta: 'messagegroupstats',
                            mgsgroup: "page-#{base_page}" }
     response = WikiApi.new(MetaWiki.new).query(translations_query)
