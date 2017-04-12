@@ -59,6 +59,8 @@ class WikiSlideParser
     # which may interfere with correct markdown conversion.
     @wikitext.gsub!(/<translate>\s*/, '')
     @wikitext.gsub!(%r{\s*</translate>}, '')
+    @wikitext.gsub!(/<tvar.*?>/, '')
+    @wikitext.gsub!(%r{</>}, '')
   end
 
   def extract_quiz_template
