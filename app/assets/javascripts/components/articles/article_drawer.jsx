@@ -42,6 +42,9 @@ const ArticleDrawer = React.createClass({
     className += !this.props.is_open ? ' closed' : '';
 
     let diffViewer;
+    let articleViewer;
+    // DiffViewer and ArticleViewer require articleDetails data, so user a
+    // placeholder for each until the data is available.
     if (this.state.articleDetails.first_revision) {
       const showSalesforceButton = Boolean(Features.wikiEd && this.props.current_user.admin);
       diffViewer = (
@@ -56,11 +59,13 @@ const ArticleDrawer = React.createClass({
           article={this.props.article}
         />
       );
+      articleViewer = (
+        <ArticleViewer article={this.props.article} users={this.state.articleDetails.editors} largeButton={true} />
+      );
     } else {
       diffViewer = <button className="button dark">{I18n.t('articles.show_cumulative_changes')}</button>;
+      articleViewer = <button className="button dark">{I18n.t('articles.show_current_version')}</button>;
     }
-
-    const articleViewer = <ArticleViewer article={this.props.article} largeButton={true} />;
 
     let editedBy;
     if (this.state.articleDetails.editors) {

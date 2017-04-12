@@ -1,6 +1,5 @@
 .article-viewer
   background-color white
-  padding 10px
   position fixed
   top 70px
   /*@noflip*/ left 50%
@@ -12,10 +11,99 @@
   border-radius 3px
   box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
   transform translateX(-50%)
-  overflow-x scroll
 
 .article-header
   border none !important
+  padding 10px
+  padding-left 30px
+  border-bottom 1px solid mischka !important
+
+.article-footer
+  border-top 1px solid mischka !important
+  padding 10px
+  margin-bottom 10px
+  font-size 90%
+  height 100%
+  div
+    float left
+
+.authorship-loading
+  background url('../images/loader.gif') no-repeat 50% white
+
+.authorship-status-failed
+  color $warning_text
+
+.user-legend
+  margin 10px
+  border-radius 15px
+  padding 2px 5px 2px 5px
+.user-highlight-1
+  background-color #e5ddf2
+.user-highlight-2
+  background-color #e9fafe
+.user-highlight-3
+  background-color #f8f2e0
+.user-highlight-4
+  background-color #e8fef8
+.user-highlight-5
+  background-color #ffe9f4
+.user-highlight-6
+  background-color #f9ffe9
+
+.article-viewer-title
+  font-size 200%
+  color bayoux
+
+.article-scrollbox
+  max-height 75vh
+  overflow-y scroll
+  overflow-x hidden
 
 .parsed-article
   margin 30px
+  a
+   color #0645ad
+   text-decoration none
+
+  h2
+  h3
+  h4
+    color black
+  #toc
+    display table
+    border 1px solid border black !important
+    background-color #f8f9fa
+    font-size 85%
+    padding 10px
+    ul
+      list-style none
+      color black
+    #toctitle
+      text-align center
+      font-size 60%
+
+  .tright
+    clear right
+    float right
+    margin .5em 0 1.3em 1.4em
+  .thumbinner
+    border 1px solid #c8ccd1 !important
+    padding 3px
+    background #f8f9fa
+  .mw-editsection
+    display none
+  .infobox
+    float right
+    clear right
+    font-size 88%
+    border 1px solid #a2a9b1 !important
+    border-spacing 3px
+    margin 0.5em 0 0.5em 1em
+    padding 0.2em
+    light-height 1.5em
+  .navbox
+    display none
+
+  sup
+    vertical-align super
+    font-size smaller
