@@ -31,6 +31,9 @@ class TrainingBase
   # Called during initialization, and also via manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
+    TrainingLibrary.flush
+    TrainingModule.flush
+    TrainingSlide.flush
     TrainingLibrary.load
     TrainingModule.load
     TrainingSlide.load
@@ -39,7 +42,17 @@ class TrainingBase
   # Use class instance variable @all to store all training content in memory.
   # This will normally persist until flushed or until the app is restarted.
   def self.all
-    @all ||= load
+    @all ||= load_from_cache_or_rebuild
+  end
+
+  def self.load_from_cache_or_rebuild
+    Rails.cache.read(cache_key) || load
+  end
+
+  # Clears both the class instance variable and the cache for the child class.
+  def self.flush
+    Rails.cache.clear(cache_key)
+    @all = nil
   end
 
   def self.find_by(opts)

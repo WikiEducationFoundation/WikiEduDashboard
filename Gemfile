@@ -11,6 +11,8 @@ gem 'whenever'
 gem 'mysql2'
 gem 'sidekiq'
 gem 'activerecord-import'
+gem 'dalli'
+gem 'connection_pool'
 
 gem 'browser'
 

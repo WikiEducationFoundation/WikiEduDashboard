@@ -15,6 +15,7 @@ class TrainingLoader
   def load_content
     load_from_yaml
     load_from_wiki if Features.wiki_trainings?
+    write_to_cache
     return @collection
   end
 

@@ -146,6 +146,7 @@ GEM
       safe_yaml (~> 1.0.0)
     css_parser (1.4.10)
       addressable
+    dalli (2.7.6)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     deep_cloneable (2.2.2)
@@ -500,7 +501,9 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   codeclimate-test-reporter
+  connection_pool
   crack
+  dalli
   database_cleaner
   deep_cloneable (~> 2.2.1)
   devise
