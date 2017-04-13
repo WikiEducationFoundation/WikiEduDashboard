@@ -1,3 +1,4 @@
+require 'json'
 # frozen_string_literal: true
 # == Schema Information
 #
@@ -78,7 +79,6 @@ class Wiki < ActiveRecord::Base
 		# Multilingual projects must have language == nil.
     # Doesn't apply to multilingual Wikimedia projects, subdomain is accepted
     # as language there.
-    # TODO: Validate the language/project combination by pinging it's API.
     case project
     when 'wikidata'
       self.language = nil
@@ -87,8 +87,20 @@ class Wiki < ActiveRecord::Base
       self.language = nil if language == 'www'
       return
     else
-      raise InvalidWikiError if self.language.nil?
+      raise InvalidWikiError if self.language.nil? || check_wiki_exists? == false
     end
+  end
+
+  def check_wiki_exists?
+    wiki_exists = false
+    api = WikiApi.new(self).query(meta: :siteinfo)
+    api_server_name = if api.nil?
+                        ''
+                      else
+                        "https://#{api.data['general']['servername']}"
+                      end
+    wiki_exists = true if base_url == api_server_name
+    wiki_exists
   end
 
   class InvalidWikiError < StandardError; end
@@ -107,7 +119,6 @@ class Wiki < ActiveRecord::Base
     language = language_for_multilingual(language: language, project: project)
     find_or_create_by(language: language, project: project)
   end
-
 
   def self.language_for_multilingual(language:, project:)
     case project
