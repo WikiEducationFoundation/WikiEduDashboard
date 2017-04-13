@@ -15,6 +15,7 @@ class Wiki < ActiveRecord::Base
   has_many :courses
 
   before_validation :ensure_valid_project
+  after_validation :ensure_wiki_exists
 
   # Language / project combination must be unique
   validates_uniqueness_of :project, scope: :language
@@ -78,7 +79,6 @@ class Wiki < ActiveRecord::Base
 		# Multilingual projects must have language == nil.
     # Doesn't apply to multilingual Wikimedia projects, subdomain is accepted
     # as language there.
-    # TODO: Validate the language/project combination by pinging it's API.
     case project
     when 'wikidata'
       self.language = nil
@@ -87,8 +87,17 @@ class Wiki < ActiveRecord::Base
       self.language = nil if language == 'www'
       return
     else
-      raise InvalidWikiError if self.language.nil?
+      raise InvalidWikiError unless LANGUAGES.include?(language)
     end
+    raise InvalidWikiError unless PROJECTS.include?(project)
+  end
+
+  def ensure_wiki_exists
+    return if errors.any? # Skip this check if the wiki had a validation error.
+    site_info = WikiApi.new(self).query(meta: :siteinfo)
+    raise InvalidWikiError if site_info.nil?
+    servername = site_info.data.dig('general', 'servername')
+    raise InvalidWikiError unless base_url == "https://#{servername}"
   end
 
   class InvalidWikiError < StandardError; end
@@ -107,7 +116,6 @@ class Wiki < ActiveRecord::Base
     language = language_for_multilingual(language: language, project: project)
     find_or_create_by(language: language, project: project)
   end
-
 
   def self.language_for_multilingual(language:, project:)
     case project

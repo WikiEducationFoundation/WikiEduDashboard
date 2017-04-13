@@ -48,6 +48,8 @@ class CourseCreationManager
     project = project_param.present? ? project_param : Wiki.default_wiki.project
     @wiki = Wiki.get_or_create(language: language.downcase, project: project.downcase)
     @overrides[:home_wiki] = @wiki
+  rescue Wiki::InvalidWikiError
+    @wiki = nil
   end
 
   def set_slug
@@ -59,7 +61,7 @@ class CourseCreationManager
   end
 
   def invalid_wiki?
-    @wiki.id.nil?
+    @wiki&.id.nil?
   end
 
   def invalid_slug?

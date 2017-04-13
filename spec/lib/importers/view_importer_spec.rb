@@ -3,6 +3,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/view_importer"
 
 describe ViewImporter do
+  before { stub_wiki_validation }
   describe '.update_views_for_article' do
     it 'should not fail if there are no revisions for an article' do
       VCR.use_cassette 'article/update_views_for_article' do

@@ -5,6 +5,7 @@ describe AssignmentsController do
   let!(:course) { create(:course, id: 1) }
   let!(:user) { create(:user) }
   before do
+    stub_wiki_validation
     allow(controller).to receive(:current_user).and_return(user)
   end
 
@@ -29,6 +30,7 @@ describe AssignmentsController do
         create(:assignment, course_id: course.id, user_id: user.id,
                             article_title: 'Selfie', role: 0)
       end
+
 
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
@@ -273,11 +275,11 @@ describe AssignmentsController do
         { user_id: user.id, course_id: course.slug, title: 'Pikachu', role: 0,
           language: 'en', project: 'bulbapedia' }
       end
-      before do
+      let(:subject) do
         put :create, params: invalid_wiki_params
       end
-      it 'renders a 404' do
-        expect(response.status).to eq(404)
+      it 'raises an invalid wiki error' do
+        expect { subject }.to raise_error(Wiki::InvalidWikiError)
       end
     end
 

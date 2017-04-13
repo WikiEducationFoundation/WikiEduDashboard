@@ -20,6 +20,7 @@ describe 'open course creation', type: :feature, js: true do
   end
 
   before do
+    stub_wiki_validation
     @system_time_zone = Time.zone
     Time.zone = 'Eastern Time (US & Canada)'
     page.current_window.resize_to(1920, 1080)
