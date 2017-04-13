@@ -400,11 +400,7 @@ describe 'the course page', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
 
-      Dir["#{Rails.root}/lib/importers/*.rb"].each { |file| require file }
-      allow(UserImporter).to receive(:update_users)
       allow(CourseRevisionUpdater).to receive(:import_new_revisions)
-      allow(ViewImporter).to receive(:update_views)
-      allow(RatingImporter).to receive(:update_ratings)
 
       visit "/courses/#{slug}/manual_update"
       js_visit "/courses/#{slug}"

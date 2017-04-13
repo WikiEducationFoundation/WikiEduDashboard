@@ -46,7 +46,6 @@
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
 require "#{Rails.root}/lib/trained_students_manager"
 require "#{Rails.root}/lib/word_count"
@@ -262,10 +261,6 @@ class Course < ActiveRecord::Base
 
   def update_cache
     CourseCacheManager.new(self).update_cache
-  end
-
-  def manual_update
-    CourseUpdateManager.manual_update self
   end
 
   #################
