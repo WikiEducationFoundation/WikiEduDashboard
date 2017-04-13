@@ -3,7 +3,7 @@
 require "#{Rails.root}/lib/course_revision_updater"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
-class UpdateCourseData
+class UpdateCourseRevisions
   def initialize(course)
     @course = course
     fetch_data
