@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 
 class TrainingLoader
@@ -29,7 +30,7 @@ class TrainingLoader
 
   CONCURRENCY = 30
   def load_from_wiki
-    Raven.capture_message 'Loading trainings from wiki'
+    Raven.capture_message 'Loading trainings from wiki', level: 'info'
     source_pages = wiki_source_pages
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
