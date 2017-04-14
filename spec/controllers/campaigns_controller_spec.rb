@@ -137,7 +137,7 @@ describe CampaignsController do
 
   describe '#remove_organizer' do
     let(:user) { create(:user) }
-    let(:user2) { create(:user) }
+    let(:user2) { create(:user, username: 'user2') }
     let(:campaign) { create(:campaign) }
     let(:organizer) do
       create(:campaigns_user, id: 5, user_id: user2.id, campaign_id: campaign.id,

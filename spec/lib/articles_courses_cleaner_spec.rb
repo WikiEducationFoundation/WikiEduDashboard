@@ -13,7 +13,8 @@ describe ArticlesCoursesCleaner do
       create(:user,
              id: 1)
       create(:user,
-             id: 2)
+             id: 2,
+             username: 'user2')
       # A user who is not a student, so they should not have ArticlesCourses
       create(:courses_user,
              course_id: 1,

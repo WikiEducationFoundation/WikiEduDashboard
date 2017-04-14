@@ -214,8 +214,8 @@ describe Course, type: :model do
 
   describe '#user_count' do
     let!(:course) { create(:course) }
-    let!(:user1)  { create(:test_user) }
-    let!(:user2)  { create(:test_user) }
+    let!(:user1)  { create(:test_user, username: 'user1') }
+    let!(:user2)  { create(:test_user, username: 'user2') }
     let!(:cu1)    { create(:courses_user, course_id: course.id, user_id: user1.id, role: role1) }
     let!(:cu2)    { create(:courses_user, course_id: course.id, user_id: user2.id, role: role2) }
     let!(:cu3)    { create(:courses_user, course_id: course.id, user_id: user3, role: role3) }
@@ -292,9 +292,9 @@ describe Course, type: :model do
     before do
       create(:user, id: 1, trained: 0)
       create(:courses_user, user_id: 1, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:user, id: 2, trained: 1)
+      create(:user, username: 'user2', id: 2, trained: 1)
       create(:courses_user, user_id: 2, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:user, id: 3, trained: 1)
+      create(:user, username: 'user3', id: 3, trained: 1)
       create(:courses_user, user_id: 3, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
     context 'after the introduction of in-dashboard training modules' do
