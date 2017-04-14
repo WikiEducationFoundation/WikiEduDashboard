@@ -130,7 +130,7 @@ describe 'dashboard', type: :feature, js: true do
              title: 'Recent Title',
              school: 'University',
              term: 'Term',
-             slug: 'University/Course_(Term)',
+             slug: 'University/Course2_(Term)',
              submitted: false,
              passcode: 'passcode',
              start: Time.now,

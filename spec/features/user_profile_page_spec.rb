@@ -4,7 +4,7 @@ require 'rails_helper'
 describe 'user profile pages', type: :feature, js: true do
   let(:user) { create(:user, username: 'Sage') }
   let(:course) { create(:course) }
-  let(:course2) { create(:course) }
+  let(:course2) { create(:course, slug: 'course/2') }
   let(:article) { create(:article) }
   let!(:revision) { create(:revision, date: course.start + 1.hour, user: user, article: article) }
   before do

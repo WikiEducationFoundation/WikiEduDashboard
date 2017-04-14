@@ -58,6 +58,7 @@ describe ArticlesCoursesCleaner do
              end: Time.zone.today + 1.year)
       create(:course,
              id: 2,
+             slug: 'foo/course2',
              start: 1.month.ago,
              end: Time.zone.today + 1.year)
       create(:revision,

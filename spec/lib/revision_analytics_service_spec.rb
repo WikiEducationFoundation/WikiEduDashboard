@@ -20,7 +20,9 @@ describe RevisionAnalyticsService do
     create(:revision, id: 5, user_id: 1, article_id: 1, date: 1.week.ago, wp10: 59)
   end
 
-  let(:course2)    { create(:course, id: 10002, start: 1.month.ago, end: 1.month.from_now) }
+  let(:course2) do
+    create(:course, id: 10002, start: 1.month.ago, end: 1.month.from_now, slug: 'foo/2')
+  end
   let(:user2)      { create(:user, id: 2, username: 'Student_2') }
   let!(:c_user2)   { create(:courses_user, user_id: user2.id, course_id: course2.id, role: 0) }
   let!(:article4)  { create(:article, id: 4, title: 'Student_2/Another_good_draft', namespace: 2) }
@@ -29,7 +31,9 @@ describe RevisionAnalyticsService do
   end
 
   # Articles/Revisions that should not show up
-  let(:course3)    { create(:course, id: 10003, start: 1.month.ago, end: 1.month.from_now) }
+  let(:course3) do
+    create(:course, id: 10003, start: 1.month.ago, end: 1.month.from_now, slug: 'foo/3')
+  end
   let(:user3)      { create(:user, id: 3, username: 'Student_3') }
   let!(:c_user3)   { create(:courses_user, user_id: user3.id, course_id: course3.id, role: 0) }
 

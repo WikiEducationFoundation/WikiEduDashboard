@@ -51,7 +51,7 @@ describe Course, type: :model do
   describe '.update_all_caches_concurrently' do
     before do
       create(:course, needs_update: true)
-      create(:course, needs_update: true)
+      create(:course, needs_update: true, slug: 'foo/2')
     end
     it 'runs without error for multiple courses' do
       Course.update_all_caches_concurrently
@@ -461,7 +461,7 @@ describe Course, type: :model do
 
     it 'implements #string_prefix and #wiki_edits_enabled? for every course type' do
       Course::COURSE_TYPES.each do |type|
-        create(:course, type: type)
+        create(:course, type: type, slug: "foo/#{type}")
         course = Course.last
         expect(course.type).to eq(type)
         expect(course.string_prefix).to be_a(String)
