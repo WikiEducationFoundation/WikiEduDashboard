@@ -108,6 +108,7 @@ ne:
     file_name: फाइल नाम
   revisions:
     date_time: मिति/समय
+    diff: भिन्नता
     diff_show: देखाउनुहोस्
     diff_hide: लुकाउनुहोस्
     edited_by: सम्पादनकर्ता
@@ -128,6 +129,8 @@ ne:
   users:
     assign_articles_done: भयो
     assigned: निर्दिष्ट गरिएका लेखहरू
+    course_passcode: 'पासकोड:'
+    editors: सम्पादकहरू
     first_name: पहिलो नाम
     last_name: अन्तिम नाम
     name: नाम

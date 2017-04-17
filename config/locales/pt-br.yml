@@ -8,6 +8,7 @@
 # Author: Dianakc
 # Author: EVinente
 # Author: Eduardo Addad de Oliveira
+# Author: Felipe L. Ewald
 # Author: HenriqueCrang
 # Author: Ixocactus
 # Author: Joalpe
@@ -166,7 +167,7 @@ pt-br:
     campaign: Campanha
     campaigns: Campanhas
     campaign_deleted: A campanha "%{title}" foi eliminada
-    campaign_not_updated: A campanha não pode ser atualizadas
+    campaign_not_updated: A campanha não pode ser atualizada
     campaign_updated: Campanha atualizada
     confirm_campaign_deletion: Tem certeza de que deseja excluir a campanha intitulada
       %{title}? Se assim for, escreva o título da campanha para prosseguir.
@@ -281,7 +282,7 @@ pt-br:
     edit_course_dates: Editar data do Curso
     enable_chat: Ativar Bate Papo
     end: Fim
-    ended: O curso terminou
+    ended: O curso terminou.
     enroll: Inscrever-se
     enrollment: Inscrição
     courses_enrolled: Cursos inscritos
@@ -305,12 +306,13 @@ pt-br:
     join_course: Participar do curso
     join_prompt: Participar de '%{title}'?
     join_successful: Você está participando de %{title}.
-    join_failed: Inscrição falhou
+    join_failed: Inscrição falhou.
     join_failure_details:
       cannot_join_twice: Usuários não podem se inscrever no mesmo curso duas vezes.
       not_yet_approved: Esse curso ainda não foi aprovado para inscrição.
-    join_details: Para entrar nesse curso, precisas de uma senha - ou um link que
-      inclui a senha - do instrutor. Se ainda não recebeu isto, contate o seu instrutor.
+    join_details: Para entrar nesse curso, você precisa de uma senha - ou um link
+      de inscrição que inclui a senha - do instrutor. Se ainda não recebeu isto, contate
+      o seu instrutor.
     leave_confirmation: Tem certeza de que deseja sair deste curso?
     leave_course: Abandonar curso
     loading: Carregando…
@@ -711,7 +713,7 @@ pt-br:
     form_errors: Por favor, verifique o formulário de erros.
     invalid_assignment: Tarefa inválida
     invalid_date: A data %{key} é inválida
-    invalid_file_format: O arquivo não pôde ser salvo. Por favor envie um documento
+    invalid_file_format: O arquivo não pôde ser salvo. Por favor, envie um documento
       PDF ou Word.
     oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.
     start_date_before_end_date: Data de início deve ser anterior a data de fim
