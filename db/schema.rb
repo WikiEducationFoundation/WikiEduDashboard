@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414183725) do
+ActiveRecord::Schema.define(version: 20170418183246) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -360,6 +360,7 @@ ActiveRecord::Schema.define(version: 20170414183725) do
     t.integer  "training_module_id"
     t.string   "last_slide_completed"
     t.datetime "completed_at"
+    t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id", using: :btree
   end
 
   create_table "user_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
