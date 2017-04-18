@@ -93,6 +93,16 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.article_url).to.eq(input);
   });
 
+  it('handles mobile urls correctly', () => {
+    const input = 'https://en.m.wikipedia.org/wiki/Robot_selfie';
+    const output = courseUtils.articleFromTitleInput(input);
+
+    expect(output.title).to.eq('Robot selfie');
+    expect(output.project).to.eq('wikipedia');
+    expect(output.language).to.eq('en');
+    expect(output.article_url).to.eq(input);
+  });
+
   it("correctly parses multilingual wikisource url's", () => {
     const input = 'https://wikisource.org/wiki/Heyder_Cansa';
     const output = courseUtils.articleFromTitleInput(input);
