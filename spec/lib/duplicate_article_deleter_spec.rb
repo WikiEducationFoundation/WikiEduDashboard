@@ -33,7 +33,7 @@ describe DuplicateArticleDeleter do
                       id: 456,
                       title: 'Communicative_Language_Teaching',
                       namespace: 0)
-      DuplicateArticleDeleter.new.resolve_duplicates([first])
+      DuplicateArticleDeleter.new.resolve_duplicates([first, second])
       expect(first.reload.deleted).to eq(false)
       expect(second.reload.deleted).to eq(false)
     end

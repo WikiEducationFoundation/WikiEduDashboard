@@ -47,8 +47,9 @@ class DuplicateArticleDeleter
   # and namespace except for the most recently created
   def delete_duplicates(title, ns)
     articles = Article.where(title: title, namespace: ns, wiki_id: @wiki.id).order(:created_at)
+    keeper = articles.first
     # Here we must verify that the titles match, since searching by title is case-insensitive.
-    deleted = articles.where.not(id: articles.last.id).select { |article| article.title == title }
+    deleted = articles.where.not(id: keeper.id).select { |article| article.title == keeper.title }
     deleted.each do |article|
       article.update(deleted: true)
     end
