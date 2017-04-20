@@ -3,7 +3,8 @@ class FeedbackFormResponsesController < ApplicationController
   def new
     @subject = params['subject']
     @has_explicit_subject = true if @subject
-    @subject ||= request.referer || params['referer']
+    @subject ||= request.referer || params['referer'] || ''
+    @main_subject = @subject[/(.*) —/, 1] || @subject
     @is_training_module = true if @subject =~ %r{/training/}
     @feedback_form_response = FeedbackFormResponse.new
   end

@@ -240,7 +240,7 @@ const ArticleViewer = React.createClass({
             <p>
               <span className="article-viewer-title">{this.props.article.title}</span>
               {button}
-              <a className="button small pull-right" href="/feedback?subject=Article Viewer" target="_blank">How did the article viewer work for you?</a>
+              <a className="button small pull-right" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
           </div>
           <div className="article-scrollbox">
