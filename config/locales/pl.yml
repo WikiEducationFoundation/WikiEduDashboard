@@ -12,7 +12,7 @@ pl:
       zwiększają i zmniejszają wprowadzoną wartość.
   application:
     cancel: Anuluj
-    dashboard: Panel sterowania
+    dashboard: Centrum programów i wydarzeń
     error: 'Wystąpił błąd:'
     explore: Odkryj
     field_required: Wypełnienie tego pola jest obowiązkowe
@@ -28,7 +28,7 @@ pl:
     log_in_extended: Zaloguj się za pomocą Wikipedii
     log_in: Zaloguj się
     log_out: Wyloguj
-    my_dashboard: Mój panel
+    my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
     search: zadaj pytanie
     sign_up_extended: Zarejestruj się w Wikipedii
@@ -62,9 +62,9 @@ pl:
     explore: Odkrywaj
     log_in: Zaloguj się za pomocą Wikipedii
     sign_up: Zarejestruj się w Wikipedii
-    sign_up_help: Żeby skorzystać z panelu sterowania musisz się zalogować swoim kontem
-      Wikipedii i wyrazić zgodę na jego użycie. Możesz wykorzystać istniejące konto
-      użytkownika lub stworzyć nowe.
+    sign_up_help: Żeby skorzystać z centrum programów i wydarzeń musisz się zalogować
+      swoim kontem Wikipedii i wyrazić zgodę na jego użycie. Możesz wykorzystać istniejące
+      konto użytkownika lub stworzyć nowe.
   activity:
     all: Aktywność
     edited_by: Zmienił(a)
@@ -699,39 +699,39 @@ pl:
     start_date_before_end_date: Data rozpoczęcia musi być wcześniejsza niż data zakończenia
     unsupported_browser:
       header: Twoja przeglądarka nie jest wspierana :(
-      explanation: Używasz przeglądarki, która nie jest kompatybilna z Panelem sterowania.
-        Ta strona współpracuje z przeglądarką Internet Explorer 11 lub późniejszą,
-        z nowymi wersjami Chrome i Firefoksa, a także z większością innych nowoczesnych
+      explanation: Używasz przeglądarki, która nie jest kompatybilna z Centrum. Ta
+        strona współpracuje z przeglądarką Internet Explorer 11 lub późniejszą, z
+        nowymi wersjami Chrome i Firefoksa, a także z większością innych nowoczesnych
         przeglądarek.
   error_401:
     header: Nieautoryzowane. >:-(
     explanation: Nie masz uprawnień do wykonania tego zapytania. Jeśli uważasz, że
-      ten komunikat to dowód błędu, skontaktuj się z osobami nadzorującymi ten panel
-      sterowania i opowiedz im o problemie.
+      ten komunikat to dowód błędu, skontaktuj się z osobami nadzorującymi to Centrum
+      i opowiedz im o problemie.
   error_incorrect_passcode:
     header: Niepoprawne hasło. :(
     explanation: Hasło wymagane do zapisania się na ten kurs jest niepoprawne. Poproś
       prowadzącego o aktualne hasło lub link.
   error_404:
     header: Nie ma takiej strony. :(
-    explanation: No nie ma, nic nie poradzę. Jeśli chcesz znaleźć panel sterowania
-      konkretnego kursu, ten kurs prawdopodobnie nie został tu zarejestrowany. Jeśli
-      zdarzyło się to niedawno, być może trzeba odczekać nieco by system go zarejestrował.
+    explanation: No nie ma, nic nie poradzę. Jeśli chcesz znaleźć Centrum konkretnego
+      kursu, ten kurs prawdopodobnie nie został tu zarejestrowany. Jeśli zdarzyło
+      się to niedawno, być może trzeba odczekać nieco by system go zarejestrował.
   error_422:
     header: 422 — unprocessable entity.  :-(
-    explanation: Coś poszło nie tak. Skontaktuj się z administratorami tego panelu
+    explanation: Coś poszło nie tak. Skontaktuj się z administratorami tego Centrum
       i daj im znać w czym rzecz.
   error_500:
     header: 500 — wewnętrzny błąd serwera.  :-(
-    explanation: Coś poszło nie tak. Skontaktuj się z administratorami tego panelu
+    explanation: Coś poszło nie tak. Skontaktuj się z administratorami tego Centrum
       i daj im znać w czym rzecz.
   login_error:
     header: Błąd logowania
     explanation: Wydaje się, że coś poszło nie tak podczas logowania. Przepraszamy,
       to się zdarza raz na jakiś czas. Może spróbujesz jeszcze raz?
   survey:
-    login_message: Dziękujemy za poświęcony czas. Zaloguj się do swojego panelu Wiki
-      Ed i wypełnij ankietę.
+    login_message: Dziękujemy za poświęcony czas. Zaloguj się do swojego Centrum programów
+      i wydarzeń i wypełnij ankietę.
     notification_explanation: Jeśli pole poniżej zostanie zaznaczone, uczestnicy dostaną
       e-maile zgodnie z harmonogramem powiadomień, a nie tylko powiadomienia w przeglądarce.
       Jeśli nie, tylko powiadomienia w przeglądarce będą widoczne.

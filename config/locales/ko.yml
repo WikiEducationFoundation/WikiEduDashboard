@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Asdfqwer51
+# Author: Ellif
 # Author: Hwangjy9
 # Author: Jerrykim306
 # Author: Jonghaya
@@ -27,6 +28,7 @@ ko:
     field_required: 이 칸은 반드시 입력해야 합니다
     field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
     field_invalid_date: 이 필드에는 YYYY-MM-DD 형식의 날짜가 필요합니다.
+    field_invalid_date_time: 끝 시간이 시작 시간보다 뒤에 와야 합니다. (시간은 0시부터 23시 사이입니다)
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
     greeting: 안녕하세요!
