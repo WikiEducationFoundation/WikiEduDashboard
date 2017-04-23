@@ -1,4 +1,4 @@
-class CreateWeeks < ActiveRecord::Migration
+class CreateWeeks < ActiveRecord::Migration[4.2]
   def change
     create_table :weeks do |t|
       t.string :title

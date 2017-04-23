@@ -123,6 +123,25 @@ module RequestHelpers
       .to_return(status: 503, body: '', headers: {})
   end
 
+  def stub_wiki_validation
+    wikis = [
+      'incubator.wikimedia.org',
+      'en.wiktionary.org',
+      'es.wiktionary.org',
+      'es.wikipedia.org',
+      'ta.wiktionary.org',
+      'es.wikibooks.org',
+      'ar.wikibooks.org',
+      'en.wikivoyage.org',
+      'wikisource.org'
+    ]
+
+    wikis.each do |wiki|
+      stub_request(:get, "https://#{wiki}/w/api.php?action=query&format=json&meta=siteinfo")
+        .to_return(status: 200, body: "{\"query\":{\"general\":{\"servername\":\"#{wiki}\"}}}", headers: {})
+    end
+  end
+
   ###################
   # Rocket.Chat API #
   ###################

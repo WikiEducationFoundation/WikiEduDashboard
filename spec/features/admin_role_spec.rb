@@ -32,7 +32,7 @@ describe 'Admin users', type: :feature, js: true do
            title: 'My Unsubmitted Course',
            school: 'University',
            term: 'Term',
-           slug: 'University/Course_(Term)',
+           slug: 'University/Course2_(Term)',
            submitted: false,
            passcode: 'passcode',
            start: '2015-01-01'.to_date,

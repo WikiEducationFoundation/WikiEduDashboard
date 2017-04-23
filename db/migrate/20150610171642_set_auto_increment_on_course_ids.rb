@@ -1,4 +1,4 @@
-class SetAutoIncrementOnCourseIds < ActiveRecord::Migration
+class SetAutoIncrementOnCourseIds < ActiveRecord::Migration[4.2]
   def self.up
     execute "ALTER TABLE courses AUTO_INCREMENT = 10000"
   end

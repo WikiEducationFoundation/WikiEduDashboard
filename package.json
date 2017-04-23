@@ -99,7 +99,7 @@
     "react-onclickoutside": "^5.7.1",
     "react-router": "3.0.0",
     "react-select": "git://github.com/JedWatson/react-select.git",
-    "react-trix": "^0.1.0",
+    "react-trix": "^0.2.1",
     "react-typeahead": "2.0.0-alpha.5",
     "react-weekday-picker": "1.0.8",
     "reactify": "1.1.1",

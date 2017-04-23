@@ -19,6 +19,8 @@
 require 'rails_helper'
 
 describe CoursesUsers, type: :model do
+  before { stub_wiki_validation }
+
   describe '.update_all_caches' do
     it 'updates data for course-user relationships' do
       # Add a user, a course, an article, and a revision.
@@ -81,7 +83,7 @@ describe CoursesUsers, type: :model do
   describe '#contribution_url' do
     let(:en_wiki_course) { create(:course) }
     let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
-    let(:es_wiktionary_course) { create(:course, home_wiki_id: es_wiktionary.id) }
+    let(:es_wiktionary_course) { create(:course, home_wiki_id: es_wiktionary.id, slug: 'foo/es') }
     let(:user) { create(:user, username: 'Ragesoss') }
 
     it 'links the the contribution page of the home_wiki for the course' do

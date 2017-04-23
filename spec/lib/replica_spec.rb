@@ -178,6 +178,21 @@ describe Replica do
         expect(response.count).to eq(28)
       end
     end
+
+    it 'functions identically on wikimedia incubator' do
+      VCR.use_cassette 'replica/wikimedia_incubator_revisions' do
+        all_users = [
+          build(:user, username: 'Daad Ikram')
+        ]
+
+        rev_start = 2017_03_11_000000
+        rev_end = 2017_03_17_000000
+
+        incubator = Wiki.new(language: 'incubator', project: 'wikimedia')
+        response = Replica.new(incubator).get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(1)
+      end
+    end
   end
 
   describe 'error handling' do

@@ -46,7 +46,6 @@
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
 require "#{Rails.root}/lib/trained_students_manager"
 require "#{Rails.root}/lib/word_count"
@@ -57,7 +56,7 @@ class Course < ActiveRecord::Base
   ######################
   # Users for a course #
   ######################
-  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
+  has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
@@ -233,10 +232,6 @@ class Course < ActiveRecord::Base
     save if should_save
   end
 
-  def students_without_nonstudents
-    students.where.not(id: nonstudents.pluck(:id))
-  end
-
   def new_articles
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end
@@ -266,10 +261,6 @@ class Course < ActiveRecord::Base
 
   def update_cache
     CourseCacheManager.new(self).update_cache
-  end
-
-  def manual_update
-    CourseUpdateManager.manual_update self
   end
 
   #################

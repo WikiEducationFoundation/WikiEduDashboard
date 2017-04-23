@@ -36,7 +36,8 @@ describe ExploreController do
                                end: Date.civil(2050, 1, 10))
       CampaignsCourses.create(course_id: course.id,
                               campaign_id: Campaign.default_campaign.id)
-      course2 = create(:course, title: 'My old not as awesome course',
+      course2 = create(:course, title: 'course2',
+                                slug: 'foo/course2',
                                 start: Date.civil(2016, 1, 10),
                                 end: Date.civil(2016, 2, 10))
       CampaignsCourses.create(course_id: course2.id,

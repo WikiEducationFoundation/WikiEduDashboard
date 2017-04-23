@@ -5,6 +5,7 @@ describe AssignmentsController do
   let!(:course) { create(:course, id: 1) }
   let!(:user) { create(:user) }
   before do
+    stub_wiki_validation
     allow(controller).to receive(:current_user).and_return(user)
   end
 
@@ -29,6 +30,7 @@ describe AssignmentsController do
         create(:assignment, course_id: course.id, user_id: user.id,
                             article_title: 'Selfie', role: 0)
       end
+
 
       before do
         expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
@@ -172,6 +174,30 @@ describe AssignmentsController do
         end
       end
 
+      context 'when the assignment is for Wikimedia incubator' do
+        let!(:wikimedia_incubator) { create(:wiki, language: 'incubator', project: 'wikimedia') }
+        let(:wikimedia_params) do
+          { user_id: user.id, course_id: course.slug, title: 'Wp/kiu/Heyder Cansa', role: 0,
+            language: 'incubator', project: 'wikimedia' }
+        end
+
+        before do
+          expect(Article.find_by(title: 'Wp/kiu/Heyder Cansa')).to be_nil
+        end
+
+        it 'imports the article' do
+          VCR.use_cassette 'assignment_import' do
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+            expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+            put :create, params: wikimedia_params
+            assignment = assigns(:assignment)
+            expect(assignment).to be_a_kind_of(Assignment)
+            expect(assignment.article.title).to eq('Wp/kiu/Heyder_Cansa')
+            expect(assignment.article.namespace).to eq(Article::Namespaces::MAINSPACE)
+          end
+        end
+      end
+
       context 'when the article exists' do
         before do
           create(:article, title: 'Pizza', namespace: Article::Namespaces::MAINSPACE)
@@ -249,11 +275,11 @@ describe AssignmentsController do
         { user_id: user.id, course_id: course.slug, title: 'Pikachu', role: 0,
           language: 'en', project: 'bulbapedia' }
       end
-      before do
+      let(:subject) do
         put :create, params: invalid_wiki_params
       end
-      it 'renders a 404' do
-        expect(response.status).to eq(404)
+      it 'raises an invalid wiki error' do
+        expect { subject }.to raise_error(Wiki::InvalidWikiError)
       end
     end
 

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wikitext"
 
 #= Takes wikitext for an on-wiki slide and extracts title and content
 class WikiSlideParser
   def initialize(wikitext)
-    @wikitext = wikitext || String.new
+    @wikitext = wikitext&.dup || String.new
     set_utf8_encoding
     remove_noinclude
     remove_translation_markers
@@ -59,6 +60,8 @@ class WikiSlideParser
     # which may interfere with correct markdown conversion.
     @wikitext.gsub!(/<translate>\s*/, '')
     @wikitext.gsub!(%r{\s*</translate>}, '')
+    @wikitext.gsub!(/<tvar.*?>/, '')
+    @wikitext.gsub!(%r{</>}, '')
   end
 
   def extract_quiz_template

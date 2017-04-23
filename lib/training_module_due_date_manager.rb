@@ -19,16 +19,7 @@ class TrainingModuleDueDateManager
   }.freeze
 
   def computed_due_date(block = course_block_for_module)
-    return block.due_date if block.due_date.present?
-    # an assignment due the end of the first week
-    # is due the end of the week the timeline starts
-    # (0 weeks from timeline start)
-    week = block.week
-    @meetings_manager = CourseMeetingsManager.new(week.course) if @meetings_manager.nil?
-    weeks_from_start = (week.order - 1).to_i
-    weeks_from_start += @meetings_manager.blackout_weeks_prior_to(week)
-    (block.week.course.timeline_start + weeks_from_start.weeks)
-      .to_date.end_of_week(:sunday)
+    block.calculated_due_date
   end
 
   def overdue?
@@ -44,7 +35,7 @@ class TrainingModuleDueDateManager
   # courses where module is assigned)
   def overall_due_date
     blocks = blocks_with_module_assigned(@training_module)
-    blocks.collect { |block| computed_due_date(block) }.sort.first
+    blocks.collect(&:calculated_due_date).sort.first
   end
 
   def blocks_with_module_assigned(training_module)

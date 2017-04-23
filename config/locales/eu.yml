@@ -152,6 +152,8 @@ eu:
       assignment_end_placeholder: Esleipen amaiera (UUUU-HH-EE)
       assignment_start: Esleipen hasiera
       assignment_start_placeholder: Esleipen hasiera(UUUU-HH-EE)
+      clone_previous: Aurreko Ikastaroa Klonatu
+      clone_this: Ikastaro Hau Klonatu
       clone_successful: Ikastaroa Ondo Klonatu da
       course_description: Ikastaroaren deskribapena
       course_language: Hizkuntza nagusia
@@ -271,6 +273,7 @@ eu:
     edit_details: Aldatu Xehetasunak
   metrics:
     activity: Azken jarduera
+    are_trained: trebakuntzarekin eguneratuak
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
     characters: Karaktereak
@@ -368,6 +371,11 @@ eu:
     revisions_doc: Lankide honen azken 7 egunetan egindako aldaketa kopurua
     reviewers: Berrikuslea(k)
     reviewing: Berrikusten
+    training_complete:
+      other: bat=trebakuntzarekin eguneratua
+    training_complete_count:
+      one: '%{count} trebakuntzarekin eguneratua'
+      other: '%{count} trabakuntzarekin egunratuak'
     training_module_name: Trebakuntza moduloa
     training_module_status: Egoera
     username: Erabiltzaile izena
@@ -382,6 +390,9 @@ eu:
     read_less: Irakurri gutxiago
     read_more: Irakurri gehiago
     summary: Laburpena
+  error:
+    start_date_before_end_date: Hasiera data amaiera data baino lehenagokoa izan behar
+      du.
   error_401:
     header: Ez duzu baimenik. >:-(
   error_incorrect_passcode:

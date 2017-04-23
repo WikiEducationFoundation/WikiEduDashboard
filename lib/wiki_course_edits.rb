@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_edits"
-require './lib/wiki_course_output'
-require './lib/wikitext'
+require "#{Rails.root}/lib/wiki_course_output"
+require "#{Rails.root}/lib/wiki_assignment_output"
+require "#{Rails.root}/lib/wikitext"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -145,7 +147,6 @@ class WikiCourseEdits
   end
 
   def update_assignments_for_article(title:, assignments_for_same_article:)
-    require './lib/wiki_assignment_output'
     return if WikiApi.new(@home_wiki).redirect?(title)
 
     # TODO: i18n of talk namespace

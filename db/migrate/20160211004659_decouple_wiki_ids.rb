@@ -1,4 +1,4 @@
-class DecoupleWikiIds < ActiveRecord::Migration
+class DecoupleWikiIds < ActiveRecord::Migration[4.2]
   def change
     add_column :articles, :mw_page_id, :integer, index: true
 

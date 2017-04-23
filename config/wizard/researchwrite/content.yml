@@ -53,7 +53,12 @@ essentials:
         points: 5
         content: |
           <ul>
-            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              Create an account and join this course page, using the  enrollment
+              link your instructor sent you. (To avoid hitting Wikipedia's account
+              creation limits, this is best done outside of class. Only 6 new accounts
+              may be created per day from the same IP address.)
+            </li>
             <li>
               It's time to dive into Wikipedia. Below, you'll find the first set
               of online trainings you'll need to take. New modules will appear
@@ -74,7 +79,12 @@ essentials:
         training_module_ids: [1,2] # Wikipedia essentials, Editing basics
         content: |
           <ul>
-            <li>Create an account and join this course page, using the  enrollment link your instructor sent you.</li>
+            <li>
+              Create an account and join this course page, using the  enrollment
+              link your instructor sent you. (To avoid hitting Wikipedia's account
+              creation limits, this is best done outside of class. Only 6 new accounts
+              may be created per day from the same IP address.)
+            </li>
             <li>
               It's time to dive into Wikipedia. Below, you'll find the first set
               of online trainings you'll need to take. New modules will appear

@@ -1,4 +1,4 @@
-class RemoveCachedDataFromUser < ActiveRecord::Migration
+class RemoveCachedDataFromUser < ActiveRecord::Migration[4.2]
   def up
     remove_column :users, :character_sum
     remove_column :users, :view_sum

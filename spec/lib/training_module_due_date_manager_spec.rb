@@ -57,8 +57,11 @@ describe TrainingModuleDueDateManager do
         end
 
         it 'uses the Saturday of the correct week' do
-          blackout_week_course = create(:course, timeline_start: t_start, timeline_end: t_start + 3.weeks,
-                                                 day_exceptions: day_exc, weekdays: '0010000')
+          blackout_week_course = create(:course, timeline_start: t_start,
+                                                 timeline_end: t_start + 3.weeks,
+                                                 day_exceptions: day_exc,
+                                                 weekdays: '0010000',
+                                                 slug: 'foo/blackout')
           first_week = create(:week, course_id: blackout_week_course.id, order: 1)
           create(:block, week_id: first_week.id)
           second_week = create(:week, course_id: blackout_week_course.id, order: 2)
@@ -180,7 +183,7 @@ describe TrainingModuleDueDateManager do
       end
 
       context 'user belongs to two courses with the module assigned' do
-        let(:course2)   { create(:course, timeline_start: Date.today) }
+        let(:course2)   { create(:course, timeline_start: Date.today, slug: 'foo/2') }
         let!(:cu2)      { create(:courses_user, user_id: user.id, course_id: course2.id) }
         let(:week2)     { create(:week, course_id: course2.id, order: 1) }
         let(:due_date2) { 1.week.ago.to_date }

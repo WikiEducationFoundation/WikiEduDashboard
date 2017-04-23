@@ -23,7 +23,7 @@ describe CourseCloneManager do
            user_id: 1,
            course_id: 1,
            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-    create(:user, id: 2)
+    create(:user, id: 2, username: 'user2')
     create(:courses_user,
            user_id: 2,
            course_id: 1,

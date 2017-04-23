@@ -1,4 +1,4 @@
-class CreateCohorts < ActiveRecord::Migration
+class CreateCohorts < ActiveRecord::Migration[4.2]
   def self.up
     create_table :cohorts do |t|
       t.string :title
@@ -24,7 +24,7 @@ class CreateCohorts < ActiveRecord::Migration
         FROM courses co
         WHERE cohort IS NOT NULL
     )
-    Course.uniq.pluck(:cohort).each do |cohort|
+    Course.distinct.pluck(:cohort).each do |cohort|
       next if cohort.nil?
       url = ENV['cohort_' + cohort]
       execute %(

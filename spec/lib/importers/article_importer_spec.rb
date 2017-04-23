@@ -3,6 +3,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/article_importer"
 
 describe ArticleImporter do
+  before { stub_wiki_validation }
   let(:en_wiki) { Wiki.default_wiki }
   let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
 

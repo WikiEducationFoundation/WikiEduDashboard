@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'mediawiki_api'
 require 'json'
-require "#{Rails.root}/lib/article_class_extractor"
+require "#{Rails.root}/lib/article_rating_extractor.rb"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi
@@ -51,55 +51,33 @@ class WikiApi
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
 
-    talk_titles = titles.map { |title| 'Talk:' + title }
-    raw = get_raw_page_content(talk_titles)
-    return [] unless raw
-
-    # Pages that are missing get returned before pages that exist, so we cannot
-    # count on our array being in the same order as titles.
-    raw.map do |_article_id, talkpage|
-      # Remove "Talk:" from the "title" value to get the title.
-      { talkpage['title'][5..-1].tr(' ', '_') =>
-        parse_article_rating(talkpage) }
-    end
-  end
-
-  ###################
-  # Parsing methods #
-  ###################
-
-  def parse_article_rating(raw_talk)
-    # Handle MediaWiki API errors
-    return nil if raw_talk.nil?
-    # Handle the case of nonexistent talk pages.
-    return nil if raw_talk['missing']
-
-    wikitext = raw_talk['revisions'][0]['*']
-    ArticleClassExtractor.new(wikitext).extract
-  end
-
-  #####################
-  # Other API methods #
-  #####################
-
-  # Get raw page content for one or more pages titles, which can be parsed to
-  # find the article ratings. (The corresponding Talk page are the one with the
-  # relevant info.) Example query:
-  # http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&rawcontinue=true&redirects=true&titles=Talk:Selfie
-  def get_raw_page_content(article_titles)
-    query_parameters = { titles: article_titles,
-                         prop: 'revisions',
-                         rvprop: 'content' }
-    info = mediawiki('query', query_parameters)
-    return if info.nil?
-    page = info.data['pages']
-    page.nil? ? nil : page
+    query_parameters = { titles: titles,
+                         prop: 'pageassessments',
+                         redirects: 'true' }
+    response = fetch_all(query_parameters)
+    pages = response['pages']
+    ArticleRatingExtractor.new(pages).ratings
   end
 
   ###################
   # Private methods #
   ###################
   private
+
+  def fetch_all(query)
+    @query = query
+    @data = {}
+    until @continue == 'done'
+      @query.merge! @continue unless @continue.nil?
+      response = mediawiki('query', @query)
+      return @data unless response # fall back gracefully if the query fails
+      @data.deep_merge! response.data
+      # The 'continue' value is nil if the batch is complete
+      @continue = response['continue'] || 'done'
+    end
+
+    @data
+  end
 
   def mediawiki(action, query)
     tries ||= 3

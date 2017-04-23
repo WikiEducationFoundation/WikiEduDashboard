@@ -1,4 +1,4 @@
-class ChangeDataTypeForBlock < ActiveRecord::Migration
+class ChangeDataTypeForBlock < ActiveRecord::Migration[4.2]
   def up
     change_column :blocks, :content, :text
   end

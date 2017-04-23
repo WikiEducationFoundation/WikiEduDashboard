@@ -18,6 +18,7 @@ describe WikiEdits do
            wiki_secret: 'bar')
     create(:user,
            id: 2,
+           username: 'user2',
            wiki_token: 'foo',
            wiki_secret: 'bar')
     create(:courses_user,

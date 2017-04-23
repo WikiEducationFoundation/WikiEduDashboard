@@ -44,7 +44,7 @@ shared_context 'survey_assignment' do
 
     # Add 2 Courses to our Campaign each with an instructor
     2.times do |i|
-      course = create(:course, { id: i + 1 }.merge(@course_params))
+      course = create(:course, { id: i + 1, slug: "foo/#{i}" }.merge(@course_params))
       course.courses_users << create(:courses_user,
                                      course_id: course.id,
                                      user_id: @user.id,

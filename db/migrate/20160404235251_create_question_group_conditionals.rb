@@ -1,4 +1,4 @@
-class CreateQuestionGroupConditionals < ActiveRecord::Migration
+class CreateQuestionGroupConditionals < ActiveRecord::Migration[4.2]
   def change
     create_table :question_group_conditionals do |t|
       t.belongs_to :rapidfire_question_group, index: true

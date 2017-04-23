@@ -1,4 +1,4 @@
-class IncreaseMaxCourseDescriptionLength < ActiveRecord::Migration
+class IncreaseMaxCourseDescriptionLength < ActiveRecord::Migration[4.2]
   def up
     change_column :courses, :description, :text
   end

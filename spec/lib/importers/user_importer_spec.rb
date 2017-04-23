@@ -87,10 +87,18 @@ describe UserImporter do
       end
     end
 
+    it 'does not create a user input is only whitespace' do
+      VCR.use_cassette 'user/new_from_username_nonexistent' do
+        username = '    '
+        user = UserImporter.new_from_username(username)
+        expect(user).to be_nil
+      end
+    end
+
     it 'creates a user with the correct username capitalization' do
       VCR.use_cassette 'user/new_from_username' do
-        # Basic lower case letter at the beginning
-        username = 'zimmer1048'
+        # Basic lower case letter at the beginning, and whitespace
+        username = ' zimmer1048 ' # First whitespace is a non-breaking space.
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Zimmer1048')
 
