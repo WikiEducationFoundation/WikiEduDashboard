@@ -278,8 +278,9 @@ describe AssignmentsController do
       let(:subject) do
         put :create, params: invalid_wiki_params
       end
-      it 'raises an invalid wiki error' do
-        expect { subject }.to raise_error(Wiki::InvalidWikiError)
+      it 'returns a 404 error message' do
+        expect(subject.body).to have_content('Invalid assignment')
+        expect(subject.status).to eq(404)
       end
     end
 
