@@ -77,5 +77,13 @@ describe RocketChat do
         expect(course.chatroom_id).to be_nil
       end
     end
+
+    context 'when the Rocket.Chat API returns an error' do
+      let(:course) { create(:course, flags: { enable_chat: true }) }
+      before { stub_chat_error }
+      it 'raises RocketChatAPIError' do
+        expect { subject.create_channel_for_course }.to raise_error(RocketChat::RocketChatAPIError)
+      end
+    end
   end
 end
