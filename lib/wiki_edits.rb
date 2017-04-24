@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_response"
 
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
@@ -18,7 +19,6 @@ class WikiEdits
   end
 
   def notify_untrained(course, current_user)
-    untrained_users = course.students_with_overdue_training
     training_link = "https://#{ENV['dashboard_url']}/training/students"
     signed_text = I18n.t('wiki_edits.notify_overdue.message', link: training_link) + ' --~~~~'
 
@@ -26,7 +26,7 @@ class WikiEdits
                 text: signed_text,
                 summary: I18n.t('wiki_edits.notify_overdue.summary') }
 
-    notify_users(current_user, untrained_users, message)
+    notify_users(current_user, course.students_with_overdue_training, message)
 
     # We want to see how much this specific feature gets used, so we send it
     # to Sentry.
@@ -36,10 +36,6 @@ class WikiEdits
                           extra: { sender: current_user.username,
                                    course_name: course.slug,
                                    untrained_count: untrained_users.count }
-  end
-
-  def notify_user(sender, recipient, message)
-    add_new_section(sender, recipient.talk_page, message)
   end
 
   ####################
