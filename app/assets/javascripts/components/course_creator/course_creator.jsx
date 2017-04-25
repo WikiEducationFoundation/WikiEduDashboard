@@ -325,6 +325,7 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.description}
                   value_key="description"
+                  required
                   editable
                   placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                 />
