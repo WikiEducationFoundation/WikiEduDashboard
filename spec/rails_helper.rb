@@ -22,6 +22,7 @@ Capybara.configure do |config|
   config.default_max_wait_time = 10
 end
 
+Rails.cache.clear
 Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara.save_path = 'tmp/screenshots/'
 

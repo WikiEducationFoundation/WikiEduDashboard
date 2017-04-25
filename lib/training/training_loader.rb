@@ -37,6 +37,8 @@ class TrainingLoader
       Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
     end
     threads.each(&:join)
+  rescue InvalidWikiContentError => e
+    Raven.capture e
   end
 
   def add_trainings_to_collection(wiki_pages)
@@ -58,8 +60,8 @@ class TrainingLoader
 
   def new_from_wiki_page(wiki_page)
     json_wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
+    return unless json_wikitext # Handle wiki pages that don't exist.
     content = JSON.parse(json_wikitext)
-    return unless content # Handle wiki pages that don't exist.
     if content['wiki_page']
       wikitext = WikiApi.new(MetaWiki.new).get_page_content(content['wiki_page'])
       content.merge! training_hash_from_wiki_page(content['wiki_page'], wikitext: wikitext)
@@ -82,7 +84,7 @@ class TrainingLoader
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
     rescue
-      []
+      raise InvalidWikiContentError, "could not get links from '#{link_source}'"
     end
   end
 
@@ -121,4 +123,6 @@ class TrainingLoader
     content = YAML.load_file(yaml_file).to_hashugar
     @content_class.new(content, slug)
   end
+
+  class InvalidWikiContentError < StandardError; end
 end
