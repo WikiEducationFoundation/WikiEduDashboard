@@ -8,7 +8,6 @@ const ArticleViewer = React.createClass({
   propTypes: {
     article: React.PropTypes.object.isRequired,
     showButtonLabel: React.PropTypes.string,
-    hideButtonLabel: React.PropTypes.string,
     largeButton: React.PropTypes.bool,
     users: React.PropTypes.array
   },
@@ -27,13 +26,6 @@ const ArticleViewer = React.createClass({
       return 'Current Version w/ Authorship Highlighting';
     }
     return I18n.t('articles.show_current_version');
-  },
-
-  hideButtonLabel() {
-    if (this.props.hideButtonLabel) {
-      return this.props.hideButtonLabel;
-    }
-    return I18n.t('articles.hide');
   },
 
   showArticle() {
@@ -219,7 +211,7 @@ const ArticleViewer = React.createClass({
     }
 
     if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="button dark small pull-right article-viewer-button">{this.hideButtonLabel()}</button>;
+      button = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close"></button>;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
