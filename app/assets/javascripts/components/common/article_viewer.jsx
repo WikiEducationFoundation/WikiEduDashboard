@@ -91,7 +91,8 @@ const ArticleViewer = React.createClass({
   colors: [
     'user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4',
     'user-highlight-5', 'user-highlight-6', 'user-highlight-7', 'user-highlight-8',
-    'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12'
+    'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12',
+    'user-highlight-13', 'user-highlight-14', 'user-highlight-15'
   ],
 
   highlightAuthors() {
@@ -187,7 +188,7 @@ const ArticleViewer = React.createClass({
         );
       });
       colorLegend = (
-        <div>
+        <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
           {users}
           {colorDataStatus}
@@ -195,7 +196,7 @@ const ArticleViewer = React.createClass({
       );
     } else if (this.isEnWiki()) {
       colorLegend = (
-        <div>
+        <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
           <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
         </div>
@@ -244,8 +245,8 @@ const ArticleViewer = React.createClass({
             <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
           </div>
           <div className="article-footer">
-            <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
             {colorLegend}
+            <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>
       </div>
