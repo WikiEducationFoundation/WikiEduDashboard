@@ -18,6 +18,7 @@ lv:
     confirm: Labi
   activity:
     all: Aktivitāte
+    edited_by: Labotājs
     label: Aktivitāte
   articles:
     assigned: Piešķirtie raksti
@@ -35,6 +36,7 @@ lv:
     title_example: Raksta nosaukums
     view: Apskatīt rakstu
     view_all: Skatīt visus
+    edit_size: Labojuma izmērs
   assignments:
     assign_other: Piešķirt rakstu
     add_available: Pievienot pieejamu rakstu
@@ -47,12 +49,17 @@ lv:
     milestones:
       title: Atskaites punkti
   campaign:
+    active_campaigns: Aktīvās kampaņas
+    add_organizer: Pievienot organizatoru
+    all_campaigns: Visas kampaņas
     campaign: Kampaņa
     campaigns: Kampaņas
     create_campaign: Izveidot jaunu kampaņu
     description: Apraksts
     none: Nav
     organizers: Organizatori
+  chat:
+    label: Tērzētava
   courses:
     activity: Aktivitāte
     all_courses: Visi kursi
