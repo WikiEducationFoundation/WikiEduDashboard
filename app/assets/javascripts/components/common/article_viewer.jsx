@@ -243,7 +243,7 @@ const ArticleViewer = React.createClass({
         <div className={className}>
           <div className="article-header">
             <p>
-              <span className="article-viewer-title">{trunc(this.props.article.title, 60)}</span>
+              <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
               {button}
               <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
