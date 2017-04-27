@@ -1,5 +1,6 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
+import { trunc } from '../../utils/strings';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -95,7 +96,11 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
-  colors: ['user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4', 'user-highlight-5', 'user-highlight-6'],
+  colors: [
+    'user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4',
+    'user-highlight-5', 'user-highlight-6', 'user-highlight-7', 'user-highlight-8',
+    'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12'
+  ],
 
   highlightAuthors() {
     let html = this.state.whocolorHtml;
@@ -238,7 +243,7 @@ const ArticleViewer = React.createClass({
         <div className={className}>
           <div className="article-header">
             <p>
-              <span className="article-viewer-title">{this.props.article.title}</span>
+              <span className="article-viewer-title">{trunc(this.props.article.title, 60)}</span>
               {button}
               <a className="button small pull-right" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
