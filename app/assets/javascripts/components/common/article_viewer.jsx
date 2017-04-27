@@ -219,7 +219,7 @@ const ArticleViewer = React.createClass({
     }
 
     if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="button dark small pull-right">{this.hideButtonLabel()}</button>;
+      button = <button onClick={this.hideArticle} className="button dark small pull-right article-viewer-button">{this.hideButtonLabel()}</button>;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
@@ -245,14 +245,14 @@ const ArticleViewer = React.createClass({
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 60)}</span>
               {button}
-              <a className="button small pull-right" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
+              <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
           </div>
           <div className="article-scrollbox">
             <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
           </div>
           <div className="article-footer">
-            <a className="button dark small pull-right" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
+            <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
             {colorLegend}
           </div>
         </div>
