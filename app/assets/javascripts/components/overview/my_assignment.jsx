@@ -52,7 +52,7 @@ const MyAssignment = React.createClass({
 
     let divider;
     if (!this.props.last) {
-      divider = <hr />;
+      divider = <hr className="assignment-divider" />;
     }
     return (
       <div className="my-assignment">

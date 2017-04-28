@@ -37,8 +37,8 @@ const MyArticles = React.createClass({
     });
 
     return (
-      <div className="module">
-        <div className="section-header">
+      <div className="module my-articles">
+        <div className="section-header my-articles-header">
           <h3>{I18n.t('courses.my_articles')}</h3>
           <div className="controls">
             <AssignCell
