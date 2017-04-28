@@ -1,5 +1,7 @@
 import React from 'react';
 import MainspaceChecklist from '../common/mainspace_checklist.jsx';
+import FinalArticleChecklist from '../common/final_article_checklist.jsx';
+import PeerReviewChecklist from '../common/peer_review_checklist.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
 const MyAssignment = React.createClass({
@@ -44,9 +46,13 @@ const MyAssignment = React.createClass({
       }
     // Assigned articel that already exists
     } else if (this.props.assignment.role === 0) {
+      if (isEnglishWikipedia) {
+        checklist = <FinalArticleChecklist />;
+      }
       assignmentType = 'Improving: ';
     // Review assignment
     } else {
+      checklist = <PeerReviewChecklist />;
       assignmentType = 'Reviewing: ';
     }
 

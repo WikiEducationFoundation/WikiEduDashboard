@@ -2,7 +2,7 @@ import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 
 const MainspaceChecklist = React.createClass({
-  displayName: 'ArticleViweer',
+  displayName: 'MainspaceChecklist',
 
   getInitialState() {
     return {
