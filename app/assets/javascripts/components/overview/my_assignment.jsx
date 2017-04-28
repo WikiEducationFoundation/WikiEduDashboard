@@ -56,7 +56,7 @@ const MyAssignment = React.createClass({
     }
     return (
       <div className="my-assignment">
-        {assignmentType}<a href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>
+        {assignmentType}<a className="my-assignment-title" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>
         <div className="my-assignment-button">
           {pageviews}
           {checklist}
