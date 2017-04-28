@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Chicocvenancio
 # Author: Fúlvio
 # Author: Gato Preto
 # Author: Hamilton Abreu
@@ -178,7 +179,7 @@ pt:
         cronograma (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à
         vontade para atualizá-lo agora.
       course_description: Descrição do curso
-      course_language: Idioma principal
+      course_language: Idioma do projeto
       course_project: Projeto principal
       course_school: Escola do curso
       course_subject: Tema do curso

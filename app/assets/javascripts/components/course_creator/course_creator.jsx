@@ -183,7 +183,9 @@ const CourseCreator = React.createClass({
     let subject;
     let expectedStudents;
 
+    let descriptionRequired = false;
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
+      descriptionRequired = true;
       term = (
         <TextInput
           id="course_term"
@@ -325,6 +327,7 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.description}
                   value_key="description"
+                  required={descriptionRequired}
                   editable
                   placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                 />

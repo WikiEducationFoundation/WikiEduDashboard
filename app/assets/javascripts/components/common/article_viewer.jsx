@@ -1,5 +1,6 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
+import { trunc } from '../../utils/strings';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -7,7 +8,6 @@ const ArticleViewer = React.createClass({
   propTypes: {
     article: React.PropTypes.object.isRequired,
     showButtonLabel: React.PropTypes.string,
-    hideButtonLabel: React.PropTypes.string,
     largeButton: React.PropTypes.bool,
     users: React.PropTypes.array
   },
@@ -26,13 +26,6 @@ const ArticleViewer = React.createClass({
       return 'Current Version w/ Authorship Highlighting';
     }
     return I18n.t('articles.show_current_version');
-  },
-
-  hideButtonLabel() {
-    if (this.props.hideButtonLabel) {
-      return this.props.hideButtonLabel;
-    }
-    return I18n.t('articles.hide');
   },
 
   showArticle() {
@@ -95,7 +88,12 @@ const ArticleViewer = React.createClass({
     return html.replace(relativeLinkMatcher, absoluteLink);
   },
 
-  colors: ['user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4', 'user-highlight-5', 'user-highlight-6'],
+  colors: [
+    'user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4',
+    'user-highlight-5', 'user-highlight-6', 'user-highlight-7', 'user-highlight-8',
+    'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12',
+    'user-highlight-13', 'user-highlight-14', 'user-highlight-15'
+  ],
 
   highlightAuthors() {
     let html = this.state.whocolorHtml;
@@ -190,7 +188,7 @@ const ArticleViewer = React.createClass({
         );
       });
       colorLegend = (
-        <div>
+        <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
           {users}
           {colorDataStatus}
@@ -198,7 +196,7 @@ const ArticleViewer = React.createClass({
       );
     } else if (this.isEnWiki()) {
       colorLegend = (
-        <div>
+        <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
           <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
         </div>
@@ -214,7 +212,7 @@ const ArticleViewer = React.createClass({
     }
 
     if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="button dark small pull-right">{this.hideButtonLabel()}</button>;
+      button = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close"></button>;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
@@ -238,17 +236,17 @@ const ArticleViewer = React.createClass({
         <div className={className}>
           <div className="article-header">
             <p>
-              <span className="article-viewer-title">{this.props.article.title}</span>
+              <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
               {button}
-              <a className="button small pull-right" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
+              <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
           </div>
           <div className="article-scrollbox">
             <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
           </div>
           <div className="article-footer">
-            <a className="button dark small pull-right" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
             {colorLegend}
+            <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>
       </div>

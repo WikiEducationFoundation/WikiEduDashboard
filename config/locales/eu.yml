@@ -229,6 +229,7 @@ eu:
     wiki_staff: Wiki Ed-eko Pertsonala
     yourcourses: Zure ikastaroak
   courses_generic:
+    all_courses: Programa guztiak
     assignment_end: Denbora-lerroaren Amaiera
     assignment_start: Denbora-lerroaren Hasiera
     cancel: Utzi

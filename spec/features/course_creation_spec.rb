@@ -11,6 +11,7 @@ def fill_out_course_creator_form
   fill_in 'Course term:', with: 'Spring 2016'
   fill_in 'Course school:', with: 'University of Oklahoma'
   find('#course_expected_students').set('20')
+  find('#course_description').set('My course at OU')
   find('.course_start-datetime-control input').set('2015-01-04')
   find('.course_end-datetime-control input').set('2015-02-01')
   find('div.wizard__panel').click # click to escape the calendar popup
@@ -214,7 +215,7 @@ describe 'New course creation and editing', type: :feature do
       find('.week-1').hover
       sleep 0.5
       within('.week-1') do
-        find('.block__edit-block').click
+        omniclick find('.block__edit-block')
         find('p.graded input[type=checkbox]').set(true)
         sleep 1
         click_button 'Save'
@@ -267,6 +268,7 @@ describe 'New course creation and editing', type: :feature do
       find('#course_term').set('Term')
       find('#course_subject').set('Advanced Studies')
       find('#course_expected_students').set('15')
+      find('#course_description').set('My course')
 
       start_date = '2015-01-01'
       end_date = '2015-12-15'

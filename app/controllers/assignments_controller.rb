@@ -41,8 +41,7 @@ class AssignmentsController < ApplicationController
     check_permissions(assignment_params[:user_id].to_i)
     @assignment = Assignment.find(assignment_params[:id])
     if @assignment.update_attributes(assignment_params)
-      render partial: 'updated_assignment', locals: {
-        assignment: @assignment }
+      render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       render json: { errors: @assignment.errors, message: 'unable to update assignment' },
              status: 500
@@ -92,8 +91,7 @@ class AssignmentsController < ApplicationController
 
   def set_wiki
     find_or_create_wiki
-    return unless @wiki.id.nil?
-    # Error handling for an invalid wiki
+  rescue Wiki::InvalidWikiError
     render json: { message: t('error.invalid_assignment') }, status: 404
     yield
   end

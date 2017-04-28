@@ -46,17 +46,24 @@ const TextAreaInput = React.createClass({
     // Edit mode //
     // ////////////
     if (this.props.editable) {
+      let inputClass;
+      if (this.state.invalid) {
+        inputClass = 'invalid';
+      }
+
       // Use Trix if props.wysiwyg, otherwise, use a basic textarea.
       if (this.props.wysiwyg) {
         inputElement = (
           <TrixEditor
             value={this.state.value}
             onChange={this._handleTrixChange}
+            className={inputClass}
           />
         );
       } else {
         inputElement = (
           <textarea
+            className={inputClass}
             id={this.state.id}
             rows={this.props.rows || '8'}
             value={this.state.value || ''}

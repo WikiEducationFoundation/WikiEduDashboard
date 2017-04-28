@@ -190,4 +190,9 @@ module RequestHelpers
     stub_request(:post, /.*groups.invite/)
       .to_return(status: 200, body: success_response.to_json, headers: {})
   end
+
+  def stub_chat_error
+    stub_request(:post, %r{.*/api/v1/.*})
+      .to_return(status: 403, body: '{}', headers: {})
+  end
 end

@@ -12,7 +12,7 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
-url_blacklist = ['https://wikiedu.org', 'https://fonts.googleapis.com']
+url_blacklist = ['https://wikiedu.org', 'https://fonts.googleapis.com', 'http://sentry.example.com']
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blacklist)
 end
@@ -22,6 +22,7 @@ Capybara.configure do |config|
   config.default_max_wait_time = 10
 end
 
+Rails.cache.clear
 Capybara::Screenshot.prune_strategy = :keep_last_run
 Capybara.save_path = 'tmp/screenshots/'
 

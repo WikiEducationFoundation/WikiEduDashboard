@@ -150,20 +150,21 @@ class Replica
     Net::HTTP::get(URI.parse(url))
   end
 
+  # Query URL for the WikiEduDashboardTools repository
   def compile_query_url(endpoint, query)
     base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
-    "#{base_url}#{endpoint}?#{language_and_project_params}&#{query}"
+    "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 
-  # We must special-case Multilingual Wikisource/ Wikimedia Incubator because
-  # their labs database names do not follow the normal pattern; they are called
-  # 'sourceswiki' and 'incubatorwiki' respectively, which are the same as we'd
-  # get if a Wikipedia's language was "sources" or "incubator".
-  def language_and_project_params
-    if @wiki.project == 'wikisource' && @wiki.language.nil?
-      'lang=sources&project=wikipedia'
+  # Returns special Labs database names as parameters for databases not meeting
+  # project/language naming conventions
+  def project_database_params
+    if @wiki.project == 'wikidata'
+      "db=wikidatawiki"
+    elsif @wiki.project == 'wikisource' && @wiki.language.nil?
+      "db=sourceswiki"
     elsif @wiki.project == 'wikimedia' && @wiki.language == 'incubator'
-      "lang=incubator&project=wikipedia"
+      "db=incubatorwiki"
     else
       "lang=#{@wiki.language}&project=#{@wiki.project}"
     end
