@@ -27,15 +27,15 @@ const MainspaceChecklist = React.createClass({
     if (this.state.show) {
       button = <button onClick={this.hide} className="button dark small">Okay</button>;
     } else {
-      button = <button onClick={this.show} className="button dark small">Ready for mainspace checklist</button>;
+      button = <a onClick={this.show} className="button dark small">Ready for mainspace checklist</a>;
     }
 
     let modal;
     if (!this.state.show) {
-      modal = <div />;
+      modal = <div className="empty" />;
     } else {
       modal = (
-        <div className="article-viewer">
+        <div className="article-viewer my-assignment-checklist">
           <h2>Mainspace checklist</h2>
           <p>
             Before you move your draft into mainspace and make it a live Wikipedia
