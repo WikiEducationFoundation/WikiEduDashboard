@@ -55,8 +55,8 @@ class UsersController < ApplicationController
   # User listing page for Admins                     #
   ####################################################
   def index
-    @users = if params[:email].present?
-               User.search_by_email(params[:email])
+    @users = if params[:email].present? || params[:real_name].present?
+               User.search_by_email_or_real_name(params[:email], params[:real_name])
              else
                User.instructor.limit(20)
                    .order(created_at: :desc)
