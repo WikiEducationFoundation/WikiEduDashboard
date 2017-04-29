@@ -200,11 +200,16 @@ describe UsersController do
         expect(response.body).to_not have_content admin.email
       end
 
-      let(:search_user) { create(:user, email: 'findme@example.com') }
+      let(:search_user) { create(:user, email: 'findme@example.com', real_name: 'Joe Bloggs') }
 
       it 'should accept email param and return associated user' do
         get :index, params: { email: search_user.email }
         expect(response.body).to have_content search_user.email
+      end
+
+      it 'should accept real name param and return associated user' do
+        get :index, params: { real_name: search_user.real_name }
+        expect(response.body).to have_content search_user.real_name
       end
     end
   end
