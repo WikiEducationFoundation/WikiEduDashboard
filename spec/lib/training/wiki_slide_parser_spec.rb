@@ -75,6 +75,13 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
 
 If you are the host of a program or event, you need to be able to create events. There are two different ways to create a program: through creating a new one, or cloning an existing event.
 
+{{Training module image
+| image = File:Palace_of_Fine_Arts%2C_five_pillars.jpg
+| source = https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg
+| layout = alt-layout-40-right
+| credit = Photo by Eryk Salvaggio
+}}
+
 {{Training module video
 | video = File:How to Use the Dashboard (2 of 5).webm
 | source = https://upload.wikimedia.org/wikipedia/commons/7/79/How_to_Use_the_Dashboard_%282_of_5%29.webm

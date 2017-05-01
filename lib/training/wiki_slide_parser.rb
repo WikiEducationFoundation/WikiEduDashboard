@@ -66,7 +66,7 @@ class WikiSlideParser
   end
 
   def extract_quiz_template
-    @wikitext.gsub!(/(?<template>{{Training module quiz.*\n}})/m, '')
+    @wikitext.gsub!(/(?<template>{{Training module quiz.*?\n}})/m, '')
     @quiz_template = Regexp.last_match && Regexp.last_match['template']
   end
 
@@ -106,14 +106,14 @@ class WikiSlideParser
   end
 
   def convert_image_template
-    @wikitext.gsub!(/(?<image>{{Training module image.*\n}})/m, 'IMAGE_PLACEHOLDER')
+    @wikitext.gsub!(/(?<image>{{Training module image.*?\n}})/m, 'IMAGE_PLACEHOLDER')
     @image_template = Regexp.last_match && Regexp.last_match['image']
     return unless @image_template
     @wikitext.gsub!('IMAGE_PLACEHOLDER', figure_markup)
   end
 
   def convert_video_template
-    @wikitext.gsub!(/(?<video>{{Training module video.*\n}})/m, 'VIDEO_PLACEHOLDER')
+    @wikitext.gsub!(/(?<video>{{Training module video.*?\n}})/m, 'VIDEO_PLACEHOLDER')
     @video_template = Regexp.last_match && Regexp.last_match['video']
     return unless @video_template
     @wikitext.gsub!('VIDEO_PLACEHOLDER', video_markup)
