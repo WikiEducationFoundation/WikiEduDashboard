@@ -12,6 +12,7 @@ class WikiSlideParser
     remove_translate_tags
     extract_quiz_template
     convert_image_template
+    convert_video_template
   end
 
   # The first translated line is the slide title
@@ -111,6 +112,13 @@ class WikiSlideParser
     @wikitext.gsub!('IMAGE_PLACEHOLDER', figure_markup)
   end
 
+  def convert_video_template
+    @wikitext.gsub!(/(?<video>{{Training module video.*\n}})/m, 'VIDEO_PLACEHOLDER')
+    @video_template = Regexp.last_match && Regexp.last_match['video']
+    return unless @video_template
+    @wikitext.gsub!('VIDEO_PLACEHOLDER', video_markup)
+  end
+
   def figure_markup
     <<-FIGURE
 <figure class="#{image_layout}"><img src="#{image_source}" />
@@ -119,6 +127,12 @@ class WikiSlideParser
 </figcaption>
 </figure>
     FIGURE
+  end
+
+  def video_markup
+    <<-VIDEO
+<iframe width="420" height="315" src="#{video_source}" frameborder="0" allowfullscreen></iframe>
+    VIDEO
   end
 
   def image_layout
@@ -135,5 +149,9 @@ class WikiSlideParser
 
   def image_credit
     template_parameter_value(@image_template, 'credit')
+  end
+
+  def video_source
+    template_parameter_value(@video_template, 'source')
   end
 end
