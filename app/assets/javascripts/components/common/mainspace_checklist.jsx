@@ -47,7 +47,7 @@ const MainspaceChecklist = React.createClass({
             <dd><input type="checkbox" /> If it has additional sections after the lead, they have content, not just a placeholder.</dd>
             <dd><input type="checkbox" /> The content has inline citations, not just a bibliography.</dd>
             <dd><input type="checkbox" /> It has a "References" section after the body of the article.</dd>
-            <dd><input type="checkbox" /> Comments, notes, outlines, and other material that doesn't belong in a live article have been removed.</dd>
+            <dd><input type="checkbox" /> You have removed all comments, notes, and outlines from the draft.</dd>
           </dl>
           {button}
         </div>
