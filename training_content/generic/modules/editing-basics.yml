@@ -2,7 +2,6 @@ name: 'Editing Basics'
 id: 2
 description: |
   In this tutorial, you'll be given practical advice on navigating and editing Wikipedia.
-estimated_ttc: 20 minutes
 slides:
   - slug: welcome-new-editor # 201
   - slug: get-started-by-getting-started # 202

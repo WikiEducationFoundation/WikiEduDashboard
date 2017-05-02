@@ -3,7 +3,6 @@ id: 10
 description: |
   A training intended specifically for students who are translating a Wikipedia
   article from a foreign language into their native language.
-estimated_ttc: 10 minutes
 slides:
   - slug: translating-welcome # 1001
   - slug: finding-articles-in-other-languages # 1002
