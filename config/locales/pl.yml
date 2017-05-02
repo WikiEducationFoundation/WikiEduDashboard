@@ -48,10 +48,10 @@ pl:
     explore_course_pages: Odkryj strony kursów
     explore_examples: Odkryj przykłady
     join_note: Gdy już otrzymasz hasło od prowadzącego, kliknij w przycisk Znajdź
-      mój kurs by się do niego dopisać.
+      program by się do niego dopisać.
     no_courses_instructor: Wygląda na to, że nie jesteś zapisany/a na żaden kurs.
-    no_courses_student: Wygląda na to, że nie {{GENDER:$1|zapisałeś|zapisałaś}} się
-      jeszcze na żaden kurs.
+    no_courses_student: Wygląda na to, że nie zapisałeś/zapisałaś się jeszcze na żaden
+      kurs.
     opt_out: Poproś o wypisanie z listy
     orientation_notice: Zanim stworzysz kurs, poświęć około pół godziny na przejście
       szkolenia.
@@ -244,7 +244,7 @@ pl:
       course_term: Semestr/trymestr
       course_term_placeholder: Semestr/trymestr
       course_title: Nazwa kursu
-      create_button: Stwórz mój kurs
+      create_button: Stwórz mój program
       create_label: Stwórz nowy kurs
       create_new: Stwórz nowy kurs
       create_short: Stwórz kurs
@@ -289,9 +289,9 @@ pl:
       one: Instruktor
       other: Instruktorzy
     instructors: Prowadzący
-    invitation: '{{GENDER:|Zostałeś zaproszony|Zostałaś zaproszona}} do uczestnictwa
-      w kursie "%{title}". By się do niego dopisać zaloguj się swoim kontem Wikipedii.
-      Jeśli jeszcze go nie masz - możesz je teraz założyć.'
+    invitation: Zostałeś zaproszony do uczestnictwa w kursie "%{title}". By się do
+      niego dopisać zaloguj się swoim kontem Wikipedii. Jeśli jeszcze go nie masz
+      - możesz je teraz założyć.
     join: Dołącz
     join_course: Dołącz do kursu
     join_prompt: Czy chcesz dołączyć do kursu „%{title}”?
@@ -301,7 +301,7 @@ pl:
       cannot_join_twice: Nie można dołączyć dwa razy do tego samego kursu.
       not_yet_approved: Kurs nie został jeszcze zaaprobowany.
     join_details: By zapisać się na ten kurs musisz mieć hasło lub zawierający je
-      link. Jeśli jeszcze ich nie {{GENDER:|dostałeś|dostałaś}}, poproś prowadzącego.
+      link. Jeśli jeszcze ich nie masz, poproś prowadzącego.
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
@@ -323,10 +323,9 @@ pl:
     published: 'Twój kurs został opublikowany. Uczestnicy mogą się na niego zapisywać
       pod następującym adresem URL:'
     review_timeline: Skontroluj harmonogram i wprowadź poprawki. Gdy już będziesz
-      {{GENDER:|zadowolony|zadowolona}}, zgłoś go do akceptacji przez pracowników
-      Wiki Edu. Gdy już to się stanie, otrzymasz link URL pod którym uczestnicy będą
-      mogli się zapisywać. Poprawki będziesz {{GENDER:|mógł|mogła}} wprowadzać także
-      i później.
+      zadowolona, zgłoś go do akceptacji przez opiekunów projektu. Gdy już to się
+      stanie, otrzymasz link URL pod którym uczestnicy będą mogli się zapisywać. Poprawki
+      będziesz mogła wprowadzać także i później.
     revisions_doc: Ilość edycji w ostatnich %{timeframe} dniach
     revisions_none: W tym kursie nie było ostatnio aktywności.
     school: Szkoła
@@ -568,8 +567,8 @@ pl:
     continue: Kontynuuj (ukończono %{progress})
     start: Start
     view: Zobacz
-    logged_out: Nie jesteś {{GENDER:$1|zalogowany|zalogowana}}. Nie otrzymasz punktów
-      za ukończenie tego modułu, chyba że się zalogujesz.
+    logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
+      chyba że się zalogujesz.
   uploads:
     datetime: Data/Czas
     file_name: Nazwa pliku
@@ -661,7 +660,7 @@ pl:
       confirm: Za pomocą tej opcji można wysłać powiadomienie wszystkim uczestnikom,
         którzy nie ukończyli na czas wymaganych modułów szkoleniowych. Czy chcesz
         wykonać tę operację?
-      header: Nie {{GENDER:|ukończyłeś|ukończyłaś}} na czas wymaganego zadania.
+      header: Nie ukończyłaś na czas wymaganego zadania.
       message: Ukończ proszę zadane [%{link} moduły szkoleniowe].
       summary: zaległe szkolenie
   wizard:
@@ -694,8 +693,7 @@ pl:
     invalid_date: Data %{key} jest niepoprawna
     invalid_file_format: Pliku nie udało się zapisać. Wgraj proszę plik .pdf lub dokument
       Worda.
-    oauth_invalid: '{{GENDER:|Zostałeś wylogowany|Zostałaś wylogowana}} z Wikipedii.
-      Zaloguj się ponownie.'
+    oauth_invalid: Wylogowano Cię z Wikipedii. Zaloguj się ponownie.
     start_date_before_end_date: Data rozpoczęcia musi być wcześniejsza niż data zakończenia
     unsupported_browser:
       header: Twoja przeglądarka nie jest wspierana :(
