@@ -47,7 +47,7 @@ class TrainingLoader
       unless content&.valid?
         Raven.capture_message 'Invalid wiki training content',
                               level: 'warn',
-                              extra_data: { content: content }
+                              extra: { content: content }
         next
       end
       @collection << content
