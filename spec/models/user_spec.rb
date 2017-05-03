@@ -214,14 +214,19 @@ describe User do
     let(:similar_search_user) { create(:user, username: 'similar', email: 'find@example.com') }
 
     it 'returns user(s) with given email address' do
-      result = User.search_by_email(search_user.email)
+      result = User.search_by_email_or_real_name(search_user.email, '')
 
+      expect(result).to eq([search_user])
+    end
+
+    it 'returns user(s) with given full name' do
+      result = User.search_by_email_or_real_name('', search_user.real_name)
       expect(result).to eq([search_user])
     end
 
     it 'returns user(s) without full email' do
       # The word 'find' is present in both emails.
-      result = User.search_by_email('find')
+      result = User.search_by_email_or_real_name('find', '')
 
       expect(result).to eq([search_user, similar_search_user])
     end
