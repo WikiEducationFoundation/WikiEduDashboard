@@ -1,5 +1,5 @@
 import React from 'react';
-import Expandable from '../high_order/expandable.jsx';
+import ExpandableRedux from '../high_order/expandable_redux.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleViewer from '../common/article_viewer.jsx';
@@ -12,7 +12,7 @@ const ArticleDrawer = React.createClass({
 
   propTypes: {
     article: React.PropTypes.object,
-    is_open: React.PropTypes.bool,
+    isOpen: React.PropTypes.bool,
     current_user: React.PropTypes.object,
     course: React.PropTypes.object
   },
@@ -36,10 +36,10 @@ const ArticleDrawer = React.createClass({
   },
 
   render() {
-    if (!this.props.is_open) { return <tr></tr>; }
+    if (!this.props.isOpen) { return <tr></tr>; }
 
     let className = 'drawer';
-    className += !this.props.is_open ? ' closed' : '';
+    className += !this.props.isOpen ? ' closed' : '';
 
     let diffViewer;
     let articleViewer;
@@ -102,4 +102,4 @@ const ArticleDrawer = React.createClass({
   }
 });
 
-export default Expandable(ArticleDrawer);
+export default ExpandableRedux(ArticleDrawer);

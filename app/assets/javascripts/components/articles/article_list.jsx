@@ -20,7 +20,9 @@ const ArticleList = React.createClass({
   propTypes: {
     articles: React.PropTypes.array,
     course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    current_user: React.PropTypes.object,
+    reduxState: React.PropTypes.object,
+    dispatch: React.PropTypes.func
   },
 
   render() {
@@ -36,6 +38,7 @@ const ArticleList = React.createClass({
           key={`${article.id}_drawer`}
           ref={`${article.id}_drawer`}
           current_user={this.props.current_user}
+          reduxState={this.props.reduxState}
         />
       );
     });
