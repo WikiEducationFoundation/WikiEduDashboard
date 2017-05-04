@@ -24,10 +24,6 @@ const ArticleDrawer = React.createClass({
     };
   },
 
-  getKey() {
-    return `drawer_${this.props.article.id}`;
-  },
-
   storeDidChange() {
     return this.setState({
       articleDetails: getArticleDetails()

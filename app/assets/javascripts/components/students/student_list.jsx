@@ -28,10 +28,13 @@ const StudentList = React.createClass({
 
   propTypes: {
     course_id: React.PropTypes.string,
+    current_user: React.PropTypes.object,
     users: React.PropTypes.array,
     course: React.PropTypes.object,
     controls: React.PropTypes.func,
-    editable: React.PropTypes.bool
+    editable: React.PropTypes.bool,
+    reduxState: React.PropTypes.object,
+    dispatch: React.PropTypes.func
   },
 
   notify() {
@@ -50,23 +53,32 @@ const StudentList = React.createClass({
         student.last_name = nameParts.slice().pop();
       }
 
+      const isOpen = this.props.reduxState.openKey === `drawer_${student.id}`;
       return (
-        <Student {...this.props}
+        <Student
           student={student}
+          course={this.props.course}
+          current_user={this.props.current_user}
+          editable={this.props.editable}
           key={student.id}
           assigned={AssignmentStore.getFiltered(assignOptions)}
           reviewing={AssignmentStore.getFiltered(reviewOptions)}
+          isOpen={isOpen}
+          dispatch={this.props.dispatch}
         />
       );
     });
 
     const drawers = this.props.users.map(student => {
+      const drawerKey = `drawer_${student.id}`;
+      const isOpen = this.props.reduxState.openKey === drawerKey;
       return (
         <StudentDrawer
           student={student}
           course_id={this.props.course.id}
-          key={`${student.id}_drawer`}
-          ref={`${student.id}_drawer`}
+          key={drawerKey}
+          ref={drawerKey}
+          isOpen={isOpen}
         />
       );
     });
