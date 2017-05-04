@@ -10,11 +10,7 @@ const Article = React.createClass({
     article: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired,
     dispatch: React.PropTypes.func,
-    reduxState: React.PropTypes.object
-  },
-
-  isOpen() {
-    return this.props.reduxState.openKey === `drawer_${this.props.article.id}`;
+    isOpen: React.PropTypes.bool
   },
 
   openDrawer() {
@@ -33,7 +29,7 @@ const Article = React.createClass({
 
   render() {
     let className = 'article';
-    className += this.isOpen() ? ' open' : '';
+    className += this.props.isOpen ? ' open' : '';
 
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;

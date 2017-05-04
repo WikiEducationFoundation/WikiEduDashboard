@@ -1,5 +1,4 @@
 import React from 'react';
-import ExpandableRedux from '../high_order/expandable_redux.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleViewer from '../common/article_viewer.jsx';
@@ -38,9 +37,6 @@ const ArticleDrawer = React.createClass({
   render() {
     if (!this.props.isOpen) { return <tr></tr>; }
 
-    let className = 'drawer';
-    className += !this.props.isOpen ? ' closed' : '';
-
     let diffViewer;
     let articleViewer;
     // DiffViewer and ArticleViewer require articleDetails data, so user a
@@ -73,7 +69,7 @@ const ArticleDrawer = React.createClass({
     }
 
     return (
-      <tr className={className}>
+      <tr className="drawer">
         <td colSpan="7">
           <span />
           <table className="table">
@@ -102,4 +98,4 @@ const ArticleDrawer = React.createClass({
   }
 });
 
-export default ExpandableRedux(ArticleDrawer);
+export default ArticleDrawer;
