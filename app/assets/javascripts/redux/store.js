@@ -5,9 +5,9 @@ const uiReducer = (state = { openKey: null }, action) => {
   switch (action.type) {
     case 'OPEN_KEY':
       if (action.data.key === state.openKey) {
-        return Object.assign({}, state, { openKey: null });
+        return { ...state, openKey: null };
       }
-      return Object.assign({}, state, { openKey: action.data.key });
+      return { ...state, openKey: action.data.key };
     default:
       return state;
   }
