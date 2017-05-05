@@ -58,7 +58,15 @@ describe('StudentList', () => {
     const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
 
     const studentList = ReactTestUtils.renderIntoDocument(
-      <StudentList params={params} editable={true} users={users} course={course} current_user ={currentUser} assignments={assignments} />
+      <StudentList
+        params={params}
+        editable={true}
+        users={users}
+        course={course}
+        current_user={currentUser}
+        assignments={assignments}
+        reduxState={{ openKey: null }}
+      />
     );
     studentList.setState({ users: users });
     studentList.setState({ assignments: assignments });
