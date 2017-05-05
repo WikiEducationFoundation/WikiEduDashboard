@@ -29,7 +29,8 @@ const Course = React.createClass({
   propTypes: {
     params: React.PropTypes.object,
     location: React.PropTypes.object,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    current_user: React.PropTypes.object
   },
 
   mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
@@ -219,7 +220,10 @@ const Course = React.createClass({
       <div>
         <div className="course-nav__wrapper">
           <Affix className="course_navigation" offset={57}>
-            <CourseNavbar {...this.props} {...this.state}
+            <CourseNavbar
+              course={this.state.course}
+              location={this.props.location}
+              currentUser={this.state.current_user}
               courseLink={this._courseLinkParams()}
             />
             <Notifications />
