@@ -18,7 +18,7 @@ const GetHelpButton = React.createClass({
   displayName: 'GetHelpButton',
 
   propTypes: {
-    current_user: React.PropTypes.object,
+    currentUser: React.PropTypes.object,
     course: React.PropTypes.object,
     open: React.PropTypes.func,
     is_open: React.PropTypes.bool
@@ -125,7 +125,7 @@ const GetHelpButton = React.createClass({
       );
 
       // Show the program help button only to instructors and other non-students.
-      if (this.props.current_user.role > 0) {
+      if (this.props.currentUser.role > 0) {
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
@@ -195,7 +195,7 @@ const GetHelpButton = React.createClass({
         </div>
       );
     } else {
-      if (this.props.current_user.role > 0) {
+      if (this.props.currentUser.role > 0) {
         faqLink = (
           <a className="button dark stacked" href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
         );

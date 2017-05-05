@@ -71,7 +71,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   if (Features.enableGetHelpButton) {
     getHelp = (
       <div className="nav__button" id="get-help-button">
-        <GetHelpButton course={course} current_user={currentUser} key="get_help" />
+        <GetHelpButton course={course} currentUser={currentUser} key="get_help" />
       </div>
     );
   }
