@@ -58,6 +58,7 @@ const StudentList = React.createClass({
         <Student
           student={student}
           course={this.props.course}
+          course_id={this.props.course_id}
           current_user={this.props.current_user}
           editable={this.props.editable}
           key={student.id}
