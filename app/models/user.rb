@@ -91,12 +91,12 @@ class User < ActiveRecord::Base
   ####################
   # Class method(s)  #
   ####################
-  def self.search_by_email_or_real_name(email, real_name)
-    if email.nil?
-      User.where('lower(real_name) like ?', "#{real_name}%")
-    else
-      User.where('lower(email) like ?', "#{email}%")
-    end
+  def self.search_by_email(email)
+    User.where('lower(email) like ?', "#{email}%")
+  end
+
+  def self.search_by_real_name(real_name)
+    User.where('lower(real_name) like ?', "%#{real_name}%")
   end
 
   ####################
