@@ -10,6 +10,7 @@ class WikiSlideParser
     remove_noinclude
     remove_translation_markers
     remove_translate_tags
+    remove_category
     extract_quiz_template
     convert_image_template
     convert_video_template
@@ -48,6 +49,12 @@ class WikiSlideParser
 
   def remove_noinclude
     @wikitext.gsub!(%r{<noinclude>.*?</noinclude>\n*}m, '')
+  end
+
+  # Category tags are useful for categorizing pages, but we don't want them to show up in the slides
+  # Example: [[Category:Programs & Events Dashboard]]
+  def remove_category
+    @wikitext.gsub!(%r{\[\[Category:.*?\]\]\n*}m, '')
   end
 
   def remove_translation_markers
