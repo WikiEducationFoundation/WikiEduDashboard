@@ -121,17 +121,18 @@ class WikiSlideParser
   end
 
   def convert_video_template
-    @wikitext.gsub!(/(?<video>{{Training module video.*?\n}})/m, 'VIDEO_PLACEHOLDER')
-    @video_template = Regexp.last_match && Regexp.last_match['video']
-    return unless @video_template
-    @wikitext.gsub!('VIDEO_PLACEHOLDER', video_markup)
+    # Get all the video templates on the page to allow for multiple videos in the same slide
+    video_templates =  @wikitext.scan(/(?<video>{{Training module video.*?\n}})/m)
+    return unless video_templates
+    # Replace each one with the correct figure markup
+    video_templates.each { |template| @wikitext.sub! template[0], video_markup_from_template(template[0])  }
   end
 
   def figure_markup_from_template(template)
-    image_layout = image_layout_from(template,'layout')
-    image_source = image_source_from(template,'source')
-    image_filename = image_filename_from(template, 'image')
-    image_credit = image_credit_from(template,'credit')
+    image_layout = image_layout_from(template)
+    image_source = image_source_from(template)
+    image_filename = image_filename_from(template)
+    image_credit = image_credit_from(template)
     <<-FIGURE
 <figure class="#{image_layout}"><img src="#{image_source}" />
 <figcaption class="image-credit">
@@ -142,6 +143,7 @@ class WikiSlideParser
   end
 
   def video_markup_from_template(template)
+    video_source = video_source_from(template)
     <<-VIDEO
 <iframe width="420" height="315" src="#{video_source}" frameborder="0" allowfullscreen></iframe>
     VIDEO
@@ -163,7 +165,7 @@ class WikiSlideParser
     template_parameter_value(template, 'credit')
   end
 
-  def video_source
-    template_parameter_value(@video_template, 'source')
+  def video_source_from(template)
+    template_parameter_value(template, 'source')
   end
 end
