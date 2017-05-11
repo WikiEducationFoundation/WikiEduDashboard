@@ -1,6 +1,7 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Omotecho
 # Author: Otokoume
 # Author: Sudachi
 # Author: Sujiniku
@@ -10,37 +11,53 @@ ja:
   application:
     cancel: 中止
     dashboard: Wiki Ed ダッシュボード
+    error: 'エラーが起きました:'
+    explore: 探検してみよう
+    field_required: このフィールドは必要
+    field_invalid_characters: 向こうな文字があります
     field_invalid_date: YYYY-MM-DD の形式で年月日を入力してください
+    field_invalid_date_time: 終了時間は開始時間よりさかのぼって設定してください (0時間前から23時間前まで)
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
     greeting: こんにちは!
     help: ヘルプ
     home: ホーム
-    log_in_extended: ウィキペディアでログイン
+    log_in_extended: ウィキペディアにログイン
     log_in: ログイン
     log_out: ログアウト
     my_dashboard: 私のダッシュボード
     recent_activity: 最近の活動
-    search: ask.wikiedu.org で検索
-    sign_up_extended: ウィキペディアで登録
-    sign_up_log_in_extended: ウィキペディアでログイン
-    sign_up: サインアップ
+    search: 質問をしてみる
+    sign_up_extended: ウィキペディアにユーザー登録
+    sign_up_log_in_extended: ウィキペディアに
+    sign_up: ユーザー登録
     submit: 送信
   dashboard:
     create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
   home:
-    log_in: ウィキペディアでログイン
-    sign_up: ウィキペディアで登録
+    explore: 探検してみよう
+    log_in: ウィキペディアにログイン
+    sign_up: ウィキペディアに登録
+    sign_up_help: ダッシュボードの利用にはウィキペディアにログイン後、ダッシュボードが利用者のアカウントにアクセスできるように設定します。ログインは既存のアカウントから、あるいは新しくアカウントを作ります。
   activity:
     all: 活動
+    edited_by: 編集担当
     label: 活動
   articles:
-    edited_by: '編集者:'
+    assigned: 割り当てられた記事
+    available: 掲載してある記事
+    assigned_to: 担当する人
+    character_doc: 開始日から終了日までの間に編集担当が書き加えた文字数の合計
+    edited: 編集した記事
+    edited_by: '編集した人:'
     edited_mobile: 記事
+    hide: 非表示にする
     label: 記事
     loading: 記事を読み込んでいます...
     new: (新)
+    none: このコースではまだ記事を編集していません。
     rating: クラス
+    rating_doc: ウィキペディアの記事を評価する方式はウィキプロジェクトから始まったものです。かなり前の記事に与えられた評価もあるため、 記事がどのくらい編集されたか知る目安にしてください。
     rating_docs:
       a: A クラス — これからの編集者の主なプロジェクトとなるであろう、非常に成長している記事
       b: B クラス — ある程度成長している記事
@@ -75,7 +92,7 @@ ja:
     loading: 読み込み中…
     new_week: 新しい週の追加
     none: なし
-    overview: 概要
+    overview: ホーム
     passcode: パスコード
     school: 学校
     students: 学生

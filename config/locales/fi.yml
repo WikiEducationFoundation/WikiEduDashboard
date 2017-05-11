@@ -15,7 +15,7 @@ fi:
       suurentavat ja pienentävät syötettä.
   application:
     cancel: Peruuta
-    dashboard: Wiki Ed -ohjauspaneeli
+    dashboard: Wiki Ed -ohjausnäkymä
     error: 'Tapahtui virhe:'
     explore: Tutustu
     field_required: Tämä kenttä on pakollinen
@@ -31,7 +31,7 @@ fi:
     log_in_extended: Kirjaudu sisään Wikipedian kautta
     log_in: Kirjaudu sisään
     log_out: Kirjaudu ulos
-    my_dashboard: Oma ohjauspaneeli
+    my_dashboard: Oma ohjausnäkymä
     recent_activity: Tuoreet muutokset
     search: esitä kysymys
     sign_up_extended: Luo tunnus Wikipedian kautta
@@ -65,9 +65,9 @@ fi:
     explore: Tutustu
     log_in: Kirjaudu sisään Wikipedian kautta
     sign_up: Luo tunnus Wikipedian kautta
-    sign_up_help: Sinun täytyy kirjautua Wikipedian kautta ja antaa ohjauspaneelille
-      oikeus käyttää tiliäsi. Voit käyttää olemassaolevaa Wikipediatunnusta tai luoda
-      uuden.
+    sign_up_help: Sinun täytyy kirjautua Wikipedian kautta, ja antaa ohjausnäkymälle
+      oikeus käyttää tiliäsi. Voit käyttää olemassa olevaa Wikipedia-tunnusta tai
+      luoda uuden.
   activity:
     all: Toiminta
     edited_by: Muokannut
@@ -125,7 +125,7 @@ fi:
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
   assignments:
-    article: Artikkeli %{title} määritettiin.
+    article: Artikkeli %{title} annettiin tehtäväksi
     already_exists: Tehtävä on jo luotu!
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
@@ -270,7 +270,7 @@ fi:
     duration: Kurssin kesto
     edit_course_dates: Muokkaa kurssin päivämääriä
     enable_chat: Aktivoi keskustelu
-    end: Loppu
+    end: Päättyy
     ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu
     enrollment: Ilmoittautuminen
@@ -329,7 +329,7 @@ fi:
     revisions_none: Tällä kurssilla ei ole viimeaikaisia muokkauksia Wikipediassa.
     school: Oppilaitos
     school_and_term: Instituutio/lukukausi
-    start: Aloitus
+    start: Alkaa
     start_typing: Aloita kirjoittaminen
     students: Opiskelijat
     students_count: '# Opiskelijat'
@@ -448,12 +448,12 @@ fi:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
     articles_created: Luotuja artikkeleita
-    articles_edited: Muokattuja artikkeleita
+    articles_edited: Muokatut artikkelit
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
     char: Lisättyjä merkkejä
-    date_time: Päiväys/Aika
+    date_time: Päivämäärä
     edit_count_description: Muokkaukset yhteensä
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
@@ -498,7 +498,7 @@ fi:
   revisions:
     chars_added: Lis. merkit
     class: Ryhmä
-    date_time: Päiväys/Aika
+    date_time: Päivämäärä
     diff: ero
     diff_show: Näytä
     diff_hide: Piilota
@@ -571,7 +571,7 @@ fi:
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
   uploads:
-    datetime: Päiväys/Aika
+    datetime: Päivämäärä
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
     image: Kuva
@@ -676,15 +676,15 @@ fi:
       Klikkaa päivämäärää tilan vaihtamiseksi (valitsematon, valittu ja loma). Jos
       kurssin aikana ei ole lomaa, valitse "Kurssilla ei ole lomaa".
     confirm_dates: Valitse kurssipäivät, viikottaiset tapaamiset ja lomat.
-    course_dates: Kurssin päivämäärät
+    course_dates: Kurssin ajankohta
     min_weeks: Tehtävä vaatii vähintään %{min_weeks} viikkoa. Muuta tehtäväsi alkamis-
       ja loppumispäivää, jos haluat käyttää tämäntyyppistä tehtävää.
     select_one_option: Valitse yksi vaihtoehto.
     minimum_options:
       one: Valitse %{count} tai useampia vaihtoehtoja.
       other: valitse %{count} tai useampia vaihtoehtoja.
-    read_less: Lue vähemmän
-    read_more: Lue vähemmän
+    read_less: Näytä vähemmän
+    read_more: Näytä lisää
     review_selections: Tarkasta valintasi alta. Klikkaa muokataksesi valintaa. Kun
       olet valmis, klikkaa 'Lähetä', ja ala rakentaa aikajanaasi.
     select_assignment: Valitse tehtävätyyppi, jonka haluat lisätä aikajanallesi.
@@ -698,7 +698,7 @@ fi:
     start_date_before_end_date: Aloituspäivämäärän pitää olla ennen lopetuspäivämäärää
     unsupported_browser:
       header: Selain ei ole tuettu. :-(
-      explanation: Käytät selainta, joka ei ole yhteensopiva ohjauspaneelin kanssa.
+      explanation: Käytät selainta, joka ei ole yhteensopiva ohjausnäkymän kanssa.
         Sivusto toimii hyvin Internet Explorer 11:n tai myöhemmän version kanssa,
         viimeisimpien Chromen ja Firefoxin versioiden kanssa sekä muilla nykyaikaisilla
         selaimilla.
@@ -712,22 +712,22 @@ fi:
       vetäjältä oikea salasana kurssille ilmoittautumista varten.
   error_404:
     header: Sivua ei ole. :-(
-    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjauspaneeliin, kurssia
+    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjausnäkymään, kurssia
       ei välttämättä ole rekisteröity tähän siihen. Jos kurssi rekisteröitiin hiljattain,
       sen lisäämiseen voi mennä hetki.
   error_422:
     header: 422 — kohdetta ei voi käsitellä.  :-(
-    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjausnäkymän ylläpitäjille.
   error_500:
     header: 500 — palvelinvirhe. :-(
-    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjausnäkymän ylläpitäjille.
   login_error:
     header: Sisäänkirjautumisvirhe
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
   survey:
-    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjauspaneeliin
-      kyselyn täyttämiseksi.
+    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjausnäkymään kyselyn
+      täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
       sähköpostia muistutusaikataulun mukaisesti selaimen sisäisten ilmoitusten lisäksi.
       Jos kohtaa ei ole valittuna, muokkaajat saavat vain selaimen sisäisiä ilmoituksia.
