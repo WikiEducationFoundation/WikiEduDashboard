@@ -57,6 +57,8 @@ class UsersController < ApplicationController
   def index
     @users = if params[:email].present?
                User.search_by_email(params[:email])
+             elsif params[:real_name].present?
+               User.search_by_real_name(params[:real_name])
              else
                User.instructor.limit(20)
                    .order(created_at: :desc)

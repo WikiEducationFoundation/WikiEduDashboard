@@ -219,6 +219,11 @@ describe User do
       expect(result).to eq([search_user])
     end
 
+    it 'returns user(s) with given full name' do
+      result = User.search_by_real_name(search_user.real_name)
+      expect(result).to eq([search_user])
+    end
+
     it 'returns user(s) without full email' do
       # The word 'find' is present in both emails.
       result = User.search_by_email('find')

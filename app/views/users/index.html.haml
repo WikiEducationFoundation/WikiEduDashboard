@@ -2,13 +2,15 @@
 
   %h1 Search
 
-  =form_tag users_path, method: :get do
+  =form_tag users_path, method: :get, style: "width: 20%; display: inline;" do
     = text_field_tag :email, params[:email], placeholder: 'Search for emails...'
+  =form_tag users_path, method: :get, style: "width: 20%; display: inline;" do
+    = text_field_tag :real_name, params[:real_name], placeholder: 'Search for real names...'
 
   %hr
 
   %h1 Users
-  %span= params[:email].present? ? "Results for: \"#{params[:email]}\"" : nil
+  %span= params[:email].present? ? "Results for: \"#{params[:email]}\"" : params[:real_name].present? ? "Results for: \"#{params[:real_name]}\"" : nil
 
   %table.table.table--hoverable
     %thead

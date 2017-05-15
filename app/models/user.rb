@@ -95,6 +95,10 @@ class User < ActiveRecord::Base
     User.where('lower(email) like ?', "#{email}%")
   end
 
+  def self.search_by_real_name(real_name)
+    User.where('lower(real_name) like ?', "%#{real_name}%")
+  end
+
   ####################
   # Instance methods #
   ####################
