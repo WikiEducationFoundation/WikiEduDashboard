@@ -5,6 +5,11 @@ import '../../app/assets/javascripts/main';
 import Course from '../../app/assets/javascripts/components/course.jsx';
 import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
 
+const storeStub = {
+  getState: () => { return {}; },
+  subscribe: () => { return; }
+};
+
 describe('top-level course component', () => {
   it('loads without an error', () => {
     const courseProps = {
@@ -21,7 +26,7 @@ describe('top-level course component', () => {
     };
     global.Features = { enableGetHelpButton: true };
     const testCourse = ReactTestUtils.renderIntoDocument(
-      <Course {...courseProps}>
+      <Course {...courseProps} store={storeStub}>
         <OverviewHandler {...courseProps} current_user={currentUser} />
       </Course>
     );

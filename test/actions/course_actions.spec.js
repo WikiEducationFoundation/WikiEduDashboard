@@ -6,7 +6,7 @@ import sinon from 'sinon';
 
 describe('CourseActions', () => {
   beforeEach(() => {
-    sinon.stub($, "ajax").yieldsTo("success", { course: { title: 'Bar' } });
+    sinon.stub($, "ajax").yieldsTo("success", { course: { title: 'Test Course' } });
   });
   afterEach(() => {
     $.ajax.restore();
@@ -30,7 +30,7 @@ describe('CourseActions', () => {
   it('.persistCourse pushes course data to server via ajax then updates with returned data', (done) => {
     const course = { title: 'Foo' };
     CourseActions.persistCourse(course).then(() => {
-      expect(CourseStore.getCourse().title).to.eq('Bar');
+      expect(CourseStore.getCourse().title).to.eq('Test Course');
       done();
     });
   });

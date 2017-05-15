@@ -1,6 +1,5 @@
 import React from 'react';
-import UIStore from '../../stores/ui_store.js';
-import UIActions from '../../actions/ui_actions.js';
+import UIActionsRedux from '../../actions/ui_actions_redux.js';
 import ServerActions from '../../actions/server_actions.js';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 
@@ -9,23 +8,15 @@ const Article = React.createClass({
 
   propTypes: {
     article: React.PropTypes.object.isRequired,
-    course: React.PropTypes.object.isRequired
-  },
-
-  mixins: [UIStore.mixin],
-
-  getInitialState() {
-    return { is_open: false };
-  },
-
-  storeDidChange() {
-    return this.setState({ is_open: UIStore.getOpenKey() === (`drawer_${this.props.article.id}`) });
+    course: React.PropTypes.object.isRequired,
+    dispatch: React.PropTypes.func,
+    isOpen: React.PropTypes.bool
   },
 
   openDrawer() {
     ArticleDetailsStore.clear();
     ServerActions.fetchArticleDetails(this.props.article.id, this.props.course.id);
-    return UIActions.open(`drawer_${this.props.article.id}`);
+    return this.props.dispatch(UIActionsRedux.toggleOpen(`drawer_${this.props.article.id}`));
   },
 
   shouldShowLanguagePrefix() {
@@ -38,7 +29,7 @@ const Article = React.createClass({
 
   render() {
     let className = 'article';
-    className += this.state.is_open ? ' open' : '';
+    className += this.props.isOpen ? ' open' : '';
 
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;

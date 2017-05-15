@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import CourseLink from './common/course_link.jsx';
 import ServerActions from '../actions/server_actions.js';
 import CourseActions from '../actions/course_actions.js';
@@ -23,13 +24,15 @@ const getState = function () {
   };
 };
 
-const Course = React.createClass({
+const Course = connect(state => ({ reduxState: state }))(React.createClass({
   displayName: 'Course',
 
   propTypes: {
     params: React.PropTypes.object,
     location: React.PropTypes.object,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    reduxState: React.PropTypes.object,
+    dispatch: React.PropTypes.func
   },
 
   mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
@@ -230,11 +233,11 @@ const Course = React.createClass({
         </div>
         <div className="course_main container">
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: this.getCourseID(), current_user: this.state.current_user, course: this.state.course })}
+          {React.cloneElement(this.props.children, { reduxState: this.props.reduxState, dispatch: this.props.dispatch, course_id: this.getCourseID(), current_user: this.state.current_user, course: this.state.course })}
         </div>
       </div>
     );
   }
-});
+}));
 
 export default Course;

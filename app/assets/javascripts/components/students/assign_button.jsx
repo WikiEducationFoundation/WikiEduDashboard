@@ -20,7 +20,7 @@ const AssignButton = React.createClass({
     role: React.PropTypes.number.isRequired,
     student: React.PropTypes.object,
     current_user: React.PropTypes.object,
-    course_id: React.PropTypes.string.isRequired,
+    course_id: React.PropTypes.string,
     is_open: React.PropTypes.bool,
     permitted: React.PropTypes.bool,
     add_available: React.PropTypes.bool,
@@ -175,6 +175,7 @@ const AssignButton = React.createClass({
 
 
   render() {
+    if (!this.props.course_id) { return <div></div>; }
     let confirmationDialog;
     if (this.state.showConfirm) {
       confirmationDialog = (

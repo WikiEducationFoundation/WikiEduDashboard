@@ -7,6 +7,11 @@ import Course from '../../app/assets/javascripts/components/course.jsx';
 // makes failing AJAX requests and tails the Notifications spec
 import ServerActions from '../../app/assets/javascripts/actions/server_actions.js';
 
+const storeStub = {
+  getState: () => { return {}; },
+  subscribe: () => { return; }
+};
+
 window.currentUser = { id: '', username: '' };
 global.sinon.stub(ServerActions, 'fetch');
 
@@ -21,12 +26,15 @@ describe('Course', () => {
   };
   const TestCourse = ReactTestUtils.renderIntoDocument(
     <Course
+      store={storeStub}
       params={params}
       location={location}
       children={<div></div>}
     />
   );
 
+  // FIXME: This setState isn't working; the value of textContent is coupled
+  // to the title set in course_actions.spec.js.
   global.beforeEach(() =>
     TestCourse.setState({
       course: {

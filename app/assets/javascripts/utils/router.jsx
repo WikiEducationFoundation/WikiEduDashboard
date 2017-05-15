@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
+import { Provider } from 'react-redux';
+import ReduxStore from '../redux/store.js';
+
 import App from '../components/app.jsx';
 import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
@@ -99,8 +102,10 @@ const routes = (
 const el = document.getElementById('react_root');
 if (el) {
   ReactDOM.render((
-    <Router history={browserHistory}>
-      {routes}
-    </Router>
+    <Provider store={ReduxStore} >
+      <Router history={browserHistory}>
+        {routes}
+      </Router>
+    </Provider>
   ), el);
 }

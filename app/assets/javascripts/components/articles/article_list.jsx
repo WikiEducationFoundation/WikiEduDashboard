@@ -20,22 +20,36 @@ const ArticleList = React.createClass({
   propTypes: {
     articles: React.PropTypes.array,
     course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    current_user: React.PropTypes.object,
+    reduxState: React.PropTypes.object,
+    dispatch: React.PropTypes.func
   },
 
   render() {
     const articles = this.props.articles.map(article => {
-      return <Article article={article} key={article.id} {...this.props} />;
+      const drawerKey = `drawer_${article.id}`;
+      const isOpen = this.props.reduxState.openKey === drawerKey;
+      return (
+        <Article
+          article={article}
+          course={this.props.course}
+          dispatch={this.props.dispatch}
+          key={article.id}
+          isOpen={isOpen}
+        />
+      );
     });
 
     const articleDrawers = this.props.articles.map(article => {
+      const key = `drawer_${article.id}`;
+      const isOpen = this.props.reduxState.openKey === key;
       return (
         <ArticleDrawer
           article={article}
           course={this.props.course}
-          key={`${article.id}_drawer`}
-          ref={`${article.id}_drawer`}
+          key={key}
           current_user={this.props.current_user}
+          isOpen={isOpen}
         />
       );
     });
