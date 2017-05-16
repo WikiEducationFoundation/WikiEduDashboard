@@ -6,6 +6,8 @@ import Course from '../../app/assets/javascripts/components/course.jsx';
 import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
 
 describe('top-level course component', () => {
+  document.body.innerHTML = "<div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div>";
+
   it('loads without an error', () => {
     const courseProps = {
       location: {

@@ -5,6 +5,7 @@
   "dependencies": {
     "autosize": "^3.0.20",
     "babel-core": "^6.18.2",
+    "babel-jest": "^20.0.1",
     "babel-loader": "^6.2.8",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-istanbul": "^3.0.0",
@@ -56,6 +57,7 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
     "istanbul": "^0.4.5",
     "jeet": "^6.1.2",
+    "jest": "^20.0.1",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "jquery.repeater": "^1.2.1",
@@ -129,7 +131,7 @@
     "wnumb": "^1.0.4"
   },
   "scripts": {
-    "test": "NODE_ENV=test nyc mocha \"test/**/*.@(js|jsx)\"",
+    "test": "jest",
     "start": "gulp dev",
     "hot": "gulp hot-dev",
     "build": "gulp build"
@@ -137,6 +139,10 @@
   "devDependencies": {
     "copy-to-clipboard": "^3.0.5",
     "react-copy-to-clipboard": "^4.1.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "roots": ["test"]
   },
   "nyc": {
     "extension": [

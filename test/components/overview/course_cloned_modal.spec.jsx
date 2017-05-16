@@ -24,10 +24,10 @@ describe('CourseClonedModal', () => {
     expect(renderedModal).not.to.be.empty;
     TestModal.setState({ error_message: null });
     const warnings = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestModal, 'warning');
-    return expect(warnings).to.be.empty;
+    expect(warnings).to.be.empty;
   });
 
-  return it('renders an error message if state includes one', () => {
+  it('renders an error message if state includes one', () => {
     const TestModal = ReactTestUtils.renderIntoDocument(
       <CourseClonedModal
         course={course}
@@ -37,6 +37,6 @@ describe('CourseClonedModal', () => {
 
     const warnings = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestModal, 'warning');
     expect(warnings).not.to.be.empty;
-    return expect(ReactDOM.findDOMNode(warnings[0]).textContent).to.eq('test error message');
+    expect(ReactDOM.findDOMNode(warnings[0]).textContent).to.eq('test error message');
   });
 });
