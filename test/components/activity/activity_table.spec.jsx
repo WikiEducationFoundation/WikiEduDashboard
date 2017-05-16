@@ -44,6 +44,7 @@ describe('ActivityTable', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
         <ActivityTable
+          store={reduxStore}
           loading={true}
         />
       </div>
@@ -57,6 +58,7 @@ describe('ActivityTable', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
         <ActivityTable
+          store={reduxStore}
           loading={false}
           activity={activities}
           headers={headers}
@@ -72,6 +74,7 @@ describe('ActivityTable', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
         <ActivityTable
+          store={reduxStore}
           loading={false}
           activity={activities}
           headers={headers}
@@ -87,6 +90,7 @@ describe('ActivityTable', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
         <ActivityTable
+          store={reduxStore}
           loading={false}
           activity={[]}
           headers={headers}
@@ -103,6 +107,7 @@ describe('ActivityTable', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
         <ActivityTable
+          store={reduxStore}
           loading={false}
           activity={activities}
           headers={headers}
