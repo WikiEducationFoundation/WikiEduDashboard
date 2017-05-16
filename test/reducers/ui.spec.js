@@ -1,6 +1,6 @@
 import '../testHelper';
 import ui from '../../app/assets/javascripts/reducers/ui.js';
-import * as types from '../../app/assets/javascripts/constants/action_types.js';
+import * as actions from '../../app/assets/javascripts/actions';
 
 describe('ui reducer', () => {
   it('handles initial state', () => {
@@ -8,10 +8,10 @@ describe('ui reducer', () => {
   });
 
   it('toggles to open', () => {
-    expect(ui(undefined, { type: types.TOGGLE_UI, key: '1234' })).to.deep.equal({ openKey: '1234' });
+    expect(ui(undefined, actions.toggleUI('1234'))).to.deep.equal({ openKey: '1234' });
   });
 
   it('toggles open key back to null', () => {
-    expect(ui({ openKey: '1234' }, { type: types.TOGGLE_UI, key: '1234' })).to.deep.equal({ openKey: null });
+    expect(ui({ openKey: '1234' }, actions.toggleUI('1234'))).to.deep.equal({ openKey: null });
   });
 });
