@@ -18,7 +18,8 @@
         = yield
       .push
     = render "shared/foot"
-    = hot_javascript_tag("survey")
+    // survey.js sometimes interferes with the rendering of results.
+    = hot_javascript_tag("survey") unless page_class == 'surveys results'
     - if can_administer?
       = hot_javascript_tag("survey_admin")
     = content_for :additional_javascripts
