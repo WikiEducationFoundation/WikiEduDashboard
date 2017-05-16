@@ -1,6 +1,10 @@
 import React from 'react';
-import Editable from '../high_order/editable.jsx';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as UIActions from '../../actions';
+
+import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
@@ -28,10 +32,13 @@ const StudentList = React.createClass({
 
   propTypes: {
     course_id: React.PropTypes.string,
+    current_user: React.PropTypes.object,
     users: React.PropTypes.array,
     course: React.PropTypes.object,
     controls: React.PropTypes.func,
-    editable: React.PropTypes.bool
+    editable: React.PropTypes.bool,
+    openKey: React.PropTypes.string,
+    actions: React.PropTypes.object
   },
 
   notify() {
@@ -41,6 +48,7 @@ const StudentList = React.createClass({
   },
 
   render() {
+    const toggleDrawer = this.props.actions.toggleUI;
     const users = this.props.users.map(student => {
       const assignOptions = { user_id: student.id, role: 0 };
       const reviewOptions = { user_id: student.id, role: 1 };
@@ -50,23 +58,32 @@ const StudentList = React.createClass({
         student.last_name = nameParts.slice().pop();
       }
 
+      const isOpen = this.props.openKey === `drawer_${student.id}`;
       return (
         <Student {...this.props}
           student={student}
+          course={this.props.course}
+          current_user={this.props.current_user}
+          editable={this.props.editable}
           key={student.id}
           assigned={AssignmentStore.getFiltered(assignOptions)}
           reviewing={AssignmentStore.getFiltered(reviewOptions)}
+          isOpen={isOpen}
+          toggleDrawer={toggleDrawer}
         />
       );
     });
 
     const drawers = this.props.users.map(student => {
+      const drawerKey = `drawer_${student.id}`;
+      const isOpen = this.props.openKey === drawerKey;
       return (
         <StudentDrawer
           student={student}
           course_id={this.props.course.id}
-          key={`${student.id}_drawer`}
-          ref={`${student.id}_drawer`}
+          key={drawerKey}
+          ref={drawerKey}
+          isOpen={isOpen}
         />
       );
     });
@@ -129,4 +146,15 @@ const StudentList = React.createClass({
 }
 );
 
-export default Editable(StudentList, [UserStore, AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true);
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(UIActions, dispatch)
+});
+
+export default Editable(
+  connect(mapStateToProps, mapDispatchToProps)(StudentList),
+  [UserStore, AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true
+);
