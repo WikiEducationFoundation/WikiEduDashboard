@@ -547,6 +547,24 @@ en:
     title: Title
     view_on_wiki: View diff on wiki
 
+  # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
+  suggestions:
+    editing: Editing Suggestions
+    suggestion_docs:
+      fa: No further content additions should be necessary unless new information becomes available; further improvements to the prose quality are often possible.
+      a: Expert knowledge may be needed to tweak the article, and style problems may need solving. Peer review may help.
+      ga: Some editing by subject and style experts is helpful; comparison with an existing featured article on a similar topic may highlight areas where content is weak or missing.
+      bplus: May be improved by input from experts to assess where coverage is still missing, and also by illustrations, historical background, and further references. Consider peer review or nominating for good article status. If the article is not already fully wikified, now is the time.
+      b: A few aspects of content and style need to be addressed. Expert knowledge may be needed. The inclusion of supporting materials should be considered if practical, and the article checked for general compliance with the Manual of Style and related style guidelines.
+      c: Considerable editing is needed to close gaps in content and solve cleanup problems.
+      start: Providing references to reliable sources should come first; the article also needs substantial improvement in content and organisation. Also improve the grammar, spelling, writing style and improve the jargon use.
+      stub: Any editing or additional material can be helpful. The provision of meaningful content should be a priority. The best solution for a Stub-class Article to step up to a Start-class Article is to add in referenced reasons of why the topic is significant.
+      fl: No further content additions should be necessary unless new information becomes available.
+      list: Lists should be lists of live links to Wikipedia articles, appropriately named and organized.
+      future: Material added might be speculation and should be carefully sourced.
+      disambig: Additions should be made as new articles of that name are created. Pay close attention to the proper naming of such pages, as they often do not need "(disambiguation)" appended to the title.
+      ?: Suggestions not available - The article is either not rated or suggestions not available for the rating.
+      does_not_exist: This article does not exist in wikipedia
 
   # These are maintenance script messages.
   tasks:
