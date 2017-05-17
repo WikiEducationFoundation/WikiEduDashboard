@@ -1,5 +1,4 @@
 import React from 'react';
-import Expandable from '../high_order/expandable.jsx';
 import ArticleDetailsStore from '../../stores/article_details_store.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleViewer from '../common/article_viewer.jsx';
@@ -12,7 +11,7 @@ const ArticleDrawer = React.createClass({
 
   propTypes: {
     article: React.PropTypes.object,
-    is_open: React.PropTypes.bool,
+    isOpen: React.PropTypes.bool,
     current_user: React.PropTypes.object,
     course: React.PropTypes.object
   },
@@ -25,10 +24,6 @@ const ArticleDrawer = React.createClass({
     };
   },
 
-  getKey() {
-    return `drawer_${this.props.article.id}`;
-  },
-
   storeDidChange() {
     return this.setState({
       articleDetails: getArticleDetails()
@@ -36,10 +31,7 @@ const ArticleDrawer = React.createClass({
   },
 
   render() {
-    if (!this.props.is_open) { return <tr></tr>; }
-
-    let className = 'drawer';
-    className += !this.props.is_open ? ' closed' : '';
+    if (!this.props.isOpen) { return <tr></tr>; }
 
     let diffViewer;
     let articleViewer;
@@ -73,7 +65,7 @@ const ArticleDrawer = React.createClass({
     }
 
     return (
-      <tr className={className}>
+      <tr className="drawer">
         <td colSpan="7">
           <span />
           <table className="table">
@@ -102,4 +94,4 @@ const ArticleDrawer = React.createClass({
   }
 });
 
-export default Expandable(ArticleDrawer);
+export default ArticleDrawer;

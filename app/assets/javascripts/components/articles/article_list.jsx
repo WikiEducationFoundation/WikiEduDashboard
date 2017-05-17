@@ -1,12 +1,16 @@
 import React from 'react';
-import Editable from '../high_order/editable.jsx';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
+import * as UIActions from '../../actions';
+import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
 import ArticleDrawer from './article_drawer.jsx';
 import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
+
 
 const getState = () => {
   return {
@@ -20,21 +24,36 @@ const ArticleList = React.createClass({
   propTypes: {
     articles: React.PropTypes.array,
     course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    current_user: React.PropTypes.object,
+    openKey: React.PropTypes.string,
+    actions: React.PropTypes.object
   },
 
   render() {
+    const toggleDrawer = this.props.actions.toggleUI;
     const articles = this.props.articles.map(article => {
-      return <Article article={article} key={article.id} {...this.props} />;
+      const drawerKey = `drawer_${article.id}`;
+      const isOpen = this.props.openKey === drawerKey;
+      return (
+        <Article
+          article={article}
+          course={this.props.course}
+          toggleDrawer={toggleDrawer}
+          key={article.id}
+          isOpen={isOpen}
+        />
+      );
     });
 
     const articleDrawers = this.props.articles.map(article => {
+      const key = `drawer_${article.id}`;
+      const isOpen = this.props.openKey === key;
       return (
         <ArticleDrawer
           article={article}
           course={this.props.course}
-          key={`${article.id}_drawer`}
-          ref={`${article.id}_drawer`}
+          key={key}
+          isOpen={isOpen}
           current_user={this.props.current_user}
         />
       );
@@ -78,4 +97,15 @@ const ArticleList = React.createClass({
   }
 });
 
-export default Editable(ArticleList, [ArticleStore], ServerActions.saveArticles, getState);
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(UIActions, dispatch)
+});
+
+export default Editable(
+  connect(mapStateToProps, mapDispatchToProps)(ArticleList),
+  [ArticleStore], ServerActions.saveArticles, getState
+);

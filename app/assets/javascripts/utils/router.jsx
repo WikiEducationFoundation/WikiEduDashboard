@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducer from '../reducers';
+
 import App from '../components/app.jsx';
 import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
@@ -33,6 +37,9 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 import RocketChat from '../components/common/rocket_chat.jsx';
 
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+
+// This is the Redux store. It is accessed from container components via `connect()`.
+const store = createStore(reducer);
 
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
@@ -99,8 +106,10 @@ const routes = (
 const el = document.getElementById('react_root');
 if (el) {
   ReactDOM.render((
-    <Router history={browserHistory}>
-      {routes}
-    </Router>
+    <Provider store={store} >
+      <Router history={browserHistory}>
+        {routes}
+      </Router>
+    </Provider>
   ), el);
 }

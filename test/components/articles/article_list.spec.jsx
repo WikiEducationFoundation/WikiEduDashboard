@@ -45,7 +45,7 @@ describe('ArticleList', () => {
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticleList articles={articles} course={{ home_wiki: {} }} />
+        <ArticleList articles={articles} course={{ home_wiki: {} }} store={reduxStore} />
       </div>
     );
 
