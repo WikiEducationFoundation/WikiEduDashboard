@@ -142,7 +142,12 @@
   },
   "jest": {
     "collectCoverage": true,
-    "roots": ["test"]
+    "roots": ["test", "app/assets/javascripts"],
+    "moduleDirectories": [
+      "test",
+      "app/assets/javascripts",
+      "node_modules"
+    ]
   },
   "nyc": {
     "extension": [
