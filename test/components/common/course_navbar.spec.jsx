@@ -4,6 +4,8 @@ import { render } from 'enzyme';
 import CourseNavbar from 'components/common/course_navbar';
 
 describe('Timeline link', () => {
+  Features = { enableGetHelpButton: true };
+  const currentUser = { role: 0 };
   it('renders for a ClassroomProgramCourse', () => {
     const course = {
       type: 'ClassroomProgramCourse',
@@ -13,6 +15,7 @@ describe('Timeline link', () => {
       <CourseNavbar
         course={course}
         location={{ pathname: 'foo/bar_(baz)' }}
+        currentUser={currentUser}
       />
     );
     expect(render(component).find('#timeline-link').length).to.eq(1);
@@ -26,6 +29,7 @@ describe('Timeline link', () => {
       <CourseNavbar
         course={course}
         location={{ pathname: 'foo/bar_(baz)' }}
+        currentUser={currentUser}
       />
     );
     expect(render(component).find('#timeline-link').length).to.eq(0);
