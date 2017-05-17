@@ -6,7 +6,8 @@ import CourseNavbar from 'components/common/course_navbar';
 describe('Timeline link', () => {
   it('renders for a ClassroomProgramCourse', () => {
     const course = {
-      type: 'ClassroomProgramCourse'
+      type: 'ClassroomProgramCourse',
+      flags: { enable_chat: true } // adds Chat link
     };
     const component = (
       <CourseNavbar
