@@ -17,6 +17,7 @@
     "chai": "^3.5.0",
     "core-js": "^2.4.1",
     "del": "^2.2.2",
+    "enzyme": "^2.8.2",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.1.0",
@@ -142,7 +143,10 @@
   },
   "jest": {
     "collectCoverage": true,
-    "roots": ["test", "app/assets/javascripts"],
+    "roots": [
+      "test",
+      "app/assets/javascripts"
+    ],
     "moduleDirectories": [
       "test",
       "app/assets/javascripts",
