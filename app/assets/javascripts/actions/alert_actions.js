@@ -11,7 +11,7 @@ import API from '../utils/api.js';
 export function submitNeedHelpAlert(data) {
   return function (dispatch) {
     dispatch({ type: types.NEED_HELP_ALERT_SUBMITTED });
-    API.createNeedHelpAlert(data)
+    return API.createNeedHelpAlert(data)
       .then(() => (dispatch({ type: types.NEED_HELP_ALERT_CREATED })))
       // TODO: The Flux stores still handle API failures, so we delegate to a
       // Flux action. Once all API_FAIL actions can be handled by Redux, we can
