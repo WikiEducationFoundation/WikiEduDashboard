@@ -105,7 +105,6 @@
     "react-select": "git://github.com/JedWatson/react-select.git",
     "react-trix": "^0.2.1",
     "react-typeahead": "2.0.0-alpha.5",
-    "react-weekday-picker": "1.0.8",
     "reactify": "1.1.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",

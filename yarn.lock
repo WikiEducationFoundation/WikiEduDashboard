@@ -6775,10 +6775,6 @@ react-typeahead@2.0.0-alpha.5:
     classnames "^1.2.0"
     fuzzy "^0.1.0"
 
-react-weekday-picker@1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-weekday-picker/-/react-weekday-picker-1.0.8.tgz#b7e5598ddfe98a6ec5f01a4194b8f2de11104787"
-
 react@15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
