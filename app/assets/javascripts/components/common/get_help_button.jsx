@@ -32,7 +32,7 @@ const GetHelpButton = React.createClass({
   getInitialState() {
     const state = getState();
     state.selectedTargetUser = null;
-    state.message = null;
+    state.message = '';
     return state;
   },
 
@@ -189,7 +189,7 @@ const GetHelpButton = React.createClass({
             <fieldset>
               <label htmlFor="message" className="input-wrapper">
                 <span>Your Message:</span>
-                <textarea name="message" className="mb1" onChange={this.updateMessage} defaultValue="" value={this.state.message} />
+                <textarea name="message" className="mb1" onChange={this.updateMessage} value={this.state.message} />
               </label>
             </fieldset>
             <button className="button dark ml0" value="Submit">Send</button>
