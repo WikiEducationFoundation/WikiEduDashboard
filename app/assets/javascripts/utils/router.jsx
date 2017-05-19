@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import reducer from '../reducers';
 
 import App from '../components/app.jsx';
@@ -38,8 +39,12 @@ import RocketChat from '../components/common/rocket_chat.jsx';
 
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
 
-// This is the Redux store. It is accessed from container components via `connect()`.
-const store = createStore(reducer);
+// This is the Redux store.
+// It is accessed from container components via `connect()`.
+const store = createStore(
+  reducer,
+  applyMiddleware(thunk)
+);
 
 // Handle scroll position for back button, hashes, and normal links
 browserHistory.listen(location => {
