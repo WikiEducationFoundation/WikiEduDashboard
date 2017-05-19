@@ -7,7 +7,7 @@ import Block from '../../../app/assets/javascripts/components/timeline/block.jsx
 
 Block.__Rewire__('TextAreaInput', React.createClass({
   render() {
-    return <div {...this.props}></div>;
+    return <div />;
   }
 }));
 

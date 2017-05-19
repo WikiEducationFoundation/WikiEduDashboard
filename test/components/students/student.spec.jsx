@@ -47,8 +47,7 @@ describe('Student', () => {
   );
   it('displays the name of the user', () => {
     expect(studentElement.textContent).to.contain('Adam');
-  }
-  );
+  });
   it('opens drawer when clicked', () => {
     const row = studentElement.querySelector('tr');
     expect(row.className).to.eq('students');
@@ -56,7 +55,5 @@ describe('Student', () => {
       expect(row.className).to.contain('open');
       done();
     });
-  }
-  );
-}
-);
+  });
+});
