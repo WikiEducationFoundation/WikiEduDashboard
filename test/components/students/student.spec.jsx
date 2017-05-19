@@ -31,7 +31,17 @@ describe('Student', () => {
   const studentElement = ReactTestUtils.renderIntoDocument(
     <table>
       <tbody>
-        <Student student={studentUser} course={course} editable={false} published={true} current_user ={currentUser} assigned={assigned} assignments={assigned} reviewing={assigned} />
+        <Student
+          student={studentUser}
+          course={course}
+          course_id="Couse_school/Foo_(Couse_term)"
+          editable={false}
+          published={true}
+          current_user={currentUser}
+          assigned={assigned}
+          assignments={assigned}
+          reviewing={assigned}
+        />
       </tbody>
     </table>
   );
