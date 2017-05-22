@@ -1,6 +1,4 @@
 import React from 'react';
-import ServerActions from '../../actions/server_actions.js';
-import ArticleDetailsStore from '../../stores/article_details_store.js';
 
 const Article = React.createClass({
   displayName: 'Article',
@@ -9,12 +7,15 @@ const Article = React.createClass({
     article: React.PropTypes.object.isRequired,
     course: React.PropTypes.object.isRequired,
     isOpen: React.PropTypes.bool.isRequired,
-    toggleDrawer: React.PropTypes.func.isRequired
+    toggleDrawer: React.PropTypes.func.isRequired,
+    fetchArticleDetails: React.PropTypes.func.isRequired,
+    articleDetails: React.PropTypes.object
   },
 
   toggleDrawer() {
-    ArticleDetailsStore.clear();
-    ServerActions.fetchArticleDetails(this.props.article.id, this.props.course.id);
+    if (!this.props.articleDetails) {
+      this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
+    }
     return this.props.toggleDrawer(`drawer_${this.props.article.id}`);
   },
 

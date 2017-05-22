@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import ui from './ui.js';
+import articleDetails from './article_details.js';
 import needHelpAlert from './need_help_alert.js';
+import ui from './ui.js';
 
 const reducer = combineReducers({
-  ui,
-  needHelpAlert
+  articleDetails,
+  needHelpAlert,
+  ui
 });
 
 export default reducer;

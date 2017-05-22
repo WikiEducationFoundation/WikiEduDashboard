@@ -74,12 +74,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchArticleDetails(articleId, courseId) {
-    return API.fetchArticleDetails(articleId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_ARTICLE_DETAILS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchTrainingStatus(studentId, courseId) {
     return API.fetchTrainingStatus(studentId, courseId)
       .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))

@@ -3,6 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as UIActions from '../../actions';
+import * as ArticleActions from '../../actions/article_actions';
+
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
@@ -26,7 +28,8 @@ const ArticleList = React.createClass({
     course: React.PropTypes.object,
     current_user: React.PropTypes.object,
     openKey: React.PropTypes.string,
-    actions: React.PropTypes.object
+    actions: React.PropTypes.object,
+    articleDetails: React.PropTypes.object
   },
 
   render() {
@@ -41,6 +44,8 @@ const ArticleList = React.createClass({
           toggleDrawer={toggleDrawer}
           key={article.id}
           isOpen={isOpen}
+          fetchArticleDetails={this.props.actions.fetchArticleDetails}
+          articleDetails={this.props.articleDetails[article.id] || null}
         />
       );
     });
@@ -55,6 +60,7 @@ const ArticleList = React.createClass({
           key={key}
           isOpen={isOpen}
           current_user={this.props.current_user}
+          articleDetails={this.props.articleDetails[article.id] || {}}
         />
       );
     });
@@ -98,11 +104,12 @@ const ArticleList = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey
+  openKey: state.ui.openKey,
+  articleDetails: state.articleDetails
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(UIActions, dispatch)
+  actions: bindActionCreators({ ...UIActions, ...ArticleActions }, dispatch)
 });
 
 export default Editable(
