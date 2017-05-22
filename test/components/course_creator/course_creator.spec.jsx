@@ -52,6 +52,7 @@ describe('CourseCreator', () => {
           TestCourseCreator.setState({ isSubmitting: true });
           const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
           expect(form.style.cssText).to.eq('pointer-events: none; opacity: 0.5;');
+          TestCourseCreator.setState({ isSubmitting: false });
         });
       });
     });

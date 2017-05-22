@@ -27,7 +27,7 @@ describe('Article', () => {
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <Article article={article} course={course} />
+          <Article article={article} course={course} isOpen={false} toggleDrawer={() => {}} />
         </tbody>
       </table>
     );
@@ -53,7 +53,7 @@ describe('Article', () => {
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <Article article={article} course={course} />
+          <Article article={article} course={course} isOpen={false} toggleDrawer={() => {}} />
         </tbody>
       </table>
     );
