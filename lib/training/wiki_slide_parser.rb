@@ -10,7 +10,6 @@ class WikiSlideParser
     remove_noinclude
     remove_translation_markers
     remove_translate_tags
-    remove_category
     extract_quiz_template
     convert_image_template
     convert_video_template
@@ -49,12 +48,6 @@ class WikiSlideParser
 
   def remove_noinclude
     @wikitext.gsub!(%r{<noinclude>.*?</noinclude>\n*}m, '')
-  end
-
-  # Category tags are useful for categorizing pages, but we don't want them to show up in the slides
-  # Example: [[Category:Programs & Events Dashboard]]
-  def remove_category
-    @wikitext.gsub!(%r{\[\[Category:.*?\]\]\n*}m, '')
   end
 
   def remove_translation_markers
@@ -114,18 +107,22 @@ class WikiSlideParser
 
   def convert_image_template
     # Get all the image templates on the page to allow for multiple images in the same slide
-    image_templates =  @wikitext.scan(/(?<image>{{Training module image.*?\n}})/m)
+    image_templates = @wikitext.scan(/(?<image>{{Training module image.*?\n}})/m)
     return unless image_templates
     # Replace each one with the correct figure markup
-    image_templates.each { |template| @wikitext.sub! template[0], figure_markup_from_template(template[0])  }
+    image_templates.each do |template|
+      @wikitext.sub! template[0], figure_markup_from_template(template[0])
+    end
   end
 
   def convert_video_template
     # Get all the video templates on the page to allow for multiple videos in the same slide
-    video_templates =  @wikitext.scan(/(?<video>{{Training module video.*?\n}})/m)
+    video_templates = @wikitext.scan(/(?<video>{{Training module video.*?\n}})/m)
     return unless video_templates
     # Replace each one with the correct figure markup
-    video_templates.each { |template| @wikitext.sub! template[0], video_markup_from_template(template[0])  }
+    video_templates.each do |template|
+      @wikitext.sub! template[0], video_markup_from_template(template[0])
+    end
   end
 
   def figure_markup_from_template(template)
