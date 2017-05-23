@@ -57,7 +57,7 @@ const ArticleViewer = React.createClass({
   },
 
   whocolorUrl() {
-    return `https://api.wikicolor.net/whocolor/index.php?title=${this.props.article.title}`;
+    return `https://tools.wmflabs.org/wikiedudashboard/whocolor/index.php?title=${this.props.article.title}`;
   },
 
   parsedArticleUrl() {
