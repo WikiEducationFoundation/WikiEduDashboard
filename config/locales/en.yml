@@ -637,7 +637,7 @@ en:
       amount of new content the user added. Restoring removed content
       will also increase this total.
     chars_added:
-      Characters Added<br>(mainspace | userspace)
+      Characters Added<br>(article | user | draft)
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions
