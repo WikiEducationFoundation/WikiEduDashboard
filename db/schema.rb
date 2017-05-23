@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421222406) do
+ActiveRecord::Schema.define(version: 20170523160720) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170421222406) do
     t.bigint   "view_count",    default: 0
     t.integer  "character_sum", default: 0
     t.boolean  "new_article",   default: false
+    t.index ["article_id"], name: "index_articles_courses_on_article_id", using: :btree
+    t.index ["course_id"], name: "index_articles_courses_on_course_id", using: :btree
   end
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
