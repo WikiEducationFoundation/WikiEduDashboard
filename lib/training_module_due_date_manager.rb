@@ -51,7 +51,7 @@ class TrainingModuleDueDateManager
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
          .where(courses_users: { user_id: @user.id, role: CoursesUsers::Roles::STUDENT_ROLE })
-         .where.not('training_module_ids = ?', [].to_yaml)
+         .where.not('training_module_ids = ?', [].to_yaml).includes(:week)
   end
 
   def module_completed?
@@ -66,7 +66,7 @@ class TrainingModuleDueDateManager
 
   def course_block_for_module
     @block ||= Block.joins(week: :course)
-                    .where(weeks: { course_id: @course.id })
+                    .where(weeks: { course: @course })
                     .find { |block| block.training_module_ids.include?(@training_module.id) }
   end
 end
