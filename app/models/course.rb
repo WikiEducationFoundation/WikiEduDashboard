@@ -212,10 +212,13 @@ class Course < ActiveRecord::Base
   end
 
   def training_modules
-    ids = Block.joins(:week).where(weeks: { course_id: id })
-               .where.not('training_module_ids = ?', [].to_yaml)
-               .collect(&:training_module_ids).flatten
-    TrainingModule.all.select { |tm| ids.include?(tm.id) }
+    @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
+  end
+
+  def training_module_ids
+    @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
+                                  .where.not('training_module_ids = ?', [].to_yaml)
+                                  .collect(&:training_module_ids).flatten
   end
 
   # The url for the on-wiki version of the course.
