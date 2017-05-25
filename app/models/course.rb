@@ -85,7 +85,7 @@ class Course < ActiveRecord::Base
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
 
-  has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
+  has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
   has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
 
@@ -94,9 +94,9 @@ class Course < ActiveRecord::Base
   ############
   # Metadata #
   ############
-  belongs_to :home_wiki, class_name: Wiki
+  belongs_to :home_wiki, class_name: 'Wiki'
 
-  has_many :campaigns_courses, class_name: CampaignsCourses, dependent: :destroy
+  has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns, through: :campaigns_courses
 
   has_many :tags, dependent: :destroy
