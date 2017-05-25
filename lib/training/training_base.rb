@@ -51,7 +51,7 @@ class TrainingBase
 
   # Clears both the class instance variable and the cache for the child class.
   def self.flush
-    Rails.cache.clear(cache_key)
+    Rails.cache.delete(cache_key)
     @all = nil
   end
 
