@@ -11,6 +11,7 @@
 
 = javascript_include_tag '/assets/javascripts/i18n'
 = javascript_include_tag '/assets/javascripts/i18n/' + I18n.locale.to_s
+#wikis{:'data-projects' => Wiki::PROJECTS.to_json, :'data-languages' => Wiki::LANGUAGES.to_json}
 :javascript
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
@@ -27,8 +28,8 @@
     disableTraining: #{Features.disable_training?}
   }
 
-  WikiProjects = #{Wiki::PROJECTS}
-  WikiLanguages = #{Wiki::LANGUAGES}
+  WikiProjects = document.getElementById("wikis").dataset.projects
+  WikiLanguages = document.getElementById("wikis").dataset.languages
 
   SentryDsn = "#{ENV['sentry_public_dsn']}"
   SalesforceServer = "#{ENV['SF_SERVER']}"
