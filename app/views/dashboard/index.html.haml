@@ -6,13 +6,10 @@
 .container.dashboard
   %header
     %h1= @pres.heading_message
-    %div
-
-      - if Features.open_course_creation?
-        = render 'open_course_creation'
-      - else
-        = render 'course_creation'
-
+    - if Features.open_course_creation?
+      = render 'open_course_creation'
+    - else
+      = render 'course_creation'
 
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?

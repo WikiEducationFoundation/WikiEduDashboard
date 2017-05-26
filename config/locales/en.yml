@@ -91,6 +91,14 @@ en:
     review_orientation: Review Orientation
     start_orientation: Start Orientation
     blog_headline: Recent News from Wiki Ed
+    about_programs: >
+      This site tracks wiki activities through Programs — individual events
+      like an edit-a-thon or school course. Each Program is part of one
+      or more Campaigns, which provide aggregate statistics across Programs.
+    about_creating_programs: >
+      If you are running a single, independent event, you can create a
+      Program now. If your event is part of something bigger, find or create the
+      Campaign for it. Then you can create a new Program from the Campaign page.
 
   home:
     explore: Explore
