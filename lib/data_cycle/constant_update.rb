@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
+require "#{Rails.root}/lib/importers/upload_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
@@ -42,6 +43,7 @@ class ConstantUpdate
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
+    import_uploads_for_needs_update_courses
     update_all_caches # from CacheUpdater
     remove_needs_update_flags
     update_status_of_ungreeted_students if Features.wiki_ed?
@@ -80,6 +82,16 @@ class ConstantUpdate
   def update_status_of_ungreeted_students
     log_message 'Updating greeting status of ungreeted students'
     StudentGreetingChecker.check_all_ungreeted_students
+  end
+
+  # Uploads are normally imported only during the DailyUpdate for current courses.
+  # However, courses from the past that were marked for update need to have their
+  # uploads imported during the ConstantUpdate before their :needs_update flags
+  # are removed.
+  def import_uploads_for_needs_update_courses
+    log_message 'Backfilling Commons uploads for needs_update courses'
+    UploadImporter.import_all_uploads User.joins(:courses).where( courses: { needs_update: true } ).distinct
+    UploadImporter.update_usage_count_by_course Course.where(needs_update: true)
   end
 
   #################################
