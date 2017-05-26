@@ -104,9 +104,17 @@ const AvailableActions = React.createClass({
         ));
       }
       // If course is not published, show the 'delete' button to instructors and admins.
-      if ((user.role === 1 || user.admin) && !this.state.course.published) {
+      // Show a disabled version of it on P&E Dashboard even if a course is published,
+      // so that users can see the instructions for how to enable deletion.
+      if ((user.role === 1 || user.admin) && (!this.state.course.published || !Features.wikiEd)) {
+        // The action is only available once a course has been removed from all campaigns.
+        const disabled = this.state.course.published;
         controls.push((
-          <p key="delete"><button className="button danger" onClick={this.delete}>{CourseUtils.i18n('delete_course', this.state.course_string_prefix)}</button></p>
+          <p title={I18n.t('courses.delete_course_instructions')} key="delete">
+            <button disabled={disabled} className="button danger" onClick={this.delete}>
+              {CourseUtils.i18n('delete_course', this.state.course_string_prefix)}
+            </button>
+          </p>
         ));
       }
       // If the course is ended, show the 'needs update' button.

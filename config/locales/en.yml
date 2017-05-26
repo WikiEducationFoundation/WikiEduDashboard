@@ -299,6 +299,7 @@ en:
         several hours.
     current: Current Courses
     delete_course: Delete course
+    delete_course_instructions: You may delete this page if all campaigns are removed first.
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     duration: Course Duration
