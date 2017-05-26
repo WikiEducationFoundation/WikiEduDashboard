@@ -22,7 +22,7 @@ class CourseCloneManager
   private
 
   def set_placeholder_start_and_end_dates
-    # The datepickers require an ititial date, so we set these to today's date
+    # The datepickers require an initial date, so we set these to today's date
     today = Time.zone.today
     @clone.start = today
     @clone.end = today

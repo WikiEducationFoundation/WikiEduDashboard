@@ -443,12 +443,13 @@ en:
       course_title: Program title
       create_button: Create my Program!
       create_label: Create New Program
-      create_new: Create a New Program
+      create_new: Create an Independent Program
       create_short: Create Program
       find: Find a Program
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
+      participate_in_campaign: Participate in a Campaign
       save_cloned_course: Save
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
