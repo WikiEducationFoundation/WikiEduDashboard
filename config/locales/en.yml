@@ -431,8 +431,15 @@ en:
       checking_for_uniqueness: This program is being checked for uniqueness.
       clone_previous: Clone Previous Program
       clone_this: Clone This Program
+      clone_successful: Program Successfully Cloned
+      clone_successful_details: >
+        Your program has been cloned. Be sure to add something in the 'When' field
+        (for example, the month and year) to differentiate it from the original.
+        Then click 'Save' below to finalize it.
       course_description: Program description
       course_school: Institution
+      course_term: When
+      course_term_placeholder: When
       course_title: Program title
       create_button: Create my Program!
       create_label: Create New Program
@@ -442,6 +449,7 @@ en:
       intro: >
         The program title is required, everything else can be filled in later.
         Click "Create my Program!" to start building the page for your wiki program.
+      save_cloned_course: Save
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     explore: Find Programs

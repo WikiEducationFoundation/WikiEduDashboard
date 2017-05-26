@@ -104,14 +104,21 @@ const CourseClonedModal = React.createClass({
   },
 
   saveEnabled() {
-    if (!this.state.valuesUpdated || !this.state.dateValuesUpdated) { return false; }
-    if (__guard__(this.state.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(this.state.course.day_exceptions, x1 => x1.length) > 0 || this.state.course.no_day_exceptions)) {
-      return true;
+    // ClassroomProgramCourse conditions
+    if (this.props.course.type === 'ClassroomProgramCourse') {
+      if (!this.state.valuesUpdated || !this.state.dateValuesUpdated) { return false; }
+      if (__guard__(this.state.course.weekdays, x => x.indexOf(1)) >= 0 && (__guard__(this.state.course.day_exceptions, x1 => x1.length) > 0 || this.state.course.no_day_exceptions)) {
+        return true;
+      }
+      return false;
     }
+    // non-ClassroomProgramCourse conditions
+    if (this.state.valuesUpdated && this.state.dateValuesUpdated) { return true; }
     return false;
   },
 
   render() {
+    const i18nPrefix = this.props.course.string_prefix;
     let buttonClass = 'button dark';
     buttonClass += this.state.isPersisting ? ' working' : '';
 
@@ -125,11 +132,153 @@ const CourseClonedModal = React.createClass({
 
     const slugPartValidationRegex = /^[\w\-\s,']+$/;
 
+    // Form components that are conditional on course type
+    let expectedStudents;
+    let courseSubject;
+    let fullDates;
+    let rightColumn;
+    // Specific to ClassroomProgramCourse
+    if (this.props.course.type === 'ClassroomProgramCourse') {
+      expectedStudents = (
+        <TextInput
+          id="course_expected_students"
+          onChange={this.updateCourse}
+          value={this.state.course.expected_students.toString()}
+          value_key="expected_students"
+          editable={true}
+          type="number"
+          label={I18n.t('courses.creator.expected_number')}
+          placeholder={I18n.t('courses.creator.expected_number')}
+        />
+      );
+      courseSubject = (
+        <TextInput
+          id="course_subject"
+          onChange={this.updateCourse}
+          value={this.state.course.subject}
+          value_key="subject"
+          editable={true}
+          label={I18n.t('courses.creator.course_subject')}
+          placeholder={I18n.t('courses.creator.subject')}
+        />
+      );
+      fullDates = (
+        <div>
+          <DatePicker
+            id="course_start"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.start : null}
+            value_key="start"
+            required={true}
+            editable={true}
+            label={I18n.t('courses.creator.start_date')}
+            placeholder={I18n.t('courses.creator.start_date_placeholder')}
+            validation={CourseDateUtils.isDateValid}
+            isClearable={false}
+          />
+          <DatePicker
+            id="course_end"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.end : null}
+            value_key="end"
+            required={true}
+            editable={true}
+            label={I18n.t('courses.creator.end_date')}
+            placeholder={I18n.t('courses.creator.end_date_placeholder')}
+            date_props={dateProps.end}
+            validation={CourseDateUtils.isDateValid}
+            enabled={Boolean(this.state.course.start)}
+            isClearable={false}
+          />
+          <DatePicker
+            id="timeline_start"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.timeline_start : null}
+            value_key="timeline_start"
+            required={true}
+            editable={true}
+            label={I18n.t('courses.creator.assignment_start')}
+            placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
+            date_props={dateProps.timeline_start}
+            validation={CourseDateUtils.isDateValid}
+            enabled={Boolean(this.state.course.start)}
+            isClearable={false}
+          />
+          <DatePicker
+            id="timeline_end"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.timeline_end : null}
+            value_key="timeline_end"
+            required={true}
+            editable={true}
+            label={I18n.t('courses.creator.assignment_end')}
+            placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
+            date_props={dateProps.timeline_end}
+            validation={CourseDateUtils.isDateValid}
+            enabled={Boolean(this.state.course.start)}
+            isClearable={false}
+          />
+        </div>
+      );
+      rightColumn = (
+        <div className="column">
+          <Calendar
+            course={this.state.course}
+            editable={true}
+            setAnyDatesSelected={this.setAnyDatesSelected}
+            setBlackoutDatesSelected={this.setBlackoutDatesSelected}
+            shouldShowSteps={false}
+            calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
+          />
+          <label> {I18n.t('courses.creator.no_class_holidays')}
+            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref="noDates" />
+          </label>
+        </div>
+      );
+    // Specific to non-ClassroomProgramCourse
+    } else {
+      rightColumn = (
+        <div className="column">
+          <DatePicker
+            id="course_start"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.start : null}
+            value_key="start"
+            required={true}
+            editable={true}
+            label={CourseUtils.i18n('creator.start_date', i18nPrefix)}
+            placeholder={I18n.t('courses.creator.start_date_placeholder')}
+            validation={CourseDateUtils.isDateValid}
+            isClearable={false}
+            showTime={true}
+          />
+          <DatePicker
+            id="course_end"
+            onChange={this.updateCourseDates}
+            value={this.state.dateValuesUpdated ? this.state.course.end : null}
+            value_key="end"
+            required={true}
+            editable={true}
+            label={CourseUtils.i18n('creator.end_date', i18nPrefix)}
+            placeholder={I18n.t('courses.creator.end_date_placeholder')}
+            date_props={dateProps.end}
+            validation={CourseDateUtils.isDateValid}
+            enabled={Boolean(this.state.course.start)}
+            isClearable={false}
+            showTime={true}
+          />
+          <p className="form-help-text">
+            {I18n.t('courses.time_zone_message')}
+          </p>
+        </div>
+      );
+    }
+
     return (
       <Modal>
         <div className="wizard__panel active cloned-course">
-          <h3>{I18n.t('courses.creator.clone_successful')}</h3>
-          <p>{I18n.t('courses.creator.clone_successful_details')}</p>
+          <h3>{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
+          <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
           {errorMessage}
           <div className="wizard__form">
             <div className="column" id="details_column">
@@ -141,10 +290,9 @@ const CourseClonedModal = React.createClass({
                 required={true}
                 validation={slugPartValidationRegex}
                 editable={true}
-                label={I18n.t('courses.creator.course_title')}
-                placeholder={I18n.t('courses.title')}
+                label={CourseUtils.i18n('creator.course_title', i18nPrefix)}
+                placeholder={CourseUtils.i18n('title', i18nPrefix)}
               />
-
               <TextInput
                 id="course_school"
                 onChange={this.updateCourse}
@@ -153,10 +301,9 @@ const CourseClonedModal = React.createClass({
                 required={true}
                 validation={slugPartValidationRegex}
                 editable={true}
-                label={I18n.t('courses.creator.course_school')}
-                placeholder={I18n.t('courses.school')}
+                label={CourseUtils.i18n('creator.course_school', i18nPrefix)}
+                placeholder={CourseUtils.i18n('school', i18nPrefix)}
               />
-
               <TextInput
                 id="course_term"
                 onChange={this.updateCourse}
@@ -165,108 +312,23 @@ const CourseClonedModal = React.createClass({
                 required={true}
                 validation={slugPartValidationRegex}
                 editable={true}
-                label={I18n.t('courses.creator.course_term')}
-                placeholder={I18n.t('courses.creator.course_term_placeholder')}
+                label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
+                placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
               />
-
-              <TextInput
-                id="course_subject"
-                onChange={this.updateCourse}
-                value={this.state.course.subject}
-                value_key="subject"
-                editable={true}
-                label={I18n.t('courses.creator.course_subject')}
-                placeholder={I18n.t('courses.creator.subject')}
-              />
-              <TextInput
-                id="course_expected_students"
-                onChange={this.updateCourse}
-                value={this.state.course.expected_students.toString()}
-                value_key="expected_students"
-                editable={true}
-                type="number"
-                label={I18n.t('courses.creator.expected_number')}
-                placeholder={I18n.t('courses.creator.expected_number')}
-              />
+              {courseSubject}
+              {expectedStudents}
               <TextAreaInput
                 id="course_description"
                 onChange={this.updateCourse}
                 value={this.state.course.description}
                 value_key="description"
                 editable={true}
-                placeholder={I18n.t('courses.creator.course_description')}
+                placeholder={CourseUtils.i18n('creator.course_description', i18nPrefix)}
               />
-              <DatePicker
-                id="course_start"
-                onChange={this.updateCourseDates}
-                value={this.state.dateValuesUpdated ? this.state.course.start : null}
-                value_key="start"
-                required={true}
-                editable={true}
-                label={I18n.t('courses.creator.start_date')}
-                placeholder={I18n.t('courses.creator.start_date_placeholder')}
-                validation={CourseDateUtils.isDateValid}
-                isClearable={false}
-              />
-              <DatePicker
-                id="course_end"
-                onChange={this.updateCourseDates}
-                value={this.state.dateValuesUpdated ? this.state.course.end : null}
-                value_key="end"
-                required={true}
-                editable={true}
-                label={I18n.t('courses.creator.end_date')}
-                placeholder={I18n.t('courses.creator.end_date_placeholder')}
-                date_props={dateProps.end}
-                validation={CourseDateUtils.isDateValid}
-                enabled={Boolean(this.state.course.start)}
-                isClearable={false}
-              />
-              <DatePicker
-                id="timeline_start"
-                onChange={this.updateCourseDates}
-                value={this.state.dateValuesUpdated ? this.state.course.timeline_start : null}
-                value_key="timeline_start"
-                required={true}
-                editable={true}
-                label={I18n.t('courses.creator.assignment_start')}
-                placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
-                date_props={dateProps.timeline_start}
-                validation={CourseDateUtils.isDateValid}
-                enabled={Boolean(this.state.course.start)}
-                isClearable={false}
-              />
-              <DatePicker
-                id="timeline_end"
-                onChange={this.updateCourseDates}
-                value={this.state.dateValuesUpdated ? this.state.course.timeline_end : null}
-                value_key="timeline_end"
-                required={true}
-                editable={true}
-                label={I18n.t('courses.creator.assignment_end')}
-                placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
-                date_props={dateProps.timeline_end}
-                validation={CourseDateUtils.isDateValid}
-                enabled={Boolean(this.state.course.start)}
-                isClearable={false}
-              />
+              {fullDates}
             </div>
-
-            <div className="column">
-              <Calendar
-                course={this.state.course}
-                editable={true}
-                setAnyDatesSelected={this.setAnyDatesSelected}
-                setBlackoutDatesSelected={this.setBlackoutDatesSelected}
-                shouldShowSteps={false}
-                calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
-              />
-              <label> {I18n.t('courses.creator.no_class_holidays')}
-                <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref="noDates" />
-              </label>
-
-            </div>
-            <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{I18n.t('courses.creator.save_cloned_course')}</button>
+            {rightColumn}
+            <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
           </div>
         </div>
       </Modal>

@@ -15,6 +15,7 @@ class CourseCloneManager
     clear_meeting_days_and_due_dates
     set_instructor
     tag_course
+    copy_campaigns if Features.open_course_creation?
     return @clone
   end
 
@@ -82,6 +83,12 @@ class CourseCloneManager
     @course.tags.each do |tag|
       next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
       tag_manager.add(tag: tag.tag, key: tag.key)
+    end
+  end
+
+  def copy_campaigns
+    @course.campaigns.each do |campaign|
+      CampaignsCourses.create(course: @clone, campaign: campaign)
     end
   end
 
