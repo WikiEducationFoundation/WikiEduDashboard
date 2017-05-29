@@ -215,13 +215,19 @@ ko:
     cancel: 취소
     courses: 프로그램
     creator:
+      clone_successful: 프로그램이 성공적으로 복제되었습니다
+      clone_successful_details: '프로그램이 복제되었습니다. 원래의 것과 구별하기 위해 ''날짜''(예: 연도와 월) 필드에
+        무언가를 추가해 주십시오. 그 다음 아래의 ''저장''을 눌러 마칠 수 있습니다.'
       course_description: 프로그램 설명
+      course_term: 날짜
+      course_term_placeholder: 날짜
       course_title: 프로그램 제목
       create_button: 내 프로그램을 만듭니다!
       create_label: 새로운 프로그램 만들기
-      create_new: 새로운 프로그램 만들기
+      create_new: 별도의 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
+      save_cloned_course: 저장
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가

@@ -210,8 +210,12 @@ lb:
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
+      course_term: Wéini
+      course_term_placeholder: Wéini
       course_title: Titel vum Programm
       find: E Programm sichen
+      participate_in_campaign: Bei enger Campagne matmaachen
+      save_cloned_course: Späicheren
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
     enrollment: Participatioun

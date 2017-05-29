@@ -98,13 +98,12 @@ zh-CN:
     views_added: 已为%{title}添加%{count}次新查看
     edit_size: 编辑大小
     wp10: 结构完整性
-    wp10_doc: “结构完整性”分数represents how closely an article fits the mold of a mature
-      Wikipedia article, based on the machine learning-based Objective Revision Evaluation
-      Service (https://ores.wikimedia.org/). These scores are calculated based on
-      the size of an article, the number of references and wikilinks, and other basic
-      text features. A high score usually indicates that an article follow Wikipedia's
-      conventions for the structure of a good article, but it does not take into account
-      the content itself. (These scores are only available for English Wikipedia articles.)
+    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。These
+      scores are calculated based on the size of an article, the number of references
+      and wikilinks, and other basic text features. A high score usually indicates
+      that an article follow Wikipedia's conventions for the structure of a good article,
+      but it does not take into account the content itself. (These scores are only
+      available for English Wikipedia articles.)
   assignments:
     article: 条目%{title}已被分配
     already_exists: 此分配已存在！
@@ -225,6 +224,7 @@ zh-CN:
       update_scheduled: 已安排更新。数据将连同所有当前程序一起，在下次更新周期时进行更新。这通常需要数小时。
     current: 当前课程
     delete_course: 删除课程
+    delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
     dismiss_survey: 关闭
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
     duration: 课程持续时间
@@ -337,15 +337,20 @@ zh-CN:
       checking_for_uniqueness: 这个程序正在检查其独立性。
       clone_previous: 克隆上一个程序
       clone_this: 克隆此计划
+      clone_successful: 课程已成功关闭
       course_description: 程序描述
       course_school: 机构
+      course_term: 何时
+      course_term_placeholder: 何时
       course_title: 程序标题
       create_button: 创建我的程序！
       create_label: 创建新项目
-      create_new: 创建一个新程序
+      create_new: 创建一个独立课程
       create_short: 创建项目
-      find: 找到一个程序
+      find: 找到一个课程
       intro: 需要程序标题，其他的可以日后再填写。点击“创建我的程序！”以开始构造用于您wiki程序的页面。
+      participate_in_campaign: 参与活动
+      save_cloned_course: 保存
     delete_course: 删除计划
     edit_course_dates: 编辑项目日期
     explore: 找到程序
@@ -518,7 +523,7 @@ zh-CN:
       all edits that increased page size. This number doesn't necessarily reflect
       the amount of new content the user added. Restoring removed content will also
       increase this total.
-    chars_added: 添加的字符<br>（主名字空间 | 用户名字空间）
+    chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
     contributions: 用户贡献
     contributions_history_full: 在维基百科查看完整贡献历史
     contributions_more: 查看更多贡献

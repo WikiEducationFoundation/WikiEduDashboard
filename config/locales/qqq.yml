@@ -495,6 +495,7 @@ qqq:
       create_short: Short version of link to start a new program
       find: Button to find an existing program
       intro: Explanation of how to use the program creation form
+      save_cloned_course: '{{Identical|Save}}'
     explore: |-
       The alternative wording for generic courses.
       {{Identical|Find programs}}

@@ -57,6 +57,8 @@ zh-TW:
     review_orientation: 審查新手導覽
     start_orientation: 開始新手導覽
     blog_headline: 關於維基教育基金會 (WikiEd) 的最新消息
+    about_programs: 此網站經由方案（Program）來追蹤各 wiki 活動事件 —— 例如像是 Edit-a-thon 或學院課程之類的獨立事項。任一方案皆為一個、或更多活動（Campaign）裡的一部分內容；而活動則提供了各方案之間的匯總統計資料。
+    about_creating_programs: 如果您在運作一個單一、獨立事項，您可以現在來創建一個方案。如果您的事項；是某件更大事項裡的一部分，請為此找尋或創建活動，然後您可從活動頁面裡創建一個新方案。
   home:
     explore: 探索
     log_in: 登入至維基百科
@@ -228,6 +230,7 @@ zh-TW:
       update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
     current: 目前的課程
     delete_course: 刪除課程
+    delete_course_instructions: 若所有活動都已被移除的情況下，您可以刪除此頁面。
     dismiss_survey: 關閉
     dismiss_survey_confirm: 您確定要永久刪除此調查？
     duration: 開課期間
@@ -348,15 +351,21 @@ zh-TW:
       checking_for_uniqueness: 正在確認是否有重複的方案。
       clone_previous: 複製前一個方案
       clone_this: 複製此方案
+      clone_successful: 方案成功複製
+      clone_successful_details: 您的方案已複製。請確定在「於」欄位添加內容（例如：年和月）來與原始內容作區分。之後點擊下方的「儲存」來結束流程。
       course_description: 方案描述
       course_school: 機構
+      course_term: 於
+      course_term_placeholder: 於
       course_title: 方案標題
       create_button: 建立我的方案！
       create_label: 建立新的方案
-      create_new: 建立一個新方案
+      create_new: 建立一個獨立方案
       create_short: 建立方案
       find: 找尋一個方案
       intro: 需要方案標題，其它項目則可日後填上。點選 "建立我的方案！" 來開始製作您的維基項目頁面。
+      participate_in_campaign: 參與活動
+      save_cloned_course: 儲存
     delete_course: 刪除方案
     edit_course_dates: 編輯項目日期
     explore: 尋找方案
@@ -391,6 +400,7 @@ zh-TW:
     save: 儲存
     edit_description: 編輯描述
     edit_details: 編輯詳細內容
+    rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   metrics:
     activity: 最近活躍度
     are_trained: 最近培訓
@@ -526,7 +536,7 @@ zh-TW:
     assigned: 已經分配的文章
     assignees: 被分配者
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
-    chars_added: 字數的增加<br> (主要命名空間 | 使用者命名空間)
+    chars_added: 字數的增加<br> (文章|使用者|草稿)
     contributions: 使用者貢獻
     contributions_history_full: 在維基百科上檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻

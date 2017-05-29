@@ -470,7 +470,7 @@ it:
     already_enrolled: Quell'utente è già iscritto!
     assign_articles_done: Fatto
     assigned: Voci assegnate
-    chars_added: Caratteri aggiunti<br>(namespace principale | utente)
+    chars_added: Caratteri aggiunti<br>(voce | utente | bozza)
     contributions: Contributi dell'utente
     contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
     contributions_more: Visualizza Ulteriori Contributi

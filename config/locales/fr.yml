@@ -71,6 +71,14 @@ fr:
     review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
     blog_headline: Nouvelles récentes de Wiki Ed
+    about_programs: Ce site suit les activités wiki à travers des Programmes - événements
+      individuels tel qu'un wikithon ou un cours scolaire. Chaque Programme fait partie
+      d'une ou de plusieurs Campagnes, qui fournissent des statistiques agrégées sur
+      les Programmes.
+    about_creating_programs: Si vous gérez un événement unique et indépendant, vous
+      pouvez créer un Programme maintenant. Si votre événement fait partie d'un ensemble,
+      trouvez ou créez une Campagne, créez ensuite un Programme depuis la page de
+      la Campagne.
   home:
     explore: Explorer
     log_in: Se connecter avec Wikipédia
@@ -282,6 +290,8 @@ fr:
         général plusieurs heures.
     current: Cours actuels
     delete_course: Supprimer le cours
+    delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes
+      les campagne ont été supprimées.
     dismiss_survey: Fermer
     dismiss_survey_confirm: Êtes-vous sûr de vouloir rejeter de façon définitive ce
       sondage ?
@@ -417,17 +427,25 @@ fr:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       clone_previous: Dupliquer le programme précédent
       clone_this: Dupliquer ce programme
+      clone_successful: Programme dupliqué avec succès
+      clone_successful_details: Votre Programme a été dupliqué. N'oubliez pas d'ajouter
+        quelque chose dans le champ "Quand" (mois et année par exemple) afin de le
+        différencier de l'original. Cliquez sur "Sauvegarder" afin de valider la modification.
       course_description: Description du programme
       course_school: Institution
+      course_term: Quand
+      course_term_placeholder: Quand
       course_title: Titre du programme
       create_button: Créer mon programme !
       create_label: Créer un nouveau programme
-      create_new: Créer un nouveau programme
+      create_new: Créer un programme indépendant
       create_short: Créer un programme
       find: Trouver un programme
       intro: Le titre du programme est obligatoire, tout le reste pourra être rempli
         plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
         la page de votre programme wiki.
+      participate_in_campaign: Participer à une campagne
+      save_cloned_course: Enregistrer
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
     explore: Trouver des programmes
@@ -466,6 +484,9 @@ fr:
     save: Enregistrer
     edit_description: Modifier la description
     edit_details: Modifier les détails
+    rename_confirmation: Les champs du cours qui composent l'URL ont changé. Ça va
+      changer l'URL et les liens pointant vers l'ancienne URL seront morts. Êtes-vous
+      sûr-e de vouloir continuer ?
   metrics:
     activity: Activité récente
     are_trained: sont à jour dans leur formation
@@ -599,13 +620,13 @@ fr:
   uploads:
     datetime: Horodatage
     file_name: Nom de fichier
-    header: Fichiers téléchargés sur Wikimédia Communs
+    header: Fichiers téléversés sur Wikimédia Communs
     image: Image
     label: Téléversements
-    loading: Chargement des téléchargements…
+    loading: Chargement des téléversements…
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
-    time_doc: L’heure de chaque téléchargement dans votre heure locale
+    time_doc: L’heure de chaque téléversement dans votre heure locale
     uploaded_by: Téléversé par
     usage_count: Nombre d’utilisations
     usages: Utilisations
@@ -620,7 +641,7 @@ fr:
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
       la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
       supprimé augmentera également ce total.
-    chars_added: Caractères ajoutés<br>(espace principal | espace utilisateur)
+    chars_added: Caractères ajoutés<br>(article | utilisateur | brouillon)
     contributions: Contributions de l’utilisateur
     contributions_history_full: Afficher l’historique complet des contributions sur
       Wikipédia

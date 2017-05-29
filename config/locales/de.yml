@@ -56,6 +56,14 @@ de:
     review_orientation: Einführung überprüfen
     start_orientation: Einführung beginnen
     blog_headline: Aktuelle Neuigkeiten von Wiki Ed
+    about_programs: Diese Website verfolgt Wikiaktivitäten durch Programme – einzelne
+      Ereignisse wie ein Editathon oder Schulkurse. Jedes Programm ist Teil einer
+      oder mehrerer Kampagnen, die zusammengefasste Statistiken über Programme zur
+      Verfügung stellen.
+    about_creating_programs: Falls du ein einzelnes unabhängiges Ereignis durchführst,
+      kannst du jetzt ein Programm erstellen. Falls dein Ereignis ein Teil von etwas
+      Größerem ist, finde oder erstelle die Kampagne für das Ereignis. Dann kannst
+      du ein neues Programm von der Kampagnenseite erstellen.
   home:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
@@ -270,6 +278,8 @@ de:
         Dies kann typischerweise mehrere Stunden dauern.
     current: Aktuelle Kurse
     delete_course: Kurs löschen
+    delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
+      zuerst entfernt wurden.
     dismiss_survey: Ausblenden
     dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
       möchtest?
@@ -405,17 +415,25 @@ de:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       clone_previous: Vorheriges Programm klonen
       clone_this: Dieses Programm klonen
+      clone_successful: Programm erfolgreich geklont
+      clone_successful_details: Dein Programm wurde geklont. Stelle sicher, dass du
+        etwas in das „Wann“-Feld schreibst (zum Beispiel das Monat und das Jahr),
+        um es vom Original zu unterscheiden. Klicke dann zum Abschluss unten auf „Speichern“.
       course_description: Programmbeschreibung
       course_school: Einrichtung
+      course_term: Wann
+      course_term_placeholder: Wann
       course_title: Programmtitel
       create_button: Mein Programm erstellen!
       create_label: Neues Programm erstellen
-      create_new: Ein neues Programm erstellen
+      create_new: Ein unabhängiges Programm erstellen
       create_short: Programm erstellen
       find: Finde ein Programm
       intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
         Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
         dein Wikiprogramm anzufangen.
+      participate_in_campaign: An einer Kampagne teilnehmen
+      save_cloned_course: Speichern
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
     explore: Programme finden
@@ -454,6 +472,9 @@ de:
     save: Speichern
     edit_description: Beschreibung bearbeiten
     edit_details: Einzelheiten bearbeiten
+    rename_confirmation: Die Kursfelder, die die URL bilden, wurden geändert. Dieser
+      Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
+      tun möchtest?
   metrics:
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
@@ -609,7 +630,7 @@ de:
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
       nicht unbedingt die Menge des hinzugefügten Inhalts widerspiegeln. Das Wiederherstellen
       entfernten Inhalts erhöht ebenfalls diese Summe.
-    chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
+    chars_added: Hinzugefügte Zeichen<br>(Artikel | Benutzer | Entwurf)
     contributions: Benutzerbeiträge
     contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
     contributions_more: Weitere Beiträge ansehen

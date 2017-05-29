@@ -16,6 +16,8 @@ ast:
     field_required: Esti campu ye obligatoriu
     field_invalid_characters: Esti campu tien caráuteres inválidos
     field_invalid_date: Esti campu rique una fecha en formatu AAAA-MM-DD
+    field_invalid_date_time: El final tien de dir después del principiu. (Les hores
+      van de 0 a 23).
     greeting2: ¡Bienveníu!
     greeting_extended: Bienveníu a Wikipedia
     greeting: Bones
@@ -109,6 +111,7 @@ ast:
     view_doc: La suma de toles visites a cada artículu demientres el proyectu
     view_on_wiki: Ver na wiki
     views_added: Amestáronse %{count} visites nueves a %{title}
+    edit_size: Tamañu d'edición
     wp10: Integridá estructural
     wp10_doc: La puntuación «Integridá estructural» representa lo averáu qu'un artículu
       ta al molde d'un artículu maduru de la Wikipedia, basáu nel Serviciu Oxetivu
@@ -120,7 +123,9 @@ ast:
       pero nun toma en cuenta'l propiu conteníu. (Estes resultancies namái tán disponibles
       pa los artículos de la Wikipedia n'inglés.)
   assignments:
+    article: Asignóse l'artículu %{title}
     already_exists: ¡Esta xera yá esiste!
+    title_too_large: El títulu nun tendría de pasar los 255 caráuteres
     assignees: Encargáu(os)
     assign_other: Asinar un artículu
     add_available: Añadir un artículu disponible
@@ -150,10 +155,25 @@ ast:
     campaign_deleted: Desanicióse la campaña «%{title}»
     campaign_not_updated: Nun pudo actualizase la campaña
     campaign_updated: Campaña actualizada
+    create_campaign: Crear una campaña nueva
+    create_my_campaign: ¡Crear la mio campaña!
+    description: Descripción
+    delete_campaign: Desaniciar esta campaña
     none: Nengunu
+    organizers: Organizadores
+    organizer_added: '%{user} agora ye un organizador de la campaña «%{title}»'
+    organizer_removed: '%{user} yá nun ye organizador de la campaña «%{title}»'
+    program_template: Plantía de programa
+    program_template_tooltip: Cuando un organizador crea un programa nesta campaña,
+      el testu d'esta área va copiase como descripción na páxina del programa
     title: Títulu
+    use_start_end_dates: Usar les feches de principiu y fin
+  chat:
+    label: Charra
   courses:
     activity: Actividá
+    active_courses: '%{course_type} activos'
+    all_courses: Tolos cursos
     already_enrolled: Yá yes parte de '%{title}'.
     already_exists: ¡Eso yá esiste pa esti cursu!
     archived: Cursos archivaos
@@ -173,6 +193,7 @@ ast:
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     campaigns: 'Campaignes:'
+    campaign_courses: Cursos de %{title}
     confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
       Si ye asina, escribe'l títulu del cursu pa siguir.
     confirm_course_deletion_failed: '"%{title}" nun ye''l títulu d''esti cursu. El
@@ -184,6 +205,7 @@ ast:
       programaos.
     course_description: Cursos
     courses: Cursos
+    courses_taught: Cursos enseñaos
     creation_date: Data de creación
     creator:
       already_exists: Esti cursu yá esiste. Considera camudar el nome, la escuela
@@ -201,6 +223,9 @@ ast:
         marca «Nun tengo vacaciones de clases». El cronograma copiáu va afaer automáticamente
         les feches pa dar cuenta de les selmanes que nun tienen aconceyamientos programaos.
       clone_successful: Cursu clonáu con ésitu
+      clone_successful_details: El to cursu clonóse, incluyendo los elementos del
+        cronograma (selmanes y bloques). Asegúrate d'añadir les feches, porque nun
+        se treslladen. ¿Camudó daqué más nel to cursu? Actualizalo agora si quies.
       course_description: Descripción del cursu
       course_language: Idioma principal
       course_project: Proyectu principal
@@ -327,7 +352,7 @@ ast:
       el tamañu de la páxina. Esti númberu nun espeya necesariamente la cantidá de
       conteníu nuevu amestáu pol usuariu. Restaurar conteníu desaniciáu tamién aumentará
       esti total.
-    chars_added: Caráuteres añadíos<br>(espaciu principal | espaciu d'usuariu)
+    chars_added: Caráuteres añadíos<br>(artículu | usuariu | borrador)
     contributions: Contribuciones del usuariu
     contributions_more: Ver más contribuciones
     editors: Editores estudiantes

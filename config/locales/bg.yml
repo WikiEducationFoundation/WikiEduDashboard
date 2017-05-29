@@ -10,45 +10,177 @@
 bg:
   application:
     cancel: Отказ
+    dashboard: Табло на Wiki Ed
+    error: 'Възникна грешка:'
+    field_required: Това поле е задължително
+    field_invalid_characters: Това поле има невалидни знаци
+    field_invalid_date: Това поле изисква дата във формат YYYY-MM-DD
+    greeting2: Добре дошли!
+    greeting_extended: Добре дошли в Уикипедия
+    greeting: Здравейте!
+    help: Помощ
+    home: Начало
+    log_in_extended: Влизане с помощ на Уикипедия
+    log_in: Влизане
+    log_out: Излизане
+    my_dashboard: Моето табло
     recent_activity: Последни действия
-    search: Задаване на въпрос
+    search: задайте въпрос
+    sign_up_extended: Регистрация с помощ на Уикипедия
+    sign_up_log_in_extended: чрез Уикипедия
+    sign_up: Регистриране
+    training: Обучение
     change: Промяна
+    details: Подробности
+    confirm: Добре
+  dashboard:
+    no_courses_instructor: Изглежда, че нямате никакви курсове.
+    no_courses_student: Изглежда, че все още не сте се включили в курс.
+  home:
+    log_in: Влизане с помощ на Уикипедия
+    sign_up: Регистрация с помощ на Уикипедия
+  activity:
+    edited_by: Редактирано от
   articles:
+    edited_by: 'Редактирано от:'
+    edited_mobile: Статии
+    hide: Скриване
+    label: Статии
     loading: Зареждане на статии...
+    new: (нова)
+    show_current_version: Показване на текущата версия
+    title: Заглавие
+    title_example: Заглавие на статията
+    view_doc: Сумата на всички преглеждания на всяка статия по време на проекта
   assignments:
     remove: Премахване
     select: Избиране
   campaign:
-    confirm_course_removal: Сигурни ли сте, че искате да изтриете "%{title}" от кампанията
-      "%{campaign_title}"?
-    course_already_removed: '"%{title}" вече е изтрита от кампанията "%{campaign_title}"'
-    course_removed: '"%{title}" е отстранен от кампанията "%{campaign_title}"'
+    active_campaigns: Активни кампании
+    add_organizer: Добавяне на организатор
+    all_campaigns: Всички кампании
+    campaign: Кампания
+    campaign_deleted: Кампания „%{title}“ беше изтрита
+    campaign_updated: Кампанията е обновена
+    confirm_course_removal: Сигурни ли сте, че искате да изтриете „%{title}“ от кампания
+      „%{campaign_title}“?
+    course_already_removed: „%{title}“ вече е изтрита от кампания „%{campaign_title}“
+    course_removed: „%{title}“ е отстранен от кампания „%{campaign_title}“
+    create_campaign: Създаване на нова кампания
+    description: Описание
+    delete_campaign: Изтриване на кампанията
+    none: Няма
+    organizers: Организатори
+    title: Заглавие
+    use_start_end_dates: Използване на начална и крайна дата
   chat:
     label: Чат
   courses:
+    all_courses: Всички курсове
+    actions: Действия
+    articles: Статии
+    calendar:
+      legend: Легенда
+    cancel: Отказ
+    campaigns: 'Кампании:'
+    course_description: Курсове
+    courses: Курсове
+    creation_date: Дата на създаване
+    creator:
+      clone_previous: Клониране на предишния курс
+      clone_this: Клониране на този курс
+      course_description: Описание на курса
+      create_label: Създаване на нов курс
+      create_short: Създаване на курс
+      end_date: Крайна дата
+      start_date: Начална дата
+    current: Текущи курсове
+    delete_course: Изтриване на курс
+    end: Край
     enroll: Записване
+    error:
+      exists: Такъв курс вече съществува. Моля, опитайте с различно заглавие, училище
+        или семестър.
+    loading: Зареждане…
     my_articles: Моите статии
+    new_week: Добавяне на нова седмица
+    overview: Начало
+    revisions_doc: Брой редакции в изминалите %{timeframe} дни
+    school: Училище
+    school_and_term: Институция/Семестър
+    start: Начало
+    term: Семестър
+    view_other: Преглед на други кампании
+    yourcourses: Вашите курсове
   courses_generic:
     courses: Програми
+    campaigns: 'Кампании:'
     creator:
       find: Намери програма
+    expected_students: Очаквани редактори
+    student_editors: Редактори
+    view_other: Преглед на други кампании
   editable:
     cancel: Отказ
     save: Съхраняване
+  metrics:
+    articles_created: Създадени статии
+    char_added: Добавени знаци
+    char: Добавени знаци
+    date_time: Дата/Час
+    edit_count_description: Общо редакции
+    revisions: Скорошни редакции
+    word_count: Добавени думи
+  namespace:
+    main_char_added: Добавени знаци в основното пространство
+    user_char_added: Добавени знаци в потребителското пространство
+    user_ns: Потребител
   recent_activity:
+    datetime: Дата/Час
+    no_edits: Няма скорошни редакции.
+    recent_edits: Скорошни редакции
     recent_uploads: Последни качвания
+    revision_datetime: Дата/Час на версията
+    show_courses: Показване само на моите курсове
   revisions:
+    chars_added: Добавени знаци
+    date_time: Дата/Час
     diff_show: Показване
     diff_hide: Скриване
+    loading: Зареждане на версии...
+  timeline:
+    add_week: Добавяне на седмица
+    gradeable_value: Стойност
+    this_week_title_default: Тази седмица
+    week_number: Седмица %{number}
+  training:
+    start: Начало
   uploads:
+    datetime: Дата/Час
     header: Качени файлове в Общомедия
     label: Качвания
+    loading: Зареждане на качвания...
   users:
     assign_articles_done: Готово
+    editors: Редактори
     loading: Зареждане на потребители...
+    no_articles: Няма статии
+    recent_revisions: Скорошни редакции
+    revision_characters_and_views: 'Добавени знаци: %{characters}, Преглеждания: %{views}'
+    revisions_doc: Брой редакции на редактора в изминалите 7 дни
     username: Потребителско име
     username_placeholder: Потребителско име
+    role:
+      instructor: Инструктор
   user_profiles:
     location_placeholder: Добавяне на местоположение (незадължително)
     institution_placeholder: Име на институцията (незадължително)
+  error:
+    start_date_before_end_date: Началната дата трябва да бъде по-ранна от крайната
+      дата
+  login_error:
+    header: Грешка при влизане
+  survey:
+    email:
+      headline: Здравейте, %{username}
 ...

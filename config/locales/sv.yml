@@ -130,6 +130,8 @@ sv:
       start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
       subject: Ämne
     delete_course: Radera kurs
+    delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort
+      först.
     dismiss_survey: Stäng
     enable_chat: Aktivera chatt
     end: Slut
@@ -181,16 +183,21 @@ sv:
     creator:
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
+      clone_successful: Programmet klonades
       course_description: Program beskrivning
       course_school: Institution
+      course_term: När
+      course_term_placeholder: När
       course_title: Program namn
       create_button: Skapa mitt program!
       create_label: Skapa Nytt Program
-      create_new: Skapa ett nytt program
+      create_new: Skapa ett oberoende program
       create_short: Skapa Program
       find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
+      participate_in_campaign: Delta i en kampanj
+      save_cloned_course: Spara
     delete_course: Radera program
     edit_course_dates: Redigera projektdatum
     explore: Hitta program
