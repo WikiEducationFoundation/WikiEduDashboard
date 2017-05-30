@@ -122,7 +122,7 @@ describe UserImporter do
   end
 
   describe '.update_users' do
-    it 'updates global ids' do
+    it 'updates global ids and MetaWiki registration date' do
       create(:user, username: 'Ragesoss', global_id: nil)
       create(:user, username: 'Ragesock', global_id: nil)
 
@@ -137,6 +137,8 @@ describe UserImporter do
       # expect(ragesoss.trained).to eq(true)
       expect(ragesoss.global_id).to eq(827)
       expect(ragesock.global_id).to eq(14093230)
+      expect(ragesoss.registered_at.to_date).to eq(Date.new(2006, 7, 14))
+      expect(ragesock.registered_at.to_date).to eq(Date.new(2012, 7, 11))
     end
   end
 end
