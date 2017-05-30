@@ -58,7 +58,7 @@ class UserImporter
   end
 
   def self.update_users(users=nil)
-    users ||= User.all
+    users ||= User.where(registered_at: nil)
     users.each do |user|
       update_user_from_metawiki(user)
     end
