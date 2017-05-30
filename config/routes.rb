@@ -112,6 +112,7 @@ Rails.application.routes.draw do
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
   get 'ungreeted' => 'analytics#ungreeted'
+  get 'course_csv' => 'analytics#course_csv'
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
