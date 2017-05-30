@@ -310,6 +310,7 @@ en:
     delete_course_instructions: You may delete this page if all campaigns are removed first.
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
+    download_stats_data: Download stats
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
