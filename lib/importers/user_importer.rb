@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/wiki_api"
 
@@ -57,16 +58,15 @@ class UserImporter
   end
 
   def self.update_users(users=nil)
-    u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.new.get_user_info block
-    end
-
-    User.transaction do
-      u_users.each do |user_data|
-        update_user_from_replica_data(user_data)
-      end
+    users ||= User.all
+    users.each do |user|
+      update_user_from_metawiki(user)
     end
   end
+
+  ##################
+  # Helper methods #
+  ##################
 
   def self.update_user_from_auth(user, auth)
     user.update(global_id: auth.uid,
@@ -91,16 +91,14 @@ class UserImporter
   end
 
   def self.get_global_id(username)
-    user_data = Replica.new.get_user_info [User.new(username: username)]
-    user_data = user_data[0]
-    return unless user_data
-    user_data['global_id'].to_i
+    user_data = WikiApi.new(MetaWiki.new).get_user_info(username)
+    user_data&.dig('centralids', 'CentralAuth')
   end
 
-  def self.update_user_from_replica_data(user_data)
-    username = user_data['wiki_id']
-    user = User.find_by(username: username)
-    return if user.blank?
-    user.update!(user_data.except('id'))
+  def self.update_user_from_metawiki(user)
+    user_data = WikiApi.new(MetaWiki.new).get_user_info(user.username)
+    user.update!(username: user_data['name'],
+                 # registered_at: user_data['registration'],
+                 global_id: user_data['centralids']['CentralAuth'])
   end
 end

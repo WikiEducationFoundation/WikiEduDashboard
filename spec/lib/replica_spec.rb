@@ -68,24 +68,6 @@ describe Replica do
       end
     end
 
-    it 'returns training status' do
-      VCR.use_cassette 'replica/training' do
-        all_users = [
-          { 'username' => 'ELE427' }, # has not completed
-          { 'username' => 'Ragesoss' }, # has completed
-          { 'username' => 'Mrbauer1234' }, # has not completed
-          { 'username' => "Jack's nomadic mind" }, # has completed
-          { 'username' => 'Sage (Wiki Ed)' } # has completed
-        ]
-        all_users.each_with_index do |u, i|
-          all_users[i] = OpenStruct.new u
-        end
-        response = Replica.new.get_user_info(all_users)
-        trained = response.reduce(0) { |a, e| a + e['trained'].to_i }
-        expect(trained).to eq(3)
-      end
-    end
-
     it 'returns system parameter for dashboard edits' do
       VCR.use_cassette 'replica/system_edits' do
         all_users = [
@@ -94,23 +76,8 @@ describe Replica do
         rev_start = 2016_09_20_003430
         rev_end = 2016_09_22_003430
         response = Replica.new.get_revisions(all_users, rev_start, rev_end)
-        dashboard_edit_system_status = response.dig('51688052','revisions',0,'system')
+        dashboard_edit_system_status = response.dig('51688052', 'revisions', 0, 'system')
         expect(dashboard_edit_system_status).to eq('true')
-      end
-    end
-
-    it 'returns global ids' do
-      VCR.use_cassette 'replica/training' do
-        all_users = [
-          { 'username' => 'Ragesoss' },
-          { 'username' => 'Ragesock' }
-        ]
-        all_users.each_with_index do |u, i|
-          all_users[i] = OpenStruct.new u
-        end
-        response = Replica.new.get_user_info(all_users)
-        expect(response[1]['global_id']).to eq('827')
-        expect(response[0]['global_id']).to eq('14093230')
       end
     end
 
@@ -201,37 +168,33 @@ describe Replica do
        build(:user, username: 'Ragesoss'),
        build(:user, username: 'Mrbauer1234')]
     end
+    let(:rev_start) { 2014_01_01_003430 }
+    let(:rev_end) { 2014_12_31_003430 }
+    let(:subject) { Replica.new.get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
-      rev_start = 2014_01_01_003430
-      rev_end = 2014_12_31_003430
-
-      response = Replica.new.get_revisions(all_users, rev_start, rev_end)
-      expect(response).to be_empty
+      expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
 
-      response = Replica.new.get_user_info(all_users)
-      expect(response).to be_nil
+      expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
-      response = Replica.new.get_user_info(all_users)
-      expect(response).to be_nil
+      expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
       stub_request(:any, %r{http://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
-      response = Replica.new.get_user_info(all_users)
-      expect(response).to eq([])
+      expect(subject).to be_empty
     end
   end
 end

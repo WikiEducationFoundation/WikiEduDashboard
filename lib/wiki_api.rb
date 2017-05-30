@@ -25,12 +25,18 @@ class WikiApi
   end
 
   def get_user_id(username)
+    info = get_user_info(username)
+    return unless info
+    info['userid']
+  end
+
+  def get_user_info(username)
     user_query = { list: 'users',
-                   ususers: username }
+                   ususers: username,
+                   usprop: 'centralids|registration' }
     user_data = mediawiki('query', user_query)
     return unless user_data.data['users'].any?
-    user_id = user_data.data['users'][0]['userid']
-    user_id
+    user_data.data['users'][0]
   end
 
   def redirect?(page_title)
