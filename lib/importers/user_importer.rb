@@ -35,6 +35,9 @@ class UserImporter
     # Remove any leading or trailing whitespace that snuck through.
     username.gsub!(/^[[:space:]]+/, '')
     username.gsub!(/[[:space:]]+$/, '')
+    # Remove left-to-right mark, Ruby charcter 8206, from beginning or end.
+    username[0] = '' if username[0] == 8206.chr
+    username[-1] = '' if username[-1] == 8206.chr
     # Remove "User:" prefix if present.
     username.gsub!(/^User:/, '')
     # All mediawiki usernames have the first letter capitalized, although
