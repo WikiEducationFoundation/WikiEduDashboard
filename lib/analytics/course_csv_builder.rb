@@ -33,7 +33,7 @@ class CourseCsvBuilder
     row << @course.title
     row << @course.school
     row << @course.term
-    row << @new_or_returning
+    row << new_or_returning_tag
     row << @course.user_count
     row << new_editors_count
     row << @course.article_count
