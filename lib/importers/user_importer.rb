@@ -27,8 +27,6 @@ class UserImporter
   end
 
   def self.new_from_username(username)
-    # All mediawiki usernames have the first letter capitalized, although
-    # the API returns data if you replace it with lower case.
     username = String.new(username)
     # mediawiki mostly treats spaces and underscores as equivalent, but spaces
     # are the canonical form. Replica will not return revisions for the underscore
@@ -37,6 +35,10 @@ class UserImporter
     # Remove any leading or trailing whitespace that snuck through.
     username.gsub!(/^[[:space:]]+/, '')
     username.gsub!(/[[:space:]]+$/, '')
+    # Remove "User:" prefix if present.
+    username.gsub!(/^User:/, '')
+    # All mediawiki usernames have the first letter capitalized, although
+    # the API returns data if you replace it with lower case.
     # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
     username[0] = username[0].mb_chars.capitalize.to_s unless username.empty?
 

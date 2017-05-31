@@ -110,6 +110,14 @@ describe UserImporter do
       end
     end
 
+    it 'removes User: prefix from username' do
+      VCR.use_cassette 'user/new_from_username_with_prefix' do
+        username = 'User:Ragesock'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Ragesock')
+      end
+    end
+
     it 'updates the username of an existing user' do
       VCR.use_cassette 'user/new_from_renamed_user' do
         create(:user, id: 1, username: 'Old Username', global_id: '14093230')
