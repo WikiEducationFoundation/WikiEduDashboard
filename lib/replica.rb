@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/revision_data_parser"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
@@ -21,7 +22,7 @@ class Replica
   ################
 
   # Given a list of users and a start and end date, return a nicely formatted
-  # array of revisions made by those users between those dates.
+  # hash of page_ids and revisions made by those users between those dates.
   def get_revisions(users, rev_start, rev_end)
     raw = get_revisions_raw(users, rev_start, rev_end)
     @data = {}
@@ -42,16 +43,6 @@ class Replica
     oauth_tags = oauth_tags.blank? ? oauth_tags : "&#{oauth_tags}"
     query = user_list + oauth_tags + "&start=#{rev_start}&end=#{rev_end}"
     api_get('revisions.php', query)
-  end
-
-  # Given a list of users, fetch their global_id and trained status. Completion
-  # of training is defined by the users.php endpoint as having made an edit
-  # to a specific page on Wikipedia:
-  # [[Wikipedia:Training/For students/Training feedback]]
-  def get_user_info(users)
-    query = compile_usernames_query(users)
-    query = "#{query}&training_page_id=#{ENV['training_page_id']}" if ENV['training_page_id']
-    api_get('users.php', query)
   end
 
   # Given a list of articles *or* hashes of the form { 'mw_page_id' => 1234 },
@@ -99,14 +90,8 @@ class Replica
   # API methods #
   ###############
 
-  # Given an endpoint (either 'users.php' or 'revisions.php') and a
+  # Given an endpoint ('articles.php' or 'revisions.php') and a
   # query appropriate to that endpoint, return the parsed json response.
-  #
-  # Example users.php query with 2 users:
-  #   http://tools.wmflabs.org/wikiedudashboard/users.php?user_ids[0]=012345&user_ids[1]=678910
-  # Example users.php parsed response with 2 users:
-  # [{"id"=>"123", "wiki_id"=>"User_A", "global_id"=>"8675309", trained: 1},
-  #  {"id"=>"6789", "wiki_id"=>"User_B", "global_id"=>"9035768", trained: 0}]
   #
   # Example revisions.php query:
   #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
@@ -160,11 +145,11 @@ class Replica
   # project/language naming conventions
   def project_database_params
     if @wiki.project == 'wikidata'
-      "db=wikidatawiki"
+      'db=wikidatawiki'
     elsif @wiki.project == 'wikisource' && @wiki.language.nil?
-      "db=sourceswiki"
+      'db=sourceswiki'
     elsif @wiki.project == 'wikimedia' && @wiki.language == 'incubator'
-      "db=incubatorwiki"
+      'db=incubatorwiki'
     else
       "lang=#{@wiki.language}&project=#{@wiki.project}"
     end

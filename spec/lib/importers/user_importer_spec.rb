@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
@@ -121,20 +122,23 @@ describe UserImporter do
   end
 
   describe '.update_users' do
-    it 'should update which users have completed training' do
-      # Create a new user, who by default is assumed not to have been trained.
-      ragesoss = create(:trained)
-      expect(ragesoss.trained).to eq(false)
+    it 'updates global ids and MetaWiki registration date' do
+      create(:user, username: 'Ragesoss', global_id: nil)
+      create(:user, username: 'Ragesock', global_id: nil)
 
       # Update trained users to see that user has really been trained
-      UserImporter.update_users
-      ragesoss = User.all.first
-      expect(ragesoss.trained).to eq(true)
-    end
-
-    it 'should handle exceptions for missing users' do
-      user = [build(:user)]
-      UserImporter.update_users(user)
+      VCR.use_cassette 'users/update_users' do
+        UserImporter.update_users
+      end
+      ragesoss = User.find_by(username: 'Ragesoss')
+      ragesock = User.find_by(username: 'Ragesock')
+      # Since on-wiki trainings are not used anymore, we no longer update "trained"
+      # status via UserImporter.
+      # expect(ragesoss.trained).to eq(true)
+      expect(ragesoss.global_id).to eq(827)
+      expect(ragesock.global_id).to eq(14093230)
+      expect(ragesoss.registered_at.to_date).to eq(Date.new(2006, 7, 14))
+      expect(ragesock.registered_at.to_date).to eq(Date.new(2012, 7, 11))
     end
   end
 end
