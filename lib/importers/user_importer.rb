@@ -97,8 +97,9 @@ class UserImporter
 
   def self.update_user_from_metawiki(user)
     user_data = WikiApi.new(MetaWiki.new).get_user_info(user.username)
+    return if user_data['missing']
     user.update!(username: user_data['name'],
                  registered_at: user_data['registration'],
-                 global_id: user_data['centralids']['CentralAuth'])
+                 global_id: user_data&.dig('centralids', 'CentralAuth'))
   end
 end
