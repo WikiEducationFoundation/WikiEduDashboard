@@ -120,6 +120,7 @@ Rails.application.routes.draw do
       get 'overview'
       get 'programs'
       get 'articles'
+      get 'users'
       get 'students'
       get 'instructors'
       get 'courses'
