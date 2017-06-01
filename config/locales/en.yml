@@ -325,6 +325,8 @@ en:
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
+    feedback: Feedback
+    suggestions_feedback: Give some feedback on this feature
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor

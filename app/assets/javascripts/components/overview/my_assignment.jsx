@@ -3,6 +3,7 @@ import MainspaceChecklist from '../common/mainspace_checklist.jsx';
 import FinalArticleChecklist from '../common/final_article_checklist.jsx';
 import PeerReviewChecklist from '../common/peer_review_checklist.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import Feedback from '../common/feedback.jsx';
 
 const MyAssignment = React.createClass({
   displayName: 'MyAssignment',
@@ -30,10 +31,15 @@ const MyAssignment = React.createClass({
     let sandbox;
     let sandboxTalk;
     let pageviews;
+    let feedback;
     if (this.props.assignment.article_id) {
       const article = CourseUtils.articleFromTitleInput(this.props.assignment.article_url);
       const pageviewUrl = `https://tools.wmflabs.org/pageviews/?project=${article.language}.${article.project}.org&platform=all-access&agent=user&range=latest-90&pages=${article.title}`;
       pageviews = <a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a>;
+    }
+
+    if (this.props.assignment.role === 0 && isEnglishWikipedia) {
+      feedback = <Feedback />;
     }
 
     // Assigned article that does not yet exist in mainspace
@@ -64,6 +70,7 @@ const MyAssignment = React.createClass({
       <div className="my-assignment">
         {assignmentType}<a className="my-assignment-title" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>
         <div className="my-assignment-button">
+          {feedback}
           {pageviews}
           {checklist}
           {sandboxTalk}
