@@ -10,11 +10,14 @@
   %section#articles
     .section-header
       %h3
-        = t("#{Features.default_course_string_prefix}.campaign_articles", title: @campaign.title)
+        = t('courses.articles_edited', title: @campaign.title)
 
     %table.table.table--hoverable.table--sortable
       %tbody.list
-        - @campaign.articles.each do |article|
+        - @campaign.articles.includes(:wiki).order(:title).each do |article|
           %tr
             %td.title
-              = article.title
+              = link_to full_title(article), article_url(article)
+            %td
+              %small
+                = "#{article.wiki.language}.#{article.wiki.project}"
