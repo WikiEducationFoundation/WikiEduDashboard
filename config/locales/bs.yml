@@ -1,0 +1,110 @@
+# Messages for Bosnian (bosanski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Srdjan m
+---
+bs:
+  application:
+    cancel: Otkaži
+    dashboard: Upravljačka tabla Wiki Eda
+    error: 'Došlo je do greške:'
+    explore: Istraži
+    field_required: Ovo polje je obavezno
+    field_invalid_characters: Polje sadrži neispravne znakove
+    field_invalid_date: Ovo polje zahtijeva datum u formatu GGGG-MM-DD
+    field_invalid_date_time: Kraj mora biti prije početka (sati su u rasponu od 0
+      do 23).
+    greeting2: Dobro došli!
+    greeting_extended: Dobro došli na Wikipediju
+    greeting: Zdravo!
+    help: Pomoć
+    home: Početna
+    log_in_extended: Prijava s Wikipedijom
+    log_in: Prijavi me
+    log_out: Odjavi me
+    my_dashboard: Moja upravljačka tabla
+    recent_activity: Nedavna aktivnost
+    search: postavi pitanje
+    sign_up_extended: Registracija s Wikipedijom
+    sign_up_log_in_extended: s Wikipedijom
+    sign_up: Registracija
+    submit: Pošalji
+    training: Obuka
+    change: Promijeni
+    details: Detalji
+    confirm: U redu
+  dashboard:
+    explore_examples: Istražite primjere
+  home:
+    explore: Istraži
+    log_in: Prijava s Wikipedijom
+    sign_up: Registracija s Wikipedijom
+  activity:
+    all: Aktivnost
+    edited_by: Izmijenio/-la
+    label: Aktivnost
+  articles:
+    assigned: Dodijeljeni članci
+    available: Dostupni članci
+    assigned_to: Dodijeljeno
+    edited_by: 'Izmijenio/-la:'
+    edited_mobile: Članci
+    hide: Sakrij
+    label: Članci
+    loading: Učitavam članke...
+    new: (novo)
+    none: Ovaj kurs zasad nije izmijenio nijedan članak.
+    rating: Klasa
+    rating_docs:
+      does_not_exist: Ovaj članak ne postoji na Wikipediji
+    title: Naslov
+    title_example: Naslov članka
+    view: Pogledaj članak
+    view_all: Pogledaj sve
+    view_on_wiki: Pogledaj na wikiju
+    edit_size: Veličina izmjene
+  assignments:
+    assign_other: Dodijeli članak
+    confirm_add_available: Jeste li sigurni da želite dodati %{title}?
+    confirm_addition: Jeste li sigurni da želite dodijeliti članak %{title} korisniku
+      %{username}?
+    label: Dodijeli
+    loading: Učitavam zadatke...
+    remove: Ukloni
+    reviewers: Pregledavač(i)
+    review_self: Pregledaj članak
+    select: Izaberi
+  blocks:
+    milestones:
+      title: Miljokazi
+  campaign:
+    description: Opis
+    organizers: Organizatori
+    title: Naslov
+  chat:
+    label: Ćaskanje
+  courses:
+    activity: Aktivnost
+    all_courses: Svi kursevi
+    archived: Arhivirani kursevi
+    actions: Radnje
+    articles: Članci
+    calendar:
+      legend: Legenda
+      legend_class_canceled: Praznik/Otkazano
+      legend_class_meeting: Sastanak razreda
+      legend_class_not_meeting: Nema zakazanih sastanaka
+    cancel: Otkaži
+    course_description: Kursevi
+    courses: Kursevi
+    courses_taught: Predavani kursevi
+    creation_date: Datum stvaranja
+    creator:
+      course_language: Matični jezik
+      course_project: Matični projekt
+    dismiss_survey: Odbaci
+    expected_students: Očekivani studenti
+    instructors: Nastavnici
+    loading: Učitavam…
+    my_articles: Moji članci
+...

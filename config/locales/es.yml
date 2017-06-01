@@ -28,6 +28,8 @@ es:
     field_required: Este campo es obligatorio
     field_invalid_characters: Este campo tiene caracteres no válidos
     field_invalid_date: Este campo requiere una fecha en formato AAAA-MM-DD
+    field_invalid_date_time: El fin tiene que ser después del inicio. (Las horas van
+      de 0 a 23.)
     greeting2: ¡Bienvenidos!
     greeting_extended: Bienvenido a Wikipedia
     greeting: ¡Hola!
@@ -223,6 +225,7 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
+    courses_taught: Cursos enseñados
     creation_date: Fecha de creación
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
@@ -240,7 +243,7 @@ es:
         y «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
-      clone_successful: Curso clonado cn éxito
+      clone_successful: Curso clonado con éxito
       clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
         cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
@@ -272,9 +275,12 @@ es:
       subject: Asunto
     current: Cursos actuales
     delete_course: Eliminar curso
+    delete_course_instructions: Puedes eliminar esta página si todas las campañas
+      se quitan anteriormente.
     dismiss_survey: Descartar
     dismiss_survey_confirm: ¿Estás seguro de que quieres descartar permanentemente
       esta encuesta?
+    download_stats_data: Estadísticas de descargas
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
     enable_chat: Activar el chat
@@ -282,6 +288,7 @@ es:
     ended: El curso ha terminado.
     enroll: Inscribirse
     enrollment: Inscripción
+    courses_enrolled: Cursos matriculados
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
@@ -333,6 +340,7 @@ es:
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
+    school_and_term: Institución/Período
     start: Inicio
     start_typing: Empieza a escribir
     students: Estudiantes
@@ -392,28 +400,35 @@ es:
     assignment_start: Inicio del cronograma
     cancel: Cancelar
     courses: Programas
+    courses_taught: Programas enseñados
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       clone_previous: Clonar el programa previo
       clone_this: Clonar este programa
+      clone_successful: Programa clonado con éxito
       course_description: Descripción del programa
       course_school: Institución
+      course_term: Cuando
+      course_term_placeholder: Cuando
       course_title: Título del programa
       create_button: ¡Crear mi programa!
       create_label: Crear programa nuevo
-      create_new: Crear un programa nuevo
+      create_new: Crear un programa independiente
       create_short: Crear programa
       find: Encuentra un programa
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
+      participate_in_campaign: Participa en una campaña
+      save_cloned_course: Guardar
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     explore: Encuentra programas
     enroll: Añadir editor
     enrollment: Participación
+    courses_enrolled: Programas participados
     expected_students: Editores esperados
     instructors: Facilitadores
     join_course: Unirse al programa
@@ -423,6 +438,7 @@ es:
       visitando el siguiente URL:'
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
+    school_and_term: Institución/Cuando
     student_editors: Editores
     students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
@@ -596,7 +612,7 @@ es:
       que aumentaron el tamaño de la página. Este número no refleja necesariamente
       la cantidad de contenido nuevo agregado por el usuario. Restaurar el contenido
       eliminado también aumentará este total.
-    chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
+    chars_added: Caracteres añadidos<br>(artículo | usuario | borrador)
     contributions: Contribuciones del usuario
     contributions_history_full: Ver el historial completo de contribuciones a Wikipedia
     contributions_more: Ver más contribuciones

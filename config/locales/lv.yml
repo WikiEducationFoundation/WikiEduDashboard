@@ -132,7 +132,10 @@ lv:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu
       course_school: Iestāde
+      course_term: Kad
+      course_term_placeholder: Kad
       course_title: Programmas nosaukums
+      save_cloned_course: Saglabāt
     delete_course: Dzēst programmu
     expected_students: Plānotie dalībnieki
     join_course: Pievienoties programmai

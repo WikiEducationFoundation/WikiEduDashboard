@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chrumps
 # Author: Halibutt
+# Author: Mazab IZW
 # Author: The Polish
 # Author: Woytecr
 ---
@@ -396,14 +397,17 @@ pl:
       clone_this: Sklonuj ten program
       course_description: Opis programu
       course_school: Instytucja
+      course_term: Kiedy
+      course_term_placeholder: Kiedy
       course_title: Tytuł programu
       create_button: Stwórz mój program!
       create_label: Stwórz nowy program
-      create_new: Stwórz nowy program
+      create_new: Stwórz niezależny program
       create_short: Utwórz program
       find: Znajdź program
       intro: Wymagany tytuł programu, pozostałe dane można uzupełnić później. Kliknij
         w "Stwórz mój program!" by rozpocząć budowanie strony wiki swojego programu.
+      save_cloned_course: Zapisz
     delete_course: Skasuj program
     edit_course_dates: Edytuj daty projektu
     explore: Znajdź programy

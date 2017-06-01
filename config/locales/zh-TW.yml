@@ -11,20 +11,21 @@
 # Author: S8321414
 # Author: Shangkuanlc
 # Author: Wehwei
+# Author: Wwycheuk
 ---
 zh-TW:
   accessibility:
-    number_field: 這是一個數字欄位。這個按鈕在大多數的瀏覽器上，會讓輸入的資料以遞增或遞減的方式呈現。
+    number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
     cancel: 取消
     dashboard: Wiki Ed 資訊看板
     error: 發生了錯誤：
     explore: 探索
-    field_required: 此欄位為必填欄位
-    field_invalid_characters: 此欄位有無效的字符
+    field_required: 此為必填欄位
+    field_invalid_characters: 此欄位的字符無效
     field_invalid_date: 此欄位需要以年-月-日 (YYYY-MM-DD) 格式填入日期
     field_invalid_date_time: 結束必須晚於起始。（時刻從 0 至 23。）
-    greeting2: 歡迎
+    greeting2: 歡迎使用！
     greeting_extended: 歡迎來到維基百科
     greeting: 您好！
     help: 說明
@@ -34,17 +35,17 @@ zh-TW:
     log_out: 登出
     my_dashboard: 我的資訊看板
     recent_activity: 最近活動
-    search: 提出一個問題
+    search: 提出問題
     sign_up_extended: 註冊維基百科
     sign_up_log_in_extended: 參與維基百科
-    sign_up: 登入
+    sign_up: 註冊
     submit: 送出
     training: 培訓
     change: 修改
     details: 詳細內容
     confirm: 好
   dashboard:
-    create_note: 點選建立課程以建立您的第一次課程
+    create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
       ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間表，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
@@ -94,7 +95,7 @@ zh-TW:
       stub: 小作品等級 — 剛開始、還需要更多內容的短小文章。
       list: 清單等級 — 並非傳統條目的一個清單
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
-      does_not_exist: 條目不存在於維基百科上
+      does_not_exist: 維基百科無此條目
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
     title: 標題
@@ -113,21 +114,21 @@ zh-TW:
     already_exists: 此條目已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
-    assign_other: 指定一個文章
+    assign_other: 指定文章
     add_available: 加入一篇尚待分配的文章
     assign_self: 指定自己一個條目
-    confirm_add_available: 您確定您想要加入 %{title} 嗎？
-    confirm_addition: 您確定要將 %{title}分配給 %{username}？
-    confirm_deletion: 您確定要刪除此文章分配嗎？
+    confirm_add_available: 確定要加入 %{title} 嗎？
+    confirm_addition: 確定要將 %{title}分配給 %{username}？
+    confirm_deletion: 確定要刪除此文章分配嗎？
     label: 分配
     loading: 載入作業中...
     none_short: 沒有分配任何文章
     none: 這個課程還沒有任何文章被分派。
     no_available: 此課程沒有任何尚待分配的條目。
     remove: 移除
-    reviewers: 審查者
-    review_other: 指定一個審查
-    review_self: 審查一個文章
+    reviewers: 審核者
+    review_other: 指定審核
+    review_self: 審核文章
     select: 選擇
   blocks:
     milestones:
@@ -140,13 +141,13 @@ zh-TW:
     campaign: 活動
     campaigns: 活動
     campaign_deleted: 活動「%{title}」已被刪除
-    campaign_not_updated: 活動不能被更新
+    campaign_not_updated: 不能更新活動
     campaign_updated: 活動已更新
-    confirm_campaign_deletion: 您確定您要刪除標題為「%{title}」的活動？如果是，請輸入該活動的標題以進行處理。
+    confirm_campaign_deletion: 確定要刪除標題為「%{title}」的活動嗎？如果是，請輸入該活動的標題以進行處理。
     confirm_campaign_deletion_failed: 「%{title}」不是此活動的標題。活動未被刪除
-    confirm_course_removal: 您確定您要從活動「%{campaign_title}」中移除「%{title}」？
-    course_already_removed: '%{title}已從活動「%{campaign_title}」中移除'
-    course_removed: '%{title}已從活動「%{campaign_title}」中移除'
+    confirm_course_removal: 確定您要從活動「%{campaign_title}」移除「%{title}」嗎？
+    course_already_removed: '%{title}已從活動「%{campaign_title}」移除'
+    course_removed: '%{title}已從活動「%{campaign_title}」移除'
     create_campaign: 創建新活動
     create_my_campaign: 創建我的活動！
     description: 描述
@@ -165,7 +166,7 @@ zh-TW:
     activity: 活躍度
     active_courses: 啟動%{course_type}
     all_courses: 所有課程
-    already_enrolled: 你已經成為  '%{title}' 課程的一份子！
+    already_enrolled: 您已經成為「%{title}」課程的一份子！
     already_exists: 已存在於該課程中！
     archived: 存檔的課程
     actions: 操作
@@ -232,7 +233,8 @@ zh-TW:
     delete_course: 刪除課程
     delete_course_instructions: 若所有活動都已被移除的情況下，您可以刪除此頁面。
     dismiss_survey: 關閉
-    dismiss_survey_confirm: 您確定要永久刪除此調查？
+    dismiss_survey_confirm: 確定要永久刪除此調查嗎？
+    download_stats_data: 下載統計資料
     duration: 開課期間
     edit_course_dates: 編輯課程日期
     enable_chat: 啟用聊天
@@ -265,7 +267,7 @@ zh-TW:
       cannot_join_twice: 用戶不可加入同一課程兩次。
       not_yet_approved: 此課程尚未批准開放登記。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
-    leave_confirmation: 您確定要離開這個課程嗎？
+    leave_confirmation: 確定要離開這個課程嗎？
     leave_course: 離開課程
     loading: 載入中⋯⋯
     milestones_none: 此課程現在並沒有任何里程碑。

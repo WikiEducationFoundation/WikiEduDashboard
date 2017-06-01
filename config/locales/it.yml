@@ -319,17 +319,21 @@ it:
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       clone_previous: Clona programma precedente
       clone_this: Clona questo programma
+      clone_successful: Programma clonato correttamente
       course_description: Descrizione del programma
       course_school: Istituto
+      course_term: Quando
+      course_term_placeholder: Quando
       course_title: Titolo del programma
       create_button: Crea il mio programma!
       create_label: Crea nuovo programma
-      create_new: Creare un nuovo programma
+      create_new: Creare un programma indipendente
       create_short: Crea programma
       find: Trova un programma
       intro: Il titolo del programma è obbligatorio, tutto il resto può essere riempito
         in seguito. Clicca su "Crea il mio programma!" per iniziare a costruire la
         pagina wiki del programma.
+      save_cloned_course: Salva
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     explore: Trova programmi

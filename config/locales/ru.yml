@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alexandr Efremov
 # Author: Aram1985
+# Author: Av6
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
@@ -236,12 +237,15 @@ ru:
     campaign_courses: '%{title} программы'
     creator:
       course_school: Учреждение
+      course_term: Когда
+      course_term_placeholder: Когда
       course_title: Название программы
       create_button: Создать свою программу!
       create_label: Создать новую программу
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+      save_cloned_course: Сохранить
     delete_course: Удалить программу
     explore: Найти программы
     join_course: Присоединиться к программе
