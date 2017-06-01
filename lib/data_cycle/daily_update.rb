@@ -49,7 +49,7 @@ class DailyUpdate
   ###############
 
   def update_users
-    log_message 'Updating global ids and training status'
+    log_message 'Updating registration dates for new Users'
     UserImporter.update_users
   end
 

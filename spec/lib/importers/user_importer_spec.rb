@@ -88,6 +88,18 @@ describe UserImporter do
       end
     end
 
+    it 'works for users who have no Meta account if home wiki is provided' do
+      VCR.use_cassette 'user/new_from_nonmeta_user' do
+        username = 'Lukasoch'
+        # This user has a wikipedia account for en and pl, but not a Meta one.
+        user = UserImporter.new_from_username(username, MetaWiki.new)
+        expect(user).to be_nil
+        home_wiki = Wiki.new(language: 'pl', project: 'wikipedia')
+        user = UserImporter.new_from_username(username, home_wiki)
+        expect(user).not_to be_nil
+      end
+    end
+
     it 'does not create a user if input is only whitespace' do
       VCR.use_cassette 'user/new_from_username_nonexistent' do
         username = '    '

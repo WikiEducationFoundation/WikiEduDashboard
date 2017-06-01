@@ -146,7 +146,7 @@ class UsersController < ApplicationController
   def find_or_import_user_by_username
     username = enroll_params[:username]
     @user = User.find_by(username: username)
-    @user = UserImporter.new_from_username(username) if @user.nil?
+    @user = UserImporter.new_from_username(username, @course.home_wiki) if @user.nil?
   end
 
   def enroll_params
