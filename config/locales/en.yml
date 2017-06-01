@@ -38,6 +38,7 @@ en:
   application:
     cancel: Cancel
     dashboard: Wiki Ed Dashboard
+    documentation: Documentation
     error: 'There was an error:'
     explore: Explore
     field_required: This field is required
@@ -54,6 +55,7 @@ en:
     log_out: Log out
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
+    report_problem: Report a problem
     search: ask a question
     sign_up_extended: Sign up with Wikipedia
     # FIXME: deprecate lego message
