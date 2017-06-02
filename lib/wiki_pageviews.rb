@@ -104,4 +104,16 @@ class WikiPageviews
     Rails.logger.error "Wikimedia REST API error: #{e}"
     raise e
   end
+
+  def parse_results(response)
+    return unless response
+    data = Utils.parse_json(response)
+    return data['items'] if data['items']
+    return no_results if data['type'] == 'https://restbase.org/errors/not_found'
+    raise
+  end
+
+  def no_results
+    nil
+  end
 end

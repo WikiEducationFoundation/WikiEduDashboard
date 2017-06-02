@@ -73,6 +73,17 @@ class ArticlesCourses < ActiveRecord::Base
     Utils.run_on_all(ArticlesCourses, :update_cache, articles_courses)
   end
 
+  def self.update_all_caches_concurrently(concurrency = 2)
+    threads = ArticlesCourses.current
+                             .in_groups(concurrency, false)
+                             .map.with_index do |articles_courses_batch, i|
+      Thread.new(i) do
+        update_all_caches(articles_courses_batch)
+      end
+    end
+    threads.each(&:join)
+  end
+
   def self.update_from_course(course)
     mainspace_revisions = get_mainspace_revisions(course.revisions)
     course_article_ids = course.articles.pluck(:id)

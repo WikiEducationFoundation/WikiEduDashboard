@@ -104,6 +104,16 @@ class Article < ActiveRecord::Base
     Utils.run_on_all(Article, :update_cache, articles)
   end
 
+  def self.update_all_caches_concurrently(concurrency = 2)
+    threads = Article.current.in_groups(concurrency, false)
+                     .map.with_index do |articles_batch, i|
+      Thread.new(i) do
+        update_all_caches(articles_batch)
+      end
+    end
+    threads.each(&:join)
+  end
+
   private
 
   def set_defaults_and_normalize
