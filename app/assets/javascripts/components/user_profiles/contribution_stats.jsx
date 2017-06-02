@@ -58,8 +58,9 @@ const ContributionStats = React.createClass({
   },
 
   render() {
-    let contriStats;
+    console.log('graphs DATAAAAAAAAAA');
     console.log(this.state.statsGraphsData);
+    let contriStats;
     const graphWidth = 800;
     const graphHeight = 250;
     if (this.state.isInstructor.instructor) {
@@ -79,6 +80,9 @@ const ContributionStats = React.createClass({
         <StudentStats
           username = {this.props.params.username}
           stats = {this.state.stats.as_student}
+          statsGraphsData = {this.state.statsGraphsData}
+          graphWidth = {graphWidth}
+          graphHeight = {graphHeight}
         />
     );
     }

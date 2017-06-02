@@ -1,5 +1,5 @@
 import React from 'react';
-const ArticlesCreatedGraph = React.createClass({
+const WordCountGraph = React.createClass({
   propTypes: {
     statsData: React.PropTypes.array,
     graphWidth: React.PropTypes.number,
@@ -7,13 +7,13 @@ const ArticlesCreatedGraph = React.createClass({
   },
 
   render() {
-    console.log('Article created count');
+    console.log('words added count');
     console.log(this.props.statsData);
     return (
       <div id ="stats_graph">
-        <h5>ArticlesCreatedGraph </h5>
+        <h5>WordCountGraph </h5>
       </div>
     );
   }
 });
-export default ArticlesCreatedGraph;
+export default WordCountGraph;

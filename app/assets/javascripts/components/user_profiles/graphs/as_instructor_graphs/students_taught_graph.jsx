@@ -126,16 +126,17 @@ const StudentsTaughtGraph = React.createClass({
       actions: false
     };
     // emded the visualization in the container with id vega-graph-article_id
-    vg.embed('#CoursesTaughtGraph', embedSpec); // Callback receiving View instance and parsed Vega spec
+    vg.embed('#StudentsTaughGraph', embedSpec); // Callback receiving View instance and parsed Vega spec
   },
 
   render() {
+    console.log("student stats data");
     console.log(this.props.statsData);
     this.renderGraph();
     return (
       <div id ="stats_graph">
         <h5>StudentsTaughtGraph </h5>
-        <div id= "CoursesTaughtGraph" />
+        <div id= "StudentsTaughGraph" />
       </div>
     );
   }

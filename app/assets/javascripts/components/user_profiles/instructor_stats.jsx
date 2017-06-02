@@ -36,12 +36,13 @@ const InstructorStats = React.createClass({
   render() {
     let asStudent;
     let statsVisualizations;
+    let byStudents;
     if (this.state.selectedGraph === 'courses_count')
     {
       if (this.props.statsGraphsData != null) {
         statsVisualizations = (
           <CoursesTaughtGraph
-            statsData = {this.props.statsGraphsData.asinstructor_stats.courses_count}
+            statsData = {this.props.statsGraphsData.instructor_stats}
             graphWidth = {this.props.graphWidth}
             graphHeight = {this.props.graphHeight}
           />
@@ -53,11 +54,20 @@ const InstructorStats = React.createClass({
     } else if (this.state.selectedGraph === 'students_count') {
       statsVisualizations = (
         <StudentsTaughtGraph
-          statsData = {this.props.statsGraphsData.asinstructor_stats.students_count}
+          statsData = {this.props.statsGraphsData.student_count}
           graphWidth = {this.props.graphWidth}
           graphHeight = {this.props.graphHeight}
         />
        );
+    }
+    if (this.props.statsGraphsData != null) {
+      byStudents = (<ByStudentsStats
+        username = {this.props.username}
+        stats = {this.props.stats.by_students}
+        statsData = {this.props.statsGraphsData.bystudents_stats}
+        graphWidth = {this.props.graphWidth}
+        graphHeight = {this.props.graphHeight}
+      />);
     }
     if (this.props.isStudent) {
       asStudent = (
@@ -103,10 +113,7 @@ const InstructorStats = React.createClass({
           </div>
           {statsVisualizations}
         </div>
-        < ByStudentsStats
-          username = {this.props.username}
-          stats = {this.props.stats.by_students}
-        />
+        {byStudents}
         {asStudent}
       </div>
     );
