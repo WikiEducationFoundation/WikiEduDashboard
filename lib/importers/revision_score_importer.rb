@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/ores_api"
+require "#{Rails.root}/lib/wiki_api"
 
 #= Imports revision scoring data from ores.wikimedia.org
 # As of July 2016, this only applies to English Wikipedia.
@@ -75,17 +77,15 @@ class RevisionScoreImporter
 
   def save_scores(scores, features)
     scores.each do |rev_id, score|
-      next unless score&.key?('probability')
       revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
       revision.features = features[rev_id]
+      revision.deleted = true if score.dig('error', 'type') == 'TextDeleted'
       revision.save
     end
   end
 
   def get_parent_id(revision)
-    require "#{Rails.root}/lib/wiki_api"
-
     rev_id = revision.mw_rev_id
     rev_query = parent_revision_query(rev_id)
     response = WikiApi.new(revision.wiki).query rev_query
@@ -106,6 +106,7 @@ class RevisionScoreImporter
                      'Start' => 20,
                      'Stub'  => 0 }.freeze
   def en_wiki_weighted_mean_score(probability)
+    return unless probability
     mean = 0
     WP10_WEIGHTING.each do |rating, weight|
       mean += probability[rating] * weight
