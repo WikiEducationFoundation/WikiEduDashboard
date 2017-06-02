@@ -88,6 +88,25 @@ describe RevisionScoreImporter do
     end
   end
 
+  it 'marks RevisionNotFound revisions as deleted' do
+    VCR.use_cassette 'revision_scores/deleted_revision' do
+      # Article and its revisions are deleted
+      article = create(:article,
+                       mw_page_id: 123456,
+                       title: 'Premi_O_Premi',
+                       namespace: 0)
+      create(:revision,
+             mw_rev_id: 753277075,
+             article_id: article.id,
+             mw_page_id: 123456)
+      RevisionScoreImporter.new.update_all_revision_scores_for_articles([article])
+      revision = article.revisions.first
+      expect(revision.deleted).to eq(true)
+      expect(revision.wp10).to be_nil
+      expect(revision.features).to be_empty
+    end
+  end
+
   it 'does not try to query deleted revisions' do
     revisions = RevisionScoreImporter.new.send(:unscored_mainspace_userspace_and_draft_revisions)
     expect(revisions.where(mw_rev_id: 1).count).to eq(0)
