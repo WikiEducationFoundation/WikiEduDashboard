@@ -86,15 +86,6 @@ describe Article do
     end
   end
 
-  describe '.update_all_caches_concurrently' do
-    it 'calls .update_all_caches multiple times' do
-      concurrency = 6
-      expect(Article).to receive(:update_all_caches)
-        .exactly(concurrency).times
-      Article.update_all_caches_concurrently(concurrency)
-    end
-  end
-
   describe 'deleted articles' do
     it 'should not contribute to cached course values' do
       course = create(:course, end: '2016-12-31'.to_date)

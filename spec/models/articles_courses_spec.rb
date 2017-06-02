@@ -81,15 +81,6 @@ describe ArticlesCourses, type: :model do
     end
   end
 
-  describe '.update_all_caches_concurrently' do
-    it 'calls .update_all_caches multiple times' do
-      concurrency = 6
-      expect(ArticlesCourses).to receive(:update_all_caches)
-        .exactly(concurrency).times
-      ArticlesCourses.update_all_caches_concurrently(concurrency)
-    end
-  end
-
   describe '.update_from_course' do
     before do
       create(:course, id: 1, start: 1.year.ago, end: 1.day.ago)
