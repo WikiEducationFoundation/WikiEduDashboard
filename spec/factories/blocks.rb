@@ -14,6 +14,8 @@
 #  order               :integer
 #  due_date            :date
 #  training_module_ids :text(65535)
+#  graded              :boolean
+#  points              :string(255)
 #
 
 FactoryGirl.define do
