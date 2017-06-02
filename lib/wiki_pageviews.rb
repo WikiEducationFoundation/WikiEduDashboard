@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Fetches pageview data from the Wikimedia pageviews REST API
 # Documentation: https://wikimedia.org/api/rest_v1/?doc#!/Pageviews_data/get_metrics_pageviews_per_article_project_access_agent_article_granularity_start_end
 class WikiPageviews
@@ -104,4 +105,18 @@ class WikiPageviews
     Rails.logger.error "Wikimedia REST API error: #{e}"
     raise e
   end
+
+  def parse_results(response)
+    return unless response
+    data = Utils.parse_json(response)
+    return data['items'] if data['items']
+    return no_results if data['type'] == 'https://restbase.org/errors/not_found'
+    raise PageviewApiError, response
+  end
+
+  def no_results
+    nil
+  end
+
+  class PageviewApiError < StandardError; end
 end
