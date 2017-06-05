@@ -247,8 +247,11 @@ en:
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
     campaign_courses: '%{title} Courses'
+    campaign_articles: '%{title} Articles'
+    campaign_users: '%{title} Editors'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
+    course: Course
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
@@ -434,6 +437,7 @@ en:
     assignments_none: This project has no assigned articles.
     assignment_start: Timeline Start
     cancel: Cancel
+    course: Program
     courses: Programs
     courses_taught: Programs Taught
     campaigns: 'Campaigns: '

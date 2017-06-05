@@ -119,6 +119,8 @@ Rails.application.routes.draw do
     member do
       get 'overview'
       get 'programs'
+      get 'articles'
+      get 'users'
       get 'students'
       get 'instructors'
       get 'courses'
