@@ -8,3 +8,6 @@ export const RESET_NEED_HELP_ALERT = 'RESET_NEED_HELP_ALERT';
 
 // ui
 export const TOGGLE_UI = 'TOGGLE_UI';
+
+// feedback
+export const FEEDBACK = 'FEEDBACK';

@@ -39,7 +39,7 @@ const MyAssignment = React.createClass({
     }
 
     if (this.props.assignment.role === 0 && isEnglishWikipedia) {
-      feedback = <Feedback />;
+      feedback = <Feedback assignment={this.props.assignment} />;
     }
 
     // Assigned article that does not yet exist in mainspace

@@ -66,6 +66,24 @@ const API = {
     });
   },
 
+  fetchFeedback(revId) {
+    return new Promise((res, rej) => {
+      const url = `/revision_feedback/${revId}`;
+      return $.ajax({
+        type: 'GET',
+        url,
+        dataType: 'json',
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+    });
+  },
+
   fetchTrainingStatus(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;

@@ -1,13 +1,28 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as FeedbackAction from '../../actions/feedback_action.js';
 
 const Feedback = React.createClass({
   displayName: 'Feedback',
+
+  propTypes: {
+    fetchFeedback: React.PropTypes.func,
+    feedback: React.PropTypes.object,
+    assignment: React.PropTypes.object.isRequired
+  },
 
   getInitialState() {
     return {
       show: false
     };
+  },
+
+  componentWillMount() {
+    if (this.props.assignment.article_id) {
+      this.props.fetchFeedback(this.props.assignment.article_id);
+    }
   },
 
   show() {
@@ -31,6 +46,15 @@ const Feedback = React.createClass({
     }
 
     let modal;
+    let messages = this.props.feedback[this.props.assignment.article_id];
+    const feedbackList = [];
+    if (!messages) {
+      messages = [{ message: 'The Article doesn\'t exist' }];
+    }
+
+    for (let i = 0; i < messages.length; i++) {
+      feedbackList.push(<li>{messages[i].message}</li>);
+    }
     if (!this.state.show) {
       modal = <div className="empty" />;
     } else {
@@ -38,9 +62,9 @@ const Feedback = React.createClass({
         <div className="article-viewer feedback">
           <h2>Feedback</h2>
           <a className="button small diff-viewer-feedback" href="" target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
-          <p>
-            Some awesome feedback.
-          </p>
+          <ul>
+            {feedbackList}
+          </ul>
           {button}
         </div>
       );
@@ -55,4 +79,12 @@ const Feedback = React.createClass({
   }
 });
 
-export default OnClickOutside(Feedback);
+const mapDispatchToProps = dispatch => ({
+  fetchFeedback: bindActionCreators(FeedbackAction, dispatch).fetchFeedback
+});
+
+const mapStateToProps = state => ({
+  feedback: state.feedback
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(Feedback));

@@ -152,7 +152,7 @@ Rails.application.routes.draw do
 
   # Revision Feedback
   if Features.enable_revision_feedback?
-    get 'revision_feedback/:rev_id' => 'revision_feedback#index'
+    get 'revision_feedback/:article_id' => 'revision_feedback#index'
   end
 
   # Wizard
