@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Kareyac
+# Author: Spiritia
 # Author: StanProg
 # Author: Termininja
 # Author: V111P
@@ -11,10 +12,13 @@ bg:
   application:
     cancel: Отказ
     dashboard: Табло на Wiki Ed
+    documentation: Документация
     error: 'Възникна грешка:'
     field_required: Това поле е задължително
     field_invalid_characters: Това поле има невалидни знаци
     field_invalid_date: Това поле изисква дата във формат YYYY-MM-DD
+    field_invalid_date_time: Краят трябва да бъде след началото. (Часовете са от 0
+      до 23.)
     greeting2: Добре дошли!
     greeting_extended: Добре дошли в Уикипедия
     greeting: Здравейте!
@@ -25,6 +29,7 @@ bg:
     log_out: Излизане
     my_dashboard: Моето табло
     recent_activity: Последни действия
+    report_problem: Докладване за проблем
     search: задайте въпрос
     sign_up_extended: Регистрация с помощ на Уикипедия
     sign_up_log_in_extended: чрез Уикипедия
@@ -34,6 +39,10 @@ bg:
     details: Подробности
     confirm: Добре
   dashboard:
+    create_note: Щракнете на „Създаване на курс“, за да стартирате първия си курс.
+    explore_examples: Разгледай примерите
+    join_note: Щом получите парола от инструктора си, щракнете върху „Намери своя
+      курс“ и се включете към курса.
     no_courses_instructor: Изглежда, че нямате никакви курсове.
     no_courses_student: Изглежда, че все още не сте се включили в курс.
   home:
@@ -53,6 +62,7 @@ bg:
     title_example: Заглавие на статията
     view_doc: Сумата на всички преглеждания на всяка статия по време на проекта
   assignments:
+    loading: Зареждане на заданията...
     remove: Премахване
     select: Избиране
   campaign:
@@ -79,6 +89,8 @@ bg:
     all_courses: Всички курсове
     actions: Действия
     articles: Статии
+    assignment_end: Края на заданието
+    assignment_start: Начало на заданието
     calendar:
       legend: Легенда
     cancel: Отказ
@@ -87,20 +99,42 @@ bg:
     courses: Курсове
     creation_date: Дата на създаване
     creator:
+      assignment_end: Край на заданието
+      assignment_end_placeholder: Край на заданието (YYYY-MM-DD)
+      assignment_start: Начало на заданието
+      assignment_start_placeholder: Начало на заданието (YYYY-MM-DD)
       clone_previous: Клониране на предишния курс
       clone_this: Клониране на този курс
+      clone_successful: Курсът е успешно клониран
       course_description: Описание на курса
+      course_title: Заглавие на курса
+      create_button: Създай курса ми!
       create_label: Създаване на нов курс
+      create_new: Създай нов курс
       create_short: Създаване на курс
       end_date: Крайна дата
+      end_date_placeholder: Крайна дата (YYYY-MM-DD)
+      expected_number: Очакван брой обучаеми
+      find: Намери курса си
+      intro: Заглавието на курса, името на учебното заведение и периода определят
+        уникалния адрес на курса ви. Те не подлежат на промяна. Всичко друго можете
+        да редактирате впоследствие. Щракнете на „Create my Course“, за да започнете
+        със създаването на графика за вашите уики задания.
       start_date: Начална дата
+      start_date_placeholder: Начална дата (YYYY-MM-DD)
+      subject: Тема
     current: Текущи курсове
     delete_course: Изтриване на курс
+    duration: Продължителност на курса
+    edit_course_dates: Редактиране на датите на курса
+    enable_chat: Разрешаване на чата
     end: Край
+    ended: Курсът е приключил.
     enroll: Записване
     error:
       exists: Такъв курс вече съществува. Моля, опитайте с различно заглавие, училище
         или семестър.
+      invalid_language_or_project: Невалиден език/проект
     loading: Зареждане…
     my_articles: Моите статии
     new_week: Добавяне на нова седмица

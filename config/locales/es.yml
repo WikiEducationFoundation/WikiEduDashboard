@@ -8,6 +8,7 @@
 # Author: Fitoschido
 # Author: Fortega
 # Author: Irus
+# Author: Javiersanp
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
@@ -23,6 +24,7 @@ es:
   application:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
+    documentation: Documentación
     error: 'Hubo un error:'
     explore: Explorar
     field_required: Este campo es obligatorio
@@ -40,6 +42,7 @@ es:
     log_out: Salir
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
+    report_problem: Informar sobre un problema
     search: preguntar
     sign_up_extended: Regístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -68,6 +71,10 @@ es:
     review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
     blog_headline: Noticias recientes de Wiki Ed
+    about_creating_programs: Si estás ejecutando un único evento independiente,  puedes
+      crear un Programa ahora. Si tu evento es parte  de algo más grande, encuentra
+      o crea la Campaña para él. Entonces puedes crear un Programa nuevo desde la
+      página de Campaña.
   home:
     explore: Explorar
     log_in: Iniciar sesión con Wikipedia
@@ -408,10 +415,13 @@ es:
       clone_previous: Clonar el programa previo
       clone_this: Clonar este programa
       clone_successful: Programa clonado con éxito
+      clone_successful_details: Tu programa ha sido clonado. Asegurate de añadir algo
+        en el campo 'Cuando' (por ejemplo, el mes y año) para diferenciarlo del original.
+        Entonces pulsa 'Guardar' abajo para finalizarlo.
       course_description: Descripción del programa
       course_school: Institución
-      course_term: Cuando
-      course_term_placeholder: Cuando
+      course_term: Cuándo
+      course_term_placeholder: Cuándo
       course_title: Título del programa
       create_button: ¡Crear mi programa!
       create_label: Crear programa nuevo

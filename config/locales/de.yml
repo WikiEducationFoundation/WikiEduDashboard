@@ -11,6 +11,7 @@ de:
   application:
     cancel: Abbrechen
     dashboard: Wiki-Ed-Dashboard
+    documentation: Dokumentation
     error: 'Es gab einen Fehler:'
     explore: Entdecken
     field_required: Dieses Feld ist erforderlich
@@ -28,6 +29,7 @@ de:
     log_out: Abmelden
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
+    report_problem: Ein Problem melden
     search: eine Frage stellen
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia

@@ -26,6 +26,7 @@ fr:
   application:
     cancel: Annuler
     dashboard: Tableau de bord de modification du wiki
+    documentation: Documentation
     error: 'Il y a eu une erreur :'
     explore: Explorer
     field_required: Ce champ est obligatoire
@@ -43,6 +44,7 @@ fr:
     log_out: Déconnexion
     my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
+    report_problem: Signaler un problème
     search: poser une question
     sign_up_extended: S’inscrire avec Wikipédia
     sign_up_log_in_extended: avec Wikipédia

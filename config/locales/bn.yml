@@ -11,6 +11,7 @@ bn:
   application:
     cancel: বাতিল
     dashboard: উইকি ইডি ড্যাশবোর্ড
+    documentation: নথিপত্র
     explore: অন্বেষণ করুন
     greeting2: স্বাগতম!
     greeting_extended: উইকিপিডিয়ায় স্বাগতম
@@ -22,6 +23,7 @@ bn:
     log_out: প্রস্থান করুন
     my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
+    report_problem: সমস্যার কথা জানান
     search: ask.wikiedu.org তে অনুসন্ধান করুন
     sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
     sign_up_log_in_extended: উইকিপিডিয়া দিয়ে

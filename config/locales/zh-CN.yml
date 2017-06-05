@@ -13,6 +13,7 @@ zh-CN:
   application:
     cancel: 取消
     dashboard: Wiki Ed控制面板
+    documentation: 文档
     error: 发生了错误：
     explore: 探索
     field_required: 此字段是必需的
@@ -29,6 +30,7 @@ zh-CN:
     log_out: 退出
     my_dashboard: 我的控制面板
     recent_activity: 最近活动
+    report_problem: 报告问题
     search: 提问问题
     sign_up_extended: 注册维基百科
     sign_up_log_in_extended: 通过维基百科
@@ -227,6 +229,7 @@ zh-CN:
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
     dismiss_survey: 关闭
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
+    download_stats_data: 下载统计
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
@@ -338,6 +341,7 @@ zh-CN:
       clone_previous: 克隆上一个程序
       clone_this: 克隆此计划
       clone_successful: 课程已成功关闭
+      clone_successful_details: 您的课程已被克隆。确保在“何时”字段中添加内容（例如年月）来区分该课程与原始内容。然后点击下方“保存”以完成课程。
       course_description: 程序描述
       course_school: 机构
       course_term: 何时

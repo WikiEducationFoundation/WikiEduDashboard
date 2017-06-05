@@ -5,6 +5,7 @@
 # Author: Ayatun
 # Author: Haytham morsy
 # Author: Maroen1990
+# Author: Mido
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
 # Author: Youssef
@@ -34,6 +35,7 @@ ar:
     log_out: تسجيل الخروج
     my_dashboard: لوحتي
     recent_activity: النشاطات الحديثة
+    report_problem: أبلغ عن مشكلة
     search: طرح سؤال
     sign_up_extended: تسجيل الدخول إلى ويكيبيديا
     sign_up_log_in_extended: مع ويكبيديا
@@ -252,14 +254,17 @@ ar:
       clone_this: استنساخ هذا البرنامج
       course_description: وصف البرنامج
       course_school: المؤسسة
+      course_term: متى
+      course_term_placeholder: متى
       course_title: اسم البرنامج
       create_button: أنشأ برنامجي!
       create_label: أنشئ برنامج جديد
-      create_new: انشئ برنامج جديد
+      create_new: انشئ برنامج مستقل
       create_short: أنشئ البرنامج
       find: البحث عن برنامج
       intro: مطلوب عنوان البرنامج، كل شيء يمكن ملؤه في وقت لاحق. انقر فوق "إنشاء برنامجي!"
         لبدء إنشاء صفحة لبرنامج الويكي الخاص بك.
+      save_cloned_course: احفظ
     delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
     explore: البحث عن برنامج

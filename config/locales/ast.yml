@@ -11,6 +11,7 @@ ast:
   application:
     cancel: Encaboxar
     dashboard: Tableru de Wiki Ed
+    documentation: Documentación
     error: 'Hebo un error:'
     explore: Esplorar
     field_required: Esti campu ye obligatoriu
@@ -28,6 +29,7 @@ ast:
     log_out: Salir
     my_dashboard: El mio tableru
     recent_activity: Actividá recién
+    report_problem: Informar d'un problema
     search: facer una entruga
     sign_up_extended: Rexístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -56,6 +58,10 @@ ast:
     review_orientation: Ver la orientación
     start_orientation: Principiar la orientación
     blog_headline: Noticies recién de Wiki Ed
+    about_creating_programs: Si tas xestionando una única actividá independiente,
+      puedes  crear un Programa agora. Si l'actividá ye parte de daqué más grande,
+      atopa o crea la Campaña pa ello. Entós puedes crear un Programa nuevu dende
+      la páxina de la Campaña.
   home:
     explore: Esplorar
     log_in: Aniciar sesión con Wikipedia
@@ -251,27 +257,60 @@ ast:
     delete_course: Desaniciar cursu
     dismiss_survey: Descartar
     dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
+    download_stats_data: Estadístiques de descargues
     duration: Duración del cursu
     edit_course_dates: Editar les Dates del cursu
+    enable_chat: Activar el chat
     end: Fin
+    ended: El cursu terminó.
     enroll: Inscribise
     enrollment: Inscripción
+    courses_enrolled: Cursos matriculaos
     error:
       exists: Esi cursu yá esiste. Inténtalo otra vuelta con un títulu, escuela o
         periodu diferentes.
       user_exists: Sentímoslo, nun esiste l'usuariu %{username}.
+      invalid_language_or_project: Idioma/proyeutu inválidu
+      invalid_slug: Escuela/títulu vacíu pal cursu.
+      duplicate_slug: Yá esiste otru programa llamú %{slug}.
+    expected_students: Estudiantes que s'esperen
     gradeables_none: Esti cursu nun tien xeres calificables.
     instructor:
       one: Profesor
       other: Profesores
+    instructors: Monitores
+    join: Xunise
+    join_course: Xunite al cursu
+    join_prompt: ¿Xunise a '%{title}'?
+    join_successful: Te xunisti correutamente a %{title}.
+    join_failed: Falló la inscripción.
+    join_failure_details:
+      cannot_join_twice: Los usuarios nun pueden matriculase dos veces nel mesmu cursu.
+      not_yet_approved: Esti cursu entá nun s'aprobó pa la inscripción.
+    leave_course: Dexar el cursu
+    loading: Cargando...
+    my_articles: Los mios artículos
+    needs_update: Actualización de datos de la programación
     new_week: Amestar una selmana más
     nocourses: Nun participes en nengún cursu.
+    nocourse: nun participó en nengún cursu.
+    none: Nengunu
     overview: Entamu
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
+    school: Escuela
+    school_and_term: Institución/Periodu
+    start: Principiu
+    start_typing: Empieza a escribir
     students: Estudiantes
+    students_count: '# d''estudiantes'
+    student_editors: Estudiantes editores
     students_none: Esti cursu nun tien estudiantes.
     students_short: Estudiantes
+    user_role: Papel
+    course_details: Detalles del cursu
+    term: Periodu
     timeline: Detalles de la xera
+    timeline_link: Cronograma
     title: Títulu
     view: Ver el cursu
     view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
@@ -286,11 +325,51 @@ ast:
       a los artículos del espaciu principal nel periodu del cursu
     yourcourses: Los tos cursos
   courses_generic:
+    all_courses: Tolos programes
+    archived: Programes archivaos
     articles_none: Inda nun hai artículos editaos nesti proyeutu.
     assignment_end: Fin de la llinia temporal
     assignments_none: Esti proyeutu nun tien artículos asinaos.
     assignment_start: Principiu de la llinia temporal
+    cancel: Encaboxar
+    courses: Programes
+    courses_taught: Programes enseñaos
+    campaigns: 'Campañes:'
+    campaign_courses: Programación de «%{title}»
+    creator:
+      checking_for_uniqueness: Ta comprobándose qu'esti programa sía únicu.
+      clone_previous: Clonar el programa anterior
+      clone_this: Clonar esti programa
+      clone_successful: Programa clonáu correutamente
+      course_description: Descripción del programa
+      course_school: Institución
+      course_term: Cuándo
+      course_term_placeholder: Cuándo
+      course_title: Títulu del programa
+      create_button: ¡Crear el mio programa!
+      create_label: Crear un programa nuevu
+      create_new: Crear un programa independiente
+      create_short: Crear programa
+      find: Alcontrar un programa
+      participate_in_campaign: Participar nuna campaña
+      save_cloned_course: Guardar
+    delete_course: Desaniciar programa
     edit_course_dates: Editar les dates de los proyeutos
+    explore: Alcontrar programes
+    enroll: Añadir editor
+    enrollment: Participación
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    students_count: Númberu de participantes
+    term: Cuándo
+    unsubmitted: Programes ensin presentar
+  editable:
+    edit: Editar
+    cancel: Encaboxar
+    save: Guardar
+    edit_description: Editar la descripción
+    edit_details: Editar los detalles
   metrics:
     activity: Actividá reciente
     articles_created: Artículos creaos
@@ -302,6 +381,8 @@ ast:
     date_time: Data/Hora
     edit_count_description: Total d'ediciones
     revisions: Ediciones recién
+    tags: Etiquetes
+    upload_count: Xubíes a Commons
     view_count_description: Visites del artículu
     view: Visites
     word_count: Palabres amestaes
@@ -311,10 +392,26 @@ ast:
     user: Espaciu d'usuariu
     user_char_added: Caráuteres añadíos nel espaciu d'usuariu
     user_ns: Usuariu
+  recent_activity:
+    image: Imaxe
+    file_name: Nome del ficheru
+    no_edits: Nun hai nenguna edición recién.
+    plagiarism_report: Informe de plaxu
+    possible_plagiarism: Posible plaxu
+    recent_edits: Ediciones recién
+    recent_uploads: Xubíes recién
+    revision_author: Autor de la revisión
+    revision_datetime: Fecha/hora de la revisión
+    revision_score: Puntuación de revisión
+    uploaded_by: Xubíu por
+    usage_count: Total d'usos
   revisions:
     chars_added: Caráuteres añadíos
     class: Clase
     date_time: Fecha/hora
+    diff: diff
+    diff_show: Amosar
+    diff_hide: Anubrir
     edited_by: Editáu por
     loading: Cargando revisiones...
     none: Esti cursu nun tien actividá editorial recien.
@@ -333,6 +430,10 @@ ast:
       nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
       de finxos de la páxina de resume)
     due_default: Previstu pa la selmana viniente
+    empty_week_3: o
+    empty_week_4: usar l'asistente d'asignaciones pa crear una llinia temporal.
+    first_week_title: Primera selmana activa
+    gradeable_value: Valor
     title: Cronograma
     unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
       completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
@@ -345,6 +446,7 @@ ast:
     usages: Usos
   users:
     already_enrolled: Esi usuario yá ta apuntáu.
+    assign_articles_done: Fecho
     assigned: Artículos axudicaos
     assignees: Encargáu(os)
     character_doc: La cantidá total de conteníu qu'un usuariu amestó a esti espaciu

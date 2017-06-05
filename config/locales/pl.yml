@@ -14,6 +14,7 @@ pl:
   application:
     cancel: Anuluj
     dashboard: Centrum programów i wydarzeń
+    documentation: Dokumentacja
     error: 'Wystąpił błąd:'
     explore: Odkryj
     field_required: Wypełnienie tego pola jest obowiązkowe

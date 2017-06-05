@@ -19,6 +19,7 @@ zh-TW:
   application:
     cancel: 取消
     dashboard: Wiki Ed 資訊看板
+    documentation: 文件
     error: 發生了錯誤：
     explore: 探索
     field_required: 此為必填欄位
@@ -35,6 +36,7 @@ zh-TW:
     log_out: 登出
     my_dashboard: 我的資訊看板
     recent_activity: 最近活動
+    report_problem: 回報問題
     search: 提出問題
     sign_up_extended: 註冊維基百科
     sign_up_log_in_extended: 參與維基百科

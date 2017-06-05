@@ -23,6 +23,7 @@ qqq:
       Button to cancel an action
       {{Identical|Cancel}}
     dashboard: Application name.
+    documentation: '{{Identical|Documentation}}'
     error: Label for error messages
     explore: |-
       Explore link

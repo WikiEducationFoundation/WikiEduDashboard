@@ -7,6 +7,7 @@ lb:
   application:
     cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
+    documentation: Dokumentatioun
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
@@ -23,6 +24,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    report_problem: E Problem mellen
     search: eng Fro stellen
     sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia

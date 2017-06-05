@@ -23,6 +23,7 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    documentation: 설명서
     error: '오류가 있었습니다:'
     explore: 찾아보기
     field_required: 이 칸은 반드시 입력해야 합니다
@@ -39,6 +40,7 @@ ko:
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
+    report_problem: 문제점 보고
     search: 질문하기
     sign_up_extended: 위키백과에 로그인하기
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -154,6 +156,7 @@ ko:
     delete_course: 과정 삭제
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
+    download_stats_data: 다운로드 통계
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
     enable_chat: 채팅 사용하기
