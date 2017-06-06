@@ -1,4 +1,5 @@
 import React from 'react';
+import NewAccountButton from './new_account_button.jsx';
 
 const EnrollCard = ({
   user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason
@@ -46,14 +47,10 @@ const EnrollCard = ({
       <div>
         <h1>{I18n.t('application.greeting')}</h1>
         <p>{I18n.t('courses.invitation', { title: course.title })}</p>
-        <p>
-          <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
-            <i className="icon icon-wiki-logo"></i> {I18n.t('application.log_in_extended')}
-          </a>
-          <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border">
-            <i className="icon icon-wiki-logo"></i> {I18n.t('application.sign_up_extended')}
-          </a>
-        </p>
+        <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
+          <i className="icon icon-wiki-logo"></i> {I18n.t('application.log_in_extended')}
+        </a>
+        <NewAccountButton course={course} passcode={passcode} />
       </div>
     );
   }
@@ -77,7 +74,7 @@ const EnrollCard = ({
 EnrollCard.propTypes = {
   user: React.PropTypes.object,
   userRoles: React.PropTypes.object,
-  course: React.PropTypes.object,
+  course: React.PropTypes.object.isRequired,
   courseLink: React.PropTypes.string,
   passcode: React.PropTypes.string,
   enrolledParam: React.PropTypes.string,
