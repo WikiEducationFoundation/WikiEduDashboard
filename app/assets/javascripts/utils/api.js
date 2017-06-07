@@ -662,6 +662,13 @@ slide_id=${opts.slide_id}`,
     );
   },
 
+  requestNewAccount(passcode, courseSlug, username, email) {
+    // TODO: send request to server
+    return new Promise((res, rej) => {
+      return res();
+    });
+  },
+
   chatLogin() {
     return new Promise((res, rej) =>
       $.ajax({
