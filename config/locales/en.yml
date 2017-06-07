@@ -368,8 +368,8 @@ en:
     new_account_username_taken: That username is already taken. Please choose another.
     new_account_submit: Request account
     new_account_submitted: >
-      Your request for an account has been submitted. The Facilitator for this can
-      finalize your account creation now. Once it is created, you'll get a password
+      Your request for an account has been submitted. The Facilitator for this program
+      can finalize your account creation now. Once it is created, you'll get a password
       for the new account by email.
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.

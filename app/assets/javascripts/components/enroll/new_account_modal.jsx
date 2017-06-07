@@ -31,7 +31,7 @@ const NewAccountModal = ({ course, passcode, closeModal, newAccount, actions }) 
   }
   let confirmSubmitted;
   if (newAccount.submitted) {
-    confirmSubmitted = <big>{I18n.t('courses.new_account_submitted')}</big>;
+    confirmSubmitted = <div className="success">{I18n.t('courses.new_account_submitted')}</div>;
   }
 
   return (
