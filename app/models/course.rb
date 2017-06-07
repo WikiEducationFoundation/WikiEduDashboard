@@ -67,6 +67,7 @@ class Course < ActiveRecord::Base
   has_many :volunteers, -> { where('courses_users.role > 1') },
            through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
+  has_many :requested_accounts
 
   #########################
   # Activity by the users #
