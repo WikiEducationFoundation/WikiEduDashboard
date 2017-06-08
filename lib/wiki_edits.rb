@@ -76,6 +76,23 @@ class WikiEdits
     api_post params, current_user
   end
 
+  ##################
+  # Create account #
+  ##################
+
+  # Create an account, with a random password to be emailed by mediawiki to the
+  # email provided.
+  def create_account(creator:, username:, email:, reason: '')
+    params = { action: 'createaccount',
+               username: username,
+               email: email,
+               mailpassword: 1,
+               reason: reason,
+               createreturnurl: 'http://example.com',
+               format: 'json' }
+    api_post(params, creator, token_name: :createtoken, token_type: 'createaccount')
+  end
+
   ###################
   # Helper methods #
   ###################
@@ -89,11 +106,11 @@ class WikiEdits
   ###############
   # API methods #
   ###############
-  def api_post(data, current_user)
-    return {} if Features.disable_wiki_output?
-    tokens = get_tokens(current_user)
-    return tokens unless tokens['csrf_token']
-    data[:token] = tokens.csrf_token
+  def api_post(data, current_user, token_name: :token, token_type: 'csrf')
+    # return {} if Features.disable_wiki_output?
+    tokens = get_tokens(current_user, token_type)
+    return tokens unless tokens['action_token']
+    data[token_name] = tokens.action_token
 
     # Make the request
     response = tokens.access_token.post(@api_url, data)
@@ -106,12 +123,12 @@ class WikiEdits
 
   private
 
-  def get_tokens(current_user)
+  def get_tokens(current_user, type = 'csrf')
     return { status: 'no current user' } unless current_user
 
-    # Request a CSRF token for the user
+    # Request a CSRF or other token for the user
     @access_token = oauth_access_token(current_user)
-    get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json")
+    get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json&type=#{type}")
 
     # Handle 5XX response for when MediaWiki API is down
     handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }
@@ -121,22 +138,17 @@ class WikiEdits
     WikiResponse.capture(token_response, current_user: current_user, type: 'tokens')
     return { status: 'failed' } unless token_response.key?('query')
 
-    OpenStruct.new(csrf_token: token_response['query']['tokens']['csrftoken'],
+    OpenStruct.new(action_token: token_response['query']['tokens']["#{type}token"],
                    access_token: @access_token)
   end
 
   def oauth_consumer
-    OAuth::Consumer.new ENV['wikipedia_token'],
-                        ENV['wikipedia_secret'],
-                        client_options: {
-                          site: "https://#{@wiki.language}.#{@wiki.project}.org"
-                        }
+    OAuth::Consumer.new ENV['wikipedia_token'], ENV['wikipedia_secret'],
+                        client_options: { site: "https://#{@wiki.language}.#{@wiki.project}.org" }
   end
 
-  def oauth_access_token(current_user)
-    OAuth::AccessToken.new oauth_consumer,
-                           current_user.wiki_token,
-                           current_user.wiki_secret
+  def oauth_access_token(user)
+    OAuth::AccessToken.new(oauth_consumer, user.wiki_token, user.wiki_secret)
   end
 
   def handle_mediawiki_server_errors(response)
