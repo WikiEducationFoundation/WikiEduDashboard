@@ -19,6 +19,7 @@ it:
   application:
     cancel: Annulla
     dashboard: Cruscotto Wiki Ed
+    documentation: Documentazione
     error: 'Si è verificato un errore:'
     explore: Esplora
     field_required: Questo campo è obbligatorio
@@ -34,6 +35,7 @@ it:
     log_out: Esci
     my_dashboard: Il mio cruscotto
     recent_activity: Attività recente
+    report_problem: Segnala un problema
     search: chiedi una domanda
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -170,6 +172,7 @@ it:
       del corso per procedere.
     confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
       corso non è stato cancellato.'
+    course: Corso
     course_description: Corsi
     courses: Corsi
     creation_date: Data di creazione
@@ -313,6 +316,7 @@ it:
     assignments_none: Questo progetto non ha voci assegnate.
     assignment_start: Inizio timeline
     cancel: Annulla
+    course: Programma
     courses: Programmi
     campaigns: 'Campagne:'
     creator:

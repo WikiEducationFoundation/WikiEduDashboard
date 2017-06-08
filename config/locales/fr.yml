@@ -5,6 +5,7 @@
 # Author: C13m3n7
 # Author: Dcausse
 # Author: Eric.LEWIN
+# Author: Fitoschido
 # Author: Gomoko
 # Author: LudaOtaku
 # Author: Mabroukb
@@ -229,10 +230,13 @@ fr:
       de nom principal par les étudiants du cours durant son déroulement
     campaigns: 'Complices :'
     campaign_courses: '%{title} Cours'
+    campaign_articles: Articles %{title}
+    campaign_users: Éditeurs %{title}
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
       cours n’a pas été supprimé.
+    course: Cours
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
       du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
       entre non sélectionnée, sélectionnée, et en congé. Les dates des activités de
@@ -422,6 +426,7 @@ fr:
     assignments_none: Ce projet n’a pas d’article affecté.
     assignment_start: Début de la chronologie
     cancel: Annuler
+    course: Programme
     courses: Programmes
     courses_taught: Programmes enseignés
     campaigns: 'Campagnes :'
@@ -442,7 +447,7 @@ fr:
       course_title: Titre du programme
       create_button: Créer mon programme !
       create_label: Créer un nouveau programme
-      create_new: Créer un Programme indépendant
+      create_new: Créer un programme indépendant
       create_short: Créer un programme
       find: Trouver un programme
       intro: Le titre du programme est obligatoire, tout le reste pourra être rempli

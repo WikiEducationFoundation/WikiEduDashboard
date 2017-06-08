@@ -1,6 +1,7 @@
 # Messages for Esperanto (Esperanto)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Fitoschido
 # Author: Lucas
 # Author: Ochilov
 # Author: Rafaneta
@@ -54,7 +55,7 @@ eo:
       course_school: Lernejo
       create_button: Krei mian programon!
       create_label: Krei novan programon
-      create_new: Krei novan programon
+      create_new: Krei sendependan programon
       create_short: Krei programon
       find: Trovi programon
   editable:

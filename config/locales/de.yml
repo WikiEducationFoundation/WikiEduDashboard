@@ -216,10 +216,13 @@ de:
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
     campaign_courses: '%{title} Kurse'
+    campaign_articles: '%{title} Artikel'
+    campaign_users: '%{title} Autoren'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
       Der Kurs wurde nicht gelöscht.
+    course: Kurs
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
@@ -410,6 +413,7 @@ de:
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Zeitleisten-Beginn
     cancel: Abbrechen
+    course: Programm
     courses: Programme
     courses_taught: Unterrichtete Programme
     campaigns: 'Kampagnen:'

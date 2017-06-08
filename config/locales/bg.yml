@@ -70,7 +70,9 @@ bg:
     add_organizer: Добавяне на организатор
     all_campaigns: Всички кампании
     campaign: Кампания
+    campaigns: Кампании
     campaign_deleted: Кампания „%{title}“ беше изтрита
+    campaign_not_updated: Кампанията не може да бъде актуализирана
     campaign_updated: Кампанията е обновена
     confirm_course_removal: Сигурни ли сте, че искате да изтриете „%{title}“ от кампания
       „%{campaign_title}“?

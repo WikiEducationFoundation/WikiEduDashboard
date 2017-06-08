@@ -131,6 +131,8 @@ ko:
       legend_class_meeting: 수업 미팅
       legend_class_not_meeting: 예정된 미팅 없음
     cancel: 취소
+    campaign_articles: '%{title} 문서'
+    campaign_users: '%{title} 편집자'
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
@@ -216,6 +218,7 @@ ko:
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
     cancel: 취소
+    course: 프로그램
     courses: 프로그램
     creator:
       clone_successful: 프로그램이 성공적으로 복제되었습니다

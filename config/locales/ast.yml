@@ -296,6 +296,11 @@ ast:
     nocourse: nun participó en nengún cursu.
     none: Nengunu
     overview: Entamu
+    passcode: Códigu d'accesu
+    passcode_none: Sin códigu d'accesu
+    passcode_prompt: 'Escribe''l códigu d''accesu pa xunite:'
+    published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
+      la siguiente URL:'
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
     school: Escuela
     school_and_term: Institución/Periodu
@@ -434,18 +439,36 @@ ast:
     empty_week_4: usar l'asistente d'asignaciones pa crear una llinia temporal.
     first_week_title: Primera selmana activa
     gradeable_value: Valor
+    save_all_changes: Guardar too
+    this_week_title_default: Esta selmana
     title: Cronograma
     unable_to_add_week: Nun pues amestar nueves selmanes cuando'l to cronograma ta
       completu. Desanicia polo menos una selmana o cambia les dates de la xera pa
       facer sitiu pa la nueva.
+    view_full_timeline: Ver el cronograma completu
+    week_number: Selmana %{number}
+  training:
+    continue: Siguir (%{progress})
+    start: Principiar
+    view: Ver
+    logged_out: Zarróse la sesión. Nun vas recibir creitu por completar esti módulu
+      mentanto nun anicies sesión.
   uploads:
+    datetime: Data/Hora
+    file_name: Nome del ficheru
+    header: Ficheros xubíos a Wikimedia Commons
+    image: Imaxe
+    label: Xubíes
     loading: Cargando xubes...
     none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
       Commons.
     time_doc: La hora de cada xuba n'hora llocal
+    uploaded_by: Xubíu por
+    usage_count: Númberu d'usos
     usages: Usos
   users:
     already_enrolled: Esi usuario yá ta apuntáu.
+    assign_articles: Axudicar artículos
     assign_articles_done: Fecho
     assigned: Artículos axudicaos
     assignees: Encargáu(os)
@@ -456,11 +479,23 @@ ast:
       esti total.
     chars_added: Caráuteres añadíos<br>(artículu | usuariu | borrador)
     contributions: Contribuciones del usuariu
+    contributions_history_full: Ver l'historial completu de contribuciones a Wikipedia
     contributions_more: Ver más contribuciones
+    contribution_statistics: Estadístiques de contribución
+    course_passcode: 'Códigu d''accesu:'
     editors: Editores estudiantes
+    enroll_confirmation: ¿Tas seguru de que quies añadir a %{username}?
+    first_name: Nome
+    last_name: Apellíu
     loading: Cargando usuarios...
+    characters_added_mainspace: Caráuteres añadíos al espaciu principal
+    characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
+    characters_added_userspace: Caráuteres añadíos al espaciu d'usuariu
+    my_assigned: 'Axudicaos:'
+    my_reviewing: 'En revisión:'
     name: Nome
     none: Nun hai participantes.
+    no_articles: Nun hai artículos
     recent_revisions: Ediciones recién
     revisions_doc: El númberu d'ediciones feches por esti editor nos 7 díes anteriores
     reviewers: Revisor(es)
@@ -474,7 +509,22 @@ ast:
     training_doc: Los editores que completaron tolos módulos d'entrenamientu designaos
       que tean vencíos cuéntense como al día col entrenamientu.
     training_incomplete: Entrenamientu incompletu
+    training_module_status: Estáu
     up_to_date_with_training: al día col entrenamientu
+    username: Nome d'usuariu
+    username_placeholder: Nome d'usuariu
+    role:
+      visitor: Visitante
+      student: Alumnu
+      instructor: Monitor
+      campus_volunteer: Voluntariu de campus
+      online_volunteer: Voluntariu en llinia
+      wiki_ed_staff: Personal de Wiki Ed
+  user_profiles:
+    student_impact: Impactu total de %{username} como alumnu
+    instructor_impact: Impactu total de %{username} como monitor
+    instructors_student_impact: Impactu total de los alumnos de %{username}
+    disclaimer: La información que proporciones va tar disponible públicamente.
   wiki_edits:
     notify_overdue:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes

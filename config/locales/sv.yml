@@ -10,6 +10,7 @@
 sv:
   application:
     cancel: Avbryt
+    documentation: Dokumentation
     error: 'Ett fel uppstod:'
     explore: Utforska
     field_required: Detta fält är obligatoriskt
@@ -27,6 +28,7 @@ sv:
     log_out: Logga ut
     my_dashboard: Min kontrollpanel
     recent_activity: Senaste aktivitet
+    report_problem: Rapportera ett problem
     search: ställ en fråga
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -102,6 +104,9 @@ sv:
     cancel: Avbryt
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Kurser'
+    campaign_articles: '%{title} artiklar'
+    campaign_users: '%{title}-redigerare'
+    course: Kurs
     course_description: Kurser
     courses: Kurser
     creator:
@@ -133,6 +138,7 @@ sv:
     delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort
       först.
     dismiss_survey: Stäng
+    download_stats_data: Ladda ned statistik
     enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
@@ -178,6 +184,7 @@ sv:
   courses_generic:
     all_courses: Alla program
     cancel: Avbryt
+    course: Program
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
     creator:

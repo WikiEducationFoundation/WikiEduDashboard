@@ -232,7 +232,7 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
-    courses_taught: Cursos enseñados
+    courses_taught: Cursos impartidos
     creation_date: Fecha de creación
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
@@ -407,7 +407,7 @@ es:
     assignment_start: Inicio del cronograma
     cancel: Cancelar
     courses: Programas
-    courses_taught: Programas enseñados
+    courses_taught: Programas impartidos
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»
     creator:
@@ -717,7 +717,7 @@ es:
       one: Selecciona %{count} o más opciones.
       other: Selecciona %{count} o más opciones.
     read_less: Leer menos
-    read_more: Leer más
+    read_more: Más información
     review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.
       Cuando hayas terminado, haz clic en "Enviar" para finalizar el asistente y crear
       tu cronograma.
@@ -731,7 +731,7 @@ es:
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     start_date_before_end_date: La fecha inicial debe ser anterior a la fecha final.
     unsupported_browser:
-      header: Navegador no soportado. :-(
+      header: No admitimos este navegador. :-(
       explanation: Está utilizando un navegador que no es compatible con el panel
         de control. Este sitio funciona bien en Internet Explorer versión 10 o posterior,
         en versiones recientes de Chrome y Firefox, y en otros navegadores modernos.

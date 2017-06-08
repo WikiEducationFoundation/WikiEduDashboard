@@ -1,6 +1,7 @@
 # Messages for Hindi (हिन्दी)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Anamdas
 # Author: Rajat11
 # Author: Sachinkatiyar
 # Author: Sfic
@@ -63,7 +64,7 @@ hi:
     blog_headline: विकी एड से कुछ देर पहले की खबरें
   home:
     explore: अन्वेषण
-    log_in: विकिपीडिया के साथ जुड़ें
+    log_in: विकिपीडिया में प्रवेश (लॉगिन) करें
     sign_up: विकिपीडिया के साथ जुड़ें
     sign_up_help: डैशबोर्ड का उपयोग करने के लिए, आपको विकिपीडिया के माध्यम से साइन
       इन करना होगा और इसे अपने खाते तक पहुंचने की अनुमति देना होगा। आप मौजूदा विकिपीडिया
@@ -71,6 +72,7 @@ hi:
   activity:
     all: गतिविधि
   courses:
+    campaign_users: '%{title} संपादक'
     course_description: पाठ्यक्रम
     creator:
       course_term_placeholder: अवधि
@@ -85,6 +87,7 @@ hi:
     term: अवधि
   courses_generic:
     all_courses: सभी पाठ्यक्रम
+    course: प्रोग्राम
     school: संस्थान
     student_editors: सम्पादक
     students_short: संपादक

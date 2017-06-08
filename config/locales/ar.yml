@@ -143,9 +143,12 @@ ar:
       legend_class_not_meeting: لا يوجد اجتماع مقرر
       select_meeting_days: تحديد أيام الأسبوع التي يجتمع فيها صفك.
     campaigns: 'الحملات:'
+    campaign_articles: مقالات %{title}
+    campaign_users: محرري %{title}
     confirm_course_deletion: هل أنت متأكد أنك تريد حذف الدورة بعنوان %{title}؟ إذا
       كان الأمر كذلك، اكتب عنوان الدورة للقيام بذلك.
     confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة. لم يتم حذفه الدورة.'
+    course: دورة
     courses: الدورات
     creation_date: تاريخ الإنشاء
     creator:
@@ -248,6 +251,7 @@ ar:
     assignment_end: نهاية الجدول الزمني
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بداية الجدول الزمني
+    course: برنامج
     creator:
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
       clone_previous: استنساخ برنامج سابق

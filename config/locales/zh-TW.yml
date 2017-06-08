@@ -187,8 +187,11 @@ zh-TW:
     character_doc: 選課學生在修課期間所編寫，在主命名空間的文章之總位元組數。 (1 中文字=3 位元組)
     campaigns: 活動：
     campaign_courses: '%{title}課程'
+    campaign_articles: '%{title}文章'
+    campaign_users: '%{title}編者'
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
+    course: 課程
     course_dates_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候)。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。課程活動的日期會更改帳號沒有預定會議的星期。
     course_description: 課程
     courses: 課程
@@ -347,6 +350,7 @@ zh-TW:
     assignments_none: 此項目沒有任何文章被分配。
     assignment_start: 時間軸起點
     cancel: 取消
+    course: 方案
     courses: 方案
     courses_taught: 教授的方案
     campaigns: 活動：

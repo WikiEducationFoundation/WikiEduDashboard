@@ -182,8 +182,11 @@ zh-CN:
     character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
     campaigns: 运动：
     campaign_courses: '%{title}课程'
+    campaign_articles: '%{title}个条目'
+    campaign_users: '%{title}位编辑者'
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
+    course: 课程
     course_dates_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。课程活动的日期将利用没有预定会议的周，对账户做出更改。
     course_description: 课程
     courses: 课程
@@ -332,6 +335,7 @@ zh-CN:
     assignments_none: 此项目没有分配的条目。
     assignment_start: 时间轴起点
     cancel: 取消
+    course: 课程
     courses: 程序
     courses_taught: 教授的程序
     campaigns: 运动：

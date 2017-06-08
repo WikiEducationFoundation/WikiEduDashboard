@@ -32,6 +32,7 @@ pl:
     log_out: Wyloguj
     my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
+    report_problem: Zgłoś problem
     search: zadaj pytanie
     sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
@@ -60,6 +61,14 @@ pl:
     review_orientation: Wróć do szkolenia
     start_orientation: Zacznij szkolenie
     blog_headline: Najświeższe wiadomości od Wiki Ed
+    about_programs: Niniejsza strona śledzi postępy grup użytkowników w ramach Programów,
+      czyli wydarzeń takich, jak maratony edycyjne czy projekty szkolne i akademickie.
+      Każdy program można przypisać do jednej lub więcej kampanii, dzięki czemu można
+      podsumować wspólny efekt wielu programów.
+    about_creating_programs: Jeśli nadzorujesz pojedyncze, niepowiązane z innymi wydarzenie,
+      stwórz nowy Program. Jeśli jednak Twój projekt jest częścią czegoś większego,
+      znajdź lub utwórz dla niego Kampanię. W jej ramach możesz utworzyć strony dla
+      wielu powiązanych Programów.
   home:
     explore: Odkrywaj
     log_in: Zaloguj się za pomocą Wikipedii
@@ -206,10 +215,13 @@ pl:
       uczestników w trakcie trwania kursu
     campaigns: 'Kampanie:'
     campaign_courses: '%{title} kursy'
+    campaign_articles: '%{title} Artykułów'
+    campaign_users: '%{title} Edytorów'
     confirm_course_deletion: Czy na pewno chcesz usunąć kurs „%{title}”? Jeśli tak,
       wpisz tytuł kursu, aby kontynuować.
     confirm_course_deletion_failed: „%{title}” to nie jest nazwa kursu. Kurs pozostał
       nieusunięty.
+    course: Kurs
     course_dates_calendar_instructions: Wybierz daty do dodania lub usunięcia z harmonogramu
       (dni wolne, wakacje itd). Kliknij w datę by zmienić jej stan (wybrana, niewybrana,
       dzień wolny). Daty na które zaplanowano aktywności zmienią się by uwzględnić
@@ -268,8 +280,11 @@ pl:
         to kilka godzin.
     current: Aktualne kursy
     delete_course: Usuń kurs
+    delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
+      ze wszystkich kampanii.
     dismiss_survey: Odrzuć
     dismiss_survey_confirm: Czy na pewno chcesz trwale usunąć tę ankietę?
+    download_stats_data: Pobierz statystyki
     duration: Długość kursu
     edit_course_dates: Zmień terminy kursu
     enable_chat: Włącz chat
@@ -388,6 +403,7 @@ pl:
     assignments_none: Ten projekt nie ma przypisanych artykułów.
     assignment_start: Początek harmonogramu
     cancel: Anuluj
+    course: Program
     courses: Programy
     courses_taught: Prowadzi programy
     campaigns: 'Kampanie:'
@@ -396,6 +412,11 @@ pl:
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
+      clone_successful: Program został sklonowany
+      clone_successful_details: Twój program został sklonowany. Koniecznie dodaj jakiś
+        wyróżnik do pola 'Kiedy' (na przykład miesiąc i rok wydarzenia, albo zakres
+        lat) by odróżnić go od oryginału. Następnie kliknij w 'Zapisz' by zakończyć
+        zmiany.
       course_description: Opis programu
       course_school: Instytucja
       course_term: Kiedy
@@ -408,6 +429,7 @@ pl:
       find: Znajdź program
       intro: Wymagany tytuł programu, pozostałe dane można uzupełnić później. Kliknij
         w "Stwórz mój program!" by rozpocząć budowanie strony wiki swojego programu.
+      participate_in_campaign: Dołącz do kampanii
       save_cloned_course: Zapisz
     delete_course: Skasuj program
     edit_course_dates: Edytuj daty projektu
@@ -446,6 +468,9 @@ pl:
     save: Zapisz
     edit_description: Edytuj opis
     edit_details: Edytuj szczegóły
+    rename_confirmation: Pola opisu tworzące adres URL zostały zmienione. To zmieni
+      również sam adres URL niniejszej strony, co może mieć wpływ na już rozesłane
+      linki. Czy na pewno chcesz kontynuować?
   metrics:
     activity: Ostatnia aktywność
     are_trained: uczestników ukończyło wymagane etapy szkolenia
@@ -596,7 +621,7 @@ pl:
       znaków dodanych do artykułu jeśli edycja powiększyła jego objętość. Liczba niekoniecznie
       odzwierciedla ilość nowej treści dodanej przez użytkownika. Przywracanie wcześniej
       usuniętej treści też zwiększy wynik.
-    chars_added: Znaki dodane<br>(artykuły | strony użytkownika)
+    chars_added: Znaki dodane<br>(artykuły | strony użytkownika | brudnopisy)
     contributions: Wkład użytkownika
     contributions_history_full: Zobacz całą historię wkładu w Wikipedię
     contributions_more: Zobacz więcej wkładu
