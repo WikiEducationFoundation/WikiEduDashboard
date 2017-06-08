@@ -17,6 +17,7 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import wikiLanguages from '../../utils/wiki_languages.js';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 import _ from 'lodash';
@@ -231,21 +232,42 @@ const CourseCreator = React.createClass({
       );
     }
 
-    let language;
+    let languageDropdown;
+    let languageDropdownLabel;
+    let languageOptions;
     let project;
     let campaign;
+
     if (this.state.default_course_type !== 'ClassroomProgramCourse') {
-      language = (
-        <TextInput
-          id="course_language"
-          onChange={this.updateCourse}
-          value={this.state.course.language}
-          value_key="language"
-          editable
-          label={I18n.t('courses.creator.course_language')}
-          placeholder="en"
-        />
+      languageOptions = wikiLanguages.map(option => (
+        <option
+          value={option}
+          key={option}
+        >
+          {option}
+        </option>
+      ));
+
+      languageDropdownLabel = (
+        <label htmlFor="course_language">
+          {I18n.t('courses.creator.course_language')}
+        </label>
       );
+
+      languageDropdown = (
+        <div className="form-group">
+          {languageDropdownLabel}
+          <select
+            defaultValue="en"
+            id="course_language"
+            onChange={this.updateCourse}
+            value={this.state.course.language}
+          >
+            {languageOptions}
+          </select>
+        </div>
+      );
+
       project = (
         <TextInput
           id="course_project"
@@ -274,6 +296,7 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
+
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -324,7 +347,7 @@ const CourseCreator = React.createClass({
                 {term}
                 {subject}
                 {expectedStudents}
-                {language}
+                {languageDropdown}
                 {project}
               </div>
               <div className="column">
