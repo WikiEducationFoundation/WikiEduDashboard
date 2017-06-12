@@ -4,7 +4,7 @@
 class RequestedAccountsController < ApplicationController
   respond_to :html
   before_action :set_course
-  before_action :check_creation_permissions, only: [:create_accounts]
+  before_action :check_creation_permissions, only: [:index, :create_accounts, :enable_account_requests]
 
   def request_account
     redirect_if_passcode_invalid { return }
@@ -20,6 +20,10 @@ class RequestedAccountsController < ApplicationController
     RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
   end
 
+  def enable_account_requests
+    # TODO
+  end
+
   def index; end
 
   def create_accounts
@@ -29,6 +33,7 @@ class RequestedAccountsController < ApplicationController
       result = creation_attempt.result
       @results << result
       next unless result[:success]
+      # If it was successful, enroll the user in the course
       user = creation_attempt.user
       JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
     end

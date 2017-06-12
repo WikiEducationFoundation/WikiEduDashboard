@@ -135,12 +135,21 @@ const AvailableActions = React.createClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
-    // If the user an instructor or admin, and the course is published, show a stats download link
+    // If the user an instructor or admin, and the course is published
     if ((user.role === 1 || user.admin) && this.state.course.published) {
+      // show a stats download link
       const csvLink = `/course_csv?course=${this.state.course.slug}`;
       controls.push((
         <p key="stats_csv"><a href={csvLink} className="button">{I18n.t('courses.download_stats_data')}</a></p>
       ));
+      // show a link to the requested accounts creation page if there are any
+      if (this.state.course.requestedAccounts) {
+        const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
+        controls.push((
+          <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
+        ));
+      }
+      // TODO: show a button to enable new account requests, if it's not enabled already
     }
     // If no controls are available
     if (controls.length === 0) {

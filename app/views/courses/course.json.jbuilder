@@ -42,6 +42,7 @@ json.course do
   if user_role.positive? # non-student role
     json.passcode @course.passcode
     json.canUploadSyllabus true
+    json.requestedAccounts @course.requested_accounts.count if @course.flags[:register_accounts]
   elsif @course.passcode
     json.passcode '****'
     json.canUploadSyllabus false
