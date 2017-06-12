@@ -861,3 +861,6 @@ en:
 
   feedback_form_responses:
     no_responses: "There are no feedback responses yet."
+
+  wiki_api:
+    create_account_reason: "This user is particpating in %{event}."

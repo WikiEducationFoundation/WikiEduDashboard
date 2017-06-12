@@ -32,10 +32,8 @@ class WikiEdits
     # We want to see how much this specific feature gets used, so we send it
     # to Sentry.
     Raven.capture_message 'WikiEdits.notify_untrained',
-                          level: 'info',
-                          culprit: 'WikiEdits.notify_untrained',
-                          extra: { sender: current_user.username,
-                                   course_name: course.slug,
+                          level: 'info', culprit: 'WikiEdits.notify_untrained',
+                          extra: { sender: current_user.username, course_name: course.slug,
                                    untrained_count: untrained_users.count }
   end
 
@@ -82,13 +80,19 @@ class WikiEdits
 
   # Create an account, with a random password to be emailed by mediawiki to the
   # email provided.
+  # Success response: {"createaccount"=>{"status"=>"PASS", "username"=>"Ragetest 99"}}
+  # Fail response: {"createaccount"=>{"status"=>"FAIL", "message"=>"Nom d’utilisateur entré déjà utilisé.\nVeuillez choisir un nom différent.", "messagecode"=>"userexists"}}
   def create_account(creator:, username:, email:, reason: '')
     params = { action: 'createaccount',
                username: username,
                email: email,
                mailpassword: 1,
                reason: reason,
-               createreturnurl: 'http://example.com',
+               # This is a required parameter for the API, which is used for
+               # multi-step account creation where, for example, the end user must
+               # solve a CAPTCHA before the process finishes.
+               # We don't use that flow, though, so this could be anything.
+               createreturnurl: "https://#{ENV['dashboard_url']}",
                format: 'json' }
     api_post(params, creator, token_name: :createtoken, token_type: 'createaccount')
   end
@@ -136,7 +140,7 @@ class WikiEdits
     # Handle Mediawiki API response
     token_response = JSON.parse(get_token.body)
     WikiResponse.capture(token_response, current_user: current_user, type: 'tokens')
-    return { status: 'failed' } unless token_response.key?('query')
+    handle_token_response_errors(token_response) { |err| return { status: 'failed', error: err } }
 
     OpenStruct.new(action_token: token_response['query']['tokens']["#{type}token"],
                    access_token: @access_token)
@@ -155,5 +159,11 @@ class WikiEdits
     return unless response.code =~ /^5../
     Raven.capture_message('Wikimedia API is down')
     yield
+  end
+
+  def handle_token_response_errors(token_response)
+    return if token_response.key?('query')
+    error = token_response['error'] if token_response.key?('error')
+    yield error
   end
 end
