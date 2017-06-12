@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/wiki_edits"
 # Processes a RequestedAccount by creating a new mediawiki account, and
 # creating the User record upon success.
 class CreateRequestedAccount
-  attr_reader :result
+  attr_reader :result, :user
 
   def initialize(requested_account, creator)
     @creator = creator
@@ -48,8 +48,8 @@ class CreateRequestedAccount
   def create_account
     returned_username = @response.dig('createaccount', 'username')
     raise AccountCreationError, 'no username returned' if returned_username.blank?
-    user = UserImporter.new_from_username(returned_username, @wiki)
-    raise AccountCreationError, "could not create user #{returned_username}" if user.blank?
+    @user = UserImporter.new_from_username(returned_username, @wiki)
+    raise AccountCreationError, "could not create user #{returned_username}" if @user.blank?
   end
 
   def log_unexpected_response

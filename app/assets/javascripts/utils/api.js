@@ -663,9 +663,19 @@ slide_id=${opts.slide_id}`,
   },
 
   requestNewAccount(passcode, courseSlug, username, email) {
-    // TODO: send request to server
     return new Promise((res, rej) => {
-      return res();
+      $.ajax({
+        type: 'PUT',
+        url: '/requested_accounts',
+        data: { passcode, course_slug: courseSlug, username, email },
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
     });
   },
 

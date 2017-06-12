@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
       constraints: { course_id: /.*/ }
 
+  put 'requested_accounts' => 'requested_accounts#request_account'
   get 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/:course_slug' => 'requested_accounts#index',
