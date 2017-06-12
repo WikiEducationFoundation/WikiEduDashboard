@@ -111,7 +111,7 @@ class WikiEdits
   # API methods #
   ###############
   def api_post(data, current_user, token_name: :token, token_type: 'csrf')
-    # return {} if Features.disable_wiki_output?
+    return {} if Features.disable_wiki_output?
     tokens = get_tokens(current_user, token_type)
     return tokens unless tokens['action_token']
     data[token_name] = tokens.action_token
