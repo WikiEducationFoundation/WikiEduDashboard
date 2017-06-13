@@ -33,12 +33,32 @@ const CourseStatsDownloadModal = React.createClass({
     return (
       <div className="basic-modal course-stats-download-modal">
         <button onClick={this.hide} className="pull-right article-viewer-button icon-close"></button>
-        <p>{I18n.t('courses.data_download_info')}</p>
-        <p><a href={overviewCsvLink} className="button">{I18n.t('courses.data_overview')}</a></p>
-        <p><a href={editsCsvLink} className="button">{I18n.t('courses.data_edits')}</a></p>
-        <p><a href={uploadsCsvLink} className="button">{I18n.t('courses.data_uploads')}</a></p>
-        <p><a href={studentsCsvLink} className="button">{I18n.t('courses.data_students')}</a></p>
-        <p><a href={articlesCsvLink} className="button">{I18n.t('courses.data_articles')}</a></p>
+        <h2>{I18n.t('courses.data_download_info')}</h2>
+        <hr />
+        <p>
+          <a href={overviewCsvLink} className="button right">{I18n.t('courses.data_overview')}</a>
+          {I18n.t('courses.data_overview_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={editsCsvLink} className="button right">{I18n.t('courses.data_edits')}</a>
+          {I18n.t('courses.data_edits_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={uploadsCsvLink} className="button right">{I18n.t('courses.data_uploads')}</a>
+          {I18n.t('courses.data_uploads_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={studentsCsvLink} className="button right">{I18n.t('courses.data_students')}</a>
+          {I18n.t('courses.data_students_info')}
+        </p>
+        <hr />
+        <p>
+          <a href={articlesCsvLink} className="button right">{I18n.t('courses.data_articles')}</a>
+          {I18n.t('courses.data_articles_info')}
+        </p>
       </div>
     );
   }

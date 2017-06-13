@@ -312,16 +312,22 @@ en:
         several hours.
     current: Current Courses
     data_articles: Articles data
-    data_download_info: >
-      Download data in CSV format. Overview data provides cumulative
-      statistics for the whole project. Edits data shows details for each edit
-      made during the project. Commons uploads data shows the name and usage count
-      of each media upload. Editors data lists all the enrolled editors, how much
-      they edited, and whether they registered their accounts during the project.
+    data_articles_info: >
+      Articles data includes the number of edits to each page, which pages are new,
+      and pageview totals. These pageview values may be out of date for courses
+      that have already ended, so a url to the WMF Tool Labs pageview tool is
+      included.
+    data_download_info: Download data in CSV format.  
     data_overview: Overview data
+    data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
+    data_edits_info: Edits data shows details for each edit made during the project.
     data_students: Editors data
+    data_students_info: >
+      Editors data lists all the enrolled editors, how much they edited, and
+      whether they registered their accounts during the project.
     data_uploads: Commons uploads data
+    data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     delete_course: Delete course
     delete_course_instructions: You may delete this page if all campaigns are removed first.
     dismiss_survey: Dismiss
