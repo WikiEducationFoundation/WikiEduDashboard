@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AnalyticsController do
@@ -64,6 +65,14 @@ describe AnalyticsController do
     it 'returns a CSV' do
       get 'course_edits_csv', params: { course: course.slug }
       expect(response.body).to have_content('revision_id')
+    end
+  end
+
+  describe '#course_uploads_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_uploads_csv', params: { course: course.slug }
+      expect(response.body).to have_content('filename')
     end
   end
 end

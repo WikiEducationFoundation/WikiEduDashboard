@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/analytics/monthly_report"
 require "#{Rails.root}/lib/analytics/course_statistics"
 require "#{Rails.root}/lib/analytics/course_csv_builder"
 require "#{Rails.root}/lib/analytics/course_edits_csv_builder"
+require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
 
 #= Controller for analytics tools
@@ -46,6 +47,12 @@ class AnalyticsController < ApplicationController
     course = find_course_by_slug(params[:course])
     send_data CourseEditsCsvBuilder.new(course).generate_csv,
               filename: "#{course.slug}-edits-#{Time.zone.today}.csv"
+  end
+
+  def course_uploads_csv
+    course = find_course_by_slug(params[:course])
+    send_data CourseUploadsCsvBuilder.new(course).generate_csv,
+              filename: "#{course.slug}-uploads-#{Time.zone.today}.csv"
   end
 
   ###################

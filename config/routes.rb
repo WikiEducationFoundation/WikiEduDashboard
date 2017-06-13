@@ -114,6 +114,8 @@ Rails.application.routes.draw do
   get 'ungreeted' => 'analytics#ungreeted'
   get 'course_csv' => 'analytics#course_csv'
   get 'course_edits_csv' => 'analytics#course_edits_csv'
+  get 'course_uploads_csv' => 'analytics#course_uploads_csv'
+
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
