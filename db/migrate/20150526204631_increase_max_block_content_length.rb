@@ -1,4 +1,4 @@
-class IncreaseMaxBlockContentLength < ActiveRecord::Migration
+class IncreaseMaxBlockContentLength < ActiveRecord::Migration[4.2]
   def up
     change_column :blocks, :content, :string, limit: 5000
   end

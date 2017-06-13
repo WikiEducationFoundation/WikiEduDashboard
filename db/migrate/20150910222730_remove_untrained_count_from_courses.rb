@@ -1,4 +1,4 @@
-class RemoveUntrainedCountFromCourses < ActiveRecord::Migration
+class RemoveUntrainedCountFromCourses < ActiveRecord::Migration[4.2]
   def up
     remove_column :courses, :untrained_count
   end

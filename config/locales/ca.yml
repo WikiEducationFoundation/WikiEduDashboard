@@ -17,6 +17,7 @@ ca:
   application:
     cancel: Cancel·lar
     dashboard: Wiki Ed Tauler De Control
+    documentation: Documentació
     error: 'Hi ha hagut un error:'
     explore: Exploreu!
     field_required: Aquest camp és obligatori
@@ -295,15 +296,18 @@ ca:
       checking_for_uniqueness: Estem revisant si aquest programa és únic.
       course_description: Descripció del programa
       course_school: Institució
+      course_term: Quan
+      course_term_placeholder: Quan
       course_title: Títol del programa
       create_button: Crea el teu programa!
       create_label: Crea un nou programa
-      create_new: Crea un nou programa
+      create_new: Crea un programa independent
       create_short: Crea programa
       find: Cerca un programa
       intro: El títol del programa és obligatori, tota la resta de camps es poden
         emplenar més tard. Clica "Creat el teu programa!" per a començar a construir
         la pàgina per al teu projecte wiki.
+      save_cloned_course: Desa
     edit_course_dates: Edita les dates del projecte
     enroll: Afegiex editor
     enrollment: Participació

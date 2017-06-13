@@ -3,6 +3,14 @@
   Please investigate:
   %a{ href: @alert.url }= @alert.main_subject
 
+- if @alert.course
+  %p.paragraph
+    = link_to('Course page', @alert.course_url)
+
+- if @alert.user_contributions_url
+  %p.paragraph
+    = link_to('User contributions', @alert.user_contributions_url)
+
 - if @message
   %p.paragraph
     = "Message from #{@alert.user.username}:"

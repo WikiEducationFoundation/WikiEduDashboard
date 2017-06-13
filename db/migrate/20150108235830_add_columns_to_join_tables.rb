@@ -1,4 +1,4 @@
-class AddColumnsToJoinTables < ActiveRecord::Migration
+class AddColumnsToJoinTables < ActiveRecord::Migration[4.2]
   def change
     add_column :articles_courses, :article_id, :integer
     add_column :articles_courses, :course_id, :integer

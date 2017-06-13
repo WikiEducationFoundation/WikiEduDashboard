@@ -2,6 +2,7 @@ import React from 'react';
 import AssignCell from '../students/assign_cell.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
+import MyAssignment from './my_assignment.jsx';
 
 const MyArticles = React.createClass({
   displayName: 'MyArticles',
@@ -22,37 +23,49 @@ const MyArticles = React.createClass({
 
     const assigned = AssignmentStore.getFiltered(assignOptions);
     const reviewing = AssignmentStore.getFiltered(reviewOptions);
+    const allAssignments = assigned.concat(reviewing);
+    const assignmentCount = allAssignments.length;
+    const assignments = allAssignments.map((assignment, i) => {
+      return (
+        <MyAssignment
+          key={assignment.id}
+          assignment={assignment}
+          course={this.props.course}
+          last={i === assignmentCount - 1}
+        />
+      );
+    });
 
     return (
-      <div className="module">
-        <div className="section-header">
+      <div className="module my-articles">
+        <div className="section-header my-articles-header">
           <h3>{I18n.t('courses.my_articles')}</h3>
+          <div className="controls">
+            <AssignCell
+              id="user_assigned"
+              course={this.props.course}
+              role={0}
+              editable
+              course_id={this.props.course_id}
+              current_user={this.props.current_user}
+              student={this.props.current_user}
+              assignments={assigned}
+              prefix={I18n.t('users.my_assigned')}
+            />
+            <AssignCell
+              id="user_reviewing"
+              course={this.props.course}
+              role={1}
+              editable
+              course_id={this.props.course_id}
+              current_user={this.props.current_user}
+              student={this.props.current_user}
+              assignments={reviewing}
+              prefix={I18n.t('users.my_reviewing')}
+            />
+          </div>
         </div>
-        <div className="module__data">
-          <AssignCell
-            id="user_assigned"
-            course={this.props.course}
-            role={0}
-            editable
-            course_id={this.props.course_id}
-            current_user={this.props.current_user}
-            student={this.props.current_user}
-            assignments={assigned}
-            prefix={I18n.t('users.my_assigned')}
-          />
-          <br />
-          <AssignCell
-            id="user_reviewing"
-            course={this.props.course}
-            role={1}
-            editable
-            course_id={this.props.course_id}
-            current_user={this.props.current_user}
-            student={this.props.current_user}
-            assignments={reviewing}
-            prefix={I18n.t('users.my_reviewing')}
-          />
-        </div>
+        {assignments}
       </div>
     );
   }

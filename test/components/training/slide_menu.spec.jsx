@@ -32,12 +32,12 @@ describe('SlideMenu', () => {
   it('renders an ol', () => {
     const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
     const menuNode = ReactDOM.findDOMNode(menu);
-    return expect($(menuNode).find('ol').length).to.eq(1);
+    expect($(menuNode).find('ol').length).to.eq(1);
   });
 
-  return it('links to a slide', () => {
+  it('links to a slide', () => {
     const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
     const menuNode = ReactDOM.findDOMNode(menu);
-    return expect($(menuNode).find('a').attr('href')).to.eq('/training/foo/bar/kittens');
+    expect($(menuNode).find('a').attr('href')).to.eq('/training/foo/bar/kittens');
   });
 });

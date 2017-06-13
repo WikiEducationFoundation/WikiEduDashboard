@@ -3,7 +3,6 @@ id: 15
 description: |
   This training module covers plagiarism and copyright violation in the context
   of Wikipedia articles
-estimated_ttc: 15 minutes
 slides:
   - slug: plagiarism-introduction # 1501
   - slug: a-note-on-plagiarism # 1502

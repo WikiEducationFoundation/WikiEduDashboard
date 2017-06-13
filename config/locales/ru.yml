@@ -3,10 +3,12 @@
 # Export driver: phpyaml
 # Author: Alexandr Efremov
 # Author: Aram1985
+# Author: Av6
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
 # Author: Kareyac
+# Author: Lizalizaufa
 # Author: Mailman
 # Author: Nzeemin
 # Author: Okras
@@ -27,6 +29,7 @@ ru:
     field_required: Это поле обязательно для заполнения
     field_invalid_characters: Данное поле содержит недопустимые символы
     field_invalid_date: Это поле требует дату в формате YYYY-MM-DD
+    field_invalid_date_time: Завершится после старта.(Требуемое время от 0 до 23 часов.)
     greeting2: Добро пожаловать!
     greeting_extended: Добро пожаловать в Википедию
     greeting: Здравствуйте!
@@ -227,18 +230,22 @@ ru:
     wiki_staff: Сотрудники Wiki Ed
     yourcourses: Ваши курсы
   courses_generic:
+    all_courses: Все программы
     cancel: Отмена
     courses: Программы
     campaigns: Кампании
     campaign_courses: '%{title} программы'
     creator:
       course_school: Учреждение
+      course_term: Когда
+      course_term_placeholder: Когда
       course_title: Название программы
       create_button: Создать свою программу!
       create_label: Создать новую программу
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+      save_cloned_course: Сохранить
     delete_course: Удалить программу
     explore: Найти программы
     join_course: Присоединиться к программе

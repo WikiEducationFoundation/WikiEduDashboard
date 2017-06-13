@@ -5,6 +5,7 @@
 ---
 roa-tara:
   application:
+    cancel: Annulle
     dashboard: Wiki Ed Dashboard
     search: Fà 'na domande
   dashboard:

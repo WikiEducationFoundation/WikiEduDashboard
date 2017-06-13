@@ -19,6 +19,17 @@ const CourseActions = Flux.createActions({
       });
   },
 
+  persistAndRedirectCourse(data, courseId, redirect) {
+    return API.saveCourse(data, courseId)
+      .then(() => redirect())
+      .catch(resp => {
+        return {
+          actionType: 'API_FAIL',
+          data: resp
+        };
+      });
+  },
+
   updateCourse(course, save = false) {
     return {
       actionType: 'UPDATE_COURSE',

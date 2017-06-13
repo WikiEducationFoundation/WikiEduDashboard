@@ -3,7 +3,6 @@ id: 6
 description: |
   This tutorial shows you how to share media you've found or created, and add
   them to Wikipedia articles.
-estimated_ttc: 10 minutes
 slides:
   - slug: using-media # 601
   - slug: learn-the-rules # 602

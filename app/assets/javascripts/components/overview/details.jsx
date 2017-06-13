@@ -70,7 +70,17 @@ const Details = React.createClass({
     return CourseActions.updateCourse(updatedCourse);
   },
 
+  canRename() {
+    if (!this.props.editable) { return false; }
+    if (this.props.current_user.admin) { return true; }
+    // On the Wiki Ed dashboard, only admins may rename courses.
+    if (Features.wikiEd) { return false; }
+    // On P&E Dashboard, anyone with edit rights for the course may rename it.
+    return true;
+  },
+
   render() {
+    const canRename = this.canRename();
     const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
@@ -80,29 +90,30 @@ const Details = React.createClass({
       staff = <InlineUsers {...this.props} users={this.props.staff} role={4} title="Wiki Ed Staff" />;
       online = <InlineUsers {...this.props} users={this.props.online} role={2} title="Online Volunteers" />;
       campus = <InlineUsers {...this.props} users={this.props.campus} role={3} title="Campus Volunteers" />;
-      if (this.props.course.school || this.props.current_user.admin) {
-        school = (
-          <TextInput
-            onChange={this.updateSlugPart}
-            value={this.props.course.school}
-            value_key="school"
-            editable={this.props.editable && this.props.current_user.admin}
-            type="text"
-            label={CourseUtils.i18n('school', this.props.course.string_prefix)}
-            required={true}
-          />
-        );
-      }
+    }
+
+    if (this.props.course.school || canRename) {
+      school = (
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.school}
+          value_key="school"
+          editable={canRename}
+          type="text"
+          label={CourseUtils.i18n('school', this.props.course.string_prefix)}
+          required={true}
+        />
+      );
     }
 
     let title;
-    if (this.props.editable && this.props.current_user.admin) {
+    if (canRename) {
       title = (
         <TextInput
           onChange={this.updateSlugPart}
           value={this.props.course.title}
           value_key="title"
-          editable={this.props.editable && this.props.current_user.admin}
+          editable={canRename}
           type="text"
           label={CourseUtils.i18n('title', this.props.course.string_prefix)}
           required={true}
@@ -111,13 +122,13 @@ const Details = React.createClass({
     }
 
     let term;
-    if (this.props.course.term || this.props.current_user.admin) {
+    if (this.props.course.term || canRename) {
       term = (
         <TextInput
           onChange={this.updateSlugPart}
           value={this.props.course.term}
           value_key="term"
-          editable={this.props.editable && this.props.current_user.admin}
+          editable={canRename}
           type="text"
           label={CourseUtils.i18n('term', this.props.course.string_prefix)}
           required={false}
@@ -274,7 +285,7 @@ const Details = React.createClass({
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && this.props.current_user.admin && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse')} />
+            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse')} />
           </div>
           {subject}
           {tags}
@@ -287,4 +298,19 @@ const Details = React.createClass({
 }
 );
 
-export default Editable(Details, [CourseStore, UserStore, CampaignStore, TagStore], CourseActions.persistCourse, getState, I18n.t('editable.edit_details'));
+const redirectToNewSlug = () => {
+  const newSlug = CourseUtils.generateTempId(CourseStore.getCourse());
+  window.location = `/courses/${newSlug}`;
+};
+
+// If the course has been renamed, we first warn the user that this is happening.
+const saveCourseDetails = (data, courseId = null) => {
+  if (!CourseStore.isRenamed()) {
+    return CourseActions.persistCourse(data, courseId);
+  }
+  if (confirm(I18n.t('editable.rename_confirmation'))) {
+    return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
+  }
+};
+
+export default Editable(Details, [CourseStore, UserStore, CampaignStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));

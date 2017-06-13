@@ -6,26 +6,11 @@
 .container.dashboard
   %header
     %h1= @pres.heading_message
-    %div
+    - if Features.open_course_creation?
+      = render 'open_course_creation'
+    - else
+      = render 'course_creation'
 
-      - if @pres.can_create_course?
-        = link_to course_creator_path, class: 'button dark dashboard-cta' do
-          = Features.open_course_creation? ? t("courses_generic.creator.create_new") : t("courses.creator.create_short")
-          %i.icon.icon-plus
-        - if Features.open_course_creation?
-          %div
-            = link_to explore_path, class: 'button stacked dark dashboard-cta' do
-              = t("courses_generic.creator.find")
-              %span.icon.icon-rt_arrow
-      - elsif @pres.show_explore_button?
-        = link_to explore_path, class: 'button dark dashboard-cta' do
-          = t("courses.creator.find")
-          %span.icon.icon-rt_arrow
-
-      - if @pres.show_orientation_review?
-        = link_to @pres.orientation_path, class: 'button' do
-          = t("dashboard.review_orientation")
-          %i.icon.icon-rt_arrow
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?
     %h2
@@ -73,7 +58,7 @@
   - else
     - # Courses list
     - if @pres.is_admin?
-      = render "courses/user_courses"
+      = render "admin_courses"
     - else
       - @pres.current.each do |course|
         = render "course_row", course: course

@@ -41,10 +41,7 @@ class PushCourseToSalesforce
 
   def course_salesforce_fields
     {
-      # NOTE: Course name in Salesforce is sometimes modified to include term for
-      # courses on the quarter system. We need to find a new convention for documenting
-      # quarter system terms before including course name in the synced data.
-      # Name: @course.title,
+      Name: @course.title,
       Course_Page__c: @course.url,
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",
       Program__c: program_id,
@@ -52,7 +49,11 @@ class PushCourseToSalesforce
       Articles_edited__c: @course.article_count,
       Total_edits__c: @course.revision_count,
       Words_added_in_thousands__c: words_added_in_thousands,
-      Actual_No_of_Participants__c: @course.user_count
+      Actual_No_of_Participants__c: @course.user_count,
+      Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
+      Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
+      Editing_in_mainspace_assignment_date__c: assignment_date_for(editing_in_mainspace_block),
+      Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block)
     }
   end
 
@@ -67,5 +68,25 @@ class PushCourseToSalesforce
 
   def words_added_in_thousands
     WordCount.from_characters(@course.character_sum).to_f / 1000
+  end
+
+  def editing_in_sandbox_block
+    title_matcher = /Draft your article/
+    @sandbox_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
+  end
+
+  def editing_in_mainspace_block
+    title_matcher = /Begin moving your work to Wikipedia/
+    @mainspace_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
+  end
+
+  def assignment_date_for(block)
+    return unless block.present?
+    block.calculated_date.strftime('%Y-%m-%d')
+  end
+
+  def due_date_for(block)
+    return unless block.present?
+    block.calculated_due_date.strftime('%Y-%m-%d')
   end
 end

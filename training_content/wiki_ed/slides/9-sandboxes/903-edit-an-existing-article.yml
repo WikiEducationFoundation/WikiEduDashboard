@@ -9,9 +9,10 @@ content: |
   1. Open the original article in **Edit** mode. (References and other templates
   will break if you copy from **Read** mode.)
   2. Select the portion you want to work on — a few paragraphs at most — and copy it.
-  3. Open your sandbox in Edit mode and paste the copied article content, then save it.
-  4. Re-enter **Edit** mode in your sandbox, make your changes, and save them.
-  5. When you're ready to move your small updates back into the article, use the
+  3. Open your sandbox in Edit mode and paste the copied article content
+  4. Add an edit summary that says `copied from [[article]]` with the name of the original article, then save it.
+  5. Re-enter **Edit** mode in your sandbox, make your changes, and save them.
+  6. When you're ready to move your small updates back into the article, use the
   same procedure in reverse: copy from your sandbox in **Edit** mode, and paste
   the updated content into the article.
 

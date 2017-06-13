@@ -11,5 +11,7 @@ class CourseSubmissionMailerWorker
     course = Course.find(course_id)
     instructor = User.find(instructor_id)
     CourseSubmissionMailer.send_submission_confirmation(course, instructor)
+    staffer = User.find_by(username: ENV['classroom_program_manager'])
+    CourseSubmissionMailer.send_submission_confirmation(course, staffer) if staffer
   end
 end

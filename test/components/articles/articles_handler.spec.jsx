@@ -10,7 +10,7 @@ describe('ArticlesHandler', () => {
   it('renders', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticlesHandler course={{ home_wiki: {} }} />
+        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} />
       </div>
     );
     expect(TestDom.querySelector('h3')).to.exist;
@@ -19,7 +19,7 @@ describe('ArticlesHandler', () => {
   it('fires sort uiaction when select changes', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticlesHandler course={{ home_wiki: {} }} />
+        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} />
       </div>
     );
 

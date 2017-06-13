@@ -1,4 +1,4 @@
-class RemoveMeetingDaysFromCourse < ActiveRecord::Migration
+class RemoveMeetingDaysFromCourse < ActiveRecord::Migration[4.2]
   def up
     remove_column :courses, :meeting_days
   end

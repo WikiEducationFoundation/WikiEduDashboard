@@ -15,12 +15,14 @@ fi:
       suurentavat ja pienentävät syötettä.
   application:
     cancel: Peruuta
-    dashboard: Wiki Ed -ohjauspaneeli
+    dashboard: Wiki Ed -ohjausnäkymä
     error: 'Tapahtui virhe:'
     explore: Tutustu
     field_required: Tämä kenttä on pakollinen
     field_invalid_characters: Tämä kenttä sisältää virheellisiä merkkejä
     field_invalid_date: Tämä kenttä vaatii päivämäärän muodossa VVVV-KK-PP
+    field_invalid_date_time: Lopetuksen pitää olla aloituksen jälkeen. (Tunnit ovat
+      välillä 0—23)
     greeting2: Tervetuloa!
     greeting_extended: Tervetuloa Wikipediaan
     greeting: Terve!
@@ -29,7 +31,7 @@ fi:
     log_in_extended: Kirjaudu sisään Wikipedian kautta
     log_in: Kirjaudu sisään
     log_out: Kirjaudu ulos
-    my_dashboard: Oma ohjauspaneeli
+    my_dashboard: Oma ohjausnäkymä
     recent_activity: Tuoreet muutokset
     search: esitä kysymys
     sign_up_extended: Luo tunnus Wikipedian kautta
@@ -63,9 +65,9 @@ fi:
     explore: Tutustu
     log_in: Kirjaudu sisään Wikipedian kautta
     sign_up: Luo tunnus Wikipedian kautta
-    sign_up_help: Sinun täytyy kirjautua Wikipedian kautta ja antaa ohjauspaneelille
-      oikeus käyttää tiliäsi. Voit käyttää olemassaolevaa Wikipediatunnusta tai luoda
-      uuden.
+    sign_up_help: Sinun täytyy kirjautua Wikipedian kautta, ja antaa ohjausnäkymälle
+      oikeus käyttää tiliäsi. Voit käyttää olemassa olevaa Wikipedia-tunnusta tai
+      luoda uuden.
   activity:
     all: Toiminta
     edited_by: Muokannut
@@ -102,7 +104,7 @@ fi:
       stub: Tynkä-luokka — lyhyt artikkelin aloitus, joka tarvitsee lisää sisältöä
       list: Luettelo-luokka — luettelo eikä artikkeli
       '?': Arvioimaton — artikkelia ei ole vielä arvioitu Wikipedian laatuasteikoilla.
-      does_not_exist: Tämä artikkeli ei ole olemassa Wikipediassa
+      does_not_exist: Tätä artikkelia ei ole Wikipediassa
     show_cumulative_changes: Näyttä kumulatiiviset muutokset
     show_current_version: Näytä nykyinen versio
     title: Otsikko
@@ -123,8 +125,9 @@ fi:
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
   assignments:
-    article: Artikkeli %{title} määritettiin.
+    article: Artikkeli %{title} annettiin tehtäväksi
     already_exists: Tehtävä on jo luotu!
+    title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
     assign_other: Anna artikkeli tehtäväksi
     add_available: Lisää saatavilla oleva artikkeli
@@ -177,6 +180,8 @@ fi:
       osiossa oleva teksti kopioidaan ohjelman kuvaukseen.
     title: Otsikko
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
+  chat:
+    label: Keskustelu
   courses:
     activity: Toiminta
     active_courses: Aktiivinen %{course_type}
@@ -264,14 +269,19 @@ fi:
     dismiss_survey_confirm: Oletko varma, että haluat pysyvästi ohittaa tämän kyselyn?
     duration: Kurssin kesto
     edit_course_dates: Muokkaa kurssin päivämääriä
-    end: Loppu
+    enable_chat: Aktivoi keskustelu
+    end: Päättyy
+    ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu
     enrollment: Ilmoittautuminen
+    courses_enrolled: Kaikki kurssit
     error:
       exists: Kurssi on jo olemassa! Yritä uudelleen eri nimellä, oppilaitoksella
         tai lukukaudella.
       user_exists: Pahoittelut, muokkaajaa %{username} ei ole olemassa.
       invalid_language_or_project: Virheellinen kieli/projekti
+      invalid_slug: Tyhjä koulu/otsikko kurssille.
+      duplicate_slug: Ohjelma nimeltä %{slug} on jo olemassa.
     expected_students: Odotetut osallistujat
     gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
     instructor:
@@ -286,11 +296,18 @@ fi:
     join_prompt: Ilmoittaudu kurssille '%{title}'?
     join_successful: Ilmoittautumisesi kurssille %{title} onnistui.
     join_failed: Ilmoittautuminen epäonnistui
+    join_failure_details:
+      cannot_join_twice: Käyttäjät eivät voi ilmoittautua samalle kurssille kahdesti.
+      not_yet_approved: Tätä kurssia ei ole vielä hyväksytty ilmoittautumista varten.
+    join_details: Ilmoittautuaksesi kurssille tarvitset salasanan — tai ilmoittautumislinkin,
+      joka sisältää salasanan — opettajalta. Jos et ole saanut kumpaakaan, ota yhteyttä
+      opettajaasi.
     leave_confirmation: Haluatko varmasti keskeyttää kurssin?
     leave_course: Keskeytä kurssi
     loading: Ladataan…
     milestones_none: Tällä kurssilla ei toistaiseksi ole virstanpylväitä.
     my_articles: Omat artikkelit
+    needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
     nocourses: Et ole ilmoittautunut millekään kurssille.
     nocourse: ei ole osallistunut millekään kursseille.
@@ -311,7 +328,8 @@ fi:
     revisions_doc: Muokkausten lukumäärä viimeisten %{timeframe} päivän aikana
     revisions_none: Tällä kurssilla ei ole viimeaikaisia muokkauksia Wikipediassa.
     school: Oppilaitos
-    start: Aloitus
+    school_and_term: Instituutio/lukukausi
+    start: Alkaa
     start_typing: Aloita kirjoittaminen
     students: Opiskelijat
     students_count: '# Opiskelijat'
@@ -361,6 +379,7 @@ fi:
       notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
   courses_generic:
+    all_courses: Kaikki ohjelmat
     archived: Arkistoidut ohjelmat
     articles_none: Tämän projektin osallistujat eivät ole vielä muokanneet yhtään
       artikkelia.
@@ -369,6 +388,7 @@ fi:
     assignment_start: Aikajanan alku
     cancel: Peruuta
     courses: Ohjelmat
+    courses_taught: Opetetut ohjelmat
     campaigns: 'Kampanjat:'
     campaign_courses: '%{title} Ohjelmat'
     creator:
@@ -390,9 +410,12 @@ fi:
     explore: Etsi ohjelmia
     enroll: Lisää muokkaaja
     enrollment: Osallistuminen
+    courses_enrolled: Osallistumiset
     expected_students: Odotetut muokkaajat
     instructors: Järjestäjät
     join_course: Liity ohjelmaan
+    join_details: Ilmoittautuaksesi ohjelmaan tarvitset salasanan — tai ilmoittautumislinkin,
+      joka sisältää salasanan — järjestäjältä.
     leave_course: Jätä ohjelma
     milestones_none: Tällä ohjelmalla ei ole virstanpylväitä toistaiseksi.
     published: 'Ohjelma on julkaistu! Muokkaajat voivat ilmoittautua seuraavan linkin
@@ -400,6 +423,7 @@ fi:
     revisions_none: Tällä projektin osallistujat eivät ole tehneet muokkauksia viime
       aikoina.
     school: Instituutio
+    school_and_term: Instituutio/Milloin
     student_editors: Muokkaajat
     students: Muokkaajat
     students_none: Tähän projektiin ei ole ilmoittautunut yksikään muokkaaja.
@@ -424,12 +448,12 @@ fi:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
     articles_created: Luotuja artikkeleita
-    articles_edited: Muokattuja artikkeleita
+    articles_edited: Muokatut artikkelit
     characters: Merkkejä
     char_added: Lisättyjä merkkejä
     char_changed: Muutettuja merkkejä
     char: Lisättyjä merkkejä
-    date_time: Päiväys/Aika
+    date_time: Päivämäärä
     edit_count_description: Muokkaukset yhteensä
     per_user: '%{number}/muokkaaja'
     revisions: Tuoreet muutokset
@@ -474,16 +498,18 @@ fi:
   revisions:
     chars_added: Lis. merkit
     class: Ryhmä
-    date_time: Päiväys/Aika
+    date_time: Päivämäärä
     diff: ero
     diff_show: Näytä
     diff_hide: Piilota
+    edit_time_span: Muokkauksia tehtiin välillä %{first_time}— %{last_time}
     edited_by: Muokannut
     edited_on: Muokattu %{edit_date}
     loading: Ladataan versioita...
     none: Tämän kurssin osallistujat eivät ole tehneet muokkauksia viime aikoina.
     time_doc: Jokaisen version ajankohta paikallisessa ajassa
     title: Nimi
+    view_on_wiki: Näytä ero wikissä
   tasks:
     conseq: Toimi %{task} on jo käynnissä!
     constant: Toimea %{task} ei voi suorittaa samaan aikaan kun toimi update_daily
@@ -545,7 +571,7 @@ fi:
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
   uploads:
-    datetime: Päiväys/Aika
+    datetime: Päivämäärä
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
     image: Kuva
@@ -570,6 +596,7 @@ fi:
     contributions: Käyttäjän muokkaukset
     contributions_history_full: Näytä koko muokkaushistoria Wikipediassa
     contributions_more: Näytä lisää muokkauksia
+    contribution_statistics: Muokkaustilastot
     course_passcode: 'Salasana:'
     editors: Muokkaajat
     enroll_confirmation: Oletko varma, että haluat lisätä muokkaajan %{username}?
@@ -621,6 +648,14 @@ fi:
       campus_volunteer: Vapaaehtoinen kampuksella
       online_volunteer: Vapaaehtoinen verkossa
       wiki_ed_staff: Wiki Ed -henkilökunta
+  user_profiles:
+    student_impact: Opiskelijan %{username} tekemä kokonaisvaikutus
+    instructor_impact: Opettajan %{username} tekemä kokonaisvaikutus
+    instructors_student_impact: Käyttäjän %{username} opiskelijoiden tekemä kokonaisvaikutus
+    disclaimer: Antamasi tiedot tulevat julkisiksi.
+    bio_placeholder: Lisää kuvaus (vapaaehtoinen)
+    location_placeholder: Lisää sijaintisi (vapaaehtoinen)
+    institution_placeholder: Instituution nimi (vapaaehtoinen)
   wiki_edits:
     notify_overdue:
       confirm: Tämä lähettää muistutusviestin kaikille niille osallistujille, jotka
@@ -641,15 +676,15 @@ fi:
       Klikkaa päivämäärää tilan vaihtamiseksi (valitsematon, valittu ja loma). Jos
       kurssin aikana ei ole lomaa, valitse "Kurssilla ei ole lomaa".
     confirm_dates: Valitse kurssipäivät, viikottaiset tapaamiset ja lomat.
-    course_dates: Kurssin päivämäärät
+    course_dates: Kurssin ajankohta
     min_weeks: Tehtävä vaatii vähintään %{min_weeks} viikkoa. Muuta tehtäväsi alkamis-
       ja loppumispäivää, jos haluat käyttää tämäntyyppistä tehtävää.
     select_one_option: Valitse yksi vaihtoehto.
     minimum_options:
       one: Valitse %{count} tai useampia vaihtoehtoja.
       other: valitse %{count} tai useampia vaihtoehtoja.
-    read_less: Lue vähemmän
-    read_more: Lue vähemmän
+    read_less: Näytä vähemmän
+    read_more: Näytä lisää
     review_selections: Tarkasta valintasi alta. Klikkaa muokataksesi valintaa. Kun
       olet valmis, klikkaa 'Lähetä', ja ala rakentaa aikajanaasi.
     select_assignment: Valitse tehtävätyyppi, jonka haluat lisätä aikajanallesi.
@@ -657,11 +692,13 @@ fi:
   error:
     form_errors: Tarkista onko lomakkeessa virheitä.
     invalid_assignment: Virheellinen tehtävä
+    invalid_date: '%{key} päivämäärä on virheellinen'
     invalid_file_format: Tiedostoa ei voitu tallentaa. Lataa joko Pdf- tai Word-tiedosto.
     oauth_invalid: Wikipedia-valtuutuksesi on päättynyt. Kirjaudu sisään uudestaan.
+    start_date_before_end_date: Aloituspäivämäärän pitää olla ennen lopetuspäivämäärää
     unsupported_browser:
       header: Selain ei ole tuettu. :-(
-      explanation: Käytät selainta, joka ei ole yhteensopiva ohjauspaneelin kanssa.
+      explanation: Käytät selainta, joka ei ole yhteensopiva ohjausnäkymän kanssa.
         Sivusto toimii hyvin Internet Explorer 11:n tai myöhemmän version kanssa,
         viimeisimpien Chromen ja Firefoxin versioiden kanssa sekä muilla nykyaikaisilla
         selaimilla.
@@ -675,22 +712,22 @@ fi:
       vetäjältä oikea salasana kurssille ilmoittautumista varten.
   error_404:
     header: Sivua ei ole. :-(
-    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjauspaneeliin, kurssia
+    explanation: Sivua ei ole. Jos yritit tpäästä kurssin ohjausnäkymään, kurssia
       ei välttämättä ole rekisteröity tähän siihen. Jos kurssi rekisteröitiin hiljattain,
       sen lisäämiseen voi mennä hetki.
   error_422:
     header: 422 — kohdetta ei voi käsitellä.  :-(
-    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjausnäkymän ylläpitäjille.
   error_500:
     header: 500 — palvelinvirhe. :-(
-    explanation: Jokin meni vikaan. Kerro ongelmasta ohjauspaneelin ylläpitäjille.
+    explanation: Jokin meni vikaan. Kerro ongelmasta ohjausnäkymän ylläpitäjille.
   login_error:
     header: Sisäänkirjautumisvirhe
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
   survey:
-    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjauspaneeliin
-      kyselyn täyttämiseksi.
+    login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu Wiki Ed -ohjausnäkymään kyselyn
+      täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
       sähköpostia muistutusaikataulun mukaisesti selaimen sisäisten ilmoitusten lisäksi.
       Jos kohtaa ei ole valittuna, muokkaajat saavat vain selaimen sisäisiä ilmoituksia.
@@ -711,4 +748,6 @@ fi:
     follow_up:
       message: Tämä on muistutus kurssisi %{course_title} kyselystä. Palautteesi auttaa
         meitä tehtävien kehittämisessä.
+  feedback_form_responses:
+    no_responses: Palautetta ei ole vieä annettu.
 ...

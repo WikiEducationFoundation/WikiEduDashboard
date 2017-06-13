@@ -5,7 +5,7 @@
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
-#  file_name   :string(255)
+#  file_name   :string(2000)
 #  uploaded_at :datetime
 #  usage_count :integer
 #  created_at  :datetime

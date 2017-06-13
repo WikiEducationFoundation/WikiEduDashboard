@@ -1,4 +1,4 @@
-class AddDefaultToCourseListed < ActiveRecord::Migration
+class AddDefaultToCourseListed < ActiveRecord::Migration[4.2]
   def self.up
     change_column_default :courses, :listed, false
     change_column_default :courses, :published, false

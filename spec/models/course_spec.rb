@@ -48,6 +48,16 @@
 require 'rails_helper'
 
 describe Course, type: :model do
+  describe '.update_all_caches_concurrently' do
+    before do
+      create(:course, needs_update: true)
+      create(:course, needs_update: true, slug: 'foo/2')
+    end
+    it 'runs without error for multiple courses' do
+      Course.update_all_caches_concurrently
+    end
+  end
+
   it 'should cache revision data for students' do
     build(:user,
           id: 1,
@@ -131,6 +141,14 @@ describe Course, type: :model do
     expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
   end
 
+  it 'updates end time to equal start time it the times are invalid' do
+    course = build(:course,
+                    start: DateTime.now,
+                    end: DateTime.now - 2.months)
+    course.save
+    expect(course.end).to eq(course.start)
+  end
+
   describe '#url' do
     it 'should return the url of a course page' do
       # A legacy course
@@ -196,8 +214,8 @@ describe Course, type: :model do
 
   describe '#user_count' do
     let!(:course) { create(:course) }
-    let!(:user1)  { create(:test_user) }
-    let!(:user2)  { create(:test_user) }
+    let!(:user1)  { create(:test_user, username: 'user1') }
+    let!(:user2)  { create(:test_user, username: 'user2') }
     let!(:cu1)    { create(:courses_user, course_id: course.id, user_id: user1.id, role: role1) }
     let!(:cu2)    { create(:courses_user, course_id: course.id, user_id: user2.id, role: role2) }
     let!(:cu3)    { create(:courses_user, course_id: course.id, user_id: user3, role: role3) }
@@ -274,9 +292,9 @@ describe Course, type: :model do
     before do
       create(:user, id: 1, trained: 0)
       create(:courses_user, user_id: 1, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:user, id: 2, trained: 1)
+      create(:user, username: 'user2', id: 2, trained: 1)
       create(:courses_user, user_id: 2, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:user, id: 3, trained: 1)
+      create(:user, username: 'user3', id: 3, trained: 1)
       create(:courses_user, user_id: 3, course_id: 1, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
     context 'after the introduction of in-dashboard training modules' do
@@ -443,7 +461,7 @@ describe Course, type: :model do
 
     it 'implements #string_prefix and #wiki_edits_enabled? for every course type' do
       Course::COURSE_TYPES.each do |type|
-        create(:course, type: type)
+        create(:course, type: type, slug: "foo/#{type}")
         course = Course.last
         expect(course.type).to eq(type)
         expect(course.string_prefix).to be_a(String)

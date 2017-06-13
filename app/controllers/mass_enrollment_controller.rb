@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/user_importer"
 
 #= Controller for adding multiple users to a course at once
@@ -31,7 +32,7 @@ class MassEnrollmentController < ApplicationController
 
   def find_or_import_user(username)
     user = User.find_by(username: username)
-    user = UserImporter.new_from_username(username) if user.nil?
+    user = UserImporter.new_from_username(username, @course.home_wiki) if user.nil?
     user
   end
 end

@@ -1,0 +1,20 @@
+%div.instructions.tooltip-trigger
+  %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
+  %div.tooltip.large
+    %p= t("dashboard.about_programs")
+    %br
+    %p= t("dashboard.about_creating_programs")
+
+%div
+  %div
+    = link_to campaigns_path, class: 'button dark dashboard-cta' do
+      = t("courses_generic.creator.participate_in_campaign")
+      %span.icon.icon-rt_arrow
+  %div
+    = link_to course_creator_path, class: 'button stacked dark dashboard-cta' do
+      = t("courses_generic.creator.create_new")
+      %i.icon.icon-plus
+  %div
+    = link_to explore_path, class: 'button stacked dark dashboard-cta' do
+      = t("courses_generic.creator.find")
+      %span.icon.icon-rt_arrow

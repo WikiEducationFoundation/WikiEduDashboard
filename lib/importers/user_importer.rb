@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/wiki_api"
 
@@ -25,24 +26,31 @@ class UserImporter
     user
   end
 
-  def self.new_from_username(username)
-    # All mediawiki usernames have the first letter capitalized, although
-    # the API returns data if you replace it with lower case.
+  def self.new_from_username(username, home_wiki=nil)
     username = String.new(username)
-    # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
-    username[0] = username[0].mb_chars.capitalize.to_s
     # mediawiki mostly treats spaces and underscores as equivalent, but spaces
     # are the canonical form. Replica will not return revisions for the underscore
     # versions.
     username.tr!('_', ' ')
     # Remove any leading or trailing whitespace that snuck through.
-    username.strip!
+    username.gsub!(/^[[:space:]]+/, '')
+    username.gsub!(/[[:space:]]+$/, '')
+    # Remove left-to-right mark, Ruby charcter 8206, from beginning or end.
+    username[0] = '' while username[0] == 8206.chr
+    username[-1] = '' while username[-1] == 8206.chr
+    # Remove "User:" prefix if present.
+    username.gsub!(/^User:/, '')
+    # All mediawiki usernames have the first letter capitalized, although
+    # the API returns data if you replace it with lower case.
+    # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
+    username[0] = username[0].mb_chars.capitalize.to_s unless username.empty?
+
     user = User.find_by(username: username)
     return user if user
 
     # All users are expected to have an account on the central wiki, no matter
     # which is their home wiki.
-    return unless user_exists_on_meta?(username)
+    return unless user_account_exists?(username, home_wiki)
 
     # We may already have a user record, but the user has been renamed.
     # We check for a user with the same global_id, and update the username if
@@ -55,16 +63,15 @@ class UserImporter
   end
 
   def self.update_users(users=nil)
-    u_users = Utils.chunk_requests(users || User.all) do |block|
-      Replica.new.get_user_info block
-    end
-
-    User.transaction do
-      u_users.each do |user_data|
-        update_user_from_replica_data(user_data)
-      end
+    users ||= User.where(registered_at: nil)
+    users.each do |user|
+      update_user_from_metawiki(user)
     end
   end
+
+  ##################
+  # Helper methods #
+  ##################
 
   def self.update_user_from_auth(user, auth)
     user.update(global_id: auth.uid,
@@ -73,8 +80,11 @@ class UserImporter
                 wiki_secret: auth.credentials.secret)
   end
 
-  def self.user_exists_on_meta?(username)
-    WikiApi.new(MetaWiki.new).get_user_id(username).present?
+  def self.user_account_exists?(username, home_wiki)
+    # First check Meta, then fall back to specified home wiki.
+    return true if WikiApi.new(MetaWiki.new).get_user_id(username).present?
+    # If home_wiki is nil, WikiApi falls back to the default wiki (en.wikipedia)
+    WikiApi.new(home_wiki).get_user_id(username).present?
   end
 
   def self.update_username_for_global_id(username)
@@ -89,16 +99,15 @@ class UserImporter
   end
 
   def self.get_global_id(username)
-    user_data = Replica.new.get_user_info [User.new(username: username)]
-    user_data = user_data[0]
-    return unless user_data
-    user_data['global_id'].to_i
+    user_data = WikiApi.new(MetaWiki.new).get_user_info(username)
+    user_data&.dig('centralids', 'CentralAuth')
   end
 
-  def self.update_user_from_replica_data(user_data)
-    username = user_data['wiki_id']
-    user = User.find_by(username: username)
-    return if user.blank?
-    user.update!(user_data.except('id'))
+  def self.update_user_from_metawiki(user)
+    user_data = WikiApi.new(MetaWiki.new).get_user_info(user.username)
+    return if user_data['missing']
+    user.update!(username: user_data['name'],
+                 registered_at: user_data['registration'],
+                 global_id: user_data&.dig('centralids', 'CentralAuth'))
   end
 end

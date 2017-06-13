@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_response"
 
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
@@ -36,10 +37,6 @@ class WikiEdits
                           extra: { sender: current_user.username,
                                    course_name: course.slug,
                                    untrained_count: untrained_users.count }
-  end
-
-  def notify_user(sender, recipient, message)
-    add_new_section(sender, recipient.talk_page, message)
   end
 
   ####################

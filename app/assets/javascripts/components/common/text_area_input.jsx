@@ -1,7 +1,7 @@
 import React from 'react';
 const md = require('../../utils/markdown_it.js').default();
 import InputMixin from '../../mixins/input_mixin.js';
-import TrixEditor from 'react-trix';
+import { TrixEditor } from 'react-trix';
 
 // This is a flexible text input box. It switches between edit and read mode,
 // and can either provide a wysiwyg editor or a plain text editor.
@@ -31,9 +31,11 @@ const TextAreaInput = React.createClass({
     return { value: this.props.value };
   },
 
-  _handleChange(e) {
+  // react-trix passes html, text to the onChange handler.
+  _handleTrixChange(html) {
+    const e = { target: { value: html } };
     this.onChange(e);
-    return this.setState({ value: e.target.innerHTML });
+    return this.setState({ value: html });
   },
 
   render() {
@@ -44,17 +46,24 @@ const TextAreaInput = React.createClass({
     // Edit mode //
     // ////////////
     if (this.props.editable) {
+      let inputClass;
+      if (this.state.invalid) {
+        inputClass = 'invalid';
+      }
+
       // Use Trix if props.wysiwyg, otherwise, use a basic textarea.
       if (this.props.wysiwyg) {
         inputElement = (
           <TrixEditor
             value={this.state.value}
-            onChange={this._handleChange}
+            onChange={this._handleTrixChange}
+            className={inputClass}
           />
         );
       } else {
         inputElement = (
           <textarea
+            className={inputClass}
             id={this.state.id}
             rows={this.props.rows || '8'}
             value={this.state.value || ''}

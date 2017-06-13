@@ -1,4 +1,4 @@
-class AddOrderToWeeks < ActiveRecord::Migration
+class AddOrderToWeeks < ActiveRecord::Migration[4.2]
   def change
     add_column :weeks, :order, :integer, null: false, default: 1
     Course.all.each do |course|

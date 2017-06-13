@@ -2,7 +2,9 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: BanKris
+# Author: Notramo
 # Author: R-Joe
+# Author: Tacsipacsi
 # Author: Uno20001
 # Author: Wolf Rex
 ---
@@ -10,6 +12,8 @@ hu:
   application:
     cancel: Mégse
     dashboard: Wiki Ed Műszerfal
+    field_invalid_date_time: A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
+      23-ig tartanak.)
     greeting2: Üdvözlünk!
     greeting_extended: Üdvözlünk a Wikipédián
     greeting: Helló!
@@ -52,6 +56,7 @@ hu:
     timeline_link: Idővonal
     title: Cím
   courses_generic:
+    all_courses: Minden program
     creator:
       course_school: Intézmény
     student_editors: Szerkesztők

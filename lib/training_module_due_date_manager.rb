@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'training_progress_manager'
 
 class TrainingModuleDueDateManager
@@ -19,20 +20,11 @@ class TrainingModuleDueDateManager
   }.freeze
 
   def computed_due_date(block = course_block_for_module)
-    return block.due_date if block.due_date.present?
-    # an assignment due the end of the first week
-    # is due the end of the week the timeline starts
-    # (0 weeks from timeline start)
-    week = block.week
-    @meetings_manager = CourseMeetingsManager.new(week.course) if @meetings_manager.nil?
-    weeks_from_start = (week.order - 1).to_i
-    weeks_from_start += @meetings_manager.blackout_weeks_prior_to(week)
-    (block.week.course.timeline_start + weeks_from_start.weeks)
-      .to_date.end_of_week(:sunday)
+    block.calculated_due_date
   end
 
   def overdue?
-    !progress_manager.module_completed? && Date.today > computed_due_date
+    !module_completed? && Date.today > computed_due_date
   end
 
   def deadline_status
@@ -44,7 +36,7 @@ class TrainingModuleDueDateManager
   # courses where module is assigned)
   def overall_due_date
     blocks = blocks_with_module_assigned(@training_module)
-    blocks.collect { |block| computed_due_date(block) }.sort.first
+    blocks.collect(&:calculated_due_date).sort.first
   end
 
   def blocks_with_module_assigned(training_module)
@@ -59,7 +51,12 @@ class TrainingModuleDueDateManager
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
          .where(courses_users: { user_id: @user.id, role: CoursesUsers::Roles::STUDENT_ROLE })
-         .where.not('training_module_ids = ?', [].to_yaml)
+         .where.not('training_module_ids = ?', [].to_yaml).includes(:week)
+  end
+
+  def module_completed?
+    return @tmu.completed_at.present? if @tmu.present?
+    progress_manager.module_completed?
   end
 
   def progress_manager
@@ -68,8 +65,8 @@ class TrainingModuleDueDateManager
   end
 
   def course_block_for_module
-    Block.joins(week: :course)
-         .where(weeks: { course_id: @course.id })
-         .find { |block| block.training_module_ids.include?(@training_module.id) }
+    @block ||= Block.joins(week: :course)
+                    .where(weeks: { course: @course })
+                    .find { |block| block.training_module_ids.include?(@training_module.id) }
   end
 end

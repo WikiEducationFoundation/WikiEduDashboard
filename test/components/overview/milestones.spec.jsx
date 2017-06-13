@@ -1,9 +1,8 @@
 import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import rewire from 'rewire';
 
-const Milestones = rewire('../../../app/assets/javascripts/components/overview/milestones.jsx').default;
+import Milestones from '../../../app/assets/javascripts/components/overview/milestones.jsx';
 
 describe('Milestones', () => {
   const course = { string_prefix: 'courses' };
@@ -20,13 +19,13 @@ describe('Milestones', () => {
   it('renders block content in a <p> tag', () => {
     TestMilestones.setState({ weeks: [week] });
     const milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestones, 'milestones');
-    return expect(milestones.innerHTML).to.include('<p>Tacos are great</p>');
+    expect(milestones.innerHTML).to.include('<p>Tacos are great</p>');
   }
   );
 
-  return it('does not render block if empty', () => {
+  it('does not render block if empty', () => {
     TestMilestones.setState({ weeks: [week2] });
-    return expect(TestMilestones.render()).to.equal(null);
+    expect(TestMilestones.render()).to.equal(null);
   }
   );
 }

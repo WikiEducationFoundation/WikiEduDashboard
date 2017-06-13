@@ -2,7 +2,6 @@ name: 'Evaluating Articles and Sources'
 id: 7
 description: |
   In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
-estimated_ttc: 15 minutes
 slides:
   - slug: evaluating-sources-and-articles # 701
   - slug: what-makes-a-good-article # 702

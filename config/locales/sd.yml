@@ -134,6 +134,7 @@ sd:
     wiki_staff: وڪي ايڊيٽر عملو
     yourcourses: توهان جا ڪورسز
   courses_generic:
+    all_courses: سڀ سٽاءَ (پروگرام)
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
   metrics:
     activity: تازي سرگرمي

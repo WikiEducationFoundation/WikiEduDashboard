@@ -65,7 +65,8 @@ class ModifiedRevisionsManager
     # some inconsistency or timing delay in the update process.
     return unless article
 
-    Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
-            .update(article_id: article.id, mw_page_id: mw_page_id)
+    revision = Revision.find_by(wiki_id: @wiki.id, mw_rev_id: moved['rev_id'])
+    return unless revision
+    revision.update(article_id: article.id, mw_page_id: mw_page_id)
   end
 end

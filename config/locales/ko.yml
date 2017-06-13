@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alex00728
 # Author: Asdfqwer51
+# Author: Ellif
 # Author: Hwangjy9
 # Author: Jerrykim306
 # Author: Jonghaya
@@ -22,11 +23,13 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    documentation: 설명서
     error: '오류가 있었습니다:'
     explore: 찾아보기
     field_required: 이 칸은 반드시 입력해야 합니다
     field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
     field_invalid_date: 이 필드에는 YYYY-MM-DD 형식의 날짜가 필요합니다.
+    field_invalid_date_time: 끝 시간이 시작 시간보다 뒤에 와야 합니다. (시간은 0시부터 23시 사이입니다)
     greeting2: 환영합니다!
     greeting_extended: 위키백과에 오신 것을 환영합니다
     greeting: 안녕하세요!
@@ -37,6 +40,7 @@ ko:
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
+    report_problem: 문제점 보고
     search: 질문하기
     sign_up_extended: 위키백과에 로그인하기
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -127,6 +131,8 @@ ko:
       legend_class_meeting: 수업 미팅
       legend_class_not_meeting: 예정된 미팅 없음
     cancel: 취소
+    campaign_articles: '%{title} 문서'
+    campaign_users: '%{title} 편집자'
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
@@ -152,6 +158,7 @@ ko:
     delete_course: 과정 삭제
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
+    download_stats_data: 다운로드 통계
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
     enable_chat: 채팅 사용하기
@@ -205,20 +212,28 @@ ko:
     survey:
       link: 설문 조사 참가
   courses_generic:
+    all_courses: 모든 프로그램
     archived: 보존된 프로그램
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
     cancel: 취소
+    course: 프로그램
     courses: 프로그램
     creator:
+      clone_successful: 프로그램이 성공적으로 복제되었습니다
+      clone_successful_details: '프로그램이 복제되었습니다. 원래의 것과 구별하기 위해 ''날짜''(예: 연도와 월) 필드에
+        무언가를 추가해 주십시오. 그 다음 아래의 ''저장''을 눌러 마칠 수 있습니다.'
       course_description: 프로그램 설명
+      course_term: 날짜
+      course_term_placeholder: 날짜
       course_title: 프로그램 제목
       create_button: 내 프로그램을 만듭니다!
       create_label: 새로운 프로그램 만들기
-      create_new: 새로운 프로그램 만들기
+      create_new: 별도의 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
+      save_cloned_course: 저장
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가

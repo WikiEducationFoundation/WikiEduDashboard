@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ArticleHelper, type: :helper do
@@ -27,6 +28,23 @@ describe ArticleHelper, type: :helper do
       expect(full_title(@article)).to eq('Selfie')
       expect(full_title(@sandbox)).to eq('User:Ragesoss/sandbox')
       expect(full_title(@draft)).to eq('Draft:My Awesome Draft!!!')
+    end
+  end
+
+  describe '.rating_display' do
+    it 'displays bplus as b class' do
+      output = rating_display('bplus')
+      expect(output).to eq('b')
+    end
+
+    it 'displays a/ga as a class' do
+      output = rating_display('a/ga')
+      expect(output).to eq('a')
+    end
+
+    it 'displays rated lists as basic lists' do
+      output = rating_display('al')
+      expect(output).to eq('l')
     end
   end
 end

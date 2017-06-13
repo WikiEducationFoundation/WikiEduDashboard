@@ -4,13 +4,13 @@ require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create]
-  before_action :set_campaign, only: [:overview, :programs, :edit, :update, :destroy,
+  before_action :set_campaign, only: [:overview, :programs, :articles, :users, :edit, :update, :destroy,
                                       :add_organizer, :remove_organizer, :remove_course]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: [:update, :destroy, :add_organizer,
                                                    :remove_organizer, :remove_course, :edit]
 
-  DETAILS_FIELDS = %w(title start end).freeze
+  DETAILS_FIELDS = %w[title start end].freeze
 
   def index
     @campaigns = Campaign.all
@@ -44,6 +44,14 @@ class CampaignsController < ApplicationController
   def overview
     set_presenter
     @editable = current_user&.admin? || user_is_organizer?
+  end
+
+  def articles
+    set_presenter
+  end
+
+  def users
+    set_presenter
   end
 
   def edit

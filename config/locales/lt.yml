@@ -182,6 +182,7 @@ lt:
     error:
       user_exists: Atsiprašome, %{username} neegzistuoja.
       invalid_language_or_project: Negalima kalba/projektas
+      duplicate_slug: Kita programa, pavadinta %{slug}, jau egzistuoja.
     expected_students: Tikimasi Studentų
     gradeables_none: Šis kursas neturi vertinamų užduočių.
     instructor:
@@ -238,6 +239,7 @@ lt:
       notification_message: Atlikite šio kurso apklausą.
       link: Atlikti apklausą
   courses_generic:
+    all_courses: Visos Programos
     articles_none: Dar nėra redaguotų straipsnių šiam projektui.
     assignment_end: Laiko Juostos Pabaigą
     assignments_none: Šis projektas neturi priskirtų straipsnių.

@@ -16,9 +16,9 @@ dty:
   users:
     name: नाऊ
   user_profiles:
-    student_impact: विद्यार्थीया रूपमी %{username}ले पाण्याऽ कूल प्रभाव
-    instructor_impact: प्रशिक्षकआ रूपमी %{username}ले पाण्याऽ कूल प्रभाव
-    instructors_student_impact: '%{username}आ विद्यार्थीइनले पाण्याऽ कूल प्रभाव'
+    student_impact: '%{username}ले विद्यार्थीया रूपमी पाण्याऽ कूल प्रभाव'
+    instructor_impact: '%{username}ले प्रशिक्षकाः रूपमी पाण्याऽ कूल प्रभाव'
+    instructors_student_impact: '%{username}का विद्यार्थीइनले पाण्याऽ कूल प्रभाव'
   wizard:
     select_one_option: कृपया १ विकल्प छानअ।
   error:

@@ -1,6 +1,8 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Chicocvenancio
+# Author: Fitoschido
 # Author: Fúlvio
 # Author: Gato Preto
 # Author: Hamilton Abreu
@@ -60,7 +62,7 @@ pt:
   home:
     explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
-    sign_up: Iniciar sessão através da Wikipédia
+    sign_up: Se inscrever através da Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -178,7 +180,7 @@ pt:
         cronograma (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à
         vontade para atualizá-lo agora.
       course_description: Descrição do curso
-      course_language: Idioma principal
+      course_language: Idioma do projeto
       course_project: Projeto principal
       course_school: Escola do curso
       course_subject: Tema do curso
@@ -317,7 +319,7 @@ pt:
       course_title: Título do programa
       create_button: Criar meu Programa!
       create_label: Criar Novo Programa
-      create_new: Criar um Novo Programa
+      create_new: Criar um programa independente
       create_short: Criar Programa
       find: Encontrar um Programa
       intro: Exige-se o título do programa; todo o resto pode ser editado posteriormente.

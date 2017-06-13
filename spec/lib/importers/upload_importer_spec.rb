@@ -57,7 +57,7 @@ describe UploadImporter do
 
   describe '.import_all_missing_urls' do
     it 'processes all files that need thumbnails' do
-      create(:commons_upload, file_name: 'File:Magnolia × soulangeana blossom.jpg')
+      create(:commons_upload, id: 174, file_name: 'File:Magnolia × soulangeana blossom.jpg')
       expect(CommonsUpload.last.thumburl).to be_nil
       VCR.use_cassette 'commons/import_all_missing_urls' do
         UploadImporter.import_all_missing_urls

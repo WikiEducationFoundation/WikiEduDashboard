@@ -55,6 +55,7 @@ yi:
       start_date: אָנהייב דאַטע
     school: שולע
   courses_generic:
+    all_courses: אלע פראגראמען
     creator:
       course_school: אַנשטאַלט
       course_title: פראגראם־טיטל

@@ -14,10 +14,10 @@ describe('Notifications', () => {
     const rendered = ReactTestUtils.renderIntoDocument(
       <Notifications />
     );
-    return expect(rendered).to.exist;
+    expect(rendered).to.exist;
   });
 
-  return it('updates via API_FAIL action and removes via close', (done) => {
+  it('updates via API_FAIL action and removes via close', (done) => {
     NotificationStore.clearNotifications();
 
     const rendered = ReactTestUtils.renderIntoDocument(

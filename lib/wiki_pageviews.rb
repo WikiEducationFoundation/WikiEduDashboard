@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Fetches pageview data from the Wikimedia pageviews REST API
 # Documentation: https://wikimedia.org/api/rest_v1/?doc#!/Pageviews_data/get_metrics_pageviews_per_article_project_access_agent_article_granularity_start_end
 class WikiPageviews
@@ -38,12 +39,7 @@ class WikiPageviews
   end
 
   def average_views
-    data = recent_views
-    # TODO: better handling of unexpected or empty responses, including logging
-    return unless data
-    data = Utils.parse_json(data)
-    return unless data.include?('items')
-    daily_view_data = data['items']
+    daily_view_data = recent_views
     average_views = calculate_average_views(daily_view_data)
     average_views
   end
@@ -57,7 +53,7 @@ class WikiPageviews
     start_date = 50.days.ago
     end_date = 1.day.ago
     url = query_url(start_date: start_date, end_date: end_date)
-    api_get url
+    parse_results(api_get url)
   end
 
   def query_url(start_date:, end_date:)
@@ -74,10 +70,7 @@ class WikiPageviews
   def fetch_view_data(start_date, end_date)
     url = query_url(start_date: start_date, end_date: end_date)
     data = api_get url
-    return unless data
-    data = Utils.parse_json(data)
-    return unless data.include?('items')
-    data['items']
+    parse_results(data)
   end
 
   def calculate_average_views(daily_view_data)
@@ -88,7 +81,7 @@ class WikiPageviews
       total_views += day_data['views']
     end
 
-    return if total_views.zero?
+    return 0 if total_views.zero?
     average_views = total_views.to_f / days
     average_views
   end
@@ -104,4 +97,18 @@ class WikiPageviews
     Rails.logger.error "Wikimedia REST API error: #{e}"
     raise e
   end
+
+  def parse_results(response)
+    return unless response
+    data = Utils.parse_json(response)
+    return data['items'] if data['items']
+    return no_results if data['type'] == 'https://restbase.org/errors/not_found'
+    raise PageviewApiError, response
+  end
+
+  def no_results
+    {}
+  end
+
+  class PageviewApiError < StandardError; end
 end

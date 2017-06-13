@@ -9,16 +9,16 @@ describe CourseStatistics do
       # Course
       id = i
       id2 = id + 100
-      create(:course, id: id, start: 1.year.ago, end: Time.zone.today)
+      create(:course, id: id, start: 1.year.ago, end: Time.zone.today, slug: "foo/#{id}")
       # First user in course working within course dates
-      create(:user, id: id)
+      create(:user, id: id, username: "user#{id}")
       create(:courses_user, id: id, user_id: id, course_id: id, role: 0)
       create(:revision, date: 1.day.ago, article_id: id, user_id: id, characters: 1000)
       create(:article, id: id, title: "Article_#{id}", namespace: Article::Namespaces::MAINSPACE)
       create(:commons_upload, id: id, user_id: id, uploaded_at: 1.day.ago, usage_count: 1)
 
       # Second user in course working outside course dates
-      create(:user, id: id2)
+      create(:user, id: id2, username: "second_user#{id}")
       create(:courses_user, id: id2, user_id: id2, course_id: id2, role: 0)
       create(:revision, date: 2.years.ago, article_id: id2, user_id: id2)
       create(:article, id: id2, title: "Article_#{id2}")

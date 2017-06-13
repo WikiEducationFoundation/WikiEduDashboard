@@ -1,8 +1,13 @@
 import React from 'react';
-import ActivityTableRow from './activity_table_row.jsx';
-import Loading from '../common/loading.jsx';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
+
+import * as UIActions from '../../actions';
+import ActivityTableRow from './activity_table_row.jsx';
+import Loading from '../common/loading.jsx';
+
 
 const ActivityTable = React.createClass({
   displayName: 'ActivityTable',
@@ -11,7 +16,9 @@ const ActivityTable = React.createClass({
     loading: React.PropTypes.bool,
     activity: React.PropTypes.array,
     headers: React.PropTypes.array,
-    noActivityMessage: React.PropTypes.string
+    noActivityMessage: React.PropTypes.string,
+    openKey: React.PropTypes.string,
+    toggleDrawer: React.PropTypes.func
   },
 
   getInitialState() {
@@ -49,6 +56,7 @@ const ActivityTable = React.createClass({
       const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
       const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
       const talkPageLink = `${revision.base_url}/wiki/User_talk:${revision.username}`;
+      const isOpen = this.props.openKey === `drawer_${revision.key}`;
 
       return (
         <ActivityTableRow
@@ -63,6 +71,8 @@ const ActivityTable = React.createClass({
           revisionScore={roundedRevisionScore}
           author={revision.username}
           revisionDateTime={revisionDateTime}
+          isOpen={isOpen}
+          toggleDrawer={this.props.toggleDrawer}
         />
       );
     });
@@ -141,4 +151,12 @@ const ActivityTable = React.createClass({
   }
 });
 
-export default ActivityTable;
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+const mapDispatchToProps = dispatch => ({
+  toggleDrawer: bindActionCreators(UIActions, dispatch).toggleUI
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityTable);

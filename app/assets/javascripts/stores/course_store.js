@@ -7,12 +7,21 @@ import ServerActions from '../actions/server_actions.js';
 let _course = {};
 let _persisted = {};
 let _loaded = false;
+let _renamed = false;
+
+const nameHasChanged = () => {
+  if (_course.title !== _persisted.title) { return true; }
+  if (_course.term !== _persisted.term) { return true; }
+  if (_course.school !== _persisted.school) { return true; }
+  return false;
+};
 
 // Utilities
 const setCourse = function (data, persisted = false, quiet = false) {
   _loaded = true;
   $.extend(true, _course, data);
   delete _course.weeks;
+  _renamed = nameHasChanged();
   if (persisted) { _persisted = $.extend(true, {}, _course); }
   if (!quiet) { return CourseStore.emitChange(); }
 };
@@ -67,6 +76,9 @@ const CourseStore = Flux.createStore({
   },
   isLoaded() {
     return _loaded;
+  },
+  isRenamed() {
+    return _renamed;
   }
 }
 , (payload) => {

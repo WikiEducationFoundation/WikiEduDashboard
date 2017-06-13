@@ -46,7 +46,7 @@ describe UserProfilesController do
 
     context 'when current_user is not the same user nor an admin' do
       let(:user) { create(:user, email: 'fake_email@gmail.com') }
-      let(:unauthorised_user) { create(:user) }
+      let(:unauthorised_user) { create(:user, username: 'unauthorized') }
       it 'does not shows the email id' do
         allow(controller).to receive(:current_user).and_return(unauthorised_user)
         get :show, params: { username: user.username }
@@ -117,7 +117,6 @@ describe UserProfilesController do
         post :update, params: { username: user.username, user_profile: { id: profile.id, user_id: profile.user_id, institution: 'Institution'} }
         expect(user.user_profile.institution).to eq 'Institution'
       end
-
 
       it 'updates the Image' do
         file = fixture_file_upload('wiki-logo.png', 'image/png')

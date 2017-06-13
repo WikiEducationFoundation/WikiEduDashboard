@@ -9,6 +9,8 @@ azb:
     cancel: وازگئچ
     dashboard: ویکی‌اد داشبوردو
     error: بیر خطا باش وئردی.
+    explore: آختار
+    field_required: بو مورد گرکدیر
     greeting2: خوش گلدینیز!
     greeting_extended: ویکی‌پدیایا خوش گلدینیز
     greeting: سالام!
@@ -26,7 +28,12 @@ azb:
     submit: گؤندر
     training: اؤیردیم
     change: دَییشدیر
+    details: جوزئیات
+    confirm: اوْلسون
+  dashboard:
+    explore_examples: میثاللاردا آختار
   home:
+    explore: آختار
     log_in: ویکی‌پدیا ایله گیر
     sign_up: ویکی‌پدیا ایله آد یازدیر
   activity:
@@ -34,32 +41,81 @@ azb:
     edited_by: دییشدیرن
     label: چالیشما
   articles:
+    edited: مقاله لر دییشدیریلیبدیر
+    edited_by: 'دییشدیرن:'
     edited_mobile: مقاله‌لر
+    hide: گیزلت
     label: مقاله‌لر
     loading: مقاله‌لر یۆکلنیر...
     new: (یئنی)
+    rating: کیلاس
     title: باشلیق
     title_example: مقاله باشلیغی
     view: مقاله‌یه باخ
     view_all: هامی‌سینا باخ
+    view_on_wiki: ویکیده باخ
+    edit_size: دییشدیرمه اؤلچوسو
   assignments:
     remove: سیل
     select: سئچ
   campaign:
+    campaign: کمپین
+    campaigns: کمپینلر
+    create_campaign: یئنی بیر کمپین یارات
+    create_my_campaign: منیم کمپینیمی یارات!
+    description: توضیح
+    delete_campaign: بو کمپینی سیل
     none: هئچ بیری
+    title: باشلیق
+  chat:
+    label: چت
   courses:
     activity: چالیشما
     articles: مقاله‌لر
+    cancel: وازگئچ
+    campaigns: 'کمپینلر:'
+    creator:
+      course_language: آنا دیل
+      course_project: آنا پروژه
+      course_term_placeholder: ترم
+      subject: موضوع
+    end: سوْن
     join: قوْشول
+    loading: یوکلنیر...
+    my_articles: منیم مقاله‌لریم
+    none: هئچ بیری
+    overview: ائو
     school: مدرسه
+    start: باشلا
+    user_role: نقش
     term: ترم
     title: باشلیق
   courses_generic:
+    cancel: وازگئچ
+    campaigns: 'کمپینلر:'
+    student_editors: دَییشدیرنلر
+    students: دَییشدیرنلر
+    students_short: دَییشدیرنلر
     term: هاچان
+  editable:
+    edit: دَییشدیر
+    cancel: وازگئچ
+    save: ذخیره ائت
+    edit_description: آچیقلامانی دَییشدیر
+  metrics:
+    tags: اِتیکتلر
   namespace:
     user_ns: ایشلدن
+  recent_activity:
+    image: عکس
+    file_name: فایل آدی
   revisions:
+    diff: فرق
+    diff_show: گؤستر
+    diff_hide: گیزلت
     title: باشلیق
+  timeline:
+    gradeable_value: دیر
   training:
     start: باشلا
     view: باخ

@@ -14,11 +14,14 @@
 #  assigned_article_title :string(255)
 #  role                   :integer          default(0)
 #  recent_revisions       :integer          default(0)
+#  character_sum_draft    :integer          default(0)
 #
 
 require 'rails_helper'
 
 describe CoursesUsers, type: :model do
+  before { stub_wiki_validation }
+
   describe '.update_all_caches' do
     it 'updates data for course-user relationships' do
       # Add a user, a course, an article, and a revision.
@@ -81,7 +84,7 @@ describe CoursesUsers, type: :model do
   describe '#contribution_url' do
     let(:en_wiki_course) { create(:course) }
     let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
-    let(:es_wiktionary_course) { create(:course, home_wiki_id: es_wiktionary.id) }
+    let(:es_wiktionary_course) { create(:course, home_wiki_id: es_wiktionary.id, slug: 'foo/es') }
     let(:user) { create(:user, username: 'Ragesoss') }
 
     it 'links the the contribution page of the home_wiki for the course' do
@@ -146,9 +149,10 @@ describe CoursesUsers, type: :model do
 
   describe '.update_all_caches_concurrently' do
     it 'calls .update_all_caches multiple times' do
+      concurrency = 6
       expect(CoursesUsers).to receive(:update_all_caches)
-        .exactly(CoursesUsers::CACHE_UPDATE_CONCURRENCY).times
-      CoursesUsers.update_all_caches_concurrently
+        .exactly(concurrency).times
+      CoursesUsers.update_all_caches_concurrently(concurrency)
     end
   end
 end

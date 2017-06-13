@@ -20,6 +20,13 @@ const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from '../app/assets/javascripts/reducers';
+
+const reduxStore = createStore(reducer, applyMiddleware(thunk));
+
+global.reduxStore = reduxStore;
 global.$ = $;
 global._ = _;
 global.sinon = sinon;

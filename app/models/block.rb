@@ -14,11 +14,16 @@
 #  order               :integer
 #  due_date            :date
 #  training_module_ids :text(65535)
+#  graded              :boolean
+#  points              :string(255)
 #
+
+require "#{Rails.root}/lib/block_date_manager"
 
 #= Block model
 class Block < ActiveRecord::Base
   belongs_to :week
+  has_one :course, through: :week
   has_one :gradeable, as: :gradeable_item, dependent: :destroy
   serialize :training_module_ids, Array
 
@@ -31,5 +36,17 @@ class Block < ActiveRecord::Base
 
   def training_modules
     training_module_ids.collect { |id| TrainingModule.find(id) }
+  end
+
+  def date_manager
+    @date_manager ||= BlockDateManager.new(self)
+  end
+
+  def calculated_date
+    date_manager.date
+  end
+
+  def calculated_due_date
+    date_manager.due_date
   end
 end

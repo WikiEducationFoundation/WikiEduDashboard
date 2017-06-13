@@ -296,7 +296,7 @@ const Timeline = React.createClass({
         </li>
       ) : (
         <li>
-          <span className="week-nav__add-week" onClick={this.addWeek}>Add Week</span>
+          <button className="week-nav__add-week" onClick={this.addWeek}>Add Week</button>
         </li>
       );
     }

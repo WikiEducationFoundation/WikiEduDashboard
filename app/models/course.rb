@@ -46,7 +46,6 @@
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_update_manager"
 require "#{Rails.root}/lib/course_training_progress_manager"
 require "#{Rails.root}/lib/trained_students_manager"
 require "#{Rails.root}/lib/word_count"
@@ -57,7 +56,7 @@ class Course < ActiveRecord::Base
   ######################
   # Users for a course #
   ######################
-  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
+  has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :users, -> { distinct }, through: :courses_users
   has_many :students, -> { where('courses_users.role = 0') },
            through: :courses_users, source: :user
@@ -86,7 +85,7 @@ class Course < ActiveRecord::Base
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
 
-  has_many :articles_courses, class_name: ArticlesCourses, dependent: :destroy
+  has_many :articles_courses, class_name: 'ArticlesCourses', dependent: :destroy
   has_many :articles, -> { distinct }, through: :articles_courses
   has_many :pages_edited, -> { distinct }, source: :article, through: :revisions
 
@@ -95,9 +94,9 @@ class Course < ActiveRecord::Base
   ############
   # Metadata #
   ############
-  belongs_to :home_wiki, class_name: Wiki
+  belongs_to :home_wiki, class_name: 'Wiki'
 
-  has_many :campaigns_courses, class_name: CampaignsCourses, dependent: :destroy
+  has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns, through: :campaigns_courses
 
   has_many :tags, dependent: :destroy
@@ -191,6 +190,7 @@ class Course < ActiveRecord::Base
   before_save :ensure_required_params
   before_save :order_weeks
   before_save :set_default_times
+  before_save :check_course_times
 
   ####################
   # Instance methods #
@@ -212,10 +212,13 @@ class Course < ActiveRecord::Base
   end
 
   def training_modules
-    ids = Block.joins(:week).where(weeks: { course_id: id })
-               .where.not('training_module_ids = ?', [].to_yaml)
-               .collect(&:training_module_ids).flatten
-    TrainingModule.all.select { |tm| ids.include?(tm.id) }
+    @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
+  end
+
+  def training_module_ids
+    @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
+                                  .where.not('training_module_ids = ?', [].to_yaml)
+                                  .collect(&:training_module_ids).flatten
   end
 
   # The url for the on-wiki version of the course.
@@ -230,10 +233,6 @@ class Course < ActiveRecord::Base
   def update(data={}, should_save=true)
     self.attributes = data[:course]
     save if should_save
-  end
-
-  def students_without_nonstudents
-    students.where.not(id: nonstudents.pluck(:id))
   end
 
   def new_articles
@@ -267,15 +266,20 @@ class Course < ActiveRecord::Base
     CourseCacheManager.new(self).update_cache
   end
 
-  def manual_update
-    CourseUpdateManager.manual_update self
-  end
-
   #################
   # Class methods #
   #################
   def self.update_all_caches
     ready_for_update.each(&:update_cache)
+  end
+
+  def self.update_all_caches_concurrently(concurrency = 2)
+    threads = ready_for_update
+              .in_groups(concurrency, false)
+              .map.with_index do |course_batch, i|
+      Thread.new(i) { course_batch.each(&:update_cache) }
+    end
+    threads.each(&:join)
   end
 
   RANDOM_PASSCODE_LENGTH = 8
@@ -320,5 +324,13 @@ class Course < ActiveRecord::Base
     self.end = self.end.end_of_day
     self.timeline_start = timeline_start.beginning_of_day
     self.timeline_end = timeline_end.end_of_day
+  end
+
+  # Check if course times are invalid and if yes, set the end time to be the same
+  # as that of the start time
+  def check_course_times
+    if start > self.end
+      self.end = start
+    end
   end
 end

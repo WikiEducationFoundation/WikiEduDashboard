@@ -16,9 +16,11 @@ describe('AvailableArticle', () => {
 
   it('renders', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
-      <div>
-        <AvailableArticle {...props} />
-      </div>
+      <table>
+        <tbody>
+          <AvailableArticle {...props} />
+        </tbody>
+      </table>
     );
     expect(TestDom.querySelector('.assignment')).to.exist;
     expect(TestDom.textContent).to.contain('two');
@@ -26,9 +28,11 @@ describe('AvailableArticle', () => {
 
   it('notify when selec an article', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
-      <div>
-        <AvailableArticle {...props} />
-      </div>
+      <table>
+        <tbody>
+          <AvailableArticle {...props} />
+        </tbody>
+      </table>
     );
 
     const spy = sinon.spy(NotificationActions, 'addNotification');

@@ -6,7 +6,9 @@
 # Author: Chicocvenancio
 # Author: Cristofer Alves
 # Author: Dianakc
+# Author: EVinente
 # Author: Eduardo Addad de Oliveira
+# Author: Felipe L. Ewald
 # Author: HenriqueCrang
 # Author: Ixocactus
 # Author: Joalpe
@@ -16,6 +18,7 @@
 # Author: Maxan
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Trigonometria87
 ---
 pt-br:
   accessibility:
@@ -29,8 +32,9 @@ pt-br:
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem caracteres inválidos
     field_invalid_date: Este campo requer a data no formato AAAA-MM-DD
+    field_invalid_date_time: O fim deve vir após o início. (Horas vão de 0 a 23.)
     greeting2: Bem-vindo(a)!
-    greeting_extended: Bem-vindo à Wikipédia
+    greeting_extended: Bem-vindo(a) à Wikipédia
     greeting: Olá!
     help: Ajuda
     home: Início
@@ -98,7 +102,7 @@ pt-br:
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
       fa: Artigo destacado — Classificação mais alta da Wikipédia, provavelmente é
-        um artigo muito maduro para ser o projeto principal de um novo editor.
+        um artigo maduro demais para ser o projeto principal de um novo editor.
       fl: Lista destacada — a mais alta classificação da Wikipedia para listas
       a: 'Classe A: um artigo muito desenvolvido que pode ser maduro demais para ser
         o projeto principal de um editor novo'
@@ -123,9 +127,18 @@ pt-br:
     views_added: '%{count} novas visualizações para %{title}'
     edit_size: Tamanho da edição
     wp10: Integridade Estrutural
+    wp10_doc: A nota de 'Integridade Estrutural' indica o quanto um artigo se encaixa
+      no molde de um artigo maduro da Wikipédia, baseado no serviço de aprendizado
+      por máquina ORES (Serviço de Avaliação de Revisões Objetivo https://ores.wikimedia.org/
+      ). Essas notas são calculadas baseadas no tamanho de um artigo, o número de
+      referências e wikilinks e outras características básicas. Uma nota alta geralmente
+      indica que um artigo segue as convenções da Wikipédia para a estrutura de um
+      bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
+      para a Wikipédia em inglês.)
   assignments:
     article: The article %{title} foi designado
     already_exists: Essa atribuição já existe!
+    title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
     assign_other: Atribuir um artigo
     add_available: Adicionar um artigo disponível
@@ -155,7 +168,7 @@ pt-br:
     campaign: Campanha
     campaigns: Campanhas
     campaign_deleted: A campanha "%{title}" foi eliminada
-    campaign_not_updated: A campanha não pode ser atualizadas
+    campaign_not_updated: A campanha não pode ser atualizada
     campaign_updated: Campanha atualizada
     confirm_campaign_deletion: Tem certeza de que deseja excluir a campanha intitulada
       %{title}? Se assim for, escreva o título da campanha para prosseguir.
@@ -163,7 +176,20 @@ pt-br:
       campanha não foi eliminada.'
     confirm_course_removal: Tens certeza que quer remover "%{title}" da campanha "%{campaign_title}"?
     course_already_removed: '"%{title}" já foi removida da campanha "%{campaign_title}"'
+    course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
+    create_campaign: Criar uma nova Campanha
+    create_my_campaign: Criar a minha Campanha!
+    description: Descrição
+    delete_campaign: Deletar essa campanha
     none: Nenhum
+    organizers: Organizadores
+    organizer_added: '%{user} é agora um(a) organizador(a) da campanha "%{title}"'
+    organizer_removed: '%{user} foi removido(a) como organizador(a) da campanha "%{title}"'
+    program_template: Modelo de Programa
+    program_template_tooltip: Quando um organizador criar um programa nessa campanha,
+      o texto nessa área será copiado como descrição na página do programa
+    title: Título
+    use_start_end_dates: Use datas de início e fim
   chat:
     label: Bate-papo
   courses:
@@ -222,7 +248,7 @@ pt-br:
         (semanas e blocos). Alguma coisa sobre seu curso mudou? Fique à vontade para
         atualizá-lo agora.
       course_description: Descrição do curso
-      course_language: Idioma principal
+      course_language: Idioma do projeto
       course_project: Projeto principal
       course_school: Escola do curso
       course_subject: Tema do curso
@@ -246,6 +272,9 @@ pt-br:
       start_date: Data de início
       start_date_placeholder: Data de início (AAAA-MM-DD)
       subject: Tema
+      update_scheduled: Atualização agendada. Os dados serão atualizados juntos com
+        todos os outros programas no próximo ciclo de atualização. Isso geralmente
+        demora várias horas.
     current: Cursos atuais
     delete_course: Eliminar curso
     dismiss_survey: Dispensar
@@ -254,7 +283,7 @@ pt-br:
     edit_course_dates: Editar data do Curso
     enable_chat: Ativar Bate Papo
     end: Fim
-    ended: O curso terminou
+    ended: O curso terminou.
     enroll: Inscrever-se
     enrollment: Inscrição
     courses_enrolled: Cursos inscritos
@@ -263,6 +292,8 @@ pt-br:
         ou termo diferente.
       user_exists: Desculpe, %{username} não é um usuário existente.
       invalid_language_or_project: Idioma/projeto inválido
+      invalid_slug: Escola ou título em branco para o curso.
+      duplicate_slug: Outro programa chamado %{slug} já existe.
     expected_students: Alunos esperados
     gradeables_none: Este curso não tem atribuições graduáveis.
     instructor:
@@ -276,10 +307,13 @@ pt-br:
     join_course: Participar do curso
     join_prompt: Participar de '%{title}'?
     join_successful: Você está participando de %{title}.
-    join_failed: Inscrição falhou
+    join_failed: Inscrição falhou.
     join_failure_details:
       cannot_join_twice: Usuários não podem se inscrever no mesmo curso duas vezes.
       not_yet_approved: Esse curso ainda não foi aprovado para inscrição.
+    join_details: Para entrar nesse curso, você precisa de uma senha - ou um link
+      de inscrição que inclui a senha - do instrutor. Se ainda não recebeu isto, contate
+      o seu instrutor.
     leave_confirmation: Tem certeza de que deseja sair deste curso?
     leave_course: Abandonar curso
     loading: Carregando…
@@ -308,6 +342,7 @@ pt-br:
     revisions_doc: Número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
+    school_and_term: Instituição/Quando
     start: Iniciar
     start_typing: Começar a escrever
     students: Estudantes
@@ -359,6 +394,7 @@ pt-br:
       notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o Questionário
   courses_generic:
+    all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.
     assignment_end: Fim do Cronograma
@@ -378,7 +414,7 @@ pt-br:
       course_title: Título do programa
       create_button: Criar meu Programa!
       create_label: Criar Novo Programa
-      create_new: Criar Um Novo Programa
+      create_new: Criar um programa independente
       create_short: Criar Programa
       find: Encontrar um Programa
       intro: Exige-se o título do programa; todo o resto pode ser editado posteriormente.
@@ -393,12 +429,15 @@ pt-br:
     expected_students: Editores Esperados
     instructors: Facilitadores
     join_course: Entrar no programa
+    join_details: Para entrar nesse programa, precisas de uma senha - ou link que
+      inclui a senha - do facilitador.
     leave_course: Deixar o programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
     published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
       a seguinte URL:'
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
+    school_and_term: Instituição/Quando
     student_editors: Editores
     students: Editores
     students_none: Este projeto não tem editores cadastrados.
@@ -410,6 +449,8 @@ pt-br:
       de mídia no Wikimedia Commons.
     view_other: Ver outras campanhas
     view_page: Ver a Página do Programa
+    word_count_doc: Uma estimativa do número de palavras adicionadas em artigos do  domínio
+      principal pelos editores do programa durante a duração deste.
     yourcourses: Seus Programas
   editable:
     edit: Editar
@@ -475,6 +516,7 @@ pt-br:
     diff: dif
     diff_show: Exibir
     diff_hide: Esconder
+    edit_time_span: Edições ocorreram de %{first_time} até %{last_time}
     edited_by: Editado Por
     edited_on: Editado em %{edit_date}
     loading: Carregando revisões
@@ -672,7 +714,10 @@ pt-br:
     form_errors: Por favor, verifique o formulário de erros.
     invalid_assignment: Tarefa inválida
     invalid_date: A data %{key} é inválida
+    invalid_file_format: O arquivo não pôde ser salvo. Por favor, envie um documento
+      PDF ou Word.
     oauth_invalid: Sua sessão na Wikipedia se expirou. Por favor, entre novamente.
+    start_date_before_end_date: Data de início deve ser anterior a data de fim
     unsupported_browser:
       header: Navegador sem suporte. :-(
       explanation: Você está usando um navegador que não é compatível com o painel
@@ -734,4 +779,6 @@ pt-br:
       message: Isto é um lembrete sobre o questionário de seu curso, %{course_title}.
         Comentários recebidos neste questionário nos ajudam a aperfeiçoar nosso suporte
         a tarefas na Wikipédia como a sua.
+  feedback_form_responses:
+    no_responses: Não há comentários/repostas ainda.
 ...

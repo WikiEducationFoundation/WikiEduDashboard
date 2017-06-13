@@ -20,6 +20,7 @@ describe 'open course creation', type: :feature, js: true do
   end
 
   before do
+    stub_wiki_validation
     @system_time_zone = Time.zone
     Time.zone = 'Eastern Time (US & Canada)'
     page.current_window.resize_to(1920, 1080)
@@ -37,7 +38,7 @@ describe 'open course creation', type: :feature, js: true do
 
   it 'lets a user create a course immediately', js: true do
     visit root_path
-    click_link 'Create a New Program'
+    click_link 'Create an Independent Program'
     fill_out_open_course_creator_form
     fill_in 'Home language:', with: 'ta'
     fill_in 'Home project', with: 'wiktionary'
@@ -53,7 +54,7 @@ describe 'open course creation', type: :feature, js: true do
 
   it 'defaults to English Wikipedia' do
     visit root_path
-    click_link 'Create a New Program'
+    click_link 'Create an Independent Program'
     fill_out_open_course_creator_form
     click_button 'Create my Program!'
     expect(page).to have_content 'This project has been published!'

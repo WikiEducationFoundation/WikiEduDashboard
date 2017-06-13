@@ -15,7 +15,7 @@ describe 'campaign overview page', type: :feature, js: true do
   let(:campaign) do
     create(:campaign,
            id: 10001,
-           title: 'My awesome Spring 2016 campaign',
+           title: 'Spring 2016 campaign',
            slug: slug,
            description: 'This is the best campaign')
   end
@@ -41,7 +41,7 @@ describe 'campaign overview page', type: :feature, js: true do
         course2.campaigns << campaign_two
 
         # STUDENTS, one per course
-        create(:user, id: i, trained: true)
+        create(:user, username: "user#{i}", id: i, trained: true)
         create(:courses_user,
                id: i,
                course_id: i,
@@ -49,7 +49,7 @@ describe 'campaign overview page', type: :feature, js: true do
                role: CoursesUsers::Roles::STUDENT_ROLE)
 
         # INSTRUCTORS, one per course
-        create(:user, id: i + campaign_course_count, trained: true)
+        create(:user, username: "instructor#{i}", id: i + campaign_course_count, trained: true)
         create(:courses_user,
                id: i + campaign_course_count,
                course_id: i,

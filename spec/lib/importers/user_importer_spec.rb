@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
@@ -87,10 +88,30 @@ describe UserImporter do
       end
     end
 
+    it 'works for users who have no Meta account if home wiki is provided' do
+      VCR.use_cassette 'user/new_from_nonmeta_user' do
+        username = 'Lukasoch'
+        # This user has a wikipedia account for en and pl, but not a Meta one.
+        user = UserImporter.new_from_username(username, MetaWiki.new)
+        expect(user).to be_nil
+        home_wiki = Wiki.new(language: 'pl', project: 'wikipedia')
+        user = UserImporter.new_from_username(username, home_wiki)
+        expect(user).not_to be_nil
+      end
+    end
+
+    it 'does not create a user if input is only whitespace' do
+      VCR.use_cassette 'user/new_from_username_nonexistent' do
+        username = '    '
+        user = UserImporter.new_from_username(username)
+        expect(user).to be_nil
+      end
+    end
+
     it 'creates a user with the correct username capitalization' do
       VCR.use_cassette 'user/new_from_username' do
-        # Basic lower case letter at the beginning
-        username = 'zimmer1048'
+        # Basic lower case letter at the beginning, and whitespace
+        username = ' zimmer1048 ' # First whitespace is a non-breaking space.
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Zimmer1048')
 
@@ -98,6 +119,26 @@ describe UserImporter do
         username = 'áragetest'
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Áragetest')
+      end
+    end
+
+    it 'removes User: prefix from username' do
+      VCR.use_cassette 'user/new_from_username_with_prefix' do
+        username = 'User:Ragesock'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Ragesock')
+      end
+    end
+
+    it 'removes the invisible left-to-right mark from start or end of username' do
+      VCR.use_cassette 'user/new_from_username_with_ltr' do
+        username = 'Jashan1994' + 8206.chr + 8206.chr
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Jashan1994')
+
+        username = 8206.chr + 'Jashan1994'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Jashan1994')
       end
     end
 
@@ -113,20 +154,23 @@ describe UserImporter do
   end
 
   describe '.update_users' do
-    it 'should update which users have completed training' do
-      # Create a new user, who by default is assumed not to have been trained.
-      ragesoss = create(:trained)
-      expect(ragesoss.trained).to eq(false)
+    it 'updates global ids and MetaWiki registration date' do
+      create(:user, username: 'Ragesoss', global_id: nil)
+      create(:user, username: 'Ragesock', global_id: nil)
 
       # Update trained users to see that user has really been trained
-      UserImporter.update_users
-      ragesoss = User.all.first
-      expect(ragesoss.trained).to eq(true)
-    end
-
-    it 'should handle exceptions for missing users' do
-      user = [build(:user)]
-      UserImporter.update_users(user)
+      VCR.use_cassette 'users/update_users' do
+        UserImporter.update_users
+      end
+      ragesoss = User.find_by(username: 'Ragesoss')
+      ragesock = User.find_by(username: 'Ragesock')
+      # Since on-wiki trainings are not used anymore, we no longer update "trained"
+      # status via UserImporter.
+      # expect(ragesoss.trained).to eq(true)
+      expect(ragesoss.global_id).to eq(827)
+      expect(ragesock.global_id).to eq(14093230)
+      expect(ragesoss.registered_at.to_date).to eq(Date.new(2006, 7, 14))
+      expect(ragesock.registered_at.to_date).to eq(Date.new(2012, 7, 11))
     end
   end
 end

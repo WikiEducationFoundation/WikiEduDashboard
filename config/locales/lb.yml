@@ -7,11 +7,14 @@ lb:
   application:
     cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
+    documentation: Dokumentatioun
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
     field_invalid_characters: Dëst Feld huet net valabel Zeechen
     field_invalid_date: Dëst Feld brauch en Datum am Format JJJJ-MM-DD
+    field_invalid_date_time: De Schluss muss nom Ufank sinn. (Stonne gi vun 0 bis
+      23.)
     greeting2: Wëllkomm!
     greeting_extended: Wëllkomm op Wikipedia
     greeting: Salut!
@@ -21,6 +24,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    report_problem: E Problem mellen
     search: eng Fro stellen
     sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia
@@ -113,6 +117,9 @@ lb:
     cancel: Ofbriechen
     campaigns: 'Campagnen:'
     campaign_courses: '%{title} Coursen'
+    campaign_articles: '%{title} Artikelen'
+    campaign_users: '%{title} Auteuren'
+    course: Cours
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
@@ -139,6 +146,7 @@ lb:
     dismiss_survey: Verwerfen
     dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende
       wëllt?
+    download_stats_data: Statistiken eroflueden
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     enable_chat: Chat aktivéieren
@@ -197,8 +205,10 @@ lb:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
       link: Bei der Ëmfro matmaachen
   courses_generic:
+    all_courses: All Progtrammer
     archived: Archivéiert Programmer
     cancel: Ofbriechen
+    course: Programm
     courses: Programmer
     campaigns: 'Campagnen:'
     campaign_courses: '%{title} Programmer'
@@ -207,8 +217,12 @@ lb:
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
+      course_term: Wéini
+      course_term_placeholder: Wéini
       course_title: Titel vum Programm
       find: E Programm sichen
+      participate_in_campaign: Bei enger Campagne matmaachen
+      save_cloned_course: Späicheren
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
     enrollment: Participatioun
@@ -344,9 +358,9 @@ lb:
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Ed
   user_profiles:
-    student_impact: Gesamtimpakt vum %{username} als Student
-    instructor_impact: Gesamtimpakt vum %{username} als Instrukter
-    instructors_student_impact: Gesamtimpakt vun de Studente vum %{username}
+    student_impact: Gesamtimpakt duerch %{username} als Student
+    instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
+    instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
     disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
     bio_placeholder: Är Biographie dobäisetzen (fakultativ)
     location_placeholder: Setzt Är Plaz derbäi (fakultativ)

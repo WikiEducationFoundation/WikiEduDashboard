@@ -14,6 +14,7 @@
 #  assigned_article_title :string(255)
 #  role                   :integer          default(0)
 #  recent_revisions       :integer          default(0)
+#  character_sum_draft    :integer          default(0)
 #
 
 require "#{Rails.root}/lib/utils"
@@ -61,24 +62,8 @@ class CoursesUsers < ActiveRecord::Base
     "#{course.home_wiki.base_url}/wiki/Special:PrefixIndex/User:#{user.url_encoded_username}"
   end
 
-  def character_sum_ms
-    update_cache unless self[:character_sum_ms]
-    self[:character_sum_ms]
-  end
-
-  def character_sum_us
-    update_cache unless self[:character_sum_us]
-    self[:character_sum_us]
-  end
-
-  def revision_count
-    update_cache unless self[:revision_count]
-    self[:revision_count]
-  end
-
-  def recent_revisions
-    update_cache unless self[:recent_revisions]
-    self[:recent_revisions]
+  def talk_page_url
+    "#{course.home_wiki.base_url}/wiki/User_talk:#{user.url_encoded_username}"
   end
 
   def assigned_article_title
@@ -98,6 +83,7 @@ class CoursesUsers < ActiveRecord::Base
     revisions = course.revisions.joins(:article).where(user_id: user.id)
     self.character_sum_ms = character_sum(revisions, Article::Namespaces::MAINSPACE)
     self.character_sum_us = character_sum(revisions, Article::Namespaces::USER)
+    self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
     assignments = user.assignments.where(course_id: course.id)
@@ -128,10 +114,9 @@ class CoursesUsers < ActiveRecord::Base
     Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
   end
 
-  CACHE_UPDATE_CONCURRENCY = 5
-  def self.update_all_caches_concurrently
+  def self.update_all_caches_concurrently(concurrency = 2)
     threads = CoursesUsers.ready_for_update
-                          .in_groups(CACHE_UPDATE_CONCURRENCY, false)
+                          .in_groups(concurrency, false)
                           .map.with_index do |courses_users_batch, i|
       Thread.new(i) do
         update_all_caches(courses_users_batch)

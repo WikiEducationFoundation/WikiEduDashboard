@@ -10,6 +10,7 @@ import ValidationActions from '../../actions/validation_actions.js';
 import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
+import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -75,7 +76,7 @@ const CourseCreator = React.createClass({
   },
 
   saveCourse() {
-    if (ValidationStore.isValid() && this.expectedStudentsIsValid()) {
+    if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
       ValidationActions.setInvalid(
         'exists',
@@ -102,9 +103,13 @@ const CourseCreator = React.createClass({
         }
       } else if (!this.state.justSubmitted) {
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
-        ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
+        // If the save callback fails, which will happen if an invalid wiki is submitted,
+        // then we must reset justSubmitted so that the user can fix the problem
+        // and submit again.
+        const onSaveFailure = () => this.setState({ justSubmitted: false });
+        ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }), null, onSaveFailure);
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
@@ -128,6 +133,17 @@ const CourseCreator = React.createClass({
   expectedStudentsIsValid() {
     if (this.state.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
       ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      return false;
+    }
+    return true;
+  },
+
+  dateTimesAreValid() {
+    const startDateTime = new Date(this.state.course.start);
+    const endDateTime = new Date(this.state.course.end);
+
+    if (startDateTime >= endDateTime) {
+      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
     return true;
@@ -172,7 +188,9 @@ const CourseCreator = React.createClass({
     let subject;
     let expectedStudents;
 
+    let descriptionRequired = false;
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
+      descriptionRequired = true;
       term = (
         <TextInput
           id="course_term"
@@ -256,7 +274,6 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
-
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -265,6 +282,7 @@ const CourseCreator = React.createClass({
         transitionLeaveTimeout={500}
       >
         <Modal key="modal">
+          <Notifications />
           <div className="wizard__panel active" style={formStyle}>
             <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
             <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
@@ -315,6 +333,7 @@ const CourseCreator = React.createClass({
                   onChange={this.updateCourse}
                   value={this.state.course.description}
                   value_key="description"
+                  required={descriptionRequired}
                   editable
                   placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                 />

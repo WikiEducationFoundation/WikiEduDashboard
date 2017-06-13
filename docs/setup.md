@@ -1,10 +1,21 @@
 [Back to README](../README.md)
 
-## Requirements
- * **Ruby (RVM recommended)**
- * **Node**
- * **NPM**
- * **Bower**
+## TL;DR bare minimum version
+If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
+
+* copy `config/application.example.yml` to `config/application.yml`
+* copy `config/database.example.yml` to `config/database.yml`
+* create a MySQL database, `dashboard`
+* install ruby 2.3.1 and nodejs
+* `bundle install`
+* `rake db:migrate`
+* `rake campaign:add_campaigns`
+* install bower and yarn
+* `bower install` for some javascript requirements
+* `yarn` for more javascript requirements
+* `gulp` to build assets
+* `guard` or `rails s` to start a server
+* localhost:3000 should load the home page
 
 ## Project Setup
 

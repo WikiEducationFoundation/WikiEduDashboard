@@ -22,6 +22,7 @@
 #  locale              :string(255)
 #  chat_password       :string(255)
 #  chat_id             :string(255)
+#  registered_at       :datetime
 #
 
 require "#{Rails.root}/lib/utils"
@@ -29,8 +30,6 @@ require "#{Rails.root}/lib/utils"
 #= User model
 class User < ActiveRecord::Base
   alias_attribute :wiki_id, :username
-
-  validates :permissions, inclusion: { in: [0, 1, 2] }
   before_validation :ensure_valid_email
 
   #############
@@ -41,21 +40,32 @@ class User < ActiveRecord::Base
     ADMIN = 1
     INSTRUCTOR = 2
   end
+  validates :permissions, inclusion: {
+    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR]
+  }
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
 
-  has_many :courses_users, class_name: CoursesUsers, dependent: :destroy
-  has_many :campaigns_users, class_name: CampaignsUsers, dependent: :destroy
+  has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
+  has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :survey_notifications, through: :courses_users
   has_many :courses, -> { distinct }, through: :courses_users
+
+  has_many :instructor_roles, -> { where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE) },
+           class_name: 'CoursesUsers'
+  has_many :instructed_courses, through: :instructor_roles, source: :course
+  has_many :staff_roles, -> { where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE) },
+           class_name: 'CoursesUsers'
+  has_many :supported_courses, -> { distinct }, through: :staff_roles, source: :course
+
   has_many :campaigns, -> { distinct }, through: :campaigns_users
   has_many :revisions, -> { where(system: false) }
-  has_many :all_revisions, class_name: Revision
+  has_many :all_revisions, class_name: 'Revision'
   has_many :articles, -> { distinct }, through: :revisions
   has_many :assignments
-  has_many :uploads, class_name: CommonsUpload
+  has_many :uploads, class_name: 'CommonsUpload'
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
   has_one :user_profile, dependent: :destroy
 
@@ -63,7 +73,13 @@ class User < ActiveRecord::Base
   scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }
   scope :untrained, -> { where(trained: false) }
+  scope :ungreeted, -> { where(greeted: false) }
+
   scope :current, -> { joins(:courses).merge(Course.current).distinct }
+  scope :strictly_current, -> { joins(:courses).merge(Course.strictly_current) }
+  scope :from_courses, lambda { |courses|
+    joins(:courses_users).where(courses_users: { course: courses })
+  }
   scope :role, lambda { |role|
     roles = { 'student' => CoursesUsers::Roles::STUDENT_ROLE,
               'instructor' => CoursesUsers::Roles::INSTRUCTOR_ROLE,
@@ -73,13 +89,15 @@ class User < ActiveRecord::Base
     joins(:courses_users).where(courses_users: { role: roles[role] })
   }
 
-  scope :ungreeted, -> { where(greeted: false) }
-
   ####################
   # Class method(s)  #
   ####################
   def self.search_by_email(email)
     User.where('lower(email) like ?', "#{email}%")
+  end
+
+  def self.search_by_real_name(real_name)
+    User.where('lower(real_name) like ?', "%#{real_name}%")
   end
 
   ####################

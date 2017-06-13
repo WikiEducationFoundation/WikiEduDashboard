@@ -316,7 +316,7 @@ cs:
       course_title: Název programu
       create_button: Vytvořit můj program
       create_label: Vytvořit nový program
-      create_new: Vytvořit nový program
+      create_new: Vytvořit nezávislý program
       create_short: Vytvořit program
       find: Najít program
       intro: Název programu je vyžadován, všechno ostatní může být vyplněno později.
@@ -463,7 +463,7 @@ cs:
     assign_articles_done: Hotovo
     assigned: Přiřazené články
     assignees: Přiřazení
-    chars_added: Přidané znaky<br>(v hlavním jmenném prostoru | uživatelském prostoru)
+    chars_added: Přidané znaky<br>(článek | uživatelský prostor | koncept)
     contributions: Příspěvky uživatele
     contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
     contributions_more: Zobrazit více Příspěvků

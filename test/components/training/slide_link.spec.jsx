@@ -37,20 +37,20 @@ describe('SlideLink', () => {
   it('renders a button', () => {
     const button = ReactTestUtils.scryRenderedComponentsWithType(TestLink, SlideLink)[0];
     const domBtn = ReactDOM.findDOMNode(button);
-    return expect(domBtn.className).to.eq('slide-nav btn btn-primary icon icon-rt_arrow');
+    expect(domBtn.className).to.eq('slide-nav btn btn-primary icon icon-rt_arrow');
   });
 
   it('renders correct text', () => {
     const button = ReactTestUtils.scryRenderedComponentsWithType(TestLink, SlideLink)[0];
     const domBtn = ReactDOM.findDOMNode(button);
-    return expect(domBtn.textContent).to.eq('Next Page');
+    expect(domBtn.textContent).to.eq('Next Page');
   });
 
-  return it('renders correct link', () => {
+  it('renders correct link', () => {
     const button = ReactTestUtils.scryRenderedComponentsWithType(TestLink, SlideLink)[0];
     const domBtn = ReactDOM.findDOMNode(button);
     const expected = '/training/foo/bar/foobar';
     // mocha won't render the link with an actual href for some reason…
-    return expect(domBtn.getAttribute('data-href')).to.eq(expected);
+    expect(domBtn.getAttribute('data-href')).to.eq(expected);
   });
 });

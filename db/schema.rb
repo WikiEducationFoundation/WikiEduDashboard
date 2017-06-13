@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170304003631) do
+ActiveRecord::Schema.define(version: 20170602231912) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -34,11 +34,8 @@ ActiveRecord::Schema.define(version: 20170304003631) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.bigint   "views",                               default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",                       default: 0
-    t.integer  "revision_count",                      default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
     t.string   "rating"
@@ -49,6 +46,8 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.date     "average_views_updated_at"
     t.integer  "wiki_id"
     t.integer  "mw_page_id"
+    t.index ["mw_page_id"], name: "index_articles_on_mw_page_id", using: :btree
+    t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title", using: :btree
   end
 
   create_table "articles_courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -59,6 +58,8 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.bigint   "view_count",    default: 0
     t.integer  "character_sum", default: 0
     t.boolean  "new_article",   default: false
+    t.index ["article_id"], name: "index_articles_courses_on_article_id", using: :btree
+    t.index ["course_id"], name: "index_articles_courses_on_course_id", using: :btree
   end
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.integer  "order"
     t.date     "due_date"
     t.text     "training_module_ids", limit: 65535
+    t.index ["week_id"], name: "index_blocks_on_week_id", using: :btree
   end
 
   create_table "campaigns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -132,6 +134,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.string   "thumbwidth"
     t.string   "thumbheight"
     t.boolean  "deleted",                  default: false
+    t.index ["user_id"], name: "index_commons_uploads_on_user_id", using: :btree
   end
 
   create_table "courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -174,7 +177,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.boolean  "needs_update",                        default: false
     t.string   "chatroom_id"
     t.text     "flags",                 limit: 65535
-    t.index ["slug"], name: "index_courses_on_slug", using: :btree
+    t.index ["slug"], name: "index_courses_on_slug", unique: true, using: :btree
   end
 
   create_table "courses_users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -188,6 +191,9 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.string   "assigned_article_title"
     t.integer  "role",                   default: 0
     t.integer  "recent_revisions",       default: 0
+    t.integer  "character_sum_draft",    default: 0
+    t.index ["course_id"], name: "index_courses_users_on_course_id", using: :btree
+    t.index ["user_id"], name: "index_courses_users_on_user_id", using: :btree
   end
 
   create_table "feedback_form_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -282,6 +288,9 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.integer  "mw_page_id"
     t.text     "features",       limit: 65535
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
+    t.index ["article_id"], name: "index_revisions_on_article_id"
+    t.index ["user_id"], name: "index_revisions_on_user_id", using: :btree
+    t.index ["wiki_id", "mw_rev_id"], name: "index_revisions_on_wiki_id_and_mw_rev_id", unique: true
   end
 
   create_table "survey_assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -353,10 +362,11 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.integer  "training_module_id"
     t.string   "last_slide_completed"
     t.datetime "completed_at"
+    t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id", using: :btree
   end
 
   create_table "user_profiles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "bio"
+    t.text     "bio",                limit: 65535
     t.integer  "user_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -385,6 +395,8 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.string   "locale"
     t.string   "chat_password"
     t.string   "chat_id"
+    t.datetime "registered_at"
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -403,6 +415,7 @@ ActiveRecord::Schema.define(version: 20170304003631) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "order",      default: 1, null: false
+    t.index ["course_id"], name: "index_weeks_on_course_id", using: :btree
   end
 
   create_table "wikis", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

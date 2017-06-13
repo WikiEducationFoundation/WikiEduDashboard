@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
 require "#{Rails.root}/lib/importers/revision_score_importer"
 require "#{Rails.root}/lib/importers/plagiabot_importer"
+require "#{Rails.root}/lib/importers/upload_importer"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/data_cycle/cache_updater"
 require "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
-require "#{Rails.root}/lib/student_greeter"
+require "#{Rails.root}/lib/student_greeting_checker"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
@@ -40,14 +40,13 @@ class ConstantUpdate
 
   def run_update
     log_start_of_update
-    update_users
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
+    import_uploads_for_needs_update_courses
     update_all_caches # from CacheUpdater
-    push_course_data_to_salesforce if Features.wiki_ed?
     remove_needs_update_flags
-    greet_ungreeted_students unless ENV['no_greeting'] == 'true'
+    update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
   end
@@ -55,11 +54,6 @@ class ConstantUpdate
   ###############
   # Data import #
   ###############
-
-  def update_users
-    log_message 'Updating global ids and training status'
-    UserImporter.update_users
-  end
 
   def update_revisions_and_articles
     log_message 'Importing revisions and articles for all courses'
@@ -85,23 +79,19 @@ class ConstantUpdate
     RatingImporter.update_new_ratings
   end
 
-  ###############
-  # Data export #
-  ###############
-  def push_course_data_to_salesforce
-    log_message 'Pushing course data to Salesforce'
-    @courses.each do |course|
-      PushCourseToSalesforce.new(course) if course.flags[:salesforce_id]
-    end
+  def update_status_of_ungreeted_students
+    log_message 'Updating greeting status of ungreeted students'
+    StudentGreetingChecker.check_all_ungreeted_students
   end
 
-  ###############
-  # Batch edits #
-  ###############
-
-  def greet_ungreeted_students
-    log_message 'Greeting students in classes with greeters'
-    StudentGreeter.greet_all_ungreeted_students
+  # Uploads are normally imported only during the DailyUpdate for current courses.
+  # However, courses from the past that were marked for update need to have their
+  # uploads imported during the ConstantUpdate before their :needs_update flags
+  # are removed.
+  def import_uploads_for_needs_update_courses
+    log_message 'Backfilling Commons uploads for needs_update courses'
+    UploadImporter.import_all_uploads User.joins(:courses).where( courses: { needs_update: true } ).distinct
+    UploadImporter.update_usage_count_by_course Course.where(needs_update: true)
   end
 
   #################################

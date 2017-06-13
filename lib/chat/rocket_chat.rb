@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RocketChat
   def initialize(user: nil, course: nil)
     raise ChatDisabledError unless Features.enable_chat?
@@ -26,11 +27,6 @@ class RocketChat
     room_id = JSON.parse(response.body).dig('group', '_id')
     raise StandardError unless room_id
     @course.update_attribute(:chatroom_id, room_id)
-  end
-
-  LIST_CHANNELS_ENDPOINT = '/api/v1/groups.list'
-  def list_channels
-    api_get(LIST_CHANNELS_ENDPOINT, admin_auth_header)
   end
 
   ADD_TO_CHANNEL_ENDPOINT = '/api/v1/groups.invite'
@@ -65,16 +61,6 @@ class RocketChat
     post = Net::HTTP::Post.new(uri.path, header)
     post.body = data.to_json
     response = http.request(post)
-    validate_api_response(response, endpoint)
-    response
-  end
-
-  def api_get(endpoint, header = {})
-    uri = URI.parse(@chat_server + endpoint)
-    http = Net::HTTP.new(uri.host, 443)
-    http.use_ssl = true
-    get = Net::HTTP::Get.new(uri.path, header)
-    response = http.request(get)
     validate_api_response(response, endpoint)
     response
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/tag_manager"
 
 #= Factory for handling the initial creation of a course
@@ -48,10 +49,12 @@ class CourseCreationManager
     project = project_param.present? ? project_param : Wiki.default_wiki.project
     @wiki = Wiki.get_or_create(language: language.downcase, project: project.downcase)
     @overrides[:home_wiki] = @wiki
+  rescue Wiki::InvalidWikiError
+    @wiki = nil
   end
 
   def set_slug
-    slug = @course_params[:school].blank? ? '' : "#{@course_params[:school]}"
+    slug = @course_params[:school].blank? ? '' : @course_params[:school]
     slug += "/#{@course_params[:title]}" unless @course_params[:title].blank?
     slug += "_(#{@course_params[:term]})" unless @course_params[:term].blank?
     @slug = slug.tr(' ', '_')
@@ -59,14 +62,14 @@ class CourseCreationManager
   end
 
   def invalid_wiki?
-    @wiki.id.nil?
+    @wiki&.id.nil?
   end
 
   def invalid_slug?
     # A valid slug should contain some non-blank text, followed by a forward slash,
     # followed by some more non-blank text. At least two non-blank parts should hence be present.
     slug_parts = @slug.split('/')
-    slug_parts.reject! { |slug_part| slug_part.blank? }
+    slug_parts.reject!(&:blank?)
     slug_parts.size <= 1
   end
 

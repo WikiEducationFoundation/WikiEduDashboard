@@ -9,14 +9,32 @@ gl:
   application:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
+    documentation: Documentación
+    error: Houbo un erroː
     explore: Explorar
+    field_required: Este campo é obrigatorio
+    field_invalid_characters: Este campo ten caracteres non válidos
+    field_invalid_date: Este campo require unha data en formato AAAA-MM-DD
     greeting2: Benvido!
     greeting_extended: Benvido a Wikipedia
     greeting: Ola!
     help: Axuda
     home: Inicio
+    log_in_extended: Iniciar sesión na Wikipedia
+    log_in: Acceder ao sistema
+    log_out: Saír
+    my_dashboard: O meu panel de control
     recent_activity: Actividade recente
+    report_problem: Informar sobre un problema
+    search: facer unha pregunta
+    sign_up_extended: Rexistrarse en Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Rexístrese
     submit: Enviar
+    training: Formación
+    change: Cambiar
+    details: Detalles
+    confirm: Aceptar
   home:
     explore: Explorar
   activity:
@@ -64,6 +82,7 @@ gl:
     instructor:
       one: Monitor
       other: Monitores
+    join_prompt: Unirse a '%{title}'?
     new_week: Engadir nova semana
     nocourses: Non está a participar en ningún curso.
     revisions_doc: Número de edicións nos pasados %{timeframe} días

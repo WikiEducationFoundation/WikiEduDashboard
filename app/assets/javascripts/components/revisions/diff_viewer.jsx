@@ -14,7 +14,6 @@ const DiffViewer = React.createClass({
     revision: React.PropTypes.object.isRequired,
     first_revision: React.PropTypes.object,
     showButtonLabel: React.PropTypes.string,
-    hideButtonLabel: React.PropTypes.string,
     largeButton: React.PropTypes.bool,
     editors: React.PropTypes.array,
     showSalesforceButton: React.PropTypes.bool,
@@ -33,13 +32,6 @@ const DiffViewer = React.createClass({
       return this.props.showButtonLabel;
     }
     return I18n.t('revisions.diff_show');
-  },
-
-  hideButtonLabel() {
-    if (this.props.hideButtonLabel) {
-      return this.props.hideButtonLabel;
-    }
-    return I18n.t('revisions.diff_hide');
   },
 
   showDiff() {
@@ -124,8 +116,16 @@ const DiffViewer = React.createClass({
                                       .revisions[0];
           const lastRevisionData = data.query.pages[this.props.revision.mw_page_id]
                                       .revisions[1];
+          // Data may or may not include the diff.
+          let diff;
+          if (firstRevisionData.diff) {
+            diff = firstRevisionData.diff['*'];
+          // Some deleted revisions have a "texthidden" key.
+          } else if (firstRevisionData.texthidden === '') {
+            diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
+          }
           this.setState({
-            diff: firstRevisionData.diff['*'],
+            diff: diff,
             comment: firstRevisionData.comment,
             fetched: true,
             firstRevDateTime: firstRevisionData.timestamp,
@@ -145,7 +145,7 @@ const DiffViewer = React.createClass({
     }
 
     if (this.state.showDiff) {
-      button = <button onClick={this.hideDiff} className="button dark small">{this.hideButtonLabel()}</button>;
+      button = <button onClick={this.hideDiff} className="pull-right icon-close"></button>;
     } else {
       button = <button onClick={this.showDiff} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }
@@ -212,11 +212,11 @@ const DiffViewer = React.createClass({
       <div>
         {button}
         <div className={className}>
-          <p>
+          <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
             {button}
-            <a className="pull-right button small" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
-          </p>
+            <a className="pull-right button small diff-viewer-feedback" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
+          </div>
           {salesforceButtons}
           <table>
             <thead>

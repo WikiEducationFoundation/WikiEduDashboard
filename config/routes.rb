@@ -98,6 +98,7 @@ Rails.application.routes.draw do
   resources :courses_users, only: [:index]
   resources :alerts, only: [:create] do
     member do
+      get 'resolve'
       put 'resolve'
     end
   end
@@ -111,12 +112,16 @@ Rails.application.routes.draw do
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
+  get 'ungreeted' => 'analytics#ungreeted'
+  get 'course_csv' => 'analytics#course_csv'
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'
       get 'programs'
+      get 'articles'
+      get 'users'
       get 'students'
       get 'instructors'
       get 'courses'

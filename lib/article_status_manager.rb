@@ -123,13 +123,17 @@ class ArticleStatusManager
     true
   end
 
+  # This is limited by the URI length of the combined titles. For most languages,
+  # 100 titles per query is no problem, but languages with unicode titles hit the
+  # URI length limit.
+  ARTICLES_PER_REPLICA_QUERY = 50
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
   def update_article_ids(deleted_page_ids)
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
 
     # These pages have titles that match Articles in our DB with deleted ids
-    same_title_pages = Utils.chunk_requests(maybe_deleted, 100) do |block|
+    same_title_pages = Utils.chunk_requests(maybe_deleted, ARTICLES_PER_REPLICA_QUERY) do |block|
       request_results = Replica.new(@wiki).get_existing_articles_by_title block
       @failed_request_count += 1 if request_results.nil?
       request_results

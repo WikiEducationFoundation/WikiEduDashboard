@@ -10,6 +10,7 @@
 # Author: Mavrikant
 # Author: Sayginer
 # Author: Uğurkent
+# Author: Vito Genovese
 # Author: Watermelon juice
 ---
 tr:
@@ -36,6 +37,8 @@ tr:
     creator:
       course_title: Program adı
     courses_enrolled: Katılınan programlar
+  editable:
+    edit: Düzenle
   metrics:
     char_changed: Karakterler Değişti
   namespace:
@@ -52,8 +55,8 @@ tr:
     summary: Özet
   error_incorrect_passcode:
     header: Yanlış parola. :-(
-    explanation: Derse kayıt şifresi yanlıştır. Lütfen, sorumlu eğitimciye derse kayıt
-      için gerekli mevcut şifreyi sorunuz.
+    explanation: Bu derse kayıt parolası doğru değildir. Lütfen bu derse kaydolmak
+      için güncel parola kodunu eğitmenden isteyin.
   error_404:
     header: Sayfa bulunamadı. :-(
 ...

@@ -1,4 +1,4 @@
-class AddDetailsToCourses < ActiveRecord::Migration
+class AddDetailsToCourses < ActiveRecord::Migration[4.2]
   def self.up
     add_column :courses, :meeting_days, :string
     add_column :courses, :signup_token, :string

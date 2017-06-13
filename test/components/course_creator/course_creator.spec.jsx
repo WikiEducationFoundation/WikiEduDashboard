@@ -23,7 +23,7 @@ describe('CourseCreator', () => {
     it('renders a title', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
       const h3 = ReactDOM.findDOMNode(headline);
-      return expect(h3.textContent).to.eq('Create a New Course');
+      expect(h3.textContent).to.eq('Create a New Course');
     });
     describe('user courses dropdown', () => {
       describe('state not updated', () => {
@@ -52,6 +52,7 @@ describe('CourseCreator', () => {
           TestCourseCreator.setState({ isSubmitting: true });
           const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
           expect(form.style.cssText).to.eq('pointer-events: none; opacity: 0.5;');
+          TestCourseCreator.setState({ isSubmitting: false });
         });
       });
     });
@@ -90,6 +91,7 @@ describe('CourseCreator', () => {
     });
     describe('save course', () => {
       sinon.stub(TestCourseCreator, 'expectedStudentsIsValid', () => true);
+      sinon.stub(TestCourseCreator, 'dateTimesAreValid', () => true);
       const checkCourse = sinon.spy(ServerActions, 'checkCourse');
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
       it('calls the appropriate methods on the actions', () => {

@@ -82,7 +82,7 @@ describe Revision do
     end
 
     context 'two courses' do
-      let!(:course2)       { create(:course, start: course_start, end: course_end) }
+      let!(:course2)       { create(:course, start: course_start, end: course_end, slug: 'foo/2') }
       let!(:courses_user2) { create(:courses_user, course_id: course2.id, user_id: user.id) }
       it 'returns the course records for the user; we do not know which course it was for' do
         expect(subject).to include(course)

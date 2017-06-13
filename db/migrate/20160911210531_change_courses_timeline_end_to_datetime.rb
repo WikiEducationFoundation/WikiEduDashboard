@@ -1,4 +1,4 @@
-class ChangeCoursesTimelineEndToDatetime < ActiveRecord::Migration
+class ChangeCoursesTimelineEndToDatetime < ActiveRecord::Migration[4.2]
   def up
     change_column :courses, :timeline_end, :datetime
   end

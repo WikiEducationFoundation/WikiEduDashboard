@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_edits"
@@ -33,6 +34,8 @@ class CoursesController < ApplicationController
              status: 404
       return
     end
+    # TODO: Add strict datetime validations to course creation and
+    # add a clause to handle validation errors
     @course = course_creation_manager.create
   end
 
@@ -107,10 +110,9 @@ class CoursesController < ApplicationController
 
   def manual_update
     @course = find_course_by_slug(params[:id])
-    @course.manual_update if user_signed_in?
-    render plain: '', status: :ok
+    UpdateCourseRevisions.new(@course) if user_signed_in?
+    redirect_to "/courses/#{@course.slug}"
   end
-  helper_method :manual_update
 
   def needs_update
     @course = find_course_by_slug(params[:id])

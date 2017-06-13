@@ -15,13 +15,14 @@ class CourseCloneManager
     clear_meeting_days_and_due_dates
     set_instructor
     tag_course
+    copy_campaigns if Features.open_course_creation?
     return @clone
   end
 
   private
 
   def set_placeholder_start_and_end_dates
-    # The datepickers require an ititial date, so we set these to today's date
+    # The datepickers require an initial date, so we set these to today's date
     today = Time.zone.today
     @clone.start = today
     @clone.end = today
@@ -82,6 +83,12 @@ class CourseCloneManager
     @course.tags.each do |tag|
       next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
       tag_manager.add(tag: tag.tag, key: tag.key)
+    end
+  end
+
+  def copy_campaigns
+    @course.campaigns.each do |campaign|
+      CampaignsCourses.create(course: @clone, campaign: campaign)
     end
   end
 

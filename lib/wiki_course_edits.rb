@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_edits"
-require './lib/wiki_course_output'
-require './lib/wikitext'
+require "#{Rails.root}/lib/wiki_course_output"
+require "#{Rails.root}/lib/wiki_assignment_output"
+require "#{Rails.root}/lib/wikitext"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -57,6 +59,12 @@ class WikiCourseEdits
     user_page = "User:#{enrolling_user.username}"
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
+
+    # Add a template to the user's talk page
+    talk_template = "{{#{@dashboard_url} user talk|course = [[#{@course.wiki_title}]] }}\n"
+    talk_page = "User_talk:#{enrolling_user.username}"
+    talk_summary = "adding {{#{@dashboard_url} user talk}}"
+    @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
 
     # Pre-create the user's sandbox
     # TODO: Do this more selectively, replacing the default template if
@@ -130,14 +138,15 @@ class WikiCourseEdits
   end
 
   def homewiki_assignments_grouped_by_article
-    # Only do on-wiki updates for articles that are on the course's home wiki.
-    @course.assignments.where(wiki_id: @home_wiki.id)
+    # Only do on-wiki updates for articles that are on the course's home wiki
+    # and that are not 'available articles' with no assigned user.
+    @course.assignments.where(wiki: @home_wiki)
            .where.not(article_id: nil)
+           .where.not(user_id: nil)
            .group_by(&:article_id)
   end
 
   def update_assignments_for_article(title:, assignments_for_same_article:)
-    require './lib/wiki_assignment_output'
     return if WikiApi.new(@home_wiki).redirect?(title)
 
     # TODO: i18n of talk namespace

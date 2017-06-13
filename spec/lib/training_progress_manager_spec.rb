@@ -15,7 +15,8 @@ describe TrainingProgressManager do
   end
   let(:completed_at) { nil }
   let(:ids) { [t_module.id] }
-  let(:week) { create(:week) }
+  let(:week) { create(:week, course: course) }
+  let(:course) { create(:course) }
   let!(:block) do
     create(:block, training_module_ids: ids, week_id: week.id)
   end

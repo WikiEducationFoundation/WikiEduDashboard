@@ -5,11 +5,8 @@
 #
 #  id                       :integer          not null, primary key
 #  title                    :string(255)
-#  views                    :integer          default(0)
-#  created_at               :datetime
 #  updated_at               :datetime
-#  character_sum            :integer          default(0)
-#  revision_count           :integer          default(0)
+#  created_at               :datetime
 #  views_updated_at         :date
 #  namespace                :integer
 #  rating                   :string(255)
@@ -30,7 +27,7 @@ require "#{Rails.root}/lib/importers/article_importer"
 class Article < ActiveRecord::Base
   has_many :revisions
   has_many :editors, through: :revisions, source: :user
-  has_many :articles_courses, class_name: ArticlesCourses
+  has_many :articles_courses, class_name: 'ArticlesCourses'
   has_many :courses, -> { distinct }, through: :articles_courses
   has_many :assignments
   belongs_to :wiki
@@ -70,31 +67,7 @@ class Article < ActiveRecord::Base
   ####################
   def update(data={}, save=true)
     self.attributes = data
-    self.views = if revisions.count.positive?
-                   revisions.order('date ASC').first.views || 0
-                 else
-                   0
-                 end
     self.save if save
-  end
-
-  #################
-  # Cache methods #
-  #################
-  def character_sum
-    update_cache unless self[:character_sum]
-    self[:character_sum]
-  end
-
-  def revision_count
-    self[:revision_count] || revisions.size
-  end
-
-  def update_cache
-    # Do not consider revisions with negative byte changes
-    self.character_sum = revisions.where('characters >= 0').sum(:characters)
-    self.revision_count = revisions.size
-    save
   end
 
   #################

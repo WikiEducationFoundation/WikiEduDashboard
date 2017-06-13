@@ -10,11 +10,14 @@
 sv:
   application:
     cancel: Avbryt
+    documentation: Dokumentation
     error: 'Ett fel uppstod:'
     explore: Utforska
     field_required: Detta fält är obligatoriskt
     field_invalid_characters: Detta fält har ogiltiga tecken
     field_invalid_date: Detta fält kräver ett datum i formatet ÅÅÅÅ-MM-DD
+    field_invalid_date_time: Slutet måste vara efter starten. (Timmar går från 0 till
+      23.)
     greeting2: Välkommen!
     greeting_extended: Välkommen till Wikipedia
     greeting: Hej!
@@ -25,6 +28,7 @@ sv:
     log_out: Logga ut
     my_dashboard: Min kontrollpanel
     recent_activity: Senaste aktivitet
+    report_problem: Rapportera ett problem
     search: ställ en fråga
     sign_up_extended: Skapa ett konto med Wikipedia
     sign_up_log_in_extended: med Wikipedia
@@ -100,6 +104,9 @@ sv:
     cancel: Avbryt
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Kurser'
+    campaign_articles: '%{title} artiklar'
+    campaign_users: '%{title}-redigerare'
+    course: Kurs
     course_description: Kurser
     courses: Kurser
     creator:
@@ -128,12 +135,16 @@ sv:
       start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
       subject: Ämne
     delete_course: Radera kurs
+    delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort
+      först.
     dismiss_survey: Stäng
+    download_stats_data: Ladda ned statistik
     enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
+      duplicate_slug: Ett annat program som anropade %{slug} finns redan.
     invitation: |-
       Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste du logga in med ett Wikipedia-konto.
       Om du inte har ett Wikipedia-konto ännu, registrera ett nu.
@@ -171,22 +182,29 @@ sv:
     volunteer:
       other: en=Volontär
   courses_generic:
+    all_courses: Alla program
     cancel: Avbryt
+    course: Program
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
     creator:
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
+      clone_successful: Programmet klonades
       course_description: Program beskrivning
       course_school: Institution
+      course_term: När
+      course_term_placeholder: När
       course_title: Program namn
       create_button: Skapa mitt program!
       create_label: Skapa Nytt Program
-      create_new: Skapa ett nytt program
+      create_new: Skapa ett oberoende program
       create_short: Skapa Program
       find: Hitta ett program
       intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
         mitt Program!" för att börja bygga sidan för ditt wiki program.
+      participate_in_campaign: Delta i en kampanj
+      save_cloned_course: Spara
     delete_course: Radera program
     edit_course_dates: Redigera projektdatum
     explore: Hitta program
@@ -303,6 +321,8 @@ sv:
   user_profiles:
     disclaimer: Informationen du uppger kommer att vara offentlig.
     bio_placeholder: Lägg till din bio (valfritt)
+    location_placeholder: Lägg till din plats (valfritt)
+    institution_placeholder: Institutionsnamn (valfritt)
   wizard:
     select_one_option: Välj 1 alternativ.
     read_less: Läs mindre

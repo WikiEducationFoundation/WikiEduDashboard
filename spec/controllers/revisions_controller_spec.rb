@@ -10,7 +10,7 @@ describe RevisionsController do
     let!(:course) { create(:course, start: course_start, end: course_end.end_of_day) }
     let!(:basic_course) { create(:basic_course, start: course_start, end: course_end) }
     let!(:user) { create(:user) }
-    let!(:user2) { create(:user, id: 2) }
+    let!(:user2) { create(:user, id: 2, username: 'user2') }
     let!(:courses_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
     let!(:courses_user2) { create(:courses_user, course_id: course.id, user_id: 2) }
 
