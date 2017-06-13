@@ -83,4 +83,12 @@ describe AnalyticsController do
       expect(response.body).to have_content('username')
     end
   end
+
+  describe '#course_articles_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_articles_csv', params: { course: course.slug }
+      expect(response.body).to have_content('pageviews_link')
+    end
+  end
 end

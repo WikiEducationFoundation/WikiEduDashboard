@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   get 'course_edits_csv' => 'analytics#course_edits_csv'
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
+  get 'course_articles_csv' => 'analytics#course_articles_csv'
 
 
   # Campaigns

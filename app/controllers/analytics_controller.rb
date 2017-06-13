@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/analytics/course_csv_builder"
 require "#{Rails.root}/lib/analytics/course_edits_csv_builder"
 require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/course_students_csv_builder"
+require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
 
 #= Controller for analytics tools
@@ -60,6 +61,12 @@ class AnalyticsController < ApplicationController
     course = find_course_by_slug(params[:course])
     send_data CourseStudentsCsvBuilder.new(course).generate_csv,
               filename: "#{course.slug}-editors-#{Time.zone.today}.csv"
+  end
+
+  def course_articles_csv
+    course = find_course_by_slug(params[:course])
+    send_data CourseArticlesCsvBuilder.new(course).generate_csv,
+              filename: "#{course.slug}-articles-#{Time.zone.today}.csv"
   end
 
   ###################

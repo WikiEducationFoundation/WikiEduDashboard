@@ -59,12 +59,16 @@ class Wiki < ActiveRecord::Base
     'wikisource' => 'wikisource.org'
   }.freeze
 
-  def base_url
+  def domain
     if language
-      "https://#{language}.#{project}.org"
+      "#{language}.#{project}.org"
     else
-      "https://#{MULTILINGUAL_PROJECTS[project]}"
+      MULTILINGUAL_PROJECTS[project]
     end
+  end
+
+  def base_url
+    'https://' + domain
   end
 
   def api_url

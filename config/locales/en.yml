@@ -311,6 +311,7 @@ en:
         programs during the next update cycle. This typically takes
         several hours.
     current: Current Courses
+    data_articles: Articles data
     data_download_info: >
       Download data in CSV format. Overview data provides cumulative
       statistics for the whole project. Edits data shows details for each edit
