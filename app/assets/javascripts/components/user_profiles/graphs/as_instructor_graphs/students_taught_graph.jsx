@@ -130,8 +130,6 @@ const StudentsTaughtGraph = React.createClass({
   },
 
   render() {
-    console.log("student stats data");
-    console.log(this.props.statsData);
     this.renderGraph();
     return (
       <div id ="stats_graph">

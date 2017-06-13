@@ -24,23 +24,4 @@ if @user.course_instructor?
       json.created_at = course_user.created_at
     end
   end
-
-  json.revisions do
-    i = 0
-    result = []
-    json.array! @courses_presenter.courses.each do |course|
-      result += json.array! course.revisions.each do |revision|
-        i += 1
-        json.index i
-        json.date revision.date
-        json.characters revision.characters
-        json.views_count revision.views
-      end
-    end
-  end
 end
-
-# if @user.course_student?
-#   json.as_student_stats do
-#   end
-# end

@@ -145,8 +145,6 @@ const CoursesTaughtGraph = React.createClass({
 
   render() {
     this.renderGraph();
-    console.log('courses count');
-    console.log(this.props.statsData);
     return (
       <div id ="stats_graph">
         <h5>CoursesTaughtGraph </h5>
