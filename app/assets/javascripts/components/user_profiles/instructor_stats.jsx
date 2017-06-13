@@ -60,15 +60,12 @@ const InstructorStats = React.createClass({
         />
        );
     }
-    if (this.props.statsGraphsData != null) {
-      byStudents = (<ByStudentsStats
+    byStudents = (
+      <ByStudentsStats
         username = {this.props.username}
         stats = {this.props.stats.by_students}
-        statsData = {this.props.statsGraphsData.bystudents_stats}
-        graphWidth = {this.props.graphWidth}
-        graphHeight = {this.props.graphHeight}
-      />);
-    }
+      />
+    );
     if (this.props.isStudent) {
       asStudent = (
         <StudentStats
