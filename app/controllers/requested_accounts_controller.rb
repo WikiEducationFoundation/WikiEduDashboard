@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-#= Controller for adding multiple users to a course at once
+#= Controller for requesting new wiki accounts and processing those requests
 class RequestedAccountsController < ApplicationController
   respond_to :html
   before_action :set_course
   before_action :check_creation_permissions, only: [:index, :create_accounts, :enable_account_requests]
 
+  # This creates (or updates) a RequestedAccount, which is a username and email
+  # for a user who wants to create a wiki account (but may not be able to do so
+  # because of a shared IP that has hit the new account limit).
   def request_account
     redirect_if_passcode_invalid { return }
     # If there is already a request for a certain username for this course, then
@@ -20,12 +23,22 @@ class RequestedAccountsController < ApplicationController
     RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
   end
 
+  # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
+  # modal instead of redirecting to the mediawiki account creation flow.
   def enable_account_requests
     # TODO
   end
 
+  # List of requested accounts for a course.
   def index; end
 
+  def destroy
+    # TODO: let privileged user destroy bad account requests before processing
+    # the acceptable ones.
+  end
+
+  # Try to create each of the requested accounts for a course, and show the
+  # result for each.
   def create_accounts
     @results = []
     @course.requested_accounts.each do |requested_account|
