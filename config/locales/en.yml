@@ -315,9 +315,11 @@ en:
       Download data in CSV format. Overview data provides cumulative
       statistics for the whole project. Edits data shows details for each edit
       made during the project. Commons uploads data shows the name and usage count
-      of each media upload.
+      of each media upload. Editors data lists all the enrolled editors, how much
+      they edited, and whether they registered their accounts during the project.
     data_overview: Overview data
     data_edits: Edits data
+    data_students: Editors data
     data_uploads: Commons uploads data
     delete_course: Delete course
     delete_course_instructions: You may delete this page if all campaigns are removed first.
