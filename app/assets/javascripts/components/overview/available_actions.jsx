@@ -8,6 +8,7 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 import SalesforceLink from './salesforce_link.jsx';
+import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -135,11 +136,10 @@ const AvailableActions = React.createClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
-    // If the user an instructor or admin, and the course is published, show a stats download link
+    // If the user is an instructor or admin, and the course is published, show a stats download button
     if ((user.role === 1 || user.admin) && this.state.course.published) {
-      const csvLink = `/course_csv?course=${this.state.course.slug}`;
       controls.push((
-        <p key="stats_csv"><a href={csvLink} className="button">{I18n.t('courses.download_stats_data')}</a></p>
+        <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
       ));
     }
     // If no controls are available
