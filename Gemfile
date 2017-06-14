@@ -4,7 +4,7 @@ gem 'rails', '5.1.1'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
-gem 'mediawiki_api', '0.7.0'
+gem 'mediawiki_api', '0.7.1'
 gem 'crack'
 gem 'figaro'
 gem 'whenever'
