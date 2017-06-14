@@ -118,6 +118,11 @@ module RequestHelpers
       .to_return(status: 200, body: '{}', headers: {})
   end
 
+  def stub_wikipedia_503_error
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: 503, body: '{}', headers: {})
+  end
+
   def stub_commons_503_error
     stub_request(:get, /.*commons.wikimedia.org.*/)
       .to_return(status: 503, body: '', headers: {})
