@@ -99,7 +99,7 @@ const InstructorStats = React.createClass({
               <div className="tooltip dark">
                 <h4>
                   {this.props.stats.as_instructor.trained_percent}
-                  \%
+                  %
                 </h4>
                 <p>
                   {I18n.t("users.up_to_date_with_training")}
