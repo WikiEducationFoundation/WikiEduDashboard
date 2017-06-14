@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       constraints: { course_id: /.*/ }
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
-  get 'courses/:course_id/enroll/:passcode' => 'self_enrollment#enroll_self',
+  get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
 
   # Courses

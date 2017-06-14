@@ -68,4 +68,8 @@ class LegacyCourse < Course
   def multiple_roles_allowed?
     true
   end
+
+  def passcode_required?
+    false
+  end
 end

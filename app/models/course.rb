@@ -171,7 +171,7 @@ class Course < ActiveRecord::Base
   validates_attachment_content_type :syllabus,
                                     content_type: %w(application/pdf application/msword)
 
-  validates :passcode, presence: true, unless: :legacy?
+  validates :passcode, presence: true, if: :passcode_required?
   validates :start, presence: true
   validates :end, presence: true
 
@@ -205,6 +205,11 @@ class Course < ActiveRecord::Base
 
   def legacy?
     type == 'LegacyCourse'
+  end
+
+  # Overridden for some course types
+  def passcode_required?
+    true
   end
 
   def current?

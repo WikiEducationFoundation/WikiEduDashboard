@@ -202,7 +202,9 @@ const Course = React.createClass({
     // Enrollment modal /
     // //////////////////
     let enrollCard;
-    if (this.props.location.query.enroll || this.props.location.query.enrolled) {
+    // Show the enroll card if either the `enroll` or `enrolled` param is present.
+    // The enroll param may be blank if the course has no passcode.
+    if (this.props.location.query.enroll !== undefined || this.props.location.query.enrolled) {
       enrollCard = (
         <EnrollCard
           user={this.state.current_user}
