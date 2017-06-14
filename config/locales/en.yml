@@ -268,6 +268,7 @@ en:
       assignment_start: Assignment start
       assignment_start_placeholder: Assignment start (YYYY-MM-DD)
       checking_for_uniqueness: This course is being checked for uniqueness.
+      choose_clone: Choose a course to clone.
       clone_previous: Clone Previous Course
       clone_this: Clone This Course
       cloned_course_calendar_instructions: >
@@ -301,6 +302,11 @@ en:
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
+      new_or_clone: >
+        You can create a new course now, or if you want to copy a previous course
+        you taught you can clone a copy of it with new dates. You can also use
+        the clone option to create additional sections for a course you already
+        set up.
       no_class_holidays: I have no class holidays
       save_cloned_course: Save New Course
       start_date: Start date
@@ -317,7 +323,7 @@ en:
       and pageview totals. These pageview values may be out of date for courses
       that have already ended, so a url to the WMF Tool Labs pageview tool is
       included.
-    data_download_info: Download data in CSV format.  
+    data_download_info: Download data in CSV format.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
@@ -461,6 +467,7 @@ en:
     campaign_courses: '%{title} Programs'
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
+      choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
       clone_this: Clone This Program
       clone_successful: Program Successfully Cloned
@@ -479,8 +486,15 @@ en:
       create_short: Create Program
       find: Find a Program
       intro: >
-        The program title is required, everything else can be filled in later.
+        The program title and institution form the URL of the program. The home wiki
+        is the main wiki where participants will be working, and edits on this wiki
+        will tracked by default. If your program spans multiple languages or projects,
+        contributions will also be tracked for any wiki that has an 'Available Article'
+        or 'Assignment' for that wiki.
         Click "Create my Program!" to start building the page for your wiki program.
+      new_or_clone: >
+        Create a new program now, or use the 'clone' option to copy another program
+        that you participated in.
       participate_in_campaign: Participate in a Campaign
       save_cloned_course: Save
     delete_course: Delete program

@@ -41,8 +41,8 @@ const CourseCreator = React.createClass({
     const inits = {
       tempCourseId: '',
       isSubmitting: false,
-      shouldShowForm: false,
-      showCourseDropdown: false,
+      showCourseForm: false,
+      showCloneChooser: false,
       default_course_type: getDefaultCourseType(),
       course_string_prefix: getCourseStringPrefix(),
       use_start_and_end_times: getUseStartAndEndTimes()
@@ -149,16 +149,16 @@ const CourseCreator = React.createClass({
     return true;
   },
 
-  showForm() {
-    return this.setState({ shouldShowForm: true });
+  showCourseForm() {
+    return this.setState({ showCourseForm: true });
   },
 
-  showCourseDropdown() {
-    return this.setState({ showCourseDropdown: true });
+  showCloneChooser() {
+    return this.setState({ showCloneChooser: true });
   },
 
   cancelClone() {
-    return this.setState({ showCourseDropdown: false });
+    return this.setState({ showCloneChooser: false });
   },
 
   useThisClass() {
@@ -169,18 +169,42 @@ const CourseCreator = React.createClass({
   },
 
   render() {
+    // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
+    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
+    let showCourseForm;
+    let showCloneChooser;
+    let showNewOrClone;
+    if (this.state.user_courses.length === 0) {
+      showCourseForm = true;
+    } else if (this.state.showCourseForm) {
+      showCourseForm = true;
+    } else if (this.state.showCloneChooser) {
+      showCloneChooser = true;
+    } else {
+      showNewOrClone = true;
+    }
+
+    let instructions;
+    if (showNewOrClone) {
+      instructions = CourseUtils.i18n('creator.new_or_clone', this.state.course_string_prefix);
+    } else if (showCloneChooser) {
+      instructions = CourseUtils.i18n('creator.choose_clone', this.state.course_string_prefix);
+    } else if (showCourseForm) {
+      instructions = CourseUtils.i18n('creator.intro', this.state.course_string_prefix);
+    }
+
     let formStyle;
     if (this.state.isSubmitting === true) {
       formStyle = { pointerEvents: 'none', opacity: 0.5 };
     }
 
-    let formClass = 'wizard__form';
+    let courseFormClass = 'wizard__form';
 
-    formClass += ((this.state.shouldShowForm === true || this.state.user_courses.length === 0) ? '' : ' hidden');
+    courseFormClass += showCourseForm ? '' : ' hidden';
 
-    const cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${formClass}`;
-    const selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
+    const cloneOptions = showNewOrClone ? '' : ' hidden';
+    const controlClass = `wizard__panel__controls ${courseFormClass}`;
+    const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
@@ -285,17 +309,17 @@ const CourseCreator = React.createClass({
           <Notifications />
           <div className="wizard__panel active" style={formStyle}>
             <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
-            <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
+            <p>{instructions}</p>
             <div className={cloneOptions}>
-              <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
-              <button className="button dark" onClick={this.showCourseDropdown}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
+              <button className="button dark" onClick={this.showCourseForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
+              <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
             </div>
             <div className={selectClassName}>
               <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
               <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
               <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
             </div>
-            <div className={formClass}>
+            <div className={courseFormClass}>
               <div className="column">
 
                 {campaign}
