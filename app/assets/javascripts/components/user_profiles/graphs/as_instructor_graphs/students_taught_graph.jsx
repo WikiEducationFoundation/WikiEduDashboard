@@ -34,14 +34,13 @@ const StudentsTaughtGraph = React.createClass({
         },
         {
           name: 'y',
-          type: 'ordinal',
+          type: 'linear',
           domain: {
             data: 'courses_data',
             field: 'index'
           },
           rangeMin: this.props.graphHeight,
           rangeMax: 0,
-          round: true,
           nice: true,
           zero: true
         }
@@ -68,9 +67,7 @@ const StudentsTaughtGraph = React.createClass({
           title: I18n.t(`${this.props.courseStringPrefix}.students_taught`),
           grid: true,
           layer: 'back',
-          offset: 10,
-          ticks: 0,
-          values: []
+          offset: 10
         }
       ],
       // ///////////////
@@ -80,28 +77,13 @@ const StudentsTaughtGraph = React.createClass({
         {
           name: 'courses_data',
           values: this.props.statsData,
-          format: { type: 'json', parse: { 'created_at=': 'date' } }
+          format: { type: 'json', parse: { 'created_at=': 'date', index: 'number' } }
         }
       ],
       // //////////////
       // Mark layers //
       // //////////////
       marks: [
-        {
-          name: 'text_marks',
-          type: 'text',
-          from: {
-            data: 'courses_data',
-            transform: [{ type: 'sort', by: '-date' }]
-          },
-          properties: { enter: {
-            orient: { value: 'vertical' },
-            x: { scale: 'x', field: 'created_at=' },
-            y: { scale: 'y', field: 'index', offset: -3 },
-            fill: { value: '#000' },
-            text: { field: 'index' }
-          } }
-        },
         {
           name: 'symbol_marks',
           type: 'symbol',
@@ -116,6 +98,20 @@ const StudentsTaughtGraph = React.createClass({
             shape: { value: 'circle' },
             fill: { value: '#359178' },
             opacity: { value: 0.7 }
+          }
+          }
+        },
+        {
+          type: 'line',
+          from: {
+            data: 'courses_data',
+            transform: [{ type: 'sort', by: '-date' }]
+          },
+          properties: { enter: {
+            x: { scale: 'x', field: 'created_at=' },
+            y: { scale: 'y', field: 'index' },
+            stroke: { value: "#575d99" },
+            strokeWidth: { value: 1 }
           }
           }
         }
