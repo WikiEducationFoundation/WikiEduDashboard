@@ -128,15 +128,11 @@ class ArticleStatusManager
   # URI length limit.
   # TODO: move the chunking to Replica and set the size dynamically depending on the
   # length of the URI.
-  LANGUAGES_LIKELY_TO_HIT_URI_LIMIT = %w[he ar].freeze
-  HIGH_ARTICLES_PER_REPLICA_QUERY = 80
-  LOW_ARTICLES_PER_REPLICA_QUERY = 20
+  LONG_URI_LANGUAGES = %w[he ar].freeze
+  HIGH_REPLICA_LIMIT = 80
+  LOW_REPLICA_LIMIT = 20
   def articles_per_replica_query
-    if LANGUAGES_LIKELY_TO_HIT_URI_LIMIT.include? @wiki.language
-      LOW_ARTICLES_PER_REPLICA_QUERY
-    else
-      HIGH_ARTICLES_PER_REPLICA_QUERY
-    end
+    LONG_URI_LANGUAGES.include?(@wiki.language) ? LOW_REPLICA_LIMIT : HIGH_REPLICA_LIMIT
   end
 
   # Check whether any deleted pages still exist with a different article_id.
