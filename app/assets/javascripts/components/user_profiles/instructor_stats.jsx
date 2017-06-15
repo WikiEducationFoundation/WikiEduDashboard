@@ -109,7 +109,9 @@ const InstructorStats = React.createClass({
               </div>
             </div>
           </div>
-          {statsVisualizations}
+          <div id="visualizations">
+            {statsVisualizations}
+          </div>
         </div>
         {byStudents}
         {asStudent}
