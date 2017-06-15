@@ -6,7 +6,11 @@
 yi:
   application:
     cancel: אַנולירן
+    documentation: דאָקומענטאַציע
+    error: 'ס׳האט פאסירט א פֿעלער:'
     explore: אנטדעקן
+    field_required: דאס פֿעלד איז נויטבאר
+    field_invalid_characters: דאס פֿעלד האט אומגוליטיגע כאראקטערן
     greeting2: ברוך הבא!
     greeting_extended: ברוך הבא צו וויקיפעדיע
     greeting: האלא!
@@ -23,6 +27,7 @@ yi:
     sign_up: אײַנשרייבן
     submit: איינגעבן
     change: טוישן
+    details: פרטים
   home:
     explore: אויספארשן
     log_in: אַרײנלאגירן צו וויקיפעדיע
@@ -33,6 +38,7 @@ yi:
     label: אקטיוויטעט
   articles:
     edited_mobile: אַרטיקלען
+    hide: באַהאַלטן
     label: אַרטיקלען
     loading: אנלאדן ארטיקלען…
     new: (ניי)

@@ -137,6 +137,9 @@ lt:
       select_meeting_days: Pasirinkite savaitės diena, kada jūsų klasė susitinka.
     cancel: Atšaukti
     campaigns: 'Kampanijos:'
+    campaign_articles: '%{title} Straipsniai'
+    campaign_users: '%{title} Redaktoriai'
+    course: Kursas
     course_description: Kursai
     courses: Kursai
     creation_date: Sukūrimo data
@@ -245,6 +248,7 @@ lt:
     assignments_none: Šis projektas neturi priskirtų straipsnių.
     assignment_start: Laiko Juostos Pradžia
     cancel: Atšaukti
+    course: Programa
     courses: Programos
     campaigns: Kampanijos
     creator:

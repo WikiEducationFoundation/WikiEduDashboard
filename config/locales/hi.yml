@@ -61,7 +61,7 @@ hi:
       लगते हैं।)
     review_orientation: निर्देशन की समीक्षा करें
     start_orientation: निर्देशन शुरू करें
-    blog_headline: विकी एड से कुछ देर पहले की खबरें
+    blog_headline: विकिएड की हाल की खबरें
   home:
     explore: अन्वेषण
     log_in: विकिपीडिया में प्रवेश (लॉगिन) करें
@@ -72,6 +72,7 @@ hi:
   activity:
     all: गतिविधि
   courses:
+    campaign_articles: '%{title} लेख'
     campaign_users: '%{title} संपादक'
     course_description: पाठ्यक्रम
     creator:

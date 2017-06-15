@@ -282,6 +282,25 @@ de:
         aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
         Dies kann typischerweise mehrere Stunden dauern.
     current: Aktuelle Kurse
+    data_articles: Artikeldaten
+    data_articles_info: Artikeldaten enthalten die Anzahl der Bearbeitungen an jeder
+      Seite, welche Seiten neu sind und Summen zu Seitenaufrufen. Diese Seitenaufrufwerte
+      können bei beendeten Kursen veraltet sein, so dass eine URL auf das Seitenaufrufwerkzeug
+      auf dem WMF-Tool-Labs-Server enthalten ist.
+    data_download_info: Daten im CSV-Format herunterladen.
+    data_overview: Übersichtsdaten
+    data_overview_info: Übersichtsdaten stellen kumulative Statistiken für das gesamte
+      Projekt zur Verfügung.
+    data_edits: Bearbeitungsdaten
+    data_edits_info: Bearbeitungsdaten zeigen Einzelheiten für jede Bearbeitung an,
+      die während des Projektes durchgeführt wurde.
+    data_students: Autorendaten
+    data_students_info: Autorendaten listen alle eingeschriebenen Autoren auf, wie
+      viel sie bearbeitet haben und ob sie ihre Benutzerkonten während des Projekts
+      registriert haben.
+    data_uploads: Daten zu hochgeladenen Commons-Dateien
+    data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
+      Verwendungszähler eines jeden Medienuploads.
     delete_course: Kurs löschen
     delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
       zuerst entfernt wurden.

@@ -295,6 +295,26 @@ fr:
         les programmes actuels lors du prochain cycle de mise à jour. Cela prend en
         général plusieurs heures.
     current: Cours actuels
+    data_articles: Données des articles
+    data_articles_info: Les données des articles incluent le nombre de modifications
+      sur chaque page, quelles pages sont nouvelles, et le nombre total de vues par
+      page. Ces valeurs de vues par page peuvent être obsolètes pour des cours déjà
+      terminés, donc une URL vers l’outil de nombre de vues de page de WMF Tools Labs
+      est inclus.
+    data_download_info: Télécharger les données au format CSV.
+    data_overview: Données de vue d’ensemble
+    data_overview_info: Les données de vue d’ensemble fournissent des statistiques
+      cumulées pour l’ensemble du projet.
+    data_edits: Données de modifications
+    data_edits_info: Les données de modifications affichent des détails pour chaque
+      modification faite pendant le projet.
+    data_students: Données des éditeurs
+    data_students_info: Les données des éditeurs listent tous les éditeurs inscrits,
+      combien ils ont fait de modifications, et s’ils ont inscrit leur compte lors
+      du projet.
+    data_uploads: Données de téléchargements de Commons
+    data_uploads_info: Les données de téléchargements communs affichent le nom et
+      le nombre d’utilisation de chaque média téléchargé.
     delete_course: Supprimer le cours
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes
       les campagnes ont été supprimées.

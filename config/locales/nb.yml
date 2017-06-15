@@ -4,6 +4,7 @@
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
 # Author: Kingu
+# Author: Pmt
 # Author: Tarjeimo
 ---
 nb:
@@ -369,6 +370,7 @@ nb:
     assignments_none: Dette prosjektet har ingen tildelte artikler
     assignment_start: Tidslinjestart
     cancel: Avbryt
+    course: Program
     courses: Programmer
     campaigns: 'Kampanjer:'
     creator:

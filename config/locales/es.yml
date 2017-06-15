@@ -221,10 +221,13 @@ es:
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
     campaign_courses: Curso de «%{title}»
+    campaign_articles: Artículos de %{title}
+    campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
       no se ha eliminado.
+    course: Curso
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -406,6 +409,7 @@ es:
     assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Inicio del cronograma
     cancel: Cancelar
+    course: Programa
     courses: Programas
     courses_taught: Programas impartidos
     campaigns: 'Campañas:'
