@@ -107,4 +107,14 @@ describe CourseRevisionUpdater do
       CourseRevisionUpdater.import_new_revisions_concurrently(Course.all)
     end
   end
+
+  describe '#default_wiki_ids' do
+    it 'includes wikidata for Programs & Events Dashboard' do
+      stub_wiki_validation
+      wiki_data = Wiki.get_or_create(language: nil, project: 'wikidata')
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      ids = CourseRevisionUpdater.new(create(:course)).default_wiki_ids
+      expect(ids).to include(wiki_data.id)
+    end
+  end
 end

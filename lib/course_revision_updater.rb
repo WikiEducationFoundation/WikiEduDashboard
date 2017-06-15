@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/revision_importer"
 require "#{Rails.root}/lib/replica"
 
@@ -33,8 +34,18 @@ class CourseRevisionUpdater
     @course = course
   end
 
+  def default_wiki_ids
+    wiki_ids = [@course.home_wiki.id]
+    # For Programs & Events Dashboard, pull in Wikidata edits by default for all
+    # courses.
+    unless Features.wiki_ed?
+      wiki_ids << Wiki.get_or_create(language: nil, project: 'wikidata').id
+    end
+    wiki_ids
+  end
+
   def update_revisions_for_relevant_wikis
-    wiki_ids = @course.assignments.pluck(:wiki_id) + [@course.home_wiki.id]
+    wiki_ids = @course.assignments.pluck(:wiki_id) + default_wiki_ids
     wiki_ids.uniq.each do |wiki_id|
       RevisionImporter.new(Wiki.find(wiki_id), @course).import_new_revisions_for_course
     end
