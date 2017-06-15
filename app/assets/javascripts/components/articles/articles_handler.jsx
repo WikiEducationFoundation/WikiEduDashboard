@@ -22,11 +22,25 @@ const ArticlesHandler = React.createClass({
   },
 
   render() {
+    let header;
+    if (Features.wikiEd) {
+      header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+    } else {
+      header = (
+        <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
+          <span className="tooltip-indicator"></span>
+          <div className="tooltip dark">
+            <p>{I18n.t('articles.cross_wiki_tracking')}</p>
+          </div>
+        </h3>
+      );
+    }
+
     return (
       <div>
         <div id="articles">
           <div className="section-header">
-            <h3>{I18n.t('metrics.articles_edited')}</h3>
+            {header}
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="rating_num">{I18n.t('articles.rating')}</option>
