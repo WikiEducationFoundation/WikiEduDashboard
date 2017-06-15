@@ -50,6 +50,7 @@ const InstructorStats = React.createClass({
             statsData = {this.props.statsGraphsData.instructor_stats}
             graphWidth = {this.props.graphWidth}
             graphHeight = {this.props.graphHeight}
+            courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
           />
          );
       }
@@ -62,6 +63,7 @@ const InstructorStats = React.createClass({
           statsData = {this.props.statsGraphsData.student_count}
           graphWidth = {this.props.graphWidth}
           graphHeight = {this.props.graphHeight}
+          courseStringPrefix = {this.props.stats.as_instructor.course_string_prefix}
         />
        );
     }

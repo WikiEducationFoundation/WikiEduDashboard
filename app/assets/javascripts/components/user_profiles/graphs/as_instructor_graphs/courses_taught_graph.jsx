@@ -3,7 +3,8 @@ const CoursesTaughtGraph = React.createClass({
   propTypes: {
     statsData: React.PropTypes.array,
     graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    graphHeight: React.PropTypes.number,
+    courseStringPrefix: React.PropTypes.string
   },
 
   renderGraph() {
@@ -68,7 +69,7 @@ const CoursesTaughtGraph = React.createClass({
         {
           type: 'y',
           scale: 'y',
-          title: 'Courses Taught',
+          title: I18n.t(`${this.props.courseStringPrefix}.courses_taught`),
           grid: true,
           layer: 'back',
           offset: 10,
@@ -147,7 +148,7 @@ const CoursesTaughtGraph = React.createClass({
     this.renderGraph();
     return (
       <div id ="stats_graph">
-        <h5>CoursesTaughtGraph </h5>
+        <h5> {I18n.t(`${this.props.courseStringPrefix}.courses_taught`)} </h5>
         <div id= "CoursesTaughtGraph" />
       </div>
     );
