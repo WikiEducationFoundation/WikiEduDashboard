@@ -51,6 +51,7 @@ const MyArticles = React.createClass({
               student={this.props.current_user}
               assignments={assigned}
               prefix={I18n.t('users.my_assigned')}
+              tooltip_message="Assign yourself an article to edit"
             />
             <AssignCell
               id="user_reviewing"
@@ -62,6 +63,7 @@ const MyArticles = React.createClass({
               student={this.props.current_user}
               assignments={reviewing}
               prefix={I18n.t('users.my_reviewing')}
+              tooltip_message="Assign yourself an article to review"
             />
           </div>
         </div>

@@ -26,7 +26,8 @@ const AssignButton = React.createClass({
     permitted: React.PropTypes.bool,
     add_available: React.PropTypes.bool,
     assignments: React.PropTypes.array,
-    open: React.PropTypes.func.isRequired
+    open: React.PropTypes.func.isRequired,
+    tooltip_message: React.PropTypes.string
   },
 
   mixins: [ConfirmationStore.mixin],
@@ -191,6 +192,7 @@ const AssignButton = React.createClass({
 
     let showButton;
     let editButton;
+    let tooltip;
     if (this.props.assignments.length > 1 || (this.props.assignments.length > 0 && this.props.permitted)) {
       let buttonText;
       if (this.props.is_open) {
@@ -215,8 +217,20 @@ const AssignButton = React.createClass({
         reviewText = I18n.t('assignments.review_other');
       }
       const finalText = this.props.role === 0 ? assignText : reviewText;
+      if (this.props.tooltip_message) {
+        tooltip = (
+          <div className="tooltip dark">
+            <p>
+              {this.props.tooltip_message}
+            </p>
+          </div>
+      );
+      }
       editButton = (
-        <button className={className} onClick={this.props.open}>{finalText}</button>
+        <div className="tooltip-trigger">
+          <button className={className} onClick={this.props.open}>{finalText}</button>
+          {tooltip}
+        </div>
       );
     }
 
