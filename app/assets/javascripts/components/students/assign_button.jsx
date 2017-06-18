@@ -11,6 +11,7 @@ import AssignmentActions from '../../actions/assignment_actions.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import shallowCompare from 'react-addons-shallow-compare';
+import OnClickOutside from 'react-onclickoutside';
 
 const AssignButton = React.createClass({
   displayName: 'AssignButton',
@@ -173,7 +174,6 @@ const AssignButton = React.createClass({
     return ServerActions.deleteAssignment(assignment);
   },
 
-
   render() {
     let confirmationDialog;
     if (this.state.showConfirm) {
@@ -322,4 +322,4 @@ const AssignButton = React.createClass({
 }
 );
 
-export default Expandable(AssignButton);
+export default OnClickOutside(Expandable(AssignButton));
