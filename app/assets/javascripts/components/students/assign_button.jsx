@@ -193,6 +193,7 @@ const AssignButton = React.createClass({
     let showButton;
     let editButton;
     let tooltip;
+    let tooltipIndicator;
     if (this.props.assignments.length > 1 || (this.props.assignments.length > 0 && this.props.permitted)) {
       let buttonText;
       if (this.props.is_open) {
@@ -218,6 +219,9 @@ const AssignButton = React.createClass({
       }
       const finalText = this.props.role === 0 ? assignText : reviewText;
       if (this.props.tooltip_message) {
+        tooltipIndicator = (
+          <span className="tooltip-indicator"></span>
+          );
         tooltip = (
           <div className="tooltip dark">
             <p>
@@ -228,7 +232,7 @@ const AssignButton = React.createClass({
       }
       editButton = (
         <div className="tooltip-trigger">
-          <button className={className} onClick={this.props.open}>{finalText}</button>
+          <button className={className} onClick={this.props.open}>{finalText} {tooltipIndicator}</button>
           {tooltip}
         </div>
       );
