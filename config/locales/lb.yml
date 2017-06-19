@@ -142,6 +142,7 @@ lb:
       start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
       subject: Sujet
     current: Aktuell Coursen
+    data_download_info: Donnéeën am CSV-Format eroflueden.
     delete_course: Cours läschen
     dismiss_survey: Verwerfen
     dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende

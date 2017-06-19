@@ -83,6 +83,10 @@ de:
     assigned_to: Zuordnung zu
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.
+    cross_wiki_tracking: Seiten im Hauptnamensraum, die zwischen dem Start- und dem
+      Enddatum bearbeitet wurden, werden unten aufgelistet. Die Verwaltungsseite bezieht
+      Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
+      die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
@@ -240,6 +244,7 @@ de:
       assignment_start: Zuweisungsbeginn
       assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle einen zu klonenden Kurs aus.
       clone_previous: Vorherigen Kurs klonen
       clone_this: Diesen Kurs klonen
       cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
@@ -273,6 +278,10 @@ de:
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
+      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen oder wenn du einen
+        früher unterrichteten Kurs kopieren möchtest, kannst du eine Kopie des Kurses
+        mit neuen Datumsangaben erstellen. Du kannst auch die Option „Klonen“ verwenden,
+        um zusätzliche Abschnitte für einen bereits aufgesetzten Kurs zu erstellen.
       no_class_holidays: Ich habe keine Ferien
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
@@ -376,6 +385,7 @@ de:
     start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
+    students_taught: Unterrichtete Studenten
     students_count: Anzahl der Studenten
     student_editors: Studentenautoren
     students_none: Dieser Kurs hat keine Studenten.
@@ -439,6 +449,7 @@ de:
     campaign_courses: '%{title} Programme'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen
       clone_this: Dieses Programm klonen
       clone_successful: Programm erfolgreich geklont
@@ -455,9 +466,15 @@ de:
       create_new: Ein unabhängiges Programm erstellen
       create_short: Programm erstellen
       find: Finde ein Programm
-      intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
-        Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
-        dein Wikiprogramm anzufangen.
+      intro: Der Programmtitel und die Einrichtung bilden die URL des Programms. Das
+        Heimatwiki ist das Hauptwiki, an dem die Teilnehmer arbeiten werden und Bearbeitungen
+        an diesem Wiki werden standardmäßig verfolgt. Falls dein Programm mehrere
+        Sprachen oder Projekte umfasst, werden Beiträge auch für jedes Wiki verfolgt,
+        das „Verfügbare Artikel“ oder „Zuweisungen“ für dieses Wiki hat. Klicke auf
+        „Mein Programm erstellen!“, um mit der Erstellung der Seite für dein Wikiprogramm
+        zu beginnen.
+      new_or_clone: Erstelle jetzt ein neues Programm oder verwende die Option „Klonen“,
+        um ein anderes Programm zu kopieren, an dem du teilgenommen hast.
       participate_in_campaign: An einer Kampagne teilnehmen
       save_cloned_course: Speichern
     delete_course: Programm löschen
@@ -480,6 +497,7 @@ de:
     school_and_term: Einrichtung/Wann
     student_editors: Autoren
     students: Autoren
+    students_taught: Anzahl der Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
     students_short: Autoren
     students_count: Anzahl der Teilnehmer

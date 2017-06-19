@@ -99,6 +99,10 @@ fr:
     assigned_to: Assigné à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les éditeurs
       inscrits entre les dates de début et de fin
+    cross_wiki_tracking: Les pages de l’espace de noms principal modifiées entre les
+      dates de début et de fin sont listées ci-dessous. Le tableau de bord agrège
+      les contributions depuis le wiki d’accueil de ce programme, avec tous les autres
+      wikis pour lesquels il y a une Affectation ou un Article disponible.
     edited: Articles modifiés
     edited_by: 'Modifié par :'
     edited_mobile: Articles
@@ -253,6 +257,7 @@ fr:
       assignment_start: Début de l’affectation
       assignment_start_placeholder: Début de l’affectation (AAAA-MM-JJ)
       checking_for_uniqueness: Ce cours a été vérifié en terme d’unicité.
+      choose_clone: Choisir un cours à dupliquer.
       clone_previous: Dupliquer le cours précédent
       clone_this: Dupliquer ce cours
       cloned_course_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
@@ -286,6 +291,10 @@ fr:
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
         Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
         de votre affectation à Wikipédia.
+      new_or_clone: Vous pouvez maintenant créer un nouveau cours, ou si vous désirez
+        copier un cours précédent que vous avez donné, vous pouvez le dupliquer avec
+        de nouvelles dates. Vous pouvez aussi utiliser l’option duplication pour créer
+        des sections supplémentaires pour un cours que vous avez déjà défini.
       no_class_holidays: Je n’ai pas de congés scolaires
       save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
@@ -391,6 +400,7 @@ fr:
     start: Démarrer
     start_typing: Commencer à taper
     students: Étudiants
+    students_taught: Étudiants enseignés
     students_count: Nombre d’étudiants
     student_editors: Éditeurs étudiants
     students_none: Ce cours n’a aucun étudiant.
@@ -453,6 +463,7 @@ fr:
     campaign_courses: '%{title} Programmes'
     creator:
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
+      choose_clone: Choisir un programme à dupliquer.
       clone_previous: Dupliquer le programme précédent
       clone_this: Dupliquer ce programme
       clone_successful: Programme dupliqué avec succès
@@ -470,9 +481,15 @@ fr:
       create_new: Créer un programme indépendant
       create_short: Créer un programme
       find: Trouver un programme
-      intro: Le titre du programme est obligatoire, tout le reste pourra être rempli
-        plus tard. Cliquez sur « Créer mon programme ! » pour commencer à construire
-        la page de votre programme wiki.
+      intro: Le titre du programme et l’institution forment l’URL du programme. Le
+        wiki d’accueil est le wiki principal où travailleront les participants, et
+        les modifications sur ce wiki seront tracées par défaut. Si votre programme
+        couvre plusieurs langues ou projets, les contributions seront aussi tracées
+        pour tout wiki qui a un 'Article disponible' ou une 'Affectation' pour ce
+        wiki. Cliquez sur « Créer mon programme ! » pour commencer à construire la
+        page de votre programme wiki.
+      new_or_clone: Créer un nouveau programme maintenant, ou utiliser l’option 'duplication'
+        pour copier un autre programme auquel vous participez.
       participate_in_campaign: Participer à une campagne
       save_cloned_course: Enregistrer
     delete_course: Supprimer le programme
@@ -495,6 +512,7 @@ fr:
     school_and_term: Institution/Quand
     student_editors: Éditeurs
     students: Éditeurs
+    students_taught: Total des éditeurs
     students_none: Ce projet n’a pas d’éditeurs inscrits.
     students_short: Éditeurs
     students_count: Nombre de participants

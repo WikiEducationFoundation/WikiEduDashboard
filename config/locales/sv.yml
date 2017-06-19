@@ -110,6 +110,7 @@ sv:
     course_description: Kurser
     courses: Kurser
     creator:
+      choose_clone: Välj en kurs att klona.
       clone_previous: Klona tidigare kurs
       clone_this: Klona denna kurs
       course_description: Kursbeskrivning
@@ -188,6 +189,7 @@ sv:
     campaigns: 'Kampanjer:'
     campaign_courses: '%{title} Program'
     creator:
+      choose_clone: Välj ett program att klona.
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
       clone_successful: Programmet klonades

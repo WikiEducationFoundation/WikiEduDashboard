@@ -153,6 +153,7 @@ bn:
     school_and_term: প্রতিষ্ঠান/কখন
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
+    students_taught: মোট সম্পাদক
     students_short: সম্পাদকগণ
   editable:
     edit: সম্পাদনা

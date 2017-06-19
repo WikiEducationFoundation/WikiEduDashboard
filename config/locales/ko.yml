@@ -143,6 +143,7 @@ ko:
       assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
       assignment_start: 과제 시작
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 과정이 성공적으로 복제되었습니다
       course_language: 주 언어
       course_project: 주 프로젝트
@@ -155,6 +156,10 @@ ko:
       start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
       subject: 제목
     current: 현재 과정
+    data_articles: 문서 데이터
+    data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
+    data_overview: 개요 데이터
+    data_students: 편집자 데이터
     delete_course: 과정 삭제
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
@@ -221,6 +226,7 @@ ko:
     course: 프로그램
     courses: 프로그램
     creator:
+      choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: '프로그램이 복제되었습니다. 원래의 것과 구별하기 위해 ''날짜''(예: 연도와 월) 필드에
         무언가를 추가해 주십시오. 그 다음 아래의 ''저장''을 눌러 마칠 수 있습니다.'
@@ -233,6 +239,7 @@ ko:
       create_new: 별도의 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
+      new_or_clone: 지금 새로운 프로그램을 하나 만들거나, '복제' 옵션을 사용하여 참여했던 다른 프로그램을 복제합니다.
       save_cloned_course: 저장
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
