@@ -223,7 +223,7 @@ const AssignButton = React.createClass({
           <span className="tooltip-indicator"></span>
           );
         tooltip = (
-          <div className="tooltip dark">
+          <div className="tooltip">
             <p>
               {this.props.tooltip_message}
             </p>
