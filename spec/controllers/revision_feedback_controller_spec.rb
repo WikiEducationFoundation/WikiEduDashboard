@@ -18,7 +18,20 @@ describe RevisionFeedbackController do
         expect(response.status).to eq(200)
       end
 
-      # TODO : Check if the feedback is valid if article exists
+      it 'calls RevisionFeedbackService with features' do
+        VCR.use_cassette 'ores_features' do
+          expect_any_instance_of(RevisionFeedbackService).to receive(:initialize)
+            .with(have_key('feature.enwiki.revision.cite_templates'))
+          expect_any_instance_of(RevisionFeedbackService).to receive(:feedback)
+            .and_return(have_at_least(1))
+          get :index, params: params
+        end
+      end
+
+      it 'assigns feedback properly' do
+        feedback = assigns(:feedback)
+        expect(feedback.length).to be >= 1
+      end
     end
   end
 end

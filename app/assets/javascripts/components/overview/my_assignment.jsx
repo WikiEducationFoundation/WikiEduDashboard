@@ -38,10 +38,6 @@ const MyAssignment = React.createClass({
       pageviews = <a className="button dark small" href={pageviewUrl} target="_blank">Pageviews</a>;
     }
 
-    if (this.props.assignment.role === 0 && isEnglishWikipedia) {
-      feedback = <Feedback assignment={this.props.assignment} />;
-    }
-
     // Assigned article that does not yet exist in mainspace
     if (this.props.assignment.role === 0 && !this.props.assignment.article_id) {
       assignmentType = 'Creating a new article: ';
@@ -54,6 +50,7 @@ const MyAssignment = React.createClass({
     } else if (this.props.assignment.role === 0) {
       if (isEnglishWikipedia) {
         checklist = <FinalArticleChecklist />;
+        feedback = <Feedback assignment={this.props.assignment} />;
       }
       assignmentType = 'Improving: ';
     // Review assignment

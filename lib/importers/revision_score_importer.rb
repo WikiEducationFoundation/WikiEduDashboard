@@ -14,6 +14,16 @@ class RevisionScoreImporter
     @ores_api = OresApi.new(@wiki)
   end
 
+  def fetch_ores_data_for_revision_id(rev_id)
+    ores_data = @ores_api.get_revision_data(rev_id)
+    features = extract_features(ores_data)[rev_id.to_s]
+    scores = extract_score(ores_data)
+    unless scores.nil?
+      rating = scores.dig(rev_id.to_s, 'prediction')
+    end
+    return { features: features, rating: rating }
+  end
+
   def update_revision_scores(revisions=nil)
     revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
     revisions ||= unscored_mainspace_userspace_and_draft_revisions

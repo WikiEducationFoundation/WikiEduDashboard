@@ -12,7 +12,7 @@ export function fetchFeedback(articleId) {
   return function (dispatch) {
     return API.fetchFeedback(articleId)
       .then((resp) => {
-        dispatch({ type: types.FEEDBACK, data: resp, articleId: articleId });
+        dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, articleId: articleId });
       }
       )
       // TODO: The Flux stores still handle API failures, so we delegate to a
