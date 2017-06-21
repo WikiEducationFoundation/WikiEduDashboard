@@ -173,6 +173,7 @@ en:
     assign_other: Assign an article
     add_available: Add an available article
     assign_self: Assign myself an article
+    assign_tooltip: An assigned article is one that you plan to create or improve.
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this article assignment?
@@ -185,6 +186,7 @@ en:
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article
+    review_tooltip: This is for keeping track of which article(s) you plan to peer review or provide feedback on.
     select: Select
 
   blocks:

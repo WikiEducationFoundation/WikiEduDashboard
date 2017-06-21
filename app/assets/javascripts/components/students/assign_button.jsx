@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import Expandable from '../high_order/expandable.jsx';
+import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import Confirm from '../common/confirm.jsx';
@@ -11,7 +11,6 @@ import AssignmentActions from '../../actions/assignment_actions.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import shallowCompare from 'react-addons-shallow-compare';
-import OnClickOutside from 'react-onclickoutside';
 
 const AssignButton = React.createClass({
   displayName: 'AssignButton',
@@ -340,4 +339,4 @@ const AssignButton = React.createClass({
 }
 );
 
-export default OnClickOutside(Expandable(AssignButton));
+export default PopoverExpandable(AssignButton);

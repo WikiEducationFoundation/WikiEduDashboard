@@ -22,12 +22,6 @@ const Expandable = function (Component) {
       return UIActions.open(this.refs.component.getKey());
     },
 
-    handleClickOutside() {
-      this.setState({
-        is_open: false
-      });
-    },
-
     render() {
       return (
         <Component {...this.state} {...this.props}
