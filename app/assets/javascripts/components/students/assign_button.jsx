@@ -217,7 +217,7 @@ const AssignButton = React.createClass({
         reviewText = I18n.t('assignments.review_other');
       }
       const finalText = this.props.role === 0 ? assignText : reviewText;
-      if (this.props.tooltip_message) {
+      if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
           <span className="tooltip-indicator"></span>
           );
