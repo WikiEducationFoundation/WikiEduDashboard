@@ -12,7 +12,8 @@ const AssignCell = React.createClass({
     current_user: React.PropTypes.object,
     student: React.PropTypes.object,
     editable: React.PropTypes.bool,
-    role: React.PropTypes.number
+    role: React.PropTypes.number,
+    tooltip_message: React.PropTypes.string
   },
 
   stop(e) {
