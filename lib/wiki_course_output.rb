@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wikitext"
 require "#{Rails.root}/lib/course_meetings_manager"
+require "#{Rails.root}/lib/wiki_edit_mappings"
 
 #= Class for generating wikitext from course information.
 class WikiCourseOutput
@@ -23,7 +24,8 @@ class WikiCourseOutput
     @output += students_table
 
     # Timeline
-    @output += "{{start of course timeline}}\r"
+    timeline_template_key = WikiEditMappings.get_template('timeline')
+    @output += "{{#{timeline_template_key}}}\r"
     week_count = 0
     @course.weeks.each do |week|
       week_count += 1
@@ -47,6 +49,7 @@ class WikiCourseOutput
   def course_details
     # TODO: add support for multiple instructors, multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
+
     "{{course details
      | course_name = #{@course.title}
      | instructor_username = #{instructor_username}
@@ -118,11 +121,12 @@ class WikiCourseOutput
   def students_table
     students = @course.students
     return '' if students.blank?
-    table = "{{students table}}\r"
+    table_template_key = WikiEditMappings.get_template('table')
+    table = "{{#{table_template_key}}}\r"
     students.each do |student|
       table += student_row(student)
     end
-    table += "{{end of students table}}\r"
+    table += "{{end of #{table_template_key}}}\r"
     table
   end
 
@@ -134,6 +138,7 @@ class WikiCourseOutput
     reviewing_titles = assignments.reviewing.pluck(:article_title)
     reviewing = Wikitext.titles_to_wikilinks(reviewing_titles)
 
-    "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
+    table_row_template_key = WikiEditMappings.get_template('table_row')
+    "{{#{table_row_template_key}|#{username}|#{assigned}|#{reviewing}}}\r"
   end
 end

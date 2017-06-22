@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_output"
 require "#{Rails.root}/lib/wiki_assignment_output"
 require "#{Rails.root}/lib/wikitext"
+require "#{Rails.root}/lib/wiki_edit_mappings"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -22,7 +23,7 @@ class WikiCourseEdits
   # set of participants, articles, timeline, and other details.
   # It simply overwrites the previous version.
   def update_course(delete: false)
-    return unless @course.submitted && @course.slug
+    return unless @course.slug
 
     wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 
@@ -55,7 +56,8 @@ class WikiCourseEdits
   # already exist.
   def enroll_in_course(enrolling_user:)
     # Add a template to the user page
-    template = "{{student editor|course = [[#{@course.wiki_title}]] }}\n"
+    editor_template_key = WikiEditMappings.get_template('editor')
+    template = "{{#{editor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
     user_page = "User:#{enrolling_user.username}"
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
@@ -117,7 +119,9 @@ class WikiCourseEdits
 
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
-    template = "{{course instructor|course = [[#{@course.wiki_title}]] }}\n"
+
+    instructor_template_key = WikiEditMappings.get_template('instuctor')
+    template = "{{#{instructor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)

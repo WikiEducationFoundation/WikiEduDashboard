@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require './lib/wiki_api'
+require "#{Rails.root}/lib/wiki_edit_mappings"
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
   def initialize(course, title, talk_title, assignments)
@@ -78,7 +79,8 @@ class WikiAssignmentOutput
     end
 
     # Check for existing tags and replace
-    old_tag_ex = "{{course assignment | course = #{@course_page}"
+    old_tag_key = WikiEditMappings.get_template('course_assignment')
+    old_tag_ex = "{{#{old_tag_key} | course = #{@course_page}"
     new_tag_ex = "{{#{@dashboard_url} assignment | course = #{@course_page}"
     page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
     page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
