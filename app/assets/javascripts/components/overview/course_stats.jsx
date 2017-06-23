@@ -9,7 +9,7 @@ const CourseStats = ({ course }) => {
   if (course.view_count === '0') {
     viewData = (
       <div className="stat-display__data">
-        Data not updated
+        {I18n.t('metrics.view_data_unavailable')}
       </div>
     );
   } else {

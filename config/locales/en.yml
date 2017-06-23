@@ -564,6 +564,7 @@ en:
       one: total usage across languages
       other: total usages across languages
     view_count_description: Article Views
+    view_data_unavailable: No view data available
     view: Views
     word_count: Words Added
     word_count_average: Average Word Count
