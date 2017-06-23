@@ -47,7 +47,11 @@
 
 class BasicCourse < Course
   def wiki_edits_enabled?
-    false
+    true
+  end
+
+  def wiki_course_page_enabled?
+    true
   end
 
   def wiki_title

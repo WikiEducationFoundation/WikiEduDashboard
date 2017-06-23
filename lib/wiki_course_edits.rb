@@ -23,7 +23,7 @@ class WikiCourseEdits
   # set of participants, articles, timeline, and other details.
   # It simply overwrites the previous version.
   def update_course(delete: false)
-    return unless @course.slug
+    return unless @course.wiki_course_page_enabled?
 
     wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 

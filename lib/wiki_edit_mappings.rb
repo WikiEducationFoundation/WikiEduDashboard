@@ -14,7 +14,7 @@ class WikiEditMappings
     },
     "outreachdashboard.wmflabs.org" => {
       "editor" => "participant editor",
-      "instructor" => "program instructor"
+      "instructor" => "program instructor",
       "course_assignment" => "program assignment",
       "table" => "participants table",
       "table_row" => "participants table row",
