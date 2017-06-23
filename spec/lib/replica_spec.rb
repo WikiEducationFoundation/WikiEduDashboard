@@ -112,7 +112,7 @@ describe Replica do
 
         es_wiki = Wiki.new(language: 'es', project: 'wikipedia')
         response = Replica.new(es_wiki).get_revisions(all_users, rev_start, rev_end)
-        expect(response.count).to eq(24)
+        expect(response.count).to eq(23)
       end
     end
 
