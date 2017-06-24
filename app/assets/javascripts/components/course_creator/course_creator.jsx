@@ -352,15 +352,6 @@ const CourseCreator = React.createClass({
                 {project}
               </div>
               <div className="column">
-                <TextAreaInput
-                  id="course_description"
-                  onChange={this.updateCourse}
-                  value={this.state.course.description}
-                  value_key="description"
-                  required={descriptionRequired}
-                  editable
-                  placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
-                />
                 <DatePicker
                   id="course_start"
                   onChange={this.updateCourseDates}
@@ -390,6 +381,15 @@ const CourseCreator = React.createClass({
                   showTime={this.state.use_start_and_end_times}
                 />
                 {this.state.use_start_and_end_times ? timeZoneMessage : null}
+                <TextAreaInput
+                  id="course_description"
+                  onChange={this.updateCourse}
+                  value={this.state.course.description}
+                  value_key="description"
+                  required={descriptionRequired}
+                  editable
+                  placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
+                />
               </div>
             </div>
             <div className={controlClass}>

@@ -5,7 +5,7 @@ import InputMixin from '../../mixins/input_mixin.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const DatePicker = React.createClass({
+const DatePicker = OnClickOutside(React.createClass({
   displayName: 'DatePicker',
 
   propTypes: {
@@ -363,6 +363,8 @@ const DatePicker = React.createClass({
       <span>{this.getFormattedDateTime()}</span>
     );
   }
+}), {
+  excludeScrollbar: true
 });
 
-export default Conditional(OnClickOutside(DatePicker));
+export default Conditional(DatePicker);
