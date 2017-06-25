@@ -15,7 +15,7 @@ const CourseStats = ({ course }) => {
   } else {
     viewData = (
       <div className="stat-display__value">
-        course.view_count
+        {course.view_count}
       </div>
     );
   }
