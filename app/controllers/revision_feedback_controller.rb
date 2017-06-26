@@ -9,6 +9,7 @@ class RevisionFeedbackController < ApplicationController
     unless @rev_id.nil?
       ores_data = RevisionScoreImporter.new.fetch_ores_data_for_revision_id(@rev_id)
       @feedback = RevisionFeedbackService.new(ores_data[:features]).feedback
+      @rating = ores_data[:rating]
     end
   end
 

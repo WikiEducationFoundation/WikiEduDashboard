@@ -46,12 +46,18 @@ const Feedback = React.createClass({
     }
 
     let modal;
-    const messages = this.props.feedback[this.props.assignment.article_id];
+
+    const data = this.props.feedback[this.props.assignment.article_id];
+    let rating = '';
+    let messages = [];
     const feedbackList = [];
 
-    if (messages) {
+    if (data) {
+      messages = data.suggestions;
+      rating = data.rating;
+
       for (let i = 0; i < messages.length; i++) {
-        feedbackList.push(<li>{messages[i].message}</li>);
+        feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
     }
 
@@ -62,6 +68,11 @@ const Feedback = React.createClass({
         <div className="article-viewer feedback">
           <h2>Feedback</h2>
           <a className="button small diff-viewer-feedback" href="" target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
+          <h3>{I18n.t('courses.rating_feedback') + rating}</h3>
+          <p>
+            {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
+          </p>
+          <h3>{I18n.t('courses.features_feedback')}</h3>
           <ul>
             {feedbackList}
           </ul>
