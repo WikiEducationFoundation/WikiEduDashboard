@@ -14,7 +14,7 @@ class UploadImporter
   end
 
   def self.import_all_uploads(users)
-    Utils.chunk_requests(users) do |user_batch|
+    users.in_groups_of(50, false) do |user_batch|
       uploads = Commons.get_uploads user_batch
       import_uploads uploads
     end
@@ -27,14 +27,14 @@ class UploadImporter
   end
 
   def self.update_usage_count(commons_uploads)
-    Utils.chunk_requests(commons_uploads) do |file_batch|
+    commons_uploads.in_groups_of(50, false) do |file_batch|
       usages = Commons.get_usages file_batch
       import_usages usages
     end
   end
 
   def self.find_deleted_files(commons_uploads)
-    Utils.chunk_requests(commons_uploads) do |file_batch|
+    commons_uploads.in_groups_of(50, false) do |file_batch|
       deleted_files = Commons.find_missing_files file_batch
       CommonsUpload.transaction do
         deleted_files.each { |file| file.update_attribute(:deleted, true) }
@@ -53,7 +53,7 @@ class UploadImporter
   ################
   def self.import_urls_in_batches(commons_uploads)
     # Larger values (50) per batch choke the MediaWiki API on this query.
-    Utils.chunk_requests(commons_uploads, 10) do |file_batch|
+    commons_uploads.in_groups_of(10, false) do |file_batch|
       file_urls = Commons.get_urls file_batch
       import_urls file_urls
     end

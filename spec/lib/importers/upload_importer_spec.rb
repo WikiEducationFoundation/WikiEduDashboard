@@ -12,6 +12,17 @@ describe UploadImporter do
         expect(CommonsUpload.all.count).to be > 50
       end
     end
+
+    # This one takes forever, so we won't include it in the test suite.
+    # It replicates https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1314
+
+    # it 'works for users with many uploads' do
+    #   create(:user, username: 'Pharos') # User has nearly 200_000 uploads
+    #   VCR.use_cassette 'commons/import_all_uploads' do
+    #     UploadImporter.import_all_uploads(User.all)
+    #     expect(CommonsUpload.all.count).to be > 50
+    #   end
+    # end
   end
 
   describe '.update_usage_count_by_course' do
