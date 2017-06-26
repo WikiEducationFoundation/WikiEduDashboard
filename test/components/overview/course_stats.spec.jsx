@@ -6,7 +6,8 @@ import CourseStats from '../../../app/assets/javascripts/components/overview/cou
 
 describe('for view count zero', () => {
   const course = {
-    view_count: 0
+    view_count: '0',
+    upload_usages_count: 0
   };
   const stats = (
     <CourseStats
@@ -16,6 +17,7 @@ describe('for view count zero', () => {
   const msgString = I18n.t('metrics.view_data_unavailable');
   it('renders view data unavailable message', () => {
     const wrapper = shallow(stats);
+    console.log(wrapper);
     // expect(wrapper.contains(<div className="stat-display__data"></div>)).to.be.true;
     expect(wrapper.contains(msgString)).to.be.true;
   });
