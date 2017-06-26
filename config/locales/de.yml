@@ -143,6 +143,8 @@ de:
     assign_other: Einen Artikel zuweisen
     add_available: Einen verfügbaren Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
+    assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
+      oder zu verbessern.
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
@@ -155,6 +157,8 @@ de:
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
+    review_tooltip: Dies ist zur Verfolgung, welche(n) Artikel du zur Begutachtung
+      planst oder zu dem/denen du Rückmeldungen geben möchtest.
     select: Auswählen
   blocks:
     milestones:

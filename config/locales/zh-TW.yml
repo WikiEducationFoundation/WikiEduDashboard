@@ -121,6 +121,7 @@ zh-TW:
     assign_other: 分配條目
     add_available: 加入一篇可用的條目
     assign_self: 指定自己一個條目
+    assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除此條目分配嗎？
@@ -133,6 +134,7 @@ zh-TW:
     reviewers: 審核者
     review_other: 指定審核
     review_self: 審核條目
+    review_tooltip: 這是追蹤用於您打算同行評審、或是提供意見回饋的條目。
     select: 選擇
   blocks:
     milestones:

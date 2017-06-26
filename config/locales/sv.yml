@@ -169,6 +169,7 @@ sv:
     start: Starta
     start_typing: Börja skriva
     students: Studenter
+    students_taught: Undervisade studenter
     students_count: '# studenter'
     student_editors: Studentredigerare
     students_none: Den här kursen har inga studenter.

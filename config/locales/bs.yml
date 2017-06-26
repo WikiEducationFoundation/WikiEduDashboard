@@ -64,6 +64,7 @@ bs:
     view_on_wiki: Pogledaj na wikiju
     edit_size: Veličina izmjene
   assignments:
+    title_too_large: Naslov ne smije biti duži od 255 znakova
     assign_other: Dodijeli članak
     confirm_add_available: Jeste li sigurni da želite dodati %{title}?
     confirm_addition: Jeste li sigurni da želite dodijeliti članak %{title} korisniku
@@ -107,4 +108,40 @@ bs:
     instructors: Nastavnici
     loading: Učitavam…
     my_articles: Moji članci
+  courses_generic:
+    cancel: Otkaži
+  editable:
+    cancel: Otkaži
+    save: Sačuvaj
+  users:
+    first_name: Ime
+    last_name: Prezime
+    loading: Učitavam korisnike...
+    username: Korisničko ime
+    username_placeholder: Korisničko ime
+    role:
+      visitor: Posjetilac
+      student: Student
+      instructor: Nastavnik
+      campus_volunteer: Univerzitetski volonter
+      online_volunteer: Mrežni volonter
+      wiki_ed_staff: Osoblje Wiki Eda
+  error:
+    unsupported_browser:
+      header: Preglednik nije podržan.  :-(
+  error_401:
+    header: Niste ovlašteni. >:-(
+  error_404:
+    header: Stranica nije pronađena. :-(
+  error_422:
+    header: 422 – neobradiva jedinica.  :-(
+  error_500:
+    header: 500 – unutrašnja serverska greška.  :-(
+  login_error:
+    header: Greška pri prijavljivanju
+  survey:
+    email:
+      headline: Zdravo, %{username}
+      course: 'Kurs: %{course_info}'
+      closing: Srdačno,
 ...
