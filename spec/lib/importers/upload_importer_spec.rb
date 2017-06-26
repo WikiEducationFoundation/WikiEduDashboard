@@ -1,12 +1,12 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/upload_importer"
 
 describe UploadImporter do
   describe '.import_all_uploads' do
     it 'finds and saves files uploaded to Commons' do
-      create(:user,
-             username: 'Guettarda')
+      create(:user, username: 'Guettarda')
       VCR.use_cassette 'commons/import_all_uploads' do
         UploadImporter.import_all_uploads(User.all)
         expect(CommonsUpload.all.count).to be > 50
@@ -18,14 +18,14 @@ describe UploadImporter do
     before do
       user = create(:user,
                     username: 'Guettarda')
-      course = create(:course, start: '2006-01-01', end: '2007-01-01')
+      course = create(:course, start: '2006-01-01', end: 1.day.from_now)
       create(:courses_user, course_id: course.id, user_id: user.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
     it 'counts and saves how many times files are used' do
       VCR.use_cassette 'commons/import_all_uploads' do
-        UploadImporter.import_all_uploads(User.all)
+        UploadImporter.import_uploads_for_current_users
       end
       VCR.use_cassette 'commons/update_usage_count' do
         UploadImporter.update_usage_count_by_course(Course.all)

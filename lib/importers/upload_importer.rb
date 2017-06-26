@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/commons"
 
 #= Importer for data about files uploaded to Wikimedia Commons
@@ -6,6 +7,12 @@ class UploadImporter
   ################
   # Entry points #
   ################
+  def self.import_uploads_for_current_users
+    User.current.role('student').find_in_batches(batch_size: 100) do |batch|
+      import_all_uploads batch
+    end
+  end
+
   def self.import_all_uploads(users)
     Utils.chunk_requests(users) do |user_batch|
       uploads = Commons.get_uploads user_batch
