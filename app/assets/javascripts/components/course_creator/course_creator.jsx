@@ -55,13 +55,20 @@ const CourseCreator = React.createClass({
     CourseActions.addCourse();
 
     // If a campaign slug is provided, fetch the campaign.
-    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
-    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
-    if (campaignParam && campaignParam[1]) {
-      CourseCreationActions.fetchCampaign(campaignParam[1]);
+    const campaignParam = this.campaignParam();
+    if (campaignParam) {
+      CourseCreationActions.fetchCampaign(campaignParam);
     }
 
     return ServerActions.fetchCoursesForUser(getUserId());
+  },
+
+  campaignParam() {
+    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
+    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
+    if (campaignParam) {
+      return campaignParam[1];
+    }
   },
 
   storeDidChange() {
@@ -170,11 +177,14 @@ const CourseCreator = React.createClass({
 
   render() {
     // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
-    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
     let showCourseForm;
     let showCloneChooser;
     let showNewOrClone;
+    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
     if (this.state.user_courses.length === 0) {
+      showCourseForm = true;
+    // If the creator was launched from a campaign, do not offer the cloning option.
+    } else if (this.campaignParam()) {
       showCourseForm = true;
     } else if (this.state.showCourseForm) {
       showCourseForm = true;
