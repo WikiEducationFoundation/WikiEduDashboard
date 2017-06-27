@@ -3,28 +3,39 @@ require 'rails_helper'
 
 describe RevisionFeedbackController do
   describe '#index' do
-    let(:params) { { rev_id: 123456 } }
-    let(:revision) { build(:revision, mw_rev_id: 123456) }
+    # The pageid is arbitrary and tests if valid feedback is received
+    let(:article) { build(:article, { mw_page_id: 27697087, id: 1 }) }
+    let(:params) { { article_id: article.id } }
 
-    context 'when the revision is in the database' do
+    context 'When the article exists' do
       before do
-        revision.save
-        get :index, params: params
+        VCR.use_cassette 'ores_features' do
+          article.save
+          get :index, params: params
+        end
       end
 
       it 'renders without error' do
         expect(response.status).to eq(200)
       end
-    end
 
-    context 'when the revision is not in the database' do
-      it 'imports and saves the revisions' do
-        expect(Revision.count).to eq(0)
-        expect(Revision).to receive(:new).and_return(revision)
-        expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
-        get :index, params: params
-        expect(response.status).to eq(200)
-        expect(Revision.count).to eq(1)
+      it 'calls RevisionFeedbackService with features' do
+        VCR.use_cassette 'ores_features' do
+
+          # Checks if the RevisionFeedbackService is initialized with valid features
+          expect_any_instance_of(RevisionFeedbackService).to receive(:initialize)
+            .with(have_key('feature.enwiki.revision.cite_templates'))
+
+          # Checks if a valid feedback is received from RevisionFeedbackService
+          expect_any_instance_of(RevisionFeedbackService).to receive(:feedback)
+            .and_return(have_at_least(1))
+          get :index, params: params
+        end
+      end
+
+      it 'assigns valid feedback' do
+        feedback = assigns(:feedback)
+        expect(feedback.length).to be >= 1
       end
     end
   end
