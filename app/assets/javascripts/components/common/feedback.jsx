@@ -39,12 +39,14 @@ const Feedback = React.createClass({
 
   render() {
     let button;
+    const feedbackLink = `/feedback?subject=/revision_feedback/${this.props.assignment.article_id}&main_subject=Revision Feedback`;
+
     if (this.state.show) {
       button = <button onClick={this.hide} className="button dark small">Okay</button>;
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
-    const feedbackButton = (<a className="button small" href="" target="_blank">{I18n.t('courses.suggestions_feedback')}</a>);
+    const feedbackButton = (<a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>);
 
     let modal;
 

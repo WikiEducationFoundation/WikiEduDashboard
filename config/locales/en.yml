@@ -325,7 +325,7 @@ en:
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
-    features_feedback: 'Feedback based on the ORES features :'
+    features_feedback: 'More Suggestions :'
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
@@ -365,7 +365,7 @@ en:
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
-    rating_feedback: "The ORES predicted rating for the article is : "
+    rating_feedback: "Predicted rating for the article is : "
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
@@ -390,7 +390,7 @@ en:
     submitted_note: >
       Your course has been submitted. Wiki Ed staff will review it and get in
       touch with any questions.
-    suggestions_feedback: Give some feedback on this feature
+    suggestions_feedback: Are these suggestions helpful?
     user_role: Role
     course_details: Course Details
     term: Term
