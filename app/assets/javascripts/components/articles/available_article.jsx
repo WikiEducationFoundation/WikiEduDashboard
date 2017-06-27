@@ -3,6 +3,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import NotificationActions from '../../actions/notification_actions.js';
+import EditingSuggestions from '../common/editing_suggestions.jsx';
 
 const AvailableArticle = React.createClass({
   displayName: 'AvailableArticle',
@@ -49,6 +50,16 @@ const AvailableArticle = React.createClass({
     return ServerActions.deleteAssignment(assignment);
   },
 
+  isEnglishWikipedia() {
+    if (this.props.course.home_wiki.language === 'en' && this.props.course.home_wiki.project === 'wikipedia') {
+      return true;
+    }
+    if (this.props.assignment.language === 'en' && this.props.assignment.project === 'wikipedia') {
+      return true;
+    }
+    return false;
+  },
+
   render() {
     const className = 'assignment';
     const { assignment } = this.props;
@@ -70,6 +81,15 @@ const AvailableArticle = React.createClass({
       );
     }
 
+    // Shows editing suggestions only when suggestions are available for that class
+
+    let feedbackButton;
+    if (this.isEnglishWikipedia()) {
+      feedbackButton = (
+        <EditingSuggestions assignment={this.props.assignment} />
+      );
+    }
+
     return (
       <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
@@ -87,6 +107,9 @@ const AvailableArticle = React.createClass({
         </td>
         <td className="table-action-cell">
           {actionButton}
+        </td>
+        <td className="table-action-cell">
+          {feedbackButton}
         </td>
       </tr>
     );
