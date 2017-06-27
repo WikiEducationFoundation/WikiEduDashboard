@@ -44,6 +44,7 @@ const Feedback = React.createClass({
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
+    const feedbackButton = (<a className="button small" href="" target="_blank">{I18n.t('courses.suggestions_feedback')}</a>);
 
     let modal;
 
@@ -51,6 +52,12 @@ const Feedback = React.createClass({
     let rating = '';
     let messages = [];
     const feedbackList = [];
+    let feedbackBody = (
+      <div className="feedback-body">
+        <p>{I18n.t('courses.feedback_loading')}</p>
+        <br />
+      </div>
+    );
 
     if (data) {
       messages = data.suggestions;
@@ -59,6 +66,18 @@ const Feedback = React.createClass({
       for (let i = 0; i < messages.length; i++) {
         feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
+      feedbackBody = (
+        <div className="feedback-body">
+          <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
+          <p>
+            {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
+          </p>
+          <h5>{I18n.t('courses.features_feedback')}</h5>
+          <ul>
+            {feedbackList}
+          </ul>
+        </div>
+      );
     }
 
     if (!this.state.show) {
@@ -67,15 +86,8 @@ const Feedback = React.createClass({
       modal = (
         <div className="article-viewer feedback">
           <h2>Feedback</h2>
-          <a className="button small diff-viewer-feedback" href="" target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
-          <h3>{I18n.t('courses.rating_feedback') + rating}</h3>
-          <p>
-            {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
-          </p>
-          <h3>{I18n.t('courses.features_feedback')}</h3>
-          <ul>
-            {feedbackList}
-          </ul>
+          {feedbackButton}
+          {feedbackBody}
           {button}
         </div>
       );

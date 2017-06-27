@@ -325,8 +325,9 @@ en:
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
-    features_feedback: 'Feedback based on the ORES features:'
+    features_feedback: 'Feedback based on the ORES features :'
     feedback: Feedback
+    feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
