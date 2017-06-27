@@ -6,7 +6,7 @@ const CourseStats = ({ course }) => {
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display"></div>;
   }
-  if (course.view_count === '0') {
+  if (course.view_count === '0' && course.edited_count !== '0') {
     viewData = (
       <div className="stat-display__data">
         {I18n.t('metrics.view_data_unavailable')}

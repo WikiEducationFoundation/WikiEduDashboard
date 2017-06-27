@@ -3,9 +3,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CourseStats from '../../../app/assets/javascripts/components/overview/course_stats.jsx';
 
-describe('for view count zero', () => {
+describe('for view count zero and edited count greater than 0', () => {
   const course = {
     view_count: '0',
+    edited_count: '1',
     upload_usages_count: 0
   };
   const testStats = (
