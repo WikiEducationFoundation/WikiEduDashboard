@@ -726,6 +726,22 @@ slide_id=${opts.slide_id}`,
         return rej(obj);
       })
     );
+  },
+
+  updateSalesforceRecord(courseId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: `/salesforce/update/${courseId}.json`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
   }
 };
 

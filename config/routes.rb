@@ -249,6 +249,7 @@ Rails.application.routes.draw do
   # Salesforce
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
+    put '/salesforce/update/:course_id' => 'salesforce#update'
     get '/salesforce/create_media' => 'salesforce#create_media'
   end
 

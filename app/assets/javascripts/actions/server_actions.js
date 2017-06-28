@@ -213,6 +213,12 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
+  updateSalesforceRecord(courseId) {
+    return API.updateSalesforceRecord(courseId)
+      .then(resp => ({ actionType: 'UPDATED_SALESFORCE_RECORD', data: resp }))
+      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  },
+
   notifyOverdue(courseId) {
     return API.notifyOverdue(courseId)
       .then(resp => ({ actionType: 'NOTIFIED_OVERDUE', data: resp }))
