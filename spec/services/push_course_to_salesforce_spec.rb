@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe PushCourseToSalesforce do
@@ -6,7 +7,6 @@ describe PushCourseToSalesforce do
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
   let(:week) { create(:week, course: course) }
-
 
   context 'when a course has a Salesforce record already' do
     let(:flags) { { salesforce_id: salesforce_id } }
