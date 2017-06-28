@@ -6713,11 +6713,9 @@ react-motion@^0.4.5:
     performance-now "^0.2.0"
     raf "^3.1.0"
 
-react-onclickoutside@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.7.1.tgz#30c2c124a6423ba4b321f3f5ce06e2a61f27257b"
-  dependencies:
-    object-assign "^4.0.1"
+react-onclickoutside@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-6.1.1.tgz#9e680cdebd6c21878204e8a9f19ff413f8078397"
 
 react-redux@^5.0.4:
   version "5.0.4"

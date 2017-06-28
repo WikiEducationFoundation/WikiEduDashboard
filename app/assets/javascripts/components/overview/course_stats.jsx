@@ -2,8 +2,22 @@ import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
 
 const CourseStats = ({ course }) => {
+  let viewData;
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display"></div>;
+  }
+  if (course.view_count === '0' && course.edited_count !== '0') {
+    viewData = (
+      <div className="stat-display__data">
+        {I18n.t('metrics.view_data_unavailable')}
+      </div>
+    );
+  } else {
+    viewData = (
+      <div className="stat-display__value">
+        {course.view_count}
+      </div>
+    );
   }
 
   return (
@@ -36,7 +50,7 @@ const CourseStats = ({ course }) => {
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
       <div className="stat-display__stat" id="view-count">
-        <div className="stat-display__value">{course.view_count}</div>
+        {viewData}
         <small>{I18n.t('metrics.view_count_description')}</small>
       </div>
       <div className="stat-display__stat tooltip-trigger" id="upload-count">
