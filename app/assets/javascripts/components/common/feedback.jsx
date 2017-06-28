@@ -20,9 +20,7 @@ const Feedback = React.createClass({
   },
 
   componentWillMount() {
-    if (this.props.assignment.article_id) {
-      this.props.fetchFeedback(this.props.assignment.article_id);
-    }
+    this.props.fetchFeedback(this.props.assignment.article_title);
   },
 
   show() {
@@ -39,7 +37,8 @@ const Feedback = React.createClass({
 
   render() {
     let button;
-    const feedbackLink = `/feedback?subject=/revision_feedback/${this.props.assignment.article_id}&main_subject=Revision Feedback`;
+    const titleParam = this.props.assignment.article_title;
+    const feedbackLink = `/feedback?main_subject=Revision Feedback&subject=/revision_feedback?title=${titleParam}`;
 
     if (this.state.show) {
       button = <button onClick={this.hide} className="button dark small">Okay</button>;
@@ -50,14 +49,13 @@ const Feedback = React.createClass({
 
     let modal;
 
-    const data = this.props.feedback[this.props.assignment.article_id];
+    const data = this.props.feedback[titleParam];
     let rating = '';
     let messages = [];
     const feedbackList = [];
     let feedbackBody = (
       <div className="feedback-body">
         <p>{I18n.t('courses.feedback_loading')}</p>
-        <br />
       </div>
     );
 
@@ -68,18 +66,26 @@ const Feedback = React.createClass({
       for (let i = 0; i < messages.length; i++) {
         feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
-      feedbackBody = (
-        <div className="feedback-body">
-          <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
-          <p>
-            {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
-          </p>
-          <h5>{I18n.t('courses.features_feedback')}</h5>
-          <ul>
-            {feedbackList}
-          </ul>
-        </div>
-      );
+      if (rating != null) {
+        feedbackBody = (
+          <div className="feedback-body">
+            <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
+            <p>
+              {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
+            </p>
+            <h5>{I18n.t('courses.features_feedback')}</h5>
+            <ul>
+              {feedbackList}
+            </ul>
+          </div>
+        );
+      } else {
+        feedbackBody = (
+          <div className="feedback-body">
+            <p>{I18n.t('courses.does_not_exist')}</p>
+          </div>
+        );
+      }
     }
 
     if (!this.state.show) {

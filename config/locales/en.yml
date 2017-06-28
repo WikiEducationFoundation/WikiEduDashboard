@@ -345,6 +345,7 @@ en:
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     download_stats_data: Download stats
+    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
