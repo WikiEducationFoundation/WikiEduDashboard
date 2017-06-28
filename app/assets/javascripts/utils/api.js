@@ -66,9 +66,9 @@ const API = {
     });
   },
 
-  fetchFeedback(revId) {
+  fetchFeedback(articleTitle) {
     return new Promise((res, rej) => {
-      const url = `/revision_feedback/${revId}`;
+      const url = `/revision_feedback?title=${articleTitle}`;
       return $.ajax({
         type: 'GET',
         url,

@@ -43,6 +43,7 @@ const MyAssignment = React.createClass({
       assignmentType = 'Creating a new article: ';
       if (isEnglishWikipedia) {
         checklist = <MainspaceChecklist />;
+        feedback = <Feedback assignment={this.props.assignment} />;
         sandbox = <div><a className="button dark small" href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" target="_blank">Sandbox</a></div>;
         sandboxTalk = <div><a className="button dark small" href="https://en.wikipedia.org/wiki/Special:MyTalk/sandbox" target="_blank">Sandbox talk</a></div>;
       }
