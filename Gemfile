@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
-gem 'rails', '5.1.1'
+gem 'rails', '5.1.2'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
@@ -21,7 +21,7 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 
 gem 'validates_email_format_of'
 
-gem 'deep_cloneable', '~> 2.2.1'
+gem 'deep_cloneable', '~> 2.3.0'
 
 gem 'sentry-raven'
 gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git'
