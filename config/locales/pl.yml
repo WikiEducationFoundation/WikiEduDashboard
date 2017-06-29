@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chrumps
 # Author: Halibutt
+# Author: InternerowyGołąb
 # Author: Mazab IZW
 # Author: The Polish
 # Author: Woytecr
@@ -301,6 +302,9 @@ pl:
       invalid_slug: Niewypełnione pole nazwy instytucji/tytułu.
       duplicate_slug: Inny program o nazwie %{slug} już istnieje.
     expected_students: Oczekiwana liczba uczestników
+    features_feedback: 'Więcej propozycji :'
+    feedback: Informacje zwrotne
+    feedback_loading: Proszę czekać, sugestię są ładowane...
     gradeables_none: Kurs nie posiada punktowanych zadań/prac.
     instructor:
       one: Instruktor
@@ -360,6 +364,7 @@ pl:
     submitted_heading: Zgłoszone kursy
     submitted_note: Twój kurs został zgłoszony. Rzucimy na niego okiem i zgłosimy
       się z ewentualnymi pytaniami.
+    suggestions_feedback: Czy te sugestie są pomocne?
     user_role: Rola
     course_details: Szczegóły kursu
     term: Semestr
@@ -494,6 +499,7 @@ pl:
       few: wykorzystane we wszystkich wersjach językowych
       many: wykorzystanych we wszystkich wersjach językowych
     view_count_description: Statystyka oglądalności stron
+    view_data_unavailable: Nie są dostępne dane wizualne
     view: Odsłony
     word_count: Dodane słowa
     word_count_average: Średnio słów
@@ -538,6 +544,15 @@ pl:
     time_doc: Czas każdej zmiany w Twoim czasie lokalnym
     title: Tytuł
     view_on_wiki: Zobacz porównanie wersji na wiki
+  suggestions:
+    editing: Sugestie edycyjne
+    suggestion_docs:
+      list: Listy powinny być listami działających linków do artykułów w Wikipedii,
+        odpowiednio nazwanych i zorganizowanych.
+      future: Dodany materiał może być spekulacją i powinien być ostrożnie uźródłowiony
+      '?': Sugestie nie są dostępne - Ten artykuł nie jest oceniony lub sugestie nie
+        są dostępne dla oceny.
+      does_not_exist: Tego artykułu nie ma w Wikipedii
   tasks:
     conseq: Zadanie %{task} już trwa!
     constant: Zadania %{task} nie można uruchomić póki nie skończy się update_daily.

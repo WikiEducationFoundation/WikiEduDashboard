@@ -235,7 +235,9 @@ zh-CN:
     data_download_info: 下载数据为CSV格式。
     data_overview: 概览数据
     data_edits: 编辑数据
+    data_edits_info: 编辑数据显示项目期间每次编辑的详情。
     data_students: 编辑者数据
+    data_uploads: 共享资源上传数据
     delete_course: 删除课程
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
     dismiss_survey: 关闭
@@ -256,6 +258,9 @@ zh-CN:
       invalid_slug: 清空课程所属学校/标题。
       duplicate_slug: 另一个叫%{slug}的课程已存在。
     expected_students: 预期学生
+    features_feedback: 更多建议：
+    feedback: 反馈
+    feedback_loading: 请等待，建议正在加载...
     gradeables_none: 此课程没有可批改作业。
     instructor:
       one: 导师
@@ -307,6 +312,7 @@ zh-CN:
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
+    suggestions_feedback: 这些建议有帮助么？
     user_role: 角色
     course_details: 课程详情
     term: 学期
@@ -470,6 +476,12 @@ zh-CN:
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
     view_on_wiki: 在wiki上查看差异
+  suggestions:
+    editing: 编辑建议
+    suggestion_docs:
+      list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
+      '?': 建议不可用——条目未评级，或没有用于评级的建议。
+      does_not_exist: 此条目在维基百科不存在
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。

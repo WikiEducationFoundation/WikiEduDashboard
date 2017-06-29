@@ -338,6 +338,9 @@ de:
       duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
         ist.
     expected_students: Erwartete Studenten
+    features_feedback: 'Weitere Vorschläge:'
+    feedback: Rückmeldung
+    feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
       one: Leiter
@@ -377,6 +380,7 @@ de:
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
+    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
       Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
       die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
@@ -400,6 +404,7 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    suggestions_feedback: Sind diese Vorschläge hilfreich?
     user_role: Rolle
     course_details: Kursdetails
     term: Dauer
@@ -545,6 +550,7 @@ de:
       one: Gesamte Verwendung auf allen Sprachen
       other: Gesamte Verwendungen auf allen Sprachen
     view_count_description: Artikelaufrufe
+    view_data_unavailable: Keine Aufrufdaten verfügbar
     view: Aufrufe
     word_count: Hinzugefügte Wörter
     word_count_average: Durchschnittliche Wortanzahl
@@ -590,6 +596,48 @@ de:
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
+  suggestions:
+    editing: Vorschläge bearbeiten
+    suggestion_docs:
+      fa: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden. Weitere Verbesserungen an der Prosaqualität
+        sind oft möglich.
+      a: Es könnte Expertenwissen nötig sein, um den Artikel zu optimieren und Gestaltungsprobleme
+        könnten eine Lösung benötigen. Eine Begutachtung könnte helfen.
+      ga: Einige Bearbeitungen nach Thema und Gestaltungsexperten sind hilfreich.
+        Ein Vergleich mit einem vorhandenen lesenswerten Artikel zu einem ähnlichen
+        Thema kann Bereiche hervorheben, in denen Inhalte schwach sind oder fehlen.
+      bplus: Könnte durch Beiträge von Experten verbessert werden, um zu bewerten,
+        wo noch Informationen fehlen und auch durch Illustrationen, historische Hintergründe
+        und weitere Literatur. Ziehe eine Begutachtung in Erwägung oder nominiere
+        ihn für einen guten Artikel. Falls der Artikel nicht bereits vollständig wikifiziert
+        wurde, ist jetzt die Gelegenheit.
+      b: Einige Aspekte des Inhalts und der Gestaltung müssen genannt werden. Expertenwissen
+        könnte erforderlich sein. Die Einbindung unterstützender Materialien sollte,
+        falls praktikabel, in Erwägung gezogen und der Artikel auf allgemeine Einhaltung
+        des Gestaltungshandbuchs und ähnlicher Gestaltungsrichtlinien überprüft werden.
+      c: Es sind erhebliche Bearbeitungen nötig, um Lücken im Inhalt zu schließen
+        und Bereinigungsprobleme zu lösen.
+      start: Die Angabe von Einzelnachweisen auf verlässliche Quellen sollte zuerst
+        erfolgen. Der Artikel benötigt auch eine bedeutende Inhaltsverbesserung und
+        Organisation. Verbessere auch die Grammatik, Rechtschreibung, den Schreibstil
+        und die Verwendung von Jargon.
+      stub: Jede Bearbeitung oder zusätzliche Materialien können hilfreich sein. Die
+        Bereitstellung bedeutungsvoller Inhalte sollte Priorität haben. Die beste
+        Lösung zur Heraufstufung eines kurzen Artikels auf einen Artikel mit Startniveau
+        ist die Einfügung belegter Gründe, warum das Thema bedeutend ist.
+      fl: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden.
+      list: Listen sollten Listen mit Livelinks auf Wikipedia-Artikel sein, passend
+        benannt und organisiert.
+      future: Das hinzugefügte Material könnte Spekulation sein und sollte sorgfältig
+        mit Quellen belegt sein.
+      disambig: Zusätze sollten als neue Artikel unter dem gleichen Namen erstellt
+        werden. Beachte aufmerksam die passende Benennung solcher Seiten, da sie oft
+        nicht den Titelzusatz „(Begriffsklärung)“ benötigen.
+      '?': Keine Vorschläge verfügbar. Entweder ist der Artikel nicht bewertet oder
+        Vorschläge sind für die Bewertung nicht verfügbar.
+      does_not_exist: Dieser Artikel ist in Wikipedia nicht vorhanden
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe

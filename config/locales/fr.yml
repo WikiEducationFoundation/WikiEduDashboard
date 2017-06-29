@@ -159,6 +159,8 @@ fr:
     assign_other: Affecter un article
     add_available: Ajouter un article disponible
     assign_self: M’affecter un article
+    assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
+      d’améliorer.
     confirm_add_available: Êtes-vous sûr de vouloir ajouter %{title} ?
     confirm_addition: Êtes-vous sûr de vouloir assigner %{title} à %{username}?
     confirm_deletion: Êtes-vous sûr de vouloir supprimer cette affectation d’article ?
@@ -171,6 +173,8 @@ fr:
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
     review_self: Relire un article
+    review_tooltip: Cela sert à garder trace de quel()s article(s) vous prévoyez de
+      relire ou de fournir un commentaire dessus.
     select: Sélectionner
   blocks:
     milestones:

@@ -203,6 +203,8 @@ ru:
     instructors: Инструкторы
     join: Присоединиться
     join_course: Присоединиться к курсу
+    join_prompt: Присоединиться к '%{title}'?
+    join_successful: Вы были успешно присоединены к %{title}.
     join_failure_details:
       not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
@@ -314,6 +316,7 @@ ru:
     gradeable_value: Значение
     save_all_changes: Сохранить всё
     title: Хронология
+    week_number: Неделя %{number}
   training:
     continue: Продолжить (%{progress})
     start: Начать

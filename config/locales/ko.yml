@@ -172,6 +172,9 @@ ko:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
       duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
+    features_feedback: '다른 제안 :'
+    feedback: 피드백
+    feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
@@ -190,6 +193,7 @@ ko:
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다 :'
     school: 학교
     start: 시작
     start_typing: 입력 시작
@@ -199,6 +203,7 @@ ko:
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
+    suggestions_feedback: 이 제안이 도움이 됩니까?
     user_role: 역할
     term: 기간
     timeline: 숙제 상세사항
@@ -271,6 +276,7 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     tags: 태그
+    view_data_unavailable: 이용 가능한 뷰 데이터 없음
     view: 보기
     word_count_average: 평균 단어 개수
   namespace:
@@ -302,6 +308,10 @@ ko:
     loading: 판을 불러오는 중...
     title: 제목
     view_on_wiki: 위키에서 차이 보기
+  suggestions:
+    suggestion_docs:
+      '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   timeline:
