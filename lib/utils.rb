@@ -8,7 +8,7 @@ class Utils
     results = []
     blocks.each do |b|
       info = yield b
-      results.push(*info)
+      results.concat [*info]
     end
     results
   end
