@@ -17,7 +17,9 @@ const MyAssignment = React.createClass({
 
   isEnglishWikipedia() {
     if (this.props.course.home_wiki.language === 'en' && this.props.course.home_wiki.project === 'wikipedia') {
-      return true;
+      if (typeof this.props.assignment.language === 'undefined') {
+        return true;
+      }
     }
     if (this.props.assignment.language === 'en' && this.props.assignment.project === 'wikipedia') {
       return true;

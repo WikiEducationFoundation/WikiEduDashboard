@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
+import Feedback from '../common/feedback.jsx';
 
 const userLink = (username, wiki) => {
   const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${username}`;
@@ -47,6 +48,11 @@ const Assignment = React.createClass({
     if (assignees.length) { assignees.pop(); }
     if (reviewers.length) { reviewers.pop(); }
 
+    let feedback;
+    if (this.props.assignmentGroup.length === 1 || article.article_id) {
+      feedback = <Feedback assignment={this.props.assignmentGroup[0]} username={this.props.assignmentGroup[0].username} />;
+    }
+
     return (
       <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
@@ -64,7 +70,7 @@ const Assignment = React.createClass({
         </td>
         <td className="desktop-only-tc">{assignees}</td>
         <td className="desktop-only-tc">{reviewers}</td>
-        <td></td>
+        <td>{feedback}</td>
       </tr>
     );
   }
