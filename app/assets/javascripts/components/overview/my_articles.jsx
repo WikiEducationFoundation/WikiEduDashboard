@@ -31,6 +31,7 @@ const MyArticles = React.createClass({
           key={assignment.id}
           assignment={assignment}
           course={this.props.course}
+          username={this.props.current_user.username}
           last={i === assignmentCount - 1}
         />
       );
