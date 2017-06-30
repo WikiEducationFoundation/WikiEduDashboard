@@ -54,7 +54,10 @@ const Feedback = React.createClass({
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
-    const feedbackButton = (<a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>);
+    const feedbackForm = (
+      <textarea />
+      // <a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
+    );
 
     let modal;
 
@@ -103,9 +106,9 @@ const Feedback = React.createClass({
       modal = (
         <div className="article-viewer feedback">
           <h2>Feedback</h2>
-          {feedbackButton}
           {feedbackBody}
           {button}
+          {feedbackForm}
         </div>
       );
     }
