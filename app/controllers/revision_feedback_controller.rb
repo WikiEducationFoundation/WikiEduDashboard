@@ -16,13 +16,13 @@ class RevisionFeedbackController < ApplicationController
   private
 
   def set_latest_revision_id
-    @article = Article.find(params[:article_id])
-
-    query = { prop: 'revisions', pageids: @article.mw_page_id, rvprop: 'ids' }
+    query = { prop: 'revisions', titles: params['title'], rvprop: 'ids' }
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     response = WikiApi.new(@wiki).query(query)
-    results = response&.data
-    revisions = results.dig('pages', @article.mw_page_id.to_s, 'revisions')
+    page = response&.data['pages']
+    # The Page ID is the only key in the response
+    page_id = page.keys()[0];
+    revisions = page.dig(page_id, 'revisions')
 
     # The API sends a response with the id of the last revision
     unless revisions.nil? || revisions.length == 0

@@ -8,12 +8,15 @@ describe('<MyAssignment />', () => {
   const assignment = { id: 1, role: 0, article_title: '1' };
   const course = { home_wiki: { language: 'en', project: 'wikipedia' } };
 
-  it('feedback button is displayed with improving articles', () => {
+  it('feedback button is displayed on sandbox and improving articles', () => {
     const props = { course: course, assignment: assignment, last: false };
+    // Sandbox articles
+    let wrapper = shallow(<MyAssignment {...props} />);
+    expect(wrapper.find(Feedback)).to.have.length(1);
 
     // Improving Articles
-    props.assignment = { id: 1, role: 0, article_id: 1, article_title: 'One', article_url: 'https://en.wikipedia.org/wiki/1' };
-    const wrapper = shallow(<MyAssignment {...props} />);
+    props.assignment = { id: 1, role: 0, article_title: 'One', article_url: 'https://en.wikipedia.org/wiki/1' };
+    wrapper = shallow(<MyAssignment {...props} />);
     expect(wrapper.find(Feedback)).to.have.length(1);
   });
 
@@ -24,7 +27,7 @@ describe('<MyAssignment />', () => {
     let wrapper = shallow(<MyAssignment {...props} />);
     expect(wrapper.find(Feedback)).to.have.length(0);
 
-    props.assignment = { id: 1, role: 0, article_id: 1, article_title: 'One', article_url: 'https://en.wikipedia.org/wiki/1' };
+    props.assignment = { id: 1, role: 0, article_title: 'One', article_url: 'https://en.wikipedia.org/wiki/1' };
     wrapper = shallow(<MyAssignment {...props} />);
     expect(wrapper.find(Feedback)).to.have.length(0);
   });
