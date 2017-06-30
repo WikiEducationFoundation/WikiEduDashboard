@@ -8,6 +8,7 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 import SalesforceLink from './salesforce_link.jsx';
+import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
@@ -156,6 +157,7 @@ const AvailableActions = React.createClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
+          <GreetStudentsButton course={this.state.course} current_user={this.props.current_user} />
           {confirmationDialog}
           {controls}
           <SalesforceLink course={this.state.course} current_user={this.props.current_user} />

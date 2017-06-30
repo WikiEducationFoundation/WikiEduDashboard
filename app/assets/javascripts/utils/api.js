@@ -583,6 +583,23 @@ slide_id=${opts.slide_id}`,
     );
   },
 
+  greetStudents(courseId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: `/greeting?course_id=${courseId}`,
+        success(data) {
+          alert('Student greetings added to the queue.');
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj, 'There was an error with the greetings! ');
+        return rej(obj);
+      })
+    );
+  },
+
   submitWizard(courseId, wizardId, data) {
     return new Promise((res, rej) =>
       $.ajax({
