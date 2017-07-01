@@ -84,6 +84,23 @@ const API = {
     });
   },
 
+  postFeedbackFormResponse(subject, body) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: `/feedback`,
+        data: JSON.stringify({ subject, body }),
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchTrainingStatus(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;
