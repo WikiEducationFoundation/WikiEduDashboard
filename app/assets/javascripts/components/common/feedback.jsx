@@ -10,7 +10,8 @@ const Feedback = React.createClass({
   propTypes: {
     fetchFeedback: React.PropTypes.func,
     feedback: React.PropTypes.object,
-    assignment: React.PropTypes.object.isRequired
+    assignment: React.PropTypes.object.isRequired,
+    username: React.PropTypes.string
   },
 
   getInitialState() {
@@ -20,7 +21,15 @@ const Feedback = React.createClass({
   },
 
   componentWillMount() {
-    this.props.fetchFeedback(this.props.assignment.article_title);
+    this.props.fetchFeedback(this.titleParam());
+  },
+
+  titleParam() {
+    if (this.props.assignment.article_id) {
+      return this.props.assignment.article_title;
+    } else {
+      return `User:${this.props.username}/sandbox`;
+    }
   },
 
   show() {
@@ -37,7 +46,7 @@ const Feedback = React.createClass({
 
   render() {
     let button;
-    const titleParam = this.props.assignment.article_title;
+    const titleParam = this.titleParam();
     const feedbackLink = `/feedback?main_subject=Revision Feedback&subject=/revision_feedback?title=${titleParam}`;
 
     if (this.state.show) {
@@ -45,7 +54,10 @@ const Feedback = React.createClass({
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
-    const feedbackButton = (<a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>);
+    const feedbackForm = (
+      <textarea />
+      // <a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
+    );
 
     let modal;
 
@@ -94,9 +106,9 @@ const Feedback = React.createClass({
       modal = (
         <div className="article-viewer feedback">
           <h2>Feedback</h2>
-          {feedbackButton}
           {feedbackBody}
           {button}
+          {feedbackForm}
         </div>
       );
     }
