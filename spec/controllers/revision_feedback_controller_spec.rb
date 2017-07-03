@@ -4,13 +4,11 @@ require 'rails_helper'
 describe RevisionFeedbackController do
   describe '#index' do
     # The pageid is arbitrary and tests if valid feedback is received
-    let(:article) { build(:article, { mw_page_id: 27697087, id: 1 }) }
-    let(:params) { { article_id: article.id } }
+    let(:params) { { 'title': 'Quantum_Chemistry' } }
 
     context 'When the article exists' do
       before do
         VCR.use_cassette 'ores_features' do
-          article.save
           get :index, params: params
         end
       end

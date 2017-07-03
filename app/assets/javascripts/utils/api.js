@@ -66,9 +66,9 @@ const API = {
     });
   },
 
-  fetchFeedback(revId) {
+  fetchFeedback(articleTitle) {
     return new Promise((res, rej) => {
-      const url = `/revision_feedback/${revId}`;
+      const url = `/revision_feedback?title=${articleTitle}`;
       return $.ajax({
         type: 'GET',
         url,
@@ -82,6 +82,23 @@ const API = {
         return rej(obj);
       });
     });
+  },
+
+  postFeedbackFormResponse(subject, body) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: `/feedback_form_responses`,
+        data: {feedback_form_response: {subject: subject, body: body}},
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
   },
 
   fetchTrainingStatus(studentId, courseId) {

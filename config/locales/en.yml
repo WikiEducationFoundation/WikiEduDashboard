@@ -348,6 +348,7 @@ en:
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
     download_stats_data: Download stats
+    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
@@ -429,7 +430,9 @@ en:
     submitted_note: >
       Your course has been submitted. Wiki Ed staff will review it and get in
       touch with any questions.
-    suggestions_feedback: Are these suggestions helpful?
+    suggestions_feedback: Are these suggestions helpful? Let us know!
+    suggestions_sending: Sending Feedback...
+    suggestions_sent: Feedback Sent. Thanks for your input.
     user_role: Role
     course_details: Course Details
     term: Term
