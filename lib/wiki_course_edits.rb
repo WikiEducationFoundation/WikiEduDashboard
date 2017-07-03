@@ -8,14 +8,22 @@ require "#{Rails.root}/lib/wiki_edit_mappings"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
+
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
+    puts "\n\n\nHEREEEEE"
     @course = course
+    puts "\n\n\nCourse inspect in initialize", @course.submitted
+    puts "\n\n\nCourse wiki inspect in initialize", @course.home_wiki.inspect
     # Edits can only be made to the course's home wiki through WikiCourseEdits
     @home_wiki = course.home_wiki
+    puts "\n\nCourse wiki in initialize:", @home_wiki.language
     @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
+    puts "\n\nDashboard URL in initialize:", @dashboard_url.inspect, @home_wiki.language
     @current_user = current_user
+    template_file_path = "config/templates/#{@dashboard_url}_#{@home_wiki.language}.yml"
+    @templates = YAML.load_file(Rails.root + template_file_path)
     send(action, opts)
   end
 
@@ -56,7 +64,7 @@ class WikiCourseEdits
   # already exist.
   def enroll_in_course(enrolling_user:)
     # Add a template to the user page
-    editor_template_key = WikiEditMappings.get_template('editor')
+    editor_template_key = @templates['templates']['editor']
     template = "{{#{editor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
     user_page = "User:#{enrolling_user.username}"
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
@@ -120,7 +128,7 @@ class WikiCourseEdits
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
 
-    instructor_template_key = WikiEditMappings.get_template('instuctor')
+    instructor_template_key = @templates['templates']['instuctor']
     template = "{{#{instructor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 

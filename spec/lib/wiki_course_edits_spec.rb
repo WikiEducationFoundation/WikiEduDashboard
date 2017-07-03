@@ -1,9 +1,10 @@
-# frozen_string_literal: true
+;# frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_edits"
 
 describe WikiCourseEdits do
-  let!(:course) { create(:course, id: 1, submitted: true) }
+  # let(:wiki) { create(:wiki, language: 'en', project: 'wikipedia')}
+  let!(:course) { create(:course, id: 1, submitted: true, home_wiki_id: 1) }
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'EnrollingUser') }
 
@@ -11,6 +12,8 @@ describe WikiCourseEdits do
     it 'edits a Wikipedia page representing a course' do
       stub_oauth_edit
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
+      puts "=====================\n\n"
+      puts "Course Wiki:", course.home_wiki.inspect
       WikiCourseEdits.new(action: :update_course,
                           course: course,
                           current_user: user)
@@ -43,6 +46,16 @@ describe WikiCourseEdits do
                           course:  course,
                           current_user: user,
                           instructor: nil) # defaults to current user
+    end
+
+    context 'makes correct edits' do
+      before do
+        ENV['dashboard_url'] = "dashboard.wikiedu.org"
+      end
+
+      it 'posts to Wiki Education Foundation dashboard' do
+        stub_oauth_edit
+      end
     end
   end
 

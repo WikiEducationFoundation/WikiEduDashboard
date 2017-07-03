@@ -8,6 +8,8 @@ class WikiAssignmentOutput
     @course_page = course.wiki_title
     @wiki = course.home_wiki
     @dashboard_url = ENV['dashboard_url']
+    template_file_path = "config/templates/#{@dashboard_url}_#{@wiki.language}.yml"
+    @templates = YAML.load_file(Rails.root + template_file_path)
     @assignments = assignments
     @title = title
     @talk_title = talk_title
@@ -79,7 +81,7 @@ class WikiAssignmentOutput
     end
 
     # Check for existing tags and replace
-    old_tag_key = WikiEditMappings.get_template('course_assignment')
+    old_tag_key = @templates['templates']['course_assignment']
     old_tag_ex = "{{#{old_tag_key} | course = #{@course_page}"
     new_tag_ex = "{{#{@dashboard_url} assignment | course = #{@course_page}"
     page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
