@@ -200,10 +200,13 @@ ast:
       polos estudiantes nel periodu del cursu
     campaigns: 'Campaignes:'
     campaign_courses: Cursos de %{title}
+    campaign_articles: Artículos de %{title}
+    campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
       Si ye asina, escribe'l títulu del cursu pa siguir.
     confirm_course_deletion_failed: '"%{title}" nun ye''l títulu d''esti cursu. El
       cursu nun se desanició.'
+    course: Cursu
     course_dates_calendar_instructions: Escueye feches p'añadir o quitar del calendariu
       (por casu, vacaciones, cuando nun hai clases). Fai clic na fecha pa camudar
       l'estáu ente ensin escoyer, escoyíu y vacaciones. Les feches de les actividaes
@@ -221,6 +224,7 @@ ast:
       assignment_start: Entamu de la xera
       assignment_start_placeholder: Entamu de la xera (AAAA-MM-DD)
       checking_for_uniqueness: Ta comprobándose qu'esti cursu sía únicu.
+      choose_clone: Escueyi un cursu pa clonar.
       clone_previous: Clonar el cursu anterior
       clone_this: Clonar esti cursu
       cloned_course_calendar_instructions: Escueye dates p'asedir o quitar del calendariu
@@ -248,12 +252,18 @@ ast:
       end_date_placeholder: Data de fin (AAAA-MM-DD)
       expected_number: Númberu d'estudiantes esperáu
       find: Atopa'l to cursu
+      intro: El títulu, la escuela y el plazu creen la dirección URL de la páxina
+        del cursu, y nun pueden camudase. Tolo demás pue editase depués. Fai clic
+        en «Crear el mio cursu» pa empecipiar la construcción del cronograma de la
+        to xera en Wikipedia.
       no_class_holidays: Nun tengo vacaciones de clases
       save_cloned_course: Guardar cursu nuevu
       start_date: Data d'entamu
       start_date_placeholder: Data d'entamu (AAAA-MM-DD)
       subject: Asuntu
     current: Cursos actuales
+    data_articles: Datos de los artículos
+    data_download_info: Descargar los datos en formatu CSV.
     delete_course: Desaniciar cursu
     dismiss_survey: Descartar
     dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
@@ -274,11 +284,17 @@ ast:
       invalid_slug: Escuela/títulu vacíu pal cursu.
       duplicate_slug: Yá esiste otru programa llamú %{slug}.
     expected_students: Estudiantes que s'esperen
+    features_feedback: 'Más suxerencies:'
+    feedback: La to opinión
+    feedback_loading: Espera mientres se carguen les suxerencies...
     gradeables_none: Esti cursu nun tien xeres calificables.
     instructor:
       one: Profesor
       other: Profesores
     instructors: Monitores
+    invitation: |-
+      Te convidaron a xunite a %{title}. Pa participar nel cursu, tienes d'aniciar sesión con una cuenta de Wikipedia.
+      Si nun tienes una cuenta de Wikipedia, rexístrate agora.
     join: Xunise
     join_course: Xunite al cursu
     join_prompt: ¿Xunise a '%{title}'?
@@ -287,6 +303,7 @@ ast:
     join_failure_details:
       cannot_join_twice: Los usuarios nun pueden matriculase dos veces nel mesmu cursu.
       not_yet_approved: Esti cursu entá nun s'aprobó pa la inscripción.
+    leave_confirmation: ¿Tas seguru de que quies dexar esti cursu?
     leave_course: Dexar el cursu
     loading: Cargando...
     my_articles: Los mios artículos
@@ -295,13 +312,23 @@ ast:
     nocourses: Nun participes en nengún cursu.
     nocourse: nun participó en nengún cursu.
     none: Nengunu
+    notify_untrained_confirmation: Esto va publicar un recordatoriu nes páxines d'alderique
+      de tolos estudiantes que tienen los módulos de preparación designaos atrasaos.
+      ¿Tas seguru de que quies faer esto?
+    no_available_actions: Nun hai aiciones disponibles
     overview: Entamu
     passcode: Códigu d'accesu
     passcode_none: Sin códigu d'accesu
     passcode_prompt: 'Escribe''l códigu d''accesu pa xunite:'
     published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
       la siguiente URL:'
+    rating_feedback: 'La puntuación prevista pal artículu ye:'
+    review_timeline: Revisa esti cronograma y fai cambeos. En tando satisfechu col
+      cronograma, unvialu pa que lu apruebe'l personal de Wiki Ed. Cuando s'apruebe,
+      vas recibir una URL d'inscripción que los estudiantes pueden utilizar pa xunise
+      al cursu. (Entá vas poder faer cambeos más alantre.)
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
+    revisions_none: Esti cursu nun tien actividá editorial en Wikipedia recien.
     school: Escuela
     school_and_term: Institución/Periodu
     start: Principiu
@@ -311,12 +338,17 @@ ast:
     student_editors: Estudiantes editores
     students_none: Esti cursu nun tien estudiantes.
     students_short: Estudiantes
+    submitted_and_pending_heading: Presentáu y pendiente d'aprobación
+    submitted_heading: Cursos presentaos
+    submitted_note: Unvióse'l to cursu. El personal de Wiki Ed revisarálu y comunicaráse
+      contigo si tien cualquier entruga.
     user_role: Papel
     course_details: Detalles del cursu
     term: Periodu
     timeline: Detalles de la xera
     timeline_link: Cronograma
     title: Títulu
+    unsubmitted: Cursos ensin presentar
     view: Ver el cursu
     view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
       desque ficieron la primera edición en cada artículu
@@ -329,6 +361,9 @@ ast:
     word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
       a los artículos del espaciu principal nel periodu del cursu
     yourcourses: Los tos cursos
+    survey:
+      notification_message: Participa na encuesta d'esti cursu.
+      link: Contestar la encuesta
   courses_generic:
     all_courses: Tolos programes
     archived: Programes archivaos
@@ -337,15 +372,20 @@ ast:
     assignments_none: Esti proyeutu nun tien artículos asinaos.
     assignment_start: Principiu de la llinia temporal
     cancel: Encaboxar
+    course: Programa
     courses: Programes
     courses_taught: Programes enseñaos
     campaigns: 'Campañes:'
     campaign_courses: Programación de «%{title}»
     creator:
       checking_for_uniqueness: Ta comprobándose qu'esti programa sía únicu.
+      choose_clone: Escueyi un programa pa clonar.
       clone_previous: Clonar el programa anterior
       clone_this: Clonar esti programa
       clone_successful: Programa clonáu correutamente
+      clone_successful_details: El to programa clonóse. Asegurate d'añadir daqué nel
+        campu 'Cuando' (por casu, el mes y añu) pa estremalu del orixinal. Entós pulsia
+        'Guardar' más abaxo p'acabar.
       course_description: Descripción del programa
       course_school: Institución
       course_term: Cuándo
@@ -363,12 +403,28 @@ ast:
     explore: Alcontrar programes
     enroll: Añadir editor
     enrollment: Participación
+    expected_students: Editores esperaos
+    instructors: Facilitadores
+    join_course: Xunise al programa
+    leave_course: Dexar el programa
+    revisions_none: Esti proyeutu nun tien actividá editorial recien.
+    school: Institución
+    school_and_term: Institución/Cuando
     student_editors: Editores
     students: Editores
+    students_taught: Total d'editores
+    students_none: Esti proyectu nun tien nengún editor apuntáu.
     students_short: Editores
     students_count: Númberu de participantes
     term: Cuándo
     unsubmitted: Programes ensin presentar
+    uploads_none: Esti proyeutu nun contribuyó con nenguna imaxe o ficheru multimedia
+      a Wikimedia Commons.
+    view_other: Ver otres campañes
+    view_page: Ver la páxina del programa
+    word_count_doc: Una estimación del númberu de palabres amestaes polos editores
+      del programa a los artículos del espaciu principal nel periodu del cursu
+    yourcourses: Los tos programes
   editable:
     edit: Editar
     cancel: Encaboxar

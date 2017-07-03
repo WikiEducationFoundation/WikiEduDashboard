@@ -432,6 +432,7 @@ zh-CN:
       one: 跨语言使用总计
       other: 跨语言使用总计
     view_count_description: 条目查阅
+    view_data_unavailable: 没有可用的视图数据
     view: 查看
     word_count: 添加的文字
     word_count_average: 平均字数

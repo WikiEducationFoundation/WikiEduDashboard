@@ -1,6 +1,7 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Alifakoor
 # Author: Arash.pt
 # Author: Arian Ar
 # Author: AzorAhai
@@ -18,6 +19,7 @@ fa:
   application:
     cancel: انصراف
     dashboard: داشبورد ویکی برنامهٔ آموزشی
+    documentation: مستندات
     error: این اقدام با خطا مواجه شد
     explore: کاوش
     field_required: این گزینه الزامی است.
@@ -33,6 +35,7 @@ fa:
     log_out: خروج
     my_dashboard: داشبورد من
     recent_activity: فعالیت‌های اخیر
+    report_problem: گزارش مشکل
     search: پرسشی بپرسید
     sign_up_extended: نام‌نویسی با ویکی‌پدیا
     sign_up_log_in_extended: با ویکی‌پدیا
@@ -99,22 +102,25 @@ fa:
       list: فهرست— فهرستی از لینک‌ها به مقاله‌های یک زمینهٔ خاص است.
       '?': درجه‌بندی‌نشده— مقاله‌ای که هنوز طبق معیارهای درجه‌بندی ویکی‌پدیا، درجه‌بندی
         نشده‌است.
+    show_current_version: نمایش نسخهٔ فعلی
     title: عنوان
     title_example: عنوان مقاله
     view: مشاهدهٔ مقاله
     view_all: مشاهدهٔ همه
-    view_doc: مجموع تمام بازديدها به مقالات در طول مدت دوره
+    view_doc: مجموع تمام بازديدهای هریک از مقالات در طول مدت پروژه
     view_on_wiki: نمایش در ویکی
     views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
+    edit_size: اندازهٔ‌ویرایش
   assignments:
     already_exists: این تکلیف از پیش وجود دارد!
+    title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
     assignees: دانش‌آموز(ها)
     assign_other: مقاله‌ای را اختصاص دهید
     add_available: یک مقالهٔ موجود را بیفزا
     assign_self: یک مقاله به خودم اختصاص بده
     confirm_add_available: آیا از افزودن %{title} اطمینان دارید؟
     confirm_addition: آیا از اختصاص دادن %{title} به %{username} اطمینان دارید؟
-    confirm_deletion: آیا از حذف این تکلیف اطمینان دارید؟
+    confirm_deletion: آیا از حذف این تکلیف مقاله‌ای اطمینان دارید؟
     label: اختصاص‌دادن
     loading: در حال بارگذاری تکالیف ...
     none_short: هیچ موردی اختصاص‌داده نشده
@@ -138,6 +144,7 @@ fa:
     label: گفتگو
   courses:
     activity: فعالیت
+    all_courses: تمامی دوره‌ها
     already_enrolled: شما از قبل بخشی از %{title} هستید!
     already_exists: برای این دوره از پیش موجود است!
     archived: بایگانی دوره‌ها
@@ -158,12 +165,17 @@ fa:
     character_doc: مجموع کاراکترهای افزوده‌شده به فضای اصلی مقاله‌ها توسط دانشجویان
       دوره در طول مدت دوره
     campaigns: 'گروه‌ها:'
+    campaign_courses: دوره‌های %{title}
+    campaign_articles: مقالات %{title}
+    campaign_users: ویرایشگران %{title}
     confirm_course_deletion: از حذف دورهٔ آموزشی تحت عنوان %{title} اطمینان دارید؟
       اگر بله، عنوان دوره را برای ادامهٔ فرآیند تایپ کنید.
     confirm_course_deletion_failed: «%{title}» عنوان این دوره نیست. دورهٔ خواسته‌شده
       حذف نشد.
+    course: دوره‌ها
     course_description: دوره‌ها
     courses: دوره‌ها
+    courses_taught: دوره‌های تدریس شده
     creation_date: تاریخ ایجاد
     creator:
       already_exists: این دوره از پیش وجود دارد. با تغییر دادن نام، مدرسه/دانشگاه
@@ -314,6 +326,7 @@ fa:
     students_none: این پروژه ویراستار نام‌نویسی‌شده‌ای ندارد.
     students_short: ویراستاران
     term: زمان
+    unsubmitted: برنامه‌های ثبت‌نشده
     uploads_none: این پروژه در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در
       ویکی‌انبار نداشته‌است.
   editable:
@@ -494,9 +507,11 @@ fa:
   error:
     form_errors: لطفاً فُرم را به‌دلیل خطاها بررسی کنید.
     invalid_assignment: تکلیف ناموجود
+    invalid_date: تاریخ %{key} نامعتبر است
     invalid_file_format: این فایل نمی‌تواند ذخیره‌شود. لطفاً یک سند PDF یا Word بارگذاری
       کنید.
     oauth_invalid: مجوز ورود ویکی‌پدیای شما منقضی شده‌است. لطفاً دوباره وارد شوید.
+    start_date_before_end_date: تاریخ شروع باید قبل از تاریخ پایان باشد
     unsupported_browser:
       header: مرورگر سازگار نیست :-(
       explanation: از مرورگری استفاده می‌کنید که با داشبورد سازگار نیست. این وب‌گاه
@@ -530,4 +545,6 @@ fa:
       closing: با احترام،
       signed: '- تیم برنامهٔ آموزشی'
       link: شرکت در نظرسنجی
+  feedback_form_responses:
+    no_responses: هنوز هیچ پاسخ بازخوردی وجود ندارد
 ...

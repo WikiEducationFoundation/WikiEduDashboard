@@ -173,8 +173,8 @@ fr:
     reviewers: Relecteur(s)
     review_other: Attribuer une révision
     review_self: Relire un article
-    review_tooltip: Cela sert à garder trace de quel()s article(s) vous prévoyez de
-      relire ou de fournir un commentaire dessus.
+    review_tooltip: Cela sert à garder la trace des articles que vous prévoyez de
+      relire ou de commenter.
     select: Sélectionner
   blocks:
     milestones:

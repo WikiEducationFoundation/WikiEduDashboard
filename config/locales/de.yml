@@ -282,10 +282,14 @@ de:
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
-      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen oder wenn du einen
-        früher unterrichteten Kurs kopieren möchtest, kannst du eine Kopie des Kurses
-        mit neuen Datumsangaben erstellen. Du kannst auch die Option „Klonen“ verwenden,
-        um zusätzliche Abschnitte für einen bereits aufgesetzten Kurs zu erstellen.
+      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen, indem du den Zuweisungsassistenten
+        verwendest. Falls du eine stark angepasste Zeitleiste von einem früheren Kurs
+        hast, die du weiternutzen möchtest, kannst du eine Kopie der Zeitleiste mit
+        neuen Daten klonen. Falls du deine Zeitleiste nicht kürzlich erheblich angepasst
+        hast, empfehlen wir dir, einen neuen Kurs zu starten, so dass du die aktuellsten
+        Versionen deiner Zuweisungsoptionen haben wirst. Du kannst auch die Klonen-Option
+        verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
+        aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum

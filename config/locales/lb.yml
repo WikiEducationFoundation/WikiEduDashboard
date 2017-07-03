@@ -162,6 +162,8 @@ lb:
       invalid_language_or_project: Net valabel Sprooch/Projet
       invalid_slug: Schoul/Titel eidel fir de Cours.
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
+    features_feedback: 'Méi Virschléi:'
+    feedback: Feedback
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -190,6 +192,7 @@ lb:
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
+    suggestions_feedback: Sinn dës Virschléi hëllefräich?
     user_role: Roll
     course_details: Detailer vum Cours
     timeline_link: Chronologie
