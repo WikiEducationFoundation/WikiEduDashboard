@@ -3,7 +3,7 @@ import OnClickOutside from 'react-onclickoutside';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
-
+import API from '../../utils/api.js';
 const Feedback = React.createClass({
   displayName: 'Feedback',
 
@@ -16,7 +16,8 @@ const Feedback = React.createClass({
 
   getInitialState() {
     return {
-      show: false
+      show: false,
+      feedbackSent: false
     };
   },
 
@@ -27,9 +28,8 @@ const Feedback = React.createClass({
   titleParam() {
     if (this.props.assignment.article_id) {
       return this.props.assignment.article_title;
-    } else {
-      return `User:${this.props.username}/sandbox`;
     }
+    return `User:${this.props.username}/sandbox`;
   },
 
   show() {
@@ -44,20 +44,33 @@ const Feedback = React.createClass({
     this.hide();
   },
 
+  handleSubmit(event) {
+    const subject = `/revision_feedback?title=${this.titleParam()}`;
+    const body = event.target.value;
+    this.setState({ feedbackSent: 'sending' });
+    API.postFeedbackFormResponse(subject, body).then(() => {
+      this.setState({ feedbackSent: true });
+    });
+    event.preventDefault();
+  },
+
   render() {
     let button;
     const titleParam = this.titleParam();
-    const feedbackLink = `/feedback?main_subject=Revision Feedback&subject=/revision_feedback?title=${titleParam}`;
-
     if (this.state.show) {
-      button = <button onClick={this.hide} className="button dark small">Okay</button>;
+      button = <button onClick={this.hide} className="button dark small okay">Okay</button>;
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
-    const feedbackForm = (
-      <textarea />
-      // <a className="button small" href={feedbackLink} target="_blank">{I18n.t('courses.suggestions_feedback')}</a>
-    );
+
+    let submitFeedback;
+    if (this.state.feedbackSent === true) {
+      submitFeedback = I18n.t('courses.suggestions_sent');
+    } else if (this.state.feedbackSent === 'sending') {
+      submitFeedback = I18n.t('courses.suggestions_sending');
+    } else {
+      submitFeedback = <input className="button dark small" type="submit" value="Submit" />;
+    }
 
     let modal;
 
@@ -70,6 +83,7 @@ const Feedback = React.createClass({
         <p>{I18n.t('courses.feedback_loading')}</p>
       </div>
     );
+    let feedbackForm;
 
     if (data) {
       messages = data.suggestions;
@@ -78,6 +92,13 @@ const Feedback = React.createClass({
       for (let i = 0; i < messages.length; i++) {
         feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
+      feedbackForm = (
+        <form onSubmit={this.handleSubmit}>
+          <textarea className="feedback-form" rows="1" cols="150" value={this.state.value} placeholder={I18n.t('courses.suggestions_feedback')} />
+          {submitFeedback}
+        </form>
+      );
+
       if (rating != null) {
         feedbackBody = (
           <div className="feedback-body">
