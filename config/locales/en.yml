@@ -430,7 +430,9 @@ en:
     submitted_note: >
       Your course has been submitted. Wiki Ed staff will review it and get in
       touch with any questions.
-    suggestions_feedback: Are these suggestions helpful?
+    suggestions_feedback: Are these suggestions helpful? Let us know!
+    suggestions_sending: Sending Feedback...
+    suggestions_sent: Feedback Sent. Thanks for your input.
     user_role: Role
     course_details: Course Details
     term: Term

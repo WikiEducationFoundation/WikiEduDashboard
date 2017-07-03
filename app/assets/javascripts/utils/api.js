@@ -88,8 +88,8 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'POST',
-        url: `/feedback`,
-        data: JSON.stringify({ subject, body }),
+        url: `/feedback_form_responses`,
+        data: {feedback_form_response: {subject: subject, body: body}},
         success(data) {
           return res(data);
         }
