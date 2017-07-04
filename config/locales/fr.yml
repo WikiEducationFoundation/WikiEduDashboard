@@ -295,10 +295,14 @@ fr:
         et ne peuvent pas être modifiés. Tout le reste, vous pourrez le changer ultérieurement.
         Cliquez sur « Créer mon cours ! » pour commencer à construire le planning
         de votre affectation à Wikipédia.
-      new_or_clone: Vous pouvez maintenant créer un nouveau cours, ou si vous désirez
-        copier un cours précédent que vous avez donné, vous pouvez le dupliquer avec
-        de nouvelles dates. Vous pouvez aussi utiliser l’option duplication pour créer
-        des sections supplémentaires pour un cours que vous avez déjà défini.
+      new_or_clone: Vous pouvez maintenant créer un nouveau cours en utilisant l’assistant
+        de conception de l’affectation. Si vous avez un planning fortement personnalisé
+        provenant d’un cours précédent que vous voulez réutiliser, vous pouvez le
+        dupliquer avec de nouvelles dates (si vous n’avez pas grandement personnalisé
+        votre planning auparavant, nous vous recommandons de démarrer un nouveau cours
+        pour avoir les versions les plus à jour des options d’affectation). Vous pouvez
+        aussi utiliser l’option duplication pour créer des sections supplémentaires
+        pour un cours que vous avez déjà défini.
       no_class_holidays: Je n’ai pas de congés scolaires
       save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
@@ -351,6 +355,9 @@ fr:
       invalid_slug: Ecole ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
+    features_feedback: 'Plus de suggestions :'
+    feedback: Commentaire
+    feedback_loading: Veuillez attendre pendant le chargement des suggestions…
     gradeables_none: Ce cours n’a aucune affectation notable.
     instructor:
       one: Instructeur
@@ -392,6 +399,7 @@ fr:
       cours :'
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
+    rating_feedback: 'La note prévue pour cet article est :'
     review_timeline: Veuillez consulter ce calendrier et faire les modifications.
       Une fois satisfait de votre calendrier, soumettez-le pour approbation par l’équipe
       Wiki Ed. Une fois approuvé, une URL d’inscription vous sera fournie afin que
@@ -415,6 +423,7 @@ fr:
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
       contactera pour toute question.
+    suggestions_feedback: Ces suggestions ont-elles été utiles ?
     user_role: Rôle
     course_details: Détails du cours
     term: Période
@@ -560,6 +569,7 @@ fr:
       one: nombre total d’utilisation dans les langues
       other: nombre total d’utilisations dans les langues
     view_count_description: Articles vus
+    view_data_unavailable: Aucune donnée visible disponible
     view: Vues
     word_count: Mots ajoutés
     word_count_average: Nombre moyen de mots
@@ -604,6 +614,49 @@ fr:
     time_doc: Le temps de chaque révision à votre heure locale.
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
+  suggestions:
+    editing: Modification des suggestions
+    suggestion_docs:
+      fa: Aucun ajout supplémentaire de contenu ne devrait être nécessaire sauf si
+        de nouvelles informations deviennent disponibles ; des améliorations ultérieures
+        sur la qualité de la prose sont souvent possibles.
+      a: Une connaissance d’expert peut être nécessaire pour ajuster l’article, et
+        des problèmes de style peuvent nécessiter une résolution. Une relecture par
+        un pair peut aider.
+      ga: Certaines modifications par des experts du sujet ou du style sont utiles ;
+        la comparaison avec un article existant reconnu sur un sujet similaire peut
+        mettre en évidence les zones où le contenu est faible ou absent.
+      bplus: Peut être amélioré par la saisie d’experts pour évaluer là où la couverture
+        manque encore, et aussi par des illustrations, un contexte historique et d’autres
+        références. Envisager une relecture par un pair ou la nomination pour l’état
+        de bon article. Si l’article n’est pas déjà entièrement au format wiki, c’est
+        le moment de le faire.
+      b: Quelques aspects sur le contenu ou le style doivent être traités. Une expertise
+        peut être nécessaire. L’inclusion de matériaux de support peut être envisagée
+        si c’est pratique, et l’article peut être vérifié regardant son adéquation
+        générale au Manuel de style et aux lignes directrices de style associées.
+      c: Une modification considérable est nécessaire pour boucher les trous dans
+        le contenu et résoudre les problèmes de nettoyage.
+      start: Fournir des références vers des sources fiables devrait être la première
+        chose ; l’article a aussi besoin d’une amélioration importante dans son contenu
+        et son organisation. Améliorer aussi la grammaire, l’orthographe, le style
+        d’écriture, et le jargon utilisé.
+      stub: Toute modification ou matériau supplémentaire peut être utile. La fourniture
+        de contenu significatif devrait être une priorité. La meilleure solution pour
+        un article de classe squelette à faire progresser en article de classe démarrage
+        est d’y ajouter des motifs référencés pour dire en quoi le sujet est important.
+      fl: Aucun ajout supplémentaire de contenu n’est nécessaire, sauf si de nouvelles
+        informations deviennent disponibles.
+      list: Les listes doivent être des listes de liens vivants vers des articles
+        de Wikipédia, nommés et organisés de façon appropriée.
+      future: Les matériaux ajoutés peuvent être spéculatifs, et doivent être soigneusement
+        référencés.
+      disambig: Des ajouts devraient être faits sous forme de nouveaux articles de
+        ce nom créés. Faites bien attention au nommage correct de ces pages, car elles
+        n’ont souvent pas besoin que « (désambiguïsation) » soit ajouté au titre.
+      '?': Suggestions non disponibles — L’article est soit non noté, ou les suggestions
+        ne sont pas disponibles pour cette note.
+      does_not_exist: L’article n’existe pas dans Wikipédia
   tasks:
     conseq: La tâche %{task} tourne déjà !
     constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily

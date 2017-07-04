@@ -79,6 +79,7 @@ hi:
       course_term_placeholder: अवधि
       subject: विषय
     expected_students: अपेक्षित छात्र
+    feedback: आपके सुझाव
     instructors: शिक्षक
     loading: लोड हो रहा है…
     school: विद्यालय
