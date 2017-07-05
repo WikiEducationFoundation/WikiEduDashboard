@@ -75,10 +75,9 @@ describe WikiCourseEdits do
       before :each do
         @dashboard_url = ENV['dashboard_url']
         ENV['dashboard_url'] = "outreachdashboard.wmflabs.org"
-        stub_wiki_validation
       end
 
-      after do
+      after :each do
         ENV['dashboard_url'] = @dashboard_url
       end
 
@@ -103,7 +102,8 @@ describe WikiCourseEdits do
       end
 
       context 'for disabled projects' do
-        let(:wiki) {create(:wiki, language: 'pt', project: 'wikipedia')}
+        before { stub_wiki_validation }
+        let(:wiki) {create(:wiki, language: 'pt', project: 'wikipedia') }
         let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
 
         it 'does not post to P&E Dashboard' do
@@ -142,7 +142,6 @@ describe WikiCourseEdits do
       before :each do
         @dashboard_url = ENV['dashboard_url']
         ENV['dashboard_url'] = "outreachdashboard.wmflabs.org"
-        stub_wiki_validation
       end
 
       after do
@@ -168,6 +167,7 @@ describe WikiCourseEdits do
       end
 
       context 'for disabled projects' do
+        before { stub_wiki_validation }
         let(:wiki) {create(:wiki, language: 'pt', project: 'wikipedia')}
         let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
 
@@ -183,6 +183,7 @@ describe WikiCourseEdits do
   end
 
   describe '#update_assignments' do
+    before { stub_wiki_validation }
     let(:selfie) { create(:article, title: 'Selfie') }
     let(:selfie_talk) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
     let(:redirect) { create(:article, title: 'Athletics_in_Epic_Poetry') }
@@ -253,7 +254,6 @@ describe WikiCourseEdits do
           before :each do
             @dashboard_url = ENV['dashboard_url']
             ENV['dashboard_url'] = "outreachdashboard.wmflabs.org"
-            stub_wiki_validation
           end
 
           after do
@@ -277,11 +277,10 @@ describe WikiCourseEdits do
           end
 
           context 'for disabled projects' do
-            let(:wiki) {create(:wiki, language: 'pt', project: 'wikipedia')}
-            let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
+            let(:wiki) { Wiki.get_or_create(language: 'pt', project: 'wikipedia') }
+            let(:course) { create(:course, submitted: true, home_wiki_id: wiki.id) }
 
             it 'does not post to P&E Dashboard' do
-              stub_wiki_validation
               expect_any_instance_of(WikiEdits).to_not receive(:post_whole_page)
               WikiCourseEdits.new(action: :update_assignments,
                                   course: course,
