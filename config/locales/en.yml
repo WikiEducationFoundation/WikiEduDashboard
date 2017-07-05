@@ -433,6 +433,7 @@ en:
     suggestions_feedback: Are these suggestions helpful? Let us know!
     suggestions_sending: Sending Feedback...
     suggestions_sent: Feedback Sent. Thanks for your input.
+    suggestions_failed: Couldn't send feedback. Try again later.
     user_role: Role
     course_details: Course Details
     term: Term

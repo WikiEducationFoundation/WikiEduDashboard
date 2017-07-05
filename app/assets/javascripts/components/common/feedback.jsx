@@ -50,6 +50,9 @@ const Feedback = React.createClass({
     this.setState({ feedbackSent: 'sending' });
     API.postFeedbackFormResponse(subject, body).then(() => {
       this.setState({ feedbackSent: true });
+    }, () => {
+      this.setState({ feedbackSent: false });
+      alert(I18n.t('courses.suggestions_failed'));
     });
     event.preventDefault();
   },
@@ -103,6 +106,9 @@ const Feedback = React.createClass({
         feedbackBody = (
           <div className="feedback-body">
             <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
+            <p className="rating-description">
+              {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`)}
+            </p>
             <p>
               {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
             </p>
