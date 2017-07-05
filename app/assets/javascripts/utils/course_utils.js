@@ -104,6 +104,7 @@ const CourseUtils = class {
       url: articleUrl,
       title: assignment.article_title,
       formatted_title: formattedTitle,
+      article_id: assignment.article_id,
       language,
       project,
       new: false
