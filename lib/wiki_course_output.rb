@@ -11,7 +11,7 @@ class WikiCourseOutput
     @dashboard_url = ENV['dashboard_url']
     @first_instructor = @course.instructors.first
     @first_support_staff = @course.nonstudents.where(greeter: true).first
-    template_file_path = "config/templates/#{@dashboard_url}_#{@home_wiki.language}.yml"
+    template_file_path = "config/templates/#{@dashboard_url}_#{@course.home_wiki.language}.yml"
     @templates = YAML.load_file(Rails.root + template_file_path)
     @output = ''
   end

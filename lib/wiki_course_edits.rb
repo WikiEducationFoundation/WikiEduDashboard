@@ -11,16 +11,12 @@ class WikiCourseEdits
 
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
-    puts "\n\n\nHEREEEEE"
     @course = course
-    puts "\n\n\nCourse inspect in initialize", @course.submitted
-    puts "\n\n\nCourse wiki inspect in initialize", @course.home_wiki.inspect
     # Edits can only be made to the course's home wiki through WikiCourseEdits
     @home_wiki = course.home_wiki
-    puts "\n\nCourse wiki in initialize:", @home_wiki.language
+    return unless @home_wiki.edits_enabled?
     @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
-    puts "\n\nDashboard URL in initialize:", @dashboard_url.inspect, @home_wiki.language
     @current_user = current_user
     template_file_path = "config/templates/#{@dashboard_url}_#{@home_wiki.language}.yml"
     @templates = YAML.load_file(Rails.root + template_file_path)
@@ -134,6 +130,7 @@ class WikiCourseEdits
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
+
 
   def announce_course_on_announcement_page(instructor)
     announcement_page = ENV['course_announcement_page']
