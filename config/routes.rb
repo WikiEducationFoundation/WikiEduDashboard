@@ -162,9 +162,7 @@ Rails.application.routes.draw do
 
 
   # Revision Feedback
-  if Features.enable_revision_feedback?
-    get '/revision_feedback' => 'revision_feedback#index'
-  end
+  get '/revision_feedback' => 'revision_feedback#index'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'

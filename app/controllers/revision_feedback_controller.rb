@@ -6,11 +6,10 @@ class RevisionFeedbackController < ApplicationController
 
   def index
     set_latest_revision_id
-    unless @rev_id.nil?
-      ores_data = RevisionScoreImporter.new.fetch_ores_data_for_revision_id(@rev_id)
-      @feedback = RevisionFeedbackService.new(ores_data[:features]).feedback
-      @rating = ores_data[:rating]
-    end
+    return if @rev_id.nil?
+    ores_data = RevisionScoreImporter.new.fetch_ores_data_for_revision_id(@rev_id)
+    @feedback = RevisionFeedbackService.new(ores_data[:features]).feedback
+    @rating = ores_data[:rating]
   end
 
   private
@@ -19,15 +18,12 @@ class RevisionFeedbackController < ApplicationController
     query = { prop: 'revisions', titles: params['title'], rvprop: 'ids' }
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     response = WikiApi.new(@wiki).query(query)
-    page = response&.data['pages']
+    page = response.data['pages']
     # The Page ID is the only key in the response
-    page_id = page.keys()[0];
+    page_id = page.keys[0]
     revisions = page.dig(page_id, 'revisions')
 
     # The API sends a response with the id of the last revision
-    unless revisions.nil? || revisions.length == 0
-      @rev_id = revisions[0]['revid']
-    end
+    @rev_id = revisions[0]['revid'] unless revisions.blank?
   end
-
 end
