@@ -73,4 +73,16 @@ $(() => {
   if ($('.create-modal-wrapper').hasClass('show-create-modal')) {
     $('.create-campaign-button').trigger('click');
   }
+
+  // Campaign sorting
+  // only sort if there are tables to sort
+  let campaignList;
+  console.log('heeeey');
+  if ($('#campaigns table').length) {
+    campaignList = new List('campaigns', {
+      valueNames: [
+        'title'
+      ]
+    });
+  }
 });
