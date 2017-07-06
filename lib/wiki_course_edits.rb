@@ -8,7 +8,6 @@ require "#{Rails.root}/lib/wiki_edit_mappings"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
-
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
     @course = course

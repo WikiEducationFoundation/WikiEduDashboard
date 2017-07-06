@@ -48,22 +48,12 @@ describe WikiCourseEdits do
     end
 
     context 'makes correct edits on the Wiki Edu Dashboard' do
-      let(:add_to_page_top_args) do
-        [
-          "User:Ragesock",
-          user,
-          "{{course instructor|course = [[#{course.wiki_title}]] }}\n",
-          "New course announcement: [[#{course.wiki_title}]]."
-        ]
-      end
-
       it 'posts to dashboard using correct templates' do
         expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           .with("User:Ragesock",
                 user,
                 "{{course instructor|course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
-        expect_any_instance_of(WikiEdits).to receive(:add_new_section)
         WikiCourseEdits.new(action: :announce_course,
                             course:  course,
                             current_user: user,
@@ -93,7 +83,10 @@ describe WikiCourseEdits do
 
         it 'posts to P&E Dashboard with correct template' do
           expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
-          expect_any_instance_of(WikiEdits).to receive(:add_new_section)
+            .with("User:Ragesock",
+                  user,
+                  "{{program instructor|course = [[#{course.wiki_title}]] }}\n",
+                  "New course announcement: [[#{course.wiki_title}]].")
           WikiCourseEdits.new(action: :announce_course,
                               course:  course,
                               current_user: user,
@@ -128,16 +121,6 @@ describe WikiCourseEdits do
                           enrolling_user: enrolling_user)
     end
 
-    context 'makes correct edits on the Wiki Edu Dashboard' do
-      it 'posts to dashboard using correct templates' do
-        expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
-        WikiCourseEdits.new(action: :enroll_in_course,
-                            course: course,
-                            current_user: user,
-                            enrolling_user: enrolling_user)
-      end
-    end
-
     context 'makes correct edits on P&E Outreach Dashboard' do
       before :each do
         @dashboard_url = ENV['dashboard_url']
@@ -156,14 +139,6 @@ describe WikiCourseEdits do
                               current_user: user,
                               enrolling_user: enrolling_user)
         end
-
-        it 'posts to P&E Dashboard with correct template' do
-          expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
-          WikiCourseEdits.new(action: :enroll_in_course,
-                              course: course,
-                              current_user: user,
-                              enrolling_user: enrolling_user)
-        end
       end
 
       context 'for disabled projects' do
@@ -172,7 +147,7 @@ describe WikiCourseEdits do
         let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
 
         it 'does not post to P&E Dashboard' do
-          expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top).thrice
+          expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top)
           WikiCourseEdits.new(action: :enroll_in_course,
                               course: course,
                               current_user: user,
@@ -241,15 +216,6 @@ describe WikiCourseEdits do
                               current_user: user)
         end
 
-        context 'makes correct edits on the Wiki Edu Dashboard' do
-          it 'posts to dashboard using correct templates' do
-            expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
-            WikiCourseEdits.new(action: :update_assignments,
-                                course: course,
-                                current_user: user)
-          end
-        end
-
         context 'makes correct edits on P&E Outreach Dashboard' do
           before :each do
             @dashboard_url = ENV['dashboard_url']
@@ -262,13 +228,6 @@ describe WikiCourseEdits do
 
           context 'for enabled projects' do
             it 'posts to P&E Dashboard' do
-              expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
-              WikiCourseEdits.new(action: :update_assignments,
-                                  course: course,
-                                  current_user: user)
-            end
-
-            it 'posts to P&E Dashboard with correct template' do
               expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
               WikiCourseEdits.new(action: :update_assignments,
                                   course: course,

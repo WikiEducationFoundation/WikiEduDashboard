@@ -105,7 +105,7 @@ class Wiki < ActiveRecord::Base
   end
 
   def edits_enabled?
-    ENV["edit_#{domain}"]
+    ENV["edit_#{domain}"] == 'true'
   end
 
   class InvalidWikiError < StandardError; end
