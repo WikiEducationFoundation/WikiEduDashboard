@@ -222,6 +222,10 @@ lt:
     submitted_heading: Pateikti Kursai
     submitted_note: Jūsų kursas buvo išsiųstas. Viki Ed darbuotojai jį peržiūrės ir
       susisieks su jumis jei kils klausimų.
+    suggestions_feedback: Ar šie pasiūlymai naudingi? Praneškite mums!
+    suggestions_sending: Atsiliepimas Siunčiamas...
+    suggestions_sent: Atsiliepimas išsiųstas. Ačiū už jūsų indėlį.
+    suggestions_failed: Nepavyko išsiųsti atsiliepimo. Prašome bandyti vėliau.
     user_role: Vaidmuo
     course_details: Kurso Duomenys
     term: Terminas

@@ -325,6 +325,8 @@ de:
     dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
       möchtest?
     download_stats_data: Statistiken herunterladen
+    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
+      und weise dich selbst zu, um Vorschläge zu erhalten.
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
@@ -408,7 +410,11 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
-    suggestions_feedback: Sind diese Vorschläge hilfreich?
+    suggestions_feedback: Sind diese Vorschläge hilfreich? Lass es uns wissen!
+    suggestions_sending: Die Rückmeldung wird gesendet …
+    suggestions_sent: Die Rückmeldung wurde gesendet. Vielen Dank für deine Eingabe.
+    suggestions_failed: Die Rückmeldung konnte nicht gesendet werden. Versuche es
+      später erneut.
     user_role: Rolle
     course_details: Kursdetails
     term: Dauer

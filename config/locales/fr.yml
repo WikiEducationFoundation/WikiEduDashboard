@@ -339,6 +339,8 @@ fr:
     dismiss_survey_confirm: Êtes-vous sûr de vouloir rejeter de façon définitive ce
       sondage ?
     download_stats_data: Télécharger les statistiques
+    does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
+      y pour recevoir des suggestions.
     duration: Durée du cours
     edit_course_dates: Modifier les dates du cours
     enable_chat: Activer le clavardage
@@ -423,7 +425,10 @@ fr:
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
       contactera pour toute question.
-    suggestions_feedback: Ces suggestions ont-elles été utiles ?
+    suggestions_feedback: Ces suggestions ont-elles été utiles ? Faites-le nous savoir !
+    suggestions_sending: Envoi du commentaire…
+    suggestions_sent: Commentaire envoyé. Merci pour votre saisie.
+    suggestions_failed: Impossible d’envoyer le commentaire. Réessayez ultérieurement.
     user_role: Rôle
     course_details: Détails du cours
     term: Période

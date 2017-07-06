@@ -192,7 +192,11 @@ lb:
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
-    suggestions_feedback: Sinn dës Virschléi hëllefräich?
+    suggestions_feedback: Sinn dës Virschléi hëllefräich? Deelt eis et mat!
+    suggestions_sending: Feedback gëtt geschéckt...
+    suggestions_sent: Feedback geschéckt. Merci fir Ären Input.
+    suggestions_failed: Feedback konnt net geschéckt ginn. Probéiert méi spéit nach
+      eng Kéier.
     user_role: Roll
     course_details: Detailer vum Cours
     timeline_link: Chronologie
