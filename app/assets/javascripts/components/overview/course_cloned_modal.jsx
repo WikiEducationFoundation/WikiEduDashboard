@@ -276,59 +276,61 @@ const CourseClonedModal = React.createClass({
 
     return (
       <Modal>
-        <div className="wizard__panel active cloned-course">
-          <h3>{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
-          <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
-          {errorMessage}
-          <div className="wizard__form">
-            <div className="column" id="details_column">
-              <TextInput
-                id="course_title"
-                onChange={this.updateCourse}
-                value={this.state.course.title}
-                value_key="title"
-                required={true}
-                validation={slugPartValidationRegex}
-                editable={true}
-                label={CourseUtils.i18n('creator.course_title', i18nPrefix)}
-                placeholder={CourseUtils.i18n('title', i18nPrefix)}
-              />
-              <TextInput
-                id="course_school"
-                onChange={this.updateCourse}
-                value={this.state.course.school}
-                value_key="school"
-                required={true}
-                validation={slugPartValidationRegex}
-                editable={true}
-                label={CourseUtils.i18n('creator.course_school', i18nPrefix)}
-                placeholder={CourseUtils.i18n('school', i18nPrefix)}
-              />
-              <TextInput
-                id="course_term"
-                onChange={this.updateCourse}
-                value={this.state.course.term}
-                value_key="term"
-                required={true}
-                validation={slugPartValidationRegex}
-                editable={true}
-                label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
-                placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
-              />
-              {courseSubject}
-              {expectedStudents}
-              <TextAreaInput
-                id="course_description"
-                onChange={this.updateCourse}
-                value={this.state.course.description}
-                value_key="description"
-                editable={true}
-                placeholder={CourseUtils.i18n('creator.course_description', i18nPrefix)}
-              />
-              {fullDates}
+        <div className="container">
+          <div className="wizard__panel active cloned-course">
+            <h3>{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
+            <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
+            {errorMessage}
+            <div className="wizard__form">
+              <div className="column" id="details_column">
+                <TextInput
+                  id="course_title"
+                  onChange={this.updateCourse}
+                  value={this.state.course.title}
+                  value_key="title"
+                  required={true}
+                  validation={slugPartValidationRegex}
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_title', i18nPrefix)}
+                  placeholder={CourseUtils.i18n('title', i18nPrefix)}
+                />
+                <TextInput
+                  id="course_school"
+                  onChange={this.updateCourse}
+                  value={this.state.course.school}
+                  value_key="school"
+                  required={true}
+                  validation={slugPartValidationRegex}
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_school', i18nPrefix)}
+                  placeholder={CourseUtils.i18n('school', i18nPrefix)}
+                />
+                <TextInput
+                  id="course_term"
+                  onChange={this.updateCourse}
+                  value={this.state.course.term}
+                  value_key="term"
+                  required={true}
+                  validation={slugPartValidationRegex}
+                  editable={true}
+                  label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
+                  placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
+                />
+                {courseSubject}
+                {expectedStudents}
+                {fullDates}
+                <TextAreaInput
+                  id="course_description"
+                  onChange={this.updateCourse}
+                  value={this.state.course.description}
+                  value_key="description"
+                  editable={true}
+                  placeholder={CourseUtils.i18n('creator.course_description', i18nPrefix)}
+                />
+              </div>
+              {rightColumn}
+              <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
             </div>
-            {rightColumn}
-            <button onClick={this.saveCourse} disabled={saveDisabled} className={buttonClass}>{CourseUtils.i18n('creator.save_cloned_course', i18nPrefix)}</button>
           </div>
         </div>
       </Modal>
