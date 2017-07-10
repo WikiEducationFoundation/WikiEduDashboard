@@ -1,4 +1,18 @@
+const List = window.List;
 $(() => {
+  // Find tables with rows with data-link attribute, then make them clickable
+  $('tr[data-link]').on('click', e => {
+    // skip if a button was clicked (used for other actions)
+    if (e.target.tagName === 'BUTTON') return;
+
+    const loc = e.currentTarget.dataset.link;
+    if (e.metaKey || (window.navigator.platform.toLowerCase().indexOf('win') !== -1 && e.ctrlKey)) {
+      window.open(loc, '_blank');
+    } else {
+      window.location = loc;
+    }
+    return false;
+  });
   $('.campaign-delete').on('submit', e => {
     const title = prompt(I18n.t('campaign.confirm_campaign_deletion', { title: e.target.dataset.title }));
     if (title !== e.target.dataset.title) {
@@ -73,11 +87,9 @@ $(() => {
   if ($('.create-modal-wrapper').hasClass('show-create-modal')) {
     $('.create-campaign-button').trigger('click');
   }
-
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
-  console.log('heeeey');
   if ($('#campaigns table').length) {
     campaignList = new List('campaigns', {
       valueNames: [
