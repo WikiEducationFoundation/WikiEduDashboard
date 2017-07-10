@@ -25,7 +25,7 @@ $(() => {
       ]
     });
   }
-
+  
   // Campaign sorting
   // only sort if there are tables to sort
   let campaignList;
