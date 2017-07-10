@@ -85,4 +85,17 @@ $(() => {
       ]
     });
   }
+
+  return $('select.sorts').on('change', function () {
+    const list = (() => {
+      switch ($(this).attr('rel')) {
+        case 'campaigns': return campaignList;
+        default: break;
+      } })();
+    if (list) {
+      return list.sort($(this).val(), {
+        order: $(this).children('option:selected').attr('rel')
+      });
+    }
+  });
 });
