@@ -164,6 +164,7 @@ ko:
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
     download_stats_data: 다운로드 통계
+    does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
     enable_chat: 채팅 사용하기

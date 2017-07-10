@@ -243,6 +243,7 @@ zh-CN:
     dismiss_survey: 关闭
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
     download_stats_data: 下载统计
+    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
@@ -312,7 +313,10 @@ zh-CN:
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
-    suggestions_feedback: 这些建议有帮助么？
+    suggestions_feedback: 这些建议有帮助么？让我们知道！
+    suggestions_sending: 正在发送反馈...
+    suggestions_sent: 反馈已发送。感谢您输入的内容。
+    suggestions_failed: 不能发送反馈。稍后重试。
     user_role: 角色
     course_details: 课程详情
     term: 学期

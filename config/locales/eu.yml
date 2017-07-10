@@ -220,7 +220,9 @@ eu:
     student_editors: Ikasle Editoreak
     students_none: Ikastaroak ez du ikaslerik.
     students_short: Ikasleak
-    suggestions_feedback: Gomendio hauek lagungarri dira?
+    suggestions_feedback: Gomendio hauek lagungarri dira? Jakinarazi!
+    suggestions_sending: Feedback-a bidaltzen...
+    suggestions_failed: Feedback-a ezin izan da bidali. Saiatu geroago.
     term: Epealdia
     timeline: Esleipenaren Xehetasunak
     timeline_link: Denbora-lerroa

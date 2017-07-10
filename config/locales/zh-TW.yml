@@ -258,6 +258,7 @@ zh-TW:
     dismiss_survey: 關閉
     dismiss_survey_confirm: 確定要永久刪除此調查嗎？
     download_stats_data: 下載統計資料
+    does_not_exist: 該條目不存在。請創建一個沙盒頁面並分配給您自己來接收建議。
     duration: 開課期間
     edit_course_dates: 編輯課程日期
     enable_chat: 啟用聊天
@@ -335,7 +336,10 @@ zh-TW:
     submitted_note: |-
       您的課程已送出。
       Wiki ED 的工作人員將審核此課程，若有任何問題會與您聯繫。
-    suggestions_feedback: 這些建議有幫助嗎？
+    suggestions_feedback: 這些建議有幫助嗎？請讓我們知道！
+    suggestions_sending: 意見回饋寄送中...
+    suggestions_sent: 意見回饋已寄送，感謝您所填入的內容。
+    suggestions_failed: 無法寄送意見回饋，請稍後再試。
     user_role: 身份
     course_details: 課程詳細內容
     term: 學期
