@@ -25,19 +25,6 @@ $(() => {
       ]
     });
   }
-  
-  // Campaign sorting
-  // only sort if there are tables to sort
-  let campaignList;
-  if ($('#campaigns table').length) {
-    campaignList = new List('campaigns', {
-      page: 500,
-      valueNames: [
-        'title', 'num-courses', 'articles-created', 'characters', 'views', 'students', 'creation-date'
-      ]
-    });
-  }
-
   // for use on campaign/programs page
   $('.remove-course').on('click', e => {
     const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
@@ -53,7 +40,6 @@ $(() => {
     const list = (() => {
       switch ($(this).attr('rel')) {
         case 'courses': return courseList;
-        case 'campaigns': return campaignList;
         default: break;
       } })();
     if (list) {
