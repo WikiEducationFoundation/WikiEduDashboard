@@ -38,6 +38,10 @@ class CoursesPresenter
     courses.current_and_future
   end
 
+  #def sort_campaign_title
+  #  campaigns.sort_by { |campaign| [-campaign.title] }
+  #end
+
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
     courses.sort_by { |course| [-course.recent_revision_count, course.title] }
