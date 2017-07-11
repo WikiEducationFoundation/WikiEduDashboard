@@ -4,10 +4,12 @@ require "#{Rails.root}/lib/wiki_edits"
 require "#{Rails.root}/lib/wiki_course_output"
 require "#{Rails.root}/lib/wiki_assignment_output"
 require "#{Rails.root}/lib/wikitext"
-require "#{Rails.root}/lib/wiki_edit_mappings"
+require "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
+  include WikiOutputTemplates
+
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
     @course = course
@@ -28,11 +30,11 @@ class WikiCourseEdits
   def update_course(delete: false)
     return unless @course.wiki_course_page_enabled?
 
-    wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
+    wiki_text = delete ? '' : WikiCourseOutput.new(@course, @templates).translate_course_to_wikitext
 
     course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{@course.slug}"
-
+    
     summary = "Updating course from #{@dashboard_url}"
 
     # Post the update
@@ -59,8 +61,7 @@ class WikiCourseEdits
   # already exist.
   def enroll_in_course(enrolling_user:)
     # Add a template to the user page
-    editor_template_key = @templates['templates']['editor']
-    template = "{{#{editor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
+    template = "{{#{template_name(@templates, 'editor')}|course = [[#{@course.wiki_title}]] }}\n"
     user_page = "User:#{enrolling_user.username}"
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
@@ -122,8 +123,7 @@ class WikiCourseEdits
 
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
-    instructor_template_key = @templates['templates']['instructor']
-    template = "{{#{instructor_template_key}|course = [[#{@course.wiki_title}]] }}\n"
+    template = "{{#{template_name(@templates, 'instructor')}|course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
@@ -162,7 +162,8 @@ class WikiCourseEdits
     page_content = WikiAssignmentOutput.wikitext(course: @course,
                                                  title: title,
                                                  talk_title: talk_title,
-                                                 assignments: assignments_for_same_article)
+                                                 assignments: assignments_for_same_article,
+                                                 templates: @templates)
 
     return if page_content.nil?
     summary = "Update [[#{@course.wiki_title}|#{@course.title}]] assignment details"
