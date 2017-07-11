@@ -1,4 +1,4 @@
-templates:
+default:
   editor: "participant editor"
   instructor: "program instructor"
   course_assignment: "program assignment"

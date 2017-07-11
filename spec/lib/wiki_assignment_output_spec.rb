@@ -27,9 +27,24 @@ describe WikiAssignmentOutput do
     create(:user, id: 3, username: 'Keï')
     create(:courses_user, user_id: 3, course_id: 10001)
   end
+  let(:templates) do
+    {
+      "default" => {
+        "editor" => "student editor",
+        "instructor" => "course instructor",
+        "course_assignment" => "course assignment",
+        "table" => "students table",
+        "table_row" => "students table row",
+        "course" => "course details",
+        "timeline" => "start of course timeline",
+        "start_of_week" => "start of course week",
+        "end_of_week" => "end of course week"
+      }
+    }
+  end
 
   let(:wiki_assignment_output) do
-    WikiAssignmentOutput.new(course, title, talk_title, assignments)
+    WikiAssignmentOutput.new(course, title, talk_title, assignments, templates)
   end
   let(:course) { Course.find(10001) }
   let(:assignments) do
