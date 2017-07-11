@@ -61,7 +61,7 @@ const Feedback = React.createClass({
     let button;
     const titleParam = this.titleParam();
     if (this.state.show) {
-      button = <button onClick={this.hide} className="button dark small okay">Okay</button>;
+      button = <button onClick={this.hide} className="okay icon-close"></button>;
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }
@@ -132,9 +132,9 @@ const Feedback = React.createClass({
     } else {
       modal = (
         <div className="article-viewer feedback">
+          {button}
           <h2>Feedback</h2>
           {feedbackBody}
-          {button}
           {feedbackForm}
         </div>
       );
