@@ -81,12 +81,19 @@ const Feedback = React.createClass({
     let rating = '';
     let messages = [];
     const feedbackList = [];
+    let titleElement;
     let feedbackBody = (
       <div className="feedback-body">
         <p>{I18n.t('courses.feedback_loading')}</p>
       </div>
     );
     let feedbackForm;
+
+    if (this.props.assignment.article_id) {
+      titleElement = <a className="my-assignment-title" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>;
+    } else {
+      titleElement = <a className="my-assignment-title" href={`https://en.wikipedia.org/wiki/User:${this.props.username}/sandbox`}>{`User:${this.props.username}/sandbox`}</a>;
+    }
 
     if (data) {
       messages = data.suggestions;
@@ -105,6 +112,8 @@ const Feedback = React.createClass({
       if (rating != null) {
         feedbackBody = (
           <div className="feedback-body">
+            {titleElement}
+            <hr />
             <h5>{I18n.t('courses.rating_feedback') + rating}</h5>
             <p className="rating-description">
               {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`)}
