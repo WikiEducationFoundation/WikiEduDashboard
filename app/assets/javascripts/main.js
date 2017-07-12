@@ -11,6 +11,7 @@ $(() => {
   const $main = $('#main');
   setUserId($main.data('user-id'));
 
+  require('./campaigns.js');
   require('./utils/course.js');
   require('./utils/router.jsx');
   require('events').EventEmitter.defaultMaxListeners = 30;
