@@ -15,7 +15,8 @@ import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
 import UserStore from '../../stores/user_store.js';
 import CampaignStore from '../../stores/campaign_store.js';
-
+import ValidationStore from '../../stores/validation_store.js';
+// import ValidationActions from '../../actions/validation_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 // For some reason getState is not being triggered when CampaignStore gets updated
@@ -28,7 +29,8 @@ const getState = () =>
     online: UserStore.getFiltered({ role: 2 }),
     campus: UserStore.getFiltered({ role: 3 }),
     staff: UserStore.getFiltered({ role: 4 }),
-    tags: TagStore.getModels()
+    tags: TagStore.getModels(),
+    error_message: ValidationStore.firstMessage()
   })
 ;
 
@@ -47,7 +49,7 @@ const Details = React.createClass({
     controls: React.PropTypes.func,
     editable: React.PropTypes.bool
   },
-
+  mixins: [ValidationStore.mixin],
   getInitialState() {
     return getState();
   },
@@ -109,15 +111,19 @@ const Details = React.createClass({
     let title;
     if (canRename) {
       title = (
-        <TextInput
-          onChange={this.updateSlugPart}
-          value={this.props.course.title}
-          value_key="title"
-          editable={canRename}
-          type="text"
-          label={CourseUtils.i18n('title', this.props.course.string_prefix)}
-          required={true}
-        />
+        <div>
+          <TextInput
+            id="course_title"
+            onChange={this.updateSlugPart}
+            value={this.props.course.title}
+            value_key="title"
+            validation={CourseUtils.courseSlugRegex()}
+            editable={canRename}
+            type="text"
+            label={CourseUtils.i18n('title', this.props.course.string_prefix)}
+            required={true}
+          />
+        </div>
       );
     }
 
@@ -254,6 +260,7 @@ const Details = React.createClass({
           {staff}
           {school}
           {title}
+          <div><p className="red">{this.state.error_message}</p></div>
           {term}
           <form>
             {passcode}

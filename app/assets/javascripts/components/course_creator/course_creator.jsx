@@ -35,7 +35,7 @@ const getState = () => {
 const CourseCreator = React.createClass({
   displayName: 'CourseCreator',
 
-  mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],
+  mixins: [CourseStore.mixin, UserCoursesStore.mixin],
 
   getInitialState() {
     const inits = {
@@ -127,9 +127,6 @@ const CourseCreator = React.createClass({
     const courseAttrs = $.extend(true, {}, this.state.course);
     courseAttrs[key] = value;
     CourseActions.updateCourse(courseAttrs);
-    if (_.includes(['title', 'school', 'term'], key)) {
-      return ValidationActions.setValid('exists');
-    }
   },
 
   updateCourseDates(key, value) {
