@@ -34,7 +34,7 @@ class WikiCourseEdits
 
     course_prefix = ENV['course_prefix']
     wiki_title = "#{course_prefix}/#{@course.slug}"
-    
+
     summary = "Updating course from #{@dashboard_url}"
 
     # Post the update
