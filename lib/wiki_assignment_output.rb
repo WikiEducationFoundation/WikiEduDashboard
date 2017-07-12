@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 require './lib/wiki_api'
+require "#{Rails.root}/lib/wiki_output_templates"
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
-  def initialize(course, title, talk_title, assignments)
+  include WikiOutputTemplates
+
+  def initialize(course, title, talk_title, assignments, templates)
     @course = course
     @course_page = course.wiki_title
     @wiki = course.home_wiki
     @dashboard_url = ENV['dashboard_url']
+    @templates = templates
     @assignments = assignments
     @title = title
     @talk_title = talk_title
@@ -15,8 +19,8 @@ class WikiAssignmentOutput
   ###############
   # Entry point #
   ###############
-  def self.wikitext(course:, title:, talk_title:, assignments:)
-    new(course, title, talk_title, assignments).build_talk_page_update
+  def self.wikitext(course:, title:, talk_title:, assignments:, templates:)
+    new(course, title, talk_title, assignments, templates).build_talk_page_update
   end
 
   ################
@@ -78,7 +82,7 @@ class WikiAssignmentOutput
     end
 
     # Check for existing tags and replace
-    old_tag_ex = "{{course assignment | course = #{@course_page}"
+    old_tag_ex = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
     new_tag_ex = "{{#{@dashboard_url} assignment | course = #{@course_page}"
     page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
     page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)

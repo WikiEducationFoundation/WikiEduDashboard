@@ -1,0 +1,10 @@
+default:
+  editor: "student editor"
+  instructor: "course instructor"
+  course_assignment: "course assignment"
+  table: "students table"
+  table_row: "students table row"
+  course: "course details"
+  timeline: "start of course timeline"
+  start_of_week: start of course week
+  end_of_week: "end of course week"

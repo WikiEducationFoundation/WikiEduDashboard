@@ -104,6 +104,10 @@ class Wiki < ActiveRecord::Base
     raise InvalidWikiError unless base_url == "https://#{servername}"
   end
 
+  def edits_enabled?
+    ENV["edit_#{domain}"] == 'true'
+  end
+
   class InvalidWikiError < StandardError; end
 
   #################
