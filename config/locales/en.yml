@@ -436,6 +436,8 @@ en:
     suggestions_failed: Couldn't send feedback. Try again later.
     user_role: Role
     course_details: Course Details
+    course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
+    submitted: Submitted
     term: Term
     timeline: Assignment Details
     timeline_link: Timeline
