@@ -72,7 +72,7 @@ const Details = React.createClass({
   },
 
   storeDidChange() {
-    return this.setState(getState());
+    return this.setState({ error_message: ValidationStore.firstMessage() });
   },
 
   canRename() {
