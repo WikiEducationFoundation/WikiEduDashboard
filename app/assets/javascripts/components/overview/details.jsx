@@ -16,7 +16,6 @@ import TagStore from '../../stores/tag_store.js';
 import UserStore from '../../stores/user_store.js';
 import CampaignStore from '../../stores/campaign_store.js';
 import ValidationStore from '../../stores/validation_store.js';
-// import ValidationActions from '../../actions/validation_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 // For some reason getState is not being triggered when CampaignStore gets updated
@@ -72,6 +71,10 @@ const Details = React.createClass({
     return CourseActions.updateCourse(updatedCourse);
   },
 
+  storeDidChange() {
+    return this.setState(getState());
+  },
+
   canRename() {
     if (!this.props.editable) { return false; }
     if (this.props.current_user.admin) { return true; }
@@ -113,7 +116,6 @@ const Details = React.createClass({
       title = (
         <div>
           <TextInput
-            id="course_title"
             onChange={this.updateSlugPart}
             value={this.props.course.title}
             value_key="title"
@@ -123,6 +125,7 @@ const Details = React.createClass({
             label={CourseUtils.i18n('title', this.props.course.string_prefix)}
             required={true}
           />
+          <div><p className="red">{this.state.error_message}</p></div>
         </div>
       );
     }
@@ -260,7 +263,6 @@ const Details = React.createClass({
           {staff}
           {school}
           {title}
-          <div><p className="red">{this.state.error_message}</p></div>
           {term}
           <form>
             {passcode}
