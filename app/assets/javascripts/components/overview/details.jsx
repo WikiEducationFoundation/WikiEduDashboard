@@ -103,6 +103,7 @@ const Details = React.createClass({
           onChange={this.updateSlugPart}
           value={this.props.course.school}
           value_key="school"
+          validation={CourseUtils.courseSlugRegex()}
           editable={canRename}
           type="text"
           label={CourseUtils.i18n('school', this.props.course.string_prefix)}
@@ -114,19 +115,16 @@ const Details = React.createClass({
     let title;
     if (canRename) {
       title = (
-        <div>
-          <TextInput
-            onChange={this.updateSlugPart}
-            value={this.props.course.title}
-            value_key="title"
-            validation={CourseUtils.courseSlugRegex()}
-            editable={canRename}
-            type="text"
-            label={CourseUtils.i18n('title', this.props.course.string_prefix)}
-            required={true}
-          />
-          <div><p className="red">{this.state.error_message}</p></div>
-        </div>
+        <TextInput
+          onChange={this.updateSlugPart}
+          value={this.props.course.title}
+          value_key="title"
+          validation={CourseUtils.courseSlugRegex()}
+          editable={canRename}
+          type="text"
+          label={CourseUtils.i18n('title', this.props.course.string_prefix)}
+          required={true}
+        />
       );
     }
 
@@ -137,6 +135,7 @@ const Details = React.createClass({
           onChange={this.updateSlugPart}
           value={this.props.course.term}
           value_key="term"
+          validation={CourseUtils.courseSlugRegex()}
           editable={canRename}
           type="text"
           label={CourseUtils.i18n('term', this.props.course.string_prefix)}
@@ -261,6 +260,7 @@ const Details = React.createClass({
           {online}
           {campus}
           {staff}
+          <div><p className="red">{this.state.error_message}</p></div>
           {school}
           {title}
           {term}
