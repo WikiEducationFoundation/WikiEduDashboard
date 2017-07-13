@@ -137,6 +137,7 @@ const CourseClonedModal = React.createClass({
     let courseSubject;
     let fullDates;
     let rightColumn;
+    let infoIcon;
     // Specific to ClassroomProgramCourse
     if (this.props.course.type === 'ClassroomProgramCourse') {
       expectedStudents = (
@@ -237,6 +238,16 @@ const CourseClonedModal = React.createClass({
       );
     // Specific to non-ClassroomProgramCourse
     } else {
+      infoIcon = (
+        <div className="tooltip-trigger">
+          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          <div className="tooltip large dark">
+            <p>
+              {CourseUtils.i18n('creator.course_when', i18nPrefix)}
+            </p>
+          </div>
+        </div>
+      );
       rightColumn = (
         <div className="column">
           <DatePicker
@@ -273,6 +284,22 @@ const CourseClonedModal = React.createClass({
         </div>
       );
     }
+    const termInput = (
+      <div className="terminput">
+        <TextInput
+          id="course_term"
+          onChange={this.updateCourse}
+          value={this.state.course.term}
+          value_key="term"
+          required={true}
+          validation={slugPartValidationRegex}
+          editable={true}
+          label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
+          placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
+        />
+        {infoIcon}
+      </div>
+    );
 
     return (
       <Modal>
@@ -305,17 +332,7 @@ const CourseClonedModal = React.createClass({
                   label={CourseUtils.i18n('creator.course_school', i18nPrefix)}
                   placeholder={CourseUtils.i18n('school', i18nPrefix)}
                 />
-                <TextInput
-                  id="course_term"
-                  onChange={this.updateCourse}
-                  value={this.state.course.term}
-                  value_key="term"
-                  required={true}
-                  validation={slugPartValidationRegex}
-                  editable={true}
-                  label={CourseUtils.i18n('creator.course_term', i18nPrefix)}
-                  placeholder={CourseUtils.i18n('creator.course_term_placeholder', i18nPrefix)}
-                />
+                {termInput}
                 {courseSubject}
                 {expectedStudents}
                 {fullDates}
