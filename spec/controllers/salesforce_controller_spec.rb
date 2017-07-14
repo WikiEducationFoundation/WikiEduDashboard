@@ -32,6 +32,16 @@ describe SalesforceController do
     end
   end
 
+  describe '#update' do
+    before { allow(controller).to receive(:current_user).and_return(admin) }
+
+    let(:course) { create(:course, flags: { salesforce_id: 'a0f1a000001Wyar' }) }
+    it 'updates the Salesforce record for a course' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+      put :update, params: { course_id: course.id }
+    end
+  end
+
   describe '#create_media' do
     context 'when user is an admin' do
       before { allow(controller).to receive(:current_user).and_return(admin) }

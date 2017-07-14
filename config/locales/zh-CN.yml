@@ -222,6 +222,7 @@ zh-CN:
       expected_number: 预计学生人数
       find: 找到您的课程
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
+      new_or_clone: 您现在可以创建新的课程，或如果您希望从之前您教学的课程中复制，您可以将其克隆并设置新的日期。您也可以使用克隆选项来为您已经配置的课程创建额外的节。
       no_class_holidays: 我没有班级假日
       save_cloned_course: 保存新的课程
       start_date: 开始日期
@@ -229,12 +230,20 @@ zh-CN:
       subject: 主题
       update_scheduled: 已安排更新。数据将连同所有当前程序一起，在下次更新周期时进行更新。这通常需要数小时。
     current: 当前课程
+    data_articles: 条目数据
+    data_articles_info: 条目数据包含每页面的编辑数、哪些页面较新以及页面浏览总数。这些页面浏览值对于已经结束的课程而言可能过时，所以也包括链接到维基媒体基金会工具实验室页面浏览工具的url。
+    data_download_info: 下载数据为CSV格式。
+    data_overview: 概览数据
     data_edits: 编辑数据
+    data_edits_info: 编辑数据显示项目期间每次编辑的详情。
+    data_students: 编辑者数据
+    data_uploads: 共享资源上传数据
     delete_course: 删除课程
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
     dismiss_survey: 关闭
     dismiss_survey_confirm: 您确定要永久关闭此调查么？
     download_stats_data: 下载统计
+    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     duration: 课程持续时间
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
@@ -250,6 +259,9 @@ zh-CN:
       invalid_slug: 清空课程所属学校/标题。
       duplicate_slug: 另一个叫%{slug}的课程已存在。
     expected_students: 预期学生
+    features_feedback: 更多建议：
+    feedback: 反馈
+    feedback_loading: 请等待，建议正在加载...
     gradeables_none: 此课程没有可批改作业。
     instructor:
       one: 导师
@@ -301,6 +313,10 @@ zh-CN:
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
+    suggestions_feedback: 这些建议有帮助么？让我们知道！
+    suggestions_sending: 正在发送反馈...
+    suggestions_sent: 反馈已发送。感谢您输入的内容。
+    suggestions_failed: 不能发送反馈。稍后重试。
     user_role: 角色
     course_details: 课程详情
     term: 学期
@@ -420,6 +436,7 @@ zh-CN:
       one: 跨语言使用总计
       other: 跨语言使用总计
     view_count_description: 条目查阅
+    view_data_unavailable: 没有可用的视图数据
     view: 查看
     word_count: 添加的文字
     word_count_average: 平均字数
@@ -464,6 +481,12 @@ zh-CN:
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
     view_on_wiki: 在wiki上查看差异
+  suggestions:
+    editing: 编辑建议
+    suggestion_docs:
+      list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
+      '?': 建议不可用——条目未评级，或没有用于评级的建议。
+      does_not_exist: 此条目在维基百科不存在
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。

@@ -103,6 +103,8 @@ Rails.application.routes.draw do
     end
   end
 
+  put 'greeting' => 'greeting#greet_course_students'
+
   # Article Finder
   if Features.enable_article_finder?
     get 'article_finder(/*any)' => 'article_finder#index'
@@ -160,9 +162,7 @@ Rails.application.routes.draw do
 
 
   # Revision Feedback
-  if Features.enable_revision_feedback?
-    get 'revision_feedback/:rev_id' => 'revision_feedback#index'
-  end
+  get '/revision_feedback' => 'revision_feedback#index'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
@@ -249,6 +249,7 @@ Rails.application.routes.draw do
   # Salesforce
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
+    put '/salesforce/update/:course_id' => 'salesforce#update'
     get '/salesforce/create_media' => 'salesforce#create_media'
   end
 

@@ -365,6 +365,7 @@ qqq:
         do not correspond to a valid wiki
       invalid_slug: Error message indicating blank school/title in course slug.
       duplicate_slug: Error message indicating duplicate course slug.
+    feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
     instructor:

@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import { shallow } from 'enzyme';
 import Assignment from '../../../app/assets/javascripts/components/assignments/assignment.jsx';
 
 const course = {
@@ -24,16 +24,12 @@ describe('Assignment', () => {
       }
     ];
 
-    const TestAssignment = ReactTestUtils.renderIntoDocument(
-      <table>
-        <tbody>
-          <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
-        </tbody>
-      </table>
+    const TestAssignment = shallow(
+      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
     );
 
-    expect(TestAssignment.textContent).to.contain('Ragesoss');
-    expect(TestAssignment.textContent).to.contain(article.title);
+    expect(TestAssignment.text()).to.contain('Ragesoss');
+    expect(TestAssignment.text()).to.contain(article.title);
   });
 
   it('renders for reviewing role', () => {
@@ -54,15 +50,11 @@ describe('Assignment', () => {
       }
     ];
 
-    const TestAssignment = ReactTestUtils.renderIntoDocument(
-      <table>
-        <tbody>
-          <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
-        </tbody>
-      </table>
+    const TestAssignment = shallow(
+      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
     );
 
-    expect(TestAssignment.textContent).to.contain('Ragesock');
-    expect(TestAssignment.textContent).to.contain(article.title);
+    expect(TestAssignment.text()).to.contain('Ragesock');
+    expect(TestAssignment.text()).to.contain(article.title);
   });
 });

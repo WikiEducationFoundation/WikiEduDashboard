@@ -1,15 +1,20 @@
 # frozen_string_literal: true
 require "#{Rails.root}/lib/wikitext"
 require "#{Rails.root}/lib/course_meetings_manager"
+require "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for generating wikitext from course information.
 class WikiCourseOutput
-  def initialize(course)
+  include WikiOutputTemplates
+
+  def initialize(course, templates)
     @course = course
     @course_meetings_manager = CourseMeetingsManager.new(@course)
+    @dashboard_url = ENV['dashboard_url']
     @first_instructor = @course.instructors.first
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
+    @templates = templates
   end
 
   ###############
@@ -23,7 +28,7 @@ class WikiCourseOutput
     @output += students_table
 
     # Timeline
-    @output += "{{start of course timeline}}\r"
+    @output += "{{#{template_name(@templates, 'timeline')}}}\r"
     week_count = 0
     @course.weeks.each do |week|
       week_count += 1
@@ -39,6 +44,8 @@ class WikiCourseOutput
   # Output components #
   #####################
 
+  private
+
   def course_details_and_description
     description = Wikitext.markdown_to_mediawiki(@course.description)
     course_details + "\r" + description
@@ -47,7 +54,8 @@ class WikiCourseOutput
   def course_details
     # TODO: add support for multiple instructors, multiple content experts.
     # TODO: switch this to a new template specifically for dashboard courses.
-    "{{course details
+
+    "{{#{template_name(@templates, 'course')}
      | course_name = #{@course.title}
      | instructor_username = #{instructor_username}
      | instructor_realname = #{instructor_realname}
@@ -58,7 +66,7 @@ class WikiCourseOutput
      | institution = #{@course.school}
      | expected_students = #{@course.expected_students}
      | assignment_page = #{course_prefix}/#{@course.slug}
-     | #{dashboard_url} = yes
+     | #{@dashboard_url} = yes
     }}"
   end
 
@@ -78,10 +86,6 @@ class WikiCourseOutput
     ENV['course_prefix']
   end
 
-  def dashboard_url
-    ENV['dashboard_url']
-  end
-
   def course_week(week, week_number)
     week_output = week_header(week, week_number)
 
@@ -90,14 +94,14 @@ class WikiCourseOutput
       week_output += content_block(block)
     end
 
-    week_output += "{{end of course week}}\r"
+    week_output += "{{#{template_name(@templates, 'end_of_week')}}}\r"
     week_output
   end
 
   def week_header(week, week_number)
     header_output = "=== Week #{week_number} ===\r"
 
-    header_output += '{{start of course week'
+    header_output += "{{#{template_name(@templates, 'start_of_week')}"
     meeting_dates = @course_meetings_manager.meeting_dates_of(week).map(&:to_s)
     header_output += '|' + meeting_dates.join('|') unless meeting_dates.blank?
     header_output += "}}\r"
@@ -118,11 +122,11 @@ class WikiCourseOutput
   def students_table
     students = @course.students
     return '' if students.blank?
-    table = "{{students table}}\r"
+    table = "{{#{template_name(@templates, 'table')}}}\r"
     students.each do |student|
       table += student_row(student)
     end
-    table += "{{end of students table}}\r"
+    table += "{{end of #{template_name(@templates, 'table')}}}\r"
     table
   end
 
@@ -134,6 +138,6 @@ class WikiCourseOutput
     reviewing_titles = assignments.reviewing.pluck(:article_title)
     reviewing = Wikitext.titles_to_wikilinks(reviewing_titles)
 
-    "{{student table row|#{username}|#{assigned}|#{reviewing}}}\r"
+    "{{#{template_name(@templates, 'table_row')}|#{username}|#{assigned}|#{reviewing}}}\r"
   end
 end

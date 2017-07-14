@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-# A greeter that sends out greetings to all students who haven't been greeted,
-# on a course-by-course basis, if a greeter is assigned for that course.
+
+# Checks which students have and haven't been greeted by a content expert.
 class StudentGreetingChecker
   def self.check_all_ungreeted_students
     new.check_all_ungreeted_students
@@ -14,12 +14,17 @@ class StudentGreetingChecker
     Course.strictly_current.each do |course|
       wiki = course.home_wiki
       course.students.ungreeted.each do |student|
-        Check.new(student, wiki, @greeters).update_greeting_status
+        check(student, wiki)
       end
     end
   end
 
-  # Issues a greeting to a single student, if they are actually ungreeted.
+  def check(student, wiki)
+    Check.new(student, wiki, @greeters).update_greeting_status
+  end
+
+  # Checks a single student to see if they are actually ungreeted, and updates
+  # their greeted attribute if so.
   class Check
     def initialize(student, wiki, greeters)
       @student = student

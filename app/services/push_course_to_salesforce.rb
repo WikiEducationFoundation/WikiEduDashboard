@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/word_count"
 
 #= Pushes course data to Salesforce, either by creating a new record or updating an existing one
@@ -53,7 +54,10 @@ class PushCourseToSalesforce
       Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
       Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
       Editing_in_mainspace_assignment_date__c: assignment_date_for(editing_in_mainspace_block),
-      Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block)
+      Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block),
+      X50__c: more_than_50_students?,
+      Medical_or_Psychology_Articles__c: editing_medicine_or_psychology?,
+      Group_work__c: group_work?
     }
   end
 
@@ -88,5 +92,22 @@ class PushCourseToSalesforce
   def due_date_for(block)
     return unless block.present?
     block.calculated_due_date.strftime('%Y-%m-%d')
+  end
+
+  def more_than_50_students?
+    @course.user_count > 50
+  end
+
+  MEDICINE_AND_PSYCHOLOGY_TAGS = %w[yes_medical_topics maybe_medical_topics].freeze
+  def editing_medicine_or_psychology?
+    (course_tags & MEDICINE_AND_PSYCHOLOGY_TAGS).any?
+  end
+
+  def group_work?
+    course_tags.include? 'working_in_groups'
+  end
+
+  def course_tags
+    @course_tags ||= @course.tags.pluck(:tag)
   end
 end

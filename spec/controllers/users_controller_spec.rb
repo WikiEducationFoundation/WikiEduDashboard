@@ -100,7 +100,7 @@ describe UsersController do
       end
     end
 
-    context 'POST with nonstudent role, when the user is an admin' do
+    context 'POST with Wiki Ed staff role, when the user is an admin' do
       before do
         allow(controller).to receive(:current_user).and_return(admin)
       end
@@ -117,6 +117,30 @@ describe UsersController do
       end
       it 'enrolls the user' do
         expect(CoursesUsers.where(role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE).count).to eq(1)
+      end
+    end
+
+    context 'POST with instructor role, when the user is is allowed' do
+      let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
+      before do
+        allow(controller).to receive(:current_user).and_return(admin)
+        ENV['classroom_program_manager'] = staff.username
+      end
+
+      let(:post_params) do
+        { id: course.slug,
+          user: { user_id: admin.id, role: CoursesUsers::Roles::INSTRUCTOR_ROLE } }
+      end
+      before do
+        allow(NewInstructorEnrollmentMailer).to receive(:send_staff_alert).and_call_original
+        post 'enroll', params: post_params
+      end
+      it 'returns a 200' do
+        expect(subject).to eq(200)
+      end
+      it 'sends an email alert' do
+        expect(CoursesUsers.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).count).to eq(1)
+        expect(NewInstructorEnrollmentMailer).to have_received(:send_staff_alert)
       end
     end
 
@@ -188,8 +212,8 @@ describe UsersController do
 
       let!(:instructor) do
         create(:user, email: 'instructor@school.edu',
-               real_name: 'Sare Goss', username: 'saregoss',
-               permissions: User::Permissions::INSTRUCTOR)
+                      real_name: 'Sare Goss', username: 'saregoss',
+                      permissions: User::Permissions::INSTRUCTOR)
       end
 
       it 'should list instructors by default' do

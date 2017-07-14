@@ -1,9 +1,10 @@
 import React from 'react';
 import CourseUtils from '../../utils/course_utils.js';
+import Feedback from '../common/feedback.jsx';
 
-const userLink = (username, wiki) => {
-  const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${username}`;
-  return <a key={username} href={link}>{username}</a>;
+const userLink = (wiki, assignment) => {
+  const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${assignment.username}`;
+  return <a key={`assignment_${assignment.id}`} href={link}>{assignment.username}</a>;
 };
 
 const Assignment = React.createClass({
@@ -34,11 +35,12 @@ const Assignment = React.createClass({
     const iterable = _.sortBy(this.props.assignmentGroup, 'username');
     for (let i = 0; i < iterable.length; i++) {
       const assignment = iterable[i];
-      const usernameLink = userLink(assignment.username, this.props.course.home_wiki);
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
+        const usernameLink = userLink(this.props.course.home_wiki, assignment);
         assignees.push(usernameLink);
         assignees.push(', ');
       } else if (assignment.role === 1 && assignment.user_id && assignment.username) {
+        const usernameLink = userLink(this.props.course.home_wiki, assignment);
         reviewers.push(usernameLink);
         reviewers.push(', ');
       }
@@ -46,6 +48,11 @@ const Assignment = React.createClass({
 
     if (assignees.length) { assignees.pop(); }
     if (reviewers.length) { reviewers.pop(); }
+
+    let feedback;
+    if (this.props.assignmentGroup.length === 1 || article.article_id) {
+      feedback = <Feedback assignment={this.props.assignmentGroup[0]} username={this.props.assignmentGroup[0].username} />;
+    }
 
     return (
       <tr className={className}>
@@ -64,7 +71,7 @@ const Assignment = React.createClass({
         </td>
         <td className="desktop-only-tc">{assignees}</td>
         <td className="desktop-only-tc">{reviewers}</td>
-        <td></td>
+        <td>{feedback}</td>
       </tr>
     );
   }

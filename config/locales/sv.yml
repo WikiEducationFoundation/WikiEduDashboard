@@ -140,12 +140,17 @@ sv:
       först.
     dismiss_survey: Stäng
     download_stats_data: Ladda ned statistik
+    does_not_exist: Artikeln finns inte. Skapa en sandlådesida och tilldela dig själv
+      till den för att få förslag.
     enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
     error:
       invalid_language_or_project: Ogiltigt språk/projekt
       duplicate_slug: Ett annat program som anropade %{slug} finns redan.
+    features_feedback: Fler förslag
+    feedback: Återkoppling
+    feedback_loading: Var god vänta medan förslag läser in...
     invitation: |-
       Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste du logga in med ett Wikipedia-konto.
       Om du inte har ett Wikipedia-konto ännu, registrera ett nu.
@@ -165,14 +170,20 @@ sv:
     no_available_actions: Inga tillgängliga åtgärder
     overview: Hem
     passcode_none: Inget lösenord
+    rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     school: Skola
     start: Starta
     start_typing: Börja skriva
     students: Studenter
+    students_taught: Undervisade studenter
     students_count: '# studenter'
     student_editors: Studentredigerare
     students_none: Den här kursen har inga studenter.
     students_short: Studenter
+    suggestions_feedback: Är dessa förslag hjälpsamma? Låt oss veta!
+    suggestions_sending: Skickar återkoppling...
+    suggestions_sent: Återkoppling skickades. Tack för din åsikt.
+    suggestions_failed: Kunde inte skicka återkoppling. Försök igen senare.
     user_role: Roll
     course_details: Kursdetaljer
     timeline_link: Tidslinje
@@ -261,6 +272,12 @@ sv:
     edited_by: Redigerad av
     edited_on: Redigerades %{edit_date}
     title: Titel
+  suggestions:
+    editing: Redigeringsförslag
+    suggestion_docs:
+      future: Material som läggs till kan vara spekulationer och bör källbeläggas
+        noggrant.
+      does_not_exist: Denna artikel finns inte på Wikipedia
   timeline:
     add_week: Lägg till vecka
     block_assignment: Uppgifter

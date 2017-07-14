@@ -4,18 +4,17 @@ require "#{Rails.root}/lib/revision_feedback_service"
 
 describe RevisionFeedbackService do
   describe '#feedback' do
-    let(:subject) { described_class.new(revision).feedback }
+    let(:subject) { described_class.new(features).feedback }
 
     context 'when the revision has no feature data' do
-      let(:revision) { create(:revision) }
+      let(:features) { nil }
 
       it 'returns an empty array' do
         expect(subject).to eq([])
       end
     end
 
-    context 'when the revision has feature data that prompts feedback' do
-      let(:revision) { create(:revision, features: features) }
+    context 'When features can prompt feeback' do
       let(:features) do
         { 'feature.enwiki.revision.cite_templates' => 6,
           'feature.wikitext.revision.ref_tags' => 0,
@@ -29,8 +28,7 @@ describe RevisionFeedbackService do
       end
     end
 
-    context 'when the revision has feature data that does not prompt feedback' do
-      let(:revision) { create(:revision, features: features) }
+    context 'when the feature data does not prompt feedback' do
       let(:features) do
         { 'feature.enwiki.revision.cite_templates' => 6,
           'feature.wikitext.revision.ref_tags' => 10,

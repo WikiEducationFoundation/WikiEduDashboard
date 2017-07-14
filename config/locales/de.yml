@@ -143,6 +143,8 @@ de:
     assign_other: Einen Artikel zuweisen
     add_available: Einen verfügbaren Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
+    assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
+      oder zu verbessern.
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
@@ -155,6 +157,8 @@ de:
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
+    review_tooltip: Dies ist zur Verfolgung, welche(n) Artikel du zur Begutachtung
+      planst oder zu dem/denen du Rückmeldungen geben möchtest.
     select: Auswählen
   blocks:
     milestones:
@@ -278,10 +282,14 @@ de:
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
-      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen oder wenn du einen
-        früher unterrichteten Kurs kopieren möchtest, kannst du eine Kopie des Kurses
-        mit neuen Datumsangaben erstellen. Du kannst auch die Option „Klonen“ verwenden,
-        um zusätzliche Abschnitte für einen bereits aufgesetzten Kurs zu erstellen.
+      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen, indem du den Zuweisungsassistenten
+        verwendest. Falls du eine stark angepasste Zeitleiste von einem früheren Kurs
+        hast, die du weiternutzen möchtest, kannst du eine Kopie der Zeitleiste mit
+        neuen Daten klonen. Falls du deine Zeitleiste nicht kürzlich erheblich angepasst
+        hast, empfehlen wir dir, einen neuen Kurs zu starten, so dass du die aktuellsten
+        Versionen deiner Zuweisungsoptionen haben wirst. Du kannst auch die Klonen-Option
+        verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
+        aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
@@ -317,6 +325,8 @@ de:
     dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
       möchtest?
     download_stats_data: Statistiken herunterladen
+    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
+      und weise dich selbst zu, um Vorschläge zu erhalten.
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
@@ -334,6 +344,9 @@ de:
       duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
         ist.
     expected_students: Erwartete Studenten
+    features_feedback: 'Weitere Vorschläge:'
+    feedback: Rückmeldung
+    feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
       one: Leiter
@@ -373,6 +386,7 @@ de:
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
+    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
       Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
       die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
@@ -396,6 +410,11 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    suggestions_feedback: Sind diese Vorschläge hilfreich? Lass es uns wissen!
+    suggestions_sending: Die Rückmeldung wird gesendet …
+    suggestions_sent: Die Rückmeldung wurde gesendet. Vielen Dank für deine Eingabe.
+    suggestions_failed: Die Rückmeldung konnte nicht gesendet werden. Versuche es
+      später erneut.
     user_role: Rolle
     course_details: Kursdetails
     term: Dauer
@@ -541,6 +560,7 @@ de:
       one: Gesamte Verwendung auf allen Sprachen
       other: Gesamte Verwendungen auf allen Sprachen
     view_count_description: Artikelaufrufe
+    view_data_unavailable: Keine Aufrufdaten verfügbar
     view: Aufrufe
     word_count: Hinzugefügte Wörter
     word_count_average: Durchschnittliche Wortanzahl
@@ -586,6 +606,48 @@ de:
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
+  suggestions:
+    editing: Vorschläge bearbeiten
+    suggestion_docs:
+      fa: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden. Weitere Verbesserungen an der Prosaqualität
+        sind oft möglich.
+      a: Es könnte Expertenwissen nötig sein, um den Artikel zu optimieren und Gestaltungsprobleme
+        könnten eine Lösung benötigen. Eine Begutachtung könnte helfen.
+      ga: Einige Bearbeitungen nach Thema und Gestaltungsexperten sind hilfreich.
+        Ein Vergleich mit einem vorhandenen lesenswerten Artikel zu einem ähnlichen
+        Thema kann Bereiche hervorheben, in denen Inhalte schwach sind oder fehlen.
+      bplus: Könnte durch Beiträge von Experten verbessert werden, um zu bewerten,
+        wo noch Informationen fehlen und auch durch Illustrationen, historische Hintergründe
+        und weitere Literatur. Ziehe eine Begutachtung in Erwägung oder nominiere
+        ihn für einen guten Artikel. Falls der Artikel nicht bereits vollständig wikifiziert
+        wurde, ist jetzt die Gelegenheit.
+      b: Einige Aspekte des Inhalts und der Gestaltung müssen genannt werden. Expertenwissen
+        könnte erforderlich sein. Die Einbindung unterstützender Materialien sollte,
+        falls praktikabel, in Erwägung gezogen und der Artikel auf allgemeine Einhaltung
+        des Gestaltungshandbuchs und ähnlicher Gestaltungsrichtlinien überprüft werden.
+      c: Es sind erhebliche Bearbeitungen nötig, um Lücken im Inhalt zu schließen
+        und Bereinigungsprobleme zu lösen.
+      start: Die Angabe von Einzelnachweisen auf verlässliche Quellen sollte zuerst
+        erfolgen. Der Artikel benötigt auch eine bedeutende Inhaltsverbesserung und
+        Organisation. Verbessere auch die Grammatik, Rechtschreibung, den Schreibstil
+        und die Verwendung von Jargon.
+      stub: Jede Bearbeitung oder zusätzliche Materialien können hilfreich sein. Die
+        Bereitstellung bedeutungsvoller Inhalte sollte Priorität haben. Die beste
+        Lösung zur Heraufstufung eines kurzen Artikels auf einen Artikel mit Startniveau
+        ist die Einfügung belegter Gründe, warum das Thema bedeutend ist.
+      fl: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden.
+      list: Listen sollten Listen mit Livelinks auf Wikipedia-Artikel sein, passend
+        benannt und organisiert.
+      future: Das hinzugefügte Material könnte Spekulation sein und sollte sorgfältig
+        mit Quellen belegt sein.
+      disambig: Zusätze sollten als neue Artikel unter dem gleichen Namen erstellt
+        werden. Beachte aufmerksam die passende Benennung solcher Seiten, da sie oft
+        nicht den Titelzusatz „(Begriffsklärung)“ benötigen.
+      '?': Keine Vorschläge verfügbar. Entweder ist der Artikel nicht bewertet oder
+        Vorschläge sind für die Bewertung nicht verfügbar.
+      does_not_exist: Dieser Artikel ist in Wikipedia nicht vorhanden
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe

@@ -44,6 +44,8 @@ describe RevisionScoreImporter do
   end
 
   it 'saves wp10 scores and features for revisions' do
+    pending 'This may fail if the ORES api is having trouble.'
+
     VCR.use_cassette 'revision_scores/by_revisions' do
       RevisionScoreImporter.new.update_revision_scores
       early_revision = Revision.find_by(mw_rev_id: 641962088)
@@ -54,6 +56,9 @@ describe RevisionScoreImporter do
       expect(later_score).to be > early_score
       expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
     end
+
+    puts 'PASSED'
+    raise 'this test passed — this time'
   end
 
   it 'saves wp10 scores by article' do

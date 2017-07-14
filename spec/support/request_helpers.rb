@@ -134,6 +134,7 @@ module RequestHelpers
       'en.wiktionary.org',
       'es.wiktionary.org',
       'es.wikipedia.org',
+      'pt.wikipedia.org',
       'ta.wiktionary.org',
       'es.wikibooks.org',
       'ar.wikibooks.org',

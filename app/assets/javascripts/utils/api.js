@@ -66,6 +66,41 @@ const API = {
     });
   },
 
+  fetchFeedback(articleTitle) {
+    return new Promise((res, rej) => {
+      const url = `/revision_feedback?title=${articleTitle}`;
+      return $.ajax({
+        type: 'GET',
+        url,
+        dataType: 'json',
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+    });
+  },
+
+  postFeedbackFormResponse(subject, body) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: `/feedback_form_responses`,
+        data: {feedback_form_response: {subject: subject, body: body}},
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchTrainingStatus(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;
@@ -548,6 +583,23 @@ slide_id=${opts.slide_id}`,
     );
   },
 
+  greetStudents(courseId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: `/greeting?course_id=${courseId}`,
+        success(data) {
+          alert('Student greetings added to the queue.');
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj, 'There was an error with the greetings! ');
+        return rej(obj);
+      })
+    );
+  },
+
   submitWizard(courseId, wizardId, data) {
     return new Promise((res, rej) =>
       $.ajax({
@@ -699,6 +751,22 @@ slide_id=${opts.slide_id}`,
       $.ajax({
         type: 'PUT',
         url: `/salesforce/link/${courseId}.json?salesforce_id=${salesforceId}`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
+  updateSalesforceRecord(courseId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: `/salesforce/update/${courseId}.json`,
         success(data) {
           return res(data);
         }

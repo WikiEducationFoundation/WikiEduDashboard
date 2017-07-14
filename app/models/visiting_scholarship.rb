@@ -56,6 +56,10 @@ class VisitingScholarship < Course
     false
   end
 
+  def wiki_course_page_enabled?
+    false
+  end
+
   def wiki_title
     nil
   end

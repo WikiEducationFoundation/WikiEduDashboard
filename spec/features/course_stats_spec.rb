@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-describe 'course stats with views greater than zero', type: :feature, js: true do
+describe 'course stats', type: :feature, js: true do
   let(:trained)    { 1 }
   let(:course)     do
     create(:course, trained_count: trained,
@@ -47,20 +47,4 @@ describe 'course stats with views greater than zero', type: :feature, js: true d
     expect(page.find('#word-count')).to have_content word_count
     expect(page.find('#view-count')).to have_content views.to_s
   end
-end
-
-describe 'course stats with views count zero', type: :feature, js: true, focus: true do
-    let(:course)     { create(:course) }
-    let(:user)       { create(:user) }
-    let(:student)    { 0 }
-    let!(:cu)        { create(:courses_user, course_id: course.id, user_id: user.id, role: student) }
-    let(:views)      { 0 }
-    it 'displays view data unavailable instead of zero value' do
-      cu.update_cache
-      course.update_cache
-      visit "/courses/#{course.slug}"
-      sleep 1
-
-      expect(page.find('#view-count')).to have_content I18n.t('metrics.view_data_unavailable')
-    end
 end

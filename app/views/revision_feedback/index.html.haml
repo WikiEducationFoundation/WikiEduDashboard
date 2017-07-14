@@ -1,6 +1,12 @@
 %section
   %h1
     Suggestions
+  %h4
+    Rating
+  %p
+    = @rating
+  %h4
+    More Suggestions
   %ul
     - @feedback.each do |message|
       %li
