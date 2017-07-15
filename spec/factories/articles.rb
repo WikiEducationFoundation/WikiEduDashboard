@@ -5,11 +5,8 @@
 #
 #  id                       :integer          not null, primary key
 #  title                    :string(255)
-#  views                    :integer          default(0)
-#  created_at               :datetime
 #  updated_at               :datetime
-#  character_sum            :integer          default(0)
-#  revision_count           :integer          default(0)
+#  created_at               :datetime
 #  views_updated_at         :date
 #  namespace                :integer
 #  rating                   :string(255)

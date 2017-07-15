@@ -4,8 +4,41 @@ require 'rails_helper'
 require "#{Rails.root}/lib/wiki_api"
 
 describe WikiApi do
-  describe 'API requests' do
-    it 'should return the content of a page' do
+  describe 'error handling' do
+    let(:subject) { WikiApi.new.get_page_content('Ragesoss') }
+
+    it 'handles mediawiki 503 errors gracefully' do
+      stub_wikipedia_503_error
+      expect(subject).to eq(nil)
+    end
+
+    it 'handles timeout errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(Faraday::TimeoutError)
+      expect(subject).to eq(nil)
+    end
+
+    it 'handles API errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::ApiError)
+      expect(subject).to eq(nil)
+    end
+
+    it 'handles HTTP errors gracefully' do
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(MediawikiApi::HttpError, '')
+      expect(subject).to eq(nil)
+    end
+
+    it 're-raises unexpected errors' do
+      class UnexpectedError < StandardError; end
+      allow_any_instance_of(MediawikiApi::Client).to receive(:send)
+        .and_raise(UnexpectedError)
+      expect { subject }.to raise_error(UnexpectedError)
+    end
+  end
+  describe '#get_page_content' do
+    it 'returns the content of a page' do
       VCR.use_cassette 'wiki/course_list' do
         title = 'Wikipedia:Education program/Dashboard/test_ids'
         response = WikiApi.new.get_page_content(title)
@@ -14,7 +47,7 @@ describe WikiApi do
     end
   end
 
-  describe '.fetch_all' do
+  describe '#fetch_all' do
     it 'returns the same data as a single complete query would' do
       VCR.use_cassette 'wiki/continue_response' do
         titles = %(apple Fruit ecosystem Pear)
@@ -32,8 +65,8 @@ describe WikiApi do
     end
   end
 
-  describe 'API article ratings' do
-    it 'should return the ratings of articles' do
+  describe '#get_article_ratings' do
+    it 'returns the ratings of articles' do
       VCR.use_cassette 'wiki/article_ratings' do
         # A single article
         response = WikiApi.new.get_article_rating('History_of_biology')
@@ -77,7 +110,7 @@ describe WikiApi do
     end
   end
 
-  describe '.get_user_id' do
+  describe '#get_user_id' do
     context 'for an English Wikipedia users' do
       let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
 
@@ -111,7 +144,7 @@ describe WikiApi do
       end
     end
 
-    it 'should return nil for usernames that do not exist' do
+    it 'returns nil for usernames that do not exist' do
       VCR.use_cassette 'wiki/get_user_id_nonexistent' do
         username = 'RagesossRagesossRagesoss'
         user_id = WikiApi.new.get_user_id(username)
@@ -120,7 +153,7 @@ describe WikiApi do
     end
   end
 
-  describe 'redirect?' do
+  describe '#redirect?' do
     let(:wiki) { Wiki.new(language: 'en', project: 'wikipedia') }
     let(:subject) { WikiApi.new(wiki).redirect?(title) }
 

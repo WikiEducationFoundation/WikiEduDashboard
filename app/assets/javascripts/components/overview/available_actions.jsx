@@ -8,6 +8,8 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 import SalesforceLink from './salesforce_link.jsx';
+import GreetStudentsButton from './greet_students_button.jsx';
+import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -104,9 +106,17 @@ const AvailableActions = React.createClass({
         ));
       }
       // If course is not published, show the 'delete' button to instructors and admins.
-      if ((user.role === 1 || user.admin) && !this.state.course.published) {
+      // Show a disabled version of it on P&E Dashboard even if a course is published,
+      // so that users can see the instructions for how to enable deletion.
+      if ((user.role === 1 || user.admin) && (!this.state.course.published || !Features.wikiEd)) {
+        // The action is only available once a course has been removed from all campaigns.
+        const disabled = this.state.course.published;
         controls.push((
-          <p key="delete"><button className="button danger" onClick={this.delete}>{CourseUtils.i18n('delete_course', this.state.course_string_prefix)}</button></p>
+          <p title={I18n.t('courses.delete_course_instructions')} key="delete">
+            <button disabled={disabled} className="button danger" onClick={this.delete}>
+              {CourseUtils.i18n('delete_course', this.state.course_string_prefix)}
+            </button>
+          </p>
         ));
       }
       // If the course is ended, show the 'needs update' button.
@@ -127,7 +137,13 @@ const AvailableActions = React.createClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
-
+    // If the user is an instructor or admin, and the course is published, show a stats download button
+    // Always show the stats download for published non-Wiki Ed courses.
+    if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
+      controls.push((
+        <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
+      ));
+    }
     // If no controls are available
     if (controls.length === 0) {
       controls.push(
@@ -141,6 +157,7 @@ const AvailableActions = React.createClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
+          <GreetStudentsButton course={this.state.course} current_user={this.props.current_user} />
           {confirmationDialog}
           {controls}
           <SalesforceLink course={this.state.course} current_user={this.props.current_user} />

@@ -40,9 +40,11 @@ describe('StudentList', () => {
     const studentList = ReactTestUtils.renderIntoDocument(
       <div>
         <StudentList
+          store={reduxStore}
           params={params}
           users={users}
           course={course}
+          course_id="Couse_school/Test_Course_(Couse_term)"
           editable={true}
           current_user ={currentUser}
           assignments={assignments}
@@ -58,7 +60,16 @@ describe('StudentList', () => {
     const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
 
     const studentList = ReactTestUtils.renderIntoDocument(
-      <StudentList params={params} editable={true} users={users} course={course} current_user ={currentUser} assignments={assignments} />
+      <StudentList
+        store={reduxStore}
+        params={params}
+        editable={true}
+        users={users}
+        course={course}
+        course_id="Couse_school/Test_Course_(Couse_term)"
+        current_user={currentUser}
+        assignments={assignments}
+      />
     );
     studentList.setState({ users: users });
     studentList.setState({ assignments: assignments });

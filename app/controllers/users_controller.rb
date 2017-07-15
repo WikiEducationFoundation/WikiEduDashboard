@@ -57,6 +57,8 @@ class UsersController < ApplicationController
   def index
     @users = if params[:email].present?
                User.search_by_email(params[:email])
+             elsif params[:real_name].present?
+               User.search_by_real_name(params[:real_name])
              else
                User.instructor.limit(20)
                    .order(created_at: :desc)
@@ -74,7 +76,8 @@ class UsersController < ApplicationController
     @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role]).result
     ensure_enrollment_success { return }
 
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+    alert_staff_if_new_instructor_was_added
+    update_course_page_and_assignment_talk_templates
     make_enrollment_edits
     render 'users', formats: :json
   end
@@ -101,6 +104,13 @@ class UsersController < ApplicationController
                                         enrolling_user: @user)
   end
 
+  def alert_staff_if_new_instructor_was_added
+    return unless enroll_params[:role].to_i == CoursesUsers::Roles::INSTRUCTOR_ROLE
+    NewInstructorEnrollmentMailer.send_staff_alert(adder: current_user,
+                                                   new_instructor: @user,
+                                                   course: @course)
+  end
+
   ###################
   # Removing a user #
   ###################
@@ -117,7 +127,7 @@ class UsersController < ApplicationController
     @course_user.destroy # destroying the course_user also destroys associated Assignments.
 
     render 'users', formats: :json
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+    update_course_page_and_assignment_talk_templates
   end
 
   # If the user has Assignments, update article talk pages to remove them from
@@ -144,10 +154,17 @@ class UsersController < ApplicationController
   def find_or_import_user_by_username
     username = enroll_params[:username]
     @user = User.find_by(username: username)
-    @user = UserImporter.new_from_username(username) if @user.nil?
+    @user = UserImporter.new_from_username(username, @course.home_wiki) if @user.nil?
   end
 
   def enroll_params
     params.require(:user).permit(:user_id, :username, :role)
+  end
+
+  ##################
+  # Helper methods #
+  ##################
+  def update_course_page_and_assignment_talk_templates
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
 end

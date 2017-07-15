@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'mediawiki_api'
 require 'json'
 require "#{Rails.root}/lib/article_rating_extractor.rb"
@@ -21,16 +22,22 @@ class WikiApi
 
   def get_page_content(page_title)
     response = mediawiki('get_wikitext', page_title)
-    response.status == 200 ? response.body : nil
+    response&.status == 200 ? response.body : nil
   end
 
   def get_user_id(username)
+    info = get_user_info(username)
+    return unless info
+    info['userid']
+  end
+
+  def get_user_info(username)
     user_query = { list: 'users',
-                   ususers: username }
+                   ususers: username,
+                   usprop: 'centralids|registration' }
     user_data = mediawiki('query', user_query)
     return unless user_data.data['users'].any?
-    user_id = user_data.data['users'][0]['userid']
-    user_id
+    user_data.data['users'][0]
   end
 
   def redirect?(page_title)
@@ -44,7 +51,7 @@ class WikiApi
     query_params = { prop: 'info',
                      titles: titles }
     response = query(query_params)
-    response.status == 200 ? response.data : nil
+    response&.status == 200 ? response.data : nil
   end
 
   def get_article_rating(titles)
@@ -87,10 +94,10 @@ class WikiApi
     handle_api_error e, action, query
   rescue StandardError => e
     tries -= 1
-    raise e unless typical_errors.include?(e.class)
+    handle_non_api_error(e)
     retry if tries >= 0
     Raven.capture_exception e, level: 'warning'
-    return nil
+    return nil # Do not return a Raven object
   end
 
   def api_client
@@ -104,6 +111,19 @@ class WikiApi
                                         query: query,
                                         api_url: @api_url }
     return nil # Do not return a Raven object
+  end
+
+  # Raise unknown errors.
+  # Continue for typical errors so that the request can be retried, but wait
+  # a short bit in the case of 429 — too many request — errors.
+  def handle_non_api_error(e)
+    raise e unless typical_errors.include?(e.class)
+    sleep 1 if too_many_requests?(e)
+  end
+
+  def too_many_requests?(e)
+    return false unless e.class == MediawikiApi::HttpError
+    e.status == 429
   end
 
   def typical_errors

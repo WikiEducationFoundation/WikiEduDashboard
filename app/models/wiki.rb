@@ -59,12 +59,16 @@ class Wiki < ActiveRecord::Base
     'wikisource' => 'wikisource.org'
   }.freeze
 
-  def base_url
+  def domain
     if language
-      "https://#{language}.#{project}.org"
+      "#{language}.#{project}.org"
     else
-      "https://#{MULTILINGUAL_PROJECTS[project]}"
+      MULTILINGUAL_PROJECTS[project]
     end
+  end
+
+  def base_url
+    'https://' + domain
   end
 
   def api_url
@@ -98,6 +102,10 @@ class Wiki < ActiveRecord::Base
     raise InvalidWikiError if site_info.nil?
     servername = site_info.data.dig('general', 'servername')
     raise InvalidWikiError unless base_url == "https://#{servername}"
+  end
+
+  def edits_enabled?
+    ENV["edit_#{domain}"] == 'true'
   end
 
   class InvalidWikiError < StandardError; end

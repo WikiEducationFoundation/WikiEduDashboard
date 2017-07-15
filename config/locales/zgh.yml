@@ -3,11 +3,14 @@
 # Export driver: phpyaml
 # Author: Amara-Amaziɣ
 # Author: Aslmad mohamed belarhzali
+# Author: YesIn
 ---
 zgh:
   application:
+    cancel: ⵙⵔ
     greeting: ⴰⵣⵓⵍ!
     help: ⵜⵉⵡⵉⵙⵉ
+    home: ⴰⵙⵏⵓⴱⴳ
     change: ⵙⵏⴼⵍ
   articles:
     new: (ⴰⵎⴰⵢⵏⵓ)

@@ -5,6 +5,7 @@
 # Author: Ayatun
 # Author: Haytham morsy
 # Author: Maroen1990
+# Author: Mido
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
 # Author: Youssef
@@ -34,6 +35,7 @@ ar:
     log_out: تسجيل الخروج
     my_dashboard: لوحتي
     recent_activity: النشاطات الحديثة
+    report_problem: أبلغ عن مشكلة
     search: طرح سؤال
     sign_up_extended: تسجيل الدخول إلى ويكيبيديا
     sign_up_log_in_extended: مع ويكبيديا
@@ -141,9 +143,12 @@ ar:
       legend_class_not_meeting: لا يوجد اجتماع مقرر
       select_meeting_days: تحديد أيام الأسبوع التي يجتمع فيها صفك.
     campaigns: 'الحملات:'
+    campaign_articles: مقالات %{title}
+    campaign_users: محرري %{title}
     confirm_course_deletion: هل أنت متأكد أنك تريد حذف الدورة بعنوان %{title}؟ إذا
       كان الأمر كذلك، اكتب عنوان الدورة للقيام بذلك.
     confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة. لم يتم حذفه الدورة.'
+    course: دورة
     courses: الدورات
     creation_date: تاريخ الإنشاء
     creator:
@@ -246,20 +251,24 @@ ar:
     assignment_end: نهاية الجدول الزمني
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بداية الجدول الزمني
+    course: برنامج
     creator:
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
       clone_previous: استنساخ برنامج سابق
       clone_this: استنساخ هذا البرنامج
       course_description: وصف البرنامج
       course_school: المؤسسة
+      course_term: متى
+      course_term_placeholder: متى
       course_title: اسم البرنامج
       create_button: أنشأ برنامجي!
       create_label: أنشئ برنامج جديد
-      create_new: انشئ برنامج جديد
+      create_new: انشئ برنامج مستقل
       create_short: أنشئ البرنامج
       find: البحث عن برنامج
       intro: مطلوب عنوان البرنامج، كل شيء يمكن ملؤه في وقت لاحق. انقر فوق "إنشاء برنامجي!"
         لبدء إنشاء صفحة لبرنامج الويكي الخاص بك.
+      save_cloned_course: احفظ
     delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
     explore: البحث عن برنامج

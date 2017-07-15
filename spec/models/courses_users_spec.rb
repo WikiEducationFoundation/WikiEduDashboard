@@ -14,6 +14,7 @@
 #  assigned_article_title :string(255)
 #  role                   :integer          default(0)
 #  recent_revisions       :integer          default(0)
+#  character_sum_draft    :integer          default(0)
 #
 
 require 'rails_helper'

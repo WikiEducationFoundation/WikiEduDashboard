@@ -1,0 +1,13 @@
+- if @pres.can_create_course?
+  = link_to course_creator_path, class: 'button dark dashboard-cta' do
+    = t("courses.creator.create_short")
+    %i.icon.icon-plus
+- elsif @pres.show_explore_button?
+  = link_to explore_path, class: 'button dark dashboard-cta' do
+    = t("courses.creator.find")
+    %span.icon.icon-rt_arrow
+
+- if @pres.show_orientation_review?
+  = link_to @pres.orientation_path, class: 'button' do
+    = t("dashboard.review_orientation")
+    %i.icon.icon-rt_arrow

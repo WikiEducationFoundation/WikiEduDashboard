@@ -22,6 +22,7 @@
 #  locale              :string(255)
 #  chat_password       :string(255)
 #  chat_id             :string(255)
+#  registered_at       :datetime
 #
 
 require "#{Rails.root}/lib/utils"
@@ -93,6 +94,10 @@ class User < ActiveRecord::Base
   ####################
   def self.search_by_email(email)
     User.where('lower(email) like ?', "#{email}%")
+  end
+
+  def self.search_by_real_name(real_name)
+    User.where('lower(real_name) like ?', "%#{real_name}%")
   end
 
   ####################

@@ -22,6 +22,7 @@
 #  locale              :string(255)
 #  chat_password       :string(255)
 #  chat_id             :string(255)
+#  registered_at       :datetime
 #
 
 require 'rails_helper'
@@ -216,6 +217,11 @@ describe User do
     it 'returns user(s) with given email address' do
       result = User.search_by_email(search_user.email)
 
+      expect(result).to eq([search_user])
+    end
+
+    it 'returns user(s) with given full name' do
+      result = User.search_by_real_name(search_user.real_name)
       expect(result).to eq([search_user])
     end
 

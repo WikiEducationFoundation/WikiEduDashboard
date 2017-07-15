@@ -50,6 +50,10 @@ class Editathon < Course
     false
   end
 
+  def wiki_course_page_enabled?
+    false
+  end
+
   def wiki_title
     nil
   end
@@ -64,5 +68,9 @@ class Editathon < Course
 
   def multiple_roles_allowed?
     true
+  end
+
+  def passcode_required?
+    false
   end
 end

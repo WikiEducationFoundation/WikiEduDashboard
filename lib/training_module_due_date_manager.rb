@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'training_progress_manager'
 
 class TrainingModuleDueDateManager
@@ -23,7 +24,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    !progress_manager.module_completed? && Date.today > computed_due_date
+    !module_completed? && Date.today > computed_due_date
   end
 
   def deadline_status
@@ -50,7 +51,12 @@ class TrainingModuleDueDateManager
     return [] unless @user.present?
     Block.joins(week: { course: :courses_users })
          .where(courses_users: { user_id: @user.id, role: CoursesUsers::Roles::STUDENT_ROLE })
-         .where.not('training_module_ids = ?', [].to_yaml)
+         .where.not('training_module_ids = ?', [].to_yaml).includes(:week)
+  end
+
+  def module_completed?
+    return @tmu.completed_at.present? if @tmu.present?
+    progress_manager.module_completed?
   end
 
   def progress_manager
@@ -59,8 +65,8 @@ class TrainingModuleDueDateManager
   end
 
   def course_block_for_module
-    Block.joins(week: :course)
-         .where(weeks: { course_id: @course.id })
-         .find { |block| block.training_module_ids.include?(@training_module.id) }
+    @block ||= Block.joins(week: :course)
+                    .where(weeks: { course: @course })
+                    .find { |block| block.training_module_ids.include?(@training_module.id) }
   end
 end

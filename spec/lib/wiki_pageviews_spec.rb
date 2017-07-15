@@ -38,11 +38,35 @@ describe WikiPageviews do
         expect { subject }.to raise_error(StandardError)
       end
 
+      it 'raises errors for unexpected API responses' do
+        stub_request(:any, /.*wikimedia.org.*/)
+          .to_return(status: 200, body: '{"type":"some error"}', headers: {})
+        expect { subject }.to raise_error(WikiPageviews::PageviewApiError)
+      end
+
       context 'beyond the allowed date range' do
         let(:start_date) { '2015-01-01'.to_date }
         it 'does not raise an error' do
           stub_request(:any, /.*wikimedia.org.*/)
           expect { subject }.not_to raise_error
+        end
+      end
+    end
+
+    context 'for an unviewed article' do
+      let(:article) { create(:article, title: title, wiki: wiki) }
+      let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
+      let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
+      let(:start_date) { Date.new(2017, 4, 1) }
+      let(:subject) do
+        WikiPageviews.new(article).views_for_article(start_date: start_date,
+                                                     end_date: start_date + 1.month)
+      end
+
+      it 'returns an empty hash' do
+        VCR.use_cassette 'wiki_pageviews/views_for_unviewed_article' do
+          expect(subject).to be_a Hash
+          expect(subject.count).to eq(0)
         end
       end
     end
@@ -99,9 +123,21 @@ describe WikiPageviews do
 
     context 'for an article that does not exist' do
       let(:title) { 'THIS_IS_NOT_A_REAL_ARTICLE' }
-      it 'returns nil' do
+      it 'returns 0' do
         VCR.use_cassette 'wiki_pageviews/average_views' do
-          expect(subject).to be_nil
+          expect(subject).to eq(0)
+        end
+      end
+    end
+
+    context 'for an article that exist but has no view data' do
+      let(:article) { create(:article, title: title, wiki: wiki) }
+      let(:wiki) { create(:wiki, project: 'wikisource', language: 'fr') }
+      let(:title) { 'Voyages,_aventures_et_combats/Chapitre_18' }
+      let(:subject) { WikiPageviews.new(article).average_views }
+      it 'returns 0' do
+        VCR.use_cassette 'wiki_pageviews/404_handling' do
+          expect(subject).to eq(0)
         end
       end
     end

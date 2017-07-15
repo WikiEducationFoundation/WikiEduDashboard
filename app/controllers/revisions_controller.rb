@@ -11,7 +11,7 @@ class RevisionsController < ApplicationController
 
     @revisions = course.revisions.where(user_id: user.id)
                        .order('revisions.date DESC')
-                       .eager_load(:article)
+                       .eager_load(:article, :wiki)
                        .limit(params[:limit] || DEFAULT_REVISION_LIMIT)
   end
 end

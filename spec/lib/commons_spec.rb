@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/commons"
 
@@ -9,7 +10,7 @@ describe Commons do
         user = create(:user,
                       username: 'Ragesoss')
         response = Commons.get_uploads [user]
-        expect(response.count).to satisfy { |x| x > 3000 }
+        expect(response.count).to(satisfy { |x| x > 3000 })
         expect(response[0]['timestamp']).not_to be_nil
         expect(response[0]['title']).not_to be_nil
         expect(response[0]['user']).not_to be_nil
@@ -43,7 +44,7 @@ describe Commons do
                         id: 6428847,
                         file_name: 'File:Example.jpg')
         response = Commons.get_usages [upload]
-        expect(response.count).to satisfy { |x| x > 12 }
+        expect(response.count).to(satisfy { |x| x > 12 })
       end
     end
 

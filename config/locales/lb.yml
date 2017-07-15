@@ -7,6 +7,7 @@ lb:
   application:
     cancel: Ofbriechen
     dashboard: Iwwersiicht iwwer d'Ännerungen op der Wiki
+    documentation: Dokumentatioun
     error: 'Et gouf e Feeler:'
     explore: Entdecken
     field_required: Dëst Feld ass obligatoresch
@@ -23,6 +24,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
+    report_problem: E Problem mellen
     search: eng Fro stellen
     sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia
@@ -115,6 +117,9 @@ lb:
     cancel: Ofbriechen
     campaigns: 'Campagnen:'
     campaign_courses: '%{title} Coursen'
+    campaign_articles: '%{title} Artikelen'
+    campaign_users: '%{title} Auteuren'
+    course: Cours
     course_description: Coursen
     courses: Coursen
     creation_date: Datum vun der Kreatioun
@@ -137,10 +142,12 @@ lb:
       start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)
       subject: Sujet
     current: Aktuell Coursen
+    data_download_info: Donnéeën am CSV-Format eroflueden.
     delete_course: Cours läschen
     dismiss_survey: Verwerfen
     dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende
       wëllt?
+    download_stats_data: Statistiken eroflueden
     duration: Dauer vum Cours
     edit_course_dates: Datume vum Cours änneren
     enable_chat: Chat aktivéieren
@@ -155,6 +162,8 @@ lb:
       invalid_language_or_project: Net valabel Sprooch/Projet
       invalid_slug: Schoul/Titel eidel fir de Cours.
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
+    features_feedback: 'Méi Virschléi:'
+    feedback: Feedback
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -183,6 +192,11 @@ lb:
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
+    suggestions_feedback: Sinn dës Virschléi hëllefräich? Deelt eis et mat!
+    suggestions_sending: Feedback gëtt geschéckt...
+    suggestions_sent: Feedback geschéckt. Merci fir Ären Input.
+    suggestions_failed: Feedback konnt net geschéckt ginn. Probéiert méi spéit nach
+      eng Kéier.
     user_role: Roll
     course_details: Detailer vum Cours
     timeline_link: Chronologie
@@ -202,6 +216,7 @@ lb:
     all_courses: All Progtrammer
     archived: Archivéiert Programmer
     cancel: Ofbriechen
+    course: Programm
     courses: Programmer
     campaigns: 'Campagnen:'
     campaign_courses: '%{title} Programmer'
@@ -210,8 +225,12 @@ lb:
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
       course_school: Institutioun
+      course_term: Wéini
+      course_term_placeholder: Wéini
       course_title: Titel vum Programm
       find: E Programm sichen
+      participate_in_campaign: Bei enger Campagne matmaachen
+      save_cloned_course: Späicheren
     delete_course: Programm läschen
     enroll: Auteur derbäisetzen
     enrollment: Participatioun
@@ -272,6 +291,8 @@ lb:
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
     view_on_wiki: Ënnerscheed op der Wiki weisen
+  suggestions:
+    editing: Virschléi änneren
   timeline:
     add_week: Woch dobäisetzen
     block_custom: Personaliséiert

@@ -49,7 +49,7 @@ class DailyUpdate
   ###############
 
   def update_users
-    log_message 'Updating global ids and training status'
+    log_message 'Updating registration dates for new Users'
     UserImporter.update_users
   end
 
@@ -58,7 +58,7 @@ class DailyUpdate
     UploadImporter.find_deleted_files(CommonsUpload.where(deleted: false))
 
     log_message 'Updating Commons uploads for current students'
-    UploadImporter.import_all_uploads(User.current.role('student'))
+    UploadImporter.import_uploads_for_current_users
 
     log_message 'Updating Commons uploads usage counts'
     UploadImporter.update_usage_count_by_course(Course.all)

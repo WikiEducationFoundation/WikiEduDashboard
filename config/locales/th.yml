@@ -1,7 +1,9 @@
 # Messages for Thai (ไทย)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ans
 # Author: Pon44695
+# Author: TMo3289
 ---
 th:
   application:
@@ -117,6 +119,7 @@ th:
     submitted_heading: เสนอหลักสูตร
     submitted_note: หลักสูตรของคุณถูกเสนอแล้ว ทีมงานวิกิการศึกษาจะตรวจทานและติดต่อไปหากมีคำถามใด
       ๆ
+    suggestions_feedback: คำแนะนำเหล่านี้ช่วยคุณได้หรือไม่? โปรดแจ้งให้เราทราบ!
     user_role: หน้าที่
     course_details: รายละเอียดหลักสูตรสำหรับ
     term: ภาคเรียน
@@ -128,7 +131,7 @@ th:
     creator:
       create_button: สร้างโปรแกรมของฉัน!
       create_label: สร้างโปรแกรมใหม่
-      create_new: สร้างโปรแแกรมใหม่
+      create_new: สร้างโปรแแกรมอิสระใหม่
       create_short: สร้างโปรแกรม
       find: ค้นหาโปรแกรม
     delete_course: ลบโปรแกรม

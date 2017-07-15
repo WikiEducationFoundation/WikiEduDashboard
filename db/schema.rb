@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421222406) do
+ActiveRecord::Schema.define(version: 20170602231912) do
 
   create_table "alerts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "course_id"
@@ -34,11 +34,8 @@ ActiveRecord::Schema.define(version: 20170421222406) do
 
   create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.bigint   "views",                               default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "character_sum",                       default: 0
-    t.integer  "revision_count",                      default: 0
     t.date     "views_updated_at"
     t.integer  "namespace"
     t.string   "rating"
@@ -61,6 +58,8 @@ ActiveRecord::Schema.define(version: 20170421222406) do
     t.bigint   "view_count",    default: 0
     t.integer  "character_sum", default: 0
     t.boolean  "new_article",   default: false
+    t.index ["article_id"], name: "index_articles_courses_on_article_id", using: :btree
+    t.index ["course_id"], name: "index_articles_courses_on_course_id", using: :btree
   end
 
   create_table "assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -192,6 +191,7 @@ ActiveRecord::Schema.define(version: 20170421222406) do
     t.string   "assigned_article_title"
     t.integer  "role",                   default: 0
     t.integer  "recent_revisions",       default: 0
+    t.integer  "character_sum_draft",    default: 0
     t.index ["course_id"], name: "index_courses_users_on_course_id", using: :btree
     t.index ["user_id"], name: "index_courses_users_on_user_id", using: :btree
   end
@@ -288,8 +288,9 @@ ActiveRecord::Schema.define(version: 20170421222406) do
     t.integer  "mw_page_id"
     t.text     "features",       limit: 65535
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date", using: :btree
-    t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id", using: :btree
+    t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["user_id"], name: "index_revisions_on_user_id", using: :btree
+    t.index ["wiki_id", "mw_rev_id"], name: "index_revisions_on_wiki_id_and_mw_rev_id", unique: true
   end
 
   create_table "survey_assignments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -394,6 +395,7 @@ ActiveRecord::Schema.define(version: 20170421222406) do
     t.string   "locale"
     t.string   "chat_password"
     t.string   "chat_id"
+    t.datetime "registered_at"
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 

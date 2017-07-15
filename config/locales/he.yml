@@ -231,6 +231,7 @@ he:
       start_date_placeholder: תאריך התחלה (שנה-חודש-יום)
       subject: נושא
     current: תוכניות \ קורסים \ מיזמים פעילים
+    data_edits: עורך נתונים
     delete_course: מחיקת התוכנית \ הקורס \ המיזם
     dismiss_survey: ביטול
     dismiss_survey_confirm: האם ברצונך לסגור לצמיתות את השאלון הזה?
@@ -284,6 +285,7 @@ he:
     start: התחלה
     start_typing: התחילו להקליד
     students: משתתפים
+    students_taught: תלמידים למדו
     students_count: מס' משתתפים
     student_editors: משתתפים עורכים
     students_none: בתוכנית \ בקורס \ במיזם הזה אין משתתפים.

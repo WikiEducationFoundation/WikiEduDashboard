@@ -106,7 +106,6 @@ const Overview = React.createClass({
 
     const sidebar = this.state.course.id ? (
       <div className="sidebar">
-        {userArticles}
         <Details {...this.props} />
         <AvailableActions {...this.props} />
         <Milestones {...this.props} />
@@ -120,6 +119,7 @@ const Overview = React.createClass({
       <section className="overview container">
         { syllabusUpload }
         <CourseStats course={this.state.course} />
+        {userArticles}
         <div className="primary">
           {primaryContent}
         </div>

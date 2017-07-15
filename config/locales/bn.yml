@@ -5,12 +5,14 @@
 # Author: Bodhisattwa
 # Author: Elias Ahmmad
 # Author: Kayser Ahmad
+# Author: Mohammed Galib Hasan
 # Author: আজিজ
 ---
 bn:
   application:
     cancel: বাতিল
     dashboard: উইকি ইডি ড্যাশবোর্ড
+    documentation: নথিপত্র
     explore: অন্বেষণ করুন
     greeting2: স্বাগতম!
     greeting_extended: উইকিপিডিয়ায় স্বাগতম
@@ -22,6 +24,7 @@ bn:
     log_out: প্রস্থান করুন
     my_dashboard: আমার ড্যাশবোর্ড
     recent_activity: সাম্প্রতিক কার্যকালাপ
+    report_problem: সমস্যার কথা জানান
     search: ask.wikiedu.org তে অনুসন্ধান করুন
     sign_up_extended: উইকিপিডিয়া দিয়ে নিবন্ধন করুন
     sign_up_log_in_extended: উইকিপিডিয়া দিয়ে
@@ -76,6 +79,9 @@ bn:
       legend_class_canceled: ছুটি/বাতিল
     cancel: বাতিল
     campaign_courses: '%{title} কোর্স'
+    campaign_articles: '%{title} নিবন্ধগুলো'
+    campaign_users: '%{title} সম্পাদকবৃন্দ'
+    course: পথ
     courses_taught: কোর্সের ধারণা
     creator:
       course_project: মূল প্রকল্প
@@ -100,6 +106,8 @@ bn:
     courses_enrolled: কোর্সে ভর্তি
     error:
       invalid_slug: কোর্সের জন্য ফাঁকা বিদ্যালয়/শিরোনাম।
+    features_feedback: 'আরো পরামর্শ :'
+    feedback: প্রতিক্রিয়া
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
@@ -115,6 +123,9 @@ bn:
     students_count: '# ছাত্রগণ'
     student_editors: '# ছাত্র সম্পাদকগণ'
     students_short: ছাত্রগণ
+    suggestions_sending: প্রতিক্রিয়া পাঠানো হচ্ছে...
+    suggestions_sent: প্রতিক্রিয়া পাঠানো হয়েছে। আপনার ইনপুটের জন্য ধন্যবাদ।
+    suggestions_failed: প্রতিক্রিয়া পাঠানো যায়নি। পরে আবার চেষ্টা করুন।
     user_role: ভূমিকা
     timeline_link: সময়ক্রম
     time_zone_message: আপনার স্থানীয় সময় অঞ্চল অনুসারে শুরুর এবং শেষের সময় প্রদর্শন
@@ -127,16 +138,19 @@ bn:
   courses_generic:
     all_courses: সকল কার্যক্রমসমুহ
     cancel: বাতিল
+    course: প্রোগ্রাম
     courses_taught: প্রোগ্রামের ধারণা
     campaign_courses: '%{title} প্রোগ্রাম'
     creator:
       course_description: প্রকল্পের বর্ণনা
       course_school: প্রতিষ্ঠান
+      course_term: কখন
       course_title: প্রোগ্রামের শিরোনাম
       create_label: নতুন প্রকল্প তৈরি করুন
-      create_new: একটি নতুন প্রকল্প তৈরি করুন
+      create_new: একটি স্বাধীন প্রোগ্রাম তৈরি করুন
       create_short: প্রোগ্রাম তৈরি করুন
       find: একটি প্রোগ্রাম খুঁজুন
+      save_cloned_course: সংরক্ষণ
     enroll: সম্পাদক যোগ করুন
     enrollment: অংশগ্রহণ
     courses_enrolled: প্রোগ্রাম অংশগ্রহণ করেছে
@@ -144,6 +158,7 @@ bn:
     school_and_term: প্রতিষ্ঠান/কখন
     student_editors: সম্পাদকগণ
     students: সম্পাদকগণ
+    students_taught: মোট সম্পাদক
     students_short: সম্পাদকগণ
   editable:
     edit: সম্পাদনা

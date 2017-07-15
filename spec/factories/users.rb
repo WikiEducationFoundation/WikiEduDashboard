@@ -22,6 +22,7 @@
 #  locale              :string(255)
 #  chat_password       :string(255)
 #  chat_id             :string(255)
+#  registered_at       :datetime
 #
 
 FactoryGirl.define do

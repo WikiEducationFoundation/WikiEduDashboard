@@ -4,6 +4,7 @@
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
 # Author: Kingu
+# Author: Pmt
 # Author: Tarjeimo
 ---
 nb:
@@ -369,6 +370,7 @@ nb:
     assignments_none: Dette prosjektet har ingen tildelte artikler
     assignment_start: Tidslinjestart
     cancel: Avbryt
+    course: Program
     courses: Programmer
     campaigns: 'Kampanjer:'
     creator:
@@ -487,6 +489,9 @@ nb:
     time_doc: Tiden for hver revisjon i din lokale tid
     title: Tittel
     view_on_wiki: Vis diff på wiki
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Denne artikkelen finnes ikke på Wikipedia
   tasks:
     conseq: Jobben %{task} kjører allerede!
     constant: Jobben %{task} kan ikke kjøres mens jobben update_daily kjører.

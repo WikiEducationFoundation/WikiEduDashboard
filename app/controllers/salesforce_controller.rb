@@ -12,6 +12,12 @@ class SalesforceController < ApplicationController
     render json: { success: true, flags: @course.flags }
   end
 
+  def update
+    @course = Course.find(params[:course_id])
+    PushCourseToSalesforce.new(@course)
+    render json: { success: true }
+  end
+
   def create_media
     set_article_course_and_user
     url = CreateSalesforceMediaRecord.new(article: @article, course: @course, user: @user,

@@ -6,6 +6,7 @@
 # Author: Dvorapa
 # Author: Frettie
 # Author: Martin Urbanec
+# Author: Meliganai
 # Author: Mormegil
 # Author: Urbanecm
 # Author: Vojtěch Dostál
@@ -127,13 +128,13 @@ cs:
     milestones:
       title: Milníky
   campaign:
-    campaign: Kampaň
-    campaign_deleted: Kampaň „%{title}“ byla smazána
-    campaign_updated: Kampaň byla aktualizována
-    delete_campaign: Odstranit tuto kampaň
+    campaign: Program
+    campaign_deleted: Program „%{title}“ byl smazán
+    campaign_updated: Program byl aktualizován
+    delete_campaign: Odstranit tento program
     none: Žádné
     organizers: Organizátoři
-    organizer_added: '%{user} je organizátorem "%{title}" kampaně'
+    organizer_added: '%{user} je organizátorem programu "%{title}"'
   courses:
     activity: Aktivita
     already_enrolled: Již jste součástí kurzu '%{title}'!
@@ -269,6 +270,9 @@ cs:
     submitted_heading: Kurzy podané ke schválení
     submitted_note: Kurz byl podán ke schválení. Brzy ho zkontrolujeme a případně
       vás zkontaktujeme s dotazy.
+    suggestions_feedback: Jsou tyto návrhy užitečné? Dejte nám vědět!
+    suggestions_sending: Odesílání zpětné vazby...
+    suggestions_failed: Zpětnou vazbu se nepodařilo odeslat. Zkuste to znovu později.
     user_role: Role
     course_details: Podrobnosti kurzu
     term: Semestr
@@ -285,7 +289,7 @@ cs:
     untrained: Netrénovaný
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
-    view_other: Zobrazit další kampaně
+    view_other: Zobrazit další programy
     view: Zobrazit kurz
     view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
       od doby, kdy účastník provedl v článku první editaci).
@@ -305,31 +309,31 @@ cs:
   courses_generic:
     assignments_none: Tento kurz nemá žádné přidělené články.
     cancel: Zrušit
-    courses: Programy
-    campaigns: 'Kampaně:'
+    courses: Projekty
+    campaigns: 'Programy:'
     creator:
-      checking_for_uniqueness: Pro tento program je kontrolována jeho jedinečnost.
-      clone_previous: Kopírovat předchozí program
-      clone_this: Kopírovat tento program
-      course_description: Popis programu
+      checking_for_uniqueness: Pro tento projekt je kontrolována jeho jedinečnost.
+      clone_previous: Kopírovat předchozí projekt
+      clone_this: Kopírovat tento projekt
+      course_description: Popis projektu
       course_school: Instituce
-      course_title: Název programu
-      create_button: Vytvořit můj program
-      create_label: Vytvořit nový program
-      create_new: Vytvořit nový program
-      create_short: Vytvořit program
-      find: Najít program
+      course_title: Název projektu
+      create_button: Vytvořit můj projekt
+      create_label: Vytvořit nový projekt
+      create_new: Vytvořit nezávislý projekt
+      create_short: Vytvořit projekt
+      find: Najít projekt
       intro: Název programu je vyžadován, všechno ostatní může být vyplněno později.
         Klikněte na Vytvořit můj program a začněte vytvářet stránku pro váš program
-    delete_course: Odstranit program
+    delete_course: Odstranit projekt
     edit_course_dates: Upravit data projektu
     explore: Aktuální projekty
     enroll: Přidat editora
     enrollment: Účastníci
     expected_students: Očekávaní editoři
     instructors: Spolupracovníci
-    join_course: Připojit se k programu
-    leave_course: Opustit program
+    join_course: Připojit se k projektu
+    leave_course: Opustit projekt
     milestones_none: Tento kurz v současné době nemá žádné milníky.
     published: 'Tento kurz byl publikován. Studenti se mohou zapsat navštívením následující
       URL:'
@@ -343,8 +347,8 @@ cs:
     term: Kdy
     uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
       mediálními soubory do Wikimedia Commons.
-    view_other: Zobrazit další kampaně
-    view_page: Zobrazit stránku programu
+    view_other: Zobrazit další programy
+    view_page: Zobrazit stránku projektu
   editable:
     edit: Editovat
     cancel: Zrušit
@@ -463,7 +467,7 @@ cs:
     assign_articles_done: Hotovo
     assigned: Přiřazené články
     assignees: Přiřazení
-    chars_added: Přidané znaky<br>(v hlavním jmenném prostoru | uživatelském prostoru)
+    chars_added: Přidané znaky<br>(článek | uživatelský prostor | koncept)
     contributions: Příspěvky uživatele
     contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
     contributions_more: Zobrazit více Příspěvků

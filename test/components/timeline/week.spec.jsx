@@ -94,11 +94,11 @@ describe('Week', () => {
       const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
       let method;
       let action;
-      before(() => {
+      beforeAll(() => {
         method = sinon.spy(TestWeek, '_scrollToAddedBlock');
         action = sinon.spy(BlockActions, 'addBlock');
       });
-      after(() => {
+      afterAll(() => {
         TestWeek._scrollToAddedBlock.restore();
         BlockActions.addBlock.restore();
       });

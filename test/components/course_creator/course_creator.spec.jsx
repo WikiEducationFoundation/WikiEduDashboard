@@ -23,18 +23,19 @@ describe('CourseCreator', () => {
     it('renders a title', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
       const h3 = ReactDOM.findDOMNode(headline);
-      return expect(h3.textContent).to.eq('Create a New Course');
+      expect(h3.textContent).to.eq('Create a New Course');
     });
-    describe('user courses dropdown', () => {
+    describe('user courses-to-clone dropdown', () => {
       describe('state not updated', () => {
         it('does not show', () => {
           const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
           expect(select.classList.contains('hidden')).to.eq(true);
         });
       });
-      describe('state updated to show', () => {
+      describe('state updated to show (and user has courses)', () => {
         it('shows', () => {
-          TestCourseCreator.setState({ showCourseDropdown: true });
+          TestCourseCreator.setState({ showCloneChooser: true });
+          TestCourseCreator.setState({ user_courses: ['some_course'] });
           const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
           expect(select.classList.contains('hidden')).to.eq(false);
         });
@@ -52,6 +53,7 @@ describe('CourseCreator', () => {
           TestCourseCreator.setState({ isSubmitting: true });
           const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
           expect(form.style.cssText).to.eq('pointer-events: none; opacity: 0.5;');
+          TestCourseCreator.setState({ isSubmitting: false });
         });
       });
     });

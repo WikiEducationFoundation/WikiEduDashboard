@@ -23,6 +23,7 @@ ko:
   application:
     cancel: 취소
     dashboard: 위키 에듀 대시보드
+    documentation: 설명서
     error: '오류가 있었습니다:'
     explore: 찾아보기
     field_required: 이 칸은 반드시 입력해야 합니다
@@ -39,6 +40,7 @@ ko:
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
+    report_problem: 문제점 보고
     search: 질문하기
     sign_up_extended: 위키백과에 로그인하기
     sign_up_log_in_extended: 위키백과와 함께합니다
@@ -129,6 +131,8 @@ ko:
       legend_class_meeting: 수업 미팅
       legend_class_not_meeting: 예정된 미팅 없음
     cancel: 취소
+    campaign_articles: '%{title} 문서'
+    campaign_users: '%{title} 편집자'
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
     course_description: 코스
@@ -139,6 +143,7 @@ ko:
       assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
       assignment_start: 과제 시작
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 과정이 성공적으로 복제되었습니다
       course_language: 주 언어
       course_project: 주 프로젝트
@@ -151,9 +156,15 @@ ko:
       start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
       subject: 제목
     current: 현재 과정
+    data_articles: 문서 데이터
+    data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
+    data_overview: 개요 데이터
+    data_students: 편집자 데이터
     delete_course: 과정 삭제
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
+    download_stats_data: 다운로드 통계
+    does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     duration: 과정 기간
     edit_course_dates: 코스 날짜 편집하기
     enable_chat: 채팅 사용하기
@@ -162,6 +173,9 @@ ko:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
       duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
+    features_feedback: '다른 제안 :'
+    feedback: 피드백
+    feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
     instructor:
       other: 지도자
@@ -180,6 +194,7 @@ ko:
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다 :'
     school: 학교
     start: 시작
     start_typing: 입력 시작
@@ -189,7 +204,12 @@ ko:
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
+    suggestions_feedback: 이 기능의 개선을 위한 제안이 있으신가요? 알려주세요!
+    suggestions_sending: 피드백을 보내는 중...
+    suggestions_sent: 피드백을 보냈습니다. 귀하의 의견에 감사드립니다.
+    suggestions_failed: 피드백을 보내지 못했습니다. 나중에 다시 시도하십시오.
     user_role: 역할
+    submitted: 제출됨
     term: 기간
     timeline: 숙제 상세사항
     timeline_link: 타임라인
@@ -213,15 +233,24 @@ ko:
     assignment_end: 타임라인 끝
     assignment_start: 타임라인 시작하기
     cancel: 취소
+    course: 프로그램
     courses: 프로그램
     creator:
+      choose_clone: 복제할 프로그램을 선택하십시오.
+      clone_successful: 프로그램이 성공적으로 복제되었습니다
+      clone_successful_details: '프로그램이 복제되었습니다. 원래의 것과 구별하기 위해 ''날짜''(예: 연도와 월) 필드에
+        무언가를 추가해 주십시오. 그 다음 아래의 ''저장''을 눌러 마칠 수 있습니다.'
       course_description: 프로그램 설명
+      course_term: 날짜
+      course_term_placeholder: 날짜
       course_title: 프로그램 제목
       create_button: 내 프로그램을 만듭니다!
       create_label: 새로운 프로그램 만들기
-      create_new: 새로운 프로그램 만들기
+      create_new: 별도의 프로그램 만들기
       create_short: 프로그램 만들기
       find: 프로그램 찾기
+      new_or_clone: 지금 새로운 프로그램을 하나 만들거나, '복제' 옵션을 사용하여 참여했던 다른 프로그램을 복제합니다.
+      save_cloned_course: 저장
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가
@@ -252,6 +281,7 @@ ko:
     per_user: '%{number}/사용자'
     revisions: 최신 편집
     tags: 태그
+    view_data_unavailable: 이용 가능한 뷰 데이터 없음
     view: 보기
     word_count_average: 평균 단어 개수
   namespace:
@@ -283,6 +313,10 @@ ko:
     loading: 판을 불러오는 중...
     title: 제목
     view_on_wiki: 위키에서 차이 보기
+  suggestions:
+    suggestion_docs:
+      '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   timeline:

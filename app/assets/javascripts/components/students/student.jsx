@@ -5,8 +5,6 @@ import AssignCell from './assign_cell.jsx';
 
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
-import UIStore from '../../stores/ui_store.js';
-import UIActions from '../../actions/ui_actions.js';
 import { trunc } from '../../utils/strings';
 
 const Student = React.createClass({
@@ -18,29 +16,23 @@ const Student = React.createClass({
     current_user: React.PropTypes.object,
     editable: React.PropTypes.bool,
     assigned: React.PropTypes.array,
-    reviewing: React.PropTypes.array
-  },
-
-  mixins: [UIStore.mixin],
-
-  getInitialState() {
-    return { is_open: false };
-  },
-
-  storeDidChange() {
-    return this.setState({ is_open: UIStore.getOpenKey() === (`drawer_${this.props.student.id}`) });
+    reviewing: React.PropTypes.array,
+    isOpen: React.PropTypes.bool,
+    toggleDrawer: React.PropTypes.func
   },
 
   stop(e) {
     return e.stopPropagation();
   },
+
   openDrawer() {
     RevisionStore.clear();
     TrainingStatusStore.clear();
     ServerActions.fetchRevisions(this.props.student.id, this.props.course.id);
     ServerActions.fetchTrainingStatus(this.props.student.id, this.props.course.id);
-    return UIActions.open(`drawer_${this.props.student.id}`);
+    return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
   },
+
   buttonClick(e) {
     e.stopPropagation();
     return this.openDrawer();
@@ -55,7 +47,7 @@ const Student = React.createClass({
 
   render() {
     let className = 'students';
-    className += this.state.is_open ? ' open' : '';
+    className += this.props.isOpen ? ' open' : '';
 
     const userName = this._shouldShowRealName() ? (
       <span>
@@ -111,7 +103,9 @@ const Student = React.createClass({
           {reviewButton}
         </td>
         <td className="desktop-only-tc">{this.props.student.recent_revisions}</td>
-        <td className="desktop-only-tc">{this.props.student.character_sum_ms} | {this.props.student.character_sum_us}</td>
+        <td className="desktop-only-tc">
+          {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
+        </td>
         <td><button className="icon icon-arrow table-expandable-indicator" ></button></td>
       </tr>
     );

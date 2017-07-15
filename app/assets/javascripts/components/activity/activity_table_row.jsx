@@ -1,6 +1,4 @@
 import React from 'react';
-import UIStore from '../../stores/ui_store.js';
-import UIActions from '../../actions/ui_actions.js';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 
 const ActivityTableRow = React.createClass({
@@ -19,27 +17,19 @@ const ActivityTableRow = React.createClass({
     talkPageLink: React.PropTypes.string,
     author: React.PropTypes.string,
     title: React.PropTypes.string,
-    revision: React.PropTypes.object
-  },
-
-  mixins: [UIStore.mixin],
-
-  getInitialState() {
-    return { is_open: false };
-  },
-
-  storeDidChange() {
-    return this.setState({ is_open: UIStore.getOpenKey() === `drawer_${this.props.rowId}` });
+    revision: React.PropTypes.object,
+    isOpen: React.PropTypes.bool,
+    toggleDrawer: React.PropTypes.func
   },
 
   openDrawer() {
-    return UIActions.open(`drawer_${this.props.rowId}`);
+    return this.props.toggleDrawer(`drawer_${this.props.rowId}`);
   },
 
   render() {
     let revisionDateTime;
     let col2;
-    const className = this.state.is_open ? 'open' : 'closed';
+    const className = this.props.isOpen ? 'open' : 'closed';
 
     if (this.props.diffUrl) {
       revisionDateTime = (

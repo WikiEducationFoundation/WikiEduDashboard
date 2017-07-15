@@ -18,6 +18,7 @@
 # Author: Maxan
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Trigonometria87
 ---
 pt-br:
   accessibility:
@@ -413,7 +414,7 @@ pt-br:
       course_title: Título do programa
       create_button: Criar meu Programa!
       create_label: Criar Novo Programa
-      create_new: Criar Um Novo Programa
+      create_new: Criar um programa independente
       create_short: Criar Programa
       find: Encontrar um Programa
       intro: Exige-se o título do programa; todo o resto pode ser editado posteriormente.

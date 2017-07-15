@@ -50,6 +50,12 @@ class ClassroomProgramCourse < Course
     true
   end
 
+  # Allows us make automatic edits for a ClassroomProgramCourse if submitted
+  def wiki_course_page_enabled?
+    return true if submitted
+    false
+  end
+
   # Assignment posting is enabled for a ClassroomProgramCourse once it is live.
   def assignment_edits_enabled?
     campaigns.any?

@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import Expandable from '../high_order/expandable.jsx';
+import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import Confirm from '../common/confirm.jsx';
@@ -25,7 +25,8 @@ const AssignButton = React.createClass({
     permitted: React.PropTypes.bool,
     add_available: React.PropTypes.bool,
     assignments: React.PropTypes.array,
-    open: React.PropTypes.func.isRequired
+    open: React.PropTypes.func.isRequired,
+    tooltip_message: React.PropTypes.string
   },
 
   mixins: [ConfirmationStore.mixin],
@@ -173,7 +174,6 @@ const AssignButton = React.createClass({
     return ServerActions.deleteAssignment(assignment);
   },
 
-
   render() {
     let confirmationDialog;
     if (this.state.showConfirm) {
@@ -191,6 +191,8 @@ const AssignButton = React.createClass({
 
     let showButton;
     let editButton;
+    let tooltip;
+    let tooltipIndicator;
     if (this.props.assignments.length > 1 || (this.props.assignments.length > 0 && this.props.permitted)) {
       let buttonText;
       if (this.props.is_open) {
@@ -215,8 +217,23 @@ const AssignButton = React.createClass({
         reviewText = I18n.t('assignments.review_other');
       }
       const finalText = this.props.role === 0 ? assignText : reviewText;
+      if (this.props.tooltip_message && !this.props.is_open) {
+        tooltipIndicator = (
+          <span className="tooltip-indicator"></span>
+          );
+        tooltip = (
+          <div className="tooltip">
+            <p>
+              {this.props.tooltip_message}
+            </p>
+          </div>
+      );
+      }
       editButton = (
-        <button className={className} onClick={this.props.open}>{finalText}</button>
+        <div className="tooltip-trigger">
+          <button className={className} onClick={this.props.open}>{finalText} {tooltipIndicator}</button>
+          {tooltip}
+        </div>
       );
     }
 
@@ -248,11 +265,11 @@ const AssignButton = React.createClass({
     if (this.props.permitted) {
       let options;
       if (this.state.showOptions) {
-        const languageOptions = WikiLanguages.map(language => {
+        const languageOptions = JSON.parse(WikiLanguages).map(language => {
           return { label: language, value: language };
         });
 
-        const projectOptions = WikiProjects.map(project => {
+        const projectOptions = JSON.parse(WikiProjects).map(project => {
           return { label: project, value: project };
         });
 
@@ -322,4 +339,4 @@ const AssignButton = React.createClass({
 }
 );
 
-export default Expandable(AssignButton);
+export default PopoverExpandable(AssignButton);

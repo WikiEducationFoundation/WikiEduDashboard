@@ -8,6 +8,7 @@
 # Author: Fitoschido
 # Author: Fortega
 # Author: Irus
+# Author: Javiersanp
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
@@ -23,11 +24,14 @@ es:
   application:
     cancel: Cancelar
     dashboard: Panel de Wiki Ed
+    documentation: Documentación
     error: 'Hubo un error:'
     explore: Explorar
     field_required: Este campo es obligatorio
     field_invalid_characters: Este campo tiene caracteres no válidos
     field_invalid_date: Este campo requiere una fecha en formato AAAA-MM-DD
+    field_invalid_date_time: El fin tiene que ser después del inicio. (Las horas van
+      de 0 a 23.)
     greeting2: ¡Bienvenidos!
     greeting_extended: Bienvenido a Wikipedia
     greeting: ¡Hola!
@@ -38,6 +42,7 @@ es:
     log_out: Salir
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
+    report_problem: Informar sobre un problema
     search: preguntar
     sign_up_extended: Regístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
@@ -66,6 +71,10 @@ es:
     review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
     blog_headline: Noticias recientes de Wiki Ed
+    about_creating_programs: Si estás ejecutando un único evento independiente,  puedes
+      crear un Programa ahora. Si tu evento es parte  de algo más grande, encuentra
+      o crea la Campaña para él. Entonces puedes crear un Programa nuevo desde la
+      página de Campaña.
   home:
     explore: Explorar
     log_in: Iniciar sesión con Wikipedia
@@ -212,10 +221,13 @@ es:
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
     campaign_courses: Curso de «%{title}»
+    campaign_articles: Artículos de %{title}
+    campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
       no se ha eliminado.
+    course: Curso
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
       la fecha para cambiar entre los estados «no seleccionado», «seleccionado» y
@@ -223,6 +235,7 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
+    courses_taught: Cursos impartidos
     creation_date: Fecha de creación
     creator:
       already_exists: Este curso ya existe. Considera cambiar el nombre, la escuela
@@ -240,7 +253,7 @@ es:
         y «vacaciones». Si no tienes vacaciones, marca «No tengo vacaciones de clases».
         El cronograma copiado ajustará automáticamente las fechas para dar cuenta
         de las semanas que no tienen reuniones programadas.
-      clone_successful: Curso clonado cn éxito
+      clone_successful: Curso clonado con éxito
       clone_successful_details: Tu curso se ha clonado, incluyendo los elementos del
         cronograma (semanas y bloques). Asegúrate de añadir las fechas, ya que no
         se trasladadas. ¿Ha cambiado algo más acerca de tu curso? Siéntete libre de
@@ -272,9 +285,12 @@ es:
       subject: Asunto
     current: Cursos actuales
     delete_course: Eliminar curso
+    delete_course_instructions: Puedes eliminar esta página si todas las campañas
+      se quitan anteriormente.
     dismiss_survey: Descartar
     dismiss_survey_confirm: ¿Estás seguro de que quieres descartar permanentemente
       esta encuesta?
+    download_stats_data: Estadísticas de descargas
     duration: Duración del curso
     edit_course_dates: Editar las fechas del curso
     enable_chat: Activar el chat
@@ -282,6 +298,7 @@ es:
     ended: El curso ha terminado.
     enroll: Inscribirse
     enrollment: Inscripción
+    courses_enrolled: Cursos matriculados
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.
@@ -290,6 +307,8 @@ es:
       invalid_slug: Escuela/título vacío para el curso.
       duplicate_slug: Ya existe otro programa llamado %{slug}.
     expected_students: Estudiantes esperados
+    features_feedback: 'Más sugerencias:'
+    feedback: Comentarios
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
       one: Docente
@@ -333,6 +352,7 @@ es:
     revisions_doc: El número de ediciones en los últimos %{timeframe} días
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
+    school_and_term: Institución/Período
     start: Inicio
     start_typing: Empieza a escribir
     students: Estudiantes
@@ -346,6 +366,10 @@ es:
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
       pondrá en contacto ante cualquier pregunta.
+    suggestions_feedback: ¿Son útiles estas sugerencias? ¡Avisanos!
+    suggestions_sending: Enviando comentarios...
+    suggestions_sent: Comentarios enviados. Gracias por tu interes.
+    suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
     user_role: Oficio
     course_details: Detalles del curso
     term: Término
@@ -391,29 +415,40 @@ es:
     assignments_none: Este proyecto no tiene artículos asignados.
     assignment_start: Inicio del cronograma
     cancel: Cancelar
+    course: Programa
     courses: Programas
+    courses_taught: Programas impartidos
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       clone_previous: Clonar el programa previo
       clone_this: Clonar este programa
+      clone_successful: Programa clonado con éxito
+      clone_successful_details: Tu programa ha sido clonado. Asegurate de añadir algo
+        en el campo 'Cuando' (por ejemplo, el mes y año) para diferenciarlo del original.
+        Entonces pulsa 'Guardar' abajo para finalizarlo.
       course_description: Descripción del programa
       course_school: Institución
+      course_term: Cuándo
+      course_term_placeholder: Cuándo
       course_title: Título del programa
       create_button: ¡Crear mi programa!
       create_label: Crear programa nuevo
-      create_new: Crear un programa nuevo
+      create_new: Crear un programa independiente
       create_short: Crear programa
       find: Encuentra un programa
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
+      participate_in_campaign: Participa en una campaña
+      save_cloned_course: Guardar
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     explore: Encuentra programas
     enroll: Añadir editor
     enrollment: Participación
+    courses_enrolled: Programas participados
     expected_students: Editores esperados
     instructors: Facilitadores
     join_course: Unirse al programa
@@ -423,6 +458,7 @@ es:
       visitando el siguiente URL:'
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
+    school_and_term: Institución/Cuando
     student_editors: Editores
     students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
@@ -509,6 +545,10 @@ es:
     time_doc: El tiempo de cada revisión en tu hora local
     title: Título
     view_on_wiki: Ver diferencias en wiki
+  suggestions:
+    editing: Editar sugerencias
+    suggestion_docs:
+      does_not_exist: Este artículo no existe en Wikipedia
   tasks:
     conseq: La tarea %{task} ya se está ejecutando.
     constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily
@@ -596,7 +636,7 @@ es:
       que aumentaron el tamaño de la página. Este número no refleja necesariamente
       la cantidad de contenido nuevo agregado por el usuario. Restaurar el contenido
       eliminado también aumentará este total.
-    chars_added: Caracteres añadidos<br>(espacio principal | espacio de usuarios)
+    chars_added: Caracteres añadidos<br>(artículo | usuario | borrador)
     contributions: Contribuciones del usuario
     contributions_history_full: Ver el historial completo de contribuciones a Wikipedia
     contributions_more: Ver más contribuciones
@@ -691,7 +731,7 @@ es:
       one: Selecciona %{count} o más opciones.
       other: Selecciona %{count} o más opciones.
     read_less: Leer menos
-    read_more: Leer más
+    read_more: Más información
     review_selections: Revisa las opciones de abajo. Haz clic para modificar una selección.
       Cuando hayas terminado, haz clic en "Enviar" para finalizar el asistente y crear
       tu cronograma.
@@ -705,7 +745,7 @@ es:
     oauth_invalid: Tu sesión de Wikipedia ha caducado. Inicia sesión de nuevo.
     start_date_before_end_date: La fecha inicial debe ser anterior a la fecha final.
     unsupported_browser:
-      header: Navegador no soportado. :-(
+      header: No admitimos este navegador. :-(
       explanation: Está utilizando un navegador que no es compatible con el panel
         de control. Este sitio funciona bien en Internet Explorer versión 10 o posterior,
         en versiones recientes de Chrome y Firefox, y en otros navegadores modernos.

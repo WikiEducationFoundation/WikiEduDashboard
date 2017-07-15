@@ -11,6 +11,7 @@ de:
   application:
     cancel: Abbrechen
     dashboard: Wiki-Ed-Dashboard
+    documentation: Dokumentation
     error: 'Es gab einen Fehler:'
     explore: Entdecken
     field_required: Dieses Feld ist erforderlich
@@ -28,6 +29,7 @@ de:
     log_out: Abmelden
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
+    report_problem: Ein Problem melden
     search: eine Frage stellen
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
@@ -56,6 +58,14 @@ de:
     review_orientation: Einführung überprüfen
     start_orientation: Einführung beginnen
     blog_headline: Aktuelle Neuigkeiten von Wiki Ed
+    about_programs: Diese Website verfolgt Wikiaktivitäten durch Programme – einzelne
+      Ereignisse wie ein Editathon oder Schulkurse. Jedes Programm ist Teil einer
+      oder mehrerer Kampagnen, die zusammengefasste Statistiken über Programme zur
+      Verfügung stellen.
+    about_creating_programs: Falls du ein einzelnes unabhängiges Ereignis durchführst,
+      kannst du jetzt ein Programm erstellen. Falls dein Ereignis ein Teil von etwas
+      Größerem ist, finde oder erstelle die Kampagne für das Ereignis. Dann kannst
+      du ein neues Programm von der Kampagnenseite erstellen.
   home:
     explore: Entdecken
     log_in: Mit Wikipedia anmelden
@@ -73,6 +83,10 @@ de:
     assigned_to: Zuordnung zu
     character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
       Zeichen zwischen den Start- und Enddaten.
+    cross_wiki_tracking: Seiten im Hauptnamensraum, die zwischen dem Start- und dem
+      Enddatum bearbeitet wurden, werden unten aufgelistet. Die Verwaltungsseite bezieht
+      Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
+      die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
@@ -129,6 +143,8 @@ de:
     assign_other: Einen Artikel zuweisen
     add_available: Einen verfügbaren Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
+    assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
+      oder zu verbessern.
     confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
     confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
     confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
@@ -141,6 +157,8 @@ de:
     reviewers: Prüfer/in(nen)
     review_other: Eine Überprüfung zuweisen
     review_self: Einen Artikel überprüfen
+    review_tooltip: Dies ist zur Verfolgung, welche(n) Artikel du zur Begutachtung
+      planst oder zu dem/denen du Rückmeldungen geben möchtest.
     select: Auswählen
   blocks:
     milestones:
@@ -206,10 +224,13 @@ de:
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
     campaign_courses: '%{title} Kurse'
+    campaign_articles: '%{title} Artikel'
+    campaign_users: '%{title} Autoren'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
       Der Kurs wurde nicht gelöscht.
+    course: Kurs
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
       an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
@@ -227,6 +248,7 @@ de:
       assignment_start: Zuweisungsbeginn
       assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
       checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle einen zu klonenden Kurs aus.
       clone_previous: Vorherigen Kurs klonen
       clone_this: Diesen Kurs klonen
       cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
@@ -260,6 +282,14 @@ de:
         und können nicht geändert werden. Alles andere kannst du später bearbeiten.
         Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
         deine Wikipedia-Zuweisung anzufangen.
+      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen, indem du den Zuweisungsassistenten
+        verwendest. Falls du eine stark angepasste Zeitleiste von einem früheren Kurs
+        hast, die du weiternutzen möchtest, kannst du eine Kopie der Zeitleiste mit
+        neuen Daten klonen. Falls du deine Zeitleiste nicht kürzlich erheblich angepasst
+        hast, empfehlen wir dir, einen neuen Kurs zu starten, so dass du die aktuellsten
+        Versionen deiner Zuweisungsoptionen haben wirst. Du kannst auch die Klonen-Option
+        verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
+        aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
@@ -269,10 +299,34 @@ de:
         aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
         Dies kann typischerweise mehrere Stunden dauern.
     current: Aktuelle Kurse
+    data_articles: Artikeldaten
+    data_articles_info: Artikeldaten enthalten die Anzahl der Bearbeitungen an jeder
+      Seite, welche Seiten neu sind und Summen zu Seitenaufrufen. Diese Seitenaufrufwerte
+      können bei beendeten Kursen veraltet sein, so dass eine URL auf das Seitenaufrufwerkzeug
+      auf dem WMF-Tool-Labs-Server enthalten ist.
+    data_download_info: Daten im CSV-Format herunterladen.
+    data_overview: Übersichtsdaten
+    data_overview_info: Übersichtsdaten stellen kumulative Statistiken für das gesamte
+      Projekt zur Verfügung.
+    data_edits: Bearbeitungsdaten
+    data_edits_info: Bearbeitungsdaten zeigen Einzelheiten für jede Bearbeitung an,
+      die während des Projektes durchgeführt wurde.
+    data_students: Autorendaten
+    data_students_info: Autorendaten listen alle eingeschriebenen Autoren auf, wie
+      viel sie bearbeitet haben und ob sie ihre Benutzerkonten während des Projekts
+      registriert haben.
+    data_uploads: Daten zu hochgeladenen Commons-Dateien
+    data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
+      Verwendungszähler eines jeden Medienuploads.
     delete_course: Kurs löschen
+    delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
+      zuerst entfernt wurden.
     dismiss_survey: Ausblenden
     dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
       möchtest?
+    download_stats_data: Statistiken herunterladen
+    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
+      und weise dich selbst zu, um Vorschläge zu erhalten.
     duration: Kursdauer
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
@@ -290,6 +344,9 @@ de:
       duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
         ist.
     expected_students: Erwartete Studenten
+    features_feedback: 'Weitere Vorschläge:'
+    feedback: Rückmeldung
+    feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
     instructor:
       one: Leiter
@@ -329,6 +386,7 @@ de:
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
+    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
       Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
       die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
@@ -341,6 +399,7 @@ de:
     start: Start
     start_typing: Mit dem Tippen anfangen
     students: Studenten
+    students_taught: Unterrichtete Studenten
     students_count: Anzahl der Studenten
     student_editors: Studentenautoren
     students_none: Dieser Kurs hat keine Studenten.
@@ -351,8 +410,18 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    suggestions_feedback: Hast du Vorschläge zur Verbesserung dieser Funktion? Lass
+      es uns wissen!
+    suggestions_sending: Die Rückmeldung wird gesendet …
+    suggestions_sent: Die Rückmeldung wurde gesendet. Vielen Dank für deine Eingabe.
+    suggestions_failed: Die Rückmeldung konnte nicht gesendet werden. Versuche es
+      später erneut.
     user_role: Rolle
     course_details: Kursdetails
+    course_submitted: Der Eingereicht-Status wird für Bildungsprogrammkurse verwendet,
+      bei denen ein Kursplan bestätigt werden muss, bevor das Projekt startet. Er
+      ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
+    submitted: Eingereicht
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_link: Zeitleiste
@@ -397,25 +466,41 @@ de:
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
     assignment_start: Zeitleisten-Beginn
     cancel: Abbrechen
+    course: Programm
     courses: Programme
     courses_taught: Unterrichtete Programme
     campaigns: 'Kampagnen:'
     campaign_courses: '%{title} Programme'
     creator:
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen
       clone_this: Dieses Programm klonen
+      clone_successful: Programm erfolgreich geklont
+      clone_successful_details: Dein Programm wurde geklont. Stelle sicher, dass du
+        etwas in das „Wann“-Feld schreibst (zum Beispiel das Monat und das Jahr),
+        um es vom Original zu unterscheiden. Klicke dann zum Abschluss unten auf „Speichern“.
       course_description: Programmbeschreibung
       course_school: Einrichtung
+      course_term: Wann
+      course_term_placeholder: Wann
       course_title: Programmtitel
       create_button: Mein Programm erstellen!
       create_label: Neues Programm erstellen
-      create_new: Ein neues Programm erstellen
+      create_new: Ein unabhängiges Programm erstellen
       create_short: Programm erstellen
       find: Finde ein Programm
-      intro: Der Programmtitel ist erforderlich. Alles andere kannst du später ausfüllen.
-        Klicke auf „Mein Programm erstellen!“, um mit dem Erstellen der Seite für
-        dein Wikiprogramm anzufangen.
+      intro: Der Programmtitel und die Einrichtung bilden die URL des Programms. Das
+        Heimatwiki ist das Hauptwiki, an dem die Teilnehmer arbeiten werden und Bearbeitungen
+        an diesem Wiki werden standardmäßig verfolgt. Falls dein Programm mehrere
+        Sprachen oder Projekte umfasst, werden Beiträge auch für jedes Wiki verfolgt,
+        das „Verfügbare Artikel“ oder „Zuweisungen“ für dieses Wiki hat. Klicke auf
+        „Mein Programm erstellen!“, um mit der Erstellung der Seite für dein Wikiprogramm
+        zu beginnen.
+      new_or_clone: Erstelle jetzt ein neues Programm oder verwende die Option „Klonen“,
+        um ein anderes Programm zu kopieren, an dem du teilgenommen hast.
+      participate_in_campaign: An einer Kampagne teilnehmen
+      save_cloned_course: Speichern
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
     explore: Programme finden
@@ -436,6 +521,7 @@ de:
     school_and_term: Einrichtung/Wann
     student_editors: Autoren
     students: Autoren
+    students_taught: Anzahl der Autoren
     students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
     students_short: Autoren
     students_count: Anzahl der Teilnehmer
@@ -454,6 +540,9 @@ de:
     save: Speichern
     edit_description: Beschreibung bearbeiten
     edit_details: Einzelheiten bearbeiten
+    rename_confirmation: Die Kursfelder, die die URL bilden, wurden geändert. Dieser
+      Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
+      tun möchtest?
   metrics:
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
@@ -476,6 +565,7 @@ de:
       one: Gesamte Verwendung auf allen Sprachen
       other: Gesamte Verwendungen auf allen Sprachen
     view_count_description: Artikelaufrufe
+    view_data_unavailable: Keine Aufrufdaten verfügbar
     view: Aufrufe
     word_count: Hinzugefügte Wörter
     word_count_average: Durchschnittliche Wortanzahl
@@ -521,6 +611,48 @@ de:
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
+  suggestions:
+    editing: Vorschläge bearbeiten
+    suggestion_docs:
+      fa: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden. Weitere Verbesserungen an der Prosaqualität
+        sind oft möglich.
+      a: Es könnte Expertenwissen nötig sein, um den Artikel zu optimieren und Gestaltungsprobleme
+        könnten eine Lösung benötigen. Eine Begutachtung könnte helfen.
+      ga: Einige Bearbeitungen nach Thema und Gestaltungsexperten sind hilfreich.
+        Ein Vergleich mit einem vorhandenen lesenswerten Artikel zu einem ähnlichen
+        Thema kann Bereiche hervorheben, in denen Inhalte schwach sind oder fehlen.
+      bplus: Könnte durch Beiträge von Experten verbessert werden, um zu bewerten,
+        wo noch Informationen fehlen und auch durch Illustrationen, historische Hintergründe
+        und weitere Literatur. Ziehe eine Begutachtung in Erwägung oder nominiere
+        ihn für einen guten Artikel. Falls der Artikel nicht bereits vollständig wikifiziert
+        wurde, ist jetzt die Gelegenheit.
+      b: Einige Aspekte des Inhalts und der Gestaltung müssen genannt werden. Expertenwissen
+        könnte erforderlich sein. Die Einbindung unterstützender Materialien sollte,
+        falls praktikabel, in Erwägung gezogen und der Artikel auf allgemeine Einhaltung
+        des Gestaltungshandbuchs und ähnlicher Gestaltungsrichtlinien überprüft werden.
+      c: Es sind erhebliche Bearbeitungen nötig, um Lücken im Inhalt zu schließen
+        und Bereinigungsprobleme zu lösen.
+      start: Die Angabe von Einzelnachweisen auf verlässliche Quellen sollte zuerst
+        erfolgen. Der Artikel benötigt auch eine bedeutende Inhaltsverbesserung und
+        Organisation. Verbessere auch die Grammatik, Rechtschreibung, den Schreibstil
+        und die Verwendung von Jargon.
+      stub: Jede Bearbeitung oder zusätzliche Materialien können hilfreich sein. Die
+        Bereitstellung bedeutungsvoller Inhalte sollte Priorität haben. Die beste
+        Lösung zur Heraufstufung eines kurzen Artikels auf einen Artikel mit Startniveau
+        ist die Einfügung belegter Gründe, warum das Thema bedeutend ist.
+      fl: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden.
+      list: Listen sollten Listen mit Livelinks auf Wikipedia-Artikel sein, passend
+        benannt und organisiert.
+      future: Das hinzugefügte Material könnte Spekulation sein und sollte sorgfältig
+        mit Quellen belegt sein.
+      disambig: Zusätze sollten als neue Artikel unter dem gleichen Namen erstellt
+        werden. Beachte aufmerksam die passende Benennung solcher Seiten, da sie oft
+        nicht den Titelzusatz „(Begriffsklärung)“ benötigen.
+      '?': Keine Vorschläge verfügbar. Entweder ist der Artikel nicht bewertet oder
+        Vorschläge sind für die Bewertung nicht verfügbar.
+      does_not_exist: Dieser Artikel ist in Wikipedia nicht vorhanden
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe
@@ -609,7 +741,7 @@ de:
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
       nicht unbedingt die Menge des hinzugefügten Inhalts widerspiegeln. Das Wiederherstellen
       entfernten Inhalts erhöht ebenfalls diese Summe.
-    chars_added: Hinzugefügte Zeichen<br>(Hauptnamensraum | Benutzernamensraum)
+    chars_added: Hinzugefügte Zeichen<br>(Artikel | Benutzer | Entwurf)
     contributions: Benutzerbeiträge
     contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
     contributions_more: Weitere Beiträge ansehen

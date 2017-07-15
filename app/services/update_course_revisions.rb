@@ -17,7 +17,6 @@ class UpdateCourseRevisions
   end
 
   def update_caches
-    Article.update_all_caches(@course.articles)
     ArticlesCourses.update_all_caches(@course.articles_courses)
     CoursesUsers.update_all_caches(@course.courses_users)
     @course.update_cache

@@ -29,7 +29,7 @@
     %tbody.list
       - if @pres.strictly_current.empty?
         %tr
-          %td.empty{:colspan => "5"}= t("courses.nocourses")
+          %td{:colspan => "5"}= t("courses.nocourses")
       - else
         - @pres.strictly_current.each do |c|
           = render 'admin_course_row', course: c, user: true

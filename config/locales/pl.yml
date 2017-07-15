@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: Chrumps
 # Author: Halibutt
+# Author: InternerowyGołąb
+# Author: Mazab IZW
 # Author: The Polish
 # Author: Woytecr
 ---
@@ -13,6 +15,7 @@ pl:
   application:
     cancel: Anuluj
     dashboard: Centrum programów i wydarzeń
+    documentation: Dokumentacja
     error: 'Wystąpił błąd:'
     explore: Odkryj
     field_required: Wypełnienie tego pola jest obowiązkowe
@@ -30,6 +33,7 @@ pl:
     log_out: Wyloguj
     my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
+    report_problem: Zgłoś problem
     search: zadaj pytanie
     sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
@@ -48,16 +52,24 @@ pl:
     explore_course_pages: Odkryj strony kursów
     explore_examples: Odkryj przykłady
     join_note: Gdy już otrzymasz hasło od prowadzącego, kliknij w przycisk Znajdź
-      mój kurs by się do niego dopisać.
+      program by się do niego dopisać.
     no_courses_instructor: Wygląda na to, że nie jesteś zapisany/a na żaden kurs.
-    no_courses_student: Wygląda na to, że nie {{GENDER:$1|zapisałeś|zapisałaś}} się
-      jeszcze na żaden kurs.
+    no_courses_student: Wygląda na to, że nie zapisałeś/zapisałaś się jeszcze na żaden
+      kurs.
     opt_out: Poproś o wypisanie z listy
     orientation_notice: Zanim stworzysz kurs, poświęć około pół godziny na przejście
       szkolenia.
     review_orientation: Wróć do szkolenia
     start_orientation: Zacznij szkolenie
     blog_headline: Najświeższe wiadomości od Wiki Ed
+    about_programs: Niniejsza strona śledzi postępy grup użytkowników w ramach Programów,
+      czyli wydarzeń takich, jak maratony edycyjne czy projekty szkolne i akademickie.
+      Każdy program można przypisać do jednej lub więcej kampanii, dzięki czemu można
+      podsumować wspólny efekt wielu programów.
+    about_creating_programs: Jeśli nadzorujesz pojedyncze, niepowiązane z innymi wydarzenie,
+      stwórz nowy Program. Jeśli jednak Twój projekt jest częścią czegoś większego,
+      znajdź lub utwórz dla niego Kampanię. W jej ramach możesz utworzyć strony dla
+      wielu powiązanych Programów.
   home:
     explore: Odkrywaj
     log_in: Zaloguj się za pomocą Wikipedii
@@ -204,10 +216,13 @@ pl:
       uczestników w trakcie trwania kursu
     campaigns: 'Kampanie:'
     campaign_courses: '%{title} kursy'
+    campaign_articles: '%{title} Artykułów'
+    campaign_users: '%{title} Edytorów'
     confirm_course_deletion: Czy na pewno chcesz usunąć kurs „%{title}”? Jeśli tak,
       wpisz tytuł kursu, aby kontynuować.
     confirm_course_deletion_failed: „%{title}” to nie jest nazwa kursu. Kurs pozostał
       nieusunięty.
+    course: Kurs
     course_dates_calendar_instructions: Wybierz daty do dodania lub usunięcia z harmonogramu
       (dni wolne, wakacje itd). Kliknij w datę by zmienić jej stan (wybrana, niewybrana,
       dzień wolny). Daty na które zaplanowano aktywności zmienią się by uwzględnić
@@ -244,7 +259,7 @@ pl:
       course_term: Semestr/trymestr
       course_term_placeholder: Semestr/trymestr
       course_title: Nazwa kursu
-      create_button: Stwórz mój kurs
+      create_button: Stwórz mój program
       create_label: Stwórz nowy kurs
       create_new: Stwórz nowy kurs
       create_short: Stwórz kurs
@@ -266,8 +281,11 @@ pl:
         to kilka godzin.
     current: Aktualne kursy
     delete_course: Usuń kurs
+    delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
+      ze wszystkich kampanii.
     dismiss_survey: Odrzuć
     dismiss_survey_confirm: Czy na pewno chcesz trwale usunąć tę ankietę?
+    download_stats_data: Pobierz statystyki
     duration: Długość kursu
     edit_course_dates: Zmień terminy kursu
     enable_chat: Włącz chat
@@ -284,14 +302,17 @@ pl:
       invalid_slug: Niewypełnione pole nazwy instytucji/tytułu.
       duplicate_slug: Inny program o nazwie %{slug} już istnieje.
     expected_students: Oczekiwana liczba uczestników
+    features_feedback: 'Więcej propozycji :'
+    feedback: Informacje zwrotne
+    feedback_loading: Proszę czekać, sugestię są ładowane...
     gradeables_none: Kurs nie posiada punktowanych zadań/prac.
     instructor:
       one: Instruktor
       other: Instruktorzy
     instructors: Prowadzący
-    invitation: '{{GENDER:|Zostałeś zaproszony|Zostałaś zaproszona}} do uczestnictwa
-      w kursie "%{title}". By się do niego dopisać zaloguj się swoim kontem Wikipedii.
-      Jeśli jeszcze go nie masz - możesz je teraz założyć.'
+    invitation: Zostałeś zaproszony do uczestnictwa w kursie "%{title}". By się do
+      niego dopisać zaloguj się swoim kontem Wikipedii. Jeśli jeszcze go nie masz
+      - możesz je teraz założyć.
     join: Dołącz
     join_course: Dołącz do kursu
     join_prompt: Czy chcesz dołączyć do kursu „%{title}”?
@@ -301,7 +322,7 @@ pl:
       cannot_join_twice: Nie można dołączyć dwa razy do tego samego kursu.
       not_yet_approved: Kurs nie został jeszcze zaaprobowany.
     join_details: By zapisać się na ten kurs musisz mieć hasło lub zawierający je
-      link. Jeśli jeszcze ich nie {{GENDER:|dostałeś|dostałaś}}, poproś prowadzącego.
+      link. Jeśli jeszcze ich nie masz, poproś prowadzącego.
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
@@ -323,10 +344,9 @@ pl:
     published: 'Twój kurs został opublikowany. Uczestnicy mogą się na niego zapisywać
       pod następującym adresem URL:'
     review_timeline: Skontroluj harmonogram i wprowadź poprawki. Gdy już będziesz
-      {{GENDER:|zadowolony|zadowolona}}, zgłoś go do akceptacji przez pracowników
-      Wiki Edu. Gdy już to się stanie, otrzymasz link URL pod którym uczestnicy będą
-      mogli się zapisywać. Poprawki będziesz {{GENDER:|mógł|mogła}} wprowadzać także
-      i później.
+      zadowolona, zgłoś go do akceptacji przez opiekunów projektu. Gdy już to się
+      stanie, otrzymasz link URL pod którym uczestnicy będą mogli się zapisywać. Poprawki
+      będziesz mogła wprowadzać także i później.
     revisions_doc: Ilość edycji w ostatnich %{timeframe} dniach
     revisions_none: W tym kursie nie było ostatnio aktywności.
     school: Szkoła
@@ -344,6 +364,7 @@ pl:
     submitted_heading: Zgłoszone kursy
     submitted_note: Twój kurs został zgłoszony. Rzucimy na niego okiem i zgłosimy
       się z ewentualnymi pytaniami.
+    suggestions_feedback: Czy te sugestie są pomocne?
     user_role: Rola
     course_details: Szczegóły kursu
     term: Semestr
@@ -387,6 +408,7 @@ pl:
     assignments_none: Ten projekt nie ma przypisanych artykułów.
     assignment_start: Początek harmonogramu
     cancel: Anuluj
+    course: Program
     courses: Programy
     courses_taught: Prowadzi programy
     campaigns: 'Kampanie:'
@@ -395,16 +417,25 @@ pl:
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
+      clone_successful: Program został sklonowany
+      clone_successful_details: Twój program został sklonowany. Koniecznie dodaj jakiś
+        wyróżnik do pola 'Kiedy' (na przykład miesiąc i rok wydarzenia, albo zakres
+        lat) by odróżnić go od oryginału. Następnie kliknij w 'Zapisz' by zakończyć
+        zmiany.
       course_description: Opis programu
       course_school: Instytucja
+      course_term: Kiedy
+      course_term_placeholder: Kiedy
       course_title: Tytuł programu
       create_button: Stwórz mój program!
       create_label: Stwórz nowy program
-      create_new: Stwórz nowy program
+      create_new: Stwórz niezależny program
       create_short: Utwórz program
       find: Znajdź program
       intro: Wymagany tytuł programu, pozostałe dane można uzupełnić później. Kliknij
         w "Stwórz mój program!" by rozpocząć budowanie strony wiki swojego programu.
+      participate_in_campaign: Dołącz do kampanii
+      save_cloned_course: Zapisz
     delete_course: Skasuj program
     edit_course_dates: Edytuj daty projektu
     explore: Znajdź programy
@@ -442,6 +473,9 @@ pl:
     save: Zapisz
     edit_description: Edytuj opis
     edit_details: Edytuj szczegóły
+    rename_confirmation: Pola opisu tworzące adres URL zostały zmienione. To zmieni
+      również sam adres URL niniejszej strony, co może mieć wpływ na już rozesłane
+      linki. Czy na pewno chcesz kontynuować?
   metrics:
     activity: Ostatnia aktywność
     are_trained: uczestników ukończyło wymagane etapy szkolenia
@@ -465,6 +499,7 @@ pl:
       few: wykorzystane we wszystkich wersjach językowych
       many: wykorzystanych we wszystkich wersjach językowych
     view_count_description: Statystyka oglądalności stron
+    view_data_unavailable: Nie są dostępne dane wizualne
     view: Odsłony
     word_count: Dodane słowa
     word_count_average: Średnio słów
@@ -509,6 +544,15 @@ pl:
     time_doc: Czas każdej zmiany w Twoim czasie lokalnym
     title: Tytuł
     view_on_wiki: Zobacz porównanie wersji na wiki
+  suggestions:
+    editing: Sugestie edycyjne
+    suggestion_docs:
+      list: Listy powinny być listami działających linków do artykułów w Wikipedii,
+        odpowiednio nazwanych i zorganizowanych.
+      future: Dodany materiał może być spekulacją i powinien być ostrożnie uźródłowiony
+      '?': Sugestie nie są dostępne - Ten artykuł nie jest oceniony lub sugestie nie
+        są dostępne dla oceny.
+      does_not_exist: Tego artykułu nie ma w Wikipedii
   tasks:
     conseq: Zadanie %{task} już trwa!
     constant: Zadania %{task} nie można uruchomić póki nie skończy się update_daily.
@@ -568,8 +612,8 @@ pl:
     continue: Kontynuuj (ukończono %{progress})
     start: Start
     view: Zobacz
-    logged_out: Nie jesteś {{GENDER:$1|zalogowany|zalogowana}}. Nie otrzymasz punktów
-      za ukończenie tego modułu, chyba że się zalogujesz.
+    logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
+      chyba że się zalogujesz.
   uploads:
     datetime: Data/Czas
     file_name: Nazwa pliku
@@ -592,7 +636,7 @@ pl:
       znaków dodanych do artykułu jeśli edycja powiększyła jego objętość. Liczba niekoniecznie
       odzwierciedla ilość nowej treści dodanej przez użytkownika. Przywracanie wcześniej
       usuniętej treści też zwiększy wynik.
-    chars_added: Znaki dodane<br>(artykuły | strony użytkownika)
+    chars_added: Znaki dodane<br>(artykuły | strony użytkownika | brudnopisy)
     contributions: Wkład użytkownika
     contributions_history_full: Zobacz całą historię wkładu w Wikipedię
     contributions_more: Zobacz więcej wkładu
@@ -661,7 +705,7 @@ pl:
       confirm: Za pomocą tej opcji można wysłać powiadomienie wszystkim uczestnikom,
         którzy nie ukończyli na czas wymaganych modułów szkoleniowych. Czy chcesz
         wykonać tę operację?
-      header: Nie {{GENDER:|ukończyłeś|ukończyłaś}} na czas wymaganego zadania.
+      header: Nie ukończyłaś na czas wymaganego zadania.
       message: Ukończ proszę zadane [%{link} moduły szkoleniowe].
       summary: zaległe szkolenie
   wizard:
@@ -694,8 +738,7 @@ pl:
     invalid_date: Data %{key} jest niepoprawna
     invalid_file_format: Pliku nie udało się zapisać. Wgraj proszę plik .pdf lub dokument
       Worda.
-    oauth_invalid: '{{GENDER:|Zostałeś wylogowany|Zostałaś wylogowana}} z Wikipedii.
-      Zaloguj się ponownie.'
+    oauth_invalid: Wylogowano Cię z Wikipedii. Zaloguj się ponownie.
     start_date_before_end_date: Data rozpoczęcia musi być wcześniejsza niż data zakończenia
     unsupported_browser:
       header: Twoja przeglądarka nie jest wspierana :(

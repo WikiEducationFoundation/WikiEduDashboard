@@ -1,7 +1,7 @@
 import shallowCompare from 'react-addons-shallow-compare';
 import ValidationStore from '../stores/validation_store.js';
 import ValidationActions from '../actions/validation_actions.js';
-import UUID from 'node-uuid';
+import uuid from 'uuid';
 
 
 // This needs to be implemented as a mixin for state reasons.
@@ -54,7 +54,7 @@ const InputMixin = {
   componentWillReceiveProps(props) {
     return this.setState({
       value: props.value,
-      id: props.id || this.state.id || UUID.v4() // create a UUID if no id prop
+      id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
     }
     , function () {
       const valid = ValidationStore.getValidation(this.props.value_key);

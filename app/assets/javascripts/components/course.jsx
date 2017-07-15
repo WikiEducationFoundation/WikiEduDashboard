@@ -29,7 +29,8 @@ const Course = React.createClass({
   propTypes: {
     params: React.PropTypes.object,
     location: React.PropTypes.object,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    current_user: React.PropTypes.object
   },
 
   mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
@@ -201,7 +202,9 @@ const Course = React.createClass({
     // Enrollment modal /
     // //////////////////
     let enrollCard;
-    if (this.props.location.query.enroll || this.props.location.query.enrolled) {
+    // Show the enroll card if either the `enroll` or `enrolled` param is present.
+    // The enroll param may be blank if the course has no passcode.
+    if (this.props.location.query.enroll !== undefined || this.props.location.query.enrolled) {
       enrollCard = (
         <EnrollCard
           user={this.state.current_user}
@@ -219,7 +222,10 @@ const Course = React.createClass({
       <div>
         <div className="course-nav__wrapper">
           <Affix className="course_navigation" offset={57}>
-            <CourseNavbar {...this.props} {...this.state}
+            <CourseNavbar
+              course={this.state.course}
+              location={this.props.location}
+              currentUser={this.state.current_user}
               courseLink={this._courseLinkParams()}
             />
             <Notifications />

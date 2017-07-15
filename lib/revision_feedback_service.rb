@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 class RevisionFeedbackService
-  def initialize(revision)
-    @revision = revision
+  # Imports the features from the revisions if revisions is nil otherwise uses the features passed
+  def initialize(features)
+    @features = features
   end
 
   def feedback
     @feedback = []
-    return @feedback if @revision.features.blank?
+    return @feedback if @features.blank?
     citation_feedback
     structure_feedback
     wikilinks_feedback
@@ -16,8 +17,8 @@ class RevisionFeedbackService
 
   MINIMUM_REFERENCES = 1
   def citation_feedback
-    ref_tags = @revision.features['feature.wikitext.revision.ref_tags']
-    cite_templates = @revision.features['feature.enwiki.revision.cite_templates']
+    ref_tags = @features['feature.wikitext.revision.ref_tags']
+    cite_templates = @features['feature.enwiki.revision.cite_templates']
     if ref_tags < MINIMUM_REFERENCES
       @feedback << 'Cite your sources! This article needs more references.'
     end
@@ -26,9 +27,9 @@ class RevisionFeedbackService
   # The largest reasonable average section size, calculated from content characters
   MAXIMUM_AVERAGE_SECTION_SIZE = 8000
   def structure_feedback
-    content_characters = @revision.features['feature.wikitext.revision.content_chars']
-    h2_headers = @revision.features['feature.wikitext.revision.headings_by_level(2)']
-    h3_headers = @revision.features['feature.wikitext.revision.headings_by_level(3)']
+    content_characters = @features['feature.wikitext.revision.content_chars']
+    h2_headers = @features['feature.wikitext.revision.headings_by_level(2)']
+    h3_headers = @features['feature.wikitext.revision.headings_by_level(3)']
 
     # Articles have a lead section even without a section header
     average_section_size = content_characters / (h2_headers + h3_headers + 1)

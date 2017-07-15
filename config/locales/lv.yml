@@ -116,6 +116,7 @@ lv:
     students_none: Šim kursam nav studentu.
     students_short: Studenti
     submitted_heading: Iesniegti kursi
+    suggestions_sending: Sūta atsauksmi...
     user_role: Loma
     course_details: Kursa informācija
     term: Semestris
@@ -132,7 +133,10 @@ lv:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu
       course_school: Iestāde
+      course_term: Kad
+      course_term_placeholder: Kad
       course_title: Programmas nosaukums
+      save_cloned_course: Saglabāt
     delete_course: Dzēst programmu
     expected_students: Plānotie dalībnieki
     join_course: Pievienoties programmai

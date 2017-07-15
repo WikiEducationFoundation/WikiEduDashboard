@@ -47,7 +47,11 @@
 
 class BasicCourse < Course
   def wiki_edits_enabled?
-    false
+    true
+  end
+
+  def wiki_course_page_enabled?
+    true
   end
 
   def wiki_title
@@ -64,5 +68,9 @@ class BasicCourse < Course
 
   def multiple_roles_allowed?
     true
+  end
+
+  def passcode_required?
+    false
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AnalyticsController do
@@ -48,6 +49,46 @@ describe AnalyticsController do
       allow(controller).to receive(:current_user).and_return(user)
       get 'ungreeted', params: { format: 'csv' }
       expect(response.body).to have_content(user.username)
+    end
+  end
+
+  describe '#course_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_csv', params: { course: course.slug }
+      expect(response.body).to have_content(course.slug)
+    end
+  end
+
+  describe '#course_edits_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_edits_csv', params: { course: course.slug }
+      expect(response.body).to have_content('revision_id')
+    end
+  end
+
+  describe '#course_uploads_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_uploads_csv', params: { course: course.slug }
+      expect(response.body).to have_content('filename')
+    end
+  end
+
+  describe '#course_students_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_students_csv', params: { course: course.slug }
+      expect(response.body).to have_content('username')
+    end
+  end
+
+  describe '#course_articles_csv' do
+    let(:course) { create(:course, slug: 'foo/bar_(baz)') }
+    it 'returns a CSV' do
+      get 'course_articles_csv', params: { course: course.slug }
+      expect(response.body).to have_content('pageviews_link')
     end
   end
 end

@@ -51,6 +51,10 @@ class LegacyCourse < Course
     false
   end
 
+  def wiki_course_page_enabled?
+    false
+  end
+
   def wiki_title
     prefix = 'Education_Program:'
     escaped_slug = slug.tr(' ', '_')
@@ -67,5 +71,9 @@ class LegacyCourse < Course
 
   def multiple_roles_allowed?
     true
+  end
+
+  def passcode_required?
+    false
   end
 end

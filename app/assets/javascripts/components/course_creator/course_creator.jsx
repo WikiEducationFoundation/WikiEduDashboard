@@ -10,6 +10,7 @@ import ValidationActions from '../../actions/validation_actions.js';
 import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
+import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -40,8 +41,8 @@ const CourseCreator = React.createClass({
     const inits = {
       tempCourseId: '',
       isSubmitting: false,
-      shouldShowForm: false,
-      showCourseDropdown: false,
+      showCourseForm: false,
+      showCloneChooser: false,
       default_course_type: getDefaultCourseType(),
       course_string_prefix: getCourseStringPrefix(),
       use_start_and_end_times: getUseStartAndEndTimes()
@@ -54,13 +55,20 @@ const CourseCreator = React.createClass({
     CourseActions.addCourse();
 
     // If a campaign slug is provided, fetch the campaign.
-    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
-    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
-    if (campaignParam && campaignParam[1]) {
-      CourseCreationActions.fetchCampaign(campaignParam[1]);
+    const campaignParam = this.campaignParam();
+    if (campaignParam) {
+      CourseCreationActions.fetchCampaign(campaignParam);
     }
 
     return ServerActions.fetchCoursesForUser(getUserId());
+  },
+
+  campaignParam() {
+    // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
+    const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
+    if (campaignParam) {
+      return campaignParam[1];
+    }
   },
 
   storeDidChange() {
@@ -102,9 +110,13 @@ const CourseCreator = React.createClass({
         }
       } else if (!this.state.justSubmitted) {
         this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.state.course) });
-        ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }));
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
+        // If the save callback fails, which will happen if an invalid wiki is submitted,
+        // then we must reset justSubmitted so that the user can fix the problem
+        // and submit again.
+        const onSaveFailure = () => this.setState({ justSubmitted: false });
+        ServerActions.saveCourse($.extend(true, {}, { course: this.state.course }), null, onSaveFailure);
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
@@ -144,16 +156,16 @@ const CourseCreator = React.createClass({
     return true;
   },
 
-  showForm() {
-    return this.setState({ shouldShowForm: true });
+  showCourseForm() {
+    return this.setState({ showCourseForm: true });
   },
 
-  showCourseDropdown() {
-    return this.setState({ showCourseDropdown: true });
+  showCloneChooser() {
+    return this.setState({ showCloneChooser: true });
   },
 
   cancelClone() {
-    return this.setState({ showCourseDropdown: false });
+    return this.setState({ showCloneChooser: false });
   },
 
   useThisClass() {
@@ -164,18 +176,45 @@ const CourseCreator = React.createClass({
   },
 
   render() {
+    // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
+    let showCourseForm;
+    let showCloneChooser;
+    let showNewOrClone;
+    // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
+    if (this.state.user_courses.length === 0) {
+      showCourseForm = true;
+    // If the creator was launched from a campaign, do not offer the cloning option.
+    } else if (this.campaignParam()) {
+      showCourseForm = true;
+    } else if (this.state.showCourseForm) {
+      showCourseForm = true;
+    } else if (this.state.showCloneChooser) {
+      showCloneChooser = true;
+    } else {
+      showNewOrClone = true;
+    }
+
+    let instructions;
+    if (showNewOrClone) {
+      instructions = CourseUtils.i18n('creator.new_or_clone', this.state.course_string_prefix);
+    } else if (showCloneChooser) {
+      instructions = CourseUtils.i18n('creator.choose_clone', this.state.course_string_prefix);
+    } else if (showCourseForm) {
+      instructions = CourseUtils.i18n('creator.intro', this.state.course_string_prefix);
+    }
+
     let formStyle;
     if (this.state.isSubmitting === true) {
       formStyle = { pointerEvents: 'none', opacity: 0.5 };
     }
 
-    let formClass = 'wizard__form';
+    let courseFormClass = 'wizard__form';
 
-    formClass += ((this.state.shouldShowForm === true || this.state.user_courses.length === 0) ? '' : ' hidden');
+    courseFormClass += showCourseForm ? '' : ' hidden';
 
-    const cloneOptions = formClass.match(/hidden/) && !this.state.showCourseDropdown ? '' : ' hidden';
-    const controlClass = `wizard__panel__controls ${formClass}`;
-    const selectClass = this.state.showCourseDropdown === true ? '' : ' hidden';
+    const cloneOptions = showNewOrClone ? '' : ' hidden';
+    const controlClass = `wizard__panel__controls ${courseFormClass}`;
+    const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
@@ -277,97 +316,100 @@ const CourseCreator = React.createClass({
         transitionLeaveTimeout={500}
       >
         <Modal key="modal">
-          <div className="wizard__panel active" style={formStyle}>
-            <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
-            <p>{CourseUtils.i18n('creator.intro', this.state.course_string_prefix)}</p>
-            <div className={cloneOptions}>
-              <button className="button dark" onClick={this.showForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
-              <button className="button dark" onClick={this.showCourseDropdown}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
-            </div>
-            <div className={selectClassName}>
-              <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
-              <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
-              <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
-            </div>
-            <div className={formClass}>
-              <div className="column">
+          <Notifications />
+          <div className="container">
+            <div className="wizard__panel active" style={formStyle}>
+              <h3>{CourseUtils.i18n('creator.create_new', this.state.course_string_prefix)}</h3>
+              <p>{instructions}</p>
+              <div className={cloneOptions}>
+                <button className="button dark" onClick={this.showCourseForm}>{CourseUtils.i18n('creator.create_label', this.state.course_string_prefix)}</button>
+                <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
+              </div>
+              <div className={selectClassName}>
+                <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
+                <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
+                <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
+              </div>
+              <div className={courseFormClass}>
+                <div className="column">
 
-                {campaign}
-                <TextInput
-                  id="course_title"
-                  onChange={this.updateCourse}
-                  value={this.state.course.title}
-                  value_key="title"
-                  required
-                  validation={CourseUtils.courseSlugRegex()}
-                  editable
-                  label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
-                  placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
-                />
-                <TextInput
-                  id="course_school"
-                  onChange={this.updateCourse}
-                  value={this.state.course.school}
-                  value_key="school"
-                  required
-                  validation={CourseUtils.courseSlugRegex()}
-                  editable
-                  label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
-                  placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
-                />
-                {term}
-                {subject}
-                {expectedStudents}
-                {language}
-                {project}
+                  {campaign}
+                  <TextInput
+                    id="course_title"
+                    onChange={this.updateCourse}
+                    value={this.state.course.title}
+                    value_key="title"
+                    required
+                    validation={CourseUtils.courseSlugRegex()}
+                    editable
+                    label={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
+                    placeholder={CourseUtils.i18n('creator.course_title', this.state.course_string_prefix)}
+                  />
+                  <TextInput
+                    id="course_school"
+                    onChange={this.updateCourse}
+                    value={this.state.course.school}
+                    value_key="school"
+                    required
+                    validation={CourseUtils.courseSlugRegex()}
+                    editable
+                    label={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
+                    placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
+                  />
+                  {term}
+                  {subject}
+                  {expectedStudents}
+                  {language}
+                  {project}
+                </div>
+                <div className="column">
+                  <DatePicker
+                    id="course_start"
+                    onChange={this.updateCourseDates}
+                    value={this.state.course.start}
+                    value_key="start"
+                    required
+                    editable
+                    label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
+                    placeholder={I18n.t('courses.creator.start_date_placeholder')}
+                    blank
+                    isClearable={false}
+                    showTime={this.state.use_start_and_end_times}
+                  />
+                  <DatePicker
+                    id="course_end"
+                    onChange={this.updateCourseDates}
+                    value={this.state.course.end}
+                    value_key="end"
+                    required
+                    editable
+                    label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
+                    placeholder={I18n.t('courses.creator.end_date_placeholder')}
+                    blank
+                    date_props={dateProps.end}
+                    enabled={!!this.state.course.start}
+                    isClearable={false}
+                    showTime={this.state.use_start_and_end_times}
+                  />
+                  {this.state.use_start_and_end_times ? timeZoneMessage : null}
+                  <TextAreaInput
+                    id="course_description"
+                    onChange={this.updateCourse}
+                    value={this.state.course.description}
+                    value_key="description"
+                    required={descriptionRequired}
+                    editable
+                    placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
+                  />
+                </div>
               </div>
-              <div className="column">
-                <TextAreaInput
-                  id="course_description"
-                  onChange={this.updateCourse}
-                  value={this.state.course.description}
-                  value_key="description"
-                  required={descriptionRequired}
-                  editable
-                  placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
-                />
-                <DatePicker
-                  id="course_start"
-                  onChange={this.updateCourseDates}
-                  value={this.state.course.start}
-                  value_key="start"
-                  required
-                  editable
-                  label={CourseUtils.i18n('creator.start_date', this.state.course_string_prefix)}
-                  placeholder={I18n.t('courses.creator.start_date_placeholder')}
-                  blank
-                  isClearable={false}
-                  showTime={this.state.use_start_and_end_times}
-                />
-                <DatePicker
-                  id="course_end"
-                  onChange={this.updateCourseDates}
-                  value={this.state.course.end}
-                  value_key="end"
-                  required
-                  editable
-                  label={CourseUtils.i18n('creator.end_date', this.state.course_string_prefix)}
-                  placeholder={I18n.t('courses.creator.end_date_placeholder')}
-                  blank
-                  date_props={dateProps.end}
-                  enabled={!!this.state.course.start}
-                  isClearable={false}
-                  showTime={this.state.use_start_and_end_times}
-                />
-                {this.state.use_start_and_end_times ? timeZoneMessage : null}
-              </div>
-            </div>
-            <div className={controlClass}>
-              <div className="left"><p>{this.state.tempCourseId}</p></div>
-              <div className="right">
-                <div><p className="red">{this.state.error_message}</p></div>
-                <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
-                <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+              <div className={controlClass}>
+                <div className="left"><p>{this.state.tempCourseId}</p></div>
+                <div className="right">
+                  <div><p className="red">{this.state.error_message}</p></div>
+                  <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
+                  <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
+                </div>
               </div>
             </div>
           </div>

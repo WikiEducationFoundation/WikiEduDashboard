@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import ReactTestUtils from 'react-addons-test-utils';
 import '../testHelper';
 import '../../app/assets/javascripts/main';
@@ -6,6 +7,8 @@ import Course from '../../app/assets/javascripts/components/course.jsx';
 import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
 
 describe('top-level course component', () => {
+  document.body.innerHTML = "<div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div>";
+
   it('loads without an error', () => {
     const courseProps = {
       location: {
@@ -21,9 +24,11 @@ describe('top-level course component', () => {
     };
     global.Features = { enableGetHelpButton: true };
     const testCourse = ReactTestUtils.renderIntoDocument(
-      <Course {...courseProps}>
-        <OverviewHandler {...courseProps} current_user={currentUser} />
-      </Course>
+      <Provider store={reduxStore}>
+        <Course {...courseProps}>
+          <OverviewHandler {...courseProps} current_user={currentUser} />
+        </Course>
+      </Provider>
     );
     expect(testCourse).to.exist;
   });

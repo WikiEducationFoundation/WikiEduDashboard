@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: Alexandr Efremov
 # Author: Aram1985
+# Author: Av6
+# Author: Facenapalm
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
@@ -23,6 +25,7 @@ ru:
   application:
     cancel: Отмена
     dashboard: Панель Wiki Ed
+    documentation: Документация
     error: 'Произошла ошибка:'
     explore: Ознакомление
     field_required: Это поле обязательно для заполнения
@@ -39,6 +42,7 @@ ru:
     log_out: Выйти
     my_dashboard: Моя панель
     recent_activity: Недавние действия
+    report_problem: Сообщить о проблеме
     search: задать вопрос
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_log_in_extended: через Википедию
@@ -199,6 +203,8 @@ ru:
     instructors: Инструкторы
     join: Присоединиться
     join_course: Присоединиться к курсу
+    join_prompt: Присоединиться к '%{title}'?
+    join_successful: Вы были успешно присоединены к %{title}.
     join_failure_details:
       not_yet_approved: Этот курс еще не был одобрен для регистрации.
     loading: Загрузка…
@@ -236,12 +242,15 @@ ru:
     campaign_courses: '%{title} программы'
     creator:
       course_school: Учреждение
+      course_term: Когда
+      course_term_placeholder: Когда
       course_title: Название программы
       create_button: Создать свою программу!
       create_label: Создать новую программу
       create_new: Создать новую программу
       create_short: Создать программу
       find: Найди программу
+      save_cloned_course: Сохранить
     delete_course: Удалить программу
     explore: Найти программы
     join_course: Присоединиться к программе
@@ -307,6 +316,7 @@ ru:
     gradeable_value: Значение
     save_all_changes: Сохранить всё
     title: Хронология
+    week_number: Неделя %{number}
   training:
     continue: Продолжить (%{progress})
     start: Начать

@@ -4,6 +4,22 @@ require "#{Rails.root}/lib/wiki_course_output"
 
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
+    let(:templates) do
+      {
+       "default" => {
+          "editor" => "student editor",
+          "instructor" => "course instructor",
+          "course_assignment" => "course assignment",
+          "table" => "students table",
+          "table_row" => "students table row",
+          "course" => "course details",
+          "timeline" => "start of course timeline",
+          "start_of_week" => "start of course week",
+          "end_of_week" => "end of course week"
+        }
+      }
+    end
+
     it 'returns a wikitext version of the course' do
       week1 = create(:week, id: 2)
       week2 = create(:week, id: 3)
@@ -56,7 +72,7 @@ describe WikiCourseOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiCourseOutput.new(course).translate_course_to_wikitext
+      response = WikiCourseOutput.new(course, templates).translate_course_to_wikitext
       expect(response).to include('The course description')
       expect(response).to include('Block 1 title')
       expect(response).to include('* Overview of the course')

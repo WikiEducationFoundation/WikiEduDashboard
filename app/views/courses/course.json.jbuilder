@@ -40,6 +40,7 @@ json.course do
   end
 
   if user_role.positive? # non-student role
+    json.passcode_required @course.passcode_required?
     json.passcode @course.passcode
     json.canUploadSyllabus true
   elsif @course.passcode

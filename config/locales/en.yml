@@ -38,6 +38,7 @@ en:
   application:
     cancel: Cancel
     dashboard: Wiki Ed Dashboard
+    documentation: Documentation
     error: 'There was an error:'
     explore: Explore
     field_required: This field is required
@@ -54,6 +55,7 @@ en:
     log_out: Log out
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
+    report_problem: Report a problem
     search: ask a question
     sign_up_extended: Sign up with Wikipedia
     # FIXME: deprecate lego message
@@ -91,6 +93,14 @@ en:
     review_orientation: Review Orientation
     start_orientation: Start Orientation
     blog_headline: Recent News from Wiki Ed
+    about_programs: >
+      This site tracks wiki activities through Programs — individual events
+      like an edit-a-thon or school course. Each Program is part of one
+      or more Campaigns, which provide aggregate statistics across Programs.
+    about_creating_programs: >
+      If you are running a single, independent event, you can create a
+      Program now. If your event is part of something bigger, find or create the
+      Campaign for it. Then you can create a new Program from the Campaign page.
 
   home:
     explore: Explore
@@ -111,6 +121,10 @@ en:
     available: Available Articles
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
+    cross_wiki_tracking: >
+      Mainspace pages edited between the start and end dates are listed below.
+      The dashboard pulls in contributions from the home wiki of this program, along
+      with any other wikis for which there is an Assignment or an Available Article.
     edited: Articles Edited
     edited_by: 'Edited by:'
     edited_mobile: Articles
@@ -163,6 +177,7 @@ en:
     assign_other: Assign an article
     add_available: Add an available article
     assign_self: Assign myself an article
+    assign_tooltip: An assigned article is one that you plan to create or improve.
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this article assignment?
@@ -175,6 +190,7 @@ en:
     reviewers: Reviewer(s)
     review_other: Assign a review
     review_self: Review an article
+    review_tooltip: This is for keeping track of which article(s) you plan to peer review or provide feedback on.
     select: Select
 
   blocks:
@@ -237,8 +253,11 @@ en:
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
     campaign_courses: '%{title} Courses'
+    campaign_articles: '%{title} Articles'
+    campaign_users: '%{title} Editors'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
+    course: Course
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). Click the date to change between unselected, selected, and
@@ -255,6 +274,7 @@ en:
       assignment_start: Assignment start
       assignment_start_placeholder: Assignment start (YYYY-MM-DD)
       checking_for_uniqueness: This course is being checked for uniqueness.
+      choose_clone: Choose a course to clone.
       clone_previous: Clone Previous Course
       clone_this: Clone This Course
       cloned_course_calendar_instructions: >
@@ -288,6 +308,14 @@ en:
         The title, school, and term create your course page’s URL, and can't be
         changed. Everything else, you can edit later. Click “Create my Course!” to
         start building the timeline for your Wikipedia assignment.
+      new_or_clone: >
+        You can create a new course now using the assignment design wizard.
+        If you have a highly customized timeline from a previous course that you
+        want to re-use, you can clone a copy of it with new dates. (If you did
+        not significantly customize your timeline previously, we recommend
+        starting a new course so that you'll have the most up-to-date
+        versions of the assignment options.) You can also use the clone option
+        to create additional sections for a course you already set up.
       no_class_holidays: I have no class holidays
       save_cloned_course: Save New Course
       start_date: Start date
@@ -298,9 +326,29 @@ en:
         programs during the next update cycle. This typically takes
         several hours.
     current: Current Courses
+    data_articles: Articles data
+    data_articles_info: >
+      Articles data includes the number of edits to each page, which pages are new,
+      and pageview totals. These pageview values may be out of date for courses
+      that have already ended, so a url to the WMF Tool Labs pageview tool is
+      included.
+    data_download_info: Download data in CSV format.
+    data_overview: Overview data
+    data_overview_info: Overview data provides cumulative statistics for the whole project.
+    data_edits: Edits data
+    data_edits_info: Edits data shows details for each edit made during the project.
+    data_students: Editors data
+    data_students_info: >
+      Editors data lists all the enrolled editors, how much they edited, and
+      whether they registered their accounts during the project.
+    data_uploads: Commons uploads data
+    data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     delete_course: Delete course
+    delete_course_instructions: You may delete this page if all campaigns are removed first.
     dismiss_survey: Dismiss
     dismiss_survey_confirm: Are you sure you want to permanently dismiss this survey?
+    download_stats_data: Download stats
+    does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     duration: Course Duration
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
@@ -316,6 +364,9 @@ en:
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
+    features_feedback: 'More Suggestions :'
+    feedback: Feedback
+    feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
     instructor:
       one: Instructor
@@ -353,6 +404,7 @@ en:
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
+    rating_feedback: "Predicted rating for the article is : "
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
@@ -365,6 +417,7 @@ en:
     start: Start
     start_typing: Start typing
     students: Students
+    students_taught: Students Taught
     students_count: "# Students"
     student_editors: Student Editors
     students_none: This course has no students.
@@ -377,8 +430,14 @@ en:
     submitted_note: >
       Your course has been submitted. Wiki Ed staff will review it and get in
       touch with any questions.
+    suggestions_feedback: Have any suggestions to improve this feature? Let us know!
+    suggestions_sending: Sending Feedback...
+    suggestions_sent: Feedback Sent. Thanks for your input.
+    suggestions_failed: Couldn't send feedback. Try again later.
     user_role: Role
     course_details: Course Details
+    course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
+    submitted: Submitted
     term: Term
     timeline: Assignment Details
     timeline_link: Timeline
@@ -422,25 +481,43 @@ en:
     assignments_none: This project has no assigned articles.
     assignment_start: Timeline Start
     cancel: Cancel
+    course: Program
     courses: Programs
     courses_taught: Programs Taught
     campaigns: 'Campaigns: '
     campaign_courses: '%{title} Programs'
     creator:
       checking_for_uniqueness: This program is being checked for uniqueness.
+      choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
       clone_this: Clone This Program
+      clone_successful: Program Successfully Cloned
+      clone_successful_details: >
+        Your program has been cloned. Be sure to add something in the 'When' field
+        (for example, the month and year) to differentiate it from the original.
+        Then click 'Save' below to finalize it.
       course_description: Program description
       course_school: Institution
+      course_term: When
+      course_term_placeholder: When
       course_title: Program title
       create_button: Create my Program!
       create_label: Create New Program
-      create_new: Create a New Program
+      create_new: Create an Independent Program
       create_short: Create Program
       find: Find a Program
       intro: >
-        The program title is required, everything else can be filled in later.
+        The program title and institution form the URL of the program. The home wiki
+        is the main wiki where participants will be working, and edits on this wiki
+        will tracked by default. If your program spans multiple languages or projects,
+        contributions will also be tracked for any wiki that has an 'Available Article'
+        or 'Assignment' for that wiki.
         Click "Create my Program!" to start building the page for your wiki program.
+      new_or_clone: >
+        Create a new program now, or use the 'clone' option to copy another program
+        that you participated in.
+      participate_in_campaign: Participate in a Campaign
+      save_cloned_course: Save
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
     explore: Find Programs
@@ -459,6 +536,7 @@ en:
     school_and_term: Institution/When
     student_editors: Editors
     students: Editors
+    students_taught: Total Editors
     students_none: This project has no editors enrolled.
     students_short: Editors
     students_count: Number of participants
@@ -476,6 +554,7 @@ en:
     save: Save
     edit_description: Edit Description
     edit_details: Edit Details
+    rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
 
   metrics:
     activity: Recent Activity
@@ -499,6 +578,7 @@ en:
       one: total usage across languages
       other: total usages across languages
     view_count_description: Article Views
+    view_data_unavailable: No view data available
     view: Views
     word_count: Words Added
     word_count_average: Average Word Count
@@ -547,6 +627,24 @@ en:
     title: Title
     view_on_wiki: View diff on wiki
 
+  # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
+  suggestions:
+    editing: Editing Suggestions
+    suggestion_docs:
+      fa: No further content additions should be necessary unless new information becomes available; further improvements to the prose quality are often possible.
+      a: Expert knowledge may be needed to tweak the article, and style problems may need solving. Peer review may help.
+      ga: Some editing by subject and style experts is helpful; comparison with an existing featured article on a similar topic may highlight areas where content is weak or missing.
+      bplus: May be improved by input from experts to assess where coverage is still missing, and also by illustrations, historical background, and further references. Consider peer review or nominating for good article status. If the article is not already fully wikified, now is the time.
+      b: A few aspects of content and style need to be addressed. Expert knowledge may be needed. The inclusion of supporting materials should be considered if practical, and the article checked for general compliance with the Manual of Style and related style guidelines.
+      c: Considerable editing is needed to close gaps in content and solve cleanup problems.
+      start: Providing references to reliable sources should come first; the article also needs substantial improvement in content and organisation. Also improve the grammar, spelling, writing style and improve the jargon use.
+      stub: Any editing or additional material can be helpful. The provision of meaningful content should be a priority. The best solution for a Stub-class Article to step up to a Start-class Article is to add in referenced reasons of why the topic is significant.
+      fl: No further content additions should be necessary unless new information becomes available.
+      list: Lists should be lists of live links to Wikipedia articles, appropriately named and organized.
+      future: Material added might be speculation and should be carefully sourced.
+      disambig: Additions should be made as new articles of that name are created. Pay close attention to the proper naming of such pages, as they often do not need "(disambiguation)" appended to the title.
+      ?: Suggestions not available - The article is either not rated or suggestions not available for the rating.
+      does_not_exist: This article does not exist in wikipedia
 
   # These are maintenance script messages.
   tasks:
@@ -637,7 +735,7 @@ en:
       amount of new content the user added. Restoring removed content
       will also increase this total.
     chars_added:
-      Characters Added<br>(mainspace | userspace)
+      Characters Added<br>(article | user | draft)
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions

@@ -10,6 +10,7 @@
 # Author: MojoMann
 # Author: Nemo bis
 # Author: Ragesoss
+# Author: Raymond
 # Author: Robby
 # Author: Vojtěch Dostál
 ---
@@ -22,6 +23,7 @@ qqq:
       Button to cancel an action
       {{Identical|Cancel}}
     dashboard: Application name.
+    documentation: '{{Identical|Documentation}}'
     error: Label for error messages
     explore: |-
       Explore link
@@ -363,6 +365,7 @@ qqq:
         do not correspond to a valid wiki
       invalid_slug: Error message indicating blank school/title in course slug.
       duplicate_slug: Error message indicating duplicate course slug.
+    feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
     instructor:
@@ -488,6 +491,8 @@ qqq:
       course_school: Label for the "Institution" input field of a program, which is
         for the name of the institution — such as a university or Wikimedia chapter
         — that the program is associated with.
+      course_term: '{{Identical|When}}'
+      course_term_placeholder: '{{Identical|When}}'
       course_title: Label for the name of a course or program
       create_button: Button to submit a new program
       create_label: Label for creating a new program
@@ -495,6 +500,7 @@ qqq:
       create_short: Short version of link to start a new program
       find: Button to find an existing program
       intro: Explanation of how to use the program creation form
+      save_cloned_course: '{{Identical|Save}}'
     explore: |-
       The alternative wording for generic courses.
       {{Identical|Find programs}}

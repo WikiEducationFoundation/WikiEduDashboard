@@ -1,6 +1,6 @@
 import React from 'react';
 import CourseActions from '../../actions/course_actions.js';
-import UUID from 'node-uuid';
+import uuid from 'uuid';
 
 const CourseTypeSelector = React.createClass({
   propTypes: {
@@ -10,7 +10,7 @@ const CourseTypeSelector = React.createClass({
 
   componentWillMount() {
     this.setState({
-      id: UUID.v4()
+      id: uuid.v4()
     });
   },
 

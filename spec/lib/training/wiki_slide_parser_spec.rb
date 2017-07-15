@@ -69,6 +69,50 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
     WIKISLIDE
   end
 
+  let(:multi_image_wikitext) do
+    <<-WIKISLIDE
+== Five Pillars: The core rules of Wikipedia ==
+
+{{Training module image
+| image = File:Palace_of_Fine_Arts%2C_five_pillars.jpg
+| source = https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg
+| layout = alt-layout-40-right
+| credit = Photo by Eryk Salvaggio
+}}
+
+{{Training module image
+| image = File:Find_a_program.png
+| source = https://upload.wikimedia.org/wikipedia/commons/4/48/Find_a_program.png
+| layout = alt-layout-40-right 
+| credit = In the top right of the interface, next to the Log-out and User-name buttons, you can find the language switcher
+}}
+
+Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboration behind every article. You'll work with many people to build Wikipedia.
+    WIKISLIDE
+  end
+
+  let(:video_wikitext) do
+    <<-WIKISLIDE
+== Starting new programs ==
+
+If you are the host of a program or event, you need to be able to create events. There are two different ways to create a program: through creating a new one, or cloning an existing event.
+
+{{Training module image
+| image = File:Palace_of_Fine_Arts%2C_five_pillars.jpg
+| source = https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg
+| layout = alt-layout-40-right
+| credit = Photo by Eryk Salvaggio
+}}
+
+{{Training module video
+| video = File:How to Use the Dashboard (2 of 5).webm
+| source = https://upload.wikimedia.org/wikipedia/commons/7/79/How_to_Use_the_Dashboard_%282_of_5%29.webm
+| caption = How to Use the Dashboard (2 of 5)
+}}
+
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = WikiSlideParser.new(source_wikitext.dup).title
@@ -94,6 +138,15 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
     it 'converts an image template into figure markup' do
       output = WikiSlideParser.new(image_wikitext.dup).content
       expect(output).to match(/Eryk Salvaggio/)
+    end
+    it 'converts multiple image templates into distinct figure markups' do
+      output = WikiSlideParser.new(multi_image_wikitext.dup).content
+      expect(output).to include("five_pillars.jpg")
+      expect(output).to include("Find_a_program.png")
+    end
+    it 'converts a video template into iframe markup' do
+      output = WikiSlideParser.new(video_wikitext.dup).content
+      expect(output).to include("iframe>")
     end
     it 'includes a forced newline after figure markup' do
       # Markdown conversion outputs just one newline after figure markup, which

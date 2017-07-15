@@ -319,29 +319,31 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'allows student to select an available article' do
-      stub_info_query
-      user = create(:user, id: user_count + 100)
-      course = Course.first
-      create(:courses_user, course_id: course.id, user_id: user.id,
-                            role: CoursesUsers::Roles::STUDENT_ROLE)
-      wiki = Wiki.first
-      AssignmentManager.new(user_id: nil,
-                            course: course,
-                            wiki: wiki,
-                            title: 'Education',
-                            role: 0).create_assignment
+      VCR.use_cassette 'assigned_articles_item' do
+        stub_info_query
+        user = create(:user, id: user_count + 100)
+        course = Course.first
+        create(:courses_user, course_id: course.id, user_id: user.id,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
+        wiki = Wiki.first
+        AssignmentManager.new(user_id: nil,
+                              course: course,
+                              wiki: wiki,
+                              title: 'Education',
+                              role: 0).create_assignment
 
-      login_as(user, scope: :user)
-      js_visit "/courses/#{slug}/articles"
-      expect(page).to have_content 'Available Articles'
-      assigned_articles_section = page.first(:css, '#available-articles')
-      expect(assigned_articles_section).to have_content 'Education'
-      expect(Assignment.count).to eq(1)
-      expect(assigned_articles_section).to have_content 'Select'
-      click_button 'Select'
-      sleep 1
-      expect(Assignment.first.user_id).to eq(user.id)
-      expect(Assignment.first.role).to eq(0)
+        login_as(user, scope: :user)
+        js_visit "/courses/#{slug}/articles"
+        expect(page).to have_content 'Available Articles'
+        assigned_articles_section = page.first(:css, '#available-articles')
+        expect(assigned_articles_section).to have_content 'Education'
+        expect(Assignment.count).to eq(1)
+        expect(assigned_articles_section).to have_content 'Select'
+        click_button 'Select'
+        sleep 1
+        expect(Assignment.first.user_id).to eq(user.id)
+        expect(Assignment.first.role).to eq(0)
+      end
     end
   end
 

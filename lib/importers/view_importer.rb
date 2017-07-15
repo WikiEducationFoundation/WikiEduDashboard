@@ -81,17 +81,13 @@ class ViewImporter
 
     add_views_to_revisions(article, views)
     update_views_updated_at(article, views)
-
-    if article.revisions.any?
-      article.views = article.revisions.order('date ASC').first.views
-    end
-    article.save
   end
 
   def update_views_updated_at(article, views)
     since = views_since_when(article)
     last = views_last_updated(since, views)
     article.views_updated_at = last.nil? ? article.views_updated_at : last
+    article.save
   end
 
   def views_since_when(article)

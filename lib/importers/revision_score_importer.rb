@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/ores_api"
+require "#{Rails.root}/lib/wiki_api"
 
 #= Imports revision scoring data from ores.wikimedia.org
 # As of July 2016, this only applies to English Wikipedia.
@@ -12,6 +14,16 @@ class RevisionScoreImporter
   def initialize
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     @ores_api = OresApi.new(@wiki)
+  end
+
+  def fetch_ores_data_for_revision_id(rev_id)
+    ores_data = @ores_api.get_revision_data(rev_id)
+    features = extract_features(ores_data)[rev_id.to_s]
+    scores = extract_score(ores_data)
+    unless scores.nil?
+      rating = scores.dig(rev_id.to_s, 'prediction')
+    end
+    return { features: features, rating: rating }
   end
 
   def update_revision_scores(revisions=nil)
@@ -59,6 +71,7 @@ class RevisionScoreImporter
 
   def update_wp10_previous(revision)
     parent_id = get_parent_id revision
+    return unless parent_id
     ores_data = @ores_api.get_revision_data(parent_id)
     score = extract_score ores_data
     return unless score[parent_id.to_s]&.key?('probability')
@@ -73,22 +86,22 @@ class RevisionScoreImporter
             .where(articles: { namespace: [0, 2, 118] })
   end
 
+  DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
   def save_scores(scores, features)
     scores.each do |rev_id, score|
-      next unless score&.key?('probability')
       revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
       revision.features = features[rev_id]
+      revision.deleted = true if DELETED_REVISION_ERRORS.include? score.dig('error', 'type')
       revision.save
     end
   end
 
   def get_parent_id(revision)
-    require "#{Rails.root}/lib/wiki_api"
-
     rev_id = revision.mw_rev_id
     rev_query = parent_revision_query(rev_id)
     response = WikiApi.new(revision.wiki).query rev_query
+    return unless response.data['pages']
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
     prev_id
   end
@@ -106,6 +119,7 @@ class RevisionScoreImporter
                      'Start' => 20,
                      'Stub'  => 0 }.freeze
   def en_wiki_weighted_mean_score(probability)
+    return unless probability
     mean = 0
     WP10_WEIGHTING.each do |rating, weight|
       mean += probability[rating] * weight

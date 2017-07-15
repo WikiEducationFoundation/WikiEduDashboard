@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
+    get 'stats_graphs' => 'user_profiles#stats_graphs'
     post 'users/update/:username' => 'user_profiles#update'
   end
 
@@ -41,7 +42,7 @@ Rails.application.routes.draw do
       constraints: { course_id: /.*/ }
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
-  get 'courses/:course_id/enroll/:passcode' => 'self_enrollment#enroll_self',
+  get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
 
   # Courses
@@ -102,6 +103,8 @@ Rails.application.routes.draw do
     end
   end
 
+  put 'greeting' => 'greeting#greet_course_students'
+
   # Article Finder
   if Features.enable_article_finder?
     get 'article_finder(/*any)' => 'article_finder#index'
@@ -112,12 +115,20 @@ Rails.application.routes.draw do
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
   get 'ungreeted' => 'analytics#ungreeted'
+  get 'course_csv' => 'analytics#course_csv'
+  get 'course_edits_csv' => 'analytics#course_edits_csv'
+  get 'course_uploads_csv' => 'analytics#course_uploads_csv'
+  get 'course_students_csv' => 'analytics#course_students_csv'
+  get 'course_articles_csv' => 'analytics#course_articles_csv'
+
 
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do
       get 'overview'
       get 'programs'
+      get 'articles'
+      get 'users'
       get 'students'
       get 'instructors'
       get 'courses'
@@ -151,9 +162,7 @@ Rails.application.routes.draw do
 
 
   # Revision Feedback
-  if Features.enable_revision_feedback?
-    get 'revision_feedback/:rev_id' => 'revision_feedback#index'
-  end
+  get '/revision_feedback' => 'revision_feedback#index'
 
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
@@ -240,6 +249,7 @@ Rails.application.routes.draw do
   # Salesforce
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
+    put '/salesforce/update/:course_id' => 'salesforce#update'
     get '/salesforce/create_media' => 'salesforce#create_media'
   end
 

@@ -17,7 +17,7 @@ describe('EmptyWeek', () => {
     it('gives the empty text if timeline and edit permissions are empty', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestEmptyWeek, 'h1');
       const h1 = ReactDOM.findDOMNode(headline);
-      return expect(h1.textContent).to.eq(I18n.t('timeline.no_activity_this_week'));
+      expect(h1.textContent).to.eq(I18n.t('timeline.no_activity_this_week'));
     });
   });
 

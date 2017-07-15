@@ -5,10 +5,10 @@ import BlockStore from '../../app/assets/javascripts/stores/block_store.js';
 describe('BlockActions', () => {
   let stubbedAjax;
 
-  before(() => {
+  beforeAll(() => {
     stubbedAjax = sinon.stub($, "ajax");
   });
-  after(() => {
+  afterAll(() => {
     $.ajax.restore();
     BlockStore.restore();
   });

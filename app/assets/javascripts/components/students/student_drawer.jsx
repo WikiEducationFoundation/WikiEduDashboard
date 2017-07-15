@@ -1,5 +1,4 @@
 import React from 'react';
-import Expandable from '../high_order/expandable.jsx';
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
@@ -13,7 +12,7 @@ const StudentDrawer = React.createClass({
 
   propTypes: {
     student: React.PropTypes.object,
-    is_open: React.PropTypes.bool
+    isOpen: React.PropTypes.bool
   },
 
   mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
@@ -25,10 +24,6 @@ const StudentDrawer = React.createClass({
     };
   },
 
-  getKey() {
-    return `drawer_${this.props.student.id}`;
-  },
-
   storeDidChange() {
     return this.setState({
       revisions: getRevisions(this.props.student.id),
@@ -37,7 +32,7 @@ const StudentDrawer = React.createClass({
   },
 
   render() {
-    if (!this.props.is_open) { return <tr></tr>; }
+    if (!this.props.isOpen) { return <tr></tr>; }
 
     const revisionsRows = (this.state.revisions || []).map((rev) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
@@ -60,7 +55,7 @@ const StudentDrawer = React.createClass({
       );
     });
 
-    if (this.props.is_open && revisionsRows.length === 0) {
+    if (revisionsRows.length === 0) {
       revisionsRows.push(
         <tr key={`${this.props.student.id}-no-revisions`}>
           <td colSpan="7" className="text-center">
@@ -78,11 +73,8 @@ const StudentDrawer = React.createClass({
       </tr>
     );
 
-    let className = 'drawer';
-    className += !this.props.is_open ? ' closed' : '';
-
     return (
-      <tr className={className}>
+      <tr className="drawer">
         <td colSpan="7">
           <TrainingStatus trainingModules={this.state.trainingModules} />
           <table className="table">
@@ -101,7 +93,6 @@ const StudentDrawer = React.createClass({
       </tr>
     );
   }
-}
-);
+});
 
-export default Expandable(StudentDrawer);
+export default StudentDrawer;

@@ -46,7 +46,7 @@ before_script:
 script: gulp build && npm test && bundle exec rspec --color --profile --format documentation
   --tag $TEST_SUITE
 after_script:
-- codeclimate-test-reporter < js_coverage/lcov.info
+- codeclimate-test-reporter < coverage/lcov.info
 after_failure:
 - npm install imgur-uploader-cli -g
 - find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader
