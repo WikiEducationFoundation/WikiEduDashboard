@@ -637,7 +637,7 @@ fr:
         de bon article. Si l’article n’est pas déjà entièrement au format wiki, c’est
         le moment de le faire.
       b: Quelques aspects sur le contenu ou le style doivent être traités. Une expertise
-        peut être nécessaire. L’inclusion de matériaux de support peut être envisagée
+        peut être nécessaire. L’inclusion de matériel de soutien peut être envisagée
         si c’est pratique, et l’article peut être vérifié regardant son adéquation
         générale au Manuel de style et aux lignes directrices de style associées.
       c: Une modification considérable est nécessaire pour boucher les trous dans
@@ -921,7 +921,7 @@ fr:
       link: Participer au sondage
     follow_up:
       message: Ceci est un rappel au sujet du sondage sur votre cours, %{course_title}.
-        Les résultats de ce sondage nous aideront à améliorer notre support des affectations
+        Les résultats de ce sondage nous aideront à améliorer notre soutien des affectations
         de Wikipédia comme la vôtre.
   feedback_form_responses:
     no_responses: Il n’y a pas encore de réponses de commentaire.

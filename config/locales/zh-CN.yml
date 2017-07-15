@@ -296,6 +296,7 @@ zh-CN:
     passcode_none: 无密码
     passcode_prompt: 输入密码以加入：
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
+    rating_feedback: 条目预测的评级为：
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
@@ -313,12 +314,13 @@ zh-CN:
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
     submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
-    suggestions_feedback: 这些建议有帮助么？让我们知道！
+    suggestions_feedback: 有任何改进该功能的建议么？让我们知道！
     suggestions_sending: 正在发送反馈...
     suggestions_sent: 反馈已发送。感谢您输入的内容。
     suggestions_failed: 不能发送反馈。稍后重试。
     user_role: 角色
     course_details: 课程详情
+    submitted: 已提交
     term: 学期
     timeline: 分配详细信息
     timeline_link: 时间轴

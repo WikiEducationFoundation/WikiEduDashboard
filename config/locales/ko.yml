@@ -204,11 +204,12 @@ ko:
     students_none: 이 과정에는 학생이 없습니다.
     students_short: 학생
     submitted_heading: 보낸 코스
-    suggestions_feedback: 이 제안이 도움이 됩니까? 알려주세요!
+    suggestions_feedback: 이 기능의 개선을 위한 제안이 있으신가요? 알려주세요!
     suggestions_sending: 피드백을 보내는 중...
     suggestions_sent: 피드백을 보냈습니다. 귀하의 의견에 감사드립니다.
     suggestions_failed: 피드백을 보내지 못했습니다. 나중에 다시 시도하십시오.
     user_role: 역할
+    submitted: 제출됨
     term: 기간
     timeline: 숙제 상세사항
     timeline_link: 타임라인

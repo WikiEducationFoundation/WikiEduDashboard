@@ -307,6 +307,8 @@ es:
       invalid_slug: Escuela/título vacío para el curso.
       duplicate_slug: Ya existe otro programa llamado %{slug}.
     expected_students: Estudiantes esperados
+    features_feedback: 'Más sugerencias:'
+    feedback: Comentarios
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
       one: Docente
@@ -364,6 +366,10 @@ es:
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
       pondrá en contacto ante cualquier pregunta.
+    suggestions_feedback: ¿Son útiles estas sugerencias? ¡Avisanos!
+    suggestions_sending: Enviando comentarios...
+    suggestions_sent: Comentarios enviados. Gracias por tu interes.
+    suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
     user_role: Oficio
     course_details: Detalles del curso
     term: Término
@@ -539,6 +545,10 @@ es:
     time_doc: El tiempo de cada revisión en tu hora local
     title: Título
     view_on_wiki: Ver diferencias en wiki
+  suggestions:
+    editing: Editar sugerencias
+    suggestion_docs:
+      does_not_exist: Este artículo no existe en Wikipedia
   tasks:
     conseq: La tarea %{task} ya se está ejecutando.
     constant: La tarea %{task} no se puede ejecutar mientras la tarea update_daily

@@ -410,13 +410,18 @@ de:
     submitted_heading: Eingereichte Kurse
     submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
       überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
-    suggestions_feedback: Sind diese Vorschläge hilfreich? Lass es uns wissen!
+    suggestions_feedback: Hast du Vorschläge zur Verbesserung dieser Funktion? Lass
+      es uns wissen!
     suggestions_sending: Die Rückmeldung wird gesendet …
     suggestions_sent: Die Rückmeldung wurde gesendet. Vielen Dank für deine Eingabe.
     suggestions_failed: Die Rückmeldung konnte nicht gesendet werden. Versuche es
       später erneut.
     user_role: Rolle
     course_details: Kursdetails
+    course_submitted: Der Eingereicht-Status wird für Bildungsprogrammkurse verwendet,
+      bei denen ein Kursplan bestätigt werden muss, bevor das Projekt startet. Er
+      ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
+    submitted: Eingereicht
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_link: Zeitleiste

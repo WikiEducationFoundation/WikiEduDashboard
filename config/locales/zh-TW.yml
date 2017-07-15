@@ -89,10 +89,10 @@ zh-TW:
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
-      fa: 特色條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要目標。
+      fa: 特色條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要專案。
       fl: 特色列表 — 維基百科中用於列表的最高評級
-      a: 甲級－十分完善的條目，對於新手編輯可能太完整所以並不適合作為的主要專案目標
-      ga: 優良條目－一個高度完整的條目，對於新手編輯可能太完整所以並不適合作為的主要專案目標
+      a: 甲級－十分完善的條目，對於新手編輯可能太完整所以並不適合作為的主要專案
+      ga: 優良條目－一個高度完整的條目，對於新手編輯可能太完整所以並不適合作為的主要專案
       b: 乙級－一個中度完整的條目
       c: 丙級－一個有改善空間的中等條目
       start: 初級－一個有很大改進空間的初等條目
@@ -217,7 +217,7 @@ zh-TW:
       clone_successful_details: 您的課程已經被複製，包含時間表的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
       course_description: 課程說明
       course_language: 主要使用語言
-      course_project: 主要使用計畫
+      course_project: 主專案
       course_school: 課程學校
       course_subject: 課程科目
       course_term: 課程學期
@@ -270,7 +270,7 @@ zh-TW:
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
       user_exists: 抱歉，%{username} 並非存在的使用者。
-      invalid_language_or_project: 無法使用的語言或計畫
+      invalid_language_or_project: 無法使用的語言或專案
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
     expected_students: 預計學生
@@ -336,12 +336,14 @@ zh-TW:
     submitted_note: |-
       您的課程已送出。
       Wiki ED 的工作人員將審核此課程，若有任何問題會與您聯繫。
-    suggestions_feedback: 這些建議有幫助嗎？請讓我們知道！
+    suggestions_feedback: 有任何改善此功能的建議嗎？請讓我們知道！
     suggestions_sending: 意見回饋寄送中...
     suggestions_sent: 意見回饋已寄送，感謝您所填入的內容。
     suggestions_failed: 無法寄送意見回饋，請稍後再試。
     user_role: 身份
     course_details: 課程詳細內容
+    course_submitted: 提交狀態是用於教育方案課程裡；必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
+    submitted: 已提交
     term: 學期
     timeline: 作業細節
     timeline_link: 時間表
@@ -373,9 +375,9 @@ zh-TW:
   courses_generic:
     all_courses: 所有方案
     archived: 存檔的方案
-    articles_none: 此項目裡目前無編輯的條目。
+    articles_none: 此專案裡目前無編輯的條目。
     assignment_end: 時間軸終點
-    assignments_none: 此項目沒有任何條目被分配。
+    assignments_none: 此專案沒有任何條目被分配。
     assignment_start: 時間軸起點
     cancel: 取消
     course: 方案
@@ -401,12 +403,12 @@ zh-TW:
       create_short: 建立方案
       find: 找尋一個方案
       intro: 方案標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的方案橫跨多個語系或專案，貢獻內容可由有囊括且擁有「可用條目」或「分配作業」的任一
-        wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基項目頁面吧。
+        wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基專案頁面吧。
       new_or_clone: 現在就創建一個新方案，或使用「複製」選項來將您參與的其它方案給複製。
       participate_in_campaign: 參與活動
       save_cloned_course: 儲存
     delete_course: 刪除方案
-    edit_course_dates: 編輯項目日期
+    edit_course_dates: 編輯專案日期
     explore: 尋找方案
     enroll: 增加編輯者
     enrollment: 參與
@@ -416,20 +418,20 @@ zh-TW:
     join_course: 加入方案
     join_details: 要加入此方案，您需要獲得課程代碼 — 或來自引導者的包含選課代碼連結。
     leave_course: 退出方案
-    milestones_none: 此項目裡目前沒有任何里程碑。
+    milestones_none: 此專案裡目前沒有任何里程碑。
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
-    revisions_none: 此項目目前沒有編輯活動。
+    revisions_none: 此專案目前沒有編輯活動。
     school: 機構
     school_and_term: 機構/何時
     student_editors: 編輯者
     students: 編輯者
     students_taught: 編輯者總計
-    students_none: 此項目目前沒有編輯者登記。
+    students_none: 此專案目前沒有編輯者登記。
     students_short: 編輯者
     students_count: 參與者數量
     term: 於
     unsubmitted: 未提交方案
-    uploads_none: 此項目沒有提供任何圖片或媒體檔案至維基共享資源裡。
+    uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
     view_other: 檢視其它活動
     view_page: 檢視方案頁面
     word_count_doc: 一個由條目編輯者在方案學期期間增加至條目主空間的估計數量
@@ -664,7 +666,7 @@ zh-TW:
       summary: 學生培訓逾期
   wizard:
     assignment_dates: 分配日期
-    assignment_description: 選擇您的分配時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃項目，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
+    assignment_description: 選擇您的分配時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
     assignment_type: 作業類型
     calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。這能夠讓課程建立工具精準的開出你的作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
     confirm_dates: 選擇您課程的課程日期、每週會議與假日。
