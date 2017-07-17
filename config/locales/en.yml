@@ -493,9 +493,9 @@ en:
       clone_this: Clone This Program
       clone_successful: Program Successfully Cloned
       clone_successful_details: >
-        Your program has been cloned. Be sure to add something in the 'When' field
-        (for example, the month and year) to differentiate it from the original.
-        Then click 'Save' below to finalize it.
+        Your program has been cloned.
+        Click 'Save' below to finalize it.
+      course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_description: Program description
       course_school: Institution
       course_term: When
