@@ -3,7 +3,7 @@ default:
   instructor: "course instructor"
   course_assignment: "course assignment"
   table: "students table"
-  table_row: "students table row"
+  table_row: "student table row"
   course: "course details"
   timeline: "start of course timeline"
   start_of_week: start of course week
