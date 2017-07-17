@@ -644,7 +644,7 @@ en:
       future: Material added might be speculation and should be carefully sourced.
       disambig: Additions should be made as new articles of that name are created. Pay close attention to the proper naming of such pages, as they often do not need "(disambiguation)" appended to the title.
       ?: Suggestions not available - The article is either not rated or suggestions not available for the rating.
-      does_not_exist: This article does not exist in wikipedia
+      does_not_exist: This article does not exist on Wikipedia.
 
   # These are maintenance script messages.
   tasks:
