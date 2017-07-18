@@ -1,26 +1,33 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
+const Nav = React.createClass({
+// class Nav extends React.Component {
 
-class Nav extends React.Component {
+  getInitialState() {
+    return {
+      width: $(window).width(),
+      height: $(window).height()
+    };
+  },
 
   componentWillMount() {
     this.updateDimensions();
-  }
+  },
 
   componentDidMount() {
     window.addEventListener("resize", this.updateDimensions);
-  }
+  },
   componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions);
-  }
+  },
 
   updateDimensions() {
     this.setState({ width: $(window).width(), height: $(window).height() });
-  }
+  },
 
   showSettings(event) {
     event.preventDefault();
-  }
+  },
 
   render() {
     let navBar;
@@ -53,8 +60,6 @@ class Nav extends React.Component {
       </div>
     );
   }
-}
-Nav.propTypes = {
-  main_app: React.PropTypes.string
-};
+});
+
 export default Nav;
