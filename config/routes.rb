@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     # get 'courses' => 'courses#index'
   end
   resources :weeks, only: [:index, :show, :edit, :update, :destroy]
+  delete 'weeks' => 'weeks#delete_multiple'
   resources :blocks, only: [:show, :edit, :update, :destroy]
   resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
