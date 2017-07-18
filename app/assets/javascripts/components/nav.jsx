@@ -1,7 +1,11 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 const Nav = React.createClass({
-// class Nav extends React.Component {
+  displayName: 'Nav',
+
+  propTypes: {
+    rootUrl: React.PropTypes.string
+  },
 
   getInitialState() {
     return {
@@ -31,6 +35,7 @@ const Nav = React.createClass({
 
   render() {
     let navBar;
+    console.log(this.props.rootUrl);
     if (this.state.width < 500)
     {
       navBar = (
@@ -48,6 +53,11 @@ const Nav = React.createClass({
         <div>
           <nav className="fluid top-nav">
             <div className="container">
+              <div className="top-nav__site-logo">
+                <a className="logo__link" href= {this.props.rootUrl}>
+                  bfhvbhfbv
+                </a>
+              </div>
             </div>
           </nav>
         </div>

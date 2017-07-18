@@ -11,8 +11,6 @@
   %body{class: body_class(request)}
     = render "shared/flash"
     %div.wrapper
-
-      #react_root{"data-main_app" => main_app}
       %main#main{"data-user-id" => current_user&.id, :role => "main"}
         = yield
       .push

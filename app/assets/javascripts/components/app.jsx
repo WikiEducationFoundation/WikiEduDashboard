@@ -1,5 +1,14 @@
 import React from 'react';
 import Nav from '../components/nav.jsx';
+
+const getState = function () {
+  const rootUrl = $('#react_root').data('rootUrl');
+  console.log(rootUrl);
+  return {
+    rootUrl: rootUrl
+  };
+};
+
 const App = React.createClass({
   displayName: 'App',
 
@@ -8,17 +17,14 @@ const App = React.createClass({
   },
 
   getInitialState() {
-    return {
-      width: $(window).width(),
-      height: $(window).height()
-    };
+    return getState();
   },
 
   render() {
     return (
       <div>
         <Nav
-          main_app = {this.state.main_app}
+          main_app = {this.state.rootUrl}
         />
         {this.props.children}
       </div>

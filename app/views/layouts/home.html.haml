@@ -9,7 +9,7 @@
   = render "shared/head"
   %body.home
     %div
-      = render "shared/nav"
+      #react_root{ "data-rootUrl" => main_app.root_url }
       %main
         = render "shared/flash"
         = yield
