@@ -11,6 +11,7 @@
   %body{class: body_class(request)}
     = render "shared/flash"
     %div.wrapper
+      #nav_root{"data-rooturl" => main_app.root_url, "data-test" => "hello"}
       %main#main{"data-user-id" => current_user&.id, :role => "main"}
         = yield
       .push
