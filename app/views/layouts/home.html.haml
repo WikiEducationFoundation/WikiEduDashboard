@@ -9,7 +9,7 @@
   = render "shared/head"
   %body.home
     %div
-      = render "shared/nav"
+      #nav_root{"data-rooturl" => main_app.root_url, "data-test" => "hello"}
       %main
         = render "shared/flash"
         = yield

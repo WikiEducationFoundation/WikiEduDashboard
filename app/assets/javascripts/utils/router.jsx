@@ -114,6 +114,9 @@ if (navBar) {
   ReactDOM.render((
     <Router history={browserHistory} >
       <Route path="/" component={Nav} />
+      <Route path="courses">
+        <Route path=":course_school/:course_title" component={Nav} />
+      </Route>
     </Router>
   ), navBar);
 }
