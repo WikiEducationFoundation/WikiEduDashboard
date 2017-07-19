@@ -18,18 +18,26 @@
     %div.create-modal-wrapper{class: @campaign.errors.any? || params[:create] ? 'show-create-modal' : 'hidden'}
       = render 'create_modal'
 
-%section.campaign-list
-  .container
-    %ul
-      - @campaigns.each do |campaign|
-        %li
-          = link_to campaign.title, "/campaigns/#{campaign.slug}/overview"
-          = " (CSVs: "
-          = link_to 'students', "/campaigns/#{campaign.slug}/students.csv"
-          = ", "
-          = link_to 'students by course', "/campaigns/#{campaign.slug}/students.csv?course=true"
-          = ", "
-          = link_to 'instructors by course', "/campaigns/#{campaign.slug}/instructors.csv?course=true"
-          = ", "
-          = link_to 'course data', "/campaigns/#{campaign.slug}/courses.csv"
-          = ")"
+.container
+  %section#js-campaigns.campaign-list
+    %table.table.table--sortable
+      %thead
+        %tr
+          %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
+            Title
+            %span.sortable-indicator
+          %th{:colspan => "5"}
+            CSVs
+      %tbody.list
+        - @campaigns.each do |campaign|
+          %tr
+            %td.title
+              = link_to campaign.title, "/campaigns/#{campaign.slug}/overview"
+            %td 
+              = link_to 'students', "/campaigns/#{campaign.slug}/students.csv"
+            %td
+              = link_to 'students by course', "/campaigns/#{campaign.slug}/students.csv?course=true"
+            %td
+              = link_to 'instructors by course', "/campaigns/#{campaign.slug}/instructors.csv?course=true"
+            %td
+              = link_to 'course data', "/campaigns/#{campaign.slug}/courses.csv"
