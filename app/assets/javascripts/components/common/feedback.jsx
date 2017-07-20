@@ -46,7 +46,7 @@ const Feedback = React.createClass({
 
   handleSubmit(event) {
     const subject = `/revision_feedback?title=${this.titleParam()}`;
-    const body = event.target.value;
+    const body = this.input.value;
     this.setState({ feedbackSent: 'sending' });
     API.postFeedbackFormResponse(subject, body).then(() => {
       this.setState({ feedbackSent: true });
@@ -104,7 +104,7 @@ const Feedback = React.createClass({
       }
       feedbackForm = (
         <form onSubmit={this.handleSubmit}>
-          <textarea className="feedback-form" rows="1" cols="150" value={this.state.value} placeholder={I18n.t('courses.suggestions_feedback')} />
+          <textarea className="feedback-form" rows="1" cols="150" ref={(input) => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
           {submitFeedback}
         </form>
       );
