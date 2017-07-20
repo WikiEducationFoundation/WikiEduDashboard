@@ -5,12 +5,23 @@ const Nav = React.createClass({
 
   getInitialState() {
     const rootUrl = $('#nav_root').data('rooturl');
-    const test = $('#nav_root').data('test');
+    const logoPath = $('#nav_root').data('logopath');
+    const fluid = $('#nav_root').data('fluid');
+    const exploreurl = $('#nav_root').data('exploreurl');
+    const explorename = $('#nav_root').data('explorename');
+    const classs = $('#nav_root').data('classs');
     console.log(rootUrl);
-    console.log(test);
+    console.log(logoPath);
+    console.log(fluid);
+    console.log(exploreurl);
+    console.log(explorename);
+    console.log(classs);
     return {
       rootUrl: rootUrl,
-      test: test,
+      logoPath: logoPath,
+      fluid: fluid,
+      exploreurl: exploreurl,
+      explorename: explorename,
       width: $(window).width(),
       height: $(window).height()
     };
@@ -37,7 +48,14 @@ const Nav = React.createClass({
 
   render() {
     let navBar;
+    let navClass;
     console.log(this.state.rootUrl);
+    if (this.state.fluid)
+    {
+      navClass = "top-nav fluid";
+    } else {
+      navClass = "top-nav";
+    }
     if (this.state.width < 500)
     {
       navBar = (
@@ -53,13 +71,22 @@ const Nav = React.createClass({
     } else {
       navBar = (
         <div>
-          <nav className="fluid top-nav">
+          <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
                 <a className="logo__link" href= {this.state.rootUrl}>
-                  bfhvbhfbv
+                  <img src ={this.state.logoPath} alt = "wiki logo" />
                 </a>
               </div>
+              <ul className="top-nav__main-links">
+                <li>
+                  <a href = {this.state.exploreurl}>
+                    {this.state.explorename}
+                  </a>
+                </li>
+              </ul>
+              <ul className="top-nav__login-links">
+              </ul>
             </div>
           </nav>
         </div>
