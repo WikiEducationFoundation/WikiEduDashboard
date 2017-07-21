@@ -117,6 +117,7 @@ if (navBar) {
       <Route path="courses">
         <Route path=":course_school/:course_title" component={Nav} />
       </Route>
+      <Route path="/explore" component={Nav} />
     </Router>
   ), navBar);
 }

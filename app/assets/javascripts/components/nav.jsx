@@ -9,17 +9,18 @@ const Nav = React.createClass({
     const fluid = $('#nav_root').data('fluid');
     const exploreurl = $('#nav_root').data('exploreurl');
     const explorename = $('#nav_root').data('explorename');
-    const classs = $('#nav_root').data('classs');
+    const exploreclass = $('#nav_root').data('exploreclass');
     console.log(rootUrl);
     console.log(logoPath);
     console.log(fluid);
     console.log(exploreurl);
     console.log(explorename);
-    console.log(classs);
+    console.log(exploreclass);
     return {
       rootUrl: rootUrl,
       logoPath: logoPath,
       fluid: fluid,
+      exploreclass: exploreclass,
       exploreurl: exploreurl,
       explorename: explorename,
       width: $(window).width(),
