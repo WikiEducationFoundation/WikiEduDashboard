@@ -383,9 +383,8 @@ ast:
       clone_previous: Clonar el programa anterior
       clone_this: Clonar esti programa
       clone_successful: Programa clonáu correutamente
-      clone_successful_details: El to programa clonóse. Asegurate d'añadir daqué nel
-        campu 'Cuando' (por casu, el mes y añu) pa estremalu del orixinal. Entós pulsia
-        'Guardar' más abaxo p'acabar.
+      clone_successful_details: El to programa clonóse. Primi 'Guardar' más abaxo
+        p'acabar.
       course_description: Descripción del programa
       course_school: Institución
       course_term: Cuándo
