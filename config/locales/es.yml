@@ -366,7 +366,8 @@ es:
     submitted_heading: Cursos presentados
     submitted_note: Tu curso se ha presentado. Personal de Wiki Ed lo revisará y se
       pondrá en contacto ante cualquier pregunta.
-    suggestions_feedback: ¿Son útiles estas sugerencias? ¡Avisanos!
+    suggestions_feedback: ¿Tienes alguna sugerencia para mejorar esta funcionalidad?
+      ¡Avisanos!
     suggestions_sending: Enviando comentarios...
     suggestions_sent: Comentarios enviados. Gracias por tu interes.
     suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
@@ -425,9 +426,8 @@ es:
       clone_previous: Clonar el programa previo
       clone_this: Clonar este programa
       clone_successful: Programa clonado con éxito
-      clone_successful_details: Tu programa ha sido clonado. Asegurate de añadir algo
-        en el campo 'Cuando' (por ejemplo, el mes y año) para diferenciarlo del original.
-        Entonces pulsa 'Guardar' abajo para finalizarlo.
+      clone_successful_details: Tu programa se ha clonado. Pulsa 'Guardar' más abajo
+        para finalizarlo.
       course_description: Descripción del programa
       course_school: Institución
       course_term: Cuándo

@@ -477,9 +477,10 @@ de:
       clone_previous: Vorheriges Programm klonen
       clone_this: Dieses Programm klonen
       clone_successful: Programm erfolgreich geklont
-      clone_successful_details: Dein Programm wurde geklont. Stelle sicher, dass du
-        etwas in das „Wann“-Feld schreibst (zum Beispiel das Monat und das Jahr),
-        um es vom Original zu unterscheiden. Klicke dann zum Abschluss unten auf „Speichern“.
+      clone_successful_details: Dein Programm wurde geklont. Klicke zum Abschluss
+        unten auf „Speichern“.
+      course_when: Gib etwas in das „Wann“-Feld ein (zum Beispiel den Monat und das
+        Jahr), um den Kurs vom Original zu unterscheiden.
       course_description: Programmbeschreibung
       course_school: Einrichtung
       course_term: Wann
@@ -652,7 +653,7 @@ de:
         nicht den Titelzusatz „(Begriffsklärung)“ benötigen.
       '?': Keine Vorschläge verfügbar. Entweder ist der Artikel nicht bewertet oder
         Vorschläge sind für die Bewertung nicht verfügbar.
-      does_not_exist: Dieser Artikel ist in Wikipedia nicht vorhanden
+      does_not_exist: Dieser Artikel ist auf Wikipedia nicht vorhanden.
   tasks:
     conseq: Die Aufgabe %{task} läuft bereits!
     constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe

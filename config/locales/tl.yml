@@ -19,6 +19,9 @@ tl:
   courses:
     campaign_courses: Mga Kurso
     overview: Pangunang Pahina (Ang Pinagmulan)
+    suggestions_feedback: Kung mayroon kang maimumungkahi? Ipaalam sa amin!
+    suggestions_sent: Mga diskarte mo, naipadala na. Salamat naman at nagtiyaga kang
+      magsulat.
     view_other: Ipakita ang ibang kasabwat
   courses_generic:
     campaign_courses: Mga Programa
@@ -29,6 +32,9 @@ tl:
     date_time: Petsa/Oras
     edited_by: Inedit ni/ng
     title: Pamagat
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Ang artikulong nakasaad ay (hindi o walang) naitala sa Wikipedia.
   user_profiles:
     disclaimer: Ang impormasyon na iyong ilalathala ay magiging 'available' para sa
       publiko.

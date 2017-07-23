@@ -238,8 +238,7 @@ ko:
     creator:
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
-      clone_successful_details: '프로그램이 복제되었습니다. 원래의 것과 구별하기 위해 ''날짜''(예: 연도와 월) 필드에
-        무언가를 추가해 주십시오. 그 다음 아래의 ''저장''을 눌러 마칠 수 있습니다.'
+      clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.
       course_description: 프로그램 설명
       course_term: 날짜
       course_term_placeholder: 날짜
@@ -316,7 +315,7 @@ ko:
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
-      does_not_exist: 이 글은 위키백과에 존재하지 않습니다
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다.
   tasks:
     conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
   timeline:

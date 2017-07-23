@@ -46,7 +46,7 @@ const Feedback = React.createClass({
 
   handleSubmit(event) {
     const subject = `/revision_feedback?title=${this.titleParam()}`;
-    const body = event.target.value;
+    const body = this.input.value;
     this.setState({ feedbackSent: 'sending' });
     API.postFeedbackFormResponse(subject, body).then(() => {
       this.setState({ feedbackSent: true });
@@ -90,9 +90,9 @@ const Feedback = React.createClass({
     let feedbackForm;
 
     if (this.props.assignment.article_id) {
-      titleElement = <a className="my-assignment-title" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>;
+      titleElement = <a className="my-assignment-title" target="_blank" href={this.props.assignment.article_url}>{this.props.assignment.article_title}</a>;
     } else {
-      titleElement = <a className="my-assignment-title" href={`https://en.wikipedia.org/wiki/User:${this.props.username}/sandbox`}>{`User:${this.props.username}/sandbox`}</a>;
+      titleElement = <a className="my-assignment-title" target="_blank" href={`https://en.wikipedia.org/wiki/User:${this.props.username}/sandbox`}>{`User:${this.props.username}/sandbox`}</a>;
     }
 
     if (data) {
@@ -104,7 +104,7 @@ const Feedback = React.createClass({
       }
       feedbackForm = (
         <form onSubmit={this.handleSubmit}>
-          <textarea className="feedback-form" rows="1" cols="150" value={this.state.value} placeholder={I18n.t('courses.suggestions_feedback')} />
+          <textarea className="feedback-form" rows="1" cols="150" ref={(input) => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
           {submitFeedback}
         </form>
       );

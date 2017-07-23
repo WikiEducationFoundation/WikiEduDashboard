@@ -425,12 +425,17 @@ fr:
     submitted_heading: Cours soumis
     submitted_note: Votre cours a été soumis. L’équipe Wiki Ed l’examinera et vous
       contactera pour toute question.
-    suggestions_feedback: Ces suggestions ont-elles été utiles ? Faites-le nous savoir !
+    suggestions_feedback: Vous avez des suggestions pour améliorer cette fonctionnalité ?
+      Faites-le nous savoir !
     suggestions_sending: Envoi du commentaire…
     suggestions_sent: Commentaire envoyé. Merci pour votre saisie.
     suggestions_failed: Impossible d’envoyer le commentaire. Réessayez ultérieurement.
     user_role: Rôle
     course_details: Détails du cours
+    course_submitted: L’état soumis est utilisé pour les cours de programme éducatif,
+      quand un plan de cours doit être approuvé avant que le projet ne commence. Il
+      n’est significatif que pour le type de cours ClassroomProgram.
+    submitted: Soumis
     term: Période
     timeline: Détails d'assignement
     timeline_link: Calendrier
@@ -485,10 +490,10 @@ fr:
       clone_previous: Dupliquer le programme précédent
       clone_this: Dupliquer ce programme
       clone_successful: Programme dupliqué avec succès
-      clone_successful_details: Votre Programme a été dupliqué. N’oubliez pas d’ajouter
-        quelque chose dans le champ « Quand » (mois et année par exemple) afin de
-        le différencier de l’original. Cliquez sur « Sauvegarder » afin de valider
-        la modification.
+      clone_successful_details: Votre Programme a été dupliqué. Cliquez sur « Sauvegarder
+        » pour valider la modification.
+      course_when: Ajoutez quelque chose dans le champ 'Quand' (par exemple, le mois
+        et l'année) pour le différencier de l'original.
       course_description: Description du programme
       course_school: Institution
       course_term: Quand
@@ -652,16 +657,16 @@ fr:
         est d’y ajouter des motifs référencés pour dire en quoi le sujet est important.
       fl: Aucun ajout supplémentaire de contenu n’est nécessaire, sauf si de nouvelles
         informations deviennent disponibles.
-      list: Les listes doivent être des listes de liens vivants vers des articles
-        de Wikipédia, nommés et organisés de façon appropriée.
+      list: Les listes doivent être des listes de liens actifs vers des articles de
+        Wikipédia, nommés et organisés de façon appropriée.
       future: Les matériaux ajoutés peuvent être spéculatifs, et doivent être soigneusement
         référencés.
       disambig: Des ajouts devraient être faits sous forme de nouveaux articles de
         ce nom créés. Faites bien attention au nommage correct de ces pages, car elles
         n’ont souvent pas besoin que « (désambiguïsation) » soit ajouté au titre.
       '?': Suggestions non disponibles — L’article est soit non noté, ou les suggestions
-        ne sont pas disponibles pour cette note.
-      does_not_exist: L’article n’existe pas dans Wikipédia
+        ne sont pas autorisées pour l'appréciation.
+      does_not_exist: Cet article n’existe pas sur Wikipédia
   tasks:
     conseq: La tâche %{task} tourne déjà !
     constant: La tâche %{task} ne peut pas tourner tant que la tâche update_daily

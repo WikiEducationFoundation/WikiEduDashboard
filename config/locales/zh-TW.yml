@@ -391,10 +391,11 @@ zh-TW:
       clone_previous: 複製前一個方案
       clone_this: 複製此方案
       clone_successful: 方案成功複製
-      clone_successful_details: 您的方案已複製。請確定在「於」欄位添加內容（例如：年和月）來與原始內容作區分。之後點擊下方的「儲存」來結束流程。
+      clone_successful_details: 您的方案已複製。請點擊下方的「儲存」來結束流程。
+      course_when: 添加一些內容在「何時」欄位（例如：年份和月份）來和初始項目做區分。
       course_description: 方案描述
       course_school: 機構
-      course_term: 於
+      course_term: 何時
       course_term_placeholder: 於
       course_title: 方案標題
       create_button: 建立我的方案！
@@ -429,7 +430,7 @@ zh-TW:
     students_none: 此專案目前沒有編輯者登記。
     students_short: 編輯者
     students_count: 參與者數量
-    term: 於
+    term: 何時
     unsubmitted: 未提交方案
     uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
     view_other: 檢視其它活動
@@ -526,7 +527,7 @@ zh-TW:
       future: 所添加內容可能是推測應請小心引用。
       disambig: 應為創建的名稱建立新條目。密切關注這些頁面的適當命名，因它們通常不需要為標題附加「（消歧義）」。
       '?': 建議不可用 - 條目未評級或是建議內容對於評級無用。
-      does_not_exist: 維基百科無此條目
+      does_not_exist: 維基百科上無此條目
   tasks:
     conseq: 課題 %{task}已在進行！
     constant: 當 update_daily 執行時課題 %{task}無法進行。

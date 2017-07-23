@@ -73,4 +73,27 @@ $(() => {
   if ($('.create-modal-wrapper').hasClass('show-create-modal')) {
     $('.create-campaign-button').trigger('click');
   }
+  // Campaign sorting
+  // only sort if there are tables to sort
+  let campaignList;
+  if ($('.campaign-list table').length) {
+    campaignList = new List('js-campaigns', {
+      valueNames: [
+        'title'
+      ]
+    });
+  }
+
+  return $('select.sorts').on('change', function () {
+    const list = (() => {
+      switch ($(this).attr('rel')) {
+        case 'campaigns': return campaignList;
+        default: break;
+      } })();
+    if (list) {
+      return list.sort($(this).val(), {
+        order: $(this).children('option:selected').attr('rel')
+      });
+    }
+  });
 });

@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Festina90
 # Author: Mainframe98
 # Author: Mbch331
 # Author: Milenej
@@ -252,6 +253,12 @@ nl:
     submitted_heading: Ingediend cursussen
     submitted_note: Je cursus is ingediend. Wiki Ed-personeel zal deze bekijken en
       contact opnemen indien er vragen zijn.
+    suggestions_feedback: Enige suggesties om deze functie te verbeteren? Laat het
+      ons weten!
+    course_submitted: Voorgelegde status wordt gebruikt voor opleidingsprogramma's
+      waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
+      is alleen relevant voor het cursus type klaslokaalProgramma.
+    submitted: Verzonden
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn

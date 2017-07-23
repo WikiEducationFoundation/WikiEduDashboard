@@ -1,6 +1,7 @@
 # Messages for Armenian (Հայերեն)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Aram1985
 # Author: Kareyac
 # Author: KeepingCalm
 # Author: Lilitik22
@@ -162,6 +163,9 @@ hy:
     loading: Բեռնել վերանայումները․․․
     time_doc: Յուրաքանչյուր վերանայման ժամանակը տեղական ժամանակով
     title: Վերնագիր
+  suggestions:
+    suggestion_docs:
+      does_not_exist: 'Այս հոդվածը Վիքիպեդիայում գոյություն չունի:'
   training:
     start: Սկսել
     view: Դիտել
