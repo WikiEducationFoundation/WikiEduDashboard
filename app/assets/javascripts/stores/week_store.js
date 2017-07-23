@@ -39,10 +39,8 @@ const removeWeek = function (weekId) {
   return WeekStore.emitChange();
 };
 
-const removeAllWeeks = function (weeks) {
-  for (let i = 0; i < weeks.length; i++) {
-    delete _weeks[weeks[i]];
-  }
+const removeAllWeeks = function () {
+  _weeks = {};
   return WeekStore.emitChange();
 };
 
@@ -83,7 +81,7 @@ const WeekStore = Flux.createStore({
       removeWeek(data.week_id);
       break;
     case 'DELETE_ALL_WEEKS':
-      removeAllWeeks(data.weeks);
+      removeAllWeeks();
       break;
     default:
       // no default

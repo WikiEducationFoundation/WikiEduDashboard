@@ -10,6 +10,7 @@ import Affix from '../common/affix.jsx';
 
 import WeekActions from '../../actions/week_actions.js';
 import BlockActions from '../../actions/block_actions.js';
+import CourseActions from '../../actions/course_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
 import WeekStore from '../../stores/week_store.js';
@@ -61,8 +62,7 @@ const Timeline = React.createClass({
   },
 
   deleteAllWeeks() {
-    const weeks = this.props.weeks.filter(week => !week.is_new).map(w => w.id);
-    return WeekActions.deleteAllWeeks(weeks);
+    return CourseActions.deleteAllWeeks(this.props.course.slug);
   },
 
   _handleBlockDrag(targetIndex, block, target) {
@@ -323,7 +323,9 @@ const Timeline = React.createClass({
     });
 
     const restartTimeline = this.props.edit_permissions ? (
-      <button className="button border button--block" onClick={this.deleteAllWeeks}>Delete Timeline And Start Over</button>
+      <button className="button border button--block" onClick={this.deleteAllWeeks}>
+        {I18n.t('timeline.delete_timeline_and_start_over')}
+      </button>
     ) : (undefined);
 
     const sidebar = this.props.course.id ? (

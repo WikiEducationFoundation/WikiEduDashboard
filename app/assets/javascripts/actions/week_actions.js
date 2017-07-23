@@ -16,16 +16,6 @@ const WeekActions = Flux.createActions({
       }))
       .catch(data => ({ actionType: 'API_FAIL', data }));
   },
-  deleteAllWeeks(weeks) {
-    return API.deleteAllWeeks(weeks)
-      .then(data => ({
-        actionType: 'DELETE_ALL_WEEKS',
-        data: {
-          weeks: data.weeks
-        }
-      }))
-      .catch(data => ({ actionType: 'API_FAIL', data }));
-  },
 });
 
 export default WeekActions;
