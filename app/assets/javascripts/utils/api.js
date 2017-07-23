@@ -550,15 +550,14 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  deleteAllWeeks(weeks) {
+  deleteAllWeeks(course_id) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'DELETE',
-        url: `/weeks`,
-        data: { id: weeks },
+        url: `/courses/${course_id}/delete_all_weeks.json`,
         success(data) {
           console.log(data);
-          return res({ weeks });
+          return res({ course_id });
         }
       })
       .fail((obj) => {

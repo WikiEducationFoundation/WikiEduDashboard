@@ -20,7 +20,8 @@ class CoursesController < ApplicationController
                   :update,
                   :destroy,
                   :notify_untrained,
-                  :update_syllabus
+                  :update_syllabus,
+                  :delete_all_weeks
                 ]
 
   ################
@@ -127,6 +128,12 @@ class CoursesController < ApplicationController
     render plain: '', status: :ok
   end
   helper_method :notify_untrained
+
+  def delete_all_weeks
+    @course = find_course_by_slug(params[:id])
+    @course.weeks.destroy_all
+    render plain: '', status: :ok
+  end
 
   private
 

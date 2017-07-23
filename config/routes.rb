@@ -73,6 +73,10 @@ Rails.application.routes.draw do
         }
     post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
+    delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
+      constraints: {
+        id: /.*/
+      }
   end
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'
@@ -85,7 +89,6 @@ Rails.application.routes.draw do
     # get 'courses' => 'courses#index'
   end
   resources :weeks, only: [:index, :show, :edit, :update, :destroy]
-  delete 'weeks' => 'weeks#delete_multiple'
   resources :blocks, only: [:show, :edit, :update, :destroy]
   resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
