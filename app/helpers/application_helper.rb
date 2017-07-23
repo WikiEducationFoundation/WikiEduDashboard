@@ -13,6 +13,22 @@ module ApplicationHelper
     image_tag logo_path
   end
 
+  def permissions
+    if Features.wiki_ed? && current_user&.permissions == User::Permissions::NONE
+      'true'
+    else
+      'false'
+    end
+  end
+
+  def languageswitcherenabled
+    if Features.enable_language_switcher?
+      'true'
+    else
+      'false'
+    end
+  end
+
   def logo_favicon_tag
     favicon_path = if Rails.env == 'development'
                      "/assets/images/#{Figaro.env.favicon_dev_file}"
