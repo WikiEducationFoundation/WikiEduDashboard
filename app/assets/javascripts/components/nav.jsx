@@ -24,26 +24,6 @@ const Nav = React.createClass({
     const destroyUrl = $('#nav_root').data('destroyurl');
     const omniauthUrl = $('#nav_root').data('omniauth_url');
 
-    console.log(rootUrl);
-    console.log(logoPath);
-    console.log(fluid);
-    console.log("exploreurl");
-    console.log(exploreurl);
-    console.log(explorename);
-    console.log(exploreclass);
-    console.log(`ifadmin + ${ifadmin}`);
-    console.log(`trainingurl : ${trainingurl}`);
-    console.log(`disableTraining : ${disableTraining}`);
-    console.log(`helpDisabled : ${helpDisabled}`);
-    console.log(`askUrl : ${askUrl}`);
-    console.log(`userPermissions : ${userPermissions}`);
-    console.log(`wikiEd : ${wikiEd}`);
-    console.log(`languageSwitcherEnabled : ${languageSwitcherEnabled}`);
-    console.log(`currentUser : ${currentUser}`);
-    console.log(`destroyUrl : ${destroyUrl}`);
-    console.log(`omniauthUrl : ${omniauthUrl}`);
-
-
     return {
       rootUrl: rootUrl,
       logoPath: logoPath,
