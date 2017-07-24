@@ -242,7 +242,7 @@ const Timeline = React.createClass({
     }
 
     let wizardLink;
-    if (weekComponents.length <= 0) {
+    if (weekComponents.length <= 0 && this.props.edit_permissions) {
       const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }
