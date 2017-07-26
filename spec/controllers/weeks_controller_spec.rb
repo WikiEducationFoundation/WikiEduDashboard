@@ -11,9 +11,9 @@ describe WeeksController do
     end
 
     it 'destroys the week' do
-      expect(Week.count).to eq(2)
-      delete :destroy, params: { id: week.id }, format: :json
       expect(Week.count).to eq(1)
+      delete :destroy, params: { id: week.id }, format: :json
+      expect(Week.count).to eq(0)
     end
   end
 end
