@@ -549,6 +549,8 @@ describe CoursesController do
   describe '#delete_all_weeks' do
     let(:course) { create(:course) }
     let!(:user) { create(:admin) }
+    let!(:week1) { create(:week, course_id: course.id) }
+    let!(:week2) { create(:week, course_id: course.id) }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
@@ -556,6 +558,7 @@ describe CoursesController do
     end
 
     it 'deletes all the weeks' do
+      expect(course.weeks.count).to eq(2)
       delete :delete_all_weeks, params: { id: course.slug }
       expect(course.weeks.count).to eq(0)
       expect(response.status).to eq(200)
