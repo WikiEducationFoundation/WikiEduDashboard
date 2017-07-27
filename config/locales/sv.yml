@@ -204,6 +204,10 @@ sv:
       clone_previous: Klona tidigare program
       clone_this: Klona detta program
       clone_successful: Programmet klonades
+      clone_successful_details: Ditt program har klonats. Klicka på "Spara" nedan
+        för att slutföra det.
+      course_when: Lägg till någonting i fältet "När" (t.ex. månad och år) för att
+        särskilja den från originalet.
       course_description: Program beskrivning
       course_school: Institution
       course_term: När

@@ -135,7 +135,12 @@ sd:
     yourcourses: توهان جا ڪورسز
   courses_generic:
     all_courses: سڀ سٽاءَ (پروگرام)
+    creator:
+      save_cloned_course: سانڍيو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
+  editable:
+    edit: سانڍيو
+    save: سانڍيو
   metrics:
     activity: تازي سرگرمي
     articles_created: تخليقيل مضمون
@@ -164,6 +169,7 @@ sd:
     title: عنوان
   timeline:
     due_default: مٿين هفتي واجب
+    save_all_changes: سڀ سانڍيو
     title: اوقاتي خط
   uploads:
     loading: چاڙھون چڙهي رهيون آهن...

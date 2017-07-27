@@ -161,6 +161,14 @@ ast:
     campaign_deleted: Desanicióse la campaña «%{title}»
     campaign_not_updated: Nun pudo actualizase la campaña
     campaign_updated: Campaña actualizada
+    confirm_campaign_deletion: ¿Tas seguru de que quies desaniciar la campaña titulada
+      "%{title}"? Si ye asina, escribe'l títulu de la campaña pa siguir.
+    confirm_campaign_deletion_failed: «%{title}» nun ye'l títulu d'esta campaña. La
+      campaña nun se desanició.
+    confirm_course_removal: ¿Tas seguru de que quies desaniciar "%{title}" de la campaña
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" yá se desaniciara de la campaña "%{campaign_title}"'
+    course_removed: '"%{title}" desanicióse de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear la mio campaña!
     description: Descripción
@@ -264,7 +272,21 @@ ast:
     current: Cursos actuales
     data_articles: Datos de los artículos
     data_download_info: Descargar los datos en formatu CSV.
+    data_overview: Supervisar los datos
+    data_overview_info: Supervisar los datos ufre estadístiques acumulaes del proyeutu
+      completu.
+    data_edits: Datos d'ediciones
+    data_edits_info: Datos d'ediciones amuesa los detalles de cada edición fecha demientres
+      el proyeutu.
+    data_students: Datos d'editores
+    data_students_info: Datos d'editores amuesa la llista de tolos editores soscritos,
+      cuánto editaron, y si rexistraron les cuentes demientres el proyeutu.
+    data_uploads: Datos de xubíes a Commons
+    data_uploads_info: Datos de xubíes a Commons amuesa'l nome y recuentu d'usu de
+      cada mediu xubíu.
     delete_course: Desaniciar cursu
+    delete_course_instructions: Puedes desaniciar esta páxina si primero se desanicien
+      toles campañes.
     dismiss_survey: Descartar
     dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
     download_stats_data: Estadístiques de descargues
@@ -432,6 +454,7 @@ ast:
     edit_details: Editar los detalles
   metrics:
     activity: Actividá reciente
+    are_trained: tán al día cola capacitación
     articles_created: Artículos creaos
     articles_edited: Artículos editaos
     characters: Caráuteres
@@ -440,12 +463,21 @@ ast:
     char: Caráuteres añadíos
     date_time: Data/Hora
     edit_count_description: Total d'ediciones
+    per_user: '%{number}/usuariu'
     revisions: Ediciones recién
     tags: Etiquetes
     upload_count: Xubíes a Commons
+    uploads_in_use_count:
+      one: ficheru utilizáu nun artículu
+      other: ficheros utilizaos n'artículos
+    upload_usages_count:
+      one: total d'usu ente toles llingües
+      other: total d'usos ente toles llingües
     view_count_description: Visites del artículu
+    view_data_unavailable: Nun hai datos de visites disponibles
     view: Visites
     word_count: Palabres amestaes
+    word_count_average: Recuentu del promediu de palabres
   namespace:
     main: Espaciu principal
     main_char_added: Caráuteres añadíos nel espaciu principal
@@ -453,8 +485,14 @@ ast:
     user_char_added: Caráuteres añadíos nel espaciu d'usuariu
     user_ns: Usuariu
   recent_activity:
+    active_courses: L'artículu ta activu en
+    article_title: Títulu del artículu
+    datetime: Data/Hora
+    did_you_know_eligible: Escoyible pa ¿Sabíes que...
     image: Imaxe
     file_name: Nome del ficheru
+    no_dyk_eligible: Nesti momentu nun hai nengún artículu escoyible pa ¿Sabíes que...
+    no_plagiarism: Actualmente nun hai nenguna revisión con sospecha de plaxu.
     no_edits: Nun hai nenguna edición recién.
     plagiarism_report: Informe de plaxu
     possible_plagiarism: Posible plaxu
@@ -463,6 +501,7 @@ ast:
     revision_author: Autor de la revisión
     revision_datetime: Fecha/hora de la revisión
     revision_score: Puntuación de revisión
+    show_courses: Amosar namái los mios cursos
     uploaded_by: Xubíu por
     usage_count: Total d'usos
   revisions:
@@ -472,11 +511,18 @@ ast:
     diff: diff
     diff_show: Amosar
     diff_hide: Anubrir
+    edit_time_span: Les ediciones asocedieron del %{first_time} al %{last_time}
     edited_by: Editáu por
+    edited_on: Editáu el %{edit_date}
     loading: Cargando revisiones...
     none: Esti cursu nun tien actividá editorial recien.
     time_doc: La hora de cada revisión n'hora llocal
     title: Títulu
+    view_on_wiki: Ver les diferencies na wiki
+  suggestions:
+    editing: Suxerencies d'edición
+    suggestion_docs:
+      does_not_exist: Esti artículu nun esiste na Wikipedia
   tasks:
     conseq: La xera %{task} yá ta n'execución
     constant: Nun pué executase la xera %{task} mentanto tea executándose la xera
@@ -484,16 +530,48 @@ ast:
     paused: La xera %{task} nun pué executase porque tán posaos los anovamientos programaos.
       Executa 'rake batch:resume' pa siguir colos anovamientos.
   timeline:
+    add_week: Añadir selmana
+    arrange_timeline: Organizar cronograma
+    arrange_timeline_instructions: Organiza'l cronograma 'abasnando y soltando' bloques
+      nel allugamientu o selmana deseada, o mueve la posición de los bloques usando
+      les fleches qu'apaecen na tarxeta.
+    assignment_dates_instructions: Escueye les feches de principiu y fin de la xera
+      de Wikipedia. El cambéu de la fecha de principiu moverá les feches del cronograma
+      completu.
     blackout_week_created: Hai bloques programaos pa esta selmana. Muévelos a otra
       selmana antes de desaniciar l'últimu aconceyamientu de clase d'esta selmana.
+    block_assignment: Xera
+    block_custom: Personalizáu
+    block_in_class: Na clase
+    block_milestone: Finxu
     block_type: El tipu bloque úsase pa comunicar a los estudiantes sobro esti elementu
       nel so cronograma y pa construyir ferramientes útiles pa ti (tales como'l resume
       de finxos de la páxina de resume)
+    course_dates: Feches del cursu
+    course_dates_instructions: Escueye les feches d'entamu y fin del cursu enteru
+      (non sólo la xera de Wikipedia).
+    course_end: Fin del cursu
+    course_start: Principiu del cursu
+    delete_week_confirmation: |-
+      ¿Tas seguro de que quies desaniciar esta selmana? Esto desaniciará la selmana y tolos bloques asociaos.
+
+      Esto nun puede desfacese.
+    discard_all_changes: Descartar tolos cambeos
     due_default: Previstu pa la selmana viniente
+    empty_week_1: Pa principiar,
+    empty_week_2: empieza editando esta selmana
     empty_week_3: o
     empty_week_4: usar l'asistente d'asignaciones pa crear una llinia temporal.
     first_week_title: Primera selmana activa
     gradeable_value: Valor
+    gradeables_none: Esti cronograma nun tien xeres marcaes como calificables.
+    grading_header: 'Calificación (Total: %{total}%)'
+    move_block_down: Baxar el bloque
+    move_block_up: Xubir el bloque
+    no_class_holidays: Nun tengo vacaciones de clases
+    no_timeline: Esti cursu nun tien cronograma.
+    no_activity_this_week: Nun hai reuniones programaes esta selmana
+    nothing_this_week: Nun hai nada nel programao pa esta selmana.
     save_all_changes: Guardar too
     this_week_title_default: Esta selmana
     title: Cronograma
@@ -540,6 +618,8 @@ ast:
     course_passcode: 'Códigu d''accesu:'
     editors: Editores estudiantes
     enroll_confirmation: ¿Tas seguru de que quies añadir a %{username}?
+    enroll_url: 'Los usuarios pueden xunise visitando esta URL:'
+    enrolled_success: '%{username} añadióse correutamente'
     first_name: Nome
     last_name: Apellíu
     loading: Cargando usuarios...
@@ -551,7 +631,13 @@ ast:
     name: Nome
     none: Nun hai participantes.
     no_articles: Nun hai artículos
+    no_revisions: Esti editor nun fixo nenguna revisión.
+    number_of_articles:
+      one: '%{count} artículu'
+      other: '%{count} artículos'
     recent_revisions: Ediciones recién
+    remove_confirmation: ¿Tas seguru de que quies desaniciar a %{username}?
+    revision_characters_and_views: 'Caráuteres añadíos: %{characters}, Visites: %{views}'
     revisions_doc: El númberu d'ediciones feches por esti editor nos 7 díes anteriores
     reviewers: Revisor(es)
     reviewing: Revisando
@@ -564,6 +650,10 @@ ast:
     training_doc: Los editores que completaron tolos módulos d'entrenamientu designaos
       que tean vencíos cuéntense como al día col entrenamientu.
     training_incomplete: Entrenamientu incompletu
+    training_modules_completed:
+      one: '%{completed_count}/%{count} módulu de capacitación completáu'
+      other: '%{completed_count}/%{count} módulos de capacitación completaos'
+    training_module_name: Módulu de capacitación
     training_module_status: Estáu
     up_to_date_with_training: al día col entrenamientu
     username: Nome d'usuariu
@@ -580,6 +670,9 @@ ast:
     instructor_impact: Impactu total de %{username} como monitor
     instructors_student_impact: Impactu total de los alumnos de %{username}
     disclaimer: La información que proporciones va tar disponible públicamente.
+    bio_placeholder: Añade la to biografía (opcional)
+    location_placeholder: Añade'l to allugamientu (opcional)
+    institution_placeholder: Nome de la institución (opcional)
   wiki_edits:
     notify_overdue:
       confirm: Esto va publicar un recordatoriu nes páxines d'alderique de tolos estudiantes
@@ -605,6 +698,7 @@ ast:
     course_dates: Feches del cursu
     min_weeks: Esta xera rique siquier de %{min_weeks} selmanes disponibles. Afai
       les tos feches d'entamu y final si quies usar esti tipu de xera.
+    select_one_option: Escueyi 1 opción.
     minimum_options:
       one: Escueye polo menos %{count} opción o más.
       other: Escueye polo menos %{count} opciones o más.
@@ -615,7 +709,12 @@ ast:
     select_assignment: Escueye'l tipu de xera que quies añadir al cronograma.
     summary: Resume
   error:
+    form_errors: Comprueba que'l formulariu nun tenga errores.
+    invalid_assignment: Xera inválida
+    invalid_date: La fecha %{key} ye inválida
+    invalid_file_format: El ficheru nun pudo guardase. Xubi un documentu PDF o Word.
     oauth_invalid: Caducó la autorización de Wikipedia. Anicia sesión otra vuelta.
+    start_date_before_end_date: La fecha inicial tien de ser anterior a la fecha final.
     unsupported_browser:
       header: Navegador ensin encontu. :-(
       explanation: Tas usando un navegador que nun ye compatible col tableru. Esti
@@ -647,4 +746,32 @@ ast:
     header: Error d'aniciu de sesión
     explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
       sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
+  survey:
+    login_message: Gracies pol to tiempu. Anicia sesión nel to tableru de Wiki Ed
+      pa facer la encuesta.
+    notification_explanation: Si se marca más abaxo, los usuarios recibirán correos
+      electrónicos acordies cola programación d'avisos, amás de ver los avisos nel
+      navegador. Sinón, los avisos amuésense namái nel navegador.
+    notification_schedule_explanation: Los avisos s'amuesen nel navegador y s'unvien
+      per corréu electrónicu si s'activa más arriba.
+    follow_up_explanation: Déxalo en blanco si nun quies avisos de siguimientu per
+      corréu electrónicu.
+    email:
+      headline: Hola, %{username}
+      message_line1: ¡Esperamos qu'esfrutares del cursu! En Wiki Ed queremos recibir
+        los tos comentarios p'ameyorar los nuesos recursos y sofitu pa les xeres de
+        Wikipedia. La to respuesta ye fundamental p'ameyorar la nuesa ufierta actual.
+      message_line2: ¿Querríes tomate 15 minutos pa contestar la nuesa encuesta pa
+        monitores? Fai clic nel botón de más abaxo p'ayudar a faer de la enseñanza
+        con Wikipedia una esperiencia entá más agradable y valoratible.
+      course: 'Cursu: %{course_info}'
+      closing: Candialmente,
+      signed: '- l''equipu de Wiki Ed'
+      link: Contestar la encuesta
+    follow_up:
+      message: Esti ye un recordatoriu sobre la encuesta pal to cursu, %{course_title}.
+        Les respuestes d'esta encuesta ayúdennos a ameyorar el nuesu sofitu a xeres
+        como les tuyes na Wikipedia.
+  feedback_form_responses:
+    no_responses: Inda nun hai comentarios de respuesta.
 ...
