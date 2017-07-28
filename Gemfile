@@ -13,6 +13,7 @@ gem 'sidekiq'
 gem 'activerecord-import'
 gem 'dalli'
 gem 'connection_pool'
+gem 'faraday'
 
 gem 'browser'
 

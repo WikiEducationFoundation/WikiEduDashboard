@@ -11,4 +11,14 @@ describe OresApi do
       expect { subject }.to raise_error OresApi::InvalidProjectError
     end
   end
+
+  describe '#get_revision_data' do
+    let(:rev_id) { 641962088 }
+    let(:subject) { described_class.new(Wiki.find(1)).get_revision_data(rev_id) }
+    it 'fetches json from ores.wikimedia.org' do
+      VCR.use_cassette 'ores_api' do
+        expect(subject).to be_a(Hash)
+      end
+    end
+  end
 end
