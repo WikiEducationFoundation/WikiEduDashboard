@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { slide as Menu } from 'react-burger-menu';
+
 const Nav = React.createClass({
   displayName: 'Nav',
 
@@ -44,7 +45,8 @@ const Nav = React.createClass({
       destroyUrl: destroyUrl,
       omniauthUrl: omniauthUrl,
       width: $(window).width(),
-      height: $(window).height()
+      height: $(window).height(),
+      query: ""
     };
   },
 
@@ -66,6 +68,15 @@ const Nav = React.createClass({
   showSettings(event) {
     event.preventDefault();
   },
+  handleQueryChange(event) {
+    console.log(this.state.query);
+    this.setState({ query: event.target.value });
+  },
+  handleSubmit() {
+    // const query = this.state.query.trim();
+
+    window.open("/ask");
+  },
 
   render() {
     let navBar;
@@ -78,6 +89,7 @@ const Nav = React.createClass({
     let wikiEd;
     let languageSwitcherEnabled;
     let loggingLinks;
+    let helpEnabled;
     if (this.state.languageSwitcherEnabled)
     {
       languageSwitcherEnabled = (
@@ -100,6 +112,19 @@ const Nav = React.createClass({
           </li>
         </span>
       );
+      if (!this.state.helpDisabled) {
+        helpEnabled = (
+          <div className="top-nav__faq-search">
+            <form onSubmit={this.handleSubmit}>
+              <input id="search" name="search" value={this.state.query} placeholder= {I18n.t('application.search')} type="text" onChange={this.handleQueryChange} />
+              <input id="source" name="source" type="hidden" value="nav_ask_form" />
+              <button type="submit">
+                <i className="icon icon-search"></i>
+              </button>
+            </form>
+          </div>
+      );
+      }
     } else {
       loggingLinks = (
         <li>
@@ -198,6 +223,7 @@ const Nav = React.createClass({
                 {Sandbox}
                 {help}
                 {wikiEd}
+                {helpEnabled}
               </ul>
               <ul className="top-nav__login-links">
                 {languageSwitcherEnabled}
