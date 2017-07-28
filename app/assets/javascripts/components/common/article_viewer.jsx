@@ -57,7 +57,7 @@ const ArticleViewer = React.createClass({
   },
 
   whocolorUrl() {
-    return `https://tools.wmflabs.org/wikiedudashboard/whocolor/index.php?title=${this.props.article.title}`;
+    return `https://api.wikiwho.net/whocolor/v1.0.0-beta/${this.props.article.title}/`;
   },
 
   parsedArticleUrl() {
@@ -133,7 +133,7 @@ const ArticleViewer = React.createClass({
       crossDomain: true,
       success: (json) => {
         this.setState({
-          whocolorHtml: this.processHtml(json.html),
+          whocolorHtml: this.processHtml(json.extended_html),
           whocolorFetched: true
         });
         this.highlightAuthors();
