@@ -28,13 +28,7 @@ class WikiCourseOutput
     @output += students_table
 
     # Timeline
-    @output += "{{#{template_name(@templates, 'timeline')}}}\r"
-    week_count = 0
-    @course.weeks.each do |week|
-      week_count += 1
-      week_number = week_count
-      @output += course_week(week, week_number)
-    end
+    @output += course_timeline unless @course.weeks.empty?
 
     # TODO: grading
     @output
@@ -84,6 +78,16 @@ class WikiCourseOutput
 
   def course_prefix
     ENV['course_prefix']
+  end
+
+  def course_timeline
+    timeline = "{{#{template_name(@templates, 'timeline')}}}\r"
+    week_number = 0
+    @course.weeks.each do |week|
+      week_number += 1
+      timeline += course_week(week, week_number)
+    end
+    timeline
   end
 
   def course_week(week, week_number)

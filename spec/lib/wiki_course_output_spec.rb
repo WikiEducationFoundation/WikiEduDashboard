@@ -74,12 +74,22 @@ describe WikiCourseOutput do
              article_title: 'Your article')
       response = WikiCourseOutput.new(course, templates).translate_course_to_wikitext
       expect(response).to include('The course description')
+      expect(response).to include('{{start of course timeline')
       expect(response).to include('Block 1 title')
       expect(response).to include('* Overview of the course')
       expect(response).to include('[http://wikiedu.org/editingwikipedia Editing Wikipedia]')
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
       expect(response).to include('{{start of course week|2016-01-11|2016-01-13|2016-01-15}}')
+    end
+
+    context 'when the course has no weeks' do
+      let(:course) { create(:course) }
+      let(:subject) { WikiCourseOutput.new(course, templates).translate_course_to_wikitext }
+
+      it 'excludes the timeline for a course with no weeks' do
+        expect(subject).not_to include('{{start of course timeline')
+      end
     end
   end
 end
