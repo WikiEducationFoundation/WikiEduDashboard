@@ -1,0 +1,10 @@
+default:
+  editor: "editor participante"
+  instructor: "instrutor de programa"
+  course_assignment: "atribuição do programa"
+  table: "tabela de participantes"
+  table_row: "linha da tabela do participante"
+  course: "detalhes de programa"
+  timeline: "início da linha do tempo do programa"
+  start_of_week: "início do programa da semana"
+  end_of_week: "fim do programa da semana"

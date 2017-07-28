@@ -3,7 +3,7 @@ default:
   instructor: "program instructor"
   course_assignment: "program assignment"
   table: "participants table"
-  table_row: "participants table row"
+  table_row: "participant table row"
   course: "program details"
   timeline: "start of program timeline"
   start_of_week: "start of program week"
