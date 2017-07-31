@@ -180,12 +180,14 @@ sv:
     student_editors: Studentredigerare
     students_none: Den här kursen har inga studenter.
     students_short: Studenter
-    suggestions_feedback: Är dessa förslag hjälpsamma? Låt oss veta!
+    suggestions_feedback: Har du några förslag på att förbättra denna funktion? Låt
+      oss veta!
     suggestions_sending: Skickar återkoppling...
     suggestions_sent: Återkoppling skickades. Tack för din åsikt.
     suggestions_failed: Kunde inte skicka återkoppling. Försök igen senare.
     user_role: Roll
     course_details: Kursdetaljer
+    submitted: Inskickade
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
