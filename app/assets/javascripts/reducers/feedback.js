@@ -6,7 +6,7 @@ export default function feedback(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLE_FEEDBACK: {
       const newState = { ...state };
-      newState[action.articleTitle] = action.data;
+      newState[action.articleId] = action.data;
       return newState;
     }
     default:
