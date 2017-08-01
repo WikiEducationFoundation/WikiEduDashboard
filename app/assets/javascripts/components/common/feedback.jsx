@@ -9,6 +9,7 @@ const Feedback = React.createClass({
 
   propTypes: {
     fetchFeedback: React.PropTypes.func,
+    postUserFeedback: React.PropTypes.func,
     feedback: React.PropTypes.object,
     assignment: React.PropTypes.object.isRequired,
     username: React.PropTypes.string
@@ -52,9 +53,7 @@ const Feedback = React.createClass({
   handleFeedbackSubmit(event) {
     const feedback = this.state.feedbackInput;
     this.setState({ feedbackInput: '' });
-    API.createCustomFeedback(this.props.assignment.id, feedback).then(() => {
-      this.props.feedback[this.props.assignment.id].custom.push(<li>{feedback}</li>);
-    });
+    this.props.postUserFeedback(this.props.assignment.id, feedback);
     event.preventDefault();
   },
 
@@ -194,7 +193,8 @@ const Feedback = React.createClass({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFeedback: bindActionCreators(FeedbackAction, dispatch).fetchFeedback
+  fetchFeedback: bindActionCreators(FeedbackAction, dispatch).fetchFeedback,
+  postUserFeedback: bindActionCreators(FeedbackAction, dispatch).postUserFeedback
 });
 
 const mapStateToProps = state => ({

@@ -68,7 +68,6 @@ const API = {
 
   fetchFeedback(articleTitle, assignmentId) {
     return new Promise((res, rej) => {
-      console.log(assignmentId);
       const url = `/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`;
       return $.ajax({
         type: 'GET',

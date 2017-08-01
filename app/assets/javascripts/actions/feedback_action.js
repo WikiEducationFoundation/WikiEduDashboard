@@ -8,11 +8,25 @@ import API from '../utils/api.js';
 // actions to be handled by the store.
 // This is how actions with side effects — such as API calls — are handled in
 // Redux.
-export function fetchFeedback(articleTitle, articleId) {
+export function fetchFeedback(articleTitle, assignmentId) {
   return function (dispatch) {
-    return API.fetchFeedback(articleTitle, articleId)
+    return API.fetchFeedback(articleTitle, assignmentId)
       .then((resp) => {
-        dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, articleId: articleId });
+        dispatch({ type: types.RECEIVE_ARTICLE_FEEDBACK, data: resp, assignmentId: assignmentId });
+      }
+      )
+      // TODO: The Flux stores still handle API failures, so we delegate to a
+      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
+      // replace this with a regular action dispatch.
+      .catch(response => (ApiFailAction.fail(response)));
+  };
+}
+
+export function postUserFeedback(assignmentId, feedback) {
+  return function (dispatch) {
+    return API.createCustomFeedback(assignmentId, feedback)
+      .then((resp) => {
+        dispatch({ type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback });
       }
       )
       // TODO: The Flux stores still handle API failures, so we delegate to a
