@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 import { slide as Menu } from 'react-burger-menu';
-
+import CustomLink from './CustomLink.jsx';
 const Nav = React.createClass({
   displayName: 'Nav',
 
@@ -133,35 +133,35 @@ const Nav = React.createClass({
     if (this.state.usersignedin === true) {
       myDashboard = (
         <li>
-          <Link to={this.state.rootUrl} activeClassName="active">{I18n.t('application.my_dashboard')}</Link>
+          <CustomLink to={this.state.rootUrl} activeClassName="active" name={I18n.t('application.my_dashboard')} />
         </li>
       );
     }
     if (this.state.ifadmin === true) {
       forAdmin = (
         <li>
-          <Link to="/admin" activeClassName="active">Admin</Link>
+          <CustomLink to="/admin" activeClassName="active" name = "Admin" />
         </li>
       );
     }
     if (this.state.disableTraining === false) {
       disableTraining = (
         <li>
-          <Link to={this.state.trainingurl} activeClassName="active">{I18n.t('application.training')}</Link>
+          <CustomLink to={this.state.trainingurl} activeClassName="active">{I18n.t('application.training')}</CustomLink>
         </li>
       );
     }
     if ((this.state.usersignedin || this.state.helpDisabled) === false) {
       help = (
         <li>
-          <Link to={this.state.askUrl} activeClassName="active">{I18n.t('application.help')}</Link>
+          <CustomLink to={this.state.askUrl} activeClassName="active">{I18n.t('application.help')}</CustomLink>
         </li>
       );
     }
     if (this.state.userPermissions) {
       Sandbox = (
         <li>
-          <Link to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" activeClassName="active">My Sandbox</Link>
+          <CustomLink to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" activeClassName="active">My Sandbox</CustomLink>
         </li>
       );
     }
@@ -169,10 +169,10 @@ const Nav = React.createClass({
       wikiEd = (
         <span id="span_wikied">
           <li>
-            <Link to="https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard" activeClassName="active">{I18n.t('application.documentation')}</Link>
+            <CustomLink to="https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard" activeClassName="active">{I18n.t('application.documentation')}</CustomLink>
           </li>
           <li>
-            <Link to="/feedback" activeClassName="active">{I18n.t('application.report_problem')}</Link>
+            <CustomLink to="/feedback" activeClassName="active">{I18n.t('application.report_problem')}</CustomLink>
           </li>
         </span>
       );
@@ -207,7 +207,7 @@ const Nav = React.createClass({
               </div>
               <ul className="top-nav__main-links">
                 <li>
-                  <Link to={this.state.exploreurl} activeClassName="active">{this.state.explorename}</Link>
+                  <CustomLink to={this.state.exploreurl} activeClassName="active">{this.state.explorename}</CustomLink>
                 </li>
                 {myDashboard}
                 {forAdmin}
