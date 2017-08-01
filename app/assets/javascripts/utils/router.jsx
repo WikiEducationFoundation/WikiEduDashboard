@@ -111,21 +111,8 @@ const routes = (
 const el = document.getElementById('react_root');
 const navBar = document.getElementById('nav_root');
 if (navBar) {
-  ReactDOM.render((
-    <Router history={browserHistory} >
-      <Route path="/" component={Nav} />
-      <Route path="courses">
-        <Route path=":course_school/:course_title" component={Nav} />
-      </Route>
-      <Route path="/explore" component={Nav} />
-      <Route path="/admin" component={Nav} />
-      <Route path="/onboarding" component={Nav} />
-      <Route path="/surveys_minimal" component={Nav} />
-      <Route path="/surveys" component={Nav} />
-      <Route path="/training" component={Nav} />
-      <Route path="/feedback" component={Nav} />
-    </Router>
-  ), navBar);
+  ReactDOM.render((<Nav />
+), navBar);
 }
 
 if (el) {
