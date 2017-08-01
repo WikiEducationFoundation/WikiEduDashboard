@@ -51,6 +51,10 @@ const Timeline = React.createClass({
     return window.removeEventListener('scroll', this._handleScroll);
   },
 
+  hasTimeline() {
+    return this.props.weeks && this.props.weeks.length;
+  },
+
   addWeek() {
     return WeekActions.addWeek();
   },
@@ -63,9 +67,8 @@ const Timeline = React.createClass({
 
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
-      if (CourseActions.deleteAllWeeks(this.props.course.slug)) {
-        return window.location.reload();
-      }
+      return CourseActions.deleteAllWeeks(this.props.course.slug)
+               .then(() => { return window.location.reload(); });
     }
   },
 
@@ -326,11 +329,16 @@ const Timeline = React.createClass({
       );
     });
 
-    const restartTimeline = this.props.edit_permissions && !this.props.course.submitted ? (
-      <button className="button border button--block" onClick={this.deleteAllWeeks}>
-        {I18n.t('timeline.delete_timeline_and_start_over')}
-      </button>
-    ) : (undefined);
+    let restartTimeline;
+    // Only show the 'Delete Timeline' button if user can edit, course is unsubmitted,
+    // and the timeline is not already empty.
+    if (this.props.edit_permissions && !this.props.course.submitted && this.hasTimeline()) {
+      restartTimeline = (
+        <button className="button border danger button--block" onClick={this.deleteAllWeeks}>
+          {I18n.t('timeline.delete_timeline_and_start_over')}
+        </button>
+      );
+    }
 
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
