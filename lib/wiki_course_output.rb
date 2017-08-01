@@ -130,7 +130,7 @@ class WikiCourseOutput
     students.each do |student|
       table += student_row(student)
     end
-    table += "{{end of #{template_name(@templates, 'table')}}}\r"
+    table += "{{#{template_name(@templates, 'table_end')}}}\r"
     table
   end
 
