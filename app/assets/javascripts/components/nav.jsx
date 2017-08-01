@@ -133,7 +133,7 @@ const Nav = React.createClass({
     if (this.state.usersignedin === true) {
       myDashboard = (
         <li>
-          <CustomLink to={this.state.rootUrl} activeClassName="active" name={I18n.t('application.my_dashboard')} />
+          <CustomLink to={this.state.rootUrl} activeClassName="active" name={I18n.t('application.my_dashboard')} clickedElement="" />
         </li>
       );
     }
@@ -207,7 +207,7 @@ const Nav = React.createClass({
               </div>
               <ul className="top-nav__main-links">
                 <li>
-                  <CustomLink to={this.state.exploreurl} activeClassName="active">{this.state.explorename}</CustomLink>
+                  <CustomLink to={this.state.exploreurl} activeClassName="active" name={this.state.explorename} clickedElement="explore" />
                 </li>
                 {myDashboard}
                 {forAdmin}
