@@ -62,7 +62,11 @@ const Timeline = React.createClass({
   },
 
   deleteAllWeeks() {
-    return CourseActions.deleteAllWeeks(this.props.course.slug);
+    if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
+      if (CourseActions.deleteAllWeeks(this.props.course.slug)) {
+        return window.location.reload();
+      }
+    }
   },
 
   _handleBlockDrag(targetIndex, block, target) {
@@ -322,7 +326,7 @@ const Timeline = React.createClass({
       );
     });
 
-    const restartTimeline = this.props.edit_permissions ? (
+    const restartTimeline = this.props.edit_permissions && !this.props.course.submitted ? (
       <button className="button border button--block" onClick={this.deleteAllWeeks}>
         {I18n.t('timeline.delete_timeline_and_start_over')}
       </button>

@@ -557,7 +557,7 @@ slide_id=${opts.slide_id}`,
         url: `/courses/${course_id}/delete_all_weeks.json`,
         success(data) {
           console.log(data);
-          return res({ course_id });
+          return res(data);
         }
       })
       .fail((obj) => {
