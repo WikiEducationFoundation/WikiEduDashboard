@@ -7,7 +7,8 @@ const CustomLink = React.createClass({
     to: React.PropTypes.string,
     location: React.PropTypes.object,
     name: React.PropTypes.string,
-    clickedElement: React.PropTypes.string
+    clickedElement: React.PropTypes.string,
+    target: React.PropTypes.string
   },
   isActive() {
     let bool;
@@ -20,7 +21,7 @@ const CustomLink = React.createClass({
     return bool;
   },
   render() {
-    return <a href = {this.props.to} className={this.isActive() ? 'active' : ''}> {this.props.name} </a>;
+    return <a href = {this.props.to} className={this.isActive() ? 'active' : ''} target={this.props.target}> {this.props.name} </a>;
   }
 });
 

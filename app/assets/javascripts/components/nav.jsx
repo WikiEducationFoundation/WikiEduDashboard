@@ -133,35 +133,35 @@ const Nav = React.createClass({
     if (this.state.usersignedin === true) {
       myDashboard = (
         <li>
-          <CustomLink to={this.state.rootUrl} activeClassName="active" name={I18n.t('application.my_dashboard')} clickedElement="" />
+          <CustomLink to={this.state.rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
         </li>
       );
     }
     if (this.state.ifadmin === true) {
       forAdmin = (
         <li>
-          <CustomLink to="/admin" activeClassName="active" name = "Admin" />
+          <CustomLink to="/admin" name="Admin" />
         </li>
       );
     }
     if (this.state.disableTraining === false) {
       disableTraining = (
         <li>
-          <CustomLink to={this.state.trainingurl} activeClassName="active">{I18n.t('application.training')}</CustomLink>
+          <CustomLink to={this.state.trainingurl} name={I18n.t('application.training')} clickedElement="training" />
         </li>
       );
     }
     if ((this.state.usersignedin || this.state.helpDisabled) === false) {
       help = (
         <li>
-          <CustomLink to={this.state.askUrl} activeClassName="active">{I18n.t('application.help')}</CustomLink>
+          <CustomLink to={this.state.askUrl} name={I18n.t('application.help')} />
         </li>
       );
     }
     if (this.state.userPermissions) {
       Sandbox = (
         <li>
-          <CustomLink to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" activeClassName="active">My Sandbox</CustomLink>
+          <CustomLink to="https://en.wikipedia.org/wiki/Special:MyPage/sandbox" name="My Sandbox" />
         </li>
       );
     }
@@ -169,10 +169,10 @@ const Nav = React.createClass({
       wikiEd = (
         <span id="span_wikied">
           <li>
-            <CustomLink to="https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard" activeClassName="active">{I18n.t('application.documentation')}</CustomLink>
+            <CustomLink to="https://meta.wikimedia.org/wiki/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
           </li>
           <li>
-            <CustomLink to="/feedback" activeClassName="active">{I18n.t('application.report_problem')}</CustomLink>
+            <CustomLink to="/feedback" name={I18n.t('application.report_problem')} target="_blank" />
           </li>
         </span>
       );
@@ -207,7 +207,7 @@ const Nav = React.createClass({
               </div>
               <ul className="top-nav__main-links">
                 <li>
-                  <CustomLink to={this.state.exploreurl} activeClassName="active" name={this.state.explorename} clickedElement="explore" />
+                  <CustomLink to={this.state.exploreurl} name={this.state.explorename} clickedElement="explore" />
                 </li>
                 {myDashboard}
                 {forAdmin}
