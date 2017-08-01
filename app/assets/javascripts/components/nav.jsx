@@ -68,15 +68,6 @@ const Nav = React.createClass({
   showSettings(event) {
     event.preventDefault();
   },
-  handleQueryChange(event) {
-    console.log(this.state.query);
-    this.setState({ query: event.target.value });
-  },
-  handleSubmit() {
-    // const query = this.state.query.trim();
-
-    window.open("/ask");
-  },
 
   render() {
     let navBar;
@@ -115,9 +106,10 @@ const Nav = React.createClass({
       if (!this.state.helpDisabled) {
         helpEnabled = (
           <div className="top-nav__faq-search">
-            <form onSubmit={this.handleSubmit}>
-              <input id="search" name="search" value={this.state.query} placeholder= {I18n.t('application.search')} type="text" onChange={this.handleQueryChange} />
-              <input id="source" name="source" type="hidden" value="nav_ask_form" />
+            <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
+              <input name="utf8" type="hidden" defaultValue="✓" />
+              <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
+              <input name="source" type="hidden" defaultValue="nav_ask_form" />
               <button type="submit">
                 <i className="icon icon-search"></i>
               </button>
