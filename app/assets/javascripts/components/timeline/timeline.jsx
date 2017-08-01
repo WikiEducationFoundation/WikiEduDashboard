@@ -10,6 +10,7 @@ import Affix from '../common/affix.jsx';
 
 import WeekActions from '../../actions/week_actions.js';
 import BlockActions from '../../actions/block_actions.js';
+import CourseActions from '../../actions/course_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
 import WeekStore from '../../stores/week_store.js';
@@ -35,7 +36,7 @@ const Timeline = React.createClass({
     all_training_modules: React.PropTypes.array,
     edit_permissions: React.PropTypes.bool,
     reorderable: React.PropTypes.bool,
-    enableReorderable: React.PropTypes.func
+    enableReorderable: React.PropTypes.func,
   },
 
   getInitialState() {
@@ -57,6 +58,14 @@ const Timeline = React.createClass({
   deleteWeek(weekId) {
     if (confirm(I18n.t('timeline.delete_week_confirmation'))) {
       return WeekActions.deleteWeek(weekId);
+    }
+  },
+
+  deleteAllWeeks() {
+    if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
+      if (CourseActions.deleteAllWeeks(this.props.course.slug)) {
+        return window.location.reload();
+      }
     }
   },
 
@@ -168,7 +177,6 @@ const Timeline = React.createClass({
         </li>
       );
     }
-
     // For each week, first insert an extra empty week for each week with empty
     // week meetings, which indicates a blackout week. Then insert the week itself.
     // The index 'i' represents the zero-index week number; both empty and non-empty
@@ -318,6 +326,12 @@ const Timeline = React.createClass({
       );
     });
 
+    const restartTimeline = this.props.edit_permissions && !this.props.course.submitted ? (
+      <button className="button border button--block" onClick={this.deleteAllWeeks}>
+        {I18n.t('timeline.delete_timeline_and_start_over')}
+      </button>
+    ) : (undefined);
+
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
@@ -325,6 +339,9 @@ const Timeline = React.createClass({
             <span>{wizardLink}</span>
             {reorderableControls}
             {controls}
+          </section>
+          <section className="timeline-ctas float-container">
+            {restartTimeline}
           </section>
           <div className="panel">
             <ol>
@@ -339,7 +356,6 @@ const Timeline = React.createClass({
     ) : (
       <div className="timeline__week-nav" />
     );
-
 
     return (
       <div>

@@ -116,7 +116,23 @@ const CourseActions = Flux.createActions({
           data: resp
         };
       });
-  }
+  },
+
+  deleteAllWeeks(courseId) {
+    return API.deleteAllWeeks(courseId)
+      .then((data) => {
+        return {
+          actionType: 'DELETE_ALL_WEEKS',
+          data: { id: data.courseId }
+        };
+      })
+      .catch(resp => {
+        return {
+          actionType: 'API_FAIL',
+          data: resp
+        };
+      });
+  },
 });
 
 export default CourseActions;
