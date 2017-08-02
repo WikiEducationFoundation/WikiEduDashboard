@@ -3,7 +3,7 @@
   = dashboard_stylesheet_tag("surveys") unless @accessibility_mode
 
 - content_for :javascripts do
-  /
+  = hot_javascript_tag("main")
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
