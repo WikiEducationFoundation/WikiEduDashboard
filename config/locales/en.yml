@@ -374,8 +374,10 @@ en:
     instructors: Instructors
     invitation: >
       You’ve been invited to join %{title}. To join the course, you need to log in with a Wikipedia account.
-
+    invitation_username_advice: >
       If you don’t have a Wikipedia account yet, sign up for one now.
+      Your username can be as anonymous — or as personally identifying — as you wish.
+      (Shared accounts are not allowed.)
     join: Join
     join_course: Join course
     join_prompt: Join '%{title}'?
