@@ -17,6 +17,7 @@ import WeekStore from '../../stores/week_store.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
+import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const Timeline = React.createClass({
   displayName: 'Timeline',
@@ -164,6 +165,7 @@ const Timeline = React.createClass({
     }
 
     const weekComponents = [];
+    const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(this.props.course);
     let i = 0;
 
     this.props.weeks.sort((a, b) => a.order - b.order);
@@ -187,14 +189,14 @@ const Timeline = React.createClass({
     this.props.weeks.forEach((week, weekIndex) => {
       while (this.props.week_meetings[i] === '()') {
         const emptyWeekKey = `empty-week-${i}`;
-        const weekAnchorName = `week-${i + 1}`;
+        const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
         weekComponents.push((
           <div key={emptyWeekKey}>
             <a className="timeline__anchor" name={weekAnchorName} />
             <EmptyWeek
               course={this.props.course}
               edit_permissions={this.props.edit_permissions}
-              index={i + 1}
+              index={i + 1 + weeksBeforeTimeline}
               timeline_start={this.props.course.timeline_start}
               timeline_end={this.props.course.timeline_end}
             />
@@ -204,13 +206,13 @@ const Timeline = React.createClass({
         i++;
       }
 
-      const weekAnchorName = `week-${i + 1}`;
+      const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
       weekComponents.push((
         <div key={week.id}>
           <a className="timeline__anchor" name={weekAnchorName} />
           <Week
             week={week}
-            index={i + 1}
+            index={i + 1 + weeksBeforeTimeline}
             reorderable={this.props.reorderable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
@@ -320,10 +322,10 @@ const Timeline = React.createClass({
 
       const dateCalc = new DateCalculator(this.props.course.timeline_start, this.props.course.timeline_end, navIndex, { zeroIndexed: true });
       const navWeekKey = `week-${navIndex}`;
-      const navWeekLink = `#week-${navIndex + 1}`;
+      const navWeekLink = `#week-${navIndex + 1 + weeksBeforeTimeline}`;
       return (
         <li className={navClassName} key={navWeekKey}>
-          <a href={navWeekLink}>{week.title || I18n.t('timeline.week_number', { number: navIndex + 1 })}</a>
+          <a href={navWeekLink}>{week.title || I18n.t('timeline.week_number', { number: navIndex + 1 + weeksBeforeTimeline })}</a>
           <span className="pull-right">{dateCalc.start()} - {dateCalc.end()}</span>
         </li>
       );

@@ -100,6 +100,12 @@ const CourseDateUtils = {
     return noMeetingsThisWeek;
   },
 
+  weeksBeforeTimeline(course) {
+    const courseStart = moment(course.start);
+    const timelineStart = moment(course.timeline_start);
+    return timelineStart.diff(courseStart, 'week');
+  },
+
   // Returns string describing weekday meetings for each week
   // Ex: ["(M, W, F)", "(M, W)", "()", "(W, T)", "(M, W, F)"]
   weekMeetings(recurrence, course, exceptions) {
