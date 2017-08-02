@@ -95,6 +95,10 @@ const ArticleViewer = React.createClass({
     'user-highlight-13', 'user-highlight-14', 'user-highlight-15'
   ],
 
+  // This takes the extended_html from the whoColor API, and replaces the span
+  // annotations with ones that are more convenient to style in React.
+  // The matching and replacing of spans is tightly coupled to the span format
+  // provided by the whoColor API: https://github.com/wikiwho/WhoColor
   highlightAuthors() {
     let html = this.state.whocolorHtml;
     if (!html) { return; }
@@ -102,10 +106,15 @@ const ArticleViewer = React.createClass({
     let i = 0;
     _.forEach(this.state.users, (user) => {
       // Move spaces inside spans, so that background color is continuous
-      html = html.replace(/ (<span class="author-token.*?>)/g, '$1 ');
-      const styledAuthorSpan = `<span title="${user.name}" class="author-token token-authorid-${user.userid} ${this.colors[i]}"`;
-      const authorSpanMatcher = new RegExp(`<span class="author-token token-authorid-${user.userid}`, 'g');
+      html = html.replace(/ (<span id="token-\d+" class="editor-token.*?>)/g, '$1 ');
+
+      // Replace each editor span for this user with one that includes their
+      // username and color class.
+      const colorClass = this.colors[i];
+      const styledAuthorSpan = `<span title="${user.name}" class="editor-token token-editor-${user.userid} ${colorClass}`;
+      const authorSpanMatcher = new RegExp(`<span id="token-\\d+" class="editor-token token-editor-${user.userid}`, 'g');
       html = html.replace(authorSpanMatcher, styledAuthorSpan);
+
       i += 1;
     });
     this.setState({
