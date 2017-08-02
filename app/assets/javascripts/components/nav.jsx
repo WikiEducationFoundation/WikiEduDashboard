@@ -1,7 +1,7 @@
 import React from 'react';
-// import { Link } from 'react-router';
-import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
+import HamburgerMenu from './hamburger_menu.jsx';
+
 const Nav = React.createClass({
   displayName: 'Nav',
 
@@ -45,8 +45,7 @@ const Nav = React.createClass({
       destroyUrl: destroyUrl,
       omniauthUrl: omniauthUrl,
       width: $(window).width(),
-      height: $(window).height(),
-      query: ""
+      height: $(window).height()
     };
   },
 
@@ -186,14 +185,26 @@ const Nav = React.createClass({
     if (this.state.width < 500)
     {
       navBar = (
-        <div>
-          <span>{this.state.width} x {this.state.height} </span>
-          <Menu>
-            <a id="home" className="menu-item" href="/">Home</a>
-            <a id="about" className="menu-item" href="/about">About</a>
-            <a id="contact" className="menu-item" href="/contact">Contact</a>
-          </Menu>
-        </div>
+        <HamburgerMenu
+          rootUrl = {this.state.rootUrl}
+          logoPath = {this.state.logoPath}
+          fluid = {this.state.fluid}
+          exploreclass = {this.state.exploreclass}
+          exploreurl = {this.state.exploreurl}
+          explorename = {this.state.explorename}
+          usersignedin = {this.state.usersignedin}
+          ifadmin = {this.state.ifadmin}
+          trainingurl = {this.state.trainingurl}
+          disableTraining = {this.state.disableTraining}
+          helpDisabled = {this.state.helpDisabled}
+          askUrl = {this.state.askUrl}
+          wikiEd = {this.state.wikiEd}
+          userPermissions = {this.state.userPermissions}
+          languageSwitcherEnabled = {this.state.languageSwitcherEnabled}
+          currentUser = {this.state.currentUser}
+          destroyUrl = {this.state.destroyUrl}
+          omniauthUrl = {this.state.omniauthUrl}
+        />
       );
     } else {
       navBar = (
