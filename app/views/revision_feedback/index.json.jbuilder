@@ -4,4 +4,5 @@ json.suggestions @feedback do |message|
 end
 json.custom @user_feedback do |feedback|
 	json.message feedback.text
+	json.messageId feedback.id
 end

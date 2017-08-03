@@ -118,6 +118,22 @@ const API = {
     );
   },
 
+  destroyCustomFeedback(assignmentId, id) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'DELETE',
+        url: `/assignments/${assignmentId}/feedbacks/${id}`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
   fetchTrainingStatus(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;

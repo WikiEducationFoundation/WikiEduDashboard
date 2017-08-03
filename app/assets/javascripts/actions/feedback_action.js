@@ -26,7 +26,7 @@ export function postUserFeedback(assignmentId, feedback) {
   return function (dispatch) {
     return API.createCustomFeedback(assignmentId, feedback)
       .then((resp) => {
-        dispatch({ type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback });
+        dispatch({ type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id });
       }
       )
       // TODO: The Flux stores still handle API failures, so we delegate to a

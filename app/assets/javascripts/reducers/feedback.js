@@ -11,7 +11,7 @@ export default function feedback(state = initialState, action) {
     }
     case POST_USER_FEEDBACK: {
       const newState = { ...state };
-      newState[action.assignmentId].custom.push({ message: action.feedback });
+      newState[action.assignmentId].custom.push({ message: action.feedback, messageId: action.messageId });
       return newState;
     }
     default:

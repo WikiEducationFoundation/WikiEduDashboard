@@ -1,3 +1,4 @@
+
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 import { bindActionCreators } from 'redux';
@@ -70,6 +71,12 @@ const Feedback = React.createClass({
     event.preventDefault();
   },
 
+  handleRemove(id) {
+    API.destroyCustomFeedback(this.props.assignment.id, id).then(() => {
+      console.log("Deleted");
+    });
+  },
+
   render() {
     // Title set based on if the article exists in mainspace
     let button;
@@ -127,7 +134,7 @@ const Feedback = React.createClass({
       );
 
       for (let i = 0; i < customMessages.length; i++) {
-        userSuggestionList.push(<li>{customMessages[i].message}</li>);
+        userSuggestionList.push(<li key={customMessages[i].messageId}>{customMessages[i].message} <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId)}>Delete</a></li>);
       }
 
       // Input box to input custom feedback
