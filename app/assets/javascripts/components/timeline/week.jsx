@@ -29,7 +29,8 @@ const Week = React.createClass({
     saveBlockChanges: React.PropTypes.func,
     cancelBlockEditable: React.PropTypes.func,
     deleteWeek: React.PropTypes.func,
-    all_training_modules: React.PropTypes.array
+    all_training_modules: React.PropTypes.array,
+    weeksBeforeTimeline: React.PropTypes.number
   },
   getInitialState() {
     return { focusedBlockId: null };
@@ -172,12 +173,13 @@ const Week = React.createClass({
       weekClassName += ' timeline-warning';
     }
 
+    const weekNumber = this.props.index + this.props.weeksBeforeTimeline;
     return (
       <li className={weekClassName}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekDates}
-          <p className="week-index">{I18n.t('timeline.week_number', { number: this.props.index })}</p>
+          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber })}</p>
         </div>
         {weekContent}
       </li>

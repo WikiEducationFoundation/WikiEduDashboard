@@ -196,9 +196,10 @@ const Timeline = React.createClass({
             <EmptyWeek
               course={this.props.course}
               edit_permissions={this.props.edit_permissions}
-              index={i + 1 + weeksBeforeTimeline}
+              index={i + 1}
               timeline_start={this.props.course.timeline_start}
               timeline_end={this.props.course.timeline_end}
+              weeksBeforeTimeline={weeksBeforeTimeline}
             />
           </div>
         )
@@ -212,7 +213,7 @@ const Timeline = React.createClass({
           <a className="timeline__anchor" name={weekAnchorName} />
           <Week
             week={week}
-            index={i + 1 + weeksBeforeTimeline}
+            index={i + 1}
             reorderable={this.props.reorderable}
             blocks={BlockStore.getBlocksInWeek(week.id)}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
@@ -230,6 +231,7 @@ const Timeline = React.createClass({
             onMoveBlockUp={this._handleMoveBlock.bind(this, true)}
             onMoveBlockDown={this._handleMoveBlock.bind(this, false)}
             onBlockDrag={this._handleBlockDrag}
+            weeksBeforeTimeline={weeksBeforeTimeline}
           />
         </div>
       )
