@@ -12,6 +12,7 @@ describe WikiCourseOutput do
           "course_assignment" => "course assignment",
           "table" => "students table",
           "table_row" => "students table row",
+          "table_end" => "end of students table",
           "course" => "course details",
           "timeline" => "start of course timeline",
           "start_of_week" => "start of course week",

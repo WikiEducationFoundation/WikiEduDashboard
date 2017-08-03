@@ -4,6 +4,7 @@ default:
   course_assignment: "program assignment"
   table: "participants table"
   table_row: "participant table row"
+  table_end: "end of participants table"
   course: "program details"
   timeline: "start of program timeline"
   start_of_week: "start of program week"
