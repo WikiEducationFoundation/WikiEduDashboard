@@ -27,23 +27,25 @@ class Alert < ActiveRecord::Base
 
   include ArticleHelper
 
-  ALERT_TYPES = %w(
+  ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DYKNominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UntrainedStudentsAlert
-  ).freeze
+  ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 
-  RESOLVABLE_ALERT_TYPES = %w(
+  RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
-  ).freeze
+    DYKNominationAlert
+  ].freeze
 
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
