@@ -95,7 +95,9 @@ class PushCourseToSalesforce
   end
 
   def more_than_50_students?
-    @course.user_count > 50 || @course.expected_students > 50
+    return true if @course.user_count > 50
+    return false unless @course.expected_students
+    @course.expected_students > 50
   end
 
   MEDICINE_AND_PSYCHOLOGY_TAGS = %w[yes_medical_topics maybe_medical_topics].freeze
