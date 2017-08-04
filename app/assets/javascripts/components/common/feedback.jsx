@@ -11,6 +11,7 @@ const Feedback = React.createClass({
   propTypes: {
     fetchFeedback: React.PropTypes.func,
     postUserFeedback: React.PropTypes.func,
+    deleteUserFeedback: React.PropTypes.func,
     feedback: React.PropTypes.object,
     assignment: React.PropTypes.object.isRequired,
     username: React.PropTypes.string
@@ -71,10 +72,8 @@ const Feedback = React.createClass({
     event.preventDefault();
   },
 
-  handleRemove(id) {
-    API.destroyCustomFeedback(this.props.assignment.id, id).then(() => {
-      console.log("Deleted");
-    });
+  handleRemove(id, arrayId) {
+    this.props.deleteUserFeedback(this.props.assignment.id, id, arrayId);
   },
 
   render() {
@@ -134,7 +133,7 @@ const Feedback = React.createClass({
       );
 
       for (let i = 0; i < customMessages.length; i++) {
-        userSuggestionList.push(<li key={customMessages[i].messageId}>{customMessages[i].message} <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId)}>Delete</a></li>);
+        userSuggestionList.push(<li key={customMessages[i].messageId}>{customMessages[i].message} <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>Delete</a></li>);
       }
 
       // Input box to input custom feedback
@@ -201,7 +200,8 @@ const Feedback = React.createClass({
 
 const mapDispatchToProps = dispatch => ({
   fetchFeedback: bindActionCreators(FeedbackAction, dispatch).fetchFeedback,
-  postUserFeedback: bindActionCreators(FeedbackAction, dispatch).postUserFeedback
+  postUserFeedback: bindActionCreators(FeedbackAction, dispatch).postUserFeedback,
+  deleteUserFeedback: bindActionCreators(FeedbackAction, dispatch).deleteUserFeedback
 });
 
 const mapStateToProps = state => ({
