@@ -6,7 +6,7 @@ import CourseDateUtils from '../../app/assets/javascripts/utils/course_date_util
 const typicalCourse = {
   id: 1,
   type: 'ClassroomProgramCourse',
-  start: '2015-08-28',
+  start: '2015-07-28',
   timeline_start: '2015-08-28',
   end: '2016-01-14',
   timeline_end: '2016-01-14',
@@ -109,6 +109,24 @@ describe('CourseDateUtils.formattedDateTime', () => {
     const input = new Date(2016, 10, 19, 17, 15, 14);
     const output = CourseDateUtils.formattedDateTime(input, true);
     expect(output).to.contain('2016-11-19 17:15');
+  });
+});
+
+describe('courseDateUtils.weeksBeforeTimeline', () => {
+  it('rounds times less than a week to zero', () => {
+    const course = { start: '2017-07-01', timeline_start: '2017-07-05' };
+    const output = CourseDateUtils.weeksBeforeTimeline(course);
+    expect(output).to.be.eq(0);
+  });
+  it('counts whole weeks accurately', () => {
+    const course = { start: '2017-07-01', timeline_start: '2017-07-08' };
+    const output = CourseDateUtils.weeksBeforeTimeline(course);
+    expect(output).to.be.eq(1);
+  });
+  it('rounds down to a whole number of weeks', () => {
+    const course = { start: '2017-07-01', timeline_start: '2017-07-13' };
+    const output = CourseDateUtils.weeksBeforeTimeline(course);
+    expect(output).to.be.eq(1);
   });
 });
 

@@ -550,6 +550,23 @@ slide_id=${opts.slide_id}`,
     );
   },
 
+  deleteAllWeeks(course_id) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'DELETE',
+        url: `/courses/${course_id}/delete_all_weeks.json`,
+        success(data) {
+          console.log(data);
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        console.error('Couldn\'t delete all weeks');
+        return rej(obj);
+      })
+    );
+  },
+
   needsUpdate(courseId) {
     return new Promise((res, rej) =>
       $.ajax({

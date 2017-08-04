@@ -31,6 +31,8 @@ const ThisWeek = ({ course, weeks, current }) => {
   let weekComponent;
   let noWeeks;
 
+  const weeksBeforeTimeline = CourseDateUtils.weeksBeforeTimeline(course);
+
   if (weeks) {
     weekIndex = current + 1;
 
@@ -67,6 +69,7 @@ const ThisWeek = ({ course, weeks, current }) => {
         deleteWeek={null}
         showTitle={false}
         meetings={meetingsProp}
+        weeksBeforeTimeline={weeksBeforeTimeline}
       />
     );
   } else {

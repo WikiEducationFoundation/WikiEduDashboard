@@ -1,6 +1,6 @@
-dashboard_title: Wiki Education Foundation Dashboard
+dashboard_title: Wiki Education Dashboard
 dashboard_url: dashboard.wikiedu.org
-meta_description: Wiki Education Foundation dashboard for Wikipedia editing projects
+meta_description: Wiki Education dashboard for Wikipedia editing projects
 wiki_language: en
 
 contact_email: 'contact@wikiedu.org'
@@ -31,6 +31,7 @@ campaign_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
 campaign_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
 
 default_campaign: "spring_2016"
+edit_en.wikipedia.org: "true"
 update_length: "30"
 cron_log_debug: "true"
 

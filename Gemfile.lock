@@ -516,6 +516,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  faraday
   figaro
   guard-bundler
   guard-rails

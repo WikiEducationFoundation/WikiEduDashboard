@@ -46,6 +46,7 @@ const EnrollCard = ({
       <div>
         <h1>{I18n.t('application.greeting')}</h1>
         <p>{I18n.t('courses.invitation', { title: course.title })}</p>
+        <p>{I18n.t('courses.invitation_username_advice')}</p>
         <p>
           <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
             <i className="icon icon-wiki-logo"></i> {I18n.t('application.log_in_extended')}

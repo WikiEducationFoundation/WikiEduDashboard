@@ -368,6 +368,7 @@ zh-CN:
       clone_this: 克隆此计划
       clone_successful: 课程已成功关闭
       clone_successful_details: 您的课程已被克隆。点击下方“保存”以完成课程。
+      course_when: 在“何时”字段中添加一些内容（例如月和年）以区分它和原始内容。
       course_description: 程序描述
       course_school: 机构
       course_term: 何时

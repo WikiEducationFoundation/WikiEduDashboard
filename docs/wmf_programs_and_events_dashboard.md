@@ -1,6 +1,6 @@
-### Wikimedia Programs & Events Dashboard vs Wiki Ed Dashboard
+### Wikimedia Programs & Events Dashboard vs Wiki Education Dashboard
 
-The Wiki Ed dashboard supports two main use cases: Wiki Education Foundation's
+The Wiki Ed dashboard supports two main use cases: Wiki Education's
 dashboard.wikiedu.org, and a general use, cross-language Programs & Events Dashboard
 available for anyone to use with any Wikimedia project.
 
@@ -20,4 +20,4 @@ As of June 2016:
 * Course timelines, which are disabled for other course types
 * "Get Help" button
 * ask.wikiedu.org integration
-* Wiki Ed blog integration
+* Wiki Education blog integration

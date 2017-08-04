@@ -38,7 +38,7 @@ describe WikiCourseEdits do
   end
 
   describe '#announce_course' do
-    # Posts to the Wiki Education Foundation dashboard by default in tests
+    # Posts to the Wiki Education dashboard by default in tests
     it 'posts to the userpage of the instructor and a noticeboard' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top) # userpage edit
       expect_any_instance_of(WikiEdits).to receive(:add_new_section) # noticeboard edit
@@ -48,7 +48,7 @@ describe WikiCourseEdits do
                           instructor: nil) # defaults to current user
     end
 
-    context 'makes correct edits on the Wiki Edu Dashboard' do
+    context 'makes correct edits on the Wiki Education Dashboard' do
       it 'posts to dashboard using correct templates' do
         expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           .with("User:Ragesock",
@@ -113,7 +113,7 @@ describe WikiCourseEdits do
   end
 
   describe '#enroll_in_course' do
-    # Posts to the Wiki Education Foundation dashboard by default in tests
+    # Posts to the Wiki Education dashboard by default in tests
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
       WikiCourseEdits.new(action: :enroll_in_course,
@@ -209,7 +209,7 @@ describe WikiCourseEdits do
                  role: Assignment::Roles::REVIEWING_ROLE)
         end
 
-        # Posts to the Wiki Education Foundation dashboard by default in tests
+        # Posts to the Wiki Education dashboard by default in tests
         it 'updates talk pages and course page with assignment info' do
           expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
           WikiCourseEdits.new(action: :update_assignments,
