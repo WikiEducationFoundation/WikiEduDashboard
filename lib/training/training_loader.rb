@@ -2,15 +2,21 @@
 
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 
+# Loads any of the three types of training content:
+# TrainingLibrary, TrainingModule, TrainingSlide
+# Source of content is training_content yaml files and/or wiki pages.
 class TrainingLoader
   def initialize(content_class:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
-    @collection = []
-    @content_class = content_class
-
+    @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @cache_key = content_class.cache_key
-    @path_to_yaml = path_to_yaml
-    @wiki_base_page = wiki_base_page
+
+    @path_to_yaml = path_to_yaml # a sub-directory of training_content
     @trim_id_from_filename = trim_id_from_filename
+
+    # Index page that links to all the libraries, modules or slides to be loaded
+    @wiki_base_page = wiki_base_page
+
+    @collection = []
   end
 
   def load_content
@@ -79,6 +85,9 @@ class TrainingLoader
               else
                 new_from_wikitext_page(wiki_page, wikitext)
               end
+
+    # TODO: Determine whether Hashr or OpenStruct might be more performant.
+    # These objects are long-lived, so Hashugar may not be the best option.
     content = content.to_hashugar
     @content_class.new(content, content.slug)
   end
@@ -88,11 +97,9 @@ class TrainingLoader
   def new_from_json_wiki_page(json_wikitext)
     content = JSON.parse(json_wikitext)
     base_page = content['wiki_page']
-    if base_page
-      wikitext = WikiApi.new(MetaWiki.new).get_page_content(base_page)
-      content = training_content_and_translations(content: content, base_page: base_page, wikitext: wikitext)
-    end
-    content
+    return content unless base_page
+    wikitext = WikiApi.new(MetaWiki.new).get_page_content(base_page)
+    training_content_and_translations(content: content, base_page: base_page, wikitext: wikitext)
   end
 
   # wikitext pages have the slide id and slug embedded in the page title
@@ -111,7 +118,7 @@ class TrainingLoader
   def training_content_and_translations(content:, base_page:, wikitext:)
     full_content = content.merge training_hash_from(wikitext: wikitext)
     full_content['translations'] = {}
-    translated_wiki_pages(base_page: base_page, base_page_wikitext: wikitext).each do |translated_page|
+    translated_pages(base_page: base_page, base_page_wikitext: wikitext).each do |translated_page|
       language = translated_page.split('/').last
       full_content['translations'][language] = training_hash_from(wiki_page: translated_page)
     end
@@ -132,7 +139,7 @@ class TrainingLoader
     end
   end
 
-  def translated_wiki_pages(base_page:, base_page_wikitext:)
+  def translated_pages(base_page:, base_page_wikitext:)
     return [] unless base_page_wikitext&.include? '<translate>'
     translations_query = { meta: 'messagegroupstats',
                            mgsgroup: "page-#{base_page}" }
