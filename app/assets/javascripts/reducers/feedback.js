@@ -11,7 +11,7 @@ export default function feedback(state = initialState, action) {
     }
     case ActionTypes.POST_USER_FEEDBACK: {
       const newState = { ...state };
-      newState[action.assignmentId].custom.push({ message: action.feedback, messageId: action.messageId });
+      newState[action.assignmentId].custom.push({ message: action.feedback, messageId: action.messageId, userId: action.userId });
       return newState;
     }
     case ActionTypes.DELETE_USER_FEEDBACK: {

@@ -5,4 +5,5 @@ end
 json.custom @user_feedback do |feedback|
 	json.message feedback.text
 	json.messageId feedback.id
+	json.userId feedback.user_id
 end

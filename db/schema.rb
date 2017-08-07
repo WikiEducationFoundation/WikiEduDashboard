@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170804181050) do
+ActiveRecord::Schema.define(version: 20170807180714) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -206,9 +206,10 @@ ActiveRecord::Schema.define(version: 20170804181050) do
 
   create_table "feedbacks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "text"
-    t.integer "assignment_id"
+    t.bigint "assignment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["assignment_id"], name: "index_feedbacks_on_assignment_id"
   end
 

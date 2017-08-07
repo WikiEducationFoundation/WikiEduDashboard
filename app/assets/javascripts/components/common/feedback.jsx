@@ -29,6 +29,10 @@ const Feedback = React.createClass({
     this.props.fetchFeedback(this.titleParam(), this.props.assignment.id);
   },
 
+  getCurrentUser() {
+    return $('#react_root').data('current_user');
+  },
+
   titleParam() {
     if (this.props.assignment.article_id) {
       return this.props.assignment.article_title;
@@ -55,7 +59,7 @@ const Feedback = React.createClass({
   handleFeedbackSubmit(event) {
     const feedback = this.state.feedbackInput;
     this.setState({ feedbackInput: '' });
-    this.props.postUserFeedback(this.props.assignment.id, feedback);
+    this.props.postUserFeedback(this.props.assignment.id, feedback, this.getCurrentUser().id);
     event.preventDefault();
   },
 
@@ -133,7 +137,11 @@ const Feedback = React.createClass({
       );
 
       for (let i = 0; i < customMessages.length; i++) {
-        userSuggestionList.push(<li key={customMessages[i].messageId}>{customMessages[i].message} <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>Delete</a></li>);
+        let deleteButton;
+        if (customMessages[i].userId === this.getCurrentUser().id) {
+          deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>Delete</a>;
+        }
+        userSuggestionList.push(<li key={customMessages[i].messageId}> {customMessages[i].message} {deleteButton} </li>);
       }
 
       // Input box to input custom feedback

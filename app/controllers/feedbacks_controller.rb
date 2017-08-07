@@ -9,7 +9,7 @@ class FeedbacksController < ApplicationController
   end
 
   def form_params
-  	params.require(:feedback).permit(:text, :assignment_id)
+  	params.require(:feedback).permit(:text, :assignment_id, :user_id)
   end
 
   def destroy
