@@ -49,7 +49,7 @@ zh-TW:
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
-      ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間表，以符合您的需求。
+      ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間軸，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
     explore_examples: 瀏覽例子
     join_note: 一旦您從您的老師那獲得選課代碼，點選尋找您的課程來搜尋並加入
@@ -212,9 +212,9 @@ zh-TW:
       clone_previous: 複製前一個課程
       clone_this: 複製此課程
       cloned_course_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。點選一個日期可以從不上課時段、上課時段、以及休假時段三種設定之間轉換。若您開課期間沒有遇到假日，點選
-        "我的課程沒有休假時段" 。複製完成的時間表將會隨著不上課時段的星期自動坐相對應的調整。
+        "我的課程沒有休假時段" 。複製完成的時間軸將會隨著不上課時段的星期自動坐相對應的調整。
       clone_successful: 課程成功複製
-      clone_successful_details: 您的課程已經被複製，包含時間表的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
+      clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
       course_description: 課程說明
       course_language: 主要使用語言
       course_project: 主專案
@@ -284,7 +284,7 @@ zh-TW:
     invitation: |-
       您已被邀請參與 %{title} 課程。
       若要參加此課程，您需要先以維基百科帳號登入。
-      若您尚無維基百科帳號，可以現在註冊。
+    invitation_username_advice: 若您尚未有維基百科帳號，可以現在註冊。您的使用者名稱可以是匿名、或是可作為個人識別，一切都依您個人意願決定（注意請不要將帳號分享給別人使用。）
     join: 加入
     join_course: 加入課程
     join_prompt: 加入'%{title}'嗎？
@@ -316,7 +316,7 @@ zh-TW:
     rating_feedback: 該條目的預估評級為：
     review_timeline: |-
       請再次確認您的計畫時間表並做修改。
-      一旦您確認時間表無誤，請將其送出給 Wiki Ed staff 審核。
+      一旦您確認時間軸無誤，請將其送出給 Wiki Ed staff 審核。
       一旦審核透過，您將獲得一個登記過的 URL 讓學生能夠參與課程 (您仍可稍後編輯此項課程) 。
     revisions_doc: 最近 %{timeframe} 天內的編輯數量。%{timeframe}
     revisions_none: 此課程最近沒有編輯。
@@ -346,7 +346,7 @@ zh-TW:
     submitted: 已提交
     term: 學期
     timeline: 作業細節
-    timeline_link: 時間表
+    timeline_link: 時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
     training_due: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
@@ -362,9 +362,9 @@ zh-TW:
     view_wiki: 在維基百科上檢視
     volunteer:
       other: 志工
-    weeks_none: 此課程尚未建立時間表。
+    weeks_none: 此課程尚未建立時間軸。
     warn_mirrored: |-
-      在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間表上的所有新編輯將會複製一份到維基百科上。
+      在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
     wiki_staff: Wiki ED 工作人員
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
@@ -542,7 +542,7 @@ zh-TW:
     block_custom: 自訂
     block_in_class: 課程中
     block_milestone: 里程碑
-    block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間表上狀況，並為您建立可用工具 (如概述頁面上的里程碑)
+    block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間軸上狀況，並為您建立可用工具 (如概述頁面上的里程碑)
     course_dates: 課程日期
     course_dates_instructions: 選擇整個課程起始和結束日期 (非僅有維基百科分配)。
     course_end: 課程結束
@@ -551,26 +551,31 @@ zh-TW:
       您確定要刪除此週？這將會刪除該週與所有相關區塊。
 
       注意刪除後將無法還原。
+    delete_weeks_confirmation: |-
+      您確定您要刪除此項目時間軸並重新開始嗎？
+
+      請注意此操作是不可還原的。
     discard_all_changes: 放棄所有更改
+    delete_timeline_and_start_over: 刪除時間軸
     due_default: 下週到期
     empty_week_1: 要開始，
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
-    empty_week_4: 使用分配事項精靈來建立時間表。
+    empty_week_4: 使用分配事項精靈來建立時間軸。
     first_week_title: 活躍首週
     gradeable_value: 數值
-    gradeables_none: 此時間表上沒有分配事項被標註分級。
+    gradeables_none: 此時間軸上沒有分配事項被標註分級。
     grading_header: 分級中 (總計： %{total}%)
     move_block_down: 區塊下移
     move_block_up: 區塊上移
     no_class_holidays: 我的開課時段沒有遭遇假日
-    no_timeline: 此課程沒有時間表。
+    no_timeline: 此課程沒有時間軸。
     no_activity_this_week: 本週沒有預訂的會議
     nothing_this_week: 這星期的行事曆沒有任何活動。
     save_all_changes: 儲存全部
     this_week_title_default: 本週
-    title: 時間表
-    unable_to_add_week: 在時間表已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
+    title: 時間軸
+    unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
     view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
   training:
@@ -679,7 +684,7 @@ zh-TW:
       other: 請選擇 %{count}個或更多選項。
     read_less: 閱讀更少
     read_more: 延伸閱讀
-    review_selections: 請在下方檢查您的選項。點選以編輯一個選項。當結束時，點選 "送出" 來結束入門精靈並開始架構您的時間表。
+    review_selections: 請在下方檢查您的選項。點選以編輯一個選項。當結束時，點選 "送出" 來結束入門精靈並開始架構您的時間軸。
     select_assignment: 選擇您希望加到您的時間表的任務類型
     summary: 摘要
   error:

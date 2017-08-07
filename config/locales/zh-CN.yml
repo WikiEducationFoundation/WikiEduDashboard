@@ -267,9 +267,8 @@ zh-CN:
       one: 导师
       other: 导师
     instructors: 导师
-    invitation: |-
-      您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
-      如果您尚未拥有维基百科账户，现在注册一个。
+    invitation: 您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
+    invitation_username_advice: 如果您尚未拥有维基百科账户，现在注册一个。您的用户名可以匿名——或作为个人标识——这基于您的选择。（不允许共享账户。）
     join: 加入
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
@@ -513,7 +512,12 @@ zh-CN:
       您确定要删除该周？这将删除这周及其所有相关块。
 
       这不能撤销。
+    delete_weeks_confirmation: |-
+      您确定要删除此条目时间轴，并重新开始么？
+
+      这不能撤销。
     discard_all_changes: 丢弃所有更改
+    delete_timeline_and_start_over: 删除时间轴
     due_default: 预计下周
     empty_week_1: 要开始，
     empty_week_2: 开始编辑本周
