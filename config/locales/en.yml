@@ -556,6 +556,7 @@ en:
     save: Save
     edit_description: Edit Description
     edit_details: Edit Details
+    edit_template: Edit Template
     rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
 
   metrics:
