@@ -19,6 +19,7 @@ kab:
     home: Asebter agejdan
     log_in_extended: Kcem ar Wikipedia
     log_in: Qqen
+    log_out: Ffeɣ
     my_dashboard: Tafelwit-iw n usenqed
     recent_activity: Armud aneggaru
     report_problem: Azen-d ugur
@@ -27,6 +28,10 @@ kab:
     sign_up_log_in_extended: s Wikipedia
     sign_up: Jerred
     submit: Azen
+    training: Asileɣ
+    change: Snifel
     details: Talqayt
     confirm: IH
+  dashboard:
+    explore_examples: Wali imedyaten
 ...

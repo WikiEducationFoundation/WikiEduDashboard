@@ -365,9 +365,12 @@ fr:
       one: Instructeur
       other: Instructeurs
     instructors: Formateurs
-    invitation: |-
-      Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours, vous devez vous connecter avec un compte Wikipédia.
-      Si vous n’en avez pas encore, inscrivez-vous pour en avoir un.
+    invitation: Vous avez été invité à rejoindre %{title}. Pour rejoindre le cours,
+      vous devez vous connecter avec un compte Wikipédia.
+    invitation_username_advice: Si vous n’avez pas encore de compte Wikipédia, inscrivez-vous
+      pour en avoir un maintenant. Votre nom d’utilisateur peut être anonyme ou vous
+      identifiant personnellement — comme vous le souhaitez (les comptes partagés
+      ne sont pas autorisés).
     join: Rejoindre
     join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
@@ -701,7 +704,12 @@ fr:
       Êtes-vous sûr de vouloir supprimer cette semaine ? Cela supprimera la semaine et tous ses blocs associés.
 
       Cette action ne peut être annulée.
+    delete_weeks_confirmation: |-
+      Êtes-vous sûr de vouloir supprimer tout ce planning et recommencer ?
+
+      Cette opération ne pourra pas être annulée.
     discard_all_changes: Annuler toutes les modifications
+    delete_timeline_and_start_over: Supprimer le planning
     due_default: Attendu de la semaine prochaine
     empty_week_1: Pour commencer,
     empty_week_2: commencer à modifier cette semaine

@@ -352,9 +352,11 @@ de:
       one: Leiter
       other: Leiter
     instructors: Leiter
-    invitation: |-
-      Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten, musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
-      Falls du noch kein Wikipedia-Benutzerkonto hast, registriere dich jetzt.
+    invitation: Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten,
+      musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
+    invitation_username_advice: Falls du noch kein Wikipedia-Benutzerkonto hast, registriere
+      dich jetzt. Dein Benutzername kann anonym sein – oder persönlich identifizierend
+      – wenn du möchtest. Gemeinsame Benutzerkonten sind nicht erlaubt.
     join: Beitreten
     join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
@@ -687,7 +689,12 @@ de:
       Bist du sicher, dass du diese Woche löschen möchtest? Dies löscht die Woche und all ihre zugewiesenen Blöcke.
 
       Dies kann nicht rückgängig gemacht werden.
+    delete_weeks_confirmation: |-
+      Bist du sicher, dass du diese gesamte Zeitleiste löschen und eine neue erstellen möchtest?
+
+      Dies kann nicht rückgängig gemacht werden.
     discard_all_changes: Alle Änderungen verwerfen
+    delete_timeline_and_start_over: Zeitleiste löschen
     due_default: Während nächster Woche
     empty_week_1: Um anzufangen,
     empty_week_2: beginne mit dem Bearbeiten in dieser Woche

@@ -16,9 +16,12 @@ import Notifications from './common/notifications.jsx';
 const getState = function () {
   const current = $('#react_root').data('current_user');
   const cu = UserStore.getFiltered({ id: current.id })[0];
+  let currentUser = cu || current;
+  const userRoles = UserUtils.userRoles(currentUser, UserStore);
+  currentUser = { ...currentUser, ...userRoles };
   return {
     course: CourseStore.getCourse(),
-    current_user: cu || current,
+    current_user: currentUser,
     weeks: WeekStore.getWeeks()
   };
 };
@@ -74,9 +77,7 @@ const Course = React.createClass({
 
   render() {
     const alerts = [];
-
-    const userRoles = UserUtils.userRoles(this.state.current_user, UserStore);
-
+    const userRoles = this.state.current_user;
     // //////////////////////////////////
     // Admin / Instructor notifications /
     // //////////////////////////////////
