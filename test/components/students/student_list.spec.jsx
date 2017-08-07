@@ -6,7 +6,7 @@ import StudentList from '../../../app/assets/javascripts/components/students/stu
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 
 describe('StudentList', () => {
-  const currentUser = { id: 1, admin: true, role: 1 };
+  const currentUser = { id: 1, admin: true, role: 1, isNonstudent: true };
   const users = [{
     role: 0,
     id: 3,
