@@ -226,8 +226,8 @@ const Nav = React.createClass({
                 {Sandbox}
                 {help}
                 {wikiEd}
-                {helpEnabled}
               </ul>
+              {helpEnabled}
               <ul className="top-nav__login-links">
                 {languageSwitcherEnabled}
                 {loggingLinks}
