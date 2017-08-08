@@ -58,6 +58,16 @@ describe WikiEdits do
     expect(User.first.wiki_token).to eq('invalid')
   end
 
+  it 'handles edit requests that are blocked' do
+    stub_edit_failure_blocked
+    WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
+  end
+
+  it 'handles edit requests that are autoblocked' do
+    stub_edit_failure_autoblocked
+    WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
+  end
+
   describe '.notify_untrained' do
     it 'posts talk page messages on Wikipedia' do
       stub_oauth_edit

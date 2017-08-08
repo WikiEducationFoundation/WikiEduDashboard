@@ -54,6 +54,24 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
+  def stub_edit_failure_blocked
+    stub_token_request
+    failure = '{"servedby":"mw1135", "error":{"code":"blocked",
+      "info":"You have been blocked from editing.",
+      "*":"See http://en.wikipedia.org/w/api.php for API usage"}}'
+    stub_request(:post, /.*wikipedia*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
+
+  def stub_edit_failure_autoblocked
+    stub_token_request
+    failure = '{"servedby":"mw1135", "error":{"code":"autoblocked",
+      "info":"Your IP address has been blocked automatically.",
+      "*":"See http://en.wikipedia.org/w/api.php for API usage"}}'
+    stub_request(:post, /.*wikipedia*/)
+      .to_return(status: 200, body: failure, headers: {})
+  end
+
   def stub_oauth_edit_abusefilter
     stub_token_request
     # Then the edit request itself
