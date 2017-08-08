@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 20170807180714) do
     t.index ["course_id"], name: "index_articles_courses_on_course_id"
   end
 
+  create_table "assignment_suggestions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text "text"
+    t.bigint "assignment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["assignment_id"], name: "index_assignment_suggestions_on_assignment_id"
+  end
+
   create_table "assignments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -202,15 +211,6 @@ ActiveRecord::Schema.define(version: 20170807180714) do
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at"
-  end
-
-  create_table "feedbacks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.text "text"
-    t.bigint "assignment_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["assignment_id"], name: "index_feedbacks_on_assignment_id"
   end
 
   create_table "gradeables", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

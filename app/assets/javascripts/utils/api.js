@@ -105,7 +105,7 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'POST',
-        url: `/assignments/${assignmentId}/feedbacks`,
+        url: `/assignments/${assignmentId}/assignment_suggestions`,
         data: {feedback: {text: text, assignment_id: assignmentId, user_id: userId}},
         success(data) {
           return res(data);
@@ -122,7 +122,7 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'DELETE',
-        url: `/assignments/${assignmentId}/feedbacks/${id}`,
+        url: `/assignments/${assignmentId}/assignment_suggestions/${id}`,
         success(data) {
           return res(data);
         }

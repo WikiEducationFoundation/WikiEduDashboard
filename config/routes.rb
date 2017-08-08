@@ -1,10 +1,6 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
-  get 'feedbacks/create'
-
-  get 'feedback/create'
-
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'
@@ -39,7 +35,7 @@ Rails.application.routes.draw do
   end
 
   resources :assignments do
-    resources :feedbacks
+    resources :assignment_suggestions
   end
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
