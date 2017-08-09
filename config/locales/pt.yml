@@ -230,7 +230,7 @@ pt:
     join_course: Participar no curso
     join_prompt: Participar em '%{title}'?
     join_successful: Inscreveu-se com sucesso em %{title}.
-    leave_confirmation: Tem certeza que deseja sair deste curso?
+    leave_confirmation: Tem a certeza de que deseja sair deste curso?
     leave_course: Abandonar curso
     loading: A carregar...
     milestones_none: Este curso não possui objetivos atualmente.

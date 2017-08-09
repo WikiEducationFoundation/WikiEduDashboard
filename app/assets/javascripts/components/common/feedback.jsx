@@ -20,6 +20,7 @@ const Feedback = React.createClass({
   getInitialState() {
     return {
       show: false,
+      fetched: false,
       feedbackSent: false,
       feedbackInput: ''
     };
@@ -42,6 +43,10 @@ const Feedback = React.createClass({
 
   show() {
     this.setState({ show: true });
+    if (!this.state.fetched) {
+      this.props.fetchFeedback(this.titleParam());
+      this.setState({ fetched: true });
+    }
   },
 
   hide() {

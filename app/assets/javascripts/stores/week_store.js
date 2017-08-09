@@ -39,6 +39,11 @@ const removeWeek = function (weekId) {
   return WeekStore.emitChange();
 };
 
+const removeAllWeeks = function () {
+  _weeks = {};
+  return WeekStore.emitChange();
+};
+
 // Store
 const WeekStore = Flux.createStore({
   getLoadingStatus() {
@@ -59,7 +64,7 @@ const WeekStore = Flux.createStore({
   restore() {
     _weeks = $.extend(true, {}, _persisted);
     return WeekStore.emitChange();
-  }
+  },
 }
 , (payload) => {
   const { data } = payload;
@@ -74,6 +79,9 @@ const WeekStore = Flux.createStore({
       break;
     case 'DELETE_WEEK':
       removeWeek(data.week_id);
+      break;
+    case 'DELETE_ALL_WEEKS':
+      removeAllWeeks();
       break;
     default:
       // no default

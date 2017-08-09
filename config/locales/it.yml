@@ -328,6 +328,10 @@ it:
       clone_previous: Clona programma precedente
       clone_this: Clona questo programma
       clone_successful: Programma clonato correttamente
+      clone_successful_details: Il tuo programma è stato clonato. Clicca su "Salva"
+        per completare.
+      course_when: Aggiungi qualcosa nel campo 'Quando' (ad esempio, il mese e l'anno)
+        per differenziarlo dall'originale.
       course_description: Descrizione del programma
       course_school: Istituto
       course_term: Quando
@@ -434,6 +438,9 @@ it:
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Questa voce non esiste su Wikipedia.
   timeline:
     add_week: Aggiungi settimana
     block_custom: Personalizzato

@@ -459,13 +459,25 @@ describe Course, type: :model do
       expect(Course.last.class).to eq(ClassroomProgramCourse)
     end
 
-    it 'implements #string_prefix and #wiki_edits_enabled? for every course type' do
+    it 'implements required methods for every course type' do
       Course::COURSE_TYPES.each do |type|
         create(:course, type: type, slug: "foo/#{type}")
         course = Course.last
         expect(course.type).to eq(type)
+        # #string_prefix
         expect(course.string_prefix).to be_a(String)
+        # #wiki_edits_enabled?
         expect(course.wiki_edits_enabled?).to be_in([true, false])
+        # #wiki_course_page_enabled?
+        expect(course.wiki_course_page_enabled?).to be_in([true, false])
+        # #multiple_roles_allowed?
+        expect(course.multiple_roles_allowed?).to be_in([true, false])
+        # #passcode_required?
+        expect(course.passcode_required?).to be_in([true, false])
+        # #use_start_and_end_times
+        expect(course.use_start_and_end_times).to be_in([true, false])
+        # wiki_title
+        expect(course).to respond_to(:wiki_title)
       end
     end
   end

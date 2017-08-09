@@ -6,11 +6,14 @@
 lv:
   application:
     cancel: Atcelt
+    documentation: Dokumentācija
+    field_required: Šis lauks jāaizpilda obligāti.
     greeting2: Laipni lūdzam!
     greeting_extended: Laipni lūdzam Vikipēdijā
     help: Palīdzība
     home: Sākums
     recent_activity: Nesenās darbības
+    report_problem: Ziņot par problēmu
     search: uzdot jautājumu
     submit: Iesniegt
     training: Apmācības
@@ -44,6 +47,7 @@ lv:
     label: Piešķirt
     loading: Ielādē uzdevumus...
     remove: Noņemt
+    review_self: Pārlasīt rakstu
     select: Izvēlēties
   blocks:
     milestones:
@@ -56,8 +60,10 @@ lv:
     campaigns: Kampaņas
     create_campaign: Izveidot jaunu kampaņu
     description: Apraksts
+    delete_campaign: Dzēst šo kampaņu
     none: Nav
     organizers: Organizatori
+    title: Nosaukums
   chat:
     label: Tērzētava
   courses:
@@ -73,6 +79,8 @@ lv:
     cancel: Atcelt
     campaigns: 'Kampaņas:'
     campaign_courses: '%{title} kursi'
+    campaign_articles: '%{title} raksti'
+    course: Kurss
     course_description: Kursi
     courses: Kursi
     creator:
@@ -92,13 +100,19 @@ lv:
       start_date_placeholder: Sākuma datums (GGGG-MM-DD)
       subject: Temats
     current: Aktīvie kursi
+    data_download_info: Lejupielādēt datus CSV formātā
+    data_edits: Labojumu dati
+    data_uploads_info: Commons augšupielādes datos parādās katra ielādētā faila nosaukums
+      un lietojumu skaits.
     delete_course: Dzēst kursu
     dismiss_survey: Paslēpt
+    download_stats_data: Lejupielādēt statistiku
     duration: Kursa ilgums
     edit_course_dates: Labot kursa datumus
     end: Beigas
     enroll: Reģistrēties
     enrollment: Reģistrācija
+    feedback: Atsauksmes
     join: Pievienoties
     join_course: Pievienoties kursam
     join_prompt: Pievienoties '%{title}'?
@@ -110,8 +124,10 @@ lv:
     overview: Sākums
     passcode: Piekļuves kods
     passcode_none: Nav piekļuves koda
+    passcode_prompt: 'Ievadi piekļuves kodu, lai pievienotos:'
     revisions_doc: Labojumu skaits pēdējās %{timeframe} dienās
     school: Skola
+    start: Sākums
     students: Studenti
     students_none: Šim kursam nav studentu.
     students_short: Studenti
@@ -126,20 +142,28 @@ lv:
     volunteer:
       other: Brīvprātīgie
   courses_generic:
+    all_courses: Visas programmas
+    archived: Arhivētās programmas
     cancel: Atcelt
+    course: Programma
     courses: Programmas
     campaigns: 'Kampaņas:'
     creator:
       clone_previous: Klonēt iepriekšējo programmu
       clone_this: Klonēt šo programmu
+      course_description: Programmas apraksts
       course_school: Iestāde
       course_term: Kad
       course_term_placeholder: Kad
       course_title: Programmas nosaukums
       save_cloned_course: Saglabāt
     delete_course: Dzēst programmu
+    enroll: Pievienot dalībnieku
+    enrollment: Dalība
     expected_students: Plānotie dalībnieki
+    instructors: Koordinatori
     join_course: Pievienoties programmai
+    school: Iestāde
     student_editors: Redaktori
     students: Redaktori
     yourcourses: Tavas programmas
@@ -164,14 +188,26 @@ lv:
     word_count: Pievienotie vārdi
     word_count_average: Vidējais vārdu skaits
   recent_activity:
+    article_title: Raksta nosaukums
+    datetime: Datums/laiks
     image: Attēls
     file_name: Faila nosaukums
     no_edits: Nav nesenu labojumu
+    plagiarism_report: Plaģiātisma ziņojums
+    possible_plagiarism: Iespējams plaģiātisms
     recent_edits: Neseni labojumi
+    uploaded_by: Augšupielādētājs
+    usage_count: Lietojumu skaits
   revisions:
     chars_added: Rakstzīmes pievienotas
+    date_time: Datums/laiks
     loading: Ielādē versijas...
+    title: Nosaukums
   timeline:
+    course_end: Kursa beigas
+    course_start: Kursa sākums
+    save_all_changes: Saglabāt visu
+    this_week_title_default: Šonedēļ
     week_number: '%{number}. nedēļa'
   training:
     continue: Turpināt (%{progress})
@@ -184,10 +220,14 @@ lv:
     image: Attēls
     label: Augšupielādes
     loading: Ielādē augšupielādes...
+    uploaded_by: Augšupielādētājs
+    usage_count: Lietojumu skaits
   users:
+    assign_articles: Piešķirt rakstus
     assigned: Piešķirtie raksti
     chars_added: Pievienotās rakstzīmes<br>(rakstos | smilškastē)
     contributions: Dalībieka devums
+    course_passcode: 'Piekļuves kods:'
     editors: Redaktori
     loading: Ielādē lietotājus...
     name: Nosaukums
@@ -202,9 +242,16 @@ lv:
       instructor: Pasniedzējs
       campus_volunteer: Iestādes brīvprātīgais
       online_volunteer: Tiešsaistes brīvprātīgais
+  user_profiles:
+    institution_placeholder: Iestādes nosaukums (neobligāts)
   wizard:
     read_less: Lasīt mazāk
     read_more: Lasīt vairāk
+  error_incorrect_passcode:
+    header: Nederīgs piekļuves kods.  :-(
   login_error:
     header: Pieteikšanās kļūda
+  survey:
+    email:
+      course: 'Kurss: %{course_info}'
 ...

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_edits"
 
 class WikiPreferencesManager
@@ -11,9 +12,13 @@ class WikiPreferencesManager
     ve_options = [
       'visualeditor-editor=visualeditor', # enables VE as default editor
       'visualeditor-hidebetawelcome=1', # skips the 'start editing' dialog on first edit
-      'visualeditor-hideusered=1', # disables the blue dots on cite and link buttons
-      'visualeditor-tabs=multi-tab' # enables both Edit and Edit Source tabs
+      'visualeditor-hideusered=1' # disables the blue dots on cite and link buttons
     ].join('|')
+    #################
+    # Other options #
+    #################
+    # 'visualeditor-tabs=multi-tab' # enables both Edit and Edit Source tabs
+
     params = { action: 'options',
                change: ve_options,
                format: 'json' }

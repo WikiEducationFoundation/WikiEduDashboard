@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
-gem 'rails', '5.1.2'
+gem 'rails', '5.1.3'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
@@ -13,6 +13,7 @@ gem 'sidekiq'
 gem 'activerecord-import'
 gem 'dalli'
 gem 'connection_pool'
+gem 'faraday'
 
 gem 'browser'
 

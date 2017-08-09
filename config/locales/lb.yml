@@ -192,7 +192,8 @@ lb:
     students_count: '# Studenten'
     students_none: An dësem Cours si keng Studenten ageschriwwen.
     students_short: Studenten
-    suggestions_feedback: Sinn dës Virschléi hëllefräich? Deelt eis et mat!
+    suggestions_feedback: Hutt Dir Virschléi fir dës Funktioun ze verbesseren ? Deelt
+      eis se mat!
     suggestions_sending: Feedback gëtt geschéckt...
     suggestions_sent: Feedback geschéckt. Merci fir Ären Input.
     suggestions_failed: Feedback konnt net geschéckt ginn. Probéiert méi spéit nach
@@ -293,6 +294,8 @@ lb:
     view_on_wiki: Ënnerscheed op der Wiki weisen
   suggestions:
     editing: Virschléi änneren
+    suggestion_docs:
+      does_not_exist: Dësen Artikel gëtt et net op Wikipedia.
   timeline:
     add_week: Woch dobäisetzen
     block_custom: Personaliséiert

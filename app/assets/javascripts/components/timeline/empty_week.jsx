@@ -12,7 +12,8 @@ const EmptyWeek = React.createClass({
     course: React.PropTypes.object,
     timeline_start: React.PropTypes.string,
     timeline_end: React.PropTypes.string,
-    index: React.PropTypes.number
+    index: React.PropTypes.number,
+    weeksBeforeTimeline: React.PropTypes.number
   },
 
   addWeek() {
@@ -48,13 +49,15 @@ const EmptyWeek = React.createClass({
 
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
 
+    const weekNumber = this.props.index + this.props.weeksBeforeTimeline;
+
     return (
       <li className={`week week-${this.props.index}`}>
         <div className="week__week-header">
           <span className="week__week-dates pull-right">
             {dateCalc.start()} - {dateCalc.end()}
           </span>
-          <p className="week-index">{I18n.t('timeline.week_number', { number: this.props.index })}</p>
+          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber })}</p>
         </div>
         <div className="week__no-activity">
           {week}

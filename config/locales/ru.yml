@@ -186,6 +186,7 @@ ru:
       expected_number: Ожидаемое количество студентов
       find: Найти свой курс
       start_date: Дата начала
+      start_date_placeholder: Дата начала (ГГГГ-ММ-ДД)
     current: Текущие курсы
     delete_course: Удалить курс
     duration: Продолжительность курса
@@ -196,6 +197,7 @@ ru:
         школой или семестром.
       user_exists: К сожалению, участника %{username} не существует.
       duplicate_slug: Другая программа под названием %{slug} уже существует.
+    feedback: Обратная связь
     gradeables_none: У этого курса нет оцениваемых назначений.
     instructor:
       one: Инструктор
@@ -247,12 +249,14 @@ ru:
       course_title: Название программы
       create_button: Создать свою программу!
       create_label: Создать новую программу
-      create_new: Создать новую программу
+      create_new: Создать независимую программу
       create_short: Создать программу
       find: Найди программу
       save_cloned_course: Сохранить
     delete_course: Удалить программу
     explore: Найти программы
+    enroll: Добавить редактора
+    enrollment: Участие
     join_course: Присоединиться к программе
     join_details: Присоединиться к этой программе, вам нужно получить код доступа
       или ссылку, которая включает пароль от посредника.
@@ -264,6 +268,7 @@ ru:
     term: Когда
     yourcourses: Ваши программы
   editable:
+    edit: Править
     cancel: Отмена
     save: Сохранить
     edit_description: Редактирование описание
@@ -290,6 +295,7 @@ ru:
     user_char_added: Добавлено символов в пространстве участника
     user_ns: Участник
   recent_activity:
+    article_title: Название статьи
     datetime: Дата/время
     image: Изображение
     file_name: Имя файла

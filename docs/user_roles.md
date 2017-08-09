@@ -68,15 +68,15 @@ arbitrary activity data.
     * $ `rake batch:update_constantly`
     * $ `rake batch:update_daily`
 
-## Wiki Ed configuration vs. Programs & Events configuration
+## Wiki Education configuration vs. Programs & Events configuration
 
 The dashboard has two production deployments, which are configured differently.
 
-The Wiki Ed dashboard (dashboard.wikiedu.org) is for Wiki Education Foundation,
+The Wiki Education Dashboard (dashboard.wikiedu.org) is for Wiki Education,
 and is built around the "Classroom Program" involving college students and instructors.
 It is more locked down, required approval from an admin before a course can proceed.
 
-The Wikimedia Programs & Events dashboard (outreachdashboard.wmflabs.org) is for
+The Wikimedia Programs & Events Dashboard (outreachdashboard.wmflabs.org) is for
 the global Wikipedia/Wikimedia community, across many languages. With this configuration,
 courses are by default called "Programs", and they are approved by default upon creation.
 

@@ -267,9 +267,8 @@ zh-CN:
       one: 导师
       other: 导师
     instructors: 导师
-    invitation: |-
-      您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
-      如果您尚未拥有维基百科账户，现在注册一个。
+    invitation: 您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
+    invitation_username_advice: 如果您尚未拥有维基百科账户，现在注册一个。您的用户名可以匿名——或作为个人标识——这基于您的选择。（不允许共享账户。）
     join: 加入
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
@@ -367,7 +366,8 @@ zh-CN:
       clone_previous: 克隆上一个程序
       clone_this: 克隆此计划
       clone_successful: 课程已成功关闭
-      clone_successful_details: 您的课程已被克隆。确保在“何时”字段中添加内容（例如年月）来区分该课程与原始内容。然后点击下方“保存”以完成课程。
+      clone_successful_details: 您的课程已被克隆。点击下方“保存”以完成课程。
+      course_when: 在“何时”字段中添加一些内容（例如月和年）以区分它和原始内容。
       course_description: 程序描述
       course_school: 机构
       course_term: 何时
@@ -488,7 +488,7 @@ zh-CN:
     suggestion_docs:
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
       '?': 建议不可用——条目未评级，或没有用于评级的建议。
-      does_not_exist: 此条目在维基百科不存在
+      does_not_exist: 此条目在维基百科不存在。
   tasks:
     conseq: 课程%{task}已在进行！
     constant: 当update_daily运行时，任务%{task}不能运行。
@@ -512,7 +512,12 @@ zh-CN:
       您确定要删除该周？这将删除这周及其所有相关块。
 
       这不能撤销。
+    delete_weeks_confirmation: |-
+      您确定要删除此条目时间轴，并重新开始么？
+
+      这不能撤销。
     discard_all_changes: 丢弃所有更改
+    delete_timeline_and_start_over: 删除时间轴
     due_default: 预计下周
     empty_week_1: 要开始，
     empty_week_2: 开始编辑本周

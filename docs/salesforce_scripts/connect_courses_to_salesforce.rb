@@ -31,11 +31,15 @@ class ConnectCoursesToSalesforce
   def search_salesforce_for(course)
     # some characters are not allowed in Salesforce queries, including colon, dash, apostrophe
     sanitized_title = course.title.gsub(/[:\-\']/, '')
-    @client.search('FIND {' + sanitized_title + '} RETURNING Course__c (Course_Dashboard__c, Id)')
+    @client.search('FIND {' + sanitized_title + '} RETURNING Course__c (Course_Dashboard__c, Course_Page__c, Id)')
   end
 
   def includes_course_slug?(record, slug)
     record_url = record.Course_Dashboard__c
+    unless record_url
+      record_url = record.Course_Page__c
+      puts record_url
+    end
     return false unless record_url
     return true if record_url.include? slug
     return true if record_url.include? CGI.escape(slug).gsub('%2F', '/')
