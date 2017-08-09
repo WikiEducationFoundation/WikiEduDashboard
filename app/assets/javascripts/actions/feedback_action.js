@@ -39,6 +39,7 @@ export function deleteUserFeedback(assignmentId, messageId, arrayId) {
     return API.destroyCustomFeedback(assignmentId, messageId)
       .then((resp) => {
         dispatch({ type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId });
-      });
+      })
+      .catch(response => (ApiFailAction.fail(response)));
   };
 }

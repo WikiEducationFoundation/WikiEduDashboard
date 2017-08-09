@@ -139,7 +139,7 @@ const Feedback = React.createClass({
       for (let i = 0; i < customMessages.length; i++) {
         let deleteButton;
         if (customMessages[i].userId === this.getCurrentUser().id) {
-          deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>Delete</a>;
+          deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;
         }
         userSuggestionList.push(<li key={customMessages[i].messageId}> {customMessages[i].message} {deleteButton} </li>);
       }
@@ -147,7 +147,7 @@ const Feedback = React.createClass({
       // Input box to input custom feedback
       customSuggestionsForm = (
         <form onSubmit={this.handleFeedbackSubmit}>
-          <textarea className="feedback-form" rows="1" cols="150" onChange={this.handleFeedbackInputChange} value={this.state.feedbackInput} placeholder={I18n.t('courses.user_suggestions')} />
+          <textarea className="feedback-form" rows="1" cols="150" onChange={this.handleFeedbackInputChange} value={this.state.feedbackInput} placeholder={I18n.t('courses.user_suggestions_prompt')} />
           <input className="button dark small" type="submit" value="Add Suggestion" />
         </form>
       );
@@ -168,6 +168,7 @@ const Feedback = React.createClass({
             <ul>
               {feedbackList}
             </ul>
+            {feedbackForm}<br />
             <h5>{I18n.t('courses.user_suggestions')}</h5>
             <ul>
               {userSuggestionList}
@@ -192,7 +193,6 @@ const Feedback = React.createClass({
           {button}
           <h2>Feedback</h2>
           {feedbackBody}
-          {feedbackForm}
         </div>
       );
     }
