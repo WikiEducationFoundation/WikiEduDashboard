@@ -284,8 +284,8 @@ nav.profile-nav
   position: fixed;
   width: 36px;
   height: 30px;
-  left: 36px;
-  top: 36px;
+  right: 50px;
+  top: 8px;
 }
 
 /* Color/shape of burger icon bars */
@@ -306,7 +306,7 @@ nav.profile-nav
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
+  background: #fff;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }
@@ -318,7 +318,6 @@ nav.profile-nav
 
 /* Wrapper for item list */
 .bm-item-list {
-  color: #b8b7ad;
   padding: 0.8em;
 }
 
@@ -326,3 +325,19 @@ nav.profile-nav
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
 }
+
+.bm-menu-wrap {
+  top: 0px;
+}
+
+// making navBar responsive
+@media only screen and (max-width: 500px)
+  nav
+    background-color #fff;
+  .bm-menu
+    li
+      margin-top 30px
+      list-style none
+  .top-nav__site-logo
+    line-height 0
+    margin-left -50%

@@ -131,18 +131,27 @@ const HamburgerMenu = React.createClass({
     }
     return (
       <div>
-        <Menu>
-          <CustomLink to={this.props.exploreurl} name={this.props.explorename} clickedElement="explore" />
-          {myDashboard}
-          {forAdmin}
-          {disableTraining}
-          {Sandbox}
-          {help}
-          {wikiEd}
-          {helpEnabled}
-          {languageSwitcherEnabled}
-          {loggingLinks}
-        </Menu>
+        <nav className= "top-nav">
+          <div className="container">
+            <div className="top-nav__site-logo">
+              <a className="logo__link" href= {this.props.rootUrl}>
+                <img src ={this.props.logoPath} alt = "wiki logo" />
+              </a>
+            </div>
+            <Menu right>
+              <CustomLink to={this.props.exploreurl} name={this.props.explorename} clickedElement="explore" />
+              {myDashboard}
+              {forAdmin}
+              {disableTraining}
+              {Sandbox}
+              {help}
+              {wikiEd}
+              {helpEnabled}
+              {languageSwitcherEnabled}
+              {loggingLinks}
+            </Menu>
+          </div>
+        </nav>
       </div>
     );
   }
