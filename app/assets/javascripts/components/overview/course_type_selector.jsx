@@ -34,7 +34,8 @@ const CourseTypeSelector = React.createClass({
       ClassroomProgramCourse: 'Classroom Program',
       VisitingScholarship: 'Visiting Scholarship',
       Editathon: 'Edit-a-thon',
-      BasicCourse: 'Generic Course'
+      BasicCourse: 'Generic Course',
+      ArticleScopedProgram: 'Article Scoped Program'
     }[type];
   },
 
@@ -59,6 +60,7 @@ const CourseTypeSelector = React.createClass({
             <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>
             <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
             <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
+            <option value="ArticleScopedProgram">{this._getFormattedCourseType('ArticleScopedProgram')}</option>
           </select>
         </div>
       );

@@ -181,6 +181,7 @@ class Course < ActiveRecord::Base
     VisitingScholarship
     Editathon
     BasicCourse
+    ArticleScopedProgram
   ).freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
