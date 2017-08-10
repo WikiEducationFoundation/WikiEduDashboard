@@ -235,14 +235,18 @@ const Details = React.createClass({
           <TagButton {...this.props} show={this.props.editable} />
         </div>
       );
-      courseTypeSelector = (
-        <CourseTypeSelector
+      submittedSelector = (
+        <SubmittedSelector
           course={this.props.course}
           editable={this.props.editable}
         />
       );
-      submittedSelector = (
-        <SubmittedSelector
+    }
+
+    // Users who can rename a course are also allowed to change the type.
+    if (this.canRename()) {
+      courseTypeSelector = (
+        <CourseTypeSelector
           course={this.props.course}
           editable={this.props.editable}
         />
