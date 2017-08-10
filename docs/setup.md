@@ -36,6 +36,7 @@ If you know your way around Rails, here's the very short version. Some additiona
        - `rvm install ruby-2.3.1`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
+       - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 - Install Node:
   - Debian: `apt install nodejs npm`
   - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
