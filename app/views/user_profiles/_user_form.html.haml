@@ -38,11 +38,12 @@
 
           .section
             - if current_user == @user || current_user&.admin?
-              #user_id
-                #icon
-                  &#x2709;
-                %p
-                  #{@user.email}
+              - if @user.email.present?
+                #user_id
+                  #icon
+                    &#x2709;
+                  %p
+                    #{@user.email}
 
           .section
             #user_location
