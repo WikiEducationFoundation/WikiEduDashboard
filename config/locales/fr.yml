@@ -557,6 +557,7 @@ fr:
     save: Enregistrer
     edit_description: Modifier la description
     edit_details: Modifier les détails
+    edit_template: Modifier le modèle
     rename_confirmation: Les champs du cours qui composent l’URL ont changé. Cela
       va modifier l’URL et les liens pointant vers l’ancienne URL deviendront caducs.
       Voulez-vous vraiment continuer ?

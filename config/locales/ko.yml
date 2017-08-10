@@ -180,7 +180,7 @@ ko:
     instructor:
       other: 지도자
     instructors: 지침
-    invitation: '%{title} 참여에 초대되었습니다. 이 과정에 참여하려면 위키백과 계정에 로그인해야 합니다.'
+    invitation: '%{title} 에 참여하도록 초대되었습니다. 이 과정에 참여하려면 위키백과 계정에 로그인해야 합니다.'
     invitation_username_advice: 아직 위키백과 계정이 없다면 지금 하나 등록하십시오. 사용자 이름은 원하는 경우 익명 처리하거나
       개인 식별 처리시킬 수 있습니다. (공유 계정은 허용되지 않음)
     join: 가입하기
@@ -270,6 +270,7 @@ ko:
     save: 저장
     edit_description: 설명 편집
     edit_details: 자세한 사항 편집
+    edit_template: 틀 편집
   metrics:
     activity: 최근 활동
     articles_created: 문서 생성됨

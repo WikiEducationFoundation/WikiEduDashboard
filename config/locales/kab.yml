@@ -34,4 +34,14 @@ kab:
     confirm: IH
   dashboard:
     explore_examples: Wali imedyaten
+  articles:
+    title: Azwel
+    title_example: Azwel n umagrad
+    view: Sken azwel
+    view_all: Sken akk
+    view_on_wiki: Sken ɣef uwiki
+  editable:
+    edit_template: Snifel taneɣruft
+  users:
+    contribution_statistics: Tidaddanin n uttekki
 ...

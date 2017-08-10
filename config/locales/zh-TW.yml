@@ -443,6 +443,7 @@ zh-TW:
     save: 儲存
     edit_description: 編輯描述
     edit_details: 編輯詳細內容
+    edit_template: 編輯模板
     rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   metrics:
     activity: 最近活躍度

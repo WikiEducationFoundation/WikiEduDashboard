@@ -5,6 +5,7 @@
 # Author: Dominikmatus
 # Author: Dvorapa
 # Author: Frettie
+# Author: Marek Pavlica
 # Author: Martin Urbanec
 # Author: Meliganai
 # Author: Mormegil
@@ -226,9 +227,8 @@ cs:
       one: instruktur
       other: instruktoři
     instructors: Instruktoři
-    invitation: |-
-      Byli jste pozváni k připojení se ke kurzu %{title}. Aby to bylo možné, musíte se nejprve vytvořit pomocí svého účtu na Wikipedii.
-      Pokud nemáte účet na Wkipedii, zaregistrujte se nyní.
+    invitation: Byli jste pozváni k připojení se ke kurzu %{title}, ale nejprve se
+      musíte přihlásit ke svému účtu.
     join: Zapsat se
     join_course: Připojit se ke kurzu
     join_prompt: Zapsat se do '%{title}'?

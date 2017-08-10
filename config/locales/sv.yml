@@ -242,6 +242,7 @@ sv:
     save: Spara
     edit_description: Redigera beskrivning
     edit_details: Redigera detaljer
+    edit_template: Redigera mall
   metrics:
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
@@ -294,6 +295,7 @@ sv:
     course_end: Kursslut
     course_start: Kursstart
     discard_all_changes: Ignorera alla ändringar
+    delete_timeline_and_start_over: Radera tidslinje
     empty_week_1: För att komma igång,
     empty_week_3: eller
     gradeable_value: Värde

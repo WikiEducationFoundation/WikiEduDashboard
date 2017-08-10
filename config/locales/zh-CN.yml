@@ -416,6 +416,7 @@ zh-CN:
     save: 保存
     edit_description: 编辑描述
     edit_details: 编辑详情
+    edit_template: 编辑模板
   metrics:
     activity: 最近活跃
     are_trained: 最近培训

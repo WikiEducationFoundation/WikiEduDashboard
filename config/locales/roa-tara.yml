@@ -21,4 +21,6 @@ roa-tara:
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
+  editable:
+    edit_template: Cange 'u template
 ...

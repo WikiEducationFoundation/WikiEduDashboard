@@ -543,6 +543,7 @@ de:
     save: Speichern
     edit_description: Beschreibung bearbeiten
     edit_details: Einzelheiten bearbeiten
+    edit_template: Vorlage bearbeiten
     rename_confirmation: Die Kursfelder, die die URL bilden, wurden geändert. Dieser
       Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
       tun möchtest?

@@ -9,6 +9,7 @@
 # Author: Katpatuka
 # Author: KorkmazO
 # Author: Mavrikant
+# Author: Rapsar
 # Author: Sayginer
 # Author: Uğurkent
 # Author: Vito Genovese
@@ -40,6 +41,7 @@ tr:
     courses_enrolled: Katılınan programlar
   editable:
     edit: Düzenle
+    edit_template: Şablonu değiştir
   metrics:
     char_changed: Karakterler Değişti
   namespace:

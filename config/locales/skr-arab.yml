@@ -7,19 +7,33 @@ skr-arab:
   application:
     cancel: منسوخ
     explore: پھرولو
+    greeting: سلام!
     help: مدد
     home: گھر
     log_in_extended: وکی پیڈیا نال لاگ ان تھیوو
     log_in: لاگ ان تھیوو
     log_out: لاگ آؤٹ
+    my_dashboard: میݙا ڈیش بورڈ
+    recent_activity: حالیہ سرگرمی
+    sign_up: کھاتہ بناؤ
+    submit: جمع کرواؤ
+    training: تربیت
+    change: تبدیل کرو
+    details: تفصیلات
     confirm: ٹھیک ہے
   home:
     explore: پھرولو
+  activity:
+    all: سرگرمی
+    label: سرگرمی
   articles:
+    hide: لُکاؤ
+    label: مقالے
     new: (نواں)
     title: عنوان
   assignments:
     remove: ہٹاؤ
+    select: چݨو
   campaign:
     none: کوئی وی کائنی
   chat:

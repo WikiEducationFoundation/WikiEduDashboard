@@ -251,6 +251,7 @@ lb:
     save: Späicheren
     edit_description: Beschreiwung änneren
     edit_details: Detailer änneren
+    edit_template: Schabloun änneren
   metrics:
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -303,6 +304,7 @@ lb:
     course_dates: Datume vum Cours
     course_end: Ënn vum Cours
     course_start: Ufank vum Cours
+    delete_timeline_and_start_over: Zäitplang läschen
     due_default: Nächst Woch fälleg
     empty_week_1: Fir unzefänken.
     empty_week_3: oder

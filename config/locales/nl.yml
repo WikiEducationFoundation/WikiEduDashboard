@@ -327,6 +327,7 @@ nl:
     edit: Bewerken
     cancel: Annuleren
     save: Opslaan
+    edit_template: Sjabloon bewerken
   metrics:
     activity: Recente activiteit
     articles_created: Pagina's aangemaakt
