@@ -5,6 +5,7 @@
 # Author: Anto
 # Author: Beta16
 # Author: Einreiher
+# Author: Greis
 # Author: Macofe
 # Author: Matteocng
 # Author: Nemo bis
@@ -453,6 +454,7 @@ it:
 
       Questa operazione non può essere annullata.
     discard_all_changes: Scarta tutte le modifiche
+    delete_timeline_and_start_over: Cancella la cronologia degli eventi
     due_default: Previsto per la prossima settimana
     empty_week_1: Per iniziare,
     empty_week_2: avvia la modifica di questa settimana

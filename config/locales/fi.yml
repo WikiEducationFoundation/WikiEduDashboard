@@ -16,6 +16,7 @@ fi:
   application:
     cancel: Peruuta
     dashboard: Wiki Ed -ohjausnäkymä
+    documentation: Ohjeet
     error: 'Tapahtui virhe:'
     explore: Tutustu
     field_required: Tämä kenttä on pakollinen
@@ -33,6 +34,7 @@ fi:
     log_out: Kirjaudu ulos
     my_dashboard: Oma ohjausnäkymä
     recent_activity: Tuoreet muutokset
+    report_problem: Ilmoita ongelmasta
     search: esitä kysymys
     sign_up_extended: Luo tunnus Wikipedian kautta
     sign_up_log_in_extended: Wikipedian kautta
@@ -209,6 +211,7 @@ fi:
     confirm_course_deletion: Haluatko varmasti poistaa kurssin %{title}? Jos, niin
       kirjoita kurssin nimi jatkaaksesi.
     confirm_course_deletion_failed: '"%{title}" ei ole kurssin nimi. Kurssia ei poistettu.'
+    course: Kurssi
     course_dates_calendar_instructions: Valitse päivämäärät, jotka haluat poistaa
       tai lisätä kalenterista (esim. lomat). Klikkaa päivämäärää vaihtaaksesi eri
       tilojen välillä (valitsematon, valittu ja loma). Kurssiaktiviteettien päivämäärät
@@ -225,6 +228,7 @@ fi:
       assignment_start: Tehtävä alkaa
       assignment_start_placeholder: Tehtävän aloitus (VVVV-KK-PP)
       checking_for_uniqueness: Kurssin ainutkertaisuutta tarkistetaan.
+      choose_clone: Valitse kopioitava kurssi
       clone_previous: Kopioi edellinen projekti
       clone_this: Kopioi tämä projekti
       cloned_course_calendar_instructions: Valitse päivämäärät, jotka haluat poistaa

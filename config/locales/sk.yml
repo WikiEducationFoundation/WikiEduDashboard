@@ -153,4 +153,6 @@ sk:
       other: Inštruktori
     students: Študenti
     students_short: Študenti
+  editable:
+    edit_template: Upraviť šablónu
 ...

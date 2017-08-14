@@ -314,9 +314,8 @@ ast:
       one: Profesor
       other: Profesores
     instructors: Monitores
-    invitation: |-
-      Te convidaron a xunite a %{title}. Pa participar nel cursu, tienes d'aniciar sesión con una cuenta de Wikipedia.
-      Si nun tienes una cuenta de Wikipedia, rexístrate agora.
+    invitation: Te convidaron a xunite a %{title}. Pa participar nel cursu, tienes
+      d'aniciar sesión con una cuenta de Wikipedia.
     join: Xunise
     join_course: Xunite al cursu
     join_prompt: ¿Xunise a '%{title}'?
