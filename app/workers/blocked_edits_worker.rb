@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/blocked_edits_monitor"
+require "#{Rails.root}/lib/blocked_edits_reporter"
 
 class BlockedEditsWorker
   include Sidekiq::Worker
@@ -11,6 +11,6 @@ class BlockedEditsWorker
 
   def perform(user_id)
     blocked_user = User.find(user_id)
-    BlockedEditsMonitor.create_alerts_for_blocked_edits(blocked_user)
+    BlockedEditsReporter.create_alerts_for_blocked_edits(blocked_user)
   end
 end
