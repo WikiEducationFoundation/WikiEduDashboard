@@ -101,8 +101,8 @@ const CourseDateUtils = {
   },
 
   weeksBeforeTimeline(course) {
-    const courseStart = moment(course.start);
-    const timelineStart = moment(course.timeline_start);
+    const courseStart = moment(course.start).startOf('week');
+    const timelineStart = moment(course.timeline_start).startOf('week');
     return timelineStart.diff(courseStart, 'week');
   },
 
