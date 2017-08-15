@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class BlockedEditsAlert < Alert
   def main_subject
-    "#{article.title}"
+    "Edit by #{user.username} was blocked"
   end
 
   def url
-    article_url(article)
+    user_profile_url
   end
 end

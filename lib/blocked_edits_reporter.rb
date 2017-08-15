@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class BlockedEditsMonitor
+class BlockedEditsReporter
   def self.create_alerts_for_blocked_edits(user)
     new.create_alert(user)
   end
@@ -13,10 +13,9 @@ class BlockedEditsMonitor
     alert.email_target_user
   end
 
+  # This method checks to see if any recent BlockedEditAlerts exist.
   def alert_already_exists?
-    Alert.exists?(['created_at >= ? AND type = ?',
-                   (Time.now - (8 * 60 * 60)).to_s,
-                   'BlockedEditsAlert'])
+    BlockedEditsAlert.where('created_at >= ?', 8.hours.ago).exists?
   end
 
   private
