@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe PushCourseToSalesforce do
-  let(:course) { create(:course, flags: flags) }
+  let(:course) { create(:course, flags: flags, expected_students: 51) }
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
   let(:week) { create(:week, course: course) }

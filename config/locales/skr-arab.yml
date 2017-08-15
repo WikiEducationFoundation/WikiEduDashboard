@@ -1,0 +1,29 @@
+# Messages for سرائیکی (سرائیکی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Saraiki
+---
+skr-arab:
+  application:
+    cancel: منسوخ
+    explore: پھرولو
+    help: مدد
+    home: گھر
+    log_in_extended: وکی پیڈیا نال لاگ ان تھیوو
+    log_in: لاگ ان تھیوو
+    log_out: لاگ آؤٹ
+    confirm: ٹھیک ہے
+  home:
+    explore: پھرولو
+  articles:
+    new: (نواں)
+    title: عنوان
+  assignments:
+    remove: ہٹاؤ
+  campaign:
+    none: کوئی وی کائنی
+  chat:
+    label: چیٹ
+  courses:
+    cancel: منسوخ
+...

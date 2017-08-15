@@ -1,6 +1,7 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Botansahin
 # Author: Elftrkn
 # Author: HakanIST
 # Author: Hbseren
@@ -48,6 +49,12 @@ tr:
     date_time: Tariq/Saat
     edited_by: Düzenleyen
     title: Başlık
+  timeline:
+    delete_weeks_confirmation: |-
+      Tüm zaman çizelgesine kaldırıp baştan başlamak istediğine emin misin?
+
+      Bu geri çevrilemez.
+    delete_timeline_and_start_over: Zaman çizelgesini kaldır
   users:
     editors: Editörler
   wizard:

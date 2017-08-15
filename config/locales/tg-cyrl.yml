@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AryanSogd
+# Author: ToJack
 ---
 tg-cyrl:
   courses:
@@ -14,4 +15,6 @@ tg-cyrl:
     course_passcode: 'Рамзи дохилшавӣ:'
     enroll_url: 'Истифодабарандагон метавонанд ҳамроҳ шаванд бо роҳи боздид аз ин
       URL:'
+    username: Номи корбар
+    username_placeholder: Номи корбарӣ
 ...

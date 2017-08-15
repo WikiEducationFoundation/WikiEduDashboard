@@ -44,7 +44,7 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
       return this.setState(GetState());
     },
     controls(extraControls, hideEdit = false, saveOnly = false) {
-      const permissions = this.props.current_user.admin || this.props.current_user.role > 0;
+      const permissions = this.props.current_user.isNonstudent;
 
       if (permissions && this.state.editable) {
         let className;

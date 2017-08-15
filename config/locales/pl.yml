@@ -552,7 +552,7 @@ pl:
       future: Dodany materiał może być spekulacją i powinien być ostrożnie uźródłowiony
       '?': Sugestie nie są dostępne - Ten artykuł nie jest oceniony lub sugestie nie
         są dostępne dla oceny.
-      does_not_exist: Tego artykułu nie ma w Wikipedii
+      does_not_exist: Tego artykułu nie ma w Wikipedii.
   tasks:
     conseq: Zadanie %{task} już trwa!
     constant: Zadania %{task} nie można uruchomić póki nie skończy się update_daily.

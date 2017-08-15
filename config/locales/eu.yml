@@ -10,6 +10,7 @@ eu:
   application:
     cancel: Utzi
     dashboard: Wiki Ed Aginte-panela
+    documentation: Dokumentazioa
     error: 'Errore bat dago:'
     explore: Esploratu
     field_required: Eremu hau beharrezkoa da
@@ -25,6 +26,7 @@ eu:
     log_out: Saioa itxi
     my_dashboard: Aginte-panela
     recent_activity: Azken jarduera
+    report_problem: Arazo baten berri eman
     search: Galdera egin
     sign_up_extended: Izena eman Wikipedian
     sign_up_log_in_extended: Wikipediarekin
@@ -179,6 +181,8 @@ eu:
     current: Oraingo ikastaroak
     delete_course: Ezabatu ikastaroa
     dismiss_survey: Baztertu
+    does_not_exist: Atikulua ez da existitzen. Sandbox orrialdea sortu eta eman zeure
+      izena iradokizunak jasotzeko.
     duration: Ikastaroaren Iraupena
     edit_course_dates: Aldatu ikastaroaren datak
     end: Amaitu
@@ -211,6 +215,7 @@ eu:
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
     passcode_prompt: 'Sartu zure pasahitza:'
+    rating_feedback: 'Aurreikusten den artikuluaren ebaluaketa:'
     revisions_doc: Azken %{timeframe} egunetan egindako aldaketa kopurua
     school: Eskola
     start: Hasi
@@ -222,7 +227,12 @@ eu:
     students_short: Ikasleak
     suggestions_feedback: Gomendio hauek lagungarri dira? Jakinarazi!
     suggestions_sending: Feedback-a bidaltzen...
+    suggestions_sent: Oharra bidali da. Eskerrik asko zure laguntzagatik.
     suggestions_failed: Feedback-a ezin izan da bidali. Saiatu geroago.
+    course_submitted: Erregistroen egoera hezkuntza programetako ikastaroetarako erabiltzen
+      da, non ikastaroen plana proiektua hasi baino lehen onartuta egon behar den.
+      "ClassroomProgram" ikastaro motarako baino ez da garrantzitsua.
+    submitted: Bidalita
     term: Epealdia
     timeline: Esleipenaren Xehetasunak
     timeline_link: Denbora-lerroa
@@ -245,17 +255,21 @@ eu:
     campaign_courses: '%{title} Programak'
     creator:
       clone_this: Klonatu programa hau
+      clone_successful_details: Zure programa kopiatua izan da. Klikatu 'Gorde' amaitzeko.
+      course_when: Gehitu zerbait 'Noiz' atalean (esaterako, hilabetea eta urtea)
+        originaletik desberdindu ahal izateko.
       course_description: Programaren deskribapena
       course_school: Erakundea
       course_title: Programaren izena
       create_button: Sortu nire Programa!
       create_label: Proiektu Berria Sortu
-      create_new: Programa Berri bat sortu
+      create_new: Programa Independente bat sortu
       create_short: Sortu Programa
       find: Programa bat bilatu
       intro: Programaren izenburua ezinbestekoa, gainerako guztia geroago bete daiteke.
         Klik egin "Nire programa sortu!" botoian eta hasi zure wikiprogramaren orria
         osatzen.
+      save_cloned_course: Gorde
     delete_course: Ezabatu programa
     edit_course_dates: Aldatu Proiektuaren Datak
     explore: Programak bilatu
@@ -329,7 +343,27 @@ eu:
   suggestions:
     editing: Gomendioak aldatu
     suggestion_docs:
-      does_not_exist: Artikulu hau ez da existitzen wikipedian
+      fa: Ez da beharrezkoa eduki gehiago gehitzea informazio berria erabilgarri bihurtu
+        arte; hobekuntzak prosazko kalitatera batzutan posibleak dira.
+      a: Adituen ezaguera beharrezkoa izan daiteke artikulua aldatzeko, eta estilozko
+        arazoak konponbidearen beharra izan dezakete. Bikoteko meaketak lagundu dezake.
+      b: Eduki eta estilo inguruko alor batzuk zuzendu behar dira. Adituen ezaguera
+        beharrezkoa izan daiteke. Material lagungarriak erabiltzea kontuan hartu behar
+        da praktikoa bada, eta artikulua Estilo Gidaliburua edo besteak erabili orokorrean
+        horiek betetzen dituen egiaztatzeko.
+      stub: Edozein aldaketa edo material gehiketa lagungarria izan daiteke. Esanahia
+        duen edukiaren hornidura lehentasuna izan behar du. Konponbiderik onena Stub-class
+        Artikuluak Start-class Artikuluak izateko gaia garrantzitzua izatea balioztazen
+        dituzten erreferentzia arrazoiak geheitzea da.
+      fl: Ez da beharrezkoa eduki gehiago gehitzea informazio berria erabilgarri bihurtu
+        arte.
+      list: Zerrendak funtzionatzen duten Wikipediako artikuluak izan beharko lirateke,
+        ondo antolatuta eta izendatuta.
+      future: Gehitutako materiala espekulazioa izan daiteke eta arduraz egin behar
+        da.
+      '?': Iradokizunak ez daude erabilgarri - Artikulua ez dago ebaluatuta edo iradokizunak
+        ez dute balio ebaluatzeko.
+      does_not_exist: Artikulu hau ez da existitzen Wikipedian.
   timeline:
     add_week: Gehitu Astea
     arrange_timeline: Denbora-lerroa berrantolatu

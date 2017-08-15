@@ -194,6 +194,9 @@ bn:
     diff_hide: আড়াল করো
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
+  suggestions:
+    suggestion_docs:
+      does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।
   timeline:
     add_week: সপ্তাহ যোগ করুন
     no_activity_this_week: এই সপ্তাহে কোনও বৈঠকের সময়সূচী নেয়
