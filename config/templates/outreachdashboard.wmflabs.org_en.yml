@@ -9,3 +9,4 @@ default:
   timeline: "start of program timeline"
   start_of_week: "start of program week"
   end_of_week: "end of program week"
+  user_talk: "outreachdashboard.wmflabs.org user talk"

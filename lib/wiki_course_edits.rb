@@ -29,7 +29,6 @@ class WikiCourseEdits
   # It simply overwrites the previous version.
   def update_course(delete: false)
     return unless @course.wiki_course_page_enabled?
-
     wiki_text = delete ? '' : WikiCourseOutput.new(@course, @templates).translate_course_to_wikitext
 
     course_prefix = ENV['course_prefix']
@@ -67,14 +66,15 @@ class WikiCourseEdits
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Add a template to the user's talk page
-    talk_template = "{{#{@dashboard_url} user talk|course = [[#{@course.wiki_title}]] }}\n"
+    talk_template = "{{#{template_name(@templates, 'user_talk')}|course = [[#{@course.wiki_title}]] }}\n"
     talk_page = "User_talk:#{enrolling_user.username}"
-    talk_summary = "adding {{#{@dashboard_url} user talk}}"
+    talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
     @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
 
     # Pre-create the user's sandbox
     # TODO: Do this more selectively, replacing the default template if
     # it is present.
+    return unless Features.wiki_ed?
     sandbox = user_page + '/sandbox'
     sandbox_template = "{{#{@dashboard_url} sandbox}}"
     sandbox_summary = "adding {{#{@dashboard_url} sandbox}}"

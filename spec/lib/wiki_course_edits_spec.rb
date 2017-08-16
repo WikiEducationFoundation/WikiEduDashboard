@@ -134,7 +134,9 @@ describe WikiCourseEdits do
 
       context 'for enabled projects' do
         it 'posts to P&E Dashboard' do
-          expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
+          # Only twice for outreachdashboard, for user page and talk page.
+          # Sandbox templates are skipped for non-Wiki Ed edits.
+          expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
           WikiCourseEdits.new(action: :enroll_in_course,
                               course: course,
                               current_user: user,
@@ -294,11 +296,10 @@ describe WikiCourseEdits do
     end
   end
 
-  context 'for course types that do not make edits' do
+  context 'for course types that DO NOT make edits' do
     let(:visiting_scholarship) { create(:visiting_scholarship, submitted: true) }
     let(:editathon) { create(:editathon, submitted: true) }
     let(:legacy_course) { create(:legacy_course) }
-    let(:basic_course) { create(:basic_course, submitted: true) }
 
     it 'returns immediately without making any edits' do
       expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
@@ -308,10 +309,18 @@ describe WikiCourseEdits do
       WikiCourseEdits.new(action: :update_course,
                           course: editathon,
                           current_user: user)
-      WikiCourseEdits.new(action: :update_assignments,
+      WikiCourseEdits.new(action: :update_course,
                           course: legacy_course,
                           current_user: user)
-      WikiCourseEdits.new(action: :update_assignments,
+    end
+  end
+
+  context 'for course types that DO make edits' do
+    let(:basic_course) { create(:basic_course, submitted: true) }
+
+    it 'makes edits' do
+      expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
+      WikiCourseEdits.new(action: :update_course,
                           course: basic_course,
                           current_user: user)
     end
