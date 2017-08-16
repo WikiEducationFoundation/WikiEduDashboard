@@ -31,19 +31,16 @@ class WikiCourseEdits
     return unless @course.wiki_course_page_enabled?
     wiki_text = delete ? '' : WikiCourseOutput.new(@course, @templates).translate_course_to_wikitext
 
-    course_prefix = ENV['course_prefix']
-    wiki_title = "#{course_prefix}/#{@course.slug}"
-
     summary = "Updating course from #{@dashboard_url}"
 
     # Post the update
-    response = @wiki_editor.post_whole_page(@current_user, wiki_title, wiki_text, summary)
+    response = @wiki_editor.post_whole_page(@current_user, @course.wiki_title, wiki_text, summary)
     return response unless response['edit']
 
     # If it hit the spam blacklist, replace the offending links and try again.
     blacklist = response['edit']['spamblacklist']
     return response if blacklist.nil?
-    repost_with_sanitized_links(wiki_title, wiki_text, summary, blacklist)
+    repost_with_sanitized_links(@course.wiki_title, wiki_text, summary, blacklist)
   end
 
   # Posts to the instructor's userpage, and also makes a public

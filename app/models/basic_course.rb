@@ -55,7 +55,9 @@ class BasicCourse < Course
   end
 
   def wiki_title
-    nil
+    prefix = ENV['course_prefix'] + '/'
+    escaped_slug = slug.tr(' ', '_')
+    "#{prefix}#{escaped_slug}"
   end
 
   def string_prefix
