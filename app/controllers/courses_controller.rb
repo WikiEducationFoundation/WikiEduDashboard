@@ -158,6 +158,9 @@ class CoursesController < ApplicationController
   end
 
   def handle_course_announcement(instructor)
+    # Course announcements aren't particularly necessary, but we'll keep them on
+    # for Wiki Ed for now.
+    return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
