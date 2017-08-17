@@ -14,14 +14,20 @@
 # Author: Walter Klosse
 ---
 cs:
+  accessibility:
+    number_field: Toto je číselné pole. Tlačítka možná zobrazená prohlížečem mohou
+      zvýšit nebo snížit hodnotu.
   application:
     cancel: Zrušit
     dashboard: Nástěnka programů
+    documentation: Dokumentace
     error: 'Došlo k chybě:'
     explore: Prozkoumat
     field_required: Toto pole je povinné
     field_invalid_characters: Toto pole obsahuje neplatné znaky
     field_invalid_date: Toto pole vyžaduje datum ve formátu RRRR-MM-DD
+    field_invalid_date_time: Konec musí být až po začátku (možné hodiny jsou od 0
+      do 23).
     greeting2: Vítejte!
     greeting_extended: Vítejte na Wikipedii
     greeting: Dobrý den!
@@ -32,6 +38,7 @@ cs:
     log_out: Odhlásit se
     my_dashboard: Moje nástěnka
     recent_activity: Nedávná aktivita
+    report_problem: Nahlásit problém
     search: Zeptat se
     sign_up_extended: Zaregistrovat se skrze Wikipedii
     sign_up_log_in_extended: s Wikipedií
@@ -52,6 +59,7 @@ cs:
     opt_out: Požádejte o přeskočení úvodního průvodce
     orientation_notice: Předtím, než si vytvořit kurz, projděte si průvodce, který
       vám pomůže začít (trvá asi 30 minut).
+    review_orientation: Orientace ve školení
     start_orientation: Spustit průvodce
     blog_headline: Nedávné zprávy z Wiki Ed
   home:
@@ -105,13 +113,17 @@ cs:
     view_doc: Souhrn všech zobrazení každého článku během průběhu kurzu
     view_on_wiki: Zobrazit na wiki
     views_added: Přidáno %{count} nových zobrazení pro %{title}
+    edit_size: Velikost editace
     wp10: Kompletnost
   assignments:
+    article: Článek %{title} byl přiřazen
     already_exists: Tento článek už byl zadán!
+    title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení
-    assign_other: Zadat článek
+    assign_other: Přiřadit článek
     add_available: Přidat dostupný článek
-    assign_self: Zadat článek sobě
+    assign_self: Přiřadit článek sobě
+    assign_tooltip: Přiřazený článek je ten, který plánujete vytvořit nebo vylepšit.
     confirm_add_available: Jste si jistý, že chcete přidat %{title}?
     confirm_addition: Chcete skutečně zadat článek %{title} uživateli %{username}?
     confirm_deletion: Chcete skutečně odstranit tento zadaný článek?
@@ -124,21 +136,50 @@ cs:
     reviewers: Recenzent(i)
     review_other: Zadat recenzi
     review_self: Recenzovat článek
+    review_tooltip: Tímto můžete sledovat, který článek/které články máte v plánu
+      zrecenzovat nebo k němu/nim alespoň poskytnout zpětnou vazbu.
     select: Vybrat
   blocks:
     milestones:
       title: Milníky
   campaign:
+    active_campaigns: Aktivní programy
+    add_organizer: Přidat organizátora
+    all_campaigns: Všechny programy
+    already_exists: Tato kampaň již existuje! Prosím zkuste to znovu pod jiným názvem
+      nebo s drobnou změnou
     campaign: Program
+    campaigns: Kampaň
     campaign_deleted: Program „%{title}“ byl smazán
+    campaign_not_updated: Kampaň nemůže být aktualizována
     campaign_updated: Program byl aktualizován
+    confirm_campaign_deletion: Jste si jistý/á, že chcete smazat program s názevem
+      „%{title}“? Pokud opravdu chcete pokračovat, vyplňte sem znovu název programu.
+    confirm_campaign_deletion_failed: '"%{title}" není název tohoto programu. Program
+      nebyl smazán.'
+    confirm_course_removal: Jste si jistý/á, že chcete smazat „%{title}“ z programu
+      „%{campaign_title}“?
+    course_already_removed: „%{title}“ byl úspěšně odebrán z programu „%{campaign_title}“
+    course_removed: „%{title}“ byl z programu „%{campaign_title}“ úspěšně smazán
+    create_campaign: Vytvořit nový program
+    create_my_campaign: Vytvořit můj program!
+    description: Popis
     delete_campaign: Odstranit tento program
     none: Žádné
     organizers: Organizátoři
     organizer_added: '%{user} je organizátorem programu "%{title}"'
+    organizer_removed: '%{user} byl odebrán z organizátorů programu „%{title}“'
+    program_template: Šablona programu
+    title: Název
+    use_start_end_dates: Použijte počáteční a koncová data
+  chat:
+    label: Chat
   courses:
     activity: Aktivita
+    active_courses: Aktivní %{course_type}
+    all_courses: Všechny kurzy
     already_enrolled: Již jste součástí kurzu '%{title}'!
+    already_exists: To už pro tento kurz existuje!
     archived: Archivované kurzy
     actions: Možnosti
     articles: Články
@@ -151,25 +192,36 @@ cs:
       legend_class_canceled: Prázdniny/Zrušeno
       legend_class_meeting: Třídní besídka
       legend_class_not_meeting: Neexistuje žádná naplánovaná schůzka
+      select_meeting_days: Vyberte dny v týdnu, kdy se schází vaše třída.
     cancel: Zrušit
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
-    campaigns: 'Skupiny:'
+    campaigns: 'Programy:'
+    campaign_courses: '%{title} kurzy'
+    campaign_articles: '%{title} články'
+    campaign_users: '%{title} editoři'
     confirm_course_deletion: Jste si jistý, že chcete odstranit kurz %{title}? Pokud
       ano, napište název kurzu do pole níže.
     confirm_course_deletion_failed: '%{title} není správný název kurzu. Kurz nebyl
       odstraněn.'
+    course: Kurz
     course_dates_calendar_instructions: Vyberte data, která chcete přidat či odstranit
       z časového plánu (např. prázdniny, období bez výuky). Kliknutím na datum můžete
       nastavovat neoznačený, označený a prázdninový stav. Délka kurzu se tím změní,
       aby odrážela týdny, během nichž výuka neprobíhá.
     course_description: Kurzy
     courses: Kurzy
+    courses_taught: Proběhlé kurzy
     creation_date: Datum vytvoření
     creator:
       already_exists: Tento kurz nyní existuje. Zkuste změnit jeho jméno, školu anebo
         termín, aby byl jedinečný.
+      assignment_end: Konec zápisu
+      assignment_end_placeholder: Konec zápisu (RRRR-MM-DD)
+      assignment_start: Začátek zápisu
+      assignment_start_placeholder: Začátek zápisu (RRRR-MM-DD)
       checking_for_uniqueness: Pro tento kurz je kontrolována jedinečnost.
+      choose_clone: Vyberte kurz ke zkopírování.
       clone_previous: Kopírovat předchozí kurz
       clone_this: Kopírovat tento kurz
       cloned_course_calendar_instructions: Vyberte data, která chcete přidat či odstranit
@@ -207,21 +259,45 @@ cs:
       start_date_placeholder: Datum zahájení (RRRR-MM-DD)
       subject: Předmět
     current: Aktuální kurzy
+    data_articles: Data o článcích
+    data_download_info: Stáhnout data ve formátu CSV.
+    data_overview: Přehledová data
+    data_overview_info: Přehledová data poskytují celkové statistiky o projektu.
+    data_edits: Data týkající se editací
+    data_edits_info: Data týkající se editací ukazují detaily o každé editaci provedené
+      během projektu.
+    data_students: Data o editorech
+    data_uploads: Data týkající se nahraných souborů na Commons
+    data_uploads_info: Data týkající se nahraných souborů na Commons zobrazují název
+      a počet použití každého nahraného mediálního souboru.
     delete_course: Smazat kurz
+    delete_course_instructions: Můžete tuto stránku smazat, ale nejprve musíte odebrat
+      všechny přítomné programy.
     dismiss_survey: Skrýt
     dismiss_survey_confirm: Jste si {{GENDER:|jist|jista|jist(a)}}, že chcete trvale
       skrýt tento průzkum?
+    download_stats_data: Stáhnout statistiky
+    does_not_exist: Tento článek neexistuje. Vytvořte stránku na pískovišti a přiřaďte
+      se k ní, abyste mohl(a) dostávat návrhy.
     duration: Průběh kurzů
     edit_course_dates: Upravit termíny kurzů
+    enable_chat: Povolit chat
     end: Konec
+    ended: Kurz již skončil.
     enroll: Zapsat se
     enrollment: Zápis
+    courses_enrolled: Účastníci kurzů
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
         nebo semestr.
       user_exists: Uživatel %{username} neexistuje.
       invalid_language_or_project: Neplatný jazyk/projekt
+      invalid_slug: Nevyplněná škola nebo nevyplněný název kurzu
+      duplicate_slug: Již existuje jiný program pojmenovaný %{slug}.
     expected_students: Očekávaný počet studentů
+    features_feedback: 'Více návrhů:'
+    feedback: Zpětná vazba
+    feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
     instructor:
       one: instruktur
@@ -233,13 +309,19 @@ cs:
     join_course: Připojit se ke kurzu
     join_prompt: Zapsat se do '%{title}'?
     join_successful: Úspěšně jste se zapsali do %{title}
+    join_failed: Nešlo se zapsat.
+    join_failure_details:
+      cannot_join_twice: Uživatelé se nemohou do stejného kurzu zapsat dvakrát.
+      not_yet_approved: Tento kurz ještě nebyl schválen pro zapisování se.
     leave_confirmation: Opravdu chcete opustit tento kurz?
     leave_course: Opustit kurz
     loading: Načítání…
     milestones_none: Tento kurz nemá v současné době žádné milníky.
     my_articles: Moje články
+    needs_update: Naplánovat aktualizaci dat
     new_week: Přidat nový týden
     nocourses: Neúčastníte se žádných kurzů.
+    nocourse: se neúčastnil(a) žádných kurzů.
     none: Nic
     notify_untrained_confirmation: Toto přidá upozornění na diskusi všem studentům,
       kteří ještě nedokončili přiřazené trénovací moduly. Jste si jist, že toto chcete?
@@ -247,9 +329,10 @@ cs:
     overview: Domů
     passcode: Heslo
     passcode_none: Žádné heslo
-    passcode_prompt: Zadejte heslo, které jste dostal od vašeho instruktora
+    passcode_prompt: 'Zadejte heslo, abyste se mohli přidat:'
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
+    rating_feedback: 'Předpokládané hodnocení článku je :'
     review_timeline: Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
       svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
       dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. Změny
@@ -257,24 +340,28 @@ cs:
     revisions_doc: Počet editací během uplynulých %{timeframe} dní.
     revisions_none: V tomto kurzu v poslední době neprobíhala žádná editační aktivita.
     school: Škola
+    school_and_term: Instituce/termín
     start: Začátek
     start_typing: Začněte psát
     students: Studenti
+    students_taught: Absolventi
     students_count: Počet studentů
     student_editors: Studenti - editoři
     students_none: Tento kurz nemá žádné studenty.
     students_short: Studenti
     submitted_admin: Tento kurz byl svým autorem podán ke schválení. Schvalte ho tím,
-      že ho přidáte do kohorty na stránce "Přehled".
+      že ho přidáte do programu na stránce "Přehled".
     submitted_and_pending_heading: Podáno ke schválení
     submitted_heading: Kurzy podané ke schválení
     submitted_note: Kurz byl podán ke schválení. Brzy ho zkontrolujeme a případně
       vás zkontaktujeme s dotazy.
     suggestions_feedback: Máte nějaké návrhy ke zlepšení této funkce? Dejte nám vědět!
     suggestions_sending: Odesílání zpětné vazby...
+    suggestions_sent: Zpětná vazba odeslána. Děkujeme za pomoc.
     suggestions_failed: Zpětnou vazbu se nepodařilo odeslat. Zkuste to znovu později.
     user_role: Role
     course_details: Podrobnosti kurzu
+    submitted: Odevzdáno
     term: Semestr
     timeline: Detaily zadání
     timeline_link: Časová osa
@@ -307,54 +394,86 @@ cs:
       notification_message: Zúčastněte se průzkumu pro tento kurz.
       link: Spustit dotazník
   courses_generic:
+    all_courses: Všechny programy
+    archived: Archivované programy
+    articles_none: V tomto projektu zatím nejsou žádné editované články
+    assignment_end: Konec časového období
     assignments_none: Tento kurz nemá žádné přidělené články.
+    assignment_start: Začátek časového období
     cancel: Zrušit
+    course: Program
     courses: Projekty
+    courses_taught: Proběhlé programy
     campaigns: 'Programy:'
+    campaign_courses: '%{title} programy'
     creator:
       checking_for_uniqueness: Pro tento projekt je kontrolována jeho jedinečnost.
+      choose_clone: Vyberte program ke zkopírování.
       clone_previous: Kopírovat předchozí projekt
       clone_this: Kopírovat tento projekt
+      clone_successful: Program úspěšně zkopírován
+      clone_successful_details: Váš program byl úspěšně zkopírován. Klepněte na „Uložit“
+        níže pro dokončení.
+      course_when: Přidejte něco do pole „Kdy“ (např. měsíc a rok) pro odlišení od
+        původního programu.
       course_description: Popis projektu
       course_school: Instituce
+      course_term: Kdy
+      course_term_placeholder: Kdy
       course_title: Název projektu
       create_button: Vytvořit můj projekt
       create_label: Vytvořit nový projekt
       create_new: Vytvořit nezávislý projekt
       create_short: Vytvořit projekt
       find: Najít projekt
-      intro: Název programu je vyžadován, všechno ostatní může být vyplněno později.
-        Klikněte na Vytvořit můj program a začněte vytvářet stránku pro váš program
+      intro: Instituce a název programu tvoří URL programu. Domácí wiki je hlavní
+        Wikipedií, kde budou účastníci přispívat a z této wiki budou také ve výchozím
+        stavu zaznamenávány editace. Pokud váš program zahrnuje více jazyků nebo projektů,
+        příspěvky budou také zaznamenávány z každé wiki, která má „Dostupný článek“
+        nebo „Úkol“ pro tuto wiki. Klikněte na „Vytvořit můj program!“ a začněte tvořit
+        stránku pro váš wiki program.
+      new_or_clone: Vytvořte nový program nyní nebo použijte možnost „kopírovat“ ke
+        zkopírování jiného programu, kterého jste se zúčastnil(a).
+      participate_in_campaign: Účastněte se programu
+      save_cloned_course: Uložit
     delete_course: Odstranit projekt
     edit_course_dates: Upravit data projektu
     explore: Aktuální projekty
     enroll: Přidat editora
     enrollment: Účastníci
+    courses_enrolled: Programy, jichž jste se zúčastnil(a)
     expected_students: Očekávaní editoři
     instructors: Spolupracovníci
     join_course: Připojit se k projektu
+    join_details: K zapsání se do tohoto programu potřebujete získat heslo (nebo odkaz,
+      který heslo obsahuje) od zprostředkovatele.
     leave_course: Opustit projekt
     milestones_none: Tento kurz v současné době nemá žádné milníky.
     published: 'Tento kurz byl publikován. Studenti se mohou zapsat navštívením následující
       URL:'
     revisions_none: Tento projekt nemá nedávnou editační aktivitu.
     school: Instituce
+    school_and_term: Instituce/kdy
     student_editors: Editoři
     students: Editoři
+    students_taught: Celkový počet editorů
     students_none: Tento projekt nemá žádné zapsané studenty.
     students_short: Editoři
     students_count: Počet účastníků
     term: Kdy
+    unsubmitted: Neschválené programy
     uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
       mediálními soubory do Wikimedia Commons.
     view_other: Zobrazit další programy
     view_page: Zobrazit stránku projektu
+    yourcourses: Vaše programy
   editable:
     edit: Editovat
     cancel: Zrušit
     save: Uložit
     edit_description: Upravit popis
     edit_details: Upravit podrobnosti
+    edit_template: Upravit šablonu
   metrics:
     activity: Nedávná aktivita
     are_trained: účastníků projektu
@@ -368,6 +487,7 @@ cs:
     edit_count_description: Celkový počet editací
     per_user: '%{number}/uživatel'
     revisions: Poslední editace
+    tags: Štítky
     upload_count: Nahrané soubory na Commons
     uploads_in_use_count:
       one: soubor použitý v článku
@@ -376,6 +496,7 @@ cs:
       one: použití celkem napříč jazykovými mutacemi
       other: použití celkem napříč jazykovými mutacemi
     view_count_description: Návštěvnost článků
+    view_data_unavailable: Žádná data o zobrazení nejsou dostupná
     view: Návštěvnost
     word_count: Přidáno slov
     word_count_average: Průměrný počet slov
@@ -391,6 +512,7 @@ cs:
     datetime: Datum/čas
     image: Obrázek
     file_name: Název souboru
+    no_plagiarism: Nyní zde nejsou žádné nedávné revize podezřelé z plagiátorství.
     no_edits: Nejsou žádné nedávné změny.
     plagiarism_report: Zpráva o plagiátorství
     possible_plagiarism: Možný plagiát
@@ -409,10 +531,16 @@ cs:
     diff: rozdíl
     diff_show: Zobrazit
     diff_hide: Skrýt
+    edit_time_span: Editace od %{first_time} do %{last_time}
     edited_by: Editoval(a)
+    edited_on: Editováno %{edit_date}
     loading: Načítání revizí...
+    none: Tento kurz nemá žádnou nedávnou editační aktivitu.
     time_doc: Čas každé revize v místním čase
+    title: Název
     view_on_wiki: Zobrazit rozdíly na wiki
+  suggestions:
+    editing: Návrhy k editaci
   tasks:
     conseq: Úkol %{task} je již spuštěn!
     constant: Úkol %{task} nelze spustit, zatímco běží úkol update_daily.
