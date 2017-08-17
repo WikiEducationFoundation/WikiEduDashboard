@@ -1,5 +1,6 @@
 import React from 'react';
 import ServerActions from '../../actions/server_actions.js';
+import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 
 const SalesforceLink = React.createClass({
   propTypes: {
@@ -9,9 +10,7 @@ const SalesforceLink = React.createClass({
 
   linkToSalesforce() {
     const rawSalesforceId = prompt('Enter the Salesforce record ID or url for this course.');
-    // Salesforce URLs may look like this: https://cs54.salesforce.com/c1f1f010013YOsu?srPos=2&srKp=a0f
-    // We must remove both the server and the query string to extract the ID.
-    const salesforceId = rawSalesforceId.replace(SalesforceServer, '').replace(/\?.*/, '');
+    const salesforceId = extractSalesforceId(rawSalesforceId);
     ServerActions.linkToSalesforce(this.props.course.id, salesforceId);
   },
 
