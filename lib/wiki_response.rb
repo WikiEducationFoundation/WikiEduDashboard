@@ -110,7 +110,7 @@ class WikiResponse
     case code
     when 'mwoauth-invalid-authorization'
       @current_user.update_attributes(wiki_token: 'invalid')
-    when 'blocked' || 'autoblocked'
+    when 'blocked', 'autoblocked'
       BlockedEditsWorker.schedule_notifications(user: @current_user)
     end
 

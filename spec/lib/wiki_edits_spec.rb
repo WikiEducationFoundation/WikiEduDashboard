@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 
@@ -60,11 +61,13 @@ describe WikiEdits do
 
   it 'handles edit requests that are blocked' do
     stub_edit_failure_blocked
+    expect(BlockedEditsReporter).to receive(:create_alerts_for_blocked_edits)
     WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
   end
 
   it 'handles edit requests that are autoblocked' do
     stub_edit_failure_autoblocked
+    expect(BlockedEditsReporter).to receive(:create_alerts_for_blocked_edits)
     WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
   end
 
