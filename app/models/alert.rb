@@ -30,6 +30,7 @@ class Alert < ActiveRecord::Base
   ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
+    BlockedEditsAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
     DYKNominationAlert
