@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_edits"
 
@@ -56,6 +57,18 @@ describe WikiEdits do
     result = WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
     expect(result[:status]).to eq('failed')
     expect(User.first.wiki_token).to eq('invalid')
+  end
+
+  it 'handles edit requests that are blocked' do
+    stub_edit_failure_blocked
+    expect(BlockedEditsReporter).to receive(:create_alerts_for_blocked_edits)
+    WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
+  end
+
+  it 'handles edit requests that are autoblocked' do
+    stub_edit_failure_autoblocked
+    expect(BlockedEditsReporter).to receive(:create_alerts_for_blocked_edits)
+    WikiEdits.new.post_whole_page(User.first, 'Foo', 'Bar')
   end
 
   describe '.notify_untrained' do

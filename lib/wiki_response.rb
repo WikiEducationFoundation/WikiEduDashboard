@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+
+require "#{Rails.root}/app/workers/blocked_edits_worker"
 #= Reports message to Sentry about the success or failure of wiki edits
 class WikiResponse
   ###############
@@ -23,7 +25,6 @@ class WikiResponse
   end
 
   def parse_api_response
-    # A successful edit will have response data like this:
     # {"edit"=>
     #   {"result"=>"Success",
     #    "pageid"=>11543696,
@@ -106,8 +107,11 @@ class WikiResponse
 
     # If the OAuth credentials are invalid, we need to flag this.
     # It gets handled by application controller.
-    if code == 'mwoauth-invalid-authorization'
+    case code
+    when 'mwoauth-invalid-authorization'
       @current_user.update_attributes(wiki_token: 'invalid')
+    when 'blocked', 'autoblocked'
+      BlockedEditsWorker.schedule_notifications(user: @current_user)
     end
 
     @title = "Failed #{@type}: #{code}"
