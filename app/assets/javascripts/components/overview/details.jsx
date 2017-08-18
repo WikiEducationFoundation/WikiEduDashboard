@@ -225,9 +225,14 @@ const Details = React.createClass({
       : I18n.t('courses.none');
 
       subject = (
-        <div className="subject">
-          <span><strong>Subject:</strong> {this.props.course.subject}</span>
-        </div>
+        <TextInput
+          onChange={this.updateDetails}
+          value={this.props.course.subject}
+          value_key="subject"
+          editable={this.props.editable}
+          type="text"
+          label={I18n.t('courses.subject')}
+        />
       );
       tags = (
         <div className="tags">
