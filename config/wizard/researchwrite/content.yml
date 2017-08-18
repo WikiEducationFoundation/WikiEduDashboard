@@ -611,6 +611,7 @@ essentials:
       -
         title: Continue improving your article
         kind: 1
+        training_module_ids: [6] # Images and multimedia
         content: |
           <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
           <ul>
@@ -619,6 +620,11 @@ essentials:
               page 12 to see how to create links from your article to others,
               and from other articles to your own. Try to link to 3–5 articles,
               and link to your article from 2–3 other articles.
+            </li>
+            <li>
+              Consider adding an image to your article. Wikipedia has strict rules
+              about what media can be added, so make sure to take <em>Contributing Images and Media Files</em>
+              training before you upload an image.
             </li>
           </ul>
 
