@@ -20,5 +20,6 @@
 FactoryGirl.define do
   factory :courses_user, class: 'CoursesUsers' do
     nil
+    real_name 'John Doe'
   end
 end

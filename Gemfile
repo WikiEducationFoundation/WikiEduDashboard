@@ -99,6 +99,7 @@ group :development, :test do
   gem 'launchy'
   gem 'timecop'
   gem 'poltergeist'
+  gem 'rb-readline'
 end
 
 group :test do

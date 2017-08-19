@@ -27,7 +27,7 @@ class MassEnrollmentController < ApplicationController
   def add_user(username)
     user = find_or_import_user(username)
     return { failure: 'Not an existing user.' } unless user
-    JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE).result
+    JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE, real_name: user.real_name).result
   end
 
   def find_or_import_user(username)

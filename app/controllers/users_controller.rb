@@ -73,7 +73,7 @@ class UsersController < ApplicationController
   def add
     set_course_and_user
     ensure_user_exists { return }
-    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role]).result
+    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role], real_name: @user.real_name).result
     ensure_enrollment_success { return }
 
     alert_staff_if_new_instructor_was_added
@@ -120,7 +120,8 @@ class UsersController < ApplicationController
 
     @course_user = CoursesUsers.find_by(user_id: @user.id,
                                         course_id: @course.id,
-                                        role: enroll_params[:role])
+                                        role: enroll_params[:role],
+                                        real_name: @user.real_name)
     return if @course_user.nil? # This will happen if the user was already removed.
 
     remove_assignment_templates

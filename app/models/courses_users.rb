@@ -124,4 +124,10 @@ class CoursesUsers < ActiveRecord::Base
     end
     threads.each(&:join)
   end
+
+  def update_real_name    
+    CoursesUsers.all.each do |course_user|
+      course_user.update(real_name: course_user.user.real_name)
+    end
+  end
 end
