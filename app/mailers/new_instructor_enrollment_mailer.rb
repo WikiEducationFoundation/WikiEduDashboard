@@ -12,6 +12,8 @@ class NewInstructorEnrollmentMailer < ApplicationMailer
     @new_instructor = new_instructor
     @adder = adder
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
-    mail(to: staffer.email, subject: "New instructor added for #{@course.slug}")
+    mail(to: staffer.email,
+         reply_to: adder.email,
+         subject: "New instructor added for #{@course.slug}")
   end
 end
