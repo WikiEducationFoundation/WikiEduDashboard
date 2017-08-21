@@ -373,6 +373,7 @@ es:
     suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
     user_role: Oficio
     course_details: Detalles del curso
+    subject: Asignatura
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma

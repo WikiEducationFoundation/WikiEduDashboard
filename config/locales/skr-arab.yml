@@ -7,6 +7,8 @@ skr-arab:
   application:
     cancel: منسوخ
     explore: پھرولو
+    greeting2: ست بسم اللہ!
+    greeting_extended: وکی پیڈیا وچ ست بسم اللہ
     greeting: سلام!
     help: مدد
     home: گھر
@@ -15,12 +17,16 @@ skr-arab:
     log_out: لاگ آؤٹ
     my_dashboard: میݙا ڈیش بورڈ
     recent_activity: حالیہ سرگرمی
+    search: سوال پُچھو
+    sign_up_log_in_extended: وکی پیڈیا نال
     sign_up: کھاتہ بناؤ
     submit: جمع کرواؤ
     training: تربیت
     change: تبدیل کرو
     details: تفصیلات
     confirm: ٹھیک ہے
+  dashboard:
+    explore_examples: مثالاں لبھو
   home:
     explore: پھرولو
   activity:
@@ -31,13 +37,52 @@ skr-arab:
     label: مقالے
     new: (نواں)
     title: عنوان
+    view_all: سارے ݙیکھو
   assignments:
+    label: سپرد کرو
     remove: ہٹاؤ
     select: چݨو
   campaign:
+    campaign: مہم
+    campaigns: مہم
+    description: تفصیل
+    delete_campaign: ایݨ مہم کوں مٹاؤ
     none: کوئی وی کائنی
+    title: عنوان
   chat:
     label: چیٹ
   courses:
     cancel: منسوخ
+    campaigns: 'مہماں:'
+    creator:
+      subject: موضوع
+    feedback: تہاڈی رائے
+    loading: لوڈ تھیدا پئے۔۔۔
+    none: کوئی وی کائنی
+    overview: گھر
+    school: سکول
+    subject: مضمون
+  courses_generic:
+    cancel: منسوخ
+    creator:
+      course_term: کݙݨ
+      course_term_placeholder: کݙݨ
+      save_cloned_course: بچاؤ
+    student_editors: ایڈیٹ کرݨ آلے
+    students: ایڈیٹ کرݨ آلے
+    term: کݙݨ
+  editable:
+    edit: لکھو
+    cancel: منسوخ
+    save: بچاؤ
+    edit_description: وضاحت وچ تبدیلی کرو
+  revisions:
+    diff_show: ݙِکھاؤ
+    diff_hide: لُکاؤ
+    title: عنوان
+  timeline:
+    empty_week_3: یا
+    gradeable_value: قدر
+  users:
+    name: ناں
 ...

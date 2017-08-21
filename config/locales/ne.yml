@@ -1,6 +1,7 @@
 # Messages for Nepali (नेपाली)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Nirajan pant
 # Author: जनक राज भट्ट
 # Author: सरोज कुमार ढकाल
 ---
@@ -83,6 +84,7 @@ ne:
     overview: गृह
     school: विद्यालय
     start: सुरु गर्नुहोस्
+    subject: विषय
     timeline_link: समयरेखा
     title: शीर्षक
   courses_generic:

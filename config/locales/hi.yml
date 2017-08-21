@@ -199,6 +199,7 @@ hi:
     start: आरम्भ
     start_typing: लिखना शुरू करें
     student_editors: छात्र संपादक
+    subject: विषय
     term: अवधि
   courses_generic:
     all_courses: सभी पाठ्यक्रम
@@ -213,15 +214,16 @@ hi:
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय
-    did_you_know_eligible: क्या आप एलिजिबल को जानते हैं
+    did_you_know_eligible: क्या आप योग्य को जानते हैं
     image: छवि
     file_name: फ़ाइल का नाम
-    no_dyk_eligible: अभी कोई डीवाईके योग्य आर्टिकल नहीं है।
-    no_plagiarism: साहित्य चोरी के वर्तमान में कोई हाल के रिवीज़न सस्पेक्टस नहीं हैं।
+    no_dyk_eligible: अभी कोई DYK-योग्य आर्टिकल नहीं है।
+    no_plagiarism: वर्तमान में कोई भी नवीनतम संशोधन साहित्यिक चोरी के संदिग्ध नहीं
+      हैं।
     no_edits: हाल के कोई संपादन नहीं हैं।
-    possible_plagiarism: संभव साहित्य चोरी
+    possible_plagiarism: संभावित साहित्य चोरी
     recent_edits: हाल के संपादन
-    show_courses: केवल मेरा ही कोर्स दिखाएँ
+    show_courses: केवल मेरे पाठ्यक्रम ही दिखाएं
   revisions:
     class: कक्षा
     title: शीर्षक

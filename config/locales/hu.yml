@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: BanKris
+# Author: Bencemac
 # Author: Notramo
 # Author: R-Joe
 # Author: Tacsipacsi
@@ -53,6 +54,7 @@ hu:
     students: Diákok
     students_count: '# Diákok'
     students_short: Diákok
+    subject: Tárgy
     timeline_link: Idővonal
     title: Cím
   courses_generic:

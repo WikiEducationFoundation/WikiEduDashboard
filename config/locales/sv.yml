@@ -187,6 +187,7 @@ sv:
     suggestions_failed: Kunde inte skicka återkoppling. Försök igen senare.
     user_role: Roll
     course_details: Kursdetaljer
+    subject: Ämne
     submitted: Inskickade
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.

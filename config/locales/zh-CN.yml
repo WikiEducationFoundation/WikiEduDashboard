@@ -319,6 +319,7 @@ zh-CN:
     suggestions_failed: 不能发送反馈。稍后重试。
     user_role: 角色
     course_details: 课程详情
+    subject: 主题
     submitted: 已提交
     term: 学期
     timeline: 分配详细信息
