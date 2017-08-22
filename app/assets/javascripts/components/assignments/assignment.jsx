@@ -12,7 +12,8 @@ const Assignment = React.createClass({
   propTypes: {
     article: React.PropTypes.object,
     assignmentGroup: React.PropTypes.array,
-    course: React.PropTypes.object
+    course: React.PropTypes.object,
+    current_user: React.PropTypes.object
   },
   render() {
     const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0]);
@@ -53,7 +54,7 @@ const Assignment = React.createClass({
     // If the article exists (and therefore has an article id) then shows Feedback
     // If the article doesn't exist, then Feedback is based on a user's sandbox only if a single user is assigned
     if (this.props.assignmentGroup.length === 1 || this.props.assignmentGroup[0].article_id) {
-      feedback = <Feedback assignment={this.props.assignmentGroup[0]} username={this.props.assignmentGroup[0].username} />;
+      feedback = <Feedback assignment={this.props.assignmentGroup[0]} username={this.props.assignmentGroup[0].username} current_user={this.props.current_user} />;
     }
 
     return (
