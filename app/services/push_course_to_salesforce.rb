@@ -57,7 +57,8 @@ class PushCourseToSalesforce
       Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block),
       X50__c: more_than_50_students?,
       Medical_or_Psychology_Articles__c: editing_medicine_or_psychology?,
-      Group_work__c: group_work?
+      Group_work__c: group_work?,
+      Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?
     }
   end
 
@@ -107,6 +108,10 @@ class PushCourseToSalesforce
 
   def group_work?
     course_tags.include? 'working_in_groups'
+  end
+
+  def interested_in_dyk_or_ga?
+    course_tags.include? 'dyk_and_ga'
   end
 
   def course_tags
