@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This can be used to shift all of one Content Expert's courses to another,
+# This can be used to shift all of one Wikipedia Expert's courses to another,
 # for a certain campaign.
 old_id = User.find_by(username: 'Ian (Wiki Ed)').id
 new_id = User.find_by(username: 'Sage (Wiki Ed)').id
