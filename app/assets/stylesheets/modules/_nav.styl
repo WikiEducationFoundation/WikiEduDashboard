@@ -77,6 +77,8 @@ nav.top-nav
       .expand
         opacity 1
         width 110px
+  span
+    display inherit
 
 .top-nav__main-links
   display flex
@@ -87,7 +89,8 @@ nav.top-nav
     margin-left 25px
   a
     margin 0
-
+  span
+    display inherit
 .top-nav__site-logo
   line-height 0
   a
@@ -275,3 +278,66 @@ nav.profile-nav
 
 #highlight
   display none
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 50px;
+  top: 8px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #fff;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  padding: 0.8em;
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.bm-menu-wrap {
+  top: 0px;
+}
+
+// making navBar responsive
+@media only screen and (max-width: 500px)
+  nav
+    background-color #fff;
+  .bm-menu
+    li
+      margin-top 30px
+      list-style none
+  .top-nav__site-logo
+    line-height 0
+    margin-left -50%
