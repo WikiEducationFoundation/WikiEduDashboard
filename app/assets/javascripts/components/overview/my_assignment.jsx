@@ -10,6 +10,7 @@ const MyAssignment = React.createClass({
 
   propTypes: {
     assignment: React.PropTypes.object.isRequired,
+    current_user: React.PropTypes.object,
     course: React.PropTypes.object.isRequired,
     username: React.PropTypes.string,
     last: React.PropTypes.bool
@@ -46,7 +47,7 @@ const MyAssignment = React.createClass({
       assignmentType = 'Creating a new article: ';
       if (isEnglishWikipedia) {
         checklist = <MainspaceChecklist />;
-        feedback = <Feedback assignment={this.props.assignment} username={this.props.username} />;
+        feedback = <Feedback assignment={this.props.assignment} username={this.props.username} current_user={this.props.current_user} />;
         sandbox = <div><a className="button dark small" href={`https://en.wikipedia.org/wiki/User:${this.props.username}/sandbox`} target="_blank">Sandbox</a></div>;
         sandboxTalk = <div><a className="button dark small" href={`https://en.wikipedia.org/wiki/User_talk:${this.props.username}/sandbox`} target="_blank">Sandbox talk</a></div>;
       }
@@ -54,7 +55,7 @@ const MyAssignment = React.createClass({
     } else if (this.props.assignment.role === 0) {
       if (isEnglishWikipedia) {
         checklist = <FinalArticleChecklist />;
-        feedback = <Feedback assignment={this.props.assignment} username={this.props.username} />;
+        feedback = <Feedback assignment={this.props.assignment} username={this.props.username} current_user={this.props.current_user} />;
       }
       assignmentType = 'Improving: ';
     // Review assignment

@@ -66,9 +66,9 @@ const API = {
     });
   },
 
-  fetchFeedback(articleTitle) {
+  fetchFeedback(articleTitle, assignmentId) {
     return new Promise((res, rej) => {
-      const url = `/revision_feedback?title=${articleTitle}`;
+      const url = `/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`;
       return $.ajax({
         type: 'GET',
         url,
@@ -90,6 +90,39 @@ const API = {
         type: 'POST',
         url: `/feedback_form_responses`,
         data: {feedback_form_response: {subject: subject, body: body}},
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
+  createCustomFeedback(assignmentId, text, userId) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'POST',
+        url: `/assignments/${assignmentId}/assignment_suggestions`,
+        data: {feedback: {text: text, assignment_id: assignmentId, user_id: userId}},
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
+  destroyCustomFeedback(assignmentId, id) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'DELETE',
+        url: `/assignments/${assignmentId}/assignment_suggestions/${id}`,
         success(data) {
           return res(data);
         }

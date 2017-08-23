@@ -22,6 +22,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :course
   belongs_to :article
   belongs_to :wiki
+  has_many :assignment_suggestions, dependent: :destroy
 
   # The uniqueness constraint for assignments is done with a validation instead
   # of a unique index so that :article_title is case-sensitive.

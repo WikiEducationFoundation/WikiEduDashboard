@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :assignments
+  resources :assignments do
+    resources :assignment_suggestions
+  end
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }

@@ -12,9 +12,11 @@ const getState = () => ({ assignments: AssignmentStore.getModels() });
 
 const AssignmentList = React.createClass({
   displayName: 'AssignmentList',
+
   propTypes: {
     assignments: React.PropTypes.array,
-    course: React.PropTypes.object
+    course: React.PropTypes.object,
+    current_user: React.PropTypes.object
   },
 
   hasAssignedUser(group) {
@@ -37,6 +39,7 @@ const AssignmentList = React.createClass({
           article={article || null}
           course={this.props.course}
           key={group[0].id}
+          current_user={this.props.current_user}
         />
       );
     });
