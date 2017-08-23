@@ -198,6 +198,33 @@ nav
       padding-left 10px
       margin-left 10px
 
+nav.ham-nav
+  top 0
+  z-index 100
+  background-color white
+  border-bottom 1px solid rgba(0,0,0,.1)
+  overflow hidden
+  width 100%
+  font-size 15px
+  -webkit-font-smoothing antialiased
+  line-height 1
+
+  .container
+    height $nav_height
+    display flex
+    align-items center
+    justify-content space-around
+
+.ham-nav__site-logo
+  line-height 0
+  a
+    display inline-block
+    margin 0
+    border none
+
+  img
+    width 35px
+    height 35px
 
 .course-nav__wrapper,
 .campaign-nav__wrapper
@@ -281,11 +308,11 @@ nav.profile-nav
 
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: absolute;
   width: 36px;
   height: 30px;
   right: 50px;
-  top: 8px;
+  top: -10px;
 }
 
 /* Color/shape of burger icon bars */
@@ -324,6 +351,7 @@ nav.profile-nav
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+  width: 400px !important;
 }
 
 .bm-menu-wrap {
@@ -332,8 +360,11 @@ nav.profile-nav
 
 // making navBar responsive
 @media only screen and (max-width: 500px)
-  nav
-    background-color #fff;
+  body.fixed-nav
+    padding-top $nav_height
+    nav.ham-nav
+      position fixed
+
   .bm-menu
     li
       margin-top 30px
