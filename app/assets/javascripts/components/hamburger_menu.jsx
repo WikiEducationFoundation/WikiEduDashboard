@@ -76,7 +76,7 @@ const HamburgerMenu = React.createClass({
             <i className="icon icon-wiki-logo"></i>
             {I18n.t('application.log_in')}
             <span className="expand">
-              {I18n.t('application.sign_up_log_in_extended')}
+              &nbsp;{I18n.t('application.sign_up_log_in_extended')}
             </span>
           </a>
         </li>
