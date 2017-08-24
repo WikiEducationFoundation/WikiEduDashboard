@@ -33,6 +33,7 @@ class Alert < ActiveRecord::Base
     BlockedEditsAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
+    DiscretionarySanctionsEditAlert
     DYKNominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
@@ -45,6 +46,7 @@ class Alert < ActiveRecord::Base
   RESOLVABLE_ALERT_TYPES = %w[
     ArticlesForDeletionAlert
     ContinuedCourseActivityAlert
+    DiscretionarySanctionsEditAlert
     DYKNominationAlert
   ].freeze
 
