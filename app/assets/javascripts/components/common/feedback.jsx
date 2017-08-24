@@ -146,6 +146,23 @@ const Feedback = React.createClass({
         );
       }
 
+      let automatedSuggestions;
+      if (messages.length > 0) {
+        automatedSuggestions = (
+          <div>
+            <p>
+              {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
+            </p>
+            <h5>{I18n.t('courses.features_feedback')}</h5>
+            <ul>
+              {feedbackList}
+            </ul>
+            {feedbackButton}
+            {feedbackForm}<br />
+          </div>
+        );
+      }
+
       for (let i = 0; i < customMessages.length; i++) {
         let deleteButton;
         if (customMessages[i].userId === this.props.current_user.id) {
@@ -171,15 +188,7 @@ const Feedback = React.createClass({
             <p className="rating-description">
               {I18n.t(`articles.rating_docs.${rating.toLowerCase() || '?'}`)}
             </p>
-            <p>
-              {I18n.t(`suggestions.suggestion_docs.${rating.toLowerCase() || '?'}`)}
-            </p>
-            <h5>{I18n.t('courses.features_feedback')}</h5>
-            <ul>
-              {feedbackList}
-            </ul>
-            {feedbackButton}
-            {feedbackForm}<br />
+            {automatedSuggestions}
             <h5>{I18n.t('courses.user_suggestions')}</h5>
             <ul>
               {userSuggestionList}

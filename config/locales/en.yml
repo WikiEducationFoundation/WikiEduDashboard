@@ -365,7 +365,7 @@ en:
       invalid_slug: Blank school/title for course.
       duplicate_slug: 'Another program called %{slug} already exists.'
     expected_students: Expected Students
-    features_feedback: 'More Suggestions :'
+    features_feedback: 'Automated Suggestions:'
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
@@ -407,7 +407,7 @@ en:
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
-    rating_feedback: "Predicted rating for the article is : "
+    rating_feedback: "Predicted rating for the article is: "
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
@@ -455,7 +455,7 @@ en:
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
-    user_suggestions: 'User Suggestions :'
+    user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
     view_other: View other campaigns
     view: View Course
