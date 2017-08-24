@@ -37,9 +37,8 @@ describe RevisionFeedbackService do
           'feature.wikitext.revision.headings_by_level(3)' => 1 }
       end
 
-      it 'returns an array with a no-feedback message' do
-        expect(subject.length).to eq(1)
-        expect(subject[0]).to be =~ /no suggestions available/
+      it 'returns an empty array' do
+        expect(subject.length).to eq(0)
       end
     end
   end

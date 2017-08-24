@@ -3,8 +3,9 @@ require 'rails_helper'
 
 describe RevisionFeedbackController do
   describe '#index' do
-    # The pageid is arbitrary and tests if valid feedback is received
-    let(:params) { { 'title': 'Quantum_Chemistry' } }
+    let!(:course) { create(:course, id: 1) }
+    let(:assignment) { create(:assignment, id: 1, course_id: course.id) }
+    let(:params) { { 'title': 'Quantum_Chemistry', 'assignment_id': assignment.id } }
 
     context 'When the article exists' do
       before do

@@ -69,6 +69,8 @@ class User < ActiveRecord::Base
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
   has_one :user_profile, dependent: :destroy
 
+  has_many :assignment_suggestions
+
   scope :admin, -> { where(permissions: Permissions::ADMIN) }
   scope :instructor, -> { where(permissions: Permissions::INSTRUCTOR) }
   scope :trained, -> { where(trained: true) }

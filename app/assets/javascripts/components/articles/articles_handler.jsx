@@ -9,7 +9,8 @@ const ArticlesHandler = React.createClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string
+    course_id: React.PropTypes.string,
+    current_user: React.PropTypes.object
   },
 
   componentWillMount() {

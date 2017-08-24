@@ -23,6 +23,7 @@ FactoryGirl.define do
     course_id 481
     article_id 124_884_99
     article_title 'Siderocalin'
+    wiki_id 1
   end
 
   # article that does not exist
