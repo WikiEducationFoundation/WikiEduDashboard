@@ -361,6 +361,7 @@ cs:
     suggestions_failed: Zpětnou vazbu se nepodařilo odeslat. Zkuste to znovu později.
     user_role: Role
     course_details: Podrobnosti kurzu
+    subject: Předmět
     submitted: Odevzdáno
     term: Semestr
     timeline: Detaily zadání
@@ -386,6 +387,9 @@ cs:
       one: Dobrovolník
       other: Dobrovolníci
     weeks_none: Tento kurz ještě nemá žádný časový plán.
+    warn_mirrored: "Po potvrzení, kurz bude automaticky publikován na Wikipedii pod
+      vaším uživatelským účtem. Poté budou všechny editace tohoto kurzu změněny i
+      na Wikipedii. \nJste si jist, že toto chcete udělat?"
     wiki_staff: Wiki Ed personál
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
@@ -466,6 +470,8 @@ cs:
       mediálními soubory do Wikimedia Commons.
     view_other: Zobrazit další programy
     view_page: Zobrazit stránku projektu
+    word_count_doc: Odhadované množství slov přidaných do hlavního jmenného prostoru
+      účastníky kurzu během kurzu
     yourcourses: Vaše programy
   editable:
     edit: Editovat
@@ -474,6 +480,8 @@ cs:
     edit_description: Upravit popis
     edit_details: Upravit podrobnosti
     edit_template: Upravit šablonu
+    rename_confirmation: Vlastnosti kurzu, které ovlivňují podobu URL, se změnily.
+      Toto rozbije veškeré sem mířící odkazy. Jste si jist, že toto chcete udělat?
   metrics:
     activity: Nedávná aktivita
     are_trained: účastníků projektu
@@ -541,6 +549,9 @@ cs:
     view_on_wiki: Zobrazit rozdíly na wiki
   suggestions:
     editing: Návrhy k editaci
+    suggestion_docs:
+      a: Může být požadovaná pokročilá znalost, abyste mohl článek vylepšit. Mohou
+        nastat stylistické problémy. Recenzní řízení může pomoci.
   tasks:
     conseq: Úkol %{task} je již spuštěn!
     constant: Úkol %{task} nelze spustit, zatímco běží úkol update_daily.
@@ -559,6 +570,7 @@ cs:
 
       Tuto akci nelze vrátit zpět.
     discard_all_changes: Zrušit všechny změny
+    delete_timeline_and_start_over: Smazat rozvrh
     due_default: Příští týden
     empty_week_1: Chcete-li začít,
     empty_week_3: nebo
@@ -574,6 +586,7 @@ cs:
     week_number: '%{number}. týden'
   training:
     continue: Pokračovat (%{progress})
+    start: Začít
     view: Zobrazit
     logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,
       do té doby, než se opět přihlásíte.
@@ -626,6 +639,7 @@ cs:
     revisions_doc: Počet editací provedených tímto editorem v posledních 7 dnech
     reviewers: Recenzent(i)
     reviewing: Recenzuje
+    training_incomplete: Školení neukončeno
     training_module_status: Stav
     username: Uživatelské jméno
     username_placeholder: Uživatelské jméno

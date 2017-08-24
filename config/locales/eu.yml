@@ -5,6 +5,7 @@
 # Author: Mikel Ibaiba
 # Author: Sator
 # Author: Subi
+# Author: Theklan
 ---
 eu:
   application:
@@ -232,6 +233,7 @@ eu:
     course_submitted: Erregistroen egoera hezkuntza programetako ikastaroetarako erabiltzen
       da, non ikastaroen plana proiektua hasi baino lehen onartuta egon behar den.
       "ClassroomProgram" ikastaro motarako baino ez da garrantzitsua.
+    subject: Gaia
     submitted: Bidalita
     term: Epealdia
     timeline: Esleipenaren Xehetasunak
@@ -269,6 +271,7 @@ eu:
       intro: Programaren izenburua ezinbestekoa, gainerako guztia geroago bete daiteke.
         Klik egin "Nire programa sortu!" botoian eta hasi zure wikiprogramaren orria
         osatzen.
+      participate_in_campaign: Parte hartu kanpaina batean
       save_cloned_course: Gorde
     delete_course: Ezabatu programa
     edit_course_dates: Aldatu Proiektuaren Datak
