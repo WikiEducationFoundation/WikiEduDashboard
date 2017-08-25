@@ -5,6 +5,7 @@ class Fall2017CmuExperiment
     unless Setting.exists?(key: 'fall_2017_cmu_experiment')
       Setting.create(key: 'fall_2017_cmu_experiment', value: { enrolled_courses_count: 0 })
     end
+
     Campaign.find_by(slug: 'fall_2017').courses.each do |course|
       new(course).process_course
     end
@@ -22,7 +23,6 @@ class Fall2017CmuExperiment
   def process_course
     enroll_in_experiment if @status.nil?
     send_email_invitation if @status == 'ready_for_email'
-    update_status_from_tags
   end
 
   def opt_in
@@ -57,22 +57,10 @@ class Fall2017CmuExperiment
     @status = new_status
   end
 
-  def update_status_from_tags
-    if course_tags.include? 'fall_2017_cmu_experiment_opted_in'
-      update_status 'opted_in'
-    elsif course_tags.include? 'fall_2017_cmu_experiment_opted_out'
-      update_status 'opted_out'
-    end
-  end
-
   def send_email_invitation
     email_code = Course.generate_passcode + Course.generate_passcode
     first_instructor = @course.instructors.first
     Fall2017CmuExperimentMailer.send_invitation(@course, first_instructor, email_code)
     update_status('email_sent', email_just_sent: true, email_code: email_code)
-  end
-
-  def course_tags
-    @course_tags ||= @course.tags.pluck(:tag)
   end
 end
