@@ -2,6 +2,9 @@
 
 class Fall2017CmuExperiment
   def self.process_courses
+    unless Setting.exists?(key: 'fall_2017_cmu_experiment')
+      Setting.create(key: 'fall_2017_cmu_experiment', value: { enrolled_courses_count: 0 })
+    end
     Campaign.find_by(slug: 'fall_2017').courses.each do |course|
       new(course).process_course
     end
@@ -13,6 +16,7 @@ class Fall2017CmuExperiment
   def initialize(course)
     @course = course
     @status = course.flags[STATUS_KEY]
+    @experiment_setting = Setting.find_by(key: 'fall_2017_cmu_experiment')
   end
 
   def process_course
@@ -31,13 +35,18 @@ class Fall2017CmuExperiment
 
   private
 
-  CONTROL_RATIO = 0.33333
+  CONTROL_FACTOR = 3 # 1 in 3 courses will be in the control group
   def enroll_in_experiment
-    if rand > CONTROL_RATIO
-      update_status 'ready_for_email'
-    else
+    enrollment_number = @experiment_setting.value[:enrolled_courses_count] + 1
+
+    if (enrollment_number % CONTROL_FACTOR).zero?
       update_status 'control'
+    else
+      update_status 'ready_for_email'
     end
+
+    @experiment_setting.value[:enrolled_courses_count] = enrollment_number
+    @experiment_setting.save!
   end
 
   def update_status(new_status, email_just_sent: false, email_code: nil)
