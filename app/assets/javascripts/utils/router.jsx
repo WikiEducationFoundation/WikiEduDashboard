@@ -39,6 +39,7 @@ import RocketChat from '../components/common/rocket_chat.jsx';
 
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
 import Nav from '../components/nav.jsx';
+
 // This is the Redux store.
 // It is accessed from container components via `connect()`.
 const store = createStore(
