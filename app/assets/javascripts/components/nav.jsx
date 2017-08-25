@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
-import Uls from './uls_box.jsx';
 const Nav = React.createClass({
   displayName: 'Nav',
 
@@ -240,7 +239,6 @@ const Nav = React.createClass({
 
     return (
       <div>
-        <Uls />
         {navBar}
       </div>
     );
