@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/experiments/fall2017_cmu_experiment"
 
 describe Fall2017CmuExperiment do
   let(:fall_2017) { create(:campaign, slug: 'fall_2017') }
-  let(:user) { create(:user) }
+  let(:user) { create(:user, email: 'sage@example.com') }
 
   before do
     10.times do |i|
