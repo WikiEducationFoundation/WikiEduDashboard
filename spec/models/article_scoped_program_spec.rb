@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses
@@ -45,75 +46,48 @@
 #  flags                 :text(65535)
 #
 
-FactoryGirl.define do
-  factory :course, class: 'ClassroomProgramCourse' do
-    start Date.new(2015, 1, 1)
-    self.end Date.new(2015, 6, 1)
-    title 'Underwater basket-weaving'
-    school 'WINTR'
-    term 'spring 2015'
-    slug 'WINTR/Underwater_basket-weaving_(spring_2015)'
-    passcode 'pizza'
-    home_wiki_id 1
+require 'rails_helper'
+
+describe ArticleScopedProgram, type: :model do
+  before do
+    asp = create(:article_scoped_program,
+                 id: 10001,
+                 start: 1.year.ago,
+                 end: Date.today + 1.year)
+    editor = create(:user)
+    create(:courses_user,
+           user_id: editor.id,
+           course_id: asp.id,
+           role: CoursesUsers::Roles::STUDENT_ROLE)
+    random_article = create(:article, title: 'Random', id: 1, namespace: 0)
+    assigned_article = create(:article, title: 'Assigned', id: 2, namespace: 0)
+    create(:assignment, user_id: editor.id, course_id: asp.id,
+                        article_id: 2, article_title: 'Assigned')
+    create(:revision, id: 1, user_id: editor.id,
+                      article_id: random_article.id, date: 1.day.ago)
+    create(:revision, id: 2, user_id: editor.id,
+                      article_id: assigned_article.id, date: 1.day.ago)
+    Article.update_all_caches
+    ArticlesCourses.update_from_course(asp)
+    ArticlesCourses.update_all_caches
+    CoursesUsers.update_all_caches
+    Course.update_all_caches
   end
 
-  factory :basic_course, class: 'BasicCourse' do
-    start Date.new(2015, 1, 1)
-    self.end Date.new(2015, 6, 1)
-    title 'Black life matters'
-    school 'none'
-    term 'none'
-    slug 'Black_life_matters'
-    type 'BasicCourse'
-    passcode 'pizzå'
-    home_wiki_id 1
-  end
+  let(:out_of_scope_rev) { Revision.find(1) }
+  let(:in_scope_rev) { Revision.find(2) }
+  let(:asp) { Course.find(10001) }
 
-  factory :visiting_scholarship, class: 'VisitingScholarship' do
-    start Date.new(2015, 1, 1)
-    self.end Date.new(2015, 6, 1)
-    title 'Basket-weaving scholarship'
-    school 'UNR'
-    term 'spring 2015'
-    slug 'UNR/Basket-weaving_scholarship_(spring_2015)'
-    passcode 'pizza'
-    type 'VisitingScholarship'
-    home_wiki_id 1
+  it 'should only count assigned articles' do
+    expect(asp.article_count).to eq(1)
   end
-
-  factory :editathon, class: 'Editathon' do
-    start Date.new(2015, 1, 1)
-    self.end Date.new(2015, 6, 1)
-    title 'Basket-weaving edit-a-thon'
-    school 'NARA'
-    term 'spring 2015'
-    slug 'NARA/Basket-weaving_edit-a-thon_(spring_2015)'
-    passcode 'pizza'
-    type 'Editathon'
-    home_wiki_id 1
+  it 'should only generate ArticlesCourses for assigned articles' do
+    expect(asp.articles_courses.count).to eq(1)
   end
-
-  factory :legacy_course, class: 'LegacyCourse' do
-    start Date.new(2013, 1, 1)
-    self.end Date.new(2013, 6, 1)
-    title 'Legacy basket-weaving'
-    school 'PBR'
-    term 'spring 2013'
-    slug 'PRB/Legacy_basket-weaving_edit-a-thon_(spring_2013)'
-    passcode 'pizza'
-    type 'LegacyCourse'
-    home_wiki_id 1
+  it 'should only count revisions to assigned articles' do
+    expect(asp.revision_count).to eq(1)
   end
-
-  factory :article_scoped_program, class: 'ArticleScopedProgram' do
-    start Date.new(2013, 1, 1)
-    self.end Date.new(2013, 6, 1)
-    title 'Only basket-weaving'
-    school 'WMIT'
-    term 'spring 2013'
-    slug 'WMIT/Only_basket-weaving_edit-a-thon_(spring_2013)'
-    passcode 'pizza'
-    type 'ArticleScopedProgram'
-    home_wiki_id 1
+  it 'should only count characters for assigned articles' do
+    expect(asp.character_sum).to eq(in_scope_rev.characters)
   end
 end
