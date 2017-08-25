@@ -10,10 +10,10 @@ class Fall2017CmuExperimentMailer < ApplicationMailer
   def email(course, instructor, email_code)
     @course = course
     @instructor = instructor
-    @opt_in_link = "/experiments/fall2017_cmu_experiment/#{@course.id}/#{email_code}/opt_in"
-    @opt_out_link = "/experiments/fall2017_cmu_experiment/#{@course.id}/#{email_code}/opt_out"
+    @opt_in_link = "https://#{ENV['dashboard_url']}/experiments/fall2017_cmu_experiment/#{@course.id}/#{email_code}/opt_in"
+    @opt_out_link = "https://#{ENV['dashboard_url']}/experiments/fall2017_cmu_experiment/#{@course.id}/#{email_code}/opt_out"
     mail(to: @instructor.email,
          reply_to: 'robert.kraut@cmu.edu',
-         subject: 'Wikipedia discussion service: please opt in')
+         subject: 'Peer support for students in your Wikipedia assignment')
   end
 end
