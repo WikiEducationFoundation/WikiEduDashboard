@@ -138,6 +138,7 @@ const HamburgerMenu = React.createClass({
                 <img src ={this.props.logoPath} alt = "wiki logo" />
               </a>
             </div>
+            {languageSwitcherEnabled}
             <Menu right>
               <CustomLink to={this.props.exploreurl} name={this.props.explorename} clickedElement="explore" />
               {myDashboard}
@@ -147,7 +148,6 @@ const HamburgerMenu = React.createClass({
               {help}
               {wikiEd}
               {helpEnabled}
-              {languageSwitcherEnabled}
               {loggingLinks}
             </Menu>
           </div>

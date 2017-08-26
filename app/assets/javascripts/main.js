@@ -17,6 +17,7 @@ $(() => {
   require('./utils/language_switcher.js');
   require('./utils/editable.js');
   require('./utils/users_profile.js');
+  require('./utils/hamburger_menu.js');
 });
 
 // Polyfills
