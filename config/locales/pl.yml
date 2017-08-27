@@ -5,6 +5,7 @@
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: Tar Lócesilion
 # Author: The Polish
 # Author: Woytecr
 ---
@@ -311,8 +312,7 @@ pl:
       other: Instruktorzy
     instructors: Prowadzący
     invitation: Zostałeś zaproszony do uczestnictwa w kursie "%{title}". By się do
-      niego dopisać zaloguj się swoim kontem Wikipedii. Jeśli jeszcze go nie masz
-      - możesz je teraz założyć.
+      niego dopisać, zaloguj się swoim kontem Wikipedii.
     join: Dołącz
     join_course: Dołącz do kursu
     join_prompt: Czy chcesz dołączyć do kursu „%{title}”?
@@ -364,7 +364,7 @@ pl:
     submitted_heading: Zgłoszone kursy
     submitted_note: Twój kurs został zgłoszony. Rzucimy na niego okiem i zgłosimy
       się z ewentualnymi pytaniami.
-    suggestions_feedback: Czy te sugestie są pomocne?
+    suggestions_feedback: Czy masz uwagi co do poprawy tego narzędzia? Daj nam znać!
     user_role: Rola
     course_details: Szczegóły kursu
     term: Semestr
@@ -418,10 +418,8 @@ pl:
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program
       clone_successful: Program został sklonowany
-      clone_successful_details: Twój program został sklonowany. Koniecznie dodaj jakiś
-        wyróżnik do pola 'Kiedy' (na przykład miesiąc i rok wydarzenia, albo zakres
-        lat) by odróżnić go od oryginału. Następnie kliknij w 'Zapisz' by zakończyć
-        zmiany.
+      clone_successful_details: Twój program został sklonowany. Kliknij w 'Zapisz'
+        by zakończyć zmiany.
       course_description: Opis programu
       course_school: Instytucja
       course_term: Kiedy

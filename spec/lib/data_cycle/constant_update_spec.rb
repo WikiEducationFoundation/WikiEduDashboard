@@ -21,6 +21,7 @@ describe ConstantUpdate do
       expect(Course).to receive(:update_all_caches_concurrently)
       expect(StudentGreetingChecker).to receive(:check_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
+      expect(DiscretionarySanctionsMonitor).to receive(:create_alerts_for_course_articles)
       expect(DYKNominationMonitor).to receive(:create_alerts_for_course_articles)
       expect_any_instance_of(CourseAlertManager).to receive(:create_no_students_alerts)
       expect_any_instance_of(CourseAlertManager).to receive(:create_untrained_students_alerts)

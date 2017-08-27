@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/blocked_edits_reporter"
+require "#{Rails.root}/lib/alerts/blocked_edits_reporter"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)

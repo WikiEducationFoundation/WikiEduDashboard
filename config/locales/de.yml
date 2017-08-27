@@ -423,6 +423,7 @@ de:
     course_submitted: Der Eingereicht-Status wird für Bildungsprogrammkurse verwendet,
       bei denen ein Kursplan bestätigt werden muss, bevor das Projekt startet. Er
       ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
+    subject: Thema
     submitted: Eingereicht
     term: Dauer
     timeline: Einzelheiten zur Zuweisung

@@ -438,6 +438,7 @@ fr:
     course_submitted: L’état soumis est utilisé pour les cours de programme éducatif,
       quand un plan de cours doit être approuvé avant que le projet ne commence. Il
       n’est significatif que pour le type de cours ClassroomProgram.
+    subject: Sujet
     submitted: Soumis
     term: Période
     timeline: Détails d'assignement

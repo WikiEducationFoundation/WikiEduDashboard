@@ -11,7 +11,6 @@ class RevisionFeedbackService
     citation_feedback
     structure_feedback
     wikilinks_feedback
-    default_feedback
     @feedback
   end
 
@@ -39,10 +38,5 @@ class RevisionFeedbackService
 
   MINIMUM_WIKILINKS = 3
   def wikilinks_feedback
-  end
-
-  def default_feedback
-    return unless @feedback.blank?
-    @feedback << '[no suggestions available]'
   end
 end

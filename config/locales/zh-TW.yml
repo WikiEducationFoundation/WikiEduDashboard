@@ -343,6 +343,7 @@ zh-TW:
     user_role: 身份
     course_details: 課程詳細內容
     course_submitted: 提交狀態是用於教育方案課程裡；必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
+    subject: 主題
     submitted: 已提交
     term: 學期
     timeline: 作業細節

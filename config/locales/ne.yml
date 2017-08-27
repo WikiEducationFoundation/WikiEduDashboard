@@ -1,6 +1,7 @@
 # Messages for Nepali (नेपाली)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Nirajan pant
 # Author: जनक राज भट्ट
 # Author: सरोज कुमार ढकाल
 ---
@@ -11,10 +12,14 @@ ne:
   application:
     cancel: रद्द गर्नुहोस्
     dashboard: विकी एड ड्यासबोर्ड
+    documentation: मिसिलिकरण
     error: 'त्रुटी भयो:'
     explore: अन्वेषण
     field_required: यो फिल्ड आवस्यकता छ
     field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
+    field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
+    field_invalid_date_time: अन्त सुरुवात भन्दा पछि हुनु पर्छ । (घन्ट ० देखि २३ सम्म
+      हुन्छन् ।)
     greeting2: स्वागत!
     greeting_extended: विकिपिडियामा स्वागत् छ
     greeting: नमस्ते!
@@ -25,6 +30,7 @@ ne:
     log_out: लग आउट गर्नुहोस्
     my_dashboard: मेरो ड्यसबोर्ड
     recent_activity: हालको कृयाकलाप
+    report_problem: समस्या प्रतिवेदन पठाउनुहोस्
     search: प्रश्न सोध्नुहोस्
     sign_up_extended: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
     sign_up_log_in_extended: विकिपेडिया संग
@@ -34,6 +40,13 @@ ne:
     change: परिवर्तन गर्नुहोस्
     details: विवरण
     confirm: ठीक छ
+  dashboard:
+    create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्मा क्लिक गर्नुहोस्।
+    explore_course_pages: पाठ्यक्रम पृष्ठ हेर्नुहोस्
+    explore_examples: उदाहरणहरू हेर्नुहोस्
+    review_orientation: अभिमुखिकरण पुनरावलोकन गर्नुहोस्
+    start_orientation: अभिमुखिकरण सुरु गर्नुहोस्
+    blog_headline: Wiki Ed बाट नयाँ खबरहरू
   home:
     explore: अन्वेषण
     log_in: विकिपिडियाले लग इन गर्नुहोस्
@@ -51,15 +64,31 @@ ne:
     edited_mobile: लेखहरू
     hide: लुकाउनुहोस्
     label: लेखहरू
+    loading: लेखहरू खोल्दै...
+    new: (नयाँ)
+    rating: कक्षा
     title: शीर्षक
     title_example: लेख शीर्षक
     view: लेख हेर्नुहोस्
     view_all: सबै हेर्नुहोस्
     view_on_wiki: विकीमा हेर्नुहोस्
+    edit_size: आकार सम्पादन गर्नुहोस्
   assignments:
+    assignees: असाइनि(हरू)
+    label: असाइन गर्नुहोस्
     remove: हटाउनुहोस्
+    reviewers: 'समीक्षक(हरू):'
+    review_other: समीक्षाको लागि असाइन गर्नुहोस्
+    review_self: लेखको समीक्षा गर्नुहोस्
     select: चयन गर्नुहोस्
+  blocks:
+    milestones:
+      title: कोसेढुङ्गाहरू
   campaign:
+    add_organizer: आयोजक थप्नुहपस्
+    all_campaigns: क्याम्पेन थप्नुहोस्
+    campaign: अभियान
+    campaigns: अभियानहरू
     description: वर्णन
     none: कुनै पनि होइन
     title: शीर्षक
@@ -81,13 +110,35 @@ ne:
     loading: लोड गर्दैछ...
     none: कुनै पनि होइन
     overview: गृह
+    passcode: 'पासकोड:'
+    passcode_none: कुनै पनि पासकोड छैन
+    passcode_prompt: सामेल हुन पासकोड थप्नुहोस्
     school: विद्यालय
     start: सुरु गर्नुहोस्
+    user_role: भूमिका
+    course_details: पाठ्यक्रम जानकारी
+    subject: विषय
+    submitted: पेश गरिएको
+    term: सत्र
+    timeline: असाइन्मेन्ट जानकारी
     timeline_link: समयरेखा
     title: शीर्षक
+    view: पाठ्यक्रम हेर्नुहोस्
+    view_page: पाठ्यक्रम पृष्ठ हेर्नुहोस्
+    view_wiki: विकिपिडियामा हेर्नुहोस्
+    volunteer:
+      one: स्वयंसेवक
+      other: स्वयंसेवकहरू
+    wiki_staff: Wiki Ed कर्मचारी
+    survey:
+      link: सर्वेक्षण गर्नुहोस्
   courses_generic:
     cancel: रद्द गर्नुहोस्
     courses: कार्यक्रम
+    student_editors: सम्पादकहरू
+    students: सम्पादकहरू
+    students_taught: जम्मा सम्पादकरू
+    students_short: सम्पादकहरू
     term: कहिले
   editable:
     edit: सम्पादन
