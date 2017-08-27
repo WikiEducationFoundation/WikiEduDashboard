@@ -152,7 +152,8 @@ describe UsersController do
       before do
         create(:courses_user, user_id: user.id,
                               course_id: course.id,
-                              role: CoursesUsers::Roles::STUDENT_ROLE)
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              real_name: user.real_name)
         article = create(:article)
         create(:assignment,
                course_id: course.id,

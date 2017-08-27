@@ -88,7 +88,8 @@ class SelfEnrollmentController < ApplicationController
   def add_student_to_course
     @result = JoinCourse.new(course: @course,
                              user: current_user,
-                             role: CoursesUsers::Roles::STUDENT_ROLE).result
+                             role: CoursesUsers::Roles::STUDENT_ROLE,
+                             real_name: current_user.real_name).result
   end
 
   def set_mediawiki_preferences
