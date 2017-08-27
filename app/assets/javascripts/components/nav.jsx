@@ -185,30 +185,34 @@ const Nav = React.createClass({
     if (this.state.width < 500)
     {
       navBar = (
-        <HamburgerMenu
-          rootUrl = {this.state.rootUrl}
-          logoPath = {this.state.logoPath}
-          fluid = {this.state.fluid}
-          exploreclass = {this.state.exploreclass}
-          exploreurl = {this.state.exploreurl}
-          explorename = {this.state.explorename}
-          usersignedin = {this.state.usersignedin}
-          ifadmin = {this.state.ifadmin}
-          trainingurl = {this.state.trainingurl}
-          disableTraining = {this.state.disableTraining}
-          helpDisabled = {this.state.helpDisabled}
-          askUrl = {this.state.askUrl}
-          wikiEd = {this.state.wikiEd}
-          userPermissions = {this.state.userPermissions}
-          languageSwitcherEnabled = {this.state.languageSwitcherEnabled}
-          currentUser = {this.state.currentUser}
-          destroyUrl = {this.state.destroyUrl}
-          omniauthUrl = {this.state.omniauthUrl}
-        />
+        <div>
+          <Uls />
+          <HamburgerMenu
+            rootUrl = {this.state.rootUrl}
+            logoPath = {this.state.logoPath}
+            fluid = {this.state.fluid}
+            exploreclass = {this.state.exploreclass}
+            exploreurl = {this.state.exploreurl}
+            explorename = {this.state.explorename}
+            usersignedin = {this.state.usersignedin}
+            ifadmin = {this.state.ifadmin}
+            trainingurl = {this.state.trainingurl}
+            disableTraining = {this.state.disableTraining}
+            helpDisabled = {this.state.helpDisabled}
+            askUrl = {this.state.askUrl}
+            wikiEd = {this.state.wikiEd}
+            userPermissions = {this.state.userPermissions}
+            languageSwitcherEnabled = {this.state.languageSwitcherEnabled}
+            currentUser = {this.state.currentUser}
+            destroyUrl = {this.state.destroyUrl}
+            omniauthUrl = {this.state.omniauthUrl}
+          />
+        </div>
       );
     } else {
       navBar = (
         <div>
+          <Uls />
           <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
@@ -240,7 +244,6 @@ const Nav = React.createClass({
 
     return (
       <div>
-        <Uls />
         {navBar}
       </div>
     );

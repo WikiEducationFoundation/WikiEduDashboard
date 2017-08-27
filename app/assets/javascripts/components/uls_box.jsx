@@ -2,8 +2,10 @@ import React from 'react';
 
 class Uls extends React.Component {
   componentDidMount() {
+    this.$ls = $('.uls-trigger');
+    console.log(this.$ls);
     if ($().uls) {
-      this.langSwitch = new $('.uls-trigger').uls(this.refs.langSwitch, {
+      this.$ls.uls({
         quickList: ['en', 'es', 'fr'],
         onSelect: (language) => {
           if (window.currentUser.id !== '') {
@@ -17,10 +19,12 @@ class Uls extends React.Component {
       });
     }
   }
+  componentWillUnmount() {
+    this.$ls.uls('destroy');
+  }
+
   render() {
-    return (
-      <div id="langSwitch" ref="langSwitch"></div>
-    );
+    return <div ref={ls => this.ls = ls} />;
   }
 }
 
