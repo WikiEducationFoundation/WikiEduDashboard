@@ -99,6 +99,7 @@ group :development, :test do
   gem 'launchy'
   gem 'timecop'
   gem 'poltergeist'
+  gem 'rb-readline' # for those who don't have a native readline utility installed
 end
 
 group :test do
