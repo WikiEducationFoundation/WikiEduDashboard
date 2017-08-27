@@ -5,7 +5,7 @@ $(() => {
       $('.ham-nav__site-logo').css({ "margin-left": '-34% ' });
     }
     else {
-      $('.ham-nav__site-logo').css({ "margin-left": '-50% ' });
+      $('.ham-nav__site-logo').css({ "margin-left": '-54% ' });
     }
   }
 });
