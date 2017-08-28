@@ -254,6 +254,7 @@ zh-TW:
     data_uploads: 共享資源上傳資料
     data_uploads_info: 共享資源上傳資料顯示出任一媒體上傳的名稱和使用率次數。
     delete_course: 刪除課程
+    delete_suggestion: 刪除
     delete_course_instructions: 若所有活動都已被移除的情況下，您可以刪除此頁面。
     dismiss_survey: 關閉
     dismiss_survey_confirm: 確定要永久刪除此調查嗎？
@@ -274,7 +275,7 @@ zh-TW:
       invalid_slug: 清空用於課程的學校/標題。
       duplicate_slug: 另一個稱為%{slug}的方案已存在。
     expected_students: 預計學生
-    features_feedback: 更多建議：
+    features_feedback: 自動化建議：
     feedback: 意見回饋
     feedback_loading: 建議載入中請等待...
     gradeables_none: 此項課程沒有可批閱的作業。
@@ -356,6 +357,8 @@ zh-TW:
     unsubmitted: 尚未送出的課程。
     untrained: 未受訓
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    user_suggestions: 使用者建議：
+    user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其他活動
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量

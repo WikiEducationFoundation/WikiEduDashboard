@@ -319,6 +319,7 @@ de:
     data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
       Verwendungszähler eines jeden Medienuploads.
     delete_course: Kurs löschen
+    delete_suggestion: Löschen
     delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
       zuerst entfernt wurden.
     dismiss_survey: Ausblenden
@@ -344,7 +345,7 @@ de:
       duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
         ist.
     expected_students: Erwartete Studenten
-    features_feedback: 'Weitere Vorschläge:'
+    features_feedback: 'Automatische Vorschläge:'
     feedback: Rückmeldung
     feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
@@ -440,6 +441,8 @@ de:
     untrained: Unausgebildet
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    user_suggestions: 'Benutzervorschläge:'
+    user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen
     view: Kurs anzeigen
     view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren

@@ -282,6 +282,7 @@ pl:
         to kilka godzin.
     current: Aktualne kursy
     delete_course: Usuń kurs
+    delete_suggestion: Usuń
     delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
       ze wszystkich kampanii.
     dismiss_survey: Odrzuć

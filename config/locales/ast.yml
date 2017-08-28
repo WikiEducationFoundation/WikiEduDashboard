@@ -285,6 +285,7 @@ ast:
     data_uploads_info: Datos de xubíes a Commons amuesa'l nome y recuentu d'usu de
       cada mediu xubíu.
     delete_course: Desaniciar cursu
+    delete_suggestion: Desaniciar
     delete_course_instructions: Puedes desaniciar esta páxina si primero se desanicien
       toles campañes.
     dismiss_survey: Descartar
@@ -306,7 +307,7 @@ ast:
       invalid_slug: Escuela/títulu vacíu pal cursu.
       duplicate_slug: Yá esiste otru programa llamú %{slug}.
     expected_students: Estudiantes que s'esperen
-    features_feedback: 'Más suxerencies:'
+    features_feedback: 'Suxerencies automátiques:'
     feedback: La to opinión
     feedback_loading: Espera mientres se carguen les suxerencies...
     gradeables_none: Esti cursu nun tien xeres calificables.

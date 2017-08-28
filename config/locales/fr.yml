@@ -333,6 +333,7 @@ fr:
     data_uploads_info: Les données de téléchargements communs affichent le nom et
       le nombre d’utilisation de chaque média téléchargé.
     delete_course: Supprimer le cours
+    delete_suggestion: Supprimer
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes
       les campagnes ont été supprimées.
     dismiss_survey: Fermer
@@ -357,7 +358,7 @@ fr:
       invalid_slug: Ecole ou titre du cours non renseigné.
       duplicate_slug: Un autre programme appelé %{slug} existe déjà.
     expected_students: Étudiants attendus
-    features_feedback: 'Plus de suggestions :'
+    features_feedback: 'Suggestions automatisées :'
     feedback: Commentaire
     feedback_loading: Veuillez attendre pendant le chargement des suggestions…
     gradeables_none: Ce cours n’a aucune affectation notable.
@@ -455,6 +456,8 @@ fr:
     untrained: Sans formation
     uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
       ni autre fichier de média
+    user_suggestions: 'Suggestions de l’utilisateur :'
+    user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
     view: Afficher le cours
     view_doc: La somme de toutes les vues des articles modifiés par des éditeurs inscrits

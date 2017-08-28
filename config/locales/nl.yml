@@ -196,6 +196,7 @@ nl:
       subject: Onderwerp
     current: Huidige cursussen
     delete_course: Cursus verwijderen
+    delete_suggestion: Verwijderen
     duration: Duur van de cursus
     edit_course_dates: Cursusdatums bewerken
     end: Einde

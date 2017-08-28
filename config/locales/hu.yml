@@ -46,6 +46,7 @@ hu:
     milestones:
       title: Mérföldkövek
   courses:
+    delete_suggestion: Törlés
     join: Csatlakozás
     new_week: Új hét hozzáadása
     overview: Áttekintés

@@ -161,6 +161,7 @@ ko:
     data_overview: 개요 데이터
     data_students: 편집자 데이터
     delete_course: 과정 삭제
+    delete_suggestion: 삭제
     dismiss_survey: 숨기기
     dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
     download_stats_data: 다운로드 통계
@@ -173,7 +174,7 @@ ko:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
       duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
-    features_feedback: '다른 제안 :'
+    features_feedback: '자동화된 제안:'
     feedback: 피드백
     feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
@@ -197,7 +198,7 @@ ko:
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
-    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다 :'
+    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
     school: 학교
     start: 시작
     start_typing: 입력 시작
@@ -221,6 +222,7 @@ ko:
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스
     uploads_none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_suggestions: '사용자 제안:'
     view: 과정 보기
     view_page: 코스 문서 보기
     view_wiki: 위키백과에서 보기

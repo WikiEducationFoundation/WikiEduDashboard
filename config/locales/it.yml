@@ -223,6 +223,7 @@ it:
       start_date_placeholder: Data di inizio (YYYY-MM-DD)
     current: Corsi attuali
     delete_course: Cancella corso
+    delete_suggestion: Cancella
     dismiss_survey: Nascondi
     dismiss_survey_confirm: Sei sicuro di voler nascondere definitivamente questo
       sondaggio?

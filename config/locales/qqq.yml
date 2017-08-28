@@ -348,6 +348,7 @@ qqq:
         {{Identical|Subject}}
     current: Label for the list of current courses
     delete_course: Button to delete a course
+    delete_suggestion: '{{Identical|Delete}}'
     dismiss_survey: |-
       Button label for dismissing a survey notification (Wiki Ed only)
       {{Identical|Dismiss}}

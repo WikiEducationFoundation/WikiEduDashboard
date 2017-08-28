@@ -144,6 +144,7 @@ lb:
     current: Aktuell Coursen
     data_download_info: Donnéeën am CSV-Format eroflueden.
     delete_course: Cours läschen
+    delete_suggestion: Läschen
     dismiss_survey: Verwerfen
     dismiss_survey_confirm: Sidd Dir sécher datt Dir dës Ëmfro permaentn ausblende
       wëllt?
@@ -162,7 +163,7 @@ lb:
       invalid_language_or_project: Net valabel Sprooch/Projet
       invalid_slug: Schoul/Titel eidel fir de Cours.
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
-    features_feedback: 'Méi Virschléi:'
+    features_feedback: 'Automatiséiert Virschléi:'
     feedback: Feedback
     instructor:
       one: Instrukter
@@ -203,6 +204,7 @@ lb:
     subject: Sujet
     timeline_link: Chronologie
     title: Titel
+    user_suggestions: 'Benotzervirschléi:'
     view_other: Aner Campagne kucken
     view: Cours weisen
     view_wiki: Op Wikipedia kucken
