@@ -23,6 +23,23 @@ describe JoinCourse do
     enroll_as_instructor
   end
 
+  context 'optionally with or without a real_name' do
+    let(:course) { basic_course }
+    it 'allows a course to be joined without a real_name' do
+      expect(subject.real_name).to be_nil
+      result = subject.result
+      expect(result[:failure]).to be_nil
+      expect(result[:success]).to_not be_nil
+    end
+    it 'allows a course to be joined with a real_name' do
+      subject.real_name = 'student name'
+      expect(subject.real_name).to_not be_nil
+      result = subject.result
+      expect(result[:failure]).to be_nil
+      expect(result[:success]).to_not be_nil
+    end
+  end
+
   context 'for a ClassroomProgramCourse' do
     let(:course) { classroom_program_course }
     it 'does not allow joining with multiple roles' do
