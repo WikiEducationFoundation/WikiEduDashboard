@@ -6,10 +6,11 @@ require "#{Rails.root}/lib/chat/rocket_chat"
 class JoinCourse
   attr_reader :result
 
-  def initialize(course:, user:, role:)
+  def initialize(course:, user:, role:, real_name: nil)
     @course = course
     @user = user
     @role = role
+    @real_name = real_name
     process_join_request
   end
 
@@ -59,7 +60,8 @@ class JoinCourse
     CoursesUsers.create(
       user_id: @user.id,
       course_id: @course.id,
-      role: @role
+      role: @role,
+      real_name: @real_name
     )
   end
 
