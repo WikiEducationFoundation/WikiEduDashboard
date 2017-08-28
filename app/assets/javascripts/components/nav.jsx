@@ -80,7 +80,7 @@ const Nav = React.createClass({
     let languageSwitcherEnabled;
     let loggingLinks;
     let helpEnabled;
-    if (this.state.languageSwitcherEnabled)
+    if (!this.state.languageSwitcherEnabled)
     {
       languageSwitcherEnabled = (
         <li>
