@@ -1,29 +1,25 @@
 import React from 'react';
 
 class Uls extends React.Component {
-  componentDidMount() {
+  attachRef() {
     this.$ls = $('.uls-trigger');
     console.log(this.$ls);
-    if ($().uls) {
-      this.$ls.uls({
-        quickList: ['en', 'es', 'fr'],
-        onSelect: (language) => {
-          if (window.currentUser.id !== '') {
-            $.post(`/update_locale/${language}`, () => {
-              location.reload();
-            });
-          } else {
-            window.location = `?locale=${language}`;
-          }
+    this.$ls.uls({
+      quickList: ['en', 'es', 'fr'],
+      onSelect: (language) => {
+        if (window.currentUser.id !== '') {
+          $.post(`/update_locale/${language}`, () => {
+            location.reload();
+          });
+        } else {
+          window.location = `?locale=${language}`;
         }
-      });
-    }
-  }
-  componentWillUnmount() {
-    this.$ls.uls('destroy');
+      }
+    });
   }
 
   render() {
+    this.attachRef();
     return <div ref={ls => this.ls = ls} />;
   }
 }
