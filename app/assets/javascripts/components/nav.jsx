@@ -182,7 +182,7 @@ const Nav = React.createClass({
     } else {
       navClass = "top-nav";
     }
-    if (this.state.width < 500)
+    if (this.state.width < 920)
     {
       if ($('.uls-trigger').length > 0) {
         $('.ham-nav__site-logo').css({ "margin-left": '-34% ' });
