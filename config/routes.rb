@@ -263,6 +263,7 @@ Rails.application.routes.draw do
   namespace :experiments do
     get 'fall2017_cmu_experiment/:course_id/:email_code/opt_in' => 'fall2017_cmu_experiment#opt_in'
     get 'fall2017_cmu_experiment/:course_id/:email_code/opt_out' => 'fall2017_cmu_experiment#opt_out'
+    get 'fall2017_cmu_experiment/course_list' => 'fall2017_cmu_experiment#course_list'
   end
 
   resources :admin

@@ -11,6 +11,16 @@ class Fall2017CmuExperiment
     end
   end
 
+  def self.course_list
+    csv_data = [%w[course status email_sent_at]] # headers
+    Campaign.find_by(slug: 'fall_2017').courses.each do |course|
+      flags = course.flags
+      csv_data << [course.slug, flags[STATUS_KEY], flags[EMAIL_SENT_AT]]
+    end
+
+    CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
   STATUS_KEY = :fall_2017_cmu_experiment
   EMAIL_SENT_AT = :fall_2017_cmu_experiment_email_sent_at
   EMAIL_CODE = :fall_2017_cmu_experiment_email_code

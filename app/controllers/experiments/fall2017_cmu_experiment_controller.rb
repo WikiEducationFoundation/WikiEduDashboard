@@ -4,7 +4,8 @@ require "#{Rails.root}/lib/experiments/fall2017_cmu_experiment"
 
 module Experiments
   class Fall2017CmuExperimentController < ApplicationController
-    before_action :set_course_and_check_email_code
+    before_action :set_course_and_check_email_code, only: %i[opt_in opt_out]
+    before_action :require_admin_permissions, only: :course_list
 
     def opt_in
       Fall2017CmuExperiment.new(@course).opt_in
@@ -16,6 +17,11 @@ module Experiments
       Fall2017CmuExperiment.new(@course).opt_out
       flash[:notice] = 'Okay, you have opted out.'
       redirect_to "/courses/#{@course.slug}"
+    end
+
+    def course_list
+      send_data Fall2017CmuExperiment.course_list,
+                filename: "fall2017-cmu-experiment-courses-#{Time.zone.today}.csv"
     end
 
     private
