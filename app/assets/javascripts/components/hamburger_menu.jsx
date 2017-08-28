@@ -33,7 +33,7 @@ const HamburgerMenu = React.createClass({
     let languageSwitcherEnabled;
     let loggingLinks;
     let helpEnabled;
-    if (!this.props.languageSwitcherEnabled)
+    if (this.props.languageSwitcherEnabled)
     {
       languageSwitcherEnabled = (
         <li>
