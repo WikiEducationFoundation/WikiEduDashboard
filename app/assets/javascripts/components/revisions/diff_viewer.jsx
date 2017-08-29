@@ -56,7 +56,6 @@ const DiffViewer = React.createClass({
     if (this.props.first_revision) {
       return this.findParentOfFirstRevision();
     }
-
     this.fetchDiff(this.diffUrl());
   },
 
@@ -137,11 +136,18 @@ const DiffViewer = React.createClass({
 
   render() {
     let button;
-    let showButtonStyle;
+    let showButtonStyle = '';
+
+    if (this.props.revision.wiki.project === 'wikidata') {
+      // the DiffViewer does not work for wikidata.org because it doesn't use the same diff format as other wikis,
+      // so we're hiding the button
+      showButtonStyle = ' hidden';
+    }
+
     if (this.props.largeButton) {
-      showButtonStyle = 'button dark';
+      showButtonStyle = `button dark${showButtonStyle}`;
     } else {
-      showButtonStyle = 'button dark small';
+      showButtonStyle = `button dark small${showButtonStyle}`;
     }
 
     if (this.state.showDiff) {
