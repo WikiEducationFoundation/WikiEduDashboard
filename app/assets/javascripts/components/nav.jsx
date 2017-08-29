@@ -196,8 +196,6 @@ const Nav = React.createClass({
           <HamburgerMenu
             rootUrl = {this.state.rootUrl}
             logoPath = {this.state.logoPath}
-            fluid = {this.state.fluid}
-            exploreclass = {this.state.exploreclass}
             exploreurl = {this.state.exploreurl}
             explorename = {this.state.explorename}
             usersignedin = {this.state.usersignedin}
