@@ -22,11 +22,7 @@ module ApplicationHelper
   end
 
   def language_switcher_enabled
-    if Features.enable_language_switcher?
-      'true'
-    else
-      'false'
-    end
+    Features.enable_language_switcher?.to_s
   end
 
   def logo_favicon_tag
