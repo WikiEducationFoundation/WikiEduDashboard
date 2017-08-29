@@ -96,9 +96,10 @@ class CourseCreationManager
   end
 
   def add_instructor_to_course
-    CoursesUsers.create(user: @instructor,
-                        course: @course,
-                        role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    JoinCourse.new(user: @instructor,
+                   course: @course,
+                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                   real_name: current_user.real_name)
   end
 
   def add_tags_to_course

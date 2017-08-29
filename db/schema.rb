@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825200219) do
+ActiveRecord::Schema.define(version: 20170828160001) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20170825200219) do
     t.integer "role", default: 0
     t.integer "recent_revisions", default: 0
     t.integer "character_sum_draft", default: 0
+    t.string "real_name"
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
   end
