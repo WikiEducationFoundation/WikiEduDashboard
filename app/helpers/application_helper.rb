@@ -21,7 +21,7 @@ module ApplicationHelper
     end
   end
 
-  def languageswitcherenabled
+  def language_switcher_enabled
     if Features.enable_language_switcher?
       'true'
     else
