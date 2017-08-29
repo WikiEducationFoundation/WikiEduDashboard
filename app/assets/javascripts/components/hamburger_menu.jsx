@@ -2,7 +2,7 @@ import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
 
-const HamburgerMenu = ({ rootUrl, logoPath, exploreurl, explorename, usersignedin, ifadmin, trainingurl, disableTraining, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
+const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, disableTraining, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
   let myDashboard;
   let forAdmin;
   let training;
@@ -22,7 +22,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreurl, explorename, usersignedi
       </li>
     );
   }
-  if (usersignedin)
+  if (userSignedIn)
   {
     loggingLinks = (
       <span>
@@ -61,14 +61,14 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreurl, explorename, usersignedi
       </li>
     );
   }
-  if (usersignedin === true) {
+  if (userSignedIn === true) {
     myDashboard = (
       <li>
         <CustomLink to={rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
       </li>
     );
   }
-  if (ifadmin === true) {
+  if (ifAdmin === true) {
     forAdmin = (
       <li>
         <CustomLink to="/admin" name="Admin" />
@@ -78,11 +78,11 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreurl, explorename, usersignedi
   if (disableTraining === false) {
     training = (
       <li>
-        <CustomLink to={trainingurl} name={I18n.t('application.training')} clickedElement="training" />
+        <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
       </li>
     );
   }
-  if ((usersignedin || helpDisabled) === false) {
+  if ((userSignedIn || helpDisabled) === false) {
     help = (
       <li>
         <CustomLink to={askUrl} name={I18n.t('application.help')} />
@@ -119,7 +119,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreurl, explorename, usersignedi
           </div>
           {languageSwitcher}
           <Menu right>
-            <CustomLink to={exploreurl} name={explorename} clickedElement="explore" />
+            <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
             {myDashboard}
             {forAdmin}
             {training}
@@ -141,11 +141,11 @@ HamburgerMenu.propTypes = {
   logoPath: React.PropTypes.string,
   fluid: React.PropTypes.bool,
   exploreclass: React.PropTypes.string,
-  exploreurl: React.PropTypes.string,
-  explorename: React.PropTypes.string,
-  usersignedin: React.PropTypes.bool,
-  ifadmin: React.PropTypes.bool,
-  trainingurl: React.PropTypes.string,
+  exploreUrl: React.PropTypes.string,
+  exploreName: React.PropTypes.string,
+  userSignedIn: React.PropTypes.bool,
+  ifAdmin: React.PropTypes.bool,
+  trainingUrl: React.PropTypes.string,
   disableTraining: React.PropTypes.bool,
   helpDisabled: React.PropTypes.bool,
   askUrl: React.PropTypes.string,

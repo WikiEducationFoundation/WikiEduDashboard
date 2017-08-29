@@ -9,12 +9,12 @@ const Nav = React.createClass({
     const rootUrl = $('#nav_root').data('rooturl');
     const logoPath = $('#nav_root').data('logopath');
     const fluid = $('#nav_root').data('fluid');
-    const exploreurl = $('#nav_root').data('exploreurl');
-    const explorename = $('#nav_root').data('explorename');
-    const exploreclass = $('#nav_root').data('exploreclass');
-    const usersignedin = $('#nav_root').data('usersignedin');
-    const ifadmin = $('#nav_root').data('ifadmin');
-    const trainingurl = $('#nav_root').data('trainingurl');
+    const exploreUrl = $('#nav_root').data('exploreurl');
+    const exploreName = $('#nav_root').data('explorename');
+    const exploreClass = $('#nav_root').data('exploreclass');
+    const userSignedIn = $('#nav_root').data('usersignedin');
+    const ifAdmin = $('#nav_root').data('ifadmin');
+    const trainingUrl = $('#nav_root').data('trainingurl');
     const disableTraining = $('#nav_root').data('disable_training');
     const helpDisabled = $('#nav_root').data('help_disabled');
     const askUrl = $('#nav_root').data('ask_url');
@@ -29,12 +29,12 @@ const Nav = React.createClass({
       rootUrl: rootUrl,
       logoPath: logoPath,
       fluid: fluid,
-      exploreclass: exploreclass,
-      exploreurl: exploreurl,
-      explorename: explorename,
-      usersignedin: usersignedin,
-      ifadmin: ifadmin,
-      trainingurl: trainingurl,
+      exploreClass: exploreClass,
+      exploreUrl: exploreUrl,
+      exploreName: exploreName,
+      userSignedIn: userSignedIn,
+      ifAdmin: ifAdmin,
+      trainingUrl: trainingUrl,
       disableTraining: disableTraining,
       helpDisabled: helpDisabled,
       askUrl: askUrl,
@@ -90,7 +90,7 @@ const Nav = React.createClass({
         </li>
       );
     }
-    if (this.state.usersignedin)
+    if (this.state.userSignedIn)
     {
       loggingLinks = (
         <span>
@@ -129,14 +129,14 @@ const Nav = React.createClass({
         </li>
       );
     }
-    if (this.state.usersignedin === true) {
+    if (this.state.userSignedIn === true) {
       myDashboard = (
         <li>
           <CustomLink to={this.state.rootUrl} name={I18n.t('application.my_dashboard')} clickedElement="" />
         </li>
       );
     }
-    if (this.state.ifadmin === true) {
+    if (this.state.ifAdmin === true) {
       forAdmin = (
         <li>
           <CustomLink to="/admin" name="Admin" />
@@ -146,11 +146,11 @@ const Nav = React.createClass({
     if (this.state.disableTraining === false) {
       disableTraining = (
         <li>
-          <CustomLink to={this.state.trainingurl} name={I18n.t('application.training')} clickedElement="training" />
+          <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
         </li>
       );
     }
-    if ((this.state.usersignedin || this.state.helpDisabled) === false) {
+    if ((this.state.userSignedIn || this.state.helpDisabled) === false) {
       help = (
         <li>
           <CustomLink to={this.state.askUrl} name={I18n.t('application.help')} />
@@ -196,11 +196,11 @@ const Nav = React.createClass({
           <HamburgerMenu
             rootUrl = {this.state.rootUrl}
             logoPath = {this.state.logoPath}
-            exploreurl = {this.state.exploreurl}
-            explorename = {this.state.explorename}
-            usersignedin = {this.state.usersignedin}
-            ifadmin = {this.state.ifadmin}
-            trainingurl = {this.state.trainingurl}
+            exploreUrl = {this.state.exploreUrl}
+            exploreName = {this.state.exploreName}
+            userSignedIn = {this.state.userSignedIn}
+            ifAdmin = {this.state.ifAdmin}
+            trainingUrl = {this.state.trainingUrl}
             disableTraining = {this.state.disableTraining}
             helpDisabled = {this.state.helpDisabled}
             askUrl = {this.state.askUrl}
@@ -226,7 +226,7 @@ const Nav = React.createClass({
               </div>
               <ul className="top-nav__main-links">
                 <li>
-                  <CustomLink to={this.state.exploreurl} name={this.state.explorename} clickedElement="explore" />
+                  <CustomLink to={this.state.exploreUrl} name={this.state.exploreName} clickedElement="explore" />
                 </li>
                 {myDashboard}
                 {forAdmin}
