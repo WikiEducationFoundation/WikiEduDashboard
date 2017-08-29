@@ -1,4 +1,4 @@
-// jQuery for user profile pages
+// jQuery for handling language switcher location in the navigation bar
 $(() => {
   if ($(window).width() <= 920) {
     if ($('.uls-trigger').length > 0) {
