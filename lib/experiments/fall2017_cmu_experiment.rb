@@ -2,6 +2,7 @@
 
 class Fall2017CmuExperiment
   def self.process_courses
+    return unless Features.wiki_ed?
     unless Setting.exists?(key: 'fall_2017_cmu_experiment')
       Setting.create(key: 'fall_2017_cmu_experiment', value: { enrolled_courses_count: 0 })
     end
