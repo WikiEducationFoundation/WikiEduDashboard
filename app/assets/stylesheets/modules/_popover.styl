@@ -31,6 +31,13 @@
       /*@replace: translateX(50%) translateY(0) scale(1, 1)*/ transform translateX(-50%) translateY(0) scale(1, 1)
       /*@replace: translateX(50%) translateY(0) scale(1, 1)*/ -webkit-transform translateX(-50%) translateY(0) scale(1, 1)
       /* autoprefixer: on */
+    &.right-aligned
+      /* autoprefixer: off */
+      /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(1, 1)
+      /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(1, 1)
+      /* autoprefixer: on */
+      left auto
+      right 0
     &:before
       border-bottom 6px solid white
       border-right 6px solid transparent
@@ -41,6 +48,9 @@
       margin-left -3px
       position absolute
       top -6px
+    &.right-aligned:before
+      left auto
+      right 50px
     tr.edit
       border-bottom 1px solid $border_lt
     tr:last-child

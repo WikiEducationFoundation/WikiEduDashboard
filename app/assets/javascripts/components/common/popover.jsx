@@ -14,7 +14,9 @@ const Popover = React.createClass({
     if (this.props.is_open) {
       divClass += ' open';
     }
-
+    if (this.props.right_aligned) {
+      divClass += ' right-aligned';
+    }
     return (
       <div className={divClass}>
         <table>

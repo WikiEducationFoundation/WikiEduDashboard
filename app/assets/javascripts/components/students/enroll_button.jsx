@@ -23,6 +23,7 @@ const EnrollButton = React.createClass({
     inline: React.PropTypes.bool,
     open: React.PropTypes.func,
     is_open: React.PropTypes.bool,
+    right_aligned: React.PropTypes.bool,
     current_user: React.PropTypes.object
   },
 
@@ -196,6 +197,7 @@ const EnrollButton = React.createClass({
         {confirmationDialog}
         {button}
         <Popover
+          right_aligned={this.props.right_aligned}
           is_open={this.props.is_open}
           edit_row={editRows}
           rows={users}

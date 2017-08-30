@@ -26,6 +26,7 @@ const AssignButton = React.createClass({
     add_available: React.PropTypes.bool,
     assignments: React.PropTypes.array,
     open: React.PropTypes.func.isRequired,
+    right_aligned: React.PropTypes.bool,
     tooltip_message: React.PropTypes.string
   },
 
@@ -329,6 +330,7 @@ const AssignButton = React.createClass({
         {showButton}
         {editButton}
         <Popover
+          right_aligned={this.props.right_aligned}
           is_open={this.props.is_open}
           edit_row={editRow}
           rows={assignments}
