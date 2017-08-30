@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/chat/rocket_chat"
 class ListCourseManager
   def initialize(course, campaign, request)
     @course = course
-    @already_approved = course_approved?
+    @already_approved = course.approved?
     @campaign = campaign
     @request = request
     @campaigns_courses_attrs = { course_id: @course.id, campaign_id: @campaign.id }
@@ -30,10 +30,6 @@ class ListCourseManager
   def handle_delete
     return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
     CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
-  end
-
-  def course_approved?
-    @course.campaigns.any?
   end
 
   def send_approval_notification_emails

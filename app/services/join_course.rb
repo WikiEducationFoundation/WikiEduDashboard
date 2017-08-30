@@ -49,7 +49,7 @@ class JoinCourse
 
   def student_joining_before_approval?
     return false unless student_role?
-    @course.campaigns.empty?
+    !@course.approved?
   end
 
   def student_role?

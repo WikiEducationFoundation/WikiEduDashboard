@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   # A user is a returning instructor if they have at least one approved course
   # where they are an instructor.
   def returning_instructor?
-    courses.any? { |course| instructor?(course) && !course.campaigns.empty? }
+    courses.any? { |course| instructor?(course) && course.approved? }
   end
 
   def student?(course)
