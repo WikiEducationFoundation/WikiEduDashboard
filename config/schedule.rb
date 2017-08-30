@@ -32,3 +32,7 @@ end
 every [:monday, :tuesday, :wednesday, :thursday], at: '10:15 am' do
   rake 'batch:survey_update'
 end
+
+every [:monday, :tuesday, :wednesday, :thursday], at: '10:30 am' do
+  rake 'experiments:fall_2017_cmu_experiment'
+end
