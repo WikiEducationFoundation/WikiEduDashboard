@@ -28,19 +28,15 @@ describe 'Students Page', type: :feature, js: true do
     campaign = create(:campaign)
     @course.campaigns << campaign
 
-    @user = create(:user,
-                   # avoid mysql duplicate key
-                   # why is there an `id` in the user factory
-                   # anyway?
-                   id: rand(534384389),
-                   username: 'Mr_Tester',
-                   real_name: 'Mr. Tester',
-                   trained: true)
+    @user = create(:user, username: 'Mr_Tester',
+                          real_name: 'Mr. Tester',
+                          trained: true)
 
     create(:courses_user,
            id: 1,
            course_id: @course.id,
-           user_id: @user.id)
+           user_id: @user.id,
+           real_name: @user.real_name)
 
     article = create(:article,
                      id: 1,

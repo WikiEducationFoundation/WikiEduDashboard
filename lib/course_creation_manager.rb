@@ -96,9 +96,12 @@ class CourseCreationManager
   end
 
   def add_instructor_to_course
-    CoursesUsers.create(user: @instructor,
-                        course: @course,
-                        role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    # Creating a course is analogous to self-enrollment; it is intentional on the
+    # part of the user, so we associate the real name with the course.
+    JoinCourse.new(user: @instructor,
+                   course: @course,
+                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                   real_name: @instructor.real_name)
   end
 
   def add_tags_to_course
