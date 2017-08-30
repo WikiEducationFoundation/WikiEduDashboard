@@ -72,7 +72,12 @@ class CourseCloneManager
   end
 
   def set_instructor
-    CoursesUsers.create!(course_id: @clone.id, user_id: @user.id, role: 1)
+    # Creating a course is analogous to self-enrollment; it is intentional on the
+    # part of the user, so we associate the real name with the course.
+    JoinCourse.new(user: @user,
+                   course: @clone,
+                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                   real_name: @user.real_name)
   end
 
   TAG_KEYS_TO_CARRY_OVER = ['tricky_topic_areas'].freeze
