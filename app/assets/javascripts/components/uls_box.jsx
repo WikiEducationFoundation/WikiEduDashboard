@@ -3,7 +3,6 @@ import React from 'react';
 class Uls extends React.Component {
   attachRef() {
     this.$ls = $('.uls-trigger');
-    console.log(this.$ls);
     this.$ls.uls({
       quickList: ['en', 'es', 'fr'],
       onSelect: (language) => {
