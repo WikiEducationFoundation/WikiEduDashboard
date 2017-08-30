@@ -73,7 +73,9 @@ class UsersController < ApplicationController
   def add
     set_course_and_user
     ensure_user_exists { return }
-    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role]).result
+    set_real_name
+    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role],
+                             real_name: @real_name).result
     ensure_enrollment_success { return }
 
     alert_staff_if_new_instructor_was_added
@@ -90,6 +92,25 @@ class UsersController < ApplicationController
     yield
   end
 
+  # Users may have their real name set, if they went through /onboarding.
+  # However, these real names are not public information; they are used primarily
+  # so that people in a class together can see both names and usernames.
+  # This method sets the real name that is associated with the CoursesUsers
+  # enrollment record, but only if the adding user is allowed to know it.
+  def set_real_name
+    # On P&E Dashboard, real name is not set except via self-enrollment.
+    return unless Features.wiki_ed?
+    # On Wiki Education Dashboard, if the course is approved, we allow the
+    # instructors to add users and still include the real name.
+    return unless adding_self? || current_user.admin? || @course.approved?
+
+    @real_name = @user.real_name
+  end
+
+  def adding_self?
+    current_user.id == @user.id
+  end
+
   def ensure_enrollment_success
     return unless @result[:failure]
     render json: { message: @result[:failure] }, status: 404
@@ -97,7 +118,7 @@ class UsersController < ApplicationController
   end
 
   def make_enrollment_edits
-    return unless enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
+    return unless student_role?
     # for students only, posts templates to userpage and sandbox
     EnrollInCourseWorker.schedule_edits(course: @course,
                                         editing_user: current_user,
@@ -105,10 +126,18 @@ class UsersController < ApplicationController
   end
 
   def alert_staff_if_new_instructor_was_added
-    return unless enroll_params[:role].to_i == CoursesUsers::Roles::INSTRUCTOR_ROLE
+    return unless instructor_role?
     NewInstructorEnrollmentMailer.send_staff_alert(adder: current_user,
                                                    new_instructor: @user,
                                                    course: @course)
+  end
+
+  def instructor_role?
+    enroll_params[:role].to_i == CoursesUsers::Roles::INSTRUCTOR_ROLE
+  end
+
+  def student_role?
+    enroll_params[:role].to_i == CoursesUsers::Roles::STUDENT_ROLE
   end
 
   ###################
@@ -117,7 +146,6 @@ class UsersController < ApplicationController
   def remove
     set_course_and_user
     return if @user.nil?
-
     @course_user = CoursesUsers.find_by(user_id: @user.id,
                                         course_id: @course.id,
                                         role: enroll_params[:role])

@@ -217,6 +217,10 @@ class Course < ActiveRecord::Base
     start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
   end
 
+  def approved?
+    campaigns.any?
+  end
+
   def training_modules
     @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
   end
