@@ -118,17 +118,19 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
             </a>
           </div>
           {languageSwitcher}
-          <Menu right>
-            <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
-            {myDashboard}
-            {forAdmin}
-            {training}
-            {sandbox}
-            {help}
-            {programsDashboard}
-            {helpEnabled}
-            {loggingLinks}
-          </Menu>
+          <div className="hamburger_menu_wrapper">
+            <Menu right>
+              <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
+              {myDashboard}
+              {forAdmin}
+              {training}
+              {sandbox}
+              {help}
+              {programsDashboard}
+              {helpEnabled}
+              {loggingLinks}
+            </Menu>
+          </div>
         </div>
       </nav>
     </div>
