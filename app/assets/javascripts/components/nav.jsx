@@ -11,7 +11,6 @@ const Nav = React.createClass({
     const fluid = $('#nav_root').data('fluid');
     const exploreUrl = $('#nav_root').data('exploreurl');
     const exploreName = $('#nav_root').data('explorename');
-    const exploreClass = $('#nav_root').data('exploreclass');
     const userSignedIn = $('#nav_root').data('usersignedin');
     const ifAdmin = $('#nav_root').data('ifadmin');
     const trainingUrl = $('#nav_root').data('trainingurl');
@@ -29,7 +28,6 @@ const Nav = React.createClass({
       rootUrl: rootUrl,
       logoPath: logoPath,
       fluid: fluid,
-      exploreClass: exploreClass,
       exploreUrl: exploreUrl,
       exploreName: exploreName,
       userSignedIn: userSignedIn,

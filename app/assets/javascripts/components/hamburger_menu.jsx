@@ -139,8 +139,6 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
 HamburgerMenu.propTypes = {
   rootUrl: React.PropTypes.string,
   logoPath: React.PropTypes.string,
-  fluid: React.PropTypes.bool,
-  exploreclass: React.PropTypes.string,
   exploreUrl: React.PropTypes.string,
   exploreName: React.PropTypes.string,
   userSignedIn: React.PropTypes.bool,
