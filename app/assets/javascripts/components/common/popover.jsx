@@ -4,6 +4,7 @@ const Popover = React.createClass({
   displayName: 'Popover',
 
   propTypes: {
+    right_aligned: React.PropTypes.bool,
     is_open: React.PropTypes.bool,
     edit_row: React.PropTypes.node,
     rows: React.PropTypes.node
