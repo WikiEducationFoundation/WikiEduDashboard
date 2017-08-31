@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/importers/user_importer"
+require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for adding multiple users to a course at once
 class MassEnrollmentController < ApplicationController
@@ -19,6 +20,9 @@ class MassEnrollmentController < ApplicationController
     usernames_list.each do |username|
       @results[username] = add_user(username)
     end
+
+    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+
     render :index
   end
 
