@@ -55,7 +55,6 @@ class PushCourseToSalesforce
       Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
       Editing_in_mainspace_assignment_date__c: assignment_date_for(editing_in_mainspace_block),
       Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block),
-      X50__c: more_than_50_students?,
       Medical_or_Psychology_Articles__c: editing_medicine_or_psychology?,
       Group_work__c: group_work?,
       Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?
@@ -93,12 +92,6 @@ class PushCourseToSalesforce
   def due_date_for(block)
     return unless block.present?
     block.calculated_due_date.strftime('%Y-%m-%d')
-  end
-
-  def more_than_50_students?
-    return true if @course.user_count > 50
-    return false unless @course.expected_students
-    @course.expected_students > 50
   end
 
   MEDICINE_AND_PSYCHOLOGY_TAGS = %w[yes_medical_topics maybe_medical_topics].freeze
