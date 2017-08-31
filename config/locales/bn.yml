@@ -97,6 +97,7 @@ bn:
       find: আপনার কোর্স খুঁজুন
       start_date: শুরুর তারিখ
       subject: বিষয়
+    delete_suggestion: অপসারণ
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?

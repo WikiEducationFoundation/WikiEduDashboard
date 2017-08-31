@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Belkacem77
+# Author: Mastanabal
 ---
 kab:
   application:
@@ -40,6 +41,8 @@ kab:
     view: Sken azwel
     view_all: Sken akk
     view_on_wiki: Sken ɣef uwiki
+  courses:
+    delete_suggestion: Kkes
   editable:
     edit_template: Snifel taneɣruft
   users:

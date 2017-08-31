@@ -9,6 +9,7 @@
 # Author: Jkb8
 # Author: Joalpe
 # Author: Macofe
+# Author: MokaAkashiyaPT
 # Author: Vitorvicentevalente
 ---
 pt:
@@ -37,7 +38,7 @@ pt:
     sign_up_extended: Registar-se através da Wikipédia
     sign_up_log_in_extended: através da Wikipédia
     sign_up: Registar-se
-    submit: Submeter
+    submit: Enviar
     training: Formação
     change: Mudar
   dashboard:
@@ -297,7 +298,7 @@ pt:
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
-    wiki_staff: Equipe Wiki Ed
+    wiki_staff: Equipa Wiki Ed
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Os seus cursos

@@ -109,7 +109,7 @@ ne:
     organizers: आयोजकहरू
     program_template: कार्यक्रम टेम्पलेट
     title: शीर्षक
-    use_start_end_dates: सुरु र अन्त्य मितिहरू हेर्नुहोस्
+    use_start_end_dates: शुरू र समाप्ति मितिहरू प्रयोग गर्नुहोस्
   chat:
     label: च्याट
   courses:
@@ -294,7 +294,7 @@ ne:
     term: कहिले
     unsubmitted: नबुझाइएका कार्यक्रमहरू
     view_other: अन्य अभियानहरू हेर्नुहोस्
-    view_page: कार्यक्रम पेज हेर्नुहोस्
+    view_page: कार्यक्रम पृष्ठ हेर्नुहोस्
     yourcourses: तपाईँको कार्यक्रमहरू
   editable:
     edit: सम्पादन

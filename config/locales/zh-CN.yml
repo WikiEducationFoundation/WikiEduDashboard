@@ -382,7 +382,10 @@ zh-CN:
       create_new: 创建一个独立课程
       create_short: 创建项目
       find: 找到一个课程
-      intro: 需要程序标题，其他的可以日后再填写。点击“创建我的程序！”以开始构造用于您wiki程序的页面。
+      intro: 来自课程URL的课程标题及机构。The home wiki is the main wiki where participants will
+        be working, and edits on this wiki will tracked by default. If your program
+        spans multiple languages or projects, contributions will also be tracked for
+        any wiki that has an 'Available Article' or 'Assignment' for that wiki. 点击“创建我的程序！”以开始构造用于您wiki程序的页面。
       participate_in_campaign: 参与活动
       save_cloned_course: 保存
     delete_course: 删除计划
