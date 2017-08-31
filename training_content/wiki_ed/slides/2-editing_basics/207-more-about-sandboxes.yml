@@ -7,10 +7,10 @@ content: |
   as you need) to work on content for Wikipedia.
 
   It's also handy to leave the section at the top — a *template* — that says
-  "this is a user sandbox". In "Edit source" mode, you can see the wiki code for
+  "this is a user sandbox". In source editing mode, you can see the WikiCode for
   that template, something like `{{dashboard.wikiedu.org sandbox}}`.
 
-  Go to your sandbox and try out some of the Wikicode edits you learned a couple
+  Go to your sandbox and try out some of the WikiCode edits you learned a couple
   slides back. Try to add some bold text, or link to another article. Don't forget
   to add an edit summary!
 
