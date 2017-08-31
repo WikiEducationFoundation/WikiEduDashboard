@@ -1,5 +1,5 @@
 id: 206
-title: Your Wikipedia account
+title: Getting to know your sandbox
 summary:
 content: |
   A "sandbox" is your personal wiki page where you can practice editing, plan
@@ -14,7 +14,3 @@ content: |
 
   To go to your default sandbox page, simply click the Sandbox link, which can
   be found at the top right whenever you are logged in.
-
-  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">
-    Open my sandbox
-  </a></div>

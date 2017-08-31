@@ -6,8 +6,8 @@ content: |
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/VisualEditor_Toolbar_Formatting-en.png" />
   </figure>
 
-  To format text in VisualEditor, click the "***<span style="text-decoration: underline">A</span>***"
-  button, highlight your text, and choose the best option.
+  To format text in the visual editor, click the "<span style="text-decoration: underline">***A***</span>"
+  button, highlight your text, and choose the format.
 
   * The "Bold" item (**B**) bolds the selected text.
   * The "Italic" item (*<span style="font-family: serif">I</span>*) italicizes the selected text.
@@ -25,6 +25,6 @@ content: |
   * The final item, "Clear styling" (&nbsp;   ⃠ ), removes all character formatting from the
   selected text, including links.
 
-  If you have not selected any text, then when you click the "A" to open the
-  menu, and then select an item, that formatting will apply to the text that you
-  start typing, from wherever your cursor is located.
+  If you have not selected any text, then when you click the "<span style="text-decoration: underline">***A***</span>"
+  to open the menu, and then select an item, that formatting will apply to the
+  text that you start typing, from wherever your cursor is located.

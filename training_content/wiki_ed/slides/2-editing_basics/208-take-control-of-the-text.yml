@@ -2,12 +2,8 @@ id: 208
 title: Take control of the text!
 summary:
 content: |
-  Now it's time to get started editing! You can navigate to your own
-  [sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox) page in another browser window to try it
-  out for yourself.
-
-  Here's some basic Wikicode to format your text on Talk pages or the "Edit
-  source" option on articles.
+  Most of the time you'll use visual editing, but if you want to edit a Talk page
+  or make changes in source editing mode, you'll need to learn a little Wikicode.
 
   The wiki code for **bold** text is like this:
 

@@ -1,10 +1,12 @@
 id: 210
-title: Using VisualEditor
+title: Editing Wikipedia using the visual editor
 summary:
 content: |
-  When you edit an article on Wikipedia, you can use VisualEditor, which doesn't need WikiCode.
+  When you edit an article on Wikipedia, you can use the visual editor, which doesn't need WikiCode.
 
-  If you're following along on another page, close out of the WikiCode box, and look for an "Edit" button to launch VisualEditor.
+  If you're following along on another page, click the "Edit" button. If you're
+  in source editing mode, switch to visual editing using the pencil icon at the
+  top right.
 
   You'll see a toolbar with a few different options:
 

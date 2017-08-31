@@ -5,12 +5,12 @@ content: |
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Wikipedia_Edit_Summary_dialog_in_VisualEditor.png" />
     <figcaption>
-      Edit summary dialog in VisualEditor
+      Edit summary dialog in the visual editor
     </figcaption>
   </figure>
 
   Once you've made your edit, look for the "Save changes" button at the top right in
-  VisualEditor, or the "Save changes" button beneath the text area in WikiCode.
+  the visual editor, or the "Save changes" button beneath the text area in WikiCode.
 
   For both, you'll want to add what's called an "Edit summary." Describe what you just did,
   so other editors can make sense of your edits. For example, if you added a citation, you
@@ -25,5 +25,5 @@ content: |
     </figcaption>
   </figure>
 
-  In VisualEditor, you'll be asked for your edit summary after you save your edit. In
-  WikiCode, you'll want to type your edit before you save.
+  With visual editing, you'll be asked for your edit summary after you click "Save changes".
+  With source editing, you'll want to type your edit summary before you save.
