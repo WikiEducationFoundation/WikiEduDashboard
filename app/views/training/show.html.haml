@@ -15,6 +15,7 @@
         %ul.training__categories__modules
           - lib_category.modules.each do |lib_module|
             - mod = TrainingModule.find_by(slug: lib_module.slug)
+            - next unless mod # On P&E Dashboard, training content is unpredictable
             - pm = ::TrainingProgressManager.new(current_user, mod)
             %li
               = link_to training_module_path(@library.slug, lib_module.slug), class: 'action-card' do
