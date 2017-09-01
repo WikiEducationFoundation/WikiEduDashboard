@@ -11,8 +11,9 @@ class WikiSlideParser
     remove_translation_markers
     remove_translate_tags
     extract_quiz_template
-    convert_image_template
-    convert_video_template
+    convert_image_templates
+    convert_video_templates
+    convert_button_templates
   end
 
   # The first translated line is the slide title
@@ -105,7 +106,7 @@ class WikiSlideParser
     match && match['value']
   end
 
-  def convert_image_template
+  def convert_image_templates
     # Get all the image templates on the page to allow for multiple images in the same slide
     image_templates = @wikitext.scan(/(?<image>{{Training module image.*?\n}})/m)
     return unless image_templates
@@ -115,13 +116,23 @@ class WikiSlideParser
     end
   end
 
-  def convert_video_template
+  def convert_video_templates
     # Get all the video templates on the page to allow for multiple videos in the same slide
     video_templates = @wikitext.scan(/(?<video>{{Training module video.*?\n}})/m)
     return unless video_templates
-    # Replace each one with the correct figure markup
+    # Replace each one with the correct video markup
     video_templates.each do |template|
       @wikitext.sub! template[0], video_markup_from_template(template[0])
+    end
+  end
+
+  def convert_button_templates
+    # Get all the button templates on the page to allow for multiple buttons in the same slide
+    button_templates = @wikitext.scan(/(?<button>{{Training module button.*?\n}})/m)
+    return unless button_templates
+    # Replace each one with the correct button markup
+    button_templates.each do |template|
+      @wikitext.sub! template[0], button_markup_from_template(template[0])
     end
   end
 
@@ -129,10 +140,11 @@ class WikiSlideParser
     image_layout = image_layout_from(template)
     image_source = image_source_from(template)
     image_filename = image_filename_from(template)
+    image_caption = image_caption_from(template)
     image_credit = image_credit_from(template)
     <<-FIGURE
 <figure class="#{image_layout}"><img src="#{image_source}" />
-<figcaption class="image-credit">
+<figcaption class="#{'image-credit' if image_credit}">#{image_caption}
 <a href="https://commons.wikimedia.org/wiki/#{image_filename}">#{image_credit}</a>
 </figcaption>
 </figure>
@@ -146,6 +158,16 @@ class WikiSlideParser
     VIDEO
   end
 
+  def button_markup_from_template(template)
+    button_text = template_parameter_value(template, 'text')
+    button_link = template_parameter_value(template, 'link')
+    <<-BUTTON
+<div class="training__button-container"><a target="_blank" class="btn btn-primary" href="#{button_link}">
+#{button_text}
+</a></div>
+    BUTTON
+  end
+
   def image_layout_from(template)
     template_parameter_value(template, 'layout')
   end
@@ -156,6 +178,10 @@ class WikiSlideParser
 
   def image_filename_from(template)
     template_parameter_value(template, 'image')
+  end
+
+  def image_caption_from(template)
+    template_parameter_value(template, 'caption')
   end
 
   def image_credit_from(template)

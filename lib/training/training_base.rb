@@ -28,7 +28,7 @@ class TrainingBase
     @all
   end
 
-  # Called during initialization, and also via manual :training_reload action.
+  # Called during manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
     TrainingLibrary.flush
@@ -40,7 +40,7 @@ class TrainingBase
   end
 
   # Use class instance variable @all to store all training content in memory.
-  # This will normally persist until flushed or until the app is restarted.
+  # This will normally persist until flushed.
   def self.all
     @all ||= load_from_cache_or_rebuild
   end
