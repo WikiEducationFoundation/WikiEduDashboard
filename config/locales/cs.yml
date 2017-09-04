@@ -295,7 +295,7 @@ cs:
       invalid_slug: Nevyplněná škola nebo nevyplněný název kurzu
       duplicate_slug: Již existuje jiný program pojmenovaný %{slug}.
     expected_students: Očekávaný počet studentů
-    features_feedback: 'Více návrhů:'
+    features_feedback: 'Automatické návrhy:'
     feedback: Zpětná vazba
     feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
@@ -332,7 +332,7 @@ cs:
     passcode_prompt: 'Zadejte heslo, abyste se mohli přidat:'
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
-    rating_feedback: 'Předpokládané hodnocení článku je :'
+    rating_feedback: 'Předpokládané hodnocení článku je:'
     review_timeline: Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
       svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
       dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. Změny
