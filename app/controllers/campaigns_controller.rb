@@ -60,6 +60,7 @@ class CampaignsController < ApplicationController
 
   def programs
     set_presenter
+    @search_terms = params[:courses_query]
   end
 
   def update

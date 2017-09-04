@@ -336,5 +336,10 @@ describe CampaignsController do
       get :programs, params: { slug: campaign.slug }
       expect(response.body).to have_content(I18n.t('assignments.remove'))
     end
+
+    it 'searches title, school, and term of campaign courses' do
+      get :programs, params: { slug: campaign.slug, courses_query: course.title }
+      expect(response.body).to have_content(course.title)
+    end
   end
 end

@@ -73,4 +73,27 @@ describe CoursesPresenter do
       end
     end
   end
+
+  describe 'searching campaign' do
+    let!(:course) { create(:course, title: "Math Foundations of Informatics", school: "Indiana University", term: "Fall 2017") }
+    subject { described_class.new(current_user: nil, courses_list: Course.all) }
+    context 'find course based on title' do
+      it 'returns courses when searching' do
+        search = 'informatics'
+        expect(subject.search_courses(search)).to_not be_empty
+      end
+    end
+    context 'find course based on school' do
+      it 'returns courses when searching' do
+        search = 'indiana'
+        expect(subject.search_courses(search)).to_not be_empty
+      end
+    end
+    context 'find course based on term' do
+      it 'returns courses when searching' do
+        search = 'fall'
+        expect(subject.search_courses(search)).to_not be_empty
+      end
+    end
+  end
 end
