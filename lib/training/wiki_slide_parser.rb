@@ -108,7 +108,7 @@ class WikiSlideParser
 
   def convert_image_templates
     # Get all the image templates on the page to allow for multiple images in the same slide
-    image_templates = @wikitext.scan(/(?<image>{{Training module image.*?\n}})/m)
+    image_templates = @wikitext.scan(/(?<image>{{Training module image.*?\n}})/im)
     return unless image_templates
     # Replace each one with the correct figure markup
     image_templates.each do |template|
@@ -118,7 +118,7 @@ class WikiSlideParser
 
   def convert_video_templates
     # Get all the video templates on the page to allow for multiple videos in the same slide
-    video_templates = @wikitext.scan(/(?<video>{{Training module video.*?\n}})/m)
+    video_templates = @wikitext.scan(/(?<video>{{Training module video.*?\n}})/im)
     return unless video_templates
     # Replace each one with the correct video markup
     video_templates.each do |template|
@@ -128,7 +128,7 @@ class WikiSlideParser
 
   def convert_button_templates
     # Get all the button templates on the page to allow for multiple buttons in the same slide
-    button_templates = @wikitext.scan(/(?<button>{{Training module button.*?\n}})/m)
+    button_templates = @wikitext.scan(/(?<button>{{Training module button.*?\n}})/im)
     return unless button_templates
     # Replace each one with the correct button markup
     button_templates.each do |template|
