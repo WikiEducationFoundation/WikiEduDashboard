@@ -1,7 +1,7 @@
 default:
   editor: "student editor"
   instructor: "course instructor"
-  course_assignment: "course assignment"
+  course_assignment: "dashboard.wikiedu.org assignment"
   table: "students table"
   table_row: "student table row"
   table_end: "end of students table"

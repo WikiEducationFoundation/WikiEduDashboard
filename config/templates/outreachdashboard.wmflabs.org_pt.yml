@@ -1,7 +1,7 @@
 default:
   editor: "editor participante"
   instructor: "instrutor de programa"
-  course_assignment: "atribuição do programa"
+  course_assignment: "Tarefa do outreachdashboard.wmflabs.org"
   table: "tabela de participantes"
   table_row: "linha da tabela do participante"
   table_end: "fim da tabela de participantes"

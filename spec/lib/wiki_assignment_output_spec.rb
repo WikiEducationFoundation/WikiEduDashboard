@@ -28,19 +28,8 @@ describe WikiAssignmentOutput do
     create(:courses_user, user_id: 3, course_id: 10001)
   end
   let(:templates) do
-    {
-      "default" => {
-        "editor" => "student editor",
-        "instructor" => "course instructor",
-        "course_assignment" => "course assignment",
-        "table" => "students table",
-        "table_row" => "students table row",
-        "course" => "course details",
-        "timeline" => "start of course timeline",
-        "start_of_week" => "start of course week",
-        "end_of_week" => "end of course week"
-      }
-    }
+    template_file_path = "config/templates/#{ENV['dashboard_url']}_#{course.home_wiki.language}.yml"
+    YAML.load_file(Rails.root + template_file_path)
   end
 
   let(:wiki_assignment_output) do

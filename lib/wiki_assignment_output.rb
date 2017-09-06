@@ -59,7 +59,7 @@ class WikiAssignmentOutput
     # post duplicate tags for the same page, unless we update the way that
     # we check for the presense of existging tags to account for both the new
     # and old formats.
-    tag = "{{#{@dashboard_url} assignment | course = #{@course_page}"
+    tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
     tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
     tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
     tag += ' }}'
