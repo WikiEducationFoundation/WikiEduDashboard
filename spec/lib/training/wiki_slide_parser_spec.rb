@@ -83,7 +83,7 @@ Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboratio
 {{Training module image
 | image = File:Find_a_program.png
 | source = https://upload.wikimedia.org/wikipedia/commons/4/48/Find_a_program.png
-| layout = alt-layout-40-right 
+| layout = alt-layout-40-right
 | credit = In the top right of the interface, next to the Log-out and User-name buttons, you can find the language switcher
 }}
 

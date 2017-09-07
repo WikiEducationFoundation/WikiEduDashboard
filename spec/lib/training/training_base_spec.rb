@@ -4,6 +4,10 @@ require "#{Rails.root}/lib/training/training_base"
 require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
+  before do
+    allow(Features).to receive(:wiki_trainings?).and_return(false)
+  end
+
   describe 'abstract parent class' do
     it 'raises errors for required template instance methods' do
       subject = TrainingBase.new({}, 'foo')

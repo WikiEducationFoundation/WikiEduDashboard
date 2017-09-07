@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/training/training_loader"
 
 class TrainingBase
@@ -14,13 +15,8 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(path_to_yaml:, wiki_base_page:,
-                trim_id_from_filename: false)
-    self.path_to_yaml = path_to_yaml
-
-    loader = TrainingLoader.new(content_class: self, path_to_yaml: path_to_yaml,
-                                wiki_base_page: wiki_base_page,
-                                trim_id_from_filename: trim_id_from_filename)
+  def self.load
+    loader = TrainingLoader.new(content_class: self)
 
     @all = loader.load_content
     check_for_duplicate_slugs

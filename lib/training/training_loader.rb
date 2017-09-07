@@ -6,15 +6,14 @@ require "#{Rails.root}/lib/training/wiki_slide_parser"
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
 class TrainingLoader
-  def initialize(content_class:, path_to_yaml:, trim_id_from_filename:, wiki_base_page:)
+  def initialize(content_class:)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @cache_key = content_class.cache_key
 
-    @path_to_yaml = path_to_yaml # a sub-directory of training_content
-    @trim_id_from_filename = trim_id_from_filename
+    @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
 
     # Index page that links to all the libraries, modules or slides to be loaded
-    @wiki_base_page = wiki_base_page
+    @wiki_base_page = content_class.wiki_base_page
 
     @collection = []
   end
@@ -39,7 +38,7 @@ class TrainingLoader
 
   def new_from_file(yaml_file)
     slug = File.basename(yaml_file, '.yml')
-    slug.gsub!(/^[0-9]+-/, '') if @trim_id_from_filename
+    slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
 
     content = YAML.load_file(yaml_file).to_hashugar
     @content_class.new(content, slug)

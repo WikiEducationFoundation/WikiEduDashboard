@@ -9,15 +9,21 @@ class TrainingLibrary < TrainingBase
   #################
   # Class methods #
   #################
-  def self.load(**)
-    super path_to_yaml: "#{base_path}/libraries/*.yml",
-          wiki_base_page: ENV['training_libraries_wiki_page']
-  end
-
   def self.cache_key
     'libraries'
   end
 
+  def self.path_to_yaml
+    "#{base_path}/libraries/*.yml"
+  end
+
+  def self.wiki_base_page
+    ENV['training_libraries_wiki_page']
+  end
+
+  def self.trim_id_from_filename
+    false
+  end
   ####################
   # Instance methods #
   ####################

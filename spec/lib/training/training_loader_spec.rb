@@ -8,18 +8,22 @@ describe TrainingLoader do
   describe '#load_content' do
     before do
       allow(Features).to receive(:wiki_trainings?).and_return(true)
+      no_yaml = "#{Rails.root}/training_content/none/*.yml"
+      allow(TrainingSlide).to receive(:path_to_yaml).and_return(no_yaml)
+      allow(TrainingModule).to receive(:path_to_yaml).and_return(no_yaml)
+      allow(TrainingLibrary).to receive(:path_to_yaml).and_return(no_yaml)
     end
 
     let(:subject) do
-      TrainingLoader.new(content_class: content_class,
-                         path_to_yaml: "#{Rails.root}/training_content/none/*.yml",
-                         trim_id_from_filename: false,
-                         wiki_base_page: wiki_base_page)
+      TrainingLoader.new(content_class: content_class)
     end
 
     describe 'for basic slides' do
       let(:content_class) { TrainingSlide }
-      let(:wiki_base_page) { 'Training modules/dashboard/slides-test' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/slides-test')
+      end
 
       it 'returns an array of training content' do
         VCR.use_cassette 'training/load_from_wiki' do
@@ -31,7 +35,11 @@ describe TrainingLoader do
 
     describe 'for invalid content' do
       let(:content_class) { TrainingLibrary }
-      let(:wiki_base_page) { 'Training modules/dashboard/libraries-invalid' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/libraries-invalid')
+      end
+
       it 'logs a message and does not return the invalid content' do
         VCR.use_cassette 'training/load_from_wiki' do
           expect(Raven).to receive(:capture_message).at_least(:once)
@@ -43,7 +51,10 @@ describe TrainingLoader do
 
     describe 'for invalid base pages' do
       let(:content_class) { TrainingLibrary }
-      let(:wiki_base_page) { 'Training modules/dashboard/does-not-exist' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/does-not-exist')
+      end
       it 'returns an empty collection' do
         VCR.use_cassette 'training/load_from_wiki' do
           modules = subject.load_content
@@ -54,7 +65,11 @@ describe TrainingLoader do
 
     describe 'for slides with translations' do
       let(:content_class) { TrainingSlide }
-      let(:wiki_base_page) { 'Training modules/dashboard/slides-example' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/slides-example')
+      end
+
       it 'imports slides with translated content' do
         VCR.use_cassette 'training/load_from_wiki' do
           slides = subject.load_content

@@ -8,16 +8,21 @@ class TrainingSlide < TrainingBase
   #################
   # Class Methods #
   #################
-  def self.load(**)
-    super path_to_yaml: File.join("#{base_path}/slides/**", '*.yml'),
-          trim_id_from_filename: true,
-          wiki_base_page: ENV['training_slides_wiki_page']
-  end
-
   def self.cache_key
     'slides'
   end
 
+  def self.wiki_base_page
+    ENV['training_slides_wiki_page']
+  end
+
+  def self.path_to_yaml
+    File.join("#{base_path}/slides/**", '*.yml')
+  end
+
+  def self.trim_id_from_filename
+    true
+  end
   ####################
   # Instance methods #
   ####################
