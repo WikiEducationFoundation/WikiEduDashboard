@@ -81,7 +81,10 @@ describe TrainingLoader do
 
     describe 'for modules' do
       let(:content_class) { TrainingModule }
-      let(:wiki_base_page) { 'Training modules/dashboard/modules-test' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/modules-test')
+      end
 
       it 'returns an array of training content' do
         VCR.use_cassette 'training/load_from_wiki' do
@@ -93,7 +96,10 @@ describe TrainingLoader do
 
     describe 'for libraries' do
       let(:content_class) { TrainingLibrary }
-      let(:wiki_base_page) { 'Training modules/dashboard/libraries-test' }
+      before do
+        allow(content_class).to receive(:wiki_base_page)
+          .and_return('Training modules/dashboard/libraries-test')
+      end
 
       it 'returns an array of training content' do
         VCR.use_cassette 'training/load_from_wiki' do
