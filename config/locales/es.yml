@@ -307,7 +307,7 @@ es:
       invalid_slug: Escuela/título vacío para el curso.
       duplicate_slug: Ya existe otro programa llamado %{slug}.
     expected_students: Estudiantes esperados
-    features_feedback: 'Más sugerencias:'
+    features_feedback: 'Sugerencias automatizadas:'
     feedback: Comentarios
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
