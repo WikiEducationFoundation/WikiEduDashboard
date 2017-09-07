@@ -4,7 +4,7 @@ body.training .breadcrumbs
 body.training nav.top-nav
   position relative
   color $type_medium
- 
+
 .training__slide__nav h3 a
   color #fff
   text-decoration none
@@ -25,7 +25,7 @@ body.training nav.top-nav
     color $breadcrumb_light_text
     text-align left
     margin-top 4px
-    padding 0 12px 
+    padding 0 12px
     a
       color #fff
       text-decoration none
@@ -129,4 +129,6 @@ a.slide-nav
       text-decoration none
       &:hover
         text-decoration underline
-
+@media only screen and (max-width: 500px)
+  body.training nav.ham-nav
+    position fixed

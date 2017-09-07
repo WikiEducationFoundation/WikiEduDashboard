@@ -38,6 +38,7 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 import RocketChat from '../components/common/rocket_chat.jsx';
 
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+import Nav from '../components/nav.jsx';
 
 // This is the Redux store.
 // It is accessed from container components via `connect()`.
@@ -109,6 +110,12 @@ const routes = (
 );
 
 const el = document.getElementById('react_root');
+const navBar = document.getElementById('nav_root');
+if (navBar) {
+  ReactDOM.render((<Nav />
+), navBar);
+}
+
 if (el) {
   ReactDOM.render((
     <Provider store={store} >
