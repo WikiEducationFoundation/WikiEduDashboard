@@ -22,14 +22,20 @@ class ListCourseManager
     CampaignsCourses.create(@campaigns_courses_attrs)
 
     return if @already_approved
-    # Task for when a course is initially approved
+
+    # Tasks for when a course is initially approved
+    add_instructor_real_names if Features.wiki_ed?
     send_approval_notification_emails
     RocketChat.new(course: @course).create_channel_for_course if Features.enable_chat?
   end
 
-  def handle_delete
-    return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
-    CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
+  # Additional instructors may have been added before the course was approved.
+  # They will not have their names associated with the CoursesUsers, so we must
+  # add them now that approval has happened.
+  def add_instructor_real_names
+    @course.courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).each do |cu|
+      cu.update(real_name: cu.user.real_name) if cu.real_name.nil?
+    end
   end
 
   def send_approval_notification_emails
@@ -38,5 +44,10 @@ class ListCourseManager
     @course.nonstudents.each do |user|
       CourseApprovalMailer.send_approval_notification(@course, user)
     end
+  end
+
+  def handle_delete
+    return unless CampaignsCourses.find_by(@campaigns_courses_attrs).present?
+    CampaignsCourses.find_by(@campaigns_courses_attrs).destroy
   end
 end
