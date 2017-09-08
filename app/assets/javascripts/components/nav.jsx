@@ -14,7 +14,6 @@ const Nav = React.createClass({
     const userSignedIn = $('#nav_root').data('usersignedin');
     const ifAdmin = $('#nav_root').data('ifadmin');
     const trainingUrl = $('#nav_root').data('trainingurl');
-    const disableTraining = $('#nav_root').data('disable_training');
     const helpDisabled = $('#nav_root').data('help_disabled');
     const askUrl = $('#nav_root').data('ask_url');
     const userPermissions = $('#nav_root').data('user_permissions');
