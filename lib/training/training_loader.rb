@@ -6,8 +6,9 @@ require "#{Rails.root}/lib/training/wiki_slide_parser"
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
 class TrainingLoader
-  def initialize(content_class:)
+  def initialize(content_class:, slug_whitelist: nil)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
+    @slug_whitelist = slug_whitelist # limited list of slugs to process (optional)
     @cache_key = content_class.cache_key
 
     @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
@@ -51,7 +52,7 @@ class TrainingLoader
   CONCURRENCY = 30 # Maximum simultaneous requests to mediawiki
   def load_from_wiki
     Raven.capture_message 'Loading trainings from wiki', level: 'info'
-    source_pages = wiki_source_pages
+    source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
       Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
@@ -103,13 +104,7 @@ class TrainingLoader
 
   # wikitext pages have the slide id and slug embedded in the page title
   def new_from_wikitext_page(wiki_page, wikitext)
-    # Extract the slug and slide id from the last segment of the wiki page title
-    # The expected form is something like "Training modules/dashboard/slides/20201-about-campaigns"
-    id_and_slug = wiki_page.split('/').last
-    slug = id_and_slug.gsub(/^[0-9]+-/, '')
-    id = id_and_slug[/^[0-9]+/]
-    content = { 'id' => id, 'slug' => slug }
-
+    content = slug_and_id_from(wiki_page)
     training_content_and_translations(content: content, base_page: wiki_page, wikitext: wikitext)
   end
 
@@ -125,17 +120,20 @@ class TrainingLoader
   end
 
   # Gets a list of page titles linked from the base page
-  def wiki_source_pages(base_page: nil)
-    link_source = base_page || @wiki_base_page
+  def wiki_source_pages
     # To handle more than 500 pages linked from the source page,
     # we'll need to update this to use 'continue'.
-    query_params = { prop: 'links', titles: link_source, pllimit: 500 }
+    query_params = { prop: 'links', titles: @wiki_base_page, pllimit: 500 }
     response = WikiApi.new(MetaWiki.new).query(query_params)
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
     rescue
-      raise InvalidWikiContentError, "could not get links from '#{link_source}'"
+      raise InvalidWikiContentError, "could not get links from '#{@wiki_base_page}'"
     end
+  end
+
+  def whitelisted_wiki_source_pages
+    wiki_source_pages.select { |page| @slug_whitelist.include? slug_from(page) }
   end
 
   def translated_pages(base_page:, base_page_wikitext:)
@@ -166,6 +164,19 @@ class TrainingLoader
     when 'TrainingModule'
       { name: parser.title, description: parser.content }
     end
+  end
+
+  def slug_and_id_from(wiki_page)
+    # Extract the slug and slide id from the last segment of the wiki page title
+    # The expected form is something like "Training modules/dashboard/slides/20201-about-campaigns"
+    id_and_slug = wiki_page.split('/').last
+    slug = id_and_slug.gsub(/^[0-9]+-/, '')
+    id = id_and_slug[/^[0-9]+/]
+    { 'id' => id, 'slug' => slug }
+  end
+
+  def slug_from(wiki_page)
+    wiki_page.split('/').last.gsub(/^[0-9]+-/, '')
   end
 
   class InvalidWikiContentError < StandardError; end
