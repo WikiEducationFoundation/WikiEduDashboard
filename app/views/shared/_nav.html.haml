@@ -12,8 +12,7 @@
         %li= link_to t('application.my_dashboard'), main_app.root_url, class: class_for_path(request, main_app.root_path)
       - if current_user&.admin?
         %li= link_to 'Admin', '/admin', class: class_for_path(request, '/admin')
-      - unless Features.disable_training?
-        %li= link_to t('application.training'), main_app.training_url, class: class_for_path(request, main_app.training_path)
+      %li= link_to t('application.training'), main_app.training_url, class: class_for_path(request, main_app.training_path)
       - if Features.wiki_ed? && current_user&.permissions == User::Permissions::NONE
         %li= link_to 'My Sandbox', "https://en.wikipedia.org/wiki/Special:MyPage/sandbox"
       - unless Features.disable_help? || user_signed_in?

@@ -24,10 +24,6 @@ class Features
     ENV['disable_help'] == 'true'
   end
 
-  def self.disable_training?
-    ENV['disable_training'] == 'true'
-  end
-
   def self.disable_wiki_output?
     ENV['disable_wiki_output'] == 'true'
   end

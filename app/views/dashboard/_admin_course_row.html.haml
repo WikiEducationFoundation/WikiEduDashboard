@@ -22,7 +22,6 @@
   %td
     %span.students-human
       = "#{course.user_count}/#{course.expected_students}"
-    - unless Features.disable_training?
-      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+    %small.untrained= t("users.training_complete_count", count: course.trained_count)
     %span.students.hidden
       = course.user_count
