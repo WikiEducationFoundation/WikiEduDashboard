@@ -23,7 +23,7 @@ class TrainingModulePresenter
   def cta_button_link
     first_element = @routes.training_module_path(@params[:library_id], @params[:module_id])
     last_element = if @progress_manager.module_completed? || @progress_manager.module_progress.nil?
-                     @training_module.slides.first.slug
+                     @training_module.slides.first&.slug
                    else
                      last_slide_completed
                    end

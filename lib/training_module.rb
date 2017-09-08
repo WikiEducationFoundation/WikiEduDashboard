@@ -36,13 +36,31 @@ class TrainingModule < TrainingBase
   # #slides now returns the instances of TrainingSlide
   def slides
     return @sorted_slides unless @sorted_slides.nil?
-    slides = TrainingSlide.all.select { |slide| raw_slides.collect(&:slug).include?(slide.slug) }
-    slugs = raw_slides.collect(&:slug)
-    @sorted_slides = slides.sort { |a, b| slugs.index(a.slug) <=> slugs.index(b.slug) }
+    slides = TrainingSlide.all.select { |slide| slide_slugs.include?(slide.slug) }
+    @sorted_slides = slides.sort { |a, b| slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug) }
   end
 
   def valid?
     required_attributes = [id, name, slug, description, slides]
     required_attributes.all?
+  end
+
+  def slide_slugs
+    @slide_slugs ||= raw_slides.map(&:slug)
+  end
+
+  # This reloads all the library and module content, but only updates the slides
+  # for this module.
+  def reload
+    TrainingLibrary.flush
+    TrainingModule.flush
+    TrainingLibrary.load
+    TrainingModule.load
+
+    TrainingSlide.load(slug_whitelist: TrainingModule.find(id).slide_slugs)
+
+    # After updating the module's slides, we must flush and update it again
+    TrainingModule.flush
+    TrainingModule.load
   end
 end

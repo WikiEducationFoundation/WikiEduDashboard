@@ -9,7 +9,6 @@ class TrainingLoader
   def initialize(content_class:, slug_whitelist: nil)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
     @slug_whitelist = slug_whitelist # limited list of slugs to process (optional)
-    @cache_key = content_class.cache_key
 
     @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
 
@@ -22,7 +21,6 @@ class TrainingLoader
   def load_content
     load_from_yaml
     load_from_wiki if Features.wiki_trainings?
-    Rails.cache.write @cache_key, @collection
     return @collection
   end
 
@@ -171,7 +169,7 @@ class TrainingLoader
     # The expected form is something like "Training modules/dashboard/slides/20201-about-campaigns"
     id_and_slug = wiki_page.split('/').last
     slug = id_and_slug.gsub(/^[0-9]+-/, '')
-    id = id_and_slug[/^[0-9]+/]
+    id = id_and_slug[/^[0-9]+/].to_i
     { 'id' => id, 'slug' => slug }
   end
 

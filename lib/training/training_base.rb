@@ -15,13 +15,28 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load
-    loader = TrainingLoader.new(content_class: self)
+  def self.load(slug_whitelist: nil)
+    loader = TrainingLoader.new(content_class: self, slug_whitelist: slug_whitelist)
 
-    @all = loader.load_content
+    @all = if slug_whitelist
+             merge_content loader.load_content
+           else
+             loader.load_content
+           end
+
     check_for_duplicate_slugs
     check_for_duplicate_ids
+    Rails.cache.write cache_key, @all
+
     @all
+  end
+
+  def self.merge_content(updated_content)
+    new_slugs = updated_content.map(&:slug)
+    old_without_new = @all.reject do |training_unit|
+      new_slugs.include? training_unit.slug
+    end
+    old_without_new + updated_content
   end
 
   # Called during manual :training_reload action.
