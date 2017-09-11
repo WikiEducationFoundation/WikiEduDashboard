@@ -69,6 +69,12 @@ ne:
     loading: लेखहरू खोल्दै...
     new: (नयाँ)
     rating: कक्षा
+    rating_docs:
+      b: B-class —  उच्च सामान्य रूपमा विकसित लेख
+      c: C-class — सामान्य रूपमा विकसित लेख जसमा धेरै सुधार सम्भव छ
+      start: Start-class — सुरुवातहुँदै गरेको लेख जसमा सुधारको धेरै सम्भावना छ
+      stub: Stub-class — छोटो सुरुवाती लेख सजमा थप सामग्रीको आवश्यकता छ
+    show_cumulative_changes: सम्पूर्ण क्युमुलेटिभ परिवर्तनहरू
     show_current_version: हालको संस्करण देखाउनुहोस्
     title: शीर्षक
     title_example: लेख शीर्षक
@@ -79,6 +85,8 @@ ne:
     edit_size: आकार सम्पादन गर्नुहोस्
     wp10: स्वरूप पूर्णता
   assignments:
+    article: '%{title} लेख निर्दिष्ट गरिसकियो'
+    already_exists: निर्दिष्टता पहिले देखि नै छ!
     assignees: असाइनि(हरू)
     assign_other: लेख असाइन गर्नुहोस्
     add_available: एक उपलब्ध लेख थप्नुहोस्
@@ -114,6 +122,7 @@ ne:
     label: च्याट
   courses:
     activity: क्रियाकलाप
+    active_courses: सक्रिय %{course_type}
     all_courses: सबै पाठ्यक्रमहरू
     archived: अभिलेख गरिएका पाठ्यक्रमहरू
     actions: विभागहरू
@@ -200,6 +209,7 @@ ne:
     join_course: पाठ्यक्रममा समावेशहुनुहोस्
     join_prompt: '''%{title}'' मा समावेश हुनुहुने हो?'
     join_successful: '%{title} मा सफलता पूर्वक समावेश हुनुभएको छ।'
+    join_failed: भर्ना गर्न सकिएन।
     leave_course: पाठ्यक्रम हेर्नुहोस्
     loading: लोड गर्दैछ...
     my_articles: मेरा लेखहरू
@@ -355,6 +365,7 @@ ne:
     diff_hide: लुकाउनुहोस्
     edit_time_span: सम्पादन %{first_time} देखि  %{last_time} सम्म भएको थियो
     edited_by: सम्पादनकर्ता
+    edited_on: सम्पादन गरिएको मिति %{edit_date}
     loading: समीक्षाहरू लोड गर्दै...
     title: शीर्षक
     view_on_wiki: विकीमा डिफ हेर्नुहोस्
@@ -382,6 +393,11 @@ ne:
     empty_week_3: ' या \'
     gradeable_value: मान
     grading_header: 'ग्रेडिङ (कुल: %{total}%)'
+    move_block_down: यसलाई तल सार्नुहोस्
+    move_block_up: यसलाई माथि सार्नुहोस्
+    no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
+    no_timeline: यो पठ्यक्रमको कुनै पनि समयरेखा छैनन्।
+    no_activity_this_week: यो हप्ता कुनै पनि निर्धारित भेटघाट छैनन्
     save_all_changes: सबै सङ्ग्रह गर्नुहोस्
     this_week_title_default: यो साता
     title: समयरेखा
@@ -426,6 +442,7 @@ ne:
     training_incomplete: तालिम अपूर्ण
     training_module_name: तालिम मोड्युल
     training_module_status: वस्तुस्थिति
+    up_to_date_with_training: तालिममा अद्यावधिक
     username: प्रयोगकर्ताको नाम
     username_placeholder: प्रयोगकर्ताको नाम
     role:
