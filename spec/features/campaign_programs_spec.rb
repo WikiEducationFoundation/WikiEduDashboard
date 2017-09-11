@@ -27,4 +27,41 @@ describe 'campaign programs page', type: :feature, js: true do
       expect(CampaignsCourses.find_by_id(campaigns_course.id)).to be_nil
     end
   end
+
+  describe 'control bar' do
+    it 'should allow sorting using a dropdown' do
+      visit "/campaigns/#{campaign.slug}/programs"
+
+      find('#courses select.sorts').find(:xpath, 'option[1]').select_option
+      expect(page).to have_selector('[data-sort="title"].sort.asc')
+      find('#courses select.sorts').find(:xpath, 'option[2]').select_option
+      expect(page).to have_selector('[data-sort="school"].sort.asc')
+      find('#courses select.sorts').find(:xpath, 'option[3]').select_option
+      expect(page).to have_selector('[data-sort="revisions"].sort.desc')
+      find('#courses select.sorts').find(:xpath, 'option[4]').select_option
+      expect(page).to have_selector('[data-sort="characters"].sort.desc')
+
+      find('#courses select.sorts').find(:xpath, 'option[6]').select_option
+      expect(page).to have_selector('[data-sort="views"].sort.desc')
+      find('#courses select.sorts').find(:xpath, 'option[7]').select_option
+      expect(page).to have_selector('[data-sort="students"].sort.desc')
+    end
+  end
+
+  describe 'course list' do
+    it 'should be sortable by the different selectors' do
+      visit "/campaigns/#{campaign.slug}/programs"
+
+      # Sortable by title
+      expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
+      find('#courses [data-sort="title"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
+
+      # Sortable by institution
+      find('#courses [data-sort="school"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="school"].sort.asc')
+      find('#courses [data-sort="school"].sort').trigger('click')
+      expect(page).to have_selector('#courses [data-sort="school"].sort.desc')
+    end
+  end
 end
