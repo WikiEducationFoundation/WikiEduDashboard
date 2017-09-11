@@ -8,6 +8,7 @@ require "#{Rails.root}/lib/training/wiki_slide_parser"
 class TrainingLoader
   def initialize(content_class:, slug_whitelist: nil)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
+
     @slug_whitelist = slug_whitelist # limited list of slugs to process (optional)
 
     @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
@@ -51,6 +52,8 @@ class TrainingLoader
   def load_from_wiki
     Raven.capture_message 'Loading trainings from wiki', level: 'info'
     source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
+    raise_no_matching_wiki_pages_error if source_pages.empty?
+
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
       Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
@@ -177,5 +180,15 @@ class TrainingLoader
     wiki_page.split('/').last.gsub(/^[0-9]+-/, '')
   end
 
+  def raise_no_matching_wiki_pages_error
+    message = <<~ERROR
+      Error: no wiki pages found from among #{@slug_whitelist}.
+
+      Link them from '#{@wiki_base_page}'.
+    ERROR
+    raise NoMatchingWikiPagesFound, message
+  end
+
   class InvalidWikiContentError < StandardError; end
+  class NoMatchingWikiPagesFound < StandardError; end
 end

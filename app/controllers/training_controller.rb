@@ -37,13 +37,24 @@ class TrainingController < ApplicationController
   end
 
   def reload
-    TrainingModule.load_all
+    if params[:module] == 'all'
+      TrainingModule.load_all
+    else
+      reload_single_module
+    end
     render plain: 'done!'
-  rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError => e
+  rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
+         ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound => e
     render plain: e.message
   end
 
   private
+
+  def reload_single_module
+    training_module = TrainingModule.find_by(slug: params[:module])
+    raise ModuleNotFound, "No module #{params[:module]} found!" unless training_module
+    training_module.reload
+  end
 
   def add_training_root_breadcrumb
     add_breadcrumb 'Training Library', :training_path
@@ -60,4 +71,6 @@ class TrainingController < ApplicationController
   def fail_if_entity_not_found(entity, finder)
     raise ActiveRecord::RecordNotFound unless entity.find_by(slug: finder).present?
   end
+
+  class ModuleNotFound < StandardError; end
 end

@@ -15,8 +15,9 @@ describe TrainingLoader do
     end
 
     let(:subject) do
-      TrainingLoader.new(content_class: content_class)
+      TrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
     end
+    let(:slug_whitelist) { nil }
 
     describe 'for basic slides' do
       let(:content_class) { TrainingSlide }
@@ -25,10 +26,34 @@ describe TrainingLoader do
           .and_return('Training modules/dashboard/slides-test')
       end
 
-      it 'returns an array of training content' do
-        VCR.use_cassette 'training/load_from_wiki' do
-          slides = subject.load_content
-          expect(slides.first.content).not_to be_empty
+      context 'with no slug whitelist' do
+        it 'returns an array of training content' do
+          VCR.use_cassette 'training/load_from_wiki' do
+            slides = subject.load_content
+            expect(slides.first.content).not_to be_empty
+          end
+        end
+      end
+
+      context 'with a good slug whitelist' do
+        # This slug needs to be linked on Meta:
+        # https://meta.wikimedia.org/wiki/Training_modules/dashboard/slides-test
+        let(:slug_whitelist) { ['using-media'] }
+        it 'returns an array of just the whitelisted content' do
+          VCR.use_cassette 'training/load_from_wiki' do
+            slides = subject.load_content
+            expect(slides.count).to eq(1)
+            expect(slides.first.slug).to eq('using-media')
+          end
+        end
+      end
+
+      context 'with a bad slug whitelist' do
+        let(:slug_whitelist) { ['this-is-not-a-slug-listed-on-meta'] }
+        it 'raises an error' do
+          VCR.use_cassette 'training/load_from_wiki' do
+            expect{ subject.load_content }.to raise_error(TrainingLoader::NoMatchingWikiPagesFound)
+          end
         end
       end
     end

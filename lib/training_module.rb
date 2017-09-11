@@ -57,7 +57,7 @@ class TrainingModule < TrainingBase
     TrainingLibrary.load
     TrainingModule.load
 
-    TrainingSlide.load(slug_whitelist: TrainingModule.find(id).slide_slugs)
+    TrainingSlide.load(slug_whitelist: TrainingModule.find_by(slug: slug).slide_slugs)
 
     # After updating the module's slides, we must flush and update it again
     TrainingModule.flush

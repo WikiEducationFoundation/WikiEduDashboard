@@ -48,16 +48,27 @@ describe TrainingController do
   end
 
   describe '#reload' do
-    it 'returns the result upon success' do
-      get :reload
-      expect(response.body).to have_content 'done!'
+    context 'for all modules' do
+      let(:subject) { get :reload, params: { module: 'all' } }
+      it 'returns the result upon success' do
+        subject
+        expect(response.body).to have_content 'done!'
+      end
+
+      it 'displays an error message upon failure' do
+        allow(TrainingBase).to receive(:load_all)
+          .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
+        subject
+        expect(response.body).to have_content 'oh noes!'
+      end
     end
 
-    it 'displays an error message upon failure' do
-      allow(TrainingBase).to receive(:load_all)
-        .and_raise(TrainingBase::DuplicateIdError, 'oh noes!')
-      get :reload
-      expect(response.body).to have_content 'oh noes!'
+    context 'for a single module' do
+      let(:subject) { get :reload, params: { module: 'images-and-media' } }
+      it 'returns the result upon success' do
+        subject
+        expect(response.body).to have_content 'done!'
+      end
     end
   end
 end

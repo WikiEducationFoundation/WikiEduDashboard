@@ -33,7 +33,8 @@ class TrainingBase
 
   def self.merge_content(updated_content)
     new_slugs = updated_content.map(&:slug)
-    old_without_new = @all.reject do |training_unit|
+    # @all may be nil or an array of training objects
+    old_without_new = Array(@all).reject do |training_unit|
       new_slugs.include? training_unit.slug
     end
     old_without_new + updated_content
