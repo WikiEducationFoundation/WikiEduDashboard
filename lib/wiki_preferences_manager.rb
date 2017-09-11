@@ -10,9 +10,17 @@ class WikiPreferencesManager
 
   def enable_visual_editor
     ve_options = [
-      'visualeditor-editor=visualeditor', # enables VE as default editor
-      'visualeditor-hidebetawelcome=1', # skips the 'start editing' dialog on first edit
-      'visualeditor-hideusered=1' # disables the blue dots on cite and link buttons
+      # enables VE as default editor
+      'visualeditor-editor=visualeditor',
+      # skips the 'start editing' dialog on first edit
+      'visualeditor-hidebetawelcome=1',
+      # disables the blue dots on cite and link buttons
+      'visualeditor-hideusered=1',
+      # disables VE source editing for talk pages, which is the default but
+      # breaks the talk page guided tour if enabled.
+      'visualeditor-newwikitext=0',
+      # single Edit / Edit Source tab, remembering last editor used
+      'visualeditor-tabs=remember-last'
     ].join('|')
     #################
     # Other options #
