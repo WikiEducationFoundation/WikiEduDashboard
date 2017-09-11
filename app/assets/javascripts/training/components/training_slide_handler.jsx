@@ -142,7 +142,7 @@ const TrainingSlideHandler = React.createClass({
     }
 
     let loginWarning;
-    if (!this.userLoggedIn() && !Features.disableTraining) {
+    if (!this.userLoggedIn()) {
       loginWarning = (
         <div className="training__slide__notification" key="not_logged_in">
           <div className="container">

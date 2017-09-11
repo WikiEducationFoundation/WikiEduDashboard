@@ -8,10 +8,8 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu.user, :id, :username)
   json.admin cu.user.permissions == User::Permissions::ADMIN
 
-  unless Features.disable_training?
-    ctp_manager = CourseTrainingProgressManager.new(cu.user, cu.course)
-    json.course_training_progress ctp_manager.course_training_progress
-  end
+  ctp_manager = CourseTrainingProgressManager.new(cu.user, cu.course)
+  json.course_training_progress ctp_manager.course_training_progress
 
   # Email and real names of participants are only shown to admins or
   # an instructor of the course.

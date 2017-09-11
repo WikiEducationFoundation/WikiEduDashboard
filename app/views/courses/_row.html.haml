@@ -22,5 +22,4 @@
   %td
     %span.students
       = course.user_count
-    - unless Features.disable_training?
-      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+    %small.untrained= t("users.training_complete_count", count: course.trained_count)

@@ -27,9 +27,8 @@
             = t("users.editors")
           %option{rel: 'desc', value: 'creation-date'}
             = t("courses.creation_date")
-          - unless Features.disable_training?
-            %option{rel: 'desc', value: 'untrained'}
-              = t("courses.untrained")
+          %option{rel: 'desc', value: 'untrained'}
+            = t("courses.untrained")
 
     %table.table.table--hoverable.table--sortable
       %thead

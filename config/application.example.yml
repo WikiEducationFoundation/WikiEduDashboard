@@ -22,7 +22,6 @@
   disable_help: 'true'
 
 # Set to true to disable mandatory training.
-  disable_training: 'false'
   enable_wiki_trainings: 'false'
   training_slides_wiki_page: 'Training modules/dashboard/slides'
   training_modules_wiki_page: 'Training modules/dashboard/modules'
