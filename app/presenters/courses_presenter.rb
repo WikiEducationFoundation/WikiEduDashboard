@@ -38,6 +38,10 @@ class CoursesPresenter
     courses.current_and_future
   end
 
+  def search_courses(q)
+    courses.where("lower(title) like ? OR lower(school) like ? OR lower(term) like ?", "%#{q}%", "%#{q}%", "%#{q}%")
+  end
+
   def courses_by_recent_edits
     # Sort first by recent edit count, and then by course title
     courses.sort_by { |course| [-course.recent_revision_count, course.title] }

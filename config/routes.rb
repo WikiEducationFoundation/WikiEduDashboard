@@ -147,6 +147,10 @@ Rails.application.routes.draw do
       controller: :campaigns,
       action: :show
   get 'campaigns/:slug', to: redirect('campaigns/%{slug}/programs')
+  get 'campaigns/:slug/programs/:courses_query',
+      controller: :campaigns,
+      action: :programs,
+      to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'
