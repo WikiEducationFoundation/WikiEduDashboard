@@ -32,7 +32,6 @@ const Nav = React.createClass({
       userSignedIn: userSignedIn,
       ifAdmin: ifAdmin,
       trainingUrl: trainingUrl,
-      disableTraining: disableTraining,
       helpDisabled: helpDisabled,
       askUrl: askUrl,
       wikiEd: wikiEd,
@@ -70,7 +69,6 @@ const Nav = React.createClass({
     let navClass;
     let myDashboard;
     let forAdmin;
-    let disableTraining;
     let help;
     let Sandbox;
     let wikiEd;
@@ -140,13 +138,6 @@ const Nav = React.createClass({
         </li>
       );
     }
-    if (this.state.disableTraining === false) {
-      disableTraining = (
-        <li>
-          <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
-        </li>
-      );
-    }
     if ((this.state.userSignedIn || this.state.helpDisabled) === false) {
       help = (
         <li>
@@ -192,7 +183,6 @@ const Nav = React.createClass({
             userSignedIn = {this.state.userSignedIn}
             ifAdmin = {this.state.ifAdmin}
             trainingUrl = {this.state.trainingUrl}
-            disableTraining = {this.state.disableTraining}
             helpDisabled = {this.state.helpDisabled}
             askUrl = {this.state.askUrl}
             wikiEd = {this.state.wikiEd}
@@ -221,7 +211,9 @@ const Nav = React.createClass({
                 </li>
                 {myDashboard}
                 {forAdmin}
-                {disableTraining}
+                <li>
+                  <CustomLink to={this.state.trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
+                </li>
                 {Sandbox}
                 {help}
                 {wikiEd}

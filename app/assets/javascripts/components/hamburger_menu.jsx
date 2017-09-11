@@ -2,10 +2,9 @@ import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
 
-const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, disableTraining, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
+const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
   let myDashboard;
   let forAdmin;
-  let training;
   let help;
   let sandbox;
   let programsDashboard;
@@ -75,13 +74,6 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
       </li>
     );
   }
-  if (disableTraining === false) {
-    training = (
-      <li>
-        <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
-      </li>
-    );
-  }
   if ((userSignedIn || helpDisabled) === false) {
     help = (
       <li>
@@ -123,7 +115,9 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
               <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
               {myDashboard}
               {forAdmin}
-              {training}
+              <li>
+                <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
+              </li>
               {sandbox}
               {help}
               {programsDashboard}
@@ -146,7 +140,6 @@ HamburgerMenu.propTypes = {
   userSignedIn: React.PropTypes.bool,
   ifAdmin: React.PropTypes.bool,
   trainingUrl: React.PropTypes.string,
-  disableTraining: React.PropTypes.bool,
   helpDisabled: React.PropTypes.bool,
   askUrl: React.PropTypes.string,
   wikiEd: React.PropTypes.bool,
