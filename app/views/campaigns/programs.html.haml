@@ -15,6 +15,8 @@
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}
             = t("courses.title")
+          %option{rel: 'asc', value: 'school'}
+            = t("courses.school")
           %option{rel: 'desc', value: 'revisions'}
             = t("metrics.revisions")
           %option{rel: 'desc', value: 'characters'}
@@ -36,8 +38,9 @@
           %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
             = t("#{@presenter.course_string_prefix}.courses")
             %span.sortable-indicator
-          %th
+          %th.sort.sortable{style: 'width: 200px;', 'data-default-order' => 'asc', 'data-sort' => 'school'}
             = t("#{@presenter.course_string_prefix}.school_and_term")
+            %span.sortable-indicator
           %th.sort.sortable{style: 'width: 165px;', 'data-default-order' => 'desc', 'data-sort' => 'revisions'}
             .tooltip-trigger
               = t('metrics.revisions')
@@ -66,10 +69,10 @@
             %th{style: 'width:100px'}
               = t('courses.actions')
       %tbody.list
-      - if @search_terms.present?
-        %h4= t("Results for: '#{@search_terms}'")
-        - @presenter.search_courses(@search_terms).each do |c|
-          = render 'campaigns/course_row', course: c, admin: false, user: false
-      - else
-        - @presenter.courses_by_recent_edits.each do |c|
-          = render 'campaigns/course_row', course: c, admin: false, user: false
+        - if @search_terms.present?
+          %h4= t("Results for: '#{@search_terms}'")
+          - @presenter.search_courses(@search_terms).each do |c|
+            = render 'campaigns/course_row', course: c, admin: false, user: false
+        - else
+          - @presenter.courses_by_recent_edits.each do |c|
+            = render 'campaigns/course_row', course: c, admin: false, user: false
