@@ -174,7 +174,11 @@ describe 'New course creation and editing', type: :feature do
       # pick 2 types of assignments
       page.all('div.wizard__option__checkbox')[1].click
       page.all('div.wizard__option__checkbox')[3].click
+      click_button 'Next'
+
+      # Group work or individual work
       sleep 1
+      click_button 'Individually'
       click_button 'Next'
 
       # on the summary
