@@ -5,6 +5,10 @@ class Fall2017CmuExperimentMailerPreview < ActionMailer::Preview
     Fall2017CmuExperimentMailer.email(course, instructor, email_passcode)
   end
 
+  def remind_instructor
+    Fall2017CmuExperimentMailer.email(course, instructor, email_passcode, reminder: true)
+  end
+
   private
 
   def course

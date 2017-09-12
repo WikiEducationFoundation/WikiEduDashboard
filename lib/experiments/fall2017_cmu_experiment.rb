@@ -25,6 +25,7 @@ class Fall2017CmuExperiment
   STATUS_KEY = :fall_2017_cmu_experiment
   EMAIL_SENT_AT = :fall_2017_cmu_experiment_email_sent_at
   EMAIL_CODE = :fall_2017_cmu_experiment_email_code
+  REMINDER_SENT_AT = :fall_2017_cmu_experiment_reminder_sent_at
   def initialize(course)
     @course = course
     @status = course.flags[STATUS_KEY]
@@ -34,6 +35,7 @@ class Fall2017CmuExperiment
   def process_course
     enroll_in_experiment if @status.nil?
     send_email_invitation if @status == 'ready_for_email'
+    send_email_reminder if @status == 'email_sent' && invited_over_a_week_ago?
   end
 
   def opt_in
@@ -60,10 +62,11 @@ class Fall2017CmuExperiment
     @experiment_setting.save!
   end
 
-  def update_status(new_status, email_just_sent: false, email_code: nil)
+  def update_status(new_status, email_just_sent: false, email_code: nil, reminder_just_sent: false)
     @course.flags[STATUS_KEY] = new_status
     @course.flags[EMAIL_SENT_AT] = Time.now.to_s if email_just_sent
     @course.flags[EMAIL_CODE] = email_code if email_code.present?
+    @course.flags[REMINDER_SENT_AT] = Time.now.to_s if reminder_just_sent
     @course.save
     @status = new_status
   end
@@ -73,6 +76,20 @@ class Fall2017CmuExperiment
     first_instructor = @course.instructors.first
     Fall2017CmuExperimentMailer.send_invitation(@course, first_instructor, email_code)
     update_status('email_sent', email_just_sent: true, email_code: email_code)
+    sleep 2 unless Rails.env == 'test' # pause to avoid email rate-limiting
+  end
+
+  def invited_over_a_week_ago?
+    invited_at = Time.parse(@course.flags[EMAIL_SENT_AT])
+    invited_at < 1.week.ago
+  end
+
+  def send_email_reminder
+    email_code = @course.flags[EMAIL_CODE]
+    first_instructor = @course.instructors.first
+    Fall2017CmuExperimentMailer.send_invitation(@course, first_instructor, email_code,
+                                                reminder: true)
+    update_status('reminder_sent', reminder_just_sent: true)
     sleep 2 unless Rails.env == 'test' # pause to avoid email rate-limiting
   end
 end

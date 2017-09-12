@@ -30,6 +30,19 @@ describe Fall2017CmuExperiment do
       experiment_setting = Setting.find_by(key: 'fall_2017_cmu_experiment')
       expect(experiment_setting.value[:enrolled_courses_count]).to eq(10)
     end
+
+    context 'when invitations get no response for a week' do
+      after { Timecop.return }
+      it 'sends reminders for courses that have not responded' do
+        Fall2017CmuExperiment.process_courses
+        Timecop.travel(8.days.from_now)
+        Fall2017CmuExperiment.process_courses
+        reminded_courses = Course.all.select do |c|
+          c.flags[Fall2017CmuExperiment::STATUS_KEY] == 'reminder_sent'
+        end
+        expect(reminded_courses.count).to eq(7)
+      end
+    end
   end
 
   let(:course) { create(:course, flags: { Fall2017CmuExperiment::STATUS_KEY => 'email_sent' }) }
