@@ -60,7 +60,16 @@ const DiffViewer = React.createClass({
   },
 
   wikiUrl() {
-    return `https://${this.props.revision.wiki.language}.${this.props.revision.wiki.project}.org`;
+    const wikiProject = this.props.revision.wiki.project;
+    let url;
+
+    if (wikiProject === 'wikipedia') {
+      url = `https://${this.props.revision.wiki.language}.${this.props.revision.wiki.project}.org`;
+    } else {
+      url = `https://${this.props.revision.wiki.project}.org`;
+    }
+
+    return url;
   },
 
   diffUrl() {
@@ -89,7 +98,15 @@ const DiffViewer = React.createClass({
   },
 
   findParentOfFirstRevision() {
-    const wikiUrl = `https://${this.props.first_revision.wiki.language}.${this.props.first_revision.wiki.project}.org`;
+    const wikiProject = this.props.revision.wiki.project;
+    let wikiUrl;
+
+    if (wikiProject === 'wikipedia') {
+      wikiUrl = `https://${this.props.first_revision.wiki.language}.${wikiProject}.org`;
+    } else {
+      wikiUrl = `https://${wikiProject}.org`;
+    }
+
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
     const diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}&format=json`;
     $.ajax(
@@ -136,18 +153,12 @@ const DiffViewer = React.createClass({
 
   render() {
     let button;
-    let showButtonStyle = '';
-
-    if (this.props.revision.wiki.project === 'wikidata') {
-      // the DiffViewer does not work for wikidata.org because it doesn't use the same diff format as other wikis,
-      // so we're hiding the button
-      showButtonStyle = ' hidden';
-    }
+    let showButtonStyle;
 
     if (this.props.largeButton) {
-      showButtonStyle = `button dark${showButtonStyle}`;
+      showButtonStyle = 'button dark';
     } else {
-      showButtonStyle = `button dark small${showButtonStyle}`;
+      showButtonStyle = 'button dark small';
     }
 
     if (this.state.showDiff) {
