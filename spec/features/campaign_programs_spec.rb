@@ -5,8 +5,16 @@ describe 'campaign programs page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
   let(:campaign) { create(:campaign) }
-  let(:course) { create(:course) }
-  let(:course2) { create(:visiting_scholarship, school: 'ZZZ', slug: 'ZZZ/Basket-weaving_scholarship_(spring_2015)') }
+  let(:course) do
+    create(:course, title: 'Basket-weaving',
+                    school: 'AAA',
+                    slug: 'AAA/Basket-weaving_(spring_2016)')
+  end
+  let(:course2) do
+    create(:course, title: 'Advanced basket-weaving',
+                    school: 'ZZZ',
+                    slug: 'ZZZ/Advanced_basket-weaving_(spring_2016)')
+  end
   let!(:campaigns_course) do
     create(:campaigns_course, campaign_id: campaign.id,
                               course_id: course.id)
@@ -69,26 +77,26 @@ describe 'campaign programs page', type: :feature, js: true do
       expect(page).to have_selector('#courses [data-sort="school"].sort.desc')
     end
 
-    def expect_regular_before_underwater_basketweaving
-      expect(page.find(:xpath, '//table/tbody/tr[1]/td[1]')).to have_content 'Basket-weaving scholarship'
-      expect(page.find(:xpath, '//table/tbody/tr[2]/td[1]')).to have_content 'Underwater basket-weaving'
+    def expect_advanced_before_regular_basketweaving
+      expect(page.find(:xpath, '//tbody/tr[1]')).to have_content 'Advanced basket-weaving'
+      expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Basket-weaving'
     end
-    def expect_underwater_before_regular_basketweaving
-      expect(page.find(:xpath, '//table/tbody/tr[1]/td[1]')).to have_content 'Underwater basket-weaving'
-      expect(page.find(:xpath, '//table/tbody/tr[2]/td[1]')).to have_content 'Basket-weaving scholarship'
+    def expect_regular_before_advanced_basketweaving
+      expect(page.find(:xpath, '//tbody/tr[1]')).to have_content 'Basket-weaving'
+      expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Advanced basket-weaving'
     end
 
     it 'should sort the contained courses' do
       visit "/campaigns/#{campaign.slug}/programs"
 
-      expect_regular_before_underwater_basketweaving
+      expect_advanced_before_regular_basketweaving
       find('#courses [data-sort="title"].sort').click
-      expect_underwater_before_regular_basketweaving
+      expect_regular_before_advanced_basketweaving
 
       find('#courses [data-sort="school"].sort').click
-      expect_underwater_before_regular_basketweaving
+      expect_regular_before_advanced_basketweaving
       find('#courses [data-sort="school"].sort').click
-      expect_regular_before_underwater_basketweaving
+      expect_advanced_before_regular_basketweaving
     end
   end
 end
