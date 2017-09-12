@@ -67,6 +67,37 @@ essentials:
             </li>
           </ul>
 
+      -
+        if: working_in_groups
+        title: Best practices for working in groups
+        kind: 1
+        content: |
+          <ul>
+            <li>
+              Make sure everyone in the group is assigned to the same Wikipedia
+              article on the Students tab of this course page.
+            </li>
+            <li>
+              Select one group member whose Sandbox space you'll all share to
+              draft your article. Each person should link to that shared Sandbox
+              from their own Sandbox page. A sandbox is like any other page on
+              Wikipedia, and anyone can edit it.
+            </li>
+            <li>
+              Wikipedia doesn't allow multiple people to edit from different
+              devices at the same time. If you're working together in person,
+              one person should add the work to the Sandbox. If you are all
+              working independently, make small edits and save often to avoid
+              "editing conflicts" with classmates. Make sure that you're logged
+              in under your own Wikipedia account while editing in your
+              classmate's sandbox to ensure your edits are recorded.
+            </li>
+            <li>
+              Don't create a group account for your project. Group accounts are
+              prohibited.
+            </li>
+          </ul>
+
 evaluate_an_article:
   - # EVALUATE
     weight: 1

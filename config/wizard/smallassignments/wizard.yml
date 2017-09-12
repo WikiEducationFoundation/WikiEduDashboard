@@ -32,3 +32,32 @@
       blurb: Find an opportunity to improve an article by uploading and adding a photo you took.
       # description:
       output: illustrate
+
+-
+  key: working_in_groups
+  title: Working in groups
+  description: |
+    Wikipedia assignments work well as individual or group projects. When students
+    work individually, they have the chance to make a substantial quality
+    contribution to Wikipedia, but when they work in groups, they may have an
+    easier time overcoming some of the first-time challenges of contributing to
+    Wikipedia.
+
+    If you decide to have your students work in groups for their Wikipedia assignment,
+    your timeline will include some recommendations to ensure that each student
+    gets credit for their work on Wikipedia.
+
+    <br>
+
+    **Will your students be working in groups or individually?**
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: In groups
+      tag: working_in_groups
+      logic: working_in_groups
+    -
+      title: Individually
+      tag: working_individually
+      logic: working_individually
