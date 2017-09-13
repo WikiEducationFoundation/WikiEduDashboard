@@ -53,7 +53,7 @@ const StudentList = React.createClass({
       const assignOptions = { user_id: student.id, role: 0 };
       const reviewOptions = { user_id: student.id, role: 1 };
       if (student.real_name) {
-        const nameParts = student.real_name.split(' ');
+        const nameParts = student.real_name.trim().toLowerCase().split(' ');
         student.first_name = nameParts[0];
         student.last_name = nameParts.slice().pop();
       }
