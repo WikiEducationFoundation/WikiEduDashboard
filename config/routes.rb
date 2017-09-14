@@ -240,6 +240,7 @@ Rails.application.routes.draw do
 
   # Update Locale Preference
   post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
+  get '/update_locale/:locale' => 'users#update_locale'
 
   # Route aliases for React frontend
   get '/course_creator(/*any)' => 'dashboard#index', as: :course_creator
