@@ -138,6 +138,7 @@ Rails.application.routes.draw do
       get 'students'
       get 'instructors'
       get 'courses'
+      get 'articles_csv'
       put 'add_organizer'
       put 'remove_organizer'
       put 'remove_course'

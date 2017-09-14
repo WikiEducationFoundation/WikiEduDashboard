@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
+
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: [:index, :create]
-  before_action :set_campaign, only: [:overview, :programs, :articles, :users, :edit, :update, :destroy,
-                                      :add_organizer, :remove_organizer, :remove_course]
+  before_action :set_campaign, only: [:overview, :programs, :articles, :users, :edit,
+                                      :update, :destroy, :add_organizer, :remove_organizer,
+                                      :remove_course, :courses, :articles_csv]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: [:update, :destroy, :add_organizer,
                                                    :remove_organizer, :remove_course, :edit]
@@ -131,11 +134,20 @@ class CampaignsController < ApplicationController
   end
 
   def courses
-    set_campaign
     filename = "#{@campaign.slug}-courses-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
         send_data CampaignCsvBuilder.new(@campaign).courses_to_csv,
+                  filename: filename
+      end
+    end
+  end
+
+  def articles_csv
+    filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
+    respond_to do |format|
+      format.csv do
+        send_data CampaignArticlesCsvBuilder.new(@campaign).articles_to_csv,
                   filename: filename
       end
     end

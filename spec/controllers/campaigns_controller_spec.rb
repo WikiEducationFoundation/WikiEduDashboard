@@ -268,6 +268,23 @@ describe CampaignsController do
     end
   end
 
+  describe '#articles_csv' do
+    let(:course) { create(:course) }
+    let(:campaign) { create(:campaign) }
+    let(:article) { create(:article) }
+    let(:request_params) { { slug: campaign.slug, format: :csv } }
+
+    before do
+      campaign.courses << course
+      create(:articles_course, article: article, course: course)
+    end
+    it 'returns a csv of course data' do
+      get :articles_csv, params: request_params
+      expect(response.body).to have_content(course.slug)
+      expect(response.body).to have_content(article.title)
+    end
+  end
+
   describe '#overview' do
     render_views
     let(:user) { create(:user) }
