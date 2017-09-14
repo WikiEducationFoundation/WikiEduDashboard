@@ -15,7 +15,7 @@ class ContinuedCourseActivityAlertManager
       next unless significant_activity_after_course_end?(course)
 
       alert = Alert.create(type: 'ContinuedCourseActivityAlert', course_id: course.id)
-      alert.email_course_admins
+      alert.email_content_expert
     end
   end
 
