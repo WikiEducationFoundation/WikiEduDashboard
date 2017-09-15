@@ -1,5 +1,5 @@
 import React from 'react';
-const md = require('../../utils/markdown_it.js').default();
+const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 import InputMixin from '../../mixins/input_mixin.js';
 import { TrixEditor } from 'react-trix';
 
