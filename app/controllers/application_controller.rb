@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 gem 'browser'
 
 # The application controller is the parent for all other controllers.
@@ -6,20 +7,10 @@ gem 'browser'
 # and login.
 class ApplicationController < ActionController::Base
   include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
-
+  include Errors::RescueErrors
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  rescue_from ActionController::InvalidAuthenticityToken do
-    render plain: t('error_401.explanation'), status: :unauthorized
-  end
-
-  # Stop index.php routes from causing the kinds of errors that get reported
-  # to Sentry.
-  rescue_from ActionController::UnknownFormat do
-    render plain: t('error_404.explanation'), status: 404
-  end
-
   force_ssl if: :ssl_configured?
 
   before_action :check_for_expired_oauth_credentials
@@ -51,21 +42,31 @@ class ApplicationController < ActionController::Base
 
   def require_signed_in
     return if user_signed_in?
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+
+    respond_to do |format|
+      # format.html what shold happen here?
+      format.json { render json: { message: 'Please sign in.' }, 
+                                   status: :unprocessable_entity }
+    end
   end
 
   def require_permissions
     course = Course.find_by_slug(params[:id])
     return if user_signed_in? && current_user.can_edit?(course)
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    respond_to do |format|
+      # format.html what shold happen here?
+      format.json { render json: { message: 'You are not permitted to do that.' },
+                                   status: :unprocessable_entity }
+    end
   end
 
   def require_admin_permissions
     return if user_signed_in? && current_user.admin?
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    respond_to do |format|
+      # format.html what shold happen here?
+      format.json { render json: { message: 'Only administrators may do that.' },
+                                   status: :unprocessable_entity }
+    end
   end
 
   def require_participating_user
@@ -73,8 +74,11 @@ class ApplicationController < ActionController::Base
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
     return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    respond_to do |format|
+      # format.html what shold happen here?
+      format.json { render json: { message: 'Visitors are not permitted to do that.' }, 
+                                   status: :unprocessable_entity }
+    end
   end
 
   def check_for_expired_oauth_credentials
