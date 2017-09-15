@@ -4,11 +4,9 @@ require "#{Rails.root}/app/workers/update_course_worker"
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
   respond_to :html, :json
-  before_action :require_permissions,
-                only: [:update_timeline]
+  before_action [:require_permissions, :set_course]
 
   def update_timeline
-    @course = Course.find_by_slug(params[:course_id])
     Array.wrap(timeline_params['weeks']).each do |week|
       update_week week
     end
@@ -16,7 +14,23 @@ class TimelineController < ApplicationController
     render 'timeline'
   end
 
+  def enable_timeline
+    @course.flags[:timeline_enabled] = true
+    @course.save!
+    render :json, success: true
+  end
+
+  def disable_timeline
+    @course.flags[:timeline_enabled] = false
+    @course.save!
+    render :json, success: true
+  end
+
   private
+
+  def set_course
+    @course = Course.find_by_slug(params[:course_id])
+  end
 
   ########################
   # Week + Block Methods #

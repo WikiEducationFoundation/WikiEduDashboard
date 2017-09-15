@@ -95,6 +95,10 @@ Rails.application.routes.draw do
   resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
+  post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
+       constraints: { course_id: /.*/ }
 
   get 'revisions' => 'revisions#index'
 

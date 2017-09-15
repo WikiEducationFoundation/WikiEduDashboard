@@ -268,6 +268,11 @@ class Course < ActiveRecord::Base
     wiki_edits_enabled?
   end
 
+  # Overidden by ClassroomProgramCourse
+  def timeline_enabled?
+    flags[:timeline_enabled].present?
+  end
+
   #################
   # Cache methods #
   #################
@@ -339,8 +344,6 @@ class Course < ActiveRecord::Base
   # Check if course times are invalid and if yes, set the end time to be the same
   # as that of the start time
   def check_course_times
-    if start > self.end
-      self.end = start
-    end
+    self.end = start if start > self.end
   end
 end
