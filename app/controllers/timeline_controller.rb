@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
   respond_to :html, :json
-  before_action [:require_permissions, :set_course]
+  before_action :require_permissions, :set_course
 
   def update_timeline
     Array.wrap(timeline_params['weeks']).each do |week|

@@ -8,7 +8,7 @@ import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty
 const makeSpacesUniform = (str) => { return str.replace(/\s{1,}/g, ' '); };
 
 describe('EmptyWeek', () => {
-  const course = { slug: 'my_course' };
+  const course = { slug: 'my_course', type: 'ClassroomProgramCourse' };
 
   describe('empty state', () => {
     const TestEmptyWeek = ReactTestUtils.renderIntoDocument(

@@ -11,6 +11,7 @@ describe('CourseNavbar', () => {
   describe('for ClassroomProgramCourse', () => {
     const course = {
       type: 'ClassroomProgramCourse',
+      timeline_enabled: true,
       flags: { enable_chat: true }, // adds Chat link
       title: 'bar',
       url: 'https://example.com'
@@ -31,9 +32,10 @@ describe('CourseNavbar', () => {
     });
   });
 
-  describe('for BasicCourse', () => {
+  describe('for BasicCourse without timeline enabled', () => {
     const course = {
-      type: 'BasicCourse'
+      type: 'BasicCourse',
+      timeline_enabled: false
     };
     const component = (
       <CourseNavbar
