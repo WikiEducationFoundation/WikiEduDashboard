@@ -1,0 +1,10 @@
+%tr
+  %td.title
+    = link_to full_title(article), article_url(article)
+  %td.char_added
+    = article_course.character_sum
+  %td.views
+    = article_course.view_count
+  %td
+    %small
+      = "#{article.wiki.language}.#{article.wiki.project}"
