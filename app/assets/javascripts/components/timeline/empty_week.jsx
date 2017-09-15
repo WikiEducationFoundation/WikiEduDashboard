@@ -26,13 +26,22 @@ const EmptyWeek = React.createClass({
 
     // 1. If timeline is empty and user can edit it, show info and links to get started.
     if (this.props.emptyTimeline && this.props.edit_permissions) {
-      const wizardLink = `/courses/${this.props.course.slug}/timeline/wizard`;
+      let wizardLink;
+      if (this.props.course.type === 'ClassroomProgramCourse') {
+        const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
+        wizardLink = (
+          <div>
+            {I18n.t('timeline.empty_week_3')}&nbsp;
+            <CourseLink to={wizardUrl} className="empty-week-clickable">{I18n.t('timeline.empty_week_4')}</CourseLink>
+          </div>
+        );
+      }
+
       week = (
         <p className="week__no-activity__get-started">
           {I18n.t('timeline.empty_week_1')}&nbsp;
           <span className="empty-week-clickable" onClick={this.addWeek}>{I18n.t('timeline.empty_week_2')}</span>&nbsp;
-          {I18n.t('timeline.empty_week_3')}&nbsp;
-          <CourseLink to={wizardLink} className="empty-week-clickable">{I18n.t('timeline.empty_week_4')}</CourseLink>
+          {wizardLink}
         </p>);
 
     // 2. If timeline is empty but user cannot edit, just note that timeline is empty.
@@ -57,7 +66,7 @@ const EmptyWeek = React.createClass({
           <span className="week__week-dates pull-right">
             {dateCalc.start()} - {dateCalc.end()}
           </span>
-          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber })}</p>
+          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber || 1 })}</p>
         </div>
         <div className="week__no-activity">
           {week}
