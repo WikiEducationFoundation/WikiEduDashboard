@@ -6,8 +6,11 @@ gem 'browser'
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
+  
+
   include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
   include Errors::RescueErrors
+  include Errors::AuthenticationErrors
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -42,31 +45,21 @@ class ApplicationController < ActionController::Base
 
   def require_signed_in
     return if user_signed_in?
-
-    respond_to do |format|
-      # format.html what shold happen here?
-      format.json { render json: { message: 'Please sign in.' }, 
-                                   status: :unprocessable_entity }
-    end
+    exception = NotSignedInError.new
+    raise exception
   end
 
   def require_permissions
     course = Course.find_by_slug(params[:id])
     return if user_signed_in? && current_user.can_edit?(course)
-    respond_to do |format|
-      # format.html what shold happen here?
-      format.json { render json: { message: 'You are not permitted to do that.' },
-                                   status: :unprocessable_entity }
-    end
+    exception = NotPermittedError.new
+    raise exception
   end
 
   def require_admin_permissions
     return if user_signed_in? && current_user.admin?
-    respond_to do |format|
-      # format.html what shold happen here?
-      format.json { render json: { message: 'Only administrators may do that.' },
-                                   status: :unprocessable_entity }
-    end
+    exception = NotAdminError.new
+    raise exception
   end
 
   def require_participating_user
@@ -74,11 +67,8 @@ class ApplicationController < ActionController::Base
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
     return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
-    respond_to do |format|
-      # format.html what shold happen here?
-      format.json { render json: { message: 'Visitors are not permitted to do that.' }, 
-                                   status: :unprocessable_entity }
-    end
+    exception = ParticipatingUserError.new
+    raise exception
   end
 
   def check_for_expired_oauth_credentials
