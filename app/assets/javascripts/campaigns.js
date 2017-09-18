@@ -84,10 +84,22 @@ $(() => {
     });
   }
 
+  // Article sorting
+  // only sort if there are tables to sort
+  let articlesList;
+  if ($('#articles table').length) {
+    articlesList = new List('articles', {
+      valueNames: [
+        'title', 'views', 'char_added', 'lang_project'
+      ]
+    });
+  }
+
   return $('select.sorts').on('change', function () {
     const list = (() => {
       switch ($(this).attr('rel')) {
         case 'campaigns': return campaignList;
+        case 'articles': return articlesList;
         default: break;
       } })();
     if (list) {

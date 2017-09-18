@@ -21,6 +21,7 @@ class Campaign < ActiveRecord::Base
   has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :courses, through: :campaigns_courses
+  has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses

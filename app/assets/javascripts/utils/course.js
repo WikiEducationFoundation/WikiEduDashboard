@@ -38,6 +38,18 @@ $(() => {
     });
   }
 
+  // Article sorting
+  // only sort if there are tables to sort
+  let articlesList;
+  if ($('#articles table').length) {
+    articlesList = new List('articles', {
+      page: 500,
+      valueNames: [
+        'title', 'views', 'char_added', 'lang_project'
+      ]
+    });
+  }
+
   // for use on campaign/programs page
   $('.remove-course').on('click', e => {
     const confirmed = window.confirm(I18n.t('campaign.confirm_course_removal', {
@@ -54,6 +66,7 @@ $(() => {
       switch ($(this).attr('rel')) {
         case 'courses': return courseList;
         case 'campaigns': return campaignList;
+        case 'articles': return articlesList;
         default: break;
       } })();
     if (list) {
