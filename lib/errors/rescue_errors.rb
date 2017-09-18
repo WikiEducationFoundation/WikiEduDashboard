@@ -30,8 +30,9 @@ module Errors
     def self.rescue_not_signed_in(base)
       base.rescue_from AuthenticationErrors::NotSignedInError do |e|
         respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unprocessable_entity }
-          format.html {} # TODO
+          format.json { render json: { message: e.message }, status: :unauthorized }
+          # TODO: need more user friendly error handling for html
+          format.html { render plain: e.message, status: :unauthorized } 
         end
       end
     end # rescue_not_signed_in
@@ -39,8 +40,9 @@ module Errors
     def self.rescue_not_permitted(base)
       base.rescue_from AuthenticationErrors::NotPermittedError do |e|
         respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unprocessable_entity }
-          format.html {} # TODO
+          format.json { render json: { message: e.message }, status: :unauthorized }
+          # TODO: need more user friendly error handling for html
+          format.html { render plain: e.message , status: :unauthorized }
         end
       end
     end # rescue_not_permitted
@@ -48,8 +50,9 @@ module Errors
     def self.rescue_not_admin(base)
       base.rescue_from AuthenticationErrors::NotAdminError do |e|
         respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unprocessable_entity }
-          format.html {} # TODO
+          format.json { render json: { message: e.message }, status: :unauthorized }
+          # TODO: need more user friendly error handling for html
+          format.html { render plain: e.message, status: :unauthorized }
         end
       end
     end # rescue_not_admin
@@ -57,8 +60,9 @@ module Errors
     def self.rescue_participating_user(base)
       base.rescue_from AuthenticationErrors::ParticipatingUserError do |e|
         respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unprocessable_entity }
-          format.html {} # TODO
+          format.json { render json: { message: e.message }, status: :unauthorized }
+          # TODO: need more user friendly error handling for html
+          format.html { render plain: e.message, status: :unauthorized }
         end
       end
     end # rescue_participating_user
