@@ -57,5 +57,11 @@ describe OnboardingController do
       expect(user.reload.onboarded).to eq(true)
       expect(user.permissions).to eq(User::Permissions::ADMIN)
     end
+
+    it "should strip name field of excessive whitespace" do
+      params = { real_name: " Name  \n Surname ", email: 'email@email.org', instructor: false }
+      put 'onboard', params: params
+      expect(user.real_name).to eq('Name Surname')
+    end
   end
 end
