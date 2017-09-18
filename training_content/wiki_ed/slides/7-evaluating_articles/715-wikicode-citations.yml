@@ -3,18 +3,15 @@ title_prefix: "How to:"
 title: Add a citation with WikiCode
 summary:
 content: |
-  So, you have a solid paragraph drawn from a reliable source. How do you let
-  other editors know where to look to verify your information?
+  You can also add a citation using wikicode.
 
-  First, if it's a new article, let's look at how to add a References section to
-  the article using WikiCode.
-
-  You can access WikiCode through the "Edit source" option on the page.
+  You can access wikicode from edit mode by clicking the pencil icon and selecting
+  "Source editing".
 
   Then, follow these instructions:
-  1. Check that the bottom of the page has a "Notes" or "References" section. If
-  not, type:  `==Notes==`.
-  2. Check that the Notes section either has the text `{{reflist}}` or
+  1. Check that the bottom of the page has a "References" or "Notes" section. If
+  not, type:  `==References==`.
+  2. Check that the References section either has the text `{{reflist}}` or
   `<references />`. If not, type: `{{reflist}}`. This determines where your
   references will appear on the page.
   3. Now click after the text you would like to create a reference for.

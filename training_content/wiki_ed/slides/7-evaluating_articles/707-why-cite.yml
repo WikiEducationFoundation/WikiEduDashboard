@@ -8,5 +8,5 @@ content: |
   means that your work can be fact-checked by these editors.
 
   Editors (yourself included) can challenge unreferenced statements by adding a
-  `{{fact}}` tag in WikiCode, which adds a *[citation needed]* tag to the
+  `{{fact}}` tag in wikicode, which adds a *[citation needed]* tag to the
   statement. Some editors remove unreferenced material on sight.
