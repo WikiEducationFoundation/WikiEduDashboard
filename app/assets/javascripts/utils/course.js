@@ -45,7 +45,7 @@ $(() => {
     articlesList = new List('articles', {
       page: 500,
       valueNames: [
-        'title', 'views', 'char_added'
+        'title', 'views', 'char_added', 'lang_project'
       ]
     });
   }

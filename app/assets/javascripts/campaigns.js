@@ -90,7 +90,7 @@ $(() => {
   if ($('#articles table').length) {
     articlesList = new List('articles', {
       valueNames: [
-        'title', 'views', 'char_added'
+        'title', 'views', 'char_added', 'lang_project'
       ]
     });
   }

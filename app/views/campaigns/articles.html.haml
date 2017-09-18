@@ -19,8 +19,10 @@
             = t("metrics.char_added")
           %option{rel: 'desc', value: 'views'}
             = t("metrics.view")
+          %option{rel: 'asc', value: 'lang_project'}
+            = t("articles.wiki")
 
-    %table.table.table--hoverable.table--expandable.table--sortable
+    %table.table.table--hoverable.table--sortable
       %thead
         %tr
           %th.sort.sortable.asc{'data-default-order' => 'asc', 'data-sort' => 'title'}
@@ -40,6 +42,9 @@
               %span.tooltip-indicator
               .tooltip.dark
                 %p= t('articles.view_doc')
+          %th.sort.sortable{'data-sort' => 'lang_project'}
+            = t('articles.wiki')
+            %span.sortable-indicator
 
       - articles = @campaign.articles_courses.includes(article: :wiki).order('articles.title')
 
