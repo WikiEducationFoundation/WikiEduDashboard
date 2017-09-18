@@ -21,7 +21,7 @@ module Errors
     end # NotAdmitError
 
     class ParticipatingUserError < StandardError
-      def initialize(msg='Only administrators may do that.')
+      def initialize(msg='Only participants of this course may do that.')
         super
       end
     end # ParticipatingUserError
