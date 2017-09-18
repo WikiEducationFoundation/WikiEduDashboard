@@ -2,15 +2,13 @@
 
 module Errors
   module RescueErrors
-    AUTHENTICATION_ERRORS = %i[not_signed_in not_permitted not_admin participating_user].freeze
-
     def self.included(base)
-      rescue_invalid_token(base)
-      rescue_unknown_format(base)
-
       ##
       # dynamically include each rescue method
-      AUTHENTICATION_ERRORS.each do |err|
+      # When implementing a new rescue, add its base name here (minus the _rescue part).
+      rescues = %i[invalid_token unknown_format not_signed_in not_permitted not_admin
+                   participating_user].freeze
+      rescues.each do |err|
         send("rescue_#{err}", base)
       end
     end # self.included
@@ -29,26 +27,40 @@ module Errors
       end
     end # self.rescue_unknown_format
 
-    ##
-    # dynamically define each rescue in terms of the exception it will catch
-    AUTHENTICATION_ERRORS.each do |err|
-      send(:define_singleton_method, "rescue_#{err}") do |base|
-        base.rescue_from "Errors::AuthenticationErrors::#{err.to_s.camelcase}Error".constantize do |e|
-          respond_to do |format|
-            format.json { render_json e.message }
-            # format.html {} what happens here?
-          end
-        end # rescue_from
-      end # send
-    end # loop
+    def self.rescue_not_signed_in(base)
+      base.rescue_from AuthenticationErrors::NotSignedInError do |e|
+        respond_to do |format|
+          format.json { render json: { message: e.message }, status: :unprocessable_entity }
+          format.html {} # TODO
+        end
+      end
+    end # rescue_not_signed_in
 
-    private
+    def self.rescue_not_permitted(base)
+      base.rescue_from AuthenticationErrors::NotPermittedError do |e|
+        respond_to do |format|
+          format.json { render json: { message: e.message }, status: :unprocessable_entity }
+          format.html {} # TODO
+        end
+      end
+    end # rescue_not_permitted
 
-    def render_json msg
-      render json: { message: msg },
-             status: :unprocessable_entity
-    end
+    def self.rescue_not_admin(base)
+      base.rescue_from AuthenticationErrors::NotAdminError do |e|
+        respond_to do |format|
+          format.json { render json: { message: e.message }, status: :unprocessable_entity }
+          format.html {} # TODO
+        end
+      end
+    end # rescue_not_admin
 
+    def self.rescue_participating_user(base)
+      base.rescue_from AuthenticationErrors::ParticipatingUserError do |e|
+        respond_to do |format|
+          format.json { render json: { message: e.message }, status: :unprocessable_entity }
+          format.html {} # TODO
+        end
+      end
+    end # rescue_participating_user
   end # RescueErrors
 end
-
