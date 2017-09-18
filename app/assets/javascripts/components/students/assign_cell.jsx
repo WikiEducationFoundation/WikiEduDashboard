@@ -59,7 +59,7 @@ const AssignCell = React.createClass({
     return (
       <div>
         {link}
-        <AssignButton {...this.props} role={this.props.role} permitted={permitted} ref="button" />
+        <AssignButton {...this.props} right_aligned={true} role={this.props.role} permitted={permitted} ref="button" />
       </div>
     );
   }
