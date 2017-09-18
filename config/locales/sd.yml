@@ -157,7 +157,7 @@ sd:
   namespace:
     main: مک پولار
     user: يُوزرپولار
-    user_ns: يُوزر
+    user_ns: واهپيندڙ (يوزر)
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو
@@ -178,10 +178,10 @@ sd:
     time_doc: توهان جي مقامي وقت مطابق هر هڪ چاڙهہ جو وقت
     usages: استعمال
   users:
-    already_enrolled: اهو واھپ اڳئي داخل ٿيل آهي!
+    already_enrolled: اهو واھپ (يوزر) اڳئي داخل ٿيل آهي!
     assigned: تخصيصيل مضمون
     assignees: تخصيصدار
-    contributions: يُوزر جون ڀاڱيداريون
+    contributions: واھپ جون ڀاڱيداريون
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
     editors: شاگرد سنواريندڙ
     loading: يوزرس اتاري رهيا آهيون...

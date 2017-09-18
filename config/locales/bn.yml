@@ -107,7 +107,7 @@ bn:
     courses_enrolled: কোর্সে ভর্তি
     error:
       invalid_slug: কোর্সের জন্য ফাঁকা বিদ্যালয়/শিরোনাম।
-    features_feedback: 'আরো পরামর্শ :'
+    features_feedback: 'স্বয়ংক্রিয় পরামর্শ:'
     feedback: প্রতিক্রিয়া
     join: যোগ দিন
     join_prompt: '''%{title}''-এ যোগ দিবেন?'

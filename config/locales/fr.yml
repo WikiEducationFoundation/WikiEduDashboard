@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Appleuseryu
+# Author: Benoit Rochon
 # Author: C13m3n7
 # Author: Dcausse
 # Author: Eric.LEWIN
@@ -276,8 +277,8 @@ fr:
         sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
         N’hésitez pas à le mettre à jour maintenant.
       course_description: Description du cours
-      course_language: Langue du site
-      course_project: Projet personnel
+      course_language: Langue principale
+      course_project: Projet principal
       course_school: École du cours
       course_subject: Sujet du cours
       course_term: Période du cours
