@@ -29,9 +29,9 @@ const CourseUtils = class {
 
   cleanupCourseSlugComponents(course) {
     const cleanedCourse = course;
-    cleanedCourse.title = course.title.trim();
-    cleanedCourse.school = course.school.trim();
-    cleanedCourse.term = course.term.trim();
+    cleanedCourse.title = course.title.trim().split(/\s+/).join(' ');
+    cleanedCourse.school = course.school.trim().split(/\s+/).join(' ');
+    cleanedCourse.term = course.term.trim().split(/\s+/).join(' ');
     return cleanedCourse;
   }
 
