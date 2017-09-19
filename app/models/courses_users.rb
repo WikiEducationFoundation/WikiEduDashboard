@@ -15,6 +15,7 @@
 #  role                   :integer          default(0)
 #  recent_revisions       :integer          default(0)
 #  character_sum_draft    :integer          default(0)
+#  real_name              :string(255)
 #
 
 require "#{Rails.root}/lib/utils"
