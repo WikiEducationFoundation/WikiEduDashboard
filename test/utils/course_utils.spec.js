@@ -56,11 +56,11 @@ describe('CourseUtils.courseSlugRegex', () => {
 });
 
 describe('courseUtils.cleanupCourseSlugComponents', () =>
-  it('trims whitespace from the slug-related fields of a course object', () => {
+  it('trims whitespace and collapses multispaces from the slug-related fields of a course object', () => {
     const course = {
-      term: ' Fall 2015',
-      school: '   University of Wikipedia ',
-      title: ' Introduction to Editing     '
+      term: ' Fall      2015',
+      school: '   University          of       Wikipedia ',
+      title: '   Introduction      to      Editing     '
     };
     courseUtils.cleanupCourseSlugComponents(course);
     expect(course.term).to.eq('Fall 2015');
