@@ -7,12 +7,12 @@
     = render 'courses/header_stats', presenter: @presenter
 
 .container
-  %section#articles
+  %section#campaign-articles
     .section-header
       %h3
         = t('courses.articles_edited', title: @campaign.title)
       .sort-select
-        %select.sorts{rel: 'articles'}
+        %select.sorts{rel: 'campaign-articles'}
           %option{rel: 'asc', value: 'title'}
             = t("articles.title")
           %option{rel: 'desc', value: 'char_added'}

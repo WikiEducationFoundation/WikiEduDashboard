@@ -41,8 +41,8 @@ $(() => {
   // Article sorting
   // only sort if there are tables to sort
   let articlesList;
-  if ($('#articles table').length) {
-    articlesList = new List('articles', {
+  if ($('#campaign-articles table').length) {
+    articlesList = new List('campaign-articles', {
       page: 500,
       valueNames: [
         'title', 'views', 'char_added', 'lang_project'
@@ -66,7 +66,7 @@ $(() => {
       switch ($(this).attr('rel')) {
         case 'courses': return courseList;
         case 'campaigns': return campaignList;
-        case 'articles': return articlesList;
+        case 'campaign-articles': return articlesList;
         default: break;
       } })();
     if (list) {
