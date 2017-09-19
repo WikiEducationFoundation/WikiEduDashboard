@@ -22,6 +22,16 @@ describe('courseUtils.generateTempId', () => {
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
   });
 
+  it('collapses multiple whiltespaces into one space', () => {
+    const course = {
+      term: 'Fall    2015',
+      school: ' University    of   Wikipedia            ',
+      title: '          Introduction     to         Editing          '
+    };
+    const slug = courseUtils.generateTempId(course);
+    expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
+  });
+
   it('creates a slug from title and school when term is empty', () => {
     const course = {
       school: ' University of Wikipedia',
