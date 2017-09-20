@@ -8,6 +8,8 @@ require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
+require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
+require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController
@@ -29,6 +31,8 @@ class AnalyticsController < ApplicationController
       campaign_stats
     elsif params[:campaign_intersection]
       campaign_intersection
+    elsif params[:ores_changes]
+      ores_changes
     end
     render 'index'
   end
@@ -91,6 +95,13 @@ class AnalyticsController < ApplicationController
     stats = CourseStatistics.new(course_ids, campaign: campaign_name)
     @campaign_stats = stats.report_statistics
     @articles_edited = stats.articles_edited
+  end
+
+  def ores_changes
+    @campaign = Campaign.find(params[:campaign][:id])
+    @minimum_bytes = params[:minimum_bytes].to_i
+    plotter = HistogramPlotter.new(campaign: @campaign)
+    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes)
   end
 
   private

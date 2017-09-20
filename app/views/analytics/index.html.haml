@@ -30,8 +30,20 @@
           %br/
           %button.button.dark= submit_tag("Campaign Intersection")
         %br/
+        = form_tag(method: 'get') do
+          %input{:name => "ores_changes", :type => "hidden", :value => "true"}/
+          = label_tag(:campaign, "campaign")
+          = collection_select(:campaign, :id, Campaign.all, :id, :title, prompt: true)
+          %br/
+          = label_tag(:minimum_bytes, "minimum bytes added")
+          = text_field_tag(:minimum_bytes, @minimum_bytes)
+          %br/
+          %button.button.dark= submit_tag("Ores changes")
+        %br/
       %h3
         - if params[:monthly_report]
           = render :partial => 'monthly_report', :locals => { :monthly_report => @monthly_report }
         - if params[:campaign_intersection]
           = render :partial => 'campaign_stats', :locals => { :campaign_stats => @campaign_stats }
+        - if params[:ores_changes]
+          = render :partial => 'ores_changes', :locals => { :ores_changes_plot => @ores_changes_plot }
