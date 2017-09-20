@@ -18,6 +18,12 @@ describe WikiSlideParser do
 * '''<translate><!--T:11--> Medical emergencies</translate>'''<translate> <!--T:12--> may also be encountered. Even though a medical emergency may not necessarily be the result of altercations with another person while at the event, it also needs to be treated as a matter of priority by the EOT.</translate>
 
 <translate><!--T:13--> Bear in mind that you, as the event organizer or as a volunteer, are also entitled to feel safe at an event. Incidents involving you should be treated just as seriously. Having a backup investigator to help in such a case is important. We'll talk more about this later in the training.</translate>
+
+{{Training module button
+| link = https://example.com
+| text = Example link
+}}
+
 WIKISLIDE
   end
 
