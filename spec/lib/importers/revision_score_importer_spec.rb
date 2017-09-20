@@ -139,4 +139,13 @@ describe RevisionScoreImporter do
       RevisionScoreImporter.new.update_revision_scores
     end
   end
+
+  describe '#update_previous_wp10_scores' do
+    it 'saves the wp10_previous score for a set of revisions' do
+      VCR.use_cassette 'revision_scores/wp10_previous' do
+        RevisionScoreImporter.new.update_previous_wp10_scores Revision.where(article_id: 1538038)
+        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be > 0
+      end
+    end
+  end
 end
