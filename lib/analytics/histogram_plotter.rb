@@ -35,15 +35,15 @@ class HistogramPlotter
   end
 
   def public_plot_path
-    "assets/images/analytics/#{plot_filename}"
+    "#{public_analytics_path}/#{plot_filename}"
   end
 
-  def assets_directory
-    'public/assets/images'
+  def public_analytics_path
+    'assets/images/analytics'
   end
 
   def analytics_path
-    "#{assets_directory}/analytics"
+    "public/#{public_analytics_path}"
   end
 
   def plot_filename
