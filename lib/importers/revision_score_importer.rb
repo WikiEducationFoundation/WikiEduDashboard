@@ -50,6 +50,12 @@ class RevisionScoreImporter
     first_revisions.each { |revision| update_wp10_previous(revision) }
   end
 
+  def update_previous_wp10_scores(revisions)
+    revisions.each do |revision|
+      update_wp10_previous(revision)
+    end
+  end
+
   ##################
   # Helper methods #
   ##################
