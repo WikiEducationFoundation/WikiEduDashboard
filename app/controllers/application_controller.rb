@@ -44,31 +44,27 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_in
-    return if user_signed_in?
-    exception = NotSignedInError.new
-    raise exception
+    raise NotSignedInError unless user_signed_in?
   end
 
   def require_permissions
+    require_signed_in
     course = Course.find_by_slug(params[:id])
-    return if user_signed_in? && current_user.can_edit?(course)
-    exception = NotPermittedError.new
-    raise exception
+    raise NotPermittedError unless current_user.can_edit? course
   end
 
   def require_admin_permissions
-    return if user_signed_in? && current_user.admin?
-    exception = NotAdminError.new
-    raise exception
+    require_signed_in
+    raise NotAdminError unless current_user.admin?
   end
 
   def require_participating_user
+    require_signed_in
     course = Course.find_by_slug(params[:id])
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
     return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
-    exception = ParticipatingUserError.new
-    raise exception
+    raise ParticipatingUserError
   end
 
   def check_for_expired_oauth_credentials
