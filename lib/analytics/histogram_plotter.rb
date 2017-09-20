@@ -66,8 +66,8 @@ class HistogramPlotter
   end
 
   def prepare_histogram_data
-    R.eval "before <- select(histogram_data, select=('ores_before'))"
-    R.eval "after <- select(histogram_data, select=('ores_after'))"
+    R.eval "before <- select(histogram_data, ores_before)"
+    R.eval "after <- select(histogram_data, ores_after)"
     R.eval "names(before)[1] = 'structural_completeness'"
     R.eval "names(after)[1] = 'structural_completeness'"
     R.eval "before$when <- 'before'"
