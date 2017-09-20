@@ -15,7 +15,10 @@ module Errors
 
     def self.rescue_invalid_token(base)
       base.rescue_from ActionController::InvalidAuthenticityToken do
-        render plain: t('error_401.explanation'), status: :unauthorized
+        respond_to do |format|
+          format.html { render plain: t('error_401.explanation'), status: :unauthorized }
+          format.json { render json: { message: 'Please sign in' }, status: :unauthorized }
+        end
       end
     end # self.rescue_invalid_token
 
@@ -32,7 +35,7 @@ module Errors
         respond_to do |format|
           format.json { render json: { message: e.message }, status: :unauthorized }
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message, status: :unauthorized } 
+          format.html { render plain: e.message, status: :unauthorized }
         end
       end
     end # rescue_not_signed_in
@@ -42,7 +45,7 @@ module Errors
         respond_to do |format|
           format.json { render json: { message: e.message }, status: :unauthorized }
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message , status: :unauthorized }
+          format.html { render plain: e.message, status: :unauthorized }
         end
       end
     end # rescue_not_permitted
