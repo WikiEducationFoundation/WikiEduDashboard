@@ -20,6 +20,10 @@
 
 require 'rails_helper'
 
+def mock_mailer
+  OpenStruct.new(deliver_now: true)
+end
+
 describe Alert do
   let(:article) { create(:article) }
   let(:course) { create(:course) }
@@ -27,6 +31,7 @@ describe Alert do
   let(:user) { create(:user) }
   let(:alert) { create(:alert, type: 'ArticlesForDeletionAlert', resolved: false) }
   let(:active_course_alert) { create(:active_course_alert) }
+  let(:admin) { create(:admin) }
 
   describe 'abstract parent class' do
     it 'raises errors for required template methods' do
@@ -100,6 +105,19 @@ describe Alert do
       Alert.last.email_content_expert
       Alert.last.email_course_admins
       Alert.last.email_target_user
+    end
+
+    it 'still sends emails for other alert types' do
+      expect_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
+      create(:courses_user, course: course, user: admin,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      Alert.create(type: 'ActiveCourseAlert',
+                   article_id: article.id,
+                   course_id: course.id,
+                   revision_id: revision.id,
+                   user_id: user.id,
+                   target_user_id: user.id)
+      Alert.last.email_course_admins
     end
   end
 end
