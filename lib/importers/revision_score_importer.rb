@@ -30,8 +30,8 @@ class RevisionScoreImporter
     revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
     revisions ||= unscored_mainspace_userspace_and_draft_revisions
 
-    batches = revisions.count / 50 + 1
-    revisions.each_slice(50).with_index do |rev_batch, i|
+    batches = revisions.count / OresApi::CONCURRENCY + 1
+    revisions.each_slice(OresApi::CONCURRENCY).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
@@ -47,12 +47,14 @@ class RevisionScoreImporter
       first_revisions << Revision.where(mw_page_id: id, wiki_id: @wiki.id).first
     end
 
-    first_revisions.each { |revision| update_wp10_previous(revision) }
+    update_previous_wp10_scores(first_revisions)
   end
 
   def update_previous_wp10_scores(revisions)
-    revisions.each do |revision|
-      update_wp10_previous(revision)
+    batches = revisions.count / OresApi::CONCURRENCY + 1
+    revisions.each_slice(OresApi::CONCURRENCY).with_index do |rev_batch, i|
+      Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
+      update_wp10_previous_batch rev_batch
     end
   end
 
@@ -61,7 +63,7 @@ class RevisionScoreImporter
   ##################
   private
 
-  # This should take up to 50 rev_ids per batch
+  # This should take up to OresApi::CONCURRENCY rev_ids per batch
   def get_and_save_scores(rev_batch)
     scores, features = {}, {}
     threads = rev_batch.each_with_index.map do |revision, i|
@@ -75,15 +77,25 @@ class RevisionScoreImporter
     save_scores(scores, features)
   end
 
-  def update_wp10_previous(revision)
+  def update_wp10_previous_batch(rev_batch)
+    wp10_previous_scores = {}
+    threads = rev_batch.each_with_index.map do |revision, i|
+      Thread.new(i) do
+        wp10_previous_scores[revision.id] = wp10_previous(revision)
+      end
+    end
+    threads.each(&:join)
+    save_wp10_previous(wp10_previous_scores)
+  end
+
+  def wp10_previous(revision)
     parent_id = get_parent_id revision
     return unless parent_id
     ores_data = @ores_api.get_revision_data(parent_id)
     score = extract_score ores_data
     return unless score[parent_id.to_s]&.key?('probability')
     probability = score[parent_id.to_s]['probability']
-    revision.wp10_previous = en_wiki_weighted_mean_score probability
-    revision.save
+    en_wiki_weighted_mean_score(probability)
   end
 
   def unscored_mainspace_userspace_and_draft_revisions
@@ -94,12 +106,18 @@ class RevisionScoreImporter
 
   DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
   def save_scores(scores, features)
-    scores.each do |rev_id, score|
-      revision = Revision.find_by(mw_rev_id: rev_id.to_i, wiki_id: @wiki.id)
+    scores.each do |mw_rev_id, score|
+      revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
       revision.wp10 = en_wiki_weighted_mean_score score['probability']
-      revision.features = features[rev_id]
+      revision.features = features[mw_rev_id]
       revision.deleted = true if DELETED_REVISION_ERRORS.include? score.dig('error', 'type')
       revision.save
+    end
+  end
+
+  def save_wp10_previous(scores)
+    scores.each do |rev_id, wp10_prev|
+      Revision.find(rev_id).update(wp10_previous: wp10_prev)
     end
   end
 
