@@ -10,7 +10,7 @@ describe('MyArticles', () => {
 
   MyArticles.__Rewire__('AssignCell', React.createClass({
     render() {
-      return <div></div>;
+      return <div />;
     }
   }));
 

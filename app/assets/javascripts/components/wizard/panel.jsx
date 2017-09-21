@@ -63,7 +63,8 @@ const Panel = React.createClass({
     if (this.props.panel.options !== undefined) {
       this.props.panel.options.forEach((option, i) => {
         option = (
-          <Option option={option}
+          <Option
+            option={option}
             panel_index={this.props.index}
             key={`${this.props.index}${i}`}
             index={i}
@@ -123,7 +124,7 @@ const Panel = React.createClass({
           </div>
         </div>
         <h3>{this.props.panel.title}</h3>
-        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.panel.description) }}></div>
+        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.panel.description) }} />
         <div className="wizard__panel__options">{options}</div>
         <div className="wizard__panel__controls">
           <div className="left">

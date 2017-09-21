@@ -111,8 +111,7 @@ const Overview = React.createClass({
         <Milestones {...this.props} />
       </div>
     ) : (
-      <div className="sidebar">
-      </div>
+      <div className="sidebar" />
     );
 
     return (

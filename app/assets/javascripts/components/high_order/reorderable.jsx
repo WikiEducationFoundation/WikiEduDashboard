@@ -75,11 +75,12 @@ export default function (Component, Type, MoveFunction) {
     render() {
       if (this.props.canDrag) {
         return (
-          <Component {...this.props} ref={(instance) => {
-            this.props.connectDropTarget(findDOMNode(instance));
-            this.props.connectDragSource(findDOMNode(instance), { dropEffect: 'move' });
-            this.props.connectDragPreview(findDOMNode(instance));
-          }}
+          <Component
+            {...this.props} ref={(instance) => {
+              this.props.connectDropTarget(findDOMNode(instance));
+              this.props.connectDragSource(findDOMNode(instance), { dropEffect: 'move' });
+              this.props.connectDragPreview(findDOMNode(instance));
+            }}
           />
         );
       }

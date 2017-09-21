@@ -221,7 +221,7 @@ const ArticleViewer = React.createClass({
     }
 
     if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close"></button>;
+      button = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
     } else {
       button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }

@@ -109,7 +109,8 @@ const FormPanel = React.createClass({
         </div>
         <hr />
         <div className="wizard__form course-dates course-dates__step">
-          <Calendar course={this.props.course}
+          <Calendar
+            course={this.props.course}
             editable={true}
             save={true}
             setAnyDatesSelected={this.setAnyDatesSelected}
@@ -124,7 +125,8 @@ const FormPanel = React.createClass({
     );
 
     return (
-      <Panel {...this.props}
+      <Panel
+        {...this.props}
         raw_options={rawOptions}
         nextEnabled={this.nextEnabled}
         saveCourse={this.saveCourse}

@@ -222,7 +222,7 @@ const GetHelpButton = React.createClass({
             <input name="source" type="hidden" defaultValue="get_help_button" />
             <input type="text" name="q" id="q" defaultValue="" placeholder="Search Help Forum" />
             <button type="submit">
-              <i className="icon icon-search"></i>
+              <i className="icon icon-search" />
             </button>
           </form>
 

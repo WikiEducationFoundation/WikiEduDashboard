@@ -43,7 +43,7 @@ const Milestones = React.createClass({
           <div key={block.id} className="section-header">
             <div className={classNames}>
               <p>Week {week.order} {completionNote}</p>
-              <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }}></div>
+              <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>
           </div>

@@ -4,7 +4,7 @@ import CourseUtils from '../../utils/course_utils.js';
 const CourseStats = ({ course }) => {
   let viewData;
   if (course.upload_usages_count === undefined) {
-    return <div className="stat-display"></div>;
+    return <div className="stat-display" />;
   }
   if (course.view_count === '0' && course.edited_count !== '0') {
     viewData = (

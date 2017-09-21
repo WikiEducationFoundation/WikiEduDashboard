@@ -103,7 +103,7 @@ const TrainingModules = React.createClass({
           <td className="block__training-modules-table__module-link">
             <a className={module.module_progress} href={link}>
               {linkText}
-              <i className={iconClassName}></i>
+              <i className={iconClassName} />
             </a>
           </td>
         </tr>

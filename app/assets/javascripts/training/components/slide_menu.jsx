@@ -32,7 +32,7 @@ const SlideMenu = React.createClass({
   },
 
   render() {
-    if (!this.props.slides) { return <div></div>; }
+    if (!this.props.slides) { return <div />; }
     // need the slide index because overflow: hidden cuts off li numbering
     const slides = this.props.slides.map((slide, loopIndex) => {
       const current = slide.id === this.props.currentSlide.id;

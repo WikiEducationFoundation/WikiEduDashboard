@@ -2,7 +2,7 @@ import React from 'react';
 
 const TrainingStatus = ({ trainingModules }) => {
   if (!trainingModules.length) {
-    return <div></div>;
+    return <div />;
   }
   const moduleRows = trainingModules.map((trainingModule) => {
     let moduleStatus;

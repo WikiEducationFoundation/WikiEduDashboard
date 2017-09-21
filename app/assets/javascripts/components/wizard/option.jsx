@@ -30,7 +30,7 @@ const Option = React.createClass({
     if (disabled) { className += ' disabled'; }
 
     let checkbox;
-    if (this.props.multiple) { checkbox = <div className="wizard__option__checkbox"></div>; }
+    if (this.props.multiple) { checkbox = <div className="wizard__option__checkbox" />; }
 
     let expand;
     let expandLink;
@@ -45,7 +45,7 @@ const Option = React.createClass({
       }
       expand = (
         <div className={expandClassName} ref="expandable">
-          <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }}></div>
+          <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
         </div>
       );
       expandLink = (
@@ -56,7 +56,7 @@ const Option = React.createClass({
     let blurb;
     if (this.props.option.blurb) {
       blurb = (
-        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.blurb) }}></div>
+        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.blurb) }} />
       );
     }
 
@@ -84,7 +84,7 @@ const Option = React.createClass({
           {expand}
         </button>
         {expandLink}
-        <div className="wizard__option__border"></div>
+        <div className="wizard__option__border" />
       </div>
     );
   }

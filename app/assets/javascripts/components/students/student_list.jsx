@@ -60,7 +60,8 @@ const StudentList = React.createClass({
 
       const isOpen = this.props.openKey === `drawer_${student.id}`;
       return (
-        <Student {...this.props}
+        <Student
+          {...this.props}
           student={student}
           course={this.props.course}
           current_user={this.props.current_user}
@@ -96,7 +97,7 @@ const StudentList = React.createClass({
 
     let notifyOverdue;
     if (Features.wikiEd && this.props.users.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
-      notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify"></button>;
+      notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify" />;
     }
 
     const keys = {

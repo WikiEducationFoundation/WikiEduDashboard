@@ -15,7 +15,7 @@ const ArticleDrawer = React.createClass({
   },
 
   render() {
-    if (!this.props.isOpen) { return <tr></tr>; }
+    if (!this.props.isOpen) { return <tr />; }
 
     let diffViewer;
     let articleViewer;

@@ -193,7 +193,8 @@ const WeekdayPicker = React.createClass({
     }
 
     return (
-      <button key={weekday} className={className} tabIndex={tabIndex}
+      <button
+        key={weekday} className={className} tabIndex={tabIndex}
         aria-pressed={ariaSelected}
         onClick= {onClick}
         onKeyDown={(e) => this.handleDayKeyDown(e, weekday, modifiers)}
@@ -219,7 +220,8 @@ const WeekdayPicker = React.createClass({
     }
 
     return (
-      <div className={className}
+      <div
+        className={className}
         role="widget"
         style={style}
         tabIndex={tabIndex}

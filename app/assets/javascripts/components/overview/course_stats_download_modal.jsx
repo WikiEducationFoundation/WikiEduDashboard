@@ -32,7 +32,7 @@ const CourseStatsDownloadModal = React.createClass({
 
     return (
       <div className="basic-modal course-stats-download-modal">
-        <button onClick={this.hide} className="pull-right article-viewer-button icon-close"></button>
+        <button onClick={this.hide} className="pull-right article-viewer-button icon-close" />
         <h2>{I18n.t('courses.data_download_info')}</h2>
         <hr />
         <p>

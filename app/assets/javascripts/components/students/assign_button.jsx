@@ -219,7 +219,7 @@ const AssignButton = React.createClass({
       const finalText = this.props.role === 0 ? assignText : reviewText;
       if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
-          <span className="tooltip-indicator"></span>
+          <span className="tooltip-indicator" />
           );
         tooltip = (
           <div className="tooltip">
@@ -307,7 +307,8 @@ const AssignButton = React.createClass({
         <tr className="edit">
           <td>
             <form onSubmit={this.assign}>
-              <Lookup model="article"
+              <Lookup
+                model="article"
                 placeholder={I18n.t('articles.title_example')}
                 ref="lookup"
                 value={this.state.title}

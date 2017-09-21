@@ -105,7 +105,7 @@ const Nav = React.createClass({
               <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
               <input name="source" type="hidden" defaultValue="nav_ask_form" />
               <button type="submit">
-                <i className="icon icon-search"></i>
+                <i className="icon icon-search" />
               </button>
             </form>
           </div>
@@ -115,7 +115,7 @@ const Nav = React.createClass({
       loggingLinks = (
         <li>
           <a href={this.state.omniauthUrl}>
-            <i className="icon icon-wiki-logo"></i>
+            <i className="icon icon-wiki-logo" />
             {I18n.t('application.log_in')}
             <span className="expand">
               &nbsp;{I18n.t('application.sign_up_log_in_extended')}

@@ -91,7 +91,7 @@ const Form = React.createClass({
             </div>
           </div>
           <button disabled={disabled} type="submit" className="button dark right">
-            {submitText} <i className="icon icon-rt_arrow"></i>
+            {submitText} <i className="icon icon-rt_arrow" />
           </button>
         </form>
       </div>

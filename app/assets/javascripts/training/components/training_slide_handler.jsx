@@ -115,14 +115,14 @@ const TrainingSlideHandler = React.createClass({
       return (
         <div className="training-loader">
           <h1 className="h2">Loading…</h1>
-          <div className="training-loader__spinner"></div>
+          <div className="training-loader__spinner" />
         </div>
       );
     }
 
     if (this.state.loading === false && !__guard__(this.state.currentSlide, x => x.id)) {
       window.location = '/errors/file_not_found';
-      return <div></div>;
+      return <div />;
     }
 
     let nextLink;
@@ -204,9 +204,9 @@ const TrainingSlideHandler = React.createClass({
         <header>
           <div className="pull-right training__slide__nav" onClick={this.toggleMenuOpen}>
             <div className="pull-right hamburger">
-              <span className="hamburger__bar"></span>
-              <span className="hamburger__bar"></span>
-              <span className="hamburger__bar"></span>
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
+              <span className="hamburger__bar" />
             </div>
             <h3 className="pull-right">
               <a href="" onFocus={this.toggleMenuOpen}>Page {this.state.currentSlide.index} of {this.state.slides.length}</a>
@@ -226,7 +226,7 @@ const TrainingSlideHandler = React.createClass({
         <article className="training__slide">
           {titlePrefix}
           <h1>{slideTitle}</h1>
-          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }}></div>
+          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
           {quiz}
           <footer className="training__slide__footer">
             <span className="pull-left">{previousLink}</span>
