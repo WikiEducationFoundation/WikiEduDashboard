@@ -126,6 +126,7 @@ pl:
     view_on_wiki: Zobacz na wiki
     views_added: Dodano %{count} nowych odsłon do hasła %{title}
     edit_size: Edytuj rozmiar
+    wiki: Wiki
     wp10: Kompletność
     wp10_doc: Wynik oceny 'Kompletności strukturalnej' oznacza stopień, w jakim artykuł
       przypomina dojrzały artykuł Wikipedii, oceniany za pomocą algorytmów sztucznej

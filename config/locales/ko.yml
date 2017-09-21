@@ -96,6 +96,7 @@ ko:
     view_all: 모두 보기
     view_on_wiki: 위키에서 보기
     edit_size: 편집 크기
+    wiki: 위키
   assignments:
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자

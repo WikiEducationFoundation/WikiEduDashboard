@@ -99,6 +99,7 @@ zh-CN:
     view_on_wiki: 在wiki上查看
     views_added: 已为%{title}添加%{count}次新查看
     edit_size: 编辑大小
+    wiki: Wiki
     wp10: 结构完整性
     wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。These
       scores are calculated based on the size of an article, the number of references

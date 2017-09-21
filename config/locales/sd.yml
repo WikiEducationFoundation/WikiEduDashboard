@@ -115,7 +115,7 @@ sd:
     ended: ڪورس ختم ٿي ويو آهي.
     error:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
-      user_exists: معاف ڪندا، %{username} نالي يُوزر حالي وجود نہ ٿو رکي.
+      user_exists: معاف ڪندا، %{username} نالي واپرائيندڙ وجود نٿو رکي.
     instructor:
       one: استادُ
       other: استادَ
@@ -157,7 +157,7 @@ sd:
   namespace:
     main: مک پولار
     user: يُوزرپولار
-    user_ns: واهپيندڙ (يوزر)
+    user_ns: واپرائيندڙ
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو
@@ -178,10 +178,10 @@ sd:
     time_doc: توهان جي مقامي وقت مطابق هر هڪ چاڙهہ جو وقت
     usages: استعمال
   users:
-    already_enrolled: اهو واھپ (يوزر) اڳئي داخل ٿيل آهي!
+    already_enrolled: اهو واپرائيندڙ اڳ ئي داخل ٿيل آهي!
     assigned: تخصيصيل مضمون
     assignees: تخصيصدار
-    contributions: واھپ جون ڀاڱيداريون
+    contributions: واپرائيندڙ جون ڀاڱيداريون
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
     editors: شاگرد سنواريندڙ
     loading: يوزرس اتاري رهيا آهيون...

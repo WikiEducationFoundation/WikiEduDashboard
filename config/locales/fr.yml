@@ -16,6 +16,7 @@
 # Author: Trial
 # Author: Tuxxic
 # Author: Urhixidur
+# Author: VIGNERON
 # Author: Verdy p
 # Author: Wladek92
 # Author: Yasten
@@ -143,6 +144,7 @@ fr:
     view_on_wiki: Afficher sur le wiki
     views_added: '%{count} nouvelles vues ajoutées pour %{title}'
     edit_size: Modifier la taille
+    wiki: Wiki
     wp10: Intégrité structurale 
     wp10_doc: L’évaluation de l'« intégrité structurale » représente le degré de compatibilté
       d’un article avec le modèle d’un article mature de Wikipedia, donné par le service
@@ -455,8 +457,8 @@ fr:
       et était attendu le %{date}.
     unsubmitted: Cours non soumis
     untrained: Sans formation
-    uploads_none: Cette classe n’a contribué à Wikimédia Communs par aucune image
-      ni autre fichier de média
+    uploads_none: Cette classe n'a importé aucune image ni aucun fichier media sur
+      Wikimedia Commons.
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
@@ -549,8 +551,8 @@ fr:
     students_count: Nombre de participants
     term: Quand
     unsubmitted: Programmes non soumis
-    uploads_none: Ce projet n’a contribué à Wikimédia Communs par aucune image ou
-      autre fichier média.
+    uploads_none: Ce projet n'a importé aucune image ni aucun fichier media sur Wikimedia
+      Commons.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
     word_count_doc: Estimé du nombre de mots ajoutés aux articles de l’espace principal
@@ -748,7 +750,7 @@ fr:
   uploads:
     datetime: Horodatage
     file_name: Nom de fichier
-    header: Fichiers téléversés sur Wikimédia Communs
+    header: Fichiers téléversés sur Wikimedia Commons
     image: Image
     label: Téléversements
     loading: Chargement des téléversements…

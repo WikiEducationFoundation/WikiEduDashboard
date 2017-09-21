@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Belkacem77
 # Author: Mastanabal
+# Author: Sayem AtVkm
 ---
 kab:
   application:
@@ -35,14 +36,108 @@ kab:
     confirm: IH
   dashboard:
     explore_examples: Wali imedyaten
+  home:
+    explore: Snirem
+    log_in: Qqen s Wikipedia
+    sign_up: Jerred ar Wikipedia
+  activity:
+    all: Armud
+    edited_by: Yesnafel-it
+    label: Armud
   articles:
+    assigned: Imagraden yettwaɣen
+    available: Imagraden yellan
+    character_doc: Aɣrud n yisekkilen yettwarnan ar imagraden sɣur imaẓragen yettwaggzan
+      ger yizemzan n tazwara aked wid n taggara
+    edited: Imagraden yettwasniflen
+    edited_by: 'Yesnafel-it:'
+    edited_mobile: Imagraden
+    hide: Ffer
+    label: Imagraden
+    new: (amaynut)
+    rating: Taneɣrit
+    show_cumulative_changes: Sken ibeddilen isemnenayen
+    show_current_version: Sken lqem amiran
     title: Azwel
     title_example: Azwel n umagrad
     view: Sken azwel
     view_all: Sken akk
     view_on_wiki: Sken ɣef uwiki
+    edit_size: Snifel tiddi
+    wiki: Wiki
+    wp10: Timmad taɣessayt
+  assignments:
+    article: Amagrad %{title} yettwaɣ
+    select: Fren
+  campaign:
+    add_organizer: Rnu amsuddes
+    description: Aglam
+    none: Ulac
+    organizers: Imsuddas
+    program_template: Amsil n wahil
+    title: Azwel
+    use_start_end_dates: Seqdec izemzan n tazwara aked wid n taggara
+  chat:
+    label: Asqerdec
   courses:
+    activity: Armud
+    all_courses: Akk imsiren
+    already_enrolled: Tettekkiḍ yakan deg '%{title}'!
+    already_exists: aya yella yakan deg umsir-a!
+    actions: Tigawin
+    articles: Imagraden
+    calendar:
+      legend_class_meeting: Tagerwa n tneɣrit
+      legend_class_not_meeting: Ulac tagerwa yuhlen
+      select_meeting_days: Fren ussan n yimalas idegi ad tettwagrew tneɣrit inek(m).
+    cancel: Sefsex
+    campaign_courses: Imsiren %{title}
+    campaign_articles: Imagraden %{title}
+    campaign_users: Imaẓragen %{title}
+    course: Amsir
+    course_description: Imsiren
+    courses: Imsiren
+    courses_taught: Imsiren yettwaslemden
+    creator:
+      course_description: Aglam n umsir
+      course_language: Tutlayt tagejdant
+      course_project: Asenfar agejdan
+      course_school: Aɣerbaz n umsir
+      course_subject: Asentel n umsir
+      course_term: Takkayt n umsir
+      course_term_placeholder: Takkayt
+      course_title: Azwel n umsir
+      create_label: Seɣnew amsir amaynut
+      create_new: Seɣnew amsir amaynut
+      create_short: Seɣnew amsir
+      end_date: Azemz n taggara
+      find: Af-d amsir inek(m)
+      save_cloned_course: Sekles amsir amaynut
+      start_date: Azemz n tazwara
+      subject: Asentel
+    current: Imsiren imiranen
+    data_articles: Isefka n yimagraden
+    data_download_info: Sider isefka s umasal CSV.
     delete_suggestion: Kkes
+    duration: Tanzagt n umsir
+    edit_course_dates: Snifel izemzan n umsir
+    enable_chat: Rmed asqerdec
+    end: Taggara
+    enroll: Ggez
+    enrollment: Tiggezt
+    courses_enrolled: Iggez ɣer umsir
+    feedback_loading: Ttxilek(m) gani ɣer yimi ad d-alin isumar...
+    invitation: Tettwanecdeḍ ɣer %{title}. aken ad d-tedduḍ ar umsir-a, yessefk ad
+      teqneḍ s umiḍan Wikipedia.
+    join: Ddu-d ɣer
+    join_course: Ddu-d ɣer umsir
+    join_prompt: Ad d-tedduḍ ɣer '%{title}'?
+    join_successful: Teddiḍ-d ɣer %{title} aken iwata.
+    join_failure_details:
+      cannot_join_twice: Iseqdacen ur zmiren ara ad d-ddun ɣer yiwen umsir snat n
+        tikkal.
+    leave_course: Ffeɣ amsir
+    my_articles: Imagraden inu
   editable:
     edit_template: Snifel taneɣruft
   users:

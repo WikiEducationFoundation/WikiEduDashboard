@@ -100,6 +100,7 @@ ar:
     view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
     views_added: أضيفت %{count} وجهات نظر جديدة ل %{title}
     edit_size: تعديل الحجم
+    wiki: ويكي
     wp10: اكتمال هيكلي
   assignments:
     already_exists: هذه المهمة موجودة بالفعل!

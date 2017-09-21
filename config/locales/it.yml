@@ -104,6 +104,7 @@ it:
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
     edit_size: Modifica dimensione
+    wiki: Wiki
     wp10: Completezza strutturale
     wp10_doc: Il punteggio di "Completezza strutturale" rappresenta quanto strettamente
       una voce si avvicina al modello di una voce di Wikipedia matura, basato sul
@@ -114,6 +115,7 @@ it:
       la struttura di una buona voce, ma non tiene conto del contenuto stesso. (Questi
       punteggi sono disponibili solo per le voci di Wikipedia in inglese.)
   assignments:
+    article: La voce %{title} ora è assegnata a te.
     already_exists: Questa assegnazione esiste già!
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i

@@ -11,6 +11,8 @@ ce:
     log_out: Болх дӀаберзор
     recent_activity: Дукха хан йоцуш дийнарг
     sign_up: ДӀаяздар кхоллар
+  articles:
+    wiki: Вики
   courses:
     creator:
       start_date: Долина терахь

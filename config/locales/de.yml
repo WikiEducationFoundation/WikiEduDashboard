@@ -125,6 +125,7 @@ de:
     view_on_wiki: Im Wiki ansehen
     views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
     edit_size: Bearbeitungsgröße
+    wiki: Wiki
     wp10: Strukturelle Vollständigkeit
     wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
       Artikel dem Modell eines reifen Wikipedia-Artikels entspricht, basierend auf

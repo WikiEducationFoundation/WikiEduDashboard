@@ -57,6 +57,7 @@ bn:
     view: নিবন্ধ দেখুন
     view_all: সব দেখুন
     view_on_wiki: উইকিতে দেখুন
+    wiki: উইকি
     wp10: কাঠামোগত সম্পূর্ণতা
   assignments:
     title_too_large: শিরোনামের অক্ষর ২৫৫টির বেশী হতে পারবে না

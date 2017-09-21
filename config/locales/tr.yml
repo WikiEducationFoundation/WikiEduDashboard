@@ -5,6 +5,7 @@
 # Author: Elftrkn
 # Author: HakanIST
 # Author: Hbseren
+# Author: Incelemeelemani
 # Author: JackUKElliott
 # Author: Katpatuka
 # Author: KorkmazO
@@ -22,6 +23,8 @@ tr:
   activity:
     edited_by: Düzenleyen
     label: Etkinlik
+  articles:
+    wiki: Wiki
   blocks:
     milestones:
       title: Kilometre taşları
