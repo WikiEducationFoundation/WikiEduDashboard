@@ -16,6 +16,7 @@ class RevisionScoreImporter
     @ores_api = OresApi.new(@wiki)
   end
 
+  # assumes a mediawiki rev_id from English Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data(rev_id)
     features = extract_features(ores_data)[rev_id.to_s]
@@ -124,7 +125,7 @@ class RevisionScoreImporter
   def get_parent_id(revision)
     rev_id = revision.mw_rev_id
     rev_query = parent_revision_query(rev_id)
-    response = WikiApi.new(revision.wiki).query rev_query
+    response = WikiApi.new(@wiki).query rev_query
     return unless response.data['pages']
     prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
     prev_id
