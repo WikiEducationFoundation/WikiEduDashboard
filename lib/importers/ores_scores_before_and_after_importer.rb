@@ -3,8 +3,8 @@
 require "#{Rails.root}/lib/importers/revision_score_importer"
 
 class OresScoresBeforeAndAfterImporter
-  def initialize(campaign:)
-    @campaign = campaign
+  def initialize(articles_courses:)
+    @articles_courses = articles_courses
     import_scores
   end
 
@@ -13,11 +13,9 @@ class OresScoresBeforeAndAfterImporter
   def import_scores
     first_revs = []
     last_revs = []
-    @campaign.courses.each do |course|
-      course.articles_courses.each do |ac|
-        first_revs << ac.all_revisions.where(wiki_id: en_wiki_id).order('date ASC').first
-        last_revs << ac.all_revisions.where(wiki_id: en_wiki_id).order('date ASC').last
-      end
+    @articles_courses.each do |ac|
+      first_revs << ac.all_revisions.where(wiki_id: en_wiki_id).order('date ASC').first
+      last_revs << ac.all_revisions.where(wiki_id: en_wiki_id).order('date ASC').last
     end
 
     first_revs.select! { |rev| rev.present? && rev.wp10_previous.nil? }

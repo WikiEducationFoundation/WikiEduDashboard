@@ -7,11 +7,10 @@ describe OresScoresBeforeAndAfterImporter do
   let(:course) { create(:course) }
   let(:article) { create(:article) }
   before do
-    course.campaigns << Campaign.first
     course.articles << article
   end
 
   it 'runs without error' do
-    described_class.new(campaign: Campaign.first)
+    described_class.new(articles_courses: ArticlesCourses.all)
   end
 end
