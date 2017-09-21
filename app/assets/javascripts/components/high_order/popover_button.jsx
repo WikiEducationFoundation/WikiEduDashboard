@@ -64,7 +64,8 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
       const placeholder = capitalize(Key);
       if (IsSelect) {
         lookup = (
-          <LookupSelect model={Key}
+          <LookupSelect
+            model={Key}
             exclude={this.state.exclude}
             placeholder={placeholder}
             ref="entry"
@@ -73,7 +74,8 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
         );
       } else {
         lookup = (
-          <Lookup model={Key}
+          <Lookup
+            model={Key}
             exclude={this.state.exclude}
             placeholder={placeholder}
             ref="entry"

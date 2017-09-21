@@ -40,7 +40,8 @@ const AvailableArticles = React.createClass({
       elements = this.state.assignments.map((assignment) => {
         if (assignment.user_id === null && !assignment.deleted) {
           return (
-            <AvailableArticle {...this.props}
+            <AvailableArticle
+              {...this.props}
               assignment={assignment}
               key={assignment.id}
             />

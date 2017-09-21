@@ -24,7 +24,8 @@ const Expandable = function (Component) {
 
     render() {
       return (
-        <Component {...this.state} {...this.props}
+        <Component
+          {...this.state} {...this.props}
           open={this.open}
           stop={this.stop}
           ref={'component'}

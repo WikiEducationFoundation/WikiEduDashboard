@@ -71,7 +71,8 @@ const Student = React.createClass({
     let reviewButton;
     if (this.props.course.published) {
       assignButton = (
-        <AssignCell {...this.props}
+        <AssignCell
+          {...this.props}
           role={0}
           editable={this.props.editable}
           assignments={this.props.assigned}
@@ -79,7 +80,8 @@ const Student = React.createClass({
       );
 
       reviewButton = (
-        <AssignCell {...this.props}
+        <AssignCell
+          {...this.props}
           role={1}
           editable={this.props.editable}
           assignments={this.props.reviewing}

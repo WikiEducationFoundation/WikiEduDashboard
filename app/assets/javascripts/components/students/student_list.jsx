@@ -60,7 +60,8 @@ const StudentList = React.createClass({
 
       const isOpen = this.props.openKey === `drawer_${student.id}`;
       return (
-        <Student {...this.props}
+        <Student
+          {...this.props}
           student={student}
           course={this.props.course}
           current_user={this.props.current_user}

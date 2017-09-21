@@ -63,7 +63,8 @@ const Panel = React.createClass({
     if (this.props.panel.options !== undefined) {
       this.props.panel.options.forEach((option, i) => {
         option = (
-          <Option option={option}
+          <Option
+            option={option}
             panel_index={this.props.index}
             key={`${this.props.index}${i}`}
             index={i}

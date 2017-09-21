@@ -307,7 +307,8 @@ const AssignButton = React.createClass({
         <tr className="edit">
           <td>
             <form onSubmit={this.assign}>
-              <Lookup model="article"
+              <Lookup
+                model="article"
                 placeholder={I18n.t('articles.title_example')}
                 ref="lookup"
                 value={this.state.title}

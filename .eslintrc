@@ -29,7 +29,6 @@
     "react/no-children-prop": 0,
     "react/no-unused-prop-types": 0,
     "react/no-unescaped-entities": 0,
-    "react/jsx-first-prop-new-line": 0,
     "react/no-string-refs": 0,
     "react/jsx-equals-spacing": 0,
     "react/jsx-no-target-blank": 0,
