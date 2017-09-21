@@ -151,7 +151,7 @@ const DiffViewer = React.createClass({
     }
 
     if (this.state.showDiff) {
-      button = <button onClick={this.hideDiff} className="pull-right icon-close"></button>;
+      button = <button onClick={this.hideDiff} className="pull-right icon-close" />;
     } else {
       button = <button onClick={this.showDiff} className={showButtonStyle}>{this.showButtonLabel()}</button>;
     }

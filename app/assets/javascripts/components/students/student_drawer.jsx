@@ -32,7 +32,7 @@ const StudentDrawer = React.createClass({
   },
 
   render() {
-    if (!this.props.isOpen) { return <tr></tr>; }
+    if (!this.props.isOpen) { return <tr />; }
 
     const revisionsRows = (this.state.revisions || []).map((rev) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
@@ -84,7 +84,7 @@ const StudentDrawer = React.createClass({
                 <th className="desktop-only-tc">{I18n.t('metrics.date_time')}</th>
                 <th className="desktop-only-tc">{I18n.t('metrics.char_added')}</th>
                 <th className="desktop-only-tc">{I18n.t('metrics.view')}</th>
-                <th className="desktop-only-tc"></th>
+                <th className="desktop-only-tc" />
               </tr>
             </thead>
             <tbody>{revisionsRows}</tbody>

@@ -138,7 +138,7 @@ const Meetings = React.createClass({
             </label>
           </div>
           <div className="wizard__panel__controls">
-            <div className="left"></div>
+            <div className="left" />
             <div className="right">
               <CourseLink
                 onClick={this.saveCourse}

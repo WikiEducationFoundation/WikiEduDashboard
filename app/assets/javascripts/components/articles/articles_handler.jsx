@@ -29,7 +29,7 @@ const ArticlesHandler = React.createClass({
     } else {
       header = (
         <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
-          <span className="tooltip-indicator"></span>
+          <span className="tooltip-indicator" />
           <div className="tooltip dark">
             <p>{I18n.t('articles.cross_wiki_tracking')}</p>
           </div>

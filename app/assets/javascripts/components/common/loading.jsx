@@ -7,7 +7,7 @@ const Loading = React.createClass({
     return (
       <div className="loading">
         <h1>{I18n.t('courses.loading')}</h1>
-        <div className="loading__spinner"></div>
+        <div className="loading__spinner" />
       </div>
     );
   }

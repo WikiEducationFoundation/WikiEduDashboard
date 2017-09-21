@@ -48,7 +48,7 @@ const UploadTable = React.createClass({
         <thead>
           <tr>
             {ths}
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>

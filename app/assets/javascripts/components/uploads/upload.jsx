@@ -51,7 +51,7 @@ const Upload = ({ upload, linkUsername }) => {
       <td className="desktop-only-tc">{uploader}</td>
       <td className="desktop-only-tc">{upload.usage_count}</td>
       <td className="desktop-only-tc">{moment(upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
-      <td></td>
+      <td />
     </tr>
   );
 };

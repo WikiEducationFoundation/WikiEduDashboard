@@ -87,7 +87,7 @@ const Feedback = React.createClass({
     // Title set based on if the article exists in mainspace
     let button;
     if (this.state.show) {
-      button = <button onClick={this.hide} className="okay icon-close"></button>;
+      button = <button onClick={this.hide} className="okay icon-close" />;
     } else {
       button = <a onClick={this.show} className="button dark small">{I18n.t('courses.feedback')}</a>;
     }

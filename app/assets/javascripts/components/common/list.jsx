@@ -38,13 +38,13 @@ const List = React.createClass({
             <p>{I18n.t(keyObj.info_key)}</p>
           </div>
         ), (
-          <span key="ttindicator" className="tooltip-indicator"></span>
+          <span key="ttindicator" className="tooltip-indicator" />
         )];
       }
       headers.push((
         <th onClick={headerOnClick} className={headerClass} key={key}>
-          <span dangerouslySetInnerHTML={{ __html: keyObj.label }}></span>
-          <span className="sortable-indicator"></span>
+          <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+          <span className="sortable-indicator" />
           {tooltip}
         </th>
       ));
@@ -87,7 +87,7 @@ const List = React.createClass({
         <thead>
           <tr>
             {headers}
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>

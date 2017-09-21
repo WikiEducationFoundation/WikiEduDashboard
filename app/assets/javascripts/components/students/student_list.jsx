@@ -96,7 +96,7 @@ const StudentList = React.createClass({
 
     let notifyOverdue;
     if (Features.wikiEd && this.props.users.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
-      notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify"></button>;
+      notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify" />;
     }
 
     const keys = {

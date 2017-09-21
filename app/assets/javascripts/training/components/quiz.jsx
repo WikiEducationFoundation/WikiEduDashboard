@@ -73,7 +73,7 @@ const Quiz = React.createClass({
             </div>
             {answer.text}
           </label>
-          <div className={explanationClass} dangerouslySetInnerHTML={{ __html: rawExplanationHtml }}></div>
+          <div className={explanationClass} dangerouslySetInnerHTML={{ __html: rawExplanationHtml }} />
         </li>
       );
     });

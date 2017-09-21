@@ -20,7 +20,7 @@ export default class BarGraph extends Component {
             <div className={`results__bar-graph__row ${(!greaterThanZero ? 'empty' : '')}`}>
               <div className="results__bar-graph__question"><strong>{key}</strong></div>
               <div className="results__bar-graph__bar-row">
-                <div className={`results__bar-graph__bar ${(greaterThanZero ? 'active' : '')}`} style={{ height: 20, width: widthPercent, background: '#E5AB28', display: 'inline-block', verticalAlign: 'middle' }}></div>
+                <div className={`results__bar-graph__bar ${(greaterThanZero ? 'active' : '')}`} style={{ height: 20, width: widthPercent, background: '#E5AB28', display: 'inline-block', verticalAlign: 'middle' }} />
                 {(greaterThanZero ? <span className="results__bar-graph__bar-value" style={{ position: 'absolute', display: 'inline-block', verticalAlign: 'middle', padding: '0 5px', left: barValuePosition }}>{widthPercent} <span className="total">({total})</span></span> : null)}
               </div>
             </div>

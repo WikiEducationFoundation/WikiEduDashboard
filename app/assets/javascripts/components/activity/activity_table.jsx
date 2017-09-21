@@ -115,7 +115,7 @@ const ActivityTable = React.createClass({
       return (
         <th style={header.style || {}} key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
           {header.title}
-          <span className="sortable-indicator"></span>
+          <span className="sortable-indicator" />
         </th>
       );
     });
@@ -140,7 +140,7 @@ const ActivityTable = React.createClass({
         <thead>
           <tr>
             {ths}
-            <th></th>
+            <th />
           </tr>
         </thead>
         <tbody>

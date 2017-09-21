@@ -41,7 +41,7 @@ const Grading = React.createClass({
 
     return (
       <div className="grading__grading-container">
-        <a name="grading"></a>
+        <a name="grading" />
         <div className="section-header timeline__grading-container">
           <h3>{I18n.t('timeline.grading_header', { total })}</h3>
           {this.props.controls(null, this.props.gradeables.length < 1)}

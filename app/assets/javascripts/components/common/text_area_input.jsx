@@ -101,7 +101,7 @@ const TextAreaInput = React.createClass({
       rawHtml = this.props.value;
     }
     return (
-      <div className={this.props.className} dangerouslySetInnerHTML={{ __html: rawHtml }}></div>
+      <div className={this.props.className} dangerouslySetInnerHTML={{ __html: rawHtml }} />
     );
   }
 }
