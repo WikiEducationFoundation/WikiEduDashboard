@@ -16,6 +16,7 @@ set :address, 'dashboard-staging.wikiedu.org'
 
 set :deploy_to, '/var/www/dashboard'
 
+set :default_env, { 'PASSENGER_INSTANCE_REGISTRY_DIR' => '/var/www/dashboard/shared/tmp/pids' }
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server definition into the
