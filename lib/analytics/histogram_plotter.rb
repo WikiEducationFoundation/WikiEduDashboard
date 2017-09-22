@@ -33,6 +33,7 @@ class HistogramPlotter
 
   def build_csv
     FileUtils.mkdir_p analytics_path
+    return if File.exist? csv_path
     csv_content = CampaignArticlesCsvBuilder.new(@campaign).articles_to_csv
     File.write(csv_path, csv_content)
   end
