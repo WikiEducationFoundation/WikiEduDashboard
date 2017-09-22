@@ -15,9 +15,10 @@ module Errors
 
     def self.rescue_invalid_token(base)
       base.rescue_from ActionController::InvalidAuthenticityToken do
-        respond_to do |format|
-          format.html { render plain: t('error_401.explanation'), status: :unauthorized }
-          format.json { render json: { message: 'Please sign in' }, status: :unauthorized }
+        if json?(request)
+          render json: { message: 'Please sign in' }, status: :unauthorized
+        else
+          render plain: t('error_401.explanation'), status: :unauthorized
         end
       end
     end # self.rescue_invalid_token
@@ -32,42 +33,52 @@ module Errors
 
     def self.rescue_not_signed_in(base)
       base.rescue_from AuthenticationErrors::NotSignedInError do |e|
-        respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unauthorized }
+        if json?(request)
+          render json: { message: e.message }, status: :unauthorized
+        else
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message, status: :unauthorized }
+          render plain: e.message, status: :unauthorized
         end
       end
     end # rescue_not_signed_in
 
     def self.rescue_not_permitted(base)
       base.rescue_from AuthenticationErrors::NotPermittedError do |e|
-        respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unauthorized }
+        if json?(request)
+          render json: { message: e.message }, status: :unauthorized
+        else
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message, status: :unauthorized }
+          render plain: e.message, status: :unauthorized
         end
       end
     end # rescue_not_permitted
 
     def self.rescue_not_admin(base)
       base.rescue_from AuthenticationErrors::NotAdminError do |e|
-        respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unauthorized }
+        if json?(request)
+          render json: { message: e.message }, status: :unauthorized
+        else
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message, status: :unauthorized }
+          render plain: e.message, status: :unauthorized
         end
       end
     end # rescue_not_admin
 
     def self.rescue_participating_user(base)
       base.rescue_from AuthenticationErrors::ParticipatingUserError do |e|
-        respond_to do |format|
-          format.json { render json: { message: e.message }, status: :unauthorized }
+        if json?(request)
+          render json: { message: e.message }, status: :unauthorized
+        else
           # TODO: need more user friendly error handling for html
-          format.html { render plain: e.message, status: :unauthorized }
+          render plain: e.message, status: :unauthorized
         end
       end
     end # rescue_participating_user
+
+    private
+
+    def json?(request)
+      request.media_type.include? 'json'
+    end
   end # RescueErrors
 end
