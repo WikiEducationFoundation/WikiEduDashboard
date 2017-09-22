@@ -101,7 +101,9 @@ class AnalyticsController < ApplicationController
     @campaign = Campaign.find(params[:campaign][:id])
     @minimum_bytes = params[:minimum_bytes].to_i
     plotter = HistogramPlotter.new(campaign: @campaign)
-    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes)
+    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes,
+                                                  existing_only: params[:existing_only],
+                                                  type: params[:graph_type])
   end
 
   private

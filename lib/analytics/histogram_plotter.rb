@@ -3,18 +3,29 @@ require 'rinruby'
 require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
 
 class HistogramPlotter
-  def initialize(campaign:)
+  def initialize(campaign: nil, csv: nil)
     @campaign = campaign
-    build_csv
+    @csv = csv || csv_path
+    build_csv unless csv
     initialize_r
     load_dataframe
   end
 
-  def major_edits_plot(minimum_bytes: 1000)
+  def major_edits_plot(minimum_bytes: 1000, existing_only: true, type: 'histogram')
     @minimum_bytes = minimum_bytes
+    @existing_only = existing_only
+
     filter_by_bytes_added minimum_bytes
+    filter_out_new_articles if existing_only
     prepare_histogram_data
-    plot_histogram
+
+    case type
+    when 'histogram'
+      plot_histogram
+    when 'density'
+      plot_density
+    end
+
     return public_plot_path
   end
 
@@ -39,7 +50,7 @@ class HistogramPlotter
   end
 
   def public_analytics_path
-    'assets/images/analytics'
+    'system/analytics'
   end
 
   def analytics_path
@@ -47,7 +58,19 @@ class HistogramPlotter
   end
 
   def plot_filename
-    "#{@campaign.slug}-ores-#{@minimum_bytes}.png"
+    "#{@campaign&.slug}-ores-#{@minimum_bytes}.png"
+  end
+
+  def plot_title
+    "#{@campaign&.slug} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
+  end
+
+  def plot_subtitle
+    R.eval "before_count <- nrow(subset(histogram, when=='before'))"
+    R.eval "before_mean <- mean(subset(histogram, when=='before')$structural_completeness)"
+    R.eval "after_mean <- mean(subset(histogram, when=='after')$structural_completeness)"
+
+    "minimum bytes added: #{@minimum_bytes} ­— article count: #{R.before_count} — average before: #{R.before_mean.round(1)} — average after: #{R.after_mean.round(1)}"
   end
 
   def initialize_r
@@ -56,13 +79,17 @@ class HistogramPlotter
   end
 
   def load_dataframe
-    R.eval "campaign_data <- read.csv('#{csv_path}')"
+    R.eval "campaign_data <- read.csv('#{@csv}')"
     R.eval "campaign_data$ores_diff <- with(campaign_data, ores_after - ores_before)"
     R.eval "histogram_data <- campaign_data"
   end
 
   def filter_by_bytes_added(minimum_bytes)
     R.eval "histogram_data <- campaign_data[campaign_data$bytes_added >= #{minimum_bytes}, ]"
+  end
+
+  def filter_out_new_articles
+    R.eval "histogram_data <- histogram_data[histogram_data$ores_before > 0.0, ]"
   end
 
   def prepare_histogram_data
@@ -75,17 +102,41 @@ class HistogramPlotter
     R.eval "histogram <- rbind(before, after)"
   end
 
-  def plot_histogram
+  def plot_density
     R.eval "png(filename='#{plot_path}', width = 1200, height = 800)"
     R.eval <<-PLOT
       ggplot(histogram, aes(structural_completeness, fill=when)) +
-        geom_density(alpha = 0.4, adjust = 1/2) +
+        scale_fill_manual(values=c("#676eb4", "#359178")) +
+        geom_density(aes(y = ..count..), alpha = 0.4, adjust = 1/2) +
         xlab('Structural Completeness (based on ORES wp10 model)') +
         theme(legend.background = element_rect(colour = "white"),
               legend.position = c(.8, .85),
               axis.title=element_text(size=26,face="bold"),
+              plot.title=element_text(face='bold', size=28, hjust = 0.5),
+              plot.subtitle=element_text(size=22, hjust = 0.5),
               legend.text=element_text(size=40)) +
-        guides(fill=guide_legend(title=""))
+        guides(fill=guide_legend(title="")) +
+        labs(title='#{plot_title}', subtitle='#{plot_subtitle}')
+    PLOT
+    R.eval "dev.off()"
+  end
+
+  # Alternative colors: scale_fill_manual(values=c("#676eb4", "#359178")) +
+  def plot_histogram
+    R.eval "png(filename='#{plot_path}', width = 1200, height = 800)"
+    R.eval <<-PLOT
+      ggplot(histogram, aes(structural_completeness, fill=when)) +
+        geom_histogram(data=subset(histogram, when='before'), aes(y = ..count..), alpha = 0.3, position="identity", binwidth=2) +
+        geom_histogram(data=subset(histogram, when='after'), aes(y = ..count..), alpha = 0.3, position="identity", binwidth=2) +
+        xlab('Structural Completeness (based on ORES wp10 model)') +
+        theme(legend.background = element_rect(colour = "white"),
+              legend.position = c(.8, .85),
+              axis.title=element_text(size=26,face="bold"),
+              plot.title=element_text(face='bold', size=28, hjust = 0.5),
+              plot.subtitle=element_text(size=22, hjust = 0.5),
+              legend.text=element_text(size=40)) +
+        guides(fill=guide_legend(title="")) +
+        labs(title='#{plot_title}', subtitle='#{plot_subtitle}')
     PLOT
     R.eval "dev.off()"
   end
