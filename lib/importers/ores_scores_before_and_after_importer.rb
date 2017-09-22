@@ -3,6 +3,12 @@
 require "#{Rails.root}/lib/importers/revision_score_importer"
 
 class OresScoresBeforeAndAfterImporter
+  def self.import_all
+    ArticlesCourses.find_in_batches(batch_size: 2000) do |ac_batch|
+      new(articles_courses: ac_batch)
+    end
+  end
+
   def initialize(articles_courses:)
     @articles_courses = articles_courses
     import_scores

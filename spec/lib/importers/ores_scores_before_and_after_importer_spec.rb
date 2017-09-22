@@ -11,6 +11,6 @@ describe OresScoresBeforeAndAfterImporter do
   end
 
   it 'runs without error' do
-    described_class.new(articles_courses: ArticlesCourses.all)
+    described_class.import_all
   end
 end

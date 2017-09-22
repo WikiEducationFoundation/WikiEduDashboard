@@ -7,7 +7,7 @@ require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/article_status_manager"
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/upload_importer"
-require "#{Rails.root}/lib/data_cycle/cache_updater"
+require "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
@@ -79,6 +79,9 @@ class DailyUpdate
 
     log_message 'Updating article namespace and deleted status'
     ArticleStatusManager.update_article_status
+
+    log_message 'Updating wp10 scores for before and after edits'
+    OresScoresBeforeAndAfterImporter.import_all
   end
 
   def update_article_views
