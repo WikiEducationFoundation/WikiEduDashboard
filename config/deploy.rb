@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.9.0'
+lock '3.9.1'
 
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
