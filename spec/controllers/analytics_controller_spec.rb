@@ -36,6 +36,17 @@ describe AnalyticsController do
                                 campaign_2: { id: 2 } }
       expect(response.status).to eq(200)
     end
+
+    it 'returns a structural completeness plot' do
+      # We cheat here to skip actually running any R code,
+      # since the output is very messy will depend on having specific R packages
+      # installed.
+      allow_any_instance_of(RinRuby).to receive(:eval)
+      post 'results', params: { ores_changes: true,
+                                campaign: { id: 1},
+                                minimum_bytes: 0 }
+      expect(response.status).to eq(200)
+    end
   end
 
   describe '#ungreeted' do

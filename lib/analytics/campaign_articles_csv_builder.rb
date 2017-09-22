@@ -21,7 +21,7 @@ class CampaignArticlesCsvBuilder
   def articles_to_csv
     csv_data = [CSV_HEADERS]
     @campaign.courses.each do |course|
-      course.articles_courses.each do |articles_course|
+      course.articles_courses.includes(:article).where(articles: { wiki_id: en_wiki_id }).each do |articles_course|
         csv_data << article_row(articles_course, course)
       end
     end
@@ -42,5 +42,9 @@ class CampaignArticlesCsvBuilder
       article_url(article),
       course.slug
     ]
+  end
+
+  def en_wiki_id
+    @en_wiki_id ||= Wiki.get_or_create(language: 'en', project: 'wikipedia').id
   end
 end

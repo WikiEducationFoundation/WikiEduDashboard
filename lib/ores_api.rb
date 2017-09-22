@@ -3,6 +3,10 @@
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
+  # This is the maximum number of concurrent requests the app should make.
+  # The ORES team suggested this as a safe number in ~2016.
+  CONCURRENCY = 50
+
   def initialize(wiki)
     raise InvalidProjectError unless wiki.project == 'wikipedia'
     @project_code = wiki.language + 'wiki'
