@@ -46,7 +46,7 @@ gem 'nokogiri' # expected by premailer-rails but not required
 gem 'pandoc-ruby', '~> 1.0.0'
 
 gem 'http_accept_language'
-gem 'i18n-js', '>= 3.0.0.rc14'
+gem 'i18n-js'
 
 gem 'mailgun_rails'
 

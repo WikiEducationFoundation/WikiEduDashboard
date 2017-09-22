@@ -525,7 +525,7 @@ DEPENDENCIES
   haml-rails
   hashugar
   http_accept_language
-  i18n-js (>= 3.0.0.rc14)
+  i18n-js
   jbuilder (~> 2.0)
   launchy
   mailgun_rails
