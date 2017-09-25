@@ -21,7 +21,7 @@ const Article = React.createClass({
 
   shouldShowLanguagePrefix() {
     if (!this.props.course.home_wiki) { return false; }
-    return this.props.article.language !== this.props.course.home_wiki.language;
+    return this.props.article.language !== this.props.course.home_wiki.language && null;
   },
 
   shouldShowProjectPrefix() {

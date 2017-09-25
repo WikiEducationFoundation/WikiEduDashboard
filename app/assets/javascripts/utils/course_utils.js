@@ -119,7 +119,7 @@ const CourseUtils = class {
 
   formattedArticleTitle(language, project, articleTitle) {
     let languagePrefix = '';
-    if (language === undefined || language === 'en') {
+    if (language === undefined || language === null || language === 'en') {
       languagePrefix = '';
     } else {
       languagePrefix = `${language}:`;
