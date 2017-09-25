@@ -137,7 +137,7 @@ de:
       Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
       verfügbar.
   assignments:
-    article: Der Artikel %{title} wurde zugewiesen
+    article: Der Artikel %{title} ist jetzt dir zugewiesen.
     already_exists: Diese Zuweisung ist bereits vorhanden!
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)

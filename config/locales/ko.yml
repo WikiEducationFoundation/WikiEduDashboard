@@ -98,6 +98,7 @@ ko:
     edit_size: 편집 크기
     wiki: 위키
   assignments:
+    article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     add_available: 이용 가능한 글 추가

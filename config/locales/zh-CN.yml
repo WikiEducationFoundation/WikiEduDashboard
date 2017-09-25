@@ -108,7 +108,7 @@ zh-CN:
       but it does not take into account the content itself. (These scores are only
       available for English Wikipedia articles.)
   assignments:
-    article: 条目%{title}已被分配
+    article: 条目%{title}已分配给您。
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人

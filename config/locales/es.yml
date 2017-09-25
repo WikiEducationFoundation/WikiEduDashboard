@@ -131,6 +131,7 @@ es:
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     edit_size: Editar tamaño
+    wiki: Wiki
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
       encaja en el molde de un artículo maduro de la Wikipedia, según el Servicio
@@ -142,7 +143,7 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
-    article: Se asignó el artículo %{title}
+    article: El artículo %{title} ahora está asignado a ti.
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)

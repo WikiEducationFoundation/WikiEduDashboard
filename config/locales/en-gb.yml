@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
+# Author: Pierpao
 ---
 en-gb:
   application:
@@ -96,6 +97,7 @@ en-gb:
     view_all: View All
     view_doc: The sum of all views to each article during the course term
     views_added: Added %{count} new views for %{title}
+    wiki: Wiki
   assignments:
     already_exists: This assignment already exists!
     assignees: Assignee(s)

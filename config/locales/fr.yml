@@ -155,7 +155,7 @@ fr:
       d’un bon article, mais il ne prend pas en compte le contenu lui-même. (Ces statistiques
       ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
   assignments:
-    article: L’article %{title} a été affecté
+    article: L’article %{title} vous est maintenant affecté.
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
