@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/app/presenters/special_users_presenter"
 
 describe UsersController do
   describe '#enroll' do
@@ -124,7 +125,7 @@ describe UsersController do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
         allow(controller).to receive(:current_user).and_return(admin)
-        ENV['classroom_program_manager'] = staff.username
+        create(:setting, key: 'special_users', value: {classroom_program_manager: staff.username})
       end
 
       let(:post_params) do
