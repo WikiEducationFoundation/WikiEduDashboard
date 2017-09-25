@@ -34,7 +34,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   // Timeline link /
   // ///////////////
   let timeline;
-  if (course.type === 'ClassroomProgramCourse') {
+  if (course.timeline_enabled) {
     const timelineLink = `${courseLink}/timeline`;
     timeline = (
       <div className="nav__item" id="timeline-link">
