@@ -20,8 +20,8 @@ const Article = React.createClass({
   },
 
   shouldShowLanguagePrefix() {
-    if (!this.props.course.home_wiki) { return false; }
-    return this.props.article.language !== this.props.course.home_wiki.language && null;
+    if (!this.props.course.home_wiki ) { return false; }
+    return this.props.article.language !== this.props.course.home_wiki.language;
   },
 
   shouldShowProjectPrefix() {
@@ -35,7 +35,9 @@ const Article = React.createClass({
 
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
-    const languagePrefix = this.shouldShowLanguagePrefix() ? `${this.props.article.language}:` : '';
+    
+
+    const languagePrefix = this.shouldShowLanguagePrefix() ? '' : `${this.props.course.home_wiki.language}:`;
     // The default project is Wikipedia.
     const project = this.shouldShowProjectPrefix() ? `${this.props.article.project}:` : 'wikipedia:';
     // Do not use a project prefix for Wikipedia.
