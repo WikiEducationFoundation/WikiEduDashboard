@@ -199,7 +199,7 @@ describe UsersController do
 
       it 'should not authorize' do
         get :index
-        expect(response.body).to have_content('You are not authorized')
+        expect(response.body).to have_content('Only administrators may do that.')
       end
     end
 
