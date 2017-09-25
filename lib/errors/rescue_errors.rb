@@ -16,7 +16,7 @@ module Errors
     def self.rescue_invalid_token(base)
       base.rescue_from ActionController::InvalidAuthenticityToken do
         if json?(request)
-          render json: { message: 'Please sign in' }, status: :unauthorized
+          render json: { message: t('error_401.json_explanation') }, status: :unauthorized
         else
           render plain: t('error_401.explanation'), status: :unauthorized
         end

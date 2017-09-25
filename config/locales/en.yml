@@ -875,6 +875,8 @@ en:
       You are not authorized to execute this request. If you believe you have
       reached this notice in error, please contact the maintainers of this
       dashboard to let them know about the problem.
+    json_explanation: >
+      It looks like you've gotten logged out. Please refresh, log in, and try again.
 
   error_incorrect_passcode:
     header: "Incorrect passcode.  :-("

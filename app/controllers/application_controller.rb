@@ -6,7 +6,7 @@ gem 'browser'
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
-  
+
 
   include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
   include Errors::RescueErrors
@@ -63,12 +63,12 @@ class ApplicationController < ActionController::Base
     course = Course.find_by_slug(params[:id])
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
-    return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
+    return if current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
     raise ParticipatingUserError
   end
 
   def check_for_expired_oauth_credentials
-    return unless current_user && current_user.wiki_token == 'invalid'
+    return unless current_user&.wiki_token == 'invalid'
 
     flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
