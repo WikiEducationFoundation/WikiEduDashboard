@@ -53,7 +53,7 @@ describe CoursesController do
 
     it 'calls update methods via WikiCourseEdits' do
       expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-      delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
+      delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
     end
 
     context 'destroy callbacks' do
@@ -63,7 +63,7 @@ describe CoursesController do
       end
 
       it 'destroys associated models' do
-        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
 
         %w(CoursesUsers ArticlesCourses CampaignsCourses).each do |model|
           expect do
@@ -81,12 +81,12 @@ describe CoursesController do
       end
 
       it 'returns success' do
-        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
         expect(response).to be_success
       end
 
       it 'deletes the course' do
-        delete :destroy, params: { id: "#{course.slug}.json" }, format: :json
+        delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
         expect(Course.find_by_slug(course.slug)).to be_nil
       end
     end
@@ -122,9 +122,10 @@ describe CoursesController do
       allow(controller).to receive(:user_signed_in?).and_return(true)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
     end
+
     it 'updates all values' do
       params = { id: course.slug, course: course_params }
-      put :update, params: params, format: :json
+      put :update, params: params, as: :json
       course_params.each do |key, value|
         # There's some variability the precision of datetimes between what
         # comes out of MySQL and a raw Ruby datetime object. So we add a bit
@@ -142,20 +143,36 @@ describe CoursesController do
       before { course.update_attribute(:passcode, nil) }
       it 'sets if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
-        put :update, params: params, format: :json
+        put :update, params: params, as: :json
         expect(course.reload.passcode).to match(/[a-z]{8}/)
+      end
+    end
+
+    describe 'toggling timeline' do
+      it 'sets the course flag to true' do
+        expect(course.flags[:timeline_enabled]).to be_nil
+        params = { id: course.slug, course: { timeline_enabled: true } }
+        put :update, params: params, as: :json
+        expect(course.reload.flags[:timeline_enabled]).to eq(true)
+      end
+
+      it 'sets the course flag to false' do
+        expect(course.flags[:timeline_enabled]).to be_nil
+        params = { id: course.slug, course: { timeline_enabled: false } }
+        put :update, params: params, as: :json
+        expect(course.reload.flags[:timeline_enabled]).to eq(false)
       end
     end
 
     it 'raises if course is not found' do
       params = { id: 'peanut-butter', course: course_params }
-      expect { put :update, params: params, format: :json }
+      expect { put :update, params: params, as: :json }
         .to raise_error(ActionController::RoutingError)
     end
 
     it 'returns the new course as json' do
       params = { id: course.slug, course: course_params }
-      put :update, params: params, format: :json
+      put :update, params: params, as: :json
       # created ats differ by milliseconds, so check relevant attrs
       expect(response.body['title']).to eq(course.reload.to_json['title'])
       expect(response.body['term']).to eq(course.reload.to_json['term'])
@@ -168,7 +185,7 @@ describe CoursesController do
       it 'does not announce course' do
         expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         params = { id: course.slug, course: course_params }
-        put :update, params: params, format: :json
+        put :update, params: params, as: :json
       end
     end
 
@@ -181,7 +198,7 @@ describe CoursesController do
         expect_any_instance_of(WikiCourseEdits).to receive(:announce_course)
         expect(CourseSubmissionMailer).to receive(:send_submission_confirmation)
         params = { id: course.slug, course: course_params }
-        put :update, params: params, format: :json
+        put :update, params: params, as: :json
       end
     end
   end
@@ -205,7 +222,7 @@ describe CoursesController do
             end: '2015-12-20' }
         end
         it 'sets slug correctly' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(Course.last.slug).to eq(expected_slug)
         end
       end
@@ -216,7 +233,7 @@ describe CoursesController do
             title: 'How to Wiki' }
         end
         it 'does not set slug (and does not create course)' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(Course.all).to be_empty
         end
       end
@@ -233,13 +250,13 @@ describe CoursesController do
         end
 
         it 'sets the non-default home_wiki' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(Course.last.home_wiki.language).to eq('ar')
           expect(Course.last.home_wiki.project).to eq('wikibooks')
         end
 
         it 'assigns the new course to @course' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(assigns(:course)).to be_a_kind_of(Course)
         end
       end
@@ -256,7 +273,7 @@ describe CoursesController do
         end
 
         it 'renders a 404 and does not create the course' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
           expect(response.body).to have_content('Invalid language/project')
@@ -276,7 +293,7 @@ describe CoursesController do
 
         it 'renders a 404 and does not create the course when school is blank' do
           course_params[:title] = 'Test Title'
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
           expect(response.body).to have_content('Blank school/title for course.')
@@ -284,14 +301,14 @@ describe CoursesController do
 
         it 'renders a 404 and does not create the course when title is blank' do
           course_params[:school] = 'Test School'
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
           expect(response.body).to have_content('Blank school/title for course')
         end
 
         it 'renders a 404 and does not create the course when both school and title are blank' do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(0)
           expect(response.body).to have_content('Blank school/title for course')
@@ -307,12 +324,12 @@ describe CoursesController do
             end: '2015-12-20' }
         end
         before do
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
         end
 
         it 'renders a 404 and does not create the course' do
           expect(Course.count).to eq(1)
-          post :create, params: { course: course_params }, format: :json
+          post :create, params: { course: course_params }, as: :json
           expect(response.status).to eq(404)
           expect(Course.count).to eq(1)
           expect(response.body).to have_content(
@@ -338,7 +355,7 @@ describe CoursesController do
             no_day_exceptions: true }
         end
         it 'sets timeline start/end to course start/end if not in params' do
-          put :create, params: { course: course_params }, format: :json
+          put :create, params: { course: course_params }, as: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
           expect(Course.last.timeline_end).to be_within(1.second).of(course_params[:end])
         end
@@ -376,7 +393,7 @@ describe CoursesController do
 
         it 'creates a CampaignsCourse' do
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post :list, params: params, format: :json
+          post :list, params: params, as: :json
           last_campaign = CampaignsCourses.last
           expect(last_campaign.course_id).to eq(course.id)
           expect(last_campaign.campaign_id).to eq(campaign.id)
@@ -385,20 +402,20 @@ describe CoursesController do
         it 'sends an email if course has no previous campaigns' do
           expect(CourseApprovalMailer).to receive(:send_approval_notification)
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post :list, params: params, format: :json
+          post :list, params: params, as: :json
         end
 
         it 'creates a chat channel if course has no previous campaigns' do
           expect_any_instance_of(RocketChat).to receive(:create_channel_for_course)
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post :list, params: params, format: :json
+          post :list, params: params, as: :json
         end
 
         it 'does not send an email if course is already approved' do
           course.campaigns << create(:campaign)
           expect(CourseApprovalMailer).not_to receive(:send_approval_notification)
           params = { id: course.slug, campaign: { title: campaign.title } }
-          post :list, params: params, format: :json
+          post :list, params: params, as: :json
         end
       end
 
@@ -409,7 +426,7 @@ describe CoursesController do
 
         it 'deletes CampaignsCourse' do
           params = { id: course.slug, campaign: { title: campaign.title } }
-          delete :list, params: params, format: :json
+          delete :list, params: params, as: :json
           expect(CampaignsCourses.find_by(course_id: course.id, campaign_id: campaign.id)).to be_nil
         end
       end
@@ -429,7 +446,7 @@ describe CoursesController do
       let(:tag) { 'pizza' }
       it 'creates a tag' do
         params = { id: course.slug, tag: { tag: tag } }
-        post :tag, params: params, format: :json
+        post :tag, params: params, as: :json
         expect(Tag.last.tag).to eq(tag)
         expect(Tag.last.course_id).to eq(course.id)
       end
@@ -439,7 +456,7 @@ describe CoursesController do
       let(:tag) { Tag.create(tag: 'pizza', course_id: course.id) }
       it 'deletes the tag' do
         params = { id: course.slug, tag: { tag: tag.tag } }
-        delete :tag, params: params, format: :json
+        delete :tag, params: params, as: :json
         expect { Tag.find(tag.id) }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end

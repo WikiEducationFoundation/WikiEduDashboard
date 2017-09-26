@@ -204,7 +204,7 @@ class CoursesController < ApplicationController
       @course.flags[:timeline_enabled] = true
       @course.save
     when false
-      @course.flags[:timeline_enabled] = true
+      @course.flags[:timeline_enabled] = false
       @course.save
     end
   end
