@@ -445,6 +445,7 @@ en:
     submitted: Submitted
     term: Term
     timeline: Assignment Details
+    timeline_enabled: Timeline enabled
     timeline_link: Timeline
     time_zone_message: Start and end times are displayed in your local time zone.
     title: Title
