@@ -1,5 +1,5 @@
 #= Presenter for Setting / special users
-class SpecialUser
+class SpecialUsers
   def self.special_users
     Setting.find_or_create_by(key: 'special_users').value
   end

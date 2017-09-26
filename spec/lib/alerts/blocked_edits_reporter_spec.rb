@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/blocked_edits_reporter"
-require "#{Rails.root}/app/presenters/special_users_presenter"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)

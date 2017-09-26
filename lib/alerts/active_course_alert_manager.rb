@@ -23,6 +23,6 @@ class ActiveCourseAlertManager
   end
 
   def communications_manager
-    SpecialUser.communications_manager
+    SpecialUsers.communications_manager
   end
 end

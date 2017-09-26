@@ -55,6 +55,6 @@ class SurveyResponseAlertManager
   end
 
   def alert_recipient
-    SpecialUser.survey_alerts_recipient
+    SpecialUsers.survey_alerts_recipient
   end
 end

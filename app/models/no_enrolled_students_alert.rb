@@ -35,7 +35,7 @@ class NoEnrolledStudentsAlert < Alert
   end
 
   def from_user
-    @from_user ||= SpecialUser.classroom_program_manager
+    @from_user ||= SpecialUsers.classroom_program_manager
   end
 
   def reply_to

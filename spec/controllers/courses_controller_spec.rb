@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'rails_helper'
-require "#{Rails.root}/app/presenters/special_users_presenter"
 
 describe CoursesController do
   before { stub_wiki_validation }

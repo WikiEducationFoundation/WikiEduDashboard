@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'rails_helper'
-require "#{Rails.root}/app/presenters/special_users_presenter"
 
 def set_up_suite
   page.current_window.resize_to(1920, 1080)

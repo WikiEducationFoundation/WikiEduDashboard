@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/app/presenters/special_users_presenter"
 
 describe UsersController do
   describe '#enroll' do

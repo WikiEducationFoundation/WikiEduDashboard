@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
-require "#{Rails.root}/app/presenters/special_users_presenter"
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)
