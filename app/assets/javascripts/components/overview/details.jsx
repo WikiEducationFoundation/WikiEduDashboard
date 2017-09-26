@@ -5,6 +5,7 @@ import CampaignButton from './campaign_button.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
+import TimelineToggle from './timeline_toggle.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -219,6 +220,7 @@ const Details = React.createClass({
     let tags;
     let courseTypeSelector;
     let submittedSelector;
+    let timelineToggle;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -249,9 +251,19 @@ const Details = React.createClass({
     }
 
     // Users who can rename a course are also allowed to change the type.
-    if (this.canRename()) {
+    if (canRename) {
       courseTypeSelector = (
         <CourseTypeSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+    }
+
+    // Users who can rename a course are also allowed to toggle the timeline on/off.
+    if (canRename && this.props.course.type !== 'ClassroomProgramCourse') {
+      timelineToggle = (
+        <TimelineToggle
           course={this.props.course}
           editable={this.props.editable}
         />
@@ -309,6 +321,7 @@ const Details = React.createClass({
           {tags}
           {courseTypeSelector}
           {submittedSelector}
+          {timelineToggle}
         </div>
       </div>
     );

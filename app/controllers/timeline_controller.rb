@@ -15,18 +15,6 @@ class TimelineController < ApplicationController
     render 'timeline'
   end
 
-  def enable_timeline
-    @course.flags[:timeline_enabled] = true
-    @course.save!
-    render :json, success: true
-  end
-
-  def disable_timeline
-    @course.flags[:timeline_enabled] = false
-    @course.save!
-    render :json, success: true
-  end
-
   private
 
   def set_course
