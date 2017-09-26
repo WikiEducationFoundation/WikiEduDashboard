@@ -55,6 +55,6 @@ class SurveyResponseAlertManager
   end
 
   def alert_recipient
-    User.find_by(username: ENV['survey_alerts_recipient'])
+    SpecialUsers.survey_alerts_recipient
   end
 end

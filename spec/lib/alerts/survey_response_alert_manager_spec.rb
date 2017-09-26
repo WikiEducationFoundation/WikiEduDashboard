@@ -2,8 +2,6 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/survey_response_alert_manager"
 
-cached_survey_alert_recipient = ENV['survey_alerts_recipient']
-
 def mock_mailer
   OpenStruct.new(deliver_now: true)
 end
@@ -26,12 +24,8 @@ describe SurveyResponseAlertManager do
   end
 
   before do
-    ENV['survey_alerts_recipient'] = 'Samantha (Wiki Ed)'
     create(:user, username: 'Samantha (Wiki Ed)', email: 'samantha@wikiedu.org')
-  end
-
-  after do
-    ENV['survey_alerts_recipient'] = cached_survey_alert_recipient
+    create(:setting, key: 'special_users', value: {survey_alerts_recipient: 'Samantha (Wiki Ed)'})
   end
 
   context 'when an "equals" condition is met in an answer' do

@@ -21,6 +21,6 @@ class BlockedEditsReporter
   private
 
   def technical_help_staff
-    User.find_by(username: ENV['technical_help_staff'])
+    SpecialUsers.technical_help_staff
   end
 end
