@@ -177,7 +177,7 @@ class TrainingLoader
   end
 
   def slug_from(wiki_page)
-    wiki_page.split('/').last.gsub(/^[0-9]+-/, '')
+    wiki_page.split('/').last.gsub(/^[0-9]+-/, '').gsub('.json', '')
   end
 
   def raise_no_matching_wiki_pages_error
