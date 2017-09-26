@@ -85,7 +85,10 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - Install Gulp (if not already installed)
   - `sudo npm install -g gulp-cli`
-
+  
+- Install R:
+  - Debian: `sudo apt install r-base`
+  - Also you can refer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**
       $ `rake db:migrate`
