@@ -135,6 +135,27 @@ const CourseUtils = class {
     return `${languagePrefix}${projectPrefix}${articleTitle}`;
   }
 
+  createsArticleTitle(home, article) {
+    let languagePrefix = '';
+    if (!home || article.language === home.language) {
+      languagePrefix = null;
+    } else {
+      languagePrefix = article.language;
+    }
+    let projectPrefix = '';
+    if (!home || article.project === home.project) {
+      projectPrefix = 'wikipedia';
+    } else {
+      projectPrefix = article.project;
+    }
+
+    return this.formattedArticleTitle(
+      languagePrefix,
+      projectPrefix,
+      article.title
+      );
+  }
+
   hasTrainings(weeks) {
     function blockHasTrainings(block) {
       return Boolean(block.training_module_ids && block.training_module_ids.length);
