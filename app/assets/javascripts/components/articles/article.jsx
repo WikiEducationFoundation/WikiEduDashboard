@@ -29,7 +29,7 @@ const Article = React.createClass({
     // Uses Course Utils Helper
     const formattedTitle = CourseUtils.createsArticleTitle(this.props.course.home_wiki, this.props.article);
     const historyUrl = `${this.props.article.url}?action=history`;
-      
+
     return (
       <tr className={className} onClick={this.toggleDrawer}>
         <td className="tooltip-trigger desktop-only-tc">
