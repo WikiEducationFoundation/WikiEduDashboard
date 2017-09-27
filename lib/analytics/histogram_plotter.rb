@@ -41,7 +41,7 @@ class HistogramPlotter
   end
 
   def csv_path
-    "#{analytics_path}/#{@campaign.slug}.csv"
+    "#{analytics_path}/#{@campaign.slug}-#{Date.today}.csv"
   end
 
   def plot_path

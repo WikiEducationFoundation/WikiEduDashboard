@@ -74,6 +74,7 @@ describe AnalyticsController do
                                 campaign: { id: 1},
                                 minimum_bytes: 1000,
                                 graph_type: 'histogram',
+                                minimum_improvement: 10,
                                 existing_only: false }
       expect(response.status).to eq(200)
     end
