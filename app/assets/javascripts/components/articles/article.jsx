@@ -1,4 +1,5 @@
 import React from 'react';
+import CourseUtils from '../../utils/course_utils.js';
 
 const Article = React.createClass({
   displayName: 'Article',
@@ -18,31 +19,17 @@ const Article = React.createClass({
     }
     return this.props.toggleDrawer(`drawer_${this.props.article.id}`);
   },
-
-  shouldShowLanguagePrefix() {
-    if (!this.props.course.home_wiki || this.props.article.language === null || this.props.article.language === undefined) { return false; }
-    return this.props.article.language !== this.props.course.home_wiki.language;
-  },
-
-  shouldShowProjectPrefix() {
-    if (!this.props.course.home_wiki) { return false; }
-    return this.props.article.project !== this.props.course.home_wiki.project;
-  },
-
   render() {
     let className = 'article';
     className += this.props.isOpen ? ' open' : '';
 
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
-    const languagePrefix = this.shouldShowLanguagePrefix() ? `${this.props.article.language}:` : '' ;
-    // The default project is Wikipedia.
-    const project = this.shouldShowProjectPrefix() ? `${this.props.article.project}:` : 'wikipedia:';
-    // Do not use a project prefix for Wikipedia.
-    const projectPrefix = project === 'wikipedia:' ? '' : project;
-    const formattedTitle = `${languagePrefix}${projectPrefix}${this.props.article.title}`;
-    const historyUrl = `${this.props.article.url}?action=history`;
 
+    // Uses Course Utils Helper
+    const formattedTitle = CourseUtils.createsArticleTitle(this.props.course.home_wiki, this.props.article);
+    const historyUrl = `${this.props.article.url}?action=history`;
+      
     return (
       <tr className={className} onClick={this.toggleDrawer}>
         <td className="tooltip-trigger desktop-only-tc">
