@@ -11,12 +11,14 @@ class HistogramPlotter
     load_dataframe
   end
 
-  def major_edits_plot(minimum_bytes: 1000, existing_only: true, type: 'histogram')
+  def major_edits_plot(minimum_bytes: 1000, existing_only: true, type: 'histogram', minimum_improvement: nil)
     @minimum_bytes = minimum_bytes
     @existing_only = existing_only
+    @minimum_improvement = minimum_improvement
 
-    filter_by_bytes_added minimum_bytes
+    filter_by_bytes_added
     filter_out_new_articles if existing_only
+    filter_by_improvement if minimum_improvement
     prepare_histogram_data
 
     case type
@@ -71,7 +73,9 @@ class HistogramPlotter
     R.eval "before_mean <- mean(subset(histogram, when=='before')$structural_completeness)"
     R.eval "after_mean <- mean(subset(histogram, when=='after')$structural_completeness)"
 
-    "minimum bytes added: #{@minimum_bytes} ­— article count: #{R.before_count} — average before: #{R.before_mean.round(1)} — average after: #{R.after_mean.round(1)}"
+    improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
+
+    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
   end
 
   def initialize_r
@@ -85,12 +89,16 @@ class HistogramPlotter
     R.eval "histogram_data <- campaign_data"
   end
 
-  def filter_by_bytes_added(minimum_bytes)
-    R.eval "histogram_data <- campaign_data[campaign_data$bytes_added >= #{minimum_bytes}, ]"
+  def filter_by_bytes_added
+    R.eval "histogram_data <- campaign_data[campaign_data$bytes_added >= #{@minimum_bytes}, ]"
   end
 
   def filter_out_new_articles
     R.eval "histogram_data <- histogram_data[histogram_data$ores_before > 0.0, ]"
+  end
+
+  def filter_by_improvement
+    R.eval "histogram_data <- histogram_data[histogram_data$ores_diff >= #{@minimum_improvement}, ]"
   end
 
   def prepare_histogram_data
