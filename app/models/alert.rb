@@ -20,14 +20,14 @@
 
 class Alert < ActiveRecord::Base
   belongs_to :article
-  belongs_to :course
+belongs_to :course
   belongs_to :user
-  belongs_to :target_user, class_name: 'User'
+belongs_to :target_user, class_name: 'User'
   belongs_to :revision
 
-  include ArticleHelper
+include ArticleHelper
 
-  ALERT_TYPES = %w[
+ALERT_TYPES = %w[
     ActiveCourseAlert
     ArticlesForDeletionAlert
     BlockedEditsAlert
@@ -50,9 +50,7 @@ class Alert < ActiveRecord::Base
     DYKNominationAlert
   ].freeze
 
-  def course_url
-    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
-  end
+  def course_url; "https://#{ENV['dashboard_url']}/courses/#{course.slug}"; end
 
   def user_profile_url
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
