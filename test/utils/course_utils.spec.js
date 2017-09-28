@@ -141,7 +141,7 @@ describe('courseUtils.articleFromTitleInput', () => {
   });
 });
 
-describe('courseUtils.formattedArticleTitle', () => {
+describe('courseUtils.articleFromAssignment', () => {
   it('returns an article object with the language, project, title, and url', () => {
     const assignment = {
       article_url: 'https://es.wikipedia.org/wiki/Autofoto',

@@ -99,10 +99,11 @@ const CourseUtils = class {
       url: articleUrl,
       title: assignment.article_title,
       article_id: assignment.article_id,
-      language,
-      project,
+      language: language,
+      project: project,
       new: false
     };
+    article.formatted_title = this.formattedArticleTitle(article);
     return article;
   }
 
@@ -111,22 +112,22 @@ const CourseUtils = class {
     return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
 
-  formattedArticleTitle(language, project, title, home) {
+  formattedArticleTitle(article, defaultWiki) {
     let languagePrefix = '';
-    if (!home || language === home.language || language === null || language === undefined || language === 'en') {
+    if (defaultWiki === undefined || article.language === defaultWiki.language || article.language === null || article.language === undefined) {
       languagePrefix = '';
     } else {
-      languagePrefix = `${language}:`;
+      languagePrefix = `${article.language}:`;
     }
 
     let projectPrefix = '';
-    if (!home || project === home.project || project === undefined || project === 'wikipedia') {
+    if (defaultWiki === undefined || article.project === defaultWiki.project || article.project === undefined || article.project === 'wikipedia') {
       projectPrefix = '';
     } else {
-      projectPrefix = `${project}:`;
+      projectPrefix = `${article.project}:`;
     }
 
-    return `${languagePrefix}${projectPrefix}${title}`;
+    return `${languagePrefix}${projectPrefix}${article.title}`;
   }
 
   hasTrainings(weeks) {

@@ -17,12 +17,10 @@ const Assignment = React.createClass({
   },
   render() {
     const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0]);
-
-    article.formatted_title = CourseUtils.formattedArticleTitle(
-        this.props.assignmentGroup[0].language,
-        this.props.assignmentGroup[0].project,
-        article.title,
-        this.props.course.home_wiki);
+    article.formatted_title = CourseUtils.formattedArticleTitle(article);
+    if (!article.formatted_title) {
+      article.formatted_title = CourseUtils.formattedArticleTitle(this.props.assignmentGroup[0]);
+    }
     const className = 'assignment';
     const ratingClass = `rating ${article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
