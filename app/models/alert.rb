@@ -56,12 +56,12 @@ ALERT_TYPES = %w[
     "https://#{ENV['dashboard_url']}/users/#{user.username}"
   end
 
-  def user_contributions_url
-    courses_user&.contribution_url
+    def user_contributions_url
+      courses_user&.contribution_url
   end
 
   def email_content_expert
-    return if emails_disabled?
+  return if emails_disabled?
     content_expert = course.nonstudents.find_by(greeter: true)
     return if content_expert.nil?
     AlertMailer.alert(self, content_expert).deliver_now
