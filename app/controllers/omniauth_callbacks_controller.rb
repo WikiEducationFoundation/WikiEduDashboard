@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/user_importer"
 
 #= Controller for OmniAuth authentication callbacks

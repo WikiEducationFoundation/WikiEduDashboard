@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class TrainingModulePresenter
   attr_reader :training_module, :progress_manager
 

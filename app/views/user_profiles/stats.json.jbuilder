@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 if @user.course_instructor?
   json.as_instructor do
     json.course_string_prefix @courses_presenter.course_string_prefix

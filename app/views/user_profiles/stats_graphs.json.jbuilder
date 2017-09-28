@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 if @user.course_instructor?
   json.instructor_stats do
     json.array! @courses_presenter.courses.each do |course|

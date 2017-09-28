@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This can be run in the rails console to generate a csv of all course
 # participants' usernames.
 

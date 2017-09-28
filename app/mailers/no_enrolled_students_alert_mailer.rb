@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NoEnrolledStudentsAlertMailer < ApplicationMailer
   def email(alert)
     return unless Features.email?

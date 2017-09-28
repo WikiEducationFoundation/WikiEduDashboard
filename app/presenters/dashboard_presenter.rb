@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Presenter for dashboard
 class DashboardPresenter
   include Rails.application.routes.url_helpers

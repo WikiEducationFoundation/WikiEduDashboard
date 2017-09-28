@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/chat/rocket_chat"
 
 #= Enables chat features for a course and adds all participants to course chat channel

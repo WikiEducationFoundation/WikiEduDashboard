@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/course_clone_manager"
 
 class CourseCloneController < ApplicationController

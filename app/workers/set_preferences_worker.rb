@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_preferences_manager"
 
 class SetPreferencesWorker

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 # Wait one second after loading a path
@@ -11,7 +12,8 @@ end
 
 describe 'Students Page', type: :feature, js: true do
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     allow_any_instance_of(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)

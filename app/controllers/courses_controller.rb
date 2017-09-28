@@ -15,13 +15,13 @@ class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
   before_action :require_permissions,
-                only: [
-                  :create,
-                  :update,
-                  :destroy,
-                  :notify_untrained,
-                  :update_syllabus,
-                  :delete_all_weeks
+                only: %i[
+                  create
+                  update
+                  destroy
+                  notify_untrained
+                  update_syllabus
+                  delete_all_weeks
                 ]
 
   ################
@@ -171,7 +171,7 @@ class CoursesController < ApplicationController
   end
 
   def should_set_slug?
-    %i(title school).all? { |key| params[:course].key?(key) }
+    %i[title school].all? { |key| params[:course].key?(key) }
   end
 
   def slug_from_params(course = params[:course])
@@ -218,8 +218,8 @@ class CoursesController < ApplicationController
               :no_day_exceptions, :cloned_status, :type)
   end
 
-  SHOW_ENDPOINTS = %w(articles assignments campaigns check course revisions tag tags
-                      timeline uploads users).freeze
+  SHOW_ENDPOINTS = %w[articles assignments campaigns check course revisions tag tags
+                      timeline uploads users].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
   # vulnerability.

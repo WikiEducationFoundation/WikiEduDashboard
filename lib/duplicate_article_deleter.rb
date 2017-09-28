@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/modified_revisions_manager"
 
 #= Deletes duplicate Article records that differ by ID but match by title and namespace
@@ -32,7 +33,7 @@ class DuplicateArticleDeleter
   def articles_grouped_by_title_and_namespace(articles)
     articles ||= Article.where(deleted: false, wiki_id: @wiki.id)
     titles = articles.map(&:title)
-    Article.where(title: titles, wiki_id: @wiki.id).group(%w(title namespace)).count
+    Article.where(title: titles, wiki_id: @wiki.id).group(%w[title namespace]).count
   end
 
   def delete_duplicates_in(article_group)

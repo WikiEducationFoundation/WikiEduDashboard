@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Imports and updates ratings for articles
 class RatingImporter
   ################

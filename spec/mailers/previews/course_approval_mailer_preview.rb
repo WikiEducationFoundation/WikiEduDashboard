@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CourseApprovalMailerPreview < ActionMailer::Preview
   def approval
     CourseApprovalMailer.email(example_course, example_user)

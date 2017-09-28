@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 shared_context 'survey_assignment' do
   before do
     ActionMailer::Base.delivery_method = :test
@@ -35,8 +36,8 @@ shared_context 'survey_assignment' do
     # Course with end date that matches Today for the SurveyAssignment
     @course_params = {
       start: Time.zone.today - 2.months,
-      # Accounting for end-of-day default end dates, we set the end date as 2 days
-      # away to makes sure the 'three days until end' covers the end date.
+        # Accounting for end-of-day default end dates, we set the end date as 2 days
+        # away to makes sure the 'three days until end' covers the end date.
       end: Time.zone.now + 2.days,
       passcode: 'pizza',
       title: 'Underwater basket-weaving'

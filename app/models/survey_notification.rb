@@ -42,7 +42,7 @@ class SurveyNotification < ActiveRecord::Base
   # truthy if an email was sent. SurveyUpdate relies on this behavior.
   def send_email
     # In these environments only send emails to the users specified in ENV['survey_test_email']
-    return if %w(development staging).include?(Rails.env) && !ENV['survey_test_email'].split(',').include?(user.email)
+    return if %w[development staging].include?(Rails.env) && !ENV['survey_test_email'].split(',').include?(user.email)
     return if email_sent_at.present?
     return if user.email.nil?
     SurveyMailer.send_notification(self)

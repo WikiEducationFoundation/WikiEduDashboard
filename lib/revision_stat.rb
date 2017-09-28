@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Provides a count of recent revisions by a user(s)
 class RevisionStat
   REVISION_TIMEFRAME = 7

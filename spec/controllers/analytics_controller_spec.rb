@@ -62,7 +62,7 @@ describe AnalyticsController do
 
     it 'returns a structural completeness density plot' do
       post 'results', params: { ores_changes: true,
-                                campaign: { id: 1},
+                                campaign: { id: 1 },
                                 minimum_bytes: 0,
                                 graph_type: 'density',
                                 existing_only: true }
@@ -71,7 +71,7 @@ describe AnalyticsController do
 
     it 'returns a structural completeness histogram plot' do
       post 'results', params: { ores_changes: true,
-                                campaign: { id: 1},
+                                campaign: { id: 1 },
                                 minimum_bytes: 1000,
                                 graph_type: 'histogram',
                                 minimum_improvement: 10,

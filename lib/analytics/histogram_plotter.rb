@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rinruby'
 
 require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
@@ -85,8 +87,8 @@ class HistogramPlotter
 
   def load_dataframe
     R.eval "campaign_data <- read.csv('#{@csv}')"
-    R.eval "campaign_data$ores_diff <- with(campaign_data, ores_after - ores_before)"
-    R.eval "histogram_data <- campaign_data"
+    R.eval 'campaign_data$ores_diff <- with(campaign_data, ores_after - ores_before)'
+    R.eval 'histogram_data <- campaign_data'
   end
 
   def filter_by_bytes_added
@@ -94,7 +96,7 @@ class HistogramPlotter
   end
 
   def filter_out_new_articles
-    R.eval "histogram_data <- histogram_data[histogram_data$ores_before > 0.0, ]"
+    R.eval 'histogram_data <- histogram_data[histogram_data$ores_before > 0.0, ]'
   end
 
   def filter_by_improvement
@@ -102,13 +104,13 @@ class HistogramPlotter
   end
 
   def prepare_histogram_data
-    R.eval "before <- select(histogram_data, ores_before)"
-    R.eval "after <- select(histogram_data, ores_after)"
+    R.eval 'before <- select(histogram_data, ores_before)'
+    R.eval 'after <- select(histogram_data, ores_after)'
     R.eval "names(before)[1] = 'structural_completeness'"
     R.eval "names(after)[1] = 'structural_completeness'"
     R.eval "before$when <- 'before'"
     R.eval "after$when <- 'after'"
-    R.eval "histogram <- rbind(before, after)"
+    R.eval 'histogram <- rbind(before, after)'
   end
 
   def plot_density
@@ -127,7 +129,7 @@ class HistogramPlotter
         guides(fill=guide_legend(title="")) +
         labs(title='#{plot_title}', subtitle='#{plot_subtitle}')
     PLOT
-    R.eval "dev.off()"
+    R.eval 'dev.off()'
   end
 
   # Alternative colors: scale_fill_manual(values=c("#676eb4", "#359178")) +
@@ -147,6 +149,6 @@ class HistogramPlotter
         guides(fill=guide_legend(title="")) +
         labs(title='#{plot_title}', subtitle='#{plot_subtitle}')
     PLOT
-    R.eval "dev.off()"
+    R.eval 'dev.off()'
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/active_course_alert_manager"
 
@@ -12,7 +13,7 @@ describe ActiveCourseAlertManager do
 
   before do
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
-    create(:setting, key: 'special_users', value: {communications_manager: 'Eryk (Wiki Ed)'})
+    create(:setting, key: 'special_users', value: { communications_manager: 'Eryk (Wiki Ed)' })
   end
 
   context 'when there are no users' do

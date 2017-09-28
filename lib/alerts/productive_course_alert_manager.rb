@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProductiveCourseAlertManager
   def initialize(courses)
     @courses = courses

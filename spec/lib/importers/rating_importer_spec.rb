@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/rating_importer"
 
@@ -36,7 +37,7 @@ describe RatingImporter do
                           namespace: 0)
         course.articles << article1
 
-        possible_ratings = %w(fl fa a ga b c start stub list)
+        possible_ratings = %w[fl fa a ga b c start stub list]
 
         # .update_ratings has a different flow for one rating vs. several,
         # so first we run an update with just one article.

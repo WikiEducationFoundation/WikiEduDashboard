@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -46,7 +47,7 @@ class User < ActiveRecord::Base
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :rememberable, :omniauthable, omniauth_providers: [:mediawiki, :mediawiki_signup]
+  devise :rememberable, :omniauthable, omniauth_providers: %i[mediawiki mediawiki_signup]
 
   has_many :courses_users, class_name: 'CoursesUsers', dependent: :destroy
   has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
@@ -173,7 +174,7 @@ class User < ActiveRecord::Base
 
   # Exclude tokens/secrets from json output
   def to_json(options={})
-    options[:except] ||= [:wiki_token, :wiki_secret, :remember_token]
+    options[:except] ||= %i[wiki_token wiki_secret remember_token]
     super(options)
   end
 

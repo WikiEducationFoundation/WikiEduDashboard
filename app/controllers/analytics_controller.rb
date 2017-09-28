@@ -16,8 +16,8 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :set_course, only: %i(course_csv course_edits_csv course_uploads_csv
-                                      course_students_csv course_articles_csv)
+  before_action :set_course, only: %i[course_csv course_edits_csv course_uploads_csv
+                                      course_students_csv course_articles_csv]
 
   ########################
   # Routing entry points #

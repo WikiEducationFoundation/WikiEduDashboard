@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/wiki_api'
 require "#{Rails.root}/lib/wiki_output_templates"
 #= Class for generating wikitext for updating assignment details on talk pages

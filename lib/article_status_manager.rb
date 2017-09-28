@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/modified_revisions_manager"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 desc 'Invoke rake task'
 task :sake do
   on roles(:app), in: :sequence, wait: 5 do

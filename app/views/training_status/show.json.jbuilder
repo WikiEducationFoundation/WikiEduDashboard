@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 json.course do
   json.training_modules @assigned_training_modules do |training_module|
     json.id training_module.id

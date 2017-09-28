@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 json.courses do
   json.array! @courses_users do |c_user|
     json.id c_user.course.id

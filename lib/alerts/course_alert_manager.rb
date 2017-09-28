@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/alerts/productive_course_alert_manager"
 require "#{Rails.root}/lib/alerts/active_course_alert_manager"
 require "#{Rails.root}/lib/alerts/no_students_alert_manager"

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/app/workers/update_course_worker"
 require "#{Rails.root}/app/workers/enroll_in_course_worker"
 require "#{Rails.root}/app/workers/set_preferences_worker"

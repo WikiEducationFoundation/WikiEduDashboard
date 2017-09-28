@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wikitext"
 require "#{Rails.root}/lib/course_meetings_manager"
 require "#{Rails.root}/lib/wiki_output_templates"

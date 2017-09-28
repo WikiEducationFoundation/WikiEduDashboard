@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #= Presenter for Setting / special users
 class SpecialUsers
   def self.special_users

@@ -6,8 +6,6 @@ gem 'browser'
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
-
-
   include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
   include Errors::RescueErrors
   include Errors::AuthenticationErrors
@@ -88,7 +86,7 @@ class ApplicationController < ActionController::Base
 
   def rtl?
     tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
-    tag.language.in? %w(ar dv fa he ku ps sd ug ur yi)
+    tag.language.in? %w[ar dv fa he ku ps sd ug ur yi]
   end
   helper_method :rtl?
 

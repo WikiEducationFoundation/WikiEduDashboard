@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Controller for user functionality
 class LookupsController < ApplicationController
   include CourseHelper

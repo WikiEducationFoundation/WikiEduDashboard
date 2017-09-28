@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Routine for finding the winners of the 2016 student earning research incentive
 # drawing, who will receive prizes
 

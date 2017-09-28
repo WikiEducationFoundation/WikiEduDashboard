@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/assigned_article_importer"

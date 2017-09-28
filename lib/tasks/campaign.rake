@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 namespace :campaign do
   desc 'Add new campaigns from application.yml'
   task add_campaigns: :environment do

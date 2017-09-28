@@ -1,27 +1,28 @@
 # frozen_string_literal: true
+
 class SurveysController < ApplicationController
   helper Rapidfire::ApplicationHelper
   include CourseHelper
   include SurveysHelper
   include QuestionGroupsHelper
 
-  before_action :require_admin_permissions, except: [:show, :optout]
-  before_action :set_survey, only: [
-    :show,
-    :optout,
-    :edit,
-    :update,
-    :destroy,
-    :edit_question_groups,
-    :course_select,
-    :results
+  before_action :require_admin_permissions, except: %i[show optout]
+  before_action :set_survey, only: %i[
+    show
+    optout
+    edit
+    update
+    destroy
+    edit_question_groups
+    course_select
+    results
   ]
   before_action :ensure_logged_in
-  before_action :set_question_groups, only: [
-    :show,
-    :edit,
-    :edit_question_groups,
-    :results
+  before_action :set_question_groups, only: %i[
+    show
+    edit
+    edit_question_groups
+    results
   ]
   before_action :check_if_closed, only: [:show]
   before_action :set_notification, only: [:show]
@@ -81,12 +82,10 @@ class SurveysController < ApplicationController
   end
 
   # GET /surveys/1/edit
-  def edit
-  end
+  def edit; end
 
   # GET /surveys/1/question_group
-  def edit_question_groups
-  end
+  def edit_question_groups; end
 
   # POST /surveys
   # POST /surveys.json

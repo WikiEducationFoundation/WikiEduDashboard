@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Utilities for calcuating statistics by month, and year-over-year
 class MonthlyReport
   def self.run(opts={})

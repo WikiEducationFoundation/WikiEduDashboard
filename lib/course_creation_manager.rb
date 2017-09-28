@@ -88,11 +88,11 @@ class CourseCreationManager
   def set_initial_campaign
     return unless Features.open_course_creation?
 
-    if @initial_campaign_params.present?
-      @overrides[:campaigns] = [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
-    else
-      @overrides[:campaigns] = [Campaign.default_campaign]
-    end
+    @overrides[:campaigns] = if @initial_campaign_params.present?
+                               [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
+                             else
+                               [Campaign.default_campaign]
+                             end
   end
 
   def add_instructor_to_course

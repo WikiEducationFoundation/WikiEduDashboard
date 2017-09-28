@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/course_cache_manager"
 require "#{Rails.root}/lib/chat/rocket_chat"
 

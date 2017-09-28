@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AlertsListHelper
   def alert_display(alert)
     return '✓' if alert.resolved?

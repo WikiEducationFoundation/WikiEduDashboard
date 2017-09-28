@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe AlertsListController do
@@ -42,9 +43,11 @@ describe AlertsListController do
     let(:article) { create(:article) }
 
     let(:alert) { create(:alert, type: 'NeedHelpAlert', course_id: course.id, user_id: user.id) }
-    let(:articles_for_deletion_alert) { create(:alert, article_id: article.id,
-                                               course_id: course.id,
-                                               type: 'ArticlesForDeletionAlert') }
+    let(:articles_for_deletion_alert) do
+      create(:alert, article_id: article.id,
+                     course_id: course.id,
+                     type: 'ArticlesForDeletionAlert')
+    end
 
     context 'for admins' do
       render_views

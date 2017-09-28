@@ -36,7 +36,7 @@ class OnboardingController < ApplicationController
   end
 
   def validate_params
-    [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
+    %i[real_name email instructor].each_with_object(params) do |key, obj|
       obj.require(key)
     end
   end

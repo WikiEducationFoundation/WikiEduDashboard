@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe CourseMeetingsManager do
@@ -102,7 +103,7 @@ describe CourseMeetingsManager do
   describe '#day_meetings' do
     subject { described_class.new(course).send(:day_meetings) }
     it 'returns an array of symbols reprensenting the course meeting days' do
-      expect(subject).to eq([:tuesday, :thursday])
+      expect(subject).to eq(%i[tuesday thursday])
     end
   end
 
@@ -137,7 +138,7 @@ describe CourseMeetingsManager do
   describe '#open_weeks' do
     subject { described_class.new(course).open_weeks }
     # an array with 12 elements
-    let(:weeks) { %w(foo foo foo foo foo foo foo foo foo foo foo foo) }
+    let(:weeks) { %w[foo foo foo foo foo foo foo foo foo foo foo foo] }
     before { allow_any_instance_of(Course).to receive(:weeks).and_return(weeks) }
     context 'course has timeline start/end' do
       it 'returns an int representing the weeks the timeline can accomodate' do

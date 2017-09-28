@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/chat/rocket_chat"
 
 class ChatController < ApplicationController

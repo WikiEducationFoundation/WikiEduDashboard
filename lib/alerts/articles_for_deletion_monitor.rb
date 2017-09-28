@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/category_importer"
 
 # This class identifies articles involved in deletion processes on

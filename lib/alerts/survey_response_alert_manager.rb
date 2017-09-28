@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SurveyResponseAlertManager
   def initialize
     @answers = recent_answers_to_alert_questions

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/wiki_course_output"
 
@@ -6,17 +7,17 @@ describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
     let(:templates) do
       {
-       "default" => {
-          "editor" => "student editor",
-          "instructor" => "course instructor",
-          "course_assignment" => "course assignment",
-          "table" => "students table",
-          "table_row" => "students table row",
-          "table_end" => "end of students table",
-          "course" => "course details",
-          "timeline" => "start of course timeline",
-          "start_of_week" => "start of course week",
-          "end_of_week" => "end of course week"
+        'default' => {
+          'editor' => 'student editor',
+          'instructor' => 'course instructor',
+          'course_assignment' => 'course assignment',
+          'table' => 'students table',
+          'table_row' => 'students table row',
+          'table_end' => 'end of students table',
+          'course' => 'course details',
+          'timeline' => 'start of course timeline',
+          'start_of_week' => 'start of course week',
+          'end_of_week' => 'end of course week'
         }
       }
     end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # NOTE: CodeClimate can only handle coverage data for one language.
 # Since code coverage in Ruby is at or near 100% as of November 2015, while
 # javascript coverage is only just getting started, the ruby reporting is
@@ -63,9 +64,9 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-# The settings below are suggested to provide a good initial experience
-# with RSpec, but feel free to customize to your heart's content.
-# rubocop:disable Style/BlockComments
+  # The settings below are suggested to provide a good initial experience
+  # with RSpec, but feel free to customize to your heart's content.
+  # rubocop:disable Style/BlockComments
 
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with

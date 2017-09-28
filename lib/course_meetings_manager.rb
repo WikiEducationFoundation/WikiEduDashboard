@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CourseMeetingsManager
   attr_reader :week_meetings, :open_weeks
 
@@ -32,7 +33,7 @@ class CourseMeetingsManager
     dates
   end
 
-  DAYS_AS_SYM = %i(sunday monday tuesday wednesday thursday friday saturday).freeze
+  DAYS_AS_SYM = %i[sunday monday tuesday wednesday thursday friday saturday].freeze
 
   ###################
   # Private methods #

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'ostruct'
 
 # Sends a test to a user to show what the survey emails will look like.

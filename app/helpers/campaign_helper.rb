@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Helpers for campaigns views
 module CampaignHelper
   def nav_link(link_text, link_path)

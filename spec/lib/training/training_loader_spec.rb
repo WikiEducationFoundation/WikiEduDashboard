@@ -52,7 +52,7 @@ describe TrainingLoader do
         let(:slug_whitelist) { ['this-is-not-a-slug-listed-on-meta'] }
         it 'raises an error' do
           VCR.use_cassette 'training/load_from_wiki' do
-            expect{ subject.load_content }.to raise_error(TrainingLoader::NoMatchingWikiPagesFound)
+            expect { subject.load_content }.to raise_error(TrainingLoader::NoMatchingWikiPagesFound)
           end
         end
       end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/revision_analytics_service"
 
 # Controller for Revision Analytics features
