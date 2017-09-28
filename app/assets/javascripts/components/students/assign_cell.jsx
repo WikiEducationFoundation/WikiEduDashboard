@@ -29,8 +29,7 @@ const AssignCell = React.createClass({
       article.formatted_title = CourseUtils.formattedArticleTitle(
           article.language,
           article.project,
-          article.title,
-          this.props.course.home_wiki);
+          article.title);
       if (this.props.assignments.length > 1) {
         const articleCount = I18n.t('users.number_of_articles', { count: this.props.assignments.length });
         link = (
