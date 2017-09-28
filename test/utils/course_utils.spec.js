@@ -141,7 +141,7 @@ describe('courseUtils.articleFromTitleInput', () => {
   });
 });
 
-describe('courseUtils.articleFromAssignment', () => {
+describe('courseUtils.formattedArticleTitle', () => {
   it('returns an article object with the language, project, title, and url', () => {
     const assignment = {
       article_url: 'https://es.wikipedia.org/wiki/Autofoto',
@@ -153,8 +153,6 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Autofoto');
     expect(article.title).to.eq('Autofoto');
     expect(article.language).to.eq('es');
-    expect(article.project).to.eq('wikipedia');
-    expect(article.formatted_title).to.eq('es:Autofoto');
   });
 
   it('sets wikipedia as the default project', () => {
@@ -164,7 +162,6 @@ describe('courseUtils.articleFromAssignment', () => {
     };
     const article = courseUtils.articleFromAssignment(assignment);
     expect(article.project).to.eq('wikipedia');
-    expect(article.formatted_title).to.eq('Selfie');
   });
 
   it('constructs a url if one is not included', () => {

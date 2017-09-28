@@ -92,18 +92,12 @@ const CourseUtils = class {
     const language = assignment.language || 'en';
     const project = assignment.project || 'wikipedia';
     const articleUrl = assignment.article_url || this.urlFromTitleAndWiki(assignment.article_title, language, project);
-    const formattedTitle = this.formattedArticleTitle(
-      language,
-      project,
-      assignment.article_title
-    );
     const article = {
       rating: assignment.article_rating,
       rating_num: assignment.article_rating_num,
       pretty_rating: assignment.article_pretty_rating,
       url: articleUrl,
       title: assignment.article_title,
-      formatted_title: formattedTitle,
       article_id: assignment.article_id,
       language,
       project,
@@ -117,43 +111,22 @@ const CourseUtils = class {
     return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
 
-  formattedArticleTitle(language, project, articleTitle) {
+  formattedArticleTitle(language, project, title, home) {
     let languagePrefix = '';
-    if (language === undefined || language === null || language === 'en') {
+    if (!home || language === home.language || language === null || language === undefined || language === 'en') {
       languagePrefix = '';
     } else {
       languagePrefix = `${language}:`;
     }
 
     let projectPrefix = '';
-    if (project === undefined || project === 'wikipedia') {
+    if (!home || project === home.project || project === undefined || project === 'wikipedia') {
       projectPrefix = '';
     } else {
       projectPrefix = `${project}:`;
     }
 
-    return `${languagePrefix}${projectPrefix}${articleTitle}`;
-  }
-
-  createsArticleTitle(home, article) {
-    let languagePrefix = '';
-    if (!home || article.language === home.language) {
-      languagePrefix = null;
-    } else {
-      languagePrefix = article.language;
-    }
-    let projectPrefix = '';
-    if (!home || article.project === home.project) {
-      projectPrefix = 'wikipedia';
-    } else {
-      projectPrefix = article.project;
-    }
-
-    return this.formattedArticleTitle(
-      languagePrefix,
-      projectPrefix,
-      article.title
-      );
+    return `${languagePrefix}${projectPrefix}${title}`;
   }
 
   hasTrainings(weeks) {

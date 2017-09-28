@@ -27,7 +27,7 @@ const Article = React.createClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
 
     // Uses Course Utils Helper
-    const formattedTitle = CourseUtils.createsArticleTitle(this.props.course.home_wiki, this.props.article);
+    const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article.language, this.props.article.project, this.props.article.title, this.props.course.home_wiki);
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
