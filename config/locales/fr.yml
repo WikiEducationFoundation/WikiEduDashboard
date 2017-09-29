@@ -446,6 +446,7 @@ fr:
     submitted: Soumis
     term: Période
     timeline: Détails d'assignement
+    timeline_enabled: Chronologie activée
     timeline_link: Calendrier
     time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
@@ -894,6 +895,8 @@ fr:
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez
       avoir eu cet avertissement par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.
+    json_explanation: Il semblerait que vous avez été déconnecté. Veuillez rafraîchir,
+      vous reconnecter et réessayer.
   error_incorrect_passcode:
     header: Mot de passe erroné. :-(
     explanation: Le mot de passe pour s’inscrire à ce cours n’est pas correct. Veuillez

@@ -115,7 +115,7 @@ zh-TW:
     wp10_doc: ' "結構完整性" 評分，是以採用機器學習的版本評估服務 (https://ores.wikimedia.org/) 為依據，來代表著一篇條目內容符合一篇完整維基條目內容程度。評分計算的基準在於條目長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的條目通常代表著它遵循著維基百科上對於良好條目架構的共識。
       (這些評分僅適用於英語維基百科)'
   assignments:
-    article: 條目%{title}已被分配
+    article: 條目%{title}現在已被分配給您。
     already_exists: 此分配已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
@@ -349,6 +349,7 @@ zh-TW:
     submitted: 已提交
     term: 學期
     timeline: 作業細節
+    timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
@@ -707,6 +708,7 @@ zh-TW:
   error_401:
     header: 未授權。 :-(
     explanation: 您未被授權執行此請求。如果您認為您會遇到此通知是因為有錯誤發生，請聯繫此資訊看板的維護人員讓他們知道此問題。
+    json_explanation: 看起來您似乎有退出。請重整、登入並再試一次。
   error_incorrect_passcode:
     header: 選課代碼錯誤。 :-(
     explanation: |-

@@ -42,6 +42,9 @@ da:
       datointervaller. Husk at du altid kan ændre tidslinjen til dine behov.
     explore_course_pages: Udforsk kursussiderne
     blog_headline: Seneste nyheder fra Wiki Ed
+  home:
+    log_in: Log på med Wikipedia
+    sign_up: Registrer dig hos Wikipedia
   activity:
     all: Aktivitet
     edited_by: Redigeret af
@@ -65,11 +68,43 @@ da:
     view_all: Vis alle
     view_doc: Summen af alle artikelvisninger i løbet af projektet
     view_on_wiki: Vis på wikien
+    wiki: Wiki
+    wp10: Strukturel fuldstændighed
+    wp10_doc: Bedømmelsen »strukturel fuldstændighed« repræsenterer hvor tæt en aritiekl
+      passer til hovedparten af en moden Wikipediaartikel, baseret på maskinlæringsbaseret
+      Objective Revision Evaluation Service (https://ores.wikimedia.org/). Disse bedømmelser
+      beregnes baseret på størrelsen af en artikel, antallet af referencer og wikihenvisninger
+      og andre grundlæggende tekstfunktioner. En høj bedømmelse indikerer normalt
+      at en artikel følger Wikipedias konventioner for strukturen på en god artikel,
+      men tager ikke højde for selve indholdet. (Disse bedømmelser er kun tilgængelige
+      for engelske Wikipediaartikler).
+  assignments:
+    article: Artiklen %{title} er nu tildelt dig.
+    already_exists: Denne tildeling findes allerede!
+    title_too_large: Titlen bør ikke være længere end 255 tegn
+    assign_other: Tildel en artikel
+  campaign:
+    all_campaigns: Alle kampagner
+    already_exists: Den kampagne findes allerede! Prøv igen med en anden titel eller
+      »slug«.
+    campaign: Kampagne
+    campaigns: Kampagner
+    campaign_deleted: Kampagnen »%{title}« er blevet slettet
+    campaign_not_updated: Kampagne kunne ikke opdateres
+    campaign_updated: Kampagne opdateret
+    create_campaign: Opret en ny kampagne
+    create_my_campaign: Opret min kampagne!
+    description: Beskrivelse
+    delete_campaign: Slet denne kampagne
+    none: Ingen
   courses:
+    activity: Aktivitet
+    articles: Artikler
     calendar:
       legend_class_meeting: Klassetræf
       legend_class_not_meeting: Ingen møder planlagt
       select_meeting_days: Vælg ugedagene klassen mødes på.
+    campaigns: 'Kampagner:'
     course: Kursus
     course_description: Kurser
     courses: Kurser

@@ -655,6 +655,9 @@ nb:
     first_name: Fornavn
     last_name: Etternavn
     loading: Laster brukere ...
+    characters_added_mainspace: 'Hn.: tegn lagt til'
+    characters_added_short: 'Hn.: %{mainspace}, Bn. %{userspace}'
+    characters_added_userspace: 'Bn.: tegn lagt til'
     my_assigned: 'Tildelt:'
     my_reviewing: 'Anmelder:'
     name: Navn
@@ -677,6 +680,9 @@ nb:
       one: '%{count} ajour med trening'
       other: '%{count} ajour med trening'
     training_incomplete: Ikke ajour med trening
+    training_modules_completed:
+      one: '%{completed_count}/%{count} treningsmodul fullført'
+      other: '%{completed_count}/%{count} treningsmoduler fullført'
     training_module_name: Treningsmodul
     training_module_status: Status
     up_to_date_with_training: ajour med trening
@@ -696,6 +702,7 @@ nb:
     notify_overdue:
       confirm: Dette vil poste en påminnelse på diskusjonssiden til alle studenter
         som ikke har fullført øvelsene. Er du sikker på at du vil gjøre dette?
+      summary: ikke ajour med treningen
   wizard:
     assignment_dates: Oppgavedatoer
     assignment_type: Oppgavetype
@@ -709,6 +716,9 @@ nb:
       other: Velg %{count} eller flere alternativer.
     read_less: Les mindre
     read_more: Les mer
+    review_selections: Gå gjennom valgene dine nedenfor. Klikk for å redigere et valg.
+      Trykk på «Send» når du er ferdig for å fullføre veiviseren og bygge tidslinja
+      di.
     select_assignment: Velg hva slags oppgave du vil legge til i tidslinja di.
     summary: Sammendrag
   error:
@@ -728,6 +738,8 @@ nb:
     explanation: Du er ikke autorisert til å utføre denne forespørselen. Om du tror
       du har fått denne beskjeden ved en feil, kontakt dashbordets vedlikeholdere
       for å la dem vite om feilen.
+    json_explanation: Det ser ut som om du har blitt logget ut. Oppdater siden, logg
+      inn og prøv igjen.
   error_incorrect_passcode:
     header: Feil påmeldingskode. :-(
     explanation: Påmeldingskoden til dette kurset er feil. Spør en instruktør om den

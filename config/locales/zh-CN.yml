@@ -325,6 +325,7 @@ zh-CN:
     submitted: 已提交
     term: 学期
     timeline: 分配详细信息
+    timeline_enabled: 已启用时间轴
     timeline_link: 时间轴
     time_zone_message: 开始和结束时间会以您的本地时区显示。
     title: 标题
@@ -673,6 +674,7 @@ zh-CN:
   error_401:
     header: 未获授权。>:-(
     explanation: 您未被授权执行此请求。如果您相信看见此通知是个错误，请联络此控制面板的维护人员以让他们了解有关问题的详情。
+    json_explanation: 看起来您已经退出。请刷新登录并重试。
   error_incorrect_passcode:
     header: 密码不正确。:-(
     explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。

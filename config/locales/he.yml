@@ -113,7 +113,7 @@ he:
     title: כותרת \ שם
     title_example: שם הערך
     view: הצגת הערך
-    view_all: הצג הכל
+    view_all: להציג הכול
     view_doc: סך מספר הצפיות בכל ערך במהלך התוכנית
     view_on_wiki: הצג בוויקי
     views_added: נוספו %{count} צפיות חדשות לדף %{title}
@@ -489,7 +489,7 @@ he:
     no_timeline: אין לוח זמנים בתוכנית \ בקורס \ במיזם הזה.
     no_activity_this_week: אין פגישות מתוכננות השבוע
     nothing_this_week: לא מתוכנן שום דבר לשבוע הזה.
-    save_all_changes: שמירת הכל
+    save_all_changes: לשמור הכול
     this_week_title_default: השבוע
     title: לוח הזמנים
     unable_to_add_week: לא ניתן להוסיף שבועות חדשים שלוח הזמנים שלך מלא. יש למחוק

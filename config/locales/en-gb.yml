@@ -1,6 +1,7 @@
 # Messages for British English (British English)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Baloch Khan
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
 # Author: Pierpao
@@ -248,6 +249,7 @@ en-gb:
     students: Students
     students_count: '# Students'
     student_editors: Student Editors
+    timeline_enabled: Timeline enabled
   recent_activity:
     active_courses: Artículo es activo en
     datetime: La fecha/El tiempo

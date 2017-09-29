@@ -219,6 +219,7 @@ ko:
     submitted: 제출됨
     term: 기간
     timeline: 숙제 상세사항
+    timeline_enabled: 타임라인 사용 중
     timeline_link: 타임라인
     title: 제목
     training_nav: 연습해 보기
@@ -438,6 +439,7 @@ ko:
     header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
       알도록 하세요.
+    json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
   error_incorrect_passcode:
     header: 패스코드가 잘못되었습니다.
   error_404:
