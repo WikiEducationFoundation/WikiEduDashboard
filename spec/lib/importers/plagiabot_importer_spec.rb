@@ -106,7 +106,6 @@ describe PlagiabotImporter do
       # will be. So, first we have to get one of those revisions.
       suspected_diff = PlagiabotImporter
                        .api_get('suspected_diffs')[0]['diff'].to_i
-      expect(suspected_diff.class).to eq(Integer)
       create(:revision,
              mw_rev_id: suspected_diff,
              article_id: 1123322,
