@@ -25,7 +25,7 @@ const getState = () =>
   ({
     course: CourseStore.getCourse(),
     campaigns: CampaignStore.getModels(),
-    instructors: UserStore.getFiltered({ role: 1 }),
+    instructors: _.sortBy(UserStore.getFiltered({ role: 1 }), 'enrolled_at'),
     online: UserStore.getFiltered({ role: 2 }),
     campus: UserStore.getFiltered({ role: 3 }),
     staff: UserStore.getFiltered({ role: 4 }),
