@@ -153,6 +153,7 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Autofoto');
     expect(article.title).to.eq('Autofoto');
     expect(article.language).to.eq('es');
+    expect(article.formatted_title).to.eq('Autofoto');
   });
 
   it('sets wikipedia as the default project', () => {
@@ -180,6 +181,38 @@ describe('courseUtils.hasTrainings', () => {
     const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [] }] }];
     const output = courseUtils.hasTrainings(weeks);
     expect(output).to.be.false;
+  });
+
+  it('returns true for a weeks array with trainings', () => {
+    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [1] }] }];
+    const output = courseUtils.hasTrainings(weeks);
+    expect(output).to.be.true;
+  });
+});
+
+describe('courseUtils.formattedArticleTitle', () => {
+  it('returns a formatted_article from language, title, project', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Riot Grrrl',
+      language: 'en',
+      project: 'wikidata'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('wikidata:Riot Grrrl');
+  });
+
+  it('returns a formatted_article from language, title, project', () => {
+    const article = {
+      title: 'Virginia Woolf',
+      language: 'fr',
+      project: 'wikiquote'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article);
+    expect(article.formatted_title).to.eq('Virginia Woolf');
   });
 
   it('returns true for a weeks array with trainings', () => {

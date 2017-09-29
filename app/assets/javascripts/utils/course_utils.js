@@ -114,14 +114,14 @@ const CourseUtils = class {
 
   formattedArticleTitle(article, defaultWiki) {
     let languagePrefix = '';
-    if (defaultWiki === undefined || article.language === defaultWiki.language || article.language === null || article.language === undefined) {
+    if (!defaultWiki || !article.language || article.language === defaultWiki.language) {
       languagePrefix = '';
     } else {
       languagePrefix = `${article.language}:`;
     }
 
     let projectPrefix = '';
-    if (defaultWiki === undefined || article.project === defaultWiki.project || article.project === undefined || article.project === 'wikipedia') {
+    if (!defaultWiki || article.project === defaultWiki.project || !article.project) {
       projectPrefix = '';
     } else {
       projectPrefix = `${article.project}:`;
