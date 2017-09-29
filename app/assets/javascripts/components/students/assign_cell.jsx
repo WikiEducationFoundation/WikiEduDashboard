@@ -25,7 +25,7 @@ const AssignCell = React.createClass({
   render() {
     let link;
     if (this.props.assignments.length > 0) {
-      const article = CourseUtils.articleFromAssignment(this.props.assignments[0], this.props.course.home_wiki);
+      const article = CourseUtils.articleFromAssignment(this.props.assignments[0]);
       if (this.props.assignments.length > 1) {
         const articleCount = I18n.t('users.number_of_articles', { count: this.props.assignments.length });
         link = (
