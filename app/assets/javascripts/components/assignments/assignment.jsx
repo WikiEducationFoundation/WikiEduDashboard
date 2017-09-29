@@ -16,16 +16,14 @@ const Assignment = React.createClass({
     current_user: React.PropTypes.object
   },
   render() {
-    const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0]);
-    article.formatted_title = CourseUtils.formattedArticleTitle(article);
+    const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0], this.props.course.home_wiki);
     if (!article.formatted_title) {
-      article.formatted_title = CourseUtils.formattedArticleTitle(this.props.assignmentGroup[0]);
+      article.formatted_title = CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki);
     }
     const className = 'assignment';
     const ratingClass = `rating ${article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
-
     const assignees = [];
     const reviewers = [];
     const iterable = _.sortBy(this.props.assignmentGroup, 'username');

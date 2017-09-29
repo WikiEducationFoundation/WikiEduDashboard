@@ -241,8 +241,8 @@ const AssignButton = React.createClass({
       let removeButton;
       let articleLink;
       ass.course_id = this.props.course_id;
-      const article = CourseUtils.articleFromAssignment(ass);
-      if (!article.formatted_title) { CourseUtils.formattedArticleTitle(article); }
+      const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
+      if (!article.formatted_title) { CourseUtils.formattedArticleTitle(article, this.props.course.home_wiki); }
       if (this.props.permitted) {
         removeButton = <button className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button>;
       }

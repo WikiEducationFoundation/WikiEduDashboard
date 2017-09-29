@@ -88,7 +88,7 @@ const CourseUtils = class {
     };
   }
 
-  articleFromAssignment(assignment) {
+  articleFromAssignment(assignment, defaultWiki) {
     const language = assignment.language || 'en';
     const project = assignment.project || 'wikipedia';
     const articleUrl = assignment.article_url || this.urlFromTitleAndWiki(assignment.article_title, language, project);
@@ -99,11 +99,11 @@ const CourseUtils = class {
       url: articleUrl,
       title: assignment.article_title,
       article_id: assignment.article_id,
-      language: language,
-      project: project,
+      language,
+      project,
       new: false
     };
-    article.formatted_title = this.formattedArticleTitle(article);
+    article.formatted_title = this.formattedArticleTitle(article, defaultWiki);
     return article;
   }
 
