@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Data cleanup for Revisions to remove duplicates that match mw_rev_id and wiki_id
 # in preparation for adding a unique index for those attributes.
 

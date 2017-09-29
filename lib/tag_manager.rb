@@ -22,16 +22,16 @@ class TagManager
   end
 
   def initial_tags(creator:)
-    if Features.open_course_creation?
-      # When course creation is open, the new course is already published, so the
-      # user is already counted as 'returning' at this point, even if it is their
-      # first course.
-      tag = creator.instructed_courses.count > 1 ? 'returning_instructor' : 'first_time_instructor'
-    else
-      # When courses must be approved before they are published, we can rely on
-      # user#returning_instructor?.
-      tag = creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
-    end
+    tag = if Features.open_course_creation?
+            # When course creation is open, the new course is already published, so the
+            # user is already counted as 'returning' at this point, even if it is their
+            # first course.
+            creator.instructed_courses.count > 1 ? 'returning_instructor' : 'first_time_instructor'
+          else
+            # When courses must be approved before they are published, we can rely on
+            # user#returning_instructor?.
+            creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
+          end
     create_attrs = { course_id: @course.id,
                      tag: tag,
                      key: 'course_creator' }

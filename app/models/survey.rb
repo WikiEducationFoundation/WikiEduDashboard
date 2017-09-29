@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: surveys
@@ -69,7 +70,7 @@ class Survey < ActiveRecord::Base
       column_name += '_followup' if question_hash[:followup]
       column_name
     end
-    %w(username course) + question_headers
+    %w[username course] + question_headers
   end
 
   def response(user)

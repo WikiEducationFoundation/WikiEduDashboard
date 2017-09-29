@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe JoinCourse do
@@ -23,7 +24,7 @@ describe JoinCourse do
     enroll_as_instructor
   end
 
-  context 'with real name' do    
+  context 'with real name' do
     let(:course) { create(:basic_course) }
     let(:subject) do
       described_class.new(course: course, user: user,
@@ -34,7 +35,7 @@ describe JoinCourse do
       result = subject.result
       expect(result[:failure]).to be_nil
       expect(result[:success]).to_not be_nil
-    end    
+    end
   end
 
   context 'without real name' do
@@ -43,8 +44,8 @@ describe JoinCourse do
       described_class.new(course: course, user: user,
                           role: CoursesUsers::Roles::STUDENT_ROLE,
                           real_name: nil)
-    end 
-    it 'allows a course to be joined' do       
+    end
+    it 'allows a course to be joined' do
       result = subject.result
       expect(result[:failure]).to be_nil
       expect(result[:success]).to_not be_nil

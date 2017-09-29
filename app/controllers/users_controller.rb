@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/importers/user_importer"
 require "#{Rails.root}/app/workers/remove_assignment_worker"

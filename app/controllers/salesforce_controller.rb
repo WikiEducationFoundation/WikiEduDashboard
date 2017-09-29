@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SalesforceController < ApplicationController
   respond_to :json, only: [:link]
   before_action :require_admin_permissions

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Stubs for various requests
 module RequestHelpers
   ##################

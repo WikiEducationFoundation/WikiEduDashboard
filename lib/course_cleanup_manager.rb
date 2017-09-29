@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Class for callback cleanup methods for Courses
 class CourseCleanupManager
   def initialize(course, user)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe CoursesController do
@@ -36,9 +37,9 @@ describe CoursesController do
       create(:articles_course, course_id: course.id, article_id: article.id)
     end
 
-    let!(:assignment)       { create(:assignment, course_id: course.id) }
-    let!(:campaigns_courses)  { create(:campaigns_course, course_id: course.id) }
-    let!(:week)             { create(:week, course_id: course.id) }
+    let!(:assignment) { create(:assignment, course_id: course.id) }
+    let!(:campaigns_courses) { create(:campaigns_course, course_id: course.id) }
+    let!(:week) { create(:week, course_id: course.id) }
 
     let!(:gradeable) do
       create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id)
@@ -65,14 +66,14 @@ describe CoursesController do
       it 'destroys associated models' do
         delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
 
-        %w(CoursesUsers ArticlesCourses CampaignsCourses).each do |model|
+        %w[CoursesUsers ArticlesCourses CampaignsCourses].each do |model|
           expect do
             # metaprogramming for: CoursesUser.find(courses_user.id)
             Object.const_get(model).send(:find, send(model.underscore).id)
           end.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
         end
 
-        %i(assignment week gradeable).each do |model|
+        %i[assignment week gradeable].each do |model|
           expect do
             # metaprogramming for: Assigment.find(assignment.id)
             model.to_s.classify.constantize.send(:find, send(model).id)

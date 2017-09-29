@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wikis
@@ -133,7 +134,7 @@ describe Wiki do
             VCR.use_cassette 'wiki' do
               new_wiki = create(:wiki, language: nil, project: 'wikisource')
               found_wiki = Wiki.get_or_create(language: nil, project: 'wikisource')
-              expect(new_wiki).to eq(found_wiki), -> { "Unfortunately the correct Wiki object was not returned" }
+              expect(new_wiki).to eq(found_wiki), -> { 'Unfortunately the correct Wiki object was not returned' }
             end
           end
         end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NewInstructorEnrollmentMailerPreview < ActionMailer::Preview
   def alert_staff
     NewInstructorEnrollmentMailer.email(course, staffer, adder, new_instructor)

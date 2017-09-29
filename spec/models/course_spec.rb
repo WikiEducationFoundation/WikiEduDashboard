@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses
@@ -126,9 +127,9 @@ describe Course, type: :model do
 
   it 'should update start/end times when changing course type' do
     course = create(:basic_course,
-                   start: DateTime.new(2016, 1, 1, 12, 45, 0),
-                   end: DateTime.new(2016, 1, 10, 15, 30, 0),
-                   title: 'History Class')
+                    start: DateTime.new(2016, 1, 1, 12, 45, 0),
+                    end: DateTime.new(2016, 1, 10, 15, 30, 0),
+                    title: 'History Class')
     expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
     course = course.becomes!(ClassroomProgramCourse)
     course.save!
@@ -143,8 +144,8 @@ describe Course, type: :model do
 
   it 'updates end time to equal start time it the times are invalid' do
     course = build(:course,
-                    start: DateTime.now,
-                    end: DateTime.now - 2.months)
+                   start: DateTime.now,
+                   end: DateTime.now - 2.months)
     course.save
     expect(course.end).to eq(course.start)
   end

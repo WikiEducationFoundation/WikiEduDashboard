@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Rapidfire
   module QuestionSpecHelper
     def create_questions(question_group)

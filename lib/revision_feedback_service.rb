@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RevisionFeedbackService
   # Imports the features from the revisions if revisions is nil otherwise uses the features passed
   def initialize(features)
@@ -37,6 +38,5 @@ class RevisionFeedbackService
   end
 
   MINIMUM_WIKILINKS = 3
-  def wikilinks_feedback
-  end
+  def wikilinks_feedback; end
 end

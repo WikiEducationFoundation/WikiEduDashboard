@@ -25,6 +25,5 @@ module Errors
         super
       end
     end # ParticipatingUserError
-
   end # AuthenticationErrors
 end # Errors

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'csv'
 # == Schema Information
 #
@@ -93,7 +94,7 @@ class Campaign < ActiveRecord::Base
     return if start.nil? && self.end.nil?
 
     # If any are present, all must be valid and self-consistent.
-    [:start, :end].each do |date_type|
+    %i[start end].each do |date_type|
       validate_date_attribute(date_type)
     end
 

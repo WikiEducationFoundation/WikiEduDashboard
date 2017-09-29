@@ -29,7 +29,7 @@ class SurveyAssignment < ActiveRecord::Base
   before_destroy :remove_notifications
 
   scope :published, -> { where(published: true) }
-  scope :by_survey, -> (survey_id) { where(survey_id: survey_id) }
+  scope :by_survey, ->(survey_id) { where(survey_id: survey_id) }
 
   def self.by_courses_user_and_survey(options)
     survey_id, courses_users_id = options.values_at(:survey_id, :courses_users_id)

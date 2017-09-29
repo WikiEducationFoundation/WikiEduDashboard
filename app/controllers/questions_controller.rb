@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class QuestionsController < Rapidfire::ApplicationController
   before_action :set_question
 

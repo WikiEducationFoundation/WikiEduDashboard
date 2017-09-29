@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/wizard_timeline_manager"
 
@@ -18,7 +19,7 @@ describe WizardTimelineManager do
     let(:wizard_params) do
       { 'wizard_output' =>
           { 'output' => ['essentials'],
-            'logic' => %w(graded_training
+            'logic' => %w[graded_training
                           critique
                           add_to_article
                           copyedit
@@ -31,7 +32,7 @@ describe WizardTimelineManager do
                           reflective_essay
                           original_analytical_paper
                           did_you_know
-                          good_article_nominations),
+                          good_article_nominations],
             'tags' => [{ key: 'tricky_topic_areas', tag: 'maybe_medical_topics' },
                        { key: 'dyk_and_ga', tag: 'dyk_and_ga' },
                        { key: 'dyk_and_ga', tag: 'dyk_and_ga' }] } }

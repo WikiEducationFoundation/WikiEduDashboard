@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ad-hoc back-filling of registered_at attribute for users who don't return
 # a registration date from Meta userinfo.
 

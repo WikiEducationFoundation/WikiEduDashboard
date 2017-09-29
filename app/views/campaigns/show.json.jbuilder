@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 if @campaign
   json.campaign do
     json.id @campaign.id

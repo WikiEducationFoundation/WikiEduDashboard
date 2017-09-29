@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SurveyMailer < ApplicationMailer
   ################
   # Entry points #
@@ -21,11 +22,11 @@ class SurveyMailer < ApplicationMailer
   #############
   # Templates #
   #############
-  TEMPLATES = %w(
+  TEMPLATES = %w[
     custom
     instructor_survey
     student_learning_preassessment
-  ).freeze
+  ].freeze
 
   def custom_notification(notification)
     prepare(notification)

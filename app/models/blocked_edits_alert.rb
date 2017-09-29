@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: alerts
@@ -17,7 +18,6 @@
 #  subject_id     :integer
 #  resolved       :boolean          default(FALSE)
 #
-
 
 class BlockedEditsAlert < Alert
   def main_subject

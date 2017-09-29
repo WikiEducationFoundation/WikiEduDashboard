@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: campaigns_users
@@ -16,7 +17,7 @@ class CampaignsUsers < ActiveRecord::Base
   belongs_to :campaign
   belongs_to :user
 
-  validates :campaign_id, uniqueness: { scope: [:user_id, :role] }
+  validates :campaign_id, uniqueness: { scope: %i[user_id role] }
 
   ##############
   # CONSTANTS  #

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/course_meetings_manager"
 
 # Routines for building and saving a course timeline after submission of wizard data
@@ -112,7 +113,7 @@ class WizardTimelineManager
   end
 
   def save_block_and_gradeable(block)
-    attr_keys_to_skip = %w(if graded points)
+    attr_keys_to_skip = %w[if graded points]
     block_params = block.except(*attr_keys_to_skip)
     block_record = Block.create(block_params)
 

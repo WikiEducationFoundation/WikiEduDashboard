@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Surveys', type: :feature, js: true do
@@ -6,7 +7,8 @@ describe 'Surveys', type: :feature, js: true do
   include Rapidfire::AnswerSpecHelper
 
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
   end
 

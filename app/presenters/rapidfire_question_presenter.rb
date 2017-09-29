@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Presenter for question / answer fields in a survey
 class RapidfireQuestionPresenter
   def initialize(answer, index:, answer_group_builder:, is_results_view:)

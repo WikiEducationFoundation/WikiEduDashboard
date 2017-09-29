@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 desc 'Check if agent forwarding is working'
 task :forwarding do
   on roles(:all) do |h|

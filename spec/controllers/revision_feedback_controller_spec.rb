@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe RevisionFeedbackController do
@@ -20,7 +21,6 @@ describe RevisionFeedbackController do
 
       it 'calls RevisionFeedbackService with features' do
         VCR.use_cassette 'ores_features' do
-
           # Checks if the RevisionFeedbackService is initialized with valid features
           expect_any_instance_of(RevisionFeedbackService).to receive(:initialize)
             .with(have_key('feature.enwiki.revision.cite_templates'))

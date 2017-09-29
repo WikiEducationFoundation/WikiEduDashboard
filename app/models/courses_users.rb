@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses_users
@@ -32,7 +33,7 @@ class CoursesUsers < ActiveRecord::Base
 
   has_many :survey_notifications
 
-  validates :course_id, uniqueness: { scope: [:user_id, :role] }
+  validates :course_id, uniqueness: { scope: %i[user_id role] }
 
   scope :current, -> { joins(:course).merge(Course.current).distinct }
   scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'csv'
 
 campaign = Campaign.find_by(slug: 'spring_2016')

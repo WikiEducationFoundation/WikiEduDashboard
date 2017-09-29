@@ -126,7 +126,6 @@ class WikiCourseEdits
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
 
-
   def announce_course_on_announcement_page(instructor)
     announcement_page = ENV['course_announcement_page']
     # rubocop:disable Metrics/LineLength

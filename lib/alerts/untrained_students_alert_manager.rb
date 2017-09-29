@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UntrainedStudentsAlertManager
   def initialize(courses)
     @courses = courses
@@ -29,7 +30,7 @@ class UntrainedStudentsAlertManager
   end
 
   def dates_of_overdue_trainings(course)
-    training_blocks = course.blocks.select { |block| !block.training_module_ids.empty? }
+    training_blocks = course.blocks.reject { |block| block.training_module_ids.empty? }
     assignment_dates = training_blocks.map do |block|
       block.week.meeting_dates.last
     end

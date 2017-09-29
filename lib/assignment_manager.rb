@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Tested via AssignmentsController
 require "#{Rails.root}/lib/article_utils"
 require "#{Rails.root}/lib/importers/rating_importer"

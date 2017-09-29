@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AlertsController < ApplicationController
   before_action :require_signed_in, only: [:create]
   before_action :require_admin_permissions, only: [:resolve]

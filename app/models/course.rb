@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses
@@ -169,20 +170,20 @@ class Course < ActiveRecord::Base
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,
-                                    content_type: %w(application/pdf application/msword)
+                                    content_type: %w[application/pdf application/msword]
 
   validates :passcode, presence: true, if: :passcode_required?
   validates :start, presence: true
   validates :end, presence: true
 
-  COURSE_TYPES = %w(
+  COURSE_TYPES = %w[
     LegacyCourse
     ClassroomProgramCourse
     VisitingScholarship
     Editathon
     BasicCourse
     ArticleScopedProgram
-  ).freeze
+  ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
   #############

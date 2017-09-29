@@ -33,7 +33,7 @@ Metrics/LineLength:
 # Metrics/PerceivedComplexity:
 #   Enabled: false
 
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 Style/ColonMethodCall:
   Enabled: false
@@ -47,7 +47,5 @@ Style/ParallelAssignment:
   Enabled: false # We generally use this only to initialize empty variables.
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
-Style/AccessorMethodNames:
-  Enabled: false # Not very helpful

@@ -93,17 +93,17 @@ class TimelineController < ApplicationController
       :id, :deleted, :title,
       { blocks: [:id, :title, :kind, :content, :weekday, :week_id, :deleted,
                  :order, :gradeable_id, :due_date,
-                 { gradeable: [:id, :gradeable_item_id, :gradeable_item_type,
-                               :title, :points, :deleted] }] }
+                 { gradeable: %i[id gradeable_item_id gradeable_item_type
+                                 title points deleted] }] }
     ] }
   end
 
   def permit_training_module_ids(block)
     blocks_index = 3
-    if block[:training_module_ids].nil?
-      @permitted[:weeks][blocks_index][:blocks] << :training_module_ids
-    else
-      @permitted[:weeks][blocks_index][:blocks] << { training_module_ids: [] }
-    end
+    @permitted[:weeks][blocks_index][:blocks] << if block[:training_module_ids].nil?
+                                                   :training_module_ids
+                                                 else
+                                                   { training_module_ids: [] }
+                                                 end
   end
 end

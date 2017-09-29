@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AverageViewsImporter
   def self.update_average_views(articles)
     article_batches = articles.each_slice(30)

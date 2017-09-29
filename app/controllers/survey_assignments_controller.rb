@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rake'
 require "#{Rails.root}/lib/surveys/survey_notifications_manager"
 require "#{Rails.root}/lib/surveys/survey_test_email_manager"
@@ -7,8 +8,8 @@ WikiEduDashboard::Application.load_tasks
 
 class SurveyAssignmentsController < ApplicationController
   before_action :require_admin_permissions
-  before_action :set_survey_assignment, only: [:show, :edit, :update, :destroy, :send_test_email]
-  before_action :set_survey_assignment_options, only: [:new, :edit, :update]
+  before_action :set_survey_assignment, only: %i[show edit update destroy send_test_email]
+  before_action :set_survey_assignment_options, only: %i[new edit update]
   layout 'surveys'
   include SurveyAssignmentsHelper
 
@@ -20,8 +21,7 @@ class SurveyAssignmentsController < ApplicationController
 
   # GET /survey_assignments/1
   # GET /survey_assignments/1.json
-  def show
-  end
+  def show; end
 
   # GET /survey_assignments/new
   def new
@@ -29,8 +29,7 @@ class SurveyAssignmentsController < ApplicationController
   end
 
   # GET /survey_assignments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /survey_assignments
   def create

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/revision_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"

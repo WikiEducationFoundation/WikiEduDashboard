@@ -7,10 +7,12 @@ class TrainingModuleDueDateManager
     @course = opts[:course]
     @training_module = opts[:training_module]
     @user = opts[:user]
-    @tmu = TrainingModulesUsers.find_by(
-      user_id: @user.id,
-      training_module_id: @training_module.id
-    ) if @user.present?
+    if @user.present?
+      @tmu = TrainingModulesUsers.find_by(
+        user_id: @user.id,
+        training_module_id: @training_module.id
+      )
+    end
     @meetings_manager = opts[:course_meetings_manager]
   end
 

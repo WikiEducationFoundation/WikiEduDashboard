@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This script retroactively tags all the courses with either
 # 'first_time_instructor' or 'returning_instructor'.
 Course.all.each do |course|

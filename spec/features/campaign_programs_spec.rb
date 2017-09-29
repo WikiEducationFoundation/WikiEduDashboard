@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'campaign programs page', type: :feature, js: true do
@@ -81,6 +82,7 @@ describe 'campaign programs page', type: :feature, js: true do
       expect(page.find(:xpath, '//tbody/tr[1]')).to have_content 'Advanced basket-weaving'
       expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Basket-weaving'
     end
+
     def expect_regular_before_advanced_basketweaving
       expect(page.find(:xpath, '//tbody/tr[1]')).to have_content 'Basket-weaving'
       expect(page.find(:xpath, '//tbody/tr[2]')).to have_content 'Advanced basket-weaving'

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   respond_to :json
   before_action :set_course, only: [:details]
