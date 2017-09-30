@@ -278,10 +278,4 @@ describe('courseUtils.formattedArticleTitle', () => {
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('wikidata:Judith Butler');
   });
-
-  it('returns true for a weeks array with trainings', () => {
-    const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [1] }] }];
-    const output = courseUtils.hasTrainings(weeks);
-    expect(output).to.be.true;
-  });
 });
