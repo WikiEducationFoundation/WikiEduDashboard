@@ -13,7 +13,8 @@ const AssignCell = React.createClass({
     student: React.PropTypes.object,
     editable: React.PropTypes.bool,
     role: React.PropTypes.number,
-    tooltip_message: React.PropTypes.string
+    tooltip_message: React.PropTypes.string,
+    course: React.PropTypes.object.isRequired,
   },
 
   stop(e) {
