@@ -1,6 +1,7 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 import { trunc } from '../../utils/strings';
+import SUPPORTED_LANG from '../../constants/mediawiki_lang';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -34,7 +35,7 @@ const ArticleViewer = React.createClass({
       this.fetchParsedArticle();
     }
 
-    // WhoColor is only available for English Wikipedia
+    // WhoColor is only available for English and Basque Wikipedia
     if (!this.isEnWiki()) { return; }
     if (!this.state.userIdsFetched) {
       this.fetchUserIds();
@@ -57,7 +58,7 @@ const ArticleViewer = React.createClass({
   },
 
   whocolorUrl() {
-    return `https://api.wikiwho.net/en/whocolor/v1.0.0-beta/${this.props.article.title}/`;
+    return `https://api.wikiwho.net/${this.props.article.language}/whocolor/v1.0.0-beta/${this.props.article.title}/`;
   },
 
   parsedArticleUrl() {
@@ -69,7 +70,7 @@ const ArticleViewer = React.createClass({
   },
 
   isEnWiki() {
-    return this.props.article.language === 'en' && this.props.article.project === 'wikipedia';
+    return SUPPORTED_LANG.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 
   processHtml(html) {
@@ -173,6 +174,7 @@ const ArticleViewer = React.createClass({
 
   render() {
     let colorDataStatus;
+    //if highlightedHtml is false
     if (!this.state.highlightedHtml) {
       if (this.state.whocolorFailed) {
         colorDataStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
