@@ -155,7 +155,7 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.language).to.eq('es');
     expect(article.formatted_title).to.eq('Autofoto');
   });
-  
+
   it('returns an article object with the language, project, title, and url, comparing it to the default wiki', () => {
     const assignment = {
       article_url: 'https://es.wikipedia.org/wiki/Silvia_Federici',
@@ -166,7 +166,7 @@ describe('courseUtils.articleFromAssignment', () => {
     const defaultWiki = {
       language: 'en',
       project: 'wikipedia'
-    }
+    };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Silvia_Federici');
     expect(article.title).to.eq('Silvia Federici');
