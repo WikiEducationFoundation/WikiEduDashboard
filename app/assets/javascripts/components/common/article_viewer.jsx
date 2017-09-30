@@ -1,7 +1,6 @@
 import React from 'react';
 import OnClickOutside from 'react-onclickoutside';
 import { trunc } from '../../utils/strings';
-import SUPPORTED_LANG from '../../constants/mediawiki_lang';
 
 const ArticleViewer = React.createClass({
   displayName: 'ArticleViewer',
@@ -23,7 +22,7 @@ const ArticleViewer = React.createClass({
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
-    if (this.isEnWiki()) {
+    if (this.isWhocolorLang()) {
       return 'Current Version w/ Authorship Highlighting';
     }
     return I18n.t('articles.show_current_version');
@@ -36,7 +35,7 @@ const ArticleViewer = React.createClass({
     }
 
     // WhoColor is only available for English and Basque Wikipedia
-    if (!this.isEnWiki()) { return; }
+    if (!this.isWhocolorLang()) { return; }
     if (!this.state.userIdsFetched) {
       this.fetchUserIds();
     }
@@ -69,8 +68,9 @@ const ArticleViewer = React.createClass({
     return articleUrl;
   },
 
-  isEnWiki() {
-    return SUPPORTED_LANG.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
+  isWhocolorLang() {
+    const whocolorSupportedLang = ["en", "eu"];
+    return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 
   processHtml(html) {
@@ -204,7 +204,7 @@ const ArticleViewer = React.createClass({
           {colorDataStatus}
         </div>
       );
-    } else if (this.isEnWiki()) {
+    } else if (this.isWhocolorLang()) {
       colorLegend = (
         <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
