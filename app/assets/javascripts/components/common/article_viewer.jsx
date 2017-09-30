@@ -174,7 +174,6 @@ const ArticleViewer = React.createClass({
 
   render() {
     let colorDataStatus;
-    //if highlightedHtml is false
     if (!this.state.highlightedHtml) {
       if (this.state.whocolorFailed) {
         colorDataStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
