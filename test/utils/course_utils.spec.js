@@ -153,8 +153,25 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Autofoto');
     expect(article.title).to.eq('Autofoto');
     expect(article.language).to.eq('es');
-    expect(article.project).to.eq('wikipedia');
-    expect(article.formatted_title).to.eq('es:Autofoto');
+    expect(article.formatted_title).to.eq('Autofoto');
+  });
+
+  it('returns an article object with the language, project, title, and url, comparing it to the default wiki', () => {
+    const assignment = {
+      article_url: 'https://es.wikipedia.org/wiki/Silvia_Federici',
+      language: 'es',
+      article_title: 'Silvia Federici',
+      project: 'wikipedia'
+    };
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
+    expect(article.url).to.eq('https://es.wikipedia.org/wiki/Silvia_Federici');
+    expect(article.title).to.eq('Silvia Federici');
+    expect(article.language).to.eq('es');
+    expect(article.formatted_title).to.eq('es:Silvia Federici');
   });
 
   it('sets wikipedia as the default project', () => {
@@ -164,7 +181,6 @@ describe('courseUtils.articleFromAssignment', () => {
     };
     const article = courseUtils.articleFromAssignment(assignment);
     expect(article.project).to.eq('wikipedia');
-    expect(article.formatted_title).to.eq('Selfie');
   });
 
   it('constructs a url if one is not included', () => {
@@ -189,5 +205,77 @@ describe('courseUtils.hasTrainings', () => {
     const weeks = [{ blocks: [{ training_module_ids: [] }, { training_module_ids: [1] }] }];
     const output = courseUtils.hasTrainings(weeks);
     expect(output).to.be.true;
+  });
+});
+
+describe('courseUtils.formattedArticleTitle', () => {
+  it('returns a formatted_article from the same project and language in article and defaultWiki', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Riot Grrrl',
+      language: 'en',
+      project: 'wikipedia'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('Riot Grrrl');
+  });
+
+  it('returns a formatted_article from same project different language', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Virgine Despentes',
+      language: 'fr',
+      project: 'wikipedia'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('fr:Virgine Despentes');
+  });
+
+  it('returns a formatted_article from diferent project same language', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Virginia Woolf',
+      language: 'en',
+      project: 'wikiquote'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('wikiquote:Virginia Woolf');
+  });
+
+  it('returns a formatted_article from diferent project different language', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Clara Campoamor',
+      language: 'es',
+      project: 'wikiquote'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('es:wikiquote:Clara Campoamor');
+  });
+
+  it('returns a formatted_article from diferent project and no language', () => {
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = {
+      title: 'Judith Butler',
+      language: null,
+      project: 'wikidata'
+    };
+    article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
+    expect(article.formatted_title).to.eq('wikidata:Judith Butler');
   });
 });

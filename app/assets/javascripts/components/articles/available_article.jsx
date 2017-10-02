@@ -52,7 +52,7 @@ const AvailableArticle = React.createClass({
   render() {
     const className = 'assignment';
     const { assignment } = this.props;
-    const article = CourseUtils.articleFromAssignment(assignment);
+    const article = CourseUtils.articleFromAssignment(assignment, this.props.course.home_wiki);
     const ratingClass = `rating ${assignment.article_rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;

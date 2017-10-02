@@ -13,7 +13,8 @@ const AssignCell = React.createClass({
     student: React.PropTypes.object,
     editable: React.PropTypes.bool,
     role: React.PropTypes.number,
-    tooltip_message: React.PropTypes.string
+    tooltip_message: React.PropTypes.string,
+    course: React.PropTypes.object.isRequired,
   },
 
   stop(e) {
@@ -25,7 +26,7 @@ const AssignCell = React.createClass({
   render() {
     let link;
     if (this.props.assignments.length > 0) {
-      const article = CourseUtils.articleFromAssignment(this.props.assignments[0]);
+      const article = CourseUtils.articleFromAssignment(this.props.assignments[0], this.props.course.home_wiki);
       if (this.props.assignments.length > 1) {
         const articleCount = I18n.t('users.number_of_articles', { count: this.props.assignments.length });
         link = (
