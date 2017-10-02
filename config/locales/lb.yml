@@ -203,6 +203,7 @@ lb:
     user_role: Roll
     course_details: Detailer vum Cours
     subject: Sujet
+    timeline_enabled: Zäitplang aktivéiert
     timeline_link: Chronologie
     title: Titel
     user_suggestions: 'Benotzervirschléi:'
@@ -403,6 +404,8 @@ lb:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
     header: Net autoriséiert.>:-(
+    json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
+      w.e.g., loggt Iech an a probéiert nach eng Kéier.
   error_404:
     header: Säit net fonnt. :-(
   error_500:

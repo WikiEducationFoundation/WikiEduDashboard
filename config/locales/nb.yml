@@ -375,6 +375,7 @@ nb:
     submitted: Sendt
     term: Termin
     timeline: Oppgavedetaljer
+    timeline_enabled: Tidslinje slått på
     timeline_link: Tidslinje
     time_zone_message: Start- og sluttider vises i din lokale tidssone.
     title: Tittel

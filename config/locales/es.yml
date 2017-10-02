@@ -150,8 +150,8 @@ es:
     assign_other: Asignar un artículo
     add_available: Añadir un artículo disponible
     assign_self: Asignarme un artículo
-    confirm_add_available: ¿Estás seguro que deseas añadir %{title}?
-    confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
+    confirm_add_available: ¿Confirmas que quieres añadir %{title}?
+    confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
     label: Asignar
     loading: Cargando tareas...
@@ -326,7 +326,7 @@ es:
     join_failure_details:
       cannot_join_twice: Los usuarios no pueden ingresar dos veces al mismo curso.
       not_yet_approved: Este curso no ha sido aprobado para la inscripción.
-    leave_confirmation: ¿Estás seguro de que quieres dejar este curso?
+    leave_confirmation: ¿Confirmas que quieres abandonar este curso?
     leave_course: Deja el curso
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
@@ -664,7 +664,7 @@ es:
       one: '%{count} artículo'
       other: '%{count} artículos'
     recent_revisions: Ediciones recientes
-    remove_confirmation: ¿Estás seguro que deseas eliminar a %{username}?
+    remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días

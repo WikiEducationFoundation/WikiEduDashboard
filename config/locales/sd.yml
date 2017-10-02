@@ -10,6 +10,7 @@ sd:
   application:
     cancel: رد
     dashboard: وڪي ايڊيٽر ڊيشبورڊ
+    documentation: دستاويزسازي
     error: 'ڪا خرابي ھئي:'
     explore: کوجيو
     field_required: ھي جڳھ گھربل آھي
@@ -31,8 +32,10 @@ sd:
     submit: اماڻيو
     training: تربيت
     change: تبديل ڪريو
+    confirm: ٺيڪ
   dashboard:
     explore_course_pages: ڪورس جا صفحا کوجيو
+    explore_examples: مثالَ ڳوليو
     no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
     no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
     blog_headline: وڪي ايڊ مان تازيون خبرون
@@ -54,7 +57,9 @@ sd:
     character_doc: شروعاتي ۽ اختتامي تاريخن ۾ داخل ڪيل شاگردن طرفان مضمونن ۾ داخل
       ڪيل اکرن جو ڪل تعداد
     edited: سنواريل مضمون
+    edited_by: جي طرفان سنواريو ويو
     edited_mobile: مضمون
+    hide: لڪايو
     label: مضمون
     loading: مضمون اتارجي رهيا آهن...
     new: (نئون)
@@ -75,6 +80,9 @@ sd:
     title_example: مضمون جو عنوان
     view: مضمون ڏسو
     view_all: سڀ ڏسو
+    view_on_wiki: وڪيءَ تي ڏسو
+    edit_size: سنوار جي ماپ
+    wiki: وڪي
   assignments:
     assignees: تخصيصدار
     assign_other: مضمون سونپيو
@@ -95,7 +103,12 @@ sd:
     milestones:
       title: سنگ ميل
   campaign:
+    add_organizer: سرپرست شامل ڪيو (Add organizer)
+    all_campaigns: سڀ مهمون (All Campaigns)
+    campaign: مهم (Campaign)
     none: ڪوبہ نہ
+    organizers: سرپرستَ (Organizers)
+    title: عنوان
   courses:
     activity: سرگرمي
     actions: عمل
@@ -108,26 +121,43 @@ sd:
       legend_class_not_meeting: ڪابہ طي شده گڏجاڻي ناھي
       select_meeting_days: ھفتي جا اھي ڏينھن چونڊيو جن تي اوھان جي ڪلاس جي گڏجاڻي
         ٿئي ٿي.
+    cancel: رد
     course_description: ' ڪورسز'
     courses: ڪورسز
+    creator:
+      course_language: مکيه ٻولي
+      course_project: مکيه رٿا
+      end_date: پڄاڻيءَ جي تاريخ
+      end_date_placeholder: پڄاڻيءَ جي تاريخ (YYYY-MM-DD)
+      start_date: شروع ڪرڻ جي تاريخ
+      start_date_placeholder: شروع ٿيڻ جي تاريخ (YYYY-MM-DD)
+      subject: موضوع
     current: حاليہ ڪورسز
+    data_overview: انگ اکرَ ڏسو
     duration: ڪورس جو دورانيو
     ended: ڪورس ختم ٿي ويو آهي.
     error:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
       user_exists: معاف ڪندا، %{username} نالي واپرائيندڙ وجود نٿو رکي.
+    feedback: اوهان جي راءِ
     instructor:
       one: استادُ
       other: استادَ
+    join: شامل ٿيو
+    my_articles: منهنجا مضمونَ
     new_week: نئون هفتو شامل ڪريو
     nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
     overview: جائزو
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
+    school: اسڪول
     students: شاگرد
     students_none: هن ڪورس ۾ ڪي بہ شاگرد نہ آهن.
     students_short: شاگرد
+    user_role: ڪردار
     timeline: مشق جا تفصيل
     title: عنوان
+    training_nav: تربيت لاءِ وڃو
+    user_suggestions: 'واپرائيندڙ جون صلاحون:'
     view: ڪورس ڏسو
     view_wiki: وڪي‌پيڊيا تي ڏسو
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
@@ -135,9 +165,25 @@ sd:
     yourcourses: توهان جا ڪورسز
   courses_generic:
     all_courses: سڀ سٽاءَ (پروگرام)
+    course: پروگرام
+    courses: پروگرامَ
     creator:
+      course_term: ڪڏهن
+      course_term_placeholder: ڪڏهن
+      course_title: پروگرام جو عنوان
+      create_button: منهنجو پروگرام ٺاهيو!
+      create_label: نئون پروگرام ٺاهيو
       save_cloned_course: سانڍيو
+    delete_course: پروگرام ڊاهيو
+    edit_course_dates: رٿا جون تاريخون سنواريو
+    explore: پروگرامَ ڳوليو
+    enroll: ايڊيٽر شامل ڪيو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
+    student_editors: سنواريندڙَ (Editors)
+    students: ايڊيٽرَ
+    students_taught: ڪُل سنواريندڙَ (Total Editors)
+    term: ڪڏهن
+    yourcourses: توهان جا پروگرامَ
   editable:
     edit: سانڍيو
     save: سانڍيو
@@ -158,24 +204,43 @@ sd:
     main: مک پولار
     user: يُوزرپولار
     user_ns: واپرائيندڙ
+  recent_activity:
+    article_title: مضمون جو عنوان
+    datetime: تاريخ/وقت
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو
     date_time: تاريخ / وقت
+    diff: فرق
+    diff_show: ڏيکاريو
+    diff_hide: لڪايو
     edited_by: سنواريندڙ
     loading: ڀيرا اتاريندي ...
     none: هن ڪورس ۾ سنوارڻ جي ڪا بہ تازي سرگرمي نہ آهي.
     time_doc: توهان جي مقامي وقت مطابق هر هڪ ڀيري جو وقت
     title: عنوان
   timeline:
+    add_week: هفتو شامل ڪيو
+    block_in_class: ڪلاس ۾
+    block_milestone: سنگ ميل
     due_default: مٿين هفتي واجب
+    empty_week_3: يا
     save_all_changes: سڀ سانڍيو
+    this_week_title_default: هن هفتي
     title: اوقاتي خط
+  training:
+    view: ڏسو
   uploads:
+    datetime: تاريخ/وقت
+    file_name: فائيل جو نالو
+    header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا
+    image: عڪس
+    label: چڙهيل
     loading: چاڙھون چڙهي رهيون آهن...
     none: هن ڪلاس وڪي‌ذريعات اشتراڪ ۾ ڪي بہ عڪس يا ٻي ذريعات شامل ڪرڻ واري ڀاڱيداري
       نہ نڀائي آهي.
     time_doc: توهان جي مقامي وقت مطابق هر هڪ چاڙهہ جو وقت
+    uploaded_by: جي طرفان چاڙهيل
     usages: استعمال
   users:
     already_enrolled: اهو واپرائيندڙ اڳ ئي داخل ٿيل آهي!

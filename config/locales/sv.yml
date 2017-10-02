@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bengtsson96
 # Author: Fader
 # Author: Jopparn
 # Author: Josve05a
@@ -62,8 +63,9 @@ sv:
     view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
     edit_size: Redigera storlek
+    wiki: Wiki
   assignments:
-    article: Artikeln %{title} har tilldelats
+    article: Artikeln %{title} har tilldelats dig
     add_available: Lägg till en tillgänglig artikel
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
     remove: Ta bort
@@ -189,6 +191,7 @@ sv:
     course_details: Kursdetaljer
     subject: Ämne
     submitted: Inskickade
+    timeline_enabled: Tidslinjen är aktiverad
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
