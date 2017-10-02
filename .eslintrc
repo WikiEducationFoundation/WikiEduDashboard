@@ -32,7 +32,7 @@
     "react/no-string-refs": 2,
     "react/jsx-equals-spacing": 2,
     "react/jsx-no-target-blank": 2,
-    "react/jsx-wrap-multilines": 0,
+    "react/jsx-wrap-multilines": 2,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/img-has-alt": 0,
