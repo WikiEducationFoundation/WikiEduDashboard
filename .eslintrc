@@ -34,7 +34,7 @@
     "react/jsx-no-target-blank": 2,
     "react/jsx-wrap-multilines": 2,
     "jsx-a11y/no-static-element-interactions": 2,
-    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/label-has-for": 2,
     "jsx-a11y/img-has-alt": 0,
     "jsx-a11y/href-no-hash": 0,
     "jsx-a11y/aria-role": 0,
