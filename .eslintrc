@@ -27,7 +27,7 @@
     "react/forbid-prop-types": 2,
     "react/no-danger": 2,
     "react/no-children-prop": 2,
-    "react/no-unused-prop-types": 0,
+    "react/no-unused-prop-types": 2,
     "react/no-unescaped-entities": 0,
     "react/no-string-refs": 0,
     "react/jsx-equals-spacing": 0,
