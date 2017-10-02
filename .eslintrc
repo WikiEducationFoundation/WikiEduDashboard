@@ -37,7 +37,7 @@
     "jsx-a11y/label-has-for": 2,
     "jsx-a11y/img-has-alt": 2,
     "jsx-a11y/href-no-hash": 2,
-    "jsx-a11y/aria-role": 0,
+    "jsx-a11y/aria-role": 2,
     "jsx-a11y/anchor-has-content": 0,
     "import/first": 0,
     "import/extensions": 0,
