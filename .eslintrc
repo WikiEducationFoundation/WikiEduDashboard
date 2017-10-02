@@ -26,7 +26,7 @@
     "react/no-find-dom-node": 2,
     "react/forbid-prop-types": 2,
     "react/no-danger": 2,
-    "react/no-children-prop": 0,
+    "react/no-children-prop": 2,
     "react/no-unused-prop-types": 0,
     "react/no-unescaped-entities": 0,
     "react/no-string-refs": 0,
