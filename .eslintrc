@@ -30,7 +30,7 @@
     "react/no-unused-prop-types": 2,
     "react/no-unescaped-entities": 2,
     "react/no-string-refs": 2,
-    "react/jsx-equals-spacing": 0,
+    "react/jsx-equals-spacing": 2,
     "react/jsx-no-target-blank": 0,
     "react/jsx-wrap-multilines": 0,
     "jsx-a11y/no-static-element-interactions": 0,
