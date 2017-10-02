@@ -22,7 +22,7 @@ const ArticleViewer = React.createClass({
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
-    if (this.isEnWiki()) {
+    if (this.isWhocolorLang()) {
       return 'Current Version w/ Authorship Highlighting';
     }
     return I18n.t('articles.show_current_version');
@@ -34,8 +34,8 @@ const ArticleViewer = React.createClass({
       this.fetchParsedArticle();
     }
 
-    // WhoColor is only available for English Wikipedia
-    if (!this.isEnWiki()) { return; }
+    // WhoColor is only available for English and Basque Wikipedia
+    if (!this.isWhocolorLang()) { return; }
     if (!this.state.userIdsFetched) {
       this.fetchUserIds();
     }
@@ -57,7 +57,7 @@ const ArticleViewer = React.createClass({
   },
 
   whocolorUrl() {
-    return `https://api.wikiwho.net/en/whocolor/v1.0.0-beta/${this.props.article.title}/`;
+    return `https://api.wikiwho.net/${this.props.article.language}/whocolor/v1.0.0-beta/${this.props.article.title}/`;
   },
 
   parsedArticleUrl() {
@@ -68,8 +68,9 @@ const ArticleViewer = React.createClass({
     return articleUrl;
   },
 
-  isEnWiki() {
-    return this.props.article.language === 'en' && this.props.article.project === 'wikipedia';
+  isWhocolorLang() {
+    const whocolorSupportedLang = ["en", "eu"];
+    return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 
   processHtml(html) {
@@ -203,7 +204,7 @@ const ArticleViewer = React.createClass({
           {colorDataStatus}
         </div>
       );
-    } else if (this.isEnWiki()) {
+    } else if (this.isWhocolorLang()) {
       colorLegend = (
         <div className="user-legend-wrap">
           <div className="user-legend">Edits by: </div>
