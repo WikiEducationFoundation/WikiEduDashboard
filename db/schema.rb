@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828160001) do
+ActiveRecord::Schema.define(version: 20171003172534) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170828160001) do
     t.integer "target_user_id"
     t.integer "subject_id"
     t.boolean "resolved", default: false
+    t.text "details"
     t.index ["article_id"], name: "index_alerts_on_article_id"
     t.index ["course_id"], name: "index_alerts_on_course_id"
     t.index ["revision_id"], name: "index_alerts_on_revision_id"

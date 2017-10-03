@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 class BlockedEditsReporter
-  def self.create_alerts_for_blocked_edits(user)
-    new.create_alert(user)
+  def self.create_alerts_for_blocked_edits(user, response_data)
+    new.create_alert(user, response_data)
   end
 
-  def create_alert(user)
+  def create_alert(user, response_data)
     return if alert_already_exists?
     alert = Alert.create!(type: 'BlockedEditsAlert',
                           user_id: user.id,
-                          target_user_id: technical_help_staff&.id)
+                          target_user_id: technical_help_staff&.id,
+                          details: response_data)
     alert.email_target_user
   end
 
