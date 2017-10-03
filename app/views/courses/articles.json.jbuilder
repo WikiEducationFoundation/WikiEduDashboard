@@ -5,10 +5,10 @@ json.course do
     article = ac.article
     json.call(ac, :character_sum, :view_count, :new_article)
     json.call(article, :id, :namespace, :rating)
-    json.title full_title(article)
+    json.title article.full_title
     json.language article.wiki.language
     json.project article.wiki.project
-    json.url article_url(article)
+    json.url article.url
     json.rating_num rating_priority(article.rating)
     json.pretty_rating rating_display(article.rating)
   end

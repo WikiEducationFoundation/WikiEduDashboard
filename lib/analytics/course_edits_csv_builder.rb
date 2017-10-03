@@ -34,7 +34,7 @@ class CourseEditsCsvBuilder
     row = [revision.mw_rev_id]
     row << revision.date
     row << revision.wiki.base_url
-    row << full_title(revision.article)
+    row << revision.article.full_title
     row << revision.url
     row << revision.user.username
     row << revision.characters

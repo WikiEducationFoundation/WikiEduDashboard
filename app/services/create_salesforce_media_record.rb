@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# frozen_string_literal: true
 
 #= Creates a new Media record in Salesforce, returning the URL of the new record
 class CreateSalesforceMediaRecord
@@ -26,11 +27,11 @@ class CreateSalesforceMediaRecord
 
   def salesforce_media_fields
     {
-      Name: full_title(@article),
+      Name: @article.full_title,
       Format__c: 'Wiki Contribution',
       Author_Wiki_Username_Optional__c: @user.username,
       Primary_Course__c: @salesforce_course_id,
-      Link__c: article_url(@article),
+      Link__c: @article.url,
       Before_link__c: diff_link(@before_rev_id),
       After_link__c: diff_link(@after_rev_id)
     }
@@ -38,6 +39,6 @@ class CreateSalesforceMediaRecord
 
   def diff_link(rev_id)
     return nil if rev_id == '0'
-    article_url(@article) + "?oldid=#{rev_id}"
+    @article.url + "?oldid=#{rev_id}"
   end
 end

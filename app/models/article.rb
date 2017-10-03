@@ -61,6 +61,19 @@ class Article < ActiveRecord::Base
     TEMPLATE_TALK  = 11
     DRAFT          = 118
     DRAFT_TALK     = 119
+    
+    NS = {
+      Namespaces::MAINSPACE => '',
+      Namespaces::TALK => 'Talk:',
+      Namespaces::USER => 'User:',
+      Namespaces::USER_TALK => 'User_talk:',
+      Namespaces::WIKIPEDIA => 'Wikipedia:',
+      Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
+      Namespaces::TEMPLATE => 'Template:',
+      Namespaces::TEMPLATE_TALK => 'Template_talk:',
+      Namespaces::DRAFT => 'Draft:',
+      Namespaces::DRAFT_TALK => 'Draft_talk:'
+    }.freeze
   end
 
   ####################
@@ -69,6 +82,23 @@ class Article < ActiveRecord::Base
   def update(data={}, save=true)
     self.attributes = data
     self.save if save
+  end
+
+  def url 
+    return nil if self.nil?
+    prefix = Namespaces::NS[self.namespace]
+    "#{self.wiki.base_url}/wiki/#{prefix}#{self.title}"
+  end
+
+  def full_title
+    prefix = Namespaces::NS[self.namespace]
+    title = self.title.tr('_', ' ')
+    "#{prefix}#{title}"
+  end
+
+  def escaped_full_title
+    prefix = Namespaces::NS[self.namespace]
+    "#{prefix}#{self.title}"
   end
 
   #################
