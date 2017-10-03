@@ -23,7 +23,7 @@ const ArticleViewer = React.createClass({
       return this.props.showButtonLabel;
     }
     if (this.isWhocolorLang()) {
-      return 'Current Version w/ Authorship Highlighting';
+      return I18n.t('articles.show_current_version_with_authorship_highlighting');
     }
     return I18n.t('articles.show_current_version');
   },
@@ -69,7 +69,8 @@ const ArticleViewer = React.createClass({
   },
 
   isWhocolorLang() {
-    const whocolorSupportedLang = ["en", "eu"];
+    // Supported languages for https://api.wikiwho.net/ as of 2017-10-02
+    const whocolorSupportedLang = ['de', 'en', 'eu', 'tr'];
     return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 
