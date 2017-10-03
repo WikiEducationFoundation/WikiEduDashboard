@@ -36,7 +36,7 @@ class CourseArticlesCsvBuilder
     row = [article.title]
     row << article.namespace
     row << article.wiki.domain
-    row << article_url(article)
+    row << article.url
     row << article_stats.edit_count
     row << article_stats.new?
     row << article.deleted
@@ -52,7 +52,7 @@ class CourseArticlesCsvBuilder
   end
 
   def pageview_article_params(article)
-    "&project=#{article.wiki.domain}&pages=#{escaped_full_title(article)}"
+    "&project=#{article.wiki.domain}&pages=#{article.escaped_full_title}"
   end
 
   def pageviews_range_param

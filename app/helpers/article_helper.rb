@@ -15,22 +15,22 @@ module ArticleHelper
     Article::Namespaces::DRAFT_TALK => 'Draft_talk:'
   }.freeze
 
-  def article_url(article)
-    return nil if article.nil?
-    prefix = NS[article.namespace]
-    "#{article.wiki.base_url}/wiki/#{prefix}#{article.title}"
-  end
+  # def article_url(article)
+  #   return nil if article.nil?
+  #   prefix = NS[article.namespace]
+  #   "#{article.wiki.base_url}/wiki/#{prefix}#{article.title}"
+  # end
 
-  def full_title(article)
-    prefix = NS[article.namespace]
-    title = article.title.tr('_', ' ')
-    "#{prefix}#{title}"
-  end
+  # def full_title(article)
+  #   prefix = NS[article.namespace]
+  #   title = article.title.tr('_', ' ')
+  #   "#{prefix}#{title}"
+  # end
 
-  def escaped_full_title(article)
-    prefix = NS[article.namespace]
-    "#{prefix}#{article.title}"
-  end
+  # def escaped_full_title(article)
+  #   prefix = NS[article.namespace]
+  #   "#{prefix}#{article.title}"
+  # end
 
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity

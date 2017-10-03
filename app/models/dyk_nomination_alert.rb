@@ -25,7 +25,7 @@ class DYKNominationAlert < Alert
   end
 
   def url
-    article_url(article)
+    article.url
   end
 
   def resolvable?

@@ -51,7 +51,7 @@ class Revision < ActiveRecord::Base
   # https://en.wikipedia.org/w/index.php?title=Eva_Hesse&diff=prev&oldid=655980945
   def url
     return if article.nil?
-    title = escaped_full_title(article)
+    title = article.escaped_full_title
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
   end
 
