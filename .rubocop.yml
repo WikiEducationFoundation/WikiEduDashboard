@@ -12,15 +12,24 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'app/views/**/**/*.haml'
+    - 'docs/**/*'
   TargetRubyVersion: 2.3
-
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
 
 Metrics/LineLength:
   Max: 100
 
+###################
+# Spec exceptions #
+###################
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
+Style/BlockLength:
+  Exclude:
+    - 'spec/**/*' # pretty much impossible with RSpec
+Style/MethodLength:
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper methods
 # Disable complexity cops, since we use CodeClimate for that.
 # Metrics/MethodLength:
 #   Enabled: false

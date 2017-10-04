@@ -116,7 +116,9 @@ describe 'Students Page', type: :feature, js: true do
       end
       context 'instructor' do
         let(:user) { create(:user, permissions: 1) }
-        let!(:courses_user) { create(:courses_user, course_id: @course.id, user_id: user.id, role: 1) }
+        let!(:courses_user) do
+          create(:courses_user, course_id: @course.id, user_id: user.id, role: 1)
+        end
         it 'displays real name' do
           within 'table.users' do
             expect(page).to have_content @user.real_name
