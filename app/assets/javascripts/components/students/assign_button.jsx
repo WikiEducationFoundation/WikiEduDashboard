@@ -5,7 +5,7 @@ import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
+import ConfirmationStore from '../../reducers/confirmation.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import AssignmentStore from '../../stores/assignment_store.js';

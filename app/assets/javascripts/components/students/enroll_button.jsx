@@ -8,7 +8,7 @@ import CourseUtils from '../../utils/course_utils.js';
 import NotificationActions from '../../actions/notification_actions.js';
 import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
+import ConfirmationStore from '../../reducers/confirmation.js';
 
 const EnrollButton = React.createClass({
   displayName: 'EnrollButton',
