@@ -24,10 +24,10 @@ Metrics/LineLength:
 Style/NumericPredicate:
   Exclude:
     - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
-Style/BlockLength:
+Metrics/BlockLength:
   Exclude:
     - 'spec/**/*' # pretty much impossible with RSpec
-Style/MethodLength:
+Metrics/MethodLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
 # Disable complexity cops, since we use CodeClimate for that.

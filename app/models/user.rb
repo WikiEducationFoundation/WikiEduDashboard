@@ -107,10 +107,7 @@ class User < ActiveRecord::Base
   # Instance methods #
   ####################
   def roles(_course)
-    {
-      id: id,
-      admin: admin?
-    }
+    { id: id, admin: admin? }
   end
 
   def talk_page
