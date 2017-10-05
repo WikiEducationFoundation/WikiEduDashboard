@@ -102,6 +102,7 @@ zh-TW:
       does_not_exist: 維基百科無此條目
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
+    show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
     title: 標題
     title_example: 條目標題
     view: 檢視文章

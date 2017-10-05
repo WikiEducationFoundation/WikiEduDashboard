@@ -3,8 +3,11 @@
 # Export driver: phpyaml
 # Author: AryanSogd
 # Author: ToJack
+# Author: Vashgird
 ---
 tg-cyrl:
+  articles:
+    wiki: вики
   courses:
     enroll: Ба рӯйхат даровардан
   courses_generic:

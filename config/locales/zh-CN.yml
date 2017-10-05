@@ -91,6 +91,7 @@ zh-CN:
       does_not_exist: 此条目在维基百科不存在
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
+    show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
     title: 标题
     title_example: 条目标题
     view: 查看条目
