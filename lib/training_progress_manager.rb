@@ -8,10 +8,8 @@ class TrainingProgressManager
     @training_module = training_module
     @slide = slide
     if @user.present?
-      @tmu = TrainingModulesUsers.find_by(
-        user_id: @user.id,
-        training_module_id: @training_module&.id
-      )
+      @tmu = TrainingModulesUsers.find_by(user_id: @user.id,
+                                          training_module_id: @training_module&.id)
     end
     @due_date_manager = due_date_manager
     @overall_due_date = @due_date_manager.overall_due_date
