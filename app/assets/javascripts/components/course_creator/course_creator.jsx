@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
 import CourseStore from '../../stores/course_store.js';
@@ -169,7 +168,7 @@ const CourseCreator = React.createClass({
   },
 
   useThisClass() {
-    const select = ReactDOM.findDOMNode(this.refs.courseSelect);
+    const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
     ServerActions.cloneCourse(courseId);
     return this.setState({ isSubmitting: true, shouldRedirect: true });

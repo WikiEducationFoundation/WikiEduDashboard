@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Modal from '../common/modal.jsx';
 import CourseStore from '../../stores/course_store.js';
 import ValidationStore from '../../stores/validation_store.js';
@@ -37,7 +36,7 @@ const CourseClonedModal = React.createClass({
   },
 
   setNoBlackoutDatesChecked() {
-    const { checked } = ReactDOM.findDOMNode(this.refs.noDates);
+    const { checked } = this.noDates;
     return this.updateCourse('no_day_exceptions', checked);
   },
 

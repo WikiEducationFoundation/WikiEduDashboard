@@ -23,7 +23,7 @@
     "new-cap": [2, { "capIsNew": false }],
     "no-use-before-define": 0,
     # Rules below here should be enabled once violations are fixed.
-    "react/no-find-dom-node": 0,
+    "react/no-find-dom-node": 2,
     "react/forbid-prop-types": 0,
     "react/no-danger": 0,
     "react/no-children-prop": 0,

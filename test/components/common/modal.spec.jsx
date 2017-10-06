@@ -1,6 +1,5 @@
 import '../../testHelper';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import Modal from '../../../app/assets/javascripts/components/common/modal.jsx';
 
@@ -12,8 +11,7 @@ describe('Modal', () => {
   );
 
   it('renders its children with the modalClass', () => {
-    const modalContent = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div');
-    const content = ReactDOM.findDOMNode(modalContent);
+    const content = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div');
     expect(content.textContent).to.eq('bar');
     expect(content.className).to.eq('wizard active foo');
   });
