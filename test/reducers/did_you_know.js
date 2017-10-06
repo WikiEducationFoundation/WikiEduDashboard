@@ -4,10 +4,6 @@ import { RECEIVE_DYK } from "../../app/assets/javascripts/constants";
 
 describe("slider menu reducer", () => {
   it("should return the initial state", () => {
-    const initialState = {
-      articles: [],
-      loading: true
-    };
     expect(reducer(undefined, {})).toEqual(initialState);
   });
 

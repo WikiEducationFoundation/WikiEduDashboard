@@ -1,8 +1,8 @@
 import {
-    RECEIVE_ARTICLE_FEEDBACK,
-    POST_USER_FEEDBACK,
-    DELETE_USER_FEEDBACK
-} from '../constants';
+  RECEIVE_ARTICLE_FEEDBACK,
+  POST_USER_FEEDBACK,
+  DELETE_USER_FEEDBACK
+} from "../constants";
 
 const initialState = {};
 

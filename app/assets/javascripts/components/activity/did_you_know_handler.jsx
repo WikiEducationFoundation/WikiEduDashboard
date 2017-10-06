@@ -65,8 +65,8 @@ const DidYouKnowHandler = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  articles: state.didYouKnow.articles,
-  // loading: state.didYouKnowStore.loading
+  articles: state.didYouKnowStore.articles,
+  loading: state.didYouKnowStore.loading
 });
 
 const mapDispatchToProps = {
