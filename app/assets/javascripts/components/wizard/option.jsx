@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 
@@ -19,7 +18,7 @@ const Option = React.createClass({
   },
 
   expand() {
-    $(ReactDOM.findDOMNode(this.refs.expandable)).slideToggle();
+    $(this.expandable).slideToggle();
     return WizardActions.toggleOptionExpanded(this.props.panel_index, this.props.index);
   },
 

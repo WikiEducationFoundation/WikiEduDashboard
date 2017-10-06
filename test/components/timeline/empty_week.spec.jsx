@@ -1,7 +1,6 @@
 import '../../testHelper';
 
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
 
@@ -16,8 +15,7 @@ describe('EmptyWeek', () => {
     );
     it('gives the empty text if timeline and edit permissions are empty', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestEmptyWeek, 'h1');
-      const h1 = ReactDOM.findDOMNode(headline);
-      expect(h1.textContent).to.eq(I18n.t('timeline.no_activity_this_week'));
+      expect(headline.textContent).to.eq(I18n.t('timeline.no_activity_this_week'));
     });
   });
 
@@ -44,8 +42,10 @@ describe('EmptyWeek', () => {
       />
     );
     it('says course has no timeline', () => {
-      const week = findDOMNode(TestEmptyWeek);
-      expect(week.innerHTML).to.contain('This course has no timeline.');
+      const pTag = ReactTestUtils.findRenderedDOMComponentWithClass(TestEmptyWeek, 'week__no-activity__get-started');
+      expect(makeSpacesUniform(pTag.textContent)).to.eq(
+        makeSpacesUniform('This course has no timeline.')
+      );
     });
   });
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import ReactDOM from 'react-dom';
 import '../../testHelper';
 import CourseClonedModal from '../../../app/assets/javascripts/components/overview/course_cloned_modal.jsx';
 
@@ -37,6 +36,6 @@ describe('CourseClonedModal', () => {
 
     const warnings = ReactTestUtils.scryRenderedDOMComponentsWithClass(TestModal, 'warning');
     expect(warnings).not.to.be.empty;
-    expect(ReactDOM.findDOMNode(warnings[0]).textContent).to.eq('test error message');
+    expect(warnings[0].textContent).to.eq('test error message');
   });
 });

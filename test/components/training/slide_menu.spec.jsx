@@ -3,7 +3,6 @@ import TrainingSlideHandler from '../../../app/assets/javascripts/training/compo
 import SlideMenu from '../../../app/assets/javascripts/training/components/slide_menu.jsx';
 import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import ReactDOM from 'react-dom';
 
 describe('SlideMenu', () => {
   const emptyFunction = function () { };
@@ -25,19 +24,17 @@ describe('SlideMenu', () => {
       slides: [slide],
       enabledSlides: [slide],
       nextSlide: { slug: 'foobar' }
-    }
-    )
+    })
   );
 
   it('renders an ol', () => {
-    const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
-    const menuNode = ReactDOM.findDOMNode(menu);
-    expect($(menuNode).find('ol').length).to.eq(1);
+    const list = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestMenu, 'ol')[0];
+    expect(Object.keys(list.children).length).to.eq(1);
   });
 
   it('links to a slide', () => {
     const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
-    const menuNode = ReactDOM.findDOMNode(menu);
-    expect($(menuNode).find('a').attr('href')).to.eq('/training/foo/bar/kittens');
+    const aTag = ReactTestUtils.scryRenderedDOMComponentsWithTag(menu, 'a')[0];
+    expect(aTag.href).to.eq('/training/foo/bar/kittens');
   });
 });

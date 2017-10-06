@@ -3,7 +3,6 @@ import sinon from 'sinon';
 import _ from 'lodash';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
@@ -22,8 +21,7 @@ describe('CourseCreator', () => {
     );
     it('renders a title', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
-      const h3 = ReactDOM.findDOMNode(headline);
-      expect(h3.textContent).to.eq('Create a New Course');
+      expect(headline.textContent).to.eq('Create a New Course');
     });
     describe('user courses-to-clone dropdown', () => {
       describe('state not updated', () => {
@@ -65,9 +63,8 @@ describe('CourseCreator', () => {
       describe('subject', () => {
         it('updates courseActions', (done) => {
           const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_subject');
-          const inputNode = ReactDOM.findDOMNode(input);
-          inputNode.value = 'foobar';
-          Simulate.change(inputNode);
+          input.value = 'foobar';
+          Simulate.change(input);
           setImmediate(() => {
             expect(updateCourse).to.have.been.called;
             expect(setValid).not.to.have.been.called;
@@ -79,9 +76,8 @@ describe('CourseCreator', () => {
         it('updates courseActions and validationActions', (done) => {
           TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
           const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_term');
-          const inputNode = ReactDOM.findDOMNode(input);
-          inputNode.value = 'foobar';
-          Simulate.change(inputNode);
+          input.value = 'foobar';
+          Simulate.change(input);
           setImmediate(() => {
             expect(updateCourse).to.have.been.called;
             expect(setValid).to.have.been.called;
@@ -97,8 +93,7 @@ describe('CourseCreator', () => {
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
       it('calls the appropriate methods on the actions', () => {
         const button = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'button__submit');
-        const buttonNode = ReactDOM.findDOMNode(button);
-        Simulate.click(buttonNode);
+        Simulate.click(button);
         expect(checkCourse).to.have.been.called;
         expect(setInvalid).to.have.been.called;
       });
