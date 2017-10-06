@@ -3,6 +3,15 @@ import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
 import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
 
+const NO_ACTIVITY_MESSAGE = I18n.t("recent_activity.no_dyk_eligible");
+
+const HEADERS = [
+  { title: I18n.t("recent_activity.article_title"), key: "title" },
+  { title: I18n.t("recent_activity.revision_score"), key: "revision_score", style: { width: 142 } },
+  { title: I18n.t("recent_activity.revision_author"), key: "username", style: { minWidth: 142 } },
+  { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
+];
+
 const DidYouKnowHandler = React.createClass({
   displayName: "DidYouKnowHandler",
 
@@ -22,27 +31,6 @@ const DidYouKnowHandler = React.createClass({
   },
 
   render() {
-    const headers = [
-      { title: I18n.t("recent_activity.article_title"), key: "title" },
-      {
-        title: I18n.t("recent_activity.revision_score"),
-        key: "revision_score",
-        style: { width: 142 }
-      },
-      {
-        title: I18n.t("recent_activity.revision_author"),
-        key: "username",
-        style: { minWidth: 142 }
-      },
-      {
-        title: I18n.t("recent_activity.revision_datetime"),
-        key: "revision_datetime",
-        style: { width: 200 }
-      }
-    ];
-
-    const noActivityMessage = I18n.t("recent_activity.no_dyk_eligible");
-
     return (
       <div>
         <label>
@@ -56,8 +44,8 @@ const DidYouKnowHandler = React.createClass({
         <ActivityTable
           loading={this.props.loading}
           activity={this.props.articles}
-          headers={headers}
-          noActivityMessage={noActivityMessage}
+          headers={HEADERS}
+          noActivityMessage={NO_ACTIVITY_MESSAGE}
         />
       </div>
     );
@@ -65,8 +53,8 @@ const DidYouKnowHandler = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  articles: state.didYouKnowStore.articles,
-  loading: state.didYouKnowStore.loading
+  articles: state.didYouKnow.articles,
+  loading: state.didYouKnow.loading
 });
 
 const mapDispatchToProps = {

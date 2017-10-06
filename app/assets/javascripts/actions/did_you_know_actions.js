@@ -10,7 +10,6 @@ export const fetchDYKArticles = (opts = {}) => dispatch => {
           type: RECEIVE_DYK,
           payload: {
             data: resp,
-            loading: false
           }
         })
       )
