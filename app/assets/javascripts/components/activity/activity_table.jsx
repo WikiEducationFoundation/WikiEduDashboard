@@ -1,16 +1,15 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import _ from 'lodash';
-import moment from 'moment';
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import _ from "lodash";
+import moment from "moment";
 
-import * as UIActions from '../../actions';
-import ActivityTableRow from './activity_table_row.jsx';
-import Loading from '../common/loading.jsx';
-
+import * as UIActions from "../../actions";
+import ActivityTableRow from "./activity_table_row.jsx";
+import Loading from "../common/loading.jsx";
 
 const ActivityTable = React.createClass({
-  displayName: 'ActivityTable',
+  displayName: "ActivityTable",
 
   propTypes: {
     loading: React.PropTypes.bool,
@@ -27,22 +26,31 @@ const ActivityTable = React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activity !== this.state.activity) {
+      this.setState({ activity: nextProps.activity });
+    }
+  },
+
   clearAllSortableClassNames() {
-    Array.prototype.forEach.call(document.getElementsByClassName('sortable'), (el) => {
-      el.classList.remove('asc');
-      el.classList.remove('desc');
-    });
+    Array.prototype.forEach.call(
+      document.getElementsByClassName("sortable"),
+      el => {
+        el.classList.remove("asc");
+        el.classList.remove("desc");
+      }
+    );
   },
 
   sortItems(e) {
     this.clearAllSortableClassNames();
 
-    const nextSortOrder = e.target.classList.contains('asc') ? 'desc' : 'asc';
+    const nextSortOrder = e.target.classList.contains("asc") ? "desc" : "asc";
     e.target.classList.add(nextSortOrder);
 
-    const key = e.target.getAttribute('data-sort-key');
+    const key = e.target.getAttribute("data-sort-key");
     let activities = _.sortByOrder(this.state.activity, [key]);
-    if (nextSortOrder === 'desc') {
+    if (nextSortOrder === "desc") {
       activities = activities.reverse();
     }
 
@@ -52,9 +60,12 @@ const ActivityTable = React.createClass({
   },
 
   _renderActivites() {
-    return this.state.activity.map((revision) => {
-      const roundedRevisionScore = Math.round(revision.revision_score) || 'unknown';
-      const revisionDateTime = moment(revision.datetime).format('YYYY/MM/DD h:mm a');
+    return this.state.activity.map(revision => {
+      const roundedRevisionScore =
+        Math.round(revision.revision_score) || "unknown";
+      const revisionDateTime = moment(revision.datetime).format(
+        "YYYY/MM/DD h:mm a"
+      );
       const talkPageLink = `${revision.base_url}/wiki/User_talk:${revision.username}`;
       const isOpen = this.props.openKey === `drawer_${revision.key}`;
 
@@ -79,8 +90,8 @@ const ActivityTable = React.createClass({
   },
 
   _renderDrawers() {
-    return this.state.activity.map((revision) => {
-      const courses = revision.courses.map((course) => {
+    return this.state.activity.map(revision => {
+      const courses = revision.courses.map(course => {
         return (
           <li key={`${revision.key}-${course.slug}`}>
             <a href={`/courses/${course.slug}`}>{course.title}</a>
@@ -89,19 +100,24 @@ const ActivityTable = React.createClass({
       });
 
       return (
-        <tr key={`${revision.key}-${revision.username}`} className="activity-table-drawer drawer">
+        <tr
+          key={`${revision.key}-${revision.username}`}
+          className="activity-table-drawer drawer"
+        >
           <td colSpan="5">
             <span />
             <table className="table">
               <tbody>
-                <tr><td>
-                  <span>
-                    <h5>{I18n.t('recent_activity.active_courses')}</h5>
-                    <ul className="activity-table__course-list">
-                      {courses}
-                    </ul>
-                  </span>
-                </td></tr>
+                <tr>
+                  <td>
+                    <span>
+                      <h5>{I18n.t("recent_activity.active_courses")}</h5>
+                      <ul className="activity-table__course-list">
+                        {courses}
+                      </ul>
+                    </span>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </td>
@@ -111,9 +127,15 @@ const ActivityTable = React.createClass({
   },
 
   _renderHeaders() {
-    return this.props.headers.map((header) => {
+    return this.props.headers.map(header => {
       return (
-        <th style={header.style || {}} key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
+        <th
+          style={header.style || {}}
+          key={header.key}
+          onClick={this.sortItems}
+          className="sortable"
+          data-sort-key={header.key}
+        >
           {header.title}
           <span className="sortable-indicator" />
         </th>
@@ -132,7 +154,13 @@ const ActivityTable = React.createClass({
 
     let elements = _.flatten(_.zip(activity, drawers));
     if (!elements.length) {
-      elements = <tr><td colSpan={this.props.headers.length + 1}>{this.props.noActivityMessage}</td></tr>;
+      elements = (
+        <tr>
+          <td colSpan={this.props.headers.length + 1}>
+            {this.props.noActivityMessage}
+          </td>
+        </tr>
+      );
     }
 
     return (
