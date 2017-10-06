@@ -1,0 +1,9 @@
+.container
+  %header
+    %h1
+      You've opted out of:
+    %h3= @survey.name
+
+  %section
+    %div
+      %p= @survey&.optout&.html_safe

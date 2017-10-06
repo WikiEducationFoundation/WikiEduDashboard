@@ -1,0 +1,120 @@
+.simple_form label.inline-label
+  display inline
+  vertical-align middle
+
+select[multiple]
+  display block
+  width 100%
+
+form:focus
+  outline 0
+
+.form__settings
+  +above(tablet)
+    float left
+    width 33.3333%
+    margin 0 !important
+    padding-top 90px !important
+
+  label
+    font-size 14px
+
+.block.form__settings input
+  margin 3px 6px 3px 0
+
+.form__settings__tabs
+  +above(tablet)
+    position: absolute;
+    top 0
+    height 60px
+    width 100%
+    margin 0px 30px 0px -30px
+    background #ebebeb
+
+.form__settings__tabs .tab
+  position absolute
+  bottom 0
+  width auto
+  padding 10px 30px 10px
+  background #fff
+  border-radius 0 3px 0 0
+  h3
+    margin-bottom 0
+    font-size 16px
+    color sprout
+
+.form__question-list,.form__question-group-list
+  +above(tablet)
+    float left
+    width 66.6666%
+    margin 0 !important
+    padding 30px 0px 0px 30px
+
+form:focus
+  outline 0
+
+.form__settings
+  +above(tablet)
+    float left
+    width 33.3333%
+    margin 0
+    padding-top 90px
+  // min-height 400px
+  // height calc(100vh - 305px)
+
+.form__settings__tabs
+  +above(tablet)
+    position: absolute;
+    top 0
+    height 60px
+    width 100%
+    margin 0px 30px 0px -30px
+    background #ebebeb
+
+.form__settings__tabs .tab
+  position absolute
+  bottom 0
+  width auto
+  padding 10px 30px 10px
+  background #fff
+  border-radius 0 3px 0 0
+  h3
+    margin-bottom 0
+    font-size 16px
+    color sprout
+
+.form__question-list
+  +above(tablet)
+    float left
+    width 66.6666%
+    margin 0 !important
+    padding 30px 30px
+
+.form__row
+  padding 1em 0
+
+.form__block
+  padding-bottom 1em
+
+.form__block--equal-height
+  +above(tablet)
+    display flex
+    align-items stretch
+
+.form__actions
+  overflow hidden
+  padding-top 1em
+
+.surveys__admin-header .form__actions
+  padding-top 0
+
+.form__actions.danger
+  a
+    color warning
+
+.input.string input[type=text]
+  width 100%
+
+small.form__small-dark
+  color #787878
+  max-width 600px

@@ -1,0 +1,24 @@
+# Messages for Greek (Ελληνικά)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: GR
+# Author: Geraki
+# Author: Glavkos
+# Author: Ανώνυμος Βικιπαιδιστής
+---
+el:
+  application:
+    confirm: Εντάξει
+  chat:
+    label: Συνομιλία
+  courses:
+    cancel: Ακύρωση
+    enable_chat: Ενεργοποίηση συνομιλίας
+  courses_generic:
+    all_courses: Όλα τα προγράμματα.
+    cancel: Ακύρωση
+    delete_course: Διαγραφή προγράμματος
+    view_page: Δείτε τη Σελίδα του Προγράμματος
+  user_profiles:
+    location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
+...

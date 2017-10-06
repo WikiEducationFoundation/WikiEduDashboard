@@ -1,0 +1,189 @@
+# Messages for Zazaki (Zazaki)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: 1917 Ekim Devrimi
+# Author: Asmen
+# Author: Gorizon
+# Author: Kumkumuk
+# Author: Mirzali
+---
+diq:
+  application:
+    cancel: Bıtexelne
+    dashboard: Wiki Ed Dashboard
+    error: 'Tıya bıyo xırab:'
+    explore: Keşf ke
+    field_required: No ca icab keno
+    greeting2: Xeyr amey
+    greeting_extended: Xeyr amey wikipedia
+    greeting: Merheba!
+    help: Peşti
+    home: Keye
+    log_in_extended: Wikipedia ya Cıkew
+    log_in: Cı kewe
+    log_out: Bıveciye
+    my_dashboard: Panela mı
+    recent_activity: Aktiviteya peyêne
+    search: Sualê pers bık
+    sign_up_extended: Wikipedia ya qeyd be
+    sign_up_log_in_extended: Wikipedia ya
+    sign_up: Qeyd be
+    submit: deqew
+    training: Mısnayış
+    change: Bıvırne
+  dashboard:
+    explore_examples: Misal keşıf
+    review_orientation: Vênayena oryantasyoni
+    start_orientation: Oryantasyoni bas bık
+    blog_headline: Wiki Ed ra xeberê newey
+  home:
+    explore: Keşf ke
+    log_in: Wikipedia ya Cıkew
+    sign_up: Wikipedia ya qeyd be
+  activity:
+    all: Fealiyet
+    edited_by: Vurnayoğ
+    label: Fealiyet
+  articles:
+    assigned: Çebyaye wesiqey
+    available: Est bıyaye wesiqey
+    assigned_to: Çebye no
+    edited: Wesiqa ya vuriyena
+    edited_mobile: Meqaleyi
+    label: Wesiqey
+    loading: Meqaleyi bar benê...
+    new: (Newe)
+    rating: Sınıfe
+    title: Sername
+    title_example: Sernamey wesiqa
+    view: Meqale Bıvêne
+    view_all: Hemınan bıvin
+  assignments:
+    assignees: Çebyayış(i)
+    assign_other: Wesiqa cı ke
+    add_available: Mewcud yu wesiqa dek
+    loading: Çebyayena bena bar....
+    remove: Hewad
+    select: Weçine
+  blocks:
+    milestones:
+      title: Siyê kilometri
+  campaign:
+    none: Çıniyo
+  courses:
+    activity: Fealiyet
+    actions: Hereketi
+    articles: Wesiqey
+    calendar:
+      legend: Kıtabek
+    campaigns: 'Kohorti:'
+    course_description: Kursi
+    courses: Qursi
+    creator:
+      course_language: Zıwanê Keyi
+      course_project: Proceya keyi
+      course_school: Kursa mektebi
+      course_subject: Kursa obji
+      course_term: Kursa qewremi
+      course_term_placeholder: Qewremi
+      course_title: Sernamey kursi
+      create_button: Kursa xo vıraz
+      create_label: Kursa Newi vıraz
+      create_new: Kursa Newi vıraz
+      create_short: Kurs vıraz
+      end_date: tarixê qediyayişi
+      end_date_placeholder: Qedyayış (SSSS-MM-RR)
+      save_cloned_course: Kursa newi qeyd kı
+      start_date: Sergendiya demi
+      start_date_placeholder: Dema Sergendi (SSSS-MM-RR)
+      subject: Mewzu
+    current: Kursê newki
+    delete_course: Kursi bestere
+    dismiss_survey: Red ke
+    duration: Dema kursi
+    edit_course_dates: Dema kursi bıvurne
+    end: Qedyayen
+    enroll: Bıloğne
+    enrollment: Loğnayış
+    instructor:
+      one: Musnayoğ
+      other: Musnayoğ
+    instructors: Musnayoği
+    join: Cıkew
+    join_course: Kurs kew
+    join_prompt: '%{title} kew?'
+    join_successful: Kewtena şıma ya %{title} biya.
+    leave_confirmation: Şıma qayılê enê kursi ra abıri yê?
+    leave_course: Kursa abıryayış
+    loading: Bar beno...
+    passcode: Passcode
+    passcode_none: passcode çıni yo
+    school: Wendxane
+    start: Suru bık
+    students: Telebey
+    students_count: '# Telebey'
+    timeline_link: Demawexti
+    title: Sername
+  courses_generic:
+    courses: Programi
+    student_editors: Editori
+    students: Editori
+    students_short: Editori
+    term: Key
+  editable:
+    edit: Bıvırne
+    cancel: Bıtexelne
+    save: Qeyd ke
+  metrics:
+    activity: Aktiviteya peyêne
+    characters: Qarakteri
+    view_count_description: Hewadisê wesiqa
+    view: Asayışi
+    word_count: Çekuy debyay
+  namespace:
+    main: Serca
+    main_char_added: Karakterê sercay debyay
+    user: Cay karberi
+    user_char_added: Karakterê karberi debyay
+    user_ns: Karber
+  recent_activity:
+    active_courses: Wesiqe de aktiv o
+    article_title: Sernamey wesiqe
+    datetime: Tarix/Zeman
+    image: Resim
+    file_name: Namey dosya
+  revisions:
+    diff_show: Bımotne
+  timeline:
+    week_number: Hefte %{number}
+  training:
+    continue: Dewam keno %{progress}
+    start: Suru bık
+    view: Asayış
+  uploads:
+    label: Barkerdışi
+    usages: Karidayışi
+  users:
+    first_name: Nameyo sıfteyên
+    last_name: Nameyo peyên
+    loading: Karbero brno bar...
+    characters_added_mainspace: Karakterê MS debyay
+    characters_added_short: 'MS: %{mainspace}, DYA: %{userspace}'
+    my_assigned: 'Çebiyen:'
+    my_reviewing: 'Weynayen:'
+    name: Name
+    no_articles: Maqaley çıni yê
+    training_incomplete: Musnayış nêqediya
+    username: Namey karberi
+    username_placeholder: Namey karberi
+  wizard:
+    summary: Xulasa
+  login_error:
+    header: Xırab cıkewtış
+  survey:
+    email:
+      course: Kurse:%{course_info}
+      closing: Samimiyeta,
+      signed: '- Wiki Ed team'
+      link: Anket bıgi
+...

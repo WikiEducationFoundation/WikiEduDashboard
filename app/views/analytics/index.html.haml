@@ -1,0 +1,58 @@
+- content_for :after_title, ' - Analytics'
+%header.main-page
+  .container
+    %h1 Analytics Tools
+.container
+  %section
+    .section-header
+      %h3
+        = form_tag(method: 'get') do
+          %input{:name => "monthly_report", :type => "hidden", :value => "true"}/
+          %button.button.dark= submit_tag("Monthly Report")
+          /
+            <haml_loud> label_tag(:category, &quot;category&quot;) </haml_loud>
+            <haml_loud> text_field_tag(:category, @category) </haml_loud><br/>
+            <haml_loud> label_tag(:depth, &quot;depth&quot;) </haml_loud>
+            <haml_loud> text_field_tag(:depth) </haml_loud><br/>
+            <haml_loud> label_tag(:minviews, &quot;minimum views&quot;) </haml_loud>
+            <haml_loud> text_field_tag(:minviews, @min_views) </haml_loud><br/>
+            <haml_loud> label_tag(:maxwp10, &quot;maximum completeness (0-100)&quot;) </haml_loud>
+            <haml_loud> text_field_tag(:maxwp10, @max_wp10) </haml_loud><br/>
+            <button class="button dark"><haml_loud> submit_tag(&quot;Go&quot;) </haml_loud></button>
+        %br/
+        = form_tag(method: 'get') do
+          %input{:name => "campaign_intersection", :type => "hidden", :value => "true"}/
+          = label_tag(:campaign_1, "campaign 1")
+          = collection_select(:campaign_1, :id, Campaign.all, :id, :title, prompt: true)
+          %br/
+          = label_tag(:campaign_2, "campaign 2")
+          = collection_select(:campaign_2, :id, Campaign.all, :id, :title, prompt: true)
+          %br/
+          %button.button.dark= submit_tag("Campaign Intersection")
+        %br/
+        = form_tag(method: 'get') do
+          %input{:name => "ores_changes", :type => "hidden", :value => "true"}/
+          = label_tag(:campaign, "campaign")
+          = collection_select(:campaign, :id, Campaign.all, :id, :title, prompt: true)
+          %br/
+          = label_tag(:minimum_bytes, "minimum bytes added")
+          = text_field_tag(:minimum_bytes, @minimum_bytes || 1000)
+          %br/
+          = label_tag(:minimum_bytes, 'existing articles only')
+          = check_box_tag(:existing_only, 'yes', true)
+          %br/
+          = label_tag(:minimum_improvement, "minimum structural completeness change")
+          = text_field_tag(:minimum_improvement, @minimum_improvement)
+          %br/
+          = label_tag(:graph_type, 'graph type')
+          = select_tag(:graph_type, options_for_select(['density', 'histogram'], 'histogram'))
+          %br/
+          %button.button.dark= submit_tag("Ores changes")
+        %br/
+      %h3
+        - if params[:monthly_report]
+          = render :partial => 'monthly_report', :locals => { :monthly_report => @monthly_report }
+        - if params[:campaign_intersection]
+          = render :partial => 'campaign_stats', :locals => { :campaign_stats => @campaign_stats }
+        - if params[:ores_changes]
+          = render :partial => 'ores_changes', :locals => { :ores_changes_plot => @ores_changes_plot }

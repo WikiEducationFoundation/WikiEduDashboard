@@ -1,0 +1,110 @@
+# Messages for Hungarian (magyar)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: BanKris
+# Author: Bencemac
+# Author: Notramo
+# Author: R-Joe
+# Author: Tacsipacsi
+# Author: Uno20001
+# Author: Wolf Rex
+---
+hu:
+  application:
+    cancel: Mégse
+    dashboard: Wiki Ed Műszerfal
+    field_invalid_date_time: A befejezésnek a kezdet után kell lennie. (Az órák 0-tól
+      23-ig tartanak.)
+    greeting2: Üdvözlünk!
+    greeting_extended: Üdvözlünk a Wikipédián
+    greeting: Helló!
+    help: Súgó
+    home: Kezdőlap
+    log_in_extended: Bejelentkezés Wikipédiával
+    log_in: Bejelentkezés
+    log_out: Kijelentkezés
+    recent_activity: Legutóbbi tevékenységek
+    search: kérdés feltevése
+    sign_up_extended: Regisztráció Wikipédiával
+    sign_up_log_in_extended: Wikipédiával
+    sign_up: Regisztráció
+    submit: Elküld
+  home:
+    log_in: Bejelentkezés Wikipédiával
+    sign_up: Regisztráció Wikipédiával
+  activity:
+    all: Tevékenység
+  articles:
+    edited_mobile: Szócikkek
+    label: Szócikkek
+    loading: Szócikkek betöltése...
+    title: Cím
+    title_example: Szócikk címe
+  assignments:
+    label: Hozzárendelés
+  blocks:
+    milestones:
+      title: Mérföldkövek
+  courses:
+    delete_suggestion: Törlés
+    join: Csatlakozás
+    new_week: Új hét hozzáadása
+    overview: Áttekintés
+    passcode: Jelszó
+    school: Iskola
+    students: Diákok
+    students_count: '# Diákok'
+    students_short: Diákok
+    subject: Tárgy
+    timeline_link: Idővonal
+    title: Cím
+  courses_generic:
+    all_courses: Minden program
+    creator:
+      course_school: Intézmény
+    student_editors: Szerkesztők
+    students: Szerkesztők
+    students_short: Szerkesztők
+    term: Mikor
+  namespace:
+    user_ns: Felhasználó
+  revisions:
+    date_time: Dátum/idő
+    edited_by: Szerkesztette
+    loading: Változatok betöltése...
+    title: Cím
+  timeline:
+    no_activity_this_week: Nincsenek ütemezett találkozók ezen a héten
+    title: Idővonal
+  training:
+    view: Nézet
+  uploads:
+    label: Feltöltések
+    loading: Feltöltések betöltése...
+  users:
+    assigned: Hozzárendelt szócikkek
+    editors: Szerkesztők
+    loading: Felhasználók betöltése...
+    name: Név
+  user_profiles:
+    location_placeholder: Add meg az elhelyezkedésed (opcionális)
+    institution_placeholder: Intézmény neve (opcionális)
+  wizard:
+    summary: Összefoglaló
+  error:
+    unsupported_browser:
+      header: Nem támogatott böngésző. :-(
+      explanation: A böngésződ nem kompatibilis a vezérlőpulttal. Az oldal az Internet
+        Explorer 11-es vagy újabb-, a Chrome és a Firefox új verzióival, és más modern
+        böngészőkkel működik jól.
+  error_404:
+    header: A lap nem található. :-(
+  error_500:
+    header: 500 — belső szerverhiba. :-(
+  login_error:
+    header: Bejelentkezési hiba
+  survey:
+    email:
+      headline: Helló, %{username}
+      link: Kérdőív kitöltése
+...

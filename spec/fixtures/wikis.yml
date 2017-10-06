@@ -1,0 +1,13 @@
+# == Schema Information
+#
+# Table name: wikis
+#
+#  id       :integer          not null, primary key
+#  language :string(16)
+#  project  :string(16)
+#
+
+default:
+  id: 1
+  language: en
+  project: wikipedia

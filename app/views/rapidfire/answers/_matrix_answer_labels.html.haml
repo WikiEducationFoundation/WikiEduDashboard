@@ -1,0 +1,11 @@
+.survey__question-text
+  = answer.question.question_text
+
+- answer_options(answer, @course).each_with_index do |option, index|
+  %label.survey__multiple-choice-field
+    - if option.is_a?(Array)
+      .label
+        %span.survey__multiple-choice-field__option= option[2].html_safe
+    - else
+      .label
+        %span.survey__multiple-choice-field__option= option.html_safe

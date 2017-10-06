@@ -1,0 +1,164 @@
+# Messages for Japanese (日本語)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Omotecho
+# Author: Otokoume
+# Author: Sudachi
+# Author: Sujiniku
+# Author: Thibaut120094
+---
+ja:
+  application:
+    cancel: 中止
+    dashboard: Wiki Ed ダッシュボード
+    error: 'エラーが起きました:'
+    explore: 探検してみよう
+    field_required: このフィールドは必要
+    field_invalid_characters: 向こうな文字があります
+    field_invalid_date: YYYY-MM-DD の形式で年月日を入力してください
+    field_invalid_date_time: 終了時間は開始時間よりさかのぼって設定してください (0時間前から23時間前まで)
+    greeting2: ようこそ!
+    greeting_extended: ウィキペディアへようこそ
+    greeting: こんにちは!
+    help: ヘルプ
+    home: ホーム
+    log_in_extended: ウィキペディアにログイン
+    log_in: ログイン
+    log_out: ログアウト
+    my_dashboard: 私のダッシュボード
+    recent_activity: 最近の活動
+    search: 質問をしてみる
+    sign_up_extended: ウィキペディアにユーザー登録
+    sign_up_log_in_extended: ウィキペディアに
+    sign_up: ユーザー登録
+    submit: 送信
+  dashboard:
+    create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
+  home:
+    explore: 探検してみよう
+    log_in: ウィキペディアにログイン
+    sign_up: ウィキペディアに登録
+    sign_up_help: ダッシュボードの利用にはウィキペディアにログイン後、ダッシュボードが利用者のアカウントにアクセスできるように設定します。ログインは既存のアカウントから、あるいは新しくアカウントを作ります。
+  activity:
+    all: 活動
+    edited_by: 編集担当
+    label: 活動
+  articles:
+    assigned: 割り当てられた記事
+    available: 掲載してある記事
+    assigned_to: 担当する人
+    character_doc: 開始日から終了日までの間に編集担当が書き加えた文字数の合計
+    edited: 編集した記事
+    edited_by: '編集した人:'
+    edited_mobile: 記事
+    hide: 非表示にする
+    label: 記事
+    loading: 記事を読み込んでいます...
+    new: (新)
+    none: このコースではまだ記事を編集していません。
+    rating: クラス
+    rating_doc: ウィキペディアの記事を評価する方式はウィキプロジェクトから始まったものです。かなり前の記事に与えられた評価もあるため、 記事がどのくらい編集されたか知る目安にしてください。
+    rating_docs:
+      a: A クラス — これからの編集者の主なプロジェクトとなるであろう、非常に成長している記事
+      b: B クラス — ある程度成長している記事
+      c: C クラス — 改善の余地のある記事
+      start: 初期クラス — 改善の余地のある、予備的な記事
+      stub: スタブクラス — 内容の加筆が必要な短い記事
+      list: リストクラス — 記事というより辞書に近い記事
+      '?': クラスなし — ウィキペディアで品質基準の評価がされていない記事
+    title: 記事名
+    title_example: 記事名
+    view: 記事を閲覧
+    view_all: すべてを表示
+  assignments:
+    remove: 除去
+  blocks:
+    milestones:
+      title: マイルストーン
+  campaign:
+    none: なし
+  courses:
+    activity: 活動
+    articles: 記事
+    creator:
+      end_date: 終了日
+      end_date_placeholder: 終了日 (YYYY-MM-DD)
+      start_date: 開始日
+    dismiss_survey: 閉じる
+    instructors: 講師
+    join: 参加
+    join_prompt: 「%{title}」に参加しますか?
+    join_successful: 「%{title}」に参加しました。
+    loading: 読み込み中…
+    new_week: 新しい週の追加
+    none: なし
+    overview: ホーム
+    passcode: パスコード
+    school: 学校
+    students: 学生
+    student_editors: 学生の編集者
+    students_short: 学生
+    timeline_link: タイムライン
+    title: タイトル
+    view_page: コースのページを見る
+  courses_generic:
+    school: 施設
+    student_editors: 編集者
+    students: 編集者
+    students_short: 編集者
+  editable:
+    edit: 編集
+    cancel: 中止
+    save: 保存
+  metrics:
+    activity: 最近の活動
+    date_time: 日付/時刻
+    edit_count_description: 総編集回数
+    revisions: 最近の編集
+  namespace:
+    user: ユーザー空間
+    user_ns: ユーザー
+  recent_activity:
+    article_title: 記事名
+    datetime: 日付と時刻
+    image: 画像
+    file_name: ファイル名
+    recent_edits: 最近の編集
+    recent_uploads: 最近のアップロード
+  revisions:
+    diff: 差分
+    loading: 版を読み込み中...
+  timeline:
+    this_week_title_default: 今週
+    title: タイムライン
+  training:
+    start: 開始
+    view: 表示
+  uploads:
+    label: アップロード
+    usages: 使用法
+  users:
+    assignees: 譲り受け人
+    first_name: 名
+    last_name: 姓
+    loading: 利用者を読み込み中...
+    name: 名前
+    number_of_articles:
+      other: '%{count}件の記事'
+    recent_revisions: 最近の編集
+    username: 利用者名
+    username_placeholder: 利用者名
+  wizard:
+    read_more: さらに読む
+    summary: 要約
+  error:
+    oauth_invalid: あなたのウィキペディアでの認証期限が切れています。もう一度、ログインしてください。
+    unsupported_browser:
+      header: サポートされていないブラウザ。  :-(
+  error_422:
+    header: 422 — unprocessable entity.  :-(
+  error_500:
+    header: 500 — internal server error.  :-(
+  login_error:
+    header: ログインエラー
+...

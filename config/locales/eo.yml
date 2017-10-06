@@ -1,0 +1,99 @@
+# Messages for Esperanto (Esperanto)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Fitoschido
+# Author: Lucas
+# Author: Ochilov
+# Author: Rafaneta
+# Author: Robin van der Vliet
+# Author: 1490493253
+---
+eo:
+  application:
+    cancel: Nuligi
+    greeting: Saluton!
+    help: Helpon!
+    home: Hejmo
+    log_out: Elsaluti
+    change: Ŝanĝi
+  articles:
+    edited_mobile: Artikoloj
+    hide: Kaŝi
+    new: (nova)
+    rating: Klaso
+    rating_docs:
+      does_not_exist: Ĉi tiu artikolo ne ekzistas en Vikipedio
+    show_current_version: Montri nunan version
+    title: Titolo
+  campaign:
+    description: Priskribo
+  courses:
+    activity: Aktiveco
+    actions: Agoj
+    articles: Artikoloj
+    creator:
+      course_description: Priskribo de kurso
+      course_subject: Temo de kurso
+      course_title: Titolo de kurso
+      create_button: Krei mian kurson!
+      create_label: Krei novan kurson
+      create_new: Krei novan kurson
+      create_short: Krei kurson
+      end_date: Fina dato
+      find: Trovi vian kurson
+      start_date: Komenca dato
+    delete_course: Forigi kurson
+    leave_course: Forlasi kurson
+    my_articles: Miaj artikoloj
+    students: Lernantoj
+    title: Titolo
+    view_wiki: Legi en Vikipedio
+  courses_generic:
+    courses: Programoj
+    creator:
+      course_description: Priskribo de programo
+      course_school: Lernejo
+      create_button: Krei mian programon!
+      create_label: Krei novan programon
+      create_new: Krei sendependan programon
+      create_short: Krei programon
+      find: Trovi programon
+  editable:
+    edit: Redakti
+    cancel: Nuligi
+    save: Konservi
+  metrics:
+    date_time: Dato/Tempo
+    per_user: '%{number}/uzanto'
+    view: Vidoj
+  namespace:
+    user_ns: Uzanto
+  recent_activity:
+    image: Bildo
+    file_name: Dosiernomo
+  revisions:
+    class: Klaso
+    title: Titolo
+  timeline:
+    add_week: Aldoni semajnon
+    empty_week_3: aŭ
+    gradeable_value: Valoro
+    save_all_changes: Konservi ĉion
+    this_week_title_default: Ĉi tiu semajno
+    week_number: Semajno %{number}
+  uploads:
+    file_name: Dosiernomo
+    image: Bildo
+  users:
+    assign_articles_done: Farita
+    name: Nomo
+    no_articles: Neniuj artikoloj
+    number_of_articles: '%{number} artikoloj'
+    username: Uzantnomo
+    username_placeholder: Uzantnomo
+    role:
+      visitor: Vizitanto
+      student: Studanto
+      instructor: Instruisto
+      online_volunteer: Enreta volontulo
+...

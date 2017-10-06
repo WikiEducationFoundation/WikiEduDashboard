@@ -1,0 +1,41 @@
+id: 211
+title: Visual editor buttons
+summary:
+content: |
+  <figure style="width: 100%">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/VisualEditor_toolbar_isolated-en.png" />
+  </figure>
+
+  It can be helpful to copy and paste the text below into
+  [a sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox?veaction=edit),
+  and apply all of the options directly to this text to see what it does.
+
+  **Paragraph:** This helps you set the style of the text. For example, a
+  header, or plain paragraph text. You can also use it to offset block quotes.
+
+  ***A*** : Highlight your text, then click here to format it with bold,
+  italics, etc. The "More" options allows you to underline, add code snippets,
+  and change language keyboards.
+
+  **Links:** The chain button allows you to link your text. Highlight the word,
+  and push the button. The visual editor will automatically suggest related Wikipedia
+  articles for that word or phrase. This is a great way to connect your article
+  to more Wikipedia content. You only have to link important words once,
+  usually during the first time they appear. If you want to link to pages
+  outside of Wikipedia (for an "external links" section, for example) click on
+  the "External link" tab.
+
+  **Cite:** The citation tool in the visual editor helps format your citations. You
+  can simply paste a DOI or URL, and the visual editor will try to sort out all of the
+  fields you need. Be sure to review it, however, and apply missing fields
+  manually (if you know them). You can also add books, journals, news, and
+  websites manually. That opens up a quick guide for inputting your citations.
+  Finally, you can click the "re-use" tab if you've already added a source and
+  just want to cite it again.
+
+  **Bullets:** To add bullet points or a numbered list, click here.
+
+  **Insert:** This tab lets you add media, images, or tables.
+
+  **Ω** The final tab allows you to add special characters, such as those found
+  in non-English words, scientific notation, and a handful of language extensions.

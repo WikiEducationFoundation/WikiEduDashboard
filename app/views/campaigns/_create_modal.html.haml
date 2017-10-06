@@ -1,0 +1,44 @@
+.wizard.active
+  .wizard-wrapper
+    .wizard__panel.active
+      %h3
+        = t('campaign.create_campaign')
+      %p
+        The campaign title is required, everything else can be filled in later. Click "Create my Campaign!" to go to the campaign overview page and add or create programs for your campaign.
+
+      = form_for(@campaign, url: campaigns_path, method: 'POST') do
+        .wizard__form
+          .column
+            .form-group
+              = label(:campaign, :title, t('campaign.title') + ':')
+              = text_field(:campaign, :title, required: true)
+
+            .form-group
+              - use_dates = @campaign.start || @campaign.end
+              %label
+                = check_box_tag(:use_dates, '1', use_dates)
+                = t('campaign.use_start_end_dates')
+
+            .campaign-dates{class: use_dates ? '' : 'hidden'}
+              .form-group
+                = label(:campaign, :start, t('courses.creator.start_date') + ':')
+                = date_field(:campaign, :start, placeholder: '2016-12-31')
+              .form-group
+                = label(:campaign, :end, t('courses.creator.end_date') + ':')
+                = date_field(:campaign, :end, placeholder: '2016-12-31')
+
+          .column
+            .form-group
+              = label(:campaign, :description, t('campaign.description') + ':')
+              = text_area(:campaign, :description, maxlength: 65535)
+
+        .wizard__panel__controls.wizard__form
+          .right
+            / show only one error at a time
+            - if @campaign.errors.any?
+              %span.red{style: 'margin-right:10px'}
+                = @campaign.errors.messages.first[1].first
+            %button.button.button__cancel
+              = t('editable.cancel')
+            %button.button.dark.button__submit
+              = t('campaign.create_my_campaign')

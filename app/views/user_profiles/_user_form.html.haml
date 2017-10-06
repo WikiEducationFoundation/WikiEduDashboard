@@ -1,0 +1,75 @@
+#profile
+  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable',  multipart: true }) do
+    #disclaimer
+      .module
+        .module__data
+          = t("user_profiles.disclaimer")
+
+    #profile_left
+      .rails_editable-field
+        #user_image
+          - if @user&.user_profile&.image.present?
+            = image_tag @user.user_profile.image.url(:thumb)
+          - else
+            %img{:src => "/assets/images/user.svg", :alt => "user default logo"}
+        = file_field(:user_profile, :image, class: 'rails_editable-input')
+
+    #profile_right
+      .header
+        #user_name
+          %p
+            User: #{@user.username}
+
+        - if current_user == @user
+          #edit_profile
+            .controls
+              %button.button.rails_editable-edit
+                = t('editable.edit_details')
+
+      #details
+        #details_left
+          .rails_editable-field
+            #user_bio
+              %p.rails_editable-content
+                = preserve @user&.user_profile&.bio
+              = text_area(:user_profile, :bio, class: 'rails_editable-input', placeholder: t("user_profiles.bio_placeholder"))
+
+        #details_right
+
+          .section
+            - if current_user == @user || current_user&.admin?
+              - if @user.email.present?
+                #user_id
+                  #icon
+                    &#x2709;
+                  %p
+                    #{@user.email}
+
+          .section
+            #user_location
+              - if @user&.user_profile&.location.present?
+                #icon
+                  %img{:src => "/assets/images/location.svg", :alt => "location logo"}
+              .rails_editable-field
+                - if @user&.user_profile&.location.present?
+                  %p.rails_editable-content
+                    = @user.user_profile.location
+                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
+
+          .section
+            #user_institution
+              -if @user&.user_profile&.institution.present?
+                #icon
+                  %img{:src => "/assets/images/institution.svg", :alt => "institution logo"}
+              .rails_editable-field
+                - if @user&.user_profile&.institution.present?
+                  %p.rails_editable-content
+                    = @user.user_profile.institution
+                = text_area(:user_profile, :institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
+
+          .section
+            #profile_user_contributions
+              - if @courses_users.last
+                %p
+                  %i.icon.icon-z-external-link
+                  = contribution_link(@courses_users.last, 'Contributions', 'contribution_link')

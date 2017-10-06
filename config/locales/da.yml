@@ -1,0 +1,117 @@
+# Messages for Danish (dansk)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Joedalton
+# Author: Palnatoke
+---
+da:
+  application:
+    documentation: Dokumentation
+    error: 'Der opstod en fejl:'
+    explore: Udforsk
+    field_required: Dette felt skal udfyldes
+    field_invalid_characters: Dette felt har ugyldige tegn
+    field_invalid_date: Dette felt kræver en dato med formatet ÅÅÅÅ-MM-DD
+    field_invalid_date_time: Slutningen skal være efter start. (Timer går fra 0 til
+      23).
+    greeting2: Velkommen!
+    greeting_extended: Velkommen til Wikipedia
+    greeting: Hej!
+    help: Hjælp
+    home: Forside
+    log_in_extended: Log ind med Wikipedia
+    log_in: Log på
+    log_out: Log af
+    my_dashboard: Mit instrumentbræt
+    recent_activity: Seneste aktivitet
+    report_problem: Rapporter et problem
+    search: stil et spørgsmål
+    sign_up_extended: Registrer dig med Wikipedia
+    sign_up_log_in_extended: med Wikipedia
+    sign_up: Opret en konto
+    submit: Send
+    training: Træning
+    change: Ændr
+    details: Detaljer
+    confirm: O.k.
+  dashboard:
+    create_note: Klik på Opret kursus for at oprette dit første kursus.
+    create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig
+      før du begynder; værktøjet for opgavetildeling bruger datoerne klassen mødes
+      – inklusive fridage og ferier – for at tilpasse din tidslinje i dine valgte
+      datointervaller. Husk at du altid kan ændre tidslinjen til dine behov.
+    explore_course_pages: Udforsk kursussiderne
+    blog_headline: Seneste nyheder fra Wiki Ed
+  home:
+    log_in: Log på med Wikipedia
+    sign_up: Registrer dig hos Wikipedia
+  activity:
+    all: Aktivitet
+    edited_by: Redigeret af
+    label: Aktivitet
+  articles:
+    assigned: Tildelte artikler
+    available: Tilgængelige artikler
+    assigned_to: Tildelt til
+    edited: Artikler redigeret
+    edited_by: 'Redigeret af:'
+    edited_mobile: Artikler
+    hide: Skjul
+    label: Artikler
+    loading: Indlæser artikler ...
+    new: (ny)
+    none: Dette kursus har ikke redigeret artikler.
+    rating: Klasse
+    title: Titel
+    title_example: Artikeltitel
+    view: Vis artikel
+    view_all: Vis alle
+    view_doc: Summen af alle artikelvisninger i løbet af projektet
+    view_on_wiki: Vis på wikien
+    wiki: Wiki
+    wp10: Strukturel fuldstændighed
+    wp10_doc: Bedømmelsen »strukturel fuldstændighed« repræsenterer hvor tæt en aritiekl
+      passer til hovedparten af en moden Wikipediaartikel, baseret på maskinlæringsbaseret
+      Objective Revision Evaluation Service (https://ores.wikimedia.org/). Disse bedømmelser
+      beregnes baseret på størrelsen af en artikel, antallet af referencer og wikihenvisninger
+      og andre grundlæggende tekstfunktioner. En høj bedømmelse indikerer normalt
+      at en artikel følger Wikipedias konventioner for strukturen på en god artikel,
+      men tager ikke højde for selve indholdet. (Disse bedømmelser er kun tilgængelige
+      for engelske Wikipediaartikler).
+  assignments:
+    article: Artiklen %{title} er nu tildelt dig.
+    already_exists: Denne tildeling findes allerede!
+    title_too_large: Titlen bør ikke være længere end 255 tegn
+    assign_other: Tildel en artikel
+  campaign:
+    all_campaigns: Alle kampagner
+    already_exists: Den kampagne findes allerede! Prøv igen med en anden titel eller
+      »slug«.
+    campaign: Kampagne
+    campaigns: Kampagner
+    campaign_deleted: Kampagnen »%{title}« er blevet slettet
+    campaign_not_updated: Kampagne kunne ikke opdateres
+    campaign_updated: Kampagne opdateret
+    create_campaign: Opret en ny kampagne
+    create_my_campaign: Opret min kampagne!
+    description: Beskrivelse
+    delete_campaign: Slet denne kampagne
+    none: Ingen
+  courses:
+    activity: Aktivitet
+    articles: Artikler
+    calendar:
+      legend_class_meeting: Klassetræf
+      legend_class_not_meeting: Ingen møder planlagt
+      select_meeting_days: Vælg ugedagene klassen mødes på.
+    campaigns: 'Kampagner:'
+    course: Kursus
+    course_description: Kurser
+    courses: Kurser
+    delete_course: Slet kursus
+    delete_suggestion: Slet
+    delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
+      først.
+    survey:
+      notification_message: Deltag i vores undersøgelse for dette kursus.
+...

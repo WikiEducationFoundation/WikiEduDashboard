@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "no-unused-expressions": 0,
+    "import/no-unresolved": 0
+  },
+  "globals": {
+    "describe": true,
+    "it": true,
+    "expect": true
+  }
+}

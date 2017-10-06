@@ -1,0 +1,158 @@
+# Messages for Slovak (slovenčina)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Kusavica
+# Author: TomášPolonec
+---
+sk:
+  application:
+    cancel: Zrušiť
+    dashboard: Wiki Ed Dashboard
+    error: 'Vyskytla sa chyba:'
+    explore: Preskúmať
+    field_required: Toto pole je povinné.
+    field_invalid_characters: Toto pole obsahuje neplatné znaky
+    field_invalid_date: Toto pole vyžaduje dátum vo formáte RRRR-MM-DD
+    greeting2: Vitajte!
+    greeting_extended: Vitajte na Wikipédii
+    greeting: Dobrý deň!
+    help: Pomocník
+    home: Domov
+    log_in_extended: Prihlásiť sa na Wikipédiu
+    log_in: Prihlásiť sa
+    log_out: Odhlásiť sa
+    my_dashboard: Moja nástenka
+    recent_activity: Nedávna činnosť
+    search: Položiť otázku
+    sign_up_extended: Zaregistrovať sa na Wikipédiu
+    sign_up_log_in_extended: s Wikipédiou
+    sign_up: Zaregistrovať sa
+    submit: Odoslať
+    change: Zmeniť
+  dashboard:
+    create_note: Stlačte tlačidlo „Vytvoriť kurz“ a vytvorte svoj prvý kurz.
+    explore_course_pages: Preskúmať kurzové stránky
+    explore_examples: Preskúmať príklady
+    join_note: Hneď ako obdržíte heslo od svojho inštruktora kliknite na „Nájsť váš
+      kurz“ a pridajte sa k nemu.
+    no_courses_instructor: Zdá sa, že nemáte žiadne kurzy.
+    no_courses_student: Zdá sa, že ste sa zatiaľ nepripojili k žiadnemu kurzu.
+    opt_out: Preskočiť úvodného sprievodcu
+    orientation_notice: Pred tým, ako vytvoríte kurz, prosím prečítajte si sprievodcu,
+      ktorý vám pomôže začať (potrvá asi 30 minút).
+    review_orientation: Prezrieť sprievodcu
+    start_orientation: Spustiť sprievodcu
+    blog_headline: Novinky z Wiki Ed
+  home:
+    explore: Preskúmať
+    log_in: Prihláste sa pomocou Wikipédie
+    sign_up: Zaregistrovať sa pomocou Wikipédie
+  activity:
+    all: Aktivita
+    edited_by: Upravil(a)
+    label: Aktivita
+  articles:
+    assigned: Priradené články
+    available: Dostupné články
+    assigned_to: 'Priradené k:'
+    character_doc: Počet znakov pridaných do článkov editormi počas prebiehania kurzu
+    edited: Upravené články
+    edited_mobile: Články
+    label: Články
+    loading: Načítanie článkov...
+    new: (nový)
+    none: Počas tohto kurzu neboli upravené žiadne články.
+    rating: Trieda
+    rating_doc: Hodnotenie článku bolo priradené WikiProjektmi na Wikipédiu. Tieto
+      hodnotenia môžu patriť k staršej verzii článku, čiže sú len hrubým ukazovateľom
+      kvality článku.
+    rating_docs:
+      fa: Najlepší článok – najvyššie hodnotenie Wikipédie priradené k článkom, ktoré
+        sú pravdepodobne nevhodné na upravovanie novými editormi
+      fl: Najlepší zoznam – najvyššie hodnotenie Wikipédie pre zoznamy
+      a: Článok 1. triedy – veľmi prepracovaný článok, upravovanie ktorého by mohlo
+        byť pre nových editorov príliš komplikované
+      ga: Dobrý článok – prepracovaný článok, upravovanie ktorého by mohlo byť pre
+        nových editorov príliš komplikované
+      b: Článok 2. triedy – stredne prepracovaný článok
+      c: Článok 3. triedy – stredne vyvinutý článok so značným priestorom pre rozširovanie
+      start: Stručný článok – základný článok s veľkým priestorom pre vylepšovanie
+      stub: Výhonok – krátky úvod k téme článku vyžadujúci rozšírenie
+      list: Zoznam
+      '?': Neohodnotený článok – článok zatiaľ nebol ohodnotený
+    title: Názov
+    title_example: Názov článku
+    view: Zobraziť článok
+    view_all: Zobraziť všetko
+    view_doc: Počet všetkých zobrazení každého článku počas trvania kurzu
+    views_added: '%{title} bol zobrazený %{count}-krát'
+  assignments:
+    already_exists: Tento článok už existuje!
+    assignees: Priraďovač(i)
+    assign_other: Zadať článok
+    add_available: Pridať článok
+    assign_self: Zadať si článok
+    confirm_add_available: Určite chcete pridať %{title}?
+    confirm_addition: Určite chcete zadať článok %{title} redaktorovi %{username}?
+    confirm_deletion: Určite chcete odstrániť daný článok?
+    label: Zadať
+    loading: Načítanie zadaných článkov...
+    none_short: Žiadne zadané články
+    none: Tento kurz nemá žiadne priradené články.
+    no_available: V tomto kurze nie sú dostupné žiadne články na úpravu.
+    remove: Odstrániť
+    reviewers: Hodnotiaci
+    review_other: Zadať hodnotenie
+    review_self: Hodnotiť článok
+    select: Zvoliť
+  blocks:
+    milestones:
+      title: Míľniky
+  campaign:
+    none: Žiadne
+  courses:
+    activity: Aktivita
+    already_enrolled: Už si súčasťou kurzu %{title}!
+    already_exists: Toto už existuje v tomto kurze!
+    archived: Archivované kurzy
+    actions: Akcie
+    articles: Články
+    articles_none: Počas tohto kurzu neboli upravené žiadne články.
+    assignment_end: Koniec kurzu
+    assignments_none: Tento kurz nemá žiadne priradené články.
+    assignment_start: Začiatok kurzu
+    calendar:
+      legend: Legenda
+      legend_class_canceled: Prázdniny/Zrušené
+      legend_class_meeting: Stretnutie triedy
+      legend_class_not_meeting: Žiadne naplánované stretnutie
+      select_meeting_days: Zvoľte dni v týždni, počas ktorých sa vaša trieda bude
+        stretávať.
+    character_doc: Počet znakov, ktoré boli študentmi pridané do hlavného menného
+      priestoru počas kurzu
+    campaigns: 'Skupiny:'
+    confirm_course_deletion: Skutočne chcete zmazať kurz %{title}? Ak áno, prosím
+      vpíšte názov kurzu.
+    confirm_course_deletion_failed: „%{title}“ nie je názov kurzu. Kurz nebol odstránený.
+    course_dates_calendar_instructions: Vyberte dátumy, ktoré chcete pridať alebo
+      odstrániť z časového plánu (napr. prázdniny, sviatky, obdobia bez výuky...).
+      Kliknutím na dátum môžete nastaviť neoznačený, označený alebo prázdninový stav.
+      Dĺžka kurzu sa tým zmení, aby odrážala týždne, počas ktorých výuka neprebieha.
+    course_description: Kurzy
+    courses: Kurzy
+    creation_date: Dátum vytvorenia
+    creator:
+      already_exists: Tento kurz už existuje. Zvážte zmenu mena, školy alebo podmienky.
+      assignment_end: Koniec kurzu
+      assignment_end_placeholder: Koniec kurzu (RRRR-MM-DD)
+      assignment_start: Začiatok kurzu
+      assignment_start_placeholder: Začiatok kurzu (RRRR-MM-DD)
+      checking_for_uniqueness: Tento kurz je overene jedinečný.
+    instructor:
+      one: Inštruktor
+      other: Inštruktori
+    students: Študenti
+    students_short: Študenti
+  editable:
+    edit_template: Upraviť šablónu
+...

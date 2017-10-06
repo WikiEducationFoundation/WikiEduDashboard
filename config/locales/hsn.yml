@@ -1,0 +1,10 @@
+# Messages for Xiang Chinese (湘语)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: SolidBlock
+---
+hsn:
+  survey:
+    email:
+      signed: '- Wiki Ed团队'
+...

@@ -1,0 +1,136 @@
+# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bikarhêner
+# Author: Cûndûllah el-Kurdî
+# Author: George Animal
+---
+ku-latn:
+  application:
+    cancel: Betal bike
+    dashboard: Panela Wiki Ed'ê
+    greeting2: Tu bi xêr hatî!
+    greeting: Silav!
+    help: Alîkarî
+    home: Destpêk
+    log_in: Têkeve
+    log_out: Derkeve
+    search: pirsekê bike
+    sign_up: Têkeve
+    submit: Tomar bike
+    change: Biguherîne
+  activity:
+    all: Çalakî
+    edited_by: Hat Sererastkirin Ji Alî
+  articles:
+    edited_mobile: Gotar
+    label: Gotar
+    loading: Gotar tên barkirin...
+    new: (nû)
+    title: Sernav
+    title_example: Sernavê gotarê
+    view: Gotarê Bibîne
+    view_all: Hemûyan Bibîne
+    wiki: Wîkî
+  assignments:
+    select: Hilbijêre
+  campaign:
+    none: Tune
+  courses:
+    activity: Çalakî
+    actions: Çalakî
+    articles: Gotar
+    course_description: Qurs
+    courses: Kurs
+    creator:
+      start_date: Dema destpêkê
+      subject: Mijar
+    current: Kursên Nûjen
+    duration: Maweya Kursê
+    end: Dawî
+    error:
+      invalid_language_or_project: Zimanê/projeya nederbasdar
+    join: Beşdar bibe
+    loading: Tê barkirin...
+    my_articles: Gotarên min
+    new_week: Hefteyeke nû lê zêde bike
+    nocourses: Te beşdarî ti kursekê ne bû.
+    none: Tune
+    school: Dibistan
+    students: Xwendekar
+    students_count: '# Xwendekar'
+    students_short: Xwendekar
+    title: Sernav
+    view: Kursê Bibîne
+    view_wiki: Li ser Wîkîpediyayê bibîne
+    yourcourses: Kursên Te
+  courses_generic:
+    courses: Bername
+    creator:
+      course_title: Sernavê bernameyê
+      find: Bernameyekê bibîne
+    enrollment: Tevlîbûn
+  editable:
+    edit: Biguherîne
+    cancel: Betal bike
+    save: Tomar bike
+  metrics:
+    activity: Aktîvîteyên Dawî
+    articles_created: Gotar Hate Çêkirin
+    articles_edited: Gotar Hate Sererastkirin
+    characters: Karakter
+    char_changed: Karakter Hate Guhertin
+    date_time: Dîrok/Katjimêr
+    edit_count_description: Hemû Guherandin
+    per_user: '%{number}/bikarhêner'
+    revisions: Guhertinên Dawî
+    view_count_description: Dîtinên Gotara
+    view: Dîtin
+  namespace:
+    user_ns: Bikarhêner
+  recent_activity:
+    article_title: Sernavê gotarê
+    datetime: Dîrok/Katjimêr
+    image: Wêne
+  revisions:
+    diff_hide: Veşêre
+    title: Sernav
+  timeline:
+    add_week: Hefteyê lê zêde bike
+    empty_week_3: an
+    save_all_changes: Hemûyan Tomar Bike
+    this_week_title_default: Ev Hefte
+    title: Demname
+  uploads:
+    image: Wêne
+    label: Barkirin
+    loading: Barkirin tên bar kirin...
+    none: Pel nehatiye barkirin
+    usages: Bikaranîn
+  users:
+    assign_articles_done: Çêbû
+    contributions: Beşdariyên Bikarhênerê
+    contributions_more: Zêdetir Beşdariyan Bibîne
+    editors: Edîtorên Xwendekaran
+    last_name: Paşnav
+    loading: Bikarhêner tên barkirin...
+    name: Nav
+    recent_revisions: Guhertinên Dawî
+    username: Navê bikarhêner
+    username_placeholder: Navê bikarhêner
+  wizard:
+    course_dates: Dîroka Kursê
+    read_more: Zêdetir Bixwîne
+    summary: Kurte
+  error:
+    oauth_invalid: Wextê te yê bidestûrbûnê tije bû. Ji kerema xwe dîsa têkeve.
+    unsupported_browser:
+      header: Geroka bêpiştgir. :-(
+  error_401:
+    header: Bêdestûr. >:-(
+  error_404:
+    header: Rûpel nehate dîtin. :-(
+  survey:
+    email:
+      headline: Silav %{username}
+...

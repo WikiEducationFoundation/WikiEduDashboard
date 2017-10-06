@@ -1,0 +1,13 @@
+# Messages for Cantonese (粵語)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Obonggi
+---
+yue:
+  courses:
+    creation_date: 創建嘅日期
+  wizard:
+    select_one_option: 請選擇一個
+  error:
+    invalid_file_format: 文件無法保存。請上傳PDF或者Word文檔。
+...

@@ -1,0 +1,22 @@
+id: 508
+title: Style conventions for medical and psychology topics
+summary:
+content: >
+  Wikipedia has a detailed [Manual of Style for medicine-related articles](https://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style/Medicine-related_articles).
+
+
+  For student editors, two elements in particular can help avoid commons
+  problems:
+
+
+  * **PMID references:** for references to sources in PubMed, be sure to include
+  the PMIDs within the citations. This ensures that other editors will be able
+  to easily track down and verify the sources themselves.
+
+  * **Recommended article sections:** for the common types of medicine-related
+  articles — diseases and disorders, drugs and devices, surgeries and
+  procedures, signs and symptoms, elements of anatomy, medical tests, etc. —
+  there are [typical sections (in a typical order)](https://en.wikipedia.org/wiki/Wikipedia:MEDSECTIONS)
+  that are recommended. For new articles, or expansion of existing articles,
+  students should take these standard organizational patterns as starting
+  points.

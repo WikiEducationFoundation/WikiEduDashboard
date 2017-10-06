@@ -1,0 +1,33 @@
+%tr{:class => "#{user ? date_highlight_class(course) : ''}", "data-link" => "#{course_slug_path(course.slug)}"}
+  %td.title{:role => "button", :tabindex => "0"}
+    = course.title
+    %span.creation-date.hidden
+      = course.created_at
+  %td.school
+    = course.school + "/" + course.term
+  %td.revisions
+    = course.recent_revision_count
+  %td
+    %span.characters-human
+      = number_to_human course.word_count
+    %span.characters.hidden
+      = course.word_count
+    %small.average-words-human
+      (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
+    %span.average-words.hidden
+      = course.average_word_count
+  %td
+    %span.views-human
+      = number_to_human course.view_sum
+    %span.views.hidden
+      = course.view_sum
+  %td
+    %span.students
+      = course.user_count
+    %small.untrained= t("users.training_complete_count", count: course.trained_count)
+  - if @presenter&.can_remove_course?
+    %td
+      = form_for(@campaign, url: remove_course_campaign_path(@campaign.slug, course_id: course.id), method: :put, html: { class: 'remove-program-form' }) do
+        = hidden_field_tag('course_title', course.title)
+        %button.button.danger.remove-course{'data-id' => course.id, 'data-title' => course.title, 'data-campaign-title' => @campaign.title}
+          = t('assignments.remove')

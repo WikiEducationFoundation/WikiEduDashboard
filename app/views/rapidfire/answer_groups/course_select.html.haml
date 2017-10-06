@@ -1,0 +1,10 @@
+.block.block--text
+  %h1.survey__title= @question_group.name
+  %p Select a Course to populate this question group's course questions
+  = form_tag(new_question_group_answer_group_path(@question_group), :method => "get") do
+    - if params.has_key?(:preview)
+      = check_box_tag("preview", true, true, :class => 'hidden')
+    = select_tag("course_slug", options_from_collection_for_select(@courses, 'slug', 'title'), :required => true, :include_blank => true, :data => {:chosen_select => true, :survey_course_select => true, :placeholder => "Select your course"})
+    %hr
+    %div.overflow-hidden
+      = submit_tag("Preview Question Group", :class => 'button dark')

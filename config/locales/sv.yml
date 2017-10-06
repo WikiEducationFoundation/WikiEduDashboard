@@ -1,0 +1,395 @@
+# Messages for Swedish (svenska)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Bengtsson96
+# Author: Fader
+# Author: Jopparn
+# Author: Josve05a
+# Author: Rockyfelle
+# Author: WikiPhoenix
+---
+sv:
+  application:
+    cancel: Avbryt
+    documentation: Dokumentation
+    error: 'Ett fel uppstod:'
+    explore: Utforska
+    field_required: Detta fält är obligatoriskt
+    field_invalid_characters: Detta fält har ogiltiga tecken
+    field_invalid_date: Detta fält kräver ett datum i formatet ÅÅÅÅ-MM-DD
+    field_invalid_date_time: Slutet måste vara efter starten. (Timmar går från 0 till
+      23.)
+    greeting2: Välkommen!
+    greeting_extended: Välkommen till Wikipedia
+    greeting: Hej!
+    help: Hjälp
+    home: Huvudsida
+    log_in_extended: Logga in med Wikipedia
+    log_in: Logga in
+    log_out: Logga ut
+    my_dashboard: Min kontrollpanel
+    recent_activity: Senaste aktivitet
+    report_problem: Rapportera ett problem
+    search: ställ en fråga
+    sign_up_extended: Skapa ett konto med Wikipedia
+    sign_up_log_in_extended: med Wikipedia
+    sign_up: Skapa ett konto
+    submit: Skicka
+    change: Ändra
+    details: Detaljer
+    confirm: OK
+  activity:
+    all: Aktivitet
+    edited_by: Redigerad av
+    label: Aktivitet
+  articles:
+    assigned: Tilldelade artiklar
+    available: Tillgängliga artiklar
+    assigned_to: Tilldelad till
+    character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
+      under kursen
+    edited: Redigerade artiklar
+    edited_mobile: Artiklar
+    hide: Dölj
+    loading: Laddar artiklar...
+    new: (ny)
+    none: Den här kursen har inte redigerat några artiklar.
+    rating: Klass
+    show_current_version: Visa aktuell version
+    show_current_version_with_authorship_highlighting: Nuvarande version med författaren
+      markerad
+    title: Titel
+    view: Visa artikel
+    view_all: Visa alla
+    view_doc: Summan av alla läsningar av varje artikel under kursen
+    view_on_wiki: Visa på wiki
+    views_added: Lade till %{count} nya läsningar %{title}
+    edit_size: Redigera storlek
+    wiki: Wiki
+  assignments:
+    article: Artikeln %{title} har tilldelats dig
+    add_available: Lägg till en tillgänglig artikel
+    confirm_add_available: Är du säker på att du vill lägga till %{title}?
+    remove: Ta bort
+    select: Välj
+  blocks:
+    milestones:
+      title: Milstolpar
+  campaign:
+    active_campaigns: Aktiva kampanjer
+    add_organizer: Lägg till organiserare
+    all_campaigns: Alla kampanjer
+    already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
+      slug.
+    campaigns: Kampanjer
+    campaign_not_updated: Kampanjen kunde inte uppdateras
+    campaign_updated: Kampanj uppdaterades
+    confirm_campaign_deletion_failed: '"%{title}" är inte titeln för denna kampanj.
+      Kampanjen har inte raderats.'
+    create_campaign: Skapa en ny kampanj
+    create_my_campaign: Skapa min kampanj!
+    description: Beskrivning
+    delete_campaign: Radera denna kampanj
+    none: Ingen
+    program_template: Programmall
+    title: Titel
+    use_start_end_dates: Använd start- och slutdatum
+  chat:
+    label: Chatta
+  courses:
+    activity: Aktivitet
+    all_courses: Alla kurser
+    actions: Åtgärder
+    articles: Artiklar
+    articles_none: Den här kursen har inte redigerat några artiklar.
+    calendar:
+      legend_class_meeting: Klassmöte
+      legend_class_not_meeting: Inget schemalagt möte
+    cancel: Avbryt
+    campaigns: 'Kampanjer:'
+    campaign_courses: '%{title} Kurser'
+    campaign_articles: '%{title} artiklar'
+    campaign_users: '%{title}-redigerare'
+    course: Kurs
+    course_description: Kurser
+    courses: Kurser
+    creator:
+      choose_clone: Välj en kurs att klona.
+      clone_previous: Klona tidigare kurs
+      clone_this: Klona denna kurs
+      course_description: Kursbeskrivning
+      course_language: Hemspråk
+      course_project: Hemprojekt
+      course_school: Kursskola
+      course_subject: Kursämne
+      course_term_placeholder: Termin
+      course_title: Kurs titel
+      create_button: Skapa min Kurs!
+      create_label: Skapa ny kurs
+      create_new: Skapa en ny kurs
+      create_short: Skapa Kurs
+      end_date: Slutdatum
+      end_date_placeholder: Slutdatum (ÅÅÅÅ-MM-DD)
+      expected_number: Förväntat antal elever
+      find: Hitta din kurs
+      intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
+        bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
+        att börja bygga tidslinjen för din Wikipedia uppgift.
+      save_cloned_course: Spara ny kurs
+      start_date: Startdatum
+      start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
+      subject: Ämne
+    delete_course: Radera kurs
+    delete_course_instructions: Du kan radera denna sida om alla kampanjer tas bort
+      först.
+    dismiss_survey: Stäng
+    download_stats_data: Ladda ned statistik
+    does_not_exist: Artikeln finns inte. Skapa en sandlådesida och tilldela dig själv
+      till den för att få förslag.
+    enable_chat: Aktivera chatt
+    end: Slut
+    ended: Kursen har slutat.
+    error:
+      invalid_language_or_project: Ogiltigt språk/projekt
+      duplicate_slug: Ett annat program som anropade %{slug} finns redan.
+    features_feedback: Fler förslag
+    feedback: Återkoppling
+    feedback_loading: Var god vänta medan förslag läser in...
+    invitation: |-
+      Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste du logga in med ett Wikipedia-konto.
+      Om du inte har ett Wikipedia-konto ännu, registrera ett nu.
+    join: Gå med
+    join_course: Delta i kurs
+    join_prompt: Gå med i '%{title}'?
+    join_successful: Du har framgångsrikt gått med i %{title}.
+    leave_confirmation: Är du säker på att du vill lämna denna kurs?
+    leave_course: Lämna kurs
+    loading: Läser in...
+    milestones_none: Den här kursen har för närvarande inga några milstolpar.
+    my_articles: Mina artiklar
+    new_week: Lägg till ny vecka
+    nocourses: Du deltar inte i alla kurser.
+    nocourse: har inte deltagit i några kurser.
+    none: Ingen
+    no_available_actions: Inga tillgängliga åtgärder
+    overview: Hem
+    passcode_none: Inget lösenord
+    rating_feedback: 'Förutsägelsebetyget för artikeln är:'
+    school: Skola
+    start: Starta
+    start_typing: Börja skriva
+    students: Studenter
+    students_taught: Undervisade studenter
+    students_count: '# studenter'
+    student_editors: Studentredigerare
+    students_none: Den här kursen har inga studenter.
+    students_short: Studenter
+    suggestions_feedback: Har du några förslag på att förbättra denna funktion? Låt
+      oss veta!
+    suggestions_sending: Skickar återkoppling...
+    suggestions_sent: Återkoppling skickades. Tack för din åsikt.
+    suggestions_failed: Kunde inte skicka återkoppling. Försök igen senare.
+    user_role: Roll
+    course_details: Kursdetaljer
+    subject: Ämne
+    submitted: Inskickade
+    timeline_enabled: Tidslinjen är aktiverad
+    timeline_link: Tidslinje
+    time_zone_message: Start- och sluttider visas i din lokala tidszon.
+    title: Titel
+    view_other: Visa andra kampanjer
+    view_wiki: Se på Wikipedia
+    volunteer:
+      other: en=Volontär
+  courses_generic:
+    all_courses: Alla program
+    cancel: Avbryt
+    course: Program
+    campaigns: 'Kampanjer:'
+    campaign_courses: '%{title} Program'
+    creator:
+      choose_clone: Välj ett program att klona.
+      clone_previous: Klona tidigare program
+      clone_this: Klona detta program
+      clone_successful: Programmet klonades
+      clone_successful_details: Ditt program har klonats. Klicka på "Spara" nedan
+        för att slutföra det.
+      course_when: Lägg till någonting i fältet "När" (t.ex. månad och år) för att
+        särskilja den från originalet.
+      course_description: Program beskrivning
+      course_school: Institution
+      course_term: När
+      course_term_placeholder: När
+      course_title: Program namn
+      create_button: Skapa mitt program!
+      create_label: Skapa Nytt Program
+      create_new: Skapa ett oberoende program
+      create_short: Skapa Program
+      find: Hitta ett program
+      intro: Program titeln behövs, allt annat kan bli infyllt senare. Klicka på "Skapa
+        mitt Program!" för att börja bygga sidan för ditt wiki program.
+      participate_in_campaign: Delta i en kampanj
+      save_cloned_course: Spara
+    delete_course: Radera program
+    edit_course_dates: Redigera projektdatum
+    explore: Hitta program
+    enroll: Lägg till redigerare
+    enrollment: Deltagande
+    expected_students: Förväntade redigerare
+    join_course: Gå med i program
+    leave_course: Lämna program
+    students_count: Antal deltagare
+    term: När
+    view_other: Visa andra kampanjer
+    view_page: Visa programsida
+  editable:
+    edit: Redigera
+    cancel: Avbryt
+    save: Spara
+    edit_description: Redigera beskrivning
+    edit_details: Redigera detaljer
+    edit_template: Redigera mall
+  metrics:
+    activity: Senaste aktivitet
+    articles_created: Skapade artiklar
+    articles_edited: Redigerade artiklar
+    characters: Tecken
+    char_added: Tillagda tecken
+    char_changed: Ändrade tecken
+    char: Tillagda tecken
+    date_time: Datum/Tid
+    per_user: '%{number}/user'
+    revisions: Senaste redigeringar
+    tags: Märken
+    uploads_in_use_count:
+      one: fil används i en artikel
+      other: filer används i artiklar
+    view_count_description: Artikelvisningar
+    view: Visningar
+  namespace:
+    main: Huvudnamnrymd
+    user: Användarnamnrymd
+    user_ns: Användare
+  recent_activity:
+    article_title: Artikeltitel
+    datetime: Datum/tid
+    image: Bild
+    file_name: Filnamn
+    recent_edits: Senaste redigeringar
+    show_courses: Visa endast mina kurser
+    uploaded_by: Uppladdad av
+  revisions:
+    class: Klass
+    diff: skillnad
+    edit_time_span: Redigeringar skedde från %{first_time} till %{last_time}
+    edited_by: Redigerad av
+    edited_on: Redigerades %{edit_date}
+    title: Titel
+  suggestions:
+    editing: Redigeringsförslag
+    suggestion_docs:
+      future: Material som läggs till kan vara spekulationer och bör källbeläggas
+        noggrant.
+      does_not_exist: Denna artikel finns inte på Wikipedia
+  timeline:
+    add_week: Lägg till vecka
+    block_assignment: Uppgifter
+    block_custom: Anpassad
+    block_in_class: I klass
+    block_milestone: Milstolpe
+    course_dates: Kursdatum
+    course_end: Kursslut
+    course_start: Kursstart
+    discard_all_changes: Ignorera alla ändringar
+    delete_timeline_and_start_over: Radera tidslinje
+    empty_week_1: För att komma igång,
+    empty_week_3: eller
+    gradeable_value: Värde
+    no_activity_this_week: Ingen schemalagda möten denna vecka
+    save_all_changes: Spara alla
+    this_week_title_default: Denna vecka
+    title: Tidslinje
+    unable_to_add_week: Du kan inte lägga till nya veckor när din tidslinje är full.
+      Ta bort åtminstone en vecka eller ändra dina uppgiftsdatum för att göra plats
+      för en ny.
+    week_number: Vecka %{number}
+  training:
+    continue: Fortsätt (%{progress})
+    start: Starta
+    view: Visa
+  uploads:
+    datetime: Datum/tid
+    file_name: Filnamn
+    image: Bild
+    label: Uppladdningar
+    loading: Laddar uppladdning...
+    none: Inga filer har laddats upp
+    uploaded_by: Uppladdad av
+    usage_count: Antal användningar
+    usages: Användning
+  users:
+    assign_articles_done: Färdig
+    first_name: Förnamn
+    last_name: Efternamn
+    loading: Laddar användare...
+    my_assigned: 'Tilldelade:'
+    my_reviewing: 'Granskar:'
+    name: Namn
+    none: Det finns inga deltagare.
+    no_articles: Inga artiklar
+    no_revisions: Den här redigeraren har inte gjort några ändringar.
+    number_of_articles:
+      one: '%{count} artikel'
+      other: '%{count} artiklar'
+    recent_revisions: Senaste redigeringar
+    training_module_status: Status
+    username: Användarnamn
+    username_placeholder: Användarnamn
+    role:
+      visitor: Besökare
+      student: Student
+      instructor: Instruktör
+      campus_volunteer: '{{SITENAME}}ambassadör'
+      online_volunteer: Onlineambassadör
+  user_profiles:
+    disclaimer: Informationen du uppger kommer att vara offentlig.
+    bio_placeholder: Lägg till din bio (valfritt)
+    location_placeholder: Lägg till din plats (valfritt)
+    institution_placeholder: Institutionsnamn (valfritt)
+  wizard:
+    select_one_option: Välj 1 alternativ.
+    read_less: Läs mindre
+    read_more: Läs mer
+    summary: Sammanfattning
+  error:
+    form_errors: Var god kolla efter fel i formuläret.
+    invalid_assignment: Ogiltig uppgift
+    invalid_date: '%{key}datumet är ogiltigt'
+    start_date_before_end_date: Startdatumet måste vara innan slutdatumet
+    unsupported_browser:
+      header: Webbläsaren stöds inte. :-(
+  error_401:
+    header: Obehörig. >:-(
+    json_explanation: Det ser ut som att du har blivit utloggad. Uppdatera sidan,
+      logga in och försök igen.
+  error_incorrect_passcode:
+    header: Felaktigt lösenord. :-(
+  error_404:
+    header: Sidan kunde inte hittas. :-(
+  error_500:
+    header: 500 — internt serverfel.  :-(
+  login_error:
+    header: Inloggningsproblem
+  survey:
+    email:
+      headline: Hej, %{username}
+      course: 'Kurs: %{course_info}'
+      closing: Med vänliga hälsningar,
+      link: Delta i undersökningen
+    follow_up:
+      message: Detta är en påminnelse om undersökningen för din kurs, %{course_title}.
+        Feedback från den här undersökningen hjälper oss att förbättra vårt stöd till
+        Wikipedia-uppgifter likt din.
+  feedback_form_responses:
+    no_responses: Det finns inga återkopplingssvar ännu.
+...

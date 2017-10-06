@@ -1,0 +1,462 @@
+# Messages for Korean (한국어)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alex00728
+# Author: Asdfqwer51
+# Author: Ellif
+# Author: Hwangjy9
+# Author: Jerrykim306
+# Author: Jonghaya
+# Author: Mooozi
+# Author: Priviet
+# Author: Revi
+# Author: SeoJeongHo
+# Author: Yearning
+# Author: Ykhwong
+# Author: 고솜
+# Author: 밥풀떼기
+# Author: 아라
+---
+ko:
+  accessibility:
+    number_field: 이것은 번호 필드입니다. 대부분의 브라우저에서 렌더링되는 버튼들은 입력값을 증가·감소시킵니다.
+  application:
+    cancel: 취소
+    dashboard: 위키 에듀 대시보드
+    documentation: 설명서
+    error: '오류가 있었습니다:'
+    explore: 찾아보기
+    field_required: 이 칸은 반드시 입력해야 합니다
+    field_invalid_characters: 이 필드에 유효하지 않은 문자가 있습니다
+    field_invalid_date: 이 필드에는 YYYY-MM-DD 형식의 날짜가 필요합니다.
+    field_invalid_date_time: 끝 시간이 시작 시간보다 뒤에 와야 합니다. (시간은 0시부터 23시 사이입니다)
+    greeting2: 환영합니다!
+    greeting_extended: 위키백과에 오신 것을 환영합니다
+    greeting: 안녕하세요!
+    help: 도움말
+    home: 대문
+    log_in_extended: 위키백과에 로그인하기
+    log_in: 로그인
+    log_out: 로그아웃
+    my_dashboard: 나의 대시보드
+    recent_activity: 최근 활동
+    report_problem: 문제점 보고
+    search: 질문하기
+    sign_up_extended: 위키백과에 로그인하기
+    sign_up_log_in_extended: 위키백과와 함께합니다
+    sign_up: 가입하기
+    submit: 보내기
+    training: 교육 중
+    change: 수정
+    details: 자세한 사항
+    confirm: 확인
+  dashboard:
+    no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
+    no_courses_student: 아직 코스에 가입하지 않으셨네요.
+    blog_headline: Wiki Ed의 최근 뉴스
+  home:
+    explore: 찾아보기
+    log_in: 위키백과에 로그인하기
+    sign_up: 위키백과에 등록하기
+    sign_up_help: 대시보드를 사용하려면 위키백과에 로그인하여 사용자 계정에 권한을 제공해야 합니다. 기존의 위키백과 계정으로 로그인하거나
+      새 계정을 만들 수 있습니다.
+  activity:
+    all: 활동
+    edited_by: '편집자 :'
+    label: 활동 내역
+  articles:
+    assigned: 할당된 문서
+    available: 이용 가능한 글
+    assigned_to: 할당됨
+    edited: 문서 편집됨
+    edited_by: '편집자:'
+    edited_mobile: 문서
+    hide: 숨기기
+    label: 문서
+    loading: 문서 불러오는 중...
+    new: (새)
+    none: 이 코스는 어느 문서도 편집하지 않았습니다.
+    rating: 클래스
+    rating_docs:
+      fa: 알찬 글 &mdash; 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
+      fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
+      a: A급 문서 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
+      ga: 좋은 글 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
+      b: B 클래스 &mdash; 적절하게 쓰여진 글
+      c: C 클래스 &mdash; 발전의 여지가 있는 중간 정도의 글
+      start: 시작 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글
+      stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
+      list: 목록 &mdash; 일반 글이 아닌 목록
+      '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다
+    show_current_version: 현재 버전 보기
+    title: 제목
+    title_example: 문서 제목
+    view: 문서 보기
+    view_all: 모두 보기
+    view_on_wiki: 위키에서 보기
+    edit_size: 편집 크기
+    wiki: 위키
+  assignments:
+    article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
+    title_too_large: 제목은 255자를 초과해서는 안 됩니다
+    assignees: 담당자
+    add_available: 이용 가능한 글 추가
+    confirm_add_available: '%{title}를 추가하시겠습니까?'
+    label: 할당
+    none_short: 할당된 글이 없습니다
+    no_available: 이 코스에는 이용할 수 있는 글이 없습니다.
+    remove: 제거
+    reviewers: 검토자
+    review_self: 문서 미리보기
+    select: 선택
+  blocks:
+    milestones:
+      title: 이정표
+  campaign:
+    description: 설명
+    none: 없음
+    program_template: 프로그램 틀
+    title: 제목
+    use_start_end_dates: 시작 및 끝 날짜 사용
+  chat:
+    label: 채팅
+  courses:
+    activity: 활동
+    already_enrolled: 이미 %{title}에 참여하고 계세요!
+    actions: 행동
+    articles: 문서
+    articles_none: 본 코스는 어떠한 문서도 편집한 적이 없습니다.
+    calendar:
+      legend: 범례
+      legend_class_canceled: 휴강/취소됨
+      legend_class_meeting: 수업 미팅
+      legend_class_not_meeting: 예정된 미팅 없음
+    cancel: 취소
+    campaign_articles: '%{title} 문서'
+    campaign_users: '%{title} 편집자'
+    confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
+    confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
+    course_description: 코스
+    courses: 과정
+    creation_date: 만든 날짜
+    creator:
+      assignment_end: 과제 종료
+      assignment_end_placeholder: 과제 종료 (YYYY-MM-DD)
+      assignment_start: 과제 시작
+      assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
+      choose_clone: 복제할 과정을 선택하십시오.
+      clone_successful: 과정이 성공적으로 복제되었습니다
+      course_language: 주 언어
+      course_project: 주 프로젝트
+      course_term_placeholder: 학기
+      end_date: 종료일
+      end_date_placeholder: 종료 날짜 (YYYY-MM-DD)
+      no_class_holidays: 휴강이 없습니다
+      save_cloned_course: 새 코스 저장
+      start_date: 시작일
+      start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
+      subject: 제목
+    current: 현재 과정
+    data_articles: 문서 데이터
+    data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
+    data_overview: 개요 데이터
+    data_students: 편집자 데이터
+    delete_course: 과정 삭제
+    delete_suggestion: 삭제
+    dismiss_survey: 숨기기
+    dismiss_survey_confirm: 이 설문조사를 영구적으로 숨기시겠습니까?
+    download_stats_data: 다운로드 통계
+    does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
+    duration: 과정 기간
+    edit_course_dates: 코스 날짜 편집하기
+    enable_chat: 채팅 사용하기
+    end: 종료
+    error:
+      user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
+      invalid_language_or_project: 유효하지 않은 언어/프로젝트
+      duplicate_slug: 다른 프로그램 %{slug}이(가) 이미 존재합니다.
+    features_feedback: '자동화된 제안:'
+    feedback: 피드백
+    feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
+    gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
+    instructor:
+      other: 지도자
+    instructors: 지침
+    invitation: '%{title} 에 참여하도록 초대되었습니다. 이 과정에 참여하려면 위키백과 계정에 로그인해야 합니다.'
+    invitation_username_advice: 아직 위키백과 계정이 없다면 지금 하나 등록하십시오. 사용자 이름은 원하는 경우 익명 처리하거나
+      개인 식별 처리시킬 수 있습니다. (공유 계정은 허용되지 않음)
+    join: 가입하기
+    join_course: 과정 가입
+    join_prompt: '''%{title}''에 가입할까요?'
+    join_successful: '%{title}에 들어가는 데 성공했습니다.'
+    leave_course: 과정 나가기
+    loading: 불러오는 중...
+    my_articles: 내 문서
+    nocourses: 어떤 과정에도 참여하고 있지 않습니다.
+    none: 없음
+    no_available_actions: 취할 수 있는 행동 없음
+    overview: 홈
+    passcode: 패스코드
+    passcode_none: 비밀코드 없음
+    passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
+    school: 학교
+    start: 시작
+    start_typing: 입력 시작
+    students: 학생
+    students_count: '# 학생'
+    student_editors: 학생 편집자
+    students_none: 이 과정에는 학생이 없습니다.
+    students_short: 학생
+    submitted_heading: 보낸 코스
+    suggestions_feedback: 이 기능의 개선을 위한 제안이 있으신가요? 알려주세요!
+    suggestions_sending: 피드백을 보내는 중...
+    suggestions_sent: 피드백을 보냈습니다. 귀하의 의견에 감사드립니다.
+    suggestions_failed: 피드백을 보내지 못했습니다. 나중에 다시 시도하십시오.
+    user_role: 역할
+    subject: 제목
+    submitted: 제출됨
+    term: 기간
+    timeline: 숙제 상세사항
+    timeline_enabled: 타임라인 사용 중
+    timeline_link: 타임라인
+    title: 제목
+    training_nav: 연습해 보기
+    unsubmitted: 보내지 않은 코스
+    uploads_none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_suggestions: '사용자 제안:'
+    view: 과정 보기
+    view_page: 코스 문서 보기
+    view_wiki: 위키백과에서 보기
+    volunteer:
+      other: 자원봉사자
+    wiki_staff: 위키 에듀 임원
+    yourcourses: 내 과정
+    survey:
+      link: 설문 조사 참가
+  courses_generic:
+    all_courses: 모든 프로그램
+    archived: 보존된 프로그램
+    articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
+    assignment_end: 타임라인 끝
+    assignment_start: 타임라인 시작하기
+    cancel: 취소
+    course: 프로그램
+    courses: 프로그램
+    creator:
+      choose_clone: 복제할 프로그램을 선택하십시오.
+      clone_successful: 프로그램이 성공적으로 복제되었습니다
+      clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.
+      course_description: 프로그램 설명
+      course_term: 날짜
+      course_term_placeholder: 날짜
+      course_title: 프로그램 제목
+      create_button: 내 프로그램을 만듭니다!
+      create_label: 새로운 프로그램 만들기
+      create_new: 별도의 프로그램 만들기
+      create_short: 프로그램 만들기
+      find: 프로그램 찾기
+      new_or_clone: 지금 새로운 프로그램을 하나 만들거나, '복제' 옵션을 사용하여 참여했던 다른 프로그램을 복제합니다.
+      save_cloned_course: 저장
+    delete_course: 프로그램 삭제
+    edit_course_dates: 프로젝트 날짜 편집하기
+    enroll: 편집자 추가
+    enrollment: 참여
+    join_course: 프로그램 참가
+    revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
+    school: 기관
+    student_editors: 편집자
+    students: 편집자
+    students_short: 편집자
+    term: 날짜
+  editable:
+    edit: 편집
+    cancel: 취소
+    save: 저장
+    edit_description: 설명 편집
+    edit_details: 자세한 사항 편집
+    edit_template: 틀 편집
+  metrics:
+    activity: 최근 활동
+    articles_created: 문서 생성됨
+    articles_edited: 문서 편집됨
+    characters: 글자
+    char_added: 글자가 추가됨
+    char_changed: 글자가 바뀜
+    char: 글자가 추가됨
+    date_time: 날짜/시간
+    edit_count_description: 총 편집
+    per_user: '%{number}/사용자'
+    revisions: 최신 편집
+    tags: 태그
+    view_data_unavailable: 이용 가능한 뷰 데이터 없음
+    view: 보기
+    word_count_average: 평균 단어 개수
+  namespace:
+    user: 사용자 공간
+    user_ns: 사용자
+  recent_activity:
+    article_title: 문서 제목
+    datetime: 날짜/시간
+    did_you_know_eligible: Eligible을 알고 계십니까
+    image: 그림
+    file_name: 파일 이름
+    no_edits: 최근 편집이 없습니다.
+    plagiarism_report: 표절 보고서
+    recent_edits: 최근 편집
+    recent_uploads: 최근 업로드
+    revision_author: 판 저자
+    revision_datetime: 판본 시간/날짜
+    revision_score: 판 점수
+    uploaded_by: 올린이
+  revisions:
+    chars_added: 글자 추가됨
+    class: 클래스
+    date_time: 날짜/시간
+    diff: 차이
+    diff_show: 보기
+    diff_hide: 숨기기
+    edited_by: '편집자:'
+    edited_on: '%{edit_date}에 편집함'
+    loading: 판을 불러오는 중...
+    title: 제목
+    view_on_wiki: 위키에서 차이 보기
+  suggestions:
+    suggestion_docs:
+      '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
+      does_not_exist: 이 글은 위키백과에 존재하지 않습니다.
+  tasks:
+    conseq: '%{task} 작업이 아직도 돌아가고 있습니다!'
+  timeline:
+    block_assignment: 과제
+    block_custom: 사용자 지정
+    block_in_class: 수업중
+    block_milestone: 마일스톤
+    course_dates: 과정 날짜
+    course_end: 코스 종료
+    course_start: 코스 시작
+    delete_weeks_confirmation: |-
+      이 모든 타임라인을 삭제하고 다시 시작하시겠습니까?
+
+      이 작업은 되돌릴 수 없습니다.
+    discard_all_changes: 모든 바뀜 취소
+    delete_timeline_and_start_over: 타임라인 삭제
+    due_default: 다음 주까지
+    empty_week_1: 시작하려면,
+    empty_week_3: 또는
+    empty_week_4: 미리 지정된 과제부터 시작하세요.
+    first_week_title: 첫 활동적인 주
+    gradeable_value: 값
+    grading_header: '점수 (총: %{total}%)'
+    no_class_holidays: 휴일 수업이 없습니다
+    no_timeline: 이 과정에는 타임라인이 없습니다.
+    no_activity_this_week: 이 주에 예정된 미팅 없음
+    nothing_this_week: 이번 주 스케줄에 아무것도 없습니다.
+    save_all_changes: 모두 저장
+    this_week_title_default: 이번 주
+    title: 타임라인
+    view_full_timeline: 전체 타임라인 보기
+    week_number: '%{number} 주'
+  training:
+    continue: 계속 (%{progress})
+    start: 시작하기
+    view: 보기
+  uploads:
+    datetime: 날짜/시간
+    file_name: 파일 이름
+    header: 위키미디어 공용에 올린 파일
+    image: 그림
+    label: 파일 올리기
+    loading: 업로드 불러오는 중
+    none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    uploaded_by: 올린이
+    usage_count: 사용량 값
+    usages: 사용
+  users:
+    assign_articles_done: 완료
+    contributions: 사용자 기여
+    contributions_more: 기여 더 보기
+    contribution_statistics: 기여 통계
+    course_passcode: '패스코드:'
+    editors: 편집자
+    enroll_confirmation: '%{username}님을 추가하시겠습니까?'
+    enroll_url: '사용자는 다음 URL을 방문하여 참여할 수 있습니다:'
+    enrolled_success: '%{username}님이 성공적으로 추가되었습니다!'
+    first_name: 이름
+    last_name: 성
+    loading: 사용자를 불러오는 중...
+    characters_added_short: 'MS: %{mainspace}, US: %{userspace}'
+    my_reviewing: '검토 중:'
+    name: 이름
+    none: 참여자가 없습니다.
+    no_articles: 문서 없음
+    number_of_articles:
+      one: 문서 %{count}개
+      other: 문서 %{count}개
+    recent_revisions: 최근 편집
+    remove_confirmation: '%{username}님을 제거하겠습니까?'
+    revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
+    reviewers: 검토자
+    reviewing: 검토 중
+    training_module_status: 상태
+    username: 사용자 이름
+    username_placeholder: 사용자 이름
+    role:
+      visitor: 방문자
+      student: 학생
+      instructor: 강사
+      campus_volunteer: 캠퍼스 지원자
+      online_volunteer: 온라인 지원자
+      wiki_ed_staff: 위키 에듀 임원
+  user_profiles:
+    disclaimer: 입력한 정보는 공개됩니다.
+    bio_placeholder: 자기소개 추가 (선택 사항)
+    location_placeholder: 당신의 위치 추가 (선택사항)
+    institution_placeholder: 기관 이름 (선택사항)
+  wiki_edits:
+    notify_overdue:
+      header: 제출 기간이 지난 교육 과제가 있습니다.
+  wizard:
+    assignment_dates: 과제 날짜
+    assignment_type: 과제 유형
+    select_one_option: 1개의 옵션을 선택해 주십시오.
+    minimum_options:
+      one: '%{count}개 이상의 옵션을 선택해 주십시오.'
+      other: '%{count}개 이상의 옵션을 선택해 주십시오.'
+    read_less: 덜 보기
+    read_more: 더 보기
+    summary: 요약
+  error:
+    invalid_date: '%{key} 날짜는 유효하지 않음'
+    invalid_file_format: 파일을 저장할 수 없습니다. PDF나 워드 문서를 업로드해 주십시오.
+    start_date_before_end_date: 시작 날짜는 끝 날짜보다 앞서야 합니다.
+    unsupported_browser:
+      header: 지원되지 않는 브라우저입니다. :-(
+      explanation: 대시보드와 호환되지 않는 브라우저를 사용하고 있습니다. 이 사이트는 인터넷 익스플로러 버전 11 이상, 최신 버전의
+        크롬과 파이어폭스, 그 밖의 현대의 브라우저에서 잘 동작합니다.
+  error_401:
+    header: 인증되지 않음. >:-(
+    explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
+      알도록 하세요.
+    json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
+  error_incorrect_passcode:
+    header: 패스코드가 잘못되었습니다.
+  error_404:
+    header: 페이지를 찾을 수 없습니다. :-(
+  error_422:
+    header: 422 — 처리할 수 없는 엔티티. :-(
+    explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
+  error_500:
+    header: 500 — 내부 서버 오류.  :-(
+    explanation: 무언가 문제가 생겼습니다. 이 게시판의 유지자에게 연락해서 문제를 알도록 하세요.
+  login_error:
+    header: 로그인 오류
+  survey:
+    login_message: 시간을 내 주셔서 감사합니다. Wiki Ed 대시보드로 로그인하여 설문 조사에 응해 주세요.
+    follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
+    email:
+      headline: 안녕하세요, %{username}님
+      signed: '- Wiki Ed 팀'
+      link: 설문 조사 참가
+...

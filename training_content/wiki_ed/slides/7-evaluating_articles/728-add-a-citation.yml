@@ -1,0 +1,32 @@
+id: 728
+title_prefix: "How to:"
+title: Add a citation
+summary:
+content: |
+  So, you have a solid paragraph drawn from a reliable source. How do you let
+  other editors know where to look to verify your information?
+
+  First, check to see if the page has a References section. If there isn't one,
+  click on the "Edit" option, and scroll down to the bottom of the page. Type
+  the word References on a new line.
+
+  On the visual editor's toolbar, you'll see the word Paragraph, with a down
+  arrow next to it. Clicking on it produces a drop-down menu. Select "Heading".
+  This should make the word References larger and underline it.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/VisualEditor_toolbar_-_text_formatting_dropdown.png" />
+  </figure>
+
+  Hit the enter key to create a new line. Then go up to the toolbar again and
+  click Insert. Then select Template from the drop-down menu that appears. When
+  the "Add a template" interface appears, type Reflist in the box. Click the
+  "Add template" button next to the box, and then click on the blue Insert
+  button in the top right corner.
+
+  <figure class="alt-layout-100">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/VisualEditor_toolbar_-_Insert_dropdown.png" />
+  </figure>
+
+  Then click Save changes. Don't forget to leave an edit summary, something like
+  "Added a reference section".

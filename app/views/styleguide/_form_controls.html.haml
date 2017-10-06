@@ -1,0 +1,74 @@
+%h5 Input
+%input{type: "text", placeholder: "Input"}/
+
+%br/
+%br/
+
+%h5 Textarea
+%textarea{placeholder: "Texatrea"}
+
+%br/
+%br/
+
+%h5 Radio buttons
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option1", checked: true} Checked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option2"}  Unchecked
+%label
+  %input{type: "radio", name: "radioGroup1", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Checkboxes
+%label
+  %input{type: "checkbox", value: "option1", checked: true} Checked
+%label
+  %input{type: "checkbox", value: "option2"}  Unchecked
+%label
+  %input{type: "checkbox", value: "option3", disabled: true} Disabled
+
+%br/
+%br/
+
+%h5 Vanilla select
+%select
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Vanilla multiselect
+%select{multiple: "multiple"}
+  %option{value: "Option 1"} Option 1
+  %option{value: "Option 2"} Option 2
+  %option{value: "Option 3"} Option 3
+
+%br/
+%br/
+
+%h5 Select2
+
+%br/
+%br/
+
+%h5 Date picker
+#date-picker-enabled
+%br/
+#date-picker-disabled
+
+%br/
+%br/
+
+
+%h5 Calendar
+#calendar
+
+%br/
+%br/
+
+%h5 Rich text editor
+#rich-text

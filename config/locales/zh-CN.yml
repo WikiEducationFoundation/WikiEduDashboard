@@ -1,0 +1,712 @@
+# Messages for Simplified Chinese (中文（简体）‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Camilali0609
+# Author: Hanyanbo98
+# Author: Liuxinyu970226
+# Author: Macofe
+# Author: Yfdyh000
+---
+zh-CN:
+  accessibility:
+    number_field: 这是一个数域。大多数浏览器渲染的按钮将递增和递减输入。
+  application:
+    cancel: 取消
+    dashboard: Wiki Ed控制面板
+    documentation: 文档
+    error: 发生了错误：
+    explore: 探索
+    field_required: 此字段是必需的
+    field_invalid_characters: 此字段有无效字符
+    field_invalid_date: 此字段要求日期为YYYY-MM-DD格式
+    field_invalid_date_time: 结束时间必须在开始时间之后。（小时数在0~23之间。）
+    greeting2: 欢迎！
+    greeting_extended: 欢迎来到维基百科
+    greeting: 您好！
+    help: 帮助
+    home: 首页
+    log_in_extended: 登录维基百科
+    log_in: 登录
+    log_out: 退出
+    my_dashboard: 我的控制面板
+    recent_activity: 最近活动
+    report_problem: 报告问题
+    search: 提问问题
+    sign_up_extended: 注册维基百科
+    sign_up_log_in_extended: 通过维基百科
+    sign_up: 注册
+    submit: 提交
+    training: 培训
+    change: 更改
+    details: 详情
+    confirm: 确定
+  dashboard:
+    create_note: 点击创建课程以创建您的第一次课程。
+    create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
+    explore_course_pages: 浏览课程页面
+    explore_examples: 浏览示例
+    join_note: 一旦您从您的导师处收到密码，就可点击找到您的课程来查找并加入它。
+    no_courses_instructor: 看起来您没有任何课程。
+    no_courses_student: 看起来您还没有加入一个课程。
+    opt_out: 请求不参加迎新活动
+    orientation_notice: 在您创建课程之前，让我们通过迎新活动以帮助您了解如何入门。（这需要约30分钟完成。）
+    review_orientation: 复核迎新活动
+    start_orientation: 开始迎新活动
+    blog_headline: 来自Wiki Ed的最新新闻
+  home:
+    explore: 探索
+    log_in: 登录维基百科
+    sign_up: 注册维基百科
+    sign_up_help: 要使用面板，您需要通过维基百科登录，并提供权限以访问您的账户。您可以使用现有的维基百科账户登录，或创建一个新账户。
+  activity:
+    all: 活跃
+    edited_by: 编辑自
+    label: 活跃
+  articles:
+    assigned: 分配的条目
+    available: 可用条目
+    assigned_to: 分配给
+    character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
+    edited: 编辑的条目
+    edited_by: 编辑者：
+    edited_mobile: 条目
+    hide: 隐藏
+    label: 条目
+    loading: 正在加载条目...
+    new: （新）
+    none: 此课程没有编辑任何条目。
+    rating: 等级
+    rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
+    rating_docs:
+      fa: 典范条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
+      fl: 特色列表 — 维基百科用于列表的最高评级
+      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
+      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
+      b: 乙级 — 一个适度发展的条目
+      c: 丙级 — 一个有改进空间的中等条目
+      start: 初级 — 一个有很大改进空间的初等条目
+      stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
+      list: 列表级 — 一个列表，而不是一篇传统条目
+      '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
+      does_not_exist: 此条目在维基百科不存在
+    show_cumulative_changes: 显示累计更改
+    show_current_version: 显示当前版本
+    show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
+    title: 标题
+    title_example: 条目标题
+    view: 查看条目
+    view_all: 查看全部
+    view_doc: 在项目期间每个条目的访问量总数
+    view_on_wiki: 在wiki上查看
+    views_added: 已为%{title}添加%{count}次新查看
+    edit_size: 编辑大小
+    wiki: Wiki
+    wp10: 结构完整性
+    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。These
+      scores are calculated based on the size of an article, the number of references
+      and wikilinks, and other basic text features. A high score usually indicates
+      that an article follow Wikipedia's conventions for the structure of a good article,
+      but it does not take into account the content itself. (These scores are only
+      available for English Wikipedia articles.)
+  assignments:
+    article: 条目%{title}已分配给您。
+    already_exists: 此分配已存在！
+    title_too_large: 标题不应超过255个字符
+    assignees: 委托人
+    assign_other: 分配一个条目
+    add_available: 添加一个可用条目
+    assign_self: 给我自己分配一个条目
+    confirm_add_available: 您确定要添加%{title}么？
+    confirm_addition: 您确定要分配%{title}至%{username}？
+    confirm_deletion: 您确定要删除此条目分配吗？
+    label: 分配
+    loading: 正在加载作业...
+    none_short: 没有分配的条目
+    none: 此课程没有被条目所分配。
+    no_available: 此课程没有可用的条目。
+    remove: 移除
+    reviewers: 复核员
+    review_other: 分配一次复核
+    review_self: 复核一个条目
+    select: 选择
+  blocks:
+    milestones:
+      title: 里程碑
+  campaign:
+    active_campaigns: 活跃的运动
+    add_organizer: 添加组织者
+    all_campaigns: 所有运动
+    already_exists: 该运动已存在！请使用不同的标题或片段再试。
+    campaign: 运动
+    campaigns: 运动
+    campaign_deleted: 活动“%{title}”已被删除
+    campaign_not_updated: 运动不能更新
+    campaign_updated: 活动已更新
+    confirm_campaign_deletion: 您确定要删除标题为“%{title}”的运动么？如果是，请输入运动标题以进行。
+    confirm_campaign_deletion_failed: “%{title}”不是此运动的标题。运动未被删除。
+    confirm_course_removal: 您确定要从“%{campaign_title}”活动中移除“%{title}”么？
+    course_already_removed: “%{title}”已经从“%{campaign_title}”活动中移除
+    course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
+    create_campaign: 创建新的运动
+    create_my_campaign: 创建我的运动！
+    description: 描述
+    delete_campaign: 删除此运动
+    none: 无
+    organizers: 组织者
+    organizer_added: '%{user}现为“%{title}”运动的组织者'
+    organizer_removed: '%{user}已从“%{title}”运动的组织者中被移除'
+    program_template: 程序模板
+    program_template_tooltip: 当组织者在此运动中创建程序时，此区域的文本将被复制为程序页面上的描述
+    title: 标题
+    use_start_end_dates: 使用开始和结束日期
+  chat:
+    label: 聊天
+  courses:
+    activity: 活动
+    active_courses: 激活%{course_type}
+    all_courses: 所有课程
+    already_enrolled: 您已经是“%{title}”的一部分！
+    already_exists: 已存在于该课程中！
+    archived: 已存档的课程
+    actions: 操作
+    articles: 条目
+    articles_none: 此课程没有编辑任何条目。
+    assignment_end: 任务结束
+    assignments_none: 此课程没有分配的条目。
+    assignment_start: 任务开始
+    calendar:
+      legend: 图例
+      legend_class_canceled: 假日/取消
+      legend_class_meeting: 班会
+      legend_class_not_meeting: 没有预定会议
+      select_meeting_days: 选择一周内您要开班会的几天。
+    cancel: 取消
+    character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
+    campaigns: 运动：
+    campaign_courses: '%{title}课程'
+    campaign_articles: '%{title}个条目'
+    campaign_users: '%{title}位编辑者'
+    confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
+    confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
+    course: 课程
+    course_dates_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。课程活动的日期将利用没有预定会议的周，对账户做出更改。
+    course_description: 课程
+    courses: 课程
+    courses_taught: 教授的课程
+    creation_date: 创建日期
+    creator:
+      already_exists: 此课程已存在。考虑更改名称、学校或学期以使其独立。
+      assignment_end: 任务结束
+      assignment_end_placeholder: 分配结束日（YYYY-MM-DD）
+      assignment_start: 任务开始
+      assignment_start_placeholder: 分配开始日（YYYY-MM-DD）
+      checking_for_uniqueness: 这个课程正在检查其独立性。
+      choose_clone: 选择要克隆的课程。
+      clone_previous: 克隆上一个课程
+      clone_this: 克隆此课程
+      cloned_course_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请勾选“我没有班级假日”。克隆的时间轴将利用没有预定会议的周，自动对账户调整日期。
+      clone_successful: 课程已成功克隆
+      clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。请确保添加日期，这没有延续。您的课程有什么别的东西更改么？请现在随意地更新它吧。
+      course_description: 课程描述
+      course_language: 主语言
+      course_project: 主项目
+      course_school: 课程学校
+      course_subject: 课程科目
+      course_term: 课程学期
+      course_term_placeholder: 学期
+      course_title: 课程标题
+      create_button: 创建我的课程！
+      create_label: 创建新的课程
+      create_new: 创建一个新课程
+      create_short: 创建课程
+      end_date: 结束日期
+      end_date_placeholder: 结束日期（YYYY-MM-DD）
+      expected_number: 预计学生人数
+      find: 找到您的课程
+      intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
+      new_or_clone: 您现在可以创建新的课程，或如果您希望从之前您教学的课程中复制，您可以将其克隆并设置新的日期。您也可以使用克隆选项来为您已经配置的课程创建额外的节。
+      no_class_holidays: 我没有班级假日
+      save_cloned_course: 保存新的课程
+      start_date: 开始日期
+      start_date_placeholder: 开始日期（YYYY-MM-DD）
+      subject: 主题
+      update_scheduled: 已安排更新。数据将连同所有当前程序一起，在下次更新周期时进行更新。这通常需要数小时。
+    current: 当前课程
+    data_articles: 条目数据
+    data_articles_info: 条目数据包含每页面的编辑数、哪些页面较新以及页面浏览总数。这些页面浏览值对于已经结束的课程而言可能过时，所以也包括链接到维基媒体基金会工具实验室页面浏览工具的url。
+    data_download_info: 下载数据为CSV格式。
+    data_overview: 概览数据
+    data_edits: 编辑数据
+    data_edits_info: 编辑数据显示项目期间每次编辑的详情。
+    data_students: 编辑者数据
+    data_uploads: 共享资源上传数据
+    delete_course: 删除课程
+    delete_suggestion: 删除
+    delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
+    dismiss_survey: 关闭
+    dismiss_survey_confirm: 您确定要永久关闭此调查么？
+    download_stats_data: 下载统计
+    does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
+    duration: 课程持续时间
+    edit_course_dates: 编辑课程日期
+    enable_chat: 启用聊天
+    end: 结束
+    ended: 课程已启用。
+    enroll: 注册
+    enrollment: 登记
+    courses_enrolled: 课程已登记
+    error:
+      exists: 该课程已存在！请使用不同的标题、学校或学期再试。
+      user_exists: 对不起，%{username}不是一位存在的用户。
+      invalid_language_or_project: 无效语言/项目
+      invalid_slug: 清空课程所属学校/标题。
+      duplicate_slug: 另一个叫%{slug}的课程已存在。
+    expected_students: 预期学生
+    features_feedback: 自动化建议：
+    feedback: 反馈
+    feedback_loading: 请等待，建议正在加载...
+    gradeables_none: 此课程没有可批改作业。
+    instructor:
+      one: 导师
+      other: 导师
+    instructors: 导师
+    invitation: 您已被邀请加入%{title}。要加入课程，您需要使用维基百科账户登录。
+    invitation_username_advice: 如果您尚未拥有维基百科账户，现在注册一个。您的用户名可以匿名——或作为个人标识——这基于您的选择。（不允许共享账户。）
+    join: 加入
+    join_course: 加入课程
+    join_prompt: 加入“%{title}”么？
+    join_successful: 您已成功加入%{title}。
+    join_failed: 登记失败。
+    join_failure_details:
+      cannot_join_twice: 用户不可以2次加入同一课程。
+      not_yet_approved: 此课程尚未批准登记。
+    join_details: 要加入该程序，您需要获取密码——或包含密码的登记链接——来自导师。如果您尚未接收到密码，请联络您的导师。
+    leave_confirmation: 您确定要离开这个课程么？
+    leave_course: 离开课程
+    loading: 正在载入…
+    milestones_none: 此课程目前没有任何里程碑。
+    my_articles: 我的条目
+    needs_update: 计划数据更新
+    new_week: 添加新的一周
+    nocourses: 您未参加任何课程。
+    nocourse: 未参加任何课程。
+    none: 无
+    notify_untrained_confirmation: 这将在讨论页为所有未能完成分配训练模块的学生发布一则提示。您确定要这样做么？
+    no_available_actions: 无可用操作
+    overview: 首页
+    passcode: 密码
+    passcode_none: 无密码
+    passcode_prompt: 输入密码以加入：
+    published: 您的课程已发布！学生们可以通过下面的URL报名课程：
+    rating_feedback: 条目预测的评级为：
+    review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
+    revisions_doc: 过去%{timeframe}天内的编辑数
+    revisions_none: 此课程最近没有活跃编辑维基百科。
+    school: 学校
+    school_and_term: 机构/学期
+    start: 开始
+    start_typing: 开始输入
+    students: 学生
+    students_taught: 所教学生
+    students_count: '# 学生'
+    student_editors: 学生编辑者
+    students_none: 此课程没有学生。
+    students_short: 学生
+    submitted_admin: 该课程已由创建者提交待通过。要通过它，将其添加至概述页面的运动中。
+    submitted_and_pending_heading: 已提交并等待批准
+    submitted_heading: 提交的课程
+    submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
+    suggestions_feedback: 有任何改进该功能的建议么？让我们知道！
+    suggestions_sending: 正在发送反馈...
+    suggestions_sent: 反馈已发送。感谢您输入的内容。
+    suggestions_failed: 不能发送反馈。稍后重试。
+    user_role: 角色
+    course_details: 课程详情
+    subject: 主题
+    submitted: 已提交
+    term: 学期
+    timeline: 分配详细信息
+    timeline_enabled: 已启用时间轴
+    timeline_link: 时间轴
+    time_zone_message: 开始和结束时间会以您的本地时区显示。
+    title: 标题
+    training_due: 培训模块“%{title}”已分配给该课程，并将于%{date}到期。
+    training_nav: 前往培训
+    training_overdue: 培训模块“%{title}”已分配给该课程，并已于%{date}到期。
+    unsubmitted: 未提交的课程
+    untrained: 未经训练
+    uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
+    user_suggestions: 用户建议：
+    user_suggestions_prompt: 您为条目编辑者提出的建议
+    view_other: 查看其它运动
+    view: 查看课程
+    view_doc: 所有由登记编辑者编辑的条目，自从他们对每个条目的第一次编辑以来的查看量之和
+    view_page: 查看课程页面
+    view_wiki: 在维基百科上查看
+    volunteer:
+      one: 志愿者
+      other: 志愿者
+    weeks_none: 此课程尚无时间线。
+    warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
+    wiki_staff: Wiki Ed职员
+    word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
+    yourcourses: 您的课程
+    survey:
+      notification_message: 接受我们为此课程设立的调查。
+      link: 接受调查
+  courses_generic:
+    all_courses: 所有计划
+    archived: 存档的程序
+    articles_none: 目前此项目尚无编辑的条目。
+    assignment_end: 时间轴终点
+    assignments_none: 此项目没有分配的条目。
+    assignment_start: 时间轴起点
+    cancel: 取消
+    course: 课程
+    courses: 程序
+    courses_taught: 教授的程序
+    campaigns: 运动：
+    campaign_courses: '%{title}程序'
+    creator:
+      checking_for_uniqueness: 这个程序正在检查其独立性。
+      choose_clone: 选择要克隆的计划。
+      clone_previous: 克隆上一个程序
+      clone_this: 克隆此计划
+      clone_successful: 课程已成功关闭
+      clone_successful_details: 您的课程已被克隆。点击下方“保存”以完成课程。
+      course_when: 在“何时”字段中添加一些内容（例如月和年）以区分它和原始内容。
+      course_description: 程序描述
+      course_school: 机构
+      course_term: 何时
+      course_term_placeholder: 何时
+      course_title: 程序标题
+      create_button: 创建我的程序！
+      create_label: 创建新项目
+      create_new: 创建一个独立课程
+      create_short: 创建项目
+      find: 找到一个课程
+      intro: 来自课程URL的课程标题及机构。The home wiki is the main wiki where participants will
+        be working, and edits on this wiki will tracked by default. If your program
+        spans multiple languages or projects, contributions will also be tracked for
+        any wiki that has an 'Available Article' or 'Assignment' for that wiki. 点击“创建我的程序！”以开始构造用于您wiki程序的页面。
+      participate_in_campaign: 参与活动
+      save_cloned_course: 保存
+    delete_course: 删除计划
+    edit_course_dates: 编辑项目日期
+    explore: 找到程序
+    enroll: 添加编辑者
+    enrollment: 参与
+    courses_enrolled: 程序已参与
+    expected_students: 预期编辑者
+    instructors: 促进者
+    join_course: 加入程序
+    join_details: 要加入此程序，您需要获取密码——或包含密码的链接——来自引导者。
+    leave_course: 离开计划
+    milestones_none: 此课程目前没有任何里程碑。
+    published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
+    revisions_none: 此项目没有最近编辑活动。
+    school: 机构
+    school_and_term: 机构/何时
+    student_editors: 编辑者
+    students: 编辑者
+    students_taught: 总计编辑
+    students_none: 此项目没有编辑者登记。
+    students_short: 编辑者
+    students_count: 参与者数量
+    term: 何时
+    unsubmitted: 未提交的程序
+    uploads_none: 此项目没有贡献任何图片或其他媒体文件至维基共享资源。
+    view_other: 查看其它运动
+    view_page: 查看程序页面
+    word_count_doc: 在课程的学期期间，由程序的编辑者添加至主名字空间条目字数的估计
+    yourcourses: 您的程序
+  editable:
+    edit: 编辑
+    cancel: 取消
+    save: 保存
+    edit_description: 编辑描述
+    edit_details: 编辑详情
+    edit_template: 编辑模板
+  metrics:
+    activity: 最近活跃
+    are_trained: 最近培训
+    articles_created: 创建的条目
+    articles_edited: 编辑的条目
+    characters: 字符
+    char_added: 添加的字符
+    char_changed: 更改的字符
+    char: 添加的字符
+    date_time: 日期/时间
+    edit_count_description: 总计编辑
+    per_user: '%{number}/用户'
+    revisions: 最近编辑
+    tags: 标签
+    upload_count: 共享资源上传
+    uploads_in_use_count:
+      one: 条目中使用的文件
+      other: 条目中使用的文件
+    upload_usages_count:
+      one: 跨语言使用总计
+      other: 跨语言使用总计
+    view_count_description: 条目查阅
+    view_data_unavailable: 没有可用的视图数据
+    view: 查看
+    word_count: 添加的文字
+    word_count_average: 平均字数
+  namespace:
+    main: 主名字空间
+    main_char_added: 主名字空间字符已添加
+    user: 用户名字空间
+    user_char_added: 添加的用户名字空间字符
+    user_ns: 用户
+  recent_activity:
+    active_courses: 条目活跃于
+    article_title: 条目标题
+    datetime: 日期/时间
+    did_you_know_eligible: 符合“您知道吗”资格
+    image: 图像
+    file_name: 文件名
+    no_dyk_eligible: 目前在此没有任何符合“您知道吗”资格的条目。
+    no_plagiarism: 目前在此没有任何被怀疑抄袭的最近修订。
+    no_edits: 这里没有最近编辑。
+    plagiarism_report: 剽窃报告
+    possible_plagiarism: 可能涉嫌剽窃
+    recent_edits: 最近编辑
+    recent_uploads: 最近上传
+    revision_author: 修订版本作者
+    revision_datetime: 修订日期/时间
+    revision_score: 修订分数
+    show_courses: 只显示我的课程
+    uploaded_by: 上传者
+    usage_count: 占用计数
+  revisions:
+    chars_added: 添加的字符
+    class: 等级
+    date_time: 日期/时间
+    diff: 差异
+    diff_show: 显示
+    diff_hide: 隐藏
+    edit_time_span: 从%{first_time}到%{last_time}期间发生的编辑
+    edited_by: 编辑者
+    edited_on: 于%{edit_date}时的编辑
+    loading: 正在加载修订……
+    none: 此课程没有最近编辑活动。
+    time_doc: 在您本地时间内，每个修订的时间
+    title: 标题
+    view_on_wiki: 在wiki上查看差异
+  suggestions:
+    editing: 编辑建议
+    suggestion_docs:
+      ga: 一些按主题的编辑和样式专家很有帮助；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
+      list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
+      '?': 建议不可用——条目未评级，或没有用于评级的建议。
+      does_not_exist: 此条目在维基百科不存在。
+  tasks:
+    conseq: 课程%{task}已在进行！
+    constant: 当update_daily运行时，任务%{task}不能运行。
+    paused: 任务%{task}不能运行，因为计划更新已暂停。运行“rake batch:resume”以恢复更新。
+  timeline:
+    add_week: 添加周
+    arrange_timeline: 安排时间轴
+    arrange_timeline_instructions: 通过将块“拖放”到预定位置/周来排列时间轴，或通过卡片上的箭头重新定位块。
+    assignment_dates_instructions: 选择维基百科分配时间轴的开始和结束日期。更改开始日期将改变整个时间轴的日期。
+    blackout_week_created: 本周有计划的块。请在您移除从此周起的最近一次班会之前，将它们移动到另一周。
+    block_assignment: 分配
+    block_custom: 自定义
+    block_in_class: 上课中
+    block_milestone: 里程碑
+    block_type: 块类型用于向您的学生传达有关此项目在其时间轴上的情况，并为您建立有用的工具（例如概述页面上的里程碑概要）
+    course_dates: 课程日期
+    course_dates_instructions: 选择整个课程的开始和结束日期（而不只是维基百科分配）。
+    course_end: 课程结束
+    course_start: 课程开始
+    delete_week_confirmation: |-
+      您确定要删除该周？这将删除这周及其所有相关块。
+
+      这不能撤销。
+    delete_weeks_confirmation: |-
+      您确定要删除此条目时间轴，并重新开始么？
+
+      这不能撤销。
+    discard_all_changes: 丢弃所有更改
+    delete_timeline_and_start_over: 删除时间轴
+    due_default: 预计下周
+    empty_week_1: 要开始，
+    empty_week_2: 开始编辑本周
+    empty_week_3: 或
+    empty_week_4: 使用分配向导创建时间轴。
+    first_week_title: 首个活跃周
+    gradeable_value: 值
+    gradeables_none: 此时间轴没有分配被标记为已分级。
+    grading_header: 正在分级（总计：%{total}%）
+    move_block_down: 向下移动块
+    move_block_up: 向上移动块
+    no_class_holidays: 我没有班级假日
+    no_timeline: 此课程没有时间轴。
+    no_activity_this_week: 本周没有预定的会议
+    nothing_this_week: 本周在日程表上没有安排。
+    save_all_changes: 保存全部
+    this_week_title_default: 本周
+    title: 时间轴
+    unable_to_add_week: 当您的时间轴充满时，您不能添加新周。删除至少一周或更改您的分配日期以为新的一周腾出地方。
+    view_full_timeline: 查看完整时间轴
+    week_number: 第%{number}周
+  training:
+    continue: 继续（%{progress}）
+    start: 开始
+    view: 查看
+    logged_out: 您已退出。除非您登录，您将不会收到完成此模块的学分。
+  uploads:
+    datetime: 日期/时间
+    file_name: 文件名
+    header: 上传至维基共享资源的文件
+    image: 图像
+    label: 上传
+    loading: 正在加载上传...
+    none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
+    time_doc: 您本地时间的每次上传时间
+    uploaded_by: 上传者
+    usage_count: 使用计数
+    usages: 用法
+  users:
+    already_enrolled: 那位用户已经登记了！
+    assign_articles: 分配条目
+    assign_articles_done: 完成
+    assigned: 分配的条目
+    assignees: 委托人
+    character_doc: 用户添加至此名字空间的内容总数，calculated by adding up the added characters for
+      all edits that increased page size. This number doesn't necessarily reflect
+      the amount of new content the user added. Restoring removed content will also
+      increase this total.
+    chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
+    contributions: 用户贡献
+    contributions_history_full: 在维基百科查看完整贡献历史
+    contributions_more: 查看更多贡献
+    contribution_statistics: 贡献统计
+    course_passcode: 密码：
+    editors: 学生编辑者
+    enroll_confirmation: 您确定要添加%{username}么？
+    enroll_url: 用户可通过访问此URL加入：
+    enrolled_success: '%{username}已成功添加！'
+    first_name: 名
+    last_name: 姓
+    loading: 正在加载用户...
+    characters_added_mainspace: 添加的主空间字符
+    characters_added_short: 主空间：%{mainspace}，用户空间：%{userspace}
+    characters_added_userspace: 添加的用户空间字符
+    my_assigned: 已分配：
+    my_reviewing: 正在复核：
+    name: 名字
+    none: 这里没有参与者。
+    no_articles: 没有条目
+    no_revisions: 这位编辑者没有做出修订。
+    number_of_articles:
+      one: '%{count}个条目'
+      other: '%{count}个条目'
+    recent_revisions: 最近编辑
+    remove_confirmation: 您确定要移除%{username}吗？
+    revision_characters_and_views: 添加的字符：%{characters}，浏览数：%{views}
+    revisions_doc: 此编辑者在过去7天内的编辑次数
+    reviewers: 复核员
+    reviewing: 正在复核
+    training_complete:
+      one: 是最新的培训
+      other: 是最新的培训
+    training_complete_count:
+      one: '%{count}最近的培训'
+      other: '%{count}最近的培训'
+    training_doc: 已完成所有分配的已到期培训模块的编辑者可算作是最近完成训练的。
+    training_incomplete: 培训未完成
+    training_modules_completed:
+      one: '%{completed_count}/%{count}培训模块已完成'
+      other: '%{completed_count}/%{count}培训模块已完成'
+    training_module_name: 培训模块
+    training_module_status: 状态
+    up_to_date_with_training: 最近培训
+    username: 用户名
+    username_placeholder: 用户名
+    role:
+      visitor: 访问者
+      student: 学生
+      instructor: 导师
+      campus_volunteer: 校园志愿者
+      online_volunteer: 在线志愿者
+      wiki_ed_staff: Wiki Ed职员
+  user_profiles:
+    student_impact: 由%{username}作为学生做出的总影响
+    instructor_impact: 由%{username}作为导师做出的总影响
+    instructors_student_impact: 由%{username}的学生做出的总影响
+    disclaimer: 您提供的信息将公开可用。
+    bio_placeholder: 添加您的个人简历（可选）
+    location_placeholder: 添加您的位置（可选）
+    institution_placeholder: 机构名称（可选）
+  wiki_edits:
+    notify_overdue:
+      confirm: 这将在讨论页为所有有逾期培训的学生发布一则提示。您确定要这样做么？
+      header: 您有一个过期的培训任务。
+      message: 请完成分配的[%{link} 培训模块]。
+      summary: 学生培训迟到
+  wizard:
+    assignment_dates: 分配日期
+    assignment_description: 选择您的分配时间轴的开始和结束日期。例如，如果您希望在班级的第二周开始您的维基百科项目，将分配开始时间设置为课程开始时间之后的一周。此分配设计工具将创建适合您选择的时间轴日期的草稿时间轴。
+    assignment_type: 分配类型
+    calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。这将帮助课程创建工具准确分隔您的分配。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请在下方勾选“我没有班级假日”。
+    confirm_dates: 为您的课程选择课程日期、每周例会和假日。
+    course_dates: 课程日期
+    min_weeks: 此分配需要至少%{min_weeks}个有效周。如果您希望使用这种分配类型的话，请调整您的分配开始和结束日期。
+    select_one_option: 请选择1个选项。
+    minimum_options:
+      one: 请选择%{count}个或更多选项。
+      other: 请选择%{count}个或更多选项。
+    read_less: 阅读更少
+    read_more: 阅读更多
+    review_selections: 请在下方复核您的选项。点击以编辑一个选项。当结束时，点击“提交”以结束向导，并构建您的时间轴。
+    select_assignment: 选择您希望添加至您的时间轴的任务类型。
+    summary: 摘要
+  error:
+    form_errors: 请检查表单中的错误。
+    invalid_assignment: 无效分配
+    invalid_date: '%{key}日期无效'
+    invalid_file_format: 文件不能被保存。请上传PDF或Word文档。
+    oauth_invalid: 您的维基百科授权已过期。请重新登录。
+    start_date_before_end_date: 开始日期必须在结束日期之前
+    unsupported_browser:
+      header: 浏览器不受支持。:-(
+      explanation: 您正在使用与控制面板不兼容的浏览器。此网站在Internet Explorer 11或更高版本、Chrome和Firefox浏览器的最新版本以及其他现代浏览器上正常工作。
+  error_401:
+    header: 未获授权。>:-(
+    explanation: 您未被授权执行此请求。如果您相信看见此通知是个错误，请联络此控制面板的维护人员以让他们了解有关问题的详情。
+    json_explanation: 看起来您已经退出。请刷新登录并重试。
+  error_incorrect_passcode:
+    header: 密码不正确。:-(
+    explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。
+  error_404:
+    header: 找不到页面。:-(
+    explanation: 此页面不存在。如果您曾尝试到达一个课程的控制面板。那个课程可能没有为此控制面板注册。如果它刚刚注册，它可能需要一段时间以让系统添加它。
+  error_422:
+    header: 422 — 错误实体。:-(
+    explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
+  error_500:
+    header: 500 — 内部服务器错误。:-(
+    explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。
+  login_error:
+    header: 登录错误
+    explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
+  survey:
+    login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
+    notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。
+    notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。
+    follow_up_explanation: 如果不要求跟随电子邮件通知则留空。
+    email:
+      headline: 您好，%{username}
+      message_line1: 我们希望您有一个伟大的学期！Wiki Ed正在寻求您的反馈，以改进我们的资源，并支持您的维基百科作业。您的响应对于改进我们当前的产品至关重要。
+      message_line2: 您愿意花费15分钟以填写我们的导师调查表么？点击下面的按钮以帮助我们使通过维基百科教学回报更多，及获得宝贵的经验。
+      course: 课程：%{course_info}
+      closing: 真诚地感谢您
+      signed: '- Wiki Ed团队'
+      link: 接受调查
+    follow_up:
+      message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
+  feedback_form_responses:
+    no_responses: 目前没有反馈响应。
+...

@@ -1,0 +1,19 @@
+id: 1610
+title: Add the article to the list
+summary:
+content: |
+  When you've made a list of articles to assign, you'll want to share them so
+  students can see them. Here's how to create your "Available Articles" list.
+
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Wiki_Education_Foundation_dashboard_Available_Articles_component.png" />
+  </figure>
+
+  First, navigate to the **Articles** tab of your course page.
+
+  1. Click 'Add an available article'
+  2. Enter the title (or paste the url) of the article you want to be available
+  3. Click 'Assign'
+  4. Repeat for each article.
+
+  That's it!

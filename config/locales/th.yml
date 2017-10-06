@@ -1,0 +1,216 @@
+# Messages for Thai (ไทย)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ans
+# Author: Pon44695
+# Author: TMo3289
+---
+th:
+  application:
+    cancel: ยกเลิก
+    dashboard: แดชบอร์ดของวิกิการศึกษา
+    explore: สำรวจ
+    field_required: ต้องใส่ข้อมูลในช่องนี้
+    field_invalid_characters: ช่องนี้มีตัวอักษรที่ไม่ถูกต้อง
+    field_invalid_date: ช่องนี้ต้องใส่วันที่ในรูปแบบ ปปปป-ดด-วว
+    greeting2: ยินดีต้อนรับ!
+    greeting_extended: ยินดีต้อนรับสู่วิกิพีเดีย
+    greeting: สวัสดี!
+    help: วิธีใช้
+    home: หน้าหลัก
+    log_in_extended: ลงชื่อเข้าใช้ด้วยวิกิพีเดีย
+    log_in: ลงชื่อเข้าใช้
+    log_out: ออกจากระบบ
+    my_dashboard: แผงควบคุมของฉัน
+    recent_activity: กิจกรรมล่าสุด
+    search: ถามคำถาม
+    sign_up_extended: เข้าร่วมด้วยวิกิพีเดีย
+    sign_up_log_in_extended: ด้วยวิกิพีเดีย
+    sign_up: เข้าร่วม
+    submit: ตกลง
+    training: การอบรม
+    change: ความเปลี่ยนแปลง
+    details: รายละเอียด
+    confirm: ตกลง
+  dashboard:
+    create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
+    explore_course_pages: สำรวจหน้าหลักสูตร
+    explore_examples: ตัวอย่างการสำรวจ
+    join_note: ทันทีที่คุณได้รับรหัสผ่านจากผู้สอนของคุณ คลิกที่ หาหลักสูตรของคุณ เพื่อค้นหาและเข้าร่วม
+    no_courses_instructor: ดูเหมือนว่าคุณไม่มีหลักสูตรใดเลย
+    no_courses_student: ดูเหมือนว่าคุณยังไม่มีการเข้าร่วมหลักสูตรใดเลย
+    blog_headline: ข่าวล่าสุดจากวิกิการศึกษา
+  home:
+    explore: สำรวจ
+    log_in: ลงชื่อเข้าใช้ด้วยวิกิพีเดีย
+    sign_up: เข้าร่วมด้วยวิกิพีเดีย
+  activity:
+    all: กิจกรรม
+    edited_by: ถูกแก้ไขโดย
+    label: กิจกรรม
+  articles:
+    edited_mobile: บทความ
+    label: บทความ
+    loading: กำลังโหลดบทความ...
+    new: (ใหม่)
+    rating: ชั้นเรียน
+    title: ชื่อเรื่อง
+    title_example: ชื่อบทความ
+    view: ดูบทความ
+    view_all: ดูทั้งหมด
+    view_doc: ผลรวมของการดูทั้งหมดแต่ละบทความระหว่างโครงการ
+    views_added: เพิ่ม %{count} การดูใหม่สำหรับ %{title}
+  assignments:
+    assign_other: กำหนดบทความ
+    add_available: เพิ่มบทความที่สามารถใช้ได้
+    assign_self: กำหนดบทความโดยฉัน
+    confirm_add_available: คุณแน่ใจหรือไม่ที่จะเพิ่ม %{title}
+    confirm_addition: คุณแน่ใจหรือไม่ที่จะกำหนด %{title} ไปยัง %{username}
+    confirm_deletion: คุณแน่ใจหรือไม่ที่จะลบงานบทความนี้
+    label: กำหนด
+    loading: กำลังโหลดงาน...
+    none_short: ไม่มีบทความที่ถูกกำหนด
+    none: หลักสูตรนี้ไม่มีบทความที่ถูกกำหนด
+    no_available: หลักสูตรนี้ไม่มีบทความพร้อมบริการ
+    remove: ลบออก
+    reviewers: ผู้ตรวจทาน
+    review_other: กำหนดการตรวจทาน
+    review_self: ตรวจทานบทความ
+    select: เลือก
+  blocks:
+    milestones:
+      title: หินไมล์
+  campaign:
+    campaign: การณรงค์
+    none: ไม่มี
+  courses:
+    activity: กิจกรรม
+    archived: เก็บถาวรหลักสูตร
+    actions: การกระทำ
+    articles: บทความ
+    articles_none: หลักสูตรนี้ยังไม่มีการแก้ไขบทความใด ๆ
+    calendar:
+      legend: คำอธิบายสัญลักษณ์
+      legend_class_canceled: วันหยุด/ยกเลิก
+      legend_class_meeting: การพบปะชั้นเรียน
+      legend_class_not_meeting: ไม่มีตารางการพบปะ
+      select_meeting_days: เลือกวันในสัปดาห์ซึ่งคุณจะพบปะชั้นเรียน
+    cancel: ยกเลิก
+    campaigns: 'การรณรงค์:'
+    course_description: หลักสูตร
+    courses: หลักสูตร
+    creator:
+      assignment_end: สิ้นสุดงาน
+      assignment_end_placeholder: สิ้นสุดงาน (ปปปป-ดด-วว)
+      assignment_start: เริ่มต้นงาน
+      assignment_start_placeholder: เริ่มต้นงาน (ปปปป-ดด-วว)
+      clone_this: โคลนหลักสูตรนี้
+      course_description: คำอธิบายหลักสูตร
+    school: โรงเรียน
+    start: เริ่ม
+    students: นักเรียน
+    students_count: '# นักเรียน'
+    student_editors: บรรณาธิการนักเรียน
+    students_none: หลักสูตรนี้ไม่มีนักเรียน
+    students_short: นักเรียน
+    submitted_admin: หลักสูตรนี้ถูกเสนอเนื่องจากการเห็นพ้องโดยผู้สร้าง เพื่อการอนุมัติ
+      เพิ่มหลักสูตรไปยังการรณรงค์บนหน้าภาพรวม
+    submitted_and_pending_heading: เสนอแล้ว และ อยู่ในการพิจารณาอนุมัติ
+    submitted_heading: เสนอหลักสูตร
+    submitted_note: หลักสูตรของคุณถูกเสนอแล้ว ทีมงานวิกิการศึกษาจะตรวจทานและติดต่อไปหากมีคำถามใด
+      ๆ
+    suggestions_feedback: คำแนะนำเหล่านี้ช่วยคุณได้หรือไม่? โปรดแจ้งให้เราทราบ!
+    user_role: หน้าที่
+    course_details: รายละเอียดหลักสูตรสำหรับ
+    term: ภาคเรียน
+    timeline: รายละเอียดงาน
+    timeline_link: เส้นเวลา
+    time_zone_message: เวลาเริ่มและสิ้นสุดแสดงผลในเขตเวลาท้องถิ่นของคุณ
+    title: ชื่อเรื่อง
+  courses_generic:
+    creator:
+      create_button: สร้างโปรแกรมของฉัน!
+      create_label: สร้างโปรแกรมใหม่
+      create_new: สร้างโปรแแกรมอิสระใหม่
+      create_short: สร้างโปรแกรม
+      find: ค้นหาโปรแกรม
+    delete_course: ลบโปรแกรม
+    edit_course_dates: แก้ไขวันที่โครงการ
+    enroll: เพิ่มผู้แก้ไข
+    enrollment: การมีส่วนร่วม
+    expected_students: ผู้แก้ไขที่คาดหวังไว้
+    instructors: ผู้ให้บริการ
+    join_course: เข้าร่วมโปรแกรม
+    leave_course: ออกจากโปรแกรม
+    school: สถาบัน
+    student_editors: ผู้แก้ไข
+    students: ผู้แก้ไข
+    term: เมื่อไหร่
+  editable:
+    cancel: ยกเลิก
+    save: บันทึก
+    edit_description: แก้ไขคำอธิบาย
+    edit_details: แก้ไขรายละเอียด
+  metrics:
+    activity: กิจกรรมล่าสุด
+    articles_created: สร้างบทความแล้ว
+    articles_edited: แก้ไขบทความแล้ว
+    date_time: วันที่/เวลา
+    edit_count_description: การแก้ไขทั้งหมด
+    per_user: '%{number}/ผู้ใช้'
+    revisions: การแก้ไขล่าสุด
+    upload_count: อัปโหลดไปยังคอมมอนส์
+    view_count_description: จำนวนการดูบทความ
+    view: ดู
+    word_count: เพิ่มคำแล้ว
+    word_count_average: การนับคำเฉลี่ย
+  namespace:
+    main: เมนสเปซ
+  recent_activity:
+    article_title: ชื่อบทความ
+    datetime: วันที่/เวลา
+  users:
+    first_name: ชื่อจริง
+    last_name: นามสกุล
+    loading: กำลังโหลดผู้ใช้...
+    characters_added_mainspace: เพิ่ม MS Chars แล้ว
+    characters_added_userspace: เพิ่ม US Chars แล้ว
+    name: ชื่อ
+    no_articles: ไม่มีบทความ
+    training_incomplete: การอบรมยังไม่สมบูรณ์
+    training_module_name: หลักสูตรการอบรม
+    training_module_status: สถานะ
+    role:
+      student: นักเรียน
+      instructor: ผู้สอน
+      wiki_ed_staff: สตาฟของ Wiki Ed
+  wiki_edits:
+    notify_overdue:
+      confirm: นี่จะโพสต์แจ้งเตือนในหน้าพูดคุยของนัดเรียนทุกคนที่พ้นกำหนดการอบรมแล้ว
+        คุณแน่ใจว่าคุณต้องการทำสิ่งนี้
+      header: คุณมีงานที่พ้นกำหนดการอบรมแล้ว
+      summary: พ้นกำหนดการอบรมนักเรียน
+  wizard:
+    assignment_dates: วันที่งาน
+    assignment_type: ประเภทงาน
+    course_dates: วันที่หลักสูตร
+    select_one_option: กรุณาเลือก 1 ตัวเลือก
+    read_less: อ่านน้อยลง
+    read_more: อ่านเพิ่มเติม
+  error:
+    unsupported_browser:
+      header: เบราว์เซอร์ไม่รองรับ :-(
+  error_incorrect_passcode:
+    header: รหัสผ่านไม่ถูกต้อง :-(
+  error_404:
+    header: ไม่พบหน้า :-(
+  error_500:
+    header: 500 — เซิร์ฟเวอร์ภายในมีข้อผิดพลาด :-(
+  login_error:
+    header: การเข้าสู่ระบบผิดพลาด
+  survey:
+    email:
+      headline: สวัสดี %{username}
+      closing: ด้วยความนับถือ
+      link: ทำแบบสำรวจ
+...

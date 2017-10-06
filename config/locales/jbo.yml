@@ -1,0 +1,20 @@
+# Messages for Lojban (la .lojban.)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Olwe519
+---
+jbo:
+  courses:
+    creator:
+      course_title: lo cmene be lo nunctu
+      create_button: ko finti lo mi nunctu
+      create_short: finti lo nunctu
+  courses_generic:
+    creator:
+      course_school: lo ckule
+      course_title: lo cmene pe lo selpla
+      create_button: ko finti lo mi selpla
+      create_label: finti lo cnino selpla
+      create_new: finti lo cnino selpla
+      create_short: finti lo selpla
+...

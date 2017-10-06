@@ -1,0 +1,28 @@
+%tr{"data-link" => "#{campaign_path(campaign.slug)}"}
+  %td.title{role: "button", tabindex: "0"}
+    = campaign.title
+    %span.creation-date.hidden
+      = campaign.created_at
+  %td
+    %span.num-courses-human
+      = number_to_human(presenter.courses.count)
+    %span.num-courses.hidden
+      = presenter.courses.count
+  %td
+    %span.articles-created-human
+      = number_to_human(presenter.courses.sum(:new_article_count))
+    %span.articles-created.hidden
+      = presenter.courses.sum(:new_article_count)
+  %td
+    %span.characters-human
+      = number_to_human(presenter.word_count)
+    %span.characters.hidden
+      = presenter.word_count
+  %td
+    %span.views-human
+      = number_to_human(presenter.courses.sum(:view_sum))
+    %span.views.hidden
+      = presenter.courses.sum(:view_sum)
+  %td
+    %span.students
+      = presenter.user_count

@@ -1,0 +1,74 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Botansahin
+# Author: Elftrkn
+# Author: HakanIST
+# Author: Hbseren
+# Author: Incelemeelemani
+# Author: JackUKElliott
+# Author: Katpatuka
+# Author: KorkmazO
+# Author: Mavrikant
+# Author: Rapsar
+# Author: Sayginer
+# Author: Uğurkent
+# Author: Vito Genovese
+# Author: Watermelon juice
+---
+tr:
+  application:
+    help: Yardım!
+    log_out: Çıkış
+  activity:
+    edited_by: Düzenleyen
+    label: Etkinlik
+  articles:
+    wiki: Wiki
+  blocks:
+    milestones:
+      title: Kilometre taşları
+  chat:
+    label: Sohbet
+  courses:
+    creator:
+      end_date: Bitiş tarihi
+      start_date: Başlangıç tarihi
+    enable_chat: Sohbeti etkinleştir
+    courses_enrolled: Kaydolunan dersler
+    gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
+    untrained: Eğitimsiz
+  courses_generic:
+    creator:
+      course_title: Program adı
+    courses_enrolled: Katılınan programlar
+  editable:
+    edit: Düzenle
+    edit_template: Şablonu değiştir
+  metrics:
+    char_changed: Karakterler Değişti
+  namespace:
+    user_ns: Kullanıcı
+  revisions:
+    class: Sınıf
+    date_time: Tariq/Saat
+    edited_by: Düzenleyen
+    title: Başlık
+  timeline:
+    delete_weeks_confirmation: |-
+      Tüm zaman çizelgesine kaldırıp baştan başlamak istediğine emin misin?
+
+      Bu geri çevrilemez.
+    delete_timeline_and_start_over: Zaman çizelgesini kaldır
+  users:
+    editors: Editörler
+  wizard:
+    course_dates: Kurs günleri
+    summary: Özet
+  error_incorrect_passcode:
+    header: Yanlış parola. :-(
+    explanation: Bu derse kayıt parolası doğru değildir. Lütfen bu derse kaydolmak
+      için güncel parola kodunu eğitmenden isteyin.
+  error_404:
+    header: Sayfa bulunamadı. :-(
+...

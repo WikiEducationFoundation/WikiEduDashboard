@@ -1,0 +1,13 @@
+# Messages for Croatian (hrvatski)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Ivi104
+# Author: Vrhnje
+---
+hr:
+  courses_generic:
+    campaigns: 'Kampanje:'
+    students_count: Broj sudionika
+  users:
+    training_incomplete: Nepotpun trening
+...

@@ -1,0 +1,16 @@
+# Messages for Mingrelian (მარგალური)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Silovan
+---
+xmf:
+  courses_generic:
+    creator:
+      checking_for_uniqueness: თე პროგრამა უნიკალურობაშ გეშა იმორსებუაფუ.
+      find: პროგრამაშ გორუა
+  users:
+    assign_articles: მეშანილი სტატიეფი
+    assign_articles_done: ღოლამირჷ რე
+  login_error:
+    header: ჩილათა მიშულას
+...

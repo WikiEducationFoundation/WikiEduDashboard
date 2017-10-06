@@ -1,0 +1,10 @@
+- content_for :after_title, " - #{t(Features.wiki_ed? ? 'application.explore' : 'courses_generic.explore')}"
+
+%header.main-page
+  .container
+    %h1= Figaro.env.dashboard_title
+
+.container
+  = render 'campaigns/campaigns', presenter: @presenter
+  %hr
+  = render 'courses/campaign_courses', presenter: @presenter

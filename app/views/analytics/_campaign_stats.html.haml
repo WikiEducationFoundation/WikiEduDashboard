@@ -1,0 +1,15 @@
+%h3
+  - @campaign_stats.each do |campaign, campaign_data|
+    = campaign.to_s
+    %br/
+    - campaign_data.each do |stat, value|
+      %li
+        = stat
+        \: #{value}
+    %br/
+%br/
+%br/
+%h3
+  - @articles_edited.each do |article|
+    %li
+      = article.full_title

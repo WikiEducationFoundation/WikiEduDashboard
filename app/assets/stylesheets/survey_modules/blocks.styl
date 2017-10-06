@@ -1,0 +1,56 @@
+.block--text
+  font-family $header-font
+
+.survey__block-nav
+  display flex
+  justify-content space-between
+  overflow hidden
+  padding-top $spacer * 3
+
+  .button
+    float none
+
+.survey__block-nav__next-container
+  display flex
+
+.block .survey__block-nav.submit
+  text-align center
+  .button
+    float none
+
+// .block--thank-you
+//   visibility hidden
+//   display none
+
+
+.survey-page
+  .block
+    position relative
+    z-index 10
+    transition 300ms opacity easeOutExpo
+    max-width $survey_max_width
+    margin 40px auto
+
+    +above(tablet)
+      font-size 19px
+      line-height 24px
+
+  .block.survey__form
+    margin-top 2em
+
+  .block > label
+    display block
+    margin-bottom $spacer
+    font-weight bold
+
+  .block--clear
+    overflow hidden
+
+  .block.highlight
+    textarea,
+    input[type=text],
+    .survey__question-row:not(.matrix-row) .noUi-background
+      border-color $warning_border
+      background $warning-background
+    .chosen-single
+      border-color $warning_text

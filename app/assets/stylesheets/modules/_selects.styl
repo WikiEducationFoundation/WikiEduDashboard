@@ -1,0 +1,36 @@
+.notify_overdue
+  background url('../images/message.svg') no-repeat 50% white
+  border 1px solid mischka
+  cursor pointer
+  display inline-block
+  float right
+  height 40px
+  margin-left 10px
+  position relative
+  width 64px
+  &.loading
+    background url('../images/loader.gif') no-repeat 50% white
+
+.campaign-select, .sort-select
+  cursor pointer
+  float left
+  margin 10px 10px 10px 0
+  +above(desktop)
+    margin 0
+    position absolute
+    right 0
+    top 20px
+  select
+    cursor pointer
+
+.campaign-select
+  width 190px
+
+.sort-select
+  width 60px
+  &.inset
+    right 191px
+  select.sorts
+    background url('../images/sort.svg') no-repeat 48% white
+    -webkit-appearance none
+    text-indent -200px

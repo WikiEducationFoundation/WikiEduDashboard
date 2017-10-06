@@ -1,0 +1,17 @@
+id: 1605
+title: Navigation templates
+summary:
+content: |
+  Navigation templates like this, sometimes found at the bottom of articles, can
+  provide a quick overview of a category and may also highlight missing articles.
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/HIV-template.png" />
+    <figcaption>
+      Navigation templates may be collapsed by default. Click 'show' to expand them.
+    </figcaption>
+  </figure>
+
+  Links to articles that don't exist are red — whether in a navigation template
+  or the body of an article. Redlinks are often a good indicator that an article
+  ought to exist.

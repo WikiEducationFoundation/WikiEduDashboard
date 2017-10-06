@@ -1,0 +1,15 @@
+- survey = survey_results_index_item
+%li.survey__admin-row.survey__admin-row--results
+  .survey__admin-row__title
+    %strong.name= survey.name
+  .survey__admin-row__col
+    .contextual Status
+    %div= survey.status
+  .survey__admin-row__col
+    .contextual Groups | Questions
+    %strong= survey_question_stats(survey)
+  .survey__admin-row__col
+    .contextual Response
+    %div= survey_response(survey)
+  .survey__admin-row__col.survey__admin-row__col--actions
+    = link_to 'Results', survey_results_path(survey)

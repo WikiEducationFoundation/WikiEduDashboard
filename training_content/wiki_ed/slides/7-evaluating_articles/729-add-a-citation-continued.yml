@@ -1,0 +1,37 @@
+id: 729
+title_prefix: "How to:"
+title: Add a citation (continued)
+summary:
+content: |
+  <figure class="alt-layout-30-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/VisualEditor_citoid_Cite_button.png" />
+  </figure>
+
+  Click "edit" above the section or article you want to edit. Place your cursor
+  where you plan to add the reference (usually at the end of a sentence).
+
+  On the visual editor's toolbar, you'll find the "Cite" button. You can simply
+  paste a URL, and the visual editor will try to sort out all of the fields you
+  need. Be sure to review it, however, and apply missing fields manually (if you
+  know them). You can also add books, journals, news, and websites manually.
+  That opens up a quick guide for inputting your citations.
+
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/VisualEditor_references_more.png" />
+  </figure>
+
+  If the page already contains a citation you want to use again, you can!
+
+  To re-use an existing reference, place your cursor in the body of the text
+  where you want to add the new reference for that citation. Then open the
+  "Cite" menu and find the "Re-use" item.
+
+  To edit an existing reference, use the "edit" button to open the visual editor.
+  Click on the bracketed number for the source you want to edit. You will see an
+  icon for the type of reference (book, web, news, etc.) and an "Edit" button to
+  the right.
+
+  Clicking on the "Edit" button will open a box where you can do exactly that.
+
+  Remember to leave a description of your edit in the edit summary, such as
+  "added reference," and then click "Save."

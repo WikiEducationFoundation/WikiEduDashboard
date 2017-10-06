@@ -1,0 +1,17 @@
+# Messages for Mongolian (монгол)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Munkhzaya.E
+---
+mn:
+  application:
+    log_in: Гарах
+  home:
+    log_in: Википедиад нэвтрэн орох
+  courses:
+    course_description: Курс
+  error_incorrect_passcode:
+    header: Пасспорт буруу.  :-(
+  login_error:
+    header: Бүртгэлийн алдаа
+...

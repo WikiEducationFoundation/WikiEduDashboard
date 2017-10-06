@@ -1,0 +1,937 @@
+# Messages for German (Deutsch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Metalhead64
+# Author: Taresi
+---
+de:
+  accessibility:
+    number_field: Dies ist ein Zahlenfeld. Die von den meisten Browsern dargestellten
+      Schaltflächen erhöhen und vermindern die Eingabe.
+  application:
+    cancel: Abbrechen
+    dashboard: Wiki-Ed-Dashboard
+    documentation: Dokumentation
+    error: 'Es gab einen Fehler:'
+    explore: Entdecken
+    field_required: Dieses Feld ist erforderlich
+    field_invalid_characters: Dieses Feld hat ungültige Zeichen
+    field_invalid_date: Dieses Feld erfordert ein Datum im Format JJJJ-MM-TT
+    field_invalid_date_time: Das Ende muss nach dem Start liegen (Stunden müssen von
+      0 bis 23 gehen).
+    greeting2: Willkommen!
+    greeting_extended: Willkommen bei Wikipedia
+    greeting: Hallo!
+    help: Hilfe
+    home: Start
+    log_in_extended: Mit Wikipedia anmelden
+    log_in: Anmelden
+    log_out: Abmelden
+    my_dashboard: Meine Übersichtsseite
+    recent_activity: Letzte Aktivitäten
+    report_problem: Ein Problem melden
+    search: eine Frage stellen
+    sign_up_extended: Mit Wikipedia registrieren
+    sign_up_log_in_extended: mit Wikipedia
+    sign_up: Registrieren
+    submit: Absenden
+    training: Ausbildung
+    change: Ändern
+    details: Einzelheiten
+    confirm: Okay
+  dashboard:
+    create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
+    create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
+      zur Hand hast, bevor du anfängst. Das Zuweisungsgestaltungswerkzeug verwendet
+      die Daten deiner Klassentreffen (inklusive Schulpausen und Feiertage), um deine
+      Zeitleiste an den ausgewählten Datumsbereich anzupassen. Vergiss nicht: Du kannst
+      jederzeit die Zeitleiste bearbeiten, um deinen Bedarf anzupassen.'
+    explore_course_pages: Die Kursseiten entdecken
+    explore_examples: Beispiele entdecken
+    join_note: Sobald du von deinem Kursleiter einen Passcode erhalten hast, klicke
+      auf „Finde deinen Kurs“, um ihn zu finden und ihm beizutreten.
+    no_courses_instructor: Es sieht aus, als ob du keine Kurse hast.
+    no_courses_student: Es sieht aus, als ob du noch keinem Kurs beigetreten bist.
+    opt_out: Opt-Out der Einführung beantragen
+    orientation_notice: Bevor du einen Kurs erstellst, sehe dir die Einführung an,
+      um dir beim Anfangen zu helfen. Die Vervollständigung dauert ungefähr 30 Minuten.
+    review_orientation: Einführung überprüfen
+    start_orientation: Einführung beginnen
+    blog_headline: Aktuelle Neuigkeiten von Wiki Ed
+    about_programs: Diese Website verfolgt Wikiaktivitäten durch Programme – einzelne
+      Ereignisse wie ein Editathon oder Schulkurse. Jedes Programm ist Teil einer
+      oder mehrerer Kampagnen, die zusammengefasste Statistiken über Programme zur
+      Verfügung stellen.
+    about_creating_programs: Falls du ein einzelnes unabhängiges Ereignis durchführst,
+      kannst du jetzt ein Programm erstellen. Falls dein Ereignis ein Teil von etwas
+      Größerem ist, finde oder erstelle die Kampagne für das Ereignis. Dann kannst
+      du ein neues Programm von der Kampagnenseite erstellen.
+  home:
+    explore: Entdecken
+    log_in: Mit Wikipedia anmelden
+    sign_up: Mit Wikipedia registrieren
+    sign_up_help: Um das Dashboard zu nutzen, musst du dich bei Wikipedia anmelden
+      und Zugriff auf dein Benutzerkonto gewähren. Du kannst dich mit einem vorhandenen
+      Wikipedia-Benutzerkonto anmelden oder ein neues erstellen.
+  activity:
+    all: Aktivität
+    edited_by: Bearbeitet von
+    label: Aktivität
+  articles:
+    assigned: Zugeordnete Artikel
+    available: Verfügbare Artikel
+    assigned_to: Zuordnung zu
+    character_doc: Die Summe der durch eingeschriebene Autoren an Artikeln hinzugefügten
+      Zeichen zwischen den Start- und Enddaten.
+    cross_wiki_tracking: Seiten im Hauptnamensraum, die zwischen dem Start- und dem
+      Enddatum bearbeitet wurden, werden unten aufgelistet. Die Verwaltungsseite bezieht
+      Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
+      die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
+    edited: Bearbeitete Artikel
+    edited_by: 'Bearbeitet von:'
+    edited_mobile: Artikel
+    hide: Ausblenden
+    label: Artikel
+    loading: Lade Artikel …
+    new: (neu)
+    none: Dieser Kurs hat keine Artikel bearbeitet.
+    rating: Klasse
+    rating_doc: Die Bewertung eines Artikels, die von den Wikiprojekten vergeben wurde.
+      Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
+      grobes Anzeichen der Artikelreife sind.
+    rating_docs:
+      fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
+        für ein Hauptprojekt eines neuen Autoren.
+      fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen.
+      a: A-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt ist für
+        ein Hauptprojekt eines neuen Autoren.
+      ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
+        für ein Hauptprojekt eines neuen Autoren.
+      b: B-Klasse – Ein mäßig entwickelter Artikel.
+      c: C-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.
+      start: Start-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.
+      stub: Stub-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.
+      list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
+      '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
+        bewertet wurde.
+      does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
+    show_cumulative_changes: Kumulative Änderungen anzeigen
+    show_current_version: Aktuelle Version anzeigen
+    show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
+    title: Titel
+    title_example: Artikelname
+    view: Artikel anzeigen
+    view_all: Alles anzeigen
+    view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
+    view_on_wiki: Im Wiki ansehen
+    views_added: '%{count} neue Aufrufe für %{title} hinzugefügt'
+    edit_size: Bearbeitungsgröße
+    wiki: Wiki
+    wp10: Strukturelle Vollständigkeit
+    wp10_doc: Die Bewertung „Strukturelle Vollständigkeit“ stellt dar, wie sehr ein
+      Artikel dem Modell eines reifen Wikipedia-Artikels entspricht, basierend auf
+      dem maschinenlernbasierten Objektiven Versionsbewertungsdienst (https://ores.wikimedia.org/).
+      Diese Bewertungen werden basierend auf der Größe eines Artikels, der Anzahl
+      der Einzelnachweise und Wikilinks und anderen Basistextfunktionen berechnet.
+      Eine hohe Bewertung zeigt für gewöhnlich an, dass ein Artikel den Wikipedia-Konventionen
+      für die Struktur eines guten Artikels folgt, aber sie berücksichtigt nicht den
+      Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
+      verfügbar.
+  assignments:
+    article: Der Artikel %{title} ist jetzt dir zugewiesen.
+    already_exists: Diese Zuweisung ist bereits vorhanden!
+    title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
+    assignees: Zugeordnete/r Benutzer/in(nen)
+    assign_other: Einen Artikel zuweisen
+    add_available: Einen verfügbaren Artikel hinzufügen
+    assign_self: Einen Artikel selbst zuweisen
+    assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
+      oder zu verbessern.
+    confirm_add_available: Bist du sicher, dass du %{title} hinzufügen möchtest?
+    confirm_addition: Möchtest du %{title} wirklich zu %{username} zuordnen?
+    confirm_deletion: Möchtest du diese Artikelzuordnung wirklich löschen?
+    label: Zuweisen
+    loading: Lade Zuordnungen…
+    none_short: Keine zugewiesenen Artikel
+    none: Dieser Kurs hat keine zugewiesenen Artikel.
+    no_available: Dieser Kurs hat keine verfügbaren Artikel.
+    remove: Entfernen
+    reviewers: Prüfer/in(nen)
+    review_other: Eine Überprüfung zuweisen
+    review_self: Einen Artikel überprüfen
+    review_tooltip: Dies ist zur Verfolgung, welche(n) Artikel du zur Begutachtung
+      planst oder zu dem/denen du Rückmeldungen geben möchtest.
+    select: Auswählen
+  blocks:
+    milestones:
+      title: Meilensteine
+  campaign:
+    active_campaigns: Aktive Kampagnen
+    add_organizer: Organisator hinzufügen
+    all_campaigns: Alle Kampagnen
+    already_exists: Diese Kampagne ist bereits vorhanden! Bitte versuche es mit einem
+      anderen Titel erneut.
+    campaign: Kampagne
+    campaigns: Kampagnen
+    campaign_deleted: Die Kampagne „%{title}“ wurde gelöscht
+    campaign_not_updated: Die Kampagne konnte nicht aktualisiert werden
+    campaign_updated: Kampagne aktualisiert
+    confirm_campaign_deletion: Bist du sicher, dass du die Kampagne mit dem Namen
+      „%{title}“ löschen möchtest? Falls ja, gib zum Fortfahren den Kampagnentitel
+      ein.
+    confirm_campaign_deletion_failed: „%{title}“ ist nicht der Titel dieser Kampagne.
+      Sie wurde nicht gelöscht.
+    confirm_course_removal: Bist du sicher, dass du „%{title}“ von der Kampagne „%{campaign_title}“
+      entfernen möchtest?
+    course_already_removed: „%{title}“ wurde bereits von der Kampagne „%{campaign_title}“
+      entfernt
+    course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
+    create_campaign: Eine neue Kampagne erstellen
+    create_my_campaign: Meine Kampagne erstellen!
+    description: Beschreibung
+    delete_campaign: Diese Kampagne löschen
+    none: Keine
+    organizers: Organisatoren
+    organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
+    organizer_removed: '%{user} wurde als Organisator der Kampagne „%{title}“ entfernt'
+    program_template: Programmvorlage
+    program_template_tooltip: Wenn ein Organisator ein Programm in dieser Kampagne
+      erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
+      darüberkopiert.
+    title: Titel
+    use_start_end_dates: Start- und Enddaten verwenden
+  chat:
+    label: Chat
+  courses:
+    activity: Aktivität
+    active_courses: Aktive %{course_type}
+    all_courses: Alle Kurse
+    already_enrolled: Du bist bereits ein Teil von „%{title}“!
+    already_exists: Dies ist bereits für diesen Kurs vorhanden!
+    archived: Archivierte Kurse
+    actions: Aktionen
+    articles: Artikel
+    articles_none: Dieser Kurs hat keine Artikel bearbeitet.
+    assignment_end: Zuweisungs-Ende
+    assignments_none: Dieser Kurs hat keine zugewiesenen Artikel.
+    assignment_start: Zuweisungs-Beginn
+    calendar:
+      legend: Legende
+      legend_class_canceled: Feiertag/Annulliert
+      legend_class_meeting: Klassentreffen
+      legend_class_not_meeting: Kein geplantes Treffen
+      select_meeting_days: Wähle die Wochentage aus, an denen sich deine Klasse trifft.
+    cancel: Abbrechen
+    character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
+      Hauptnamensraum-Artikeln hinzugefügten Zeichen
+    campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Kurse'
+    campaign_articles: '%{title} Artikel'
+    campaign_users: '%{title} Autoren'
+    confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
+      löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
+    confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
+      Der Kurs wurde nicht gelöscht.
+    course: Kurs
+    course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
+      oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
+      an, um zwischen unausgewählt, ausgewählt und Feiertagsstatus zu wechseln. Die
+      Daten der Kursaktivitäten ändern das Konto für Wochen, die keine geplanten Treffen
+      haben.
+    course_description: Kurse
+    courses: Kurse
+    courses_taught: Unterrichtete Kurse
+    creation_date: Erstelldatum
+    creator:
+      already_exists: Dieser Kurs ist bereits vorhanden. Ziehe in Erwägung, den Namen,
+        die Schule oder Dauer zu ändern, um ihn eindeutig zu machen.
+      assignment_end: Zuweisungsende
+      assignment_end_placeholder: Zuweisungsende (JJJJ-MM-TT)
+      assignment_start: Zuweisungsbeginn
+      assignment_start_placeholder: Zuweisungsbeginn (JJJJ-MM-TT)
+      checking_for_uniqueness: Dieser Kurs wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle einen zu klonenden Kurs aus.
+      clone_previous: Vorherigen Kurs klonen
+      clone_this: Diesen Kurs klonen
+      cloned_course_calendar_instructions: Wähle Daten aus, um sie dem Plan hinzuzufügen
+        oder aus ihm zu entfernen (z.&nbsp;B. Feiertage, schulfrei). Klicke das Datum
+        an, um zwischen nicht ausgewählt, ausgewählt und Feiertagsstatus auszuwählen.
+        Falls du keine Feiertage hast, klicke „Ich habe keine Feiertage“ an. Die geklonte
+        Zeitleiste passt sich automatisch den Daten im Benutzerkonto für Wochen, die
+        keine geplanten Treffen haben, an.
+      clone_successful: Kurs erfolgreich geklont
+      clone_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
+        (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
+        nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
+        keinen Zwang an, ihn jetzt zu aktualisieren.
+      course_description: Kursbeschreibung
+      course_language: Heimatsprache
+      course_project: Heimatprojekt
+      course_school: Kursschule
+      course_subject: Kursthema
+      course_term: Kursdauer
+      course_term_placeholder: Dauer
+      course_title: Kurstitel
+      create_button: Meinen Kurs erstellen!
+      create_label: Neuen Kurs erstellen
+      create_new: Einen neuen Kurs erstellen
+      create_short: Kurs erstellen
+      end_date: Enddatum
+      end_date_placeholder: Enddatum (JJJJ-MM-TT)
+      expected_number: Erwartete Anzahl der Studenten
+      find: Finde deinen Kurs
+      intro: Der Titel, die Schule und Kursdauer erstellen die URL für deine Kursseite
+        und können nicht geändert werden. Alles andere kannst du später bearbeiten.
+        Klicke auf „Meinen Kurs erstellen!“, um mit dem Erstellen der Zeitleiste für
+        deine Wikipedia-Zuweisung anzufangen.
+      new_or_clone: Du kannst jetzt einen neuen Kurs erstellen, indem du den Zuweisungsassistenten
+        verwendest. Falls du eine stark angepasste Zeitleiste von einem früheren Kurs
+        hast, die du weiternutzen möchtest, kannst du eine Kopie der Zeitleiste mit
+        neuen Daten klonen. Falls du deine Zeitleiste nicht kürzlich erheblich angepasst
+        hast, empfehlen wir dir, einen neuen Kurs zu starten, so dass du die aktuellsten
+        Versionen deiner Zuweisungsoptionen haben wirst. Du kannst auch die Klonen-Option
+        verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
+        aufgesetzt hast.
+      no_class_holidays: Ich habe keine Ferien
+      save_cloned_course: Neuen Kurs speichern
+      start_date: Startdatum
+      start_date_placeholder: Startdatum (JJJJ-MM-TT)
+      subject: Thema
+      update_scheduled: Aktualisierung geplant. Die Daten werden zusammen mit allen
+        aktuellen Programmen während des nächsten Aktualisierungszyklusses aktualisiert.
+        Dies kann typischerweise mehrere Stunden dauern.
+    current: Aktuelle Kurse
+    data_articles: Artikeldaten
+    data_articles_info: Artikeldaten enthalten die Anzahl der Bearbeitungen an jeder
+      Seite, welche Seiten neu sind und Summen zu Seitenaufrufen. Diese Seitenaufrufwerte
+      können bei beendeten Kursen veraltet sein, so dass eine URL auf das Seitenaufrufwerkzeug
+      auf dem WMF-Tool-Labs-Server enthalten ist.
+    data_download_info: Daten im CSV-Format herunterladen.
+    data_overview: Übersichtsdaten
+    data_overview_info: Übersichtsdaten stellen kumulative Statistiken für das gesamte
+      Projekt zur Verfügung.
+    data_edits: Bearbeitungsdaten
+    data_edits_info: Bearbeitungsdaten zeigen Einzelheiten für jede Bearbeitung an,
+      die während des Projektes durchgeführt wurde.
+    data_students: Autorendaten
+    data_students_info: Autorendaten listen alle eingeschriebenen Autoren auf, wie
+      viel sie bearbeitet haben und ob sie ihre Benutzerkonten während des Projekts
+      registriert haben.
+    data_uploads: Daten zu hochgeladenen Commons-Dateien
+    data_uploads_info: Daten zu hochgeladenen Commons-Dateien zeigen den Namen und
+      Verwendungszähler eines jeden Medienuploads.
+    delete_course: Kurs löschen
+    delete_suggestion: Löschen
+    delete_course_instructions: Du kannst diese Seite löschen, wenn alle Kampagnen
+      zuerst entfernt wurden.
+    dismiss_survey: Ausblenden
+    dismiss_survey_confirm: Bist du sicher, dass du diese Umfrage dauerhaft ausblenden
+      möchtest?
+    download_stats_data: Statistiken herunterladen
+    does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
+      und weise dich selbst zu, um Vorschläge zu erhalten.
+    duration: Kursdauer
+    edit_course_dates: Kursdaten bearbeiten
+    enable_chat: Chat aktivieren
+    end: Ende
+    ended: Der Kurs ist beendet.
+    enroll: Einschreiben
+    enrollment: Einschreibung
+    courses_enrolled: Eingeschriebene Kurse
+    error:
+      exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
+        anderen Titel, einer anderen Schule oder Dauer.
+      user_exists: Leider ist der Benutzer %{username} nicht vorhanden.
+      invalid_language_or_project: Ungültige Sprache/Ungültiges Projekt
+      invalid_slug: Leeres Schul- oder Kurstitel-Feld.
+      duplicate_slug: Ein anderes Programm hat gemeldet, dass %{slug} bereits vorhanden
+        ist.
+    expected_students: Erwartete Studenten
+    features_feedback: 'Automatische Vorschläge:'
+    feedback: Rückmeldung
+    feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
+    gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
+    instructor:
+      one: Leiter
+      other: Leiter
+    instructors: Leiter
+    invitation: Du wurdest eingeladen, %{title} beizutreten. Um dem Kurs beizutreten,
+      musst du dich mit einem Wikipedia-Benutzerkonto anmelden.
+    invitation_username_advice: Falls du noch kein Wikipedia-Benutzerkonto hast, registriere
+      dich jetzt. Dein Benutzername kann anonym sein – oder persönlich identifizierend
+      – wenn du möchtest. Gemeinsame Benutzerkonten sind nicht erlaubt.
+    join: Beitreten
+    join_course: Dem Kurs beitreten
+    join_prompt: „%{title}“ beitreten?
+    join_successful: Du bist %{title} erfolgreich beigetreten.
+    join_failed: Einschreiben fehlgeschlagen.
+    join_failure_details:
+      cannot_join_twice: Benutzer können sich nicht zweimal in den gleichen Kurs einschreiben.
+      not_yet_approved: Dieser Kurs wurde noch nicht zur Einschreibung freigegeben.
+    join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
+      oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
+      erhalten hast, kontaktiere deinen Kursleiter.
+    leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
+    leave_course: Kurs verlassen
+    loading: Lade …
+    milestones_none: Dieser Kurs hat derzeit keine Meilensteine.
+    my_articles: Meine Artikel
+    needs_update: Plandatenaktualisierung
+    new_week: Neue Woche hinzufügen
+    nocourses: Du nimmst an keinen Kursen teil.
+    nocourse: hat an keinen Kursen teilgenommen.
+    none: Keine
+    notify_untrained_confirmation: Dies sendet eine Erinnerung an die Diskussionsseiten
+      aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
+      überfällig sind. Bist du sicher, dass du dies tun möchtest?
+    no_available_actions: Keine verfügbaren Aktionen
+    overview: Start
+    passcode: Passcode
+    passcode_none: Kein Passcode
+    passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
+    published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
+      der folgenden URL in den Kurs einschreiben:'
+    rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
+    review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
+      Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
+      die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
+      Einschreibungs-URL, die Studenten verwenden können, um dem Kurs beizutreten.
+      Du kannst später Bearbeitungen durchführen.
+    revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
+    revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
+    school: Schule
+    school_and_term: Einrichtung/Dauer
+    start: Start
+    start_typing: Mit dem Tippen anfangen
+    students: Studenten
+    students_taught: Unterrichtete Studenten
+    students_count: Anzahl der Studenten
+    student_editors: Studentenautoren
+    students_none: Dieser Kurs hat keine Studenten.
+    students_short: Studenten
+    submitted_admin: Dieser Kurs wurde von seinem Ersteller zur Zulassung eingereicht.
+      Um ihn zuzulassen, füge ihn auf der Übersichtsseite zur Kampagne hinzu.
+    submitted_and_pending_heading: Eingereicht & Zulassung ausstehend
+    submitted_heading: Eingereichte Kurse
+    submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
+      überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    suggestions_feedback: Hast du Vorschläge zur Verbesserung dieser Funktion? Lass
+      es uns wissen!
+    suggestions_sending: Die Rückmeldung wird gesendet …
+    suggestions_sent: Die Rückmeldung wurde gesendet. Vielen Dank für deine Eingabe.
+    suggestions_failed: Die Rückmeldung konnte nicht gesendet werden. Versuche es
+      später erneut.
+    user_role: Rolle
+    course_details: Kursdetails
+    course_submitted: Der Eingereicht-Status wird für Bildungsprogrammkurse verwendet,
+      bei denen ein Kursplan bestätigt werden muss, bevor das Projekt startet. Er
+      ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
+    subject: Thema
+    submitted: Eingereicht
+    term: Dauer
+    timeline: Einzelheiten zur Zuweisung
+    timeline_enabled: Zeitleiste aktiviert
+    timeline_link: Zeitleiste
+    time_zone_message: Die Start- und Endzeiten werden in deiner lokalen Zeitzone
+      angezeigt.
+    title: Titel
+    training_due: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und ist
+      fällig am %{date}.
+    training_nav: Zur Ausbildung gehen
+    training_overdue: Das Ausbildungsmodul „%{title}“ ist diesem Kurs zugewiesen und
+      war fällig am %{date}.
+    unsubmitted: Nicht eingereichte Kurse
+    untrained: Unausgebildet
+    uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
+      Commons beigetragen.
+    user_suggestions: 'Benutzervorschläge:'
+    user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
+    view_other: Weitere Kampagnen ansehen
+    view: Kurs anzeigen
+    view_doc: Die Summe aller Aufrufe von Artikeln, die von eingeschriebenen Autoren
+      bearbeitet wurden, seit der Autor seine erste Bearbeitung an jedem Artikel gemacht
+      hat.
+    view_page: Kursseite ansehen
+    view_wiki: Auf Wikipedia anzeigen
+    volunteer:
+      one: Freiwilliger
+      other: Freiwillige
+    weeks_none: Dieser Kurs hat noch keine Zeitleiste.
+    warn_mirrored: |-
+      Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
+      Möchtest du fortfahren?
+    wiki_staff: Wiki-Ed-Mitarbeiter
+    word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
+      der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
+    yourcourses: Deine Kurse
+    survey:
+      notification_message: Nimm an unserer Umfrage für diesen Kurs teil
+      link: An der Umfrage teilnehmen
+  courses_generic:
+    all_courses: Alle Programme
+    archived: Archivierte Programme
+    articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
+    assignment_end: Zeitleisten-Ende
+    assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
+    assignment_start: Zeitleisten-Beginn
+    cancel: Abbrechen
+    course: Programm
+    courses: Programme
+    courses_taught: Unterrichtete Programme
+    campaigns: 'Kampagnen:'
+    campaign_courses: '%{title} Programme'
+    creator:
+      checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
+      choose_clone: Wähle ein zu klonendes Programm aus.
+      clone_previous: Vorheriges Programm klonen
+      clone_this: Dieses Programm klonen
+      clone_successful: Programm erfolgreich geklont
+      clone_successful_details: Dein Programm wurde geklont. Klicke zum Abschluss
+        unten auf „Speichern“.
+      course_when: Gib etwas in das „Wann“-Feld ein (zum Beispiel den Monat und das
+        Jahr), um den Kurs vom Original zu unterscheiden.
+      course_description: Programmbeschreibung
+      course_school: Einrichtung
+      course_term: Wann
+      course_term_placeholder: Wann
+      course_title: Programmtitel
+      create_button: Mein Programm erstellen!
+      create_label: Neues Programm erstellen
+      create_new: Ein unabhängiges Programm erstellen
+      create_short: Programm erstellen
+      find: Finde ein Programm
+      intro: Der Programmtitel und die Einrichtung bilden die URL des Programms. Das
+        Heimatwiki ist das Hauptwiki, an dem die Teilnehmer arbeiten werden und Bearbeitungen
+        an diesem Wiki werden standardmäßig verfolgt. Falls dein Programm mehrere
+        Sprachen oder Projekte umfasst, werden Beiträge auch für jedes Wiki verfolgt,
+        das „Verfügbare Artikel“ oder „Zuweisungen“ für dieses Wiki hat. Klicke auf
+        „Mein Programm erstellen!“, um mit der Erstellung der Seite für dein Wikiprogramm
+        zu beginnen.
+      new_or_clone: Erstelle jetzt ein neues Programm oder verwende die Option „Klonen“,
+        um ein anderes Programm zu kopieren, an dem du teilgenommen hast.
+      participate_in_campaign: An einer Kampagne teilnehmen
+      save_cloned_course: Speichern
+    delete_course: Programm löschen
+    edit_course_dates: Projektdaten bearbeiten
+    explore: Programme finden
+    enroll: Autor hinzufügen
+    enrollment: Teilnahme
+    courses_enrolled: Teilgenommene Programme
+    expected_students: Erwartete Autoren
+    instructors: Vermittler
+    join_course: Dem Programm beitreten
+    join_details: Um diesem Programm beizutreten, benötigst du vom Vermittler den
+      Passcode oder einen Link, der den Passcode enthält.
+    leave_course: Programm verlassen
+    milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
+    published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
+      der folgenden URL einschreiben:'
+    revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
+    school: Einrichtung
+    school_and_term: Einrichtung/Wann
+    student_editors: Autoren
+    students: Autoren
+    students_taught: Anzahl der Autoren
+    students_none: Dieses Projekt hat keine eingeschriebenen Autoren.
+    students_short: Autoren
+    students_count: Anzahl der Teilnehmer
+    term: Wann
+    unsubmitted: Nicht eingereichte Programme
+    uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
+      Commons beigetragen.
+    view_other: Weitere Kampagnen ansehen
+    view_page: Programmseite ansehen
+    word_count_doc: Eine Schätzung der Anzahl der während der Programmdauer durch
+      die Programmautoren in Hauptnamensraum-Artikeln hinzugefügten Wörter
+    yourcourses: Deine Programme
+  editable:
+    edit: Bearbeiten
+    cancel: Abbrechen
+    save: Speichern
+    edit_description: Beschreibung bearbeiten
+    edit_details: Einzelheiten bearbeiten
+    edit_template: Vorlage bearbeiten
+    rename_confirmation: Die Kursfelder, die die URL bilden, wurden geändert. Dieser
+      Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
+      tun möchtest?
+  metrics:
+    activity: Letzte Aktivitäten
+    are_trained: sind mit der Ausbildung auf dem Laufenden
+    articles_created: Erstellte Artikel
+    articles_edited: Bearbeitete Artikel
+    characters: Zeichen
+    char_added: Zeichen hinzugefügt
+    char_changed: Zeichen geändert
+    char: Zeichen hinzugefügt
+    date_time: Datum/Uhrzeit
+    edit_count_description: Gesamte Bearbeitungen
+    per_user: '%{number}/Benutzer'
+    revisions: Letzte Bearbeitungen
+    tags: Markierungen
+    upload_count: Auf Commons hochgeladene Dateien
+    uploads_in_use_count:
+      one: in einem Artikel verwendete Datei
+      other: in Artikeln verwendete Dateien
+    upload_usages_count:
+      one: Gesamte Verwendung auf allen Sprachen
+      other: Gesamte Verwendungen auf allen Sprachen
+    view_count_description: Artikelaufrufe
+    view_data_unavailable: Keine Aufrufdaten verfügbar
+    view: Aufrufe
+    word_count: Hinzugefügte Wörter
+    word_count_average: Durchschnittliche Wortanzahl
+  namespace:
+    main: Hauptnamensraum
+    main_char_added: Hauptnamensraum-Zeichen hinzugefügt
+    user: Benutzernamensraum
+    user_char_added: Benutzernamensraum-Zeichen hinzugefügt
+    user_ns: Benutzer/in
+  recent_activity:
+    active_courses: Artikel ist aktiv in
+    article_title: Artikeltitel
+    datetime: Datum/Zeit
+    did_you_know_eligible: „Schon gewusst?“-berechtigt
+    image: Bild
+    file_name: Dateiname
+    no_dyk_eligible: Es gibt derzeit keine SG-berechtigten Artikel.
+    no_plagiarism: Es gibt derzeit keine letzten Versionen, die auf Plagiate verdächtigt
+      werden.
+    no_edits: Es gibt keine letzten Bearbeitungen.
+    plagiarism_report: Plagiatsbericht
+    possible_plagiarism: Mögliches Plagiat
+    recent_edits: Letzte Bearbeitungen
+    recent_uploads: Zuletzt hochgeladene Dateien
+    revision_author: Versionsautor
+    revision_datetime: Versionsdatum/-Zeit
+    revision_score: Versionsbewertung
+    show_courses: Nur meine Kurse anzeigen
+    uploaded_by: Hochgeladen von
+    usage_count: Anzahl der Verwendungen
+  revisions:
+    chars_added: Hinzugefügte Zeichen
+    class: Klasse
+    date_time: Datum/Uhrzeit
+    diff: Unterschied
+    diff_show: Anzeigen
+    diff_hide: Ausblenden
+    edit_time_span: Bearbeitungen traten auf von %{first_time} bis %{last_time}
+    edited_by: Bearbeitet von
+    edited_on: Bearbeitet am %{edit_date}
+    loading: Lade Versionen …
+    none: Dieser Kurs hat keine letzte Bearbeitungsaktivität.
+    time_doc: Die Zeit jeder Version in deiner Ortszeit
+    title: Titel
+    view_on_wiki: Unterschied auf dem Wiki ansehen
+  suggestions:
+    editing: Vorschläge bearbeiten
+    suggestion_docs:
+      fa: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden. Weitere Verbesserungen an der Prosaqualität
+        sind oft möglich.
+      a: Es könnte Expertenwissen nötig sein, um den Artikel zu optimieren und Gestaltungsprobleme
+        könnten eine Lösung benötigen. Eine Begutachtung könnte helfen.
+      ga: Einige Bearbeitungen nach Thema und Gestaltungsexperten sind hilfreich.
+        Ein Vergleich mit einem vorhandenen lesenswerten Artikel zu einem ähnlichen
+        Thema kann Bereiche hervorheben, in denen Inhalte schwach sind oder fehlen.
+      bplus: Könnte durch Beiträge von Experten verbessert werden, um zu bewerten,
+        wo noch Informationen fehlen und auch durch Illustrationen, historische Hintergründe
+        und weitere Literatur. Ziehe eine Begutachtung in Erwägung oder nominiere
+        ihn für einen guten Artikel. Falls der Artikel nicht bereits vollständig wikifiziert
+        wurde, ist jetzt die Gelegenheit.
+      b: Einige Aspekte des Inhalts und der Gestaltung müssen genannt werden. Expertenwissen
+        könnte erforderlich sein. Die Einbindung unterstützender Materialien sollte,
+        falls praktikabel, in Erwägung gezogen und der Artikel auf allgemeine Einhaltung
+        des Gestaltungshandbuchs und ähnlicher Gestaltungsrichtlinien überprüft werden.
+      c: Es sind erhebliche Bearbeitungen nötig, um Lücken im Inhalt zu schließen
+        und Bereinigungsprobleme zu lösen.
+      start: Die Angabe von Einzelnachweisen auf verlässliche Quellen sollte zuerst
+        erfolgen. Der Artikel benötigt auch eine bedeutende Inhaltsverbesserung und
+        Organisation. Verbessere auch die Grammatik, Rechtschreibung, den Schreibstil
+        und die Verwendung von Jargon.
+      stub: Jede Bearbeitung oder zusätzliche Materialien können hilfreich sein. Die
+        Bereitstellung bedeutungsvoller Inhalte sollte Priorität haben. Die beste
+        Lösung zur Heraufstufung eines kurzen Artikels auf einen Artikel mit Startniveau
+        ist die Einfügung belegter Gründe, warum das Thema bedeutend ist.
+      fl: Es sollten keine weiteren Inhaltsergänzungen nötig sein, falls nicht neue
+        Informationen verfügbar werden.
+      list: Listen sollten Listen mit Livelinks auf Wikipedia-Artikel sein, passend
+        benannt und organisiert.
+      future: Das hinzugefügte Material könnte Spekulation sein und sollte sorgfältig
+        mit Quellen belegt sein.
+      disambig: Zusätze sollten als neue Artikel unter dem gleichen Namen erstellt
+        werden. Beachte aufmerksam die passende Benennung solcher Seiten, da sie oft
+        nicht den Titelzusatz „(Begriffsklärung)“ benötigen.
+      '?': Keine Vorschläge verfügbar. Entweder ist der Artikel nicht bewertet oder
+        Vorschläge sind für die Bewertung nicht verfügbar.
+      does_not_exist: Dieser Artikel ist auf Wikipedia nicht vorhanden.
+  tasks:
+    conseq: Die Aufgabe %{task} läuft bereits!
+    constant: Die Aufgabe %{task} kann nicht ausgeführt werden, während die Aufgabe
+      update_daily läuft.
+    paused: Die Aufgabe %{task} kann nicht ausgeführt werden, da geplante Aktualisierungen
+      angehalten wurden. Führe „rake batch:resume“ aus, um die Aktualisierungen fortzusetzen.
+  timeline:
+    add_week: Woche hinzufügen
+    arrange_timeline: Zeitleiste erstellen
+    arrange_timeline_instructions: Erstelle die Zeitleiste durch Ziehen und Ablegen
+      von Blöcken an den gewünschten Ort/in die gewünschte Woche oder repositioniere
+      die Blöcke, indem du die Pfeile auf der Karte verwendest.
+    assignment_dates_instructions: Wähle die Start- und Enddaten für die Wikipedia-Zuweisungszeitleiste
+      aus. Das Ändern des Startdatums verschiebt auch die Daten der ganzen Zeitleiste.
+    blackout_week_created: Es gibt für diese Woche geplante Sperren. Bitte verschiebe
+      sie auf eine andere Woche, bevor du das letzte Klassentreffen von dieser Woche
+      entfernst.
+    block_assignment: Zuweisung
+    block_custom: Benutzerdefiniert
+    block_in_class: In Klasse
+    block_milestone: Meilenstein
+    block_type: Der Sperrtyp wird verwendet, um mit anderen Studenten über dieses
+      Objekt auf ihrer Zeitleiste zu kommunizieren und zum Erstellen nützlicher Werkzeuge
+      für dich (wie der Meilensteinentwurf auf der Übersichtsseite).
+    course_dates: Kursdaten
+    course_dates_instructions: Wähle die Start- und Enddaten des gesamten Kurses aus
+      (nicht nur die Wikipedia-Zuweisung).
+    course_end: Kursende
+    course_start: Kursbeginn
+    delete_week_confirmation: |-
+      Bist du sicher, dass du diese Woche löschen möchtest? Dies löscht die Woche und all ihre zugewiesenen Blöcke.
+
+      Dies kann nicht rückgängig gemacht werden.
+    delete_weeks_confirmation: |-
+      Bist du sicher, dass du diese gesamte Zeitleiste löschen und eine neue erstellen möchtest?
+
+      Dies kann nicht rückgängig gemacht werden.
+    discard_all_changes: Alle Änderungen verwerfen
+    delete_timeline_and_start_over: Zeitleiste löschen
+    due_default: Während nächster Woche
+    empty_week_1: Um anzufangen,
+    empty_week_2: beginne mit dem Bearbeiten in dieser Woche
+    empty_week_3: ' oder&nbsp;'
+    empty_week_4: verwende den Zuweisungsassistenten, um eine Zeitleiste zu erstellen.
+    first_week_title: Erste aktive Woche
+    gradeable_value: Wert
+    gradeables_none: Diese Zeitleiste hat keine Zuweisungen, die als eingeteilt markiert
+      wurden.
+    grading_header: 'Eingeteilt (Gesamt: %{total}%)'
+    move_block_down: Block nach unten verschieben
+    move_block_up: Block nach oben verschieben
+    no_class_holidays: Ich habe keine Ferien
+    no_timeline: Dieser Kurs hat keine Zeitleiste.
+    no_activity_this_week: Keine geplanten Treffen in dieser Woche
+    nothing_this_week: Für diese Woche ist nichts auf dem Plan.
+    save_all_changes: Alle speichern
+    this_week_title_default: Diese Woche
+    title: Zeitleiste
+    unable_to_add_week: Du kannst keine neuen Wochen hinzufügen, wenn deine Zeitleiste
+      voll ist. Lösche mindestens eine Woche oder ändere deine Zuweisungsdaten ab,
+      um Platz für ein neues zu schaffen.
+    view_full_timeline: Vollständige Zeitleiste ansehen
+    week_number: Woche %{number}
+  training:
+    continue: Fortfahren (%{progress})
+    start: Beginnen
+    view: Ansehen
+    logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
+      dieses Moduls, sofern du dich nicht anmeldest.
+  uploads:
+    datetime: Datum/Zeit
+    file_name: Dateiname
+    header: Auf Wikimedia Commons hochgeladene Dateien
+    image: Bild
+    label: Hochgeladene Dateien
+    loading: Lade Uploads …
+    none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
+      beigetragen.
+    time_doc: Die Zeit jedes Uploads in deiner Ortszeit
+    uploaded_by: Hochgeladen von
+    usage_count: Verwendungszähler
+    usages: Verwendungen
+  users:
+    already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
+    assign_articles: Artikel zuweisen
+    assign_articles_done: Fertig
+    assigned: Zugewiesene Artikel
+    assignees: Zugewiesene(r)
+    character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
+      hinzugefügt hat, wird berechnet durch das Aufaddieren der hinzugefügten Zeichen
+      für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
+      nicht unbedingt die Menge des hinzugefügten Inhalts widerspiegeln. Das Wiederherstellen
+      entfernten Inhalts erhöht ebenfalls diese Summe.
+    chars_added: Hinzugefügte Zeichen<br>(Artikel | Benutzer | Entwurf)
+    contributions: Benutzerbeiträge
+    contributions_history_full: Vollständigen Beitragsverlauf auf Wikipedia ansehen
+    contributions_more: Weitere Beiträge ansehen
+    contribution_statistics: Beitragsstatistiken
+    course_passcode: 'Passcode:'
+    editors: Autoren
+    enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
+    enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
+    enrolled_success: '%{username} wurde erfolgreich hinzugefügt!'
+    first_name: Vorname
+    last_name: Nachname
+    loading: Lade Benutzer …
+    characters_added_mainspace: Hinzugefügte Zeichen im ANR
+    characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
+    characters_added_userspace: Hinzugefügte Zeichen im BNR
+    my_assigned: 'Zugewiesen:'
+    my_reviewing: 'In Überprüfung:'
+    name: Name
+    none: Es gibt keine Teilnehmer.
+    no_articles: Keine Artikel
+    no_revisions: Dieser Autor hat keine Bearbeitungen durchgeführt.
+    number_of_articles:
+      one: Ein Artikel
+      other: '%{count} Artikel'
+    recent_revisions: Letzte Bearbeitungen
+    remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
+    revision_characters_and_views: 'Hinzugefügte Zeichen: %{characters}, Aufrufe:
+      %{views}'
+    revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten
+      7 Tagen gemacht wurden.
+    reviewers: Überprüfer
+    reviewing: Überprüft
+    training_complete:
+      one: ist mit der Ausbildung auf dem Laufenden
+      other: sind mit der Ausbildung auf dem Laufenden
+    training_complete_count:
+      one: Eine Ausbildung auf dem Laufenden
+      other: '%{count} Ausbildungen auf dem Laufenden'
+    training_doc: Autoren, die alle zugewiesenen fälligen Ausbildungsmodule vervollständigt
+      haben, werden mit ihrer Ausbildung als „auf dem Laufenden“ gezählt.
+    training_incomplete: Ausbildung unvollständig
+    training_modules_completed:
+      one: '%{completed_count}/%{count} abgeschlossenes Ausbildungsmodul'
+      other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
+    training_module_name: Ausbildungsmodul
+    training_module_status: Status
+    up_to_date_with_training: mit der Ausbildung auf dem Laufenden
+    username: Benutzername
+    username_placeholder: Benutzername
+    role:
+      visitor: Besucher
+      student: Student
+      instructor: Kursleiter
+      campus_volunteer: Campus-Volontär
+      online_volunteer: Online-Volontär
+      wiki_ed_staff: Mitarbeiter von Wiki Ed
+  user_profiles:
+    student_impact: Gesamtauswirkung durch %{username} als Student
+    instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
+    instructors_student_impact: Gesamtauswirkung durch die Studenten von %{username}
+    disclaimer: Die angegebenen Informationen werden öffentlich verfügbar gemacht.
+    bio_placeholder: Ergänze deine Biografie (optional)
+    location_placeholder: Ergänze deinen Standort (optional)
+    institution_placeholder: Name der Einrichtung (optional)
+  wiki_edits:
+    notify_overdue:
+      confirm: Dies sendet eine Erinnerung an die Diskussionsseiten aller Studenten,
+        die eine überfällige Ausbildung haben. Bist du sicher, dass du dies tun möchtest?
+      header: Du hast eine überfällige Ausbildungszuweisung.
+      message: Vervollständige bitte die zugewiesenen [%{link} Ausbildungsmodule].
+      summary: Studentenausbildung überfällig
+  wizard:
+    assignment_dates: Zuweisungsdaten
+    assignment_description: Wähle die Start- und Enddaten dieser Zuweisung aus. Falls
+      du beispielsweise dein Wikipedia-Projekt in der zweiten Woche der Klasse starten
+      möchtest, setze das Zuweisungsstartdatum auf eine Woche nach dem Kursstartdatum.
+      Dieses Zuweisungsgestaltungswerkzeug erstellt eine Entwurfszeitleiste, die sich
+      den ausgewählten Zeitleistendaten anpasst.
+    assignment_type: Zuweisungstyp
+    calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen oder zu
+      entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Dies hilft dem Kurserstellungswerkzeug,
+      deine Zuweisungen genau zu verteilen. Klicke das Datum an, um zwischen unausgewählt,
+      ausgewählt und Feiertagsstatus zu wechseln. Falls du keine Feiertage hast, aktiviere
+      unten das Kontrollkästchen „Ich habe keine Feiertage“.
+    confirm_dates: Wähle die Kursdaten, wöchentlichen Treffen und Feiertage für deinen
+      Kurs aus.
+    course_dates: Kursdaten
+    min_weeks: Diese Zuweisung erfordert mindestens %{min_weeks} verfügbare Wochen.
+      Bitte passe deine Start- und Enddaten deiner Zuweisung an, falls du diesen Zuweisungstyp
+      verwenden möchtest.
+    select_one_option: Bitte wähle eine Option aus.
+    minimum_options:
+      one: Bitte wähle %{count} oder mehrere Optionen aus.
+      other: Bitte wähle %{count} oder mehrere Optionen aus.
+    read_less: Weniger lesen
+    read_more: Mehr lesen
+    review_selections: Bitte überprüfe unten deine Auswahl. Klicke zum Bearbeiten
+      einer Auswahl. Wenn du fertig bist, klicke auf „Übermitteln“, um den Assistenten
+      zu schließen und deine Zeitleiste zu erstellen.
+    select_assignment: Wähle die Art der Zuweisung aus, die du zu deiner Zeitleiste
+      hinzufügen möchtest.
+    summary: Zusammenfassung
+  error:
+    form_errors: Bitte kontrolliere das Formular auf Fehler.
+    invalid_assignment: Ungültige Zuweisung
+    invalid_date: Das Datum %{key} ist ungültig
+    invalid_file_format: Die Datei konnte nicht gespeichert werden. Bitte lade ein
+      PDF- oder Word-Dokument hoch.
+    oauth_invalid: Deine Wikipedia-Autorisierung ist abgelaufen. Bitte erneut anmelden.
+    start_date_before_end_date: Das Startdatum muss vor dem Enddatum liegen
+    unsupported_browser:
+      header: Nicht unterstützter Browser. :-(
+      explanation: Du benutzt einen Browser, der nicht mit dem Dashboard kompatibel
+        ist. Diese Website funktioniert gut auf dem Internet Explorer, Version 11
+        oder später, auf aktuellen Versionen von Chrome und Firefox und auf anderen
+        modernen Browsern.
+  error_401:
+    header: Nicht berechtigt. >:-(
+    explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,
+      dass diese Meldung ein Fehler ist, kontaktiere bitte die Instandhalter dieses
+      Dashboards, damit sie über das Problem Bescheid wissen.
+    json_explanation: Es sieht so aus, als ob du abgemeldet wurdest. Bitte aktualisieren,
+      anmelden und erneut versuchen.
+  error_incorrect_passcode:
+    header: Falscher Passcode. :-(
+    explanation: Der Passcode für die Einschreibung in diesen Kurs ist falsch. Bitte
+      den Kursleiter um den aktuellen Passcode, um sich in diesen Kurs einzuschreiben.
+  error_404:
+    header: Seite nicht gefunden. :-(
+    explanation: Diese Seite ist nicht vorhanden. Falls du versucht hast, das Dashboard
+      für einen Kurs zu erreichen, könnte dieser Kurs für dieses Dashboard nicht registriert
+      sein. Falls der Kurs kürzlich registriert wurde, kann es eine Weile dauern,
+      bis das System den Kurs hinzugefügt hat.
+  error_422:
+    header: 422 – Nicht verarbeitbares Objekt. :-(
+    explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses
+      Dashboards, damit sie über dieses Problem Bescheid wissen.
+  error_500:
+    header: 500 – Interner Serverfehler. :-(
+    explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses
+      Dashboards, damit sie über dieses Problem Bescheid wissen.
+  login_error:
+    header: Anmeldefehler
+    explanation: Es scheint so, als ob es ein Problem mit dem Anmeldeprozess gäbe.
+      Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
+      Einschreibung erneut.
+  survey:
+    login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Ed Dashboard
+      an, um an der Umfrage teilzunehmen.
+    notification_explanation: Falls unten ausgewählt, erhalten Benutzer übereinstimmend
+      mit dem Benachrichtigungszeitplan E-Mails, außerdem sehen sie Benachrichtigungen
+      im Browser. Falls nicht, werden nur Benachrichtigungen im Browser angezeigt.
+    notification_schedule_explanation: Benachrichtigungen einschließlich Benachrichtigungen
+      im Browser und E-Mails, falls oben aktiviert.
+    follow_up_explanation: Leer lassen, falls keine zukünftigen Benachrichtigungs-E-Mails
+      gewünscht sind.
+    email:
+      headline: Hallo %{username}
+      message_line1: Wir hoffen, dass du einen tollen Kurs hast! Wiki Ed benötigt
+        deine Rückmeldung, um unsere Ressourcen und die Unterstützung für deine Wikipedia-Zuweisungen
+        zu verbessern. Deine Antwort ist für die Verbesserung unserer aktuellen Angebote
+        entscheidend.
+      message_line2: Bist du bereit, 15 Minuten für das Ausfüllen unserer Umfrage
+        für Kursleiter zu opfern? Klicke auf die unten stehende Schaltfläche, um uns
+        dabei zu helfen, das Unterrichten mit Wikipedia noch lohnender und wertvoller
+        zu machen.
+      course: 'Kurs: %{course_info}'
+      closing: Mit freundlichen Grüßen
+      signed: – das Team von Wiki Ed
+      link: An der Umfrage teilnehmen
+    follow_up:
+      message: Dies ist eine Erinnerung an die Umfrage für deinen Kurs „%{course_title}“.
+        Rückmeldungen zu dieser Umfrage helfen uns dabei, die Unterstützung für Wikipedia-Zuweisungen
+        wie deine zu verbessern.
+  feedback_form_responses:
+    no_responses: Es gibt noch keine Rückmeldungsantworten.
+...

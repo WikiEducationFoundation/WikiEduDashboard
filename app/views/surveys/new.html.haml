@@ -1,0 +1,11 @@
+= render 'admin_header'
+.container.survey__admin
+  .block.block--clear
+    = simple_form_for(@survey) do |f|
+      = f.error_notification
+
+      .form-inputs.survey__title-input
+        = f.input :name
+
+        .form__row
+          = f.button :submit, :class => 'button dark'

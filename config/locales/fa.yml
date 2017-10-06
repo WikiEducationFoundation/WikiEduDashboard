@@ -1,0 +1,550 @@
+# Messages for Persian (فارسی)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alifakoor
+# Author: Arash.pt
+# Author: Arian Ar
+# Author: AzorAhai
+# Author: Ebraminio
+# Author: GMozafarian
+# Author: Ladsgroup
+# Author: Mardetanha
+# Author: Reza1615
+# Author: درفش کاویانی
+---
+fa:
+  accessibility:
+    number_field: این کادر، عددی است. با دکمه‌های کناری در اکثر مرورگرها می‌توانید
+      مقدار را کاهش یا افزایش دهید.
+  application:
+    cancel: انصراف
+    dashboard: داشبورد ویکی برنامهٔ آموزشی
+    documentation: مستندات
+    error: این اقدام با خطا مواجه شد
+    explore: کاوش
+    field_required: این گزینه الزامی است.
+    field_invalid_characters: این فیلد دارای کاراکتر‌های نامعتبراست
+    field_invalid_date: برای این کادر، فُرمت تاریخ YYYY-MM-DD الزامی است.
+    greeting2: خوش‌آمدید!
+    greeting_extended: به ویکی‌پدیا خوش‌آمدید
+    greeting: سلام!
+    help: راهنما
+    home: صفحهٔ اصلی
+    log_in_extended: ورود با ویکی‌پدیا
+    log_in: ورود
+    log_out: خروج
+    my_dashboard: داشبورد من
+    recent_activity: فعالیت‌های اخیر
+    report_problem: گزارش مشکل
+    search: پرسشی بپرسید
+    sign_up_extended: نام‌نویسی با ویکی‌پدیا
+    sign_up_log_in_extended: با ویکی‌پدیا
+    sign_up: نام‌نویسی
+    submit: ثبت
+    training: آموزش
+    change: تغییر
+    details: جزئیات
+    confirm: تأیید
+  dashboard:
+    create_note: برای ایجاد نخستین دورهٔ خود، بر روی ایجاد دوره کلیک کنید.
+    explore_course_pages: در صفحات دوره‌ها کاوش کنید
+    explore_examples: کاوش در مثال‌ها
+    join_note: پس از اینکه کد دسترسی را از مدرس‌تان دریافت کردید، بر روی «دوره‌تان
+      را پیدا کنید» کلیک کنید و به آن بپیوندید.
+    no_courses_instructor: چنین به‌نظر می‌رسد که شما در هیچ دوره‌ای حضور ندارید.
+    no_courses_student: چنین به‌نظر می‌رسد که شما به هیچ دوره‌ای نپیوسته‌اید.
+    opt_out: درخواست خروج از آشناسازی
+    orientation_notice: پیش از آنکه دورهٔ تازه‌ای را ایجاد کنید، با راهنمای تعاملی
+      کار کنید. (تکمیلش حدود ۳۰ دقیقه زمان نیاز دارد.)
+    review_orientation: بازبینی آشناسازی
+    start_orientation: شروع آشناسازی
+    blog_headline: خبرهای تازه از ویکی برنامهٔ آموزشی
+  home:
+    explore: کاوش
+    log_in: ورود با ویکی‌پدیا
+    sign_up: نام‌نویسی با ویکی‌پدیا
+    sign_up_help: برای استفاده از داشبورد، نیاز خواهید داشت تا از طریق ویکی‌پدیا وارد
+      شوید و اجازهٔ دسترسی به حساب کاربری‌تان را بدهید. می‌توانید از حساب کاربری که
+      از قبل داشتید استفاده کنید یا یک حساب تازه ایجاد نمایید.
+  activity:
+    all: فعالیت
+    edited_by: ویراستهٔ
+    label: فعالیت
+  articles:
+    assigned: مقالات اختصاص‌داده
+    available: مقالات موجود
+    assigned_to: اختصاص‌داده‌شده به
+    character_doc: مجموع کاراکتر‌های افزوده‌شده به مقالات توسط ویرایشگران ثبت‌نامی
+      در بین تاریخ آغاز و پایان
+    edited: مقالات ویرایش‌شده
+    edited_mobile: مقاله‌ها
+    hide: نهفتن
+    label: مقاله‌ها
+    loading: در حال بارگذاری مقاله‌ها ...
+    new: (نو)
+    none: هیچ مقاله‌ای از این دوره، ویرایش نشده‌است.
+    rating: کلاس
+    rating_doc: درجهٔ هر مقاله توسط ویکی‌پروژه‌ها در ویکی‌پدیا اختصاص یافته‌است. این
+      درجه‌ها می‌توانند مربوط به نسخه‌های قدیمی‌تر باشند، بنابراین آن‌ها فقط شاخص
+      تقریبی مقالات را مشحص می‌کنند.
+    rating_docs:
+      fa: مقالهٔ برگزیده— بالاترین درجه‌بندی ویکی‌پدیا، احتمالاً مقاله‌ای بسیار کامل
+        برای ویرایشگر تازه‌کار باشد.
+      fl: فهرست برگزیده— بالاترین درجه‌بندی ویکی‌پدیا برای فهرست‌ها.
+      a: سطح الف- مقالهٔ بسیار گسترش‌یافته که می‌تواند مقاله‌ای بسیار کامل برای ویرایشگر
+        تازه‌کار باشد.
+      ga: مقالهٔ خوب- مقالهٔ بسیار گسترش‌یافته که می‌تواند مقاله‌ای بسیار کامل برای
+        ویرایشگر تازه‌کار باشد.
+      b: سطح ب- مقالهٔ تقریباً گسترش‌یافته
+      c: سطح پ- مقالهٔ متوسطی که هنوز جای گسترش دارد.
+      start: مقالهٔ ابتدایی- مقالهٔ ناقصی که هنوز جای گسترش بسیاری دارد.
+      stub: مقالهٔ خرد— مقالهٔ کوتاه و ناقصی که نیاز به گسترش محتوای زیادی دارد.
+      list: فهرست— فهرستی از لینک‌ها به مقاله‌های یک زمینهٔ خاص است.
+      '?': درجه‌بندی‌نشده— مقاله‌ای که هنوز طبق معیارهای درجه‌بندی ویکی‌پدیا، درجه‌بندی
+        نشده‌است.
+    show_current_version: نمایش نسخهٔ فعلی
+    title: عنوان
+    title_example: عنوان مقاله
+    view: مشاهدهٔ مقاله
+    view_all: مشاهدهٔ همه
+    view_doc: مجموع تمام بازديدهای هریک از مقالات در طول مدت پروژه
+    view_on_wiki: نمایش در ویکی
+    views_added: '%{count} بازدیدهای تازه برای %{title} را بیفزایید'
+    edit_size: اندازهٔ‌ویرایش
+  assignments:
+    already_exists: این تکلیف از پیش وجود دارد!
+    title_too_large: عنوان نباید دارای بیش از ۲۵۵ نویسه باشد
+    assignees: دانش‌آموز(ها)
+    assign_other: مقاله‌ای را اختصاص دهید
+    add_available: یک مقالهٔ موجود را بیفزا
+    assign_self: یک مقاله به خودم اختصاص بده
+    confirm_add_available: آیا از افزودن %{title} اطمینان دارید؟
+    confirm_addition: آیا از اختصاص دادن %{title} به %{username} اطمینان دارید؟
+    confirm_deletion: آیا از حذف این تکلیف مقاله‌ای اطمینان دارید؟
+    label: اختصاص‌دادن
+    loading: در حال بارگذاری تکالیف ...
+    none_short: هیچ موردی اختصاص‌داده نشده
+    none: این دوره هیچگونه مقالهٔ اختصاص‌یافته‌ای ندارد.
+    no_available: این دوره هیچگونه مقالهٔ در دسترسی ندارد.
+    remove: حذف
+    reviewers: 'بازبینی‌کننده‌(ها):'
+    review_other: اختصاص یک بازبینی
+    review_self: بازبینی یک مقاله
+    select: انتخاب
+  blocks:
+    milestones:
+      title: نقاط عطف
+  campaign:
+    campaign: کمپین
+    campaigns: کمپین‌ها
+    description: توضیحات
+    none: هیچ‌کدام
+    title: عنوان
+  chat:
+    label: گفتگو
+  courses:
+    activity: فعالیت
+    all_courses: تمامی دوره‌ها
+    already_enrolled: شما از قبل بخشی از %{title} هستید!
+    already_exists: برای این دوره از پیش موجود است!
+    archived: بایگانی دوره‌ها
+    actions: اقدامات
+    articles: مقاله‌ها
+    articles_none: این دوره هیچ مقاله‌ای را ویرایش نکرده‌است.
+    assignment_end: پایانِ تکلیف
+    assignments_none: این دوره هیچ مقالهٔ اختصاص‌یافته‌ای ندارد.
+    assignment_start: آغازِ تکلیف
+    calendar:
+      legend: شرح علائم
+      legend_class_canceled: لغو
+      legend_class_meeting: جلسهٔ کلاسی
+      legend_class_not_meeting: جلسه‌ای برنامه‌ریزی‌نشده
+      select_meeting_days: روزهای هفته‌ای که می‌خواهید جلسهٔ کلاسی‌تان در آن برگزار
+        شود را انتخاب کنید.
+    cancel: لغو
+    character_doc: مجموع کاراکترهای افزوده‌شده به فضای اصلی مقاله‌ها توسط دانشجویان
+      دوره در طول مدت دوره
+    campaigns: 'گروه‌ها:'
+    campaign_courses: دوره‌های %{title}
+    campaign_articles: مقالات %{title}
+    campaign_users: ویرایشگران %{title}
+    confirm_course_deletion: از حذف دورهٔ آموزشی تحت عنوان %{title} اطمینان دارید؟
+      اگر بله، عنوان دوره را برای ادامهٔ فرآیند تایپ کنید.
+    confirm_course_deletion_failed: «%{title}» عنوان این دوره نیست. دورهٔ خواسته‌شده
+      حذف نشد.
+    course: دوره‌ها
+    course_description: دوره‌ها
+    courses: دوره‌ها
+    courses_taught: دوره‌های تدریس شده
+    creation_date: تاریخ ایجاد
+    creator:
+      already_exists: این دوره از پیش وجود دارد. با تغییر دادن نام، مدرسه/دانشگاه
+        یا ترم تحصیلی، آن را منحصربفرد کنید.
+      assignment_end: پایانِ تکلیف
+      assignment_end_placeholder: تاریخ پایانِ تکلیف (YYYY-MM-DD)
+      assignment_start: آغازِ تکلیف
+      assignment_start_placeholder: تاریخ آغازِ تکلیف (YYYY-MM-DD)
+      checking_for_uniqueness: این دوره در حال بررسی منحصربه‌فرد است.
+      clone_successful: دوره با موفقیت شبیه‌سازی شد
+      clone_successful_details: دورهٔ شما شبیه‌سازی شد، که شامل عناصر جدول زمانی است.
+        چیزی دربارهٔ دوره‌تان تغییر کرده‌است؟ آسوده باشید و آن را اکنون بروزرسانی
+        کنید!
+      course_description: توضیحات دوره
+      course_language: زبان اصلی
+      course_project: پروژهٔ اصلی
+      course_school: مدرسه/دانشگاه دوره
+      course_subject: موضوع دوره
+      course_term: ترم آموزشی دوره
+      course_term_placeholder: ترم
+      course_title: عنوان دوره
+      create_button: دورهٔ مرا بساز!
+      create_label: ساختِ دوره‌ای تازه
+      create_new: ساختِ دوره‌ای تازه
+      create_short: ساختِ دوره
+      end_date: تاریخِ پایان
+      end_date_placeholder: تاریخ پایان (YYYY-MM-DD)
+      expected_number: محدودیت تعداد دانش‌آموزان/دانشجویان
+      find: دورهٔ خود را پیدا کنید
+      no_class_holidays: هیچ کلاسِ تعطیلی ندارم
+      save_cloned_course: ذخیرهٔ دورهٔ تازه
+      start_date: تاریخِ آغاز
+      start_date_placeholder: تاریخ آغاز (YYYY-MM-DD)
+      subject: موضوع
+    current: دوره‌های کنونی
+    delete_course: حذف دوره
+    dismiss_survey: پنهان‌سازی
+    dismiss_survey_confirm: آیا از پنهان‌سازی دائم این بررسی اطمینان دارید؟
+    duration: مدت دوره
+    edit_course_dates: ویرایش تاریخ‌های دوره
+    end: پایان
+    enroll: نام‌نویسی
+    enrollment: نام‌نویسی
+    error:
+      exists: آن دوره از پیش وجود داشت! لطفاً با عنوان، مدرسه/دانشگاه و ترم تحصیلی
+        دیگری مجدداً امتحان کنید.
+      user_exists: متأسفیم، نام کاربری %{username} معتبر نیست و وجود ندارد.
+      invalid_language_or_project: زبان/پروژهٔ ناموجود
+    expected_students: دانشجویان موردِ انتظار
+    gradeables_none: این دوره دارای هیچ تکلیف قابل ارزیابی نیست.
+    instructor:
+      one: Instructor
+      other: Instructors
+    instructors: اساتید
+    invitation: |-
+      از شما برای پیوستن به %{title} دعوت شده‌است. برای پیوستن به این دورهٔ آموزشی، می‌بایست با حساب کاربری ویکی‌پدیا وارد شوید.
+      اگر هنوز حساب کاربری ویکی‌پدیا ندارید، برای دریافت آن به‌طور رایگان نام‌نویسی کنید.
+    join: پیوستن
+    join_course: پیوستن به دوره
+    join_prompt: پیوستن به «%{title}»؟
+    join_successful: با موفقیت به %{title} پیوستید.
+    leave_confirmation: آیا از ترک این دوره اطمینان دارید؟
+    leave_course: خروج از دوره
+    loading: در حال بارگیری...
+    milestones_none: این دوره در حال حاضر به هیچ دست‌آورد ویژه‌ای نرسیده‌است.
+    my_articles: مقاله‌های من
+    new_week: افزودن هفتهٔ تازه
+    nocourses: شما در هیچ دوره‌ای شرکت نکرده‌اید.
+    none: هیچ‌کدام
+    no_available_actions: بدون اقدامات موجود
+    overview: چشم‌انداز
+    passcode: کد دسترسی
+    passcode_none: بدون کد دسترسی
+    passcode_prompt: کد دسترسی‌ای که از مدرس‌تان دریافت کرده‌اید را وارد کنید
+    published: 'دورهٔ آموزشی‌تان هم‌اینک منتشر شده‌است! دانش‌آموزان/دانشجویان می‌توانند
+      از طریق پیوند زیر در این دوره نام‌نویسی کنند:'
+    revisions_doc: تعداد ویرایش‌ها در %{timeframe} روز گذشته
+    revisions_none: این دوره فعالیت‌های اخیر ویرایشی ویکی‌پدیایی ندارد.
+    school: آموزشگاه
+    start: آغاز
+    start_typing: آغاز تایپ‌کردن
+    students: دانش‌آموزان/دانشجویان
+    students_count: '# دانش‌آموزان/دانشجویان'
+    student_editors: ویراستاران دانشجویی
+    students_none: این دوره هیچ دانش‌آموز/دانشجویی ندارد.
+    students_short: دانش‌آموزان/دانشجویان
+    submitted_and_pending_heading: ثبت‌شده و منتظر تأیید
+    submitted_heading: دوره‌های ثبت‌شده
+    submitted_note: دورهٔ شما ثبت شده‌است. کارمندان ویکی برنامهٔ آموزشی آن را بازبینی
+      خواهند کرد و با شما در تماس خواهند بود.
+    user_role: نقش
+    term: ترم
+    timeline: جزئیات تکلیف
+    timeline_link: جدول زمانی
+    title: عنوان
+    training_due: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده‌است و در
+      %{date} تنظیم شده‌است.
+    training_nav: رفتن به آموزش
+    training_overdue: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده‌است و
+      در %{date} تنظیم شده‌بود.
+    unsubmitted: دوره‌های ثبت‌نشده
+    untrained: آموزش‌ندیده
+    uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
+      نداشته‌است.
+    view: مشاهدهٔ دوره
+    view_page: مشاهدهٔ صفحهٔ دوره
+    view_wiki: مشاهده در ویکی‌پدیا
+    volunteer:
+      one: داوطلب
+      other: داوطلبان
+    weeks_none: این دوره هنوز جدول زمانی ندارد.
+    wiki_staff: کارمندان ویکی‌آموزش
+    yourcourses: دوره‌های شما
+    survey:
+      link: شرکت در نظرسنجی
+  courses_generic:
+    articles_none: هنوز هیچ مقاله‌ای در این پروژه ویرایش نشده‌است.
+    assignment_end: پایان جدول زمانی
+    assignments_none: این پروژه هیچ مقالهٔ اختصاص‌یافته‌ای ندارد.
+    assignment_start: آغاز جدول زمانی
+    cancel: لغو
+    courses: برنامه‌ها
+    campaigns: 'کمپین‌ها:'
+    creator:
+      checking_for_uniqueness: این برنامه برای آزمایش منحصر به فرد بودن در حال بررسی
+        است.
+      course_description: توضیحات برنامه
+      course_school: نهاد
+      course_title: عنوان برنامه
+      create_button: ایجاد برنامهٔ من!
+      create_label: ایجاد برنامهٔ نو
+      create_new: ایجاد برنامه‌ای نو
+      create_short: ایجاد برنامه
+      find: برنامه‌ای را پیدا کنید
+      intro: تکمیل عنوان برنامه الزامی است، باقی موارد را می‌توان بعداً نیز پُر کرد.
+        برای ایجاد صفحهٔ برنامه، روی «ایجاد برنامه!» کلیک کنید.
+    edit_course_dates: ویرایش تاریخ‌های پروژه
+    enroll: افزودن ویراستار
+    enrollment: مشارکت
+    expected_students: ویراستاران موردِ انتظار
+    instructors: تسهیل‌کنندگان
+    published: 'این پروژه منتشر شد! ویراستاران می‌توانند با استفاده از پیوند زیر،
+      در آن نام‌نویسی کنند:'
+    revisions_none: این دوره فعالیت‌های اخیر ویرایشی ندارد.
+    school: نهاد
+    student_editors: ویراستاران
+    students: ویراستاران
+    students_none: این پروژه ویراستار نام‌نویسی‌شده‌ای ندارد.
+    students_short: ویراستاران
+    term: زمان
+    unsubmitted: برنامه‌های ثبت‌نشده
+    uploads_none: این پروژه در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در
+      ویکی‌انبار نداشته‌است.
+  editable:
+    edit: ویرایش
+    cancel: لغو
+    save: ذخیره
+    edit_description: ویرایش توضیحات
+    edit_details: ویرایش جزئیات
+  metrics:
+    activity: فعالیت‌های اخیر
+    articles_created: مقاله‌های ایجادشده
+    articles_edited: مقاله‌های ویرایش‌شده
+    characters: کاراکترها
+    char_added: کاراکترهای افزوده‌شده
+    char_changed: کاراکترهای تغییریافته
+    char: کاراکترهای افزوده‌شده
+    date_time: تاریخ/زمان
+    edit_count_description: مجموع ویرایش‌ها
+    per_user: '%{number}/کاربر'
+    revisions: ویرایش‌های اخیر
+    upload_count: بارگذاری‌های ویکی‌انبار
+    uploads_in_use_count:
+      one: پروندهٔ استفاده‌شده در مقاله
+      other: پرونده‌های استفاده‌شده در مقاله‌ها
+    upload_usages_count:
+      one: مجموع استفاده در همهٔ زبان‌ها
+      other: مجموع استفاده در همهٔ زبان‌ها
+    view_count_description: بازدیدهای مقاله
+    view: بازدیدها
+    word_count: واژه‌های افزوده‌شده
+  namespace:
+    main: فضای اصلی
+    main_char_added: کاراکترهای افزوده‌شده فضای اصلی
+    user: فضای نام کاربر
+    user_char_added: کاراکترهای افزوده‌شده فضای کاربر
+    user_ns: کاربر
+  recent_activity:
+    active_courses: مقاله فعال است در
+    article_title: عنوان مقاله
+    datetime: تاریخ/زمان
+    did_you_know_eligible: واجد شرایط آیا می‌دانستید
+    image: تصویر
+    file_name: نام پرونده
+    no_dyk_eligible: در حال حاضر هیچ مقالهٔ واجد شرایط آیا می‌دانستید موجود نیست.
+    no_edits: ویرایش‌های اخیر موجود نیست.
+    plagiarism_report: گزارش سرقت ادبی
+    possible_plagiarism: سرقت ادبی محتمل
+    recent_edits: ویرایش‌های اخیر
+    recent_uploads: بارگذاری‌های اخیر
+    revision_author: بازبینی نویسنده
+    revision_datetime: بازبینی تاریخ/زمان
+    revision_score: امتیاز بازبینی
+    show_courses: فقط دوره‌های مرا نمایش بده
+    uploaded_by: بارگذاری‌شده توسط
+    usage_count: تعداد دفعات استفاده
+  revisions:
+    chars_added: کاراکترهای افزوده‌شده
+    class: کلاس
+    date_time: تاریخ/زمان
+    diff: تفاوت
+    diff_show: نمایش
+    diff_hide: نهفتن
+    edited_by: ویراستهٔ
+    loading: در حال بارگیری بازبینی‌ها ...
+    none: این دوره فعالیت‌های اخیر ویرایشی ویکی‌پدیایی ندارد.
+    time_doc: زمان هر بازبینی به وقت محلی‌تان
+    title: عنوان
+  tasks:
+    conseq: تکلیفِ %{task} در حال اجراست!
+  timeline:
+    add_week: افزودن هفته
+    arrange_timeline: تنظیم خط زمانی
+    block_assignment: تکلیف
+    block_custom: سفارشی
+    block_in_class: در کلاس
+    block_milestone: نقطهٔ عطف
+    course_dates: تاریخ‌های دوره
+    course_dates_instructions: انتخاب تاریخ‌های آغاز و پایان کل دوره (نه فقط تکلیف
+      ویکی‌پدیا).
+    course_end: پایان دوره
+    course_start: آغاز دوره
+    delete_week_confirmation: آیا از حذف این هفته اطمینان دارید؟ این عمل برگشت‌پذیر
+      نیست.
+    discard_all_changes: دور ریختن تمامی تغییرات
+    due_default: برای هفتهٔ آینده.
+    empty_week_1: برای آغاز،
+    empty_week_2: از این هفته شروع به ویرایش کنید
+    empty_week_3: یا
+    empty_week_4: آغاز از یک تکلیف ناتمام.
+    first_week_title: نخستین هفتهٔ فعال
+    gradeable_value: مقدار
+    grading_header: 'درجه‌بندی (مجموع: %{total}%)'
+    no_class_holidays: هیچ کلاسِ تعطیلی ندارم
+    no_timeline: این دوره هیچ جدول زمانی ندارد.
+    no_activity_this_week: این هفته جلسه‌ی از پیش‌ تعیین شده‌ای‌ ندارد.
+    nothing_this_week: برای این هفته هیچ چیزی برنامه‌ریزی نشده‌است.
+    save_all_changes: ذخیرهٔ همه
+    this_week_title_default: این هفته
+    title: جدول زمانی
+    week_number: هفته %{number}
+  training:
+    continue: ادامه (%{progress})
+    start: آغاز
+    view: نمایش
+  uploads:
+    datetime: تاریخ/زمان
+    file_name: نام پرونده
+    header: پرونده‌های بارگذاری‌شده در ویکی‌انبار
+    image: نگاره
+    label: بارگذاری‌ها
+    loading: در حال بارگیری بارگزاری‌ها ...
+    none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
+      نداشته‌است.
+    time_doc: زمان هر بارگذاری به وقت محلی‌تان
+    uploaded_by: بارگذاری‌های
+    usage_count: تعداد دفعات استفاده
+    usages: کاربردها
+  users:
+    already_enrolled: این کاربر پیش‌تر نام‌نویسی کرده‌است!
+    assign_articles: مقالات اختصاص‌یافته
+    assign_articles_done: انجام شد
+    assigned: مقالات اختصاص‌داده
+    assignees: عامل(ها)
+    chars_added: کارکترهای افزوده‌شده<br>(فضای اصلی | فضای کاربری)
+    contributions: مشارکت‌های کاربر
+    contributions_more: نمایش مشارکت‌های بیش‌تر
+    course_passcode: 'کد دسترسی:'
+    editors: ویرایشگران
+    enroll_confirmation: آیا از افزودن %{username} اطمینان دارید؟
+    enroll_url: 'کاربران با استفاده از پیوند زیر می‌تواند بپیوندند:'
+    enrolled_success: '%{username} با موفقیت افزوده‌شد!'
+    first_name: نام
+    last_name: نام خانوادگی
+    loading: در حال بارگذاری کاربران...
+    characters_added_mainspace: کاراکترهای افزوده‌شده فضای اصلی
+    characters_added_short: 'فضای اصلی: %{mainspace}، فضای کاربر: %{userspace}'
+    characters_added_userspace: کاراکترهای افزوده‌شده فضای کاربر
+    my_assigned: 'اختصاص‌یافته:'
+    my_reviewing: 'بازبینی‌کردن:'
+    name: نام
+    none: مشارکت‌کننده‌ای وجود ندارد.
+    no_articles: بدون مقاله
+    no_revisions: این ویراستار هیچ بازبینی‌ای انجام نداده‌است.
+    number_of_articles:
+      one: '%{count} مقاله'
+      other: '%{count} مقاله'
+    recent_revisions: ویرایش‌های اخیر
+    remove_confirmation: از حذف %{username} اطمینان دارید؟
+    revision_characters_and_views: 'کاراکترهای افزوده‌شده: %{characters}، بازدیدها:
+      %{views}'
+    revisions_doc: تعداد ویرایش‌های انجام‌شدهٔ این ویراستار در ۷ روز گذشته
+    reviewers: 'بازبینی‌کننده‌(ها):'
+    reviewing: 'بازبینی‌کردن:'
+    training_incomplete: آموزش ناقص
+    training_module_status: وضعیت
+    username: نام کاربری
+    username_placeholder: نام کاربری
+    role:
+      visitor: بازدیدکننده
+      student: دانشجو
+      instructor: استاد
+      campus_volunteer: داوطلب دانشگاهی
+      online_volunteer: داوطلب برخط
+      wiki_ed_staff: کارمندان ویکی‌آموزش
+  wiki_edits:
+    notify_overdue:
+      summary: سررسید موعد آموزش دانشجو
+  wizard:
+    assignment_dates: تاریخ‌های تکلیف
+    assignment_type: نوع تکلیف
+    course_dates: تاریخ‌های دوره
+    select_one_option: لطفاً ۱ گزینه را انتخاب کنید.
+    read_less: کمتر بخوانید
+    read_more: بیش‌تر بخوانید
+    select_assignment: نوع تکلیفی که می‌خواهید به جدول زمانی‌تان بیفزایید را انتخاب
+      کنید.
+    summary: خلاصه
+  error:
+    form_errors: لطفاً فُرم را به‌دلیل خطاها بررسی کنید.
+    invalid_assignment: تکلیف ناموجود
+    invalid_date: تاریخ %{key} نامعتبر است
+    invalid_file_format: این فایل نمی‌تواند ذخیره‌شود. لطفاً یک سند PDF یا Word بارگذاری
+      کنید.
+    oauth_invalid: مجوز ورود ویکی‌پدیای شما منقضی شده‌است. لطفاً دوباره وارد شوید.
+    start_date_before_end_date: تاریخ شروع باید قبل از تاریخ پایان باشد
+    unsupported_browser:
+      header: مرورگر سازگار نیست :-(
+      explanation: از مرورگری استفاده می‌کنید که با داشبورد سازگار نیست. این وب‌گاه
+        روی مرورگرهای اینترنت اکسپلورر نسخهٔ ۱۱ یا جدیدتر، نسخه‌های جدید کروم و فایرفاکس،
+        و دیگر مرورگرهای مدرن کار می‌کند.
+  error_401:
+    header: مجاز نیست. >:-(
+    explanation: مجاز به اجرای این درخواست نیستید. اگر فکر می‌کنید که این پیام خطا
+      را به‌اشتباه دریافت کرده‌اید، لطفاً با مسئول این داشبورد تماس بگیرید و مشکل
+      را اطلاع دهید.
+  error_incorrect_passcode:
+    header: کد دسترسی نامعتبر است  :-(
+    explanation: کد دسترسی برای پیوستن به این دوره، نادرست است. لطفاً کد دسترسی صحیح
+      برای پیوستن به این دوره را از مدرس خود درخواست کنید.
+  error_404:
+    header: صفحه یافت نشد. :-(
+  error_422:
+    header: 422 — unprocessable entity.  :-(
+    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این داشبورد تماس بگیرید
+      و دربارهٔ این مشکل به آن‌ها اطلاع دهید.
+  error_500:
+    header: ۵۰۰ — خطای درونی کارگزار.  :-(
+    explanation: چیزی اشتباه شده‌است. لطفاً با مسئول نگهداری این داشبورد تماس بگیرید
+      و دربارهٔ این مشکل به آن‌ها اطلاع دهید.
+  login_error:
+    header: خطا در ورود به سامانه
+  survey:
+    email:
+      headline: درود، %{username}
+      course: 'دوره: %{course_info}'
+      closing: با احترام،
+      signed: '- تیم برنامهٔ آموزشی'
+      link: شرکت در نظرسنجی
+  feedback_form_responses:
+    no_responses: هنوز هیچ پاسخ بازخوردی وجود ندارد
+...

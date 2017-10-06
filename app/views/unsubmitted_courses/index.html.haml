@@ -1,0 +1,31 @@
+- content_for :after_title, " - #{t(Features.wiki_ed? ? 'application.explore' : 'courses_generic.explore')}"
+
+%header.main-page
+  .container
+    %h1= t("#{Features.default_course_string_prefix}.unsubmitted")
+
+.container
+  %section#courses
+    .section-header
+      .sort-select
+        %select.sorts{:rel => "courses"}
+          %option{:rel => "asc", :value => "title"}= t("courses.title")
+          %option{:rel => "desc", :value => "creation-date"}= t("courses.creation_date")
+    %table.table.table--hoverable.table--sortable
+      %thead
+        %tr
+          %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "title"}
+            = t("courses.title")
+            %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "creation-date"}
+            = t("courses.creation_date")
+            %span.sortable-indicator
+          %th{:style => "width: 165px;"}
+            = t("courses.instructor.one")
+          %th{:style => "width: 150px;"}
+            = t("courses.expected_students")
+          %th{:style => "width: 175px;"}
+            = t("metrics.tags")
+      %tbody.list
+        - @presenter.courses_by_recent_edits.each do |c|
+          = render 'unsubmitted_courses/row', course: c, admin: false, user: false

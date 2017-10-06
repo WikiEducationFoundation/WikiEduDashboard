@@ -1,0 +1,12 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "#{@adder.username} added #{@new_instructor.username} as an instructor in #{@course.slug}."
+              %p.paragraph
+                %a{href: @course_link}= @course.slug

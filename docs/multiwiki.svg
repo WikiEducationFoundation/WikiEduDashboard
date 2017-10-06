@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="346" version="1.1" width="1076" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#ffffff" height="101" stroke="#ffffff" stroke-width="1" width="140" x="922" y="31"/>
+<rect fill="none" height="101" stroke="#000000" stroke-width="1" width="140" x="922" y="31"/>
+<text font-family="Dialog" font-size="12" x="972" y="44">
+Article</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="922" y="54"/>
+<text font-family="Dialog" font-size="12" x="926" y="68">
+mw_page_id : Integer</text>
+<text font-family="Dialog" font-size="12" x="926" y="84">
+wiki_id : Integer</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="922" y="102"/>
+<rect fill="#ffffff" height="69" stroke="#ffffff" stroke-width="1" width="219" x="386" y="31"/>
+<rect fill="none" height="69" stroke="#000000" stroke-width="1" width="219" x="386" y="31"/>
+<text font-family="Dialog" font-size="12" x="473" y="44">
+Course</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="219" x="386" y="54"/>
+<text font-family="Dialog" font-size="12" x="390" y="68">
+&lt;&lt;Calculated&gt;&gt; home_wiki : Wiki</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="219" x="386" y="78"/>
+<rect fill="#ffffff" height="85" stroke="#ffffff" stroke-width="1" width="152" x="402" y="207"/>
+<rect fill="none" height="85" stroke="#000000" stroke-width="1" width="152" x="402" y="207"/>
+<text font-family="Dialog" font-size="12" x="466" y="220">
+Wiki</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="152" x="402" y="230"/>
+<text font-family="Dialog" font-size="12" x="406" y="244">
+language : String</text>
+<text font-family="Dialog" font-size="12" x="406" y="260">
+project : String</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="152" x="402" y="270"/>
+<rect fill="#ffffff" height="101" stroke="#ffffff" stroke-width="1" width="219" x="66" y="31"/>
+<rect fill="none" height="101" stroke="#000000" stroke-width="1" width="219" x="66" y="31"/>
+<text font-family="Dialog" font-size="12" x="161" y="44">
+User</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="219" x="66" y="54"/>
+<text font-family="Dialog" font-size="12" x="70" y="68">
+username : String</text>
+<text font-family="Dialog" font-size="12" x="70" y="84">
+&lt;&lt;Calculated&gt;&gt; home_wiki : Wiki</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="219" x="66" y="102"/>
+<polyline fill="none" points="146,131 146,231 402,231" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="146,131 151,141 146,151 141,141" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="146,131 151,141 146,151 141,141" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="12" x="364" y="222">
+0..1</text>
+<text font-family="Dialog" font-size="12" x="350" y="246">
+home</text>
+<polyline fill="none" points="922,131 634,247 553,247" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="922,131 914,139 904,138 910,130" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="922,131 914,139 904,138 910,130" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="565" x2="553" y1="240" y2="247"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="565" x2="553" y1="254" y2="247"/>
+<text font-family="Dialog" font-size="12" x="566" y="237">
+1</text>
+<polyline fill="none" points="674,115 553,207" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="674,115 669,125 659,127 663,117" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="674,115 669,125 659,127 663,117" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="558" x2="553" y1="194" y2="207"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="566" x2="553" y1="205" y2="207"/>
+<text font-family="Dialog" font-size="12" x="555" y="186">
+1</text>
+<polyline fill="none" points="813,107 922,107" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="813,107 823,102 833,107 823,112" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="813,107 823,102 833,107 823,112" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="910" x2="922" y1="114" y2="107"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="910" x2="922" y1="100" y2="107"/>
+<text font-family="Dialog" font-size="12" x="832" y="102">
+0..*</text>
+<text font-family="Dialog" font-size="12" x="884" y="100">
+0..1</text>
+<rect fill="#ffffff" height="117" stroke="#ffffff" stroke-width="1" width="140" x="874" y="215"/>
+<rect fill="none" height="117" stroke="#000000" stroke-width="1" width="140" x="874" y="215"/>
+<text font-family="Dialog" font-size="12" x="918" y="228">
+Revision</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="874" y="238"/>
+<text font-family="Dialog" font-size="12" x="878" y="252">
+mw_page_id : Integer</text>
+<text font-family="Dialog" font-size="12" x="878" y="268">
+mw_rev_id : Integer</text>
+<text font-family="Dialog" font-size="12" x="878" y="284">
+wiki_id : Integer</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="874" y="302"/>
+<polyline fill="none" points="106,131 106,279 402,279" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="106,131 111,141 106,151 101,141" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="106,131 111,141 106,151 101,141" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="12" x="368" y="274">
+0..*</text>
+<text font-family="Dialog" font-size="12" x="365" y="294">
+edits</text>
+<ellipse cx="180" cy="277" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="181" cy="278" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<polyline fill="none" points="386,47 284,47" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="386,47 376,52 366,47 376,42" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="386,47 376,52 366,47 376,42" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="296" x2="284" y1="40" y2="47"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="296" x2="284" y1="54" y2="47"/>
+<text font-family="Dialog" font-size="12" x="298" y="42">
+0..*</text>
+<text font-family="Dialog" font-size="12" x="298" y="61">
+member</text>
+<polyline fill="none" points="874,271 553,271" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="874,271 864,276 854,271 864,266" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="874,271 864,276 854,271 864,266" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="565" x2="553" y1="264" y2="271"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="565" x2="553" y1="278" y2="271"/>
+<text font-family="Dialog" font-size="12" x="567" y="296">
+1</text>
+<polyline fill="none" points="604,99 674,99" stroke="#000000" stroke-width="1"/>
+<polygon fill="#000000" points="604,99 614,94 624,99 614,104" stroke="#000000" stroke-width="1"/>
+<polygon fill="none" points="604,99 614,94 624,99 614,104" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="662" x2="674" y1="106" y2="99"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="662" x2="674" y1="92" y2="99"/>
+<text font-family="Dialog" font-size="12" x="617" y="94">
+1</text>
+<text font-family="Dialog" font-size="12" x="644" y="93">
+0..*</text>
+<polyline fill="none" points="938,131 938,215" stroke="#000000" stroke-width="1"/>
+<polygon fill="#000000" points="938,131 943,141 938,151 933,141" stroke="#000000" stroke-width="1"/>
+<polygon fill="none" points="938,131 943,141 938,151 933,141" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="931" x2="938" y1="203" y2="215"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="945" x2="938" y1="203" y2="215"/>
+<text font-family="Dialog" font-size="12" x="951" y="158">
+1</text>
+<text font-family="Dialog" font-size="12" x="945" y="200">
+0..*</text>
+<polyline fill="none" points="386,83 284,83" stroke="#000000" stroke-width="1"/>
+<polygon fill="#ffffff" points="386,83 376,88 366,83 376,78" stroke="#ffffff" stroke-width="1"/>
+<polygon fill="none" points="386,83 376,88 366,83 376,78" stroke="#000000" stroke-width="1"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="296" x2="284" y1="76" y2="83"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="296" x2="284" y1="90" y2="83"/>
+<text font-family="Dialog" font-size="12" x="301" y="78">
+1..*</text>
+<text font-family="Dialog" font-size="12" x="298" y="100">
+facilitator</text>
+<polyline fill="none" points="418,99 418,207" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="12" x="423" y="190">
+0..1</text>
+<text font-family="Dialog" font-size="12" x="381" y="178">
+home</text>
+<polyline fill="none" points="490,99 490,207" stroke="#000000" stroke-width="1"/>
+<text font-family="Dialog" font-size="12" x="496" y="190">
+0..*</text>
+<text font-family="Dialog" font-size="12" x="456" y="179">
+edits</text>
+<ellipse cx="492" cy="153" fill="#000000" rx="0.5" ry="0.5" stroke="#000000" stroke-width="1"/>
+<ellipse cx="493" cy="154" fill="#ffffff" rx="-0.5" ry="-0.5" stroke="#ffffff" stroke-width="1"/>
+<rect fill="#ffffff" height="85" stroke="#ffffff" stroke-width="1" width="140" x="674" y="31"/>
+<rect fill="none" height="85" stroke="#000000" stroke-width="1" width="140" x="674" y="31"/>
+<text font-family="Dialog" font-size="12" x="707" y="44">
+Assignment</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="674" y="54"/>
+<text font-family="Dialog" font-size="12" x="678" y="68">
+mw_page_id : Integer</text>
+<text font-family="Dialog" font-size="12" x="678" y="84">
+wiki_id : Integer</text>
+<rect fill="#000000" height="1" stroke="#000000" stroke-width="1" width="140" x="674" y="94"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="492" x2="496" y1="153" y2="152"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="501" x2="506" y1="151" y2="150"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="511" x2="516" y1="149" y2="148"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="521" x2="526" y1="147" y2="146"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="531" x2="536" y1="145" y2="144"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="541" x2="546" y1="143" y2="142"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="551" x2="555" y1="141" y2="140"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="560" x2="565" y1="139" y2="138"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="570" x2="575" y1="137" y2="136"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="580" x2="585" y1="135" y2="134"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="590" x2="595" y1="133" y2="132"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="600" x2="605" y1="131" y2="130"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="610" x2="614" y1="129" y2="128"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="619" x2="624" y1="127" y2="126"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="629" x2="634" y1="125" y2="124"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="639" x2="644" y1="123" y2="122"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="649" x2="654" y1="121" y2="120"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="659" x2="664" y1="119" y2="118"/>
+<line fill="#000000" stroke="#000000" stroke-width="1" x1="669" x2="674" y1="117" y2="115"/>
+</svg>

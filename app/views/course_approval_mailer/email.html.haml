@@ -1,0 +1,32 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@instructor.username},"
+              %p.paragraph
+                Your students can now begin enrolling on your course page. The
+                following is your enrollment link.
+              %p.paragraph
+                %a{href: @enroll_link}= @enroll_link
+              %p.paragraph
+                Students should click on this link to both create their Wikipedia
+                usernames and enroll on the course page. This is a critical step
+                of your Wikipedia assignment, so please distribute the above link
+                to your class.
+              %p.paragraph
+                To avoid hitting Wikipedia's account creation limit of 6 new accounts
+                per day from the same IP address, it's best to have students create
+                accounts outside of class.
+              %p.paragraph
+                Thank you again for creating your course page on dashboard.wikiedu.org.
+                We look forward to working with you this term!
+              %p.paragraph
+                Best,
+                %br
+                %em
+                  The Wiki Ed team

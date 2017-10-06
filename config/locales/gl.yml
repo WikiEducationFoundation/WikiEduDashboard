@@ -1,0 +1,153 @@
+# Messages for Galician (galego)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Banjo
+# Author: Elisardojm
+# Author: Macofe
+---
+gl:
+  application:
+    cancel: Cancelar
+    dashboard: Panel de Wiki Ed
+    documentation: Documentación
+    error: Houbo un erroː
+    explore: Explorar
+    field_required: Este campo é obrigatorio
+    field_invalid_characters: Este campo ten caracteres non válidos
+    field_invalid_date: Este campo require unha data en formato AAAA-MM-DD
+    greeting2: Benvido!
+    greeting_extended: Benvido a Wikipedia
+    greeting: Ola!
+    help: Axuda
+    home: Inicio
+    log_in_extended: Iniciar sesión na Wikipedia
+    log_in: Acceder ao sistema
+    log_out: Saír
+    my_dashboard: O meu panel de control
+    recent_activity: Actividade recente
+    report_problem: Informar sobre un problema
+    search: facer unha pregunta
+    sign_up_extended: Rexistrarse en Wikipedia
+    sign_up_log_in_extended: con Wikipedia
+    sign_up: Rexístrese
+    submit: Enviar
+    training: Formación
+    change: Cambiar
+    details: Detalles
+    confirm: Aceptar
+  home:
+    explore: Explorar
+  activity:
+    all: Actividade
+    edited_by: Modificado por
+    label: Actividade
+  articles:
+    assigned: Artigos asignados
+    assigned_to: Asignado a
+    character_doc: A suma de caracteres engadidos a artigos polos estudiantes durante
+      a realización do curso
+    edited: Artigos editados
+    edited_mobile: Artigos
+    loading: Cargando artigos...
+    none: Este curso non editou ningún artigo.
+    rating: Clase
+    rating_docs:
+      fl: Lista destacada - a maior calificación para unha lista na Wikipedia
+    title: Título
+    view: Ver artigo
+    view_all: Ver todos
+    view_doc: Suma de todas as vistas a cada artigo durante o curso
+  assignments:
+    confirm_addition: Está seguro de que quere asignar %{title} a %{username}?
+    confirm_deletion: Está seguro de que quere borrar esta asignación?
+    label: Asignar
+    loading: Cargando asignacións...
+    none: Este curso non ten artigos de Wikipedia asignados.
+  blocks:
+    milestones:
+      title: Fitos
+  courses:
+    activity: Actividade
+    articles: Artigos
+    courses: Cursos
+    creator:
+      end_date: Data de fin
+      start_date: Data de inicio
+    current: Cursos actuais
+    duration: Duración do curso
+    error:
+      exists: Este curso xa existe! Por favor, inténteo de novo cun título diferente,
+        escola, ou termo.
+      user_exists: Sentímolo, o usuario %{username} non existe.
+    instructor:
+      one: Monitor
+      other: Monitores
+    join_prompt: Unirse a '%{title}'?
+    new_week: Engadir nova semana
+    nocourses: Non está a participar en ningún curso.
+    revisions_doc: Número de edicións nos pasados %{timeframe} días
+    students: Estudantes
+    students_none: Este curso non ten estudantes.
+    students_short: Estudantes
+    timeline: Detalles de asignación
+    title: Título
+    view: Ver curso
+    view_wiki: Ver en Wikipedia
+    volunteer:
+      one: Voluntario
+      other: Voluntarios
+    yourcourses: Os seus cursos
+  courses_generic:
+    creator:
+      course_school: Institución
+    school: Institución
+    student_editors: Editores
+    students: Editores
+    students_short: Editores
+    term: Cando
+  metrics:
+    activity: Actividade recente
+    articles_created: Artigos creados
+    articles_edited: Artigos editados
+    characters: Caracteres
+    char_added: Caracteres engadidos
+    char_changed: Caracteres cambiados
+    char: Caracteres engadidos
+    date_time: Data/Hora
+    edit_count_description: Total de edicións
+    revisions: Revisións recentes
+    view_count_description: Visualizacións do artigo
+    view: Vistas
+  namespace:
+    main: Espazo principal
+    main_char_added: Caracteres engadidos ó espazo principal
+    user: Espazo de usuario
+    user_char_added: Caracteres engadidos ó espazo de usuario
+    user_ns: Usuario
+  revisions:
+    loading: Cargando revisións...
+    none: Este curso non ten actividade recente de edición na Wikipedia.
+    time_doc: A hora de cada revisión no seu tempo local
+    title: Título
+  tasks:
+    conseq: A tarefa %{task} está en execución!
+  training:
+    view: Ver
+  uploads:
+    label: Cargas
+  users:
+    editors: Editores
+    name: Nome
+  wizard:
+    read_less: Ler menos
+    read_more: Ler máis
+    summary: Resumo
+  error_401:
+    header: Sen permiso. >:-(
+  error_404:
+    header: Páxina non atopada :-(
+  error_422:
+    header: 422 — non se pode procesar a entidade.  :-(
+  error_500:
+    header: 500 — erro interno do servidor.  :-(
+...

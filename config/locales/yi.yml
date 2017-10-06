@@ -1,0 +1,76 @@
+# Messages for Yiddish (ייִדיש)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: פוילישער
+---
+yi:
+  application:
+    cancel: אַנולירן
+    documentation: דאָקומענטאַציע
+    error: 'ס׳האט פאסירט א פֿעלער:'
+    explore: אנטדעקן
+    field_required: דאס פֿעלד איז נויטבאר
+    field_invalid_characters: דאס פֿעלד האט אומגוליטיגע כאראקטערן
+    greeting2: ברוך הבא!
+    greeting_extended: ברוך הבא צו וויקיפעדיע
+    greeting: האלא!
+    help: הילף
+    home: היים
+    log_in_extended: אַרײַנלאגירן צו וויקיפעדיע
+    log_in: אַרײנלאגירן
+    log_out: אַרויסלאָגירן
+    my_dashboard: מיין איבערזיכט־טאוול
+    recent_activity: לעצטיקע אקטיוויטעטן
+    search: פֿרעגן א שאלה
+    sign_up_extended: אַרײַנלאגירן צו וויקיפעדיע
+    sign_up_log_in_extended: מיט וויקיפעדיע
+    sign_up: אײַנשרייבן
+    submit: איינגעבן
+    change: טוישן
+    details: פרטים
+  home:
+    explore: אויספארשן
+    log_in: אַרײנלאגירן צו וויקיפעדיע
+    sign_up: אַרײנלאגירן צו וויקיפעדיע
+  activity:
+    all: אקטיוויטעט
+    edited_by: רעדאקטירט דורך
+    label: אקטיוויטעט
+  articles:
+    edited_mobile: אַרטיקלען
+    hide: באַהאַלטן
+    label: אַרטיקלען
+    loading: אנלאדן ארטיקלען…
+    new: (ניי)
+    rating: קלאס
+    title: טיטל
+    title_example: ארטיקל־טיטל
+  campaign:
+    none: קיין
+  courses:
+    articles: אַרטיקלען
+    calendar:
+      legend_class_canceled: פֿייערטאָג/אַנולירט
+      legend_class_meeting: קלאס באטרעף
+    creator:
+      course_language: היים שפראך
+      course_project: היים פראיעקט
+      course_term_placeholder: זמן
+      end_date: סוף דאַטע
+      find: טרעפט אייער קורס
+      start_date: אָנהייב דאַטע
+    school: שולע
+  courses_generic:
+    all_courses: אלע פראגראמען
+    creator:
+      course_school: אַנשטאַלט
+      course_title: פראגראם־טיטל
+      find: טרעפֿן א פראגראם
+    school: אנשטאלט
+    student_editors: רעדאקטארן
+    students_short: רעדאקטארן
+  timeline:
+    block_milestone: מיילן־שטיין
+  users:
+    assign_articles_done: ערליידיקט
+...

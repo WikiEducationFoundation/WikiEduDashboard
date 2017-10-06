@@ -1,0 +1,26 @@
+# Messages for Tarantino (tarandíne)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Joetaras
+---
+roa-tara:
+  application:
+    cancel: Annulle
+    dashboard: Wiki Ed Dashboard
+    search: Fà 'na domande
+  dashboard:
+    review_orientation: Oriendamende d'a reviste
+  activity:
+    all: Attività
+    edited_by: Cangiate da
+  articles:
+    assigned: Vôsce assegnate
+    assigned_to: Assegnate a
+    loading: Stoche a careche le vôsce...
+    none: Stu corse non ge tène nemmanghe 'n'articole cangiate.
+    title: Titole
+    view: '''Ndruche ''a vôsce'
+    view_all: '''Ndruche tutte'
+  editable:
+    edit_template: Cange 'u template
+...

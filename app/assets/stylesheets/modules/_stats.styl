@@ -1,0 +1,72 @@
+.main-page
+  h1
+    font-weight 300
+    margin-bottom 0
+
+.stat-display
+  display inline-block
+  width 100%
+  margin 40px 0 20px 0
+  display flex
+  justify-content space-between
+  flex-flow wrap
+
+  .stat-display__stat
+    margin 0 20px 20px 20px
+    text-align center
+    width calc(50% - 40px)
+
+    +above(desktop)
+      margin 0 0 20px 0
+      width (1/7*100)%
+
+    .stat-display__value
+      font-family inherit
+      color $brand_primary
+      font-size 38px
+      margin 0
+      font-weight 300
+
+      img
+        max-width 13%
+        position absolute
+        top 9px
+
+    .stat-display__data
+      font-family inherit
+      color $brand_primary
+      font-size 1em
+      margin 0
+      font-weight 300
+      padding 10px 5% 1px 5%
+
+    small
+      color #666
+      font-size 1em
+      line-height 1
+
+  .tooltip
+    left -15%
+    width 100%
+    &:before
+      left 50%
+
+.user_stats
+  .stat-display
+    margin 0 0 30px 0
+
+  #instructor-profile-stats
+    display block
+
+    .stat-display
+      justify-content initial
+      margin 0 0 50px 0
+
+      .stat-display__stat
+        margin 0 20px 0 20px
+
+@media only screen and (max-width: 910px)
+  .stat-display
+    .stat-display__value
+      img
+        display none

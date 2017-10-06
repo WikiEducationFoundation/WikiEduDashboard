@@ -1,0 +1,80 @@
+.form-group
+  margin-bottom 8px
+  font-size 15px
+  color body-color
+  font-weight 400
+  -webkit-font-smoothing antialiased
+
+.form-group > label
+  margin-bottom 4px
+  display block
+  font-weight 600
+
+.form-group--narrow
+  max-width 250px
+
+.form-group--wide
+  max-width 500px
+
+.form-group--block
+  max-width 100%
+
+.form-group.invalid,
+.field_with_errors
+  color warning
+  input
+    border-color warning
+    box-shadow 0 0 0 1px warning
+    color warning
+
+.form-required-indicator
+  color warning
+
+.form-help-text
+  color #808080
+  margin-top 2px
+  font-size 14px
+
+.vertical-form
+  float left
+  margin-top 20px
+  +above(desktop)
+    padding-left 20px
+    margin-top 0
+  label
+    span
+      margin-bottom 2px
+    div
+      clear both
+      input
+        margin-bottom 10px
+        width 200px
+  p
+    span:last-child
+      display inline-block
+      font-weight bold
+      margin-bottom 10px
+
+.form-container
+  margin-top 30px
+
+.simple_form
+  margin 20px 0
+  label
+    display block
+    margin-bottom 5px
+  input[type=text], textarea
+    border 1px solid $border_lt
+  textarea
+    width 600px
+    height 200px
+  input[type=submit].button
+    margin-left 0
+
+.half-width-select-left
+  width 48%
+  float left
+  margin-right 10px
+
+.half-width-select-right
+  margin-left 52%

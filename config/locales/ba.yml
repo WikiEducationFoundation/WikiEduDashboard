@@ -1,0 +1,58 @@
+# Messages for Bashkir (башҡортса)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Lizalizaufa
+# Author: Азат Хәлилов
+# Author: Вильданова Гюзель
+# Author: Ләйсән
+# Author: Янмурза Баки
+---
+ba:
+  application:
+    field_invalid_date_time: Яңынан башлағас тамамланасаҡ. (0-дән 23 сәғәткә тиклем
+      арауыҡта.)
+    change: Үҙгәртергә
+  articles:
+    new: (яңы)
+  courses:
+    creator:
+      subject: Тема
+    end: Тамамлау
+    enroll: Теркәлеү
+    loading: Тейәлә...
+    my_articles: Минең мәҡәләләр
+    start: Башларға
+    untrained: Өйрәнсек
+  courses_generic:
+    courses: Прогресс
+    enrollment: Ҡатнашыу
+  editable:
+    edit: Үҙгәртергә
+    cancel: Кире алырға
+    save: Һаҡларға
+  recent_activity:
+    did_you_know_eligible: Һеҙ хоҡуҡтарығыҙҙы беләһегеҙме
+    image: Рәсем
+    file_name: Файл исеме
+    no_dyk_eligible: Бөгөнгө көндә күпселек "Һеҙ Беләһегеҙме"-хоҡуҡ статьялары юҡ.
+    no_plagiarism: Хәҙерге ваҡытта һуңғы үҙгәрештәрҙә әҙәбиәт бурлығына шик бар .
+    no_edits: Һуңғы үҙгәртеүҙәр күренмәй.
+    possible_plagiarism: Плагиат була
+    recent_edits: Һуңғы Үҙгәртеүҙәр
+    show_courses: Минең генә курстарҙы күрһәтергә
+  timeline:
+    empty_week_3: йәки
+  uploads:
+    datetime: Көн/Ваҡыт
+    file_name: Файл исеме
+    image: Рәсем
+  users:
+    assign_articles_done: Әҙер
+    editors: Мөхәррирҙәр
+    first_name: Исем
+    last_name: Фамилия
+    my_assigned: 'Тәғәйенләнеше:'
+    my_reviewing: 'Күҙәтеү:'
+    username: Ҡулланыусы исеме
+    username_placeholder: Ҡатнашыусы исеме
+...

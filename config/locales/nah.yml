@@ -1,0 +1,24 @@
+# Messages for Nāhuatl (Nāhuatl)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Taresi
+---
+nah:
+  application:
+    dashboard: Huiqui Ed Īhuapal
+  blocks:
+    milestones:
+      title: Tepāmmachiyōtl
+  metrics:
+    view: Tlachiyaliztli
+  namespace:
+    main: Huēyitlacāuhtli
+    user: Tequihuihcātlacāuhtli
+    user_ns: Tequihuihqui
+  users:
+    name: Tōcāitl
+  wizard:
+    summary: Tlacecempōhualōni
+  error_404:
+    header: Ahmō mahcic tlaīxtli. :-(
+...

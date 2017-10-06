@@ -1,0 +1,6 @@
+test: &test
+  adapter: mysql2
+  encoding: utf8
+  username: root
+  password:
+  database: test

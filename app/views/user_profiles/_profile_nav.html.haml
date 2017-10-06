@@ -1,0 +1,14 @@
+%nav.profile-nav
+  .container
+    %ul.top-nav__main-links
+      #highlight
+        %li
+          %h5
+            #{@user.username}'s
+      %li
+        %a{:href => "#statistics"}
+          = t("users.contribution_statistics")
+      %li
+        %a{:href => "#course-details"}
+          = t("courses.course_details")
+.profile-br

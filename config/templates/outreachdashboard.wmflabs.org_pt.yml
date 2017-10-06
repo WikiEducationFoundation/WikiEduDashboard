@@ -1,0 +1,12 @@
+default:
+  editor: "editor participante"
+  instructor: "instrutor de programa"
+  course_assignment: "Tarefa do outreachdashboard.wmflabs.org"
+  table: "tabela de participantes"
+  table_row: "linha da tabela do participante"
+  table_end: "fim da tabela de participantes"
+  course: "detalhes de programa"
+  timeline: "início da linha do tempo do programa"
+  start_of_week: "início do programa da semana"
+  end_of_week: "fim do programa da semana"
+  user_talk: "discussão de usuário do outreachdashboard.wmflabs.org"

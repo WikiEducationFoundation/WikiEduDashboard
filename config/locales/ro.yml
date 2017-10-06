@@ -1,0 +1,35 @@
+# Messages for Romanian (română)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alaskian
+# Author: Minisarm
+# Author: Wintereu
+---
+ro:
+  application:
+    sign_up_extended: Înregistrare prin Wikipedia
+    submit: Trimite
+  articles:
+    edited: Articole modificate
+    edited_mobile: Articole
+    label: Articole
+    loading: Se încarcă articole...
+    rating: Clasă
+    title: Titlu
+  courses:
+    activity: Activitate
+    already_enrolled: Faceți deja parte din „%{title}”!
+    articles: Articole
+    duration: Durata cursului
+    error:
+      exists: Acest curs există deja! Vă rugăm să încercați din nou cu un titlu, școală
+        sau termen diferit.
+    students: Studenți
+    title: Titlu
+    yourcourses: Cursurile dumneavoastră
+  users:
+    contributions: Contribuții utilizator
+    contributions_more: Vezi mai multe contribuții
+    name: Nume
+    none: Acest curs nu are studenți.
+...
