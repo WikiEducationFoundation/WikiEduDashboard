@@ -116,11 +116,8 @@ class CampaignsController < ApplicationController
   def remove_course
     campaigns_course = CampaignsCourses.find_by(course_id: params[:course_id],
                                                 campaign_id: @campaign.id)
-    message = if campaigns_course&.destroy
-                'campaign.course_removed'
-              else
-                'campaign.course_already_removed'
-              end
+    result = campaigns_course&.destroy
+    message = result ? 'campaign.course_removed' : 'campaign.course_already_removed'
     flash[:notice] = t(message, title: params[:course_title],
                                 campaign_title: @campaign.title)
     redirect_to programs_campaign_path(@campaign.slug)
