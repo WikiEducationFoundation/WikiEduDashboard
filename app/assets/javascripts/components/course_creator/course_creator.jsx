@@ -1,6 +1,5 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
@@ -176,7 +175,7 @@ const CourseCreator = createReactClass({
   },
 
   useThisClass() {
-    const select = ReactDOM.findDOMNode(this.refs.courseSelect);
+    const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
     ServerActions.cloneCourse(courseId);
     return this.setState({ isSubmitting: true, shouldRedirect: true });

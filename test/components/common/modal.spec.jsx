@@ -1,21 +1,18 @@
 import '../../testHelper';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-dom/test-utils';
 import Modal from '../../../app/assets/javascripts/components/common/modal.jsx';
+import { mount } from 'enzyme';
 
 describe('Modal', () => {
-  const TestModal = ReactTestUtils.renderIntoDocument(
+  const wrapper = mount(
     <Modal modalClass="foo">
       <h3>bar</h3>
     </Modal>
-  );
+    );
 
   it('renders its children with the modalClass', () => {
-    const modalContent = ReactTestUtils.findRenderedDOMComponentWithTag(TestModal, 'div');
-    const content = ReactDOM.findDOMNode(modalContent);
-    expect(content.textContent).to.eq('bar');
-    expect(content.className).to.eq('wizard active foo');
+    expect(wrapper.text()).to.equal('bar');
+    expect(wrapper.find('div.wizard.active.foo')).to.have.length(1);
   });
 
   it('adds modal-open class to the body', () => {
@@ -23,7 +20,7 @@ describe('Modal', () => {
   });
 
   it('removes the modal-open when it unmounts', () => {
-    TestModal.componentWillUnmount();
+    wrapper.unmount();
     expect(document.body.className).to.eq('');
   });
 });
