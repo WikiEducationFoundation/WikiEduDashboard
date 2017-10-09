@@ -10,6 +10,7 @@ import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
+import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -36,7 +37,8 @@ const CourseCreator = React.createClass({
   displayName: 'CourseCreator',
 
   propTypes: {
-    user_courses: PropTypes.array
+    user_courses: PropTypes.array.isRequired,
+    fetchCoursesForUser: PropTypes.func.isRequired
   },
 
   mixins: [CourseStore.mixin, ValidationStore.mixin],
@@ -63,8 +65,8 @@ const CourseCreator = React.createClass({
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
-
-    return ServerActions.fetchCoursesForUser(getUserId());
+    debugger
+    return this.props.fetchCoursesForUser(getUserId());
   },
 
   campaignParam() {
@@ -180,6 +182,7 @@ const CourseCreator = React.createClass({
   },
 
   render() {
+      console.log(this.props.user_courses, "course")
     // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
     let showCourseForm;
     let showCloneChooser;
@@ -312,6 +315,7 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
+    debugger
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -424,7 +428,11 @@ const CourseCreator = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  user_courses: _.reject(state, { type: "LegacyCourse" })
+  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
 });
 
-export default connect(mapStateToProps)(CourseCreator);
+const mapDispatchToProps = ({
+  fetchCoursesForUser: fetchCoursesForUser
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);

@@ -1,6 +1,7 @@
 import '../../testHelper';
 import sinon from 'sinon';
 import _ from 'lodash';
+import { Provider } from 'react-redux';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -18,7 +19,9 @@ CourseCreator.__Rewire__('ValidationStore', {
 describe('CourseCreator', () => {
   describe('render', () => {
     const TestCourseCreator = ReactTestUtils.renderIntoDocument(
-      <CourseCreator />
+        <Provider store={{}}>
+            <CourseCreator />
+        </Provider>
     );
     it('renders a title', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
@@ -35,7 +38,7 @@ describe('CourseCreator', () => {
       describe('state updated to show (and user has courses)', () => {
         it('shows', () => {
           TestCourseCreator.setState({ showCloneChooser: true });
-          TestCourseCreator.setState({ user_courses: ['some_course'] });
+        //   TestCourseCreator.setState({ user_courses: ['some_course'] });
           const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
           expect(select.classList.contains('hidden')).to.eq(false);
         });
