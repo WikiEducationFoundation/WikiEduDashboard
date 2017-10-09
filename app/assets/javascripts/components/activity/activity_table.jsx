@@ -5,6 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import * as UIActions from '../../actions';
+import { selectUIOpenKey } from "../../selectors";
 import ActivityTableRow from './activity_table_row.jsx';
 import Loading from '../common/loading.jsx';
 
@@ -152,7 +153,7 @@ const ActivityTable = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey
+  openKey: selectUIOpenKey(state)
 });
 
 const mapDispatchToProps = dispatch => ({

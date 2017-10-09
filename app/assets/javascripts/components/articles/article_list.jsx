@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import * as UIActions from '../../actions';
 import * as ArticleActions from '../../actions/article_actions';
+import { selectUIOpenKey, selectArticleDetails } from "../../selectors";
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -104,8 +105,8 @@ const ArticleList = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey,
-  articleDetails: state.articleDetails
+  openKey: selectUIOpenKey(state),
+  articleDetails: selectArticleDetails(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AlertActions from '../../actions/alert_actions.js';
+import { selectNHAlertSubmitted, selectNHAlertCreated } from "../../selectors";
 
 import Expandable from '../high_order/expandable.jsx';
 import UserStore from '../../stores/user_store.js';
@@ -255,8 +256,8 @@ const GetHelpButton = React.createClass({
 });
 
 const mapStateToProps = state => ({
-  alertSubmitting: state.needHelpAlert.submitted,
-  alertCreated: state.needHelpAlert.created
+  alertSubmitting: selectNHAlertSubmitted(state),
+  alertCreated: selectNHAlertCreated(state)
 });
 
 const mapDispatchToProps = dispatch => ({
