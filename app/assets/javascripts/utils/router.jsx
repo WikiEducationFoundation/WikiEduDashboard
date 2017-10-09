@@ -40,11 +40,13 @@ import RocketChat from '../components/common/rocket_chat.jsx';
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
 import Nav from '../components/nav.jsx';
 
+import logger from 'redux-logger';
+
 // This is the Redux store.
 // It is accessed from container components via `connect()`.
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, logger)
 );
 
 // Handle scroll position for back button, hashes, and normal links
