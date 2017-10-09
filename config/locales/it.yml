@@ -594,8 +594,8 @@ it:
     header: Pagina non trovata. :-(
   error_422:
     header: 422 — entità non processabile.  :-(
-    explanation: Qualcosa è andato storto. Contatta i manutentori di questo cruscotto
-      per informarli del problema.
+    explanation: Qualcosa è andato storto. Si prega di contattare i responsabili di
+      questa dashboard per informarli del problema.
   error_500:
     header: 500 — errore interno del server. :-(
     explanation: Qualcosa è andato storto. Contatta i manutentori di questo cruscotto
