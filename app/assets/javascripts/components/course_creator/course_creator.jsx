@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { Link } from 'react-router';
 
 import CourseStore from '../../stores/course_store.js';
-import UserCoursesStore from '../../stores/user_courses_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
@@ -27,15 +28,18 @@ import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } f
 const getState = () => {
   return {
     course: CourseStore.getCourse(),
-    error_message: ValidationStore.firstMessage(),
-    user_courses: _.reject(UserCoursesStore.getUserCourses(), { type: 'LegacyCourse' })
+    error_message: ValidationStore.firstMessageprops
   };
 };
 
 const CourseCreator = React.createClass({
   displayName: 'CourseCreator',
 
-  mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],
+  propTypes: {
+    user_courses: PropTypes.array
+  },
+
+  mixins: [CourseStore.mixin, ValidationStore.mixin],
 
   getInitialState() {
     const inits = {
@@ -181,7 +185,7 @@ const CourseCreator = React.createClass({
     let showCloneChooser;
     let showNewOrClone;
     // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
-    if (this.state.user_courses.length === 0) {
+    if (this.props.user_courses.length === 0) {
       showCourseForm = true;
     // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
@@ -215,7 +219,7 @@ const CourseCreator = React.createClass({
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
     let term;
@@ -419,4 +423,8 @@ const CourseCreator = React.createClass({
   }
 });
 
-export default CourseCreator;
+const mapStateToProps = state => ({
+  user_courses: _.reject(state, { type: "LegacyCourse" })
+});
+
+export default connect(mapStateToProps)(CourseCreator);
