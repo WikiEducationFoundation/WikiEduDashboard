@@ -27,6 +27,12 @@ const ActivityTable = React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.activity !== this.state.activity) {
+      this.setState({ activity: nextProps.activity });
+    }
+  },
+
   clearAllSortableClassNames() {
     Array.prototype.forEach.call(document.getElementsByClassName('sortable'), (el) => {
       el.classList.remove('asc');

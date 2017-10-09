@@ -1,4 +1,4 @@
-import * as types from '../constants/action_types.js';
+import * as types from '../constants';
 import ApiFailAction from './api_fail_action.js';
 import API from '../utils/api.js';
 

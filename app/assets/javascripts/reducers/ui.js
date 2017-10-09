@@ -1,4 +1,4 @@
-import { TOGGLE_UI } from '../constants/action_types.js';
+import { TOGGLE_UI } from '../constants';
 
 const initialState = { openKey: null };
 
