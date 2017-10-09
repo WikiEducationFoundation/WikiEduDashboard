@@ -1,1 +1,1 @@
-export * from "./user_courses";
+export * from "./user_courses.js";

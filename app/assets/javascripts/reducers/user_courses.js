@@ -7,7 +7,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_USER_COURSES: {
-      debugger;
       return {
         userCourses: action.payload.data.courses
       };

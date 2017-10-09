@@ -10,7 +10,7 @@ import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
-import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
+import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -65,7 +65,6 @@ const CourseCreator = React.createClass({
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
-    debugger
     return this.props.fetchCoursesForUser(getUserId());
   },
 
@@ -182,7 +181,6 @@ const CourseCreator = React.createClass({
   },
 
   render() {
-      console.log(this.props.user_courses, "course")
     // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
     let showCourseForm;
     let showCloneChooser;
@@ -315,7 +313,7 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
-    debugger
+
     return (
       <TransitionGroup
         transitionName="wizard"
