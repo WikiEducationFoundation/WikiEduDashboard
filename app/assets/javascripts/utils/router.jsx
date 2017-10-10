@@ -5,6 +5,7 @@ import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 import reducer from '../reducers';
 
 import App from '../components/app.jsx';
@@ -44,7 +45,7 @@ import Nav from '../components/nav.jsx';
 // It is accessed from container components via `connect()`.
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk, logger)
 );
 
 // Handle scroll position for back button, hashes, and normal links
