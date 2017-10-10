@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
 import AvailableActions from '../../../app/assets/javascripts/components/overview/available_actions.jsx';
 

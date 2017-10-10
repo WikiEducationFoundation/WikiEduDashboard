@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import RecentEditsStore from '../../stores/recent_edits_store.js';
 import ActivityTable from './activity_table.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -10,7 +11,7 @@ const getState = () => {
   };
 };
 
-const RecentEditsHandler = React.createClass({
+const RecentEditsHandler = createReactClass({
   displayName: 'RecentEditsHandler',
 
   mixins: [RecentEditsStore.mixin],

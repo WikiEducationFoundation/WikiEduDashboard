@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
@@ -17,7 +18,7 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import TransitionGroup from 'react-addons-css-transition-group';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import _ from 'lodash';
 
@@ -32,7 +33,7 @@ const getState = () => {
   };
 };
 
-const CourseCreator = React.createClass({
+const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
 
   mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],

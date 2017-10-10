@@ -1,14 +1,16 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import RevisionList from './revision_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
-const RevisionHandler = React.createClass({
+const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object
+    course_id: PropTypes.string,
+    course: PropTypes.object
   },
 
   componentWillMount() {

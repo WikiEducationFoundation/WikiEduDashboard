@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import OnClickOutside from 'react-onclickoutside';
 
-const FinalArticleChecklist = React.createClass({
+const FinalArticleChecklist = createReactClass({
   displayName: 'FinalArticleChecklist',
 
   getInitialState() {

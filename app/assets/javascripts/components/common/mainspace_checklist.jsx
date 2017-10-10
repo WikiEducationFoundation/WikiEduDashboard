@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import OnClickOutside from 'react-onclickoutside';
 
-const MainspaceChecklist = React.createClass({
+const MainspaceChecklist = createReactClass({
   displayName: 'MainspaceChecklist',
 
   getInitialState() {

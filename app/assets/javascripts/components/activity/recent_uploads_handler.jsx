@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import RecentUploadsStore from '../../stores/recent_uploads_store.js';
 import UploadTable from './upload_table.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -10,7 +11,7 @@ const getState = () => {
   };
 };
 
-const RecentUploadsHandler = React.createClass({
+const RecentUploadsHandler = createReactClass({
   displayName: 'RecentUploadsHandler',
 
   mixins: [RecentUploadsStore.mixin],
