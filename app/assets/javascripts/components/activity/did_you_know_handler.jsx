@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
 import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
@@ -16,9 +17,9 @@ const DidYouKnowHandler = React.createClass({
   displayName: "DidYouKnowHandler",
 
   propTypes: {
-    fetchDYKArticles: React.PropTypes.func,
-    articles: React.PropTypes.array,
-    loading: React.PropTypes.bool
+    fetchDYKArticles: PropTypes.func,
+    articles: PropTypes.array,
+    loading: PropTypes.bool
   },
 
   componentWillMount() {

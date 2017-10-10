@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
 import Calendar from '../common/calendar.jsx';
 import Modal from '../common/modal.jsx';
@@ -21,7 +22,7 @@ const Meetings = React.createClass({
   displayName: 'Meetings',
 
   propTypes: {
-    weeks: React.PropTypes.array // Comes indirectly from TimelineHandler
+    weeks: PropTypes.array // Comes indirectly from TimelineHandler
   },
 
   mixins: [CourseStore.mixin],

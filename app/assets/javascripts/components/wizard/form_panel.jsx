@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -11,8 +12,8 @@ const FormPanel = React.createClass({
   displayName: 'FormPanel',
 
   propTypes: {
-    course: React.PropTypes.object.isRequired,
-    shouldShowSteps: React.PropTypes.bool
+    course: PropTypes.object.isRequired,
+    shouldShowSteps: PropTypes.bool
   },
 
   setAnyDatesSelected(bool) {

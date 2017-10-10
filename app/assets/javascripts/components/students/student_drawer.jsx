@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
@@ -11,8 +12,8 @@ const StudentDrawer = React.createClass({
   displayName: 'StudentDrawer',
 
   propTypes: {
-    student: React.PropTypes.object,
-    isOpen: React.PropTypes.bool
+    student: PropTypes.object,
+    isOpen: PropTypes.bool
   },
 
   mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],

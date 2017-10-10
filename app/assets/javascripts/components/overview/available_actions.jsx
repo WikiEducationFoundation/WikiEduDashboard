@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
@@ -17,7 +18,7 @@ const AvailableActions = React.createClass({
   displayName: 'Actions',
 
   propTypes: {
-    current_user: React.PropTypes.object
+    current_user: PropTypes.object
   },
 
   mixins: [CourseStore.mixin, ConfirmationStore.mixin],

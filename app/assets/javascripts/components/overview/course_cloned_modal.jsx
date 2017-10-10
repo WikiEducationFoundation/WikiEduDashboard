@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Modal from '../common/modal.jsx';
 import CourseStore from '../../stores/course_store.js';
@@ -16,7 +17,7 @@ const CourseClonedModal = React.createClass({
   displayName: 'CourseClonedModal',
 
   propTypes: {
-    course: React.PropTypes.object
+    course: PropTypes.object
   },
 
   mixins: [ValidationStore.mixin, CourseStore.mixin],

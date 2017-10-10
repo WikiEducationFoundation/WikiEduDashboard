@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
 
@@ -66,10 +67,10 @@ export default function (Component, Type, MoveFunction) {
     displayName: 'Reorderable',
 
     propTypes: {
-      canDrag: React.PropTypes.bool,
-      connectDropTarget: React.PropTypes.func,
-      connectDragSource: React.PropTypes.func,
-      connectDragPreview: React.PropTypes.func
+      canDrag: PropTypes.bool,
+      connectDropTarget: PropTypes.func,
+      connectDragSource: PropTypes.func,
+      connectDragPreview: PropTypes.func
     },
 
     render() {

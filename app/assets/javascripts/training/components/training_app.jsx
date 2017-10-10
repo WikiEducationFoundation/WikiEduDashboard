@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TrainingApp = React.createClass({
   displayName: 'TrainingApp',
 
   propTypes: {
-    children: React.PropTypes.node
+    children: PropTypes.node
   },
 
   render() {

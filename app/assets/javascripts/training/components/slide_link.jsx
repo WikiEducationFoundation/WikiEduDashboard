@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const SlideLink = React.createClass({
   displayName: 'SlideLink',
 
   propTypes: {
-    button: React.PropTypes.bool,
-    disabled: React.PropTypes.bool,
-    direction: React.PropTypes.string.isRequired,
-    params: React.PropTypes.object.isRequired,
-    slideId: React.PropTypes.string.isRequired
+    button: PropTypes.bool,
+    disabled: PropTypes.bool,
+    direction: PropTypes.string.isRequired,
+    params: PropTypes.object.isRequired,
+    slideId: PropTypes.string.isRequired
   },
 
   linkParams(props) {

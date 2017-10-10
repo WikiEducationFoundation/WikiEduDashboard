@@ -1,15 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SlideMenu = React.createClass({
   displayName: 'SlideMenu',
 
   propTypes: {
-    closeMenu: React.PropTypes.func.isRequired,
-    onClick: React.PropTypes.func.isRequired,
-    slides: React.PropTypes.array,
-    currentSlide: React.PropTypes.object,
-    enabledSlides: React.PropTypes.array,
-    menuClass: React.PropTypes.string
+    closeMenu: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
+    slides: PropTypes.array,
+    currentSlide: PropTypes.object,
+    enabledSlides: PropTypes.array,
+    menuClass: PropTypes.string
   },
 
   componentWillMount() {

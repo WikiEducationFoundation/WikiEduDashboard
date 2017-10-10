@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const CourseStatsDownloadModal = React.createClass({
   displayName: 'CourseStatsDownloadModal',
 
   propTypes: {
-    course: React.PropTypes.object
+    course: PropTypes.object
   },
 
   getInitialState() {

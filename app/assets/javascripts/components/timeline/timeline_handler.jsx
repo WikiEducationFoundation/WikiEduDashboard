@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 import Timeline from './timeline.jsx';
@@ -32,16 +33,16 @@ const TimelineHandler = React.createClass({
   displayName: 'TimelineHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object,
-    children: React.PropTypes.node,
-    controls: React.PropTypes.func,
-    weeks: React.PropTypes.array,
-    gradeables: React.PropTypes.array,
-    loading: React.PropTypes.bool,
-    editable_block_ids: React.PropTypes.array,
-    all_training_modules: React.PropTypes.array
+    course_id: PropTypes.string,
+    course: PropTypes.object,
+    current_user: PropTypes.object,
+    children: PropTypes.node,
+    controls: PropTypes.func,
+    weeks: PropTypes.array,
+    gradeables: PropTypes.array,
+    loading: PropTypes.bool,
+    editable_block_ids: PropTypes.array,
+    all_training_modules: PropTypes.array
   },
 
   getInitialState() {

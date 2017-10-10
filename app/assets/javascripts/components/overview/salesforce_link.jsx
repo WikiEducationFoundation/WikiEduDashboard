@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 
 const SalesforceLink = React.createClass({
   propTypes: {
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   linkToSalesforce() {

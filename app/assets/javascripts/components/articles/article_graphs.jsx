@@ -1,5 +1,6 @@
 /* global vg */
 import React from 'react';
+import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
@@ -9,7 +10,7 @@ const ArticleGraphs = React.createClass({
   displayName: 'ArticleGraphs',
 
   propTypes: {
-    article: React.PropTypes.object
+    article: PropTypes.object
   },
 
   getInitialState() {

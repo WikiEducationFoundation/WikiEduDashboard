@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PopoverButton from '../high_order/popover_button.jsx';
 import TagStore from '../../stores/tag_store.js';
 
@@ -18,7 +19,7 @@ const tags = (props, remove) =>
 ;
 
 tags.propTypes = {
-  tags: React.PropTypes.array
+  tags: PropTypes.array
 };
 
 export default PopoverButton('tag', 'tag', TagStore, tagIsNew, tags);

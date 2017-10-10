@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MainspaceChecklist from '../common/mainspace_checklist.jsx';
 import FinalArticleChecklist from '../common/final_article_checklist.jsx';
 import PeerReviewChecklist from '../common/peer_review_checklist.jsx';
@@ -9,11 +10,11 @@ const MyAssignment = React.createClass({
   displayName: 'MyAssignment',
 
   propTypes: {
-    assignment: React.PropTypes.object.isRequired,
-    current_user: React.PropTypes.object,
-    course: React.PropTypes.object.isRequired,
-    username: React.PropTypes.string,
-    last: React.PropTypes.bool
+    assignment: PropTypes.object.isRequired,
+    current_user: PropTypes.object,
+    course: PropTypes.object.isRequired,
+    username: PropTypes.string,
+    last: PropTypes.bool
   },
 
   isEnglishWikipedia() {

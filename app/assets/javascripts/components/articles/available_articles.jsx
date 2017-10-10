@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AssignCell from '../students/assign_cell.jsx';
 import AvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_article_list.jsx';
@@ -16,9 +17,9 @@ const AvailableArticles = React.createClass({
   displayName: 'AvailableArticles',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    course_id: PropTypes.string,
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   mixins: [AssignmentStore.mixin],

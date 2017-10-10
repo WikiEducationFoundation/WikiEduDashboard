@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 const TrainingModules = React.createClass({
   displayName: 'TrainingModules',
 
   propTypes: {
-    block_modules: React.PropTypes.array,
-    editable: React.PropTypes.bool,
-    all_modules: React.PropTypes.array,
-    onChange: React.PropTypes.func
+    block_modules: PropTypes.array,
+    editable: PropTypes.bool,
+    all_modules: PropTypes.array,
+    onChange: PropTypes.func
   },
 
   getInitialState() {

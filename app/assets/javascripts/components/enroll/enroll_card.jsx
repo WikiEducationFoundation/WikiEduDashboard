@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const EnrollCard = ({
   user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason
@@ -76,13 +77,13 @@ const EnrollCard = ({
 };
 
 EnrollCard.propTypes = {
-  user: React.PropTypes.object,
-  userRoles: React.PropTypes.object,
-  course: React.PropTypes.object,
-  courseLink: React.PropTypes.string,
-  passcode: React.PropTypes.string,
-  enrolledParam: React.PropTypes.string,
-  enrollFailureReason: React.PropTypes.string
+  user: PropTypes.object,
+  userRoles: PropTypes.object,
+  course: PropTypes.object,
+  courseLink: PropTypes.string,
+  passcode: PropTypes.string,
+  enrolledParam: PropTypes.string,
+  enrollFailureReason: PropTypes.string
 };
 
 export default EnrollCard;

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 const Intro = React.createClass({
   propTypes: {
-    currentUser: React.PropTypes.object,
-    returnToParam: React.PropTypes.string,
-    location: React.PropTypes.object
+    currentUser: PropTypes.object,
+    returnToParam: PropTypes.string,
+    location: PropTypes.object
   },
 
   getInitialState() {

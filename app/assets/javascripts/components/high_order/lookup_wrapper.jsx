@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import LookupStore from '../../stores/lookup_store.js';
 
 const LookupWrapper = function (Component) {
@@ -12,8 +13,8 @@ const LookupWrapper = function (Component) {
     displayName: 'LookupWrapper',
 
     propTypes: {
-      model: React.PropTypes.string,
-      exclude: React.PropTypes.array
+      model: PropTypes.string,
+      exclude: PropTypes.array
     },
 
     mixins: [LookupStore.mixin],

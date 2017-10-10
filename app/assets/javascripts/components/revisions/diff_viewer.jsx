@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 
@@ -11,14 +12,14 @@ const DiffViewer = React.createClass({
   // If there is no parent of the first revision — typically because it's the start
   // of a new article — then it uses the first revision as the starting point.
   propTypes: {
-    revision: React.PropTypes.object.isRequired,
-    first_revision: React.PropTypes.object,
-    showButtonLabel: React.PropTypes.string,
-    largeButton: React.PropTypes.bool,
-    editors: React.PropTypes.array,
-    showSalesforceButton: React.PropTypes.bool,
-    article: React.PropTypes.object,
-    course: React.PropTypes.object
+    revision: PropTypes.object.isRequired,
+    first_revision: PropTypes.object,
+    showButtonLabel: PropTypes.string,
+    largeButton: PropTypes.bool,
+    editors: PropTypes.array,
+    showSalesforceButton: PropTypes.bool,
+    article: PropTypes.object,
+    course: PropTypes.object
   },
 
   getInitialState() {

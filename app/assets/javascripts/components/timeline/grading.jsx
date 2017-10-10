@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Gradeable from './gradeable.jsx';
 import BlockStore from '../../stores/block_store.js';
 
@@ -6,9 +7,9 @@ const Grading = React.createClass({
   displayName: 'Grading',
 
   propTypes: {
-    gradeables: React.PropTypes.array,
-    editable: React.PropTypes.bool,
-    controls: React.PropTypes.func
+    gradeables: PropTypes.array,
+    editable: PropTypes.bool,
+    controls: PropTypes.func
   },
 
   render() {

@@ -1,5 +1,6 @@
 // use WizardStore.getPanels() for answers
 import React from 'react';
+import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import WizardActions from '../../actions/wizard_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
@@ -11,9 +12,9 @@ const SummaryPanel = React.createClass({
   displayName: 'SummaryPanel',
 
   propTypes: {
-    courseId: React.PropTypes.string,
-    course: React.PropTypes.object.isRequired,
-    wizardId: React.PropTypes.string
+    courseId: PropTypes.string,
+    course: PropTypes.object.isRequired,
+    wizardId: PropTypes.string
   },
 
   submit() {

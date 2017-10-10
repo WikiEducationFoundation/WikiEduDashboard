@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ArticleList from './article_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import AssignmentList from '../assignments/assignment_list.jsx';
@@ -9,8 +10,8 @@ const ArticlesHandler = React.createClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    current_user: React.PropTypes.object
+    course_id: PropTypes.string,
+    current_user: PropTypes.object
   },
 
   componentWillMount() {

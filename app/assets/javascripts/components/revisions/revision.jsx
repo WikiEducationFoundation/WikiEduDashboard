@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DiffViewer from './diff_viewer.jsx';
 
 const Revision = React.createClass({
   displayName: 'Revision',
 
   propTypes: {
-    revision: React.PropTypes.object
+    revision: PropTypes.object
   },
 
   render() {

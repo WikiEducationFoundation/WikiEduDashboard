@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import InputMixin from '../../mixins/input_mixin.js';
 
 const Checkbox = React.createClass({
   displayName: 'Checkbox',
 
   propTypes: {
-    container_class: React.PropTypes.string,
-    label: React.PropTypes.string,
-    value: React.PropTypes.bool,
-    editable: React.PropTypes.bool
+    container_class: PropTypes.string,
+    label: PropTypes.string,
+    value: PropTypes.bool,
+    editable: PropTypes.bool
   },
 
   mixins: [InputMixin],

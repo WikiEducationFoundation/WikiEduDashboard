@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseActions from '../../actions/course_actions.js';
 import uuid from 'uuid';
 
 const CourseTypeSelector = React.createClass({
   propTypes: {
-    course: React.PropTypes.object,
-    editable: React.PropTypes.bool
+    course: PropTypes.object,
+    editable: PropTypes.bool
   },
 
   componentWillMount() {

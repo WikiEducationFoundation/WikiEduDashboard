@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
@@ -14,9 +15,9 @@ const AssignmentList = React.createClass({
   displayName: 'AssignmentList',
 
   propTypes: {
-    assignments: React.PropTypes.array,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    assignments: PropTypes.array,
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   hasAssignedUser(group) {

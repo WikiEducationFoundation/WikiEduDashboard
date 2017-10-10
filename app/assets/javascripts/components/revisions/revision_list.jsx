@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
@@ -13,8 +14,8 @@ const RevisionList = React.createClass({
   displayName: 'RevisionList',
 
   propTypes: {
-    revisions: React.PropTypes.array,
-    course: React.PropTypes.object
+    revisions: PropTypes.array,
+    course: PropTypes.object
   },
 
   render() {

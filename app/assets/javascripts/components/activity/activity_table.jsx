@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -13,12 +14,12 @@ const ActivityTable = React.createClass({
   displayName: 'ActivityTable',
 
   propTypes: {
-    loading: React.PropTypes.bool,
-    activity: React.PropTypes.array,
-    headers: React.PropTypes.array,
-    noActivityMessage: React.PropTypes.string,
-    openKey: React.PropTypes.string,
-    toggleDrawer: React.PropTypes.func
+    loading: PropTypes.bool,
+    activity: PropTypes.array,
+    headers: PropTypes.array,
+    noActivityMessage: PropTypes.string,
+    openKey: PropTypes.string,
+    toggleDrawer: PropTypes.func
   },
 
   getInitialState() {

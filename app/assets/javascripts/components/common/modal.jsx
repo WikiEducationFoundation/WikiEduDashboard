@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Modal = React.createClass({
   propTypes: {
-    modalClass: React.PropTypes.string,
-    children: React.PropTypes.node
+    modalClass: PropTypes.string,
+    children: PropTypes.node
   },
   componentWillMount() {
     return $('body').addClass('modal-open');

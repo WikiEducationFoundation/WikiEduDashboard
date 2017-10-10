@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import TrainingStore from '../stores/training_store.js';
 import TrainingActions from '../actions/training_actions.js';
@@ -15,7 +16,7 @@ const TrainingSlideHandler = React.createClass({
   displayName: 'TrainingSlideHandler',
 
   propTypes: {
-    params: React.PropTypes.object
+    params: PropTypes.object
   },
 
   mixins: [TrainingStore.mixin],

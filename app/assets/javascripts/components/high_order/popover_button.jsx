@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
@@ -19,9 +20,9 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     displayName: `${capitalize(Key)}Button`,
 
     propTypes: {
-      course_id: React.PropTypes.string,
-      is_open: React.PropTypes.bool,
-      open: React.PropTypes.func
+      course_id: PropTypes.string,
+      is_open: PropTypes.bool,
+      open: PropTypes.func
     },
 
     mixins: [Store.mixin],

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,13 +10,13 @@ const Feedback = React.createClass({
   displayName: 'Feedback',
 
   propTypes: {
-    fetchFeedback: React.PropTypes.func,
-    postUserFeedback: React.PropTypes.func,
-    current_user: React.PropTypes.object,
-    deleteUserFeedback: React.PropTypes.func,
-    feedback: React.PropTypes.object,
-    assignment: React.PropTypes.object.isRequired,
-    username: React.PropTypes.string
+    fetchFeedback: PropTypes.func,
+    postUserFeedback: PropTypes.func,
+    current_user: PropTypes.object,
+    deleteUserFeedback: PropTypes.func,
+    feedback: PropTypes.object,
+    assignment: PropTypes.object.isRequired,
+    username: PropTypes.string
   },
 
   getInitialState() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import InlineUsers from './inline_users.jsx';
 import CampaignButton from './campaign_button.jsx';
@@ -38,16 +39,16 @@ const Details = React.createClass({
   displayName: 'Details',
 
   propTypes: {
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object,
-    instructors: React.PropTypes.array,
-    online: React.PropTypes.array,
-    campus: React.PropTypes.array,
-    staff: React.PropTypes.array,
-    campaigns: React.PropTypes.array,
-    tags: React.PropTypes.array,
-    controls: React.PropTypes.func,
-    editable: React.PropTypes.bool
+    course: PropTypes.object,
+    current_user: PropTypes.object,
+    instructors: PropTypes.array,
+    online: PropTypes.array,
+    campus: PropTypes.array,
+    staff: PropTypes.array,
+    campaigns: PropTypes.array,
+    tags: PropTypes.array,
+    controls: PropTypes.func,
+    editable: PropTypes.bool
   },
   mixins: [ValidationStore.mixin],
   getInitialState() {

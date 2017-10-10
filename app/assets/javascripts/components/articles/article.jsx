@@ -1,16 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 
 const Article = React.createClass({
   displayName: 'Article',
 
   propTypes: {
-    article: React.PropTypes.object.isRequired,
-    course: React.PropTypes.object.isRequired,
-    isOpen: React.PropTypes.bool.isRequired,
-    toggleDrawer: React.PropTypes.func.isRequired,
-    fetchArticleDetails: React.PropTypes.func.isRequired,
-    articleDetails: React.PropTypes.object
+    article: PropTypes.object.isRequired,
+    course: PropTypes.object.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    toggleDrawer: PropTypes.func.isRequired,
+    fetchArticleDetails: PropTypes.func.isRequired,
+    articleDetails: PropTypes.object
   },
 
   toggleDrawer() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 import InputMixin from '../../mixins/input_mixin.js';
 import { TrixEditor } from 'react-trix';
@@ -9,20 +10,20 @@ const TextAreaInput = React.createClass({
   displayName: 'TextAreaInput',
 
   propTypes: {
-    onChange: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onBlur: React.PropTypes.func,
-    value: React.PropTypes.string,
-    value_key: React.PropTypes.string,
-    editable: React.PropTypes.bool, // switch between read and edit mode
-    id: React.PropTypes.string,
-    focus: React.PropTypes.bool,
-    placeholder: React.PropTypes.string,
-    autoExpand: React.PropTypes.bool, // start with one line and expand as needed — plain text only
-    rows: React.PropTypes.string, // set the number of rows — plain text only
-    wysiwyg: React.PropTypes.bool, // use Trix editor instead of plain text
-    markdown: React.PropTypes.bool, // render value as Markdown when in read mode
-    className: React.PropTypes.string
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    value: PropTypes.string,
+    value_key: PropTypes.string,
+    editable: PropTypes.bool, // switch between read and edit mode
+    id: PropTypes.string,
+    focus: PropTypes.bool,
+    placeholder: PropTypes.string,
+    autoExpand: PropTypes.bool, // start with one line and expand as needed — plain text only
+    rows: PropTypes.string, // set the number of rows — plain text only
+    wysiwyg: PropTypes.bool, // use Trix editor instead of plain text
+    markdown: PropTypes.bool, // render value as Markdown when in read mode
+    className: PropTypes.string
   },
 
   mixins: [InputMixin],

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Typeahead } from 'react-typeahead';
 import LookupWrapper from '../high_order/lookup_wrapper.jsx';
 
@@ -6,12 +7,12 @@ const Lookup = React.createClass({
   displayName: 'Lookup',
 
   propTypes: {
-    disabled: React.PropTypes.bool,
-    onSubmit: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    value: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    models: React.PropTypes.array
+    disabled: PropTypes.bool,
+    onSubmit: PropTypes.func,
+    onChange: PropTypes.func,
+    value: PropTypes.string,
+    placeholder: PropTypes.string,
+    models: PropTypes.array
   },
 
   getValue() {

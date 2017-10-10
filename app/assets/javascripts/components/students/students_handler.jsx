@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StudentList from './student_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
@@ -8,10 +9,10 @@ const StudentsHandler = React.createClass({
   displayName: 'StudentsHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    current_user: React.PropTypes.object,
-    course: React.PropTypes.object,
-    children: React.PropTypes.node
+    course_id: PropTypes.string,
+    current_user: PropTypes.object,
+    course: PropTypes.object,
+    children: PropTypes.node
   },
 
   componentWillMount() {

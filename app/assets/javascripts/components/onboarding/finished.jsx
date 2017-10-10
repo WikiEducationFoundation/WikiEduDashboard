@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // Finished slide
 const Finished = React.createClass({
   propTypes: {
-    currentUser: React.PropTypes.object,
-    returnToParam: React.PropTypes.string
+    currentUser: PropTypes.object,
+    returnToParam: PropTypes.string
   },
 
   getInitialState() {

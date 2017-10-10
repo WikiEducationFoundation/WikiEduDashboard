@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
 import GradeableActions from '../../actions/gradeable_actions.js';
 
@@ -6,10 +7,10 @@ const Gradeable = React.createClass({
   displayName: 'Gradeable',
 
   propTypes: {
-    block: React.PropTypes.object,
-    gradeable: React.PropTypes.object,
-    total: React.PropTypes.number,
-    editable: React.PropTypes.bool
+    block: PropTypes.object,
+    gradeable: PropTypes.object,
+    total: PropTypes.number,
+    editable: PropTypes.bool
   },
 
   updateGradeable(valueKey, value) {

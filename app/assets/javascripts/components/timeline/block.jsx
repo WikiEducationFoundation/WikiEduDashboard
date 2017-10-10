@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -12,16 +13,16 @@ const Block = React.createClass({
   displayName: 'Block',
 
   propTypes: {
-    block: React.PropTypes.object,
-    gradeable: React.PropTypes.object,
-    editableBlockIds: React.PropTypes.array,
-    editPermissions: React.PropTypes.bool,
-    saveBlockChanges: React.PropTypes.func,
-    cancelBlockEditable: React.PropTypes.func,
-    toggleFocused: React.PropTypes.func,
-    isDragging: React.PropTypes.bool,
-    all_training_modules: React.PropTypes.array,
-    weekStart: React.PropTypes.object
+    block: PropTypes.object,
+    gradeable: PropTypes.object,
+    editableBlockIds: PropTypes.array,
+    editPermissions: PropTypes.bool,
+    saveBlockChanges: PropTypes.func,
+    cancelBlockEditable: PropTypes.func,
+    toggleFocused: PropTypes.func,
+    isDragging: PropTypes.bool,
+    all_training_modules: PropTypes.array,
+    weekStart: PropTypes.object
   },
 
   updateBlock(valueKey, value) {

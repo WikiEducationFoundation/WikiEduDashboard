@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import API from '../../utils/api.js';
 import NotificationActions from '../../actions/notification_actions.js';
 
 const Form = React.createClass({
   propTypes: {
-    currentUser: React.PropTypes.object,
-    returnToParam: React.PropTypes.string
+    currentUser: PropTypes.object,
+    returnToParam: PropTypes.string
   },
 
   getInitialState() {

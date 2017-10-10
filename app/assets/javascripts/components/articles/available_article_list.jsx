@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
@@ -11,7 +12,7 @@ const getState = () => ({ assignments: AssignmentStore.getModels() });
 const AvailableArticlesList = React.createClass({
   displayName: 'AvailableArticlesList',
   propTypes: {
-    elements: React.PropTypes.array
+    elements: PropTypes.array
   },
   render() {
     const keys = {

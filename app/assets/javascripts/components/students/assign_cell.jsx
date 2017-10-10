@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AssignButton from './assign_button.jsx';
 import { trunc } from '../../utils/strings';
 import CourseUtils from '../../utils/course_utils.js';
@@ -7,14 +8,14 @@ const AssignCell = React.createClass({
   displayName: 'AssignCell',
 
   propTypes: {
-    assignments: React.PropTypes.array,
-    prefix: React.PropTypes.string,
-    current_user: React.PropTypes.object,
-    student: React.PropTypes.object,
-    editable: React.PropTypes.bool,
-    role: React.PropTypes.number,
-    tooltip_message: React.PropTypes.string,
-    course: React.PropTypes.object.isRequired,
+    assignments: PropTypes.array,
+    prefix: PropTypes.string,
+    current_user: PropTypes.object,
+    student: PropTypes.object,
+    editable: PropTypes.bool,
+    role: PropTypes.number,
+    tooltip_message: PropTypes.string,
+    course: PropTypes.object.isRequired,
   },
 
   stop(e) {

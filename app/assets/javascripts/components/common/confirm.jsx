@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from './modal.jsx';
 import TextInput from './text_input.jsx';
 
@@ -6,11 +7,11 @@ const Confirm = React.createClass({
   displayName: 'Confirm',
 
   propTypes: {
-    onConfirm: React.PropTypes.func.isRequired,
-    onCancel: React.PropTypes.func.isRequired,
-    message: React.PropTypes.string.isRequired,
-    showInput: React.PropTypes.bool,
-    explanation: React.PropTypes.string
+    onConfirm: PropTypes.func.isRequired,
+    onCancel: PropTypes.func.isRequired,
+    message: PropTypes.string.isRequired,
+    showInput: PropTypes.bool,
+    explanation: PropTypes.string
   },
 
   getInitialState() {

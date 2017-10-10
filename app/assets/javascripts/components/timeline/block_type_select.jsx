@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Conditional from '../high_order/conditional.jsx';
 import InputMixin from '../../mixins/input_mixin.js';
 
@@ -6,9 +7,9 @@ const BlockTypeSelect = React.createClass({
   displayName: 'BlockTypeSelect',
 
   propTypes: {
-    value: React.PropTypes.any,
-    options: React.PropTypes.array,
-    editable: React.PropTypes.bool,
+    value: PropTypes.any,
+    options: PropTypes.array,
+    editable: PropTypes.bool,
   },
 
   mixins: [InputMixin],

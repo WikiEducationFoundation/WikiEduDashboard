@@ -1,14 +1,15 @@
 /* global vg */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Wp10Graph = React.createClass({
   displayName: 'Wp10Graph',
 
   propTypes: {
-    graphid: React.PropTypes.string,
-    graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    articleData: React.PropTypes.array
+    graphid: PropTypes.string,
+    graphWidth: PropTypes.number,
+    graphHeight: PropTypes.number,
+    articleData: PropTypes.array
   },
 
   renderGraph() {

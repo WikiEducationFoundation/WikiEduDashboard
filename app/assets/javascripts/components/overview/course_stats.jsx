@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 
 const CourseStats = ({ course }) => {
@@ -71,7 +72,7 @@ const CourseStats = ({ course }) => {
 };
 
 CourseStats.propTypes = {
-  course: React.PropTypes.object
+  course: PropTypes.object
 };
 
 export default CourseStats;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
 import WeekActions from '../../actions/week_actions.js';
 import DateCalculator from '../../utils/date_calculator.js';
@@ -7,13 +8,13 @@ const EmptyWeek = React.createClass({
   displayName: 'EmptyWeek',
 
   propTypes: {
-    emptyTimeline: React.PropTypes.bool,
-    edit_permissions: React.PropTypes.bool,
-    course: React.PropTypes.object,
-    timeline_start: React.PropTypes.string,
-    timeline_end: React.PropTypes.string,
-    index: React.PropTypes.number,
-    weeksBeforeTimeline: React.PropTypes.number
+    emptyTimeline: PropTypes.bool,
+    edit_permissions: PropTypes.bool,
+    course: PropTypes.object,
+    timeline_start: PropTypes.string,
+    timeline_end: PropTypes.string,
+    index: PropTypes.number,
+    weeksBeforeTimeline: PropTypes.number
   },
 
   addWeek() {

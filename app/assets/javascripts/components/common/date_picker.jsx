@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import OnClickOutside from 'react-onclickoutside';
 import InputMixin from '../../mixins/input_mixin.js';
@@ -9,27 +10,27 @@ const DatePicker = React.createClass({
   displayName: 'DatePicker',
 
   propTypes: {
-    id: React.PropTypes.string,
-    value: React.PropTypes.string,
-    value_key: React.PropTypes.string,
-    spacer: React.PropTypes.string,
-    label: React.PropTypes.string,
-    timeLabel: React.PropTypes.string,
-    valueClass: React.PropTypes.string,
-    editable: React.PropTypes.bool,
-    enabled: React.PropTypes.bool,
-    focus: React.PropTypes.bool,
-    inline: React.PropTypes.bool,
-    isClearable: React.PropTypes.bool,
-    placeholder: React.PropTypes.string,
-    p_tag_classname: React.PropTypes.string,
-    onBlur: React.PropTypes.func,
-    onFocus: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    append: React.PropTypes.string,
-    date_props: React.PropTypes.object,
-    showTime: React.PropTypes.bool
+    id: PropTypes.string,
+    value: PropTypes.string,
+    value_key: PropTypes.string,
+    spacer: PropTypes.string,
+    label: PropTypes.string,
+    timeLabel: PropTypes.string,
+    valueClass: PropTypes.string,
+    editable: PropTypes.bool,
+    enabled: PropTypes.bool,
+    focus: PropTypes.bool,
+    inline: PropTypes.bool,
+    isClearable: PropTypes.bool,
+    placeholder: PropTypes.string,
+    p_tag_classname: PropTypes.string,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    onChange: PropTypes.func,
+    onClick: PropTypes.func,
+    append: PropTypes.string,
+    date_props: PropTypes.object,
+    showTime: PropTypes.bool
   },
 
   mixins: [InputMixin],

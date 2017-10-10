@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -31,14 +32,14 @@ const StudentList = React.createClass({
   displayName: 'StudentList',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    current_user: React.PropTypes.object,
-    users: React.PropTypes.array,
-    course: React.PropTypes.object,
-    controls: React.PropTypes.func,
-    editable: React.PropTypes.bool,
-    openKey: React.PropTypes.string,
-    actions: React.PropTypes.object
+    course_id: PropTypes.string,
+    current_user: PropTypes.object,
+    users: PropTypes.array,
+    course: PropTypes.object,
+    controls: PropTypes.func,
+    editable: PropTypes.bool,
+    openKey: PropTypes.string,
+    actions: PropTypes.object
   },
 
   notify() {

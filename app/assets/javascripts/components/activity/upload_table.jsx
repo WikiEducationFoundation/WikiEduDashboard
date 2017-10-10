@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import Upload from '../uploads/upload.jsx';
 
@@ -6,9 +7,9 @@ const UploadTable = React.createClass({
   displayName: 'UploadTable',
 
   propTypes: {
-    loading: React.PropTypes.bool,
-    uploads: React.PropTypes.array,
-    headers: React.PropTypes.array
+    loading: PropTypes.bool,
+    uploads: PropTypes.array,
+    headers: PropTypes.array
   },
 
   getInitialState() {

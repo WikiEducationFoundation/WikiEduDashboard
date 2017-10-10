@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import AssignCell from '../students/assign_cell.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
@@ -8,9 +9,9 @@ const MyArticles = React.createClass({
   displayName: 'MyArticles',
 
   propTypes: {
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object,
-    course_id: React.PropTypes.string
+    course: PropTypes.object,
+    current_user: PropTypes.object,
+    course_id: PropTypes.string
   },
 
   componentDidMount() {

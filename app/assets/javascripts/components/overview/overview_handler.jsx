@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseStats from './course_stats.jsx';
 import AvailableActions from './available_actions.jsx';
 import Description from './description.jsx';
@@ -30,9 +31,9 @@ const Overview = React.createClass({
   displayName: 'Overview',
 
   propTypes: {
-    current_user: React.PropTypes.object,
-    course_id: React.PropTypes.string,
-    location: React.PropTypes.object
+    current_user: PropTypes.object,
+    course_id: PropTypes.string,
+    location: PropTypes.object
   },
 
   mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin],

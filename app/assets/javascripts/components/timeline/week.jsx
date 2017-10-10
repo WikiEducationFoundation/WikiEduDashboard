@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 import BlockActions from '../../actions/block_actions.js';
@@ -12,25 +13,25 @@ import DateCalculator from '../../utils/date_calculator.js';
 const Week = React.createClass({
   displayName: 'Week',
   propTypes: {
-    week: React.PropTypes.object,
-    index: React.PropTypes.number,
-    timeline_start: React.PropTypes.string,
-    timeline_end: React.PropTypes.string,
-    meetings: React.PropTypes.string,
-    blocks: React.PropTypes.array,
-    edit_permissions: React.PropTypes.bool,
-    editable_block_ids: React.PropTypes.array,
-    reorderable: React.PropTypes.bool,
-    onBlockDrag: React.PropTypes.func,
-    onMoveBlockUp: React.PropTypes.func,
-    onMoveBlockDown: React.PropTypes.func,
-    canBlockMoveUp: React.PropTypes.func,
-    canBlockMoveDown: React.PropTypes.func,
-    saveBlockChanges: React.PropTypes.func,
-    cancelBlockEditable: React.PropTypes.func,
-    deleteWeek: React.PropTypes.func,
-    all_training_modules: React.PropTypes.array,
-    weeksBeforeTimeline: React.PropTypes.number
+    week: PropTypes.object,
+    index: PropTypes.number,
+    timeline_start: PropTypes.string,
+    timeline_end: PropTypes.string,
+    meetings: PropTypes.string,
+    blocks: PropTypes.array,
+    edit_permissions: PropTypes.bool,
+    editable_block_ids: PropTypes.array,
+    reorderable: PropTypes.bool,
+    onBlockDrag: PropTypes.func,
+    onMoveBlockUp: PropTypes.func,
+    onMoveBlockDown: PropTypes.func,
+    canBlockMoveUp: PropTypes.func,
+    canBlockMoveDown: PropTypes.func,
+    saveBlockChanges: PropTypes.func,
+    cancelBlockEditable: PropTypes.func,
+    deleteWeek: PropTypes.func,
+    all_training_modules: PropTypes.array,
+    weeksBeforeTimeline: PropTypes.number
   },
   getInitialState() {
     return { focusedBlockId: null };

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import Feedback from '../common/feedback.jsx';
 
@@ -10,10 +11,10 @@ const userLink = (wiki, assignment) => {
 const Assignment = React.createClass({
   displayName: 'Assignment',
   propTypes: {
-    article: React.PropTypes.object,
-    assignmentGroup: React.PropTypes.array,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    article: PropTypes.object,
+    assignmentGroup: PropTypes.array,
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
   render() {
     const article = this.props.article || CourseUtils.articleFromAssignment(this.props.assignmentGroup[0], this.props.course.home_wiki);
