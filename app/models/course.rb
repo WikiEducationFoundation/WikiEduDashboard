@@ -175,6 +175,7 @@ class Course < ActiveRecord::Base
   validates :passcode, presence: true, if: :passcode_required?
   validates :start, presence: true
   validates :end, presence: true
+  validates :home_wiki_id, presence: true
 
   COURSE_TYPES = %w[
     LegacyCourse
