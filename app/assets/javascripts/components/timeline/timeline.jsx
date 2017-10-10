@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import Touch from 'react-dnd-touch-backend';
@@ -20,7 +21,7 @@ import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const Timeline = React.createClass({
+const Timeline = createReactClass({
   displayName: 'Timeline',
 
   propTypes: {

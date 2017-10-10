@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -21,7 +22,7 @@ const getState = () => {
   };
 };
 
-const ArticleList = React.createClass({
+const ArticleList = createReactClass({
   displayName: 'ArticleList',
 
   propTypes: {

@@ -1,4 +1,5 @@
 import React from "react";
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
@@ -13,7 +14,7 @@ const HEADERS = [
   { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
 ];
 
-const DidYouKnowHandler = React.createClass({
+const DidYouKnowHandler = createReactClass({
   displayName: "DidYouKnowHandler",
 
   propTypes: {

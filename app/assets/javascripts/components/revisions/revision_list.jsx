@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
@@ -10,7 +11,7 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ revisions: RevisionStore.getModels() });
 
-const RevisionList = React.createClass({
+const RevisionList = createReactClass({
   displayName: 'RevisionList',
 
   propTypes: {

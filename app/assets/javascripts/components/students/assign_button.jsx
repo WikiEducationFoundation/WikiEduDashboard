@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
@@ -13,7 +14,7 @@ import AssignmentStore from '../../stores/assignment_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import shallowCompare from 'react-addons-shallow-compare';
 
-const AssignButton = React.createClass({
+const AssignButton = createReactClass({
   displayName: 'AssignButton',
 
   propTypes: {

@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 
-const GreetStudentsButton = React.createClass({
+const GreetStudentsButton = createReactClass({
   propTypes: {
     course: PropTypes.object,
     current_user: PropTypes.object

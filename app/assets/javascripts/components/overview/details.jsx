@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
 import InlineUsers from './inline_users.jsx';
@@ -35,7 +36,7 @@ const getState = () =>
   })
 ;
 
-const Details = React.createClass({
+const Details = createReactClass({
   displayName: 'Details',
 
   propTypes: {

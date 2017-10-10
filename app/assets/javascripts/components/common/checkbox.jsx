@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import InputMixin from '../../mixins/input_mixin.js';
 
-const Checkbox = React.createClass({
+const Checkbox = createReactClass({
   displayName: 'Checkbox',
 
   propTypes: {

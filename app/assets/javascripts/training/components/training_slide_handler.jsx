@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import TrainingStore from '../stores/training_store.js';
@@ -12,7 +13,7 @@ const md = require('../../utils/markdown_it.js').default({ openLinksExternally: 
 
 const getState = () => TrainingStore.getState();
 
-const TrainingSlideHandler = React.createClass({
+const TrainingSlideHandler = createReactClass({
   displayName: 'TrainingSlideHandler',
 
   propTypes: {

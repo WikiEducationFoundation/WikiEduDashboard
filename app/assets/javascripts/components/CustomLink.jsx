@@ -1,8 +1,9 @@
 // Replacement for non-custom Link component. The react Link component doesn't highlight the active link if it is not handeled by react router, CustomLink is used to provide that functioning.
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const CustomLink = React.createClass({
+const CustomLink = createReactClass({
   displayName: 'CustomLink',
 
   propTypes: {

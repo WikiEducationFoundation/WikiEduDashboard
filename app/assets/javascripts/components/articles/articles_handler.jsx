@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ArticleList from './article_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
@@ -6,7 +7,7 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 
-const ArticlesHandler = React.createClass({
+const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {

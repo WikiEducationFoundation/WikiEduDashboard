@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
 import WeekActions from '../../actions/week_actions.js';
 import DateCalculator from '../../utils/date_calculator.js';
 
-const EmptyWeek = React.createClass({
+const EmptyWeek = createReactClass({
   displayName: 'EmptyWeek',
 
   propTypes: {

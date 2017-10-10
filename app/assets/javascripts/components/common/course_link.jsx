@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-const CourseLink = React.createClass({
+const CourseLink = createReactClass({
   displayName: 'CourseLink',
 
   propTypes: {

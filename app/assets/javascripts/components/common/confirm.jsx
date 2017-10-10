@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Modal from './modal.jsx';
 import TextInput from './text_input.jsx';
 
-const Confirm = React.createClass({
+const Confirm = createReactClass({
   displayName: 'Confirm',
 
   propTypes: {

@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
 import Upload from '../uploads/upload.jsx';
 
-const UploadTable = React.createClass({
+const UploadTable = createReactClass({
   displayName: 'UploadTable',
 
   propTypes: {

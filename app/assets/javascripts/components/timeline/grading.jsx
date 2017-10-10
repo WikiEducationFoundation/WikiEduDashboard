@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Gradeable from './gradeable.jsx';
 import BlockStore from '../../stores/block_store.js';
 
-const Grading = React.createClass({
+const Grading = createReactClass({
   displayName: 'Grading',
 
   propTypes: {

@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const TrainingApp = React.createClass({
+const TrainingApp = createReactClass({
   displayName: 'TrainingApp',
 
   propTypes: {

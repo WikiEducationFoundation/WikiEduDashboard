@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
-const TrainingModules = React.createClass({
+const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
 
   propTypes: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
 import Calendar from '../common/calendar.jsx';
@@ -18,7 +19,7 @@ const getState = function () {
   };
 };
 
-const Meetings = React.createClass({
+const Meetings = createReactClass({
   displayName: 'Meetings',
 
   propTypes: {

@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import EnrollButton from '../students/enroll_button.jsx';
 
-const InlineUsers = React.createClass({
+const InlineUsers = createReactClass({
   displayName: 'InlineUsers',
 
   propTypes: {

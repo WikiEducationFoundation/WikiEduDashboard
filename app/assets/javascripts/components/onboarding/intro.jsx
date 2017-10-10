@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-const Intro = React.createClass({
+const Intro = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
     returnToParam: PropTypes.string,

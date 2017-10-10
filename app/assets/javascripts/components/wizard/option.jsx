@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 
-const Option = React.createClass({
+const Option = createReactClass({
   displayName: 'Option',
 
   propTypes: {

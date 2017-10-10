@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import StudentList from './student_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
-const StudentsHandler = React.createClass({
+const StudentsHandler = createReactClass({
   displayName: 'StudentsHandler',
 
   propTypes: {

@@ -1,8 +1,9 @@
 /* global vg */
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Wp10Graph = React.createClass({
+const Wp10Graph = createReactClass({
   displayName: 'Wp10Graph',
 
   propTypes: {

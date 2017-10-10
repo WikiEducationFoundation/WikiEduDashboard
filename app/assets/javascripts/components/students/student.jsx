@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 
@@ -8,7 +9,7 @@ import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import { trunc } from '../../utils/strings';
 
-const Student = React.createClass({
+const Student = createReactClass({
   displayName: 'Student',
 
   propTypes: {

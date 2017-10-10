@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Typeahead } from 'react-typeahead';
 import LookupWrapper from '../high_order/lookup_wrapper.jsx';
 
-const Lookup = React.createClass({
+const Lookup = createReactClass({
   displayName: 'Lookup',
 
   propTypes: {

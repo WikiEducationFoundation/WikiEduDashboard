@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,7 +16,7 @@ const getState = () =>
   })
 ;
 
-const GetHelpButton = React.createClass({
+const GetHelpButton = createReactClass({
   displayName: 'GetHelpButton',
 
   propTypes: {

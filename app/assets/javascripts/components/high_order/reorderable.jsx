@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
@@ -63,7 +64,7 @@ export default function (Component, Type, MoveFunction) {
   const targetConnect = (connect) => ({ connectDropTarget: connect.dropTarget() });
 
   // Simple wrapper for rendering the passed Component as draggable or not
-  const Reorderable = React.createClass({
+  const Reorderable = createReactClass({
     displayName: 'Reorderable',
 
     propTypes: {

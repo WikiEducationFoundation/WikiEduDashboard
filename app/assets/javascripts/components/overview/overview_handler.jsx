@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseStats from './course_stats.jsx';
 import AvailableActions from './available_actions.jsx';
@@ -27,7 +28,7 @@ const getState = () =>
   })
 ;
 
-const Overview = React.createClass({
+const Overview = createReactClass({
   displayName: 'Overview',
 
   propTypes: {

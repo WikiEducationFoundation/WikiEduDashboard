@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const SlideMenu = React.createClass({
+const SlideMenu = createReactClass({
   displayName: 'SlideMenu',
 
   propTypes: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Panel from './panel.jsx';
@@ -8,7 +9,7 @@ import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import ValidationStore from '../../stores/validation_store.js';
 
-const FormPanel = React.createClass({
+const FormPanel = createReactClass({
   displayName: 'FormPanel',
 
   propTypes: {

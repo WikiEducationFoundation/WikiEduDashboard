@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Modal from '../common/modal.jsx';
@@ -13,7 +14,7 @@ import Calendar from '../common/calendar.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const CourseClonedModal = React.createClass({
+const CourseClonedModal = createReactClass({
   displayName: 'CourseClonedModal',
 
   propTypes: {

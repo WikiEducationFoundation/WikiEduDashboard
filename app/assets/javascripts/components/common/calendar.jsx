@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import DayPicker from 'react-day-picker';
 import WeekdayPicker from './weekday_picker.jsx';
@@ -9,7 +10,7 @@ function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
 }
 
-const Calendar = React.createClass({
+const Calendar = createReactClass({
   displayName: 'Calendar',
   propTypes: {
     course: PropTypes.object,

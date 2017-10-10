@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 
-const DiffViewer = React.createClass({
+const DiffViewer = createReactClass({
   displayName: 'DiffViewer',
 
   // Diff viewer takes a main (final) revision, and optionally a first revision.

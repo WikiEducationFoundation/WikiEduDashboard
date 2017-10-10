@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Conditional from '../high_order/conditional.jsx';
 import InputMixin from '../../mixins/input_mixin.js';
 
-const BlockTypeSelect = React.createClass({
+const BlockTypeSelect = createReactClass({
   displayName: 'BlockTypeSelect',
 
   propTypes: {

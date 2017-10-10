@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Modal = React.createClass({
+const Modal = createReactClass({
   propTypes: {
     modalClass: PropTypes.string,
     children: PropTypes.node

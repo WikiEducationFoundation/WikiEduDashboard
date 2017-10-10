@@ -1,5 +1,6 @@
 // use WizardStore.getPanels() for answers
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import WizardActions from '../../actions/wizard_actions.js';
@@ -8,7 +9,7 @@ import Panel from './panel.jsx';
 
 import { browserHistory } from 'react-router';
 
-const SummaryPanel = React.createClass({
+const SummaryPanel = createReactClass({
   displayName: 'SummaryPanel',
 
   propTypes: {

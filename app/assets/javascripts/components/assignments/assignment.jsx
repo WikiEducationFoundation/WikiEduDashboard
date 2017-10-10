@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import Feedback from '../common/feedback.jsx';
@@ -8,7 +9,7 @@ const userLink = (wiki, assignment) => {
   return <a key={`assignment_${assignment.id}`} href={link}>{assignment.username}</a>;
 };
 
-const Assignment = React.createClass({
+const Assignment = createReactClass({
   displayName: 'Assignment',
   propTypes: {
     article: PropTypes.object,

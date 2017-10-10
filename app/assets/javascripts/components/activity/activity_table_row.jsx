@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 
-const ActivityTableRow = React.createClass({
+const ActivityTableRow = createReactClass({
   displayName: 'ActivityTableRow',
 
   propTypes: {

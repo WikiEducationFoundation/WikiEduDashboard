@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -11,7 +12,7 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 
-const EnrollButton = React.createClass({
+const EnrollButton = createReactClass({
   displayName: 'EnrollButton',
 
   propTypes: {

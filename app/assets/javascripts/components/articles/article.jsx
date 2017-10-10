@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 
-const Article = React.createClass({
+const Article = createReactClass({
   displayName: 'Article',
 
   propTypes: {

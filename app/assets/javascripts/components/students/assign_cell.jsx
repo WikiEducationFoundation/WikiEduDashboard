@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import AssignButton from './assign_button.jsx';
 import { trunc } from '../../utils/strings';
 import CourseUtils from '../../utils/course_utils.js';
 
-const AssignCell = React.createClass({
+const AssignCell = createReactClass({
   displayName: 'AssignCell',
 
   propTypes: {

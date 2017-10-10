@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
@@ -8,7 +9,7 @@ import DiffViewer from '../revisions/diff_viewer.jsx';
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
 const getTrainingStatus = () => TrainingStatusStore.getModels();
 
-const StudentDrawer = React.createClass({
+const StudentDrawer = createReactClass({
   displayName: 'StudentDrawer',
 
   propTypes: {

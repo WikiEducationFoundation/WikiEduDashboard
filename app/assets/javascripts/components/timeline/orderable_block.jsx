@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Reorderable from '../high_order/reorderable.jsx';
 
-const OrderableBlock = React.createClass({
+const OrderableBlock = createReactClasss({
   displayName: 'OrderableBlock',
 
   propTypes: {

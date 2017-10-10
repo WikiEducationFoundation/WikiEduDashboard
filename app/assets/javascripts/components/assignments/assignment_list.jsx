@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
@@ -11,7 +12,7 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 
-const AssignmentList = React.createClass({
+const AssignmentList = createReactClasss({
   displayName: 'AssignmentList',
 
   propTypes: {

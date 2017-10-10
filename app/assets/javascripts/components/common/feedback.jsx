@@ -1,12 +1,13 @@
 
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
-const Feedback = React.createClass({
+const Feedback = createReactClass({
   displayName: 'Feedback',
 
   propTypes: {

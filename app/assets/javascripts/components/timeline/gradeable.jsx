@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
 import GradeableActions from '../../actions/gradeable_actions.js';
 
-const Gradeable = React.createClass({
+const Gradeable = createReactClass({
   displayName: 'Gradeable',
 
   propTypes: {

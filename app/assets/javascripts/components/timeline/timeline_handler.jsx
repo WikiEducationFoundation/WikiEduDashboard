@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-addons-css-transition-group';
 
@@ -29,7 +30,7 @@ const getState = () =>
   })
 ;
 
-const TimelineHandler = React.createClass({
+const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
 
   propTypes: {

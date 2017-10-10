@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseActions from '../../actions/course_actions.js';
 import uuid from 'uuid';
 
-const SubmittedSelector = React.createClass({
+const SubmittedSelector = createReactClass({
   propTypes: {
     course: PropTypes.object,
     editable: PropTypes.bool

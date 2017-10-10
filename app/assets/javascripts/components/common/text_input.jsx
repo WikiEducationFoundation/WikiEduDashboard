@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import InputMixin from '../../mixins/input_mixin.js';
 import Conditional from '../high_order/conditional.jsx';
 
-const TextInput = React.createClass({
+const TextInput = createReactClass({
   displayName: 'TextInput',
 
   propTypes: {

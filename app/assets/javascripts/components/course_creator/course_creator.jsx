@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
@@ -32,7 +33,7 @@ const getState = () => {
   };
 };
 
-const CourseCreator = React.createClass({
+const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
 
   mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],

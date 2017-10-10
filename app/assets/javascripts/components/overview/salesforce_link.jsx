@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 
-const SalesforceLink = React.createClass({
+const SalesforceLink = createReactClass({
   propTypes: {
     course: PropTypes.object,
     current_user: PropTypes.object

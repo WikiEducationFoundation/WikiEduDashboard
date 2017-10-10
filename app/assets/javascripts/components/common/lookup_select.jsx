@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import LookupWrapper from '../high_order/lookup_wrapper.jsx';
 
-const LookupSelect = React.createClass({
+const LookupSelect = createReactClass({
   displayName: 'LookupSelect',
 
   propTypes: {

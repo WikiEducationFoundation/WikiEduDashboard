@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from './loading.jsx';
 import UIActions from '../../actions/ui_actions.js';
 
-const List = React.createClass({
+const List = createReactClass({
   displayName: 'List',
 
   propTypes: {

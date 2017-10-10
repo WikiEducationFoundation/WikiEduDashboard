@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,7 +11,7 @@ import ActivityTableRow from './activity_table_row.jsx';
 import Loading from '../common/loading.jsx';
 
 
-const ActivityTable = React.createClass({
+const ActivityTable = createReactClass({
   displayName: 'ActivityTable',
 
   propTypes: {

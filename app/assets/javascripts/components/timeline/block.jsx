@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -9,7 +10,7 @@ import BlockTypeSelect from './block_type_select.jsx';
 import BlockActions from '../../actions/block_actions.js';
 import GradeableActions from '../../actions/gradeable_actions.js';
 
-const Block = React.createClass({
+const Block = createReactClass({
   displayName: 'Block',
 
   propTypes: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
@@ -10,7 +11,7 @@ import { Motion, spring } from 'react-motion';
 
 import DateCalculator from '../../utils/date_calculator.js';
 
-const Week = React.createClass({
+const Week = createReactClass({
   displayName: 'Week',
   propTypes: {
     week: PropTypes.object,

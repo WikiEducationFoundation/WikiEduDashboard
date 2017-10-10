@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import ByStudentsStats from './by_students_stats.jsx';
 import StudentStats from './student_stats.jsx';
@@ -6,7 +7,7 @@ import CoursesTaughtGraph from './graphs/as_instructor_graphs/courses_taught_gra
 import StudentsTaughtGraph from './graphs/as_instructor_graphs/students_taught_graph.jsx';
 import Loading from '../common/loading.jsx';
 
-const InstructorStats = React.createClass({
+const InstructorStats = createReactClass({
   propTypes: {
     username: PropTypes.string,
     stats: PropTypes.object,

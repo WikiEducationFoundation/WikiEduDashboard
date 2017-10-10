@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import LookupStore from '../../stores/lookup_store.js';
 
@@ -9,7 +10,7 @@ const LookupWrapper = function (Component) {
       submitting: false
     })
   ;
-  return React.createClass({
+  return createReactClass({
     displayName: 'LookupWrapper',
 
     propTypes: {
