@@ -1,0 +1,15 @@
+- content_for :after_title, ' - Usage Stats'
+%header.main-page
+  .container
+    %h1 Usage Stats
+.container
+  %section
+    .section-header
+      %h3
+        = "Total users: #{@user_count}"
+        %br
+        = "OAuth users: #{@logged_in_count}"
+        %br
+        = "Unique project home wikis: #{@home_wiki_count}"
+        %br
+        = "Unique wikis interacted with: #{@total_wikis_touched}"
