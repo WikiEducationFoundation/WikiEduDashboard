@@ -43,7 +43,7 @@ class StudentGreetingChecker
     private
 
     def talk_page_blank?
-      WikiApi.new(@wiki).get_page_content(@student.talk_page).nil?
+      WikiApi.new(@wiki).get_page_content(@student.talk_page).blank?
     end
 
     def contributors_to_page(page_title)
