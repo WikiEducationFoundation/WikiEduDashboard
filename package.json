@@ -108,6 +108,7 @@
     "react-typeahead": "2.0.0-alpha.5",
     "reactify": "1.1.1",
     "redux": "^3.6.0",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "require-dir": "^0.3.2",
     "rev-del": "^1.0.5",
