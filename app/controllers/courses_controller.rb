@@ -64,6 +64,7 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     verify_edit_credentials { return }
     set_endpoint
+    set_limit
 
     respond_to do |format|
       format.html { render }
@@ -213,6 +214,10 @@ class CoursesController < ApplicationController
   # vulnerability.
   def set_endpoint
     @endpoint = params[:endpoint] if SHOW_ENDPOINTS.include?(params[:endpoint])
+  end
+
+  def set_limit
+    @limit = (params[:limit] || 50)
   end
 
   # If the user could make an edit to the course, this verifies that

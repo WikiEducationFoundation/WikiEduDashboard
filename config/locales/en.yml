@@ -634,6 +634,7 @@ en:
     time_doc: The time of each revision in your local time
     title: Title
     view_on_wiki: View diff on wiki
+    see_more: See more
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:

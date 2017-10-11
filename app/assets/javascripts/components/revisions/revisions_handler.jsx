@@ -19,6 +19,11 @@ const RevisionHandler = React.createClass({
     return UIActions.sort('revisions', e.target.value);
   },
 
+  showMore() {
+    const limit = 100;
+    return ServerActions.fetchMoreRevisions(this.props.course_id, limit);
+  },
+
   render() {
     return (
       <div id="revisions">
@@ -35,6 +40,7 @@ const RevisionHandler = React.createClass({
           </div>
         </div>
         <RevisionList course={this.props.course} />
+        <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>
       </div>
     );
   }
