@@ -1,11 +1,12 @@
 import '../../testHelper';
 
 import React from 'react';
+import createReactClass from 'create-react-class';
 import { findDOMNode } from 'react-dom';
-import TestUtils from 'react-addons-test-utils';
+import TestUtils from 'react-dom/test-utils';
 import Block from '../../../app/assets/javascripts/components/timeline/block.jsx';
 
-Block.__Rewire__('TextAreaInput', React.createClass({
+Block.__Rewire__('TextAreaInput', createReactClass({
   render() {
     return <div />;
   }

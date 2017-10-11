@@ -1,7 +1,7 @@
 import '../../testHelper';
 
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
 import { click } from '../../customUtils.js';

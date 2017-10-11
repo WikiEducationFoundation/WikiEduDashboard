@@ -3,7 +3,7 @@ import '../../testHelper';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
-import TestUtils, { Simulate } from 'react-addons-test-utils';
+import TestUtils, { Simulate } from 'react-dom/test-utils';
 import Week from '../../../app/assets/javascripts/components/timeline/week.jsx';
 import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 

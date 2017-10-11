@@ -1,7 +1,7 @@
 import '../../testHelper';
 import Loading from '../../../app/assets/javascripts/components/common/loading.jsx';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 
 describe('Loading', () => {
   it('renders a div with an h1 and a div', () => {

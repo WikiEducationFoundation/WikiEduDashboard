@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-const RecentActivityHandler = reateReactClass({
+const RecentActivityHandler = createReactClass({
   displayName: 'RecentActivityHandler',
 
   propTypes: {

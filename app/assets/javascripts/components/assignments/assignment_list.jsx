@@ -12,7 +12,7 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 
-const AssignmentList = createReactClasss({
+const AssignmentList = createReactClass({
   displayName: 'AssignmentList',
 
   propTypes: {
