@@ -31,7 +31,7 @@ class WikiAssignmentOutput
     initial_page_content = WikiApi.new(@wiki).get_page_content(@talk_title)
     # This indicates an API failure, which may happen because of rate-limiting.
     # A nonexistent page will return empty string instead of nil.
-    return if initial_page_content.nil?
+    return nil if initial_page_content.nil?
 
     # Do not post templates to disambugation pages
     return nil if includes_disambiguation_template?(initial_page_content)
