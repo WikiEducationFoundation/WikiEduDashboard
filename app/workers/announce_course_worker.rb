@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 
 class AnnounceCourseWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_announcement(course:, editing_user:, instructor:)
     perform_async(course.id, editing_user.id, instructor.id)

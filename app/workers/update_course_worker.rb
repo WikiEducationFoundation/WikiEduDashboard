@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_course_edits"
 
 class UpdateCourseWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_edits(course:, editing_user:)
     perform_async(course.id, editing_user.id)
