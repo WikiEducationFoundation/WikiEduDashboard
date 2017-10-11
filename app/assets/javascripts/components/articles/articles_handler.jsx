@@ -1,6 +1,6 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import ArticleList from './article_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import AssignmentList from '../assignments/assignment_list.jsx';

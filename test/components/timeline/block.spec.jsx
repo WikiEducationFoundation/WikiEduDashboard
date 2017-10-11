@@ -4,6 +4,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import ShallowTestUtils from 'react-test-renderer/shallow';
 import Block from '../../../app/assets/javascripts/components/timeline/block.jsx';
 
 Block.__Rewire__('TextAreaInput', createReactClass({
@@ -52,7 +53,7 @@ describe('Block', () => {
       );
       // Shallow rendering. See
       // https://facebook.github.io/react/docs/test-utils.html#shallow-rendering
-      const renderer = TestUtils.createRenderer();
+      const renderer = ShallowTestUtils.createRenderer();
       renderer.render(TestBlock);
       const result = renderer.getRenderOutput();
       expect(result.type).to.eq('li');

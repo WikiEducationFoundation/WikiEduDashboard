@@ -1,6 +1,6 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import { browserHistory } from 'react-router';
 import TrainingStore from '../stores/training_store.js';
 import TrainingActions from '../actions/training_actions.js';
