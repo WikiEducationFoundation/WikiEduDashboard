@@ -433,5 +433,7 @@ const mapDispatchToProps = ({
   fetchCoursesForUser: fetchCoursesForUser
 });
 
+// exporting two difference ways as a testing hack.
 export const ConnectedCourseCreator = connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+
 export default CourseCreator;
