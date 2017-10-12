@@ -176,7 +176,11 @@ describe Course, type: :model do
 
   describe 'validation' do
     let(:course) do
-      Course.new(passcode: passcode, type: type, start: '2013-01-01', end: '2013-07-01')
+      Course.new(passcode: passcode,
+                 type: type,
+                 start: '2013-01-01',
+                 end: '2013-07-01',
+                 home_wiki_id: 1)
     end
     subject { course.valid? }
 

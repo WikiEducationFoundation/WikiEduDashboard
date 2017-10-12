@@ -20,9 +20,11 @@ class WikiApi
     mediawiki('query', query_parameters)
   end
 
+  # Returns nil if it cannot get any info from the wiki, but returns
+  # empty string if it's a 404 because the page is a redlink.
   def get_page_content(page_title)
     response = mediawiki('get_wikitext', page_title)
-    response&.status == 200 ? response.body : nil
+    [200, 404].include?(response&.status) ? response.body : nil
   end
 
   def get_user_id(username)

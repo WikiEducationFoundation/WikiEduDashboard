@@ -59,6 +59,9 @@ describe ArticlesForDeletionMonitor do
         .with('Category:All articles proposed for deletion', 0)
         .and_return(['PRODded page',
                      'Mr. Pakistan World'])
+      allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
+        .with('Category:Speedy deletion', 1)
+        .and_return(['Speedy 1', 'Speedy 2'])
     end
 
     context 'when there is a new article' do
