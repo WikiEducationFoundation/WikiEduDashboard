@@ -74,7 +74,7 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchMoreRevisions(courseId, limit) {
+  fetchCourseRevisions(courseId, limit) {
     const actionType = 'RECEIVE_REVISIONS';
     return API.fetchMoreRevisions(courseId, limit)
       .then(resp => ({ actionType, data: resp }))
