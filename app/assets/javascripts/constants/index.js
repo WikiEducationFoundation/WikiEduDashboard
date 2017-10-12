@@ -1,3 +1,4 @@
+export * from "./user_courses.js";
 export * from "./article_details";
 export * from "./did_you_know";
 export * from "./feedback";

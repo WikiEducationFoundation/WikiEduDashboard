@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { Link } from 'react-router';
 
 import CourseStore from '../../stores/course_store.js';
-import UserCoursesStore from '../../stores/user_courses_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import CourseCreationActions from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
+import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -27,15 +29,19 @@ import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } f
 const getState = () => {
   return {
     course: CourseStore.getCourse(),
-    error_message: ValidationStore.firstMessage(),
-    user_courses: _.reject(UserCoursesStore.getUserCourses(), { type: 'LegacyCourse' })
+    error_message: ValidationStore.firstMessageprops
   };
 };
 
 const CourseCreator = React.createClass({
   displayName: 'CourseCreator',
 
-  mixins: [CourseStore.mixin, ValidationStore.mixin, UserCoursesStore.mixin],
+  propTypes: {
+    user_courses: PropTypes.array.isRequired,
+    fetchCoursesForUser: PropTypes.func.isRequired
+  },
+
+  mixins: [CourseStore.mixin, ValidationStore.mixin],
 
   getInitialState() {
     const inits = {
@@ -53,14 +59,13 @@ const CourseCreator = React.createClass({
 
   componentWillMount() {
     CourseActions.addCourse();
-
     // If a campaign slug is provided, fetch the campaign.
     const campaignParam = this.campaignParam();
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
 
-    return ServerActions.fetchCoursesForUser(getUserId());
+    return this.props.fetchCoursesForUser(getUserId());
   },
 
   campaignParam() {
@@ -181,7 +186,7 @@ const CourseCreator = React.createClass({
     let showCloneChooser;
     let showNewOrClone;
     // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
-    if (this.state.user_courses.length === 0) {
+    if (this.props.user_courses.length === 0) {
       showCourseForm = true;
     // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
@@ -215,7 +220,7 @@ const CourseCreator = React.createClass({
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.state.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
     let term;
@@ -308,6 +313,7 @@ const CourseCreator = React.createClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
+
     return (
       <TransitionGroup
         transitionName="wizard"
@@ -418,5 +424,16 @@ const CourseCreator = React.createClass({
     );
   }
 });
+
+const mapStateToProps = state => ({
+  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
+});
+
+const mapDispatchToProps = ({
+  fetchCoursesForUser: fetchCoursesForUser
+});
+
+// exporting two difference ways as a testing hack.
+export const ConnectedCourseCreator = connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
 
 export default CourseCreator;
