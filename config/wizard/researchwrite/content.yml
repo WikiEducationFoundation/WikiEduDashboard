@@ -6,7 +6,7 @@
 # 1. Assignment
 # 2. Milestone
 # 3. Custom
-# 4. Training
+# 4. Handouts
 
 # Week weight
 # - The app will attempt to evenly distribute weights across the course timeline
@@ -164,6 +164,10 @@ essentials:
               your feedback with four tildes — <code>~~~~</code>.
             </li>
           </ul>
+
+      -
+        title: Subject-specific editing guides
+        kind: 4
 
       -
         if: content_gaps_discussion
