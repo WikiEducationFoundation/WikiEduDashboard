@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as UIActions from '../../actions';
+import * as FrontendActions from '../../actions';
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -49,6 +49,7 @@ const StudentList = React.createClass({
 
   render() {
     const toggleDrawer = this.props.actions.toggleUI;
+    const closeDrawer = this.props.actions.resetUI;
     const users = this.props.users.map(student => {
       const assignOptions = { user_id: student.id, role: 0 };
       const reviewOptions = { user_id: student.id, role: 1 };
@@ -85,6 +86,7 @@ const StudentList = React.createClass({
           key={drawerKey}
           ref={drawerKey}
           isOpen={isOpen}
+          closeDrawer={closeDrawer}
         />
       );
     });
@@ -152,7 +154,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(UIActions, dispatch)
+  actions: bindActionCreators(FrontendActions, dispatch)
 });
 
 export default Editable(

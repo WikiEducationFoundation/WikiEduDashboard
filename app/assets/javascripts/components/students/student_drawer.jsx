@@ -12,7 +12,8 @@ const StudentDrawer = React.createClass({
 
   propTypes: {
     student: React.PropTypes.object,
-    isOpen: React.PropTypes.bool
+    isOpen: React.PropTypes.bool,
+    closeDrawer: React.PropTypes.func
   },
 
   mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
@@ -22,6 +23,10 @@ const StudentDrawer = React.createClass({
       revisions: getRevisions(this.props.student.id),
       trainingModules: getTrainingStatus()
     };
+  },
+
+  componentWillUnmount() {
+    this.props.closeDrawer();  
   },
 
   storeDidChange() {
