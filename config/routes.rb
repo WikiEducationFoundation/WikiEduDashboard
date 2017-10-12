@@ -1,8 +1,6 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
 
 Rails.application.routes.draw do
-  mount ReportsKit::Engine, at: '/'
-
   get 'errors/file_not_found'
   get 'errors/unprocessable'
   get 'errors/login_error'

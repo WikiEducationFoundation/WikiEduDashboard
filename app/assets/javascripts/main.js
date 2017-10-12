@@ -21,5 +21,3 @@ $(() => {
 
 // Polyfills
 require('location-origin');
-
-require('reports_kit/application');
