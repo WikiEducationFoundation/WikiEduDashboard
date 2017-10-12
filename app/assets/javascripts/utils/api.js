@@ -66,7 +66,7 @@ const API = {
     });
   },
   
-  fetchMoreRevisions(courseId, limit) {
+  fetchCourseRevisions(courseId, limit) {
     return new Promise((res, rej) => {
       const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
       return $.ajax({
