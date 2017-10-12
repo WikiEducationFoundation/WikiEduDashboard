@@ -59,12 +59,12 @@ const CourseCreator = React.createClass({
 
   componentWillMount() {
     CourseActions.addCourse();
-
     // If a campaign slug is provided, fetch the campaign.
     const campaignParam = this.campaignParam();
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
+
     return this.props.fetchCoursesForUser(getUserId());
   },
 
@@ -433,4 +433,5 @@ const mapDispatchToProps = ({
   fetchCoursesForUser: fetchCoursesForUser
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+export const ConnectedCourseCreator = connect(mapStateToProps, mapDispatchToProps)(CourseCreator);
+export default CourseCreator;
