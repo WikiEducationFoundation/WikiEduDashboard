@@ -64,6 +64,8 @@ gem 'restforce', git: 'https://github.com/ejholmes/restforce.git'
 
 gem 'rinruby' # R plots!
 
+gem 'reports_kit' # magic automatic reports and charts!
+
 # If you want to be able to hack locally on rapidfire,
 # run `export RAPIDFIREHACKINGMODE=true` in your terminal.
 if ENV['RAPIDFIREHACKINGMODE'] == 'true'
