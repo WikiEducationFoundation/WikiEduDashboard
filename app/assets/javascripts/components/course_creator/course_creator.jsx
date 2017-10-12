@@ -29,7 +29,7 @@ import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } f
 const getState = () => {
   return {
     course: CourseStore.getCourse(),
-    error_message: ValidationStore.firstMessageprops
+    error_message: ValidationStore.firstMessage()
   };
 };
 
