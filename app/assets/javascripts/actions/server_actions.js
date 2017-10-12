@@ -13,14 +13,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchMoreRevisions(courseId, limit) {
-    const actionType = `RECEIVE_MORE_REVISIONS`;
-    return API.fetchMoreRevisions(courseId, limit)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-
   add(model, courseId, data) {
     const actionType = `${model.toUpperCase()}_MODIFIED`;
     return API.modify(model, courseId, data, true)
@@ -79,6 +71,13 @@ const ServerActions = Flux.createActions({
   fetchRevisions(studentId, courseId) {
     return API.fetchRevisions(studentId, courseId)
       .then(resp => ({ actionType: 'RECEIVE_REVISIONS', data: resp }))
+      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  },
+
+  fetchMoreRevisions(courseId, limit) {
+    const actionType = 'RECEIVE_REVISIONS';
+    return API.fetchMoreRevisions(courseId, limit)
+      .then(resp => ({ actionType, data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

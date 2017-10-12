@@ -65,7 +65,7 @@ const API = {
       });
     });
   },
-
+  
   fetchMoreRevisions(courseId, limit) {
     return new Promise((res, rej) => {
       const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
