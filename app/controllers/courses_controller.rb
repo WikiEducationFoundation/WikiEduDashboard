@@ -217,7 +217,7 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    @limit = 5 if (params[:endpoint] = 'revisions')
+    @limit = params[:limit] if (params[:endpoint] = 'revisions')
   end
 
   # If the user could make an edit to the course, this verifies that

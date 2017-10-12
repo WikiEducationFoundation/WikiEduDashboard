@@ -8,12 +8,18 @@ const RevisionHandler = React.createClass({
 
   propTypes: {
     course_id: React.PropTypes.string,
-    course: React.PropTypes.object, 
-    limit: React.PropTypes.number
+    course: React.PropTypes.object,
+  },
+
+  getInitialState() {
+    return {
+      limit: 50
+    };
   },
 
   componentWillMount() {
-    return ServerActions.fetchCourseRevisions(this.props.course_id, this.props.limit);
+    this.setState({ limit: 100 });
+    return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
   },
 
   sortSelect(e) {
@@ -21,8 +27,8 @@ const RevisionHandler = React.createClass({
   },
 
   showMore() {
-    // after the user clicks the button should add +5 to limit
-    return ServerActions.fetchCourseRevisions(this.props.course_id, limit);
+    this.setState({ limit: this.state.limit + 100 });
+    return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
   },
 
   render() {
