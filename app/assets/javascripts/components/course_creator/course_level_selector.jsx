@@ -16,9 +16,9 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
         onChange={handleChange}
       >
         <option disabled value=""> — select one —</option>
-        <option value="introductory">Introductory</option>
-        <option value="advanced undergraduate">Advanced undergraduate</option>
-        <option value="graduate">Graduate</option>
+        <option value="Introductory">Introductory</option>
+        <option value="Advanced Undergrad">Advanced undergraduate</option>
+        <option value="Graduate">Graduate</option>
       </select>
     </div>
   );
