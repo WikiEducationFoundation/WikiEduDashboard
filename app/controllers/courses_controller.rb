@@ -213,7 +213,7 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type)
+              :no_day_exceptions, :cloned_status, :type, :level)
   end
 
   SHOW_ENDPOINTS = %w[articles assignments campaigns check course revisions tag tags
