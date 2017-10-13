@@ -4,6 +4,7 @@ import OnClickOutside from 'react-onclickoutside';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
+import { selectFeedback } from "../../selectors";
 import API from '../../utils/api.js';
 const Feedback = React.createClass({
   displayName: 'Feedback',
@@ -233,7 +234,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  feedback: state.feedback
+  feedback: selectFeedback(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(Feedback));

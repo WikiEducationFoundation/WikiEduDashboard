@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as UIActions from '../../actions';
+import { selectUIOpenKey } from "../../selectors";
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -148,7 +149,7 @@ const StudentList = React.createClass({
 );
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey
+  openKey: selectUIOpenKey(state)
 });
 
 const mapDispatchToProps = dispatch => ({
