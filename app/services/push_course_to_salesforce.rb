@@ -69,7 +69,7 @@ class PushCourseToSalesforce
 
   def program_id
     case @course.type
-    when 'ClassroomProgramCourse'
+    when 'ClassroomProgramCourse', 'LegacyCourse'
       ENV['SF_CLASSROOM_PROGRAM_ID']
     when 'VisitingScholarship'
       ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']
