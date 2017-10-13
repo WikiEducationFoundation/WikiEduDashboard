@@ -58,7 +58,7 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
     "istanbul": "^0.4.5",
     "jeet": "^6.1.2",
-    "jest": "^20.0.1",
+    "jest": "^21.2.1",
     "jquery": "^2.1.4",
     "jquery-ui": "^1.10.5",
     "jquery.repeater": "^1.2.1",
