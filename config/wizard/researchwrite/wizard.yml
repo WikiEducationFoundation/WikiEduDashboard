@@ -186,10 +186,10 @@
 
 - key: topics # This key is special-cased as non-exclusive in WizardTimelineManager
   title: Subject-specific resources
-  description: |
-    Editing guides that cover best practices in specific subject areas or article
-    topics are available for the subjects below. Please select all that are relevant
-    for your course.
+  description:
+    In addition to our general editing guidelines, we've created brief reference
+    materials about editing Wikipedia in certain topic areas. Please select all
+    subject-specific guides relevant to your students' work.
   type: 0 # multiple choice
   minimum: 0
   options:

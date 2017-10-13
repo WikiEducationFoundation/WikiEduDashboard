@@ -166,10 +166,6 @@ essentials:
           </ul>
 
       -
-        title: Subject-specific editing guides
-        kind: 4
-
-      -
         if: content_gaps_discussion
         title: "Discussion: What's a content gap?"
         kind: 0
@@ -431,6 +427,10 @@ essentials:
           <hr />
           <p>Keep reading your sources, too, as you prepare to write the body of the article.</p>
           <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 7–9</p>
+
+      -
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
 
       -
         title: Everyone has started writing
