@@ -18,7 +18,6 @@ const RevisionHandler = React.createClass({
   },
 
   componentWillMount() {
-    this.setState({ limit: 100 });
     return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
   },
 
@@ -28,7 +27,7 @@ const RevisionHandler = React.createClass({
 
   showMore() {
     this.setState({ limit: this.state.limit + 100 });
-    return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
+    return ServerActions.fetchCourseRevisions(this.props.course_id, (this.state.limit + 50));
   },
 
   render() {
