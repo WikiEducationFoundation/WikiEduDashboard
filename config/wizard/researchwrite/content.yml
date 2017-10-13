@@ -360,6 +360,11 @@ essentials:
             </li>
           </ul>
 
+      -
+        if: choose_articles_from_list
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
+
   - # Week five
     weight: 4
     blocks:
@@ -388,6 +393,11 @@ essentials:
               </ul>
             </li>
           </ul>
+
+      -
+        if: explore_to_find_articles
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
 
       -
         title: Draft your article
@@ -427,10 +437,6 @@ essentials:
           <hr />
           <p>Keep reading your sources, too, as you prepare to write the body of the article.</p>
           <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 7–9</p>
-
-      -
-        title: Guide(s) for writing articles in your topic area
-        kind: 4 # Special subject-specific guides block
 
       -
         title: Everyone has started writing
