@@ -18,5 +18,8 @@ class EnrollInCourseWorker
                         course: course,
                         current_user: editing_user,
                         enrolling_user: enrolling_user)
+    WikiCourseEdits.new(action: :update_course,
+                        course: course,
+                        current_user: editing_user)
   end
 end
