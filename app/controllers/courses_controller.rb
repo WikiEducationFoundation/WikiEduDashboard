@@ -2,7 +2,6 @@
 
 require 'oauth'
 require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/wiki_course_edits"
 require "#{Rails.root}/lib/list_course_manager"
 require "#{Rails.root}/lib/tag_manager"
 require "#{Rails.root}/lib/course_creation_manager"
@@ -14,22 +13,20 @@ require "#{Rails.root}/app/workers/announce_course_worker"
 class CoursesController < ApplicationController
   include CourseHelper
   respond_to :html, :json
-  before_action :require_permissions,
-                only: %i[
-                  create
-                  update
-                  destroy
-                  notify_untrained
-                  update_syllabus
-                  delete_all_weeks
-                ]
+  before_action :require_permissions, only: %i[create
+                                               update
+                                               destroy
+                                               notify_untrained
+                                               update_syllabus
+                                               delete_all_weeks]
 
   ################
   # CRUD methods #
   ################
 
   def create
-    course_creation_manager = CourseCreationManager.new(course_params, wiki_params, initial_campaign_params, current_user)
+    course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
+                                                        initial_campaign_params, current_user)
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: 404
@@ -234,6 +231,7 @@ class CoursesController < ApplicationController
   def verify_edit_credentials
     return if Features.disable_wiki_output?
     return unless current_user&.can_edit?(@course)
+    return if current_user.wiki_token && current_user.updated_at > 30.seconds.ago
     return if WikiEdits.new.oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield
