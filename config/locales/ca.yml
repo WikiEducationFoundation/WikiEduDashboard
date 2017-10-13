@@ -382,6 +382,7 @@ ca:
     none: El projecte no té activitat d'edició recent.
     time_doc: Hora de cada revisió amb la teva hora local
     title: Títol
+    see_more: Veure més
   tasks:
     conseq: La tasca %{task} ja és en curs!
   timeline:
