@@ -19,6 +19,7 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import CourseLevelSelector from './course_level_selector.jsx';
 import TransitionGroup from 'react-addons-css-transition-group';
 
 import _ from 'lodash';
@@ -226,6 +227,7 @@ const CourseCreator = React.createClass({
     let term;
     let subject;
     let expectedStudents;
+    let courseLevel;
 
     let descriptionRequired = false;
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
@@ -241,6 +243,12 @@ const CourseCreator = React.createClass({
           editable
           label={CourseUtils.i18n('creator.course_term', this.state.course_string_prefix)}
           placeholder={CourseUtils.i18n('creator.course_term_placeholder', this.state.course_string_prefix)}
+        />
+      );
+      courseLevel = (
+        <CourseLevelSelector
+          level={this.state.course.level}
+          updateCourse={this.updateCourse}
         />
       );
       subject = (
@@ -363,6 +371,7 @@ const CourseCreator = React.createClass({
                     placeholder={CourseUtils.i18n('creator.course_school', this.state.course_string_prefix)}
                   />
                   {term}
+                  {courseLevel}
                   {subject}
                   {expectedStudents}
                   {language}

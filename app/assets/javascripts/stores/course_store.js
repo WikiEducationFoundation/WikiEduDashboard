@@ -39,6 +39,7 @@ const addCourse = () =>
     description: '',
     school: '',
     term: '',
+    level: 'introductory',
     subject: '',
     expected_students: '0',
     start: null,
