@@ -8,7 +8,7 @@ json.course do
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
             :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count,
-            :cloned_status, :flags)
+            :cloned_status, :flags, :level)
 
   json.timeline_enabled @course.timeline_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
