@@ -233,10 +233,11 @@ class CoursesController < ApplicationController
   # their tokens are working. If their credentials are found to be invalid,
   # they get logged out immediately, and this method redirects them to the home
   # page, so that they don't make edits that fail upon save.
+  # We don't need to do this too often, though.
   def verify_edit_credentials
     return if Features.disable_wiki_output?
     return unless current_user&.can_edit?(@course)
-    return if current_user.wiki_token && current_user.updated_at > 30.seconds.ago
+    return if current_user.wiki_token && current_user.updated_at > 12.hours.ago
     return if WikiEdits.new.oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield
