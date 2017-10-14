@@ -1,14 +1,16 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
-const SalesforceMediaButtons = React.createClass({
+const SalesforceMediaButtons = createReactClass({
   displayName: 'SalesforceMediaButtons',
 
   propTypes: {
-    article: React.PropTypes.object,
-    course: React.PropTypes.object,
-    editors: React.PropTypes.array,
-    before_rev_id: React.PropTypes.number,
-    after_rev_id: React.PropTypes.number
+    article: PropTypes.object,
+    course: PropTypes.object,
+    editors: PropTypes.array,
+    before_rev_id: PropTypes.number,
+    after_rev_id: PropTypes.number
   },
 
   render() {

@@ -1,5 +1,7 @@
 import React from 'react';
-import TransitionGroup from 'react-addons-css-transition-group';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const getReturnToParam = function () {
   const returnTo = window.location.search.match(/return_to=([^&]*)/);
@@ -9,10 +11,10 @@ const getReturnToParam = function () {
 const getCurrentUser = () => $('#react_root').data('current_user');
 
 // Router root
-const Root = React.createClass({
+const Root = createReactClass({
   propTypes: {
-    children: React.PropTypes.object,
-    location: React.PropTypes.object
+    children: PropTypes.object,
+    location: PropTypes.object
   },
 
   render() {

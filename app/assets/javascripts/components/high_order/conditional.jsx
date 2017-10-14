@@ -1,12 +1,14 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
 // Enables DRY and simple conditional components
 // Renders items when 'show' prop is undefined
 
 const Conditional = function (Component) {
-  return React.createClass({
+  return createReactClass({
     propTypes: {
-      show: React.PropTypes.bool
+      show: PropTypes.bool
     },
 
     render() {

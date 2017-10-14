@@ -1,4 +1,6 @@
 import React from "react";
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
 import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
@@ -12,13 +14,13 @@ const HEADERS = [
   { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
 ];
 
-const DidYouKnowHandler = React.createClass({
+const DidYouKnowHandler = createReactClass({
   displayName: "DidYouKnowHandler",
 
   propTypes: {
-    fetchDYKArticles: React.PropTypes.func,
-    articles: React.PropTypes.array,
-    loading: React.PropTypes.bool
+    fetchDYKArticles: PropTypes.func,
+    articles: PropTypes.array,
+    loading: PropTypes.bool
   },
 
   componentWillMount() {

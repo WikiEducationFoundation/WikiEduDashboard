@@ -1,14 +1,16 @@
 /* global vg */
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
-const EditSizeGraph = React.createClass({
+const EditSizeGraph = createReactClass({
   displayName: 'EditSizeGraph',
 
   propTypes: {
-    graphid: React.PropTypes.string,
-    graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number,
-    articleData: React.PropTypes.array
+    graphid: PropTypes.string,
+    graphWidth: PropTypes.number,
+    graphHeight: PropTypes.number,
+    articleData: PropTypes.array
   },
 
   renderGraph() {

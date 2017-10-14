@@ -1,6 +1,7 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import createReactClass from 'create-react-class';
+import ReactTestUtils from 'react-dom/test-utils';
 import MyArticles from '../../../app/assets/javascripts/components/overview/my_articles.jsx';
 
 describe('MyArticles', () => {
@@ -8,7 +9,7 @@ describe('MyArticles', () => {
   const currentUser = { id: 1, admin: false, role: 0 };
   const courseId = 'institution/title_(term)';
 
-  MyArticles.__Rewire__('AssignCell', React.createClass({
+  MyArticles.__Rewire__('AssignCell', createReactClass({
     render() {
       return <div />;
     }

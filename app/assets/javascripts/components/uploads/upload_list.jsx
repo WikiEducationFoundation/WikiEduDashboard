@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
@@ -50,8 +51,8 @@ const UploadList = ({ uploads, course }) => {
 };
 
 UploadList.propTypes = {
-  uploads: React.PropTypes.array,
-  course: React.PropTypes.object
+  uploads: PropTypes.array,
+  course: PropTypes.object
 };
 
 export default Editable(UploadList, [UploadStore], ServerActions.saveUploads, getState);

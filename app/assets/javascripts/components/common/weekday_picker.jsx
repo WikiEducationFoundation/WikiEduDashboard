@@ -1,4 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 const WEEKDAYS_LONG = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const WEEKDAYS_SHORT = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
@@ -18,7 +20,7 @@ const keys = {
   SPACE: 32
 };
 
-const WeekdayPicker = React.createClass({
+const WeekdayPicker = createReactClass({
   propTypes: {
     className: PropTypes.string,
     style: PropTypes.object,

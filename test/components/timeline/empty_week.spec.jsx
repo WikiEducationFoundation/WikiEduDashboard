@@ -2,7 +2,7 @@ import '../../testHelper';
 
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import EmptyWeek from '../../../app/assets/javascripts/components/timeline/empty_week.jsx';
 
 const makeSpacesUniform = (str) => { return str.replace(/\s{1,}/g, ' '); };

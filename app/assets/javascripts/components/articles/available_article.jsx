@@ -1,16 +1,18 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import NotificationActions from '../../actions/notification_actions.js';
 
-const AvailableArticle = React.createClass({
+const AvailableArticle = createReactClass({
   displayName: 'AvailableArticle',
 
   propTypes: {
-    assignment: React.PropTypes.object,
-    current_user: React.PropTypes.object,
-    course: React.PropTypes.object
+    assignment: PropTypes.object,
+    current_user: PropTypes.object,
+    course: PropTypes.object
   },
 
   onSelectHandler(e) {

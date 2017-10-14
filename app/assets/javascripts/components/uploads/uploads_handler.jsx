@@ -1,15 +1,17 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
 
-const UploadsHandler = React.createClass({
+const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object
+    course_id: PropTypes.string,
+    course: PropTypes.object
   },
 
   componentWillMount() {

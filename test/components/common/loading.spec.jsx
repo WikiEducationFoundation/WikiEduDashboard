@@ -1,11 +1,11 @@
 import '../../testHelper';
 import Loading from '../../../app/assets/javascripts/components/common/loading.jsx';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ShallowTestUtils from 'react-test-renderer/shallow';
 
 describe('Loading', () => {
   it('renders a div with an h1 and a div', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = ShallowTestUtils.createRenderer();
     renderer.render(<Loading />);
     const output = renderer.getRenderOutput();
     expect(output.type).to.eq('div');

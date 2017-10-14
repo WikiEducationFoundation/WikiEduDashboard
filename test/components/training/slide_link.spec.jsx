@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import ReactDOM from 'react-dom';
 
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';

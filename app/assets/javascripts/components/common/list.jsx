@@ -1,18 +1,20 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Loading from './loading.jsx';
 import UIActions from '../../actions/ui_actions.js';
 
-const List = React.createClass({
+const List = createReactClass({
   displayName: 'List',
 
   propTypes: {
-    store: React.PropTypes.object,
-    keys: React.PropTypes.object,
-    sortable: React.PropTypes.bool,
-    table_key: React.PropTypes.string,
-    className: React.PropTypes.string,
-    elements: React.PropTypes.node,
-    none_message: React.PropTypes.string
+    store: PropTypes.object,
+    keys: PropTypes.object,
+    sortable: PropTypes.bool,
+    table_key: PropTypes.string,
+    className: PropTypes.string,
+    elements: PropTypes.node,
+    none_message: PropTypes.string
   },
 
   render() {

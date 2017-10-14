@@ -1,19 +1,21 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Reorderable from '../high_order/reorderable.jsx';
 
-const OrderableBlock = React.createClass({
+const OrderableBlock = createReactClass({
   displayName: 'OrderableBlock',
 
   propTypes: {
-    title: React.PropTypes.string,
-    kind: React.PropTypes.string.isRequired,
-    disableUp: React.PropTypes.bool.isRequired,
-    disableDown: React.PropTypes.bool.isRequired,
-    canDrag: React.PropTypes.bool.isRequired,
-    onDrag: React.PropTypes.func.isRequired,
-    onMoveUp: React.PropTypes.func.isRequired,
-    onMoveDown: React.PropTypes.func.isRequired,
-    isDragging: React.PropTypes.bool.isRequired
+    title: PropTypes.string,
+    kind: PropTypes.string.isRequired,
+    disableUp: PropTypes.bool.isRequired,
+    disableDown: PropTypes.bool.isRequired,
+    canDrag: PropTypes.bool.isRequired,
+    onDrag: PropTypes.func.isRequired,
+    onMoveUp: PropTypes.func.isRequired,
+    onMoveDown: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired
   },
 
   render() {
