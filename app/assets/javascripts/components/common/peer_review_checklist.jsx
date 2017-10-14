@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import OnClickOutside from 'react-onclickoutside';
 
-const PeerReviewChecklist = React.createClass({
+const PeerReviewChecklist = createReactClass({
   displayName: 'PeerReviewChecklist',
 
   getInitialState() {
