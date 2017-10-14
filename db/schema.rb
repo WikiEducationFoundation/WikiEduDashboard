@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171014204201) do
+ActiveRecord::Schema.define(version: 20171014212112) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -315,7 +315,6 @@ ActiveRecord::Schema.define(version: 20171014204201) do
     t.integer "mw_page_id"
     t.text "features"
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
-    t.index ["article_id"], name: "index_revisions_on_article_id"
     t.index ["ithenticate_id"], name: "index_revisions_on_ithenticate_id"
     t.index ["mw_page_id"], name: "index_revisions_on_mw_page_id"
     t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id"
