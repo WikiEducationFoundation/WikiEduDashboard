@@ -1,4 +1,4 @@
-import { NEED_HELP_ALERT_SUBMITTED, NEED_HELP_ALERT_CREATED, RESET_NEED_HELP_ALERT } from '../constants/action_types.js';
+import { NEED_HELP_ALERT_SUBMITTED, NEED_HELP_ALERT_CREATED, RESET_NEED_HELP_ALERT } from '../constants';
 
 const initialState = { submitting: false, created: false };
 

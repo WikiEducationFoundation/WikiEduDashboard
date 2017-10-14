@@ -2,12 +2,7 @@
 
 class FeedbackFormResponsesController < ApplicationController
   def new
-    @subject = params['subject']
-    @main_subject = params['main_subject']
-
-    @has_explicit_subject = true if @subject
-    @subject ||= request.referer || params['referer'] || ''
-    @main_subject ||= @subject[/(.*) —/, 1] || @subject
+    set_subjects
     @is_training_module = true if @subject =~ %r{/training/}
     @feedback_form_response = FeedbackFormResponse.new
   end
@@ -34,6 +29,15 @@ class FeedbackFormResponsesController < ApplicationController
   def confirmation; end
 
   private
+
+  def set_subjects
+    @subject = params['subject']
+    @main_subject = params['main_subject']
+
+    @has_explicit_subject = true if @subject
+    @subject ||= request.referer || params['referer'] || ''
+    @main_subject ||= @subject[/(.*) —/, 1] || @subject
+  end
 
   def form_params
     params.require(:feedback_form_response).permit(:body, :subject)

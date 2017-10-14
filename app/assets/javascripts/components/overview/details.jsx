@@ -340,6 +340,7 @@ const saveCourseDetails = (data, courseId = null) => {
     return CourseActions.persistCourse(data, courseId);
   }
   if (confirm(I18n.t('editable.rename_confirmation'))) {
+    CourseUtils.cleanupCourseSlugComponents(data.course);
     return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
   }
 };

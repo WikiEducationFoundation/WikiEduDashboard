@@ -8,8 +8,7 @@ require "#{Rails.root}/lib/revision_data_parser"
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
-  def initialize(wiki = nil)
-    wiki ||= Wiki.default_wiki
+  def initialize(wiki)
     @wiki = wiki
   end
 
@@ -141,18 +140,15 @@ class Replica
     "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 
-  # Returns special Labs database names as parameters for databases not meeting
-  # project/language naming conventions
+  SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
+                       'wikisource.org' => 'sourceswiki',
+                       'incubator.wikimedia.org' => 'incubatorwiki' }.freeze
   def project_database_params
-    if @wiki.project == 'wikidata'
-      'db=wikidatawiki'
-    elsif @wiki.project == 'wikisource' && @wiki.language.nil?
-      'db=sourceswiki'
-    elsif @wiki.project == 'wikimedia' && @wiki.language == 'incubator'
-      'db=incubatorwiki'
-    else
-      "lang=#{@wiki.language}&project=#{@wiki.project}"
-    end
+    # Returns special Labs database names as parameters for databases not meeting
+    # project/language naming conventions
+    return "db=#{SPECIAL_DB_NAMES[@wiki.domain]}" if SPECIAL_DB_NAMES[@wiki.domain]
+    # Otherwise, uses the language and project, and replica API infers the standard db name.
+    "lang=#{@wiki.language}&project=#{@wiki.project}"
   end
 
   def compile_usernames_query(users)
@@ -186,17 +182,15 @@ class Replica
     { revision_ids: revisions.map(&:mw_rev_id) }.to_query
   end
 
+  # These are typical network errors that we expect to encounter.
+  TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
+                    JSON::ParserError].freeze
   def report_exception(error, endpoint, query, level='error')
     Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
-    level = 'warning' if typical_errors.include?(error.class)
+    level = 'warning' if TYPICAL_ERRORS.include?(error.class)
     Raven.capture_exception error, level: level, extra: {
       query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project
     }
     return nil
-  end
-
-  # These are typical network errors that we expect to encounter.
-  def typical_errors
-    [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED, JSON::ParserError]
   end
 end

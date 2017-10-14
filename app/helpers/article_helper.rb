@@ -2,19 +2,6 @@
 
 #= Helpers for article views
 module ArticleHelper
-  NS = {
-    Article::Namespaces::MAINSPACE => '',
-    Article::Namespaces::TALK => 'Talk:',
-    Article::Namespaces::USER => 'User:',
-    Article::Namespaces::USER_TALK => 'User_talk:',
-    Article::Namespaces::WIKIPEDIA => 'Wikipedia:',
-    Article::Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
-    Article::Namespaces::TEMPLATE => 'Template:',
-    Article::Namespaces::TEMPLATE_TALK => 'Template_talk:',
-    Article::Namespaces::DRAFT => 'Draft:',
-    Article::Namespaces::DRAFT_TALK => 'Draft_talk:'
-  }.freeze
-
   # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/CyclomaticComplexity
   def rating_priority(rating)
@@ -51,7 +38,7 @@ module ArticleHelper
     if %w[fa ga fl].include? rating
       return rating
     else
-      return rating[0]
+      return rating[0] # use the first letter of the rating as the abbreviated version
     end
   end
 

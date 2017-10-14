@@ -1,4 +1,4 @@
-import { RECEIVE_ARTICLE_DETAILS } from '../constants/action_types.js';
+import { RECEIVE_ARTICLE_DETAILS } from "../constants";
 
 const initialState = {};
 

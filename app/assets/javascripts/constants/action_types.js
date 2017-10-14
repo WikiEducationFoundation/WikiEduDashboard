@@ -13,10 +13,3 @@ export const RESET_NEED_HELP_ALERT = 'RESET_NEED_HELP_ALERT';
 
 // ui
 export const TOGGLE_UI = 'TOGGLE_UI';
-
-//confirmation
-export const CONFIRMATION_INITIATED = 'CONFIRMATION_INITIATED';
-export const ACTION_CONFIRMED = 'ACTION_CONFIRMED';
-export const ACTION_CANCELLED = 'ACTION_CANCELLED';
-
-

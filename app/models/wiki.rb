@@ -81,20 +81,20 @@ class Wiki < ActiveRecord::Base
   #############
 
   def ensure_valid_project
-    # Multilingual projects must have language == nil.
-    # Doesn't apply to multilingual Wikimedia projects, subdomain is accepted
-    # as language there.
-    case project
-    when 'wikidata'
+    # There are two special multilingual projects, which must have language == nil:
+    # wikidata, and multilingual wikisource (www.wikisource.org).
+    if project == 'wikidata'
       self.language = nil
       return
-    when 'wikisource'
-      self.language = nil if language == 'www'
-      return
-    else
-      raise InvalidWikiError unless LANGUAGES.include?(language)
     end
+
+    if project == 'wikisource' && ['www', nil].include?(language)
+      self.language = nil
+      return
+    end
+
     raise InvalidWikiError unless PROJECTS.include?(project)
+    raise InvalidWikiError unless LANGUAGES.include?(language)
   end
 
   def ensure_wiki_exists

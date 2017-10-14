@@ -1,26 +1,28 @@
 import React from 'react';
+import { connect } from "react-redux";
 import ServerActions from '../../actions/server_actions.js';
 import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import Confirm from '../common/confirm.jsx';
-import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../reducers/confirmation.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
+import { actionConfirmed, actionCancelled } from '../../actions/confirm_actions.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
 const AvailableActions = React.createClass({
   displayName: 'Actions',
-
   propTypes: {
-    current_user: React.PropTypes.object
+    current_user: React.PropTypes.object,
+    actionConfirmed: React.PropTypes.func,
+    actionCancelled: React.PropTypes.func,
+    confirmationActive: React.PropTypes.bool
   },
 
-  mixins: [CourseStore.mixin, ConfirmationStore.mixin],
+  mixins: [CourseStore.mixin],
 
   getInitialState() {
     return ({
@@ -33,7 +35,7 @@ const AvailableActions = React.createClass({
 
   storeDidChange() {
     // This handles closing the Confirm dialog after it has been clicked.
-    if (!ConfirmationStore.isConfirmationActive()) {
+    if (!this.props.confirmationActive) {
       this.setState(this.getInitialState());
     }
     return this.setState(getState());
@@ -42,11 +44,11 @@ const AvailableActions = React.createClass({
   join() {
     const EnrollURL = this.state.course.enroll_url;
     const onConfirm = function (passcode) {
-      ConfirmActions.actionConfirmed();
+      this.props.actionConfirmed();
       return window.location = EnrollURL + passcode;
     };
     const onCancel = function () {
-      return ConfirmActions.actionCancelled();
+      return this.props.actionCancelled();
     };
     const confirmMessage = I18n.t('courses.passcode_prompt');
     const joinDescription = CourseUtils.i18n('join_details', this.state.course.string_prefix);
@@ -168,4 +170,13 @@ const AvailableActions = React.createClass({
 }
 );
 
-export default AvailableActions;
+const mapStateToProps = state => ({
+  confirmationActive: state.Confirmation._confirmationActive
+});
+
+const mapDispatchToProps = {
+  actionConfirmed: actionConfirmed,
+  actionCancelled: actionCancelled
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AvailableActions);

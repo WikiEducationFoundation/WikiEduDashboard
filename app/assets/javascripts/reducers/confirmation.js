@@ -1,11 +1,11 @@
 import { CONFIRMATION_INITIATED,
   ACTION_CONFIRMED,
   ACTION_CANCELLED
-} from '../constants/action_types.js';
+} from '../constants/confirmation.js';
 
-const initialState = {_confirmationActive : false};
+const initialState = { _confirmationActive: false };
 
-export default function ConfirmationStore(state = initialState, action) {
+export default function Confirmation(state = initialState, action) {
   switch (action.type) {
     case CONFIRMATION_INITIATED: {
       return { ...state, _confirmationActive: true };
@@ -20,6 +20,3 @@ export default function ConfirmationStore(state = initialState, action) {
       return state;
   }
 }
-
-
-
