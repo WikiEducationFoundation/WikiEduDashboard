@@ -5,6 +5,7 @@
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: NeverBehave
 # Author: Yfdyh000
 ---
 zh-CN:
@@ -497,7 +498,7 @@ zh-CN:
   suggestions:
     editing: 编辑建议
     suggestion_docs:
-      ga: 一些按主题的编辑和样式专家很有帮助；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
+      ga: 主题和风格专家的一些编辑是有帮助的；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
       '?': 建议不可用——条目未评级，或没有用于评级的建议。
       does_not_exist: 此条目在维基百科不存在。

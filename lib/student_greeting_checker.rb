@@ -43,7 +43,8 @@ class StudentGreetingChecker
     private
 
     def talk_page_blank?
-      WikiApi.new(@wiki).get_page_content(@student.talk_page).nil?
+      # Non-existent pages will return '', but API errors will return nil
+      WikiApi.new(@wiki).get_page_content(@student.talk_page) == ''
     end
 
     def contributors_to_page(page_title)

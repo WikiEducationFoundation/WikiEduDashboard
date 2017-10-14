@@ -17,6 +17,11 @@ content: |
   the Dashboard.
 
   ----
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback about the 'Finding Articles' module
+  </a></div>
+
+  ----
   If you came here from the **New Instructor Orientation** module, close this
   tab and continue where you left off, or click below:
 

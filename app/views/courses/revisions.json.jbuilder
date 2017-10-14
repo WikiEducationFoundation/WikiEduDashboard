@@ -3,7 +3,7 @@
 json.course do
   json.revisions @course.revisions.live
     .eager_load(:user, :wiki).includes(article: :wiki)
-    .order(date: :desc).limit(50) do |rev|
+    .order(date: :desc).limit(@limit) do |rev|
 
     json.call(rev, :id, :url, :characters, :date, :user_id, :mw_rev_id, :mw_page_id, :wiki)
     json.call(rev.article, :rating)

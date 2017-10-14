@@ -30,7 +30,8 @@ class Block < ActiveRecord::Base
     'in_class'   => 0,
     'assignment' => 1,
     'milestone'  => 2,
-    'custom'     => 3
+    'custom'     => 3,
+    'handouts'   => 4
   }.freeze
 
   def training_modules

@@ -124,6 +124,7 @@ Rails.application.routes.draw do
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'
   post 'analytics(/*any)' => 'analytics#results'
+  get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'course_csv' => 'analytics#course_csv'
   get 'course_edits_csv' => 'analytics#course_edits_csv'
