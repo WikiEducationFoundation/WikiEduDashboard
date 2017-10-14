@@ -133,4 +133,12 @@ describe AnalyticsController do
       expect(response.body).to have_content('pageviews_link')
     end
   end
+
+  describe '#usage' do
+    render_views
+    it 'renders the stats page' do
+      get 'usage'
+      expect(response.body).to have_content('Usage Stats')
+    end
+  end
 end

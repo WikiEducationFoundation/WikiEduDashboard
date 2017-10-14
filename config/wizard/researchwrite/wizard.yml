@@ -184,6 +184,76 @@
       title: No. No one will work on medicine or psychology topics.
       tag: no_medical_topics
 
+- key: topics # This key is special-cased as non-exclusive in WizardTimelineManager
+  title: Subject-specific resources
+  description:
+    In addition to our general editing guidelines, we've created brief reference
+    materials about editing Wikipedia in certain topic areas. Please select all
+    subject-specific guides relevant to your students' work.
+  type: 0 # multiple choice
+  minimum: 0
+  options:
+    -
+      title: Biographies
+      tag: biographies
+      logic: biographies_handout
+    -
+      title: Books
+      tag: books
+      logic: books_handout
+    -
+      title: Chemistry
+      tag: chemistry
+      logic: chemistry_handout
+    -
+      title: Ecology
+      tag: ecology
+      logic: ecology_handout
+    -
+      title: Environmental Sciences
+      tag: environmental_sciences
+      logic: environmental_sciences_handout
+    -
+      title: Films
+      tag: films
+      logic: films_handout
+    -
+      title: Genes and Proteins
+      tag: genes_and_proteins
+      logic: genes_and_proteins_handout
+    -
+      title: History
+      tag: history
+      logic: history_handout
+    -
+      title: Linguistics
+      tag: linguistics
+      logic: linguistics_handout
+    -
+      title: Medicine
+      tag: medicine
+      logic: medicine_handout
+    -
+      title: Political Science
+      tag: political_science
+      logic: political_science_handout
+    -
+      title: Psychology
+      tag: psychology
+      logic: psychology_handout
+    -
+      title: Sociology
+      tag: sociology
+      logic: sociology_handout
+    -
+      title: Species
+      tag: species
+      logic: species_handout
+    -
+      title: Women's Studies
+      tag: womens_studies
+      logic: womens_studies_handout
+
 -
   key: peer_feedback
   title: Peer feedback

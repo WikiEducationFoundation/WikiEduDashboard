@@ -78,6 +78,10 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Biographies handout
+  click_button 'Next'
+  sleep 1
+
   click_button 'Next' # Default 2 peer reviews
   sleep 1
 
@@ -112,7 +116,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 22 }
+    let(:expected_course_blocks) { 23 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do

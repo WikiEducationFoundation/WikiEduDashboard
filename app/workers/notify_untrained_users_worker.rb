@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/wiki_edits"
 
 class NotifyUntrainedUsersWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_notifications(course:, notifying_user:)
     perform_async(course.id, notifying_user.id)

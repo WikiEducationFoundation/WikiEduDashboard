@@ -9,16 +9,33 @@ const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
 
   propTypes: {
+<<<<<<< HEAD
     course_id: PropTypes.string,
     course: PropTypes.object
+=======
+    course_id: React.PropTypes.string,
+    course: React.PropTypes.object,
+  },
+
+  getInitialState() {
+    return {
+      limit: 50
+    };
+>>>>>>> b3225ad77111a6d2b4c6c105ec28ef87d169cc73
   },
 
   componentWillMount() {
-    return ServerActions.fetch('revisions', this.props.course_id);
+    return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
   },
 
   sortSelect(e) {
     return UIActions.sort('revisions', e.target.value);
+  },
+
+  showMore() {
+    const newLimit = this.state.limit + 100;
+    this.setState({ limit: newLimit });
+    return ServerActions.fetchCourseRevisions(this.props.course_id, newLimit);
   },
 
   render() {
@@ -37,6 +54,7 @@ const RevisionHandler = createReactClass({
           </div>
         </div>
         <RevisionList course={this.props.course} />
+        <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>
       </div>
     );
   }

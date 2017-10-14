@@ -6,7 +6,7 @@
 # 1. Assignment
 # 2. Milestone
 # 3. Custom
-# 4. Training
+# 4. Handouts
 
 # Week weight
 # - The app will attempt to evenly distribute weights across the course timeline
@@ -360,6 +360,11 @@ essentials:
             </li>
           </ul>
 
+      -
+        if: choose_articles_from_list
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
+
   - # Week five
     weight: 4
     blocks:
@@ -388,6 +393,11 @@ essentials:
               </ul>
             </li>
           </ul>
+
+      -
+        if: explore_to_find_articles
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
 
       -
         title: Draft your article

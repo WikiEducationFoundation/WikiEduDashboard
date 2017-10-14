@@ -8,6 +8,7 @@ import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
+import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -89,6 +90,7 @@ const Details = createReactClass({
 
   render() {
     const canRename = this.canRename();
+    const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
     const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
@@ -180,7 +182,7 @@ const Details = createReactClass({
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    if (this.props.course.type === 'ClassroomProgramCourse') {
+    if (isClassroomProgramType) {
       timelineStart = (
         <DatePicker
           onChange={this.updateCourseDates}
@@ -222,6 +224,7 @@ const Details = createReactClass({
     let tags;
     let courseTypeSelector;
     let submittedSelector;
+    let courseLevelSelector;
     let timelineToggle;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
@@ -262,8 +265,18 @@ const Details = createReactClass({
       );
     }
 
+    // Users who edit a course are also allowed to change the level.
+    if (this.props.editable && isClassroomProgramType) {
+      courseLevelSelector = (
+        <CourseLevelSelector
+          level={this.props.course.level}
+          updateCourse={this.updateDetails}
+        />
+      );
+    }
+
     // Users who can rename a course are also allowed to toggle the timeline on/off.
-    if (canRename && this.props.course.type !== 'ClassroomProgramCourse') {
+    if (canRename && !isClassroomProgramType) {
       timelineToggle = (
         <TimelineToggle
           course={this.props.course}
@@ -317,9 +330,10 @@ const Details = createReactClass({
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || this.props.course.type !== 'ClassroomProgramCourse')} />
+            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
           </div>
           {subject}
+          {courseLevelSelector}
           {tags}
           {courseTypeSelector}
           {submittedSelector}

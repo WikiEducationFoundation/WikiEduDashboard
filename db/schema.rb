@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828160001) do
+ActiveRecord::Schema.define(version: 20171013172419) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20170828160001) do
     t.boolean "needs_update", default: false
     t.string "chatroom_id"
     t.text "flags"
+    t.string "level"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 

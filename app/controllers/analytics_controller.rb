@@ -37,6 +37,13 @@ class AnalyticsController < ApplicationController
     render 'index'
   end
 
+  def usage
+    @user_count = User.count
+    @logged_in_count = User.where.not(wiki_token: nil).count
+    @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
+    @total_wikis_touched = Wiki.count
+  end
+
   def ungreeted
     send_data UngreetedList.new(current_user).csv,
               filename: "ungreeted-#{current_user.username}-#{Time.zone.today}.csv"

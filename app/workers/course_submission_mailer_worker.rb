@@ -2,6 +2,7 @@
 
 class CourseSubmissionMailerWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_email(course, instructor)
     perform_async(course.id, instructor.id)

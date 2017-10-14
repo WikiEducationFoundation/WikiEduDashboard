@@ -65,6 +65,23 @@ const API = {
       });
     });
   },
+  
+  fetchCourseRevisions(courseId, limit) {
+    return new Promise((res, rej) => {
+      const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
+      return $.ajax({
+        type: 'GET',
+        url,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      });
+    });
+  },
 
   fetchFeedback(articleTitle, assignmentId) {
     return new Promise((res, rej) => {
