@@ -1,16 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import ArticleList from './article_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 
-const ArticlesHandler = React.createClass({
+const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    current_user: React.PropTypes.object
+    course_id: PropTypes.string,
+    current_user: PropTypes.object
   },
 
   componentWillMount() {

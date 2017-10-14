@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Upload = ({ upload, linkUsername }) => {
   let details;
@@ -57,8 +58,8 @@ const Upload = ({ upload, linkUsername }) => {
 };
 
 Upload.propTypes = {
-  upload: React.PropTypes.object,
-  linkUsername: React.PropTypes.bool
+  upload: PropTypes.object,
+  linkUsername: PropTypes.bool
 };
 
 export default Upload;

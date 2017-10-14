@@ -1,16 +1,18 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import TrainingActions from '../actions/training_actions.js';
 const md = require('../../utils/markdown_it.js').default();
 
-const Quiz = React.createClass({
+const Quiz = createReactClass({
   displayName: 'Quiz',
 
   propTypes: {
-    selectedAnswerId: React.PropTypes.number,
-    correctAnswer: React.PropTypes.number,
-    selectedAnswer: React.PropTypes.number,
-    answers: React.PropTypes.array,
-    question: React.PropTypes.string
+    selectedAnswerId: PropTypes.number,
+    correctAnswer: PropTypes.number,
+    selectedAnswer: PropTypes.number,
+    answers: PropTypes.array,
+    question: PropTypes.string
   },
 
   getInitialState() {

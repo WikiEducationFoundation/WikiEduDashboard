@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import CourseLink from './common/course_link.jsx';
 import ServerActions from '../actions/server_actions.js';
 import CourseActions from '../actions/course_actions.js';
@@ -26,14 +28,14 @@ const getState = function () {
   };
 };
 
-const Course = React.createClass({
+const Course = createReactClass({
   displayName: 'Course',
 
   propTypes: {
-    params: React.PropTypes.object,
-    location: React.PropTypes.object,
-    children: React.PropTypes.node,
-    current_user: React.PropTypes.object
+    params: PropTypes.object,
+    location: PropTypes.object,
+    children: PropTypes.node,
+    current_user: PropTypes.object
   },
 
   mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],

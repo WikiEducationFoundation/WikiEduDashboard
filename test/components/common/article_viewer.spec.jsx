@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import ArticleViewer from '../../../app/assets/javascripts/components/common/article_viewer.jsx';
 
 describe('ArticleViewer', () => {

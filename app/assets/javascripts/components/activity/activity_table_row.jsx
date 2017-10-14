@@ -1,25 +1,27 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 
-const ActivityTableRow = React.createClass({
+const ActivityTableRow = createReactClass({
   displayName: 'ActivityTableRow',
 
   propTypes: {
-    rowId: React.PropTypes.number,
-    diffUrl: React.PropTypes.string,
-    revisionDateTime: React.PropTypes.string,
-    reportUrl: React.PropTypes.string,
-    revisionScore: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number
+    rowId: PropTypes.number,
+    diffUrl: PropTypes.string,
+    revisionDateTime: PropTypes.string,
+    reportUrl: PropTypes.string,
+    revisionScore: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
     ]),
-    articleUrl: React.PropTypes.string,
-    talkPageLink: React.PropTypes.string,
-    author: React.PropTypes.string,
-    title: React.PropTypes.string,
-    revision: React.PropTypes.object,
-    isOpen: React.PropTypes.bool,
-    toggleDrawer: React.PropTypes.func
+    articleUrl: PropTypes.string,
+    talkPageLink: PropTypes.string,
+    author: PropTypes.string,
+    title: PropTypes.string,
+    revision: PropTypes.object,
+    isOpen: PropTypes.bool,
+    toggleDrawer: PropTypes.func
   },
 
   openDrawer() {

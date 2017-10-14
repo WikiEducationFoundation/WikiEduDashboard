@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => {
   const vegaSpec = {
     width: graphWidth,
@@ -17,11 +19,11 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
             field: 'course_start',
             sort: { field: 'date', op: 'min' }
           },
-            {
-              data: 'courses_data',
-              field: 'course_end',
-              sort: { field: 'date', op: 'min' }
-            }
+          {
+            data: 'courses_data',
+            field: 'course_end',
+            sort: { field: 'date', op: 'min' }
+          }
           ]
         },
         rangeMin: 0,
@@ -146,10 +148,10 @@ const CoursesTaughtGraph = ({ statsData, graphWidth, graphHeight, courseStringPr
   );
 };
 CoursesTaughtGraph.propTypes = {
-  statsData: React.PropTypes.array,
-  graphWidth: React.PropTypes.number,
-  graphHeight: React.PropTypes.number,
-  courseStringPrefix: React.PropTypes.string
+  statsData: PropTypes.array,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  courseStringPrefix: PropTypes.string
 };
 
 export default CoursesTaughtGraph;

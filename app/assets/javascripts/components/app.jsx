@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
-
-const App = React.createClass({
+const App = createReactClass({
   displayName: 'App',
 
   propTypes: {
-    children: React.PropTypes.node
+    children: PropTypes.node
   },
 
   render() {

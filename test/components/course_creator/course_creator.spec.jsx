@@ -4,8 +4,8 @@ import _ from 'lodash';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
-import CourseCreator from "../../../app/assets/javascripts/components/course_creator/course_creator.jsx";
+import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
+import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';

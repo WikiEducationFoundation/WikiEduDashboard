@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AlertActions from '../../actions/alert_actions.js';
@@ -14,17 +16,17 @@ const getState = () =>
   })
 ;
 
-const GetHelpButton = React.createClass({
+const GetHelpButton = createReactClass({
   displayName: 'GetHelpButton',
 
   propTypes: {
-    currentUser: React.PropTypes.object,
-    course: React.PropTypes.object,
-    open: React.PropTypes.func,
-    is_open: React.PropTypes.bool,
-    alertSubmitting: React.PropTypes.bool,
-    alertCreated: React.PropTypes.bool,
-    actions: React.PropTypes.object
+    currentUser: PropTypes.object,
+    course: PropTypes.object,
+    open: PropTypes.func,
+    is_open: PropTypes.bool,
+    alertSubmitting: PropTypes.bool,
+    alertCreated: PropTypes.bool,
+    actions: PropTypes.object
   },
 
   mixins: [UserStore.mixin],

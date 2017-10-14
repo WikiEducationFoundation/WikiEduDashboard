@@ -1,7 +1,7 @@
 import '../../testHelper';
 
 import React from 'react';
-import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
+import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
 import sinon from 'sinon';
 
 import ArticlesHandler from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';

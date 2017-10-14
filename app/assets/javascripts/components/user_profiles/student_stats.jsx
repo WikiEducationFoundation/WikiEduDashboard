@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const StudentStats = ({ username, stats }) => {
   return (
@@ -66,8 +67,8 @@ const StudentStats = ({ username, stats }) => {
 };
 
 StudentStats.propTypes = {
-  username: React.PropTypes.string,
-  stats: React.PropTypes.object
+  username: PropTypes.string,
+  stats: PropTypes.object
 };
 
 export default StudentStats;
