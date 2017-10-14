@@ -3,7 +3,8 @@ import '../../testHelper';
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
-import TestUtils, { Simulate } from 'react-addons-test-utils';
+import TestUtils, { Simulate } from 'react-dom/test-utils';
+import ShallowTestUtils from 'react-test-renderer/shallow';
 import Week from '../../../app/assets/javascripts/components/timeline/week.jsx';
 import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 
@@ -34,7 +35,7 @@ describe('Week', () => {
       );
       // Shallow rendering. See
       // https://facebook.github.io/react/docs/test-utils.html#shallow-rendering
-      const renderer = TestUtils.createRenderer();
+      const renderer = ShallowTestUtils.createRenderer();
       renderer.render(TestWeek);
       const result = renderer.getRenderOutput();
       expect(result.type).to.eq('li');

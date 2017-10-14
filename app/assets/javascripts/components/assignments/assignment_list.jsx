@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 
 import List from '../common/list.jsx';
@@ -10,13 +12,13 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 
-const AssignmentList = React.createClass({
+const AssignmentList = createReactClass({
   displayName: 'AssignmentList',
 
   propTypes: {
-    assignments: React.PropTypes.array,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    assignments: PropTypes.array,
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   hasAssignedUser(group) {

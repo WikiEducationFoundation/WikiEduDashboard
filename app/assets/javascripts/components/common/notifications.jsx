@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import NotificationStore from '../../stores/notification_store.js';
 import NotificationActions from '../../actions/notification_actions.js';
 
-const Notifications = React.createClass({
+const Notifications = createReactClass({
   displayName: 'Notifications',
 
   mixins: [NotificationStore.mixin],

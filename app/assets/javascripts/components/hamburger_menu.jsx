@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
 
@@ -133,21 +134,21 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
 
 
 HamburgerMenu.propTypes = {
-  rootUrl: React.PropTypes.string,
-  logoPath: React.PropTypes.string,
-  exploreUrl: React.PropTypes.string,
-  exploreName: React.PropTypes.string,
-  userSignedIn: React.PropTypes.bool,
-  ifAdmin: React.PropTypes.bool,
-  trainingUrl: React.PropTypes.string,
-  helpDisabled: React.PropTypes.bool,
-  askUrl: React.PropTypes.string,
-  wikiEd: React.PropTypes.bool,
-  userPermissions: React.PropTypes.bool,
-  languageSwitcherEnabled: React.PropTypes.bool,
-  currentUser: React.PropTypes.string,
-  destroyUrl: React.PropTypes.string,
-  omniauthUrl: React.PropTypes.string
+  rootUrl: PropTypes.string,
+  logoPath: PropTypes.string,
+  exploreUrl: PropTypes.string,
+  exploreName: PropTypes.string,
+  userSignedIn: PropTypes.bool,
+  ifAdmin: PropTypes.bool,
+  trainingUrl: PropTypes.string,
+  helpDisabled: PropTypes.bool,
+  askUrl: PropTypes.string,
+  wikiEd: PropTypes.bool,
+  userPermissions: PropTypes.bool,
+  languageSwitcherEnabled: PropTypes.bool,
+  currentUser: PropTypes.string,
+  destroyUrl: PropTypes.string,
+  omniauthUrl: PropTypes.string
 };
 
 export default HamburgerMenu;
