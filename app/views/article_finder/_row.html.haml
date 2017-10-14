@@ -1,4 +1,4 @@
-%tr{"data-link" => "%< article_url(article) %>"}
-  %td= full_title(article)
+%tr{"data-link" => "%< article.url %>"}
+  %td= article.full_title
   %td= article.average_views
   %td= article.revisions.last.wp10

@@ -74,15 +74,16 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchTrainingStatus(studentId, courseId) {
-    return API.fetchTrainingStatus(studentId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))
+  fetchCourseRevisions(courseId, limit) {
+    const actionType = 'RECEIVE_REVISIONS';
+    return API.fetchCourseRevisions(courseId, limit)
+      .then(resp => ({ actionType, data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchDYKArticles(opts = {}) {
-    return API.fetchDykArticles(opts)
-      .then(resp => ({ actionType: 'RECEIVE_DYK', data: resp }))
+  fetchTrainingStatus(studentId, courseId) {
+    return API.fetchTrainingStatus(studentId, courseId)
+      .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
@@ -119,12 +120,6 @@ const ServerActions = Flux.createActions({
   updateAssignment(opts) {
     return API.updateAssignment(opts)
       .then(resp => ({ actionType: 'UPDATE_ASSIGNMENT', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchCoursesForUser(userId) {
-    return API.fetchUserCourses(userId)
-      .then(resp => ({ actionType: 'RECEIVE_USER_COURSES', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

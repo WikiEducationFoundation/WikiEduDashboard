@@ -17,7 +17,7 @@ class ArticleRatingExtractor
   def ratings
     # Returns the classes of articles mapped to the respective title
     ratings = {}
-    @assessments.values.each do |page|
+    @assessments.each_value do |page|
       title = page['title'].tr(' ', '_')
       ratings[title] ||= get_article_class(page['pageassessments'])
     end

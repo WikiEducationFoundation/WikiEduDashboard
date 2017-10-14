@@ -76,7 +76,10 @@ describe CoursesPresenter do
   end
 
   describe 'searching campaign' do
-    let!(:course) { create(:course, title: 'Math Foundations of Informatics', school: 'Indiana University', term: 'Fall 2017') }
+    let!(:course) do
+      create(:course, title: 'Math Foundations of Informatics',
+                      school: 'Indiana University', term: 'Fall 2017')
+    end
     subject { described_class.new(current_user: nil, courses_list: Course.all) }
     context 'find course based on title' do
       it 'returns courses when searching' do

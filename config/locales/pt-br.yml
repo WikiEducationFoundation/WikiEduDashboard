@@ -360,6 +360,7 @@ pt-br:
     course_details: Detalhes do curso
     term: Prazo
     timeline: Detalhes da atribuição
+    timeline_enabled: Cronograma ativado
     timeline_link: Linha do tempo
     time_zone_message: Horas de início e fim são apresentadas em seu fuso-horário
       local.

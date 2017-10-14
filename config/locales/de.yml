@@ -117,6 +117,7 @@ de:
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
+    show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
     title: Titel
     title_example: Artikelname
     view: Artikel anzeigen
@@ -621,6 +622,7 @@ de:
     time_doc: Die Zeit jeder Version in deiner Ortszeit
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
+    see_more: Mehr sehen
   suggestions:
     editing: Vorschläge bearbeiten
     suggestion_docs:

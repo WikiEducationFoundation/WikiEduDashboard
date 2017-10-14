@@ -39,7 +39,7 @@ class CampaignArticlesCsvBuilder
       first_revision&.wp10_previous || 0.0,
       last_revision&.wp10 || 0.0,
       articles_course.character_sum,
-      article_url(article),
+      article.url,
       course.slug
     ]
   end

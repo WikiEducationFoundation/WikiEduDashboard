@@ -4,8 +4,8 @@ json.articles do
   json.array! @articles do |article|
     revision = article.revisions.last
     json.key revision.id
-    json.title full_title(article)
-    json.article_url article_url(article)
+    json.title article.full_title
+    json.article_url article.url
     json.diff_url revision.url
     json.revision_score revision.wp10
     json.username revision.user.username

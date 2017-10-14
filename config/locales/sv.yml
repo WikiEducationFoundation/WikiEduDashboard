@@ -56,6 +56,8 @@ sv:
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
     show_current_version: Visa aktuell version
+    show_current_version_with_authorship_highlighting: Nuvarande version med författaren
+      markerad
     title: Titel
     view: Visa artikel
     view_all: Visa alla
@@ -368,6 +370,8 @@ sv:
       header: Webbläsaren stöds inte. :-(
   error_401:
     header: Obehörig. >:-(
+    json_explanation: Det ser ut som att du har blivit utloggad. Uppdatera sidan,
+      logga in och försök igen.
   error_incorrect_passcode:
     header: Felaktigt lösenord. :-(
   error_404:

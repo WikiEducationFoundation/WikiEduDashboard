@@ -41,6 +41,12 @@ class PushCourseToSalesforce
   end
 
   def course_salesforce_fields
+    salesforce_fields = base_salesforce_fields
+    salesforce_fields[:Course_Level__c] = @course.level unless @course.level.blank?
+    salesforce_fields
+  end
+
+  def base_salesforce_fields
     {
       Name: @course.title,
       Course_Page__c: @course.url,
@@ -63,7 +69,7 @@ class PushCourseToSalesforce
 
   def program_id
     case @course.type
-    when 'ClassroomProgramCourse'
+    when 'ClassroomProgramCourse', 'LegacyCourse'
       ENV['SF_CLASSROOM_PROGRAM_ID']
     when 'VisitingScholarship'
       ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']

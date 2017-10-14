@@ -16,7 +16,7 @@ describe StudentGreetingChecker do
     end
 
     it 'does nothing for students with blank talk pages' do
-      expect_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
+      expect_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
       subject
       expect(User.find(2).greeted).to eq(false)
     end

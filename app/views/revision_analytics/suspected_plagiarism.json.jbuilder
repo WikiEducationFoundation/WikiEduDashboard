@@ -5,8 +5,8 @@ json.revisions do
     article = revision.article
     json.call(revision, :wiki, :mw_rev_id, :mw_page_id)
     json.key revision.id
-    json.title full_title(article)
-    json.article_url article_url(article)
+    json.title article.full_title
+    json.article_url article.url
     json.report_url revision.plagiarism_report_link
     json.diff_url revision.url
     json.username revision.user.username

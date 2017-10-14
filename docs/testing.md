@@ -23,7 +23,7 @@ If you are on a Linux environment, you can install test dependencies with `apt-g
 Running `rspec` will run all model, controller, and integration tests (found in `spec/features`), as well as any other specs in the `spec` directory (such as classes in `lib` and `presenters`). Running `rspec spec/features` will run just the integration tests. You can pass any directory to `rspec` to run specs in just that directory, such as `rspec spec/models`.
 
 #### Client-side tests
-Running `npm test` will run the entire client-side test suite. During development, you can use `jest --watch` to run Jest in watch mode. This works similarly to guard, re-running relevant tests when whenever the corresponding files change.
+Running `npm test` will run the entire client-side test suite. During development, you can use `jest --watch` to run Jest in watch mode. This works similarly to guard, re-running relevant tests whenever the corresponding files change.
 
 ### Server and client tests together
 You can run the entire test suite, including a fresh compilation of assets, with `gulp build && rspec && npm test`.

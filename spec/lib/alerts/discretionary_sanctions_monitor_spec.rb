@@ -55,15 +55,25 @@ describe DiscretionarySanctionsMonitor do
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
-    it 'does not create a second Alert for the same articles' do
-      Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id, course_id: course.id)
+    it 'does not create a second Alert for the same articles, if the first is not resolved' do
+      Alert.create(type: 'DiscretionarySanctionsEditAlert',
+                   article_id: article.id, course_id: course.id)
       expect(Alert.count).to eq(1)
       DiscretionarySanctionsMonitor.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
     end
 
-    it 'does create second Alert if the first alert is resolved' do
-      Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id, course_id: course.id, resolved: true)
+    it 'does not create second Alert if the first alert is resolved but there are no new edits' do
+      Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
+                   course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
+      expect(Alert.count).to eq(1)
+      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      expect(Alert.count).to eq(1)
+    end
+
+    it 'does create second Alert if the first alert is resolved and there are later edits' do
+      Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
+                   course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
       expect(Alert.count).to eq(1)
       DiscretionarySanctionsMonitor.create_alerts_for_course_articles
       expect(Alert.count).to eq(2)

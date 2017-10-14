@@ -1,4 +1,4 @@
-import { TOGGLE_UI } from '../constants/action_types.js';
+import { TOGGLE_UI, RESET_UI } from '../constants';
 
 const initialState = { openKey: null };
 
@@ -9,6 +9,8 @@ export default function ui(state = initialState, action) {
         return { ...state, openKey: null };
       }
       return { ...state, openKey: action.key };
+    case RESET_UI:
+      return { ...state, openKey: null };
     default:
       return state;
   }

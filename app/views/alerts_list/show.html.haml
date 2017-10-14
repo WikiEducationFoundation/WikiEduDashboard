@@ -12,7 +12,7 @@
 
   - if @alert.article
     %h3 Article link
-    %p= link_to @alert.article.title, article_url(@alert.article) if @alert.article
+    %p= link_to @alert.article.title, @alert.article.url if @alert.article
 
   %h3 message
   %p= @alert.message

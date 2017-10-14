@@ -9,7 +9,9 @@ module Experiments
 
     def opt_in
       Fall2017CmuExperiment.new(@course).opt_in
-      flash[:notice] = 'Thank you for opting in. We will add the video sessions to the relevant assignments on the timeline for your WikiEd dashboard and send you an email about next steps.'
+      flash[:notice] = 'Thank you for opting in. We will add the video sessions'\
+                       ' to the relevant assignments on the timeline for your'\
+                       ' WikiEd dashboard and send you an email about next steps.'
       redirect_to "/courses/#{@course.slug}"
     end
 

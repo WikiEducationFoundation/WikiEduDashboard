@@ -58,7 +58,7 @@ const AssignCell = React.createClass({
     const permitted = isCurrentUser || (instructorOrAdmin && this.props.editable);
 
     return (
-      <div>
+      <div className="inline-button-peer">
         {link}
         <AssignButton {...this.props} role={this.props.role} permitted={permitted} ref="button" />
       </div>

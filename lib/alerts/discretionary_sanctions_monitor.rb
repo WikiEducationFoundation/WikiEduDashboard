@@ -50,9 +50,11 @@ class DiscretionarySanctionsMonitor
   end
 
   def create_alert(articles_course)
-    return if alert_already_exists?(articles_course)
-    first_revision = articles_course
-                     .course.revisions.where(article_id: articles_course.article_id).first
+    return if unresolved_alert_already_exists?(articles_course)
+    revisions = articles_course.course.revisions.where(article_id: articles_course.article_id)
+    last_revision = revisions.last
+    return if resolved_alert_covers_latest_revision?(articles_course, last_revision)
+    first_revision = revisions.first
     alert = Alert.create!(type: 'DiscretionarySanctionsEditAlert',
                           article_id: articles_course.article_id,
                           user_id: first_revision&.user_id,
@@ -61,10 +63,18 @@ class DiscretionarySanctionsMonitor
     alert.email_content_expert
   end
 
-  def alert_already_exists?(articles_course)
-    Alert.exists?(article_id: articles_course.article_id,
-                  course_id: articles_course.course_id,
-                  type: 'DiscretionarySanctionsEditAlert',
-                  resolved: false)
+  def unresolved_alert_already_exists?(articles_course)
+    DiscretionarySanctionsEditAlert.exists?(article_id: articles_course.article_id,
+                                            course_id: articles_course.course_id,
+                                            resolved: false)
+  end
+
+  def resolved_alert_covers_latest_revision?(articles_course, last_revision)
+    return false if last_revision.nil?
+    last_resolved = DiscretionarySanctionsEditAlert.where(article_id: articles_course.article_id,
+                                                          course_id: articles_course.course_id,
+                                                          resolved: true).last
+    return false unless last_resolved.present?
+    last_resolved.created_at > last_revision.date
   end
 end

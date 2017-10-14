@@ -78,6 +78,10 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Biographies handout
+  click_button 'Next'
+  sleep 1
+
   click_button 'Next' # Default 2 peer reviews
   sleep 1
 
@@ -112,7 +116,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 22 }
+    let(:expected_course_blocks) { 23 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do
@@ -425,27 +429,28 @@ describe 'New course creation and editing', type: :feature do
 end
 
 describe 'timeline editing', js: true do
-  let!(:course) do
+  let(:course) do
     create(:course, id: 10001, start: Date.new(2015, 1, 1),
                     end: Date.new(2015, 2, 1), submitted: true,
                     timeline_start: Date.new(2015, 1, 1), timeline_end: Date.new(2015, 2, 1),
                     weekdays: '0111110')
   end
-  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
-  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+  let(:user) { create(:user, permissions: User::Permissions::ADMIN) }
+  let!(:c_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
 
-  let!(:week)      { create(:week, course_id: course.id, order: 0) }
-  let!(:week2)     { create(:week, course_id: course.id, order: 1) }
-  let!(:block)     { create(:block, week_id: week.id, kind: Block::KINDS['assignment'], order: 0, title: 'Block 1') }
-  let!(:block2)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2') }
-  let!(:block3)    { create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3') }
-  let!(:block4)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4') }
-  let!(:block5)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5') }
-  let!(:block6)    { create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6') }
+  let(:week) { create(:week, course_id: course.id, order: 0) }
+  let(:week2) { create(:week, course_id: course.id, order: 1) }
 
   before do
     set_up_suite
     login_as user, scope: :user, run_callbacks: false
+
+    create(:block, week_id: week.id, kind: Block::KINDS['assignment'], order: 0, title: 'Block 1')
+    create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 2')
+    create(:block, week_id: week.id, kind: Block::KINDS['in_class'], order: 2, title: 'Block 3')
+    create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 0, title: 'Block 4')
+    create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 1, title: 'Block 5')
+    create(:block, week_id: week2.id, kind: Block::KINDS['in_class'], order: 3, title: 'Block 6')
   end
 
   it 'disables reorder up/down buttons when it is the first or last block' do

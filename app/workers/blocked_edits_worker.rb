@@ -4,6 +4,7 @@ require "#{Rails.root}/lib/alerts/blocked_edits_reporter"
 
 class BlockedEditsWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_notifications(user:, response_data:)
     perform_async(user.id, response_data)

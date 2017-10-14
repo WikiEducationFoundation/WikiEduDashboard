@@ -65,6 +65,7 @@ hy:
     view: Դիտել հոդվածը
     view_all: Դիտել բոլորը
     view_on_wiki: Դիտել Վիքիյում
+    wiki: Վիքի
   assignments:
     already_exists: Այս անվանումով հանձնարարություն արդեն գոյություն ունի։
     assignees: Կատարողներ

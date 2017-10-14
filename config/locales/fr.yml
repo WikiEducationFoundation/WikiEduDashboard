@@ -136,6 +136,8 @@ fr:
       does_not_exist: Cet article n'existe pas sur Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
+    show_current_version_with_authorship_highlighting: Version actuelle avec mise
+      en évidence de la paternité
     title: Titre
     title_example: Titre de l’article
     view: Afficher l’article
@@ -636,6 +638,7 @@ fr:
     time_doc: Le temps de chaque révision à votre heure locale.
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
+    see_more: Voir plus
   suggestions:
     editing: Modification des suggestions
     suggestion_docs:

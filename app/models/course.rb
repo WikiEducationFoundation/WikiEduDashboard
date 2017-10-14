@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses
@@ -44,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
@@ -175,6 +175,7 @@ class Course < ActiveRecord::Base
   validates :passcode, presence: true, if: :passcode_required?
   validates :start, presence: true
   validates :end, presence: true
+  validates :home_wiki_id, presence: true
 
   COURSE_TYPES = %w[
     LegacyCourse

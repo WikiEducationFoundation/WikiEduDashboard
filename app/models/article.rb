@@ -63,12 +63,42 @@ class Article < ActiveRecord::Base
     DRAFT_TALK     = 119
   end
 
+  NS_PREFIX = {
+    Namespaces::MAINSPACE => '',
+    Namespaces::TALK => 'Talk:',
+    Namespaces::USER => 'User:',
+    Namespaces::USER_TALK => 'User_talk:',
+    Namespaces::WIKIPEDIA => 'Wikipedia:',
+    Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
+    Namespaces::TEMPLATE => 'Template:',
+    Namespaces::TEMPLATE_TALK => 'Template_talk:',
+    Namespaces::DRAFT => 'Draft:',
+    Namespaces::DRAFT_TALK => 'Draft_talk:'
+  }.freeze
+
   ####################
   # Instance methods #
   ####################
   def update(data={}, save=true)
     self.attributes = data
     self.save if save
+  end
+
+  def url
+    "#{wiki.base_url}/wiki/#{namespace_prefix}#{title}"
+  end
+
+  def full_title
+    title = self.title.tr('_', ' ')
+    "#{namespace_prefix}#{title}"
+  end
+
+  def escaped_full_title
+    "#{namespace_prefix}#{title}"
+  end
+
+  def namespace_prefix
+    NS_PREFIX[namespace]
   end
 
   #################

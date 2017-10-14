@@ -110,6 +110,8 @@ ast:
       does_not_exist: Esti artículu nun esiste'n Wikipedia
     show_cumulative_changes: Amosar cambeos acumulaos
     show_current_version: Amosar la versión actual
+    show_current_version_with_authorship_highlighting: Versión actual con Resaltáu
+      d'autor
     title: Títulu
     title_example: Títulu del artículu
     view: Ver artículu
@@ -118,6 +120,7 @@ ast:
     view_on_wiki: Ver na wiki
     views_added: Amestáronse %{count} visites nueves a %{title}
     edit_size: Tamañu d'edición
+    wiki: Wiki
     wp10: Integridá estructural
     wp10_doc: La puntuación «Integridá estructural» representa lo averáu qu'un artículu
       ta al molde d'un artículu maduru de la Wikipedia, basáu nel Serviciu Oxetivu
@@ -129,7 +132,7 @@ ast:
       pero nun toma en cuenta'l propiu conteníu. (Estes resultancies namái tán disponibles
       pa los artículos de la Wikipedia n'inglés.)
   assignments:
-    article: Asignóse l'artículu %{title}
+    article: Asignósete l'artículu %{title}.
     already_exists: ¡Esta xera yá esiste!
     title_too_large: El títulu nun tendría de pasar los 255 caráuteres
     assignees: Encargáu(os)
@@ -366,6 +369,8 @@ ast:
       contigo si tien cualquier entruga.
     user_role: Papel
     course_details: Detalles del cursu
+    subject: Asuntu
+    submitted: Unviáu
     term: Periodu
     timeline: Detalles de la xera
     timeline_link: Cronograma
