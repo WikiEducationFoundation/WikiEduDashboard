@@ -20,12 +20,8 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-<<<<<<< HEAD
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
-=======
 import CourseLevelSelector from './course_level_selector.jsx';
-import TransitionGroup from 'react-addons-css-transition-group';
->>>>>>> b3225ad77111a6d2b4c6c105ec28ef87d169cc73
 
 import _ from 'lodash';
 
