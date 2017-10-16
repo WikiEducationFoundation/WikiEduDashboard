@@ -18,7 +18,6 @@
     %span= survey.updated_at.strftime("%B %d, %Y")
   .survey__admin-row__col.survey__admin-row__col--actions
     = link_to 'Edit', edit_survey_path(survey)
-    = link_to "Clone Survey", "/surveys/clone/#{survey.id}", method: :post
     - if survey.rapidfire_question_groups.length > 0
       = link_to 'Preview', "#{survey_url(survey)}?preview"
     = link_to 'Results', survey_results_path(survey)

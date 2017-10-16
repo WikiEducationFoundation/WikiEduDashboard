@@ -218,7 +218,6 @@ Rails.application.routes.draw do
   get '/surveys/results' => 'surveys#results_index', as: 'results'
   resources :survey_assignments, path: 'surveys/assignments'
   post '/survey_assignments/:id/send_test_email' => 'survey_assignments#send_test_email', as: 'send_test_email'
-  post '/surveys/clone/:id' => 'surveys#clone'
   put '/surveys/question_position' => 'questions#update_position'
   get '/survey/results/:id' => 'surveys#results', as: 'survey_results'
   get '/survey/question/results/:id' => 'questions#results', as: 'question_results'
