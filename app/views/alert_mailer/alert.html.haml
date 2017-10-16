@@ -20,6 +20,11 @@
     User email:
     = @alert.user.email
 
+- if @details
+  %p.paragraph
+    Alert details:
+    = @details
+
 - if @recipient.admin? && @resolvable
   You can resolve this alert with the link below.
   = link_to('Resolve', resolve_alert_url(@alert.id), method: :put)

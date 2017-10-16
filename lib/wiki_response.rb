@@ -111,7 +111,7 @@ class WikiResponse
     when 'mwoauth-invalid-authorization'
       @current_user.update_attributes(wiki_token: 'invalid')
     when 'blocked', 'autoblocked'
-      BlockedEditsWorker.schedule_notifications(user: @current_user)
+      BlockedEditsWorker.schedule_notifications(user: @current_user, response_data: @response_data)
     end
 
     @title = "Failed #{@type}: #{code}"

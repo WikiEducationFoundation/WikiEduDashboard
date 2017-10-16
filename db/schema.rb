@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "target_user_id"
     t.integer "subject_id"
     t.boolean "resolved", default: false
+    t.text "details"
     t.index ["article_id"], name: "index_alerts_on_article_id"
     t.index ["course_id"], name: "index_alerts_on_course_id"
     t.index ["revision_id"], name: "index_alerts_on_revision_id"
