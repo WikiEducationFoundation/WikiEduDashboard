@@ -56,6 +56,7 @@ class PushCourseToSalesforce
       Articles_edited__c: @course.article_count,
       Total_edits__c: @course.revision_count,
       Words_added_in_thousands__c: words_added_in_thousands,
+      No_of_Commons_uploads__c: @course.uploads.count,
       Actual_No_of_Participants__c: @course.user_count,
       Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
       Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
