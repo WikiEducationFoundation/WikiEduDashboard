@@ -28,7 +28,7 @@ describe('CourseNavbar', () => {
       expect(shallow(component).find('#timeline-link').length).to.eq(1);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('Link').nodes[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('Link').getElements()[0].props.to).to.eq(`${slug}/home`);
     });
   });
 
@@ -49,7 +49,7 @@ describe('CourseNavbar', () => {
       expect(shallow(component).find('#timeline-link').length).to.eq(0);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('Link').nodes[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('Link').getElements()[0].props.to).to.eq(`${slug}/home`);
     });
   });
 });
