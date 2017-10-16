@@ -126,7 +126,7 @@ describe 'Survey Administration', type: :feature, js: true do
         click_link 'Delete this survey'
       end
       sleep 1
-      expect(Survey.count).to eq(1)
+      expect(Survey.count).to eq(0)
 
       # Create a SurveyAssignment
       expect(SurveyAssignment.count).to eq(0)
