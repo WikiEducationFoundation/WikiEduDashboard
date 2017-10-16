@@ -17,7 +17,7 @@
     "chai": "^3.5.0",
     "core-js": "^2.4.1",
     "del": "^2.2.2",
-    "enzyme": "^2.8.2",
+    "enzyme": "^3.1.0",
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.1.0",
@@ -89,7 +89,7 @@
     "prop-types": "^15.6.0",
     "rangeslider.js": "^2.3.0",
     "raven-js": "^3.8.1",
-    "react": "15.4.1",
+    "react": "15.6.2",
     "react-addons-css-transition-group": "^15.4.1",
     "react-addons-shallow-compare": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
@@ -141,7 +141,9 @@
   },
   "devDependencies": {
     "copy-to-clipboard": "^3.0.5",
-    "react-copy-to-clipboard": "^4.1.0"
+    "enzyme-adapter-react-15": "^1.0.1",
+    "react-copy-to-clipboard": "^4.1.0",
+    "react-test-renderer": "^15.6.2"
   },
   "jest": {
     "collectCoverage": true,

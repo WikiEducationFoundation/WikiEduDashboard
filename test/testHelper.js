@@ -7,6 +7,9 @@ global.document = jsdom.jsdom("<!doctype html><html><body><div data-current_user
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
 
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+configure({ adapter: new Adapter() });
 
 const sinon = require('sinon');
 const React = require('react');
