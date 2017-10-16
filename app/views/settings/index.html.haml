@@ -1,0 +1,12 @@
+.container.dashboard
+  %header
+    %h1 App Settings
+  %section#app-settings
+    .container
+      %hr
+      = render partial: "form", collection: @settings, as: :setting
+  %section#user-settings
+    .container
+      %hr
+      %h1 Admin Users
+      = render :template => "users/index"
