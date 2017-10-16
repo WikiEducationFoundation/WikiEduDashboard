@@ -41,6 +41,8 @@ da:
       – inklusive fridage og ferier – for at tilpasse din tidslinje i dine valgte
       datointervaller. Husk at du altid kan ændre tidslinjen til dine behov.
     explore_course_pages: Udforsk kursussiderne
+    no_courses_instructor: Der ser ud til, at du ikke har nogen kurser.
+    no_courses_student: Det ser ud til, at du endnu ikke har valgt et kursus.
     blog_headline: Seneste nyheder fra Wiki Ed
   home:
     log_in: Log på med Wikipedia
@@ -62,12 +64,18 @@ da:
     new: (ny)
     none: Dette kursus har ikke redigeret artikler.
     rating: Klasse
+    rating_docs:
+      does_not_exist: Denne artikel findes ikke på Wikipedia
+    show_cumulative_changes: Vis kumulative ændringer
+    show_current_version: Vis nuværende version
+    show_current_version_with_authorship_highlighting: Nuværende version med forfatterskabfremhævelse
     title: Titel
     title_example: Artikeltitel
     view: Vis artikel
     view_all: Vis alle
     view_doc: Summen af alle artikelvisninger i løbet af projektet
     view_on_wiki: Vis på wikien
+    edit_size: Redigeringsstørrelse
     wiki: Wiki
     wp10: Strukturel fuldstændighed
     wp10_doc: Bedømmelsen »strukturel fuldstændighed« repræsenterer hvor tæt en aritiekl
@@ -83,7 +91,20 @@ da:
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assign_other: Tildel en artikel
+    assign_self: Tildel mig selv en artikel
+    loading: Indlæser tildelinger ...
+    none_short: Ingen artikler tildelt
+    no_available: Dette kursus har ingen tilgængelige artikler.
+    remove: Fjern
+    reviewers: Anmeldere
+    review_other: Tildel en anmeldelse
+    review_self: Anmeld en artikel
+    select: Vælg
+  blocks:
+    milestones:
+      title: Milepæler
   campaign:
+    active_campaigns: Aktive kampagner
     all_campaigns: Alle kampagner
     already_exists: Den kampagne findes allerede! Prøv igen med en anden titel eller
       »slug«.
@@ -97,8 +118,12 @@ da:
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
     none: Ingen
+    program_template: Programskabelon
+  chat:
+    label: Diskussion
   courses:
     activity: Aktivitet
+    actions: Handlinger
     articles: Artikler
     calendar:
       legend_class_meeting: Klassetræf

@@ -30,4 +30,6 @@ ia:
     change: Cambiar
   courses:
     timeline_enabled: Chronologia activate
+  revisions:
+    see_more: Vider plus
 ...

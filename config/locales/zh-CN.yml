@@ -54,6 +54,7 @@ zh-CN:
     review_orientation: 复核迎新活动
     start_orientation: 开始迎新活动
     blog_headline: 来自Wiki Ed的最新新闻
+    about_programs: 本网站通过计划追踪wiki活跃——这是指个别活动，例如编辑松或学校课程。每个计划都是一个或多个运动的一部分，它们提供跨计划的聚合统计。
   home:
     explore: 探索
     log_in: 登录维基百科
@@ -495,6 +496,7 @@ zh-CN:
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
     view_on_wiki: 在wiki上查看差异
+    see_more: 查看更多
   suggestions:
     editing: 编辑建议
     suggestion_docs:

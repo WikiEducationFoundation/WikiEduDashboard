@@ -322,6 +322,7 @@ ko:
     loading: 판을 불러오는 중...
     title: 제목
     view_on_wiki: 위키에서 차이 보기
+    see_more: 더 보기
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
