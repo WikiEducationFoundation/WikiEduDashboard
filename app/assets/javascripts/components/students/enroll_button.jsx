@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -7,8 +8,8 @@ import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import NotificationActions from '../../actions/notification_actions.js';
 import Confirm from '../common/confirm.jsx';
-import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
+import { actionConfirmed, actionCancelled } from '../../actions/confirm_actions.js';
+
 
 const EnrollButton = React.createClass({
   displayName: 'EnrollButton',
@@ -23,10 +24,13 @@ const EnrollButton = React.createClass({
     inline: React.PropTypes.bool,
     open: React.PropTypes.func,
     is_open: React.PropTypes.bool,
-    current_user: React.PropTypes.object
+    current_user: React.PropTypes.object,
+    actionCancelled: React.PropTypes.func,
+    actionConfirmed: React.PropTypes.func,
+    confirmationActive: React.PropTypes.bool
   },
 
-  mixins: [UserStore.mixin, ConfirmationStore.mixin],
+  mixins: [UserStore.mixin],
 
   getInitialState() {
     return ({
@@ -43,7 +47,7 @@ const EnrollButton = React.createClass({
 
   storeDidChange() {
     // This handles closing the Confirm dialog after it has been clicked.
-    if (!ConfirmationStore.isConfirmationActive()) {
+    if (!this.props.confirmationActive) {
       this.setState(this.getInitialState());
     }
 
@@ -100,10 +104,10 @@ const EnrollButton = React.createClass({
       // Post the new user to the server
       ServerActions.remove('user', courseId, { user: userObject });
       // Send the confirm signal
-      return ConfirmActions.actionConfirmed();
+      return this.props.actionConfirmed();
     };
     const onCancel = function () {
-      return ConfirmActions.actionCancelled();
+      return this.props.actionCancelled();
     };
     const confirmMessage = I18n.t('users.remove_confirmation', { username: user.username });
     this.setState({ onConfirm, onCancel, confirmMessage, showConfirm: true });
@@ -206,4 +210,14 @@ const EnrollButton = React.createClass({
 }
 );
 
-export default Conditional(PopoverExpandable(EnrollButton));
+const mapStateToProps = state => ({
+  confirmationActive: state.Confirmation._confirmationActive
+});
+
+const mapDispatchToProps = {
+  actionConfirmed: actionConfirmed,
+  actionCancelled: actionCancelled
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conditional(PopoverExpandable(EnrollButton)));
+

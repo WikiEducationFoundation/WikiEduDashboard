@@ -1,16 +1,16 @@
 import React from 'react';
+import { connect } from "react-redux";
 import Select from 'react-select';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import Confirm from '../common/confirm.jsx';
-import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import shallowCompare from 'react-addons-shallow-compare';
+import { actionConfirmed, actionCancelled } from '../../actions/confirm_actions.js';
 
 const AssignButton = React.createClass({
   displayName: 'AssignButton',
@@ -26,10 +26,10 @@ const AssignButton = React.createClass({
     add_available: React.PropTypes.bool,
     assignments: React.PropTypes.array,
     open: React.PropTypes.func.isRequired,
-    tooltip_message: React.PropTypes.string
+    tooltip_message: React.PropTypes.string,
+    actionConfirmed: React.PropTypes.func,
+    actionCancelled: React.PropTypes.func
   },
-
-  mixins: [ConfirmationStore.mixin],
 
   getInitialState() {
     return ({
@@ -143,10 +143,10 @@ const AssignButton = React.createClass({
       // Post the new assignment to the server
       ServerActions.addAssignment(assignment);
       // Send the confirm signal
-      return ConfirmActions.actionConfirmed();
+      return this.props.actionConfirmed();
     };
     const onCancel = function () {
-      return ConfirmActions.actionCancelled();
+      return this.props.actionCancelled();
     };
 
     let confirmMessage;
@@ -340,4 +340,15 @@ const AssignButton = React.createClass({
 }
 );
 
-export default PopoverExpandable(AssignButton);
+const mapStateToProps = state => ({
+  confirmationActive: state.Confirmation._confirmationActive
+});
+
+const mapDispatchToProps = {
+  actionConfirmed: actionConfirmed,
+  actionCancelled: actionCancelled
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopoverExpandable(AssignButton));
+

@@ -1,30 +1,30 @@
 import '../testHelper';
-import ConfirmActions from '../../app/assets/javascripts/actions/confirm_actions.js';
-import ConfirmationStore from '../../app/assets/javascripts/stores/confirmation_store.js';
+import { confirmationInitiated, actionConfirmed, actionCancelled } from '../../app/assets/javascripts/actions/confirm_actions.js';
+import Confirmation from '../../app/assets/javascripts/reducers/confirmation.js';
 
 describe('ConfirmActions', () => {
   it('.confirmationInitiated sets the confirmation state to active', (done) => {
-    expect(ConfirmationStore.isConfirmationActive()).to.eq(false);
-    ConfirmActions.confirmationInitiated().then(() => {
-      expect(ConfirmationStore.isConfirmationActive()).to.eq(true);
+    expect(Confirmation._confirmationActive).to.eq(false);
+    confirmationInitiated().then(() => {
+      expect(Confirmation._confirmationActive).to.eq(true);
       done();
     });
   });
 
   it('.actionConfirmed sets the confirmation state to inactive', (done) => {
-    expect(ConfirmationStore.isConfirmationActive()).to.eq(true);
-    ConfirmActions.actionConfirmed().then(() => {
-      expect(ConfirmationStore.isConfirmationActive()).to.eq(false);
+    expect(Confirmation._confirmationActive).to.eq(true);
+    actionConfirmed().then(() => {
+      expect(Confirmation._confirmationActive).to.eq(false);
       done();
     });
   });
 
   it('.actionCancelled sets the confirmation state to inactive', (done) => {
-    ConfirmActions.confirmationInitiated()
-    .then(() => { expect(ConfirmationStore.isConfirmationActive()).to.eq(true); })
-    .then(() => { ConfirmActions.actionCancelled(); })
+    confirmationInitiated()
+    .then(() => { expect(Confirmation._confirmationActive).to.eq(true); })
+    .then(() => { actionCancelled(); })
     .then(() => {
-      expect(ConfirmationStore.isConfirmationActive()).to.eq(false);
+      expect(Confirmation._confirmationActive).to.eq(false);
       done();
     });
   });
