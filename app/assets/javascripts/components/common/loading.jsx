@@ -1,6 +1,7 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 
-const Loading = React.createClass({
+const Loading = createReactClass({
   displayName: 'Loading',
 
   render() {

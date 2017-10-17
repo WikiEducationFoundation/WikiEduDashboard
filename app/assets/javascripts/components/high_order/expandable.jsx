@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import UIActions from '../../actions/ui_actions.js';
 import UIStore from '../../stores/ui_store.js';
 
 const Expandable = function (Component) {
-  return React.createClass({
+  return createReactClass({
     displayName: 'Expandable',
     mixins: [UIStore.mixin],
 

@@ -1,12 +1,14 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 
-const Popover = React.createClass({
+const Popover = createReactClass({
   displayName: 'Popover',
 
   propTypes: {
-    is_open: React.PropTypes.bool,
-    edit_row: React.PropTypes.node,
-    rows: React.PropTypes.node
+    is_open: PropTypes.bool,
+    edit_row: PropTypes.node,
+    rows: PropTypes.node
   },
 
   render() {

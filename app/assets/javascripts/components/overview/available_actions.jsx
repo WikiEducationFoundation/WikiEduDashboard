@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
@@ -13,11 +15,11 @@ import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
-const AvailableActions = React.createClass({
+const AvailableActions = createReactClass({
   displayName: 'Actions',
 
   propTypes: {
-    current_user: React.PropTypes.object
+    current_user: PropTypes.object
   },
 
   mixins: [CourseStore.mixin, ConfirmationStore.mixin],

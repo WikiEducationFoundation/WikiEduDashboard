@@ -1,8 +1,7 @@
 import '../../testHelper';
 
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
-
+import ReactTestUtils from "react-dom/test-utils";
 import Article from '../../../app/assets/javascripts/components/articles/article.jsx';
 
 const course = {

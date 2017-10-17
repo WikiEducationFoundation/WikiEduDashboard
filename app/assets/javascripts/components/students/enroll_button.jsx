@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -10,20 +12,20 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 
-const EnrollButton = React.createClass({
+const EnrollButton = createReactClass({
   displayName: 'EnrollButton',
 
   propTypes: {
-    role: React.PropTypes.number,
-    course_id: React.PropTypes.string,
-    params: React.PropTypes.object,
-    users: React.PropTypes.array,
-    course: React.PropTypes.object,
-    allowed: React.PropTypes.bool,
-    inline: React.PropTypes.bool,
-    open: React.PropTypes.func,
-    is_open: React.PropTypes.bool,
-    current_user: React.PropTypes.object
+    role: PropTypes.number,
+    course_id: PropTypes.string,
+    params: PropTypes.object,
+    users: PropTypes.array,
+    course: PropTypes.object,
+    allowed: PropTypes.bool,
+    inline: PropTypes.bool,
+    open: PropTypes.func,
+    is_open: PropTypes.bool,
+    current_user: PropTypes.object
   },
 
   mixins: [UserStore.mixin, ConfirmationStore.mixin],

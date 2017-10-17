@@ -1,16 +1,18 @@
 // Used by any component that requires "Edit", "Save", and "Cancel" buttons
 
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import UIActions from '../../actions/ui_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 
 const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) =>
-  React.createClass({
+  createReactClass({
     displayName: 'Editable',
     propTypes: {
-      course_id: React.PropTypes.any,
-      current_user: React.PropTypes.object,
-      editable: React.PropTypes.bool
+      course_id: PropTypes.any,
+      current_user: PropTypes.object,
+      editable: PropTypes.bool
     },
 
     mixins: Stores.map(store => store.mixin),
