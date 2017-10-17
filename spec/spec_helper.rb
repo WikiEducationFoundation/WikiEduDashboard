@@ -8,8 +8,13 @@
 # require 'codeclimate-test-reporter'
 # CodeClimate::TestReporter.start
 require 'simplecov'
+require_relative 'simplecov_uncovered_formatter'
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
+  [SimpleCov::Formatter::HTMLFormatter, SimplecovUncoveredFormatter]
+)
 SimpleCov.start 'rails' do
-  add_filter 'lib/tasks'
+  add_filter 'lib/tasks' # even though we test these, coverage doesn't work right.
 end
 
 require 'vcr'
