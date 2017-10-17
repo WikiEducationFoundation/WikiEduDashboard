@@ -106,26 +106,19 @@ describe 'Survey Administration', type: :feature, js: true do
       drag_source.drag_to(drag_target)
 
       # Clone a Question Group
+      visit '/surveys'
       click_link 'Question Groups'
-      within 'li#question_group_2' do
+      within 'li#question_group_1' do
         click_link 'Clone'
       end
 
       # Delete a Question Group
-      within 'li#question_group_2' do
+      within 'li#question_group_1' do
         click_link 'Edit'
       end
       page.accept_confirm do
         click_link 'Delete Question Group'
       end
-
-      # Destroy a survey
-      visit '/surveys/1/edit'
-      page.accept_confirm do
-        click_link 'Delete this survey'
-      end
-      sleep 1
-      expect(Survey.count).to eq(0)
 
       # Create a SurveyAssignment
       expect(SurveyAssignment.count).to eq(0)
@@ -185,6 +178,14 @@ describe 'Survey Administration', type: :feature, js: true do
       end
       sleep 1
       expect(SurveyAssignment.count).to eq(0)
+
+      # Destroy a survey
+      visit '/surveys/1/edit'
+      page.accept_confirm do
+        click_link 'Delete this survey'
+      end
+      sleep 1
+      expect(Survey.count).to eq(0)
     end
 
     it 'can view survey results' do
