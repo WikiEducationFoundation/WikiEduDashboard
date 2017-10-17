@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';

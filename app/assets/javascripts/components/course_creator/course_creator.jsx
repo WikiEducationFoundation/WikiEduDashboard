@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
@@ -19,8 +20,8 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import CourseLevelSelector from './course_level_selector.jsx';
-import TransitionGroup from 'react-addons-css-transition-group';
 
 import _ from 'lodash';
 
@@ -34,7 +35,7 @@ const getState = () => {
   };
 };
 
-const CourseCreator = React.createClass({
+const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
 
   propTypes: {

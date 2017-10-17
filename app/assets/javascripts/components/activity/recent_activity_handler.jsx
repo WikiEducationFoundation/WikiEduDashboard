@@ -1,11 +1,13 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-const RecentActivityHandler = React.createClass({
+const RecentActivityHandler = createReactClass({
   displayName: 'RecentActivityHandler',
 
   propTypes: {
-    children: React.PropTypes.node
+    children: PropTypes.node
   },
 
   render() {

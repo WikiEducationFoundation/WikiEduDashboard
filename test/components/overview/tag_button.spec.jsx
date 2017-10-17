@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import TagButton from '../../../app/assets/javascripts/components/overview/tag_button.jsx';
 
 describe('TagButton', () =>

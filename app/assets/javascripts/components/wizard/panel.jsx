@@ -1,26 +1,28 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 import CourseLink from '../common/course_link.jsx';
 import Option from './option.jsx';
 
-const Panel = React.createClass({
+const Panel = createReactClass({
   displayName: 'Panel',
 
   propTypes: {
-    course: React.PropTypes.object,
-    panel: React.PropTypes.object,
-    saveCourse: React.PropTypes.func,
-    nextEnabled: React.PropTypes.func,
-    index: React.PropTypes.number,
-    rewind: React.PropTypes.func,
-    open_weeks: React.PropTypes.number,
-    raw_options: React.PropTypes.node,
-    advance: React.PropTypes.func,
-    button_text: React.PropTypes.string,
-    helperText: React.PropTypes.string,
-    summary: React.PropTypes.bool,
-    step: React.PropTypes.string
+    course: PropTypes.object,
+    panel: PropTypes.object,
+    saveCourse: PropTypes.func,
+    nextEnabled: PropTypes.func,
+    index: PropTypes.number,
+    rewind: PropTypes.func,
+    open_weeks: PropTypes.number,
+    raw_options: PropTypes.node,
+    advance: PropTypes.func,
+    button_text: PropTypes.string,
+    helperText: PropTypes.string,
+    summary: PropTypes.bool,
+    step: PropTypes.string
   },
 
   advance() {

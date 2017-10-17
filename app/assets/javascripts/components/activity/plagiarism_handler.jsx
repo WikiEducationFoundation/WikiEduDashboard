@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import SuspectedPlagiarismStore from '../../stores/suspected_plagiarism_store.js';
 import ActivityTable from './activity_table.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -10,7 +11,7 @@ const getState = () => {
   };
 };
 
-const PlagiarismHandler = React.createClass({
+const PlagiarismHandler = createReactClass({
   displayName: 'PlagiarismHandler',
 
   mixins: [SuspectedPlagiarismStore.mixin],

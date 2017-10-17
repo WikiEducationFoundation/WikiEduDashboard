@@ -1,15 +1,17 @@
 /* global vg */
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import Wp10Graph from './wp10_graph.jsx';
 import EditSizeGraph from './edit_size_graph.jsx';
 import Loading from '../common/loading.jsx';
 
-const ArticleGraphs = React.createClass({
+const ArticleGraphs = createReactClass({
   displayName: 'ArticleGraphs',
 
   propTypes: {
-    article: React.PropTypes.object
+    article: PropTypes.object
   },
 
   getInitialState() {

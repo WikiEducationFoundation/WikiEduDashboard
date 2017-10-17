@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Week from '../timeline/week.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { Link } from 'react-router';
@@ -97,9 +98,9 @@ const ThisWeek = ({ course, weeks, current }) => {
 };
 
 ThisWeek.propTypes = {
-  course: React.PropTypes.object,
-  weeks: React.PropTypes.array,
-  current: React.PropTypes.number
+  course: PropTypes.object,
+  weeks: PropTypes.array,
+  current: PropTypes.number
 };
 
 export default ThisWeek;

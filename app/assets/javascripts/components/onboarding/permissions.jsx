@@ -1,11 +1,13 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 // Permissions slide
-const Permissions = React.createClass({
+const Permissions = createReactClass({
   propTypes: {
-    currentUser: React.PropTypes.object,
-    returnToParam: React.PropTypes.string
+    currentUser: PropTypes.object,
+    returnToParam: PropTypes.string
   },
 
   render() {
