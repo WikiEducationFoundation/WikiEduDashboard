@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe OnboardingController do
+  before { stub_list_users_query }
   let(:user) { create(:user, onboarded: onboarded) }
 
   describe 'onboarding route' do

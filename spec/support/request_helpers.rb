@@ -137,6 +137,11 @@ module RequestHelpers
       .to_return(status: 200, body: '{}', headers: {})
   end
 
+  def stub_list_users_query
+    stub_request(:get, /.*list=users.*/)
+      .to_return(status: 200, body: '{"users":[{"emailable":""}]}', headers: {})
+  end
+
   def stub_wikipedia_503_error
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: 503, body: '{}', headers: {})

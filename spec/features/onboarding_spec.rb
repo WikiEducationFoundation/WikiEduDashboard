@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe 'onboarding', type: :feature, js: true do
+  before { stub_list_users_query }
   let(:user) { create(:user, onboarded: onboarded, real_name: 'test', email: 'email@email.com') }
 
   describe 'onboarding redirect checks' do
