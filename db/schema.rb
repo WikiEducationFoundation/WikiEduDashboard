@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171013172419) do
+ActiveRecord::Schema.define(version: 20171014212112) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.index ["article_id"], name: "index_alerts_on_article_id"
     t.index ["course_id"], name: "index_alerts_on_course_id"
     t.index ["revision_id"], name: "index_alerts_on_revision_id"
+    t.index ["subject_id"], name: "index_alerts_on_subject_id"
     t.index ["target_user_id"], name: "index_alerts_on_target_user_id"
     t.index ["user_id"], name: "index_alerts_on_user_id"
   end
@@ -49,6 +50,8 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "mw_page_id"
     t.index ["mw_page_id"], name: "index_articles_on_mw_page_id"
     t.index ["namespace", "wiki_id", "title"], name: "index_articles_on_namespace_and_wiki_id_and_title"
+    t.index ["title"], name: "index_articles_on_title"
+    t.index ["wiki_id"], name: "index_articles_on_wiki_id"
   end
 
   create_table "articles_courses", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -70,6 +73,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["assignment_id"], name: "index_assignment_suggestions_on_assignment_id"
+    t.index ["user_id"], name: "index_assignment_suggestions_on_user_id"
   end
 
   create_table "assignments", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -81,6 +85,10 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.string "article_title"
     t.integer "role"
     t.integer "wiki_id"
+    t.index ["article_id"], name: "index_assignments_on_article_id"
+    t.index ["course_id"], name: "index_assignments_on_course_id"
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+    t.index ["wiki_id"], name: "index_assignments_on_wiki_id"
   end
 
   create_table "blocks", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -94,6 +102,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "order"
     t.date "due_date"
     t.text "training_module_ids"
+    t.index ["gradeable_id"], name: "index_blocks_on_gradeable_id"
     t.index ["week_id"], name: "index_blocks_on_week_id"
   end
 
@@ -114,6 +123,8 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["campaign_id"], name: "index_campaigns_courses_on_campaign_id"
+    t.index ["course_id"], name: "index_campaigns_courses_on_course_id"
   end
 
   create_table "campaigns_survey_assignments", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -188,6 +199,8 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.string "chatroom_id"
     t.text "flags"
     t.string "level"
+    t.index ["chatroom_id"], name: "index_courses_on_chatroom_id"
+    t.index ["home_wiki_id"], name: "index_courses_on_home_wiki_id"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 
@@ -213,6 +226,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at"
+    t.index ["user_id"], name: "index_feedback_form_responses_on_user_id"
   end
 
   create_table "gradeables", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -222,6 +236,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string "gradeable_item_type"
+    t.index ["gradeable_item_id"], name: "index_gradeables_on_gradeable_item_id"
   end
 
   create_table "question_group_conditionals", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -240,6 +255,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer "course_id"
+    t.index ["course_id"], name: "index_rapidfire_answer_groups_on_course_id"
     t.index ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id"
     t.index ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type"
   end
@@ -300,7 +316,9 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "mw_page_id"
     t.text "features"
     t.index ["article_id", "date"], name: "index_revisions_on_article_id_and_date"
-    t.index ["article_id"], name: "index_revisions_on_article_id"
+    t.index ["ithenticate_id"], name: "index_revisions_on_ithenticate_id"
+    t.index ["mw_page_id"], name: "index_revisions_on_mw_page_id"
+    t.index ["mw_rev_id"], name: "index_revisions_on_mw_rev_id"
     t.index ["user_id"], name: "index_revisions_on_user_id"
     t.index ["wiki_id", "mw_rev_id"], name: "index_revisions_on_wiki_id_and_mw_rev_id", unique: true
   end
@@ -382,6 +400,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.integer "training_module_id"
     t.string "last_slide_completed"
     t.datetime "completed_at"
+    t.index ["training_module_id"], name: "index_training_modules_users_on_training_module_id"
     t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id"
   end
 
@@ -394,6 +413,7 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.datetime "image_updated_at"
     t.string "location"
     t.string "institution"
+    t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
   create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -416,6 +436,8 @@ ActiveRecord::Schema.define(version: 20171013172419) do
     t.string "chat_password"
     t.string "chat_id"
     t.datetime "registered_at"
+    t.index ["chat_id"], name: "index_users_on_chat_id"
+    t.index ["global_id"], name: "index_users_on_global_id"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
