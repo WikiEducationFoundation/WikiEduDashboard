@@ -19,7 +19,7 @@ class OnboardingController < ApplicationController
                             email: params[:email],
                             permissions: @permissions,
                             onboarded: true)
-
+    CheckWikiEmailWorker.check(user: @user)
     head :no_content
   end
 

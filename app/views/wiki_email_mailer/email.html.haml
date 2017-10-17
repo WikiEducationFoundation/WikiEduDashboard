@@ -1,0 +1,32 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hello #{@user.username}!"
+              %p.paragraph
+                Thanks for signing in on the
+                %a{:href => "https://#{ENV['dashboard_url']}"}
+                  Wiki Education Dashboard.
+              %p.paragraph
+                It looks like email may be disabled for your Wikipedia account.
+                If you did not enter an email address when you created your Wikipedia
+                account, you won't be able to reset your password if you lose it.
+              %p.paragraph
+                If entered an email for Wikipedia but haven't confirmed it yet,
+                look for the confirmation email in your inbox. (If you've already
+                done so, you can disregard this email.)
+              %p.paragraph
+                If you didn't add an email when you signed up on Wikipedia, use
+                link below to open your Wikipedia preferences, then add an email
+                save it.
+            %td.expander
+        %table
+          %tr
+            %td.main-content.link-cell
+              %a.button_link{:href => "https://en.wikipedia.org/wiki/Special:Preferences"}
+                Open Wikipedia preferences
