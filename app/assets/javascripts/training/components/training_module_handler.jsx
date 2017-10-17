@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TrainingStore from '../stores/training_store.js';
 import ServerActions from '../../actions/server_actions.js';
 
 const getState = () => ({ training_module: TrainingStore.getTrainingModule() });
 
-const TrainingModuleHandler = React.createClass({
+const TrainingModuleHandler = createReactClass({
   displayName: 'TraniningModuleHandler',
   mixins: [TrainingStore.mixin],
   getInitialState() {

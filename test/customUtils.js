@@ -1,5 +1,5 @@
 import './testHelper';
-import { Simulate } from 'react-addons-test-utils';
+import { Simulate } from 'react-dom/test-utils';
 
 export function click(el) {
   return new Promise((resolve) => {

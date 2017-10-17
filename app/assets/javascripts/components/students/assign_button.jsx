@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import Select from 'react-select';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
@@ -12,21 +14,21 @@ import AssignmentStore from '../../stores/assignment_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import shallowCompare from 'react-addons-shallow-compare';
 
-const AssignButton = React.createClass({
+const AssignButton = createReactClass({
   displayName: 'AssignButton',
 
   propTypes: {
-    course: React.PropTypes.object.isRequired,
-    role: React.PropTypes.number.isRequired,
-    student: React.PropTypes.object,
-    current_user: React.PropTypes.object,
-    course_id: React.PropTypes.string.isRequired,
-    is_open: React.PropTypes.bool,
-    permitted: React.PropTypes.bool,
-    add_available: React.PropTypes.bool,
-    assignments: React.PropTypes.array,
-    open: React.PropTypes.func.isRequired,
-    tooltip_message: React.PropTypes.string
+    course: PropTypes.object.isRequired,
+    role: PropTypes.number.isRequired,
+    student: PropTypes.object,
+    current_user: PropTypes.object,
+    course_id: PropTypes.string.isRequired,
+    is_open: PropTypes.bool,
+    permitted: PropTypes.bool,
+    add_available: PropTypes.bool,
+    assignments: PropTypes.array,
+    open: PropTypes.func.isRequired,
+    tooltip_message: PropTypes.string
   },
 
   mixins: [ConfirmationStore.mixin],

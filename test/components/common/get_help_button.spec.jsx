@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import GetHelpButton from '../../../app/assets/javascripts/components/common/get_help_button.jsx';
 
 GetHelpButton.__Rewire__('UserStore', {

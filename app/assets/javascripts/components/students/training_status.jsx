@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TrainingStatus = ({ trainingModules }) => {
   if (!trainingModules.length) {
@@ -43,7 +44,7 @@ const TrainingStatus = ({ trainingModules }) => {
 };
 
 TrainingStatus.propTypes = {
-  trainingModules: React.PropTypes.array
+  trainingModules: PropTypes.array
 };
 
 export default TrainingStatus;
