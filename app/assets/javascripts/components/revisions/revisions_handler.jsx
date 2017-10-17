@@ -9,8 +9,8 @@ const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object,
+    course_id: PropTypes.string,
+    course: PropTypes.object,
   },
 
   getInitialState() {
