@@ -799,6 +799,7 @@ en:
     username_placeholder: Username
 
     role:
+      description: Role in course
       visitor: Visitor
       student: Student
       instructor: Instructor
