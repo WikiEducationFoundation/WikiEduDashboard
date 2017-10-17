@@ -83,7 +83,7 @@ RSpec.configure do |config|
       .to_return(status: 200, body: '<rss version="2.0" />', headers: {})
     stub_request(:get, /fonts.googleapis.com/)
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
-      .to_return(status: 200, body: '@font-face {}'.dup, headers: {})
+      .to_return(status: 200, body: +'@font-face {}', headers: {})
   end
 end
 
