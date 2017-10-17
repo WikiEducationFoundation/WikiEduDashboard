@@ -10,6 +10,8 @@ class NewInstructorEnrollmentMailer < ApplicationMailer
   def email(course, staffer, adder, new_instructor)
     @course = course
     @new_instructor = new_instructor
+    @courses_user = CoursesUsers.find_by(course: @course, user: @new_instructor,
+                                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @adder = adder
     @course_link = "https://#{ENV['dashboard_url']}/courses/#{@course.slug}"
     mail(to: staffer.email,
