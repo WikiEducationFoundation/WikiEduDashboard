@@ -95,7 +95,7 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def survey
-    Survey.find(survey_id)
+    Survey.find(survey_id) if survey_id
   end
 
   def active?

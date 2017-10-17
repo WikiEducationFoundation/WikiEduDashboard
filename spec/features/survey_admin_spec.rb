@@ -105,7 +105,6 @@ describe 'Survey Administration', type: :feature, js: true do
       drag_target = find('#survey_intro')
       drag_source.drag_to(drag_target)
 
-
       # Clone a Question Group
       click_link 'Question Groups'
       within 'li#question_group_2' do
