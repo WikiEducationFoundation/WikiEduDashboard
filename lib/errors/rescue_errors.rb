@@ -78,7 +78,8 @@ module Errors
     private
 
     def json?(request)
-      request.media_type.include? 'json'
+      return true if request.media_type.include? 'json'
+      request.fullpath.include? '.json'
     end
   end # RescueErrors
 end

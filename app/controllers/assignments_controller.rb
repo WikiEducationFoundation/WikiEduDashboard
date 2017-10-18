@@ -113,11 +113,10 @@ class AssignmentsController < ApplicationController
   end
 
   def check_permissions(user_id)
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception unless user_signed_in?
+    require_signed_in
     return if current_user.id == user_id
     return if current_user.can_edit?(@course)
-    raise exception
+    raise NotPermittedError
   end
 
   def assignment_params
