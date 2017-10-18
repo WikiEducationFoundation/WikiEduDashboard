@@ -291,6 +291,10 @@ en:
         (weeks and blocks). Be sure to add the dates, which are not carried over.
         Has anything else about your course changed? Feel free to update it now.
       course_description: Course description
+      course_description_placeholder: >
+        What is covered in your course, and what will students be doing on Wikipedia?
+        Please include enough detail to give other Wikipedia editors a sense of
+        context for the contributions your students will be making.
       course_language: Home language
       course_project: Home project
       course_school: Course school
@@ -508,6 +512,10 @@ en:
         Click 'Save' below to finalize it.
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_description: Program description
+      course_description_placeholder: >
+        What is this program, and what will participants be doing on the wiki(s)?
+        Please include enough detail to give other editors a sense of
+        context for the contributions that participants will be making.
       course_school: Institution
       course_term: When
       course_term_placeholder: When

@@ -420,6 +420,7 @@ const CourseCreator = createReactClass({
                     showTime={this.state.use_start_and_end_times}
                   />
                   {this.state.use_start_and_end_times ? timeZoneMessage : null}
+                  <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}:</strong></span>
                   <TextAreaInput
                     id="course_description"
                     onChange={this.updateCourse}
@@ -427,7 +428,7 @@ const CourseCreator = createReactClass({
                     value_key="description"
                     required={descriptionRequired}
                     editable
-                    placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
+                    placeholder={CourseUtils.i18n('creator.course_description_placeholder', this.state.course_string_prefix)}
                   />
                   {roleDescription}
                 </div>
