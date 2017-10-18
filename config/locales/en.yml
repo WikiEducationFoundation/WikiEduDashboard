@@ -319,6 +319,8 @@ en:
         versions of the assignment options.) You can also use the clone option
         to create additional sections for a course you already set up.
       no_class_holidays: I have no class holidays
+      role_description: Your role in the course
+      role_description_placeholder: Instructor, teaching assistant, etc
       save_cloned_course: Save New Course
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)

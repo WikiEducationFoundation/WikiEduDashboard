@@ -208,6 +208,7 @@ describe CoursesController do
     describe 'setting slug from school/title/term' do
       let!(:user) { create(:admin) }
       let(:expected_slug) { 'Wiki_University/How_to_Wiki_(Fall_2015)' }
+      let(:role_description) { 'Professor' }
 
       before do
         allow(controller).to receive(:current_user).and_return(user)
@@ -220,11 +221,17 @@ describe CoursesController do
             title: 'How to Wiki',
             term: 'Fall 2015',
             start: '2015-01-05',
-            end: '2015-12-20' }
+            end: '2015-12-20',
+            role_description: role_description }
         end
         it 'sets slug correctly' do
           post :create, params: { course: course_params }, as: :json
           expect(Course.last.slug).to eq(expected_slug)
+        end
+
+        it 'sets instructor role description correctly' do
+          post :create, params: { course: course_params }, as: :json
+          expect(CoursesUsers.last.role_description).to eq(role_description)
         end
       end
 

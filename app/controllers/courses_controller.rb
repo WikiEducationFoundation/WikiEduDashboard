@@ -26,7 +26,8 @@ class CoursesController < ApplicationController
 
   def create
     course_creation_manager = CourseCreationManager.new(course_params, wiki_params,
-                                                        initial_campaign_params, current_user)
+                                                        initial_campaign_params,
+                                                        instructor_role_description, current_user)
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: 404
@@ -214,6 +215,10 @@ class CoursesController < ApplicationController
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type, :level)
+  end
+
+  def instructor_role_description
+    params.require(:course).permit(:role_description)[:role_description]
   end
 
   SHOW_ENDPOINTS = %w[articles assignments campaigns check course revisions tag tags

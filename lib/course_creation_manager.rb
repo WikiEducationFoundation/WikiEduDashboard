@@ -6,10 +6,12 @@ require "#{Rails.root}/lib/tag_manager"
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
-  def initialize(course_params, wiki_params, initial_campaign_params, current_user)
+  def initialize(course_params, wiki_params, initial_campaign_params,
+                 instructor_role_description, current_user)
     @course_params = course_params
     @wiki_params = wiki_params
     @initial_campaign_params = initial_campaign_params
+    @role_description = instructor_role_description
     @instructor = current_user
     @overrides = {}
     set_wiki
@@ -101,7 +103,8 @@ class CourseCreationManager
     JoinCourse.new(user: @instructor,
                    course: @course,
                    role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
-                   real_name: @instructor.real_name)
+                   real_name: @instructor.real_name,
+                   role_description: @role_description)
   end
 
   def add_tags_to_course

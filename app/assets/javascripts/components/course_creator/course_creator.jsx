@@ -229,6 +229,7 @@ const CourseCreator = createReactClass({
     let subject;
     let expectedStudents;
     let courseLevel;
+    let roleDescription;
 
     let descriptionRequired = false;
     if (this.state.default_course_type === 'ClassroomProgramCourse') {
@@ -275,6 +276,17 @@ const CourseCreator = createReactClass({
           max="999"
           label={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
           placeholder={CourseUtils.i18n('creator.expected_number', this.state.course_string_prefix)}
+        />
+      );
+      roleDescription = (
+        <TextInput
+          id="role_description"
+          onChange={this.updateCourse}
+          value={this.state.course.role_description}
+          value_key="role_description"
+          editable
+          label={I18n.t('courses.creator.role_description')}
+          placeholder={I18n.t('courses.creator.role_description_placeholder')}
         />
       );
     }
@@ -417,6 +429,7 @@ const CourseCreator = createReactClass({
                     editable
                     placeholder={CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}
                   />
+                  {roleDescription}
                 </div>
               </div>
               <div className={controlClass}>
