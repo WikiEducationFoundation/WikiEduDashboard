@@ -22,7 +22,7 @@ const CourseStats = ({ course }) => {
 
   return (
     <div className="stat-display">
-    <div className="stat-display__stat tooltip-trigger" id="articles-created">
+      <div className="stat-display__stat tooltip-trigger" id="articles-created">
         <div className="stat-display__value">
           {course.created_count}
           <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
