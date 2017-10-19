@@ -178,6 +178,7 @@ ar:
       expected_number: عدد الطلاب المتوقع
       find: البحث عن دراستك
       no_class_holidays: ليست لدي عطل
+      role_description: دورك في المساق
       save_cloned_course: حفظ دورة جديدة
       start_date: تاريخ البدء
       start_date_placeholder: تاريخ البدء (YYYY-MM-DD)

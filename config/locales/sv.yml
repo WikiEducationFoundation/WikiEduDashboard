@@ -285,6 +285,7 @@ sv:
     edited_by: Redigerad av
     edited_on: Redigerades %{edit_date}
     title: Titel
+    see_more: Se mer
   suggestions:
     editing: Redigeringsförslag
     suggestion_docs:
@@ -346,6 +347,7 @@ sv:
     username: Användarnamn
     username_placeholder: Användarnamn
     role:
+      description: Roll i kursen
       visitor: Besökare
       student: Student
       instructor: Instruktör

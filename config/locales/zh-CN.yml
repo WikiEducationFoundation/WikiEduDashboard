@@ -228,6 +228,8 @@ zh-CN:
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
       new_or_clone: 您现在可以创建新的课程，或如果您希望从之前您教学的课程中复制，您可以将其克隆并设置新的日期。您也可以使用克隆选项来为您已经配置的课程创建额外的节。
       no_class_holidays: 我没有班级假日
+      role_description: 您在课程中的角色
+      role_description_placeholder: 导师、教学助理等
       save_cloned_course: 保存新的课程
       start_date: 开始日期
       start_date_placeholder: 开始日期（YYYY-MM-DD）
@@ -629,6 +631,7 @@ zh-CN:
     username: 用户名
     username_placeholder: 用户名
     role:
+      description: 课程中的角色
       visitor: 访问者
       student: 学生
       instructor: 导师

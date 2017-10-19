@@ -18,6 +18,7 @@ skr-arab:
     my_dashboard: میݙا ڈیش بورڈ
     recent_activity: حالیہ سرگرمی
     search: سوال پُچھو
+    sign_up_extended: وکی پیڈیا نال نواں کھاتہ بݨاؤ
     sign_up_log_in_extended: وکی پیڈیا نال
     sign_up: کھاتہ بناؤ
     submit: جمع کرواؤ
@@ -45,6 +46,7 @@ skr-arab:
     view: مضمون ݙیکھو
     view_all: سارے ݙیکھو
     view_on_wiki: وکی تے ݙکھالا
+    wiki: وکی
   assignments:
     label: سپرد کرو
     remove: ہٹاؤ
@@ -71,12 +73,20 @@ skr-arab:
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
     creator:
+      course_term_placeholder: ٹرم
+      course_title: کورس دا عنوان
+      create_button: میݙا کورس بݨاؤ!
+      create_label: نواں کورس بݨاؤ
+      create_new: نواں کورس بݨاؤ
       create_short: کورس بݨاؤ
       end_date: ختم کرݨ دی تاریخ
+      find: آپݨاں کورس ڳولو
       save_cloned_course: نواں کورس محفوظ کرو
       start_date: شروع کرݨ دی تاریخ
       subject: موضوع
     current: حالیہ کورس
+    delete_course: کورس مٹاؤ
+    delete_suggestion: مٹاؤ
     end: چھیکڑ
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
@@ -119,6 +129,7 @@ skr-arab:
     school: ادارہ
     student_editors: ایڈیٹ کرݨ آلے
     students: ایڈیٹ کرݨ آلے
+    students_short: ایڈیٹ کرݨ آلے
     term: کݙݨ
     yourcourses: تہاݙے پروگرام
   editable:
@@ -148,6 +159,7 @@ skr-arab:
     diff_hide: لُکاؤ
     title: عنوان
     view_on_wiki: وکی تے فرق ݙیکھو
+    see_more: ٻئے ݙیکھو
   timeline:
     add_week: ہفتہ شامل کرو
     course_dates: کورس دیاں تریخاں

@@ -293,6 +293,8 @@ de:
         verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
         aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
+      role_description: Deine Rolle im Kurs
+      role_description_placeholder: Kursleiter, Lehrassistent etc.
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
       start_date_placeholder: Startdatum (JJJJ-MM-TT)
@@ -809,6 +811,7 @@ de:
     username: Benutzername
     username_placeholder: Benutzername
     role:
+      description: Rolle im Kurs
       visitor: Besucher
       student: Student
       instructor: Kursleiter
