@@ -84,7 +84,7 @@ gulp.task('webpack', ['bower'], (cb) => {
       'i18n-js': 'I18n'
     },
     plugins: wpPlugins,
-    devtool: config.development ? 'cheap-module-source-map' : 'source-map'
+    devtool: config.development ? 'eval' : 'source-map'
   };
 
   const wp = webpack(wpConf);
