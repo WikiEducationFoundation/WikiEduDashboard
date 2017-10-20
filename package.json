@@ -131,7 +131,7 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "waypoints": "^4.0.1",
-    "webpack": "^1.13.3",
+    "webpack": "^2.7.0",
     "webpack-dev-server": "^1.16.2",
     "webpack-manifest-plugin": "^1.1.0",
     "wnumb": "^1.0.4"
