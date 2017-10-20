@@ -86,7 +86,6 @@
     "moment-recur": "^1.0.4",
     "nock": "^8.0.0",
     "nouislider": "^8.3.0",
-    "nyc": "^10.0.0",
     "parsleyjs": "^2.4.4",
     "prop-types": "^15.6.0",
     "rangeslider.js": "^2.3.0",
@@ -158,18 +157,5 @@
       "app/assets/javascripts",
       "node_modules"
     ]
-  },
-  "nyc": {
-    "extension": [
-      ".jsx",
-      ".js"
-    ],
-    "reporter": [
-      "lcov",
-      "text-summary"
-    ],
-    "reportDir": "js_coverage",
-    "sourceMap": false,
-    "instrument": false
   }
 }

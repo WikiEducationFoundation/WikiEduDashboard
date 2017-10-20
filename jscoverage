@@ -1,3 +1,0 @@
-#!/bin/bash
-
-npm test && cd js_coverage/lcov-report && open index.html
