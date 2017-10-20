@@ -7,10 +7,11 @@ slides:
   - slug: using-a-sandbox # 901
   - slug: what-is-a-sandbox # 902
   - slug: edit-an-existing-article # 903
+  - slug: move-out-of-the-sandbox # 914
   - slug: draft-a-new-article # 904
   - slug: name-your-article # 905
   - slug: article-title-quiz # 906
-  - slug: move-out-of-the-sandbox # 907
+  - slug: move-out-of-the-sandbox-new-article # 907
   - slug: move-your-page # 908
   - slug: did-it-work # 909
   - slug: whoops-i-made-a-mistake # 910

@@ -1,7 +1,7 @@
 name: Designing a Translation Assignment
 id: 13
 description: |
-  PLACEHOLDER
+  A short case study of a translation assignment from another language to English
 estimated_ttc: 5 minutes
 slides:
   - slug: translation-case-study # 1301
