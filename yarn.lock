@@ -6251,13 +6251,15 @@ modify-filename@^1.0.0, modify-filename@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/modify-filename/-/modify-filename-1.1.0.tgz#9a2dec83806fbb2d975f22beec859ca26b393aa1"
 
-moment-recur@^1.0.4:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/moment-recur/-/moment-recur-1.0.5.tgz#2d7d0e3f2d717b4b1f27f6272aa863c669371c61"
+moment-recur@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/moment-recur/-/moment-recur-1.0.7.tgz#4d5092af648aeded6afe5c13ef38c52901c99419"
+  dependencies:
+    moment "<3.0.0"
 
-moment@2.10.3:
-  version "2.10.3"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.10.3.tgz#0abb99f307f65218308c6935efe29c57b1a0a27f"
+moment@2.19.1, moment@<3.0.0:
+  version "2.19.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
 ms@0.7.1:
   version "0.7.1"
