@@ -1,0 +1,14 @@
+id: 806
+title: "That's it!"
+summary:
+content: |
+  Now you should be able to get started collecting your sources and getting
+  started writing your article. Happy editing!
+
+  We would also appreciate any feedback you have on this orientation module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback
+  </a></div>
