@@ -330,6 +330,7 @@ ca:
     cancel: Cancel·la
     save: Desa
   metrics:
+    label: Activitat del curs
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats

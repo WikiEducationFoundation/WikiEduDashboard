@@ -481,6 +481,7 @@ es:
     edit_description: Editar descripción
     edit_details: Editar detalles
   metrics:
+    label: Actividad del curso
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados

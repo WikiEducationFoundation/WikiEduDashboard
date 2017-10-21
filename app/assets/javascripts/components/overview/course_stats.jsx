@@ -22,25 +22,13 @@ const CourseStats = ({ course }) => {
 
   return (
     <div className="stat-display">
-      <div className="stat-display__stat tooltip-trigger" id="articles-created">
-        <div className="stat-display__value">
-          {course.created_count}
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-        </div>
+      <div className="stat-display__stat" id="articles-created">
+        <div className="stat-display__value">{course.created_count}</div>
         <small>{I18n.t('metrics.articles_created')}</small>
-        <div className="tooltip dark" id="trained-count">
-          <p>{I18n.t('metrics.are_updated')}</p>
-        </div>
       </div>
-      <div className="stat-display__stat tooltip-trigger" id="articles-edited">
-        <div className="stat-display__value">
-          {course.edited_count}
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
-        </div>
+      <div className="stat-display__stat" id="articles-edited">
+        <div className="stat-display__value">{course.edited_count}</div>
         <small>{I18n.t('metrics.articles_edited')}</small>
-        <div className="tooltip dark" id="trained-count">
-          <p>{I18n.t('metrics.are_updated')}</p>
-        </div>
       </div>
       <div className="stat-display__stat" id="total-edits">
         <div className="stat-display__value">{course.edit_count}</div>
