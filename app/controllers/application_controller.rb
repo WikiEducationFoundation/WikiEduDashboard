@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 gem 'browser'
 
 # The application controller is the parent for all other controllers.
@@ -6,20 +7,11 @@ gem 'browser'
 # and login.
 class ApplicationController < ActionController::Base
   include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
-
+  include Errors::RescueErrors
+  include Errors::AuthenticationErrors
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  rescue_from ActionController::InvalidAuthenticityToken do
-    render plain: t('error_401.explanation'), status: :unauthorized
-  end
-
-  # Stop index.php routes from causing the kinds of errors that get reported
-  # to Sentry.
-  rescue_from ActionController::UnknownFormat do
-    render plain: t('error_404.explanation'), status: 404
-  end
-
   force_ssl if: :ssl_configured?
 
   before_action :check_for_expired_oauth_credentials
@@ -50,35 +42,31 @@ class ApplicationController < ActionController::Base
   end
 
   def require_signed_in
-    return if user_signed_in?
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    raise NotSignedInError unless user_signed_in?
   end
 
   def require_permissions
+    require_signed_in
     course = Course.find_by_slug(params[:id])
-    return if user_signed_in? && current_user.can_edit?(course)
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    raise NotPermittedError unless current_user.can_edit? course
   end
 
   def require_admin_permissions
-    return if user_signed_in? && current_user.admin?
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    require_signed_in
+    raise NotAdminError unless current_user.admin?
   end
 
   def require_participating_user
+    require_signed_in
     course = Course.find_by_slug(params[:id])
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
-    return if user_signed_in? && current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    return if current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
+    raise ParticipatingUserError
   end
 
   def check_for_expired_oauth_credentials
-    return unless current_user && current_user.wiki_token == 'invalid'
+    return unless current_user&.wiki_token == 'invalid'
 
     flash[:notice] = t('error.oauth_invalid')
     sign_out current_user
@@ -98,7 +86,7 @@ class ApplicationController < ActionController::Base
 
   def rtl?
     tag = I18n::Locale::Tag::Rfc4646.tag(I18n.locale)
-    tag.language.in? %w(ar dv fa he ku ps sd ug ur yi)
+    tag.language.in? %w[ar dv fa he ku ps sd ug ur yi]
   end
   helper_method :rtl?
 

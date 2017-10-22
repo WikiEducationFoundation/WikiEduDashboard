@@ -5,13 +5,13 @@ require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
 
 #= Controller for campaign data
 class CampaignsController < ApplicationController
-  layout 'admin', only: [:index, :create]
-  before_action :set_campaign, only: [:overview, :programs, :articles, :users, :edit,
-                                      :update, :destroy, :add_organizer, :remove_organizer,
-                                      :remove_course, :courses, :articles_csv]
+  layout 'admin', only: %i[index create]
+  before_action :set_campaign, only: %i[overview programs articles users edit
+                                        update destroy add_organizer remove_organizer
+                                        remove_course courses articles_csv]
   before_action :require_create_permissions, only: [:create]
-  before_action :require_write_permissions, only: [:update, :destroy, :add_organizer,
-                                                   :remove_organizer, :remove_course, :edit]
+  before_action :require_write_permissions, only: %i[update destroy add_organizer
+                                                     remove_organizer remove_course edit]
 
   DETAILS_FIELDS = %w[title start end].freeze
 
@@ -114,8 +114,10 @@ class CampaignsController < ApplicationController
   end
 
   def remove_course
-    campaigns_course = CampaignsCourses.find_by(course_id: params[:course_id], campaign_id: @campaign.id)
-    message = campaigns_course&.destroy ? 'campaign.course_removed' : 'campaign.course_already_removed'
+    campaigns_course = CampaignsCourses.find_by(course_id: params[:course_id],
+                                                campaign_id: @campaign.id)
+    result = campaigns_course&.destroy
+    message = result ? 'campaign.course_removed' : 'campaign.course_already_removed'
     flash[:notice] = t(message, title: params[:course_title],
                                 campaign_title: @campaign.title)
     redirect_to programs_campaign_path(@campaign.slug)

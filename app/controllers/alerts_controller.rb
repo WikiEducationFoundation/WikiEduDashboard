@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class AlertsController < ApplicationController
   before_action :require_signed_in, only: [:create]
   before_action :require_admin_permissions, only: [:resolve]
@@ -56,7 +57,7 @@ class AlertsController < ApplicationController
   end
 
   def set_default_target_user
-    @alert.target_user_id = User.find_by(username: ENV['technical_help_staff'])&.id
+    @alert.target_user_id = SpecialUsers.technical_help_staff&.id
   end
 
   def set_alert

@@ -3,3 +3,11 @@ title: "That's it"
 summary:
 content: |
   You're all done! Happy reviewing!
+
+  We would also appreciate any feedback you have on this training module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback
+  </a></div>

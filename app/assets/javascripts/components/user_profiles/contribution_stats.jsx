@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
 import ProfileStore from '../../stores/profile_store.js';
@@ -17,9 +19,9 @@ const getState = function () {
     loading: ProfileStore.getLoadingStatus(),
   };
 };
-const ContributionStats = React.createClass({
+const ContributionStats = createReactClass({
   propTypes: {
-    params: React.PropTypes.object
+    params: PropTypes.object
   },
 
   mixins: [ProfileStore.mixin], // adding store eventing to the component

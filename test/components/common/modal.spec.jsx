@@ -1,7 +1,7 @@
 import '../../testHelper';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import Modal from '../../../app/assets/javascripts/components/common/modal.jsx';
 
 describe('Modal', () => {

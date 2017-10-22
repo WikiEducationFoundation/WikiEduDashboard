@@ -87,12 +87,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchDYKArticles(opts = {}) {
-    return API.fetchDykArticles(opts)
-      .then(resp => ({ actionType: 'RECEIVE_DYK', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchSuspectedPlagiarism(opts = {}) {
     return API.fetchSuspectedPlagiarism(opts)
       .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))
@@ -126,12 +120,6 @@ const ServerActions = Flux.createActions({
   updateAssignment(opts) {
     return API.updateAssignment(opts)
       .then(resp => ({ actionType: 'UPDATE_ASSIGNMENT', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchCoursesForUser(userId) {
-    return API.fetchUserCourses(userId)
-      .then(resp => ({ actionType: 'RECEIVE_USER_COURSES', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

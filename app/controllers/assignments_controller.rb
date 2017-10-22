@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'uri'
 require "#{Rails.root}/lib/assignment_manager"
 require "#{Rails.root}/lib/wiki_course_edits"
@@ -108,16 +109,14 @@ class AssignmentsController < ApplicationController
                                         course: @course,
                                         wiki: @wiki,
                                         title: assignment_params[:title],
-                                        role: assignment_params[:role]
-                                       ).create_assignment
+                                        role: assignment_params[:role]).create_assignment
   end
 
   def check_permissions(user_id)
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception unless user_signed_in?
+    require_signed_in
     return if current_user.id == user_id
     return if current_user.can_edit?(@course)
-    raise exception
+    raise NotPermittedError
   end
 
   def assignment_params

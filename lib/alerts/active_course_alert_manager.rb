@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ActiveCourseAlertManager
   def initialize(courses)
     @courses = courses
@@ -23,6 +24,6 @@ class ActiveCourseAlertManager
   end
 
   def communications_manager
-    User.find_by(username: ENV['communications_manager'])
+    SpecialUsers.communications_manager
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SurveyResponseAlertManager
   def initialize
     @answers = recent_answers_to_alert_questions
@@ -55,6 +56,6 @@ class SurveyResponseAlertManager
   end
 
   def alert_recipient
-    User.find_by(username: ENV['survey_alerts_recipient'])
+    SpecialUsers.survey_alerts_recipient
   end
 end

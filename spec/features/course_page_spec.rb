@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 MILESTONE_BLOCK_KIND = 2

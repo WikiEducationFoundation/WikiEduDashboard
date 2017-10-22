@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Helpers for course views
 module CourseHelper
   def find_course_by_slug(slug)

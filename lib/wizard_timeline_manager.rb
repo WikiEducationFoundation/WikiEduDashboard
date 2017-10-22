@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/course_meetings_manager"
 
 # Routines for building and saving a course timeline after submission of wizard data
@@ -112,30 +113,74 @@ class WizardTimelineManager
   end
 
   def save_block_and_gradeable(block)
-    attr_keys_to_skip = %w(if graded points)
+    attr_keys_to_skip = %w[if graded points]
     block_params = block.except(*attr_keys_to_skip)
     block_record = Block.create(block_params)
+    add_handouts(block_record) if block_record.kind == Block::KINDS['handouts']
 
     return unless block['graded']
 
-    gradeable_params = { gradeable_item_id: block_record.id,
-                         points: block['points'] || 10,
-                         gradeable_item_type: 'block',
-                         title: '' }
-    gradeable = Gradeable.create(gradeable_params)
+    gradeable = Gradeable.create(gradeable_item_id: block_record.id,
+                                 points: block['points'] || 10,
+                                 gradeable_item_type: 'block')
     block_record.update(gradeable_id: gradeable.id)
   end
 
+  HANDOUTS = {
+    'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
+    'books_handout' => ['Books', 'https://wikiedu.org/books'],
+    'chemistry_handout' => ['Chemistry', 'https://wikiedu.org/chemistry'],
+    'ecology_handout' => ['Ecology', 'https://wikiedu.org/ecology'],
+    'environmental_sciences_handout' => ['Environmental Sciences', 'https://wikiedu.org/environmental_sciences'],
+    'films_handout' => ['Films', 'https://wikiedu.org/films'],
+    'genes_and_proteins_handout' => ['Genes and Proteins', 'https://wikiedu.org/genes_and_proteins'],
+    'history_handout' => ['History', 'https://wikiedu.org/history'],
+    'linguistics_handout' => ['Linguistics', 'https://wikiedu.org/linguistics'],
+    'medicine_handout' => ['Medicine', 'https://wikiedu.org/medicine'],
+    'political_science_handout' => ['Political Science', 'https://wikiedu.org/political_science'],
+    'psychology_handout' => ['Psychology', 'https://wikiedu.org/psychology'],
+    'sociology_handout' => ['Sociology', 'https://wikiedu.org/sociology'],
+    'species_handout' => ['Species', 'https://wikiedu.org/species'],
+    'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
+  }.freeze
+
+  def add_handouts(block)
+    content = +''
+    HANDOUTS.each_key do |logic_key|
+      next unless @logic.include?(logic_key)
+      content += link_to_handout(logic_key)
+    end
+    # Remove the block if it's empty; otherwise, update with content
+    content.blank? ? block.destroy : block.update(content: content)
+  end
+
+  def link_to_handout(logic_key)
+    link_text = HANDOUTS[logic_key][0]
+    url = HANDOUTS[logic_key][1]
+    <<~LINK
+      <p>
+        <a href="#{url}">#{link_text}</a>
+      </p>
+    LINK
+  end
+
+  NONEXCLUSIVE_KEYS = ['topics'].freeze
   def add_tags
     @tags.each do |tag|
       # Only one tag for each tag key is allowed. Overwrite the previous tag if
       # one with the same key already exists, so that if a given choice is made
       # a second time, the tag gets updated to reflect the new choice.
-      if Tag.exists?(course_id: @course.id, key: tag[:key])
-        tag_model = Tag.find_by(course_id: @course.id, key: tag[:key])
-        tag_model.update(tag: tag[:tag])
+
+      # NONEXCLUSIVE_KEYS are allowed to have multiple tags for one wziard key.
+      # We make this work by using the wizard key and value together as the record key.
+      wizard_key = tag[:key]
+      tag_value = tag[:tag]
+      tag_key = NONEXCLUSIVE_KEYS.include?(wizard_key) ? "#{wizard_key}-#{tag_value}" : wizard_key
+
+      if Tag.exists?(course_id: @course.id, key: tag_key)
+        Tag.find_by(course_id: @course.id, key: tag_key).update(tag: tag_value)
       else
-        Tag.create(course_id: @course.id, tag: tag[:tag], key: tag[:key])
+        Tag.create(course_id: @course.id, tag: tag_value, key: tag_key)
       end
     end
   end

@@ -124,7 +124,7 @@ describe UsersController do
       let(:staff) { create(:user, username: 'Staffer', email: 'staffer@wikiedu.org') }
       before do
         allow(controller).to receive(:current_user).and_return(admin)
-        ENV['classroom_program_manager'] = staff.username
+        create(:setting, key: 'special_users', value: { classroom_program_manager: staff.username })
       end
 
       let(:post_params) do
@@ -199,7 +199,7 @@ describe UsersController do
 
       it 'should not authorize' do
         get :index
-        expect(response.body).to have_content('You are not authorized')
+        expect(response.body).to have_content('Only administrators may do that.')
       end
     end
 

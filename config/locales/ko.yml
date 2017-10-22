@@ -98,6 +98,7 @@ ko:
     edit_size: 편집 크기
     wiki: 위키
   assignments:
+    article: '%{title} 문서가 지금 당신에게 할당되었습니다.'
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     add_available: 이용 가능한 글 추가
@@ -152,6 +153,7 @@ ko:
       end_date: 종료일
       end_date_placeholder: 종료 날짜 (YYYY-MM-DD)
       no_class_holidays: 휴강이 없습니다
+      role_description_placeholder: 강사, 조교 등
       save_cloned_course: 새 코스 저장
       start_date: 시작일
       start_date_placeholder: 시작 날짜 (YYYY-MM-DD)
@@ -218,6 +220,7 @@ ko:
     submitted: 제출됨
     term: 기간
     timeline: 숙제 상세사항
+    timeline_enabled: 타임라인 사용 중
     timeline_link: 타임라인
     title: 제목
     training_nav: 연습해 보기
@@ -320,6 +323,7 @@ ko:
     loading: 판을 불러오는 중...
     title: 제목
     view_on_wiki: 위키에서 차이 보기
+    see_more: 더 보기
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.
@@ -437,6 +441,7 @@ ko:
     header: 인증되지 않음. >:-(
     explanation: 이 요청을 실행할 수 있도록 인증되지 않았습니다. 이 문제가 에러라고 생각되면, 이 게시판의 유지자에게 연락해서 문제를
       알도록 하세요.
+    json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
   error_incorrect_passcode:
     header: 패스코드가 잘못되었습니다.
   error_404:

@@ -116,7 +116,7 @@ cs:
     edit_size: Velikost editace
     wp10: Kompletnost
   assignments:
-    article: Článek %{title} byl přiřazen
+    article: Článek %{title} je nyní přiřazen k Vám.
     already_exists: Tento článek už byl zadán!
     title_too_large: Titulek by neměl přesáhnout 255 písmen
     assignees: Přiřazení

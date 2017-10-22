@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'uri'
 
 # Controller for ask.wikiedu.org search form

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/replica"
 require "#{Rails.root}/lib/duplicate_article_deleter"
 require "#{Rails.root}/lib/importers/article_importer"

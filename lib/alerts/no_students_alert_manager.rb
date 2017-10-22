@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class NoStudentsAlertManager
   def initialize(courses)
     @courses = courses

@@ -43,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
@@ -169,20 +170,21 @@ class Course < ActiveRecord::Base
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,
-                                    content_type: %w(application/pdf application/msword)
+                                    content_type: %w[application/pdf application/msword]
 
   validates :passcode, presence: true, if: :passcode_required?
   validates :start, presence: true
   validates :end, presence: true
+  validates :home_wiki_id, presence: true
 
-  COURSE_TYPES = %w(
+  COURSE_TYPES = %w[
     LegacyCourse
     ClassroomProgramCourse
     VisitingScholarship
     Editathon
     BasicCourse
     ArticleScopedProgram
-  ).freeze
+  ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
   #############
@@ -268,6 +270,11 @@ class Course < ActiveRecord::Base
     wiki_edits_enabled?
   end
 
+  # Overidden by ClassroomProgramCourse
+  def timeline_enabled?
+    flags[:timeline_enabled].present?
+  end
+
   #################
   # Cache methods #
   #################
@@ -339,8 +346,6 @@ class Course < ActiveRecord::Base
   # Check if course times are invalid and if yes, set the end time to be the same
   # as that of the start time
   def check_course_times
-    if start > self.end
-      self.end = start
-    end
+    self.end = start if start > self.end
   end
 end

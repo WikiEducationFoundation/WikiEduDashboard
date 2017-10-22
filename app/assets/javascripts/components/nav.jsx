@@ -1,8 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import Uls from './uls_box.jsx';
-const Nav = React.createClass({
+
+const Nav = createReactClass({
   displayName: 'Nav',
 
   getInitialState() {

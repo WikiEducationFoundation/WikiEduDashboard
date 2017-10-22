@@ -5,3 +5,11 @@ content: |
   Good work on moving your article into the "big leagues." If you want a thrill,
   do a web search for your article topic in a few weeks. You might surprised at
   what you find!
+
+  We would also appreciate any feedback you have on this training module.
+  Click below to tell us what you liked and didn't like about it, and any
+  suggestions you have for improving it.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit feedback
+  </a></div>

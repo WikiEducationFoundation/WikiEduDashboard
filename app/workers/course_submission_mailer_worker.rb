@@ -2,6 +2,7 @@
 
 class CourseSubmissionMailerWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_email(course, instructor)
     perform_async(course.id, instructor.id)
@@ -11,7 +12,7 @@ class CourseSubmissionMailerWorker
     course = Course.find(course_id)
     instructor = User.find(instructor_id)
     CourseSubmissionMailer.send_submission_confirmation(course, instructor)
-    staffer = User.find_by(username: ENV['classroom_program_manager'])
+    staffer = SpecialUsers.classroom_program_manager
     CourseSubmissionMailer.send_submission_confirmation(course, staffer) if staffer
   end
 end

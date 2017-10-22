@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Keeps assignments updated to match moving articles
 class AssignmentUpdater
   # Update article ids for Assignments that lack them, if an Article with the

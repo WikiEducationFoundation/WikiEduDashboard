@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SurveyNotificationsManager
   def self.create_notifications(survey_assignments=nil)
     survey_assignments ||= SurveyAssignment.published

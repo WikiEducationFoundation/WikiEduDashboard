@@ -123,6 +123,8 @@ es:
       does_not_exist: Este artículo no existe en Wikipedia
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
+    show_current_version_with_authorship_highlighting: Versión actual con resalte
+      de autoría
     title: Título
     title_example: Título del artículo
     view: Ver artículo
@@ -131,6 +133,7 @@ es:
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
     edit_size: Editar tamaño
+    wiki: Wiki
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
       encaja en el molde de un artículo maduro de la Wikipedia, según el Servicio
@@ -142,15 +145,15 @@ es:
       artículo, pero no toma en cuenta el contenido en sí mismo. (Estos resultados
       solo están disponibles para los artículos de la Wikipedia en inglés.)
   assignments:
-    article: Se asignó el artículo %{title}
+    article: El artículo %{title} ahora está asignado a ti.
     already_exists: ¡Esta tarea ya existe!
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
     add_available: Añadir un artículo disponible
     assign_self: Asignarme un artículo
-    confirm_add_available: ¿Estás seguro que deseas añadir %{title}?
-    confirm_addition: ¿Estás seguro de que quieres asignar %{title} a %{username}?
+    confirm_add_available: ¿Confirmas que quieres añadir %{title}?
+    confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
     label: Asignar
     loading: Cargando tareas...
@@ -325,7 +328,7 @@ es:
     join_failure_details:
       cannot_join_twice: Los usuarios no pueden ingresar dos veces al mismo curso.
       not_yet_approved: Este curso no ha sido aprobado para la inscripción.
-    leave_confirmation: ¿Estás seguro de que quieres dejar este curso?
+    leave_confirmation: ¿Confirmas que quieres abandonar este curso?
     leave_course: Deja el curso
     loading: Cargando…
     milestones_none: Este curso actualmente no tiene ningún hito.
@@ -666,7 +669,7 @@ es:
       one: '%{count} artículo'
       other: '%{count} artículos'
     recent_revisions: Ediciones recientes
-    remove_confirmation: ¿Estás seguro que deseas eliminar a %{username}?
+    remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
@@ -758,6 +761,8 @@ es:
     explanation: No tienes autorización para ejecutar esta solicitud. Si crees que
       has llegado a este aviso por error, pónte en contacto con los responsables del
       mantenimiento de este panel para informarles sobre el problema.
+    json_explanation: Parece que tu sesión ha finalizado. Vuelve a cargar la página,
+      accede e inténtalo de nuevo.
   error_incorrect_passcode:
     header: Código de acceso incorrecto. :-(
     explanation: El código de acceso para inscribirse en este curso es incorrecta.

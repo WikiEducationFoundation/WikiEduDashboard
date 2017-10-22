@@ -43,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 require 'rails_helper'
@@ -126,9 +127,9 @@ describe Course, type: :model do
 
   it 'should update start/end times when changing course type' do
     course = create(:basic_course,
-                   start: DateTime.new(2016, 1, 1, 12, 45, 0),
-                   end: DateTime.new(2016, 1, 10, 15, 30, 0),
-                   title: 'History Class')
+                    start: DateTime.new(2016, 1, 1, 12, 45, 0),
+                    end: DateTime.new(2016, 1, 10, 15, 30, 0),
+                    title: 'History Class')
     expect(course.end).to eq(DateTime.new(2016, 1, 10, 15, 30, 0))
     course = course.becomes!(ClassroomProgramCourse)
     course.save!
@@ -143,8 +144,8 @@ describe Course, type: :model do
 
   it 'updates end time to equal start time it the times are invalid' do
     course = build(:course,
-                    start: DateTime.now,
-                    end: DateTime.now - 2.months)
+                   start: DateTime.now,
+                   end: DateTime.now - 2.months)
     course.save
     expect(course.end).to eq(course.start)
   end
@@ -175,7 +176,11 @@ describe Course, type: :model do
 
   describe 'validation' do
     let(:course) do
-      Course.new(passcode: passcode, type: type, start: '2013-01-01', end: '2013-07-01')
+      Course.new(passcode: passcode,
+                 type: type,
+                 start: '2013-01-01',
+                 end: '2013-07-01',
+                 home_wiki_id: 1)
     end
     subject { course.valid? }
 

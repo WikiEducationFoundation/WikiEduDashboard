@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Converts character counts to word counts
 class WordCount
   # Aaron Halfaker has done some analysis on the relationship between

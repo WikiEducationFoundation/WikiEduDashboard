@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/app/workers/update_course_worker"
 require "#{Rails.root}/app/workers/enroll_in_course_worker"
 require "#{Rails.root}/app/workers/set_preferences_worker"
@@ -97,11 +98,10 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def make_enrollment_edits
-    # Posts templates to userpage and sandbox
+    # Posts templates to userpage and sandbox and
+    # adds user to course page by updating course page with latest course info
     EnrollInCourseWorker.schedule_edits(course: @course,
                                         editing_user: current_user,
                                         enrolling_user: current_user)
-    # Adds user to course page by updating course page with latest course info
-    UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
 end

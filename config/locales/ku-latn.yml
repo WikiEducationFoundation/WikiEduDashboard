@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bikarhêner
+# Author: Cûndûllah el-Kurdî
 # Author: George Animal
 ---
 ku-latn:
@@ -30,6 +31,7 @@ ku-latn:
     title_example: Sernavê gotarê
     view: Gotarê Bibîne
     view_all: Hemûyan Bibîne
+    wiki: Wîkî
   assignments:
     select: Hilbijêre
   campaign:
@@ -93,6 +95,7 @@ ku-latn:
   revisions:
     diff_hide: Veşêre
     title: Sernav
+    see_more: Zêdetir bibîne
   timeline:
     add_week: Hefteyê lê zêde bike
     empty_week_3: an

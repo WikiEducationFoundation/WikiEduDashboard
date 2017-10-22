@@ -15,6 +15,7 @@ class WikiEdits
   #######################
   def oauth_credentials_valid?(current_user)
     get_tokens(current_user)
+    current_user.touch
     current_user.wiki_token != 'invalid'
   end
 

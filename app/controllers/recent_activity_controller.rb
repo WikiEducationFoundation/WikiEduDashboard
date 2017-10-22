@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/plagiabot_importer"
 
 #= Controller for Recent Activity features

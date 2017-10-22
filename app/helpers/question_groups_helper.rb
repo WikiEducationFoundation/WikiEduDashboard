@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module QuestionGroupsHelper
   def course_meets_conditions_for_question_group?(question_group)
     ConditionChecker.new(question_group, @course).meets_conditions?

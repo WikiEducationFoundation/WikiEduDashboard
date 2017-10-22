@@ -1,9 +1,11 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Student users', type: :feature, js: true do
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
   end
 
@@ -158,6 +160,8 @@ describe 'Student users', type: :feature, js: true do
     end
 
     it 'works even if a student has never logged in before' do
+      stub_list_users_query_with_no_email # handles the check for wiki email
+
       pending 'This sometimes fails on travis.'
 
       OmniAuth.config.test_mode = true

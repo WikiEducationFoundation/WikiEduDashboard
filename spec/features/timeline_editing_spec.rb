@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 def create_course
@@ -37,7 +38,8 @@ describe 'timeline editing', type: :feature, js: true do
   let(:unassigned_module_name) { 'Editing Basics' }
 
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     create_course

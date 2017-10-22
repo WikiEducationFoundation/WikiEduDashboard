@@ -2,6 +2,7 @@
 
 class AlertMailerWorker
   include Sidekiq::Worker
+  sidekiq_options unique: :until_executed
 
   def self.schedule_email(alert_id:)
     perform_async(alert_id)

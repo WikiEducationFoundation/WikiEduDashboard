@@ -57,13 +57,15 @@ class WikiCourseEdits
   # already exist.
   def enroll_in_course(enrolling_user:)
     # Add a template to the user page
-    template = "{{#{template_name(@templates, 'editor')}|course = [[#{@course.wiki_title}]] }}\n"
+    template = "{{#{template_name(@templates, 'editor')}|course = [[#{@course.wiki_title}]]"\
+               " | slug = #{@course.slug} }}\n"
     user_page = "User:#{enrolling_user.username}"
     summary = "User has enrolled in [[#{@course.wiki_title}]]."
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Add a template to the user's talk page
-    talk_template = "{{#{template_name(@templates, 'user_talk')}|course = [[#{@course.wiki_title}]] }}\n"
+    talk_template = "{{#{template_name(@templates, 'user_talk')}|course = [[#{@course.wiki_title}]]"\
+                    " | slug = #{@course.slug} }}\n"
     talk_page = "User_talk:#{enrolling_user.username}"
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
     @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
@@ -125,7 +127,6 @@ class WikiCourseEdits
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
   end
-
 
   def announce_course_on_announcement_page(instructor)
     announcement_page = ENV['course_announcement_page']

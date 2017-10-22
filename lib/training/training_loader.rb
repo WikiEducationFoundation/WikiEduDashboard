@@ -78,7 +78,7 @@ class TrainingLoader
 
   def new_from_wiki_page(wiki_page)
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
-    return unless wikitext # Handle wiki pages that don't exist.
+    return if wikitext.blank? # Handle wiki pages that don't exist.
 
     # Handles either json pages or regular wikitext pages
     content = if wiki_page[-5..-1] == '.json'
@@ -177,7 +177,7 @@ class TrainingLoader
   end
 
   def slug_from(wiki_page)
-    wiki_page.split('/').last.gsub(/^[0-9]+-/, '')
+    wiki_page.split('/').last.gsub(/^[0-9]+-/, '').gsub('.json', '')
   end
 
   def raise_no_matching_wiki_pages_error

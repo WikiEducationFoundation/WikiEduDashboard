@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: articles
@@ -60,20 +61,20 @@ class Article < ActiveRecord::Base
     TEMPLATE_TALK  = 11
     DRAFT          = 118
     DRAFT_TALK     = 119
-    
-    NS = {
-      Namespaces::MAINSPACE => '',
-      Namespaces::TALK => 'Talk:',
-      Namespaces::USER => 'User:',
-      Namespaces::USER_TALK => 'User_talk:',
-      Namespaces::WIKIPEDIA => 'Wikipedia:',
-      Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
-      Namespaces::TEMPLATE => 'Template:',
-      Namespaces::TEMPLATE_TALK => 'Template_talk:',
-      Namespaces::DRAFT => 'Draft:',
-      Namespaces::DRAFT_TALK => 'Draft_talk:'
-    }.freeze
   end
+
+  NS_PREFIX = {
+    Namespaces::MAINSPACE => '',
+    Namespaces::TALK => 'Talk:',
+    Namespaces::USER => 'User:',
+    Namespaces::USER_TALK => 'User_talk:',
+    Namespaces::WIKIPEDIA => 'Wikipedia:',
+    Namespaces::WIKIPEDIA_TALK => 'Wikipedia_talk:',
+    Namespaces::TEMPLATE => 'Template:',
+    Namespaces::TEMPLATE_TALK => 'Template_talk:',
+    Namespaces::DRAFT => 'Draft:',
+    Namespaces::DRAFT_TALK => 'Draft_talk:'
+  }.freeze
 
   ####################
   # Instance methods #
@@ -83,21 +84,21 @@ class Article < ActiveRecord::Base
     self.save if save
   end
 
-  def url 
-    return nil if self.nil?
-    prefix = Namespaces::NS[self.namespace]
-    "#{self.wiki.base_url}/wiki/#{prefix}#{self.title}"
+  def url
+    "#{wiki.base_url}/wiki/#{namespace_prefix}#{title}"
   end
 
   def full_title
-    prefix = Namespaces::NS[self.namespace]
     title = self.title.tr('_', ' ')
-    "#{prefix}#{title}"
+    "#{namespace_prefix}#{title}"
   end
 
   def escaped_full_title
-    prefix = Namespaces::NS[self.namespace]
-    "#{prefix}#{self.title}"
+    "#{namespace_prefix}#{title}"
+  end
+
+  def namespace_prefix
+    NS_PREFIX[namespace]
   end
 
   #################

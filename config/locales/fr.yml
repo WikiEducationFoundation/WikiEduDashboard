@@ -136,6 +136,8 @@ fr:
       does_not_exist: Cet article n'existe pas sur Wikipédia
     show_cumulative_changes: Afficher les modifications cumulatives
     show_current_version: Afficher la version courante
+    show_current_version_with_authorship_highlighting: Version actuelle avec mise
+      en évidence de la paternité
     title: Titre
     title_example: Titre de l’article
     view: Afficher l’article
@@ -155,7 +157,7 @@ fr:
       d’un bon article, mais il ne prend pas en compte le contenu lui-même. (Ces statistiques
       ne sont uniquement disponibles que pour les articles du Wikipédia anglais).
   assignments:
-    article: L’article %{title} a été affecté
+    article: L’article %{title} vous est maintenant affecté.
     already_exists: Cette affectation existe déjà !
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
@@ -279,6 +281,10 @@ fr:
         sont pas reportées. Quelque chose d’autre au sujet de votre cours a-t-il changé ?
         N’hésitez pas à le mettre à jour maintenant.
       course_description: Description du cours
+      course_description_placeholder: Qu’est-ce qui est couvert par votre cours, et
+        que feront les étudiants sur Wikipédia ? Veuillez inclure suffisamment de
+        détails pour donner aux autres éditeurs de Wikipédia une idée du contexte
+        des contributions que feront vos étudiants.
       course_language: Langue principale
       course_project: Projet principal
       course_school: École du cours
@@ -307,6 +313,8 @@ fr:
         aussi utiliser l’option duplication pour créer des sections supplémentaires
         pour un cours que vous avez déjà défini.
       no_class_holidays: Je n’ai pas de congés scolaires
+      role_description: Votre rôle dans le cours
+      role_description_placeholder: Instructeur, assistant enseignant, etc.
       save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
       start_date_placeholder: Date de début (AAAA-MM-JJ)
@@ -446,6 +454,7 @@ fr:
     submitted: Soumis
     term: Période
     timeline: Détails d'assignement
+    timeline_enabled: Chronologie activée
     timeline_link: Calendrier
     time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
@@ -505,6 +514,10 @@ fr:
       course_when: Ajoutez quelque chose dans le champ 'Quand' (par exemple, le mois
         et l'année) pour le différencier de l'original.
       course_description: Description du programme
+      course_description_placeholder: Qu’est-ce que ce programme, et que feront les
+        participants sur le(s) wiki(s) ? Veuillez inclure suffisamment de détails
+        pour donner aux autres éditeurs une idée du contexte des contributions que
+        feront les participants.
       course_school: Institution
       course_term: Quand
       course_term_placeholder: Quand
@@ -823,6 +836,7 @@ fr:
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
     role:
+      description: Rôle dans le cours
       visitor: Visiteur
       student: Étudiant
       instructor: Formateur
@@ -895,6 +909,8 @@ fr:
     explanation: Vous n’êtes pas autorisé à exécuter cette requête. Si vous pensez
       avoir eu cet avertissement par erreur, veuillez contacter les mainteneurs de
       ce tableau de bord pour les informer du problème.
+    json_explanation: Il semblerait que vous avez été déconnecté. Veuillez rafraîchir,
+      vous reconnecter et réessayer.
   error_incorrect_passcode:
     header: Mot de passe erroné. :-(
     explanation: Le mot de passe pour s’inscrire à ce cours n’est pas correct. Veuillez

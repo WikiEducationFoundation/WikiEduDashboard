@@ -1,8 +1,11 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe ApplicationController do
   let(:user) { create(:user) }
+  let(:admin) { create(:admin) }
+  let(:course) { create(:course) }
 
   controller do
     def index
@@ -18,12 +21,68 @@ describe ApplicationController do
   end
 
   describe 'invalid authenticity tokens' do
-    it 'returns a 401' do
+    it 'returns an html 401' do
       exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:check_for_unsupported_browser).and_raise(exception)
       get :index
       expect(response.status).to eq(401)
+    end
+    it 'returns a json 401' do
+      exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
+      allow(controller).to receive(:current_user).and_return(user)
+      allow(controller).to receive(:check_for_unsupported_browser).and_raise(exception)
+      allow(controller).to receive(:json?).and_return(true)
+      get :index, as: :json
+      expect(response.status).to eq(401)
+    end
+  end
+
+  describe '#require_permissions' do
+    controller do
+      def index
+        require_permissions
+        head 200
+      end
+    end
+
+    context 'when user lacks permissions' do
+      it 'returns an html 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index, params: { id: course.slug }
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns a json 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, params: { id: course.slug }, as: :json
+        expect(response.status).to eq(401)
+      end
+    end
+  end
+
+  describe '#require_participating_user' do
+    controller do
+      def index
+        require_participating_user
+        head 200
+      end
+    end
+
+    context 'when user is not enrolled' do
+      it 'returns an html 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index, params: { id: course.slug }
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns a json 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, params: { id: course.slug }, as: :json
+        expect(response.status).to eq(401)
+      end
     end
   end
 
@@ -36,17 +95,23 @@ describe ApplicationController do
     end
 
     context 'when user is not an admin' do
-      it 'returns a 401' do
+      it 'returns an html 401' do
         allow(controller).to receive(:current_user).and_return(user)
         get :index
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns a json 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, as: :json
         expect(response.status).to eq(401)
       end
     end
 
     context 'when user is an admin' do
-      let(:user) { create(:admin) }
       it 'does not return a 401' do
-        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:current_user).and_return(admin)
         get :index
         expect(response.status).to eq(200)
       end
@@ -62,8 +127,13 @@ describe ApplicationController do
     end
 
     context 'when user is not signed in' do
-      it 'returns a 401' do
+      it 'returns an html 401' do
         get :index
+        expect(response.status).to eq(401)
+      end
+      it 'returns a json 401' do
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, as: :json
         expect(response.status).to eq(401)
       end
     end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-ruby '>=2.3.1'
-gem 'rails', '5.1.3'
+ruby '2.3.1'
+gem 'rails', '5.1.4'
 gem 'jbuilder', '~> 2.0'
 gem 'haml-rails'
 
@@ -10,6 +10,7 @@ gem 'figaro'
 gem 'whenever'
 gem 'mysql2'
 gem 'sidekiq'
+gem 'sidekiq-unique-jobs'
 gem 'activerecord-import'
 gem 'dalli'
 gem 'connection_pool'
@@ -46,7 +47,7 @@ gem 'nokogiri' # expected by premailer-rails but not required
 gem 'pandoc-ruby', '~> 1.0.0'
 
 gem 'http_accept_language'
-gem 'i18n-js', '>= 3.0.0.rc14'
+gem 'i18n-js'
 
 gem 'mailgun_rails'
 

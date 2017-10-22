@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CourseSubmissionMailerPreview < ActionMailer::Preview
   def submission
     CourseSubmissionMailer.email(Course.last, example_user)

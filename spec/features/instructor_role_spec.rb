@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe 'Instructor users', type: :feature, js: true do
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
   end
 

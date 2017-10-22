@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require_relative '../../app/presenters/individual_statistics_presenter'
 
@@ -14,7 +15,8 @@ describe IndividualStatisticsPresenter do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)
-        create(:revision, views: 100, user_id: user.id, article_id: article.id, date: course1.start + 1.minute)
+        create(:revision, views: 100, user_id: user.id, article_id: article.id,
+                          date: course1.start + 1.minute)
         ArticlesCourses.update_from_course(course1)
         ArticlesCourses.update_from_course(course2)
       end
@@ -29,8 +31,10 @@ describe IndividualStatisticsPresenter do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
         create(:courses_user, user_id: user.id, course_id: course2.id)
-        create(:revision, views: 100, user_id: user.id, article_id: article.id, date: course1.start + 1.minute)
-        create(:revision, views: 150, user_id: user.id, article_id: article.id, date: course1.start - 1.minute)
+        create(:revision, views: 100, user_id: user.id, article_id: article.id,
+                          date: course1.start + 1.minute)
+        create(:revision, views: 150, user_id: user.id, article_id: article.id,
+                          date: course1.start - 1.minute)
         ArticlesCourses.update_from_course(course1)
         ArticlesCourses.update_from_course(course2)
       end

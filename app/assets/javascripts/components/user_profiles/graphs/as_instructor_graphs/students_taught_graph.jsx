@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => {
   const vegaSpec = {
     width: graphWidth,
@@ -127,10 +129,10 @@ const StudentsTaughtGraph = ({ statsData, graphWidth, graphHeight, courseStringP
   );
 };
 StudentsTaughtGraph.propTypes = {
-  statsData: React.PropTypes.array,
-  graphWidth: React.PropTypes.number,
-  graphHeight: React.PropTypes.number,
-  courseStringPrefix: React.PropTypes.string
+  statsData: PropTypes.array,
+  graphWidth: PropTypes.number,
+  graphHeight: PropTypes.number,
+  courseStringPrefix: PropTypes.string
 };
 
 export default StudentsTaughtGraph;

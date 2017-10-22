@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Helpers for users
 module UsersHelper
   def contribution_link(courses_user, text=nil, css_class=nil)

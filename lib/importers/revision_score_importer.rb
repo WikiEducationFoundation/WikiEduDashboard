@@ -21,9 +21,7 @@ class RevisionScoreImporter
     ores_data = @ores_api.get_revision_data(rev_id)
     features = extract_features(ores_data)[rev_id.to_s]
     scores = extract_score(ores_data)
-    unless scores.nil?
-      rating = scores.dig(rev_id.to_s, 'prediction')
-    end
+    rating = scores.dig(rev_id.to_s, 'prediction') unless scores.nil?
     return { features: features, rating: rating }
   end
 

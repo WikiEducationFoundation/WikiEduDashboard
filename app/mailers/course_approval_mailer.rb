@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CourseApprovalMailer < ApplicationMailer
   def self.send_approval_notification(course, instructor)
     return unless Features.email?

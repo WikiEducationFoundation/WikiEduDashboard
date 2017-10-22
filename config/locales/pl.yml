@@ -544,6 +544,7 @@ pl:
     time_doc: Czas każdej zmiany w Twoim czasie lokalnym
     title: Tytuł
     view_on_wiki: Zobacz porównanie wersji na wiki
+    see_more: Zobacz więcej
   suggestions:
     editing: Sugestie edycyjne
     suggestion_docs:

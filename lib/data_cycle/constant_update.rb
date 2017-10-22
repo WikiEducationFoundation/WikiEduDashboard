@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require "#{Rails.root}/lib/course_revision_updater"
 require "#{Rails.root}/lib/assignment_updater"
@@ -90,7 +91,7 @@ class ConstantUpdate
   # are removed.
   def import_uploads_for_needs_update_courses
     log_message 'Backfilling Commons uploads for needs_update courses'
-    UploadImporter.import_all_uploads User.joins(:courses).where( courses: { needs_update: true } ).distinct
+    UploadImporter.import_all_uploads User.joins(:courses).where(courses: { needs_update: true }).distinct
     UploadImporter.update_usage_count_by_course Course.where(needs_update: true)
   end
 

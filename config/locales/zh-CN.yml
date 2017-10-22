@@ -5,6 +5,7 @@
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
 # Author: Macofe
+# Author: NeverBehave
 # Author: Yfdyh000
 ---
 zh-CN:
@@ -53,6 +54,7 @@ zh-CN:
     review_orientation: 复核迎新活动
     start_orientation: 开始迎新活动
     blog_headline: 来自Wiki Ed的最新新闻
+    about_programs: 本网站通过计划追踪wiki活跃——这是指个别活动，例如编辑松或学校课程。每个计划都是一个或多个运动的一部分，它们提供跨计划的聚合统计。
   home:
     explore: 探索
     log_in: 登录维基百科
@@ -78,7 +80,7 @@ zh-CN:
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
-      fa: 特色条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
+      fa: 典范条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
       fl: 特色列表 — 维基百科用于列表的最高评级
       a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
       ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
@@ -91,6 +93,7 @@ zh-CN:
       does_not_exist: 此条目在维基百科不存在
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
+    show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
     title: 标题
     title_example: 条目标题
     view: 查看条目
@@ -108,7 +111,7 @@ zh-CN:
       but it does not take into account the content itself. (These scores are only
       available for English Wikipedia articles.)
   assignments:
-    article: 条目%{title}已被分配
+    article: 条目%{title}已分配给您。
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
@@ -225,6 +228,8 @@ zh-CN:
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
       new_or_clone: 您现在可以创建新的课程，或如果您希望从之前您教学的课程中复制，您可以将其克隆并设置新的日期。您也可以使用克隆选项来为您已经配置的课程创建额外的节。
       no_class_holidays: 我没有班级假日
+      role_description: 您在课程中的角色
+      role_description_placeholder: 导师、教学助理等
       save_cloned_course: 保存新的课程
       start_date: 开始日期
       start_date_placeholder: 开始日期（YYYY-MM-DD）
@@ -325,6 +330,7 @@ zh-CN:
     submitted: 已提交
     term: 学期
     timeline: 分配详细信息
+    timeline_enabled: 已启用时间轴
     timeline_link: 时间轴
     time_zone_message: 开始和结束时间会以您的本地时区显示。
     title: 标题
@@ -492,9 +498,11 @@ zh-CN:
     time_doc: 在您本地时间内，每个修订的时间
     title: 标题
     view_on_wiki: 在wiki上查看差异
+    see_more: 查看更多
   suggestions:
     editing: 编辑建议
     suggestion_docs:
+      ga: 主题和风格专家的一些编辑是有帮助的；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
       '?': 建议不可用——条目未评级，或没有用于评级的建议。
       does_not_exist: 此条目在维基百科不存在。
@@ -623,6 +631,7 @@ zh-CN:
     username: 用户名
     username_placeholder: 用户名
     role:
+      description: 课程中的角色
       visitor: 访问者
       student: 学生
       instructor: 导师
@@ -673,6 +682,7 @@ zh-CN:
   error_401:
     header: 未获授权。>:-(
     explanation: 您未被授权执行此请求。如果您相信看见此通知是个错误，请联络此控制面板的维护人员以让他们了解有关问题的详情。
+    json_explanation: 看起来您已经退出。请刷新登录并重试。
   error_incorrect_passcode:
     header: 密码不正确。:-(
     explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。

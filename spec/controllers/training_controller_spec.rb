@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe TrainingController do
@@ -68,6 +69,11 @@ describe TrainingController do
       it 'returns the result upon success' do
         subject
         expect(response.body).to have_content 'done!'
+      end
+
+      it 'displays an error message if the module does not exist' do
+        get :reload, params: { module: 'image-and-medium' }
+        expect(response.body).to have_content 'No module'
       end
     end
   end

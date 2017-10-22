@@ -1,18 +1,20 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import ByStudentsStats from './by_students_stats.jsx';
 import StudentStats from './student_stats.jsx';
 import CoursesTaughtGraph from './graphs/as_instructor_graphs/courses_taught_graph.jsx';
 import StudentsTaughtGraph from './graphs/as_instructor_graphs/students_taught_graph.jsx';
 import Loading from '../common/loading.jsx';
 
-const InstructorStats = React.createClass({
+const InstructorStats = createReactClass({
   propTypes: {
-    username: React.PropTypes.string,
-    stats: React.PropTypes.object,
-    isStudent: React.PropTypes.bool,
-    statsGraphsData: React.PropTypes.object,
-    graphWidth: React.PropTypes.number,
-    graphHeight: React.PropTypes.number
+    username: PropTypes.string,
+    stats: PropTypes.object,
+    isStudent: PropTypes.bool,
+    statsGraphsData: PropTypes.object,
+    graphWidth: PropTypes.number,
+    graphHeight: PropTypes.number
   },
 
   getInitialState() {

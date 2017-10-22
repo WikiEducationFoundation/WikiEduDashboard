@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class SuspectedPlagiarismMailerPreview < ActionMailer::Preview
   def content_expert_email
     revision = Revision.last

@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import ServerActions from '../../actions/server_actions.js';
@@ -10,20 +12,20 @@ import Confirm from '../common/confirm.jsx';
 import ConfirmActions from '../../actions/confirm_actions.js';
 import ConfirmationStore from '../../stores/confirmation_store.js';
 
-const EnrollButton = React.createClass({
+const EnrollButton = createReactClass({
   displayName: 'EnrollButton',
 
   propTypes: {
-    role: React.PropTypes.number,
-    course_id: React.PropTypes.string,
-    params: React.PropTypes.object,
-    users: React.PropTypes.array,
-    course: React.PropTypes.object,
-    allowed: React.PropTypes.bool,
-    inline: React.PropTypes.bool,
-    open: React.PropTypes.func,
-    is_open: React.PropTypes.bool,
-    current_user: React.PropTypes.object
+    role: PropTypes.number,
+    course_id: PropTypes.string,
+    params: PropTypes.object,
+    users: PropTypes.array,
+    course: PropTypes.object,
+    allowed: PropTypes.bool,
+    inline: PropTypes.bool,
+    open: PropTypes.func,
+    is_open: PropTypes.bool,
+    current_user: PropTypes.object
   },
 
   mixins: [UserStore.mixin, ConfirmationStore.mixin],
@@ -65,7 +67,20 @@ const EnrollButton = React.createClass({
     const username = this.refs.username.value;
     if (!username) { return; }
     const courseId = this.props.course_id;
-    const userObject = { username, role: this.props.role };
+    // Optional fields
+    let realName;
+    let roleDescription;
+    if (this.refs.real_name && this.refs.role_description) {
+      realName = this.refs.real_name.value;
+      roleDescription = this.refs.role_description.value;
+    }
+
+    const userObject = {
+      username,
+      role: this.props.role,
+      role_description: roleDescription,
+      real_name: realName
+    };
 
     const onConfirm = function () {
       // Post the new user to the server
@@ -172,11 +187,21 @@ const EnrollButton = React.createClass({
     // @props.role controls its presence in the Enrollment popup on /students
     // @props.allowed controls its presence in Edit Details mode on Overview
     if (this.props.role === 0 || this.props.allowed) {
+      // Instructor-specific extra fields
+      let realNameInput;
+      let roleDescriptionInput;
+      if (this.props.role === 1) {
+        realNameInput = <input type="text" ref="real_name" placeholder={I18n.t('users.name')} />;
+        roleDescriptionInput = <input type="text" ref="role_description" placeholder={I18n.t('users.role.description')} />;
+      }
+
       editRows.push(
         <tr className="edit" key="add_students">
           <td>
             <form onSubmit={this.enroll}>
               <input type="text" ref="username" placeholder={I18n.t('users.username_placeholder')} />
+              {realNameInput}
+              {roleDescriptionInput}
               <button className="button border" type="submit">{CourseUtils.i18n('enroll', this.props.course.string_prefix)}</button>
             </form>
           </td>

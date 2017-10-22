@@ -117,6 +117,7 @@ de:
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
+    show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
     title: Titel
     title_example: Artikelname
     view: Artikel anzeigen
@@ -137,7 +138,7 @@ de:
       Inhalt selbst. Diese Bewertungen sind nur für englischsprachige Wikipedia-Artikel
       verfügbar.
   assignments:
-    article: Der Artikel %{title} wurde zugewiesen
+    article: Der Artikel %{title} ist jetzt dir zugewiesen.
     already_exists: Diese Zuweisung ist bereits vorhanden!
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
@@ -292,6 +293,8 @@ de:
         verwenden, um zusätzliche Abschnitte für einen Kurs zu erstellen, den du bereits
         aufgesetzt hast.
       no_class_holidays: Ich habe keine Ferien
+      role_description: Deine Rolle im Kurs
+      role_description_placeholder: Kursleiter, Lehrassistent etc.
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
       start_date_placeholder: Startdatum (JJJJ-MM-TT)
@@ -429,6 +432,7 @@ de:
     submitted: Eingereicht
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
+    timeline_enabled: Zeitleiste aktiviert
     timeline_link: Zeitleiste
     time_zone_message: Die Start- und Endzeiten werden in deiner lokalen Zeitzone
       angezeigt.
@@ -807,6 +811,7 @@ de:
     username: Benutzername
     username_placeholder: Benutzername
     role:
+      description: Rolle im Kurs
       visitor: Besucher
       student: Student
       instructor: Kursleiter
@@ -878,6 +883,8 @@ de:
     explanation: Du bist nicht berechtigt, diese Anfrage auszuführen. Falls du denkst,
       dass diese Meldung ein Fehler ist, kontaktiere bitte die Instandhalter dieses
       Dashboards, damit sie über das Problem Bescheid wissen.
+    json_explanation: Es sieht so aus, als ob du abgemeldet wurdest. Bitte aktualisieren,
+      anmelden und erneut versuchen.
   error_incorrect_passcode:
     header: Falscher Passcode. :-(
     explanation: Der Passcode für die Einschreibung in diesen Kurs ist falsch. Bitte

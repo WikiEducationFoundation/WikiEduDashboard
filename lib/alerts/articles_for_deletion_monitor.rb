@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/importers/category_importer"
 
 # This class identifies articles involved in deletion processes on
@@ -15,6 +16,7 @@ class ArticlesForDeletionMonitor
     find_deletion_discussions
     extract_page_titles_from_deletion_discussions
     find_proposed_deletions
+    find_candidates_for_speedy_deletion
     normalize_titles
   end
 
@@ -40,6 +42,14 @@ class ArticlesForDeletionMonitor
     @prod_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
+  def find_candidates_for_speedy_deletion
+    category = 'Category:Speedy deletion'
+    # This captures the main CSD categories, but excludes more complicated things
+    # that are further down the category tree.
+    depth = 1
+    @csd_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
+  end
+
   def extract_page_titles_from_deletion_discussions
     @afd_article_titles = @afd_titles.map do |afd_title|
       afd_title[%r{Wikipedia:Articles for deletion/(.*)}, 1]
@@ -47,7 +57,7 @@ class ArticlesForDeletionMonitor
   end
 
   def normalize_titles
-    all_titles = @prod_article_titles + @afd_article_titles
+    all_titles = @prod_article_titles + @afd_article_titles + @csd_article_titles
     @page_titles = all_titles.map do |title|
       next if title.blank?
       title.tr(' ', '_')

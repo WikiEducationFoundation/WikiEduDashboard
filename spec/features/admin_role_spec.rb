@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Admin users', type: :feature, js: true do
@@ -77,7 +78,7 @@ describe 'Admin users', type: :feature, js: true do
       page.all('.button.border.plus')[4].click
 
       # Ensure campaigns appear in select list ordered by time (descending)
-      campaign_options = all('select[name=campaign]>option')[1,2]
+      campaign_options = all('select[name=campaign]>option')[1, 2]
       expect(campaign_options[0]).to have_text Campaign.find(2).title
       expect(campaign_options[1]).to have_text Campaign.find(1).title
 

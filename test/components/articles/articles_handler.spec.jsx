@@ -1,7 +1,7 @@
 import '../../testHelper';
 
 import React from 'react';
-import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
+import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
 import sinon from 'sinon';
 
 import ArticlesHandler from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
@@ -10,7 +10,7 @@ describe('ArticlesHandler', () => {
   it('renders', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} />
+        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} current_user={{}} />
       </div>
     );
     expect(TestDom.querySelector('h3')).to.exist;
@@ -19,7 +19,7 @@ describe('ArticlesHandler', () => {
   it('fires sort uiaction when select changes', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
-        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} />
+        <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} current_user={{}} />
       </div>
     );
 

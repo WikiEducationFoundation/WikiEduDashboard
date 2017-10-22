@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import BlockStore from '../../stores/block_store.js';
 import WeekStore from '../../stores/week_store.js';
 import CourseStore from '../../stores/course_store.js';
@@ -11,7 +12,7 @@ const getState = () =>
   })
 ;
 
-const Milestones = React.createClass({
+const Milestones = createReactClass({
   displayName: I18n.t('blocks.milestones.title'),
 
   mixins: [BlockStore.mixin, WeekStore.mixin, CourseStore.mixin],

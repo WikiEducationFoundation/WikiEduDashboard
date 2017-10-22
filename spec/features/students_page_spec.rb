@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 # Wait one second after loading a path
@@ -11,7 +12,8 @@ end
 
 describe 'Students Page', type: :feature, js: true do
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     allow_any_instance_of(WikiEdits).to receive(:oauth_credentials_valid?).and_return(true)
@@ -114,7 +116,9 @@ describe 'Students Page', type: :feature, js: true do
       end
       context 'instructor' do
         let(:user) { create(:user, permissions: 1) }
-        let!(:courses_user) { create(:courses_user, course_id: @course.id, user_id: user.id, role: 1) }
+        let!(:courses_user) do
+          create(:courses_user, course_id: @course.id, user_id: user.id, role: 1)
+        end
         it 'displays real name' do
           within 'table.users' do
             expect(page).to have_content @user.real_name

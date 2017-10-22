@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Bengtsson96
 # Author: Fader
 # Author: Jopparn
 # Author: Josve05a
@@ -55,6 +56,8 @@ sv:
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
     show_current_version: Visa aktuell version
+    show_current_version_with_authorship_highlighting: Nuvarande version med författaren
+      markerad
     title: Titel
     view: Visa artikel
     view_all: Visa alla
@@ -62,8 +65,9 @@ sv:
     view_on_wiki: Visa på wiki
     views_added: Lade till %{count} nya läsningar %{title}
     edit_size: Redigera storlek
+    wiki: Wiki
   assignments:
-    article: Artikeln %{title} har tilldelats
+    article: Artikeln %{title} har tilldelats dig
     add_available: Lägg till en tillgänglig artikel
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
     remove: Ta bort
@@ -189,6 +193,7 @@ sv:
     course_details: Kursdetaljer
     subject: Ämne
     submitted: Inskickade
+    timeline_enabled: Tidslinjen är aktiverad
     timeline_link: Tidslinje
     time_zone_message: Start- och sluttider visas i din lokala tidszon.
     title: Titel
@@ -280,6 +285,7 @@ sv:
     edited_by: Redigerad av
     edited_on: Redigerades %{edit_date}
     title: Titel
+    see_more: Se mer
   suggestions:
     editing: Redigeringsförslag
     suggestion_docs:
@@ -341,6 +347,7 @@ sv:
     username: Användarnamn
     username_placeholder: Användarnamn
     role:
+      description: Roll i kursen
       visitor: Besökare
       student: Student
       instructor: Instruktör
@@ -365,6 +372,8 @@ sv:
       header: Webbläsaren stöds inte. :-(
   error_401:
     header: Obehörig. >:-(
+    json_explanation: Det ser ut som att du har blivit utloggad. Uppdatera sidan,
+      logga in och försök igen.
   error_incorrect_passcode:
     header: Felaktigt lösenord. :-(
   error_404:

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/word_count"
 
-# Presenter to provide statistics about a user's individual contributions during courses in which the user was a student.
+# Presenter to provide statistics about a user's individual contributions during
+# courses in which the user was a student.
 class IndividualStatisticsPresenter
   def initialize(user:)
     @user = user
@@ -45,7 +47,8 @@ class IndividualStatisticsPresenter
 
   def individual_article_views
     article_views = 0
-    # hash structure is used for getting earliest revision of unique articles in multiple courses where user is a student.
+    # hash structure is used for getting earliest revision of unique articles in
+    # multiple courses where user is a student.
     article_revisions = {}
     individual_courses.each do |c|
       c.articles.pluck(:id).uniq.each do |article_id|
@@ -53,14 +56,16 @@ class IndividualStatisticsPresenter
         earliest_revision = c.revisions.where(user_id: @user.id, article_id: article_id).order('date ASC').first
         next if earliest_revision.nil?
         # Considering revisions for same articles in multiple courses by an individual,
-        # check if the earliest revision for this article in this course is the actual earliest revision made by the user.
+        # check if the earliest revision for this article in this course is the
+        # actual earliest revision made by the user.
         if article_revisions[article_id].nil? || article_revisions[article_id].date > earliest_revision.date
           article_revisions[article_id] = earliest_revision
         end
       end
     end
-    # count the views of the earliest revision made to an artcile by an individual irrespective of the courses it was edited in.
-    article_revisions.values.each do |revision|
+    # count the views of the earliest revision made to an artcile by an individual
+    # irrespective of the courses it was edited in.
+    article_revisions.each_value do |revision|
       article_views += revision.views
     end
     article_views

@@ -12,13 +12,7 @@ content: |
   3. Open your sandbox in Edit mode and paste the copied article content
   4. Add an edit summary that says `copied from [[article]]` with the name of the original article, then save it.
   5. Re-enter **Edit** mode in your sandbox, make your changes, and save them.
-  6. When you're ready to move your small updates back into the article, use the
+
+  When you're ready to move your small updates back into the article, use the
   same procedure in reverse: copy from your sandbox in **Edit** mode, and paste
   the updated content into the article.
-
-  Once you've gotten the hang of it you can make further edits directly in the
-  article, or repeat the sandbox procedure one portion at a time.
-
-  If you're working with a new article that you've created, and doesn't exist on
-  Wikipedia already, you can "move" your sandbox page into mainspace. In the
-  next slides, we'll show you how.

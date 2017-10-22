@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assignments
@@ -26,7 +27,7 @@ class Assignment < ActiveRecord::Base
 
   # The uniqueness constraint for assignments is done with a validation instead
   # of a unique index so that :article_title is case-sensitive.
-  validates_uniqueness_of :article_title, scope: [:course_id, :user_id, :role, :wiki_id]
+  validates_uniqueness_of :article_title, scope: %i[course_id user_id role wiki_id]
 
   scope :assigned, -> { where(role: 0) }
   scope :reviewing, -> { where(role: 1) }

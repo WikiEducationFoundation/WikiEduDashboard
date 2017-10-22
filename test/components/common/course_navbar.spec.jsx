@@ -11,6 +11,7 @@ describe('CourseNavbar', () => {
   describe('for ClassroomProgramCourse', () => {
     const course = {
       type: 'ClassroomProgramCourse',
+      timeline_enabled: true,
       flags: { enable_chat: true }, // adds Chat link
       title: 'bar',
       url: 'https://example.com'
@@ -27,13 +28,14 @@ describe('CourseNavbar', () => {
       expect(shallow(component).find('#timeline-link').length).to.eq(1);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('Link').nodes[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('Link').getElements()[0].props.to).to.eq(`${slug}/home`);
     });
   });
 
-  describe('for BasicCourse', () => {
+  describe('for BasicCourse without timeline enabled', () => {
     const course = {
-      type: 'BasicCourse'
+      type: 'BasicCourse',
+      timeline_enabled: false
     };
     const component = (
       <CourseNavbar
@@ -47,7 +49,7 @@ describe('CourseNavbar', () => {
       expect(shallow(component).find('#timeline-link').length).to.eq(0);
     });
     it('includes correct Home link', () => {
-      expect(shallow(component).find('Link').nodes[0].props.to).to.eq(`${slug}/home`);
+      expect(shallow(component).find('Link').getElements()[0].props.to).to.eq(`${slug}/home`);
     });
   });
 });

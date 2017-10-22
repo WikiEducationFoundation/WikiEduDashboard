@@ -43,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 class ArticleScopedProgram < Course
@@ -74,5 +75,9 @@ class ArticleScopedProgram < Course
 
   def multiple_roles_allowed?
     true
+  end
+
+  def passcode_required?
+    false
   end
 end

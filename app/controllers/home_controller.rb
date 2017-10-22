@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Controller for home page
 class HomeController < ApplicationController
   respond_to :html

@@ -1,7 +1,7 @@
 import '../../testHelper';
 import sinon from 'sinon';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
 import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 

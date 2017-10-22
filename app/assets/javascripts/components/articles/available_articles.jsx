@@ -1,10 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import AssignCell from '../students/assign_cell.jsx';
 import AvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_article_list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
-import UserStore from '../../stores/user_store.js';
-import UserUtils from '../../utils/user_utils.js';
 
 function getState() {
   return {
@@ -12,13 +12,13 @@ function getState() {
   };
 }
 
-const AvailableArticles = React.createClass({
+const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    course: React.PropTypes.object,
-    current_user: React.PropTypes.object
+    course_id: PropTypes.string,
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   mixins: [AssignmentStore.mixin],
@@ -35,6 +35,15 @@ const AvailableArticles = React.createClass({
     let assignCell;
     let availableArticles;
     let elements = [];
+
+    let findingArticlesTraining;
+    if (Features.wikiEd && this.props.current_user.isNonstudent) {
+      findingArticlesTraining = (
+        <a href="/training/instructors/finding-articles" target="_blank" className="button ghost-button small">
+          How to find articles
+        </a>
+      );
+    }
 
     if (this.state.assignments.length > 0) {
       elements = this.state.assignments.map((assignment) => {
@@ -67,8 +76,7 @@ const AvailableArticles = React.createClass({
       );
     }
 
-    const userRoles = UserUtils.userRoles(this.props.current_user, UserStore);
-    const showAvailableArticles = elements.length > 0 || userRoles.isNonstudent;
+    const showAvailableArticles = elements.length > 0 || this.props.current_user.isNonstudent;
 
     if (showAvailableArticles) {
       availableArticles = (
@@ -76,6 +84,7 @@ const AvailableArticles = React.createClass({
           <div className="section-header">
             <h3>{I18n.t('articles.available')}</h3>
             <div className="section-header__actions">
+              {findingArticlesTraining}
               {assignCell}
             </div>
           </div>

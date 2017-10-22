@@ -1,64 +1,66 @@
-import React from 'react';
-import DidYouKnowStore from '../../stores/did_you_know_store.js';
-import ActivityTable from './activity_table.jsx';
-import ServerActions from '../../actions/server_actions.js';
+import React from "react";
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+import ActivityTable from "./activity_table.jsx";
+import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
 
-const getState = () => {
-  return {
-    articles: DidYouKnowStore.getArticles(),
-    loading: true
-  };
-};
+const NO_ACTIVITY_MESSAGE = I18n.t("recent_activity.no_dyk_eligible");
 
-const DidYouKnowHandler = React.createClass({
-  displayName: 'DidYouKnowHandler',
+const HEADERS = [
+  { title: I18n.t("recent_activity.article_title"), key: "title" },
+  { title: I18n.t("recent_activity.revision_score"), key: "revision_score", style: { width: 142 } },
+  { title: I18n.t("recent_activity.revision_author"), key: "username", style: { minWidth: 142 } },
+  { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
+];
 
-  mixins: [DidYouKnowStore.mixin],
+const DidYouKnowHandler = createReactClass({
+  displayName: "DidYouKnowHandler",
 
-  getInitialState() {
-    return getState();
+  propTypes: {
+    fetchDYKArticles: PropTypes.func,
+    articles: PropTypes.array,
+    loading: PropTypes.bool
   },
 
   componentWillMount() {
-    ServerActions.fetchDYKArticles();
+    this.props.fetchDYKArticles();
   },
 
   setCourseScope(e) {
     const scoped = e.target.checked;
-    ServerActions.fetchDYKArticles({ scoped });
-  },
-
-  storeDidChange() {
-    const articles = getState().articles;
-    this.setState({ articles, loading: false });
+    this.props.fetchDYKArticles({ scoped });
   },
 
   render() {
-    const headers = [
-      { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 142 } },
-      { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
-    ];
-
-    const noActivityMessage = I18n.t('recent_activity.no_dyk_eligible');
-
     return (
       <div>
         <label>
-          <input ref="myCourses" type="checkbox" onChange={this.setCourseScope} />
-          {I18n.t('recent_activity.show_courses')}
+          <input
+            ref="myCourses"
+            type="checkbox"
+            onChange={this.setCourseScope}
+          />
+          {I18n.t("recent_activity.show_courses")}
         </label>
         <ActivityTable
-          loading={this.state.loading}
-          activity={this.state.articles}
-          headers={headers}
-          noActivityMessage={noActivityMessage}
+          loading={this.props.loading}
+          activity={this.props.articles}
+          headers={HEADERS}
+          noActivityMessage={NO_ACTIVITY_MESSAGE}
         />
       </div>
     );
   }
 });
 
+const mapStateToProps = state => ({
+  articles: state.didYouKnow.articles,
+  loading: state.didYouKnow.loading
+});
 
-export default DidYouKnowHandler;
+const mapDispatchToProps = {
+  fetchDYKArticles: fetchDYKArticles
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DidYouKnowHandler);

@@ -12,15 +12,24 @@ AllCops:
     - 'bin/**/*'
     - 'vendor/**/*'
     - 'app/views/**/**/*.haml'
+    - 'docs/**/*'
   TargetRubyVersion: 2.3
-
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
 
 Metrics/LineLength:
   Max: 100
 
+###################
+# Spec exceptions #
+###################
+Style/NumericPredicate:
+  Exclude:
+    - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*' # pretty much impossible with RSpec
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper methods
 # Disable complexity cops, since we use CodeClimate for that.
 # Metrics/MethodLength:
 #   Enabled: false
@@ -33,7 +42,7 @@ Metrics/LineLength:
 # Metrics/PerceivedComplexity:
 #   Enabled: false
 
-Style/SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
 Style/ColonMethodCall:
   Enabled: false
@@ -47,7 +56,5 @@ Style/ParallelAssignment:
   Enabled: false # We generally use this only to initialize empty variables.
 Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
-Style/VariableNumber:
+Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
-Style/AccessorMethodNames:
-  Enabled: false # Not very helpful

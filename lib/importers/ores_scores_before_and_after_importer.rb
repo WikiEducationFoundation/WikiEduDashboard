@@ -34,5 +34,4 @@ class OresScoresBeforeAndAfterImporter
   def en_wiki_id
     @en_wiki_id ||= Wiki.get_or_create(language: 'en', project: 'wikipedia').id
   end
-
 end

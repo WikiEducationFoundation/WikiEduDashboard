@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/training_module_due_date_manager"
 
 class TrainingProgressManager
@@ -6,10 +7,10 @@ class TrainingProgressManager
     @user = user
     @training_module = training_module
     @slide = slide
-    @tmu = TrainingModulesUsers.find_by(
-      user_id: @user.id,
-      training_module_id: @training_module&.id
-    ) if @user.present?
+    if @user.present?
+      @tmu = TrainingModulesUsers.find_by(user_id: @user.id,
+                                          training_module_id: @training_module&.id)
+    end
     @due_date_manager = due_date_manager
     @overall_due_date = @due_date_manager.overall_due_date
   end

@@ -1,16 +1,18 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import EnrollButton from '../students/enroll_button.jsx';
 
-const InlineUsers = React.createClass({
+const InlineUsers = createReactClass({
   displayName: 'InlineUsers',
 
   propTypes: {
-    title: React.PropTypes.string,
-    role: React.PropTypes.number,
-    course: React.PropTypes.object,
-    users: React.PropTypes.array,
-    current_user: React.PropTypes.object,
-    editable: React.PropTypes.bool
+    title: PropTypes.string,
+    role: PropTypes.number,
+    course: PropTypes.object,
+    users: PropTypes.array,
+    current_user: PropTypes.object,
+    editable: PropTypes.bool
   },
 
   render() {
@@ -20,7 +22,8 @@ const InlineUsers = React.createClass({
       const link = `/users/${user.username}`; // User profile page
       if (user.real_name) {
         const email = user.email ? ` / ${user.email}` : '';
-        extraInfo = ` (${user.real_name}${email})`;
+        const roleDescription = user.role_description ? ` — ${user.role_description}` : '';
+        extraInfo = ` (${user.real_name}${email}${roleDescription})`;
       } else {
         extraInfo = '';
       }

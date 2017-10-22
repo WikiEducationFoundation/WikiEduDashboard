@@ -59,18 +59,17 @@ gulp.task('webpack', ['bower'], (cb) => {
     entry: entries,
     stats: 'errors-only',
     output: {
-      path: doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : `${config.outputPath}/${config.jsDirectory}`,
+      path: doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`),
       filename: doHot ? '[name].js' : '[name].[hash].js'
     },
     resolve: {
-      extension: ['', '.js', '.jsx'],
-      root: [path.resolve(appRoot, 'vendor'), path.resolve(appRoot, 'node_modules')]
+      extensions: ['.js', '.jsx'],
     },
     module: {
       loaders: [{
         test: /\.jsx?$/,
         exclude: [/vendor/, /node_modules/],
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           cacheDirectory: true
         }
@@ -84,7 +83,7 @@ gulp.task('webpack', ['bower'], (cb) => {
       'i18n-js': 'I18n'
     },
     plugins: wpPlugins,
-    devtool: config.development ? 'cheap-module-eval-source-map' : 'source-map'
+    devtool: config.development ? 'eval' : 'source-map'
   };
 
   const wp = webpack(wpConf);

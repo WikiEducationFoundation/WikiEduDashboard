@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe TrainingProgressManager do
@@ -189,7 +190,7 @@ describe TrainingProgressManager do
           it 'returns a percentage' do
             expect(subject.module_progress).to include('Complete')
             expect(subject.module_progress.scan(/\d/).join.to_i)
-              .to be_within(10).of(target_percentage)
+              .to be_within(20).of(target_percentage)
           end
         end
       end
@@ -203,7 +204,7 @@ describe TrainingProgressManager do
           it 'returns a percentage' do
             expect(subject.module_progress).to include('Complete')
             expect(subject.module_progress.scan(/\d/).join.to_i)
-              .to be_within(10).of(target_percentage)
+              .to be_within(20).of(target_percentage)
           end
         end
       end

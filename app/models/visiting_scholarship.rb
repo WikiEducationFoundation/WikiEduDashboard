@@ -43,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 class VisitingScholarship < Course

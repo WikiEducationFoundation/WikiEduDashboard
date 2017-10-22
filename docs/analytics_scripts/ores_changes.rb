@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 term = Campaign.find_by(slug: 'spring_2017')
 
 first_revs = []

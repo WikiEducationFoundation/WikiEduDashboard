@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/training/training_base"
 require "#{Rails.root}/lib/training_slide"
 
@@ -28,6 +29,27 @@ class TrainingModule < TrainingBase
   def self.trim_id_from_filename
     false
   end
+
+  # This reloads all the library and module content, but only updates the slides
+  # for the module with the given slug.
+  def self.reload_module(slug:)
+    # First reload the libraries and modules so we have the new list of slugs
+    # and can load slides for brand-new modules.
+    TrainingLibrary.flush
+    TrainingModule.flush
+    TrainingLibrary.load
+    TrainingModule.load
+
+    # Reload the requested module's slides
+    training_module = TrainingModule.find_by(slug: slug)
+    raise ModuleNotFound, "No module #{slug} found!" unless training_module
+    TrainingSlide.load(slug_whitelist: training_module.slide_slugs)
+
+    # After updating the module's slides, we must flush and update the module
+    # cache again so that it includes the updated slides.
+    TrainingModule.flush
+    TrainingModule.load
+  end
   ####################
   # Instance methods #
   ####################
@@ -49,18 +71,5 @@ class TrainingModule < TrainingBase
     @slide_slugs ||= raw_slides.map(&:slug)
   end
 
-  # This reloads all the library and module content, but only updates the slides
-  # for this module.
-  def reload
-    TrainingLibrary.flush
-    TrainingModule.flush
-    TrainingLibrary.load
-    TrainingModule.load
-
-    TrainingSlide.load(slug_whitelist: TrainingModule.find_by(slug: slug).slide_slugs)
-
-    # After updating the module's slides, we must flush and update it again
-    TrainingModule.flush
-    TrainingModule.load
-  end
+  class ModuleNotFound < StandardError; end
 end

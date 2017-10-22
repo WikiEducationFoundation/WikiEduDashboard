@@ -16,8 +16,8 @@ class AnalyticsController < ApplicationController
   layout 'admin'
   include CourseHelper
   before_action :require_signed_in, only: :ungreeted
-  before_action :set_course, only: %i(course_csv course_edits_csv course_uploads_csv
-                                      course_students_csv course_articles_csv)
+  before_action :set_course, only: %i[course_csv course_edits_csv course_uploads_csv
+                                      course_students_csv course_articles_csv]
 
   ########################
   # Routing entry points #
@@ -35,6 +35,13 @@ class AnalyticsController < ApplicationController
       ores_changes
     end
     render 'index'
+  end
+
+  def usage
+    @user_count = User.count
+    @logged_in_count = User.where.not(wiki_token: nil).count
+    @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
+    @total_wikis_touched = Wiki.count
   end
 
   def ungreeted
@@ -100,8 +107,12 @@ class AnalyticsController < ApplicationController
   def ores_changes
     @campaign = Campaign.find(params[:campaign][:id])
     @minimum_bytes = params[:minimum_bytes].to_i
+    @minimum_improvement = params[:minimum_improvement].to_f unless params[:minimum_improvement].blank?
     plotter = HistogramPlotter.new(campaign: @campaign)
-    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes)
+    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes,
+                                                  existing_only: params[:existing_only],
+                                                  minimum_improvement: @minimum_improvement,
+                                                  type: params[:graph_type])
   end
 
   private

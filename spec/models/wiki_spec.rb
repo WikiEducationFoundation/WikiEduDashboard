@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wikis
@@ -80,7 +81,7 @@ describe Wiki do
           .to raise_error(ActiveRecord::RecordInvalid)
       end
 
-      it 'it does not allow duplicate wikisource projects' do
+      it 'does not allow duplicate wikisource projects' do
         VCR.use_cassette 'wiki' do
           create(:wiki, language: nil, project: 'wikisource')
         end
@@ -88,9 +89,15 @@ describe Wiki do
           .to raise_error(ActiveRecord::RecordInvalid)
       end
 
+      it 'does no allow wikisource with invalid language' do
+        expect { create(:wiki, language: 'abcd', project: 'wikisource') }
+          .to raise_error(Wiki::InvalidWikiError)
+      end
+
       it 'does not allow non-existant wikis' do
         VCR.use_cassette('wiki') do
-          expect { create(:wiki, language: 'dk', project: 'wikipedia') }.to raise_error(Wiki::InvalidWikiError)
+          expect { create(:wiki, language: 'dk', project: 'wikipedia') }
+            .to raise_error(Wiki::InvalidWikiError)
         end
       end
     end
@@ -122,7 +129,8 @@ describe Wiki do
             VCR.use_cassette 'wiki' do
               new_wiki = create(:wiki, language: 'es', project: 'wikisource')
               found_wiki = Wiki.get_or_create(language: 'es', project: 'wikisource')
-              expect(new_wiki).to eq(found_wiki), -> { 'Unfortunately the correct Wiki object was not returned' }
+              expect(new_wiki).to eq(found_wiki),
+                                  -> { 'Unfortunately the correct Wiki object was not returned' }
               expect(new_wiki.language).to eq('es')
             end
           end
@@ -133,7 +141,8 @@ describe Wiki do
             VCR.use_cassette 'wiki' do
               new_wiki = create(:wiki, language: nil, project: 'wikisource')
               found_wiki = Wiki.get_or_create(language: nil, project: 'wikisource')
-              expect(new_wiki).to eq(found_wiki), -> { "Unfortunately the correct Wiki object was not returned" }
+              expect(new_wiki).to eq(found_wiki),
+                                  -> { 'Unfortunately the correct Wiki object was not returned' }
             end
           end
         end

@@ -1,4 +1,6 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import Touch from 'react-dnd-touch-backend';
 
@@ -19,25 +21,25 @@ import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-const Timeline = React.createClass({
+const Timeline = createReactClass({
   displayName: 'Timeline',
 
   propTypes: {
-    loading: React.PropTypes.bool,
-    course: React.PropTypes.object.isRequired,
-    weeks: React.PropTypes.array,
-    week_meetings: React.PropTypes.array,
-    editable_block_ids: React.PropTypes.array,
-    editable: React.PropTypes.bool,
-    controls: React.PropTypes.func,
-    saveGlobalChanges: React.PropTypes.func,
-    cancelGlobalChanges: React.PropTypes.func,
-    saveBlockChanges: React.PropTypes.func,
-    cancelBlockEditable: React.PropTypes.func,
-    all_training_modules: React.PropTypes.array,
-    edit_permissions: React.PropTypes.bool,
-    reorderable: React.PropTypes.bool,
-    enableReorderable: React.PropTypes.func,
+    loading: PropTypes.bool,
+    course: PropTypes.object.isRequired,
+    weeks: PropTypes.array,
+    week_meetings: PropTypes.array,
+    editable_block_ids: PropTypes.array,
+    editable: PropTypes.bool,
+    controls: PropTypes.func,
+    saveGlobalChanges: PropTypes.func,
+    cancelGlobalChanges: PropTypes.func,
+    saveBlockChanges: PropTypes.func,
+    cancelBlockEditable: PropTypes.func,
+    all_training_modules: PropTypes.array,
+    edit_permissions: PropTypes.bool,
+    reorderable: PropTypes.bool,
+    enableReorderable: PropTypes.func,
   },
 
   getInitialState() {
@@ -257,7 +259,7 @@ const Timeline = React.createClass({
     }
 
     let wizardLink;
-    if (weekComponents.length <= 0 && this.props.edit_permissions) {
+    if (weekComponents.length <= 0 && this.props.edit_permissions && this.props.course.type === 'ClassroomProgramCourse') {
       const wizardUrl = `/courses/${this.props.course.slug}/timeline/wizard`;
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }

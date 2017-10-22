@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import GetHelpButton from './get_help_button.jsx';
 import CourseUtils from '../../utils/course_utils.js';
@@ -34,7 +35,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   // Timeline link /
   // ///////////////
   let timeline;
-  if (course.type === 'ClassroomProgramCourse') {
+  if (course.timeline_enabled) {
     const timelineLink = `${courseLink}/timeline`;
     timeline = (
       <div className="nav__item" id="timeline-link">
@@ -104,10 +105,10 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
 };
 
 CourseNavbar.propTypes = {
-  course: React.PropTypes.object,
-  location: React.PropTypes.object,
-  currentUser: React.PropTypes.object,
-  courseLink: React.PropTypes.string
+  course: PropTypes.object,
+  location: PropTypes.object,
+  currentUser: PropTypes.object,
+  courseLink: PropTypes.string
 };
 
 export default CourseNavbar;

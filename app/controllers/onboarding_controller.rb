@@ -19,7 +19,7 @@ class OnboardingController < ApplicationController
                             email: params[:email],
                             permissions: @permissions,
                             onboarded: true)
-
+    CheckWikiEmailWorker.check(user: @user)
     head :no_content
   end
 
@@ -36,7 +36,7 @@ class OnboardingController < ApplicationController
   end
 
   def validate_params
-    [:real_name, :email, :instructor].each_with_object(params) do |key, obj|
+    %i[real_name email instructor].each_with_object(params) do |key, obj|
       obj.require(key)
     end
   end

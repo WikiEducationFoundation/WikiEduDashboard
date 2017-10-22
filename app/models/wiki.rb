@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: wikis
@@ -20,7 +21,7 @@ class Wiki < ActiveRecord::Base
   # Language / project combination must be unique
   validates_uniqueness_of :project, scope: :language
 
-  PROJECTS = %w(
+  PROJECTS = %w[
     wikibooks
     wikidata
     wikimedia
@@ -31,10 +32,10 @@ class Wiki < ActiveRecord::Base
     wikiversity
     wikivoyage
     wiktionary
-  ).freeze
+  ].freeze
   validates_inclusion_of :project, in: PROJECTS
 
-  LANGUAGES = %w(
+  LANGUAGES = %w[
     aa ab ace af ak als am an ang ar arc arz as ast av ay az azb
     ba bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
     bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co cr crh cs csb cu
@@ -51,7 +52,7 @@ class Wiki < ActiveRecord::Base
     tet tg th ti tk tl tn to tpi tr ts tt tum tw ty tyv udm ug uk ur uz ve
     vec vep vi vls vo vro w wa war wikipedia wo wuu xal xh xmf yi yo yue za
     zea zh zh-cfr zh-classical zh-cn zh-min-nan zh-tw zh-yue zu
-  ).freeze
+  ].freeze
   validates_inclusion_of :language, in: LANGUAGES + [nil]
 
   MULTILINGUAL_PROJECTS = {
@@ -80,20 +81,20 @@ class Wiki < ActiveRecord::Base
   #############
 
   def ensure_valid_project
-		# Multilingual projects must have language == nil.
-    # Doesn't apply to multilingual Wikimedia projects, subdomain is accepted
-    # as language there.
-    case project
-    when 'wikidata'
+    # There are two special multilingual projects, which must have language == nil:
+    # wikidata, and multilingual wikisource (www.wikisource.org).
+    if project == 'wikidata'
       self.language = nil
       return
-    when 'wikisource'
-      self.language = nil if language == 'www'
-      return
-    else
-      raise InvalidWikiError unless LANGUAGES.include?(language)
     end
+
+    if project == 'wikisource' && ['www', nil].include?(language)
+      self.language = nil
+      return
+    end
+
     raise InvalidWikiError unless PROJECTS.include?(project)
+    raise InvalidWikiError unless LANGUAGES.include?(language)
   end
 
   def ensure_wiki_exists

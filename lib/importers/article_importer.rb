@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/replica"
 
 #= Imports articles from Wikipedia into the dashboard database

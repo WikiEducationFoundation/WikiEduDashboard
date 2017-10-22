@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/revision_stat"
 require "#{Rails.root}/lib/course_training_progress_manager"
 

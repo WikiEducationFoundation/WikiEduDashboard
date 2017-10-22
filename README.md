@@ -39,5 +39,8 @@ The Dashboard allows instructors to create a course page, which students can joi
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
 
+### Translation
+Translations for the Wiki Ed Dashboard interface are handled through [translatewiki.net](https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard).
+
 ### Code of Conduct
 This project is part of the Wikimedia technical ecosystem and follows the [Wikimedia Code of Conduct](https://www.mediawiki.org/wiki/Code_of_Conduct).

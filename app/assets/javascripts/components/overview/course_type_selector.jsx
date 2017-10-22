@@ -1,11 +1,13 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import CourseActions from '../../actions/course_actions.js';
 import uuid from 'uuid';
 
-const CourseTypeSelector = React.createClass({
+const CourseTypeSelector = createReactClass({
   propTypes: {
-    course: React.PropTypes.object,
-    editable: React.PropTypes.bool
+    course: PropTypes.object,
+    editable: PropTypes.bool
   },
 
   componentWillMount() {
@@ -18,7 +20,7 @@ const CourseTypeSelector = React.createClass({
     const course = this.props.course;
     const courseType = e.target.value;
     course.type = courseType;
-    if (courseType === 'ClassroomProgramCourse') {
+    if (courseType === 'ClassroomProgramCourse' || course.timeline_enabled) {
       if (!course.timeline_start) {
         course.timeline_start = course.start;
       }
@@ -46,7 +48,15 @@ const CourseTypeSelector = React.createClass({
         <strong>Type:</strong> {currentType}
       </span>
     );
+
     if (this.props.editable && currentType !== 'LegacyCourse') {
+      let classroomProgramCourseOption;
+      let visitingScholarshipOption;
+      if (Features.wikiEd) {
+        classroomProgramCourseOption = <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>;
+        visitingScholarshipOption = <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>;
+      }
+
       selector = (
         <div className="form-group">
           <label htmlFor={this.state.id}>Type:</label>
@@ -56,10 +66,10 @@ const CourseTypeSelector = React.createClass({
             value={this.props.course.type}
             onChange={this._handleChange}
           >
-            <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>
-            <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>
-            <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
+            {classroomProgramCourseOption}
+            {visitingScholarshipOption}
             <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
+            <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
             <option value="ArticleScopedProgram">{this._getFormattedCourseType('ArticleScopedProgram')}</option>
           </select>
         </div>

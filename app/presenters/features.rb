@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Features
   # This is for toggling Wiki Ed-specific features that should not be active
   # on any other dashboard instances.

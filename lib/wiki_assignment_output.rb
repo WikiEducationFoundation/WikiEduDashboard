@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require './lib/wiki_api'
 require "#{Rails.root}/lib/wiki_output_templates"
 #= Class for generating wikitext for updating assignment details on talk pages
@@ -28,7 +29,9 @@ class WikiAssignmentOutput
   ################
   def build_talk_page_update
     initial_page_content = WikiApi.new(@wiki).get_page_content(@talk_title)
-    initial_page_content ||= ''
+    # This indicates an API failure, which may happen because of rate-limiting.
+    # A nonexistent page will return empty string instead of nil.
+    return nil if initial_page_content.nil?
 
     # Do not post templates to disambugation pages
     return nil if includes_disambiguation_template?(initial_page_content)
@@ -36,7 +39,7 @@ class WikiAssignmentOutput
     # We only want to add assignment tags to non-existant talk pages if the
     # article page actually exists, and is not a disambiguation page.
     article_content = WikiApi.new(@wiki).get_page_content(@title)
-    return nil if article_content.nil?
+    return nil if article_content.blank?
     return nil if includes_disambiguation_template?(article_content)
 
     page_content = build_assignment_page_content(assignments_tag, initial_page_content)

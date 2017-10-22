@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/word_count"
 
 #= Presenter for courses / campaign view
@@ -39,7 +40,7 @@ class CoursesPresenter
   end
 
   def search_courses(q)
-    courses.where("lower(title) like ? OR lower(school) like ? OR lower(term) like ?", "%#{q}%", "%#{q}%", "%#{q}%")
+    courses.where('lower(title) like ? OR lower(school) like ? OR lower(term) like ?', "%#{q}%", "%#{q}%", "%#{q}%")
   end
 
   def courses_by_recent_edits

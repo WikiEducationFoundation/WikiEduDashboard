@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/lib/training_progress_manager"
 require "#{Rails.root}/lib/training_library"
 require "#{Rails.root}/lib/training_module"
@@ -44,16 +45,14 @@ class TrainingController < ApplicationController
     end
     render plain: 'done!'
   rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
-         ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound => e
+         TrainingModule::ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound => e
     render plain: e.message
   end
 
   private
 
   def reload_single_module
-    training_module = TrainingModule.find_by(slug: params[:module])
-    raise ModuleNotFound, "No module #{params[:module]} found!" unless training_module
-    training_module.reload
+    TrainingModule.reload_module(slug: params[:module])
   end
 
   def add_training_root_breadcrumb

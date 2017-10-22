@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This script updates the content of one of the standard timeline blocks
 
 block_title = 'Continue improving your article'

@@ -9,4 +9,8 @@
               %p.paragraph
                 = "#{@adder.username} added #{@new_instructor.username} as an instructor in #{@course.slug}."
               %p.paragraph
+                = "Name: #{@courses_user&.real_name}"
+              %p.paragraph
+                = "Role: #{@courses_use&.role_description}"
+              %p.paragraph
                 %a{href: @course_link}= @course.slug

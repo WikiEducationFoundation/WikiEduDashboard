@@ -41,6 +41,12 @@ class PushCourseToSalesforce
   end
 
   def course_salesforce_fields
+    salesforce_fields = base_salesforce_fields
+    salesforce_fields[:Course_Level__c] = @course.level unless @course.level.blank?
+    salesforce_fields
+  end
+
+  def base_salesforce_fields
     {
       Name: @course.title,
       Course_Page__c: @course.url,
@@ -50,6 +56,7 @@ class PushCourseToSalesforce
       Articles_edited__c: @course.article_count,
       Total_edits__c: @course.revision_count,
       Words_added_in_thousands__c: words_added_in_thousands,
+      No_of_Commons_uploads__c: @course.uploads.count,
       Actual_No_of_Participants__c: @course.user_count,
       Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
       Editing_in_sandboxes_due_date__c: due_date_for(editing_in_sandbox_block),
@@ -63,7 +70,7 @@ class PushCourseToSalesforce
 
   def program_id
     case @course.type
-    when 'ClassroomProgramCourse'
+    when 'ClassroomProgramCourse', 'LegacyCourse'
       ENV['SF_CLASSROOM_PROGRAM_ID']
     when 'VisitingScholarship'
       ENV['SF_VISITING_SCHOLARS_PROGRAM_ID']

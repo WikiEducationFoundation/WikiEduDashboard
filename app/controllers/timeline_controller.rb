@@ -1,14 +1,13 @@
 # frozen_string_literal: true
+
 require "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
   respond_to :html, :json
-  before_action :require_permissions,
-                only: [:update_timeline]
+  before_action :require_permissions, :set_course
 
   def update_timeline
-    @course = Course.find_by_slug(params[:course_id])
     Array.wrap(timeline_params['weeks']).each do |week|
       update_week week
     end
@@ -17,6 +16,10 @@ class TimelineController < ApplicationController
   end
 
   private
+
+  def set_course
+    @course = Course.find_by_slug(params[:course_id])
+  end
 
   ########################
   # Week + Block Methods #
@@ -90,17 +93,17 @@ class TimelineController < ApplicationController
       :id, :deleted, :title,
       { blocks: [:id, :title, :kind, :content, :weekday, :week_id, :deleted,
                  :order, :gradeable_id, :due_date,
-                 { gradeable: [:id, :gradeable_item_id, :gradeable_item_type,
-                               :title, :points, :deleted] }] }
+                 { gradeable: %i[id gradeable_item_id gradeable_item_type
+                                 title points deleted] }] }
     ] }
   end
 
   def permit_training_module_ids(block)
     blocks_index = 3
-    if block[:training_module_ids].nil?
-      @permitted[:weeks][blocks_index][:blocks] << :training_module_ids
-    else
-      @permitted[:weeks][blocks_index][:blocks] << { training_module_ids: [] }
-    end
+    @permitted[:weeks][blocks_index][:blocks] << if block[:training_module_ids].nil?
+                                                   :training_module_ids
+                                                 else
+                                                   { training_module_ids: [] }
+                                                 end
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :matrix_question, class: 'Rapidfire::Question' do
     question_text 'Question?'

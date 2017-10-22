@@ -1,5 +1,5 @@
 default:
-  editor: "student editor"
+  editor: "dashboard.wikiedu.org student editor"
   instructor: "course instructor"
   course_assignment: "dashboard.wikiedu.org assignment"
   table: "students table"
@@ -9,4 +9,4 @@ default:
   timeline: "start of course timeline"
   start_of_week: start of course week
   end_of_week: "end of course week"
-  user_talk: "dashboard.wikiedu.org user talk"
+  user_talk: "dashboard.wikiedu.org talk course link"

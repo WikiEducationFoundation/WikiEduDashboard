@@ -130,6 +130,7 @@ bn:
     suggestions_failed: প্রতিক্রিয়া পাঠানো যায়নি। পরে আবার চেষ্টা করুন।
     user_role: ভূমিকা
     subject: বিষয়
+    timeline_enabled: সময়ক্রম সক্রিয় আছে
     timeline_link: সময়ক্রম
     time_zone_message: আপনার স্থানীয় সময় অঞ্চল অনুসারে শুরুর এবং শেষের সময় প্রদর্শন
       করা হয়।
@@ -197,6 +198,7 @@ bn:
     diff_hide: আড়াল করো
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
+    see_more: আরো দেখুন
   suggestions:
     suggestion_docs:
       does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।

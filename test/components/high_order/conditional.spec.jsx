@@ -3,11 +3,12 @@ import '../../testHelper';
 // through it, instead of trying to test Conditional directly or with mocks.
 import TextInput from '../../../app/assets/javascripts/components/common/text_input.jsx';
 import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-dom/test-utils';
+import ShallowTestUtils from 'react-test-renderer/shallow';
 
 describe('Conditional', () => {
   it('renders the wrapped component when show is true', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = ShallowTestUtils.createRenderer();
     renderer.render(
       <TextInput
         show={true}

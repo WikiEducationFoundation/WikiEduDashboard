@@ -6,13 +6,14 @@ description: |
 estimated_ttc: 7 minutes
 slides:
   - slug: peer-review-welcome # 1201
+  - slug: getting-started-with-peer-reviews # 1212
   - slug: what-is-good # 1202
   - slug: follow-their-lead # 1203
   - slug: a-clear-structure # 1204
   - slug: a-balancing-act # 1205
   - slug: neutral-content # 1206
   - slug: check-for-reliable-sources # 1207
-  - slug: open-the-talk-page # 1208
+  - slug: start-your-review # 1208
   - slug: share-the-love # 1209
   - slug: peer-review-quiz # 1210
   - slug: peer-review-complete # 1211

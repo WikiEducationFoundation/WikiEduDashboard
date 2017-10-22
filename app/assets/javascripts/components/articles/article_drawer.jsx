@@ -1,17 +1,19 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import ArticleViewer from '../common/article_viewer.jsx';
 import ArticleGraphs from './article_graphs.jsx';
 
-const ArticleDrawer = React.createClass({
+const ArticleDrawer = createReactClass({
   displayName: 'ArticleDrawer',
 
   propTypes: {
-    article: React.PropTypes.object,
-    isOpen: React.PropTypes.bool,
-    current_user: React.PropTypes.object,
-    course: React.PropTypes.object,
-    articleDetails: React.PropTypes.object
+    article: PropTypes.object,
+    isOpen: PropTypes.bool,
+    current_user: PropTypes.object,
+    course: PropTypes.object,
+    articleDetails: PropTypes.object
   },
 
   render() {

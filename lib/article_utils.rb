@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ArticleUtils
   # This method takes user input and tries to convert it into a valid article title
   def self.format_article_title(article_title)

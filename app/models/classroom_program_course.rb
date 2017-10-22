@@ -43,6 +43,7 @@
 #  needs_update          :boolean          default(FALSE)
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
+#  level                 :string(255)
 #
 
 class ClassroomProgramCourse < Course
@@ -77,5 +78,9 @@ class ClassroomProgramCourse < Course
 
   def multiple_roles_allowed?
     false
+  end
+
+  def timeline_enabled?
+    true
   end
 end

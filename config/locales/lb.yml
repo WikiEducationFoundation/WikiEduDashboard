@@ -29,6 +29,7 @@ lb:
     sign_up_extended: Mat Wikipedia umellen
     sign_up_log_in_extended: mat Wikipedia
     sign_up: Schreift Iech an
+    submit: Schécken
     training: Formatioun
     change: Änneren
     details: Detailer
@@ -203,6 +204,7 @@ lb:
     user_role: Roll
     course_details: Detailer vum Cours
     subject: Sujet
+    timeline_enabled: Zäitplang aktivéiert
     timeline_link: Chronologie
     title: Titel
     user_suggestions: 'Benotzervirschléi:'
@@ -298,6 +300,7 @@ lb:
     time_doc: D'Zäit vun all Versioun an Ärer lokaler Zäit
     title: Titel
     view_on_wiki: Ënnerscheed op der Wiki weisen
+    see_more: Méi gesinn
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
@@ -403,6 +406,8 @@ lb:
       header: Net ënnerstëtzte Browser. :-(
   error_401:
     header: Net autoriséiert.>:-(
+    json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
+      w.e.g., loggt Iech an a probéiert nach eng Kéier.
   error_404:
     header: Säit net fonnt. :-(
   error_500:

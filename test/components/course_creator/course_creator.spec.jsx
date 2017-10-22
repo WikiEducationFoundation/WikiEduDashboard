@@ -4,8 +4,9 @@ import _ from 'lodash';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
+import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
+
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
@@ -18,8 +19,9 @@ CourseCreator.__Rewire__('ValidationStore', {
 describe('CourseCreator', () => {
   describe('render', () => {
     const TestCourseCreator = ReactTestUtils.renderIntoDocument(
-      <CourseCreator />
+      <CourseCreator fetchCoursesForUser={() => {}} user_courses={["some_course"]} />
     );
+
     it('renders a title', () => {
       const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
       const h3 = ReactDOM.findDOMNode(headline);
@@ -35,7 +37,6 @@ describe('CourseCreator', () => {
       describe('state updated to show (and user has courses)', () => {
         it('shows', () => {
           TestCourseCreator.setState({ showCloneChooser: true });
-          TestCourseCreator.setState({ user_courses: ['some_course'] });
           const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
           expect(select.classList.contains('hidden')).to.eq(false);
         });
@@ -91,8 +92,8 @@ describe('CourseCreator', () => {
       });
     });
     describe('save course', () => {
-      sinon.stub(TestCourseCreator, 'expectedStudentsIsValid', () => true);
-      sinon.stub(TestCourseCreator, 'dateTimesAreValid', () => true);
+      sinon.stub(TestCourseCreator, 'expectedStudentsIsValid').callsFake(() => true);
+      sinon.stub(TestCourseCreator, 'dateTimesAreValid').callsFake(() => true);
       const checkCourse = sinon.spy(ServerActions, 'checkCourse');
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
       it('calls the appropriate methods on the actions', () => {

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 require "#{Rails.root}/lib/alerts/active_course_alert_manager"
-
-cached_communications_manager = ENV['communications_manager']
 
 def mock_mailer
   OpenStruct.new(deliver_now: true)
@@ -13,12 +12,8 @@ describe ActiveCourseAlertManager do
   let(:subject) { ActiveCourseAlertManager.new([course]) }
 
   before do
-    ENV['communications_manager'] = 'Eryk (Wiki Ed)'
     create(:user, username: 'Eryk (Wiki Ed)', email: 'eryk@wikiedu.org')
-  end
-
-  after do
-    ENV['communications_manager'] = cached_communications_manager
+    create(:setting, key: 'special_users', value: { communications_manager: 'Eryk (Wiki Ed)' })
   end
 
   context 'when there are no users' do

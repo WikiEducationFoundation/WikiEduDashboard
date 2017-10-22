@@ -2,7 +2,7 @@ name: 'Evaluating Articles and Sources'
 id: 7
 description: |
   In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
-estimated_ttc: 15 minutes
+estimated_ttc: 20 minutes
 slides:
   - slug: evaluating-sources-and-articles # 701
   - slug: what-makes-a-good-article # 702
@@ -18,8 +18,9 @@ slides:
   - slug: close-paraphrasing-example # 712
   - slug: copyright # 713
   - slug: tips-on-plagiarism # 714
-  - slug: add-a-citation # 727
-  - slug: add-a-citation-continued # 728
+  - slug: add-a-citation # 728
+  - slug: add-a-citation-continued # 729
+  - slug: add-a-citation-tutorial # 730
   - slug: wikicode-citations # 715
   # - slug: citations-video # 718
   # - slug: citations-video-part-two # 727

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assignment_suggestions
@@ -10,7 +11,6 @@
 #  updated_at    :datetime         not null
 #  user_id       :integer
 #
-
 
 require 'rails_helper'
 

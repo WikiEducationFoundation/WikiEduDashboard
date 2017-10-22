@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: campaigns_users
@@ -14,5 +15,4 @@
 require 'rails_helper'
 
 describe CampaignsUsers, type: :model do
-
 end

@@ -6,8 +6,7 @@ estimated_ttc: 10 minutes
 slides:
   - slug: citations-review # 801
   - slug: why-verify # 802
-  - slug: wikicode-citations-review # 803
-  - slug: cite-gadget-review # 804
-  - slug: visualeditor-citations # 717
-  - slug: citations-video # 718
-  - slug: sources-and-citations-complete # 805
+  - slug: examples-of-reliable-sources # 803
+  - slug: gather-your-sources # 804
+  - slug: add-a-citation-refresher # 805
+  - slug: sources-and-citations-complete # 806

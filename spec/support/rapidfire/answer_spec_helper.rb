@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Rapidfire
   module AnswerSpecHelper
     def create_answers

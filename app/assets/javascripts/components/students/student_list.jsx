@@ -1,8 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as UIActions from '../../actions';
+import * as FrontendActions from '../../actions';
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -27,18 +29,22 @@ const save = () => {
   return null;
 };
 
-const StudentList = React.createClass({
+const StudentList = createReactClass({
   displayName: 'StudentList',
 
   propTypes: {
-    course_id: React.PropTypes.string,
-    current_user: React.PropTypes.object,
-    users: React.PropTypes.array,
-    course: React.PropTypes.object,
-    controls: React.PropTypes.func,
-    editable: React.PropTypes.bool,
-    openKey: React.PropTypes.string,
-    actions: React.PropTypes.object
+    course_id: PropTypes.string,
+    current_user: PropTypes.object,
+    users: PropTypes.array,
+    course: PropTypes.object,
+    controls: PropTypes.func,
+    editable: PropTypes.bool,
+    openKey: PropTypes.string,
+    actions: PropTypes.object
+  },
+
+  componentWillUnmount() {
+    this.props.actions.resetUI();
   },
 
   notify() {
@@ -152,7 +158,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(UIActions, dispatch)
+  actions: bindActionCreators(FrontendActions, dispatch)
 });
 
 export default Editable(

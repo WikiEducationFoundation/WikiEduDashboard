@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: alerts
@@ -16,6 +17,7 @@
 #  target_user_id :integer
 #  subject_id     :integer
 #  resolved       :boolean          default(FALSE)
+#  details        :text
 #
 
 class Alert < ActiveRecord::Base
@@ -26,6 +28,8 @@ class Alert < ActiveRecord::Base
   belongs_to :revision
 
   include ArticleHelper
+
+  serialize :details, Hash
 
   ALERT_TYPES = %w[
     ActiveCourseAlert

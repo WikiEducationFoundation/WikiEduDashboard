@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'syllabus upload', type: :feature, js: true do
@@ -7,7 +8,8 @@ describe 'syllabus upload', type: :feature, js: true do
   let(:user)       { create(:admin) }
 
   before do
-    include Devise::TestHelpers, type: :feature
+    include type: :feature
+    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
     stub_oauth_edit
   end

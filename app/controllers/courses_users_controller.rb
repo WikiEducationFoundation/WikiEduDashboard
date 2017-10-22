@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 #= Controller for finding the course roles for a user
 class CoursesUsersController < ApplicationController
   respond_to :json

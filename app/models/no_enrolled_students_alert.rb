@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: alerts
@@ -35,7 +36,7 @@ class NoEnrolledStudentsAlert < Alert
   end
 
   def from_user
-    @from_user ||= User.find_by(username: ENV['classroom_program_manager'])
+    @from_user ||= SpecialUsers.classroom_program_manager
   end
 
   def reply_to
