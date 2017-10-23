@@ -265,6 +265,10 @@ de:
         nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir
         keinen Zwang an, ihn jetzt zu aktualisieren.
       course_description: Kursbeschreibung
+      course_description_placeholder: Was ist in deinem Kurs abgedeckt und was werden
+        die Studenten auf Wikipedia tun? Bitte gib genügend Einzelheiten an, um anderen
+        Wikipedia-Autoren einen Sinn des Kontexts für die Beiträge zu geben, die deine
+        Studenten machen werden.
       course_language: Heimatsprache
       course_project: Heimatprojekt
       course_school: Kursschule
@@ -493,6 +497,10 @@ de:
       course_when: Gib etwas in das „Wann“-Feld ein (zum Beispiel den Monat und das
         Jahr), um den Kurs vom Original zu unterscheiden.
       course_description: Programmbeschreibung
+      course_description_placeholder: Was ist dieses Programm und was werden die Teilnehmer
+        auf dem oder den Wikis tun? Bitte gib genügend Einzelheiten an, um anderen
+        Autoren einen Sinn des Kontexts für die Beiträge zu geben, die die Teilnehmer
+        machen werden.
       course_school: Einrichtung
       course_term: Wann
       course_term_placeholder: Wann

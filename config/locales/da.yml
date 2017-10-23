@@ -133,10 +133,21 @@ da:
     course: Kursus
     course_description: Kurser
     courses: Kurser
+    creator:
+      course_description_placeholder: Hvad er dækket i dit kursus, og hvad vil studenterne
+        lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
+        en ide om konteksten for bidragene dine studenter udfører.
+      role_description: Din rolle i kursuset
+      role_description_placeholder: Instruktør, undervisningsassistent, etc.
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
+  courses_generic:
+    creator:
+      course_description_placeholder: Hvad er dette for et program, og hvad vil deltagerne
+        udføre på wikierne? Inkluder nok med detaljer til at give brugerne en ide
+        om konteksten for bidragene, som deltagerne laver.
 ...

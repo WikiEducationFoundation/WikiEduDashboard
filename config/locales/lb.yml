@@ -139,6 +139,7 @@ lb:
       expected_number: Erwaart Zuel vu Studenten
       find: Äre Cours fannen
       no_class_holidays: Ech hu keng Schoulvakanzen
+      role_description: Är Roll am Cours
       save_cloned_course: Neie Cours späicheren
       start_date: Ufanksdatum
       start_date_placeholder: Ufanksdatum (JJJJ-MM-DD)

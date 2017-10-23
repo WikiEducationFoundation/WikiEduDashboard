@@ -250,6 +250,8 @@ ko:
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.
       course_description: 프로그램 설명
+      course_description_placeholder: 이 프로그램은 무엇이고, 참가자들이 이 위키에서 할 일은 무엇입니까? 참가자들의
+        기여에 대한 향후 상황을 다른 편집자들이 알 수 있도록 자세한 정보를 기입해 주십시오.
       course_term: 날짜
       course_term_placeholder: 날짜
       course_title: 프로그램 제목

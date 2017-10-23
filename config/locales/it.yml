@@ -225,6 +225,8 @@ it:
         e non possono essere modificati. Tutto il resto puoi modificarli in seguito.
         Clicca su "Crea il mio corso!" per iniziare a costruire la linea temporale
         per la tua assegnazione Wikipedia.
+      role_description: Il tuo ruolo nel corso
+      role_description_placeholder: Istruttore, assistente didattico, ecc
       save_cloned_course: Salva nuovo corso
       start_date: Data di inizio
       start_date_placeholder: Data di inizio (YYYY-MM-DD)
@@ -550,6 +552,7 @@ it:
     username: Nome utente
     username_placeholder: Nome utente
     role:
+      description: Ruolo nel corso
       visitor: Visitatore
       student: Studente
       instructor: Insegnante

@@ -210,6 +210,7 @@ zh-CN:
       clone_successful: 课程已成功克隆
       clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。请确保添加日期，这没有延续。您的课程有什么别的东西更改么？请现在随意地更新它吧。
       course_description: 课程描述
+      course_description_placeholder: 您的课程涵盖什么，以及学生在维基百科上做什么？请包括足够的细节，这样可以给其他维基百科编辑者背景信息，方便您的学生做出贡献。
       course_language: 主语言
       course_project: 主项目
       course_school: 课程学校
@@ -380,6 +381,7 @@ zh-CN:
       clone_successful_details: 您的课程已被克隆。点击下方“保存”以完成课程。
       course_when: 在“何时”字段中添加一些内容（例如月和年）以区分它和原始内容。
       course_description: 程序描述
+      course_description_placeholder: 这个程序是什么，参与者将在wiki上做些什么？请包括足够的细节，这样可以给其他编辑者背景信息，方便参与者做出贡献。
       course_school: 机构
       course_term: 何时
       course_term_placeholder: 何时

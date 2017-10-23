@@ -52,7 +52,7 @@ zh-TW:
       ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間軸，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
     explore_examples: 瀏覽例子
-    join_note: 一旦您從您的老師那獲得選課代碼，點選尋找您的課程來搜尋並加入
+    join_note: 一旦您從您的導師那獲得選課代碼，點選尋找您的課程來搜尋並加入
     no_courses_instructor: 您似乎沒有任何課程
     no_courses_student: 您似乎尚未加入課程
     opt_out: 請求不參加新手導覽
@@ -218,6 +218,7 @@ zh-TW:
       clone_successful: 課程成功複製
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
       course_description: 課程說明
+      course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_language: 主要使用語言
       course_project: 主專案
       course_school: 課程學校
@@ -237,6 +238,8 @@ zh-TW:
         開始規劃您的維基百科任務時間軸。
       new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
       no_class_holidays: 我的開課時段沒有遭遇假日
+      role_description: 您在課程裡的身份
+      role_description_placeholder: 導師、教學助理、其它
       save_cloned_course: 儲存新的課程
       start_date: 開始日期
       start_date_placeholder: 開始日期 (YYYY-MM-DD)
@@ -401,6 +404,7 @@ zh-TW:
       clone_successful_details: 您的方案已複製。請點擊下方的「儲存」來結束流程。
       course_when: 添加一些內容在「何時」欄位（例如：年份和月份）來和初始項目做區分。
       course_description: 方案描述
+      course_description_placeholder: 此方案是什麼？另外參與者會在 wiki 上做些什麼？請包含足夠的詳細內容，讓其他編者能有充分理解的感覺，來方便參與者做出貢獻。
       course_school: 機構
       course_term: 何時
       course_term_placeholder: 於
@@ -659,9 +663,10 @@ zh-TW:
     username: 使用者名稱
     username_placeholder: 使用者名稱
     role:
+      description: 在課程裡的身份
       visitor: 訪客
       student: 學生
-      instructor: 講師
+      instructor: 導師
       campus_volunteer: 校園志工
       online_volunteer: 線上志工
       wiki_ed_staff: Wiki Ed 工作人員

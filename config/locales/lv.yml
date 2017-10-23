@@ -96,6 +96,7 @@ lv:
       end_date_placeholder: Beigu datums (GGGG-MM-DD)
       expected_number: Paredzamais studentu skaits
       find: Atrast savu kursu
+      role_description: Tava loma kursā
       start_date: Sākuma datums
       start_date_placeholder: Sākuma datums (GGGG-MM-DD)
       subject: Temats
@@ -239,6 +240,7 @@ lv:
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
     role:
+      description: Loma kursā
       visitor: Apmeklētājs
       student: Students
       instructor: Pasniedzējs

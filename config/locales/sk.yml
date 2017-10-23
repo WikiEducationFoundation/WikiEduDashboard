@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Kusavica
+# Author: Pmikolas44
 # Author: TomášPolonec
 ---
 sk:
@@ -148,11 +149,21 @@ sk:
       assignment_start: Začiatok kurzu
       assignment_start_placeholder: Začiatok kurzu (RRRR-MM-DD)
       checking_for_uniqueness: Tento kurz je overene jedinečný.
+      course_description_placeholder: Čo obsahuje váš kurz a čo budú študenti na Wikipédii
+        robiť? Uveďte prosím dostatok podrobností čím poskytnete zmysel kontextu príspevkov,
+        ktoré budú vaši študenti pridávať.
+      role_description: Vaša úloha v kurze
+      role_description_placeholder: Inštruktor, asistent učiteľa atď.
     instructor:
       one: Inštruktor
       other: Inštruktori
     students: Študenti
     students_short: Študenti
+  courses_generic:
+    creator:
+      course_description_placeholder: O čom je tento program, a čo budú účastníci
+        wiki(s) robiť? Uveďte prosím dostatok podrobností, aby ste ostatným editorom
+        poskytli zmysel kontextu príspevkov, ktoré budú pridávať účastníci.
   editable:
     edit_template: Upraviť šablónu
 ...

@@ -135,6 +135,7 @@ sv:
       intro: Namnet, skolan, och termninen skapar din kurs sidas URL, och kan inte
         bli ändrad, allt annat kan du ändra senare. Klicka på "Skapa min kurs!" för
         att börja bygga tidslinjen för din Wikipedia uppgift.
+      role_description: Din roll i kursen
       save_cloned_course: Spara ny kurs
       start_date: Startdatum
       start_date_placeholder: Startdatum (ÅÅÅÅ-MM-DD)
