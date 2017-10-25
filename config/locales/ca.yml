@@ -330,10 +330,12 @@ ca:
     cancel: Cancel·la
     save: Desa
   metrics:
+    label: Activitat del curs
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats
     articles_edited: Articles editats
+    are_updated: Segons l'última actualització de les estadístiques del sistema
     characters: Caràcters
     char_added: Caràcters afegits
     char_changed: Caràcters canviats

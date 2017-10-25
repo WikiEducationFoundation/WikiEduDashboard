@@ -484,9 +484,11 @@ es:
     edit_description: Editar descripción
     edit_details: Editar detalles
   metrics:
+    label: Actividad del curso
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
+    are_updated: Según la última actualización de estadísticas del sistema
     articles_edited: Artículos editados
     characters: Caracteres
     char_added: Caracteres añadidos

@@ -64,5 +64,6 @@ module BatchUpdateLogging
                           tags: { update_time: total_time },
                           extra: { exact_update_time: (@end_time - @start_time),
                                    logs: @sentry_logs }
+    MetricsUpdates.update_metrics(@end_time, total_time)
   end
 end
