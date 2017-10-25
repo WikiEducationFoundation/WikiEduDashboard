@@ -2,7 +2,6 @@ import '../../testHelper';
 import sinon from 'sinon';
 
 import React from 'react';
-import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
@@ -10,10 +9,12 @@ import ValidationActions from '../../../app/assets/javascripts/actions/validatio
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 import { mount } from 'enzyme';
 
+
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
   firstMessage() { }
 });
+
 
 /**
 * returns the style attribute applied to a given node.
@@ -21,7 +22,6 @@ CourseCreator.__Rewire__('ValidationStore', {
     node (enzyme node) the node you would like to inspect
   returns empty string if no styles are found
 **/
-
 const getStyle = (node) => {
   const rootTag = node.html().match(/(<.*?>)/)[1]; // grab the top tag
   const styleMatch = rootTag.match(/style="([^"]*)"/i);
@@ -29,8 +29,8 @@ const getStyle = (node) => {
 };
 
 describe('CourseCreator', () => {
-  const TestCourseCreator = mount(<CourseCreator />);
   describe('render', () => {
+    const TestCourseCreator = mount(<CourseCreator />);
     it('renders a title', () => {
       expect(TestCourseCreator.find('h3').first().text()).to.eq('Create a New Course');
     });
@@ -39,7 +39,7 @@ describe('CourseCreator', () => {
         it('does not show', () => {
           expect(
             TestCourseCreator
-              .find('select-container')
+              .find('.select-container')
               .first()
               .hasClass('hidden')
           ).to.eq(true);
@@ -51,7 +51,7 @@ describe('CourseCreator', () => {
           TestCourseCreator.setState({ user_courses: ['some_course'] });
           expect(
             TestCourseCreator
-              .find('select-container')
+              .find('.select-container')
               .first()
               .hasClass('hidden')
             ).to.eq(false);
@@ -73,7 +73,7 @@ describe('CourseCreator', () => {
         });
       });
     });
-    describe.only('text inputs', () => {
+    describe('text inputs', () => {
       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
       const updateCourseSpy = sinon.spy(CourseActions, 'updateCourse');
       const setValidSpy = sinon.spy(ValidationActions, 'setValid');
@@ -83,7 +83,13 @@ describe('CourseCreator', () => {
           const courseSubject = TestCourseCreator
             .find({ id: 'course_subject' })
             .first();
-          courseSubject.simulate('change');
+          courseSubject.simulate(
+            'change',
+            { target: {
+              name: 'course_subject',
+              value: 'some course'
+            }
+            });
           expect(updateCourseSpy).to.have.been.called;
           expect(setValidSpy).not.to.have.been.called;
         });
@@ -95,20 +101,33 @@ describe('CourseCreator', () => {
             .find({ id: 'course_term' })
             .first();
 
-          courseTerm.simulate('change');
+          courseTerm.simulate(
+            'change',
+            { target: {
+              name: 'course_term',
+              value: 'some term'
+            }
+            });
           expect(updateCourseSpy).to.have.been.called;
           expect(setValidSpy).to.have.been.called;
         });
       });
     });
     describe('save course', () => {
-      sinon.stub(TestCourseCreator, 'expectedStudentsIsValid').callsFake(() => true);
-      sinon.stub(TestCourseCreator, 'dateTimesAreValid').callsFake(() => true);
       const checkCourse = sinon.spy(ServerActions, 'checkCourse');
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
+      const stubedCourseCreator = mount(<CourseCreator />);
+      sinon.stub(stubedCourseCreator.instance(), 'dateTimesAreValid').returns(true);
+
       it('calls the appropriate methods on the actions', () => {
-        const button = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'button__submit');
-        Simulate.click(button);
+        const button = stubedCourseCreator.find('.button__submit').first();
+        button.simulate(
+          'click',
+          { target: {
+            name: 'submit',
+            value: 'submit'
+          }
+          });
         expect(checkCourse).to.have.been.called;
         expect(setInvalid).to.have.been.called;
       });
