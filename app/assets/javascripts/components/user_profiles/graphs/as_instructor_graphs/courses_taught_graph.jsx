@@ -19,11 +19,11 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
             field: 'course_start',
             sort: { field: 'date', op: 'min' }
           },
-          {
-            data: 'courses_data',
-            field: 'course_end',
-            sort: { field: 'date', op: 'min' }
-          }
+            {
+              data: 'courses_data',
+              field: 'course_end',
+              sort: { field: 'date', op: 'min' }
+            }
           ]
         },
         rangeMin: 0,
