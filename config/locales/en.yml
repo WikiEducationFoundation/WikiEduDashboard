@@ -577,6 +577,8 @@ en:
     rename_confirmation: The course fields that form the URL have changed. This will change the URL and break any incoming links. Are you sure you want to do this?
 
   metrics:
+    label: Course Activity
+    are_updated: According to the last system statistics update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
