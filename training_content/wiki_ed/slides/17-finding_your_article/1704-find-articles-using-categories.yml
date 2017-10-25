@@ -1,0 +1,34 @@
+id: 1704
+title: Using categories to find a topic
+summary:
+content: |
+  All wikipedia articles are sorted into categories. You can see these
+  categories at the bottom of every article.
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Categories_at_the_bottom_of_page%2C_English_Wikipedia.png" />
+    <figcaption>
+      Click one of the categories at the bottom of an article to explore related topics.
+    </figcaption>
+  </figure>
+
+  <figure class="alt-layout-40-right">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Native_American_studies_category_page%2C_English_Wikipedia.png" />
+    <figcaption>
+      A sparsely populated category
+    </figcaption>
+  </figure>
+
+  Try going to an article related to the subject of your class. Scroll to the
+  very end to find a list of categories. Choose one, and you'll see a list of
+  subcategories and related articles.
+
+  Scanning through these categories can be a quick way to find interesting
+  articles. And as you skim through an article, you can start to think about
+  what could be added or improved.
+
+  Categories also offer a good idea of articles you might want to create. What
+  important topics are missing?
+
+  The <a href="https://en.wikipedia.org/wiki/Category:Academic_disciplines" target="_blank">"Academic disciplines" category</a>
+  is a great place to explore and start brainstorming.
