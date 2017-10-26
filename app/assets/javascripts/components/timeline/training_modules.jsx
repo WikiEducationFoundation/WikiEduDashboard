@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import _ from 'lodash';
 
 const TrainingModules = createReactClass({
   displayName: 'TrainingModules',
