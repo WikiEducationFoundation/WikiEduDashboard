@@ -1,10 +1,7 @@
 = render 'admin_header'
 .container.survey__edit
   - if @question_groups.length > 0
-    #searchable-list
-      .list-search__form
-        %input.fuzzy-search{placeholder: 'Search Question Groups'}
-      %ul.list.survey__admin__row-container= render partial: "question_group", collection: @question_groups
+    %ul.list.survey__admin__row-container= render partial: "question_group", collection: @question_groups
   - else
     %p.light-text
       No Question Groups. #{link_to "Create One", new_question_group_path}
