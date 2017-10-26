@@ -30,7 +30,8 @@ const getStyle = (node) => {
 
 describe('CourseCreator', () => {
   describe('render', () => {
-    const TestCourseCreator = mount(<CourseCreator />);
+    const TestCourseCreator = mount(<CourseCreator fetchCoursesForUser={() => {}} user_courses={["some_course"]} />);
+
     it('renders a title', () => {
       expect(TestCourseCreator.find('h3').first().text()).to.eq('Create a New Course');
     });
@@ -80,9 +81,12 @@ describe('CourseCreator', () => {
 
       describe('subject', () => {
         it('updates courseActions', () => {
+
           const courseSubject = TestCourseCreator
             .find({ id: 'course_subject' })
             .first();
+
+          // i want to know that: change event -> calls this.updateCourse -> calls CourseActions.updateCourse
           courseSubject.simulate(
             'change',
             { target: {

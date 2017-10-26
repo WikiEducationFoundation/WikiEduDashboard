@@ -32,7 +32,7 @@ describe('SlideLink', () => {
       nextSlide: { slug: 'foobar' }
     });
 
-    domBtn = TestLink.find('.slide-nav');
+    domBtn = TestLink.find('.slide-nav').first();
   });
 
   it('renders a button', () => {
