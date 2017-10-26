@@ -7289,11 +7289,9 @@ rangeslider.js@^2.3.0:
   dependencies:
     jquery ">=1.9.0"
 
-raven-js@^3.8.1:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.9.0.tgz#3248b93a8587189565b46875080b76d3624916c9"
-  dependencies:
-    json-stringify-safe "^5.0.1"
+raven-js@^3.19.1:
+  version "3.19.1"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.19.1.tgz#a5d25646556fc2c86d2b188ae4f425c144c08dd8"
 
 raw-body@1.3.0:
   version "1.3.0"
