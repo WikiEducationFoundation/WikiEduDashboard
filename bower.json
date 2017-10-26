@@ -11,7 +11,6 @@
     "trix": "~0.10.1",
     "chosen": "~1.5.1",
     "list.fuzzysearch.js": "~0.1.0",
-    "jfeed": "*",
     "jquery.uls": "https://github.com/mattfordham/jquery.uls.git"
   },
   "overrides": {
