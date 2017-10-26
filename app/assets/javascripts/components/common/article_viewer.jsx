@@ -2,6 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
+import _ from 'lodash';
+
 import { trunc } from '../../utils/strings';
 
 const ArticleViewer = createReactClass({

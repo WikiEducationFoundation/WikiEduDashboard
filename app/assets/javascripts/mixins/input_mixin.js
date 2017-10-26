@@ -2,7 +2,7 @@ import shallowCompare from 'react-addons-shallow-compare';
 import ValidationStore from '../stores/validation_store.js';
 import ValidationActions from '../actions/validation_actions.js';
 import uuid from 'uuid';
-
+import _ from 'lodash';
 
 // This needs to be implemented as a mixin for state reasons.
 // If there's a good way for high-order components to set state on

@@ -1,5 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import _ from 'lodash';
+
 import TrainingStore from '../stores/training_store.js';
 import ServerActions from '../../actions/server_actions.js';
 

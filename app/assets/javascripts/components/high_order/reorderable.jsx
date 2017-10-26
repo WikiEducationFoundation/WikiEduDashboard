@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { DragSource, DropTarget } from 'react-dnd';
 import { findDOMNode } from 'react-dom';
+import _ from 'lodash';
 
 // This component is used for components which function both as draggable
 // items and also as their own "drop targets". As of 8/12/2015 the Block
