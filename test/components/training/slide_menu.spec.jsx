@@ -2,14 +2,13 @@ import '../../testHelper';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import SlideMenu from '../../../app/assets/javascripts/training/components/slide_menu.jsx';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
-import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
 
 describe('SlideMenu', () => {
   const emptyFunction = function () { };
   const params = { library_id: 'foo', module_id: 'bar', slide_id: 'kittens' };
   const slide = { id: 1, enabled: true, title: 'How to Kitten', slug: 'kittens' };
-  const TestMenu = ReactTestUtils.renderIntoDocument(
+  const TestMenu = mount(
     <TrainingSlideHandler
       loading={false}
       params={params}
@@ -25,19 +24,17 @@ describe('SlideMenu', () => {
       slides: [slide],
       enabledSlides: [slide],
       nextSlide: { slug: 'foobar' }
-    }
-    )
+    })
   );
 
   it('renders an ol', () => {
-    const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
-    const menuNode = ReactDOM.findDOMNode(menu);
-    expect($(menuNode).find('ol').length).to.eq(1);
+    const list = TestMenu.find('ol').first();
+    expect(list.children().length).to.eq(1);
   });
 
   it('links to a slide', () => {
-    const menu = ReactTestUtils.scryRenderedComponentsWithType(TestMenu, SlideMenu)[0];
-    const menuNode = ReactDOM.findDOMNode(menu);
-    expect($(menuNode).find('a').attr('href')).to.eq('/training/foo/bar/kittens');
+    const menu = TestMenu.find(SlideMenu).first();
+    const aTag = menu.find('a');
+    expect(aTag.prop('href')).to.eq('/training/foo/bar/kittens');
   });
 });

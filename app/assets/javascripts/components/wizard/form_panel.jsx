@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
@@ -25,7 +24,7 @@ const FormPanel = createReactClass({
     return this.setState({ blackoutDatesSelected: bool });
   },
   setNoBlackoutDatesChecked() {
-    const { checked } = ReactDOM.findDOMNode(this.refs.noDates);
+    const { checked } = this.noDates;
     const toPass = this.props.course;
     toPass.no_day_exceptions = checked;
     return CourseActions.updateCourse(toPass);

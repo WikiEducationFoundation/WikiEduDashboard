@@ -1,93 +1,111 @@
 import '../../testHelper';
 import sinon from 'sinon';
-import _ from 'lodash';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
+import ReactTestUtils, { Simulate } from 'react-addons-test-utils';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
 import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
+import { mount } from 'enzyme';
 
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
   firstMessage() { }
 });
 
+/**
+* returns the style attribute applied to a given node.
+  params:
+    node (enzyme node) the node you would like to inspect
+  returns empty string if no styles are found
+**/
+
+const getStyle = (node) => {
+  const rootTag = node.html().match(/(<.*?>)/)[1]; // grab the top tag
+  const styleMatch = rootTag.match(/style="([^"]*)"/i);
+  return styleMatch ? styleMatch[1] : '';
+};
+
 describe('CourseCreator', () => {
   describe('render', () => {
-    const TestCourseCreator = ReactTestUtils.renderIntoDocument(
-      <CourseCreator fetchCoursesForUser={() => {}} user_courses={["some_course"]} />
-    );
+    const TestCourseCreator = mount(<CourseCreator fetchCoursesForUser={() => {}} user_courses={["some_course"]} />);
 
     it('renders a title', () => {
-      const headline = ReactTestUtils.findRenderedDOMComponentWithTag(TestCourseCreator, 'h3');
-      const h3 = ReactDOM.findDOMNode(headline);
-      expect(h3.textContent).to.eq('Create a New Course');
+      expect(TestCourseCreator.find('h3').first().text()).to.eq('Create a New Course');
     });
     describe('user courses-to-clone dropdown', () => {
       describe('state not updated', () => {
         it('does not show', () => {
-          const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
-          expect(select.classList.contains('hidden')).to.eq(true);
+          expect(
+            TestCourseCreator
+              .find('select-container')
+              .first()
+              .hasClass('hidden')
+          ).to.eq(true);
         });
       });
       describe('state updated to show (and user has courses)', () => {
         it('shows', () => {
           TestCourseCreator.setState({ showCloneChooser: true });
-          const select = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'select-container');
-          expect(select.classList.contains('hidden')).to.eq(false);
+          TestCourseCreator.setState({ user_courses: ['some_course'] });
+          expect(
+            TestCourseCreator
+              .find('select-container')
+              .first()
+              .hasClass('hidden')
+            ).to.eq(false);
         });
       });
     });
     describe('formStyle', () => {
       describe('not submitting', () => {
         it('is empty', () => {
-          const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
-          expect(form.style.cssText).to.be.empty;
+          expect(getStyle(TestCourseCreator)).to.eq('');
         });
       });
       describe('submitting', () => {
         it('includes pointerEvents and opacity', () => {
           TestCourseCreator.setState({ isSubmitting: true });
-          const form = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'wizard__panel');
-          expect(form.style.cssText).to.eq('pointer-events: none; opacity: 0.5;');
+          const wizardPanel = TestCourseCreator.find('.wizard__panel').first();
+          expect(getStyle(wizardPanel)).to.eq('pointer-events: none; opacity: 0.5;');
           TestCourseCreator.setState({ isSubmitting: false });
         });
       });
     });
-    describe('text inputs', () => {
+    describe.only('text inputs', () => {
       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-      const updateCourse = sinon.spy(CourseActions, 'updateCourse');
-      const setValid = sinon.spy(ValidationActions, 'setValid');
-      const inputs = ReactTestUtils.scryRenderedDOMComponentsWithTag(TestCourseCreator, 'input');
+      const updateCourseSpy = sinon.spy(CourseActions, 'updateCourse');
+      const setValidSpy = sinon.spy(ValidationActions, 'setValid');
+
       describe('subject', () => {
-        it('updates courseActions', (done) => {
-          const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_subject');
-          const inputNode = ReactDOM.findDOMNode(input);
-          inputNode.value = 'foobar';
-          Simulate.change(inputNode);
-          setImmediate(() => {
-            expect(updateCourse).to.have.been.called;
-            expect(setValid).not.to.have.been.called;
-            done();
-          });
+        it('updates courseActions', () => {
+          const courseSubject = TestCourseCreator
+            .find({ id: 'course_subject' })
+            .first();
+
+          courseSubject.simulate(
+            'change',
+            { target: {
+              name: 'course_subject',
+              value: 'some course'
+            }
+            });
+          expect(updateCourseSpy).to.have.been.called;
+          expect(setValidSpy).not.to.have.been.called;
         });
       });
       describe('term', () => {
-        it('updates courseActions and validationActions', (done) => {
+        it('updates courseActions and validationActions', () => {
           TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-          const input = _.find(inputs, (ipt) => ipt.getAttribute('id') === 'course_term');
-          const inputNode = ReactDOM.findDOMNode(input);
-          inputNode.value = 'foobar';
-          Simulate.change(inputNode);
-          setImmediate(() => {
-            expect(updateCourse).to.have.been.called;
-            expect(setValid).to.have.been.called;
-            done();
-          });
+          const courseTerm = TestCourseCreator
+            .find({ id: 'course_term' })
+            .first();
+
+          courseTerm.simulate('change');
+          expect(updateCourseSpy).to.have.been.called;
+          expect(setValidSpy).to.have.been.called;
         });
       });
     });
@@ -98,8 +116,7 @@ describe('CourseCreator', () => {
       const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
       it('calls the appropriate methods on the actions', () => {
         const button = ReactTestUtils.findRenderedDOMComponentWithClass(TestCourseCreator, 'button__submit');
-        const buttonNode = ReactDOM.findDOMNode(button);
-        Simulate.click(buttonNode);
+        Simulate.click(button);
         expect(checkCourse).to.have.been.called;
         expect(setInvalid).to.have.been.called;
       });
