@@ -68,7 +68,7 @@ gulp.task('webpack', ['bower'], (cb) => {
     module: {
       loaders: [{
         test: /\.jsx?$/,
-        exclude: [/vendor/, /node_modules/],
+        exclude: [/vendor/, /node_modules(?!\/striptags)/],
         loader: 'babel-loader',
         query: {
           cacheDirectory: true
