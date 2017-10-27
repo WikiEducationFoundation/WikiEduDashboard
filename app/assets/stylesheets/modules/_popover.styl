@@ -14,14 +14,8 @@
     pointer-events none
     position absolute
     top calc(100% + 14px)
-    // This is a fix for positioning popovers properly in the RTL layout.
-    // autoprefixer only keeps the css-flipper @replace annotation for the first
-    // so we need to turn it off and add the -webkit- prefix explicitly to make
-    // it work together with css-flipper.
-    /* autoprefixer: off */
     /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(.7, .7)
     /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(.7, .7)
-    /* autoprefixer: on */
     transition all .2s
     z-index 10
     left auto
@@ -29,10 +23,8 @@
     &.open
       opacity 1
       pointer-events all
-      /* autoprefixer: off */
       /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ transform translateX(0px) translateY(0) scale(1, 1)
       /*@replace: translateX(0px) translateY(0) scale(1, 1)*/ -webkit-transform translateX(0px) translateY(0) scale(1, 1)
-      /* autoprefixer: on */
     &:before
       border-bottom 6px solid white
       border-right 6px solid transparent
