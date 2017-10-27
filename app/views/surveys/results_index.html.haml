@@ -1,6 +1,6 @@
 = render 'results_admin_header'
 .container.survey__edit
-  - if @surveys.length >
+  - if @surveys.length > 0
     %ul.list= render partial: "survey_results_index_item", collection: @surveys
   - else
     %p.light-text

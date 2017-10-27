@@ -334,9 +334,6 @@ const SurveyAdmin = {
   initSearchableList() {
     const options = {
       valueNames: ['name', 'status', 'author'],
-      plugins: [
-        ListFuzzySearch() // eslint-disable-line no-undef
-      ]
     };
     const listObj = new List('searchable-list', options); // eslint-disable-line no-undef
     return listObj;
