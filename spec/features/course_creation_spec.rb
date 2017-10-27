@@ -120,6 +120,7 @@ describe 'New course creation and editing', type: :feature do
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do
+      allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
@@ -172,7 +173,7 @@ describe 'New course creation and editing', type: :feature do
 
       # This is the assignment type chooser
       # pick and choose
-      page.all('.wizard__option')[1].first('button').click
+      page.all('.wizard__option')[4].first('button').click
       sleep 1
       click_button 'Next'
       sleep 1
