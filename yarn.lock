@@ -384,9 +384,9 @@ autoprefixer@^6.0.0:
     postcss "^5.2.5"
     postcss-value-parser "^3.2.3"
 
-autosize@^3.0.20:
-  version "3.0.20"
-  resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.20.tgz#e343ea7c5603834738169420f0349dc953e62a9e"
+autosize@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-4.0.0.tgz#7a0599b1ba84d73bd7589b0d9da3870152c69237"
 
 aws-sign2@~0.6.0:
   version "0.6.0"
@@ -5987,9 +5987,9 @@ markdown-it-footnote@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.1.tgz#7f3730747cacc86e2fe0bf8a17a710f34791517a"
 
-markdown-it@8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.1.0.tgz#38902d4e7bac2260c073eb67be623211fbb2c2e3"
+markdown-it@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.0.tgz#e2400881bf171f7018ed1bd9da441dac8af6306d"
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -6865,9 +6865,9 @@ parseurl@~1.3.0, parseurl@~1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.1.tgz#c8ab8c9223ba34888aa64a297b28853bec18da56"
 
-parsleyjs@^2.4.4:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/parsleyjs/-/parsleyjs-2.6.0.tgz#7c791cbcd74da04baa78652070f264cfe705058b"
+parsleyjs@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/parsleyjs/-/parsleyjs-2.8.0.tgz#a5511fc3467d22bc18a25a6e2d7304492dd65bfd"
   dependencies:
     jquery ">=1.8.0"
 
@@ -8548,9 +8548,9 @@ strip-outer@^1.0.0:
   dependencies:
     escape-string-regexp "^1.0.2"
 
-striptags@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/striptags/-/striptags-2.1.1.tgz#e771b8b3193b97bbed392dca59a78279d3c8a6a6"
+striptags@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/striptags/-/striptags-3.1.0.tgz#763e534338d9cf542f004a4b1eb099e32d295e44"
 
 stylus@0.54.5, stylus@^0.54.0:
   version "0.54.5"
