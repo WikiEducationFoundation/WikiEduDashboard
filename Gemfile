@@ -113,7 +113,6 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'simplecov', require: false
-  gem 'codeclimate-test-reporter', require: nil
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
 end
