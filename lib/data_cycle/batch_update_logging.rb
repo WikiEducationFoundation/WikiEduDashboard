@@ -59,6 +59,7 @@ module BatchUpdateLogging
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
     Rails.logger.info "#{message} Time: #{total_time}."
+    Rails.cache.write("last_update", @end_time)
     Raven.capture_message message,
                           level: 'info',
                           tags: { update_time: total_time },
