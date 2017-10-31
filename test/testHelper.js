@@ -16,7 +16,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const ReactTestUtils = require('react-dom/test-utils');
 const $ = require('jquery');
-const _ = require('lodash');
 const moment = require('moment');
 const momentRecur = require('moment-recur');
 const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-line import/no-unresolved
@@ -31,7 +30,6 @@ const reduxStore = createStore(reducer, applyMiddleware(thunk));
 
 global.reduxStore = reduxStore;
 global.$ = $;
-global._ = _;
 global.sinon = sinon;
 global.React = React;
 global.ReactDOM = ReactDOM;

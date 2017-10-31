@@ -1,5 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import _ from 'lodash';
+
 import BlockStore from '../../stores/block_store.js';
 import WeekStore from '../../stores/week_store.js';
 import CourseStore from '../../stores/course_store.js';

@@ -3,6 +3,7 @@ import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
+require('chosen-js');
 
 const markdown = require('../../utils/markdown_it.js').default();
 const CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged';
@@ -333,9 +334,6 @@ const SurveyAdmin = {
   initSearchableList() {
     const options = {
       valueNames: ['name', 'status', 'author'],
-      plugins: [
-        ListFuzzySearch() // eslint-disable-line no-undef
-      ]
     };
     const listObj = new List('searchable-list', options); // eslint-disable-line no-undef
     return listObj;

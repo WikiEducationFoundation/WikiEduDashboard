@@ -137,8 +137,6 @@ GEM
     cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
-    codeclimate-test-reporter (1.0.8)
-      simplecov (<= 0.13)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
@@ -511,7 +509,6 @@ DEPENDENCIES
   capistrano-sidekiq
   capybara
   capybara-screenshot
-  codeclimate-test-reporter
   connection_pool
   crack
   dalli
@@ -580,4 +577,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.7
+   1.16.0.pre.3

@@ -1,6 +1,7 @@
 // General purpose store covering typical use cases for several of our models
 import McFly from 'mcfly';
 const Flux = new McFly();
+import _ from 'lodash';
 
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;

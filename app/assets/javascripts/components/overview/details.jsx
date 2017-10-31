@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 import InlineUsers from './inline_users.jsx';
 import CampaignButton from './campaign_button.jsx';

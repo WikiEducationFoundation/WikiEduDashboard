@@ -102,7 +102,8 @@ class WikiPageviews
     return unless response
     data = Utils.parse_json(response)
     return data['items'] if data['items']
-    return no_results if data['type'] == 'https://restbase.org/errors/not_found'
+    # As of October 2017, the data type is https://www.mediawiki.org/wiki/HyperSwitch/errors/not_found
+    return no_results if data['type'] =~ %r{errors/not_found}
     raise PageviewApiError, response
   end
 

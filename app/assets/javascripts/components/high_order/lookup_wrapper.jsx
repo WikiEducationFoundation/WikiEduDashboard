@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
 import LookupStore from '../../stores/lookup_store.js';
 
 const LookupWrapper = function (Component) {

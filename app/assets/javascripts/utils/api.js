@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { capitalize } from './strings';
 
 const logErrorMessage = function (obj, prefix) {
@@ -65,7 +66,7 @@ const API = {
       });
     });
   },
-  
+
   fetchCourseRevisions(courseId, limit) {
     return new Promise((res, rej) => {
       const url = `/courses/${courseId}/revisions.json?limit=${limit}`;

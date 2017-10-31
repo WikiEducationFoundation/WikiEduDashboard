@@ -125,6 +125,7 @@ en:
       Mainspace pages edited between the start and end dates are listed below.
       The dashboard pulls in contributions from the home wiki of this program, along
       with any other wikis for which there is an Assignment or an Available Article.
+    deleted: (deleted)
     edited: Articles Edited
     edited_by: 'Edited by:'
     edited_mobile: Articles

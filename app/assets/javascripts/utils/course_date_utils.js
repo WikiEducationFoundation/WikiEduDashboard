@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const CourseDateUtils = {
   validationRegex() {
     // Matches YYYY-MM-DD

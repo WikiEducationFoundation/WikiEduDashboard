@@ -1,6 +1,7 @@
 env:
 - TEST_SUITE='~type:feature' AFTER_SUCCESS='./travis-deploy.sh'
-- TEST_SUITE='~type:foo' AFTER_SUCCESS='' # Run all tests in job 2
+# Run all tests in job 2
+- TEST_SUITE='~type:foo' AFTER_SUCCESS='' CC_TEST_REPORTER_ID=f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
 language: ruby
 rvm: 2.3.1
 sudo: required
@@ -40,6 +41,11 @@ install:
 - bower install
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
+# install Code Climate test reporter
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter before-build; fi
+
 - mkdir tmp -m 777
 - cp config/database.travis.yml config/database.yml
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
@@ -47,7 +53,7 @@ before_script:
 script: gulp build && npm test && bundle exec rspec --color --profile --format documentation
   --tag $TEST_SUITE
 after_script:
-- codeclimate-test-reporter < coverage/lcov.info
+- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_failure:
 - npm install imgur-uploader-cli -g
 - find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader

@@ -310,6 +310,7 @@ essentials:
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
+        training_module_ids: [17] # Find Your Article
         content: |
           <ul>
             <li>Review page 6 of your <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>

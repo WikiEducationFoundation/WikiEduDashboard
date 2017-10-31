@@ -1,0 +1,22 @@
+id: 1706
+title: Using WikiProjects
+summary:
+content: |
+  Many topics on Wikipedia belong to a WikiProject. That's a group of volunteer
+  Wikipedians who focus on improving coverage of a certain category of articles.
+
+  You can find relevant WikiProjects by going to an article in the field you're
+  interested in and clicking over to the Talk page tab. You'll see a box at the
+  top of the page describing which WikiProjects are interested in this article.
+  Click through to find the page for the WikiProject.
+
+  <figure style="width: 100%">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/WikiProject_MCB_talk_page_template.png" />
+    <figcaption>
+      The WikiProject assessment template on a Talk page
+    </figcaption>
+  </figure>
+
+  On the WikiProject page, you should find an assessment table. These are
+  designed to help WikiProject members find articles to improve. In the next
+  slide, we'll show you one, and how to read it.

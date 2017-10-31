@@ -3,7 +3,7 @@
   "plugins": ["transform-object-rest-spread"],
   "env": {
     "test": {
-      "plugins": ["istanbul", "babel-plugin-rewire"],
+      "plugins": ["babel-plugin-rewire"],
       "ignore": ["i18n/*.js"]
     }
   }
