@@ -119,7 +119,7 @@ const FormPanel = createReactClass({
             calendarInstructions= {I18n.t('wizard.calendar_instructions')}
           />
           <label> I have no class holidays
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref="noDates" />
+            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
           </label>
         </div>
       </div>

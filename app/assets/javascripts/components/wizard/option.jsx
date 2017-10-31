@@ -45,7 +45,7 @@ const Option = createReactClass({
         moreClassName += ' open';
       }
       expand = (
-        <div className={expandClassName} ref="expandable">
+        <div className={expandClassName} ref={(div) => this.expandable = div}>
           <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
         </div>
       );

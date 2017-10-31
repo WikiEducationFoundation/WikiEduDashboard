@@ -233,7 +233,7 @@ const CourseClonedModal = createReactClass({
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
           />
           <label> {I18n.t('courses.creator.no_class_holidays')}
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref="noDates" />
+            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
           </label>
         </div>
       );

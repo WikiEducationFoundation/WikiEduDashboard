@@ -65,7 +65,6 @@ const CourseCreator = createReactClass({
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
-
     return this.props.fetchCoursesForUser(getUserId());
   },
 
