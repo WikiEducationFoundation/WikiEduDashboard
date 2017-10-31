@@ -43,7 +43,7 @@ $(() => {
   let articlesList;
   if ($('#campaign-articles table').length) {
     articlesList = new List('campaign-articles', {
-      page: 500,
+      page: 10000,
       valueNames: [
         'title', 'views', 'char_added', 'lang_project'
       ]
