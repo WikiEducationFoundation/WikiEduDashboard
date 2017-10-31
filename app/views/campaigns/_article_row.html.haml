@@ -1,6 +1,7 @@
-%tr
+%tr{class: article.deleted ? 'table-row--danger' : ''}
   %td.title
     = link_to article.full_title, article.url
+    = t('articles.deleted') if article.deleted
   %td.char_added
     = article_course.character_sum
   %td.views
