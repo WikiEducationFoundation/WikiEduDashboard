@@ -102,7 +102,7 @@ GEM
     browser (2.5.1)
     builder (3.2.3)
     byebug (9.1.0)
-    capistrano (3.9.1)
+    capistrano (3.10.0)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
@@ -225,7 +225,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (0.8.6)
+    i18n (0.9.0)
+      concurrent-ruby (~> 1.0)
     i18n-js (3.0.1)
       i18n (~> 0.6, >= 0.6.6)
     jbuilder (2.7.0)
@@ -363,7 +364,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.2.2)
       rake
-    rake (12.1.0)
+    rake (12.2.1)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.10.2)
