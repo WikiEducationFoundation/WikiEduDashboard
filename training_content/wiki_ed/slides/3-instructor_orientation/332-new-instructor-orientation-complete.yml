@@ -1,0 +1,21 @@
+id: 332
+title: Create a course page
+summary:
+content: |
+  Thanks for completing this orientation about teaching with Wikipedia! Now that
+  you've learned how you can integrate Wikipedia into your course(s), you're
+  ready to build your own course page on the Dashboard!
+
+  Click "Submit Feedback" below to share your comments about this orientation,
+  as we review feedback frequently.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/feedback'>
+    Submit Feedback
+  </a></div>
+
+  After that, click "Create New Course" below and follow steps to design your
+  Wikipedia assignment.
+
+  <div class="training__button-container"><a target="_blank" class="btn btn-primary" href='/course_creator'>
+    Create New Course
+  </a></div>
