@@ -220,7 +220,10 @@ const CourseCreator = createReactClass({
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.props.user_courses
+                              .sort((a, b) => b.id - a.id) // Newest to Oldest
+                              .map((course, i) =>
+                                <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
 
     let term;
