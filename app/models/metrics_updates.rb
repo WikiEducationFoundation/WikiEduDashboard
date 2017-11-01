@@ -18,4 +18,7 @@ class MetricsUpdates
     setting.save
   end
 
+  def self.time_update
+    Setting.find_by(key: 'metrics_update') ? Setting.find_by(key: 'metrics_update').value['last_update'] : "Not known"
+  end
 end

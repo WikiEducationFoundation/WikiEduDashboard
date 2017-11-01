@@ -8,4 +8,17 @@ describe MetricsUpdates do
       expect(setting.value['last_update']).to be_within(2.seconds).of(Time.now)
     end
   end
+
+  describe '.time_update' do
+    it 'returns the time of the last update' do
+      MetricsUpdates.last_update(Time.now)
+      time = MetricsUpdates.time_update
+      expect(time).to be_within(2.seconds).of(Time.now)
+    end
+
+    it 'returns Not known as the last update is not defined' do
+      time = MetricsUpdates.time_update
+      expect(time).to eq("Not known")
+    end
+  end
 end
