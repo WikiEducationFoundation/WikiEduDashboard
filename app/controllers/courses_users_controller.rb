@@ -8,5 +8,6 @@ class CoursesUsersController < ApplicationController
     @courses_users = CoursesUsers
                      .joins(:course)
                      .where(user_id: params['user_id'].to_i)
+                     .order(id: :desc)
   end
 end
