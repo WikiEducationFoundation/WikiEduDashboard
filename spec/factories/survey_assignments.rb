@@ -20,7 +20,7 @@
 #  custom_email                            :text(65535)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :survey_assignment do
   end
 end

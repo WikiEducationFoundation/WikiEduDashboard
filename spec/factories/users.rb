@@ -26,7 +26,7 @@
 #  registered_at       :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :test_user, class: User do
     username 'Pizza'
     onboarded true

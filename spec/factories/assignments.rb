@@ -15,7 +15,7 @@
 #  wiki_id       :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   # article that exists
   factory :assignment do
     created_at '2015-02-18 18:02:50'

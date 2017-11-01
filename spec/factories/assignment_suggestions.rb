@@ -12,7 +12,7 @@
 #  user_id       :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :assignment_suggestion do
     text 'Improve this article'
   end

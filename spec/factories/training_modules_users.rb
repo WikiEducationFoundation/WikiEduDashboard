@@ -11,7 +11,7 @@
 #  completed_at         :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :training_modules_users do
   end
 end

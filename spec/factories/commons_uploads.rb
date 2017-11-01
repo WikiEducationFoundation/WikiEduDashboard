@@ -17,7 +17,7 @@
 #  deleted     :boolean          default(FALSE)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :commons_upload do
   end
 end

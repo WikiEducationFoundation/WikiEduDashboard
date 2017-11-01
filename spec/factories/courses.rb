@@ -46,7 +46,7 @@
 #  level                 :string(255)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :course, class: 'ClassroomProgramCourse' do
     start Date.new(2015, 1, 1)
     self.end Date.new(2015, 6, 1)
