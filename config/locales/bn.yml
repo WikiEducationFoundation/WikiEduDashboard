@@ -44,6 +44,7 @@ bn:
     all: কর্মকাণ্ড
     label: কর্মকাণ্ড
   articles:
+    deleted: (অপসারিত)
     edited_by: 'সম্পাদনা করেছেন:'
     edited_mobile: নিবন্ধ
     hide: আড়াল করো

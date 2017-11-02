@@ -87,6 +87,7 @@ de:
       Enddatum bearbeitet wurden, werden unten aufgelistet. Die Verwaltungsseite bezieht
       Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
       die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
+    deleted: (gelöscht)
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel

@@ -72,6 +72,7 @@ it:
     assigned_to: Assegnato a
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
+    deleted: (cancellato)
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci

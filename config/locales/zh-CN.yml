@@ -69,6 +69,7 @@ zh-CN:
     available: 可用条目
     assigned_to: 分配给
     character_doc: 由登记编辑者在开始和结束日期之间，添加至条目的字符总和
+    deleted: （已删除）
     edited: 编辑的条目
     edited_by: 编辑者：
     edited_mobile: 条目

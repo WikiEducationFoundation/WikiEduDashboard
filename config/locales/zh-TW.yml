@@ -78,6 +78,7 @@ zh-TW:
     character_doc: 從開始到結束日，由登記編輯在條目中增加的位元組總和。 (1 中文字=3 位元組)
     cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容；以及和其它任何有著分配項目或可用條目的
       wiki。
+    deleted: (已刪除)
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 條目

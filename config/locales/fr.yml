@@ -105,6 +105,7 @@ fr:
       dates de début et de fin sont listées ci-dessous. Le tableau de bord agrège
       les contributions depuis le wiki d’accueil de ce programme, avec tous les autres
       wikis pour lesquels il y a une Affectation ou un Article disponible.
+    deleted: (supprimé)
     edited: Articles modifiés
     edited_by: 'Modifié par :'
     edited_mobile: Articles

@@ -1,0 +1,19 @@
+# Messages for Irish (Gaeilge)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nmacu
+---
+ga:
+  accessibility:
+    number_field: Is réimse uimhreach í seo. Déanfaidh na cnaipí a léiríonn do bhrabhsálaí
+      an t-ionchar a ardú nó a ísliú.
+  application:
+    cancel: Cealaigh
+    dashboard: Deais Vicoideachas
+    documentation: Doiciméadú
+    error: 'Tharla earráid:'
+    explore: Taiscéal
+    field_required: Tá an réimse seo riachtanach
+    field_invalid_characters: Tá carachtair neamhbhailí ag an réimse seo
+    field_invalid_date: Tá dáta san fhormáid BBBB-MM-LL ag teastáil sa réimse seo
+...

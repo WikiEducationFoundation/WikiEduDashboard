@@ -68,6 +68,7 @@ ko:
     assigned: 할당된 문서
     available: 이용 가능한 글
     assigned_to: 할당됨
+    deleted: (삭제됨)
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
