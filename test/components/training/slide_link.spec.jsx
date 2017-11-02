@@ -14,7 +14,7 @@ describe('SlideLink', () => {
     >
       <SlideLink
         slideId="foobar"
-        direction="Next"
+        buttonText="Next Page"
         disabled={false}
         button={true}
         params={{ library_id: 'foo', module_id: 'bar' }}

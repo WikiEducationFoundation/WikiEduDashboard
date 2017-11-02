@@ -134,7 +134,7 @@ const TrainingSlideHandler = createReactClass({
       nextLink = (
         <SlideLink
           slideId={this.state.nextSlide.slug}
-          direction="Next"
+          buttonText={this.state.currentSlide.buttonText || "Next Page"}
           disabled={this.disableNext()}
           button={true}
           params={this.props.params}
