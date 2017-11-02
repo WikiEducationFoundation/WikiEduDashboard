@@ -95,8 +95,6 @@ const Overview = createReactClass({
       </div>
     );
 
-
-
     let userArticles;
     if (userRoles.isStudent && this.state.course.id) {
       userArticles = (
