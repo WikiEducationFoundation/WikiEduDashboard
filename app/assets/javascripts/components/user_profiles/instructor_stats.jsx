@@ -10,9 +10,44 @@ import Loading from '../common/loading.jsx';
 const InstructorStats = createReactClass({
   propTypes: {
     username: PropTypes.string,
-    stats: PropTypes.object,
+    stats: PropTypes.shape({
+      as_instructor: PropTypes.shape({
+        course_string_prefix: PropTypes.string,
+        courses_count: PropTypes.number,
+        trained_percent: PropTypes.string,
+        user_count: PropTypes.number
+      }),
+      by_students: PropTypes.shape({
+        article_count: PropTypes.string,
+        new_article_count: PropTypes.string,
+        upload_count: PropTypes.string,
+        upload_usage_count: PropTypes.number,
+        uploads_in_use_count: PropTypes.number,
+        view_sum: PropTypes.string,
+        word_count: PropTypes.string,
+      })
+    }),
     isStudent: PropTypes.bool,
-    statsGraphsData: PropTypes.object,
+
+    statsGraphsData: PropTypes.shape({
+      instructor_stats: PropTypes.arrayOf(
+        PropTypes.shape({
+          articles_created: PropTypes.number,
+          articles_edited: PropTypes.number,
+          by_students_common_uploads: PropTypes.numberes,
+          course_end: PropTypes.string,
+          course_id: PropTypes.number,
+          course_start: PropTypes.string,
+          course_title: PropTypes.string
+        }), // shape
+      ), // arrayOf
+      student_count: PropTypes.arrayOf(
+        PropTypes.shape({
+          created_at: PropTypes.string,
+          index: PropTypes.number,
+        })
+      )
+    }),
     graphWidth: PropTypes.number,
     graphHeight: PropTypes.number
   },

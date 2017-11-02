@@ -11,6 +11,12 @@ const SlideLink = createReactClass({
     disabled: PropTypes.bool,
     buttonText: PropTypes.string,
     params: PropTypes.object.isRequired,
+    direction: PropTypes.string.isRequired,
+    params: PropTypes.shape({
+      library_id: PropTypes.string,
+      module_id: PropTypes.string,
+      slide_id: PropTypes.string,
+    }).isRequired,
     slideId: PropTypes.string.isRequired
   },
 

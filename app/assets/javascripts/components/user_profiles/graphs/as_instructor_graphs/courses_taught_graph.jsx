@@ -146,7 +146,17 @@ const CoursesTaughtGraph = ({ statsData, graphWidth, graphHeight, courseStringPr
   );
 };
 CoursesTaughtGraph.propTypes = {
-  statsData: PropTypes.array,
+  statsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      articles_created: PropTypes.number,
+      articles_edited: PropTypes.number,
+      by_students_common_uploads: PropTypes.number,
+      course_end: PropTypes.string,
+      course_id: PropTypes.number,
+      course_start: PropTypes.string,
+      course_title: PropTypes.string,
+    })
+  ),
   graphWidth: PropTypes.number,
   graphHeight: PropTypes.number,
   courseStringPrefix: PropTypes.string

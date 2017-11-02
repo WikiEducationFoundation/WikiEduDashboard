@@ -22,7 +22,15 @@ const getState = () =>
 const Wizard = createReactClass({
   displayName: 'Wizard',
   propTypes: {
-    location: PropTypes.object,
+    location: PropTypes.shape({
+      action: PropTypes.string,
+      hash: PropTypes.string,
+      key: PropTypes.number,
+      pathname: PropTypes.string,
+      query: PropTypes.shape({}), // might be wrong, but in development  
+      search: PropTypes.string,
+      state: PropTypes.string, // FIX ME! I don't know what type this is.
+    }),
     course: PropTypes.object,
     weeks: PropTypes.array,
     open_weeks: PropTypes.number

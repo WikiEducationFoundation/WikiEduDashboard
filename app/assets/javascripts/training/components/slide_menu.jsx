@@ -9,9 +9,45 @@ const SlideMenu = createReactClass({
   propTypes: {
     closeMenu: PropTypes.func.isRequired,
     onClick: PropTypes.func.isRequired,
-    slides: PropTypes.array,
-    currentSlide: PropTypes.object,
-    enabledSlides: PropTypes.array,
+    slides: PropTypes.arrayOf(
+      PropTypes.shape({
+        assessment: PropTypes.object,
+        completed: PropTypes.bool,
+        content: PropTypes.string,
+        enabled: PropTypes.bool,
+        id: PropTypes.number,
+        index: PropTypes.number,
+        slug: PropTypes.string,
+        summary: PropTypes.string,
+        title: PropTypes.string,
+        title_prefix: PropTypes.string,
+        translations: PropTypes.string,
+      })
+    ),
+    currentSlide: PropTypes.shape({
+      assessment: PropTypes.shape({
+        answers: PropTypes.arrayOf(
+          PropTypes.shape({
+            explination: PropTypes.string,
+            id: PropTypes.number,
+            text: PropTypes.string
+          })
+        ),
+        correct_answer_id: PropTypes.number,
+        questions: PropTypes.string
+      }),
+      completed: PropTypes.bool,
+      content: PropTypes.string,
+      enabled: PropTypes.bool,
+      id: PropTypes.number,
+      index: PropTypes.number,
+      slug: PropTypes.string,
+      summary: PropTypes.string,
+      title: PropTypes.string,
+      title_prefix: PropTypes.string,
+      translations: PropTypes.string,
+    }),
+    enabledSlides: PropTypes.arrayOf(PropTypes.number),
     menuClass: PropTypes.string
   },
 

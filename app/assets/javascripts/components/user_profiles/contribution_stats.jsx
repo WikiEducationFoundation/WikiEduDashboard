@@ -21,7 +21,9 @@ const getState = function () {
 };
 const ContributionStats = createReactClass({
   propTypes: {
-    params: PropTypes.object
+    params: PropTypes.shape({
+      username: PropTypes.string
+    })
   },
 
   mixins: [ProfileStore.mixin], // adding store eventing to the component
