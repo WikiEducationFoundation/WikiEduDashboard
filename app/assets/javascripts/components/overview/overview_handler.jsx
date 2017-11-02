@@ -95,6 +95,8 @@ const Overview = createReactClass({
       </div>
     );
 
+
+
     let userArticles;
     if (userRoles.isStudent && this.state.course.id) {
       userArticles = (
@@ -123,6 +125,7 @@ const Overview = createReactClass({
           <span className="tooltip-indicator" />
           <div className="tooltip dark">
             <p>{I18n.t('metrics.are_updated')}</p>
+            <p>{I18n.t('metrics.last_update')}: {this.state.course.last_update > 0 ? this.state.course.last_update : I18n.t('metrics.not_available')}</p>
           </div>
         </h3>
         <CourseStats course={this.state.course} />
