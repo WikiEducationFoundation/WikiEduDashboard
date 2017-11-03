@@ -119,7 +119,7 @@ describe 'New course creation and editing', type: :feature do
     let(:expected_course_blocks) { 23 }
     let(:module_name) { 'Get started on Wikipedia' }
 
-    it 'should allow the user to create a course', focus: true do
+    it 'should allow the user to create a course' do
       allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
       click_link 'Create Course'
 
