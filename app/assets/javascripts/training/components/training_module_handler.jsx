@@ -8,7 +8,7 @@ import ServerActions from '../../actions/server_actions.js';
 const getState = () => ({ training_module: TrainingStore.getTrainingModule() });
 
 const TrainingModuleHandler = createReactClass({
-  displayName: 'TraniningModuleHandler',
+  displayName: 'TrainingModuleHandler',
   mixins: [TrainingStore.mixin],
   getInitialState() {
     return getState();

@@ -9,7 +9,7 @@ const SlideLink = createReactClass({
   propTypes: {
     button: PropTypes.bool,
     disabled: PropTypes.bool,
-    buttonText: PropTypes.string.isRequired,
+    buttonText: PropTypes.string,
     params: PropTypes.object.isRequired,
     slideId: PropTypes.string.isRequired
   },

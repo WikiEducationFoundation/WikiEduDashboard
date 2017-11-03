@@ -19,8 +19,8 @@ describe TrainingController do
     end
     context 'not a real library' do
       let(:library_id) { 'lolnotareallibrary' }
-      it 'raises a record not found error' do
-        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      it 'raises a module not found error' do
+        expect { subject }.to raise_error TrainingController::ModuleNotFound
       end
     end
   end
@@ -42,8 +42,8 @@ describe TrainingController do
     end
     context 'not a real module' do
       let(:module_id) { 'lolnotarealmodule' }
-      it 'raises a record not found error' do
-        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      it 'raises a module not found error' do
+        expect { subject }.to raise_error TrainingController::ModuleNotFound
       end
     end
   end
