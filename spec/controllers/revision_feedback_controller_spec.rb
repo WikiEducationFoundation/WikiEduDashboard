@@ -21,10 +21,6 @@ describe RevisionFeedbackController do
 
       it 'calls RevisionFeedbackService with features' do
         VCR.use_cassette 'ores_features' do
-          # Checks if the RevisionFeedbackService is initialized with valid features
-          expect_any_instance_of(RevisionFeedbackService).to receive(:initialize)
-            .with(have_key('feature.enwiki.revision.cite_templates'))
-
           # Checks if a valid feedback is received from RevisionFeedbackService
           expect_any_instance_of(RevisionFeedbackService).to receive(:feedback)
             .and_return(have_at_least(1))
