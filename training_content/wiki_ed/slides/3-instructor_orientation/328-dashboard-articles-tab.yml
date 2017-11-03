@@ -20,8 +20,8 @@ content: |
 
   * Cumulative Changes: the "diff viewer," a tool summarizing all changes to the
   article from the students' first edit to their last
-  * Curren Version: the latest version of the article, with highlighting of
-  which parts where added by which students
+  * Current Version: the latest version of the article, with highlighting of
+  which parts were added by which students
   * Article Development: a graph of the article's "Structural Completeness" over
   time
   * all students who worked on this article

@@ -1,12 +1,13 @@
 id: 306
-title: "Student learning outcome: Writing and communication"
+title_prefix: "Student learning outcome:"
+title: Writing and communication
 summary:
 content: |
-  When something is missing on Wikipedia, it isn’t as simple as just correcting
-  the error. A student weighs the evidence they have against the evidence
-  presented, and works to communicate it factually, accurately, and without
-  bias. They must carefully articulate their knowledge to do all this while it’s
-  also understood by a lay audience.
+  When something is missing or wrong on Wikipedia, it isn’t as simple as filling
+  in the blank or correcting the error. A student considers the available
+  sources, weighs competing claims and arguments, and works to communicate the
+  state of knowledge about the topic accurately and without bias. And they
+  must do all this it a way that can be understood by a lay audience.
 
   In the Wikipedia assignment, students build communication skills by:
   * identifying an audience beyond the instructor: Wikipedia's readers

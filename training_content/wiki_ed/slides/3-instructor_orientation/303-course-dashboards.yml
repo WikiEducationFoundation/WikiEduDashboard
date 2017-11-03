@@ -13,7 +13,9 @@ content: |
   When you create a course page, the Dashboard suggests a template and timeline
   that breaks all necessary steps of a Wikipedia assignment into weekly tasks,
   training modules, and milestones. You can customize the timeline before
-  submitting it for approval. During the term, students will follow the steps to
+  submitting it for approval.
+
+  During the term, students will follow the steps to
   learn how to edit Wikipedia without needing much time during lecture hours
   dedicated to technical details about Wikipedia. After all, Wikipedia is simply
   the tool students are using to learn about the course topic and develop new
