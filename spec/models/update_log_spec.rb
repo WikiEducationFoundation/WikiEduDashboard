@@ -11,9 +11,9 @@ describe UpdateLog do
 
   describe '.last_update' do
     it 'returns the time of the last update' do
-      UpdateLog.log_update(Time.now)
+      UpdateLog.log_update(Time.at(1509710857))
       time = UpdateLog.last_update
-      expect(time).to eq(Time.now.strftime("%H:%M:%S on %d/%m/%Y"))
+      expect(time).to eq("13:07:37 - 03/11/2017")
     end
 
     it 'returns Not known as the last update is not defined' do
