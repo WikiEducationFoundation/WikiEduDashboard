@@ -121,8 +121,8 @@ const Overview = createReactClass({
         { syllabusUpload }
         <CourseStats course={this.state.course} />
         {userArticles}
-        <div>
-          <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update !== 0 ? this.state.course.last_update : I18n.t('metrics.not_available')}</small>
+        <div className="pull-right">
+          <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update !== 0 ? this.state.course.last_update : '-'}</small>
         </div>
         <div className="primary">
           {primaryContent}
