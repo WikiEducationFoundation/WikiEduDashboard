@@ -265,10 +265,6 @@ class Course < ActiveRecord::Base
     word_count / user_count
   end
 
-  def last_update
-    Setting.find_by(key: 'metrics_update') ? Setting.find_by(key: 'metrics_update').value['last_update'] : 'Unknown'
-  end
-
   # Overidden by ClassroomProgramCourse
   def assignment_edits_enabled?
     wiki_edits_enabled?

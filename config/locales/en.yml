@@ -579,7 +579,7 @@ en:
   metrics:
     label: Course Activity
     are_updated: According to the last system statistics update
-    last_update: Last update
+    last_update: Last update (time - date)
     not_available: Information currently not available
     activity: Recent Activity
     are_trained: are up-to-date with training
