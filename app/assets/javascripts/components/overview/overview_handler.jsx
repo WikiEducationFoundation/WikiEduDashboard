@@ -119,14 +119,12 @@ const Overview = createReactClass({
     return (
       <section className="overview container">
         { syllabusUpload }
-        <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
-          <span className="tooltip-indicator" />
-          <div className="tooltip dark">
-            <p>{I18n.t('metrics.are_updated')}</p>
-          </div>
-        </h3>
         <CourseStats course={this.state.course} />
         {userArticles}
+        <small>
+          {I18n.t('metrics.are_updated')}
+          {I18n.t('metrics.last_update')}: {this.state.course.last_update !== 0 ? this.state.course.last_update : I18n.t('metrics.not_available')}
+        </small>
         <div className="primary">
           {primaryContent}
         </div>
