@@ -4,11 +4,14 @@
 # Author: GR
 # Author: Geraki
 # Author: Glavkos
+# Author: KATRINE1992
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
   application:
     confirm: Εντάξει
+  articles:
+    deleted: (διαγράφηκε)
   chat:
     label: Συνομιλία
   courses:
@@ -21,4 +24,6 @@ el:
     view_page: Δείτε τη Σελίδα του Προγράμματος
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
+  wizard:
+    assignment_type: Τι θα ολοκληρώσουν οι σπουδαστές για την ανάθεση τους από Wikipedia?
 ...

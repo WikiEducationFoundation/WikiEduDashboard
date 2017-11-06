@@ -79,6 +79,7 @@ ast:
     assigned_to: Axudicáu a
     character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
       ente la data de principiu y la final
+    deleted: (desaniciáu)
     edited: Artículos editaos
     edited_by: 'Editáu por:'
     edited_mobile: Artículos
@@ -524,6 +525,7 @@ ast:
     time_doc: La hora de cada revisión n'hora llocal
     title: Títulu
     view_on_wiki: Ver les diferencies na wiki
+    see_more: Ver más
   suggestions:
     editing: Suxerencies d'edición
     suggestion_docs:

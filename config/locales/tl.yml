@@ -41,4 +41,7 @@ tl:
   wiki_edits:
     notify_overdue:
       header: Mayroong kang takdang pangkasanayan na lumampas na sa panahon
+  wizard:
+    assignment_type: Ano ang gagawin ng mga estudyante para kumpletuhin ang kanilang
+      'Wikipedia assignment'?
 ...

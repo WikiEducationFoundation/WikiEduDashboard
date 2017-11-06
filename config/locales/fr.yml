@@ -867,7 +867,8 @@ fr:
       la deuxième semaine du cours, mettez la date de début d’affectation une semaine
       après celle de début du cours. L’outil de conception des affectations créera
       un brouillon de planning qui correspondra aux dates que vous aurez choisies.
-    assignment_type: Type de tâche
+    assignment_type: De ce que les étudiants bénéficieront pour leur participation
+      à Wikipedia
     calendar_instructions: Sélectionner les dates à ajouter ou supprimer du calendrier
       (par ex., vacances, pas d’école). Cela aidera l’outil de création des cours
       à répartir correctement vos affectations. Cliquer sur la date pour basculer

@@ -75,6 +75,7 @@ ca:
     assigned_to: Assignat a
     character_doc: La suma de total de caràcters afegits als articles pels estudiants
       inscrits durant les dates d'inici i finalització
+    deleted: (suprimit)
     edited: Articles editats
     edited_mobile: Articles
     label: Articles
