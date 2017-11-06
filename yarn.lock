@@ -2,6 +2,40 @@
 # yarn lockfile v1
 
 
+"@bower_components/jquery-ujs@rails/jquery-ujs#~1.0.3":
+  version "0.0.0"
+  resolved "https://codeload.github.com/rails/jquery-ujs/tar.gz/7146dc96a71fda9b713f1f60fb414c699db0b3a7"
+
+"@bower_components/jquery.uls@mattfordham/jquery.uls#*":
+  version "0.1.0"
+  resolved "https://codeload.github.com/mattfordham/jquery.uls/tar.gz/701e9147cf720c0336c13fe0ecf8b6e77759e077"
+
+"@bower_components/jquery@jquery/jquery-dist#~2.1.1":
+  version "2.1.4"
+  resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/7751e69b615c6eca6f783a81e292a55725af6b85"
+
+"@bower_components/list.js@wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18":
+  version "1.1.1"
+  resolved "https://codeload.github.com/wintr/list.js/tar.gz/76c5632d86e11711b965878d58e1f4c90f6bcb18"
+
+"@bower_components/lodash@lodash/lodash#~3.9.0":
+  version "3.9.3"
+  resolved "https://codeload.github.com/lodash/lodash/tar.gz/2ecdedd5b48b20f5ae786147fff4fd16749e83c8"
+
+"@bower_components/moment-recur@c-trimm/moment-recur#~1.0.5":
+  version "1.0.7"
+  resolved "https://codeload.github.com/c-trimm/moment-recur/tar.gz/a27c5f4b0519b97e1e7b1643b63adc189dc9c929"
+  dependencies:
+    moment "<3.0.0"
+
+"@bower_components/moment@moment/moment#~2.10.3":
+  version "2.10.6"
+  resolved "https://codeload.github.com/moment/moment/tar.gz/f3fbef9d9875bbff340b527dbe3f1c447a942f69"
+
+"@bower_components/trix@basecamp/trix#~0.10.1":
+  version "0.10.2"
+  resolved "https://codeload.github.com/basecamp/trix/tar.gz/9ab33cf55d7c348899906dd8d4a5c67919f5c7a1"
+
 "@gulp-sourcemaps/identity-map@1.X":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-1.0.1.tgz#cfa23bc5840f9104ce32a65e74db7e7a974bbee1"
