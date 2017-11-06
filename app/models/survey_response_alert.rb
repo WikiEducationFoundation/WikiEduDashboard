@@ -24,10 +24,20 @@
 # Similar to ProductiveCourseAlert, but with a different productivity threshold
 class SurveyResponseAlert < Alert
   def main_subject
-    user.username
+    "#{question_text_excerpt} - #{user.username}"
   end
 
   def url
     user_profile_url
+  end
+
+  private
+
+  def question_text_excerpt
+    question.question_text[0..100]
+  end
+
+  def question
+    Rapidfire::Question.find subject_id
   end
 end
