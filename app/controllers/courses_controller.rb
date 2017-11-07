@@ -42,7 +42,7 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update course: course_params
+    @course.update course_params
     set_timeline_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)

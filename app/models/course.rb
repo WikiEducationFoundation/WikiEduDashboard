@@ -244,11 +244,6 @@ class Course < ActiveRecord::Base
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  def update(data={}, should_save=true)
-    self.attributes = data[:course]
-    save if should_save
-  end
-
   def new_articles
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end
