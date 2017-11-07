@@ -486,6 +486,10 @@ es:
     edit_description: Editar descripción
     edit_details: Editar detalles
   metrics:
+    label: Actividad del curso
+    are_updated: Según la última actualización de estadísticas del sistema
+    last_update: Última actualización (hora - fecha)
+    not_available: Información no disponible en este momento
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
