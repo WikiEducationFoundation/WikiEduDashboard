@@ -24,12 +24,7 @@ class ConstantUpdate
     return if updates_paused?
     return if conflicting_updates_running?
 
-    begin
-      create_pid_file(:constant)
-      run_update
-    ensure
-      delete_pid_file(:constant)
-    end
+    run_update_with_pid_files(:constant)
   end
 
   private

@@ -9,6 +9,7 @@ module BatchUpdateLogging
     daily: 'tmp/batch_update_daily.pid',
     constant: 'tmp/batch_update_constantly.pid',
     views: 'tmp/batch_update_views.pid',
+    survey: 'tmp/batch_update_surveys.pid',
     pause: 'tmp/batch_pause.pid',
     sleep: 'tmp/batch_sleep_10.pid'
   }.freeze
@@ -20,6 +21,13 @@ module BatchUpdateLogging
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
     @sentry_logs = []
+  end
+
+  def run_update_with_pid_files(type)
+    create_pid_file(type)
+    run_update # implemented by each update class
+  ensure
+    delete_pid_file(type)
   end
 
   # Given a pid file that contains the pid of a process, check whether it is

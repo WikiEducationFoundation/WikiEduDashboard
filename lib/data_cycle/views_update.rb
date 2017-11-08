@@ -12,12 +12,7 @@ class ViewsUpdate
     return if updates_paused?
     return if update_running?(:views)
 
-    begin
-      create_pid_file(:views)
-      run_update
-    ensure
-      delete_pid_file(:views)
-    end
+    run_update_with_pid_files(:views)
   end
 
   private

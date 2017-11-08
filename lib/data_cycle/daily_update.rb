@@ -19,12 +19,7 @@ class DailyUpdate
     return if update_running?(:daily)
     wait_until_constant_update_finishes if update_running?(:constant)
 
-    begin
-      create_pid_file(:daily)
-      run_update
-    ensure
-      delete_pid_file(:daily)
-    end
+    run_update_with_pid_files(:daily)
   end
 
   private
