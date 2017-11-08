@@ -46,6 +46,10 @@ module BatchUpdateLogging
     pid_file_process_running?(DAILY_UPDATE_PID_FILE)
   end
 
+  def views_update_running?
+    pid_file_process_running?(VIEWS_UPDATE_PID_FILE)
+  end
+
   def update_waiting_to_run?
     pid_file_process_running?(SLEEP_FILE)
   end
