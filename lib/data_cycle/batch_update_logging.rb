@@ -5,12 +5,6 @@ require 'action_view'
 module BatchUpdateLogging
   include ActionView::Helpers::DateHelper
 
-  DAILY_UPDATE_PID_FILE = 'tmp/batch_update_daily.pid'
-  CONSTANT_UPDATE_PID_FILE = 'tmp/batch_update_constantly.pid'
-  PAUSE_UPDATES_FILE = 'tmp/batch_pause.pid'
-  SLEEP_FILE = 'tmp/batch_sleep_10.pid'
-  VIEWS_UPDATE_PID_FILE = 'tmp/batch_update_views.pid'
-
   UPDATE_PID_FILES = {
     daily: 'tmp/batch_update_daily.pid',
     constant: 'tmp/batch_update_constantly.pid',
