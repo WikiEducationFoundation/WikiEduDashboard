@@ -38,7 +38,7 @@ If you know your way around Rails, here's the very short version. Some additiona
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 - Install Node:
-  - Debian: `apt install nodejs npm`
+  - Debian: `sudo apt install nodejs`
   - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
   - Windows: [Download the installer](https://nodejs.org/)
 
@@ -47,15 +47,15 @@ If you know your way around Rails, here's the very short version. Some additiona
     - $ `bundle install`
     - If some gems fail to install, you may need to install some dependencies, such as: `libmysqlclient-dev libpq-dev libqtwebkit-dev`
 
-- Install NPM modules via Yarn:
-    - $ `sudo npm install yarn -g`
+- [Install Yarn](https://yarnpkg.com/lang/en/docs/install/)
+- Install node modules via Yarn:
     - $ `yarn`
 
 - Install PhantomJS:
-    - $ `sudo npm install -g phantomjs-prebuilt`
+    - $ `sudo yarn global add phantomjs-prebuilt`
 
 - Install Bower and Bower modules:
-    - $ `sudo npm install bower -g`
+    - $ `sudo yarn global add bower`
     - $ `bower install`
 
 - Install Pandoc
@@ -66,8 +66,8 @@ If you know your way around Rails, here's the very short version. Some additiona
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
 
 - Create mysql development and test database:
-    - Install mysql-server
-        - Debian: `sudo apt-get install mysql-server`
+    - Install mysql-server (or mariadb-server)
+        - Debian: `sudo apt install mysql-server`
         - OSX: `brew install mysql`
         - Windows: Install [XAMPP](https://www.apachefriends.org/index.html)
     - Start a mysql command line:
@@ -79,13 +79,13 @@ If you know your way around Rails, here's the very short version. Some additiona
     - `exit`
 
 - Install Redis:
-  - Debian: `sudo apt-get install redis-server`
+  - Debian: `sudo apt install redis-server`
   - OSX: `brew install redis`
   - Windows: Download [the Windows port](https://github.com/MSOpenTech/redis/releases) by the Microsoft Open Tech Group
 
 - Install Gulp (if not already installed)
-  - `sudo npm install -g gulp-cli`
-  
+  - `sudo yarn global add gulp`
+
 - Install R:
   - Debian: `sudo apt install r-base`
   - Also you can refer to this [install R](https://cran.r-project.org/)
