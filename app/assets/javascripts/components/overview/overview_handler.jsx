@@ -120,7 +120,7 @@ const Overview = createReactClass({
     if (!this.state.course.ended) {
       courseStatistics = (
         <div className="pull-right">
-          <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update ? this.state.course.last_update : '-'}</small>
+          <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update ? moment(this.state.course.last_update).fromNow() : '-'}</small>
         </div>
       );
     }
