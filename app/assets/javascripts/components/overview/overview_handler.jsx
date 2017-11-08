@@ -117,7 +117,7 @@ const Overview = createReactClass({
     );
 
     let courseStatistics;
-    if (!this.state.course.ended) {
+    if (!this.state.course.ended || !Features.wikiEd) {
       courseStatistics = (
         <div className="pull-right">
           <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update ? moment(this.state.course.last_update).fromNow() : '-'}</small>
