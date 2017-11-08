@@ -25,6 +25,7 @@ namespace :batch do
 
   desc 'View import updates'
   task update_views: :environment do
+    Rails.application.eager_load!
     ViewsUpdate.new
   end
 
