@@ -16,8 +16,8 @@ class DailyUpdate
   def initialize
     setup_logger
     return if updates_paused?
-    return if daily_update_running?
-    wait_until_constant_update_finishes if constant_update_running?
+    return if update_running?(:daily)
+    wait_until_constant_update_finishes if update_running?(:constant)
 
     begin
       create_pid_file
@@ -102,7 +102,7 @@ class DailyUpdate
     log_message 'Delaying daily until current update finishes...'
     begin
       File.open(SLEEP_FILE, 'w') { |f| f.puts Process.pid }
-      while constant_update_running?
+      while update_running?(:constant)
         sleep_time += 5
         sleep(5.minutes)
       end

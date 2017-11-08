@@ -11,6 +11,14 @@ module BatchUpdateLogging
   SLEEP_FILE = 'tmp/batch_sleep_10.pid'
   VIEWS_UPDATE_PID_FILE = 'tmp/batch_update_views.pid'
 
+  UPDATE_PID_FILES = {
+    daily: 'tmp/batch_update_daily.pid',
+    constant: 'tmp/batch_update_constantly.pid',
+    views: 'tmp/batch_update_views.pid',
+    pause: 'tmp/batch_pause.pid',
+    sleep: 'tmp/batch_sleep_10.pid'
+  }.freeze
+
   def setup_logger
     $stdout.sync = true
     logger = Logger.new $stdout
@@ -38,16 +46,8 @@ module BatchUpdateLogging
     false
   end
 
-  def constant_update_running?
-    pid_file_process_running?(CONSTANT_UPDATE_PID_FILE)
-  end
-
-  def daily_update_running?
-    pid_file_process_running?(DAILY_UPDATE_PID_FILE)
-  end
-
-  def views_update_running?
-    pid_file_process_running?(VIEWS_UPDATE_PID_FILE)
+  def update_running?(type)
+    pid_file_process_running? UPDATE_PID_FILES[type]
   end
 
   def update_waiting_to_run?

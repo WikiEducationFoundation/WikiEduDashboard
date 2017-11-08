@@ -48,11 +48,9 @@ describe DailyUpdate do
       expect(File).to receive(:delete).with('tmp/batch_sleep_10.pid').and_call_original
       allow_any_instance_of(DailyUpdate).to receive(:create_pid_file)
       allow_any_instance_of(DailyUpdate).to receive(:run_update)
-      allow_any_instance_of(DailyUpdate).to receive(:daily_update_running?).and_return(false)
-
       expect_any_instance_of(DailyUpdate).to receive(:sleep)
-      allow_any_instance_of(DailyUpdate).to receive(:constant_update_running?)
-        .and_return(true, true, false)
+      allow_any_instance_of(DailyUpdate).to receive(:update_running?)
+        .and_return(false, true, true, false)
       DailyUpdate.new
     end
   end

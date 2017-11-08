@@ -10,7 +10,7 @@ class ViewsUpdate
   def initialize
     setup_logger
     return if updates_paused?
-    return if views_update_running?
+    return if update_running?(:views)
 
     begin
       create_pid_file

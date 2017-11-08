@@ -22,7 +22,7 @@ class ConstantUpdate
     setup_logger
     set_courses_to_update
     return if updates_paused?
-    return unless no_other_updates_running?
+    return if conflicting_updates_running?
 
     begin
       create_pid_file
@@ -105,11 +105,11 @@ class ConstantUpdate
     end
   end
 
-  def no_other_updates_running?
-    return false if daily_update_running?
-    return false if constant_update_running?
-    return false if update_waiting_to_run?
-    true
+  def conflicting_updates_running?
+    return true if update_running?(:daily)
+    return true if update_running?(:constant)
+    return true if update_waiting_to_run?
+    false
   end
 
   def create_pid_file

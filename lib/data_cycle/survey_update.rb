@@ -9,6 +9,7 @@ class SurveyUpdate
   def initialize
     @error_count = 0
     setup_logger
+    return if updates_paused?
     log_start_of_update 'Survey update starting.'
     create_survey_notifications
     send_survey_notifications
