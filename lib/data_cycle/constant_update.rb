@@ -40,7 +40,7 @@ class ConstantUpdate
   end
 
   def run_update
-    log_start_of_update
+    log_start_of_update 'Constant update tasks are beginning.'
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
@@ -118,10 +118,5 @@ class ConstantUpdate
 
   def delete_pid_file
     File.delete CONSTANT_UPDATE_PID_FILE if File.exist? CONSTANT_UPDATE_PID_FILE
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
-    Rails.logger.info 'Constant update tasks are beginning.'
   end
 end

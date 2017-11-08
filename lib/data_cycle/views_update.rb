@@ -23,7 +23,7 @@ class ViewsUpdate
   private
 
   def run_update
-    log_start_of_update
+    log_start_of_update 'Views update task is beginning.'
     update_article_views unless ENV['no_views'] == 'true'
     log_end_of_update 'Views update finished.'
   # rubocop:disable Lint/RescueException
@@ -48,10 +48,5 @@ class ViewsUpdate
 
   def delete_pid_file
     File.delete VIEWS_UPDATE_PID_FILE if File.exist? VIEWS_UPDATE_PID_FILE
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
-    Rails.logger.info 'Views update task is beginning.'
   end
 end

@@ -9,7 +9,7 @@ class SurveyUpdate
   def initialize
     @error_count = 0
     setup_logger
-    log_start_of_update
+    log_start_of_update 'Survey update starting.'
     create_survey_notifications
     send_survey_notifications
     send_survey_notification_follow_ups
@@ -40,10 +40,6 @@ class SurveyUpdate
     try_to_process_notifications(:send_follow_up)
     after_count = SurveyNotification.sum(:follow_up_count)
     log_message "#{after_count - before_count} survey reminders sent"
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
   end
 
   def try_to_process_notifications(method)

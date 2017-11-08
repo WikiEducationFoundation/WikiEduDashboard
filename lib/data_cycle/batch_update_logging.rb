@@ -59,6 +59,11 @@ module BatchUpdateLogging
     @sentry_logs << "#{Time.zone.now} - #{message}"
   end
 
+  def log_start_of_update(message)
+    @start_time = Time.zone.now
+    Rails.logger.info message
+  end
+
   def log_end_of_update(message)
     @end_time = Time.zone.now
     log_message 'Update finished'

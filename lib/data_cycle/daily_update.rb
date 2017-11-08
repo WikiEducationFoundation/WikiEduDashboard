@@ -30,7 +30,7 @@ class DailyUpdate
   private
 
   def run_update
-    log_start_of_update
+    log_start_of_update 'Daily update tasks are beginning.'
     update_users
     update_commons_uploads
     update_article_data
@@ -118,10 +118,5 @@ class DailyUpdate
 
   def delete_pid_file
     File.delete DAILY_UPDATE_PID_FILE if File.exist? DAILY_UPDATE_PID_FILE
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
-    Rails.logger.info 'Daily update tasks are beginning.'
   end
 end
