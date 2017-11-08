@@ -13,10 +13,10 @@ class ViewsUpdate
     return if update_running?(:views)
 
     begin
-      create_pid_file
+      create_pid_file(:views)
       run_update
     ensure
-      delete_pid_file
+      delete_pid_file(:views)
     end
   end
 
@@ -36,17 +36,5 @@ class ViewsUpdate
   def update_article_views
     log_message 'Updating article views'
     ViewImporter.update_all_views(true)
-  end
-
-  #################################
-  # Logging and process managment #
-  #################################
-
-  def create_pid_file
-    File.open(VIEWS_UPDATE_PID_FILE, 'w') { |f| f.puts Process.pid }
-  end
-
-  def delete_pid_file
-    File.delete VIEWS_UPDATE_PID_FILE if File.exist? VIEWS_UPDATE_PID_FILE
   end
 end

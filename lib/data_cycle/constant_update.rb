@@ -25,10 +25,10 @@ class ConstantUpdate
     return if conflicting_updates_running?
 
     begin
-      create_pid_file
+      create_pid_file(:constant)
       run_update
     ensure
-      delete_pid_file
+      delete_pid_file(:constant)
     end
   end
 
@@ -110,13 +110,5 @@ class ConstantUpdate
     return true if update_running?(:constant)
     return true if update_waiting_to_run?
     false
-  end
-
-  def create_pid_file
-    File.open(CONSTANT_UPDATE_PID_FILE, 'w') { |f| f.puts Process.pid }
-  end
-
-  def delete_pid_file
-    File.delete CONSTANT_UPDATE_PID_FILE if File.exist? CONSTANT_UPDATE_PID_FILE
   end
 end

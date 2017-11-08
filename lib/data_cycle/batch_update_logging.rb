@@ -41,8 +41,16 @@ module BatchUpdateLogging
     return false
   end
 
+  def create_pid_file(type)
+    File.open(UPDATE_PID_FILES[type], 'w') { |f| f.puts Process.pid }
+  end
+
+  def delete_pid_file(type)
+    File.delete UPDATE_PID_FILES[type] if File.exist? UPDATE_PID_FILES[type]
+  end
+
   def updates_paused?
-    return true if File.exist? PAUSE_UPDATES_FILE
+    return true if File.exist? UPDATE_PID_FILES[:pause]
     false
   end
 
@@ -51,7 +59,7 @@ module BatchUpdateLogging
   end
 
   def update_waiting_to_run?
-    pid_file_process_running?(SLEEP_FILE)
+    pid_file_process_running? UPDATE_PID_FILES[:sleep]
   end
 
   def log_message(message)

@@ -20,10 +20,10 @@ class DailyUpdate
     wait_until_constant_update_finishes if update_running?(:constant)
 
     begin
-      create_pid_file
+      create_pid_file(:daily)
       run_update
     ensure
-      delete_pid_file
+      delete_pid_file(:daily)
     end
   end
 
@@ -101,22 +101,14 @@ class DailyUpdate
     sleep_time = 0
     log_message 'Delaying daily until current update finishes...'
     begin
-      File.open(SLEEP_FILE, 'w') { |f| f.puts Process.pid }
+      create_pid_file(:sleep)
       while update_running?(:constant)
         sleep_time += 5
         sleep(5.minutes)
       end
       log_message "Starting daily update after waiting #{sleep_time} minutes"
     ensure
-      File.delete SLEEP_FILE if File.exist? SLEEP_FILE
+      delete_pid_file(:sleep)
     end
-  end
-
-  def create_pid_file
-    File.open(DAILY_UPDATE_PID_FILE, 'w') { |f| f.puts Process.pid }
-  end
-
-  def delete_pid_file
-    File.delete DAILY_UPDATE_PID_FILE if File.exist? DAILY_UPDATE_PID_FILE
   end
 end
