@@ -10,5 +10,3 @@ class UpdateLog
     Setting.find_by(key: 'metrics_update') ? Setting.find_by(key: 'metrics_update').value['last_update'].strftime("%H:%M:%S - %d/%m/%Y") : 0
   end
 end
-
-# 
