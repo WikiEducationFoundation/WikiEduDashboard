@@ -23,14 +23,14 @@ before_install:
 - nvm install stable
 - nvm use stable
 - node --version
-- npm --version
+- yarn --version
 install:
-- npm install gulp -g
-- npm install bower -g
-- npm install codeclimate-test-reporter -g
-- npm install -g phantomjs-prebuilt@latest
-- yarn install
+- yarn global add gulp
+- yarn global add bower
+- yarn global add phantomjs-prebuilt@latest
+- yarn global add codeclimate-test-reporter
 - bower install
+- yarn install
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
 # install Code Climate test reporter
@@ -42,7 +42,7 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
-script: gulp build && npm test && bundle exec rspec --color --profile --format documentation
+script: gulp build && yarn test && bundle exec rspec --color --profile --format documentation
   --tag $TEST_SUITE
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
