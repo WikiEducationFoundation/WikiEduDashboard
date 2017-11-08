@@ -22,14 +22,9 @@ class ConstantUpdate
     setup_logger
     set_courses_to_update
     return if updates_paused?
-    return unless no_other_updates_running?
+    return if conflicting_updates_running?
 
-    begin
-      create_pid_file
-      run_update
-    ensure
-      delete_pid_file
-    end
+    run_update_with_pid_files(:constant)
   end
 
   private
@@ -40,7 +35,7 @@ class ConstantUpdate
   end
 
   def run_update
-    log_start_of_update
+    log_start_of_update 'Constant update tasks are beginning.'
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
@@ -105,23 +100,10 @@ class ConstantUpdate
     end
   end
 
-  def no_other_updates_running?
-    return false if daily_update_running?
-    return false if constant_update_running?
-    return false if update_waiting_to_run?
-    true
-  end
-
-  def create_pid_file
-    File.open(CONSTANT_UPDATE_PID_FILE, 'w') { |f| f.puts Process.pid }
-  end
-
-  def delete_pid_file
-    File.delete CONSTANT_UPDATE_PID_FILE if File.exist? CONSTANT_UPDATE_PID_FILE
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
-    Rails.logger.info 'Constant update tasks are beginning.'
+  def conflicting_updates_running?
+    return true if update_running?(:daily)
+    return true if update_running?(:constant)
+    return true if update_waiting_to_run?
+    false
   end
 end

@@ -17,7 +17,6 @@ describe DailyUpdate do
       expect(RatingImporter).to receive(:update_all_ratings)
       expect(ArticleStatusManager).to receive(:update_article_status)
       expect(OresScoresBeforeAndAfterImporter).to receive(:import_all)
-      expect(ViewImporter).to receive(:update_all_views)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect(UploadImporter).to receive(:import_uploads_for_current_users)
       expect(UploadImporter).to receive(:update_usage_count_by_course)
@@ -47,13 +46,12 @@ describe DailyUpdate do
 
     it 'creates a sleep file and waits for a constant update to finish' do
       expect(File).to receive(:delete).with('tmp/batch_sleep_10.pid').and_call_original
-      allow_any_instance_of(DailyUpdate).to receive(:create_pid_file)
+      allow_any_instance_of(DailyUpdate).to receive(:create_pid_file) # for the main :daily pid
+      allow_any_instance_of(DailyUpdate).to receive(:create_pid_file).with(:sleep).and_call_original
       allow_any_instance_of(DailyUpdate).to receive(:run_update)
-      allow_any_instance_of(DailyUpdate).to receive(:daily_update_running?).and_return(false)
-
       expect_any_instance_of(DailyUpdate).to receive(:sleep)
-      allow_any_instance_of(DailyUpdate).to receive(:constant_update_running?)
-        .and_return(true, true, false)
+      allow_any_instance_of(DailyUpdate).to receive(:update_running?)
+        .and_return(false, true, true, false)
       DailyUpdate.new
     end
   end
