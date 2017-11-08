@@ -9,6 +9,7 @@ module BatchUpdateLogging
   CONSTANT_UPDATE_PID_FILE = 'tmp/batch_update_constantly.pid'
   PAUSE_UPDATES_FILE = 'tmp/batch_pause.pid'
   SLEEP_FILE = 'tmp/batch_sleep_10.pid'
+  VIEWS_UPDATE_PID_FILE = 'tmp/batch_update_views.pid'
 
   def setup_logger
     $stdout.sync = true
@@ -59,7 +60,7 @@ module BatchUpdateLogging
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
     Rails.logger.info "#{message} Time: #{total_time}."
-    UpdateLog.log_update(@end_time.to_datetime) if self.class == ConstantUpdate
+    UpdateLog.log_update(@end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
     Raven.capture_message message,
                           level: 'info',
                           tags: { update_time: total_time },

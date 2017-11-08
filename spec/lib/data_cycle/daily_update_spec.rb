@@ -17,7 +17,6 @@ describe DailyUpdate do
       expect(RatingImporter).to receive(:update_all_ratings)
       expect(ArticleStatusManager).to receive(:update_article_status)
       expect(OresScoresBeforeAndAfterImporter).to receive(:import_all)
-      expect(ViewImporter).to receive(:update_all_views)
       expect(UploadImporter).to receive(:find_deleted_files)
       expect(UploadImporter).to receive(:import_uploads_for_current_users)
       expect(UploadImporter).to receive(:update_usage_count_by_course)

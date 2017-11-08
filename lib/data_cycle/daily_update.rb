@@ -6,7 +6,6 @@ require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/article_status_manager"
-require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/upload_importer"
 require "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
 
@@ -35,7 +34,6 @@ class DailyUpdate
     update_users
     update_commons_uploads
     update_article_data
-    update_article_views unless ENV['no_views'] == 'true'
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -83,11 +81,6 @@ class DailyUpdate
 
     log_message 'Updating wp10 scores for before and after edits'
     OresScoresBeforeAndAfterImporter.import_all
-  end
-
-  def update_article_views
-    log_message 'Updating article views'
-    ViewImporter.update_all_views(true)
   end
 
   ###############

@@ -29,6 +29,10 @@ every 1.day, at: '4:30 am' do
   rake 'batch:update_daily'
 end
 
+every 1.day, at: '4:35 am' do
+  rake 'batch:update_views'
+end
+
 every [:monday, :tuesday, :wednesday, :thursday], at: '10:15 am' do
   rake 'batch:survey_update'
 end
