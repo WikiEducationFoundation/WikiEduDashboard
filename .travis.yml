@@ -13,21 +13,13 @@ cache:
   - node_modules
 addons:
   apt:
-    sources:
-    - ubuntu-sdk-team
     packages:
-    - libqt5webkit5-dev
-    - qtdeclarative5-dev
     - pandoc
     - r-base
 before_install:
 - rvm --default use 2.3.1
-- export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 - export DB=test
-- export sentry_dsn=${sentry_dsn:=http://example.com}
-- export DISPLAY=:99.0
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
-- sh -e /etc/init.d/xvfb start
 - nvm install stable
 - nvm use stable
 - node --version
@@ -54,20 +46,9 @@ script: gulp build && npm test && bundle exec rspec --color --profile --format d
   --tag $TEST_SUITE
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
-after_failure:
-- npm install imgur-uploader-cli -g
-- find $TRAVIS_BUILD_DIR/tmp/screenshots -name "*.png" -print0 | xargs -n 1 -0 imgur-uploader
 after_success:
 - "$AFTER_SUCCESS"
 notifications:
   slack:
     # https://agileventures.slack.com/messages/wiki_edu-notify/
     secure: LDzHmtPo8jt9wrnH51F8PHTHl2gwOj117+bvWYgtVa4VM7SW1SL+BuiD3+DMs83VTNptek8I/kOduR0lRxIgQMqddYrQRz1O10vOcIXGLOrWbXcx0tgCQjnDcLp4BdBd3k5Ybn1pc/uf7cQXGgCUQ9lAXzAEE+V6CkrCmaCYrVE=
-deploy:
-  provider: heroku
-  api_key:
-    secure: jVnSDN5ndsIMasaCUyves/Z59IlrpCDQE0crU5gAEsB9Y71VX9NMYJKn0ubo7M1SiDLlDZb/HfhskU8Jm5Kkyhz0BpyDVO4TnD8xwxYv8T6qF+TVv6BaiOtCpU6orpVNzIwMoAgXvil8gvHXSZUoZFnoSphcZZQJkutfWIrJ3BM=
-  app: wiki-dashboard-surveys
-  on:
-    repo: WikiEducationFoundation/WikiEduDashboard
-    branch: surveys:master
