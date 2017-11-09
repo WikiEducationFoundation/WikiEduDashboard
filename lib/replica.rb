@@ -131,7 +131,6 @@ class Replica
 
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
-    pp url
     Net::HTTP::get(URI.parse(url))
   end
 
