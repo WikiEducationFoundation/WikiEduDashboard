@@ -583,6 +583,9 @@ fr:
       va modifier l’URL et les liens pointant vers l’ancienne URL deviendront caducs.
       Voulez-vous vraiment continuer ?
   metrics:
+    label: Activité du cours
+    are_updated: Selon la dernière mise à jour du système
+    last_update: Dernière mise à jour
     activity: Activité récente
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés

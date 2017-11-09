@@ -77,6 +77,7 @@ nb:
     assigned_to: Tildelt til
     character_doc: Summen av antall tegn som er lagt til i artikler av innmeldte brukere
       mellom start- og sluttdatoene.
+    deleted: (slettet)
     edited: Artikler redigert
     edited_by: 'Redigert av:'
     edited_mobile: Artikler
@@ -220,6 +221,7 @@ nb:
       endres for å ta hensyn til uker uten oppsatte møter.
     course_description: Kurs
     courses: Kurs
+    courses_taught: Kurs undervist
     creation_date: Opprettelsesdato
     creator:
       already_exists: Dette kurset finnes allerede. Vurder om du vil forandre navnet,
@@ -261,6 +263,8 @@ nb:
         Alt annet kan redigeres senere. Klikk «Opprett kurset mitt!» for å begynne
         å bygge tidslinjen for din Wikipedia-oppgave.
       no_class_holidays: Jeg har ingen klasseferier
+      role_description: Din rolle i kurset
+      role_description_placeholder: Instruktør, stud.ass., etc.
       save_cloned_course: Lagre nytt kurs
       start_date: Startdato
       start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
