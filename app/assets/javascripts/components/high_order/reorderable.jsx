@@ -10,7 +10,7 @@ import _ from 'lodash';
 // component is the only implementation of this concept.
 
 // An overview of React-DnD, explaining the concepts summarized below
-// http://gaearon.github.io/react-dnd/docs-overview.html
+// https://react-dnd.github.io/react-dnd/docs-overview.html
 
 // param {React Component} Component - The component to be given reorderable properties
 // param {String} Type - The kind of data model represented by the Component
