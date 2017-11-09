@@ -131,12 +131,13 @@ class Replica
 
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
+    pp url
     Net::HTTP::get(URI.parse(url))
   end
 
   # Query URL for the WikiEduDashboardTools repository
   def compile_query_url(endpoint, query)
-    base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
+    base_url = 'https://tools.wmflabs.org/wikiedudashboard/'
     "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 
