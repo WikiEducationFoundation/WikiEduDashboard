@@ -94,8 +94,7 @@ class WikiCourseOutput
   def course_week(week, week_number)
     week_output = week_header(week, week_number)
 
-    ordered_blocks = week.blocks.order(:order)
-    ordered_blocks.each do |block|
+    week.blocks.each do |block|
       week_output += content_block(block)
     end
 
