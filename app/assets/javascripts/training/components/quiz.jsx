@@ -75,7 +75,7 @@ const Quiz = createReactClass({
             </div>
             {answer.text}
           </label>
-          <div className={explanationClass} dangerouslySetInnerHTML={{ __html: rawExplanationHtml }} />
+          <div className={explanationClass} >{rawExplanationHtml}</div>
         </li>
       );
     });
