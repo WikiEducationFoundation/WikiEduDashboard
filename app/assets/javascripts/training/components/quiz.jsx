@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
+
 import TrainingActions from '../actions/training_actions.js';
 const md = require('../../utils/markdown_it.js').default();
 
@@ -75,7 +77,7 @@ const Quiz = createReactClass({
             </div>
             {answer.text}
           </label>
-          <div className={explanationClass} >{rawExplanationHtml}</div>
+          <div className={explanationClass} >{Parser(rawExplanationHtml)}</div>
         </li>
       );
     });
