@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
+import Parser from 'html-react-parser';
 
 import BlockStore from '../../stores/block_store.js';
 import WeekStore from '../../stores/week_store.js';
@@ -46,7 +47,7 @@ const Milestones = createReactClass({
           <div key={block.id} className="section-header">
             <div className={classNames}>
               <p>Week {week.order} {completionNote}</p>
-              <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+              <div className="markdown">{Parser(rawHtml)}</div>
               <hr />
             </div>
           </div>
