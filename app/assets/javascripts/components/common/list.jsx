@@ -45,7 +45,7 @@ const List = createReactClass({
       }
       headers.push((
         <th onClick={headerOnClick} className={headerClass} key={key}>
-          <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+          <span>{keyObj.label}</span>
           <span className="sortable-indicator" />
           {tooltip}
         </th>
