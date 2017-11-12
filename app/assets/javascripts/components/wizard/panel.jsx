@@ -128,7 +128,7 @@ const Panel = createReactClass({
           </div>
         </div>
         <h3>{this.props.panel.title}</h3>
-        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.panel.description) }} />
+        <div>{md.render(this.props.panel.description)}</div>
         <div className="wizard__panel__options">{options}</div>
         <div className="wizard__panel__controls">
           <div className="left">
