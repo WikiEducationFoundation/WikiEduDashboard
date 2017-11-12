@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
+
 const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 
@@ -46,7 +48,7 @@ const Option = createReactClass({
       }
       expand = (
         <div className={expandClassName} ref={(div) => this.expandable = div}>
-          <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
+          <div>{Parser(md.render(this.props.option.description))}</div>
         </div>
       );
       expandLink = (
@@ -57,7 +59,7 @@ const Option = createReactClass({
     let blurb;
     if (this.props.option.blurb) {
       blurb = (
-        <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.blurb) }} />
+        <div>{Parser(md.render(this.props.option.blurb))}</div>
       );
     }
 

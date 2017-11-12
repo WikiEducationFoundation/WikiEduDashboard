@@ -2,6 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
+import Parser from 'html-react-parser';
+
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
 
 const DiffViewer = createReactClass({
@@ -233,7 +235,7 @@ const DiffViewer = createReactClass({
                 <th colSpan="4" className="diff-header">{editDate}</th>
               </tr>
             </thead>
-            <tbody dangerouslySetInnerHTML={{ __html: diff }} />
+            <tbody>{Parser(diff)}</tbody>
           </table>
         </div>
       </div>

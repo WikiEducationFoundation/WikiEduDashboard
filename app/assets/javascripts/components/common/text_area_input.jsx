@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import Parser from 'html-react-parser';
+
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 import InputMixin from '../../mixins/input_mixin.js';
 import { TrixEditor } from 'react-trix';
@@ -103,7 +105,7 @@ const TextAreaInput = createReactClass({
       rawHtml = this.props.value;
     }
     return (
-      <div className={this.props.className} dangerouslySetInnerHTML={{ __html: rawHtml }} />
+      <div className={this.props.className}>{Parser(rawHtml)}</div>
     );
   }
 }
