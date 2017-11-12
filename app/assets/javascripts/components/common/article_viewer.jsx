@@ -241,11 +241,11 @@ const ArticleViewer = createReactClass({
     }
     const className = `article-viewer ${style}`;
 
-    let article;
+    let articleContent;
     if (this.state.diff === '') {
-      article = '<div />';
+      articleContent = '<div />';
     } else {
-      article = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
+      articleContent = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle || '<div />';
     }
 
     return (
@@ -260,7 +260,7 @@ const ArticleViewer = createReactClass({
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article">{Parser(article)}</div>
+            <div className="parsed-article">{Parser(articleContent)}</div>
           </div>
           <div className="article-footer">
             {colorLegend}
