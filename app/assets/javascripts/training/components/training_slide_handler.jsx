@@ -174,7 +174,7 @@ const TrainingSlideHandler = createReactClass({
       slideTitle = this.state.currentSlide.translations[locale].title;
       rawHtml = md.render(this.state.currentSlide.translations[locale].content);
     } else {
-      slideTitle = this.state.currentSlide.title;
+      slideTitle = this.state.currentSlide.title || '';
       if (this.state.currentSlide.content) {
         rawHtml = md.render(this.state.currentSlide.content);
       }

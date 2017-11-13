@@ -245,7 +245,7 @@ const ArticleViewer = createReactClass({
     if (this.state.diff === '') {
       articleContent = '<div />';
     } else {
-      articleContent = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle || '<div />';
+      articleContent = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle || '';
     }
 
     return (
