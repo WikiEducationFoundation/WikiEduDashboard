@@ -166,9 +166,9 @@ const DiffViewer = createReactClass({
 
     let diff;
     if (this.state.diff === '') {
-      diff = '<div> — </div>';
+      diff = '<div> - </div>';
     } else {
-      diff = this.state.diff;
+      diff = this.state.diff || '';
     }
 
     const wikiDiffUrl = this.webDiffUrl();
