@@ -29,7 +29,6 @@ class Revision < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
   belongs_to :wiki
-  scope :after_date, ->(date) { where('date > ?', date) }
   scope :live, -> { where(deleted: false) }
   scope :user, -> { where(system: false) }
 
@@ -54,11 +53,6 @@ class Revision < ActiveRecord::Base
     return if article.nil?
     title = article.escaped_full_title
     "#{wiki.base_url}/w/index.php?title=#{title}&diff=prev&oldid=#{mw_rev_id}"
-  end
-
-  def update(data={}, save=true)
-    self.attributes = data
-    self.save if save
   end
 
   # Returns all of the revision author's courses where the revision occured

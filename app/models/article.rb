@@ -79,11 +79,6 @@ class Article < ActiveRecord::Base
   ####################
   # Instance methods #
   ####################
-  def update(data={}, save=true)
-    self.attributes = data
-    self.save if save
-  end
-
   def url
     "#{wiki.base_url}/wiki/#{namespace_prefix}#{title}"
   end
