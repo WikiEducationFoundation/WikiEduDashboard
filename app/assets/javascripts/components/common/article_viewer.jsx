@@ -259,7 +259,7 @@ const ArticleViewer = createReactClass({
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+            <div className="parsed-article">{article}</div>
           </div>
           <div className="article-footer">
             {colorLegend}
