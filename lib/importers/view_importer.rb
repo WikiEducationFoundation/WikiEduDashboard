@@ -9,14 +9,16 @@ class ViewImporter
   ################
   def self.update_all_views(all_time=false)
     articles = Article.current
-                      .where(articles: { namespace: 0 })
+                      .where(namespace: 0)
+                      .includes(:wiki)
                       .find_in_batches(batch_size: 30)
     update_views(articles, all_time)
   end
 
   def self.update_new_views
     articles = Article.current
-                      .where(articles: { namespace: 0 })
+                      .where(namespace: 0)
+                      .includes(:wiki)
                       .where('views_updated_at IS NULL')
                       .find_in_batches(batch_size: 30)
     update_views(articles, true)
