@@ -55,7 +55,7 @@ const Overview = createReactClass({
   render() {
     const userRoles = UserUtils.userRoles(this.props.current_user, UserStore);
 
-    if (this.props.location.query.modal === 'true' && this.state.course.id) {
+    if (this.state.course.cloned_status === 1) {
       return (
         <CourseClonedModal
           course={this.state.course}
