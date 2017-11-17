@@ -8,7 +8,6 @@ require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
-require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Controller for analytics tools

@@ -2,11 +2,11 @@
 
 require 'rinruby'
 
-require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
+require "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 class HistogramPlotter
-  def initialize(campaign: nil, csv: nil)
-    @campaign = campaign
+  def initialize(campaign: nil, course: nil, csv: nil)
+    @campaign_or_course = campaign || course
     @csv = csv || csv_path
     build_csv unless csv
     initialize_r
@@ -38,12 +38,18 @@ class HistogramPlotter
   def build_csv
     FileUtils.mkdir_p analytics_path
     return if File.exist? csv_path
-    csv_content = CampaignArticlesCsvBuilder.new(@campaign).articles_to_csv
+    courses = @campaign_or_course.is_a?(Course) ? [@campaign_or_course] : @campaign_or_course.courses
+    csv_content = OresDiffCsvBuilder.new(courses).articles_to_csv
     File.write(csv_path, csv_content)
   end
 
+  def slug_filename
+    return if @campaign_or_course.nil?
+    @campaign_or_course.slug.tr('/', '—')
+  end
+
   def csv_path
-    "#{analytics_path}/#{@campaign.slug}-#{Date.today}.csv"
+    "#{analytics_path}/#{slug_filename}-#{Date.today}.csv"
   end
 
   def plot_path
@@ -63,11 +69,11 @@ class HistogramPlotter
   end
 
   def plot_filename
-    "#{@campaign&.slug}-ores-#{@minimum_bytes}.png"
+    "#{slug_filename}-ores-#{@minimum_bytes}.png"
   end
 
   def plot_title
-    "#{@campaign&.slug} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
+    "#{slug_filename} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
   end
 
   def plot_subtitle
