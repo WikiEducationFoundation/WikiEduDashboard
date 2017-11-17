@@ -61,7 +61,7 @@ class HistogramPlotter
   end
 
   def public_analytics_path
-    'system/analytics'
+    'assets/system/analytics'
   end
 
   def analytics_path
