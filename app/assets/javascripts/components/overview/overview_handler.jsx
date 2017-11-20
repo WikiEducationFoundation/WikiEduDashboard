@@ -129,8 +129,8 @@ const Overview = createReactClass({
       <section className="overview container">
         { syllabusUpload }
         <CourseStats course={this.state.course} />
-        {userArticles}
         {courseStatistics}
+        {userArticles}
         <div className="primary">
           {primaryContent}
         </div>
