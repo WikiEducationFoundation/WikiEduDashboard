@@ -48,9 +48,20 @@ const CourseOresPlot = createReactClass({
 
     if (this.state.show) {
       if (this.state.filePath) {
-        return (<img className="ores-plot" src={`/${this.state.filePath}`} onClick={this.hide} />);
+        return (
+          <div className="ores-plot">
+            <img className="ores-plot" src={`/${this.state.filePath}`} onClick={this.hide} />
+            <p>
+              This graph visualizes, in aggregate, how much articles developed from
+              when students first edited them until now. The <em>Structural Completeness </em>
+              rating is based on a machine learning project (<a href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>)
+              that estimates an article's quality rating based on the amount of
+              prose, the number of wikilinks, images and section headers, and other features.
+            </p>
+          </div>
+        );
       }
-      return <Loading />;
+      return <div onClick={this.hide}><Loading /></div>;
     }
     return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
   }

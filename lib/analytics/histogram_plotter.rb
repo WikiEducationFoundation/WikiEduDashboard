@@ -130,7 +130,7 @@ class HistogramPlotter
       ggplot(histogram, aes(structural_completeness, fill=when)) +
         scale_fill_manual(values=c("#676eb4", "#359178")) +
         geom_density(aes(y = ..count..), alpha = 0.4, adjust = 1/2) +
-        xlab('Structural Completeness (based on ORES wp10 model)') +
+        xlab('Structural Completeness') +
         theme(legend.background = element_rect(colour = "white"),
               legend.position = c(.8, .85),
               axis.title=element_text(size=26,face="bold"),
