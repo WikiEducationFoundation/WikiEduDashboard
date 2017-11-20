@@ -13,10 +13,12 @@ class HistogramPlotter
     load_dataframe
   end
 
-  def major_edits_plot(minimum_bytes: 1000, existing_only: true, type: 'histogram', minimum_improvement: nil)
+  def major_edits_plot(minimum_bytes: 0, existing_only: false, type: 'density',
+                       minimum_improvement: nil, simple: false)
     @minimum_bytes = minimum_bytes
     @existing_only = existing_only
     @minimum_improvement = minimum_improvement
+    @simple= simple
 
     filter_by_bytes_added
     filter_out_new_articles if existing_only
@@ -73,6 +75,7 @@ class HistogramPlotter
   end
 
   def plot_title
+    return '' if @simple
     "#{slug_filename} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
   end
 
@@ -81,9 +84,11 @@ class HistogramPlotter
     R.eval "before_mean <- mean(subset(histogram, when=='before')$structural_completeness)"
     R.eval "after_mean <- mean(subset(histogram, when=='after')$structural_completeness)"
 
-    improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
+    average_before_after = "ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
+    return average_before_after if @simple
 
-    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
+    improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
+    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - #{average_before_after}"
   end
 
   def initialize_r
