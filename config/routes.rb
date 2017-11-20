@@ -144,6 +144,7 @@ Rails.application.routes.draw do
       get 'students'
       get 'instructors'
       get 'courses'
+      get 'ores_plot'
       get 'articles_csv'
       put 'add_organizer'
       put 'remove_organizer'

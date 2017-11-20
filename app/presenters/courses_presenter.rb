@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/word_count"
+require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Presenter for courses / campaign view
 class CoursesPresenter
@@ -90,6 +91,11 @@ class CoursesPresenter
 
   def user_count
     courses.sum(:user_count)
+  end
+
+  def ores_plot
+    plotter = HistogramPlotter.new(campaign: campaign)
+    plotter.major_edits_plot(simple: true) # returns path to image
   end
 
   class NoCampaignError < StandardError; end

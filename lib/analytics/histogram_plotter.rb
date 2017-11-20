@@ -18,7 +18,7 @@ class HistogramPlotter
     @minimum_bytes = minimum_bytes
     @existing_only = existing_only
     @minimum_improvement = minimum_improvement
-    @simple= simple
+    @simple = simple
 
     filter_by_bytes_added
     filter_out_new_articles if existing_only
