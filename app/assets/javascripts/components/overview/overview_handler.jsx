@@ -131,7 +131,6 @@ const Overview = createReactClass({
         <CourseStats course={this.state.course} />
         {courseStatistics}
         {userArticles}
-        {courseStatistics}
         <div className="primary">
           {primaryContent}
         </div>
