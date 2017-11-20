@@ -260,7 +260,7 @@ const ArticleViewer = createReactClass({
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article">{Parser(articleContent || '')}</div>
+            <div className="parsed-article">{Parser(article || '')}</div>
           </div>
           <div className="article-footer">
             {colorLegend}
