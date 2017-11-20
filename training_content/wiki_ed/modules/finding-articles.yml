@@ -1,4 +1,4 @@
-name: Finding Articles
+name: Finding Articles (for instructors)
 id: 16
 description: |
   If you'd like to find articles for your students to work on, this orientation
@@ -16,6 +16,7 @@ slides:
   - slug: wikiproject-assessment-tables # 1607
   - slug: using-an-existing-list # 1608
   - slug: a-note-on-notability # 1609
+  - slug: assessing-notability # 1614
   - slug: available-articles-list # 1610
   - slug: help-from-content-experts # 1611
   - slug: finding-articles-summary # 1612

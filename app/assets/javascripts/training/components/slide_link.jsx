@@ -9,7 +9,7 @@ const SlideLink = createReactClass({
   propTypes: {
     button: PropTypes.bool,
     disabled: PropTypes.bool,
-    direction: PropTypes.string.isRequired,
+    buttonText: PropTypes.string,
     params: PropTypes.object.isRequired,
     slideId: PropTypes.string.isRequired
   },
@@ -34,7 +34,7 @@ const SlideLink = createReactClass({
     const href = this._slideLink(linkParams);
     return (
       <Link data-href={href} disabled={this.props.disabled} className={linkClass} to={href}>
-        {this.props.direction} Page
+        {this.props.buttonText}
       </Link>
     );
   }

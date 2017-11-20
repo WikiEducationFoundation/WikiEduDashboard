@@ -64,7 +64,7 @@ nb:
     explore: Utforsk
     log_in: Logg inn med Wikipedia
     sign_up: Registrer deg med Wikipedia
-    sign_up_help: For å bruke dashbordet må du logg inn med Wikipedia og gi dashbordet
+    sign_up_help: For å bruke dashbordet må du logge inn med Wikipedia og gi dashbordet
       tilgang til kontoen din. Du kan logge inn med en eksisterende Wikipedia-konto,
       eller opprette en ny.
   activity:
@@ -77,6 +77,7 @@ nb:
     assigned_to: Tildelt til
     character_doc: Summen av antall tegn som er lagt til i artikler av innmeldte brukere
       mellom start- og sluttdatoene.
+    deleted: (slettet)
     edited: Artikler redigert
     edited_by: 'Redigert av:'
     edited_mobile: Artikler
@@ -220,6 +221,7 @@ nb:
       endres for å ta hensyn til uker uten oppsatte møter.
     course_description: Kurs
     courses: Kurs
+    courses_taught: Kurs undervist
     creation_date: Opprettelsesdato
     creator:
       already_exists: Dette kurset finnes allerede. Vurder om du vil forandre navnet,
@@ -261,6 +263,8 @@ nb:
         Alt annet kan redigeres senere. Klikk «Opprett kurset mitt!» for å begynne
         å bygge tidslinjen for din Wikipedia-oppgave.
       no_class_holidays: Jeg har ingen klasseferier
+      role_description: Din rolle i kurset
+      role_description_placeholder: Instruktør, stud.ass., etc.
       save_cloned_course: Lagre nytt kurs
       start_date: Startdato
       start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
@@ -488,6 +492,7 @@ nb:
       endre URL-en og gjøre at eksisterende lenker ikke fungerer. Er du sikker på
       at du ønsker å gjøre dette?
   metrics:
+    last_update: Siste oppdatering
     activity: Nylig aktivitet
     are_trained: er ajour med treningen
     articles_created: Artikler opprettet
@@ -555,10 +560,11 @@ nb:
     time_doc: Tiden for hver revisjon i din lokale tid
     title: Tittel
     view_on_wiki: Vis diff på wiki
+    see_more: Se mer
   suggestions:
     editing: Redigeringsforslag
     suggestion_docs:
-      does_not_exist: Denne artikkelen finnes ikke på Wikipedia
+      does_not_exist: Denne artikkelen finnes ikke på Wikipedia.
   tasks:
     conseq: Jobben %{task} kjører allerede!
     constant: Jobben %{task} kan ikke kjøres mens jobben update_daily kjører.
@@ -589,6 +595,10 @@ nb:
       Er du sikker på at du vil slette denne uka? Dette vil slette uka og alle tilknyttede blokker.
 
       Dette kan ikke omgjøres.
+    delete_weeks_confirmation: |-
+      Er du sikker på at du vil slette denne tidslinja og starte på nytt?
+
+      Dette kan ikke gjøres om.
     discard_all_changes: Se bort fra alle endringer
     delete_timeline_and_start_over: Slett tidslinje
     due_default: Frist neste uke
@@ -643,7 +653,7 @@ nb:
       som har økt sidestørrelsen. Dette tallet gjenspeiler ikke nødvendigvis hvor
       mye nytt innhold brukeren har lagt til. Å gjenopprette fjernet innhold vil også
       øke denne summen.
-    chars_added: Tegn lagt til<br />(hovednavnerom | brukernavnerom)
+    chars_added: Tegn lagt til<br />(hovednavnerom | brukernavnerom | kladdnavnerom)
     contributions: Brukerbidrag
     contributions_history_full: Vis full bidragshistorikk på Wikipedia
     contributions_more: Vis flere bidrag
@@ -690,6 +700,7 @@ nb:
     username: Brukernavn
     username_placeholder: Brukernavn
     role:
+      description: Rolle i kurset
       visitor: Besøkende
       student: Student
       instructor: Instruktør

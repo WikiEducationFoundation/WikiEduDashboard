@@ -4,7 +4,7 @@ require "#{Rails.root}/lib/revision_data_parser"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
-#=   http://tools.wmflabs.org/wikiedudashboard
+#=   https://tools.wmflabs.org/wikiedudashboard
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
 class Replica
@@ -93,7 +93,7 @@ class Replica
   # query appropriate to that endpoint, return the parsed json response.
   #
   # Example revisions.php query:
-  #   http://tools.wmflabs.org/wikiedudashboard/revisions.php?user_ids[0]=%27Example_User%27&user_ids[1]=%27Ragesoss%27&user_ids[2]=%27Sage%20(Wiki%20Ed)%27&start=20150105&end=20150108
+  #   https://tools.wmflabs.org/wikiedudashboard/revisions.php?lang=en&project=wikipedia&usernames[]=Ragesoss&start=20140101003430&end=20171231003430
   #
   # Example revisions.php parsed response:
   # [{"page_id"=>"44962463",
@@ -136,7 +136,7 @@ class Replica
 
   # Query URL for the WikiEduDashboardTools repository
   def compile_query_url(endpoint, query)
-    base_url = 'http://tools.wmflabs.org/wikiedudashboard/'
+    base_url = 'https://tools.wmflabs.org/wikiedudashboard/'
     "#{base_url}#{endpoint}?#{project_database_params}&#{query}"
   end
 

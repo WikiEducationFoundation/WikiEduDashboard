@@ -60,7 +60,7 @@ class CourseCacheManager
   end
 
   def update_revision_count
-    @course.revision_count = @course.revisions.size
+    @course.revision_count = @course.revisions.live.size
   end
 
   def update_recent_revision_count

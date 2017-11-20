@@ -41,7 +41,7 @@ describe 'Surveys', type: :feature, js: true do
   # end
 
   describe 'Editing a Survey' do
-    # let!(:question_group)  { FactoryGirl.create(:question_group, name: "Survey Section 1") }
+    # let!(:question_group)  { FactoryBot.create(:question_group, name: "Survey Section 1") }
     # let!(:survey)  { create(:survey, name: "Dumb Survey", :rapidfire_question_groups => [question_group]) }
 
     # before :each do

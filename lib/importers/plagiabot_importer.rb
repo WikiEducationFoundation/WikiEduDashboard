@@ -48,7 +48,7 @@ class PlagiabotImporter
   end
 
   def self.query_url(type, opts = {})
-    base_url = 'http://tools.wmflabs.org/eranbot/plagiabot/api.py'
+    base_url = 'https://tools.wmflabs.org/eranbot/plagiabot/api.py'
     base_params = "?action=#{type}"
     url = base_url + base_params
     url += "&lang=en&diff=#{opts[:revision_id]}" if opts[:revision_id]

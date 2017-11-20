@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :matrix_question, class: 'Rapidfire::Question' do
     question_text 'Question?'
     association :question_group, factory: :question_group

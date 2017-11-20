@@ -1,52 +1,47 @@
-name: Orientation for New Instructors
+name: How to teach with Wikipedia
 id: 3
 description: |
-  This orientation explores Wikipedia as it relates to classrooms and learning
-  across academic institutions.
+  Welcome to Wiki Education's orientation for instructors about how to teach
+  with Wikipedia in our Classroom Program.
 
-  If you're preparing for a Wikipedia assignment in your class, be sure to log
-  in before you begin this orientation.
+  Completing this orientation is required for instructors joining Wiki
+  Education's Classroom Program for the first time. Formally joining the program
+  is the only way to receive Wiki Education staff support during the Wikipedia
+  assignment. Make sure you're logged in to verify completion.
 estimated_ttc: 30 minutes
 slides:
-  - slug: wiki-ed-support-criteria # 339
-  - slug: welcome-new-instructors # 301
-  - slug: what-we-will-cover # 302
-  - slug: what-is-wikipedia # 303
-  - slug: meet-the-wikipedia-community # 304
-  - slug: five-pillars-of-wikipedia # 305
-  - slug: p1-wikipedia-is-an-encyclopedia # 306
-  - slug: p2-neutral-point-of-view # 307
+  - slug: wiki-ed-support-criteria # 301
+  - slug: welcome-new-instructors # 302
+  - slug: course-dashboards # 303
+  - slug: features-of-the-dashboard # 333
+  - slug: what-makes-wikipedia-work # 304
+  - slug: concerning-original-research # 305
+  - slug: writing-and-communication # 306
+  - slug: neutrality # 307
   - slug: npov-and-critical-thinking # 308
-  - slug: p3-free-as-in-freedom # 310
-  - slug: p4-civility # 311
-  - slug: civility-wikipedia-and-consensus # 312
-  - slug: be-bold # 313
-  - slug: p5-wikipedia-does-not-have-firm-rules # 314
-  - slug: concerns-beyond-the-five-pillars # 315
-  - slug: concerning-notability # 316
-  - slug: assessing-notability # 317
-  - slug: concerning-original-research # 318
-  - slug: concerning-conflicts-of-interest # 319
-  - slug: review-of-wikipedia-process-and-culture # 320
-  - slug: assignment-types # 321
-  - slug: create-or-expand-an-article # 322
-  - slug: translate-an-article # 323
-  - slug: add-images-or-multimedia # 324
-  - slug: copyedit-an-article # 325
-  - slug: add-small-amounts-of-content # 326
-  - slug: critique-an-article # 327
-  - slug: case-studies # 337
-  - slug: resources-for-instructors # 328
-  - slug: guidebooks-and-handouts # 329
-  - slug: wiki-ed-staff # 330
-  - slug: training-for-students # 331
-  - slug: course-dashboards # 332
-  - slug: dashboard-overview-tab # 336
-  - slug: dashboard-timeline-tab # 340
-  - slug: dashboard-students-tab # 341
-  - slug: dashboard-articles-tab # 342
-  - slug: dashboard-uploads-and-activity-tabs # 343
-  - slug: finding-articles-to-work-on # 338
-  - slug: ask-dot-wikiedu-dot-org # 333
-  - slug: orientation-for-health-related-content # 334
-  - slug: new-instructor-orientation-complete # 335
+  - slug: concerning-conflicts-of-interest # 309
+  - slug: avoiding-plagiarism # 310
+  - slug: concerning-notability # 311
+  - slug: when-student-work-gets-removed # 312
+  - slug: designing-a-wikipedia-assignment # 313
+  - slug: create-or-expand-an-article # 314
+  - slug: translate-an-article # 315
+  - slug: create-images-and-multimedia # 316
+  - slug: never-grade-on-what-sticks # 317
+  - slug: avoid-minimum-requirements # 318
+  - slug: setting-expectations # 319
+  - slug: grading-your-assignment # 335
+  - slug: help-and-support # 320
+  - slug: training-for-students # 321
+  - slug: guidebooks-and-handouts # 322
+  - slug: ask-dot-wikiedu-dot-org # 323
+  - slug: wiki-ed-staff # 324
+  - slug: dashboard-home-tab # 325
+  - slug: dashboard-timeline-tab # 326
+  - slug: dashboard-students-tab # 327
+  - slug: dashboard-articles-tab # 328
+  - slug: authorship-highlighting # 334
+  - slug: dashboard-uploads-and-activity-tabs # 329
+  - slug: finding-articles-to-work-on # 330
+  - slug: orientation-for-health-related-content # 331
+  - slug: new-instructor-orientation-complete # 332

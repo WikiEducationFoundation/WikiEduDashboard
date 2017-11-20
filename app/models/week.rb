@@ -15,7 +15,7 @@
 #= Week model
 class Week < ActiveRecord::Base
   belongs_to :course
-  has_many :blocks, dependent: :destroy
+  has_many :blocks, -> { order(:order) }, dependent: :destroy
   has_many :gradeables, through: :blocks
 
   def meeting_dates

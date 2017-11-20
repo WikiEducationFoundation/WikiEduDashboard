@@ -48,7 +48,7 @@ zh-TW:
     confirm: 好
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
-    create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；任務設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
+    create_preparation_note: 請您在開始之前，確認手上有學校的行事曆；分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
       ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間軸，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
     explore_examples: 瀏覽例子
@@ -76,8 +76,9 @@ zh-TW:
     available: 尚待分配的條目
     assigned_to: 分配給
     character_doc: 從開始到結束日，由登記編輯在條目中增加的位元組總和。 (1 中文字=3 位元組)
-    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容；以及和其它任何有著分配項目或可用條目的
+    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。資訊看板從此方案的首頁 wiki 來取出貢獻內容；以及和其它任何有著分配作業或可用條目的
       wiki。
+    deleted: (已刪除)
     edited: 編輯的條目
     edited_by: 編輯自：
     edited_mobile: 條目
@@ -117,7 +118,7 @@ zh-TW:
       (這些評分僅適用於英語維基百科)'
   assignments:
     article: 條目%{title}現在已被分配給您。
-    already_exists: 此分配已存在！
+    already_exists: 此分配作業已存在！
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配條目
@@ -126,9 +127,9 @@ zh-TW:
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
-    confirm_deletion: 確定要刪除此條目分配嗎？
+    confirm_deletion: 確定要刪除此條目分配作業嗎？
     label: 分配
-    loading: 載入作業中...
+    loading: 載入分配作業中...
     none_short: 沒有分配任何條目
     none: 這個課程還沒有任何條目被分派。
     no_available: 此課程沒有任何尚待分配的條目。
@@ -180,9 +181,9 @@ zh-TW:
     actions: 操作
     articles: 條目
     articles_none: 此課程沒有編輯任何條目
-    assignment_end: 作業結束
+    assignment_end: 分配作業結束
     assignments_none: 這個課程還沒有任何條目被分派。
-    assignment_start: 作業開始
+    assignment_start: 分配作業開始
     calendar:
       legend: 說明
       legend_class_canceled: 假日/取消
@@ -205,9 +206,9 @@ zh-TW:
     creation_date: 建立日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
-      assignment_end: 作業截止
+      assignment_end: 分配作業截止
       assignment_end_placeholder: 作業截止日 (年-月-日，格式 YYYY-MM-DD)
-      assignment_start: 作業開始繳交
+      assignment_start: 分配作業開始繳交
       assignment_start_placeholder: 作業繳交開始日 (年-月-日，格式 YYYY-MM-DD)
       checking_for_uniqueness: 正在確認是否有重複的課程。
       choose_clone: 選擇一個課程來複製。
@@ -234,9 +235,9 @@ zh-TW:
       end_date_placeholder: 結束日期 (YYYY-MM-DD)
       expected_number: 預計學生人數
       find: 找到您的課程
-      intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 "建立我的課程！"
-        開始規劃您的維基百科任務時間軸。
-      new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
+      intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
+        開始規劃您的維基百科分配作業時間軸。
+      new_or_clone: 您現在可透過分配事項精靈來創建新的課程、如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本（如果您先前沒有明確自定義您的時間軸，我們建議您先開始一個課程，以便擁有最新版本的分配作業選項。）。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
       no_class_holidays: 我的開課時段沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_placeholder: 導師、教學助理、其它
@@ -283,7 +284,7 @@ zh-TW:
     features_feedback: 自動化建議：
     feedback: 意見回饋
     feedback_loading: 建議載入中請等待...
-    gradeables_none: 此項課程沒有可批閱的作業。
+    gradeables_none: 此項課程沒有可批閱的分配作業。
     instructor:
       other: 導師
     instructors: 導師
@@ -352,7 +353,7 @@ zh-TW:
     subject: 主題
     submitted: 已提交
     term: 學期
-    timeline: 作業細節
+    timeline: 分配作業細節
     timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
@@ -457,6 +458,9 @@ zh-TW:
     edit_template: 編輯模板
     rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   metrics:
+    label: 課程活動
+    are_updated: 依照最後一次的系統更新
+    last_update: 最後一次更新
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目
@@ -549,15 +553,15 @@ zh-TW:
     add_week: 增加週
     arrange_timeline: 安排時間軸
     arrange_timeline_instructions: 以 "拖曳" 區塊至預期的位置、或週間來編排時間軸，或以卡片上的箭頭來重新定位區塊。
-    assignment_dates_instructions: 選擇維基百科分配事項時間軸的起始結束日期。更改起始日期將一同異動整個時間軸。
+    assignment_dates_instructions: 選擇維基百科分配作業時間軸的起始結束日期。更改起始日期將一同異動整個時間軸。
     blackout_week_created: 本週有已排程的區塊。在您刪除本週最後班級會議之前；請先移動它們至別週。
-    block_assignment: 分配
+    block_assignment: 分配作業
     block_custom: 自訂
     block_in_class: 課程中
     block_milestone: 里程碑
     block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間軸上狀況，並為您建立可用工具 (如概述頁面上的里程碑)
     course_dates: 課程日期
-    course_dates_instructions: 選擇整個課程起始和結束日期 (非僅有維基百科分配)。
+    course_dates_instructions: 選擇整個課程起始和結束日期 （而不是僅有維基百科的分配作業）。
     course_end: 課程結束
     course_start: 課程開始
     delete_week_confirmation: |-
@@ -574,10 +578,10 @@ zh-TW:
     empty_week_1: 要開始，
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
-    empty_week_4: 使用分配事項精靈來建立時間軸。
+    empty_week_4: 使用分配作業精靈來建立時間軸。
     first_week_title: 活躍首週
     gradeable_value: 數值
-    gradeables_none: 此時間軸上沒有分配事項被標註分級。
+    gradeables_none: 此時間軸上沒有分配作業被標註分級。
     grading_header: 分級中 (總計： %{total}%)
     move_block_down: 區塊下移
     move_block_up: 區塊上移
@@ -588,7 +592,7 @@ zh-TW:
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸
-    unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的作業日期來為新一週挪出空間。
+    unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的分配作業日期來為新一週挪出空間。
     view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
   training:
@@ -681,17 +685,17 @@ zh-TW:
   wiki_edits:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
-      header: 您有一項過期的培訓任務。
+      header: 您有一項過期的培訓分配作業。
       message: 請完成分配的[%{link}訓練模組]。
       summary: 學生培訓逾期
   wizard:
-    assignment_dates: 分配日期
-    assignment_description: 選擇您的分配時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
-    assignment_type: 作業類型
-    calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。這能夠讓課程建立工具精準的開出你的作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
+    assignment_dates: 分配作業日期
+    assignment_description: 選擇您的分配作業時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
+    assignment_type: 學生們將會為他們的維基百科分配作業完成什麼呢？
+    calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。這能夠讓課程建立工具精準的開出你的分配作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
     confirm_dates: 選擇您課程的課程日期、每週會議與假日。
     course_dates: 課程日期
-    min_weeks: 此分配項目至少需要 %{min_weeks}個可用週間。若您要使用此分配項目類型請調整您的分配起始日期。
+    min_weeks: 此分配作業至少需要 %{min_weeks}個可用週間。若您要使用此分配作業類型請調整您的分配起始日期。
     select_one_option: 請選擇一個選項。
     minimum_options:
       one: 請選擇 %{count}個或更多選項。
@@ -699,11 +703,11 @@ zh-TW:
     read_less: 閱讀更少
     read_more: 延伸閱讀
     review_selections: 請在下方檢查您的選項。點選以編輯一個選項。當結束時，點選 "送出" 來結束入門精靈並開始架構您的時間軸。
-    select_assignment: 選擇您希望加到您的時間表的任務類型
+    select_assignment: 選擇您希望加到您時間表裡的分配作業類型。
     summary: 摘要
   error:
     form_errors: 請檢查表單裡的錯誤。
-    invalid_assignment: 無效分派
+    invalid_assignment: 無效分配作業
     invalid_date: '%{key}日期無效'
     invalid_file_format: 檔案無法儲存。請上傳 PDF 或 Word 文件格式檔案。
     oauth_invalid: 您已登出維基百科。請重新登入。
@@ -743,14 +747,14 @@ zh-TW:
     follow_up_explanation: 如果不需要後續的電子郵件通知請留空。
     email:
       headline: 哈囉，%{username}
-      message_line1: 我們期望您有個美好的學期！Wiki Ed 正尋求您的回饋以改進我們的資源以幫助您的維基百科事項。您的意見批評；對於改善我們目前產品相當重要。
+      message_line1: 我們期望您有個美好的學期！Wiki Ed 正尋求您的回饋以改進我們的資源以幫助您的維基百科分配作業。您的意見批評；對於改善我們目前產品相當重要。
       message_line2: 您願意花個 15 分鐘來填寫我們的導師調查表嗎？點選下方按鍵來幫助我們讓維基百科教學成為更有價值與寶貴經驗。
       course: 課程：%{course_info}
       closing: 真誠的，
       signed: '- Wiki Ed 團隊'
       link: 參加調查
     follow_up:
-      message: 這是有關您對課程 %{course_title}調查的提醒。來自此調查的回饋將幫助我們改進像您在維基百科上的事項。
+      message: 這是有關您對課程 %{course_title}調查的提醒。來自此調查的回饋將幫助我們改進像您在維基百科上的分配作業。
   feedback_form_responses:
     no_responses: 目前尚未有意見回饋反應。
 ...

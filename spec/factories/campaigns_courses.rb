@@ -11,7 +11,7 @@
 #  updated_at  :datetime
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :campaigns_course, class: 'CampaignsCourses' do
   end
 end

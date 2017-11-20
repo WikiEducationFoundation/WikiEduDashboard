@@ -25,6 +25,15 @@ def mock_mailer
   OpenStruct.new(deliver_now: true)
 end
 
+# An alert has a subject_id that can refer to any model, depending on the type.
+# Here we create the subject record for the types that require one.
+def alert_subject(alert_type)
+  case alert_type
+  when 'SurveyResponseAlert'
+    create(:q_checkbox)
+  end
+end
+
 describe Alert do
   let(:article) { create(:article) }
   let(:course) { create(:course) }
@@ -46,10 +55,11 @@ describe Alert do
     it 'all implement #main_subject' do
       Alert::ALERT_TYPES.each do |type|
         Alert.create(type: type,
-                     article_id: article.id,
-                     course_id: course.id,
-                     revision_id: revision.id,
-                     user_id: user.id)
+                     article: article,
+                     course: course,
+                     revision: revision,
+                     user: user,
+                     subject_id: alert_subject(type)&.id)
         expect(Alert.last.main_subject).to be_a(String)
       end
     end

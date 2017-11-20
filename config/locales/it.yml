@@ -72,6 +72,7 @@ it:
     assigned_to: Assegnato a
     character_doc: La somma dei caratteri aggiunti alle voci dagli editori iscritti
       tra le date di inizio e fine
+    deleted: (cancellato)
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
@@ -396,6 +397,7 @@ it:
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
   metrics:
+    last_update: Ultimo aggiornamento
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate
@@ -569,7 +571,7 @@ it:
         studenti che sono in ritardo nella formazione. Sei sicuro di volerlo fare?
   wizard:
     assignment_dates: Date di assegnazione
-    assignment_type: Tipo di assegnazione
+    assignment_type: Cosa completeranno gli studenti per la loro assegnazione di Wikipedia?
     confirm_dates: Scegli le date dei corsi, incontri settimanali e le festività per
       il tuo corso.
     course_dates: Date del corso

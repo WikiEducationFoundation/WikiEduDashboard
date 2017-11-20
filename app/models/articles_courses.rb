@@ -45,8 +45,8 @@ class ArticlesCourses < ActiveRecord::Base
     self[:new_article]
   end
 
-  def manual_revisions
-    course.revisions.where(article_id: article_id)
+  def live_manual_revisions
+    course.revisions.live.where(article_id: article_id)
   end
 
   def all_revisions
@@ -54,7 +54,7 @@ class ArticlesCourses < ActiveRecord::Base
   end
 
   def update_cache
-    revisions = manual_revisions
+    revisions = live_manual_revisions
 
     self.character_sum = revisions.where('characters >= 0').sum(:characters)
     self.view_count = revisions.order('date ASC').first.views unless revisions.empty?

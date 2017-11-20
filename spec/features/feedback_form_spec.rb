@@ -7,7 +7,7 @@ describe 'feedback form' do
     '/training/instructors/new-instructor-orientation/new-instructor-orientation-complete'
   end
 
-  let(:feedback_link_text) { 'Submit feedback' }
+  let(:feedback_link_text) { 'Submit Feedback' }
 
   context 'from a training module', type: :feature, js: true do
     let(:body) { 'It was great' }

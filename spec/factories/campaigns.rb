@@ -16,7 +16,7 @@
 #  template_description :text(65535)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :campaign do
     title 'Spring 2016'
   end

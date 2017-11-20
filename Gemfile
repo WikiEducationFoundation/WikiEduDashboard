@@ -51,7 +51,7 @@ gem 'i18n-js'
 
 gem 'mailgun_rails'
 
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 gem 'paper_trail'
 

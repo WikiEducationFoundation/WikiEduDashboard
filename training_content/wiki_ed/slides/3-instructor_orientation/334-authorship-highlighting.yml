@@ -1,0 +1,15 @@
+id: 334
+title_prefix: "Dashboard:"
+title: Article Viewer with authorship highlighting
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Authorship_highlighing_on_dashboard.wikiedu.org.png/1187px-Authorship_highlighing_on_dashboard.wikiedu.org.png" />
+  </figure>
+
+  The Article Viewer tool, which shows the current version on the article and
+  overlays details about which text was introduced by which student, is
+  available on the Articles tab for each of the mainspace articles edited by
+  your students. This is your best way to identify your students' contributions
+  in existing articles — and to see who did what for a single article edited
+  by a group of students.

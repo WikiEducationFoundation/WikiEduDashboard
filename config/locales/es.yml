@@ -9,6 +9,7 @@
 # Author: Fortega
 # Author: Irus
 # Author: Javiersanp
+# Author: KATRINE1992
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
@@ -92,6 +93,7 @@ es:
     assigned_to: Asignado a
     character_doc: La suma de caracteres agregados a los artículos por los editores
       inscriptos entre las fechas de inicio y fin
+    deleted: (borrado)
     edited: Artículos editados
     edited_by: 'Editado por:'
     edited_mobile: Artículos
@@ -723,7 +725,7 @@ es:
       semana de clases, establece la fecha de inicio de la tarea a una semana luego
       de la fecha de inicio del curso. Esta herramienta de diseño de tareas creará
       un borrador del cronograma que encaja con las fechas del cronograma que tu elijas.
-    assignment_type: Tipo de tarea
+    assignment_type: ¿Qué llevarán a cabo los estudiantes para su tarea de Wikipedia?
     calendar_instructions: Selecciona fechas para añadirlas o quitarlas del calendario
       (por ejemplo, vacaciones, cuando no hay clases). Esto ayuda a la herramienta
       de creación de cursos a espaciar con precisión tus tareas. Haz clic en la fecha

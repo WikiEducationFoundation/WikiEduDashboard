@@ -1,25 +1,4 @@
 -
-  key: smallassignments
-  title: Pick and choose small projects
-  min_weeks: 2
-  blurb: |
-    Build your own custom Wikipedia project from small exercises and assignments, such as:
-    — copyediting existing articles
-    — adding smaller amounts of new content to an article
-    — critiquing an article
-    — adding images
-
-    ----
-    Minimum timeline: *2 weeks*
-    Recommended timeline: *1-3 weeks per small assignment*
-
-    Best for:
-    — Courses with minimal time to give to Wikipedia assignments
-  description: |
-    Even if a larger 'research and write an article' project doesn't fit with your course, you may still be able to achieve many of your learning objectives with one or more short Wikipedia exercises. You can also use these exercises as a starting point for creating your own custom assignment.
-
-
--
   key: buildyourown
   title: Build your own timeline
   blurb: |

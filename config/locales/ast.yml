@@ -79,6 +79,7 @@ ast:
     assigned_to: Axudicáu a
     character_doc: La suma de caráuteres amestaos a los artículos polos editores apuntaos
       ente la data de principiu y la final
+    deleted: (desaniciáu)
     edited: Artículos editaos
     edited_by: 'Editáu por:'
     edited_mobile: Artículos
@@ -268,6 +269,8 @@ ast:
         en «Crear el mio cursu» pa empecipiar la construcción del cronograma de la
         to xera en Wikipedia.
       no_class_holidays: Nun tengo vacaciones de clases
+      role_description: La to función nel cursu
+      role_description_placeholder: Monitor, ayudante d'enseñu, etc.
       save_cloned_course: Guardar cursu nuevu
       start_date: Data d'entamu
       start_date_placeholder: Data d'entamu (AAAA-MM-DD)
@@ -367,6 +370,9 @@ ast:
     submitted_heading: Cursos presentaos
     submitted_note: Unvióse'l to cursu. El personal de Wiki Ed revisarálu y comunicaráse
       contigo si tien cualquier entruga.
+    suggestions_sending: Unviando comentariu...
+    suggestions_sent: Comentariu unviáu. Gracies pola comunicación.
+    suggestions_failed: Nun pudo unviase'l comentariu. Tenta sero.
     user_role: Papel
     course_details: Detalles del cursu
     subject: Asuntu
@@ -524,6 +530,7 @@ ast:
     time_doc: La hora de cada revisión n'hora llocal
     title: Títulu
     view_on_wiki: Ver les diferencies na wiki
+    see_more: Ver más
   suggestions:
     editing: Suxerencies d'edición
     suggestion_docs:
@@ -692,7 +699,7 @@ ast:
       del cursu, conseña la data de principiu de la xera una selmana después de la
       data de principiu del cursu. Esta ferramienta de diseñu de xeres creará un borrador
       de cronograma que case coles dates del cronograma qu'escueyas.
-    assignment_type: Tipu de xera
+    assignment_type: ¿Qué completarán los estudiantes na so xera pa Wikipedia?
     calendar_instructions: Escueye feches p'añadir o quitar del calendariu (por casu,
       vacaciones, cuando nun hai clases). Esto ayuda a la ferramienta de creación
       de cursos a espaciar con precisión les tos xeres. Fai clic na fecha pa camudar
