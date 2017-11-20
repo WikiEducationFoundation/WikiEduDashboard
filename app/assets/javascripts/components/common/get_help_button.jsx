@@ -177,7 +177,7 @@ const GetHelpButton = createReactClass({
         <div className="get-help-submitted">
           <p className="text-center"><strong>Message sent!</strong></p>
           <p>
-            We'll get back to you within 1 business day. Be sure to check your email for a response.
+            We&apos;ll get back to you within 1 business day. Be sure to check your email for a response.
           </p>
           <a href="#" className="button" onClick={this.reset}>Ok</a>
         </div>
@@ -214,7 +214,7 @@ const GetHelpButton = createReactClass({
         <div className="get-help-info">
           <p>
             <strong>
-              Hi! if you need help with your Wikipedia assignment, you've come
+              Hi! if you need help with your Wikipedia assignment, you&apos;ve come
               to the right place!
             </strong>
           </p>

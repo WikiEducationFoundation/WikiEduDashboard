@@ -48,12 +48,12 @@ const FinalArticleChecklist = createReactClass({
             <dd><input type="checkbox" /> It doesn’t contain excessive quotations, or copy any sources (even if you’ve given them credit).</dd>
             <dd><input type="checkbox" /> The writing is clear to a non-expert; you’ve explained acronyms and jargon in simple English the first time you use them.</dd>
             <dd><input type="checkbox" /> It lets readers decide for themselves, without any persuasive language that aims to sway a reader to a conclusion.</dd>
-            <dd><input type="checkbox" /> You've proof-read it all the way through. Grammar and spelling are correct, sentences are complete sentences, and there is no first-person (“I/we”) or second-person (“you”) writing.</dd>
+            <dd><input type="checkbox" /> You&apos;ve proof-read it all the way through. Grammar and spelling are correct, sentences are complete sentences, and there is no first-person (“I/we”) or second-person (“you”) writing.</dd>
             <dd><input type="checkbox" /> The formatting is consistent with the rest of Wikipedia, without too many headings. Bulleted lists are used sparingly or not at all.</dd>
-            <dd><input type="checkbox" /> Every claim is cited to a reliable source — like a textbook or academic journal — and it doesn't cite any blog posts.</dd>
+            <dd><input type="checkbox" /> Every claim is cited to a reliable source — like a textbook or academic journal — and it doesn&apos;t cite any blog posts.</dd>
             <dd><input type="checkbox" /> The text includes links other Wikipedia articles the first time each relevant topic is mentioned.</dd>
             <dd><input type="checkbox" /> At least one related Wikipedia article links back to this one.</dd>
-            <dd><input type="checkbox" /> You've thanked people who helped you. Check your User Talk page, and the Talk page of your article. If anyone offered help or feedback, say thanks!</dd>
+            <dd><input type="checkbox" /> You&apos;ve thanked people who helped you. Check your User Talk page, and the Talk page of your article. If anyone offered help or feedback, say thanks!</dd>
           </dl>
           {button}
         </div>
