@@ -47,7 +47,7 @@ const Milestones = createReactClass({
           <div key={block.id} className="section-header">
             <div className={classNames}>
               <p>Week {week.order} {completionNote}</p>
-              <div className="markdown">{Parser(rawHtml)}</div>
+              <div className="markdown">{Parser(rawHtml || '')}</div>
               <hr />
             </div>
           </div>

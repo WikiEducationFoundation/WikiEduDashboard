@@ -174,12 +174,11 @@ const TrainingSlideHandler = createReactClass({
       slideTitle = this.state.currentSlide.translations[locale].title;
       rawHtml = md.render(this.state.currentSlide.translations[locale].content);
     } else {
-      slideTitle = this.state.currentSlide.title || '';
+      slideTitle = this.state.currentSlide.title;
       if (this.state.currentSlide.content) {
         rawHtml = md.render(this.state.currentSlide.content);
       }
     }
-
 
     const menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
 
@@ -230,7 +229,7 @@ const TrainingSlideHandler = createReactClass({
         <article className="training__slide">
           {titlePrefix}
           <h1>{slideTitle}</h1>
-          <div className="markdown training__slide__content">{Parser(rawHtml)}</div>
+          <div className="markdown training__slide__content">{Parser(rawHtml || '')}</div>
           {quiz}
           <footer className="training__slide__footer">
             <span className="pull-left">{previousLink}</span>

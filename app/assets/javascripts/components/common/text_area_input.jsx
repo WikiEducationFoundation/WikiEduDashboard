@@ -102,10 +102,10 @@ const TextAreaInput = createReactClass({
     if (this.props.markdown) {
       rawHtml = md.render(this.props.value || '');
     } else {
-      rawHtml = this.props.value || '';
+      rawHtml = this.props.value;
     }
     return (
-      <div className={this.props.className}>{Parser(rawHtml)}</div>
+      <div className={this.props.className}>{Parser(rawHtml || '')}</div>
     );
   }
 }

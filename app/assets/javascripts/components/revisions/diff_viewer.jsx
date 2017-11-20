@@ -166,9 +166,9 @@ const DiffViewer = createReactClass({
 
     let diff;
     if (this.state.diff === '') {
-      diff = '<div> - </div>';
+      diff = '<div> — </div>';
     } else {
-      diff = this.state.diff || '';
+      diff = this.state.diff;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
@@ -235,7 +235,7 @@ const DiffViewer = createReactClass({
                 <th colSpan="4" className="diff-header">{editDate}</th>
               </tr>
             </thead>
-            <tbody>{Parser(diff)}</tbody>
+            <tbody>{Parser(diff || '')}</tbody>
           </table>
         </div>
       </div>

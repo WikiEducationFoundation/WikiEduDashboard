@@ -77,7 +77,7 @@ const Quiz = createReactClass({
             </div>
             {answer.text}
           </label>
-          <div className={explanationClass} >{Parser(rawExplanationHtml)}</div>
+          <div className={explanationClass} >{Parser(rawExplanationHtml || '')}</div>
         </li>
       );
     });
