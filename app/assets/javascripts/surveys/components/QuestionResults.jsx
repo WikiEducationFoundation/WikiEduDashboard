@@ -37,7 +37,3 @@ export default class QuestionResults extends Component {
     );
   }
 }
-
-QuestionResults.propTypes = {
-  type: PropTypes.string.isRequired
-};
