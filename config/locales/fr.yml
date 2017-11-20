@@ -341,9 +341,9 @@ fr:
     data_students_info: Les données des éditeurs listent tous les éditeurs inscrits,
       combien ils ont fait de modifications, et s’ils ont inscrit leur compte lors
       du projet.
-    data_uploads: Données de téléchargements de Commons
-    data_uploads_info: Les données de téléchargements communs affichent le nom et
-      le nombre d’utilisation de chaque média téléchargé.
+    data_uploads: Données de téléversements de Commons
+    data_uploads_info: Les données de téléversements communs affichent le nom et le
+      nombre d’utilisations de chaque média téléversé.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes
@@ -870,8 +870,7 @@ fr:
       la deuxième semaine du cours, mettez la date de début d’affectation une semaine
       après celle de début du cours. L’outil de conception des affectations créera
       un brouillon de planning qui correspondra aux dates que vous aurez choisies.
-    assignment_type: De ce que les étudiants bénéficieront pour leur participation
-      à Wikipedia
+    assignment_type: Que feront les étudiants pour leur devoir wikipédien ?
     calendar_instructions: Sélectionner les dates à ajouter ou supprimer du calendrier
       (par ex., vacances, pas d’école). Cela aidera l’outil de création des cours
       à répartir correctement vos affectations. Cliquer sur la date pour basculer
