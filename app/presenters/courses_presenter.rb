@@ -93,10 +93,5 @@ class CoursesPresenter
     courses.sum(:user_count)
   end
 
-  # returns path to image
-  def ores_plot
-    HistogramPlotter.plot(campaign: campaign, opts: { simple: true })
-  end
-
   class NoCampaignError < StandardError; end
 end

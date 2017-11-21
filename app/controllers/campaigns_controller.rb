@@ -68,6 +68,7 @@ class CampaignsController < ApplicationController
 
   def ores_plot
     set_presenter
+    @ores_plot_path = HistogramPlotter.plot(campaign: @campaign, opts: { simple: true })
   end
 
   def update

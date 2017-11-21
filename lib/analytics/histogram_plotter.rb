@@ -7,6 +7,8 @@ require "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 class HistogramPlotter
   def self.plot(campaign: nil, course: nil, opts: {})
     new(campaign: campaign, course: course).major_edits_plot(opts)
+  rescue NoDataError => e
+    return nil
   end
 
   def initialize(campaign: nil, course: nil, csv: nil)
@@ -101,6 +103,9 @@ class HistogramPlotter
   end
 
   def load_dataframe
+    # If the file has no data beyond the header, the R code will break.
+    raise NoDataError unless File.read(@csv).each_line.count > 1
+
     R.eval "campaign_data <- read.csv('#{@csv}')"
     R.eval 'campaign_data$ores_diff <- with(campaign_data, ores_after - ores_before)'
     R.eval 'histogram_data <- campaign_data'
@@ -166,4 +171,6 @@ class HistogramPlotter
     PLOT
     R.eval 'dev.off()'
   end
+
+  class NoDataError < StandardError; end
 end
