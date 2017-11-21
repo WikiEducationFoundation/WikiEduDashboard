@@ -2,11 +2,11 @@
 
 require 'csv'
 
-class CampaignArticlesCsvBuilder
+class OresDiffCsvBuilder
   include ArticleHelper
 
-  def initialize(campaign)
-    @campaign = campaign
+  def initialize(courses)
+    @courses = courses
   end
 
   CSV_HEADERS = %w[
@@ -20,7 +20,7 @@ class CampaignArticlesCsvBuilder
 
   def articles_to_csv
     csv_data = [CSV_HEADERS]
-    @campaign.courses.each do |course|
+    @courses.each do |course|
       course.articles_courses.includes(:article).where(articles: { wiki_id: en_wiki_id }).each do |articles_course|
         csv_data << article_row(articles_course, course)
       end
