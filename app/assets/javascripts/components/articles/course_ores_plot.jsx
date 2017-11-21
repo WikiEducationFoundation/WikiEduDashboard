@@ -34,6 +34,11 @@ const CourseOresPlot = createReactClass({
     return wiki.language === 'en' && wiki.project === 'wikipedia';
   },
 
+  shouldShowButton() {
+    // Do not show it if there are zero articles edited, or it's not an en-wiki course.
+    return this.isEnwiki() && this.props.course.edited_count !== '0';
+  },
+
   fetchFilePath() {
     $.ajax({
       url: `/courses/${this.props.course.slug}/ores_plot.json`,
@@ -44,7 +49,7 @@ const CourseOresPlot = createReactClass({
   },
 
   render() {
-    if (!this.isEnwiki()) { return <div />; }
+    if (!this.shouldShowButton()) { return <div />; }
 
     if (this.state.show) {
       if (this.state.filePath) {
