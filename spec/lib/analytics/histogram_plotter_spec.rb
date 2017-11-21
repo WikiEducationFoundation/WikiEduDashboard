@@ -22,7 +22,8 @@ end
 
 describe HistogramPlotter do
   let(:course) { create(:course, id: 1, start: 1.year.ago, end: 1.day.from_now) }
-  let(:subject) { described_class.plot(course: course) }
+  let(:opts) { { existing_only: true, minimum_improvement: 1 } }
+  let(:subject) { described_class.plot(course: course, opts: opts) }
   let(:article) { create(:article) }
   let(:revision) do
     create(:revision, article: article, date: 1.day.ago, wp10: 70, wp10_previous: 1)
@@ -44,8 +45,17 @@ describe HistogramPlotter do
       course.articles << article
     end
 
-    it 'returns an image path string' do
-      expect(subject).to match(/.*png/)
+    context 'histogram type' do
+      let(:opts) { { type: 'histogram' } }
+      it 'returns an image path string' do
+        expect(subject).to match(/.*png/)
+      end
+    end
+
+    context 'default density type' do
+      it 'returns an image path string' do
+        expect(subject).to match(/.*png/)
+      end
     end
   end
 end
