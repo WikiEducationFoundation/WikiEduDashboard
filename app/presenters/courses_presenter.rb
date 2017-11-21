@@ -93,9 +93,9 @@ class CoursesPresenter
     courses.sum(:user_count)
   end
 
+  # returns path to image
   def ores_plot
-    plotter = HistogramPlotter.new(campaign: campaign)
-    plotter.major_edits_plot(simple: true) # returns path to image
+    HistogramPlotter.plot(campaign: campaign, opts: { simple: true })
   end
 
   class NoCampaignError < StandardError; end
