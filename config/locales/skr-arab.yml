@@ -6,7 +6,9 @@
 skr-arab:
   application:
     cancel: منسوخ
+    error: 'اتھ غلطی ہائی:'
     explore: پھرولو
+    field_required: ایں خانے دی لوڑ ہے
     greeting2: ست بسم اللہ!
     greeting_extended: وکی پیڈیا وچ ست بسم اللہ
     greeting: سلام!
@@ -17,6 +19,7 @@ skr-arab:
     log_out: لاگ آؤٹ
     my_dashboard: میݙا ڈیش بورڈ
     recent_activity: حالیہ سرگرمی
+    report_problem: مسئلے دی رپورٹ کرو
     search: سوال پُچھو
     sign_up_extended: وکی پیڈیا نال نواں کھاتہ بݨاؤ
     sign_up_log_in_extended: وکی پیڈیا نال
@@ -27,6 +30,7 @@ skr-arab:
     details: تفصیلات
     confirm: ٹھیک ہے
   dashboard:
+    create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
     explore_examples: مثالاں لبھو
   home:
     explore: پھرولو
@@ -36,6 +40,7 @@ skr-arab:
     all: سرگرمی
     label: سرگرمی
   articles:
+    deleted: (مٹا ݙتے)
     edited_mobile: مقالے
     hide: لُکاؤ
     label: مقالے
@@ -52,6 +57,9 @@ skr-arab:
     remove: ہٹاؤ
     review_self: مضمون تے نظرثانی کرو
     select: چݨو
+  blocks:
+    milestones:
+      title: سنگ میل
   campaign:
     all_campaigns: ساریاں مہماں
     campaign: مہم
@@ -68,11 +76,17 @@ skr-arab:
     articles: مقالے
     cancel: منسوخ
     campaigns: 'مہماں:'
+    campaign_courses: '%{title} کورس'
+    campaign_articles: مضمون %{title}
+    campaign_users: ایڈیٹر %{title}
     course: کورس
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
+    creation_date: بݨاوݨ دی تاریخ
     creator:
+      course_language: گھر دی زبان
+      course_subject: کورس مضمون
       course_term_placeholder: ٹرم
       course_title: کورس دا عنوان
       create_button: میݙا کورس بݨاؤ!
@@ -87,10 +101,16 @@ skr-arab:
     current: حالیہ کورس
     delete_course: کورس مٹاؤ
     delete_suggestion: مٹاؤ
+    duration: کورس دا دورانیہ
+    enable_chat: ڳالھ کرݨ فعال کرو
     end: چھیکڑ
+    ended: کورس مُک ڳیا
+    enroll: داخلہ گھنو
+    enrollment: داخلہ
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
     join: شامل تھیوو
+    join_course: کورس وچ شامل تھیوو
     leave_course: کورس چھوڑو
     loading: لوڈ تھیدا پئے۔۔۔
     my_articles: میݙے مقالے
@@ -101,6 +121,7 @@ skr-arab:
     start_typing: ٹائپ کرݨ شروع کرو
     subject: مضمون
     submitted: جمع تھی ڳیا
+    term: ٹرم
     timeline_link: ٹائم لائن
     title: عنوان
     view: کورس ݙیکھو
@@ -162,10 +183,12 @@ skr-arab:
     see_more: ٻئے ݙیکھو
   timeline:
     add_week: ہفتہ شامل کرو
+    block_milestone: سنگ میل
     course_dates: کورس دیاں تریخاں
     course_end: کورس دا چھیکڑ
     course_start: کورس شروع
     delete_timeline_and_start_over: ٹائم لائن مٹاؤ
+    empty_week_1: شروع کرو
     empty_week_3: یا
     gradeable_value: قدر
     save_all_changes: سارے بچاؤ

@@ -9,6 +9,7 @@
 # Author: GMozafarian
 # Author: Ladsgroup
 # Author: Mardetanha
+# Author: Ommmmid
 # Author: Reza1615
 # Author: درفش کاویانی
 ---
@@ -336,6 +337,7 @@ fa:
     edit_description: ویرایش توضیحات
     edit_details: ویرایش جزئیات
   metrics:
+    last_update: آخرین به‌روزرسانی
     activity: فعالیت‌های اخیر
     articles_created: مقاله‌های ایجادشده
     articles_edited: مقاله‌های ویرایش‌شده

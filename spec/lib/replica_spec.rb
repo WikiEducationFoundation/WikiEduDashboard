@@ -175,26 +175,26 @@ describe Replica do
     let(:subject) { Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
-      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ETIMEDOUT)
       expect(subject).to be_empty
     end
 
     it 'handles connection refused errors' do
-      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_raise(Errno::ECONNREFUSED)
 
       expect(subject).to be_empty
     end
 
     it 'handles failed queries' do
-      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
       expect(subject).to be_empty
     end
 
     it 'handles successful empty responses' do
-      stub_request(:any, %r{http://tools.wmflabs.org/.*})
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(subject).to be_empty
     end

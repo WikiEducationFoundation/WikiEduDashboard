@@ -43,8 +43,13 @@ const CourseClonedModal = createReactClass({
   },
 
   storeDidChange() {
-    this.handleCourse();
+    let isPersisting = this.state.isPersisting;
+    if (!ValidationStore.getValidation('exists').valid) {
+      $('html, body').animate({ scrollTop: 0 });
+      isPersisting = false;
+    }
     return this.setState({
+      isPersisting,
       error_message: ValidationStore.firstMessage(),
       tempCourseId: CourseUtils.generateTempId(this.state.course)
     });
@@ -77,31 +82,18 @@ const CourseClonedModal = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid()) {
       ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
-      return setTimeout(() => {
-        const updatedCourse = $.extend(true, {}, { course: this.state.course });
-        updatedCourse.course.cloned_status = this.cloneCompletedStatus;
-        const { slug } = this.state.course;
-        const id = CourseUtils.generateTempId(this.state.course);
-        CourseActions.updateClonedCourse(updatedCourse, slug, id);
-        return this.setState({ isPersisting: true });
-      }
-      , 0);
+      const updatedCourse = $.extend(true, {}, { course: this.state.course });
+      updatedCourse.course.cloned_status = this.cloneCompletedStatus;
+      const { slug } = this.state.course;
+      const id = CourseUtils.generateTempId(this.state.course);
+      CourseActions.updateClonedCourse(updatedCourse, slug, id);
+      return this.setState({ isPersisting: true });
     }
   },
 
   isNewCourse(course) {
     // it's "new" if the cloned_course status comes back from the server as updated.
     return course.cloned_status === 2;
-  },
-
-  handleCourse() {
-    if (!this.state.isPersisting) { return; }
-    if (this.isNewCourse(this.props.course)) {
-      return window.location = `/courses/${this.props.course.slug}`;
-    } else if (!ValidationStore.getValidation('exists').valid) {
-      $('html, body').animate({ scrollTop: 0 });
-      return this.setState({ isPersisting: false });
-    }
   },
 
   saveEnabled() {

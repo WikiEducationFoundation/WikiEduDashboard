@@ -34,7 +34,7 @@ class WikiEdits
     # to Sentry.
     Raven.capture_message 'WikiEdits.notify_untrained',
                           level: 'info',
-                          culprit: 'WikiEdits.notify_untrained',
+                          transaction: 'WikiEdits.notify_untrained',
                           extra: { sender: current_user.username,
                                    course_name: course.slug,
                                    untrained_count: untrained_users.count }

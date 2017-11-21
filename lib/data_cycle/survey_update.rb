@@ -9,14 +9,20 @@ class SurveyUpdate
   def initialize
     @error_count = 0
     setup_logger
-    log_start_of_update
+    return if updates_paused?
+
+    run_update_with_pid_files(:survey)
+  end
+
+  private
+
+  def run_update
+    log_start_of_update 'Survey update starting.'
     create_survey_notifications
     send_survey_notifications
     send_survey_notification_follow_ups
     log_end_of_update 'Survey update finished.'
   end
-
-  private
 
   def create_survey_notifications
     log_message 'Creating new SurveyNotifications'
@@ -40,10 +46,6 @@ class SurveyUpdate
     try_to_process_notifications(:send_follow_up)
     after_count = SurveyNotification.sum(:follow_up_count)
     log_message "#{after_count - before_count} survey reminders sent"
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
   end
 
   def try_to_process_notifications(method)

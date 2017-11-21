@@ -19,25 +19,18 @@
 #  resolved       :boolean          default(FALSE)
 #
 
-# Alert for a course that has become moderately active in mainspace, intended for
-# Wiki Ed's communication staff to follow up with media outlets related to the course.
-# Similar to ProductiveCourseAlert, but with a different productivity threshold
-class SurveyResponseAlert < Alert
+# Alert for a course has not been submitted, but has reached its scheduled start
+# date
+class UnsubmittedCourseAlert < Alert
   def main_subject
-    "#{question_text_excerpt} - #{user.username}"
+    course.slug
   end
 
   def url
-    user_profile_url
+    course_url
   end
 
-  private
-
-  def question_text_excerpt
-    question.question_text[0..100]
-  end
-
-  def question
-    Rapidfire::Question.find subject_id
+  def reply_to
+    user&.email
   end
 end

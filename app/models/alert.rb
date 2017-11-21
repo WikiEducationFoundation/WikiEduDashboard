@@ -43,6 +43,7 @@ class Alert < ActiveRecord::Base
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
     SurveyResponseAlert
+    UnsubmittedCourseAlert
     UntrainedStudentsAlert
   ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES

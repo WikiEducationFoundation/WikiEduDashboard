@@ -55,7 +55,7 @@ const Overview = createReactClass({
   render() {
     const userRoles = UserUtils.userRoles(this.props.current_user, UserStore);
 
-    if (this.props.location.query.modal === 'true' && this.state.course.id) {
+    if (this.state.course.cloned_status === 1) {
       return (
         <CourseClonedModal
           course={this.state.course}
@@ -116,10 +116,20 @@ const Overview = createReactClass({
       <div className="sidebar" />
     );
 
+    let courseStatistics;
+    if (!this.state.course.ended && !Features.wikiEd) {
+      courseStatistics = (
+        <div className="pull-right">
+          <small>{I18n.t('metrics.are_updated')}. {I18n.t('metrics.last_update')}: {this.state.course.last_update ? moment(this.state.course.last_update).fromNow() : '-'}</small>
+        </div>
+      );
+    }
+
     return (
       <section className="overview container">
         { syllabusUpload }
         <CourseStats course={this.state.course} />
+        {courseStatistics}
         {userArticles}
         <div className="primary">
           {primaryContent}

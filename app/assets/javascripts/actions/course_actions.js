@@ -47,12 +47,15 @@ const CourseActions = Flux.createActions({
   },
 
   updateClonedCourse(data, courseId, tempId) {
+    const redirectToNewSlug = () => {
+      window.location = `/courses/${tempId}`;
+    };
     // Ensure course name is unique
     return API.fetch(tempId, 'check')
       .then(resp => {
         // Course name is all good... save it
         if (!resp.course_exists) {
-          return CourseActions.persistCourse(data, courseId);
+          return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
         }
 
         // Invalidate if course name taken

@@ -15,9 +15,9 @@ module I18n
       # Overwrites the Base backend translate method so that it will use
       # the CLDR plural rules.
       def pluralize(locale, entry, count)
-        return entry unless entry.is_a?(Hash) and count
+        return super unless entry.is_a?(Hash) and count
         locale_rules = CLDR_LANGUAGE_PLURAL_RULES[locale]
-        return entry unless locale_rules
+        return super unless locale_rules
         key = locale_rules[:i18n][:plural][:rule].call(count)
         return super unless entry.has_key?(key)
         entry[key]

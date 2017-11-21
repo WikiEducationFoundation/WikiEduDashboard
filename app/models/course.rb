@@ -225,6 +225,10 @@ class Course < ActiveRecord::Base
     campaigns.any?
   end
 
+  def tag?(query_tag)
+    tags.pluck(:tag).include? query_tag
+  end
+
   def training_modules
     @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
   end
@@ -242,11 +246,6 @@ class Course < ActiveRecord::Base
     # wiki_title or url.
     return unless wiki_title
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
-  end
-
-  def update(data={}, should_save=true)
-    self.attributes = data[:course]
-    save if should_save
   end
 
   def new_articles
