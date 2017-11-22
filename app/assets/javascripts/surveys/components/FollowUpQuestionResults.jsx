@@ -26,6 +26,5 @@ export default class FollowUpQuestionResults extends Component {
 
 FollowUpQuestionResults.propTypes = {
   follow_up_answers: PropTypes.array,
-  question: PropTypes.object,
   type: PropTypes.string
 };

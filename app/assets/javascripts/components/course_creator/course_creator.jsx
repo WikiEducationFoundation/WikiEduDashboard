@@ -101,7 +101,7 @@ const CourseCreator = createReactClass({
 
   handleCourse() {
     if (this.state.shouldRedirect === true) {
-      window.location = `/courses/${this.state.course.slug}?modal=true`;
+      window.location = `/courses/${this.state.course.slug}`;
     }
     if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
 

@@ -1,0 +1,18 @@
+- content_for :before_title, t('courses.ores_plot', title: @campaign.title) + ' — '
+
+= render 'nav'
+
+.container
+  %section.overview.container
+    = render 'courses/header_stats', presenter: @presenter
+
+.container
+  %section#ores_plot
+    .section-header
+      %h3
+        = t('courses.ores_plot')
+    - if @ores_plot_path.nil?
+      %p
+        No data available
+    - if @ores_plot_path.present?
+      %img{src: "/#{@ores_plot_path}"}

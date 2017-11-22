@@ -25,7 +25,6 @@
     # Rules below here should be enabled once violations are fixed.
     "react/forbid-prop-types": 0,
     "react/no-danger": 0,
-    "react/no-unused-prop-types": 0,
     "react/no-unescaped-entities": 0,
     "react/no-string-refs": 0,
     "react/jsx-equals-spacing": 0,

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/word_count"
+require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Presenter for courses / campaign view
 class CoursesPresenter

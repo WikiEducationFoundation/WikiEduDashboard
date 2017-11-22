@@ -4,6 +4,8 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const CourseStats = ({ course }) => {
   let viewData;
+  let infoImg;
+  let trainedTooltip;
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display" />;
   }
@@ -17,6 +19,17 @@ const CourseStats = ({ course }) => {
     viewData = (
       <div className="stat-display__value">
         {course.view_count}
+      </div>
+    );
+  }
+  if (course.timeline_enabled) {
+    infoImg = (
+      <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+    );
+    trainedTooltip = (
+      <div className="tooltip dark" id="trained-count">
+        <h4 className="stat-display__value">{course.trained_count}</h4>
+        <p>{I18n.t('metrics.are_trained')}</p>
       </div>
     );
   }
@@ -38,13 +51,10 @@ const CourseStats = ({ course }) => {
       <div className="stat-display__stat tooltip-trigger" id="student-editors">
         <div className="stat-display__value">
           {course.student_count}
-          <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+          {infoImg}
         </div>
         <small>{CourseUtils.i18n('student_editors', course.string_prefix)}</small>
-        <div className="tooltip dark" id="trained-count">
-          <h4 className="stat-display__value">{course.trained_count}</h4>
-          <p>{I18n.t('metrics.are_trained')}</p>
-        </div>
+        {trainedTooltip}
       </div>
       <div className="stat-display__stat" id="word-count">
         <div className="stat-display__value">{course.word_count}</div>

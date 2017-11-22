@@ -307,6 +307,7 @@ ru:
     edit_description: Редактирование описание
     edit_details: Редактировать подробности
   metrics:
+    last_update: Последнее обновление
     activity: Недавние действия
     articles_created: Статей создано
     articles_edited: Статей отредактировано

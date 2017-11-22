@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/analytics/campaign_csv_builder"
-require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
+require "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 #= Controller for campaign data
 class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
-                                        remove_course courses articles_csv]
+                                        remove_course courses ores_plot articles_csv]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -64,6 +64,11 @@ class CampaignsController < ApplicationController
   def programs
     set_presenter
     @search_terms = params[:courses_query]
+  end
+
+  def ores_plot
+    set_presenter
+    @ores_plot_path = HistogramPlotter.plot(campaign: @campaign, opts: { simple: true })
   end
 
   def update
@@ -149,7 +154,7 @@ class CampaignsController < ApplicationController
     filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        send_data CampaignArticlesCsvBuilder.new(@campaign).articles_to_csv,
+        send_data OresDiffCsvBuilder.new(@campaign.courses).articles_to_csv,
                   filename: filename
       end
     end
