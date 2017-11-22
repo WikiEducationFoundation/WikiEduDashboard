@@ -117,7 +117,7 @@ class WikiCourseOutput
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-    block_type = block_types[block.kind]
+    block_type = block_types[block.kind] || 'assignment|' # fallback
     block_output = "{{#{block_type}#{block.title}}}\r"
     block_output += Wikitext.html_to_mediawiki(block.content)
     block_output

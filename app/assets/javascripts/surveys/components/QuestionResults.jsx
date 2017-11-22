@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import BarGraph from './BarGraph.jsx';
 import TextResults from './TextResults.jsx';
 import RangeGraph from './RangeGraph.jsx';
@@ -37,7 +36,3 @@ export default class QuestionResults extends Component {
     );
   }
 }
-
-QuestionResults.propTypes = {
-  type: PropTypes.string.isRequired
-};

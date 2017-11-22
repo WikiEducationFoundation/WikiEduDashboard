@@ -48,9 +48,16 @@ class Wikitext
 
   def self.titles_to_wikilinks(titles)
     return '' if titles.blank?
-    titles_with_spaces = titles.map { |t| t.tr('_', ' ') }
-    wikitext = '[[' + titles_with_spaces.join(']], [[') + ']]'
+    formatted_titles = titles.map { |title| format_title(title) }
+    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
     wikitext
+  end
+
+  # converts page title to a format suitable for on-wiki use
+  def self.format_title(title)
+    title
+      .tr('_', ' ')
+      .sub(/^Category:/, ':Category:') # Proper linking of categories
   end
 
   # Fix full urls that have been formatted like wikilinks.

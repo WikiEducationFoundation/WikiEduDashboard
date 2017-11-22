@@ -397,6 +397,7 @@ it:
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
   metrics:
+    last_update: Ultimo aggiornamento
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate

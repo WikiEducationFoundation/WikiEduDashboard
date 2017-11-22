@@ -59,6 +59,7 @@ lv:
     campaign: Kampaņa
     campaigns: Kampaņas
     create_campaign: Izveidot jaunu kampaņu
+    create_my_campaign: Izveidot manu kampaņu!
     description: Apraksts
     delete_campaign: Dzēst šo kampaņu
     none: Nav
@@ -83,6 +84,7 @@ lv:
     course: Kurss
     course_description: Kursi
     courses: Kursi
+    creation_date: Izveides datums
     creator:
       clone_previous: Klonēt iepriekšējo kursu
       clone_this: Klonēt šo kursu
@@ -101,11 +103,13 @@ lv:
       start_date_placeholder: Sākuma datums (GGGG-MM-DD)
       subject: Temats
     current: Aktīvie kursi
+    data_articles: Rakstu dati
     data_download_info: Lejupielādēt datus CSV formātā
     data_edits: Labojumu dati
     data_uploads_info: Commons augšupielādes datos parādās katra ielādētā faila nosaukums
       un lietojumu skaits.
     delete_course: Dzēst kursu
+    delete_suggestion: Dzēst
     dismiss_survey: Paslēpt
     download_stats_data: Lejupielādēt statistiku
     duration: Kursa ilgums

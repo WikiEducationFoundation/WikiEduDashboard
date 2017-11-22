@@ -435,7 +435,7 @@ zh-CN:
     edit_details: 编辑详情
     edit_template: 编辑模板
   metrics:
-    label: 课程活跃
+    label: 课程活动
     are_updated: 根据上次系统更新
     last_update: 最后更新
     activity: 最近活跃

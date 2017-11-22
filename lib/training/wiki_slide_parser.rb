@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/wikitext"
 #= Takes wikitext for an on-wiki slide and extracts title and content
 class WikiSlideParser
   def initialize(wikitext)
-    @wikitext = wikitext&.dup || String.new
+    @wikitext = wikitext&.dup || +''
     set_utf8_encoding
     remove_noinclude
     remove_translation_markers
@@ -54,7 +54,9 @@ class WikiSlideParser
   def remove_translation_markers
     # Remove both marker and any trailing whitespace after it,
     # which may interfere with correct markdown conversion.
-    @wikitext.gsub!(/<!--.+?-->\s*\n*/, '')
+    # Matches any amount of horizontal whitespace (\h) but at most
+    # one newline, to prevent concatenating the title with the contents.
+    @wikitext.gsub!(/<!--.+?-->\h*\n??/, '')
   end
 
   def remove_translate_tags

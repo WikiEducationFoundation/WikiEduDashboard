@@ -22,6 +22,10 @@ el:
     cancel: Ακύρωση
     delete_course: Διαγραφή προγράμματος
     view_page: Δείτε τη Σελίδα του Προγράμματος
+  metrics:
+    label: Μαθήματα
+    are_updated: Σύμφωνα με την τελευταία ενημέρωση του συστήματος
+    last_update: Τελευταία Ενημέρωση
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:

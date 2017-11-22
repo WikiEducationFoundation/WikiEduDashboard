@@ -566,6 +566,9 @@ de:
       Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
       tun möchtest?
   metrics:
+    label: Kursaktivität
+    are_updated: Übereinstimmend mit der letzten Systemaktualisierung
+    last_update: Letzte Aktualisierung
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel

@@ -225,6 +225,10 @@ class Course < ActiveRecord::Base
     campaigns.any?
   end
 
+  def tag?(query_tag)
+    tags.pluck(:tag).include? query_tag
+  end
+
   def training_modules
     @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
   end

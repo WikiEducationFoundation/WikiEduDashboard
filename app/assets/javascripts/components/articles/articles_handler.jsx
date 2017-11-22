@@ -6,6 +6,7 @@ import UIActions from '../../actions/ui_actions.js';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
+import CourseOresPlot from './course_ores_plot.jsx';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -44,6 +45,7 @@ const ArticlesHandler = createReactClass({
         <div id="articles">
           <div className="section-header">
             {header}
+            <CourseOresPlot course={this.props.course} />
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="rating_num">{I18n.t('articles.rating')}</option>
