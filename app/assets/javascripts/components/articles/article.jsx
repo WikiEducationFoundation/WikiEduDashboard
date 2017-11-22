@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
+import ArticleViewer from '../common/article_viewer.jsx';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -16,11 +17,18 @@ const Article = createReactClass({
   },
 
   toggleDrawer() {
+    // if (!this.props.articleDetails) {
+    //   this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
+    // }
+    // return this.props.toggleDrawer(`drawer_${this.props.article.id}`);
+  },
+
+  fetchArticleDetails() {
     if (!this.props.articleDetails) {
       this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
     }
-    return this.props.toggleDrawer(`drawer_${this.props.article.id}`);
   },
+
   render() {
     let className = 'article';
     className += this.props.isOpen ? ' open' : '';
@@ -51,7 +59,13 @@ const Article = createReactClass({
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>
-        <td><button className="icon icon-arrow table-expandable-indicator" /></td>
+        <td>
+          <ArticleViewer
+            article={this.props.article}
+            users={this.props.articleDetails && this.props.articleDetails.editors}
+            fetchArticleDetails={this.fetchArticleDetails}
+          />
+        </td>
       </tr>
     );
   }
