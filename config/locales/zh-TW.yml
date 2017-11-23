@@ -114,8 +114,7 @@ zh-TW:
     edit_size: 編輯大小
     wiki: Wiki
     wp10: 結構完整性
-    wp10_doc: ' "結構完整性" 評分，是以採用機器學習的版本評估服務 (https://ores.wikimedia.org/) 為依據，來代表著一篇條目內容符合一篇完整維基條目內容程度。評分計算的基準在於條目長度大小、參考來源的數量、內部連結、和其它基本的文字外觀表現形式。在不考量內容描述的情況下，一篇高分的條目通常代表著它遵循著維基百科上對於良好條目架構的共識。
-      (這些評分僅適用於英語維基百科)'
+    wp10_doc: 「結構完整性」評分；是以採用機器學習架構的客觀性修訂版本評估服務（https://ores.wikimedia.org/）作為依據，來反應出一篇條目內容在符合完整維基條目方面的程度。評分計算的基準項目有條目長度大小、參考來源的數量、內部連結、和其它基本的文字樣式表現。在不考量內容描述的情況下，一篇高分的條目通常代表著它有遵循維基百科上對於良好條目架構的共識。（這些評分僅適用於英語維基百科）
   assignments:
     article: 條目%{title}現在已被分配給您。
     already_exists: 此分配作業已存在！
@@ -313,6 +312,7 @@ zh-TW:
     none: 空白
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
+    ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
     overview: 首頁
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
