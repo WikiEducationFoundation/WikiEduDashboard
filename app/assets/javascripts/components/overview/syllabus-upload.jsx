@@ -4,7 +4,6 @@ import Dropzone from 'react-dropzone';
 import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';
 
-
 export default class SyllabusUpload extends React.Component {
   constructor() {
     super();
@@ -80,6 +79,5 @@ SyllabusUpload.propTypes = {
   course: PropTypes.object.isRequired,
   syllabus: PropTypes.string,
   editingSyllabus: PropTypes.bool,
-  uploadingSyllabus: PropTypes.bool,
-  current_user: PropTypes.object
+  uploadingSyllabus: PropTypes.bool
 };

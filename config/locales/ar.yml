@@ -295,6 +295,7 @@ ar:
     edit_description: عدل الوصف
     edit_details: عدل التفاصيل
   metrics:
+    label: نشاط المساق
     activity: آخر نشاط
     articles_created: المقالات التي تم إنشاؤها
     articles_edited: المقالات التي تم تعديلها

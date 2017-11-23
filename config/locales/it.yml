@@ -271,6 +271,7 @@ it:
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
     no_available_actions: Nessuna azione disponibile
+    ores_plot: ORES
     overview: Pagina principale
     passcode: Codice di accesso
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
@@ -397,6 +398,7 @@ it:
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
   metrics:
+    last_update: Ultimo aggiornamento
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate

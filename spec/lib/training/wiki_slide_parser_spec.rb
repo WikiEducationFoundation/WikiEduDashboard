@@ -25,7 +25,7 @@ describe WikiSlideParser do
       | text = Example link
       }}
 
-WIKISLIDE
+    WIKISLIDE
   end
 
   let(:translated_wikitext) do
@@ -41,7 +41,7 @@ WIKISLIDE
       * '''Emergencias medicas''' también se pueden llegar a suscitar. Aunque no sean causadas por altercados entre personas en un evento, estas deben ser tratadas como una prioridad por el EOT.
 
       Toma en mente que tu, en rol de organizador o voluntario, tienes el derecho a sentirte seguro en un evento. Incidentes que te involucren deben ser tratados con la misma seriedad. En estos casos es importante tener un investigador de apoyo. Trataremos este tema mas a fondo en la capacitación.
-WIKISLIDE
+    WIKISLIDE
   end
 
   let(:quiz_wikitext) do
@@ -58,7 +58,7 @@ WIKISLIDE
       | explanation_2 = Incorrect. You should be using reliable, published information, but you want to be very careful not to plagiarize, or closely paraphrase, those authors. Instead, you should seek out good information and summarize those facts using your own words.
 
       }}
-WIKISLIDE
+    WIKISLIDE
   end
 
   let(:image_wikitext) do
@@ -120,6 +120,37 @@ WIKISLIDE
     WIKISLIDE
   end
 
+  let(:translate_markup_variant) do
+    <<~WIKISLIDE
+      <noinclude><languages/></noinclude>
+      <translate>== Five Pillars: The core rules of Wikipedia == <!--T:1-->
+
+      <!--T:2-->
+      {{Training module image
+      | image = File:Palace_of_Fine_Arts%2C_five_pillars.jpg
+      | source = https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Palace_of_Fine_Arts%2C_five_pillars.jpg/640px-Palace_of_Fine_Arts%2C_five_pillars.jpg
+      | layout = alt-layout-40-right
+      | credit = Photo by Eryk Salvaggio
+      }}
+
+      <!--T:3-->
+      Wikipedia is the encyclopedia anyone can edit, but there's a lot of collaboration behind every article. You'll work with many people to build Wikipedia. To collaborate effectively, you'll want to follow the five key principles, or pillars, of Wikipedia.
+
+      <!--T:4-->
+      Wikipedia's Five Pillars are:
+
+      <!--T:5-->
+      * Wikipedia is an online encyclopedia
+      * Wikipedia has a neutral point of view
+      * Wikipedia is free content
+      * Wikipedians should interact in a respectful and civil manner
+      * Wikipedia does not have firm rules
+
+      <!--T:6-->
+      Let’s explore these a bit.</translate>
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = WikiSlideParser.new(source_wikitext.dup).title
@@ -130,8 +161,12 @@ WIKISLIDE
       expect(output).to eq('E3: Situaciones que podrías enfrentar')
     end
     it 'handles nil input' do
-      output = WikiSlideParser.new(''.dup).title
+      output = WikiSlideParser.new(+'').title
       expect(output).to eq('')
+    end
+    it 'extracts only the title from variant translation markup formats' do
+      output = WikiSlideParser.new(translate_markup_variant.dup).title
+      expect(output).to eq('Five Pillars: The core rules of Wikipedia')
     end
   end
 

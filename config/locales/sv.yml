@@ -251,6 +251,9 @@ sv:
     edit_details: Redigera detaljer
     edit_template: Redigera mall
   metrics:
+    label: Kursaktivitet
+    are_updated: Enligt den senaste systemuppgraderingen
+    last_update: Senast uppdaterad
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
     articles_edited: Redigerade artiklar

@@ -198,6 +198,7 @@ ko:
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
     no_available_actions: 취할 수 있는 행동 없음
+    ores_plot: ORES
     overview: 홈
     passcode: 패스코드
     passcode_none: 비밀코드 없음
@@ -282,6 +283,7 @@ ko:
     edit_details: 자세한 사항 편집
     edit_template: 틀 편집
   metrics:
+    last_update: 최근 업데이트
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨

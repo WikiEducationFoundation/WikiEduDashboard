@@ -40,7 +40,7 @@ gem 'acts_as_list'
 gem 'sentimental'
 
 # used for enabling CSS for mailer emails
-gem 'premailer-rails'
+gem 'premailer-rails', '1.9.7' # https://github.com/fphilipe/premailer-rails/issues/207
 gem 'nokogiri' # expected by premailer-rails but not required
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
