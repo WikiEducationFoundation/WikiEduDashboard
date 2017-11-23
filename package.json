@@ -58,6 +58,7 @@
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.11",
     "gulp-webserver": "^0.9.1",
+    "html-react-parser": "^0.4.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
     "jeet": "^6.1.2",
     "jest": "^21.2.1",

@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import _ from 'lodash';
+import Parser from 'html-react-parser';
 
 import { trunc } from '../../utils/strings';
 
@@ -259,7 +260,7 @@ const ArticleViewer = createReactClass({
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+            <div className="parsed-article">{Parser(article || '')}</div>
           </div>
           <div className="article-footer">
             {colorLegend}

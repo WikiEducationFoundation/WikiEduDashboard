@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
+import Parser from 'html-react-parser';
 
 import TrainingStore from '../stores/training_store.js';
 import TrainingActions from '../actions/training_actions.js';
@@ -179,7 +180,6 @@ const TrainingSlideHandler = createReactClass({
       }
     }
 
-
     const menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
 
     let quiz;
@@ -229,7 +229,7 @@ const TrainingSlideHandler = createReactClass({
         <article className="training__slide">
           {titlePrefix}
           <h1>{slideTitle}</h1>
-          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+          <div className="markdown training__slide__content">{Parser(rawHtml || '')}</div>
           {quiz}
           <footer className="training__slide__footer">
             <span className="pull-left">{previousLink}</span>

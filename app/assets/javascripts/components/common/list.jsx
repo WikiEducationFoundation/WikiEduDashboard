@@ -2,6 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from './loading.jsx';
+import Parser from 'html-react-parser';
+
 import UIActions from '../../actions/ui_actions.js';
 
 const List = createReactClass({
@@ -45,7 +47,7 @@ const List = createReactClass({
       }
       headers.push((
         <th onClick={headerOnClick} className={headerClass} key={key}>
-          <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
+          <span>{Parser(keyObj.label || '')}</span>
           <span className="sortable-indicator" />
           {tooltip}
         </th>
