@@ -21,7 +21,9 @@ class MockR
 end
 
 describe HistogramPlotter do
-  let(:course) { create(:course, id: 1, start: 1.year.ago, end: 1.day.from_now) }
+  let(:course) do
+    create(:course, slug: "Sage's/te,_st_(slug)", id: 1, start: 1.year.ago, end: 1.day.from_now)
+  end
   let(:opts) { { existing_only: true, minimum_improvement: 1 } }
   let(:subject) { described_class.plot(course: course, opts: opts) }
   let(:article) { create(:article) }
