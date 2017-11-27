@@ -1,6 +1,7 @@
 # Messages for Urdu (اردو)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BukhariSaeed
 # Author: Hindustanilanguage
 # Author: Muhammad Shuaib
 # Author: Obaid Raza
@@ -59,6 +60,8 @@ ur:
     user_suggestions: 'صارف کے سجھاؤ:'
   metrics:
     label: دستہ سرگرمی
+  uploads:
+    label: اپلوڈ کردہ
   users:
     my_assigned: تفویض کردہ
 ...
