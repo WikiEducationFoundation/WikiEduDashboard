@@ -209,6 +209,8 @@ const ArticleViewer = createReactClass({
 
     const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
 
+
+    // TODO: Move the 'Edits by' section into its own sf component
     let colorDataStatus;
     if (!this.state.highlightedHtml) {
       if (this.state.whocolorFailed) {
@@ -227,6 +229,7 @@ const ArticleViewer = createReactClass({
     let colorLegend;
     if (this.state.userIdsFetched) {
       const users = this.state.users.map((user, i) => {
+        // TODO: Link to user page
         return (
           <div key={`legend-${user.name}`} className={`user-legend ${this.colors[i]}`}>
             {user.name}
