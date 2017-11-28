@@ -47,6 +47,7 @@ const ArticleList = createReactClass({
           toggleDrawer={toggleDrawer}
           key={article.id}
           isOpen={isOpen}
+          current_user={this.props.current_user}
           fetchArticleDetails={this.props.actions.fetchArticleDetails}
           articleDetails={this.props.articleDetails[article.id] || null}
         />

@@ -16,17 +16,31 @@ const DiffViewer = createReactClass({
     revision: PropTypes.object.isRequired,
     first_revision: PropTypes.object,
     showButtonLabel: PropTypes.string,
-    largeButton: PropTypes.bool,
     editors: PropTypes.array,
     showSalesforceButton: PropTypes.bool,
     article: PropTypes.object,
-    course: PropTypes.object
+    course: PropTypes.object,
+    showButtonClass: PropTypes.string,
+    fetchArticleDetails: PropTypes.func
   },
 
   getInitialState() {
     return {
       showDiff: false,
     };
+  },
+
+  // When 'show' is clicked, this component may or may not already have
+  // users data (a list of usernames) in its props. If it does, then 'show' will
+  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
+  // fetched until the usernames are available, so 'show' will fetch the usernames
+  // first in that case. In that case, componentWillReceiveProps fetches the
+  // user ids as soon as usernames are avaialable.
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.editors && nextProps.editors && this.state.showDiff) {
+      console.log('fetchingDiffWithNewProps')
+      this.initiateDiffFetch(nextProps);
+    }
   },
 
   showButtonLabel() {
@@ -37,9 +51,13 @@ const DiffViewer = createReactClass({
   },
 
   showDiff() {
+    console.log('showDiff')
     this.setState({ showDiff: true });
-    if (!this.state.fetched) {
-      this.initiateDiffFetch();
+    if (!this.props.editors) {
+      console.log('noEditors')
+      this.props.fetchArticleDetails();
+    } else if (!this.state.fetched) {
+      this.initiateDiffFetch(this.props);
     }
   },
 
@@ -54,59 +72,68 @@ const DiffViewer = createReactClass({
   // If a first and current revision are provided, find the parent of the first revision
   // and get a diff from that parent to the current revision.
   // If only a current revision is provided, get diff to the previous revision.
-  initiateDiffFetch() {
-    if (this.props.first_revision) {
-      return this.findParentOfFirstRevision();
+  initiateDiffFetch(props) {
+    if (this.state.diffFetchInitiated) {
+      return;
     }
-    this.fetchDiff(this.diffUrl());
+    this.setState({ diffFetchInitiated: true });
+
+    if (props.first_revision) {
+      console.log('findParent')
+      return this.findParentOfFirstRevision(props);
+    }
+    this.fetchDiff(this.diffUrl(props.revision));
   },
 
-  wikiUrl() {
-    if (this.props.revision.wiki.language) {
-      return `https://${this.props.revision.wiki.language}.${this.props.revision.wiki.project}.org`;
+  wikiUrl(revision) {
+    if (revision.wiki.language) {
+      return `https://${revision.wiki.language}.${revision.wiki.project}.org`;
     }
 
-    return `https://${this.props.revision.wiki.project}.org`;
+    return `https://${revision.wiki.project}.org`;
   },
 
-  diffUrl() {
-    const wikiUrl = this.wikiUrl();
+  diffUrl(lastRevision, firstRevision) {
+    const wikiUrl = this.wikiUrl(lastRevision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions&rvprop=ids|timestamp|comment`;
     // eg, "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&revids=139993&rvdiffto=prev&format=json",
     let diffUrl;
     if (this.state.parentRevisionId) {
-      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${this.props.revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
-    } else if (this.props.first_revision) {
-      diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}|${this.props.revision.mw_rev_id}&rvdiffto=${this.props.revision.mw_rev_id}&format=json`;
+      diffUrl = `${queryBase}&revids=${this.state.parentRevisionId}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
+    } else if (firstRevision) {
+      diffUrl = `${queryBase}&revids=${firstRevision.mw_rev_id}|${lastRevision.mw_rev_id}&rvdiffto=${lastRevision.mw_rev_id}&format=json`;
     } else {
-      diffUrl = `${queryBase}&revids=${this.props.revision.mw_rev_id}&rvdiffto=prev&format=json`;
+      diffUrl = `${queryBase}&revids=${lastRevision.mw_rev_id}&rvdiffto=prev&format=json`;
     }
 
     return diffUrl;
   },
 
   webDiffUrl() {
+    const wikiUrl = this.wikiUrl(this.props.revision);
     if (this.state.parentRevisionId) {
-      return `${this.wikiUrl()}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${this.state.parentRevisionId}&diff=${this.props.revision.mw_rev_id}`;
     } else if (this.props.first_revision) {
-      return `${this.wikiUrl()}/w/index.php?oldid=${this.props.first_revision.mw_rev_id}&diff=${this.props.revision.mw_rev_id}`;
+      return `${wikiUrl}/w/index.php?oldid=${this.props.first_revision.mw_rev_id}&diff=${this.props.revision.mw_rev_id}`;
     }
-    return `${this.wikiUrl()}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
+    return `${wikiUrl}/w/index.php?diff=${this.props.revision.mw_rev_id}`;
   },
 
-  findParentOfFirstRevision() {
-    const wikiUrl = this.wikiUrl();
+  findParentOfFirstRevision(props) {
+    console.log('findingParent')
+    const wikiUrl = this.wikiUrl(props.revision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
-    const diffUrl = `${queryBase}&revids=${this.props.first_revision.mw_rev_id}&format=json`;
+    const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
+    console.log('findingParentAjax')
     $.ajax(
       {
         dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
-          const revisionData = data.query.pages[this.props.first_revision.mw_page_id].revisions[0];
+          const revisionData = data.query.pages[props.first_revision.mw_page_id].revisions[0];
           const parentRevisionId = revisionData.parentid;
           this.setState({ parentRevisionId });
-          this.fetchDiff(this.diffUrl());
+          this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
         }
       });
   },
@@ -141,19 +168,15 @@ const DiffViewer = createReactClass({
   },
 
   render() {
-    let button;
-    let showButtonStyle;
-
-    if (this.props.largeButton) {
-      showButtonStyle = 'button dark';
-    } else {
-      showButtonStyle = 'button dark small';
-    }
-
-    if (this.state.showDiff) {
-      button = <button onClick={this.hideDiff} className="pull-right icon-close" />;
-    } else {
-      button = <button onClick={this.showDiff} className={showButtonStyle}>{this.showButtonLabel()}</button>;
+    if (!this.state.showDiff || !this.props.revision) {
+      return (
+        <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
+          <button onClick={this.showDiff} className="icon icon-diff-viewer" />
+          <div className="tooltip dark large">
+            <p>{this.showButtonLabel()}</p>
+          </div>
+        </div>
+      );
     }
 
     let style = 'hidden';
@@ -216,11 +239,10 @@ const DiffViewer = createReactClass({
 
     return (
       <div>
-        {button}
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            {button}
+            <button onClick={this.hideDiff} className="pull-right icon-close" />
             <a className="pull-right button small diff-viewer-feedback" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
           </div>
           {salesforceButtons}

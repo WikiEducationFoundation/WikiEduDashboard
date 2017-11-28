@@ -12,6 +12,7 @@ const ArticleViewer = createReactClass({
   propTypes: {
     article: PropTypes.object.isRequired,
     showButtonLabel: PropTypes.string,
+    showButtonClass: PropTypes.string,
     users: PropTypes.array,
     fetchArticleDetails: PropTypes.func.isRequired
   },
@@ -197,7 +198,7 @@ const ArticleViewer = createReactClass({
   render() {
     if (!this.state.showArticle) {
       return (
-        <div className="tooltip-trigger">
+        <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showArticle} className="icon icon-article-viewer" />
           <div className="tooltip dark large">
             <p>{this.showButtonLabel()}</p>

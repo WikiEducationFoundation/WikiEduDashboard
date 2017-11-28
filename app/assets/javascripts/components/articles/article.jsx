@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '../common/article_viewer.jsx';
+import DiffViewer from '../revisions/diff_viewer.jsx';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -11,16 +12,8 @@ const Article = createReactClass({
     article: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
     isOpen: PropTypes.bool.isRequired,
-    toggleDrawer: PropTypes.func.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object
-  },
-
-  toggleDrawer() {
-    // if (!this.props.articleDetails) {
-    //   this.props.fetchArticleDetails(this.props.article.id, this.props.course.id);
-    // }
-    // return this.props.toggleDrawer(`drawer_${this.props.article.id}`);
   },
 
   fetchArticleDetails() {
@@ -41,7 +34,7 @@ const Article = createReactClass({
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
-      <tr className={className} onClick={this.toggleDrawer}>
+      <tr className={className}>
         <td className="tooltip-trigger desktop-only-tc">
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
@@ -64,6 +57,18 @@ const Article = createReactClass({
             article={this.props.article}
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
+            showButtonClass="pull-left"
+          />
+          <DiffViewer
+            fetchArticleDetails={this.fetchArticleDetails}
+            revision={this.props.articleDetails && this.props.articleDetails.last_revision}
+            first_revision={this.props.articleDetails && this.props.articleDetails.first_revision}
+            showButtonLabel={I18n.t('articles.show_cumulative_changes')}
+            showButtonClass="pull-right"
+            editors={this.props.articleDetails && this.props.articleDetails.editors}
+            showSalesforceButton={Boolean(Features.wikiEd && this.props.current_user.admin)}
+            course={this.props.course}
+            article={this.props.article}
           />
         </td>
       </tr>
