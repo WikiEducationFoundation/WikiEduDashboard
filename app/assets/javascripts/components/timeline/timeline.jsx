@@ -181,7 +181,7 @@ const Timeline = createReactClass({
     if (this.tooManyWeeks()) {
       tooManyWeeksWarning = (
         <li className="timeline-warning">
-          WARNING! There are not enough non-holiday weeks before the assignment end date! You can click 'Edit Course Dates' to set the meeting dates and holiday dates.
+          WARNING! There are not enough non-holiday weeks before the assignment end date! You can click &apos;Edit Course Dates&apos; to set the meeting dates and holiday dates.
         </li>
       );
     }

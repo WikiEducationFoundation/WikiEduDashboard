@@ -103,7 +103,7 @@ const Course = createReactClass({
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
-                <p>Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed's best practices.</p>
+                <p>Please add student trainings to your assignment timeline. Assigning training modules is an essential part of Wiki Ed&apos;s best practices.</p>
                 <a href={`${this._courseLinkParams()}/timeline`} className="button">Go to Timeline</a>
               </div>
             </div>
@@ -113,7 +113,7 @@ const Course = createReactClass({
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
-                <p>Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed's best practices.</p>
+                <p>Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed&apos;s best practices.</p>
                 <a href={`${this._courseLinkParams()}/timeline`} className="button">Launch the Wizard</a>
               </div>
             </div>

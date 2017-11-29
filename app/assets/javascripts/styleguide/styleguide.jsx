@@ -74,13 +74,13 @@ const StyleguideExamples = {
       render() {
         const editRow = (
           <tr className="edit">
-            <td>"Edit row" content: Lorem ipsum dolor sit amet.</td>
+            <td>&quot;Edit row&quot; content: Lorem ipsum dolor sit amet.</td>
           </tr>
         );
 
         const rows = (
           <tr>
-            <td>"Rows" content: Lorem ipsum dolor sit amet.</td>
+            <td>&quot;Rows&quot; content: Lorem ipsum dolor sit amet.</td>
           </tr>
         );
 
