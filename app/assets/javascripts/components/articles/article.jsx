@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import ArticleViewer from '../common/article_viewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
+import ArticleGraphs from './article_graphs.jsx';
 
 const Article = createReactClass({
   displayName: 'Article',
@@ -44,11 +45,13 @@ const Article = createReactClass({
         </td>
         <td>
           <div className={ratingMobileClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
-          <p className="title">
+          <div className="title">
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />
-            <small><a href={historyUrl} target="_blank" className="inline">(history)</a></small>
-          </p>
+            <small>
+              <a href={historyUrl} target="_blank" className="inline">(history)</a> | <ArticleGraphs article={this.props.article} />
+            </small>
+          </div>
         </td>
         <td className="desktop-only-tc">{this.props.article.character_sum}</td>
         <td className="desktop-only-tc">{this.props.article.view_count}</td>

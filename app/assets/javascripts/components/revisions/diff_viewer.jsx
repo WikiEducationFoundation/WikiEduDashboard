@@ -13,7 +13,7 @@ const DiffViewer = createReactClass({
   // If there is no parent of the first revision — typically because it's the start
   // of a new article — then it uses the first revision as the starting point.
   propTypes: {
-    revision: PropTypes.object.isRequired,
+    revision: PropTypes.object,
     first_revision: PropTypes.object,
     showButtonLabel: PropTypes.string,
     editors: PropTypes.array,
@@ -38,7 +38,6 @@ const DiffViewer = createReactClass({
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
     if (!this.props.editors && nextProps.editors && this.state.showDiff) {
-      console.log('fetchingDiffWithNewProps')
       this.initiateDiffFetch(nextProps);
     }
   },
@@ -51,10 +50,8 @@ const DiffViewer = createReactClass({
   },
 
   showDiff() {
-    console.log('showDiff')
     this.setState({ showDiff: true });
     if (!this.props.editors) {
-      console.log('noEditors')
       this.props.fetchArticleDetails();
     } else if (!this.state.fetched) {
       this.initiateDiffFetch(this.props);
@@ -79,7 +76,6 @@ const DiffViewer = createReactClass({
     this.setState({ diffFetchInitiated: true });
 
     if (props.first_revision) {
-      console.log('findParent')
       return this.findParentOfFirstRevision(props);
     }
     this.fetchDiff(this.diffUrl(props.revision));
@@ -120,11 +116,9 @@ const DiffViewer = createReactClass({
   },
 
   findParentOfFirstRevision(props) {
-    console.log('findingParent')
     const wikiUrl = this.wikiUrl(props.revision);
     const queryBase = `${wikiUrl}/w/api.php?action=query&prop=revisions`;
     const diffUrl = `${queryBase}&revids=${props.first_revision.mw_rev_id}&format=json`;
-    console.log('findingParentAjax')
     $.ajax(
       {
         dataType: 'jsonp',
