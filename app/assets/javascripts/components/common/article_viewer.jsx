@@ -5,6 +5,7 @@ import OnClickOutside from 'react-onclickoutside';
 import _ from 'lodash';
 
 import { trunc } from '../../utils/strings';
+import Loading from '../common/loading.jsx';
 
 const ArticleViewer = createReactClass({
   displayName: 'ArticleViewer',
@@ -206,7 +207,6 @@ const ArticleViewer = createReactClass({
         </div>
       );
     }
-
     const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
 
 
@@ -253,16 +253,17 @@ const ArticleViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.state.showArticle && this.state.fetched) {
+    if (this.state.showArticle) {
       style = '';
     }
     const className = `article-viewer ${style}`;
 
     let article;
-    if (this.state.diff === '') {
-      article = '<div />';
+    if (this.state.fetched) {
+      const articleHTML = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
+      article = <div className="parsed-article" dangerouslySetInnerHTML={{ __html: articleHTML }} />;
     } else {
-      article = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
+      article = <Loading />;
     }
 
     return (
@@ -276,7 +277,7 @@ const ArticleViewer = createReactClass({
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+            {article}
           </div>
           <div className="article-footer">
             {colorLegend}

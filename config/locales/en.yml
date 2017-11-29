@@ -153,6 +153,7 @@ en:
     show_current_version_with_authorship_highlighting: 'Current Version w/ Authorship Highlighting'
     title: Title
     title_example: Article title
+    tools: Tools
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the project

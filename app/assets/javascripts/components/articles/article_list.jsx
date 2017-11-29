@@ -65,6 +65,10 @@ const ArticleList = createReactClass({
         label: I18n.t('metrics.view'),
         desktop_only: true,
         info_key: 'articles.view_doc'
+      },
+      tools: {
+        label: I18n.t('articles.tools'),
+        desktop_only: false
       }
     };
 
