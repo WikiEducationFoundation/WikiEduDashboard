@@ -68,7 +68,8 @@ const ArticleList = createReactClass({
       },
       tools: {
         label: I18n.t('articles.tools'),
-        desktop_only: false
+        desktop_only: false,
+        sortable: false
       }
     };
 
