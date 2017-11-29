@@ -5,7 +5,8 @@ import OnClickOutside from 'react-onclickoutside';
 import _ from 'lodash';
 
 import { trunc } from '../../utils/strings';
-import Loading from '../common/loading.jsx';
+import Loading from './loading.jsx';
+import ArticleViewerLegend from './article_viewer_legend.jsx';
 
 const ArticleViewer = createReactClass({
   displayName: 'ArticleViewer',
@@ -209,49 +210,6 @@ const ArticleViewer = createReactClass({
     }
     const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
 
-
-    // TODO: Move the 'Edits by' section into its own sf component
-    let colorDataStatus;
-    if (!this.state.highlightedHtml) {
-      if (this.state.whocolorFailed) {
-        colorDataStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
-      } else {
-        colorDataStatus = (
-          <div>
-            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-            <div className="user-legend authorship-status">loading authorship data</div>
-            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-          </div>
-        );
-      }
-    }
-
-    let colorLegend;
-    if (this.state.userIdsFetched) {
-      const users = this.state.users.map((user, i) => {
-        // TODO: Link to user page
-        return (
-          <div key={`legend-${user.name}`} className={`user-legend ${this.colors[i]}`}>
-            {user.name}
-          </div>
-        );
-      });
-      colorLegend = (
-        <div className="user-legend-wrap">
-          <div className="user-legend">Edits by: </div>
-          {users}
-          {colorDataStatus}
-        </div>
-      );
-    } else if (this.isWhocolorLang()) {
-      colorLegend = (
-        <div className="user-legend-wrap">
-          <div className="user-legend">Edits by: </div>
-          <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-        </div>
-      );
-    }
-
     let style = 'hidden';
     if (this.state.showArticle) {
       style = '';
@@ -264,6 +222,15 @@ const ArticleViewer = createReactClass({
       article = <div className="parsed-article" dangerouslySetInnerHTML={{ __html: articleHTML }} />;
     } else {
       article = <Loading />;
+    }
+
+    let legendStatus;
+    if (this.state.highlightedHtml) {
+      legendStatus = 'ready';
+    } else if (this.state.whocolorFailed) {
+      legendStatus = 'failed';
+    } else {
+      legendStatus = 'loading';
     }
 
     return (
@@ -280,7 +247,12 @@ const ArticleViewer = createReactClass({
             {article}
           </div>
           <div className="article-footer">
-            {colorLegend}
+            <ArticleViewerLegend
+              article={this.props.article}
+              users={this.state.users}
+              colors={this.colors}
+              status={legendStatus}
+            />
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>

@@ -36,6 +36,10 @@ const UserUtils = class {
     }
     return roles;
   }
+
+  userTalkUrl(username, language, project) {
+    return `https://${language}.${project}.org/wiki/User_talk:${username}`;
+  }
 };
 
 export default new UserUtils();
