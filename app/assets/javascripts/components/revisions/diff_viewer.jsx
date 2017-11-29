@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
 import SalesforceMediaButtons from '../articles/salesforce_media_buttons.jsx';
+import Loading from '../common/loading.jsx';
 
 const DiffViewer = createReactClass({
   displayName: 'DiffViewer',
@@ -174,16 +175,18 @@ const DiffViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.state.showDiff && this.state.fetched) {
+    if (this.state.showDiff) {
       style = '';
     }
     const className = `diff-viewer ${style}`;
 
     let diff;
-    if (this.state.diff === '') {
-      diff = '<div> — </div>';
+    if (!this.state.fetched) {
+      diff = <tbody><Loading /></tbody>;
+    } else if (this.state.diff === '') {
+      diff = <tbody><div> — </div></tbody>;
     } else {
-      diff = this.state.diff;
+      diff = <tbody dangerouslySetInnerHTML={{ __html: this.state.diff }} />;
     }
 
     const wikiDiffUrl = this.webDiffUrl();
@@ -249,7 +252,7 @@ const DiffViewer = createReactClass({
                 <th colSpan="4" className="diff-header">{editDate}</th>
               </tr>
             </thead>
-            <tbody dangerouslySetInnerHTML={{ __html: diff }} />
+            {diff}
           </table>
         </div>
       </div>
