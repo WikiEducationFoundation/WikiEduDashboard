@@ -325,8 +325,6 @@ GEM
       pry (>= 0.10.4)
     public_suffix (3.0.1)
     rack (2.0.3)
-    rack-mini-profiler (0.10.6)
-      rack (>= 1.2.0)
     rack-protection (2.0.0)
       rack
     rack-test (0.8.2)
@@ -549,7 +547,6 @@ DEPENDENCIES
   poltergeist
   premailer-rails (= 1.9.7)
   pry-rails
-  rack-mini-profiler
   rails (= 5.1.4)
   rails-controller-testing
   rails-erd

@@ -88,7 +88,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
-  gem 'rack-mini-profiler'
   gem 'rails-erd'
   gem 'annotate', '~> 2.7.1'
 end
