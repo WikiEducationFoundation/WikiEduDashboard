@@ -167,7 +167,7 @@ const DiffViewer = createReactClass({
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showDiff} className="icon icon-diff-viewer" />
-          <div className="tooltip dark large">
+          <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
         </div>

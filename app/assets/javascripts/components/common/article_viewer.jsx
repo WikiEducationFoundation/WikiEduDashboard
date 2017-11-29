@@ -202,7 +202,7 @@ const ArticleViewer = createReactClass({
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
           <button onClick={this.showArticle} className="icon icon-article-viewer" />
-          <div className="tooltip dark large">
+          <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
         </div>
