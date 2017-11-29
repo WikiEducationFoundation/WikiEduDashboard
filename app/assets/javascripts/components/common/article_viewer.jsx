@@ -75,7 +75,7 @@ const ArticleViewer = createReactClass({
   },
 
   wikiUrl() {
-    return `https://${this.props.article.language}.${this.props.article.project}.org`;
+    return `https://${this.props.article.language || 'www'}.${this.props.article.project}.org`;
   },
 
   whocolorUrl() {
@@ -177,7 +177,7 @@ const ArticleViewer = createReactClass({
   },
 
   wikiUserQueryUrl(users) {
-    const baseUrl = `https://${this.props.article.language}.${this.props.article.project}.org/w/api.php`;
+    const baseUrl = `${this.wikiUrl()}/w/api.php`;
     const usersParam = (users || this.props.users).join('|');
     return `${baseUrl}?action=query&list=users&format=json&ususers=${usersParam}`;
   },
@@ -229,7 +229,7 @@ const ArticleViewer = createReactClass({
       legendStatus = 'ready';
     } else if (this.state.whocolorFailed) {
       legendStatus = 'failed';
-    } else {
+    } else if (this.isWhocolorLang()) {
       legendStatus = 'loading';
     }
 
