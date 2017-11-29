@@ -98,6 +98,8 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.3)
       debug_inspector (>= 0.0.1)
+    bootsnap (1.1.5)
+      msgpack (~> 1.0)
     breadcrumbs_on_rails (3.0.1)
     browser (2.5.2)
     builder (3.2.3)
@@ -263,6 +265,8 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    msgpack (1.1.0)
+    msgpack (1.1.0-x64-mingw32)
     multi_json (1.12.2)
     multipart-post (2.0.0)
     mysql2 (0.4.10)
@@ -501,6 +505,7 @@ DEPENDENCIES
   annotate (~> 2.7.1)
   better_errors
   binding_of_caller
+  bootsnap
   breadcrumbs_on_rails
   browser
   byebug
