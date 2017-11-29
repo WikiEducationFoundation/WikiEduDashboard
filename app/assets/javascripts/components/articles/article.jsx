@@ -12,7 +12,6 @@ const Article = createReactClass({
   propTypes: {
     article: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
-    isOpen: PropTypes.bool.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object
   },
@@ -24,9 +23,6 @@ const Article = createReactClass({
   },
 
   render() {
-    let className = 'article';
-    className += this.props.isOpen ? ' open' : '';
-
     const ratingClass = `rating ${this.props.article.rating}`;
     const ratingMobileClass = `${ratingClass} tablet-only`;
 
@@ -35,7 +31,7 @@ const Article = createReactClass({
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (
-      <tr className={className}>
+      <tr className="article">
         <td className="tooltip-trigger desktop-only-tc">
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>

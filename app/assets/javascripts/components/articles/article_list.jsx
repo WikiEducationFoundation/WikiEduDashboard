@@ -3,7 +3,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import * as UIActions from '../../actions';
 import * as ArticleActions from '../../actions/article_actions';
@@ -11,7 +10,6 @@ import * as ArticleActions from '../../actions/article_actions';
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
-import ArticleDrawer from './article_drawer.jsx';
 import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -30,46 +28,23 @@ const ArticleList = createReactClass({
     articles: PropTypes.array,
     course: PropTypes.object,
     current_user: PropTypes.object,
-    openKey: PropTypes.string,
     actions: PropTypes.object,
     articleDetails: PropTypes.object
   },
 
   render() {
-    const toggleDrawer = this.props.actions.toggleUI;
     const articles = this.props.articles.map(article => {
-      const drawerKey = `drawer_${article.id}`;
-      const isOpen = this.props.openKey === drawerKey;
       return (
         <Article
           article={article}
           course={this.props.course}
-          toggleDrawer={toggleDrawer}
           key={article.id}
-          isOpen={isOpen}
           current_user={this.props.current_user}
           fetchArticleDetails={this.props.actions.fetchArticleDetails}
           articleDetails={this.props.articleDetails[article.id] || null}
         />
       );
     });
-
-    const articleDrawers = this.props.articles.map(article => {
-      const key = `drawer_${article.id}`;
-      const isOpen = this.props.openKey === key;
-      return (
-        <ArticleDrawer
-          article={article}
-          course={this.props.course}
-          key={key}
-          isOpen={isOpen}
-          current_user={this.props.current_user}
-          articleDetails={this.props.articleDetails[article.id] || {}}
-        />
-      );
-    });
-
-    const elements = _.flatten(_.zip(articles, articleDrawers));
 
     const keys = {
       rating_num: {
@@ -95,7 +70,7 @@ const ArticleList = createReactClass({
 
     return (
       <List
-        elements={elements}
+        elements={articles}
         keys={keys}
         sortable={true}
         table_key="articles"
@@ -108,7 +83,6 @@ const ArticleList = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey,
   articleDetails: state.articleDetails
 });
 
