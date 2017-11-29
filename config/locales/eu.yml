@@ -75,6 +75,7 @@ eu:
     rating: Klasea
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
+    show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
     title: Izenburua
     title_example: Artikuluaren izenburua
     view: Artikulua ikusi

@@ -299,6 +299,7 @@ zh-CN:
     none: 无
     notify_untrained_confirmation: 这将在讨论页为所有未能完成分配训练模块的学生发布一则提示。您确定要这样做么？
     no_available_actions: 无可用操作
+    ores_plot: ORES
     overview: 首页
     passcode: 密码
     passcode_none: 无密码

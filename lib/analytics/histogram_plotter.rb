@@ -53,7 +53,8 @@ class HistogramPlotter
 
   def slug_filename
     return if @campaign_or_course.nil?
-    @campaign_or_course.slug.tr('/', '—')
+    # Create a version that is safe as a path and does not have quote characters
+    @campaign_or_course.slug.tr('/', '—').tr("'", '-')
   end
 
   def csv_path

@@ -15,6 +15,7 @@ gem 'activerecord-import'
 gem 'dalli'
 gem 'connection_pool'
 gem 'faraday'
+gem 'bootsnap', require: false # Makes rails boot faster via caching
 
 gem 'browser'
 
