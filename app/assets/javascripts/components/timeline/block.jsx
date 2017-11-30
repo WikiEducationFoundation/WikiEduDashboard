@@ -79,7 +79,7 @@ const Block = createReactClass({
       blockActions = (
         <div className="float-container block__block-actions">
           <button onClick={this.props.saveBlockChanges.bind(null, this.props.block.id)} className="button dark pull-right no-clear">Save</button>
-          <span role="button" onClick={this.props.cancelBlockEditable.bind(null, this.props.block.id)} className="span-link pull-right no-clear">Cancel</span>
+          <span role="button" tabIndex={0} onClick={this.props.cancelBlockEditable.bind(null, this.props.block.id)} className="span-link pull-right no-clear">Cancel</span>
         </div>
       );
     }
