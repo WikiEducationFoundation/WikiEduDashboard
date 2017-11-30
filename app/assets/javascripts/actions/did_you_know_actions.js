@@ -11,8 +11,7 @@ export const fetchDYKArticles = (opts = {}) => dispatch => {
           payload: {
             data: resp,
           }
-        })
-      )
+        }))
       // TODO: The Flux stores still handle API failures, so we delegate to a
       // Flux action. Once all API_FAIL actions can be handled by Redux, we can
       // replace this with a regular action dispatch.

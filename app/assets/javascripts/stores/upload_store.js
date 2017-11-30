@@ -9,7 +9,6 @@ const UploadStore = new StockStore({
     uploader: true
   },
   modelKey: 'upload'
-}
-);
+});
 
 export default UploadStore.store;

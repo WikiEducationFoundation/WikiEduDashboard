@@ -1,4 +1,4 @@
-const List = window.List;
+const { List } = window;
 $(() => {
   // Find tables with rows with data-link attribute, then make them clickable
   $('tr[data-link]').on('click', e => {

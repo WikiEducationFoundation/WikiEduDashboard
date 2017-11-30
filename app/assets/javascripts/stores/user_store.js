@@ -12,7 +12,6 @@ const UserStore = new StockStore({
     username: ''
   },
   uniqueKeys: ['id', 'role']
-}
-);
+});
 
 export default UserStore.store;

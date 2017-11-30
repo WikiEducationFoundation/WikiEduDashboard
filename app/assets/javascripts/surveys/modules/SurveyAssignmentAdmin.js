@@ -1,4 +1,4 @@
-const List = window.List;
+const { List } = window;
 
 const SurveyAssignmentAdmin = {
   init() {

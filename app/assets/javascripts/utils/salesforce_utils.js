@@ -5,7 +5,7 @@ export const extractSalesforceId = (rawSalesforceId) => {
   // New Salesforce URLs look like: https://wikied.lightning.force.com/one/one.app#/sObject/a0f1a000003yDoIAAU/view
   if (salesforceId.length !== 15 && salesforceId.length !== 18) {
     salesforceId = salesforceId.replace(/\/view/, '');
-    salesforceId = salesforceId.match(/.*\/([\w\d]+)$/)[1];
+    [, salesforceId] = salesforceId.match(/.*\/([\w\d]+)$/);
   }
   return salesforceId;
 };

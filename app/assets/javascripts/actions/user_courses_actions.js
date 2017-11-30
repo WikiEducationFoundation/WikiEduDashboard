@@ -5,8 +5,7 @@ import { RECEIVE_USER_COURSES } from "../constants";
 export const fetchCoursesForUser = userId => dispatch =>
   API.fetchUserCourses(userId)
     .then(resp =>
-      dispatch({ type: RECEIVE_USER_COURSES, payload: { data: resp } })
-    )
+      dispatch({ type: RECEIVE_USER_COURSES, payload: { data: resp } }))
     // TODO: The Flux stores still handle API failures, so we delegate to a
     // Flux action. Once all API_FAIL actions can be handled by Redux, we can
     // replace this with a regular action dispatch.

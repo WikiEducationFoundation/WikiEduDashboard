@@ -8,7 +8,6 @@ const RevisionStore = new StockStore({
     characters: true
   },
   modelKey: 'revision'
-}
-);
+});
 
 export default RevisionStore.store;

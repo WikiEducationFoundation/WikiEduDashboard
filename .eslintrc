@@ -1,11 +1,6 @@
 {
   "root": true,
   "extends": "airbnb",
-  "ecmaFeatures": {
-    "js": true,
-    "jsx": true,
-    "modules": true
-  },
   "rules": {
     "func-names": 0,
     "comma-dangle": 0,
@@ -61,7 +56,9 @@
     "no-restricted-syntax": 0,
     "space-unary-ops": 0,
     "global-require": 0,
-    "quotes": 0
+    "quotes": 0,
+    "no-restricted-globals": 0,
+    "indent": 0
   },
   "globals": {
     "$": true,
@@ -73,6 +70,6 @@
     "SurveyDetails": true,
     "Features": true,
     "WikiLanguages": true,
-    "WikiProjects": true
+    "WikiProjects": true,
   }
 }

@@ -293,8 +293,8 @@ const Survey = {
     const _postData = {};
     const answerGroup = {};
     data.forEach((field) => {
-      const name = field.name;
-      const value = field.value;
+      const { name } = field;
+      const { value } = field;
       const val = {};
       const answerText = {};
       if (name.indexOf('answer_group') !== -1) {
@@ -347,7 +347,7 @@ const Survey = {
     }
 
     let validation = $form.parsley({ uiEnabled: false })
-                          .validate({ group: `${$block.data('parsley-group')}` });
+      .validate({ group: `${$block.data('parsley-group')}` });
 
     if ((typeof questionGroupIndex !== 'undefined' && questionGroupIndex !== null)) {
       $form = $(this.$surveyForm[questionGroupIndex]);
@@ -562,11 +562,13 @@ const Survey = {
   },
 
   addListenersToConditional($question, conditionalOptions) {
-    const { question_id, operator, value, multi } = conditionalOptions;
+    const {
+      question_id, operator, value, multi
+    } = conditionalOptions;
     switch (operator) {
       case '*presence':
         return this.conditionalPresenceListeners(question_id, $question);
-      case '<': case '>':case '<=': case '>=':
+      case '<': case '>': case '<=': case '>=':
         return this.conditionalComparisonListeners(question_id, operator, value, $question);
       default:
         return this.conditionalAnswerListeners(question_id, multi);
@@ -620,7 +622,7 @@ const Survey = {
   },
 
   handleParentConditionalChange(value, conditionalGroup, $parent) {
-    let currentAnswers = conditionalGroup.currentAnswers;
+    let { currentAnswers } = conditionalGroup;
     let conditional;
     // let resetQuestions = false;
 

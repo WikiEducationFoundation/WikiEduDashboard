@@ -8,7 +8,6 @@ const AssignmentStore = new StockStore({
     'SAVED_USERS',
     'USER_MODIFIED'
   ]
-}
-);
+});
 
 export default AssignmentStore.store;

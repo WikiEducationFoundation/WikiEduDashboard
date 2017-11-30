@@ -57,54 +57,56 @@ const removeGradeable = function (gradeableId) {
 
 
 // Store
-const GradeableStore = Flux.createStore({
-  getGradeable(gradeableId) {
-    return _gradeables[gradeableId];
-  },
-  getGradeables() {
-    const gradeableList = [];
-    const iterable = Object.keys(_gradeables);
-    for (let i = 0; i < iterable.length; i++) {
-      const gradeableId = iterable[i];
-      gradeableList.push(_gradeables[gradeableId]);
-    }
-    return gradeableList;
-  },
-  getGradeableByBlock(blockId) {
-    const iterable = Object.keys(_gradeables);
-    for (let i = 0; i < iterable.length; i++) {
-      const gradeableId = iterable[i];
-      if (_gradeables[gradeableId].gradeable_item_id === blockId) {
-        return _gradeables[gradeableId];
+const GradeableStore = Flux.createStore(
+  {
+    getGradeable(gradeableId) {
+      return _gradeables[gradeableId];
+    },
+    getGradeables() {
+      const gradeableList = [];
+      const iterable = Object.keys(_gradeables);
+      for (let i = 0; i < iterable.length; i++) {
+        const gradeableId = iterable[i];
+        gradeableList.push(_gradeables[gradeableId]);
       }
+      return gradeableList;
+    },
+    getGradeableByBlock(blockId) {
+      const iterable = Object.keys(_gradeables);
+      for (let i = 0; i < iterable.length; i++) {
+        const gradeableId = iterable[i];
+        if (_gradeables[gradeableId].gradeable_item_id === blockId) {
+          return _gradeables[gradeableId];
+        }
+      }
+    },
+    restore() {
+      _gradeables = $.extend(true, {}, _persisted);
+      return GradeableStore.emitChange();
     }
-  },
-  restore() {
-    _gradeables = $.extend(true, {}, _persisted);
-    return GradeableStore.emitChange();
   }
-}
-, (payload) => {
-  const { data } = payload;
-  switch (payload.actionType) {
-    case 'RECEIVE_TIMELINE': case 'SAVED_TIMELINE': case 'WIZARD_SUBMITTED':
-      Flux.dispatcher.waitFor([BlockStore.dispatcherID]);
-      _gradeables = {};
-      setGradeables(data.course.weeks, true);
-      break;
-    case 'ADD_GRADEABLE':
-      addGradeable(data.block);
-      break;
-    case 'UPDATE_GRADEABLE':
-      setGradeable(data.gradeable);
-      break;
-    case 'DELETE_GRADEABLE':
-      removeGradeable(data.gradeable_id);
-      break;
-    default:
+  , (payload) => {
+    const { data } = payload;
+    switch (payload.actionType) {
+      case 'RECEIVE_TIMELINE': case 'SAVED_TIMELINE': case 'WIZARD_SUBMITTED':
+        Flux.dispatcher.waitFor([BlockStore.dispatcherID]);
+        _gradeables = {};
+        setGradeables(data.course.weeks, true);
+        break;
+      case 'ADD_GRADEABLE':
+        addGradeable(data.block);
+        break;
+      case 'UPDATE_GRADEABLE':
+        setGradeable(data.gradeable);
+        break;
+      case 'DELETE_GRADEABLE':
+        removeGradeable(data.gradeable_id);
+        break;
+      default:
       // no default
+    }
+    return true;
   }
-  return true;
-});
+);
 
 export default GradeableStore;

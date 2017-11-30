@@ -1,4 +1,4 @@
-import McFly from 'mcfly';  // library that provides all 3 components of Flux architecture
+import McFly from 'mcfly'; // library that provides all 3 components of Flux architecture
 const Flux = new McFly(); // When McFly is instantiated, a single dispatcher instance is created
 
 let _stats = {};
@@ -11,7 +11,8 @@ const ProfileStore = Flux.createStore({
   },
   getStats() {
     return _stats;
-  } }, (payload) => {
+  }
+}, (payload) => {
   if (payload.actionType === "RECEIVE_STATISTICS") {
     _stats = payload.data;
     _isLoading = false;
