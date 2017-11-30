@@ -2,12 +2,16 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: An13sa
+# Author: Iñaki LL
 # Author: Mikel Ibaiba
 # Author: Sator
 # Author: Subi
 # Author: Theklan
 ---
 eu:
+  accessibility:
+    number_field: Hau zenbakizko eremu bat da. Nabigatzaile gehienek dakartzaten botoiek
+      igo edo jaitsi egingo dute sartutakoa.
   application:
     cancel: Utzi
     dashboard: Wiki Ed Aginte-panela
@@ -17,6 +21,8 @@ eu:
     field_required: Eremu hau beharrezkoa da
     field_invalid_characters: Eremun karaktere ez baliagarriak ditu
     field_invalid_date: Eremu honek data UUUU-HH-EE formatuan behar du
+    field_invalid_date_time: Bukaera hasieraren ondoren egon behar da (orduak 0tik
+      23ra doaz).
     greeting2: Ongi etorri!
     greeting_extended: Ongi Etorri Wikipediara
     greeting: Kaixo!
@@ -39,14 +45,31 @@ eu:
     confirm: OK
   dashboard:
     create_note: Klik egin Ikastaroa Sortu zure lehenengo ikastaroa sortzeko
+    create_preparation_note: 'Eduki zure ikasturteko egutegi aldean hasi baino lehen;
+      lana diseinatzeko tresnak zure klasearen bilkura datak erabiliko ditu (tartean
+      direla eskolako jaiegunak eta oporrak) zure denbora plana hautatzen duzun data-bitartean
+      sartzeko. Gogoan izan: zure kronograma beti alda dezakezu zure beharrizanen
+      arabera.'
     explore_course_pages: Esploratu Ikastaro Orrialdeak
     explore_examples: Adibideetan Arakatu
     join_note: Irakaslearen pasahitza jasotakoan, klik egin Zure Ikastaroa Bilatun
       ikastaroa aurkitzeko eta ikastaroari batu.
     no_courses_instructor: Badirudi irastarorik ez duzula.
     no_courses_student: Badirudi oraindik ez duzula ikastarorik atxiki.
+    opt_out: Eskatu orientaziorik ez jasotzeko
+    orientation_notice: Ikastaro bat sortu baino lehen, goazen orientaziotik hasten
+      laguntza izateko (30 bat minutu behar dituzu bukatzeko).
     review_orientation: Orientazioa Berrikusi
     start_orientation: Orientazioa Hasi
+    blog_headline: Wiki Hezkuntzako azken berriak
+    about_programs: Webgune honek programetako wikijarduen jarraipena egiten du (banakako
+      ekintzak, adibidez, editatoi bat edo eskola ikastaro bat. Programa bakoitza
+      kanpaina bat edo gehiagotan kokatzen da eta, beraz, programen arteko estatistika
+      bateratuak ematen ditu.
+    about_creating_programs: Ekintza bakar eta aparte bat zuzentzen ari bazara, programa
+      orain sor dezakezu. Zure ekintza zerbait handiagoan kokatzen bada, aurkitu edo
+      sortu harentzako kanpaina. Ondoren, programa berri bat sor dezakezu kanpaina
+      orritik.
   home:
     explore: Esploratu
     log_in: Saioa hasi Wikipedian
@@ -64,6 +87,11 @@ eu:
     assigned_to: 'Nori Esleitua:'
     character_doc: Hasiera eta amaiera daten artean, atxikitako editoreek artikuluetan
       gehitutako karaktere kopurua.
+    cross_wiki_tracking: Hasi eta bukatzeko egunen artean aldatutako izen-tarte nagusiak
+      behean zerrendatzen dira. Arbelak programa honen hasierako wikiorriko ekarpenak
+      eskuratzen ditu, baita Lan edo Artikulu Eskuragarri bat daukaten beste edozein
+      wikietakoak ere.
+    deleted: (ezabatua)
     edited: Editatutako artikuluak
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
@@ -73,6 +101,16 @@ eu:
     new: (berria)
     none: Ikastaro honek ez du artikulurik editatu.
     rating: Klasea
+    rating_doc: WikiProjectsek Wikipedian artikulu bati esleitutako balorazioa. Balorazio
+      horiek bertsio askoz zaharragoei buruzkoak izan daitezke eta, beraz, artikulu
+      baten heldutasunari buruzko gutxi gorabeherako adierazle bat besterik ez dira.
+    rating_docs:
+      fa: 'Artikulu nabarmendua: Wikipediako balorazio onena du, segur aski artikulu
+        helduegia da editore berri baten proiektu nagusia izateko.'
+      fl: 'Nabarmenduen zerrenda: Wikipediako balorazio onena zerrendetarako'
+      stub: 'Zirriborroa: hasitako artikulu laburra eta eduki gehiago behar duena'
+      list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
+      does_not_exist: Artikulu hau ez da existitzen Wikipedian
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
     show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
@@ -80,8 +118,11 @@ eu:
     title_example: Artikuluaren izenburua
     view: Artikulua ikusi
     view_all: Denak ikusi
+    view_doc: Proiektuak iraun bitartean artikulu guztiei egindako bisiten batura
     view_on_wiki: Ikus wikian
+    views_added: Bisita berrien %{count} gehituta %{title} artikulurako
     edit_size: Tamaina Aldatu
+    wiki: Wiki
     wp10: Egituraren Trinkotasuna
   assignments:
     article: '%{title} artikulua esleitua izan da'
@@ -206,20 +247,37 @@ eu:
     join_course: Ikastaroan sartu
     join_prompt: Bat egin %{title}?
     join_successful: Ondo bat egin duzu %{title} ikastaroarekin.
+    join_failed: Izen-emateak huts egin du.
+    join_failure_details:
+      cannot_join_twice: Erabiltzaileek ezin dute bitan izena eman ikastaro berean.
+      not_yet_approved: Ikastaro hau ez dago oraindik onartua izena emateko.
+    join_details: Ikastaro honetan izena emateko, hezitzaileak pasahitza eman behar
+      dizu (edo pasahitza daukan izena emateko esteka). Oraindik eskuratu ez baduzu,
+      jarri harremanetan hezitzailearekin.
     leave_confirmation: Ziur zaude ikastaro hau utzi nahi duzula?
     leave_course: Utzi ikastaroa
     loading: Kargatzen...
     my_articles: Nire artikuluak
-    new_week: Gehitu Aste Berria
+    needs_update: Datu eguneraketa programatu
+    new_week: Aste Berria gehitu
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
+    nocourse: Ez duzu inongo ikastarotan parte hartu.
     none: Bat ere ez
+    notify_untrained_confirmation: Honek ohar bat utziko du esleitutako trebakuntza
+      moduluan atzeratuta dabiltzan ikasle guztien Eztabaida orrietan. Seguru hori
+      egin nahi duzula?
+    no_available_actions: Ez dago ekintzarik eskueran
+    ores_plot: ORES
     overview: Hasiera
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
     passcode_prompt: 'Sartu zure pasahitza:'
+    published: 'Argitaratu da zure ikastaroa! Ikasleek ondorengo URLa bisitatuz eman
+      dezakete izena ikastaroan:'
     rating_feedback: 'Aurreikusten den artikuluaren ebaluaketa:'
     revisions_doc: Azken %{timeframe} egunetan egindako aldaketa kopurua
     school: Eskola
+    school_and_term: Erakundea/Aldia
     start: Hasi
     start_typing: Hasi idazten
     students: Ikasleak
@@ -241,28 +299,55 @@ eu:
     timeline_link: Denbora-lerroa
     title: Izenburua
     training_nav: Zoaz trebakuntzara
+    training_overdue: '"%{title}" trebakuntza modulua ikastaro honi esleituta dago,
+      baina %{date}rako amaituta behar zuen.'
+    unsubmitted: Bidali gabeko ikastaroak
     untrained: Trebatu gabe
-    view_other: Ikus beste kanpainak
-    view: Ikusi Ikastaroa
-    view_page: Ikusi Ikastaroaren Orrialdea
-    view_wiki: Wikipedia-n ikusi
-    wiki_staff: Wiki Ed-eko Pertsonala
+    uploads_none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu
+      Wikimedia Commonsera
+    user_suggestions: 'Lankide iradokizunak:'
+    user_suggestions_prompt: Artikulu honen editoreentzako zure iradokizunak
+    view_other: Beste kanpainak ikusi
+    view: Ikastaroa ikusi
+    view_page: Ikastaroaren Orrialdea ikusi
+    view_wiki: Wikipedian ikusi
+    weeks_none: Ikastaro honek ez du kronogramarik oraindik.
+    warn_mirrored: |-
+      Bidalitakoan, ikastaro hau automatikoki gehituko da Wikipediara zure lankide kontuarekin. Horren ondoren, kronogramako aldaketa berriak Wikipedian ere agertuko dira.
+      Ziur zaude hori egin nahi duzula?
+    wiki_staff: Wiki Hezkuntzako Lantaldea
+    word_count_doc: Ikastaroko ikasleek programako aldian artikuluen izen-tartera
+      gehitutako hitzen kopuru estimatua
     yourcourses: Zure ikastaroak
+    survey:
+      notification_message: Egin ikastaro honi buruzko inkesta
+      link: Bete inkesta
   courses_generic:
     all_courses: Programa guztiak
-    assignment_end: Denbora-lerroaren Amaiera
-    assignment_start: Denbora-lerroaren Hasiera
+    archived: Artxibatutako programak
+    articles_none: Ez dago proiektu honi buruzko artikulurik oraindik.
+    assignment_end: Kronogramaren amaiera
+    assignments_none: Proiektu honi ez zaio artikulurik gehitu.
+    assignment_start: Kronogramaren hasiera
     cancel: Utzi
+    course: Programa
     courses: Programak
+    courses_taught: Irakatsitako programak
     campaigns: 'Kanpainak:'
     campaign_courses: '%{title} Programak'
     creator:
-      clone_this: Klonatu programa hau
+      checking_for_uniqueness: Programa honen esklusibotasuna egiaztatzen ari gara
+      choose_clone: Klonatzeko programa bat aukeratu
+      clone_previous: Aurreko programa klonatu
+      clone_this: Programa hau klonatu
+      clone_successful: Programa ondo klonatu da
       clone_successful_details: Zure programa kopiatua izan da. Klikatu 'Gorde' amaitzeko.
       course_when: Gehitu zerbait 'Noiz' atalean (esaterako, hilabetea eta urtea)
         originaletik desberdindu ahal izateko.
       course_description: Programaren deskribapena
       course_school: Erakundea
+      course_term: Noiz
+      course_term_placeholder: Non
       course_title: Programaren izena
       create_button: Sortu nire Programa!
       create_label: Proiektu Berria Sortu
@@ -272,6 +357,8 @@ eu:
       intro: Programaren izenburua ezinbestekoa, gainerako guztia geroago bete daiteke.
         Klik egin "Nire programa sortu!" botoian eta hasi zure wikiprogramaren orria
         osatzen.
+      new_or_clone: Sortu orain programa bat, edo erabili 'klon' aukera zuk parte
+        hartutako beste programa bat kopiatzeko.
       participate_in_campaign: Parte hartu kanpaina batean
       save_cloned_course: Gorde
     delete_course: Ezabatu programa
@@ -279,17 +366,33 @@ eu:
     explore: Programak bilatu
     enroll: Gehitu Editorea
     enrollment: Parte-hartzea
+    courses_enrolled: Parte hartutako programak
     expected_students: Espero diren editoreak
     instructors: Bideratzaileak
     join_course: Programan parte hartu
+    join_details: Programa honetan izena emateko, bideratzaileak pasahitza eman behar
+      dizu (edo pasahitza daukan izena emateko esteka).
     leave_course: Programa utzi
-    milestones_none: Proeiktu honek ez du gaur egun mugarririk.
+    milestones_none: Proiektu honek ez du gaur egun mugarririk.
+    published: 'Argitaratu da proiektu hau! Editoreek ondorengo URLa bisitatuz eman
+      dezakete izena:'
+    revisions_none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     school: Erakundea
+    school_and_term: Erakundea/Noiz
     student_editors: Editoreak
     students: Editoreak
+    students_taught: Editoreak guztira
+    students_none: Proiektu honetan dago inor izena emanda.
     students_short: Editoreak
     students_count: Parte hartzaile kopurua
     term: Noiz
+    unsubmitted: Bidali gabeko programak
+    uploads_none: Proiektu honek ez du irudirik edo media fitxategirik gehitu Wikimedia
+      Commonsera.
+    view_other: Beste kanpainak ikusi
+    view_page: Programa Orria ikusi
+    word_count_doc: Programaren editoreek programako aldian artikuluen izen-tartera
+      gehitutako hitzen kopuru estimatua
     yourcourses: Zure Programak
   editable:
     edit: Aldatu
@@ -297,7 +400,13 @@ eu:
     save: Gorde
     edit_description: Aldatu Deskribapena
     edit_details: Aldatu Xehetasunak
+    edit_template: Aldatu txantiloia
+    rename_confirmation: URLa osatzen duten ikastaro eremuak aldatu egin dira. Honek
+      URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
   metrics:
+    label: Ikastaroko jarduera
+    are_updated: Azken sistema eguneratzearen arabera
+    last_update: Azken eguneratzea
     activity: Azken jarduera
     are_trained: trebakuntzarekin eguneratuak
     articles_created: Sortutako artikuluak
@@ -316,19 +425,32 @@ eu:
     view_data_unavailable: Ez dago ikus datu eskuragarririk
     view: Ikustaldiak
     word_count: Gehitutako Hitzak
+    word_count_average: Batez besteko hitz zenbaketa
   namespace:
+    main: Izen-tarte nagusia
+    main_char_added: Izen-tarte nagusira gehitutako karaktereak
+    user: Lankide orria
+    user_char_added: Lankide orrira gehitutako karaktereak
     user_ns: Erabiltzailea
   recent_activity:
+    active_courses: Artikulua aktibo ondorengoetan dago
     article_title: Artikuluaren Izenburua
     datetime: Data/Ordua
+    did_you_know_eligible: Bazenekien izateko aukera
     image: Irudia
     file_name: Fitxategiaren izena
+    no_dyk_eligible: Ez dago artikulurik une honetan Bazenekien? izateko aukerarekin.
+    no_plagiarism: Ez dago une honetan batere plagioa izateko susmorik duen berrikuspen
+      berririk.
+    no_edits: Ez dago aldaketa berririk.
     plagiarism_report: Plagio Txostena
     possible_plagiarism: Ustezko Plagioa
     recent_edits: Azken Aldaketak
     recent_uploads: Azken Igoerak
     revision_author: Berrikuspen Egilea
     revision_datetime: Berrikusi Data/Ordua
+    revision_score: Berrikuspenarenaren Puntuazioa
+    show_courses: Nire ikastaroak bakarrik erakutsi
     uploaded_by: Nork Igota
     usage_count: Erabilera Kontagailua
   revisions:
@@ -338,12 +460,15 @@ eu:
     diff: ezb
     diff_show: Erakutsi
     diff_hide: Ezkutatu
+    edit_time_span: Aldaketak egin dira %{first_time}(eta)tik %{last_time}(eta)ra
     edited_by: Nork Editatua
     edited_on: 'Noiz editatua: %{edit_date}'
     loading: Berrikuspenak kargatzen...
     none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
+    time_doc: Berrikuspen bakoitzaren ordua zure tokiko ordutegian
     title: Izenburua
     view_on_wiki: Ikus ezb wikian
+    see_more: Ikusi gehiago
   suggestions:
     editing: Gomendioak aldatu
     suggestion_docs:
@@ -351,43 +476,81 @@ eu:
         arte; hobekuntzak prosazko kalitatera batzutan posibleak dira.
       a: Adituen ezaguera beharrezkoa izan daiteke artikulua aldatzeko, eta estilozko
         arazoak konponbidearen beharra izan dezakete. Bikoteko meaketak lagundu dezake.
+      ga: Gaia eta estiloa ezagutzen duten adituek egindako aldaketak lagungarriak
+        izaten dira; antzeko gaia duen artikulu nabarmendu batekin konparazioa egiteak
+        eduki eskaseko alderdiak edo ez dauden edukiak utz ditzake agerian.
+      bplus: Hobetu egin daiteke adituek edukia non falta den zehaztuz, baita ilustrazioak
+        jarriz ere, edo aurrekari historikoak eta erreferentzia gehiago gehituz. Gaikide
+        baten berrikuspena eska dezakezu, edo artikulu nabarmendu izateko izendatzea.
+        Artikulua guztiz wikituta ez badago, orain da momentua.
       b: Eduki eta estilo inguruko alor batzuk zuzendu behar dira. Adituen ezaguera
         beharrezkoa izan daiteke. Material lagungarriak erabiltzea kontuan hartu behar
         da praktikoa bada, eta artikulua Estilo Gidaliburua edo besteak erabili orokorrean
         horiek betetzen dituen egiaztatzeko.
+      c: Hainbat aldaketa behar dira edukian dauden hutsuneak konpondu eta garbiketa
+        egiteko.
+      start: Iturri fidagarrietara erreferentziak gehitzea izan beharko litzateke
+        lehendabizikoa; gainera, artikuluak hobekuntza handia behar du eduki eta antolakuntzari
+        dagokionez. Hobetu ere gramatika, ortografia, idazteko estiloa, eta hobetu
+        hizkera.
       stub: Edozein aldaketa edo material gehiketa lagungarria izan daiteke. Esanahia
-        duen edukiaren hornidura lehentasuna izan behar du. Konponbiderik onena Stub-class
-        Artikuluak Start-class Artikuluak izateko gaia garrantzitzua izatea balioztazen
-        dituzten erreferentzia arrazoiak geheitzea da.
+        duen edukiaren hornidurak lehentasuna izan behar du. Konponbiderik onena Stub-class
+        Artikuluak Start-class Artikuluak izateko gaia garrantzitsua izatea balioztatzen
+        dituzten erreferentzia arrazoiak gehitzea da.
       fl: Ez da beharrezkoa eduki gehiago gehitzea informazio berria erabilgarri bihurtu
         arte.
       list: Zerrendak funtzionatzen duten Wikipediako artikuluak izan beharko lirateke,
         ondo antolatuta eta izendatuta.
       future: Gehitutako materiala espekulazioa izan daiteke eta arduraz egin behar
         da.
+      disambig: Gehikuntzak izen hori duten artikulu berriak sortu ahala egin behar
+        dira. Jarri ondo arreta horrelako orrien izenari, askotan ez baitute behar
+        izenburuari "(desanbiguazioa)" eransterik.
       '?': Iradokizunak ez daude erabilgarri - Artikulua ez dago ebaluatuta edo iradokizunak
         ez dute balio ebaluatzeko.
       does_not_exist: Artikulu hau ez da existitzen Wikipedian.
+  tasks:
+    constant: '%{task} ataza ezin da exekutatu ataza eguneroko eguneratzea egiten
+      ari denean.'
+    paused: '%{task} ataza ezin da exekutatu programatutako eguneratzeak pausatuta
+      daudelako. Exekutatu ''rake batch:resume'' eguneratzen jarraitzeko.'
   timeline:
-    add_week: Gehitu Astea
-    arrange_timeline: Denbora-lerroa berrantolatu
-    block_assignment: Esleipena
+    add_week: Astea gehitu
+    arrange_timeline: Kronograma berrantolatu
+    arrange_timeline_instructions: Antolatu kronograma blokeak nahi duzun kokapen/astera
+      arrastatuz eta jareginez edo, txarteleko geziak erabiliz, blokeak tokiz aldatzearen
+      bidez.
+    assignment_dates_instructions: Aukeratu Wikipediako lanaren hasiera eta bukaera
+      datak. Hasiera data aldatuz gero, kronograma osoko datak mugituko dira.
+    blackout_week_created: Aste honetarako badaude programatutako blokeak. Mesedez
+      mugitu horiek beste aste batera aste honetako azken klase bilkura kendu baino
+      lehen.
+    block_assignment: Lana (proiektua)
     block_custom: Pertsonalizatua
     block_in_class: Ikasgelan
     block_milestone: Mugarria
+    block_type: Bloke motak balio du zure ikasleekin beren kronogramako elementu honi
+      buruz komunikatzeko, baita zuretzat tresna baliagarriak sortzeko ere (adibidez,
+      mugarrien eskema Orri orokorrean)
     course_dates: Ikastaroaren Datak
+    course_dates_instructions: Aukeratu ikastaro osoko hasiera eta bukaera datak (ez
+      bakarrik Wikipediako lanekoak).
     course_end: Ikastaro Amaiera
     course_start: Ikastaro Hasiera
     empty_week_3: edo
     gradeable_value: Balioa
-    save_all_changes: Guztia Gorde
+    nothing_this_week: Ez dago ezer programatuta aste honetarako.
+    save_all_changes: Guztia gorde
     this_week_title_default: Aste hau
-    title: Denbora-lerroa
+    title: Kronograma
+    view_full_timeline: Kronograma osoa ikusi
     week_number: Aste %{number}
   training:
     continue: Jarraitu %{progress}
     start: Hasi
     view: Ikusi
+    logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko
+      saioa hasita ez bada.
   uploads:
     datetime: Data/Ordua
     file_name: Fitxategiaren izena
@@ -395,18 +558,32 @@ eu:
     image: Irudia
     label: Igoerak
     loading: Igoerak kargatzen...
+    none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu Wikimedia
+      Commonsera
+    time_doc: Igoera bakoitzaren ordua zure tokiko ordutegian
     uploaded_by: Nork Igota
     usage_count: Erabilera Kontagailua
     usages: Erabilerak
   users:
-    assign_articles: Artikuluak Esleitu
+    already_enrolled: Erabiltzaile horrek izena eman du dagoeneko!
+    assign_articles: Artikuluak esleitu
     assign_articles_done: Egina
     assigned: Esleitutako Artikuluak
     assignees: Esleitua(k)
+    character_doc: Erabiltzaile batek izen-tarte honetara gehitutako eduki kopuru
+      osoa, orri tamaina handitu duten aldaketa guztietarako gehitutako karaktere
+      gutziak gehituz kalkulatua. Kopuru horrek ez du nahitaez adierazten erabiltzaileak
+      gehitutako eduki berrien kopurua. Edukia kentzeak ere handitu egingo du guztizko
+      kopurua.
+    chars_added: Gehitutako karaktereak<br>(artikulua | lankidea | zirriborroa)
     contributions: Lankidearen ekarpenak
     contributions_history_full: Ikusi Wikipedian egindako ekarpenen historia osoa
+    contributions_more: Ekarpen gehiago ikusi
+    contribution_statistics: Ekarpenen estatistikak
     course_passcode: 'Pasahitza:'
     editors: Editoreak
+    enroll_confirmation: Ziur zaude %{username} gehitu nahi duzula?
+    enroll_url: 'Lankideek URL hau bisitatuz eman dezakete izena:'
     first_name: Izena
     last_name: Abizena
     loading: Erabiltzaileak kargatzen...
@@ -432,14 +609,22 @@ eu:
     username: Erabiltzaile izena
     username_placeholder: Erabiltzaile izena
     role:
+      visitor: Bisitaria
       student: Ikaslea
       instructor: Irakaslea
-      wiki_ed_staff: Wiki Ed Lantaldea
+      campus_volunteer: Campuseko boluntarioa
+      online_volunteer: Online boluntarioa
+      wiki_ed_staff: Wiki Hezkuntzako Lantaldea
+  user_profiles:
+    student_impact: '%{username}(e)k ikasle gisa edukitako eragina guztira'
+    instructor_impact: '%{username}(e)k hezitzaile gisa edukitako eragina guztira'
   wizard:
     assignment_dates: Esleipen Datak
     course_dates: Ikastaroaren Datak
     read_less: Irakurri gutxiago
     read_more: Irakurri gehiago
+    review_selections: Mesedez beheko zure hautuak. Klikatu hautu bat aldatzeko. Bukatutakoan,
+      klikatu Bidali morroiarekin bukatu eta zure kronograma sortzeko.
     summary: Laburpena
   error:
     start_date_before_end_date: Hasiera data amaiera data baino lehenagokoa izan behar
@@ -460,6 +645,6 @@ eu:
     email:
       headline: Kaixo, %{username}
       course: Ikastaroa:%{course_info}
-      signed: '- Wiki Ed taldea'
+      signed: '- Wiki Hezkuntza taldea'
       link: Inkesta Bete
 ...

@@ -68,6 +68,7 @@ ja:
       '?': クラスなし — ウィキペディアで品質基準の評価がされていない記事
     title: 記事名
     title_example: 記事名
+    tools: 評価のツール
     view: 記事を閲覧
     view_all: すべてを表示
   assignments:
