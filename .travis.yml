@@ -25,11 +25,13 @@ before_install:
 - node --version
 - yarn --version
 install:
+- npm install gulp -g
+- npm install codeclimate-test-reporter -g
+- npm install -g phantomjs-prebuilt@latest
 - yarn global add gulp
 - yarn global add bower
 - yarn global add phantomjs-prebuilt@latest
 - yarn global add codeclimate-test-reporter
-- bower install
 - yarn install
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:

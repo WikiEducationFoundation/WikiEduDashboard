@@ -129,13 +129,22 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.3",
     "webpack-manifest-plugin": "^1.3.2",
-    "wnumb": "^1.1.0"
+    "wnumb": "^1.1.0",
+    "@bower_components/jquery": "jquery/jquery-dist#~2.1.1",
+    "@bower_components/jquery-ujs": "rails/jquery-ujs#~1.0.3",
+    "@bower_components/jquery.uls": "mattfordham/jquery.uls#*",
+    "@bower_components/list.js": "wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18",
+    "@bower_components/lodash": "lodash/lodash#~3.9.0",
+    "@bower_components/moment": "moment/moment#~2.10.3",
+    "@bower_components/moment-recur": "c-trimm/moment-recur#~1.0.5",
+    "@bower_components/trix": "basecamp/trix#~0.10.1"
   },
   "scripts": {
     "test": "jest",
     "start": "gulp dev",
     "hot": "gulp hot-dev",
-    "build": "gulp build"
+    "build": "gulp build",
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'vendor', 'junction') } catch (e) { }\""
   },
   "jest": {
     "collectCoverage": true,
@@ -148,5 +157,8 @@
       "app/assets/javascripts",
       "node_modules"
     ]
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
   }
 }
