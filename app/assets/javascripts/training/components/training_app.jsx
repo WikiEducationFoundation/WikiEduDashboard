@@ -1,22 +1,14 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const TrainingApp = createReactClass({
-  displayName: 'TrainingApp',
-
-  propTypes: {
-    children: PropTypes.node
-  },
-
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
-}
+const TrainingApp = ({ children }) => (
+  <div>
+    {children}
+  </div>
 );
+
+TrainingApp.propTypes = {
+  children: PropTypes.node
+};
 
 export default TrainingApp;
