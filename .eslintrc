@@ -2,6 +2,9 @@
   "root": true,
   "extends": "airbnb",
   "rules": {
+    # This makes it easier for Windows users to work on the project. Git automatically
+    # converts between linebreak styles to unix-style should end up in the repo.
+    "linebreak-style": 0,
     "func-names": 0,
     "comma-dangle": 0,
     "consistent-return": 0,
@@ -78,7 +81,7 @@
     "prefer-destructuring": 0,
     "no-unused-vars": 0,
     "react/prop-types": 0,
-    "semi-style": 0
+    "semi-style": 0,
   },
   "globals": {
     "$": true,
