@@ -258,6 +258,10 @@ class Course < ActiveRecord::Base
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
   end
 
+  def new_articles_on(wiki)
+    new_articles.where("articles.wiki_id = #{wiki.id}")
+  end
+
   def uploads_in_use
     uploads.where('usage_count > 0')
   end
