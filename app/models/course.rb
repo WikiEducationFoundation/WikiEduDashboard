@@ -239,6 +239,12 @@ class Course < ActiveRecord::Base
                                   .collect(&:training_module_ids).flatten
   end
 
+  # TODO: Replace this with a CoursesWikis join table to keep track of which
+  # wikis go with any given course.
+  def wiki_ids
+    ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
+  end
+
   # The url for the on-wiki version of the course.
   def url
     # wiki_title is implemented by the specific course type.

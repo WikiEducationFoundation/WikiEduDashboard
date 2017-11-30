@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 require 'csv'
+require "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 
 class CourseCsvBuilder
-  def initialize(course)
+  def initialize(course, per_wiki: false)
     @course = course
+    @per_wiki = per_wiki
   end
 
   CSV_HEADERS = %w[
@@ -48,11 +50,21 @@ class CourseCsvBuilder
     row << @course.uploads_in_use_count
     row << @course.upload_usages_count
     row << training_completion_rate
+    row += per_wiki_counts.values if @per_wiki
     row
   end
 
+  def headers
+    pp per_wiki_counts
+    if @per_wiki
+      CSV_HEADERS + per_wiki_counts.keys
+    else
+      CSV_HEADERS
+    end
+  end
+
   def generate_csv
-    csv_data = [CSV_HEADERS]
+    csv_data = [headers]
     csv_data << row
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
@@ -78,5 +90,9 @@ class CourseCsvBuilder
   def training_completion_rate
     return if @course.user_count.zero?
     @course.trained_count.to_f / @course.user_count
+  end
+
+  def per_wiki_counts
+    @per_wiki_counts ||= PerWikiCourseStats.new(@course).stats
   end
 end
