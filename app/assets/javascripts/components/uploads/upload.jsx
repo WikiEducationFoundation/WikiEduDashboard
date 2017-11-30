@@ -42,7 +42,7 @@ const Upload = ({ upload, linkUsername }) => {
     <tr className="upload">
       <td>
         <a href={upload.url} target="_blank">
-          <img src={imageFile} />
+          <img src={imageFile} alt="" />
         </a>
         {details}
       </td>

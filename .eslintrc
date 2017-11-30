@@ -72,7 +72,6 @@
     "react/jsx-closing-tag-location": 0,
     "jsx-a11y/no-noninteractive-element-interactions": 0,
     "react/no-array-index-key": 0,
-    "jsx-a11y/alt-text": 0,
     "react/jsx-max-props-per-line": 0,
     "jsx-a11y/no-autofocus": 0,
     "react/default-props-match-prop-types": 0,

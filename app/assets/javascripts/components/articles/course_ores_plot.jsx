@@ -55,7 +55,7 @@ const CourseOresPlot = createReactClass({
       if (this.state.filePath) {
         return (
           <div className="ores-plot">
-            <img className="ores-plot" src={`/${this.state.filePath}`} onClick={this.hide} />
+            <img className="ores-plot" src={`/${this.state.filePath}`} onClick={this.hide} alt="ORES plot" />
             <p>
               This graph visualizes, in aggregate, how much articles developed from
               when students first edited them until now. The <em>Structural Completeness </em>
