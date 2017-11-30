@@ -79,7 +79,6 @@
     "prefer-destructuring": 0,
     "jsx-a11y/interactive-supports-focus": 0,
     "no-unused-vars": 0,
-    "jsx-a11y/iframe-has-title": 0,
     "react/prop-types": 0,
     "semi-style": 0
   },
