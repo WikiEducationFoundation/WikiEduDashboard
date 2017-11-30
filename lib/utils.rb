@@ -25,7 +25,9 @@ class Utils
   def self.run_on_all(model, method, array)
     array = [array] if array.is_a? model
     model.transaction do
-      (array || model.ready_for_update).each(&method)
+      (array || model.ready_for_update).in_groups_of(200, false).each do |group|
+        group.each(&method)
+      end
     end
   end
 end
