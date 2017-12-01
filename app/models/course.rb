@@ -94,6 +94,9 @@ class Course < ActiveRecord::Base
 
   has_many :assignments, dependent: :destroy
 
+  has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
+  has_many :categories, through: :categories_courses
+
   ############
   # Metadata #
   ############
@@ -243,6 +246,18 @@ class Course < ActiveRecord::Base
   # wikis go with any given course.
   def wiki_ids
     ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
+  end
+
+  def scoped_article_ids
+    assigned_article_ids + category_article_ids
+  end
+
+  def assigned_article_ids
+    assignments.pluck(:article_id)
+  end
+
+  def category_article_ids
+    categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
   # The url for the on-wiki version of the course.

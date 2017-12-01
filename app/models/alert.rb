@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: alerts
@@ -17,7 +16,7 @@
 #  target_user_id :integer
 #  subject_id     :integer
 #  resolved       :boolean          default(FALSE)
-#  details        :text
+#  details        :text(65535)
 #
 
 class Alert < ActiveRecord::Base
