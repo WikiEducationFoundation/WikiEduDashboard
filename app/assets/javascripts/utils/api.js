@@ -2,6 +2,8 @@ import _ from 'lodash';
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 
+const RavenLogger = {};
+
 /* eslint-disable */
 const API = {
   // /////////
