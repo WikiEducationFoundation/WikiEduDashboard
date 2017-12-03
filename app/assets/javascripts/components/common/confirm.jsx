@@ -40,7 +40,6 @@ const Confirm = createReactClass({
   },
 
   render() {
-    console.log(this.props)
     if (!this.props.confirmationActive) { return <div />; }
     let textInput;
     let description;

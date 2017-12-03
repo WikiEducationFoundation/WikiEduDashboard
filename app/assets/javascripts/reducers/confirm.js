@@ -11,7 +11,6 @@ const initialState = {
 export default function ui(state = initialState, action) {
   switch (action.type) {
     case CONFIRMATION_INITIATED:
-      console.log(action);
       return {
         confirmationActive: true,
         confirmMessage: action.confirmMessage,

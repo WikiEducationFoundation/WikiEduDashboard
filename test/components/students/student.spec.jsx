@@ -32,6 +32,7 @@ describe('Student', () => {
     <table>
       <tbody>
         <Student
+          store={reduxStore}
           student={studentUser}
           course={course}
           course_id="Couse_school/Foo_(Couse_term)"
