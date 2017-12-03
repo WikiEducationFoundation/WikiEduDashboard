@@ -1,18 +1,22 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import Modal from './modal.jsx';
 import TextInput from './text_input.jsx';
+import { confirmAction, cancelAction } from '../../actions';
 
 const Confirm = createReactClass({
   displayName: 'Confirm',
 
   propTypes: {
-    onConfirm: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    message: PropTypes.string.isRequired,
+    onConfirm: PropTypes.func,
+    onCancel: PropTypes.func,
     showInput: PropTypes.bool,
-    explanation: PropTypes.string
+    explanation: PropTypes.string,
+    confirmAction: PropTypes.func.isRequired,
+    cancelAction: PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -21,10 +25,14 @@ const Confirm = createReactClass({
 
   onConfirm() {
     this.props.onConfirm(this.state.userInput);
+    this.props.confirmAction();
   },
 
   onCancel() {
-    this.props.onCancel();
+    if (this.props.onCancel) {
+      this.props.onCancel();
+    }
+    this.props.cancelAction();
   },
 
   onChange(_valueKey, value) {
@@ -32,6 +40,8 @@ const Confirm = createReactClass({
   },
 
   render() {
+    console.log(this.props)
+    if (!this.props.confirmationActive) { return <div />; }
     let textInput;
     let description;
     let confirmMessage;
@@ -56,13 +66,13 @@ const Confirm = createReactClass({
       );
       confirmMessage = (
         <div id = "confirm-message">
-          {this.props.message}
+          {this.props.confirmMessage}
         </div>
       );
     }
     else {
       confirmMessage = (
-        <p>{this.props.message}</p>
+        <p>{this.props.confirmMessage}</p>
       );
       lineBreak = (
         <br />
@@ -86,4 +96,14 @@ const Confirm = createReactClass({
   }
 });
 
-export default Confirm;
+const mapStateToProps = state => ({
+  confirmationActive: state.confirm.confirmationActive,
+  onConfirm: state.confirm.onConfirm,
+  confirmMessage: state.confirm.confirmMessage,
+  showInput: state.confirm.showInput,
+  explanation: state.confirm.explanation
+});
+
+const mapDispatchToProps = { confirmAction, cancelAction };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Confirm);

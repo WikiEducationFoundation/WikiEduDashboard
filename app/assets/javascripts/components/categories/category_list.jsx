@@ -1,5 +1,6 @@
 import React from 'react';
 import Category from './category';
+import AddCategoryButton from './add_category_button';
 
 const CategoryList = ({ course, categories, loading, removeCategory }) => {
   let headers;
@@ -27,7 +28,7 @@ const CategoryList = ({ course, categories, loading, removeCategory }) => {
       <div className="section-header">
         <h3>{I18n.t('categories.category_list')}</h3>
         <div className="section-header__actions">
-          Actions go here
+          <AddCategoryButton />
         </div>
       </div>
       {table}
