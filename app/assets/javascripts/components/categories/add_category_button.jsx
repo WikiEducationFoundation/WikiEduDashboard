@@ -157,9 +157,11 @@ const AddCategoryButton = createReactClass({
           <td>
             <form onSubmit={this.addCategory}>
               <input
+                id="category_name"
                 value={this.state.category}
                 onChange={this.handleChangeCategory}
-                type="text" ref="category"
+                type="text"
+                ref="category"
                 placeholder={I18n.t('categories.name')}
               />
               <TextInput
