@@ -23,6 +23,13 @@ describe 'Tracked categories', js: true do
     click_button 'Add this category'
     click_button 'OK'
     expect(page).to have_content 'Photography'
+
+    # Re-add the same category
+    click_button 'Add category'
+    find('#category_name').set('Photography')
+    click_button 'Add this category'
+    click_button 'OK'
+
     click_button 'Remove'
     expect(page).not_to have_content 'Photography'
   end
