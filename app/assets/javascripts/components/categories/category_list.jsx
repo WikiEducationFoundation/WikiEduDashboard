@@ -2,7 +2,7 @@ import React from 'react';
 import Category from './category';
 import AddCategoryButton from './add_category_button';
 
-const CategoryList = ({ course, categories, loading, removeCategory }) => {
+const CategoryList = ({ course, categories, loading, removeCategory, addCategory }) => {
   let headers;
   const elements = categories.map((cat) => {
     const remove = () => { removeCategory(course.id, cat.id); };
@@ -26,9 +26,13 @@ const CategoryList = ({ course, categories, loading, removeCategory }) => {
   return (
     <div id="category-list" className="mt4">
       <div className="section-header">
-        <h3>{I18n.t('categories.category_list')}</h3>
+        <h3>{I18n.t('categories.tracked_categories')}</h3>
         <div className="section-header__actions">
-          <AddCategoryButton />
+          <AddCategoryButton
+            key="add_category_button"
+            addCategory={addCategory}
+            course={course}
+          />
         </div>
       </div>
       {table}
@@ -39,7 +43,8 @@ const CategoryList = ({ course, categories, loading, removeCategory }) => {
 CategoryList.propTypes = {
   course: React.PropTypes.object,
   categories: React.PropTypes.array,
-  remove: React.PropTypes.func
+  removeCategory: React.PropTypes.func,
+  addCategory: React.PropTypes.func
 };
 
 export default CategoryList;

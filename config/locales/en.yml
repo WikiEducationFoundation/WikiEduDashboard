@@ -231,6 +231,10 @@ en:
     title: Title
     use_start_end_dates: Use start and end dates
 
+  categories:
+    add_category: Add category
+    tracked_categories: Tracked Categories
+
   chat:
     label: Chat
 
