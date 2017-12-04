@@ -12,7 +12,6 @@
 #  updated_at     :datetime         not null
 #
 
-
 require "#{Rails.root}/lib/importers/category_importer"
 require "#{Rails.root}/lib/article_utils"
 
@@ -22,6 +21,12 @@ class Category < ApplicationRecord
   has_many :courses, through: :categories_courses
 
   serialize :article_titles, Array
+
+  def self.refresh_categories_for(courses)
+    CategoriesCourses.where(course: courses).each do |category_course|
+      category_course.category.refresh_titles
+    end
+  end
 
   def refresh_titles
     titles = CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
