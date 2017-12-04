@@ -233,6 +233,8 @@ en:
 
   categories:
     add_category: Add category
+    add_this_category: Add this category
+    placeholder: Category name
     tracked_categories: Tracked Categories
 
   chat:

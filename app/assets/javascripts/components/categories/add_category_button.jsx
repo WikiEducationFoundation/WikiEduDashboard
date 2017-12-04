@@ -2,19 +2,31 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import Select from 'react-select';
 
 import { initiateConfirm } from '../../actions/confirm_actions';
 import TextInput from '../common/text_input';
+import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
+import CourseUtils from '../../utils/course_utils.js';
 
 const AddCategoryButton = createReactClass({
   displayName: 'AddCategoryButton',
+
+  propTypes: {
+    course: PropTypes.object.isRequired,
+    is_open: PropTypes.bool,
+    open: PropTypes.func.isRequired,
+    initiateConfirm: PropTypes.func,
+    addCategory: PropTypes.func
+  },
 
   getInitialState() {
     return ({
       category: '',
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
+      depth: 0,
       showOptions: false
     });
   },
@@ -54,18 +66,17 @@ const AddCategoryButton = createReactClass({
 
   addCategory(e) {
     e.preventDefault();
-
     const categoryCourse = {
       category: decodeURIComponent(this.state.category).trim(),
       project: this.state.project,
       language: this.state.language,
       depth: this.state.depth,
-      course_id: this.props.course_id
+      course: this.props.course
     };
 
-    if (categoryCourse.title === '' || categoryCourse.title === 'undefined') {
+    if (categoryCourse.category === '' || categoryCourse.category === 'undefined') {
       return;
-    } else if (assignment.title.length > 255) {
+    } else if (categoryCourse.category.length > 255) {
       // Title shouldn't exceed 255 chars to prevent mysql errors
       alert(I18n.t('assignments.title_too_large'));
       return;
@@ -74,36 +85,94 @@ const AddCategoryButton = createReactClass({
     // Close the popup after adding an available article
     const closePopup = this.props.open;
 
+    const addCategory = this.props.addCategory;
     const onConfirm = function () {
-      // Close the popup after confirmation
-      if (closeOnConfirm) {
-        closePopup(e);
-      }
       // Post the new category to the server
-      this.props.addCategory(categoryCourse);
+      addCategory(categoryCourse);
+      closePopup(e);
     };
 
-    const confirmMessage = I18n.t('categories.confirm_addition', { category: articleTitle });
-
+    const confirmMessage = I18n.t('categories.confirm_addition', { category: categoryCourse.category });
+    console.log('initiate confirm')
     return this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   render() {
+    const permitted = true;
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
 
-    const buttonText = 'Ohai';
+    const buttonText = I18n.t('categories.add_category');
     const showButton = <button className={`${className}`} onClick={this.props.open}>{buttonText}</button>;
 
+    let editRow;
+    if (permitted) {
+      let options;
+      if (this.state.showOptions) {
+        const languageOptions = JSON.parse(WikiLanguages).map(language => {
+          return { label: language, value: language };
+        });
+
+        const projectOptions = JSON.parse(WikiProjects).map(project => {
+          return { label: project, value: project };
+        });
+
+        options = (
+          <fieldset className="mt1">
+            <Select
+              ref="languageSelect"
+              className="half-width-select-left language-select"
+              name="language"
+              placeholder="Language"
+              onChange={this.handleChangeLanguage}
+              value={this.state.language}
+              options={languageOptions}
+            />
+            <Select
+              name="project"
+              ref="projectSelect"
+              className="half-width-select-right project-select"
+              onChange={this.handleChangeProject}
+              placeholder="Project"
+              value={this.state.project}
+              options={projectOptions}
+            />
+          </fieldset>
+        );
+      } else {
+        options = (
+          <div className="small-block-link">
+            {this.state.language}.{this.state.project}.org <a href="#" onClick={this.handleShowOptions}>({I18n.t('application.change')})</a>
+          </div>
+        );
+      }
+
+      editRow = (
+        <tr className="edit">
+          <td>
+            <form onSubmit={this.addCategory}>
+              <input value={this.state.category} onChange={this.handleChangeCategory} type="text" ref="category" placeholder={I18n.t('categories.placeholder')} />
+              <button className="button border" type="submit">{I18n.t('categories.add_this_category')}</button>
+              {options}
+            </form>
+          </td>
+        </tr>
+      );
+    }
+
     return (
-      <div>
+      <div className="pop__container">
         {showButton}
+        <Popover
+          is_open={this.props.is_open}
+          edit_row={editRow}
+        />
       </div>
     );
   }
 });
 
-const mapDispatchToProps = dispatch => ({ initiateConfirm });
+const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
   PopoverExpandable(AddCategoryButton)

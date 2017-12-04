@@ -34,11 +34,12 @@ export const fetchCategories = (courseSlug) => dispatch => {
   );
 };
 
-const addCategoryPromise = (courseId, categoryName, depth) => {
+const addCategoryPromise = ({ category, project, language, depth, course }) => {
   return new Promise((res, rej) => {
+    console.log({ category, project, language, depth, course })
     return $.ajax({
       type: 'POST',
-      url: `/categories.json?category_name=${categoryName}&depth=${depth}&course_id=${courseId}`,
+      url: `/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}`,
       success(data) {
         return res(data);
       }
@@ -51,9 +52,10 @@ const addCategoryPromise = (courseId, categoryName, depth) => {
   );
 };
 
-export const addCategory = (courseId, categoryName, depth) => dispatch => {
+export const addCategory = (categoryCourse) => dispatch => {
+  console.log('startingPromise')
   return (
-    addCategoryPromise(courseId, categoryName, depth)
+    addCategoryPromise(categoryCourse)
       .then(resp =>
         dispatch({
           type: ADD_CATEGORY,

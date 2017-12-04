@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
   # TODO: check permissions
 
   def add_category
+    @course = Course.find(params[:course_id])
     # TODO: find or create category
     # TODO: add to course
     render 'courses/categories'
