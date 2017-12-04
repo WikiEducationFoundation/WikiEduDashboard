@@ -14,7 +14,7 @@ eu:
       igo edo jaitsi egingo dute sartutakoa.
   application:
     cancel: Utzi
-    dashboard: Wiki Ed Aginte-panela
+    dashboard: Wiki Hezkuntzako Arbela
     documentation: Dokumentazioa
     error: 'Errore bat dago:'
     explore: Esploratu
@@ -31,7 +31,7 @@ eu:
     log_in_extended: Saioa hasi Wikipedian
     log_in: Saioa hasi
     log_out: Saioa itxi
-    my_dashboard: Aginte-panela
+    my_dashboard: Nire Arbela
     recent_activity: Azken jarduera
     report_problem: Arazo baten berri eman
     search: Galdera egin
@@ -74,9 +74,9 @@ eu:
     explore: Esploratu
     log_in: Saioa hasi Wikipedian
     sign_up: Wikipediarekin saioa hasi
-    sign_up_help: Aginte-panela erabiltzeko, Wikipediaren bitartez saioa hasi eta
-      konturako sarbidea ematea baimendu beharko duzu. Wikipedian existitzen den kontu
-      batekin erregistratu zaitezke, ala kontu berri bat sortu.
+    sign_up_help: Arbela erabiltzeko, Wikipediaren bitartez saioa hasi eta konturako
+      sarbidea ematea baimendu beharko duzu. Wikipedian existitzen den kontu batekin
+      erregistratu zaitezke, ala kontu berri bat sortu.
   activity:
     all: Jarduera
     edited_by: Nork Editatua
@@ -103,10 +103,10 @@ eu:
     rating: Klasea
     rating_doc: WikiProjectsek Wikipedian artikulu bati esleitutako balorazioa. Balorazio
       horiek bertsio askoz zaharragoei buruzkoak izan daitezke eta, beraz, artikulu
-      baten heldutasunari buruzko gutxi gorabeherako adierazle bat besterik ez dira.
+      baten umotasunari buruzko gutxi gorabeherako adierazle bat besterik ez dira.
     rating_docs:
       fa: 'Artikulu nabarmendua: Wikipediako balorazio onena du, segur aski artikulu
-        helduegia da editore berri baten proiektu nagusia izateko.'
+        helduegia, umoegia da editore berri baten proiektu nagusia izateko.'
       fl: 'Nabarmenduen zerrenda: Wikipediako balorazio onena zerrendetarako'
       stub: 'Zirriborroa: hasitako artikulu laburra eta eduki gehiago behar duena'
       list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
@@ -116,6 +116,7 @@ eu:
     show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
     title: Izenburua
     title_example: Artikuluaren izenburua
+    tools: Baloraziorako tresnak
     view: Artikulua ikusi
     view_all: Denak ikusi
     view_doc: Proiektuak iraun bitartean artikulu guztiei egindako bisiten batura
@@ -124,25 +125,38 @@ eu:
     edit_size: Tamaina Aldatu
     wiki: Wiki
     wp10: Egituraren Trinkotasuna
+    wp10_doc: '''Egitura osotasuna''ri buruzko puntuazioak adierazten du artikulu
+      bat Wikipediako artikulu umo baten moldean zer moduz sartzen den, makina bidez
+      ikasten duen Berrikuspen Objektiborako Ebaluazio Zerbitzuan oinarrituta ([https://ores.wikimedia.org/
+      ORES]). Puntuazio horiek artikuluaren tamainan, erreferentzia eta wikiloturen
+      kopuruan eta beste testu ezaugarri batzuetan oinarrituta egiten dute kalkulua.
+      Puntuazio altu batek gehienetan adierazten du artikulu batek artikulu on baterako
+      Wikipediako arauak jarraitzen dituela, baina ez du kontuan hartzen edukia bera
+      (puntuazio horiek oraingoz Ingelesezko Wikipediako artikuluetan bakarrik balia
+      daitezke).'
   assignments:
     article: '%{title} artikulua esleitua izan da'
-    already_exists: Dagoeneko esleitua dago!
-    assignees: Esleitua(k)
+    already_exists: Lan hau existitzen da dagoeneko!
+    title_too_large: Izenburuak ez du 255 karaktere baino gehiago izan behar
+    assignees: Artikulu-egilea(k)
     assign_other: Artikulu bat esleitu
     add_available: Gehitu artikulu erabilgarri bat
     assign_self: Neure buruari artikulu bat esleitu
+    assign_tooltip: Esleitutako artikulua da zuk sortu edo hobetzeko asmoa duzun bat.
     confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
     confirm_addition: Ziur zaude %{title} %{username} lankideari esleitu nahi diozula?
-    confirm_deletion: Ziur zaude artikulu honen esleipen hau ezabatu nahi duzula?
+    confirm_deletion: Ziur zaude artikulu lan hau ezabatu nahi duzula?
     label: Esleitu
-    loading: Esleipenak kargatzen...
-    none_short: Artikulu esleipenik gabe
+    loading: Lanak kargatzen...
+    none_short: Ez da artikulurik esleitu
     none: Ikastaro honek ez du esleitutako artikulurik.
     no_available: Ikastaro honek ez du artikulu eskuragarririk.
     remove: Kendu
     reviewers: Berrikuslea(k)
     review_other: Berrikuspen bat esleitu
     review_self: Artikulua berrikusi
+    review_tooltip: Hau da gaikide berrikuspena eta iruzkin bat egitekotan zabiltzan
+      artikulu baten jarraipena egiteko.
     select: Aukeratu
   blocks:
     milestones:
@@ -151,21 +165,33 @@ eu:
     active_campaigns: Kanpaina Aktiboak
     add_organizer: Antolatzailea gehitu
     all_campaigns: Kanpaina Guztiak
-    already_exists: Kanpaina hori dagoeneko existitzen da! Mesedez, saiatu berriro
+    already_exists: Kanpaina hori dagoeneko existitzen da! Mesedez saiatu berriro
       izenburu desberdin batekin.
     campaign: Kanpaina
     campaigns: Kanpainak
     campaign_deleted: '%{title} kanpaina ezabatua izan da'
     campaign_not_updated: Kanpaina ezin izan da eguneratu
     campaign_updated: Kanpaina eguneratua
-    create_campaign: Kanpaina Berria Sortu
-    create_my_campaign: Sortu Nire Kanpaina!
+    confirm_campaign_deletion: Ziur zaude "%{title}" deitutako kanpaina ezabatu nahi
+      duzula? Hala bada, tekleatu kanpainaren izena aurrera egiteko.
+    confirm_campaign_deletion_failed: '"%{title}" ez da kanpaina honen izena. Kanpaina
+      ez dago ezabatuta.'
+    confirm_course_removal: Ziur zaude "%{campaign_title}" kanpainatik "%{title}"
+      kendu nahi duzula?
+    course_already_removed: '"%{title}" kenduta zegoen dagoeneko "%{campaign_title}"
+      kanpainatik.'
+    course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
+    create_campaign: Kanpaina berria sortu
+    create_my_campaign: Sortu nire kanpaina!
     description: Deskribapena
     delete_campaign: Ezabatu kanpaina hau
     none: Bat ere ez
     organizers: Antolatzaileak
     organizer_added: '%{user} orain %{title} kanpainako antolatzsile bat da'
-    program_template: Programa Txantiloia
+    organizer_removed: '%{user} ez da gehiago "%{title}" kanpainako antolatzaile'
+    program_template: Programa txantiloia
+    program_template_tooltip: Antolatzaile batek kanpaina honetan programa bat sortzen
+      duenean, arlo honetako testua deskribapen gisa kopiatuko da programako orrian
     title: Izenburua
     use_start_end_dates: Hasiera eta amaiera datak erabili
   chat:
@@ -180,28 +206,57 @@ eu:
     actions: Ekintzak
     articles: Artikuluak
     articles_none: Ikastaro honek ez du artikulurik editatu.
-    assignment_end: Esleipen Amaiera
+    assignment_end: Lana amaitu
     assignments_none: Ikastaro honek ez du esleitutako artikulurik.
-    assignment_start: Esleipen Hasiera
+    assignment_start: Lana hasi
     calendar:
-      legend: Azalpena
+      legend: Legenda
       legend_class_canceled: Oporretan/Bertan behera
+      legend_class_meeting: Klase bilkura
+      legend_class_not_meeting: Ez dago bilkurarik programatuta
+      select_meeting_days: Aukeratu zure klasea biltzen den asteko egunak.
     cancel: Utzi
     campaigns: 'Taldeak:'
     campaign_courses: '%{title} Ikastaroak'
+    campaign_articles: '%{title} artikuluak'
+    campaign_users: '%{title} editoreak'
+    confirm_course_deletion: Ziur zaude %{title} izena duen ikastaroa ezabatu nahi
+      duzula? Hala bada, tekleatu ikastaroaren izena aurrera egiteko.
+    confirm_course_deletion_failed: '"%{title}" ez da ikastaro honen izena. Ikastaroa
+      ez da ezabatu.'
+    course: Ikastaroa
+    course_dates_calendar_instructions: Aukeratu datak agendatik horiek gehitu edo
+      kentzeko (adibidez, oporrak, eskolarik ez). Klikatu aldatu beharreko data aukeratu
+      gabe, aukeratua, edo oporretan hautatuz. Ikastaro ekintzen datak aldatu egingo
+      dira bilkurarik ez duten asteak konpentsatzeko.
     course_description: Ikastaroak
     courses: Ikastaroak
     courses_taught: Irakatsitako Ikastaroak
     creation_date: Sorrera data
     creator:
-      assignment_end: Esleipen amaiera
-      assignment_end_placeholder: Esleipen amaiera (UUUU-HH-EE)
-      assignment_start: Esleipen hasiera
-      assignment_start_placeholder: Esleipen hasiera(UUUU-HH-EE)
-      clone_previous: Aurreko Ikastaroa Klonatu
-      clone_this: Ikastaro Hau Klonatu
-      clone_successful: Ikastaroa Ondo Klonatu da
+      already_exists: Ikastaro hau existitu egiten da dagoeneko. Aldatu izena, ikastetxea,
+        edo hiruhilekoa bakarra egiteko.
+      assignment_end: Lana amaitu
+      assignment_end_placeholder: Lana amaitu (UUUU-HH-EE)
+      assignment_start: Lana hasi
+      assignment_start_placeholder: Lana hasi (UUUU-HH-EE)
+      checking_for_uniqueness: Ikastaro hau bakarra dela egiaztatzen ari gara.
+      choose_clone: Klonatzeko ikastaro bat aukeratu.
+      clone_previous: Aurreko ikastaroa klonatu
+      clone_this: Ikastaro hau klonatu
+      cloned_course_calendar_instructions: Aukeratu datak agendara gehitu edo kentzeko
+        (adibidez, oporrak, eskolarik ez). Klikatu datan aukeratu gabe, aukeratua
+        edo oporretan hautatzeko. Oporrik ez baduzu, aukeratu "Ez dut klase oporrik".
+        Klonatutako kronograma datak automatikoki doituko ditu bilkurarik gabeko asteak
+        konpentsatzeko.
+      clone_successful: Ikastaroa ondo klonatu da
+      clone_successful_details: Zure ikastaroa klonatua izan da, kronogramako elementuak
+        ere tartean (asteak eta blokeak). Gehitu datak faltarik gabe, ezin dira atzeratu.
+        Ezer gehiago aldatu da zure ikastaroan? Lasai eguneratu orain.
       course_description: Ikastaroaren deskribapena
+      course_description_placeholder: Zer sartuko da zure ikastaroan, eta zer egingo
+        dute ikasleek Wikipedian? Mesedez eman behar beste detaile Wikipediako beste
+        lankideei zure ikasleek egingo dituzten ekarpenen nondik norakoen berri adierazteko.
       course_language: Hizkuntza nagusia
       course_project: Proiektu nagusia
       course_school: Ikastaroaren eskola
@@ -216,29 +271,72 @@ eu:
       end_date: Amaiera data
       end_date_placeholder: Amaiera data (YYYY-MM-DD)
       expected_number: Espero den ikasle kopurua
-      find: Bilatu Zure Ikastaroa
-      save_cloned_course: Gorde Ikastaro Berria
+      find: Bilatu zure Ikastaroa
+      intro: Izenburuak, ikastetxeak eta hiruhilekoak zure orriaren URLa sortuko dute,
+        eta ezin da aldatu. Gainerako guztia geroago alda dezakezu. Klikatu "Sortu
+        nire Ikastaroa!" zure Wikipediako lanaren kronograma eratzen hasteko.
+      new_or_clone: Orain ikastaro berri bat sor dezakezu lana diseinatzeko morroia
+        erabiliz. Berrerabili nahi duzun aurreko ikastaro baten kronograma pertsonalizatua
+        baduzu, haren kopia bat klonatu dezakezu data berriekin (lehenago zure kronograma
+        asko pertsonalizatu ez bazenuen, aholkatzen dizugu ikastaro berri bat hastea,
+        azken lan aukera guztiak izan ditzazun). Klonatze aukera erabil dezakezu ere
+        dagoeneko ezarri duzun ikastaro baterako atal gehigarriak sortzeko.
+      no_class_holidays: Ez dut klase oporrik
+      role_description: Ikastaroko zure rola
+      role_description_placeholder: Irakaslea, irakasle-laguntzailea, etab.
+      save_cloned_course: Gorde ikastaro berria
       start_date: Hasiera data
       start_date_placeholder: Hasiera data (YYYY-MM-DD)
       subject: Gaia
     current: Oraingo ikastaroak
-    delete_course: Ezabatu ikastaroa
+    data_articles: Artikuluei buruzko datuak
+    data_articles_info: Artikuluei buruzko datuetan, orri bakoitzeko aldaketa kopurua
+      sartzen da, zein orri diren berriak, eta ikustaldiak guztira. Ikustaldi balio
+      horiek zaharkituta egon daitezke dagoeneko amaitu diren ikastaroetarako; beraz,
+      baduzu WMF Tool Labs ikustaldien tresnarako url bat ere.
+    data_download_info: Datuak CSV formatuak jaitsi.
+    data_overview: Datu orokorrak
+    data_overview_info: Datu orokorrak aukerak proiektu osoari buruzko estatistika
+      metatuak hornitzen ditu.
+    data_edits: Aldaketei buruzko datuak
+    data_edits_info: Aldaketei buruzko datuak aukerak erakusten ditu proiektuan egindako
+      aldaketa bakoitzeko detaileak.
+    data_students: Editoreei buruzko datuak
+    data_students_info: Editoreei buruzko datuak aukerak izena emandako editoreen
+      zerrenda hornitzen du, zenbat aldaketa egin dituzten, eta proiektuan haien kontuak
+      baliatuz aritu diren.
+    data_uploads: Commonseko igoerei buruzko datuak
+    data_uploads_info: Commons igoerei buruzko datuak aukerak erakusten du igotzen
+      den multimedia elementu bakoitzaren izena eta erabileraren zenbaketa.
+    delete_course: Ikastaroa ezabatu
+    delete_suggestion: Ezabatu
+    delete_course_instructions: Orri hau ezaba dezakezu lehendabizi kanpaina guztiak
+      kendu badira.
     dismiss_survey: Baztertu
-    does_not_exist: Atikulua ez da existitzen. Sandbox orrialdea sortu eta eman zeure
-      izena iradokizunak jasotzeko.
-    duration: Ikastaroaren Iraupena
-    edit_course_dates: Aldatu ikastaroaren datak
+    dismiss_survey_confirm: Ziur zaude inkesta betiko baztertu nahi duzula?
+    download_stats_data: Estatistikak jaitsi
+    does_not_exist: Artikulua ez da existitzen. Proba orria sortu eta eman zeure izena
+      iradokizunak jasotzeko.
+    duration: Ikastaroaren iraupena
+    edit_course_dates: Ikastaroaren datak aldatu
+    enable_chat: Txata gaitu
     end: Amaitu
     ended: Ikastaroa amaituta dago.
     enroll: Izena eman
     enrollment: Izen ematea
+    courses_enrolled: Izena emandako ikastaroak
     error:
+      exists: Ikastaro hori dagoeneko existitzen da! Mesedez saiatu berriro izenburu,
+        ikastetxe edo hiruhileko desberdin batekin.
       user_exists: Barka, %{username} lankide ez da existitzen.
-      invalid_language_or_project: HiKuntza/proiektu ez baliagarria
-    expected_students: Espero diren Ikasleak
-    features_feedback: 'Iradokizun gehiago:'
-    feedback: Atzeraelikadura
-    feedback_loading: Mesedez, itxaron iradokizunak kargatu bitartean...
+      invalid_language_or_project: Hizkuntza/proiektu ez baliagarria
+      invalid_slug: Ikastetxea/izena hutsik ikastarorako.
+      duplicate_slug: '%{slug} deitutako beste programa bat existitzen da dagoeneko.'
+    expected_students: Aurreikusitako ikasleak
+    features_feedback: 'Iradokizun automatikoak:'
+    feedback: Iruzkina
+    feedback_loading: Mesedez itxaron iradokizunak kargatu bitartean...
+    gradeables_none: Ikastaro honek ez du nota jartzeko lanik.
     instructor:
       one: Irakaslea
       other: Irakasleak
@@ -251,9 +349,9 @@ eu:
     join_failure_details:
       cannot_join_twice: Erabiltzaileek ezin dute bitan izena eman ikastaro berean.
       not_yet_approved: Ikastaro hau ez dago oraindik onartua izena emateko.
-    join_details: Ikastaro honetan izena emateko, hezitzaileak pasahitza eman behar
+    join_details: Ikastaro honetan izena emateko, irakasleak pasahitza eman behar
       dizu (edo pasahitza daukan izena emateko esteka). Oraindik eskuratu ez baduzu,
-      jarri harremanetan hezitzailearekin.
+      jarri harremanetan irakaslearekin.
     leave_confirmation: Ziur zaude ikastaro hau utzi nahi duzula?
     leave_course: Utzi ikastaroa
     loading: Kargatzen...

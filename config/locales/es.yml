@@ -129,6 +129,7 @@ es:
       de autoría
     title: Título
     title_example: Título del artículo
+    tools: Herramientas de evaluación
     view: Ver artículo
     view_all: Ver todos
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
@@ -536,7 +537,7 @@ es:
     recent_uploads: Subidas recientes
     revision_author: Autor de la revisión
     revision_datetime: Fecha/hora de la revisión
-    revision_score: Puntuación de revisión
+    revision_score: Puntaje de revisión
     show_courses: Mostrar solo mis cursos
     uploaded_by: Subido por
     usage_count: Total de usos

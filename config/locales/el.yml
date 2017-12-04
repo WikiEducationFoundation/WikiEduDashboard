@@ -12,11 +12,13 @@ el:
     confirm: Εντάξει
   articles:
     deleted: (διαγράφηκε)
+    tools: Αξιολόγηση εργαλείων
   chat:
     label: Συνομιλία
   courses:
     cancel: Ακύρωση
     enable_chat: Ενεργοποίηση συνομιλίας
+    ores_plot: ORES
   courses_generic:
     all_courses: Όλα τα προγράμματα.
     cancel: Ακύρωση

@@ -343,8 +343,8 @@ fr:
       combien ils ont fait de modifications, et s’ils ont inscrit leur compte lors
       du projet.
     data_uploads: Données de téléversements de Commons
-    data_uploads_info: Les données de téléversements communs affichent le nom et le
-      nombre d’utilisations de chaque média téléversé.
+    data_uploads_info: Les données de téléversements sur Commons affichent le nom
+      et le nombre d’utilisations de chaque média téléversé.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes

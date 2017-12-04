@@ -1,0 +1,86 @@
+# Messages for Santali (Santali)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Manik Soren
+---
+sat:
+  application:
+    cancel: ᱵᱟᱫᱽ
+    greeting2: ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ!
+    greeting_extended: ᱩᱭᱠᱤᱯᱤᱰᱤᱭᱟᱨᱮ ᱥᱟᱹᱜᱩᱱ ᱫᱟᱨᱟᱢ
+    home: ᱚᱲᱟᱜ
+    confirm: ᱴᱷᱤᱠ ᱜᱮᱭᱟ
+  articles:
+    new: (ᱱᱟᱣᱟᱱᱟᱜ)
+    wiki: ᱩᱭᱠᱤ
+  assignments:
+    remove: ᱚᱪᱚᱜ
+  courses:
+    cancel: ᱵᱟᱫᱽ
+    creator:
+      course_language: ᱟᱲᱟᱜ ᱯᱟᱹᱨᱥᱤ
+      course_project: ᱟᱲᱟᱜ ᱯᱨᱚᱡᱮᱠᱴ
+      start_date: ᱮᱦᱚᱵ ᱛᱟᱹᱨᱤᱠᱷ
+      start_date_placeholder: ᱮᱦᱚᱵ ᱛᱟᱹᱨᱤᱠᱷ (YYYY-MM-DD)
+      subject: ᱥᱟᱛᱚᱢ
+    delete_suggestion: ᱜᱮᱫ ᱜᱤᱰᱤ
+    end: ᱢᱩᱪᱟᱹᱫ
+    join: ᱥᱮᱞᱮᱫᱽ
+    loading: ᱦᱤᱡᱩᱜᱠᱟᱱᱟ...
+    overview: ᱚᱲᱟᱜ
+    start: ᱮᱦᱚᱵ
+  courses_generic:
+    cancel: ᱵᱟᱫᱽ
+    creator:
+      course_term: ᱛᱤᱱᱡᱚᱠᱷᱚᱡ
+      course_term_placeholder: ᱛᱤᱱᱡᱚᱠᱷᱚᱡ
+      save_cloned_course: ᱨᱩᱠᱷᱤᱭᱟᱹᱭᱢᱮ
+    student_editors: ᱥᱟᱯᱲᱮᱛᱠᱩ
+    students: ᱥᱟᱯᱲᱮᱛᱠᱩ
+    students_taught: ᱡᱚᱛᱚ ᱥᱟᱯᱲᱮᱛᱠᱩ
+    students_short: ᱥᱟᱯᱲᱮᱛᱠᱩ
+    term: ᱛᱤᱱᱡᱚᱠᱷᱚᱡ
+  editable:
+    edit: ᱥᱟᱯᱲᱟᱣ
+    cancel: ᱵᱟᱫᱽ
+    save: ᱨᱩᱠᱷᱤᱭᱟᱹᱭᱢᱮ
+  metrics:
+    date_time: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
+    edit_count_description: ᱡᱚᱛᱚ ᱥᱟᱯᱲᱟᱣᱠᱩ
+    revisions: ᱱᱮᱛᱟᱨ ᱥᱟᱯᱲᱟᱣᱠᱩ
+  namespace:
+    user_ns: ᱵᱮᱵᱦᱟᱨᱤᱡ
+  recent_activity:
+    datetime: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
+    image: ᱪᱤᱛᱟᱹᱨ
+    file_name: ᱨᱮᱫ ᱧᱩᱛᱩᱢ
+    recent_edits: ᱱᱮᱛᱟᱨ ᱥᱟᱯᱲᱟᱣᱠᱩ
+  revisions:
+    date_time: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
+    diff: ᱡᱩᱫᱟᱹ
+    diff_show: ᱧᱮᱞ
+    diff_hide: ᱫᱟᱱᱟᱝ
+    see_more: ᱟᱨᱦᱚᱸ ᱧᱮᱞᱢᱮ
+  timeline:
+    gradeable_value: ᱫᱟᱢ
+    save_all_changes: ᱡᱚᱛᱚ ᱨᱩᱠᱷᱤᱭᱟᱹᱭᱢᱮ
+    this_week_title_default: ᱱᱤᱭᱟᱹ ᱦᱟᱯᱛᱟ
+  training:
+    start: ᱮᱦᱚᱵ
+    view: ᱩᱰᱩᱜᱽᱢᱮ
+  uploads:
+    datetime: ᱛᱟᱹᱨᱤᱠᱷ/ᱚᱠᱛᱚ
+    file_name: ᱨᱮᱫ ᱧᱩᱛᱩᱢ
+    image: ᱪᱤᱛᱟᱹᱨ
+    label: ᱞᱟᱫᱮᱠᱩ
+    loading: ᱞᱟᱫᱮᱠᱩ ᱦᱤᱡᱩᱜᱠᱟᱱᱟ...
+  users:
+    assign_articles_done: ᱦᱩᱭᱱᱟ
+    editors: ᱥᱟᱯᱲᱮᱛᱠᱩ
+    first_name: ᱮᱦᱚᱵ ᱧᱤᱛᱩᱢ
+    last_name: ᱢᱩᱪᱟᱹᱫ ᱧᱩᱛᱩᱢ
+    name: ᱧᱩᱛᱩᱢ
+    recent_revisions: ᱱᱮᱛᱟᱨ ᱥᱟᱯᱲᱟᱣᱠᱩ
+    username: ᱵᱮᱵᱦᱟᱨᱤᱡ ᱧᱩᱛᱩᱢ
+    username_placeholder: ᱵᱮᱵᱦᱟᱨᱤᱡ ᱧᱩᱛᱩᱢ
+...

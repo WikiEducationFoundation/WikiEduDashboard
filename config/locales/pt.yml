@@ -350,6 +350,7 @@ pt:
     cancel: Cancelar
     save: Gravar
   metrics:
+    last_update: Última atualização
     activity: Atividade recente
     are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
