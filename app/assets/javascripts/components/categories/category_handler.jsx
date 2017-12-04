@@ -11,7 +11,8 @@ const CategoryHandler = createReactClass({
   propTypes: {
     fetchCategories: PropTypes.func,
     removeCategory: PropTypes.func,
-    course: PropTypes.object
+    course: PropTypes.object,
+    current_user: PropTypes.object
   },
 
   componentWillMount() {
@@ -19,6 +20,7 @@ const CategoryHandler = createReactClass({
   },
 
   render() {
+    const editable = this.props.current_user.isNonstudent;
     return (
       <CategoryList
         course={this.props.course}
@@ -26,6 +28,7 @@ const CategoryHandler = createReactClass({
         loading={this.props.loading}
         removeCategory={this.props.removeCategory}
         addCategory={this.props.addCategory}
+        editable={editable}
       />
     );
   }

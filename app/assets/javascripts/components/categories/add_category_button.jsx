@@ -18,7 +18,7 @@ const AddCategoryButton = createReactClass({
     is_open: PropTypes.bool,
     open: PropTypes.func.isRequired,
     initiateConfirm: PropTypes.func,
-    addCategory: PropTypes.func
+    addCategory: PropTypes.func,
   },
 
   getInitialState() {
@@ -26,13 +26,17 @@ const AddCategoryButton = createReactClass({
       category: '',
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
-      depth: 0,
+      depth: '0',
       showOptions: false
     });
   },
 
   getKey() {
     return 'add_category_button';
+  },
+
+  reset() {
+    this.setState(this.getInitialState());
   },
 
   handleChangeCategory(e) {
@@ -46,6 +50,10 @@ const AddCategoryButton = createReactClass({
       project,
       language
     });
+  },
+
+  handleDepthChange(_key, value) {
+    return this.setState({ depth: value });
   },
 
   handleShowOptions(e) {
@@ -82,18 +90,15 @@ const AddCategoryButton = createReactClass({
       return;
     }
 
-    // Close the popup after adding an available article
-    const closePopup = this.props.open;
-
     const addCategory = this.props.addCategory;
+    const reset = this.reset;
     const onConfirm = function () {
       // Post the new category to the server
       addCategory(categoryCourse);
-      closePopup(e);
+      reset();
     };
 
     const confirmMessage = I18n.t('categories.confirm_addition', { category: categoryCourse.category });
-    console.log('initiate confirm')
     return this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
@@ -151,7 +156,24 @@ const AddCategoryButton = createReactClass({
         <tr className="edit">
           <td>
             <form onSubmit={this.addCategory}>
-              <input value={this.state.category} onChange={this.handleChangeCategory} type="text" ref="category" placeholder={I18n.t('categories.placeholder')} />
+              <input
+                value={this.state.category}
+                onChange={this.handleChangeCategory}
+                type="text" ref="category"
+                placeholder={I18n.t('categories.name')}
+              />
+              <TextInput
+                id="category_depth"
+                onChange={this.handleDepthChange}
+                value={this.state.depth}
+                value_key="category_depth"
+                editable
+                required
+                type="number"
+                max="3"
+                label={I18n.t('categories.depth')}
+                placeholder={I18n.t('categories.depth')}
+              />
               <button className="button border" type="submit">{I18n.t('categories.add_this_category')}</button>
               {options}
             </form>

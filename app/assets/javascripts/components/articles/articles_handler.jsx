@@ -43,7 +43,7 @@ const ArticlesHandler = createReactClass({
 
    let categories;
    if (this.props.course.type === 'ArticleScopedProgram') {
-     categories = <CategoryHandler course={this.props.course} />;
+     categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
    }
 
     return (

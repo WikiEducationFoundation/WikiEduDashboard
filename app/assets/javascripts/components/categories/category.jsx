@@ -1,12 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CourseUtils from '../../utils/course_utils';
 
-const Category = ({ category, remove }) => {
+const Category = ({ course, category, remove, editable }) => {
+  let removeButton;
+  if (editable) {
+    removeButton = <button className="button pull-right small danger" onClick={remove}>{I18n.t('categories.remove')}</button>;
+  }
+
+  const catName = CourseUtils.formattedCategoryName(category, course.home_wiki);
+
   return (
     <tr>
-      <td>{category.name}</td>
+      <td>{catName}</td>
       <td>{category.depth}</td>
-      <td><button onClick={remove}> - </button></td>
+      <td>{removeButton}</td>
     </tr>
   );
 };

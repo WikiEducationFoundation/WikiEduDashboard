@@ -36,7 +36,6 @@ export const fetchCategories = (courseSlug) => dispatch => {
 
 const addCategoryPromise = ({ category, project, language, depth, course }) => {
   return new Promise((res, rej) => {
-    console.log({ category, project, language, depth, course })
     return $.ajax({
       type: 'POST',
       url: `/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}`,
@@ -53,7 +52,6 @@ const addCategoryPromise = ({ category, project, language, depth, course }) => {
 };
 
 export const addCategory = (categoryCourse) => dispatch => {
-  console.log('startingPromise')
   return (
     addCategoryPromise(categoryCourse)
       .then(resp =>
