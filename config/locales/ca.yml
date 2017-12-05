@@ -332,7 +332,8 @@ ca:
     save: Desa
   metrics:
     label: Activitat del curs
-    are_updated: Segons l'última actualització de les estadístiques del sistema
+    are_updated: Segons l'última actualització del sistema
+    last_update: Darrera actualització
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats

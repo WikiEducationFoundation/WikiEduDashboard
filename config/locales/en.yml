@@ -581,7 +581,8 @@ en:
 
   metrics:
     label: Course Activity
-    are_updated: According to the last system statistics update
+    are_updated: According to the last system update
+    last_update: Last update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
