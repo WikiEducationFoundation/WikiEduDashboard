@@ -10,6 +10,7 @@
           = nav_link(t("#{Features.default_course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
           = nav_link(t('courses.articles'), articles_campaign_path(@campaign.slug))
           = nav_link(t("#{Features.default_course_string_prefix}.students"), users_campaign_path(@campaign.slug))
+          = nav_link(t('courses.ores_plot'), ores_plot_campaign_path(@campaign.slug))
         .campaign-nav__search
           = form_tag(programs_campaign_path(@campaign.slug), method: "get") do
             = text_field_tag(:courses_query, '', placeholder: "Search #{@campaign.title}")

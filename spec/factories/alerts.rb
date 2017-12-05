@@ -19,7 +19,7 @@
 #  resolved       :boolean          default(FALSE)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alert, class: 'ArticlesForDeletionAlert'
 
   factory :active_course_alert, class: 'ActiveCourseAlert'

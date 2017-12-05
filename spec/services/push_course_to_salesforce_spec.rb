@@ -4,9 +4,17 @@ require 'rails_helper'
 
 describe PushCourseToSalesforce do
   let(:course) { create(:course, flags: flags, expected_students: 51) }
+  let(:content_expert) { create(:admin) }
   let(:subject) { described_class.new(course) }
   let(:salesforce_id) { 'a2qQ0101015h4HF' }
   let(:week) { create(:week, course: course) }
+
+  before do
+    Setting.create(key: 'content_expert_salesforce_ids',
+                   value: { content_expert.username => 'abcdefg' })
+    JoinCourse.new(course: course, user: content_expert,
+                   role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+  end
 
   context 'when a course has a Salesforce record already' do
     let(:flags) { { salesforce_id: salesforce_id } }

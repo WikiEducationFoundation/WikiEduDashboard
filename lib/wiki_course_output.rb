@@ -94,8 +94,7 @@ class WikiCourseOutput
   def course_week(week, week_number)
     week_output = week_header(week, week_number)
 
-    ordered_blocks = week.blocks.order(:order)
-    ordered_blocks.each do |block|
+    week.blocks.each do |block|
       week_output += content_block(block)
     end
 
@@ -118,7 +117,7 @@ class WikiCourseOutput
                    'assignment|Assignment - ',
                    'assignment milestones|',
                    'assignment|'] # TODO: get the custom value
-    block_type = block_types[block.kind]
+    block_type = block_types[block.kind] || 'assignment|' # fallback
     block_output = "{{#{block_type}#{block.title}}}\r"
     block_output += Wikitext.html_to_mediawiki(block.content)
     block_output

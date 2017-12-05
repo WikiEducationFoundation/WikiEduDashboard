@@ -9,17 +9,11 @@
     "moment": "~2.10.3",
     "moment-recur": "~1.0.5",
     "trix": "~0.10.1",
-    "chosen": "~1.5.1",
-    "list.fuzzysearch.js": "~0.1.0",
-    "jfeed": "*",
     "jquery.uls": "https://github.com/mattfordham/jquery.uls.git"
   },
   "overrides": {
     "trix": {
       "main": "dist/trix.js"
-    },
-    "chosen": {
-      "main": "chosen.jquery.js"
     },
     "jquery.uls": {
       "main": [

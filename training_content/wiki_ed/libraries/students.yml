@@ -18,6 +18,9 @@ categories:
       - slug: evaluating-articles
         name: Evaluating Articles and Sources
         description: Advice for thinking critically about Wikipedia article quality
+      - slug: finding-your-article
+        name: Finding Your Article
+        description: How to find a good article to work on
   - title: Special topics
     description: |
       These modules are for special class projects.

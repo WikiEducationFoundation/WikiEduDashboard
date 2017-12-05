@@ -58,6 +58,8 @@ Rails.application.routes.draw do
         :as => :notify_untrained, constraints: { id: /.*/ }
     get 'courses/*id/needs_update' =>  'courses#needs_update',
         :as => :needs_update, constraints: { id: /.*/ }
+    get 'courses/*id/ores_plot' =>  'ores_plot#course_plot',
+        constraints: { id: /.*/ }
     get 'courses/*id/check' => 'courses#check',
         :as => :check, constraints: { id: /.*/ }
     match 'courses/*id/campaign' => 'courses#list',
@@ -142,6 +144,7 @@ Rails.application.routes.draw do
       get 'students'
       get 'instructors'
       get 'courses'
+      get 'ores_plot'
       get 'articles_csv'
       put 'add_organizer'
       put 'remove_organizer'

@@ -24,7 +24,7 @@
 #  features       :text(65535)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :revision do
     date '2014-12-17'
     characters 1

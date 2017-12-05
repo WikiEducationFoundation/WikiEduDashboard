@@ -1,4 +1,4 @@
-const List = window.List;
+const { List } = window;
 $(() => {
   // Find tables with rows with data-link attribute, then make them clickable
   $('tr[data-link]').on('click', e => {
@@ -43,7 +43,7 @@ $(() => {
   let articlesList;
   if ($('#campaign-articles table').length) {
     articlesList = new List('campaign-articles', {
-      page: 500,
+      page: 10000,
       valueNames: [
         'title', 'views', 'char_added', 'lang_project'
       ]

@@ -2,7 +2,11 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import OnClickOutside from 'react-onclickoutside';
+import _ from 'lodash';
+
 import { trunc } from '../../utils/strings';
+import Loading from './loading.jsx';
+import ArticleViewerLegend from './article_viewer_legend.jsx';
 
 const ArticleViewer = createReactClass({
   displayName: 'ArticleViewer',
@@ -10,14 +14,29 @@ const ArticleViewer = createReactClass({
   propTypes: {
     article: PropTypes.object.isRequired,
     showButtonLabel: PropTypes.string,
-    largeButton: PropTypes.bool,
-    users: PropTypes.array
+    showButtonClass: PropTypes.string,
+    users: PropTypes.array,
+    fetchArticleDetails: PropTypes.func.isRequired
   },
 
   getInitialState() {
     return {
       showArticle: false
     };
+  },
+
+  // When 'show' is clicked, this component may or may not already have
+  // users data (a list of usernames) in its props. If it does, then 'show' will
+  // fetch the MediaWiki user ids, which are used for coloration. Those can't be
+  // fetched until the usernames are available, so 'show' will fetch the usernames
+  // first in that case. In that case, componentWillReceiveProps fetches the
+  // user ids as soon as usernames are avaialable.
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.users && nextProps.users) {
+      if (!this.state.userIdsFetched) {
+        this.fetchUserIds(nextProps.users);
+      }
+    }
   },
 
   showButtonLabel() {
@@ -36,12 +55,13 @@ const ArticleViewer = createReactClass({
       this.fetchParsedArticle();
     }
 
-    // WhoColor is only available for English and Basque Wikipedia
-    if (!this.isWhocolorLang()) { return; }
-    if (!this.state.userIdsFetched) {
-      this.fetchUserIds();
+    if (!this.props.users) {
+      this.props.fetchArticleDetails();
+    } else if (!this.state.userIdsFetched) {
+      this.fetchUserIds(this.props.users);
     }
-    if (!this.state.whocolorFetched) {
+    // WhoColor is only available for some languages
+    if (!this.state.whocolorFetched && this.isWhocolorLang()) {
       this.fetchWhocolorHtml();
     }
   },
@@ -55,7 +75,7 @@ const ArticleViewer = createReactClass({
   },
 
   wikiUrl() {
-    return `https://${this.props.article.language}.${this.props.article.project}.org`;
+    return `https://${this.props.article.language || 'www'}.${this.props.article.project}.org`;
   },
 
   whocolorUrl() {
@@ -96,7 +116,9 @@ const ArticleViewer = createReactClass({
     'user-highlight-1', 'user-highlight-2', 'user-highlight-3', 'user-highlight-4',
     'user-highlight-5', 'user-highlight-6', 'user-highlight-7', 'user-highlight-8',
     'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12',
-    'user-highlight-13', 'user-highlight-14', 'user-highlight-15'
+    'user-highlight-13', 'user-highlight-14', 'user-highlight-15', 'user-highlight-16',
+    'user-highlight-17', 'user-highlight-18', 'user-highlight-19', 'user-highlight-20',
+    'user-highlight-21', 'user-highlight-22', 'user-highlight-23', 'user-highlight-24'
   ],
 
   // This takes the extended_html from the whoColor API, and replaces the span
@@ -154,111 +176,83 @@ const ArticleViewer = createReactClass({
     });
   },
 
-  wikiUserQueryUrl() {
-    const baseUrl = `https://${this.props.article.language}.${this.props.article.project}.org/w/api.php`;
-    const usersParam = this.props.users.join('|');
+  wikiUserQueryUrl(users) {
+    const baseUrl = `${this.wikiUrl()}/w/api.php`;
+    const usersParam = (users || this.props.users).join('|');
     return `${baseUrl}?action=query&list=users&format=json&ususers=${usersParam}`;
   },
 
   // These are mediawiki user ids, and don't necessarily match the dashboard
   // database user ids, so we must fetch them by username from the wiki.
-  fetchUserIds() {
+  fetchUserIds(users) {
     $.ajax({
       dataType: 'jsonp',
-      url: this.wikiUserQueryUrl(),
+      url: this.wikiUserQueryUrl(users),
       success: (json) => {
         this.setState({
           users: json.query.users,
-          usersIdsFetched: true
+          userIdsFetched: true
         });
       }
     });
   },
 
   render() {
-    let colorDataStatus;
-    if (!this.state.highlightedHtml) {
-      if (this.state.whocolorFailed) {
-        colorDataStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
-      } else {
-        colorDataStatus = (
-          <div>
-            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-            <div className="user-legend authorship-status">loading authorship data</div>
-            <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
+    if (!this.state.showArticle) {
+      return (
+        <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
+          <button onClick={this.showArticle} className="icon icon-article-viewer" />
+          <div className="tooltip tooltip-center dark large">
+            <p>{this.showButtonLabel()}</p>
           </div>
-        );
-      }
-    }
-
-    let colorLegend;
-    if (this.state.usersIdsFetched) {
-      const users = this.state.users.map((user, i) => {
-        return (
-          <div key={`legend-${user.name}`} className={`user-legend ${this.colors[i]}`}>
-            {user.name}
-          </div>
-        );
-      });
-      colorLegend = (
-        <div className="user-legend-wrap">
-          <div className="user-legend">Edits by: </div>
-          {users}
-          {colorDataStatus}
-        </div>
-      );
-    } else if (this.isWhocolorLang()) {
-      colorLegend = (
-        <div className="user-legend-wrap">
-          <div className="user-legend">Edits by: </div>
-          <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
         </div>
       );
     }
-
-    let button;
-    let showButtonStyle;
-    if (this.props.largeButton) {
-      showButtonStyle = 'button dark';
-    } else {
-      showButtonStyle = 'button dark small';
-    }
-
-    if (this.state.showArticle) {
-      button = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
-    } else {
-      button = <button onClick={this.showArticle} className={showButtonStyle}>{this.showButtonLabel()}</button>;
-    }
+    const closeButton = <button onClick={this.hideArticle} className="pull-right article-viewer-button icon-close" />;
 
     let style = 'hidden';
-    if (this.state.showArticle && this.state.fetched) {
+    if (this.state.showArticle) {
       style = '';
     }
     const className = `article-viewer ${style}`;
 
     let article;
-    if (this.state.diff === '') {
-      article = '<div />';
+    if (this.state.fetched) {
+      const articleHTML = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
+      article = <div className="parsed-article" dangerouslySetInnerHTML={{ __html: articleHTML }} />;
     } else {
-      article = this.state.highlightedHtml || this.state.whocolorHtml || this.state.parsedArticle;
+      article = <Loading />;
+    }
+
+    let legendStatus;
+    if (this.state.highlightedHtml) {
+      legendStatus = 'ready';
+    } else if (this.state.whocolorFailed) {
+      legendStatus = 'failed';
+    } else if (this.isWhocolorLang()) {
+      legendStatus = 'loading';
     }
 
     return (
       <div>
-        {button}
         <div className={className}>
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
-              {button}
+              {closeButton}
               <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
           </div>
           <div className="article-scrollbox">
-            <div className="parsed-article" dangerouslySetInnerHTML={{ __html: article }} />
+            {article}
           </div>
           <div className="article-footer">
-            {colorLegend}
+            <ArticleViewerLegend
+              article={this.props.article}
+              users={this.state.users}
+              colors={this.colors}
+              status={legendStatus}
+            />
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>

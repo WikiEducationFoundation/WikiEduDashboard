@@ -67,6 +67,8 @@ class Course < ActiveRecord::Base
            through: :courses_users, source: :user
   has_many :volunteers, -> { where('courses_users.role > 1') },
            through: :courses_users, source: :user
+  has_many :staff, -> { where('courses_users.role = 4') },
+           through: :courses_users, source: :user
   has_many :survey_notifications, dependent: :destroy
 
   #########################
@@ -223,6 +225,10 @@ class Course < ActiveRecord::Base
     campaigns.any?
   end
 
+  def tag?(query_tag)
+    tags.pluck(:tag).include? query_tag
+  end
+
   def training_modules
     @training_modules ||= TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
   end
@@ -231,6 +237,12 @@ class Course < ActiveRecord::Base
     @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
                                   .where.not('training_module_ids = ?', [].to_yaml)
                                   .collect(&:training_module_ids).flatten
+  end
+
+  # TODO: Replace this with a CoursesWikis join table to keep track of which
+  # wikis go with any given course.
+  def wiki_ids
+    ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
   end
 
   # The url for the on-wiki version of the course.
@@ -242,13 +254,12 @@ class Course < ActiveRecord::Base
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
 
-  def update(data={}, should_save=true)
-    self.attributes = data[:course]
-    save if should_save
-  end
-
   def new_articles
     articles_courses.live.new_article.joins(:article).where('articles.namespace = 0')
+  end
+
+  def new_articles_on(wiki)
+    new_articles.where("articles.wiki_id = #{wiki.id}")
   end
 
   def uploads_in_use

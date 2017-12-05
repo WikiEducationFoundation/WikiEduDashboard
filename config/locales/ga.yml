@@ -1,0 +1,364 @@
+# Messages for Irish (Gaeilge)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nmacu
+---
+ga:
+  accessibility:
+    number_field: Is réimse uimhreach í seo. Déanfaidh na cnaipí a léiríonn do bhrabhsálaí
+      an t-ionchar a ardú nó a ísliú.
+  application:
+    cancel: Cealaigh
+    dashboard: Deais Vicoideachas
+    documentation: Doiciméadú
+    error: 'Tharla earráid:'
+    explore: Taiscéal
+    field_required: Tá an réimse seo riachtanach
+    field_invalid_characters: Tá carachtair neamhbhailí ag an réimse seo
+    field_invalid_date: Tá dáta san fhormáid BBBB-MM-LL ag teastáil sa réimse seo
+    greeting2: Fáilte!
+    greeting_extended: Fáilte go dtí An Vicipéid
+    greeting: Haigh!
+    help: Cabhair
+    home: Baile
+    log_in_extended: Logáil isteach ón Vicipéid
+    log_in: Logáil isteach
+    log_out: Logáil amach
+    my_dashboard: Mo Deais
+    recent_activity: Gníomhaíochtaí le gairid
+    report_problem: Tuairiscigh fadhb
+    search: cuir ceist
+    sign_up_extended: Cláraigh le Vicipéid
+    sign_up_log_in_extended: leis An Vicipéid
+    sign_up: Cláraigh
+    submit: Cuir isteach
+    training: Traenáil
+    change: Athraigh
+    details: Sonraí
+    confirm: OK
+  dashboard:
+    create_note: Cliceáil ar Cruthaigh Cúrsa le do chéad chúrsa a chruthú
+    explore_course_pages: Breathnaigh ar Leathanaigh na gCúrsaí
+    explore_examples: Breathnaigh ar Shamplaí
+    about_programs: Déanann an suíomh seo gníomhartha vicí a leanúint trí Chláir -
+      imeachtaí aonaracha ar nós aonaigh eagarthóireachta nó cúrsaí scoile. Bíonn
+      gach Clár ina pháirt de ar a laghad Feachtas amháin. Is féidir staitisticí comhiomlána
+      maidir le Cláir a fháil ó Fheachtais.
+    about_creating_programs: Má tá imeacht aonarach, neamhspleách á reáchtáil agat,
+      is féidir leat Clár a chruthú anois. Má tá d'imeacht mar pháirt de rud níos
+      leithne, aimsigh nó cruthaigh Feachtas dhó. Is féidir Clár nua a chruthú ansin,
+      bunaithe ar an bhfeachtas
+  home:
+    explore: Taiscéal
+    log_in: Logáil isteach ón Vicipéid
+    sign_up: Cláraigh le Vicipéid
+  activity:
+    all: Gníomhaíocht
+    edited_by: Athraithe Ag
+    label: Gníomhaíocht
+  articles:
+    assigned: Ailt Bronnta
+    available: Ailt atá ar fáil
+    assigned_to: Bronnta Ar
+    deleted: (scriosta)
+    edited: Ailt Athraithe
+    edited_by: 'Athraithe ag:'
+    edited_mobile: Ailt
+    hide: Folaigh
+    label: Ailt
+    loading: Ailt ag lódáil...
+    new: (nua)
+    none: Níor athraigh an cúrsa seo alt ar bith
+    rating: Rang
+    title: Teideal
+    title_example: Teideal an ailt
+    view: Breathaigh ar Alt
+    view_all: Breathnaigh ar gach rud
+    wiki: Vicí
+  assignments:
+    remove: Bain
+    reviewers: Léirmheastóir(í)
+    review_other: Sann léirmheas
+    review_self: Déan léirmheas ar alt
+    select: Roghnaigh
+  blocks:
+    milestones:
+      title: Clochmhílte
+  campaign:
+    active_campaigns: Feachtais Reatha
+    add_organizer: Eagraí breise
+    all_campaigns: Gach feachtas
+    campaign: Feachtas
+    campaigns: Feachtais
+    campaign_deleted: Tá %{title} scriosta
+    campaign_not_updated: Ní fhéadfaí an feachtas a nuashonrú
+    campaign_updated: Feachtas nuashonraithe
+    create_campaign: Cruthaigh Feachtas Nua
+    create_my_campaign: Cruthaigh mo fheachtas!
+    description: Cur síos
+    delete_campaign: Scrios an Feachtas seo
+    none: Tada
+    organizers: Eagraithe
+    organizer_added: Is eagraí anois é %{user} ar an bhfeachtas %{title}
+    organizer_removed: Baineadh %{user} mar eagraí ar an bhfeachtas %{title}
+    program_template: Teimpléad an Chláir
+    title: Teideal
+    use_start_end_dates: Úsáid dátaí tosaithe agus deiridh
+  chat:
+    label: Comhrá
+  courses:
+    activity: Gníomhaíocht
+    active_courses: '%{course_type} gníomhach'
+    all_courses: Gach Cúrsa
+    archived: Cúrsaí curtha sa chartlann
+    actions: Gníomhartha
+    articles: Ailt
+    articles_none: Níor athraigh an cúrsa seo alt ar bith
+    assignment_end: Deireadh an Mheasúnaithe
+    assignments_none: Níl aon alt ceangailte leis an gcúrsa seo
+    assignment_start: Tús an mheasúnaithe
+    calendar:
+      legend: Eochair
+      legend_class_canceled: Saoire/Ar ceal
+      legend_class_meeting: Cruinniú Ranga
+      legend_class_not_meeting: Níl aon chruinniú sceidealaithe
+    cancel: Cealaigh
+    campaigns: 'Feachtais:'
+    campaign_courses: Cúrsaí %{title}
+    campaign_articles: Ailt %{title}
+    campaign_users: Eagarthóirí %{title}
+    course: Cúrsa
+    course_description: Cúrsaí
+    courses: Cúrsaí
+    courses_taught: Cúrsaí á Theagasc
+    creation_date: Dáta Cruthaithe
+    creator:
+      assignment_end: Deireadh an Mheasúnaithe
+      assignment_end_placeholder: Deireadh an Mheasúnaithe (BBBB-MM-LL)
+      assignment_start: Tús an Mheasúnaithe
+      assignment_start_placeholder: Tús an Mheasúnaithe (BBBB-MM-LL)
+      choose_clone: Roghnaigh cúrsa le clónáil
+      clone_previous: Clónáil an Cúrsa Roimhe seo
+      clone_this: Clónáil an Cúrsa seo
+      clone_successful: D'éirigh le Clónáil an Chúrsa
+      course_description: Cur síos ar an gcúrsa
+      course_language: Teanga baile
+      course_project: Tionscnamh baile
+      course_school: Scoil an chúrsa
+      course_subject: Ábhar an chúrsa
+      course_term: Téarma an chúrsa
+      course_term_placeholder: Téarma
+      course_title: Teideal an chúrsa
+      create_button: Cruthaigh mo chúrsa
+      create_label: Cruthaigh Cúrsa Nua
+      create_new: Cruthaigh Cúrsa Nua
+      create_short: Cruthaigh Cúrsa
+      end_date: Dáta deiridh
+      end_date_placeholder: Dáta deiridh (BBBB-MM-DD)
+      expected_number: Líon mac léinn tuartha
+      find: Aimsigh do chúrsa
+      start_date: Dáta tosaithe
+      start_date_placeholder: Dáta tosaithe (BBBB-MM-LL)
+      subject: Ábhar
+    current: Cúrsaí Reatha
+    data_articles: Sonraí na n-alt
+    data_download_info: Íoslódáil na sonraí i bhfoirm CSV
+    data_overview: Sonraí forléargais
+    data_edits: Sonraí na n-athruithe
+    data_students: Sonraí na n-eagarthóirí
+    delete_course: Scrios an cúrsa
+    delete_suggestion: Scrios
+    dismiss_survey: Ruaig
+    download_stats_data: Staitisticí Íoslódála
+    duration: Fad an chúrsa
+    edit_course_dates: Athraigh Dátaí an Chúrsa
+    enable_chat: Cumasaigh comhrá
+    end: Deireadh
+    ended: Tá an cúrsa thart
+    enroll: Cláraigh
+    enrollment: Clárúchán
+    courses_enrolled: Cúrsaí cláraithe
+    feedback: Aiseolas
+    instructors: Teagascóirí
+    join: Ceangal
+    join_course: Ceangal leis an gcúrsa
+    join_prompt: Ceangal le %{title}
+    join_successful: D'éirigh leat ceangal le %{title}
+    join_failed: Theip ar an gclárú
+    leave_course: Fág an cúrsa
+    loading: Ag lódáil...
+    my_articles: Mo chuid alt
+    none: Tada
+    overview: Baile
+    passcode: Paschód
+    passcode_none: Níl aon phaschód
+    school: Scoil
+    school_and_term: Institiúid/Téarma
+    start: Tosaigh
+    start_typing: Tosaigh ag clóscríobh
+    students: Mic Léinn
+    students_taught: Mic Léinn á Theagasc
+    students_count: '# Mic Léinn'
+    student_editors: Eagarthóirí (Mic Léinn)
+    students_none: Níl aon mhic léinn ag an gcúrsa
+    students_short: Mic Léinn
+    submitted_and_pending_heading: Seolta & Ag Fanacht ar Dheimhniú
+    submitted_heading: Cúrsaí Seolta
+    suggestions_sending: Ag seoladh aiseolais...
+    user_role: Ról
+    course_details: Sonraí an Chúrsa
+    subject: Ábhar
+    submitted: Seolta
+    term: Téarma
+    timeline: Sonraí an Mheasúnaithe
+    timeline_enabled: Amlíne cumasaithe
+    timeline_link: Amlíne
+    title: Teideal
+    yourcourses: Do Chúrsaí
+  courses_generic:
+    all_courses: Gach Clár
+    cancel: Cealaigh
+    course: Clár
+    courses: Cláir
+    courses_taught: Cláir á Theagasc
+    campaigns: 'Feachtais:'
+    campaign_courses: 'Cláir: %{title}'
+    creator:
+      clone_this: Clónáil an Clár
+      clone_successful: D'éirigh le Clónáil an Chláir
+      course_description: Cur síos ar an gclár
+      course_school: Institiúid
+      course_term: Cathain
+      course_term_placeholder: Cathain
+      course_title: Teideal an chláir
+      create_button: Cruthaigh mo Chlár!
+      create_label: Cruthaigh Clár Nua
+      create_new: Cruthaigh Clár Neamhspleách
+      create_short: Cruthaigh Clár
+      find: Aimsigh Clár
+      participate_in_campaign: Glac Páirt i bhFeachtas
+      save_cloned_course: Sábháil
+    delete_course: Scrios an clár
+    edit_course_dates: Cuir Dátaí an Tionscnaimh in Eagar
+    explore: Aimsigh Cláir
+    enroll: Cuir Eagarthóir leis
+    enrollment: Rannpháirtíocht
+    courses_enrolled: Cláir a glacadh páirt iontu
+    instructors: Áisitheoirí
+    join_course: Cláraigh leis an gclár
+    leave_course: Fág an clár
+    school: Institiúid
+    school_and_term: Institiúid/Cathain
+    student_editors: Eagarthóirí
+    students: Eagarthóirí
+    students_taught: Iomlán na n-Eagarthóirí
+    students_none: Níl aon eagarthóirí cláraithe leis an tionsnamh seo
+    students_short: Eagarthóirí
+    students_count: Líon rannpháirtithe
+    term: Cathain
+    unsubmitted: Cláir Neamhsheolta
+    view_page: Breathnaigh ar Lch an Chláir
+    yourcourses: Do chuid cláir
+  editable:
+    edit: Athraigh
+    cancel: Cealaigh
+    save: Sábháil
+    edit_description: Athraigh an Cur Síos
+    edit_details: Athraigh na Sonraí
+    edit_template: Athraigh an Teimpléad
+  metrics:
+    activity: Gníomhaíochtaí le gairid
+    articles_created: Ailt Cruthaithe
+    articles_edited: Ailt Athraithe
+    characters: Carachtair
+    char_added: Carachtair Curtha Leis
+    char_changed: Carachtair Athraithe
+    char: Carachtair Curtha Leis
+    date_time: Dáta/Am
+    edit_count_description: Athruithe Iomlán
+    per_user: '%{number}/úsáideoir'
+    revisions: Athruithe le Gairid
+    tags: Clibeanna
+    upload_count: Uaslódálacha don 'Commons'
+    view_count_description: Amhairc ar Ailt
+    view: Amhairc
+    word_count: Focail Curtha Leis
+    word_count_average: Líon Focal Meánach
+  namespace:
+    main: Príomhspás
+    main_char_added: Carachtair curtha leis an bpríomhspás
+    user: Spás an úsáideora
+    user_char_added: Carachtair curtha le spás an úsáideora
+    user_ns: Úsáideoir
+  recent_activity:
+    active_courses: Alt atá gníomhach i
+    article_title: Teideal an ailt
+    datetime: Dáta/Am
+    image: Íomhá
+    file_name: Ainm an Chomhaid
+    recent_edits: Athuithe is déanaí
+    recent_uploads: Uaslódálacha is déanaí
+  revisions:
+    class: Rang
+    date_time: Dáta/Am
+    diff: difr
+    diff_show: Taispeáin
+    diff_hide: Folaigh
+    edited_by: Athraithe Ag
+    edited_on: Athraithe ar %{edit_date}
+    loading: Ag lódáil athbhreithnithe...
+    title: Teideal
+  timeline:
+    title: Amlíne
+    week_number: Seachtain %{number}
+  training:
+    start: Tosaigh
+    view: Amharc
+  uploads:
+    datetime: Dáta/Am
+    file_name: Ainm an Chomhaid
+    image: Íomhá
+    label: Uaslódálacha
+    loading: Ag lódáil uaslódálacha...
+    uploaded_by: Uaslódáilte Ag
+  users:
+    assign_articles_done: Déanta
+    course_passcode: 'Paschód:'
+    editors: Eagarthóirí
+    first_name: Forainm
+    last_name: Sloinne
+    loading: Ag lódáil úsáideoirí...
+    name: Ainm
+    none: Níl aon rannpháirtithe ann.
+    recent_revisions: Athuithe is déanaí
+    reviewers: Athbhreithneoir(í)
+    reviewing: Ag athbhreithniú
+    training_module_status: Stádas
+    username: Ainm úsáideora
+    username_placeholder: Ainm úsáideora
+    role:
+      description: Ról sa chúrsa
+      visitor: Cuairteoir
+      student: Mac Léinn
+      instructor: Teagascóir
+  wizard:
+    read_less: Léigh Níos Lú
+    read_more: Léigh Níos Mó
+    summary: Achoimre
+  error:
+    unsupported_browser:
+      header: Easpa tacaíochta don bhrabhsálaí.   :-(
+  error_401:
+    header: Neamhúdaraithe. >:-(
+  error_incorrect_passcode:
+    header: Paschód mícheart. :-(
+  error_404:
+    header: Níor aimsíodh an lch. :-(
+  login_error:
+    header: Earráid leis an logáil isteach
+  survey:
+    email:
+      headline: Haigh, %{username}
+      course: 'Cúrsa: %{course_info}'
+      closing: Le meas,
+...

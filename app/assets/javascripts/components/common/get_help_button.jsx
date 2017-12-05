@@ -177,7 +177,7 @@ const GetHelpButton = createReactClass({
         <div className="get-help-submitted">
           <p className="text-center"><strong>Message sent!</strong></p>
           <p>
-            We'll get back to you within 1 business day. Be sure to check your email for a response.
+            We&apos;ll get back to you within 1 business day. Be sure to check your email for a response.
           </p>
           <a href="#" className="button" onClick={this.reset}>Ok</a>
         </div>
@@ -202,11 +202,11 @@ const GetHelpButton = createReactClass({
     } else {
       if (this.props.currentUser.role > 0) {
         faqLink = (
-          <a className="button dark stacked" href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
+          <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:instructorfaq/page:1/" target="blank">Instructor FAQ</a>
         );
       } else {
         faqLink = (
-          <a className="button dark stacked" href="http://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">Student FAQ</a>
+          <a className="button dark stacked" href="https://ask.wikiedu.org/questions/scope:all/sort:activity-desc/tags:studentfaq/page:1/" target="blank">Student FAQ</a>
         );
       }
 
@@ -214,7 +214,7 @@ const GetHelpButton = createReactClass({
         <div className="get-help-info">
           <p>
             <strong>
-              Hi! if you need help with your Wikipedia assignment, you've come
+              Hi! if you need help with your Wikipedia assignment, you&apos;ve come
               to the right place!
             </strong>
           </p>

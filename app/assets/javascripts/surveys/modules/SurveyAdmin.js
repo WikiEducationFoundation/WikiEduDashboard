@@ -3,6 +3,7 @@ import 'jquery-ui/ui/widgets/tabs';
 import autosize from 'autosize';
 import striptags from 'striptags';
 import Utils from './SurveyUtils.js';
+require('chosen-js');
 
 const markdown = require('../../utils/markdown_it.js').default();
 const CONDITIONAL_ANSWERS_CHANGED = 'ConditionalAnswersChanged';
@@ -244,8 +245,7 @@ const SurveyAdmin = {
       conditionalString += `${this.$conditional_operator_select.val()}|`;
       conditionalString += e.target.value;
       return this.$conditional_input_field.val(conditionalString);
-    }
-    );
+    });
   },
 
   multipleChoiceConditional(question) {
@@ -257,8 +257,7 @@ const SurveyAdmin = {
     answers.map((answer) => {
       const answerValue = answer.trim();
       return this.$conditional_value_select.append(`<option value='${this.sanitizeAnswerValue(answerValue)}'>${answerValue}</option>`);
-    }
-    );
+    });
     this.$conditional_value_select.removeClass('hidden');
     return this.$document.trigger(CONDITIONAL_ANSWERS_CHANGED);
   },
@@ -266,7 +265,7 @@ const SurveyAdmin = {
   sanitizeAnswerValue(string) {
     return striptags(string).replace('\'', '&#39;').replace('"', '&#34;').split(' ').join('_');
   },
-    // string.replace('\'', '&#39;').replace('\"', '&#34;')
+  // string.replace('\'', '&#39;').replace('\"', '&#34;')
 
 
   handleConditionalAnswerSelect({ target }) {
@@ -298,8 +297,7 @@ const SurveyAdmin = {
           // eslint-disable-next-line camelcase
           return $row.find('select').val(`${question_id}`).trigger('change');
       }
-    }
-    );
+    });
   },
 
   addPresenceConditional() {
@@ -333,9 +331,6 @@ const SurveyAdmin = {
   initSearchableList() {
     const options = {
       valueNames: ['name', 'status', 'author'],
-      plugins: [
-        ListFuzzySearch() // eslint-disable-line no-undef
-      ]
     };
     const listObj = new List('searchable-list', options); // eslint-disable-line no-undef
     return listObj;

@@ -68,6 +68,7 @@ ko:
     assigned: 할당된 문서
     available: 이용 가능한 글
     assigned_to: 할당됨
+    deleted: (삭제됨)
     edited: 문서 편집됨
     edited_by: '편집자:'
     edited_mobile: 문서
@@ -92,6 +93,7 @@ ko:
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
+    tools: 평가 도구
     view: 문서 보기
     view_all: 모두 보기
     view_on_wiki: 위키에서 보기
@@ -197,6 +199,7 @@ ko:
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
     no_available_actions: 취할 수 있는 행동 없음
+    ores_plot: ORES
     overview: 홈
     passcode: 패스코드
     passcode_none: 비밀코드 없음
@@ -281,6 +284,8 @@ ko:
     edit_details: 자세한 사항 편집
     edit_template: 틀 편집
   metrics:
+    are_updated: 최근 시스템 업데이트에 따르면
+    last_update: 최근 업데이트
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨

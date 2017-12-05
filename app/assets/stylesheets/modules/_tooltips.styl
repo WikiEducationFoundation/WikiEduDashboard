@@ -32,6 +32,11 @@
     transition opacity .2s linear, top .2s linear
     white-space normal
     z-index 4
+    &.tooltip-center
+      left -145%
+      min-width 200px !important
+      &:before
+        margin-left 36% !important
     &.large
       min-width 320px
       p
@@ -58,6 +63,7 @@
       display block
       margin-left -6px
       position absolute
+
     h4
       color dove
     p

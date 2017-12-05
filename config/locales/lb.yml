@@ -50,6 +50,7 @@ lb:
   articles:
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
+    deleted: (geläscht)
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
@@ -186,6 +187,7 @@ lb:
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
     no_available_actions: Keng disponibel Aktiounen
+    ores_plot: ORES
     overview: Haaptsäit
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
@@ -261,6 +263,7 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
+    last_update: Lescht Aktualisatioun
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
     characters: Buschtawen

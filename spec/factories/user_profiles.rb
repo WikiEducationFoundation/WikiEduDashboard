@@ -15,7 +15,7 @@
 #  institution        :string(255)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user_profile do
   end
 end

@@ -120,6 +120,7 @@ describe 'New course creation and editing', type: :feature do
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do
+      allow_any_instance_of(User).to receive(:returning_instructor?).and_return(true)
       click_link 'Create Course'
 
       expect(page).to have_content 'Create a New Course'
@@ -171,29 +172,30 @@ describe 'New course creation and editing', type: :feature do
       go_through_course_dates_and_timeline_dates
 
       # This is the assignment type chooser
-      # pick and choose
-      page.all('.wizard__option')[1].first('button').click
+      # Translation assignment
+      page.all('.wizard__option')[2].first('button').click
       sleep 1
       click_button 'Next'
       sleep 1
-      # pick 2 types of assignments
-      page.all('div.wizard__option__checkbox')[1].click
-      page.all('div.wizard__option__checkbox')[3].click
+      click_button 'Yes, training will be graded.'
       click_button 'Next'
 
-      # Group work or individual work
+      # Choosing articles
       sleep 1
-      click_button 'Individually'
+      page.all('div.wizard__option')[0].click # Instructor prepares list
+      click_button 'Next'
+
+      # Optional assignment
+      sleep 1
+      click_button 'Do not include fact-checking assignment'
       click_button 'Next'
 
       # on the summary
       sleep 1
-      # go back to the pick and choose and choose different assignments
+      # go back and change a choice
       page.all('button.wizard__option.summary')[2].click
       sleep 1
-      page.all('div.wizard__option__checkbox')[3].click
-      page.all('div.wizard__option__checkbox')[2].click
-      page.all('div.wizard__option__checkbox')[4].click
+      click_button 'No, training will not be graded.'
       sleep 1
       click_button 'Summary'
       sleep 1
@@ -224,7 +226,7 @@ describe 'New course creation and editing', type: :feature do
       find('.week-1').hover
       sleep 0.5
       within('.week-1') do
-        omniclick find('.block__edit-block')
+        omniclick all('.block__edit-block').first
         find('p.graded input[type=checkbox]').set(true)
         sleep 1
         click_button 'Save'

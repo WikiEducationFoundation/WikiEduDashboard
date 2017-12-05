@@ -6,7 +6,6 @@ require "#{Rails.root}/lib/importers/assigned_article_importer"
 require "#{Rails.root}/lib/articles_courses_cleaner"
 require "#{Rails.root}/lib/importers/rating_importer"
 require "#{Rails.root}/lib/article_status_manager"
-require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/upload_importer"
 require "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
 
@@ -17,25 +16,19 @@ class DailyUpdate
   def initialize
     setup_logger
     return if updates_paused?
-    return if daily_update_running?
-    wait_until_constant_update_finishes if constant_update_running?
+    return if update_running?(:daily)
+    wait_until_constant_update_finishes if update_running?(:constant)
 
-    begin
-      create_pid_file
-      run_update
-    ensure
-      delete_pid_file
-    end
+    run_update_with_pid_files(:daily)
   end
 
   private
 
   def run_update
-    log_start_of_update
+    log_start_of_update 'Daily update tasks are beginning.'
     update_users
     update_commons_uploads
     update_article_data
-    update_article_views unless ENV['no_views'] == 'true'
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -85,11 +78,6 @@ class DailyUpdate
     OresScoresBeforeAndAfterImporter.import_all
   end
 
-  def update_article_views
-    log_message 'Updating article views'
-    ViewImporter.update_all_views(true)
-  end
-
   ###############
   # Data export #
   ###############
@@ -108,27 +96,14 @@ class DailyUpdate
     sleep_time = 0
     log_message 'Delaying daily until current update finishes...'
     begin
-      File.open(SLEEP_FILE, 'w') { |f| f.puts Process.pid }
-      while constant_update_running?
+      create_pid_file(:sleep)
+      while update_running?(:constant)
         sleep_time += 5
         sleep(5.minutes)
       end
       log_message "Starting daily update after waiting #{sleep_time} minutes"
     ensure
-      File.delete SLEEP_FILE if File.exist? SLEEP_FILE
+      delete_pid_file(:sleep)
     end
-  end
-
-  def create_pid_file
-    File.open(DAILY_UPDATE_PID_FILE, 'w') { |f| f.puts Process.pid }
-  end
-
-  def delete_pid_file
-    File.delete DAILY_UPDATE_PID_FILE if File.exist? DAILY_UPDATE_PID_FILE
-  end
-
-  def log_start_of_update
-    @start_time = Time.zone.now
-    Rails.logger.info 'Daily update tasks are beginning.'
   end
 end

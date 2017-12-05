@@ -1,0 +1,44 @@
+id: 328
+title_prefix: "Dashboard:"
+title: Articles tab
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Articles_tab_of_Wiki_Education_Dashboard.png" />
+  </figure>
+
+  The **Articles** tab has three sections with information about your students'
+  activity on Wikipedia
+
+  ## Articles Edited ##
+
+  This table shows every live Wikipedia article your students have worked on,
+  along with how much content they added and how many page views the article has
+  had since students started editing.
+
+  You can click on an individual article's row to see more details, including:
+
+  * Cumulative Changes: the "diff viewer," a tool summarizing all changes to the
+  article from the students' first edit to their last
+  * Current Version: the latest version of the article, with highlighting of
+  which parts were added by which students
+  * Article Development: a graph of the article's "Structural Completeness" over
+  time
+  * all students who worked on this article
+
+  ## Assigned Articles ##
+
+  This table shows which student(s) are working on and reviewing which
+  article(s). You can use this to make sure every article has reviewers, and to
+  see which students are collaborating on the same article.
+
+  Each assigned article also has a "feedback" button that predicts the
+  article's new rating (based on Wikipedia's rating scale) and allows you and
+  Wiki Education staff to send suggestions about the article. Students can click
+  this button or visit the Home tab to see any suggestions that others have left.
+
+  ## Available Articles ##
+
+  This table gives you the option of creating a list of good topics for students
+  to work on. When a student chooses one of the Available Articles, it is
+  removed from the list, so students won't accidentally duplicate work.

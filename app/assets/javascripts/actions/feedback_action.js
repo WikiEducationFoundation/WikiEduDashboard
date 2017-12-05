@@ -25,7 +25,9 @@ export function postUserFeedback(assignmentId, feedback, userId) {
   return function (dispatch) {
     return API.createCustomFeedback(assignmentId, feedback, userId)
       .then((resp) => {
-        dispatch({ type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId });
+        dispatch({
+          type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId
+        });
       })
       // TODO: The Flux stores still handle API failures, so we delegate to a
       // Flux action. Once all API_FAIL actions can be handled by Redux, we can
@@ -38,7 +40,9 @@ export function deleteUserFeedback(assignmentId, messageId, arrayId) {
   return function (dispatch) {
     return API.destroyCustomFeedback(assignmentId, messageId)
       .then((resp) => {
-        dispatch({ type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId });
+        dispatch({
+          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId
+        });
       })
       .catch(response => (ApiFailAction.fail(response)));
   };

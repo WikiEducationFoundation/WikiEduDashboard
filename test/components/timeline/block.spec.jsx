@@ -1,17 +1,15 @@
 import '../../testHelper';
 
 import React from 'react';
-import createReactClass from 'create-react-class';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import ShallowTestUtils from 'react-test-renderer/shallow';
 import Block from '../../../app/assets/javascripts/components/timeline/block.jsx';
 
-Block.__Rewire__('TextAreaInput', createReactClass({
-  render() {
-    return <div />;
-  }
-}));
+Block.__Rewire__(
+  'TextAreaInput',
+  () => <div />
+);
 
 const createBlock = (opts) => {
   const noOp = () => {};

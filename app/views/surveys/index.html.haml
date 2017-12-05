@@ -1,10 +1,7 @@
 = render 'admin_header'
 .container.survey__edit
   - if @surveys.length > 0
-    #searchable-list
-      .list-search__form
-        %input.fuzzy-search{placeholder: 'Search Surveys'}
-      %ul.list= render partial: "survey", collection: @surveys
+    %ul.list= render partial: "survey", collection: @surveys
   - else
     %p.light-text
       No Surveys. #{link_to "Create One", new_survey_path}

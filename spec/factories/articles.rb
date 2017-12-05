@@ -20,7 +20,7 @@
 #  mw_page_id               :integer
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :article do
     title 'History_of_biology'
     namespace 0

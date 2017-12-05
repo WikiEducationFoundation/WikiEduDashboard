@@ -125,6 +125,7 @@ en:
       Mainspace pages edited between the start and end dates are listed below.
       The dashboard pulls in contributions from the home wiki of this program, along
       with any other wikis for which there is an Assignment or an Available Article.
+    deleted: (deleted)
     edited: Articles Edited
     edited_by: 'Edited by:'
     edited_mobile: Articles
@@ -152,6 +153,7 @@ en:
     show_current_version_with_authorship_highlighting: 'Current Version w/ Authorship Highlighting'
     title: Title
     title_example: Article title
+    tools: Assessment tools
     view: View Article
     view_all: View All
     view_doc: The sum of all views to each article during the project
@@ -285,7 +287,7 @@ en:
         holiday state. If you have no holidays, check "I have no class holidays".
         The cloned timeline will automatically adjust the dates to account for
         weeks that have no scheduled meetings.
-      clone_successful: Course Successfully Cloned
+      clone_successful: Update Details for Cloned Course
       clone_successful_details: >
         Your course has been cloned, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
@@ -410,6 +412,7 @@ en:
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
     no_available_actions: No available actions
+    ores_plot: ORES
     overview: Home
     passcode: Passcode
     passcode_none: No passcode
@@ -846,7 +849,7 @@ en:
       the assignment start date to one week after the course's start date. This
       assignment design tool will create a draft timeline that fits within the
       timeline dates you choose.
-    assignment_type: Assignment Type
+    assignment_type: What will students complete for their Wikipedia assignment?
     calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
       school). This helps the course creation tool accurately space out your

@@ -8,7 +8,6 @@ require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
-require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
 require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Controller for analytics tools
@@ -50,7 +49,7 @@ class AnalyticsController < ApplicationController
   end
 
   def course_csv
-    send_data CourseCsvBuilder.new(@course).generate_csv,
+    send_data CourseCsvBuilder.new(@course, per_wiki: true).generate_csv,
               filename: "#{@course.slug}-#{Time.zone.today}.csv"
   end
 
@@ -108,11 +107,11 @@ class AnalyticsController < ApplicationController
     @campaign = Campaign.find(params[:campaign][:id])
     @minimum_bytes = params[:minimum_bytes].to_i
     @minimum_improvement = params[:minimum_improvement].to_f unless params[:minimum_improvement].blank?
-    plotter = HistogramPlotter.new(campaign: @campaign)
-    @ores_changes_plot = plotter.major_edits_plot(minimum_bytes: @minimum_bytes,
-                                                  existing_only: params[:existing_only],
-                                                  minimum_improvement: @minimum_improvement,
-                                                  type: params[:graph_type])
+    @ores_changes_plot = HistogramPlotter.plot(campaign: @campaign, opts:
+      { minimum_bytes: @minimum_bytes,
+        existing_only: params[:existing_only],
+        minimum_improvement: @minimum_improvement,
+        type: params[:graph_type] })
   end
 
   private

@@ -7,7 +7,21 @@ roa-tara:
   application:
     cancel: Annulle
     dashboard: Wiki Ed Dashboard
+    documentation: Documendazione
+    error: 'Ha assute ''n''errore:'
+    explore: Esplore
+    field_required: Stu cambe jè richieste
+    field_invalid_characters: Stu cambe tène carattere non valide
+    greeting2: Bovègne!
+    greeting_extended: Bovègne sus a Uicchipèdie
+    greeting: Cià
+    help: Aijute
+    home: Pàgena Prengepàle
+    log_in_extended: Tràse cu Uicchipèdie
+    log_in: Tràse
+    log_out: Isse
     search: Fà 'na domande
+    confirm: OK
   dashboard:
     review_orientation: Oriendamende d'a reviste
   activity:

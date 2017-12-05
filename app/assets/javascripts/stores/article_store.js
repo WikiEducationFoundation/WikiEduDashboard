@@ -7,7 +7,6 @@ const ArticleStore = new StockStore({
     view_count: true
   },
   modelKey: 'article'
-}
-);
+});
 
 export default ArticleStore.store;

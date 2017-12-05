@@ -1,6 +1,7 @@
 // General purpose store covering typical use cases for several of our models
 import McFly from 'mcfly';
 const Flux = new McFly();
+import _ from 'lodash';
 
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
@@ -12,83 +13,83 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
     _.assign({
       id: Date.now(), // could THEORETICALLY collide but highly unlikely
       is_new: true // remove ids from objects with is_new when persisting
-    }, defaultModel)
-  ;
-
-  return Flux.createStore({
-    getFiltered(options) {
-      const filteredModels = [];
-      const iterable = this.getModels();
-      for (let i = 0; i < iterable.length; i++) {
-        const model = iterable[i];
-        let add = true;
-        const iterable1 = Object.keys(options);
-        for (let j = 0; j < iterable1.length; j++) {
-          const criterion = iterable1[j];
-          add = add && model[criterion] === options[criterion] && !model.deleted;
+    }, defaultModel);
+  return Flux.createStore(
+    {
+      getFiltered(options) {
+        const filteredModels = [];
+        const iterable = this.getModels();
+        for (let i = 0; i < iterable.length; i++) {
+          const model = iterable[i];
+          let add = true;
+          const iterable1 = Object.keys(options);
+          for (let j = 0; j < iterable1.length; j++) {
+            const criterion = iterable1[j];
+            add = add && model[criterion] === options[criterion] && !model.deleted;
+          }
+          if (add) { filteredModels.push(model); }
         }
-        if (add) { filteredModels.push(model); }
-      }
-      return filteredModels;
-    },
+        return filteredModels;
+      },
 
-    clear() {
-      helper.models = {};
-      return this.emitChange();
-    },
+      clear() {
+        helper.models = {};
+        return this.emitChange();
+      },
 
-    getModels() {
-      const modelList = [];
-      const iterable = Object.keys(helper.models);
-      for (let i = 0; i < iterable.length; i++) {
-        const modelId = iterable[i];
-        modelList.push(helper.models[modelId]);
+      getModels() {
+        const modelList = [];
+        const iterable = Object.keys(helper.models);
+        for (let i = 0; i < iterable.length; i++) {
+          const modelId = iterable[i];
+          modelList.push(helper.models[modelId]);
+        }
+        let sorted = _.sortBy(modelList, helper.sortKey);
+        if (!helper.sortAsc) { sorted = _(sorted).reverse().value(); }
+        return sorted;
+      },
+      getSorting() {
+        return {
+          key: helper.sortKey,
+          asc: helper.sortAsc
+        };
+      },
+      isLoaded() {
+        return helper.isLoaded();
+      },
+      restore() {
+        helper.models = $.extend(true, {}, helper.persisted);
+        return this.emitChange();
       }
-      let sorted = _.sortBy(modelList, helper.sortKey);
-      if (!helper.sortAsc) { sorted = _(sorted).reverse().value(); }
-      return sorted;
-    },
-    getSorting() {
-      return {
-        key: helper.sortKey,
-        asc: helper.sortAsc
-      };
-    },
-    isLoaded() {
-      return helper.isLoaded();
-    },
-    restore() {
-      helper.models = $.extend(true, {}, helper.persisted);
-      return this.emitChange();
     }
-  }
-  , (payload) => {
-    const { data } = payload;
-    switch (payload.actionType) {
-      case `RECEIVE_${pluralModelKey.toUpperCase()}`:
-      case `${modelKey.toUpperCase()}_MODIFIED`:
-        helper.setModels(data.course[pluralModelKey], true);
-        break;
-      case `SORT_${pluralModelKey.toUpperCase()}`:
-        helper.sortByKey(data.key);
-        break;
-      case `ADD_${modelKey.toUpperCase()}`:
-        helper.setModel(_.assign(data, baseModel()));
-        break;
-      case `UPDATE_${modelKey.toUpperCase()}`:
-        helper.setModel(data[modelKey]);
-        break;
-      case `DELETE_${modelKey.toUpperCase()}`:
-        helper.removeModel(data.model);
-        break;
-      default:
+    , (payload) => {
+      const { data } = payload;
+      switch (payload.actionType) {
+        case `RECEIVE_${pluralModelKey.toUpperCase()}`:
+        case `${modelKey.toUpperCase()}_MODIFIED`:
+          helper.setModels(data.course[pluralModelKey], true);
+          break;
+        case `SORT_${pluralModelKey.toUpperCase()}`:
+          helper.sortByKey(data.key);
+          break;
+        case `ADD_${modelKey.toUpperCase()}`:
+          helper.setModel(_.assign(data, baseModel()));
+          break;
+        case `UPDATE_${modelKey.toUpperCase()}`:
+          helper.setModel(data[modelKey]);
+          break;
+        case `DELETE_${modelKey.toUpperCase()}`:
+          helper.removeModel(data.model);
+          break;
+        default:
         // no default
+      }
+      if (triggers && __in__(payload.actionType, triggers)) {
+        helper.setModels(data.course[pluralModelKey], true);
+      }
+      return true;
     }
-    if (triggers && __in__(payload.actionType, triggers)) {
-      helper.setModels(data.course[pluralModelKey], true);
-    }
-    return true;
-  });
+  );
 };
 
 class Store {
@@ -106,8 +107,7 @@ class Store {
 
   // Utilities
   getKey(model) {
-    return this.uniqueKeys.map(key => model[key]
-    ).join();
+    return this.uniqueKeys.map(key => model[key]).join();
   }
 
   setModels(data, persisted = false) {

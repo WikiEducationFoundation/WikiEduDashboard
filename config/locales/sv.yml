@@ -173,6 +173,7 @@ sv:
     nocourse: har inte deltagit i några kurser.
     none: Ingen
     no_available_actions: Inga tillgängliga åtgärder
+    ores_plot: ORES
     overview: Hem
     passcode_none: Inget lösenord
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
@@ -251,6 +252,9 @@ sv:
     edit_details: Redigera detaljer
     edit_template: Redigera mall
   metrics:
+    label: Kursaktivitet
+    are_updated: Enligt den senaste systemuppgraderingen
+    last_update: Senast uppdaterad
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
     articles_edited: Redigerade artiklar

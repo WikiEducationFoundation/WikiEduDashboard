@@ -1,9 +1,11 @@
 # Messages for Urdu (اردو)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BukhariSaeed
 # Author: Hindustanilanguage
 # Author: Muhammad Shuaib
 # Author: Obaid Raza
+# Author: Zainab Meher
 # Author: امین اکبر
 ---
 ur:
@@ -56,6 +58,10 @@ ur:
     features_feedback: 'خودکار سجھاؤ:'
     my_articles: میرے مضامین
     user_suggestions: 'صارف کے سجھاؤ:'
+  metrics:
+    label: دستہ سرگرمی
+  uploads:
+    label: اپلوڈ کردہ
   users:
     my_assigned: تفویض کردہ
 ...

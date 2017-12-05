@@ -15,7 +15,7 @@ class WizardController < ApplicationController
     content_path = "#{Rails.root}/config/wizard/wizard_index.yml"
     all_content = YAML.safe_load(File.read(File.expand_path(content_path, __FILE__)))
     if current_user&.returning_instructor?
-      extra_content_path = "#{Rails.root}/config/wizard/empty_timeline_option.yml"
+      extra_content_path = "#{Rails.root}/config/wizard/extra_timeline_options.yml"
       extra_options = YAML.safe_load(File.read(File.expand_path(extra_content_path, __FILE__)))
       all_content += extra_options
     end

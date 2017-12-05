@@ -8,7 +8,9 @@ $(() => {
     // making the navbar stick when scrolled
     $(window).scroll(() => {
       if ($(window).scrollTop() >= stickyHeaderTop) {
-        $('#userprofile_navbar').css({ position: 'fixed', top: '50px', 'z-index': 1, width: '100%', right: 0 });
+        $('#userprofile_navbar').css({
+          position: 'fixed', top: '50px', 'z-index': 1, width: '100%', right: 0
+        });
         $('#highlight').css({ display: 'unset' });
       }
       else {

@@ -87,6 +87,7 @@ de:
       Enddatum bearbeitet wurden, werden unten aufgelistet. Die Verwaltungsseite bezieht
       Beiträge vom Heimatwiki dieses Programms ein, zusammen mit anderen Wikis, für
       die es eine „Zuweisung“ oder einen „Verfügbaren Artikel“ gibt.
+    deleted: (gelöscht)
     edited: Bearbeitete Artikel
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
@@ -120,6 +121,7 @@ de:
     show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
     title: Titel
     title_example: Artikelname
+    tools: Bewertungswerkzeuge
     view: Artikel anzeigen
     view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
@@ -391,6 +393,7 @@ de:
       aller Studenten, die mit der Vervollständigung der zugewiesenen Ausbildungsmodule
       überfällig sind. Bist du sicher, dass du dies tun möchtest?
     no_available_actions: Keine verfügbaren Aktionen
+    ores_plot: ORES
     overview: Start
     passcode: Passcode
     passcode_none: Kein Passcode
@@ -565,6 +568,9 @@ de:
       Vorgang ändert die URL und zerstört Rückverweise. Bist du sicher, dass du dies
       tun möchtest?
   metrics:
+    label: Kursaktivität
+    are_updated: Übereinstimmend mit der letzten Systemaktualisierung
+    last_update: Letzte Aktualisierung
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
@@ -848,7 +854,7 @@ de:
       möchtest, setze das Zuweisungsstartdatum auf eine Woche nach dem Kursstartdatum.
       Dieses Zuweisungsgestaltungswerkzeug erstellt eine Entwurfszeitleiste, die sich
       den ausgewählten Zeitleistendaten anpasst.
-    assignment_type: Zuweisungstyp
+    assignment_type: Was werden Studenten für ihre Wikipedia-Zuweisung vervollständigen?
     calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen oder zu
       entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Dies hilft dem Kurserstellungswerkzeug,
       deine Zuweisungen genau zu verteilen. Klicke das Datum an, um zwischen unausgewählt,

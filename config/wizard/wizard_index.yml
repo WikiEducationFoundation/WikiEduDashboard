@@ -6,95 +6,15 @@
 
 -
   key: researchwrite
-  title: Create or expand an article
+  title:  Research and write content in a new or existing Wikipedia article.
   min_weeks: 6
-  blurb: |
-    Students work individually or in small teams to create or expand articles.
-
-    ----
-    Minimum timeline: *6 weeks*
-    Recommended timeline: *12 weeks*
-
-    Best for:
-    — Classes with fewer than 30 students
-    — Advanced undergraduates or grad students
-
-    Not recommended for:
-    — Large survey classes
-    — Intro (100-level) classes
-
-    ----
-    **Choose this option if you plan to have students make significant additions to articles. You will be able to select small preliminary assignments to introduce your students to Wikipedia editing.**
-  description: |
-    Meets these learning objectives:
-    — Master course content
-    — Writing skills development
-    — Increase media and information fluency
-    — Improve critical thinking and research skills
-    — Foster collaboration
-    — Develop technical and communication skills
 
 -
   key: translation
-  title: Translate an article
+  title: Translate a Wikipedia article from target language into native language.
   min_weeks: 4
-  blurb: |
-    Students translate high-quality articles from the language they are studying to share on their native-language Wikipedia.
-
-    ----
-    Minimum timeline: *4 weeks*
-    Recommended timeline: *5 weeks*
-
-    Best for:
-    — Foreign language classrooms
-
-    Not recommended for:
-    — Students without proficiency in both languages
-    — Students translating *from* their native language *to* the language they're studying
-  description: |
-    Meets these learning objectives:
-    — Master course content
-    — Writing skills development
-
--
-  key: smallassignments
-  title: Pick and choose small projects
-  min_weeks: 2
-  blurb: |
-    Build your own custom Wikipedia project from small exercises and assignments, such as:
-    — copyediting existing articles
-    — adding smaller amounts of new content to an article
-    — critiquing an article
-    — adding images
-
-    ----
-    Minimum timeline: *2 weeks*
-    Recommended timeline: *1-3 weeks per small assignment*
-
-    Best for:
-    — Courses with minimal time to give to Wikipedia assignments
-  description: |
-    Even if a larger 'research and write an article' project doesn't fit with your course, you may still be able to achieve many of your learning objectives with one or more short Wikipedia exercises. You can also use these exercises as a starting point for creating your own custom assignment.
 
 -
   key: addimages
-  title: Add images & multimedia
+  title: Create images and multimedia to add to Wikipedia articles.
   min_weeks: 2
-  blurb: |
-    Students find Wikipedia topics in need of photography, graphic design, or video, then create new media files and add them to Wikipedia.
-
-    ----
-    Minimum timeline: *2 weeks*
-    Recommended timeline: *3 or more weeks*
-
-    Best for:
-    — Students studying photography, videography, or graphic design
-
-    Not appropriate for:
-    — Students without media skills
-
-  description: |
-    Meets these learning objectives:
-    — Master course content
-    — Increase media and information fluency
-    — Develop technical and communication skills

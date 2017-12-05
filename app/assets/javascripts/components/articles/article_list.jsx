@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -10,103 +9,82 @@ import * as ArticleActions from '../../actions/article_actions';
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
-import ArticleDrawer from './article_drawer.jsx';
 import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
-
-const getState = () => {
-  return {
-    articles: ArticleStore.getModels()
-  };
-};
-
-const ArticleList = createReactClass({
-  displayName: 'ArticleList',
-
-  propTypes: {
-    articles: PropTypes.array,
-    course: PropTypes.object,
-    current_user: PropTypes.object,
-    openKey: PropTypes.string,
-    actions: PropTypes.object,
-    articleDetails: PropTypes.object
-  },
-
-  render() {
-    const toggleDrawer = this.props.actions.toggleUI;
-    const articles = this.props.articles.map(article => {
-      const drawerKey = `drawer_${article.id}`;
-      const isOpen = this.props.openKey === drawerKey;
-      return (
-        <Article
-          article={article}
-          course={this.props.course}
-          toggleDrawer={toggleDrawer}
-          key={article.id}
-          isOpen={isOpen}
-          fetchArticleDetails={this.props.actions.fetchArticleDetails}
-          articleDetails={this.props.articleDetails[article.id] || null}
-        />
-      );
-    });
-
-    const articleDrawers = this.props.articles.map(article => {
-      const key = `drawer_${article.id}`;
-      const isOpen = this.props.openKey === key;
-      return (
-        <ArticleDrawer
-          article={article}
-          course={this.props.course}
-          key={key}
-          isOpen={isOpen}
-          current_user={this.props.current_user}
-          articleDetails={this.props.articleDetails[article.id] || {}}
-        />
-      );
-    });
-
-    const elements = _.flatten(_.zip(articles, articleDrawers));
-
-    const keys = {
-      rating_num: {
-        label: I18n.t('articles.rating'),
-        desktop_only: true,
-        info_key: 'articles.rating_doc'
-      },
-      title: {
-        label: I18n.t('articles.title'),
-        desktop_only: false
-      },
-      character_sum: {
-        label: I18n.t('metrics.char_added'),
-        desktop_only: true,
-        info_key: 'articles.character_doc'
-      },
-      view_count: {
-        label: I18n.t('metrics.view'),
-        desktop_only: true,
-        info_key: 'articles.view_doc'
-      }
-    };
-
-    return (
-      <List
-        elements={elements}
-        keys={keys}
-        sortable={true}
-        table_key="articles"
-        className="table--expandable table--hoverable"
-        none_message={CourseUtils.i18n('articles_none', this.props.course.string_prefix)}
-        store={ArticleStore}
-      />
-    );
-  }
+const getState = () => ({
+  articles: ArticleStore.getModels()
 });
 
+const ArticleList = ({
+  articles,
+  course,
+  current_user,
+  actions,
+  articleDetails
+}) => {
+  const keys = {
+    rating_num: {
+      label: I18n.t('articles.rating'),
+      desktop_only: true,
+      info_key: 'articles.rating_doc'
+    },
+    title: {
+      label: I18n.t('articles.title'),
+      desktop_only: false
+    },
+    character_sum: {
+      label: I18n.t('metrics.char_added'),
+      desktop_only: true,
+      info_key: 'articles.character_doc'
+    },
+    view_count: {
+      label: I18n.t('metrics.view'),
+      desktop_only: true,
+      info_key: 'articles.view_doc'
+    },
+    tools: {
+      label: I18n.t('articles.tools'),
+      desktop_only: false,
+      sortable: false
+    }
+  };
+
+  const articleElements = articles.map(article => (
+    <Article
+      article={article}
+      course={course}
+      key={article.id}
+      // eslint-disable-next-line
+      current_user={current_user}
+      fetchArticleDetails={actions.fetchArticleDetails}
+      articleDetails={articleDetails[article.id] || null}
+    />
+  ));
+
+  return (
+    <List
+      elements={articleElements}
+      keys={keys}
+      sortable={true}
+      table_key="articles"
+      className="table--expandable table--hoverable"
+      none_message={CourseUtils.i18n('articles_none', course.string_prefix)}
+      store={ArticleStore}
+    />
+  );
+};
+
+ArticleList.propTypes = {
+  articles: PropTypes.array,
+  course: PropTypes.object,
+  current_user: PropTypes.object,
+  actions: PropTypes.object,
+  articleDetails: PropTypes.object
+};
+
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey,
   articleDetails: state.articleDetails
 });
 

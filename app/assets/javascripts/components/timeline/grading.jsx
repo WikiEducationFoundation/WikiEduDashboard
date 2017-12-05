@@ -1,6 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
 import Gradeable from './gradeable.jsx';
 import BlockStore from '../../stores/block_store.js';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
@@ -66,7 +65,6 @@ const CourseCreator = createReactClass({
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
-
     return this.props.fetchCoursesForUser(getUserId());
   },
 
@@ -103,7 +101,7 @@ const CourseCreator = createReactClass({
 
   handleCourse() {
     if (this.state.shouldRedirect === true) {
-      window.location = `/courses/${this.state.course.slug}?modal=true`;
+      window.location = `/courses/${this.state.course.slug}`;
     }
     if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
 
@@ -176,7 +174,7 @@ const CourseCreator = createReactClass({
   },
 
   useThisClass() {
-    const select = ReactDOM.findDOMNode(this.refs.courseSelect);
+    const select = this.courseSelect;
     const courseId = select.options[select.selectedIndex].getAttribute('data-id-key');
     ServerActions.cloneCourse(courseId);
     return this.setState({ isSubmitting: true, shouldRedirect: true });
@@ -353,7 +351,7 @@ const CourseCreator = createReactClass({
                 <button className="button dark" onClick={this.showCloneChooser}>{CourseUtils.i18n('creator.clone_previous', this.state.course_string_prefix)}</button>
               </div>
               <div className={selectClassName}>
-                <select id="reuse-existing-course-select" ref="courseSelect">{options}</select>
+                <select id="reuse-existing-course-select" ref={(dropdown) => { this.courseSelect = dropdown; }}>{options}</select>
                 <button className="button dark" onClick={this.useThisClass}>{CourseUtils.i18n('creator.clone_this', this.state.course_string_prefix)}</button>
                 <button className="button dark right" onClick={this.cancelClone}>{CourseUtils.i18n('cancel', this.state.course_string_prefix)}</button>
               </div>

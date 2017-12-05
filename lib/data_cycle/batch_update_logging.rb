@@ -5,10 +5,14 @@ require 'action_view'
 module BatchUpdateLogging
   include ActionView::Helpers::DateHelper
 
-  DAILY_UPDATE_PID_FILE = 'tmp/batch_update_daily.pid'
-  CONSTANT_UPDATE_PID_FILE = 'tmp/batch_update_constantly.pid'
-  PAUSE_UPDATES_FILE = 'tmp/batch_pause.pid'
-  SLEEP_FILE = 'tmp/batch_sleep_10.pid'
+  UPDATE_PID_FILES = {
+    daily: 'tmp/batch_update_daily.pid',
+    constant: 'tmp/batch_update_constantly.pid',
+    views: 'tmp/batch_update_views.pid',
+    survey: 'tmp/batch_update_surveys.pid',
+    pause: 'tmp/batch_pause.pid',
+    sleep: 'tmp/batch_sleep_10.pid'
+  }.freeze
 
   def setup_logger
     $stdout.sync = true
@@ -17,6 +21,13 @@ module BatchUpdateLogging
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
     @sentry_logs = []
+  end
+
+  def run_update_with_pid_files(type)
+    create_pid_file(type)
+    run_update # implemented by each update class
+  ensure
+    delete_pid_file(type)
   end
 
   # Given a pid file that contains the pid of a process, check whether it is
@@ -32,26 +43,36 @@ module BatchUpdateLogging
     return false
   end
 
+  def create_pid_file(type)
+    File.open(UPDATE_PID_FILES[type], 'w') { |f| f.puts Process.pid }
+  end
+
+  def delete_pid_file(type)
+    File.delete UPDATE_PID_FILES[type] if File.exist? UPDATE_PID_FILES[type]
+  end
+
   def updates_paused?
-    return true if File.exist? PAUSE_UPDATES_FILE
+    return true if File.exist? UPDATE_PID_FILES[:pause]
     false
   end
 
-  def constant_update_running?
-    pid_file_process_running?(CONSTANT_UPDATE_PID_FILE)
-  end
-
-  def daily_update_running?
-    pid_file_process_running?(DAILY_UPDATE_PID_FILE)
+  def update_running?(type)
+    pid_file_process_running? UPDATE_PID_FILES[type]
   end
 
   def update_waiting_to_run?
-    pid_file_process_running?(SLEEP_FILE)
+    pid_file_process_running? UPDATE_PID_FILES[:sleep]
   end
 
   def log_message(message)
     Rails.logger.debug message
     @sentry_logs << "#{Time.zone.now} - #{message}"
+    Raven.capture_message(message, level: 'warn', extra: { logs: @sentry_logs }) if debug?
+  end
+
+  def log_start_of_update(message)
+    @start_time = Time.zone.now
+    Rails.logger.info message
   end
 
   def log_end_of_update(message)
@@ -59,10 +80,15 @@ module BatchUpdateLogging
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
     Rails.logger.info "#{message} Time: #{total_time}."
+    UpdateLog.log_update(@end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
     Raven.capture_message message,
                           level: 'info',
                           tags: { update_time: total_time },
                           extra: { exact_update_time: (@end_time - @start_time),
                                    logs: @sentry_logs }
+  end
+
+  def debug?
+    ENV['update_debug'] == 'true'
   end
 end

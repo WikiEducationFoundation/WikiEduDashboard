@@ -18,30 +18,32 @@ const addLookups = function (key, values) {
 
 
 // Store
-const LookupStore = Flux.createStore({
-  getLookups(model) {
-    if (_lookups.hasOwnProperty(model)) {
-      return _lookups[model];
+const LookupStore = Flux.createStore(
+  {
+    getLookups(model) {
+      if (_lookups.hasOwnProperty(model)) {
+        return _lookups[model];
+      }
+      ServerActions.fetchLookups(model);
+      return [];
     }
-    ServerActions.fetchLookups(model);
-    return [];
   }
-}
-, (payload) => {
-  const { data } = payload;
-  switch (payload.actionType) {
-    case 'RECEIVE_LOOKUPS':
-      addLookups(data.model, data.values);
-      break;
-    default:
+  , (payload) => {
+    const { data } = payload;
+    switch (payload.actionType) {
+      case 'RECEIVE_LOOKUPS':
+        addLookups(data.model, data.values);
+        break;
+      default:
       // no default
+    }
+    if (payload.actionType.indexOf('RECEIVE') > 0) {
+      const model = (payload.actionType.match(/RECEIVE_(.*?)S/))[1].toLowerCase();
+      if (__in__(model, Object.keys(_lookups))) { ServerActions.fetchLookups(model); }
+    }
+    return true;
   }
-  if (payload.actionType.indexOf('RECEIVE') > 0) {
-    const model = (payload.actionType.match(/RECEIVE_(.*?)S/))[1].toLowerCase();
-    if (__in__(model, Object.keys(_lookups))) { ServerActions.fetchLookups(model); }
-  }
-  return true;
-});
+);
 
 LookupStore.setMaxListeners(0);
 

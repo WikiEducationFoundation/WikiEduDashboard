@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :question do
     validation_rules = {
       presence: '1',
@@ -17,7 +17,7 @@ FactoryGirl.define do
       less_than_or_equal_to: ''
     }
 
-    question_group  { FactoryGirl.create(:question_group) }
+    question_group  { FactoryBot.create(:question_group) }
     question_text   'Sample Question'
 
     factory :q_checkbox, class: 'Rapidfire::Questions::Checkbox' do

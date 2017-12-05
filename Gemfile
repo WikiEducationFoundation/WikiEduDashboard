@@ -15,6 +15,7 @@ gem 'activerecord-import'
 gem 'dalli'
 gem 'connection_pool'
 gem 'faraday'
+gem 'bootsnap', require: false # Makes rails boot faster via caching
 
 gem 'browser'
 
@@ -40,7 +41,7 @@ gem 'acts_as_list'
 gem 'sentimental'
 
 # used for enabling CSS for mailer emails
-gem 'premailer-rails'
+gem 'premailer-rails', '1.9.7' # https://github.com/fphilipe/premailer-rails/issues/207
 gem 'nokogiri' # expected by premailer-rails but not required
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
@@ -51,7 +52,7 @@ gem 'i18n-js'
 
 gem 'mailgun_rails'
 
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 gem 'paper_trail'
 
@@ -87,7 +88,6 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
-  gem 'rack-mini-profiler'
   gem 'rails-erd'
   gem 'annotate', '~> 2.7.1'
 end
@@ -113,7 +113,6 @@ group :test do
   gem 'webmock'
   gem 'vcr'
   gem 'simplecov', require: false
-  gem 'codeclimate-test-reporter', require: nil
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
 end

@@ -11,6 +11,7 @@ diq:
   application:
     cancel: Bıtexelne
     dashboard: Wiki Ed Dashboard
+    documentation: Dokumantasyon
     error: 'Tıya bıyo xırab:'
     explore: Keşf ke
     field_required: No ca icab keno
@@ -31,6 +32,8 @@ diq:
     submit: deqew
     training: Mısnayış
     change: Bıvırne
+    details: Teferuati
+    confirm: TEMAM
   dashboard:
     explore_examples: Misal keşıf
     review_orientation: Vênayena oryantasyoni
@@ -49,7 +52,9 @@ diq:
     available: Est bıyaye wesiqey
     assigned_to: Çebye no
     edited: Wesiqa ya vuriyena
+    edited_by: 'Vurnayoğ:'
     edited_mobile: Meqaleyi
+    hide: Bınımne
     label: Wesiqey
     loading: Meqaleyi bar benê...
     new: (Newe)
@@ -58,6 +63,7 @@ diq:
     title_example: Sernamey wesiqa
     view: Meqale Bıvêne
     view_all: Hemınan bıvin
+    wiki: Wiki
   assignments:
     assignees: Çebyayış(i)
     assign_other: Wesiqa cı ke
@@ -69,14 +75,22 @@ diq:
     milestones:
       title: Siyê kilometri
   campaign:
+    campaign: Kampanya
+    description: Şınasnayış
+    delete_campaign: Ena kampanya bestere
     none: Çıniyo
+    title: Sername
+  chat:
+    label: Mıhebet
   courses:
     activity: Fealiyet
     actions: Hereketi
     articles: Wesiqey
     calendar:
       legend: Kıtabek
+    cancel: Bıtexelne
     campaigns: 'Kohorti:'
+    course: Kurs
     course_description: Kursi
     courses: Qursi
     creator:
@@ -99,6 +113,7 @@ diq:
       subject: Mewzu
     current: Kursê newki
     delete_course: Kursi bestere
+    delete_suggestion: Bestere
     dismiss_survey: Red ke
     duration: Dema kursi
     edit_course_dates: Dema kursi bıvurne
@@ -116,16 +131,27 @@ diq:
     leave_confirmation: Şıma qayılê enê kursi ra abıri yê?
     leave_course: Kursa abıryayış
     loading: Bar beno...
+    none: Çıniyo
+    overview: Keye
     passcode: Passcode
     passcode_none: passcode çıni yo
     school: Wendxane
     start: Suru bık
     students: Telebey
     students_count: '# Telebey'
+    user_role: Rol
+    subject: Mewzu
+    term: Dewr
     timeline_link: Demawexti
     title: Sername
   courses_generic:
+    cancel: Bıtexelne
+    course: Program
     courses: Programi
+    creator:
+      course_term: Key
+      course_term_placeholder: Key
+      save_cloned_course: Qeyd ke
     student_editors: Editori
     students: Editori
     students_short: Editori
@@ -153,14 +179,19 @@ diq:
     image: Resim
     file_name: Namey dosya
   revisions:
-    diff_show: Bımotne
+    diff_show: Bımocne
+    diff_hide: Bınımne
+    title: Sername
   timeline:
+    empty_week_3: ya zi
     week_number: Hefte %{number}
   training:
     continue: Dewam keno %{progress}
     start: Suru bık
     view: Asayış
   uploads:
+    file_name: Namey dosya
+    image: Resım
     label: Barkerdışi
     usages: Karidayışi
   users:

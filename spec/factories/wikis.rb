@@ -9,7 +9,7 @@
 #  project  :string(16)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :wiki do
   end
 end

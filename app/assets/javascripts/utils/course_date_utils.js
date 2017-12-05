@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const CourseDateUtils = {
   validationRegex() {
     // Matches YYYY-MM-DD
@@ -84,8 +86,7 @@ const CourseDateUtils = {
 
   moreWeeksThanAvailable(course, weeks, exceptions) {
     if (!weeks || !weeks.length) { return false; }
-    const nonBlackoutWeeks = _.filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg !== '()'
-    );
+    const nonBlackoutWeeks = _.filter(this.weekMeetings(this.meetings(course), course, exceptions), mtg => mtg !== '()');
     return weeks.length > nonBlackoutWeeks.length;
   },
 

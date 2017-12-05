@@ -27,9 +27,11 @@ describe 'cloning a course', js: true do
   end
 
   let!(:course) do
-    create(:course, id: 10001, start: 1.year.from_now.to_date,
+    create(:course, start: 1.year.from_now.to_date,
                     title: 'CourseToClone',
                     school: 'OriginalSchool',
+                    term: 'OriginalTerm',
+                    slug: 'OriginalSchool/CourseToClone_(OriginalTerm)',
                     subject: 'OrginalSubject',
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0)
@@ -41,7 +43,7 @@ describe 'cloning a course', js: true do
   end
   let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
-  let(:term) { 'Spring2016' }
+  let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
 
   it 'copies relevant attributes of an existing course' do
@@ -53,11 +55,11 @@ describe 'cloning a course', js: true do
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'
 
-    expect(page).to have_content 'Course Successfully Cloned'
+    expect(page).to have_content 'Update Details for Cloned Course'
 
     # interact_with_clone_form
     find('input#course_term').click
-    fill_in 'course_term', with: term
+    fill_in 'course_term', with: 'OriginalTerm' # Same as original, not allowed
     fill_in 'course_subject', with: subject
 
     within '#details_column' do
@@ -77,10 +79,15 @@ describe 'cloning a course', js: true do
     expect(page).not_to have_button('Save New Course', disabled: true)
     click_button 'Save New Course'
 
-    expect(page).to have_current_path("/courses/OriginalSchool/CourseToClone_(#{term})")
+    # Fix the term to create an original slug, and try again
+    expect(page).to have_content('This course already exists')
+    fill_in 'course_term', with: new_term
+    click_button 'Save New Course'
+
+    expect(page).to have_current_path("/courses/OriginalSchool/CourseToClone_(#{new_term})")
 
     new_course = Course.last
-    expect(new_course.term).to eq(term)
+    expect(new_course.term).to eq(new_term)
     expect(new_course.subject).to eq(subject)
     expect(new_course.weekdays).not_to eq('0000000')
     expect(Week.count).to eq(2) # make sure the weeks are distinct

@@ -67,6 +67,10 @@ describe ViewImporter do
                        wiki_id: es_wiki.id,
                        views_updated_at: Date.today - 2.days)
       stub_request(:get, %r{.*pageviews/per-article/es.wikipedia.*})
+        .to_return(
+          status: 200,
+          body: '{"items":[{"article":"Wikipedia","timestamp":"2017103100","views":6043}]}'
+        )
       ViewImporter.update_all_views
     end
   end

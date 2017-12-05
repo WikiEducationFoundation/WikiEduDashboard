@@ -1,0 +1,18 @@
+name: Finding Your Article
+id: 17
+description: |
+  In this tutorial, you'll learn how to find a good article to work on.
+estimated_ttc: 10 minutes
+slides:
+  - slug: students-avoid-the-best-articles # 1701
+  - slug: students-avoid-controversial-topics # 1702
+  - slug: students-avoid-conflicts-of-interest # 1703
+  - slug: find-articles-using-categories # 1704
+  - slug: find-articles-via-navigation-templates # 1705
+  - slug: find-articles-via-wikiprojects # 1706
+  - slug: using-wikiproject-assessment-tables # 1707
+  - slug: find-articles-via-missing-article-lists # 1708
+  - slug: find-a-notable-topic # 1709
+  - slug: assessing-article-notability # 1712
+  - slug: wikipedia-experts-can-help-find-articles # 1710
+  - slug: finding-your-article-summary # 1711

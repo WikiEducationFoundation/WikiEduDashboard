@@ -1,5 +1,7 @@
 import McFly from 'mcfly';
 const Flux = new McFly();
+import _ from 'lodash';
+
 import WeekStore from './week_store.js';
 
 // Data
@@ -29,9 +31,7 @@ const setBlock = function (data, quiet) {
 
 const isAddedBlock = blockId =>
   // new block ids are set to Date.now()
-  blockId > 1000000000
-;
-
+  blockId > 1000000000;
 const setEditableBlockId = function (blockId) {
   _editableBlockIds.push(blockId);
   if (isAddedBlock(blockId)) { _editingAddedBlock = true; }

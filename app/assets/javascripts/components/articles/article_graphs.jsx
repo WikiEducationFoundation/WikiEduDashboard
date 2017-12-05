@@ -63,21 +63,16 @@ const ArticleGraphs = createReactClass({
   },
 
   render() {
-    let style;
-    let button;
+    let style = 'hidden';
+    if (this.state.showGraph) {
+      style = '';
+    }
+
     let graph;
     let editSize;
     let radioInput;
     const graphWidth = 500;
     const graphHeight = 300;
-    if (this.state.showGraph) {
-      style = '';
-      button = <button onClick={this.hideGraph} className="button dark">Hide graph</button>;
-    } else {
-      style = ' hidden';
-      button = <button onClick={this.showGraph} className="button dark">Article Development</button>;
-    }
-
     const className = `vega-graph ${style}`;
 
     if (this.state.articleData != null) {
@@ -150,8 +145,8 @@ const ArticleGraphs = createReactClass({
     }
 
     return (
-      <div>
-        {button}
+      <a onClick={this.showGraph} className="inline">
+        (article development)
         <div className={className}>
           <div className="radio-row">
             {radioInput}
@@ -159,7 +154,7 @@ const ArticleGraphs = createReactClass({
           </div>
           {graph}
         </div>
-      </div>
+      </a>
     );
   }
 });

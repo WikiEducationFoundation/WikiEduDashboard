@@ -2,21 +2,29 @@
 
 require 'rinruby'
 
-require "#{Rails.root}/lib/analytics/campaign_articles_csv_builder"
+require "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 class HistogramPlotter
-  def initialize(campaign: nil, csv: nil)
-    @campaign = campaign
+  def self.plot(campaign: nil, course: nil, opts: {})
+    new(campaign: campaign, course: course).major_edits_plot(opts)
+  rescue NoDataError => e
+    return nil
+  end
+
+  def initialize(campaign: nil, course: nil, csv: nil)
+    @campaign_or_course = campaign || course
     @csv = csv || csv_path
     build_csv unless csv
     initialize_r
     load_dataframe
   end
 
-  def major_edits_plot(minimum_bytes: 1000, existing_only: true, type: 'histogram', minimum_improvement: nil)
+  def major_edits_plot(minimum_bytes: 0, existing_only: false, type: 'density',
+                       minimum_improvement: nil, simple: false)
     @minimum_bytes = minimum_bytes
     @existing_only = existing_only
     @minimum_improvement = minimum_improvement
+    @simple = simple
 
     filter_by_bytes_added
     filter_out_new_articles if existing_only
@@ -38,12 +46,19 @@ class HistogramPlotter
   def build_csv
     FileUtils.mkdir_p analytics_path
     return if File.exist? csv_path
-    csv_content = CampaignArticlesCsvBuilder.new(@campaign).articles_to_csv
+    courses = @campaign_or_course.is_a?(Course) ? [@campaign_or_course] : @campaign_or_course.courses
+    csv_content = OresDiffCsvBuilder.new(courses).articles_to_csv
     File.write(csv_path, csv_content)
   end
 
+  def slug_filename
+    return if @campaign_or_course.nil?
+    # Create a version that is safe as a path and does not have quote characters
+    @campaign_or_course.slug.tr('/', '—').tr("'", '-')
+  end
+
   def csv_path
-    "#{analytics_path}/#{@campaign.slug}-#{Date.today}.csv"
+    "#{analytics_path}/#{slug_filename}-#{Date.today}.csv"
   end
 
   def plot_path
@@ -55,7 +70,7 @@ class HistogramPlotter
   end
 
   def public_analytics_path
-    'system/analytics'
+    'assets/system/analytics'
   end
 
   def analytics_path
@@ -63,11 +78,12 @@ class HistogramPlotter
   end
 
   def plot_filename
-    "#{@campaign&.slug}-ores-#{@minimum_bytes}.png"
+    "#{slug_filename}-ores-#{@minimum_bytes}.png"
   end
 
   def plot_title
-    "#{@campaign&.slug} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
+    return '' if @simple
+    "#{slug_filename} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
   end
 
   def plot_subtitle
@@ -75,9 +91,11 @@ class HistogramPlotter
     R.eval "before_mean <- mean(subset(histogram, when=='before')$structural_completeness)"
     R.eval "after_mean <- mean(subset(histogram, when=='after')$structural_completeness)"
 
-    improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
+    average_before_after = "ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
+    return average_before_after if @simple
 
-    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
+    improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
+    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - #{average_before_after}"
   end
 
   def initialize_r
@@ -86,6 +104,9 @@ class HistogramPlotter
   end
 
   def load_dataframe
+    # If the file has no data beyond the header, the R code will break.
+    raise NoDataError unless File.read(@csv).each_line.count > 1
+
     R.eval "campaign_data <- read.csv('#{@csv}')"
     R.eval 'campaign_data$ores_diff <- with(campaign_data, ores_after - ores_before)'
     R.eval 'histogram_data <- campaign_data'
@@ -119,7 +140,7 @@ class HistogramPlotter
       ggplot(histogram, aes(structural_completeness, fill=when)) +
         scale_fill_manual(values=c("#676eb4", "#359178")) +
         geom_density(aes(y = ..count..), alpha = 0.4, adjust = 1/2) +
-        xlab('Structural Completeness (based on ORES wp10 model)') +
+        xlab('Structural Completeness') +
         theme(legend.background = element_rect(colour = "white"),
               legend.position = c(.8, .85),
               axis.title=element_text(size=26,face="bold"),
@@ -151,4 +172,6 @@ class HistogramPlotter
     PLOT
     R.eval 'dev.off()'
   end
+
+  class NoDataError < StandardError; end
 end

@@ -1,3 +1,7 @@
+// Polyfills
+import "babel-polyfill";
+require('location-origin');
+
 import { setUserId } from './stores/user_id_store.js';
 import { setDefaultCourseType, setCourseStringPrefix, setUseStartAndEndTimes } from './stores/course_attributes_store.js';
 
@@ -18,6 +22,3 @@ $(() => {
   require('./utils/editable.js');
   require('./utils/users_profile.js');
 });
-
-// Polyfills
-require('location-origin');

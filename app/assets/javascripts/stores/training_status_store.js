@@ -8,7 +8,6 @@ const TrainingStatusStore = new StockStore({
     characters: true
   },
   modelKey: 'training_module'
-}
-);
+});
 
 export default TrainingStatusStore.store;

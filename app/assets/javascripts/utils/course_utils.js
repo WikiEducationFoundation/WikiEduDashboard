@@ -1,3 +1,4 @@
+import _ from 'lodash';
 const I18n = require('i18n-js');
 
 const CourseUtils = class {
@@ -89,8 +90,8 @@ const CourseUtils = class {
   }
 
   articleFromAssignment(assignment, defaultWiki) {
-    const language = assignment.language || 'en';
-    const project = assignment.project || 'wikipedia';
+    const language = assignment.language || defaultWiki.language || 'en';
+    const project = assignment.project || defaultWiki.project || 'wikipedia';
     const articleUrl = assignment.article_url || this.urlFromTitleAndWiki(assignment.article_title, language, project);
     const article = {
       rating: assignment.article_rating,

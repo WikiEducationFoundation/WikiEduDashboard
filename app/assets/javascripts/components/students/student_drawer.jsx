@@ -51,7 +51,7 @@ const StudentDrawer = createReactClass({
           <td className="desktop-only-tc">{rev.characters}</td>
           <td className="desktop-only-tc">{rev.views}</td>
           <td className="desktop-only-tc">
-            <DiffViewer revision={rev} />
+            <DiffViewer revision={rev} editors={[this.props.student]} />
           </td>
         </tr>
       );

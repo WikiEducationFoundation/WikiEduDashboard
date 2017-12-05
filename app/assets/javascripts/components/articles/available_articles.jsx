@@ -1,9 +1,11 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
+
 import AssignCell from '../students/assign_cell.jsx';
 import AvailableArticle from './available_article.jsx';
-import AvailableArticlesList from '../articles/available_article_list.jsx';
+import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
 
 function getState() {

@@ -8,7 +8,7 @@ categories:
     description: Guidance for building a great Wikipedia classroom assignment
     modules:
       - slug: new-instructor-orientation
-        name: Orientation for New Instructors
+        name: How to teach with Wikipedia
         description: |
           What to expect from your first Wikipedia project. New instructors
           should complete this module before creating their first course

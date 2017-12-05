@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { capitalize } from './strings';
 
 const logErrorMessage = function (obj, prefix) {
@@ -65,7 +66,7 @@ const API = {
       });
     });
   },
-  
+
   fetchCourseRevisions(courseId, limit) {
     return new Promise((res, rej) => {
       const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
@@ -271,7 +272,6 @@ const API = {
         type: 'POST',
         url: `/clone_course/${id}`,
         success(data) {
-          console.log('Received course clone');
           return res(data);
         }
       })
@@ -337,7 +337,6 @@ const API = {
         type: 'DELETE',
         url: `/assignments/${assignment.assignment_id}?${queryString}`,
         success(data) {
-          console.log('Deleted assignment');
           return res(data);
         }
       })
@@ -355,7 +354,6 @@ const API = {
         type: 'POST',
         url: `/assignments.json?${queryString}`,
         success(data) {
-          console.log('Created assignment');
           return res(data);
         }
       })
@@ -373,7 +371,6 @@ const API = {
         type: 'PUT',
         url: `/assignments/${opts.id}.json?${queryString}`,
         success(data) {
-          console.log('Updated assignment');
           return res(data);
         }
       })
@@ -441,7 +438,6 @@ module_id=${opts.module_id}&\
 user_id=${opts.user_id}&\
 slide_id=${opts.slide_id}`,
         success(data) {
-          console.log('Slide completed');
           return res(data);
         }
       })
@@ -500,7 +496,6 @@ slide_id=${opts.slide_id}`,
         contentType: 'application/json',
         data: JSON.stringify(req_data),
         success(data) {
-          console.log('Saved timeline!');
           return res(data);
         }
       })
@@ -521,7 +516,6 @@ slide_id=${opts.slide_id}`,
   },
 
   saveCourse(data, courseId = null) {
-    console.log("API: saveCourse");
     const append = (courseId != null) ? `/${courseId}` : '';
     // append += '.json'
     const type = (courseId != null) ? 'PUT' : 'POST';
@@ -606,7 +600,6 @@ slide_id=${opts.slide_id}`,
         type: 'DELETE',
         url: `/courses/${course_id}/delete_all_weeks.json`,
         success(data) {
-          console.log(data);
           return res(data);
         }
       })
@@ -675,7 +668,6 @@ slide_id=${opts.slide_id}`,
         contentType: 'application/json',
         data: JSON.stringify({ wizard_output: data }),
         success(data) {
-          console.log('Submitted the wizard answers!');
           return res(data);
         }
       })
@@ -695,7 +687,6 @@ slide_id=${opts.slide_id}`,
         contentType: 'application/json',
         data: JSON.stringify(data),
         success(data) {
-          console.log((capitalize(verb) + ' ' + model));
           return res(data);
         }
       })

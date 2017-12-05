@@ -56,6 +56,7 @@ class PushCourseToSalesforce
       Articles_edited__c: @course.article_count,
       Total_edits__c: @course.revision_count,
       Words_added_in_thousands__c: words_added_in_thousands,
+      Article_views__c: @course.view_sum,
       No_of_Commons_uploads__c: @course.uploads.count,
       Actual_No_of_Participants__c: @course.user_count,
       Editing_in_sandboxes_assignment_date__c: assignment_date_for(editing_in_sandbox_block),
@@ -64,7 +65,8 @@ class PushCourseToSalesforce
       Editing_in_mainspace_due_date__c: due_date_for(editing_in_mainspace_block),
       Medical_or_Psychology_Articles__c: editing_medicine_or_psychology?,
       Group_work__c: group_work?,
-      Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?
+      Interested_in_DYK_or_GA__c: interested_in_dyk_or_ga?,
+      Content_Expert__c: content_expert
     }
   end
 
@@ -116,5 +118,17 @@ class PushCourseToSalesforce
 
   def course_tags
     @course_tags ||= @course.tags.pluck(:tag)
+  end
+
+  def content_expert_ids
+    Setting.find_or_create_by(key: 'content_expert_salesforce_ids').value
+  end
+
+  def content_expert
+    staff_content_expert = @course.staff.find do |staffer|
+      content_expert_ids[staffer.username].present?
+    end
+    return if staff_content_expert.nil?
+    content_expert_ids[staff_content_expert.username]
   end
 end
