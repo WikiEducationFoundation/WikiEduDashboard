@@ -65,7 +65,6 @@
     "no-restricted-globals": 0,
     "indent": 0,
     "function-paren-newline": 0,
-    "react/no-find-dom-node": 0,
     "object-curly-newline": 0,
     "spaced-comment": 0,
     "react/jsx-curly-brace-presence": 0,
