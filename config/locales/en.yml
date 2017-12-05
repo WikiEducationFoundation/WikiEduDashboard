@@ -308,6 +308,7 @@ en:
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
       course_language: Home language
+      course_private: Private program (viewable only by admins and facilitators)
       course_project: Home project
       course_school: Course school
       course_subject: Course subject

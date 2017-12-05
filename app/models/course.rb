@@ -122,6 +122,7 @@ class Course < ActiveRecord::Base
   # Scopes #
   ##########
 
+  scope :nonprivate, -> { where(private: false) }
   # Legacy courses are ones that are imported from the EducationProgram
   # MediaWiki extension, not created within the dashboard via the wizard.
   scope :legacy, -> { where(type: 'LegacyCourse') }

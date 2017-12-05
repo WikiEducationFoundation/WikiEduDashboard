@@ -54,7 +54,7 @@ class Campaign < ActiveRecord::Base
 
   def users_to_csv(role, opts = {})
     csv_data = []
-    courses.each do |course|
+    courses.nonprivate.each do |course|
       users = course.send(role)
       users.each do |user|
         line = [user.username]

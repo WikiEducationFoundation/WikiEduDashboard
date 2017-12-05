@@ -19,7 +19,7 @@
           %th= t('courses.edit_count')
           %th= t("#{@presenter.course_string_prefix}.course")
       %tbody.list
-        - CoursesUsers.where(course: @campaign.courses, role: CoursesUsers::Roles::STUDENT_ROLE).includes(:user, :course).order(revision_count: :desc).each do |cu|
+        - @courses_users.each do |cu|
           %tr
             %td
               = link_to cu.user.username, "/users/#{cu.user.username}"
