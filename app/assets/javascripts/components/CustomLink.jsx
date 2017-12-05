@@ -8,7 +8,10 @@ const CustomLink = createReactClass({
 
   propTypes: {
     to: PropTypes.string,
-    location: PropTypes.object,
+    location: PropTypes.shape({
+      display: PropTypes.string,
+      online: PropTypes.string,
+    }),
     name: PropTypes.string,
     clickedElement: PropTypes.string,
     target: PropTypes.string

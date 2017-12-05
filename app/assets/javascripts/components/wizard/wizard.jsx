@@ -27,11 +27,60 @@ const Wizard = createReactClass({
       hash: PropTypes.string,
       key: PropTypes.number,
       pathname: PropTypes.string,
-      query: PropTypes.shape({}), // might be wrong, but in development  
+      query: PropTypes.shape({}), // might be wrong, but in development this is what I observed
       search: PropTypes.string,
-      state: PropTypes.string, // FIX ME! I don't know what type this is.
+      state: PropTypes.string, // not sure what this needs to be
     }),
-    course: PropTypes.object,
+    course: PropTypes.shape({
+      canUploadSyllabus: PropTypes.bool,
+      cloned_status: PropTypes.bool, // might be wrong, but in development this is what I observed
+      created_count: PropTypes.string,
+      day_exceptions: PropTypes.string,
+      description: PropTypes.string,
+      edit_count: PropTypes.string,
+      edited_count: PropTypes.string,
+      end: PropTypes.string,
+      ended: PropTypes.bool,
+      enroll_url: PropTypes.string,
+      error: PropTypes.any, // not sure what this needs to be
+      expected_students: PropTypes.number,
+      flags: PropTypes.shape({}), // not sure what this needs to be.
+      home_wiki: PropTypes.shape({
+        id: PropTypes.number,
+        language: PropTypes.string,
+        project: PropTypes.string
+      }),
+      id: PropTypes.number,
+      legacy: PropTypes.bool,
+      level: PropTypes.string,
+      no_day_exceptions: PropTypes.bool,
+      passcode: PropTypes.string,
+      passcode_required: PropTypes.bool,
+      published: PropTypes.bool,
+      school: PropTypes.string,
+      slug: PropTypes.string,
+      string_prefix: PropTypes.string,
+      student_count: PropTypes.number,
+      subject: PropTypes.string,
+      submitted: PropTypes.bool,
+      survey_notifcations: PropTypes.arrayOf(PropTypes.shape({})),
+      term: PropTypes.string,
+      timeline_enabled: PropTypes.bool,
+      timeline_end: PropTypes.string,
+      timeline_start: PropTypes.string,
+      title: PropTypes.string,
+      trained_count: PropTypes.number,
+      type: PropTypes.string,
+      updated_at: PropTypes.string,
+      upload_count: PropTypes.number,
+      upload_usages_count: PropTypes.number,
+      uploads_in_use_count: PropTypes.number,
+      url: PropTypes.string,
+      use_start_and_end_times: PropTypes.bool,
+      view_count: PropTypes.string,
+      weekdays: PropTypes.string,
+      word_count: PropTypes.string,
+    }),
     weeks: PropTypes.array,
     open_weeks: PropTypes.number
   },
