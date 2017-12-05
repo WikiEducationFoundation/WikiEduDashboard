@@ -50,6 +50,7 @@ class PushCourseToSalesforce
     {
       Name: @course.title,
       Course_Page__c: @course.url,
+      Course_End_Date__c: @course.end.strftime('%Y-%m-%d'),
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",
       Program__c: program_id,
       Estimated_No_of_Participants__c: @course.expected_students,
