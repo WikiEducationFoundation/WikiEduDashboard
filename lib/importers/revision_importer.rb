@@ -68,10 +68,10 @@ class RevisionImporter
     @course.start.strftime('%Y%m%d')
   end
 
-  DAYS_TO_IMPORT_AFTER_COURSE_END = 30
+  # pull all revisions until present, so that we have any after-the-end revisions
+  # included for calculating retention when a past course gets updated.
   def end_of_update_period
-    # Add one day so that the query does not end at the beginning of the last day.
-    (@course.end + 1.day + DAYS_TO_IMPORT_AFTER_COURSE_END.days).strftime('%Y%m%d')
+    2.days.from_now.strftime('%Y%m%d')
   end
 
   def users_with_no_revisions
