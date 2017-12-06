@@ -70,7 +70,6 @@
     "react/jsx-curly-brace-presence": 0,
     "react/require-default-props": 0,
     "jsx-a11y/anchor-is-valid": 0,
-    "react/no-unused-prop-types": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "react/no-unused-state": 0,
     "react/jsx-closing-tag-location": 0,
