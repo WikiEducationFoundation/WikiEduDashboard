@@ -40,11 +40,11 @@ class Category < ApplicationRecord
     Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
   end
 
-  private
-
   def name_with_prefix
     "#{source.capitalize}:#{name}"
   end
+
+  private
 
   def title_list_from_wiki
     case source
