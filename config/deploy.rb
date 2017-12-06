@@ -63,9 +63,12 @@ namespace :deploy do
   end
 
   desc 'ensure permissions on /tmp'
-  task :ensure_tmp_permissions, on_error: :continue do
+  task :ensure_tmp_permissions do
     on roles(:all) do
-      execute :chmod, '-R', '777', "#{current_path}/tmp/cache"
+      # Ignore chmod errors and force an exit code of 0, so that Capistrano
+      # continues deployment. This reduces the breakage when there are
+      # permissions problems with the tmp directory.
+      execute "chmod -R 777 #{current_path}/tmp/cache || :"
     end
   end
 
