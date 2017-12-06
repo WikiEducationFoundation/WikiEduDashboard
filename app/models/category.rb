@@ -13,6 +13,7 @@
 #
 
 require "#{Rails.root}/lib/importers/category_importer"
+require "#{Rails.root}/lib/importers/transclusion_importer"
 require "#{Rails.root}/lib/article_utils"
 
 class Category < ApplicationRecord
@@ -29,16 +30,28 @@ class Category < ApplicationRecord
   end
 
   def refresh_titles
-    titles = CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
-    self.article_titles = titles.map { |title| ArticleUtils.format_article_title(title) }
+    self.article_titles = title_list_from_wiki.map do |title|
+      ArticleUtils.format_article_title(title)
+    end
     save
-  end
-
-  def name_with_prefix
-    "Category:#{name}"
   end
 
   def article_ids
     Article.where(namespace: 0, wiki_id: wiki_id, title: article_titles).pluck(:id)
+  end
+
+  private
+
+  def name_with_prefix
+    "#{source.capitalize}:#{name}"
+  end
+
+  def title_list_from_wiki
+    case source
+    when 'category'
+      CategoryImporter.new(wiki).page_titles_for_category(name_with_prefix, depth)
+    when 'template'
+      TemplateImporter.new(self).transcluded_titles
+    end
   end
 end
