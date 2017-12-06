@@ -63,7 +63,7 @@ namespace :deploy do
   end
 
   desc 'ensure permissions on /tmp'
-  task :ensure_tmp_permissions do
+  task :ensure_tmp_permissions, on_error: :continue do
     on roles(:all) do
       execute :chmod, '-R', '777', "#{current_path}/tmp/cache"
     end
