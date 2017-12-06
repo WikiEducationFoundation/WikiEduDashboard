@@ -237,6 +237,7 @@ en:
     confirm_addition: Are you sure you want to track contributions to the category "%{category}"?
     depth: Subcategory depth
     name: Category name
+    none: There are no categories being tracked.
     remove: Remove
     tracked_categories: Tracked Categories
 

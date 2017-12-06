@@ -10,7 +10,8 @@ const List = ({
   table_key,
   className,
   elements,
-  none_message
+  none_message,
+  loading
 }) => {
   const sorting = store && store.getSorting();
   const sortClass = (sorting && sorting.asc) ? 'asc' : 'desc';
@@ -59,7 +60,7 @@ const List = ({
   // show the Loading spinner if data is not yet loaded.
   if (elements.length === 0) {
     let emptyMessage;
-    if (store && store.isLoaded()) {
+    if (store && store.isLoaded() || !loading) {
       // eslint-disable-next-line
       let noneMessage = none_message;
       if (typeof noneMessage === 'undefined' || noneMessage === null) {

@@ -42,6 +42,7 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
         keys={keys}
         table_key="categories"
         none_message={I18n.t('categories.none')}
+        loading={loading}
       />
     </div>
   );

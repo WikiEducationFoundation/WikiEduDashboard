@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils';
 
 const Category = ({ course, category, remove, editable }) => {

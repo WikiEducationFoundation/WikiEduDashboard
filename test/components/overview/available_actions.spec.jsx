@@ -16,7 +16,7 @@ describe('AvailableActions', () => {
         ended: true
       }
     });
-    const p = ReactTestUtils.findRenderedDOMComponentWithTag(TestAvailableActions, 'p');
+    // const p = ReactTestUtils.findRenderedDOMComponentWithTag(TestAvailableActions, 'p');
     // FIXME: make this work.
     // expect(p.textContent).to.eq('No available actions');
   });
