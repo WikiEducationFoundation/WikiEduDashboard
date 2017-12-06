@@ -12,8 +12,8 @@ const List = ({
   elements,
   none_message
 }) => {
-  const sorting = store.getSorting();
-  const sortClass = sorting.asc ? 'asc' : 'desc';
+  const sorting = store && store.getSorting();
+  const sortClass = (sorting && sorting.asc) ? 'asc' : 'desc';
   const headers = [];
   const iterable = Object.keys(keys);
 
@@ -21,7 +21,7 @@ const List = ({
     const key = iterable[i];
     const keyObj = keys[key];
     let headerOnClick;
-    let headerClass = sorting.key === key ? sortClass : '';
+    let headerClass = (sorting && sorting.key) === key ? sortClass : '';
     let tooltip;
     headerClass += keyObj.desktop_only ? ' desktop-only-tc' : '';
     if ((sortable !== false) && (keyObj.sortable !== false)) {
@@ -59,7 +59,7 @@ const List = ({
   // show the Loading spinner if data is not yet loaded.
   if (elements.length === 0) {
     let emptyMessage;
-    if (store.isLoaded()) {
+    if (store && store.isLoaded()) {
       // eslint-disable-next-line
       let noneMessage = none_message;
       if (typeof noneMessage === 'undefined' || noneMessage === null) {

@@ -79,7 +79,6 @@
     "jsx-a11y/no-autofocus": 0,
     "react/default-props-match-prop-types": 0,
     "prefer-destructuring": 0,
-    "no-unused-vars": 0,
     "react/prop-types": 0,
     "semi-style": 0,
   },

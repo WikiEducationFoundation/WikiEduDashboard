@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: alerts
@@ -17,6 +16,7 @@
 #  target_user_id :integer
 #  subject_id     :integer
 #  resolved       :boolean          default(FALSE)
+#  details        :text(65535)
 #
 
 # Alert for a course that has been editing in mainspace after the end date

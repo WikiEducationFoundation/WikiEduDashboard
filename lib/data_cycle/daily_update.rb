@@ -29,6 +29,7 @@ class DailyUpdate
     update_users
     update_commons_uploads
     update_article_data
+    update_category_data
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -76,6 +77,11 @@ class DailyUpdate
 
     log_message 'Updating wp10 scores for before and after edits'
     OresScoresBeforeAndAfterImporter.import_all
+  end
+
+  def update_category_data
+    log_message 'Updating tracked categories'
+    Category.refresh_categories_for(Course.current)
   end
 
   ###############

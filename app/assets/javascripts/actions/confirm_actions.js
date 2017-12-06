@@ -1,27 +1,12 @@
-import McFly from 'mcfly';
-const Flux = new McFly();
+import { CONFIRMATION_INITIATED, ACTION_CONFIRMED, ACTION_CANCELLED } from "../constants";
 
-const ConfirmActions = Flux.createActions({
-  confirmationInitiated() {
-    return {
-      actionType: 'CONFIRMATION_INITIATED',
-      data: {}
-    };
-  },
-
-  actionConfirmed() {
-    return {
-      actionType: 'ACTION_CONFIRMED',
-      data: {}
-    };
-  },
-
-  actionCancelled() {
-    return {
-      actionType: 'ACTION_CANCELLED',
-      data: {}
-    };
-  }
+export const initiateConfirm = (confirmMessage, onConfirm, showInput, explanation) => ({
+  type: CONFIRMATION_INITIATED,
+  confirmMessage,
+  onConfirm,
+  showInput,
+  explanation
 });
 
-export default ConfirmActions;
+export const confirmAction = () => ({ type: ACTION_CONFIRMED });
+export const cancelAction = () => ({ type: ACTION_CANCELLED });

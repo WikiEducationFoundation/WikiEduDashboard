@@ -7,6 +7,7 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
+import CategoryHandler from '../categories/category_handler.jsx';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -40,6 +41,11 @@ const ArticlesHandler = createReactClass({
       );
     }
 
+   let categories;
+   if (this.props.course.type === 'ArticleScopedProgram') {
+     categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
+   }
+
     return (
       <div>
         <div id="articles">
@@ -64,6 +70,7 @@ const ArticlesHandler = createReactClass({
           <AssignmentList {...this.props} />
         </div>
         <AvailableArticles {...this.props} />
+        {categories}
       </div>
     );
   }

@@ -131,6 +131,13 @@ const CourseUtils = class {
     return `${languagePrefix}${projectPrefix}${article.title}`;
   }
 
+  formattedCategoryName(category, defaultWiki) {
+    category.title = category.name;
+    category.language = category.wiki.language;
+    category.project = category.wiki.project;
+    return this.formattedArticleTitle(category, defaultWiki);
+  }
+
   hasTrainings(weeks) {
     function blockHasTrainings(block) {
       return Boolean(block.training_module_ids && block.training_module_ids.length);

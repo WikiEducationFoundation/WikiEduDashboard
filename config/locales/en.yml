@@ -231,6 +231,15 @@ en:
     title: Title
     use_start_end_dates: Use start and end dates
 
+  categories:
+    add_category: Add category
+    add_this_category: Add this category
+    confirm_addition: Are you sure you want to track contributions to the category "%{category}"?
+    depth: Subcategory depth
+    name: Category name
+    remove: Remove
+    tracked_categories: Tracked Categories
+
   chat:
     label: Chat
 

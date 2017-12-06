@@ -1,14 +1,14 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import ServerActions from '../../actions/server_actions.js';
 import ChatActions from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import Confirm from '../common/confirm.jsx';
-import ConfirmActions from '../../actions/confirm_actions.js';
-import ConfirmationStore from '../../stores/confirmation_store.js';
+import { initiateConfirm } from '../../actions/confirm_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
@@ -22,38 +22,26 @@ const AvailableActions = createReactClass({
     current_user: PropTypes.object
   },
 
-  mixins: [CourseStore.mixin, ConfirmationStore.mixin],
+  mixins: [CourseStore.mixin],
 
   getInitialState() {
     return ({
-      course: CourseStore.getCourse(),
-      showConfirm: null,
-      onConfirm: null,
-      onCancel: null
+      course: CourseStore.getCourse()
     });
   },
 
   storeDidChange() {
-    // This handles closing the Confirm dialog after it has been clicked.
-    if (!ConfirmationStore.isConfirmationActive()) {
-      this.setState(this.getInitialState());
-    }
     return this.setState(getState());
   },
 
   join() {
     const EnrollURL = this.state.course.enroll_url;
     const onConfirm = function (passcode) {
-      ConfirmActions.actionConfirmed();
       return window.location = EnrollURL + passcode;
-    };
-    const onCancel = function () {
-      return ConfirmActions.actionCancelled();
     };
     const confirmMessage = I18n.t('courses.passcode_prompt');
     const joinDescription = CourseUtils.i18n('join_details', this.state.course.string_prefix);
-
-    this.setState({ onConfirm, onCancel, confirmMessage, joinDescription, showConfirm: true });
+    this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
   },
 
   leave() {
@@ -85,19 +73,6 @@ const AvailableActions = createReactClass({
   render() {
     const controls = [];
     const user = this.props.current_user;
-
-    let confirmationDialog;
-    if (this.state.showConfirm) {
-      confirmationDialog = (
-        <Confirm
-          onConfirm={this.state.onConfirm}
-          onCancel={this.state.onCancel}
-          message={this.state.confirmMessage}
-          explanation={this.state.joinDescription}
-          showInput={true}
-        />
-      );
-    }
 
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
@@ -160,7 +135,6 @@ const AvailableActions = createReactClass({
         </div>
         <div className="module__data">
           <GreetStudentsButton course={this.state.course} current_user={this.props.current_user} />
-          {confirmationDialog}
           {controls}
           <SalesforceLink course={this.state.course} current_user={this.props.current_user} />
         </div>
@@ -170,4 +144,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-export default AvailableActions;
+const mapDispatchToProps = { initiateConfirm };
+
+export default connect(null, mapDispatchToProps)(AvailableActions);
