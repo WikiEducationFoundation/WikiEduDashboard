@@ -28,7 +28,7 @@ class UpdateLog
   def self.average_delay
     setting = self.setting_record
     seconds = setting.value.map {|key, value| (Time.parse(setting.value[key].to_s) - Time.parse(setting.value[key-1].to_s) if key != setting.value.keys[0]).to_i}
-    average_delay = seconds.inject(:+)/(seconds.length-1) if seconds.length > 1 
+    seconds.inject(:+)/(seconds.length-1) if seconds.length > 1 
   end
 
 end
