@@ -9,7 +9,7 @@ class UserProfilesController < ApplicationController
 
   def show
     if @user
-      @courses_users = @user.courses_users
+      @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
       @user_profile = UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
@@ -26,7 +26,7 @@ class UserProfilesController < ApplicationController
 
   def stats
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
-    @courses_list = @user.courses.where('courses_users.role = ?',
+    @courses_list = public_courses.where('courses_users.role = ?',
                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
@@ -34,13 +34,17 @@ class UserProfilesController < ApplicationController
 
   def stats_graphs
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
-    @courses_list = @user.courses.where('courses_users.role = ?',
+    @courses_list = public_courses.where('courses_users.role = ?',
                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
   end
 
   private
+
+  def public_courses
+    @user.courses.nonprivate
+  end
 
   def require_write_permissions
     return if current_user == @user
