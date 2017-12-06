@@ -6,7 +6,7 @@ import TrainingModules from '../../../app/assets/javascripts/components/timeline
 
 describe('TrainingModules', () => {
   describe('render', () => {
-    const TrainingModulesM = mount(<TrainingModules block_modules={["test1", "test2", "test3"]} all_modules={["module1", "module2", "module3"]}/> );
+    const TrainingModulesM = mount(<TrainingModules block_modules={["test1", "test2", "test3"]} all_modules={["module1", "module2", "module3"]} />);
 
     describe('Initial State', () => {
       it('should map array block_modules with their ids', () => {
@@ -30,7 +30,7 @@ describe('TrainingModules', () => {
     });
     describe('trainingSelector', () => {
       it('should return object', () => {
-        expect(TrainingModulesM.instance().trainingSelector()).to.be_an('object');
+        expect(TrainingModulesM.instance().trainingSelector()).to.be.an('object');
       });
       // I can't get it work. `yarn test` throwed that `find` is invalid chai property...
       // it('should map `options` properly', () => {
