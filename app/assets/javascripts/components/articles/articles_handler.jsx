@@ -14,7 +14,8 @@ const ArticlesHandler = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    course: PropTypes.object
   },
 
   componentWillMount() {
@@ -27,6 +28,10 @@ const ArticlesHandler = createReactClass({
   },
 
   render() {
+    // FIXME: These props should be required, and this component should not be
+    // mounted in the first place if they are not available.
+    if (!this.props.course || !this.props.course.home_wiki) { return <div />; }
+
     let header;
     if (Features.wikiEd) {
       header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;

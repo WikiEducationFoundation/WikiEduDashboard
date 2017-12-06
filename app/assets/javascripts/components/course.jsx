@@ -79,6 +79,9 @@ const Course = createReactClass({
   },
 
   render() {
+    const courseId = this.getCourseID();
+    if (!courseId || !this.state.course || !this.state.course.home_wiki) { return <div />; }
+
     const alerts = [];
     const userRoles = this.state.current_user;
     // //////////////////////////////////
@@ -241,7 +244,7 @@ const Course = createReactClass({
         <div className="course_main container">
           <Confirm />
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: this.getCourseID(), current_user: this.state.current_user, course: this.state.course })}
+          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.state.current_user, course: this.state.course })}
         </div>
       </div>
     );
