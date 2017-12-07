@@ -10,7 +10,7 @@ import AssignmentStore from '../../stores/assignment_store.js';
 
 function getState() {
   return {
-    assignments: AssignmentStore.getModels()
+    assignments: AssignmentStore.getModels(),
   };
 }
 
@@ -20,7 +20,7 @@ const AvailableArticles = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   mixins: [AssignmentStore.mixin],
@@ -98,7 +98,7 @@ const AvailableArticles = createReactClass({
     }
 
     return availableArticles;
-  }
+  },
 });
 
 export default AvailableArticles;
