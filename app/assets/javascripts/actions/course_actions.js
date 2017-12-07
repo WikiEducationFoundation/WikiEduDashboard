@@ -8,13 +8,13 @@ const CourseActions = Flux.createActions({
       .then(resp => {
         return {
           actionType: 'PERSISTED_COURSE',
-          data: resp
+          data: resp,
         };
       })
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
@@ -25,7 +25,7 @@ const CourseActions = Flux.createActions({
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
@@ -35,14 +35,14 @@ const CourseActions = Flux.createActions({
       actionType: 'UPDATE_COURSE',
       data: {
         course,
-        save
-      }
+        save,
+      },
     };
   },
 
   addCourse() {
     return {
-      actionType: 'ADD_COURSE'
+      actionType: 'ADD_COURSE',
     };
   },
 
@@ -64,8 +64,8 @@ const CourseActions = Flux.createActions({
           actionType: 'CHECK_SERVER',
           data: {
             key: 'exists',
-            message
-          }
+            message,
+          },
         };
       })
       .catch(resp => {
@@ -81,13 +81,13 @@ const CourseActions = Flux.createActions({
       .then(() => {
         return {
           actionType: 'DISMISS_SURVEY_NOTIFICATION',
-          data: { id }
+          data: { id },
         };
       })
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
@@ -95,13 +95,13 @@ const CourseActions = Flux.createActions({
   toggleEditingSyllabus(bool) {
     return {
       actionType: 'TOGGLE_EDITING_SYLLABUS',
-      data: { bool }
+      data: { bool },
     };
   },
 
   startUploadSyllabus() {
     return {
-      actionType: 'UPLOADING_SYLLABUS'
+      actionType: 'UPLOADING_SYLLABUS',
     };
   },
 
@@ -110,13 +110,13 @@ const CourseActions = Flux.createActions({
       .then((data) => {
         return {
           actionType: 'SYLLABUS_UPLOAD_SUCCESS',
-          data: { url: data.url }
+          data: { url: data.url },
         };
       })
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
@@ -126,13 +126,13 @@ const CourseActions = Flux.createActions({
       .then((data) => {
         return {
           actionType: 'DELETE_ALL_WEEKS',
-          data: { id: data.courseId }
+          data: { id: data.courseId },
         };
       })
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
