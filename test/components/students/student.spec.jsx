@@ -12,7 +12,7 @@ describe('Student', () => {
     username: "Adam",
     admin: false,
     course_training_progress: "0/3 training modules completed",
-    real_name: null
+    real_name: null,
   };
   const assigned = [
     {
@@ -21,12 +21,12 @@ describe('Student', () => {
       course_id: "Couse_school/Foo_(Couse_term)",
       assignment_id: 9,
       article_url: "https://en.wikipedia.org/wiki/Foo",
-      username: "Adam"
-    }
+      username: "Adam",
+    },
   ];
   const course = {
     published: true,
-    home_wiki: { language: 'en', project: 'wikipedia' }
+    home_wiki: { language: 'en', project: 'wikipedia' },
   };
   const studentElement = ReactTestUtils.renderIntoDocument(
     <table>
@@ -44,7 +44,7 @@ describe('Student', () => {
           reviewing={assigned}
         />
       </tbody>
-    </table>
+    </table>,
   );
   it('displays the name of the user', () => {
     expect(studentElement.textContent).to.contain('Adam');
