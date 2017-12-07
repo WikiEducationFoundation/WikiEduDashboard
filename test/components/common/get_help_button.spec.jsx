@@ -17,7 +17,7 @@ GetHelpButton.__Rewire__('UserStore', {
       return [{ email: 'expert@wikiedu.org', username: 'Wiki Expert' },
               { email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
     }
-  }
+  },
 });
 
 describe('GetHelpButton', () => {
@@ -25,7 +25,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />,
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -47,7 +47,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />,
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -84,7 +84,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />,
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -101,7 +101,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 0 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />,
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
