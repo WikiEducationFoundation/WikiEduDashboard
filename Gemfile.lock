@@ -533,7 +533,6 @@ DEPENDENCIES
   http_accept_language
   i18n-js
   jbuilder (~> 2.0)
-  launchy
   mailgun_rails
   mediawiki_api (= 0.7.1)
   mysql2

@@ -99,7 +99,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'zeus', platforms: :ruby # zeus doesn't work on Windows
-  gem 'launchy'
   gem 'timecop'
   gem 'poltergeist'
   gem 'rb-readline' # for those who don't have a native readline utility installed
