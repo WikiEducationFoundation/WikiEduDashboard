@@ -9,7 +9,7 @@ const _enabledSlides = [];
 let _currentSlide = {
   id: null,
   title: '',
-  content: ''
+  content: '',
 };
 let _isLoading = true;
 
@@ -64,7 +64,7 @@ const storeMethods = {
       menuIsOpen: _menuState,
       enabledSlides: _enabledSlides,
       loading: this.getLoadingStatus(),
-      isFirstSlide: this.isFirstSlide()
+      isFirstSlide: this.isFirstSlide(),
     };
   },
   getLoadingStatus() {
@@ -105,7 +105,7 @@ const storeMethods = {
   },
   restore() {
     return false;
-  }
+  },
 };
 
 const TrainingStore = Flux.createStore(storeMethods, (payload) => {
