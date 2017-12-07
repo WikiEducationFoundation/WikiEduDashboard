@@ -11,7 +11,7 @@ const ProfileStore = Flux.createStore({
   },
   getStats() {
     return _stats;
-  }
+  },
 }, (payload) => {
   if (payload.actionType === "RECEIVE_STATISTICS") {
     _stats = payload.data;
