@@ -43,8 +43,8 @@ const BlockTypeSelect = createReactClass({
       </div>);
     }
     return <span>{this.props.options[this.props.value]}</span>;
-  }
-}
+  },
+},
 );
 
 export default Conditional(BlockTypeSelect);
