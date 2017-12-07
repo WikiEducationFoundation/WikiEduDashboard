@@ -2,7 +2,7 @@ import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY } from "../constants"
 
 const initialState = {
   categories: [],
-  loading: true
+  loading: true,
 };
 
 export default function categories(state = initialState, action) {
@@ -12,7 +12,7 @@ export default function categories(state = initialState, action) {
     case DELETE_CATEGORY: {
       return {
         categories: action.data.course.categories,
-        loading: false
+        loading: false,
       };
     }
     default:

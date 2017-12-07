@@ -2,7 +2,7 @@ import { RECEIVE_DYK } from "../constants";
 
 const initialState = {
   articles: [],
-  loading: true
+  loading: true,
 };
 
 export default function didYouKnow(state = initialState, action) {
@@ -10,7 +10,7 @@ export default function didYouKnow(state = initialState, action) {
     case RECEIVE_DYK: {
       return {
         articles: action.payload.data.articles,
-        loading: false
+        loading: false,
       };
     }
     default:
