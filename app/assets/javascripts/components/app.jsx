@@ -8,7 +8,7 @@ const App = ({ children }) => (
 );
 
 App.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 
