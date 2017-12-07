@@ -5,9 +5,9 @@ const TrainingStatusStore = new StockStore({
   sortAsc: true,
   descKeys: {
     date: true,
-    characters: true
+    characters: true,
   },
-  modelKey: 'training_module'
+  modelKey: 'training_module',
 });
 
 export default TrainingStatusStore.store;
