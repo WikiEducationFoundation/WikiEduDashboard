@@ -17,7 +17,7 @@ describe('ArticleList', () => {
       view_count: 5,
       language: 'en',
       title: 'articleTitle',
-      new_article: false
+      new_article: false,
     }, {
       id: 2,
       rating: 'start',
@@ -28,7 +28,7 @@ describe('ArticleList', () => {
       view_count: 5,
       language: 'en',
       title: 'articleTitle2',
-      new_article: true
+      new_article: true,
     }];
 
     ArticleList.__Rewire__('ArticleStore', {
@@ -38,15 +38,15 @@ describe('ArticleList', () => {
       getSorting() {
         return {
           sortKey: 'title',
-          sortAsc: true
+          sortAsc: true,
         };
-      }
+      },
     });
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
       <div>
         <ArticleList articles={articles} course={{ home_wiki: {} }} store={reduxStore} />
-      </div>
+      </div>,
     );
 
     expect(TestArticle.textContent).to.contain('articleTitle');
