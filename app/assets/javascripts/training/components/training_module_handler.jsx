@@ -43,7 +43,7 @@ const TrainingModuleHandler = createReactClass({
           </a>
         </li>
       );
-    }
+    },
     );
 
     return (
@@ -54,7 +54,7 @@ const TrainingModuleHandler = createReactClass({
         </ol>
       </div>
     );
-  }
+  },
 });
 
 export default TrainingModuleHandler;
