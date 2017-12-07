@@ -15,7 +15,7 @@ export default class SyllabusUpload extends React.Component {
     CourseActions.startUploadSyllabus();
     CourseActions.uploadSyllabus({
       courseId: this.props.course.id,
-      file: files[0]
+      file: files[0],
     });
   }
   _uploader() {
@@ -49,7 +49,7 @@ export default class SyllabusUpload extends React.Component {
   _removeSyllabus() {
     CourseActions.uploadSyllabus({
       courseId: this.props.course.id,
-      file: null
+      file: null,
     });
   }
   render() {
@@ -79,5 +79,5 @@ SyllabusUpload.propTypes = {
   course: PropTypes.object.isRequired,
   syllabus: PropTypes.string,
   editingSyllabus: PropTypes.bool,
-  uploadingSyllabus: PropTypes.bool
+  uploadingSyllabus: PropTypes.bool,
 };
