@@ -7,7 +7,7 @@ const MainspaceChecklist = createReactClass({
 
   getInitialState() {
     return {
-      show: false
+      show: false,
     };
   },
 
@@ -61,7 +61,7 @@ const MainspaceChecklist = createReactClass({
         {modal}
       </div>
     );
-  }
+  },
 });
 
 export default OnClickOutside(MainspaceChecklist);
