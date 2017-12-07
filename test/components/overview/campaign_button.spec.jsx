@@ -9,7 +9,7 @@ describe('CampaignButton', () => {
       <CampaignButton
         campaigns={[]}
         show={true}
-      />
+      />,
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'plus');
   });
