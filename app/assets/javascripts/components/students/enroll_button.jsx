@@ -26,7 +26,7 @@ const EnrollButton = createReactClass({
     open: PropTypes.func,
     is_open: PropTypes.bool,
     current_user: PropTypes.object,
-    initiateConfirm: PropTypes.func
+    initiateConfirm: PropTypes.func,
   },
 
   mixins: [UserStore.mixin],
@@ -34,7 +34,7 @@ const EnrollButton = createReactClass({
   getInitialState() {
     return ({
       onConfirm: null,
-      confirmMessage: null
+      confirmMessage: null,
     });
   },
 
@@ -50,7 +50,7 @@ const EnrollButton = createReactClass({
       NotificationActions.addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
-        type: 'success'
+        type: 'success',
       });
       return this.refs.username.value = '';
     }
@@ -73,7 +73,7 @@ const EnrollButton = createReactClass({
       username,
       role: this.props.role,
       role_description: roleDescription,
-      real_name: realName
+      real_name: realName,
     };
 
     const onConfirm = function () {
@@ -90,7 +90,7 @@ const EnrollButton = createReactClass({
     return NotificationActions.addNotification({
       message: I18n.t('users.already_enrolled'),
       closable: true,
-      type: 'error'
+      type: 'error',
     });
   },
 
@@ -151,7 +151,7 @@ const EnrollButton = createReactClass({
             <input type="text" readOnly={true} value={enrollUrl} style={{ width: '100%' }} />
             {massEnrollmentLink}
           </td>
-        </tr>
+        </tr>,
       );
     }
 
@@ -177,7 +177,7 @@ const EnrollButton = createReactClass({
               <button className="button border" type="submit">{CourseUtils.i18n('enroll', this.props.course.string_prefix)}</button>
             </form>
           </td>
-        </tr>
+        </tr>,
       );
     }
 
@@ -198,12 +198,12 @@ const EnrollButton = createReactClass({
         />
       </div>
     );
-  }
-}
+  },
+},
 );
 
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
-  Conditional(PopoverExpandable(EnrollButton))
+  Conditional(PopoverExpandable(EnrollButton)),
 );
