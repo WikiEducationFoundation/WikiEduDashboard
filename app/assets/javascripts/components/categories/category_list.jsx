@@ -6,10 +6,10 @@ import List from '../common/list.jsx';
 const CategoryList = ({ course, editable, categories, loading, removeCategory, addCategory }) => {
   const keys = {
     category_name: {
-      label: I18n.t('categories.name')
+      label: I18n.t('categories.name'),
     },
     depth: {
-      label: I18n.t('categories.depth')
+      label: I18n.t('categories.depth'),
     },
   };
 
@@ -63,7 +63,7 @@ CategoryList.propTypes = {
   course: React.PropTypes.object,
   categories: React.PropTypes.array,
   removeCategory: React.PropTypes.func,
-  addCategory: React.PropTypes.func
+  addCategory: React.PropTypes.func,
 };
 
 export default CategoryList;
