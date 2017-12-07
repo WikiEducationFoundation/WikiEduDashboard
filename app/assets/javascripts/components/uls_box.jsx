@@ -13,7 +13,7 @@ class Uls extends React.Component {
         } else {
           window.location = `?locale=${language}`;
         }
-      }
+      },
     });
   }
 
