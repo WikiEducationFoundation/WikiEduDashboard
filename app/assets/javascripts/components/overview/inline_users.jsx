@@ -53,7 +53,7 @@ InlineUsers.propTypes = {
   course: PropTypes.object,
   users: PropTypes.array,
   current_user: PropTypes.object,
-  editable: PropTypes.bool
+  editable: PropTypes.bool,
 };
 
 export default InlineUsers;

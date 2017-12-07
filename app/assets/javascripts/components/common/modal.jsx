@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const Modal = createReactClass({
   propTypes: {
     modalClass: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
   },
   componentWillMount() {
     return $('body').addClass('modal-open');
@@ -20,8 +20,8 @@ const Modal = createReactClass({
         {this.props.children}
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default Modal;

@@ -25,7 +25,7 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
     propTypes: {
       course_id: PropTypes.string,
       is_open: PropTypes.bool,
-      open: PropTypes.func
+      open: PropTypes.func,
     },
 
     mixins: [Store.mixin],
@@ -108,8 +108,8 @@ const PopoverButton = function (Key, ValueKey, Store, New, Items, IsSelect = fal
           />
         </div>
       );
-    }
-  }
+    },
+  },
   );
   return Conditional(PopoverExpandable(component));
 };

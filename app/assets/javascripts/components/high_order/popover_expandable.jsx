@@ -21,7 +21,7 @@ const PopoverExpandable = function (Component) {
 
     storeDidChange() {
       this.setState({
-        is_open: UIStore.getOpenKey() === this.refs.component.getKey()
+        is_open: UIStore.getOpenKey() === this.refs.component.getKey(),
       });
     },
 
@@ -44,7 +44,7 @@ const PopoverExpandable = function (Component) {
           ref={'component'}
         />
       );
-    }
+    },
   });
   return Conditional(OnClickOutside(component));
 };

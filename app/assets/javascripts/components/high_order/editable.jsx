@@ -12,7 +12,7 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     propTypes: {
       course_id: PropTypes.any,
       current_user: PropTypes.object,
-      editable: PropTypes.bool
+      editable: PropTypes.bool,
     },
 
     mixins: Stores.map(store => store.mixin),
@@ -86,8 +86,8 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     },
     render() {
       return <Component {...this.props} {...this.state} disableSave={this.disableSave} controls={this.controls} />;
-    }
-  }
+    },
+  },
   )
 ;
 

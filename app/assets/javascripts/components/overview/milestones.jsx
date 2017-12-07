@@ -10,7 +10,7 @@ const md = require('../../utils/markdown_it.js').default();
 const getState = () =>
   ({
     weeks: WeekStore.getWeeks(),
-    currentWeek: CourseStore.getCurrentWeek()
+    currentWeek: CourseStore.getCurrentWeek(),
   })
 ;
 
@@ -49,11 +49,11 @@ const Milestones = createReactClass({
               <div className="markdown" dangerouslySetInnerHTML={{ __html: rawHtml }} />
               <hr />
             </div>
-          </div>
+          </div>,
         );
-      }
+      },
       );
-    }
+    },
     );
 
     if (!blocks.length) {
@@ -68,7 +68,7 @@ const Milestones = createReactClass({
         {blocks}
       </div>
     );
-  }
+  },
 });
 
 export default Milestones;

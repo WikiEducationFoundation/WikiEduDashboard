@@ -65,7 +65,7 @@ const Notifications = createReactClass({
         {notifications}
       </div>
     );
-  }
+  },
 });
 
 export default Notifications;

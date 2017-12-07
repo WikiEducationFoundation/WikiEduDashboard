@@ -7,12 +7,12 @@ import uuid from 'uuid';
 const CourseTypeSelector = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
 
   componentWillMount() {
     this.setState({
-      id: uuid.v4()
+      id: uuid.v4(),
     });
   },
 
@@ -37,7 +37,7 @@ const CourseTypeSelector = createReactClass({
       VisitingScholarship: 'Visiting Scholarship',
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
-      ArticleScopedProgram: 'Article Scoped Program'
+      ArticleScopedProgram: 'Article Scoped Program',
     }[type];
   },
 
@@ -80,7 +80,7 @@ const CourseTypeSelector = createReactClass({
         {selector}
       </div>
     );
-  }
+  },
 });
 
 export default CourseTypeSelector;

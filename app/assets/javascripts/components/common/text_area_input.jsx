@@ -24,7 +24,7 @@ const TextAreaInput = createReactClass({
     rows: PropTypes.string, // set the number of rows — plain text only
     wysiwyg: PropTypes.bool, // use Trix editor instead of plain text
     markdown: PropTypes.bool, // render value as Markdown when in read mode
-    className: PropTypes.string
+    className: PropTypes.string,
   },
 
   mixins: [InputMixin],
@@ -105,8 +105,8 @@ const TextAreaInput = createReactClass({
     return (
       <div className={this.props.className} dangerouslySetInnerHTML={{ __html: rawHtml }} />
     );
-  }
-}
+  },
+},
 );
 
 export default TextAreaInput;

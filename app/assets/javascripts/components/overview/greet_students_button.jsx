@@ -6,7 +6,7 @@ import ServerActions from '../../actions/server_actions.js';
 const GreetStudentsButton = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   greetStudents() {
@@ -22,7 +22,7 @@ const GreetStudentsButton = createReactClass({
     return (
       <p key="greet_students"><button onClick={this.greetStudents} className="button">Greet students</button></p>
     );
-  }
+  },
 });
 
 export default GreetStudentsButton;

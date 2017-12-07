@@ -26,7 +26,7 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
 
 CourseLevelSelector.propTypes = {
   level: React.PropTypes.string,
-  updateCourse: React.PropTypes.func
+  updateCourse: React.PropTypes.func,
 };
 
 export default CourseLevelSelector;
