@@ -15,7 +15,7 @@ const SummaryPanel = createReactClass({
   propTypes: {
     courseId: PropTypes.string,
     course: PropTypes.object.isRequired,
-    wizardId: PropTypes.string
+    wizardId: PropTypes.string,
   },
 
   submit() {
@@ -36,7 +36,7 @@ const SummaryPanel = createReactClass({
             {I18n.t('timeline.course_end')} — {this.props.course.end} <br />
             {I18n.t('courses.assignment_start')} — {this.props.course.timeline_start} <br />
             {I18n.t('courses.assignment_end')} — {this.props.course.timeline_end}
-          </p>
+          </p>,
         ];
       } else {
         details = answer.selections.map((selection, j) => <p key={`detail${i}${j}`}>{selection}</p>);
@@ -48,7 +48,7 @@ const SummaryPanel = createReactClass({
           <p className="edit">Edit</p>
         </button>
       );
-    }
+    },
     );
 
     return (
@@ -59,7 +59,7 @@ const SummaryPanel = createReactClass({
         button_text="Generate Timeline"
       />
     );
-  }
+  },
 });
 
 export default SummaryPanel;
