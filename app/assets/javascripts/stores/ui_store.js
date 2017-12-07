@@ -18,7 +18,7 @@ const setOpenKey = function (key) {
 const storeMethods = {
   getOpenKey() {
     return _openKey;
-  }
+  },
 };
 const UIStore = Flux.createStore(storeMethods, (payload) => {
   const { data } = payload;
