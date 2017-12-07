@@ -13,7 +13,7 @@ describe('StudentList', () => {
     username: "Adam",
     admin: false,
     course_training_progress: "0/3 training modules completed",
-    real_name: null
+    real_name: null,
   }];
   const params = { course_school: "Foobar", course_id: "asd" };
   const assignments = [{
@@ -26,14 +26,14 @@ describe('StudentList', () => {
     role: 1,
     user_id: 3,
     username: "Adam",
-    admin: false
-  }
+    admin: false,
+  },
   ];
   const course = {
     student_count: 1,
     trained_count: 0,
     published: true,
-    home_wiki: { language: 'en', project: 'wikipedia' }
+    home_wiki: { language: 'en', project: 'wikipedia' },
   };
 
   it('displays \'Name\' column', () => {
@@ -49,7 +49,7 @@ describe('StudentList', () => {
           current_user ={currentUser}
           assignments={assignments}
         />
-      </div>
+      </div>,
     );
     expect(studentList.textContent).to.contain('Name');
   });
@@ -69,7 +69,7 @@ describe('StudentList', () => {
         course_id="Couse_school/Test_Course_(Couse_term)"
         current_user={currentUser}
         assignments={assignments}
-      />
+      />,
     );
     studentList.setState({ users: users });
     studentList.setState({ assignments: assignments });
@@ -78,5 +78,5 @@ describe('StudentList', () => {
     ReactTestUtils.Simulate.click(button);
     expect(notifyOverdue.callCount).to.eq(1);
   });
-}
+},
 );
