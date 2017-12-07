@@ -5,7 +5,6 @@
     # This makes it easier for Windows users to work on the project. Git automatically
     # converts between linebreak styles to unix-style should end up in the repo.
     "func-names": 0,
-    "comma-dangle": 0,
     "consistent-return": 0,
     "no-return-assign": 0,
     "react/prefer-es6-class": 0,
