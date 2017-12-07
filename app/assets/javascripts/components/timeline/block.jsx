@@ -23,7 +23,7 @@ const Block = createReactClass({
     toggleFocused: PropTypes.func,
     isDragging: PropTypes.bool,
     all_training_modules: PropTypes.array,
-    weekStart: PropTypes.object
+    weekStart: PropTypes.object,
   },
 
   updateBlock(valueKey, value) {
@@ -238,8 +238,8 @@ const Block = createReactClass({
         {deleteBlock}
       </li>
     );
-  }
-}
+  },
+},
 );
 
 
