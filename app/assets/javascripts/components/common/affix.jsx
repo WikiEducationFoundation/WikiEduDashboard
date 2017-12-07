@@ -8,7 +8,7 @@ const Affix = createReactClass({
   propTypes: {
     offset: PropTypes.number,
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
   },
 
   getDefaultProps() {
@@ -46,8 +46,8 @@ const Affix = createReactClass({
         {this.props.children}
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default Affix;
