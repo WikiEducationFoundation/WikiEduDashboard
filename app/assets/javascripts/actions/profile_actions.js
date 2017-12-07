@@ -7,7 +7,7 @@ const ProfileActions = Flux.createActions({
     return API.fetchUserProfileStats(username)
       .then(resp => ({ actionType: 'RECEIVE_STATISTICS', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  }
+  },
 });
 
 export default ProfileActions;
