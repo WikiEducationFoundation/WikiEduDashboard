@@ -7,7 +7,7 @@ const CourseCreationActions = Flux.createActions({
     return API.fetchCampaign(slug)
       .then(resp => ({ actionType: 'RECEIVE_INITIAL_CAMPAIGN', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  }
+  },
 });
 
 export default CourseCreationActions;

@@ -9,7 +9,7 @@ const LookupWrapper = function (Component) {
   const getState = (model, exclude) =>
     ({
       models: _.difference(LookupStore.getLookups(model), exclude),
-      submitting: false
+      submitting: false,
     })
   ;
   return createReactClass({
@@ -17,7 +17,7 @@ const LookupWrapper = function (Component) {
 
     propTypes: {
       model: PropTypes.string,
-      exclude: PropTypes.array
+      exclude: PropTypes.array,
     },
 
     mixins: [LookupStore.mixin],
@@ -46,8 +46,8 @@ const LookupWrapper = function (Component) {
       return (
         <Component {...this.props} {...this.state} ref="entry" />
       );
-    }
-  }
+    },
+  },
   );
 };
 

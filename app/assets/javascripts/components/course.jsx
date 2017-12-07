@@ -25,7 +25,7 @@ const getState = function () {
   return {
     course: CourseStore.getCourse(),
     current_user: currentUser,
-    weeks: WeekStore.getWeeks()
+    weeks: WeekStore.getWeeks(),
   };
 };
 
@@ -36,7 +36,7 @@ const Course = createReactClass({
     params: PropTypes.object,
     location: PropTypes.object,
     children: PropTypes.node,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
@@ -164,7 +164,7 @@ const Course = createReactClass({
             </div>
           </div>
         </div>
-      )
+      ),
       );
     }
 
@@ -182,7 +182,7 @@ const Course = createReactClass({
             <p>{I18n.t(messageKey, { title: module.title, date: module.due_date })}</p>
             <a href={module.link} className="button pull-right">{I18n.t('courses.training_nav')}</a>
           </div>
-        </div>
+        </div>,
       );
     }
 
@@ -199,9 +199,9 @@ const Course = createReactClass({
               <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', this.state.course.string_prefix)}</a>
               <button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>
             </div>
-          </div>
+          </div>,
         );
-      }
+      },
       );
     }
 
@@ -248,7 +248,7 @@ const Course = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default Course;

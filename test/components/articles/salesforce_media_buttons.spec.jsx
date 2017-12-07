@@ -7,7 +7,7 @@ import SalesforceMediaButtons from '../../../app/assets/javascripts/components/a
 
 const course = {
   id: 5,
-  home_wiki: { language: 'en', project: 'wikipedia' }
+  home_wiki: { language: 'en', project: 'wikipedia' },
 };
 const editors = ['Ragesoss', 'Ragesock', 'Sage (Wiki Ed)'];
 const article = { id: 1234 };
@@ -23,7 +23,7 @@ describe('SalesforceMediaButtons', () => {
           before_rev_id={123}
           after_rev_id={234}
         />
-      </div>
+      </div>,
     );
     expect(TestButtons.querySelectorAll('a').length).to.eq(3);
   });

@@ -8,12 +8,12 @@ describe('CourseClonedModal', () => {
     school: 'foo',
     term: 'baz',
     title: 'bar',
-    expected_students: 0
+    expected_students: 0,
   };
   const TestModal = mount(
     <CourseClonedModal
       course={course}
-    />
+    />,
     );
 
   it('renders a Modal', () => {

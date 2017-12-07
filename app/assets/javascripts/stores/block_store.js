@@ -50,7 +50,7 @@ const addBlock = function (weekId) {
     gradeable_id: null,
     week_id: weekId,
     order: weekBlocks.length,
-    duration: null
+    duration: null,
   };
   setBlock(block);
   return setEditableBlockId(block.id);
@@ -134,7 +134,7 @@ const storeMethods = {
   },
   editingAddedBlock() {
     return _editingAddedBlock;
-  }
+  },
 };
 
 

@@ -10,7 +10,7 @@ describe('EmptyWeek', () => {
 
   describe('empty state', () => {
     const TestEmptyWeek = mount(
-      <EmptyWeek />
+      <EmptyWeek />,
     );
     it('gives the empty text if timeline and edit permissions are empty', () => {
       const headline = TestEmptyWeek.find('h1');
@@ -24,12 +24,12 @@ describe('EmptyWeek', () => {
         emptyTimeline
         edit_permissions
         course={course}
-      />
+      />,
     );
     it('suggests editing the week', () => {
       const pTag = TestEmptyWeek.find('.week__no-activity__get-started');
       expect(makeSpacesUniform(pTag.text())).to.eq(
-        makeSpacesUniform('To get started, start editing this week or use the assignment wizard to create a timeline.')
+        makeSpacesUniform('To get started, start editing this week or use the assignment wizard to create a timeline.'),
       );
     });
   });
@@ -38,12 +38,12 @@ describe('EmptyWeek', () => {
     const TestEmptyWeek = mount(
       <EmptyWeek
         emptyTimeline
-      />
+      />,
     );
     it('says course has no timeline', () => {
       const pTag = TestEmptyWeek.find('.week__no-activity__get-started');
       expect(makeSpacesUniform(pTag.text())).to.eq(
-        makeSpacesUniform('This course has no timeline.')
+        makeSpacesUniform('This course has no timeline.'),
       );
     });
   });

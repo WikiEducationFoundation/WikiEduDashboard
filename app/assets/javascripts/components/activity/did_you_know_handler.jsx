@@ -11,7 +11,7 @@ const HEADERS = [
   { title: I18n.t("recent_activity.article_title"), key: "title" },
   { title: I18n.t("recent_activity.revision_score"), key: "revision_score", style: { width: 142 } },
   { title: I18n.t("recent_activity.revision_author"), key: "username", style: { minWidth: 142 } },
-  { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
+  { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } },
 ];
 
 const DidYouKnowHandler = createReactClass({
@@ -20,7 +20,7 @@ const DidYouKnowHandler = createReactClass({
   propTypes: {
     fetchDYKArticles: PropTypes.func,
     articles: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
   },
 
   componentWillMount() {
@@ -51,16 +51,16 @@ const DidYouKnowHandler = createReactClass({
         />
       </div>
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
   articles: state.didYouKnow.articles,
-  loading: state.didYouKnow.loading
+  loading: state.didYouKnow.loading,
 });
 
 const mapDispatchToProps = {
-  fetchDYKArticles: fetchDYKArticles
+  fetchDYKArticles: fetchDYKArticles,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DidYouKnowHandler);

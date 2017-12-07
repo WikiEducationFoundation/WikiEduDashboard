@@ -11,7 +11,7 @@ describe('RecentActivityHandler', () => {
       <RecentActivityHandler>
         <h1>Child</h1>
       </RecentActivityHandler>
-    </div>
+    </div>,
   );
 
   it('renders children', () => {

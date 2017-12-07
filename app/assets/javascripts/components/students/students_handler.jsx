@@ -13,7 +13,7 @@ const StudentsHandler = createReactClass({
     course_id: PropTypes.string,
     current_user: PropTypes.object,
     course: PropTypes.object,
-    children: PropTypes.node
+    children: PropTypes.node,
   },
 
   componentWillMount() {
@@ -52,8 +52,8 @@ const StudentsHandler = createReactClass({
         {this.props.children}
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default StudentsHandler;

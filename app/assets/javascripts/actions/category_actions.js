@@ -9,13 +9,13 @@ const fetchCategoriesPromise = (courseSlug) => {
       url: `/courses/${courseSlug}/categories.json`,
       success(data) {
         return res(data);
-      }
+      },
     })
     .fail((obj) => {
       logErrorMessage(obj);
       return rej(obj);
     });
-  }
+  },
   );
 };
 
@@ -41,13 +41,13 @@ const addCategoryPromise = ({ category, source, project, language, depth, course
       url: `/categories.json?category_name=${category}&depth=${depth}&course_id=${course.id}&project=${project}&language=${language}&source=${source}`,
       success(data) {
         return res(data);
-      }
+      },
     })
     .fail((obj) => {
       logErrorMessage(obj);
       return rej(obj);
     });
-  }
+  },
   );
 };
 
@@ -73,13 +73,13 @@ const removeCategoryPromise = (courseId, categoryId) => {
       url: `/categories.json?category_id=${categoryId}&course_id=${courseId}`,
       success(data) {
         return res(data);
-      }
+      },
     })
     .fail((obj) => {
       logErrorMessage(obj);
       return rej(obj);
     });
-  }
+  },
   );
 };
 

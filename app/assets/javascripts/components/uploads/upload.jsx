@@ -59,7 +59,7 @@ const Upload = ({ upload, linkUsername }) => {
 
 Upload.propTypes = {
   upload: PropTypes.object,
-  linkUsername: PropTypes.bool
+  linkUsername: PropTypes.bool,
 };
 
 export default Upload;

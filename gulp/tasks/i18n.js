@@ -11,5 +11,5 @@ gulp.task('i18n', cb =>
       gutil.log(stderr);
     }
     return cb(err);
-  })
+  }),
 );

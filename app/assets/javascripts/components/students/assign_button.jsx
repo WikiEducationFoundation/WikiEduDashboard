@@ -28,7 +28,7 @@ const AssignButton = createReactClass({
     assignments: PropTypes.array,
     open: PropTypes.func.isRequired,
     tooltip_message: PropTypes.string,
-    initiateConfirm: PropTypes.func
+    initiateConfirm: PropTypes.func,
   },
 
   getInitialState() {
@@ -36,7 +36,7 @@ const AssignButton = createReactClass({
       showOptions: false,
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
-      title: ''
+      title: '',
     });
   },
 
@@ -72,7 +72,7 @@ const AssignButton = createReactClass({
     return this.setState({
       title: assignment.title,
       project,
-      language
+      language,
     });
   },
   handleChangeLanguage(val) {
@@ -100,7 +100,7 @@ const AssignButton = createReactClass({
       language: this.state.language,
       course_id: this.props.course_id,
       user_id: student,
-      role: this.props.role
+      role: this.props.role,
     };
 
     if (assignment.title === '' || assignment.title === 'undefined') {
@@ -117,7 +117,7 @@ const AssignButton = createReactClass({
     if (this.props.student && AssignmentStore.getFiltered({
       articleTitle,
       user_id: this.props.student.id,
-      role: this.props.role
+      role: this.props.role,
     }).length !== 0) {
       alert(I18n.t('assignments.already_exists'));
       return;
@@ -144,12 +144,12 @@ const AssignButton = createReactClass({
     if (this.props.student) {
       confirmMessage = I18n.t('assignments.confirm_addition', {
         title: articleTitle,
-        username: this.props.student.username
+        username: this.props.student.username,
       });
     // Confirm for adding an unassigned available article
     } else {
       confirmMessage = I18n.t('assignments.confirm_add_available', {
-        title: articleTitle
+        title: articleTitle,
       });
     }
     return this.props.initiateConfirm(confirmMessage, onConfirm);
@@ -313,12 +313,12 @@ const AssignButton = createReactClass({
         />
       </div>
     );
-  }
-}
+  },
+},
 );
 
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
-  PopoverExpandable(AssignButton)
+  PopoverExpandable(AssignButton),
 );

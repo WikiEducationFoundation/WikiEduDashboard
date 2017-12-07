@@ -13,14 +13,14 @@ describe('top-level course component', () => {
     const courseProps = {
       location: {
         query: { enroll: 'passcode' },
-        pathname: '/courses/this_school/this_course'
+        pathname: '/courses/this_school/this_course',
       },
-      params: { course_school: 'this_school', course_title: 'this_course' }
+      params: { course_school: 'this_school', course_title: 'this_course' },
     };
     const currentUser = {
       role: 0,
       username: 'Ragesoss',
-      admin: true
+      admin: true,
     };
     global.Features = { enableGetHelpButton: true };
     const testCourse = ReactTestUtils.renderIntoDocument(
@@ -28,7 +28,7 @@ describe('top-level course component', () => {
         <Course {...courseProps}>
           <OverviewHandler {...courseProps} current_user={currentUser} />
         </Course>
-      </Provider>
+      </Provider>,
     );
     expect(testCourse).to.exist;
   });

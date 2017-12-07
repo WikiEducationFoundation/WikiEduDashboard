@@ -145,14 +145,14 @@ const Timeline = createReactClass({
       if (scrollTop >= elTop - topOffset) {
         Array.prototype.forEach.call(navItems, item => {
           return item.classList.remove('is-current');
-        }
+        },
         );
         if (!this._scrolledToBottom()) {
           return __guard__(navItems[i], x => x.classList.add('is-current'));
         }
         return __guard__(navItems[navItems.length - 1], x1 => x1.classList.add('is-current'));
       }
-    }
+    },
     );
   }
   , 150),
@@ -174,7 +174,7 @@ const Timeline = createReactClass({
     this.props.weeks.sort((a, b) => a.order - b.order);
 
     this.props.weeks.forEach(w =>
-      w.blocks.sort((a, b) => a.order - b.order)
+      w.blocks.sort((a, b) => a.order - b.order),
     );
 
     let tooManyWeeksWarning;
@@ -205,7 +205,7 @@ const Timeline = createReactClass({
               weeksBeforeTimeline={weeksBeforeTimeline}
             />
           </div>
-        )
+        ),
         );
         i++;
       }
@@ -237,10 +237,10 @@ const Timeline = createReactClass({
             weeksBeforeTimeline={weeksBeforeTimeline}
           />
         </div>
-      )
+      ),
       );
       return i++;
-    }
+    },
     );
 
     // If there are no weeks at all, put in a special placeholder week with the
@@ -384,7 +384,7 @@ const Timeline = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default DragDropContext(Touch({ enableMouseEvents: true }))(Timeline);

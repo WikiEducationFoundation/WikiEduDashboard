@@ -30,7 +30,7 @@ const addWeek = () =>
   setWeek({
     id: Date.now(), // could THEORETICALLY collide but highly unlikely
     is_new: true, // remove ids from objects with is_new when persisting
-    blocks: []
+    blocks: [],
   });
 const removeWeek = function (weekId) {
   delete _weeks[weekId];
@@ -86,7 +86,7 @@ const WeekStore = Flux.createStore(
       // no default
     }
     return true;
-  }
+  },
 );
 
 export default WeekStore;

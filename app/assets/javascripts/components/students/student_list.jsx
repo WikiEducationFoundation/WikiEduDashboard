@@ -21,7 +21,7 @@ import CourseUtils from '../../utils/course_utils.js';
 const getState = () =>
   ({
     users: UserStore.getFiltered({ role: 0 }),
-    assignments: AssignmentStore.getModels()
+    assignments: AssignmentStore.getModels(),
   })
 ;
 
@@ -41,7 +41,7 @@ const StudentList = createReactClass({
     controls: PropTypes.func,
     editable: PropTypes.bool,
     openKey: PropTypes.string,
-    actions: PropTypes.object
+    actions: PropTypes.object,
   },
 
   componentWillUnmount() {
@@ -110,30 +110,30 @@ const StudentList = createReactClass({
     const keys = {
       username: {
         label: I18n.t('users.name'),
-        desktop_only: false
+        desktop_only: false,
       },
       assignment_title: {
         label: I18n.t('users.assigned'),
         desktop_only: true,
-        sortable: false
+        sortable: false,
       },
       reviewing_title: {
         label: I18n.t('users.reviewing'),
         desktop_only: true,
-        sortable: false
+        sortable: false,
       },
       recent_revisions: {
         label: I18n.t('users.recent_revisions'),
         desktop_only: true,
         sortable: true,
-        info_key: 'users.revisions_doc'
+        info_key: 'users.revisions_doc',
       },
       character_sum_ms: {
         label: I18n.t('users.chars_added'),
         desktop_only: true,
         sortable: true,
-        info_key: 'users.character_doc'
-      }
+        info_key: 'users.character_doc',
+      },
     };
 
     return (
@@ -150,19 +150,19 @@ const StudentList = createReactClass({
         />
       </div>
     );
-  }
-}
+  },
+},
 );
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey
+  openKey: state.ui.openKey,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(FrontendActions, dispatch)
+  actions: bindActionCreators(FrontendActions, dispatch),
 });
 
 export default Editable(
   connect(mapStateToProps, mapDispatchToProps)(StudentList),
-  [UserStore, AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true
+  [UserStore, AssignmentStore], save, getState, I18n.t('users.assign_articles'), I18n.t('users.assign_articles_done'), true,
 );

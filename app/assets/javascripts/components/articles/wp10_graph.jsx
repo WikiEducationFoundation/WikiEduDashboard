@@ -10,7 +10,7 @@ const Wp10Graph = createReactClass({
     graphid: PropTypes.string,
     graphWidth: PropTypes.number,
     graphHeight: PropTypes.number,
-    articleData: PropTypes.array
+    articleData: PropTypes.array,
   },
 
   renderGraph() {
@@ -29,12 +29,12 @@ const Wp10Graph = createReactClass({
             fields: [{
               data: 'wp10_scores',
               field: 'date',
-              sort: { field: 'date', op: 'min' }
-            }]
+              sort: { field: 'date', op: 'min' },
+            }],
           },
           rangeMin: 0,
           rangeMax: this.props.graphWidth,
-          round: true
+          round: true,
         },
         {
           name: 'y',
@@ -44,8 +44,8 @@ const Wp10Graph = createReactClass({
           rangeMax: 0,
           round: true,
           nice: true,
-          zero: false
-        }
+          zero: false,
+        },
       ],
       axes: [
         {
@@ -58,9 +58,9 @@ const Wp10Graph = createReactClass({
           properties: {
             labels: {
               text: { template: '{{datum["data"] | time:\'%b %d\'}}' },
-              angle: { value: 0 }
-            }
-          }
+              angle: { value: 0 },
+            },
+          },
         },
         {
           type: 'y',
@@ -69,8 +69,8 @@ const Wp10Graph = createReactClass({
           grid: true,
           layer: 'back',
           offset: 10,
-          title: I18n.t('articles.wp10')
-        }
+          title: I18n.t('articles.wp10'),
+        },
       ],
       // ///////////////
       // Data Sources //
@@ -82,9 +82,9 @@ const Wp10Graph = createReactClass({
           format: { type: 'json', parse: { date: 'date', wp10: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum.date !== null && !isNaN(datum.date) && datum.wp10 !== null && !isNaN(datum.wp10)'
-          }]
-        }
+            test: 'datum.date !== null && !isNaN(datum.date) && datum.wp10 !== null && !isNaN(datum.wp10)',
+          }],
+        },
       ],
       // //////////////
       // Mark layers //
@@ -96,7 +96,7 @@ const Wp10Graph = createReactClass({
           type: 'area',
           from: {
             data: 'wp10_scores',
-            transform: [{ type: 'sort', by: '-date' }]
+            transform: [{ type: 'sort', by: '-date' }],
           },
           properties: { enter: {
             orient: { value: 'vertical' },
@@ -105,8 +105,8 @@ const Wp10Graph = createReactClass({
             y2: { scale: 'y', value: 0 },
             fill: { value: '#676EB4' },
             opacity: { value: 0.7 },
-            interpolate: { value: 'step-before' }
-          } }
+            interpolate: { value: 'step-before' },
+          } },
         },
         // Revision point marks
         {
@@ -114,7 +114,7 @@ const Wp10Graph = createReactClass({
           type: 'symbol',
           from: {
             data: 'wp10_scores',
-            transform: [{ type: 'sort', by: '-date' }]
+            transform: [{ type: 'sort', by: '-date' }],
           },
           properties: {
             enter: {
@@ -123,7 +123,7 @@ const Wp10Graph = createReactClass({
               size: { value: 100 },
               shape: { value: 'circle' },
               fill: { value: '#359178' },
-              opacity: { value: 0.7 }
+              opacity: { value: 0.7 },
             },
             update: {
               fill: {
@@ -132,11 +132,11 @@ const Wp10Graph = createReactClass({
                     predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
                     value: '#333',
                   },
-                  { value: '#359178' }
-                ]
-              }
-            }
-          }
+                  { value: '#359178' },
+                ],
+              },
+            },
+          },
         },
         // Labels on revision mouseover
         {
@@ -148,7 +148,7 @@ const Wp10Graph = createReactClass({
               y: { value: -15 },
               align: { value: 'center' },
               fill: { value: '#333' },
-              fontSize: { value: 28 }
+              fontSize: { value: 28 },
             },
             update: {
               text: { signal: 'revisionDetails.username' },
@@ -156,14 +156,14 @@ const Wp10Graph = createReactClass({
                 rule: [
                   {
                     predicate: { name: 'ifRevisionDetails', id: { value: null } },
-                    value: 0
+                    value: 0,
                   },
-                  { value: 1 }
-                ]
-              }
-            }
-          }
-        }
+                  { value: 1 },
+                ],
+              },
+            },
+          },
+        },
       ],
       // ///////////////
       // Interactions //
@@ -174,23 +174,23 @@ const Wp10Graph = createReactClass({
           init: {},
           streams: [
             { type: 'symbol:mouseover', expr: 'datum' },
-            { type: 'symbol:mouseout', expr: '{}' }
-          ]
-        }
+            { type: 'symbol:mouseout', expr: '{}' },
+          ],
+        },
       ],
       predicates: [
         {
           name: 'ifRevisionDetails',
           type: '==',
-          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }]
-        }
-      ]
+          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }],
+        },
+      ],
     };
 
     const embedSpec = {
       mode: 'vega',
       spec: vegaSpec,
-      actions: false
+      actions: false,
     };
     vg.embed(`#${this.props.graphid}`, embedSpec);
   },
@@ -202,7 +202,7 @@ const Wp10Graph = createReactClass({
         <div id={this.props.graphid} />
       </div>
     );
-  }
+  },
 });
 
 export default Wp10Graph;

@@ -14,7 +14,7 @@ export function fetchArticleDetails(articleId, courseId) {
       .then(response => (dispatch({
         type: types.RECEIVE_ARTICLE_DETAILS,
         articleId: articleId,
-        data: response
+        data: response,
       })))
       // TODO: The Flux stores still handle API failures, so we delegate to a
       // Flux action. Once all API_FAIL actions can be handled by Redux, we can

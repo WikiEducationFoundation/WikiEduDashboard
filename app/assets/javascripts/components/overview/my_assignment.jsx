@@ -15,7 +15,7 @@ const MyAssignment = createReactClass({
     current_user: PropTypes.object,
     course: PropTypes.object.isRequired,
     username: PropTypes.string,
-    last: PropTypes.bool
+    last: PropTypes.bool,
   },
 
   isEnglishWikipedia() {
@@ -83,7 +83,7 @@ const MyAssignment = createReactClass({
         {divider}
       </div>
     );
-  }
+  },
 });
 
 export default MyAssignment;

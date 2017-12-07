@@ -33,14 +33,14 @@ const DatePicker = createReactClass({
     onClick: PropTypes.func,
     append: PropTypes.string,
     date_props: PropTypes.object,
-    showTime: PropTypes.bool
+    showTime: PropTypes.bool,
   },
 
   mixins: [InputMixin],
 
   getDefaultProps() {
     return {
-      invalidMessage: I18n.t('application.field_invalid_date')
+      invalidMessage: I18n.t('application.field_invalid_date'),
     };
   },
 
@@ -51,14 +51,14 @@ const DatePicker = createReactClass({
         value: dateObj.format('YYYY-MM-DD'),
         hour: dateObj.hour(),
         minute: dateObj.minute(),
-        datePickerVisible: false
+        datePickerVisible: false,
       };
     }
     return {
       value: '',
       hour: 0,
       minute: 0,
-      datePickerVisible: false
+      datePickerVisible: false,
     };
   },
 
@@ -68,7 +68,7 @@ const DatePicker = createReactClass({
       this.setState({
         value: dateObj.format('YYYY-MM-DD'),
         hour: dateObj.hour(),
-        minute: dateObj.minute()
+        minute: dateObj.minute(),
       });
     }
   },
@@ -124,7 +124,7 @@ const DatePicker = createReactClass({
     this.refs.datefield.focus();
     this.setState({
       value: date.format('YYYY-MM-DD'),
-      datePickerVisible: false
+      datePickerVisible: false,
     }, this.onChangeHandler);
   },
 
@@ -161,13 +161,13 @@ const DatePicker = createReactClass({
 
   handleHourFieldChange(e) {
     this.setState({
-      hour: e.target.value
+      hour: e.target.value,
     }, this.onChangeHandler);
   },
 
   handleMinuteFieldChange(e) {
     this.setState({
-      minute: e.target.value
+      minute: e.target.value,
     }, this.onChangeHandler);
   },
 
@@ -284,7 +284,7 @@ const DatePicker = createReactClass({
 
       const modifiers = {
         selected: this.isDaySelected,
-        disabled: this.isDayDisabled
+        disabled: this.isDayDisabled,
       };
 
       const dateInput = (
@@ -366,7 +366,7 @@ const DatePicker = createReactClass({
     return (
       <span>{this.getFormattedDateTime()}</span>
     );
-  }
+  },
 });
 
 export default Conditional(OnClickOutside(DatePicker));

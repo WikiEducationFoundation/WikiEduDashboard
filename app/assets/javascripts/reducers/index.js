@@ -16,7 +16,7 @@ const reducer = combineReducers({
   needHelpAlert,
   userCourses,
   ui,
-  didYouKnow
+  didYouKnow,
 });
 
 export default reducer;

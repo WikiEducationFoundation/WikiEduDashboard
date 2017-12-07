@@ -10,7 +10,7 @@ const setAuthToken = function (data) {
 const storeMethods = {
   getAuthToken() {
     return _authToken;
-  }
+  },
 };
 
 const ChatStore = Flux.createStore(storeMethods, (payload) => {

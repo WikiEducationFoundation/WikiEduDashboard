@@ -6,7 +6,7 @@ const CourseStatsDownloadModal = createReactClass({
   displayName: 'CourseStatsDownloadModal',
 
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   getInitialState() {
@@ -63,7 +63,7 @@ const CourseStatsDownloadModal = createReactClass({
         </p>
       </div>
     );
-  }
+  },
 });
 
 export default CourseStatsDownloadModal;

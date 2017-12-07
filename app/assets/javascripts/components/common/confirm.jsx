@@ -16,7 +16,7 @@ const Confirm = createReactClass({
     showInput: PropTypes.bool,
     explanation: PropTypes.string,
     confirmAction: PropTypes.func.isRequired,
-    cancelAction: PropTypes.func.isRequired
+    cancelAction: PropTypes.func.isRequired,
   },
 
   getInitialState() {
@@ -92,7 +92,7 @@ const Confirm = createReactClass({
         </div>
       </Modal>
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
@@ -100,7 +100,7 @@ const mapStateToProps = state => ({
   onConfirm: state.confirm.onConfirm,
   confirmMessage: state.confirm.confirmMessage,
   showInput: state.confirm.showInput,
-  explanation: state.confirm.explanation
+  explanation: state.confirm.explanation,
 });
 
 const mapDispatchToProps = { confirmAction, cancelAction };

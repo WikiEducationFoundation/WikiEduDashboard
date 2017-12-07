@@ -5,7 +5,7 @@ const initialState = {
   confirmMessage: null,
   onConfirm: null,
   showInput: false,
-  explanation: null
+  explanation: null,
 };
 
 export default function ui(state = initialState, action) {
@@ -16,7 +16,7 @@ export default function ui(state = initialState, action) {
         confirmMessage: action.confirmMessage,
         onConfirm: action.onConfirm,
         showInput: action.showInput,
-        explanation: action.explanation
+        explanation: action.explanation,
       };
     case ACTION_CONFIRMED:
     case ACTION_CANCELLED:

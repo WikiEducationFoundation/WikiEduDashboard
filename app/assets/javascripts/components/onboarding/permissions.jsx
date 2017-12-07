@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 const Permissions = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
-    returnToParam: PropTypes.string
+    returnToParam: PropTypes.string,
   },
 
   render() {
@@ -55,7 +55,7 @@ const Permissions = createReactClass({
     }
 
     return slide;
-  }
+  },
 });
 
 export default Permissions;

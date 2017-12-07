@@ -11,7 +11,7 @@ const UploadsHandler = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   componentWillMount() {
@@ -38,8 +38,8 @@ const UploadsHandler = createReactClass({
         <UploadList course={this.props.course} />
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default UploadsHandler;

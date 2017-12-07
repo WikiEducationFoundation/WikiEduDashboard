@@ -13,7 +13,7 @@ const storeMethods = {
   },
   getRevisions() {
     return _revisions;
-  }
+  },
 };
 
 const RecentEditsStore = Flux.createStore(storeMethods, (payload) => {

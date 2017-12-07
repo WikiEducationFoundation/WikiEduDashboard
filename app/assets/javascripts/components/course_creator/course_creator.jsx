@@ -30,7 +30,7 @@ import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } f
 const getState = () => {
   return {
     course: CourseStore.getCourse(),
-    error_message: ValidationStore.firstMessage()
+    error_message: ValidationStore.firstMessage(),
   };
 };
 
@@ -39,7 +39,7 @@ const CourseCreator = createReactClass({
 
   propTypes: {
     user_courses: PropTypes.array.isRequired,
-    fetchCoursesForUser: PropTypes.func.isRequired
+    fetchCoursesForUser: PropTypes.func.isRequired,
   },
 
   mixins: [CourseStore.mixin, ValidationStore.mixin],
@@ -52,7 +52,7 @@ const CourseCreator = createReactClass({
       showCloneChooser: false,
       default_course_type: getDefaultCourseType(),
       course_string_prefix: getCourseStringPrefix(),
-      use_start_and_end_times: getUseStartAndEndTimes()
+      use_start_and_end_times: getUseStartAndEndTimes(),
     };
 
     return $.extend({}, inits, getState());
@@ -93,7 +93,7 @@ const CourseCreator = createReactClass({
       ValidationActions.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
-        true
+        true,
       );
       return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.state.course));
     }
@@ -463,15 +463,15 @@ const CourseCreator = createReactClass({
         </Modal>
       </TransitionGroup>
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
-  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
+  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" }),
 });
 
 const mapDispatchToProps = ({
-  fetchCoursesForUser: fetchCoursesForUser
+  fetchCoursesForUser: fetchCoursesForUser,
 });
 
 // exporting two difference ways as a testing hack.

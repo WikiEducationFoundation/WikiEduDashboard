@@ -13,7 +13,7 @@ describe('UploadTable', () => {
     url: 'https://commons.wikimedia.org/wiki/File:Paper_prototype_of_website_user_interface,_2015-04-16.jpg',
     uploader: 'Ragesoss',
     uploaded_at: new Date().toISOString(),
-    usage_count: 1
+    usage_count: 1,
   }, {
     id: 456,
     file_name: 'Young man in bar, cross processed.JPG',
@@ -21,7 +21,7 @@ describe('UploadTable', () => {
     url: 'https://commons.wikimedia.org/wiki/File:Young_man_in_bar,_cross_processed.JPG',
     uploader: 'Ragesoss',
     uploaded_at: new Date().toISOString(),
-    usage_count: 2
+    usage_count: 2,
   }];
 
   const headers = [
@@ -38,7 +38,7 @@ describe('UploadTable', () => {
         <UploadTable
           loading={true}
         />
-      </div>
+      </div>,
     );
 
     const loading = TestTable.querySelector('.loading');
@@ -53,7 +53,7 @@ describe('UploadTable', () => {
           uploads={uploads}
           headers={headers}
         />
-      </div>
+      </div>,
     );
 
     const headerElements = TestTable.querySelectorAll('th');
@@ -68,7 +68,7 @@ describe('UploadTable', () => {
           uploads={uploads}
           headers={headers}
         />
-      </div>
+      </div>,
     );
 
     const rowElements = TestTable.querySelectorAll('tr.upload');

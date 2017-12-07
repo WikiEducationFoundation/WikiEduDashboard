@@ -14,7 +14,7 @@ import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({
-  articles: ArticleStore.getModels()
+  articles: ArticleStore.getModels(),
 });
 
 const ArticleList = ({
@@ -22,33 +22,33 @@ const ArticleList = ({
   course,
   current_user,
   actions,
-  articleDetails
+  articleDetails,
 }) => {
   const keys = {
     rating_num: {
       label: I18n.t('articles.rating'),
       desktop_only: true,
-      info_key: 'articles.rating_doc'
+      info_key: 'articles.rating_doc',
     },
     title: {
       label: I18n.t('articles.title'),
-      desktop_only: false
+      desktop_only: false,
     },
     character_sum: {
       label: I18n.t('metrics.char_added'),
       desktop_only: true,
-      info_key: 'articles.character_doc'
+      info_key: 'articles.character_doc',
     },
     view_count: {
       label: I18n.t('metrics.view'),
       desktop_only: true,
-      info_key: 'articles.view_doc'
+      info_key: 'articles.view_doc',
     },
     tools: {
       label: I18n.t('articles.tools'),
       desktop_only: false,
-      sortable: false
-    }
+      sortable: false,
+    },
   };
 
   const articleElements = articles.map(article => (
@@ -81,18 +81,18 @@ ArticleList.propTypes = {
   course: PropTypes.object,
   current_user: PropTypes.object,
   actions: PropTypes.object,
-  articleDetails: PropTypes.object
+  articleDetails: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
-  articleDetails: state.articleDetails
+  articleDetails: state.articleDetails,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...UIActions, ...ArticleActions }, dispatch)
+  actions: bindActionCreators({ ...UIActions, ...ArticleActions }, dispatch),
 });
 
 export default Editable(
   connect(mapStateToProps, mapDispatchToProps)(ArticleList),
-  [ArticleStore], ServerActions.saveArticles, getState
+  [ArticleStore], ServerActions.saveArticles, getState,
 );

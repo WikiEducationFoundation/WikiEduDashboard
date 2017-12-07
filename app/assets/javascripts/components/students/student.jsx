@@ -20,7 +20,7 @@ const Student = createReactClass({
     assigned: PropTypes.array,
     reviewing: PropTypes.array,
     isOpen: PropTypes.bool,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
   },
 
   stop(e) {
@@ -113,8 +113,8 @@ const Student = createReactClass({
         <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );
-  }
-}
+  },
+},
 );
 
 export default Student;

@@ -10,7 +10,7 @@ const Checkbox = createReactClass({
     container_class: PropTypes.string,
     label: PropTypes.string,
     value: PropTypes.bool,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
 
   mixins: [InputMixin],
@@ -42,7 +42,7 @@ const Checkbox = createReactClass({
         />
       </p>
     );
-  }
+  },
 });
 
 export default Checkbox;

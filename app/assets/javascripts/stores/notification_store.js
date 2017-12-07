@@ -67,7 +67,7 @@ const storeMethods = {
   },
   getNotifications() {
     return _notifications;
-  }
+  },
 };
 
 const NotificationStore = Flux.createStore(storeMethods, (payload) => {
@@ -93,7 +93,7 @@ const NotificationStore = Flux.createStore(storeMethods, (payload) => {
       addNotification({
         message: payload.data.result,
         closable: true,
-        type: 'success'
+        type: 'success',
       });
 
       NotificationStore.emitChange();

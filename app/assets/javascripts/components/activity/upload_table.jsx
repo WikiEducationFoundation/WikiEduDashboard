@@ -10,12 +10,12 @@ const UploadTable = createReactClass({
   propTypes: {
     loading: PropTypes.bool,
     uploads: PropTypes.array,
-    headers: PropTypes.array
+    headers: PropTypes.array,
   },
 
   getInitialState() {
     return {
-      uploads: this.props.uploads
+      uploads: this.props.uploads,
     };
   },
 
@@ -58,7 +58,7 @@ const UploadTable = createReactClass({
         </tbody>
       </table>
     );
-  }
+  },
 });
 
 export default UploadTable;

@@ -6,8 +6,8 @@ const TrainingActions = Flux.createActions({
     return {
       actionType: 'MENU_TOGGLE',
       data: {
-        currently: opts.currently
-      }
+        currently: opts.currently,
+      },
     };
   },
 
@@ -15,8 +15,8 @@ const TrainingActions = Flux.createActions({
     return {
       actionType: 'SET_SELECTED_ANSWER',
       data: {
-        answer
-      }
+        answer,
+      },
     };
   },
 
@@ -24,10 +24,10 @@ const TrainingActions = Flux.createActions({
     return {
       actionType: 'SET_CURRENT_SLIDE',
       data: {
-        slide: slideId
-      }
+        slide: slideId,
+      },
     };
-  }
+  },
 });
 
 

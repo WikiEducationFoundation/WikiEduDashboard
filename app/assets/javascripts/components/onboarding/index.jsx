@@ -21,7 +21,7 @@ const Root = ({ children, location }) => (
       {React.cloneElement(children, {
         key: location.pathname,
         returnToParam: getReturnToParam(),
-        currentUser: getCurrentUser()
+        currentUser: getCurrentUser(),
       })}
     </TransitionGroup>
   </div>
@@ -29,7 +29,7 @@ const Root = ({ children, location }) => (
 
 Root.propTypes = {
   children: PropTypes.object,
-  location: PropTypes.object
+  location: PropTypes.object,
 };
 
 export default Root;

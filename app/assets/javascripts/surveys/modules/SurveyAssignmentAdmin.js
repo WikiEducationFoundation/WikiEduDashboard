@@ -21,7 +21,7 @@ const SurveyAssignmentAdmin = {
 
   toggleCoursesTable({ target }) {
     return $(target).parents('.block').find('[data-sortable-courses]').toggleClass('active');
-  }
+  },
 };
 
 export default SurveyAssignmentAdmin;

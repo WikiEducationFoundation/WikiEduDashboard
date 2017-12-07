@@ -7,7 +7,7 @@ const PeerReviewChecklist = createReactClass({
 
   getInitialState() {
     return {
-      show: false
+      show: false,
     };
   },
 
@@ -60,7 +60,7 @@ const PeerReviewChecklist = createReactClass({
         {modal}
       </div>
     );
-  }
+  },
 });
 
 export default OnClickOutside(PeerReviewChecklist);

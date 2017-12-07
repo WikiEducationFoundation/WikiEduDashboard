@@ -61,13 +61,13 @@ const StyleguideExamples = {
     const PopoverExample = createReactClass({
       getInitialState() {
         return {
-          open: false
+          open: false,
         };
       },
 
       toggleOpen() {
         this.setState({
-          open: !this.state.open
+          open: !this.state.open,
         });
       },
 
@@ -94,7 +94,7 @@ const StyleguideExamples = {
             />
           </div>
         );
-      }
+      },
     });
 
     ReactDOM.render((
@@ -106,7 +106,7 @@ const StyleguideExamples = {
     ReactDOM.render((
       <Loading />
     ), document.getElementById('loading'));
-  }
+  },
 };
 
 $(() => {

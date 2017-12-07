@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import Assignment from '../../../app/assets/javascripts/components/assignments/assignment.jsx';
 
 const course = {
-  home_wiki: { language: 'en', project: 'wikipedia' }
+  home_wiki: { language: 'en', project: 'wikipedia' },
 };
 
 const article = {
@@ -20,12 +20,12 @@ describe('Assignment', () => {
         project: 'wikipedia',
         role: 0,
         user_id: 1,
-        username: 'Ragesoss'
-      }
+        username: 'Ragesoss',
+      },
     ];
 
     const TestAssignment = shallow(
-      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
+      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />,
     );
 
     expect(TestAssignment.text()).to.contain('Ragesoss');
@@ -39,19 +39,19 @@ describe('Assignment', () => {
         project: 'wikipedia',
         role: 1,
         user_id: 1,
-        username: 'Ragesock'
+        username: 'Ragesock',
       },
       {
         language: 'en',
         project: 'wikipedia',
         role: 1,
         user_id: 1,
-        username: 'Protonk'
-      }
+        username: 'Protonk',
+      },
     ];
 
     const TestAssignment = shallow(
-      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />
+      <Assignment article={article} assignmentGroup={assignmentGroup} course={course} />,
     );
 
     expect(TestAssignment.text()).to.contain('Ragesock');

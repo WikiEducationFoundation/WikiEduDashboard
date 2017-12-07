@@ -108,7 +108,7 @@ CourseNavbar.propTypes = {
   course: PropTypes.object,
   location: PropTypes.object,
   currentUser: PropTypes.object,
-  courseLink: PropTypes.string
+  courseLink: PropTypes.string,
 };
 
 export default CourseNavbar;

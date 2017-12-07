@@ -12,7 +12,7 @@ const CategoryHandler = createReactClass({
     fetchCategories: PropTypes.func,
     removeCategory: PropTypes.func,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   componentWillMount() {
@@ -31,18 +31,18 @@ const CategoryHandler = createReactClass({
         editable={editable}
       />
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
   categories: state.categories.categories,
-  loading: state.categories.loading
+  loading: state.categories.loading,
 });
 
 const mapDispatchToProps = {
   fetchCategories: fetchCategories,
   removeCategory: removeCategory,
-  addCategory: addCategory
+  addCategory: addCategory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryHandler);

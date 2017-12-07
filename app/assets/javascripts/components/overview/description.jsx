@@ -14,7 +14,7 @@ const Description = createReactClass({
   propTypes: {
     course: PropTypes.object,
     editable: PropTypes.bool,
-    controls: PropTypes.any
+    controls: PropTypes.any,
   },
 
   updateDescription(valueKey, value) {
@@ -43,8 +43,8 @@ const Description = createReactClass({
         </div>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default Editable(Description, [CourseStore], CourseActions.persistCourse, getState, I18n.t('editable.edit_description'));

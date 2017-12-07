@@ -14,7 +14,7 @@ const Expandable = function (Component) {
 
     storeDidChange() {
       this.setState({
-        is_open: UIStore.getOpenKey() === this.refs.component.getKey()
+        is_open: UIStore.getOpenKey() === this.refs.component.getKey(),
       });
     },
 
@@ -32,7 +32,7 @@ const Expandable = function (Component) {
           ref={'component'}
         />
       );
-    }
+    },
   });
 };
 

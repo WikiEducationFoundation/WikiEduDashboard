@@ -24,5 +24,5 @@ module.exports = {
       mkdirp.sync(`${dir}/`);
       fs.writeFileSync(`${dir}/rev-manifest.json`, JSON.stringify(manifest));
     }
-  }
+  },
 };

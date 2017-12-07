@@ -6,6 +6,6 @@ gulp.task('server', () => {
   return gulp.src('public')
     .pipe(plugins.webserver({
       port: 3000,
-      livereload: true
+      livereload: true,
     }));
 });

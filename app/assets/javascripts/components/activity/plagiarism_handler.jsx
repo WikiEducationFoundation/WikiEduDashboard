@@ -7,7 +7,7 @@ import ServerActions from '../../actions/server_actions.js';
 const getState = () => {
   return {
     revisions: SuspectedPlagiarismStore.getRevisions(),
-    loading: true
+    loading: true,
   };
 };
 
@@ -58,7 +58,7 @@ const PlagiarismHandler = createReactClass({
         />
       </div>
     );
-  }
+  },
 });
 
 export default PlagiarismHandler;

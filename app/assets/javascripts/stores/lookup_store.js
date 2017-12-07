@@ -26,7 +26,7 @@ const LookupStore = Flux.createStore(
       }
       ServerActions.fetchLookups(model);
       return [];
-    }
+    },
   }
   , (payload) => {
     const { data } = payload;
@@ -42,7 +42,7 @@ const LookupStore = Flux.createStore(
       if (__in__(model, Object.keys(_lookups))) { ServerActions.fetchLookups(model); }
     }
     return true;
-  }
+  },
 );
 
 LookupStore.setMaxListeners(0);

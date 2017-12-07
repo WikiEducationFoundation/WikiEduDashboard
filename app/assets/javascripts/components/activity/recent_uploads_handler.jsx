@@ -7,7 +7,7 @@ import ServerActions from '../../actions/server_actions.js';
 const getState = () => {
   return {
     uploads: RecentUploadsStore.getUploads(),
-    loading: true
+    loading: true,
   };
 };
 
@@ -52,7 +52,7 @@ const RecentUploadsHandler = createReactClass({
         />
       </div>
     );
-  }
+  },
 });
 
 export default RecentUploadsHandler;

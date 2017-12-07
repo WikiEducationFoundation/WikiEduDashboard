@@ -12,7 +12,7 @@ const SlideMenu = createReactClass({
     slides: PropTypes.array,
     currentSlide: PropTypes.object,
     enabledSlides: PropTypes.array,
-    menuClass: PropTypes.string
+    menuClass: PropTypes.string,
   },
 
   componentWillMount() {
@@ -26,7 +26,7 @@ const SlideMenu = createReactClass({
   linkParams(props) {
     return {
       library_id: props.params.library_id,
-      module_id: props.params.module_id
+      module_id: props.params.module_id,
     };
   },
 
@@ -53,7 +53,7 @@ const SlideMenu = createReactClass({
           </a>
         </li>
       );
-    }
+    },
     );
 
     let menuClass = 'slide__menu__nav__dropdown ';
@@ -68,7 +68,7 @@ const SlideMenu = createReactClass({
         </ol>
       </div>
     );
-  }
+  },
 
 });
 

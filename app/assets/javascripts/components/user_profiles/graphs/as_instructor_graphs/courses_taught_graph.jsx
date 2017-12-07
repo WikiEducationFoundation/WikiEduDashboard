@@ -17,30 +17,30 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           fields: [{
             data: 'courses_data',
             field: 'course_start',
-            sort: { field: 'date', op: 'min' }
+            sort: { field: 'date', op: 'min' },
           }, {
             data: 'courses_data',
             field: 'course_end',
-            sort: { field: 'date', op: 'min' }
-          }]
+            sort: { field: 'date', op: 'min' },
+          }],
         },
         rangeMin: 0,
         rangeMax: graphWidth,
-        round: true
+        round: true,
       },
       {
         name: 'y',
         type: 'ordinal',
         domain: {
           data: 'courses_data',
-          field: 'course_title'
+          field: 'course_title',
         },
         rangeMin: graphHeight,
         rangeMax: 0,
         round: true,
         nice: true,
-        zero: true
-      }
+        zero: true,
+      },
     ],
     axes: [
       {
@@ -54,9 +54,9 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           labels: {
             text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
             angle: { value: 0 },
-            fontSize: { value: 9 }
-          }
-        }
+            fontSize: { value: 9 },
+          },
+        },
       },
       {
         type: 'y',
@@ -66,8 +66,8 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         layer: 'back',
         offset: 10,
         ticks: 0,
-        values: []
-      }
+        values: [],
+      },
     ],
     // ///////////////
     // Data Sources //
@@ -79,10 +79,10 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         format: { type: 'json', parse: { course_start: 'date', course_end: 'date' } },
         transform: [{
           type: 'filter',
-          test: 'datum.course_start !== null && !isNaN(datum.course_start)'
-        }
-        ]
-      }
+          test: 'datum.course_start !== null && !isNaN(datum.course_start)',
+        },
+        ],
+      },
     ],
     // //////////////
     // Mark layers //
@@ -93,7 +93,7 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         type: 'text',
         from: {
           data: 'courses_data',
-          transform: [{ type: 'sort', by: '-date' }]
+          transform: [{ type: 'sort', by: '-date' }],
         },
         properties: { enter: {
           orient: { value: 'vertical' },
@@ -102,35 +102,35 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           fill: { value: '#000' },
           text: { field: 'course_title' },
           font: { value: 'Helvetica Neue' },
-          fontSize: { value: 10 }
-        } }
+          fontSize: { value: 10 },
+        } },
       },
       {
         name: 'rect_marks',
         type: 'rect',
         from: {
           data: 'courses_data',
-          transform: [{ type: 'sort', by: '-date' }]
+          transform: [{ type: 'sort', by: '-date' }],
         },
         properties: { enter: {
           x: { scale: 'x', field: 'course_start' },
           x2: { scale: 'x', field: 'course_end' },
           y: { scale: 'y', field: 'course_title', offset: -1 },
           height: {
-            value: 5
+            value: 5,
           },
           fill: {
-            value: '#575d99'
-          }
-        }
-        }
-      }
-    ]
+            value: '#575d99',
+          },
+        },
+        },
+      },
+    ],
   };
   const embedSpec = {
     mode: 'vega', // instruct Vega-Embed to use vega compiler.
     spec: vegaSpec,
-    actions: false
+    actions: false,
   };
   // emded the visualization in the container with id vega-graph-article_id
   vg.embed('#CoursesTaughtGraph', embedSpec); // Callback receiving View instance and parsed Vega spec
@@ -149,7 +149,7 @@ CoursesTaughtGraph.propTypes = {
   statsData: PropTypes.array,
   graphWidth: PropTypes.number,
   graphHeight: PropTypes.number,
-  courseStringPrefix: PropTypes.string
+  courseStringPrefix: PropTypes.string,
 };
 
 export default CoursesTaughtGraph;

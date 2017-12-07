@@ -11,7 +11,7 @@ describe('AvailableArticle', () => {
   const props = {
     course: { home_wiki: { language: 'en', project: 'wikipedia' } },
     assignment: { article_title: 'two' },
-    current_user: { role: 0 } // student role
+    current_user: { role: 0 }, // student role
   };
 
   it('renders', () => {
@@ -20,7 +20,7 @@ describe('AvailableArticle', () => {
         <tbody>
           <AvailableArticle {...props} />
         </tbody>
-      </table>
+      </table>,
     );
     expect(TestDom.querySelector('.assignment')).to.exist;
     expect(TestDom.textContent).to.contain('two');
@@ -32,7 +32,7 @@ describe('AvailableArticle', () => {
         <tbody>
           <AvailableArticle {...props} />
         </tbody>
-      </table>
+      </table>,
     );
 
     const spy = sinon.spy(NotificationActions, 'addNotification');

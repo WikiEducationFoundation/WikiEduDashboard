@@ -13,7 +13,7 @@ const storeMethods = {
   },
   getUploads() {
     return _uploads;
-  }
+  },
 };
 
 const RecentUploadsStore = Flux.createStore(storeMethods, (payload) => {

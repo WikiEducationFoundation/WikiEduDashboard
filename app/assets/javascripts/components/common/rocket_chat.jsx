@@ -9,7 +9,7 @@ const RocketChat = createReactClass({
 
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   mixins: [ChatStore.mixin],
@@ -17,7 +17,7 @@ const RocketChat = createReactClass({
   getInitialState() {
     return {
       authToken: ChatStore.getAuthToken(),
-      showChat: false
+      showChat: false,
     };
   },
 
@@ -35,7 +35,7 @@ const RocketChat = createReactClass({
 
   storeDidChange() {
     this.setState({
-      authToken: ChatStore.getAuthToken()
+      authToken: ChatStore.getAuthToken(),
     });
     this.loginOnFrameLoad();
   },
@@ -47,7 +47,7 @@ const RocketChat = createReactClass({
   login() {
     document.querySelector('iframe').contentWindow.postMessage({
       externalCommand: 'login-with-token',
-      token: this.state.authToken
+      token: this.state.authToken,
     }, '*');
     this.setState({ showChat: true });
   },
@@ -83,7 +83,7 @@ const RocketChat = createReactClass({
         {loginRetryButton}
       </div>
     );
-  }
+  },
 });
 
 export default RocketChat;

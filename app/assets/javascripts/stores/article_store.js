@@ -4,9 +4,9 @@ const ArticleStore = new StockStore({
   sortKey: 'character_sum',
   descKeys: {
     character_sum: true,
-    view_count: true
+    view_count: true,
   },
-  modelKey: 'article'
+  modelKey: 'article',
 });
 
 export default ArticleStore.store;

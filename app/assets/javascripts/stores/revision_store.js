@@ -5,9 +5,9 @@ const RevisionStore = new StockStore({
   sortAsc: false,
   descKeys: {
     date: true,
-    characters: true
+    characters: true,
   },
-  modelKey: 'revision'
+  modelKey: 'revision',
 });
 
 export default RevisionStore.store;

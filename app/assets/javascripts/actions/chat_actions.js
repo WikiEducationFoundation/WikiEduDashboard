@@ -13,7 +13,7 @@ const ChatActions = Flux.createActions({
     return API.enableChat(courseId)
       .then(resp => ({ actionType: 'ENABLE_CHAT_SUCCEEDED', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  }
+  },
 });
 
 export default ChatActions;

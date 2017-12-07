@@ -7,7 +7,7 @@ const TimelineActions = Flux.createActions({
     return API.saveTimeline(courseId, data)
       .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
       .catch(resp => ({ actionType: 'SAVE_TIMELINE_FAIL', data: resp }));
-  }
+  },
 });
 
 export default TimelineActions;

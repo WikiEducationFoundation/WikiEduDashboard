@@ -14,7 +14,7 @@ const _panels = [{
   options: [],
   type: -1,
   minimum: 0,
-  key: 'dates'
+  key: 'dates',
 }, {
   title: I18n.t('wizard.assignment_type'),
   description: I18n.t('wizard.select_assignment'),
@@ -22,7 +22,7 @@ const _panels = [{
   options: [],
   type: 1,
   minimum: 1,
-  key: 'index'
+  key: 'index',
 }, {
   title: I18n.t('wizard.summary'),
   description: I18n.t('wizard.review_selections'),
@@ -30,7 +30,7 @@ const _panels = [{
   options: [],
   type: -1,
   minimum: 0,
-  key: 'summary'
+  key: 'summary',
 }];
 
 // Utilities
@@ -117,7 +117,7 @@ const moveWizard = function (backwards = false, toIndex = null) {
     if ($('.wizard').scrollTop() > 0) {
       $('.wizard').animate(
         { scrollTop: 0 }
-        , timeoutTime
+        , timeoutTime,
       );
     }
   }
@@ -127,7 +127,7 @@ const moveWizard = function (backwards = false, toIndex = null) {
       updateActivePanels();
       return WizardStore.emitChange();
     }
-    , timeoutTime
+    , timeoutTime,
   );
 };
 
@@ -135,7 +135,7 @@ const verifyPanelSelections = function (panel) {
   if (panel.options === undefined || panel.options.length === 0) { return true; }
   const selectionCount = panel.options.reduce(
     (selected, option) => selected += option.selected ? 1 : 0
-    , 0
+    , 0,
   );
   const verified = selectionCount >= panel.minimum;
   if (verified) {
@@ -211,7 +211,7 @@ const WizardStore = Flux.createStore(
         }
       });
       return { output, logic, tags };
-    }
+    },
   }
 
   , (payload) => {
@@ -244,7 +244,7 @@ const WizardStore = Flux.createStore(
       // no default
     }
     return true;
-  }
+  },
 );
 
 export default WizardStore;

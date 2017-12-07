@@ -7,7 +7,7 @@ const Intro = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
     returnToParam: PropTypes.string,
-    location: PropTypes.object
+    location: PropTypes.object,
   },
 
   getInitialState() {
@@ -23,8 +23,8 @@ const Intro = createReactClass({
           to={{
             pathname: '/onboarding/form',
             query: {
-              return_to: decodeURIComponent(this.props.returnToParam)
-            }
+              return_to: decodeURIComponent(this.props.returnToParam),
+            },
           }}
           className="button border inverse-border"
         >
@@ -32,7 +32,7 @@ const Intro = createReactClass({
         </Link>
       </div>
     );
-  }
+  },
 });
 
 export default Intro;

@@ -5,16 +5,16 @@ const NotificationActions = Flux.createActions({
   removeNotification(notification) {
     return {
       actionType: 'REMOVE_NOTIFICATION',
-      notification
+      notification,
     };
   },
 
   addNotification(notification) {
     return {
       actionType: 'ADD_NOTIFICATION',
-      notification
+      notification,
     };
-  }
+  },
 });
 
 export default NotificationActions;

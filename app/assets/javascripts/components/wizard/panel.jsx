@@ -24,7 +24,7 @@ const Panel = createReactClass({
     button_text: PropTypes.string,
     helperText: PropTypes.string,
     summary: PropTypes.bool,
-    step: PropTypes.string
+    step: PropTypes.string,
   },
 
   advance() {
@@ -97,7 +97,7 @@ const Panel = createReactClass({
     let reqsMet = true;
     if (this.props.panel.options && this.props.panel.minimum) {
       reqsMet = _.reduce(
-        this.props.panel.options, (total, option) => total + (option.selected ? 1 : 0), 0
+        this.props.panel.options, (total, option) => total + (option.selected ? 1 : 0), 0,
       ) >= this.props.panel.minimum;
     }
 
@@ -143,8 +143,8 @@ const Panel = createReactClass({
         </div>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default Panel;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const EnrollCard = ({
-  user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason
+  user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason,
 }) => {
   let messageBody;
   if (course.ended) {
@@ -83,7 +83,7 @@ EnrollCard.propTypes = {
   courseLink: PropTypes.string,
   passcode: PropTypes.string,
   enrolledParam: PropTypes.string,
-  enrollFailureReason: PropTypes.string
+  enrollFailureReason: PropTypes.string,
 };
 
 export default EnrollCard;

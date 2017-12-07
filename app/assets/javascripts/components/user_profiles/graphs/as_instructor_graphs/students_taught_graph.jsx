@@ -17,26 +17,26 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           fields: [{
             data: 'courses_data',
             field: 'created_at=',
-            sort: { field: 'date', op: 'min' }
-          }
-          ]
+            sort: { field: 'date', op: 'min' },
+          },
+          ],
         },
         rangeMin: 0,
         rangeMax: graphWidth,
-        round: true
+        round: true,
       },
       {
         name: 'y',
         type: 'linear',
         domain: {
           data: 'courses_data',
-          field: 'index'
+          field: 'index',
         },
         rangeMin: graphHeight,
         rangeMax: 0,
         nice: true,
-        zero: true
-      }
+        zero: true,
+      },
     ],
     axes: [
       {
@@ -50,9 +50,9 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           labels: {
             text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
             angle: { value: 0 },
-            fontSize: { value: 9 }
-          }
-        }
+            fontSize: { value: 9 },
+          },
+        },
       },
       {
         type: 'y',
@@ -60,8 +60,8 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         title: I18n.t(`${courseStringPrefix}.students_taught`),
         grid: true,
         layer: 'back',
-        offset: 10
-      }
+        offset: 10,
+      },
     ],
     // ///////////////
     // Data Sources //
@@ -70,8 +70,8 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
       {
         name: 'courses_data',
         values: statsData,
-        format: { type: 'json', parse: { 'created_at=': 'date', index: 'number' } }
-      }
+        format: { type: 'json', parse: { 'created_at=': 'date', index: 'number' } },
+      },
     ],
     // //////////////
     // Mark layers //
@@ -82,7 +82,7 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         type: 'symbol',
         from: {
           data: 'courses_data',
-          transform: [{ type: 'sort', by: '-date' }]
+          transform: [{ type: 'sort', by: '-date' }],
         },
         properties: { enter: {
           x: { scale: 'x', field: 'created_at=' },
@@ -90,30 +90,30 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
           size: { value: 60 },
           shape: { value: 'circle' },
           fill: { value: '#359178' },
-          opacity: { value: 0.7 }
-        }
-        }
+          opacity: { value: 0.7 },
+        },
+        },
       },
       {
         type: 'line',
         from: {
           data: 'courses_data',
-          transform: [{ type: 'sort', by: '-date' }]
+          transform: [{ type: 'sort', by: '-date' }],
         },
         properties: { enter: {
           x: { scale: 'x', field: 'created_at=' },
           y: { scale: 'y', field: 'index' },
           stroke: { value: "#575d99" },
-          strokeWidth: { value: 1 }
-        }
-        }
-      }
-    ]
+          strokeWidth: { value: 1 },
+        },
+        },
+      },
+    ],
   };
   const embedSpec = {
     mode: 'vega', // instruct Vega-Embed to use vega compiler.
     spec: vegaSpec,
-    actions: false
+    actions: false,
   };
   // emded the visualization in the container with id vega-graph-article_id
   vg.embed('#StudentsTaughGraph', embedSpec); // Callback receiving View instance and parsed Vega spec
@@ -132,7 +132,7 @@ StudentsTaughtGraph.propTypes = {
   statsData: PropTypes.array,
   graphWidth: PropTypes.number,
   graphHeight: PropTypes.number,
-  courseStringPrefix: PropTypes.string
+  courseStringPrefix: PropTypes.string,
 };
 
 export default StudentsTaughtGraph;

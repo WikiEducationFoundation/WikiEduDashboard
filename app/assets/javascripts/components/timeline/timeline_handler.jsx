@@ -26,7 +26,7 @@ const getState = () =>
     gradeables: GradeableStore.getGradeables(),
     all_training_modules: TrainingStore.getAllModules(),
     editable_block_ids: BlockStore.getEditableBlockIds(),
-    course: CourseStore.getCourse()
+    course: CourseStore.getCourse(),
   })
 ;
 
@@ -43,7 +43,7 @@ const TimelineHandler = createReactClass({
     gradeables: PropTypes.array,
     loading: PropTypes.bool,
     editable_block_ids: PropTypes.array,
-    all_training_modules: PropTypes.array
+    all_training_modules: PropTypes.array,
   },
 
   getInitialState() {
@@ -95,7 +95,7 @@ const TimelineHandler = createReactClass({
         weeks: this.props.weeks,
         week_meetings: weekMeetings,
         meetings,
-        open_weeks: openWeeks
+        open_weeks: openWeeks,
       });
     }
 
@@ -141,7 +141,7 @@ const TimelineHandler = createReactClass({
         {grading}
       </div>
     );
-  }
+  },
 });
 
 export default Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);

@@ -6,9 +6,9 @@ const UploadStore = new StockStore({
   descKeys: {
     usage_count: true,
     date: true,
-    uploader: true
+    uploader: true,
   },
-  modelKey: 'upload'
+  modelKey: 'upload',
 });
 
 export default UploadStore.store;

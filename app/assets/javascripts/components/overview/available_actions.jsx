@@ -19,14 +19,14 @@ const AvailableActions = createReactClass({
   displayName: 'Actions',
 
   propTypes: {
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   mixins: [CourseStore.mixin],
 
   getInitialState() {
     return ({
-      course: CourseStore.getCourse()
+      course: CourseStore.getCourse(),
     });
   },
 
@@ -124,7 +124,7 @@ const AvailableActions = createReactClass({
     // If no controls are available
     if (controls.length === 0) {
       controls.push(
-        <p key="none">{I18n.t('courses.no_available_actions')}</p>
+        <p key="none">{I18n.t('courses.no_available_actions')}</p>,
       );
     }
 
@@ -140,8 +140,8 @@ const AvailableActions = createReactClass({
         </div>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 const mapDispatchToProps = { initiateConfirm };

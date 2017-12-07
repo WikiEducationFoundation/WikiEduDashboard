@@ -12,7 +12,7 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
   const baseModel = () =>
     _.assign({
       id: Date.now(), // could THEORETICALLY collide but highly unlikely
-      is_new: true // remove ids from objects with is_new when persisting
+      is_new: true, // remove ids from objects with is_new when persisting
     }, defaultModel);
   return Flux.createStore(
     {
@@ -51,7 +51,7 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
       getSorting() {
         return {
           key: helper.sortKey,
-          asc: helper.sortAsc
+          asc: helper.sortAsc,
         };
       },
       isLoaded() {
@@ -60,7 +60,7 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
       restore() {
         helper.models = $.extend(true, {}, helper.persisted);
         return this.emitChange();
-      }
+      },
     }
     , (payload) => {
       const { data } = payload;
@@ -88,7 +88,7 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
         helper.setModels(data.course[pluralModelKey], true);
       }
       return true;
-    }
+    },
   );
 };
 

@@ -11,7 +11,7 @@ describe('ArticlesHandler', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
         <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} current_user={{}} />
-      </div>
+      </div>,
     );
     expect(TestDom.querySelector('h3')).to.exist;
   });
@@ -20,13 +20,13 @@ describe('ArticlesHandler', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <div>
         <ArticlesHandler course={{ home_wiki: {} }} store={reduxStore} current_user={{}} />
-      </div>
+      </div>,
     );
 
     const spy = sinon.spy();
 
     ArticlesHandler.__Rewire__('UIActions', {
-      sort: spy
+      sort: spy,
     });
 
     const select = TestDom.querySelector('select');

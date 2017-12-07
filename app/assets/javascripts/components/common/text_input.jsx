@@ -23,7 +23,7 @@ const TextInput = createReactClass({
     focus: PropTypes.func,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    append: PropTypes.node
+    append: PropTypes.node,
     // validation: Regex used by Conditional
     // required: bool used by Conditional
   },
@@ -104,8 +104,8 @@ const TextInput = createReactClass({
       );
     }
     return <span>{value}</span>;
-  }
-}
+  },
+},
 );
 
 export default Conditional(TextInput);

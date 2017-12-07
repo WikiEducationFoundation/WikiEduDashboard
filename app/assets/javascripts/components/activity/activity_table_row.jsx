@@ -13,7 +13,7 @@ const ActivityTableRow = createReactClass({
     reportUrl: PropTypes.string,
     revisionScore: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.number
+      PropTypes.number,
     ]),
     articleUrl: PropTypes.string,
     talkPageLink: PropTypes.string,
@@ -21,7 +21,7 @@ const ActivityTableRow = createReactClass({
     title: PropTypes.string,
     revision: PropTypes.object,
     isOpen: PropTypes.bool,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
   },
 
   openDrawer() {
@@ -77,7 +77,7 @@ const ActivityTableRow = createReactClass({
         </td>
       </tr>
     );
-  }
+  },
 });
 
 export default ActivityTableRow;

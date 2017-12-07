@@ -13,7 +13,7 @@ describe('Conditional', () => {
       <TextInput
         show={true}
         value={'foo'}
-      />
+      />,
     );
     const textInput = renderer.getRenderOutput();
     expect(textInput.type.displayName).to.eq('TextInput');
@@ -26,7 +26,7 @@ describe('Conditional', () => {
       <TextInput
         show={false}
         value={'foo'}
-      />
+      />,
     );
     const textInput = renderer.getRenderOutput();
     expect(textInput).to.be.null;

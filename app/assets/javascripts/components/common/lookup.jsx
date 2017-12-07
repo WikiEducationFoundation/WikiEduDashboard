@@ -13,7 +13,7 @@ const Lookup = createReactClass({
     onChange: PropTypes.func,
     value: PropTypes.string,
     placeholder: PropTypes.string,
-    models: PropTypes.array
+    models: PropTypes.array,
   },
 
   getValue() {
@@ -64,7 +64,7 @@ const Lookup = createReactClass({
         ref="entry"
       />
     );
-  }
+  },
 });
 
 export default LookupWrapper(Lookup);

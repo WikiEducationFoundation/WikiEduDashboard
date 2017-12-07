@@ -7,7 +7,7 @@ export default class RangeGraph extends Component {
   constructor() {
     super();
     this.state = {
-      showValue: null
+      showValue: null,
     };
     this.showValue = this._showValue.bind(this);
   }
@@ -58,7 +58,7 @@ export default class RangeGraph extends Component {
         yRows.push(
           <div key={`row${i}`} style={{ position: 'relative', height: increment }} className="results__range-graph__row">
             <div style={{ position: 'absolute', height: 15, top: -8, left: -20 }}>{mostFrequent - (i - 1)}</div>
-          </div>
+          </div>,
         );
       }
       return yRows;
@@ -80,5 +80,5 @@ export default class RangeGraph extends Component {
 }
 
 RangeGraph.propTypes = {
-  question: PropTypes.object
+  question: PropTypes.object,
 };

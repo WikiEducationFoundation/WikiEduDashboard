@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const Conditional = function (Component) {
   return createReactClass({
     propTypes: {
-      show: PropTypes.bool
+      show: PropTypes.bool,
     },
 
     render() {
@@ -16,7 +16,7 @@ const Conditional = function (Component) {
         return (<Component {...this.props} />);
       }
       return false;
-    }
+    },
   });
 };
 

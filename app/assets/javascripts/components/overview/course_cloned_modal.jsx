@@ -17,7 +17,7 @@ const CourseClonedModal = createReactClass({
   displayName: 'CourseClonedModal',
 
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   mixins: [ValidationStore.mixin, CourseStore.mixin],
@@ -25,7 +25,7 @@ const CourseClonedModal = createReactClass({
   getInitialState() {
     return {
       error_message: ValidationStore.firstMessage(),
-      course: this.props.course
+      course: this.props.course,
     };
   },
 
@@ -51,7 +51,7 @@ const CourseClonedModal = createReactClass({
     return this.setState({
       isPersisting,
       error_message: ValidationStore.firstMessage(),
-      tempCourseId: CourseUtils.generateTempId(this.state.course)
+      tempCourseId: CourseUtils.generateTempId(this.state.course),
     });
   },
 
@@ -62,7 +62,7 @@ const CourseClonedModal = createReactClass({
     updatedCourse[valueKey] = value;
     this.setState({
       valuesUpdated: true,
-      course: updatedCourse
+      course: updatedCourse,
     });
 
     // Term starts out blank and must be added.
@@ -75,7 +75,7 @@ const CourseClonedModal = createReactClass({
     const updatedCourse = CourseDateUtils.updateCourseDates(this.state.course, valueKey, value);
     return this.setState({
       dateValuesUpdated: true,
-      course: updatedCourse
+      course: updatedCourse,
     });
   },
 
@@ -345,7 +345,7 @@ const CourseClonedModal = createReactClass({
         </div>
       </Modal>
     );
-  }
+  },
 });
 
 export default CourseClonedModal;

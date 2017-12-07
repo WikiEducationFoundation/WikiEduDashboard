@@ -9,6 +9,6 @@ if ($().uls) {
       } else {
         window.location = `?locale=${language}`;
       }
-    }
+    },
   });
 }

@@ -17,12 +17,12 @@ gulp.task('icon-font', () => {
   return fileSvgStream
     .pipe(plugins.iconfont({
       fontName,
-      normalize: true
+      normalize: true,
     }).on('glyphs', (glyphs) => {
       const mapped = glyphs.map((glyph) => {
         return {
           name: glyph.name,
-          codepoint: glyph.unicode[0].charCodeAt(0)
+          codepoint: glyph.unicode[0].charCodeAt(0),
         };
       });
 
@@ -31,7 +31,7 @@ gulp.task('icon-font', () => {
           glyphs: mapped,
           fontName,
           fontPath,
-          className
+          className,
         }))
         .pipe(plugins.rename(cssOutputFilename))
         .pipe(gulp.dest(`${config.sourcePath}/${config.cssDirectory}`));

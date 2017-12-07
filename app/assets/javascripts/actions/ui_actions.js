@@ -6,8 +6,8 @@ const UIActions = Flux.createActions({
     return {
       actionType: 'OPEN_KEY',
       data: {
-        key
-      }
+        key,
+      },
     };
   },
 
@@ -15,10 +15,10 @@ const UIActions = Flux.createActions({
     return {
       actionType: `SORT_${kind.toUpperCase()}`,
       data: {
-        key
-      }
+        key,
+      },
     };
-  }
+  },
 });
 
 export default UIActions;

@@ -19,7 +19,7 @@ const AssignmentList = createReactClass({
   propTypes: {
     assignments: PropTypes.array,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   hasAssignedUser(group) {
@@ -51,20 +51,20 @@ const AssignmentList = createReactClass({
     const keys = {
       rating_num: {
         label: I18n.t('articles.rating'),
-        desktop_only: true
+        desktop_only: true,
       },
       title: {
         label: I18n.t('articles.title'),
-        desktop_only: false
+        desktop_only: false,
       },
       assignee: {
         label: I18n.t('assignments.assignees'),
-        desktop_only: true
+        desktop_only: true,
       },
       reviewer: {
         label: I18n.t('assignments.reviewers'),
-        desktop_only: true
-      }
+        desktop_only: true,
+      },
     };
 
     return (
@@ -77,8 +77,8 @@ const AssignmentList = createReactClass({
         sortable={false}
       />
     );
-  }
-}
+  },
+},
 );
 
 export default Editable(AssignmentList, [ArticleStore, AssignmentStore], ServerActions.saveStudents, getState);
