@@ -36,7 +36,7 @@ const slickOptions = {
   touchMove: false,
   speed: 400,
   cssEase: 'cubic-bezier(1, 0, 0, 1)',
-  adaptiveHeight: true
+  adaptiveHeight: true,
 };
 
 //--------------------------------------------------------
@@ -188,7 +188,7 @@ const Survey = {
 
   focusNewQuestion() {
     $('.top-nav').velocity('scroll', {
-      easing: scrollEasing
+      easing: scrollEasing,
     });
   },
 
@@ -280,12 +280,12 @@ const Survey = {
         survey_notification: {
           id: this.surveyNotificationId,
           dismissed: true,
-          completed: true
-        }
+          completed: true,
+        },
       },
       success() {
         // console.log(data);
-      }
+      },
     });
   },
 
@@ -469,12 +469,12 @@ const Survey = {
           case '%':
             return {
               decimals: 0,
-              postfix: '%'
+              postfix: '%',
             };
           case '$':
             return {
               decimals: 0,
-              prefix: '$'
+              prefix: '$',
             };
           default:
             return {};
@@ -489,9 +489,9 @@ const Survey = {
           mode: 'count',
           values: 2,
           density: max,
-          format: wNumb(numberFormatting)
+          format: wNumb(numberFormatting),
         },
-        connect: 'lower'
+        connect: 'lower',
       });
 
       const $slider = $(slider);
@@ -563,7 +563,7 @@ const Survey = {
 
   addListenersToConditional($question, conditionalOptions) {
     const {
-      question_id, operator, value, multi
+      question_id, operator, value, multi,
     } = conditionalOptions;
     switch (operator) {
       case '*presence':
@@ -600,7 +600,7 @@ const Survey = {
       ['>'](a, b) { return a > b; },
       ['>='](a, b) { return a >= b; },
       ['<'](a, b) { return a < b; },
-      ['<='](a, b) { return a <= b; }
+      ['<='](a, b) { return a <= b; },
     };
 
     const $parent = $(`#question_${id}`).parent('.block__container');
@@ -678,7 +678,7 @@ const Survey = {
       this.handleParentPresenceConditionalChange({
         present: target.value.length,
         conditionalGroup: this.surveyConditionals[id],
-        $parent: $(`#question_${id}`).parents(BLOCK_CONTAINER_SELECTOR)
+        $parent: $(`#question_${id}`).parents(BLOCK_CONTAINER_SELECTOR),
       });
     });
   },
@@ -824,7 +824,7 @@ const Survey = {
   // },
   getNotificationId() {
     this.surveyNotificationId = $('[data-notification]').data('notification');
-  }
+  },
 };
 
 
