@@ -22,7 +22,7 @@ const DiffViewer = createReactClass({
     article: PropTypes.object,
     course: PropTypes.object,
     showButtonClass: PropTypes.string,
-    fetchArticleDetails: PropTypes.func
+    fetchArticleDetails: PropTypes.func,
   },
 
   getInitialState() {
@@ -129,7 +129,7 @@ const DiffViewer = createReactClass({
           const parentRevisionId = revisionData.parentid;
           this.setState({ parentRevisionId });
           this.fetchDiff(this.diffUrl(props.revision, props.first_revision));
-        }
+        },
       });
   },
 
@@ -156,9 +156,9 @@ const DiffViewer = createReactClass({
             comment: firstRevisionData.comment,
             fetched: true,
             firstRevDateTime: firstRevisionData.timestamp,
-            lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null
+            lastRevDateTime: lastRevisionData ? lastRevisionData.timestamp : null,
           });
-        }
+        },
       });
   },
 
@@ -257,7 +257,7 @@ const DiffViewer = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default OnClickOutside(DiffViewer);
