@@ -10,7 +10,7 @@ describe('MyArticles', () => {
 
   MyArticles.__Rewire__(
     'AssignCell',
-    () => <div />
+    () => <div />,
   );
 
   it('renders the My Articles header', () => {
@@ -19,7 +19,7 @@ describe('MyArticles', () => {
         course={course}
         course_id={courseId}
         current_user={currentUser}
-      />
+      />,
     );
     const module = ReactTestUtils.findRenderedDOMComponentWithTag(TestMyArticles, 'h3');
     expect(module.textContent).to.eq('My Articles');

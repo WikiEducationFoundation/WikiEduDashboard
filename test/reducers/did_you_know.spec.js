@@ -6,7 +6,7 @@ describe("Did you know reducer menu reducer", () => {
   it("should return the initial state", () => {
     const initialState = {
       articles: [],
-      loading: true
+      loading: true,
     };
 
     expect(reducer(undefined, {})).to.deep.eq(initialState);
@@ -18,19 +18,19 @@ describe("Did you know reducer menu reducer", () => {
 
     const initialState = {
       articles: oldArticles,
-      loading: true
+      loading: true,
     };
 
     expect(
       reducer(initialState, {
         type: RECEIVE_DYK,
         payload: {
-          data: { articles: newArticles }
-        }
-      })
+          data: { articles: newArticles },
+        },
+      }),
     ).to.deep.eq({
       articles: newArticles,
-      loading: false
+      loading: false,
     });
   });
 });

@@ -32,7 +32,7 @@ const Week = createReactClass({
     cancelBlockEditable: PropTypes.func,
     deleteWeek: PropTypes.func,
     all_training_modules: PropTypes.array,
-    weeksBeforeTimeline: PropTypes.number
+    weeksBeforeTimeline: PropTypes.number,
   },
   getInitialState() {
     return { focusedBlockId: null };
@@ -93,7 +93,7 @@ const Week = createReactClass({
             width: '100%',
             left: 0,
             willChange,
-            marginLeft: 0
+            marginLeft: 0,
           };
           return (
             <li style={blockLineStyle}>
@@ -159,7 +159,7 @@ const Week = createReactClass({
         (style = {
           position: 'relative',
           height: blocks.length * 75,
-          transition: 'height 500ms ease-in-out'
+          transition: 'height 500ms ease-in-out',
         },
           <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
             {blocks}
@@ -186,7 +186,7 @@ const Week = createReactClass({
         {weekContent}
       </li>
     );
-  }
+  },
 });
 
 export default Week;

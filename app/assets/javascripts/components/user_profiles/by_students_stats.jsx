@@ -68,7 +68,7 @@ const ByStudentsStats = ({ username, stats }) => {
 
 ByStudentsStats.propTypes = {
   username: PropTypes.string,
-  stats: PropTypes.object
+  stats: PropTypes.object,
 };
 
 export default ByStudentsStats;

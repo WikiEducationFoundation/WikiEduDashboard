@@ -14,7 +14,7 @@ const StudentDrawer = createReactClass({
 
   propTypes: {
     student: PropTypes.object,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
   },
 
   mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
@@ -22,14 +22,14 @@ const StudentDrawer = createReactClass({
   getInitialState() {
     return {
       revisions: getRevisions(this.props.student.id),
-      trainingModules: getTrainingStatus()
+      trainingModules: getTrainingStatus(),
     };
   },
 
   storeDidChange() {
     return this.setState({
       revisions: getRevisions(this.props.student.id),
-      trainingModules: getTrainingStatus()
+      trainingModules: getTrainingStatus(),
     });
   },
 
@@ -63,7 +63,7 @@ const StudentDrawer = createReactClass({
           <td colSpan="7" className="text-center">
             <p>{I18n.t('users.no_revisions')}</p>
           </td>
-        </tr>
+        </tr>,
       );
     }
 
@@ -72,7 +72,7 @@ const StudentDrawer = createReactClass({
         <td colSpan="7" className="text-center">
           <p><a href={this.props.student.contribution_url} target="_blank">{I18n.t('users.contributions_history_full')}</a></p>
         </td>
-      </tr>
+      </tr>,
     );
 
     return (
@@ -94,7 +94,7 @@ const StudentDrawer = createReactClass({
         </td>
       </tr>
     );
-  }
+  },
 });
 
 export default StudentDrawer;

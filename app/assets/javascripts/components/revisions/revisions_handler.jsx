@@ -15,7 +15,7 @@ const RevisionHandler = createReactClass({
 
   getInitialState() {
     return {
-      limit: 50
+      limit: 50,
     };
   },
 
@@ -52,8 +52,8 @@ const RevisionHandler = createReactClass({
         <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default RevisionHandler;

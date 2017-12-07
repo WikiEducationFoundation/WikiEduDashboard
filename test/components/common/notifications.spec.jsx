@@ -12,7 +12,7 @@ import Notifications from '../../../app/assets/javascripts/components/common/not
 describe('Notifications', () => {
   it('renders', () => {
     const rendered = ReactTestUtils.renderIntoDocument(
-      <Notifications />
+      <Notifications />,
     );
     expect(rendered).to.exist;
   });
@@ -23,7 +23,7 @@ describe('Notifications', () => {
     const rendered = ReactTestUtils.renderIntoDocument(
       <div>
         <Notifications />
-      </div>
+      </div>,
     );
 
     let rows = rendered.querySelectorAll('.notice');
@@ -33,9 +33,9 @@ describe('Notifications', () => {
       actionType: 'API_FAIL',
       data: {
         responseJSON: {
-          error: 'Test error'
-        }
-      }
+          error: 'Test error',
+        },
+      },
     });
 
     rows = rendered.querySelectorAll('.notice');

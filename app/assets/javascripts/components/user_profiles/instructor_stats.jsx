@@ -14,24 +14,24 @@ const InstructorStats = createReactClass({
     isStudent: PropTypes.bool,
     statsGraphsData: PropTypes.object,
     graphWidth: PropTypes.number,
-    graphHeight: PropTypes.number
+    graphHeight: PropTypes.number,
   },
 
   getInitialState() {
     return {
-      selectedGraph: 'courses_count'
+      selectedGraph: 'courses_count',
     };
   },
 
   setCoursesCountGraph() {
     this.setState({
-      selectedGraph: 'courses_count'
+      selectedGraph: 'courses_count',
     });
   },
 
   setStudentsCountGraph() {
     this.setState({
-      selectedGraph: 'students_count'
+      selectedGraph: 'students_count',
     });
   },
 
@@ -119,7 +119,7 @@ const InstructorStats = createReactClass({
         {asStudent}
       </div>
     );
-  }
+  },
 });
 
 export default InstructorStats;

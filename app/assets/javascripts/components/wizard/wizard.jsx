@@ -15,7 +15,7 @@ const getState = () =>
   ({
     summary: WizardStore.getSummary(),
     panels: WizardStore.getPanels(),
-    wizard_id: WizardStore.getWizardKey()
+    wizard_id: WizardStore.getWizardKey(),
   })
 ;
 
@@ -25,7 +25,7 @@ const Wizard = createReactClass({
     location: PropTypes.object,
     course: PropTypes.object,
     weeks: PropTypes.array,
-    open_weeks: PropTypes.number
+    open_weeks: PropTypes.number,
   },
   mixins: [WizardStore.mixin],
   getInitialState() {
@@ -108,8 +108,8 @@ const Wizard = createReactClass({
         </TransitionGroup>
       </Modal>
     );
-  }
-}
+  },
+},
 );
 
 export default Wizard;

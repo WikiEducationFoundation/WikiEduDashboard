@@ -19,7 +19,7 @@ const createWeek = (opts = {}) => {
       reorderable={opts.reorderable || false}
       week={{ is_new: opts.is_new || false }}
       deleteWeek={opts.deleteWeek || noOp}
-    />
+    />,
   );
 };
 

@@ -19,7 +19,7 @@ const TrainingSlideHandler = createReactClass({
   displayName: 'TrainingSlideHandler',
 
   propTypes: {
-    params: PropTypes.object
+    params: PropTypes.object,
   },
 
   mixins: [TrainingStore.mixin],
@@ -33,7 +33,7 @@ const TrainingSlideHandler = createReactClass({
       previousSlide: {},
       slides: [],
       loading: true,
-      enabledSlides: []
+      enabledSlides: [],
     };
   },
 
@@ -64,7 +64,7 @@ const TrainingSlideHandler = createReactClass({
     return ServerActions.setSlideCompleted({
       slide_id: slideId,
       module_id: this.moduleId(),
-      user_id: userId
+      user_id: userId,
     });
   },
 
@@ -238,7 +238,7 @@ const TrainingSlideHandler = createReactClass({
         </article>
       </div>
     );
-  }
+  },
 });
 
 export default TrainingSlideHandler;

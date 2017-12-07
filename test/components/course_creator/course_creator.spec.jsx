@@ -11,7 +11,7 @@ import { mount } from 'enzyme';
 
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
-  firstMessage() { }
+  firstMessage() { },
 });
 
 /**
@@ -40,7 +40,7 @@ describe('CourseCreator', () => {
           expect(
             TestCourseCreator
               .find('.select-container')
-              .hasClass('hidden')
+              .hasClass('hidden'),
           ).to.eq(true);
         });
       });
@@ -51,7 +51,7 @@ describe('CourseCreator', () => {
           expect(
             TestCourseCreator
               .find('.select-container')
-              .hasClass('hidden')
+              .hasClass('hidden'),
             ).to.eq(false);
         });
       });

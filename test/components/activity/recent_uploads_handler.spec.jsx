@@ -11,13 +11,13 @@ describe('RecentUploadsHandler', () => {
     const spy = sinon.spy();
 
     RecentUploadsHandler.__Rewire__('ServerActions', {
-      fetchRecentUploads: spy
+      fetchRecentUploads: spy,
     });
 
     ReactTestUtils.renderIntoDocument(
       <div>
         <RecentUploadsHandler />
-      </div>
+      </div>,
     );
 
     // called once when mounted

@@ -17,8 +17,8 @@ describe('ActivityTable', () => {
     datetime: new Date().toISOString(),
     courses: [{
       slug: 'courseSlug2',
-      title: 'courseTitle2'
-    }]
+      title: 'courseTitle2',
+    }],
   }, {
     key: 1,
     article_url: 'articleUrl',
@@ -29,8 +29,8 @@ describe('ActivityTable', () => {
     datetime: new Date().toISOString(),
     courses: [{
       slug: 'courseSlug',
-      title: 'courseTitle'
-    }]
+      title: 'courseTitle',
+    }],
   }];
 
   const headers = [
@@ -47,7 +47,7 @@ describe('ActivityTable', () => {
           store={reduxStore}
           loading={true}
         />
-      </div>
+      </div>,
     );
 
     const loading = TestTable.querySelector('.loading');
@@ -63,7 +63,7 @@ describe('ActivityTable', () => {
           activity={activities}
           headers={headers}
         />
-      </div>
+      </div>,
     );
 
     const headerElements = TestTable.querySelectorAll('th');
@@ -79,7 +79,7 @@ describe('ActivityTable', () => {
           activity={activities}
           headers={headers}
         />
-      </div>
+      </div>,
     );
 
     const rowElements = TestTable.querySelectorAll('tbody tr');
@@ -96,7 +96,7 @@ describe('ActivityTable', () => {
           headers={headers}
           noActivityMessage={'No activity'}
         />
-      </div>
+      </div>,
     );
 
     const firstRow = TestTable.querySelector('tbody tr:first-child');
@@ -112,7 +112,7 @@ describe('ActivityTable', () => {
           activity={activities}
           headers={headers}
         />
-      </div>
+      </div>,
     );
 
     expect(TestTable.querySelector('tbody tr:first-child td:first-child').textContent).to.eq('title2');

@@ -15,7 +15,7 @@ const EmptyWeek = createReactClass({
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
     index: PropTypes.number,
-    weeksBeforeTimeline: PropTypes.number
+    weeksBeforeTimeline: PropTypes.number,
   },
 
   addWeek() {
@@ -73,7 +73,7 @@ const EmptyWeek = createReactClass({
         </div>
       </li>
     );
-  }
+  },
 });
 
 export default EmptyWeek;

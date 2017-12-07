@@ -11,14 +11,14 @@ const SlideLink = createReactClass({
     disabled: PropTypes.bool,
     buttonText: PropTypes.string,
     params: PropTypes.object.isRequired,
-    slideId: PropTypes.string.isRequired
+    slideId: PropTypes.string.isRequired,
   },
 
   linkParams(props) {
     return {
       library_id: props.params.library_id,
       module_id: props.params.module_id,
-      slide_id: props.slideId
+      slide_id: props.slideId,
     };
   },
 
@@ -37,7 +37,7 @@ const SlideLink = createReactClass({
         {this.props.buttonText}
       </Link>
     );
-  }
+  },
 });
 
 export default SlideLink;

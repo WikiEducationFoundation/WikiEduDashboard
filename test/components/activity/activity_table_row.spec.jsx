@@ -22,7 +22,7 @@ describe('ActivityTableRow', () => {
           isOpen={false}
         />
       </tbody>
-    </table>
+    </table>,
   );
 
   it('renders a table row with a closed class', () => {

@@ -32,7 +32,7 @@ const BarGraph = (props) => {
 };
 
 BarGraph.propTypes = {
-  answers: PropTypes.array.isRequired
+  answers: PropTypes.array.isRequired,
 };
 
 export default BarGraph;

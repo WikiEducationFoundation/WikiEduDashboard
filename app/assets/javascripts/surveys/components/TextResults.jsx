@@ -19,7 +19,7 @@ export default class TextResults extends Component {
     this.state = {
       sentiment: null,
       limit,
-      buttonText: 'More'
+      buttonText: 'More',
     };
     this.toggleShowMore = this._toggleShowMore.bind(this);
   }
@@ -125,5 +125,5 @@ TextResults.propTypes = {
   sentiment: PropTypes.object,
   question: PropTypes.object,
   follow_up_answers: PropTypes.array,
-  followUpOnly: PropTypes.bool
+  followUpOnly: PropTypes.bool,
 };

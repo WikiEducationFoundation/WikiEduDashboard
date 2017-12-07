@@ -12,7 +12,7 @@ const Option = createReactClass({
     panel_index: PropTypes.number.isRequired,
     option: PropTypes.object.isRequired,
     open_weeks: PropTypes.number.isRequired,
-    multiple: PropTypes.bool
+    multiple: PropTypes.bool,
   },
 
   select() {
@@ -88,7 +88,7 @@ const Option = createReactClass({
         <div className="wizard__option__border" />
       </div>
     );
-  }
+  },
 });
 
 export default Option;

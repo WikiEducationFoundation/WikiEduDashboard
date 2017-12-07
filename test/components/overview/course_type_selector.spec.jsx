@@ -7,7 +7,7 @@ import CourseTypeSelector from '../../../app/assets/javascripts/components/overv
 
 describe('CourseTypeSelector', () => {
   const course = {
-    type: 'ClassroomProgramCourse'
+    type: 'ClassroomProgramCourse',
   };
 
   it('displays the course type when not editable', () => {
@@ -15,7 +15,7 @@ describe('CourseTypeSelector', () => {
       <CourseTypeSelector
         course={course}
         editable={false}
-      />
+      />,
     );
     const typeListing = ReactTestUtils.findRenderedDOMComponentWithTag(NonEditableCourseTypeSelector, 'div');
     expect(typeListing.textContent).to.eq('Type: Classroom Program');
@@ -24,13 +24,13 @@ describe('CourseTypeSelector', () => {
   it('calls updateCourse when selection changes', () => {
     const spy = sinon.spy();
     CourseTypeSelector.__Rewire__('CourseActions', {
-      updateCourse: spy
+      updateCourse: spy,
     });
     const EditableCourseTypeSelector = ReactTestUtils.renderIntoDocument(
       <CourseTypeSelector
         course={course}
         editable={true}
-      />
+      />,
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');
     Simulate.change(selector, { target: { value: 'VisitingScholarship' } });
@@ -41,14 +41,14 @@ describe('CourseTypeSelector', () => {
     const basicCourse = {
       type: 'BasicCourse',
       start: '2016-01-01',
-      end: '2016-06-03'
+      end: '2016-06-03',
     };
 
     const EditableCourseTypeSelector = ReactTestUtils.renderIntoDocument(
       <CourseTypeSelector
         course={basicCourse}
         editable={true}
-      />
+      />,
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');
     expect(EditableCourseTypeSelector.props.course.timeline_start).to.be.undefined;

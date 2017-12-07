@@ -15,11 +15,11 @@ gulp.task('stylesheets', () => {
     .pipe(plugins.stylus({
       'include css': true,
       sourcemap: {
-        inline: config.development
-      }
+        inline: config.development,
+      },
     }))
     .pipe(plugins.sourcemaps.init({
-      loadMaps: true
+      loadMaps: true,
     }))
     .pipe(plugins.autoprefixer())
     .pipe(plugins.sourcemaps.write())
@@ -53,11 +53,11 @@ gulp.task('stylesheets-livereload', () => {
     .pipe(plugins.stylus({
       'include css': true,
       sourcemap: {
-        inline: config.development
-      }
+        inline: config.development,
+      },
     }))
     .pipe(plugins.sourcemaps.init({
-      loadMaps: true
+      loadMaps: true,
     }))
     .pipe(plugins.autoprefixer())
     .pipe(plugins.sourcemaps.write())

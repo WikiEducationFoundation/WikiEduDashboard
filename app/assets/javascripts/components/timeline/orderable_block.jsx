@@ -9,7 +9,7 @@ const OrderableBlock = ({
   disableUp,
   disableDown,
   onMoveUp,
-  onMoveDown
+  onMoveDown,
 }) => {
   const opacity = isDragging ? 0.5 : 1;
 
@@ -43,11 +43,11 @@ OrderableBlock.propTypes = {
   disableDown: PropTypes.bool.isRequired,
   onMoveUp: PropTypes.func.isRequired,
   onMoveDown: PropTypes.func.isRequired,
-  isDragging: PropTypes.bool.isRequired
+  isDragging: PropTypes.bool.isRequired,
 };
 
 export default Reorderable(
   OrderableBlock,
   'block',
-  'onDrag'
+  'onDrag',
 );

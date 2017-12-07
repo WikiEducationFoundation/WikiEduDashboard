@@ -13,20 +13,20 @@ describe('Milestones', () => {
   const TestMilestones = ReactTestUtils.renderIntoDocument(
     <Milestones
       course={course}
-    />
+    />,
   );
 
   it('renders block content in a <p> tag', () => {
     TestMilestones.setState({ weeks: [week] });
     const milestones = ReactTestUtils.findRenderedDOMComponentWithClass(TestMilestones, 'milestones');
     expect(milestones.innerHTML).to.include('<p>Tacos are great</p>');
-  }
+  },
   );
 
   it('does not render block if empty', () => {
     TestMilestones.setState({ weeks: [week2] });
     expect(TestMilestones.render()).to.equal(null);
-  }
+  },
   );
-}
+},
 );

@@ -12,7 +12,7 @@ const Quiz = createReactClass({
     correctAnswer: PropTypes.number,
     selectedAnswer: PropTypes.number,
     answers: PropTypes.array,
-    question: PropTypes.string
+    question: PropTypes.string,
   },
 
   getInitialState() {
@@ -91,7 +91,7 @@ const Quiz = createReactClass({
         <button className="btn btn-primary ghost-button capitalize btn-med" onClick={this.verifyAnswer}>Check Answer</button>
       </form>
     );
-  }
+  },
 });
 
 export default Quiz;

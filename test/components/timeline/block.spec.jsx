@@ -8,7 +8,7 @@ import Block from '../../../app/assets/javascripts/components/timeline/block.jsx
 
 Block.__Rewire__(
   'TextAreaInput',
-  () => <div />
+  () => <div />,
 );
 
 const createBlock = (opts) => {
@@ -27,7 +27,7 @@ const createBlock = (opts) => {
       training_modules={opts.training_modules || []}
       saveBlockChanges={noOp}
       editableBlockIds={opts.editableBlockIds || []}
-    />
+    />,
   );
 };
 
@@ -91,7 +91,7 @@ describe('Block', () => {
           it("doesn't show button", () => {
             const TestBlock = createBlock({
               editPermissions: true,
-              editableBlockIds: []
+              editableBlockIds: [],
             });
             const button = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'danger')[0];
             const buttonNode = findDOMNode(button);
@@ -102,7 +102,7 @@ describe('Block', () => {
           it('shows button', () => {
             const TestBlock = createBlock({
               editPermissions: true,
-              editableBlockIds: [block.id]
+              editableBlockIds: [block.id],
             });
             const button = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'danger')[0];
             const buttonNode = findDOMNode(button);
@@ -124,7 +124,7 @@ describe('Block', () => {
       describe('block has training modules, edit permissions present', () => {
         const TestBlock = createBlock({
           editableBlockIds: [1],
-          block: { id: 1, training_modules: [{ name: 'apples' }] }
+          block: { id: 1, training_modules: [{ name: 'apples' }] },
         });
         it('shows modules', () => {
           const blkHTML = findDOMNode(TestBlock).innerHTML;
@@ -134,7 +134,7 @@ describe('Block', () => {
       describe('block has no training modules, but edit permissions present', () => {
         const TestBlock = createBlock({
           editableBlockIds: [],
-          block: { id: 1, training_modules: [] }
+          block: { id: 1, training_modules: [] },
         });
         it('does not show modules', () => {
           const modules = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'block__training-modules')[0];
@@ -145,7 +145,7 @@ describe('Block', () => {
       describe('block has no training modules, no edit permissions', () => {
         const TestBlock = createBlock({
           editableBlockIds: [],
-          block: { id: 1, training_modules: [] }
+          block: { id: 1, training_modules: [] },
         });
         it('does not show modules', () => {
           const modules = TestUtils.scryRenderedDOMComponentsWithClass(TestBlock, 'block__training-modules')[0];

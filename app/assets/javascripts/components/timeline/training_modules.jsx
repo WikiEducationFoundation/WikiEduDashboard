@@ -11,7 +11,7 @@ const TrainingModules = createReactClass({
     block_modules: PropTypes.array,
     editable: PropTypes.bool,
     all_modules: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   },
 
   getInitialState() {
@@ -125,8 +125,8 @@ const TrainingModules = createReactClass({
         </div>
       </div>
     );
-  }
-}
+  },
+},
 
 );
 

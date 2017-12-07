@@ -7,7 +7,7 @@ describe('for view count zero and edited count greater than 0', () => {
   const course = {
     view_count: '0',
     edited_count: '1',
-    upload_usages_count: 0
+    upload_usages_count: 0,
   };
   const testStats = (
     <CourseStats
@@ -24,7 +24,7 @@ describe('for view count zero and edited count greater than 0', () => {
 describe('for view count greater than zero', () => {
   const course = {
     view_count: '3',
-    upload_usages_count: 0
+    upload_usages_count: 0,
   };
   const testStats = (
     <CourseStats

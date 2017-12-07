@@ -14,7 +14,7 @@ describe('SlideMenu', () => {
       params={params}
     >
       <SlideMenu params={params} closeMenu={emptyFunction} onClick={emptyFunction} />
-    </TrainingSlideHandler>
+    </TrainingSlideHandler>,
   );
 
   global.beforeEach(() =>
@@ -23,8 +23,8 @@ describe('SlideMenu', () => {
       currentSlide: { content: 'hello', id: 'kittens' },
       slides: [slide],
       enabledSlides: [slide],
-      nextSlide: { slug: 'foobar' }
-    })
+      nextSlide: { slug: 'foobar' },
+    }),
   );
 
   it('renders an ol', () => {
