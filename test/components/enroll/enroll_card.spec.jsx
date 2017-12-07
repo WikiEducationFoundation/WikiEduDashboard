@@ -8,7 +8,7 @@ describe('EnrollCard', () => {
     const TestEnrollCard = mount(
       <EnrollCard
         course={{ ended: true }}
-      />
+      />,
     );
     const h1 = TestEnrollCard.find('h1');
     expect(h1.first().text()).to.eq('The course has ended.');
