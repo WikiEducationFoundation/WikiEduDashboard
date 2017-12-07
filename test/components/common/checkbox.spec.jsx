@@ -9,7 +9,7 @@ describe('Checkbox', () => {
     const TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
         value={false}
-      />
+      />,
     );
     const checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelectorAll('input[type=checkbox]').length).to.eq(1);
@@ -19,14 +19,14 @@ describe('Checkbox', () => {
     let TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
         value={true}
-      />
+      />,
     );
     let checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(true);
     TestCheckbox = ReactTestUtils.renderIntoDocument(
       <Checkbox
         value={false}
-      />
+      />,
     );
     checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'p');
     expect(checkbox.querySelector('input[type=checkbox]').checked).to.eq(false);
@@ -38,7 +38,7 @@ describe('Checkbox', () => {
       <Checkbox
         onChange={cb}
         value={true}
-      />
+      />,
     );
     const checkbox = ReactTestUtils.findRenderedDOMComponentWithTag(TestCheckbox, 'input');
     Simulate.change(checkbox, { target: { checked: false } });
