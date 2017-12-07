@@ -15,7 +15,7 @@ const setValidation = function (key, valid, message, changed = true, quiet = fal
   _validations[key] = {
     valid,
     changed,
-    message
+    message,
   };
   if (!quiet) { return ValidationStore.emitChange(); }
 };
@@ -50,7 +50,7 @@ const ValidationStore = Flux.createStore(
         return _validations[_errorQueue[0]].message;
       }
       return null;
-    }
+    },
   }
   , (payload) => {
     const { data } = payload;
@@ -73,7 +73,7 @@ const ValidationStore = Flux.createStore(
       // no default
     }
     return true;
-  }
+  },
 );
 
 ValidationStore.setMaxListeners(0);
