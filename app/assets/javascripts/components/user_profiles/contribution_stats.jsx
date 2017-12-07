@@ -21,7 +21,7 @@ const getState = function () {
 };
 const ContributionStats = createReactClass({
   propTypes: {
-    params: PropTypes.object
+    params: PropTypes.object,
   },
 
   mixins: [ProfileStore.mixin], // adding store eventing to the component
@@ -44,9 +44,9 @@ const ContributionStats = createReactClass({
         url: statsdataUrl,
         success: (data) => {
           this.setState({
-            statsGraphsData: data
+            statsGraphsData: data,
           });
-        }
+        },
       });
   },
 
@@ -55,7 +55,7 @@ const ContributionStats = createReactClass({
       {
         stats: ProfileStore.getStats(),
         loading: ProfileStore.getLoadingStatus(),
-      }
+      },
     );
   },
 
@@ -98,7 +98,7 @@ const ContributionStats = createReactClass({
         {statistics}
       </div>
     );
-  }
+  },
 });
 
 export default ContributionStats;
