@@ -9,12 +9,12 @@ describe('AvailableActions', () => {
       <AvailableActions
         store={reduxStore}
         current_user={{}}
-      />
+      />,
     );
     TestAvailableActions.setState({
       course: {
-        ended: true
-      }
+        ended: true,
+      },
     });
     // const p = ReactTestUtils.findRenderedDOMComponentWithTag(TestAvailableActions, 'p');
     // FIXME: make this work.
