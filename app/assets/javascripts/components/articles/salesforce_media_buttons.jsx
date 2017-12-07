@@ -6,7 +6,7 @@ const SalesforceMediaButtons = ({
   course,
   editors,
   before_rev_id,
-  after_rev_id
+  after_rev_id,
 }) => {
   const salesforceMediaUrlRoot = '/salesforce/create_media?';
   const courseParam = `course_id=${course.id}`;
@@ -45,7 +45,7 @@ SalesforceMediaButtons.propTypes = {
   course: PropTypes.object,
   editors: PropTypes.array,
   before_rev_id: PropTypes.number,
-  after_rev_id: PropTypes.number
+  after_rev_id: PropTypes.number,
 };
 
 export default SalesforceMediaButtons;
