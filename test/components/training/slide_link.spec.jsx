@@ -19,7 +19,7 @@ describe('SlideLink', () => {
         button={true}
         params={{ library_id: 'foo', module_id: 'bar' }}
       />
-    </TrainingSlideHandler>
+    </TrainingSlideHandler>,
   );
 
   let domBtn;
@@ -29,7 +29,7 @@ describe('SlideLink', () => {
       currentSlide: { content: 'hello', id: 1 },
       slides: ['a'],
       enabledSlides: [],
-      nextSlide: { slug: 'foobar' }
+      nextSlide: { slug: 'foobar' },
     });
 
     domBtn = TestLink.find('.slide-nav').first();
