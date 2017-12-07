@@ -12,7 +12,7 @@ const Grading = createReactClass({
   propTypes: {
     gradeables: PropTypes.array,
     editable: PropTypes.bool,
-    controls: PropTypes.func
+    controls: PropTypes.func,
   },
 
   render() {
@@ -56,8 +56,8 @@ const Grading = createReactClass({
         </ul>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default Grading;
