@@ -15,7 +15,6 @@ describe 'campaign overview page', type: :feature, js: true do
   let(:user)  { create(:user) }
   let(:campaign) do
     create(:campaign,
-           id: 10001,
            title: 'Spring 2016 campaign',
            slug: slug,
            description: 'This is the best campaign')

@@ -1,62 +1,65 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 gem 'rails', '5.1.4'
-gem 'jbuilder', '~> 2.0'
-gem 'haml-rails'
+gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
+gem 'haml-rails' # HTML template language, used instead of ERB
 
-gem 'mediawiki_api', '0.7.1'
-gem 'crack'
-gem 'figaro'
-gem 'whenever'
+gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
+gem 'crack' # JSON / XML parsing. Unused?
+gem 'figaro' # easy access to ENV variables. Deprecated.
+gem 'whenever' # Translates config/schedule.rb into cron jobs during deployment
 gem 'mysql2'
-gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
-gem 'activerecord-import'
-gem 'dalli'
+gem 'sidekiq' # Framework for running background worker jobs
+gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
+gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
+gem 'dalli' # Caching
 gem 'connection_pool'
 gem 'faraday'
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 
-gem 'browser'
-
-gem 'devise'
+gem 'devise' # user session management
+# Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
+
+# Parses user agent strings to determine which browser is in use.
+# Used for browser support warnings.
+gem 'browser'
+gem 'http_accept_language'
+gem 'i18n-js'
 
 gem 'validates_email_format_of'
 
+ # convenient cloning of ActiveRecord objects along with child records
+ # Used for cloning surveys and courses.
 gem 'deep_cloneable', '~> 2.3.0'
 
-gem 'sentry-raven'
+gem 'sentry-raven' # error reporting for both server-side Ruby and client-side JS
 gem 'piwik_analytics', git: 'https://github.com/halfdan/piwik-ruby-tracking.git'
-gem 'newrelic_rpm'
+gem 'newrelic_rpm' # monitoring, using in Wiki Ed Production mostly
 
 gem 'redcarpet'
-gem 'breadcrumbs_on_rails'
-gem 'hashugar'
+gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages
+gem 'hashugar' # Users to make yaml/json based training objects easy to access
 
 gem 'simple_form'
 
 gem 'acts_as_list'
 
-gem 'sentimental'
+gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 
-# used for enabling CSS for mailer emails
-gem 'premailer-rails'
+gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
 
-gem 'http_accept_language'
-gem 'i18n-js'
 
-gem 'mailgun_rails'
 
-gem 'factory_bot_rails'
+gem 'mailgun_rails' # Plugin for sending mail via mailgun.com. Unused?
 
-gem 'paper_trail'
+gem 'paper_trail' # Save histories of record changes related to surveys
 
-gem "paperclip"
+gem "paperclip" # used by Course and UserProfile for file attachments
 
 # TZ information is not available on Windows, needs to be installed separately
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
@@ -99,8 +102,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'zeus', platforms: :ruby # zeus doesn't work on Windows
-  gem 'timecop'
-  gem 'poltergeist'
+  gem 'timecop' # Test utility for setting the time
+  gem 'poltergeist' # Capypara feature specs driven by PhantomJS
+  gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'rb-readline' # for those who don't have a native readline utility installed
 end
 
