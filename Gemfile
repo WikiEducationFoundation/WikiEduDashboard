@@ -120,8 +120,3 @@ group :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
 end
-
-group :production do
-  gem 'uglifier' # Unused? Referenced in environments/production.rb and staging.rb
-  gem 'rails_12factor' # Unnecessary?
-end
