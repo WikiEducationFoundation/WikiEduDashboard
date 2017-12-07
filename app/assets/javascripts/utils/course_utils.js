@@ -39,7 +39,7 @@ const CourseUtils = class {
   // This builds i18n interface strings that vary based on state/props.
   i18n(messageKey, prefix, defaultPrefix = 'courses') {
     return I18n.t(`${prefix}.${messageKey}`, {
-      defaults: [{ scope: `${defaultPrefix}.${messageKey}` }]
+      defaults: [{ scope: `${defaultPrefix}.${messageKey}` }],
     });
   }
 
@@ -52,7 +52,7 @@ const CourseUtils = class {
         project: null,
         language: null,
         // TODO: use the course home language and project to construct the url
-        article_url: null
+        article_url: null,
       };
     }
 
@@ -65,7 +65,7 @@ const CourseUtils = class {
         title,
         project,
         language,
-        article_url: articleTitle
+        article_url: articleTitle,
       };
     }
 
@@ -78,14 +78,14 @@ const CourseUtils = class {
         title,
         project,
         language,
-        article_url: articleTitle
+        article_url: articleTitle,
       };
     }
 
     return {
       title: articleTitleInput,
       project: null,
-      language: null
+      language: null,
     };
   }
 
@@ -102,7 +102,7 @@ const CourseUtils = class {
       article_id: assignment.article_id,
       language,
       project,
-      new: false
+      new: false,
     };
     article.formatted_title = this.formattedArticleTitle(article, defaultWiki);
     return article;
