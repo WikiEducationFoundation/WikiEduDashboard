@@ -71,7 +71,7 @@ const CourseActions = Flux.createActions({
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
-          data: resp
+          data: resp,
         };
       });
   },
