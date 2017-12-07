@@ -4,6 +4,7 @@
 # Author: AndroidOSUser
 # Author: Caçador de Palavras
 # Author: Chicocvenancio
+# Author: Contraexemplo
 # Author: Cristofer Alves
 # Author: Dianakc
 # Author: EVinente
@@ -27,6 +28,7 @@ pt-br:
   application:
     cancel: Cancelar
     dashboard: Painel do Wiki Ed
+    documentation: Documentação
     error: 'Ocorreu um erro:'
     explore: Explorar
     field_required: Este campo é obrigatório
@@ -43,6 +45,7 @@ pt-br:
     log_out: Sair
     my_dashboard: Meu painel
     recent_activity: Atividade recente
+    report_problem: Informar um problema
     search: perguntar
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
@@ -71,6 +74,13 @@ pt-br:
     review_orientation: Revisar a orientação
     start_orientation: Começar Orientação
     blog_headline: Notícias Recentes de Wiki Ed
+    about_programs: Esse site rastrea atividades através de Programas — eventos individuais
+      como uma editatona ou cadeira universitária. Cada programa é parte de uma ou
+      mais campanhas, que provê estatísticas agregadas para programas.
+    about_creating_programs: Se estás coordenando um evento único, independente, podes
+      criar um programa agora. Se o seu programa é parte de algo maior, encontre ou
+      crie a campanha para ele. Poderás então criar o seu novo programa a partir da
+      página da campanha.
   home:
     explore: Explorar
     log_in: Entrar pela Wikipédia
@@ -88,6 +98,11 @@ pt-br:
     assigned_to: Atribuído a
     character_doc: A soma de caracteres adicionados a artigos por editores inscritos
       durante as datas de começo e fim
+    cross_wiki_tracking: Páginas do domínio principal editadas entre as datas de início
+      e fim são listadas abaixo. O painel analisa as contribuições da wiki principal
+      desse programa, assim como outras wiki para as quais houver um Artigo Designado
+      ou Disponível.
+    deleted: (apagado)
     edited: Artigos editados
     edited_by: 'Editado por:'
     edited_mobile: Artigos
@@ -118,14 +133,18 @@ pt-br:
       does_not_exist: Este artigo não existe na Wikipédia
     show_cumulative_changes: Mostrar Mudanças acumuladas
     show_current_version: Ver versão atual
+    show_current_version_with_authorship_highlighting: Versão atual com destaque de
+      autoria
     title: Título
     title_example: Título do artigo
+    tools: Ferramentas de avaliação
     view: Ver artigo
     view_all: Ver tudo
     view_doc: A soma de todas visualizações de cada artigo durante o prazo do curso
     view_on_wiki: Ver na wiki
     views_added: '%{count} novas visualizações para %{title}'
     edit_size: Tamanho da edição
+    wiki: Wiki
     wp10: Integridade Estrutural
     wp10_doc: A nota de 'Integridade Estrutural' indica o quanto um artigo se encaixa
       no molde de um artigo maduro da Wikipédia, baseado no serviço de aprendizado
@@ -136,13 +155,14 @@ pt-br:
       bom artigo mas não leva em conta o conteúdo em si. (Essas notas só estão disponíveis
       para a Wikipédia em inglês.)
   assignments:
-    article: The article %{title} foi designado
+    article: O artigo %{title} foi designado agora para ti.
     already_exists: Essa atribuição já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
     assign_other: Atribuir um artigo
     add_available: Adicionar um artigo disponível
     assign_self: Atribuir um artigo a mim mesmo
+    assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
     confirm_addition: Tem certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Você tem certeza que deseja excluir esta atribuição a um artigo?
@@ -155,6 +175,8 @@ pt-br:
     reviewers: Revisor(es)
     review_other: Atribuir uma revisão
     review_self: Revisar um artigo
+    review_tooltip: Isto é para manter registro de quais artigos planeja revisar ou
+      prover comentários.
     select: Selecionar
   blocks:
     milestones:
@@ -216,10 +238,13 @@ pt-br:
       por estudantes do curso durante o prazo curso
     campaigns: 'Grupos:'
     campaign_courses: Curso de "%{title}"
+    campaign_articles: Artigos %{title}
+    campaign_users: Editores de %{title}
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
     confirm_course_deletion_failed: '"%{title}" não é o título deste curso. O curso
       não foi eliminado.'
+    course: Curso
     course_dates_calendar_instructions: Selecione datas para adicionar ou removê-las
       do calendário (por exemplo, feriados, sem aula etc). Clique na data para alternar
       entre estado selecionado, selecionado e férias. As datas das atividades do curso
@@ -236,6 +261,7 @@ pt-br:
       assignment_start: Início da tarefa
       assignment_start_placeholder: Início da tarefa (AAAA-MM-DD)
       checking_for_uniqueness: Verificando se este curso é único.
+      choose_clone: Escolha um curso para duplicar
       clone_previous: Clonar curso anterior
       clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecione datas para adicioná-las ou removê-las

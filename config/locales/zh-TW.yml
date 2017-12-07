@@ -169,6 +169,20 @@ zh-TW:
     program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
     title: 標題
     use_start_end_dates: 使用起始和結束時間
+  categories:
+    add_category: 新增分類
+    add_template: 新增模板
+    add_this_category: 新增此分類
+    add_this_template: 新增此模板
+    confirm_category_addition: 您確定您要追蹤分類「%{name}」的貢獻內容嗎？
+    confirm_template_addition: 您確定您要追蹤模板「%{name}」的貢獻內容嗎？
+    depth: 子分類層度
+    name: 名稱
+    category_name: 分類名稱
+    template_name: 模板名稱
+    none: 沒有被追蹤的分類。
+    remove: 移除
+    tracked_categories: 已追蹤分類與模板
   chat:
     label: 聊天
   courses:
@@ -216,11 +230,12 @@ zh-TW:
       clone_this: 複製此課程
       cloned_course_calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間 (例如假日或不上課的時候) 。點選一個日期可以從不上課時段、上課時段、以及休假時段三種設定之間轉換。若您開課期間沒有遇到假日，點選
         "我的課程沒有休假時段" 。複製完成的時間軸將會隨著不上課時段的星期自動坐相對應的調整。
-      clone_successful: 課程成功複製
+      clone_successful: 替複製課程更新詳情
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_language: 主要使用語言
+      course_private: 私有方案（僅可被管理員和主持者檢視）
       course_project: 主專案
       course_school: 課程學校
       course_subject: 課程科目
@@ -430,7 +445,7 @@ zh-TW:
     expected_students: 預期編輯者
     instructors: 主持者
     join_course: 加入方案
-    join_details: 要加入此方案，您需要獲得課程代碼 — 或來自引導者的包含選課代碼連結。
+    join_details: 要加入此方案，您需要獲得課程代碼 — 或來自主持者的包含選課代碼連結。
     leave_course: 退出方案
     milestones_none: 此專案裡目前沒有任何里程碑。
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
