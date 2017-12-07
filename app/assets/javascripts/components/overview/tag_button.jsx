@@ -19,7 +19,7 @@ const tags = (props, remove) =>
 ;
 
 tags.propTypes = {
-  tags: PropTypes.array
+  tags: PropTypes.array,
 };
 
 export default PopoverButton('tag', 'tag', TagStore, tagIsNew, tags);
