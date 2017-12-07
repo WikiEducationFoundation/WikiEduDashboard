@@ -8,7 +8,7 @@ import NotificationActions from '../../actions/notification_actions.js';
 const Form = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
-    returnToParam: PropTypes.string
+    returnToParam: PropTypes.string,
   },
 
   getInitialState() {
@@ -18,7 +18,7 @@ const Form = createReactClass({
       user,
       name: user.real_name,
       email: user.email,
-      instructor: (user.permissions !== null) ? String(user.permission === 2) : null
+      instructor: (user.permissions !== null) ? String(user.permission === 2) : null,
     };
   },
 
@@ -38,17 +38,17 @@ const Form = createReactClass({
     return API.onboard({
       real_name: this.state.name,
       email: this.state.email,
-      instructor: this.state.instructor === 'true'
+      instructor: this.state.instructor === 'true',
     })
     .then(() => {
       return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
-    }
+    },
     )
     .catch(function () {
       NotificationActions.addNotification({
         message: I18n.t('error_500.explanation'),
         closable: true,
-        type: 'error'
+        type: 'error',
       });
       this.setState({ sending: false });
     });
@@ -98,7 +98,7 @@ const Form = createReactClass({
         </form>
       </div>
     );
-  }
+  },
 });
 
 export default Form;

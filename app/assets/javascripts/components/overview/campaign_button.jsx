@@ -19,7 +19,7 @@ const campaigns = (props, remove) =>
 ;
 
 campaigns.propTypes = {
-  campaigns: PropTypes.array
+  campaigns: PropTypes.array,
 };
 
 export default PopoverButton('campaign', 'title', CampaignStore, campaignIsNew, campaigns, true);

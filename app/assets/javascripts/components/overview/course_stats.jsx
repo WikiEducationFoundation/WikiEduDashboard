@@ -82,7 +82,7 @@ const CourseStats = ({ course }) => {
 };
 
 CourseStats.propTypes = {
-  course: PropTypes.object
+  course: PropTypes.object,
 };
 
 export default CourseStats;

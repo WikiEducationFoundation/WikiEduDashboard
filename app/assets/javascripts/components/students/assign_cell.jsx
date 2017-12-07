@@ -65,8 +65,8 @@ const AssignCell = createReactClass({
         <AssignButton {...this.props} role={this.props.role} permitted={permitted} ref="button" />
       </div>
     );
-  }
-}
+  },
+},
 );
 
 export default AssignCell;

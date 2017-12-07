@@ -100,7 +100,7 @@ const ThisWeek = ({ course, weeks, current }) => {
 ThisWeek.propTypes = {
   course: PropTypes.object,
   weeks: PropTypes.array,
-  current: PropTypes.number
+  current: PropTypes.number,
 };
 
 export default ThisWeek;

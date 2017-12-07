@@ -17,7 +17,7 @@ const Feedback = createReactClass({
     deleteUserFeedback: PropTypes.func,
     feedback: PropTypes.object,
     assignment: PropTypes.object.isRequired,
-    username: PropTypes.string
+    username: PropTypes.string,
   },
 
   getInitialState() {
@@ -26,7 +26,7 @@ const Feedback = createReactClass({
       fetched: false,
       feedbackSent: false,
       feedbackInput: '',
-      showFeedbackForm: false
+      showFeedbackForm: false,
     };
   },
 
@@ -225,17 +225,17 @@ const Feedback = createReactClass({
         {modal}
       </div>
     );
-  }
+  },
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchFeedback: bindActionCreators(FeedbackAction, dispatch).fetchFeedback,
   postUserFeedback: bindActionCreators(FeedbackAction, dispatch).postUserFeedback,
-  deleteUserFeedback: bindActionCreators(FeedbackAction, dispatch).deleteUserFeedback
+  deleteUserFeedback: bindActionCreators(FeedbackAction, dispatch).deleteUserFeedback,
 });
 
 const mapStateToProps = state => ({
-  feedback: state.feedback
+  feedback: state.feedback,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(Feedback));

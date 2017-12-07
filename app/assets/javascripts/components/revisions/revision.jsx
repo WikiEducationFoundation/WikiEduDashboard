@@ -7,7 +7,7 @@ const Revision = createReactClass({
   displayName: 'Revision',
 
   propTypes: {
-    revision: PropTypes.object
+    revision: PropTypes.object,
   },
 
   render() {
@@ -35,8 +35,8 @@ const Revision = createReactClass({
         </td>
       </tr>
     );
-  }
-}
+  },
+},
 );
 
 export default Revision;

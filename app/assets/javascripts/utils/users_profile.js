@@ -9,7 +9,7 @@ $(() => {
     $(window).scroll(() => {
       if ($(window).scrollTop() >= stickyHeaderTop) {
         $('#userprofile_navbar').css({
-          position: 'fixed', top: '50px', 'z-index': 1, width: '100%', right: 0
+          position: 'fixed', top: '50px', 'z-index': 1, width: '100%', right: 0,
         });
         $('#highlight').css({ display: 'unset' });
       }
@@ -21,7 +21,7 @@ $(() => {
     $('.profile_container #userprofile_navbar li a').on("click", function () {
       const id = this.hash;
       $('html, body').animate({
-        scrollTop: $(id).offset().top - navbarHeight
+        scrollTop: $(id).offset().top - navbarHeight,
       }, 500);
     });
   }

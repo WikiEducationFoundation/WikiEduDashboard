@@ -24,7 +24,7 @@ export default function (Component, Type, MoveFunction) {
       return {
         props,
         item: props[Type],
-        originalIndex: props.index
+        originalIndex: props.index,
       };
     },
     isDragging(props, monitor) {
@@ -38,7 +38,7 @@ export default function (Component, Type, MoveFunction) {
     },
     endDrag() {
       return document.body.classList.remove('unselectable');
-    }
+    },
   };
 
   // Returns props to inject into the draggable component
@@ -46,7 +46,7 @@ export default function (Component, Type, MoveFunction) {
     ({
       connectDragSource: connect.dragSource(),
       connectDragPreview: connect.dragPreview(),
-      isDragging: monitor.isDragging()
+      isDragging: monitor.isDragging(),
     })
   ;
 
@@ -58,7 +58,7 @@ export default function (Component, Type, MoveFunction) {
       const adjacent = Math.abs(item.order - props[Type].order) <= 1;
       if ((item.id === props[Type].id || props.animating) && adjacent) { return; }
       return props[MoveFunction](item, props[Type], monitor.getItem().originalIndex);
-    }
+    },
   };
 
   // Returns props to inject into the drag target component
@@ -72,7 +72,7 @@ export default function (Component, Type, MoveFunction) {
       canDrag: PropTypes.bool,
       connectDropTarget: PropTypes.func,
       connectDragSource: PropTypes.func,
-      connectDragPreview: PropTypes.func
+      connectDragPreview: PropTypes.func,
     },
 
     render() {
@@ -88,7 +88,7 @@ export default function (Component, Type, MoveFunction) {
         );
       }
       return <Component {...this.props} />;
-    }
+    },
   });
 
   // The lodash `flow` function is essentially a chain, passing the return
@@ -96,6 +96,6 @@ export default function (Component, Type, MoveFunction) {
   // DragTarget() both return functions which are then used in the flow.
   return _.flow(
     DragSource(Type, dragSourceSpec, sourceConnect),
-    DropTarget(Type, dragTargetSpec, targetConnect)
+    DropTarget(Type, dragTargetSpec, targetConnect),
   )(Reorderable);
 }

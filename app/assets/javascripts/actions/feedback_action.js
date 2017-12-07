@@ -26,7 +26,7 @@ export function postUserFeedback(assignmentId, feedback, userId) {
     return API.createCustomFeedback(assignmentId, feedback, userId)
       .then((resp) => {
         dispatch({
-          type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId
+          type: types.POST_USER_FEEDBACK, data: resp, assignmentId: assignmentId, feedback: feedback, messageId: resp.id, userId: userId,
         });
       })
       // TODO: The Flux stores still handle API failures, so we delegate to a
@@ -41,7 +41,7 @@ export function deleteUserFeedback(assignmentId, messageId, arrayId) {
     return API.destroyCustomFeedback(assignmentId, messageId)
       .then((resp) => {
         dispatch({
-          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId
+          type: types.DELETE_USER_FEEDBACK, data: resp, assignmentId: assignmentId, arrayId: arrayId,
         });
       })
       .catch(response => (ApiFailAction.fail(response)));

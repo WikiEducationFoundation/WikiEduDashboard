@@ -7,13 +7,13 @@ const CourseOresPlot = createReactClass({
   displayName: 'CourseOresPlot',
 
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   getInitialState() {
     return {
       show: false,
-      filePath: null
+      filePath: null,
     };
   },
 
@@ -44,7 +44,7 @@ const CourseOresPlot = createReactClass({
       url: `/courses/${this.props.course.slug}/ores_plot.json`,
       success: (data) => {
         this.setState({ filePath: data.plot_path });
-      }
+      },
     });
   },
 
@@ -69,7 +69,7 @@ const CourseOresPlot = createReactClass({
       return <div onClick={this.hide}><Loading /></div>;
     }
     return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
-  }
+  },
 });
 
 export default CourseOresPlot;

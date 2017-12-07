@@ -8,19 +8,19 @@ import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({
-  assignments: AssignmentStore.getModels()
+  assignments: AssignmentStore.getModels(),
 });
 
 const AvailableArticlesList = ({ elements }) => {
   const keys = {
     rating_num: {
       label: I18n.t('articles.rating'),
-      desktop_only: true
+      desktop_only: true,
     },
     title: {
       label: I18n.t('articles.title'),
-      desktop_only: false
-    }
+      desktop_only: false,
+    },
   };
 
   return (
@@ -36,12 +36,12 @@ const AvailableArticlesList = ({ elements }) => {
 };
 
 AvailableArticlesList.propTypes = {
-  elements: PropTypes.array
+  elements: PropTypes.array,
 };
 
 export default Editable(
   AvailableArticlesList,
   [ArticleStore, AssignmentStore],
   ServerActions.saveStudents,
-  getState
+  getState,
 );

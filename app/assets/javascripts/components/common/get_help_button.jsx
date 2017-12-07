@@ -12,7 +12,7 @@ const getState = () =>
   ({
     contentExperts: UserStore.getFiltered({ content_expert: true, role: 4 }),
     programManagers: UserStore.getFiltered({ program_manager: true, role: 4 }),
-    staffUsers: UserStore.getFiltered({ role: 4 })
+    staffUsers: UserStore.getFiltered({ role: 4 }),
   })
 ;
 
@@ -26,7 +26,7 @@ const GetHelpButton = createReactClass({
     is_open: PropTypes.bool,
     alertSubmitting: PropTypes.bool,
     alertCreated: PropTypes.bool,
-    actions: PropTypes.object
+    actions: PropTypes.object,
   },
 
   mixins: [UserStore.mixin],
@@ -56,7 +56,7 @@ const GetHelpButton = createReactClass({
     e.preventDefault();
     this.setState({
       message: '',
-      selectedTargetUser: null
+      selectedTargetUser: null,
     });
     this.props.open(e);
     setTimeout(() => {
@@ -83,7 +83,7 @@ const GetHelpButton = createReactClass({
     const messageData = {
       target_user_id: this.state.selectedTargetUser.id,
       message: this.state.message,
-      course_id: this.props.course.id
+      course_id: this.props.course.id,
     };
     this.props.actions.submitNeedHelpAlert(messageData);
   },
@@ -253,16 +253,16 @@ const GetHelpButton = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
   alertSubmitting: state.needHelpAlert.submitted,
-  alertCreated: state.needHelpAlert.created
+  alertCreated: state.needHelpAlert.created,
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(AlertActions, dispatch)
+  actions: bindActionCreators(AlertActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expandable(GetHelpButton));

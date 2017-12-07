@@ -11,7 +11,7 @@ const List = ({
   className,
   elements,
   none_message,
-  loading
+  loading,
 }) => {
   const sorting = store && store.getSorting();
   const sortClass = (sorting && sorting.asc) ? 'asc' : 'desc';
@@ -102,7 +102,7 @@ List.propTypes = {
   table_key: PropTypes.string,
   className: PropTypes.string,
   elements: PropTypes.node,
-  none_message: PropTypes.string
+  none_message: PropTypes.string,
 };
 
 export default List;

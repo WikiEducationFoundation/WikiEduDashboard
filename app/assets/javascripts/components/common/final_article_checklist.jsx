@@ -7,7 +7,7 @@ const FinalArticleChecklist = createReactClass({
 
   getInitialState() {
     return {
-      show: false
+      show: false,
     };
   },
 
@@ -66,7 +66,7 @@ const FinalArticleChecklist = createReactClass({
         {modal}
       </div>
     );
-  }
+  },
 });
 
 export default OnClickOutside(FinalArticleChecklist);

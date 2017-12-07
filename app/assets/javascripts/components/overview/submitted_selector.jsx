@@ -7,12 +7,12 @@ import uuid from 'uuid';
 const SubmittedSelector = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
 
   componentWillMount() {
     this.setState({
-      id: uuid.v4()
+      id: uuid.v4(),
     });
   },
 
@@ -65,7 +65,7 @@ const SubmittedSelector = createReactClass({
         {selector}
       </div>
     );
-  }
+  },
 });
 
 export default SubmittedSelector;

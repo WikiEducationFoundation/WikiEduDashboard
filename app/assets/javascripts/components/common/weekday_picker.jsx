@@ -10,14 +10,14 @@ const localeUtils = {
   },
   formatWeekdayShort: function (weekday) {
     return WEEKDAYS_SHORT[weekday];
-  }
+  },
 };
 
 const keys = {
   LEFT: 37,
   RIGHT: 39,
   ENTER: 13,
-  SPACE: 32
+  SPACE: 32,
 };
 
 const WeekdayPicker = createReactClass({
@@ -32,7 +32,7 @@ const WeekdayPicker = createReactClass({
     locale: PropTypes.string,
     localeUtils: PropTypes.shape({
       formatWeekdayShort: PropTypes.func.isRequired,
-      formatWeekdayLong: PropTypes.func.isRequired
+      formatWeekdayLong: PropTypes.func.isRequired,
     }),
 
     onWeekdayClick: PropTypes.func,
@@ -44,7 +44,7 @@ const WeekdayPicker = createReactClass({
     ariaModifier: 'selected',
     locale: 'en',
     tabIndex: 0,
-    localeUtils: localeUtils
+    localeUtils: localeUtils,
   },
 
   getModifiersForDay(weekday, modifierFunctions) {
@@ -231,7 +231,7 @@ const WeekdayPicker = createReactClass({
         {this.renderWeekDays()}
       </div>
     );
-  }
+  },
 });
 
 export default WeekdayPicker;

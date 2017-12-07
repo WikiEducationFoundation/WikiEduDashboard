@@ -10,7 +10,7 @@ const EditSizeGraph = createReactClass({
     graphid: PropTypes.string,
     graphWidth: PropTypes.number,
     graphHeight: PropTypes.number,
-    articleData: PropTypes.array
+    articleData: PropTypes.array,
   },
 
   renderGraph() {
@@ -29,26 +29,26 @@ const EditSizeGraph = createReactClass({
             fields: [{
               data: 'characters_edited',
               field: 'date',
-              sort: { field: 'date', op: 'min' }
-            }]
+              sort: { field: 'date', op: 'min' },
+            }],
           },
           rangeMin: 0,
           rangeMax: this.props.graphWidth,
-          round: true
+          round: true,
         },
         {
           name: 'y',
           type: 'linear',
           domain: {
             data: 'characters_edited',
-            field: 'characters'
+            field: 'characters',
           },
           rangeMin: this.props.graphHeight,
           rangeMax: 0,
           round: true,
           nice: true,
-          zero: true
-        }
+          zero: true,
+        },
       ],
       axes: [
         {
@@ -62,9 +62,9 @@ const EditSizeGraph = createReactClass({
             labels: {
               text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
               angle: { value: 0 },
-              fontSize: { value: 9 }
-            }
-          }
+              fontSize: { value: 9 },
+            },
+          },
         },
         {
           type: 'y',
@@ -73,8 +73,8 @@ const EditSizeGraph = createReactClass({
           grid: true,
           layer: 'back',
           offset: 10,
-          title: I18n.t('metrics.characters')
-        }
+          title: I18n.t('metrics.characters'),
+        },
       ],
       // ///////////////
       // Data Sources //
@@ -86,10 +86,10 @@ const EditSizeGraph = createReactClass({
           format: { type: 'json', parse: { date: 'date', characters: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters !== 0'
-          }
-          ]
-        }
+            test: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters !== 0',
+          },
+          ],
+        },
       ],
       // //////////////
       // Mark layers //
@@ -104,16 +104,16 @@ const EditSizeGraph = createReactClass({
               y: { scale: "y", value: 0 },
               stroke: { value: "#000000" },
               strokeWidth: { value: 1 },
-              strokeOpacity: { value: 0.5 }
-            }
-          }
+              strokeOpacity: { value: 0.5 },
+            },
+          },
         },
 
         {
           type: "rule",
           from: {
             data: "characters_edited",
-            transform: [{ type: 'sort', by: '-date' }]
+            transform: [{ type: 'sort', by: '-date' }],
           },
           properties:
           {
@@ -126,23 +126,23 @@ const EditSizeGraph = createReactClass({
               stroke: [
                 {
                   test: "datum.characters > 0",
-                  value: "#0000ff"
+                  value: "#0000ff",
                 },
-                { value: "#ff0000" }
-              ]
-            }
-          }
+                { value: "#ff0000" },
+              ],
+            },
+          },
         },
         {
           name: 'circle_marks',
           type: 'symbol',
           from: {
             data: 'characters_edited',
-            transform: [{ type: 'sort', by: '-date' }]
+            transform: [{ type: 'sort', by: '-date' }],
           },
           properties: { enter: {
             orient: { value: 'vertical' },
-            opacity: { value: 0.5 }
+            opacity: { value: 0.5 },
           },
             update: {
               x: { scale: 'x', field: 'date' },
@@ -153,17 +153,17 @@ const EditSizeGraph = createReactClass({
               fill: [
                 {
                   test: "datum.characters > 0",
-                  value: '#0000ff'
+                  value: '#0000ff',
                 },
-                { value: '#ff0000' }
-              ]
-            }
-          }
+                { value: '#ff0000' },
+              ],
+            },
+          },
         },
         {
           type: 'text',
           from: {
-            data: 'characters_edited'
+            data: 'characters_edited',
           },
           properties: {
             enter: {
@@ -173,14 +173,14 @@ const EditSizeGraph = createReactClass({
               fill: { value: "#0000ff" },
               fontSize: { value: 13 },
               align: { value: "right" },
-              fillOpacity: { value: 0.2 }
-            }
-          }
+              fillOpacity: { value: 0.2 },
+            },
+          },
         },
         {
           type: 'text',
           from: {
-            data: 'characters_edited'
+            data: 'characters_edited',
           },
           properties: {
             enter: {
@@ -190,14 +190,14 @@ const EditSizeGraph = createReactClass({
               fill: { value: "#A9A9A9" },
               fontSize: { value: 13 },
               align: { value: "right" },
-              fillOpacity: { value: 1 }
-            }
-          }
+              fillOpacity: { value: 1 },
+            },
+          },
         },
         {
           type: 'text',
           from: {
-            data: 'characters_edited'
+            data: 'characters_edited',
           },
           properties: {
             enter: {
@@ -207,14 +207,14 @@ const EditSizeGraph = createReactClass({
               fill: { value: "#ff0000" },
               fontSize: { value: 13 },
               align: { value: "right" },
-              fillOpacity: { value: 0.2 }
-            }
-          }
+              fillOpacity: { value: 0.2 },
+            },
+          },
         },
         {
           type: 'text',
           from: {
-            data: 'characters_edited'
+            data: 'characters_edited',
           },
           properties: {
             enter: {
@@ -224,16 +224,16 @@ const EditSizeGraph = createReactClass({
               fill: { value: "#A9A9A9" },
               fontSize: { value: 13 },
               align: { value: "right" },
-              fillOpacity: { value: 1 }
-            }
-          }
-        }
-      ]
+              fillOpacity: { value: 1 },
+            },
+          },
+        },
+      ],
     };
     const embedSpec = {
       mode: 'vega', // instruct Vega-Embed to use vega compiler.
       spec: vegaSpec,
-      actions: false
+      actions: false,
     };
     // emded the visualization in the container with id vega-graph-article_id
     vg.embed(`#${this.props.graphid}`, embedSpec); // Callback receiving View instance and parsed Vega spec
@@ -247,7 +247,7 @@ const EditSizeGraph = createReactClass({
         <div id={this.props.graphid} />
       </div>
     );
-  }
+  },
 });
 
 export default EditSizeGraph;
