@@ -16,7 +16,7 @@ CourseLink.propTypes = {
   to: PropTypes.string,
   className: PropTypes.string,
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default CourseLink;
