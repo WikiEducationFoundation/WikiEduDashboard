@@ -6,7 +6,7 @@ describe('courseUtils.generateTempId', () => {
     const course = {
       term: 'Fall 2015',
       school: 'University of Wikipedia',
-      title: 'Introduction to Editing'
+      title: 'Introduction to Editing',
     };
     const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
@@ -16,7 +16,7 @@ describe('courseUtils.generateTempId', () => {
     const course = {
       term: ' Fall 2015',
       school: '   University of Wikipedia ', // includes a non-breaking space
-      title: ' Introduction to Editing     '
+      title: ' Introduction to Editing     ',
     };
     const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
@@ -26,7 +26,7 @@ describe('courseUtils.generateTempId', () => {
     const course = {
       term: 'Fall    2015',
       school: ' University    of   Wikipedia            ',
-      title: '          Introduction     to         Editing          '
+      title: '          Introduction     to         Editing          ',
     };
     const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing_(Fall_2015)');
@@ -35,7 +35,7 @@ describe('courseUtils.generateTempId', () => {
   it('creates a slug from title and school when term is empty', () => {
     const course = {
       school: ' University of Wikipedia',
-      title: 'Introduction to Editing'
+      title: 'Introduction to Editing',
     };
     const slug = courseUtils.generateTempId(course);
     expect(slug).to.eq('University_of_Wikipedia/Introduction_to_Editing');
@@ -60,13 +60,13 @@ describe('courseUtils.cleanupCourseSlugComponents', () =>
     const course = {
       term: ' Fall      2015',
       school: '   University          of       Wikipedia ',
-      title: '   Introduction      to      Editing     '
+      title: '   Introduction      to      Editing     ',
     };
     courseUtils.cleanupCourseSlugComponents(course);
     expect(course.term).to.eq('Fall 2015');
     expect(course.school).to.eq('University of Wikipedia');
     expect(course.title).to.eq('Introduction to Editing');
-  })
+  }),
 );
 
 describe('courseUtils.i18n', () => {
@@ -147,11 +147,11 @@ describe('courseUtils.articleFromAssignment', () => {
       article_url: 'https://es.wikipedia.org/wiki/Autofoto',
       language: 'es',
       article_title: 'Autofoto',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const defaultWiki = {
       language: 'es',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Autofoto');
@@ -165,11 +165,11 @@ describe('courseUtils.articleFromAssignment', () => {
       article_url: 'https://es.wikipedia.org/wiki/Silvia_Federici',
       language: 'es',
       article_title: 'Silvia Federici',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Silvia_Federici');
@@ -182,11 +182,11 @@ describe('courseUtils.articleFromAssignment', () => {
     const assignment = {
       article_url: 'https://es.wikipedia.org/wiki/Silvia_Federici',
       article_title: 'Silvia Federici',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const defaultWiki = {
       language: 'es',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Silvia_Federici');
@@ -198,10 +198,10 @@ describe('courseUtils.articleFromAssignment', () => {
   it('sets wikipedia as the default project', () => {
     const assignment = {
       article_url: 'https://en.wikipedia.org/wiki/Selfie',
-      article_title: 'Selfie'
+      article_title: 'Selfie',
     };
     const defaultWiki = {
-      language: 'en'
+      language: 'en',
     };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.project).to.eq('wikipedia');
@@ -211,11 +211,11 @@ describe('courseUtils.articleFromAssignment', () => {
     const assignment = {
       article_title: 'Palo para autofoto',
       language: 'es',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Palo_para_autofoto');
@@ -240,12 +240,12 @@ describe('courseUtils.formattedArticleTitle', () => {
   it('returns a formatted_article from the same project and language in article and defaultWiki', () => {
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = {
       title: 'Riot Grrrl',
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('Riot Grrrl');
@@ -254,12 +254,12 @@ describe('courseUtils.formattedArticleTitle', () => {
   it('returns a formatted_article from same project different language', () => {
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = {
       title: 'Virgine Despentes',
       language: 'fr',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('fr:Virgine Despentes');
@@ -268,12 +268,12 @@ describe('courseUtils.formattedArticleTitle', () => {
   it('returns a formatted_article from diferent project same language', () => {
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = {
       title: 'Virginia Woolf',
       language: 'en',
-      project: 'wikiquote'
+      project: 'wikiquote',
     };
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('wikiquote:Virginia Woolf');
@@ -282,12 +282,12 @@ describe('courseUtils.formattedArticleTitle', () => {
   it('returns a formatted_article from diferent project different language', () => {
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = {
       title: 'Clara Campoamor',
       language: 'es',
-      project: 'wikiquote'
+      project: 'wikiquote',
     };
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('es:wikiquote:Clara Campoamor');
@@ -296,12 +296,12 @@ describe('courseUtils.formattedArticleTitle', () => {
   it('returns a formatted_article from diferent project and no language', () => {
     const defaultWiki = {
       language: 'en',
-      project: 'wikipedia'
+      project: 'wikipedia',
     };
     const article = {
       title: 'Judith Butler',
       language: null,
-      project: 'wikidata'
+      project: 'wikidata',
     };
     article.formatted_title = courseUtils.formattedArticleTitle(article, defaultWiki);
     expect(article.formatted_title).to.eq('wikidata:Judith Butler');
