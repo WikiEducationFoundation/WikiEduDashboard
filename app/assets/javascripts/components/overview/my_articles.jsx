@@ -12,7 +12,7 @@ const MyArticles = createReactClass({
   propTypes: {
     course: PropTypes.object,
     current_user: PropTypes.object,
-    course_id: PropTypes.string
+    course_id: PropTypes.string,
   },
 
   componentDidMount() {
@@ -84,7 +84,7 @@ const MyArticles = createReactClass({
         {assignments}
       </div>
     );
-  }
+  },
 });
 
 export default MyArticles;
