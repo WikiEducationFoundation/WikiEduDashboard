@@ -24,7 +24,7 @@ const getState = () =>
     course: CourseStore.getCourse(),
     loading: WeekStore.getLoadingStatus(),
     weeks: WeekStore.getWeeks(),
-    current: CourseStore.getCurrentWeek()
+    current: CourseStore.getCurrentWeek(),
   })
 ;
 
@@ -34,7 +34,7 @@ const Overview = createReactClass({
   propTypes: {
     current_user: PropTypes.object,
     course_id: PropTypes.string,
-    location: PropTypes.object
+    location: PropTypes.object,
   },
 
   mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin],
@@ -137,8 +137,8 @@ const Overview = createReactClass({
         {sidebar}
       </section>
     );
-  }
-}
+  },
+},
 );
 
 export default Overview;
