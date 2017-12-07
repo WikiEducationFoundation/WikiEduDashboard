@@ -8,7 +8,7 @@ import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({
-  revisions: RevisionStore.getModels()
+  revisions: RevisionStore.getModels(),
 });
 
 const RevisionList = ({ revisions, course }) => {
@@ -19,25 +19,25 @@ const RevisionList = ({ revisions, course }) => {
   const keys = {
     rating_num: {
       label: I18n.t('revisions.class'),
-      desktop_only: true
+      desktop_only: true,
     },
     title: {
       label: I18n.t('revisions.title'),
-      desktop_only: false
+      desktop_only: false,
     },
     edited_by: {
       label: I18n.t('revisions.edited_by'),
-      desktop_only: true
+      desktop_only: true,
     },
     characters: {
       label: I18n.t('revisions.chars_added'),
-      desktop_only: true
+      desktop_only: true,
     },
     date: {
       label: I18n.t('revisions.date_time'),
       desktop_only: true,
       info_key: 'revisions.time_doc'
-    }
+    },
   };
 
   return (
