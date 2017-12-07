@@ -41,7 +41,7 @@ const addGradeable = function (block) {
     title: '',
     points: 10,
     gradeable_item_id: block.id,
-    gradeable_item_type: 'block'
+    gradeable_item_type: 'block',
   });
 };
 
@@ -83,7 +83,7 @@ const GradeableStore = Flux.createStore(
     restore() {
       _gradeables = $.extend(true, {}, _persisted);
       return GradeableStore.emitChange();
-    }
+    },
   }
   , (payload) => {
     const { data } = payload;
@@ -106,7 +106,7 @@ const GradeableStore = Flux.createStore(
       // no default
     }
     return true;
-  }
+  },
 );
 
 export default GradeableStore;
