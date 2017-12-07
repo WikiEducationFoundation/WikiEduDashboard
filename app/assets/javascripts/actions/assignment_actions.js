@@ -11,8 +11,8 @@ const AssignmentActions = Flux.createActions({
         language: assignment.language,
         project: assignment.project,
         role: assignment.role,
-        article_url: assignment.article_url
-      }
+        article_url: assignment.article_url,
+      },
     };
   },
 
@@ -20,10 +20,10 @@ const AssignmentActions = Flux.createActions({
     return {
       actionType: 'DELETE_ASSIGNMENT',
       data: {
-        model: assignment
-      }
+        model: assignment,
+      },
     };
-  }
+  },
 });
 
 export default AssignmentActions;
