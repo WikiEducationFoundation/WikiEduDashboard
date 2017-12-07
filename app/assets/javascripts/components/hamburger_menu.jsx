@@ -148,7 +148,7 @@ HamburgerMenu.propTypes = {
   languageSwitcherEnabled: PropTypes.bool,
   currentUser: PropTypes.string,
   destroyUrl: PropTypes.string,
-  omniauthUrl: PropTypes.string
+  omniauthUrl: PropTypes.string,
 };
 
 export default HamburgerMenu;

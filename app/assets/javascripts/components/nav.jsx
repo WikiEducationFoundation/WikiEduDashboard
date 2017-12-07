@@ -43,7 +43,7 @@ const Nav = createReactClass({
       destroyUrl: destroyUrl,
       omniauthUrl: omniauthUrl,
       width: $(window).width(),
-      height: $(window).height()
+      height: $(window).height(),
     };
   },
 
@@ -236,7 +236,7 @@ const Nav = createReactClass({
         {navBar}
       </div>
     );
-  }
+  },
 });
 
 export default Nav;
