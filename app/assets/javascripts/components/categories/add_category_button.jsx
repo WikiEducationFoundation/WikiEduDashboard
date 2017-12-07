@@ -19,7 +19,7 @@ const AddCategoryButton = createReactClass({
     open: PropTypes.func.isRequired,
     initiateConfirm: PropTypes.func,
     addCategory: PropTypes.func,
-    source: PropTypes.string.isRequired
+    source: PropTypes.string.isRequired,
   },
 
   getInitialState() {
@@ -28,7 +28,7 @@ const AddCategoryButton = createReactClass({
       language: this.props.course.home_wiki.language,
       project: this.props.course.home_wiki.project,
       depth: '0',
-      showOptions: false
+      showOptions: false,
     });
   },
 
@@ -49,7 +49,7 @@ const AddCategoryButton = createReactClass({
     return this.setState({
       category: page.title,
       project,
-      language
+      language,
     });
   },
 
@@ -81,7 +81,7 @@ const AddCategoryButton = createReactClass({
       language: this.state.language,
       depth: this.state.depth,
       course: this.props.course,
-      source: this.props.source
+      source: this.props.source,
     };
 
     if (categoryCourse.category === '' || categoryCourse.category === 'undefined') {
@@ -202,11 +202,11 @@ const AddCategoryButton = createReactClass({
         />
       </div>
     );
-  }
+  },
 });
 
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
-  PopoverExpandable(AddCategoryButton)
+  PopoverExpandable(AddCategoryButton),
 );
