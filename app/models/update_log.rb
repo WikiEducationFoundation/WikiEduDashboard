@@ -13,10 +13,11 @@ class UpdateLog
   def self.log_updates(time)
     setting = self.setting_record
     last_update = setting.value.keys.last
+    max_updates = 10
     if last_update === nil
       new_update = 0
-    elsif last_update >= 10
-      setting.value.delete(last_update - 10)
+    elsif last_update >= max_updates
+      setting.value.delete(last_update - max_updates)
       new_update = last_update + 1
     else 
       new_update = last_update + 1
