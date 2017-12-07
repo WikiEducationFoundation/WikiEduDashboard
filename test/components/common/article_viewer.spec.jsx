@@ -9,12 +9,12 @@ describe('ArticleViewer', () => {
       title: 'Selfie',
       language: 'en',
       project: 'wikipedia',
-      url: 'https://en.wikipedia.org/wiki/Selfie'
+      url: 'https://en.wikipedia.org/wiki/Selfie',
     };
     const TestArticleViewer = ReactTestUtils.renderIntoDocument(
       <ArticleViewer
         article={article}
-      />
+      />,
     );
     expect(TestArticleViewer).to.exist;
     // const showHideButton = ReactTestUtils.findRenderedDOMComponentWithClass(TestArticleViewer, 'button');
