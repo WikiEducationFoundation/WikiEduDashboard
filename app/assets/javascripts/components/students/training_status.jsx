@@ -44,7 +44,7 @@ const TrainingStatus = ({ trainingModules }) => {
 };
 
 TrainingStatus.propTypes = {
-  trainingModules: PropTypes.array
+  trainingModules: PropTypes.array,
 };
 
 export default TrainingStatus;
