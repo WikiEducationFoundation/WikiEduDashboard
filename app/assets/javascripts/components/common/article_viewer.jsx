@@ -16,12 +16,12 @@ const ArticleViewer = createReactClass({
     showButtonLabel: PropTypes.string,
     showButtonClass: PropTypes.string,
     users: PropTypes.array,
-    fetchArticleDetails: PropTypes.func.isRequired
+    fetchArticleDetails: PropTypes.func.isRequired,
   },
 
   getInitialState() {
     return {
-      showArticle: false
+      showArticle: false,
     };
   },
 
@@ -118,7 +118,7 @@ const ArticleViewer = createReactClass({
     'user-highlight-9', 'user-highlight-10', 'user-highlight-11', 'user-highlight-12',
     'user-highlight-13', 'user-highlight-14', 'user-highlight-15', 'user-highlight-16',
     'user-highlight-17', 'user-highlight-18', 'user-highlight-19', 'user-highlight-20',
-    'user-highlight-21', 'user-highlight-22', 'user-highlight-23', 'user-highlight-24'
+    'user-highlight-21', 'user-highlight-22', 'user-highlight-23', 'user-highlight-24',
   ],
 
   // This takes the extended_html from the whoColor API, and replaces the span
@@ -144,7 +144,7 @@ const ArticleViewer = createReactClass({
       i += 1;
     });
     this.setState({
-      highlightedHtml: html
+      highlightedHtml: html,
     });
   },
 
@@ -156,9 +156,9 @@ const ArticleViewer = createReactClass({
         this.setState({
           parsedArticle: this.processHtml(data.parse.text['*']),
           articlePageId: data.parse.pageid,
-          fetched: true
+          fetched: true,
         });
-      }
+      },
     });
   },
 
@@ -169,10 +169,10 @@ const ArticleViewer = createReactClass({
       success: (json) => {
         this.setState({
           whocolorHtml: this.processHtml(json.extended_html),
-          whocolorFetched: true
+          whocolorFetched: true,
         });
         this.highlightAuthors();
-      }
+      },
     });
   },
 
@@ -191,9 +191,9 @@ const ArticleViewer = createReactClass({
       success: (json) => {
         this.setState({
           users: json.query.users,
-          userIdsFetched: true
+          userIdsFetched: true,
         });
-      }
+      },
     });
   },
 
@@ -258,7 +258,7 @@ const ArticleViewer = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default OnClickOutside(ArticleViewer);
