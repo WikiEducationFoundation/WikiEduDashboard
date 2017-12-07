@@ -6,8 +6,8 @@ const GradeableActions = Flux.createActions({
     return {
       actionType: 'ADD_GRADEABLE',
       data: {
-        block
-      }
+        block,
+      },
     };
   },
 
@@ -15,8 +15,8 @@ const GradeableActions = Flux.createActions({
     return {
       actionType: 'UPDATE_GRADEABLE',
       data: {
-        gradeable
-      }
+        gradeable,
+      },
     };
   },
 
@@ -24,10 +24,10 @@ const GradeableActions = Flux.createActions({
     return {
       actionType: 'DELETE_GRADEABLE',
       data: {
-        gradeable_id: gradeableId
-      }
+        gradeable_id: gradeableId,
+      },
     };
-  }
+  },
 });
 
 export default GradeableActions;

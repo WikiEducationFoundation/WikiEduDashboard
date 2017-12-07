@@ -7,8 +7,8 @@ const WizardActions = Flux.createActions({
       actionType: 'SELECT_OPTION',
       data: {
         panel_index: panelIndex,
-        option_index: optionIndex
-      }
+        option_index: optionIndex,
+      },
     };
   },
 
@@ -17,15 +17,15 @@ const WizardActions = Flux.createActions({
       actionType: 'EXPAND_OPTION',
       data: {
         panel_index: panelIndex,
-        option_index: optionIndex
-      }
+        option_index: optionIndex,
+      },
     };
   },
 
   rewindWizard(toIndex = null) {
     return {
       actionType: 'WIZARD_REWIND',
-      data: { toIndex }
+      data: { toIndex },
     };
   },
 
@@ -35,7 +35,7 @@ const WizardActions = Flux.createActions({
 
   resetWizard() {
     return { actionType: 'WIZARD_RESET' };
-  }
+  },
 });
 
 export default WizardActions;

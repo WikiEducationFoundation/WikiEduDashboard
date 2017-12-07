@@ -7,8 +7,8 @@ const BlockActions = Flux.createActions({
     return {
       actionType: 'ADD_BLOCK',
       data: {
-        week_id: weekId
-      }
+        week_id: weekId,
+      },
     };
   },
 
@@ -17,8 +17,8 @@ const BlockActions = Flux.createActions({
       actionType: 'UPDATE_BLOCK',
       data: {
         block,
-        quiet
-      }
+        quiet,
+      },
     };
   },
 
@@ -28,8 +28,8 @@ const BlockActions = Flux.createActions({
         return {
           actionType: 'DELETE_BLOCK',
           data: {
-            block_id: data.block_id
-          }
+            block_id: data.block_id,
+          },
         };
       })
       .catch(data => ({ actionType: 'API_FAIL', data }));
@@ -41,8 +41,8 @@ const BlockActions = Flux.createActions({
       data: {
         block,
         toWeek,
-        afterBlock
-      }
+        afterBlock,
+      },
     };
   },
 
@@ -50,10 +50,10 @@ const BlockActions = Flux.createActions({
     return {
       actionType: 'SET_BLOCK_EDITABLE',
       data: {
-        block_id: blockId
-      }
+        block_id: blockId,
+      },
     };
-  }
+  },
 });
 
 export default BlockActions;

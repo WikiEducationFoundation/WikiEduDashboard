@@ -79,8 +79,8 @@ $(() => {
   if ($('.campaign-list table').length) {
     campaignList = new List('js-campaigns', {
       valueNames: [
-        'title'
-      ]
+        'title',
+      ],
     });
   }
 
@@ -93,7 +93,7 @@ $(() => {
       } })();
     if (list) {
       return list.sort($(this).val(), {
-        order: $(this).children('option:selected').attr('rel')
+        order: $(this).children('option:selected').attr('rel'),
       });
     }
   });

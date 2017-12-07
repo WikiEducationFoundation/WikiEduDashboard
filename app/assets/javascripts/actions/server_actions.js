@@ -40,8 +40,8 @@ const ServerActions = Flux.createActions({
         actionType: 'RECEIVE_LOOKUPS',
         data: {
           model: resp.model,
-          values: resp.values
-        }
+          values: resp.values,
+        },
       }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
@@ -51,8 +51,8 @@ const ServerActions = Flux.createActions({
       .then(resp => ({
         actionType: 'RECEIVE_WIZARD_INDEX',
         data: {
-          wizard_index: resp
-        }
+          wizard_index: resp,
+        },
       }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
@@ -62,8 +62,8 @@ const ServerActions = Flux.createActions({
       .then(resp => ({
         actionType: 'RECEIVE_WIZARD_PANELS',
         data: {
-          wizard_panels: resp
-        }
+          wizard_panels: resp,
+        },
       }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
@@ -182,8 +182,8 @@ const ServerActions = Flux.createActions({
           actionType: 'CHECK_SERVER',
           data: {
             key,
-            message
-          }
+            message,
+          },
         };
       })
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
@@ -224,7 +224,7 @@ const ServerActions = Flux.createActions({
     return API.greetStudents(courseId)
       .then(resp => ({ actionType: 'GREETED_STUDENTS', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  }
+  },
 });
 
 export default ServerActions;
