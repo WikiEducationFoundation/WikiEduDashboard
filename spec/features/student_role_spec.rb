@@ -9,13 +9,12 @@ describe 'Student users', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
   end
 
-  let(:user) { create(:user, id: 200, wiki_token: 'foo', wiki_secret: 'bar') }
-
-  before :each do
-    create(:campaign,
-           id: 1)
+  let(:user) { create(:user, wiki_token: 'foo', wiki_secret: 'bar') }
+  let!(:instructor) { create(:user, username: 'Professor Sage') }
+  let!(:classmate) { create(:user, username: 'Classmate')  }
+  let!(:campaign) { create(:campaign) }
+  let!(:course) do
     create(:course,
-           id: 10001,
            title: 'An Example Course',
            school: 'University',
            term: 'Term',
@@ -24,23 +23,19 @@ describe 'Student users', type: :feature, js: true do
            passcode: 'passcode',
            start: '2015-01-01'.to_date,
            end: '2020-01-01'.to_date)
-    create(:user,
-           id: 100,
-           username: 'Professor Sage')
+  end
+
+  before :each do
     create(:courses_user,
-           user_id: 100,
-           course_id: 10001,
+           user: instructor,
+           course: course,
            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:campaigns_course,
-           campaign_id: 1,
-           course_id: 10001)
-    create(:user,
-           id: 101,
-           username: 'Classmate')
+           campaign: campaign,
+           course: course)
     create(:courses_user,
-           id: 2,
-           user_id: 101,
-           course_id: 10001,
+           user: classmate,
+           course: course,
            role: CoursesUsers::Roles::STUDENT_ROLE)
     stub_add_user_to_channel_success
   end
@@ -234,8 +229,8 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
       stub_info_query
       create(:courses_user,
-             course_id: 10001,
-             user_id: 200,
+             course: course,
+             user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 2
@@ -260,8 +255,8 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
       stub_info_query
       create(:courses_user,
-             course_id: 10001,
-             user_id: 200,
+             course: course,
+             user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       visit "/courses/#{Course.first.slug}/students"
       sleep 3
@@ -284,13 +279,13 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
       stub_info_query
       create(:courses_user,
-             course_id: 10001,
-             user_id: 200,
+             course: course,
+             user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
       create(:assignment,
              article_title: 'Selfie',
-             course_id: 10001,
-             user_id: 200,
+             course: course,
+             user: user,
              article_id: nil,
              role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
@@ -316,8 +311,8 @@ describe 'Student users', type: :feature, js: true do
       login_as(user, scope: :user)
 
       create(:courses_user,
-             course_id: 10001,
-             user_id: 200,
+             course: course,
+             user: user,
              role: CoursesUsers::Roles::STUDENT_ROLE)
 
       visit root_path

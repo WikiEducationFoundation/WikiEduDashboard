@@ -44,6 +44,7 @@
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
 #  level                 :string(255)
+#  private               :boolean          default(FALSE)
 #
 
 # Course type for courses imported from the MediaWiki EducationProgram extension

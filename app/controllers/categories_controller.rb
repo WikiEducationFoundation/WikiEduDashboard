@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/lib/article_utils"
+
 class CategoriesController < ApplicationController
   respond_to :json
   before_action :require_permissions, :set_course
 
   def add_category
     set_wiki
+    name = ArticleUtils.format_article_title(params[:category_name])
     @category = Category.find_or_create_by(wiki: @wiki, depth: params[:depth],
-                                           name: params[:category_name])
+                                           name: name, source: params[:source])
     @course.categories << @category
     render 'courses/categories'
   rescue ActiveRecord::RecordNotUnique

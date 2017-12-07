@@ -19,6 +19,7 @@ const AddCategoryButton = createReactClass({
     open: PropTypes.func.isRequired,
     initiateConfirm: PropTypes.func,
     addCategory: PropTypes.func,
+    source: PropTypes.string.isRequired
   },
 
   getInitialState() {
@@ -32,15 +33,15 @@ const AddCategoryButton = createReactClass({
   },
 
   getKey() {
-    return 'add_category_button';
+    return `add_${this.props.source}_button`;
   },
 
-  reset() {
+  reset(e) {
     this.setState(this.getInitialState());
+    this.props.open(e);
   },
 
   handleChangeCategory(e) {
-    e.preventDefault();
     const categoryInput = e.target.value;
     const page = CourseUtils.articleFromTitleInput(categoryInput);
     const language = page.language ? page.language : this.state.language;
@@ -79,7 +80,8 @@ const AddCategoryButton = createReactClass({
       project: this.state.project,
       language: this.state.language,
       depth: this.state.depth,
-      course: this.props.course
+      course: this.props.course,
+      source: this.props.source
     };
 
     if (categoryCourse.category === '' || categoryCourse.category === 'undefined') {
@@ -95,10 +97,10 @@ const AddCategoryButton = createReactClass({
     const onConfirm = function () {
       // Post the new category to the server
       addCategory(categoryCourse);
-      reset();
+      reset(e);
     };
 
-    const confirmMessage = I18n.t('categories.confirm_addition', { category: categoryCourse.category });
+    const confirmMessage = I18n.t(`categories.confirm_${this.props.source}_addition`, { name: categoryCourse.category });
     return this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
@@ -107,7 +109,7 @@ const AddCategoryButton = createReactClass({
     let className = 'button border small assign-button';
     if (this.props.is_open) { className += ' dark'; }
 
-    const buttonText = I18n.t('categories.add_category');
+    const buttonText = I18n.t(`categories.add_${this.props.source}`);
     const showButton = <button className={`${className}`} onClick={this.props.open}>{buttonText}</button>;
 
     let editRow;
@@ -152,6 +154,24 @@ const AddCategoryButton = createReactClass({
         );
       }
 
+      let depthSelector;
+      if (this.props.source === 'category') {
+        depthSelector = (
+          <TextInput
+            id="category_depth"
+            onChange={this.handleDepthChange}
+            value={this.state.depth}
+            value_key="category_depth"
+            editable
+            required
+            type="number"
+            max="3"
+            label={I18n.t('categories.depth')}
+            placeholder={I18n.t('categories.depth')}
+          />
+      );
+      }
+
       editRow = (
         <tr className="edit">
           <td>
@@ -162,21 +182,10 @@ const AddCategoryButton = createReactClass({
                 onChange={this.handleChangeCategory}
                 type="text"
                 ref="category"
-                placeholder={I18n.t('categories.name')}
+                placeholder={I18n.t(`categories.${this.props.source}_name`)}
               />
-              <TextInput
-                id="category_depth"
-                onChange={this.handleDepthChange}
-                value={this.state.depth}
-                value_key="category_depth"
-                editable
-                required
-                type="number"
-                max="3"
-                label={I18n.t('categories.depth')}
-                placeholder={I18n.t('categories.depth')}
-              />
-              <button className="button border" type="submit">{I18n.t('categories.add_this_category')}</button>
+              {depthSelector}
+              <button className="button border" type="submit">{I18n.t(`categories.add_this_${this.props.source}`)}</button>
               {options}
             </form>
           </td>
