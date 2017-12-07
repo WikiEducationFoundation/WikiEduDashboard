@@ -7,7 +7,7 @@ import { extractSalesforceId } from '../../utils/salesforce_utils.js';
 const SalesforceLink = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
 
   linkToSalesforce() {
@@ -41,7 +41,7 @@ const SalesforceLink = createReactClass({
     return (
       <p key="link_salesforce"><button onClick={this.linkToSalesforce} className="button">Link to Salesforce</button></p>
     );
-  }
+  },
 });
 
 export default SalesforceLink;
