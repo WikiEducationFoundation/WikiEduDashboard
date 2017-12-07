@@ -12,7 +12,7 @@ const AvailableArticle = createReactClass({
   propTypes: {
     assignment: PropTypes.object,
     current_user: PropTypes.object,
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   onSelectHandler(e) {
@@ -21,14 +21,14 @@ const AvailableArticle = createReactClass({
     const assignment = {
       id: this.props.assignment.id,
       user_id: this.props.current_user.id,
-      role: 0
+      role: 0,
     };
 
     const title = this.props.assignment.article_title;
     NotificationActions.addNotification({
       message: I18n.t('assignments.article', { title }),
       closable: true,
-      type: 'success'
+      type: 'success',
     });
 
     return ServerActions.updateAssignment(assignment);
@@ -43,7 +43,7 @@ const AvailableArticle = createReactClass({
       language: this.props.assignment.language,
       project: this.props.assignment.project,
       article_title: this.props.assignment.article_title,
-      role: 0
+      role: 0,
     };
 
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
@@ -92,8 +92,8 @@ const AvailableArticle = createReactClass({
         </td>
       </tr>
     );
-  }
-}
+  },
+},
 );
 
 export default AvailableArticle;

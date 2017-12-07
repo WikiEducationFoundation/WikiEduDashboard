@@ -15,7 +15,7 @@ const ArticlesHandler = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     current_user: PropTypes.object,
-    course: PropTypes.object
+    course: PropTypes.object,
   },
 
   componentWillMount() {
@@ -78,7 +78,7 @@ const ArticlesHandler = createReactClass({
         {categories}
       </div>
     );
-  }
+  },
 });
 
 export default ArticlesHandler;

@@ -10,14 +10,14 @@ const ArticleGraphs = createReactClass({
   displayName: 'ArticleGraphs',
 
   propTypes: {
-    article: PropTypes.object
+    article: PropTypes.object,
   },
 
   getInitialState() {
     return {
       showGraph: false,
       selectedRadio: 'wp10_score',
-      articleData: null
+      articleData: null,
     };
   },
 
@@ -30,9 +30,9 @@ const ArticleGraphs = createReactClass({
         url: articledataUrl,
         success: (data) => {
           this.setState({
-            articleData: data
+            articleData: data,
           });
-        }
+        },
       });
   },
 
@@ -44,7 +44,7 @@ const ArticleGraphs = createReactClass({
 
   handleRadioChange: function (event) {
     this.setState({
-      selectedRadio: event.currentTarget.value
+      selectedRadio: event.currentTarget.value,
     });
   },
 
@@ -155,7 +155,7 @@ const ArticleGraphs = createReactClass({
         </div>
       </a>
     );
-  }
+  },
 });
 
 export default OnClickOutside(ArticleGraphs);

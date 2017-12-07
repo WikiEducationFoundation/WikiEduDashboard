@@ -7,7 +7,7 @@ import ServerActions from '../../actions/server_actions.js';
 const getState = () => {
   return {
     revisions: RecentEditsStore.getRevisions(),
-    loading: true
+    loading: true,
   };
 };
 
@@ -58,7 +58,7 @@ const RecentEditsHandler = createReactClass({
         />
       </div>
     );
-  }
+  },
 });
 
 export default RecentEditsHandler;
