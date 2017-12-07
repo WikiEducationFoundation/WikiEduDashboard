@@ -8,7 +8,7 @@ const LookupSelect = createReactClass({
 
   propTypes: {
     placeholder: PropTypes.string,
-    models: PropTypes.array
+    models: PropTypes.array,
   },
   getValue() {
     return this.refs.entry.value;
@@ -34,8 +34,8 @@ const LookupSelect = createReactClass({
         {options}
       </select>
     );
-  }
-}
+  },
+},
 );
 
 export default LookupWrapper(LookupSelect);
