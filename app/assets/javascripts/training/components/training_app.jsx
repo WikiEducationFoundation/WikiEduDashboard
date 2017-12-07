@@ -8,7 +8,7 @@ const TrainingApp = ({ children }) => (
 );
 
 TrainingApp.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default TrainingApp;
