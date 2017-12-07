@@ -46,7 +46,7 @@ const addCourse = () =>
     end: null,
     day_exceptions: '',
     weekdays: '0000000',
-    editingSyllabus: false
+    editingSyllabus: false,
   });
 const _dismissNotification = function (payload) {
   const notifications = _course.survey_notifications;
@@ -79,7 +79,7 @@ const CourseStore = Flux.createStore(
     },
     isRenamed() {
       return _renamed;
-    }
+    },
   }
   , (payload) => {
     const { data } = payload;
@@ -103,7 +103,7 @@ const CourseStore = Flux.createStore(
       case 'SYLLABUS_UPLOAD_SUCCESS':
         setCourse({
           uploadingSyllabus: false,
-          editingSyllabus: false
+          editingSyllabus: false,
         });
         updateCourseValue('syllabus', _handleSyllabusUploadResponse(data));
         break;
@@ -120,7 +120,7 @@ const CourseStore = Flux.createStore(
         setCourse({
           initial_campaign_id: data.campaign.id,
           initial_campaign_title: data.campaign.title,
-          description: data.campaign.template_description
+          description: data.campaign.template_description,
         });
         break;
       case 'ENABLE_CHAT_SUCCEEDED':
@@ -133,7 +133,7 @@ const CourseStore = Flux.createStore(
       // no default
     }
     return true;
-  }
+  },
 );
 
 export default CourseStore;
