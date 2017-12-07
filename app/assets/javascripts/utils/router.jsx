@@ -43,7 +43,7 @@ import Nav from '../components/nav.jsx';
 // It is accessed from container components via `connect()`.
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
 );
 
 // Handle scroll position for back button, hashes, and normal links
@@ -58,7 +58,7 @@ browserHistory.listen(location => {
       if (element) {
         element.scrollIntoView({
           block: 'start',
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     } else {
