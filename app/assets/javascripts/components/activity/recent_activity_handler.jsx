@@ -47,7 +47,7 @@ const RecentActivityHandler = ({ children }) => (
 );
 
 RecentActivityHandler.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default RecentActivityHandler;
