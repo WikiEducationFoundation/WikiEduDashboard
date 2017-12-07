@@ -11,7 +11,7 @@ const Gradeable = createReactClass({
     block: PropTypes.object,
     gradeable: PropTypes.object,
     total: PropTypes.number,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
 
   updateGradeable(valueKey, value) {
@@ -47,8 +47,8 @@ const Gradeable = createReactClass({
         />
       </li>
     );
-  }
-}
+  },
+},
 );
 
 export default Gradeable;
