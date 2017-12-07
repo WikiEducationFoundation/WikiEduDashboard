@@ -34,16 +34,16 @@ const CourseDateUtils = {
 
     const props = {
       end: {
-        minDate: startDate
+        minDate: startDate,
       },
       timeline_start: {
         minDate: startDate,
-        maxDate: moment(course.timeline_end, 'YYYY-MM-DD')
+        maxDate: moment(course.timeline_end, 'YYYY-MM-DD'),
       },
       timeline_end: {
         minDate: moment(course.timeline_start, 'YYYY-MM-DD'),
-        maxDate: moment(course.end, 'YYYY-MM-DD')
-      }
+        maxDate: moment(course.end, 'YYYY-MM-DD'),
+      },
     };
 
     return props;
@@ -186,7 +186,7 @@ const CourseDateUtils = {
 
   isEnded(course) {
     return moment(course.end, 'YYYY-MM-DD').isBefore();
-  }
+  },
 };
 
 function __range__(left, right, inclusive) {
