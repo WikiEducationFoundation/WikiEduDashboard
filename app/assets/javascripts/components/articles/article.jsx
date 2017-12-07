@@ -13,7 +13,7 @@ const Article = createReactClass({
     article: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
-    articleDetails: PropTypes.object
+    articleDetails: PropTypes.object,
   },
 
   fetchArticleDetails() {
@@ -72,7 +72,7 @@ const Article = createReactClass({
         </td>
       </tr>
     );
-  }
+  },
 });
 
 export default Article;
