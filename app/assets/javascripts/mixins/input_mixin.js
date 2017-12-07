@@ -55,14 +55,14 @@ const InputMixin = {
     return this.setState(
       {
         value: props.value,
-        id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
+        id: props.id || this.state.id || uuid.v4(), // create a UUID if no id prop
       }
       , function () {
         const valid = ValidationStore.getValidation(this.props.value_key);
         if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
           return ValidationActions.initialize(this.props.value_key, I18n.t('application.field_required'));
         }
-      }
+      },
     );
   },
 
@@ -72,7 +72,7 @@ const InputMixin = {
 
   blur() {
     if (this.props.onBlur) { return this.props.onBlur(); }
-  }
+  },
 };
 
 export default InputMixin;
