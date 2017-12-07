@@ -90,9 +90,9 @@ const SurveyAdmin = {
           type: 'PUT',
           url: '/surveys/question_position',
           dataType: 'json',
-          data: { question_group_id: questionGroupId, id: itemId, position }
+          data: { question_group_id: questionGroupId, id: itemId, position },
         });
-      }
+      },
     });
   },
 
@@ -117,9 +117,9 @@ const SurveyAdmin = {
           type: 'POST',
           url: '/surveys/update_question_group_position',
           dataType: 'json',
-          data: { survey_id: surveyId, question_group_id: itemId, position }
+          data: { survey_id: surveyId, question_group_id: itemId, position },
         });
-      }
+      },
     });
   },
 
@@ -178,7 +178,7 @@ const SurveyAdmin = {
       method: 'get',
       dataType: 'json',
       contentType: 'application/json',
-      success: $.proxy(this, 'handleConditionalQuestionSelect')
+      success: $.proxy(this, 'handleConditionalQuestionSelect'),
     });
   },
 
@@ -360,7 +360,7 @@ const SurveyAdmin = {
       const $target = $text.next('[data-markdown-target]');
       return $target.html(markdown.render($text.data('render-markdown-label')));
     });
-  }
+  },
 };
 
 export default SurveyAdmin;
