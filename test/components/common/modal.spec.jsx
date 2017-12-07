@@ -7,7 +7,7 @@ describe('Modal', () => {
   const wrapper = mount(
     <Modal modalClass="foo">
       <h3>bar</h3>
-    </Modal>
+    </Modal>,
     );
 
   it('renders its children with the modalClass', () => {
