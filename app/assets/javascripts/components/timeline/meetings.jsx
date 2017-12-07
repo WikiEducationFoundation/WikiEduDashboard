@@ -15,7 +15,7 @@ const getState = function () {
   return {
     course,
     anyDatesSelected: course.weekdays && course.weekdays.indexOf(1) >= 0,
-    blackoutDatesSelected: course.day_exceptions && course.day_exceptions.length > 0
+    blackoutDatesSelected: course.day_exceptions && course.day_exceptions.length > 0,
   };
 };
 
@@ -23,7 +23,7 @@ const Meetings = createReactClass({
   displayName: 'Meetings',
 
   propTypes: {
-    weeks: PropTypes.array // Comes indirectly from TimelineHandler
+    weeks: PropTypes.array, // Comes indirectly from TimelineHandler
   },
 
   mixins: [CourseStore.mixin],
@@ -155,8 +155,8 @@ const Meetings = createReactClass({
         </div>
       </Modal>
     );
-  }
-}
+  },
+},
 );
 
 export default Meetings;
