@@ -5,7 +5,7 @@ export const initiateConfirm = (confirmMessage, onConfirm, showInput, explanatio
   confirmMessage,
   onConfirm,
   showInput,
-  explanation
+  explanation,
 });
 
 export const confirmAction = () => ({ type: ACTION_CONFIRMED });
