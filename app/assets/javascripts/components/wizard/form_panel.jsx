@@ -13,7 +13,7 @@ const FormPanel = createReactClass({
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    shouldShowSteps: PropTypes.bool
+    shouldShowSteps: PropTypes.bool,
   },
 
   setAnyDatesSelected(bool) {
@@ -134,7 +134,7 @@ const FormPanel = createReactClass({
         helperText = "Select meeting days and holiday dates, then continue."
       />
     );
-  }
+  },
 });
 
 export default FormPanel;
