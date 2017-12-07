@@ -5,7 +5,6 @@ gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 
 gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
-gem 'crack' # JSON / XML parsing. Unused?
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'whenever' # Translates config/schedule.rb into cron jobs during deployment
 gem 'mysql2'
@@ -52,10 +51,6 @@ gem 'nokogiri' # expected by premailer-rails but not required
 
 # UNIVERSAL TEXT CONVERTER - FOR MARDOWN TO MEDIAWIKI TEXT
 gem 'pandoc-ruby', '~> 1.0.0'
-
-
-
-gem 'mailgun_rails' # Plugin for sending mail via mailgun.com. Unused?
 
 gem 'paper_trail' # Save histories of record changes related to surveys
 
