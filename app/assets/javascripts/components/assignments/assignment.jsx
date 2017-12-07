@@ -20,7 +20,7 @@ const Assignment = createReactClass({
     article: PropTypes.object,
     assignmentGroup: PropTypes.array,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
   },
   render() {
     if (!this.props.course.home_wiki) { return <div />; }
@@ -78,8 +78,8 @@ const Assignment = createReactClass({
         <td>{feedback}</td>
       </tr>
     );
-  }
-}
+  },
+},
 );
 
 export default Assignment;
