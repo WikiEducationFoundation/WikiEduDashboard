@@ -7,8 +7,8 @@ const ValidationActions = Flux.createActions({
       actionType: 'INITIALIZE',
       data: {
         key,
-        message
-      }
+        message,
+      },
     };
   },
 
@@ -17,8 +17,8 @@ const ValidationActions = Flux.createActions({
       actionType: 'SET_VALID',
       data: {
         key,
-        quiet
-      }
+        quiet,
+      },
     };
   },
 
@@ -28,10 +28,10 @@ const ValidationActions = Flux.createActions({
       data: {
         key,
         message,
-        quiet
-      }
+        quiet,
+      },
     };
-  }
+  },
 });
 
 export default ValidationActions;
