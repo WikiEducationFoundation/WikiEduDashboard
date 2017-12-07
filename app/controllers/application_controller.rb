@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-gem 'browser'
-
 # The application controller is the parent for all other controllers.
 # It includes methods are relevant across the application, such as permissions
 # and login.
