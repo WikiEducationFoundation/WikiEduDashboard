@@ -34,7 +34,7 @@ const getState = () =>
     campus: UserStore.getFiltered({ role: 3 }),
     staff: UserStore.getFiltered({ role: 4 }),
     tags: TagStore.getModels(),
-    error_message: ValidationStore.firstMessage()
+    error_message: ValidationStore.firstMessage(),
   })
 ;
 
@@ -51,7 +51,7 @@ const Details = createReactClass({
     campaigns: PropTypes.array,
     tags: PropTypes.array,
     controls: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
   },
   mixins: [ValidationStore.mixin],
   getInitialState() {
@@ -342,8 +342,8 @@ const Details = createReactClass({
         </div>
       </div>
     );
-  }
-}
+  },
+},
 );
 
 const redirectToNewSlug = () => {
