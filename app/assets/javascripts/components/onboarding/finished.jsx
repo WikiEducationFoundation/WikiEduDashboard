@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Finished = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
-    returnToParam: PropTypes.string
+    returnToParam: PropTypes.string,
   },
 
   getInitialState() {
@@ -35,7 +35,7 @@ const Finished = createReactClass({
         <h2>Loading...</h2>
       </div>
     );
-  }
+  },
 });
 
 export default Finished;
