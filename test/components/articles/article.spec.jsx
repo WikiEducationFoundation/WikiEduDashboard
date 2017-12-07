@@ -5,7 +5,7 @@ import ReactTestUtils from "react-dom/test-utils";
 import Article from '../../../app/assets/javascripts/components/articles/article.jsx';
 
 const course = {
-  home_wiki: { language: 'en', project: 'wikipedia' }
+  home_wiki: { language: 'en', project: 'wikipedia' },
 };
 
 describe('Article', () => {
@@ -20,7 +20,7 @@ describe('Article', () => {
       language: 'en',
       project: 'wikipedia',
       title: 'articleTitle',
-      new_article: false
+      new_article: false,
     };
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
@@ -35,7 +35,7 @@ describe('Article', () => {
             articleDetails={null}
           />
         </tbody>
-      </table>
+      </table>,
     );
 
     expect(TestArticle.textContent).to.not.contain('(new)');
@@ -53,7 +53,7 @@ describe('Article', () => {
       language: 'en',
       project: 'wikipedia',
       title: 'articleTitle',
-      new_article: true
+      new_article: true,
     };
 
     const TestArticle = ReactTestUtils.renderIntoDocument(
@@ -68,7 +68,7 @@ describe('Article', () => {
             articleDetails={null}
           />
         </tbody>
-      </table>
+      </table>,
     );
 
     expect(TestArticle.textContent).to.contain('(new)');
