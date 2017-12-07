@@ -36,7 +36,7 @@ const RevisionList = ({ revisions, course }) => {
     date: {
       label: I18n.t('revisions.date_time'),
       desktop_only: true,
-      info_key: 'revisions.time_doc'
+      info_key: 'revisions.time_doc',
     },
   };
 
@@ -53,12 +53,12 @@ const RevisionList = ({ revisions, course }) => {
 
 RevisionList.propTypes = {
   revisions: PropTypes.array,
-  course: PropTypes.object
+  course: PropTypes.object,
 };
 
 export default Editable(
   RevisionList,
   [RevisionStore],
   ServerActions.saveRevisions,
-  getState
+  getState,
 );
