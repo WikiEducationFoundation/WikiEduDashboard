@@ -6,8 +6,8 @@ const AssignmentStore = new StockStore({
   modelKey: 'assignment',
   triggers: [
     'SAVED_USERS',
-    'USER_MODIFIED'
-  ]
+    'USER_MODIFIED',
+  ],
 });
 
 export default AssignmentStore.store;
