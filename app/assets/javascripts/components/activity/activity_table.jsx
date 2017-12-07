@@ -20,12 +20,12 @@ const ActivityTable = createReactClass({
     headers: PropTypes.array,
     noActivityMessage: PropTypes.string,
     openKey: PropTypes.string,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
   },
 
   getInitialState() {
     return {
-      activity: this.props.activity
+      activity: this.props.activity,
     };
   },
 
@@ -55,7 +55,7 @@ const ActivityTable = createReactClass({
     }
 
     this.setState({
-      activity: activities
+      activity: activities,
     });
   },
 
@@ -156,15 +156,15 @@ const ActivityTable = createReactClass({
         </tbody>
       </table>
     );
-  }
+  },
 });
 
 const mapStateToProps = state => ({
-  openKey: state.ui.openKey
+  openKey: state.ui.openKey,
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleDrawer: bindActionCreators(UIActions, dispatch).toggleUI
+  toggleDrawer: bindActionCreators(UIActions, dispatch).toggleUI,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActivityTable);
