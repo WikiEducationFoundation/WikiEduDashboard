@@ -43,7 +43,7 @@ ArticleViewerLegend.propTypes = {
   article: PropTypes.object,
   users: PropTypes.array,
   colors: PropTypes.array,
-  status: PropTypes.string
+  status: PropTypes.string,
 };
 
 export default ArticleViewerLegend;
