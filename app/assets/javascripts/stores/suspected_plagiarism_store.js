@@ -13,7 +13,7 @@ const storeMethods = {
   },
   getRevisions() {
     return _revisions;
-  }
+  },
 };
 
 const SuspectedPlagiarismStore = Flux.createStore(storeMethods, (payload) => {
