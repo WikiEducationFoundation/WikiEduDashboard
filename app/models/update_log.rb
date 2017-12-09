@@ -42,17 +42,14 @@ class UpdateLog
     end
 
     def delete_old_log
-      if @last_update != nil && @last_update >= MAX_UPDATES_TO_KEEP
-        @setting.value['constant_update'].delete(@last_update - MAX_UPDATES_TO_KEEP)
-      end
+      return @setting.value['constant_update'].delete(@last_update - MAX_UPDATES_TO_KEEP) if @last_update != nil && @last_update >= MAX_UPDATES_TO_KEEP
     end
 
     def log_delay
       constant_update = @setting.value['constant_update']
-      if constant_update 
-        seconds = constant_update.keys.length > 1 ? constant_update.map {|key, value| (Time.parse(constant_update[key]["end_time"].to_s) - Time.parse(constant_update[key-1]["end_time"].to_s) if key != constant_update.keys[0]).to_i} : [0]
-        @setting.value['average_delay'] = seconds.inject(:+)/(seconds.length-1) if seconds.length > 1
-      end
+      return unless constant_update
+      seconds = constant_update.keys.length > 1 ? constant_update.map {|key, value| (Time.parse(constant_update[key]["end_time"].to_s) - Time.parse(constant_update[key-1]["end_time"].to_s) if key != constant_update.keys[0]).to_i} : [0]
+      @setting.value['average_delay'] = seconds.inject(:+)/(seconds.length-1) if seconds.length > 1
     end
 
     def save_setting
