@@ -103,8 +103,8 @@ const AvailableActions = createReactClass({
           </p>
         ));
       }
-      // Trying to push updateStats manual update
-      if ((user.role === 1 || user.admin) && !Features.wikiEd) {
+    // If the user is an instructor or admin, and the course is published, show a manual stats update button
+      if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
         controls.push((
             <p key="updateStats"><button className="button" onClick={this.updateStats}>{CourseUtils.i18n('update_stats', this.state.course_string_prefix)}</button></p>
         ));
