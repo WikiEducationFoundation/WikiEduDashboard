@@ -65,6 +65,12 @@ lv:
     none: Nav
     organizers: Organizatori
     title: Nosaukums
+  categories:
+    add_template: Pievienot veidni
+    add_this_template: Pievienot šo veidni
+    name: Nosaukums
+    category_name: Kategorijas nosaukums
+    template_name: Veidnes nosaukums
   chat:
     label: Tērzētava
   courses:

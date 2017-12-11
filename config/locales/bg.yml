@@ -107,7 +107,7 @@ bg:
       assignment_start_placeholder: Начало на заданието (YYYY-MM-DD)
       clone_previous: Клониране на предишния курс
       clone_this: Клониране на този курс
-      clone_successful: Курсът е успешно клониран
+      clone_successful: Обновена информация за клониран курс
       course_description: Описание на курса
       course_title: Заглавие на курса
       create_button: Създай курса ми!
@@ -160,6 +160,7 @@ bg:
     cancel: Отказ
     save: Съхраняване
   metrics:
+    activity: Последна активност
     articles_created: Създадени статии
     char_added: Добавени знаци
     char: Добавени знаци

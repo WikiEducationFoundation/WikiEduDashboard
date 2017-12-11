@@ -13,6 +13,11 @@ el:
   articles:
     deleted: (διαγράφηκε)
     tools: Αξιολόγηση εργαλείων
+  categories:
+    confirm_category_addition: Είστε βέβαιοι ότι θέλετε να παρακολουθείτε τις συνεισφορές
+      στην κατηγορία ''%{όνομα}''?
+    template_name: Nom de modele
+    tracked_categories: Κατηγορίες Παρακολούθησης $ Μοντέλα
   chat:
     label: Συνομιλία
   courses:

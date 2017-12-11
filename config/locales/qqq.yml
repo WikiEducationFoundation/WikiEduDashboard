@@ -246,6 +246,11 @@ qqq:
       Label for the input to change the title of a campaign
       {{Identical|Title}}
     use_start_end_dates: Label for checkbox to enable start and end dates for a campaign
+  categories:
+    name: '{{Identical|Name}}'
+    category_name: '{{Identical|Category name}}'
+    template_name: '{{Identical|Template name}}'
+    remove: '{{Identical|Remove}}'
   chat:
     label: |-
       Short label for chat / discussion channel

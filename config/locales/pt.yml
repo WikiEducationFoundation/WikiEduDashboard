@@ -132,6 +132,13 @@ pt:
       title: Marcos
   campaign:
     none: Nenhum
+  categories:
+    add_category: Adicionar categoria
+    add_template: Adicionar predefinição
+    add_this_category: Adicionar esta categoria
+    name: Nome
+    category_name: Nome da categoria
+    remove: Remover
   courses:
     activity: Atividade
     already_enrolled: Já faz parte de '%{title}'!
@@ -350,6 +357,7 @@ pt:
     cancel: Cancelar
     save: Gravar
   metrics:
+    label: Atividade do curso
     last_update: Última atualização
     activity: Atividade recente
     are_trained: estão em dia com o treinamento
