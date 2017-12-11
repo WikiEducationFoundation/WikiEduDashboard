@@ -370,6 +370,7 @@ en:
     data_uploads: Commons uploads data
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     delete_course: Delete course
+    update_stats: Update statistics
     delete_suggestion: Delete
     delete_course_instructions: You may delete this page if all campaigns are removed first.
     dismiss_survey: Dismiss
