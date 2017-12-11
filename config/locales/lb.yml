@@ -106,6 +106,15 @@ lb:
     organizers: Organisateuren
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
+  categories:
+    add_category: Kategorie derbäisetzen
+    add_template: Schabloun derbäisetzen
+    add_this_category: Dës Kategorie derbäisetzen
+    add_this_template: Dës Schabloun derbäisetzen
+    name: Numm
+    category_name: Numm vun der Kategorie
+    template_name: Numm vun der Schabloun
+    remove: Ewechhuelen
   chat:
     label: Chat
   courses:
@@ -129,7 +138,7 @@ lb:
     creator:
       clone_previous: Virege Cours klonen
       clone_this: Dëse Cours klonen
-      clone_successful: Cours gekloont
+      clone_successful: Detailer fir gekloonte Cours aktualiséieren
       course_description: Beschreiwung vum Cours
       course_language: Originalsprooch
       course_subject: Sujet vum Cours

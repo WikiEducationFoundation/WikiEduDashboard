@@ -101,6 +101,12 @@ bn:
   campaign:
     campaign: প্রচারাভিযান
     none: কোনটিই নয়
+  categories:
+    add_template: টেমপ্লেট যোগ করুন
+    add_this_template: এই টেমপ্লেট যোগ করুন
+    name: নাম
+    category_name: বিষয়শ্রেণীর নাম
+    template_name: টেমপ্লেটের নাম
   chat:
     label: চ্যাট
   courses:

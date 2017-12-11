@@ -130,9 +130,15 @@ ar:
     title: العنوان
   categories:
     add_category: أضف تصنيفًا
+    add_template: أضف القالب
     add_this_category: أضف هذا التصنيف
+    add_this_template: أضف هذا القالب
+    confirm_template_addition: هل أنت متأكد من أنك تريد تتبع المساهمات في قالب "%{name}"؟
     depth: عمق التصنيف الفرعي
-    name: اسم التصنيف
+    name: الاسم
+    category_name: اسم التصنيف
+    template_name: اسم القالب
+    tracked_categories: التصنيفات والقوالب المتابعة
   chat:
     label: دردشة
   courses:

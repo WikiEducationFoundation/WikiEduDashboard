@@ -204,12 +204,20 @@ de:
     use_start_end_dates: Start- und Enddaten verwenden
   categories:
     add_category: Kategorie hinzufügen
+    add_template: Vorlage hinzufügen
     add_this_category: Diese Kategorie hinzufügen
+    add_this_template: Diese Vorlage hinzufügen
+    confirm_category_addition: Bist du sicher, dass du Beiträge an der Kategorie „%{name}“
+      verfolgen möchtest?
+    confirm_template_addition: Bist du sicher, dass du Beiträge an der Vorlage „%{name}“
+      verfolgen möchtest?
     depth: Unterkategorietiefe
-    name: Name der Kategorie
+    name: Name
+    category_name: Name der Kategorie
+    template_name: Name der Vorlage
     none: Es gibt keine verfolgten Kategorien.
     remove: Entfernen
-    tracked_categories: Verfolgte Kategorien
+    tracked_categories: Verfolgte Kategorien und Vorlagen
   chat:
     label: Chat
   courses:
@@ -280,6 +288,7 @@ de:
         Wikipedia-Autoren einen Sinn des Kontexts für die Beiträge zu geben, die deine
         Studenten machen werden.
       course_language: Heimatsprache
+      course_private: Privates Programm (nur für Administratoren und Vermittler sichtbar)
       course_project: Heimatprojekt
       course_school: Kursschule
       course_subject: Kursthema
