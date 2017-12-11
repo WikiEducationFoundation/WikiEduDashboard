@@ -123,11 +123,17 @@ ko:
     use_start_end_dates: 시작 및 끝 날짜 사용
   categories:
     add_category: 분류 추가
+    add_template: 틀 추가
     add_this_category: 이 분류 추가
-    name: 분류 이름
+    add_this_template: 이 틀 추가
+    confirm_category_addition: '"%{name}" 분류의 기여를 추적하시겠습니까?'
+    confirm_template_addition: '"%{name}" 틀의 기여를 추적하시겠습니까?'
+    name: 이름
+    category_name: 분류 이름
+    template_name: 틀 이름
     none: 추적되는 분류가 없습니다.
     remove: 제거
-    tracked_categories: 추적된 분류
+    tracked_categories: 추적된 분류 및 틀
   chat:
     label: 채팅
   courses:
@@ -157,6 +163,7 @@ ko:
       choose_clone: 복제할 과정을 선택하십시오.
       clone_successful: 과정이 성공적으로 복제되었습니다
       course_language: 주 언어
+      course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
       course_project: 주 프로젝트
       course_term_placeholder: 학기
       end_date: 종료일

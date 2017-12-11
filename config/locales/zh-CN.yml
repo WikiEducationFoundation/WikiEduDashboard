@@ -166,11 +166,18 @@ zh-CN:
     use_start_end_dates: 使用开始和结束日期
   categories:
     add_category: 添加分类
+    add_template: 添加模板
     add_this_category: 添加此分类
+    add_this_template: 添加此模板
+    confirm_category_addition: 您确定要追踪对分类“%{name}”的贡献么？
+    confirm_template_addition: 您确定要追踪对模板“%{name}”的贡献么？
     depth: 子分类深度
-    name: 分类名称
+    name: 名称
+    category_name: 分类名称
+    template_name: 模板名称
+    none: 没有追踪的分类。
     remove: 移除
-    tracked_categories: 追踪分类
+    tracked_categories: 追踪分类与模板
   chat:
     label: 聊天
   courses:
@@ -222,6 +229,7 @@ zh-CN:
       course_description: 课程描述
       course_description_placeholder: 您的课程涵盖什么，以及学生在维基百科上做什么？请包括足够的细节，这样可以给其他维基百科编辑者背景信息，方便您的学生做出贡献。
       course_language: 主语言
+      course_private: 私有计划（只有管理员和辅助商可见）
       course_project: 主项目
       course_school: 课程学校
       course_subject: 课程科目

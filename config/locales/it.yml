@@ -151,6 +151,12 @@ it:
     delete_campaign: Cancella questa campagna
     none: Nessuno
     title: Titolo
+  categories:
+    add_template: Aggiungi template
+    add_this_template: Aggiungi questo template
+    name: Nome
+    category_name: Nome della categoria
+    template_name: Nome template
   chat:
     label: Chat
   courses:
