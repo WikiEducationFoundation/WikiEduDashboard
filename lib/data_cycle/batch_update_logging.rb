@@ -80,7 +80,7 @@ module BatchUpdateLogging
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
     Rails.logger.info "#{message} Time: #{total_time}."
-    UpdateLog.log_update(@end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
+    UpdateLog.log_updates(@start_time.to_datetime, @end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
     Raven.capture_message message,
                           level: 'info',
                           tags: { update_time: total_time },
