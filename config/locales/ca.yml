@@ -197,6 +197,7 @@ ca:
       subject: Assumpte
     current: Cursos actuals
     delete_course: Esborra el curs
+    update_stats: Actualitza les estadístiques
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     duration: Durada del curs

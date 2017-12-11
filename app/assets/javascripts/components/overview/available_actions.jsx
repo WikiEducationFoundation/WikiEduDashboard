@@ -44,11 +44,11 @@ const AvailableActions = createReactClass({
     this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
   },
 
-  updateStats(){
-    const UpdateUrl = window.location.origin + '/courses/' + this.state.course.id + '/manual_update';
-    if(confirm('Are you sure you want to run a manual update?')) {
+  updateStats() {
+    const UpdateUrl = `${window.location.origin}/courses/${this.state.course.id}/manual_update`;
+    if (confirm('Are you sure you want to run a manual update?')) {
       return window.location = UpdateUrl;
-    };
+    }
   },
 
   leave() {
@@ -106,7 +106,7 @@ const AvailableActions = createReactClass({
     // If the user is an instructor or admin, and the course is published, show a manual stats update button
       if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
         controls.push((
-            <p key="updateStats"><button className="button" onClick={this.updateStats}>{CourseUtils.i18n('update_stats', this.state.course_string_prefix)}</button></p>
+          <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
         ));
       }
       // If the course is ended, show the 'needs update' button.
