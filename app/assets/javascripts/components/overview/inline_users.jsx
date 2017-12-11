@@ -5,7 +5,7 @@ import EnrollButton from '../students/enroll_button.jsx';
 const InlineUsers = (props) => {
   const lastUserIndex = props.users.length - 1;
   let userList = props.users.map((user, index) => {
-    let extraInfo;
+    let extraInfo = '';
     const link = `/users/${user.username}`; // User profile page
     if (user.real_name) {
       const email = user.email ? ` / ${user.email}` : '';
