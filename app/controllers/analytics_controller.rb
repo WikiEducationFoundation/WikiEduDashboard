@@ -49,7 +49,7 @@ class AnalyticsController < ApplicationController
   end
 
   def course_csv
-    send_data CourseCsvBuilder.new(@course).generate_csv,
+    send_data CourseCsvBuilder.new(@course, per_wiki: true).generate_csv,
               filename: "#{@course.slug}-#{Time.zone.today}.csv"
   end
 

@@ -201,7 +201,7 @@ it:
         per cambiare stato tra deselezionato, selezionato e vacanza. Se non si hanno
         vacanze, seleziona "Non ho vacanze". La linea temporale clonata regolerà automaticamente
         le date per tenere conto di settimane che non hanno incontri programmati.'
-      clone_successful: Corso clonato correttamente
+      clone_successful: Aggiorna dettagli per il corso clonato
       clone_successful_details: Il corso è stato clonato, compresi gli elementi della
         cronologia degli eventi (settimane e blocchi). Assicurati di aggiungere le
         date, che non sono riportate. È stato cambiato altro del tuo corso? Non esitare  ad

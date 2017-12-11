@@ -62,6 +62,7 @@ class CoursesController < ApplicationController
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     verify_edit_credentials { return }
+    protect_privacy { return }
     set_endpoint
     set_limit
 
@@ -214,15 +215,15 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type, :level)
+              :no_day_exceptions, :cloned_status, :type, :level, :private)
   end
 
   def instructor_role_description
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles assignments campaigns check course revisions tag tags
-                      timeline uploads users].freeze
+  SHOW_ENDPOINTS = %w[articles assignments campaigns categories check course
+                      revisions tag tags timeline uploads users].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
   # vulnerability.
@@ -246,5 +247,11 @@ class CoursesController < ApplicationController
     return if WikiEdits.new.oauth_credentials_valid?(current_user)
     redirect_to root_path
     yield
+  end
+
+  def protect_privacy
+    return unless @course.private
+    return if current_user&.can_edit?(@course)
+    raise ActionController::RoutingError, 'not found'
   end
 end

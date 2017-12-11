@@ -231,6 +231,21 @@ en:
     title: Title
     use_start_end_dates: Use start and end dates
 
+  categories:
+    add_category: Add category
+    add_template: Add template
+    add_this_category: Add this category
+    add_this_template: Add this template
+    confirm_category_addition: Are you sure you want to track contributions to the category "%{name}"?
+    confirm_template_addition: Are you sure you want to track contributions to the template "%{name}"?
+    depth: Subcategory depth
+    name: Name
+    category_name: Category name
+    template_name: Template name
+    none: There are no categories being tracked.
+    remove: Remove
+    tracked_categories: Tracked Categories & Templates
+
   chat:
     label: Chat
 
@@ -287,7 +302,7 @@ en:
         holiday state. If you have no holidays, check "I have no class holidays".
         The cloned timeline will automatically adjust the dates to account for
         weeks that have no scheduled meetings.
-      clone_successful: Course Successfully Cloned
+      clone_successful: Update Details for Cloned Course
       clone_successful_details: >
         Your course has been cloned, including the elements of the timeline
         (weeks and blocks). Be sure to add the dates, which are not carried over.
@@ -298,6 +313,7 @@ en:
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
       course_language: Home language
+      course_private: Private program (viewable only by admins and facilitators)
       course_project: Home project
       course_school: Course school
       course_subject: Course subject

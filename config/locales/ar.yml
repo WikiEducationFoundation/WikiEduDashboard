@@ -95,6 +95,7 @@ ar:
     show_cumulative_changes: أظهر التغييرات التراكمية
     title: العنوان
     title_example: عنوان المقال
+    tools: أدوات التقييم
     view: عرض المقالة
     view_all: عرض الكل
     view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
@@ -127,6 +128,11 @@ ar:
     none: لا شيء
     organizers: المنظمون
     title: العنوان
+  categories:
+    add_category: أضف تصنيفًا
+    add_this_category: أضف هذا التصنيف
+    depth: عمق التصنيف الفرعي
+    name: اسم التصنيف
   chat:
     label: دردشة
   courses:

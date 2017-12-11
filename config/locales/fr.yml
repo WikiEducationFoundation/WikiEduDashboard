@@ -218,6 +218,22 @@ fr:
       le texte dans cette zone sera copié comme une description sur la page du programme
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
+  categories:
+    add_category: Ajouter une catégorie
+    add_template: Ajouter un modèle
+    add_this_category: Ajouter cette catégorie
+    add_this_template: Ajouter ce modèle
+    confirm_category_addition: Êtes-vous sûr de vouloir suivre les contributions à
+      la catégorie « %{name} » ?
+    confirm_template_addition: Êtes-vous sûr de vouloir suivre les contributions au
+      modèle « %{name} » ?
+    depth: Profondeur de sous-catégorie
+    name: Nom
+    category_name: Nom de la catégorie
+    template_name: Nom du modèle
+    none: Il n’y a aucune catégorie suivie.
+    remove: Supprimer
+    tracked_categories: Catégories suivies & Modèles
   chat:
     label: Clavardage
   courses:
@@ -288,6 +304,8 @@ fr:
         détails pour donner aux autres éditeurs de Wikipédia une idée du contexte
         des contributions que feront vos étudiants.
       course_language: Langue principale
+      course_private: Programme privé (visible uniquement par les administrateurs
+        et les facilitateurs)
       course_project: Projet principal
       course_school: École du cours
       course_subject: Sujet du cours
@@ -343,8 +361,8 @@ fr:
       combien ils ont fait de modifications, et s’ils ont inscrit leur compte lors
       du projet.
     data_uploads: Données de téléversements de Commons
-    data_uploads_info: Les données de téléversements communs affichent le nom et le
-      nombre d’utilisations de chaque média téléversé.
+    data_uploads_info: Les données de téléversements sur Commons affichent le nom
+      et le nombre d’utilisations de chaque média téléversé.
     delete_course: Supprimer le cours
     delete_suggestion: Supprimer
     delete_course_instructions: Vous pouvez supprimer cette page seulement si toutes

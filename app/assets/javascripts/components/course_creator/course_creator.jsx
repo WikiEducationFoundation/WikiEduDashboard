@@ -142,6 +142,11 @@ const CourseCreator = createReactClass({
     CourseActions.updateCourse(updatedCourse);
   },
 
+  updateCoursePrivacy(e) {
+    const isPrivate = e.target.checked;
+    this.updateCourse('private', isPrivate);
+  },
+
   expectedStudentsIsValid() {
     if (this.state.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
       ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
@@ -291,6 +296,7 @@ const CourseCreator = createReactClass({
 
     let language;
     let project;
+    let privacyCheckbox;
     let campaign;
     if (this.state.default_course_type !== 'ClassroomProgramCourse') {
       language = (
@@ -314,6 +320,18 @@ const CourseCreator = createReactClass({
           label={I18n.t('courses.creator.course_project')}
           placeholder="wikipedia"
         />
+      );
+      privacyCheckbox = (
+        <div className="form-group">
+          <label htmlFor="course_private">{I18n.t('courses.creator.course_private')}:</label>
+          <input
+            id="course_private"
+            type="checkbox"
+            value={true}
+            onChange={this.updateCoursePrivacy}
+            checked={!!this.state.course.private}
+          />
+        </div>
       );
     }
     if (this.state.course.initial_campaign_title) {
@@ -387,6 +405,7 @@ const CourseCreator = createReactClass({
                   {expectedStudents}
                   {language}
                   {project}
+                  {privacyCheckbox}
                 </div>
                 <div className="column">
                   <DatePicker

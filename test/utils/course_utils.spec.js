@@ -149,7 +149,11 @@ describe('courseUtils.articleFromAssignment', () => {
       article_title: 'Autofoto',
       project: 'wikipedia'
     };
-    const article = courseUtils.articleFromAssignment(assignment);
+    const defaultWiki = {
+      language: 'es',
+      project: 'wikipedia'
+    };
+    const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Autofoto');
     expect(article.title).to.eq('Autofoto');
     expect(article.language).to.eq('es');
@@ -174,12 +178,32 @@ describe('courseUtils.articleFromAssignment', () => {
     expect(article.formatted_title).to.eq('es:Silvia Federici');
   });
 
+  it('returns an article object with the language of the default wiki if no langaue is set', () => {
+    const assignment = {
+      article_url: 'https://es.wikipedia.org/wiki/Silvia_Federici',
+      article_title: 'Silvia Federici',
+      project: 'wikipedia'
+    };
+    const defaultWiki = {
+      language: 'es',
+      project: 'wikipedia'
+    };
+    const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
+    expect(article.url).to.eq('https://es.wikipedia.org/wiki/Silvia_Federici');
+    expect(article.title).to.eq('Silvia Federici');
+    expect(article.language).to.eq('es');
+    expect(article.formatted_title).to.eq('Silvia Federici');
+  });
+
   it('sets wikipedia as the default project', () => {
     const assignment = {
       article_url: 'https://en.wikipedia.org/wiki/Selfie',
       article_title: 'Selfie'
     };
-    const article = courseUtils.articleFromAssignment(assignment);
+    const defaultWiki = {
+      language: 'en'
+    };
+    const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.project).to.eq('wikipedia');
   });
 
@@ -189,7 +213,11 @@ describe('courseUtils.articleFromAssignment', () => {
       language: 'es',
       project: 'wikipedia'
     };
-    const article = courseUtils.articleFromAssignment(assignment);
+    const defaultWiki = {
+      language: 'en',
+      project: 'wikipedia'
+    };
+    const article = courseUtils.articleFromAssignment(assignment, defaultWiki);
     expect(article.url).to.eq('https://es.wikipedia.org/wiki/Palo_para_autofoto');
   });
 });

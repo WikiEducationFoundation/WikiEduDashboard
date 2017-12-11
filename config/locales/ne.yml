@@ -7,8 +7,8 @@
 ---
 ne:
   accessibility:
-    number_field: यो सङ्ख्या फिल्ड हो। The buttons rendered by most browsers will
-      increment and decrement the input.
+    number_field: यो संख्या रहने स्थान हो। सबै जसो ब्राउजरहरूले देखाउने बटनले प्रविष्टिलाई
+      बढाउने या घटाउने कार्य गर्दछ।
   application:
     cancel: रद्द गर्नुहोस्
     dashboard: विकी एड ड्यासबोर्ड
@@ -18,8 +18,8 @@ ne:
     field_required: यो फिल्ड आवस्यकता छ
     field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
     field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
-    field_invalid_date_time: अन्त सुरुवात भन्दा पछि हुनु पर्छ । (घन्ट ० देखि २३ सम्म
-      हुन्छन् ।)
+    field_invalid_date_time: The end must be after the start. (समय 0 देखि 23 सम्म
+      हुनसक्छ।)
     greeting2: स्वागत!
     greeting_extended: विकिपिडियामा स्वागत् छ
     greeting: नमस्ते!
@@ -41,12 +41,22 @@ ne:
     details: विवरण
     confirm: ठीक छ
   dashboard:
-    create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्मा क्लिक गर्नुहोस्।
+    create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
+      गर्नुहोस्।
+    create_preparation_note: Be sure to have your academic calendar on hand before
+      you begin; the assignment design tool will use the meeting dates of your class
+      — including any school breaks and holidays — to fit your timeline into the date
+      range you choose. याद गर्नुहोला, तपाईँले समय रेखा तपाईँको आवश्यकता पूरा गर्न
+      जहिले पनि सम्पादन गर्न सकिने छ।
     explore_course_pages: पाठ्यक्रम पृष्ठ हेर्नुहोस्
     explore_examples: उदाहरणहरू हेर्नुहोस्
+    join_note: तपाईँको प्रशिक्षकबाट पासकोड प्राप्त गर्नुभए पछि, कोर्स भेटाउनुहोस्‍मा
+      क्लिक गर्नुहोस् र भाग लिनुहोस्।
     no_courses_instructor: तपाईँका कुनै पनि पाठ्यक्रम छैनन्।
     no_courses_student: तपाईँले कुनै पनि पाठ्यक्रममा भाग लिनु भएको छैन।
     opt_out: अभिमुखिकरणबाट बाहिरिनको लागि अनुरोध गर्नुहोस्
+    orientation_notice: तपाईँले पाठ्यक्रम निर्माण गर्नु अघि, तपाईँलाई सुरू गर्न सजिलो
+      बनाउन अभिमुखीकरणका केही कुरा बिचार गरौँ। (यो पूरा गर्न ३० मिनेट लाग्छ।)
     review_orientation: अभिमुखिकरण पुनरावलोकन गर्नुहोस्
     start_orientation: अभिमुखिकरण सुरु गर्नुहोस्
     blog_headline: Wiki Ed बाट नयाँ खबरहरू
@@ -81,28 +91,46 @@ ne:
     show_current_version: हालको संस्करण देखाउनुहोस्
     title: शीर्षक
     title_example: लेख शीर्षक
+    tools: परीक्षण औजारहरू
     view: लेख हेर्नुहोस्
     view_all: सबै हेर्नुहोस्
+    view_doc: परियोजना भरी प्रत्येक लेखमा प्राप्त दृष्यको योगफल
     view_on_wiki: विकीमा हेर्नुहोस्
     views_added: थपिएको %{count}  %{title} को नयाँ भ्युहरू
     edit_size: आकार सम्पादन गर्नुहोस्
+    wiki: विकी
     wp10: स्वरूप पूर्णता
+    wp10_doc: '''स्वरूपमा पूर्णता'' मूल्याङ्कनले बनाइएको लेख विकिपिडियामा बनाइने विकसित
+      लेखहरूको स्वरूपको तुलनामा कति समिप छ भनेर गणना गर्दछ। यो मेसिन लर्निङमा आधारित
+      अब्जेक्टिभ रिभिजन इभ्यालुएसन सर्भिस (https://ores.wikimedia.org/) मार्फत गरिन्छ।
+      यो प्राप्ताङ्क लेखको आकार, सन्दर्भको सङ्ख्या र विकिलिङ्कहरू र साधारण पाठ गुणहरूको
+      आधारमा गणना गरिन्छ। A high score usually indicates that an article follow Wikipedia''s
+      conventions for the structure of a good article, but it does not take into account
+      the content itself. (यो प्राप्ताङ्कहरू अङ्ग्रेजी विकिपिडियामा मात्र उपलब्ध छ।)'
   assignments:
-    article: '%{title} लेख निर्दिष्ट गरिसकियो'
+    article: '%{title} लेख अब तपाईँलाई निर्दिष्ट गरिएको छ।'
     already_exists: निर्दिष्टता पहिले देखि नै छ!
-    title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुनसक्दैन
-    assignees: असाइनि(हरू)
-    assign_other: लेख असाइन गर्नुहोस्
+    title_too_large: शीर्षक २५५ वर्ण भन्दा लामो हुन सक्दैन
+    assignees: निर्दिष्ट गरिएका(हरू)
+    assign_other: लेख निर्दिष्ट गर्नुहोस्
     add_available: एक उपलब्ध लेख थप्नुहोस्
-    assign_self: आफैँलाई एक लेख असाइन गर्नुहोस्
+    assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
+    assign_tooltip: निर्दिष्ट गरेको लेख त्यो हो जुन तपाईँले सुधार गर्ने या बनाउने
+      योजना बनाउनु भएको हुन्छ।
+    confirm_add_available: यस %{title} थप्न निश्चित हुनुहुन्छ?
+    confirm_addition: '%{title} लाई को लागि %{username} निर्दिष्ट गर्न निश्चित हुनुहुन्छ?'
+    confirm_deletion: यस लेख असाइन्मेन्ट मेट्ने कुरामा निश्चित हुनुहुन्छ?
     label: असाइन गर्नुहोस्
     loading: असाइन्मेन्टहरू खोल्दै...
     none_short: कुनैपनि लेखहरू असाइन गरिएको छैन
     none: यो पाठ्यक्रममा कुनै पनि निर्दिष्ट लेखहरू छैनन्।
+    no_available: यस पाठ्यक्रममा कुनै पनि उपलब्ध लेखहरू छैनन्।
     remove: हटाउनुहोस्
     reviewers: 'समीक्षक(हरू):'
     review_other: समीक्षाको लागि असाइन गर्नुहोस्
     review_self: लेखको समीक्षा गर्नुहोस्
+    review_tooltip: यो तपाईँको लेखहरूको लगत राख्नको लागि हो जुनमा तपाईँले पुनरावलोकन
+      गर्ने र सुझाव दिने योजना बनाउनु भएको छ। \
     select: चयन गर्नुहोस्
   blocks:
     milestones:
@@ -110,10 +138,17 @@ ne:
   campaign:
     active_campaigns: सक्रिय अभियानहरू
     add_organizer: आयोजक थप्नुहपस्
-    all_campaigns: क्याम्पेन थप्नुहोस्
+    all_campaigns: अभियान थप्नुहोस्
+    already_exists: यो अभियान पहिले देखि नै छ! फरक शीर्षक या स्लगको साथमा पुनः प्रयास
+      गर्नुहोस।
     campaign: अभियान
     campaigns: अभियानहरू
+    campaign_deleted: '"%{title}" शीर्षक भएको अभियान मेटियो'
+    campaign_not_updated: अभियान अद्यावधिक गर्न सकिएन
     campaign_updated: अभियान अद्यावधिक गर्नुहोस्
+    confirm_campaign_deletion: '"%{title}" शीर्षक भएको अभियान मेट्न निश्चित हुनुहुन्छ?
+      यदि हो भने, अभियानको शीर्षक लेख्नुहोस्'
+    confirm_campaign_deletion_failed: '"%{title}" अभियानको शीर्षक हैन अभियान मेटिएन।'
     create_campaign: नयाँ अभियान बनाउनुहोस्
     create_my_campaign: मेरो अभियान बनाउनुहोस्!
     description: वर्णन
@@ -135,6 +170,7 @@ ne:
     articles: लेखहरू
     articles_none: यो पाठ्यक्रमले कुनै पनि लेख सम्पादन गरेको छैन।
     assignment_end: असाइन्मेन्ट अन्त
+    assignments_none: यो पाठ्यक्रममा कुनै पनि निर्दिष्ट लेखहरू छैनन्।
     assignment_start: असाइन्मेन्ट सुरु
     calendar:
       legend: लेजेन्ड
@@ -178,10 +214,14 @@ ne:
       expected_number: अपेक्षित विद्यार्थी संख्या
       find: तपाईँको पाठ्यक्रम भेटाउनुहोस्
       no_class_holidays: कुनै पनि कक्षा बिदाहरू छैनन्
+      role_description: यस पाठ्यक्रममा तपाईँको भूमिका
+      role_description_placeholder: प्रशिक्षक, अध्यापन सहायक आदि
       save_cloned_course: नयाँ पाठ्यक्रम सङ्ग्रह गर्नुहोस्
       start_date: सुरु मिति
       start_date_placeholder: सुरुहुने मिति (YYYY-MM-DD)
       subject: विषय
+      update_scheduled: समय तालिका अद्यावधिक भयो। The data will be updated along with
+        all current programs during the next update cycle. यसको लागि केही घन्टा लाग्नेछ।
     current: हालका पाठ्यक्रमहरू
     data_articles: लेखहरू डेटा
     data_download_info: डेटा CSV ढाँचामा डाउनलोड गर्नुहोस्
@@ -202,12 +242,16 @@ ne:
     enrollment: समावेशपना
     courses_enrolled: समावेश भएका पाठ्यक्रमहरू
     error:
+      exists: यस पाठ्यक्रम पहिले देखि नै रहेको छ! कृपया फरक शीर्षक, विद्यालय या सत्र
+        प्रयास गर्नुहोस्।
+      user_exists: माफ गर्नुहोस्, %{username} अस्तित्वमा रहेको प्रयोगकर्ता हैन।
       invalid_language_or_project: अमान्य भाषा या आयोजना
       invalid_slug: पाठ्यक्रमको लागि खाली स्कुल/शीर्षक।
       duplicate_slug: अर्को %{slug} नाम रहेको कार्यक्रम पहिले देखि नै रहेको छ।
     expected_students: अपेक्षित विद्यार्थीहरू
-    features_feedback: 'अटोम्याटेड सुझावहरू :'
+    features_feedback: 'स्वचालित सुझावहरू :'
     feedback: प्रतिक्रिया
+    gradeables_none: यस पाठ्यक्रममा कुनै पनि संख्याकृत असाइन्मेन्टहरू छैन।
     instructor:
       one: प्रशिक्षक
       other: प्रशिक्षकहरू
@@ -217,12 +261,15 @@ ne:
     join_prompt: '''%{title}'' मा समावेश हुनुहुने हो?'
     join_successful: '%{title} मा सफलता पूर्वक समावेश हुनुभएको छ।'
     join_failed: भर्ना गर्न सकिएन।
+    join_failure_details:
+      cannot_join_twice: प्रयोगकर्ताहरूले एउटै पाठ्यक्रममा दुइपटक समावेश हुन पाउने
+        छैन।
     leave_course: पाठ्यक्रम हेर्नुहोस्
     loading: लोड गर्दैछ...
     my_articles: मेरा लेखहरू
     needs_update: डेटा अद्यावधि मिति तय गर्नुहोस्
     new_week: नयाँ साता थप्नुहोस्
-    nocourse: ' कुनै पनि पाठ्यक्रममा भाग लिएको छैन।'
+    nocourse: कुनै पनि पाठ्यक्रममा भाग लिएको छैन।
     none: कुनै पनि होइन
     no_available_actions: कुनै पनि काम बाँकी छैन
     overview: गृह
@@ -276,10 +323,13 @@ ne:
     campaigns: 'अभियानहरू:'
     campaign_courses: '%{title} कार्यक्रमहरू'
     creator:
+      checking_for_uniqueness: यो कार्यक्रम नौलोपनको लागि जाँच गरिँदै छ।
       choose_clone: प्रतिलिपि बनाउनको लगि कुनै कार्यक्रम छान्नुहोस्।
       clone_previous: यो भन्दा अगिको कार्यक्रम प्रतिलिपी गर्नुहोस्
       clone_this: यस कार्यक्रमलाई प्रतिलिपि गर्नुहोस्
       clone_successful: कार्यक्रम सफलतापूर्वक प्रतिलिपिकरण गरियो
+      clone_successful_details: तपाईँको कार्यक्रम प्रतिलिपिकरण गरियो, तल 'सङ्ग्रह
+        गर्नुहोस्' मा क्लिक गरेर पूर्णता दिनुहोस्।
       course_description: कार्यक्रम विवरण
       course_school: संस्था
       course_term: कहिले
@@ -302,11 +352,15 @@ ne:
     instructors: सहजकर्ताहरू
     join_course: कार्यक्रममा सहभागी हुनुहोस्
     leave_course: कार्यक्रम छोड्नुहोस्
+    milestones_none: यस आयोजनामा कुनै पनि कोसेढुङ्गा छैन।
+    published: 'यो आयोजा प्रकाशित भयो। सम्पादकहरू तलको युआरएलमा गएर सहभागी हुन सक्नेछन्:'
+    revisions_none: यो आयोजनामा कुनै पनि नयाँ सम्पादन कृयाजलाप छैन।
     school: संस्था
     school_and_term: संस्था/कहिले
     student_editors: सम्पादकहरू
     students: सम्पादकहरू
     students_taught: जम्मा सम्पादकरू
+    students_none: यस आयोजनामा कुनै पनि सम्पादकहरूले भाग लिएका छैनन।
     students_short: सम्पादकहरू
     students_count: सहभागीको सङ्ख्या
     term: कहिले
@@ -322,7 +376,11 @@ ne:
     edit_details: जानकारी सम्पादन गर्नुहोस्
     edit_template: ढाँचा सम्पादन गर्नुहोस्
   metrics:
+    label: पाठ्यक्रम गतिविधिहरू
+    are_updated: अन्तिम प्रणाली अद्यावधि अनुसार
+    last_update: अन्तिम अद्यावधि
     activity: हालको कृयाकलाप
+    are_trained: तालिममा समय अनुरूप रहेका छन्
     articles_created: सिर्जना गरिएका लेखहरू
     articles_edited: सम्पादन गरिएका लेखहरू
     characters: क्यारेक्टरहरू
@@ -351,7 +409,7 @@ ne:
     article_title: लेख शीर्षक
     datetime: मिति/समय
     did_you_know_eligible: के तपाईँलाई थाह छ योग्य
-    image: छवि
+    image: चित्र
     file_name: फाइल नाम
     no_edits: हालमा कुनै पनि सम्पादन छैनन् ।
     plagiarism_report: प्लागरिजम प्रतिबेदन
@@ -377,6 +435,7 @@ ne:
     loading: समीक्षाहरू लोड गर्दै...
     title: शीर्षक
     view_on_wiki: विकीमा डिफ हेर्नुहोस्
+    see_more: थप हेर्नुहोस्
   suggestions:
     editing: सम्पादन सुझावहरू
     suggestion_docs:
@@ -398,7 +457,7 @@ ne:
     due_default: अर्को हप्ता बाँकी
     empty_week_1: सुरु गर्न,
     empty_week_2: यो हप्ता सम्पादन सुरु गर्नुहोस्
-    empty_week_3: ' या \'
+    empty_week_3: ' या'
     first_week_title: पहिले सक्रिय हप्ता
     gradeable_value: मान
     grading_header: 'ग्रेडिङ (कुल: %{total}%)'
@@ -410,16 +469,21 @@ ne:
     save_all_changes: सबै सङ्ग्रह गर्नुहोस्
     this_week_title_default: यो साता
     title: समयरेखा
-    view_full_timeline: पूर्ण समय रेखा हेर्नुहोस्
+    unable_to_add_week: समय रेखा भरिए पछि तपाईँले नयाँ साताहरू तप्न सक्नु हुन्न। Delete
+      at least one week or change your assignment dates to make room for a new one.
+    view_full_timeline: पूर्ण समयरेखा हेर्नुहोस्
     week_number: साता %{number}
   training:
     continue: (%{progress}) जारी राख्नुहोस्
     start: सुरु गर्नुहोस्
     view: अवलोकन गर्ने
+    logged_out: तपाईँ लग आउट हुनुभयो। You will not receive credit for completing this
+      module unless you log in.
   uploads:
     datetime: मिति/समय
     file_name: फाइल नाम
-    image: छवि
+    header: विकिमिडिया कमन्समा अपलोड गरिएका फाइलहरू
+    image: चित्र
     label: अपलोडहरू
     loading: अपलोडहरू खोल्दै...
     uploaded_by: अपलोड कर्ता
@@ -470,32 +534,48 @@ ne:
     assignment_dates: असाइन्मेन्ट मितिहरू
     assignment_type: असाइन्मेन्ट प्रकार
     course_dates: पाठ्यक्रम मितिहरू
-    read_less: ' थोरै पढ्नुहोस्'
+    read_less: थोरै पढ्नुहोस्
     read_more: थप पढ्नुहोस्
     summary: सारांश
   error:
     invalid_date: '%{key} मिति अमान्य छ'
     unsupported_browser:
-      header: असमर्थित ब्राउजर  :-(
+      header: असमर्थित ब्राउजर।  :-(
   error_401:
-    header: अधिरकार नभएको। >:-(
+    header: अनुमति नभएको। >:-(
   error_incorrect_passcode:
     header: गलत पासकोड।  :-(
   error_404:
     header: पेज भेटिएन। :-(
   error_422:
     header: 422 — प्रोसेस गर्न नसकिने वस्तु।  :-(
+    explanation: केही खराबी भयो । Please contact the maintainers of this dashboard
+      to let them know about the problem.
   error_500:
-    header: 500 — आन्तरिक सर्भर त्रुटी।  :-(
+    header: 500 — आन्तरिक सर्भर त्रुटी ।  :-(
+    explanation: केही खराबी भयो । Please contact the maintainers of this dashboard
+      to let them know about the problem.
   login_error:
     header: प्रवेश त्रुटी
+    explanation: It looks like there was an problem with the sign in process. (त्यसको
+      लागि माफी चाहन्छौँ! यदि यस्तो भइरहे।) लग इन गर्न पुनः प्रयास गर्नुहोस् या फेरि
+      समावेश हुनुहोस्।
   survey:
+    login_message: तपाईँको समयको निम्ति धन्यवाद! Please log in to your Wiki Ed dashboard
+      to take the survey.
     email:
       headline: नमस्ते, %{username}
+      message_line1: हामी आशा गर्छौँ तपाईँको सत्र राम्रो भयो होला! Wiki Ed is seeking
+        your feedback to improve our resources and support for your Wikipedia assignments.
+        Your response is crucial to improving our current offerings.
       course: 'पाठ्यक्रम: %{course_info}'
       closing: सधन्यवाद,
       signed: '- Wiki Ed समूह'
       link: सर्वेक्षण गर्नुहोस्
+    follow_up:
+      message: यो %{course_title} पाठ्यक्रमको सर्वेक्षण बारेमा स्मरण पत्र हो। यस सर्वेक्षणको
+        सुझावले हामीलाई तपाईँको जस्तै विकिपिडिया असाइनमेन्टहरूको लागि हाम्रो सहायता
+        सुधार गर्न सहयोग गर्छ।
   feedback_form_responses:
     no_responses: कुनै पनि प्रतिक्रिया या सुझावहरू छैनन्।
 ...

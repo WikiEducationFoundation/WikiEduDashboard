@@ -44,13 +44,14 @@
 #  chatroom_id           :string(255)
 #  flags                 :text(65535)
 #  level                 :string(255)
+#  private               :boolean          default(FALSE)
 #
 
 class ArticleScopedProgram < Course
   has_many(:revisions, lambda do |course|
     where('date >= ?', course.start)
     .where('date <= ?', course.end)
-    .where(article_id: course.assignments.pluck(:article_id))
+    .where(article_id: course.scoped_article_ids)
   end, through: :students)
 
   def wiki_edits_enabled?

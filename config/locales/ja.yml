@@ -78,6 +78,11 @@ ja:
       title: マイルストーン
   campaign:
     none: なし
+  categories:
+    add_category: カテゴリを追加
+    add_this_category: このカテゴリに追加
+    name: カテゴリ名
+    remove: 削除
   courses:
     activity: 活動
     articles: 記事

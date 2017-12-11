@@ -12,6 +12,7 @@ class WikiCourseEdits
 
   def initialize(action:, course:, current_user:, **opts)
     return unless course.wiki_edits_enabled?
+    return if course.private # Never make edits for private courses.
     @course = course
     # Edits can only be made to the course's home wiki through WikiCourseEdits
     @home_wiki = course.home_wiki

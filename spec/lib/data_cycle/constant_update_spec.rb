@@ -39,5 +39,13 @@ describe ConstantUpdate do
       expect(sentry_logs.grep(/Importing revisions and articles/).any?).to eq(true)
       expect(Course.where(needs_update: true).count).to eq(0)
     end
+
+    it 'reports logs to sentry even when it errors out' do
+      allow(Raven).to receive(:capture_message)
+      allow(CourseRevisionUpdater).to receive(:import_new_revisions_concurrently)
+        .and_raise(StandardError)
+      expect { ConstantUpdate.new }.to raise_error(StandardError)
+      expect(Raven).to have_received(:capture_message)
+    end
   end
 end

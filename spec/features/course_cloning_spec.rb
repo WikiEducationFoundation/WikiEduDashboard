@@ -55,7 +55,7 @@ describe 'cloning a course', js: true do
     select course.title, from: 'reuse-existing-course-select'
     click_button 'Clone This Course'
 
-    expect(page).to have_content 'Course Successfully Cloned'
+    expect(page).to have_content 'Update Details for Cloned Course'
 
     # interact_with_clone_form
     find('input#course_term').click

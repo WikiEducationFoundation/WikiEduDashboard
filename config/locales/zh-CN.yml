@@ -97,6 +97,7 @@ zh-CN:
     show_current_version_with_authorship_highlighting: 当前版本w/作者高亮
     title: 标题
     title_example: 条目标题
+    tools: 评定工具
     view: 查看条目
     view_all: 查看全部
     view_doc: 在项目期间每个条目的访问量总数
@@ -119,6 +120,7 @@ zh-CN:
     assign_other: 分配一个条目
     add_available: 添加一个可用条目
     assign_self: 给我自己分配一个条目
+    assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     confirm_add_available: 您确定要添加%{title}么？
     confirm_addition: 您确定要分配%{title}至%{username}？
     confirm_deletion: 您确定要删除此条目分配吗？
@@ -162,6 +164,13 @@ zh-CN:
     program_template_tooltip: 当组织者在此运动中创建程序时，此区域的文本将被复制为程序页面上的描述
     title: 标题
     use_start_end_dates: 使用开始和结束日期
+  categories:
+    add_category: 添加分类
+    add_this_category: 添加此分类
+    depth: 子分类深度
+    name: 分类名称
+    remove: 移除
+    tracked_categories: 追踪分类
   chat:
     label: 聊天
   courses:
@@ -208,7 +217,7 @@ zh-CN:
       clone_previous: 克隆上一个课程
       clone_this: 克隆此课程
       cloned_course_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。如果您没有假日，请勾选“我没有班级假日”。克隆的时间轴将利用没有预定会议的周，自动对账户调整日期。
-      clone_successful: 课程已成功克隆
+      clone_successful: 已为克隆的课程更新详情
       clone_successful_details: 您的课程已被克隆，包含时间轴的要素（周和块）。请确保添加日期，这没有延续。您的课程有什么别的东西更改么？请现在随意地更新它吧。
       course_description: 课程描述
       course_description_placeholder: 您的课程涵盖什么，以及学生在维基百科上做什么？请包括足够的细节，这样可以给其他维基百科编辑者背景信息，方便您的学生做出贡献。

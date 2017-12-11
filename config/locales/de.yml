@@ -121,6 +121,7 @@ de:
     show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
     title: Titel
     title_example: Artikelname
+    tools: Bewertungswerkzeuge
     view: Artikel anzeigen
     view_all: Alles anzeigen
     view_doc: Die Summe aller Aufrufe für jeden Artikel während des Projektes
@@ -201,6 +202,14 @@ de:
       darüberkopiert.
     title: Titel
     use_start_end_dates: Start- und Enddaten verwenden
+  categories:
+    add_category: Kategorie hinzufügen
+    add_this_category: Diese Kategorie hinzufügen
+    depth: Unterkategorietiefe
+    name: Name der Kategorie
+    none: Es gibt keine verfolgten Kategorien.
+    remove: Entfernen
+    tracked_categories: Verfolgte Kategorien
   chat:
     label: Chat
   courses:
@@ -260,7 +269,7 @@ de:
         Falls du keine Feiertage hast, klicke „Ich habe keine Feiertage“ an. Die geklonte
         Zeitleiste passt sich automatisch den Daten im Benutzerkonto für Wochen, die
         keine geplanten Treffen haben, an.
-      clone_successful: Kurs erfolgreich geklont
+      clone_successful: Einzelheiten für den geklonten Kurs aktualisieren
       clone_successful_details: Dein Kurs wurde geklont, inklusive der Zeitleistenelemente
         (Wochen und Blöcke). Stelle sicher, dass die Daten hinzugefügt werden, die
         nicht übertragen sind. Hat sich noch etwas an deinem Kurs geändert? Tu dir

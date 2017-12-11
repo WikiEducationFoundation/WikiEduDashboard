@@ -40,11 +40,16 @@ class ConstantUpdate
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
     import_uploads_for_needs_update_courses
+    update_categories_for_needs_update_courses
     update_all_caches # from CacheUpdater
     remove_needs_update_flags
     update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
     log_end_of_update 'Constant update finished.'
+  # rubocop:disable Lint/RescueException
+  rescue Exception => e
+    log_end_of_update 'Constant update failed.'
+    raise e
   end
 
   ###############
@@ -88,6 +93,11 @@ class ConstantUpdate
     log_message 'Backfilling Commons uploads for needs_update courses'
     UploadImporter.import_all_uploads User.joins(:courses).where(courses: { needs_update: true }).distinct
     UploadImporter.update_usage_count_by_course Course.where(needs_update: true)
+  end
+
+  # As with commons uploads, this is done normally in DailyUpdate
+  def update_categories_for_needs_update_courses
+    Category.refresh_categories_for(Course.where(needs_update: true))
   end
 
   #################################
