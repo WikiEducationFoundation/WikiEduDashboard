@@ -482,6 +482,7 @@ en:
       The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
+    update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
