@@ -45,10 +45,12 @@ const AvailableActions = createReactClass({
   },
 
   updateStats() {
-    const UpdateUrl = `${window.location.origin}/courses/${this.state.course.id}/manual_update`;
-    if (confirm('Are you sure you want to run a manual update?')) {
-      return window.location = UpdateUrl;
-    }
+    const updateUrl = `${window.location.origin}/courses/${this.state.course.slug}/manual_update`;
+    const onConfirm = function () {
+      return window.location = updateUrl;
+    };
+    const confirmMessage = I18n.t('courses.confirm_manual_update');
+    this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   leave() {
@@ -80,7 +82,6 @@ const AvailableActions = createReactClass({
   render() {
     const controls = [];
     const user = this.props.current_user;
-
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
       // If user is a student, show the 'leave' button.
@@ -122,7 +123,7 @@ const AvailableActions = createReactClass({
       ));
     }
     // If the user is an instructor or admin, and the course is published, show a manual stats update button
-    if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
+    if ((user.isEnrolled || user.isAdmin) && (this.state.course.type === 'Editathon' && !this.state.course.ended)) {
       controls.push((
         <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
       ));
