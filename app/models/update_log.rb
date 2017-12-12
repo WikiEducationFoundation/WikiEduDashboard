@@ -12,37 +12,34 @@ class UpdateLog
   end
 
   def self.average_delay
-    setting_record
-    @setting.value['average_delay'] ? @setting.value['average_delay']: nil
+    setting_record.value['average_delay'] ? setting_record.value['average_delay']: nil
   end
 
   def self.last_update
-    setting_record
-    @setting.value['constant_update'] ? @setting.value['constant_update'].values.last['end_time'] : nil
+    setting_record.value['constant_update'] ? setting_record.value['constant_update'].values.last['end_time'] : nil
   end
 
   class << self
 
     def setting_record
-      @setting = Setting.find_or_create_by(key: 'metrics_update')
+      @setting ||= Setting.find_or_create_by(key: 'metrics_update')
     end
-    
+
     def add_new_log(starttime, endtime)
-      setting_record
-      if @setting.value['constant_update'] === nil
-        @setting.value['constant_update'] = Hash.new
+      if setting_record.value['constant_update'] === nil
+        setting_record.value['constant_update'] = Hash.new
       end
-      @last_update = @setting.value['constant_update'].keys.last
+      @last_update = setting_record.value['constant_update'].keys.last
       if @last_update === nil
-        index = 0 
+        index = 0
       else
         index = @last_update + 1
       end
-      @setting.value['constant_update'][index] = {'start_time' => starttime, 'end_time' => endtime}
+      setting_record.value['constant_update'][index] = {'start_time' => starttime, 'end_time' => endtime}
     end
 
     def delete_old_log
-      return @setting.value['constant_update'].delete(@last_update - MAX_UPDATES_TO_KEEP) if @last_update != nil && @last_update >= MAX_UPDATES_TO_KEEP
+      return setting_record.value['constant_update'].delete(@last_update - MAX_UPDATES_TO_KEEP) if @last_update != nil && @last_update >= MAX_UPDATES_TO_KEEP
     end
 
     def log_delay
