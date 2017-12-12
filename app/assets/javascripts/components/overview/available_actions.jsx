@@ -44,6 +44,15 @@ const AvailableActions = createReactClass({
     this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
   },
 
+  updateStats() {
+    const updateUrl = `${window.location.origin}/courses/${this.state.course.slug}/manual_update`;
+    const onConfirm = function () {
+      return window.location = updateUrl;
+    };
+    const confirmMessage = I18n.t('courses.confirm_manual_update');
+    this.props.initiateConfirm(confirmMessage, onConfirm);
+  },
+
   leave() {
     if (confirm(I18n.t('courses.leave_confirmation'))) {
       const userObject = { user_id: this.props.current_user.id, role: 0 };
@@ -73,7 +82,6 @@ const AvailableActions = createReactClass({
   render() {
     const controls = [];
     const user = this.props.current_user;
-
     // If user has a role in the course or is an admin
     if ((user.role !== undefined) || user.admin) {
       // If user is a student, show the 'leave' button.
@@ -114,6 +122,13 @@ const AvailableActions = createReactClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
+    // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
+    if ((user.isEnrolled || user.isAdmin) && (this.state.course.type === 'Editathon' && !this.state.course.ended)) {
+      controls.push((
+        <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
+      ));
+    }
+
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
     if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {

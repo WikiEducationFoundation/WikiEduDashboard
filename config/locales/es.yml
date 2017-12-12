@@ -378,6 +378,7 @@ es:
     suggestions_sending: Enviando comentarios...
     suggestions_sent: Comentarios enviados. Gracias por tu interes.
     suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
+    update_stats: Actualiza las estadísticas
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
