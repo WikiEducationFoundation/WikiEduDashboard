@@ -48,7 +48,7 @@ const AvailableActions = createReactClass({
     const UpdateUrl = `${window.location.origin}/courses/${this.state.course.id}/manual_update`;
     if (confirm('Are you sure you want to run a manual update?')) {
       return window.location = UpdateUrl;
-    };
+    }
   },
 
   leave() {
