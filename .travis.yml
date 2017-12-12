@@ -18,7 +18,7 @@ addons:
     - r-base
 before_install:
 - rvm --default use 2.3.1
-- export PATH=$PATH:yarn global bin
+- export PATH=$PATH:`yarn global bin`
 - export DB=test
 - export SENDER_EMAIL_ADDRESS='sender@wikiedu.org'
 - nvm install stable
