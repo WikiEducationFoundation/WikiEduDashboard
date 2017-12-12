@@ -122,7 +122,7 @@ const AvailableActions = createReactClass({
         <p key="join"><button onClick={this.join} className="button">{CourseUtils.i18n('join_course', this.state.course.string_prefix)}</button></p>
       ));
     }
-    // If the user is an instructor or admin, and the course is published, show a manual stats update button
+    // If the user is enrolled in the course or admin, and the course type is editathon and not finished, show a manual stats update button
     if ((user.isEnrolled || user.isAdmin) && (this.state.course.type === 'Editathon' && !this.state.course.ended)) {
       controls.push((
         <p key="updateStats"><button className="button" onClick={this.updateStats}>{I18n.t('courses.update_stats')}</button></p>
