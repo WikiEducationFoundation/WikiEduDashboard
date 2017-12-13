@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateLog
   ####################
   # CONSTANTS        #
@@ -13,7 +15,7 @@ class UpdateLog
   end
 
   def self.average_delay
-    setting_record.value['average_delay'] ? setting_record.value['average_delay']: nil
+    setting_record.value['average_delay'] ? setting_record.value['average_delay'] : nil
   end
 
   def self.last_update
@@ -21,7 +23,6 @@ class UpdateLog
   end
 
   class << self
-
     def setting_record
       @setting ||= Setting.find_or_create_by(key: 'metrics_update')
     end
@@ -47,8 +48,8 @@ class UpdateLog
     def log_delay
       constant_update = @setting.value['constant_update']
       return unless constant_update && constant_update.keys.length > 1
-      times = constant_update.map {|key, value| Time.parse(value["end_time"].to_s)}
-      seconds = (times[times.length-1] - times[0])/(times.length-1)
+      times = constant_update.map { |key, value| Time.parse(value['end_time'].to_s) }
+      seconds = (times[times.length - 1] - times[0]) / (times.length - 1)
       @setting.value['average_delay'] = seconds
     end
 
@@ -56,5 +57,4 @@ class UpdateLog
       @setting.save
     end
   end
-
 end
