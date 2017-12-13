@@ -15,11 +15,6 @@ const RevisionHandler = createReactClass({
     course: PropTypes.object,
   },
 
-  getInitialState() {
-    return {
-      limit: 50
-    };
-  },
 
   componentWillMount() {
     return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
