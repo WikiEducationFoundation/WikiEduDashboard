@@ -29,18 +29,14 @@ class UpdateLog
       @setting ||= Setting.find_or_create_by(key: 'metrics_update')
     end
 
-    def add_new_log(starttime, endtime)
+    def add_new_log(start_time, end_time)
       setting_record.value['constant_update'] ||= {}
-
       @last_update = setting_record.value['constant_update'].keys.last
-      if @last_update === nil
-        index = 0
-      else
-        index = @last_update + 1
-      end
-      setting_record.value['constant_update'][index] = {
-        'start_time' => starttime,
-        'end_time' => endtime
+      this_update = @last_update ? @last_update + 1 : 0
+
+      setting_record.value['constant_update'][this_update] = {
+        'start_time' => start_time,
+        'end_time' => end_time
       }
     end
 
