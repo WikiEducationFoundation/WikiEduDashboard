@@ -4,9 +4,26 @@ describe UpdateLog do
   describe '.log_updates' do
     it 'adds the time of the metrics last update as a value to the settings table' do
       UpdateLog.log_updates(Time.now, Time.now)
-      @setting = UpdateLog.setting_record
-      expect(@setting.value['constant_update'].values.last['end_time']).to be_within(2.seconds).of(Time.now)
+      setting = UpdateLog.setting_record
+      expect(setting.value['constant_update'].values.last['end_time']).to be_within(2.seconds).of(Time.now)
     end
+
+    it 'adds a maximum of 10 records' do
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      UpdateLog.log_updates(Time.now, Time.now)
+      number_of_updates = UpdateLog.setting_record.value['constant_update'].keys.length
+      expect(number_of_updates).to be(10)
+    end
+
   end
   describe '.last_update' do
     it 'returns the time of the last update' do
@@ -51,6 +68,6 @@ describe UpdateLog do
       delay = UpdateLog.average_delay
       expect(delay).to be(nil)
     end
-    
+
   end
 end
