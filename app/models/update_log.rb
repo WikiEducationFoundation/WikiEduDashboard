@@ -51,8 +51,8 @@ class UpdateLog
 
     def log_delay
       constant_update = @setting.value['constant_update']
-      return unless constant_update&.keys&.length&. > 1
-      times = constant_update.map { |key, value| Time.parse(value['end_time'].to_s) }
+      return unless constant_update&.length&. > 1
+      times = constant_update.values.map { |log| Time.parse(log['end_time'].to_s) }
       seconds = (times[times.length - 1] - times[0]) / (times.length - 1)
       @setting.value['average_delay'] = seconds
     end
