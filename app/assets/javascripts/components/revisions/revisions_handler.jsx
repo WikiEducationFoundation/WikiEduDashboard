@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import RevisionList from './revision_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
+import { connect } from "react-redux";
+import { showMore } from '../../actions/revisions_actions.js';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -27,12 +29,6 @@ const RevisionHandler = createReactClass({
     return UIActions.sort('revisions', e.target.value);
   },
 
-  showMore() {
-    const newLimit = this.state.limit + 100;
-    this.setState({ limit: newLimit });
-    return ServerActions.fetchCourseRevisions(this.props.course_id, newLimit);
-  },
-
   render() {
     return (
       <div id="revisions">
@@ -49,11 +45,13 @@ const RevisionHandler = createReactClass({
           </div>
         </div>
         <RevisionList course={this.props.course} />
-        <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>
+        <div><button className="button ghost stacked right" onClick={this.props.showMore}>{I18n.t('revisions.see_more')}</button></div>
       </div>
     );
   }
 }
 );
 
-export default RevisionHandler;
+const mapDispatchToProps = { showMore };
+
+export default connect(null, mapDispatchToProps)(RevisionHandler);
