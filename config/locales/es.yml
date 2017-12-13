@@ -492,6 +492,7 @@ es:
     label: Actividad del curso
     are_updated: Según la última actualización del sistema
     last_update: Última actualización
+    average_delay: Tiempo de espera medio
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
