@@ -1,5 +1,4 @@
-import ApiFailAction from "./api_fail_action.js";
-import { RECEIVE_DYK } from "../constants";
+import { RECEIVE_DYK, API_FAIL } from "../constants";
 import API from "../utils/api.js";
 
 export const fetchDYKArticles = (opts = {}) => dispatch => {
@@ -12,9 +11,6 @@ export const fetchDYKArticles = (opts = {}) => dispatch => {
             data: resp,
           }
         }))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => ApiFailAction.fail(response))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };

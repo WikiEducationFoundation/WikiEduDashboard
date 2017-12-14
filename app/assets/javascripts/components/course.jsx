@@ -7,7 +7,6 @@ import ServerActions from '../actions/server_actions.js';
 import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
 import UserStore from '../stores/user_store.js';
-import NotificationStore from '../stores/notification_store.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
@@ -39,7 +38,7 @@ const Course = createReactClass({
     current_user: PropTypes.object
   },
 
-  mixins: [CourseStore.mixin, UserStore.mixin, NotificationStore.mixin, WeekStore.mixin],
+  mixins: [CourseStore.mixin, UserStore.mixin, WeekStore.mixin],
 
   getInitialState() {
     return getState();

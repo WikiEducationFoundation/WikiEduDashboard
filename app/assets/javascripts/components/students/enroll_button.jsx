@@ -9,7 +9,7 @@ import ServerActions from '../../actions/server_actions.js';
 import UserStore from '../../stores/user_store.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
-import NotificationActions from '../../actions/notification_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 import { initiateConfirm } from '../../actions/confirm_actions';
 
 const EnrollButton = createReactClass({
@@ -47,7 +47,7 @@ const EnrollButton = createReactClass({
     if (!this.refs.username) { return; }
     const username = this.refs.username.value;
     if (UserStore.getFiltered({ username, role: this.props.role }).length > 0) {
-      NotificationActions.addNotification({
+      this.props.addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
         type: 'success'
@@ -87,7 +87,7 @@ const EnrollButton = createReactClass({
       return this.props.initiateConfirm(confirmMessage, onConfirm);
     }
     // If the user us already enrolled
-    return NotificationActions.addNotification({
+    return this.props.addNotification({
       message: I18n.t('users.already_enrolled'),
       closable: true,
       type: 'error'
@@ -202,7 +202,7 @@ const EnrollButton = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm };
+const mapDispatchToProps = { initiateConfirm, addNotification };
 
 export default connect(null, mapDispatchToProps)(
   Conditional(PopoverExpandable(EnrollButton))

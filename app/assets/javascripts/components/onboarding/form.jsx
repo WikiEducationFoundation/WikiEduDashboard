@@ -2,13 +2,16 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
+import { connect } from "react-redux";
+
 import API from '../../utils/api.js';
-import NotificationActions from '../../actions/notification_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 
 const Form = createReactClass({
   propTypes: {
     currentUser: PropTypes.object,
-    returnToParam: PropTypes.string
+    returnToParam: PropTypes.string,
+    addNotification: PropTypes.func
   },
 
   getInitialState() {
@@ -44,8 +47,8 @@ const Form = createReactClass({
       return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
     }
     )
-    .catch(function () {
-      NotificationActions.addNotification({
+    .catch(() => {
+      this.props.addNotification({
         message: I18n.t('error_500.explanation'),
         closable: true,
         type: 'error'
@@ -101,4 +104,6 @@ const Form = createReactClass({
   }
 });
 
-export default Form;
+const mapDispatchToProps = { addNotification };
+
+export default connect(null, mapDispatchToProps)(Form);

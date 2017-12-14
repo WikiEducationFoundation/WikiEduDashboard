@@ -1,7 +1,20 @@
 import McFly from 'mcfly';
 const Flux = new McFly();
 
-const NotificationActions = Flux.createActions({
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "../constants";
+
+export const addNotification = (notification) => ({
+  type: ADD_NOTIFICATION,
+  notification
+});
+
+export const removeNotification = (notification) => ({
+  type: REMOVE_NOTIFICATION,
+  notification
+});
+
+// Deprecated flux action
+export const NotificationActions = Flux.createActions({
   removeNotification(notification) {
     return {
       actionType: 'REMOVE_NOTIFICATION',
@@ -16,5 +29,3 @@ const NotificationActions = Flux.createActions({
     };
   }
 });
-
-export default NotificationActions;

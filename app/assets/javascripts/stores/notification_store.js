@@ -18,7 +18,7 @@ const _notifications = [];
 //----------------------------------------
 
 const addNotification = function (notification) {
-  _notifications.push(notification);
+  _notifications.push({ store: 'flux', ...notification });
 };
 
 const removeNotification = function (notification) {
