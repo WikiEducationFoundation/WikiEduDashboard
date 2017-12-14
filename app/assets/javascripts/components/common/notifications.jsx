@@ -1,7 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { connect } from "react-redux";
+
+import { removeNotification, NotificationActions } from '../../actions/notification_actions.js';
 import NotificationStore from '../../stores/notification_store.js';
-import NotificationActions from '../../actions/notification_actions.js';
 
 const Notifications = createReactClass({
   displayName: 'Notifications',
@@ -17,7 +19,10 @@ const Notifications = createReactClass({
   },
 
   _handleClose(notification) {
-    return NotificationActions.removeNotification(notification);
+    if (notification.store === 'flux') {
+      return NotificationActions.removeNotification(notification);
+    }
+    return this.props.removeNotification(notification);
   },
 
   _renderNotification(notification, i) {
@@ -58,7 +63,8 @@ const Notifications = createReactClass({
   },
 
   render() {
-    const notifications = this.state.notifications.map((n, i) => this._renderNotification(n, i));
+    const allNotifications = this.props.notifications.concat(this.state.notifications);
+    const notifications = allNotifications.map((n, i) => this._renderNotification(n, i));
 
     return (
       <div className="notifications">
@@ -68,4 +74,10 @@ const Notifications = createReactClass({
   }
 });
 
-export default Notifications;
+const mapStateToProps = state => ({
+  notifications: state.notifications
+});
+
+const mapDispatchToProps = { removeNotification };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

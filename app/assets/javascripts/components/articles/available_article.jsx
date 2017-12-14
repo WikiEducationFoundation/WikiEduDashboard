@@ -1,23 +1,24 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
-import NotificationActions from '../../actions/notification_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 
-const AvailableArticle = createReactClass({
+export const AvailableArticle = createReactClass({
   displayName: 'AvailableArticle',
 
   propTypes: {
     assignment: PropTypes.object,
     current_user: PropTypes.object,
-    course: PropTypes.object
+    course: PropTypes.object,
+    addNotification: PropTypes.func
   },
 
-  onSelectHandler(e) {
-    e.preventDefault();
-
+  onSelectHandler() {
     const assignment = {
       id: this.props.assignment.id,
       user_id: this.props.current_user.id,
@@ -25,7 +26,7 @@ const AvailableArticle = createReactClass({
     };
 
     const title = this.props.assignment.article_title;
-    NotificationActions.addNotification({
+    this.props.addNotification({
       message: I18n.t('assignments.article', { title }),
       closable: true,
       type: 'success'
@@ -96,4 +97,6 @@ const AvailableArticle = createReactClass({
 }
 );
 
-export default AvailableArticle;
+const mapDispatchToProps = { addNotification };
+
+export default connect(null, mapDispatchToProps)(AvailableArticle);

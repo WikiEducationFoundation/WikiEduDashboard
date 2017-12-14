@@ -1,5 +1,4 @@
 import * as types from '../constants';
-import ApiFailAction from './api_fail_action.js';
 import API from '../utils/api.js';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
@@ -16,9 +15,6 @@ export function fetchArticleDetails(articleId, courseId) {
         articleId: articleId,
         data: response
       })))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => (ApiFailAction.fail(response)));
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
   };
 }

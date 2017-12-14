@@ -1,5 +1,4 @@
-import ApiFailAction from "./api_fail_action.js";
-import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY } from "../constants";
+import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCategoriesPromise = (courseSlug) => {
@@ -27,10 +26,7 @@ export const fetchCategories = (courseSlug) => dispatch => {
           type: RECEIVE_CATEGORIES,
           data: resp,
         }))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => ApiFailAction.fail(response))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
@@ -59,10 +55,7 @@ export const addCategory = (categoryCourse) => dispatch => {
           type: ADD_CATEGORY,
           data: resp,
         }))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => ApiFailAction.fail(response))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
@@ -91,9 +84,6 @@ export const removeCategory = (courseId, categoryId) => dispatch => {
           type: DELETE_CATEGORY,
           data: resp,
         }))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => ApiFailAction.fail(response))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
