@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 
 import AssignCell from '../students/assign_cell.jsx';
-import AvailableArticle from './available_article.jsx';
+import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
 
@@ -51,7 +51,7 @@ const AvailableArticles = createReactClass({
       elements = this.state.assignments.map((assignment) => {
         if (assignment.user_id === null && !assignment.deleted) {
           return (
-            <AvailableArticle
+            <ConnectedAvailableArticle
               {...this.props}
               assignment={assignment}
               key={assignment.id}

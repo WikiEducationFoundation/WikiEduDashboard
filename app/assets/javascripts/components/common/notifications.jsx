@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from "react-redux";
 
-import { addNotification, removeNotification, NotificationActions } from '../../actions/notification_actions.js';
+import { removeNotification, NotificationActions } from '../../actions/notification_actions.js';
 import NotificationStore from '../../stores/notification_store.js';
 
 const Notifications = createReactClass({
@@ -78,6 +78,6 @@ const mapStateToProps = state => ({
   notifications: state.notifications
 });
 
-const mapDispatchToProps = { addNotification, removeNotification };
+const mapDispatchToProps = { removeNotification };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifications);

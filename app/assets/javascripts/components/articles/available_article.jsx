@@ -8,7 +8,7 @@ import ServerActions from '../../actions/server_actions.js';
 import AssignmentActions from '../../actions/assignment_actions.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
-const AvailableArticle = createReactClass({
+export const AvailableArticle = createReactClass({
   displayName: 'AvailableArticle',
 
   propTypes: {

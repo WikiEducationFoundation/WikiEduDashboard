@@ -1,24 +1,22 @@
 import '../../testHelper';
-
 import React from 'react';
 
-import sinon from 'sinon';
-
-import AvailableArticle from '../../../app/assets/javascripts/components/articles/available_article.jsx';
-import NotificationActions from '../../../app/assets/javascripts/actions/notification_actions.js';
+import { AvailableArticle } from '../../../app/assets/javascripts/components/articles/available_article.jsx';
 
 describe('AvailableArticle', () => {
   const props = {
     course: { home_wiki: { language: 'en', project: 'wikipedia' } },
     assignment: { article_title: 'two' },
-    current_user: { role: 0 } // student role
+    current_user: { role: 0 }, // student role
   };
 
   it('renders', () => {
     const TestDom = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <AvailableArticle {...props} />
+          <AvailableArticle
+            {...props}
+          />
         </tbody>
       </table>
     );
@@ -26,20 +24,22 @@ describe('AvailableArticle', () => {
     expect(TestDom.textContent).to.contain('two');
   });
 
-  it('notify when selec an article', () => {
+  it('notify when an article is selected', () => {
+    const spy = jest.fn();
     const TestDom = ReactTestUtils.renderIntoDocument(
       <table>
         <tbody>
-          <AvailableArticle {...props} />
+          <AvailableArticle
+            {...props}
+            addNotification={spy}
+          />
         </tbody>
       </table>
     );
 
-    const spy = sinon.spy(NotificationActions, 'addNotification');
-
     const select = TestDom.querySelector('button');
     ReactTestUtils.Simulate.click(select);
 
-    expect(spy.callCount).to.eq(1);
+    expect(spy.mock.calls.length).to.eq(1);
   });
 });
