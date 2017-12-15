@@ -7,11 +7,7 @@ import RevisionStore from '../../stores/revision_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
-const getState = () => ({
-  revisions: RevisionStore.getModels()
-});
-
-const RevisionList = ({ revisions, course }) => {
+const RevisionList = ({ revisions, course, sortBy }) => {
   const elements = revisions.map(revision => {
     return <Revision revision={revision} key={revision.id} />;
   });
@@ -46,7 +42,7 @@ const RevisionList = ({ revisions, course }) => {
       keys={keys}
       table_key="revisions"
       none_message={CourseUtils.i18n('revisions_none', course.string_prefix)}
-      store={RevisionStore}
+      sortBy={sortBy}
     />
   );
 };
@@ -56,9 +52,4 @@ RevisionList.propTypes = {
   course: PropTypes.object
 };
 
-export default Editable(
-  RevisionList,
-  [RevisionStore],
-  ServerActions.saveRevisions,
-  getState
-);
+export default RevisionList;

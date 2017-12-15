@@ -1,12 +1,32 @@
-import { RECEIVE_REVISIONS, RECEIVE_MORE_REVISIONS } from '../constants';
-const initialState = 10;
+import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
+import _ from 'lodash';
 
-export default function ui(state = initialState, action) {
+const initialState = {
+  revisions: [],
+  limit: 50,
+  limitReached: false,
+  sortKey: null
+};
+
+const isLimitReached = (revs, limit) => {
+  return (revs.length < limit)
+}
+
+export default function revisions(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_REVISIONS:
-      console.log(state + 1)
-    case RECEIVE_MORE_REVISIONS:
-      return state + 2;
+      return {
+        revisions: action.data.course.revisions,
+        limit: action.limit,
+        limitReached: isLimitReached(action.data.course.revisions, action.limit)
+      }
+    case SORT_REVISIONS: {
+      const newState = { ...state }
+      newState.revisions = _.sortBy(state.revisions, action.key);
+      newState.sortKey = action.key
+
+      return newState;
+    }
     default:
       return state;
   }

@@ -7,7 +7,7 @@ import feedback from './feedback.js';
 import userCourses from './user_courses.js';
 import ui from './ui.js';
 import didYouKnow from './did_you_know.js';
-import showMore from './revisions.js';
+import revisions from './revisions.js';
 
 const reducer = combineReducers({
   articleDetails,
@@ -18,7 +18,7 @@ const reducer = combineReducers({
   userCourses,
   ui,
   didYouKnow,
-  showMore
+  revisions
 });
 
 export default reducer;

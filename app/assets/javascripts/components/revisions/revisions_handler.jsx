@@ -3,9 +3,8 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import RevisionList from './revision_list.jsx';
 import UIActions from '../../actions/ui_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 import { connect } from "react-redux";
-import { showMore } from '../../actions/revisions_actions.js';
+import { fetchRevisions, sortRevisions } from "../../actions/revisions_actions.js";
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',
@@ -13,18 +12,29 @@ const RevisionHandler = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object,
+    fetchRevisions: PropTypes.func,
+    limitReached: PropTypes.bool,
+    limit: PropTypes.number,
+    revisions: PropTypes.array
   },
 
-
   componentWillMount() {
-    return ServerActions.fetchCourseRevisions(this.props.course_id, this.state.limit);
+    return this.props.fetchRevisions(this.props.course_id, this.props.limit);
   },
 
   sortSelect(e) {
-    return UIActions.sort('revisions', e.target.value);
+    return this.props.sortRevisions(e.target.value);
+  },
+
+  showMore() {
+    return this.props.fetchRevisions(this.props.course_id, this.props.limit + 100);
   },
 
   render() {
+    let showMoreButton;
+    if (!this.props.limitReached) {
+      showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
+    }
     return (
       <div id="revisions">
         <div className="section-header">
@@ -39,14 +49,22 @@ const RevisionHandler = createReactClass({
             </select>
           </div>
         </div>
-        <RevisionList course={this.props.course} />
-        <div><button className="button ghost stacked right" onClick={this.props.showMore}>{I18n.t('revisions.see_more')}</button></div>
+        <RevisionList revisions={this.props.revisions} course={this.props.course} sortBy={this.props.sortRevisions} />
+        {showMoreButton}
       </div>
     );
   }
-}
-);
+});
 
-const mapDispatchToProps = { showMore };
+const mapStateToProps = state => ({
+  limit: state.revisions.limit,
+  revisions: state.revisions.revisions,
+  limitReached: state.revisions.limitReached
+});
 
-export default connect(null, mapDispatchToProps)(RevisionHandler);
+const mapDispatchToProps = {
+  fetchRevisions,
+  sortRevisions
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RevisionHandler);
