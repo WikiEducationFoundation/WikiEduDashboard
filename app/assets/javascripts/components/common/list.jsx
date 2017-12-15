@@ -19,13 +19,13 @@ const List = ({
   const headers = [];
   const iterable = Object.keys(keys);
 
-  const sortByFunction = (table_key, key) => {
+  const sortByFunction = (tableKey, key) => {
     if (sortBy) {
       return () => {
         sortBy(key);
       };
     }
-    return UIActions.sort.bind(null, table_key, key);
+    return UIActions.sort.bind(null, tableKey, key);
   };
 
   for (let i = 0; i < iterable.length; i++) {
