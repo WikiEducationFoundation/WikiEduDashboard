@@ -31,6 +31,7 @@ describe('CourseCreator', () => {
   describe('render', () => {
     const TestCourseCreator = shallow(
       <CourseCreator
+        courseCreator={{}}
         fetchCoursesForUser={() => {}}
         user_courses={["some_course"]}
       />

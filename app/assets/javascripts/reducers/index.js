@@ -3,6 +3,7 @@ import articleDetails from './article_details';
 import categories from './categories';
 import confirm from './confirm';
 import course from './course';
+import courseCreator from './course_creator';
 import didYouKnow from './did_you_know';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
@@ -16,7 +17,7 @@ const reducer = combineReducers({
   categories,
   confirm,
   course,
-  courseCreator: (state = {}) => state,
+  courseCreator,
   didYouKnow,
   feedback,
   needHelpAlert,

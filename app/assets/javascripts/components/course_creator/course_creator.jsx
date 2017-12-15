@@ -54,7 +54,7 @@ const CourseCreator = createReactClass({
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
     };
 
-    return $.extend({}, inits, getState());
+    return { ...inits, ...getState() };
   },
 
   componentWillMount() {
