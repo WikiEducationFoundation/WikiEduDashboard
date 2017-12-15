@@ -8,7 +8,7 @@ import CourseStore from '../../stores/course_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import CourseCreationActions from '../../actions/course_creation_actions.js';
+import { CourseCreationActions, updateCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 
@@ -38,6 +38,7 @@ const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
 
   propTypes: {
+    course: PropTypes.object.isRequired,
     user_courses: PropTypes.array.isRequired,
     fetchCoursesForUser: PropTypes.func.isRequired
   },
@@ -467,11 +468,13 @@ const CourseCreator = createReactClass({
 });
 
 const mapStateToProps = state => ({
+  course: state.course,
   user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
 });
 
 const mapDispatchToProps = ({
-  fetchCoursesForUser: fetchCoursesForUser
+  fetchCoursesForUser,
+  updateCourse
 });
 
 // exporting two difference ways as a testing hack.

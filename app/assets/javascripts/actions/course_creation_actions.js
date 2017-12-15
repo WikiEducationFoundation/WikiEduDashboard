@@ -1,8 +1,9 @@
 import McFly from 'mcfly';
 const Flux = new McFly();
 import API from '../utils/api.js';
+import { UPDATE_COURSE } from '../constants';
 
-const CourseCreationActions = Flux.createActions({
+export const CourseCreationActions = Flux.createActions({
   fetchCampaign(slug) {
     return API.fetchCampaign(slug)
       .then(resp => ({ actionType: 'RECEIVE_INITIAL_CAMPAIGN', data: resp }))
@@ -10,4 +11,4 @@ const CourseCreationActions = Flux.createActions({
   }
 });
 
-export default CourseCreationActions;
+export const updateCourse = course => ({ type: UPDATE_COURSE, course });
