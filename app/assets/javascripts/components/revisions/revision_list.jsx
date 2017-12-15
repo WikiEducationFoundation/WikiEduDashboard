@@ -18,7 +18,7 @@ const RevisionList = ({ revisions, course, sortBy }) => {
       label: I18n.t('revisions.title'),
       desktop_only: false
     },
-    edited_by: {
+    revisor: {
       label: I18n.t('revisions.edited_by'),
       desktop_only: true
     },

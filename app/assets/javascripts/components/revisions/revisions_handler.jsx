@@ -42,7 +42,7 @@ const RevisionHandler = createReactClass({
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="rating_num">{I18n.t('revisions.class')}</option>
               <option value="title">{I18n.t('revisions.title')}</option>
-              <option value="edited_by">{I18n.t('revisions.edited_by')}</option>
+              <option value="revisor">{I18n.t('revisions.edited_by')}</option>
               <option value="characters">{I18n.t('revisions.chars_added')}</option>
               <option value="date">{I18n.t('revisions.date_time')}</option>
             </select>
