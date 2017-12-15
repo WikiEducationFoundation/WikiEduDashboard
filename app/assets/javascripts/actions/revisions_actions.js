@@ -1,5 +1,4 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS } from "../constants";
-import ApiFailAction from "./api_fail_action.js";
+import { RECEIVE_REVISIONS, SORT_REVISIONS, API_FAIL } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchRevisionsPromise = (courseId, limit) => {
@@ -27,10 +26,7 @@ export const fetchRevisions = (courseId, limit) => dispatch => {
           data: resp,
           limit: limit
         }))
-      // TODO: The Flux stores still handle API failures, so we delegate to a
-      // Flux action. Once all API_FAIL actions can be handled by Redux, we can
-      // replace this with a regular action dispatch.
-      .catch(response => ApiFailAction.fail(response))
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
 
