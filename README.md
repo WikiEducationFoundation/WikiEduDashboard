@@ -40,7 +40,7 @@ Overview:
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
-- [Contact Us](CONTACTUS.md)
+
 
 
 ### Translation
