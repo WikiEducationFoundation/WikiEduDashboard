@@ -41,8 +41,6 @@ Overview:
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
 
-
-
 ### Translation
 Translations for the Wiki Education Dashboard interface are handled through [translatewiki.net](https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard).
 
