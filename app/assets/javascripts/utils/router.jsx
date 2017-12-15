@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory, IndexRedirect } from 'react-router';
 
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from '../reducers';
 
@@ -41,9 +41,12 @@ import Nav from '../components/nav.jsx';
 
 // This is the Redux store.
 // It is accessed from container components via `connect()`.
+// Enable Redux DevTools browser extension.
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
-  applyMiddleware(thunk)
+  /* preloadedState, */
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 // Handle scroll position for back button, hashes, and normal links
