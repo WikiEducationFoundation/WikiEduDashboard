@@ -26,6 +26,7 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.last_update UpdateLog.last_update
+  json.passcode_required @course.passcode_required?
 
   if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)

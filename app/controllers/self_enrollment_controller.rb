@@ -19,6 +19,9 @@ class SelfEnrollmentController < ApplicationController
     # Redirect to sign in (with callback leading back to this method)
     redirect_if_user_logged_out { return }
 
+    # Allow no passcode if the course doesn't require it
+    allow_no_passcode_if_not_required { return }
+
     redirect_if_passcode_invalid { return }
 
     # Creates the CoursesUsers record
@@ -84,6 +87,20 @@ class SelfEnrollmentController < ApplicationController
     # If course has no passcode set, treat any submission as valid.
     return true if @course.passcode.blank?
     params[:passcode] == @course.passcode
+  end
+
+  def allow_no_passcode_if_not_required
+    return if allow_no_passcode?
+    add_student_to_course
+    set_mediawiki_preferences
+    make_enrollment_edits
+    redirect_to course_slug_path(@course.slug)
+    yield
+  end
+
+  def allow_no_passcode?
+    # If course doesn't require a passcode, allow the user to join without one
+    return true if @course.passcode_required?
   end
 
   def add_student_to_course
