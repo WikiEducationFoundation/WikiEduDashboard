@@ -7,8 +7,8 @@ class UpdateLog
   # We want to keep a maximum number of 10 updates, so the last key we want to save is the ninth
   MAX_UPDATES_KEY = 9
 
-  def self.log_updates(input_hash)
-    add_new_log(input_hash)
+  def self.log_updates(times)
+    add_new_log(times)
     delete_old_log
     log_delay
     save_setting
@@ -29,12 +29,12 @@ class UpdateLog
       @setting ||= Setting.find_or_create_by(key: 'metrics_update')
     end
 
-    def add_new_log(input_hash)
+    def add_new_log(times)
       setting_record.value['constant_update'] ||= {}
       @last_update = setting_record.value['constant_update'].keys.last
       this_update = @last_update ? @last_update + 1 : 0
 
-      setting_record.value['constant_update'][this_update] = input_hash
+      setting_record.value['constant_update'][this_update] = times
     end
 
     def delete_old_log
