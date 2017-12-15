@@ -16,6 +16,7 @@ const reducer = combineReducers({
   categories,
   confirm,
   course,
+  courseCreator: (state = {}) => state,
   didYouKnow,
   feedback,
   needHelpAlert,

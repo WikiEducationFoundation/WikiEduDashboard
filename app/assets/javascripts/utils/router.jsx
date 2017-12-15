@@ -39,13 +39,24 @@ import RocketChat from '../components/common/rocket_chat.jsx';
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
 import Nav from '../components/nav.jsx';
 
+
+const reactRoot = document.getElementById('react_root');
+
+const preloadedState = {
+  courseCreator: {
+    defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
+    courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
+    useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
+  }
+};
+
 // This is the Redux store.
 // It is accessed from container components via `connect()`.
 // Enable Redux DevTools browser extension.
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   reducer,
-  /* preloadedState, */
+  preloadedState,
   composeEnhancers(applyMiddleware(thunk))
 );
 
@@ -111,19 +122,18 @@ const routes = (
   </Route>
 );
 
-const el = document.getElementById('react_root');
 const navBar = document.getElementById('nav_root');
 if (navBar) {
   ReactDOM.render((<Nav />
 ), navBar);
 }
 
-if (el) {
+if (reactRoot) {
   ReactDOM.render((
     <Provider store={store} >
       <Router history={browserHistory}>
         {routes}
       </Router>
     </Provider>
-  ), el);
+  ), reactRoot);
 }

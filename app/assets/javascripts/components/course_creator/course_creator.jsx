@@ -24,9 +24,6 @@ import CourseLevelSelector from './course_level_selector.jsx';
 
 import _ from 'lodash';
 
-import { getUserId } from '../../stores/user_id_store.js';
-import { getDefaultCourseType, getCourseStringPrefix, getUseStartAndEndTimes } from '../../stores/course_attributes_store';
-
 const getState = () => {
   return {
     course: CourseStore.getCourse(),
@@ -40,7 +37,8 @@ const CourseCreator = createReactClass({
   propTypes: {
     course: PropTypes.object.isRequired,
     user_courses: PropTypes.array.isRequired,
-    fetchCoursesForUser: PropTypes.func.isRequired
+    fetchCoursesForUser: PropTypes.func.isRequired,
+    courseCreator: PropTypes.object.isRequired
   },
 
   mixins: [CourseStore.mixin, ValidationStore.mixin],
@@ -51,9 +49,9 @@ const CourseCreator = createReactClass({
       isSubmitting: false,
       showCourseForm: false,
       showCloneChooser: false,
-      default_course_type: getDefaultCourseType(),
-      course_string_prefix: getCourseStringPrefix(),
-      use_start_and_end_times: getUseStartAndEndTimes()
+      default_course_type: this.props.courseCreator.defaultCourseType,
+      course_string_prefix: this.props.courseCreator.courseStringPrefix,
+      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
     };
 
     return $.extend({}, inits, getState());
@@ -66,7 +64,7 @@ const CourseCreator = createReactClass({
     if (campaignParam) {
       CourseCreationActions.fetchCampaign(campaignParam);
     }
-    return this.props.fetchCoursesForUser(getUserId());
+    return this.props.fetchCoursesForUser(currentUser.id);
   },
 
   campaignParam() {
@@ -469,6 +467,7 @@ const CourseCreator = createReactClass({
 
 const mapStateToProps = state => ({
   course: state.course,
+  courseCreator: state.courseCreator,
   user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
 });
 
