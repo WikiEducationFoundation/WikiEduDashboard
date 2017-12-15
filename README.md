@@ -40,6 +40,7 @@ Overview:
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)
 - [Model diagram](erd.pdf)
+- [Contact Us](CONTACTUS.md)
 
 ### Translation
 Translations for the Wiki Education Dashboard interface are handled through [translatewiki.net](https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard).
