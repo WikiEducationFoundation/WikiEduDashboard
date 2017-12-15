@@ -22,11 +22,11 @@ const List = ({
   const sortByFunction = (table_key, key) => {
     if (sortBy) {
       return () => {
-        sortBy(key)
+        sortBy(key);
       };
     }
     return UIActions.sort.bind(null, table_key, key);
-  }
+  };
 
   for (let i = 0; i < iterable.length; i++) {
     const key = iterable[i];

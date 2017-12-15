@@ -34,4 +34,4 @@ export const fetchRevisions = (courseId, limit) => dispatch => {
   );
 };
 
-export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key })
+export const sortRevisions = key => ({ type: SORT_REVISIONS, key: key });

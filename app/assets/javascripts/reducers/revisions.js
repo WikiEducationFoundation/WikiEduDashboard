@@ -9,8 +9,8 @@ const initialState = {
 };
 
 const isLimitReached = (revs, limit) => {
-  return (revs.length < limit)
-}
+  return (revs.length < limit);
+};
 
 export default function revisions(state = initialState, action) {
   switch (action.type) {
@@ -19,12 +19,16 @@ export default function revisions(state = initialState, action) {
         revisions: action.data.course.revisions,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.revisions, action.limit)
-      }
+      };
     case SORT_REVISIONS: {
-      const newState = { ...state }
-      newState.revisions = _.sortBy(state.revisions, action.key);
-      newState.sortKey = action.key
-
+      const newState = { ...state };
+      if (action.key === state.sortKey) {
+        newState.revisions = _.sortBy(state.revisions, action.key).reverse();
+        newState.sortKey = null;
+      } else {
+        newState.revisions = _.sortBy(state.revisions, action.key);
+        newState.sortKey = action.key;
+      }
       return newState;
     }
     default:
