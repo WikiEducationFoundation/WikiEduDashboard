@@ -18,7 +18,7 @@ const initialState = {
 export default function course(state = initialState, action) {
   switch (action.type) {
     case UPDATE_COURSE:
-      return { ...state, ...data.course };
+      return { ...state, ...action.course };
     case RECEIVE_INITIAL_CAMPAIGN: {
       const campaign = action.data.campaign;
       const newState = {
