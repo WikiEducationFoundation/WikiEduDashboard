@@ -4,6 +4,7 @@
 
 We love contributions! If you're looking for a way to get involved, contact
 Sage Ross (`ragesoss`).
+You can also join our [IRC Channel](https://webchat.freenode.net/?channels=#wikimedia-ed) ! 
 
 #### Bugs and enhancement issues
 
