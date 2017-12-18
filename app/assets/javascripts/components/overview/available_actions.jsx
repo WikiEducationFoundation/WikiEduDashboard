@@ -37,7 +37,7 @@ const AvailableActions = createReactClass({
   join() {
     if (this.state.course.allow_no_passcode) {
       const EnrollURL = this.state.course.enroll_url;
-      const onConfirm = function() {
+      const onConfirm = function () {
         return window.location = EnrollURL;
       };
       const confirmMessage = CourseUtils.i18n('join_no_passcode');
