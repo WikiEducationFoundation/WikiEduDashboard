@@ -135,7 +135,7 @@ describe 'Student users', type: :feature, js: true do
 
       expect(page).to have_content 'An Example Editathon'
 
-      click_button 'Join course'
+      click_button 'Join program'
       within('.confirm-modal') do
         click_button 'OK'
       end
