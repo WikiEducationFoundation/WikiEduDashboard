@@ -90,17 +90,12 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def allow_no_passcode_if_not_required
-    return if allow_no_passcode?
+    return unless @course.allow_no_passcode?
     add_student_to_course
     set_mediawiki_preferences
     make_enrollment_edits
     redirect_to course_slug_path(@course.slug)
     yield
-  end
-
-  def allow_no_passcode?
-    # If course doesn't require a passcode, allow the user to join without one
-    return true if @course.passcode_required?
   end
 
   def add_student_to_course
