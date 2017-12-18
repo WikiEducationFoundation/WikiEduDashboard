@@ -6,29 +6,32 @@ class UpdateLog
   ####################
   # We want to keep a maximum number of 10 updates, so the last key we want to save is the ninth
   MAX_UPDATES_KEY = 9
+  def instance_method
+    puts 'hola'
+  end
 
-  def self.log_updates(times)
+  def log_updates(times)
     add_new_log(times)
     delete_old_log
     log_delay
     save_setting
   end
 
-  def self.average_delay
+  def average_delay
     return unless setting_record.value['average_delay']
     setting_record.value['average_delay']
   end
 
-  def self.last_update
+  def last_update
     return unless setting_record.value['constant_update']
     setting_record.value['constant_update'].values.last['end_time']
   end
 
-  class << self
-    def setting_record
-      @setting ||= Setting.find_or_create_by(key: 'metrics_update')
-    end
+  def setting_record
+    @setting ||= Setting.find_or_create_by(key: 'metrics_update')
+  end
 
+  private
     def add_new_log(times)
       setting_record.value['constant_update'] ||= {}
       @last_update = setting_record.value['constant_update'].keys.last
@@ -53,5 +56,4 @@ class UpdateLog
     def save_setting
       @setting.save
     end
-  end
 end
