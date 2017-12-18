@@ -36,18 +36,6 @@ describe 'Student users', type: :feature, js: true do
            end: '2020-01-01'.to_date)
   end
 
-  let!(:second_editathon) do
-    create(:editathon,
-           title: 'Second Example Editathon',
-           school: 'University',
-           term: 'Term',
-           slug: 'University/Second_Example_Editathon_(Term)',
-           submitted: true,
-           passcode: 'passcode',
-           start: '2015-01-01'.to_date,
-           end: '2020-01-01'.to_date)
-  end
-
   before :each do
     create(:courses_user,
            user: instructor,
@@ -138,12 +126,12 @@ describe 'Student users', type: :feature, js: true do
       sleep 5
     end
 
-    it 'joins and leaves an editathon without a passcode' do
+    it 'joins an Editathon without a passcode' do
       login_as(user, scope: :user)
       stub_oauth_edit
 
       # click enroll button, enter passcode in alert popup to enroll
-      visit "/courses/University/An_Example_Editathon_(Term)"
+      visit "/courses/#{Editathon.first.slug}"
 
       expect(page).to have_content 'An Example Editathon'
 
@@ -154,35 +142,8 @@ describe 'Student users', type: :feature, js: true do
 
       sleep 3
 
-      visit "/courses/University/An_Example_Editathon_(Term)/students"
+      visit "/courses/#{Editathon.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content User.last.username
-
-      # now unenroll
-      visit "/courses/University/An_Example_Editathon_(Term)"
-
-      expect(page).to have_content 'An Example Editathon'
-
-      accept_confirm do
-        click_button 'Leave course'
-      end
-
-      sleep 3
-
-      visit "/courses/University/An_Example_Editathon_(Term)/students"
-      expect(find('tbody', match: :first)).not_to have_content User.last.username
-    end
-
-    it 'redirects to an error page if passcode is incorrect in Editathons' do
-      login_as(user, scope: :user)
-      visit "/courses/University/Second_Example_Editathon_(Term)"
-      sleep 1
-      click_button 'Join course'
-      within('.confirm-modal') do
-        find('input').set('')
-        click_button 'OK'
-      end
-      expect(page).to have_content 'Incorrect passcode'
-      sleep 5
     end
   end
 
