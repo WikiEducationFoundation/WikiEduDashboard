@@ -267,6 +267,9 @@ fr:
       %{title} ? Si oui, taper le titre du cours pour continuer.
     confirm_course_deletion_failed: « %{title} » n’est pas le titre de ce cours. Le
       cours n’a pas été supprimé.
+    confirm_manual_update: Êtes-vous sûr de vouloir exécuter une mise à jour manuelle ?
+      Les révisions les plus récentes seront importées puis la page rechargée. Ce
+      processus peut prendre un peu de temps.
     course: Cours
     course_dates_calendar_instructions: Sélectionner les dates à ajouter ou à supprimer
       du calendrier (par ex., vacances, pas d’école). Cliquer sur la date pour basculer
@@ -487,6 +490,7 @@ fr:
       et était attendu le %{date}.
     unsubmitted: Cours non soumis
     untrained: Sans formation
+    update_stats: Mettre à jour les statistiques
     uploads_none: Cette classe n'a importé aucune image ni aucun fichier media sur
       Wikimedia Commons.
     user_suggestions: 'Suggestions de l’utilisateur :'

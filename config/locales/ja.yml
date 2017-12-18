@@ -6,6 +6,7 @@
 # Author: Sudachi
 # Author: Sujiniku
 # Author: Thibaut120094
+# Author: Yusuke1109
 ---
 ja:
   application:
@@ -86,6 +87,7 @@ ja:
   courses:
     activity: 活動
     articles: 記事
+    confirm_manual_update: 手動アップデートを実行してもよろしいですか? 最新の版がインポートされ、ページがリロードされます。 このプロセスには時間がかかることがあります。
     creator:
       end_date: 終了日
       end_date_placeholder: 終了日 (YYYY-MM-DD)
@@ -106,6 +108,7 @@ ja:
     students_short: 学生
     timeline_link: タイムライン
     title: タイトル
+    update_stats: 使用統計
     view_page: コースのページを見る
   courses_generic:
     school: 施設

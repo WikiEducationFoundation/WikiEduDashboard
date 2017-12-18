@@ -152,6 +152,8 @@ ko:
     campaign_users: '%{title} 편집자'
     confirm_course_deletion: '%{title} 코스를 정말 제거하겠습니까? 과정 제목을 입력하여 계속하세요.'
     confirm_course_deletion_failed: '"%{title}"은(는) 이 과정의 제목이 아닙니다. 이 과정은 삭제되지 않았습니다.'
+    confirm_manual_update: 수동 업데이트를 수행하시겠습니까? 최근의 판을 가져온 다음 페이지를 다시 불러올 것입니다. 이 과정에는
+      어느 정도 시간이 소요될 수 있습니다.
     course_description: 코스
     courses: 과정
     creation_date: 만든 날짜

@@ -13,6 +13,8 @@ ce:
     sign_up: ДӀаяздар кхоллар
   articles:
     wiki: Вики
+  categories:
+    template_name: Кепан цӀе
   courses:
     creator:
       start_date: Долина терахь

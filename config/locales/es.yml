@@ -201,6 +201,16 @@ es:
       el texto de esta área se copiará como una descripción en la página del programa
     title: Título
     use_start_end_dates: Usar fechas de inicio y fin
+  categories:
+    add_category: Añadir categoría
+    add_template: Añadir plantilla
+    add_this_category: Añadir esta categoría
+    add_this_template: Añadir esta plantilla
+    depth: Profundidad de subcategorías
+    name: Nombre
+    category_name: Nombre de categoría
+    template_name: Nombre de plantilla
+    remove: Quitar
   chat:
     label: Chat
   courses:
@@ -233,6 +243,9 @@ es:
       %{title}? Si es así, escribe el título del curso para continuar.
     confirm_course_deletion_failed: «%{title}» no es el título de este curso. El curso
       no se ha eliminado.
+    confirm_manual_update: ¿Confirmas que quieres actualizar manualmante? Se importarán
+      las revisiones más recientes y se cargará de nuevo la página. El proceso podría
+      tomar algo de tiempo.
     course: Curso
     course_dates_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
       del calendario (por ejemplo, vacaciones, cuando no hay clases). Haz clic en
@@ -378,7 +391,6 @@ es:
     suggestions_sending: Enviando comentarios...
     suggestions_sent: Comentarios enviados. Gracias por tu interes.
     suggestions_failed: No se pudieron mandar los comentarios. Intenta luego.
-    update_stats: Actualiza las estadísticas
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
@@ -395,6 +407,7 @@ es:
       curso, y se esperaba el %{date}.
     unsubmitted: Cursos no presentados
     untrained: Sin capacitación
+    update_stats: Actualizar estadísticas
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
     view_other: Ver otras campañas

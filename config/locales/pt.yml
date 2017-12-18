@@ -291,6 +291,7 @@ pt:
       deveria ter sido realizado até %{date}
     unsubmitted: Cursos Não Submetidos
     untrained: Sem treinamento
+    update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu com nenhuma imagem ou outros arquivos
       de mídia no Wikimedia Commons.
     view: Ver Curso
