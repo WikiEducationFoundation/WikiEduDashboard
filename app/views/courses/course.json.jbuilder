@@ -26,7 +26,6 @@ json.course do
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.last_update UpdateLog.last_update
-  json.allow_no_passcode @course.allow_no_passcode?
 
   if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)
@@ -48,7 +47,8 @@ json.course do
     json.passcode @course.passcode
     json.canUploadSyllabus true
   elsif @course.passcode
-    json.passcode '****'
+    # If there is a passcode, send a placeholder value. If not, send empty string.
+    json.passcode @course.passcode.blank? ? '' : '****'
     json.canUploadSyllabus false
   end
 end

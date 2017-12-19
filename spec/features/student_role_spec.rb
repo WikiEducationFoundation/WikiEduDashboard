@@ -44,6 +44,9 @@ describe 'Student users', type: :feature, js: true do
     create(:campaigns_course,
            campaign: campaign,
            course: course)
+    create(:campaigns_course,
+           campaign: campaign,
+           course: editathon)
     create(:courses_user,
            user: classmate,
            course: course,
@@ -131,7 +134,7 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
 
       # click enroll button, enter passcode in alert popup to enroll
-      visit "/courses/#{Editathon.first.slug}"
+      visit "/courses/#{editathon.slug}"
 
       expect(page).to have_content 'An Example Editathon'
 
@@ -142,7 +145,7 @@ describe 'Student users', type: :feature, js: true do
 
       sleep 3
 
-      visit "/courses/#{Editathon.first.slug}/students"
+      visit "/courses/#{editathon.slug}/students"
       expect(find('tbody', match: :first)).to have_content User.last.username
     end
   end

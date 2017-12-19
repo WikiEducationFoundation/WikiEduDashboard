@@ -35,7 +35,7 @@ const AvailableActions = createReactClass({
   },
 
   join() {
-    if (this.state.course.allow_no_passcode) {
+    if (this.state.course.passcode === '') {
       const EnrollURL = this.state.course.enroll_url;
       const onConfirm = function () {
         return window.location = EnrollURL;
