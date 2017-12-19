@@ -47,7 +47,8 @@ json.course do
     json.passcode @course.passcode
     json.canUploadSyllabus true
   elsif @course.passcode
-    json.passcode '****'
+    # If there is a passcode, send a placeholder value. If not, send empty string.
+    json.passcode @course.passcode.blank? ? '' : '****'
     json.canUploadSyllabus false
   end
 end
