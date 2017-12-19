@@ -222,6 +222,11 @@ class Course < ActiveRecord::Base
     true
   end
 
+  # If course doesn't require a passcode and the course passcode is blank, allow the user to join without one
+  def allow_no_passcode?
+    return true if self.passcode_required? === false && self.passcode.blank?
+  end
+
   def current?
     start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
   end
