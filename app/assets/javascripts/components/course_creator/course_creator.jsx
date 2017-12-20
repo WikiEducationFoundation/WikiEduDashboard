@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
 
-import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import { CourseCreationActions, updateCourse, submitCourse } from '../../actions/course_creation_actions.js';
+import { fetchCampaign, updateCourse, submitCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 
@@ -38,7 +37,8 @@ const CourseCreator = createReactClass({
     fetchCoursesForUser: PropTypes.func.isRequired,
     courseCreator: PropTypes.object.isRequired,
     updateCourse: PropTypes.func.isRequired,
-    submitCourse: PropTypes.func.isRequired
+    submitCourse: PropTypes.func.isRequired,
+    fetchCampaign: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -58,13 +58,12 @@ const CourseCreator = createReactClass({
   },
 
   componentWillMount() {
-    CourseActions.addCourse();
     // If a campaign slug is provided, fetch the campaign.
     const campaignParam = this.campaignParam();
     if (campaignParam) {
-      CourseCreationActions.fetchCampaign(campaignParam);
+      this.props.fetchCampaign(campaignParam);
     }
-    return this.props.fetchCoursesForUser(currentUser.id);
+    this.props.fetchCoursesForUser(currentUser.id);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -132,9 +131,6 @@ const CourseCreator = createReactClass({
 
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
-    const courseAttrs = $.extend(true, {}, this.props.course);
-    courseAttrs[key] = value;
-    CourseActions.updateCourse(courseAttrs);
     if (_.includes(['title', 'school', 'term'], key)) {
       return ValidationActions.setValid('exists');
     }
@@ -143,7 +139,6 @@ const CourseCreator = createReactClass({
   updateCourseDates(key, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, key, value);
     this.props.updateCourse(updatedCourse);
-    CourseActions.updateCourse(updatedCourse);
   },
 
   updateCoursePrivacy(e) {
@@ -478,6 +473,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = ({
+  fetchCampaign,
   fetchCoursesForUser,
   updateCourse,
   submitCourse
