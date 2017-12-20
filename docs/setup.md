@@ -107,10 +107,10 @@ If you know your way around Rails, here's the very short version. Some additiona
       $ `zeus start`
 
 2. **Start Redis** (if not already running as daemon)
-    - Redis is used by Sidekiq. Some features — especially related to making edits on Wikipedia — will not work
-     when Redis is down.On a Linux-based system,it will probably be running as a daemon automatically after
-    installation.
-    On OSX,you may need to start it manually.
+    - Redis is used by Sidekiq. Some features — especially related to making
+    edits on Wikipedia — will not work when Redis is down. On a Linux-based system,
+    it will probably be running as a daemon automatically after installation. On OSX,
+    you may need to start it manually.
 
       $ `redis-server`
 
