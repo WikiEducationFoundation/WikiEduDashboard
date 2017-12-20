@@ -14,16 +14,6 @@ class UpdateLog
     save_setting
   end
 
-  def average_delay
-    return unless setting_record.value['average_delay']
-    setting_record.value['average_delay']
-  end
-
-  def last_update
-    return unless setting_record.value['constant_update']
-    setting_record.value['constant_update'].values.last['end_time']
-  end
-
   def updates
     return unless setting_record.value['average_delay'] || setting_record.value['constant_update']
     { "last_update" => setting_record.value['constant_update'].values.last['end_time'] , "average_delay" => setting_record.value['average_delay']}

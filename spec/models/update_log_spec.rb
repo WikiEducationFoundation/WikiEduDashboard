@@ -24,12 +24,12 @@ describe UpdateLog do
   describe '.last_update' do
     it 'returns the time of the last update' do
       UpdateLog.new.log_updates({"start_time" => Time.now, "end_time" => Time.now})
-      time = UpdateLog.new.last_update
+      time = UpdateLog.new.updates["last_delay"]
       expect(time).to be_within(5.seconds).of(Time.now)
     end
 
     it 'returns nil as the last update is not defined' do
-      time = UpdateLog.new.last_update
+      time = UpdateLog.new.updates["last_delay"]
       expect(time).to eq(nil)
     end
   end
@@ -59,19 +59,19 @@ describe UpdateLog do
                                 "end_time" => 8.hours.ago)
       UpdateLog.new.log_updates("start_time" => 8.hours.ago,
                                 "end_time" => 6.hours.ago)
-      delay = UpdateLog.new.average_delay
+      delay = UpdateLog.new.updates["average_delay"]
       expect(delay).to eq(7200)
     end
 
     it 'returns nil if there were no updates' do
-      delay = UpdateLog.new.average_delay
+      delay = UpdateLog.new.updates["average_delay"]
       expect(delay).to be(nil)
     end
 
     it 'returns nil if the there was only one update' do
       UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 11:11:33 +0100"),
                             "end_time" => Time.parse("2017-12-06 13:11:33 +0100"))
-      delay = UpdateLog.new.average_delay
+      delay = UpdateLog.new.updates["average_delay"]
       expect(delay).to be(nil)
     end
   end
