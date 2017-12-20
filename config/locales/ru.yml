@@ -11,6 +11,7 @@
 # Author: Kaganer
 # Author: Kareyac
 # Author: Lizalizaufa
+# Author: Lugimax
 # Author: Mailman
 # Author: Nzeemin
 # Author: Okras
@@ -169,6 +170,13 @@ ru:
     program_template: Шаблон программы
     title: Название
     use_start_end_dates: Использовать даты начала и окончания
+  categories:
+    add_category: Добавить категорию
+    add_template: Добавить шаблон
+    add_this_template: Добавить данный шаблон
+    name: Имя
+    category_name: Название категории
+    remove: Удалить
   chat:
     label: Чат
   courses:

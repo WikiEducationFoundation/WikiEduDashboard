@@ -207,6 +207,7 @@ zh-CN:
     campaign_users: '%{title}位编辑者'
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
+    confirm_manual_update: 您确定要运行手动更新么？最近修订版本将会导入，并且页面将会重新加载。此操作可能需要一些时间。
     course: 课程
     course_dates_calendar_instructions: 从时间表上选择日期以添加或移除它们（例如假日、不上课的时候）。点击日期以在未选择、已选择和假日状态之间更改。课程活动的日期将利用没有预定会议的周，对账户做出更改。
     course_description: 课程
@@ -359,6 +360,7 @@ zh-CN:
     training_overdue: 培训模块“%{title}”已分配给该课程，并已于%{date}到期。
     unsubmitted: 未提交的课程
     untrained: 未经训练
+    update_stats: 更新统计
     uploads_none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     user_suggestions: 用户建议：
     user_suggestions_prompt: 您为条目编辑者提出的建议
@@ -528,6 +530,7 @@ zh-CN:
     suggestion_docs:
       ga: 主题和风格专家的一些编辑是有帮助的；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
+      future: 添加的材料可能存在投机炒作，并应仔细检查来源。
       '?': 建议不可用——条目未评级，或没有用于评级的建议。
       does_not_exist: 此条目在维基百科不存在。
   tasks:

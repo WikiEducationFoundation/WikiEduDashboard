@@ -24,6 +24,17 @@ describe 'Student users', type: :feature, js: true do
            start: '2015-01-01'.to_date,
            end: '2020-01-01'.to_date)
   end
+  let!(:editathon) do
+    create(:editathon,
+           title: 'An Example Editathon',
+           school: 'University',
+           term: 'Term',
+           slug: 'University/An_Example_Editathon_(Term)',
+           submitted: true,
+           passcode: '',
+           start: '2015-01-01'.to_date,
+           end: '2020-01-01'.to_date)
+  end
 
   before :each do
     create(:courses_user,
@@ -33,6 +44,9 @@ describe 'Student users', type: :feature, js: true do
     create(:campaigns_course,
            campaign: campaign,
            course: course)
+    create(:campaigns_course,
+           campaign: campaign,
+           course: editathon)
     create(:courses_user,
            user: classmate,
            course: course,
@@ -113,6 +127,26 @@ describe 'Student users', type: :feature, js: true do
       end
       expect(page).to have_content 'Incorrect passcode'
       sleep 5
+    end
+
+    it 'joins an Editathon without a passcode' do
+      login_as(user, scope: :user)
+      stub_oauth_edit
+
+      # click enroll button, enter passcode in alert popup to enroll
+      visit "/courses/#{editathon.slug}"
+
+      expect(page).to have_content 'An Example Editathon'
+
+      click_button 'Join program'
+      within('.confirm-modal') do
+        click_button 'OK'
+      end
+
+      sleep 3
+
+      visit "/courses/#{editathon.slug}/students"
+      expect(find('tbody', match: :first)).to have_content User.last.username
     end
   end
 

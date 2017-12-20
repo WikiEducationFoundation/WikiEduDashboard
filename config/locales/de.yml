@@ -250,6 +250,9 @@ de:
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
     confirm_course_deletion_failed: „%{title}“ ist nicht der Titel dieses Kurses.
       Der Kurs wurde nicht gelöscht.
+    confirm_manual_update: Bist du sicher, dass du eine manuelle Aktualisierung durchführen
+      möchtest? Die aktuellsten Versionen werden importiert und die Seite wird anschließend
+      neu geladen. Dieser Vorgang kann einige Zeit in Anspruch nehmen.
     course: Kurs
     course_dates_calendar_instructions: Wähle Daten aus, um sie in dem Plan hinzuzufügen
       oder zu entfernen (z.&nbsp;B. Feiertage oder schulfreie Tage). Klicke das Datum
@@ -468,6 +471,7 @@ de:
       war fällig am %{date}.
     unsubmitted: Nicht eingereichte Kurse
     untrained: Unausgebildet
+    update_stats: Statistiken aktualisieren
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
     user_suggestions: 'Benutzervorschläge:'

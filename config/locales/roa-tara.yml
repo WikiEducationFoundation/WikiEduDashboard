@@ -35,6 +35,8 @@ roa-tara:
     title: Titole
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
+  courses:
+    update_stats: Aggiorne le statisteche
   editable:
     edit_template: Cange 'u template
 ...
