@@ -27,13 +27,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  // Specific
-  cloneCourse(courseId) {
-    return API.cloneCourse(courseId)
-      .then(resp => ({ actionType: 'RECEIVE_COURSE_CLONE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchLookups(key) {
     return API.fetchLookups(key)
       .then(resp => ({

@@ -1,4 +1,4 @@
-import { RECEIVE_INITIAL_CAMPAIGN, UPDATE_COURSE, CREATED_COURSE } from "../constants";
+import { RECEIVE_INITIAL_CAMPAIGN, RECEIVE_COURSE_CLONE, UPDATE_COURSE, CREATED_COURSE } from "../constants";
 
 const initialState = {
   title: '',
@@ -31,6 +31,8 @@ export default function course(state = initialState, action) {
       };
       return newState;
     }
+    case RECEIVE_COURSE_CLONE:
+      return { ...action.data.course };
     default:
       return state;
   }
