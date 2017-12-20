@@ -41,8 +41,8 @@ class UpdateLog
       constant_update = @setting.value['constant_update']
       return unless constant_update&.length&. > 1
       times = constant_update.values.map { |log| log['end_time'] }
-      seconds = (times[times.length - 1] - times[0]) / (times.length - 1)
-      @setting.value['average_delay'] = seconds.to_i
+      average_delay_in_seconds = (times.last.to_f - times.first.to_f) / (times.count - 1)
+      @setting.value['average_delay'] = average_delay_in_seconds.to_i
     end
 
     def save_setting
