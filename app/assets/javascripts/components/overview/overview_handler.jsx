@@ -117,12 +117,12 @@ const Overview = createReactClass({
     );
 
     let courseStatistics;
-    if (!this.state.course.ended && !Features.wikiEd) {
-      const lastUpdate = this.state.course.last_update ? `. ${I18n.t('metrics.last_update')} : ${moment(this.state.course.last_update).fromNow()}` : '';
-      const delay = this.state.course.average_delay ? `. ${I18n.t('metrics.average_delay')} : ${moment().startOf('day').seconds(parseInt(this.state.course.average_delay)).format('HH:mm:ss')}` : '';
+    if (!this.state.course.ended && !Features.wikiEd && this.state.course.updates) {
+      const lastUpdate = this.state.course.updates["last_update"] ? `. ${I18n.t('metrics.last_update')}: ${moment(this.state.course.updates["last_update"]).fromNow()}` : '';
+      const delay = this.state.course.updates["average_delay"] ? `. ${I18n.t('metrics.next_update')}: ${moment(this.state.course.updates["last_update"]).add(this.state.course.updates["average_delay"], "seconds").fromNow()}` : '';
       courseStatistics = (
         <div className="pull-right">
-          <small>{I18n.t('metrics.are_updated')}{lastUpdate}{delay}</small>
+          <small>{lastUpdate}{delay}</small>
         </div>
       );
     }

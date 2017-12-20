@@ -333,10 +333,8 @@ ca:
     save: Desa
   metrics:
     label: Activitat del curs
-    are_updated: Segons l'última actualització del sistema
-    last_update: Darrera actualització
-    average_delay: Temps mitjà d'espera
-    average_delay: Temps mitjà d'espera
+    last_update: Darrera actualització de les estadístiques
+    next_update: Próxima actualizació
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats
