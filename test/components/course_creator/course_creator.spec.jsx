@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import React from 'react';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
-import { updateCourse } from '../../../app/assets/javascripts/actions/course_creation_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 import { shallow } from 'enzyme';
@@ -30,13 +29,15 @@ const getStyle = (node) => {
 
 describe('CourseCreator', () => {
   describe('render', () => {
+    const updateCourseSpy = sinon.spy();
+
     const TestCourseCreator = shallow(
       <CourseCreator
         courseCreator={{}}
         fetchCoursesForUser={() => {}}
         user_courses={["some_course"]}
         course={reduxStore.getState().course}
-        updateCourse={updateCourse}
+        updateCourse={updateCourseSpy}
       />
     );
 
@@ -75,27 +76,26 @@ describe('CourseCreator', () => {
         });
       });
     });
-    // describe('text inputs', () => {
-    //   TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-    //   const updateCourseSpy = sinon.spy(updateCourse);
-    //   const setValidSpy = sinon.spy(ValidationActions, 'setValid');
-    //
-    //   describe('subject', () => {
-    //     it('updates courseActions', () => {
-    //       TestCourseCreator.instance().updateCourse('subject', 'some subject');
-    //       expect(updateCourseSpy).to.have.been.called;
-    //       expect(setValidSpy).not.to.have.been.called;
-    //     });
-    //   });
-    //   describe('term', () => {
-    //     it('updates courseActions and validationActions', () => {
-    //       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-    //       TestCourseCreator.instance().updateCourse('term', 'this term');
-    //       expect(updateCourseSpy).to.have.been.called;
-    //       expect(setValidSpy).to.have.been.called;
-    //     });
-    //   });
-    // });
+    describe('text inputs', () => {
+      TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
+      const setValidSpy = sinon.spy(ValidationActions, 'setValid');
+
+      describe('subject', () => {
+        it('updates courseActions', () => {
+          TestCourseCreator.instance().updateCourse('subject', 'some subject');
+          expect(updateCourseSpy).to.have.been.called;
+          expect(setValidSpy).not.to.have.been.called;
+        });
+      });
+      describe('term', () => {
+        it('updates courseActions and validationActions', () => {
+          TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
+          TestCourseCreator.instance().updateCourse('term', 'this term');
+          expect(updateCourseSpy).to.have.been.called;
+          expect(setValidSpy).to.have.been.called;
+        });
+      });
+    });
     describe('save course', () => {
       sinon.stub(TestCourseCreator.instance(), 'expectedStudentsIsValid').callsFake(() => true);
       sinon.stub(TestCourseCreator.instance(), 'dateTimesAreValid').callsFake(() => true);
