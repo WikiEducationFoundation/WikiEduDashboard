@@ -1,4 +1,4 @@
-import { RECEIVE_INITIAL_CAMPAIGN, UPDATE_COURSE } from "../constants";
+import { RECEIVE_INITIAL_CAMPAIGN, UPDATE_COURSE, CREATED_COURSE } from "../constants";
 
 const initialState = {
   title: '',
@@ -19,6 +19,8 @@ export default function course(state = initialState, action) {
   switch (action.type) {
     case UPDATE_COURSE:
       return { ...state, ...action.course };
+    case CREATED_COURSE:
+      return { ...action.data.course };
     case RECEIVE_INITIAL_CAMPAIGN: {
       const campaign = action.data.campaign;
       const newState = {

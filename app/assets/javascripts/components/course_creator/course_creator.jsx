@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
 
-import CourseStore from '../../stores/course_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import { CourseCreationActions, updateCourse } from '../../actions/course_creation_actions.js';
+import { CourseCreationActions, updateCourse, submitCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 
@@ -37,10 +36,12 @@ const CourseCreator = createReactClass({
     course: PropTypes.object.isRequired,
     user_courses: PropTypes.array.isRequired,
     fetchCoursesForUser: PropTypes.func.isRequired,
-    courseCreator: PropTypes.object.isRequired
+    courseCreator: PropTypes.object.isRequired,
+    updateCourse: PropTypes.func.isRequired,
+    submitCourse: PropTypes.func.isRequired
   },
 
-  mixins: [CourseStore.mixin, ValidationStore.mixin],
+  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     const inits = {
@@ -66,6 +67,16 @@ const CourseCreator = createReactClass({
     return this.props.fetchCoursesForUser(currentUser.id);
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.course.school !== '' && nextProps.course.title !== '') {
+      this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
+    }
+    else {
+      this.state.tempCourseId = '';
+    }
+    return this.handleCourse(nextProps.course);
+  },
+
   campaignParam() {
     // The regex allows for any number of URL parameters, while only capturing the campaign_slug parameter
     const campaignParam = window.location.search.match(/\?.*?campaign_slug=(.*?)(?:$|&)/);
@@ -76,13 +87,7 @@ const CourseCreator = createReactClass({
 
   storeDidChange() {
     this.setState(getState());
-    if (this.props.course.school !== '' && this.state.title !== '') {
-      this.state.tempCourseId = CourseUtils.generateTempId(this.props.course);
-    }
-    else {
-      this.state.tempCourseId = '';
-    }
-    return this.handleCourse();
+    this.handleCourse(this.props.course);
   },
 
   saveCourse() {
@@ -97,29 +102,28 @@ const CourseCreator = createReactClass({
     }
   },
 
-  handleCourse() {
+  handleCourse(course) {
     if (this.state.shouldRedirect === true) {
-      window.location = `/courses/${this.props.course.slug}`;
+      window.location = `/courses/${course.slug}`;
     }
     if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
-
     if (ValidationStore.isValid()) {
-      if (this.props.course.slug && this.state.justSubmitted) {
+      if (course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
-          window.location = `/courses/${this.props.course.slug}/timeline/wizard`;
+          window.location = `/courses/${course.slug}/timeline/wizard`;
         } else {
-          window.location = `/courses/${this.props.course.slug}`;
+          window.location = `/courses/${course.slug}`;
         }
       } else if (!this.state.justSubmitted) {
-        this.setState({ course: CourseUtils.cleanupCourseSlugComponents(this.props.course) });
+        this.setState({ course: CourseUtils.cleanupCourseSlugComponents(course) });
         this.setState({ isSubmitting: false });
         this.setState({ justSubmitted: true });
         // If the save callback fails, which will happen if an invalid wiki is submitted,
         // then we must reset justSubmitted so that the user can fix the problem
         // and submit again.
         const onSaveFailure = () => this.setState({ justSubmitted: false });
-        ServerActions.saveCourse($.extend(true, {}, { course: this.props.course }), null, onSaveFailure);
+        this.props.submitCourse({ course }, onSaveFailure);
       }
     } else if (!ValidationStore.getValidation('exists').valid) {
       this.setState({ isSubmitting: false });
@@ -475,7 +479,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = ({
   fetchCoursesForUser,
-  updateCourse
+  updateCourse,
+  submitCourse
 });
 
 // exporting two difference ways as a testing hack.
