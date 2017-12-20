@@ -599,10 +599,8 @@ en:
 
   metrics:
     label: Course Activity
-    are_updated: According to the last system update
-    last_update: Last update
-    average_delay: Average updates delay
-    average_delay: Average updates delay
+    last_update: Last statistics update
+    next_update: Next update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created

@@ -12,26 +12,10 @@ describe UpdateLog do
     end
 
     it 'adds a maximum of 10 records' do
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
-      UpdateLog.new.log_updates({"start_time" => Time.now,
-                                 "end_time" => Time.now})
+      10.times do
+        UpdateLog.new.log_updates({"start_time" => Time.now,
+                                   "end_time" => Time.now})
+      end
       number_of_updates = UpdateLog.new.setting_record.value['constant_update'].keys.length
       expect(number_of_updates).to be(10)
     end
@@ -40,54 +24,44 @@ describe UpdateLog do
   describe '.last_update' do
     it 'returns the time of the last update' do
       UpdateLog.new.log_updates({"start_time" => Time.now, "end_time" => Time.now})
-      time = UpdateLog.new.last_update
+      time = UpdateLog.new.updates["last_update"]
       expect(time).to be_within(5.seconds).of(Time.now)
-    end
-
-    it 'returns nil as the last update is not defined' do
-      time = UpdateLog.new.last_update
-      expect(time).to eq(nil)
     end
   end
 
-  describe '.log_delay' do
+  describe '.average_delay' do
     it 'adds the average delay time to the settings table' do
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 11:11:33 +0100"),
-                                "end_time" => Time.parse("2017-12-06 13:11:33 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 13:13:33 +0100"),
-                                "end_time" => Time.parse("2017-12-06 15:13:33 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 15:30:00 +0100"),
-                                "end_time" => Time.parse("2017-12-06 21:30:00 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 21:45:00 +0100"),
-                                "end_time" => Time.parse("2017-12-06 22:45:00 +0100"))
+      UpdateLog.new.log_updates("start_time" => 14.hours.ago,
+                                "end_time" => 12.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 12.hours.ago,
+                                "end_time" => 9.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 9.hours.ago,
+                                "end_time" => 8.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 8.hours.ago,
+                                "end_time" => 6.hours.ago)
       delay = UpdateLog.new.setting_record.value["average_delay"]
-      expect(delay).to eq(11469)
+      expect(delay).to eq(7200)
     end
   end
 
   describe '.average_delay' do
     it 'returns the average delay time for updates' do
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 11:11:33 +0100"),
-                                "end_time" => Time.parse("2017-12-06 13:11:33 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 13:13:33 +0100"),
-                                "end_time" => Time.parse("2017-12-06 15:13:33 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 15:30:00 +0100"),
-                                "end_time" => Time.parse("2017-12-06 21:30:00 +0100"))
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 21:45:00 +0100"),
-                                "end_time" => Time.parse("2017-12-06 22:45:00 +0100"))
-      delay = UpdateLog.new.average_delay
-      expect(delay).to eq(11469)
-    end
-
-    it 'returns nil if there were no updates' do
-      delay = UpdateLog.new.average_delay
-      expect(delay).to be(nil)
+      UpdateLog.new.log_updates("start_time" => 14.hours.ago,
+                                "end_time" => 12.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 12.hours.ago,
+                                "end_time" => 9.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 9.hours.ago,
+                                "end_time" => 8.hours.ago)
+      UpdateLog.new.log_updates("start_time" => 8.hours.ago,
+                                "end_time" => 6.hours.ago)
+      delay = UpdateLog.new.updates["average_delay"]
+      expect(delay).to eq(7200)
     end
 
     it 'returns nil if the there was only one update' do
-      UpdateLog.new.log_updates("start_time" => Time.parse("2017-12-06 11:11:33 +0100"),
-                            "end_time" => Time.parse("2017-12-06 13:11:33 +0100"))
-      delay = UpdateLog.new.average_delay
+      UpdateLog.new.log_updates("start_time" => 10.hours.ago,
+                                "end_time" => 8.hours.ago)
+      delay = UpdateLog.new.updates["average_delay"]
       expect(delay).to be(nil)
     end
   end

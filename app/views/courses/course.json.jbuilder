@@ -25,8 +25,7 @@ json.course do
   json.word_count number_to_human @course.word_count
   json.view_count number_to_human @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
-  json.last_update UpdateLog.new.last_update
-  json.average_delay UpdateLog.new.average_delay
+  json.updates UpdateLog.new.updates
 
   if user_role.zero? # student role
     ctpm = CourseTrainingProgressManager.new(current_user, @course)
