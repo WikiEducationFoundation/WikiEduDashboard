@@ -19,6 +19,8 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
+  get '/users/all_admins' => 'users#all_admins'
+
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
@@ -297,6 +299,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :settings
 
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do

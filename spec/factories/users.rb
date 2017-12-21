@@ -46,5 +46,9 @@ FactoryBot.define do
     username 'Ragesauce'
     permissions 1
     onboarded true
+
+    factory :super_admin do
+      permissions 3
+    end
   end
 end

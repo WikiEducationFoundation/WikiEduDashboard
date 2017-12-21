@@ -725,6 +725,15 @@ en:
     view_on_wiki: View diff on wiki
     see_more: See more
 
+  settings:
+    admin_users:
+      new:
+        form_label: Grant admin privileges
+        form_placeholder: User Name
+        confirm_add_admin: "Are you sure you want to add admin privileges"
+        confirm_remove_admin: "Are you sure you want to remove admin privileges"
+
+
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:
     editing: Editing Suggestions

@@ -1,0 +1,32 @@
+import React from 'react';
+import { fetchAdminUsers } from '../../actions/settings_actions';
+import { connect } from 'react-redux';
+import AdminUserList from './admin_users_list.jsx';
+import AddAdminButton from './add_admin_button.jsx';
+
+class SettingsHandler extends React.Component {
+  componentWillMount() {
+    this.props.fetchAdminUsers();
+  }
+
+  render() {
+    return (
+      <div className="mt4 ml2">
+        <h1 className="mx2" style={{display: "inline-block", maring: 0}}>All Admin Users</h1>
+        <AddAdminButton />
+        <AdminUserList adminUsers={this.props.adminUsers} />
+      </div>
+
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  adminUsers: state.settings.adminUsers,
+});
+
+const mapDispatchToProps = {
+  fetchAdminUsers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsHandler);

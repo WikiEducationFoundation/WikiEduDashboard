@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   before_action :require_participating_user, only: [:enroll]
   before_action :require_signed_in, only: [:update_locale]
   before_action :require_admin_permissions, only: [:index]
+  before_action :require_super_admin_permissions, only: [:all]
 
   layout 'admin', only: [:index]
 
@@ -64,6 +65,18 @@ class UsersController < ApplicationController
                User.instructor.limit(20)
                    .order(created_at: :desc)
              end
+  end
+
+  def all_admins
+    respond_to do |format|
+      format.json do
+        # display all admins and super admins
+        admins = User.where(permissions: 1)
+                     .or(User.where(permissions: 3))
+
+        render json: admins
+      end
+    end
   end
 
   private

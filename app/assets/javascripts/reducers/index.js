@@ -13,6 +13,7 @@ import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
+import settings from './settings';
 import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   recentUploads,
   revisions,
   suspectedPlagiarism,
+  settings,
   ui,
   userCourses,
   userProfile,
