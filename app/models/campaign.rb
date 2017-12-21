@@ -90,10 +90,6 @@ class Campaign < ActiveRecord::Base
     find_by(slug: ENV['default_campaign'])
   end
 
-  def self.default_course_type
-    find_by(slug: ENV['default_course_type'])
-  end
-
   private
 
   def validate_dates
