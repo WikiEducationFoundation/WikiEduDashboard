@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Anamdas
 # Author: Rajat11
+# Author: Rajatkatiyar10
 # Author: Sachinkatiyar
 # Author: Sfic
 # Author: Upendradutt93
@@ -267,6 +268,7 @@ hi:
     expected_students: अपेक्षित छात्र
     feedback: आपके सुझाव
     instructors: शिक्षक
+    join_no_passcode: क्या आप वाकई इस पाठ्यक्रम में शामिल होना चाहते हैं?
     loading: लोड हो रहा है…
     school: विद्यालय
     start: आरम्भ

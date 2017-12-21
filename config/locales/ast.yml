@@ -244,7 +244,7 @@ ast:
         ente los estaos «ensin escoyer», «escoyíu» y «vacaciones». Si nun tienes vacaciones,
         marca «Nun tengo vacaciones de clases». El cronograma copiáu va afaer automáticamente
         les feches pa dar cuenta de les selmanes que nun tienen aconceyamientos programaos.
-      clone_successful: Cursu clonáu con ésitu
+      clone_successful: Actualizar los detalles del cursu clonáu
       clone_successful_details: El to cursu clonóse, incluyendo los elementos del
         cronograma (selmanes y bloques). Asegúrate d'añadir les feches, porque nun
         se treslladen. ¿Camudó daqué más nel to cursu? Actualizalo agora si quies.

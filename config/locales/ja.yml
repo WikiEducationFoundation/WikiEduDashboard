@@ -12,6 +12,7 @@ ja:
   application:
     cancel: 中止
     dashboard: Wiki Ed ダッシュボード
+    documentation: ドキュメント
     error: 'エラーが起きました:'
     explore: 探検してみよう
     field_required: このフィールドは必要
@@ -28,13 +29,27 @@ ja:
     log_out: ログアウト
     my_dashboard: 私のダッシュボード
     recent_activity: 最近の活動
+    report_problem: 問題を報告
     search: 質問をしてみる
     sign_up_extended: ウィキペディアにユーザー登録
     sign_up_log_in_extended: ウィキペディアに
     sign_up: ユーザー登録
     submit: 送信
+    training: トレーニング
+    change: 変更内容
+    details: 詳細
+    confirm: OK
   dashboard:
     create_note: 「コースを作成」をクリックすることで、最初のコースを作成できます。
+    explore_course_pages: コースページを見る
+    join_note: インストラクターからパスコードを受け取ったら、[自分のコースを検索]をクリックして検索し、参加します。
+    no_courses_student: コースにまだ参加していないようです。
+    opt_out: オリエンテーションのオプトアウトのリクエスト
+    orientation_notice: コースを作成する前に、始めるのに役立つオリエンテーションに進みましょう。完了までに約30分かかります。
+    review_orientation: オリエンテーションの復習
+    start_orientation: オリエンテーションを開始する
+    blog_headline: Wiki Edの最近のニュース
+    about_creating_programs: 独立した単一のイベントを実行している場合、今すぐプログラムを作成することができます。あなたのイベントがより大きなものの一部であれば、そのキャンペーンを見つけるか作成してください。次に、[キャンペーン]ページから新しいプログラムを作成できます。
   home:
     explore: 探検してみよう
     log_in: ウィキペディアにログイン

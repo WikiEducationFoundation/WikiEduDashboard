@@ -317,6 +317,7 @@ zh-TW:
       cannot_join_twice: 用戶不可加入同一課程兩次。
       not_yet_approved: 此課程尚未批准開放登記。
     join_details: 要加入此課程，您需要獲得課程代碼 — 或一個來自引導者的包含選課代碼登記連結。如果您尚未收取此請向您的導師聯繫。
+    join_no_passcode: 您確定要加入這個課程嗎？
     leave_confirmation: 確定要離開這個課程嗎？
     leave_course: 離開課程
     loading: 載入中⋯⋯
