@@ -42,6 +42,7 @@ global.chai = chai;
 global.expect = chai.expect;
 global.assert = chai.assert;
 global.Features = {};
+global.currentUser = {};
 
 require('../public/assets/javascripts/i18n/en'); // eslint-disable-line import/no-unresolved
 

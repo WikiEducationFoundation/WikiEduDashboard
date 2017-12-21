@@ -4,7 +4,6 @@ import sinon from 'sinon';
 import React from 'react';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
-import CourseActions from '../../../app/assets/javascripts/actions/course_actions.js';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 import { shallow } from 'enzyme';
@@ -27,12 +26,18 @@ const getStyle = (node) => {
   return styleMatch ? styleMatch[1] : '';
 };
 
+
 describe('CourseCreator', () => {
   describe('render', () => {
+    const updateCourseSpy = sinon.spy();
+
     const TestCourseCreator = shallow(
       <CourseCreator
+        courseCreator={{}}
         fetchCoursesForUser={() => {}}
         user_courses={["some_course"]}
+        course={reduxStore.getState().course}
+        updateCourse={updateCourseSpy}
       />
     );
 
@@ -73,7 +78,6 @@ describe('CourseCreator', () => {
     });
     describe('text inputs', () => {
       TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-      const updateCourseSpy = sinon.spy(CourseActions, 'updateCourse');
       const setValidSpy = sinon.spy(ValidationActions, 'setValid');
 
       describe('subject', () => {
