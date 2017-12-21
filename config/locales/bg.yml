@@ -14,6 +14,7 @@ bg:
     dashboard: Табло на Wiki Ed
     documentation: Документация
     error: 'Възникна грешка:'
+    explore: Разгледайте!
     field_required: Това поле е задължително
     field_invalid_characters: Това поле има невалидни знаци
     field_invalid_date: Това поле изисква дата във формат YYYY-MM-DD
@@ -49,7 +50,9 @@ bg:
     log_in: Влизане с помощ на Уикипедия
     sign_up: Регистрация с помощ на Уикипедия
   activity:
+    all: Дейност
     edited_by: Редактирано от
+    label: Дейност
   articles:
     edited_by: 'Редактирано от:'
     edited_mobile: Статии
@@ -57,10 +60,14 @@ bg:
     label: Статии
     loading: Зареждане на статии...
     new: (нова)
+    rating: Клас
     show_current_version: Показване на текущата версия
     title: Заглавие
     title_example: Заглавие на статията
+    tools: Инструменти за оценка
     view_doc: Сумата на всички преглеждания на всяка статия по време на проекта
+    view_on_wiki: Вижте на Уики
+    wiki: Уики
   assignments:
     loading: Зареждане на заданията...
     remove: Премахване
@@ -85,9 +92,18 @@ bg:
     organizers: Организатори
     title: Заглавие
     use_start_end_dates: Използване на начална и крайна дата
+  categories:
+    add_category: Добавяне на категория
+    add_template: Добавяне на шаблон
+    add_this_category: Добавяне на категорията
+    add_this_template: Добавяне на шаблона
+    category_name: Име на категорията
+    template_name: Име на шаблона
+    remove: Премахване
   chat:
     label: Чат
   courses:
+    activity: Дейност
     all_courses: Всички курсове
     actions: Действия
     articles: Статии
@@ -97,6 +113,7 @@ bg:
       legend: Легенда
     cancel: Отказ
     campaigns: 'Кампании:'
+    course: Курс
     course_description: Курсове
     courses: Курсове
     creation_date: Дата на създаване

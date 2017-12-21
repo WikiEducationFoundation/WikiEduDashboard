@@ -418,6 +418,7 @@ fr:
     join_details: Pour rejoindre ce cours, vous devez obtenir le code d’accès — ou
       un lien d’inscription qui l’inclut — de la part du formateur. Si vous ne l’avez
       pas reçu, contactez votre formateur.
+    join_no_passcode: Êtes-vous sûr de vouloir suivre ce cours ?
     leave_confirmation: Êtes-vous sûr de vouloir abandonner ce cours ?
     leave_course: Quitter le cours
     loading: Chargement…

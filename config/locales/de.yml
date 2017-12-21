@@ -399,6 +399,7 @@ de:
     join_details: Um diesem Kurs beizutreten, benötigst du vom Kursleiter den Passcode
       oder einen Einschreibungslink, der den Passcode enthält. Falls du diesen nicht
       erhalten hast, kontaktiere deinen Kursleiter.
+    join_no_passcode: Bist du sicher, dass du diesem Kurs beitreten möchtest?
     leave_confirmation: Bist du sicher, dass du diesen Kurs verlassen möchtest?
     leave_course: Kurs verlassen
     loading: Lade …

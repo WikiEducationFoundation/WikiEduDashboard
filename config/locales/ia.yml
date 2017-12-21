@@ -29,6 +29,7 @@ ia:
     sign_up_log_in_extended: con Wikipedia
     change: Cambiar
   courses:
+    join_no_passcode: Es tu secur de voler sequer iste curso?
     timeline_enabled: Chronologia activate
   revisions:
     see_more: Vider plus

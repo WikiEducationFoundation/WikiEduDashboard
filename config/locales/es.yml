@@ -344,6 +344,7 @@ es:
     join_failure_details:
       cannot_join_twice: Los usuarios no pueden ingresar dos veces al mismo curso.
       not_yet_approved: Este curso no ha sido aprobado para la inscripción.
+    join_no_passcode: ¿Confirmas que quieres incorporarte a este curso?
     leave_confirmation: ¿Confirmas que quieres abandonar este curso?
     leave_course: Deja el curso
     loading: Cargando…
