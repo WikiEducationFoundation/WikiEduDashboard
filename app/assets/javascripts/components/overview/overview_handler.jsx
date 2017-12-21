@@ -118,11 +118,11 @@ const Overview = createReactClass({
 
     let courseStatistics;
     if (!this.state.course.ended && !Features.wikiEd && this.state.course.updates) {
-      const lastUpdate = this.state.course.updates.last_update ? `. ${I18n.t('metrics.last_update')}: ${moment(this.state.course.updates.last_update).fromNow()}` : '';
+      const lastUpdate = this.state.course.updates.last_update ? `${I18n.t('metrics.last_update')}: ${moment(this.state.course.updates.last_update).fromNow()}` : '';
       const delay = this.state.course.updates.average_delay ? `. ${I18n.t('metrics.next_update')}: ${moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").fromNow()}` : '';
       courseStatistics = (
         <div className="pull-right">
-          <small>{lastUpdate}{delay}</small>
+          <small className="mb2">{lastUpdate}{delay}</small>
         </div>
       );
     }
