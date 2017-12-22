@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   get '/users/all_admins' => 'users#all_admins'
+  post '/users/update_admin' => 'users#update_admin'
 
   #UserProfilesController
   controller :user_profiles do

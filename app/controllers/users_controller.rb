@@ -79,6 +79,16 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def update_admin
+    sleep 2 # remove me once done with dev!
+    respond_to do |format|
+      puts 'hello from update_admin end point!'
+      format.json { render json: {}, status: :ok }
+    end
+  end
+
+
   private
 
   #################

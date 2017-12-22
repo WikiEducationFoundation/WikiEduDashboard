@@ -54,19 +54,27 @@ export const updateAdminStatus = (username, newStatus) => dispatch => {
   // newStatus (bool): if user should be an admin. If false, user is made an instructor
   dispatch({
     type: SUBMITTING_NEW_ADMIN,
-    data: true,
+    data: {
+      submitting: true,
+    },
   });
 
   grantAdminPromise(newStatus)
-    .then(() =>
+    .then(() => {
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
-        data: false,
-      }))
-
-      const status = newStatus ? 'upgraded to' : 'downgraded from'
-
-      addNotification(`${username} was ${status} administrator.`)
-
-    .catch(response => (dispatch({ type: API_FAIL, data: response })))
+        data: {
+          submitting: false
+        },
+      });
+      const status = newStatus ? 'upgraded to' : 'downgraded from';
+      dispatch(addNotification({
+        type: 'success',
+        message: `${username} was ${status} administrator.`,
+        closable: true
+      })
+      );
+    }).catch((response) => {
+      dispatch({ type: API_FAIL, data: response })
+    });
 };

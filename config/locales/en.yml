@@ -730,8 +730,8 @@ en:
       new:
         form_label: Grant admin privileges
         form_placeholder: User Name
-        confirm_add_admin: "Are you sure you want to add admin privileges"
-        confirm_remove_admin: "Are you sure you want to remove admin privileges"
+        confirm_add_admin: "Grant admin"
+        confirm_remove_admin: "Remove admin privileges for"
 
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
