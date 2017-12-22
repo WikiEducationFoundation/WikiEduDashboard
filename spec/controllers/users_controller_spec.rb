@@ -10,6 +10,7 @@ describe UsersController do
     end
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
+    let(:super_admin) { create(:super_admin)}
     let(:another_user) { create(:user, username: 'StudentUser') }
 
     before do
@@ -237,6 +238,32 @@ describe UsersController do
         get :index, params: { real_name: search_user.real_name }
         expect(response.body).to have_content search_user.real_name
       end
+    end
+  end
+
+  describe '#all_admins' do
+    before do
+      # create an admin and super admin
+      create(:user)
+      create(:admin)
+      super_admin = create(:super_admin)
+      UsersController.any_instance.stub(:current_user).and_return(super_admin)
+    end
+    context 'when request is json' do
+      before do
+        get :all_admins, format: :json
+      end
+      it 'returns all admin users' do
+        expect(JSON.parse(response.body)['users'].length).to be(2)
+      end
+
+      it 'returns 200 ok' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when request is not json' do
+
     end
   end
 end

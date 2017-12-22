@@ -46,9 +46,11 @@ FactoryBot.define do
     username 'Ragesauce'
     permissions 1
     onboarded true
+  end
 
-    factory :super_admin do
-      permissions 3
-    end
+  factory :super_admin, class: User do
+    username 'Superragesauce'
+    permissions 3
+    onboarded true
   end
 end

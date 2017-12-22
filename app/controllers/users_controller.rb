@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   before_action :require_participating_user, only: [:enroll]
   before_action :require_signed_in, only: [:update_locale]
   before_action :require_admin_permissions, only: [:index]
-  before_action :require_super_admin_permissions, only: [:all]
+  before_action :require_super_admin_permissions, only: %i[all_admins update_admin]
 
   layout 'admin', only: [:index]
 
@@ -79,15 +79,27 @@ class UsersController < ApplicationController
     end
   end
 
-
   def update_admin
-    sleep 2 # remove me once done with dev!
     respond_to do |format|
-      puts 'hello from update_admin end point!'
-      format.json { render json: {}, status: :ok }
+      format.json do
+        username = params[:username]
+        user = User.find_by_username username
+
+        # if user not found
+        if user.nil?
+          render json: { message: "Couldn't find user #{username}." }, status: 404
+          return
+        end
+        # either attempt an upgrade or downgrade based on params
+        if params[:new_status] == 'true'
+          attempt_admin_upgrade(user)
+          return
+        end
+        attempt_admin_downgrade(user)
+        return
+      end
     end
   end
-
 
   private
 
@@ -225,5 +237,31 @@ class UsersController < ApplicationController
   ##################
   def update_course_page_and_assignment_talk_templates
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+  end
+
+  ##
+  # attempt to upgrade `user` to admin unless they already are one
+  def attempt_admin_upgrade(user)
+    # if user was already an admin or super admin
+    if user.admin?
+      render json: { message: "#{user.username} is already an admin!" }, status: 422
+      return
+    end
+    # happy path!
+    user.update_attributes permissions: User::Permissions::ADMIN
+    render json: { mesage: "#{user.username} elevated to admin." }, status: 200
+  end
+
+  ##
+  # attempt to upgrade `user` to instructor unless they already are one
+  def attempt_admin_downgrade(user)
+    # already an instructor
+    if user.course_instructor?
+      render json: { message: "#{user.username} is already an instructor!" }, status: 422
+      return
+    end
+    # happy path
+    user.update_attributes permissions: User::Permissions::INSTRUCTOR
+    render json: { mesage: "#{user.username} downgraded to instructor." }, status: 200
   end
 end

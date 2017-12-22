@@ -19,12 +19,12 @@ const fetchAdminUsersPromise = () => {
   });
 };
 
-const grantAdminPromise = (newStatus) => {
+const grantAdminPromise = (username, newStatus) => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'POST',
       url: `users/update_admin`,
-      data: { newStatus: newStatus },
+      data: { username: username, new_status: newStatus },
       success(data) {
         return accept(data);
       }
@@ -37,15 +37,13 @@ const grantAdminPromise = (newStatus) => {
 }
 
 export const fetchAdminUsers = () => dispatch => {
-  return (
-    fetchAdminUsersPromise()
-      .then(resp =>
-        dispatch({
-          type: SET_ADMIN_USERS,
-          data: resp,
-        }))
-      .catch(response => (dispatch({ type: API_FAIL, data: response })))
-  );
+  fetchAdminUsersPromise()
+    .then(resp =>
+      dispatch({
+        type: SET_ADMIN_USERS,
+        data: resp,
+      }))
+    .catch(response => (dispatch({ type: API_FAIL, data: response })))
 };
 
 export const updateAdminStatus = (username, newStatus) => dispatch => {
@@ -59,12 +57,12 @@ export const updateAdminStatus = (username, newStatus) => dispatch => {
     },
   });
 
-  grantAdminPromise(newStatus)
+  grantAdminPromise(username, newStatus)
     .then(() => {
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
         data: {
-          submitting: false
+        submitting: false
         },
       });
       const status = newStatus ? 'upgraded to' : 'downgraded from';
@@ -72,9 +70,24 @@ export const updateAdminStatus = (username, newStatus) => dispatch => {
         type: 'success',
         message: `${username} was ${status} administrator.`,
         closable: true
-      })
+        })
       );
+
+      fetchAdminUsersPromise()
+        .then(resp =>
+          dispatch({
+            type: SET_ADMIN_USERS,
+            data: resp,
+          }))
+        .catch(response => (dispatch({ type: API_FAIL, data: response })))
+
     }).catch((response) => {
-      dispatch({ type: API_FAIL, data: response })
+      console.log(error)
+      dispatch(addNotification({
+        type: 'error',
+        message: `error!`,
+        closable: true
+        })
+      );
     });
 };

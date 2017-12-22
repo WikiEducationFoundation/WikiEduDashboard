@@ -38,6 +38,7 @@ class AddAdminForm extends React.Component {
   handleConfirm(e) {
     console.log("hello from handleConfirm");
     this.props.updateAdminStatus(this.state.username, true);
+    this.props.handlePopoverClose()
   };
 
   handleSubmit(e) {

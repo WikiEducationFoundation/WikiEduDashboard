@@ -8,6 +8,7 @@ import Notifications from '../common/notifications';
 class SettingsHandler extends React.Component {
   componentWillMount() {
     this.props.fetchAdminUsers();
+    this.render = this.render.bind(this);
   }
 
   render() {
