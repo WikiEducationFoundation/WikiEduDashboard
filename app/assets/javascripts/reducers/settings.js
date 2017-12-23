@@ -1,10 +1,13 @@
-import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN } from '../constants/settings';
+import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from '../constants/settings';
 
 const initialState = {
   adminUsers: [],
   fetchingUsers: false,
   submittingNewAdmin: false,
-  revokingAdmin: false
+  revokingAdmin: {
+    status: false,
+    username: null,
+  }
 };
 
 const settings = (state = initialState, action) => {
@@ -13,10 +16,11 @@ const settings = (state = initialState, action) => {
       return Object.assign({}, state, { adminUsers: action.data.users });
     case SUBMITTING_NEW_ADMIN:
       return Object.assign({}, state, { submittingNewAdmin: action.data.submitting });
+    case REVOKING_ADMIN:
+      return Object.assign({}, state, { revokingAdmin: action.data.revoking });
     default:
       return state;
   }
 };
 
 export default settings;
-

@@ -735,6 +735,8 @@ en:
         already_admin: "%{username} is already an admin!"
         elevate_success: "%{username} elevated to admin."
       remove:
+        revoke_button: 'Revoke admin'
+        revoking_button_working: 'Revoking...'
         already_instructor: "%{username} is already an instructor!"
         demote_success: "%{username} changed to instructor."
 

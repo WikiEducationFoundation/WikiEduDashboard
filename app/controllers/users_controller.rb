@@ -93,6 +93,7 @@ class UsersController < ApplicationController
   end
 
   def downgrade_admin
+    sleep 2
     update_admin do
       attempt_admin_downgrade { |resp| render resp and return }
     end
