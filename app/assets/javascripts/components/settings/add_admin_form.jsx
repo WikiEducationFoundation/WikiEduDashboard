@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import TextInput from '../common/text_input';
-import { updateAdminStatus } from '../../actions/settings_actions';
+import { upgradeAdmin } from '../../actions/settings_actions';
 
 class AddAdminForm extends React.Component {
 
@@ -37,7 +37,7 @@ class AddAdminForm extends React.Component {
 
   handleConfirm(e) {
     console.log("hello from handleConfirm");
-    this.props.updateAdminStatus(this.state.username, true);
+    this.props.upgradeAdmin(this.state.username);
     this.props.handlePopoverClose()
   };
 
@@ -120,7 +120,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  updateAdminStatus,
+  upgradeAdmin,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAdminForm);

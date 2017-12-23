@@ -129,6 +129,10 @@ class User < ActiveRecord::Base
     permissions == Permissions::SUPER_ADMIN
   end
 
+  def instructor_permissions?
+    permissions == Permissions::INSTRUCTOR
+  end
+
   def course_instructor?
     courses.any? { |course| instructor?(course) }
   end

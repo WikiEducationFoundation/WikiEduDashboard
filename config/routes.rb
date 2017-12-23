@@ -20,8 +20,8 @@ Rails.application.routes.draw do
   end
 
   get '/users/all_admins' => 'users#all_admins'
-  post '/users/update_admin' => 'users#update_admin'
-
+  post '/users/upgrade_admin' => 'users#upgrade_admin'
+  post '/users/downgrade_admin' => 'users#downgrade_admin'
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }

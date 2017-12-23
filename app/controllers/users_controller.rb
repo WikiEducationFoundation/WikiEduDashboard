@@ -79,26 +79,31 @@ class UsersController < ApplicationController
     end
   end
 
-  def update_admin
-    respond_to do |format|
-      format.json do
-        username = params[:username]
-        user = User.find_by_username username
-
-        # if user not found
-        if user.nil?
-          render json: { message: "Couldn't find user #{username}." }, status: 404
-          return
-        end
-        # either attempt an upgrade or downgrade based on params
-        if params[:new_status] == 'true'
-          attempt_admin_upgrade(user)
-          return
-        end
-        attempt_admin_downgrade(user)
-        return
-      end
+  def upgrade_admin
+    update_admin do
+      attempt_admin_upgrade { |resp| render resp and return }
     end
+    # respond_to do |format|
+    #   format.json do
+    #     @user = User.find_by_username username_param
+    #     ensure_user_exists { return }
+    #     attempt_admin_upgrade { |resp| render resp }
+    #   end
+    # end
+  end
+
+  def downgrade_admin
+    update_admin do
+      attempt_admin_downgrade { |resp| render resp and return }
+    end
+
+    # respond_to do |format|
+    #   format.json do
+    #     @user = User.find_by_username username_param
+    #     ensure_user_exists { return }
+    #     attempt_admin_downgrade { |resp| render resp }
+    #   end
+    # end
   end
 
   private
@@ -232,6 +237,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:user_id, :username, :role, :real_name, :role_description)
   end
 
+  def username_param
+    enroll_params[:username]
+  end
+
   ##################
   # Helper methods #
   ##################
@@ -240,28 +249,42 @@ class UsersController < ApplicationController
   end
 
   ##
+  # handles shared functionality for upgrading and demoting admin status
+  def update_admin
+    respond_to do |format|
+      format.json do
+        @user = User.find_by_username username_param
+        ensure_user_exists { return }
+        yield
+      end
+    end
+  end
+
+  ##
   # attempt to upgrade `user` to admin unless they already are one
-  def attempt_admin_upgrade(user)
+  def attempt_admin_upgrade
     # if user was already an admin or super admin
-    if user.admin?
-      render json: { message: "#{user.username} is already an admin!" }, status: 422
-      return
+    if @user.admin?
+      message = I18n.t('settings.admin_users.new.already_admin', username: @user.username)
+      yield json: { message: message }, status: 422
     end
     # happy path!
-    user.update_attributes permissions: User::Permissions::ADMIN
-    render json: { mesage: "#{user.username} elevated to admin." }, status: 200
+    @user.update_attributes permissions: User::Permissions::ADMIN
+    message = I18n.t('settings.admin_users.new.elevate_success', username: @user.username)
+    yield json: { message: message }, status: 200
   end
 
   ##
   # attempt to upgrade `user` to instructor unless they already are one
-  def attempt_admin_downgrade(user)
+  def attempt_admin_downgrade
     # already an instructor
-    if user.course_instructor?
-      render json: { message: "#{user.username} is already an instructor!" }, status: 422
-      return
+    if @user.instructor_permissions?
+      message = I18n.t('settings.admin_users.remove.already_instructor', username: @user.username)
+      yield json: { message: message }, status: 422
     end
     # happy path
-    user.update_attributes permissions: User::Permissions::INSTRUCTOR
-    render json: { mesage: "#{user.username} downgraded to instructor." }, status: 200
+    @user.update_attributes permissions: User::Permissions::INSTRUCTOR
+    message = I18n.t('settings.admin_users.remove.demote_success', username: @user.username)
+    yield json: { message: message }, status: 200
   end
 end

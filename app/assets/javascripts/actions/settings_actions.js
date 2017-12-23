@@ -19,12 +19,12 @@ const fetchAdminUsersPromise = () => {
   });
 };
 
-const grantAdminPromise = (username, newStatus) => {
+const grantAdminPromise = (username) => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'POST',
-      url: `users/update_admin`,
-      data: { username: username, new_status: newStatus },
+      url: '/users/upgrade_admin',
+      data: { user: { username: username } },
       success(data) {
         return accept(data);
       }
@@ -46,7 +46,7 @@ export const fetchAdminUsers = () => dispatch => {
     .catch(response => (dispatch({ type: API_FAIL, data: response })))
 };
 
-export const updateAdminStatus = (username, newStatus) => dispatch => {
+export const upgradeAdmin = (username) => dispatch => {
   // update a user's admin status
   // username: user's username
   // newStatus (bool): if user should be an admin. If false, user is made an instructor
@@ -57,7 +57,7 @@ export const updateAdminStatus = (username, newStatus) => dispatch => {
     },
   });
 
-  grantAdminPromise(username, newStatus)
+  grantAdminPromise(username)
     .then(() => {
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
@@ -65,10 +65,9 @@ export const updateAdminStatus = (username, newStatus) => dispatch => {
         submitting: false
         },
       });
-      const status = newStatus ? 'upgraded to' : 'downgraded from';
       dispatch(addNotification({
         type: 'success',
-        message: `${username} was ${status} administrator.`,
+        message: `${username} was upgraded to administrator.`,
         closable: true
         })
       );
