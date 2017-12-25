@@ -607,7 +607,7 @@ en:
     articles_created: Articles Created
     articles_edited: Articles Edited
     characters: Characters
-    char_added: Chars Added
+    char_added: Words Added
     char_changed: Characters Changed
     char: Chars Added
     date_time: Date/Time
@@ -657,7 +657,7 @@ en:
     usage_count: Usage Count
 
   revisions:
-    chars_added: Chars Added
+    chars_added: Words Added
     class: Class
     date_time: Date/Time
     diff: diff
@@ -783,7 +783,7 @@ en:
       amount of new content the user added. Restoring removed content
       will also increase this total.
     chars_added:
-      Characters Added<br>(article | user | draft)
+      Words Added<br>(article | user | draft)
     contributions: User Contributions
     contributions_history_full: View full contribution history on Wikipedia
     contributions_more: View More Contributions
