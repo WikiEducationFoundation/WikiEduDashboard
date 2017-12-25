@@ -187,6 +187,7 @@ lb:
     join_failed: Aschreiwung huet net funktionéiert.
     join_failure_details:
       cannot_join_twice: Benotzer kënne sech net zweemol an deeselwechte Cours aschreiwen.
+    join_no_passcode: Sidd Dir sécher datt Dir an dëse Cours goe wëllt?
     leave_confirmation: Sidd Dir sécher datt Dir aus dësem Cours erausgoe wëllt?
     leave_course: Aus dem Cours erausgoen
     loading: Lueden...
