@@ -124,6 +124,15 @@ describe CourseCloneManager do
     end
   end
 
+  context 'when a course with the same temporary slug already exists' do
+    before { CourseCloneManager.new(Course.find(1), User.find(1)).clone! }
+    it 'returns the existing clone' do
+      existing_clone = Course.last
+      reclone = CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+      expect(reclone).to eq(existing_clone)
+    end
+  end
+
   context 'cloned LegacyCourse' do
     before do
       Course.find(1).update_attributes(type: 'LegacyCourse')
