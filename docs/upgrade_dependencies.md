@@ -4,6 +4,7 @@
 Update the code where the specific Ruby version is specified:
 * `Gemfile`
 * `.travis.yml`
+* `docs/setup.md`
 
 Make sure the tests pass on travis with the new Ruby.
 
