@@ -1,17 +1,17 @@
 name: 'Intertwine: Evaluate & Improve a Wikipedia Article with Your Peers'
 id: 19
 description: |
-  In this module, you will “get your hands dirty” evaluating a Wikipedia article together with peer editors. 
+  In this module, you will “get your hands dirty” evaluating a Wikipedia article together with peer editors.
 
   When you finish, you should:
 
   * Learn about / review what makes a good Wikipedia article (e.g., structure, neutral point of view, references).
-  * Get practice of improving a Wikipedia article 
-  * Communicate your thoughts with the broader Wikipedia community. 
-  * Know several Wikipedia editors and learn from each other's experiences. 
+  * Get practice of improving a Wikipedia article
+  * Communicate your thoughts with the broader Wikipedia community.
+  * Know several Wikipedia editors and learn from each other's experiences.
 estimated_ttc: 60 minutes
 slides:
   - slug: intertwine-first-activity-summary # 1801
-  - slug: intro-to-intertwine # 1802
+  - slug: intro-to-intertwine-2 # 1802
   - slug: sign-up-for-first-activity # 1803
-  - slug: what-happens-next # 1804
+  - slug: intertwine-what-happens-next-2 # 1804
