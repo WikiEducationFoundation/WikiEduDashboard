@@ -83,7 +83,7 @@ describe Campaign do
     it 'handles non-ascii campaign titles' do
       title = 'Карыстальнік Група Беларусь 2016'
       campaign = Campaign.create(title: title)
-      expect(campaign.slug).to eq('Карыстальнік_Група_Беларусь_2016')
+      expect(campaign.slug).to eq('карыстальнік_група_беларусь_2016')
     end
   end
 

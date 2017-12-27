@@ -19,13 +19,13 @@ bs:
     greeting: Zdravo!
     help: Pomoć
     home: Početna
-    log_in_extended: Prijava s Wikipedijom
+    log_in_extended: Prijavi me preko Wikipedije
     log_in: Prijavi me
     log_out: Odjavi me
     my_dashboard: Moja upravljačka tabla
     recent_activity: Nedavna aktivnost
     search: postavi pitanje
-    sign_up_extended: Registracija s Wikipedijom
+    sign_up_extended: Napravi račun preko Wikipedije
     sign_up_log_in_extended: s Wikipedijom
     sign_up: Registracija
     submit: Pošalji
@@ -39,6 +39,9 @@ bs:
     explore: Istraži
     log_in: Prijava s Wikipedijom
     sign_up: Registracija s Wikipedijom
+    sign_up_help: Da biste koristili upravljačku tablu, morat ćete se prijaviti preko
+      Wikipedije ili joj dati pristup Vašem računu. Možete se prijaviti s postojećim
+      računom na Wikipediji ili napraviti novi.
   activity:
     all: Aktivnost
     edited_by: Izmijenio/-la
@@ -79,6 +82,9 @@ bs:
     milestones:
       title: Miljokazi
   campaign:
+    active_campaigns: Aktivne kampanje
+    all_campaigns: Sve kampanje
+    campaigns: Kampanje
     description: Opis
     organizers: Organizatori
     title: Naslov
@@ -96,27 +102,74 @@ bs:
       legend_class_meeting: Sastanak razreda
       legend_class_not_meeting: Nema zakazanih sastanaka
     cancel: Otkaži
+    campaigns: 'Kampanje:'
     course_description: Kursevi
     courses: Kursevi
     courses_taught: Predavani kursevi
     creation_date: Datum stvaranja
     creator:
+      course_description: Opis kursa
       course_language: Matični jezik
       course_project: Matični projekt
+    delete_course_instructions: Ovu stranicu možete obrisati ako se prije toga uklone
+      sve kampanje.
     dismiss_survey: Odbaci
     expected_students: Očekivani studenti
     instructors: Nastavnici
     loading: Učitavam…
     my_articles: Moji članci
+    overview: Početna
+    revisions_doc: Broj izmjena u proteklih %{timeframe} dana
+    school_and_term: Ustanova/semestar
+    course_details: Detalji kursa
+    view_other: Prikaži ostale kampanje
+    word_count_doc: Procjena broja riječi koje su studenti kursa dodali u članke u
+      glavnom imenskom prostoru tokom trajanja kursa
   courses_generic:
+    all_courses: Svi programi
     cancel: Otkaži
+    courses: Programi
+    campaigns: 'Kampanje:'
+    campaign_courses: Programi %{title}
+    creator:
+      course_school: Ustanova
+      course_term: Kada
+    explore: Pronađi programe
+    school: Ustanova
+    school_and_term: Ustanova/kada
+    student_editors: Urednici
+    term: Kada
+    view_other: Prikaži ostale kampanje
+    word_count_doc: Procjena broja riječi koje su urednici programa dodali u članke
+      u glavnom imenskom prostoru tokom trajanja programa
+    yourcourses: Vaši programi
   editable:
     cancel: Otkaži
     save: Sačuvaj
+  metrics:
+    are_updated: Prema posljednjem ažuriranju sistema
+    last_update: Posljednje ažuriranje
+    articles_created: Stvorenih članaka
+    per_user: '%{number} po korisniku'
+    revisions: Nedavne izmjene
+    upload_count: Postavljanja na Commons
+    uploads_in_use_count:
+      one: datoteka upotrebljena u članku
+      other: datoteke upotrebljene u člancima
+    upload_usages_count:
+      one: ukupna upotreba na svim jezicima
+      other: ukupne upotrebe na svim jezicima
+    view: Pregleda
+    word_count: Dodane riječi
+  recent_activity:
+    recent_edits: Nedavne izmjene
   users:
+    editors: Urednici
     first_name: Ime
     last_name: Prezime
     loading: Učitavam korisnike...
+    recent_revisions: Nedavne izmjene
+    up_to_date_with_training: su ažurni s obukom
     username: Korisničko ime
     username_placeholder: Korisničko ime
     role:
@@ -126,6 +179,9 @@ bs:
       campus_volunteer: Univerzitetski volonter
       online_volunteer: Mrežni volonter
       wiki_ed_staff: Osoblje Wiki Eda
+  user_profiles:
+    student_impact: Ukupni učinak koji je %{username} ostvario/-la kao student(kinja)
+    institution_placeholder: Naziv ustanove (neobavezno)
   error:
     unsupported_browser:
       header: Preglednik nije podržan.  :-(
