@@ -219,6 +219,7 @@ ca:
     join_course: Uneix-te al curs
     join_prompt: Unir-se a '%{title}'?
     join_successful: Us heu unit amb èxit a %{title}.
+    join_no_passcode: Esteu segur que voleu inscribir-vos a aquest curs?
     leave_confirmation: N'estàs segur què vols abandonar el curs?
     leave_course: Abandonar el curs
     loading: S'està carregant...
