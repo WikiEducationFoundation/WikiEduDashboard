@@ -46,3 +46,10 @@ Change the Apache configuration to use it as soon a version of the dashboard get
 
 * Restart updates: `cap production sake task=batch:resume`
 * Sidekiq should have restarted during deployment
+
+### Troubleshooting
+
+If passenger is failing to restart:
+* Make sure rvm is available and defaults to the new version for the deploy user. This may differ between a login (ssh) session and a non-login Capistrano session. Check `/etc/bash.bashrc` and `~/.bashrc`, and make sure rvm is being sourced properly.
+* Make sure Capistrano is trying to use the correct version of passenger. Add debugging commands, like `passenger -v`, to `config/deploy/production.rb`.
+* Make sure Capistrano is using the new ruby version and the corresponding passenger executables.
