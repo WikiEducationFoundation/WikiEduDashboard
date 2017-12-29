@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
-const Flux = new McFly();
 import API from '../utils/api.js';
+const Flux = new McFly();
 
 const ProfileActions = Flux.createActions({
   fetch_stats(username) {

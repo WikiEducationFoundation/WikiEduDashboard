@@ -23,18 +23,6 @@
     # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
     "react/no-danger": 0,
     # Rules below here should be enabled once violations are fixed.
-    "react/forbid-prop-types": 0,
-    "react/no-string-refs": 0,
-    "react/jsx-equals-spacing": 0,
-    "react/jsx-no-target-blank": 0,
-    "react/jsx-wrap-multilines": 0,
-    "jsx-a11y/no-static-element-interactions": 0,
-    "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/img-has-alt": 0,
-    "jsx-a11y/href-no-hash": 0,
-    "jsx-a11y/aria-role": 0,
-    "jsx-a11y/anchor-has-content": 0,
-    "import/first": 0,
     "import/extensions": 0,
     "import/newline-after-import": 0,
     "import/prefer-default-export": 0,

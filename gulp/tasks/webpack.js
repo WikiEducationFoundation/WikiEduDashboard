@@ -1,10 +1,10 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-import config from '../config.js';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
+import config from '../config.js';
 const plugins = loadPlugins();
 
 gulp.task('webpack', ['bower'], (cb) => {

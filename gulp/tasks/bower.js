@@ -5,8 +5,8 @@
 import gulp from 'gulp';
 import mainBowerFiles from 'main-bower-files';
 import loadPlugins from 'gulp-load-plugins';
-const plugins = loadPlugins();
 import config from '../config.js';
+const plugins = loadPlugins();
 
 
 //--------------------------------------------------------
