@@ -57,6 +57,7 @@ en:
     recent_activity: Recent Activity
     report_problem: Report a problem
     search: ask a question
+    search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
@@ -378,6 +379,7 @@ en:
     download_stats_data: Download stats
     does_not_exist: The Article doesn't exist. Create a Sandbox page and assign yourself to that to receive suggestions.
     duration: Course Duration
+    edit_count: Edit Count
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
     end: End
