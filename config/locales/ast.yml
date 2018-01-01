@@ -31,6 +31,7 @@ ast:
     recent_activity: Actividá recién
     report_problem: Informar d'un problema
     search: facer una entruga
+    search_results: 'Resultancies de: ''%{search_terms}'''
     sign_up_extended: Rexístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Date d'alta
@@ -57,7 +58,7 @@ ast:
       a empezar. (Tárdase unos 30 minutos en completala.)
     review_orientation: Ver la orientación
     start_orientation: Principiar la orientación
-    blog_headline: Noticies recién de Wiki Ed
+    blog_headline: Noticies recién de Wiki Educación
     about_creating_programs: Si tas xestionando una única actividá independiente,
       puedes  crear un Programa agora. Si l'actividá ye parte de daqué más grande,
       atopa o crea la Campaña pa ello. Entós puedes crear un Programa nuevu dende
@@ -115,6 +116,7 @@ ast:
       d'autor
     title: Títulu
     title_example: Títulu del artículu
+    tools: Ferramientes d'evaluación
     view: Ver artículu
     view_all: Ver toos
     view_doc: La suma de toles visites a cada artículu demientres el proyectu
@@ -186,6 +188,17 @@ ast:
       el testu d'esta área va copiase como descripción na páxina del programa
     title: Títulu
     use_start_end_dates: Usar les feches de principiu y fin
+  categories:
+    add_category: Amestar categoría
+    add_template: Añadir plantía
+    add_this_category: Añadir esta categoría
+    add_this_template: Amestar esta plantía
+    depth: Fondura de subcategoríes
+    name: Nome
+    category_name: Nome de la categoría
+    template_name: Nome de la plantía
+    remove: Desaniciar
+    tracked_categories: Categoríes y plantíes siguíes
   chat:
     label: Charra
   courses:
@@ -298,6 +311,7 @@ ast:
     dismiss_survey_confirm: ¿Tas seguru de descartar permanentemente esta encuesta?
     download_stats_data: Estadístiques de descargues
     duration: Duración del cursu
+    edit_count: Recuentu d'ediciones
     edit_course_dates: Editar les Dates del cursu
     enable_chat: Activar el chat
     end: Fin
@@ -344,6 +358,7 @@ ast:
       de tolos estudiantes que tienen los módulos de preparación designaos atrasaos.
       ¿Tas seguru de que quies faer esto?
     no_available_actions: Nun hai aiciones disponibles
+    ores_plot: ORES
     overview: Entamu
     passcode: Códigu d'accesu
     passcode_none: Sin códigu d'accesu
@@ -382,9 +397,11 @@ ast:
     timeline_link: Cronograma
     title: Títulu
     unsubmitted: Cursos ensin presentar
+    view_other: Ver otres campañes
     view: Ver el cursu
     view_doc: La suma de toles visites a los artículos editaos polos editores apuntaos
       desque ficieron la primera edición en cada artículu
+    view_page: Ver la páxina del cursu
     view_wiki: Ver en Wikipedia
     volunteer:
       one: Voluntariu

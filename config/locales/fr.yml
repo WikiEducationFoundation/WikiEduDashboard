@@ -49,6 +49,7 @@ fr:
     recent_activity: Activité récente
     report_problem: Signaler un problème
     search: poser une question
+    search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
@@ -377,6 +378,7 @@ fr:
     does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
       y pour recevoir des suggestions.
     duration: Durée du cours
+    edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
     enable_chat: Activer le clavardage
     end: Fin

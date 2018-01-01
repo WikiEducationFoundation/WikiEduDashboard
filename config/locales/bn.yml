@@ -139,6 +139,7 @@ bn:
     dismiss_survey: খারিজ
     dismiss_survey_confirm: আপনি কি নিশ্চিত যে আপনি স্থায়ীভাবে এই জরিপ খারিজ করতে
       ইচ্ছুক?
+    edit_count: সম্পাদনা গণনা
     enable_chat: চ্যাট সক্রিয় করুন
     end: শেষ
     ended: কোর্সটি শেষ হয়েছে।

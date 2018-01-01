@@ -39,6 +39,7 @@ it:
     recent_activity: Attività recente
     report_problem: Segnala un problema
     search: chiedi una domanda
+    search_results: 'Risultati per: ''%{search_terms}'''
     sign_up_extended: Registrati con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrati
@@ -57,7 +58,7 @@ it:
     no_courses_student: Sembra che non ti si è ancora iscritto a un corso.
     review_orientation: Esamina orientamento
     start_orientation: Inizia orientamento
-    blog_headline: Notizie recenti da Wiki Ed
+    blog_headline: Notizie recenti da Wiki Education
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
