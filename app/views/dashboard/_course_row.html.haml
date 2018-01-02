@@ -8,8 +8,8 @@
       .course-details_title
         = course_i18n('instructors', course)
       .course-details_value
-        - course.instructors.each do |user|
-          = user.username
+        - course.instructors.first(1).each do |courses_users|
+          = courses_users.username
     .col
       .course-details_title
         = course_i18n('school', course)
