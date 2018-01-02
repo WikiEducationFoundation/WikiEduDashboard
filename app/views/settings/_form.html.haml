@@ -1,0 +1,35 @@
+%h1.section-header
+  = setting.key.to_s.humanize
+%div.module
+  = form_for(setting, url: setting_path(setting), html:{class: "#{setting.key}_form"}) do |s|
+    - setting.value&.each do |key, value|
+      %div.form-group
+        / { style: "float: left; clear: none; text-align: inherit; width: 48.5%; margin-left: 0%; margin-right: 1%;" }
+        = s.fields_for setting.key do |ff|
+          = ff.label key.to_s.humanize
+          = ff.text_field "#{key}", value: value
+          = link_to "Delete", setting_path(setting, q: key.to_s), method: :delete, id: key.to_s
+
+    - if setting.value.blank?
+      = "Empty settings"
+    %div.module
+      %h5
+        = "Add #{setting.key.to_s.humanize.singularize}"
+      = s.text_field "new_setting", value: ""
+      = s.text_field "setting_value", value: ""
+    %button.form-group.button.dark
+      / .disabled
+      = s.submit("Update #{setting.key.to_s.humanize}")
+/ Separate zone for adding some setting to Setting record
+%div.module
+  %h4
+    = "Add #{setting.key.to_s.humanize.singularize}"
+  = form_for(setting, url: setting_path(setting), class: "#{setting.key}_form") do |s|
+    = s.fields_for setting.key do |ff|
+      - setting.value&.each do |key, value|
+        = ff.hidden_field "#{key}", value: value
+    = s.text_field "new_setting", value: ""
+    = s.text_field "setting_value", value: ""
+    %button.form-group.button.dark
+      / .disabled
+      = s.submit("Add #{setting.key.to_s.humanize}")

@@ -25,4 +25,8 @@ class SpecialUsers
   def self.survey_alerts_recipient
     User.find_by(username: special_users[:survey_alerts_recipient])
   end
+
+  def self.super_admin
+    User.find_by(username: special_users[:super_admin])
+  end
 end

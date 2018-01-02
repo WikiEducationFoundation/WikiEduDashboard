@@ -14,4 +14,9 @@
 FactoryBot.define do
   factory :setting do
   end
+
+  factory :special_users, class: Setting do
+    key 'special_users'
+
+  end
 end

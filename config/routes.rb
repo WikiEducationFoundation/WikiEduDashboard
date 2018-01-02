@@ -283,6 +283,9 @@ Rails.application.routes.draw do
   end
 
   resources :admin
+  resources :settings, only: [:index, :update, :destroy]
+  get '/appsettings' => 'admin#index', as: :app_settings
+  put '/appsettings' => 'admin#app_settings', as: :update_app_settings
   resources :alerts_list
 
   require 'sidekiq/web'
