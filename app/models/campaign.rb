@@ -15,6 +15,7 @@ require 'csv'
 #  start                :datetime
 #  end                  :datetime
 #  template_description :text(65535)
+#  default_course_type  :string(255)
 #
 
 #= Campaign model
@@ -39,6 +40,8 @@ class Campaign < ActiveRecord::Base
   validates_uniqueness_of :slug, message: I18n.t('campaign.already_exists')
 
   validate :validate_dates
+
+  validates_inclusion_of :default_course_type, in: Course::COURSE_TYPES + [nil]
 
   before_save :set_default_times
 
@@ -85,6 +88,10 @@ class Campaign < ActiveRecord::Base
 
   def self.default_campaign
     find_by(slug: ENV['default_campaign'])
+  end
+
+  def self.default_course_type
+    find_by(slug: ENV['default_course_type'])
   end
 
   private

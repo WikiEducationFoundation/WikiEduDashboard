@@ -1,4 +1,3 @@
-
 import API from '../utils/api.js';
 import { RECEIVE_INITIAL_CAMPAIGN, UPDATE_COURSE, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
 
