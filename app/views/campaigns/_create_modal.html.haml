@@ -32,6 +32,10 @@
               = label(:campaign, :description, t('campaign.description') + ':')
               = text_area(:campaign, :description, maxlength: 65535)
 
+            .form-group
+              = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
+              = text_field(:campaign, :default_course_type)
+
         .wizard__panel__controls.wizard__form
           .right
             / show only one error at a time

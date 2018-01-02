@@ -190,6 +190,7 @@ es:
     course_removed: '"%{title}" se ha eliminado de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
+    default_course_type: Tipo de curso predeterminado
     description: Descripción
     delete_campaign: Eliminar esta campaña
     none: Ninguno

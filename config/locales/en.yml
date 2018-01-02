@@ -218,6 +218,7 @@ en:
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
+    default_course_type: Default Course Type
     description: Description
     delete_campaign: Delete this campaign
     none: None
