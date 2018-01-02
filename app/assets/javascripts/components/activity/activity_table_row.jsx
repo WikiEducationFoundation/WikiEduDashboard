@@ -19,7 +19,21 @@ const ActivityTableRow = createReactClass({
     talkPageLink: PropTypes.string,
     author: PropTypes.string,
     title: PropTypes.string,
-    revision: PropTypes.object,
+    revision: PropTypes.shape({
+      key: PropTypes.number,
+      article_url: PropTypes.string,
+      diff_url: PropTypes.string,
+      report_url: PropTypes.string,
+      title: PropTypes.string,
+      username: PropTypes.string,
+      datetime: PropTypes.string,
+      courses: PropTypes.arrayOf(
+        PropTypes.shape({
+          slug: PropTypes.string,
+          title: PropTypes.string
+        })
+      )
+    }),
     isOpen: PropTypes.bool,
     toggleDrawer: PropTypes.func
   },

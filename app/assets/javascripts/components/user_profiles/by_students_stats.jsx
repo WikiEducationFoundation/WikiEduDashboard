@@ -68,7 +68,15 @@ const ByStudentsStats = ({ username, stats }) => {
 
 ByStudentsStats.propTypes = {
   username: PropTypes.string,
-  stats: PropTypes.object
+  stats: PropTypes.shape({
+    article_count: PropTypes.string,
+    new_article_count: PropTypes.string,
+    upload_count: PropTypes.string,
+    upload_usage_count: PropTypes.string,
+    uploads_in_use_count: PropTypes.string,
+    view_sum: PropTypes.string,
+    word_count: PropTypes.string,
+  })
 };
 
 export default ByStudentsStats;

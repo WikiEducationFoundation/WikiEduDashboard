@@ -129,7 +129,12 @@ const StudentsTaughtGraph = ({ statsData, graphWidth, graphHeight, courseStringP
   );
 };
 StudentsTaughtGraph.propTypes = {
-  statsData: PropTypes.array,
+  statsData: PropTypes.arrayOf(
+    PropTypes.shape({
+      created_at: PropTypes.string,
+      index: PropTypes.number
+    })
+  ),
   graphWidth: PropTypes.number,
   graphHeight: PropTypes.number,
   courseStringPrefix: PropTypes.string

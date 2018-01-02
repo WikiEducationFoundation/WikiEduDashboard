@@ -19,7 +19,11 @@ const TrainingSlideHandler = createReactClass({
   displayName: 'TrainingSlideHandler',
 
   propTypes: {
-    params: PropTypes.object
+    params: PropTypes.shape({
+      library_id: PropTypes.string,
+      module_id: PropTypes.string,
+      slide_id: PropTypes.string,
+    })
   },
 
   mixins: [TrainingStore.mixin],

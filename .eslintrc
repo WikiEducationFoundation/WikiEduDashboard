@@ -19,11 +19,13 @@
     "no-alert": 0,
     "new-cap": [2, { "capIsNew": false }],
     "no-use-before-define": 0,
-    # App is using html from an outside source (Wikipedia, eg. for training slides, articles), so
-    # it's going to be 'dangerous' in the sense of injecting whatever html comes from Wikipedia, but that's what is needed
-    "react/no-danger": 0,
-    # Rules below here should be enabled once violations are fixed.
     "react/forbid-prop-types": 0,
+    # Rules below here should be enabled once violations are fixed.
+    "react/no-find-dom-node": 0,
+    "react/no-danger": 0,
+    "react/no-children-prop": 0,
+    "react/no-unused-prop-types": 0,
+    "react/no-unescaped-entities": 0,
     "react/no-string-refs": 0,
     "react/jsx-equals-spacing": 0,
     "react/jsx-no-target-blank": 0,
@@ -62,13 +64,11 @@
     "no-restricted-globals": 0,
     "indent": 0,
     "function-paren-newline": 0,
-    "react/no-find-dom-node": 0,
     "object-curly-newline": 0,
     "spaced-comment": 0,
     "react/jsx-curly-brace-presence": 0,
     "react/require-default-props": 0,
     "jsx-a11y/anchor-is-valid": 0,
-    "react/no-unused-prop-types": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "react/no-unused-state": 0,
     "react/jsx-closing-tag-location": 0,
