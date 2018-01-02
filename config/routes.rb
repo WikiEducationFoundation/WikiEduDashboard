@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
+    #this
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
         constraints: {
