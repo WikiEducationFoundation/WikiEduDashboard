@@ -28,17 +28,6 @@ GIT
       rails (>= 3.0.0)
 
 GIT
-  remote: https://github.com/plataformatec/devise
-  revision: 135d898e0e955bfeb539611cf0f575d244275b22
-  specs:
-    devise (4.3.0)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 4.1.0, < 5.2)
-      responders
-      warden (~> 1.2.3)
-
-GIT
   remote: https://github.com/ragesoss/omniauth-mediawiki.git
   revision: c64e52a08881e61d185c150818f8e13c62082a74
   specs:
@@ -163,6 +152,12 @@ GEM
     debug_inspector (0.0.3)
     deep_cloneable (2.3.1)
       activerecord (>= 3.1.0, < 5.2.0)
+    devise (4.4.0)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 5.2)
+      responders
+      warden (~> 1.2.3)
     diff-lcs (1.3)
     docile (1.1.5)
     domain_name (0.5.20170404)
@@ -264,7 +259,7 @@ GEM
     mimemagic (0.3.2)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.10.3)
+    minitest (5.11.1)
     msgpack (1.2.0)
     msgpack (1.2.0-x64-mingw32)
     multi_json (1.12.2)
@@ -501,7 +496,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   deep_cloneable (~> 2.3.0)
-  devise!
+  devise
   factory_bot_rails
   faker
   faraday

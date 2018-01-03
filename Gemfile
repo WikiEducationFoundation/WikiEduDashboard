@@ -22,8 +22,7 @@ gem 'dalli' # Caching
 gem 'connection_pool'
 
 ### Login, authentication, browser support
-# NOTE: Temporarily using devise from git, until next release. See https://github.com/plataformatec/devise/issues/4719
-gem 'devise', git: 'https://github.com/plataformatec/devise' # user session management
+gem 'devise' # user session management
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 # Parses user agent strings to determine which browser is in use.
