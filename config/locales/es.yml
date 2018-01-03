@@ -45,6 +45,7 @@ es:
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
     search: preguntar
+    search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
@@ -71,7 +72,7 @@ es:
       a empezar. (Se tarda unos 30 minutos en completar.)
     review_orientation: Revisar la orientación
     start_orientation: Comenzar la orientación
-    blog_headline: Noticias recientes de Wiki Ed
+    blog_headline: Noticias recientes de Wiki Education
     about_creating_programs: Si estás ejecutando un único evento independiente,  puedes
       crear un Programa ahora. Si tu evento es parte  de algo más grande, encuentra
       o crea la Campaña para él. Entonces puedes crear un Programa nuevo desde la
@@ -312,6 +313,7 @@ es:
       esta encuesta?
     download_stats_data: Estadísticas de descargas
     duration: Duración del curso
+    edit_count: Recuento de ediciones
     edit_course_dates: Editar las fechas del curso
     enable_chat: Activar el chat
     end: Fin

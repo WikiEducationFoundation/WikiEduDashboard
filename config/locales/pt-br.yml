@@ -19,6 +19,7 @@
 # Author: Maxan
 # Author: Peter Fernando
 # Author: Raphaelras
+# Author: Rukasuoribera
 # Author: Trigonometria87
 ---
 pt-br:
@@ -47,6 +48,7 @@ pt-br:
     recent_activity: Atividade recente
     report_problem: Informar um problema
     search: perguntar
+    search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registrar-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
     sign_up: Criar conta
@@ -73,7 +75,7 @@ pt-br:
       ajudá-lo a começar (Leva aproximadamente 30 minutos para completar.)
     review_orientation: Revisar a orientação
     start_orientation: Começar Orientação
-    blog_headline: Notícias Recentes de Wiki Ed
+    blog_headline: Notícias Recentes de Wiki Educação
     about_programs: Esse site rastrea atividades através de Programas — eventos individuais
       como uma editatona ou cadeira universitária. Cada programa é parte de uma ou
       mais campanhas, que provê estatísticas agregadas para programas.
@@ -306,6 +308,7 @@ pt-br:
     dismiss_survey: Dispensar
     dismiss_survey_confirm: Tem certeza que deseja ignorar permanentemente este questionário?
     duration: Duração do curso
+    edit_count: Editar conta
     edit_course_dates: Editar data do Curso
     enable_chat: Ativar Bate Papo
     end: Fim

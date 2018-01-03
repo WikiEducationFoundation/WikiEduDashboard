@@ -36,7 +36,7 @@
         = form_tag('./edit', method: :get, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
           %button.button.dark
-            = t('campaigns.edit')
+            = t('editable.edit')
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3

@@ -22,7 +22,7 @@
           %option{rel: 'desc', value: 'characters'}
             = t("metrics.word_count")
           %option{rel: 'desc', value: 'average-words'}
-            = t("metrics.average_word_count")
+            = t("metrics.word_count_average")
           %option{rel: 'desc', value: 'views'}
             = t("metrics.view")
           %option{rel: 'desc', value: 'students'}
@@ -70,7 +70,7 @@
               = t('courses.actions')
       %tbody.list
         - if @search_terms.present?
-          %h4= t("Results for: '#{@search_terms}'")
+          %h4= t('application.search_results', search_terms: @search_terms)
           - @presenter.search_courses(@search_terms).each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else

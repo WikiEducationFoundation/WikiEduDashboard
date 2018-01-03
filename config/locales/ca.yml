@@ -34,6 +34,7 @@ ca:
     my_dashboard: Tauler de control
     recent_activity: Activitat recent
     search: feu una pregunta
+    search_results: 'Resultats per a: «%{search_terms}»'
     sign_up_extended: Inicia la sessió a la Viquipèdia
     sign_up_log_in_extended: amb la Viquipèdia
     sign_up: Registreu-vos
@@ -200,6 +201,7 @@ ca:
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     duration: Durada del curs
+    edit_count: Recompte d’edicions
     edit_course_dates: Edita les dates del curs
     end: Final
     enroll: Inscriure's
@@ -219,6 +221,7 @@ ca:
     join_course: Uneix-te al curs
     join_prompt: Unir-se a '%{title}'?
     join_successful: Us heu unit amb èxit a %{title}.
+    join_no_passcode: Esteu segur que voleu inscribir-vos a aquest curs?
     leave_confirmation: N'estàs segur què vols abandonar el curs?
     leave_course: Abandonar el curs
     loading: S'està carregant...

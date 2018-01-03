@@ -6,7 +6,8 @@ If you know your way around Rails, here's the very short version. Some additiona
 * copy `config/application.example.yml` to `config/application.yml`
 * copy `config/database.example.yml` to `config/database.yml`
 * create a MySQL database, `dashboard`
-* install ruby 2.3.1 and nodejs
+* install ruby 2.5.0 and nodejs
+* install R
 * `bundle install`
 * `rake db:migrate`
 * `rake campaign:add_campaigns`
@@ -30,10 +31,10 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Fork this repo, so that you can make changes and push them freely to GitHub.
 - Clone the new WikiEduDashboard repo and enter that directory.
 - On OSX/Debian, make sure you are in the "sudo" group.
-- Install Ruby 2.3.1 (RVM is recommended)
+- Install Ruby 2.5.0 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - `rvm install ruby-2.3.1`
+       - `rvm install ruby-2.5.`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
@@ -88,6 +89,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - Install R:
   - Debian: `sudo apt install r-base`
+  - OS X: `brew tap homebrew/science && brew install r`
   - Also you can refer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**

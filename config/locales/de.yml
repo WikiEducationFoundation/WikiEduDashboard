@@ -31,6 +31,7 @@ de:
     recent_activity: Letzte Aktivitäten
     report_problem: Ein Problem melden
     search: eine Frage stellen
+    search_results: 'Ergebnisse für: „%{search_terms}“'
     sign_up_extended: Mit Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
     sign_up: Registrieren
@@ -57,7 +58,7 @@ de:
       um dir beim Anfangen zu helfen. Die Vervollständigung dauert ungefähr 30 Minuten.
     review_orientation: Einführung überprüfen
     start_orientation: Einführung beginnen
-    blog_headline: Aktuelle Neuigkeiten von Wiki Ed
+    blog_headline: Aktuelle Neuigkeiten von Wiki Education
     about_programs: Diese Website verfolgt Wikiaktivitäten durch Programme – einzelne
       Ereignisse wie ein Editathon oder Schulkurse. Jedes Programm ist Teil einer
       oder mehrerer Kampagnen, die zusammengefasste Statistiken über Programme zur
@@ -359,6 +360,7 @@ de:
     does_not_exist: Der Artikel ist nicht vorhanden. Erstelle eine Spielwiesenseite
       und weise dich selbst zu, um Vorschläge zu erhalten.
     duration: Kursdauer
+    edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
     enable_chat: Chat aktivieren
     end: Ende

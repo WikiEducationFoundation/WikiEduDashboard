@@ -33,6 +33,7 @@ zh-CN:
     recent_activity: 最近活动
     report_problem: 报告问题
     search: 提问问题
+    search_results: “%{search_terms}”的结果
     sign_up_extended: 注册维基百科
     sign_up_log_in_extended: 通过维基百科
     sign_up: 注册
@@ -53,7 +54,7 @@ zh-CN:
     orientation_notice: 在您创建课程之前，让我们通过迎新活动以帮助您了解如何入门。（这需要约30分钟完成。）
     review_orientation: 复核迎新活动
     start_orientation: 开始迎新活动
-    blog_headline: 来自Wiki Ed的最新新闻
+    blog_headline: 来自维基教育计划的最新新闻
     about_programs: 本网站通过计划追踪wiki活跃——这是指个别活动，例如编辑松或学校课程。每个计划都是一个或多个运动的一部分，它们提供跨计划的聚合统计。
   home:
     explore: 探索
@@ -272,6 +273,7 @@ zh-CN:
     download_stats_data: 下载统计
     does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     duration: 课程持续时间
+    edit_count: 编辑数
     edit_course_dates: 编辑课程日期
     enable_chat: 启用聊天
     end: 结束

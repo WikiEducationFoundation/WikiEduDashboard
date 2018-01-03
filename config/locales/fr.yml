@@ -49,6 +49,7 @@ fr:
     recent_activity: Activité récente
     report_problem: Signaler un problème
     search: poser une question
+    search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
@@ -75,7 +76,7 @@ fr:
       aider à commencer (cela prendra 30 minutes pour le terminer).
     review_orientation: Examiner l’orientation
     start_orientation: Orientation au départ
-    blog_headline: Nouvelles récentes de Wiki Ed
+    blog_headline: Actualités récentes de Wiki Education
     about_programs: Ce site suit les activités wiki à travers des Programmes — des
       événements individuels tels qu’un wikithon ou un cours scolaire. Chaque Programme
       fait partie d’une ou de plusieurs Campagnes, qui fournissent des statistiques
@@ -377,6 +378,7 @@ fr:
     does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
       y pour recevoir des suggestions.
     duration: Durée du cours
+    edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
     enable_chat: Activer le clavardage
     end: Fin
