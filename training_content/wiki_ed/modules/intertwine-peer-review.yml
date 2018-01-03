@@ -1,4 +1,4 @@
-name: 'Intertwine: review your Wikipedia article draft with your peers!'
+name: 'Intertwine: Review your Wikipedia article draft with your peers!'
 id: 20
 description: |
   Now that you have done some work with your own Wikipedia article, it is time for feedback and improvement!
@@ -8,7 +8,7 @@ description: |
   * Get feedback from students in other Wiki Education classes on how to make your Wikipedia article even better.
   * Provide feedback to peers and help them improve their article.
   
-  *Note that the training module itself will introduce Intertwine and help you sign up for a discussion session. You will participate in the discussion and achieve the above learning goals at a later time you picked.* 
+  *Note that the training module itself will introduce Intertwine and help you sign up for a discussion session. You will participate in the discussion and achieve the above learning goals at a later time of your choice.* 
 estimated_ttc: 60 minutes
 slides:
   - slug: intertwine-third-activity-summary # 2001
