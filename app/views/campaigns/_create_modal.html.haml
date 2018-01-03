@@ -34,7 +34,8 @@
 
             .form-group
               = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
-              = text_field(:campaign, :default_course_type)
+              = select(:campaign, :default_course_type, options_for_select(['BasicCourse', 'Editathon', 'ArticleScopedProgram']), include_blank: true)
+
 
         .wizard__panel__controls.wizard__form
           .right
