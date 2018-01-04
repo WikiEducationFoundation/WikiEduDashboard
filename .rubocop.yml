@@ -34,7 +34,7 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*' # pretty much impossible with RSpec
 Metrics/MethodLength:
-  Max: 22 # We should bring this down, ideally to the default of 10
+  Max: 16 # We should bring this down, ideally to the default of 10
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
 Metrics/ModuleLength:
