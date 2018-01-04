@@ -83,7 +83,8 @@
                   = t('campaign.default_course_type')
               %span.rails_editable-content
                 = @campaign.default_course_type
-              = select_tag(:default_course_type, options_for_select(['BasicCourse', 'Editathon', 'ArticleScopedProgram'], @campaign.default_course_type), class: 'rails_editable-input')
+              %span.rails_editable-input
+                = select(:campaign, :default_course_type, options_for_select(['', 'BasicCourse', 'Editathon', 'ArticleScopedProgram'], @campaign.default_course_type))
 
             .campaign-use-dates.form-group.rails_editable-field
               - use_dates = @campaign.start || @campaign.end
