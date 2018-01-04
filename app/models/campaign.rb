@@ -41,7 +41,7 @@ class Campaign < ActiveRecord::Base
 
   validate :validate_dates
 
-  validates :default_course_type, :inclusion => { :in => Course::COURSE_TYPES }, allow_blank: true
+  validates :default_course_type, inclusion: { in: Course::COURSE_TYPES }, allow_blank: true
 
   before_save :set_default_times
 
