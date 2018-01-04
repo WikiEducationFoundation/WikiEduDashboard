@@ -30,9 +30,10 @@ Style/NumericPredicate:
   Exclude:
     - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
 Metrics/BlockLength:
-  Max: 43 # We should bring this down, ideally to the default of 25
   Exclude:
     - 'spec/**/*' # pretty much impossible with RSpec
+    - 'lib/tasks/*' # also impractical for Rake tasks
+    - 'app/views/**/*' # jbuilder requires long blocks for large json views
 Metrics/MethodLength:
   Max: 16 # We should bring this down, ideally to the default of 10
   Exclude:
