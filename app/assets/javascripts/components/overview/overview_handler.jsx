@@ -18,6 +18,7 @@ import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
+import StatisticsUpdateInfo from './statistics_update_info.jsx';
 
 const getState = () =>
   ({
@@ -116,24 +117,13 @@ const Overview = createReactClass({
       <div className="sidebar" />
     );
 
-    let courseStatistics;
-    if (!this.state.course.ended && !Features.wikiEd && this.state.course.updates) {
-      const lastUpdate = this.state.course.updates.last_update ? `${I18n.t('metrics.last_update')}: ${moment(this.state.course.updates.last_update).fromNow()}` : '';
-      const delay = this.state.course.updates.average_delay && moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").millisecond() < moment().millisecond() ? `. ${I18n.t('metrics.next_update')}: ${moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").fromNow()}` : '';
-      courseStatistics = (
-        <div className="pull-right">
-          <small className="mb2">{lastUpdate}{delay}</small>
-        </div>
-      );
-    }
-
     return (
       <section className="overview container">
         { syllabusUpload }
         <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
         </h3>
         <CourseStats course={this.state.course} />
-        {courseStatistics}
+        <StatisticsUpdateInfo course={this.state.course} />
         {userArticles}
         <div className="primary">
           {primaryContent}
