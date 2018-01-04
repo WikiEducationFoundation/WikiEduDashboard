@@ -32,6 +32,11 @@
               = label(:campaign, :description, t('campaign.description') + ':')
               = text_area(:campaign, :description, maxlength: 65535)
 
+            .form-group
+              = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
+              = select(:campaign, :default_course_type, options_for_select(['BasicCourse', 'Editathon', 'ArticleScopedProgram']), include_blank: true)
+
+
         .wizard__panel__controls.wizard__form
           .right
             / show only one error at a time

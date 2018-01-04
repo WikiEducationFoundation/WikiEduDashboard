@@ -84,6 +84,7 @@ class CourseCreationManager
   end
 
   def set_course_type
+    return if @course_params[:type].present?
     @overrides[:type] = Features.default_course_type
   end
 
