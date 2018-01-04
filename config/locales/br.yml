@@ -1,6 +1,7 @@
 # Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dishual
 # Author: Fulup
 # Author: Gwenn-Ael
 # Author: Macofe
@@ -25,6 +26,7 @@ br:
     my_dashboard: Ma zaolenn-vourzh
     recent_activity: Oberiantiz nevez
     search: Sevel ur goulenn
+    search_results: Disoc'h evit:'%{search_terms}'
     sign_up_extended: En em enskrivañ gant Wikipedia
     sign_up_log_in_extended: gant Wikipedia
     sign_up: En em enskrivañ
@@ -186,6 +188,7 @@ br:
     delete_course: Diverkañ ar gentel
     dismiss_survey: Disteurel
     duration: Pad ar gentel
+    edit_count: Sammad degasadennoù
     edit_course_dates: Kemmañ deiziadoù ar gentel
     enable_chat: Aotren ar flap
     end: Dibenn
