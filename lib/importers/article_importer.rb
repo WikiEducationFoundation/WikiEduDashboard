@@ -48,7 +48,7 @@ class ArticleImporter
 
   def import_articles_from_title_query(results)
     articles = []
-    results.each do |_id, page_data|
+    results.each_value do |page_data|
       next if page_data['missing']
       articles << Article.new(mw_page_id: page_data['pageid'].to_i,
                               title: page_data['title'].tr(' ', '_'),
