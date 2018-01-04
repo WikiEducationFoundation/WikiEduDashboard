@@ -600,7 +600,7 @@ en:
   metrics:
     label: Course Activity
     last_update: Last statistics update
-    next_update: Next update
+    next_update: Next estimated update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created

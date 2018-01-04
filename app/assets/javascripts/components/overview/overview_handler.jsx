@@ -119,7 +119,7 @@ const Overview = createReactClass({
     let courseStatistics;
     if (!this.state.course.ended && !Features.wikiEd && this.state.course.updates) {
       const lastUpdate = this.state.course.updates.last_update ? `${I18n.t('metrics.last_update')}: ${moment(this.state.course.updates.last_update).fromNow()}` : '';
-      const delay = this.state.course.updates.average_delay ? `. ${I18n.t('metrics.next_update')}: ${moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").fromNow()}` : '';
+      const delay = this.state.course.updates.average_delay && moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").millisecond() < moment().millisecond() ? `. ${I18n.t('metrics.next_update')}: ${moment(this.state.course.updates.last_update).add(this.state.course.updates.average_delay, "seconds").fromNow()}` : '';
       courseStatistics = (
         <div className="pull-right">
           <small className="mb2">{lastUpdate}{delay}</small>
@@ -131,10 +131,6 @@ const Overview = createReactClass({
       <section className="overview container">
         { syllabusUpload }
         <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
-          <span className="tooltip-indicator" />
-          <div className="tooltip dark">
-            <p>{I18n.t('metrics.are_updated')}</p>
-          </div>
         </h3>
         <CourseStats course={this.state.course} />
         {courseStatistics}
