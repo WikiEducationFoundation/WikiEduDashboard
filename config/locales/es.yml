@@ -525,8 +525,8 @@ es:
     edit_details: Editar detalles
   metrics:
     label: Actividad del curso
-    are_updated: Según la última actualización del sistema
-    last_update: Última actualización
+    last_update: Última actualización de estadísticas
+    next_update: Próxima actualización estimada
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
