@@ -220,6 +220,7 @@ en:
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
     default_course_type: Default Course Type
+    default_passcode: Default Passcode
     description: Description
     delete_campaign: Delete this campaign
     none: None
