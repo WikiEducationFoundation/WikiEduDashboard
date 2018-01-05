@@ -41,7 +41,12 @@ class Campaign < ActiveRecord::Base
 
   validate :validate_dates
 
-  validates :default_course_type, inclusion: { in: Course::COURSE_TYPES }, allow_blank: true
+  ALLOWED_TYPES = %w[
+    Editathon
+    BasicCourse
+    ArticleScopedProgram
+  ].freeze
+  validates :default_course_type, inclusion: { in: ALLOWED_TYPES }, allow_blank: true
 
   before_save :set_default_times
 
