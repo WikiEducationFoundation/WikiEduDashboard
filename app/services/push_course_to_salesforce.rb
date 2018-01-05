@@ -46,6 +46,7 @@ class PushCourseToSalesforce
     salesforce_fields
   end
 
+  # rubocop:disable Metrics/MethodLength
   def base_salesforce_fields
     {
       Name: @course.title,
@@ -70,6 +71,7 @@ class PushCourseToSalesforce
       Content_Expert__c: content_expert
     }
   end
+  # rubocop:enable Metrics/MethodLength
 
   def program_id
     case @course.type
