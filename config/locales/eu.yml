@@ -341,6 +341,7 @@ eu:
     does_not_exist: Artikulua ez da existitzen. Proba orria sortu eta eman zeure izena
       iradokizunak jasotzeko.
     duration: Ikastaroaren iraupena
+    edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu
     enable_chat: Txata gaitu
     end: Amaitu

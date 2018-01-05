@@ -87,7 +87,7 @@ class RevisionImporter
   def import_revisions_slice(sub_data)
     @articles, @revisions = [], []
 
-    sub_data.each do |_a_id, article_data|
+    sub_data.each do |(_a_id, article_data)|
       process_article_and_revisions(article_data)
     end
 

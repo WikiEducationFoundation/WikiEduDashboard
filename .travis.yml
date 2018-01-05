@@ -33,6 +33,7 @@ install:
 - bower install
 - yarn install
 - gem install bundler
+- gem install rubocop
 - bundle install --jobs=3 --retry=3 --deployment
 before_script:
 # install Code Climate test reporter
@@ -44,8 +45,10 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
-script: gulp build && yarn test && bundle exec rspec --color --profile --format documentation
-  --tag $TEST_SUITE
+script:
+  - gulp build && yarn test && bundle exec rspec --color --profile --format documentation
+    --tag $TEST_SUITE
+  - rubocop --rails
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_success:
