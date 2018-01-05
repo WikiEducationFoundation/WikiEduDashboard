@@ -18,6 +18,7 @@ describe 'open course creation', type: :feature, js: true do
            title: 'My Awesome Campaign',
            description: 'This is the best campaign',
            default_course_type: 'Editathon',
+           passcode: 'passcode',
            template_description: 'This is the template description')
   end
 
@@ -81,5 +82,6 @@ describe 'open course creation', type: :feature, js: true do
     expect(CampaignsCourses.last.course_id).to eq(Course.last.id)
     expect(Course.last.description).to eq(campaign.template_description)
     expect(Course.last.type).to eq('Editathon')
+    expect(Course.last.passcode).to eq('passcode')
   end
 end

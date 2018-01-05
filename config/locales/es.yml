@@ -192,6 +192,7 @@ es:
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     default_course_type: Tipo de curso predeterminado
+    default_passcode: Contraseña predeterminada
     description: Descripción
     delete_campaign: Eliminar esta campaña
     none: Ninguno

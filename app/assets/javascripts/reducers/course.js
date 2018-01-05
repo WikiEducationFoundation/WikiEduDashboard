@@ -28,7 +28,8 @@ export default function course(state = initialState, action) {
         initial_campaign_id: campaign.id,
         initial_campaign_title: campaign.title,
         description: campaign.template_description,
-        type: campaign.default_course_type
+        type: campaign.default_course_type,
+        passcode: campaign.default_passcode
       };
       return newState;
     }
