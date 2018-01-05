@@ -18,7 +18,7 @@ describe 'open course creation', type: :feature, js: true do
            title: 'My Awesome Campaign',
            description: 'This is the best campaign',
            default_course_type: 'Editathon',
-           passcode: 'passcode',
+           default_passcode: 'passcode',
            template_description: 'This is the template description')
   end
 
