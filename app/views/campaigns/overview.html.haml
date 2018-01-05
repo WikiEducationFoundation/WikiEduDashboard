@@ -108,6 +108,12 @@
                 %span.rails_editable-content
                   = @campaign.default_course_type
 
+              .campaign-default_passcode.form-group.rails_editable-field
+                %label{for: 'default_passcode'}
+                  = succeed ':' do
+                    = t('campaign.default_passcode')
+                %span.rails_editable-content
+                  = @campaign.default_passcode
 
       - if @campaign.template_description.present?
         = form_for(@campaign, url: campaign_path(@campaign.slug), html: { class: 'module campaign-template-description rails_editable' }) do

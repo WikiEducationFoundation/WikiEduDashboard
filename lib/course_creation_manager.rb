@@ -80,6 +80,7 @@ class CourseCreationManager
   end
 
   def set_passcode
+    return if @course_params[:passcode].present?
     @overrides[:passcode] = Course.generate_passcode
   end
 
