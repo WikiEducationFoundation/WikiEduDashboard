@@ -30,6 +30,7 @@ class CourseCsvBuilder
     upload_usage_count_across_all_wikis
     training_completion_rate
   ].freeze
+  # rubocop:disable Metrics/MethodLength
   def row
     row = [@course.slug]
     row << @course.title
@@ -54,6 +55,7 @@ class CourseCsvBuilder
     row += per_wiki_counts.values if @per_wiki
     row
   end
+  # rubocop:enable Metrics/MethodLength
 
   def headers
     if @per_wiki

@@ -34,6 +34,7 @@ ca:
     my_dashboard: Tauler de control
     recent_activity: Activitat recent
     search: feu una pregunta
+    search_results: 'Resultats per a: «%{search_terms}»'
     sign_up_extended: Inicia la sessió a la Viquipèdia
     sign_up_log_in_extended: amb la Viquipèdia
     sign_up: Registreu-vos
@@ -200,6 +201,7 @@ ca:
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     duration: Durada del curs
+    edit_count: Recompte d’edicions
     edit_course_dates: Edita les dates del curs
     end: Final
     enroll: Inscriure's
@@ -334,8 +336,8 @@ ca:
     save: Desa
   metrics:
     label: Activitat del curs
-    are_updated: Segons l'última actualització del sistema
-    last_update: Darrera actualització
+    last_update: Darrera actualització de les estadístiques
+    next_update: Próxima actualizació
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats

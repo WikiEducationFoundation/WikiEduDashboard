@@ -38,5 +38,5 @@ every [:monday, :tuesday, :wednesday, :thursday], at: '10:15 am' do
 end
 
 every [:monday, :tuesday, :wednesday, :thursday], at: '10:30 am' do
-  rake 'experiments:fall_2017_cmu_experiment'
+  rake 'experiments:spring_2018_cmu_experiment'
 end

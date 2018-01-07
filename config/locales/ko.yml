@@ -42,6 +42,7 @@ ko:
     recent_activity: 최근 활동
     report_problem: 문제점 보고
     search: 질문하기
+    search_results: '다음 결과: ''%{search_terms}'''
     sign_up_extended: 위키백과에 로그인하기
     sign_up_log_in_extended: 위키백과와 함께합니다
     sign_up: 가입하기
@@ -188,6 +189,7 @@ ko:
     download_stats_data: 다운로드 통계
     does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     duration: 과정 기간
+    edit_count: 편집 수
     edit_course_dates: 코스 날짜 편집하기
     enable_chat: 채팅 사용하기
     end: 종료

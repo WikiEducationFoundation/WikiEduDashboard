@@ -4,6 +4,7 @@
 # Author: Alexandr Efremov
 # Author: Aram1985
 # Author: Av6
+# Author: Edible Melon
 # Author: Facenapalm
 # Author: INS Pirat
 # Author: Iniquity
@@ -47,6 +48,7 @@ ru:
     recent_activity: Недавние действия
     report_problem: Сообщить о проблеме
     search: задать вопрос
+    search_results: 'Результаты для: "%{search_terms}"'
     sign_up_extended: Зарегистрируйтесь в Википедии
     sign_up_log_in_extended: через Википедию
     sign_up: Зарегистрироваться
@@ -71,7 +73,7 @@ ru:
     opt_out: Просьба отказаться от ориентации
     orientation_notice: Прежде чем создать курс, давайте пройдемся по ориентации,
       чтобы помочь вам начать работу. (Она занимает около 30 минут.)
-    blog_headline: Последние новости Wiki Ed
+    blog_headline: Последние новости Wiki Education
     about_programs: Этот сайт отслеживает вики-активность через т.н. «программы» —
       отдельные мероприятия, такие как семинары по совместному редактированию (edit-a-thon)
       или учебные курсы. Каждая программа является частью одной или нескольких кампаний,
@@ -221,6 +223,7 @@ ru:
       удалены все кампании.
     download_stats_data: Скачать статистику
     duration: Продолжительность курса
+    edit_count: Число правок
     enable_chat: Включить чат
     ended: Курс завершен.
     error:

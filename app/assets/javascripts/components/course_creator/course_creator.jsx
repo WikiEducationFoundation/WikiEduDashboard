@@ -471,7 +471,7 @@ const CourseCreator = createReactClass({
 const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
-  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" })
+  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" }),
 });
 
 const mapDispatchToProps = ({

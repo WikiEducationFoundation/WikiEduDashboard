@@ -9,7 +9,10 @@
 ---
 el:
   application:
+    search_results: 'Αποτελέσματα για: ''%{search_terms}'''
     confirm: Εντάξει
+  dashboard:
+    blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
   articles:
     deleted: (διαγράφηκε)
     tools: Αξιολόγηση εργαλείων
@@ -22,6 +25,7 @@ el:
     label: Συνομιλία
   courses:
     cancel: Ακύρωση
+    edit_count: Εκδώσετε τον Αριθμό
     enable_chat: Ενεργοποίηση συνομιλίας
     ores_plot: ORES
   courses_generic:
