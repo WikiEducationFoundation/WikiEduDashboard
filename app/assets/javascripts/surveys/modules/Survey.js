@@ -529,7 +529,7 @@ const Survey = {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents(BLOCK_CONTAINER_SELECTOR));
       const conditionalOptions = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
-      const { questionId, value } = conditionalOptions;
+      const { question_id, value } = conditionalOptions;
 
       if ($question.find('.survey__question--matrix').length) {
         this.detachedParentBlocks[$question.data('block-index')] = $question;
