@@ -1,7 +1,7 @@
-import '../../testHelper';
-
 import React from 'react';
 import { mount } from 'enzyme';
+
+import '../../testHelper';
 import TrainingModules from '../../../app/assets/javascripts/components/timeline/training_modules.jsx';
 
 describe('TrainingModules', () => {

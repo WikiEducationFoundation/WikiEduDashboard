@@ -1,12 +1,13 @@
+
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-
-const md = require('../../utils/markdown_it.js').default();
 import WizardActions from '../../actions/wizard_actions.js';
 import CourseLink from '../common/course_link.jsx';
 import Option from './option.jsx';
+
+const md = require('../../utils/markdown_it.js').default();
 
 const Panel = createReactClass({
   displayName: 'Panel',

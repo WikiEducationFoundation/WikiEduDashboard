@@ -1,15 +1,15 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
-
 import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 const getState = () =>
   ({

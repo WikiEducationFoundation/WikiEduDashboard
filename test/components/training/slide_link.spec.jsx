@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import { mount } from 'enzyme';
+
+import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';

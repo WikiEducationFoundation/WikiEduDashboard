@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import OnClickOutside from 'react-onclickoutside';
 import UIActions from '../../actions/ui_actions.js';
 import UIStore from '../../stores/ui_store.js';
-import OnClickOutside from 'react-onclickoutside';
 import Conditional from '../high_order/conditional.jsx';
 
 // This is a variant version of Expandable which closes upon

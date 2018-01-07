@@ -1,5 +1,18 @@
 //--------------------------------------------------------
-// Vendor Requirements
+// Vendor Requirements [imports]
+//--------------------------------------------------------
+import _throttle from 'lodash.throttle';
+import _assign from 'lodash.assign';
+import urlParse from 'url-parse';
+
+//--------------------------------------------------------
+// Required Internal Modules
+//--------------------------------------------------------
+
+import Utils from './SurveyUtils.js';
+
+//--------------------------------------------------------
+// Vendor Requirements [requires]
 //--------------------------------------------------------
 
 require('velocity-animate');
@@ -10,15 +23,6 @@ const wNumb = require('wnumb');
 require('slick-carousel');
 require('velocity-animate');
 // const markdown = require('../../utils/markdown_it.js').default();
-import _throttle from 'lodash.throttle';
-import _assign from 'lodash.assign';
-import urlParse from 'url-parse';
-
-//--------------------------------------------------------
-// Required Internal Modules
-//--------------------------------------------------------
-
-import Utils from './SurveyUtils.js';
 
 //--------------------------------------------------------
 // Survey Module Misc Options
@@ -525,7 +529,7 @@ const Survey = {
       const $conditionalQuestion = $(question);
       let $question = $($(question).parents(BLOCK_CONTAINER_SELECTOR));
       const conditionalOptions = Utils.parseConditionalString($conditionalQuestion.data('conditional-question'));
-      const { question_id, value } = conditionalOptions;
+      const { questionId, value } = conditionalOptions;
 
       if ($question.find('.survey__question--matrix').length) {
         this.detachedParentBlocks[$question.data('block-index')] = $question;
@@ -536,18 +540,18 @@ const Survey = {
         $question.detach();
       }
 
-      this.addConditionalQuestionToStore(question_id, $question);
+      this.addConditionalQuestionToStore(questionId, $question);
       this.addListenersToConditional($question, conditionalOptions);
-      this.surveyConditionals[question_id].currentAnswers = [];
+      this.surveyConditionals[questionId].currentAnswers = [];
 
       if (typeof value === 'undefined' && value === null) return;
 
-      const $currentQuestionValue = this.surveyConditionals[question_id][value];
+      const $currentQuestionValue = this.surveyConditionals[questionId][value];
       if ($currentQuestionValue) {
         const $newQuestionSet = $currentQuestionValue.add($question);
-        this.surveyConditionals[question_id][value] = $newQuestionSet;
+        this.surveyConditionals[questionId][value] = $newQuestionSet;
       } else {
-        this.surveyConditionals[question_id][value] = $question;
+        this.surveyConditionals[questionId][value] = $question;
       }
     });
   },
@@ -563,15 +567,15 @@ const Survey = {
 
   addListenersToConditional($question, conditionalOptions) {
     const {
-      question_id, operator, value, multi
+      questionId, operator, value, multi
     } = conditionalOptions;
     switch (operator) {
       case '*presence':
-        return this.conditionalPresenceListeners(question_id, $question);
+        return this.conditionalPresenceListeners(questionId, $question);
       case '<': case '>': case '<=': case '>=':
-        return this.conditionalComparisonListeners(question_id, operator, value, $question);
+        return this.conditionalComparisonListeners(questionId, operator, value, $question);
       default:
-        return this.conditionalAnswerListeners(question_id, multi);
+        return this.conditionalAnswerListeners(questionId, multi);
     }
   },
 

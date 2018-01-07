@@ -1,13 +1,13 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { Motion, spring } from 'react-motion';
+import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 import BlockActions from '../../actions/block_actions.js';
 import GradeableStore from '../../stores/gradeable_store.js';
 
-import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
-import { Motion, spring } from 'react-motion';
 
 import DateCalculator from '../../utils/date_calculator.js';
 

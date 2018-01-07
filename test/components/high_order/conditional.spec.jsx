@@ -1,10 +1,11 @@
-import '../../testHelper';
-// TextInput uses Conditional as a wrapper, so we'll test the intended behavior
-// through it, instead of trying to test Conditional directly or with mocks.
-import TextInput from '../../../app/assets/javascripts/components/common/text_input.jsx';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import ShallowTestUtils from 'react-test-renderer/shallow';
+
+// TextInput uses Conditional as a wrapper, so we'll test the intended behavior
+// through it, instead of trying to test Conditional directly or with mocks.
+import TextInput from '../../../app/assets/javascripts/components/common/text_input.jsx';
+import '../../testHelper';
 
 describe('Conditional', () => {
   it('renders the wrapped component when show is true', () => {

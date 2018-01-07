@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+
+import '../../testHelper';
 import Student from '../../../app/assets/javascripts/components/students/student.jsx';
 import { click } from '../../customUtils.js';
 

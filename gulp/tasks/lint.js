@@ -1,8 +1,8 @@
 import gulp from 'gulp';
-import config from '../config.js';
-import loadPlugins from 'gulp-load-plugins';
-const plugins = loadPlugins();
 import path from 'path';
+import loadPlugins from 'gulp-load-plugins';
+import config from '../config.js';
+const plugins = loadPlugins();
 
 const jsPath = [
   `${config.sourcePath}/${config.jsDirectory}/**/*.{jsx,js}`,

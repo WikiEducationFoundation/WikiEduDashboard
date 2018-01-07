@@ -1,7 +1,9 @@
 import React from 'react';
+import { mount } from 'enzyme';
+
 import '../../testHelper';
 import CourseClonedModal from '../../../app/assets/javascripts/components/overview/course_cloned_modal.jsx';
-import { mount } from 'enzyme';
+
 describe('CourseClonedModal', () => {
   const course = {
     slug: 'foo/bar_(baz)',

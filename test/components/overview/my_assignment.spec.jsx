@@ -1,7 +1,8 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+
 import MyAssignment from '../../../app/assets/javascripts/components/overview/my_assignment.jsx';
 import '../../testHelper';
-import { shallow } from 'enzyme';
 import Feedback from '../../../app/assets/javascripts/components/common/feedback.jsx';
 
 describe('<MyAssignment />', () => {

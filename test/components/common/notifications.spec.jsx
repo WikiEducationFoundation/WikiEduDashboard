@@ -1,13 +1,14 @@
-import '../../testHelper';
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
 import McFly from 'mcfly';
 
+import '../../testHelper';
+import NotificationStore from '../../../app/assets/javascripts/stores/notification_store.js';
+import Notifications from '../../../app/assets/javascripts/components/common/notifications.jsx';
+
 const Flux = new McFly();
 const { dispatcher } = Flux;
 
-import NotificationStore from '../../../app/assets/javascripts/stores/notification_store.js';
-import Notifications from '../../../app/assets/javascripts/components/common/notifications.jsx';
 
 describe('Notifications', () => {
   it('renders', () => {

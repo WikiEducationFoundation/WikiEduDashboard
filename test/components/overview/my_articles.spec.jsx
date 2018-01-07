@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+
+import '../../testHelper';
 import MyArticles from '../../../app/assets/javascripts/components/overview/my_articles.jsx';
 
 describe('MyArticles', () => {

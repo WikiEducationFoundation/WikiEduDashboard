@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
-const Flux = new McFly();
 import BlockStore from './block_store.js';
+const Flux = new McFly();
 
 
 // Data
