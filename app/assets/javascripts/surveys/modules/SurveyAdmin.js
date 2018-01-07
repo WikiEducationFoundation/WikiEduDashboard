@@ -163,7 +163,7 @@ const SurveyAdmin = {
     const id = e.target.value;
     if (id !== '') {
       this.conditional = {};
-      this.conditional.questio_d = id;
+      this.conditional.question_d = id;
       return this.getQuestion(id);
     }
   },
