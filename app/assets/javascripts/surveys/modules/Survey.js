@@ -540,42 +540,42 @@ const Survey = {
         $question.detach();
       }
 
-      this.addConditionalQuestionToStore(questionId, $question);
+      this.addConditionalQuestionToStore(question_id, $question);
       this.addListenersToConditional($question, conditionalOptions);
-      this.surveyConditionals[questionId].currentAnswers = [];
+      this.surveyConditionals[question_id].currentAnswers = [];
 
       if (typeof value === 'undefined' && value === null) return;
 
-      const $currentQuestionValue = this.surveyConditionals[questionId][value];
+      const $currentQuestionValue = this.surveyConditionals[question_id][value];
       if ($currentQuestionValue) {
         const $newQuestionSet = $currentQuestionValue.add($question);
-        this.surveyConditionals[questionId][value] = $newQuestionSet;
+        this.surveyConditionals[question_id][value] = $newQuestionSet;
       } else {
-        this.surveyConditionals[questionId][value] = $question;
+        this.surveyConditionals[question_id][value] = $question;
       }
     });
   },
 
-  addConditionalQuestionToStore(questionId, $question) {
-    if (typeof this.surveyConditionals[questionId] !== 'undefined') {
-      this.surveyConditionals[questionId].children.push($question[0]);
+  addConditionalQuestionToStore(question_id, $question) {
+    if (typeof this.surveyConditionals[question_id] !== 'undefined') {
+      this.surveyConditionals[question_id].children.push($question[0]);
     } else {
-      this.surveyConditionals[questionId] = {};
-      this.surveyConditionals[questionId].children = [$question[0]];
+      this.surveyConditionals[question_id] = {};
+      this.surveyConditionals[question_id].children = [$question[0]];
     }
   },
 
   addListenersToConditional($question, conditionalOptions) {
     const {
-      questionId, operator, value, multi
+      question_id, operator, value, multi
     } = conditionalOptions;
     switch (operator) {
       case '*presence':
-        return this.conditionalPresenceListeners(questionId, $question);
+        return this.conditionalPresenceListeners(question_id, $question);
       case '<': case '>': case '<=': case '>=':
-        return this.conditionalComparisonListeners(questionId, operator, value, $question);
+        return this.conditionalComparisonListeners(question_id, operator, value, $question);
       default:
-        return this.conditionalAnswerListeners(questionId, multi);
+        return this.conditionalAnswerListeners(question_id, multi);
     }
   },
 
