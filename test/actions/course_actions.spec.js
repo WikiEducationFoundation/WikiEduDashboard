@@ -1,8 +1,8 @@
+import sinon from 'sinon';
+
 import '../testHelper';
 import CourseActions from '../../app/assets/javascripts/actions/course_actions.js';
 import CourseStore from '../../app/assets/javascripts/stores/course_store.js';
-
-import sinon from 'sinon';
 
 describe('CourseActions', () => {
   beforeEach(() => {

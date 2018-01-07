@@ -1,7 +1,7 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-const plugins = loadPlugins();
 import config from '../config.js';
+const plugins = loadPlugins();
 
 gulp.task('icon-font', () => {
   const cssTemplateFilename = 'icon-font-template.css';

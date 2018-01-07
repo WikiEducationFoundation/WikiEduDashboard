@@ -34,7 +34,6 @@
     "jsx-a11y/href-no-hash": 0,
     "jsx-a11y/aria-role": 0,
     "jsx-a11y/anchor-has-content": 0,
-    "import/first": 0,
     "import/extensions": 0,
     "import/newline-after-import": 0,
     "import/prefer-default-export": 0,

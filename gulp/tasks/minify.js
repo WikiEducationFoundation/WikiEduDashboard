@@ -1,8 +1,8 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-const plugins = loadPlugins();
-import config from '../config.js';
 import merge from 'merge-stream';
+import config from '../config.js';
+const plugins = loadPlugins();
 
 gulp.task('minify', () => {
   // Compress Vendor JavaScript
