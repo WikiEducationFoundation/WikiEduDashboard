@@ -163,7 +163,7 @@ const SurveyAdmin = {
     const id = e.target.value;
     if (id !== '') {
       this.conditional = {};
-      this.conditional.questionId = id;
+      this.conditional.questio_d = id;
       return this.getQuestion(id);
     }
   },
@@ -280,11 +280,11 @@ const SurveyAdmin = {
       const $row = $(conditionalRow);
       const string = $row.data('conditional');
       if (string === '') { return; }
-      const { questionId, operator, value } = Utils.parseConditionalString(string);
+      const { question_id, operator, value } = Utils.parseConditionalString(string);
       switch (operator) {
         case '<': case '<=': case '>': case '>=':
           // eslint-disable-next-line camelcase
-          $row.find('select').val(`${questionId}`);
+          $row.find('select').val(`${question_id}`);
           this.$conditional_operator_select.append(CONDITIONAL_COMPARISON_OPERATORS).removeClass('hidden');
           this.$conditional_operator_select.val(operator).trigger('change').removeClass('hidden');
           return this.$conditional_value_number_field.val(value).removeClass('hidden');
@@ -295,7 +295,7 @@ const SurveyAdmin = {
             return this.$document.off(CONDITIONAL_ANSWERS_CHANGED);
           });
           // eslint-disable-next-line camelcase
-          return $row.find('select').val(`${questionId}`).trigger('change');
+          return $row.find('select').val(`${question_id}`).trigger('change');
       }
     });
   },
