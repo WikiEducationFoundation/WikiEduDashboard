@@ -556,12 +556,12 @@ const Survey = {
     });
   },
 
-  addConditionalQuestionToStore(question_id, $question) {
-    if (typeof this.surveyConditionals[question_id] !== 'undefined') {
-      this.surveyConditionals[question_id].children.push($question[0]);
+  addConditionalQuestionToStore(questionId, $question) {
+    if (typeof this.surveyConditionals[questionId] !== 'undefined') {
+      this.surveyConditionals[questionId].children.push($question[0]);
     } else {
-      this.surveyConditionals[question_id] = {};
-      this.surveyConditionals[question_id].children = [$question[0]];
+      this.surveyConditionals[questionId] = {};
+      this.surveyConditionals[questionId].children = [$question[0]];
     }
   },
 
