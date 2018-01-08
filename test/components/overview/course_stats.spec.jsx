@@ -1,6 +1,7 @@
-import '../../testHelper';
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
+
+import '../../testHelper';
 import CourseStats from '../../../app/assets/javascripts/components/overview/course_stats.jsx';
 
 describe('for view count zero and edited count greater than 0', () => {

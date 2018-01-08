@@ -1,6 +1,6 @@
-import '../../testHelper';
 import React from 'react';
 
+import '../../testHelper';
 import { AvailableArticle } from '../../../app/assets/javascripts/components/articles/available_article.jsx';
 
 describe('AvailableArticle', () => {

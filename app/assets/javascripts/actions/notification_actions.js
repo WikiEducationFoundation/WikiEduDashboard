@@ -1,7 +1,7 @@
 import McFly from 'mcfly';
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "../constants";
 const Flux = new McFly();
 
-import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "../constants";
 
 export const addNotification = (notification) => ({
   type: ADD_NOTIFICATION,

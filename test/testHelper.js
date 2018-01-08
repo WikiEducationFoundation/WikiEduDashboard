@@ -1,3 +1,9 @@
+import { createStore, applyMiddleware } from 'redux';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
+import thunk from 'redux-thunk';
+import reducer from '../app/assets/javascripts/reducers';
+
 const jsdom = require('jsdom');
 
 global.document = jsdom.jsdom("<!doctype html><html><body><div data-current_user='{ \"admin\": false, \"id\": null }' id='react_root'></div></body></html>", {
@@ -7,8 +13,6 @@ global.document = jsdom.jsdom("<!doctype html><html><body><div data-current_user
 global.window = document.defaultView;
 global.navigator = global.window.navigator;
 
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15';
 configure({ adapter: new Adapter() });
 
 const sinon = require('sinon');
@@ -22,9 +26,6 @@ const I18n = require('../public/assets/javascripts/i18n.js'); // eslint-disable-
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import reducer from '../app/assets/javascripts/reducers';
 
 const reduxStore = createStore(reducer, applyMiddleware(thunk));
 

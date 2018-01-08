@@ -3,6 +3,8 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
+import _ from 'lodash';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
@@ -17,10 +19,8 @@ import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import CourseLevelSelector from './course_level_selector.jsx';
 
-import _ from 'lodash';
 
 const getState = () => {
   return {

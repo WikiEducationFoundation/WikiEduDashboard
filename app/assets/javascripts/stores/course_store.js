@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import McFly from 'mcfly';
-const Flux = new McFly();
 import ServerActions from '../actions/server_actions.js';
+const Flux = new McFly();
 
 // Data
 let _course = {};

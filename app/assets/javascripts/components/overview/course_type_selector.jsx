@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import CourseActions from '../../actions/course_actions.js';
 import uuid from 'uuid';
+import CourseActions from '../../actions/course_actions.js';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {

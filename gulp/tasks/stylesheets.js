@@ -1,10 +1,10 @@
 import gulp from 'gulp';
-import config from '../config.js';
 import flipper from 'gulp-css-flipper';
 import rename from 'gulp-rename';
 import revDel from 'rev-del';
-
 import loadPlugins from 'gulp-load-plugins';
+
+import config from '../config.js';
 const plugins = loadPlugins();
 
 gulp.task('stylesheets', () => {

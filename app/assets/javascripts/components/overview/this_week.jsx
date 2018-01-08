@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import Week from '../timeline/week.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { Link } from 'react-router';
 
 const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;

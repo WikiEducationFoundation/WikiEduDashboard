@@ -1,6 +1,6 @@
 import gulp from 'gulp';
-import config from '../config.js';
 import loadPlugins from 'gulp-load-plugins';
+import config from '../config.js';
 const plugins = loadPlugins();
 
 gulp.task('watch', () => {
