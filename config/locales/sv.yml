@@ -297,7 +297,6 @@ sv:
     edit_template: Redigera mall
   metrics:
     label: Kursaktivitet
-    are_updated: Enligt den senaste systemuppgraderingen
     last_update: Senast uppdaterad
     activity: Senaste aktivitet
     articles_created: Skapade artiklar

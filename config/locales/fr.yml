@@ -208,6 +208,7 @@ fr:
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
+    default_course_type: Type de cours par défaut
     description: Description
     delete_campaign: Supprimer cette campagne
     none: Aucun
@@ -611,8 +612,8 @@ fr:
       Voulez-vous vraiment continuer ?
   metrics:
     label: Activité du cours
-    are_updated: Selon la dernière mise à jour du système
-    last_update: Dernière mise à jour
+    last_update: Dernière mise à jour des statistiques
+    next_update: Prochaine mise à jour estimée
     activity: Activité récente
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés

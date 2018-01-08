@@ -160,6 +160,8 @@ zh-TW:
     course_removed: '%{title}已從活動「%{campaign_title}」移除'
     create_campaign: 創建新活動
     create_my_campaign: 創建我的活動！
+    default_course_type: 預設課程類型
+    default_passcode: 預設選課代碼
     description: 描述
     delete_campaign: 刪除此活動
     none: 無
@@ -480,8 +482,8 @@ zh-TW:
     rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   metrics:
     label: 課程活動
-    are_updated: 依照最後一次的系統更新
-    last_update: 最後一次更新
+    last_update: 最後一次統計更新
+    next_update: 下一次的預計更新
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目

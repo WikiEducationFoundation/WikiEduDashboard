@@ -207,6 +207,8 @@ sd:
   recent_activity:
     article_title: مضمون جو عنوان
     datetime: تاريخ/وقت
+    no_edits: ڪي بہ تازيون ترميمون ناھن.
+    recent_edits: تازيون ترميمون
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو

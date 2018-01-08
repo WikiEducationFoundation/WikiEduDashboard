@@ -101,6 +101,7 @@ lb:
     campaigns: Campagnen
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
+    default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
     none: Keng
@@ -276,7 +277,8 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
-    last_update: Lescht Aktualisatioun
+    last_update: Lescht Aktualisatioun vun de Statistiken
+    next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
     characters: Buschtawen

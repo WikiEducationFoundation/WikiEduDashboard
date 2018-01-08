@@ -117,6 +117,7 @@ ko:
     milestones:
       title: 이정표
   campaign:
+    default_passcode: 기본 비밀번호
     description: 설명
     none: 없음
     program_template: 프로그램 틀
@@ -302,8 +303,7 @@ ko:
     edit_details: 자세한 사항 편집
     edit_template: 틀 편집
   metrics:
-    are_updated: 최근 시스템 업데이트에 따르면
-    last_update: 최근 업데이트
+    last_update: 최근 통계 업데이트
     activity: 최근 활동
     articles_created: 문서 생성됨
     articles_edited: 문서 편집됨

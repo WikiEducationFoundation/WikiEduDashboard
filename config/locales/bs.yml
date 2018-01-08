@@ -147,7 +147,6 @@ bs:
     cancel: Otkaži
     save: Sačuvaj
   metrics:
-    are_updated: Prema posljednjem ažuriranju sistema
     last_update: Posljednje ažuriranje
     articles_created: Stvorenih članaka
     per_user: '%{number} po korisniku'

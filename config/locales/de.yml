@@ -191,6 +191,8 @@ de:
     course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
+    default_course_type: Standard-Kurstyp
+    default_passcode: Standard-Passcode
     description: Beschreibung
     delete_campaign: Diese Kampagne löschen
     none: Keine
@@ -593,8 +595,8 @@ de:
       tun möchtest?
   metrics:
     label: Kursaktivität
-    are_updated: Übereinstimmend mit der letzten Systemaktualisierung
-    last_update: Letzte Aktualisierung
+    last_update: Letzte Statistikaktualisierung
+    next_update: Nächste geschätzte Aktualisierung
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel

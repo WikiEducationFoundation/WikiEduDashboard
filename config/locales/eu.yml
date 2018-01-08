@@ -562,7 +562,6 @@ eu:
       URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
   metrics:
     label: Ikastaroko jarduera
-    are_updated: Azken sistema eguneratzearen arabera
     last_update: Azken eguneratzea
     activity: Azken jarduera
     are_trained: trebakuntzarekin eguneratuak

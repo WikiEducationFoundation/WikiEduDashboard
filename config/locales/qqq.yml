@@ -13,6 +13,7 @@
 # Author: Raymond
 # Author: Robby
 # Author: Vojtěch Dostál
+# Author: Андрей
 ---
 qqq:
   accessibility:
@@ -359,6 +360,7 @@ qqq:
       {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
+    edit_count: Ариашарақәа рхыҧхьаӡара
     end: |-
       Label for the end date of a course
       '{{Identical|End}}'

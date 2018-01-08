@@ -155,6 +155,8 @@ zh-CN:
     course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
     create_campaign: 创建新的运动
     create_my_campaign: 创建我的运动！
+    default_course_type: 默认课程类型
+    default_passcode: 默认密码
     description: 描述
     delete_campaign: 删除此运动
     none: 无
@@ -459,8 +461,8 @@ zh-CN:
     edit_template: 编辑模板
   metrics:
     label: 课程活动
-    are_updated: 根据上次系统更新
-    last_update: 最后更新
+    last_update: 上次统计更新
+    next_update: 下次估计更新
     activity: 最近活跃
     are_trained: 最近培训
     articles_created: 创建的条目
