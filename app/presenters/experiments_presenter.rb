@@ -23,6 +23,8 @@ class ExperimentsPresenter
     }
   end
 
+  private
+
   def opt_in_link
     "/experiments/#{experiment.name.underscore}/#{@course.id}/#{code}/opt_in"
   end
