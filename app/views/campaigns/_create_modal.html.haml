@@ -16,6 +16,10 @@
             .form-group
               = label(:campaign, :default_passcode, t('campaign.default_passcode') + ':')
               = text_field(:campaign, :default_passcode, maxlength: 255)
+              %label
+                = check_box_tag('campaign[default_passcode]', 'no-passcode')
+                = t('campaign.no_passcode')
+
 
             .form-group
               - use_dates = @campaign.start || @campaign.end
@@ -35,6 +39,7 @@
             .form-group
               = label(:campaign, :description, t('campaign.description') + ':')
               = text_area(:campaign, :description, maxlength: 65535)
+
             .form-group
               = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
               = select(:campaign, :default_course_type, options_for_select(Campaign::ALLOWED_TYPES), include_blank: true)

@@ -142,6 +142,7 @@ describe CoursesController do
     context 'setting passcode' do
       let(:course) { create(:course) }
       before { course.update_attribute(:passcode, nil) }
+
       it 'sets if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
         put :update, params: params, as: :json
@@ -222,7 +223,8 @@ describe CoursesController do
             term: 'Fall 2015',
             start: '2015-01-05',
             end: '2015-12-20',
-            role_description: role_description }
+            role_description: role_description,
+            passcode: 'passcode' }
         end
         it 'sets slug correctly' do
           post :create, params: { course: course_params }, as: :json
@@ -232,6 +234,28 @@ describe CoursesController do
         it 'sets instructor role description correctly' do
           post :create, params: { course: course_params }, as: :json
           expect(CoursesUsers.last.role_description).to eq(role_description)
+        end
+
+        it 'sets passcode correctly' do
+          post :create, params: { course: course_params }, as: :json
+          expect(Course.last.passcode).to eq('passcode')
+        end
+      end
+
+      context 'sets en empty passcode' do
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20',
+            type: 'Editathon',
+            passcode: 'no-passcode' }
+        end
+
+        it 'creates an empty passcode' do
+          post :create, params: { course: course_params }, as: :json
+          expect(Course.last.passcode).to eq('')
         end
       end
 
@@ -246,7 +270,7 @@ describe CoursesController do
         end
       end
 
-      context 'valid lanaguage and project present' do
+      context 'valid language and project present' do
         let(:course_params) do
           { school: 'Wiki University',
             title: 'How to Wiki',
@@ -269,7 +293,7 @@ describe CoursesController do
         end
       end
 
-      context 'invalid lanaguage and project present' do
+      context 'invalid language and project present' do
         let(:course_params) do
           { school: 'Wiki University',
             title: 'How to Wiki',
