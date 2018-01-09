@@ -17,7 +17,7 @@
               = label(:campaign, :default_passcode, t('campaign.default_passcode') + ':')
               = text_field(:campaign, :default_passcode, maxlength: 255)
               %label
-                = check_box_tag('campaign[default_passcode]', 'no-passcode', @campaign.default_passcode)
+                = check_box_tag('campaign[default_passcode]', 'no-passcode')
                 = t('campaign.no_passcode')
 
 
