@@ -242,7 +242,7 @@ describe CoursesController do
         end
       end
 
-      context 'sets no passcode' do
+      context 'sets en empty passcode' do
         let(:course_params) do
           { school: 'Wiki University',
             title: 'How to Wiki',
@@ -250,8 +250,7 @@ describe CoursesController do
             start: '2015-01-05',
             end: '2015-12-20',
             type: 'Editathon',
-            passcode: 'no-passcode'
-          }
+            passcode: 'no-passcode' }
         end
 
         it 'creates an empty passcode' do
