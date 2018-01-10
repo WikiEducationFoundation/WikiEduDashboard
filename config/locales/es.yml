@@ -300,7 +300,7 @@ es:
       create_label: Crear curso nuevo
       create_new: Crear un curso nuevo
       create_short: Crear curso
-      end_date: Fecha de finalización
+      end_date: Fecha de fin de estadísticas
       end_date_placeholder: Fecha de fin (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
@@ -310,7 +310,7 @@ es:
         tu tarea en Wikipedia.
       no_class_holidays: Yo no tengo vacaciones de clases
       save_cloned_course: Guardar curso nuevo
-      start_date: Fecha de inicio
+      start_date: Fecha de inicio de estadísticas
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
@@ -331,7 +331,7 @@ es:
     edit_count: Recuento de ediciones
     edit_course_dates: Editar las fechas del curso
     enable_chat: Activar el chat
-    end: Fin
+    end: Fin de estadísticas
     ended: El curso ha terminado.
     enroll: Inscribirse
     enrollment: Inscripción
@@ -393,7 +393,7 @@ es:
     revisions_none: Este curso no tiene ediciones recientes en Wikipedia.
     school: Escuela
     school_and_term: Institución/Período
-    start: Inicio
+    start: Inicio de estadísticas
     start_typing: Empieza a escribir
     students: Estudiantes
     students_count: '# Estudiantes'

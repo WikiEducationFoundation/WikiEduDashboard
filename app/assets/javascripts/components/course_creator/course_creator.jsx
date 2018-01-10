@@ -438,6 +438,32 @@ const CourseCreator = createReactClass({
                     isClearable={false}
                     showTime={this.state.use_start_and_end_times}
                   />
+                  <DatePicker
+                    id="course_event_start"
+                    onChange={this.updateCourseDates}
+                    value={this.props.course.timeline_start}
+                    value_key="timeline_start"
+                    editable
+                    label={CourseUtils.i18n('creator.start_event_date', this.state.course_string_prefix)}
+                    placeholder={I18n.t('courses.creator.start_date_placeholder')}
+                    blank
+                    isClearable={false}
+                    showTime={this.state.use_start_and_end_times}
+                  />
+                  <DatePicker
+                    id="course_event_end"
+                    onChange={this.updateCourseDates}
+                    value={this.props.course.timeline_end}
+                    value_key="timeline_end"
+                    editable
+                    label={CourseUtils.i18n('creator.end_event_date', this.state.course_string_prefix)}
+                    placeholder={I18n.t('courses.creator.end_date_placeholder')}
+                    blank
+                    date_props={dateProps.timeline_end}
+                    enabled={!!this.props.course.timeline_start}
+                    isClearable={false}
+                    showTime={this.state.use_start_and_end_times}
+                  />
                   {this.state.use_start_and_end_times ? timeZoneMessage : null}
                   <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}:</strong></span>
                   <TextAreaInput

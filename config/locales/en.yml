@@ -328,7 +328,8 @@ en:
       create_label: Create New Course
       create_new: Create a New Course
       create_short: Create Course
-      end_date: End date
+      end_date: Statistics end date
+      end_event_date: Event end date
       end_date_placeholder: End date (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
@@ -348,8 +349,9 @@ en:
       role_description: Your role in the course
       role_description_placeholder: Instructor, teaching assistant, etc
       save_cloned_course: Save New Course
-      start_date: Start date
+      start_date: Statistics start date
       start_date_placeholder: Start date (YYYY-MM-DD)
+      start_event_date: Event start date
       subject: Subject
       update_scheduled: >
         Update scheduled. The data will be updated along with all current
@@ -384,10 +386,12 @@ en:
     edit_count: Edit Count
     edit_course_dates: Edit Course Dates
     enable_chat: Enable chat
-    end: End
+    end: Statistics end
     ended: The course has ended.
     enroll: Enroll
     enrollment: Enrollment
+    event_start: Event start
+    event_end: Event end
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -450,7 +454,7 @@ en:
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
     school_and_term: Institution/Term
-    start: Start
+    start: Statistics start
     start_typing: Start typing
     students: Students
     students_taught: Students Taught

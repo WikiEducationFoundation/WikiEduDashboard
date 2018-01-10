@@ -326,6 +326,28 @@ const Details = createReactClass({
               showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
+            <DatePicker
+              onChange={this.updateCourseDates}
+              value={this.props.course.timeline_start}
+              value_key="timeline_start"
+              validation={CourseDateUtils.isDateValid}
+              editable={this.props.editable}
+              label={I18n.t('courses.event_start')}
+              showTime={this.props.course.use_start_and_end_times}
+              required={true}
+            />
+            <DatePicker
+              onChange={this.updateCourseDates}
+              value={this.props.course.timeline_end}
+              value_key="timeline_end"
+              editable={this.props.editable}
+              validation={CourseDateUtils.isDateValid}
+              label={I18n.t('courses.event_end')}
+              date_props={dateProps.timeline_end}
+              enabled={Boolean(this.props.course.start)}
+              showTime={this.props.course.use_start_and_end_times}
+              required={true}
+            />
             {timelineStart}
             {timelineEnd}
           </form>
