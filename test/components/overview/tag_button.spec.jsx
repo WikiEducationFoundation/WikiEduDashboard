@@ -8,6 +8,7 @@ describe('TagButton', () =>
   it('renders a plus button', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
       <TagButton
+        store={reduxStore}
         tags={[]}
         show={true}
       />

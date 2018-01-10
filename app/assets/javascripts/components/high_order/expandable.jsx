@@ -1,20 +1,23 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
-import { toggleUI, resetUI } from '../../actions';
+import { toggleUI } from '../../actions';
 
 const mapStateToProps = state => ({
   openKey: state.ui.openKey
 });
 
 const mapDispatchToProps = {
-  toggleUI,
-  resetUI
+  toggleUI
 };
 
 const Expandable = function (Component) {
   const wrappedComponent = createReactClass({
     displayName: 'Expandable',
+
+    getInitialState() {
+      return { is_open: false };
+    },
 
     componentWillReceiveProps(props) {
       this.setState({
