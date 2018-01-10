@@ -116,7 +116,7 @@ const DatePicker = createReactClass({
     });
   },
 
-  handleDatePickerChange(e, selectedDate) {
+  handleDatePickerChange(selectedDate) {
     const date = this.moment(selectedDate);
     if (this.isDayDisabled(date)) {
       return;
