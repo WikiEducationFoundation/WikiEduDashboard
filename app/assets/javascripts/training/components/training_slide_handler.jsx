@@ -133,7 +133,7 @@ const TrainingSlideHandler = createReactClass({
       nextLink = (
         <SlideLink
           slideId={this.state.nextSlide.slug}
-          buttonText={this.state.currentSlide.buttonText || "Next Page"}
+          buttonText={this.state.currentSlide.buttonText || I18n.t('training.next')}
           disabled={this.disableNext()}
           button={true}
           params={this.props.params}
@@ -141,7 +141,7 @@ const TrainingSlideHandler = createReactClass({
       );
     } else {
       const nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
-      nextLink = <a href={nextHref} className="btn btn-primary pull-right">Done!</a>;
+      nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
     }
 
     let loginWarning;
@@ -167,24 +167,29 @@ const TrainingSlideHandler = createReactClass({
     }
 
     let slideTitle;
+    let assessment;
     let rawHtml;
     const locale = I18n.locale;
     if (this.state.currentSlide.translations && this.state.currentSlide.translations[locale]) {
       slideTitle = this.state.currentSlide.translations[locale].title;
       rawHtml = md.render(this.state.currentSlide.translations[locale].content);
+      if (this.state.currentSlide.translations[locale].assessment) {
+        assessment = this.state.currentSlide.translations[locale].assessment;
+      }
     } else {
       slideTitle = this.state.currentSlide.title;
       if (this.state.currentSlide.content) {
         rawHtml = md.render(this.state.currentSlide.content);
       }
+      if (this.state.currentSlide.assessment) {
+        assessment = this.state.currentSlide.assessment;
+      }
     }
-
 
     const menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
 
     let quiz;
     if (this.state.currentSlide.assessment) {
-      const { assessment } = this.state.currentSlide;
       quiz = (
         <Quiz
           question={assessment.question}
@@ -212,7 +217,7 @@ const TrainingSlideHandler = createReactClass({
               <span className="hamburger__bar" />
             </div>
             <h3 className="pull-right">
-              <a href="" onFocus={this.toggleMenuOpen}>Page {this.state.currentSlide.index} of {this.state.slides.length}</a>
+              <a href="" onFocus={this.toggleMenuOpen}>{I18n.t('training.page_number', { number: this.state.currentSlide.index, total: this.state.slides.length })}</a>
             </h3>
           </div>
           <SlideMenu
