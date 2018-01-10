@@ -302,6 +302,7 @@ es:
       create_short: Crear curso
       end_date: Fecha de fin de estadísticas
       end_date_placeholder: Fecha de fin (AAAA-MM-DD)
+      end_event_date_placeholder: Fin de evento (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
       intro: El título, la escuela y el plazo crean la dirección URL de la página
@@ -312,6 +313,7 @@ es:
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio de estadísticas
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
+      start_event_date_placeholder: Inicio de evento (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
     data_articles: Datos de artículos

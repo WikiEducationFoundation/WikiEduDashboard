@@ -445,7 +445,7 @@ const CourseCreator = createReactClass({
                     value_key="timeline_start"
                     editable
                     label={CourseUtils.i18n('creator.start_event_date', this.state.course_string_prefix)}
-                    placeholder={I18n.t('courses.creator.start_date_placeholder')}
+                    placeholder={I18n.t('courses.creator.start_event_date_placeholder')}
                     blank
                     isClearable={false}
                     showTime={this.state.use_start_and_end_times}
@@ -457,7 +457,7 @@ const CourseCreator = createReactClass({
                     value_key="timeline_end"
                     editable
                     label={CourseUtils.i18n('creator.end_event_date', this.state.course_string_prefix)}
-                    placeholder={I18n.t('courses.creator.end_date_placeholder')}
+                    placeholder={I18n.t('courses.creator.end_event_date_placeholder')}
                     blank
                     date_props={dateProps.timeline_end}
                     enabled={!!this.props.course.timeline_start}

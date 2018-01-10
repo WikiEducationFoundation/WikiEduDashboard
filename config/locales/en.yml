@@ -331,6 +331,7 @@ en:
       end_date: Statistics end date
       end_event_date: Event end date
       end_date_placeholder: End date (YYYY-MM-DD)
+      end_event_date_placeholder: Event end (YYYY-MM-DD)
       expected_number: Expected number of students
       find: Find Your Course
       intro: >
@@ -352,6 +353,7 @@ en:
       start_date: Statistics start date
       start_date_placeholder: Start date (YYYY-MM-DD)
       start_event_date: Event start date
+      start_event_date_placeholder: Event start (YYYY-MM-DD)
       subject: Subject
       update_scheduled: >
         Update scheduled. The data will be updated along with all current
