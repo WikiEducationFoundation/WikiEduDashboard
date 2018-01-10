@@ -51,6 +51,13 @@ $(() => {
     }
   });
 
+  $('#customize_passcode').on('change', e => {
+    $('.customized_passcode').toggleClass('hidden', !e.target.checked);
+    if (!e.target.checked) {
+      $('#campaign_default_passcode').val('');
+    }
+  });
+
   $('.create-campaign-button').on('click', () => {
     $('.create-modal-wrapper').removeClass('hidden');
 

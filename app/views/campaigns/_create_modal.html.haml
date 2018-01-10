@@ -14,12 +14,22 @@
               = text_field(:campaign, :title, required: true)
 
             .form-group
-              = label(:campaign, :default_passcode, t('campaign.default_passcode') + ':')
-              = text_field(:campaign, :default_passcode, maxlength: 255)
+              - customize_passcode = @campaign.default_passcode
               %label
-                = check_box_tag('campaign[default_passcode]', 'no-passcode')
+                = check_box_tag(:customize_passcode, '1', customize_passcode)
+                = t('campaign.customize_passcode')
+              .customized_passcode{class: customize_passcode ? '' : 'hidden'}
+                .form-group
+                  = label(:campaign, :default_passcode, t('campaign.default_passcode') + ':')
+                  = text_field(:campaign, :default_passcode, maxlength: 255)
+
+              %label
+                = check_box_tag('campaign[default_passcode]', 'no-passcode', @campaign.default_passcode)
                 = t('campaign.no_passcode')
 
+              %label
+                = check_box_tag('campaign[default_passcode]', '', @campaign.default_passcode)
+                = t('campaign.random_passcode')
 
             .form-group
               - use_dates = @campaign.start || @campaign.end
@@ -43,8 +53,6 @@
             .form-group
               = label(:campaign, :default_course_type, t('campaign.default_course_type') + ':')
               = select(:campaign, :default_course_type, options_for_select(['BasicCourse', 'Editathon', 'ArticleScopedProgram']), include_blank: true)
-
-
 
 
         .wizard__panel__controls.wizard__form
