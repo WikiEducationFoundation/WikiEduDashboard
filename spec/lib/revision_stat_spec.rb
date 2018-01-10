@@ -17,7 +17,11 @@ describe RevisionStat do
   let(:date) { 7.days.ago.to_date }
 
   describe '#get_records' do
-    subject { RevisionStat.get_records(date: date, course_id: course.id) }
+    subject { RevisionStat.get_records(date: date, course: course) }
+    before do
+      # Add user to course
+      create(:courses_user, course: course, user: user)
+    end
 
     context 'date' do
       context 'older than 7 days' do
@@ -28,6 +32,11 @@ describe RevisionStat do
       end
 
       context 'in timeframe' do
+        before do
+          # Another revision by a user who isn't in the course, which should not
+          # be counted
+          create(:revision, article_id: article.id, date: created_date, user_id: user.id + 1)
+        end
         it 'does include in scope' do
           expect(subject).to eq(1)
         end
