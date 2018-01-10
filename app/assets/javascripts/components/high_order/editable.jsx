@@ -3,7 +3,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import UIActions from '../../actions/ui_actions.js';
 import ValidationStore from '../../stores/validation_store.js';
 
 const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) =>
@@ -24,7 +23,6 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     },
 
     cancelChanges() {
-      UIActions.open(null);
       for (let i = 0; i < Stores.length; i++) {
         const store = Stores[i];
         store.restore();
@@ -33,7 +31,6 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     },
     saveChanges() {
       if (ValidationStore.isValid()) {
-        UIActions.open(null);
         Save($.extend(true, {}, this.state), this.props.course_id);
         return this.toggleEditable();
       }
