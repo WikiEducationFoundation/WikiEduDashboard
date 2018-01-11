@@ -111,3 +111,12 @@ def omniclick(node)
     node.click
   end
 end
+
+def pass_pending_spec
+  if RSpec::Core::Formatters::DocumentationFormatter === RSpec.configuration.formatter_loader.formatters.first
+    puts 'PASSED'
+  else
+    print 'P'
+  end
+  raise 'this test passed — this time'
+end

@@ -57,8 +57,7 @@ describe RevisionScoreImporter do
       expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
     end
 
-    puts 'PASSED'
-    raise 'this test passed — this time'
+    pass_pending_spec
   end
 
   it 'saves wp10 scores by article' do
