@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const CourseLevelSelector = ({ level, updateCourse }) => {
   const handleChange = (e) => {
@@ -25,8 +26,8 @@ const CourseLevelSelector = ({ level, updateCourse }) => {
 };
 
 CourseLevelSelector.propTypes = {
-  level: React.PropTypes.string,
-  updateCourse: React.PropTypes.func
+  level: PropTypes.string,
+  updateCourse: PropTypes.func
 };
 
 export default CourseLevelSelector;
