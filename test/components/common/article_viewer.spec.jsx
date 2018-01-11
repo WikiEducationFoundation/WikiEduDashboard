@@ -15,6 +15,7 @@ describe('ArticleViewer', () => {
     const TestArticleViewer = ReactTestUtils.renderIntoDocument(
       <ArticleViewer
         article={article}
+        fetchArticleDetails={() => null}
       />
     );
     expect(TestArticleViewer).to.exist;

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import ShallowTestUtils from 'react-test-renderer/shallow';
 
 // TextInput uses Conditional as a wrapper, so we'll test the intended behavior
@@ -22,7 +21,7 @@ describe('Conditional', () => {
   });
 
   it('renders nothing when show is false', () => {
-    const renderer = ReactTestUtils.createRenderer();
+    const renderer = ShallowTestUtils.createRenderer();
     renderer.render(
       <TextInput
         show={false}
