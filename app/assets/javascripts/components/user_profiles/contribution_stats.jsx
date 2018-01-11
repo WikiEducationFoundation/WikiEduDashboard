@@ -1,10 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
-import ProfileStore from '../../stores/profile_store.js';
-import ProfileActions from '../../actions/profile_actions.js';
+import { fetchStats } from '../../actions/user_profile_actions.js';
 import Loading from '../common/loading.jsx';
 
 const getState = function () {
@@ -14,24 +14,24 @@ const getState = function () {
   return {
     isStudent: isStudent,
     isInstructor: isInstructor,
-    statsGraphsData: null,
-    stats: ProfileStore.getStats(),
-    loading: ProfileStore.getLoadingStatus(),
+    statsGraphsData: null
   };
 };
+
 const ContributionStats = createReactClass({
   propTypes: {
-    params: PropTypes.object
+    params: PropTypes.object,
+    fetchStats: PropTypes.func.isRequired,
+    stats: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool.isRequired
   },
-
-  mixins: [ProfileStore.mixin], // adding store eventing to the component
 
   getInitialState() {
     return getState();
   },
 
   componentDidMount() {
-    ProfileActions.fetch_stats(this.props.params.username);
+    this.props.fetchStats(this.props.params.username);
     this.getData();
   },
 
@@ -50,16 +50,11 @@ const ContributionStats = createReactClass({
       });
   },
 
-  storeDidChange() {
-    this.setState(
-      {
-        stats: ProfileStore.getStats(),
-        loading: ProfileStore.getLoadingStatus(),
-      }
-    );
-  },
 
   render() {
+    if (this.props.isLoading) {
+      return <Loading />;
+    }
     let contriStats;
     const graphWidth = 800;
     const graphHeight = 250;
@@ -67,7 +62,7 @@ const ContributionStats = createReactClass({
       contriStats = (
         <InstructorStats
           username = {this.props.params.username}
-          stats = {this.state.stats}
+          stats = {this.props.stats}
           isStudent = {this.state.isStudent.student}
           statsGraphsData = {this.state.statsGraphsData}
           graphWidth = {graphWidth}
@@ -79,26 +74,29 @@ const ContributionStats = createReactClass({
       contriStats = (
         <StudentStats
           username = {this.props.params.username}
-          stats = {this.state.stats.as_student}
+          stats = {this.props.stats.as_student}
           statsGraphsData = {this.state.statsGraphsData}
           graphWidth = {graphWidth}
           graphHeight = {graphHeight}
         />
     );
     }
-    const statistics = this.state.loading ? (
-      <Loading />
-      ) : (
-        <div>
-          {contriStats}
-        </div>
-      );
+
     return (
       <div>
-        {statistics}
+        {contriStats}
       </div>
     );
   }
 });
 
-export default ContributionStats;
+const mapStateToProps = state => ({
+  stats: state.userProfile.stats,
+  isLoading: state.userProfile.isLoading
+});
+
+const mapDispatchToProps = ({
+  fetchStats
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContributionStats);
