@@ -137,6 +137,4 @@ ON YOUR MACHINE
 
 - Run the capistrano deployment one last time from the app's directory:
   - $ `cap production deploy`
-- Create the campaigns:
-  - $ `cap production sake task=campaign:add_campaigns`
 - Visit your new dashboard!
