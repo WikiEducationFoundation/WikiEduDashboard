@@ -68,8 +68,6 @@ en:
     details: Details
     confirm: OK
     cancel: Cancel
-    opt_in: 'Yes'
-    opt_out: 'No'
 
   dashboard:
     create_note:
@@ -225,7 +223,6 @@ en:
     default_passcode: Default Passcode
     description: Description
     delete_campaign: Delete this campaign
-    no_passcode: No passcode
     none: None
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
@@ -282,7 +279,6 @@ en:
     campaign_users: '%{title} Editors'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
-    confirm_manual_update: Are you sure you want to run a manual update? The most recent revisions will be imported and then the page will reload. This process may take some time.
     course: Course
     course_dates_calendar_instructions: >
       Select dates to add or remove them from the schedule (e.g., holidays, no
@@ -491,7 +487,6 @@ en:
       The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
     untrained: Untrained
-    update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
     user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
@@ -607,8 +602,8 @@ en:
 
   metrics:
     label: Course Activity
-    last_update: Last statistics update
-    next_update: Next estimated update
+    are_updated: According to the last system update
+    last_update: Last update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
@@ -762,7 +757,15 @@ en:
     continue: Continue (%{progress})
     start: Start
     view: View
+    next: Next Page
+    page: Page
+    page_number: Page %{number} of %{total}
+    table_of_contents: Table of Contents
+    training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
+    done: Done!
+    check_answer: Check Answer
+    included_modules: Included Modules
 
   uploads:
     datetime: Date/Time
