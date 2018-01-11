@@ -302,6 +302,7 @@ es:
       create_short: Crear curso
       end_date: Fecha de fin de estadísticas
       end_date_placeholder: Fecha de fin (AAAA-MM-DD)
+      end_event_date: Fin del evento
       end_event_date_placeholder: Fin de evento (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
@@ -313,6 +314,7 @@ es:
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio de estadísticas
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
+      start_event_date: Inicio del evento
       start_event_date_placeholder: Inicio de evento (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
@@ -458,9 +460,9 @@ es:
     all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
-    assignment_end: Final del cronograma
+    assignment_end: Fin del evento
     assignments_none: Este proyecto no tiene artículos asignados.
-    assignment_start: Inicio del cronograma
+    assignment_start: Inicio del evento
     cancel: Cancelar
     course: Programa
     courses: Programas

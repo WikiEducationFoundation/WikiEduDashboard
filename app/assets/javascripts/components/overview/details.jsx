@@ -183,7 +183,6 @@ const Details = createReactClass({
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    if (isClassroomProgramType) {
       timelineStart = (
         <DatePicker
           onChange={this.updateCourseDates}
@@ -197,20 +196,19 @@ const Details = createReactClass({
           required={true}
         />
       );
-      timelineEnd = (
-        <DatePicker
-          onChange={this.updateCourseDates}
-          value={this.props.course.timeline_end}
-          value_key="timeline_end"
-          editable={this.props.editable}
-          validation={CourseDateUtils.isDateValid}
-          label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
-          date_props={dateProps.timeline_end}
-          showTime={this.props.course.use_start_and_end_times}
-          required={true}
-        />
-      );
-    }
+        timelineEnd = (
+          <DatePicker
+            onChange={this.updateCourseDates}
+            value={this.props.course.timeline_end}
+            value_key="timeline_end"
+            editable={this.props.editable}
+            validation={CourseDateUtils.isDateValid}
+            label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
+            date_props={dateProps.timeline_end}
+            showTime={this.props.course.use_start_and_end_times}
+            required={true}
+          />
+        );
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, (campaign, index) => {
@@ -322,28 +320,6 @@ const Details = createReactClass({
               validation={CourseDateUtils.isDateValid}
               label={I18n.t('courses.end')}
               date_props={dateProps.end}
-              enabled={Boolean(this.props.course.start)}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.timeline_start}
-              value_key="timeline_start"
-              validation={CourseDateUtils.isDateValid}
-              editable={this.props.editable}
-              label={I18n.t('courses.event_start')}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.timeline_end}
-              value_key="timeline_end"
-              editable={this.props.editable}
-              validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.event_end')}
-              date_props={dateProps.timeline_end}
               enabled={Boolean(this.props.course.start)}
               showTime={this.props.course.use_start_and_end_times}
               required={true}

@@ -524,9 +524,9 @@ en:
     all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.
-    assignment_end: Timeline End
+    assignment_end: Event End
     assignments_none: This project has no assigned articles.
-    assignment_start: Timeline Start
+    assignment_start: Event Start
     cancel: Cancel
     course: Program
     courses: Programs
