@@ -181,33 +181,31 @@ const Details = createReactClass({
     }
 
     const dateProps = CourseDateUtils.dateProps(this.props.course);
-    let timelineStart;
-    let timelineEnd;
-      timelineStart = (
+    const timelineStart = (
+      <DatePicker
+        onChange={this.updateCourseDates}
+        value={this.props.course.timeline_start}
+        value_key="timeline_start"
+        editable={this.props.editable}
+        validation={CourseDateUtils.isDateValid}
+        label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
+        date_props={dateProps.timeline_start}
+        showTime={this.props.course.use_start_and_end_times}
+        required={true}
+      />
+      );
+      const timelineEnd = (
         <DatePicker
           onChange={this.updateCourseDates}
-          value={this.props.course.timeline_start}
-          value_key="timeline_start"
+          value={this.props.course.timeline_end}
+          value_key="timeline_end"
           editable={this.props.editable}
           validation={CourseDateUtils.isDateValid}
-          label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
-          date_props={dateProps.timeline_start}
+          label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
+          date_props={dateProps.timeline_end}
           showTime={this.props.course.use_start_and_end_times}
           required={true}
         />
-      );
-        timelineEnd = (
-          <DatePicker
-            onChange={this.updateCourseDates}
-            value={this.props.course.timeline_end}
-            value_key="timeline_end"
-            editable={this.props.editable}
-            validation={CourseDateUtils.isDateValid}
-            label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
-            date_props={dateProps.timeline_end}
-            showTime={this.props.course.use_start_and_end_times}
-            required={true}
-          />
         );
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
