@@ -209,8 +209,10 @@ fr:
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
     default_course_type: Type de cours par défaut
+    default_passcode: Mot de passe par défaut
     description: Description
     delete_campaign: Supprimer cette campagne
+    no_passcode: Aucun mot de passe
     none: Aucun
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'

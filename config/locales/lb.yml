@@ -35,6 +35,8 @@ lb:
     change: Änneren
     details: Detailer
     confirm: OK
+    opt_in: Jo
+    opt_out: Neen
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -104,6 +106,7 @@ lb:
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
+    no_passcode: Kee Passcode
     none: Keng
     organizers: Organisateuren
     title: Titel
