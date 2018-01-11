@@ -51,7 +51,7 @@ $(() => {
     }
   });
 
-  $('#customize_passcode').on('change', e => {
+  $('#campaign_default_passcode_custom').on('change', e => {
     $('.customized_passcode').toggleClass('hidden', !e.target.checked);
     if (!e.target.checked) {
       $('#campaign_default_passcode').val('');

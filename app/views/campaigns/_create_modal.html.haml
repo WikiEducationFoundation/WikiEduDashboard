@@ -14,22 +14,23 @@
               = text_field(:campaign, :title, required: true)
 
             .form-group
-              %label
-                = check_box_tag('campaign[default_passcode]', '', checked: 'true')
-                = t('campaign.random_passcode')
-              %label
-                = check_box_tag('campaign[default_passcode]', 'no-passcode')
-                = t('campaign.no_passcode')
-
               - customize_passcode = @campaign.default_passcode
               %label
-                = check_box_tag(:customize_passcode, '1')
+                = radio_button_tag('campaign[default_passcode]', 'no-passcode', true)
+                = t('campaign.no_passcode')
+
+              %label
+                = radio_button_tag('campaign[default_passcode]', '', @campaign.default_passcode)
+                = t('campaign.random_passcode')
+
+              %label
+                = radio_button_tag('campaign[default_passcode]', 'custom', customize_passcode)
                 = t('campaign.customize_passcode')
+
               .customized_passcode{class: customize_passcode ? '' : 'hidden'}
                 .form-group
-                  = label(:campaign, :default_passcode, t('campaign.default_passcode') + ':')
+                  = label(:campaign, :custom_default_passcode, t('campaign.default_passcode') + ':')
                   = text_field(:campaign, :default_passcode, maxlength: 255)
-
 
             .form-group
               - use_dates = @campaign.start || @campaign.end
