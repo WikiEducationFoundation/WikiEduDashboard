@@ -186,7 +186,6 @@ class Replica
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
                     JSON::ParserError].freeze
   def report_exception(error, endpoint, query, level='error')
-    Rails.logger.error "replica.rb #{endpoint} query failed after 3 tries: #{error}"
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
     Raven.capture_exception error, level: level, extra: {
       query: query, endpoint: endpoint, language: @wiki.language, project: @wiki.project

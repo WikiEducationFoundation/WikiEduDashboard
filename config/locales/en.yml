@@ -956,7 +956,7 @@ en:
       It looks like there was an problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
 
   # This is a maintenance script message.
-  timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
+  timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
     login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
