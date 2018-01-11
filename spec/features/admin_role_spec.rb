@@ -119,8 +119,7 @@ describe 'Admin users', type: :feature, js: true do
       sleep 1
       expect(page).to have_content 'Submitted & Pending Approval'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
   end
 
@@ -175,8 +174,7 @@ describe 'Admin users', type: :feature, js: true do
       expect(page).to have_content 'Open in Salesforce'
       expect(Course.first.flags[:salesforce_id]).to eq('a0f1a011101Xyas')
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
   end
 
