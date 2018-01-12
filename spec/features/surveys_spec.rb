@@ -283,8 +283,7 @@ describe 'Surveys', type: :feature, js: true do
 
       expect(Survey.last.to_csv).to match('username,') # beginning of header
       expect(Survey.last.to_csv).to match(@instructor.username + ',') # beginning of response row
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
 
     it 'loads a question group preview' do

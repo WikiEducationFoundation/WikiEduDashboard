@@ -26,10 +26,9 @@ module Errors
     end
 
     NO_CAMPAIGNS_EXPLANATION =
-      'Error: The default campaign does not exist.' \
+      'Error: There are no campaigns.' \
       "\n\n" \
-      'Run `rake campaign:add_campaigns` or go to "/campaigns" to create one called ' \
-      "#{ENV['default_campaign']}."
+      'Go to "/campaigns" to create one.'
     def self.rescue_from_no_campaigns(base)
       base.rescue_from CoursesPresenter::NoCampaignError do
         render plain: NO_CAMPAIGNS_EXPLANATION,

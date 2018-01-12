@@ -67,8 +67,7 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'Log in'
       expect(page).not_to have_content 'Log out'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
 
     it 'does not cause problems if done twice' do
@@ -220,8 +219,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 3
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
 
     it 'does not work if user is not persisted' do
@@ -335,8 +333,7 @@ describe 'Student users', type: :feature, js: true do
       sleep 1
       expect(page).not_to have_content 'Selfie'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
   end
 

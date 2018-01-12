@@ -67,8 +67,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       end
     end
 
-    puts 'PASSED'
-    raise 'this test passed — this time'
+    pass_pending_spec
   end
 
   it 'will create a valid assignment for multilingual wikisource projects' do

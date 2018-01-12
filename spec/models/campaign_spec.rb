@@ -19,25 +19,13 @@
 require 'rails_helper'
 
 describe Campaign do
-  describe '.initialize_campaigns' do
-    it 'create campaigns from application.yml' do
-      Campaign.destroy_all
-      campaigns = Campaign.all
-      expect(campaigns).to be_empty
-
-      Campaign.initialize_campaigns
-      campaign = Campaign.first
-      expect(campaign.url).to be_a(String)
-      expect(campaign.title).to be_a(String)
-      expect(campaign.slug).to be_a(String)
-
-      # Make sure it still works if all the campaigns already exist
-      Campaign.initialize_campaigns
-    end
-  end
-
   describe '.default_campaign' do
-    it 'returns a campaign' do
+    it 'returns a the default campaign' do
+      expect(Campaign.default_campaign.slug).to eq(ENV['default_campaign'])
+    end
+    it 'returns another campaign if the default one is not found' do
+      Campaign.destroy_all
+      Campaign.create(title: 'Not the default one')
       expect(Campaign.default_campaign).to be_a(Campaign)
     end
   end
