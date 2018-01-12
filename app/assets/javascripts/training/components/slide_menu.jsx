@@ -45,11 +45,15 @@ const SlideMenu = createReactClass({
       // a slide is enabled if it comes back from the API as such,
       // it is set enabled in the parent component,
       // or it's the current slide
+      let slideTitle = slide.title;
+      if (slide.translations && slide.translations[I18n.locale]) {
+        slideTitle = slide.translations[I18n.locale].title;
+      }
       const enabled = (slide.enabled === true || this.props.enabledSlides.indexOf(slide.id) >= 0) && !current;
       return (
         <li key={[slide.id, loopIndex].join('-')} onClick={this.props.onClick} className={liClass}>
           <a disabled={!enabled} href={slideLink}>
-            {loopIndex + 1}. {slide.title}
+            {loopIndex + 1}. {slideTitle}
           </a>
         </li>
       );
@@ -62,7 +66,7 @@ const SlideMenu = createReactClass({
     return (
       <div className={menuClass}>
         <span className="dropdown__close pull-right" onClick={this.props.onClick}>&times;</span>
-        <h1 className="h5 capitalize">Table of Contents</h1>
+        <h1 className="h5 capitalize">{I18n.t('training.table_of_contents')}</h1>
         <ol>
           {slides}
         </ol>

@@ -762,7 +762,15 @@ en:
     continue: Continue (%{progress})
     start: Start
     view: View
+    next: Next Page
+    page: Page
+    page_number: Page %{number} of %{total}
+    table_of_contents: Table of Contents
+    training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
+    done: Done!
+    check_answer: Check Answer
+    included_modules: Included Modules
 
   uploads:
     datetime: Date/Time
