@@ -17,7 +17,7 @@ module BatchUpdateLogging
   def setup_logger
     $stdout.sync = true
     logger = Logger.new $stdout
-    logger.level = debug? ? Logger::DEBUG : Logger::INFO
+    logger.level = debug? ? Logger::DEBUG : Logger::WARN
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
     @sentry_logs = []
