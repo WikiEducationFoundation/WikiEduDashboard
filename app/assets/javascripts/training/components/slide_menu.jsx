@@ -66,7 +66,7 @@ const SlideMenu = createReactClass({
     return (
       <div className={menuClass}>
         <span className="dropdown__close pull-right" onClick={this.props.onClick}>&times;</span>
-        <h1 className="h5 capitalize">Table of Contents</h1>
+        <h1 className="h5 capitalize">{I18n.t('training.table_of_contents')}</h1>
         <ol>
           {slides}
         </ol>

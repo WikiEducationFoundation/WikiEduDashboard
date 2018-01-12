@@ -88,7 +88,7 @@ const Quiz = createReactClass({
             {answers}
           </ul>
         </fieldset>
-        <button className="btn btn-primary ghost-button capitalize btn-med" onClick={this.verifyAnswer}>Check Answer</button>
+        <button className="btn btn-primary ghost-button capitalize btn-med" onClick={this.verifyAnswer}> {I18n.t('training.check_answer')} </button>
       </form>
     );
   }
