@@ -81,7 +81,7 @@ wizard-width = 860px
         text-align left
       textarea
         height 189px
-      input:not([type=checkbox]), textarea
+      input:not([type=radio]):not([type=checkbox]), textarea
         width 100%
       .vertical-form
         float none
@@ -97,6 +97,10 @@ wizard-width = 860px
           img
             height 20px
             width 20px
+      span
+        display block
+        margin-top 4px
+        font-weight 600
 
     .wizard__panel__options
       padding 20px 0
