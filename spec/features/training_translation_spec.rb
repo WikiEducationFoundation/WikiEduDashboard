@@ -3,6 +3,12 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
 
+def flush_training_caches
+  TrainingModule.flush
+  TrainingLibrary.flush
+  TrainingSlide.flush
+end
+
 describe 'Training Translations', type: :feature, js: true do
   let(:basque_user) { create(:user, id: 2, username: 'ibarra', locale: 'eu') }
 
@@ -17,8 +23,11 @@ describe 'Training Translations', type: :feature, js: true do
     allow(TrainingSlide).to receive(:path_to_yaml).and_return(no_yaml)
     allow(TrainingModule).to receive(:path_to_yaml).and_return(no_yaml)
     allow(TrainingLibrary).to receive(:path_to_yaml).and_return(no_yaml)
+    flush_training_caches
     login_as(basque_user, scope: :user)
   end
+
+  after { flush_training_caches }
 
   it 'shows the translated text of a quiz' do
     VCR.use_cassette 'training/slide_translations' do
