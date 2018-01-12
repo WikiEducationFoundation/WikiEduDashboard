@@ -21,16 +21,16 @@ describe 'Training Translations', type: :feature, js: true do
   end
 
   it 'shows the translated text of a quiz' do
-     VCR.use_cassette 'training/slide_translations' do
-        visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
-        expect(page).to have_content "Wikipedia artikulu batek"
-     end
+    VCR.use_cassette 'training/slide_translations' do
+      visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
+      expect(page).to have_content "Wikipedia artikulu batek"
+    end
   end
 
   it 'shows the translated names in the table of contents' do
-     VCR.use_cassette 'training/slide_translations' do
-        visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
-        expect(page).to have_css('.slide__menu__nav__dropdown ol', :text => "Bost euskarriei buruzko proba", :visible => false)
-     end
+    VCR.use_cassette 'training/slide_translations' do
+      visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
+      expect(page).to have_css('.slide__menu__nav__dropdown ol', text: "Bost euskarriei buruzko proba", visible: false)
+    end
   end
 end
