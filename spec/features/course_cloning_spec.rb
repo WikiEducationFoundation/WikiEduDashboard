@@ -72,10 +72,12 @@ describe 'cloning a course', js: true do
       find('input#timeline_end').click
       find('div.DayPicker-Day', text: timeline_end).click
     end
+
+    find('h3#clone_modal_header').click # This is just to close the datepicker
     omniclick find('attr', text: 'MO')
     omniclick find('attr', text: 'WE')
     expect(page).to have_button('Save New Course', disabled: true)
-    find('input[type="checkbox"]').click
+    find('input#no_holidays').click
     expect(page).not_to have_button('Save New Course', disabled: true)
     click_button 'Save New Course'
 
