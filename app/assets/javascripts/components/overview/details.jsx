@@ -92,15 +92,15 @@ const Details = createReactClass({
   render() {
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
-    const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
+    const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={List} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
     let staff;
     let school;
     if (Features.wikiEd) {
-      staff = <InlineUsers {...this.props} users={this.props.staff} role={4} title="Wiki Ed Staff" />;
-      online = <InlineUsers {...this.props} users={this.props.online} role={2} title="Online Volunteers" />;
-      campus = <InlineUsers {...this.props} users={this.props.campus} role={3} title="Campus Volunteers" />;
+      staff = <InlineUsers {...this.props} users={this.props.staff} role={List} title="Wiki Ed Staff" />;
+      online = <InlineUsers {...this.props} users={this.props.online} role={List} title="Online Volunteers" />;
+      campus = <InlineUsers {...this.props} users={this.props.campus} role={List} title="Campus Volunteers" />;
     }
 
     if (this.props.course.school || canRename) {

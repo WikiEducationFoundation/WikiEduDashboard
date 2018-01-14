@@ -224,7 +224,7 @@ const WeekdayPicker = createReactClass({
     return (
       <div
         className={className}
-        role="widget"
+        role="Dialog"
         style={style}
         tabIndex={tabIndex}
       >
