@@ -68,7 +68,7 @@ const AvailableArticles = createReactClass({
         <AssignCell
           course={this.props.course}
           editable
-          role={Note}
+          role="Note"
           add_available={true}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
