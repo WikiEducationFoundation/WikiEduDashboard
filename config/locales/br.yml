@@ -35,6 +35,8 @@ br:
     change: Kemmañ
     details: Munudoù
     confirm: Mat eo
+    opt_in: Ya
+    opt_out: Ket
   dashboard:
     create_note: Klikit war Krouiñ ur gentel evit krouiñ ho kentel gentañ.
     explore_course_pages: Ergerzhet ar pajennadoù kentelioù
@@ -121,6 +123,7 @@ br:
     create_my_campaign: Krouiñ ma c'houlzad !
     description: Deskrivadur
     delete_campaign: Dilemel ar c'houlzad-mañ
+    no_passcode: Ger-kuzh ebet
     none: Hini ebet
     organizers: Aozerien
     organizer_added: '%{user}zo un aozer eus ar c''houlzad %{title} bremañ'
@@ -207,6 +210,7 @@ br:
     instructors: Stummerien
     join: Emezelañ
     join_course: Emezelañ er gentel
+    join_no_passcode: Ha sur oc'h e fell deoc'h kemer perzh er gentel-se?
     leave_course: Kuitaat ar gentel
     loading: O kargañ...
     my_articles: Ma fennadoù
@@ -226,6 +230,7 @@ br:
     timeline_link: Deiziataer
     title: Titl
     untrained: Hep stummadur
+    update_stats: Nevesaat ar stadegoù
     uploads_none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe
       gant restr vedia ebet e Wikipedia Commons
     view: Diskwel ar gentel

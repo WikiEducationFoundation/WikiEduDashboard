@@ -47,6 +47,8 @@ zh-TW:
     change: 修改
     details: 詳細內容
     confirm: 好
+    opt_in: 是
+    opt_out: 否
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
@@ -164,6 +166,7 @@ zh-TW:
     default_passcode: 預設選課代碼
     description: 描述
     delete_campaign: 刪除此活動
+    no_passcode: 沒有選課代碼
     none: 無
     organizers: 組織者
     organizer_added: '%{user}現在是活動「%{title}」的組織者'

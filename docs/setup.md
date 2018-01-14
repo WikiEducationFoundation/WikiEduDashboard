@@ -10,7 +10,6 @@ If you know your way around Rails, here's the very short version. Some additiona
 * install R
 * `bundle install`
 * `rake db:migrate`
-* `rake campaign:add_campaigns`
 * install bower and yarn
 * `bower install` for some javascript requirements
 * `yarn` for more javascript requirements
@@ -96,9 +95,6 @@ If you know your way around Rails, here's the very short version. Some additiona
       $ `rake db:migrate`
       $ `rake db:migrate RAILS_ENV=test`
 
-2. **Create the campaigns specified in `application.yml`**
-      $ `rake campaign:add_campaigns`
-
 ## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
 
 ## Develop
@@ -142,7 +138,9 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 5. The frontend is now visible at http://localhost:3000/
 
-6. To set up test users and data, see [User Roles](user_roles.md)
+6. Sign in and visit http://localhost:3000/campaigns to create a campaign.
+
+7. To set up test users and data, see [User Roles](user_roles.md)
 
 ## Design
 

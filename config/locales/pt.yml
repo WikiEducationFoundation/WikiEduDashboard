@@ -48,6 +48,8 @@ pt:
     change: Mudar
     details: Detalhes
     confirm: Aceitar
+    opt_in: Sim
+    opt_out: Não
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
     create_preparation_note: Certifique-se de ter o seu calendário académico à mão
@@ -200,6 +202,7 @@ pt:
     default_passcode: Código de acesso padrão
     description: Descrição
     delete_campaign: Eliminar esta campanha
+    no_passcode: Sem código de acesso
     none: Nenhum
     organizers: Organizadores
     organizer_added: '%{user} é agora um(a) organizador(a) da campanha "%{title}"'

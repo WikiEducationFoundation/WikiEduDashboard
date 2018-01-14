@@ -8,6 +8,7 @@ describe('CampaignButton', () => {
   it('renders a plus button', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
       <CampaignButton
+        store={reduxStore}
         campaigns={[]}
         show={true}
       />

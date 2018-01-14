@@ -81,6 +81,8 @@ qqq:
       Heading for part of the interface that shows details about something
       {{Identical|Details}}
     confirm: '{{Identical|OK}}'
+    opt_in: '{{Identical|Yes}}'
+    opt_out: '{{Identical|No}}'
   dashboard:
     create_note: |-
       Instructions on how to create a course.

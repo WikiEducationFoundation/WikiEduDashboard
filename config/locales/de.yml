@@ -40,6 +40,8 @@ de:
     change: Ändern
     details: Einzelheiten
     confirm: Okay
+    opt_in: Ja
+    opt_out: Nein
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -195,6 +197,7 @@ de:
     default_passcode: Standard-Passcode
     description: Beschreibung
     delete_campaign: Diese Kampagne löschen
+    no_passcode: Kein Passcode
     none: Keine
     organizers: Organisatoren
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'

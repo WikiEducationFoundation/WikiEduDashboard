@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Category from './category';
 import AddCategoryButton from './add_category_button';
 import List from '../common/list.jsx';
@@ -60,10 +62,10 @@ const CategoryList = ({ course, editable, categories, loading, removeCategory, a
 };
 
 CategoryList.propTypes = {
-  course: React.PropTypes.object,
-  categories: React.PropTypes.array,
-  removeCategory: React.PropTypes.func,
-  addCategory: React.PropTypes.func
+  course: PropTypes.object,
+  categories: PropTypes.array,
+  removeCategory: PropTypes.func,
+  addCategory: PropTypes.func
 };
 
 export default CategoryList;

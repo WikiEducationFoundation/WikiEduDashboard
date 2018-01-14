@@ -51,4 +51,11 @@ json.course do
     json.passcode @course.passcode.blank? ? '' : '****'
     json.canUploadSyllabus false
   end
+
+  if user_role == 1 # instructor
+    exeriment_presenter = ExperimentsPresenter.new(@course)
+    if exeriment_presenter.experiment
+      json.experiment_notification exeriment_presenter.notification
+    end
+  end
 end

@@ -31,8 +31,7 @@ describe CategoryImporter do
       expect(Article.exists?(title: article_in_subcat))
         .to be true # depth 1
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
   end
 

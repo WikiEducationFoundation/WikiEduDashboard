@@ -14,6 +14,7 @@ import UserUtils from '../utils/user_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
+import OptInNotification from './common/opt_in_notification';
 
 const getState = function () {
   const current = $('#react_root').data('current_user');
@@ -202,6 +203,13 @@ const Course = createReactClass({
         );
       }
       );
+    }
+
+    // //////////////////////////
+    // Experiment notifications /
+    // //////////////////////////
+    if (this.state.course.experiment_notification) {
+      alerts.push(<OptInNotification notification={this.state.course.experiment_notification} key="opt_in" />);
     }
 
     // //////////////////

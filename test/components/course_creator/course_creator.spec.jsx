@@ -29,6 +29,9 @@ const getStyle = (node) => {
 describe('CourseCreator', () => {
   describe('render', () => {
     const updateCourseSpy = sinon.spy();
+    const fetchCampaignSpy = sinon.spy();
+    const cloneCourseSpy = sinon.spy();
+    const submitCourseSpy = sinon.spy();
 
     const TestCourseCreator = shallow(
       <CourseCreator
@@ -37,6 +40,9 @@ describe('CourseCreator', () => {
         user_courses={["some_course"]}
         course={reduxStore.getState().course}
         updateCourse={updateCourseSpy}
+        fetchCampaign={fetchCampaignSpy}
+        cloneCourse={cloneCourseSpy}
+        submitCourse={submitCourseSpy}
       />
     );
 

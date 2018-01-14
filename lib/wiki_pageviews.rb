@@ -91,11 +91,8 @@ class WikiPageviews
     response = Net::HTTP::get(URI.parse(url))
     response
   rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, SocketError
-    Rails.logger.error I18n.t('timeout', api: 'wikimedia.org/api/rest_v1', tries: (tries -= 1))
+    Rails.logger.info I18n.t('timeout', api: 'wikimedia.org/api/rest_v1', tries: (tries -= 1))
     retry unless tries.zero?
-  rescue StandardError => e
-    Rails.logger.error "Wikimedia REST API error: #{e}"
-    raise e
   end
 
   def parse_results(response)

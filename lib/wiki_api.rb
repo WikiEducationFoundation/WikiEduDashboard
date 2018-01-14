@@ -107,7 +107,7 @@ class WikiApi
   end
 
   def handle_api_error(e, action, query)
-    Rails.logger.warn "Caught #{e}"
+    Rails.logger.info "Caught #{e}"
     Raven.capture_exception e, level: 'warning',
                                extra: { action: action,
                                         query: query,

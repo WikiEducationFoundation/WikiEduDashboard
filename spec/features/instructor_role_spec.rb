@@ -164,8 +164,7 @@ describe 'Instructor users', type: :feature, js: true do
       end
       expect(page).not_to have_content 'Article 1'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
 
     it 'should be able to remove students from the course' do
@@ -179,8 +178,7 @@ describe 'Instructor users', type: :feature, js: true do
       sleep 1
       expect(page).not_to have_content 'Student A'
 
-      puts 'PASSED'
-      raise 'this test passed — this time'
+      pass_pending_spec
     end
 
     it 'should be able to notify users with overdue training' do

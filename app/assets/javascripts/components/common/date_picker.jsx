@@ -116,7 +116,7 @@ const DatePicker = createReactClass({
     });
   },
 
-  handleDatePickerChange(e, selectedDate) {
+  handleDatePickerChange(selectedDate) {
     const date = this.moment(selectedDate);
     if (this.isDayDisabled(date)) {
       return;
@@ -311,7 +311,7 @@ const DatePicker = createReactClass({
             modifiers={modifiers}
             disabledDays={this.isDayDisabled}
             onDayClick={this.handleDatePickerChange}
-            initialMonth={currentMonth}
+            month={currentMonth}
           />
         </div>
       );
