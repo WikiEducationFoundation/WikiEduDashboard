@@ -58,7 +58,7 @@ const MyArticles = createReactClass({
             <AssignCell
               id="user_assigned"
               course={this.props.course}
-              role={0}
+              role="Note"
               editable
               course_id={this.props.course_id}
               current_user={this.props.current_user}
@@ -70,7 +70,7 @@ const MyArticles = createReactClass({
             <AssignCell
               id="user_reviewing"
               course={this.props.course}
-              role={1}
+              role="Note"
               editable
               course_id={this.props.course_id}
               current_user={this.props.current_user}
