@@ -6,9 +6,15 @@ import AddAdminButton from './add_admin_button.jsx';
 import Notifications from '../common/notifications';
 
 class SettingsHandler extends React.Component {
+
+  constructor() {
+    super();
+    this.render = this.render.bind(this);
+    this.componentWillMount = this.componentWillMount.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchAdminUsers();
-    this.render = this.render.bind(this);
   }
 
   render() {
