@@ -7,7 +7,7 @@ const fetchAdminUsersPromise = () => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'GET',
-      url: `users/all_admins`,
+      url: `settings/all_admins`,
       success(data) {
         return accept(data);
       }
@@ -25,7 +25,7 @@ const fetchAdminUsersPromise = () => {
   upgrade(bool): if the user is being upgraded. If false, user is demoted.
 */
 const grantAdminPromise = (username, upgrade) => {
-  const url = `/users/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
+  const url = `/settings/${upgrade ? 'upgrade' : 'downgrade'}_admin`;
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'POST',
@@ -44,11 +44,14 @@ const grantAdminPromise = (username, upgrade) => {
 
 export const fetchAdminUsers = () => dispatch => {
   fetchAdminUsersPromise()
-    .then(resp =>
+    .then(resp => {
+      console.log('hello from fetchAdminUsers')
+      console.log(resp)
       dispatch({
         type: SET_ADMIN_USERS,
         data: resp,
-      }))
+      })
+    })
     .catch(response => {
       console.log(response)
       dispatch({ type: API_FAIL, data: response })
