@@ -13,7 +13,7 @@ const initialState = {
 const settings = (state = initialState, action) => {
   switch (action.type) {
     case SET_ADMIN_USERS:
-      return Object.assign({}, state, { adminUsers: action.data.users });
+      return Object.assign({}, state, { adminUsers: action.data.admins });
     case SUBMITTING_NEW_ADMIN:
       return Object.assign({}, state, { submittingNewAdmin: action.data.submitting });
     case REVOKING_ADMIN:
