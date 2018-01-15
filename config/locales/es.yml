@@ -466,6 +466,7 @@ es:
     cancel: Cancelar
     course: Programa
     courses: Programas
+    course_event: ¿Quieres añadir otras fechas para el evento?
     courses_taught: Programas impartidos
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»

@@ -542,6 +542,7 @@ en:
       clone_successful_details: >
         Your program has been cloned.
         Click 'Save' below to finalize it.
+      course_event: Do you want to add different event dates?
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_description: Program description
       course_description_placeholder: >

@@ -50,6 +50,7 @@ const CourseCreator = createReactClass({
       isSubmitting: false,
       showCourseForm: false,
       showCloneChooser: false,
+      showEventDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
@@ -149,6 +150,10 @@ const CourseCreator = createReactClass({
     this.updateCourse('private', isPrivate);
   },
 
+  showEventDates() {
+    return this.setState({ showEventDates: !this.state.showEventDates });
+  },
+
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
       ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
@@ -229,6 +234,9 @@ const CourseCreator = createReactClass({
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
+    const eventsFormClass = this.state.showEventDates ? '' : 'hidden';
+    const eventsClass = `${eventsFormClass}`;
+
 
     let term;
     let subject;
@@ -352,6 +360,53 @@ const CourseCreator = createReactClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
+    let eventCheckbox;
+    let timelineStart;
+    let timelineEnd;
+    if (this.state.default_course_type !== 'ClassroomProgramCourse') {
+      eventCheckbox = (<div className="form-group">
+        <label htmlFor="course_event">{CourseUtils.i18n('creator.course_event', this.state.course_string_prefix)}:</label>
+        <input
+          id="course_event"
+          type="checkbox"
+          value={true}
+          onChange={this.showEventDates}
+          checked={!!this.state.showEventDates}
+        />
+      </div>
+    );
+      timelineStart = (
+        <DatePicker
+          id="course_event_start"
+          onChange={this.updateCourseDates}
+          value={this.props.course.timeline_start}
+          value_key="timeline_start"
+          editable
+          label={CourseUtils.i18n('creator.start_event_date', this.state.course_string_prefix)}
+          placeholder={I18n.t('courses.creator.start_event_date_placeholder')}
+          blank
+          isClearable={false}
+          showTime={this.state.use_start_and_end_times}
+        />
+    );
+      timelineEnd = (
+        <DatePicker
+          id="course_event_end"
+          onChange={this.updateCourseDates}
+          value={this.props.course.timeline_end}
+          value_key="timeline_end"
+          editable
+          label={CourseUtils.i18n('creator.end_event_date', this.state.course_string_prefix)}
+          placeholder={I18n.t('courses.creator.end_event_date_placeholder')}
+          blank
+          date_props={dateProps.timeline_end}
+          enabled={!!this.props.course.timeline_start}
+          isClearable={false}
+          showTime={this.state.use_start_and_end_times}
+        />
+    );
+  }
+
 
     return (
       <TransitionGroup
@@ -438,32 +493,11 @@ const CourseCreator = createReactClass({
                     isClearable={false}
                     showTime={this.state.use_start_and_end_times}
                   />
-                  <DatePicker
-                    id="course_event_start"
-                    onChange={this.updateCourseDates}
-                    value={this.props.course.timeline_start}
-                    value_key="timeline_start"
-                    editable
-                    label={CourseUtils.i18n('creator.start_event_date', this.state.course_string_prefix)}
-                    placeholder={I18n.t('courses.creator.start_event_date_placeholder')}
-                    blank
-                    isClearable={false}
-                    showTime={this.state.use_start_and_end_times}
-                  />
-                  <DatePicker
-                    id="course_event_end"
-                    onChange={this.updateCourseDates}
-                    value={this.props.course.timeline_end}
-                    value_key="timeline_end"
-                    editable
-                    label={CourseUtils.i18n('creator.end_event_date', this.state.course_string_prefix)}
-                    placeholder={I18n.t('courses.creator.end_event_date_placeholder')}
-                    blank
-                    date_props={dateProps.timeline_end}
-                    enabled={!!this.props.course.timeline_start}
-                    isClearable={false}
-                    showTime={this.state.use_start_and_end_times}
-                  />
+                  {eventCheckbox}
+                  <span className={eventsClass}>
+                    {timelineStart}
+                    {timelineEnd}
+                  </span>
                   {this.state.use_start_and_end_times ? timeZoneMessage : null}
                   <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}:</strong></span>
                   <TextAreaInput
