@@ -165,8 +165,10 @@ const CourseCreator = createReactClass({
   dateTimesAreValid() {
     const startDateTime = new Date(this.props.course.start);
     const endDateTime = new Date(this.props.course.end);
+    const startEventTime = new Date(this.props.timeline_start);
+    const endEventTime = new Date(this.props.timeline_end);
 
-    if (startDateTime >= endDateTime) {
+    if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
       ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
@@ -385,7 +387,7 @@ const CourseCreator = createReactClass({
           label={CourseUtils.i18n('creator.start_event_date', this.state.course_string_prefix)}
           placeholder={I18n.t('courses.creator.start_event_date_placeholder')}
           blank
-          isClearable={false}
+          isClearable={true}
           showTime={this.state.use_start_and_end_times}
         />
     );
@@ -401,7 +403,7 @@ const CourseCreator = createReactClass({
           blank
           date_props={dateProps.timeline_end}
           enabled={!!this.props.course.timeline_start}
-          isClearable={false}
+          isClearable={true}
           showTime={this.state.use_start_and_end_times}
         />
     );
