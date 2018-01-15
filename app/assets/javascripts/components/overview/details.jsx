@@ -181,7 +181,10 @@ const Details = createReactClass({
     }
 
     const dateProps = CourseDateUtils.dateProps(this.props.course);
-    const timelineStart = (
+    let timelineStart;
+    let timelineEnd;
+    if (this.props.course.timeline_start && this.props.course.timeline_end) {
+    timelineStart = (
       <DatePicker
         onChange={this.updateCourseDates}
         value={this.props.course.timeline_start}
@@ -194,7 +197,7 @@ const Details = createReactClass({
         required={true}
       />
       );
-      const timelineEnd = (
+      timelineEnd = (
         <DatePicker
           onChange={this.updateCourseDates}
           value={this.props.course.timeline_end}
@@ -207,6 +210,7 @@ const Details = createReactClass({
           required={true}
         />
         );
+      }
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, (campaign, index) => {
