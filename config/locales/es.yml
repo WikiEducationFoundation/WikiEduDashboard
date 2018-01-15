@@ -302,8 +302,6 @@ es:
       create_short: Crear curso
       end_date: Fecha de fin de estadísticas
       end_date_placeholder: Fecha de fin (AAAA-MM-DD)
-      end_event_date: Fin del evento
-      end_event_date_placeholder: Fin de evento (AAAA-MM-DD)
       expected_number: Número de estudiantes esperado
       find: Encuentra tu curso
       intro: El título, la escuela y el plazo crean la dirección URL de la página
@@ -314,8 +312,6 @@ es:
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio de estadísticas
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
-      start_event_date: Inicio del evento
-      start_event_date_placeholder: Inicio de evento (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
     data_articles: Datos de artículos
@@ -466,7 +462,7 @@ es:
     cancel: Cancelar
     course: Programa
     courses: Programas
-    course_event: ¿Quieres añadir otras fechas para el evento?
+
     courses_taught: Programas impartidos
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»
@@ -479,6 +475,7 @@ es:
       clone_successful_details: Tu programa se ha clonado. Pulsa 'Guardar' más abajo
         para finalizarlo.
       course_description: Descripción del programa
+      course_event: ¿Quieres añadir otras fechas para el evento?
       course_school: Institución
       course_term: Cuándo
       course_term_placeholder: Cuándo
@@ -487,12 +484,16 @@ es:
       create_label: Crear programa nuevo
       create_new: Crear un programa independiente
       create_short: Crear programa
+      end_event_date: Fin del evento
+      end_event_date_placeholder: Fin de evento (AAAA-MM-DD)
       find: Encuentra un programa
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
         de tu programa wiki.
       participate_in_campaign: Participa en una campaña
       save_cloned_course: Guardar
+      start_event_date: Inicio del evento
+      start_event_date_placeholder: Inicio de evento (AAAA-MM-DD)
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
     explore: Encuentra programas
