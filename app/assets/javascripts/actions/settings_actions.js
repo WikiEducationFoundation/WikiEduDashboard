@@ -39,23 +39,20 @@ const grantAdminPromise = (username, upgrade) => {
       logErrorMessage(obj);
       return reject(obj);
     });
-  })
-}
+  });
+};
 
 export const fetchAdminUsers = () => dispatch => {
   fetchAdminUsersPromise()
     .then(resp => {
-      console.log('hello from fetchAdminUsers')
-      console.log(resp)
       dispatch({
         type: SET_ADMIN_USERS,
         data: resp,
-      })
+      });
     })
     .catch(response => {
-      console.log(response)
-      dispatch({ type: API_FAIL, data: response })
-    })
+      dispatch({ type: API_FAIL, data: response });
+    });
 };
 
 export const upgradeAdmin = (username) => dispatch => {
@@ -90,10 +87,8 @@ export const upgradeAdmin = (username) => dispatch => {
             type: SET_ADMIN_USERS,
             data: resp,
           }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })))
-
+        .catch(response => (dispatch({ type: API_FAIL, data: response })));
     }).catch((response) => {
-
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
         data: {
@@ -107,7 +102,6 @@ export const upgradeAdmin = (username) => dispatch => {
         closable: true
         })
       );
-
     });
 };
 
@@ -139,7 +133,7 @@ export const downgradeAdmin = (username) => dispatch => {
           dispatch({
             type: SET_ADMIN_USERS,
             data: resp,
-          })
+          });
 
           dispatch({
             type: REVOKING_ADMIN,
@@ -149,14 +143,11 @@ export const downgradeAdmin = (username) => dispatch => {
                 username: username,
               },
             },
-          })
-
+          });
         }).catch(
           response => (dispatch({ type: API_FAIL, data: response }))
-        )
-
+        );
     }).catch((response) => {
-
       dispatch({
         type: SUBMITTING_NEW_ADMIN,
         data: {
@@ -170,6 +161,5 @@ export const downgradeAdmin = (username) => dispatch => {
         closable: true
         })
       );
-
     });
 };
