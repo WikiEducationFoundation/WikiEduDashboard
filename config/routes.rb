@@ -19,9 +19,9 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
-  get '/users/all_admins' => 'users#all_admins'
-  post '/users/upgrade_admin' => 'users#upgrade_admin'
-  post '/users/downgrade_admin' => 'users#downgrade_admin'
+  get '/settings/all_admins' => 'settings#all_admins'
+  post '/settings/upgrade_admin' => 'settings#upgrade_admin'
+  post '/settings/downgrade_admin' => 'settings#downgrade_admin'
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }

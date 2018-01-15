@@ -10,8 +10,7 @@ class SettingsController < ApplicationController
 
   layout 'application'
 
-  def index
-  end
+  def index; end
 
   def all_admins
     respond_to do |format|
@@ -20,11 +19,10 @@ class SettingsController < ApplicationController
         admins = User.where(permissions: 1)
                      .or(User.where(permissions: 3))
 
-        render json: {admins: admins}
+        render json: { admins: admins }
       end
     end
   end
-
 
   def upgrade_admin
     update_admin do
@@ -40,12 +38,16 @@ class SettingsController < ApplicationController
 
   private
 
+  def username_param
+    params.require(:user).permit(:username)
+  end
+
   ##
   # handles shared functionality for upgrading and demoting admin status
   def update_admin
     respond_to do |format|
       format.json do
-        @user = User.find_by_username username_param
+        @user = User.find_by_username username_param[:username]
         ensure_user_exists { return }
         yield
       end
@@ -53,7 +55,7 @@ class SettingsController < ApplicationController
   end
 
   ##
-  # attempt to upgrade `user` to admin unless they already are one
+  # attempt to upgrade `user` to admin unless they already are one.
   def attempt_admin_upgrade
     # if user was already an admin or super admin
     if @user.admin?
@@ -67,7 +69,7 @@ class SettingsController < ApplicationController
   end
 
   ##
-  # attempt to upgrade `user` to instructor unless they already are one
+  # attempt to upgrade `user` to instructor unless they already are one.
   def attempt_admin_downgrade
     # already an instructor
     if @user.instructor_permissions?
@@ -80,4 +82,12 @@ class SettingsController < ApplicationController
     yield json: { message: message }, status: 200
   end
 
+  ##
+  # yield up an error message if no user is found.
+  def ensure_user_exists
+    return unless @user.nil?
+    render json: { message: I18n.t('courses.error.user_exists', username: username_param) },
+           status: 404
+    yield
+  end
 end
