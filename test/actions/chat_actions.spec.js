@@ -1,9 +1,9 @@
+import sinon from 'sinon';
+
 import '../testHelper';
 import ChatActions from '../../app/assets/javascripts/actions/chat_actions.js';
 import ChatStore from '../../app/assets/javascripts/stores/chat_store.js';
 import CourseStore from '../../app/assets/javascripts/stores/course_store.js';
-
-import sinon from 'sinon';
 
 describe('ChatActions', () => {
   beforeEach(() => {

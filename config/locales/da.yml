@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Joedalton
+# Author: Jorn Ari
 # Author: Palnatoke
 ---
 da:
@@ -150,4 +151,12 @@ da:
       course_description_placeholder: Hvad er dette for et program, og hvad vil deltagerne
         udføre på wikierne? Inkluder nok med detaljer til at give brugerne en ide
         om konteksten for bidragene, som deltagerne laver.
+  training:
+    next: Næste side
+    page: Side
+    page_number: Side %{number} af %{total}
+    table_of_contents: Indholdsfortegnelse
+    done: Færdig!
+    check_answer: Kontrollér svar
+    included_modules: Inkluderede moduler
 ...

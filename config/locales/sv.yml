@@ -38,6 +38,13 @@ sv:
     change: Ändra
     details: Detaljer
     confirm: OK
+  dashboard:
+    explore_course_pages: Utforska kursussidorna
+    explore_examples: Utforska exempel
+  home:
+    explore: Utforska
+    log_in: Logga in med Wikipedia
+    sign_up: Skapa ett konto med Wikipedia
   activity:
     all: Aktivitet
     edited_by: Redigerad av
@@ -49,8 +56,10 @@ sv:
     character_doc: Summan av tecken som lagts till i artiklar av kursens studenter
       under kursen
     edited: Redigerade artiklar
+    edited_by: 'Redigerad av:'
     edited_mobile: Artiklar
     hide: Dölj
+    label: Artiklar
     loading: Laddar artiklar...
     new: (ny)
     none: Den här kursen har inte redigerat några artiklar.
@@ -59,6 +68,7 @@ sv:
     show_current_version_with_authorship_highlighting: Nuvarande version med författaren
       markerad
     title: Titel
+    title_example: Artikelns titel
     view: Visa artikel
     view_all: Visa alla
     view_doc: Summan av alla läsningar av varje artikel under kursen
@@ -81,17 +91,30 @@ sv:
     all_campaigns: Alla kampanjer
     already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
       slug.
+    campaign: Kampanj
     campaigns: Kampanjer
+    campaign_deleted: Kampanjen »%{title}« har raderats
     campaign_not_updated: Kampanjen kunde inte uppdateras
     campaign_updated: Kampanj uppdaterades
+    confirm_campaign_deletion: Är du säker på att du vill radera kampanjen "%{title}"?
+      Ifall du är säker, skriv in kampanjens titel för att fortsätta.
     confirm_campaign_deletion_failed: '"%{title}" är inte titeln för denna kampanj.
       Kampanjen har inte raderats.'
+    confirm_course_removal: Är du säker på att du vill avlägsna "%{title}" från kampanjen
+      "%{campaign_title}"?
+    course_already_removed: '"%{title}" har redan tagits bort från kampanjen "%{campaign_title}"'
+    course_removed: '"%{title}" har tagits bort från kampanjen "%{campaign_title}"'
     create_campaign: Skapa en ny kampanj
     create_my_campaign: Skapa min kampanj!
     description: Beskrivning
     delete_campaign: Radera denna kampanj
     none: Ingen
+    organizers: Arrangörer
+    organizer_added: '%{user} är nu en arrangör av kampanjen "%{title}"'
+    organizer_removed: '%{user} har tagits bort som arrangör av kampanjen  "%{title}"'
     program_template: Programmall
+    program_template_tooltip: När en arrangör etablerar ett program i denna kampanj
+      kopieras texten i detta fält över som beskrivning på programsidan
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
   categories:
@@ -99,16 +122,25 @@ sv:
     add_template: Lägg till mall
     add_this_category: Lägg till denna kategori
     add_this_template: Lägg till denna mall
+    confirm_category_addition: Är du säker på att du vill spåra bidrag till kategorin
+      "%{name}"?
     confirm_template_addition: Är du säker på att du vill spåra bidrag på mallen "%{name}"?
+    depth: Underkategoridjup
     name: Namn
     category_name: Kategorinamn
     template_name: Mallnamn
+    none: Det är inga kategorier som spåras.
     remove: Ta bort
+    tracked_categories: Spårade kategorier & mallar
   chat:
     label: Chatta
   courses:
     activity: Aktivitet
+    active_courses: Aktiva %{course_type}
     all_courses: Alla kurser
+    already_enrolled: Du är redan en del av '%{title}'!
+    already_exists: Det finns redan för den här kursen!
+    archived: Arkiverade kurser
     actions: Åtgärder
     articles: Artiklar
     articles_none: Den här kursen har inte redigerat några artiklar.
@@ -166,6 +198,7 @@ sv:
     features_feedback: Fler förslag
     feedback: Återkoppling
     feedback_loading: Var god vänta medan förslag läser in...
+    instructors: Instruktörer
     invitation: |-
       Du har blivit inbjuden att gå med i %{title}. För att gå kursen måste du logga in med ett Wikipedia-konto.
       Om du inte har ett Wikipedia-konto ännu, registrera ett nu.
@@ -264,7 +297,6 @@ sv:
     edit_template: Redigera mall
   metrics:
     label: Kursaktivitet
-    are_updated: Enligt den senaste systemuppgraderingen
     last_update: Senast uppdaterad
     activity: Senaste aktivitet
     articles_created: Skapade artiklar
@@ -297,9 +329,13 @@ sv:
   revisions:
     class: Klass
     diff: skillnad
+    diff_show: Visa
+    diff_hide: Dölj
     edit_time_span: Redigeringar skedde från %{first_time} till %{last_time}
     edited_by: Redigerad av
     edited_on: Redigerades %{edit_date}
+    loading: Laddar versioner...
+    none: Den här kursen har ingen nylig redigeringsaktivitet.
     title: Titel
     see_more: Se mer
   suggestions:

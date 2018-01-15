@@ -42,6 +42,8 @@ zh-CN:
     change: 更改
     details: 详情
     confirm: 确定
+    opt_in: 是
+    opt_out: 否
   dashboard:
     create_note: 点击创建课程以创建您的第一次课程。
     create_preparation_note: 在开始之前，请确保您手上有您的校历；作业设计工具将使用您班级的会议日期——包含任何学校休息日和节假日——以使您的时间表适应您选择的日期范围。记住，您总是可以编辑时间表以与您的需求相符。
@@ -155,8 +157,11 @@ zh-CN:
     course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
     create_campaign: 创建新的运动
     create_my_campaign: 创建我的运动！
+    default_course_type: 默认课程类型
+    default_passcode: 默认密码
     description: 描述
     delete_campaign: 删除此运动
+    no_passcode: 无密码
     none: 无
     organizers: 组织者
     organizer_added: '%{user}现为“%{title}”运动的组织者'
@@ -459,8 +464,8 @@ zh-CN:
     edit_template: 编辑模板
   metrics:
     label: 课程活动
-    are_updated: 根据上次系统更新
-    last_update: 最后更新
+    last_update: 上次统计更新
+    next_update: 下次估计更新
     activity: 最近活跃
     are_trained: 最近培训
     articles_created: 创建的条目
@@ -590,7 +595,15 @@ zh-CN:
     continue: 继续（%{progress}）
     start: 开始
     view: 查看
+    next: 下一页
+    page: 页面
+    page_number: 第%{number}页，共%{total}页
+    table_of_contents: 目录
+    training_library: 培训库
     logged_out: 您已退出。除非您登录，您将不会收到完成此模块的学分。
+    done: 完成！
+    check_answer: 检查答案
+    included_modules: 包含的模块
   uploads:
     datetime: 日期/时间
     file_name: 文件名

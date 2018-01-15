@@ -73,4 +73,6 @@ Rails.application.configure do
 
   config.allow_concurrency = false
   config.assets.debug = true
+
+  config.log_level = :warn
 end

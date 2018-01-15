@@ -12,7 +12,7 @@ This is a project of [Wiki Education](https://wikiedu.org).
 
 ## What it does
 
-The Dashboard allows instructors to create a course page, which students can join. It then gathers information about edits those users have made and articles they have edited, and creates a dashboard for each course intended to let instructors and others quickly see key information about the work of student editors. It also creates a global dashboard to see information about many courses at once.
+The Dashboard allows instructors or program leaders to create a "course" page, which participants can join. It then gathers information about edits those users have made and articles they have edited, and creates a dashboard for each course intended to let instructors and others quickly see key information about the work of student editors. It also creates a global dashboard to see information about many courses at once.
 
 Overview:
  * Uses a set of endpoints on Wikimedia Labs (see [WikiEduDashboardTools](https://github.com/WikiEducationFoundation/WikiEduDashboardTools)) and the Wikipedia API to get information about articles and revisions related to the courses
@@ -20,6 +20,10 @@ Overview:
  * Pulls revision metadata from ores.wikimedia.org
  * Provides training modules with content pulled from wiki pages on meta.wikimedia.org
  * ...and much more
+
+## Contribute!
+
+This project welcomes contributions, and we try to be as newbie-friendly as possible. Checkout out [the CONTRIBUTING file](CONTRIBUTING.md) for more details.
 
 ## Documentation
 ### Setup
@@ -35,7 +39,7 @@ Overview:
 
 ### Other
 - [Contributing](CONTRIBUTING.md)
-- [Development Process for Agile Ventures members](docs/dev_process.md)
+- [Development Process outline](docs/dev_process.md)
 - [Interface strings & Internationalization](docs/i18n.md)
 - [Deployment](docs/deploy.md)
 - [Tools & Integrations](docs/tools.md)

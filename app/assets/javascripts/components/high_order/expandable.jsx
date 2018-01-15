@@ -1,26 +1,33 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import UIActions from '../../actions/ui_actions.js';
-import UIStore from '../../stores/ui_store.js';
+import { connect } from 'react-redux';
+import { toggleUI } from '../../actions';
+
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+const mapDispatchToProps = {
+  toggleUI
+};
 
 const Expandable = function (Component) {
-  return createReactClass({
+  const wrappedComponent = createReactClass({
     displayName: 'Expandable',
-    mixins: [UIStore.mixin],
 
     getInitialState() {
       return { is_open: false };
     },
 
-    storeDidChange() {
+    componentWillReceiveProps(props) {
       this.setState({
-        is_open: UIStore.getOpenKey() === this.refs.component.getKey()
+        is_open: this.refs.component.getKey() === props.openKey
       });
     },
 
     open(e) {
       if (e !== null) { e.stopPropagation(); }
-      return UIActions.open(this.refs.component.getKey());
+      return this.props.toggleUI(this.refs.component.getKey());
     },
 
     render() {
@@ -34,6 +41,7 @@ const Expandable = function (Component) {
       );
     }
   });
+  return connect(mapStateToProps, mapDispatchToProps)(wrappedComponent);
 };
 
 export default Expandable;

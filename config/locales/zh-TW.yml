@@ -47,6 +47,8 @@ zh-TW:
     change: 修改
     details: 詳細內容
     confirm: 好
+    opt_in: 是
+    opt_out: 否
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
     create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
@@ -160,8 +162,11 @@ zh-TW:
     course_removed: '%{title}已從活動「%{campaign_title}」移除'
     create_campaign: 創建新活動
     create_my_campaign: 創建我的活動！
+    default_course_type: 預設課程類型
+    default_passcode: 預設選課代碼
     description: 描述
     delete_campaign: 刪除此活動
+    no_passcode: 沒有選課代碼
     none: 無
     organizers: 組織者
     organizer_added: '%{user}現在是活動「%{title}」的組織者'
@@ -480,8 +485,8 @@ zh-TW:
     rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   metrics:
     label: 課程活動
-    are_updated: 依照最後一次的系統更新
-    last_update: 最後一次更新
+    last_update: 最後一次統計更新
+    next_update: 下一次的預計更新
     activity: 最近活躍度
     are_trained: 最近培訓
     articles_created: 已建立的條目
@@ -620,7 +625,15 @@ zh-TW:
     continue: 進度 (%{progress})
     start: 開始
     view: 檢視
+    next: 下一頁
+    page: 頁面
+    page_number: 總計共 %{total} 個裡的第 %{number} 頁
+    table_of_contents: 目錄
+    training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
+    done: 完成！
+    check_answer: 檢查答案
+    included_modules: 已包含模組
   uploads:
     datetime: 日期/時間
     file_name: 檔案名稱

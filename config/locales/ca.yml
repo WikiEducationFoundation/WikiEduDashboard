@@ -23,6 +23,8 @@ ca:
     field_required: Aquest camp és obligatori
     field_invalid_characters: Aquest camp té caràcters nuls
     field_invalid_date: Aquest camp requereix una data en format AAAA-MM-DD
+    field_invalid_date_time: El final ha de ser després de l'inici. (Les hores van
+      de 0 a 23.)
     greeting2: Benvinguts!
     greeting_extended: Benvinguts a la Viquipèdia
     greeting: Hola
@@ -33,6 +35,7 @@ ca:
     log_out: Finalitza la sessió
     my_dashboard: Tauler de control
     recent_activity: Activitat recent
+    report_problem: Informeu sobre un problema
     search: feu una pregunta
     search_results: 'Resultats per a: «%{search_terms}»'
     sign_up_extended: Inicia la sessió a la Viquipèdia
@@ -41,6 +44,10 @@ ca:
     submit: Envia
     training: Formació
     change: Canvia
+    details: Detalls
+    confirm: D’acord
+    opt_in: Sí
+    opt_out: "No"
   dashboard:
     create_note: Feu clic a Crea Curs per crear el vostre primer curs.
     create_preparation_note: Assegura't que tens el teu calendari acadèmic a mà abans
@@ -78,7 +85,9 @@ ca:
       inscrits durant les dates d'inici i finalització
     deleted: (suprimit)
     edited: Articles editats
+    edited_by: 'Editat per:'
     edited_mobile: Articles
+    hide: Amaga
     label: Articles
     loading: Carregant articles...
     new: (nou)
@@ -91,21 +100,32 @@ ca:
       fa: Els Articles de Qualitat potser són un projecte massa complex per a un editor
         novell
       fl: Llistes de qualitat
+      ga: Article bo
+      does_not_exist: Aquest article no existeix a la Viquipèdia
+    show_current_version: Veure la versió actual
     title: Títol
     title_example: Títol de l'Article
+    tools: Eines de valoració
     view: Veure Article
     view_all: Mostra-ho tot
     view_doc: La suma de totes les visites als articles durant el període del curs
+    view_on_wiki: Veure-ho al wiki
     views_added: Afegit %{count} nous punts de vista per a %{title}
+    edit_size: Editar la mida
+    wiki: Wiki
+    wp10: Completesa estructural
   assignments:
+    article: L'article %{d'article} t'ha sigut assignat
     already_exists: Aquesta tasca ja existeix!
+    title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
     assign_other: Assignar un article
     add_available: Afegir un article disponible
     assign_self: Assignar-me un article
+    assign_tooltip: Un article assignat és un que planeges crear o millorar.
     confirm_add_available: Esteu segurs que voleu afegir %{title}?
     confirm_addition: Esteu segur que voleu assignar %{title} a %{username}?
-    confirm_deletion: N'esteu segurs que voleu eliminar aquesta tasca?
+    confirm_deletion: Esteu segur que voleu eliminar aquesta valoració?
     label: Assignar
     loading: Càrrega de treballs...
     none_short: No hi ha articles assignats
@@ -120,9 +140,39 @@ ca:
     milestones:
       title: Fites
   campaign:
+    active_campaigns: Campanyes actives
+    add_organizer: Afegeix organitzador
+    all_campaigns: Totes les  Campanyes
+    campaign: Campanya
+    campaigns: Campanyes
+    campaign_deleted: La campanya "%{de campanya}" ha estat eliminada
+    campaign_not_updated: La campanya ha pogut ser actualitzada
+    campaign_updated: Campanya actualitzada
+    create_campaign: Crear una nova Campanya
+    create_my_campaign: Crear la meva Campanya!
+    default_course_type: Tipus de curs per defecte
+    description: Descripció
+    delete_campaign: Elimina aquesta pàgina
+    no_passcode: Sense codi d'accés
     none: Cap
+    organizers: Organitzadors
+    organizer_added: '%{L''usuari} és ara un organitzador de la campanya "%{title}"'
+    title: Títol
+    use_start_end_dates: Inici d'ús i dates de final
+  categories:
+    add_category: Afegeix una categoria
+    add_template: 'Afegeix una plantilla:'
+    add_this_category: Afegir aquesta categoria
+    add_this_template: Afegir aquesta plantilla
+    name: Nom
+    category_name: Nom de la categoria
+    template_name: 'Nom de la plantilla:'
+    remove: Elimina
+  chat:
+    label: Xat
   courses:
     activity: Activitat
+    all_courses: Tots els  Cursos
     already_enrolled: Ja formeu part de la '%{title}'!
     already_exists: Això ja existeix per a aquest curs!
     archived: Cursos arxivats
@@ -139,6 +189,7 @@ ca:
       legend_class_not_meeting: No hi ha cap reunió planificada
       select_meeting_days: Selecciona els dies de la setmana en els quals us trobeu
         a classe.
+    cancel: Cancel·lar
     character_doc: La suma dels caràcters afegits a l'espai principal (articles) per
       part dels estudiants durant aquest curs
     campaigns: 'Grups:'
@@ -146,6 +197,7 @@ ca:
       Si és així, escriviu el títol del curs per a procedir.
     confirm_course_deletion_failed: '"%{title}" no és el títol d''aquest curs. El
       curs no ha estat esborrat.'
+    course: Curs
     course_dates_calendar_instructions: Selecciona les dates per afegir o treure de
       la planificació (per ex., vacances, dies de lliure disposició). Clica per canviar
       les dates entre de-seleccionades, seleccionades i vacances. Les dates de les
@@ -153,6 +205,7 @@ ca:
       trobi físicament.
     course_description: Cursos
     courses: Cursos
+    creation_date: Data de creació
     creator:
       already_exists: Aquest curs ja existeix. Considera canviar el nom, escola o
         terme per tal de fer-lo únic.
@@ -161,6 +214,7 @@ ca:
       assignment_start: Inici de la tasca
       assignment_start_placeholder: Inici de la tasca (AAAA-MM-DD)
       checking_for_uniqueness: Estem mirant si aquest curs és únic.
+      choose_clone: Escollir un curs per clonar.
       cloned_course_calendar_instructions: Selecciona les dates per afegir o treure-les
         de la planificació (per ex., vacances, dies de lliure disposició). Clica a
         la data per canviar entre de-seleccionat, seleccionat i vacances. Si no teniu
@@ -192,12 +246,20 @@ ca:
         Clica "Crea el meu curs!" per començar a construir la línia de temps per a
         la teva tasca de Viquipèdia.
       no_class_holidays: No faig mai vacances
+      role_description: La vostra funció en el curs
+      role_description_placeholder: Instructor, ensenyant ajudant, etc
       save_cloned_course: Guarda el curs nou
       start_date: Data d'inici
       start_date_placeholder: Data d'inici (AAAA-MM-DD)
       subject: Assumpte
     current: Cursos actuals
+    data_articles: Dades dels articles
+    data_download_info: Descarregar dades en format CSV.
+    data_overview: Veure dades
+    data_edits: Editar les dades
+    data_students: dades dels editors
     delete_course: Esborra el curs
+    delete_suggestion: Suprimeix
     dismiss_survey: Descarta
     dismiss_survey_confirm: Esteu segurs que voleu rebutjar aquesta enquesta?
     duration: Durada del curs
@@ -336,8 +398,8 @@ ca:
     save: Desa
   metrics:
     label: Activitat del curs
-    are_updated: Segons l'última actualització del sistema
-    last_update: Darrera actualització
+    last_update: Darrera actualització de les estadístiques
+    next_update: Próxima actualizació
     activity: Activitat recent
     are_trained: està al dia amb la formació
     articles_created: Articles creats

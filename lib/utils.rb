@@ -17,7 +17,7 @@ class Utils
     begin
       data = JSON.parse data
     rescue JSON::ParserError => e
-      Rails.logger.error "Caught #{e}"
+      Rails.logger.info "Caught #{e}"
     end
     data
   end

@@ -13,6 +13,7 @@
 # Author: Raymond
 # Author: Robby
 # Author: Vojtěch Dostál
+# Author: Андрей
 ---
 qqq:
   accessibility:
@@ -80,6 +81,8 @@ qqq:
       Heading for part of the interface that shows details about something
       {{Identical|Details}}
     confirm: '{{Identical|OK}}'
+    opt_in: '{{Identical|Yes}}'
+    opt_out: '{{Identical|No}}'
   dashboard:
     create_note: |-
       Instructions on how to create a course.
@@ -359,6 +362,7 @@ qqq:
       {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
+    edit_count: Ариашарақәа рхыҧхьаӡара
     end: |-
       Label for the end date of a course
       '{{Identical|End}}'

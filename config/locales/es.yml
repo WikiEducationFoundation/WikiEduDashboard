@@ -34,7 +34,7 @@ es:
     field_invalid_date_time: El fin tiene que ser después del inicio. (Las horas van
       de 0 a 23.)
     greeting2: ¡Bienvenidos!
-    greeting_extended: Bienvenido a Wikipedia
+    greeting_extended: Te damos la bienvenida a Wikipedia
     greeting: ¡Hola!
     help: Ayuda
     home: Inicio
@@ -54,6 +54,8 @@ es:
     change: Cambiar
     details: Detalles
     confirm: Aceptar
+    opt_in: Sí
+    opt_out: "No"
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes
@@ -136,7 +138,7 @@ es:
     view_doc: La suma de todas las visitas a cada artículo durante el proyecto
     view_on_wiki: Ver en el wiki
     views_added: Se añadieron %{count} visitas nuevas para %{title}
-    edit_size: Editar tamaño
+    edit_size: Tamaño de edición
     wiki: Wiki
     wp10: Integridad estructural
     wp10_doc: La puntuación «Integridad estructural» representa cuánto un artículo
@@ -156,6 +158,7 @@ es:
     assign_other: Asignar un artículo
     add_available: Añadir un artículo disponible
     assign_self: Asignarme un artículo
+    assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
     confirm_addition: ¿Confirmas que quieres asignar %{title} a %{username}?
     confirm_deletion: ¿Estás seguro de que quieres eliminar esta tarea de artículo?
@@ -181,14 +184,14 @@ es:
     campaign_deleted: La campaña "%{title}" se ha eliminado
     campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
-    confirm_campaign_deletion: ¿Estás seguro de que quieres eliminar la campaña titulada
-      "%{title}"? Si es así, escribe el título de la campaña para continuar.
+    confirm_campaign_deletion: ¿Confirmas que quieres eliminar la campaña titulada
+      «%{title}»? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
       La campaña no se ha eliminado.
-    confirm_course_removal: ¿Estás seguro de que quieres eliminar "%{title}" de la
-      campaña "%{campaign_title}"?
-    course_already_removed: '"%{title}" ya se había eliminado de la campaña "%{campaign_title}"'
-    course_removed: '"%{title}" se ha eliminado de la campaña "%{campaign_title}"'
+    confirm_course_removal: ¿Confirmas que quieres quitar «%{title}» de la campaña
+      «%{campaign_title}»?
+    course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
+    course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: Contraseña customizada
@@ -212,11 +215,17 @@ es:
     add_template: Añadir plantilla
     add_this_category: Añadir esta categoría
     add_this_template: Añadir esta plantilla
+    confirm_category_addition: ¿Confirmas que quieres dar seguimiento a las contribuciones
+      en la categoría «%{name}»?
+    confirm_template_addition: ¿Confirmas que quieres dar seguimiento a las contribuciones
+      a la plantilla «%{name}»?
     depth: Profundidad de subcategorías
     name: Nombre
     category_name: Nombre de categoría
     template_name: Nombre de plantilla
+    none: No hay ninguna categoría en seguimiento.
     remove: Quitar
+    tracked_categories: Categorías y plantillas en seguimiento
   chat:
     label: Chat
   courses:
@@ -270,6 +279,7 @@ es:
       assignment_start: Inicio de la tarea
       assignment_start_placeholder: Inicio de la tarea (AAAA-MM-DD)
       checking_for_uniqueness: Se está comprobando que este curso sea único.
+      choose_clone: Elige un curso para clonarlo.
       clone_previous: Clonar el curso previo
       clone_this: Clonar este curso
       cloned_course_calendar_instructions: Selecciona fechas para añadirlas o quitarlas
@@ -309,7 +319,13 @@ es:
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)
       subject: Asunto
     current: Cursos actuales
+    data_articles: Datos de artículos
+    data_download_info: Descargar datos en formato CSV.
+    data_edits: Datos de ediciones
+    data_students: Datos de editores
+    data_uploads: Datos de cargas a Commons
     delete_course: Eliminar curso
+    delete_suggestion: Eliminar
     delete_course_instructions: Puedes eliminar esta página si todas las campañas
       se quitan anteriormente.
     dismiss_survey: Descartar
@@ -335,6 +351,7 @@ es:
     expected_students: Estudiantes esperados
     features_feedback: 'Sugerencias automatizadas:'
     feedback: Comentarios
+    feedback_loading: Espera mientras se cargan las sugerencias…
     gradeables_none: Este curso no tiene tareas calificables.
     instructor:
       one: Docente
@@ -418,6 +435,8 @@ es:
     update_stats: Actualizar estadísticas
     uploads_none: Esta clase no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    user_suggestions: 'Sugerencias de usuario:'
+    user_suggestions_prompt: Tus sugerencias para los editores del artículo
     view_other: Ver otras campañas
     view: Ver curso
     view_doc: La suma de todas las visitas a artículos editados por editores inscriptos
@@ -453,6 +472,7 @@ es:
     campaign_courses: Programa de «%{title}»
     creator:
       checking_for_uniqueness: Se está comprobando que este programa sea único.
+      choose_clone: Elige un programa para clonarlo.
       clone_previous: Clonar el programa previo
       clone_this: Clonar este programa
       clone_successful: Programa clonado con éxito
@@ -511,8 +531,8 @@ es:
     edit_details: Editar detalles
   metrics:
     label: Actividad del curso
-    are_updated: Según la última actualización del sistema
-    last_update: Última actualización
+    last_update: Última actualización de estadísticas
+    next_update: Próxima actualización estimada
     activity: Actividad reciente
     are_trained: están al día con la capacitación
     articles_created: Artículos creados

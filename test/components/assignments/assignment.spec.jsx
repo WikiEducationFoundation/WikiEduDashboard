@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import { shallow } from 'enzyme';
+
+import '../../testHelper';
 import Assignment from '../../../app/assets/javascripts/components/assignments/assignment.jsx';
 
 const course = {

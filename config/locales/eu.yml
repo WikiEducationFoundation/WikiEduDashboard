@@ -43,6 +43,8 @@ eu:
     change: Aldatu
     details: Xehetasunak
     confirm: OK
+    opt_in: Bai
+    opt_out: Ez
   dashboard:
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;
@@ -341,6 +343,7 @@ eu:
     does_not_exist: Artikulua ez da existitzen. Proba orria sortu eta eman zeure izena
       iradokizunak jasotzeko.
     duration: Ikastaroaren iraupena
+    edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu
     enable_chat: Txata gaitu
     end: Amaitu
@@ -561,7 +564,6 @@ eu:
       URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
   metrics:
     label: Ikastaroko jarduera
-    are_updated: Azken sistema eguneratzearen arabera
     last_update: Azken eguneratzea
     activity: Azken jarduera
     are_trained: trebakuntzarekin eguneratuak

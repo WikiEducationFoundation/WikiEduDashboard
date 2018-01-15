@@ -42,7 +42,12 @@ class Campaign < ActiveRecord::Base
 
   validate :validate_dates
 
-  validates :default_course_type, :inclusion => { :in => Course::COURSE_TYPES }, allow_blank: true
+  ALLOWED_TYPES = %w[
+    Editathon
+    BasicCourse
+    ArticleScopedProgram
+  ].freeze
+  validates :default_course_type, inclusion: { in: ALLOWED_TYPES }, allow_blank: true
 
   before_save :set_default_times
 
@@ -74,21 +79,8 @@ class Campaign < ActiveRecord::Base
   # Class methods #
   #################
 
-  # Create new campaigns from application.yml entries
-  def self.initialize_campaigns
-    ENV['campaigns'].split(',').each do |campaign|
-      next if Campaign.exists?(slug: campaign)
-      Campaign.new(
-        'title' => campaign.tr('_', ' ').capitalize,
-        'slug' => campaign,
-        'url' => ENV['campaign_' + campaign]
-      ).save
-      Rails.logger.info "Created campaign #{campaign}."
-    end
-  end
-
   def self.default_campaign
-    find_by(slug: ENV['default_campaign'])
+    find_by(slug: ENV['default_campaign']) || first
   end
 
   private

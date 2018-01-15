@@ -225,7 +225,7 @@ const CourseClonedModal = createReactClass({
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
           />
           <label> {I18n.t('courses.creator.no_class_holidays')}
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
+            <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
           </label>
         </div>
       );
@@ -298,7 +298,7 @@ const CourseClonedModal = createReactClass({
       <Modal>
         <div className="container">
           <div className="wizard__panel active cloned-course">
-            <h3>{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
+            <h3 id="clone_modal_header">{CourseUtils.i18n('creator.clone_successful', i18nPrefix)}</h3>
             <p>{CourseUtils.i18n('creator.clone_successful_details', i18nPrefix)}</p>
             {errorMessage}
             <div className="wizard__form">

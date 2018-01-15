@@ -72,8 +72,6 @@ class WikiCourseEdits
     @wiki_editor.add_to_page_top(talk_page, @current_user, talk_template, talk_summary)
 
     # Pre-create the user's sandbox
-    # TODO: Do this more selectively, replacing the default template if
-    # it is present.
     return unless Features.wiki_ed?
     sandbox = user_page + '/sandbox'
     sandbox_template = "{{#{@dashboard_url} sandbox}}"

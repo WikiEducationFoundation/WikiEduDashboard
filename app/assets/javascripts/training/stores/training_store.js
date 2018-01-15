@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
-const Flux = new McFly();
 import _ from 'lodash';
+const Flux = new McFly();
 
 let _modules = [];
 let _module = {};

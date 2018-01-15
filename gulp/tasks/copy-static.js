@@ -1,8 +1,8 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-const plugins = loadPlugins();
-import config from '../config.js';
 import runSequence from 'run-sequence';
+import config from '../config.js';
+const plugins = loadPlugins();
 
 gulp.task('copy-images', () => {
   return gulp.src(`${config.sourcePath}/${config.imagesDirectory}/**/*`)

@@ -1,7 +1,7 @@
 import McFly from 'mcfly';
-const Flux = new McFly();
-import API from '../utils/api.js';
 import _ from 'lodash';
+import API from '../utils/api.js';
+const Flux = new McFly();
 
 const ServerActions = Flux.createActions({
 

@@ -45,12 +45,5 @@ describe SurveyUpdate do
         .and_raise(Net::SMTPAuthenticationError)
       expect { SurveyUpdate.new }.to raise_error Net::SMTPAuthenticationError
     end
-
-    private
-
-    def recipients(recipient_position)
-      deliveries = ActionMailer::Base.deliveries
-      recipient_position == :first ? deliveries.first.to : deliveries.last.to
-    end
   end
 end

@@ -1,32 +1,11 @@
 [Back to README](../README.md)
 
-## Background
-
-This document outlines the process to be followed - for Agile Ventures members - in developing and
-submitting a pull request for this project.  The same process is used
-regardless of whether the pull request is for a feature, a bug or a chore.
-
-We use Waffle as our story board for this project.  The waffle board for this
-project is [here](https://waffle.io/WikiEducationFoundation/WikiEduDashboard).
-
-Make sure you are added as a "collaborator" to the project - confirm with the AV coordinator if there is any question (post a message about this to the project
-slack channel if unsure about who to contact).
-
 ## Process Outline
 
-## Step 1: Update Waffle
+## Leave a common on the GitHub issue
 When you are ready to start work on a story:
 
-1. Assign the specific story that you will work on to yourself.  You can do this
-from the "Assignees" pull-down list.
-2. Move the issue to the ‘In Progress’ column
-
-Note:
-  - Please don’t assign yourself to more than one story at a time,
-  unless you're blocked on another story and are waiting for resolution.
-  - You should only assign yourself to stories in the 'Current sprint' column.  Those
-  stories have been voted on (have points (size) assigned) and have been
-  designated for work during the current sprint.
+1. Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)
 
 ## Step 2: Update local repo development branch
 Reason: Your **local repo** *master* branch needs to stay in sync with the **project repo** *master* branch.  This is because you want to have your feature branch (to be created below) to have the latest project code before you start adding code for the feature you’re working on.
@@ -96,6 +75,3 @@ On the github website:
 8. Click “Create Pull Request”
 
 This last step will kick off a CI (continuous integration) process that will configure a test environment, load your changes, run all code tests and perform other checks configured within the CI environment.  If any problems arise you will see those at the end of the CI run and will need to address those before the Pull Request can be merged into the project repo.
-
-## Step 9: Set Waffle Status
-Move the issue to the ‘Needs review’ column.

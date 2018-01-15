@@ -84,7 +84,7 @@
               %span.rails_editable-content
                 = @campaign.default_course_type
               %span.rails_editable-input
-                = select(:campaign, :default_course_type, options_for_select(['', 'BasicCourse', 'Editathon', 'ArticleScopedProgram'], @campaign.default_course_type))
+                = select(:campaign, :default_course_type, options_for_select([''] + Campaign::ALLOWED_TYPES, @campaign.default_course_type))
 
             .campaign-default_passcode.form-group.rails_editable-field
               %label{for: 'default_passcode'}

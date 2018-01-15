@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as UIActions from '../../actions';
 import * as ArticleActions from '../../actions/article_actions';
 
 import Editable from '../high_order/editable.jsx';
@@ -89,7 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ ...UIActions, ...ArticleActions }, dispatch)
+  actions: bindActionCreators({ ...ArticleActions }, dispatch)
 });
 
 export default Editable(

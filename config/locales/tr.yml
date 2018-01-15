@@ -2,9 +2,11 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Botansahin
+# Author: Chansey
 # Author: Elftrkn
 # Author: HakanIST
 # Author: Hbseren
+# Author: Hedda
 # Author: Incelemeelemani
 # Author: JackUKElliott
 # Author: Katpatuka
@@ -28,6 +30,8 @@ tr:
   blocks:
     milestones:
       title: Kilometre taşları
+  campaign:
+    default_passcode: Varsayılan Şifre
   chat:
     label: Sohbet
   courses:
@@ -35,10 +39,12 @@ tr:
       end_date: Bitiş tarihi
       role_description_placeholder: öğretim görevlisi, asistan vb.
       start_date: Başlangıç tarihi
+    edit_count: Değişiklik Sayısı
     enable_chat: Sohbeti etkinleştir
     courses_enrolled: Kaydolunan dersler
     gradeables_none: Bu kursta notlandırılabilen ödev bulunmamaktadır
     untrained: Eğitimsiz
+    update_stats: İstatistikleri güncelle
   courses_generic:
     creator:
       course_title: Program adı

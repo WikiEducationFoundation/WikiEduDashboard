@@ -179,7 +179,7 @@ sd:
     explore: پروگرامَ ڳوليو
     enroll: ايڊيٽر شامل ڪيو
     school_and_term: ادارو (انسٽيٽيوٽ)/ڪڏهن
-    student_editors: سنواريندڙَ (Editors)
+    student_editors: سنواريندڙَ
     students: ايڊيٽرَ
     students_taught: ڪُل سنواريندڙَ (Total Editors)
     term: ڪڏهن
@@ -207,6 +207,8 @@ sd:
   recent_activity:
     article_title: مضمون جو عنوان
     datetime: تاريخ/وقت
+    no_edits: ڪي بہ تازيون ترميمون ناھن.
+    recent_edits: تازيون ترميمون
   revisions:
     chars_added: شامل ڪيل اکر
     class: درجو
@@ -249,7 +251,7 @@ sd:
     contributions: واپرائيندڙ جون ڀاڱيداريون
     contributions_more: وڌيڪ ڀاڱيداريون ڏسو
     editors: شاگرد سنواريندڙ
-    loading: يوزرس اتاري رهيا آهيون...
+    loading: واپرائيندڙَ اتاري رهيا آهيون...
     name: نالو
     none: ڪي بہ شرڪت ڪندڙ نہ آهن.
     recent_revisions: تازيون تبديليون

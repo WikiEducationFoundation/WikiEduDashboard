@@ -9,6 +9,7 @@
 # Author: Martin Urbanec
 # Author: Meliganai
 # Author: Mormegil
+# Author: Rosičák
 # Author: Urbanecm
 # Author: Vojtěch Dostál
 # Author: Walter Klosse
@@ -61,7 +62,7 @@ cs:
       vám pomůže začít (trvá asi 30 minut).
     review_orientation: Orientace ve školení
     start_orientation: Spustit průvodce
-    blog_headline: Nedávné zprávy z Wiki Ed
+    blog_headline: Nedávné zprávy z Wiki Education
   home:
     explore: Prozkoumat
     log_in: Přihlásit se účtem na Wikipedii
@@ -280,6 +281,7 @@ cs:
     does_not_exist: Tento článek neexistuje. Vytvořte stránku na pískovišti a přiřaďte
       se k ní, abyste mohl(a) dostávat návrhy.
     duration: Průběh kurzů
+    edit_count: Počet editací
     edit_course_dates: Upravit termíny kurzů
     enable_chat: Povolit chat
     end: Konec

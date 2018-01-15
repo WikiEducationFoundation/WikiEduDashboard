@@ -1,7 +1,8 @@
-import '../../testHelper';
-import React from 'react';
-import Modal from '../../../app/assets/javascripts/components/common/modal.jsx';
 import { mount } from 'enzyme';
+import React from 'react';
+
+import '../../testHelper';
+import Modal from '../../../app/assets/javascripts/components/common/modal.jsx';
 
 describe('Modal', () => {
   const wrapper = mount(

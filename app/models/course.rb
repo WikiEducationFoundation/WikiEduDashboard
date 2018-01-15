@@ -244,8 +244,6 @@ class Course < ActiveRecord::Base
                                   .collect(&:training_module_ids).flatten
   end
 
-  # TODO: Replace this with a CoursesWikis join table to keep track of which
-  # wikis go with any given course.
   def wiki_ids
     ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
   end

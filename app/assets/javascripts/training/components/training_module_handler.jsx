@@ -34,11 +34,14 @@ const TrainingModuleHandler = createReactClass({
       if (slide.summary) {
         summary = <div className="ui-text small sidebar-text">{slide.summary}</div>;
       }
-
+      let slideTitle = slide.title;
+      if (slide.translations && slide.translations[locale]) {
+        slideTitle = slide.translations[locale].title;
+      }
       return (
         <li className={liClassName} key={i}>
           <a disabled={disabled} href={slideLink}>
-            <h3 className="h5">{slide.title}</h3>
+            <h3 className="h5">{slideTitle}</h3>
             {summary}
           </a>
         </li>
@@ -48,7 +51,7 @@ const TrainingModuleHandler = createReactClass({
 
     return (
       <div className="training__toc-container">
-        <h1 className="h4 capitalize">Table of Contents <span className="pull-right total-slides">({slidesAry.length})</span></h1>
+        <h1 className="h4 capitalize"> {I18n.t('training.table_of_contents')} <span className="pull-right total-slides">({slidesAry.length})</span></h1>
         <ol>
           {slides}
         </ol>

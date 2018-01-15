@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import UIActions from '../../actions/ui_actions.js';
-import UIStore from '../../stores/ui_store.js';
+import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
+import { toggleUI } from '../../actions';
 import Conditional from '../high_order/conditional.jsx';
 
 // This is a variant version of Expandable which closes upon
@@ -10,24 +10,32 @@ import Conditional from '../high_order/conditional.jsx';
 // persist until it is explicitly closed, and use this
 // for popover buttons and other situations where users would
 // expect a click elsewhere to toggle the state.
+
+const mapStateToProps = state => ({
+  openKey: state.ui.openKey
+});
+
+const mapDispatchToProps = {
+  toggleUI
+};
+
 const PopoverExpandable = function (Component) {
-  const component = createReactClass({
+  const wrappedComponent = createReactClass({
     displayName: 'PopoverExpandable',
-    mixins: [UIStore.mixin],
 
     getInitialState() {
       return { is_open: false };
     },
 
-    storeDidChange() {
+    componentWillReceiveProps(props) {
       this.setState({
-        is_open: UIStore.getOpenKey() === this.refs.component.getKey()
+        is_open: this.refs.component.getKey() === props.openKey
       });
     },
 
     open(e) {
       if (e !== null) { e.stopPropagation(); }
-      return UIActions.open(this.refs.component.getKey());
+      return this.props.toggleUI(this.refs.component.getKey());
     },
 
     handleClickOutside(e) {
@@ -46,7 +54,7 @@ const PopoverExpandable = function (Component) {
       );
     }
   });
-  return Conditional(OnClickOutside(component));
+  return connect(mapStateToProps, mapDispatchToProps)(Conditional(OnClickOutside(wrappedComponent)));
 };
 
 export default PopoverExpandable;

@@ -39,7 +39,7 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
 
     it 'renders an explanation with helpful advice' do
       get :index
-      expect(response.body).to match(/default campaign/)
+      expect(response.body).to match(/There are no campaigns/)
     end
   end
 end

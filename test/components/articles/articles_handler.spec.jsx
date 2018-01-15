@@ -1,8 +1,8 @@
-import '../../testHelper';
-
 import React from 'react';
 import ReactTestUtils, { Simulate } from 'react-dom/test-utils';
 import sinon from 'sinon';
+
+import '../../testHelper';
 
 import ArticlesHandler from '../../../app/assets/javascripts/components/articles/articles_handler.jsx';
 

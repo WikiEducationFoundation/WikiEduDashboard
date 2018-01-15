@@ -1,6 +1,7 @@
 # Messages for Breton (brezhoneg)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dishual
 # Author: Fulup
 # Author: Gwenn-Ael
 # Author: Macofe
@@ -25,6 +26,7 @@ br:
     my_dashboard: Ma zaolenn-vourzh
     recent_activity: Oberiantiz nevez
     search: Sevel ur goulenn
+    search_results: Disoc'h evit:'%{search_terms}'
     sign_up_extended: En em enskrivañ gant Wikipedia
     sign_up_log_in_extended: gant Wikipedia
     sign_up: En em enskrivañ
@@ -33,10 +35,13 @@ br:
     change: Kemmañ
     details: Munudoù
     confirm: Mat eo
+    opt_in: Ya
+    opt_out: Ket
   dashboard:
     create_note: Klikit war Krouiñ ur gentel evit krouiñ ho kentel gentañ.
     explore_course_pages: Ergerzhet ar pajennadoù kentelioù
     explore_examples: Ergerzhet ar skouerioù
+    blog_headline: Keloù fresk a-berzh Wiki Education
   home:
     explore: Ergerzhet
     log_in: Kevreañ ouzh Wikipedia
@@ -118,6 +123,7 @@ br:
     create_my_campaign: Krouiñ ma c'houlzad !
     description: Deskrivadur
     delete_campaign: Dilemel ar c'houlzad-mañ
+    no_passcode: Ger-kuzh ebet
     none: Hini ebet
     organizers: Aozerien
     organizer_added: '%{user}zo un aozer eus ar c''houlzad %{title} bremañ'
@@ -186,6 +192,7 @@ br:
     delete_course: Diverkañ ar gentel
     dismiss_survey: Disteurel
     duration: Pad ar gentel
+    edit_count: Sammad degasadennoù
     edit_course_dates: Kemmañ deiziadoù ar gentel
     enable_chat: Aotren ar flap
     end: Dibenn
@@ -203,6 +210,7 @@ br:
     instructors: Stummerien
     join: Emezelañ
     join_course: Emezelañ er gentel
+    join_no_passcode: Ha sur oc'h e fell deoc'h kemer perzh er gentel-se?
     leave_course: Kuitaat ar gentel
     loading: O kargañ...
     my_articles: Ma fennadoù
@@ -222,6 +230,7 @@ br:
     timeline_link: Deiziataer
     title: Titl
     untrained: Hep stummadur
+    update_stats: Nevesaat ar stadegoù
     uploads_none: Ar rummmad-mañ n'en deus ket degaset e lod gant skeudenn ebet pe
       gant restr vedia ebet e Wikipedia Commons
     view: Diskwel ar gentel
@@ -377,8 +386,14 @@ br:
     continue: Kenderc'hel(%{progress})
     start: Kregiñ
     view: Diskwel
+    next: Pajenn da-heul
+    page: Pajenn
+    page_number: Page %{number} war %{hollad}
+    training_library: Levraoueg stummadur
     logged_out: Digevreet oc'h. Ne resevit kred ebet evit echuiñ ar vodulenn-mañ,
       nemet ma kevreit en-dro.
+    done: Graet!
+    check_answer: Gwiriañ ar respont
   uploads:
     datetime: Deiz/Eur
     file_name: Anv ar restr

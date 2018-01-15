@@ -16,6 +16,8 @@ eo:
     home: Hejmo
     log_out: Elsaluti
     change: Ŝanĝi
+    opt_in: Jes
+    opt_out: Ne
   articles:
     edited_mobile: Artikoloj
     hide: Kaŝi

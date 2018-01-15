@@ -39,7 +39,7 @@ const Calendar = createReactClass({
     }
     return true;
   },
-  selectDay(e, day) {
+  selectDay(day) {
     let exceptions;
     if (!this.inrange(day)) { return; }
     const { course } = this.props;

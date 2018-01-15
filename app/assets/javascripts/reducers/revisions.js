@@ -1,5 +1,5 @@
-import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
 import _ from 'lodash';
+import { RECEIVE_REVISIONS, SORT_REVISIONS } from '../constants';
 
 const initialState = {
   revisions: [],

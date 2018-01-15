@@ -1,9 +1,9 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
-const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
-import InputMixin from '../../mixins/input_mixin.js';
 import { TrixEditor } from 'react-trix';
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import InputMixin from '../../mixins/input_mixin.js';
+const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
 // This is a flexible text input box. It switches between edit and read mode,
 // and can either provide a wysiwyg editor or a plain text editor.

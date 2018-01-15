@@ -64,7 +64,7 @@ class CourseCacheManager
   end
 
   def update_recent_revision_count
-    @course.recent_revision_count = RevisionStat.get_records(course_id: @course.id)
+    @course.recent_revision_count = RevisionStat.get_records(course: @course)
   end
 
   def update_article_count

@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
-const Flux = new McFly();
 import ServerActions from '../actions/server_actions.js';
+const Flux = new McFly();
 
 function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;

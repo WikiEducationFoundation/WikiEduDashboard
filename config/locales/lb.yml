@@ -35,6 +35,8 @@ lb:
     change: Änneren
     details: Detailer
     confirm: OK
+    opt_in: Jo
+    opt_out: Neen
   dashboard:
     explore_course_pages: D'Säite vun de Coursen entdecken
     explore_examples: Beispiller entdecken
@@ -101,8 +103,10 @@ lb:
     campaigns: Campagnen
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
+    default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
+    no_passcode: Kee Passcode
     none: Keng
     organizers: Organisateuren
     title: Titel
@@ -276,7 +280,8 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
-    last_update: Lescht Aktualisatioun
+    last_update: Lescht Aktualisatioun vun de Statistiken
+    next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
     characters: Buschtawen

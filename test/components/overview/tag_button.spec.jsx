@@ -1,12 +1,14 @@
-import '../../testHelper';
-import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import React from 'react';
+
+import '../../testHelper';
 import TagButton from '../../../app/assets/javascripts/components/overview/tag_button.jsx';
 
 describe('TagButton', () =>
   it('renders a plus button', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
       <TagButton
+        store={reduxStore}
         tags={[]}
         show={true}
       />

@@ -1,7 +1,8 @@
-import '../../testHelper';
-import Loading from '../../../app/assets/javascripts/components/common/loading.jsx';
 import React from 'react';
 import ShallowTestUtils from 'react-test-renderer/shallow';
+
+import '../../testHelper';
+import Loading from '../../../app/assets/javascripts/components/common/loading.jsx';
 
 describe('Loading', () => {
   it('renders a div with an h1 and a div', () => {

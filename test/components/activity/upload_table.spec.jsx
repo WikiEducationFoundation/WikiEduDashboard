@@ -1,7 +1,7 @@
-import '../../testHelper';
-
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+
+import '../../testHelper';
 
 import UploadTable from '../../../app/assets/javascripts/components/activity/upload_table.jsx';
 

@@ -13,34 +13,44 @@ AllCops:
     - 'vendor/**/*'
     - 'app/views/**/**/*.haml'
     - 'docs/**/*'
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
 
 Metrics/LineLength:
   Max: 100
 
-###################
-# Spec exceptions #
-###################
+Metrics/ClassLength:
+  Max: 140 # We should bring this down, ideally to the default of 100
+  Exclude: # These are too big, and should be shrunk if feasible.
+    - 'lib/importers/category_importer.rb'
+    - 'app/models/course.rb'
+    - 'app/controllers/surveys_controller.rb'
+    - 'app/controllers/campaigns_controller.rb'
+    - 'app/controllers/courses_controller.rb'
+Metrics/AbcSize:
+  Max: 44 # We should bring this down, ideally to the default of 15
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper methods
+
 Style/NumericPredicate:
   Exclude:
     - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*' # pretty much impossible with RSpec
+    - 'lib/tasks/*' # also impractical for Rake tasks
+    - 'app/views/**/*' # jbuilder requires long blocks for large json views
 Metrics/MethodLength:
+  Max: 16 # We should bring this down, ideally to the default of 10
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
-# Disable complexity cops, since we use CodeClimate for that.
-# Metrics/MethodLength:
-#   Enabled: false
-# Metrics/AbcSize:
-#   Enabled: false
-# Metrics/ClassLength:
-#   Enabled: false
-# Metrics/CyclomaticComplexity:
-#   Enabled: false
-# Metrics/PerceivedComplexity:
-#   Enabled: false
+Metrics/ModuleLength:
+  Max: 145 # We should bring this down, ideally to the default of 100
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper module
+
+########################
+# Permanent exceptions #
+########################
 
 Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
@@ -58,3 +68,122 @@ Style/RedundantReturn:
   Enabled: false # Sometimes a redundant return enhances clarity.
 Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
+Rails/Blank:
+  Enabled: false # Sometimes unless foo.present? is more expressive.
+
+########################
+# Temporary exceptions #
+########################
+
+# These should be enabled once violations are fixed.
+
+Metrics/LineLength:
+  Enabled: false
+Style/FormatStringToken:
+  Enabled: false
+Rails/FilePath:
+  Enabled: false
+Style/DateTime:
+  Enabled: false
+Rails/TimeZone:
+  Enabled: false
+Rails/Date:
+  Enabled: false
+Rails/DynamicFindBy:
+  Enabled: false
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+Rails/PluralizationGrammar:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: false
+Layout/SpaceAroundOperators:
+  Enabled: false
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+Layout/AlignHash:
+  Enabled: false
+Layout/ExtraSpacing:
+  Enabled: false
+Layout/EmptyLines:
+  Enabled: false
+Layout/TrailingBlankLines:
+  Enabled: false
+Layout/MultilineBlockLayout:
+  Enabled: false
+Layout/AlignParameters:
+  Enabled: false
+Lint/UnneededDisable:
+  Enabled: false
+Lint/UselessAssignment:
+  Enabled: false
+Rails/SkipsModelValidations:
+  Enabled: false
+Rails/EnvironmentComparison:
+  Enabled: false
+Rails/Present:
+  Enabled: false
+Rails/Presence:
+  Enabled: false
+Rails/OutputSafety:
+  Enabled: false
+Naming/PredicateName:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MixinUsage:
+  Enabled: false
+Style/BlockDelimiters:
+  Enabled: false
+Performance/UnfreezeString:
+  Enabled: false
+Style/RescueStandardError:
+  Enabled: false
+Lint/BlockAlignment:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Rails/ApplicationRecord:
+  Enabled: false
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+Rails/InverseOf:
+  Enabled: false
+Rails/UnknownEnv:
+  Enabled: false
+Lint/UriEscapeUnescape:
+  Enabled: false
+Performance/RegexpMatch:
+  Enabled: false
+Rails/Delegate:
+  Enabled: false
+Rails/HasAndBelongsToMany:
+  Enabled: false
+Rails/Validation:
+  Enabled: false
+Rails/FindBy:
+  Enabled: false
+Rails/FindEach:
+  Enabled: false
+Lint/MissingCopEnableDirective:
+  Enabled: false
+Layout/IndentHeredoc:
+  Enabled: false
+Style/RegexpLiteral:
+  Enabled: false
+Rails/Output:
+  Enabled: false
+Style/CommentedKeyword:
+  Enabled: false
+Lint/DuplicateMethods:
+  Enabled: false
+Style/PercentLiteralDelimiters:
+  Enabled: false
+Style/ConditionalAssignment:
+  Enabled: false

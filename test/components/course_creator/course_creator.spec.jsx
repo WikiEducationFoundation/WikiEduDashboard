@@ -1,12 +1,11 @@
-import '../../testHelper';
 import sinon from 'sinon';
-
+import { shallow } from 'enzyme';
 import React from 'react';
-import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 
+import '../../testHelper';
+import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
 import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
 import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
-import { shallow } from 'enzyme';
 
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
@@ -30,6 +29,9 @@ const getStyle = (node) => {
 describe('CourseCreator', () => {
   describe('render', () => {
     const updateCourseSpy = sinon.spy();
+    const fetchCampaignSpy = sinon.spy();
+    const cloneCourseSpy = sinon.spy();
+    const submitCourseSpy = sinon.spy();
 
     const TestCourseCreator = shallow(
       <CourseCreator
@@ -38,6 +40,9 @@ describe('CourseCreator', () => {
         user_courses={["some_course"]}
         course={reduxStore.getState().course}
         updateCourse={updateCourseSpy}
+        fetchCampaign={fetchCampaignSpy}
+        cloneCourse={cloneCourseSpy}
+        submitCourse={submitCourseSpy}
       />
     );
 

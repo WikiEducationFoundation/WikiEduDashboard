@@ -68,6 +68,8 @@ en:
     details: Details
     confirm: OK
     cancel: Cancel
+    opt_in: 'Yes'
+    opt_out: 'No'
 
   dashboard:
     create_note:
@@ -607,8 +609,8 @@ en:
 
   metrics:
     label: Course Activity
-    are_updated: According to the last system update
-    last_update: Last update
+    last_update: Last statistics update
+    next_update: Next estimated update
     activity: Recent Activity
     are_trained: are up-to-date with training
     articles_created: Articles Created
@@ -762,7 +764,15 @@ en:
     continue: Continue (%{progress})
     start: Start
     view: View
+    next: Next Page
+    page: Page
+    page_number: Page %{number} of %{total}
+    table_of_contents: Table of Contents
+    training_library: Training Library
     logged_out: 'You are logged out. You will not receive credit for completing this module unless you log in.'
+    done: Done!
+    check_answer: Check Answer
+    included_modules: Included Modules
 
   uploads:
     datetime: Date/Time
@@ -956,7 +966,7 @@ en:
       It looks like there was an problem with the sign in process. (Sorry about that! It happens occasionally.) Please try logging in or enrolling again.
 
   # This is a maintenance script message.
-  timeout: "A request to the %{api} API has timed out and will retried %{tries} times."
+  timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
     login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'

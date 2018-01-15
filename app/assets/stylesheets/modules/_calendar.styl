@@ -11,6 +11,7 @@
   text-transform uppercase
   user-select none
 
+.DayPicker-wrapper
   &:focus
     outline none
 
@@ -36,6 +37,8 @@
   background-position center
   background-size contain
   cursor pointer
+  &:focus
+    outline none
 
 .DayPicker-NavButton--prev
   left 1rem
@@ -47,6 +50,8 @@
   background-image url("../images/arrow.svg")
   transform rotate(-90deg)
 
+.DayPicker-NavButton--interactionDisabled
+  display none
 
 .DayPicker-Caption
   display table-caption

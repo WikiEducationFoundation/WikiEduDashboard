@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+
+import '../../testHelper';
 import ArticleViewer from '../../../app/assets/javascripts/components/common/article_viewer.jsx';
 
 describe('ArticleViewer', () => {
@@ -14,6 +15,7 @@ describe('ArticleViewer', () => {
     const TestArticleViewer = ReactTestUtils.renderIntoDocument(
       <ArticleViewer
         article={article}
+        fetchArticleDetails={() => null}
       />
     );
     expect(TestArticleViewer).to.exist;

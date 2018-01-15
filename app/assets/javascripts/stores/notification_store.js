@@ -2,11 +2,11 @@
 //----------------------------------------
 
 import McFly from 'mcfly';
-const Flux = new McFly();
 import _ from 'lodash';
-
 import CourseStore from './course_store.js';
 import ServerActions from '../actions/server_actions.js';
+const Flux = new McFly();
+
 
 // Data
 //----------------------------------------

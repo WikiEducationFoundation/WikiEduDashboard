@@ -9,4 +9,5 @@ export * from "./need_help_alert";
 export * from "./notifications";
 export * from "./ui";
 export * from "./revisions";
-export * from "./user_courses.js";
+export * from "./user_courses";
+export * from "./user_profile";

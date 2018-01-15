@@ -57,6 +57,8 @@ ru:
     change: Изменить
     details: Подробности
     confirm: OK
+    opt_in: Да
+    opt_out: Нет
   dashboard:
     create_note: Перейдите по ссылке «Создать курс», чтобы создать свой первый курс.
     create_preparation_note: Прежде чем начать, убедитесь, что у вас под рукой есть
@@ -379,6 +381,9 @@ ru:
     continue: Продолжить (%{progress})
     start: Начать
     view: Просмотр
+    next: Следующая страница
+    page: Страница
+    done: Готово!
   uploads:
     datetime: Дата/время
     file_name: Имя файла

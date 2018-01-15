@@ -17,7 +17,7 @@ module BatchUpdateLogging
   def setup_logger
     $stdout.sync = true
     logger = Logger.new $stdout
-    logger.level = Figaro.env.cron_log_debug ? Logger::DEBUG : Logger::INFO
+    logger.level = debug? ? Logger::DEBUG : Logger::WARN
     logger.formatter = ActiveSupport::Logger::SimpleFormatter.new
     Rails.logger = logger
     @sentry_logs = []
@@ -34,11 +34,11 @@ module BatchUpdateLogging
   # running. If not, delete the file and return false.
   def pid_file_process_running?(pid_file)
     return false unless File.exist? pid_file
-    Rails.logger.warn "#{pid_file} appears to be running."
+    Rails.logger.debug "#{pid_file} appears to be running."
     pid = File.read(pid_file).to_i
     return true if Process.kill 0, pid
   rescue Errno::ESRCH
-    Rails.logger.warn "Process #{pid} not found. Deleting #{pid_file}."
+    Rails.logger.debug "Process #{pid} not found. Deleting #{pid_file}."
     File.delete pid_file
     return false
   end
@@ -72,15 +72,15 @@ module BatchUpdateLogging
 
   def log_start_of_update(message)
     @start_time = Time.zone.now
-    Rails.logger.info message
+    Rails.logger.debug message
   end
 
   def log_end_of_update(message)
     @end_time = Time.zone.now
     log_message 'Update finished'
     total_time = distance_of_time_in_words(@start_time, @end_time)
-    Rails.logger.info "#{message} Time: #{total_time}."
-    UpdateLog.log_update(@end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
+    Rails.logger.debug "#{message} Time: #{total_time}."
+    UpdateLog.new.log_updates('start_time' => @start_time.to_datetime, 'end_time' => @end_time.to_datetime) if self.class.to_s == 'ConstantUpdate'
     Raven.capture_message message,
                           level: 'info',
                           tags: { update_time: total_time },

@@ -40,6 +40,8 @@ de:
     change: Ändern
     details: Einzelheiten
     confirm: Okay
+    opt_in: Ja
+    opt_out: Nein
   dashboard:
     create_note: Klicke auf „Kurs erstellen“, um deinen ersten Kurs zu erstellen.
     create_preparation_note: 'Stelle sicher, dass du deinen akademischen Kalender
@@ -191,8 +193,11 @@ de:
     course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
+    default_course_type: Standard-Kurstyp
+    default_passcode: Standard-Passcode
     description: Beschreibung
     delete_campaign: Diese Kampagne löschen
+    no_passcode: Kein Passcode
     none: Keine
     organizers: Organisatoren
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
@@ -593,8 +598,8 @@ de:
       tun möchtest?
   metrics:
     label: Kursaktivität
-    are_updated: Übereinstimmend mit der letzten Systemaktualisierung
-    last_update: Letzte Aktualisierung
+    last_update: Letzte Statistikaktualisierung
+    next_update: Nächste geschätzte Aktualisierung
     activity: Letzte Aktivitäten
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
@@ -772,8 +777,16 @@ de:
     continue: Fortfahren (%{progress})
     start: Beginnen
     view: Ansehen
+    next: Nächste Seite
+    page: Seite
+    page_number: Seite %{number} von %{total}
+    table_of_contents: Inhaltsverzeichnis
+    training_library: Ausbildungsbibliothek
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
       dieses Moduls, sofern du dich nicht anmeldest.
+    done: Fertig!
+    check_answer: Antwort prüfen
+    included_modules: Enthaltene Module
   uploads:
     datetime: Datum/Zeit
     file_name: Dateiname

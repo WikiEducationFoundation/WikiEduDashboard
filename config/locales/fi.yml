@@ -44,6 +44,8 @@ fi:
     change: Muuta
     details: Tiedot
     confirm: OK
+    opt_in: Kyllä
+    opt_out: Ei
   dashboard:
     create_note: Luo ensimmäinen kurssissi klikkaamalla Luo uusi kurssi.
     create_preparation_note: Varmista, että sinulla on akateeminen kalenterisi saatavilla
@@ -572,6 +574,8 @@ fi:
     continue: Jatka (%{progress})
     start: Aloita
     view: Näytä
+    next: Seuraava sivu
+    page: Sivu
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
   uploads:

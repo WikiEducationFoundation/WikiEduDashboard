@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Banjo
 # Author: Elisardojm
+# Author: Fitoschido
 # Author: Macofe
 ---
 gl:
@@ -35,6 +36,8 @@ gl:
     change: Cambiar
     details: Detalles
     confirm: Aceptar
+    opt_in: Si
+    opt_out: Non
   home:
     explore: Explorar
   activity:

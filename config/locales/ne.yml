@@ -377,7 +377,6 @@ ne:
     edit_template: ढाँचा सम्पादन गर्नुहोस्
   metrics:
     label: पाठ्यक्रम गतिविधिहरू
-    are_updated: अन्तिम प्रणाली अद्यावधि अनुसार
     last_update: अन्तिम अद्यावधि
     activity: हालको कृयाकलाप
     are_trained: तालिममा समय अनुरूप रहेका छन्

@@ -11,6 +11,7 @@
 # Author: Matteocng
 # Author: Nemo bis
 # Author: NumaPompilius3
+# Author: S4b1nuz E.656
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -48,6 +49,8 @@ it:
     change: Modifica
     details: Dettagli
     confirm: OK
+    opt_in: Sì
+    opt_out: "No"
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso
@@ -266,6 +269,7 @@ it:
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
     join_successful: Hai aderito con successo a %{title}.
+    join_no_passcode: Sei sicuro di voler entrare in questo corso?
     leave_confirmation: Sei sicuro di voler lasciare questo corso?
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
@@ -315,6 +319,7 @@ it:
       corso, ed era previsto per il %{date}.
     unsubmitted: Corsi non presentati
     untrained: Inesperto
+    update_stats: Aggiorna le statistiche
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
       multimediali su Wikimedia Commons.
     view_other: Vedi altre campagne
@@ -405,7 +410,7 @@ it:
     edit_description: Modifica descrizione
     edit_details: Modifica dettagli
   metrics:
-    last_update: Ultimo aggiornamento
+    last_update: Ultimo aggiornamento statistiche
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate

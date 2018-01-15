@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AZISS
+# Author: Neriman2003
 ---
 az:
   application:
@@ -25,6 +26,8 @@ az:
   blocks:
     milestones:
       title: Mərhələ
+  campaign:
+    default_passcode: Standart parol
   courses:
     course_description: Kurslar
     courses: Kurslar
@@ -36,6 +39,8 @@ az:
     students_short: Tələbələr
     title: Başlıq
   metrics:
+    last_update: Son statistik məlumatların yeniləməsi
+    next_update: Növbəti təxmini güncəlləştirmə
     date_time: Tarix/Vaxt
   namespace:
     user_ns: İstifadəçi
