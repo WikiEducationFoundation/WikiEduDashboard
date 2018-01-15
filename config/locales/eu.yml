@@ -43,6 +43,8 @@ eu:
     change: Aldatu
     details: Xehetasunak
     confirm: OK
+    opt_in: Bai
+    opt_out: Ez
   dashboard:
     create_note: Klik egin Ikastaroa sortu zure lehenengo ikastaroa sortzeko
     create_preparation_note: 'Eduki zure ikasturteko egutegia aldean hasi baino lehen;

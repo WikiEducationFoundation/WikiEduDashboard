@@ -386,8 +386,14 @@ br:
     continue: Kenderc'hel(%{progress})
     start: Kregiñ
     view: Diskwel
+    next: Pajenn da-heul
+    page: Pajenn
+    page_number: Page %{number} war %{hollad}
+    training_library: Levraoueg stummadur
     logged_out: Digevreet oc'h. Ne resevit kred ebet evit echuiñ ar vodulenn-mañ,
       nemet ma kevreit en-dro.
+    done: Graet!
+    check_answer: Gwiriañ ar respont
   uploads:
     datetime: Deiz/Eur
     file_name: Anv ar restr

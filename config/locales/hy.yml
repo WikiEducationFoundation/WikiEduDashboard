@@ -29,6 +29,8 @@ hy:
     submit: Հաստատել
     training: Ուսուցում
     change: փոխել
+    opt_in: Այո
+    opt_out: Ոչ
   dashboard:
     create_note: Սեղմեք Ստեղծել Դասընթաց, որպեսզի ստեղծեք ձեր առաջին դասընթացը։
     explore_course_pages: Ուսումնասիրել դասընթացների էջերը
@@ -171,6 +173,9 @@ hy:
   training:
     start: Սկսել
     view: Դիտել
+    next: Հաջորդ էջ
+    page: Էջ
+    done: Արված է
   uploads:
     label: Բեռնումներ
     loading: Բեռնել բեռնումները․․․

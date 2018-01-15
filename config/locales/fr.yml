@@ -58,6 +58,8 @@ fr:
     change: Modifier
     details: Détails
     confirm: Ok
+    opt_in: Oui
+    opt_out: Non
   dashboard:
     create_note: Cliquer sur « Créer un cours » pour créer votre premier cours
     create_preparation_note: Assurez-vous d’avoir votre calendrier scolaire sous la
@@ -793,8 +795,16 @@ fr:
     continue: Continuer (%{progress})
     start: Démarrer
     view: Afficher
+    next: Page suivante
+    page: Page
+    page_number: Page %{number} sur %{total}
+    table_of_contents: Table des matières
+    training_library: Bibliothèque de formation
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
       de ce module, sauf si vous vous reconnectez.
+    done: Terminé !
+    check_answer: Vérifier la réponse
+    included_modules: Modules inclus
   uploads:
     datetime: Horodatage
     file_name: Nom de fichier

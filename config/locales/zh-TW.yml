@@ -625,7 +625,15 @@ zh-TW:
     continue: 進度 (%{progress})
     start: 開始
     view: 檢視
+    next: 下一頁
+    page: 頁面
+    page_number: 總計共 %{total} 個裡的第 %{number} 頁
+    table_of_contents: 目錄
+    training_library: 培訓圖書館
     logged_out: 您已經登出。除非您登入，否則您將不會收到完成此訓練的紀錄。
+    done: 完成！
+    check_answer: 檢查答案
+    included_modules: 已包含模組
   uploads:
     datetime: 日期/時間
     file_name: 檔案名稱

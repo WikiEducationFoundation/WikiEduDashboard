@@ -777,8 +777,16 @@ de:
     continue: Fortfahren (%{progress})
     start: Beginnen
     view: Ansehen
+    next: Nächste Seite
+    page: Seite
+    page_number: Seite %{number} von %{total}
+    table_of_contents: Inhaltsverzeichnis
+    training_library: Ausbildungsbibliothek
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen
       dieses Moduls, sofern du dich nicht anmeldest.
+    done: Fertig!
+    check_answer: Antwort prüfen
+    included_modules: Enthaltene Module
   uploads:
     datetime: Datum/Zeit
     file_name: Dateiname

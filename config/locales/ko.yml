@@ -51,6 +51,8 @@ ko:
     change: 수정
     details: 자세한 사항
     confirm: 확인
+    opt_in: 예
+    opt_out: 아니오
   dashboard:
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
@@ -119,6 +121,7 @@ ko:
   campaign:
     default_passcode: 기본 비밀번호
     description: 설명
+    no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀
     title: 제목
@@ -389,6 +392,11 @@ ko:
     continue: 계속 (%{progress})
     start: 시작하기
     view: 보기
+    next: 다음 페이지
+    page: 페이지
+    table_of_contents: 목차
+    done: 끝났습니다!
+    included_modules: 포함된 모듈
   uploads:
     datetime: 날짜/시간
     file_name: 파일 이름

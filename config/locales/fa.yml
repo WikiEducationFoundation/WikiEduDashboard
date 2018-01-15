@@ -433,6 +433,13 @@ fa:
     continue: ادامه (%{progress})
     start: آغاز
     view: نمایش
+    next: صفحه بعد
+    page: صفحه
+    page_number: صفحه %{number} از %{total}
+    table_of_contents: فهرست مندرجات
+    training_library: کتابخانهٔ آموزشی
+    done: انجام شد
+    check_answer: بررسی پاسخ
   uploads:
     datetime: تاریخ/زمان
     file_name: نام پرونده

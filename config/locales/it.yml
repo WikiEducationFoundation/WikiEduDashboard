@@ -49,6 +49,8 @@ it:
     change: Modifica
     details: Dettagli
     confirm: OK
+    opt_in: Sì
+    opt_out: "No"
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     explore_course_pages: Esplora le pagine del corso

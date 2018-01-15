@@ -773,8 +773,16 @@ pt:
     continue: Continuar (%{progress})
     start: Iniciar
     view: Ver
+    next: Página seguinte
+    page: Página
+    page_number: Página %{number} de %{total}
+    table_of_contents: Tabela de conteúdos
+    training_library: Biblioteca de formação
     logged_out: Não está autenticado. Não será creditado por completar este módulo,
       a menos que entre com a sua conta.
+    done: Concluído!
+    check_answer: Verificar resposta
+    included_modules: Módulos incluídos
   uploads:
     datetime: Data/Horário
     file_name: Nome do ficheiro

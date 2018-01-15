@@ -40,6 +40,8 @@ bn:
     change: পরিবর্তন
     details: বিস্তারিত
     confirm: ঠিক আছে
+    opt_in: হ্যাঁ
+    opt_out: না
   dashboard:
     create_note: অাপনার প্রথম কোর্স তৈরি করতে কোর্স তৈরী করুনে চাপ দিন।
     create_preparation_note: শুরুর পূর্বে একাডেমিক পঞ্জিকা হাতে প্রাপ্তির বিষয় নিশ্চিত
@@ -100,6 +102,7 @@ bn:
       title: মাইলফলক
   campaign:
     campaign: প্রচারাভিযান
+    no_passcode: কোন পাসকোড নেই
     none: কোনটিই নয়
   categories:
     add_template: টেমপ্লেট যোগ করুন

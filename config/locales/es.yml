@@ -54,6 +54,8 @@ es:
     change: Cambiar
     details: Detalles
     confirm: Aceptar
+    opt_in: Sí
+    opt_out: "No"
   dashboard:
     create_note: Haz clic en Crear curso para crear tu primer curso.
     create_preparation_note: Asegúrate de tener tu calendario académico a mano antes

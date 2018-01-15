@@ -595,7 +595,15 @@ zh-CN:
     continue: 继续（%{progress}）
     start: 开始
     view: 查看
+    next: 下一页
+    page: 页面
+    page_number: 第%{number}页，共%{total}页
+    table_of_contents: 目录
+    training_library: 培训库
     logged_out: 您已退出。除非您登录，您将不会收到完成此模块的学分。
+    done: 完成！
+    check_answer: 检查答案
+    included_modules: 包含的模块
   uploads:
     datetime: 日期/时间
     file_name: 文件名
