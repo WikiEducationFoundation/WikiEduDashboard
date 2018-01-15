@@ -9,7 +9,7 @@ const Popover = (props) => {
   }
 
   if (props.right) {
-    divClass += ' right'
+    divClass += ' right';
   }
 
   return (

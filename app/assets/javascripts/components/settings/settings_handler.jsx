@@ -6,7 +6,6 @@ import AddAdminButton from './add_admin_button.jsx';
 import Notifications from '../common/notifications';
 
 class SettingsHandler extends React.Component {
-
   constructor() {
     super();
     this.render = this.render.bind(this);
@@ -21,7 +20,7 @@ class SettingsHandler extends React.Component {
     return (
       <div className="mt4 ml2">
         <Notifications />
-        <h1 className="mx2" style={{display: "inline-block", maring: 0}}>All Admin Users</h1>
+        <h1 className="mx2" style={{ display: "inline-block", maring: 0 }}>All Admin Users</h1>
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
       </div>

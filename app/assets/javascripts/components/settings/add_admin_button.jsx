@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import AddAdminForm from './add_admin_form';
@@ -20,7 +19,7 @@ class AddAdminButton extends React.Component {
   }
 
   render() {
-    const form = <AddAdminForm handlePopoverClose={this.closePopover}/>
+    const form = <AddAdminForm handlePopoverClose={this.closePopover} />;
     return (
       <div className="pop__container">
         <button className="button dark" onClick={this.props.open}>Add Admin</button>

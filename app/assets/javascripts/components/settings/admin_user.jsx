@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { downgradeAdmin } from '../../actions/settings_actions';
 
 class AdminUser extends React.Component {
-
   constructor() {
-    super()
+    super();
     this.handleRevoke = this.handleRevoke.bind(this);
     this.isRevoking = this.isRevoking.bind(this);
     this.render = this.render.bind(this);
@@ -15,18 +14,11 @@ class AdminUser extends React.Component {
     if (!this.isRevoking()) {
       // only process if not currently revoking
       this.props.downgradeAdmin(this.props.user.username);
-    } else {
-      console.log("currently revoking. Won't try again")
     }
   }
 
   isRevoking() {
     const { user, revokingAdmin } = this.props;
-    console.log("hello from isRevoking")
-    console.log(revokingAdmin)
-    console.log(revokingAdmin.status)
-    console.log(revokingAdmin.username)
-    console.log(user.username)
     return revokingAdmin.status && revokingAdmin.username === user.username;
   }
 
@@ -93,10 +85,10 @@ class AdminUser extends React.Component {
 
 const mapStateToProps = state => ({
   revokingAdmin: state.settings.revokingAdmin,
-})
+});
 
 const mapDispatchToProps = {
   downgradeAdmin,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUser);

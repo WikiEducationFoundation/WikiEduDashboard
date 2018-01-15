@@ -4,7 +4,6 @@ import TextInput from '../common/text_input';
 import { upgradeAdmin } from '../../actions/settings_actions';
 
 class AddAdminForm extends React.Component {
-
   constructor() {
     super();
     this.state = { username: '', confirming: false };
@@ -35,14 +34,12 @@ class AddAdminForm extends React.Component {
     this.setState({ username: '', confirming: false });
   }
 
-  handleConfirm(e) {
-    console.log("hello from handleConfirm");
+  handleConfirm() {
     this.props.upgradeAdmin(this.state.username);
-    this.props.handlePopoverClose()
-  };
+    this.props.handlePopoverClose();
+  }
 
   handleSubmit(e) {
-    console.log("starting addAdmin");
     e.preventDefault();
     // this.setState({confirming: true});
     const { username } = this.state;
@@ -76,7 +73,6 @@ class AddAdminForm extends React.Component {
   }
 
   renderConfirm() {
-
     let buttonContent;
     if (this.props.submittingNewAdmin) {
       buttonContent = (<div className="loading__spinner" />);
@@ -117,10 +113,10 @@ class AddAdminForm extends React.Component {
 
 const mapStateToProps = state => ({
   submittingNewAdmin: state.settings.submittingNewAdmin,
-})
+});
 
 const mapDispatchToProps = {
   upgradeAdmin,
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddAdminForm);
