@@ -350,8 +350,6 @@ en:
       save_cloned_course: Save New Course
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)
-      start_event_date: Event start date
-      start_event_date_placeholder: Event start (YYYY-MM-DD)
       subject: Subject
       update_scheduled: >
         Update scheduled. The data will be updated along with all current
@@ -390,8 +388,6 @@ en:
     ended: The course has ended.
     enroll: Enroll
     enrollment: Enrollment
-    event_start: Event start
-    event_end: Event end
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
