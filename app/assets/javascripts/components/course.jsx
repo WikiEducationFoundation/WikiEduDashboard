@@ -91,7 +91,8 @@ const Course = createReactClass({
     // For unpublished courses, when viewed by an instructor or admin
     if (userRoles.isNonstudent && !this.state.course.legacy && !this.state.course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
-      if (CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse') {
+      const isUnsubmittedClassroomProgramCourse = CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse';
+      if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
           alerts.push((
@@ -152,7 +153,8 @@ const Course = createReactClass({
     }
 
     // For published courses with no students, highlight the enroll link
-    if (userRoles.isNonstudent && this.state.course.published && UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0 && !this.state.course.legacy) {
+    const hasNoStudents = UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0;
+    if (userRoles.isNonstudent && this.state.course.published && hasNoStudents && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
       alerts.push((
