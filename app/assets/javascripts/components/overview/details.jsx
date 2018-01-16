@@ -55,11 +55,7 @@ const Details = createReactClass({
   },
   mixins: [ValidationStore.mixin],
   getInitialState() {
-    const inits = {
-      showEventDates: this.props.course.showEventDates
-    };
-
-    return { ...inits, ...getState() };
+    return getState();
   },
 
   updateDetails(valueKey, value) {
@@ -80,13 +76,10 @@ const Details = createReactClass({
     return CourseActions.updateCourse(updatedCourse);
   },
 
-  showEventDates() {
-    return this.setState({ showEventDates: !this.state.showEventDates });
-  },
-
   storeDidChange() {
     return this.setState({ error_message: ValidationStore.firstMessage() });
   },
+
 
   canRename() {
     if (!this.props.editable) { return false; }
@@ -100,6 +93,7 @@ const Details = createReactClass({
   render() {
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
+    const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
     const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
@@ -187,39 +181,23 @@ const Details = createReactClass({
         />
       );
     }
-    const eventFormClass = this.state.showEventDates ? '' : 'hidden';
-    const eventClass = `${eventFormClass}`;
+
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    let eventCheckbox;
-    if (this.props.editable) {
-    eventCheckbox = (<div className="form-group">
-      <label htmlFor="course_event">{CourseUtils.i18n('creator.course_event', this.state.course.string_prefix)}</label>
-      <input
-        id="course_event"
-        type="checkbox"
-        value={true}
-        editable = {this.props.editable}
-        onChange={this.showEventDates}
-        checked={!!this.state.showEventDates}
-      />
-    </div>
-    );
-    }
-    if (this.state.showEventDates) {
-    timelineStart = (
-      <DatePicker
-        onChange={this.updateCourseDates}
-        value={this.props.course.timeline_start}
-        value_key="timeline_start"
-        editable={this.props.editable}
-        validation={CourseDateUtils.isDateValid}
-        label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
-        date_props={dateProps.timeline_start}
-        showTime={this.props.course.use_start_and_end_times}
-        required={true}
-      />
+    if (timelineDatesDiffer || this.props.editable) {
+      timelineStart = (
+        <DatePicker
+          onChange={this.updateCourseDates}
+          value={this.props.course.timeline_start}
+          value_key="timeline_start"
+          editable={this.props.editable}
+          validation={CourseDateUtils.isDateValid}
+          label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
+          date_props={dateProps.timeline_start}
+          showTime={this.props.course.use_start_and_end_times}
+          required={true}
+        />
       );
       timelineEnd = (
         <DatePicker
@@ -233,8 +211,8 @@ const Details = createReactClass({
           showTime={this.props.course.use_start_and_end_times}
           required={true}
         />
-        );
-      }
+      );
+    }
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, (campaign, index) => {
@@ -334,7 +312,7 @@ const Details = createReactClass({
               value_key="start"
               validation={CourseDateUtils.isDateValid}
               editable={this.props.editable}
-              label={I18n.t('courses.start')}
+              label={CourseUtils.i18n('start', this.props.course.string_prefix)}
               showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
@@ -344,17 +322,14 @@ const Details = createReactClass({
               value_key="end"
               editable={this.props.editable}
               validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.end')}
+              label={CourseUtils.i18n('end', this.props.course.string_prefix)}
               date_props={dateProps.end}
               enabled={Boolean(this.props.course.start)}
               showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
-            {eventCheckbox}
-            <span className={eventClass}>
-              {timelineStart}
-              {timelineEnd}
-            </span>
+            {timelineStart}
+            {timelineEnd}
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
