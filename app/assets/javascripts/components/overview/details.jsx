@@ -55,7 +55,11 @@ const Details = createReactClass({
   },
   mixins: [ValidationStore.mixin],
   getInitialState() {
-    return getState();
+    const inits = {
+      showEventDates: this.props.course.showEventDates
+    };
+
+    return { ...inits, ...getState() };
   },
 
   updateDetails(valueKey, value) {
@@ -74,6 +78,10 @@ const Details = createReactClass({
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
     return CourseActions.updateCourse(updatedCourse);
+  },
+
+  showEventDates() {
+    return this.setState({ showEventDates: !this.state.showEventDates });
   },
 
   storeDidChange() {
@@ -179,11 +187,27 @@ const Details = createReactClass({
         />
       );
     }
-
+    const eventFormClass = this.state.showEventDates ? '' : 'hidden';
+    const eventClass = `${eventFormClass}`;
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    if (this.props.course.showEventDates) {
+    let eventCheckbox;
+    if (this.props.editable) {
+    eventCheckbox = (<div className="form-group">
+      <label htmlFor="course_event">{CourseUtils.i18n('creator.course_event', this.state.course.string_prefix)}</label>
+      <input
+        id="course_event"
+        type="checkbox"
+        value={true}
+        editable = {this.props.editable}
+        onChange={this.showEventDates}
+        checked={!!this.state.showEventDates}
+      />
+    </div>
+    );
+    }
+    if (this.state.showEventDates) {
     timelineStart = (
       <DatePicker
         onChange={this.updateCourseDates}
@@ -326,8 +350,11 @@ const Details = createReactClass({
               showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
-            {timelineStart}
-            {timelineEnd}
+            {eventCheckbox}
+            <span className={eventClass}>
+              {timelineStart}
+              {timelineEnd}
+            </span>
           </form>
           <div>
             <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>

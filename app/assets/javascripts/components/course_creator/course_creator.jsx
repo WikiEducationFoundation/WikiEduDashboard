@@ -132,6 +132,10 @@ const CourseCreator = createReactClass({
     }
   },
 
+  showEventDates() {
+    return this.setState({ showEventDates: !this.state.showEventDates });
+  },
+
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
@@ -148,10 +152,6 @@ const CourseCreator = createReactClass({
     const isPrivate = e.target.checked;
     this.props.updateCourse({ private: isPrivate });
     this.updateCourse('private', isPrivate);
-  },
-
-  showEventDates() {
-    return this.setState({ showEventDates: !this.state.showEventDates });
   },
 
   expectedStudentsIsValid() {
@@ -236,8 +236,8 @@ const CourseCreator = createReactClass({
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
-    const eventsFormClass = this.state.showEventDates ? '' : 'hidden';
-    const eventsClass = `${eventsFormClass}`;
+    const eventFormClass = this.state.showEventDates ? '' : 'hidden';
+    const eventClass = `${eventFormClass}`;
 
 
     let term;
@@ -496,7 +496,7 @@ const CourseCreator = createReactClass({
                     showTime={this.state.use_start_and_end_times}
                   />
                   {eventCheckbox}
-                  <span className={eventsClass}>
+                  <span className={eventClass}>
                     {timelineStart}
                     {timelineEnd}
                   </span>
