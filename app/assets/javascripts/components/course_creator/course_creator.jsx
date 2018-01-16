@@ -50,7 +50,7 @@ const CourseCreator = createReactClass({
       isSubmitting: false,
       showCourseForm: false,
       showCloneChooser: false,
-      showEventDates: this.props.course.showEventDates,
+      showEventDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes

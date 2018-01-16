@@ -14,8 +14,7 @@ const initialState = {
   timeline_end: null,
   day_exceptions: '',
   weekdays: '0000000',
-  editingSyllabus: false,
-  showEventDates: false
+  editingSyllabus: false
 };
 
 
