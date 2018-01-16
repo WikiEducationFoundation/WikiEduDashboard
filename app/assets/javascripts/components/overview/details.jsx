@@ -183,7 +183,7 @@ const Details = createReactClass({
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    if (this.props.course.timeline_start && this.props.course.timeline_end) {
+    if (this.props.course.showEventDates) {
     timelineStart = (
       <DatePicker
         onChange={this.updateCourseDates}

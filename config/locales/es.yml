@@ -462,7 +462,6 @@ es:
     cancel: Cancelar
     course: Programa
     courses: Programas
-
     courses_taught: Programas impartidos
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»

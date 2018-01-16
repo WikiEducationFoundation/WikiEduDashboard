@@ -14,8 +14,10 @@ const initialState = {
   timeline_end: null,
   day_exceptions: '',
   weekdays: '0000000',
-  editingSyllabus: false
+  editingSyllabus: false,
+  showEventDates: false
 };
+
 
 export default function course(state = initialState, action) {
   switch (action.type) {
