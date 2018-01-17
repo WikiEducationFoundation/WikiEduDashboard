@@ -14,6 +14,8 @@
                 = label(:campaign, :title, t('campaign.title') + ':')
                 = text_field(:campaign, :title, required: true)
 
+
+              %div= t('campaign.default_passcode_explanation')
               .form-group
                 - customize_passcode = @campaign.default_passcode
                 %span

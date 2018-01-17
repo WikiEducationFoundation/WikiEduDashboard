@@ -221,12 +221,13 @@ en:
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     create_campaign: Create a New Campaign
     create_my_campaign: Create my Campaign!
-    customize_passcode: Customize passcode
+    customize_passcode: a default passcode
     default_course_type: Default Course Type
     default_passcode: Default Passcode
+    default_passcode_explanation: "By default, new programs in this campaign should have:"
     description: Description
     delete_campaign: Delete this campaign
-    no_passcode: No passcode
+    no_passcode: no passcode
     none: None
     organizers: Organizers
     organizer_added: '%{user} is now an organizer of the "%{title}" campaign'
@@ -235,7 +236,7 @@ en:
     program_template_tooltip: >
       When an organizer creates a program in this campaign,
       the text in this area will be copied over as a description on the program page
-    random_passcode: Random passcode
+    random_passcode: a random passcode
     title: Title
     use_start_end_dates: Use start and end dates
 
