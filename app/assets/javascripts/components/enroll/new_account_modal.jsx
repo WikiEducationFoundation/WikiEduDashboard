@@ -36,7 +36,7 @@ const NewAccountModal = ({ course, passcode, closeModal, newAccount, actions }) 
 
   return (
     <div className="basic-modal">
-      <button onClick={closeModal} className="pull-right article-viewer-button icon-close"></button>
+      <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
       <div>
         <p>{I18n.t('courses.new_account_info')}</p>
       </div>

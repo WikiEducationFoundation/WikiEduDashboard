@@ -1,5 +1,5 @@
 import * as types from '../constants/action_types.js';
-import ApiFailAction from './api_fail_action.js';
+import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
 
 export const setNewAccountUsername = (_, username) => ({
@@ -25,7 +25,10 @@ export function checkAvailability(newAccount) {
           dispatch({ type: types.NEW_ACCOUNT_USERNAME_INVALID, error: parseCancreateResponse(result) });
         }
       }
-    }).fail(response => (ApiFailAction.fail(response)));
+    }).fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
   };
 }
 
@@ -53,6 +56,6 @@ export function requestAccount(passcode, course, newAccount) {
     const { username, email } = newAccount;
     return API.requestNewAccount(passcode, courseSlug, username, email)
       .then(() => (dispatch({ type: types.NEW_ACCOUNT_REQUEST_SUBMITTED })))
-      .catch(response => (ApiFailAction.fail(response)));
+      .catch(data => ({ actionType: types.API_FAIL, data }));
   };
 }
