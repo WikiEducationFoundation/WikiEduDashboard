@@ -50,6 +50,7 @@ const CourseCreator = createReactClass({
       isSubmitting: false,
       showCourseForm: false,
       showCloneChooser: false,
+      showEventDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
@@ -131,6 +132,10 @@ const CourseCreator = createReactClass({
     }
   },
 
+  showEventDates() {
+    return this.setState({ showEventDates: !this.state.showEventDates });
+  },
+
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
@@ -160,8 +165,10 @@ const CourseCreator = createReactClass({
   dateTimesAreValid() {
     const startDateTime = new Date(this.props.course.start);
     const endDateTime = new Date(this.props.course.end);
+    const startEventTime = new Date(this.props.timeline_start);
+    const endEventTime = new Date(this.props.timeline_end);
 
-    if (startDateTime >= endDateTime) {
+    if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
       ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
@@ -229,6 +236,9 @@ const CourseCreator = createReactClass({
     const selectClass = showCloneChooser ? '' : ' hidden';
     const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
+    const eventFormClass = this.state.showEventDates ? '' : 'hidden';
+    const eventClass = `${eventFormClass}`;
+
 
     let term;
     let subject;
@@ -352,6 +362,53 @@ const CourseCreator = createReactClass({
         {I18n.t('courses.time_zone_message')}
       </p>
     );
+    let eventCheckbox;
+    let timelineStart;
+    let timelineEnd;
+    if (this.state.default_course_type !== 'ClassroomProgramCourse') {
+      eventCheckbox = (<div className="form-group">
+        <label htmlFor="course_event">{CourseUtils.i18n('creator.course_event', this.state.course_string_prefix)}:</label>
+        <input
+          id="course_event"
+          type="checkbox"
+          value={true}
+          onChange={this.showEventDates}
+          checked={!!this.state.showEventDates}
+        />
+      </div>
+    );
+      timelineStart = (
+        <DatePicker
+          id="course_timeline_start"
+          onChange={this.updateCourseDates}
+          value={this.props.course.timeline_start}
+          value_key="timeline_start"
+          editable
+          label={CourseUtils.i18n('creator.assignment_start', this.state.course_string_prefix)}
+          placeholder={I18n.t('courses.creator.assignment_start_placeholder')}
+          blank
+          isClearable={true}
+          showTime={this.state.use_start_and_end_times}
+        />
+    );
+      timelineEnd = (
+        <DatePicker
+          id="course_timeline_end"
+          onChange={this.updateCourseDates}
+          value={this.props.course.timeline_end}
+          value_key="timeline_end"
+          editable
+          label={CourseUtils.i18n('creator.assignment_end', this.state.course_string_prefix)}
+          placeholder={I18n.t('courses.creator.assignment_end_placeholder')}
+          blank
+          date_props={dateProps.timeline_end}
+          enabled={!!this.props.course.timeline_start}
+          isClearable={true}
+          showTime={this.state.use_start_and_end_times}
+        />
+    );
+  }
+
 
     return (
       <TransitionGroup
@@ -438,6 +495,11 @@ const CourseCreator = createReactClass({
                     isClearable={false}
                     showTime={this.state.use_start_and_end_times}
                   />
+                  {eventCheckbox}
+                  <span className={eventClass}>
+                    {timelineStart}
+                    {timelineEnd}
+                  </span>
                   {this.state.use_start_and_end_times ? timeZoneMessage : null}
                   <span className="text-input-component__label"><strong>{CourseUtils.i18n('creator.course_description', this.state.course_string_prefix)}:</strong></span>
                   <TextAreaInput

@@ -10,10 +10,13 @@ const initialState = {
   expected_students: '0',
   start: null,
   end: null,
+  timeline_start: null,
+  timeline_end: null,
   day_exceptions: '',
   weekdays: '0000000',
   editingSyllabus: false
 };
+
 
 export default function course(state = initialState, action) {
   switch (action.type) {

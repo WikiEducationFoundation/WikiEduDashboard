@@ -80,6 +80,7 @@ const Details = createReactClass({
     return this.setState({ error_message: ValidationStore.firstMessage() });
   },
 
+
   canRename() {
     if (!this.props.editable) { return false; }
     if (this.props.current_user.admin) { return true; }
@@ -92,6 +93,7 @@ const Details = createReactClass({
   render() {
     const canRename = this.canRename();
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
+    const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
     const instructors = <InlineUsers {...this.props} users={this.props.instructors} role={1} title={CourseUtils.i18n('instructors', this.props.course.string_prefix)} />;
     let online;
     let campus;
@@ -183,7 +185,7 @@ const Details = createReactClass({
     const dateProps = CourseDateUtils.dateProps(this.props.course);
     let timelineStart;
     let timelineEnd;
-    if (isClassroomProgramType) {
+    if (timelineDatesDiffer || this.props.editable) {
       timelineStart = (
         <DatePicker
           onChange={this.updateCourseDates}
@@ -310,7 +312,7 @@ const Details = createReactClass({
               value_key="start"
               validation={CourseDateUtils.isDateValid}
               editable={this.props.editable}
-              label={I18n.t('courses.start')}
+              label={CourseUtils.i18n('start', this.props.course.string_prefix)}
               showTime={this.props.course.use_start_and_end_times}
               required={true}
             />
@@ -320,7 +322,7 @@ const Details = createReactClass({
               value_key="end"
               editable={this.props.editable}
               validation={CourseDateUtils.isDateValid}
-              label={I18n.t('courses.end')}
+              label={CourseUtils.i18n('end', this.props.course.string_prefix)}
               date_props={dateProps.end}
               enabled={Boolean(this.props.course.start)}
               showTime={this.props.course.use_start_and_end_times}

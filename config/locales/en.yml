@@ -524,9 +524,9 @@ en:
     all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.
-    assignment_end: Timeline End
+    assignment_end: Event End
     assignments_none: This project has no assigned articles.
-    assignment_start: Timeline Start
+    assignment_start: Event Start
     cancel: Cancel
     course: Program
     courses: Programs
@@ -534,6 +534,10 @@ en:
     campaigns: 'Campaigns: '
     campaign_courses: '%{title} Programs'
     creator:
+      assignment_end: Event end
+      assignment_end_placeholder: Event end (YYYY-MM-DD)
+      assignment_start: Event start
+      assignment_start_placeholder: Event start (YYYY-MM-DD)
       checking_for_uniqueness: This program is being checked for uniqueness.
       choose_clone: Choose a program to clone.
       clone_previous: Clone Previous Program
@@ -542,6 +546,7 @@ en:
       clone_successful_details: >
         Your program has been cloned.
         Click 'Save' below to finalize it.
+      course_event: Do you want to add different event dates?
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_description: Program description
       course_description_placeholder: >
@@ -556,6 +561,7 @@ en:
       create_label: Create New Program
       create_new: Create an Independent Program
       create_short: Create Program
+      end_date: End of activity tracking
       find: Find a Program
       intro: >
         The program title and institution form the URL of the program. The home wiki
@@ -569,11 +575,13 @@ en:
         that you participated in.
       participate_in_campaign: Participate in a Campaign
       save_cloned_course: Save
+      start_date: Start of activity tracking
     delete_course: Delete program
     edit_course_dates: Edit Project Dates
-    explore: Find Programs
+    end: Activity tracking end
     enroll: Add Editor
     enrollment: Participation
+    explore: Find Programs
     courses_enrolled: Programs participated
     expected_students: Expected Editors
     instructors: Facilitators
@@ -585,6 +593,7 @@ en:
     revisions_none: This project has no recent editing activity.
     school: Institution
     school_and_term: Institution/When
+    start: Activity tracking start
     student_editors: Editors
     students: Editors
     students_taught: Total Editors
