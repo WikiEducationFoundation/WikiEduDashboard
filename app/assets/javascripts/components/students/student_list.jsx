@@ -100,7 +100,7 @@ const StudentList = createReactClass({
     let addStudent;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
-    }
+  }
 
     let notifyOverdue;
     if (Features.wikiEd && this.props.users.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {

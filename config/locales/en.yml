@@ -468,6 +468,7 @@ en:
     passcode_prompt: "Enter the passcode to join:"
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
+    requested_accounts: Generate Wikipedia accounts
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
