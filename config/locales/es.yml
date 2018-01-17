@@ -194,10 +194,12 @@ es:
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
+    customize_passcode: Contraseña customizada
     default_course_type: Tipo de curso predeterminado
     default_passcode: Contraseña predeterminada
     description: Descripción
     delete_campaign: Eliminar esta campaña
+    no_passcode: Ninguna contraseña
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
@@ -205,6 +207,7 @@ es:
     program_template: Plantilla de programa
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
+    random_passcode: Contraseña random
     title: Título
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
