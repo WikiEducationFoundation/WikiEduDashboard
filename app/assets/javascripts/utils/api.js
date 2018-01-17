@@ -748,6 +748,23 @@ slide_id=${opts.slide_id}`,
     );
   },
 
+  requestNewAccount(passcode, courseSlug, username, email) {
+    return new Promise((res, rej) => {
+      $.ajax({
+        type: 'PUT',
+        url: '/requested_accounts',
+        data: { passcode, course_slug: courseSlug, username, email },
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    });
+  },
+
   chatLogin() {
     return new Promise((res, rej) =>
       $.ajax({

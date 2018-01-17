@@ -8,7 +8,7 @@ module RequestHelpers
   def stub_token_request
     fake_tokens = '{"query":{"tokens":{"csrftoken":"faketoken+\\\\"}}}'
     lang = ENV['wiki_language']
-    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json"
+    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=csrf"
     stub_request(:get, url)
       .to_return(status: 200, body: fake_tokens, headers: {})
   end

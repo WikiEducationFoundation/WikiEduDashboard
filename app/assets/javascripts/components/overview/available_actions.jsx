@@ -144,6 +144,14 @@ const AvailableActions = createReactClass({
       controls.push((
         <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
       ));
+      // show a link to the requested accounts creation page if there are any
+      if (this.state.course.requestedAccounts) {
+        const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
+        controls.push((
+          <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
+        ));
+      }
+      // TODO: show a button to enable new account requests, if it's not enabled already
     }
     // If no controls are available
     if (controls.length === 0) {
