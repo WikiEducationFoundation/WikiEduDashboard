@@ -366,17 +366,24 @@ const CourseCreator = createReactClass({
     let timelineStart;
     let timelineEnd;
     if (this.state.default_course_type !== 'ClassroomProgramCourse') {
-      eventCheckbox = (<div className="form-group">
-        <label htmlFor="course_event">{CourseUtils.i18n('creator.course_event', this.state.course_string_prefix)}:</label>
-        <input
-          id="course_event"
-          type="checkbox"
-          value={true}
-          onChange={this.showEventDates}
-          checked={!!this.state.showEventDates}
-        />
-      </div>
-    );
+      eventCheckbox = (
+        <div className="form-group tooltip-trigger">
+          <label htmlFor="course_event">
+            {I18n.t('courses.creator.separate_event_dates')}
+            <span className="tooltip-indicator" />
+          </label>
+          <div className="tooltip dark">
+            <p>{I18n.t('courses.creator.separate_event_dates_info')}</p>
+          </div>
+          <input
+            id="course_event"
+            type="checkbox"
+            value={true}
+            onChange={this.showEventDates}
+            checked={!!this.state.showEventDates}
+          />
+        </div>
+      );
       timelineStart = (
         <DatePicker
           id="course_timeline_start"
@@ -390,7 +397,7 @@ const CourseCreator = createReactClass({
           isClearable={true}
           showTime={this.state.use_start_and_end_times}
         />
-    );
+      );
       timelineEnd = (
         <DatePicker
           id="course_timeline_end"
@@ -406,9 +413,8 @@ const CourseCreator = createReactClass({
           isClearable={true}
           showTime={this.state.use_start_and_end_times}
         />
-    );
-  }
-
+      );
+    }
 
     return (
       <TransitionGroup

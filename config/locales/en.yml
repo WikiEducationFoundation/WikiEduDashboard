@@ -353,6 +353,12 @@ en:
       no_class_holidays: I have no class holidays
       role_description: Your role in the course
       role_description_placeholder: Instructor, teaching assistant, etc
+      separate_event_dates: Specify separate event start/end times
+      separate_event_dates_info: >
+        Activity statistics for this program will be tracked based on the dates
+        and times above, but you can specify separate times for when the event
+        or program itself starts and ends (for example, so that participants know
+        when to show up or when the venue closes).
       save_cloned_course: Save New Course
       start_date: Start date
       start_date_placeholder: Start date (YYYY-MM-DD)
@@ -546,7 +552,6 @@ en:
       clone_successful_details: >
         Your program has been cloned.
         Click 'Save' below to finalize it.
-      course_event: Do you want to add different event dates?
       course_when: Add something in the 'When' field (for example, the month and year) to differentiate it from the original.
       course_description: Program description
       course_description_placeholder: >
