@@ -38,9 +38,7 @@ class TrainingModule < TrainingBase
     TrainingLibrary.flush
     TrainingModule.flush
     TrainingLibrary.load
-    pp 'Training libraries loaded'
     TrainingModule.load
-    pp 'Training modules loaded'
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module

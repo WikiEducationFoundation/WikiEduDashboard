@@ -69,7 +69,7 @@ class TrainingBase
       # Only load explicitly, not on a cold cache, when loading from wiki.
       # This prevents situations where many users are trying to load uncached
       # trainings at once, causing major problems.
-      Rails.cache.read(cache_key)
+      Rails.cache.read(cache_key) || []
     else
       Rails.cache.read(cache_key) || load
     end

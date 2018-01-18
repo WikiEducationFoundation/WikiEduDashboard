@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/data_cycle/training_update"
 
 def flush_training_caches
   TrainingModule.flush
@@ -24,22 +25,21 @@ describe 'Training Translations', type: :feature, js: true do
     allow(TrainingModule).to receive(:path_to_yaml).and_return(no_yaml)
     allow(TrainingLibrary).to receive(:path_to_yaml).and_return(no_yaml)
     flush_training_caches
+    VCR.use_cassette 'training/slide_translations' do
+      TrainingUpdate.new(module_slug: 'all')
+    end
     login_as(basque_user, scope: :user)
   end
 
   after { flush_training_caches }
 
   it 'shows the translated text of a quiz' do
-    VCR.use_cassette 'training/slide_translations' do
-      visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
-      expect(page).to have_content "Wikipedia artikulu batek"
-    end
+    visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
+    expect(page).to have_content "Wikipedia artikulu batek"
   end
 
   it 'shows the translated names in the table of contents' do
-    VCR.use_cassette 'training/slide_translations' do
-      visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
-      expect(page).to have_css('.slide__menu__nav__dropdown ol', text: "Bost euskarriei buruzko proba", visible: false)
-    end
+    visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
+    expect(page).to have_css('.slide__menu__nav__dropdown ol', text: "Bost euskarriei buruzko proba", visible: false)
   end
 end

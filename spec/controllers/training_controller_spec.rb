@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 describe TrainingController do
+  pp Features.wiki_trainings?
   let(:user) { create(:user) }
   let(:library_id) { 'students' }
   let(:module_id)  { TrainingModule.all.first.slug }
@@ -53,7 +54,7 @@ describe TrainingController do
       let(:subject) { get :reload, params: { module: 'all' } }
       it 'returns the result upon success' do
         subject
-        expect(response.body).to have_content 'done!'
+        expect(response.body).to have_content 'Success!'
       end
 
       it 'displays an error message upon failure' do
@@ -68,7 +69,7 @@ describe TrainingController do
       let(:subject) { get :reload, params: { module: 'images-and-media' } }
       it 'returns the result upon success' do
         subject
-        expect(response.body).to have_content 'done!'
+        expect(response.body).to have_content 'Success!'
       end
 
       it 'displays an error message if the module does not exist' do

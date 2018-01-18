@@ -57,7 +57,6 @@ class TrainingLoader
 
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
-      pp wiki_page_group
       Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
     end
     threads.each(&:join)
