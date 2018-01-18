@@ -12,6 +12,7 @@ import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
+import RequestAccountsButton from './request_accounts_button.jsx';
 
 import UserStore from '../../stores/user_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
@@ -98,8 +99,10 @@ const StudentList = createReactClass({
     const elements = _.flatten(_.zip(users, drawers));
 
     let addStudent;
+    let requestAccounts;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
+      requestAccounts = <RequestAccountsButton {...this.props} role={0} key="request_accounts" allowed={false} />;
   }
 
     let notifyOverdue;
@@ -138,7 +141,7 @@ const StudentList = createReactClass({
 
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, notifyOverdue], this.props.users.length < 1)}
+        {this.props.controls([addStudent, requestAccounts, notifyOverdue], this.props.users.length < 1)}
         <List
           elements={elements}
           className="table--expandable table--hoverable"

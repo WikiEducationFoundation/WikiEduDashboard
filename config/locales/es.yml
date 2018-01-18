@@ -390,7 +390,6 @@ es:
     passcode_prompt: 'Escribe el código de acceso para unirte:'
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
-    requested_accounts: Generar cuentas en Wikipedia
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
       con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
       vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar
@@ -507,6 +506,7 @@ es:
     milestones_none: Este proyecto actualmente no tiene ningún hito.
     published: '¡Este proyecto ha sido publicado! Los editores pueden inscribirse
       visitando el siguiente URL:'
+    request_accounts: Generar cuentas
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
     school_and_term: Institución/Cuando

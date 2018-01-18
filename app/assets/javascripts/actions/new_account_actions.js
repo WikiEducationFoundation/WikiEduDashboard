@@ -1,4 +1,4 @@
-import * as types from '../constants/action_types.js';
+import *  as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
 
@@ -50,12 +50,13 @@ const parseCancreateResponse = (response) => {
   return 'unknown error';
 };
 
-export function requestAccount(passcode, course, newAccount) {
+export function requestAccount(passcode, course, newAccount, createAccountNow = false) {
   return function (dispatch) {
     const courseSlug = course.slug;
     const { username, email } = newAccount;
-    return API.requestNewAccount(passcode, courseSlug, username, email)
+
+    return API.requestNewAccount(passcode, courseSlug, username, email, createAccountNow)
       .then(() => (dispatch({ type: types.NEW_ACCOUNT_REQUEST_SUBMITTED })))
-      .catch(data => ({ actionType: types.API_FAIL, data }));
+      .catch(data => (dispatch({ type: types.API_FAIL, data })));
   };
 }

@@ -1,4 +1,3 @@
-export * from "./action_types";
 export * from "./api";
 export * from "./article_details";
 export * from "./categories";
@@ -7,6 +6,7 @@ export * from "./course";
 export * from "./did_you_know";
 export * from "./feedback";
 export * from "./need_help_alert";
+export * from "./new_accounts";
 export * from "./notifications";
 export * from "./ui";
 export * from "./revisions";

@@ -17,10 +17,13 @@ class RequestedAccountsController < ApplicationController
     existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
     if existing_request
       existing_request.update_attribute(:email, params[:email])
-      return
+      return # TODO sensible error message rendered
     end
 
-    RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
+    requested = RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
+    return requested unless params[:create_account_now] # TODO: render relevant json to be handled on the frontend
+    result = create_account(requested)
+    render json: { message: result.values.first }, status: 500 # TODO: handle both success and failure
   end
 
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
@@ -42,17 +45,21 @@ class RequestedAccountsController < ApplicationController
   def create_accounts
     @results = []
     @course.requested_accounts.each do |requested_account|
-      creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
-      result = creation_attempt.result
-      @results << result
-      next unless result[:success]
-      # If it was successful, enroll the user in the course
-      user = creation_attempt.user
-      JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+      @results << create_account(requested_account)
     end
   end
 
   private
+
+  def create_account(requested_account)
+    creation_attempt = CreateRequestedAccount.new(requested_account, current_user)
+    result = creation_attempt.result
+    return result unless result[:success]
+    # If it was successful, enroll the user in the course
+    user = creation_attempt.user
+    JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+    result
+  end
 
   def check_creation_permissions
     return if user_signed_in? && current_user.can_edit?(@course)

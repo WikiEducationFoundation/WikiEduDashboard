@@ -748,12 +748,12 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  requestNewAccount(passcode, courseSlug, username, email) {
+  requestNewAccount(passcode, courseSlug, username, email, createAccountNow) {
     return new Promise((res, rej) => {
       $.ajax({
         type: 'PUT',
         url: '/requested_accounts',
-        data: { passcode, course_slug: courseSlug, username, email },
+        data: { passcode, course_slug: courseSlug, username, email, create_account_now: createAccountNow },
         success(data) {
           return res(data);
         }
