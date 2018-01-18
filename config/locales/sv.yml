@@ -278,9 +278,9 @@ sv:
       save_cloned_course: Spara
     delete_course: Radera program
     edit_course_dates: Redigera projektdatum
-    explore: Hitta program
     enroll: Lägg till redigerare
     enrollment: Deltagande
+    explore: Hitta program
     expected_students: Förväntade redigerare
     join_course: Gå med i program
     leave_course: Lämna program

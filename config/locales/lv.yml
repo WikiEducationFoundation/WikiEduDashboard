@@ -229,6 +229,8 @@ lv:
     continue: Turpināt (%{progress})
     start: Sākt
     view: Skatīt
+    next: Nākamā lapa
+    page: Lapa
   uploads:
     datetime: Datums/laiks
     file_name: Faila nosaukums

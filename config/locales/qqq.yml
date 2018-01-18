@@ -640,6 +640,8 @@ qqq:
     view: |-
       Button label for viewing training progress
       {{Identical|View}}
+    page: '{{Identical|Page}}'
+    done: '{{Identical|Done}}'
   uploads:
     image: '{{Identical|Image}}'
     label: |-

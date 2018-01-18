@@ -438,9 +438,9 @@ pl:
       save_cloned_course: Zapisz
     delete_course: Skasuj program
     edit_course_dates: Edytuj daty projektu
-    explore: Znajdź programy
     enroll: Dodaj edytora
     enrollment: Uczestnictwo
+    explore: Znajdź programy
     courses_enrolled: Ukończone programy
     expected_students: Oczekiwani edytorzy
     instructors: Prowadzący

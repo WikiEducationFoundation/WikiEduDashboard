@@ -58,6 +58,8 @@ pt-br:
     change: Mudar
     details: Detalhes
     confirm: OK
+    opt_in: Sim
+    opt_out: Não
   dashboard:
     create_note: Clique em Criar Curso para criar seu primeiro curso.
     create_preparation_note: Certifique-se de ter seu calendário acadêmico à mão antes
@@ -204,10 +206,14 @@ pt-br:
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
     create_campaign: Criar uma nova Campanha
     create_my_campaign: Criar a minha Campanha!
+    customize_passcode: um código de acesso padrão
     default_course_type: Tipo do curso predeterminado
     default_passcode: Código de acesso padrão
+    default_passcode_explanation: 'Por padrão, os novos programas nesta campanha devem
+      ter:'
     description: Descrição
     delete_campaign: Deletar essa campanha
+    no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
     organizer_added: '%{user} é agora um(a) organizador(a) da campanha "%{title}"'
@@ -215,6 +221,7 @@ pt-br:
     program_template: Modelo de Programa
     program_template_tooltip: Quando um organizador criar um programa nessa campanha,
       o texto nessa área será copiado como descrição na página do programa
+    random_passcode: um código de acesso aleatório
     title: Título
     use_start_end_dates: Use datas de início e fim
   categories:
@@ -332,6 +339,13 @@ pt-br:
       no_class_holidays: Não há férias
       role_description: A sua função no curso
       role_description_placeholder: Professor, professor assistente, etc
+      separate_event_dates: Especifique separadamente os horários iniciais e finais
+        do evento
+      separate_event_dates_info: As estatísticas de atividade deste programa serão
+        monitorizadas com base nas datas e horários acima, mas pode especificar separadamente
+        os horários para quando for começar ou terminar o evento ou programa em si
+        (por exemplo, para que os participantes saibam quando aparecer ou quando o
+        local for fechado).
       save_cloned_course: Salvar Curso Novo
       start_date: Data de início
       start_date_placeholder: Data de início (AAAA-MM-DD)
@@ -511,9 +525,9 @@ pt-br:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.
-    assignment_end: Fim do Cronograma
+    assignment_end: Fim do evento
     assignments_none: Este projeto não tem artigos indicados.
-    assignment_start: Início do Cronograma
+    assignment_start: Início do evento
     cancel: Cancelar
     course: Programa
     courses: Programas
@@ -521,6 +535,10 @@ pt-br:
     campaigns: 'Campanhas:'
     campaign_courses: '%{title} Programas'
     creator:
+      assignment_end: Fim do evento
+      assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
+      assignment_start: Início do evento
+      assignment_start_placeholder: Início do evento (AAAA-MM-DD)
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
@@ -543,6 +561,7 @@ pt-br:
       create_label: Criar Novo Programa
       create_new: Criar um programa independente
       create_short: Criar Programa
+      end_date: Fim da atividade de monitorização
       find: Encontrar um Programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão trabalhando, e as edições
@@ -554,11 +573,13 @@ pt-br:
         copiar outro programa que você tenha participado.
       participate_in_campaign: Participar numa campanha
       save_cloned_course: Salvar
+      start_date: Início da atividade de monitorização
     delete_course: Eliminar programa
     edit_course_dates: Editar Datas do projeto
-    explore: Encontrar um Programa
+    end: Fim da atividade de monitorização
     enroll: Adicionar Editor
     enrollment: Participação
+    explore: Encontrar um Programa
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados
     instructors: Facilitadores
@@ -572,6 +593,7 @@ pt-br:
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
+    start: Início da atividade de monitorização
     student_editors: Editores
     students: Editores
     students_taught: Editores totais
@@ -774,8 +796,16 @@ pt-br:
     continue: Continuar (%{progress})
     start: Iniciar
     view: Ver
+    next: Próxima Página
+    page: Página
+    page_number: Página %{number} de %{total}
+    table_of_contents: Tabela de conteúdos
+    training_library: Biblioteca de formação
     logged_out: Sua sessão de usuário não está aberta. Você não receberá crédito ao
       completar este módulo, a não ser que inicie uma sessão.
+    done: Concluído!
+    check_answer: Verificar resposta
+    included_modules: Módulos incluídos
   uploads:
     datetime: Data/Horário
     file_name: Nome do Arquivo

@@ -267,6 +267,7 @@ ar:
     assignment_start: بداية الجدول الزمني
     course: برنامج
     creator:
+      assignment_start: بداية الحدث
       checking_for_uniqueness: يتم التحقق من هذا البرنامج من حيث التفرد.
       clone_previous: استنساخ برنامج سابق
       clone_this: استنساخ هذا البرنامج
@@ -285,9 +286,9 @@ ar:
       save_cloned_course: احفظ
     delete_course: حذف برنامج
     edit_course_dates: عدل مواعيد المشروع
-    explore: البحث عن برنامج
     enroll: إضافة محرر
     enrollment: مشاركة
+    explore: البحث عن برنامج
     expected_students: المحررون المتوقعون
     instructors: الوسطاء
     join_course: انضم للبرنامج

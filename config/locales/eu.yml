@@ -35,6 +35,7 @@ eu:
     recent_activity: Azken aldiko jarduera
     report_problem: Arazo baten berri eman
     search: Galdera egin
+    search_results: 'Emaitzak honetarako: ''%{search_terms}'''
     sign_up_extended: Wikipediarekin kontua sortu
     sign_up_log_in_extended: Wikipedian
     sign_up: Kontua sortu
@@ -187,8 +188,11 @@ eu:
     course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
     create_campaign: Kanpaina berria sortu
     create_my_campaign: Sortu nire kanpaina!
+    default_course_type: Ikastaro mota lehenetsia
+    default_passcode: Pasahitz lehenetsia
     description: Deskribapena
     delete_campaign: Ezabatu kanpaina hau
+    no_passcode: Pasahitzik ez
     none: Bat ere ez
     organizers: Antolatzaileak
     organizer_added: '%{user} orain %{title} kanpainako antolatzsile bat da'
@@ -246,6 +250,9 @@ eu:
       duzula? Hala bada, tekleatu ikastaroaren izena aurrera egiteko.
     confirm_course_deletion_failed: '"%{title}" ez da ikastaro honen izena. Ikastaroa
       ez da ezabatu.'
+    confirm_manual_update: Ziur eguneratzea eskuz egin nahi duzula? Berrikuspen berrienak
+      inportatuko dira, eta ondoren orria birkargatu egingo da. Horrek denbora pixka
+      bat emango du.
     course: Ikastaroa
     course_dates_calendar_instructions: Aukeratu datak agendatik horiek gehitu edo
       kentzeko (adibidez, oporrak, eskolarik ez). Klikatu aldatu beharreko data aukeratu
@@ -280,6 +287,8 @@ eu:
         dute ikasleek Wikipedian? Mesedez eman behar beste detaile Wikipediako beste
         lankideei zure ikasleek egingo dituzten ekarpenen nondik norakoen berri adierazteko.
       course_language: Hizkuntza nagusia
+      course_private: Programa pribatua (administratzaile eta bideratzaileentzat soilik
+        ikusgai)
       course_project: Proiektu nagusia
       course_school: Ikastaroaren eskola
       course_subject: Ikastaroaren gaia
@@ -383,6 +392,7 @@ eu:
     join_details: Ikastaro honetan izena emateko, irakasleak pasahitza eman behar
       dizu (edo pasahitza daukan izena emateko esteka). Oraindik eskuratu ez baduzu,
       jarri harremanetan irakaslearekin.
+    join_no_passcode: Ziur zaude ikastaro honekin bat egin nahi duzula?
     leave_confirmation: Ziur zaude ikastaro hau utzi nahi duzula?
     leave_course: Utzi ikastaroa
     loading: Kargatzen...
@@ -452,6 +462,7 @@ eu:
       baina %{date}rako amaituta behar zuen.'
     unsubmitted: Bidali gabeko ikastaroak
     untrained: Trebatu gabe
+    update_stats: Estatistikak eguneratu
     uploads_none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu
       Wikimedia Commonsera
     user_suggestions: 'Lankide iradokizunak:'
@@ -522,9 +533,9 @@ eu:
       save_cloned_course: Gorde
     delete_course: Programa ezabatu
     edit_course_dates: Proiektuaren datak aldatu
-    explore: Programak bilatu
     enroll: Editorea gehitu
     enrollment: Parte-hartzea
+    explore: Programak bilatu
     courses_enrolled: Parte hartutako programak
     expected_students: Espero diren editoreak
     instructors: Bideratzaileak
@@ -564,7 +575,8 @@ eu:
       URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
   metrics:
     label: Ikastaroko jarduera
-    last_update: Azken eguneratzea
+    last_update: Eguneratutako azken estatistikak
+    next_update: Estimatutako hurrengo eguneratzea
     activity: Azken jarduera
     are_trained: trebakuntzarekin eguneratuak
     articles_created: Sortutako artikuluak
@@ -737,8 +749,16 @@ eu:
     continue: Jarraitu (%{progress})
     start: Hasi
     view: Ikusi
+    next: Hurrengo orria
+    page: Orria
+    page_number: Orriko %{number} %{total}(e)tik
+    table_of_contents: Eduki-taula
+    training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko
       saioa hasita ez bada.
+    done: Egina!
+    check_answer: Erantzunak egiaztatu
+    included_modules: Sartutako moduluak
   uploads:
     datetime: Data/Ordua
     file_name: Fitxategiaren izena

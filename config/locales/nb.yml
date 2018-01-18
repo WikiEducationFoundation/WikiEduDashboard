@@ -452,9 +452,9 @@ nb:
       save_cloned_course: Lagre
     delete_course: Slett program
     edit_course_dates: Rediger prosjektdatoer
-    explore: Finn programmer
     enroll: Legg til bidragsyter
     enrollment: Deltakelse
+    explore: Finn programmer
     expected_students: Forventede bidragsytere
     instructors: Tilretteleggere
     join_course: Bli med i program

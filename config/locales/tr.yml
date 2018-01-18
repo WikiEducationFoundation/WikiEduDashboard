@@ -19,13 +19,107 @@
 # Author: Watermelon juice
 ---
 tr:
+  accessibility:
+    number_field: Bu bir numara alanı. Çoğu tarayıcı tarafından oluşturulan düğmeler,
+      girişi artırır ve azaltır.
   application:
-    help: Yardım!
+    cancel: İptal
+    dashboard: Wiki Ed Deneme Tahtası
+    documentation: Belgelendirme
+    error: 'Bir hata oluştu:'
+    explore: Keşfet
+    field_required: Bu alan gereklidir
+    field_invalid_characters: Bu alanda geçersiz karakterler mevcuttur
+    field_invalid_date: Bu alanın tarihi YYYY-AA-GG formatında olmalıdır
+    field_invalid_date_time: Bitiş başlangıçtan sonra olmalı. (Saatler 0'dan 23'e
+      gider.)
+    greeting2: Hoş geldiniz!
+    greeting_extended: Vikipedi'ye Hoş Geldiniz
+    greeting: Merhaba!
+    help: Yardım
+    home: Anasayfa
+    log_in_extended: Vikipedi'yle oturum aç
+    log_in: Oturum aç
     log_out: Çıkış
+    my_dashboard: Gösterge Panelim
+    recent_activity: Son Etkinlik
+    report_problem: Bir sorunu bildir
+    search: soru sor
+    search_results: '%{search_terms} için sonuçlar'
+    sign_up_extended: Vikipedi'yle Kaydol
+    sign_up_log_in_extended: Vikipedi ile
+    sign_up: Kaydol
+    submit: Gönder
+    training: Eğitim
+    change: Değiştir
+    details: Ayrıntılar
+    confirm: Tamam
+    opt_in: Evet
+    opt_out: Hayır
+  dashboard:
+    create_note: İlk dersinizi oluşturmak için Oluştur'u tıklayın.
+    create_preparation_note: 'Başlamadan önce akademik takviminizin hazır bulunduğundan
+      emin olun; ödev tasarım aracı, zaman çizelgesini seçtiğiniz tarih aralığına
+      sığdırmak için sınıfınızın toplantı tarihlerini (okul tatilleri ve tatiller
+      dahil) kullanır. Hatırlayın: Zaman çizelgesini istediğiniz zaman ihtiyaçlarınıza
+      göre düzenleyebilirsiniz.'
+    explore_course_pages: Kurs Sayfalarını Keşfedin
+    explore_examples: Örnekleri Keşfedin
+    join_note: Eğitmeninizden bir şifre aldıktan sonra onu bulmak ve katılmak için
+      Kursunuzu Bul'u tıklayın.
+    no_courses_instructor: Görünüşe göre dersiniz yok.
+    no_courses_student: Görünüşe göre henüz bir kursa katılmadınız.
+    opt_out: Oryantasyondan çıkmayı talep edin
+    orientation_notice: Bir kurs oluşturmadan önce başlamanıza yardımcı olması için
+      oryantasyon yapalım. (Tamamlanması yaklaşık 30 dakika alır.)
+    review_orientation: İnceleme Oryantasyonu
+    start_orientation: Başlangıç Oryantasyonu
+    blog_headline: Wiki Eğitimi'nden Son Haberler
+    about_programs: Bu site, Programlar vasıtasıyla viki etkinliklerini izler - bir
+      edit-a-thon veya okul kursu gibi bireysel etkinlikler. Her Program, Programlar
+      arasında toplam istatistikler sağlayan bir veya daha fazla Kampanya'nın parçasıdır.
+    about_creating_programs: Bağımsız tek bir etkinlik yürütüyorsanız şimdi bir Program
+      oluşturabilirsiniz. Etkinliğiniz daha büyük bir şeyin parçasıysa bunun için
+      Kampanya'yı bulun veya yaratın. Ardından Kampanya sayfasından yeni bir Program
+      oluşturabilirsiniz.
+  home:
+    explore: Keşfet
+    log_in: Vikipedi'yle oturum aç
+    sign_up: Vikipedi'yle Kaydol
+    sign_up_help: Gösterge panelini kullanmak için Vikipedi ile oturum açmanız ve
+      hesabınıza erişme izni vermeniz gerekir. Var olan bir Vikipedi hesabıyla giriş
+      yapabilir veya yeni bir Vikipedi hesabı oluşturabilirsiniz.
   activity:
+    all: Etkinlik
     edited_by: Düzenleyen
     label: Etkinlik
   articles:
+    assigned: Atanmış Makaleler
+    available: Kullanılabilir Makaleler
+    assigned_to: Atanan
+    character_doc: Kayıtlı editörler tarafından başlangıç ve bitiş tarihleri arasında
+      eklenen karakterlerin toplamı
+    cross_wiki_tracking: Başlangıç ve bitiş tarihleri arasında düzenlenen ana alan
+      sayfaları aşağıda listelenmiştir. Gösterge paneli, bir Atama veya Mevcut Makale
+      bulunmayan diğer vikilerle birlikte, bu programın ana sayfa viki'sinden katkıları
+      çeker.
+    deleted: (silindi)
+    edited: Düzenlenen Makaleler
+    edited_by: 'Düzenleyen:'
+    edited_mobile: Makaleler
+    hide: Gizle
+    label: Makaleler
+    loading: Makaleler yükleniyor...
+    new: (yeni)
+    none: Bu kursta herhangi bir makale düzenlenmedi.
+    rating: Sınıf
+    rating_doc: Bir makalenin derecelendirmesi Vikipedi üzerinde VikiProjeler tarafından
+      atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
+      nedenle bunlar yalnızca makale olgunluğunun kaba bir göstergesidir.
+    rating_docs:
+      fa: Seçkin makale — Vikipedi'nin en yüksek reytingli ve muhtelemen yeni bir
+        editörün ana projesi için oldukça olgun bir maddesidir
+      fl: Seçkin liste — Vikipedi'nin listeler için en yüksek reytingli sayfalarıdır
     wiki: Wiki
   blocks:
     milestones:
@@ -37,6 +131,7 @@ tr:
   courses:
     creator:
       end_date: Bitiş tarihi
+      find: Kursunuzu Bulun
       role_description_placeholder: öğretim görevlisi, asistan vb.
       start_date: Başlangıç tarihi
     edit_count: Değişiklik Sayısı

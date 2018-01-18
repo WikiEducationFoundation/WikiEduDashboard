@@ -6,9 +6,12 @@
 skr-arab:
   application:
     cancel: منسوخ
+    dashboard: وکی ای ڈی ڈیش بورڈ
+    documentation: دستاویز
     error: 'اتھ غلطی ہائی:'
     explore: پھرولو
     field_required: ایں خانے دی لوڑ ہے
+    field_invalid_characters: ایں خانے وچ غلط حرف ہن۔
     greeting2: ست بسم اللہ!
     greeting_extended: وکی پیڈیا وچ ست بسم اللہ
     greeting: سلام!
@@ -40,9 +43,11 @@ skr-arab:
     sign_up: وکی پیڈیا نال نواں کھاتہ بݨاؤ
   activity:
     all: سرگرمی
+    edited_by: لکھݨ آلا
     label: سرگرمی
   articles:
     deleted: (مٹا ݙتے)
+    edited_by: 'لکھݨ آلا:'
     edited_mobile: مقالے
     hide: لُکاؤ
     label: مقالے
@@ -71,6 +76,15 @@ skr-arab:
     no_passcode: پاس کوڈ کائنی
     none: کوئی وی کائنی
     title: عنوان
+  categories:
+    add_category: ون٘کی شامل کرو
+    add_template: سانچہ شامل کرو
+    add_this_category: ایہ ون٘کی شامل کرو
+    add_this_template: ایہ سانچہ شامل کرو
+    name: ناں
+    category_name: ون٘کی دا ناں
+    template_name: سان٘چے دا ناں
+    remove: ہٹاؤ
   chat:
     label: چیٹ
   courses:
@@ -118,10 +132,18 @@ skr-arab:
     loading: لوڈ تھیدا پئے۔۔۔
     my_articles: میݙے مقالے
     none: کوئی وی کائنی
+    ores_plot: اوآرای ایس
     overview: گھر
+    passcode: 'پاس کوڈ:'
+    passcode_none: پاس کوڈ کائنی
+    passcode_prompt: 'رلݨ کیتے پاس کوڈ لکھو:'
     school: سکول
     start: شروع
     start_typing: ٹائپ کرݨ شروع کرو
+    students: شاگرد
+    students_count: '# شاگرد'
+    students_short: شاگرد
+    user_role: رول
     subject: مضمون
     submitted: جمع تھی ڳیا
     term: ٹرم
@@ -133,7 +155,7 @@ skr-arab:
     yourcourses: تہاݙے کورسز
   courses_generic:
     all_courses: سارے پروگرام
-    assignment_start: ٹائم لائن شروع
+    assignment_start: ایونٹ شروع
     cancel: منسوخ
     course: پروگرام
     courses: پروگرام
@@ -149,6 +171,7 @@ skr-arab:
       find: پروگرام ڳولو
       save_cloned_course: بچاؤ
     delete_course: پروگرام مٹاؤ
+    explore: پروگرام ڳولو
     leave_course: پروگرام چھوڑو
     school: ادارہ
     student_editors: ایڈیٹ کرݨ آلے
@@ -203,6 +226,8 @@ skr-arab:
     continue: جاری(%{progress})
     start: شروع
     view: ݙکھالا
+    next: اڳلا ورقہ
+    page: ورقہ
     done: مکمل!
   uploads:
     datetime: تریخ/ویلا

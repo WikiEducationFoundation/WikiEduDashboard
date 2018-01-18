@@ -1,6 +1,7 @@
 # Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Acamicamacaraca
 # Author: Dungodung
 # Author: Macofe
 # Author: Milicevic01
@@ -412,9 +413,9 @@ sr-ec:
         на "Направи мој програм!" за почетак изградње странице за Ваш вики програм.
     delete_course: Обриши програм
     edit_course_dates: Измени датуме пројекта
-    explore: Пронађи програме
     enroll: Додај уредника
     enrollment: Учествовање
+    explore: Пронађи програме
     courses_enrolled: Програми са учешћем
     expected_students: Очекивани уредници
     instructors: Фацилитатори
@@ -577,6 +578,7 @@ sr-ec:
     view: Погледај
     logged_out: Одјављени сте. Нећете добити поене за завршавање овог модула уколико
       се не пријавите.
+    done: Завршено!
   uploads:
     datetime: Датум/време
     file_name: Назив датотеке

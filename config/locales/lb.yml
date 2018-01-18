@@ -352,6 +352,9 @@ lb:
     continue: Virufueren (%{progress})
     start: Ufank
     view: Weisen
+    next: Nächst Säit
+    page: Säit
+    done: Fäerdeg!
   uploads:
     datetime: Datum/Zäit
     file_name: Numm vum Fichier

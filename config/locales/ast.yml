@@ -449,9 +449,9 @@ ast:
       save_cloned_course: Guardar
     delete_course: Desaniciar programa
     edit_course_dates: Editar les dates de los proyeutos
-    explore: Alcontrar programes
     enroll: Añadir editor
     enrollment: Participación
+    explore: Alcontrar programes
     expected_students: Editores esperaos
     instructors: Facilitadores
     join_course: Xunise al programa

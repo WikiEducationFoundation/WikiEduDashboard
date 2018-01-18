@@ -510,8 +510,11 @@ ca:
     continue: Continuar (%{progress})
     start: Inicia
     view: Mostra
+    next: Pàgina següent
+    page: Pàgina
     logged_out: Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
       no tens la sessió iniciada.
+    done: Fet!
   uploads:
     datetime: Data/Hora
     file_name: Nom del fitxer

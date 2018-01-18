@@ -273,9 +273,9 @@ lt:
       find: Rasti Programą
     delete_course: Trinti programą
     edit_course_dates: Redaguoti Projekto Datas
-    explore: Rasti Programas
     enroll: Pridėti Redaktorių
     enrollment: Dalyvavimas
+    explore: Rasti Programas
     courses_enrolled: Dalyvavo programose
     expected_students: Tikimasi Redaktorių
     join_course: Prisijungti prie programos

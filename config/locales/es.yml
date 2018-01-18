@@ -495,9 +495,9 @@ es:
       save_cloned_course: Guardar
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
-    explore: Encuentra programas
     enroll: Añadir editor
     enrollment: Participación
+    explore: Encuentra programas
     courses_enrolled: Programas participados
     expected_students: Editores esperados
     instructors: Facilitadores
@@ -664,8 +664,16 @@ es:
     continue: Continuar (%{progress})
     start: Iniciar
     view: Ver
+    next: Página siguiente
+    page: Página
+    page_number: Página %{number} de %{total}
+    table_of_contents: Sumario
+    training_library: Biblioteca de capacitación
     logged_out: Tu sesión se ha cerrado. No recibirás crédito por completar este módulo,
       a menos que inicies sesión.
+    done: ¡Hecho!
+    check_answer: Comprobar respuesta
+    included_modules: Módulos incluidos
   uploads:
     datetime: Fecha/hora
     file_name: Nombre del archivo
