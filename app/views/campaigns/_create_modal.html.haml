@@ -19,16 +19,16 @@
               .form-group
                 - customize_passcode = @campaign.default_passcode
                 %span
-                  = radio_button_tag('campaign[default_passcode]', 'no-passcode', true)
+                  = radio_button_tag('campaign[default_passcode]', 'no-passcode', true,:class => "campaign_passcode")
                   %label
                     = t('campaign.no_passcode')
                 %span
-                  = radio_button_tag('campaign[default_passcode]', '', @campaign.default_passcode)
+                  = radio_button_tag('campaign[default_passcode]', '', @campaign.default_passcode,:class => "campaign_passcode")
                   %label
                     = t('campaign.random_passcode')
 
                 %span
-                  = radio_button_tag('campaign[default_passcode]', 'custom', customize_passcode)
+                  = radio_button_tag('campaign[default_passcode]', 'custom', customize_passcode,:class => "campaign_passcode")
                   %label
                     = t('campaign.customize_passcode')
 
