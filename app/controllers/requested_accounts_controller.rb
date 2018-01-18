@@ -4,7 +4,7 @@
 class RequestedAccountsController < ApplicationController
   respond_to :html
   before_action :set_course
-  before_action :check_creation_permissions, only: [:index, :create_accounts, :enable_account_requests]
+  before_action :check_creation_permissions, only: %i[index create_accounts enable_account_requests]
 
   # This creates (or updates) a RequestedAccount, which is a username and email
   # for a user who wants to create a wiki account (but may not be able to do so
@@ -17,7 +17,7 @@ class RequestedAccountsController < ApplicationController
     existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
     if existing_request
       existing_request.update_attribute(:email, params[:email])
-      return # TODO sensible error message rendered
+      return # TODO: sensible error message rendered
     end
 
     requested = RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
