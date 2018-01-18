@@ -3,6 +3,7 @@
 require "#{Rails.root}/lib/training_progress_manager"
 require "#{Rails.root}/lib/training_library"
 require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/data_cycle/training_update"
 
 class TrainingController < ApplicationController
   layout 'training'
@@ -39,22 +40,13 @@ class TrainingController < ApplicationController
   end
 
   def reload
-    if params[:module] == 'all'
-      TrainingModule.load_all
-    else
-      reload_single_module
-    end
-    render plain: 'done!'
+    render plain: TrainingUpdate.new(module_slug: params[:module]).result
   rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
          TrainingModule::ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound => e
     render plain: e.message
   end
 
   private
-
-  def reload_single_module
-    TrainingModule.reload_module(slug: params[:module])
-  end
 
   def add_training_root_breadcrumb
     add_breadcrumb 'Training Library', :training_path

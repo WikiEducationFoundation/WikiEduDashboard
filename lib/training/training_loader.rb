@@ -52,11 +52,12 @@ class TrainingLoader
   def load_from_wiki
     source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
-    Raven.capture_message 'Loading trainings from wiki', level: 'info',
-                                                         extra: { wiki_pages: source_pages }
+    Raven.capture_message "Loading #{@content_class}s from wiki", level: 'info',
+                                                                  extra: { wiki_pages: source_pages }
 
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
+      pp wiki_page_group
       Thread.new(i) { add_trainings_to_collection(wiki_page_group) }
     end
     threads.each(&:join)

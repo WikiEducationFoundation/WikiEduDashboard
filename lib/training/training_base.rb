@@ -46,9 +46,16 @@ class TrainingBase
     TrainingLibrary.flush
     TrainingModule.flush
     TrainingSlide.flush
-    TrainingLibrary.load
-    TrainingModule.load
-    TrainingSlide.load
+    if Features.wiki_trainings?
+      TrainingModule.load
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
+      TrainingModule.flush
+      TrainingModule.load
+    else
+      TrainingLibrary.load
+      TrainingModule.load
+      TrainingSlide.load
+    end
   end
 
   # Use class instance variable @all to store all training content in memory.
@@ -58,7 +65,14 @@ class TrainingBase
   end
 
   def self.load_from_cache_or_rebuild
-    Rails.cache.read(cache_key) || load
+    if Features.wiki_trainings?
+      # Only load explicitly, not on a cold cache, when loading from wiki.
+      # This prevents situations where many users are trying to load uncached
+      # trainings at once, causing major problems.
+      Rails.cache.read(cache_key)
+    else
+      Rails.cache.read(cache_key) || load
+    end
   end
 
   # Clears both the class instance variable and the cache for the child class.
