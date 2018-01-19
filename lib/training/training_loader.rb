@@ -20,8 +20,11 @@ class TrainingLoader
   end
 
   def load_content
-    load_from_yaml
-    load_from_wiki if Features.wiki_trainings?
+    if Features.wiki_trainings?
+      load_from_wiki
+    else
+      load_from_yaml
+    end
     return @collection
   end
 
