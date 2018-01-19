@@ -51,7 +51,7 @@ const addCourse = () =>
 const _dismissNotification = function (payload) {
   const notifications = _course.survey_notifications;
   const { id } = payload.data;
-  const index = _.indexOf(notifications, _.where(notifications, { id })[0]);
+  const index = _.indexOf(notifications, _.filter(notifications, { id })[0]);
   delete _course.survey_notifications[index];
   return CourseStore.emitChange();
 };

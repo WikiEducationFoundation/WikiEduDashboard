@@ -16,7 +16,7 @@ const Grading = createReactClass({
   },
 
   render() {
-    const total = _.sum(this.props.gradeables, 'points');
+    const total = _.sumBy(this.props.gradeables, 'points');
     const gradeables = this.props.gradeables.map((gradeable) => {
       const block = BlockStore.getBlock(gradeable.gradeable_item_id);
       return (
