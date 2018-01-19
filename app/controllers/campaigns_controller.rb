@@ -33,10 +33,11 @@ class CampaignsController < ApplicationController
   end
 
   def create
+    overrides = {}
     if campaign_params[:default_passcode] == 'custom'
-      campaign_params[:default_passcode] = params[:campaign][:custom_default_passcode]
+      overrides[:default_passcode]= params[:campaign][:custom_default_passcode]
     end
-    @campaign = Campaign.create(campaign_params)
+    @campaign = Campaign.create campaign_params.merge(overrides)
 
     if @campaign.valid?
       add_organizer_to_campaign(current_user)

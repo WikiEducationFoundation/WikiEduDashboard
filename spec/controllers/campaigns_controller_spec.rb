@@ -17,16 +17,22 @@ describe CampaignsController do
     let(:admin) { create(:admin) }
     let(:title) { 'My New? Campaign 5!' }
     let(:expected_slug) { 'my_new_campaign_5' }
-    let(:campaign_params) { { campaign: { title: title } } }
+    let(:campaign_params) do
+      { campaign: { title: title,
+                    default_passcode: 'custom',
+                    custom_default_passcode: 'ohai' } }
+    end
 
     context 'when user is an admin' do
       before do
         allow(controller).to receive(:current_user).and_return(admin)
       end
 
-      it 'creates new campaigns' do
+      it 'creates new campaigns with custom passcodes' do
         post :create, params: campaign_params
-        expect(Campaign.last.slug).to eq(expected_slug)
+        new_campaign = Campaign.last
+        expect(new_campaign.slug).to eq(expected_slug)
+        expect(new_campaign.default_passcode).to eq('ohai')
       end
 
       it 'creates a campaign user for the current user' do
