@@ -147,7 +147,7 @@ describe CampaignsController do
     let(:user2) { create(:user, username: 'user2') }
     let(:campaign) { create(:campaign) }
     let(:organizer) do
-      create(:campaigns_user, id: 5, user_id: user2.id, campaign_id: campaign.id,
+      create(:campaigns_user, user_id: user2.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
     end
 
@@ -185,7 +185,7 @@ describe CampaignsController do
     end
 
     it 'removes the course from the campaign if the current user is a campaign organizer' do
-      create(:campaigns_user, id: 5, user_id: user.id, campaign_id: campaign.id,
+      create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       allow(controller).to receive(:current_user).and_return(user)
       put :remove_course, params: { slug: campaign.slug, course_id: course.id }
