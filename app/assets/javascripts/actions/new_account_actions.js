@@ -1,4 +1,4 @@
-import *  as types from '../constants';
+import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
 

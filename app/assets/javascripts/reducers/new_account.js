@@ -5,7 +5,7 @@ import {
   NEW_ACCOUNT_USERNAME_VALID,
   NEW_ACCOUNT_USERNAME_INVALID,
   NEW_ACCOUNT_REQUEST_SUBMITTED
-} from '../constants/action_types.js';
+} from '../constants/new_accounts.js';
 
 const initialState = { username: '', email: '' };
 
