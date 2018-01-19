@@ -82,17 +82,49 @@ describe TrainingBase do
   end
 
   describe '.all' do
-    it 'loads from yaml files if data is not in cache' do
-      Rails.cache.clear
-      expect(TrainingLibrary.all).not_to be_empty
-      expect(TrainingModule.all).not_to be_empty
-      expect(TrainingSlide.all).not_to be_empty
+    context 'when the cache is empty' do
+      before(:each) do
+        TrainingLibrary.flush
+        TrainingModule.flush
+        TrainingSlide.flush
+      end
+
+      it 'loads from yaml files' do
+        expect(TrainingLibrary.all).not_to be_empty
+        expect(TrainingModule.all).not_to be_empty
+        expect(TrainingSlide.all).not_to be_empty
+      end
+      it 'returns an empty array instead of fetching from wiki' do
+        allow(Features).to receive(:wiki_trainings?).and_return(true)
+        expect(TrainingLibrary.all).to eq([])
+        expect(TrainingModule.all).to eq([])
+        expect(TrainingSlide.all).to eq([])
+      end
     end
   end
 
   describe '.load_all' do
-    it 'runs without error' do
-      TrainingBase.load_all
+    context 'with wiki trainings disabled' do
+      before do
+        allow(Features).to receive(:wiki_trainings?).and_return(false)
+      end
+      it 'runs without error with wiki' do
+        TrainingBase.load_all
+      end
+    end
+
+    context 'with wiki trainings enabled' do
+      before do
+        allow(Features).to receive(:wiki_trainings?).and_return(true)
+      end
+      it 'runs without error with wiki' do
+        VCR.use_cassette 'wiki_trainings' do
+          TrainingBase.load_all
+        end
+      end
     end
   end
+
+  # Make sure default trainings get reloaded
+  after(:all) { TrainingModule.load_all }
 end

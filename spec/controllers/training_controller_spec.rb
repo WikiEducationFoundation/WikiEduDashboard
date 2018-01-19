@@ -53,7 +53,7 @@ describe TrainingController do
       let(:subject) { get :reload, params: { module: 'all' } }
       it 'returns the result upon success' do
         subject
-        expect(response.body).to have_content 'done!'
+        expect(response.body).to have_content 'Success!'
       end
 
       it 'displays an error message upon failure' do
@@ -64,11 +64,14 @@ describe TrainingController do
       end
     end
 
-    context 'for a single module' do
-      let(:subject) { get :reload, params: { module: 'images-and-media' } }
+    context 'for a single module, from wiki' do
+      let(:subject) { get :reload, params: { module: 'plagiarism' } }
       it 'returns the result upon success' do
-        subject
-        expect(response.body).to have_content 'done!'
+        allow(Features).to receive(:wiki_trainings?).and_return(true)
+        VCR.use_cassette 'wiki_trainings' do
+          subject
+        end
+        expect(response.body).to have_content 'Success!'
       end
 
       it 'displays an error message if the module does not exist' do
@@ -77,4 +80,7 @@ describe TrainingController do
       end
     end
   end
+
+  # Make sure default trainings get reloaded
+  after(:all) { TrainingModule.load_all }
 end
