@@ -126,5 +126,5 @@ describe TrainingBase do
   end
 
   # Make sure default trainings get reloaded
-  after(:suite) { TrainingModule.load_all }
+  after(:all) { TrainingModule.load_all }
 end

@@ -36,5 +36,5 @@ describe 'Training Translations', type: :feature, js: true do
   end
 
   # Make sure default trainings get reloaded
-  after(:suite) { TrainingModule.load_all }
+  after(:all) { TrainingModule.load_all }
 end
