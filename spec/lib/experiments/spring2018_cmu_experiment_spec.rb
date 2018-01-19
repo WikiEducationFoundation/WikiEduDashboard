@@ -8,7 +8,7 @@ describe Spring2018CmuExperiment do
   let(:user) { create(:user, email: 'sage@example.com') }
 
   before do
-    10.times do |i|
+    4.times do |i|
       course = create(:course, slug: "spring course number #{i}", id: i)
       course.campaigns << spring_2018
       create(:courses_user, course: course, user: user,
@@ -22,13 +22,13 @@ describe Spring2018CmuExperiment do
       control_courses = Course.all.select do |c|
         c.flags[Spring2018CmuExperiment::STATUS_KEY] == 'control'
       end
-      expect(control_courses.count).to eq(3)
+      expect(control_courses.count).to eq(1)
       emailed_courses = Course.all.select do |c|
         c.flags[Spring2018CmuExperiment::STATUS_KEY] == 'email_sent'
       end
-      expect(emailed_courses.count).to eq(7)
+      expect(emailed_courses.count).to eq(3)
       experiment_setting = Setting.find_by(key: 'spring_2018_cmu_experiment')
-      expect(experiment_setting.value[:enrolled_courses_count]).to eq(10)
+      expect(experiment_setting.value[:enrolled_courses_count]).to eq(4)
     end
 
     context 'when invitations get no response for a week' do
@@ -40,7 +40,7 @@ describe Spring2018CmuExperiment do
         reminded_courses = Course.all.select do |c|
           c.flags[Spring2018CmuExperiment::STATUS_KEY] == 'reminder_sent'
         end
-        expect(reminded_courses.count).to eq(7)
+        expect(reminded_courses.count).to eq(3)
       end
     end
   end

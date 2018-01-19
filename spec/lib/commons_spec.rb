@@ -41,10 +41,13 @@ describe Commons do
     it 'should get usage data for a widely-used file' do
       VCR.use_cassette 'commons/get_usage_lots' do
         upload = create(:commons_upload,
-                        id: 6428847,
-                        file_name: 'File:Example.jpg')
+                        id: 54726518,
+                        file_name: 'File:Generic Camera Icon.svg')
         response = Commons.get_usages [upload]
-        expect(response.count).to(satisfy { |x| x > 12 })
+        # The response count is the number of separate API queries that are made
+        # to get all the results, at 500 results per query.
+        # This tests the query continuation flow.
+        expect(response.count).to(satisfy { |x| x > 1 })
       end
     end
 
