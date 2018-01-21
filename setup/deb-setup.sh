@@ -46,10 +46,8 @@ echo '[*] Installing pandoc...'
 sudo apt-get install pandoc
 
 echo '[*] Creating configuration files...'
-cd config
-cp application.example.yml application.yml
-cp database.example.yml database.yml
-cd ..
+cp config/application.example.yml config/application.yml
+cp config/database.example.yml config/database.yml
 
 echo '[*] Installing Mysql-server...'
 sudo apt-get install mysql-server
