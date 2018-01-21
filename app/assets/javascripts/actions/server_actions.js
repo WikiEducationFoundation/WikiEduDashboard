@@ -86,11 +86,11 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchRecentEdits(opts = {}) {
-    return API.fetchRecentEdits(opts)
-      .then(resp => ({ actionType: 'RECEIVE_RECENT_EDITS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
+//  fetchRecentEdits(opts = {}) {
+//    return API.fetchRecentEdits(opts)
+//      .then(resp => ({ actionType: 'RECEIVE_RECENT_EDITS', data: resp }))
+//      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+//  },
 
   fetchRecentUploads(opts = {}) {
     return API.fetchRecentUploads(opts)

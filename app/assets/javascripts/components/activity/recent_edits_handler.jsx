@@ -1,49 +1,39 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import RecentEditsStore from '../../stores/recent_edits_store.js';
+import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import ActivityTable from './activity_table.jsx';
-import ServerActions from '../../actions/server_actions.js';
+import { fetchRecentEdits } from "../../actions/did_you_know_actions.js";
 
-const getState = () => {
-  return {
-    revisions: RecentEditsStore.getRevisions(),
-    loading: true
-  };
-};
+const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 
-const RecentEditsHandler = createReactClass({
-  displayName: 'RecentEditsHandler',
-
-  mixins: [RecentEditsStore.mixin],
-
-  getInitialState() {
-    return getState();
-  },
-
-  componentWillMount() {
-    return ServerActions.fetchRecentEdits();
-  },
-
-  setCourseScope(e) {
-    const scoped = e.target.checked;
-    return ServerActions.fetchRecentEdits({ scoped });
-  },
-
-  storeDidChange() {
-    const revisions = getState().revisions;
-    return this.setState({ revisions, loading: false });
-  },
-
-  render() {
-    const headers = [
+const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
       { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 142 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
       { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
-    ];
+];
 
-    const noActivityMessage = I18n.t('recent_activity.no_edits');
+const RecentEditsHandler = createReactClass({
+  displayName: 'RecentEditsHandler',
 
+  propTypes: {
+    fetchRecentEdits: PropTypes.func,
+    revisions: PropTypes.array,
+    loading: PropTypes.bool
+  },
+
+  componentWillMount() {
+    return this.props.fetchRecentEdits();
+  },
+
+  setCourseScope(e) {
+    const scoped = e.target.checked;
+    this.props.fetchRecentEdits({ scoped });
+  },
+
+  render() {
+   
     return (
       <div>
         <label>
@@ -51,14 +41,23 @@ const RecentEditsHandler = createReactClass({
           {I18n.t('recent_activity.show_courses')}
         </label>
         <ActivityTable
-          loading={this.state.loading}
-          activity={this.state.revisions}
-          headers={headers}
-          noActivityMessage={noActivityMessage}
+          loading={this.props.loading}
+          activity={this.props.revisions}
+          headers={HEADERS}
+          noActivityMessage={NO_ACTIVITY_MESSAGE }
         />
       </div>
     );
   }
 });
 
-export default RecentEditsHandler;
+const mapStateToProps = state => ({
+  revisions: state.recentEdits.revisions,
+  loading: state.recentEdits.loading
+});
+
+const mapDispatchToProps = {
+  fetchRecentEdits: fetchRecentEdits
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RecentEditsHandler);

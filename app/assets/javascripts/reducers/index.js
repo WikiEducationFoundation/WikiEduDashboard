@@ -12,6 +12,8 @@ import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
+import recentEdits from './recent_edits.js';
+
 
 const reducer = combineReducers({
   articleDetails,
@@ -26,7 +28,8 @@ const reducer = combineReducers({
   revisions,
   ui,
   userCourses,
-  userProfile
+  userProfile,
+  recentEdits
 });
 
 export default reducer;

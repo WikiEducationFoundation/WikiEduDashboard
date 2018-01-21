@@ -11,3 +11,4 @@ export * from "./ui";
 export * from "./revisions";
 export * from "./user_courses";
 export * from "./user_profile";
+export * from "./recent_edits";
