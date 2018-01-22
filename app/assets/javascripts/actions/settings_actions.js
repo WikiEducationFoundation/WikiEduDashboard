@@ -42,18 +42,20 @@ const grantAdminPromise = (username, upgrade) => {
   });
 };
 
-export const fetchAdminUsers = () => dispatch => {
-  fetchAdminUsersPromise()
-    .then(resp => {
-      dispatch({
-        type: SET_ADMIN_USERS,
-        data: resp,
+export function fetchAdminUsers() {
+  return dispatch => {
+    return fetchAdminUsersPromise()
+      .then(resp => {
+        dispatch({
+          type: SET_ADMIN_USERS,
+          data: resp,
+        });
+      })
+      .catch(response => {
+        dispatch({ type: API_FAIL, data: response });
       });
-    })
-    .catch(response => {
-      dispatch({ type: API_FAIL, data: response });
-    });
-};
+  };
+}
 
 export const upgradeAdmin = (username) => dispatch => {
   // update a user's admin status
