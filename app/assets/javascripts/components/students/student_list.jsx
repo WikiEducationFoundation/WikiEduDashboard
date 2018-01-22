@@ -17,6 +17,7 @@ import RequestAccountsButton from './request_accounts_button.jsx';
 import UserStore from '../../stores/user_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
+
 import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () =>
@@ -102,7 +103,7 @@ const StudentList = createReactClass({
     let requestAccounts;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
-    requestAccounts = <RequestAccountsButton {...this.props} key="request_accounts" />;
+      requestAccounts = <RequestAccountsButton {...this.props} key="request_accounts" />;
   }
 
     let notifyOverdue;

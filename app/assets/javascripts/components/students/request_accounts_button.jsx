@@ -74,7 +74,7 @@ const RequestAccountsButton = createReactClass({
       </tr>
     );
 
-    let buttonClass = 'button';
+    let buttonClass = 'request_accounts button';
     buttonClass += this.props.inline ? ' border plus' : ' dark margin';
     const buttonText = this.props.inline ? '+' : CourseUtils.i18n('request_accounts', this.props.course.string_prefix);
     // Remove this check when we re-enable adding users by username
