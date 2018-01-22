@@ -38,7 +38,7 @@ sd:
     explore_examples: مثالَ ڳوليو
     no_courses_instructor: لڳي ٿو توھان وٽ ڪي بہ ڪورس نہ آھن.
     no_courses_student: لڳي ٿو توھان اڃان ڪو ڪورس جوائن نہ ڪيو آھي.
-    blog_headline: وڪي ايڊ مان تازيون خبرون
+    blog_headline: وڪي ايڊيوڪيشن مان تازيون خبرون
   home:
     explore: کوجيو
     log_in: وڪيپيڊيا سان داخل ٿيو
@@ -88,7 +88,7 @@ sd:
     assign_other: مضمون سونپيو
     add_available: ڪو موجود مضمون شامل ڪريو
     assign_self: مون کي مضمون سونپيو
-    confirm_deletion: پڪ سان توهان هيءَ مشق ڊاهڻ گھرو ٿا؟
+    confirm_deletion: پڪ سان توهان هيءَ مضمون مشق ڊاهڻ گھرو ٿا؟
     label: سونپيو
     loading: مشقون اتاري رهيا آهيون...
     none_short: ڪوبہ مضمون سونپيل ناھي
@@ -135,6 +135,7 @@ sd:
     current: حاليہ ڪورسز
     data_overview: انگ اکرَ ڏسو
     duration: ڪورس جو دورانيو
+    enable_chat: ڪچھري قابلِڪار بڻايو
     ended: ڪورس ختم ٿي ويو آهي.
     error:
       exists: ان نالي سان ڪورس اڳ ۾ ئي موجود آهي! ڪو ٻيو عنوان، اسڪول، يا ششماهي آزمايو.
@@ -147,7 +148,7 @@ sd:
     my_articles: منهنجا مضمونَ
     new_week: نئون هفتو شامل ڪريو
     nocourses: توهان ڪنهن بہ ڪورس ۾ حصو نہ وٺي رهيا آهيو.
-    overview: جائزو
+    overview: گھر
     revisions_doc: پوين %{timeframe} ڏينهن ۾ ڪيل ترميمُن جو تعداد
     school: اسڪول
     students: شاگرد

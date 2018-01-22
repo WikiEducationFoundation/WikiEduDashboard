@@ -44,6 +44,8 @@ pl:
     change: Zmień
     details: Szczegóły
     confirm: Ok
+    opt_in: Tak
+    opt_out: Nie
   dashboard:
     create_note: Kliknij w Stwórz kurs by utworzyć swój pierwszy kurs.
     create_preparation_note: Zanim zaczniesz, miej pod ręką swój kalendarz roku akademickiego.
@@ -477,7 +479,7 @@ pl:
       również sam adres URL niniejszej strony, co może mieć wpływ na już rozesłane
       linki. Czy na pewno chcesz kontynuować?
   metrics:
-    last_update: Ostatnia aktualizacja
+    last_update: Ostatnia aktualizacja statystyk
     activity: Ostatnia aktywność
     are_trained: uczestników ukończyło wymagane etapy szkolenia
     articles_created: Utworzone artykuły
@@ -614,8 +616,12 @@ pl:
     continue: Kontynuuj (ukończono %{progress})
     start: Start
     view: Zobacz
+    next: Następna strona
+    page: Strona
+    table_of_contents: Spis treści
     logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
+    done: Gotowe!
   uploads:
     datetime: Data/Czas
     file_name: Nazwa pliku

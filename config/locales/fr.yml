@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Appleuseryu
+# Author: Ash Crow
 # Author: Benoit Rochon
 # Author: C13m3n7
 # Author: Dcausse
@@ -442,7 +443,7 @@ fr:
     loading: Chargement…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     my_articles: Mes articles
-    needs_update: Calendrier de la mise à jour des données
+    needs_update: Planifier une mise à jour des données
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.

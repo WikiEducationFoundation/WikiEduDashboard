@@ -44,6 +44,8 @@ sr-ec:
     change: Измени
     details: Детаљи
     confirm: ОК
+    opt_in: Да
+    opt_out: Не
   dashboard:
     create_note: Кликни "Креирај курс" да креираш свој први курс.
     create_preparation_note: Будите сигурни да имате свој академски календар при руци

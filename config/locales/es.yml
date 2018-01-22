@@ -194,12 +194,12 @@ es:
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
-    customize_passcode: Contraseña customizada
+    customize_passcode: un código de acceso predeterminado
     default_course_type: Tipo de curso predeterminado
-    default_passcode: Contraseña predeterminada
+    default_passcode: Código de acceso predeterminado
     description: Descripción
     delete_campaign: Eliminar esta campaña
-    no_passcode: Ninguna contraseña
+    no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
     organizer_added: '%{user} ahora es un organizador de la campaña "%{title}"'
@@ -207,7 +207,7 @@ es:
     program_template: Plantilla de programa
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
-    random_passcode: Contraseña random
+    random_passcode: un código de acceso al azar
     title: Título
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
@@ -498,7 +498,7 @@ es:
     enroll: Añadir editor
     enrollment: Participación
     explore: Encuentra programas
-    courses_enrolled: Programas participados
+    courses_enrolled: Programas en que se participó
     expected_students: Editores esperados
     instructors: Facilitadores
     join_course: Unirse al programa

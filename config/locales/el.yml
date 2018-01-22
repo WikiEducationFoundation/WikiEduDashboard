@@ -5,12 +5,43 @@
 # Author: Geraki
 # Author: Glavkos
 # Author: KATRINE1992
+# Author: Nikosgranturismogt
 # Author: Ανώνυμος Βικιπαιδιστής
 ---
 el:
   application:
+    cancel: Ακύρωση
+    dashboard: Wiki Ed Dashboard
+    documentation: Τεκμηρίωση
+    error: 'Υπήρξε ένα σφάλμα:'
+    explore: Εξερεύνηση
+    field_required: Αυτό το πεδίο απαιτείται
+    field_invalid_characters: Αυτό το πεδίο έχει μη έγκυρους χαρακτήρες
+    field_invalid_date: Αυτό το πεδίο απαιτεί μια ημερομηνία σε μορφή έτους-μήνα-ημέρας
+    field_invalid_date_time: Το τέλος πρέπει να είναι μετά την αρχή. (Οι ώρες πάνε
+      από τις 0 έως τις 23.)
+    greeting2: Καλώς ήρθατε!
+    greeting_extended: Καλωσήρθατε στη Βικιπαίδεια
+    greeting: Γεια!
+    help: Βοήθεια
+    home: Αρχική
+    log_in_extended: Σύνδεση στη Βικιπαίδεια
+    log_in: Σύνδεση
+    log_out: Αποσύνδεση
+    recent_activity: Πρόσφατη δραστηριότητα
+    report_problem: Αναφορά προβλήματος
+    search: Κάντε μια ερώτηση
     search_results: 'Αποτελέσματα για: ''%{search_terms}'''
+    sign_up_extended: Εγγραφή στη Βικιπαίδεια
+    sign_up_log_in_extended: με τη Βικιπαίδεια
+    sign_up: Εγγραφή
+    submit: Υποβολή
+    training: Εκπαίδευση
+    change: Αλλαγή
+    details: Λεπτομέρειες
     confirm: Εντάξει
+    opt_in: Ναι
+    opt_out: Όχι
   dashboard:
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
   articles:

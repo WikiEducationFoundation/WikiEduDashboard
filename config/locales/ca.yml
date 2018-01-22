@@ -189,7 +189,7 @@ ca:
       legend_class_not_meeting: No hi ha cap reunió planificada
       select_meeting_days: Selecciona els dies de la setmana en els quals us trobeu
         a classe.
-    cancel: Cancel·lar
+    cancel: Cancel·la
     character_doc: La suma dels caràcters afegits a l'espai principal (articles) per
       part dels estudiants durant aquest curs
     campaigns: 'Grups:'
@@ -235,8 +235,8 @@ ca:
       course_title: Títol de curs
       create_button: Crear el meu curs!
       create_label: Crear nou curs
-      create_new: Crear un nou curs
-      create_short: Crear curs
+      create_new: Crea un curs nou
+      create_short: Crea un curs
       end_date: Data de finalització
       end_date_placeholder: Data de finalització (AAAA-MM-DD)
       expected_number: Nombre previst d'alumnes
@@ -254,10 +254,10 @@ ca:
       subject: Assumpte
     current: Cursos actuals
     data_articles: Dades dels articles
-    data_download_info: Descarregar dades en format CSV.
-    data_overview: Veure dades
-    data_edits: Editar les dades
-    data_students: dades dels editors
+    data_download_info: Baixa les dades en el format CSV.
+    data_overview: Dades del resum
+    data_edits: Dades de les edicions
+    data_students: Dades dels editors
     delete_course: Esborra el curs
     delete_suggestion: Suprimeix
     dismiss_survey: Descarta
