@@ -58,6 +58,8 @@ class RequestedAccountsController < ApplicationController
     # If it was successful, enroll the user in the course
     user = creation_attempt.user
     JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
+    @course.flags[:register_accounts] = true
+    @course.save
     result
   end
 

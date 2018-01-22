@@ -390,6 +390,7 @@ es:
     passcode_prompt: 'Escribe el código de acceso para unirte:'
     published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
       el curso visitando la siguiente URL:'
+    requested_accounts: Cuentas generadas
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
       con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
       vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar
