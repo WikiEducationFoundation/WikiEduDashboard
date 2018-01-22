@@ -279,11 +279,13 @@ describe CampaignsController do
     let(:course) { create(:course) }
     let(:campaign) { create(:campaign) }
     let(:article) { create(:article) }
+    let(:user) { create(:user) }
+    let!(:revision) { create(:revision, article: article, user: user, date: course.start + 1.hour) }
     let(:request_params) { { slug: campaign.slug, format: :csv } }
 
     before do
       campaign.courses << course
-      create(:articles_course, article: article, course: course)
+      create(:courses_user, course: course, user: user)
     end
     it 'returns a csv of course data' do
       get :articles_csv, params: request_params

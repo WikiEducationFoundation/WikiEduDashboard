@@ -161,7 +161,7 @@ class CampaignsController < ApplicationController
     filename = "#{@campaign.slug}-articles-#{Time.zone.today}.csv"
     respond_to do |format|
       format.csv do
-        send_data OresDiffCsvBuilder.new(@campaign.courses).articles_to_csv,
+        send_data CampaignCsvBuilder.new(@campaign).articles_to_csv,
                   filename: filename
       end
     end
