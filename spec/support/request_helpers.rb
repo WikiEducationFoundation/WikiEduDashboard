@@ -13,6 +13,14 @@ module RequestHelpers
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
 
+  def stub_account_creation_token_request
+    fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
+    lang = ENV['wiki_language']
+    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=createaccount"
+    stub_request(:get, url)
+      .to_return(status: 200, body: fake_tokens, headers: {})
+  end
+
   def stub_token_request_failure
     token_error = '{"servedby":"mw1135",
       "error": {"code":"mwoauth-invalid-authorization","info":"bar"}}'
@@ -44,6 +52,21 @@ module RequestHelpers
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: success, headers: {})
   end
+
+  def stub_account_creation
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request
+
+    # Then the account creation request itself
+    success = '{"createaccount":{"status":"PASS", "username":"Ragetest 99"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: success, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
+  end
+
 
   def stub_oauth_edit_failure
     stub_token_request
