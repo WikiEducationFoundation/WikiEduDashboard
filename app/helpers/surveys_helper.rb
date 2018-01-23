@@ -32,7 +32,8 @@ module SurveysHelper
   def survey_select(f, answer, course)
     multiple = answer.question.multiple
     field_name = question_answer_field_name(f, multiple)
-    options = answer_options(answer, course).collect { |o| o.is_a?(Array) ? [o[1].tr('_', ' ').to_s, o[0]] : o }
+    options = answer_options(answer, course)
+              .collect { |o| o.is_a?(Array) ? [o[1].tr('_', ' ').to_s, o[0]] : o }
     return content_tag :div, 'remove me', data: { remove_me: true } if options.empty?
     select_tag(field_name, options_for_select(options),
                include_blank: multiple ? 'Select all that apply' : 'Select an option',
@@ -80,8 +81,7 @@ module SurveysHelper
   def question_group_locals(surveys_question_group, index, total, is_results_view:)
     @question_group = surveys_question_group.rapidfire_question_group
     @answer_group_builder = Rapidfire::AnswerGroupBuilder.new(params: {},
-                                                              user: current_user,
-                                                              question_group: @question_group)
+                                                user: current_user, question_group: @question_group)
     return { question_group: @question_group,
              answer_group_builder: @answer_group_builder,
              question_group_index: index,

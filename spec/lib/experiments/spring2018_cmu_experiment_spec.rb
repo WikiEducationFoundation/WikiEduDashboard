@@ -47,7 +47,9 @@ describe Spring2018CmuExperiment do
 
   let(:course) { create(:course, flags: { Spring2018CmuExperiment::STATUS_KEY => 'email_sent' }) }
   let(:week) { create(:week, course: course) }
-  let(:block) { create(:block, week: week, title: 'Get started on Wikipedia', training_module_ids: [1, 2]) }
+  let(:block) { create(:block, week: week, title: 'Get started on Wikipedia',
+                      training_module_ids: [1, 2])
+              }
   describe '#opt_in and #opt_out' do
     it 'updates the experiment status of a course to opted_in and adds trainings to timeline' do
       expect(block.training_module_ids).not_to include(18)

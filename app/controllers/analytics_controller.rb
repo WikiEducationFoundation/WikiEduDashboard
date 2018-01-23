@@ -106,7 +106,8 @@ class AnalyticsController < ApplicationController
   def ores_changes
     @campaign = Campaign.find(params[:campaign][:id])
     @minimum_bytes = params[:minimum_bytes].to_i
-    @minimum_improvement = params[:minimum_improvement].to_f unless params[:minimum_improvement].blank?
+    @minimum_improvement = params[:minimum_improvement].to_f unless params[:minimum_improvement]
+                                                                    .blank?
     @ores_changes_plot = HistogramPlotter.plot(campaign: @campaign, opts:
       { minimum_bytes: @minimum_bytes,
         existing_only: params[:existing_only],

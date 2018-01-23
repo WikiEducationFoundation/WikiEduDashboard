@@ -113,7 +113,8 @@ def omniclick(node)
 end
 
 def pass_pending_spec
-  if RSpec.configuration.formatter_loader.formatters.first.is_a? RSpec::Core::Formatters::DocumentationFormatter
+  if RSpec.configuration.formatter_loader.formatters.first
+          .is_a? RSpec::Core::Formatters::DocumentationFormatter
     puts 'PASSED'
   else
     print 'P'

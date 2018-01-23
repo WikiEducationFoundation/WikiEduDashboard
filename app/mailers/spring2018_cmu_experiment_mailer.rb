@@ -12,8 +12,10 @@ class Spring2018CmuExperimentMailer < ApplicationMailer
     @instructor = instructor
     subject = 'Peer support for students in your Wikipedia assignment'
     subject = 'Reminder: ' + subject if reminder
-    @opt_in_link = "https://#{ENV['dashboard_url']}/experiments/spring2018_cmu_experiment/#{@course.id}/#{email_code}/opt_in"
-    @opt_out_link = "https://#{ENV['dashboard_url']}/experiments/spring2018_cmu_experiment/#{@course.id}/#{email_code}/opt_out"
+    @opt_in_link = "https://#{ENV['dashboard_url']}/experiments/spring2018_cmu_experiment/"\
+                   "#{@course.id}/#{email_code}/opt_in"
+    @opt_out_link = "https://#{ENV['dashboard_url']}/experiments/spring2018_cmu_experiment/"\
+                    "#{@course.id}/#{email_code}/opt_out"
     mail(to: @instructor.email,
          reply_to: 'robert.kraut@cmu.edu',
          subject: subject)

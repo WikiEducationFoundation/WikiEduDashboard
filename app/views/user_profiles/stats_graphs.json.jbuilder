@@ -15,7 +15,8 @@ if @user.course_instructor?
 
   json.student_count do
     i = 0
-    json.array! CoursesUsers.where(course: @courses_presenter.courses, role: 0).each do |course_user|
+    json.array! CoursesUsers
+      .where(course: @courses_presenter.courses, role: 0).each do |course_user|
       i += 1
       json.index i
       json.created_at = course_user.created_at

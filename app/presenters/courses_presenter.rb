@@ -25,7 +25,8 @@ class CoursesPresenter
   end
 
   def can_remove_course?
-    current_user && (current_user.admin? || @campaign.organizers.collect(&:id).include?(current_user.id))
+    current_user && (current_user.admin? || @campaign.organizers.collect(&:id)
+      .include?(current_user.id))
   end
 
   def campaigns
@@ -41,7 +42,8 @@ class CoursesPresenter
   end
 
   def search_courses(q)
-    courses.where('lower(title) like ? OR lower(school) like ? OR lower(term) like ?', "%#{q}%", "%#{q}%", "%#{q}%")
+    courses.where('lower(title) like ? OR lower(school) like ? OR lower(term) like ?',
+                  "%#{q}%", "%#{q}%", "%#{q}%")
   end
 
   def courses_by_recent_edits

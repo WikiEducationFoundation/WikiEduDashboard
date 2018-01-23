@@ -92,7 +92,8 @@ describe ArticlesForDeletionMonitor do
       end
 
       it 'does create second Alert if the first alert is resolved' do
-        Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id, course_id: course.id, resolved: true)
+        Alert.create(type: 'ArticlesForDeletionAlert', article_id: article.id,
+                     course_id: course.id, resolved: true)
         Alert.create(type: 'ArticlesForDeletionAlert', article_id: prod.id, course_id: course.id)
         expect(Alert.count).to eq(2)
         ArticlesForDeletionMonitor.create_alerts_for_course_articles

@@ -65,7 +65,8 @@ class WikiCourseEdits
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)
 
     # Add a template to the user's talk page
-    talk_template = "{{#{template_name(@templates, 'user_talk')}|course = [[#{@course.wiki_title}]]"\
+    talk_template = "{{#{template_name(@templates, 'user_talk')}"\
+                    " | course = [[#{@course.wiki_title}]]"\
                     " | slug = #{@course.slug} }}\n"
     talk_page = "User_talk:#{enrolling_user.username}"
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
@@ -121,7 +122,8 @@ class WikiCourseEdits
 
   def add_course_template_to_instructor_userpage(instructor)
     user_page = "User:#{instructor.username}"
-    template = "{{#{template_name(@templates, 'instructor')}|course = [[#{@course.wiki_title}]] }}\n"
+    template = "{{#{template_name(@templates, 'instructor')}"\
+               " |course = [[#{@course.wiki_title}]] }}\n"
     summary = "New course announcement: [[#{@course.wiki_title}]]."
 
     @wiki_editor.add_to_page_top(user_page, @current_user, template, summary)

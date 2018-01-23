@@ -46,7 +46,8 @@ class HistogramPlotter
   def build_csv
     FileUtils.mkdir_p analytics_path
     return if File.exist? csv_path
-    courses = @campaign_or_course.is_a?(Course) ? [@campaign_or_course] : @campaign_or_course.courses
+    courses =
+      @campaign_or_course.is_a?(Course) ? [@campaign_or_course] : @campaign_or_course.courses
     csv_content = OresDiffCsvBuilder.new(courses).articles_to_csv
     File.write(csv_path, csv_content)
   end
@@ -83,7 +84,8 @@ class HistogramPlotter
 
   def plot_title
     return '' if @simple
-    "#{slug_filename} before & after, #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
+    "#{slug_filename} before & after,"\
+    " #{Date.today} #{@existing_only ? '(existing articles only)' : '(new and existing articles)'}"
   end
 
   def plot_subtitle
@@ -91,11 +93,13 @@ class HistogramPlotter
     R.eval "before_mean <- mean(subset(histogram, when=='before')$structural_completeness)"
     R.eval "after_mean <- mean(subset(histogram, when=='after')$structural_completeness)"
 
-    average_before_after = "ave. before: #{R.before_mean.round(1)} - ave. after: #{R.after_mean.round(1)}"
+    average_before_after = "ave. before: #{R.before_mean.round(1)} "\
+                           "- ave. after: #{R.after_mean.round(1)}"
     return average_before_after if @simple
 
     improvement_limit = @minimum_improvement ? "min improvement: #{@minimum_improvement} - " : ''
-    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} - #{average_before_after}"
+    "#{improvement_limit}min bytes added: #{@minimum_bytes} - articles: #{R.before_count} "\
+    "- #{average_before_after}"
   end
 
   def initialize_r
