@@ -48,6 +48,9 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
 
+Style/DateTime:
+  Enabled: true
+
 ########################
 # Permanent exceptions #
 ########################
@@ -82,8 +85,6 @@ Metrics/LineLength:
 Style/FormatStringToken:
   Enabled: false
 Rails/FilePath:
-  Enabled: false
-Style/DateTime:
   Enabled: false
 Rails/TimeZone:
   Enabled: false
