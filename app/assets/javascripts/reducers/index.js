@@ -8,6 +8,7 @@ import didYouKnow from './did_you_know';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import notifications from './notifications';
+import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   feedback,
   needHelpAlert,
   notifications,
+  recentUploads,
   revisions,
   ui,
   userCourses,

@@ -92,11 +92,11 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchRecentUploads(opts = {}) {
-    return API.fetchRecentUploads(opts)
-      .then(resp => ({ actionType: 'RECEIVE_RECENT_UPLOADS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
+  //fetchRecentUploads(opts = {}) {
+  //  return API.fetchRecentUploads(opts)
+  //    .then(resp => ({ actionType: 'RECEIVE_RECENT_UPLOADS', data: resp }))
+  //    .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
+  //},
 
   deleteAssignment(assignment) {
     return API.deleteAssignment(assignment)
