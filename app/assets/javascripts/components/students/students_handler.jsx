@@ -45,6 +45,7 @@ const StudentsHandler = createReactClass({
               {lastNameSorting}
               <option value="character_sum_ms">{I18n.t('users.characters_added_mainspace')}</option>
               <option value="character_sum_us">{I18n.t('users.characters_added_userspace')}</option>
+              <option value="character_sum_draft">{I18n.t('users.characters_added_draftspace')}</option>
             </select>
           </div>
         </div>

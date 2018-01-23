@@ -674,6 +674,7 @@ qqq:
     characters_added_short: The "MS" means Main Space, and the "US" means User Space.
       Used in mobile view, so the string should be short.
     characters_added_userspace: '"US" means User Space'
+    characters_added_draftspace: '"DS" means Draft Space'
     my_assigned: Label for a list of article assignments.
     my_reviewing: Label for a list of articles to review.
     name: |-
