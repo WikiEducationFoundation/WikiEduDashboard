@@ -70,7 +70,7 @@ gem 'acts_as_list'
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 
 ### System utilities
-gem 'pandoc-ruby', '~> 1.0.0' # Text converter, for markdown<->html<->wikitext conversions
+gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
 gem 'rinruby' # R plots!
 
 ### Platform-specific fixes
