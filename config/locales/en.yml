@@ -120,6 +120,7 @@ en:
     label: Activity
 
   articles:
+    article_development: (article development)
     assigned: Assigned Articles
     available: Available Articles
     assigned_to: Assigned To
@@ -133,6 +134,7 @@ en:
     edited_by: 'Edited by:'
     edited_mobile: Articles
     hide: Hide
+    history: (history)
     label: Articles
     loading: Loading articles...
     new: (new)
