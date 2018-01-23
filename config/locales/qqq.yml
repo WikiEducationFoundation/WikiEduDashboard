@@ -120,6 +120,7 @@ qqq:
       Short name for activities
       {{Identical|Activity}}
   articles:
+    article_development: Label for article deelopment link
     assigned: Label for a list of assigned articles
     available: Label for a list of articles not assigned to anyone
     assigned_to: Table header for the user who is assigned to work on an article
@@ -128,6 +129,7 @@ qqq:
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
     hide: '{{Identical|Hide}}'
+    history: Label for the history url
     label: |-
       Short name for articles
       {{Identical|Article}}
