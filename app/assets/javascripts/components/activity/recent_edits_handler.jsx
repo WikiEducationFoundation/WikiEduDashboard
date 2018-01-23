@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from './activity_table.jsx';
-import { fetchRecentEdits } from "../../actions/did_you_know_actions.js";
+import { fetchRecentEdits } from "../../actions/recent_edits_actions.js";
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 
