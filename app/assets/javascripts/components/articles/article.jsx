@@ -45,7 +45,7 @@ const Article = createReactClass({
             <a href={this.props.article.url} target="_blank" className="inline">{formattedTitle} {(this.props.article.new_article ? ` ${I18n.t('articles.new')}` : '')}</a>
             <br />
             <small>
-              <a href={historyUrl} target="_blank" className="inline">(history)</a> | <ArticleGraphs article={this.props.article} />
+              <a href={historyUrl} target="_blank" className="inline">{I18n.t('articles.history')}</a> | <ArticleGraphs article={this.props.article} />
             </small>
           </div>
         </td>
