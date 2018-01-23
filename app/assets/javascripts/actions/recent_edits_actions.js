@@ -6,7 +6,7 @@ export const fetchRecentEdits = (opts = {}) => dispatch => {
     API.fetchRecentEdits(opts)
       .then(resp =>
         dispatch({
-          type: RECEIVE_RECENT_EDITS ,
+          type: RECEIVE_RECENT_EDITS,
           payload: {
             data: resp,
           }

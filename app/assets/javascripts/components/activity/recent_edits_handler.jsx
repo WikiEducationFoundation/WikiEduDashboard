@@ -33,7 +33,6 @@ const RecentEditsHandler = createReactClass({
   },
 
   render() {
-   
     return (
       <div>
         <label>
@@ -44,7 +43,7 @@ const RecentEditsHandler = createReactClass({
           loading={this.props.loading}
           activity={this.props.revisions}
           headers={HEADERS}
-          noActivityMessage={NO_ACTIVITY_MESSAGE }
+          noActivityMessage={NO_ACTIVITY_MESSAGE}
         />
       </div>
     );
