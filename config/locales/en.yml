@@ -831,6 +831,7 @@ en:
     characters_added_mainspace: MS Chars Added
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: US Chars Added
+    characters_added_draftspace: DS Chars Added
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name

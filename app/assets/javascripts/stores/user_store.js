@@ -5,7 +5,8 @@ const UserStore = new StockStore({
   sortAsc: true,
   descKeys: {
     character_sum_ms: true,
-    character_sum_us: true
+    character_sum_us: true,
+    character_sum_ds: true
   },
   modelKey: 'user',
   defaultModel: {
