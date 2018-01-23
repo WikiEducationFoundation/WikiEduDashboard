@@ -67,7 +67,6 @@ module RequestHelpers
     stub_list_users_query
   end
 
-
   def stub_oauth_edit_failure
     stub_token_request
     # Then the edit request itself
