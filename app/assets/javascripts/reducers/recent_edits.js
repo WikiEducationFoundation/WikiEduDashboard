@@ -7,7 +7,7 @@ const initialState = {
 };
 
 
-export default function didYouKnow(state = initialState, action) {
+export default function recentEdits(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_RECENT_EDITS: {
       return {
