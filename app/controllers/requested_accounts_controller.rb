@@ -21,7 +21,7 @@ class RequestedAccountsController < ApplicationController
     end
 
     requested = RequestedAccount.create(course: @course, username: params[:username], email: params[:email])
-    return requested unless params[:create_account_now] # TODO: render relevant json to be handled on the frontend
+    return requested unless params[:create_account_now] == 'true' # TODO: render relevant json to be handled on the frontend
     result = create_account(requested)
     render json: { message: result.values.first }, status: 500 # TODO: handle both success and failure
   end
@@ -29,7 +29,8 @@ class RequestedAccountsController < ApplicationController
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
   # modal instead of redirecting to the mediawiki account creation flow.
   def enable_account_requests
-    # TODO
+    @course.flags[:register_accounts] = true
+    @course.save
   end
 
   # List of requested accounts for a course.
@@ -58,8 +59,6 @@ class RequestedAccountsController < ApplicationController
     # If it was successful, enroll the user in the course
     user = creation_attempt.user
     JoinCourse.new(course: @course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
-    @course.flags[:register_accounts] = true
-    @course.save
     result
   end
 
