@@ -5,14 +5,14 @@ echo 'Setting up your developmental environment. This may take a while.'
 echo '[*] Installing GNUpg...'
 brew install gnupg
 
-echo '[*] Adding Keys for rvm...'
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-
-echo '[*] Installing rvm...'
-\curl -sSL https://get.rvm.io | bash -s stable
+echo '[*] Checking for rvm...'
+if ! which rvm > /dev/null; then
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && echo '[*] Installing rvm...' && \curl -sSL https://get.rvm.io | bash -s stable
+  source /home/sage/.rvm/scripts/rvm
+fi
 
 echo '[*] Installing Ruby-2.5.0...'
-sudo rvm install ruby-2.5.0
+rvm install ruby-2.5.0
 
 echo '[*] Install node.js...'
 brew install node
