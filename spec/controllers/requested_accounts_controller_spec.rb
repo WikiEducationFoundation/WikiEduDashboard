@@ -3,7 +3,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
-describe RequestedAccountsController, focus: true do
+describe RequestedAccountsController do
   describe '#request_account' do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:user) { create(:user) }
