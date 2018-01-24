@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CreateRequestedAccount, focus: true do
+describe CreateRequestedAccount do
   let(:creator) { create(:admin) }
   let(:course) { create(:course) }
   let(:user) { create(:user) }
