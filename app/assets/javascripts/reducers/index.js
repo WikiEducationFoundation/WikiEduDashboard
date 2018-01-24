@@ -8,10 +8,12 @@ import didYouKnow from './did_you_know';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import notifications from './notifications';
+import recentEdits from './recent_edits.js';
 import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
+
 
 const reducer = combineReducers({
   articleDetails,
@@ -23,10 +25,11 @@ const reducer = combineReducers({
   feedback,
   needHelpAlert,
   notifications,
+  recentEdits,
   revisions,
   ui,
   userCourses,
-  userProfile
+  userProfile,
 });
 
 export default reducer;
