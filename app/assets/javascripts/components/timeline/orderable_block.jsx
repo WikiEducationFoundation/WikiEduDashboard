@@ -33,8 +33,8 @@ const OrderableBlock = createReactClass({
         </button>
       </div>);
   }
-}
+});
 
-);
-
+// Reorderable relies on a `ref` to this component, so it can't be converted
+// to a stateless functional component.
 export default Reorderable(OrderableBlock, 'block', 'onDrag');
