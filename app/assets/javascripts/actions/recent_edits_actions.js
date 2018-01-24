@@ -1,9 +1,24 @@
 import { RECEIVE_RECENT_EDITS, API_FAIL } from "../constants";
-import API from "../utils/api.js";
+
+const _fetchRecentEdits = (opts = {}) => {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'GET',
+        url: `/revision_analytics/recent_edits.json?scoped=${opts.scoped || false}`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  };
 
 export const fetchRecentEdits = (opts = {}) => dispatch => {
   return (
-    API.fetchRecentEdits(opts)
+    _fetchRecentEdits(opts)
       .then(resp =>
         dispatch({
           type: RECEIVE_RECENT_EDITS,
