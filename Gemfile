@@ -30,7 +30,7 @@ gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.g
 gem 'browser'
 
 ### Email
-gem 'validates_email_format_of'
+gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
 
@@ -63,10 +63,10 @@ gem 'skylight' # Rails-specific performance monitoring, used in Wiki Ed Producti
 
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages
-gem 'redcarpet'
+gem 'redcarpet' # Markdown parser, used sparingly in haml templates and helpers
 gem 'hashugar' # Users to make yaml/json based training objects easy to access
-gem 'simple_form'
-gem 'acts_as_list'
+gem 'simple_form' # Alternative to basic rails form helpers
+gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQuestionGroups
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 
 ### System utilities
@@ -95,13 +95,12 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'rails-erd'
-  gem 'annotate', '~> 2.7.1'
+  gem 'annotate', '~> 2.7.1' # Generates automatic schema notations on model files
 end
 
 group :development, :test do
   gem 'pry-rails'
   gem 'byebug'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'zeus', platforms: :ruby # zeus doesn't work on Windows
@@ -116,7 +115,7 @@ group :test do
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'webmock'
-  gem 'vcr'
+  gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'
