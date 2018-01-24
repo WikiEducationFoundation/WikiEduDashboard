@@ -51,6 +51,7 @@ class TrainingBase
       TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
       TrainingModule.flush
       TrainingModule.load
+      TrainingLibrary.load
     else
       TrainingLibrary.load
       TrainingModule.load
