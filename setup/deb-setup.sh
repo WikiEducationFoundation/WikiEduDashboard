@@ -6,53 +6,57 @@ echo '[*] Checking for Curl...'
 if ! which curl >/dev/null; then
   echo 'Curl Not Found!'
   echo '[*] Installing Curl...'
-  sudo apt-get install curl
+  sudo apt-get install curl >/dev/null && echo '[+] Curl installed!'
 else
   echo 'Curl Found!'
 fi
 
 echo '[*] Adding keys...'
 # Add keys for Yarn
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - > /dev/null && \
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list > /dev/null
 
 # Add Keys for MariaDB
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main'
-sudo apt-get update
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 > /dev/null && \
+sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main' > /dev/null
+echo '[+] Added keys for required repositries!'
+
+echo '[*] Updating Package lists...'
+sudo apt-get update > /dev/null && echo '[+] Updated Package lists!'
 
 echo '[*] Installing R...'
-sudo apt install r-base
+sudo apt install r-base > /dev/null && echo '[+] R installed!'
 
 echo '[*] Install node.js...'
 if which node | grep node >/dev/null;then
   echo 'Node already installed!'
 else
-  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-  sudo apt-get install -y nodejs
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && sudo apt-get install -y nodejs > /dev/null &&\
+   echo '[+] Node installed!'
 fi
 
 echo '[*] Installing GNUpg...'
-sudo apt-get install gnupg
+sudo apt-get install gnupg > /dev/null && echo '[+] GNUpg installed!'
 
 echo '[*] Installing yarn...'
-sudo apt-get install yarn
+sudo apt-get install yarn > /dev/null && echo '[+] Yarn installed!'
 
 echo '[*] Installing pandoc...'
-sudo apt-get install pandoc
+sudo apt-get install pandoc > /dev/null && echo '[+] Pandoc installed!'
 
 echo '[*] Installing redis-server...'
-sudo apt install redis-server
+sudo apt install redis-server > /dev/null && '[+] Redis-Server installed!'
 
 echo '[*] Installing mariadbclient dependencies...'
-sudo apt-get install libmariadbclient-dev
+sudo apt-get install libmariadbclient-dev > /dev/null && echo '[+] Dependencies installed!'
 
-echo '[*] Installing Mysql-server...'
+echo '[*] Installing MariaDB-server...'
 echo 'Please Setup your Root password when asked during installation!'
-sudo apt-get install software-properties-common
-sudo apt-get install -y mariadb-server
-sudo systemctl start mariadb.service
-sudo systemctl enable mariadb.service
+sudo apt-get install software-properties-common > /dev/null
+sudo apt-get install -y mariadb-server > /dev/null && echo '[+] MariaDB installed!'
+sudo systemctl start mariadb.service > /dev/null && \
+sudo systemctl enable mariadb.service > /dev/null && \
+echo 'MariaDB service started!'
 
 echo "[*] Creating Databases and User for Mysql..."
 echo -n 'Enter Username for New Mysql User: '
@@ -92,34 +96,39 @@ sed -i -e "s/\(username: \).*/\1$NEWUSER/" \
 
 echo '[*] Checking for rvm...'
 if ! which rvm > /dev/null; then
-  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && echo '[*] Installing rvm...' && \curl -sSL https://get.rvm.io | bash -s stable
-  source /home/sage/.rvm/scripts/rvm
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && echo '[*] Installing rvm...' &&\
+   \curl -sSL https://get.rvm.io | bash -s stable > /dev/null &&\
+    echo '[+] RVM installed!'
+  source /home/sage/.rvm/scripts/rvm > /dev/null
 fi
 
 echo '[*] Installing Ruby-2.5.0...'
-rvm install ruby-2.5.0
+rvm install ruby-2.5.0 > /dev/null && echo '[+] Ruby-2.5.0 installed!'
 
 echo '[*] Installing bundler...'
-gem install bundler
+gem install bundler > /dev/null && echo '[+] Bundler installed!'
 
 echo '[*] Installing Gems and dependencies...'
-bundle install
+bundle install > /dev/null && echo '[+] Gems installed!'
 
 echo '[*] Installing node_modules...'
-yarn
+yarn > /dev/null && echo '[+] node_modules installed!'
 
 echo '[*] Installing phantomjs-prebuilt...'
-sudo yarn global add phantomjs-prebuilt
+sudo yarn global add phantomjs-prebuilt > /dev/null && echo '[+] phantomjs-prebuilt installed!'
 
 echo '[*] Installing bower...'
-sudo yarn global add bower
+sudo yarn global add bower > /dev/null && echo '[+] bower installed!'
 
 echo '[*] Installing bower modules...'
-bower install
+bower install > /dev/null && echo '[+] bower modules installed!'
 
 echo '[*] Installing gulp...'
-sudo yarn global add gulp
+sudo yarn global add gulp > /dev/null && echo '[+] Gulp installed!'
 
 echo '[*] Migrating databases...'
-rake db:migrate
-rake db:migrate RAILS_ENV=test
+rake db:migrate > /dev/null && \
+rake db:migrate RAILS_ENV=test > /dev/null && \
+echo '[+] Database migration completed!'
+
+echo 'Your developmental environment setup is completed! If you say any errors try to refer to the docs for manual installation or ask for help!'
