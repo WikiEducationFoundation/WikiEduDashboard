@@ -12,6 +12,7 @@ import { initiateConfirm } from '../../actions/confirm_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
+import { enableAccountRequests } from '../../actions/new_account_actions.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -88,6 +89,12 @@ const AvailableActions = createReactClass({
     }
   },
 
+  enableRequests() {
+    if (confirm('Are you sure you want to enable the account requests?')) {
+      return this.props.enableAccountRequests(this.state.course);
+    }
+  },
+
   render() {
     const controls = [];
     const user = this.props.current_user;
@@ -150,6 +157,10 @@ const AvailableActions = createReactClass({
         controls.push((
           <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
         ));
+      } else {
+        controls.push((
+          <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
+        ));
       }
       // TODO: show a button to enable new account requests, if it's not enabled already
     }
@@ -176,6 +187,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm };
+const mapDispatchToProps = { initiateConfirm, enableAccountRequests };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

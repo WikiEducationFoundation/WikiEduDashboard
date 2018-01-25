@@ -60,3 +60,13 @@ export function requestAccount(passcode, course, newAccount, createAccountNow = 
       .catch(data => (dispatch({ type: types.API_FAIL, data })));
   };
 }
+
+export function enableAccountRequests(course) {
+  return function (dispatch) {
+    const courseSlug = course.slug;
+
+    return API.enableAccountRequests(courseSlug)
+      .then(() => (dispatch({ type: types.ACCOUNT_REQUESTS_ENABLED })))
+      .catch(data => (dispatch({ type: types.API_FAIL, data })));
+  };
+}

@@ -765,6 +765,22 @@ slide_id=${opts.slide_id}`,
     });
   },
 
+  enableAccountRequests(courseSlug) {
+    return new Promise((res, rej) => {
+      $.ajax({
+        type: 'GET',
+        url: `/requested_accounts/${courseSlug}/enable_account_requests`,
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    });
+  },
+
   chatLogin() {
     return new Promise((res, rej) =>
       $.ajax({
