@@ -229,6 +229,7 @@ es:
   chat:
     label: Chat
   courses:
+    accounts_generation_enabled: Generación de cuentas activada
     activity: Actividad
     active_courses: '%{course_type} activos'
     all_courses: Todos los cursos
@@ -341,7 +342,7 @@ es:
     end: Fin
     ended: El curso ha terminado.
     enroll: Inscribirse
-    enrollment: Inscripción
+    enrollment: Inscripciónu
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.

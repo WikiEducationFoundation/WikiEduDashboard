@@ -91,7 +91,8 @@ const AvailableActions = createReactClass({
 
   enableRequests() {
     if (confirm('Are you sure you want to enable the account requests?')) {
-      return this.props.enableAccountRequests(this.state.course);
+      this.props.enableAccountRequests(this.state.course);
+      return alert(I18n.t('courses.accounts_generation_enabled'));
     }
   },
 
@@ -152,12 +153,12 @@ const AvailableActions = createReactClass({
         <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
       ));
       // show a link to the requested accounts creation page if there are any
-      if (this.state.course.requestedAccounts) {
+      if (this.state.course.requestedAccounts && this.state.course.flags.register_accounts === true) {
         const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
         controls.push((
           <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
         ));
-      } else {
+      } else if (this.state.course.flags.register_accounts !== true) {
         controls.push((
           <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
         ));

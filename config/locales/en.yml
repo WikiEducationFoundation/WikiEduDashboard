@@ -259,6 +259,7 @@ en:
     label: Chat
 
   courses:
+    accounts_generation_enabled: Accounts request generation enabled
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses

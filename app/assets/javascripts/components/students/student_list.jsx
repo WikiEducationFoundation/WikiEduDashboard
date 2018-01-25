@@ -103,7 +103,10 @@ const StudentList = createReactClass({
     let requestAccounts;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
+
+      if (this.props.course.flags.register_accounts === true) {
       requestAccounts = <RequestAccountsButton {...this.props} key="request_accounts" />;
+      }
   }
 
     let notifyOverdue;
