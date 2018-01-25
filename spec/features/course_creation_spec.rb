@@ -500,7 +500,7 @@ describe 'timeline editing', js: true do
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 3')
   end
 
-  it 'allows dragging and dropping blocks', focus: true do
+  it 'allows dragging and dropping blocks' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
 
