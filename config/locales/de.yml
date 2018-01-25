@@ -81,6 +81,7 @@ de:
     edited_by: Bearbeitet von
     label: Aktivität
   articles:
+    article_development: (Artikelentwicklung)
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
     assigned_to: Zuordnung zu
@@ -95,6 +96,7 @@ de:
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
     hide: Ausblenden
+    history: (Versionsgeschichte)
     label: Artikel
     loading: Lade Artikel …
     new: (neu)
@@ -844,6 +846,7 @@ de:
     characters_added_mainspace: Hinzugefügte Zeichen im ANR
     characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
     characters_added_userspace: Hinzugefügte Zeichen im BNR
+    characters_added_draftspace: Zeichen im EN hinzugefügt
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
     name: Name

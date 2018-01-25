@@ -75,6 +75,7 @@ zh-TW:
     edited_by: 編輯自
     label: 活動
   articles:
+    article_development: （條目發展）
     assigned: 分配的條目
     available: 尚待分配的條目
     assigned_to: 分配給
@@ -86,6 +87,7 @@ zh-TW:
     edited_by: 編輯自：
     edited_mobile: 條目
     hide: 隱藏
+    history: （歷史）
     label: 條目
     loading: 讀取條目中...
     new: ' (新)'
@@ -682,6 +684,7 @@ zh-TW:
     characters_added_mainspace: 主空間新增的字元
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
     characters_added_userspace: 使用者空間新增的字元
+    characters_added_draftspace: 增加的草稿空間字元
     my_assigned: 已分配：
     my_reviewing: 審查中：
     name: 名稱

@@ -129,7 +129,9 @@ qqq:
     edited_by: Label for a list of users who edited an article
     edited_mobile: '{{Identical|Article}}'
     hide: '{{Identical|Hide}}'
-    history: Label for the history url
+    history: |-
+      Label for the history url
+      {{Identical|History}}
     label: |-
       Short name for articles
       {{Identical|Article}}

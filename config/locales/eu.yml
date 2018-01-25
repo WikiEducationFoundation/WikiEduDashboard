@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: An13sa
+# Author: EukeneFL
 # Author: Iñaki LL
 # Author: Mikel Ibaiba
 # Author: Sator
@@ -85,6 +86,7 @@ eu:
     edited_by: Nork editatua
     label: Jarduera
   articles:
+    article_development: (artikuluaren garapena)
     assigned: Esleitutako artikuluak
     available: Artikulu erabilgarriak
     assigned_to: 'Nori esleitua:'
@@ -99,6 +101,7 @@ eu:
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
     hide: Ezkutatu
+    history: (historia)
     label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
@@ -111,10 +114,16 @@ eu:
       fa: 'Artikulu nabarmendua: Wikipediako balorazio onena du, segur aski artikulu
         helduegia, umoegia da editore berri baten proiektu nagusia izateko.'
       fl: 'Nabarmenduen zerrenda: Wikipediako balorazio onena zerrendetarako'
+      a: Artikulu ona — arretaz prestatutako artikulu bat, baina editore berri bataren
+        proiektu nagusirako artikulua gisa helduegia gerta daiteke
       ga: Artikulu ona — arretaz prestatutako artikulu bat, baina nabarmendua izateko
         artean gabezi batzuk dituena
+      b: B-klasea - moderatuki garatutako artikulua
+      c: C-klasea — Erdi mailako artikulua, hobetu daitekeena
+      start: Oinarrizko artikulua — Aurretiazko artikulu, asko hobetu daitekeena
       stub: 'Zirriborroa: hasitako artikulu laburra eta eduki gehiago behar duena'
       list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
+      '?': Balorazio gabekoa - Wikipedia kalitate eskalaren oraindik ez da oraindik
       does_not_exist: Artikulu hau ez da existitzen Wikipedian
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
@@ -188,8 +197,11 @@ eu:
     course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
     create_campaign: Kanpaina berria sortu
     create_my_campaign: Sortu nire kanpaina!
+    customize_passcode: pasahitz lehenetsia
     default_course_type: Ikastaro mota lehenetsia
     default_passcode: Pasahitz lehenetsia
+    default_passcode_explanation: 'Lehentesiz, kanpainiako programa berriek hurrengoa
+      izan beharko dute:'
     description: Deskribapena
     delete_campaign: Ezabatu kanpaina hau
     no_passcode: Pasahitzik ez
@@ -200,6 +212,7 @@ eu:
     program_template: Programa txantiloia
     program_template_tooltip: Antolatzaile batek kanpaina honetan programa bat sortzen
       duenean, arlo honetako testua deskribapen gisa kopiatuko da programako orrian
+    random_passcode: Pasahitz aleatorioa
     title: Izenburua
     use_start_end_dates: Hasiera eta amaiera datak erabili
   categories:
@@ -315,6 +328,12 @@ eu:
       no_class_holidays: Ez dut klase oporrik
       role_description: Ikastaroko zure rola
       role_description_placeholder: Irakaslea, irakasle-laguntzailea, etab.
+      separate_event_dates: Zehaztu ekitalde banatuen hasiera/amaierako ordutegiak
+      separate_event_dates_info: Programa honen estatistiken estatistikak jarraian
+        zehaztutako datak eta orduetan oinarrituko dira, baina gertaera edo programa
+        bera hasten eta amaitzen denean (adibidez, parte-hartzaileek noiz agertuko
+        den edo noiz ateratzen den jakiteko) gertakari zehatzak zehaztu ahal izango
+        dituzu.
       save_cloned_course: Gorde ikastaro berria
       start_date: Hasiera data
       start_date_placeholder: Hasiera data (YYYY-MM-DD)
@@ -501,6 +520,10 @@ eu:
     campaigns: 'Kanpainak:'
     campaign_courses: '%{title} Programak'
     creator:
+      assignment_end: Ekitaldia amaitu da
+      assignment_end_placeholder: Ekitaldiaren amaiera (UUUU-HH-EE)
+      assignment_start: Ekitaldi hasiera
+      assignment_start_placeholder: Ekitaldi hasiera (UUUU-HH-EE)
       checking_for_uniqueness: Programa honen esklusibotasuna egiaztatzen ari gara
       choose_clone: Klonatzeko programa bat aukeratu
       clone_previous: Aurreko programa klonatu
@@ -521,6 +544,7 @@ eu:
       create_label: Proiektu berria sortu
       create_new: Programa independente bat sortu
       create_short: Programa sortu
+      end_date: Aktibitate jarraipenaren amaiera
       find: Programa bat bilatu
       intro: Programaren izenburuak eta erakundeak osatzen dute URLa. Hasierako wikia
         parte-hartzaileek lan egingo duten wiki nagusia da, eta wiki honetako aldaketei
@@ -531,8 +555,10 @@ eu:
         hartutako beste programa bat kopiatzeko.
       participate_in_campaign: Kanpaina batean parte hartu
       save_cloned_course: Gorde
+      start_date: Aktibitate jarraipenaren hasiera
     delete_course: Programa ezabatu
     edit_course_dates: Proiektuaren datak aldatu
+    end: Aktibitate jarraipenaren amaiera
     enroll: Editorea gehitu
     enrollment: Parte-hartzea
     explore: Programak bilatu
@@ -549,6 +575,7 @@ eu:
     revisions_none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     school: Erakundea
     school_and_term: Erakundea/Noiz
+    start: Aktibitate jarraipenaren hasiera
     student_editors: Editoreak
     students: Editoreak
     students_taught: Editoreak guztira
@@ -799,6 +826,7 @@ eu:
     characters_added_mainspace: IT Nagusira gehitutako karaktereak
     characters_added_short: 'I-T Nag: %{mainspace}, Lank Or: %{userspace}'
     characters_added_userspace: Lank Or gehitutako karaktereak
+    characters_added_draftspace: IT Nagusira gehitutako karaktereak
     my_assigned: 'Esleitua:'
     my_reviewing: 'Berrikusten:'
     name: Izena

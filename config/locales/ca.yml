@@ -146,7 +146,7 @@ ca:
     campaign: Campanya
     campaigns: Campanyes
     campaign_deleted: La campanya "%{de campanya}" ha estat eliminada
-    campaign_not_updated: La campanya ha pogut ser actualitzada
+    campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
     create_campaign: Crear una nova Campanya
     create_my_campaign: Crear la meva Campanya!
@@ -158,7 +158,7 @@ ca:
     organizers: Organitzadors
     organizer_added: '%{L''usuari} és ara un organitzador de la campanya "%{title}"'
     title: Títol
-    use_start_end_dates: Inici d'ús i dates de final
+    use_start_end_dates: Utilitza les dates inicial i final
   categories:
     add_category: Afegeix una categoria
     add_template: 'Afegeix una plantilla:'
@@ -172,7 +172,7 @@ ca:
     label: Xat
   courses:
     activity: Activitat
-    all_courses: Tots els  Cursos
+    all_courses: Tots els cursos
     already_enrolled: Ja formeu part de la '%{title}'!
     already_exists: Això ja existeix per a aquest curs!
     archived: Cursos arxivats
@@ -214,7 +214,7 @@ ca:
       assignment_start: Inici de la tasca
       assignment_start_placeholder: Inici de la tasca (AAAA-MM-DD)
       checking_for_uniqueness: Estem mirant si aquest curs és únic.
-      choose_clone: Escollir un curs per clonar.
+      choose_clone: Trieu un curs per a clonar-lo.
       cloned_course_calendar_instructions: Selecciona les dates per afegir o treure-les
         de la planificació (per ex., vacances, dies de lliure disposició). Clica a
         la data per canviar entre de-seleccionat, seleccionat i vacances. Si no teniu
@@ -247,7 +247,7 @@ ca:
         la teva tasca de Viquipèdia.
       no_class_holidays: No faig mai vacances
       role_description: La vostra funció en el curs
-      role_description_placeholder: Instructor, ensenyant ajudant, etc
+      role_description_placeholder: Instructor, auxiliar docent, etc.
       save_cloned_course: Guarda el curs nou
       start_date: Data d'inici
       start_date_placeholder: Data d'inici (AAAA-MM-DD)
@@ -557,7 +557,7 @@ ca:
     no_articles: No hi ha articles
     no_revisions: Aquest editor no ha fet cap revisió.
     recent_revisions: Edicions recents
-    remove_confirmation: Esteu segur que voleu eliminar a %{username}?
+    remove_confirmation: Esteu segur que voleu eliminar %{username}?
     revisions_doc: El nombre d'edicions realitzades per aquest editor en els últims
       7 dies
     reviewers: Revisor(s)

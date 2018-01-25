@@ -314,6 +314,7 @@ es:
         clic en "Crear mi curso" para iniciar la construcción del cronograma para
         tu tarea en Wikipedia.
       no_class_holidays: Yo no tengo vacaciones de clases
+      role_description_placeholder: Instructor, profesor de apoyo, etc.
       save_cloned_course: Guardar curso nuevo
       start_date: Fecha de inicio
       start_date_placeholder: Fecha de inicio (AAAA-MM-DD)

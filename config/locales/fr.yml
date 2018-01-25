@@ -100,6 +100,7 @@ fr:
     edited_by: Modifié par
     label: Activité
   articles:
+    article_development: (développement d’article)
     assigned: Articles affectés
     available: Articles disponibles
     assigned_to: Assigné à
@@ -114,6 +115,7 @@ fr:
     edited_by: 'Modifié par :'
     edited_mobile: Articles
     hide: Masquer
+    history: (historique)
     label: Articles
     loading: Chargement des articles...
     new: (nouveau)
@@ -866,6 +868,7 @@ fr:
     characters_added_mainspace: Caractères MS ajoutés
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caractères US ajoutés
+    characters_added_draftspace: Caractères espaces d’ébauche ajoutés
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom

@@ -89,6 +89,7 @@ pt:
     edited_by: Editado por
     label: Atividade
   articles:
+    article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos disponíveis
     assigned_to: Atribuído a
@@ -103,6 +104,7 @@ pt:
     edited_by: 'Editado por:'
     edited_mobile: Artigos
     hide: Ocultar
+    history: (histórico)
     label: Artigos
     loading: A carregar artigos...
     new: (novo)
@@ -655,7 +657,7 @@ pt:
     datetime: Data/Horário
     did_you_know_eligible: Sabia que Elegível
     image: Imagem
-    file_name: Nome do Arquivo
+    file_name: Nome do ficheiro
     no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
     no_plagiarism: Não há atualmente nenhuma revisão suspeita de plágio.
     no_edits: Não existem edições recentes.
@@ -842,6 +844,7 @@ pt:
     characters_added_mainspace: Os caracteres foram acrescentados no espaço principal
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Os caracteres foram acrescentados no espaço do utilizador
+    characters_added_draftspace: Os caracteres foram acrescentados no espaço do rascunho
     my_assigned: 'Atribuição:'
     my_reviewing: 'A revisar:'
     name: Nome

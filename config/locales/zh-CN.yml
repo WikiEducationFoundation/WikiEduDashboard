@@ -68,6 +68,7 @@ zh-CN:
     edited_by: 编辑自
     label: 活跃
   articles:
+    article_development: （条目开发）
     assigned: 分配的条目
     available: 可用条目
     assigned_to: 分配给
@@ -77,6 +78,7 @@ zh-CN:
     edited_by: 编辑者：
     edited_mobile: 条目
     hide: 隐藏
+    history: （历史）
     label: 条目
     loading: 正在加载条目...
     new: （新）
@@ -655,6 +657,7 @@ zh-CN:
     characters_added_mainspace: 添加的主空间字符
     characters_added_short: 主空间：%{mainspace}，用户空间：%{userspace}
     characters_added_userspace: 添加的用户空间字符
+    characters_added_draftspace: 添加的草稿空间字符
     my_assigned: 已分配：
     my_reviewing: 正在复核：
     name: 名字
