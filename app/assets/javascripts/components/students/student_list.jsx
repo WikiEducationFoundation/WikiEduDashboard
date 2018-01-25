@@ -12,7 +12,7 @@ import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
-import RequestAccountsButton from './request_accounts_button.jsx';
+import NewAccountModal from '../enroll/new_account_modal.jsx';
 
 import UserStore from '../../stores/user_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
@@ -46,8 +46,22 @@ const StudentList = createReactClass({
     actions: PropTypes.object
   },
 
+  getInitialState() {
+    return {
+      showModal: false
+    };
+  },
+
   componentWillUnmount() {
     this.props.actions.resetUI();
+  },
+
+  openModal() {
+    this.setState({ showModal: true });
+  },
+
+  closeModal() {
+    this.setState({ showModal: false });
   },
 
   notify() {
@@ -100,12 +114,19 @@ const StudentList = createReactClass({
     const elements = _.flatten(_.zip(users, drawers));
 
     let addStudent;
-    let requestAccounts;
+    let requestAccountsModal;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
-      if (this.props.course.flags.register_accounts === true) {
-      requestAccounts = <RequestAccountsButton {...this.props} key="request_accounts" />;
+      if (this.props.course.flags.register_accounts === true && this.state.showModal) {
+        console.log(this.props.course.flags.register_accounts);
+        requestAccountsModal = <NewAccountModal course={this.props.course} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+      } else {
+        requestAccountsModal = (
+          <button onClick={this.openModal} className="request_accounts button auth signup border margin">
+            <i className="icon icon-wiki-logo" /> {I18n.t('application.sign_up_extended')}
+          </button>
+        );
       }
   }
 
@@ -145,7 +166,7 @@ const StudentList = createReactClass({
 
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, requestAccounts, notifyOverdue], this.props.users.length < 1)}
+        {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.users.length < 1)}
         <List
           elements={elements}
           className="table--expandable table--hoverable"

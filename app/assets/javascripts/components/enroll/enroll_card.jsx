@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NewAccountButton from './new_account_button.jsx'
+import NewAccountButton from './new_account_button.jsx';
 
 const EnrollCard = ({
   user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason
