@@ -125,8 +125,8 @@ describe Campaign do
       campaign.start = '2016-01-10'
       campaign.end = '2016-02-10'
       campaign.save
-      expect(campaign.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
-      expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+      expect(campaign.start).to eq(Time.new(2016, 1, 10, 0, 0, 0))
+      expect(campaign.end).to eq(Time.new(2016, 2, 10, 23, 59, 59))
     end
   end
 end

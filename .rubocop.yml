@@ -83,8 +83,6 @@ Style/FormatStringToken:
   Enabled: false
 Rails/FilePath:
   Enabled: false
-Style/DateTime:
-  Enabled: false
 Rails/TimeZone:
   Enabled: false
 Rails/Date:
