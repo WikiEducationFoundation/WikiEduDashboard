@@ -103,7 +103,6 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'rubocop', require: false
-  gem 'zeus', platforms: :ruby # zeus doesn't work on Windows
   gem 'timecop' # Test utility for setting the time
   gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
