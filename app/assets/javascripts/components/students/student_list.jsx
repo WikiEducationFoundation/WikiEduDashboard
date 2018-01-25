@@ -112,14 +112,12 @@ const StudentList = createReactClass({
       );
     });
     const elements = _.flatten(_.zip(users, drawers));
-
     let addStudent;
     let requestAccountsModal;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
-      if (this.props.course.flags.register_accounts === true && this.state.showModal) {
-        console.log(this.props.course.flags.register_accounts);
+      if (this.state.showModal && this.props.course.flags.register_accounts === true) {
         requestAccountsModal = <NewAccountModal course={this.props.course} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
       } else {
         requestAccountsModal = (
