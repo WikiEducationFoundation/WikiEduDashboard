@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
   end
 
   def talk_page
-    "User_talk:#{url_encoded_username}"
+    "User talk:#{username}"
   end
 
   def url_encoded_username
