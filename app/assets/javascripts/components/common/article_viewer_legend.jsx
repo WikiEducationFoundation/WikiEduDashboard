@@ -22,17 +22,17 @@ const ArticleViewerLegend = ({ article, users, colors, status }) => {
     usersStatus = (
       <div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-        <div className="user-legend authorship-status">loading authorship data</div>
+        <div className="user-legend authorship-status">{I18n.t('users.authorship_data')}</div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
       </div>
     );
   } else if (status === 'failed') {
-    usersStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
+    usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}</div>;
   }
 
   return (
     <div className="user-legend-wrap">
-      <div className="user-legend">Edits by: </div>
+      <div className="user-legend">{I18n.t('users.edits_by')} </div>
       {userLinks}
       {usersStatus}
     </div>
