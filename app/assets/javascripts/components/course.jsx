@@ -160,7 +160,7 @@ const Course = createReactClass({
     }
 
     // For published courses with no students, highlight the enroll link
-    const hasNoStudents = this.props.users.isLoaded && this.props.studentCount === 0;
+    const hasNoStudents = this.props.usersLoaded && this.props.studentCount === 0;
     if (userRoles.isNonstudent && this.state.course.published && hasNoStudents && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
@@ -269,6 +269,7 @@ const Course = createReactClass({
 
 const mapStateToProps = state => ({
   users: state.users.users,
+  usersLoaded: state.users.isLoaded,
   studentCount: getFiltered(state.users.users, { role: 0 }).length,
   currentUser: getCurrentUser(state.users.users)
 });
