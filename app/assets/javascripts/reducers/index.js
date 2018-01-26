@@ -9,6 +9,7 @@ import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import notifications from './notifications';
 import recentEdits from './recent_edits.js';
+import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
@@ -26,6 +27,7 @@ const reducer = combineReducers({
   needHelpAlert,
   notifications,
   recentEdits,
+  recentUploads,
   revisions,
   ui,
   userCourses,
