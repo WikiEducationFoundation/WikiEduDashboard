@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe CreateRequestedAccount do
+describe CreateRequestedAccount, focus: true do
   let(:creator) { create(:admin) }
   let(:course) { create(:course) }
   let(:user) { create(:user) }
@@ -18,13 +18,16 @@ describe CreateRequestedAccount do
     expect(user.username).to eq("Ragesock")
   end
 
-  it 'does not create the requested account if the username already exist' do
+  it 'destroys the requested account if the username already exist' do
     stub_account_creation_failure_userexists
     expect(subject.result[:failure]).not_to be_nil
+    expect(RequestedAccount.count).to eq(0)
   end
 
-  it 'does not create the requested account when unexpected responses' do
+  it 'logs an error and keeps the requested account when unexpected responses' do
+    expect(Raven).to receive(:capture_exception)
     stub_account_creation_failure_unexpected
     expect(subject.result[:failure]).not_to be_nil
+    expect(RequestedAccount.count).to eq(1)
   end
 end
