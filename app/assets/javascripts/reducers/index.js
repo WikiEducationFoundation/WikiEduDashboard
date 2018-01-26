@@ -22,6 +22,7 @@ const reducer = combineReducers({
   confirm,
   course,
   courseCreator,
+  currentUserFromHtml: (state = null) => state, // only set from preloaded state
   didYouKnow,
   feedback,
   needHelpAlert,

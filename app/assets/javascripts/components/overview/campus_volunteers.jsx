@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
-import _ from 'lodash';
-import { getFiltered } from '../../utils/model_utils';
+import { getCampusVolunteerUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
+import { CAMPUS_VOLUNTEER_ROLE } from '../../constants';
 
-const CAMPUS_VOLUNTEER_ROLE = 3;
 const CampusVolunteers = props => {
   return (
     <InlineUsers {...props} users={props.campusVolunteers} role={CAMPUS_VOLUNTEER_ROLE} title="Campus Volunteers" />
@@ -12,7 +11,7 @@ const CampusVolunteers = props => {
 };
 
 const mapStateToProps = state => ({
-  campusVolunteers: _.sortBy(getFiltered(state.users.users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
+  campusVolunteers: getCampusVolunteerUsers(state)
 });
 
 export default connect(mapStateToProps)(CampusVolunteers);

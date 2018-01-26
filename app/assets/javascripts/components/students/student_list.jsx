@@ -6,7 +6,7 @@ import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
 import { sortUsers } from '../../actions/user_actions';
-import { getFiltered } from '../../utils/model_utils';
+import { getStudentUsers } from '../../selectors';
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -153,7 +153,7 @@ const StudentList = createReactClass({
 
 const mapStateToProps = state => ({
   openKey: state.ui.openKey,
-  students: getFiltered(state.users.users, { role: STUDENT_ROLE })
+  students: getStudentUsers(state)
 });
 
 const mapDispatchToProps = {

@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from "react-redux";
-import _ from 'lodash';
-import { getFiltered } from '../../utils/model_utils';
+import { getInstructorUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import { INSTRUCTOR_ROLE } from '../../constants';
 
-const INSTRUCTOR_ROLE = 1;
 const Instructors = props => {
   return (
     <InlineUsers {...props} users={props.instructors} role={INSTRUCTOR_ROLE} title={CourseUtils.i18n('instructors', props.course.string_prefix)} />
@@ -13,7 +12,7 @@ const Instructors = props => {
 };
 
 const mapStateToProps = state => ({
-  instructors: _.sortBy(getFiltered(state.users.users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
+  instructors: getInstructorUsers(state)
 });
 
 export default connect(mapStateToProps)(Instructors);

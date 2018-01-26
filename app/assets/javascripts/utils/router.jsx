@@ -108,12 +108,14 @@ const routes = (
 
 const reactRoot = document.getElementById('react_root');
 if (reactRoot) {
+  const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
   const preloadedState = {
     courseCreator: {
       defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
       courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
       useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
-    }
+    },
+    currentUserFromHtml
   };
 
   // This is the Redux store.

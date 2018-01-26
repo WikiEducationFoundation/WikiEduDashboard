@@ -12,20 +12,11 @@ import CourseStore from '../stores/course_store.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
-import UserUtils from '../utils/user_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
 import OptInNotification from './common/opt_in_notification';
-import { getFiltered } from '../utils/model_utils';
-
-const getCurrentUser = users => {
-  const currentUserFromHtml = $('#react_root').data('current_user');
-  const currentUserFromUsers = getFiltered(users, { id: currentUserFromHtml.id })[0];
-  const currentUser = currentUserFromUsers || currentUserFromHtml;
-  const userRoles = UserUtils.userRoles(currentUser, users);
-  return { ...currentUser, ...userRoles };
-};
+import { getStudentCount, getCurrentUser } from '../selectors';
 
 const getState = function () {
   return {
@@ -270,8 +261,8 @@ const Course = createReactClass({
 const mapStateToProps = state => ({
   users: state.users.users,
   usersLoaded: state.users.isLoaded,
-  studentCount: getFiltered(state.users.users, { role: 0 }).length,
-  currentUser: getCurrentUser(state.users.users)
+  studentCount: getStudentCount(state),
+  currentUser: getCurrentUser(state)
 });
 
 const mapDispatchToProps = {

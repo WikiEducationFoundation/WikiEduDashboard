@@ -1,10 +1,9 @@
 import React from 'react';
 import { connect } from "react-redux";
-import _ from 'lodash';
-import { getFiltered } from '../../utils/model_utils';
+import { getOnlineVolunteerUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
+import { ONLINE_VOLUNTEER_ROLE } from '../../constants';
 
-const ONLINE_VOLUNTEER_ROLE = 2;
 const OnlineVolunteers = props => {
   return (
     <InlineUsers {...props} users={props.onlineVolunteers} role={ONLINE_VOLUNTEER_ROLE} title="Online Volunteers" />
@@ -12,7 +11,7 @@ const OnlineVolunteers = props => {
 };
 
 const mapStateToProps = state => ({
-  onlineVolunteers: _.sortBy(getFiltered(state.users.users, { role: ONLINE_VOLUNTEER_ROLE }), 'enrolled_at')
+  onlineVolunteers: getOnlineVolunteerUsers(state)
 });
 
 export default connect(mapStateToProps)(OnlineVolunteers);

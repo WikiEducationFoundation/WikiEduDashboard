@@ -38,7 +38,7 @@ const EnrollButton = createReactClass({
 
   componentWillReceiveProps(newProps) {
     // This handles an added user showing up after being successfully added
-    if (!this.refs.username) { return; }
+    if (!this.refs.username || !this.refs.username.value) { return; }
     const username = this.refs.username.value;
     if (getFiltered(newProps.users, { username, role: this.props.role }).length > 0) {
       this.props.addNotification({

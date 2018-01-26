@@ -3,8 +3,8 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getFiltered } from '../../utils/model_utils';
 import * as AlertActions from '../../actions/alert_actions.js';
+import { getStaffUsers, getProgramManagers, getContentExperts } from '../../selectors';
 
 import Expandable from '../high_order/expandable.jsx';
 
@@ -243,13 +243,12 @@ const GetHelpButton = createReactClass({
   }
 });
 
-const STAFF_ROLE = 4;
 const mapStateToProps = state => ({
   alertSubmitting: state.needHelpAlert.submitted,
   alertCreated: state.needHelpAlert.created,
-  contentExperts: getFiltered(state.users.users, { content_expert: true, role: STAFF_ROLE }),
-  programManagers: getFiltered(state.users.users, { program_manager: true, role: STAFF_ROLE }),
-  staffUsers: getFiltered(state.users.users, { role: STAFF_ROLE })
+  contentExperts: getContentExperts(state),
+  programManagers: getProgramManagers(state),
+  staffUsers: getStaffUsers(state)
 });
 
 const mapDispatchToProps = dispatch => ({
