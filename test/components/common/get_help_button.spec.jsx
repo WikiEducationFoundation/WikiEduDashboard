@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 
+import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
 import GetHelpButton from '../../../app/assets/javascripts/components/common/get_help_button.jsx';
+
+const users = [
+  { email: 'expert@wikiedu.org', username: 'Wiki Expert', context_expert: true, role: 4 },
+  { email: 'manager@wikiedu.org', username: 'Wiki Manager', program_manager: true, role: 4 }
+];
+const initialState = { users: { users } };
+const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
 describe('GetHelpButton', () => {
   describe('Content', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -31,7 +41,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -52,48 +62,48 @@ describe('GetHelpButton', () => {
       });
     });
 
-    // it('should switch to form', (done) => {
-    //   const expertLink = popContainer.querySelectorAll('.wikipedia-help-link')[0];
-    //   expect(ReactTestUtils.isDOMComponent(expertLink)).to.eq(true);
-    //   ReactTestUtils.Simulate.click(expertLink);
-    //   setImmediate(() => {
-    //     expect(popContainer.querySelectorAll('.get-help-info').length).to.eq(0);
-    //     expect(popContainer.querySelectorAll('.get-help-form').length).to.eq(1);
-    //     done();
-    //   });
-    // });
+    it('should switch to form', (done) => {
+      const expertLink = popContainer.querySelectorAll('.wikipedia-help-link')[0];
+      expect(ReactTestUtils.isDOMComponent(expertLink)).to.eq(true);
+      ReactTestUtils.Simulate.click(expertLink);
+      setImmediate(() => {
+        expect(popContainer.querySelectorAll('.get-help-info').length).to.eq(0);
+        expect(popContainer.querySelectorAll('.get-help-form').length).to.eq(1);
+        done();
+      });
+    });
   });
 
-  // describe('As an instructor', () => {
-  //   const currentUser = { role: 1 };
-  //
-  //   const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-  //     <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
-  //   );
-  //
-  //   const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
-  //
-  //   it('lists the both wikipedia help and program help', () => {
-  //     const wikipediaHelp = popContainer.querySelector('.contact-wikipedia-help');
-  //     const programHelp = popContainer.querySelector('.contact-program-help');
-  //     expect(wikipediaHelp.textContent).to.eq('question about editing Wikipedia');
-  //     expect(programHelp.textContent).to.eq('question about Wiki Ed or your assignment');
-  //   });
-  // });
+  describe('As an instructor', () => {
+    const currentUser = { role: 1 };
 
-  // describe('As a student', () => {
-  //   const currentUser = { role: 0 };
-  //
-  //   const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-  //     <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
-  //   );
-  //
-  //   const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
-  //
-  //   it('only lists the content expert', () => {
-  //     const contentExperts = popContainer.querySelector('.contact-wikipedia-help');
-  //     expect(contentExperts.textContent).to.eq('question about editing Wikipedia');
-  //     expect(popContainer.querySelectorAll('.contact-program-help').length).to.eq(0);
-  //   });
-  // });
+    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
+    );
+
+    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
+
+    it('lists the both wikipedia help and program help', () => {
+      const wikipediaHelp = popContainer.querySelector('.contact-wikipedia-help');
+      const programHelp = popContainer.querySelector('.contact-program-help');
+      expect(wikipediaHelp.textContent).to.eq('question about editing Wikipedia');
+      expect(programHelp.textContent).to.eq('question about Wiki Ed or your assignment');
+    });
+  });
+
+  describe('As a student', () => {
+    const currentUser = { role: 0 };
+
+    const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
+    );
+
+    const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
+
+    it('only lists the content expert', () => {
+      const contentExperts = popContainer.querySelector('.contact-wikipedia-help');
+      expect(contentExperts.textContent).to.eq('question about editing Wikipedia');
+      expect(popContainer.querySelectorAll('.contact-program-help').length).to.eq(0);
+    });
+  });
 });
