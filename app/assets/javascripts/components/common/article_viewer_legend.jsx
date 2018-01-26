@@ -22,7 +22,7 @@ const ArticleViewerLegend = ({ article, users, colors, status }) => {
     usersStatus = (
       <div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-        <div className="user-legend authorship-status">{I18n.t('users.authorship_data')}</div>
+        <div className="user-legend authorship-status">{I18n.t('users.loading_authorship_data')}</div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
       </div>
     );

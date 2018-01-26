@@ -658,7 +658,7 @@ qqq:
     assign_articles_done: '{{Identical|Done}}'
     assigned: Label for articles assigned to a user
     assignees: Label for list of assigned users for an article
-    authorship_data: Message indicating that authorship data is being loaded
+    loading_authorship_data: Message indicating that authorship data is being loaded
     authorship_data_not_fetched: Message indicating that authorship data could not be fetched
     character_doc: Explanation of the characters added for a user
     contributions: Label for list of contributions by a user
