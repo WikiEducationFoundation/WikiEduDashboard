@@ -71,7 +71,7 @@ class RequestedAccountsController < ApplicationController
   end
 
   def raise_unauthorized_exception
-    raise ActionController::InvalidAuthenticityToken.new('Unauthorized')
+    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
   end
 
   def set_course
