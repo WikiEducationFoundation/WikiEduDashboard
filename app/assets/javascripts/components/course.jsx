@@ -1,12 +1,14 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import ServerActions from '../actions/server_actions.js';
+import { fetchUsers } from '../actions/user_actions.js';
 import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
-import UserStore from '../stores/user_store.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
@@ -15,16 +17,19 @@ import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
 import OptInNotification from './common/opt_in_notification';
+import { getFiltered } from '../utils/model_utils';
+
+const getCurrentUser = users => {
+  const currentUserFromHtml = $('#react_root').data('current_user');
+  const currentUserFromUsers = getFiltered(users, { id: currentUserFromHtml.id })[0];
+  const currentUser = currentUserFromUsers || currentUserFromHtml;
+  const userRoles = UserUtils.userRoles(currentUser, users);
+  return { ...currentUser, ...userRoles };
+};
 
 const getState = function () {
-  const current = $('#react_root').data('current_user');
-  const cu = UserStore.getFiltered({ id: current.id })[0];
-  let currentUser = cu || current;
-  const userRoles = UserUtils.userRoles(currentUser, UserStore);
-  currentUser = { ...currentUser, ...userRoles };
   return {
     course: CourseStore.getCourse(),
-    current_user: currentUser,
     weeks: WeekStore.getWeeks()
   };
 };
@@ -36,19 +41,21 @@ const Course = createReactClass({
     params: PropTypes.object,
     location: PropTypes.object,
     children: PropTypes.node,
-    current_user: PropTypes.object
+    currentUser: PropTypes.object
   },
 
-  mixins: [CourseStore.mixin, UserStore.mixin, WeekStore.mixin],
+  mixins: [CourseStore.mixin, WeekStore.mixin],
 
   getInitialState() {
     return getState();
   },
 
   componentWillMount() {
-    ServerActions.fetch('course', this.getCourseID());
-    ServerActions.fetch('users', this.getCourseID());
-    return ServerActions.fetch('campaigns', this.getCourseID());
+    const courseID = this.getCourseID();
+    ServerActions.fetch('course', courseID);
+    this.props.fetchUsers(courseID);
+    ServerActions.fetch('users', courseID);
+    return ServerActions.fetch('campaigns', courseID);
   },
 
   getCourseID() {
@@ -83,7 +90,7 @@ const Course = createReactClass({
     if (!courseId || !this.state.course || !this.state.course.home_wiki) { return <div />; }
 
     const alerts = [];
-    const userRoles = this.state.current_user;
+    const userRoles = this.props.currentUser;
     // //////////////////////////////////
     // Admin / Instructor notifications /
     // //////////////////////////////////
@@ -153,7 +160,7 @@ const Course = createReactClass({
     }
 
     // For published courses with no students, highlight the enroll link
-    const hasNoStudents = UserStore.isLoaded() && UserStore.getFiltered({ role: 0 }).length === 0;
+    const hasNoStudents = this.props.users.isLoaded && this.props.studentCount === 0;
     if (userRoles.isNonstudent && this.state.course.published && hasNoStudents && !this.state.course.legacy) {
       const enrollEquals = '?enroll=';
       const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
@@ -223,7 +230,7 @@ const Course = createReactClass({
     if (this.props.location.query.enroll !== undefined || this.props.location.query.enrolled) {
       enrollCard = (
         <EnrollCard
-          user={this.state.current_user}
+          user={this.props.currentUser}
           userRoles={userRoles}
           course={this.state.course}
           courseLink={this._courseLinkParams()}
@@ -241,7 +248,7 @@ const Course = createReactClass({
             <CourseNavbar
               course={this.state.course}
               location={this.props.location}
-              currentUser={this.state.current_user}
+              currentUser={this.props.currentUser}
               courseLink={this._courseLinkParams()}
             />
             <Notifications />
@@ -253,11 +260,21 @@ const Course = createReactClass({
         <div className="course_main container">
           <Confirm />
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.state.current_user, course: this.state.course })}
+          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.props.currentUser, course: this.state.course })}
         </div>
       </div>
     );
   }
 });
 
-export default Course;
+const mapStateToProps = state => ({
+  users: state.users.users,
+  studentCount: getFiltered(state.users.users, { role: 0 }).length,
+  currentUser: getCurrentUser(state.users.users)
+});
+
+const mapDispatchToProps = {
+  fetchUsers
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Course);

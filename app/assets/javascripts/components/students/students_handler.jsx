@@ -1,8 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
+import { sortUsers } from '../../actions/user_actions';
 import StudentList from './student_list.jsx';
-import UIActions from '../../actions/ui_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
@@ -20,7 +22,7 @@ const StudentsHandler = createReactClass({
     return ServerActions.fetch('assignments', this.props.course_id);
   },
   sortSelect(e) {
-    return UIActions.sort('users', e.target.value);
+    return this.props.sortUsers(e.target.value);
   },
   render() {
     let firstNameSorting;
@@ -57,4 +59,8 @@ const StudentsHandler = createReactClass({
 }
 );
 
-export default StudentsHandler;
+const mapDispatchToProps = {
+  sortUsers
+};
+
+export default connect(null, mapDispatchToProps)(StudentsHandler);

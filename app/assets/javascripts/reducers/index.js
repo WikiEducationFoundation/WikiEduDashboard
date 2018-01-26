@@ -13,6 +13,7 @@ import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
+import users from './users';
 
 
 const reducer = combineReducers({
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   ui,
   userCourses,
   userProfile,
+  users
 });
 
 export default reducer;

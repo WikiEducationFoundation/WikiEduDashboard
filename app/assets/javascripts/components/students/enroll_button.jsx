@@ -5,12 +5,12 @@ import { connect } from "react-redux";
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
-import ServerActions from '../../actions/server_actions.js';
-import UserStore from '../../stores/user_store.js';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
 import { initiateConfirm } from '../../actions/confirm_actions';
+import { getFiltered } from '../../utils/model_utils';
+import { addUser, removeUser } from '../../actions/user_actions';
 
 const EnrollButton = createReactClass({
   displayName: 'EnrollButton',
@@ -29,8 +29,6 @@ const EnrollButton = createReactClass({
     initiateConfirm: PropTypes.func
   },
 
-  mixins: [UserStore.mixin],
-
   getInitialState() {
     return ({
       onConfirm: null,
@@ -42,11 +40,11 @@ const EnrollButton = createReactClass({
     return `add_user_role_${this.props.role}`;
   },
 
-  storeDidChange() {
-    // This handles an added user showing up in the UserStore
+  willReceiveProps(newProps) {
+    // This handles an added user showing up after being successfully added
     if (!this.refs.username) { return; }
     const username = this.refs.username.value;
-    if (UserStore.getFiltered({ username, role: this.props.role }).length > 0) {
+    if (getFiltered(newProps.users, { username, role: this.props.role }).length > 0) {
       this.props.addNotification({
         message: I18n.t('users.enrolled_success', { username }),
         closable: true,
@@ -76,14 +74,15 @@ const EnrollButton = createReactClass({
       real_name: realName
     };
 
+    const addUserAction = this.props.addUser;
     const onConfirm = function () {
-      // Post the new user to the server
-      ServerActions.add('user', courseId, { user: userObject });
+      // Post the new user enrollment to the server
+      addUserAction(courseId, { user: userObject });
     };
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
-    if (UserStore.getFiltered({ username, role: this.props.role }).length === 0) {
+    if (getFiltered(this.props.users, { username, role: this.props.role }).length === 0) {
       return this.props.initiateConfirm(confirmMessage, onConfirm);
     }
     // If the user us already enrolled
@@ -95,13 +94,14 @@ const EnrollButton = createReactClass({
   },
 
   unenroll(userId) {
-    const user = UserStore.getFiltered({ id: userId, role: this.props.role })[0];
+    const user = getFiltered(this.props.users, { id: userId, role: this.props.role })[0];
     const courseId = this.props.course_id;
     const userObject = { user_id: userId, role: this.props.role };
+    const removeUserAction = this.props.removeUser;
 
     const onConfirm = function () {
-      // Post the new user to the server
-      ServerActions.remove('user', courseId, { user: userObject });
+      // Post the user deletion request to the server
+      removeUserAction(courseId, { user: userObject });
     };
     const confirmMessage = I18n.t('users.remove_confirmation', { username: user.username });
     return this.props.initiateConfirm(confirmMessage, onConfirm);
@@ -202,7 +202,7 @@ const EnrollButton = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm, addNotification };
+const mapDispatchToProps = { initiateConfirm, addNotification, addUser, removeUser };
 
 export default connect(null, mapDispatchToProps)(
   Conditional(PopoverExpandable(EnrollButton))

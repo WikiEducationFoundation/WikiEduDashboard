@@ -8,6 +8,7 @@ export * from "./feedback";
 export * from "./need_help_alert";
 export * from "./notifications";
 export * from "./ui";
+export * from "./users";
 export * from "./recent_edits";
 export * from "./revisions";
 export * from "./user_courses";
