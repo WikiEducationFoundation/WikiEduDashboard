@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe CreateRequestedAccount do
+describe CreateRequestedAccount, focus: true do
   let(:creator) { create(:admin) }
   let(:course) { create(:course) }
   let(:user) { create(:user) }
-  let(:requested_account) { create(:requested_account, course_id: course.id, username: user.username, email: "Pepe") }
+  let(:requested_account) { create(:requested_account, course_id: course.id, username: user.username, email: user.email) }
   let(:subject) do
     described_class.new(requested_account, creator)
   end
@@ -16,5 +16,15 @@ describe CreateRequestedAccount do
     allow(UserImporter).to receive(:new_from_username).and_return(user)
     expect(subject.result[:success]).not_to be_nil
     expect(user.username).to eq("Ragesock")
+  end
+
+  it 'does not create the requested account if the username already exist' do
+    stub_account_creation_failure_userexists
+    expect(subject.result[:failure]).not_to be_nil
+  end
+
+  it 'does not create the requested account when unexpected responses' do
+    stub_account_creation_failure_unexpected
+    expect(subject.result[:failure]).not_to be_nil
   end
 end
