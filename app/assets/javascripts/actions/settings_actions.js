@@ -57,54 +57,56 @@ export function fetchAdminUsers() {
   };
 }
 
-export const upgradeAdmin = (username) => dispatch => {
+export const upgradeAdmin = (username) => {
   // update a user's admin status
   // username: user's username
   // newStatus (bool): if user should be an admin. If false, user is made an instructor
-  dispatch({
-    type: SUBMITTING_NEW_ADMIN,
-    data: {
-      submitting: true,
-    },
-  });
-
-  grantAdminPromise(username, true)
-    .then(() => {
-      dispatch({
-        type: SUBMITTING_NEW_ADMIN,
-        data: {
-        submitting: false
-        },
-      });
-      dispatch(addNotification({
-        type: 'success',
-        message: `${username} was upgraded to administrator.`,
-        closable: true
-        })
-      );
-
-      fetchAdminUsersPromise()
-        .then(resp =>
-          dispatch({
-            type: SET_ADMIN_USERS,
-            data: resp,
-          }))
-        .catch(response => (dispatch({ type: API_FAIL, data: response })));
-    }).catch((response) => {
-      dispatch({
-        type: SUBMITTING_NEW_ADMIN,
-        data: {
-        submitting: false
-        },
-      });
-
-      dispatch(addNotification({
-        type: 'error',
-        message: response.responseJSON.message,
-        closable: true
-        })
-      );
+  return (dispatch) => {
+    dispatch({
+      type: SUBMITTING_NEW_ADMIN,
+      data: {
+        submitting: true,
+      },
     });
+
+    return grantAdminPromise(username, true)
+      .then(() => {
+        dispatch({
+          type: SUBMITTING_NEW_ADMIN,
+          data: {
+          submitting: false
+          },
+        });
+        dispatch(addNotification({
+          type: 'success',
+          message: `${username} was upgraded to administrator.`,
+          closable: true
+          })
+        );
+
+        fetchAdminUsersPromise()
+          .then(resp =>
+            dispatch({
+              type: SET_ADMIN_USERS,
+              data: resp,
+            }))
+          .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      }).catch((response) => {
+        dispatch({
+          type: SUBMITTING_NEW_ADMIN,
+          data: {
+          submitting: false
+          },
+        });
+
+        dispatch(addNotification({
+          type: 'error',
+          message: response.responseJSON.message,
+          closable: true
+          })
+        );
+      });
+  };
 };
 
 export const downgradeAdmin = (username) => dispatch => {

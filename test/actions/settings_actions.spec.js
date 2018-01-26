@@ -1,5 +1,5 @@
 import '../testHelper';
-import { fetchAdminUsers } from '../../app/assets/javascripts/actions/settings_actions';
+import { fetchAdminUsers, upgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
 import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
 
 import configureMockStore from 'redux-mock-store';
@@ -8,13 +8,20 @@ import thunk from 'redux-thunk';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-describe('SettingsAactions', () => {
+describe('SettingsActions', () => {
   // example of how to test here: https://gist.github.com/kolodny/50e7384188bb5dc41ebb
 
   // or this: https://github.com/reactjs/redux/blob/master/docs/recipes/WritingTests.md#async-action-creators
 
-  it('adds admin users to the store', () => {
+  beforeEach(() => {
     sinon.stub($, "ajax").yieldsTo("success", { spam: 'eggs' });
+  });
+
+  afterEach(() => {
+    $.ajax.restore();
+  });
+
+  it('dispatches to SET_ADMIN_USERS', () => {
     const expectedActions = [
       { type: SET_ADMIN_USERS, data: { spam: 'eggs' } }
     ];
@@ -25,3 +32,52 @@ describe('SettingsAactions', () => {
     });
   });
 });
+
+describe('upgradeAdmin', () => {
+  let cannedResponse;
+  beforeEach(() => {
+    cannedResponse = { spam: 'eggs' }
+    sinon.stub($, "ajax")
+      .onCall(0).yieldsTo('success', {})
+      .onCall(1).yieldsTo('success', { spam: 'eggs' });
+  });
+
+  afterEach(() => {
+    $.ajax.restore();
+  });
+
+  it('dispatches to SUBMITTING_NEW_ADMIN', () => {
+    const username = 'someuser';
+    const expectedActions = [
+      {
+        type: 'SUBMITTING_NEW_ADMIN',
+        data: {
+          submitting: true,
+        },
+      },
+      {
+        type: 'SUBMITTING_NEW_ADMIN',
+        data: {
+          submitting: false
+        },
+      },
+      {
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          type: 'success',
+          message: `${username} was upgraded to administrator.`,
+          closable: true
+        },
+      },
+      {
+        type: 'SET_ADMIN_USERS',
+        data: cannedResponse,
+      }
+    ];
+    const store = mockStore({});
+    return store.dispatch(upgradeAdmin(username)).then(() => {
+      expect(store.getActions()).to.eql(expectedActions);
+    });
+  });
+});
+
