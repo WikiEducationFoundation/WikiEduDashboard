@@ -4,7 +4,7 @@
 class RequestedAccountsController < ApplicationController
   respond_to :html
   before_action :set_course
-  before_action :check_creation_permissions, only: %i[index create_accounts enable_account_requests]
+  before_action :check_creation_permissions, only: %i[index create_accounts enable_account_requests destroy]
 
   # This creates (or updates) a RequestedAccount, which is a username and email
   # for a user who wants to create a wiki account (but may not be able to do so
@@ -37,8 +37,11 @@ class RequestedAccountsController < ApplicationController
   def index; end
 
   def destroy
-    # TODO: let privileged user destroy bad account requests before processing
-    # the acceptable ones.
+    # raise exception unless requestedaccount belongs to course
+    requested_account = RequestedAccount.find_by(id: params[:id])
+    raise_unauthorized_exception unless @course.id == requested_account.course_id
+    requested_account.delete
+    redirect_back fallback_location: '/'
   end
 
   # Try to create each of the requested accounts for a course, and show the
@@ -63,9 +66,12 @@ class RequestedAccountsController < ApplicationController
   end
 
   def check_creation_permissions
-    return if user_signed_in? && current_user.can_edit?(@course)
-    exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')
-    raise exception
+    return if user_signed_in? && @course && current_user.can_edit?(@course)
+    raise_unauthorized_exception
+  end
+
+  def raise_unauthorized_exception
+    raise ActionController::InvalidAuthenticityToken.new('Unauthorized')
   end
 
   def set_course
