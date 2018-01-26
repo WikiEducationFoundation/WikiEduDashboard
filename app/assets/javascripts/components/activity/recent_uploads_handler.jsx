@@ -13,7 +13,7 @@ const HEADERS = [
       { title: I18n.t('recent_activity.datetime'), key: 'date', style: { width: 200 } },
     ];
 
-const RecentUploadsHandler = createReactClass({
+export const RecentUploadsHandlerBase = createReactClass({
   displayName: 'RecentUploadsHandler',
 
   propTypes: {
@@ -50,7 +50,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchRecentUploads: fetchRecentUploads
+  fetchRecentUploads
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecentUploadsHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(RecentUploadsHandlerBase);
