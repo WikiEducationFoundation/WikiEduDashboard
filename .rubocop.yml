@@ -24,6 +24,9 @@ Layout/AlignParameters:
 Layout/EmptyLines:
   Enabled: true
 
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
 Layout/ExtraSpacing:
   Enabled: true
 
@@ -109,8 +112,6 @@ Rails/TimeZone:
 Rails/Date:
   Enabled: false
 Rails/DynamicFindBy:
-  Enabled: false
-Layout/EmptyLineAfterMagicComment:
   Enabled: false
 Rails/PluralizationGrammar:
   Enabled: false
