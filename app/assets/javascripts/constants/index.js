@@ -14,3 +14,4 @@ export * from "./user_roles";
 export * from "./users";
 export * from "./recent_edits";
 export * from "./revisions";
+export * from "./suspected_plagiarism";
