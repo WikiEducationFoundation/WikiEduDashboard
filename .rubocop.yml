@@ -48,6 +48,9 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
 
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
 ########################
 # Permanent exceptions #
 ########################
@@ -126,8 +129,6 @@ Rails/Presence:
 Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
-  Enabled: false
-Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MixinUsage:
   Enabled: false
