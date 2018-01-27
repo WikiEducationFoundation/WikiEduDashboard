@@ -1,5 +1,5 @@
 import '../testHelper';
-import { fetchAdminUsers, upgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
+import { fetchAdminUsers, upgradeAdmin, downgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
 import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
 
 import configureMockStore from 'redux-mock-store';
@@ -81,3 +81,56 @@ describe('upgradeAdmin', () => {
   });
 });
 
+describe('downgradeAdmin', () => {
+  let cannedResponse;
+  beforeEach(() => {
+    cannedResponse = { spam: 'eggs' }
+    sinon.stub($, "ajax")
+      .onCall(0).yieldsTo('success', {})
+      .onCall(1).yieldsTo('success', { spam: 'eggs' });
+  });
+
+  afterEach(() => {
+    $.ajax.restore();
+  });
+
+  it('dispatches correctly', () => {
+    const username = 'someuser';
+    const expectedActions = [
+      {
+        type: 'REVOKING_ADMIN',
+        data: {
+          revoking: {
+            status: true,
+            username: username,
+          },
+        },
+      },
+      {
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          type: 'success',
+          message: `${username} was removed as an administrator.`,
+          closable: true
+        },
+      },
+      {
+        type: 'SET_ADMIN_USERS',
+        data: cannedResponse,
+      },
+      {
+        type: REVOKING_ADMIN,
+        data: {
+          revoking: {
+            status: false,
+            username: username,
+          },
+        },
+      }
+    ];
+    const store = mockStore({});
+    return store.dispatch(downgradeAdmin(username)).then(() => {
+      expect(store.getActions()).to.eql(expectedActions);
+    });
+  });
+});
