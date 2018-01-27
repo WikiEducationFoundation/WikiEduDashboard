@@ -15,6 +15,9 @@ AllCops:
     - 'docs/**/*'
   TargetRubyVersion: 2.5
 
+Layout/ExtraSpacing:
+  Enabled: true
+
 Layout/SpaceAroundOperators:
   Enabled: true
 
@@ -101,8 +104,6 @@ Style/StringLiterals:
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Layout/AlignHash:
-  Enabled: false
-Layout/ExtraSpacing:
   Enabled: false
 Layout/EmptyLines:
   Enabled: false
