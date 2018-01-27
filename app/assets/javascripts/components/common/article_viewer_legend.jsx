@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import UserUtils from '../../utils/user_utils.js';
 
-const ArticleViewerLegend = ({ article, users, colors, status }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers }) => {
   let userLinks;
   if (users) {
     userLinks = users.map((user, i) => {
       const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
+      const fullUserRecord = allUsers.find(_user => _user.username === user.name);
+      const realName = fullUserRecord && fullUserRecord.real_name;
       return (
         <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}>
-          <a href={userLink} target="_blank">{user.name}</a>
+          <a href={userLink} title={realName} target="_blank">{user.name}</a>
         </div>
       );
     });
@@ -46,4 +50,8 @@ ArticleViewerLegend.propTypes = {
   status: PropTypes.string
 };
 
-export default ArticleViewerLegend;
+const mapStateToProps = state => ({
+  allUsers: state.users.users
+});
+
+export default connect(mapStateToProps)(ArticleViewerLegend);
