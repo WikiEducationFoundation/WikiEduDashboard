@@ -16,7 +16,7 @@ const _fetchSuspectedPlagiarism = (opts = {}) => {
     );
   };
 
-export const _fetchSuspectedPlagiarism = (opts = {}) => dispatch => {
+export const fetchSuspectedPlagiarism = (opts = {}) => dispatch => {
   return (
     _fetchSuspectedPlagiarism(opts)
       .then(resp =>

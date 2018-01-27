@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ActivityTable from './activity_table.jsx';
-import { fetchsuspectedPlagiarism } from "../../actions/suspected_plagiarism_actions.js";
+import { fetchSuspectedPlagiarism } from "../../actions/suspected_plagiarism_actions.js";
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_plagiarism');
 
@@ -12,13 +12,11 @@ const HEADERS = [
       { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
     ];
 
-
-
 const PlagiarismHandler = createReactClass({
   displayName: 'PlagiarismHandler',
 
   propTypes: {
-    fetchsuspectedPlagiarism: PropTypes.func,
+    fetchSuspectedPlagiarism: PropTypes.func,
     revisions: PropTypes.array,
     loading: PropTypes.bool
    },
@@ -33,7 +31,7 @@ const PlagiarismHandler = createReactClass({
   },
 
   render() {
-     return (
+    return (
       <div>
         <label>
           <input ref="myCourses" type="checkbox" onChange={this.setCourseScope} />
@@ -59,4 +57,4 @@ const mapDispatchToProps = {
   fetchSuspectedPlagiarism: fetchSuspectedPlagiarism
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuspectedPlagiarismHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(PlagiarismHandler);
