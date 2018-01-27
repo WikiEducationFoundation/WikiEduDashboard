@@ -21,6 +21,9 @@ Layout/ExtraSpacing:
 Layout/SpaceAroundOperators:
   Enabled: true
 
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+
 Metrics/LineLength:
   Max: 100
 
@@ -100,8 +103,6 @@ Layout/EmptyLineAfterMagicComment:
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
 Layout/AlignHash:
   Enabled: false
