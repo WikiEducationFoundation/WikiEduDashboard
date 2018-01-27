@@ -18,6 +18,9 @@ AllCops:
 Layout/AlignHash:
   Enabled: true
 
+Layout/EmptyLines:
+  Enabled: true
+
 Layout/ExtraSpacing:
   Enabled: true
 
@@ -106,8 +109,6 @@ Layout/EmptyLineAfterMagicComment:
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
-Layout/EmptyLines:
   Enabled: false
 Layout/TrailingBlankLines:
   Enabled: false

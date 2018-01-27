@@ -19,7 +19,6 @@
 #  mw_page_id               :integer
 #
 
-
 require 'rails_helper'
 
 describe Article, type: :model do
