@@ -1,5 +1,5 @@
 import { RECEIVE_SUSPECTED_PLAGIARISM } from "../constants";
-
+//
 const initialState = {
   revisions: [],
   loading: true
