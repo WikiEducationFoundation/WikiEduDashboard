@@ -18,6 +18,9 @@ AllCops:
 Layout/AlignHash:
   Enabled: true
 
+Layout/AlignParameters:
+  Enabled: true
+
 Layout/EmptyLines:
   Enabled: true
 
@@ -114,8 +117,6 @@ Rails/PluralizationGrammar:
 Style/StringLiterals:
   Enabled: false
 Layout/MultilineBlockLayout:
-  Enabled: false
-Layout/AlignParameters:
   Enabled: false
 Lint/UnneededDisable:
   Enabled: false
