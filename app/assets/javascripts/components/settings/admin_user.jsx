@@ -56,17 +56,17 @@ class AdminUser extends React.Component {
     // }
 
     return (
-      <tr className="revision">
-        <td>
+      <tr className="user">
+        <td className="user__username">
           <p>{user.username}</p>
         </td>
-        <td>
+        <td className="user__real_name">
           <p>{user.real_name}</p>
         </td>
-        <td>
+        <td className="user__adminLevel">
           <p>{adminLevel}</p>
         </td>
-        <td>
+        <td className="user__revoke">
           <p>
             <button
               className={buttonClass}
