@@ -15,6 +15,9 @@ AllCops:
     - 'docs/**/*'
   TargetRubyVersion: 2.5
 
+Layout/SpaceAroundOperators:
+  Enabled: true
+
 Metrics/LineLength:
   Max: 100
 
@@ -94,8 +97,6 @@ Layout/EmptyLineAfterMagicComment:
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
-Layout/SpaceAroundOperators:
   Enabled: false
 Layout/SpaceInsideHashLiteralBraces:
   Enabled: false
