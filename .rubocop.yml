@@ -15,6 +15,9 @@ AllCops:
     - 'docs/**/*'
   TargetRubyVersion: 2.5
 
+Layout/AlignHash:
+  Enabled: true
+
 Layout/ExtraSpacing:
   Enabled: true
 
@@ -103,8 +106,6 @@ Layout/EmptyLineAfterMagicComment:
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
-  Enabled: false
-Layout/AlignHash:
   Enabled: false
 Layout/EmptyLines:
   Enabled: false
