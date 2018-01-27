@@ -810,6 +810,8 @@ en:
     assign_articles_done: Done
     assigned: Assigned Articles
     assignees: Assignee(s)
+    loading_authorship_data: loading authorship data
+    authorship_data_not_fetched: could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
@@ -824,6 +826,7 @@ en:
     contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
+    edits_by: 'Edits by: '
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
     enrolled_success: '%{username} was added successfully!'
