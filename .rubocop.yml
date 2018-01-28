@@ -15,30 +15,6 @@ AllCops:
     - 'docs/**/*'
   TargetRubyVersion: 2.5
 
-Layout/AlignHash:
-  Enabled: true
-
-Layout/AlignParameters:
-  Enabled: true
-
-Layout/EmptyLines:
-  Enabled: true
-
-Layout/EmptyLineAfterMagicComment:
-  Enabled: true
-
-Layout/ExtraSpacing:
-  Enabled: true
-
-Layout/SpaceAroundOperators:
-  Enabled: true
-
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: true
-
-Layout/TrailingBlankLines:
-  Enabled: true
-
 Metrics/LineLength:
   Max: 100
 
