@@ -48,9 +48,6 @@ Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
 
-Style/FrozenStringLiteralComment:
-  Enabled: true
-
 ########################
 # Permanent exceptions #
 ########################
