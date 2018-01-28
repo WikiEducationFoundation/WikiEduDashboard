@@ -49,7 +49,8 @@ Metrics/ModuleLength:
     - 'spec/**/*' # not a big deal in spec helper module
 
 Style/MixinUsage:
-  Enabled: true
+  Exclude:
+    - 'spec/**/*' # not a big deal in spec helper module
 
 ########################
 # Permanent exceptions #
