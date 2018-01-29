@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/revision_data_parser"
-require 'oj'
-
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
 #=   https://tools.wmflabs.org/wikiedudashboard

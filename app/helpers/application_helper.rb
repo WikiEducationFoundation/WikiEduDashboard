@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'oj'
 #= Root-level helpers
 module ApplicationHelper
   def logo_path

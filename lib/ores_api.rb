@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'oj'
-
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi

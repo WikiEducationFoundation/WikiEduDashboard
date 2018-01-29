@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'oj'
-
 #= Imports plagiarism data from tools.wmflabs.org/eranbot/plagiabot/api.py
 class PlagiabotImporter
   ################

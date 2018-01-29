@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'oj'
-
 class RocketChat
   def initialize(user: nil, course: nil)
     raise ChatDisabledError unless Features.enable_chat?

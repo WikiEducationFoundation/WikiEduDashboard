@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'oj'
 
 describe AssignmentsController do
   let!(:course) { create(:course, id: 1) }

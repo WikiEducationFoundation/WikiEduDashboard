@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'oj'
-
 #= Utilities
 class Utils
   # Take a list of items (ie, course ids) and breaks it into chunks of 50.
