@@ -12,6 +12,7 @@ else
 fi
 
 echo '[*] Adding keys...'
+
 # Add keys for Yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add - > /dev/null && \
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list > /dev/null
@@ -58,26 +59,26 @@ sudo systemctl start mariadb.service > /dev/null && \
 sudo systemctl enable mariadb.service > /dev/null && \
 echo 'MariaDB service started!'
 
-echo "[*] Creating Databases and User for Mysql..."
-echo -n 'Enter Username for New Mysql User: '
-read NEWUSER
-echo -n 'Enter Password for New Mysql User: '
-read NEWPASSWORD
+echo "[*] Creating Databases..."
 echo 'Enter password for Mysql root user'
 echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
       CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      CREATE USER '$NEWUSER'@'localhost' IDENTIFIED BY '$NEWPASSWORD';
-      GRANT ALL PRIVILEGES ON dashboard . * TO '$NEWUSER'@'localhost';
-      GRANT ALL PRIVILEGES ON dashboard_testing . * TO '$NEWUSER'@'localhost';
       exit" | sudo mysql -p
 
 echo '[*] Checking for Database configurations...'
 if [ -f config/database.yml ]; then
-  echo 'Database configurations found.'
+  echo 'Database configurations found!'
+  echo 'You would need to connect the database for your configured user!'
 else
   echo 'Database configurations not found!'
   echo '[*] Creating Database configurations...'
   cp config/database.example.yml config/database.yml
+
+  echo '[*] Creating User for Mysql...'
+  echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
+      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
+      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
+      exit" | sudo mysql -p > /dev/null && echo '[+] User created!'
 fi
 
 echo '[*] Checking for application configurations...'
@@ -88,11 +89,6 @@ else
   echo '[*] Creating Application configurations...'
   cp config/application.example.yml config/application.yml
 fi
-
-echo '[*] Setting Database User configurations...'
-sed -i -e "s/\(username: \).*/\1$NEWUSER/" \
--e "s/\(password: \).*/\1$NEWPASSWORD/" ../config/database.yml
-
 
 echo '[*] Checking for rvm...'
 if ! which rvm > /dev/null; then
