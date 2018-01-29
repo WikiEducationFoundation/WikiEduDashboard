@@ -91,6 +91,7 @@ es:
     edited_by: Editado por
     label: Actividad
   articles:
+    article_development: (desarrollo de artículo)
     assigned: Artículos asignados
     available: Artículos disponibles
     assigned_to: Asignado a
@@ -101,6 +102,7 @@ es:
     edited_by: 'Editado por:'
     edited_mobile: Artículos
     hide: Ocultar
+    history: (historial)
     label: Artículos
     loading: Cargando artículos...
     new: (nuevo)
@@ -197,6 +199,8 @@ es:
     customize_passcode: un código de acceso predeterminado
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acceso predeterminado
+    default_passcode_explanation: 'De manera predeterminada, los programas nuevos
+      de esta campaña deben tener:'
     description: Descripción
     delete_campaign: Eliminar esta campaña
     no_passcode: ningún código de acceso
@@ -462,9 +466,9 @@ es:
     all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
-    assignment_end: Final del cronograma
+    assignment_end: Final del evento
     assignments_none: Este proyecto no tiene artículos asignados.
-    assignment_start: Inicio del cronograma
+    assignment_start: Comienzo del evento
     cancel: Cancelar
     course: Programa
     courses: Programas
@@ -472,6 +476,10 @@ es:
     campaigns: 'Campañas:'
     campaign_courses: Programa de «%{title}»
     creator:
+      assignment_end: Final del evento
+      assignment_end_placeholder: Final del evento (AAAA-MM-DD)
+      assignment_start: Comienzo del evento
+      assignment_start_placeholder: Comienzo del evento (AAAA-MM-DD)
       checking_for_uniqueness: Se está comprobando que este programa sea único.
       choose_clone: Elige un programa para clonarlo.
       clone_previous: Clonar el programa previo
@@ -488,6 +496,7 @@ es:
       create_label: Crear programa nuevo
       create_new: Crear un programa independiente
       create_short: Crear programa
+      end_date: Final del seguimiento de actividades
       find: Encuentra un programa
       intro: El título del programa es necesario, todo lo demás puede completarse
         más tarde. Haz clic en "¡Crear mi programa!" para empezar a crear la página
@@ -496,6 +505,7 @@ es:
       save_cloned_course: Guardar
     delete_course: Eliminar programa
     edit_course_dates: Editar las fechas del proyecto
+    end: Final del seguimiento de actividades
     enroll: Añadir editor
     enrollment: Participación
     explore: Encuentra programas
@@ -510,6 +520,7 @@ es:
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
     school_and_term: Institución/Cuando
+    start: Comienzo del seguimiento de actividades
     student_editors: Editores
     students: Editores
     students_none: Este proyecto no tiene editores inscriptos.
@@ -646,7 +657,7 @@ es:
     first_week_title: Primera semana activa
     gradeable_value: Valor
     gradeables_none: Este cronograma no tiene tareas marcadas como graduadas.
-    grading_header: 'Calificación (Total: %{total}%)'
+    grading_header: 'Calificación (total: %{total} %)'
     move_block_down: Bajar el bloque
     move_block_up: Subir el bloque
     no_class_holidays: Yo no tengo vacaciones de clases
@@ -694,6 +705,8 @@ es:
     assign_articles_done: Hecho
     assigned: Artículos asignados
     assignees: Asignado(s)
+    loading_authorship_data: cargando datos de autoría
+    authorship_data_not_fetched: no se pudieron recuperar los datos de autoría
     character_doc: La cantidad total de contenido que un usuario ha añadido a este
       espacio de nombres, calculada sumando los caracteres añadidos de todas las ediciones
       que aumentaron el tamaño de la página. Este número no refleja necesariamente
@@ -706,6 +719,7 @@ es:
     contribution_statistics: Estadísticas de contribuciones
     course_passcode: 'Código de acceso:'
     editors: Editores estudiantiles
+    edits_by: 'Ediciones por:'
     enroll_confirmation: ¿Confirmas que quieres añadir a %{username}?
     enroll_url: 'Los usuarios pueden unirse visitando este URL:'
     enrolled_success: ¡%{username} añadido con éxito!

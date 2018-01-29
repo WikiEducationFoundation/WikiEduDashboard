@@ -236,9 +236,11 @@ skr-arab:
     label: اپلوڈ کردہ
   users:
     assign_articles_done: مکمل
+    loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
     contributions: ورتݨ آلے دیاں شراکتاں
     course_passcode: 'پاس کوڈ:'
     editors: ایڈیٹ کرݨ آلے
+    edits_by: 'دے ولوں تبدیلی:'
     first_name: پہلا ناں
     last_name: چھیکڑی ناں
     name: ناں

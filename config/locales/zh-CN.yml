@@ -637,6 +637,8 @@ zh-CN:
     assign_articles_done: 完成
     assigned: 分配的条目
     assignees: 委托人
+    loading_authorship_data: 正在加载作者数据
+    authorship_data_not_fetched: 无法检索作者数据
     character_doc: 用户添加至此名字空间的内容总数，calculated by adding up the added characters for
       all edits that increased page size. This number doesn't necessarily reflect
       the amount of new content the user added. Restoring removed content will also
@@ -648,6 +650,7 @@ zh-CN:
     contribution_statistics: 贡献统计
     course_passcode: 密码：
     editors: 学生编辑者
+    edits_by: 编辑者：
     enroll_confirmation: 您确定要添加%{username}么？
     enroll_url: 用户可通过访问此URL加入：
     enrolled_success: '%{username}已成功添加！'
