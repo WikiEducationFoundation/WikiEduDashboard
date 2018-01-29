@@ -13,14 +13,8 @@ const UploadTable = createReactClass({
     headers: PropTypes.array
   },
 
-  getInitialState() {
-    return {
-      uploads: this.props.uploads
-    };
-  },
-
   _renderUploads() {
-    return this.state.uploads.map((upload) => {
+    return this.props.uploads.map((upload) => {
       return (
         <Upload upload={upload} key={upload.id} linkUsername={true} />
       );
