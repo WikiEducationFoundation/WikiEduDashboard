@@ -111,8 +111,6 @@ Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
   Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
 Style/MixinUsage:
   Enabled: false
 Style/BlockDelimiters:
