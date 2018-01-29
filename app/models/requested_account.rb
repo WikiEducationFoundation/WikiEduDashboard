@@ -14,4 +14,12 @@
 
 class RequestedAccount < ActiveRecord::Base
   belongs_to :course
+  before_validation :ensure_valid_email
+
+  private
+
+  def ensure_valid_email
+    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+  end
+
 end
