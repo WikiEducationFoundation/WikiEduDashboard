@@ -12,7 +12,6 @@ module Errors
         send("rescue_#{err}", base)
       end
     end
-    # self.included
 
     def self.rescue_invalid_token(base)
       base.rescue_from ActionController::InvalidAuthenticityToken do
@@ -23,7 +22,6 @@ module Errors
         end
       end
     end
-    # self.rescue_invalid_token
 
     def self.rescue_unknown_format(base)
       # Stop index.php routes from causing the kinds of errors that get reported
@@ -32,7 +30,6 @@ module Errors
         render plain: t('error_404.explanation'), status: 404
       end
     end
-    # self.rescue_unknown_format
 
     def self.rescue_not_signed_in(base)
       base.rescue_from AuthenticationErrors::NotSignedInError do |e|
@@ -44,7 +41,6 @@ module Errors
         end
       end
     end
-    # rescue_not_signed_in
 
     def self.rescue_not_permitted(base)
       base.rescue_from AuthenticationErrors::NotPermittedError do |e|
@@ -56,7 +52,6 @@ module Errors
         end
       end
     end
-    # rescue_not_permitted
 
     def self.rescue_not_admin(base)
       base.rescue_from AuthenticationErrors::NotAdminError do |e|
@@ -68,7 +63,6 @@ module Errors
         end
       end
     end
-    # rescue_not_admin
 
     def self.rescue_participating_user(base)
       base.rescue_from AuthenticationErrors::ParticipatingUserError do |e|
@@ -80,7 +74,6 @@ module Errors
         end
       end
     end
-    # rescue_participating_user
 
     private
 
@@ -89,5 +82,4 @@ module Errors
       request.fullpath.include? '.json'
     end
   end
-  # RescueErrors
 end
