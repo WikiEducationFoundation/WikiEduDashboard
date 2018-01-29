@@ -145,7 +145,7 @@ const ArticleGraphs = createReactClass({
 
     return (
       <a onClick={this.showGraph} className="inline">
-        (article development)
+        {I18n.t('articles.article_development')}
         <div className={className}>
           <div className="radio-row">
             {radioInput}

@@ -169,8 +169,6 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faker (1.8.7)
-      i18n (>= 0.7)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
     faraday-cookie_jar (0.0.6)
@@ -227,7 +225,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (0.9.1)
+    i18n (0.9.3)
       concurrent-ruby (~> 1.0)
     i18n-js (3.0.3)
       i18n (~> 0.6, >= 0.6.6)
@@ -287,11 +285,11 @@ GEM
       oauth
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
-    pandoc-ruby (1.0.0)
+    pandoc-ruby (2.0.2)
     paper_trail (8.1.2)
       activerecord (>= 4.2, < 5.2)
       request_store (~> 1.1)
-    paperclip (5.1.0)
+    paperclip (5.2.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
@@ -470,8 +468,6 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.0.0)
       nokogiri (~> 1.8)
-    zeus (0.15.14)
-      method_source (>= 0.6.7)
 
 PLATFORMS
   ruby
@@ -501,7 +497,6 @@ DEPENDENCIES
   deep_cloneable (~> 2.3.0)
   devise
   factory_bot_rails
-  faker
   faraday
   figaro
   guard-bundler
@@ -517,7 +512,7 @@ DEPENDENCIES
   newrelic_rpm
   nokogiri
   omniauth-mediawiki!
-  pandoc-ruby (~> 1.0.0)
+  pandoc-ruby
   paper_trail
   paperclip
   piwik_analytics!
@@ -552,7 +547,6 @@ DEPENDENCIES
   vcr
   webmock
   whenever
-  zeus
 
 RUBY VERSION
    ruby 2.5.0p0

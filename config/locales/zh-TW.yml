@@ -63,8 +63,8 @@ zh-TW:
     review_orientation: 審查新手導覽
     start_orientation: 開始新手導覽
     blog_headline: 來自 Wiki 教育的最新消息
-    about_programs: 此網站經由方案（Program）來追蹤各 wiki 活動事件 —— 例如像是 Edit-a-thon 或學院課程之類的獨立事項。任一方案皆為一個、或更多活動（Campaign）裡的一部分內容，而活動則提供了各方案之間的匯總統計資料。
-    about_creating_programs: 如果您在運作一個單一、獨立事項，您可以現在來創建一個方案。如果您的事項，是某件更大事項裡的一部分，請為此找尋或創建活動，然後您可從活動頁面裡創建一個新方案。
+    about_programs: 此網站經由方案（Program）來追蹤各 wiki 項目事件 —— 例如像是 Edit-a-thon 或學院課程之類的獨立事項。任一方案皆為一個、或更多競賽（Campaign）裡的一部分內容，而活動則提供了各方案之間的匯總統計資料。
+    about_creating_programs: 如果您在運作一個單一、獨立事項，您可以現在來創建一個方案。如果您的事項，是某件更大事項裡的一部分，請為此找尋或創建競賽，然後您可從競賽頁面裡創建一個新方案。
   home:
     explore: 探索
     log_in: 登入至維基百科
@@ -75,6 +75,7 @@ zh-TW:
     edited_by: 編輯自
     label: 活動
   articles:
+    article_development: （條目發展）
     assigned: 分配的條目
     available: 尚待分配的條目
     assigned_to: 分配給
@@ -86,6 +87,7 @@ zh-TW:
     edited_by: 編輯自：
     edited_mobile: 條目
     hide: 隱藏
+    history: （歷史）
     label: 條目
     loading: 讀取條目中...
     new: ' (新)'
@@ -146,33 +148,36 @@ zh-TW:
     milestones:
       title: 里程碑
   campaign:
-    active_campaigns: 活躍活動
+    active_campaigns: 活躍競賽
     add_organizer: 添加組織者
-    all_campaigns: 所有活動
-    already_exists: 此活動已存在！請以不同標題或指向內容再重試看看。
-    campaign: 活動
-    campaigns: 活動
-    campaign_deleted: 活動「%{title}」已被刪除
-    campaign_not_updated: 不能更新活動
-    campaign_updated: 活動已更新
-    confirm_campaign_deletion: 確定要刪除標題為「%{title}」的活動嗎？如果是，請輸入該活動的標題以進行處理。
-    confirm_campaign_deletion_failed: 「%{title}」不是此活動的標題。活動未被刪除
-    confirm_course_removal: 確定您要從活動「%{campaign_title}」移除「%{title}」嗎？
-    course_already_removed: '%{title}已從活動「%{campaign_title}」移除'
-    course_removed: '%{title}已從活動「%{campaign_title}」移除'
-    create_campaign: 創建新活動
-    create_my_campaign: 創建我的活動！
+    all_campaigns: 所有競賽
+    already_exists: 此競賽已存在！請以不同標題或指向內容再重試看看。
+    campaign: 競賽
+    campaigns: 競賽
+    campaign_deleted: 競賽「%{title}」已被刪除
+    campaign_not_updated: 不能更新競賽
+    campaign_updated: 競賽已更新
+    confirm_campaign_deletion: 確定要刪除標題為「%{title}」的競賽嗎？如果是，請輸入該競賽的標題以進行處理。
+    confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
+    confirm_course_removal: 確定您要從競賽「%{campaign_title}」移除「%{title}」嗎？
+    course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
+    course_removed: '%{title}已從競賽「%{campaign_title}」移除'
+    create_campaign: 創建新競賽
+    create_my_campaign: 創建我的競賽！
+    customize_passcode: 預設選課代碼
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
+    default_passcode_explanation: 預設情況下，此活動的新方案應有：
     description: 描述
-    delete_campaign: 刪除此活動
+    delete_campaign: 刪除此競賽
     no_passcode: 沒有選課代碼
     none: 無
     organizers: 組織者
-    organizer_added: '%{user}現在是活動「%{title}」的組織者'
-    organizer_removed: '%{user}已被移除活動「%{title}」的組織者身份'
+    organizer_added: '%{user}現在是競賽「%{title}」的組織者'
+    organizer_removed: '%{user}已被移除競賽「%{title}」的組織者身份'
     program_template: 方案模板
-    program_template_tooltip: 當組織者建立一個方案在活動時，區域裡的文字會複製作為方案頁面上的描述
+    program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
+    random_passcode: 隨機選課代碼
     title: 標題
     use_start_end_dates: 使用起始和結束時間
   categories:
@@ -212,7 +217,7 @@ zh-TW:
       select_meeting_days: 選擇一週中上課的日子
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主命名空間的條目之總位元組數。 (1 中文字=3 位元組)
-    campaigns: 活動：
+    campaigns: 競賽：
     campaign_courses: '%{title}課程'
     campaign_articles: '%{title}條目'
     campaign_users: '%{title}編者'
@@ -263,6 +268,8 @@ zh-TW:
       no_class_holidays: 我的開課時段沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_placeholder: 導師、教學助理、其它
+      separate_event_dates: 指定分別的事項起始/結束時間
+      separate_event_dates_info: 此方案的活動統計將會基於以上的日期與時間來追蹤，而您也可以指定分別的事項或方案之起始與結束時間（例如：讓參與者能夠知道何時露面或何時聚會結束）。
       save_cloned_course: 儲存新的課程
       start_date: 開始日期
       start_date_placeholder: 開始日期 (YYYY-MM-DD)
@@ -283,7 +290,7 @@ zh-TW:
     data_uploads_info: 共享資源上傳資料顯示出任一媒體上傳的名稱和使用率次數。
     delete_course: 刪除課程
     delete_suggestion: 刪除
-    delete_course_instructions: 若所有活動都已被移除的情況下，您可以刪除此頁面。
+    delete_course_instructions: 若所有競賽都已被移除的情況下，您可以刪除此頁面。
     dismiss_survey: 關閉
     dismiss_survey_confirm: 確定要永久刪除此調查嗎？
     download_stats_data: 下載統計資料
@@ -362,7 +369,7 @@ zh-TW:
     student_editors: 學生編輯者
     students_none: 此課程尚未有學生。
     students_short: 學生
-    submitted_admin: 這個課程已經由建立者發佈開設申請。想要准許申請的話，請在概述頁添增活動。
+    submitted_admin: 這個課程已經由建立者發佈開設申請。想要准許申請的話，請在概述頁添增競賽。
     submitted_and_pending_heading: 已送出，待批閱
     submitted_heading: 已送出的課程。
     submitted_note: |-
@@ -392,7 +399,7 @@ zh-TW:
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
     user_suggestions: 使用者建議：
     user_suggestions_prompt: 您給予條目編輯者的建議
-    view_other: 檢視其他活動
+    view_other: 檢視其它競賽
     view: 查看課程
     view_doc: 在選課的編輯者首次編輯條目之後，所有條目的總瀏覽量
     view_page: 查看課程頁面
@@ -413,16 +420,20 @@ zh-TW:
     all_courses: 所有方案
     archived: 存檔的方案
     articles_none: 此專案裡目前無編輯的條目。
-    assignment_end: 時間軸終點
+    assignment_end: 事項結束
     assignments_none: 此專案沒有任何條目被分配。
-    assignment_start: 時間軸起點
+    assignment_start: 事項起始
     cancel: 取消
     course: 方案
     courses: 方案
     courses_taught: 教授的方案
-    campaigns: 活動：
+    campaigns: 競賽：
     campaign_courses: '%{title}方案'
     creator:
+      assignment_end: 事項結束
+      assignment_end_placeholder: 事項結束（年-月-日）
+      assignment_start: 事項起始
+      assignment_start_placeholder: 事項起始（年-月-日）
       checking_for_uniqueness: 正在確認是否有重複的方案。
       choose_clone: 選擇一個方案來複製。
       clone_previous: 複製前一個方案
@@ -440,17 +451,20 @@ zh-TW:
       create_label: 建立新的方案
       create_new: 建立一個獨立方案
       create_short: 建立方案
+      end_date: 活動追蹤結束
       find: 找尋一個方案
       intro: 方案標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的方案橫跨多個語系或專案，貢獻內容可由有囊括且擁有「可用條目」或「分配作業」的任一
         wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基專案頁面吧。
       new_or_clone: 現在就創建一個新方案，或使用「複製」選項來將您參與的其它方案給複製。
-      participate_in_campaign: 參與活動
+      participate_in_campaign: 參與競賽
       save_cloned_course: 儲存
+      start_date: 活動追蹤起始
     delete_course: 刪除方案
     edit_course_dates: 編輯專案日期
-    explore: 尋找方案
+    end: 活動追蹤結束
     enroll: 增加編輯者
     enrollment: 參與
+    explore: 尋找方案
     courses_enrolled: 方案已參與
     expected_students: 預期編輯者
     instructors: 主持者
@@ -462,6 +476,7 @@ zh-TW:
     revisions_none: 此專案目前沒有編輯活動。
     school: 機構
     school_and_term: 機構/何時
+    start: 活動追蹤起始
     student_editors: 編輯者
     students: 編輯者
     students_taught: 編輯者總計
@@ -471,7 +486,7 @@ zh-TW:
     term: 何時
     unsubmitted: 未提交方案
     uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
-    view_other: 檢視其它活動
+    view_other: 檢視其它競賽
     view_page: 檢視方案頁面
     word_count_doc: 一個由條目編輯者在方案學期期間增加至條目主空間的估計數量
     yourcourses: 您的方案
@@ -652,6 +667,8 @@ zh-TW:
     assign_articles_done: 完成
     assigned: 已經分配的條目
     assignees: 被分配者
+    loading_authorship_data: 載入作者資料中
+    authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
     chars_added: 字數的增加<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
@@ -660,6 +677,7 @@ zh-TW:
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
+    edits_by: 編輯者們：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
     enrolled_success: '%{username}成功增加！'
@@ -669,6 +687,7 @@ zh-TW:
     characters_added_mainspace: 主空間新增的字元
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
     characters_added_userspace: 使用者空間新增的字元
+    characters_added_draftspace: 增加的草稿空間字元
     my_assigned: 已分配：
     my_reviewing: 審查中：
     name: 名稱

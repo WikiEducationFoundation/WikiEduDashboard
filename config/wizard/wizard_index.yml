@@ -8,13 +8,16 @@
   key: researchwrite
   title:  Research and write content in a new or existing Wikipedia article.
   min_weeks: 6
+  tag: research_write_assignment
 
 -
   key: translation
   title: Translate a Wikipedia article from target language into native language.
   min_weeks: 4
+  tag: translation_assignment
 
 -
   key: addimages
   title: Create images and multimedia to add to Wikipedia articles.
   min_weeks: 2
+  tag: add_images_assignment

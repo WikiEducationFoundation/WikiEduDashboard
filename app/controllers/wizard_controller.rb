@@ -47,8 +47,7 @@ class WizardController < ApplicationController
   def submit_wizard
     @course = Course.find_by_slug(params[:course_id])
     wizard_id = params[:wizard_id]
-    WizardTimelineManager
-      .update_timeline_and_tags(@course, wizard_id, wizard_params)
+    WizardTimelineManager.update_timeline_and_tags(@course, wizard_id, wizard_params)
     # JBuilder will not render weeks for previous-empty course without this...
     @course = Course.find_by_slug(params[:course_id])
   end

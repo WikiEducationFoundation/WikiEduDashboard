@@ -20,8 +20,11 @@ class TrainingLoader
   end
 
   def load_content
-    load_from_yaml
-    load_from_wiki if Features.wiki_trainings?
+    if Features.wiki_trainings?
+      load_from_wiki
+    else
+      load_from_yaml
+    end
     return @collection
   end
 
@@ -48,11 +51,12 @@ class TrainingLoader
   # On-wiki trainings #
   #####################
 
-  CONCURRENCY = 30 # Maximum simultaneous requests to mediawiki
+  CONCURRENCY = 10 # Maximum simultaneous requests to mediawiki
   def load_from_wiki
-    Raven.capture_message 'Loading trainings from wiki', level: 'info'
     source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
+    Raven.capture_message "Loading #{@content_class}s from wiki", level: 'info',
+                                                                  extra: { wiki_pages: source_pages }
 
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|

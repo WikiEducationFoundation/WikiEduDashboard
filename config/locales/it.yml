@@ -81,6 +81,7 @@ it:
     edited_by: 'Modificato da:'
     edited_mobile: Voci
     hide: Nascondi
+    history: (cronologia)
     label: Voci
     loading: Caricamento articoli...
     new: (nuovo)
@@ -342,14 +343,18 @@ it:
   courses_generic:
     all_courses: Tutti i programmi
     articles_none: Non ci sono voci modificate per questo progetto ancora.
-    assignment_end: Fine timeline
+    assignment_end: Fine evento
     assignments_none: Questo progetto non ha voci assegnate.
-    assignment_start: Inizio timeline
+    assignment_start: Inizio evento
     cancel: Annulla
     course: Programma
     courses: Programmi
     campaigns: 'Campagne:'
     creator:
+      assignment_end: Fine evento
+      assignment_end_placeholder: Fine evento (YYYY-MM-DD)
+      assignment_start: Inizio evento
+      assignment_start_placeholder: Inizio evento (YYYY-MM-DD)
       checking_for_uniqueness: Controllo dell'unicità di questo programma in corso.
       choose_clone: Scegli un programma da clonare.
       clone_previous: Clona programma precedente
@@ -379,9 +384,9 @@ it:
       save_cloned_course: Salva
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
-    explore: Trova programmi
     enroll: Aggiungi editor
     enrollment: Partecipazione
+    explore: Trova programmi
     expected_students: Editori previsti
     instructors: Facilitatori
     join_course: Partecipa al programma
@@ -505,8 +510,13 @@ it:
     continue: Continua (%{progress})
     start: Inizio
     view: Visualizza
+    next: Pagina successiva
+    page: Pagina
+    page_number: Pagina %{number} di %{total}
+    table_of_contents: Sommario
     logged_out: Sei disconnesso. Non riceverai crediti per il completamento di questo
       modulo a meno che non accedi.
+    done: Fatto!
   uploads:
     datetime: Data/Ora
     file_name: Nome del file

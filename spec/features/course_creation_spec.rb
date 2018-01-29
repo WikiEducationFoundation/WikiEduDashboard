@@ -500,6 +500,19 @@ describe 'timeline editing', js: true do
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 3')
   end
 
+  it 'allows dragging and dropping blocks' do
+    visit "/courses/#{Course.last.slug}/timeline"
+    click_button 'Arrange Timeline'
+
+    first_block = find('.week-1 .week__block-list > li:nth-child(1)')
+    expect(first_block).to have_content 'Block 1'
+    later_block = find('.week-2 .week__block-list > li:nth-child(1)')
+
+    first_block.drag_to(later_block)
+    sleep 0.5
+    expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 1'
+  end
+
   it 'allows moving blocks between weeks' do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'

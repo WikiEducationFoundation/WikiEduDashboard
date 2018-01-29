@@ -2,7 +2,7 @@
 
 ## Process Outline
 
-## Leave a common on the GitHub issue
+## Step 1: Leave a comment on the GitHub issue
 When you are ready to start work on a story:
 
 1. Let us know by leaving a comment on the issue. (Also let us know later if you are no longer working on it.)

@@ -10,6 +10,7 @@ module BatchUpdateLogging
     constant: 'tmp/batch_update_constantly.pid',
     views: 'tmp/batch_update_views.pid',
     survey: 'tmp/batch_update_surveys.pid',
+    training: 'tmp/batch_update_trainings.pid',
     pause: 'tmp/batch_pause.pid',
     sleep: 'tmp/batch_sleep_10.pid'
   }.freeze

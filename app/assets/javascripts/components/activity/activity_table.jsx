@@ -49,7 +49,7 @@ const ActivityTable = createReactClass({
     e.target.classList.add(nextSortOrder);
 
     const key = e.target.getAttribute('data-sort-key');
-    let activities = _.sortByOrder(this.state.activity, [key]);
+    let activities = _.orderBy(this.state.activity, [key]);
     if (nextSortOrder === 'desc') {
       activities = activities.reverse();
     }

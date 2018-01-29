@@ -76,6 +76,7 @@ ko:
     edited_by: '편집자:'
     edited_mobile: 문서
     hide: 숨기기
+    history: (역사)
     label: 문서
     loading: 문서 불러오는 중...
     new: (새)
@@ -265,12 +266,16 @@ ko:
     all_courses: 모든 프로그램
     archived: 보존된 프로그램
     articles_none: 본 프로젝트에서 편집된 문서는 아직 없습니다.
-    assignment_end: 타임라인 끝
-    assignment_start: 타임라인 시작하기
+    assignment_end: 이벤트 끝
+    assignment_start: 이벤트 시작
     cancel: 취소
     course: 프로그램
     courses: 프로그램
     creator:
+      assignment_end: 이벤트 끝
+      assignment_end_placeholder: 이벤트 끝 (YYYY-MM-DD)
+      assignment_start: 이벤트 시작
+      assignment_start_placeholder: 이벤트 시작 (YYYY-MM-DD)
       choose_clone: 복제할 프로그램을 선택하십시오.
       clone_successful: 프로그램이 성공적으로 복제되었습니다
       clone_successful_details: 프로그램이 복제되었습니다. 완료하려면 아래의 '저장'을 누르십시오.

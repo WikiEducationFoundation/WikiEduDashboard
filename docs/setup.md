@@ -98,13 +98,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 ## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
 
 ## Develop
-1. **Start Zeus (optional)**
-    - Zeus (not available on Windows) is a tool to restart Rails services more
-    quickly after files are changed.
-
-      $ `zeus start`
-
-2. **Start Redis** (if not already running as daemon)
+1. **Start Redis** (if not already running as daemon)
     - Redis is used by Sidekiq. Some features — especially related to making
     edits on Wikipedia — will not work when Redis is down. On a Linux-based system,
     it will probably be running as a daemon automatically after installation. On OSX,
@@ -116,7 +110,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 
       $ `redis-server /usr/local/etc/redis.conf`
 
-3. **Start the server**
+2. **Start the server**
 
     - OSX/Debian: Use guard. This tool starts the rails development server (on localhost:3000).
     It also watches the files, and will automatically restart the server when rails files are
@@ -128,7 +122,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 
       $ `rails s`
 
-4. **Start Gulp to compile assets**
+3. **Start Gulp to compile assets**
     - The default gulp command will build the project's javascripts and stylesheets
     (in lieu of the rails asset pipeline), and watch the assets directory, recompiling
     after changes to javascript, jsx and stylesheet files. Using `gulp build` instead
@@ -136,11 +130,11 @@ If you know your way around Rails, here's the very short version. Some additiona
 
       $ `gulp`
 
-5. The frontend is now visible at http://localhost:3000/
+4. The frontend is now visible at http://localhost:3000/
 
-6. Sign in and visit http://localhost:3000/campaigns to create a campaign.
+5. Sign in and visit http://localhost:3000/campaigns to create a campaign.
 
-7. To set up test users and data, see [User Roles](user_roles.md)
+6. To set up test users and data, see [User Roles](user_roles.md)
 
 ## Design
 

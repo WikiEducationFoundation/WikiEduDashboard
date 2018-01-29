@@ -6,6 +6,7 @@
 # Author: Av6
 # Author: Edible Melon
 # Author: Facenapalm
+# Author: Gehhrr
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
@@ -279,13 +280,14 @@ ru:
     yourcourses: Ваши курсы
   courses_generic:
     all_courses: Все программы
-    assignment_end: Конец расписания
-    assignment_start: Начало расписания
+    assignment_end: Конец события
+    assignment_start: Начало события
     cancel: Отмена
     courses: Программы
     campaigns: 'Кампании:'
     campaign_courses: Программы %{title}
     creator:
+      assignment_end: Конец события
       course_description: Описание программы
       course_school: Учреждение
       course_term: Когда
@@ -299,9 +301,9 @@ ru:
       participate_in_campaign: Присоединиться к кампании
       save_cloned_course: Сохранить
     delete_course: Удалить программу
-    explore: Найти программы
     enroll: Добавить редактора
     enrollment: Участие
+    explore: Найти программы
     join_course: Присоединиться к программе
     join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника
       код доступа или ссылку, которая включает пароль.
@@ -384,6 +386,7 @@ ru:
     next: Следующая страница
     page: Страница
     done: Готово!
+    check_answer: Проверить ответ
   uploads:
     datetime: Дата/время
     file_name: Имя файла
