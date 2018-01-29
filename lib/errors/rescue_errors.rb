@@ -11,7 +11,8 @@ module Errors
       rescues.each do |err|
         send("rescue_#{err}", base)
       end
-    end # self.included
+    end
+    # self.included
 
     def self.rescue_invalid_token(base)
       base.rescue_from ActionController::InvalidAuthenticityToken do
@@ -21,7 +22,8 @@ module Errors
           render plain: t('error_401.explanation'), status: :unauthorized
         end
       end
-    end # self.rescue_invalid_token
+    end
+    # self.rescue_invalid_token
 
     def self.rescue_unknown_format(base)
       # Stop index.php routes from causing the kinds of errors that get reported
@@ -29,7 +31,8 @@ module Errors
       base.rescue_from ActionController::UnknownFormat do
         render plain: t('error_404.explanation'), status: 404
       end
-    end # self.rescue_unknown_format
+    end
+    # self.rescue_unknown_format
 
     def self.rescue_not_signed_in(base)
       base.rescue_from AuthenticationErrors::NotSignedInError do |e|
@@ -40,7 +43,8 @@ module Errors
           render plain: e.message, status: :unauthorized
         end
       end
-    end # rescue_not_signed_in
+    end
+    # rescue_not_signed_in
 
     def self.rescue_not_permitted(base)
       base.rescue_from AuthenticationErrors::NotPermittedError do |e|
@@ -51,7 +55,8 @@ module Errors
           render plain: e.message, status: :unauthorized
         end
       end
-    end # rescue_not_permitted
+    end
+    # rescue_not_permitted
 
     def self.rescue_not_admin(base)
       base.rescue_from AuthenticationErrors::NotAdminError do |e|
@@ -62,7 +67,8 @@ module Errors
           render plain: e.message, status: :unauthorized
         end
       end
-    end # rescue_not_admin
+    end
+    # rescue_not_admin
 
     def self.rescue_participating_user(base)
       base.rescue_from AuthenticationErrors::ParticipatingUserError do |e|
@@ -73,7 +79,8 @@ module Errors
           render plain: e.message, status: :unauthorized
         end
       end
-    end # rescue_participating_user
+    end
+    # rescue_participating_user
 
     private
 
@@ -81,5 +88,6 @@ module Errors
       return true if request.media_type.include? 'json'
       request.fullpath.include? '.json'
     end
-  end # RescueErrors
+  end
+  # RescueErrors
 end

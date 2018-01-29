@@ -177,8 +177,6 @@ Style/RegexpLiteral:
   Enabled: false
 Rails/Output:
   Enabled: false
-Style/CommentedKeyword:
-  Enabled: false
 Lint/DuplicateMethods:
   Enabled: false
 Style/PercentLiteralDelimiters:
