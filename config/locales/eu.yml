@@ -313,7 +313,7 @@ eu:
       create_new: Ikastaro berri bat sortu
       create_short: Ikastaroa sortu
       end_date: Amaiera data
-      end_date_placeholder: Amaiera data (YYYY-MM-DD)
+      end_date_placeholder: Amaiera data (UUUU-HH-EE)
       expected_number: Espero den ikasle kopurua
       find: Bilatu zure Ikastaroa
       intro: Izenburuak, ikastetxeak eta epealdiak zure orriaren URLa sortuko dute,
@@ -336,7 +336,7 @@ eu:
         dituzu.
       save_cloned_course: Gorde ikastaro berria
       start_date: Hasiera data
-      start_date_placeholder: Hasiera data (YYYY-MM-DD)
+      start_date_placeholder: Hasiera data (UUUU-HH-EE)
       subject: Gaia
       update_scheduled: Eguneratzea programatuta. Datuak uneko programa guztiekin
         batera eguneratuko dira hurrengo eguneratze zikloan. Horretarako, hainbat
@@ -778,7 +778,7 @@ eu:
     view: Ikusi
     next: Hurrengo orria
     page: Orria
-    page_number: Orriko %{number} %{total}(e)tik
+    page_number: '%{number}. orria %{total}(e)tik'
     table_of_contents: Eduki-taula
     training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko

@@ -659,7 +659,8 @@ qqq:
     assigned: Label for articles assigned to a user
     assignees: Label for list of assigned users for an article
     loading_authorship_data: Message indicating that authorship data is being loaded
-    authorship_data_not_fetched: Message indicating that authorship data could not be fetched
+    authorship_data_not_fetched: Message indicating that authorship data could not
+      be fetched
     character_doc: Explanation of the characters added for a user
     contributions: Label for list of contributions by a user
     contributions_more: Label for a link that loads more of a user's contributions

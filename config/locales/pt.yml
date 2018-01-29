@@ -508,9 +508,9 @@ pt:
       one: Voluntário
       other: Voluntários
     weeks_none: Este curso não tem um cronograma ainda.
-    warn_mirrored: A partir da submissão, este curso será enviado automaticamente
-      à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
-      serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    warn_mirrored: |-
+      Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
+      Tem a certeza de que deseja prosseguir?
     wiki_staff: Equipa Wiki Ed
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
@@ -649,7 +649,7 @@ pt:
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
     user: Domínio Utilizador
-    user_char_added: Caracteres adicionados ao domínio de usuário
+    user_char_added: Caracteres adicionados ao espaço nominal de utilizador
     user_ns: Utilizador(a)
   recent_activity:
     active_courses: O artigo está ativo em
@@ -823,6 +823,8 @@ pt:
     assign_articles_done: Feito
     assigned: Artigos atribuídos
     assignees: Atribuído(s)
+    loading_authorship_data: a carregar dados de autoria
+    authorship_data_not_fetched: não foi possível obter os dados de autoria
     character_doc: A quantidade total do conteúdo que um utilizador adicionou neste
       espaço nominal, calculada ao somar os caracteres acrescentados de todas as edições
       que aumentaram o tamanho da página. Este número não reflete necessariamente
@@ -835,6 +837,7 @@ pt:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores
+    edits_by: 'Edições de:'
     enroll_confirmation: Tem a certeza de que deseja adicionar %{username}?
     enroll_url: 'Os utilizadores podem se juntar ao entrar neste URL:'
     enrolled_success: '%{username} foi adicionado com sucesso!'

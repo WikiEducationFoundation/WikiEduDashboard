@@ -27,7 +27,7 @@ class UserProfilesController < ApplicationController
   def stats
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = public_courses.where('courses_users.role = ?',
-                                        CoursesUsers::Roles::INSTRUCTOR_ROLE)
+                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
   end
@@ -35,7 +35,7 @@ class UserProfilesController < ApplicationController
   def stats_graphs
     @individual_stats_presenter = IndividualStatisticsPresenter.new(user: @user)
     @courses_list = public_courses.where('courses_users.role = ?',
-                                        CoursesUsers::Roles::INSTRUCTOR_ROLE)
+                                         CoursesUsers::Roles::INSTRUCTOR_ROLE)
     @courses_presenter = CoursesPresenter.new(current_user: current_user,
                                               courses_list: @courses_list)
   end

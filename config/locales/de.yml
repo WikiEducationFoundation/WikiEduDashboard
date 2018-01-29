@@ -825,6 +825,9 @@ de:
     assign_articles_done: Fertig
     assigned: Zugewiesene Artikel
     assignees: Zugewiesene(r)
+    loading_authorship_data: Lade Daten zur Autorenschaft
+    authorship_data_not_fetched: Die Daten zur Autorenschaft konnten nicht abgerufen
+      werden
     character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
       hinzugefügt hat, wird berechnet durch das Aufaddieren der hinzugefügten Zeichen
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
@@ -837,6 +840,7 @@ de:
     contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
+    edits_by: 'Bearbeitet von:'
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
     enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
     enrolled_success: '%{username} wurde erfolgreich hinzugefügt!'

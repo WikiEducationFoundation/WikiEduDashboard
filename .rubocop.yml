@@ -89,27 +89,11 @@ Rails/Date:
   Enabled: false
 Rails/DynamicFindBy:
   Enabled: false
-Layout/EmptyLineAfterMagicComment:
-  Enabled: false
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
   Enabled: false
-Layout/SpaceAroundOperators:
-  Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-Layout/AlignHash:
-  Enabled: false
-Layout/ExtraSpacing:
-  Enabled: false
-Layout/EmptyLines:
-  Enabled: false
-Layout/TrailingBlankLines:
-  Enabled: false
 Layout/MultilineBlockLayout:
-  Enabled: false
-Layout/AlignParameters:
   Enabled: false
 Lint/UnneededDisable:
   Enabled: false
@@ -126,8 +110,6 @@ Rails/Presence:
 Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
-  Enabled: false
-Style/FrozenStringLiteralComment:
   Enabled: false
 Style/BlockDelimiters:
   Enabled: false
@@ -174,8 +156,6 @@ Layout/IndentHeredoc:
 Style/RegexpLiteral:
   Enabled: false
 Rails/Output:
-  Enabled: false
-Style/CommentedKeyword:
   Enabled: false
 Lint/DuplicateMethods:
   Enabled: false

@@ -78,6 +78,7 @@ ca:
     edited_by: Editat per
     label: Activitat
   articles:
+    article_development: (desenvolupament de l’article)
     assigned: Articles assignats
     available: Articles disponibles
     assigned_to: Assignat a
@@ -88,6 +89,7 @@ ca:
     edited_by: 'Editat per:'
     edited_mobile: Articles
     hide: Amaga
+    history: (historial)
     label: Articles
     loading: Carregant articles...
     new: (nou)
@@ -106,7 +108,7 @@ ca:
     title: Títol
     title_example: Títol de l'Article
     tools: Eines de valoració
-    view: Veure Article
+    view: Mostra l’article
     view_all: Mostra-ho tot
     view_doc: La suma de totes les visites als articles durant el període del curs
     view_on_wiki: Veure-ho al wiki
@@ -452,7 +454,7 @@ ca:
     none: El projecte no té activitat d'edició recent.
     time_doc: Hora de cada revisió amb la teva hora local
     title: Títol
-    see_more: Veure més
+    see_more: Mostra’n més
   tasks:
     conseq: La tasca %{task} ja és en curs!
   timeline:
@@ -507,14 +509,17 @@ ca:
       fer lloc per a una nova.
     week_number: Setmana %{number}
   training:
-    continue: Continuar (%{progress})
+    continue: Continua (%{progress})
     start: Inicia
     view: Mostra
     next: Pàgina següent
     page: Pàgina
+    page_number: Pàgina %{number}/%{total}
     logged_out: Heu finalitzat la sessió. No et puntuarà completar aquest mòdul si
       no tens la sessió iniciada.
     done: Fet!
+    check_answer: Comprova la resposta
+    included_modules: Mòduls inclosos
   uploads:
     datetime: Data/Hora
     file_name: Nom del fitxer
@@ -591,7 +596,7 @@ ca:
       del curs.
     course_dates: Dates del curs
     minimum_options: Si us plau, seleccioneu com a mínim %{minimum} opcions.
-    read_less: Veure menys
+    read_less: Mostra’n menys
     read_more: Més informació
     review_selections: Si us plau revisa les teves seleccions. Clica a edita una selecció.
       Quan hagis acabat, clica a "Envia" per a acabar i construir la teva línia temporal.
