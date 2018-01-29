@@ -7,7 +7,6 @@ gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
-gem 'oj'
 
 ### Database and caching
 gem 'mysql2' # MySQL integration for ActiveRecord
@@ -48,6 +47,7 @@ end
 gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
 gem 'restforce', git: 'https://github.com/ejholmes/restforce.git' # Salesforce API access
+gem 'oj'
 
 ### Internationalization
 gem 'http_accept_language'
