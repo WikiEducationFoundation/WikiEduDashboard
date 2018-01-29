@@ -12,6 +12,22 @@
 
 require 'rails_helper'
 
-RSpec.describe RequestedAccount, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe RequestedAccount do
+  describe 'email validation' do
+    context 'when email is valid' do
+      it 'saves the email' do
+        account = RequestedAccount.new(username: 'foo', email: 'me@foo.com')
+        account.save
+        expect(account.email).to eq('me@foo.com')
+      end
+    end
+
+    context 'when email is not valid' do
+      it 'sets email to nil and saves' do
+        account = RequestedAccount.new(username: 'foo', email: 'me@foo')
+        account.save
+        expect(account.email).to be_nil
+      end
+    end
+  end
 end
