@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
-import { sortUsers } from '../../actions/user_actions';
-import { getStudentUsers } from '../../selectors';
+import { sortUsers, fetchUsers } from '../../actions/user_actions';
+import { getStudentUsers, getCurrentUser } from '../../selectors';
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -20,7 +20,6 @@ import ServerActions from '../../actions/server_actions.js';
 
 import CourseUtils from '../../utils/course_utils.js';
 
-
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 // FIXME: Remove this save function
 const save = () => {
@@ -32,7 +31,7 @@ const StudentList = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    current_user: PropTypes.object,
+    currentUser: PropTypes.object,
     users: PropTypes.array,
     course: PropTypes.object,
     controls: PropTypes.func,
@@ -40,7 +39,8 @@ const StudentList = createReactClass({
     openKey: PropTypes.string,
     toggleUI: PropTypes.func,
     resetUI: PropTypes.func,
-    sortUsers: PropTypes.func
+    sortUsers: PropTypes.func,
+    fetchUsers: PropTypes.func
   },
 
   getInitialState() {
@@ -49,8 +49,19 @@ const StudentList = createReactClass({
     };
   },
 
+  componentWillMount() {
+    const courseID = this.getCourseID();
+    ServerActions.fetch('course', courseID);
+    this.props.fetchUsers(courseID);
+  },
+
   componentWillUnmount() {
     this.props.resetUI();
+  },
+
+  getCourseID() {
+    const { params } = this.props;
+    return `${params.course_school}/${params.course_title}`;
   },
 
   openModal() {
@@ -84,7 +95,7 @@ const StudentList = createReactClass({
           {...this.props}
           student={student}
           course={this.props.course}
-          current_user={this.props.current_user}
+          current_user={this.props.currentUser}
           editable={this.props.editable}
           key={student.id}
           assigned={AssignmentStore.getFiltered(assignOptions)}
@@ -115,7 +126,7 @@ const StudentList = createReactClass({
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
       if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
-        requestAccountsModal = <NewAccountModal course={this.props.course} currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+        requestAccountsModal = <NewAccountModal course={this.props.course} currentUser={this.props.currentUser} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
       } else {
         requestAccountsModal = (
           <button onClick={this.openModal} className="request_accounts button auth signup border margin">
@@ -177,6 +188,8 @@ const StudentList = createReactClass({
 });
 
 const mapStateToProps = state => ({
+  users: state.users.users,
+  currentUser: getCurrentUser(state),
   openKey: state.ui.openKey,
   students: getStudentUsers(state)
 });
@@ -184,7 +197,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   toggleUI,
   resetUI,
-  sortUsers
+  sortUsers,
+  fetchUsers
 };
 
 export default Editable(
