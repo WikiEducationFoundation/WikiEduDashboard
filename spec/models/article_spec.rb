@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: articles
@@ -18,7 +19,6 @@
 #  wiki_id                  :integer
 #  mw_page_id               :integer
 #
-
 
 require 'rails_helper'
 

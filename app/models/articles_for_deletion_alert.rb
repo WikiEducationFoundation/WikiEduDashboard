@@ -1,6 +1,6 @@
 # frozen_string_literal: true
+
 # == Schema Information
-#
 # Table name: alerts
 #
 #  id             :integer          not null, primary key
