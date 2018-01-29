@@ -112,14 +112,12 @@ describe 'Instructor users', type: :feature, js: true do
       click_button 'Enrollment'
       sleep 1
       # Remove a user
-
       page.all('button.border.plus')[1].click
       click_button 'OK'
       sleep 1
-
       visit "/courses/#{Course.first.slug}/students"
-      expect(page).to have_content 'Student A'
-      expect(page).not_to have_content 'Student B'
+      expect(page).to have_content 'Student B'
+      expect(page).not_to have_content 'Student A'
     end
 
     it 'should be able to assign articles' do
