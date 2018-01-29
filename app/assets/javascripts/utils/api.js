@@ -226,22 +226,6 @@ const API = {
     );
   },
 
-  fetchRecentEdits(opts = {}) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/revision_analytics/recent_edits.json?scoped=${opts.scoped || false}`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchRecentUploads(opts = {}) {
     return new Promise((res, rej) =>
       $.ajax({

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Appleuseryu
+# Author: Ash Crow
 # Author: Benoit Rochon
 # Author: C13m3n7
 # Author: Dcausse
@@ -99,6 +100,7 @@ fr:
     edited_by: Modifié par
     label: Activité
   articles:
+    article_development: (développement d’article)
     assigned: Articles affectés
     available: Articles disponibles
     assigned_to: Assigné à
@@ -113,6 +115,7 @@ fr:
     edited_by: 'Modifié par :'
     edited_mobile: Articles
     hide: Masquer
+    history: (historique)
     label: Articles
     loading: Chargement des articles...
     new: (nouveau)
@@ -210,11 +213,14 @@ fr:
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
+    customize_passcode: un mot de passe par défaut
     default_course_type: Type de cours par défaut
     default_passcode: Mot de passe par défaut
+    default_passcode_explanation: 'Par défaut, les nouveaux programmes dans cette
+      campagne doivent avoir :'
     description: Description
     delete_campaign: Supprimer cette campagne
-    no_passcode: Aucun mot de passe
+    no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
     organizer_added: '%{user} est désormais un organisateur de la campagne « %{title} »'
@@ -222,6 +228,7 @@ fr:
     program_template: Modèle de programme
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
+    random_passcode: un mot de passe aléatoire
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:
@@ -344,6 +351,13 @@ fr:
       no_class_holidays: Je n’ai pas de congés scolaires
       role_description: Votre rôle dans le cours
       role_description_placeholder: Instructeur, assistant enseignant, etc.
+      separate_event_dates: Spécifier des heures distinctes de début et de fin de
+        l’événement
+      separate_event_dates_info: Les statistiques d’activité pour ce programme seront
+        tracées d’après les dates et heures ci-dessus, mais vous pouvez spécifier
+        des heures distinctes pour le démarrage et la fin de l’événement ou du programme
+        lui-même (par exemple, afin que les participants sachent quand se présenter,
+        ou quand la salle se ferme).
       save_cloned_course: Enregistrer le nouveau cours
       start_date: Date de début
       start_date_placeholder: Date de début (AAAA-MM-JJ)
@@ -431,7 +445,7 @@ fr:
     loading: Chargement…
     milestones_none: Ce cours n’a actuellement aucun jalon.
     my_articles: Mes articles
-    needs_update: Calendrier de la mise à jour des données
+    needs_update: Planifier une mise à jour des données
     new_week: Ajouter une nouvelle semaine
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.
@@ -527,9 +541,9 @@ fr:
     all_courses: Tous les programmes
     archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
-    assignment_end: Fin de la chronologie
+    assignment_end: Fin de l’événement
     assignments_none: Ce projet n’a pas d’article affecté.
-    assignment_start: Début de la chronologie
+    assignment_start: Début de l’événement
     cancel: Annuler
     course: Programme
     courses: Programmes
@@ -537,6 +551,10 @@ fr:
     campaigns: 'Campagnes :'
     campaign_courses: '%{title} Programmes'
     creator:
+      assignment_end: Fin de l’événement
+      assignment_end_placeholder: Fin de l’événement (AAAA-MM-JJ)
+      assignment_start: Début de l’événement
+      assignment_start_placeholder: Début de l’événement (AAAA-MM-JJ)
       checking_for_uniqueness: Ce programme a été vérifié pour l’unicité.
       choose_clone: Choisir un programme à dupliquer.
       clone_previous: Dupliquer le programme précédent
@@ -559,6 +577,7 @@ fr:
       create_label: Créer un nouveau programme
       create_new: Créer un programme indépendant
       create_short: Créer un programme
+      end_date: Fin du suivi d’activité
       find: Trouver un programme
       intro: Le titre du programme et l’institution forment l’URL du programme. Le
         wiki d’accueil est le wiki principal où travailleront les participants, et
@@ -571,11 +590,13 @@ fr:
         pour copier un autre programme auquel vous participez.
       participate_in_campaign: Participer à une campagne
       save_cloned_course: Enregistrer
+      start_date: Début du suivi d’activité
     delete_course: Supprimer le programme
     edit_course_dates: Modifier les dates du projet
-    explore: Trouver des programmes
+    end: Fin du suivi d’activité
     enroll: Ajouter éditeur
     enrollment: Participation
+    explore: Trouver des programmes
     courses_enrolled: Participé aux programmes
     expected_students: Éditeurs attendus
     instructors: Animateurs
@@ -589,6 +610,7 @@ fr:
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
     school_and_term: Institution/Quand
+    start: Début du suivi d’activité
     student_editors: Éditeurs
     students: Éditeurs
     students_taught: Total des éditeurs
@@ -824,6 +846,8 @@ fr:
     assign_articles_done: Fait
     assigned: Articles affectés
     assignees: Affecté(s)
+    loading_authorship_data: chargement des données de paternité
+    authorship_data_not_fetched: impossible d'accéder aux données de paternité
     character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
@@ -837,6 +861,7 @@ fr:
     contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
+    edits_by: 'Modifié par :'
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
     enroll_url: 'Les utilisateurs peuvent s’inscrire en allant à cette URL :'
     enrolled_success: '%{username} a été ajouté !'
@@ -846,6 +871,7 @@ fr:
     characters_added_mainspace: Caractères MS ajoutés
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caractères US ajoutés
+    characters_added_draftspace: Caractères espaces d’ébauche ajoutés
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom

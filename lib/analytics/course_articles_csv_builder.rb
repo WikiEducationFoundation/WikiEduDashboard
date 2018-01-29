@@ -11,10 +11,16 @@ class CourseArticlesCsvBuilder
 
   def generate_csv
     csv_data = [CSV_HEADERS]
-    @course.pages_edited.includes(:wiki, :revisions).each do |article|
-      csv_data << row(article)
+    article_rows.each do |row|
+      csv_data << row
     end
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def article_rows
+    @course.pages_edited.includes(:wiki, :revisions).map do |article|
+      row(article)
+    end
   end
 
   private

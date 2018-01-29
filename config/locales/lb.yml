@@ -51,6 +51,7 @@ lb:
     edited_by: Geännert Vum
     label: Aktivitéit
   articles:
+    article_development: (Entwécklung vum Artikel)
     assigned: Assignéiert Artikelen
     available: Disponibel Artikelen
     deleted: (geläscht)
@@ -58,6 +59,7 @@ lb:
     edited_by: 'Geännert vum:'
     edited_mobile: Artikelen
     hide: Verstoppen
+    history: (Versiounen)
     label: Artikelen
     loading: Artikele lueden...
     new: (nei)
@@ -106,9 +108,10 @@ lb:
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
-    no_passcode: Kee Passcode
+    no_passcode: kee Passcode
     none: Keng
     organizers: Organisateuren
+    random_passcode: en zoufällege Passcode
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
   categories:
@@ -243,12 +246,18 @@ lb:
   courses_generic:
     all_courses: All Progtrammer
     archived: Archivéiert Programmer
+    assignment_end: Enn vum Evenement
+    assignment_start: Ufank vum Evenement
     cancel: Ofbriechen
     course: Programm
     courses: Programmer
     campaigns: 'Campagnen:'
     campaign_courses: '%{title} Programmer'
     creator:
+      assignment_end: Enn vum Evenement
+      assignment_end_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
+      assignment_start: Ufank vum Evenement
+      assignment_start_placeholder: Ufank vum Evenement (JJJJ-MM-DD)
       clone_previous: Virege Programm klonen
       clone_this: Dëse Programm klonen
       course_description: Beschreiwung vum Programm
@@ -352,6 +361,13 @@ lb:
     continue: Virufueren (%{progress})
     start: Ufank
     view: Weisen
+    next: Nächst Säit
+    page: Säit
+    page_number: Säit %{number} vu(n) %{total}
+    table_of_contents: Inhaltsverzeechnes
+    training_library: Formatiouns-Bibliothéik
+    done: Fäerdeg!
+    check_answer: Äntwert nokucken
   uploads:
     datetime: Datum/Zäit
     file_name: Numm vum Fichier
@@ -372,6 +388,7 @@ lb:
     contribution_statistics: Statistik vun de Kontributiounen
     course_passcode: 'Passcode:'
     editors: Auteuren
+    edits_by: 'Ännerunge vum:'
     enroll_confirmation: Sidd Dir sécher datt Dir %{username} dobäisetze wëllt?
     enrolled_success: '%{username} gouf dobäigesat!'
     first_name: Virnumm

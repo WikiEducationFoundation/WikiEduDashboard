@@ -2,10 +2,13 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anamdas
+# Author: Bhatakati aatma
 # Author: Rajat11
 # Author: Rajatkatiyar10
 # Author: Sachinkatiyar
 # Author: Sfic
+# Author: Suyash.dwivedi
+# Author: Swapnil.Karambelkar
 # Author: Upendradutt93
 # Author: Wassan.anmol
 # Author: चक्रपाणी
@@ -85,6 +88,9 @@ hi:
     edited_by: द्वारा संपादित
     label: गतिविधि
   articles:
+    article_development: |2-
+
+      (लेख का विकास)
     assigned: निरुपित किए गए लेख
     available: उपलब्ध लेख
     assigned_to: को निरूपित
@@ -97,6 +103,7 @@ hi:
     edited_by: 'द्वारा संपादित:'
     edited_mobile: लेख
     hide: छुपाएँ
+    history: (इतिहास)
     label: लेख
     loading: लेख लोड हो रहे...
     new: (नया)
@@ -306,6 +313,14 @@ hi:
   revisions:
     class: कक्षा
     title: शीर्षक
+  training:
+    next: अगला पृष्ठ
+    page: पृष्ठ
+    training_library: प्रशिक्षण पुस्तकालय
+    done: पूर्ण हुआ!
   users:
     assign_articles_done: पूर्ण हुआ
+    loading_authorship_data: ग्रन्थकारिता डाटा लोड किया जा रहा है
+    authorship_data_not_fetched: ग्रन्थकारिता का डेटा प्राप्त नहीं कर पा रहे हैं
+    edits_by: 'संपादनकर्ता:'
 ...

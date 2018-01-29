@@ -9,10 +9,13 @@ import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
 import newAccount from './new_account';
 import notifications from './notifications';
+import recentEdits from './recent_edits.js';
 import revisions from './revisions';
 import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
+import users from './users';
+
 
 const reducer = combineReducers({
   articleDetails,
@@ -20,15 +23,18 @@ const reducer = combineReducers({
   confirm,
   course,
   courseCreator,
+  currentUserFromHtml: (state = {}) => state, // only set from preloaded state
   didYouKnow,
   feedback,
   needHelpAlert,
   newAccount,
   notifications,
+  recentEdits,
   revisions,
   ui,
   userCourses,
-  userProfile
+  userProfile,
+  users
 });
 
 export default reducer;

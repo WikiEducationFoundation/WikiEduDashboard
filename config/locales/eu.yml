@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: An13sa
+# Author: EukeneFL
 # Author: Iñaki LL
 # Author: Mikel Ibaiba
 # Author: Sator
@@ -35,6 +36,7 @@ eu:
     recent_activity: Azken aldiko jarduera
     report_problem: Arazo baten berri eman
     search: Galdera egin
+    search_results: 'Emaitzak honetarako: ''%{search_terms}'''
     sign_up_extended: Wikipediarekin kontua sortu
     sign_up_log_in_extended: Wikipedian
     sign_up: Kontua sortu
@@ -84,6 +86,7 @@ eu:
     edited_by: Nork editatua
     label: Jarduera
   articles:
+    article_development: (artikuluaren garapena)
     assigned: Esleitutako artikuluak
     available: Artikulu erabilgarriak
     assigned_to: 'Nori esleitua:'
@@ -98,6 +101,7 @@ eu:
     edited_by: 'Nork editatua:'
     edited_mobile: Artikuluak
     hide: Ezkutatu
+    history: (historia)
     label: Artikuluak
     loading: Artikuluak kargatzen...
     new: (berria)
@@ -110,10 +114,16 @@ eu:
       fa: 'Artikulu nabarmendua: Wikipediako balorazio onena du, segur aski artikulu
         helduegia, umoegia da editore berri baten proiektu nagusia izateko.'
       fl: 'Nabarmenduen zerrenda: Wikipediako balorazio onena zerrendetarako'
+      a: Artikulu ona — arretaz prestatutako artikulu bat, baina editore berri bataren
+        proiektu nagusirako artikulua gisa helduegia gerta daiteke
       ga: Artikulu ona — arretaz prestatutako artikulu bat, baina nabarmendua izateko
         artean gabezi batzuk dituena
+      b: B-klasea - moderatuki garatutako artikulua
+      c: C-klasea — Erdi mailako artikulua, hobetu daitekeena
+      start: Oinarrizko artikulua — Aurretiazko artikulu, asko hobetu daitekeena
       stub: 'Zirriborroa: hasitako artikulu laburra eta eduki gehiago behar duena'
       list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
+      '?': Balorazio gabekoa - Wikipedia kalitate eskalaren oraindik ez da oraindik
       does_not_exist: Artikulu hau ez da existitzen Wikipedian
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
@@ -187,8 +197,14 @@ eu:
     course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
     create_campaign: Kanpaina berria sortu
     create_my_campaign: Sortu nire kanpaina!
+    customize_passcode: pasahitz lehenetsia
+    default_course_type: Ikastaro mota lehenetsia
+    default_passcode: Pasahitz lehenetsia
+    default_passcode_explanation: 'Lehentesiz, kanpainiako programa berriek hurrengoa
+      izan beharko dute:'
     description: Deskribapena
     delete_campaign: Ezabatu kanpaina hau
+    no_passcode: Pasahitzik ez
     none: Bat ere ez
     organizers: Antolatzaileak
     organizer_added: '%{user} orain %{title} kanpainako antolatzsile bat da'
@@ -196,6 +212,7 @@ eu:
     program_template: Programa txantiloia
     program_template_tooltip: Antolatzaile batek kanpaina honetan programa bat sortzen
       duenean, arlo honetako testua deskribapen gisa kopiatuko da programako orrian
+    random_passcode: Pasahitz aleatorioa
     title: Izenburua
     use_start_end_dates: Hasiera eta amaiera datak erabili
   categories:
@@ -246,6 +263,9 @@ eu:
       duzula? Hala bada, tekleatu ikastaroaren izena aurrera egiteko.
     confirm_course_deletion_failed: '"%{title}" ez da ikastaro honen izena. Ikastaroa
       ez da ezabatu.'
+    confirm_manual_update: Ziur eguneratzea eskuz egin nahi duzula? Berrikuspen berrienak
+      inportatuko dira, eta ondoren orria birkargatu egingo da. Horrek denbora pixka
+      bat emango du.
     course: Ikastaroa
     course_dates_calendar_instructions: Aukeratu datak agendatik horiek gehitu edo
       kentzeko (adibidez, oporrak, eskolarik ez). Klikatu aldatu beharreko data aukeratu
@@ -280,6 +300,8 @@ eu:
         dute ikasleek Wikipedian? Mesedez eman behar beste detaile Wikipediako beste
         lankideei zure ikasleek egingo dituzten ekarpenen nondik norakoen berri adierazteko.
       course_language: Hizkuntza nagusia
+      course_private: Programa pribatua (administratzaile eta bideratzaileentzat soilik
+        ikusgai)
       course_project: Proiektu nagusia
       course_school: Ikastaroaren eskola
       course_subject: Ikastaroaren gaia
@@ -291,7 +313,7 @@ eu:
       create_new: Ikastaro berri bat sortu
       create_short: Ikastaroa sortu
       end_date: Amaiera data
-      end_date_placeholder: Amaiera data (YYYY-MM-DD)
+      end_date_placeholder: Amaiera data (UUUU-HH-EE)
       expected_number: Espero den ikasle kopurua
       find: Bilatu zure Ikastaroa
       intro: Izenburuak, ikastetxeak eta epealdiak zure orriaren URLa sortuko dute,
@@ -306,9 +328,15 @@ eu:
       no_class_holidays: Ez dut klase oporrik
       role_description: Ikastaroko zure rola
       role_description_placeholder: Irakaslea, irakasle-laguntzailea, etab.
+      separate_event_dates: Zehaztu ekitalde banatuen hasiera/amaierako ordutegiak
+      separate_event_dates_info: Programa honen estatistiken estatistikak jarraian
+        zehaztutako datak eta orduetan oinarrituko dira, baina gertaera edo programa
+        bera hasten eta amaitzen denean (adibidez, parte-hartzaileek noiz agertuko
+        den edo noiz ateratzen den jakiteko) gertakari zehatzak zehaztu ahal izango
+        dituzu.
       save_cloned_course: Gorde ikastaro berria
       start_date: Hasiera data
-      start_date_placeholder: Hasiera data (YYYY-MM-DD)
+      start_date_placeholder: Hasiera data (UUUU-HH-EE)
       subject: Gaia
       update_scheduled: Eguneratzea programatuta. Datuak uneko programa guztiekin
         batera eguneratuko dira hurrengo eguneratze zikloan. Horretarako, hainbat
@@ -383,6 +411,7 @@ eu:
     join_details: Ikastaro honetan izena emateko, irakasleak pasahitza eman behar
       dizu (edo pasahitza daukan izena emateko esteka). Oraindik eskuratu ez baduzu,
       jarri harremanetan irakaslearekin.
+    join_no_passcode: Ziur zaude ikastaro honekin bat egin nahi duzula?
     leave_confirmation: Ziur zaude ikastaro hau utzi nahi duzula?
     leave_course: Utzi ikastaroa
     loading: Kargatzen...
@@ -452,6 +481,7 @@ eu:
       baina %{date}rako amaituta behar zuen.'
     unsubmitted: Bidali gabeko ikastaroak
     untrained: Trebatu gabe
+    update_stats: Estatistikak eguneratu
     uploads_none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu
       Wikimedia Commonsera
     user_suggestions: 'Lankide iradokizunak:'
@@ -490,6 +520,10 @@ eu:
     campaigns: 'Kanpainak:'
     campaign_courses: '%{title} Programak'
     creator:
+      assignment_end: Ekitaldia amaitu da
+      assignment_end_placeholder: Ekitaldiaren amaiera (UUUU-HH-EE)
+      assignment_start: Ekitaldi hasiera
+      assignment_start_placeholder: Ekitaldi hasiera (UUUU-HH-EE)
       checking_for_uniqueness: Programa honen esklusibotasuna egiaztatzen ari gara
       choose_clone: Klonatzeko programa bat aukeratu
       clone_previous: Aurreko programa klonatu
@@ -510,6 +544,7 @@ eu:
       create_label: Proiektu berria sortu
       create_new: Programa independente bat sortu
       create_short: Programa sortu
+      end_date: Aktibitate jarraipenaren amaiera
       find: Programa bat bilatu
       intro: Programaren izenburuak eta erakundeak osatzen dute URLa. Hasierako wikia
         parte-hartzaileek lan egingo duten wiki nagusia da, eta wiki honetako aldaketei
@@ -520,11 +555,13 @@ eu:
         hartutako beste programa bat kopiatzeko.
       participate_in_campaign: Kanpaina batean parte hartu
       save_cloned_course: Gorde
+      start_date: Aktibitate jarraipenaren hasiera
     delete_course: Programa ezabatu
     edit_course_dates: Proiektuaren datak aldatu
-    explore: Programak bilatu
+    end: Aktibitate jarraipenaren amaiera
     enroll: Editorea gehitu
     enrollment: Parte-hartzea
+    explore: Programak bilatu
     courses_enrolled: Parte hartutako programak
     expected_students: Espero diren editoreak
     instructors: Bideratzaileak
@@ -538,6 +575,7 @@ eu:
     revisions_none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     school: Erakundea
     school_and_term: Erakundea/Noiz
+    start: Aktibitate jarraipenaren hasiera
     student_editors: Editoreak
     students: Editoreak
     students_taught: Editoreak guztira
@@ -564,7 +602,8 @@ eu:
       URLa aldatu egingo du, eta honanzko estekak hautsi. Seguru hori egin nahi duzula?
   metrics:
     label: Ikastaroko jarduera
-    last_update: Azken eguneratzea
+    last_update: Eguneratutako azken estatistikak
+    next_update: Estimatutako hurrengo eguneratzea
     activity: Azken jarduera
     are_trained: trebakuntzarekin eguneratuak
     articles_created: Sortutako artikuluak
@@ -737,8 +776,16 @@ eu:
     continue: Jarraitu (%{progress})
     start: Hasi
     view: Ikusi
+    next: Hurrengo orria
+    page: Orria
+    page_number: '%{number}. orria %{total}(e)tik'
+    table_of_contents: Eduki-taula
+    training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko
       saioa hasita ez bada.
+    done: Egina!
+    check_answer: Erantzunak egiaztatu
+    included_modules: Sartutako moduluak
   uploads:
     datetime: Data/Ordua
     file_name: Fitxategiaren izena
@@ -779,6 +826,7 @@ eu:
     characters_added_mainspace: IT Nagusira gehitutako karaktereak
     characters_added_short: 'I-T Nag: %{mainspace}, Lank Or: %{userspace}'
     characters_added_userspace: Lank Or gehitutako karaktereak
+    characters_added_draftspace: IT Nagusira gehitutako karaktereak
     my_assigned: 'Esleitua:'
     my_reviewing: 'Berrikusten:'
     name: Izena

@@ -413,9 +413,9 @@ fi:
         "Luo oma ohjelma" aloittaaksesi wikiohjelmasi sivun täydentämisen.
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
-    explore: Etsi ohjelmia
     enroll: Lisää muokkaaja
     enrollment: Osallistuminen
+    explore: Etsi ohjelmia
     courses_enrolled: Osallistumiset
     expected_students: Odotetut muokkaajat
     instructors: Järjestäjät
