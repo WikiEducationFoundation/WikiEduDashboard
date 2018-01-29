@@ -59,37 +59,6 @@ sudo systemctl start mariadb.service > /dev/null && \
 sudo systemctl enable mariadb.service > /dev/null && \
 echo 'MariaDB service started!'
 
-echo "[*] Creating Databases..."
-echo 'Enter password for Mysql root user'
-echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      exit" | sudo mysql -p
-
-echo '[*] Checking for Database configurations...'
-if [ -f config/database.yml ]; then
-  echo 'Database configurations found!'
-  echo 'You would need to connect the database for your configured user!'
-else
-  echo 'Database configurations not found!'
-  echo '[*] Creating Database configurations...'
-  cp config/database.example.yml config/database.yml
-
-  echo '[*] Creating User for Mysql...'
-  echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
-      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
-      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
-      exit" | sudo mysql -p > /dev/null && echo '[+] User created!'
-fi
-
-echo '[*] Checking for application configurations...'
-if [ -f config/application.yml ]; then
-  echo 'Application configurations found.'
-else
-  echo 'Application configurations not found!'
-  echo '[*] Creating Application configurations...'
-  cp config/application.example.yml config/application.yml
-fi
-
 echo '[*] Checking for rvm...'
 if ! which rvm > /dev/null; then
   gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && echo '[*] Installing rvm...' &&\
@@ -107,24 +76,57 @@ gem install bundler > /dev/null && echo '[+] Bundler installed!'
 echo '[*] Installing Gems and dependencies...'
 bundle install > /dev/null && echo '[+] Gems installed!'
 
-echo '[*] Installing node_modules...'
-yarn > /dev/null && echo '[+] node_modules installed!'
-
 echo '[*] Installing phantomjs-prebuilt...'
 sudo yarn global add phantomjs-prebuilt > /dev/null && echo '[+] phantomjs-prebuilt installed!'
 
 echo '[*] Installing bower...'
 sudo yarn global add bower > /dev/null && echo '[+] bower installed!'
 
+echo "[*] Creating Databases..."
+echo 'Enter password for Mysql root user'
+echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+      CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+      exit" | sudo mysql -p
+
+echo '[*] Checking for Database configurations...'
+if [ -f config/database.yml ]; then
+  echo 'Database configurations found!'
+  echo 'You would need to connect the database for your configured user!'
+  echo 'After connecting your database kindly run migrations with'
+  echo '"rake db:migrate"'
+  echo '"rake db:migrate RAILS_ENV=test"'
+else
+  echo 'Database configurations not found!'
+  echo '[*] Creating Database configurations...'
+  cp config/database.example.yml config/database.yml
+
+  echo '[*] Creating User for Mysql...'
+  echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
+      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
+      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
+      exit" | sudo mysql -p > /dev/null && echo '[+] User created!' && \
+      echo '[*] Migrating databases...'
+      rake db:migrate > /dev/null && \
+      rake db:migrate RAILS_ENV=test > /dev/null && \
+      echo '[+] Database migration completed!'
+fi
+
+echo '[*] Checking for application configurations...'
+if [ -f config/application.yml ]; then
+  echo 'Application configurations found.'
+else
+  echo 'Application configurations not found!'
+  echo '[*] Creating Application configurations...'
+  cp config/application.example.yml config/application.yml
+fi
+
+echo '[*] Installing node_modules...'
+yarn > /dev/null && echo '[+] node_modules installed!'
+
 echo '[*] Installing bower modules...'
 bower install > /dev/null && echo '[+] bower modules installed!'
 
 echo '[*] Installing gulp...'
 sudo yarn global add gulp > /dev/null && echo '[+] Gulp installed!'
-
-echo '[*] Migrating databases...'
-rake db:migrate > /dev/null && \
-rake db:migrate RAILS_ENV=test > /dev/null && \
-echo '[+] Database migration completed!'
 
 echo 'Your developmental environment setup is completed! If you say any errors try to refer to the docs for manual installation or ask for help!'
