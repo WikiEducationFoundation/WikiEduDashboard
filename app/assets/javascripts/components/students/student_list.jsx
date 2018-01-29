@@ -20,7 +20,6 @@ import ServerActions from '../../actions/server_actions.js';
 
 import CourseUtils from '../../utils/course_utils.js';
 
-const STUDENT_ROLE = 0;
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 // FIXME: Remove this save function
