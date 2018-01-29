@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'oj'
 
 describe AssignmentsController do
   let!(:course) { create(:course, id: 1) }
@@ -221,7 +222,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             put :create, params: assignment_params
           end
-          json_response = JSON.parse(response.body)
+          json_response = Oj.load(response.body)
           # response makes created_at differ by milliseconds, which is weird,
           # so test attrs that actually matter rather than whole record
           expect(json_response['article_title'])

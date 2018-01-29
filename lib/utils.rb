@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'oj'
+
 #= Utilities
 class Utils
   # Take a list of items (ie, course ids) and breaks it into chunks of 50.
@@ -15,7 +17,7 @@ class Utils
 
   def self.parse_json(data)
     begin
-      data = JSON.parse data
+      data = Oj.load data
     rescue JSON::ParserError => e
       Rails.logger.info "Caught #{e}"
     end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'oj'
+
 #= Imports plagiarism data from tools.wmflabs.org/eranbot/plagiabot/api.py
 class PlagiabotImporter
   ################
@@ -68,7 +70,7 @@ class PlagiabotImporter
     response = response.gsub(/'page_title': '.*?', /, '') # remove the page_title keys/values
     response = response.tr("'", '"') # convert to double quotes per json standard
 
-    JSON.parse(response)
+    Oj.load(response)
   rescue StandardError => e
     raise e unless typical_errors.include?(e.class)
     Raven.capture_exception e, level: 'warning'

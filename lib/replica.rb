@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/revision_data_parser"
+require 'oj'
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
@@ -119,7 +120,7 @@ class Replica
     tries ||= 3
     response = do_query(endpoint, query)
     return if response.empty?
-    parsed = JSON.parse response.to_s
+    parsed = Oj.load response.to_s
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e

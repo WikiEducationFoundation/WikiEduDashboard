@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'oj'
+
 # Gets data from ORES — Objective Revision Evaluation Service
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
@@ -15,7 +17,7 @@ class OresApi
   def get_revision_data(rev_id)
     # TODO: i18n
     response = ores_server.get query_url(rev_id)
-    ores_data = JSON.parse(response.body)
+    ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => error
     raise error unless TYPICAL_ERRORS.include?(error.class)

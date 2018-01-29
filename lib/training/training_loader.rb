@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/training/wiki_slide_parser"
+require 'oj'
 
 # Loads any of the three types of training content:
 # TrainingLibrary, TrainingModule, TrainingSlide
@@ -100,7 +101,7 @@ class TrainingLoader
   # json pages have all the required data within the json content, but optionally
   # point to a wiki page for the content
   def new_from_json_wiki_page(json_wikitext)
-    content = JSON.parse(json_wikitext)
+    content = Oj.load(json_wikitext)
     base_page = content['wiki_page']
     return content unless base_page
     wikitext = WikiApi.new(MetaWiki.new).get_page_content(base_page)

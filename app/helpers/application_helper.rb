@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'oj'
 #= Root-level helpers
 module ApplicationHelper
   def logo_path
@@ -54,7 +55,7 @@ module ApplicationHelper
 
   def fingerprinted(path, filename, file_prefix = nil)
     manifest_path = "#{Rails.root}/public/#{path}/rev-manifest.json"
-    manifest = JSON.parse(File.read(File.expand_path(manifest_path, __FILE__)))
+    manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
     "#{path}#{file_prefix}#{manifest[filename]}"
   end
 

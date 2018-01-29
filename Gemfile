@@ -7,6 +7,7 @@ gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
+gem 'oj'
 
 ### Database and caching
 gem 'mysql2' # MySQL integration for ActiveRecord
