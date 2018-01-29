@@ -121,6 +121,7 @@ en:
     label: Activity
 
   articles:
+    article_development: (article development)
     assigned: Assigned Articles
     available: Available Articles
     assigned_to: Assigned To
@@ -134,6 +135,7 @@ en:
     edited_by: 'Edited by:'
     edited_mobile: Articles
     hide: Hide
+    history: (history)
     label: Articles
     loading: Loading articles...
     new: (new)
@@ -834,6 +836,8 @@ en:
     assign_articles_done: Done
     assigned: Assigned Articles
     assignees: Assignee(s)
+    loading_authorship_data: loading authorship data
+    authorship_data_not_fetched: could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
       calculated by adding up the added characters for all edits that
@@ -848,6 +852,7 @@ en:
     contribution_statistics: Contribution Statistics
     course_passcode: 'Passcode: '
     editors: Editors
+    edits_by: 'Edits by: '
     enroll_confirmation: Are you sure you want to add %{username}?
     enroll_url: 'Users may join by visiting this URL:'
     enrolled_success: '%{username} was added successfully!'
@@ -857,6 +862,7 @@ en:
     characters_added_mainspace: MS Chars Added
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
     characters_added_userspace: US Chars Added
+    characters_added_draftspace: DS Chars Added
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name

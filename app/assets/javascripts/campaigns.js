@@ -51,9 +51,9 @@ $(() => {
     }
   });
 
-  $('#campaign_default_passcode_custom').on('change', e => {
-    $('.customized_passcode').toggleClass('hidden', !e.target.checked);
-    if (!e.target.checked) {
+  $('.campaign_passcode').on('change', () => {
+    $('.customized_passcode').toggleClass('hidden', !$('#campaign_default_passcode_custom')[0].checked);
+    if (!$('#campaign_default_passcode_custom')[0].checked) {
       $('#campaign_default_passcode').val('');
     }
   });

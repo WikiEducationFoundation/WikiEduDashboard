@@ -444,9 +444,9 @@ cs:
       save_cloned_course: Uložit
     delete_course: Odstranit projekt
     edit_course_dates: Upravit data projektu
-    explore: Aktuální projekty
     enroll: Přidat editora
     enrollment: Účastníci
+    explore: Aktuální projekty
     courses_enrolled: Programy, jichž jste se zúčastnil(a)
     expected_students: Očekávaní editoři
     instructors: Spolupracovníci

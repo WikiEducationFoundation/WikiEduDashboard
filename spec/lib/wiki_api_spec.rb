@@ -45,6 +45,16 @@ describe WikiApi do
         expect(response).to eq("439\n456\n351")
       end
     end
+
+    # This is really a test that Used#talk_page is returning the format
+    # expected by the API, and not a URL-encoded page title.
+    it 'gets the content of a user talk page with special characters' do
+      user = build(:user, username: 'Julie209!')
+      VCR.use_cassette 'wiki/user_talk' do
+        response = WikiApi.new.get_page_content(user.talk_page)
+        expect(response).not_to be_blank
+      end
+    end
   end
 
   describe '#fetch_all' do

@@ -1,27 +1,32 @@
-%tr{:class => "#{user ? date_highlight_class(course) : ''}", "data-link" => "#{course_slug_path(course.slug)}"}
-  %td.title{:role => "button", :tabindex => "0"}
-    = course.title
-    %span.creation-date.hidden
-      = course.created_at
-  %td.revisions
-    = course.recent_revision_count
-  %td
-    %span.characters-human
-      = number_to_human course.word_count
-    %span.characters.hidden
-      = course.word_count
-    %small.average-words-human
-      (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
-    %span.average-words.hidden
-      = course.average_word_count
-  %td
-    %span.views-human
-      = number_to_human course.view_sum
-    %span.views.hidden
-      = course.view_sum
-  %td
-    %span.students-human
-      = "#{course.user_count}/#{course.expected_students}"
-    %small.untrained= t("users.training_complete_count", count: course.trained_count)
-    %span.students.hidden
-      = course.user_count
+%tr{:class => "#{user ? date_highlight_class(course) : ''}"}
+  %td{:class => "title table-link-cell", :role => "button", :tabindex => "0"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      = course.title
+      %span.creation-date.hidden
+        = course.created_at
+  %td{:class => "revisions table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      = course.recent_revision_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.characters-human
+        = number_to_human course.word_count
+      %span.characters.hidden
+        = course.word_count
+      %small.average-words-human
+        (#{t("metrics.per_user", number: number_to_human(course.average_word_count))})
+      %span.average-words.hidden
+        = course.average_word_count
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.views-human
+        = number_to_human course.view_sum
+      %span.views.hidden
+        = course.view_sum
+  %td{:class => "table-link-cell"}
+    %a.course-link{:href => "#{course_slug_path(course.slug)}"}
+      %span.students-human
+        = "#{course.user_count}/#{course.expected_students}"
+      %small.untrained= t("users.training_complete_count", count: course.trained_count)
+      %span.students.hidden
+        = course.user_count

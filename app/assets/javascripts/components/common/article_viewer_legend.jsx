@@ -1,15 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
+
 import UserUtils from '../../utils/user_utils.js';
 
-const ArticleViewerLegend = ({ article, users, colors, status }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers }) => {
   let userLinks;
   if (users) {
     userLinks = users.map((user, i) => {
       const userLink = UserUtils.userTalkUrl(user.name, article.language, article.project);
+      const fullUserRecord = allUsers.find(_user => _user.username === user.name);
+      const realName = fullUserRecord && fullUserRecord.real_name;
       return (
         <div key={`legend-${user.name}`} className={`user-legend ${colors[i]}`}>
-          <a href={userLink} target="_blank">{user.name}</a>
+          <a href={userLink} title={realName} target="_blank">{user.name}</a>
         </div>
       );
     });
@@ -22,17 +26,17 @@ const ArticleViewerLegend = ({ article, users, colors, status }) => {
     usersStatus = (
       <div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
-        <div className="user-legend authorship-status">loading authorship data</div>
+        <div className="user-legend authorship-status">{I18n.t('users.loading_authorship_data')}</div>
         <div className="user-legend authorship-loading"> &nbsp; &nbsp; </div>
       </div>
     );
   } else if (status === 'failed') {
-    usersStatus = <div className="user-legend authorship-status-failed">could not fetch authorship data</div>;
+    usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}</div>;
   }
 
   return (
     <div className="user-legend-wrap">
-      <div className="user-legend">Edits by: </div>
+      <div className="user-legend">{I18n.t('users.edits_by')} </div>
       {userLinks}
       {usersStatus}
     </div>
@@ -46,4 +50,8 @@ ArticleViewerLegend.propTypes = {
   status: PropTypes.string
 };
 
-export default ArticleViewerLegend;
+const mapStateToProps = state => ({
+  allUsers: state.users.users
+});
+
+export default connect(mapStateToProps)(ArticleViewerLegend);

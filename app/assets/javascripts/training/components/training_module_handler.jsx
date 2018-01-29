@@ -24,6 +24,7 @@ const TrainingModuleHandler = createReactClass({
   },
 
   render() {
+    const locale = I18n.locale;
     const slidesAry = _.compact(this.state.training_module.slides);
     const slides = slidesAry.map((slide, i) => {
       const disabled = !slide.enabled;

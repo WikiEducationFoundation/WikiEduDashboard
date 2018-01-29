@@ -1,6 +1,10 @@
 import sinon from 'sinon';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+
+import reducer from '../../../app/assets/javascripts/reducers';
 
 import '../../testHelper';
 import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
@@ -37,13 +41,16 @@ describe('StudentList', () => {
     home_wiki: { language: 'en', project: 'wikipedia' }
   };
 
+  const initialState = { users: { users } };
+  const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
+
   it('displays \'Name\' column', () => {
     const studentList = ReactTestUtils.renderIntoDocument(
       <div>
         <StudentList
-          store={reduxStore}
+          store={reduxStoreWithUsers}
           params={params}
-          users={users}
+          students={users}
           course={course}
           course_id="Couse_school/Test_Course_(Couse_term)"
           editable={true}
@@ -62,17 +69,16 @@ describe('StudentList', () => {
 
     const studentList = ReactTestUtils.renderIntoDocument(
       <StudentList
-        store={reduxStore}
+        store={reduxStoreWithUsers}
         params={params}
         editable={true}
-        users={users}
+        students={users}
         course={course}
         course_id="Couse_school/Test_Course_(Couse_term)"
         current_user={currentUser}
         assignments={assignments}
       />
     );
-    studentList.setState({ users: users });
     studentList.setState({ assignments: assignments });
 
     const button = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'notify_overdue');

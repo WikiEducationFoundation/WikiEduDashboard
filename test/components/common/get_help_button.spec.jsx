@@ -1,32 +1,25 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 
+import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
 import GetHelpButton from '../../../app/assets/javascripts/components/common/get_help_button.jsx';
 
-GetHelpButton.__Rewire__('UserStore', {
-  getFiltered: (args) => {
-    if (JSON.stringify(args) === JSON.stringify({ content_expert: true, role: 4 })) {
-      return [{ email: 'expert@wikiedu.org', username: 'Wiki Expert' }];
-    }
-
-    if (JSON.stringify(args) === JSON.stringify({ program_manager: true, role: 4 })) {
-      return [{ email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
-    }
-
-    if (JSON.stringify(args) === JSON.stringify({ role: 4 })) {
-      return [{ email: 'expert@wikiedu.org', username: 'Wiki Expert' },
-              { email: 'manager@wikiedu.org', username: 'Wiki Manager' }];
-    }
-  }
-});
+const users = [
+  { email: 'expert@wikiedu.org', username: 'Wiki Expert', context_expert: true, role: 4 },
+  { email: 'manager@wikiedu.org', username: 'Wiki Manager', program_manager: true, role: 4 }
+];
+const initialState = { users: { users } };
+const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
 describe('GetHelpButton', () => {
   describe('Content', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -48,7 +41,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -85,7 +78,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');
@@ -102,7 +95,7 @@ describe('GetHelpButton', () => {
     const currentUser = { role: 0 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
-      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStore} />
+      <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
     );
 
     const popContainer = ReactTestUtils.findRenderedDOMComponentWithClass(TestGetHelpButton, 'pop__container');

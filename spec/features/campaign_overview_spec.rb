@@ -209,8 +209,8 @@ describe 'campaign overview page', type: :feature, js: true do
           fill_in('campaign_start', with: '2016-01-10')
           fill_in('campaign_end', with: '2016-02-10')
           find('.campaign-details .rails_editable-save').click
-          expect(campaign.reload.start).to eq(DateTime.civil(2016, 1, 10, 0, 0, 0))
-          expect(campaign.end).to eq(DateTime.civil(2016, 2, 10, 23, 59, 59))
+          expect(campaign.reload.start).to eq(Time.new(2016, 1, 10, 0, 0, 0, 0))
+          expect(campaign.end).to eq(Time.new(2016, 2, 10, 23, 59, 59, 0))
           click_button 'Edit'
           find('.campaign-details .rails_editable-edit').click
           find('#use_dates').click # uncheck

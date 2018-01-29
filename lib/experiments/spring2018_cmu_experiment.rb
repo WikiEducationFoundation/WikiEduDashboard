@@ -40,6 +40,7 @@ class Spring2018CmuExperiment
 
   def opt_in
     update_status 'opted_in'
+    add_trainings_to_default_blocks
   end
 
   def opt_out
@@ -91,5 +92,19 @@ class Spring2018CmuExperiment
                                                   reminder: true)
     update_status('reminder_sent', reminder_just_sent: true)
     sleep 2 unless Rails.env == 'test' # pause to avoid email rate-limiting
+  end
+
+  TRAINING_MAP = {
+    18 => /Get started on Wikipedia/, # get started
+    19 => /Add to an article/, # evaluate and improve an article
+    20 => /Peer review and copy edit/ # peer review
+  }.freeze
+  def add_trainings_to_default_blocks
+    TRAINING_MAP.each do |training_module_id, block_matcher|
+      block = @course.blocks.detect { |b| b.title =~ block_matcher }
+      next if block.nil?
+      block.training_module_ids |= [training_module_id]
+      block.save
+    end
   end
 end

@@ -1,28 +1,30 @@
+import { getFiltered } from './model_utils';
+
 const UserUtils = class {
-  userRoles(currentUser, userStore) {
+  userRoles(currentUser, users) {
     // Role values correspond to the CoursesUsers roles defined
     const roles = {};
     if (!currentUser) { return roles; }
-    if (userStore.getFiltered({ id: currentUser.id, role: 0 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: 0 })[0]) {
       roles.isStudent = true;
       roles.isEnrolled = true;
     }
-    if (userStore.getFiltered({ id: currentUser.id, role: 1 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: 1 })[0]) {
       roles.isInstructor = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (userStore.getFiltered({ id: currentUser.id, role: 2 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: 2 })[0]) {
       roles.isCampusVolunteer = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (userStore.getFiltered({ id: currentUser.id, role: 3 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: 3 })[0]) {
       roles.isOnlineVolunteer = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;
     }
-    if (userStore.getFiltered({ id: currentUser.id, role: 4 })[0]) {
+    if (getFiltered(users, { id: currentUser.id, role: 4 })[0]) {
       roles.isStaff = true;
       roles.isNonstudent = true;
       roles.isEnrolled = true;

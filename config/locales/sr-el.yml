@@ -404,9 +404,9 @@ sr-el:
         program.
     delete_course: Obriši program
     edit_course_dates: Izmeni datume projekta
-    explore: Pronađi programe
     enroll: Dodaj urednika
     enrollment: Učestvovanje
+    explore: Pronađi programe
     courses_enrolled: Programi sa učešćem
     expected_students: Očekivani urednici
     instructors: Facilitatori

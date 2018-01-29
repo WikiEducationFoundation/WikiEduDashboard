@@ -81,6 +81,7 @@ de:
     edited_by: Bearbeitet von
     label: Aktivität
   articles:
+    article_development: (Artikelentwicklung)
     assigned: Zugeordnete Artikel
     available: Verfügbare Artikel
     assigned_to: Zuordnung zu
@@ -95,6 +96,7 @@ de:
     edited_by: 'Bearbeitet von:'
     edited_mobile: Artikel
     hide: Ausblenden
+    history: (Versionsgeschichte)
     label: Artikel
     loading: Lade Artikel …
     new: (neu)
@@ -193,11 +195,13 @@ de:
     course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
+    customize_passcode: ein Standard-Passcode
     default_course_type: Standard-Kurstyp
     default_passcode: Standard-Passcode
+    default_passcode_explanation: 'Standardmäßig haben neue Programme in dieser Kampagne:'
     description: Beschreibung
     delete_campaign: Diese Kampagne löschen
-    no_passcode: Kein Passcode
+    no_passcode: kein Passcode
     none: Keine
     organizers: Organisatoren
     organizer_added: '%{user} ist jetzt ein Organisator der Kampagne „%{title}“'
@@ -206,6 +210,7 @@ de:
     program_template_tooltip: Wenn ein Organisator ein Programm in dieser Kampagne
       erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
       darüberkopiert.
+    random_passcode: ein zufälliger Passcode
     title: Titel
     use_start_end_dates: Start- und Enddaten verwenden
   categories:
@@ -327,6 +332,12 @@ de:
       no_class_holidays: Ich habe keine Ferien
       role_description: Deine Rolle im Kurs
       role_description_placeholder: Kursleiter, Lehrassistent etc.
+      separate_event_dates: Gib getrennte Ereignisbeginn- und -endzeitpunkte an
+      separate_event_dates_info: Aktivitätsstatistiken für dieses Programm werden
+        basierend auf den oben stehenden Daten und Zeitpunkten erstellt, du kannst
+        jedoch getrennte Zeiten für den Beginn und das Ende des Ereignisses oder Programms
+        selbst angeben (so können die Teilnehmer beispielsweise erfahren, wann sie
+        erscheinen sollen oder wann der Veranstaltungsort schließt).
       save_cloned_course: Neuen Kurs speichern
       start_date: Startdatum
       start_date_placeholder: Startdatum (JJJJ-MM-TT)
@@ -509,9 +520,9 @@ de:
     all_courses: Alle Programme
     archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.
-    assignment_end: Zeitleisten-Ende
+    assignment_end: Ereignisende
     assignments_none: Dieses Projekt hat keine zugewiesenen Artikel.
-    assignment_start: Zeitleisten-Beginn
+    assignment_start: Ereignisbeginn
     cancel: Abbrechen
     course: Programm
     courses: Programme
@@ -519,6 +530,10 @@ de:
     campaigns: 'Kampagnen:'
     campaign_courses: '%{title} Programme'
     creator:
+      assignment_end: Ereignisende
+      assignment_end_placeholder: Ereignisende (JJJJ-MM-TT)
+      assignment_start: Ereignisbeginn
+      assignment_start_placeholder: Ereignisbeginn (JJJJ-MM-TT)
       checking_for_uniqueness: Dieses Programm wird auf Eindeutigkeit überprüft.
       choose_clone: Wähle ein zu klonendes Programm aus.
       clone_previous: Vorheriges Programm klonen
@@ -541,6 +556,7 @@ de:
       create_label: Neues Programm erstellen
       create_new: Ein unabhängiges Programm erstellen
       create_short: Programm erstellen
+      end_date: Ende der Aktivitätsverfolgung
       find: Finde ein Programm
       intro: Der Programmtitel und die Einrichtung bilden die URL des Programms. Das
         Heimatwiki ist das Hauptwiki, an dem die Teilnehmer arbeiten werden und Bearbeitungen
@@ -553,11 +569,13 @@ de:
         um ein anderes Programm zu kopieren, an dem du teilgenommen hast.
       participate_in_campaign: An einer Kampagne teilnehmen
       save_cloned_course: Speichern
+      start_date: Beginn der Aktivitätsverfolgung
     delete_course: Programm löschen
     edit_course_dates: Projektdaten bearbeiten
-    explore: Programme finden
+    end: Ende der Aktivitätsverfolgung
     enroll: Autor hinzufügen
     enrollment: Teilnahme
+    explore: Programme finden
     courses_enrolled: Teilgenommene Programme
     expected_students: Erwartete Autoren
     instructors: Vermittler
@@ -571,6 +589,7 @@ de:
     revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
     school_and_term: Einrichtung/Wann
+    start: Beginn der Aktivitätsverfolgung
     student_editors: Autoren
     students: Autoren
     students_taught: Anzahl der Autoren
@@ -806,6 +825,9 @@ de:
     assign_articles_done: Fertig
     assigned: Zugewiesene Artikel
     assignees: Zugewiesene(r)
+    loading_authorship_data: Lade Daten zur Autorenschaft
+    authorship_data_not_fetched: Die Daten zur Autorenschaft konnten nicht abgerufen
+      werden
     character_doc: Die Gesamtanzahl des Inhalts, den ein Benutzer zu diesem Namensraum
       hinzugefügt hat, wird berechnet durch das Aufaddieren der hinzugefügten Zeichen
       für alle Bearbeitungen, die die Seitengröße erhöht haben. Diese Anzahl muss
@@ -818,6 +840,7 @@ de:
     contribution_statistics: Beitragsstatistiken
     course_passcode: 'Passcode:'
     editors: Autoren
+    edits_by: 'Bearbeitet von:'
     enroll_confirmation: Bist du sicher, dass du %{username} hinzufügen möchtest?
     enroll_url: 'Benutzer können durch Aufruf dieser URL beitreten:'
     enrolled_success: '%{username} wurde erfolgreich hinzugefügt!'
@@ -827,6 +850,7 @@ de:
     characters_added_mainspace: Hinzugefügte Zeichen im ANR
     characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
     characters_added_userspace: Hinzugefügte Zeichen im BNR
+    characters_added_draftspace: Zeichen im EN hinzugefügt
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
     name: Name

@@ -2,7 +2,6 @@
 
 require "#{Rails.root}/app/workers/update_course_worker"
 require "#{Rails.root}/app/workers/enroll_in_course_worker"
-require "#{Rails.root}/app/workers/set_preferences_worker"
 
 #= Controller for students enrolling in courses
 class SelfEnrollmentController < ApplicationController
@@ -27,8 +26,6 @@ class SelfEnrollmentController < ApplicationController
     # Make sure the user isn't already enrolled.
     redirect_if_enrollment_failed { return }
 
-    # Set email and VE preferences
-    set_mediawiki_preferences if Features.wiki_ed?
     # Automatic edits for newly enrolled user
     make_enrollment_edits
 
@@ -93,15 +90,14 @@ class SelfEnrollmentController < ApplicationController
                              real_name: current_user.real_name).result
   end
 
-  def set_mediawiki_preferences
-    SetPreferencesWorker.schedule_preference_setting(user: current_user)
-  end
-
   def make_enrollment_edits
     # Posts templates to userpage and sandbox and
-    # adds user to course page by updating course page with latest course info
+    # adds user to course page by updating course page with latest course info.
+    # For Wiki Ed users, also sets their email and VE preferences.
+    set_mediawiki_preferences = Features.wiki_ed?
     EnrollInCourseWorker.schedule_edits(course: @course,
                                         editing_user: current_user,
-                                        enrolling_user: current_user)
+                                        enrolling_user: current_user,
+                                        set_wiki_preferences: set_mediawiki_preferences)
   end
 end

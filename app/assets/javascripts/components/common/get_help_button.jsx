@@ -4,17 +4,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as AlertActions from '../../actions/alert_actions.js';
+import { getStaffUsers, getProgramManagers, getContentExperts } from '../../selectors';
 
 import Expandable from '../high_order/expandable.jsx';
-import UserStore from '../../stores/user_store.js';
-
-const getState = () =>
-  ({
-    contentExperts: UserStore.getFiltered({ content_expert: true, role: 4 }),
-    programManagers: UserStore.getFiltered({ program_manager: true, role: 4 }),
-    staffUsers: UserStore.getFiltered({ role: 4 })
-  })
-;
 
 const GetHelpButton = createReactClass({
   displayName: 'GetHelpButton',
@@ -29,13 +21,11 @@ const GetHelpButton = createReactClass({
     actions: PropTypes.object
   },
 
-  mixins: [UserStore.mixin],
-
   getInitialState() {
-    const state = getState();
-    state.selectedTargetUser = null;
-    state.message = '';
-    return state;
+    return {
+      selectedTargetUser: null,
+      message: ''
+    };
   },
 
   // This component expects to be created with key='get_help'.
@@ -48,9 +38,6 @@ const GetHelpButton = createReactClass({
     return e.stopPropagation();
   },
 
-  storeDidChange() {
-    return this.setState(getState());
-  },
 
   reset(e) {
     e.preventDefault();
@@ -89,21 +76,21 @@ const GetHelpButton = createReactClass({
   },
 
   wikipediaHelpUser() {
-    if (this.state.contentExperts && this.state.contentExperts.length > 0) {
-      return this.state.contentExperts[0];
-    } else if (this.state.programManagers && this.state.programManagers.length > 0) {
-      return this.state.programManagers[0];
+    if (this.props.contentExperts && this.props.contentExperts.length > 0) {
+      return this.props.contentExperts[0];
+    } else if (this.props.programManagers && this.props.programManagers.length > 0) {
+      return this.props.programManagers[0];
     }
-    return this.state.staffUsers[0];
+    return this.props.staffUsers[0];
   },
 
   programHelpUser() {
-    if (this.state.programManagers && this.state.programManagers.length > 0) {
-      return this.state.programManagers[0];
-    } else if (this.state.contentExperts && this.state.contentExperts.length > 0) {
-      return this.state.contentExperts[0];
+    if (this.props.programManagers && this.props.programManagers.length > 0) {
+      return this.props.programManagers[0];
+    } else if (this.props.contentExperts && this.props.contentExperts.length > 0) {
+      return this.props.contentExperts[0];
     }
-    return this.state.staffUsers[0];
+    return this.props.staffUsers[0];
   },
 
   dashboardHelpUser() {
@@ -119,7 +106,7 @@ const GetHelpButton = createReactClass({
     let dashboardHelpButton;
 
     // Only show these contact buttons if there are staff assigned to the course.
-    if (this.state.staffUsers && this.state.staffUsers.length > 0) {
+    if (this.props.staffUsers && this.props.staffUsers.length > 0) {
       // Show the Wikipedia help button to everyone.
       const wikipediaHelpUser = this.wikipediaHelpUser();
       wikipediaHelpButton = (
@@ -258,7 +245,10 @@ const GetHelpButton = createReactClass({
 
 const mapStateToProps = state => ({
   alertSubmitting: state.needHelpAlert.submitted,
-  alertCreated: state.needHelpAlert.created
+  alertCreated: state.needHelpAlert.created,
+  contentExperts: getContentExperts(state),
+  programManagers: getProgramManagers(state),
+  staffUsers: getStaffUsers(state)
 });
 
 const mapDispatchToProps = dispatch => ({

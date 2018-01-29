@@ -89,6 +89,7 @@ pt:
     edited_by: Editado por
     label: Atividade
   articles:
+    article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos disponíveis
     assigned_to: Atribuído a
@@ -103,6 +104,7 @@ pt:
     edited_by: 'Editado por:'
     edited_mobile: Artigos
     hide: Ocultar
+    history: (histórico)
     label: Artigos
     loading: A carregar artigos...
     new: (novo)
@@ -198,11 +200,14 @@ pt:
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
     create_campaign: Criar uma nova campanha
     create_my_campaign: Criar a minha campanha!
+    customize_passcode: um código de acesso padrão
     default_course_type: Tipo de curso predeterminado
     default_passcode: Código de acesso padrão
+    default_passcode_explanation: 'Por omissão, os novos programas desta campanha
+      devem ter:'
     description: Descrição
     delete_campaign: Eliminar esta campanha
-    no_passcode: Sem código de acesso
+    no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
     organizer_added: '%{user} é agora um(a) organizador(a) da campanha "%{title}"'
@@ -211,6 +216,7 @@ pt:
     program_template: Predefinição do programa
     program_template_tooltip: Quando um organizador criar um programa nesta campanha,
       o texto desta área será copiado como descrição na página do programa
+    random_passcode: um código de acesso aleatório
     title: Título
     use_start_end_dates: Utilizar datas iniciais e finais
   categories:
@@ -329,6 +335,13 @@ pt:
       no_class_holidays: Não há férias
       role_description: A sua função no curso
       role_description_placeholder: Professor, professor assistente, etc
+      separate_event_dates: Especifique separadamente os horários iniciais e finais
+        do evento
+      separate_event_dates_info: As estatísticas de atividade deste programa serão
+        monitorizadas com base nas datas e horários acima, mas pode especificar separadamente
+        os horários para quando for começar ou terminar o evento ou programa em si
+        (por exemplo, para que os participantes saibam quando aparecer ou quando o
+        local for fechado).
       save_cloned_course: Criar novo curso
       start_date: Data de início
       start_date_placeholder: Data de início (AAAA-MM-DD)
@@ -495,9 +508,9 @@ pt:
       one: Voluntário
       other: Voluntários
     weeks_none: Este curso não tem um cronograma ainda.
-    warn_mirrored: A partir da submissão, este curso será enviado automaticamente
-      à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
-      serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    warn_mirrored: |-
+      Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
+      Tem a certeza de que deseja prosseguir?
     wiki_staff: Equipa Wiki Ed
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
@@ -509,9 +522,9 @@ pt:
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.
-    assignment_end: Fim do Cronograma
+    assignment_end: Fim do evento
     assignments_none: Este projeto não tem artigos indicados.
-    assignment_start: Início do Cronograma
+    assignment_start: Início do evento
     cancel: Cancelar
     course: Programa
     courses: Programas
@@ -519,6 +532,10 @@ pt:
     campaigns: 'Campanhas:'
     campaign_courses: Programas de %{title}
     creator:
+      assignment_end: Fim do evento
+      assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
+      assignment_start: Início do evento
+      assignment_start_placeholder: Início do evento (AAAA-MM-DD)
       checking_for_uniqueness: Verificando se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
@@ -541,6 +558,7 @@ pt:
       create_label: Criar Novo Programa
       create_new: Criar um programa independente
       create_short: Criar Programa
+      end_date: Fim da atividade de monitorização
       find: Encontrar um Programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão a trabalhar, e as edições
@@ -552,11 +570,13 @@ pt:
         copiar outro programa que tenha participado.
       participate_in_campaign: Participar numa campanha
       save_cloned_course: Gravar
+      start_date: Início da atividade de monitorização
     delete_course: Eliminar programa
     edit_course_dates: Editar Datas do Projeto
-    explore: Encontrar programas
+    end: Fim da atividade de monitorização
     enroll: Adicionar Editor
     enrollment: Participação
+    explore: Encontrar programas
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados
     instructors: Facilitadores
@@ -570,6 +590,7 @@ pt:
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
+    start: Início da atividade de monitorização
     student_editors: Editores
     students: Editores
     students_taught: Editores totais
@@ -628,7 +649,7 @@ pt:
     main: Domínio principal
     main_char_added: Caracteres adicionados ao domínio principal
     user: Domínio Utilizador
-    user_char_added: Caracteres adicionados ao domínio de usuário
+    user_char_added: Caracteres adicionados ao espaço nominal de utilizador
     user_ns: Utilizador(a)
   recent_activity:
     active_courses: O artigo está ativo em
@@ -636,7 +657,7 @@ pt:
     datetime: Data/Horário
     did_you_know_eligible: Sabia que Elegível
     image: Imagem
-    file_name: Nome do Arquivo
+    file_name: Nome do ficheiro
     no_dyk_eligible: Não há atualmente nenhum artigo "Sabia que..." elegível.
     no_plagiarism: Não há atualmente nenhuma revisão suspeita de plágio.
     no_edits: Não existem edições recentes.
@@ -802,6 +823,8 @@ pt:
     assign_articles_done: Feito
     assigned: Artigos atribuídos
     assignees: Atribuído(s)
+    loading_authorship_data: a carregar dados de autoria
+    authorship_data_not_fetched: não foi possível obter os dados de autoria
     character_doc: A quantidade total do conteúdo que um utilizador adicionou neste
       espaço nominal, calculada ao somar os caracteres acrescentados de todas as edições
       que aumentaram o tamanho da página. Este número não reflete necessariamente
@@ -814,6 +837,7 @@ pt:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores
+    edits_by: 'Edições de:'
     enroll_confirmation: Tem a certeza de que deseja adicionar %{username}?
     enroll_url: 'Os utilizadores podem se juntar ao entrar neste URL:'
     enrolled_success: '%{username} foi adicionado com sucesso!'
@@ -823,6 +847,7 @@ pt:
     characters_added_mainspace: Os caracteres foram acrescentados no espaço principal
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Os caracteres foram acrescentados no espaço do utilizador
+    characters_added_draftspace: Os caracteres foram acrescentados no espaço do rascunho
     my_assigned: 'Atribuição:'
     my_reviewing: 'A revisar:'
     name: Nome
