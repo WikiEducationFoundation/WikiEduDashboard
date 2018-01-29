@@ -15,8 +15,8 @@ class Utils
 
   def self.parse_json(data)
     begin
-      data = Oj.load data
-    rescue JSON::ParserError => e
+      data = Oj.load(data)
+    rescue Oj::ParseError => e
       Rails.logger.info "Caught #{e}"
     end
     data

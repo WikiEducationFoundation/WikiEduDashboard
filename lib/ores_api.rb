@@ -26,7 +26,7 @@ class OresApi
     Errno::ETIMEDOUT,
     Net::ReadTimeout,
     Errno::ECONNREFUSED,
-    JSON::ParserError,
+    Oj::ParseError,
     Errno::EHOSTUNREACH,
     Faraday::ConnectionFailed,
     Faraday::TimeoutError

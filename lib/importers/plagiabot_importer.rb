@@ -78,7 +78,7 @@ class PlagiabotImporter
   def self.typical_errors
     [Errno::ETIMEDOUT,
      Net::ReadTimeout,
-     JSON::ParserError]
+     Oj::ParseError]
   end
 
   def self.api_get_url(opts = {})
