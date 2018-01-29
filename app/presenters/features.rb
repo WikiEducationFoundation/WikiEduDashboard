@@ -67,4 +67,8 @@ class Features
     return false unless enable_chat?
     course.flags[:enable_chat] == true
   end
+
+  def self.enable_account_requests?
+    ENV['enable_account_requests'] == 'true'
+  end
 end

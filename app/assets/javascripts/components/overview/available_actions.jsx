@@ -153,7 +153,7 @@ const AvailableActions = createReactClass({
         <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
       ));
       // show a link to the requested accounts creation page if there are any
-      if (this.state.course.requestedAccounts && this.state.course.flags.register_accounts === true) {
+      if (Features.enableAccountRequests && this.state.course.requestedAccounts && this.state.course.flags.register_accounts === true) {
         const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
         controls.push((
           <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>

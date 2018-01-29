@@ -117,12 +117,12 @@ const StudentList = createReactClass({
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
-      if (this.state.showModal && this.props.course.flags.register_accounts === true) {
-        requestAccountsModal = <NewAccountModal course={this.props.course} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+      if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
+        requestAccountsModal = <NewAccountModal course={this.props.course} currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
       } else {
         requestAccountsModal = (
           <button onClick={this.openModal} className="request_accounts button auth signup border margin">
-            <i className="icon icon-wiki-logo" /> {I18n.t('application.sign_up_extended')}
+            <i className="icon icon-wiki-logo" /> {I18n.t('application.create_accounts')}
           </button>
         );
       }
@@ -161,7 +161,6 @@ const StudentList = createReactClass({
         info_key: 'users.character_doc'
       }
     };
-
     return (
       <div className="list__wrapper">
         {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.users.length < 1)}

@@ -37,6 +37,7 @@ en:
 
   application:
     cancel: Cancel
+    create_accounts: Create Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentation
     error: 'There was an error:'
@@ -447,6 +448,9 @@ en:
     new_account_info: >
       To request an account, enter your email address and your desired username.
       A password will be emailed to you once the account has been created.
+    new_account_info_admin: >
+      To request an student's account, enter their email address and desired username.
+      A password will be emailed to them once the account has been created.
     new_account_username: Requested username
     new_account_username_invalid: This is not a valid username.
     new_account_username_placeholder: Wiki Editor 123
@@ -456,6 +460,9 @@ en:
       Your request for an account has been submitted. The Facilitator for this program
       can finalize your account creation now. Once it is created, you'll get a password
       for the new account by email.
+    new_account_submitted_admin: >
+      Your request for an account has been created. Please inform your students to check
+      their email inbox to get their new password
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None

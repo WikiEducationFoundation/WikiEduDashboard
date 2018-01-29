@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as NewAccountActions from '../../actions/new_account_actions.js';
 import TextInput from '../common/text_input.jsx';
 
-const NewAccountModal = ({ course, passcode, closeModal, newAccount, actions }) => {
+const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount, actions }) => {
   const checkAvailability = () => (actions.checkAvailability(newAccount));
   const requestAccount = () => (actions.requestAccount(passcode, course, newAccount));
 
@@ -31,15 +31,24 @@ const NewAccountModal = ({ course, passcode, closeModal, newAccount, actions }) 
   }
   let confirmSubmitted;
   if (newAccount.submitted) {
+    if (currentUser.role === 1) {
+    confirmSubmitted = <div className="success">{I18n.t('courses.new_account_submitted_admin')}</div>;
+    } else {
     confirmSubmitted = <div className="success">{I18n.t('courses.new_account_submitted')}</div>;
+    }
   }
 
+  let newAccountInfo;
+  if (currentUser.role === 1) {
+    newAccountInfo = <div><p>{I18n.t('courses.new_account_info_admin')}</p></div>;
+  } else {
+    newAccountInfo = <div><p>{I18n.t('courses.new_account_info')}</p></div>;
+  }
   return (
     <div className="basic-modal left">
       <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
-      <div>
-        <p>{I18n.t('courses.new_account_info')}</p>
-      </div>
+      {newAccountInfo}
+
       <TextInput
         id="new_account_username"
         value={newAccount.username}
