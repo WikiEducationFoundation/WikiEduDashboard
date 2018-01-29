@@ -334,16 +334,16 @@ describe AssignmentsController do
 
     context 'when the update succeeds' do
       it 'renders a 200' do
-        post :update, params: { course_id: course.id, id: assignment }
-          .merge(update_params), format: :json
+        post :update, params: { course_id: course.id, id: assignment }.merge(update_params),
+             format: :json
         expect(response.status).to eq(200)
       end
     end
     context 'when the update fails' do
       it 'renders a 500' do
         allow_any_instance_of(Assignment).to receive(:save).and_return(false)
-        post :update, params: { course_id: course.id, id: assignment }
-          .merge(update_params), format: :json
+        post :update, params: { course_id: course.id, id: assignment }.merge(update_params),
+             format: :json
         expect(response.status).to eq(500)
       end
     end

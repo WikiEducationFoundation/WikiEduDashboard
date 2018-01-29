@@ -125,17 +125,15 @@ class WizardTimelineManager
                                  gradeable_item_type: 'block')
     block_record.update(gradeable_id: gradeable.id)
   end
-
+  # rubocop:disable Metrics/LineLength
   HANDOUTS = {
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
     'books_handout' => ['Books', 'https://wikiedu.org/books'],
     'chemistry_handout' => ['Chemistry', 'https://wikiedu.org/chemistry'],
     'ecology_handout' => ['Ecology', 'https://wikiedu.org/ecology'],
-    'environmental_sciences_handout' => ['Environmental Sciences',
-                                         'https://wikiedu.org/environmental_sciences'],
+    'environmental_sciences_handout' => ['Environmental Sciences', 'https://wikiedu.org/environmental_sciences'],
     'films_handout' => ['Films', 'https://wikiedu.org/films'],
-    'genes_and_proteins_handout' => ['Genes and Proteins',
-                                     'https://wikiedu.org/genes_and_proteins'],
+    'genes_and_proteins_handout' => ['Genes and Proteins', 'https://wikiedu.org/genes_and_proteins'],
     'history_handout' => ['History', 'https://wikiedu.org/history'],
     'linguistics_handout' => ['Linguistics', 'https://wikiedu.org/linguistics'],
     'medicine_handout' => ['Medicine', 'https://wikiedu.org/medicine'],
@@ -145,7 +143,7 @@ class WizardTimelineManager
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
   }.freeze
-
+  # rubocop:enable Metrics/LineLength
   def add_handouts(block)
     content = +''
     HANDOUTS.each_key do |logic_key|
