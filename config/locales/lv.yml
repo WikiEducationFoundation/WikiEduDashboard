@@ -6,12 +6,15 @@
 lv:
   application:
     cancel: Atcelt
+    dashboard: Wiki Ed panelis
     documentation: Dokumentācija
     field_required: Šis lauks jāaizpilda obligāti.
     greeting2: Laipni lūdzam!
     greeting_extended: Laipni lūdzam Vikipēdijā
     help: Palīdzība
     home: Sākums
+    log_out: Iziet
+    my_dashboard: Mans panelis
     recent_activity: Nesenās darbības
     report_problem: Ziņot par problēmu
     search: uzdot jautājumu
@@ -19,18 +22,23 @@ lv:
     training: Apmācības
     change: Mainīt
     confirm: Labi
+    opt_in: Jā
+    opt_out: Nē
   activity:
     all: Aktivitāte
     edited_by: Labotājs
     label: Aktivitāte
   articles:
+    article_development: (raksta attīstība)
     assigned: Piešķirtie raksti
     available: Pieejamie raksti
     assigned_to: Piešķirts
+    deleted: (dzēsts)
     edited: Labotie raksti
     edited_by: 'Labotāji:'
     edited_mobile: Raksti
     hide: Paslēpt
+    history: (vēsture)
     label: Raksti
     loading: Ielādē rakstus...
     new: (jauns)
@@ -46,6 +54,7 @@ lv:
     assign_self: Piešķirt sev rakstu
     label: Piešķirt
     loading: Ielādē uzdevumus...
+    none_short: Nav piešķirtu rakstu
     remove: Noņemt
     review_self: Pārlasīt rakstu
     select: Izvēlēties
@@ -66,7 +75,9 @@ lv:
     organizers: Organizatori
     title: Nosaukums
   categories:
+    add_category: Pievienot kategoriju
     add_template: Pievienot veidni
+    add_this_category: Pievienot šo kategoriju
     add_this_template: Pievienot šo veidni
     name: Nosaukums
     category_name: Kategorijas nosaukums
@@ -90,6 +101,7 @@ lv:
     course: Kurss
     course_description: Kursi
     courses: Kursi
+    courses_taught: Mācītie kursi
     creation_date: Izveides datums
     creator:
       clone_previous: Klonēt iepriekšējo kursu
@@ -100,6 +112,8 @@ lv:
       course_term: Kursa semestris
       course_term_placeholder: Semestris
       course_title: Kursa nosaukums
+      create_button: Izveidot manu kursu!
+      create_label: Izveidot jaunu kursu
       end_date: Beigu datums
       end_date_placeholder: Beigu datums (GGGG-MM-DD)
       expected_number: Paredzamais studentu skaits
@@ -121,7 +135,9 @@ lv:
     duration: Kursa ilgums
     edit_count: Labojumu skaits
     edit_course_dates: Labot kursa datumus
+    enable_chat: Iespējot tērzēšanu
     end: Beigas
+    ended: Kurss ir noslēdzies.
     enroll: Reģistrēties
     enrollment: Reģistrācija
     feedback: Atsauksmes
@@ -131,6 +147,7 @@ lv:
     leave_course: Pamest kursu
     loading: Ielādē…
     my_articles: Mani raksti
+    needs_update: Ieplānot datu atjaunināšanu
     new_week: Pievienot jaunu nedēļu
     no_available_actions: Nav pieejamu darbību
     ores_plot: ORES
@@ -154,6 +171,7 @@ lv:
     update_stats: Atjaunināt statistiku
     view_other: Skatīt citas kampaņas
     view: Apskatīt kursu
+    view_page: Skatīt kursa lapu
     volunteer:
       other: Brīvprātīgie
   courses_generic:
@@ -171,10 +189,16 @@ lv:
       course_term: Kad
       course_term_placeholder: Kad
       course_title: Programmas nosaukums
+      create_button: Izveidot manu programmu!
+      create_label: Izveidot jaunu programmu
+      create_new: Izveido neatkarīgu programmu
+      find: Atrodi programmu
+      participate_in_campaign: Piedalies kampaņā
       save_cloned_course: Saglabāt
     delete_course: Dzēst programmu
     enroll: Pievienot dalībnieku
     enrollment: Dalība
+    explore: Atrast programmas
     expected_students: Plānotie dalībnieki
     instructors: Koordinatori
     join_course: Pievienoties programmai
@@ -189,6 +213,7 @@ lv:
     edit_description: Labot aprakstu
     edit_details: Labot datus
   metrics:
+    label: Kursa aktivitāte
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti

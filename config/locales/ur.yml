@@ -5,6 +5,7 @@
 # Author: Hindustanilanguage
 # Author: Muhammad Shuaib
 # Author: Obaid Raza
+# Author: Sayam Asjad
 # Author: Zainab Meher
 # Author: امین اکبر
 ---
@@ -63,5 +64,8 @@ ur:
   uploads:
     label: اپلوڈ کردہ
   users:
+    loading_authorship_data: مصنفیت ڈیٹا لوڈ کرنا
+    authorship_data_not_fetched: مصنفیت ڈیٹا کو نہیں مل سکا
+    edits_by: 'کی طرف سے ترمیم:'
     my_assigned: تفویض کردہ
 ...

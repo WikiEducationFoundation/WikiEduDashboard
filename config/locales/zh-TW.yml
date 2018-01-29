@@ -667,6 +667,8 @@ zh-TW:
     assign_articles_done: 完成
     assigned: 已經分配的條目
     assignees: 被分配者
+    loading_authorship_data: 載入作者資料中
+    authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
     chars_added: 字數的增加<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
@@ -675,6 +677,7 @@ zh-TW:
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
+    edits_by: 編輯者們：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
     enrolled_success: '%{username}成功增加！'

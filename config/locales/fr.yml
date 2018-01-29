@@ -846,6 +846,8 @@ fr:
     assign_articles_done: Fait
     assigned: Articles affectés
     assignees: Affecté(s)
+    loading_authorship_data: chargement des données de paternité
+    authorship_data_not_fetched: impossible d'accéder aux données de paternité
     character_doc: La quantité totale de contenu qu’un utilisateur a ajouté à son
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
@@ -859,6 +861,7 @@ fr:
     contribution_statistics: Statistiques des contributions
     course_passcode: 'Code d''accès:'
     editors: Editeurs étudiants
+    edits_by: 'Modifié par :'
     enroll_confirmation: Êtes-vous sûr de vouloir ajouter %{username} ?
     enroll_url: 'Les utilisateurs peuvent s’inscrire en allant à cette URL :'
     enrolled_success: '%{username} a été ajouté !'
