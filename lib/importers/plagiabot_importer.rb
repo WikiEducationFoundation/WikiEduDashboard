@@ -68,7 +68,7 @@ class PlagiabotImporter
     response = response.gsub(/'page_title': '.*?', /, '') # remove the page_title keys/values
     response = response.tr("'", '"') # convert to double quotes per json standard
 
-    JSON.parse(response)
+    Oj.load(response)
   rescue StandardError => e
     raise e unless typical_errors.include?(e.class)
     Raven.capture_exception e, level: 'warning'
@@ -78,7 +78,7 @@ class PlagiabotImporter
   def self.typical_errors
     [Errno::ETIMEDOUT,
      Net::ReadTimeout,
-     JSON::ParserError]
+     Oj::ParseError]
   end
 
   def self.api_get_url(opts = {})

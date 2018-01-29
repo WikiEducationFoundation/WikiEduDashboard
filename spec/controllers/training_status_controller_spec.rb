@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+
 describe TrainingStatusController do
   render_views
   describe '#show' do
@@ -15,7 +16,7 @@ describe TrainingStatusController do
     context 'when the training is incomplete' do
       it 'includes the not completed status for a user' do
         get :show, params: { user_id: user.id, course_id: course.id }, format: :json
-        response_data = JSON.parse(response.body)
+        response_data = Oj.load(response.body)
         expect(response_data['course']['training_modules'][0]['status']).to eq('Not started')
         expect(response_data['course']['training_modules'][0]['completion_date']).to be_nil
       end
@@ -28,7 +29,7 @@ describe TrainingStatusController do
       end
       it 'includes the completion date' do
         get :show, params: { user_id: user.id, course_id: course.id }, format: :json
-        response_data = JSON.parse(response.body)
+        response_data = Oj.load(response.body)
         expect(response_data['course']['training_modules'][0]['completion_date']).not_to be_nil
       end
     end

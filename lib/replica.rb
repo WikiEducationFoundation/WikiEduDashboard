@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/revision_data_parser"
-
 #= Fetches wiki revision data from an endpoint that provides SQL query
 #= results from a replica wiki database on wmflabs:
 #=   https://tools.wmflabs.org/wikiedudashboard
@@ -119,7 +118,7 @@ class Replica
     tries ||= 3
     response = do_query(endpoint, query)
     return if response.empty?
-    parsed = JSON.parse response.to_s
+    parsed = Oj.load(response.to_s)
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
@@ -184,7 +183,7 @@ class Replica
 
   # These are typical network errors that we expect to encounter.
   TYPICAL_ERRORS = [Errno::ETIMEDOUT, Net::ReadTimeout, Errno::ECONNREFUSED,
-                    JSON::ParserError].freeze
+                    Oj::ParseError].freeze
   def report_exception(error, endpoint, query, level='error')
     level = 'warning' if TYPICAL_ERRORS.include?(error.class)
     Raven.capture_exception error, level: level, extra: {

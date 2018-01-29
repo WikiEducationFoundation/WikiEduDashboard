@@ -118,7 +118,7 @@ describe PlagiabotImporter do
     end
 
     it 'handles API failures gracefully' do
-      stub_request(:any, /.*wmflabs.org.*/).and_raise(JSON::ParserError)
+      stub_request(:any, /.*wmflabs.org.*/).and_raise(Oj::ParseError)
       expect { PlagiabotImporter.find_recent_plagiarism }.not_to raise_error
     end
   end

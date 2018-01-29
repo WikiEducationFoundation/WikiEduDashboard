@@ -47,6 +47,7 @@ end
 gem 'faraday' # Standard HTTP library
 gem 'mediawiki_api', '0.7.1' # Library for querying mediawiki API
 gem 'restforce', git: 'https://github.com/ejholmes/restforce.git' # Salesforce API access
+gem 'oj' # JSON Parsing library
 
 ### Internationalization
 gem 'http_accept_language'

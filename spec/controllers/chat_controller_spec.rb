@@ -21,7 +21,7 @@ describe ChatController do
       end
 
       it 'returns an auth_token and user_id' do
-        response = JSON.parse(subject.body)
+        response = Oj.load(subject.body)
         expect(response['auth_token']).to be
         expect(response['user_id']).to be
       end

@@ -24,7 +24,7 @@ class RocketChat
     return if @course.chatroom_id
     data = { name: @course.slug }
     response = api_post(CREATE_ROOM_ENDPOINT, data, admin_auth_header)
-    room_id = JSON.parse(response.body).dig('group', '_id')
+    room_id = Oj.load(response.body).dig('group', '_id')
     raise StandardError unless room_id
     @course.update_attribute(:chatroom_id, room_id)
   end
@@ -49,7 +49,7 @@ class RocketChat
     @user.chat_password = random_password
     response = api_post(CREATE_USER_ENDPOINT, new_chat_account_data, admin_auth_header)
     # TODO: verify success better
-    chat_id = JSON.parse(response.body).dig('user', '_id')
+    chat_id = Oj.load(response.body).dig('user', '_id')
     raise StandardError unless chat_id
     @user.update(chat_password: @user.chat_password, chat_id: chat_id)
   end
@@ -109,7 +109,7 @@ class RocketChat
     post_data = { username: username, password: password }
     response = Net::HTTP.post_form(login_uri, post_data)
     validate_api_response(response, LOGIN_ENDPOINT)
-    JSON.parse(response.body).dig('data')
+    Oj.load(response.body).dig('data')
   end
 
   RANDOM_PASSWORD_LENGTH = 12

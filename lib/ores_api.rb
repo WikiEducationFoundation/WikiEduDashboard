@@ -15,7 +15,7 @@ class OresApi
   def get_revision_data(rev_id)
     # TODO: i18n
     response = ores_server.get query_url(rev_id)
-    ores_data = JSON.parse(response.body)
+    ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => error
     raise error unless TYPICAL_ERRORS.include?(error.class)
@@ -26,7 +26,7 @@ class OresApi
     Errno::ETIMEDOUT,
     Net::ReadTimeout,
     Errno::ECONNREFUSED,
-    JSON::ParserError,
+    Oj::ParseError,
     Errno::EHOSTUNREACH,
     Faraday::ConnectionFailed,
     Faraday::TimeoutError

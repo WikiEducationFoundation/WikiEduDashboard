@@ -98,7 +98,7 @@ class WikiEdits
 
     # Make the request
     response = tokens.access_token.post(@api_url, data)
-    response_data = JSON.parse(response.body)
+    response_data = Oj.load(response.body)
     WikiResponse.capture(response_data, current_user: current_user,
                                         post_data: data,
                                         type: data[:action])
@@ -118,7 +118,7 @@ class WikiEdits
     handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }
 
     # Handle Mediawiki API response
-    token_response = JSON.parse(get_token.body)
+    token_response = Oj.load(get_token.body)
     WikiResponse.capture(token_response, current_user: current_user, type: 'tokens')
     return { status: 'failed' } unless token_response.key?('query')
 

@@ -41,7 +41,7 @@ describe ArticlesController do
       get :details, params: { article_id: article.id, course_id: course.id }, format: :json
       expect(assigns(:article)).to eq(article)
       expect(assigns(:course)).to eq(course)
-      json_response = JSON.parse(response.body)
+      json_response = Oj.load(response.body)
       expect(json_response['article_details']['first_revision']['mw_rev_id'])
         .to eq(revision1.mw_rev_id)
       expect(json_response['article_details']['last_revision']['mw_rev_id'])

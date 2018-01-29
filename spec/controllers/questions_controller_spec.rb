@@ -9,7 +9,7 @@ describe QuestionsController do
       let(:question_id) { question.id }
       before { get :get_question, params: { id: question_id }, format: :json }
       it 'renders the question in json' do
-        expect(JSON.parse(response.body)['question']['id']).to eq(question.id)
+        expect(Oj.load(response.body)['question']['id']).to eq(question.id)
       end
     end
   end
