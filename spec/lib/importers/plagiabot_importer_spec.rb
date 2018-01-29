@@ -16,7 +16,11 @@ describe PlagiabotImporter do
              id: 123321,
              namespace: 0)
       stub_request(:get, /tools.wmflabs.org.*/)
-        .to_return(body: "[{'project': 'wikipedia', 'page_ns': '0', 'page_title': 'Prasad_karmarkar', 'ithenticate_id': '19201081', 'diff_timestamp': '20150831135151'}]")
+        .to_return(body: "[{'project': 'wikipedia',
+                            'page_ns': '0',
+                            'page_title': 'Prasad_karmarkar',
+                            'ithenticate_id': '19201081',
+                            'diff_timestamp': '20150831135151'}]")
       PlagiabotImporter.check_recent_revisions
       rev = Revision.find_by(mw_rev_id: 678763820)
       expect(rev.ithenticate_id).to eq(19201081)
@@ -26,7 +30,8 @@ describe PlagiabotImporter do
   describe '.api_get_url' do
     it 'returns an ithenticate report url for an ithenticate_id' do
       stub_request(:get, /tools.wmflabs.org.*/)
-        .to_return(body: '[https://api.ithenticate.com/view_report/85261B20-0B70-11E7-992A-907D4A89A445]')
+        .to_return(body: '[https://api.ithenticate.com/view_report/'\
+                         '85261B20-0B70-11E7-992A-907D4A89A445]')
       report_url = PlagiabotImporter.api_get_url(ithenticate_id: 19201081)
       url_match = report_url.include?('https://api.ithenticate.com/')
       # plagiabot may have an authentication error with ithenticate, in

@@ -42,7 +42,8 @@ describe 'Surveys', type: :feature, js: true do
 
   describe 'Editing a Survey' do
     # let!(:question_group)  { FactoryBot.create(:question_group, name: "Survey Section 1") }
-    # let!(:survey)  { create(:survey, name: "Dumb Survey", :rapidfire_question_groups => [question_group]) }
+    # let!(:survey)  { create(:survey, name: "Dumb Survey",
+    # :rapidfire_question_groups => [question_group]) }
 
     # before :each do
     #   create_questions(question_group)
@@ -143,7 +144,8 @@ describe 'Surveys', type: :feature, js: true do
       # Q10
       create(:q_rangeinput, question_group_id: question_group.id)
 
-      # Q11 — this question will be removed because there are no WikiEdu staff to select from for this course.
+      # Q11 — this question will be removed because there are no WikiEdu staff
+      # to select from for this course.
       q_select3 = create(:q_select, question_group_id: question_group.id,
                                     course_data_type: 'WikiEdu Staff')
       q_select3.rules[:presence] = '0'
@@ -289,7 +291,8 @@ describe 'Surveys', type: :feature, js: true do
     it 'loads a question group preview' do
       Capybara.current_driver = :poltergeist
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
-      visit "/surveys/rapidfire/question_groups/1/answer_groups/new?preview&course_slug=#{Course.last.slug}"
+      visit "/surveys/rapidfire/question_groups/1/answer_groups/new?preview"\
+            "&course_slug=#{Course.last.slug}"
     end
   end
 

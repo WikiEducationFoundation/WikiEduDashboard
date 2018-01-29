@@ -28,9 +28,7 @@ class TimelineController < ApplicationController
   def update_week(week)
     blocks = week['blocks']
     week.delete 'blocks'
-    if !week.key?(:course_id) || week['course_id'].nil?
-      week['course_id'] = @course.id
-    end
+    week['course_id'] = @course.id if !week.key?(:course_id) || week['course_id'].nil?
     @week = update_util Week, week
     @week.course.reorder_weeks
 

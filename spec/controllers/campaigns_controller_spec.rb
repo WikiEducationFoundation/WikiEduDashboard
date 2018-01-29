@@ -131,7 +131,8 @@ describe CampaignsController do
       expect(Campaign.find_by_slug(campaign.slug)).not_to be_nil
     end
 
-    it 'adds the given user as an organizer of the campaign if the current user is a campaign organizer' do
+    it 'adds the given user as an organizer of the campaign '\
+       'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       user2 = create(:user, username: 'MusikAnimal')
@@ -158,7 +159,8 @@ describe CampaignsController do
       expect(CampaignsUsers.find_by_id(organizer.id)).not_to be_nil
     end
 
-    it 'removes the given organizer from the campaign if the current user is a campaign organizer' do
+    it 'removes the given organizer from the campaign '\
+       'if the current user is a campaign organizer' do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,
                               role: CampaignsUsers::Roles::ORGANIZER_ROLE)
       allow(controller).to receive(:current_user).and_return(user)

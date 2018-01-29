@@ -24,7 +24,9 @@ describe ExperimentsPresenter do
 
   describe '#notification' do
     context 'when the course is in an active experiment' do
-      let(:flags) { { spring_2018_cmu_experiment: 'email_sent', spring_2018_cmu_experiment_email_code: 'secret' } }
+      let(:flags) do { spring_2018_cmu_experiment: 'email_sent',
+                       spring_2018_cmu_experiment_email_code: 'secret' }
+                  end
       it 'includes an opt_in_link with the email code' do
         expect(subject.notification[:opt_in_link]).to match(/secret/)
       end

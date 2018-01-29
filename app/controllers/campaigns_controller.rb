@@ -219,6 +219,7 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign)
-          .permit(:slug, :description, :template_description, :title, :start, :end, :default_course_type, :default_passcode)
+          .permit(:slug, :description, :template_description, :title, :start, :end,
+                  :default_course_type, :default_passcode)
   end
 end

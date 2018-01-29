@@ -21,7 +21,8 @@ class OresDiffCsvBuilder
   def articles_to_csv
     csv_data = [CSV_HEADERS]
     @courses.each do |course|
-      course.articles_courses.includes(:article).where(articles: { wiki_id: en_wiki_id }).each do |articles_course|
+      course.articles_courses.includes(:article).where(articles: { wiki_id: en_wiki_id })
+            .each do |articles_course|
         csv_data << article_row(articles_course, course)
       end
     end

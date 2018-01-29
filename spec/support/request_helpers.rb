@@ -21,7 +21,8 @@ module RequestHelpers
   end
 
   def stub_wikimedia_error(code: 503)
-    wikimedia_error = '<!DOCTYPE html><html lang=en><meta charset=utf-8><title>Wikimedia Error</title></html>'
+    wikimedia_error = '<!DOCTYPE html><html lang=en><meta charset=utf-8>'\
+                      '<title>Wikimedia Error</title></html>'
     stub_request(:get, /.*wikipedia.*/)
       .to_return(status: code, body: wikimedia_error, headers: {})
   end
@@ -109,7 +110,8 @@ module RequestHelpers
 
   def stub_oauth_options_warning
     stub_token_request
-    success = '{"warnings":{"options":{"*":"Validation error for \'visualeditor-enable\': not a valid preference"}}, "options":"success"}'
+    success = '{"warnings":{"options":{"*":"Validation error for \'visualeditor-enable\': not a v'\
+              'alid preference"}}, "options":"success"}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: success, headers: {})
   end
@@ -174,7 +176,9 @@ module RequestHelpers
 
     wikis.each do |wiki|
       stub_request(:get, "https://#{wiki}/w/api.php?action=query&format=json&meta=siteinfo")
-        .to_return(status: 200, body: "{\"query\":{\"general\":{\"servername\":\"#{wiki}\"}}}", headers: {})
+        .to_return(status: 200,
+                   body: "{\"query\":{\"general\":{\"servername\":\"#{wiki}\"}}}",
+                   headers: {})
     end
   end
 
