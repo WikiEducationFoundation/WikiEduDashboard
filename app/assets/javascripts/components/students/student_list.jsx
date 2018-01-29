@@ -126,10 +126,10 @@ const StudentList = createReactClass({
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
       if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
-        requestAccountsModal = <NewAccountModal course={this.props.course} currentUser={this.props.currentUser} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+        requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.currentUser} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
       } else {
         requestAccountsModal = (
-          <button onClick={this.openModal} className="request_accounts button auth signup border margin">
+          <button onClick={this.openModal} key="request_account_closed" className="request_accounts button auth signup border margin">
             <i className="icon icon-wiki-logo" /> {I18n.t('application.create_accounts')}
           </button>
         );
