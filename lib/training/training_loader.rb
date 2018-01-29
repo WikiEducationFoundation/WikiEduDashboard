@@ -55,7 +55,8 @@ class TrainingLoader
   def load_from_wiki
     source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
-    Raven.capture_message "Loading #{@content_class}s from wiki", level: 'info',
+    Raven.capture_message "Loading #{@content_class}s from wiki",
+                          level: 'info',
                           extra: { wiki_pages: source_pages }
 
     thread_count = [CONCURRENCY, source_pages.count].min

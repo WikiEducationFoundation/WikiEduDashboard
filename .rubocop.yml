@@ -49,6 +49,7 @@ Metrics/ModuleLength:
   Max: 145 # We should bring this down, ideally to the default of 100
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
+    - 'app/helpers/surveys_helper.rb'
 
 ########################
 # Permanent exceptions #
