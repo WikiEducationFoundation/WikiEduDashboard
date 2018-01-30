@@ -25,10 +25,19 @@ class RequestedAccountsController < ApplicationController
     requested = RequestedAccount.create(course: @course,
                                         username: params[:username],
                                         email: params[:email])
-    return requested unless params[:create_account_now] == 'true'
+    unless params[:create_account_now] == 'true'
+      render json: { message: I18n.t('courses.new_account_submitted') }
+      return
+    end
     # TODO: render relevant json to be handled on the frontend
+    # { success: 'some message'} or { failure: 'some message' }
     result = create_account(requested)
-    render json: { message: result.values.first }, status: 500
+    if result[:success]
+      render json: { message: result.values.first }
+    else
+      render json: { message: result.values.first }, status: 500
+    end
+
     # TODO: handle both success and failure
   end
 

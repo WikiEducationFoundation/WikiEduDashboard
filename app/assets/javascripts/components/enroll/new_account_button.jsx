@@ -38,7 +38,7 @@ const NewAccountButton = React.createClass({
     // If register_accounts flag is set for the course, use the NewAccountButton.
     let buttonOrModal;
     if (this.state.showModal) {
-      buttonOrModal = <NewAccountModal course={course} passcode={this.props.passcode} closeModal={this.closeModal} />;
+      buttonOrModal = <NewAccountModal course={course} passcode={this.props.passcode} closeModal={this.closeModal} currentUser={this.props.currentUser} />;
     } else {
       buttonOrModal = (
         <button onClick={this.openModal} className="button auth signup border">

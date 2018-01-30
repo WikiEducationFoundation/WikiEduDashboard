@@ -53,7 +53,7 @@ const EnrollCard = ({
           <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
             <i className="icon icon-wiki-logo" /> {I18n.t('application.log_in_extended')}
           </a>
-          <NewAccountButton course={course} passcode={passcode} />
+          <NewAccountButton course={course} passcode={passcode} currentUser={user} />
         </p>
       </div>
     );

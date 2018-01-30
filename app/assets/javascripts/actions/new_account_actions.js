@@ -56,7 +56,10 @@ export function requestAccount(passcode, course, newAccount, createAccountNow = 
     const { username, email } = newAccount;
 
     return API.requestNewAccount(passcode, courseSlug, username, email, createAccountNow)
-      .then(() => (dispatch({ type: types.NEW_ACCOUNT_REQUEST_SUBMITTED })))
+      .then((data) => {
+        dispatch({ type: types.NEW_ACCOUNT_REQUEST_SUBMITTED });
+        dispatch({ type: types.ADD_NOTIFICATION, notification: { type: 'success', message: data.message, closable: true } });
+      })
       .catch(data => (dispatch({ type: types.API_FAIL, data })));
   };
 }

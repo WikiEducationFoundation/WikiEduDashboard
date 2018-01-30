@@ -1,13 +1,18 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { INSTRUCTOR_ROLE } from '../../constants';
 
 import * as NewAccountActions from '../../actions/new_account_actions.js';
 import TextInput from '../common/text_input.jsx';
 
 const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount, actions }) => {
   const checkAvailability = () => (actions.checkAvailability(newAccount));
-  const requestAccount = () => (actions.requestAccount(passcode, course, newAccount));
+  const createRequestedAccountImmediately = currentUser.role === INSTRUCTOR_ROLE;
+  const requestAccount = () => {
+    actions.requestAccount(passcode, course, newAccount, createRequestedAccountImmediately)
+    closeModal();
+  }
 
   let checkAvailabilityButton;
   if (!newAccount.usernameValid || !newAccount.emailValid) {
@@ -29,21 +34,14 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
       </button>
     );
   }
-  let confirmSubmitted;
-  if (newAccount.submitted) {
-    if (currentUser.role === 1) {
-    confirmSubmitted = <div className="success">{I18n.t('courses.new_account_submitted_admin')}</div>;
-    } else {
-    confirmSubmitted = <div className="success">{I18n.t('courses.new_account_submitted')}</div>;
-    }
-  }
 
   let newAccountInfo;
-  if (currentUser.role === 1) {
+  if (currentUser.role === INSTRUCTOR_ROLE) {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info_admin')}</p></div>;
   } else {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info')}</p></div>;
   }
+
   return (
     <div className="basic-modal left">
       <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
@@ -70,7 +68,6 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         placeholder={I18n.t('courses.new_account_email_placeholder')}
       />
       <div>
-        {confirmSubmitted}
         <div className = "left">
           <p className="red" dangerouslySetInnerHTML={{ __html: newAccount.error }} />
           {checkingSpinner}
