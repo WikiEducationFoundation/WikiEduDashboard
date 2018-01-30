@@ -96,8 +96,10 @@ const ArticleViewer = createReactClass({
     return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 
-  processHtml(html) {
-    if (!html) {
+  processHtml(html, whocolor) {
+    if (html && whocolor) {
+      this.setState({ whocolorFetched: true });
+    } else if (!html && whocolor) {
       return this.setState({ whocolorFailed: true });
     }
     // The mediawiki parse API returns the same HTML as the rendered article on
@@ -192,8 +194,7 @@ const ArticleViewer = createReactClass({
       crossDomain: true,
       success: (json) => {
         this.setState({
-          whocolorHtml: this.processHtml(json.extended_html),
-          whocolorFetched: true
+          whocolorHtml: this.processHtml(json.extended_html, true)
         });
         this.highlightAuthors();
       },
