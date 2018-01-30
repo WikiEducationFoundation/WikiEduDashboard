@@ -179,7 +179,7 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"
-      first(:link, 'Log in with Wikipedia').click
+      find(:link, 'Log in with Wikipedia', match: :first).click
       expect(page).to have_content 'Ragesock'
       click_link 'Join'
       sleep 1
@@ -189,8 +189,6 @@ describe 'Student users', type: :feature, js: true do
 
     it 'works even if a student has never logged in before' do
       stub_list_users_query_with_no_email # handles the check for wiki email
-
-      pending 'This sometimes fails on travis.'
 
       OmniAuth.config.test_mode = true
       allow_any_instance_of(OmniAuth::Strategies::Mediawiki)
@@ -205,21 +203,17 @@ describe 'Student users', type: :feature, js: true do
       stub_oauth_edit
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"
-      first(:link, 'Log in with Wikipedia').click
+      find(:link, 'Log in with Wikipedia', match: :first).click
       expect(find('.intro')).to have_content 'Ragesoss'
       click_link 'Start'
       fill_in 'name', with: 'Sage Ross'
       fill_in 'email', with: 'sage@example.com'
       click_button 'Submit'
-      sleep 1
       click_link 'Finish'
       click_link 'Join'
-      sleep 2
+      sleep 1
       click_link 'Students'
-      sleep 3
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
-
-      pass_pending_spec
     end
 
     it 'does not work if user is not persisted' do
