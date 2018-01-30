@@ -53,14 +53,15 @@ class IndividualStatisticsPresenter
     individual_courses.each do |c|
       c.articles.pluck(:id).uniq.each do |article_id|
         # find the earliest revision of the article in this course
-        earliest_revision = c.revisions.where(user_id: @user.id, article_id: article_id).order('date ASC').first
+        earliest_revision = c.revisions.where(user_id: @user.id, article_id: article_id)
+                             .order('date ASC').first
         next if earliest_revision.nil?
         # Considering revisions for same articles in multiple courses by an individual,
         # check if the earliest revision for this article in this course is the
         # actual earliest revision made by the user.
-        if article_revisions[article_id].nil? || article_revisions[article_id].date > earliest_revision.date
-          article_revisions[article_id] = earliest_revision
-        end
+        article_revisions[article_id] = earliest_revision if article_revisions[article_id].nil? ||
+                                                             article_revisions[article_id].date >
+                                                             earliest_revision.date
       end
     end
     # count the views of the earliest revision made to an artcile by an individual

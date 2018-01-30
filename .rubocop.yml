@@ -26,6 +26,8 @@ Metrics/ClassLength:
     - 'app/controllers/surveys_controller.rb'
     - 'app/controllers/campaigns_controller.rb'
     - 'app/controllers/courses_controller.rb'
+    - 'lib/analytics/histogram_plotter.rb'
+
 Metrics/AbcSize:
   Max: 44 # We should bring this down, ideally to the default of 15
   Exclude:
@@ -47,6 +49,7 @@ Metrics/ModuleLength:
   Max: 145 # We should bring this down, ideally to the default of 100
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
+    - 'app/helpers/surveys_helper.rb'
 
 ########################
 # Permanent exceptions #
@@ -77,8 +80,6 @@ Rails/Blank:
 
 # These should be enabled once violations are fixed.
 
-Metrics/LineLength:
-  Enabled: false
 Style/FormatStringToken:
   Enabled: false
 Rails/FilePath:
@@ -89,27 +90,11 @@ Rails/Date:
   Enabled: false
 Rails/DynamicFindBy:
   Enabled: false
-Layout/EmptyLineAfterMagicComment:
-  Enabled: false
 Rails/PluralizationGrammar:
   Enabled: false
 Style/StringLiterals:
   Enabled: false
-Layout/SpaceAroundOperators:
-  Enabled: false
-Layout/SpaceInsideHashLiteralBraces:
-  Enabled: false
-Layout/AlignHash:
-  Enabled: false
-Layout/ExtraSpacing:
-  Enabled: false
-Layout/EmptyLines:
-  Enabled: false
-Layout/TrailingBlankLines:
-  Enabled: false
 Layout/MultilineBlockLayout:
-  Enabled: false
-Layout/AlignParameters:
   Enabled: false
 Lint/UnneededDisable:
   Enabled: false
@@ -126,10 +111,6 @@ Rails/Presence:
 Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
-  Enabled: false
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/MixinUsage:
   Enabled: false
 Style/BlockDelimiters:
   Enabled: false
@@ -176,8 +157,6 @@ Layout/IndentHeredoc:
 Style/RegexpLiteral:
   Enabled: false
 Rails/Output:
-  Enabled: false
-Style/CommentedKeyword:
   Enabled: false
 Lint/DuplicateMethods:
   Enabled: false

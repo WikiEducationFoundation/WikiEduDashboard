@@ -107,7 +107,8 @@ describe Campaign do
       campaign.start = '2016-02-10'
       campaign.end = '2016-01-10'
       expect(campaign.valid?).to eq(false)
-      expect(campaign.errors.messages[:start]).to include(I18n.t('error.start_date_before_end_date'))
+      expect(campaign.errors.messages[:start])
+        .to include(I18n.t('error.start_date_before_end_date'))
     end
 
     it 'should allow the date values to be changed to nil' do

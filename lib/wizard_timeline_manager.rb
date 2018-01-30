@@ -125,7 +125,7 @@ class WizardTimelineManager
                                  gradeable_item_type: 'block')
     block_record.update(gradeable_id: gradeable.id)
   end
-
+  # rubocop:disable Metrics/LineLength
   HANDOUTS = {
     'biographies_handout' => ['Biographies', 'https://wikiedu.org/biographies'],
     'books_handout' => ['Books', 'https://wikiedu.org/books'],
@@ -143,7 +143,7 @@ class WizardTimelineManager
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
   }.freeze
-
+  # rubocop:enable Metrics/LineLength
   def add_handouts(block)
     content = +''
     HANDOUTS.each_key do |logic_key|

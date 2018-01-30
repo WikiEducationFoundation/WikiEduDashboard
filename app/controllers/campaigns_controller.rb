@@ -35,7 +35,7 @@ class CampaignsController < ApplicationController
   def create
     overrides = {}
     if campaign_params[:default_passcode] == 'custom'
-      overrides[:default_passcode]= params[:campaign][:custom_default_passcode]
+      overrides[:default_passcode] = params[:campaign][:custom_default_passcode]
     end
     @campaign = Campaign.create campaign_params.merge(overrides)
 
@@ -219,6 +219,7 @@ class CampaignsController < ApplicationController
 
   def campaign_params
     params.require(:campaign)
-          .permit(:slug, :description, :template_description, :title, :start, :end, :default_course_type, :default_passcode)
+          .permit(:slug, :description, :template_description, :title, :start, :end,
+                  :default_course_type, :default_passcode)
   end
 end

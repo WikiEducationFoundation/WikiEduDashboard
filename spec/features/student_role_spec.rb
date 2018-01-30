@@ -11,7 +11,7 @@ describe 'Student users', type: :feature, js: true do
 
   let(:user) { create(:user, wiki_token: 'foo', wiki_secret: 'bar') }
   let!(:instructor) { create(:user, username: 'Professor Sage') }
-  let!(:classmate) { create(:user, username: 'Classmate')  }
+  let!(:classmate) { create(:user, username: 'Classmate') }
   let!(:campaign) { create(:campaign) }
   let!(:course) do
     create(:course,

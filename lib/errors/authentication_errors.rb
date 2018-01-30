@@ -6,24 +6,24 @@ module Errors
       def initialize(msg='Please sign in.')
         super
       end
-    end # NotSignedInError
+    end
 
     class NotPermittedError < StandardError
       def initialize(msg='You are not permitted to do that.')
         super
       end
-    end # NotPermittedError
+    end
 
     class NotAdminError < StandardError
       def initialize(msg='Only administrators may do that.')
         super
       end
-    end # NotAdmitError
+    end
 
     class ParticipatingUserError < StandardError
       def initialize(msg='Only participants of this course may do that.')
         super
       end
-    end # ParticipatingUserError
-  end # AuthenticationErrors
-end # Errors
+    end
+  end
+end

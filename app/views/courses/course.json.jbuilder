@@ -55,8 +55,6 @@ json.course do
 
   if user_role == 1 # instructor
     exeriment_presenter = ExperimentsPresenter.new(@course)
-    if exeriment_presenter.experiment
-      json.experiment_notification exeriment_presenter.notification
-    end
+    json.experiment_notification exeriment_presenter.notification if exeriment_presenter.experiment
   end
 end
