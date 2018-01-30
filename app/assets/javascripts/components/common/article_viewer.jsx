@@ -165,9 +165,9 @@ const ArticleViewer = createReactClass({
     } else {
         msg = `Uncaught Error.\n${jqXHR.responseText}`;
     }
-    console.error(`Error while fetching article data => ${msg}`);
     this.setState({
-      whocolorFailed: true
+      whocolorFailed: true,
+      failureMessage: msg
     });
   },
 
@@ -278,6 +278,7 @@ const ArticleViewer = createReactClass({
               users={this.state.users}
               colors={this.colors}
               status={legendStatus}
+              failureMessage={this.state.failureMessage}
             />
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>

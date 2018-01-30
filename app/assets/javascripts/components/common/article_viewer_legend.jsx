@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import UserUtils from '../../utils/user_utils.js';
 
-const ArticleViewerLegend = ({ article, users, colors, status, allUsers }) => {
+const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failureMessage }) => {
   let userLinks;
   if (users) {
     userLinks = users.map((user, i) => {
@@ -31,7 +31,7 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers }) => {
       </div>
     );
   } else if (status === 'failed') {
-    usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}</div>;
+    usersStatus = <div className="user-legend authorship-status-failed">{I18n.t('users.authorship_data_not_fetched')}: {failureMessage}</div>;
   }
 
   return (
