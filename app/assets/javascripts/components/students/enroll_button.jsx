@@ -81,7 +81,7 @@ const EnrollButton = createReactClass({
     const confirmMessage = I18n.t('users.enroll_confirmation', { username });
 
     // If the user is not already enrolled
-    if (getFiltered(this.props.users, { username, role: this.props.role }).length === 0) {
+    if (getFiltered(this.props.students, { username, role: this.props.role }).length === 0) {
       return this.props.initiateConfirm(confirmMessage, onConfirm);
     }
     // If the user us already enrolled
@@ -93,7 +93,7 @@ const EnrollButton = createReactClass({
   },
 
   unenroll(userId) {
-    const user = getFiltered(this.props.users, { id: userId, role: this.props.role })[0];
+    const user = getFiltered(this.props.students, { id: userId, role: this.props.role })[0];
     const courseId = this.props.course_id;
     const userObject = { user_id: userId, role: this.props.role };
     const removeUserAction = this.props.removeUser;
@@ -117,7 +117,7 @@ const EnrollButton = createReactClass({
   render() {
     const users = this.props.students.map(user => {
       let removeButton;
-      if (this.props.role !== 1 || this.props.users.length >= 2 || this.props.current_user.admin) {
+      if (this.props.role !== 1 || this.props.students.length >= 2 || this.props.current_user.admin) {
         removeButton = (
           <button className="button border plus" onClick={this.unenroll.bind(this, user.id)}>-</button>
         );
