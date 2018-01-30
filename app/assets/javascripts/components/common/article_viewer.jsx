@@ -148,6 +148,29 @@ const ArticleViewer = createReactClass({
     });
   },
 
+  showException(jqXHR, exception) {
+    let msg = '';
+    if (jqXHR.status === 0) {
+        msg = 'Not connect.\n Verify Network.';
+    } else if (jqXHR.status.toString() === '404') {
+        msg = 'Requested page not found. [404]';
+    } else if (jqXHR.status.toString() === '500') {
+        msg = 'Internal Server Error [500].';
+    } else if (exception === 'parsererror') {
+        msg = 'Requested JSON parse failed.';
+    } else if (exception === 'timeout') {
+        msg = 'Time out error.';
+    } else if (exception === 'abort') {
+        msg = 'Ajax request aborted.';
+    } else {
+        msg = `Uncaught Error.\n${jqXHR.responseText}`;
+    }
+    console.error(`Error while fetching article data => ${msg}`);
+    this.setState({
+      whocolorFailed: true
+    });
+  },
+
   fetchParsedArticle() {
     $.ajax({
       dataType: 'jsonp',
@@ -158,7 +181,8 @@ const ArticleViewer = createReactClass({
           articlePageId: data.parse.pageid,
           fetched: true
         });
-      }
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
   },
 
@@ -172,7 +196,8 @@ const ArticleViewer = createReactClass({
           whocolorFetched: true
         });
         this.highlightAuthors();
-      }
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
   },
 
@@ -193,7 +218,8 @@ const ArticleViewer = createReactClass({
           users: json.query.users,
           userIdsFetched: true
         });
-      }
+      },
+      error: (jqXHR, exception) => this.showException(jqXHR, exception)
     });
   },
 
