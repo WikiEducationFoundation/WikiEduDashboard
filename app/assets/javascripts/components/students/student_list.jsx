@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
-import { sortUsers, fetchUsers } from '../../actions/user_actions';
-import { getStudentUsers, getCurrentUser } from '../../selectors';
+import { sortUsers } from '../../actions/user_actions';
+import { getStudentUsers } from '../../selectors';
 
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
@@ -31,16 +31,15 @@ const StudentList = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    currentUser: PropTypes.object,
-    users: PropTypes.array,
+    current_user: PropTypes.object,
+    students: PropTypes.array,
     course: PropTypes.object,
     controls: PropTypes.func,
     editable: PropTypes.bool,
     openKey: PropTypes.string,
     toggleUI: PropTypes.func,
     resetUI: PropTypes.func,
-    sortUsers: PropTypes.func,
-    fetchUsers: PropTypes.func
+    sortUsers: PropTypes.func
   },
 
   getInitialState() {
@@ -49,19 +48,8 @@ const StudentList = createReactClass({
     };
   },
 
-  componentWillMount() {
-    const courseID = this.getCourseID();
-    ServerActions.fetch('course', courseID);
-    this.props.fetchUsers(courseID);
-  },
-
   componentWillUnmount() {
     this.props.resetUI();
-  },
-
-  getCourseID() {
-    const { params } = this.props;
-    return `${params.course_school}/${params.course_title}`;
   },
 
   openModal() {
@@ -80,7 +68,7 @@ const StudentList = createReactClass({
 
   render() {
     const toggleDrawer = this.props.toggleUI;
-    const users = this.props.students.map(student => {
+    const students = this.props.students.map(student => {
       const assignOptions = { user_id: student.id, role: 0 };
       const reviewOptions = { user_id: student.id, role: 1 };
       if (student.real_name) {
@@ -95,7 +83,7 @@ const StudentList = createReactClass({
           {...this.props}
           student={student}
           course={this.props.course}
-          current_user={this.props.currentUser}
+          current_user={this.props.current_user}
           editable={this.props.editable}
           key={student.id}
           assigned={AssignmentStore.getFiltered(assignOptions)}
@@ -119,14 +107,14 @@ const StudentList = createReactClass({
         />
       );
     });
-    const elements = _.flatten(_.zip(users, drawers));
+    const elements = _.flatten(_.zip(students, drawers));
     let addStudent;
     let requestAccountsModal;
     if (this.props.course.published) {
       addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
 
       if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
-        requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.currentUser} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+        requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
       } else {
         requestAccountsModal = (
           <button onClick={this.openModal} key="request_account_closed" className="request_accounts button auth signup border margin">
@@ -172,7 +160,7 @@ const StudentList = createReactClass({
     };
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.users.length < 1)}
+        {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.students.length < 1)}
         <List
           elements={elements}
           className="table--expandable table--hoverable"
@@ -188,17 +176,13 @@ const StudentList = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  users: state.users.users,
-  currentUser: getCurrentUser(state),
   openKey: state.ui.openKey,
   students: getStudentUsers(state)
 });
 
 const mapDispatchToProps = {
   toggleUI,
-  resetUI,
-  sortUsers,
-  fetchUsers
+  resetUI
 };
 
 export default Editable(
