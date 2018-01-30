@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseStats from './course_stats.jsx';
@@ -17,6 +18,7 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
+import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
   ({
@@ -33,7 +35,8 @@ const Overview = createReactClass({
   propTypes: {
     current_user: PropTypes.object,
     course_id: PropTypes.string,
-    location: PropTypes.object
+    location: PropTypes.object,
+    students: PropTypes.array
   },
 
   mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin],
@@ -131,4 +134,9 @@ const Overview = createReactClass({
 }
 );
 
-export default Overview;
+const mapStateToProps = state => ({
+  students: getStudentUsers(state)
+ });
+
+
+export default connect(mapStateToProps)(Overview);
