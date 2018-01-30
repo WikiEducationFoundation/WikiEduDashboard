@@ -4,6 +4,7 @@
 class RequestedAccountsController < ApplicationController
   respond_to :html
   before_action :set_course
+  before_action :check_requested_account_permission
   before_action :check_creation_permissions, only: %i[index create_accounts enable_account_requests destroy]
 
   # This creates (or updates) a RequestedAccount, which is a username and email
@@ -87,5 +88,10 @@ class RequestedAccountsController < ApplicationController
   def passcode_valid?
     return true if @course.passcode.nil?
     params[:passcode] == @course.passcode
+  end
+
+  def check_requested_account_permission
+    return if Features.enable_account_requests?
+    raise_unauthorized_exception
   end
 end
