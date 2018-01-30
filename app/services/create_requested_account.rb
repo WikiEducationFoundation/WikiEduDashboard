@@ -36,14 +36,19 @@ class CreateRequestedAccount
   def handle_mediawiki_response
     response_status = @response.dig('createaccount', 'status')
     if response_status == 'PASS'
-      @result = { success: "Created account for #{@username} on #{@wiki.base_url}. A password will be emailed to #{@email}." }
+      @result = { success: "Created account for #{@username} on #{@wiki.base_url}.
+                            A password will be emailed to #{@email}." }
       create_account
       @requested_account.destroy
     elsif response_status == 'FAIL'
-      @result = { failure: "Could not create account for #{@username} / #{@email}. #{@wiki.base_url} message: #{@response.dig('createaccount', 'messagecode')} — #{@response.dig('createaccount', 'message')}"}
+      @result = { failure: "Could not create account for #{@username} / #{@email}.
+                            #{@wiki.base_url} message:
+                            #{@response.dig('createaccount', 'messagecode')}
+                            — #{@response.dig('createaccount', 'message')}" }
       destroy_request_if_invalid
     else
-      @result = { failure: "Could not create account for #{@username} / #{@email}. #{@wiki.base_url} response: #{@response}" }
+      @result = { failure: "Could not create account for #{@username} /
+                            #{@email}. #{@wiki.base_url} response: #{@response}" }
       log_unexpected_response
     end
   end

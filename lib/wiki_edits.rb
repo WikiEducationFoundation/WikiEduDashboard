@@ -84,7 +84,9 @@ class WikiEdits
   # Create an account, with a random password to be emailed by mediawiki to the
   # email provided.
   # Success response: {"createaccount"=>{"status"=>"PASS", "username"=>"Ragetest 99"}}
-  # Fail response: {"createaccount"=>{"status"=>"FAIL", "message"=>"Nom d’utilisateur entré déjà utilisé.\nVeuillez choisir un nom différent.", "messagecode"=>"userexists"}}
+  # Fail response: {"createaccount"=>{"status"=>"FAIL",
+  # "message"=>"Nom d’utilisateur entré déjà utilisé.\nVeuillez
+  # choisir un nom différent.", "messagecode"=>"userexists"}}
   def create_account(creator:, username:, email:, reason: '')
     params = { action: 'createaccount',
                username: username,

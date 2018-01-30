@@ -10,7 +10,10 @@ describe RequestedAccountsController do
     let(:admin) { create(:admin) }
 
     describe '#request_account' do
-      let(:requested_account) { create(:requested_account, course: course, username: 'username', email: 'email') }
+      let(:requested_account) { create(:requested_account, course: course,
+                                                           username: 'username',
+                                                           email: 'email')
+                                                         }
 
       it "returns an error if the passcode is invalid" do
         post :request_account, params: { passcode: 'passcode', course_slug: course.slug }
@@ -19,18 +22,25 @@ describe RequestedAccountsController do
 
       it "adds new requested accounts to the course" do
         expect(course.requested_accounts.count).to eq(0)
-        post :request_account, params: { passcode: course.passcode, course_slug: course.slug, username: 'username', email: 'email' }
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         username: 'username', email: 'email' }
         expect(course.requested_accounts.count).to eq(1)
       end
 
       it "updates an attribute if the request already exist" do
-        post :request_account, params: { passcode: course.passcode, course_slug: course.slug, username: requested_account.username, email: 'newemail' }
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         username: requested_account.username,
+                                         email: 'newemail' }
         expect(course.requested_accounts.count).to eq(1)
         expect(course.requested_accounts.last.email).to eq('newemail')
       end
 
       it 'tries to create an account but the user is not authorized' do
-        post :request_account, params: { passcode: course.passcode, course_slug: course.slug, create_account_now: true }
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         create_account_now: true }
         expect(response.status).to eq(500)
       end
     end

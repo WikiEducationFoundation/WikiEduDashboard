@@ -16,7 +16,8 @@ module RequestHelpers
   def stub_account_creation_token_request
     fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
     lang = ENV['wiki_language']
-    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=createaccount"
+    params_url = "action=query&meta=tokens&format=json&type=createaccount"
+    url = "https://#{lang}.wikipedia.org/w/api.php?#{params_url}"
     stub_request(:get, url)
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
@@ -74,7 +75,8 @@ module RequestHelpers
     stub_account_creation_token_request
 
     # Then the account creation request itself
-    failure= '{"createaccount":{"status":"FAIL", "username":"Ragetest 99", "messagecode": "userexists"}}'
+    failure = '{"createaccount":{"status":"FAIL",
+                                 "username":"Ragetest 99", "messagecode": "userexists"}}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: failure, headers: {})
 
