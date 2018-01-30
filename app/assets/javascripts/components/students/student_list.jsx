@@ -110,7 +110,7 @@ const StudentList = createReactClass({
     let addStudent;
     let requestAccountsModal;
     if (this.props.course.published) {
-      addStudent = <EnrollButton {...this.props} role={0} key="add_student" allowed={false} />;
+      addStudent = <EnrollButton {...this.props} users={this.props.students} role={0} key="add_student" allowed={false} />;
 
       if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
         requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;

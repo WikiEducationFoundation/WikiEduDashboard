@@ -63,6 +63,3 @@ SF_SERVER: 'https://na24.salesforce.com/'
 SF_CLASSROOM_PROGRAM_ID: <SECRET>
 SF_VISITING_SCHOLARS_PROGRAM_ID: <SECRET>
 bcc_to_salesforce_email: <SECRET>
-
-# Enable account requests
-enable_account_requests: 'true'

@@ -43,6 +43,14 @@ describe RequestedAccountsController do
                                          create_account_now: true }
         expect(response.status).to eq(500)
       end
+
+      it 'raises an error if account requests are not enabled' do
+        allow(Features).to receive(:enable_account_requests?).and_return(false)
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         username: 'username', email: 'email' }
+        expect(response.status).to eq(401)
+      end
     end
 
     describe '#create_accounts' do
