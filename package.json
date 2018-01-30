@@ -61,7 +61,7 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
     "jeet": "^6.1.2",
     "jest": "^21.2.1",
-    "jquery": "^2.2.4",
+    "jquery": "3.3.1",
     "jquery-ui": "^1.10.5",
     "jquery.repeater": "^1.2.1",
     "jsdom": "^9.8.3",
