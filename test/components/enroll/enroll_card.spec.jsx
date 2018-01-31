@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import '../../testHelper';
 import EnrollCard from '../../../app/assets/javascripts/components/enroll/enroll_card.jsx';
 
+
 describe('EnrollCard', () => {
   const currentUser = { admin: false, id: null, notEnrolled: true };
   const course = {
