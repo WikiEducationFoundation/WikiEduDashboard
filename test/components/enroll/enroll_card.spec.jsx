@@ -12,7 +12,8 @@ describe('EnrollCard', () => {
     published: true,
     home_wiki: { language: 'en', project: 'wikipedia' },
     passcode: 'passcode',
-    course_id: "Course_school/Test_Course_(Course_term)"
+    course_id: "Course_school/Test_Course_(Course_term)",
+    flags: { register_accounts: true }
   };
 
   it('Shows a new account button if the user is not logged in', () => {
