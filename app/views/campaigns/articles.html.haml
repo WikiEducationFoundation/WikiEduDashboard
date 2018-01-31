@@ -55,4 +55,5 @@
               %span= I18n.t('articles.none')
         - else
           - articles.each do |ac|
-            = render 'campaigns/article_row', article: ac.article, article_course: ac
+            - cache ac do
+              = render 'campaigns/article_row', article: ac.article, article_course: ac
