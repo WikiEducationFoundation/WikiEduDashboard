@@ -10,9 +10,9 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   const checkAvailability = () => (actions.checkAvailability(newAccount));
   const createRequestedAccountImmediately = currentUser.role === INSTRUCTOR_ROLE;
   const requestAccount = () => {
-    actions.requestAccount(passcode, course, newAccount, createRequestedAccountImmediately)
+    actions.requestAccount(passcode, course, newAccount, createRequestedAccountImmediately);
     closeModal();
-  }
+  };
 
   let checkAvailabilityButton;
   if (!newAccount.usernameValid || !newAccount.emailValid) {
