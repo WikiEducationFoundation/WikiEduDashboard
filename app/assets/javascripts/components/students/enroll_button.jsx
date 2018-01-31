@@ -137,9 +137,14 @@ const EnrollButton = createReactClass({
 
     if (this.props.role === 0) {
       let massEnrollmentLink;
+      let requestedAccountsLink;
       if (!Features.wikiEd) {
         const massEnrollmentUrl = `/mass_enrollment/${this.props.course.slug}`;
         massEnrollmentLink = <p><a href={massEnrollmentUrl}>Add multiple users at once.</a></p>;
+      }
+      if (!Features.wikiEd) {
+        const requestedAccountsUrl = `/requested_accounts/${this.props.course.slug}`;
+        requestedAccountsLink = <p key="requested_accounts"><a href={requestedAccountsUrl}>{I18n.t('courses.requested_accounts')}</a></p>;
       }
 
       editRows.push(
@@ -149,6 +154,7 @@ const EnrollButton = createReactClass({
             <p>{I18n.t('users.enroll_url')}</p>
             <input type="text" readOnly={true} value={enrollUrl} style={{ width: '100%' }} />
             {massEnrollmentLink}
+            {requestedAccountsLink}
           </td>
         </tr>
       );

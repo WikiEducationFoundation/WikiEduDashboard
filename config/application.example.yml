@@ -139,3 +139,6 @@
   chat_server: 'https://your.rocket.chat'
   chat_admin_username: 'admin'
   chat_admin_password: 'passwiord'
+
+# Account requests
+  enable_account_requests: 'false'

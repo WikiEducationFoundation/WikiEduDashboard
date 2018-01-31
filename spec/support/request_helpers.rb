@@ -8,7 +8,16 @@ module RequestHelpers
   def stub_token_request
     fake_tokens = '{"query":{"tokens":{"csrftoken":"faketoken+\\\\"}}}'
     lang = ENV['wiki_language']
-    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json"
+    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=csrf"
+    stub_request(:get, url)
+      .to_return(status: 200, body: fake_tokens, headers: {})
+  end
+
+  def stub_account_creation_token_request
+    fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
+    lang = ENV['wiki_language']
+    params_url = "action=query&meta=tokens&format=json&type=createaccount"
+    url = "https://#{lang}.wikipedia.org/w/api.php?#{params_url}"
     stub_request(:get, url)
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
@@ -44,6 +53,49 @@ module RequestHelpers
               "newtimestamp":"2015-08-07T05:27:43Z"}}'
     stub_request(:post, /.*wikipedia.*/)
       .to_return(status: 200, body: success, headers: {})
+  end
+
+  def stub_account_creation
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request
+
+    # Then the account creation request itself
+    success = '{"createaccount":{"status":"PASS", "username":"Ragetest 99"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: success, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
+  end
+
+  def stub_account_creation_failure_userexists
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request
+
+    # Then the account creation request itself
+    failure = '{"createaccount":{"status":"FAIL",
+                                 "username":"Ragetest 99", "messagecode": "userexists"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
+  end
+
+  def stub_account_creation_failure_unexpected
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request
+
+    # Then the account creation request itself
+    failure = '{"createaccount":{"username":"Ragetest 99"}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
   end
 
   def stub_oauth_edit_failure

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import { toggleUI, resetUI } from '../../actions';
-import { sortUsers } from '../../actions/user_actions';
 import { getStudentUsers } from '../../selectors';
 
 import Editable from '../high_order/editable.jsx';
@@ -13,12 +12,12 @@ import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
+import NewAccountModal from '../enroll/new_account_modal.jsx';
 
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
-import CourseUtils from '../../utils/course_utils.js';
 
-const STUDENT_ROLE = 0;
+import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 // FIXME: Remove this save function
@@ -32,7 +31,7 @@ const StudentList = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     current_user: PropTypes.object,
-    users: PropTypes.array,
+    students: PropTypes.array,
     course: PropTypes.object,
     controls: PropTypes.func,
     editable: PropTypes.bool,
@@ -42,8 +41,22 @@ const StudentList = createReactClass({
     sortUsers: PropTypes.func
   },
 
+  getInitialState() {
+    return {
+      showModal: false
+    };
+  },
+
   componentWillUnmount() {
     this.props.resetUI();
+  },
+
+  openModal() {
+    this.setState({ showModal: true });
+  },
+
+  closeModal() {
+    this.setState({ showModal: false });
   },
 
   notify() {
@@ -54,7 +67,7 @@ const StudentList = createReactClass({
 
   render() {
     const toggleDrawer = this.props.toggleUI;
-    const users = this.props.students.map(student => {
+    const students = this.props.students.map(student => {
       const assignOptions = { user_id: student.id, role: 0 };
       const reviewOptions = { user_id: student.id, role: 1 };
       if (student.real_name) {
@@ -93,12 +106,23 @@ const StudentList = createReactClass({
         />
       );
     });
-    const elements = _.flatten(_.zip(users, drawers));
-
+    const elements = _.flatten(_.zip(students, drawers));
     let addStudent;
+    let requestAccountsModal;
     if (this.props.course.published) {
-      addStudent = <EnrollButton {...this.props} users={this.props.students} role={STUDENT_ROLE} key="add_student" allowed={false} />;
-    }
+      addStudent = <EnrollButton {...this.props} users={this.props.students} role={0} key="add_student" allowed={false} />;
+
+      if (Features.enableAccountRequests && this.state.showModal && this.props.course.flags.register_accounts === true) {
+        requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
+      } else {
+        requestAccountsModal = (
+          <button onClick={this.openModal} key="request_account_closed" className="request_accounts button auth signup border margin">
+            <i className="icon icon-wiki-logo" /> {I18n.t('application.create_accounts')}
+          </button>
+        );
+      }
+  }
+
 
     let notifyOverdue;
     if (Features.wikiEd && this.props.students.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
@@ -133,10 +157,9 @@ const StudentList = createReactClass({
         info_key: 'users.character_doc'
       }
     };
-
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, notifyOverdue], this.props.students.length < 1)}
+        {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.students.length < 1)}
         <List
           elements={elements}
           className="table--expandable table--hoverable"
@@ -158,8 +181,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleUI,
-  resetUI,
-  sortUsers
+  resetUI
 };
 
 export default Editable(

@@ -37,6 +37,7 @@ en:
 
   application:
     cancel: Cancel
+    create_accounts: Create Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentation
     error: 'There was an error:'
@@ -261,6 +262,7 @@ en:
     label: Chat
 
   courses:
+    accounts_generation_enabled: Accounts request generation enabled
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses
@@ -397,6 +399,7 @@ en:
     duration: Course Duration
     edit_count: Edit Count
     edit_course_dates: Edit Course Dates
+    enable_account_requests: Enable account requests
     enable_chat: Enable chat
     end: End
     ended: The course has ended.
@@ -441,6 +444,27 @@ en:
     my_articles: My Articles
     needs_update: Schedule Data Update
     new_week: Add New Week
+    new_account_check_username: Check username availability
+    new_account_email: Email address
+    new_account_email_placeholder: name@example.org
+    new_account_info: >
+      To request an account, enter your email address and your desired username.
+      A password will be emailed to you once the account has been created.
+    new_account_info_admin: >
+      To request an student's account, enter their email address and desired username.
+      A password will be emailed to them once the account has been created.
+    new_account_username: Requested username
+    new_account_username_invalid: This is not a valid username.
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_username_taken: That username is already taken. Please choose another.
+    new_account_submit: Request account
+    new_account_submitted: >
+      Your request for an account has been submitted. The Facilitator for this program
+      can finalize your account creation now. Once it is created, you'll get a password
+      for the new account by email.
+    new_account_submitted_admin: >
+      Your request for an account has been created. Please inform your students to check
+      their email inbox to get their new password
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None
@@ -455,6 +479,7 @@ en:
     passcode_prompt: "Enter the passcode to join:"
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
+    requested_accounts: Requested accounts
     review_timeline: >
       Please review this timeline and make changes. Once you're satisfied with
       your timeline, submit it for approval by Wiki Ed staff. Once approved, you
@@ -597,6 +622,7 @@ en:
     leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
+    request_accounts: Request accounts
     revisions_none: This project has no recent editing activity.
     school: Institution
     school_and_term: Institution/When
@@ -848,6 +874,7 @@ en:
       other: '%{count} articles'
     recent_revisions: Recent Edits
     remove_confirmation: Are you sure you want to remove %{username}?
+    request_confirmation: Are you sure you want to request this accounts?
     revision_characters_and_views: 'Chars Added: %{characters}, Views: %{views}'
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
@@ -870,6 +897,8 @@ en:
     up_to_date_with_training: 'up-to-date with training'
     username: Username
     username_placeholder: Username
+    useremail_placeholder: Email
+    userpasscode_placeholder: Passcode
 
     role:
       description: Role in course
@@ -1007,3 +1036,6 @@ en:
 
   feedback_form_responses:
     no_responses: "There are no feedback responses yet."
+
+  wiki_api:
+    create_account_reason: "This user is particpating in %{event}."

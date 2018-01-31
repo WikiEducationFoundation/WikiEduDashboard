@@ -84,6 +84,8 @@ describe('StudentList', () => {
     const button = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'notify_overdue');
     ReactTestUtils.Simulate.click(button);
     expect(notifyOverdue.callCount).to.eq(1);
+
+    ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'request_accounts');
   });
 }
 );

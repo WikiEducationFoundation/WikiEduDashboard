@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import NewAccountButton from './new_account_button.jsx';
 
 const EnrollCard = ({
   user, userRoles, course, courseLink, passcode, enrolledParam, enrollFailureReason
@@ -52,9 +53,7 @@ const EnrollCard = ({
           <a href={`/users/auth/mediawiki?origin=${window.location}`} className="button auth dark">
             <i className="icon icon-wiki-logo" /> {I18n.t('application.log_in_extended')}
           </a>
-          <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border">
-            <i className="icon icon-wiki-logo" /> {I18n.t('application.sign_up_extended')}
-          </a>
+          <NewAccountButton course={course} passcode={passcode} currentUser={user} />
         </p>
       </div>
     );

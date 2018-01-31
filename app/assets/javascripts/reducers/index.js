@@ -7,6 +7,7 @@ import courseCreator from './course_creator';
 import didYouKnow from './did_you_know';
 import feedback from './feedback';
 import needHelpAlert from './need_help_alert';
+import newAccount from './new_account';
 import notifications from './notifications';
 import recentEdits from './recent_edits.js';
 import recentUploads from './recent_uploads';
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   didYouKnow,
   feedback,
   needHelpAlert,
+  newAccount,
   notifications,
   recentEdits,
   recentUploads,

@@ -43,6 +43,16 @@ Rails.application.routes.draw do
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
       constraints: { course_id: /.*/ }
 
+  put 'requested_accounts' => 'requested_accounts#request_account'
+  delete 'requested_accounts/*course_slug/*id/delete' => 'requested_accounts#destroy',
+      constraints: { course_slug: /.*/ }
+  get 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
+      constraints: { course_slug: /.*/ }
+  get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
+      constraints: { course_slug: /.*/ }
+  get 'requested_accounts/:course_slug' => 'requested_accounts#index',
+      constraints: { course_slug: /.*/ }
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
