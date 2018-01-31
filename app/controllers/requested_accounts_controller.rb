@@ -16,12 +16,7 @@ class RequestedAccountsController < ApplicationController
     # If there is already a request for a certain username for this course, then
     # it's probably the same user who put in the wrong email the first time.
     # Just overwrite the email with the new one in this case.
-    existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
-    if existing_request
-      existing_request.update_attribute(:email, params[:email])
-      return # TODO: sensible error message rendered
-    end
-
+    handle_existing_request
     requested = RequestedAccount.create(course: @course,
                                         username: params[:username],
                                         email: params[:email])
@@ -32,13 +27,11 @@ class RequestedAccountsController < ApplicationController
     # TODO: render relevant json to be handled on the frontend
     # { success: 'some message'} or { failure: 'some message' }
     result = create_account(requested)
-    if result[:success]
+    if result[:success] # TODO: handle both success and failure
       render json: { message: result.values.first }
     else
       render json: { message: result.values.first }, status: 500
     end
-
-    # TODO: handle both success and failure
   end
 
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
@@ -107,5 +100,13 @@ class RequestedAccountsController < ApplicationController
   def check_requested_account_permission
     return if Features.enable_account_requests?
     raise_unauthorized_exception
+  end
+
+  def handle_existing_request
+    existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
+    if existing_request
+      existing_request.update_attribute(:email, params[:email])
+      return # TODO: sensible error message rendered
+    end
   end
 end
