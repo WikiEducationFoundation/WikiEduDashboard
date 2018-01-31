@@ -146,25 +146,30 @@ const AvailableActions = createReactClass({
       ));
     }
 
+    // Requested accounts
+    if (Features.enableAccountRequests && (user.role === 1 || user.admin)) {
+      // show a link to the requested accounts creation page if there are any
+      if (this.state.course.requestedAccounts && this.state.course.flags.register_accounts === true) {
+        const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
+        controls.push((
+          <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
+        ));
+      // show a button to enable new account requests, if it's not enabled already
+      } else if (this.state.course.flags.register_accounts !== true) {
+        controls.push((
+          <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
+        ));
+      }
+    }
+
     // If the user is an instructor or admin, and the course is published, show a stats download button
     // Always show the stats download for published non-Wiki Ed courses.
     if ((user.role === 1 || user.admin || !Features.wikiEd) && this.state.course.published) {
       controls.push((
         <p key="download_course_stats"><CourseStatsDownloadModal course={this.state.course} /></p>
       ));
-      // show a link to the requested accounts creation page if there are any
-      if (Features.enableAccountRequests && this.state.course.requestedAccounts && this.state.course.flags.register_accounts === true) {
-        const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
-        controls.push((
-          <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
-        ));
-      } else if (this.state.course.flags.register_accounts !== true) {
-        controls.push((
-          <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
-        ));
-      }
-      // TODO: show a button to enable new account requests, if it's not enabled already
     }
+
     // If no controls are available
     if (controls.length === 0) {
       controls.push(
