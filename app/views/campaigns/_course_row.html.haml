@@ -5,6 +5,9 @@
       = course.created_at
   %td.school
     = course.school + "/" + course.term
+  - if Features.wiki_ed?
+    %td.first_instructor
+      = course.courses_users.where(role: 1).first&.real_name
   %td.revisions
     = course.recent_revision_count
   %td
