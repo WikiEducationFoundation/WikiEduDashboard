@@ -76,5 +76,6 @@
           - @presenter.search_courses(@search_terms).each do |c|
             = render 'campaigns/course_row', course: c, admin: false, user: false
         - else
-          - @presenter.courses_by_recent_edits.each do |c|
-            = render 'campaigns/course_row', course: c, admin: false, user: false
+          - @presenter.courses_by_recent_edits.each do |course|
+            - cache course do
+              = render 'campaigns/course_row', course: course, admin: false, user: false
