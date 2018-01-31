@@ -129,16 +129,16 @@ describe Course, type: :model do
 
   it 'should update start/end times when changing course type' do
     course = create(:basic_course,
-                    start: Time.new(2016, 1, 1, 12, 45, 0),
+                    start: Time.new(2016, 1, 1, 12, 45, 0,),
                     end: Time.new(2016, 1, 10, 15, 30, 0),
                     title: 'History Class')
     expect(course.end).to eq(Time.new(2016, 1, 10, 15, 30, 0))
     course = course.becomes!(ClassroomProgramCourse)
     course.save!
-    expect(course.end).to eq(Time.new(2016, 1, 10, 23, 59, 59))
+    expect(course.end).to eq(Time.new(2016, 1, 10, 23, 59, 59, '+00:00'))
     course = course.becomes!(BasicCourse)
     course.save!
-    expect(course.end).to eq(Time.new(2016, 1, 10, 23, 59, 59))
+    expect(course.end).to eq(Time.new(2016, 1, 10, 23, 59, 59, '+00:00'))
     course.end = Time.new(2016, 1, 10, 15, 30, 0)
     course.save!
     expect(course.end).to eq(Time.new(2016, 1, 10, 15, 30, 0))
