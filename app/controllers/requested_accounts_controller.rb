@@ -16,7 +16,7 @@ class RequestedAccountsController < ApplicationController
     # If there is already a request for a certain username for this course, then
     # it's probably the same user who put in the wrong email the first time.
     # Just overwrite the email with the new one in this case.
-    handle_existing_request
+    handle_existing_request { return }
     requested = RequestedAccount.create(course: @course,
                                         username: params[:username],
                                         email: params[:email])
@@ -104,9 +104,9 @@ class RequestedAccountsController < ApplicationController
 
   def handle_existing_request
     existing_request = RequestedAccount.find_by(course: @course, username: params[:username])
-    if existing_request
-      existing_request.update_attribute(:email, params[:email])
-      return # TODO: sensible error message rendered
-    end
+    return if existing_request
+    existing_request.update_attribute(:email, params[:email])
+    # TODO: sensible error message rendered
+    yield
   end
 end
