@@ -6,8 +6,8 @@ describe RevisionsController do
   # This spec involves multiple course types to check the behaviour of course start/end times
   #   and how they interact with the Course.revisions scope
   describe '#index' do
-    let(:course_start) { Time.new(2015, 1, 1, 0, 0, 0) }
-    let(:course_end) { Time.new(2016, 1, 1, 20, 0, 0) }
+    let(:course_start) { Time.new(2015, 1, 1, 0, 0, 0, '+00:00') }
+    let(:course_end) { Time.new(2016, 1, 1, 20, 0, 0, '+00:00') }
     let!(:course) { create(:course, start: course_start, end: course_end.end_of_day) }
     let!(:basic_course) { create(:basic_course, start: course_start, end: course_end) }
     let!(:user) { create(:user) }
