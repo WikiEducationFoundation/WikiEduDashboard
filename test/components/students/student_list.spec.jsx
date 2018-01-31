@@ -38,7 +38,8 @@ describe('StudentList', () => {
     student_count: 1,
     trained_count: 0,
     published: true,
-    home_wiki: { language: 'en', project: 'wikipedia' }
+    home_wiki: { language: 'en', project: 'wikipedia' },
+    flags: { register_accounts: true }
   };
 
   const initialState = { users: { users } };
