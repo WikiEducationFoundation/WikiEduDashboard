@@ -292,7 +292,7 @@ describe 'Surveys', type: :feature, js: true do
       Capybara.current_driver = :poltergeist
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'
       visit '/surveys/rapidfire/question_groups/1/answer_groups/new?preview'\
-            '&course_slug=#{Course.last.slug}'
+            "&course_slug=#{Course.last.slug}"
     end
   end
 
