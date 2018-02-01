@@ -16,7 +16,7 @@ module RequestHelpers
   def stub_account_creation_token_request
     fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
     lang = ENV['wiki_language']
-    params_url = "action=query&meta=tokens&format=json&type=createaccount"
+    params_url = 'action=query&meta=tokens&format=json&type=createaccount'
     url = "https://#{lang}.wikipedia.org/w/api.php?#{params_url}"
     stub_request(:get, url)
       .to_return(status: 200, body: fake_tokens, headers: {})

@@ -27,13 +27,13 @@ describe 'Training Translations', type: :feature, js: true do
 
   it 'shows the translated text of a quiz' do
     visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
-    expect(page).to have_content "Wikipedia artikulu batek"
+    expect(page).to have_content 'Wikipedia artikulu batek'
   end
 
   it 'shows the translated names in the table of contents' do
     visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
     expect(page).to have_css('.slide__menu__nav__dropdown ol',
-                             text: "Bost euskarriei buruzko proba",
+                             text: 'Bost euskarriei buruzko proba',
                              visible: false)
   end
 

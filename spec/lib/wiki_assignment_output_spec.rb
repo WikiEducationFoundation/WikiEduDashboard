@@ -70,8 +70,8 @@ describe WikiAssignmentOutput do
 
       it 'does not mess things up when the talk page content is not a simple template line' do
         assignment_tag = '{{template|foo=bar}}'
-        initial_talk_page_content = "{{ping|Johnjes6}} Greetings! Good start on an article!"\
-                                    " I had some concrete feedback.\n"
+        initial_talk_page_content = '{{ping|Johnjes6}} Greetings! Good start on an article!'\
+                                    ' I had some concrete feedback.\n'
 
         output = wiki_assignment_output
                  .build_assignment_page_content(assignment_tag,
