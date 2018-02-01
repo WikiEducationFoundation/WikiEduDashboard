@@ -44,7 +44,7 @@
           %span.sortable-indicator
     %tbody.list
       - presenter.active_courses_by_recent_edits.each do |course|
-        - cache course do
+        - cache [course, locale] do
           = render 'courses/row', course: course, admin: false, user: false
   .campaigns-actions
     - if presenter.can_create?
