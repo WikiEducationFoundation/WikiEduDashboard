@@ -277,6 +277,8 @@ it:
     my_articles: Le mie voci
     needs_update: Aggiornamento dati programmato
     new_week: Aggiungi nuova settimana
+    new_account_email: Indirizzo email
+    new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
@@ -576,6 +578,8 @@ it:
     up_to_date_with_training: aggiornato con la formazione
     username: Nome utente
     username_placeholder: Nome utente
+    useremail_placeholder: Email
+    userpasscode_placeholder: Codice di accesso
     role:
       description: Ruolo nel corso
       visitor: Visitatore
@@ -648,4 +652,6 @@ it:
       closing: Cordiali saluti,
       signed: '- il team Wiki Ed'
       link: Rispondi sondaggio
+  wiki_api:
+    create_account_reason: Questo utente sta partecipando a %{event}.
 ...

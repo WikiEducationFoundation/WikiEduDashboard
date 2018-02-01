@@ -10,6 +10,7 @@ de:
       Schaltflächen erhöhen und vermindern die Eingabe.
   application:
     cancel: Abbrechen
+    create_accounts: Wikipedia-Benutzerkonten erstellen
     dashboard: Wiki-Ed-Dashboard
     documentation: Dokumentation
     error: 'Es gab einen Fehler:'
@@ -378,6 +379,7 @@ de:
     duration: Kursdauer
     edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
+    enable_account_requests: Benutzerkontenanfragen aktivieren
     enable_chat: Chat aktivieren
     end: Ende
     ended: Der Kurs ist beendet.
@@ -425,6 +427,12 @@ de:
     my_articles: Meine Artikel
     needs_update: Plandatenaktualisierung
     new_week: Neue Woche hinzufügen
+    new_account_email: E-Mail-Adresse
+    new_account_email_placeholder: name@beispiel.org
+    new_account_username: Gewünschter Benutzername
+    new_account_username_invalid: Dies ist kein gültiger Benutzername.
+    new_account_username_placeholder: Wikiautor 123
+    new_account_submit: Benutzerkonto beantragen
     nocourses: Du nimmst an keinen Kursen teil.
     nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
@@ -440,6 +448,7 @@ de:
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
+    requested_accounts: Beantragte Benutzerkonten
     review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
       Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
       die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
@@ -586,6 +595,7 @@ de:
     milestones_none: Dieses Projekt hat derzeit keine Meilensteine.
     published: 'Dieses Projekt wurde veröffentlicht! Autoren können sich beim Aufrufen
       der folgenden URL einschreiben:'
+    request_accounts: Benutzerkonten beantragen
     revisions_none: Dieses Projekt hat keine letzte Bearbeitungsaktivität.
     school: Einrichtung
     school_and_term: Einrichtung/Wann
@@ -885,6 +895,8 @@ de:
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     username: Benutzername
     username_placeholder: Benutzername
+    useremail_placeholder: E-Mail-Adresse
+    userpasscode_placeholder: Passcode
     role:
       description: Rolle im Kurs
       visitor: Besucher
@@ -1013,4 +1025,6 @@ de:
         wie deine zu verbessern.
   feedback_form_responses:
     no_responses: Es gibt noch keine Rückmeldungsantworten.
+  wiki_api:
+    create_account_reason: Dieser Benutzer nimmt an %{event} teil.
 ...

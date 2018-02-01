@@ -274,7 +274,6 @@ es:
       cuenta de las semanas que no tienen reuniones programadas.
     course_description: Cursos
     courses: Cursos
-    courses_enrolled: Cursos matriculados
     courses_taught: Cursos impartidos
     creation_date: Fecha de creación
     creator:
@@ -348,6 +347,7 @@ es:
     ended: El curso ha terminado.
     enroll: Inscribirse
     enrollment: Inscripciónu
+    courses_enrolled: Cursos matriculados
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
         diferentes.

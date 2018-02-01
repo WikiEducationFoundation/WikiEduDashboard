@@ -29,6 +29,7 @@ fr:
       des navigateurs incrémenteront et décrémenteront cette entrée.
   application:
     cancel: Annuler
+    create_accounts: Créer les comptes Wikipédia
     dashboard: Tableau de bord de modification du wiki
     documentation: Documentation
     error: 'Il y a eu une erreur :'
@@ -250,6 +251,7 @@ fr:
   chat:
     label: Clavardage
   courses:
+    accounts_generation_enabled: Génération de demande de comptes activée
     activity: Activité
     active_courses: '%{course_type} actifs'
     all_courses: Tous les cours
@@ -399,6 +401,7 @@ fr:
     duration: Durée du cours
     edit_count: Nombre de modifications
     edit_course_dates: Modifier les dates du cours
+    enable_account_requests: Activer les demandes de compte
     enable_chat: Activer le clavardage
     end: Fin
     ended: Le cours est terminé.
@@ -447,6 +450,28 @@ fr:
     my_articles: Mes articles
     needs_update: Planifier une mise à jour des données
     new_week: Ajouter une nouvelle semaine
+    new_account_check_username: Vérifier la disponibilité du nom d’utilisateur
+    new_account_email: Adresse de courriel
+    new_account_email_placeholder: nom@exemple.org
+    new_account_info: Pour demander un compte, saisissez votre adresse de courriel
+      et le nom d’utilisateur souhaité. Un mot de passe vous sera envoyé une fois
+      que le compte aura été créé.
+    new_account_info_admin: Pour demander un compte étudiant, saisissez son adresse
+      de courriel et le nom d’utilisateur souhaité. Un mot de passe lui sera envoyé
+      une fois le compte créé.
+    new_account_username: Nom d’utilisateur demandé
+    new_account_username_invalid: Ce n’est pas un nom d’utilisateur valide.
+    new_account_username_placeholder: Éditeur Wiki 123
+    new_account_username_taken: Ce nom d’utilisateur est déjà pris. Veuillez en choisir
+      un autre.
+    new_account_submit: Demander un compte
+    new_account_submitted: Votre demande de compte a été soumise. Le Facilitateur
+      pour ce programme peut achever la création de votre compte dès maintenant. Une
+      fois celui-ci créé, vous recevrez par courriel un mot de passe pour le nouveau
+      compte.
+    new_account_submitted_admin: Votre demande de compte a été créée. Veuillez informer
+      vos étudiants pour qu’ils vérifient leur boîte de réception pour obtenir leur
+      nouveau mot de passe.
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.
     none: Aucun
@@ -463,6 +488,7 @@ fr:
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     rating_feedback: 'La note prévue pour cet article est :'
+    requested_accounts: Comptes demandés
     review_timeline: Veuillez consulter ce calendrier et faire les modifications.
       Une fois satisfait de votre calendrier, soumettez-le pour approbation par l’équipe
       Wiki Ed. Une fois approuvé, une URL d’inscription vous sera fournie afin que
@@ -607,6 +633,7 @@ fr:
     milestones_none: Ce projet n’a actuellement aucun jalon.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
+    request_accounts: Demander des comptes
     revisions_none: Ce projet n’a pas été récemment modifié.
     school: Institution
     school_and_term: Institution/Quand
@@ -883,6 +910,7 @@ fr:
       other: '%{count} articles'
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
+    request_confirmation: Êtes-vous sûr de vouloir demander ces comptes ?
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours
@@ -905,6 +933,8 @@ fr:
     up_to_date_with_training: formation à jour
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
+    useremail_placeholder: Courriel
+    userpasscode_placeholder: Code d’accès
     role:
       description: Rôle dans le cours
       visitor: Visiteur
@@ -1033,4 +1063,6 @@ fr:
         de Wikipédia comme la vôtre.
   feedback_form_responses:
     no_responses: Il n’y a pas encore de réponses de commentaire.
+  wiki_api:
+    create_account_reason: Cet utilisateur participe à %{event}.
 ...

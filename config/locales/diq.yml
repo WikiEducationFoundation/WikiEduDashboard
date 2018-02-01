@@ -10,35 +10,38 @@
 diq:
   application:
     cancel: Bıtexelne
-    dashboard: Wiki Ed Dashboard
+    dashboard: Texteyê cerrebnayışê Wiki Edi
     documentation: Dokumantasyon
-    error: 'Tıya bıyo xırab:'
-    explore: Keşf ke
+    error: 'Yew xeta biye:'
+    explore: Cı geyre
     field_required: No ca icab keno
-    greeting2: Xeyr amey
-    greeting_extended: Xeyr amey wikipedia
+    greeting2: Xeyr amey!
+    greeting_extended: Xeyr amey Wikipediya
     greeting: Merheba!
     help: Peşti
     home: Keye
-    log_in_extended: Wikipedia ya Cıkew
+    log_in_extended: Ebe Wikipediya ra cıkewe
     log_in: Cı kewe
     log_out: Bıveciye
-    my_dashboard: Panela mı
-    recent_activity: Aktiviteya peyêne
-    search: Sualê pers bık
-    sign_up_extended: Wikipedia ya qeyd be
-    sign_up_log_in_extended: Wikipedia ya
+    my_dashboard: Texteyê mıno cerrebnayışi
+    recent_activity: Fealiyeto Peyên
+    report_problem: Perse rapor ke
+    search: persê bıperse
+    sign_up_extended: Ebe Wikipediya ra cıkewe
+    sign_up_log_in_extended: ebe Wikipediya ra
     sign_up: Qeyd be
-    submit: deqew
+    submit: Bırışe
     training: Mısnayış
-    change: Bıvırne
+    change: Bıvurne
     details: Teferuati
     confirm: TEMAM
+    opt_in: Eya
+    opt_out: Nê
   dashboard:
-    explore_examples: Misal keşıf
-    review_orientation: Vênayena oryantasyoni
-    start_orientation: Oryantasyoni bas bık
-    blog_headline: Wiki Ed ra xeberê newey
+    explore_examples: Nımuneyan cı geyre
+    review_orientation: Çımdariya istiqameti
+    start_orientation: Dest be istiqameti ke
+    blog_headline: Terbiyetê Wiki xeberê peyêni
   home:
     explore: Keşf ke
     log_in: Wikipedia ya Cıkew

@@ -13,6 +13,7 @@ zh-CN:
     number_field: 这是一个数域。大多数浏览器渲染的按钮将递增和递减输入。
   application:
     cancel: 取消
+    create_accounts: 创建维基百科账户
     dashboard: Wiki Ed控制面板
     documentation: 文档
     error: 发生了错误：
@@ -192,6 +193,7 @@ zh-CN:
   chat:
     label: 聊天
   courses:
+    accounts_generation_enabled: 账户请求生成已启用
     activity: 活动
     active_courses: 激活%{course_type}
     all_courses: 所有课程
@@ -287,6 +289,7 @@ zh-CN:
     duration: 课程持续时间
     edit_count: 编辑数
     edit_course_dates: 编辑课程日期
+    enable_account_requests: 启用帐户请求
     enable_chat: 启用聊天
     end: 结束
     ended: 课程已启用。
@@ -327,6 +330,18 @@ zh-CN:
     my_articles: 我的条目
     needs_update: 计划数据更新
     new_week: 添加新的一周
+    new_account_check_username: 检查用户名可用性
+    new_account_email: 电子邮件地址
+    new_account_email_placeholder: name@example.org
+    new_account_info: 要请求一个账户，请输入您的电子邮件地址以及您想要的用户名。一旦账户被创建，密码将通过电子邮件发送给您。
+    new_account_info_admin: 要请求一个学生账户，请输入其电子邮件地址以及想要的用户名。一旦账户被创建，密码将通过电子邮件发送给他。
+    new_account_username: 请求的用户名
+    new_account_username_invalid: 这不是有效的用户名。
+    new_account_username_placeholder: Wiki编辑者123
+    new_account_username_taken: 该用户名已被注册。请选择另一个。
+    new_account_submit: 请求账户
+    new_account_submitted: 您的账户请求已提交。此计划的服务商现在可以完成您的账户创建。一旦创建，您将通过电子邮件收到新账户的密码。
+    new_account_submitted_admin: 您请求的账户已创建。请通知您的学生检查其电子邮件收件箱以获取密码
     nocourses: 您未参加任何课程。
     nocourse: 未参加任何课程。
     none: 无
@@ -339,6 +354,7 @@ zh-CN:
     passcode_prompt: 输入密码以加入：
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
+    requested_accounts: 请求的账户
     review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
@@ -453,6 +469,7 @@ zh-CN:
     leave_course: 离开计划
     milestones_none: 此课程目前没有任何里程碑。
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
+    request_accounts: 请求账户
     revisions_none: 此项目没有最近编辑活动。
     school: 机构
     school_and_term: 机构/何时
@@ -672,6 +689,7 @@ zh-CN:
       other: '%{count}个条目'
     recent_revisions: 最近编辑
     remove_confirmation: 您确定要移除%{username}吗？
+    request_confirmation: 您确定要请求这个账户么？
     revision_characters_and_views: 添加的字符：%{characters}，浏览数：%{views}
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
@@ -692,6 +710,8 @@ zh-CN:
     up_to_date_with_training: 最近培训
     username: 用户名
     username_placeholder: 用户名
+    useremail_placeholder: 电子邮件
+    userpasscode_placeholder: 密码
     role:
       description: 课程中的角色
       visitor: 访问者
@@ -777,4 +797,6 @@ zh-CN:
       message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
   feedback_form_responses:
     no_responses: 目前没有反馈响应。
+  wiki_api:
+    create_account_reason: 此用户正在参与%{event}。
 ...

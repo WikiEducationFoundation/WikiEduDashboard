@@ -40,6 +40,8 @@ ast:
     change: Camudar
     details: Detalles
     confirm: Aceutar
+    opt_in: Sí
+    opt_out: Non
   dashboard:
     create_note: Fai click en Crear cursu pa crear el to primer cursu.
     create_preparation_note: Asegúrate de tener el to calendariu académicu a mano
@@ -418,9 +420,9 @@ ast:
     all_courses: Tolos programes
     archived: Programes archivaos
     articles_none: Inda nun hai artículos editaos nesti proyeutu.
-    assignment_end: Fin de la llinia temporal
+    assignment_end: Fin del socesu
     assignments_none: Esti proyeutu nun tien artículos asinaos.
-    assignment_start: Principiu de la llinia temporal
+    assignment_start: Principiu del socesu
     cancel: Encaboxar
     course: Programa
     courses: Programes

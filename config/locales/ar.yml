@@ -431,6 +431,7 @@ ar:
     contributions_more: عرض المزيد من المساهمات
     course_passcode: 'رمز العبور:'
     editors: محررون
+    edits_by: 'التعديلات بواسطة:'
     enroll_confirmation: هل أنت متأكد أنك تريد إضافة %{username}
     enroll_url: 'يمكن للمستخدمين الانضمام من خلال زيارة هذا الرابط:'
     enrolled_success: تمت إضافة %{username} بنجاح!

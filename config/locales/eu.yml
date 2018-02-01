@@ -805,6 +805,8 @@ eu:
     assign_articles_done: Egina
     assigned: Esleitutako artikuluak
     assignees: Esleitua(k)
+    loading_authorship_data: Egile datuak kargatzen
+    authorship_data_not_fetched: Ezin izan da lortu egile daturuik
     character_doc: Erabiltzaile batek izen-tarte honetara gehitutako eduki kopuru
       osoa, orri tamaina handitu duten aldaketa guztietarako gehitutako karaktere
       gutziak gehituz kalkulatua. Kopuru horrek ez du nahitaez adierazten erabiltzaileak
@@ -817,6 +819,7 @@ eu:
     contribution_statistics: Ekarpenen estatistikak
     course_passcode: 'Pasahitza:'
     editors: Editoreak
+    edits_by: 'Aldaketak egin ditu:'
     enroll_confirmation: Ziur zaude %{username} gehitu nahi duzula?
     enroll_url: 'Lankideek URL hau bisitatuz eman dezakete izena:'
     enrolled_success: '%{username} behar bezala gehitu da!'

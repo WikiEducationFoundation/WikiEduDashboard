@@ -44,18 +44,83 @@ el:
     opt_out: Όχι
   dashboard:
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
+  home:
+    log_in: Σύνδεση στη Βικιπαίδεια
+    sign_up: Εγγραφή στη Βικιπαίδεια
+  activity:
+    all: Δραστηριότητα
+    edited_by: Επεξεργάστηκε από
+    label: Δραστηριότητα
   articles:
+    article_development: (ανάπτυξη άρθρου)
+    assigned: Ανατεθειμένα άρθρα
+    available: Διαθέσιμα άρθρα
+    assigned_to: Ανατεθέν σε
     deleted: (διαγράφηκε)
+    edited: Άρθρα που επεξεργάστηκαν
+    edited_by: Επεξεργάστηκε από
+    edited_mobile: Λήμματα
+    hide: Απόκρυψη
+    history: (ιστορικό)
+    label: Λήμματα
+    loading: Φόρτωση λημμάτων...
+    new: (Νέο)
+    rating: Κλάση
+    title: Τίτλος
+    title_example: Τίτλος άρθρου
     tools: Αξιολόγηση εργαλείων
+    view: Προβολή άρθρου
+    view_all: Προβολή όλων
+    view_on_wiki: Προβολή στο βίκι
+    edit_size: Επεξεργασία μεγέθους
+    wiki: Βίκι
+  assignments:
+    assign_other: Αναθέστε ένα άρθρο
+    add_available: Προσθήκη ενός διαθέσιμου άρθρου
+    label: Ανάθεση
+    loading: Φόρτωση αναθέσεων...
+    none_short: Δεν ανατέθηκαν άρθρα
+    remove: Αφαίρεση
+    reviewers: Θεωρητής(-ές)
+    review_self: Αναθεώρηση ενός άρθρου
+    select: Διαλέξτε
+  blocks:
+    milestones:
+      title: Ορόσημα
+  campaign:
+    active_campaigns: Ενεργές εκστρατείες
+    add_organizer: Προσθήκη οργανωτή
+    campaign: Εκστρατεία
+    title: Τίτλος
+    use_start_end_dates: Χρησιμοποιήστε ημερομηνίες αρχής και τέλους
   categories:
+    add_category: Προσθήκη κατηγορίας
+    add_template: Προσθήκη προτύπου
+    add_this_category: Προσθήκη αυτής της κατηγορίας
+    add_this_template: Προσθήκη αυτού του προτύπου
     confirm_category_addition: Είστε βέβαιοι ότι θέλετε να παρακολουθείτε τις συνεισφορές
       στην κατηγορία ''%{όνομα}''?
+    depth: Βάθος υποκατηγορίας
+    name: Όνομα
+    category_name: Όνομα κατηγορίας
     template_name: Nom de modele
+    remove: Αφαίρεση
     tracked_categories: Κατηγορίες Παρακολούθησης $ Μοντέλα
   chat:
     label: Συνομιλία
   courses:
+    activity: Δραστηριότητα
+    actions: Ενέργειες
+    articles: Λήμματα
+    calendar:
+      legend: Λεζάντα
+      legend_class_canceled: Διακοπές/Ακυρώθηκε
     cancel: Ακύρωση
+    course: Μάθημα
+    course_description: Μαθήματα
+    courses: Μαθήματα
+    courses_taught: Μαθήματα που διδάχτηκαν
+    creation_date: Ημερομηνία δημιουργίας
     edit_count: Εκδώσετε τον Αριθμό
     enable_chat: Ενεργοποίηση συνομιλίας
     ores_plot: ORES

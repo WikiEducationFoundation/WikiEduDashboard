@@ -5,6 +5,7 @@
 # Author: Dominikmatus
 # Author: Dvorapa
 # Author: Frettie
+# Author: Ilimanaq29
 # Author: Marek Pavlica
 # Author: Martin Urbanec
 # Author: Meliganai
@@ -610,12 +611,15 @@ cs:
     assign_articles_done: Hotovo
     assigned: Přiřazené články
     assignees: Přiřazení
+    loading_authorship_data: načítání autorských dat
+    authorship_data_not_fetched: nebylo možno najít autorská data
     chars_added: Přidané znaky<br>(článek | uživatelský prostor | koncept)
     contributions: Příspěvky uživatele
     contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
     contributions_more: Zobrazit více Příspěvků
     course_passcode: 'Heslo:'
     editors: Studenti
+    edits_by: 'Editace uživatele:'
     enroll_confirmation: Jsou si jisti, že chcete přidat %{username}?
     enroll_url: 'Uživatelé se mohou zapsat tím, že navštíví toto URL:'
     enrolled_success: '%{username} byl úspěšně přidán!'
