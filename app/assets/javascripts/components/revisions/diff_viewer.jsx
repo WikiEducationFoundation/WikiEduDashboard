@@ -139,18 +139,18 @@ const DiffViewer = createReactClass({
         dataType: 'jsonp',
         url: diffUrl,
         success: (data) => {
-          const firstRevisionData = data.query.pages[this.props.revision.mw_page_id]
-                                      .revisions[0];
-          const lastRevisionData = data.query.pages[this.props.revision.mw_page_id]
+          const firstRevisionData = data.query.pages && data.query.pages[this.props.revision.mw_page_id]
+                                      .revisions[0] || {};
+          const lastRevisionData = data.query.pages && data.query.pages[this.props.revision.mw_page_id]
                                       .revisions[1];
           // Data may or may not include the diff.
           let diff;
           if (firstRevisionData.diff) {
             diff = firstRevisionData.diff['*'];
-          // Some deleted revisions have a "texthidden" key.
-          } else if (firstRevisionData.texthidden === '') {
+          } else {
             diff = '<div class="warning">This revision is not available. It may have been deleted. More details may be available on wiki.</div>';
           }
+
           this.setState({
             diff: diff,
             comment: firstRevisionData.comment,
