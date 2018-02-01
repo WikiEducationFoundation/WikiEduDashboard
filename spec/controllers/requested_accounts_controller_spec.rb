@@ -37,11 +37,24 @@ describe RequestedAccountsController do
         expect(course.requested_accounts.last.email).to eq('newemail')
       end
 
-      it 'tries to create an account but the user is not authorized' do
+      it 'returns a 500 if user is not authorized create accounts now' do
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
                                          create_account_now: true }
         expect(response.status).to eq(500)
+      end
+
+      it 'renders a success message if account creation is successful' do
+        allow(controller).to receive(:current_user).and_return(admin)
+        stub_account_creation
+        allow(UserImporter).to receive(:new_from_username).and_return(user)
+        post :request_account, params: { passcode: course.passcode,
+                                         course_slug: course.slug,
+                                         username: 'MyUsername',
+                                         email: 'myemail@me.net',
+                                         create_account_now: true }
+        expect(response.status).to eq(200)
+        expect(response.body).to have_content('Created account for MyUsername')
       end
 
       it 'raises an error if account requests are not enabled' do
