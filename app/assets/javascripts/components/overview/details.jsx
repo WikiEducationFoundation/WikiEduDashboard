@@ -22,16 +22,13 @@ import CourseActions from '../../actions/course_actions.js';
 
 import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
-import CampaignStore from '../../stores/campaign_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-// For some reason getState is not being triggered when CampaignStore gets updated
 
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
-    campaigns: CampaignStore.getModels(),
     tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
@@ -206,19 +203,6 @@ const Details = createReactClass({
         />
       );
     }
-    let campaignButton;
-    if (this.props.editable) {
-      campaignButton = (
-        <div>
-          <span><strong>
-            {CourseUtils.i18n('campaigns', this.props.course.string_prefix)}
-          </strong></span>
-          <CampaignButton />
-        </div>
-      );
-    } else {
-      campaignButton = <div><span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span></div>;
-    }
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, (campaign, index) => {
@@ -284,7 +268,6 @@ const Details = createReactClass({
       );
     }
 
-
     // Users who can rename a course are also allowed to toggle the timeline on/off.
     if (canRename && !isClassroomProgramType) {
       timelineToggle = (
@@ -338,7 +321,10 @@ const Details = createReactClass({
             {timelineStart}
             {timelineEnd}
           </form>
-          {campaignButton}
+          <div>
+            <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
+            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
+          </div>
           {subject}
           {courseLevelSelector}
           {tags}
@@ -368,4 +354,4 @@ const saveCourseDetails = (data, courseId = null) => {
   }
 };
 
-export default Editable(Details, [CourseStore, CampaignStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
