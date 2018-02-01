@@ -20,7 +20,7 @@ const PlagiarismHandler = createReactClass({
 
   propTypes: {
     fetchSuspectedPlagiarism: PropTypes.func,
-    revisions: PropTypes.object,
+    revisions: PropTypes.array,
     loading: PropTypes.bool
   },
 
