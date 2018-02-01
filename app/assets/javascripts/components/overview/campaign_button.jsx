@@ -1,25 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import PopoverButton from '../high_order/popover_button.jsx';
-import CampaignStore from '../../stores/campaign_store.js';
+import createReactClass from 'create-react-class';
+import Select from 'react-select';
+import { connect } from "react-redux";
 
-const campaignIsNew = campaign => CampaignStore.getFiltered({ title: campaign }).length === 0;
+import PopoverExpandable from '../high_order/popover_expandable.jsx';
 
-const campaigns = (props, remove) =>
-  props.campaigns.map(campaign => {
-    const removeButton = (
-      <button className="button border plus" onClick={remove.bind(null, campaign.id)}>-</button>
-    );
-    return (
-      <tr key={`${campaign.id}_campaign`}>
-        <td>{campaign.title}{removeButton}</td>
-      </tr>
-    );
+const getState = () =>
+  ({
+    selectedOption: ''
   })
 ;
+const CampaignButton = createReactClass({
 
-campaigns.propTypes = {
-  campaigns: PropTypes.array
-};
+  getInitialState() {
+    return getState();
+  },
 
-export default PopoverButton('campaign', 'title', CampaignStore, campaignIsNew, campaigns, true);
+  handleChange(selectedOption) {
+    this.setState({ selectedOption });
+  },
+  render() {
+    const value = this.state.selectedOption && this.state.selectedOption.value;
+
+    return (
+      <Select
+        name="form-field-name"
+        value={value}
+        onChange={this.handleChange}
+        options={[
+          { value: 'one', label: 'One' },
+          { value: 'two', label: 'Two' },
+        ]}
+      />
+    );
+  }
+
+});
+
+const mapDispatchToProps = { };
+
+export default connect(null, mapDispatchToProps)(
+  PopoverExpandable(CampaignButton)
+);

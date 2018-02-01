@@ -206,6 +206,19 @@ const Details = createReactClass({
         />
       );
     }
+    let campaignButton;
+    if (this.props.editable) {
+      campaignButton = (
+        <div>
+          <span><strong>
+            {CourseUtils.i18n('campaigns', this.props.course.string_prefix)}
+          </strong></span>
+          <CampaignButton />
+        </div>
+      );
+    } else {
+      campaignButton = <div><span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span></div>;
+    }
     const lastIndex = this.props.campaigns.length - 1;
     const campaigns = this.props.campaigns.length > 0 ?
       _.map(this.props.campaigns, (campaign, index) => {
@@ -271,6 +284,7 @@ const Details = createReactClass({
       );
     }
 
+
     // Users who can rename a course are also allowed to toggle the timeline on/off.
     if (canRename && !isClassroomProgramType) {
       timelineToggle = (
@@ -324,10 +338,7 @@ const Details = createReactClass({
             {timelineStart}
             {timelineEnd}
           </form>
-          <div>
-            <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
-          </div>
+          {campaignButton}
           {subject}
           {courseLevelSelector}
           {tags}
