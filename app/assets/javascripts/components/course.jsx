@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import moment from 'moment';
 
 import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';

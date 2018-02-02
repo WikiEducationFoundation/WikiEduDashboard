@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const StatisticsUpdateInfo = ({ course }) => {
   if (course.ended || Features.wikiEd || !course.updates) {

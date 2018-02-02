@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { DragDropContext } from 'react-dnd';
 import Touch from 'react-dnd-touch-backend';
 import _ from 'lodash';
+import moment from 'moment';
 
 import Week from './week.jsx';
 import EmptyWeek from './empty_week.jsx';

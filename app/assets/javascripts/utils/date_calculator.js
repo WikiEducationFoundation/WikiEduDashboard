@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 class DateCalculator {
   constructor(beginning, ending, loopIndex, opts) {
     this.beginning = beginning;
