@@ -4,7 +4,6 @@
   "dependencies": {
     "jquery": "3.3.1",
     "jquery-ujs": "1.2.2",
-    "list.js": "wintr/list.js#76c5632d86e11711b965878d58e1f4c90f6bcb18",
     "lodash": "~3.9.0",
     "jquery.uls": "https://github.com/mattfordham/jquery.uls.git"
   },

@@ -5,7 +5,7 @@ require('trix');
 
 $(() => {
   window.I18n = require('i18n-js');
-
+  window.List = require('list.js');
   require('./utils/course.js');
   require('./utils/router.jsx');
   require('events').EventEmitter.defaultMaxListeners = 30;
