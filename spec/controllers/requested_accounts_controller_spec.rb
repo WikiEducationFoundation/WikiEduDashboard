@@ -15,12 +15,12 @@ describe RequestedAccountsController do
                                                            email: 'email')
                                                          }
 
-      it "returns an error if the passcode is invalid" do
+      it 'returns an error if the passcode is invalid' do
         post :request_account, params: { passcode: 'passcode', course_slug: course.slug }
         expect(response.status).to eq(302)
       end
 
-      it "adds new requested accounts to the course" do
+      it 'adds new requested accounts to the course' do
         expect(course.requested_accounts.count).to eq(0)
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
@@ -28,7 +28,7 @@ describe RequestedAccountsController do
         expect(course.requested_accounts.count).to eq(1)
       end
 
-      it "updates an attribute if the request already exist" do
+      it 'updates an attribute if the request already exist' do
         post :request_account, params: { passcode: course.passcode,
                                          course_slug: course.slug,
                                          username: requested_account.username,
@@ -69,7 +69,7 @@ describe RequestedAccountsController do
     describe '#create_accounts' do
       before { RequestedAccount.create(course_id: course.id, username: 'username', email: 'email') }
 
-      it "does not create the accounts if user is not authorized" do
+      it 'does not create the accounts if user is not authorized' do
         allow(controller).to receive(:current_user).and_return(user)
         post :create_accounts, params: { course_slug: course.slug }
         expect(response.status).to eq(401)
@@ -77,7 +77,7 @@ describe RequestedAccountsController do
         expect(RequestedAccount.count).to eq(1)
       end
 
-      it "creates the accounts if user is authorized" do
+      it 'creates the accounts if user is authorized' do
         stub_account_creation
         allow(controller).to receive(:current_user).and_return(admin)
         allow(UserImporter).to receive(:new_from_username).and_return(user)
@@ -98,13 +98,13 @@ describe RequestedAccountsController do
     describe '#destroy' do
       let!(:requested_account) { create(:requested_account, course_id: course.id) }
 
-      it "deletes a request account if user is authorized" do
+      it 'deletes a request account if user is authorized' do
         allow(controller).to receive(:current_user).and_return(admin)
         delete :destroy, params: { course_slug: course.slug, id: requested_account.id }
         expect(RequestedAccount.exists?(requested_account.id)).to eq(false)
       end
 
-      it "does not delete a request account if user is not authorized" do
+      it 'does not delete a request account if user is not authorized' do
         allow(controller).to receive(:current_user).and_return(user)
         delete :destroy, params: { course_slug: course.slug, id: requested_account.id }
         expect(RequestedAccount.exists?(requested_account.id)).to eq(true)

@@ -18,7 +18,7 @@ describe CreateRequestedAccount do
     stub_account_creation
     allow(UserImporter).to receive(:new_from_username).and_return(user)
     expect(subject.result[:success]).not_to be_nil
-    expect(user.username).to eq("Ragesock")
+    expect(user.username).to eq('Ragesock')
   end
 
   it 'destroys the requested account if the username already exist' do
