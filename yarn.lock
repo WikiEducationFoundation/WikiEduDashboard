@@ -9033,7 +9033,7 @@ trim-x@^3.0.0:
     trim-left-x "^3.0.0"
     trim-right-x "^3.0.0"
 
-trix@^0.10.1:
+trix@0.10.2, trix@^0.10.1:
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/trix/-/trix-0.10.2.tgz#85fc61bfed5d29676e400cc70cbd9040b753f5b6"
 
