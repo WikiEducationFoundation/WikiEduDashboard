@@ -36,8 +36,8 @@ const removeCampaignsPromise = (courseId, campaignId) => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'DELETE',
-      url: `/campaigns_courses`,
-      data: { course_id: courseId, campaign_id: campaignId },
+      url: `/courses/${courseId}/campaigns.json`,
+      data: { campaign: { title: campaignId } },
       success(data) {
         return res(data);
       }

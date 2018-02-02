@@ -30,15 +30,14 @@ const CampaignButton = createReactClass({
   },
 
   removeCampaign(campaignId) {
-    const courseId = this.props.course_id;
-    this.props.removeCampaign(courseId, campaignId);
+    this.props.removeCampaign(this.props.course_id, campaignId);
   },
 
   render() {
     const editRows = [];
     const campaignList = this.props.campaigns.map(campaign => {
       const removeButton = (
-        <button className="button border plus" onClick={this.removeCampaign(this.id)}>-</button>
+        <button className="button border plus" onClick={this.removeCampaign(campaign.title)}>-</button>
       );
       return (
         editRows.push(
