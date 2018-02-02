@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "dependencies": {
     "jquery": "3.3.1",
-    "jquery-ujs": "1.2.2",
     "lodash": "~3.9.0",
     "jquery.uls": "https://github.com/mattfordham/jquery.uls.git"
   },

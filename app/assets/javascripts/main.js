@@ -2,6 +2,7 @@
 import "babel-polyfill";
 require('location-origin');
 require('trix');
+require('jquery-ujs');
 
 $(() => {
   window.I18n = require('i18n-js');
