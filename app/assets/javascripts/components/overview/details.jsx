@@ -204,14 +204,25 @@ const Details = createReactClass({
       );
     }
     const lastIndex = this.props.campaigns.length - 1;
-    const campaigns = this.props.campaigns.length > 0 ?
-      _.map(this.props.campaigns, (campaign, index) => {
-        let comma = '';
-        const url = `/campaigns/${campaign.slug}/overview`;
-        if (index !== lastIndex) { comma = ', '; }
-        return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
-      })
-    : I18n.t('courses.none');
+    let campaigns;
+    if (this.props.editable) {
+      campaigns = (
+        <div>
+          <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
+        </div>
+      );
+    } else {
+      const campaignsList = (this.props.campaigns.length > 0 ?
+        _.map(this.props.campaigns, (campaign, index) => {
+          let comma = '';
+          const url = `/campaigns/${campaign.slug}/overview`;
+          if (index !== lastIndex) { comma = ', '; }
+          return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
+        })
+      : I18n.t('courses.none'));
+      campaigns = <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaignsList}</span>;
+    }
+
 
     let subject;
     let tags;
@@ -321,10 +332,7 @@ const Details = createReactClass({
             {timelineStart}
             {timelineEnd}
           </form>
-          <div>
-            <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
-          </div>
+          {campaigns}
           {subject}
           {courseLevelSelector}
           {tags}

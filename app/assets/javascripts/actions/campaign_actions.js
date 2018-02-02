@@ -1,4 +1,4 @@
-import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, API_FAIL } from "../constants";
+import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCampaignsPromise = (courseId) => {
@@ -7,8 +7,6 @@ const fetchCampaignsPromise = (courseId) => {
       type: 'GET',
       url: `/courses/${courseId}/campaigns.json`,
       success(data) {
-        console.log('hello')
-        console.log(data)
         return res(data);
       }
     })
@@ -23,8 +21,6 @@ export const fetchCampaigns = (courseId) => dispatch => {
   return (
     fetchCampaignsPromise(courseId)
       .then(data => {
-        console.log('hello again')
-        console.log(data)
         dispatch({
           type: RECEIVE_CAMPAIGNS,
           data
@@ -35,3 +31,33 @@ export const fetchCampaigns = (courseId) => dispatch => {
 };
 
 export const sortCampaigns = key => ({ type: SORT_CAMPAIGNS, key: key });
+
+const removeCampaignsPromise = (courseId, campaignId) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'DELETE',
+      url: `/campaigns_courses`,
+      data: { course_id: courseId, campaign_id: campaignId },
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const removeCampaign = (courseId, campaignId) => dispatch => {
+  return (
+    removeCampaignsPromise(courseId, campaignId)
+      .then(data => {
+        dispatch({
+          type: DELETE_CAMPAIGN,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+  );
+};
