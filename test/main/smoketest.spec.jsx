@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import ReactTestUtils from 'react-dom/test-utils';
 import '../testHelper';
-import '../../app/assets/javascripts/main';
+
 import Course from '../../app/assets/javascripts/components/course.jsx';
 import OverviewHandler from '../../app/assets/javascripts/components/overview/overview_handler.jsx';
 
