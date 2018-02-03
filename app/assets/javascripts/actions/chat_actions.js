@@ -1,19 +1,46 @@
-import McFly from 'mcfly';
-import API from '../utils/api.js';
-const Flux = new McFly();
+import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL, SHOW_CHAT_ON } from "../constants";
+import API from "../utils/api.js";
 
-const ChatActions = Flux.createActions({
-  requestAuthToken() {
-    return API.chatLogin()
-      .then(resp => ({ actionType: 'CHAT_LOGIN_SUCCEEDED', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
+export const requestAuthToken = (opts = {}) => dispatch => {
+  return (
+      API.chatLogin()
+      .then(resp => dispatch({
+        type: CHAT_LOGIN_SUCCEEDED,
+        payload: {
+          data: resp,
+        }
+      }));
+      .catch(resp => dispatch({
+        type: API_FAIL,
+        payload: {
+          data: resp
+        }
+      }));
+    );
+};
 
-  enableForCourse(courseId) {
-    return API.enableChat(courseId)
-      .then(resp => ({ actionType: 'ENABLE_CHAT_SUCCEEDED', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  }
-});
+export const enableForCourse = (opts = {}) => dispatch => {
+  return (
+      API.enableChat(opts.courseId)
+      .then(resp => dispatch({
+        type: ENABLE_CHAT_SUCCEEDED,
+        payload: {
+          data: resp
+        }
+      }));
+      .catch(resp => dispatch({
+        type: API_FAIL,
+        payload:{
+          data: resp
+        }
+      }));
+    );
+};
 
-export default ChatActions;
+export const showChatOn = (opts = {}) => dispatch => {
+  return (
+      dispatch({
+        type: SHOW_CHAT_ON,
+      });
+    );
+};
