@@ -10,6 +10,7 @@ output_line()
     while read -r line
     do
         printf "${CLEAR_LINE}$line"
+        echo $line >> setup/log.txt
     done < <($1)
   else
     while read -r line
@@ -41,8 +42,8 @@ output_line "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg" "sudo apt-key ad
 output_line 'echo "deb https://dl.yarnpkg.com/debian/ stable main"' 'sudo tee /etc/apt/sources.list.d/yarn.list'
 
 # Add Keys for MariaDB
-output_line "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8" && \
-output_line "sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.jmu.edu/pub/mariadb/repo/10.1/ubuntu xenial main'"
+output_line "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db" && \
+output_line "sudo add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu trusty main'"
 printf "${CLEAR_LINE}[+] Added keys for required repositries\n"
 
 printf '[*] Updating Package lists... \n'
@@ -71,15 +72,15 @@ output_line "sudo apt-get install -y pandoc" && printf "${CLEAR_LINE}[+] Pandoc 
 printf '[*] Installing redis-server... \n'
 output_line "sudo apt install -y redis-server" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
 
-printf '[*] Installing mariadbclient dependencies... \n'
-output_line "sudo apt-get install -y libmariadbclient-dev" && printf "${CLEAR_LINE}[+] Dependencies installed\n"
-
 printf '[*] Installing MariaDB-server... \n'
 output_line "sudo apt-get install -y software-properties-common"
 output_line "sudo apt-get install -y mariadb-server" && printf "${CLEAR_LINE}[+] MariaDB installed "
 output_line "sudo systemctl start mariadb.service" && \
 output_line "sudo systemctl enable mariadb.service" && \
 printf "${CLEAR_LINE}MariaDB service started\n"
+
+printf '[*] Installing mariadbclient dependencies... \n'
+output_line "sudo apt-get install -y libmariadbclient-dev" && printf "${CLEAR_LINE}[+] Dependencies installed\n"
 
 printf '[*] Checking for rvm... \n'
 if which rvm > /dev/null; then
@@ -92,7 +93,11 @@ else
 fi
 
 printf '[*] Installing Ruby-2.5.0... \n'
-output_line "rvm install ruby-2.5.0" && printf "${CLEAR_LINE}[+] Ruby-2.5.0 installed\n"
+if which ruby > /dev/null; then
+  printf "${CLEAR_LINE}ruby-2.5.0 already installed\n"
+else
+  output_line "rvm install ruby-2.5.0" && printf "${CLEAR_LINE}[+] Ruby-2.5.0 installed\n"
+fi
 
 printf '[*] Installing bundler... \n'
 if which bundler > /dev/null; then
