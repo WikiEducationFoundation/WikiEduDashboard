@@ -9,13 +9,13 @@ output_line()
   if [ -z ${2+x} ];then
     while read -r line
     do
-        printf "${CLEAR_LINE}$line"
-        echo $line >> setup/log.txt
-    done < <($1)
+      printf "${CLEAR_LINE}$line"
+      echo $line >> setup/log.txt
+    done < <(eval $1)
   else
     while read -r line
     do
-        printf "${CLEAR_LINE}$line"
+      printf "${CLEAR_LINE}$line"
     done < <(eval $1 | $2)
   fi
 }
@@ -42,15 +42,20 @@ output_line "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg" "sudo apt-key ad
 output_line 'echo "deb https://dl.yarnpkg.com/debian/ stable main"' 'sudo tee /etc/apt/sources.list.d/yarn.list'
 
 # Add Keys for MariaDB
-output_line "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db" && \
-output_line "sudo add-apt-repository 'deb http://ftp.osuosl.org/pub/mariadb/repo/10.0/ubuntu trusty main'"
+output_line "sudo apt-get install -y software-properties-common"
+output_line "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8" && \
+output_line "sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu xenial main'"
 printf "${CLEAR_LINE}[+] Added keys for required repositries\n"
 
 printf '[*] Updating Package lists... \n'
 output_line "sudo apt-get update" && printf "${CLEAR_LINE}[+] Updated Package lists\n"
 
 printf '[*] Installing R... \n'
-output_line "sudo apt install -y r-base" && printf "${CLEAR_LINE}[+] R installed\n"
+if which R > /dev/null; then
+  printf "${CLEAR_LINE}R already installed\n"
+else
+  output_line "sudo apt install -y r-base" && printf "${CLEAR_LINE}[+] R installed\n"
+fi
 
 printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
@@ -64,39 +69,46 @@ printf '[*] Installing GNUpg... \n'
 output_line "sudo apt-get install -y gnupg" && printf "${CLEAR_LINE}[+] GNUpg installed\n"
 
 printf '[*] Installing yarn... \n'
-output_line "sudo apt-get install -y yarn" && printf "${CLEAR_LINE}[+] Yarn installed\n"
+if which yarn >/dev/null; then
+  printf "${CLEAR_LINE}yarn already installed\n"
+else
+  output_line "sudo apt-get install -y yarn" && printf "${CLEAR_LINE}[+] Yarn installed\n"
+fi
 
 printf '[*] Installing pandoc... \n'
-output_line "sudo apt-get install -y pandoc" && printf "${CLEAR_LINE}[+] Pandoc installed\n"
+if which pandoc >/dev/null; then
+  printf "${CLEAR_LINE}pandoc already installed\n"
+else
+  output_line "sudo apt-get install -y pandoc" && printf "${CLEAR_LINE}[+] Pandoc installed\n"
+fi
 
 printf '[*] Installing redis-server... \n'
-output_line "sudo apt install -y redis-server" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
+if which redis-server > /dev/null; then
+  printf "${CLEAR_LINE}redis-server already installed\n"
+else
+  output_line "sudo apt install -y redis-server" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
+fi
 
 printf '[*] Installing MariaDB-server... \n'
-output_line "sudo apt-get install -y software-properties-common"
-output_line "sudo apt-get install -y mariadb-server" && printf "${CLEAR_LINE}[+] MariaDB installed "
-output_line "sudo systemctl start mariadb.service" && \
-output_line "sudo systemctl enable mariadb.service" && \
-printf "${CLEAR_LINE}MariaDB service started\n"
+if mysql -V | grep MariaDB > /dev/null; then
+  printf "${CLEAR_LINE}MariaDB already installed\n"
+else
+  output_line "sudo apt-get install -y mariadb-server" && printf "${CLEAR_LINE}[+] MariaDB installed "
+fi
 
 printf '[*] Installing mariadbclient dependencies... \n'
 output_line "sudo apt-get install -y libmariadbclient-dev" && printf "${CLEAR_LINE}[+] Dependencies installed\n"
 
-printf '[*] Checking for rvm... \n'
-if which rvm > /dev/null; then
-  printf "${CLEAR_LINE}RVM already installed\n"
+printf '[*] Checking for Ruby-2.5.0...\n'
+if which ruby | grep "ruby 2.5.0" >/dev/null; then
+  printf "${CLEAR_LINE}Ruby already installed\n"
 else
-  output_line "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB" && printf "${CLEAR_LINE}[*] Installing rvm... \n" && \
-  output_line "curl -sSL https://get.rvm.io" "bash -s stable" && \
-  printf "${CLEAR_LINE}[+] RVM installed\n"
-  source "$HOME/.rvm/scripts/rvm"
-fi
-
-printf '[*] Installing Ruby-2.5.0... \n'
-if which ruby > /dev/null; then
-  printf "${CLEAR_LINE}ruby-2.5.0 already installed\n"
-else
-  output_line "rvm install ruby-2.5.0" && printf "${CLEAR_LINE}[+] Ruby-2.5.0 installed\n"
+  echo "Ruby-2.5.0 not found. Please install ruby-2.5.0 and run this script again."
+  echo "To install Ruby-2.5.0, run:"
+  echo "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
+  echo "curl -sSL https://get.rvm.io | bash -s stable"
+  echo "rvm install ruby-2.5.0"
+  exit 1;
 fi
 
 printf '[*] Installing bundler... \n'
