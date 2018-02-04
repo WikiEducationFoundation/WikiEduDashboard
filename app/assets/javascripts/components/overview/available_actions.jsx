@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import ServerActions from '../../actions/server_actions.js';
-import ChatActions from '../../actions/chat_actions.js';
+import { enableForCourse } from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -85,7 +85,7 @@ const AvailableActions = createReactClass({
 
   enableChat() {
     if (confirm('Are you sure you want to enable chat?')) {
-      return ChatActions.enableForCourse(this.state.course.id);
+      return enableForCourse({this.state.course.id});
     }
   },
 

@@ -84,6 +84,6 @@ const mapDispatchToProps = {
   requestAuthToken: requestAuthToken,
   enableForCourse: enableForCourse,
   showChatOn: showChatOn
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RocketChat);

@@ -9,13 +9,13 @@ export const requestAuthToken = (opts = {}) => dispatch => {
         payload: {
           data: resp,
         }
-      }));
+      }))
       .catch(resp => dispatch({
         type: API_FAIL,
         payload: {
           data: resp
         }
-      }));
+      }))
     );
 };
 
@@ -27,13 +27,13 @@ export const enableForCourse = (opts = {}) => dispatch => {
         payload: {
           data: resp
         }
-      }));
+      }))
       .catch(resp => dispatch({
         type: API_FAIL,
-        payload:{
+        payload: {
           data: resp
         }
-      }));
+      }))
     );
 };
 
@@ -41,6 +41,6 @@ export const showChatOn = (opts = {}) => dispatch => {
   return (
       dispatch({
         type: SHOW_CHAT_ON,
-      });
+      })
     );
 };

@@ -1,4 +1,4 @@
-import { CHAT_LOGIN_SUCCEEDED, SHOW_CHAT_ON } from "../constants"
+import { CHAT_LOGIN_SUCCEEDED, SHOW_CHAT_ON } from "../constants";
 
 const initialState = {
   authToken: '',
