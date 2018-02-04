@@ -1,9 +1,21 @@
 import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL, SHOW_CHAT_ON } from "../constants";
-import API from "../utils/api.js";
 
-export const requestAuthToken = (opts = {}) => dispatch => {
+export const requestAuthToken = () => dispatch => {
   return (
-      API.chatLogin()
+      new Promise((res, rej) =>
+        $.ajax({
+          type: 'GET',
+          url: '/chat/login.json',
+          success(data) {
+            return res(data);
+          }
+        })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+      )
+
       .then(resp => dispatch({
         type: CHAT_LOGIN_SUCCEEDED,
         payload: {
@@ -21,7 +33,20 @@ export const requestAuthToken = (opts = {}) => dispatch => {
 
 export const enableForCourse = (opts = {}) => dispatch => {
   return (
-      API.enableChat(opts.courseId)
+      new Promise((res, rej) =>
+        $.ajax({
+          type: 'PUT',
+          url: `/chat/enable_for_course/${opts.courseId}.json`,
+          success(data) {
+            return res(data);
+          }
+        })
+        .fail((obj) => {
+          logErrorMessage(obj);
+          return rej(obj);
+        })
+      )
+
       .then(resp => dispatch({
         type: ENABLE_CHAT_SUCCEEDED,
         payload: {
@@ -37,7 +62,7 @@ export const enableForCourse = (opts = {}) => dispatch => {
     );
 };
 
-export const showChatOn = (opts = {}) => dispatch => {
+export const showChatOn = () => dispatch => {
   return (
       dispatch({
         type: SHOW_CHAT_ON,

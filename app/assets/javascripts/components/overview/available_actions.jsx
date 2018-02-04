@@ -85,7 +85,7 @@ const AvailableActions = createReactClass({
 
   enableChat() {
     if (confirm('Are you sure you want to enable chat?')) {
-      return enableForCourse({this.state.course.id});
+      return enableForCourse({ courseId: this.state.course.id });
     }
   },
 
