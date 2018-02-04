@@ -1,37 +1,32 @@
-import McFly from 'mcfly';
-const Flux = new McFly();
+import { INITIALIZE, SET_VALID, SET_INVALID } from "../constants";
 
-const ValidationActions = Flux.createActions({
-  initialize(key, message) {
-    return {
-      actionType: 'INITIALIZE',
-      data: {
-        key,
-        message
-      }
-    };
-  },
+export const initialize = (key, message) =>  {
+  return {
+    type: INITIALIZE,
+    data: {
+      key: key,
+      message: message
+    }
+  };
+}
 
-  setValid(key, quiet = false) {
-    return {
-      actionType: 'SET_VALID',
-      data: {
-        key,
-        quiet
-      }
-    };
-  },
+export const setValid = (key, quiet = false) => {
+  return {
+    type: SET_VALID,
+    data: {
+      key: key,
+      quiet: quiet
+    }
+  };
+}
 
-  setInvalid(key, message, quiet = false) {
-    return {
-      actionType: 'SET_INVALID',
-      data: {
-        key,
-        message,
-        quiet
-      }
-    };
-  }
-});
-
-export default ValidationActions;
+export const setInvalid = (key, message, quiet = false) => {
+  return {
+    type: SET_INVALID,
+    data: {
+      key: key,
+      message: message,
+      quiet: quiet
+    }
+  };
+}
