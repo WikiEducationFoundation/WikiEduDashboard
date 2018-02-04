@@ -85,7 +85,7 @@ const AvailableActions = createReactClass({
 
   enableChat() {
     if (confirm('Are you sure you want to enable chat?')) {
-      return enableForCourse({ courseId: this.state.course.id });
+      return this.props.enableForCourse({ courseId: this.state.course.id });
     }
   },
 
@@ -193,6 +193,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm, enableAccountRequests };
+const mapDispatchToProps = { initiateConfirm, enableAccountRequests, enableForCourse };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

@@ -62,10 +62,8 @@ export const enableForCourse = (opts = {}) => dispatch => {
     );
 };
 
-export const showChatOn = () => dispatch => {
-  return (
-      dispatch({
-        type: SHOW_CHAT_ON,
-      })
-    );
+export const showChatOn = () => {
+  return {
+    type: SHOW_CHAT_ON,
+  };
 };
