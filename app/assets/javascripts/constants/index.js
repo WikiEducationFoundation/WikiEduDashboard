@@ -23,4 +23,5 @@ export * from "./user_profile";
 export * from "./user_roles";
 export * from "./users";
 export * from "./settings";
+export * from "./validation";
 export * from "./wikidata_labels";

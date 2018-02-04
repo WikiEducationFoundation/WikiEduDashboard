@@ -23,8 +23,8 @@ import uploads from './uploads';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
 import users from './users';
+import validation from './validation';
 import wikidataLabels from './wikidata_labels';
-
 
 const reducer = combineReducers({
   alerts,
@@ -52,6 +52,7 @@ const reducer = combineReducers({
   userCourses,
   userProfile,
   users,
+  validation,
   wikidataLabels
 });
 
