@@ -1,7 +1,7 @@
 import { CHAT_LOGIN_SUCCEEDED, SHOW_CHAT_ON } from "../constants";
 
 const initialState = {
-  authToken: '',
+  authToken: null,
   showChat: false
 };
 
@@ -15,7 +15,7 @@ export default function chat(state = initialState, action) {
     }
     case CHAT_LOGIN_SUCCEEDED: {
       return {
-        authToken: payload.data.auth_token,
+        authToken: action.payload.data.auth_token,
         showChat: true
       };
     }
