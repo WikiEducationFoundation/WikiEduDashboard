@@ -1,10 +1,11 @@
 import {
   RECEIVE_CAMPAIGNS,
-  SORT_CAMPAIGNS
+  RECEIVE_ALL_CAMPAIGNS
 } from '../constants/campaigns.js';
 
 const initialState = {
   campaigns: [],
+  all_campaigns: [],
   isLoaded: false
 };
 
@@ -15,7 +16,10 @@ export default function campaigns(state = initialState, action) {
         campaigns: action.data.course.campaigns,
         isLoaded: true
       };
-    // case SORT_CAMPAIGNS:
+    case RECEIVE_ALL_CAMPAIGNS:
+      return {
+        all_campaigns: action.data.campaigns
+      };
     default:
       return state;
   }

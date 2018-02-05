@@ -1,4 +1,4 @@
-import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL } from "../constants";
+import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCampaignsPromise = (courseId) => {
@@ -84,9 +84,38 @@ export const addCampaign = (courseId, campaignId) => dispatch => {
     addCampaignsPromise(courseId, campaignId)
       .then(data => {
         dispatch({
-          type: ADD_USER,
+          type: ADD_CAMPAIGN,
           data
         });
       })
+  );
+};
+
+const fetchAllCampaignsPromise = () => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'GET',
+      url: `/all_campaigns`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const fetchAllCampaigns = () => dispatch => {
+  return (
+    fetchAllCampaignsPromise()
+      .then(data => {
+        dispatch({
+          type: RECEIVE_ALL_CAMPAIGNS,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
