@@ -61,3 +61,32 @@ export const removeCampaign = (courseId, campaignId) => dispatch => {
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };
+
+const addCampaignsPromise = (courseId, campaignId) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'PUT',
+      url: `/courses/${courseId}/campaign.json`,
+      data: { campaign: { title: campaignId } },
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const addCampaign = (courseId, campaignId) => dispatch => {
+  return (
+    addCampaignsPromise(courseId, campaignId)
+      .then(data => {
+        dispatch({
+          type: ADD_USER,
+          data
+        });
+      })
+  );
+};

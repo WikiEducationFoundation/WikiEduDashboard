@@ -55,6 +55,7 @@ const CampaignButton = createReactClass({
     return (
       <div className="pop__container" onClick={this.stop}>
         {button}
+        
         <Popover
           is_open={this.props.is_open}
           edit_row={editRows}
