@@ -13,6 +13,11 @@ import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/ca
 const CampaignButton = createReactClass({
   displayName: 'CampaignButton',
 
+  componentWillMount() {
+    const courseCampaigns = this.props.campaigns.map(campaign => campaign.title);
+    this.props.fetchAllCampaigns(courseCampaigns);
+  },
+
   getKey() {
     return `add_campaign`;
   },

@@ -46,6 +46,7 @@ const Details = createReactClass({
     editable: PropTypes.bool,
     allCampaigns: PropTypes.array
   },
+
   mixins: [ValidationStore.mixin],
   getInitialState() {
     return getState();

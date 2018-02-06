@@ -1,5 +1,7 @@
+import _ from 'lodash';
 import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
+
 
 const fetchCampaignsPromise = (courseId) => {
   return new Promise((res, rej) => {
@@ -91,12 +93,13 @@ export const addCampaign = (courseId, campaignId) => dispatch => {
   );
 };
 
-const fetchAllCampaignsPromise = () => {
+const fetchAllCampaignsPromise = (courseCampaigns) => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
       url: `/lookups/campaign.json`,
       success(data) {
+        data.values = _.difference(data.values, courseCampaigns);
         return res(data);
       }
     })
@@ -107,9 +110,9 @@ const fetchAllCampaignsPromise = () => {
   });
 };
 
-export const fetchAllCampaigns = () => dispatch => {
+export const fetchAllCampaigns = (courseCampaigns) => dispatch => {
   return (
-    fetchAllCampaignsPromise()
+    fetchAllCampaignsPromise(courseCampaigns)
       .then(data => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,
