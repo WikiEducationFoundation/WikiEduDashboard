@@ -65,7 +65,7 @@ export const removeCampaign = (courseId, campaignId) => dispatch => {
 const addCampaignsPromise = (courseId, campaignId) => {
   return new Promise((res, rej) => {
     return $.ajax({
-      type: 'PUT',
+      type: 'POST',
       url: `/courses/${courseId}/campaign.json`,
       data: { campaign: { title: campaignId } },
       success(data) {
@@ -95,7 +95,7 @@ const fetchAllCampaignsPromise = () => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/all_campaigns`,
+      url: `/lookups/campaign.json`,
       success(data) {
         return res(data);
       }

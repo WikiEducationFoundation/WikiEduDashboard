@@ -43,7 +43,8 @@ const Details = createReactClass({
     campaigns: PropTypes.array,
     tags: PropTypes.array,
     controls: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    allCampaigns: PropTypes.array
   },
   mixins: [ValidationStore.mixin],
   getInitialState() {

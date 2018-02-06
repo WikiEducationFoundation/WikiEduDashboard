@@ -1,6 +1,8 @@
 import {
   RECEIVE_CAMPAIGNS,
-  RECEIVE_ALL_CAMPAIGNS
+  RECEIVE_ALL_CAMPAIGNS,
+  ADD_CAMPAIGN,
+  DELETE_CAMPAIGN
 } from '../constants/campaigns.js';
 
 const initialState = {
@@ -11,15 +13,23 @@ const initialState = {
 
 export default function campaigns(state = initialState, action) {
   switch (action.type) {
-    case RECEIVE_CAMPAIGNS:
-      return {
+    case ADD_CAMPAIGN:
+    case DELETE_CAMPAIGN:
+    case RECEIVE_CAMPAIGNS: {
+      const newState = {
+        ...state,
         campaigns: action.data.course.campaigns,
         isLoaded: true
-      };
-    case RECEIVE_ALL_CAMPAIGNS:
-      return {
-        all_campaigns: action.data.campaigns
-      };
+        };
+      return newState;
+      }
+    case RECEIVE_ALL_CAMPAIGNS: {
+      const newState = {
+        ...state,
+        all_campaigns: action.data.values
+        };
+      return newState;
+      }
     default:
       return state;
   }
