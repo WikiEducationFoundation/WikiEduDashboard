@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
@@ -29,11 +30,22 @@ const CampaignButton = createReactClass({
   },
 
   removeCampaign(campaignId) {
+    this.addDeletedCampaign(campaignId);
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
 
   addCampaign(campaignId) {
+    this.removeChosenCampaign(campaignId);
     this.props.addCampaign(this.props.course_id, campaignId);
+  },
+
+  removeChosenCampaign(campaignId) {
+    const index = this.props.allCampaigns.indexOf(campaignId);
+    this.props.allCampaigns.splice(index, 1);
+  },
+
+  addDeletedCampaign(campaignId) {
+    this.props.allCampaigns.push(campaignId);
   },
 
   render() {
