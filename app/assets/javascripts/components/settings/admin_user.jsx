@@ -39,22 +39,6 @@ class AdminUser extends React.Component {
       buttonClass += ' dark';
     }
 
-    // let button;
-    // if (revokingAdmin.status && revokingAdmin.username === user.username) {
-    //   button = (
-    //     <button
-    //       className={buttonClass}
-    //       onClick={this.handleRevoke}
-    //     >
-    //       <div className="loading__spinner">
-    //         {I18n.t('settings.admin_users.remove.revoke_button')}
-    //       </div>
-    //     </button>
-    //   );
-    // } else {
-
-    // }
-
     return (
       <tr className="user">
         <td className="user__username">
