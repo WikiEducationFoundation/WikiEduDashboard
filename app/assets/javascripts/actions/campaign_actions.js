@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from "../constants";
 import logErrorMessage from '../utils/log_error_message';
 
