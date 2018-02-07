@@ -2,12 +2,14 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Select from 'react-select';
 
 import { getAvailableCampaigns } from '../../selectors';
 
 import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Conditional from '../high_order/conditional.jsx';
+import CourseUtils from '../../utils/course_utils.js';
 
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 
@@ -30,6 +32,10 @@ const CampaignButton = createReactClass({
     return e.stopPropagation();
   },
 
+  handleChangeCampaign(val) {
+    return this.props.addCampaign(this.props.course_id, val.value);
+  },
+
   removeCampaign(campaignId) {
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
@@ -39,7 +45,6 @@ const CampaignButton = createReactClass({
   },
 
   render() {
-    const editRows = [];
     const campaignList = this.props.campaigns.map(campaign => {
       const removeButton = (
         <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
@@ -50,30 +55,29 @@ const CampaignButton = createReactClass({
         </tr>
       );
     });
-    const allCampaigns = this.props.allCampaigns.map(campaign => {
-      const addButton = (
-        <button className="button border plus" onClick={this.addCampaign.bind(this, campaign)}>+</button>
-      );
-    return (
-      <tr key={`${campaign}`}>
-        <td>{campaign}{addButton}</td>
-      </tr>
-      );
+
+    const campaignOptions = this.props.allCampaigns.map(campaign => {
+      return { label: campaign, value: campaign };
     });
 
-    let buttonClass = 'button';
-    buttonClass += this.props.inline ? ' border plus' : ' dark';
-    const buttonText = this.props.inline ? '+' : I18n.t('campaign.campaigns');
-    const button = <button className={buttonClass} onClick={this.props.open}>{buttonText}</button>;
-    return (
-      <div className="pop__container" onClick={this.stop}>
-        {campaignList}
-        {button}
-        <Popover
-          is_open={this.props.is_open}
-          edit_row={editRows}
-          rows={allCampaigns}
+    let campaignSelect;
+    if (this.props.allCampaigns.length > 0) {
+      campaignSelect = (
+        <Select
+          ref="campaignSelect"
+          name="campaign"
+          placeholder="Campaign"
+          onChange={this.handleChangeCampaign}
+          options={campaignOptions}
         />
+    );
+    }
+        {CourseUtils.i18n('campaigns', this.props.course.string_prefix)}
+    return (
+      <div className="container" onClick={this.stop}>
+        <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>
+        {campaignList}
+        {campaignSelect}
       </div>
     );
   }
@@ -81,8 +85,8 @@ const CampaignButton = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  allCampaigns: getAvailableCampaigns(state)
-  // allCampaigns: state.campaigns.all_campaigns
+  allCampaigns: getAvailableCampaigns(state),
+  campaigns: state.campaigns.campaigns
 });
 
 const mapDispatchToProps = {
