@@ -1,17 +1,18 @@
 import '../../testHelper';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import AdminUser from '../../../app/assets/javascripts/components/settings/admin_user.jsx';
-
+import AdminUserContainer from '../../../app/assets/javascripts/components/settings/containers/admin_user_container.jsx';
+import AdminUser from '../../../app/assets/javascripts/components/settings/views/admin_user.jsx';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import sinon from 'sinon';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('AdminUser', () => {
 
-  describe('not revoking', () => {
+  describe('revoke button not active', () => {
     let expectedUser;
     let wrapper;
     beforeEach(() => {
@@ -30,7 +31,7 @@ describe('AdminUser', () => {
       wrapper = mount(<Provider store={store} >
         <table>
           <tbody>
-            <AdminUser user={expectedUser} key={1} />
+            <AdminUserContainer user={expectedUser} key={1} />
           </tbody> 
         </table>
       </Provider>);
@@ -62,11 +63,10 @@ describe('AdminUser', () => {
     })
   }) // not revoking
 
-  describe('revoking', () => {
-    let expectedUser;
-    let wrapper;
-    beforeEach(() => {
-      expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
+  describe('revoke button active', () => {
+
+    it('renders the revoking button', () => {
+      const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
       const store = mockStore({
         settings: {
           adminUsers: [expectedUser],
@@ -78,20 +78,42 @@ describe('AdminUser', () => {
         notifications: [],
       });
 
-      wrapper = mount(<Provider store={store} >
+      const wrapper = mount(<Provider store={store} >
         <table>
           <tbody>
-            <AdminUser user={expectedUser} key={1} />
-          </tbody> 
+            <AdminUserContainer user={expectedUser} key={1} />
+          </tbody>
         </table>
       </Provider>);
-    })
 
-    it('renders the revoking button', () => {
       const button = wrapper.find('td p button').first();
       expect(button.text())
         .to.equal(I18n.t('settings.admin_users.remove.revoking_button_working'))
       expect(button.hasClass('border')).to.equal(true)
+    })
+  })
+
+  describe('handleRevoke', () => {
+    
+    it('calls handleRevoke on button click', () => {
+      const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
+      const revokingAdmin = {
+        status: true,
+        username: expectedUser.username,
+      }
+      // const handleRevokeSpy = jest.spyOn(AdminUser.prototype, 'handleRevoke')
+      const handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleRevoke')
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <AdminUser user={expectedUser} key={1} revokingAdmin={revokingAdmin} />
+          </tbody>
+        </table>
+      );
+      const button = wrapper.find('tr td p button')
+
+      button.simulate('click')
+      expect(handleRevokeSpy.calledOnce).to.equal(true)
     })
   })
 
