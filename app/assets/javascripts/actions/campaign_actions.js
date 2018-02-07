@@ -93,13 +93,12 @@ export const addCampaign = (courseId, campaignId) => dispatch => {
   );
 };
 
-const fetchAllCampaignsPromise = (courseCampaigns) => {
+const fetchAllCampaignsPromise = () => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
       url: `/lookups/campaign.json`,
       success(data) {
-        data.values = _.difference(data.values, courseCampaigns);
         return res(data);
       }
     })
@@ -110,9 +109,9 @@ const fetchAllCampaignsPromise = (courseCampaigns) => {
   });
 };
 
-export const fetchAllCampaigns = (courseCampaigns) => dispatch => {
+export const fetchAllCampaigns = () => dispatch => {
   return (
-    fetchAllCampaignsPromise(courseCampaigns)
+    fetchAllCampaignsPromise()
       .then(data => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,

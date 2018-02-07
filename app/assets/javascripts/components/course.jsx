@@ -47,6 +47,7 @@ const Course = createReactClass({
     ServerActions.fetch('course', courseID);
     this.props.fetchUsers(courseID);
     ServerActions.fetch('users', courseID);
+    this.props.fetchAllCampaigns();
     return this.props.fetchCampaigns(courseID);
   },
 

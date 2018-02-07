@@ -2,7 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import _ from 'lodash';
+
+import { getAvailableCampaigns } from '../../selectors';
 
 import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
@@ -12,11 +13,6 @@ import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/ca
 
 const CampaignButton = createReactClass({
   displayName: 'CampaignButton',
-
-  componentWillMount() {
-    const courseCampaigns = this.props.campaigns.map(campaign => campaign.title);
-    this.props.fetchAllCampaigns(courseCampaigns);
-  },
 
   getKey() {
     return `add_campaign`;
@@ -35,22 +31,11 @@ const CampaignButton = createReactClass({
   },
 
   removeCampaign(campaignId) {
-    this.addDeletedCampaign(campaignId);
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
 
   addCampaign(campaignId) {
-    this.removeChosenCampaign(campaignId);
     this.props.addCampaign(this.props.course_id, campaignId);
-  },
-
-  removeChosenCampaign(campaignId) {
-    const index = this.props.allCampaigns.indexOf(campaignId);
-    this.props.allCampaigns.splice(index, 1);
-  },
-
-  addDeletedCampaign(campaignId) {
-    this.props.allCampaigns.push(campaignId);
   },
 
   render() {
@@ -65,7 +50,6 @@ const CampaignButton = createReactClass({
         </tr>
       );
     });
-
     const allCampaigns = this.props.allCampaigns.map(campaign => {
       const addButton = (
         <button className="button border plus" onClick={this.addCampaign.bind(this, campaign)}>+</button>
@@ -97,7 +81,8 @@ const CampaignButton = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  allCampaigns: state.campaigns.all_campaigns
+  allCampaigns: getAvailableCampaigns(state)
+  // allCampaigns: state.campaigns.all_campaigns
 });
 
 const mapDispatchToProps = {
