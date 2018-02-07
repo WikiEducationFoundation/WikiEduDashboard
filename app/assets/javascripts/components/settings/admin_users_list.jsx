@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
-import AdminUser from './admin_user.jsx';
+import AdminUser from './containers/admin_user_container.jsx';
 
 const AdminUserList = ({ adminUsers, sortBy }) => {
   const elements = adminUsers.map(user => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Popover from '../common/popover.jsx';
-import PopoverExpandable from '../high_order/popover_expandable.jsx';
-import AddAdminForm from './add_admin_form';
+import Popover from '../../common/popover.jsx';
+import PopoverExpandable from '../../high_order/popover_expandable.jsx';
+import AddAdminForm from '../containers/add_admin_form_container';
 
 class AddAdminButton extends React.Component {
   constructor() {

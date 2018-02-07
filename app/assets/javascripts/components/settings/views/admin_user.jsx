@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
-import { downgradeAdmin } from '../../actions/settings_actions';
 
 class AdminUser extends React.Component {
   constructor() {
@@ -67,12 +65,4 @@ class AdminUser extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  revokingAdmin: state.settings.revokingAdmin,
-});
-
-const mapDispatchToProps = {
-  downgradeAdmin,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdminUser);
+export default AdminUser;

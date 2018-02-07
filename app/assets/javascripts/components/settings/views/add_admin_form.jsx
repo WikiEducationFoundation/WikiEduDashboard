@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
-import TextInput from '../common/text_input';
-import { upgradeAdmin } from '../../actions/settings_actions';
+import TextInput from '../../common/text_input';
+import { upgradeAdmin } from '../../../actions/settings_actions';
 
 class AddAdminForm extends React.Component {
   constructor() {
@@ -35,13 +35,13 @@ class AddAdminForm extends React.Component {
   }
 
   handleConfirm() {
+    console.log(this.props);
     this.props.upgradeAdmin(this.state.username);
     this.props.handlePopoverClose();
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    // this.setState({confirming: true});
     const { username } = this.state;
     this.setState({
       confirming: true,
@@ -111,12 +111,4 @@ class AddAdminForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  submittingNewAdmin: state.settings.submittingNewAdmin,
-});
-
-const mapDispatchToProps = {
-  upgradeAdmin,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddAdminForm);
+export default AddAdminForm
