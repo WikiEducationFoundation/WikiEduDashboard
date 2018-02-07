@@ -6,7 +6,6 @@ import Select from 'react-select';
 
 import { getAvailableCampaigns } from '../../selectors';
 
-import Popover from '../common/popover.jsx';
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseUtils from '../../utils/course_utils.js';
@@ -45,16 +44,30 @@ const CampaignButton = createReactClass({
   },
 
   render() {
-    const campaignList = this.props.campaigns.map(campaign => {
-      const removeButton = (
-        <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
-      );
-      return (
-        <tr key={`${campaign.id}_campaign`}>
-          <td>{campaign.title}{removeButton}</td>
-        </tr>
-      );
-    });
+    let campaignList;
+    if (this.props.editable) {
+      campaignList = this.props.campaigns.map(campaign => {
+        const removeButton = (
+          <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
+        );
+        return (
+          <tr key={`${campaign.id}_campaign`}>
+            <td>{campaign.title}{removeButton}</td>
+          </tr>
+        );
+      });
+    } else {
+      const lastIndex = this.props.campaigns.length - 1;
+      const campaigns = (this.props.campaigns.length > 0 ?
+        _.map(this.props.campaigns, (campaign, index) => {
+          let comma = '';
+          const url = `/campaigns/${campaign.slug}/overview`;
+          if (index !== lastIndex) { comma = ', '; }
+          return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
+        })
+      : I18n.t('courses.none'));
+      campaignList = <span> {campaigns}</span>;
+    }
 
     const campaignOptions = this.props.allCampaigns.map(campaign => {
       return { label: campaign, value: campaign };
@@ -72,10 +85,11 @@ const CampaignButton = createReactClass({
         />
     );
     }
-        {CourseUtils.i18n('campaigns', this.props.course.string_prefix)}
+
+
     return (
       <div className="container" onClick={this.stop}>
-        <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>
+        <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)}</strong>
         {campaignList}
         {campaignSelect}
       </div>

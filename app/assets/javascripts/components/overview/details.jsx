@@ -205,27 +205,11 @@ const Details = createReactClass({
         />
       );
     }
-    const lastIndex = this.props.campaigns.length - 1;
-    let campaigns;
-    if (this.props.editable) {
-      campaigns = (
-        <div>
-          <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
-        </div>
-      );
-    } else {
-      const campaignsList = (this.props.campaigns.length > 0 ?
-        _.map(this.props.campaigns, (campaign, index) => {
-          let comma = '';
-          const url = `/campaigns/${campaign.slug}/overview`;
-          if (index !== lastIndex) { comma = ', '; }
-          return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
-        })
-      : I18n.t('courses.none'));
-      campaigns = <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaignsList}</span>;
-    }
-
-
+    const campaigns = (
+      <div>
+        <CampaignButton {...this.props} />
+      </div>
+    );
     let subject;
     let tags;
     let courseTypeSelector;
