@@ -1,6 +1,6 @@
 import '../testHelper';
 import { fetchAdminUsers, upgradeAdmin, downgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
-import { SET_ADMIN_USERS, SUBMITTING_NEW_ADMIN, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
+import { SET_ADMIN_USERS, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -36,7 +36,7 @@ describe('SettingsActions', () => {
 describe('upgradeAdmin', () => {
   let cannedResponse;
   beforeEach(() => {
-    cannedResponse = { spam: 'eggs' }
+    cannedResponse = { spam: 'eggs' };
     sinon.stub($, "ajax")
       .onCall(0).yieldsTo('success', {})
       .onCall(1).yieldsTo('success', { spam: 'eggs' });
@@ -84,7 +84,7 @@ describe('upgradeAdmin', () => {
 describe('downgradeAdmin', () => {
   let cannedResponse;
   beforeEach(() => {
-    cannedResponse = { spam: 'eggs' }
+    cannedResponse = { spam: 'eggs' };
     sinon.stub($, "ajax")
       .onCall(0).yieldsTo('success', {})
       .onCall(1).yieldsTo('success', { spam: 'eggs' });

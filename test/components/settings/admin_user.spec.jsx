@@ -1,6 +1,6 @@
 import '../../testHelper';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import AdminUserContainer from '../../../app/assets/javascripts/components/settings/containers/admin_user_container.jsx';
 import AdminUser from '../../../app/assets/javascripts/components/settings/views/admin_user.jsx';
 import configureMockStore from 'redux-mock-store';
@@ -11,7 +11,6 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('AdminUser', () => {
-
   describe('revoke button not active', () => {
     let expectedUser;
     let wrapper;
@@ -32,10 +31,10 @@ describe('AdminUser', () => {
         <table>
           <tbody>
             <AdminUserContainer user={expectedUser} key={1} />
-          </tbody> 
+          </tbody>
         </table>
       </Provider>);
-    })
+    });
 
     it('renders user info', () => {
       const cells = wrapper.find('td');
@@ -52,19 +51,18 @@ describe('AdminUser', () => {
         expect(
           cells.at(idx).find('p').first().text()
         ).to.equal(expectedValue);
-      })
+      });
     });
 
     it('renders the revoking button', () => {
       const button = wrapper.find('td p button').first();
       expect(button.text())
-        .to.equal(I18n.t('settings.admin_users.remove.revoke_button'))
-      expect(button.hasClass('dark')).to.equal(true)
-    })
-  }) // not revoking
+        .to.equal(I18n.t('settings.admin_users.remove.revoke_button'));
+      expect(button.hasClass('dark')).to.equal(true);
+    });
+  }); // not revoking
 
   describe('revoke button active', () => {
-
     it('renders the revoking button', () => {
       const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
       const store = mockStore({
@@ -88,20 +86,19 @@ describe('AdminUser', () => {
 
       const button = wrapper.find('td p button').first();
       expect(button.text())
-        .to.equal(I18n.t('settings.admin_users.remove.revoking_button_working'))
-      expect(button.hasClass('border')).to.equal(true)
-    })
-  })
+        .to.equal(I18n.t('settings.admin_users.remove.revoking_button_working'));
+      expect(button.hasClass('border')).to.equal(true);
+    });
+  });
 
   describe('handleRevoke', () => {
-    
     it('calls handleRevoke on button click', () => {
       const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
       const revokingAdmin = {
         status: true,
         username: expectedUser.username,
-      }
-      const handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleRevoke')
+      };
+      const handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleRevoke');
       const wrapper = mount(
         <table>
           <tbody>
@@ -109,11 +106,10 @@ describe('AdminUser', () => {
           </tbody>
         </table>
       );
-      const button = wrapper.find('tr td p button')
+      const button = wrapper.find('tr td p button');
 
-      button.simulate('click')
-      expect(handleRevokeSpy.calledOnce).to.equal(true)
-    })
-  })
-
+      button.simulate('click');
+      expect(handleRevokeSpy.calledOnce).to.equal(true);
+    });
+  });
 });

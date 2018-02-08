@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
 import TextInput from '../../common/text_input';
-import { upgradeAdmin } from '../../../actions/settings_actions';
 
 class AddAdminForm extends React.Component {
   constructor() {
@@ -35,7 +33,6 @@ class AddAdminForm extends React.Component {
   }
 
   handleConfirm() {
-    console.log(this.props);
     this.props.upgradeAdmin(this.state.username);
     this.props.handlePopoverClose();
   }
@@ -111,4 +108,4 @@ class AddAdminForm extends React.Component {
   }
 }
 
-export default AddAdminForm
+export default AddAdminForm;
