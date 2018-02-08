@@ -15,6 +15,6 @@ const plugins = loadPlugins();
 
 gulp.task('bower', () => {
   return gulp.src(mainBowerFiles())
-    .pipe(plugins.concat('vendor.js'))
+    .pipe(plugins.concat('jquery-uls.js'))
     .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}`));
 });
