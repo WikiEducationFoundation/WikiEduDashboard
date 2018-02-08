@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Select from 'react-select';
+import _ from 'lodash';
 
 import { getAvailableCampaigns } from '../../selectors';
 
@@ -21,14 +22,7 @@ const CampaignButton = createReactClass({
 
   PropTypes: {
     campaigns: PropTypes.array,
-    inline: PropTypes.boolean,
-    open: PropTypes.func,
-    is_open: PropTypes.bool,
-    all_campaigns: PropTypes.array
-  },
-
-  stop(e) {
-    return e.stopPropagation();
+    allCampaigns: PropTypes.array
   },
 
   handleChangeCampaign(val) {
@@ -45,18 +39,40 @@ const CampaignButton = createReactClass({
 
   render() {
     let campaignList;
+    let campaignSelect;
+    let campaignClass;
+    const campaignOptions = this.props.allCampaigns.map(campaign => {
+      return { label: campaign, value: campaign };
+    });
     if (this.props.editable) {
+      campaignClass = 'campaigns container open';
       campaignList = this.props.campaigns.map(campaign => {
         const removeButton = (
           <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
         );
         return (
-          <tr key={`${campaign.id}_campaign`}>
-            <td>{campaign.title}{removeButton}</td>
-          </tr>
+          <table key="table">
+            <tbody key="tbody">
+              <tr key={`${campaign.id}_campaign`}>
+                <td>{campaign.title}{removeButton}</td>
+              </tr>
+            </tbody>
+          </table>
         );
       });
+      if (this.props.allCampaigns.length > 0) {
+        campaignSelect = (
+          <Select
+            ref="campaignSelect"
+            name="campaign"
+            placeholder="Campaign"
+            onChange={this.handleChangeCampaign}
+            options={campaignOptions}
+          />
+      );
+      }
     } else {
+      campaignClass = 'campaigns container close';
       const lastIndex = this.props.campaigns.length - 1;
       const campaigns = (this.props.campaigns.length > 0 ?
         _.map(this.props.campaigns, (campaign, index) => {
@@ -69,30 +85,12 @@ const CampaignButton = createReactClass({
       campaignList = <span> {campaigns}</span>;
     }
 
-    const campaignOptions = this.props.allCampaigns.map(campaign => {
-      return { label: campaign, value: campaign };
-    });
-
-    let campaignSelect;
-    if (this.props.allCampaigns.length > 0) {
-      campaignSelect = (
-        <Select
-          ref="campaignSelect"
-          name="campaign"
-          placeholder="Campaign"
-          onChange={this.handleChangeCampaign}
-          options={campaignOptions}
-        />
-    );
-    }
-
-
     return (
-      <div className="container" onClick={this.stop}>
+      <span key="campaign span" className={campaignClass}>
         <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)}</strong>
         {campaignList}
         {campaignSelect}
-      </div>
+      </span>
     );
   }
 
