@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Admin users', type: :feature, js: true, focus: true do
+describe 'Admin users', type: :feature, js: true do
   before do
     page.current_window.resize_to(1920, 1080)
     page.driver.browser.url_blacklist = ['https://wikiedu.org']
@@ -76,13 +76,10 @@ describe 'Admin users', type: :feature, js: true, focus: true do
       click_button('Edit Details')
 
       find('div.Select').send_keys('Fall 2015', :enter)
+      click_button('Save')
 
       sleep 1
-
-      expect(page).to have_content 'Fall 2015'
-
-      visit root_path
-      sleep 1
+      expect(page).to have_content 'Your course has been published'
       expect(page).not_to have_content 'Submitted & Pending Approval'
     end
   end
@@ -102,7 +99,6 @@ describe 'Admin users', type: :feature, js: true, focus: true do
 
       # Edit details and remove campaign
       click_button('Edit Details')
-      page.all('.button.border.plus')[4].click
       page.find('.button.border.plus', text: '-').click
       sleep 1
 

@@ -51,13 +51,9 @@ const CampaignButton = createReactClass({
           <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
         );
         return (
-          <table key="table">
-            <tbody key="tbody">
-              <tr key={`${campaign.id}_campaign`}>
-                <td>{campaign.title}{removeButton}</td>
-              </tr>
-            </tbody>
-          </table>
+          <tr key={`${campaign.id}_campaign`}>
+            <td>{campaign.title}{removeButton}</td>
+          </tr>
         );
       });
       if (this.props.allCampaigns.length > 0) {
@@ -86,11 +82,11 @@ const CampaignButton = createReactClass({
     }
 
     return (
-      <span key="campaign span" className={campaignClass}>
+      <div key="campaigns" className={campaignClass}>
         <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)}</strong>
         {campaignList}
         {campaignSelect}
-      </span>
+      </div>
     );
   }
 
