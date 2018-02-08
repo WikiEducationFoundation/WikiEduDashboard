@@ -1,1 +1,3 @@
-#react_root{"data-current_user" => "#{user_signed_in? ? current_user.roles(@course).to_json : { admin: false, id: nil }}"}
+- content_for :before_title, "Recent Activity — "
+
+#react_root{"data-current_user" => user_signed_in? ? current_user.roles(@course).to_json : '{ "admin": false, "id": null }'}
