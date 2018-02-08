@@ -1,11 +1,12 @@
-import '../../testHelper';
+import configureMockStore from 'redux-mock-store';
 import React from 'react';
+import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
+import { Provider } from 'react-redux';
+
+import '../../testHelper';
 import SettingsHandler from '../../../app/assets/javascripts/components/settings/settings_handler.jsx';
 
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

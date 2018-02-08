@@ -1,9 +1,10 @@
-import '../testHelper';
-import { fetchAdminUsers, upgradeAdmin, downgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
-import { SET_ADMIN_USERS, REVOKING_ADMIN } from "../../app/assets/javascripts/constants";
-
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+
+import '../testHelper';
+import { REVOKING_ADMIN, SET_ADMIN_USERS } from "../../app/assets/javascripts/constants";
+import { downgradeAdmin, fetchAdminUsers, upgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
+
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

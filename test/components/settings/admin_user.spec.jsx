@@ -1,12 +1,14 @@
-import '../../testHelper';
-import React from 'react';
-import { mount } from 'enzyme';
-import AdminUserContainer from '../../../app/assets/javascripts/components/settings/containers/admin_user_container.jsx';
-import AdminUser from '../../../app/assets/javascripts/components/settings/views/admin_user.jsx';
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import React from 'react';
+import configureMockStore from 'redux-mock-store';
+import { mount } from 'enzyme';
 import sinon from 'sinon';
+import thunk from 'redux-thunk';
+
+import '../../testHelper';
+import AdminUser from '../../../app/assets/javascripts/components/settings/views/admin_user.jsx';
+import AdminUserContainer from '../../../app/assets/javascripts/components/settings/containers/admin_user_container.jsx';
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 

@@ -1,9 +1,11 @@
-import '../../testHelper';
 import React from 'react';
-import { shallow } from 'enzyme';
-import AddAdminForm from '../../../app/assets/javascripts/components/settings/views/add_admin_form.jsx';
 import configureMockStore from 'redux-mock-store';
+import { shallow } from 'enzyme';
 import thunk from 'redux-thunk';
+
+import '../../testHelper';
+import AddAdminForm from '../../../app/assets/javascripts/components/settings/views/add_admin_form.jsx';
+
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 describe('AddAdminForm', () => {

@@ -1,6 +1,7 @@
-import '../../testHelper';
 import React from 'react';
 import { shallow } from 'enzyme';
+
+import '../../testHelper';
 import AdminUserList from '../../../app/assets/javascripts/components/settings/admin_users_list.jsx';
 
 describe('AdminUserList', () => {
