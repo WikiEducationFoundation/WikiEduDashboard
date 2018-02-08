@@ -101,7 +101,6 @@ describe('AdminUser', () => {
         status: true,
         username: expectedUser.username,
       }
-      // const handleRevokeSpy = jest.spyOn(AdminUser.prototype, 'handleRevoke')
       const handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleRevoke')
       const wrapper = mount(
         <table>
