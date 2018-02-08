@@ -89,7 +89,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install R:
   - Debian: `sudo apt install r-base`
   - OS X: `brew tap homebrew/science && brew install r`
-  - Also you can refer to this [install R](https://cran.r-project.org/)
+  - Also you can refYer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**
       $ `rake db:migrate`
