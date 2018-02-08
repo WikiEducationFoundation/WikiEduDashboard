@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Admin users', type: :feature, js: true do
+describe 'Admin users', type: :feature, js: true, focus: true do
   before do
     page.current_window.resize_to(1920, 1080)
     page.driver.browser.url_blacklist = ['https://wikiedu.org']
@@ -75,18 +75,11 @@ describe 'Admin users', type: :feature, js: true do
       # Edit details and add campaign
       click_button('Edit Details')
 
-      page.all('.button.border.plus')[4].click
+      find('div.Select').send_keys('Fall 2015', :enter)
 
-      # Ensure campaigns appear in select list ordered by time (descending)
-      campaign_options = all('select[name=campaign]>option')[1, 2]
-      expect(campaign_options[0]).to have_text Campaign.find(2).title
-      expect(campaign_options[1]).to have_text Campaign.find(1).title
-
-      select 'Fall 2015', from: 'campaign'
-      find('.pop button', visible: true).click
       sleep 1
 
-      expect(page).to have_content 'Your course has been published'
+      expect(page).to have_content 'Fall 2015'
 
       visit root_path
       sleep 1
