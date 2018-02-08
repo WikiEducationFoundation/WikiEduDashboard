@@ -35,7 +35,7 @@ const ActivityTableRow = createReactClass({
 
     if (this.props.diffUrl) {
       revisionDateTime = (
-        <a href={this.props.diffUrl}>{this.props.revisionDateTime}</a>
+        <a href={this.props.diffUrl} target="_blank">{this.props.revisionDateTime}</a>
       );
     }
 
@@ -63,11 +63,11 @@ const ActivityTableRow = createReactClass({
     return (
       <tr className={className} key={this.props.rowId}>
         <td onClick={this.openDrawer}>
-          <a href={this.props.articleUrl}>{this.props.title}</a>
+          <a href={this.props.articleUrl} target="_blank">{this.props.title}</a>
         </td>
         {col2}
         <td onClick={this.openDrawer}>
-          <a href={this.props.talkPageLink}>{this.props.author}</a>
+          <a href={this.props.talkPageLink} target="_blank">{this.props.author}</a>
         </td>
         <td onClick={this.openDrawer}>
           {revisionDateTime}
