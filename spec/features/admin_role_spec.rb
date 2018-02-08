@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Admin users', type: :feature, js: true do
+describe 'Admin users', type: :feature, js: true, focus: true do
   before do
     page.current_window.resize_to(1920, 1080)
     page.driver.browser.url_blacklist = ['https://wikiedu.org']
@@ -76,10 +76,9 @@ describe 'Admin users', type: :feature, js: true do
       click_button('Edit Details')
 
       find('div.Select').send_keys('Fall 2015', :enter)
-      click_button('Save')
 
       sleep 1
-      expect(page).to have_content 'Your course has been published'
+      expect(page).to have_content 'This course has been submitted for approval by its creator'
       expect(page).not_to have_content 'Submitted & Pending Approval'
     end
   end
