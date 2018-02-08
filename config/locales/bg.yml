@@ -35,10 +35,13 @@ bg:
     sign_up_extended: Регистрация с помощ на Уикипедия
     sign_up_log_in_extended: чрез Уикипедия
     sign_up: Регистриране
+    submit: Изпращане
     training: Обучение
     change: Промяна
     details: Подробности
     confirm: Добре
+    opt_in: Да
+    opt_out: Не
   dashboard:
     create_note: Щракнете на „Създаване на курс“, за да стартирате първия си курс.
     explore_examples: Разгледай примерите
@@ -47,6 +50,7 @@ bg:
     no_courses_instructor: Изглежда, че нямате никакви курсове.
     no_courses_student: Изглежда, че все още не сте се включили в курс.
   home:
+    explore: Разгледайте!
     log_in: Влизане с помощ на Уикипедия
     sign_up: Регистрация с помощ на Уикипедия
   activity:
@@ -54,9 +58,12 @@ bg:
     edited_by: Редактирано от
     label: Дейност
   articles:
+    deleted: (изтрито)
+    edited: Редактирани статии
     edited_by: 'Редактирано от:'
     edited_mobile: Статии
     hide: Скриване
+    history: (история)
     label: Статии
     loading: Зареждане на статии...
     new: (нова)
@@ -65,8 +72,9 @@ bg:
     title: Заглавие
     title_example: Заглавие на статията
     tools: Инструменти за оценка
-    view_doc: Сумата на всички преглеждания на всяка статия по време на проекта
+    view_doc: Сумата на всички посещения на всяка статия по време на проекта
     view_on_wiki: Вижте на Уики
+    views_added: Добавени %{count} нови посещения на %{title}
     wiki: Уики
   assignments:
     loading: Зареждане на заданията...
@@ -113,6 +121,8 @@ bg:
       legend: Легенда
     cancel: Отказ
     campaigns: 'Кампании:'
+    campaign_courses: Курсове от %{title}
+    campaign_users: Редактори от %{title}
     course: Курс
     course_description: Курсове
     courses: Курсове
@@ -154,6 +164,8 @@ bg:
       exists: Такъв курс вече съществува. Моля, опитайте с различно заглавие, училище
         или семестър.
       invalid_language_or_project: Невалиден език/проект
+    join_prompt: Включване в '%{title}'?
+    join_successful: Успешно се включихте в %{title}.
     loading: Зареждане…
     my_articles: Моите статии
     new_week: Добавяне на нова седмица
@@ -163,15 +175,22 @@ bg:
     school_and_term: Институция/Семестър
     start: Начало
     term: Семестър
+    title: Заглавие
     view_other: Преглед на други кампании
+    view_doc: Съвкупност на всички посещения на статиите редакториани от записани
+      редактори от тяхното първо редактиране на всяка статия
     yourcourses: Вашите курсове
   courses_generic:
     courses: Програми
     campaigns: 'Кампании:'
+    campaign_courses: Програми от %{title}
     creator:
+      course_title: Заглавие на програмата
       find: Намери програма
+    explore: Търсене на програми
     expected_students: Очаквани редактори
     student_editors: Редактори
+    students: Редактори
     view_other: Преглед на други кампании
   editable:
     cancel: Отказ
@@ -179,17 +198,22 @@ bg:
   metrics:
     activity: Последна активност
     articles_created: Създадени статии
+    articles_edited: Редактирани статии
     char_added: Добавени знаци
     char: Добавени знаци
     date_time: Дата/Час
     edit_count_description: Общо редакции
     revisions: Скорошни редакции
+    upload_count: Качвания в Общомедия
+    view_count_description: Посетени статии
+    view: Посещения
     word_count: Добавени думи
   namespace:
     main_char_added: Добавени знаци в основното пространство
     user_char_added: Добавени знаци в потребителското пространство
     user_ns: Потребител
   recent_activity:
+    article_title: Заглавие на статията
     datetime: Дата/Час
     no_edits: Няма скорошни редакции.
     recent_edits: Скорошни редакции
@@ -202,6 +226,7 @@ bg:
     diff_show: Показване
     diff_hide: Скриване
     loading: Зареждане на версии...
+    title: Заглавие
   timeline:
     add_week: Добавяне на седмица
     gradeable_value: Стойност
@@ -220,7 +245,7 @@ bg:
     loading: Зареждане на потребители...
     no_articles: Няма статии
     recent_revisions: Скорошни редакции
-    revision_characters_and_views: 'Добавени знаци: %{characters}, Преглеждания: %{views}'
+    revision_characters_and_views: 'Добавени знаци: %{characters}, Посещения: %{views}'
     revisions_doc: Брой редакции на редактора в изминалите 7 дни
     username: Потребителско име
     username_placeholder: Потребителско име

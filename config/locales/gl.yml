@@ -46,6 +46,7 @@ gl:
     label: Actividade
   articles:
     assigned: Artigos asignados
+    available: Artigos dispoñíbeis
     assigned_to: Asignado a
     character_doc: A suma de caracteres engadidos a artigos polos estudiantes durante
       a realización do curso

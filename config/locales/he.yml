@@ -19,7 +19,9 @@
 he:
   application:
     cancel: ביטול
+    create_accounts: יצירת חשבונות בוויקיפדיה
     dashboard: לוח בקרה של מיזמי ויקי
+    documentation: תיעוד
     error: 'אירעה שגיאה:'
     explore: מיזמים קיימים
     field_required: חובה למלא שדה הה
@@ -35,6 +37,7 @@ he:
     log_out: יציאה מהחשבון
     my_dashboard: לוח הבקרה שלי
     recent_activity: פעילות אחרונה
+    report_problem: דיווח על תקלה
     search: יש לך שאלות?
     sign_up_extended: הרשמה עם חשבון ויקיפדיה
     sign_up_log_in_extended: עם ויקיפדיה
@@ -44,6 +47,8 @@ he:
     change: שינוי
     details: פרטים
     confirm: אישור
+    opt_in: כן
+    opt_out: לא
   dashboard:
     create_note: לחץ על "יצירת תוכנית חדשה" בכדי ליצור את התוכנית או הקורס הראשון
       שלך.
@@ -79,10 +84,12 @@ he:
     assigned_to: 'מוקצה ל:'
     character_doc: 'סך התווים שנוספו לערכים על־ידי עורכים הרשומים לתוכנית בין תאריכי
       ההתחלה והסיום:'
+    deleted: (נמחק)
     edited: ערכים שנערכו
     edited_by: 'נערך על־ידי:'
     edited_mobile: ערכים
     hide: הסתרה
+    history: (היסטוריה)
     label: ערכים
     loading: טעינת ערכים...
     new: (חדש)
@@ -112,11 +119,13 @@ he:
     show_current_version: הצג גרסה נוכחית
     title: כותרת \ שם
     title_example: שם הערך
+    tools: כלי הערכה
     view: הצגת הערך
     view_all: להציג הכול
     view_doc: סך מספר הצפיות בכל ערך במהלך התוכנית
     view_on_wiki: הצג בוויקי
     views_added: נוספו %{count} צפיות חדשות לדף %{title}
+    wiki: ויקי
     wp10: שלמות מבנית
     wp10_doc: "הציון עבור \"שלמות מבנית\" מייצג עד כמה הערך מתאים לתבנית של ערך ויקיפדיה
       בשל שכתוב היטב. \nהציון מבוסס על כלי ה- ORES (באנגלית, Objective Revision Evaluation
@@ -150,11 +159,33 @@ he:
     milestones:
       title: אבני דרך
   campaign:
+    all_campaigns: כל מסעות הפרסום
     campaign: מיזם \ פרויקט \ קמפיין
+    campaigns: מסעות פרסום
+    campaign_updated: מסע הפרסום עודכן
+    create_campaign: יצירת מסע פרסום חדש
+    create_my_campaign: יצירת מסע הפרסום שלי!
+    default_course_type: סוג הקורס כבררת מחדל
     description: תיאור
+    delete_campaign: מחיקת מסע הפרסום הזה
     none: אין
+    organizers: מארגנים
+    title: כותרת
+    use_start_end_dates: הגדרת מועדי התחלה וסיום
+  categories:
+    add_category: הוספת קטגוריה
+    add_template: הוספת תבנית
+    add_this_category: הוספת הקטגוריה הזאת
+    add_this_template: הוספת התבנית הזאת
+    name: שם
+    category_name: שם הקטגוריה
+    template_name: שם תבנית
+    none: אין קטגוריות במעקב.
+    remove: הסרה
+    tracked_categories: קטגוריות ותבניות במעקב
   courses:
     activity: פעילות
+    all_courses: כל הקורסים
     already_enrolled: הינך כבר חלק מ%{title}!
     already_exists: זה כבר קיים עבור הקורס הזה!
     archived: קורסים \ תוכניות \ מיזמים מאורכבים
@@ -178,6 +209,7 @@ he:
       להקליד את שם התוכנית על מנת להמשיך.
     confirm_course_deletion_failed: '"%{title}" אינו השם של התוכנית \ הקורס הזה. מחיקת
       התוכנית \ הקורס נכשלה.'
+    course: קורס
     course_dates_calendar_instructions: 'בחירת תאריכים להוספה או הסרה מלוח הזמנים
       (לדוגמה: חגים, חופשות מבית-הספר). יש ללחוץ על התאריך בכדי לבחור בין מצב לא מסומן,
       מסומן או חופש. רשימת תאריכי הפעילויות תשתנה בהתאם, ולא תכלול שבועות שבהם נקבע
@@ -193,6 +225,7 @@ he:
       assignment_start: תחילת מטלה
       assignment_start_placeholder: תאריך תחילת מטלה
       checking_for_uniqueness: התוכנית \ הקורס \ המיזם נבדק על מנת לוודא שהוא ייחודי.
+      choose_clone: נא לבחור קורס לשכפול.
       clone_previous: שיכפול תוכנית \ קורס \ מיזם.
       clone_this: שיכפול התוכנית \ הקורס \ המיזם הזה
       cloned_course_calendar_instructions: 'בחירת תאריכים להוספה או הסרה מלוח הזמנים
@@ -226,13 +259,17 @@ he:
         יש ללחוץ על "יצירת התוכנית \ הקורס \ המיזם שלי!" כדי להתחיל לבנות את לוח הזמנים
         עבור התוכנית שלך.
       no_class_holidays: אין חגים או חופשים
+      role_description: תפקידך בקורס
       save_cloned_course: שמירת התוכנית \ הקורס \ המיזם החדש
       start_date: תאריך התחלה
       start_date_placeholder: תאריך התחלה (שנה-חודש-יום)
       subject: נושא
     current: תוכניות \ קורסים \ מיזמים פעילים
+    data_download_info: הורדת נתונים בתבנית CSV.
     data_edits: עורך נתונים
     delete_course: מחיקת התוכנית \ הקורס \ המיזם
+    delete_suggestion: מחיקה
+    delete_course_instructions: ניתן למחוק את העמוד הזה אם כל מסעות הפרסום הוסרו תחילה.
     dismiss_survey: ביטול
     dismiss_survey_confirm: האם ברצונך לסגור לצמיתות את השאלון הזה?
     duration: משך התוכנית \ הקורס \ המיזם
@@ -248,6 +285,8 @@ he:
       invalid_slug: שם בית הספר או הקורס לא מולאו.
       duplicate_slug: תוכנית אחרת בשם %{slug} כבר קיימת.
     expected_students: משתתפים מצופים
+    feedback: משוב
+    feedback_loading: נא להמתין לטעינת ההצעות…
     gradeables_none: לתוכנית \ לקורס \ למיזם הזה אין הקצאות שאפשר לתת להן ציונים.
     instructor:
       one: מנחה
@@ -265,12 +304,16 @@ he:
     milestones_none: לתוכנית \ לקורס \ למיזם הזה אין כרגע אבני דרך.
     my_articles: הערכים שלי
     new_week: הוספת שבוע חדש
+    new_account_email: כתובת דוא״ל
+    new_account_username: שם המשתמש המבוקש
+    new_account_username_invalid: שם משתמש זה אינו תקני.
+    new_account_submit: בקשת חשבון
     nocourses: אינך משתתף בשום תוכנית \ קורס \ מיזם.
     none: אין
     notify_untrained_confirmation: הפעולה הזו תפרסם תזכורת בדף השיחה של כל המשתתפים
       אשר לא השלימו עדיין את ההדרכה. לפרסם?
     no_available_actions: אין פעולות זמינות
-    overview: סקירה כללית
+    overview: דף הבית
     passcode: קוד הרשמה
     passcode_none: אין קוד הרשמה
     passcode_prompt: נא להקליד את קוד ההרשמה שקיבלת מהמנחה שלך
@@ -311,6 +354,7 @@ he:
     unsubmitted: תוכניות \ קורסים \ מיזמים שלא הוגשו
     untrained: לא עבר הדרכה
     uploads_none: הקבוצה הזו לא תרמה תמונות או קבצי מדיה אחרים לויקישיתוף (WikiCommons).
+    user_suggestions: 'הצעות משתמש:'
     view_other: עיון בקמפיינים אחרים
     view: הצגת התוכנית \ הקורס \ המיזם
     view_doc: סך כל הצפיות בערכים שערכו סטודנטים מאז שהעורך ביצע את עריכתו הראשונה
@@ -332,17 +376,26 @@ he:
       notification_message: מעבר לשאלון הזמין עבור התוכנית \ הקורס \ המיזם הזה
       link: מילוי שאלון
   courses_generic:
+    all_courses: כל התכניות
+    archived: תכניות בארכיון
     articles_none: אין, עדיין, דפים ערוכים לפרוייקט זה.
     assignment_end: סוף ציר זמן
     assignments_none: לא הוקצו ערכים למיזם הזה.
     assignment_start: תחילת ציר זמן
     cancel: ביטול
+    course: תכנית
     courses: תוכניות
     campaigns: מיזמים \ קמפיינים
     creator:
+      assignment_end: סיום האירוע
+      assignment_end_placeholder: מועד סיום האירוע (YYYY-MM-DD)
+      assignment_start: התחלת האירוע
+      assignment_start_placeholder: התחלת האירוע (YYYY-MM-DD)
       checking_for_uniqueness: התוכנית \ הקורס \ המיזם נבדק על מנת לוודא שהוא ייחודי
+      choose_clone: נא לבחור תכנית לשכפול.
       clone_previous: שיכפול תוכנית \ קורס \ מיזם קודם
       clone_this: שכפול התוכנית \ הקורס \ המיזם הזה
+      clone_successful: התכנית שוכפלה בהצלחה
       course_description: תיאור התוכנית \ הקורס \ המיזם
       course_school: מוסד
       course_title: כותרת התוכנית \ הקורס \ המיזם
@@ -350,19 +403,25 @@ he:
       create_label: יצירת תוכנית \ קורס \ מיזם חדש
       create_new: יצירת תוכנית חדשה
       create_short: יצירת תוכנית
+      end_date: סיום מעקב פעילות
       find: מציאת תוכנית
       intro: כותרת התוכנית דרושה, כל דבר אחר ניתן למלא מאוחר יותר. לחיצה על "צור את
         התוכנית שלי!" כדי להתחיל לבנות את הדפים לתוכנית הוויקי שלך.
+      save_cloned_course: שמירה
+      start_date: התחלת מעקב פעילות
     delete_course: מחיקת תוכנית \ קורס \ מיזם
     edit_course_dates: עריכת תאריכי התוכנית \ הקורס \ המיזם
+    end: סיום מעקב פעילות
     enroll: הוספת עורך
     enrollment: השתתפות
+    explore: חיפוש תכניות
     expected_students: עורכים מצופים
     instructors: מנחים
     join_course: הצטרפות
     leave_course: עזיבת התוכנית \ הקורס \ המיזם
     milestones_none: לתוכנית \ לקורס \ למיזם הזה אין כרגע אבני דרך.
     published: 'התוכנית \ הקורס \ המיזם הזה פורסם! ניתן להירשם אליו דרך הכתובת הבאה:'
+    request_accounts: בקשת חשבונות
     revisions_none: בתוכנית \ בקורס \ במיזם זה לא היתה פעילות עריכה לאחרונה.
     school: מוסד
     student_editors: עורכים
@@ -377,11 +436,14 @@ he:
     view_page: צפייה בדף התוכנית \ הקורס \ המיזם
     word_count_doc: הערכה של מספר המלים שנוספו לערכים במרחב הראשי ע"י משתתפי התוכנית
       \ הקורס \ המיזם לאורכו.
+    yourcourses: התכניות שלך
   editable:
     edit: עריכה
     cancel: ביטול
     save: שמירה
+    edit_description: עריכת תיאור
     edit_details: ערוך פרטים
+    edit_template: עריכת תבנית
   metrics:
     activity: פעילות לאחרונה
     are_trained: משתתפים אשר השלימו הדרכה

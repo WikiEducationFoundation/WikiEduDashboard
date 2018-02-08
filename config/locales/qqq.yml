@@ -494,6 +494,7 @@ qqq:
     articles_none: Message indicating that no articles have been edited
     assignments_none: Message indicating that there are no assigned articles
     cancel: '{{Identical|Cancel}}'
+    course: '{{Identical|Program}}'
     courses: '{{Identical|Program}}'
     campaigns: '{{Identical|Campaign}}'
     campaign_courses: |-

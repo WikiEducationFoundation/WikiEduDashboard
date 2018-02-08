@@ -335,6 +335,11 @@ pl:
     my_articles: Moje artykuły
     needs_update: Zaplanuj aktualizację danych
     new_week: Dodaj nowy tydzień
+    new_account_check_username: Sprawdź dostępność nazwy użytkownika
+    new_account_email: Adres e‐mail
+    new_account_email_placeholder: nazwa@przyklad.org
+    new_account_username_invalid: To nie jest poprawna nazwa użytkownika.
+    new_account_username_taken: Ta nazwa użytkownika jest już zajęta. Wybierz inną.
     nocourses: Nie bierzesz udziału w żadnych kursach.
     nocourse: nie brał udziału w żadnym kursie.
     none: Brak
@@ -694,6 +699,8 @@ pl:
     up_to_date_with_training: ukończyli wymagane etapy szkolenia
     username: Nazwa użytkownika
     username_placeholder: Nazwa użytkownika
+    useremail_placeholder: E-mail
+    userpasscode_placeholder: Kod dostępu
     role:
       visitor: Gość
       student: Student
@@ -810,4 +817,6 @@ pl:
         ulepszyć takie kursy w przyszłości.
   feedback_form_responses:
     no_responses: Nie ma jeszcze żadnych odpowiedzi.
+  wiki_api:
+    create_account_reason: Ten użytkownik uczestniczy w %{event}.
 ...

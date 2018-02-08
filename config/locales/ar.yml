@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: ASHmed
 # Author: Ayatun
+# Author: Azouz.anis
 # Author: Haytham morsy
 # Author: Maroen1990
 # Author: Mido
@@ -19,6 +20,7 @@ ar:
       المدخلات.
   application:
     cancel: ألغ
+    create_accounts: إنشاء حسابات ويكيبيديا
     dashboard: لوحة ويكي إد
     error: يوجد خطأ
     explore: استكشف
@@ -199,6 +201,7 @@ ar:
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
     duration: مدة الدورة
     edit_course_dates: تواريخ دورة التحرير
+    enable_account_requests: تمكين طلبات الحساب
     enable_chat: تفعيل الدردشة
     end: نهاية
     enrollment: تسجيل
@@ -215,6 +218,24 @@ ar:
     my_articles: مقالاتي
     needs_update: تحديث بيانات الجدول الزمني
     new_week: إضافة أسبوع جديد
+    new_account_check_username: تحقق من توفر اسم المستخدم
+    new_account_email: عنوان البريد الإلكتروني
+    new_account_email_placeholder: name@example.org
+    new_account_info: لطلب حساب، أدخل عنوان بريدك الإلكتروني واسم المستخدم الذي تريده.
+      سيتم إرسال رسالة إلكترونية إليك بمجرد إنشاء الحساب.
+    new_account_info_admin: لطلب حساب الطالب، أدخل عنوان البريد الإلكتروني واسم المستخدم
+      المطلوب. سيتم إرسال كلمة مرور إلى البريد الإلكتروني لهم بمجرد إنشاء الحساب.
+    new_account_username: اسم المستخدم المطلوب
+    new_account_username_invalid: هذا الاسم المستخدم ليس صالحا.
+    new_account_username_placeholder: محرر ويكي 123 (Wiki Editor)
+    new_account_username_taken: هذا الاسم المستخدم مستخدم من قبل. الرجاء اختيار واحد
+      آخر.
+    new_account_submit: طلب حساب
+    new_account_submitted: تم إرسال طلبك للحصول على حساب. يمكن لمسير هذا البرنامج
+      وضع اللمسات الأخيرة على إنشاء حسابك الآن. بعد إنشائه، ستحصل على كلمة مرور للحساب
+      الجديد عن طريق البريد الإلكتروني.
+    new_account_submitted_admin: تم إنشاء طلبك لإنشاء حساب. يرجى إبلاغ الطلاب للتحقق
+      من البريد الوارد للبريد الإلكتروني للحصول على كلمة المرور الجديدة
     nocourses: إنك لم تشارك في أي دورة.
     no_available_actions: لا توجد إجراءات متاحة
     overview: الرئيسية
@@ -223,6 +244,7 @@ ar:
     passcode_prompt: أدخل رمز المرور المعطى لك من قبل معلمك لهذه الدورة
     published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة الرابط
       التالي:'
+    requested_accounts: الحسابات المطلوبة
     revisions_doc: عدد عمليات التحرير في %{timeframe} يوما الماضية
     revisions_none: هذه الدورة ليس لها نشاط في تحرير ويكيبيديا مؤخرا.
     school: مدرسة
@@ -295,6 +317,7 @@ ar:
     leave_course: اترك البرنامج
     milestones_none: هذا المشروع ليست به أية معالم حاليا.
     published: 'تم نشر هذا المشروع! المحررون يمكنهم التسجيل عن طريق زيارة الرابط التالي:'
+    request_accounts: طلب الحسابات
     revisions_none: هذا المشروع ليس لديه نشاط تحريري مؤخرا.
     school: مؤسسة
     students_none: هذا المشروع ليس لديه محررون مسجلون.
@@ -447,6 +470,7 @@ ar:
     no_revisions: هذا المحرر لم يقم بأية مراجعة.
     recent_revisions: تعديلات حديثة
     remove_confirmation: هل أنت متأكد أنك تريد إزالة %{username}
+    request_confirmation: هل تريد بالتأكيد تنشيط هذا الحساب؟
     revision_characters_and_views: 'احروف مضافة: %{characters}، مشاهدات: %{views}'
     revisions_doc: عدد التعديلات التي أجراها هذا المحرر في السبعة أيام الماضية
     reviewers: المراجع(ون)
@@ -459,6 +483,8 @@ ar:
       one: '%{completed_count}/%{count} وحدة تدريب اكتملت'
       other: '%{completed_count}/%{count} وحدات تدريب اكتملت'
     training_module_name: وحدة التدريب
+    useremail_placeholder: البريد الإلكتروني
+    userpasscode_placeholder: رمز المرور
     role:
       visitor: زائر
       student: طالب
@@ -528,4 +554,6 @@ ar:
       closing: بإخلاص
       signed: '- فريق ويكي إد'
       link: المشاركة في استبيان
+  wiki_api:
+    create_account_reason: يشارك هذا المستخدم في %{event}
 ...

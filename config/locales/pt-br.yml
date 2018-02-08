@@ -29,6 +29,7 @@ pt-br:
       vão aumentar ou reduzir o resultado.
   application:
     cancel: Cancelar
+    create_accounts: Crie contas da Wikipédia
     dashboard: Painel do Wiki Ed
     documentation: Documentação
     error: 'Ocorreu um erro:'
@@ -98,6 +99,7 @@ pt-br:
     edited_by: Editado por
     label: Atividade
   articles:
+    article_development: (desenvolvimento do artigo)
     assigned: Artigos atribuídos
     available: Artigos Disponíveis
     assigned_to: Atribuído a
@@ -112,6 +114,7 @@ pt-br:
     edited_by: 'Editado por:'
     edited_mobile: Artigos
     hide: Ocultar
+    history: (histórico)
     label: Artigos
     loading: Carregando artigos...
     new: (novo)
@@ -243,6 +246,7 @@ pt-br:
   chat:
     label: Bate-papo
   courses:
+    accounts_generation_enabled: Geração de solicitação de contas ativada
     activity: Atividade
     active_courses: '%{course_type} ativo'
     all_courses: Todos os cursos
@@ -385,6 +389,7 @@ pt-br:
     duration: Duração do curso
     edit_count: Editar conta
     edit_course_dates: Editar data do Curso
+    enable_account_requests: Ativar as solicitações de contas
     enable_chat: Ativar Bate Papo
     end: Fim
     ended: O curso terminou.
@@ -431,6 +436,26 @@ pt-br:
     my_articles: Meus artigos
     needs_update: Agendar atualização de dados
     new_week: Adicionar nova semana
+    new_account_check_username: Verificar a disponibilidade do nome de usuário
+    new_account_email: Endereço de e-mail
+    new_account_email_placeholder: nome@exemplo.org
+    new_account_info: Para solicitar uma conta, insira seu endereço de e-mail e seu
+      nome de usuário desejado. Uma vez que a conta foi criada, uma senha será enviada
+      por e-mail.
+    new_account_info_admin: Para solicitar a conta de um aluno, insira seu endereço
+      de e-mail e o nome de usuário desejado. Uma vez que a conta foi criada, uma
+      senha será enviada por e-mail.
+    new_account_username: Nome de usuário solicitado
+    new_account_username_invalid: Este não é um nome de usuário válido.
+    new_account_username_placeholder: Editor Wiki 123
+    new_account_username_taken: Esse nome de usuário já foi feito. Por favor, escolha
+      outro.
+    new_account_submit: Solicitar uma conta
+    new_account_submitted: Seu pedido de conta foi enviado. O Facilitador para este
+      programa pode finalizar a criação de sua conta agora. Uma vez que é criado,
+      você receberá uma senha para a nova conta por e-mail.
+    new_account_submitted_admin: Seu pedido de conta foi criado. Informe seus alunos
+      para verificar sua caixa de entrada de e-mail para obter sua nova senha
     nocourses: Você não está participando em nenhum curso
     nocourse: Não participou de nenhum curso.
     none: Nenhum
@@ -446,6 +471,7 @@ pt-br:
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
+    requested_accounts: Contas solicitadas
     review_timeline: Por favor, reveja esta linha do tempo e faça alterações. Quando
       estiver satisfeito com a sua linha do tempo, submeta à aprovação da equipe Wiki
       Ed. Uma vez aprovada, você receberá uma URL de inscrição onde os alunos podem
@@ -590,6 +616,7 @@ pt-br:
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
     published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
       a seguinte URL:'
+    request_accounts: Solicitar contas
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
@@ -825,6 +852,8 @@ pt-br:
     assign_articles_done: Feito
     assigned: Artigos Atribuídos
     assignees: Indicado(s)
+    loading_authorship_data: carregando dados de autoria
+    authorship_data_not_fetched: não foi possível obter os dados de autoria
     character_doc: A quantidade total de conteúdo que um usuário adicionou neste espaço
       de nomes, calculada ao somar os caracteres adicionados de todas as edições que
       aumentaram o tamanho da página. Este número não reflete necessariamente a quantidade
@@ -837,6 +866,7 @@ pt-br:
     contribution_statistics: Estatísticas de contribuições
     course_passcode: 'Código de acesso:'
     editors: Editores estudantes
+    edits_by: 'Edições de:'
     enroll_confirmation: Tem certeza de que deseja adicionar %{username}?
     enroll_url: 'Os usuários podem inscrever-se ao entrar nesta URL:'
     enrolled_success: '%{username} foi adicionado com êxito!'
@@ -846,6 +876,7 @@ pt-br:
     characters_added_mainspace: Caracteres adicionados no espaço principal
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
     characters_added_userspace: Caracteres adicionados no espaço de usuários
+    characters_added_draftspace: Os caracteres foram acrescentados no espaço do rascunho
     my_assigned: 'Atribuído:'
     my_reviewing: 'Revisando:'
     name: Nome
@@ -857,6 +888,7 @@ pt-br:
       other: '%{count} artigos'
     recent_revisions: Edições recentes
     remove_confirmation: Você tem certeza de que deseja remover %{username}?
+    request_confirmation: Tem certeza de que deseja solicitar essa conta?
     revision_characters_and_views: 'Caracteres adicionados: %{characters}, Visitas:
       %{views}'
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
@@ -879,6 +911,8 @@ pt-br:
     up_to_date_with_training: em dia com o treinamento
     username: Nome de usuário
     username_placeholder: Nome de usuário
+    useremail_placeholder: E-mail
+    userpasscode_placeholder: Código de acesso
     role:
       description: Função no curso
       visitor: Visitante
@@ -1005,4 +1039,6 @@ pt-br:
         a tarefas na Wikipédia como a sua.
   feedback_form_responses:
     no_responses: Não há comentários/repostas ainda.
+  wiki_api:
+    create_account_reason: Este usuário está participando %{event}.
 ...

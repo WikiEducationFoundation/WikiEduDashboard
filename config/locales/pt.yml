@@ -19,6 +19,7 @@ pt:
       vão aumentar ou reduzir o resultado.
   application:
     cancel: Cancelar
+    create_accounts: Criar contas na Wikipédia
     dashboard: Painel do Programa Educativo
     documentation: Documentação
     error: 'Ocorreu um erro:'
@@ -238,6 +239,7 @@ pt:
   chat:
     label: Conversação
   courses:
+    accounts_generation_enabled: Geração de solicitação de contas ativada
     activity: Atividade
     active_courses: '%{course_type} ativos'
     all_courses: Todos os cursos
@@ -382,6 +384,7 @@ pt:
     duration: Duração do curso
     edit_count: Contador de edições
     edit_course_dates: Editar datas do curso
+    enable_account_requests: Ativar as solicitações de contas
     enable_chat: Ativar conversação
     end: Fim
     ended: O curso terminou.
@@ -429,6 +432,27 @@ pt:
     my_articles: Os meus artigos
     needs_update: Agendar atualização de dados
     new_week: Adicionar nova semana
+    new_account_check_username: Verificar a disponibilidade do nome de utilizador
+    new_account_email: Endereço de correio eletrónico
+    new_account_email_placeholder: nome@exemplo.org
+    new_account_info: Para solicitar uma conta, introduza o seu endereço de correio
+      eletrónico e o seu nome de utilizador desejado. Uma palavra-passe será enviada
+      no seu correio eletrónico, uma vez que a conta tenha sido criada.
+    new_account_info_admin: Para solicitar uma conta de aluno, introduza o correio
+      eletrónico e o nome de utilizador desejado. Uma palavra-passe será enviada por
+      correio eletrónico, uma vez que a conta tenha sido criada.
+    new_account_username: Nome de utilizador solicitado
+    new_account_username_invalid: Este não é um nome de utilizador válido.
+    new_account_username_placeholder: Editor Wiki 123
+    new_account_username_taken: Este nome de utilizador já está a ser utilizado. Escolha
+      outro nome de utilizador, por favor.
+    new_account_submit: Pedir conta
+    new_account_submitted: O seu pedido de conta foi enviado. O Facilitador deste
+      programa agora pode concluir a criação da sua conta. Uma vez criada, receberá
+      uma palavra-passe para a nova conta através do correio eletrónico.
+    new_account_submitted_admin: O seu pedido de conta foi criado. Informe os seus
+      alunos para que verifiquem a sua caixa de entrada do correio eletrónico para
+      obter a sua nova palavra-passe
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
@@ -444,6 +468,7 @@ pt:
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
+    requested_accounts: Contas solicitadas
     review_timeline: Por favor, reveja este cronograma e faça mudanças. Quando estiver
       satisfeito com o seu cronograma, submeta-o para a aprovação da equipa do Wiki
       Ed. Uma vez que o seu cronograma estiver aprovado, receberá uma URL de inscrição
@@ -587,6 +612,7 @@ pt:
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
     published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
       a seguinte URL:'
+    request_accounts: Solicitar contas
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
@@ -859,6 +885,7 @@ pt:
       other: '%{count} artigos'
     recent_revisions: Edições recentes
     remove_confirmation: Tem a certeza de que pretende remover %{username}?
+    request_confirmation: Tem a certeza de que deseja solicitar estas contas?
     revision_characters_and_views: 'Os caracteres foram acrescentados: %{characters},
       Visitas: %{views}'
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
@@ -881,6 +908,8 @@ pt:
     up_to_date_with_training: em dia com a formação
     username: Nome de utilizador
     username_placeholder: Nome de utilizador
+    useremail_placeholder: Correio eletrónico
+    userpasscode_placeholder: Código de acesso
     role:
       description: Função no curso
       visitor: Visitante
@@ -1009,4 +1038,6 @@ pt:
         suporte a tarefas na Wikipédia como as suas.
   feedback_form_responses:
     no_responses: Não há comentários/repostas ainda.
+  wiki_api:
+    create_account_reason: Este utilizador está a participar de %{event}.
 ...

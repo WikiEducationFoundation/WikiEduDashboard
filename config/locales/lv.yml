@@ -6,18 +6,24 @@
 lv:
   application:
     cancel: Atcelt
+    create_accounts: Izveidot Vikipēdijas kontus
     dashboard: Wiki Ed panelis
     documentation: Dokumentācija
+    error: 'Kļūda:'
     field_required: Šis lauks jāaizpilda obligāti.
     greeting2: Laipni lūdzam!
     greeting_extended: Laipni lūdzam Vikipēdijā
     help: Palīdzība
     home: Sākums
+    log_in_extended: Pieslēgties ar Vikipēdijas kontu
+    log_in: Pieslēgties
     log_out: Iziet
     my_dashboard: Mans panelis
     recent_activity: Nesenās darbības
     report_problem: Ziņot par problēmu
     search: uzdot jautājumu
+    sign_up_extended: Reģistrēties ar Vikipēdijas kontu
+    sign_up: Reģistrēties
     submit: Iesniegt
     training: Apmācības
     change: Mainīt
@@ -149,6 +155,7 @@ lv:
     my_articles: Mani raksti
     needs_update: Ieplānot datu atjaunināšanu
     new_week: Pievienot jaunu nedēļu
+    new_account_submit: Pieprasīt kontu
     no_available_actions: Nav pieejamu darbību
     ores_plot: ORES
     overview: Sākums
@@ -202,6 +209,7 @@ lv:
     expected_students: Plānotie dalībnieki
     instructors: Koordinatori
     join_course: Pievienoties programmai
+    request_accounts: Pieprasīt kontus
     school: Iestāde
     student_editors: Redaktori
     students: Redaktori
@@ -279,6 +287,7 @@ lv:
     revisions_doc: Dalībnieka labojumu skaits pēdējās 7 dienās
     username: Lietotājvārds
     username_placeholder: Lietotājvārds
+    useremail_placeholder: E-pasts
     role:
       description: Loma kursā
       visitor: Apmeklētājs
@@ -298,4 +307,6 @@ lv:
   survey:
     email:
       course: 'Kurss: %{course_info}'
+  wiki_api:
+    create_account_reason: Šis dalībnieks piedalās pasākumā "%{event}".
 ...

@@ -1,6 +1,7 @@
 # Messages for Indonesian (Bahasa Indonesia)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ahmadidwi
 # Author: Arief
 # Author: Arifin.wijaya
 # Author: Hidayatsrf
@@ -69,6 +70,7 @@ id:
   users:
     contributions_more: Lihat Kontribusi lainnya
     characters_added_short: 'RN: %{mainspace}, RP: %{userspace}'
+    request_confirmation: Apakah anda yakin ingin memohon akun ini?
     revision_characters_and_views: 'Karakter ditambahkan: %{characters}, Dilihat:
       %{views}'
     training_complete:
@@ -84,4 +86,6 @@ id:
       yang Anda pilih.
   error:
     invalid_assignment: Tugas tidak sah
+  wiki_api:
+    create_account_reason: Pengguna ini sedang berpartisipasi dalam  %{event}.
 ...
