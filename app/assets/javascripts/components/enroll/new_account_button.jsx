@@ -42,7 +42,7 @@ const NewAccountButton = React.createClass({
       buttonOrModal = <NewAccountModal course={course} passcode={this.props.passcode} closeModal={this.closeModal} currentUser={this.props.currentUser} />;
     } else {
       buttonOrModal = (
-        <button onClick={this.openModal} key="request_account" className="button auth signup border margin">
+        <button onClick={this.openModal} key="request_account" className="button auth signup border margin request_accounts">
           <i className="icon icon-wiki-logo" /> {currentUser.role === INSTRUCTOR_ROLE ? I18n.t('application.create_accounts') : I18n.t('application.request_account')}
         </button>
       );
