@@ -13,6 +13,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
+import CourseActions from '../../actions/course_actions.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -100,7 +101,8 @@ const AvailableActions = createReactClass({
     const course = this.state.course;
     const onConfirm = function () {
       enableRequests(course);
-      return alert(I18n.t('courses.accounts_generation_enabled'));
+      alert(I18n.t('courses.accounts_generation_enabled'));
+      return CourseActions.updateCourse(course);
     };
     const confirmMessage = 'Are you sure you want to enable the account requests?';
     this.props.initiateConfirm(confirmMessage, onConfirm);
