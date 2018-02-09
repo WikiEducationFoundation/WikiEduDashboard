@@ -1,5 +1,6 @@
 import React from 'react';
 import NewAccountModal from './new_account_modal.jsx';
+import { INSTRUCTOR_ROLE } from '../../constants';
 
 const NewAccountButton = React.createClass({
   displayName: 'NewAccountButton',
@@ -41,7 +42,7 @@ const NewAccountButton = React.createClass({
       buttonOrModal = <NewAccountModal course={course} passcode={this.props.passcode} closeModal={this.closeModal} currentUser={this.props.currentUser} />;
     } else {
       buttonOrModal = (
-        <button onClick={this.openModal} className="button auth signup border margin">
+        <button onClick={this.openModal} key="request_account" className="button auth signup border margin">
           <i className="icon icon-wiki-logo" /> {currentUser.role === INSTRUCTOR_ROLE ? I18n.t('application.create_accounts') : I18n.t('application.request_account')}
         </button>
       );

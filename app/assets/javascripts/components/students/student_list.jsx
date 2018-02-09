@@ -116,7 +116,7 @@ const StudentList = createReactClass({
 
     let requestAccountsButton;
     if (this.props.course.flags.register_accounts === true && this.props.course.published) {
-      requestAccountsButton = <NewAccountButton key="request_account" course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} />;
+      requestAccountsButton = <NewAccountButton course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} />;
     }
 
     let notifyOverdue;
