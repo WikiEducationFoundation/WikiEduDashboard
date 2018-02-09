@@ -30,7 +30,7 @@ const NewAccountButton = React.createClass({
     if (!course.flags || !course.flags.register_accounts) {
       return (
         <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
-          <i className="icon icon-wiki-logo" />{I18n.t('application.create_account')}
+          <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
         </a>
       );
     }
@@ -42,7 +42,7 @@ const NewAccountButton = React.createClass({
     } else {
       buttonOrModal = (
         <button onClick={this.openModal} className="button auth signup border margin">
-          <i className="icon icon-wiki-logo" /> {I18n.t('application.create_account')}
+          <i className="icon icon-wiki-logo" /> {currentUser.role === INSTRUCTOR_ROLE ? I18n.t('application.create_accounts') : I18n.t('application.request_account')}
         </button>
       );
     }

@@ -37,7 +37,6 @@ en:
 
   application:
     cancel: Cancel
-    create_account: Create an account
     create_accounts: Create Wikipedia accounts
     dashboard: Wiki Ed Dashboard
     documentation: Documentation
@@ -58,6 +57,7 @@ en:
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     report_problem: Report a problem
+    request_account: Request an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia
