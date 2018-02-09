@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
 import { shallow } from 'enzyme';
 import Upload from '../../../app/assets/javascripts/components/uploads/upload';
