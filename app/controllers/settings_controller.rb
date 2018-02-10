@@ -26,13 +26,19 @@ class SettingsController < ApplicationController
 
   def upgrade_admin
     update_admin do
-      attempt_admin_upgrade { |resp| render resp and return }
+      attempt_admin_upgrade do |resp|
+        render resp
+        return
+      end
     end
   end
 
   def downgrade_admin
     update_admin do
-      attempt_admin_downgrade { |resp| render resp and return }
+      attempt_admin_downgrade do |resp|
+        render resp
+        return
+      end
     end
   end
 

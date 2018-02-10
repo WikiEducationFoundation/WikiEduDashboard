@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   before_action :require_participating_user, only: [:enroll]
   before_action :require_signed_in, only: [:update_locale]
   before_action :require_admin_permissions, only: [:index]
-  before_action :require_super_admin_permissions, only: %i[all_admins update_admin]
 
   layout 'admin', only: [:index]
 

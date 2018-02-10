@@ -75,7 +75,7 @@ describe SettingsController do
       it 'returns the right message' do
         expect(response.body).to have_content("#{@user.username} elevated to admin.")
       end
-    end # not an admin
+    end
 
     context 'user is already an admin' do
       before do
@@ -94,8 +94,8 @@ describe SettingsController do
       it 'returns the right message' do
         expect(response.body).to have_content("#{@user.username} is already an admin!")
       end
-    end # already_admin
-  end # upgrade_admin
+    end
+  end
 
   #   ## NEW ACTION!
   describe 'when attempting to remove an admin' do
@@ -128,7 +128,7 @@ describe SettingsController do
       it 'returns the right message' do
         expect(response.body).to have_content("#{@user.username} changed to instructor.")
       end
-    end # is an admin
+    end
 
     context 'user is already an instructor' do
       before do
@@ -147,7 +147,7 @@ describe SettingsController do
       it 'returns the right message' do
         expect(response.body).to have_content("#{@user.username} is already an instructor!")
       end
-    end # already_instructor
+    end
 
     context 'when request is not json' do
       before do
