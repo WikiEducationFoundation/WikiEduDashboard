@@ -97,8 +97,7 @@ describe SettingsController do
     end
   end
 
-  #   ## NEW ACTION!
-  describe 'when attempting to remove an admin' do
+  describe '#downgrade_admin' do
     before do
       @action = :downgrade_admin
       @format_type = :json
@@ -149,7 +148,25 @@ describe SettingsController do
       end
     end
 
-    context 'when request is not json' do
+    context 'user is super_admin' do
+      before do
+        @user = create(:super_admin, username: 'tryandrevokeme')
+        post_params
+      end
+      it 'disallows revocation' do
+        expect(@user.reload.super_admin?).to be true
+      end
+
+      it 'returns http 422' do
+        expect(response.status).to be(422)
+      end
+
+      it 'returns the right message' do
+        expect(response.body).to have_content("Can't revoke admin status from a super admin")
+      end
+    end
+
+    context 'request is not json' do
       before do
         @format_type = :html
       end

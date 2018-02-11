@@ -82,6 +82,12 @@ class SettingsController < ApplicationController
       message = I18n.t('settings.admin_users.remove.already_instructor', username: @user.username)
       yield json: { message: message }, status: 422
     end
+
+    if @user.super_admin?
+      message = I18n.t('settings.admin_users.remove.no_super_admin')
+      yield json: { message: message }, status: 422
+    end
+
     # happy path
     @user.update_attributes permissions: User::Permissions::INSTRUCTOR
     message = I18n.t('settings.admin_users.remove.demote_success', username: @user.username)
