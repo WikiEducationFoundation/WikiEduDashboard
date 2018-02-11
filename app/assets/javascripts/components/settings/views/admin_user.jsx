@@ -3,15 +3,38 @@ import React from 'react';
 class AdminUser extends React.Component {
   constructor() {
     super();
-    this.handleRevoke = this.handleRevoke.bind(this);
+    this.state = { confirming: false };
+    this.getButtonState = this.getButtonState.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.isRevoking = this.isRevoking.bind(this);
     this.render = this.render.bind(this);
   }
 
-  handleRevoke() {
-    if (!this.isRevoking()) {
-      // only process if not currently revoking
-      this.props.downgradeAdmin(this.props.user.username);
+  /*
+    returns the current state of the revoking button
+    1) "not confirming"
+    2) "confirming"
+    3) "submitting"
+  */
+  getButtonState() {
+    if (this.isRevoking()) {
+      return 'revoking';
+    } else if (this.state.confirming) {
+      return 'confirming';
+    }
+    return 'not confirming';
+  }
+
+  handleClick() {
+    if (this.state.confirming) {
+      // user has clicked button while confirming. Process!
+      if (!this.isRevoking()) {
+        // only process if not currently revoking
+        this.props.downgradeAdmin(this.props.user.username);
+      }
+      this.setState({ confirming: false });
+    } else {
+      this.setState({ confirming: true });
     }
   }
 
@@ -28,13 +51,20 @@ class AdminUser extends React.Component {
 
     let buttonText;
     let buttonClass = 'button';
-    if (this.isRevoking()) {
-      // disable button and render different text
-      buttonText = I18n.t('settings.admin_users.remove.revoking_button_working');
-      buttonClass += ' border';
-    } else {
-      buttonText = I18n.t('settings.admin_users.remove.revoke_button');
-      buttonClass += ' dark';
+    switch (this.getButtonState()) {
+      case 'confirming':
+        buttonClass += ' danger';
+        buttonText = I18n.t('settings.admin_users.remove.revoke_button_confirm', { username: user.username });
+        break;
+      case 'revoking':
+        buttonText = I18n.t('settings.admin_users.remove.revoking_button_working');
+        buttonClass += ' border';
+        break;
+      default:
+        // not confirming
+        buttonClass += ' danger';
+        buttonText = I18n.t('settings.admin_users.remove.revoke_button');
+        break;
     }
 
     return (
@@ -52,7 +82,7 @@ class AdminUser extends React.Component {
           <p>
             <button
               className={buttonClass}
-              onClick={this.handleRevoke}
+              onClick={this.handleClick}
             >
               {buttonText}
             </button>

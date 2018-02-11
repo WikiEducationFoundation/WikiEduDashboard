@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import thunk from 'redux-thunk';
 
@@ -60,7 +60,7 @@ describe('AdminUser', () => {
       const button = wrapper.find('td p button').first();
       expect(button.text())
         .to.equal(I18n.t('settings.admin_users.remove.revoke_button'));
-      expect(button.hasClass('dark')).to.equal(true);
+      expect(button.hasClass('danger')).to.equal(true);
     });
   }); // not revoking
 
@@ -93,14 +93,16 @@ describe('AdminUser', () => {
     });
   });
 
-  describe('handleRevoke', () => {
-    it('calls handleRevoke on button click', () => {
-      const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
+  describe('handleClick', () => {
+    let handleRevokeSpy;
+    const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
+
+    it('calls handleClick on button click', () => {
       const revokingAdmin = {
         status: true,
         username: expectedUser.username,
       };
-      const handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleRevoke');
+      handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleClick');
       const wrapper = mount(
         <table>
           <tbody>
@@ -112,6 +114,23 @@ describe('AdminUser', () => {
 
       button.simulate('click');
       expect(handleRevokeSpy.calledOnce).to.equal(true);
+      AdminUser.prototype.handleClick.restore();
+    });
+
+    it('renders confirmation state', () => {
+      const revokingAdmin = {
+        status: false,
+        username: null,
+      };
+      const wrapper = shallow(
+        <AdminUser user={expectedUser} key={1} revokingAdmin={revokingAdmin} />
+      );
+      wrapper.setState({ confirming: true });
+      const button = wrapper.find('tr td p button');
+      expect(button.text())
+        .to.equal(I18n.t('settings.admin_users.remove.revoke_button_confirm', { username: expectedUser.username })
+      );
+      expect(button.hasClass('danger')).to.equal(true);
     });
   });
 });
