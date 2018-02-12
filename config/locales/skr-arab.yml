@@ -131,6 +131,7 @@ skr-arab:
     leave_course: کورس چھوڑو
     loading: لوڈ تھیدا پئے۔۔۔
     my_articles: میݙے مقالے
+    new_account_email: ای میل پتہ
     none: کوئی وی کائنی
     ores_plot: اوآرای ایس
     overview: گھر
@@ -247,6 +248,8 @@ skr-arab:
     training_module_status: حیثیت
     username: ورتݨ آلا ناں
     username_placeholder: ورتݨ آلا ناں
+    useremail_placeholder: ای میل
+    userpasscode_placeholder: پاس کوڈ
   wizard:
     summary: خلاصہ
 ...

@@ -587,7 +587,7 @@ ca:
     no_revisions: Aquest editor no ha fet cap revisió.
     recent_revisions: Edicions recents
     remove_confirmation: Esteu segur que voleu eliminar %{username}?
-    request_confirmation: Esteu segur que voleu sol·licitar aquests comptes?
+    request_confirmation: Esteu segur que voleu sol·licitar aquest compte?
     revisions_doc: El nombre d'edicions realitzades per aquest editor en els últims
       7 dies
     reviewers: Revisor(s)
