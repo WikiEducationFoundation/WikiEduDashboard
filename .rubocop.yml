@@ -102,8 +102,6 @@ Rails/EnvironmentComparison:
   Enabled: false
 Rails/Present:
   Enabled: false
-Rails/Presence:
-  Enabled: false
 Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
