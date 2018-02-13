@@ -57,8 +57,8 @@ class CourseCreationManager
 
   def set_slug
     slug =  @course_params[:school].presence || ''
-    slug += "/#{@course_params[:title]}" unless @course_params[:title].blank?
-    slug += "_(#{@course_params[:term]})" unless @course_params[:term].blank?
+    slug += "/#{@course_params[:title]}" if @course_params[:title].present?
+    slug += "_(#{@course_params[:term]})" if @course_params[:term].present?
     @slug = slug.tr(' ', '_')
     @overrides[:slug] = @slug
   end

@@ -122,7 +122,7 @@ class Commons
     # page is queried, which looks like: [{"pageid"=>0, "missing"=>""}]
     results = results.values unless results.is_a?(Array)
     results.each do |r|
-      @image_data << r unless r[@prop].blank?
+      @image_data << r if r[@prop].present?
     end
     @continue = response['continue'] # nil if there is no continue
     @query[@continue_param] = @continue[@continue_param] if @continue
