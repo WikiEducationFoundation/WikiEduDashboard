@@ -8,7 +8,8 @@ import OnlineVolunteers from './online_volunteers';
 import CampusVolunteers from './campus_volunteers';
 import WikiEdStaff from './wiki_ed_staff';
 
-import CampaignButton from './campaign_button.jsx';
+import CampaignEditable from './campaign_editable.jsx';
+import CampaignList from './campaign_list.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -205,11 +206,12 @@ const Details = createReactClass({
         />
       );
     }
-    const campaigns = (
-      <div>
-        <CampaignButton {...this.props} />
-      </div>
-    );
+    let campaigns;
+    if (this.props.editable) {
+      campaigns = <CampaignEditable {...this.props} />;
+    } else {
+      campaigns = <CampaignList {...this.props} />;
+    }
     let subject;
     let tags;
     let courseTypeSelector;
