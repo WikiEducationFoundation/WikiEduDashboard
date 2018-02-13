@@ -83,7 +83,7 @@ class WikiCourseOutput
 
   def course_timeline
     timeline = "{{#{template_name(@templates, 'timeline')}}}\r"
-    week_number = 0
+    week_number = @course_meetings_manager.weeks_before_timeline
     @course.weeks.each do |week|
       week_number += 1
       timeline += course_week(week, week_number)
