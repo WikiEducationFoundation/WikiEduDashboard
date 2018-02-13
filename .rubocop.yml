@@ -88,8 +88,6 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
-Rails/DynamicFindBy:
-  Enabled: false
 Rails/PluralizationGrammar:
   Enabled: false
 Layout/MultilineBlockLayout:

@@ -23,7 +23,7 @@ class CampaignsController < ApplicationController
   def show
     respond_to do |format|
       format.json do
-        @campaign = Campaign.find_by_slug(params[:slug]) if params[:slug]
+        @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
       end
     end
   end
