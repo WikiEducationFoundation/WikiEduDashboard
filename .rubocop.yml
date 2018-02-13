@@ -73,6 +73,8 @@ Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
 Rails/Blank:
   Enabled: false # Sometimes unless foo.present? is more expressive.
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false # These get removed whenever 'annotate' updates a file anyway.
 
 ########################
 # Temporary exceptions #
