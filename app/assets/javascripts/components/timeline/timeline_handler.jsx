@@ -35,7 +35,7 @@ const TimelineHandler = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    course: PropTypes.object,
+    course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     children: PropTypes.node,
     controls: PropTypes.func,
