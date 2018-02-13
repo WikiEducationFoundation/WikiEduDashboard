@@ -5,9 +5,9 @@ import thunk from 'redux-thunk';
 
 import reducer from '../../../app/assets/javascripts/reducers';
 import '../../testHelper';
-import CampaignButton from '../../../app/assets/javascripts/components/overview/campaign_button.jsx';
+import CampaignEditable from '../../../app/assets/javascripts/components/overview/campaign_editable.jsx';
 
-describe('CampaignButton', () => {
+describe('CampaignEditable', () => {
   const campaigns = ['Cool campaign'];
   const course = {
     string_prefix: 'course_generic',
@@ -19,7 +19,7 @@ describe('CampaignButton', () => {
 
   it('it opens the component when editable is true and includes a plus button', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
-      <CampaignButton
+      <CampaignEditable
         store={reduxStoreWithCampaigns}
         campaigns={campaigns}
         allCampaigns={allCampaigns}
@@ -29,18 +29,5 @@ describe('CampaignButton', () => {
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container open');
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'plus');
-  });
-
-  it('it keeps the component closed when editable is false', () => {
-    const TestButton = ReactTestUtils.renderIntoDocument(
-      <CampaignButton
-        store={reduxStoreWithCampaigns}
-        campaigns={campaigns}
-        allCampaigns={allCampaigns}
-        course={course}
-        editable={false}
-      />
-    );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container close');
   });
 });
