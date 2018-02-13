@@ -60,6 +60,8 @@ export const removeCampaign = (courseId, campaignId) => dispatch => {
         });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      // TODO: remove this and handle DELETE_CAMPAIGN in course reducer,
+      // once CourseStore has been replaced with redux.
       .then(() => ServerActions.fetch('course', courseId))
   );
 };
@@ -91,6 +93,8 @@ export const addCampaign = (courseId, campaignId) => dispatch => {
         });
       })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      // TODO: remove this and handle ADD_CAMPAIGN in course reducer,
+      // once CourseStore has been replaced with redux.
       .then(() => ServerActions.fetch('course', courseId))
   );
 };
