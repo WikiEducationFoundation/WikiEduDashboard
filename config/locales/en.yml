@@ -265,6 +265,7 @@ en:
 
   courses:
     accounts_generation_enabled: Accounts request generation enabled
+    accounts_generation_confirm_message: Are you sure you want to enable the account requests?
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses

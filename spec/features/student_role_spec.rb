@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Student users', type: :feature, js: true, focus: true do
+describe 'Student users', type: :feature, js: true do
   before do
     include type: :feature
     include Devise::TestHelpers
