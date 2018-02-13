@@ -146,8 +146,6 @@ Lint/MissingCopEnableDirective:
   Enabled: false
 Layout/IndentHeredoc:
   Enabled: false
-Style/RegexpLiteral:
-  Enabled: false
 Rails/Output:
   Enabled: false
 Lint/DuplicateMethods:
