@@ -7,7 +7,7 @@ require "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 class HistogramPlotter
   def self.plot(campaign: nil, course: nil, opts: {})
     new(campaign: campaign, course: course).major_edits_plot(opts)
-  rescue NoDataError => e
+  rescue NoDataError
     return nil
   end
 
