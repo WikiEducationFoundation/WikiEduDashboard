@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { requestAuthToken, enableForCourse, showChatOn } from '../../actions/chat_actions.js';
+import { requestAuthToken, enableForCourse } from '../../actions/chat_actions.js';
 
 const RocketChat = createReactClass({
   displayName: 'RocketChat',
@@ -11,10 +11,13 @@ const RocketChat = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     authToken: PropTypes.string,
-    showChat: PropTypes.bool,
     requestAuthToken: PropTypes.func,
     enableForCourse: PropTypes.func,
-    showChatOn: PropTypes.func
+  },
+  getInitialState() {
+    return {
+      showChat: false,
+    };
   },
 
   componentWillMount() {
@@ -24,7 +27,7 @@ const RocketChat = createReactClass({
   },
 
   componentDidMount() {
-    if (Features.enableChat && this.props.authToken && !this.props.showChat) {
+    if (Features.enableChat && this.props.authToken && !this.state.showChat) {
       this.loginOnFrameLoad();
     }
   },
@@ -38,7 +41,7 @@ const RocketChat = createReactClass({
       externalCommand: 'login-with-token',
       token: this.props.authToken
     }, '*');
-    this.props.showChatOn();
+    this.setState({ showChat: true });
   },
 
   render() {
@@ -60,7 +63,7 @@ const RocketChat = createReactClass({
     const chatFrame = <iframe id="chat" title="rocket chat" className={chatClass} src={chatUrl} />;
 
     let loginRetryButton;
-    if (this.props.showChat) {
+    if (this.state.showChat) {
       loginRetryButton = <a className="pull-right button small" onClick={this.login} target="_blank">Retry login</a>;
     }
 
@@ -77,13 +80,11 @@ const RocketChat = createReactClass({
 
 const mapStateToProps = state => ({
   authToken: state.authToken,
-  showChat: state.showChat
 });
 
 const mapDispatchToProps = {
   requestAuthToken: requestAuthToken,
   enableForCourse: enableForCourse,
-  showChatOn: showChatOn
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RocketChat);

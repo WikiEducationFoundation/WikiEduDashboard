@@ -1,4 +1,5 @@
-import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL, SHOW_CHAT_ON } from "../constants";
+import { CHAT_LOGIN_SUCCEEDED, ENABLE_CHAT_SUCCEEDED, API_FAIL } from "../constants";
+import logErrorMessage from '../utils/log_error_message';
 
 export const requestAuthToken = () => dispatch => {
   return (
@@ -24,9 +25,7 @@ export const requestAuthToken = () => dispatch => {
       }))
       .catch(resp => dispatch({
         type: API_FAIL,
-        payload: {
-          data: resp
-        }
+        data: resp
       }))
     );
 };
@@ -55,15 +54,7 @@ export const enableForCourse = (opts = {}) => dispatch => {
       }))
       .catch(resp => dispatch({
         type: API_FAIL,
-        payload: {
-          data: resp
-        }
+        data: resp
       }))
     );
-};
-
-export const showChatOn = () => {
-  return {
-    type: SHOW_CHAT_ON,
-  };
 };
