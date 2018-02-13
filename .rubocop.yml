@@ -156,7 +156,5 @@ Rails/Output:
   Enabled: false
 Lint/DuplicateMethods:
   Enabled: false
-Style/PercentLiteralDelimiters:
-  Enabled: false
 Style/ConditionalAssignment:
   Enabled: false
