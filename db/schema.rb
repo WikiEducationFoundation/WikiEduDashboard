@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180126183531) do
+ActiveRecord::Schema.define(version: 20180213231541) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -310,6 +310,14 @@ ActiveRecord::Schema.define(version: 20180126183531) do
     t.index ["question_group_id"], name: "index_rapidfire_questions_on_question_group_id"
   end
 
+  create_table "requested_accounts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "course_id"
+    t.string "username"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "revisions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer "characters", default: 0
     t.datetime "created_at"
@@ -445,6 +453,7 @@ ActiveRecord::Schema.define(version: 20180126183531) do
     t.string "chat_password"
     t.string "chat_id"
     t.datetime "registered_at"
+    t.datetime "first_login"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
