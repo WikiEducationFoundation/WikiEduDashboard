@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
 clear
+set -e
+trap ErrorMessage ERR
+
+ErrorMessage(){
+  echo "There was error while setting up your developmental environment!"
+  echo "Please check the log file in setup directory."
+  echo "For manual instruction for setting up the developmental environment, refer to:"
+  echo "https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/master/docs/setup.md"
+}
 
 CLEAR_LINE='\r\033[K'
 
@@ -41,10 +50,6 @@ printf '[*] Adding keys... \n'
 output_line "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg" "sudo apt-key add -"
 output_line 'echo "deb https://dl.yarnpkg.com/debian/ stable main"' 'sudo tee /etc/apt/sources.list.d/yarn.list'
 
-# Add Keys for MariaDB
-output_line "sudo apt-get install -y software-properties-common"
-output_line "sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8" && \
-output_line "sudo add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://sgp1.mirrors.digitalocean.com/mariadb/repo/10.2/ubuntu xenial main'"
 printf "${CLEAR_LINE}[+] Added keys for required repositries\n"
 
 printf '[*] Updating Package lists... \n'
