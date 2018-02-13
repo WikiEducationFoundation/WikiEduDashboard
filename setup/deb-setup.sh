@@ -100,7 +100,7 @@ printf '[*] Installing mariadbclient dependencies... \n'
 output_line "sudo apt-get install -y libmariadbclient-dev" && printf "${CLEAR_LINE}[+] Dependencies installed\n"
 
 printf '[*] Checking for Ruby-2.5.0...\n'
-if which ruby | grep "ruby 2.5.0" >/dev/null; then
+if ruby -v | grep "ruby 2.5.0" >/dev/null; then
   printf "${CLEAR_LINE}Ruby already installed\n"
 else
   echo "Ruby-2.5.0 not found. Please install ruby-2.5.0 and run this script again."
