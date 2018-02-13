@@ -13,8 +13,13 @@ import CourseUtils from '../../utils/course_utils.js';
 
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 
+
 const CampaignButton = createReactClass({
   displayName: 'CampaignButton',
+
+  componentDidMount() {
+    return this.props.fetchAllCampaigns();
+  },
 
   getKey() {
     return `add_campaign`;
@@ -22,7 +27,8 @@ const CampaignButton = createReactClass({
 
   PropTypes: {
     campaigns: PropTypes.array,
-    allCampaigns: PropTypes.array
+    availableCampaigns: PropTypes.array,
+    fetchAllCampaigns: PropTypes.func
   },
 
   handleChangeCampaign(val) {
@@ -38,15 +44,21 @@ const CampaignButton = createReactClass({
   },
 
   render() {
-    let campaignList;
-    let campaignSelect;
-    let campaignClass;
-    const campaignOptions = this.props.allCampaigns.map(campaign => {
-      return { label: campaign, value: campaign };
-    });
+    let campaignClass = "campaigns container close";
+    const lastIndex = this.props.campaigns.length - 1;
+    let campaigns = (this.props.campaigns.length > 0 ?
+      _.map(this.props.campaigns, (campaign, index) => {
+        let comma = '';
+        const url = `/campaigns/${campaign.slug}/overview`;
+        if (index !== lastIndex) { comma = ', '; }
+        return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
+      })
+    : I18n.t('courses.none'));
+
+    // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
     if (this.props.editable) {
-      campaignClass = 'campaigns container open';
-      campaignList = this.props.campaigns.map(campaign => {
+      campaignClass = "campaigns container open";
+      const campaignList = this.props.campaigns.map(campaign => {
         const removeButton = (
           <button className="button border plus" onClick={this.removeCampaign.bind(this, campaign.title)}>-</button>
         );
@@ -56,7 +68,12 @@ const CampaignButton = createReactClass({
           </tr>
         );
       });
-      if (this.props.allCampaigns.length > 0) {
+
+      let campaignSelect;
+      if (this.props.availableCampaigns.length > 0) {
+        const campaignOptions = this.props.availableCampaigns.map(campaign => {
+          return { label: campaign, value: campaign };
+        });
         campaignSelect = (
           <Select
             ref="campaignSelect"
@@ -65,27 +82,25 @@ const CampaignButton = createReactClass({
             onChange={this.handleChangeCampaign}
             options={campaignOptions}
           />
-      );
+        );
       }
-    } else {
-      campaignClass = 'campaigns container close';
-      const lastIndex = this.props.campaigns.length - 1;
-      const campaigns = (this.props.campaigns.length > 0 ?
-        _.map(this.props.campaigns, (campaign, index) => {
-          let comma = '';
-          const url = `/campaigns/${campaign.slug}/overview`;
-          if (index !== lastIndex) { comma = ', '; }
-          return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
-        })
-      : I18n.t('courses.none'));
-      campaignList = <span> {campaigns}</span>;
+
+      campaigns = (
+        <div className="form-group">
+          <table>
+            <tbody>
+              {campaignList}
+            </tbody>
+          </table>
+          {campaignSelect}
+        </div>
+      );
     }
 
     return (
       <div key="campaigns" className={campaignClass}>
         <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)}</strong>
-        {campaignList}
-        {campaignSelect}
+        <span> {campaigns}</span>
       </div>
     );
   }
@@ -93,7 +108,7 @@ const CampaignButton = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  allCampaigns: getAvailableCampaigns(state),
+  availableCampaigns: getAvailableCampaigns(state),
   campaigns: state.campaigns.campaigns
 });
 

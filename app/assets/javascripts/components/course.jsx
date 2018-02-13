@@ -7,7 +7,7 @@ import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import ServerActions from '../actions/server_actions.js';
 import { fetchUsers } from '../actions/user_actions.js';
-import { fetchCampaigns, fetchAllCampaigns } from '../actions/campaign_actions.js';
+import { fetchCampaigns } from '../actions/campaign_actions.js';
 import CourseActions from '../actions/course_actions.js';
 import CourseStore from '../stores/course_store.js';
 import WeekStore from '../stores/week_store.js';
@@ -47,7 +47,6 @@ const Course = createReactClass({
     ServerActions.fetch('course', courseID);
     this.props.fetchUsers(courseID);
     ServerActions.fetch('users', courseID);
-    this.props.fetchAllCampaigns();
     return this.props.fetchCampaigns(courseID);
   },
 
@@ -269,8 +268,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchUsers,
-  fetchCampaigns,
-  fetchAllCampaigns
+  fetchCampaigns
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);
