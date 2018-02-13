@@ -42,7 +42,7 @@ class PushCourseToSalesforce
 
   def course_salesforce_fields
     salesforce_fields = base_salesforce_fields
-    salesforce_fields[:Course_Level__c] = @course.level unless @course.level.blank?
+    salesforce_fields[:Course_Level__c] = @course.level if @course.level.present?
     salesforce_fields
   end
 
