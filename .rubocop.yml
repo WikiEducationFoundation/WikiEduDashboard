@@ -138,8 +138,6 @@ Rails/FindBy:
   Enabled: false
 Rails/FindEach:
   Enabled: false
-Lint/MissingCopEnableDirective:
-  Enabled: false
 Layout/IndentHeredoc:
   Enabled: false
 Rails/Output:
