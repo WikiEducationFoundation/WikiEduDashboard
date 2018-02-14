@@ -96,8 +96,8 @@ module SurveysHelper
     return question.conditionals
   end
 
-  def has_course_data(question_form)
-    !question_form.course_data_type.nil? && !question_form.course_data_type.empty?
+  def course_data(question_form)
+    question_form.course_data_type.present?
   end
 
   def question_form_has_follow_up_question(question_form)
