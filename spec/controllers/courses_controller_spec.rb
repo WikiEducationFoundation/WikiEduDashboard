@@ -88,7 +88,7 @@ describe CoursesController do
 
       it 'deletes the course' do
         delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
-        expect(Course.find_by_slug(course.slug)).to be_nil
+        expect(Course.find_by(slug: course.slug)).to be_nil
       end
     end
   end

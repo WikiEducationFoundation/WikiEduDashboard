@@ -229,7 +229,7 @@ describe 'campaign overview page', type: :feature, js: true do
           find('.campaign-delete .button').click
         end
         expect(page).to have_content('has been deleted')
-        expect(Campaign.find_by_slug(campaign.slug)).to be_nil
+        expect(Campaign.find_by(slug: campaign.slug)).to be_nil
       end
 
       it 'throws an error if you enter the wrong campaign title when trying to delete it' do

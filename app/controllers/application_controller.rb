@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def require_permissions
     require_signed_in
-    course = Course.find_by_slug(params[:id])
+    course = Course.find_by(slug: params[:id])
     raise NotPermittedError unless current_user.can_edit? course
   end
 
@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
 
   def require_participating_user
     require_signed_in
-    course = Course.find_by_slug(params[:id])
+    course = Course.find_by(slug: params[:id])
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
     return if current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE
