@@ -66,7 +66,8 @@ printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
   printf "${CLEAR_LINE}Node already installed\n"
 else
-  output_line "curl -sL https://deb.nodesource.com/setup_8.x" "sudo -E bash - && sudo apt-get install -y nodejs" &&\
+  output_line "curl -sL https://deb.nodesource.com/setup_8.x" "sudo -E bash -"
+  sudo apt-get install -y nodejs &&\
   printf "${CLEAR_LINE}[+] Node installed\n"
 fi
 
