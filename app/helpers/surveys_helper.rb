@@ -96,7 +96,7 @@ module SurveysHelper
     return question.conditionals
   end
 
-  def has_course_data(question_form)
+  def course_data(question_form)
     question_form.course_data_type.present?
   end
 
