@@ -26,7 +26,7 @@ describe Rapidfire::Question do
 
   describe 'Matrix Question Creation' do
     it 'should create create a question' do
-      question = create(:matrix_question)
+      create(:matrix_question)
       expect(Rapidfire::Question.last.question_text).to eq('Question?')
     end
 

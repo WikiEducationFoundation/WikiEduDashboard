@@ -97,11 +97,11 @@ module SurveysHelper
   end
 
   def has_course_data(question_form)
-    !question_form.course_data_type.nil? && !question_form.course_data_type.empty?
+    question_form.course_data_type.present?
   end
 
   def question_form_has_follow_up_question(question_form)
-    !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
+    question_form.follow_up_question_text.present?
   end
 
   def conditional_string(answer)

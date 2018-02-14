@@ -63,8 +63,8 @@ class WikiAssignmentOutput
     # we check for the presense of existging tags to account for both the new
     # and old formats.
     tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
-    tag += " | assignments = #{tag_assigned}" unless tag_assigned.blank?
-    tag += " | reviewers = #{tag_reviewing}" unless tag_reviewing.blank?
+    tag += " | assignments = #{tag_assigned}" if tag_assigned.present?
+    tag += " | reviewers = #{tag_reviewing}" if tag_reviewing.present?
     tag += ' }}'
 
     tag
@@ -80,7 +80,7 @@ class WikiAssignmentOutput
     page_content = page_content.dup.force_encoding('utf-8')
     # Return if tag already exists on page.
     # However, if the tag is empty, that means to blank the prior tag (if any).z
-    unless new_tag.blank?
+    if new_tag.present?
       return nil if page_content.include? new_tag
     end
 

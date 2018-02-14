@@ -6,6 +6,8 @@ import UserUtils from '../utils/user_utils.js';
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
+const getCourseCampaigns = state => state.campaigns.campaigns;
+const getAllCampaigns = state => state.campaigns.all_campaigns;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -45,5 +47,12 @@ export const getCurrentUser = createSelector(
     const currentUser = currentUserFromUsers || currentUserFromHtml;
     const userRoles = UserUtils.userRoles(currentUser, users);
     return { ...currentUser, ...userRoles };
+  }
+);
+
+export const getAvailableCampaigns = createSelector(
+  [getCourseCampaigns, getAllCampaigns], (campaigns, allCampaigns) => {
+    campaigns = campaigns.map(campaign => campaign.title);
+    return _.difference(allCampaigns, campaigns);
   }
 );
