@@ -11,6 +11,7 @@
 el:
   application:
     cancel: Ακύρωση
+    create_accounts: Δημιουργία λογαριασμών Βικιπαίδειας
     dashboard: Wiki Ed Dashboard
     documentation: Τεκμηρίωση
     error: 'Υπήρξε ένα σφάλμα:'
@@ -92,6 +93,8 @@ el:
     active_campaigns: Ενεργές εκστρατείες
     add_organizer: Προσθήκη οργανωτή
     campaign: Εκστρατεία
+    campaigns: Ανακοινώσεις
+    description: Περιγραφή
     none: Κανένα
     organizers: Οργανωτές
     program_template: Πρότυπο προγράμματος
@@ -136,6 +139,8 @@ el:
     creator:
       course_language: Γλώσσα
       course_term_placeholder: Όρος
+      end_date: Ημερομηνία λήξης
+      end_date_placeholder: Ημερομηνία λήξης (εεεε/μμ/ηη)
       start_date: Ημερομηνία έναρξης
       start_date_placeholder: Ημερομηνία έναρξης (εεεε/μμ/ηη)
       subject: Θέμα
@@ -143,13 +148,67 @@ el:
     data_overview: Επισκόπηση δεδομένων
     data_edits: Δεδομένα επεξεργασιών
     data_students: Δεδομένα επεξεργασιών
+    delete_suggestion: Διαγραφή
+    dismiss_survey: Απόρριψη
+    download_stats_data: Στατιστικά λήψης
+    duration: Διάρκεια μαθήματος
     edit_count: Εκδώσετε τον Αριθμό
     enable_chat: Ενεργοποίηση συνομιλίας
+    end: Τέλος
+    enroll: Εγγραφή
+    enrollment: Εγγραφή
+    error:
+      invalid_language_or_project: Μη έγκυρη γλώσσα/εγχείρημα
+    feedback: Ανατροφοδότηση
+    instructors: Καθηγητές
+    join: μπείτε
+    join_course: μπείτε στο μάθημα
+    join_failed: Η εγγραφή απέτυχε.
+    loading: Φόρτωση σε εξέλιξη...
+    my_articles: Τα λήμματά μου
+    new_week: Πρόσθεση νέας εβδομάδας
+    new_account_check_username: Έλεγχος διαθεσιμότητας ονόματος χρήστη
+    new_account_email: 'Διεύθυνση ηλεκτρονικού ταχυδρομείου:'
+    new_account_email_placeholder: όνομα@παράδειγμα.org
+    new_account_username: Απαιτούμενο όνομα χρήστη
+    new_account_username_invalid: Αυτό δεν είναι έγκυρο όνομα χρήστη
+    new_account_username_placeholder: Επεξεργαστής βίκι 123
+    new_account_submit: Αίτηση λογαριασμού
+    none: Κανένα
+    no_available_actions: Μη διαθέσιμες δράσεις
     ores_plot: ORES
+    overview: Αρχική
+    passcode: Κωδικός πρόσβασης
+    passcode_none: Χωρίς κωδικό πρόσβασης
+    school: Σχολείο
+    start: Έναρξη
+    start_typing: Ξεκινήστε την πληκτρολόγηση
+    students_count: '# Φοιτητές'
+    students_short: Σπουδαστές
+    user_role: Ρόλος
+    subject: Θέμα
+    submitted: Υποβεβλημμένα
+    term: Περίοδος
+    timeline_link: Χρονολόγιο
+    time_zone_message: Οι χρόνοι αρχής και τέλους εμφανίζονται στην τοπική ζώνη ώρας
+      σας.
+    title: Τίτλος
   courses_generic:
     all_courses: Όλα τα προγράμματα.
     cancel: Ακύρωση
+    course: Πρόγραμμα
+    courses: Προγράμματα
+    courses_taught: Προγράμματα που διδάχθηκαν
+    campaigns: 'Εκστρατείες:'
+    creator:
+      course_description: Περιγραφή προγράμματος
+      course_school: Ίδρυμα
+      course_term: Πότε
+      course_term_placeholder: Πότε
+      course_title: Τίτλος προγράμματος
+      save_cloned_course: Αποθήκευση
     delete_course: Διαγραφή προγράμματος
+    enrollment: Συμμετοχή
     view_page: Δείτε τη Σελίδα του Προγράμματος
   metrics:
     label: Μαθήματα

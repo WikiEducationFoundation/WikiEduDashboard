@@ -59,6 +59,11 @@ cs:
     opt_out: Ne
   dashboard:
     create_note: Zvolte tlačítko "Vytvořit kurz" a vytvořte si svůj první kurz.
+    create_preparation_note: Dříve než začnete, se ujistěte, že máte po ruce akademický
+      kalendář; nástroj pro návrh přiřazení použije data setkání vaší třídy — včetně
+      všech přestávek a prázdnin — tak, aby odpovídala vašemu rozvrhu ve zvoleném
+      časovém období. Nezapomeňte, že časovou osu můžete vždy upravit tak, aby vyhovovala
+      vašim potřebám.
     explore_course_pages: Prozkoumat kurzové stránky
     explore_examples: Prozkoumat příklady
     join_note: Jakmile obdržíte heslo od svého instruktora, klikněte na "Najít váš
@@ -71,12 +76,18 @@ cs:
     review_orientation: Orientace ve školení
     start_orientation: Spustit průvodce
     blog_headline: Nedávné zprávy z Wiki Education
+    about_programs: Tento web sleduje aktivity wiki prostřednictvím Programů — individuálních
+      událostí, např. editačních a školních kurzů. Každý program je součástí jedné
+      nebo více kampaní, které poskytují souhrnné statistiky napříč Programy.
+    about_creating_programs: Pokud provozujete jednu, nezávislou událost, můžete nyní
+      vytvořit Program. Pokud je vaše událost součástí větší akce, najděte ji nebo
+      pro ni vytvořte Kampaň. Poté můžete na stránce Kampaně vytvořit nový Program.
   home:
     explore: Prozkoumat
     log_in: Přihlásit se účtem na Wikipedii
     sign_up: Zaregistrovat se skrze Wikipedii
-    sign_up_help: Chcete-li nástěnku používat, přihlašte se prosím se svým účtem na
-      Wikipedii a povolit přístup k svému účtu. Můžete se přihlásit k již existujícímu
+    sign_up_help: Chcete-li nástěnku používat, přihlaste se prosím se svým účtem na
+      Wikipedii a povolte přístup ke svému účtu. Můžete se přihlásit k již existujícímu
       účtu na Wikipedii, nebo si vytvořit nový.
   activity:
     all: Aktivita
@@ -90,9 +101,9 @@ cs:
     character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
       období mezi začátkem a koncem kurzu
     cross_wiki_tracking: Stánky v hlavním jmenném prostoru, které byly editovány mezi
-      začátečním a konečným datem jsou uvedeny níže. Nástěnka agreguje příspěvky jak
-      z domácí wiki tohoto programu, tak i ze všech dalších wiki, které jsou pro něj
-      vyhrazeny.
+      začátečním a konečným datem, jsou uvedeny níže. Nástěnka agreguje příspěvky
+      jak z domácí wiki tohoto programu, tak i ze všech dalších wiki, které jsou pro
+      něj vyhrazeny.
     deleted: (smazáno)
     edited: Editované články
     edited_by: 'Editoval:'
@@ -251,8 +262,8 @@ cs:
       ano, napište název kurzu do pole níže.
     confirm_course_deletion_failed: „%{title}“ není správný název kurzu. Kurz nebyl
       odstraněn.
-    confirm_manual_update: Opravdu chcete spusti ruční update? Nejnovější revize bude
-      importována a stránka se poté znovu načte. To zabere nějaký čas.
+    confirm_manual_update: Opravdu chcete spustit manuální aktualizaci? Nejnovější
+      revize bude importována a stránka se poté znovu načte. To zabere nějaký čas.
     course: Kurz
     course_dates_calendar_instructions: Vyberte data, která chcete přidat či odstranit
       z časového plánu (např. prázdniny, období bez výuky). Kliknutím na datum můžete
@@ -284,6 +295,8 @@ cs:
         kurzu upravit? Upravte to nyní.
       course_description: Popis kurzu
       course_language: Domovský jazyk
+      course_private: Soukromý program (prohlížet ho mohou jen administrátoři nebo
+        facilitátoři)
       course_project: Domácí projekt
       course_school: Kurzová instituce
       course_subject: Předmět kurzu
@@ -303,11 +316,20 @@ cs:
         tlačítka "Vytvořit kurz!" budete moci začít vytvářet svůj časový plán svého
         úkolu.
       no_class_holidays: Třída nemá prázdniny
+      role_description: Vaše role v kurzu
       role_description_placeholder: Instruktor, asistent vyučujícího, atd.
+      separate_event_dates: Specifikujte čas začátku a konce události
+      separate_event_dates_info: Statistika aktivit pro tento program bude sledována
+        na základě výše uvedených dat a časů, ale můžete zadat oddělené časy začátku
+        a konce události nebo programu (například tak, aby účastníci věděli, kdy se
+        mají ukázat nebo kdy se místo konání zavírá).
       save_cloned_course: Uložit nový kurz
       start_date: Datum zahájení
       start_date_placeholder: Datum zahájení (RRRR-MM-DD)
       subject: Předmět
+      update_scheduled: Aktualizace byla naplánována. Data budou aktualizována společně
+        se všemi současnými programy během dalšího aktualizačního cyklu. To běžně
+        zabere několik hodin.
     current: Aktuální kurzy
     data_articles: Data o článcích
     data_download_info: Stáhnout data ve formátu CSV.
@@ -440,6 +462,7 @@ cs:
     submitted: Odevzdáno
     term: Semestr
     timeline: Detaily zadání
+    timeline_enabled: Rozvrh je aktivován
     timeline_link: Časová osa
     time_zone_message: Časy začátku a konce jsou zobrazeny podle vašeho časového pásma.
     title: Název
@@ -453,6 +476,8 @@ cs:
     update_stats: Aktualizace statistik
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
+    user_suggestions: 'Uživatelův návrh:'
+    user_suggestions_prompt: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy
     view: Zobrazit kurz
     view_doc: Součet všech návštěv článků editovaných účastníky tohoto kurzu (počítáno
@@ -509,6 +534,7 @@ cs:
       create_label: Vytvořit nový projekt
       create_new: Vytvořit nezávislý projekt
       create_short: Vytvořit projekt
+      end_date: Ukončení sledování aktivity
       find: Najít projekt
       intro: Instituce a název programu tvoří URL programu. Domácí wiki je hlavní
         Wikipedií, kde budou účastníci přispívat a z této wiki budou také ve výchozím
@@ -520,8 +546,10 @@ cs:
         zkopírování jiného programu, kterého jste se zúčastnil(a).
       participate_in_campaign: Účastněte se programu
       save_cloned_course: Uložit
+      start_date: Zahájení sledování aktivity
     delete_course: Odstranit projekt
     edit_course_dates: Upravit data projektu
+    end: Konec sledování aktivity
     enroll: Přidat editora
     enrollment: Účastníci
     explore: Aktuální projekty
@@ -539,6 +567,7 @@ cs:
     revisions_none: Tento projekt nemá nedávnou editační aktivitu.
     school: Instituce
     school_and_term: Instituce/kdy
+    start: Začátek sledování aktivity
     student_editors: Editoři
     students: Editoři
     students_taught: Celkový počet editorů
@@ -564,6 +593,9 @@ cs:
     rename_confirmation: Vlastnosti kurzu, které ovlivňují podobu URL, se změnily.
       Toto rozbije veškeré sem mířící odkazy. Jste si jist, že toto chcete udělat?
   metrics:
+    label: Aktivity kurzu
+    last_update: Poslední aktualizace statistik
+    next_update: Další předpokládaná aktualizace
     activity: Nedávná aktivita
     are_trained: účastníků projektu
     articles_created: Vytvořené stránky
@@ -628,6 +660,7 @@ cs:
     time_doc: Čas každé revize v místním čase
     title: Název
     view_on_wiki: Zobrazit rozdíly na wiki
+    see_more: Zobrazit více
   suggestions:
     editing: Návrhy k editaci
     suggestion_docs:
@@ -661,7 +694,7 @@ cs:
     move_block_up: Přesunout blok nahoru
     no_timeline: Tento kurz nemá svůj harmonogram.
     no_activity_this_week: Žádné plánované setkání tento týden
-    nothing_this_week: Pro tento týden není naplánována žádná akce.
+    nothing_this_week: Na tento týden není naplánována žádná akce.
     save_all_changes: Uložit vše
     this_week_title_default: Tento týden
     title: Časová osa
@@ -702,6 +735,7 @@ cs:
     contributions: Příspěvky uživatele
     contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
     contributions_more: Zobrazit více Příspěvků
+    contribution_statistics: Statistika příspěvků
     course_passcode: 'Heslo:'
     editors: Studenti
     edits_by: 'Editace uživatele:'
@@ -739,6 +773,7 @@ cs:
     useremail_placeholder: E-mail
     userpasscode_placeholder: Heslo
     role:
+      description: Role v kurzu
       visitor: Návštěvník
       student: Student
       instructor: Instruktor
@@ -746,6 +781,10 @@ cs:
       online_volunteer: Online dobrovolník
       wiki_ed_staff: Wiki Ed personál
   user_profiles:
+    student_impact: Celkový vliv uživatele %{username} jako studenta
+    instructor_impact: Celkový vliv %{username} jako instruktora
+    instructors_student_impact: Celkový vliv studentů uživatele %{username}
+    disclaimer: Informace, které poskytnete, budou veřejně dostupné.
     bio_placeholder: Přidejte informace o sobě (volitelné)
     location_placeholder: Přidejte informace, odkud jste (volitelné)
     institution_placeholder: Název vaší instituce (volitelný)
@@ -770,9 +809,9 @@ cs:
   error_401:
     header: Nepovoleno. >:-(
     explanation: Nemáte dostatečná práva pro spuštění tohoto požadavku. Pokud jste
-      přesvědčeni, že chyba není na Vaší straně, prosím, kontaktujte správce této
+      přesvědčeni, že chyba není na vaší straně, prosím, kontaktujte správce této
       nástěnky a sdělte jim, k čemu konkrétně došlo.
-    json_explanation: Nejspíše jste se odhlásili. Obnovte prosím stránku a přihlašte
+    json_explanation: Nejspíše jste se odhlásili. Obnovte prosím stránku a přihlaste
       se znovu.
   error_incorrect_passcode:
     header: Nesprávné heslo. :-(
@@ -801,5 +840,5 @@ cs:
   feedback_form_responses:
     no_responses: Zatím zde není žádná zpětná vazba.
   wiki_api:
-    create_account_reason: Tento uživatel se zúčastňuje v %{event}.
+    create_account_reason: Tento uživatel se účastní %{event}.
 ...

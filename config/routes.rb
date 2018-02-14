@@ -165,6 +165,7 @@ Rails.application.routes.draw do
       put 'remove_course'
     end
   end
+
   get 'campaigns/:slug.json',
       controller: :campaigns,
       action: :show

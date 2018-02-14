@@ -54,7 +54,7 @@ describe 'Surveys', type: :feature, js: true do
       q_radio.save!
 
       # Q4
-      q_long = create(:q_long, question_group_id: question_group.id)
+      create(:q_long, question_group_id: question_group.id)
 
       # Q5
       q_select = create(:q_select, question_group_id: question_group.id)

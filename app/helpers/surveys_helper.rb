@@ -101,7 +101,7 @@ module SurveysHelper
   end
 
   def question_form_has_follow_up_question(question_form)
-    !question_form.follow_up_question_text.nil? && !question_form.follow_up_question_text.empty?
+    question_form.follow_up_question_text.present?
   end
 
   def conditional_string(answer)

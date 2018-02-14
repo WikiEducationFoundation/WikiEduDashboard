@@ -9,10 +9,12 @@ import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
+import CourseActions from '../../actions/course_actions.js';
 
 const getState = () => ({ course: CourseStore.getCourse() });
 
@@ -64,10 +66,13 @@ const AvailableActions = createReactClass({
   },
 
   leave() {
-    if (confirm(I18n.t('courses.leave_confirmation'))) {
-      const userObject = { user_id: this.props.current_user.id, role: 0 };
-      return ServerActions.remove('user', this.state.course.slug, { user: userObject });
-    }
+    const course = this.state.course.slug;
+    const currentUserId = this.props.current_user.id;
+    const onConfirm = function () {
+      return ServerActions.remove('user', course, { user: { user_id: currentUserId, role: 0 } });
+    };
+    const confirmMessage = I18n.t('courses.leave_confirmation');
+    this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   delete() {
@@ -84,16 +89,29 @@ const AvailableActions = createReactClass({
   },
 
   enableChat() {
-    if (confirm('Are you sure you want to enable chat?')) {
-      return ChatActions.enableForCourse(this.state.course.id);
-    }
+    const course = this.state.course.id;
+    const onConfirm = function () {
+      return ChatActions.enableForCourse(course);
+    };
+    const confirmMessage = 'Are you sure you want to enable chat?';
+    this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   enableRequests() {
-    if (confirm('Are you sure you want to enable the account requests?')) {
-      this.props.enableAccountRequests(this.state.course);
-      return alert(I18n.t('courses.accounts_generation_enabled'));
-    }
+    const enableRequests = this.props.enableAccountRequests;
+    const notify = this.props.addNotification;
+    const course = this.state.course;
+    const onConfirm = function () {
+      enableRequests(course);
+      CourseActions.updateCourse(course);
+      notify({
+        message: I18n.t('courses.accounts_generation_enabled'),
+        closable: true,
+        type: 'success'
+      });
+    };
+    const confirmMessage = I18n.t('courses.accounts_generation_confirm_message');
+    this.props.initiateConfirm(confirmMessage, onConfirm);
   },
 
   render() {
@@ -193,6 +211,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm, enableAccountRequests };
+const mapDispatchToProps = { initiateConfirm, addNotification, enableAccountRequests };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

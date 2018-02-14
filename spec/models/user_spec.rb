@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -24,6 +23,7 @@
 #  chat_password       :string(255)
 #  chat_id             :string(255)
 #  registered_at       :datetime
+#  first_login         :datetime
 #
 
 require 'rails_helper'
