@@ -4,7 +4,7 @@
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
-  include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
+  include Errors::RescueDevelopmentErrors if Rails.env.development? || Rails.env.test?
   include Errors::RescueErrors
   include Errors::AuthenticationErrors
   # Prevent CSRF attacks by raising an exception.

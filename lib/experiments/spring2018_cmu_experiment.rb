@@ -77,7 +77,7 @@ class Spring2018CmuExperiment
     first_instructor = @course.instructors.first
     Spring2018CmuExperimentMailer.send_invitation(@course, first_instructor, email_code)
     update_status('email_sent', email_just_sent: true, email_code: email_code)
-    sleep 2 unless Rails.env == 'test' # pause to avoid email rate-limiting
+    sleep 2 unless Rails.env.test? # pause to avoid email rate-limiting
   end
 
   def invited_over_a_week_ago?
@@ -91,7 +91,7 @@ class Spring2018CmuExperiment
     Spring2018CmuExperimentMailer.send_invitation(@course, first_instructor, email_code,
                                                   reminder: true)
     update_status('reminder_sent', reminder_just_sent: true)
-    sleep 2 unless Rails.env == 'test' # pause to avoid email rate-limiting
+    sleep 2 unless Rails.env.test? # pause to avoid email rate-limiting
   end
 
   TRAINING_MAP = {
