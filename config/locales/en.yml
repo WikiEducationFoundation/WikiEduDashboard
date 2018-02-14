@@ -61,7 +61,7 @@ en:
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia
-    sign_up_wikipedia: Or sign up at Wikipedia
+    sign_up_wikipedia: Or sign up on Wikipedia
 
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
