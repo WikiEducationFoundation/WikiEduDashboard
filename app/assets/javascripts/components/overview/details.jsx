@@ -247,12 +247,14 @@ const Details = createReactClass({
           editable={this.props.editable}
         />
       );
-      privacySelector = (
-        <PrivacySelector
-          course={this.props.course}
-          editable={this.props.editable}
-        />
-      );
+      if (!Features.wikiEd) {
+        privacySelector = (
+          <PrivacySelector
+            course={this.props.course}
+            editable={this.props.editable}
+          />
+        );
+      }
     }
 
     // Users who can rename a course are also allowed to change the type.
