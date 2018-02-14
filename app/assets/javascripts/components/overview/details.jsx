@@ -13,6 +13,7 @@ import CampaignList from './campaign_list.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
+import PrivacySelector from './privacy_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 
@@ -216,6 +217,7 @@ const Details = createReactClass({
     let tags;
     let courseTypeSelector;
     let submittedSelector;
+    let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
     if (this.props.current_user.admin) {
@@ -241,6 +243,12 @@ const Details = createReactClass({
       );
       submittedSelector = (
         <SubmittedSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+      privacySelector = (
+        <PrivacySelector
           course={this.props.course}
           editable={this.props.editable}
         />
@@ -326,6 +334,7 @@ const Details = createReactClass({
           {tags}
           {courseTypeSelector}
           {submittedSelector}
+          {privacySelector}
           {timelineToggle}
         </div>
       </div>
