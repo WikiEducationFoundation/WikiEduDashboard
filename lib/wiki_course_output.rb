@@ -107,7 +107,7 @@ class WikiCourseOutput
 
     header_output += "{{#{template_name(@templates, 'start_of_week')}"
     meeting_dates = @course_meetings_manager.meeting_dates_of(week).map(&:to_s)
-    header_output += '|' + meeting_dates.join('|') unless meeting_dates.blank?
+    header_output += '|' + meeting_dates.join('|') if meeting_dates.present?
     header_output += "}}\r"
     header_output
   end

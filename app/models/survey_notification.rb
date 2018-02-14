@@ -92,6 +92,6 @@ class SurveyNotification < ActiveRecord::Base
   end
 
   def last_email_sent_at
-    last_follow_up_sent_at.present? ? last_follow_up_sent_at : email_sent_at
+    last_follow_up_sent_at.presence || email_sent_at
   end
 end

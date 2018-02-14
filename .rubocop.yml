@@ -73,6 +73,8 @@ Naming/VariableNumber:
   Enabled: false # Not very helpful, and conflicts with wp10-related names
 Rails/Blank:
   Enabled: false # Sometimes unless foo.present? is more expressive.
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false # These get removed whenever 'annotate' updates a file anyway.
 
 ########################
 # Temporary exceptions #
@@ -88,21 +90,11 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
-Rails/DynamicFindBy:
-  Enabled: false
 Rails/PluralizationGrammar:
-  Enabled: false
-Layout/MultilineBlockLayout:
-  Enabled: false
-Lint/UselessAssignment:
   Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
 Rails/EnvironmentComparison:
-  Enabled: false
-Rails/Present:
-  Enabled: false
-Rails/Presence:
   Enabled: false
 Rails/OutputSafety:
   Enabled: false
@@ -112,8 +104,6 @@ Style/BlockDelimiters:
   Enabled: false
 Performance/UnfreezeString:
   Enabled: false
-Style/RescueStandardError:
-  Enabled: false
 Lint/BlockAlignment:
   Enabled: false
 Style/GuardClause:
@@ -121,8 +111,6 @@ Style/GuardClause:
 Naming/AccessorMethodName:
   Enabled: false
 Style/RedundantSelf:
-  Enabled: false
-Layout/EmptyLinesAroundClassBody:
   Enabled: false
 Rails/ApplicationRecord:
   Enabled: false
@@ -146,17 +134,9 @@ Rails/FindBy:
   Enabled: false
 Rails/FindEach:
   Enabled: false
-Lint/MissingCopEnableDirective:
-  Enabled: false
 Layout/IndentHeredoc:
-  Enabled: false
-Style/RegexpLiteral:
   Enabled: false
 Rails/Output:
   Enabled: false
 Lint/DuplicateMethods:
-  Enabled: false
-Style/PercentLiteralDelimiters:
-  Enabled: false
-Style/ConditionalAssignment:
   Enabled: false
