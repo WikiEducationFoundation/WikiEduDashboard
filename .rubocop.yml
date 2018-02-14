@@ -94,8 +94,6 @@ Rails/DynamicFindBy:
   Enabled: false
 Rails/PluralizationGrammar:
   Enabled: false
-Layout/MultilineBlockLayout:
-  Enabled: false
 Lint/UnneededDisable:
   Enabled: false
 Rails/SkipsModelValidations:
