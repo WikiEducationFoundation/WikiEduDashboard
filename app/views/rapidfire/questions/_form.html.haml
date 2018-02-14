@@ -64,9 +64,9 @@
           = f.check_box :multiple
         %div{"data-question-type-options" => "Radio,Checkbox,Select"}
           %label
-            <input type='checkbox' #{has_course_data(@question_form) ? "checked" : ""} data-course-data-populate-checkbox />
+            <input type='checkbox' #{course_data(@question_form) ? "checked" : ""} data-course-data-populate-checkbox />
             Populate Answer Options with Course Data
-        %div{:class => has_course_data(@question_form) ? '' : 'hidden', "data-question-type-field" => "course_data"}
+        %div{:class => course_data(@question_form) ? '' : 'hidden', "data-question-type-field" => "course_data"}
           .survey__question__option-row
             = f.select :course_data_type, COURSE_DATA_ANSWER_TYPES, :data => {:chosen_select => true}, :prompt => "Select type of course data"
           .survey__question__option-row{"data-question-type-options" => "Select"}
