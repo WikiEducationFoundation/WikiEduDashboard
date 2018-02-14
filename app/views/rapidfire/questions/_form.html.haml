@@ -54,7 +54,7 @@
           .survey__question__option-row
             = f.label :answer_range_format
             = f.text_field :answer_range_format
-        %div{:class => (has_course_data(@question_form) ? 'hidden' : ''), "data-answer-options" => "", "data-question-type-options" => "Select,Radio,Checkbox", "data-question-type-options-hide-if" => "course_data,RangeInput"}
+        %div{:class => (course_data(@question_form) ? 'hidden' : ''), "data-answer-options" => "", "data-question-type-options" => "Select,Radio,Checkbox", "data-question-type-options-hide-if" => "course_data,RangeInput"}
           = f.label :answer_options
           \&nbsp;(Separate options with new line)
           %br/
