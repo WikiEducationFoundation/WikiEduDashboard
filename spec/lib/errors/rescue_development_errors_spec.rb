@@ -14,7 +14,7 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
         # First we raise a standard error to set the original error, which
         # is needed by ActionView::Template::Error
         raise StandardError, error_message
-      rescue
+      rescue StandardError
         # Then we raise the actual template error, which takes a template path
         # as its argument and pulls the original error object from $!
         raise ActionView::Template::Error, 'app/views/layouts/application.html.haml'
