@@ -118,8 +118,6 @@ Naming/AccessorMethodName:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
-Layout/EmptyLinesAroundClassBody:
-  Enabled: false
 Rails/ApplicationRecord:
   Enabled: false
 Rails/HasManyOrHasOneDependent:
