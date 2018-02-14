@@ -110,8 +110,6 @@ Style/BlockDelimiters:
   Enabled: false
 Performance/UnfreezeString:
   Enabled: false
-Style/RescueStandardError:
-  Enabled: false
 Lint/BlockAlignment:
   Enabled: false
 Style/GuardClause:

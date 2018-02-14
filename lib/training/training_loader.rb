@@ -133,7 +133,7 @@ class TrainingLoader
     response = WikiApi.new(MetaWiki.new).query(query_params)
     begin
       response.data['pages'].values[0]['links'].map { |page| page['title'] }
-    rescue
+    rescue StandardError
       raise InvalidWikiContentError, "could not get links from '#{@wiki_base_page}'"
     end
   end
