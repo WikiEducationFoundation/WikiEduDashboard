@@ -144,5 +144,3 @@ Rails/Output:
   Enabled: false
 Lint/DuplicateMethods:
   Enabled: false
-Style/ConditionalAssignment:
-  Enabled: false
