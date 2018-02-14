@@ -239,7 +239,7 @@ pt:
   chat:
     label: Conversação
   courses:
-    accounts_generation_enabled: Geração de solicitação de contas ativada
+    accounts_generation_enabled: Geração de pedidos de contas ativada
     activity: Atividade
     active_courses: '%{course_type} ativos'
     all_courses: Todos os cursos
@@ -436,11 +436,11 @@ pt:
     new_account_email: Endereço de correio eletrónico
     new_account_email_placeholder: nome@exemplo.org
     new_account_info: Para solicitar uma conta, introduza o seu endereço de correio
-      eletrónico e o seu nome de utilizador desejado. Uma palavra-passe será enviada
-      no seu correio eletrónico, uma vez que a conta tenha sido criada.
+      eletrónico e o seu nome de utilizador desejado. Quando a conta tiver sido criada
+      ser-lhe-á enviada uma palavra-passe por correio eletrónico.
     new_account_info_admin: Para solicitar uma conta de aluno, introduza o correio
-      eletrónico e o nome de utilizador desejado. Uma palavra-passe será enviada por
-      correio eletrónico, uma vez que a conta tenha sido criada.
+      eletrónico e o nome de utilizador desejado. Quando a conta tiver sido criada
+      será enviada uma palavra-passe ao aluno por correio eletrónico.
     new_account_username: Nome de utilizador solicitado
     new_account_username_invalid: Este não é um nome de utilizador válido.
     new_account_username_placeholder: Editor Wiki 123
@@ -448,11 +448,11 @@ pt:
       outro nome de utilizador, por favor.
     new_account_submit: Pedir conta
     new_account_submitted: O seu pedido de conta foi enviado. O Facilitador deste
-      programa agora pode concluir a criação da sua conta. Uma vez criada, receberá
+      programa pode concluir agora a criação da sua conta. Uma vez criada, receberá
       uma palavra-passe para a nova conta através do correio eletrónico.
-    new_account_submitted_admin: O seu pedido de conta foi criado. Informe os seus
-      alunos para que verifiquem a sua caixa de entrada do correio eletrónico para
-      obter a sua nova palavra-passe
+    new_account_submitted_admin: O seu pedido de conta foi criado. Solicite aos seus
+      alunos que verifiquem a caixa de entrada do correio para obterem a palavra-passe
+      nova
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
@@ -885,7 +885,7 @@ pt:
       other: '%{count} artigos'
     recent_revisions: Edições recentes
     remove_confirmation: Tem a certeza de que pretende remover %{username}?
-    request_confirmation: Tem a certeza de que deseja solicitar estas contas?
+    request_confirmation: Tem a certeza de que deseja pedir esta conta?
     revision_characters_and_views: 'Os caracteres foram acrescentados: %{characters},
       Visitas: %{views}'
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias

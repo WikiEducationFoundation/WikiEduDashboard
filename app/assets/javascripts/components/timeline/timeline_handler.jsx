@@ -12,7 +12,6 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import TimelineActions from '../../actions/timeline_actions.js';
 
-import CourseStore from '../../stores/course_store.js';
 import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
 import GradeableStore from '../../stores/gradeable_store.js';
@@ -25,8 +24,7 @@ const getState = () =>
     blocks: BlockStore.getBlocks(),
     gradeables: GradeableStore.getGradeables(),
     all_training_modules: TrainingStore.getAllModules(),
-    editable_block_ids: BlockStore.getEditableBlockIds(),
-    course: CourseStore.getCourse()
+    editable_block_ids: BlockStore.getEditableBlockIds()
   })
 ;
 
@@ -35,7 +33,7 @@ const TimelineHandler = createReactClass({
 
   propTypes: {
     course_id: PropTypes.string,
-    course: PropTypes.object,
+    course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     children: PropTypes.node,
     controls: PropTypes.func,
@@ -144,4 +142,4 @@ const TimelineHandler = createReactClass({
   }
 });
 
-export default Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);
+export default Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);

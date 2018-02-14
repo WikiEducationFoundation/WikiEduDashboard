@@ -175,7 +175,7 @@ class CoursesController < ApplicationController
 
   def slug_from_params(course = params[:course])
     slug = +"#{course[:school]}/#{course[:title]}"
-    slug << "_(#{course[:term]})" unless course[:term].blank?
+    slug << "_(#{course[:term]})" if course[:term].present?
 
     course[:slug] = slug.tr(' ', '_')
   end

@@ -25,6 +25,6 @@ class RevisionFeedbackController < ApplicationController
     revisions = page.dig(page_id, 'revisions')
 
     # The API sends a response with the id of the last revision
-    @rev_id = revisions[0]['revid'] unless revisions.blank?
+    @rev_id = revisions[0]['revid'] if revisions.present?
   end
 end

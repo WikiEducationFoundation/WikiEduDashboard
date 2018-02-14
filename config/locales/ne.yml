@@ -11,6 +11,7 @@ ne:
       बढाउने या घटाउने कार्य गर्दछ।
   application:
     cancel: रद्द गर्नुहोस्
+    create_accounts: विकिपिडिया खाताहरू सिर्जना गर्नुहोस्
     dashboard: विकी एड ड्यासबोर्ड
     documentation: मिसिलिकरण
     error: 'त्रुटी भयो:'
@@ -40,6 +41,8 @@ ne:
     change: परिवर्तन गर्नुहोस्
     details: विवरण
     confirm: ठीक छ
+    opt_in: हो
+    opt_out: होइन
   dashboard:
     create_note: तपाईँको पाठ्यक्रम सुरु गर्न पाठ्यक्रम निर्माण गर्नुहोस्‍मा क्लिक
       गर्नुहोस्।
@@ -72,10 +75,12 @@ ne:
     assigned: निर्दिष्ट गरिएका लेखहरू
     available: उपलब्ध लेखहरू
     assigned_to: निर्दिष्ट गरिएको
+    deleted: (मेटाइयो)
     edited: सम्पादन गरिएका लेखहरू
     edited_by: 'सम्पादनकर्ता:'
     edited_mobile: लेखहरू
     hide: लुकाउनुहोस्
+    history: (इतिहास)
     label: लेखहरू
     loading: लेखहरू खोल्दै...
     new: (नयाँ)
@@ -153,11 +158,21 @@ ne:
     create_my_campaign: मेरो अभियान बनाउनुहोस्!
     description: वर्णन
     delete_campaign: यो अभियान मेट्नुहोस्
+    no_passcode: कुनै पनि पासकोड छैन
     none: कुनै पनि होइन
     organizers: आयोजकहरू
     program_template: कार्यक्रम टेम्पलेट
     title: शीर्षक
     use_start_end_dates: शुरू र समाप्ति मितिहरू प्रयोग गर्नुहोस्
+  categories:
+    add_category: श्रेणी थप्नुहोस्
+    add_template: ढाँचा थप्नुहोस्
+    add_this_category: यस श्रेणी थप्नुहोस्
+    add_this_template: यस ढाँचा थप्नुहोस्
+    name: नाम
+    category_name: श्रेणीको नाम
+    template_name: टेम्प्लेट नाम
+    remove: हटाउनुहोस्
   chat:
     label: च्याट
   courses:
@@ -269,6 +284,8 @@ ne:
     my_articles: मेरा लेखहरू
     needs_update: डेटा अद्यावधि मिति तय गर्नुहोस्
     new_week: नयाँ साता थप्नुहोस्
+    new_account_email: इमेल ठेगाना
+    new_account_email_placeholder: name@example.org
     nocourse: कुनै पनि पाठ्यक्रममा भाग लिएको छैन।
     none: कुनै पनि होइन
     no_available_actions: कुनै पनि काम बाँकी छैन
@@ -276,6 +293,7 @@ ne:
     passcode: 'पासकोड:'
     passcode_none: कुनै पनि पासकोड छैन
     passcode_prompt: सामेल हुन पासकोड थप्नुहोस्
+    requested_accounts: अनुरोध गरिएका खाताहरू
     school: विद्यालय
     school_and_term: संस्था/सत्र
     start: सुरु गर्नुहोस्
@@ -294,11 +312,13 @@ ne:
     submitted: पेश गरिएको
     term: सत्र
     timeline: असाइन्मेन्ट जानकारी
+    timeline_enabled: समयरेखा सक्षम पारिएको
     timeline_link: समयरेखा
     title: शीर्षक
     training_nav: तालिममा जानुहोस्
     unsubmitted: नबुझाइएका पाठ्यक्रमहरू
     untrained: तालिम नलिइएको
+    update_stats: तथ्याङ्क अद्यावधिक गर्नुहोस्
     user_suggestions: 'प्रयोगकर्ता सुझावहरू:'
     view_other: अन्य अभियानहरू हेर्नुहोस्
     view: पाठ्यक्रम हेर्नुहोस्
@@ -314,8 +334,8 @@ ne:
   courses_generic:
     all_courses: सबै कार्यक्रमहरू
     archived: अभिलेखमा राखिएको कार्यक्रम
-    assignment_end: समयरेखा अन्त
-    assignment_start: समय रेखा सुरु
+    assignment_end: कार्यक्रम अन्त
+    assignment_start: कार्यक्रम सुरु
     cancel: रद्द गर्नुहोस्
     course: कार्यक्रम
     courses: कार्यक्रम
@@ -323,6 +343,10 @@ ne:
     campaigns: 'अभियानहरू:'
     campaign_courses: '%{title} कार्यक्रमहरू'
     creator:
+      assignment_end: कार्यक्रम अन्त
+      assignment_end_placeholder: कार्यक्रम अन्त (YYYY-MM-DD)
+      assignment_start: कार्यक्रम सुरु
+      assignment_start_placeholder: कार्यक्रम सुरु (YYYY-MM-DD)
       checking_for_uniqueness: यो कार्यक्रम नौलोपनको लागि जाँच गरिँदै छ।
       choose_clone: प्रतिलिपि बनाउनको लगि कुनै कार्यक्रम छान्नुहोस्।
       clone_previous: यो भन्दा अगिको कार्यक्रम प्रतिलिपी गर्नुहोस्
@@ -377,7 +401,8 @@ ne:
     edit_template: ढाँचा सम्पादन गर्नुहोस्
   metrics:
     label: पाठ्यक्रम गतिविधिहरू
-    last_update: अन्तिम अद्यावधि
+    last_update: अन्तिम तथ्याङ्क अद्यावधि
+    next_update: अब अर्को अनुमानित अद्यावधि
     activity: हालको कृयाकलाप
     are_trained: तालिममा समय अनुरूप रहेका छन्
     articles_created: सिर्जना गरिएका लेखहरू
@@ -476,8 +501,15 @@ ne:
     continue: (%{progress}) जारी राख्नुहोस्
     start: सुरु गर्नुहोस्
     view: अवलोकन गर्ने
+    next: अर्को पृष्ठ
+    page: पृष्ठ
+    table_of_contents: विषयसूची
+    training_library: तालिम पुस्तकालय
     logged_out: तपाईँ लग आउट हुनुभयो। You will not receive credit for completing this
       module unless you log in.
+    done: सकियो!
+    check_answer: उत्तरको जाँच
+    included_modules: समावेस मोड्युलहरू
   uploads:
     datetime: मिति/समय
     file_name: फाइल नाम
@@ -518,6 +550,8 @@ ne:
     up_to_date_with_training: तालिममा अद्यावधिक
     username: प्रयोगकर्ताको नाम
     username_placeholder: प्रयोगकर्ताको नाम
+    useremail_placeholder: इमेल
+    userpasscode_placeholder: पासकोड
     role:
       visitor: भ्रमणकर्ता
       student: विद्यार्थी
