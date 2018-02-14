@@ -18,7 +18,7 @@ class RevisionFeedbackService
   MINIMUM_REFERENCES = 1
   def citation_feedback
     ref_tags = @features['feature.wikitext.revision.ref_tags']
-    cite_templates = @features['feature.enwiki.revision.cite_templates']
+    # cite_templates = @features['feature.enwiki.revision.cite_templates']
     if ref_tags < MINIMUM_REFERENCES
       @feedback << 'Cite your sources! This article needs more references.'
     end

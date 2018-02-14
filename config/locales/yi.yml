@@ -69,6 +69,8 @@ yi:
     school: אנשטאלט
     student_editors: רעדאקטארן
     students_short: רעדאקטארן
+  metrics:
+    tags: טאַגן
   timeline:
     block_milestone: מיילן־שטיין
   users:

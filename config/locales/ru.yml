@@ -249,6 +249,9 @@ ru:
     loading: Загрузка…
     my_articles: Мои статьи
     new_week: Добавить новую неделю
+    new_account_check_username: Проверить доступность имени пользователя
+    new_account_email: Адрес электронной почты
+    new_account_username_invalid: Введено недействительное имя пользователя.
     nocourses: Вы не участвуете ни в одном курсе.
     nocourse: не участвовал в каких-либо курсах.
     overview: Обзор
@@ -416,6 +419,7 @@ ru:
     name: Имя
     none: Нет участников.
     recent_revisions: Последние правки
+    request_confirmation: Вы уверены, что хотите запросить эту учетную запись?
     revisions_doc: Количество правок, сделанных этим участником в последние 7 дней
     reviewers: Проверяющий(е)
     reviewing: Проверка
@@ -428,6 +432,7 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    useremail_placeholder: Эл. почта
     role:
       visitor: Посетитель
       student: Студент
@@ -480,4 +485,6 @@ ru:
       closing: С уважением,
       signed: '- Команда Wiki Ed'
       link: Принять участие в опросе
+  wiki_api:
+    create_account_reason: Этот пользователь учавствует в %{event}.
 ...

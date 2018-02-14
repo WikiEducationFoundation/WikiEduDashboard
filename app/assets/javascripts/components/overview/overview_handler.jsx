@@ -135,7 +135,8 @@ const Overview = createReactClass({
 );
 
 const mapStateToProps = state => ({
-  students: getStudentUsers(state)
+  students: getStudentUsers(state),
+  campaigns: state.campaigns.campaigns
  });
 
 

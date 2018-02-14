@@ -202,12 +202,19 @@ lb:
     loading: Lueden...
     my_articles: Meng Artikelen
     new_week: Nei Woch debäisetzen
+    new_account_email: E-Mail-Adress
+    new_account_email_placeholder: numm@beispill.org
+    new_account_username: Ugefrote Benotzernumm
+    new_account_username_invalid: Dëst ass kee valabele Benotzernumm.
+    new_account_username_placeholder: Wiki Editeur 123
+    new_account_submit: Benotzerkont ufroen
     nocourses: Dir maacht bei kengem Cours mat.
     nocourse: huet bei kengem Cours matgemaach.
     none: Keng
     no_available_actions: Keng disponibel Aktiounen
     ores_plot: ORES
     overview: Haaptsäit
+    requested_accounts: Ugefrot Benotzerkonten
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
     school_and_term: Institutioun/Dauer
@@ -273,6 +280,7 @@ lb:
     enrollment: Participatioun
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
+    request_accounts: Benotzerkonten ufroen
     school: Institutioun
     school_and_term: Institiutioun/Wéini
     students_short: Auteuren
@@ -404,6 +412,7 @@ lb:
       other: '%{count} Artikelen'
     recent_revisions: Rezent Ännerungen
     remove_confirmation: Sidd Dir sécher datt Dir %{username} ewechhuele wëllt?
+    request_confirmation: Sidd Dir sécher datt Dir dëse Benotzerkont ufroe wëllt?
     training_complete:
       one: huet d'Formatioun ofgeschloss
       other: hunn d'Formatioun ofgeschloss
@@ -412,6 +421,7 @@ lb:
     training_module_status: Status
     username: Benotzernumm
     username_placeholder: Benotzernumm
+    useremail_placeholder: E-Mail
     role:
       visitor: Visiteur
       student: Student

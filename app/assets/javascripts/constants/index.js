@@ -1,5 +1,6 @@
 export * from "./api";
 export * from "./article_details";
+export * from "./campaigns";
 export * from "./categories";
 export * from "./chat";
 export * from "./confirm";

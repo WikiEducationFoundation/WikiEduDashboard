@@ -7,6 +7,7 @@
 # Author: Milicevic01
 # Author: Neboysha87
 # Author: Obsuser
+# Author: Prevodim
 # Author: Srdjan m
 # Author: Милан Јелисавчић
 # Author: Сербијана
@@ -316,6 +317,8 @@ sr-ec:
     my_articles: Моји чланци
     needs_update: Закажи ажурирање података
     new_week: Додај нову недељу
+    new_account_email: Имејл адреса
+    new_account_username: Жељено корисничко име
     nocourses: Не учествујете ни у једном курсу.
     nocourse: није учествовао ни у једном курсу.
     none: Нема
@@ -651,6 +654,7 @@ sr-ec:
     up_to_date_with_training: су ажурни са тренинзима
     username: Корисничко име
     username_placeholder: Корисничко име
+    useremail_placeholder: Имејл
     role:
       visitor: Посетилац
       student: Студент

@@ -15,10 +15,11 @@ ca:
     number_field: Això és un camp numèric. Els botons mostrats al costat poden incrementar
       o decréixer el valor introduït.
   application:
-    cancel: Cancel·lar
-    dashboard: Wiki Ed Tauler De Control
+    cancel: Cancel·la
+    create_accounts: Crea comptes de la Viquipèdia
+    dashboard: Tauler de control de Wiki Ed
     documentation: Documentació
-    error: 'Hi ha hagut un error:'
+    error: 'S’ha produït un error:'
     explore: Exploreu!
     field_required: Aquest camp és obligatori
     field_invalid_characters: Aquest camp té caràcters nuls
@@ -69,7 +70,7 @@ ca:
   home:
     explore: Exploreu!
     log_in: Inicia la sessió amb la Viquipèdia
-    sign_up: Registrat amb la Viquipèdia
+    sign_up: Registreu-vos amb la Viquipèdia
     sign_up_help: Per utilitzar el tauler de control, cal iniciar la sessió a la Viquipèdia
       i donar-li permís per a accedir al teu compte. Es pot iniciar sessió amb un
       altre compte de Viquipèdia, o crear-ne un de nou.
@@ -91,7 +92,7 @@ ca:
     hide: Amaga
     history: (historial)
     label: Articles
-    loading: Carregant articles...
+    loading: S’estan carregant els articles…
     new: (nou)
     none: Aquest curs encara no ha editat cap article
     rating: Classe
@@ -104,6 +105,7 @@ ca:
       fl: Llistes de qualitat
       ga: Article bo
       does_not_exist: Aquest article no existeix a la Viquipèdia
+    show_cumulative_changes: Mostra els canvis acumulats
     show_current_version: Veure la versió actual
     title: Títol
     title_example: Títol de l'Article
@@ -147,28 +149,30 @@ ca:
     all_campaigns: Totes les  Campanyes
     campaign: Campanya
     campaigns: Campanyes
-    campaign_deleted: La campanya "%{de campanya}" ha estat eliminada
+    campaign_deleted: S’ha suprimit la campanya «%{title}»
     campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
-    create_campaign: Crear una nova Campanya
+    create_campaign: Crea una campanya nova
     create_my_campaign: Crear la meva Campanya!
     default_course_type: Tipus de curs per defecte
+    default_passcode: Codi d’accés per defecte
     description: Descripció
-    delete_campaign: Elimina aquesta pàgina
+    delete_campaign: Suprimeix aquesta campanya
     no_passcode: Sense codi d'accés
     none: Cap
     organizers: Organitzadors
     organizer_added: '%{L''usuari} és ara un organitzador de la campanya "%{title}"'
+    random_passcode: un codi d’accés a l’atzar
     title: Títol
     use_start_end_dates: Utilitza les dates inicial i final
   categories:
     add_category: Afegeix una categoria
-    add_template: 'Afegeix una plantilla:'
-    add_this_category: Afegir aquesta categoria
-    add_this_template: Afegir aquesta plantilla
+    add_template: Afegeix una plantilla
+    add_this_category: Afegeix aquesta categoria
+    add_this_template: Afegeix aquesta plantilla
     name: Nom
     category_name: Nom de la categoria
-    template_name: 'Nom de la plantilla:'
+    template_name: Nom de la plantilla
     remove: Elimina
   chat:
     label: Xat
@@ -276,6 +280,7 @@ ca:
       user_exists: Ho sentim, %{username} no és un usuari existent.
       invalid_language_or_project: Idioma o projecte invàlid
     expected_students: Estudiants esperats
+    features_feedback: 'Suggeriments automatitzats:'
     gradeables_none: Aquest curs no té tasques avaluables.
     instructor:
       one: Instructor
@@ -292,6 +297,12 @@ ca:
     milestones_none: Aquest curs actualment no té cap fita.
     my_articles: Els Meus Articles
     new_week: Afegeix una setmana nova
+    new_account_check_username: Comprova la disponibilitat dels noms d’usuari
+    new_account_email: Adreça electrònica
+    new_account_email_placeholder: nom@exemple.org
+    new_account_username: Nom d’usuari sol·licitat
+    new_account_username_invalid: Aquest nom d’usuari no és vàlid.
+    new_account_submit: Sol·licita un compte
     nocourses: No fas cap curs.
     none: Cap
     notify_untrained_confirmation: Aquest missatge és un recordatori per a les pàgines
@@ -303,8 +314,9 @@ ca:
     passcode_none: Sense codi d'accés
     passcode_prompt: Introdueix el codi d'accés que el professor t'ha donat per a
       aquest curs
-    published: 'El teu curs s''ha publicat! Els estudiants s''han d''apuntar al curs
-      a través del següent enllaç:'
+    published: 'S’ha publicat el vostre curs. Els estudiants podran inscriure-s’hi
+      en visitar l’URL següent:'
+    requested_accounts: Comptes sol·licitats
     review_timeline: Si us plau revisa la línia temporal i fes canvis. Una vegada
       estiguis satisfet/a, envia-ho per a que ho aprovi el personal de la Wiki Ed.
       Una vegada aprovat, rebràs un enllaç per a que els estudiants es puguin unir
@@ -356,10 +368,14 @@ ca:
       notification_message: Hi ha una enquesta disponible per a aquest curs
       link: Comença l'enquesta
   courses_generic:
+    all_courses: Tots els programes
+    archived: Programes arxivats
     articles_none: Encara no hi han articles editats en aquest projecte.
-    assignment_end: Final de la línia temporal
+    assignment_end: Final de l’esdeveniment
     assignments_none: Aquest projecte no té articles assignats.
-    assignment_start: Inici de la línia temporal
+    assignment_start: Inici de l’esdeveniment
+    cancel: Cancel·la
+    course: Programa
     courses: Programes
     creator:
       checking_for_uniqueness: Estem revisant si aquest programa és únic.
@@ -385,6 +401,7 @@ ca:
     milestones_none: Actualment aquest projecte no té cap fita.
     published: 'El projecte s''ha publicat! Els editors s''haurien d''apuntar visitant
       el següent enllaç:'
+    request_accounts: Sol·licita els comptes
     revisions_none: El projecte no té activitat d'edició recent.
     school: Institució
     student_editors: Editors
@@ -394,10 +411,14 @@ ca:
     term: Quan
     uploads_none: Aquest projecte encara no ha contribuït amb cap imatge o algun altre
       tipus de fitxer a Wikimedia Commons.
+    yourcourses: Els vostres programes
   editable:
     edit: Modifica
     cancel: Cancel·la
     save: Desa
+    edit_description: Edita la descripció
+    edit_details: Edita els detalls
+    edit_template: Edita la plantilla
   metrics:
     label: Activitat del curs
     last_update: Darrera actualització de les estadístiques
@@ -414,6 +435,7 @@ ca:
     edit_count_description: Edicions totals
     per_user: '%{number}/user'
     revisions: Edicions recents
+    tags: Etiquetes
     upload_count: Càrregues a Wikimedia Commons
     view_count_description: Vistes als articles
     view: Vistes
@@ -449,6 +471,8 @@ ca:
     class: Classe
     date_time: Data/Hora
     diff: dif
+    diff_show: Mostra
+    diff_hide: Amaga
     edited_by: Editat per
     loading: Carregant revisions...
     none: El projecte no té activitat d'edició recent.
@@ -563,6 +587,7 @@ ca:
     no_revisions: Aquest editor no ha fet cap revisió.
     recent_revisions: Edicions recents
     remove_confirmation: Esteu segur que voleu eliminar %{username}?
+    request_confirmation: Esteu segur que voleu sol·licitar aquest compte?
     revisions_doc: El nombre d'edicions realitzades per aquest editor en els últims
       7 dies
     reviewers: Revisor(s)
@@ -573,6 +598,8 @@ ca:
     up_to_date_with_training: esteu al dia amb la formació
     username: Nom d'usuari
     username_placeholder: Nom d'usuari
+    useremail_placeholder: Adreça electrònica
+    userpasscode_placeholder: Codi d’accés
   wiki_edits:
     notify_overdue:
       confirm: Això publicarà un recordatori a les pàgines de discussió de tots els

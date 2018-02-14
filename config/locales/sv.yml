@@ -11,6 +11,7 @@
 sv:
   application:
     cancel: Avbryt
+    create_accounts: Skapa Wikipedia-konton
     documentation: Dokumentation
     error: 'Ett fel uppstod:'
     explore: Utforska
@@ -50,6 +51,7 @@ sv:
     edited_by: Redigerad av
     label: Aktivitet
   articles:
+    article_development: (artikelutveckling)
     assigned: Tilldelade artiklar
     available: Tillgängliga artiklar
     assigned_to: Tilldelad till
@@ -59,6 +61,7 @@ sv:
     edited_by: 'Redigerad av:'
     edited_mobile: Artiklar
     hide: Dölj
+    history: (historik)
     label: Artiklar
     loading: Laddar artiklar...
     new: (ny)
@@ -189,6 +192,7 @@ sv:
     download_stats_data: Ladda ned statistik
     does_not_exist: Artikeln finns inte. Skapa en sandlådesida och tilldela dig själv
       till den för att få förslag.
+    enable_account_requests: Aktivera kontobegäran
     enable_chat: Aktivera chatt
     end: Slut
     ended: Kursen har slutat.
@@ -212,6 +216,18 @@ sv:
     milestones_none: Den här kursen har för närvarande inga några milstolpar.
     my_articles: Mina artiklar
     new_week: Lägg till ny vecka
+    new_account_check_username: Kontrollera användarnamnets tillgänglighet
+    new_account_email: E-postadress
+    new_account_email_placeholder: namn@exempel.org
+    new_account_info: För att begära ett konto, ange din e-postadress och ditt önskade
+      användarnamn. Ett lösenord kommer att e-postas till dig när kontot har skapats.
+    new_account_username: Begärt användarnamn
+    new_account_username_invalid: Detta är inte ett giltigt användarnamn.
+    new_account_username_placeholder: Wikiredigerare 123
+    new_account_username_taken: Detta användarnamn är redan upptaget. Välj ett annat.
+    new_account_submit: Begär konto
+    new_account_submitted_admin: Din begäran för ett konto har skapats. Informera
+      dina studenter att kolla sin e-postinkorgen för att få sina nya lösenord.
     nocourses: Du deltar inte i alla kurser.
     nocourse: har inte deltagit i några kurser.
     none: Ingen
@@ -220,6 +236,7 @@ sv:
     overview: Hem
     passcode_none: Inget lösenord
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
+    requested_accounts: Begärda konton
     school: Skola
     start: Starta
     start_typing: Börja skriva
@@ -284,6 +301,7 @@ sv:
     expected_students: Förväntade redigerare
     join_course: Gå med i program
     leave_course: Lämna program
+    request_accounts: Begär konton
     students_count: Antal deltagare
     term: När
     view_other: Visa andra kampanjer
@@ -382,6 +400,8 @@ sv:
     usages: Användning
   users:
     assign_articles_done: Färdig
+    loading_authorship_data: läser in författarskapsdata
+    edits_by: 'Redigeringar av:'
     first_name: Förnamn
     last_name: Efternamn
     loading: Laddar användare...
@@ -398,6 +418,8 @@ sv:
     training_module_status: Status
     username: Användarnamn
     username_placeholder: Användarnamn
+    useremail_placeholder: E-post
+    userpasscode_placeholder: Postnummer
     role:
       description: Roll i kursen
       visitor: Besökare
@@ -446,4 +468,6 @@ sv:
         Wikipedia-uppgifter likt din.
   feedback_form_responses:
     no_responses: Det finns inga återkopplingssvar ännu.
+  wiki_api:
+    create_account_reason: Denna användare deltar i %{event}.
 ...

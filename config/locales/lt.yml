@@ -9,6 +9,7 @@
 lt:
   application:
     cancel: Atšaukti
+    create_accounts: Kurti Vikipedijos paskyras
     dashboard: Viki Ed Prietaisų Skydelis
     error: 'Įvyko klaida:'
     explore: Tyrinėti
@@ -119,6 +120,7 @@ lt:
     title: Pavadinimas
     use_start_end_dates: Naudoti pradžios ir pabaigos datas
   courses:
+    accounts_generation_enabled: Paskyrų prašymų generavimas įjungtas
     activity: Veikla
     active_courses: Aktyvus %{course_type}
     all_courses: Visi Kursai
@@ -182,6 +184,7 @@ lt:
     duration: Kurso trukmė
     edit_count: Pakeitimų skaičius
     edit_course_dates: Redaguoti Kurso Datą
+    enable_account_requests: Įjungti paskyrų prašymus
     end: Pabaiga
     enroll: Registruotis
     enrollment: Registracija
@@ -209,11 +212,25 @@ lt:
     my_articles: Mano Straipsniai
     needs_update: Suplanuoti Duomenų Atnaujinimą
     new_week: Pridėti naują savaitę
+    new_account_check_username: Tikrinti vartotojo vardo užimtumą
+    new_account_email: El. pašto adresas
+    new_account_email_placeholder: vardas@pavyzdys.org
+    new_account_info: Kad paprašytumėte paskyros, įveskite savo el. pašto adresą ir
+      pageidaujamą vartotojo vardą. Slaptažodis bus atsiųstas el. paštu, kai paskyra
+      bus sukurta.
+    new_account_username: Prašomas vartotojo vardas
+    new_account_username_invalid: Tai nėra galimas vartotojo vardas.
+    new_account_username_taken: Šis vartotojo vardas jau užimtas. Prašome pasirinkti
+      kitą.
+    new_account_submit: Prašyti paskyros
+    new_account_submitted_admin: Jūsų paskyros prašymas buvo sukurtas. Prašome informuoti
+      savo studentus, kad pasitikrintų el. paštus, kur jie ras savo naujus slaptažodžius
     nocourses: Jūs nedalyvaujate jokiuose kursuose.
     none: Nėra
     no_available_actions: Nėra galimų veiksmų
     overview: Pradžia
     passcode_prompt: 'Įveskite slaptažodį, norėdami prisijungti:'
+    requested_accounts: Prašomos paskyros
     school: Mokykla
     start: Pradžia
     start_typing: Pradėkite rašyti
@@ -285,6 +302,7 @@ lt:
     milestones_none: Projektas šiuo metu neturi jokių gairių.
     published: 'Šis projektas buvo publikuotas! Redaktoriai gali registruotis apsilankę
       šiuo URL:'
+    request_accounts: Prašyti paskyrų
     revisions_none: Šis projektas neturi naujos keitimų veiklos.
     school: Institucija
     student_editors: Redaktoriai
@@ -402,6 +420,7 @@ lt:
     contributions_history_full: Peržiūrėti visą indėlio istoriją Vikipedijoje
     contributions_more: Žiūrėti Daugiau Įnašų
     editors: Redaktoriai
+    edits_by: 'Pakeitimai:'
     enroll_confirmation: Ar tikrai norite pridėti %{username}?
     enroll_url: 'Vartotojai gali prisijungti apsilankę šiuo URL:'
     enrolled_success: '%{username} buvo pridėtas sėkmingai!'
@@ -413,10 +432,12 @@ lt:
     none: Nėra dalyvių.
     no_articles: Nėra straipsnių
     recent_revisions: Naujausi keitimai
+    request_confirmation: Ar tikrai norite prašyti šios paskyros?
     training_module_name: Mokymo modulis
     training_module_status: Būsena
     username: Vartotojo vardas
     username_placeholder: Vartotojo vardas
+    useremail_placeholder: El. paštas
     role:
       visitor: Lankytojas
       student: Studentas
@@ -439,4 +460,6 @@ lt:
   survey:
     email:
       closing: Pagarbiai,
+  wiki_api:
+    create_account_reason: Šis naudotojas dalyvauja %{event}.
 ...

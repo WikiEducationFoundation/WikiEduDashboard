@@ -24,6 +24,7 @@ es:
       de los navegadores incrementará y decrementará la entrada.
   application:
     cancel: Cancelar
+    create_accounts: Crear cuentas de Wikipedia
     dashboard: Panel de Wiki Ed
     documentation: Documentación
     error: 'Hubo un error:'
@@ -183,7 +184,7 @@ es:
     all_campaigns: Todas las campañas
     campaign: Campaña
     campaigns: Campañas
-    campaign_deleted: La campaña "%{title}" se ha eliminado
+    campaign_deleted: Se eliminó la campaña «%{title}»
     campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
     confirm_campaign_deletion: ¿Confirmas que quieres eliminar la campaña titulada
@@ -341,12 +342,12 @@ es:
     duration: Duración del curso
     edit_count: Recuento de ediciones
     edit_course_dates: Editar las fechas del curso
-    enable_account_requests: Activar generación de cuentas
+    enable_account_requests: Activar solicitudes de cuentas
     enable_chat: Activar el chat
     end: Fin
     ended: El curso ha terminado.
     enroll: Inscribirse
-    enrollment: Inscripciónu
+    enrollment: Matriculación
     courses_enrolled: Cursos matriculados
     error:
       exists: Ese curso ya existe. Intenta de nuevo con un título, escuela o período
@@ -364,9 +365,11 @@ es:
       one: Docente
       other: Docentes
     instructors: Instructores
-    invitation: |-
-      Te han invitado a unirte a %{title}. Para participar en el curso, debes iniciar sesión con una cuenta de Wikipedia.
-      Si no tienes una cuenta de Wikipedia, regístrate ahora.
+    invitation: Te han invitado a unirte a %{title}. Para participar en el curso,
+      debes acceder con una cuenta de Wikipedia.
+    invitation_username_advice: Si aún no tienes una cuenta de Wikipedia, regístrate
+      ahora. Tu nombre de usuario puede ser tan anónimo o tan identificatorio como
+      prefieras. (No se permiten las cuentas compartidas.)
     join: Unirse
     join_course: Únete al curso
     join_prompt: ¿Unirse a '%{title}'?
@@ -383,6 +386,12 @@ es:
     my_articles: Mis artículos
     needs_update: Actualización de datos del programa
     new_week: Agregar una semana nueva
+    new_account_check_username: Comprobar disponibilidad de nombre de usuario
+    new_account_email: Dirección de correo electrónico
+    new_account_email_placeholder: nombre@ejemplo.org
+    new_account_username: Nombre de usuario solicitado
+    new_account_username_invalid: Este nombre de usuario no es válido.
+    new_account_submit: Solicitar cuenta
     nocourses: No participas de ningún curso.
     nocourse: no ha participado en ningún curso.
     none: Ninguno
@@ -395,9 +404,9 @@ es:
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
     passcode_prompt: 'Escribe el código de acceso para unirte:'
-    published: '¡Tu curso ha sido publicado! Los estudiantes pueden inscribirse en
-      el curso visitando la siguiente URL:'
-    requested_accounts: Cuentas generadas
+    published: 'Se ha publicado tu curso. Los estudiantes podrán matricularse al visitar
+      el URL siguiente:'
+    requested_accounts: Cuentas solicitadas
     review_timeline: Revisa este cronograma y haz cambios. Una vez que estés satisfecho
       con tu cronograma, preséntalo para que lo apruebe el personal de Wiki Ed. Una
       vez aprobado, recibirás un URL de inscripción que los estudiantes pueden utilizar
@@ -520,7 +529,7 @@ es:
     milestones_none: Este proyecto actualmente no tiene ningún hito.
     published: '¡Este proyecto ha sido publicado! Los editores pueden inscribirse
       visitando el siguiente URL:'
-    request_accounts: Generar cuentas
+    request_accounts: Solicitar cuentas
     revisions_none: Este proyecto no tiene ediciones recientes.
     school: Institución
     school_and_term: Institución/Cuando
@@ -545,6 +554,7 @@ es:
     save: Guardar
     edit_description: Editar descripción
     edit_details: Editar detalles
+    edit_template: Editar plantilla
   metrics:
     label: Actividad del curso
     last_update: Última actualización de estadísticas
@@ -744,6 +754,7 @@ es:
       other: '%{count} artículos'
     recent_revisions: Ediciones recientes
     remove_confirmation: ¿Confirmas que quieres quitar a %{username}?
+    request_confirmation: ¿Confirmas que quieres solicitar esta cuenta?
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
@@ -766,6 +777,8 @@ es:
     up_to_date_with_training: al día con la capacitación
     username: Nombre de usuario
     username_placeholder: Nombre de usuario
+    useremail_placeholder: Correo electrónico
+    userpasscode_placeholder: Código de acceso
     role:
       visitor: Visitante
       student: Estudiante

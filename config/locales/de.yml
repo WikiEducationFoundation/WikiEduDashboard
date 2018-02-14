@@ -233,6 +233,7 @@ de:
   chat:
     label: Chat
   courses:
+    accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
     activity: Aktivität
     active_courses: Aktive %{course_type}
     all_courses: Alle Kurse
@@ -379,7 +380,7 @@ de:
     duration: Kursdauer
     edit_count: Bearbeitungszähler
     edit_course_dates: Kursdaten bearbeiten
-    enable_account_requests: Benutzerkontenanfragen aktivieren
+    enable_account_requests: Benutzerkontenanträge aktivieren
     enable_chat: Chat aktivieren
     end: Ende
     ended: Der Kurs ist beendet.
@@ -427,12 +428,28 @@ de:
     my_articles: Meine Artikel
     needs_update: Plandatenaktualisierung
     new_week: Neue Woche hinzufügen
+    new_account_check_username: Benutzernamen-Verfügbarkeit überprüfen
     new_account_email: E-Mail-Adresse
     new_account_email_placeholder: name@beispiel.org
+    new_account_info: Um ein Benutzerkonto zu beantragen, gib deine E-Mail-Adresse
+      und den gewünschten Benutzernamen ein. Es wird ein Passwort per E-Mail an dich
+      versandt, sobald das Benutzerkonto erstellt wurde.
+    new_account_info_admin: Um ein Studenten-Benutzerkonto zu beantragen, gib ihre
+      E-Mail-Adressen und die gewünschten Benutzernamen ein. Ein Passwort wird per
+      E-Mail an sie versandt, sobald das Benutzerkonto erstellt wurde.
     new_account_username: Gewünschter Benutzername
     new_account_username_invalid: Dies ist kein gültiger Benutzername.
     new_account_username_placeholder: Wikiautor 123
+    new_account_username_taken: Dieser Benutzername ist bereits vergeben. Bitte einen
+      anderen auswählen.
     new_account_submit: Benutzerkonto beantragen
+    new_account_submitted: Dein Antrag für ein Benutzerkonto wurde eingereicht. Der
+      Vermittler für dieses Programm kann jetzt deine Benutzerkontenerstellung abschließen.
+      Sobald das Benutzerkonto erstellt wurde, erhältst du per E-Mail ein Passwort
+      für das neue Benutzerkonto.
+    new_account_submitted_admin: Dein Antrag für ein Benutzerkonto wurde erstellt.
+      Bitte informiere deine Studenten zur Überprüfung ihres E-Mail-Eingangs, um ihr
+      neues Passwort zu erhalten.
     nocourses: Du nimmst an keinen Kursen teil.
     nocourse: hat an keinen Kursen teilgenommen.
     none: Keine
@@ -872,6 +889,8 @@ de:
       other: '%{count} Artikel'
     recent_revisions: Letzte Bearbeitungen
     remove_confirmation: Bist du sicher, dass du %{username} entfernen möchtest?
+    request_confirmation: Bist du sicher, dass du dieses Benutzerkonto beantragen
+      möchtest?
     revision_characters_and_views: 'Hinzugefügte Zeichen: %{characters}, Aufrufe:
       %{views}'
     revisions_doc: Die Anzahl der Bearbeitungen, die von diesem Autor in den letzten

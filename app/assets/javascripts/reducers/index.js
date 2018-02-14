@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import articleDetails from './article_details';
+import campaigns from './campaigns';
 import categories from './categories';
 import chat from './chat';
 import confirm from './confirm';
@@ -22,6 +23,7 @@ import users from './users';
 
 const reducer = combineReducers({
   articleDetails,
+  campaigns,
   categories,
   chat,
   confirm,

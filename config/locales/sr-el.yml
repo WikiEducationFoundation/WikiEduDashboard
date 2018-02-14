@@ -1,6 +1,7 @@
 # Messages for Serbian (Latin script) (srpski (latinica)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Ego and his own
 # Author: Milicevic01
 # Author: Zoranzoki21
 ---
@@ -619,6 +620,7 @@ sr-el:
       other: '%{count} članaka'
     recent_revisions: Skorašnje izmene
     remove_confirmation: Da li ste sigurni da želite da uklonite %{username}?
+    request_confirmation: Da li ste sigurni da želite da zahtijevate ovaj nalog?
     revision_characters_and_views: 'Znakova dodato: %{characters}, Pregleda: %{views}'
     revisions_doc: Broj izmena koje je ovaj urednik napravio u proteklih 7 dana
     reviewers: Pregledač(i)
@@ -762,4 +764,6 @@ sr-el:
         kursevima.
   feedback_form_responses:
     no_responses: Još uvek nema povratnih informacija.
+  wiki_api:
+    create_account_reason: Ovaj korisnik učestvuje u %{event}.
 ...

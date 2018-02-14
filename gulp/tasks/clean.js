@@ -8,6 +8,6 @@ gulp.task('clean', () => {
     `${config.outputPath}/images/*`,
     `${config.outputPath}/stylesheets/*`,
     `${config.outputPath}/javascripts/*`,
-    `!${config.outputPath}/javascripts/vendor.js`
+    `!${config.outputPath}/javascripts/jquery-uls.js`
   ]);
 });

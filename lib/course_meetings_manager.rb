@@ -20,6 +20,12 @@ class CourseMeetingsManager
   # Instance methods #
   ####################
 
+  def weeks_before_timeline
+    beginning_of_course_start_week = @course.start.to_date.beginning_of_week(:sunday)
+    time_before_timeline = @beginning_of_first_week - beginning_of_course_start_week
+    (time_before_timeline / 7).to_i
+  end
+
   def blackout_weeks_prior_to(week)
     # Treat courses without meeting date data as having no blackout weeks
     return 0 unless course_has_meeting_date_data?

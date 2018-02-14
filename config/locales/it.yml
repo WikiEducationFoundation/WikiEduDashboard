@@ -278,6 +278,8 @@ it:
     needs_update: Aggiornamento dati programmato
     new_week: Aggiungi nuova settimana
     new_account_email: Indirizzo email
+    new_account_email_placeholder: nome@example.org
+    new_account_username_invalid: Questo non è un nome utente valido.
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno

@@ -274,6 +274,7 @@ bn:
     training_module_status: অবস্থা
     username: ব্যবহারকারী নাম
     username_placeholder: ব্যবহারকারী নাম
+    useremail_placeholder: ইমেইল
     role:
       student: ছাত্র
       online_volunteer: অনলাইন স্বেচ্ছাসেবক

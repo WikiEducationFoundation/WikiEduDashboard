@@ -8,4 +8,5 @@ Raven.configure do |config|
   config.environments = %w[development staging production test]
   config.logger = Logger.new("/dev/null") unless is_on_windows
   config.logger = Logger.new("nul") if is_on_windows
+  config.async = lambda { |event| SentryWorker.perform_async(event.to_hash) }
 end
