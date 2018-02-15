@@ -112,8 +112,6 @@ Style/GuardClause:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
-Style/RedundantSelf:
-  Enabled: false
 Rails/ApplicationRecord:
   Enabled: false
 Rails/HasManyOrHasOneDependent:
