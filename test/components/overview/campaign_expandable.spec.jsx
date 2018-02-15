@@ -27,7 +27,6 @@ describe('CampaignEditable', () => {
         editable={true}
       />
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container open');
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'plus');
+    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'pop__container campaigns open');
   });
 });

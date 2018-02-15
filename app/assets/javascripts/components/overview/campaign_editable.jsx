@@ -64,28 +64,22 @@ const CampaignEditable = createReactClass({
       });
       campaignSelect = (
         <Select
-          className="edit"
+          className="fixed-width"
           ref="campaignSelect"
           name="campaign"
-          placeholder="Campaign"
+          placeholder="Select the campaigns you want to add"
           onChange={this.handleChangeCampaign}
           options={campaignOptions}
         />
       );
     }
 
-    const editRow = (
-      <div className="form-group edit">
-        {campaignSelect}
-      </div>
-    );
-
     return (
-      <div key="campaigns" className="pop__container open" onClick={this.stop}>
+      <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
         <button className="button border plus" onClick={this.props.open}>+</button>
         <Popover
           is_open={this.props.is_open}
-          edit_row={editRow}
+          edit_row={campaignSelect}
           rows={campaignList}
         />
       </div>
