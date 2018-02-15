@@ -102,8 +102,6 @@ Rails/OutputSafety:
   Enabled: false
 Naming/PredicateName:
   Enabled: false
-Style/BlockDelimiters:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Lint/BlockAlignment:
