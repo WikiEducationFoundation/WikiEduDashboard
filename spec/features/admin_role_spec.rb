@@ -85,10 +85,8 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'removing all campaigns from a course' do
+  describe 'removing all campaigns from a course', focus: true do
     it 'returns it to "submitted" status' do
-      pending 'This sometimes fails on travis.'
-
       stub_oauth_edit
       create(:campaigns_course,
              campaign_id: 1,
@@ -98,13 +96,14 @@ describe 'Admin users', type: :feature, js: true do
 
       # Edit details and remove campaign
       click_button('Edit Details')
-      page.find('.button.border.plus', text: '-').click
+      within '#course_campaigns' do
+        click_button '+'
+        click_button '-'
+      end
       expect(page).to have_content 'This course has been submitted'
 
       visit root_path
       expect(page).to have_content 'Submitted & Pending Approval'
-
-      pass_pending_spec
     end
   end
 
