@@ -7,7 +7,6 @@ class AddAdminButton extends React.Component {
   constructor() {
     super();
     this.getKey = this.getKey.bind(this);
-    this.render = this.render.bind(this);
   }
 
   getKey() {
