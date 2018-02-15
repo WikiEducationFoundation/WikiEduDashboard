@@ -28,7 +28,7 @@ class CreateSalesforceMediaRecord
   def salesforce_media_fields
     {
       Title__c: @article.full_title,
-      Engagement_Format__c: 'Wiki Contribution',
+      Engagement_Format__c: 'Wiki contribution',
       Author_Wiki_Username_Optional__c: @user.username,
       Primary_Course__c: @salesforce_course_id,
       Link__c: @article.url,
