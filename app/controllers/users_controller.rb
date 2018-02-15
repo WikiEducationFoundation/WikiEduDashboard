@@ -197,10 +197,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:user_id, :username, :role, :real_name, :role_description)
   end
 
-  def username_param
-    enroll_params[:username]
-  end
-
   ##################
   # Helper methods #
   ##################
