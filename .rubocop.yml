@@ -90,8 +90,6 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
-Rails/PluralizationGrammar:
-  Enabled: false
 Lint/UnneededDisable:
   Enabled: false
 Rails/SkipsModelValidations:
