@@ -76,7 +76,7 @@ const CampaignEditable = createReactClass({
 
     return (
       <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
-        <button className="button border plus" onClick={this.props.open}>+</button>
+        <button className="button border plus open" onClick={this.props.open}>+</button>
         <Popover
           is_open={this.props.is_open}
           edit_row={campaignSelect}
