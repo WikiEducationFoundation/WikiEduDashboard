@@ -67,7 +67,7 @@ const CampaignEditable = createReactClass({
           className="fixed-width"
           ref="campaignSelect"
           name="campaign"
-          placeholder="Select the campaigns you want to add"
+          placeholder={I18n.t('courses.campaign_select')}
           onChange={this.handleChangeCampaign}
           options={campaignOptions}
         />

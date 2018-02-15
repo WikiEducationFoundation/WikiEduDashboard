@@ -207,10 +207,10 @@ const Details = createReactClass({
       );
     }
     const campaigns = (
-      <div className="course campaigns">
+      <span className="campaigns" id="course_campaigns">
         <CampaignList {...this.props} />
         <CampaignEditable {...this.props} show={this.props.editable} />
-      </div>
+      </span>
     );
     let subject;
     let tags;

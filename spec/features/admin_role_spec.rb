@@ -74,7 +74,7 @@ describe 'Admin users', type: :feature, js: true, focus: true do
 
       # Edit details and add campaign
       click_button('Edit Details')
-      within '.course.campaigns' do
+      within '#course_campaigns' do
         page.find('.button.border.plus').click
         find('div.Select').send_keys('Fall 2015', :enter)
         find('.pop button', visible: true).click
