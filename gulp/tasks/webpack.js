@@ -3,11 +3,14 @@ import loadPlugins from 'gulp-load-plugins';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import config from '../config.js';
+import Assets from './assets';
+
 const plugins = loadPlugins();
 
-gulp.task('webpack', ['bower'], (cb) => {
+gulp.task('webpack', (cb) => {
   const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const doHot = config.development && !config.watch_js;
   const appRoot = path.resolve('../../');
@@ -55,6 +58,15 @@ gulp.task('webpack', ['bower'], (cb) => {
     }));
   }
 
+  wpPlugins.push(new CopyWebpackPlugin(
+        Assets.map(asset => {
+          return {
+            from: path.resolve(__dirname, `../../node_modules/${asset}`),
+            to: path.resolve(__dirname, '../../public/assets/javascripts')
+          };
+        })
+      ));
+
   const wpConf = {
     entry: entries,
     stats: 'errors-only',
@@ -79,7 +91,6 @@ gulp.task('webpack', ['bower'], (cb) => {
       }]
     },
     externals: {
-      jquery: 'jQuery',
       'i18n-js': 'I18n'
     },
     plugins: wpPlugins,
