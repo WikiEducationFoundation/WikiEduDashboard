@@ -207,7 +207,7 @@ const Details = createReactClass({
       );
     }
     const campaigns = (
-      <div className="campaigns">
+      <div className="course campaigns">
         <CampaignList {...this.props} />
         <CampaignEditable {...this.props} show={this.props.editable} />
       </div>
