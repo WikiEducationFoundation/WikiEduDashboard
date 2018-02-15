@@ -6,7 +6,7 @@ print ("WARNING! This is a work in progress script. It has been tested to work f
   There are individual operating system dependent scripts being called from this one. \
   You can find them in setup directory. The scripts for windows and OSX are still not complete. \
   You can use them as a starting point or as a reference. If you run into any errors while running this script, \
-  please create a issue on https://github.com/WikiEducationFoundation/WikiEduDashboard/issues. \
+  please comment with your issue on https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1709 \
   Please upload your logs for installation with your issue reports. \
   The logs can be found in the setup directory. If you can help improve this script, \
   We would love your contributions.")
