@@ -54,7 +54,7 @@ class SettingsController < ApplicationController
     respond_to do |format|
       format.json do
         @user = User.find_by_username username_param[:username]
-        ensure_user_exists { return }
+        ensure_user_exists(params[:username]) { return } #
         yield
       end
     end
@@ -96,9 +96,9 @@ class SettingsController < ApplicationController
 
   ##
   # yield up an error message if no user is found.
-  def ensure_user_exists
+  def ensure_user_exists(username)
     return unless @user.nil?
-    render json: { message: I18n.t('courses.error.user_exists', username: username_param) },
+    render json: { message: I18n.t('courses.error.user_exists', username: username) },
            status: 404
     yield
   end
