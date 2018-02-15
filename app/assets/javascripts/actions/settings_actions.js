@@ -57,11 +57,9 @@ export function fetchAdminUsers() {
   };
 }
 
-export const upgradeAdmin = (username) => {
-  // update a user's admin status
+export const upgradeAdmin = (username) => (dispatch) => {
+  // grant a user admin status
   // username: user's username
-  // newStatus (bool): if user should be an admin. If false, user is made an instructor
-  return (dispatch) => {
     dispatch({
       type: SUBMITTING_NEW_ADMIN,
       data: {
@@ -106,67 +104,62 @@ export const upgradeAdmin = (username) => {
           })
         );
       });
-  };
 };
 
-export const downgradeAdmin = (username) => {
-  // update a user's admin status
+export const downgradeAdmin = username => dispatch => {
+  // remove a user's admin status
   // username: user's username
-  // newStatus (bool): if user should be an admin. If false, user is made an instructor
-
-  return (dispatch) => {
-    dispatch({
-      type: REVOKING_ADMIN,
-      data: {
-        revoking: {
-          status: true,
-          username: username,
-        },
+  dispatch({
+    type: REVOKING_ADMIN,
+    data: {
+      revoking: {
+        status: true,
+        username: username,
       },
-    });
+    },
+  });
 
-    return grantAdminPromise(username, false)
-      .then(() => {
-        dispatch(addNotification({
-          type: 'success',
-          message: `${username} was removed as an administrator.`,
-          closable: true
-        })
-        );
+  return grantAdminPromise(username, false)
+    .then(() => {
+      dispatch(addNotification({
+        type: 'success',
+        message: `${username} was removed as an administrator.`,
+        closable: true
+      })
+      );
 
-        fetchAdminUsersPromise()
-          .then(resp => {
-            dispatch({
-              type: SET_ADMIN_USERS,
-              data: resp,
-            });
+      fetchAdminUsersPromise()
+        .then(resp => {
+          dispatch({
+            type: SET_ADMIN_USERS,
+            data: resp,
+          });
 
-            dispatch({
-              type: REVOKING_ADMIN,
-              data: {
-                revoking: {
-                  status: false,
-                  username: username,
-                },
+          dispatch({
+            type: REVOKING_ADMIN,
+            data: {
+              revoking: {
+                status: false,
+                username: username,
               },
-            });
-          }).catch(
+            },
+          });
+        }).catch(
           response => (dispatch({ type: API_FAIL, data: response }))
-          );
-      }).catch((response) => {
-        dispatch({
-          type: SUBMITTING_NEW_ADMIN,
-          data: {
-            submitting: false
-          },
-        });
-
-        dispatch(addNotification({
-          type: 'error',
-          message: response.responseJSON.message,
-          closable: true
-        })
         );
+    }).catch((response) => {
+      dispatch({
+        type: SUBMITTING_NEW_ADMIN,
+        data: {
+          submitting: false
+        },
       });
-  };
+
+      dispatch(addNotification({
+        type: 'error',
+        message: response.responseJSON.message,
+        closable: true
+      })
+      );
+    });
 };
