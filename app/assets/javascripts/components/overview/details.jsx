@@ -207,12 +207,12 @@ const Details = createReactClass({
         />
       );
     }
-    let campaigns;
-    if (this.props.editable) {
-      campaigns = <CampaignEditable {...this.props} />;
-    } else {
-      campaigns = <CampaignList {...this.props} />;
-    }
+    const campaigns = (
+      <span className="campaigns" id="course_campaigns">
+        <CampaignList {...this.props} />
+        <CampaignEditable {...this.props} show={this.props.editable} />
+      </span>
+    );
     let subject;
     let tags;
     let courseTypeSelector;

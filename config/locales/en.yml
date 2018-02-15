@@ -288,8 +288,9 @@ en:
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
-    campaign_courses: '%{title} Courses'
     campaign_articles: '%{title} Articles'
+    campaign_courses: '%{title} Courses'
+    campaign_select: 'Select a campaign'
     campaign_users: '%{title} Editors'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
