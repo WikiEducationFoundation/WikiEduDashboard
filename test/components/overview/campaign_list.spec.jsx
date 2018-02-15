@@ -26,6 +26,5 @@ describe('CampaignList', () => {
       />
     );
     ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container close');
-
   });
 });
