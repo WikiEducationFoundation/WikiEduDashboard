@@ -54,11 +54,11 @@ class SurveyUpdate
       # When no email needs to be sent, the email methods return nil.
       next unless notification.send(method)
       # Don't send emails too quickly, to avoid being throttled by gmail
-      sleep 2 unless Rails.env == 'test'
+      sleep 2 unless Rails.env.test?
     end
   rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy => e
     log_message "SMTP error #{@error_count += 1}"
-    sleep 10 unless Rails.env == 'test'
+    sleep 10 unless Rails.env.test?
     retry unless @error_count >= 3
     log_end_of_update 'Survey update errored'
     raise e
