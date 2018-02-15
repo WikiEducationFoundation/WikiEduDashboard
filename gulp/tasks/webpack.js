@@ -6,7 +6,7 @@ import WebpackDevServer from 'webpack-dev-server';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import path from 'path';
 import config from '../config.js';
-import Assets from './assets';
+import UniversalLanguageSelectorDependencies from './UniversalLanguageSelectorDependencies.js';
 
 const plugins = loadPlugins();
 
@@ -59,7 +59,7 @@ gulp.task('webpack', (cb) => {
   }
 
   wpPlugins.push(new CopyWebpackPlugin(
-        Assets.map(asset => {
+        UniversalLanguageSelectorDependencies.map(asset => {
           return {
             from: path.resolve(__dirname, `../../node_modules/${asset}`),
             to: path.resolve(__dirname, '../../public/assets/javascripts')
