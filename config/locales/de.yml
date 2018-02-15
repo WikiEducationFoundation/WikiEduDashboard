@@ -31,9 +31,11 @@ de:
     my_dashboard: Meine Übersichtsseite
     recent_activity: Letzte Aktivitäten
     report_problem: Ein Problem melden
+    request_account: Ein Benutzerkonto beantragen
     search: eine Frage stellen
     search_results: 'Ergebnisse für: „%{search_terms}“'
     sign_up_extended: Mit Wikipedia registrieren
+    sign_up_wikipedia: Oder auf Wikipedia registrieren
     sign_up_log_in_extended: mit Wikipedia
     sign_up: Registrieren
     submit: Absenden
@@ -234,6 +236,8 @@ de:
     label: Chat
   courses:
     accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
+    accounts_generation_confirm_message: Bist du sicher, dass du die Benutzerkontoanfragen
+      aktivieren möchtest?
     activity: Aktivität
     active_courses: Aktive %{course_type}
     all_courses: Alle Kurse
@@ -543,6 +547,7 @@ de:
       notification_message: Nimm an unserer Umfrage für diesen Kurs teil
       link: An der Umfrage teilnehmen
   courses_generic:
+    add_campaign: Kampagne hinzufügen
     all_courses: Alle Programme
     archived: Archivierte Programme
     articles_none: Es gibt noch keine bearbeiteten Artikel für dieses Projekt.

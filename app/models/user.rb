@@ -29,7 +29,7 @@
 require "#{Rails.root}/lib/utils"
 
 #= User model
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
 

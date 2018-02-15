@@ -28,6 +28,7 @@ lb:
     search: eng Fro stellen
     search_results: 'Resultater fir: %{search_terms}'
     sign_up_extended: Mat Wikipedia umellen
+    sign_up_wikipedia: Oder op Wikipedia registréieren
     sign_up_log_in_extended: mat Wikipedia
     sign_up: Schreift Iech an
     submit: Schécken

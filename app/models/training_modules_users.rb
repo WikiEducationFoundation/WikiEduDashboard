@@ -11,7 +11,7 @@
 #  completed_at         :datetime
 #
 
-class TrainingModulesUsers < ActiveRecord::Base
+class TrainingModulesUsers < ApplicationRecord
   belongs_to :user
 
   def training_module

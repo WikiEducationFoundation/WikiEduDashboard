@@ -345,6 +345,7 @@ it:
       notification_message: Partecipa al nostro sondaggio per questo corso.
       link: Rispondi sondaggio
   courses_generic:
+    add_campaign: Aggiungi campagna
     all_courses: Tutti i programmi
     articles_none: Non ci sono voci modificate per questo progetto ancora.
     assignment_end: Fine evento

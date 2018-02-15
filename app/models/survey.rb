@@ -28,7 +28,7 @@ require 'csv'
 # It can be set manually to make the Results page for a survey inaccessible even
 # to admins. It also switches to an 'agree/not agree' interface in the survey
 # intro, which is assumed to be a consent form.
-class Survey < ActiveRecord::Base
+class Survey < ApplicationRecord
   has_paper_trail
   has_many :survey_assignments, dependent: :destroy
   has_and_belongs_to_many :rapidfire_question_groups,
