@@ -114,8 +114,6 @@ Naming/AccessorMethodName:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
-Rails/ApplicationRecord:
-  Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:

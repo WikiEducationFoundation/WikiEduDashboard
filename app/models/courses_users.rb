@@ -24,7 +24,7 @@ require "#{Rails.root}/lib/utils"
 require "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model
-class CoursesUsers < ActiveRecord::Base
+class CoursesUsers < ApplicationRecord
   belongs_to :course
   belongs_to :user
   before_destroy :cleanup

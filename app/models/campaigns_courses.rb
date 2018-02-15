@@ -12,7 +12,7 @@
 #
 
 #= Campaign + Course join model
-class CampaignsCourses < ActiveRecord::Base
+class CampaignsCourses < ApplicationRecord
   belongs_to :campaign
   belongs_to :course
 end
