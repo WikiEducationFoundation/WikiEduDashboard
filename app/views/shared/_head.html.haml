@@ -40,7 +40,10 @@
   %script
     Raven.config(SentryDsn).install();
     Raven.setExtraContext(currentUser);
-
+= javascript_include_tag '/assets/javascripts/jquery.min.js'
 = javascript_include_tag '/assets/javascripts/jquery-uls.js'
+= javascript_include_tag '/assets/javascripts/lodash.min.js'
+= javascript_include_tag '/assets/javascripts/moment.js'
+= javascript_include_tag '/assets/javascripts/moment-recur.js'
 = content_for :javascripts
 = csrf_meta_tags
