@@ -102,8 +102,6 @@ Naming/PredicateName:
   Enabled: false
 Performance/UnfreezeString:
   Enabled: false
-Lint/BlockAlignment:
-  Enabled: false
 Style/GuardClause:
   Enabled: false
 Naming/AccessorMethodName:
