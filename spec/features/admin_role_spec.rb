@@ -85,7 +85,7 @@ describe 'Admin users', type: :feature, js: true do
     end
   end
 
-  describe 'removing all campaigns from a course', focus: true do
+  describe 'removing all campaigns from a course' do
     it 'returns it to "submitted" status' do
       stub_oauth_edit
       create(:campaigns_course,
