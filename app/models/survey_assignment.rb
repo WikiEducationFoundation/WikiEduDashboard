@@ -20,7 +20,7 @@
 #  custom_email                            :text(65535)
 #
 
-class SurveyAssignment < ActiveRecord::Base
+class SurveyAssignment < ApplicationRecord
   has_paper_trail
   belongs_to :survey
   has_and_belongs_to_many :campaigns

@@ -25,7 +25,7 @@
 #
 
 #= Revision model
-class Revision < ActiveRecord::Base
+class Revision < ApplicationRecord
   belongs_to :user
   belongs_to :article
   belongs_to :wiki

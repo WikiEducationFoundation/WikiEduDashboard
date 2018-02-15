@@ -20,7 +20,7 @@
 #  details        :text(65535)
 #
 
-class Alert < ActiveRecord::Base
+class Alert < ApplicationRecord
   belongs_to :article
   belongs_to :course
   belongs_to :user

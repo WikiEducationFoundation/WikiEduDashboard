@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-class RequestedAccount < ActiveRecord::Base
+class RequestedAccount < ApplicationRecord
   belongs_to :course
   before_validation :ensure_valid_email
 
