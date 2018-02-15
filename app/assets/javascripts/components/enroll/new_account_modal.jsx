@@ -36,10 +36,16 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   }
 
   let newAccountInfo;
+  let wikipediaAccountCreation;
   if (currentUser.role === INSTRUCTOR_ROLE) {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info_admin')}</p></div>;
   } else {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info')}</p></div>;
+    wikipediaAccountCreation = (
+      <a href={`/users/auth/mediawiki_signup?origin=${window.location}`}>
+        {I18n.t('application.sign_up_wikipedia')}
+      </a>
+    );
   }
 
   return (
@@ -71,6 +77,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         <div className = "left">
           <p className="red" dangerouslySetInnerHTML={{ __html: newAccount.error }} />
           {checkingSpinner}
+          {wikipediaAccountCreation}
         </div>
         <div className="right pull-right">
           {checkAvailabilityButton}

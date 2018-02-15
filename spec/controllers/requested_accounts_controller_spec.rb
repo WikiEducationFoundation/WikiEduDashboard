@@ -10,10 +10,14 @@ describe RequestedAccountsController do
     let(:admin) { create(:admin) }
 
     describe '#request_account' do
-      let(:requested_account) { create(:requested_account, course: course,
-                                                           username: 'username',
-                                                           email: 'email')
-                                                         }
+      let(:requested_account) do
+        create(
+          :requested_account,
+          course: course,
+          username: 'username',
+          email: 'email'
+        )
+      end
 
       it 'returns an error if the passcode is invalid' do
         post :request_account, params: { passcode: 'passcode', course_slug: course.slug }

@@ -179,7 +179,7 @@ class UsersController < ApplicationController
   # Finding a user #
   ##################
   def set_course_and_user
-    @course = Course.find_by_slug(params[:id])
+    @course = Course.find_by(slug: params[:id])
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
     elsif enroll_params.key? :username

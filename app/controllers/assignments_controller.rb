@@ -63,7 +63,7 @@ class AssignmentsController < ApplicationController
   end
 
   def set_course
-    @course = Course.find_by_slug(URI.unescape(params[:course_id]))
+    @course = Course.find_by(slug: URI.unescape(params[:course_id]))
   end
 
   def set_assignment
@@ -99,8 +99,8 @@ class AssignmentsController < ApplicationController
 
   def find_or_create_wiki
     home_wiki = @course.home_wiki
-    language = params[:language].present? ? params[:language] : home_wiki.language
-    project = params[:project].present? ? params[:project] : home_wiki.project
+    language = params[:language].presence || home_wiki.language
+    project = params[:project].presence || home_wiki.project
     @wiki = Wiki.get_or_create(language: language, project: project) || home_wiki
   end
 

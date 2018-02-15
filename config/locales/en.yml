@@ -57,9 +57,12 @@ en:
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     report_problem: Report a problem
+    request_account: Request an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia
+    sign_up_wikipedia: Or sign up on Wikipedia
+
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
     sign_up: Sign up
@@ -263,6 +266,7 @@ en:
 
   courses:
     accounts_generation_enabled: Accounts request generation enabled
+    accounts_generation_confirm_message: Are you sure you want to enable the account requests?
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses
@@ -554,6 +558,7 @@ en:
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
+    add_campaign: Add campaign
     all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.

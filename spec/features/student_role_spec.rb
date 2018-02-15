@@ -105,8 +105,9 @@ describe 'Student users', type: :feature, js: true do
 
       expect(page).to have_content 'An Example Course'
 
-      accept_confirm do
-        click_button 'Leave course'
+      click_button 'Leave course'
+      within('.confirm-modal') do
+        click_button 'OK'
       end
 
       sleep 3

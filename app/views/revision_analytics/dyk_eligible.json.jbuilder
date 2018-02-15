@@ -5,6 +5,7 @@ json.articles do
     revision = article.revisions.last
     json.key revision.id
     json.title article.full_title
+    json.base_url revision.wiki.base_url
     json.article_url article.url
     json.diff_url revision.url
     json.revision_score revision.wp10

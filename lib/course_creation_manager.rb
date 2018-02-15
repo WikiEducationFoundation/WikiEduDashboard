@@ -47,8 +47,8 @@ class CourseCreationManager
   def set_wiki
     language_param = @wiki_params[:language]
     project_param = @wiki_params[:project]
-    language = language_param.present? ? language_param : Wiki.default_wiki.language
-    project = project_param.present? ? project_param : Wiki.default_wiki.project
+    language = language_param.presence || Wiki.default_wiki.language
+    project = project_param.presence || Wiki.default_wiki.project
     @wiki = Wiki.get_or_create(language: language.downcase, project: project.downcase)
     @overrides[:home_wiki] = @wiki
   rescue Wiki::InvalidWikiError
@@ -56,9 +56,9 @@ class CourseCreationManager
   end
 
   def set_slug
-    slug = @course_params[:school].blank? ? '' : @course_params[:school]
-    slug += "/#{@course_params[:title]}" unless @course_params[:title].blank?
-    slug += "_(#{@course_params[:term]})" unless @course_params[:term].blank?
+    slug =  @course_params[:school].presence || ''
+    slug += "/#{@course_params[:title]}" if @course_params[:title].present?
+    slug += "_(#{@course_params[:term]})" if @course_params[:term].present?
     @slug = slug.tr(' ', '_')
     @overrides[:slug] = @slug
   end
@@ -94,7 +94,9 @@ class CourseCreationManager
     return unless Features.open_course_creation?
 
     @overrides[:campaigns] = if @initial_campaign_params.present?
-                               [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
+                               # rubocop:disable Metrics/LineLength
+                               [Campaign.find_by(id: @initial_campaign_params[:initial_campaign_id])]
+                               # rubocop:enable Metrics/LineLength
                              else
                                [Campaign.default_campaign]
                              end
