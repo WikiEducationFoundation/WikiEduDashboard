@@ -13,6 +13,7 @@ import CampaignList from './campaign_list.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
+import PrivacySelector from './privacy_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 
@@ -216,6 +217,7 @@ const Details = createReactClass({
     let tags;
     let courseTypeSelector;
     let submittedSelector;
+    let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
     if (this.props.current_user.admin) {
@@ -245,6 +247,14 @@ const Details = createReactClass({
           editable={this.props.editable}
         />
       );
+      if (!Features.wikiEd && this.props.editable) {
+        privacySelector = (
+          <PrivacySelector
+            course={this.props.course}
+            editable={this.props.editable}
+          />
+        );
+      }
     }
 
     // Users who can rename a course are also allowed to change the type.
@@ -326,6 +336,7 @@ const Details = createReactClass({
           {tags}
           {courseTypeSelector}
           {submittedSelector}
+          {privacySelector}
           {timelineToggle}
         </div>
       </div>

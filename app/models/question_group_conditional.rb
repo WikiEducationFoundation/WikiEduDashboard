@@ -11,7 +11,7 @@
 #  updated_at                  :datetime         not null
 #
 
-class QuestionGroupConditional < ActiveRecord::Base
+class QuestionGroupConditional < ApplicationRecord
   belongs_to :rapidfire_question_group, class_name: 'Rapidfire::QuestionGroup'
   belongs_to :campaign
 end

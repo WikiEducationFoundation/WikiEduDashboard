@@ -55,7 +55,7 @@ require "#{Rails.root}/lib/word_count"
 require "#{Rails.root}/lib/training_module"
 
 #= Course model
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   ######################
   # Users for a course #
   ######################

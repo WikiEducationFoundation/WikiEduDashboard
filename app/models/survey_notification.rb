@@ -17,7 +17,7 @@
 #  follow_up_count        :integer          default(0)
 #
 
-class SurveyNotification < ActiveRecord::Base
+class SurveyNotification < ApplicationRecord
   belongs_to :courses_user, class_name: 'CoursesUsers'
   belongs_to :survey_assignment
   belongs_to :course

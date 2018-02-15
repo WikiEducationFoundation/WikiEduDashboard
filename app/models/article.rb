@@ -25,7 +25,7 @@ require "#{Rails.root}/lib/importers/view_importer"
 require "#{Rails.root}/lib/importers/article_importer"
 
 #= Article model
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   has_many :revisions
   has_many :editors, through: :revisions, source: :user
   has_many :articles_courses, class_name: 'ArticlesCourses'

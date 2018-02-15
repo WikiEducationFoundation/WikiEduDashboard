@@ -12,7 +12,7 @@
 #  updated_at                  :datetime
 #
 
-class SurveysQuestionGroup < ActiveRecord::Base
+class SurveysQuestionGroup < ApplicationRecord
   acts_as_list scope: :survey
   belongs_to :rapidfire_question_group, class_name: 'Rapidfire::QuestionGroup'
   belongs_to :survey
