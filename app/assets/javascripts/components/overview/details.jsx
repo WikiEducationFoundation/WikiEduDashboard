@@ -247,7 +247,7 @@ const Details = createReactClass({
           editable={this.props.editable}
         />
       );
-      if (!Features.wikiEd) {
+      if (!Features.wikiEd && this.props.editable) {
         privacySelector = (
           <PrivacySelector
             course={this.props.course}
