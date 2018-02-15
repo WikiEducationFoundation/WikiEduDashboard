@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Admin users', type: :feature, js: true, focus: true do
+describe 'Admin users', type: :feature, js: true do
   before do
     page.current_window.resize_to(1920, 1080)
     page.driver.browser.url_blacklist = ['https://wikiedu.org']
