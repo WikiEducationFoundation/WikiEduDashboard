@@ -1,3 +1,6 @@
+require:
+  - rubocop/rspec/focused
+
 Documentation:
   Enabled: false
 AllCops:
