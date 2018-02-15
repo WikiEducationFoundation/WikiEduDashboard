@@ -32,9 +32,9 @@ class AddAdminForm extends React.Component {
     this.setState({ username: '', confirming: false });
   }
 
-  handleConfirm() {
+  handleConfirm(e) {
     this.props.upgradeAdmin(this.state.username);
-    this.props.handlePopoverClose();
+    this.props.handlePopoverClose(e);
   }
 
   handleSubmit(e) {
@@ -75,13 +75,15 @@ class AddAdminForm extends React.Component {
       buttonContent = (<div className="loading__spinner" />);
     } else {
       buttonContent = (
-        <button
-          className="button border"
-          value="confirm"
-          onClick={this.handleConfirm}
-        >
-          {I18n.t('settings.admin_users.new.confirm_add_admin')}
-        </button>
+        <form onSubmit={this.handleConfirm}>
+          <button
+            className="button border"
+            value="confirm"
+          >
+            {I18n.t('settings.admin_users.new.confirm_add_admin')}
+          </button>
+        </form>
+
 
       );
     }

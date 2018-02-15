@@ -14,12 +14,8 @@ class AddAdminButton extends React.Component {
     return `add_${this.props.source}_button`;
   }
 
-  closePopover() {
-    // what goes here???
-  }
-
   render() {
-    const form = <AddAdminForm handlePopoverClose={this.closePopover} />;
+    const form = <AddAdminForm handlePopoverClose={this.props.open} />;
     return (
       <div className="pop__container">
         <button className="button dark" onClick={this.props.open}>Add Admin</button>
