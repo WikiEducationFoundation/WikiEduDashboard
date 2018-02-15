@@ -66,8 +66,8 @@ cs:
       vašim potřebám.
     explore_course_pages: Prozkoumat kurzové stránky
     explore_examples: Prozkoumat příklady
-    join_note: Jakmile obdržíte heslo od svého instruktora, klikněte na "Najít váš
-      kurz" a přidejte se k němu.
+    join_note: Jakmile obdržíte heslo od svého instruktora, klikněte na „Najít váš
+      kurz“ a přidejte se k němu.
     no_courses_instructor: Vypadá to, že nemáte žádné kurzy.
     no_courses_student: Vypadá to, že jste se ještě nepřipojil(a) ke kurzu.
     opt_out: Požádejte o přeskočení úvodního průvodce
@@ -100,8 +100,8 @@ cs:
     assigned_to: Přiřazeno
     character_doc: Součet znaků přidaných do článků editory zapsanými do článku v
       období mezi začátkem a koncem kurzu
-    cross_wiki_tracking: Stánky v hlavním jmenném prostoru, které byly editovány mezi
-      začátečním a konečným datem, jsou uvedeny níže. Nástěnka agreguje příspěvky
+    cross_wiki_tracking: Stránky v hlavním jmenném prostoru, které byly editovány
+      mezi počátečním a konečným datem, jsou uvedeny níže. Nástěnka agreguje příspěvky
       jak z domácí wiki tohoto programu, tak i ze všech dalších wiki, které jsou pro
       něj vyhrazeny.
     deleted: (smazáno)
@@ -711,6 +711,7 @@ cs:
     logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,
       do té doby, než se opět přihlásíte.
     done: Hotovo!
+    check_answer: Zkontrolovat odpověď
   uploads:
     datetime: Datum/Čas
     file_name: Název souboru
@@ -767,6 +768,7 @@ cs:
     reviewers: Recenzent(i)
     reviewing: Recenzuje
     training_incomplete: Školení neukončeno
+    training_module_name: Tréninkový modul
     training_module_status: Stav
     username: Uživatelské jméno
     username_placeholder: Uživatelské jméno
@@ -797,6 +799,7 @@ cs:
   error:
     form_errors: Prosím, zkontrolujte chybné položky ve formuláři.
     invalid_assignment: Neplatné přiřazení
+    invalid_date: '%{key} datum není platné'
     invalid_file_format: Soubor nebylo možné uložit. Nahrajte prosím soubor PDF nebo
       wordowský dokument.
     oauth_invalid: Vaše přihlášení do Wikipedie vypršelo. Prosím, znovu se přihlaste.

@@ -50,6 +50,7 @@ fr:
     my_dashboard: Mon tableau de bord
     recent_activity: Activité récente
     report_problem: Signaler un problème
+    request_account: Demander un compte
     search: poser une question
     search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
@@ -252,6 +253,8 @@ fr:
     label: Clavardage
   courses:
     accounts_generation_enabled: Génération de demande de comptes activée
+    accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
+      de compte ?
     activity: Activité
     active_courses: '%{course_type} actifs'
     all_courses: Tous les cours
@@ -564,6 +567,7 @@ fr:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
   courses_generic:
+    add_campaign: Ajouter une campagne
     all_courses: Tous les programmes
     archived: Programmes archivés
     articles_none: Il n’y a encore aucun article modifié pour ce projet.
@@ -910,7 +914,7 @@ fr:
       other: '%{count} articles'
     recent_revisions: Modifications récentes
     remove_confirmation: Êtes-vous sûr de vouloir supprimer %{username} ?
-    request_confirmation: Êtes-vous sûr de vouloir demander ces comptes ?
+    request_confirmation: Êtes-vous sûr de vouloir demander ce compte ?
     revision_characters_and_views: 'Caractères ajoutés : %{characters}, Vues : %{views}'
     revisions_doc: Le nombre de modifications faites par cet éditeur durant les 7
       derniers jours

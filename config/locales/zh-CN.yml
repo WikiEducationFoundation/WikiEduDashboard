@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Assoc
 # Author: Camilali0609
+# Author: Fanjiayi
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
 # Author: Macofe
@@ -35,9 +36,11 @@ zh-CN:
     my_dashboard: 我的控制面板
     recent_activity: 最近活动
     report_problem: 报告问题
+    request_account: 请求账户
     search: 提问
     search_results: “%{search_terms}”的结果
     sign_up_extended: 注册维基百科
+    sign_up_wikipedia: 或在维基百科注册
     sign_up_log_in_extended: 通过维基百科
     sign_up: 注册
     submit: 提交
@@ -194,6 +197,7 @@ zh-CN:
     label: 聊天
   courses:
     accounts_generation_enabled: 账户请求生成已启用
+    accounts_generation_confirm_message: 您确定要启用帐户请求吗？
     activity: 活动
     active_courses: 激活%{course_type}
     all_courses: 所有课程
@@ -416,6 +420,7 @@ zh-CN:
       notification_message: 接受我们为此课程设立的调查。
       link: 接受调查
   courses_generic:
+    add_campaign: 添加通告
     all_courses: 所有计划
     archived: 存档的计划
     articles_none: 目前此项目尚无编辑的条目。
