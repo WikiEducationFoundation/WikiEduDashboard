@@ -1,21 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import createReactClass from 'create-react-class';
 import AddAdminButton from './views/add_admin_button.jsx';
 import AdminUserList from './admin_users_list.jsx';
 import Notifications from '../common/notifications';
 import { fetchAdminUsers } from '../../actions/settings_actions';
 
-class SettingsHandler extends React.Component {
-  constructor() {
-    super();
-    this.render = this.render.bind(this);
-    this.componentWillMount = this.componentWillMount.bind(this);
-  }
+const SettingsHandler = createReactClass({
 
   componentWillMount() {
     this.props.fetchAdminUsers();
-  }
+  },
 
   render() {
     return (
@@ -27,8 +23,8 @@ class SettingsHandler extends React.Component {
       </div>
 
     );
-  }
-}
+  },
+});
 
 const mapStateToProps = state => ({
   adminUsers: state.settings.adminUsers,

@@ -1,14 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 
-class AdminUser extends React.Component {
-  constructor() {
-    super();
-    this.state = { confirming: false };
-    this.getButtonState = this.getButtonState.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.isRevoking = this.isRevoking.bind(this);
-    this.render = this.render.bind(this);
-  }
+const AdminUser = createReactClass({
+  getInitialState: function () {
+    return { confirming: false };
+  },
 
   /*
     returns the current state of the revoking button
@@ -23,7 +19,7 @@ class AdminUser extends React.Component {
       return 'confirming';
     }
     return 'not confirming';
-  }
+  },
 
   handleClick() {
     if (this.state.confirming) {
@@ -36,12 +32,12 @@ class AdminUser extends React.Component {
     } else {
       this.setState({ confirming: true });
     }
-  }
+  },
 
   isRevoking() {
     const { user, revokingAdmin } = this.props;
     return revokingAdmin.status && revokingAdmin.username === user.username;
-  }
+  },
 
   render() {
     const { user } = this.props;
@@ -92,7 +88,15 @@ class AdminUser extends React.Component {
 
       </tr>
     );
-  }
-}
+  },
+});
+  // constructor() {
+  //   super();
+  //   this.state = { confirming: false };
+  //   this.getButtonState = this.getButtonState.bind(this);
+  //   this.handleClick = this.handleClick.bind(this);
+  //   this.isRevoking = this.isRevoking.bind(this);
+  //   this.render = this.render.bind(this);
+  // }
 
 export default AdminUser;

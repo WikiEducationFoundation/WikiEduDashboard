@@ -1,17 +1,13 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Popover from '../../common/popover.jsx';
 import PopoverExpandable from '../../high_order/popover_expandable.jsx';
 import AddAdminForm from '../containers/add_admin_form_container';
 
-class AddAdminButton extends React.Component {
-  constructor() {
-    super();
-    this.getKey = this.getKey.bind(this);
-  }
-
+const AddAdminButton = createReactClass({
   getKey() {
     return `add_${this.props.source}_button`;
-  }
+  },
 
   render() {
     const form = <AddAdminForm handlePopoverClose={this.props.open} />;
@@ -26,7 +22,7 @@ class AddAdminButton extends React.Component {
       </div>
     );
   }
-}
+});
 
 export default PopoverExpandable(AddAdminButton);
 

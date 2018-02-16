@@ -1,41 +1,29 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TextInput from '../../common/text_input';
 
-class AddAdminForm extends React.Component {
-  constructor() {
-    super();
-    this.state = { username: '', confirming: false };
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderForm = this.renderForm.bind(this);
-    this.renderConfirm = this.renderConfirm.bind(this);
-    this.render = this.render.bind(this);
-    this.handleConfirm = this.handleConfirm.bind(this);
-    this.reset = this.reset.bind(this);
-    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
-  }
-
+const AddAdminForm = createReactClass({
   componentWillReceiveProps(nextProps) {
     // if `this.props.submittingNewAdmin` goes from `true->false` that means the component should reset
 
     if (this.props.submittingNewAdmin && !nextProps.submittingNewAdmin) {
       this.reset();
     }
-  }
+  },
 
   handleUsernameChange(_key, value) {
     return this.setState({ username: value });
-  }
+  },
 
   reset() {
     // reset the form: clear the text box, and set confirming to false
     this.setState({ username: '', confirming: false });
-  }
+  },
 
   handleConfirm(e) {
     this.props.upgradeAdmin(this.state.username);
     this.props.handlePopoverClose(e);
-  }
+  },
 
   handleSubmit(e) {
     e.preventDefault();
@@ -44,7 +32,7 @@ class AddAdminForm extends React.Component {
       confirming: true,
       confirmMessage: `${I18n.t('settings.admin_users.new.confirm_add_admin')} ${username}?`
     });
-   }
+   },
 
   renderForm() {
     return (
@@ -67,7 +55,7 @@ class AddAdminForm extends React.Component {
         </td>
       </tr>
     );
-  }
+  },
 
   renderConfirm() {
     let buttonContent;
@@ -103,11 +91,11 @@ class AddAdminForm extends React.Component {
         </td>
       </tr>
     );
-  }
+  },
 
   render() {
     return this.state.confirming ? this.renderConfirm() : this.renderForm();
-  }
-}
+  },
+});
 
 export default AddAdminForm;
