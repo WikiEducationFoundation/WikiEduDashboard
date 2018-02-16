@@ -35,15 +35,17 @@ class UserImporter
     # Remove any leading or trailing whitespace that snuck through.
     username.gsub!(/^[[:space:]]+/, '')
     username.gsub!(/[[:space:]]+$/, '')
-    # Remove left-to-right mark, Ruby charcter 8206, from beginning or end.
+    # Remove left-to-right mark, Ruby character 8206, from beginning or end.
+    # Same for right-to-left mark, Ruby character 8207
     username[0] = '' while username[0] == 8206.chr
     username[-1] = '' while username[-1] == 8206.chr
+    username[0] = '' while username[0] == 8207.chr
+    username[-1] = '' while username[-1] == 8207.chr
     # Remove "User:" prefix if present.
     username.gsub!(/^User:/, '')
     # All mediawiki usernames have the first letter capitalized, although
     # the API returns data if you replace it with lower case.
-    # TODO: mb_chars for capitalzing unicode should not be necessary with Ruby 2.4
-    username[0] = username[0].mb_chars.capitalize.to_s unless username.empty?
+    username[0] = username[0].capitalize.to_s unless username.empty?
 
     user = User.find_by(username: username)
     return user if user
