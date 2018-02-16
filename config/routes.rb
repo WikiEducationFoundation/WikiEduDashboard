@@ -147,7 +147,8 @@ Rails.application.routes.draw do
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
-
+  get 'all_courses_csv' => 'analytics#all_courses_csv'
+  
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do

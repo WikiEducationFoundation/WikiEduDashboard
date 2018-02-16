@@ -15,8 +15,13 @@
         = "Unique project home wikis: #{@home_wiki_count}"
         %br
         = "Unique wikis interacted with: #{@total_wikis_touched}"
-        %h4
-          Courses / Programs per wiki:
-          - Wiki.find_each do |wiki|
-            %li
-              = "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+  %section
+    .section-header
+      Courses / Programs per wiki:
+      - Wiki.find_each do |wiki|
+        %li
+          = "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+
+  %section
+    .section-header
+      %button.button.dark{href: '/all_courses_csv'} Generate CSV of all programs
