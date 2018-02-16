@@ -56,15 +56,8 @@ const Confirm = createReactClass({
           />
         </div>
       );
-      description = (
-        <div className="confirm-explanation">
-          {this.props.explanation}
-          <br />
-          <br />
-        </div>
-      );
       confirmMessage = (
-        <div id = "confirm-message">
+        <div id="confirm-message">
           {this.props.confirmMessage}
         </div>
       );
@@ -75,6 +68,16 @@ const Confirm = createReactClass({
       );
       lineBreak = (
         <br />
+      );
+    }
+
+    if (this.props.explanation) {
+      description = (
+        <div className="confirm-explanation">
+          {this.props.explanation}
+          <br />
+          <br />
+        </div>
       );
     }
 
