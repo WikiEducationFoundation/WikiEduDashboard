@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses
@@ -46,6 +45,7 @@
 #  flags                 :text(65535)
 #  level                 :string(255)
 #  private               :boolean          default(FALSE)
+#  withdrawn             :boolean          default(FALSE)
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
@@ -229,7 +229,7 @@ class Course < ApplicationRecord
   end
 
   def approved?
-    campaigns.any?
+    campaigns.any? && !withdrawn
   end
 
   def tag?(query_tag)
