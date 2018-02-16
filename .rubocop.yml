@@ -125,8 +125,6 @@ Rails/Validation:
   Enabled: false
 Rails/FindBy:
   Enabled: false
-Rails/FindEach:
-  Enabled: false
 Layout/IndentHeredoc:
   Enabled: false
 Rails/Output:
