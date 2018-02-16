@@ -39,6 +39,7 @@ class AnalyticsController < ApplicationController
   def usage
     @user_count = User.count
     @logged_in_count = User.where.not(first_login: nil).count
+    @course_instructor_count = CoursesUsers.with_instructor_role.pluck(:user_id).uniq.count
     @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
     @total_wikis_touched = Wiki.count
   end

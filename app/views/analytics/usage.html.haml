@@ -10,6 +10,13 @@
         %br
         = "OAuth users: #{@logged_in_count}"
         %br
+        = "Unique program facilitators / course instructors: #{@course_instructor_count}"
+        %br
         = "Unique project home wikis: #{@home_wiki_count}"
         %br
         = "Unique wikis interacted with: #{@total_wikis_touched}"
+        %h4
+          Courses / Programs per wiki:
+          - Wiki.find_each do |wiki|
+            %li
+              = "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
