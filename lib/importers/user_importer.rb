@@ -26,6 +26,10 @@ class UserImporter
     user
   end
 
+  LTR_MARK = 8206.chr # left-to-right mark, Ruby character 8206
+  RTL_MARK = 8207.chr # right-to-left mark, Ruby character 8207
+  CHARACTERS_TO_TRIM = [LTR_MARK, RTL_MARK].freeze
+
   def self.new_from_username(username, home_wiki=nil)
     username = String.new(username)
     # mediawiki mostly treats spaces and underscores as equivalent, but spaces
@@ -35,12 +39,10 @@ class UserImporter
     # Remove any leading or trailing whitespace that snuck through.
     username.gsub!(/^[[:space:]]+/, '')
     username.gsub!(/[[:space:]]+$/, '')
-    # Remove left-to-right mark, Ruby character 8206, from beginning or end.
-    # Same for right-to-left mark, Ruby character 8207
-    username[0] = '' while username[0] == 8206.chr
-    username[-1] = '' while username[-1] == 8206.chr
-    username[0] = '' while username[0] == 8207.chr
-    username[-1] = '' while username[-1] == 8207.chr
+
+    # Remove common invisible characters from beginning or end of username
+    username[0] = '' while CHARACTERS_TO_TRIM.include? username[0]
+    username[-1] = '' while CHARACTERS_TO_TRIM.include? username[-1]
     # Remove "User:" prefix if present.
     username.gsub!(/^User:/, '')
     # All mediawiki usernames have the first letter capitalized, although
