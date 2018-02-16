@@ -99,13 +99,9 @@ Rails/SkipsModelValidations:
   Enabled: false
 Rails/OutputSafety:
   Enabled: false
-Naming/PredicateName:
-  Enabled: false
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
-  Enabled: false
-Naming/AccessorMethodName:
   Enabled: false
 Style/RedundantSelf:
   Enabled: false
