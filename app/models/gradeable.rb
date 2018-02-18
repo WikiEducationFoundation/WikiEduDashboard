@@ -14,7 +14,7 @@
 #
 
 #= Gradeable model
-class Gradeable < ActiveRecord::Base
+class Gradeable < ApplicationRecord
   belongs_to :gradeable_item, polymorphic: true
   before_validation :normalize_points
 

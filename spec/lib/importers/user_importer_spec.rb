@@ -130,7 +130,7 @@ describe UserImporter do
       end
     end
 
-    it 'removes the invisible left-to-right mark from start or end of username' do
+    it 'removes invisible left-to-right and right-to-left marks from start or end of username' do
       VCR.use_cassette 'user/new_from_username_with_ltr' do
         username = 'Jashan1994' + 8206.chr + 8206.chr
         user = UserImporter.new_from_username(username)
@@ -139,6 +139,10 @@ describe UserImporter do
         username = 8206.chr + 'Jashan1994'
         user = UserImporter.new_from_username(username)
         expect(user.username).to eq('Jashan1994')
+
+        username = 8207.chr + 'Ofrit Assaf'
+        user = UserImporter.new_from_username(username)
+        expect(user.username).to eq('Ofrit Assaf')
       end
     end
 

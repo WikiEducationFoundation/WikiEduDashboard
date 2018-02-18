@@ -38,7 +38,7 @@ describe 'campaign programs page', type: :feature, js: true do
         all('.remove-course')[1].click
       end
       expect(page).to have_content('has been removed')
-      expect(CampaignsCourses.find_by_id(campaigns_course.id)).to be_nil
+      expect(CampaignsCourses.find_by(id: campaigns_course.id)).to be_nil
     end
   end
 

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: categories
@@ -11,6 +10,7 @@
 #  depth          :integer          default(0)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  source         :string(255)      default("category")
 #
 
 require "#{Rails.root}/lib/importers/category_importer"
@@ -25,7 +25,7 @@ class Category < ApplicationRecord
   serialize :article_titles, Array
 
   def self.refresh_categories_for(courses)
-    CategoriesCourses.where(course: courses).each do |category_course|
+    CategoriesCourses.where(course: courses).find_each do |category_course|
       category_course.category.refresh_titles
     end
   end

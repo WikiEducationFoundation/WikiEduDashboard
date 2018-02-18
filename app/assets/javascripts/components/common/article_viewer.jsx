@@ -91,8 +91,8 @@ const ArticleViewer = createReactClass({
   },
 
   isWhocolorLang() {
-    // Supported languages for https://api.wikiwho.net/ as of 2017-10-02
-    const whocolorSupportedLang = ['de', 'en', 'eu', 'tr'];
+    // Supported languages for https://api.wikiwho.net/ as of 2018-02-11
+    const whocolorSupportedLang = ['de', 'en', 'es', 'eu', 'tr'];
     return whocolorSupportedLang.includes(this.props.article.language) && this.props.article.project === 'wikipedia';
   },
 

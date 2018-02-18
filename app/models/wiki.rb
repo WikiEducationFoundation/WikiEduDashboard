@@ -9,7 +9,7 @@
 #  project  :string(16)
 #
 
-class Wiki < ActiveRecord::Base
+class Wiki < ApplicationRecord
   has_many :articles
   has_many :assignments
   has_many :revisions

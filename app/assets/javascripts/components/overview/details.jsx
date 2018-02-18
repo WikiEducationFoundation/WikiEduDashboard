@@ -8,10 +8,13 @@ import OnlineVolunteers from './online_volunteers';
 import CampusVolunteers from './campus_volunteers';
 import WikiEdStaff from './wiki_ed_staff';
 
-import CampaignButton from './campaign_button.jsx';
+import CampaignEditable from './campaign_editable.jsx';
+import CampaignList from './campaign_list.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
+import PrivacySelector from './privacy_selector.jsx';
+import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 
@@ -22,16 +25,13 @@ import CourseActions from '../../actions/course_actions.js';
 
 import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
-import CampaignStore from '../../stores/campaign_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-// For some reason getState is not being triggered when CampaignStore gets updated
 
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
-    campaigns: CampaignStore.getModels(),
     tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
@@ -46,8 +46,10 @@ const Details = createReactClass({
     campaigns: PropTypes.array,
     tags: PropTypes.array,
     controls: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    allCampaigns: PropTypes.array
   },
+
   mixins: [ValidationStore.mixin],
   getInitialState() {
     return getState();
@@ -206,22 +208,20 @@ const Details = createReactClass({
         />
       );
     }
-    const lastIndex = this.props.campaigns.length - 1;
-    const campaigns = this.props.campaigns.length > 0 ?
-      _.map(this.props.campaigns, (campaign, index) => {
-        let comma = '';
-        const url = `/campaigns/${campaign.slug}/overview`;
-        if (index !== lastIndex) { comma = ', '; }
-        return <span key={campaign.slug}><a href={url}>{campaign.title}</a>{comma}</span>;
-      })
-    : I18n.t('courses.none');
-
+    const campaigns = (
+      <span className="campaigns" id="course_campaigns">
+        <CampaignList {...this.props} />
+        <CampaignEditable {...this.props} show={this.props.editable} />
+      </span>
+    );
     let subject;
     let tags;
     let courseTypeSelector;
     let submittedSelector;
+    let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let withdrawnSelector;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -249,6 +249,20 @@ const Details = createReactClass({
           editable={this.props.editable}
         />
       );
+      withdrawnSelector = (
+        <WithdrawnSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+    );
+      if (!Features.wikiEd && this.props.editable) {
+        privacySelector = (
+          <PrivacySelector
+            course={this.props.course}
+            editable={this.props.editable}
+          />
+        );
+      }
     }
 
     // Users who can rename a course are also allowed to change the type.
@@ -324,16 +338,15 @@ const Details = createReactClass({
             {timelineStart}
             {timelineEnd}
           </form>
-          <div>
-            <span><strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)} </strong>{campaigns}</span>
-            <CampaignButton {...this.props} show={this.props.editable && canRename && (this.props.course.submitted || !isClassroomProgramType)} />
-          </div>
+          {campaigns}
           {subject}
           {courseLevelSelector}
           {tags}
           {courseTypeSelector}
           {submittedSelector}
+          {privacySelector}
           {timelineToggle}
+          {withdrawnSelector}
         </div>
       </div>
     );
@@ -357,4 +370,4 @@ const saveCourseDetails = (data, courseId = null) => {
   }
 };
 
-export default Editable(Details, [CourseStore, CampaignStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));

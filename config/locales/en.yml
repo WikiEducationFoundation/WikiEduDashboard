@@ -57,9 +57,12 @@ en:
     my_dashboard: My Dashboard
     recent_activity: Recent Activity
     report_problem: Report a problem
+    request_account: Request an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia
+    sign_up_wikipedia: Or sign up on Wikipedia
+
     # FIXME: deprecate lego message
     sign_up_log_in_extended: with Wikipedia
     sign_up: Sign up
@@ -263,6 +266,13 @@ en:
 
   courses:
     accounts_generation_enabled: Accounts request generation enabled
+    accounts_generation_explanation: >
+      This will allow participants to enter their email address and desired
+      username, instead of creating new accounts themselves. You will then be
+      able to create the accounts from this Dashboard, and add them as
+      program participants at the same time. To use this feature, you should
+      have 'account creator' permission on the home wiki for this program.
+    accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses
@@ -284,8 +294,9 @@ en:
     cancel: 'Cancel'
     character_doc: The sum of characters added to mainspace articles by the course's students during the course term
     campaigns: 'Campaigns: '
-    campaign_courses: '%{title} Courses'
     campaign_articles: '%{title} Articles'
+    campaign_courses: '%{title} Courses'
+    campaign_select: 'Select a campaign'
     campaign_users: '%{title} Editors'
     confirm_course_deletion: Are you sure you want to delete the course titled %{title}? If so, type the title of the course to proceed.
     confirm_course_deletion_failed: '"%{title}" is not the title of this course. The course has not been deleted.'
@@ -449,10 +460,12 @@ en:
     new_account_email_placeholder: name@example.org
     new_account_info: >
       To request an account, enter your email address and your desired username.
-      A password will be emailed to you once the account has been created.
+      A password will be emailed to you once the account has been created by one
+      of the facilitators.
     new_account_info_admin: >
-      To request an student's account, enter their email address and desired username.
-      A password will be emailed to them once the account has been created.
+      To create an account for a new editor, enter their email address and
+      desired username. A password will be emailed to them once the account has
+      been created.
     new_account_username: Requested username
     new_account_username_invalid: This is not a valid username.
     new_account_username_placeholder: Wiki Editor 123
@@ -477,6 +490,7 @@ en:
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
+    private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
     requested_accounts: Requested accounts
@@ -554,6 +568,7 @@ en:
 
   # These are strings that are not specific to education/classroom contexts
   courses_generic:
+    add_campaign: Add campaign
     all_courses: All Programs
     archived: Archived Programs
     articles_none: There are no edited articles for this project yet.

@@ -21,7 +21,7 @@ module Errors
 
         render plain: explanation,
                status: 500
-        raise StandardError, explanation if Rails.env == 'test'
+        raise StandardError, explanation if Rails.env.test?
       end
     end
 

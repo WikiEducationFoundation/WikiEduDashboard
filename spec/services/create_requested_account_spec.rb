@@ -6,10 +6,15 @@ describe CreateRequestedAccount do
   let(:creator) { create(:admin) }
   let(:course) { create(:course) }
   let(:user) { create(:user) }
-  let(:requested_account) { create(:requested_account, course_id: course.id,
-                                                       username: user.username,
-                                                       email: user.email)
-                          }
+  let(:requested_account) do
+    create(
+      :requested_account,
+      course_id: course.id,
+      username: user.username,
+      email: user.email
+    )
+  end
+
   let(:subject) do
     described_class.new(requested_account, creator)
   end

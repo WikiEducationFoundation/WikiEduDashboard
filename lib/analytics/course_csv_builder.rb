@@ -14,6 +14,7 @@ class CourseCsvBuilder
     title
     institution
     term
+    home_wiki
     new_or_returning
     editors
     new_editors
@@ -31,11 +32,13 @@ class CourseCsvBuilder
     training_completion_rate
   ].freeze
   # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def row
     row = [@course.slug]
     row << @course.title
     row << @course.school
     row << @course.term
+    row << @course.home_wiki.domain
     row << new_or_returning_tag
     row << @course.user_count
     row << new_editors.count
@@ -56,6 +59,7 @@ class CourseCsvBuilder
     row
   end
   # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/AbcSize
 
   def headers
     if @per_wiki

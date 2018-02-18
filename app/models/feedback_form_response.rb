@@ -11,7 +11,7 @@
 #  created_at :datetime
 #
 
-class FeedbackFormResponse < ActiveRecord::Base
+class FeedbackFormResponse < ApplicationRecord
   def topic
     if subject =~ %r{/training/}
       path = URI.parse(subject).path

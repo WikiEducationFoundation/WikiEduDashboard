@@ -83,7 +83,7 @@ class RequestedAccountsController < ApplicationController
   end
 
   def set_course
-    @course = Course.find_by_slug(params[:course_slug])
+    @course = Course.find_by(slug: params[:course_slug])
   end
 
   def redirect_if_passcode_invalid

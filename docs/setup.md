@@ -33,7 +33,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install Ruby 2.5.0 (RVM is documented here; rbenv also works fine.)
     - OSX/Debian:
        - From the WikiEduDashboard directory, run the curl script from [rvm.io](https://rvm.io/)
-       - `rvm install ruby-2.5.`
+       - `rvm install ruby-2.5.0`
     - Windows:
        - Use [RailsInstaller](http://railsinstaller.org/en)
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)

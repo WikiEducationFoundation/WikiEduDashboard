@@ -12,7 +12,7 @@ import List from '../common/list.jsx';
 import Student from './student.jsx';
 import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
-import NewAccountModal from '../enroll/new_account_modal.jsx';
+import NewAccountButton from '../enroll/new_account_button.jsx';
 
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
@@ -114,17 +114,9 @@ const StudentList = createReactClass({
       addStudent = <EnrollButton {...this.props} users={this.props.students} role={0} key="add_student" allowed={false} />;
     }
 
-    let requestAccountsModal;
+    let requestAccountsButton;
     if (this.props.course.flags.register_accounts === true && this.props.course.published) {
-      if (this.state.showModal) {
-        requestAccountsModal = <NewAccountModal course={this.props.course} key="request_account" currentUser={this.props.current_user} passcode={this.props.course.passcode} closeModal={this.closeModal} />;
-      } else {
-        requestAccountsModal = (
-          <button onClick={this.openModal} key="request_account_closed" className="request_accounts button auth signup border margin">
-            <i className="icon icon-wiki-logo" /> {I18n.t('application.create_accounts')}
-          </button>
-        );
-      }
+      requestAccountsButton = <NewAccountButton course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} />;
     }
 
     let notifyOverdue;
@@ -162,7 +154,7 @@ const StudentList = createReactClass({
     };
     return (
       <div className="list__wrapper">
-        {this.props.controls([addStudent, requestAccountsModal, notifyOverdue], this.props.students.length < 1)}
+        {this.props.controls([addStudent, requestAccountsButton, notifyOverdue], this.props.students.length < 1)}
         <List
           elements={elements}
           className="table--expandable table--hoverable"

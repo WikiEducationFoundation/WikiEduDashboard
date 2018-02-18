@@ -49,9 +49,11 @@ pt-br:
     my_dashboard: Meu painel
     recent_activity: Atividade recente
     report_problem: Informar um problema
+    request_account: Pedir uma conta
     search: perguntar
     search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registrar-se na Wikipédia
+    sign_up_wikipedia: Ou registe-se na Wikipédia
     sign_up_log_in_extended: pela Wikipédia
     sign_up: Criar conta
     submit: Enviar
@@ -247,6 +249,8 @@ pt-br:
     label: Bate-papo
   courses:
     accounts_generation_enabled: Geração de solicitação de contas ativada
+    accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
+      de contas?
     activity: Atividade
     active_courses: '%{course_type} ativo'
     all_courses: Todos os cursos
@@ -548,6 +552,7 @@ pt-br:
       notification_message: Responda nossa pesquisa sobre este curso
       link: Responder o Questionário
   courses_generic:
+    add_campaign: Adicionar campanha
     all_courses: Todos os programas
     archived: Programas arquivados
     articles_none: Não há ainda artigos editados neste projeto.

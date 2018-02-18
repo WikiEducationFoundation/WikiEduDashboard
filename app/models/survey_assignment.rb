@@ -20,7 +20,7 @@
 #  custom_email                            :text(65535)
 #
 
-class SurveyAssignment < ActiveRecord::Base
+class SurveyAssignment < ApplicationRecord
   has_paper_trail
   belongs_to :survey
   has_and_belongs_to_many :campaigns
@@ -95,7 +95,7 @@ class SurveyAssignment < ActiveRecord::Base
   end
 
   def survey
-    Survey.find_by_id(survey_id)
+    Survey.find_by(id: survey_id)
   end
 
   def active?

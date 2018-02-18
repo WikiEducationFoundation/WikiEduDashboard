@@ -18,7 +18,7 @@ class TimelineController < ApplicationController
   private
 
   def set_course
-    @course = Course.find_by_slug(params[:course_id])
+    @course = Course.find_by(slug: params[:course_id])
   end
 
   ########################

@@ -70,56 +70,40 @@ describe 'Admin users', type: :feature, js: true do
       stub_chat_channel_create_success
 
       visit "/courses/#{Course.first.slug}"
-      sleep 1
+      expect(page).to have_content 'This course has been submitted for approval by its creator'
 
       # Edit details and add campaign
       click_button('Edit Details')
-
-      page.all('.button.border.plus')[4].click
-
-      # Ensure campaigns appear in select list ordered by time (descending)
-      campaign_options = all('select[name=campaign]>option')[1, 2]
-      expect(campaign_options[0]).to have_text Campaign.find(2).title
-      expect(campaign_options[1]).to have_text Campaign.find(1).title
-
-      select 'Fall 2015', from: 'campaign'
-      find('.pop button', visible: true).click
-      sleep 1
+      within '#course_campaigns' do
+        page.find('.button.border.plus').click
+        find('div.Select').send_keys('Fall 2015', :enter)
+        find('.pop button', visible: true).click
+      end
 
       expect(page).to have_content 'Your course has been published'
-
-      visit root_path
-      sleep 1
-      expect(page).not_to have_content 'Submitted & Pending Approval'
+      expect(page).not_to have_content 'This course has been submitted for approval by its creator'
     end
   end
 
   describe 'removing all campaigns from a course' do
     it 'returns it to "submitted" status' do
-      pending 'This sometimes fails on travis.'
-
       stub_oauth_edit
       create(:campaigns_course,
              campaign_id: 1,
              course_id: 10001)
       visit "/courses/#{Course.first.slug}"
-      sleep 1
-
       expect(page).to have_content 'Your course has been published'
 
       # Edit details and remove campaign
       click_button('Edit Details')
-      page.all('.button.border.plus')[4].click
-      page.find('.button.border.plus', text: '-').click
-      sleep 1
-
+      within '#course_campaigns' do
+        click_button '+'
+        click_button '-'
+      end
       expect(page).to have_content 'This course has been submitted'
 
       visit root_path
-      sleep 1
       expect(page).to have_content 'Submitted & Pending Approval'
-
-      pass_pending_spec
     end
   end
 

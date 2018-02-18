@@ -41,7 +41,7 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def set_course
-    @course = Course.find_by_slug(params[:course_id])
+    @course = Course.find_by(slug: params[:course_id])
     # Check if the course exists
     raise ActionController::RoutingError, 'Course not found' if @course.nil?
   end

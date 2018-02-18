@@ -18,7 +18,7 @@
 #
 
 #= Upload model
-class CommonsUpload < ActiveRecord::Base
+class CommonsUpload < ApplicationRecord
   belongs_to :user
 
   ####################

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -24,12 +23,13 @@
 #  chat_password       :string(255)
 #  chat_id             :string(255)
 #  registered_at       :datetime
+#  first_login         :datetime
 #
 
 require "#{Rails.root}/lib/utils"
 
 #= User model
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
 
