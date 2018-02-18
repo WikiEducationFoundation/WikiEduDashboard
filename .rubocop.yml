@@ -105,8 +105,6 @@ Style/GuardClause:
   Enabled: false
 Naming/AccessorMethodName:
   Enabled: false
-Style/RedundantSelf:
-  Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:
