@@ -3,12 +3,10 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import RevisionStore from '../../stores/revision_store.js';
-import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 
 const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
-const getTrainingStatus = () => TrainingStatusStore.getModels();
 
 const StudentDrawer = createReactClass({
   displayName: 'StudentDrawer',
@@ -18,19 +16,17 @@ const StudentDrawer = createReactClass({
     isOpen: PropTypes.bool
   },
 
-  mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
+  mixins: [RevisionStore.mixin],
 
   getInitialState() {
     return {
       revisions: getRevisions(this.props.student.id),
-      trainingModules: getTrainingStatus()
     };
   },
 
   storeDidChange() {
     return this.setState({
       revisions: getRevisions(this.props.student.id),
-      trainingModules: getTrainingStatus()
     });
   },
 
