@@ -11,7 +11,7 @@ describe SettingsController do
       expect(response.status).to eq(200)
     end
 
-    %i(admin instructor user).each do |role|
+    %i[admin instructor user].each do |role|
       it "redirects for role of #{role}" do
         user = create(role)
         allow(controller).to receive(:current_user).and_return(user)
