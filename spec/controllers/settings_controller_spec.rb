@@ -3,6 +3,27 @@
 require 'rails_helper'
 
 describe SettingsController do
+  describe '#index' do
+    it 'renders for super admins' do
+      super_admin = create(:super_admin)
+      allow(controller).to receive(:current_user).and_return(super_admin)
+      get :index
+      expect(response.status).to eq(200)
+    end
+
+    %i(admin instructor user).each do |role|
+      it "redirects for role of #{role}" do
+        user = create(role)
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index
+        expect(response.status).to eq(401)
+      end
+    end
+
+
+    
+  end
+
   describe '#all_admins' do
     before do
       # create an admin and super admin
