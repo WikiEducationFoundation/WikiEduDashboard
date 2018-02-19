@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import configureMockStore from 'redux-mock-store';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
+
 import thunk from 'redux-thunk';
 
 import '../../testHelper';
@@ -94,37 +94,26 @@ describe('AdminUser', () => {
   });
 
   describe('handleClick', () => {
-    let handleRevokeSpy;
     const expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
 
-    it('calls handleClick on button click', () => {
-      const revokingAdmin = {
-        status: true,
-        username: expectedUser.username,
-      };
-      handleRevokeSpy = sinon.spy(AdminUser.prototype, 'handleClick');
-      const wrapper = mount(
-        <table>
-          <tbody>
-            <AdminUser user={expectedUser} key={1} revokingAdmin={revokingAdmin} />
-          </tbody>
-        </table>
-      );
-      const button = wrapper.find('tr td p button');
-
-      button.simulate('click');
-      expect(handleRevokeSpy.calledOnce).to.equal(true);
-      AdminUser.prototype.handleClick.restore();
-    });
-
-    it('renders confirmation state', () => {
+    let wrapper;
+    beforeEach(() => {
       const revokingAdmin = {
         status: false,
         username: null,
       };
-      const wrapper = shallow(
+      wrapper = shallow(
         <AdminUser user={expectedUser} key={1} revokingAdmin={revokingAdmin} />
       );
+    });
+
+    it('changes state confirming false -> true when clicked', () => {
+      const button = wrapper.find('tr td p button');
+      button.simulate('click');
+      expect(wrapper.state().confirming).to.equal(true);
+    });
+
+    it('renders confirmation state', () => {
       wrapper.setState({ confirming: true });
       const button = wrapper.find('tr td p button');
       expect(button.text())

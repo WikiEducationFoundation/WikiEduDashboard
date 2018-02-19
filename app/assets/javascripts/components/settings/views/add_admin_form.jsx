@@ -3,6 +3,10 @@ import createReactClass from 'create-react-class';
 import TextInput from '../../common/text_input';
 
 const AddAdminForm = createReactClass({
+  getInitialState() {
+    return { confirming: false };
+  },
+
   componentWillReceiveProps(nextProps) {
     // if `this.props.submittingNewAdmin` goes from `true->false` that means the component should reset
 

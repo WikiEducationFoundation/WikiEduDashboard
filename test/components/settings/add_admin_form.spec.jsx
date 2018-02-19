@@ -11,8 +11,6 @@ const mockStore = configureMockStore(middlewares);
 describe('AddAdminForm', () => {
   let expectedUser;
   let wrapper;
-  let handleSubmitSpy;
-  let handleUsernameChangeSpy;
   const store = mockStore({
     settings: {
       adminUsers: [expectedUser],
@@ -26,19 +24,11 @@ describe('AddAdminForm', () => {
   beforeEach(() => {
     expectedUser = { id: 1, username: 'testUser', real_name: 'real name', permissions: 3 };
 
-    handleSubmitSpy = sinon.spy(AddAdminForm.prototype, 'handleSubmit');
-
-    handleUsernameChangeSpy = sinon.spy(AddAdminForm.prototype, 'handleUsernameChange');
-
     wrapper = shallow(
       <AddAdminForm store={store} />
     );
   });
 
-  afterEach(() => {
-    AddAdminForm.prototype.handleSubmit.restore();
-    AddAdminForm.prototype.handleUsernameChange.restore();
-  });
   describe('not confirming', () => {
     it('renders form', () => {
       expect(
@@ -53,13 +43,12 @@ describe('AddAdminForm', () => {
     });
 
     it('input onChange calls handleUsernameChange ', () => {
-      // TODO!
       const input = wrapper.find('#new_admin_name').first();
-      const event = { target: { name: 'username', value: expectedUser.username } };
-      input.simulate('change', event);
+      const event = ['_', expectedUser.username];
+      input.simulate('change', ...event);
       expect(
-        handleUsernameChangeSpy.calledOnce
-      ).to.equal(true);
+        wrapper.state().username
+      ).to.equal(expectedUser.username);
     });
 
     it('updates text field on state change', () => {
@@ -69,14 +58,14 @@ describe('AddAdminForm', () => {
       ).to.equal(expectedUser.username);
     });
 
+
     it('form submit calls handleSubmit', () => {
-      const event = {
-        preventDefault: () => {}
-      };
+      const submitSpy = sinon.spy();
+      const mockEvent = { preventDefault: submitSpy };
       const form = wrapper.find('form');
-      form.simulate('submit', event);
+      form.simulate('submit', mockEvent);
       expect(
-        handleSubmitSpy.calledOnce
+        submitSpy.calledOnce
       ).to.equal(true);
     });
   }); // not confirming
