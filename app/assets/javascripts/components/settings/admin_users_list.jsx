@@ -39,7 +39,14 @@ const AdminUserList = ({ adminUsers, sortBy }) => {
 };
 
 AdminUserList.propTypes = {
-  adminUsers: PropTypes.array,
+  adminUsers: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string.isRequired,
+      real_name: PropTypes.string,
+      permissions: PropTypes.number.isRequired,
+    })
+  ),
 };
 
 export default AdminUserList;

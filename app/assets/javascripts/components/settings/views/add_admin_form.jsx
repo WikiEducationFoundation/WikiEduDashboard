@@ -1,8 +1,14 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import React from 'react';
 import TextInput from '../../common/text_input';
 
 const AddAdminForm = createReactClass({
+  propTypes: {
+    submittingNewAdmin: PropTypes.bool,
+    upgradeAdmin: PropTypes.func,
+    handlePopoverClose: PropTypes.func,
+  },
   getInitialState() {
     return { confirming: false };
   },

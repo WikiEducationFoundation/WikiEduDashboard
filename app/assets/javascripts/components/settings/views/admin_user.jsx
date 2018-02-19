@@ -1,7 +1,18 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const AdminUser = createReactClass({
+  propTypes: {
+    downgradeAdmin: PropTypes.func,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string.isRequired,
+      real_name: PropTypes.string,
+      permissions: PropTypes.number.isRequired,
+    }),
+  },
+
   getInitialState: function () {
     return { confirming: false };
   },
@@ -90,13 +101,5 @@ const AdminUser = createReactClass({
     );
   },
 });
-  // constructor() {
-  //   super();
-  //   this.state = { confirming: false };
-  //   this.getButtonState = this.getButtonState.bind(this);
-  //   this.handleClick = this.handleClick.bind(this);
-  //   this.isRevoking = this.isRevoking.bind(this);
-  //   this.render = this.render.bind(this);
-  // }
 
 export default AdminUser;

@@ -1,10 +1,17 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import React from 'react';
+import AddAdminForm from '../containers/add_admin_form_container';
 import Popover from '../../common/popover.jsx';
 import PopoverExpandable from '../../high_order/popover_expandable.jsx';
-import AddAdminForm from '../containers/add_admin_form_container';
 
 const AddAdminButton = createReactClass({
+  propTypes: {
+    source: PropTypes.string,
+    opne: PropTypes.func,
+    is_open: PropTypes.bool
+  },
+
   getKey() {
     return `add_${this.props.source}_button`;
   },
