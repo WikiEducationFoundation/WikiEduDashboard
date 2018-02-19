@@ -19,9 +19,6 @@ describe SettingsController do
         expect(response.status).to eq(401)
       end
     end
-
-
-    
   end
 
   describe '#all_admins' do
