@@ -53,7 +53,7 @@ class SettingsController < ApplicationController
   def update_admin
     respond_to do |format|
       format.json do
-        @user = User.find_by_username username_param[:username]
+        @user = User.find_by username: username_param[:username]
         ensure_user_exists(params[:username]) { return } #
         yield
       end

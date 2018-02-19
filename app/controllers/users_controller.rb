@@ -203,5 +203,4 @@ class UsersController < ApplicationController
   def update_course_page_and_assignment_talk_templates
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
   end
-
 end
