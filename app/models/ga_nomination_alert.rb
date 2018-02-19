@@ -20,17 +20,17 @@
 #  details        :text(65535)
 #
 
-# Alert for when an article has been nominated for DYK on English Wikipedia
+# Alert for when an article has been nominated for GA on English Wikipedia
 class GANominationAlert < Alert
-    def main_subject
-      "#{article.title} — #{course&.slug}"
-    end
-  
-    def url
-      article.url
-    end
-  
-    def resolvable?
-      !resolved
-    end
+  def main_subject
+    "#{article.title} — #{course&.slug}"
+  end
+
+  def url
+    article.url
+  end
+
+  def resolvable?
+    !resolved
+  end
 end

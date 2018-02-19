@@ -30,7 +30,7 @@ class GANominationMonitor
   GA_CATEGORY_DEPTH = 0
   def find_pending_ga_nominations
     @ga_titles = CategoryImporter.new(@wiki)
-                                  .page_titles_for_category(GA_CATEGORY, GA_CATEGORY_DEPTH)
+                                 .page_titles_for_category(GA_CATEGORY, GA_CATEGORY_DEPTH)
   end
 
   def extract_page_titles_from_nominations
