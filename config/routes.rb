@@ -300,7 +300,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
-  resources :settings
+  resources :settings, only: [:index]
 
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do
