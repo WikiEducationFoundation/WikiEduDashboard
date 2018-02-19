@@ -48,6 +48,7 @@ es:
     search: preguntar
     search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
+    sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
     submit: Enviar
@@ -257,8 +258,8 @@ es:
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
-    campaign_courses: Curso de «%{title}»
     campaign_articles: Artículos de %{title}
+    campaign_courses: Curso de «%{title}»
     campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
@@ -475,6 +476,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    add_campaign: Añadir campaña
     all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.

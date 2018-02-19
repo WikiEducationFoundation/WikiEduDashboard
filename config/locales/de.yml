@@ -260,8 +260,9 @@ de:
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
-    campaign_courses: '%{title} Kurse'
     campaign_articles: '%{title} Artikel'
+    campaign_courses: '%{title} Kurse'
+    campaign_select: Eine Kampagne auswählen
     campaign_users: '%{title} Autoren'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
@@ -466,6 +467,7 @@ de:
     passcode: Passcode
     passcode_none: Kein Passcode
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
+    private: Privat
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'

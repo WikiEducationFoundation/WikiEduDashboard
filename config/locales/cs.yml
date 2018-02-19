@@ -45,9 +45,11 @@ cs:
     my_dashboard: Moje nástěnka
     recent_activity: Nedávná aktivita
     report_problem: Nahlásit problém
+    request_account: Požádat o účet
     search: Zeptat se
     search_results: 'Výsledky pro: „%{search_terms}“'
     sign_up_extended: Zaregistrovat se skrze Wikipedii
+    sign_up_wikipedia: Nebo se přihlašte na Wikipedii
     sign_up_log_in_extended: s Wikipedií
     sign_up: Registrace
     submit: Potvrdit
@@ -149,6 +151,13 @@ cs:
     edit_size: Velikost editace
     wiki: Wiki
     wp10: Kompletnost
+    wp10_doc: Hodnota 'Strukturální úplnosti' vyjadřuje, jak moc se článek blíží úrovni
+      zralého článku Wikipedie, a je založena na službě Objective Revision Evaluation
+      Service (https://ores.wikimedia.org/). Výsledky jsou vypočítány na základě velikosti
+      článků, počtu odkazů a wikilinků a dalších základních vlastnostech textu. Tato
+      hodnota ukazuje, jak článek dodržuje konvence Wikipedie pro strukturu dobrého
+      článku, ale nezohledňuje obsah článku. (Výsledky jsou dostupné pouze pro články
+      v anglické Wikipedii.)
   assignments:
     article: Článek %{title} je nyní přiřazen k Vám.
     already_exists: Tento článek už byl zadán!
@@ -233,6 +242,7 @@ cs:
     label: Chat
   courses:
     accounts_generation_enabled: Povoleno posílání žádostí o účet
+    accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita
     active_courses: Aktivní %{course_type}
     all_courses: Všechny kurzy
@@ -255,8 +265,9 @@ cs:
     character_doc: Počet znaků, které byly přidány do hlavního jmenného prostoru studenty
       během průběhu kurzu
     campaigns: 'Programy:'
-    campaign_courses: '%{title} kurzy'
     campaign_articles: '%{title} články'
+    campaign_courses: '%{title} kurzy'
+    campaign_select: Zvolit kampaň
     campaign_users: '%{title} editoři'
     confirm_course_deletion: Jste si jistý, že chcete odstranit kurz %{title}? Pokud
       ano, napište název kurzu do pole níže.
@@ -294,6 +305,9 @@ cs:
         a bloků). Přidejte data, která nebyla zkopírována. Chcete něco jiného ve vašem
         kurzu upravit? Upravte to nyní.
       course_description: Popis kurzu
+      course_description_placeholder: Co je obsahem vašeho kurzu a co budou studenti
+        dělat na Wikipedii? Vložte, prosím, dostatek detailů, aby ostatní redaktoři
+        viděli souvislost s příspěvky vašich studentů.
       course_language: Domovský jazyk
       course_private: Soukromý program (prohlížet ho mohou jen administrátoři nebo
         facilitátoři)
@@ -315,6 +329,12 @@ cs:
         později změněny. Všechno ostatní můžete později ještě upravit. Po stisknutí
         tlačítka "Vytvořit kurz!" budete moci začít vytvářet svůj časový plán svého
         úkolu.
+      new_or_clone: Nyní můžete vytvořit nový kurz pomocí průvodce návrhem přiřazení.
+        Pokud máte vlastní upravený rozvrh z předchozího kurzu, můžete ho překopírovat
+        a naplnit novými daty. (Pokud jste ale rozvrh příliš neupravovali, doporučujeme
+        vám začít s novým kurzem, abyste mohli využít nejnovější možnosti přiřazení.)
+        Klonování můžete také použít pro vytvoření dalších sekcí pro kurzy, které
+        jste již nastavili.
       no_class_holidays: Třída nemá prázdniny
       role_description: Vaše role v kurzu
       role_description_placeholder: Instruktor, asistent vyučujícího, atd.
@@ -332,6 +352,9 @@ cs:
         zabere několik hodin.
     current: Aktuální kurzy
     data_articles: Data o článcích
+    data_articles_info: Data stránek obsahují počty editací každé stránky, které stránky
+      jsou nové a počty zobrazení stránek. Tyto počty zobrazení mohou být zastaralé
+      pro ukončené kurzy, proto je obsaženo i URL k WMF Tool Labs.
     data_download_info: Stáhnout data ve formátu CSV.
     data_overview: Přehledová data
     data_overview_info: Přehledová data poskytují celkové statistiky o projektu.
@@ -339,6 +362,8 @@ cs:
     data_edits_info: Data týkající se editací ukazují detaily o každé editaci provedené
       během projektu.
     data_students: Data o editorech
+    data_students_info: Údaje editorů obsahují seznam všech přihlášených editorů,
+      počty editací a zda v průběhu projektu registrovali své účty.
     data_uploads: Data týkající se nahraných souborů na Commons
     data_uploads_info: Data týkající se nahraných souborů na Commons zobrazují název
       a počet použití každého nahraného mediálního souboru.
@@ -380,6 +405,9 @@ cs:
     instructors: Instruktoři
     invitation: Byli jste pozváni k připojení se ke kurzu %{title}, ale nejprve se
       musíte přihlásit ke svému účtu.
+    invitation_username_advice: Pokud nemáte svůj účet na Wikipedii, zaregistrujte
+      se. Vaše uživatelské jméno může být anonymní nebo může obsahovat vaše osobní
+      údaje, dle vašeho přání. (Sdílené účty nejsou povoleny.)
     join: Zapsat se
     join_course: Připojit se ke kurzu
     join_prompt: Zapsat se do '%{title}'?
@@ -388,6 +416,9 @@ cs:
     join_failure_details:
       cannot_join_twice: Uživatelé se nemohou do stejného kurzu zapsat dvakrát.
       not_yet_approved: Tento kurz ještě nebyl schválen pro zapisování se.
+    join_details: Chcete-li se připojit k tomuto kurzu, musíte zadat přístupový kód
+      nebo registrační odkaz s přístupovým kódem, který získáte od instruktora. Pokud
+      jej nemáte, kontaktujte instruktora.
     join_no_passcode: Opravdu se chcete připojit k tomuto kurzu?
     leave_confirmation: Opravdu chcete opustit tento kurz?
     leave_course: Opustit kurz
@@ -426,6 +457,7 @@ cs:
     passcode: Heslo
     passcode_none: Žádné heslo
     passcode_prompt: 'Zadejte heslo, abyste se mohli přidat:'
+    private: Soukromý
     published: 'Váš kurz byl zveřejněn! Studenti se mohou zapsat do kurzu tím, že
       navštíví následující adresu URL:'
     rating_feedback: 'Předpokládané hodnocení článku je:'
@@ -499,6 +531,7 @@ cs:
       notification_message: Zúčastněte se průzkumu pro tento kurz.
       link: Spustit dotazník
   courses_generic:
+    add_campaign: Přidat kampaň
     all_courses: Všechny programy
     archived: Archivované programy
     articles_none: V tomto projektu zatím nejsou žádné editované články
@@ -673,6 +706,8 @@ cs:
       Spusťte 'rake batch:resume' chcete-li obnovit aktualizace.
   timeline:
     add_week: Přidat týden
+    arrange_timeline: Uspořádat rozvrh
+    block_assignment: Přiřazení
     block_custom: Vlastní
     block_in_class: Ve třídě
     block_milestone: Milník
@@ -687,11 +722,13 @@ cs:
     delete_timeline_and_start_over: Smazat rozvrh
     due_default: Příští týden
     empty_week_1: Chcete-li začít,
+    empty_week_2: začít editovat tento týden
     empty_week_3: nebo
     first_week_title: První aktivní týden
     gradeable_value: Hodnota
     move_block_down: Přesunout blok dolů
     move_block_up: Přesunout blok nahoru
+    no_class_holidays: Třída nemá prázdniny
     no_timeline: Tento kurz nemá svůj harmonogram.
     no_activity_this_week: Žádné plánované setkání tento týden
     nothing_this_week: Na tento týden není naplánována žádná akce.
@@ -712,6 +749,7 @@ cs:
       do té doby, než se opět přihlásíte.
     done: Hotovo!
     check_answer: Zkontrolovat odpověď
+    included_modules: Přidané moduly
   uploads:
     datetime: Datum/Čas
     file_name: Název souboru
@@ -732,6 +770,10 @@ cs:
     assignees: Přiřazení
     loading_authorship_data: načítání autorských dat
     authorship_data_not_fetched: nebylo možno najít autorská data
+    character_doc: Celkové množství obsahu, který uživatel přidal do tohoto jmenného
+      prostoru, vypočítané pomocí přidaných znaků ve všech úpravách, které zvýšily
+      velikost stránky. Toto číslu nemusí nutně odrážet množství obsahu přidaného
+      uživatelem. Obnovení odstraněného obsahu také zvýší tuto hodnotu.
     chars_added: Přidané znaky<br>(článek | uživatelský prostor | koncept)
     contributions: Příspěvky uživatele
     contributions_history_full: Zobrazit celou historii příspěvků na Wikipedii
@@ -767,6 +809,9 @@ cs:
     revisions_doc: Počet editací provedených tímto editorem v posledních 7 dnech
     reviewers: Recenzent(i)
     reviewing: Recenzuje
+    training_complete:
+      one: je obeznámen s tréninkem
+      other: jsou obeznámeni s tréninkem
     training_incomplete: Školení neukončeno
     training_module_name: Tréninkový modul
     training_module_status: Stav

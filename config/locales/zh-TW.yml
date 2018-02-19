@@ -43,6 +43,7 @@ zh-TW:
     search: 提出問題
     search_results: 結果：「%{search_terms}」
     sign_up_extended: 註冊維基百科
+    sign_up_wikipedia: 或在維基百科註冊
     sign_up_log_in_extended: 參與維基百科
     sign_up: 註冊
     submit: 送出
@@ -223,8 +224,9 @@ zh-TW:
     cancel: 取消
     character_doc: 選課學生在修課期間所編寫，在主命名空間的條目之總位元組數。 (1 中文字=3 位元組)
     campaigns: 競賽：
-    campaign_courses: '%{title}課程'
     campaign_articles: '%{title}條目'
+    campaign_courses: '%{title}課程'
+    campaign_select: 選擇一個競賽
     campaign_users: '%{title}編者'
     confirm_course_deletion: 您確定想要刪除名為 %{title} 的課程嗎？如果您確定，請輸入課程的名稱以繼續。
     confirm_course_deletion_failed: '"%{title}" 並不是此課程的名稱。此課程沒有被刪除。'
@@ -252,7 +254,7 @@ zh-TW:
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_language: 主要使用語言
-      course_private: 私有方案（僅可被管理員和主持者檢視）
+      course_private: 非公開方案（僅可被管理員和主持者檢視）
       course_project: 主專案
       course_school: 課程學校
       course_subject: 課程科目
@@ -359,7 +361,7 @@ zh-TW:
     new_account_submitted_admin: 您請求的帳戶已創建。請通知您的學生檢查其電子郵件收件箱以獲取密碼
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
-    none: 空白
+    none: 無
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
@@ -367,6 +369,7 @@ zh-TW:
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
     passcode_prompt: 請輸入選課代碼來加入：
+    private: 非公開
     published: |-
       您的課程已經發布！
       學生可透過此 URL 登記課程：

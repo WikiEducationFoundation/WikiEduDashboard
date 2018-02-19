@@ -273,8 +273,9 @@ pt-br:
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso
     campaigns: 'Grupos:'
-    campaign_courses: Curso de "%{title}"
     campaign_articles: Artigos %{title}
+    campaign_courses: Curso de "%{title}"
+    campaign_select: Selecione uma campanha
     campaign_users: Editores de %{title}
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
@@ -472,6 +473,7 @@ pt-br:
     passcode: Código de acesso
     passcode_none: Sem senha
     passcode_prompt: 'Digite a senha para entrar:'
+    private: Privado
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
