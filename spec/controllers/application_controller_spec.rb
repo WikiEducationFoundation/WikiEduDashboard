@@ -5,6 +5,7 @@ require 'rails_helper'
 describe ApplicationController do
   let(:user) { create(:user) }
   let(:admin) { create(:admin) }
+  let(:super_admin) { create(:super_admin) }
   let(:course) { create(:course) }
 
   controller do
@@ -112,6 +113,69 @@ describe ApplicationController do
     context 'when user is an admin' do
       it 'does not return a 401' do
         allow(controller).to receive(:current_user).and_return(admin)
+        get :index
+        expect(response.status).to eq(200)
+      end
+    end
+
+    context 'when user is a super_admin' do
+      it 'does not return a 401' do
+        allow(controller).to receive(:current_user).and_return(super_admin)
+        get :index
+        expect(response.status).to eq(200)
+      end
+    end
+  end
+
+  describe '#require_super_admin_permissions' do
+    controller do
+      def index
+        require_super_admin_permissions
+        head 200
+      end
+    end
+
+    context 'when user is < admin' do
+      it 'returns an html 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns a json 401' do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, as: :json
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns custom error message' do
+        allow(controller).to receive(:current_user).and_return(user)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, as: :json
+        message = JSON.parse(response.body)['message']
+        expect(message).to eq('Only super administrators may do that.')
+      end
+    end
+
+    context 'when user is an admin' do
+      it 'returns an html 401' do
+        allow(controller).to receive(:current_user).and_return(admin)
+        get :index
+        expect(response.status).to eq(401)
+      end
+
+      it 'returns a json 401' do
+        allow(controller).to receive(:current_user).and_return(admin)
+        allow(controller).to receive(:json?).and_return(true)
+        get :index, as: :json
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'when user is a super_admin' do
+      it 'does not return a 401' do
+        allow(controller).to receive(:current_user).and_return(super_admin)
         get :index
         expect(response.status).to eq(200)
       end

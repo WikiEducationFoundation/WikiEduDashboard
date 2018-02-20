@@ -7,6 +7,7 @@ require "#{Rails.root}/lib/analytics/course_edits_csv_builder"
 require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
 require "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require "#{Rails.root}/lib/analytics/ungreeted_list"
 require "#{Rails.root}/lib/analytics/histogram_plotter"
 
@@ -39,6 +40,7 @@ class AnalyticsController < ApplicationController
   def usage
     @user_count = User.count
     @logged_in_count = User.where.not(first_login: nil).count
+    @course_instructor_count = CoursesUsers.with_instructor_role.pluck(:user_id).uniq.count
     @home_wiki_count = Course.all.pluck(:home_wiki_id).uniq.count
     @total_wikis_touched = Wiki.count
   end
@@ -72,6 +74,11 @@ class AnalyticsController < ApplicationController
   def course_articles_csv
     send_data CourseArticlesCsvBuilder.new(@course).generate_csv,
               filename: "#{@course.slug}-articles-#{Time.zone.today}.csv"
+  end
+
+  def all_courses_csv
+    send_data CampaignCsvBuilder.new(nil).courses_to_csv,
+              filename: "all_courses-#{Time.zone.today}.csv"
   end
 
   ###################

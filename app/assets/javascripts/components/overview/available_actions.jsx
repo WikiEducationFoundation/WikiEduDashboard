@@ -111,7 +111,8 @@ const AvailableActions = createReactClass({
       });
     };
     const confirmMessage = I18n.t('courses.accounts_generation_confirm_message');
-    this.props.initiateConfirm(confirmMessage, onConfirm);
+    const explanation = I18n.t('courses.accounts_generation_explanation');
+    this.props.initiateConfirm(confirmMessage, onConfirm, false, explanation);
   },
 
   render() {

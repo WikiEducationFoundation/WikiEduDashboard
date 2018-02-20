@@ -124,8 +124,8 @@ ga:
       legend_class_not_meeting: Níl aon chruinniú sceidealaithe
     cancel: Cealaigh
     campaigns: 'Feachtais:'
-    campaign_courses: Cúrsaí %{title}
     campaign_articles: Ailt %{title}
+    campaign_courses: Cúrsaí %{title}
     campaign_users: Eagarthóirí %{title}
     course: Cúrsa
     course_description: Cúrsaí

@@ -30,7 +30,7 @@ class OnboardingController < ApplicationController
     # No instructor permission is the default.
     return unless params[:instructor] == true
     # Do not downgrade admins' permissions.
-    return if @permissions == User::Permissions::ADMIN
+    return if @user.admin?
 
     @permissions = User::Permissions::INSTRUCTOR
   end

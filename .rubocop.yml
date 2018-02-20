@@ -103,8 +103,6 @@ Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
   Enabled: false
-Style/RedundantSelf:
-  Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 Rails/InverseOf:
@@ -122,8 +120,6 @@ Rails/HasAndBelongsToMany:
 Rails/Validation:
   Enabled: false
 Rails/FindBy:
-  Enabled: false
-Rails/FindEach:
   Enabled: false
 Layout/IndentHeredoc:
   Enabled: false

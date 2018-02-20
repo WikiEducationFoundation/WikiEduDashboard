@@ -128,8 +128,8 @@ el:
       legend_class_not_meeting: Καμία σχεδιασμένη συνάντηση
     cancel: Ακύρωση
     campaigns: 'Εκστρατείες:'
-    campaign_courses: '%{title} Μαθήματα'
     campaign_articles: '%{title} λήμματα'
+    campaign_courses: '%{title} Μαθήματα'
     campaign_users: '%{title} συντάκτες'
     course: Μάθημα
     course_description: Μαθήματα

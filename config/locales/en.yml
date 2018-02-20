@@ -266,7 +266,13 @@ en:
 
   courses:
     accounts_generation_enabled: Accounts request generation enabled
-    accounts_generation_confirm_message: Are you sure you want to enable the account requests?
+    accounts_generation_explanation: >
+      This will allow participants to enter their email address and desired
+      username, instead of creating new accounts themselves. You will then be
+      able to create the accounts from this Dashboard, and add them as
+      program participants at the same time. To use this feature, you should
+      have 'account creator' permission on the home wiki for this program.
+    accounts_generation_confirm_message: Are you sure you want to enable account requests?
     activity: Activity
     active_courses: Active %{course_type}
     all_courses: All Courses
@@ -454,10 +460,12 @@ en:
     new_account_email_placeholder: name@example.org
     new_account_info: >
       To request an account, enter your email address and your desired username.
-      A password will be emailed to you once the account has been created.
+      A password will be emailed to you once the account has been created by one
+      of the facilitators.
     new_account_info_admin: >
-      To request an student's account, enter their email address and desired username.
-      A password will be emailed to them once the account has been created.
+      To create an account for a new editor, enter their email address and
+      desired username. A password will be emailed to them once the account has
+      been created.
     new_account_username: Requested username
     new_account_username_invalid: This is not a valid username.
     new_account_username_placeholder: Wiki Editor 123
@@ -731,6 +739,24 @@ en:
     title: Title
     view_on_wiki: View diff on wiki
     see_more: See more
+
+  settings:
+    admin_users:
+      new:
+        form_label: Grant admin privileges
+        form_placeholder: User Name
+        confirm_add_admin: "Grant admin"
+        confirm_remove_admin: "Remove admin privileges for"
+        already_admin: "%{username} is already an admin!"
+        elevate_success: "%{username} elevated to admin."
+      remove:
+        revoke_button: 'Revoke admin'
+        revoke_button_confirm: 'Revoke admin rights from %{username}'
+        revoking_button_working: 'Revoking...'
+        already_instructor: "%{username} is already an instructor!"
+        demote_success: "%{username} changed to instructor."
+        no_super_admin: "Can't revoke admin status from a super admin"
+
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:
