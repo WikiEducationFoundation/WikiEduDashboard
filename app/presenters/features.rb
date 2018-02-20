@@ -42,7 +42,7 @@ class Features
   end
 
   def self.email?
-    !ENV['SENDER_EMAIL_ADDRESS'].nil?
+    !ENV['mailgun_key'].nil?
   end
 
   def self.enable_get_help_button?

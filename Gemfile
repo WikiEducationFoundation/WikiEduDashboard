@@ -33,6 +33,7 @@ gem 'browser'
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
+gem 'mailgun-ruby' # email sending service
 
 ### Survey features, implemented as a rails engine
 # If you want to be able to hack locally on rapidfire,
