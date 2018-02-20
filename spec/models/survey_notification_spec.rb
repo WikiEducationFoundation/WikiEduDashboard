@@ -219,7 +219,7 @@ describe SurveyNotification do
 
       context 'and first follow up was sent longer ago' do
         let(:follow_up_count) { 1 }
-        let(:last_follow_up_sent_at) { 8.day.ago }
+        let(:last_follow_up_sent_at) { 8.days.ago }
         it 'sends another follow up' do
           expect(SurveyMailer).to receive(:instructor_survey_follow_up).and_return(mock_mailer)
           subject.send_follow_up
@@ -231,7 +231,7 @@ describe SurveyNotification do
 
       context 'and third follow up was sent longer ago' do
         let(:follow_up_count) { 3 }
-        let(:last_follow_up_sent_at) { 8.day.ago }
+        let(:last_follow_up_sent_at) { 8.days.ago }
         it 'does not send another follow up' do
           expect(SurveyMailer).not_to receive(:instructor_survey_follow_up)
           subject.send_follow_up
