@@ -37,6 +37,7 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 import RocketChat from '../components/common/rocket_chat.jsx';
 
 import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
 const navBar = document.getElementById('nav_root');
@@ -103,6 +104,7 @@ const routes = (
       <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
     <Route path="users/:username" component={ContributionStats} />
+    <Route path="settings" component={SettingsHandler} />
   </Route>
 );
 
