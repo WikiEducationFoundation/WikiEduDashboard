@@ -80,7 +80,7 @@ gem 'rinruby' # R plots!
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # for those who don't have a native readline utility installed
 gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
-
+gem 'webpacker', '~> 3.2'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
