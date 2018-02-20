@@ -242,6 +242,7 @@ en:
       When an organizer creates a program in this campaign,
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
+    request_accounts: Request accounts
     title: Title
     use_start_end_dates: Use start and end dates
 

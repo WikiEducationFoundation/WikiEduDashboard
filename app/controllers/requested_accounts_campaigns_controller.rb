@@ -8,6 +8,7 @@ class RequestedAccountsCampaignsController < ApplicationController
   before_action :check_creation_permissions,
                 only: %i[index create_accounts enable_account_requests destroy]
 
+  def new; end
   # This creates (or updates) a RequestedAccount, which is a username and email
   # for a user who wants to create a wiki account (but may not be able to do so
   # because of a shared IP that has hit the new account limit).
