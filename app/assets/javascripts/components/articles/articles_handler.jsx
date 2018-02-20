@@ -19,8 +19,18 @@ const ArticlesHandler = createReactClass({
   },
 
   componentWillMount() {
-    ServerActions.fetch('articles', this.props.course_id);
+    this.props.limit = 500;
+    this.props.article_count = 501; // Make sure Show More button is shown at least once
+    // In case the following fails to resolve before rendering
+    $.getJSON(`/courses/${this.props.course_id}/article_count.json`, (data) => {
+      this.props.article_count = data.count;
+    });
+    ServerActions.fetch('articles', this.props.course_id, { limit: this.props.limit });
     ServerActions.fetch('assignments', this.props.course_id);
+  },
+
+  showMore() {
+    ServerActions.fetch('articles', this.props.course_id, { limit: this.props.limit += 100 });
   },
 
   sortSelect(e) {
@@ -31,6 +41,11 @@ const ArticlesHandler = createReactClass({
     // FIXME: These props should be required, and this component should not be
     // mounted in the first place if they are not available.
     if (!this.props.course || !this.props.course.home_wiki) { return <div />; }
+
+    let showMoreButton;
+    if (this.props.limit < this.props.article_count) {
+      showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
+    }
 
     let header;
     if (Features.wikiEd) {
@@ -67,6 +82,7 @@ const ArticlesHandler = createReactClass({
             </div>
           </div>
           <ArticleList {...this.props} />
+          {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
           <div className="section-header">

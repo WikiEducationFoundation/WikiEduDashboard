@@ -231,7 +231,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles assignments campaigns categories check course
+  SHOW_ENDPOINTS = %w[articles article_count assignments campaigns categories check course
                       revisions tag tags timeline uploads users].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
@@ -241,7 +241,10 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    @limit = params[:limit] if (params[:endpoint] = 'revisions')
+    case params[:limit]
+    when 'revisions', 'articles'
+      @limit = params[:limit]
+    end
   end
 
   # If the user could make an edit to the course, this verifies that
