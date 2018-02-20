@@ -50,6 +50,8 @@ Rails.application.routes.draw do
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
+  get 'requested_accounts/campaigns/:campaign_slug' => 'requested_accounts_campaigns#index',
+      constraints: { campaign_slug: /.*/ }
   get 'requested_accounts/:course_slug' => 'requested_accounts#index',
       constraints: { course_slug: /.*/ }
 

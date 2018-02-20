@@ -14,6 +14,7 @@
 
 class RequestedAccount < ActiveRecord::Base
   belongs_to :course
+  belongs_to :campaign
   before_validation :ensure_valid_email
 
   private
