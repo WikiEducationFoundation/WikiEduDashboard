@@ -26,7 +26,7 @@ class GANominationMonitor
 
   private
 
-  GA_CATEGORY = 'Wikipedia:Good Article nominations'
+  GA_CATEGORY = 'Category:Good article nominees'
   GA_CATEGORY_DEPTH = 0
   def find_pending_ga_nominations
     @ga_titles = CategoryImporter.new(@wiki)
@@ -35,7 +35,7 @@ class GANominationMonitor
 
   def extract_page_titles_from_nominations
     @ga_article_titles = @ga_titles.map do |ga_title|
-      ga_title[%r{Template:Good Article nominations/(.*)}, 1]
+      ga_title[%r{Template:GA nominee/(.*)}, 1]
     end
   end
 

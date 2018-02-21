@@ -46,7 +46,6 @@ class Alert < ApplicationRecord
     SurveyResponseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
-    GANominationAlert
   ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 
