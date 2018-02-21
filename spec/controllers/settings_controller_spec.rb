@@ -59,6 +59,7 @@ describe SettingsController do
         get :all_admins, format: :json
       end
       it 'denies access' do
+        expect(response.status).to eq(401)
       end
     end
   end
@@ -111,6 +112,16 @@ describe SettingsController do
 
       it 'returns the right message' do
         expect(response.body).to have_content("#{@user.username} is already an admin!")
+      end
+    end
+
+    context 'when the user does not exist' do
+      before do
+        @user = build(:user)
+        post_params
+      end
+      it 'returns a 404' do
+        expect(response.status).to eq(404)
       end
     end
   end
