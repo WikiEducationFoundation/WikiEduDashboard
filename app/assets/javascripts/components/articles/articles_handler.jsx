@@ -9,6 +9,7 @@ import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
 
+const state = {};
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
 
@@ -19,18 +20,18 @@ const ArticlesHandler = createReactClass({
   },
 
   componentWillMount() {
-    this.limit = 500;
-    this.article_count = 501; // Make sure Show More button is shown at least once
+    state.limit = 500;
+    state.article_count = 501; // Make sure Show More button is shown at least once
     // In case the following fails to resolve before rendering
     $.getJSON(`/courses/${this.props.course_id}/article_count.json`, (data) => {
-      this.article_count = data.count;
+      state.article_count = data.count;
     });
-    ServerActions.fetch('articles', this.props.course_id, { limit: this.limit });
+    ServerActions.fetch('articles', this.props.course_id, { limit: state.limit });
     ServerActions.fetch('assignments', this.props.course_id);
   },
 
   showMore() {
-    ServerActions.fetch('articles', this.props.course_id, { limit: this.limit += 100 });
+    ServerActions.fetch('articles', this.props.course_id, { limit: state.limit += 100 });
     this.setState({}); // trigger a rerender
   },
 
@@ -44,7 +45,7 @@ const ArticlesHandler = createReactClass({
     if (!this.props.course || !this.props.course.home_wiki) { return <div />; }
 
     let showMoreButton;
-    if (this.limit < this.article_count) {
+    if (state.limit < state.article_count) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
 
