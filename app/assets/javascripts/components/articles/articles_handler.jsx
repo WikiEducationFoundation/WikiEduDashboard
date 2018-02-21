@@ -19,18 +19,19 @@ const ArticlesHandler = createReactClass({
   },
 
   componentWillMount() {
-    this.props.limit = 500;
-    this.props.article_count = 501; // Make sure Show More button is shown at least once
+    this.limit = 500;
+    this.article_count = 501; // Make sure Show More button is shown at least once
     // In case the following fails to resolve before rendering
     $.getJSON(`/courses/${this.props.course_id}/article_count.json`, (data) => {
-      this.props.article_count = data.count;
+      this.article_count = data.count;
     });
-    ServerActions.fetch('articles', this.props.course_id, { limit: this.props.limit });
+    ServerActions.fetch('articles', this.props.course_id, { limit: this.limit });
     ServerActions.fetch('assignments', this.props.course_id);
   },
 
   showMore() {
-    ServerActions.fetch('articles', this.props.course_id, { limit: this.props.limit += 100 });
+    ServerActions.fetch('articles', this.props.course_id, { limit: this.limit += 100 });
+    this.setState({}); // trigger a rerender
   },
 
   sortSelect(e) {
@@ -43,7 +44,7 @@ const ArticlesHandler = createReactClass({
     if (!this.props.course || !this.props.course.home_wiki) { return <div />; }
 
     let showMoreButton;
-    if (this.props.limit < this.props.article_count) {
+    if (this.limit < this.article_count) {
       showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('revisions.see_more')}</button></div>;
     }
 
