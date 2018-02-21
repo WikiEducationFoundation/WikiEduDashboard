@@ -219,8 +219,9 @@ zh-CN:
     cancel: 取消
     character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
     campaigns: 活动：
-    campaign_courses: '%{title}课程'
     campaign_articles: '%{title}个条目'
+    campaign_courses: '%{title}课程'
+    campaign_select: 选择一个活动
     campaign_users: '%{title}位编辑者'
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
@@ -359,6 +360,7 @@ zh-CN:
     passcode: 密码
     passcode_none: 无密码
     passcode_prompt: 输入密码以加入：
+    private: 私有
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
     requested_accounts: 请求的账户

@@ -17,11 +17,11 @@ class DashboardPresenter
   end
 
   def instructor?
-    current_user.permissions == User::Permissions::INSTRUCTOR
+    current_user.instructor_permissions?
   end
 
   def admin?
-    current_user.permissions == User::Permissions::ADMIN
+    current_user.admin?
   end
 
   def campaign_organizer?

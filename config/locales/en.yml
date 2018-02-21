@@ -740,6 +740,24 @@ en:
     view_on_wiki: View diff on wiki
     see_more: See more
 
+  settings:
+    admin_users:
+      new:
+        form_label: Grant admin privileges
+        form_placeholder: User Name
+        confirm_add_admin: "Grant admin"
+        confirm_remove_admin: "Remove admin privileges for"
+        already_admin: "%{username} is already an admin!"
+        elevate_success: "%{username} elevated to admin."
+      remove:
+        revoke_button: 'Revoke admin'
+        revoke_button_confirm: 'Revoke admin rights from %{username}'
+        revoking_button_working: 'Revoking...'
+        already_instructor: "%{username} is already an instructor!"
+        demote_success: "%{username} changed to instructor."
+        no_super_admin: "Can't revoke admin status from a super admin"
+
+
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:
     editing: Editing Suggestions

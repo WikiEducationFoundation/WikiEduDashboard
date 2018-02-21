@@ -42,9 +42,21 @@ FactoryBot.define do
     onboarded true
   end
 
+  factory :instructor, class: User do
+    username 'Prof. Ragesoss'
+    onboarded true
+    permissions 2
+  end
+
   factory :admin, class: User do
     username 'Ragesauce'
     permissions 1
+    onboarded true
+  end
+
+  factory :super_admin, class: User do
+    username 'Superragesauce'
+    permissions 3
     onboarded true
   end
 end

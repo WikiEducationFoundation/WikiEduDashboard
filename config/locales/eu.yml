@@ -256,8 +256,8 @@ eu:
     character_doc: Ikastaro epealdian bertako ikasleek izen-tarte nagusiko artikuluetara
       gehitutako karaktereen batura
     campaigns: 'Kanpainak:'
-    campaign_courses: '%{title} ikastaroak'
     campaign_articles: '%{title} artikuluak'
+    campaign_courses: '%{title} ikastaroak'
     campaign_users: '%{title} editoreak'
     confirm_course_deletion: Ziur zaude %{title} izena duen ikastaroa ezabatu nahi
       duzula? Hala bada, tekleatu ikastaroaren izena aurrera egiteko.

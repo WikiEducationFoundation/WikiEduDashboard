@@ -220,8 +220,8 @@ pl:
     character_doc: Liczba znaków dodanych do przestrzeni głównej (artykułów) przez
       uczestników w trakcie trwania kursu
     campaigns: 'Kampanie:'
-    campaign_courses: '%{title} kursy'
     campaign_articles: '%{title} Artykułów'
+    campaign_courses: '%{title} kursy'
     campaign_users: '%{title} Edytorów'
     confirm_course_deletion: Czy na pewno chcesz usunąć kurs „%{title}”? Jeśli tak,
       wpisz tytuł kursu, aby kontynuować.

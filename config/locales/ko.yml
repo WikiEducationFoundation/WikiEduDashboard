@@ -42,9 +42,11 @@ ko:
     my_dashboard: 나의 대시보드
     recent_activity: 최근 활동
     report_problem: 문제점 보고
+    request_account: 계정 요청
     search: 질문하기
     search_results: '다음 결과: ''%{search_terms}'''
     sign_up_extended: 위키백과에 로그인하기
+    sign_up_wikipedia: 아니면 위키백과에 가입하세요
     sign_up_log_in_extended: 위키백과와 함께합니다
     sign_up: 가입하기
     submit: 보내기
@@ -145,6 +147,7 @@ ko:
     label: 채팅
   courses:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
+    accounts_generation_confirm_message: 계정 요청을 사용하시겠습니까?
     activity: 활동
     already_enrolled: 이미 %{title}에 참여하고 계세요!
     actions: 행동
@@ -246,6 +249,7 @@ ko:
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
     school: 학교
     start: 시작

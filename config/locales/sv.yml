@@ -152,8 +152,8 @@ sv:
       legend_class_not_meeting: Inget schemalagt möte
     cancel: Avbryt
     campaigns: 'Kampanjer:'
-    campaign_courses: '%{title} Kurser'
     campaign_articles: '%{title} artiklar'
+    campaign_courses: '%{title} Kurser'
     campaign_users: '%{title}-redigerare'
     course: Kurs
     course_description: Kurser

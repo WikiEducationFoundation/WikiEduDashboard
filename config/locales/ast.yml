@@ -226,8 +226,8 @@ ast:
     character_doc: La suma de caráuteres amestaos a los artículos del espaciu principal
       polos estudiantes nel periodu del cursu
     campaigns: 'Campaignes:'
-    campaign_courses: Cursos de %{title}
     campaign_articles: Artículos de %{title}
+    campaign_courses: Cursos de %{title}
     campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
       Si ye asina, escribe'l títulu del cursu pa siguir.

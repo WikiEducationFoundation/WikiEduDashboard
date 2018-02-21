@@ -54,6 +54,7 @@ fr:
     search: poser une question
     search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
+    sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
     submit: Soumettre
@@ -278,8 +279,9 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     campaigns: 'Complices :'
-    campaign_courses: '%{title} Cours'
     campaign_articles: Articles %{title}
+    campaign_courses: '%{title} Cours'
+    campaign_select: Sélectionner une campagne
     campaign_users: Éditeurs %{title}
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
@@ -488,6 +490,7 @@ fr:
     passcode_none: Aucun mot de passe
     passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
       cours :'
+    private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     rating_feedback: 'La note prévue pour cet article est :'

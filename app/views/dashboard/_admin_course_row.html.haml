@@ -1,12 +1,14 @@
 %tr{:class => "#{user ? date_highlight_class(course) : ''}"}
-  %td{:class => "title table-link-cell", :role => "button", :tabindex => "0"}
+  %td{:class => "table-link-cell", :role => "button", :tabindex => "0"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      = course.title
+      %span.title
+        = course.title
       %span.creation-date.hidden
         = course.created_at
-  %td{:class => "revisions table-link-cell"}
+  %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      = course.recent_revision_count
+      %span.revisions
+        = course.recent_revision_count
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.characters-human

@@ -425,6 +425,7 @@ qqq:
     passcode_none: Label for courses which don't require a passcode to enroll.
     passcode_prompt: Prompt for entering the passphrase required to enroll in a protected
       course.
+    private: '{{Identical|Private}}'
     published: Message explaining how students can enroll in the course (Wiki Ed only)
     review_timeline: Message prompting user to review the timeline (Wiki Ed only)
     revisions_doc: Message explaining the meaning of "Recent edits" 'timeframe' is

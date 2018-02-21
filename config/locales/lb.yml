@@ -25,6 +25,7 @@ lb:
     log_out: Ausloggen
     recent_activity: Rezent Aktivitéit
     report_problem: E Problem mellen
+    request_account: E Benotzerkont ufroen
     search: eng Fro stellen
     search_results: 'Resultater fir: %{search_terms}'
     sign_up_extended: Mat Wikipedia umellen
@@ -137,8 +138,8 @@ lb:
       legend: Erklärung
     cancel: Ofbriechen
     campaigns: 'Campagnen:'
-    campaign_courses: '%{title} Coursen'
     campaign_articles: '%{title} Artikelen'
+    campaign_courses: '%{title} Coursen'
     campaign_users: '%{title} Auteuren'
     course: Cours
     course_description: Coursen
@@ -215,6 +216,7 @@ lb:
     no_available_actions: Keng disponibel Aktiounen
     ores_plot: ORES
     overview: Haaptsäit
+    private: Privat
     requested_accounts: Ugefrot Benotzerkonten
     revisions_doc: D'Zuel vun den ännerungen an de leschten %{timeframe}-Deeg
     school: Schoul
