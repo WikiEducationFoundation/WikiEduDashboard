@@ -35,10 +35,10 @@ describe GANominationMonitor do
 
     before do
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
-        .with('Wikipedia:Good Article nominations', 0)
-        .and_return(['Template:Good Article nominations/Be Here Now (George Harrison song)',
-                     'Template:Good Article nominations/2017–18 London & South East Premier',
-                     'Template:Good Article nominations/17776'])
+        .with('Category:Good article nominees', 0)
+        .and_return(['Template:GA nominee/Be Here Now (George Harrison song)',
+                     'Template:GA nominee/2017–18 London & South East Premier',
+                     'Template:GA nominee/17776'])
 
       articles_course && revision && courses_user
     end
