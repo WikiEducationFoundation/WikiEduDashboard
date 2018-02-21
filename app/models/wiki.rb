@@ -60,6 +60,37 @@ class Wiki < ApplicationRecord
     'wikisource' => 'wikisource.org'
   }.freeze
 
+  #################
+  # Class methods #
+  #################
+
+  # This provides fallback values for when a course is created without setting
+  # an explicit home wiki language or project
+  def self.default_wiki
+    get_or_create language: ENV['wiki_language'], project: 'wikipedia'
+  end
+
+  def self.get_or_create(language:, project:)
+    language = language_for_multilingual(language: language, project: project)
+    find_or_create_by(language: language, project: project)
+  end
+
+  def self.language_for_multilingual(language:, project:)
+    case project
+    when 'wikidata'
+      language = nil
+    when 'wikisource'
+      language = nil if language == 'www'
+    when 'wikimedia'
+      language = nil unless language == 'incubator'
+    end
+    language
+  end
+
+  ####################
+  # Instance methods #
+  ####################
+
   def domain
     if language
       "#{language}.#{project}.org"
@@ -74,6 +105,20 @@ class Wiki < ApplicationRecord
 
   def api_url
     "#{base_url}/w/api.php"
+  end
+
+  def edits_enabled?
+    ENV["edit_#{domain}"] == 'true'
+  end
+
+  def edit_templates
+    @templates ||= YAML.load_file(Rails.root + template_file_path)
+  end
+
+  private
+
+  def template_file_path
+    "config/templates/#{ENV['dashboard_url']}_#{language}.yml"
   end
 
   #############
@@ -105,36 +150,5 @@ class Wiki < ApplicationRecord
     raise InvalidWikiError unless base_url == "https://#{servername}"
   end
 
-  def edits_enabled?
-    ENV["edit_#{domain}"] == 'true'
-  end
-
   class InvalidWikiError < StandardError; end
-
-  #################
-  # Class methods #
-  #################
-
-  # This provides fallback values for when a course is created without setting
-  # an explicit home wiki language or project
-  def self.default_wiki
-    get_or_create language: ENV['wiki_language'], project: 'wikipedia'
-  end
-
-  def self.get_or_create(language:, project:)
-    language = language_for_multilingual(language: language, project: project)
-    find_or_create_by(language: language, project: project)
-  end
-
-  def self.language_for_multilingual(language:, project:)
-    case project
-    when 'wikidata'
-      language = nil
-    when 'wikisource'
-      language = nil if language == 'www'
-    when 'wikimedia'
-      language = nil unless language == 'incubator'
-    end
-    language
-  end
 end
