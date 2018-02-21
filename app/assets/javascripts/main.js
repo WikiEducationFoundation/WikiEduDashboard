@@ -2,7 +2,7 @@
 import "babel-polyfill";
 require('location-origin');
 require('trix');
-require('jquery-ujs');
+require('rails-ujs');
 
 $(() => {
   window.I18n = require('i18n-js');

@@ -89,6 +89,7 @@
     "nouislider": "^8.3.0",
     "parsleyjs": "^2.8.0",
     "prop-types": "^15.6.0",
+    "rails-ujs": "^5.1.5",
     "rangeslider.js": "^2.3.0",
     "raven-js": "^3.19.1",
     "react": "^15.6.2",
