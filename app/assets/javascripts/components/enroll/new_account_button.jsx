@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import NewAccountModal from './new_account_modal.jsx';
 import { INSTRUCTOR_ROLE } from '../../constants';
 
-const NewAccountButton = React.createClass({
+const NewAccountButton = createReactClass({
   displayName: 'NewAccountButton',
 
   propTypes: {
