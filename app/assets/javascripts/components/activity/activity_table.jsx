@@ -6,10 +6,13 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 
+import { sortByKey } from '../../utils/model_utils';
 import * as UIActions from '../../actions';
 import ActivityTableRow from './activity_table_row.jsx';
 import Loading from '../common/loading.jsx';
 
+const ASC = 'asc';
+const DESC = 'desc';
 
 const ActivityTable = createReactClass({
   displayName: 'ActivityTable',
@@ -35,24 +38,28 @@ const ActivityTable = createReactClass({
     }
   },
 
-  clearAllSortableClassNames() {
+  removeAscDescClasses(element) {
+    element.classList.remove(ASC);
+    element.classList.remove(DESC);
+  },
+
+  clearAllSortableClassNames(e) {
+    this.removeAscDescClasses(e);
     Array.prototype.forEach.call(document.getElementsByClassName('sortable'), (el) => {
-      el.classList.remove('asc');
-      el.classList.remove('desc');
+      this.removeAscDescClasses(el);
     });
   },
 
   sortItems(e) {
-    this.clearAllSortableClassNames();
+    // we need to save the sort state before clearing it out in clearAllSortableClassNames function
+    const nextSortOrder = e.target.classList.contains(ASC) ? DESC : ASC;
 
-    const nextSortOrder = e.target.classList.contains('asc') ? 'desc' : 'asc';
+    this.clearAllSortableClassNames(e.target);
+
     e.target.classList.add(nextSortOrder);
 
     const key = e.target.getAttribute('data-sort-key');
-    let activities = _.orderBy(this.state.activity, [key]);
-    if (nextSortOrder === 'desc') {
-      activities = activities.reverse();
-    }
+    const { newModels: activities } = sortByKey(this.state.activity, key, null, nextSortOrder === DESC);
 
     this.setState({
       activity: activities
