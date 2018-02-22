@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
-import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
+import { fetchDYKArticles, sortDYKArticles } from "../../actions/did_you_know_actions.js";
 
 const NO_ACTIVITY_MESSAGE = I18n.t("recent_activity.no_dyk_eligible");
 
@@ -48,6 +48,7 @@ const DidYouKnowHandler = createReactClass({
           activity={this.props.articles}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortDYKArticles}
         />
       </div>
     );
@@ -60,7 +61,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchDYKArticles: fetchDYKArticles
+  fetchDYKArticles: fetchDYKArticles,
+  sortDYKArticles: sortDYKArticles
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DidYouKnowHandler);
