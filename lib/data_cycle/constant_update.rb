@@ -51,6 +51,7 @@ class ConstantUpdate
     log_end_of_update 'Constant update failed.'
     raise e
   end
+  # rubocop:enable Lint/RescueException
 
   ###############
   # Data import #

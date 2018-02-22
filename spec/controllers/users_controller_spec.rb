@@ -10,6 +10,7 @@ describe UsersController do
     end
     let(:user) { create(:user) }
     let(:admin) { create(:admin) }
+    let(:super_admin) { create(:super_admin) }
     let(:another_user) { create(:user, username: 'StudentUser') }
 
     before do

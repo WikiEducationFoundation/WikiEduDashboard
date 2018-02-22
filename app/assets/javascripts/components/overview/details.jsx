@@ -14,6 +14,7 @@ import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
+import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 
@@ -207,12 +208,12 @@ const Details = createReactClass({
         />
       );
     }
-    let campaigns;
-    if (this.props.editable) {
-      campaigns = <CampaignEditable {...this.props} />;
-    } else {
-      campaigns = <CampaignList {...this.props} />;
-    }
+    const campaigns = (
+      <span className="campaigns" id="course_campaigns">
+        <CampaignList {...this.props} />
+        <CampaignEditable {...this.props} show={this.props.editable} />
+      </span>
+    );
     let subject;
     let tags;
     let courseTypeSelector;
@@ -220,6 +221,7 @@ const Details = createReactClass({
     let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let withdrawnSelector;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -247,6 +249,12 @@ const Details = createReactClass({
           editable={this.props.editable}
         />
       );
+      withdrawnSelector = (
+        <WithdrawnSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+    );
       if (!Features.wikiEd && this.props.editable) {
         privacySelector = (
           <PrivacySelector
@@ -338,6 +346,7 @@ const Details = createReactClass({
           {submittedSelector}
           {privacySelector}
           {timelineToggle}
+          {withdrawnSelector}
         </div>
       </div>
     );

@@ -4,7 +4,7 @@
 # It includes methods are relevant across the application, such as permissions
 # and login.
 class ApplicationController < ActionController::Base
-  include Errors::RescueDevelopmentErrors if Rails.env == 'development' || Rails.env == 'test'
+  include Errors::RescueDevelopmentErrors if Rails.env.development? || Rails.env.test?
   include Errors::RescueErrors
   include Errors::AuthenticationErrors
   # Prevent CSRF attacks by raising an exception.
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def require_permissions
     require_signed_in
-    course = Course.find_by_slug(params[:id])
+    course = Course.find_by(slug: params[:id])
     raise NotPermittedError unless current_user.can_edit? course
   end
 
@@ -54,9 +54,15 @@ class ApplicationController < ActionController::Base
     raise NotAdminError unless current_user.admin?
   end
 
+  def require_super_admin_permissions
+    require_signed_in
+    exception = NotAdminError.new('Only super administrators may do that.')
+    raise exception unless current_user.super_admin?
+  end
+
   def require_participating_user
     require_signed_in
-    course = Course.find_by_slug(params[:id])
+    course = Course.find_by(slug: params[:id])
     # Course roles for non-students are greater than STUDENT_ROLE.
     # Non-participating users have the VISITOR_ROLE, which is below STUDENT_ROLE.
     return if current_user.role(course) >= CoursesUsers::Roles::STUDENT_ROLE

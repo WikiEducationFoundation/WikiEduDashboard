@@ -13,7 +13,7 @@
 #
 
 #= Campaign + User join model
-class CampaignsUsers < ActiveRecord::Base
+class CampaignsUsers < ApplicationRecord
   belongs_to :campaign
   belongs_to :user
 

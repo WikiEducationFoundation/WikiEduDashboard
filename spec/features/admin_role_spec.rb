@@ -74,7 +74,11 @@ describe 'Admin users', type: :feature, js: true do
 
       # Edit details and add campaign
       click_button('Edit Details')
-      find('div.Select').send_keys('Fall 2015', :enter)
+      within '#course_campaigns' do
+        page.find('.button.border.plus').click
+        find('div.Select').send_keys('Fall 2015', :enter)
+        find('.pop button', visible: true).click
+      end
 
       expect(page).to have_content 'Your course has been published'
       expect(page).not_to have_content 'This course has been submitted for approval by its creator'
@@ -83,8 +87,6 @@ describe 'Admin users', type: :feature, js: true do
 
   describe 'removing all campaigns from a course' do
     it 'returns it to "submitted" status' do
-      pending 'This sometimes fails on travis.'
-
       stub_oauth_edit
       create(:campaigns_course,
              campaign_id: 1,
@@ -94,13 +96,14 @@ describe 'Admin users', type: :feature, js: true do
 
       # Edit details and remove campaign
       click_button('Edit Details')
-      page.find('.button.border.plus', text: '-').click
+      within '#course_campaigns' do
+        click_button '+'
+        click_button '-'
+      end
       expect(page).to have_content 'This course has been submitted'
 
       visit root_path
       expect(page).to have_content 'Submitted & Pending Approval'
-
-      pass_pending_spec
     end
   end
 

@@ -9,6 +9,9 @@ GMAIL_PASSWORD: <SECRET>
 SMTP_HOST: 'dashboard.wikiedu.org'
 SENDER_EMAIL_ADDRESS: 'dashboard@wikiedu.org'
 
+mailgun_key: <SECRET>
+mailgun_domain: 'dashboard.wikiedu.org'
+
 enable_get_help_button: 'true'
 
 wikipedia_token: <SECRET>
@@ -16,21 +19,12 @@ wikipedia_secret: <SECRET>
 oauth_ids: '218,306,542'
 
 course_prefix: "Wikipedia:Wiki_Ed"
-course_announcement_page: 'Wikipedia:Education_noticeboard'
+course_announcement_page: 'Wikipedia:Education_noticeboard/Wiki_Ed_course_submissions'
 
 sentry_dsn: <SECRET>
 sentry_public_dsn: <SECRET>
 
-course_id_list: "Wikipedia:Education_program/Dashboard/course_ids"
-
-campaigns: "Year_of_Science,New_York_City,Society_for_Marine_Mammalogy,American_Sociological_Association,National_Women's_Studies_Association,Association_for_Psychological_Science,Midwest_Political_Science_Association,American_Society_of_Plant_Biologists,Louisiana_State_University,spring_2016,fall_2014,visiting_scholars,summer_2015,Student_Groups_Pilot,spring_2015,fall_2015,2015_summer_seminar"
-
-campaign_summer_2015: "Wikipedia:Education_program/Dashboard/Summer_2015_course_ids"
-campaign_Student_Groups_Pilot: "Wikipedia:Education_program/Dashboard/Student_Groups_Pilot"
-campaign_spring_2015: "Wikipedia:Education_program/Dashboard/course_ids"
-campaign_fall_2014: "Wikipedia:Education_program/Dashboard/Fall_2014_course_ids"
-
-default_campaign: "spring_2016"
+default_campaign: "spring_2018"
 edit_en.wikipedia.org: "true"
 update_length: "30"
 cron_log_debug: "true"
@@ -48,7 +42,7 @@ survey_alerts_recipient: 'Samantha (Wiki Ed)'
 ProductiveCourseAlert_emails_disabled: 'true'
 
 # Rocket.Chat integration
-enable_chat: 'true'
+enable_chat: 'false'
 chat_server: 'https://dashboardchat.wmflabs.org'
 chat_admin_username: <SECRET>
 chat_admin_password: <SECRET>
@@ -63,3 +57,5 @@ SF_SERVER: 'https://na24.salesforce.com/'
 SF_CLASSROOM_PROGRAM_ID: <SECRET>
 SF_VISITING_SCHOLARS_PROGRAM_ID: <SECRET>
 bcc_to_salesforce_email: <SECRET>
+
+SKYLIGHT_AUTHENTICATON: <SECRET>

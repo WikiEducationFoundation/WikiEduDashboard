@@ -20,7 +20,7 @@ require 'csv'
 #
 
 #= Campaign model
-class Campaign < ActiveRecord::Base
+class Campaign < ApplicationRecord
   has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :courses, through: :campaigns_courses

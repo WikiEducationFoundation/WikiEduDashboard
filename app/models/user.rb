@@ -29,7 +29,7 @@
 require "#{Rails.root}/lib/utils"
 
 #= User model
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   alias_attribute :wiki_id, :username
   before_validation :ensure_valid_email
 
@@ -40,9 +40,10 @@ class User < ActiveRecord::Base
     NONE  = 0
     ADMIN = 1
     INSTRUCTOR = 2
+    SUPER_ADMIN = 3
   end
   validates :permissions, inclusion: {
-    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR]
+    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR, Permissions::SUPER_ADMIN]
   }
 
   # Include default devise modules. Others available are:
@@ -121,7 +122,15 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-    permissions == Permissions::ADMIN
+    [Permissions::ADMIN, Permissions::SUPER_ADMIN].include? permissions
+  end
+
+  def super_admin?
+    permissions == Permissions::SUPER_ADMIN
+  end
+
+  def instructor_permissions?
+    permissions == Permissions::INSTRUCTOR
   end
 
   def course_instructor?

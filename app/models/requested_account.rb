@@ -12,7 +12,7 @@
 #  updated_at :datetime         not null
 #
 
-class RequestedAccount < ActiveRecord::Base
+class RequestedAccount < ApplicationRecord
   belongs_to :course
   belongs_to :campaign
   before_validation :ensure_valid_email
@@ -22,5 +22,4 @@ class RequestedAccount < ActiveRecord::Base
   def ensure_valid_email
     self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
   end
-
 end

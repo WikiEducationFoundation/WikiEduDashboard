@@ -8,8 +8,8 @@ import Select from 'react-select';
 import { getAvailableCampaigns } from '../../selectors';
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
+import Popover from '../common/popover.jsx';
 import Conditional from '../high_order/conditional.jsx';
-import CourseUtils from '../../utils/course_utils.js';
 
 import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/campaign_actions';
 
@@ -64,30 +64,24 @@ const CampaignEditable = createReactClass({
       });
       campaignSelect = (
         <Select
+          className="fixed-width"
           ref="campaignSelect"
           name="campaign"
-          placeholder="Campaign"
+          placeholder={I18n.t('courses.campaign_select')}
           onChange={this.handleChangeCampaign}
           options={campaignOptions}
         />
       );
     }
 
-    const campaigns = (
-      <div className="form-group">
-        <table>
-          <tbody>
-            {campaignList}
-          </tbody>
-        </table>
-        {campaignSelect}
-      </div>
-    );
-
     return (
-      <div key="campaigns" className="campaigns container open">
-        <strong>{CourseUtils.i18n('campaigns', this.props.course.string_prefix)}</strong>
-        <span> {campaigns}</span>
+      <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
+        <button className="button border plus open" onClick={this.props.open}>+</button>
+        <Popover
+          is_open={this.props.is_open}
+          edit_row={campaignSelect}
+          rows={campaignList}
+        />
       </div>
     );
   }

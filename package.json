@@ -111,6 +111,7 @@
     "react-trix": "^0.2.2",
     "react-typeahead": "^2.0.0-alpha.6",
     "redux": "^3.7.2",
+    "redux-mock-store": "^1.5.1",
     "redux-thunk": "^2.2.0",
     "require-dir": "^0.3.2",
     "reselect": "^3.0.1",

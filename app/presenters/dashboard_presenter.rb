@@ -16,15 +16,15 @@ class DashboardPresenter
     @current_user = current_user
   end
 
-  def is_instructor?
-    current_user.permissions == User::Permissions::INSTRUCTOR
+  def instructor?
+    current_user.instructor_permissions?
   end
 
-  def is_admin?
-    current_user.permissions == User::Permissions::ADMIN
+  def admin?
+    current_user.admin?
   end
 
-  def is_campaign_organizer?
+  def campaign_organizer?
     campaigns.any?
   end
 
@@ -50,20 +50,20 @@ class DashboardPresenter
   # Show the orientation block if you're an instructor who hasn't completed
   # orientation and you don't have any existing courses
   def show_orientation_block?
-    is_instructor? && !instructor_has_completed_orientation? && @current.empty? && @past.empty?
+    instructor? && !instructor_has_completed_orientation? && @current.empty? && @past.empty?
   end
 
   def show_orientation_review?
     return false if Features.disable_onboarding?
-    is_instructor? && instructor_has_completed_orientation?
+    instructor? && instructor_has_completed_orientation?
   end
 
   def can_create_course?
     return true if Features.open_course_creation?
-    return true if is_admin?
+    return true if admin?
     # Instructors who have completed orientation OR have
     # already created a course are allowed to create new courses
-    is_instructor? && (instructor_has_completed_orientation? || @current.any? || @past.any?)
+    instructor? && (instructor_has_completed_orientation? || @current.any? || @past.any?)
   end
 
   # Show explore button for non instructors/admins
@@ -117,6 +117,6 @@ class DashboardPresenter
   end
 
   def current_courses_but_incomplete_instructor_training?
-    @current.any? && is_instructor? && !instructor_has_completed_orientation?
+    @current.any? && instructor? && !instructor_has_completed_orientation?
   end
 end

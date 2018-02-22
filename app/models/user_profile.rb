@@ -15,7 +15,7 @@
 #  institution        :string(255)
 #
 
-class UserProfile < ActiveRecord::Base
+class UserProfile < ApplicationRecord
   belongs_to :user
   has_attached_file :image, styles: { thumb: '150x150>' }
   validates_attachment_content_type :image, content_type: %r{\Aimage\/.*\z}

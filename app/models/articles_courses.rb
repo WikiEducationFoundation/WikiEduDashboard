@@ -19,7 +19,7 @@ require "#{Rails.root}/lib/utils"
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
 #= student in a course.
-class ArticlesCourses < ActiveRecord::Base
+class ArticlesCourses < ApplicationRecord
   belongs_to :article
   belongs_to :course
 

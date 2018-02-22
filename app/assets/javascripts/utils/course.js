@@ -45,7 +45,7 @@ $(() => {
     articlesList = new List('campaign-articles', {
       page: 10000,
       valueNames: [
-        'title', 'views', 'char_added', 'lang_project'
+        'title', 'views', 'char_added', 'lang_project', 'course_title'
       ]
     });
   }

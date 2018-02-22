@@ -17,7 +17,7 @@ describe('CampaignEditable', () => {
   const initialState = { campaigns: { campaigns } };
   const reduxStoreWithCampaigns = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
-  it('it opens the component when editable is true and includes a plus button', () => {
+  it('it opens the component when editable is true', () => {
     const TestButton = ReactTestUtils.renderIntoDocument(
       <CampaignEditable
         store={reduxStoreWithCampaigns}
@@ -27,7 +27,19 @@ describe('CampaignEditable', () => {
         editable={true}
       />
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container open');
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'plus');
+    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'pop__container campaigns open');
+  });
+
+  it('it includes a plus button when is closed to open the expandable', () => {
+    const TestButton = ReactTestUtils.renderIntoDocument(
+      <CampaignEditable
+        store={reduxStoreWithCampaigns}
+        campaigns={campaigns}
+        allCampaigns={allCampaigns}
+        course={course}
+        editable={false}
+      />
+    );
+    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'button border plus open');
   });
 });

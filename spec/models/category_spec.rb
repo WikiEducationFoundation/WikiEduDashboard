@@ -40,7 +40,7 @@ RSpec.describe Category, type: :model do
     context 'for template-source Category' do
       let(:category) { create(:category, name: '2016-Olympic-stub', source: 'template') }
       let(:course) { create(:course) }
-      let!(:article) { create(:article, title: 'Afghanistan_at_the_2016_Summer_Olympics') }
+      let!(:article) { create(:article, title: 'Nur_Shazrin_Mohamad_Latif') }
 
       it 'updates article titles for categories associated with courses' do
         expect(Category.last.article_titles).to be_empty

@@ -9,3 +9,6 @@
   %td.lang_project
     %small
       = "#{article.wiki.language}.#{article.wiki.project}"
+  %td.course_title
+    %small
+      = link_to article_course.course.slug, article_course.course.slug

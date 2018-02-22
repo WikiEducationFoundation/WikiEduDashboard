@@ -1,43 +1,35 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ChatActions from '../../actions/chat_actions.js';
-import ChatStore from '../../stores/chat_store.js';
+import { connect } from 'react-redux';
+import { requestAuthToken, enableForCourse } from '../../actions/chat_actions.js';
 
 const RocketChat = createReactClass({
   displayName: 'RocketChat',
 
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    authToken: PropTypes.string,
+    requestAuthToken: PropTypes.func,
+    enableForCourse: PropTypes.func,
   },
-
-  mixins: [ChatStore.mixin],
-
   getInitialState() {
     return {
-      authToken: ChatStore.getAuthToken(),
-      showChat: false
+      showChat: false,
     };
   },
 
   componentWillMount() {
-    if (Features.enableChat && !this.state.authToken) {
-      ChatActions.requestAuthToken();
+    if (Features.enableChat && !this.props.authToken) {
+      this.props.requestAuthToken();
     }
   },
 
   componentDidMount() {
-    if (Features.enableChat && this.state.authToken && !this.state.showChat) {
+    if (Features.enableChat && this.props.authToken && !this.state.showChat) {
       this.loginOnFrameLoad();
     }
-  },
-
-  storeDidChange() {
-    this.setState({
-      authToken: ChatStore.getAuthToken()
-    });
-    this.loginOnFrameLoad();
   },
 
   loginOnFrameLoad() {
@@ -47,7 +39,7 @@ const RocketChat = createReactClass({
   login() {
     document.querySelector('iframe').contentWindow.postMessage({
       externalCommand: 'login-with-token',
-      token: this.state.authToken
+      token: this.props.authToken
     }, '*');
     this.setState({ showChat: true });
   },
@@ -65,7 +57,7 @@ const RocketChat = createReactClass({
     const room = encodeURIComponent(encodeURIComponent(this.props.course.slug));
     const chatUrl = `https://dashboardchat.wmflabs.org/group/${room}?layout=embedded`;
     let chatClass = 'iframe';
-    if (!this.state.authToken) {
+    if (!this.props.authToken) {
       chatClass += ' hidden';
     }
     const chatFrame = <iframe id="chat" title="rocket chat" className={chatClass} src={chatUrl} />;
@@ -86,4 +78,13 @@ const RocketChat = createReactClass({
   }
 });
 
-export default RocketChat;
+const mapStateToProps = state => ({
+  authToken: state.authToken,
+});
+
+const mapDispatchToProps = {
+  requestAuthToken: requestAuthToken,
+  enableForCourse: enableForCourse,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RocketChat);

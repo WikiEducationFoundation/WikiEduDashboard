@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import ServerActions from '../../actions/server_actions.js';
-import ChatActions from '../../actions/chat_actions.js';
+import { enableForCourse } from '../../actions/chat_actions.js';
 import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -91,7 +91,7 @@ const AvailableActions = createReactClass({
   enableChat() {
     const course = this.state.course.id;
     const onConfirm = function () {
-      return ChatActions.enableForCourse(course);
+      return this.props.enableForCourse({ course });
     };
     const confirmMessage = 'Are you sure you want to enable chat?';
     this.props.initiateConfirm(confirmMessage, onConfirm);
@@ -111,7 +111,8 @@ const AvailableActions = createReactClass({
       });
     };
     const confirmMessage = I18n.t('courses.accounts_generation_confirm_message');
-    this.props.initiateConfirm(confirmMessage, onConfirm);
+    const explanation = I18n.t('courses.accounts_generation_explanation');
+    this.props.initiateConfirm(confirmMessage, onConfirm, false, explanation);
   },
 
   render() {
@@ -211,6 +212,6 @@ const AvailableActions = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm, addNotification, enableAccountRequests };
+const mapDispatchToProps = { initiateConfirm, addNotification, enableAccountRequests, enableForCourse };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

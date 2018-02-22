@@ -63,7 +63,7 @@ class AssignmentsController < ApplicationController
   end
 
   def set_course
-    @course = Course.find_by_slug(URI.unescape(params[:course_id]))
+    @course = Course.find_by(slug: URI.unescape(params[:course_id]))
   end
 
   def set_assignment

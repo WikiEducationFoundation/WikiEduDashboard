@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses
@@ -46,6 +45,7 @@
 #  flags                 :text(65535)
 #  level                 :string(255)
 #  private               :boolean          default(FALSE)
+#  withdrawn             :boolean          default(FALSE)
 #
 
 require "#{Rails.root}/lib/course_cache_manager"
@@ -55,7 +55,7 @@ require "#{Rails.root}/lib/word_count"
 require "#{Rails.root}/lib/training_module"
 
 #= Course model
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   ######################
   # Users for a course #
   ######################
@@ -229,7 +229,7 @@ class Course < ActiveRecord::Base
   end
 
   def approved?
-    campaigns.any?
+    campaigns.any? && !withdrawn
   end
 
   def tag?(query_tag)

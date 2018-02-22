@@ -16,10 +16,10 @@ const CampaignList = ({ campaigns, course }) => {
     : I18n.t('courses.none'));
 
   return (
-    <div key="campaigns_list" className="campaigns container close">
+    <span key="campaigns_list" className="campaigns">
       <strong>{CourseUtils.i18n('campaigns', course.string_prefix)}</strong>
       <span> {campaigns}</span>
-    </div>
+    </span>
   );
 };
 

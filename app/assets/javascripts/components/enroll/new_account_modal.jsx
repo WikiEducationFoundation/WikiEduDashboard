@@ -42,8 +42,8 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
   } else {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info')}</p></div>;
     wikipediaAccountCreation = (
-      <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
-        <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
+      <a href={`/users/auth/mediawiki_signup?origin=${window.location}`}>
+        {I18n.t('application.sign_up_wikipedia')}
       </a>
     );
   }
@@ -77,9 +77,9 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
         <div className = "left">
           <p className="red" dangerouslySetInnerHTML={{ __html: newAccount.error }} />
           {checkingSpinner}
+          {wikipediaAccountCreation}
         </div>
         <div className="right pull-right">
-          {wikipediaAccountCreation}
           {checkAvailabilityButton}
           {requestAccountButton}
         </div>
