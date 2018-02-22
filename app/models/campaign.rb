@@ -78,9 +78,8 @@ class Campaign < ActiveRecord::Base
 
   def account_requests_enabled
     flags = []
-    pp courses
     courses.each do |course|
-      flags << course.flags[:register_accounts]
+      flags << course.flags[:register_accounts_campaigns]
     end
     return true if flags.all?(true)
   end

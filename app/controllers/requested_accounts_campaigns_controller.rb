@@ -37,7 +37,7 @@ class RequestedAccountsCampaignsController < ApplicationController
   # modal instead of redirecting to the mediawiki account creation flow.
   def enable_account_requests
     @campaign.courses.each do |course|
-      course.flags[:register_accounts] = true
+      course.flags[:register_accounts_campaigns] = true
       course.save
     end
     redirect_back(fallback_location: root_path)
@@ -46,7 +46,7 @@ class RequestedAccountsCampaignsController < ApplicationController
 
   def disable_account_requests
     @campaign.courses.each do |course|
-      course.flags.delete(:register_accounts)
+      course.flags.delete(:register_accounts_campaigns)
       course.save
     end
     redirect_back(fallback_location: root_path)
