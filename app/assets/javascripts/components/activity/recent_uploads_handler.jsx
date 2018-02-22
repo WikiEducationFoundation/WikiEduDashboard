@@ -8,9 +8,9 @@ import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uplo
 const HEADERS = [
       { title: I18n.t('recent_activity.image'), key: 'image' },
       { title: I18n.t('recent_activity.file_name'), key: 'file_name' },
-      { title: I18n.t('recent_activity.uploaded_by'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.usage_count'), key: 'usage_count', style: { width: 130 } },
-      { title: I18n.t('recent_activity.datetime'), key: 'date', style: { width: 200 } },
+      { title: I18n.t('recent_activity.uploaded_by'), key: 'username', style: { minWidth: 160 } },
+      { title: I18n.t('recent_activity.usage_count'), key: 'usage_count', style: { width: 160 } },
+      { title: I18n.t('recent_activity.datetime'), key: 'uploaded_at', style: { width: 200 } },
     ];
 
 export const RecentUploadsHandlerBase = createReactClass({

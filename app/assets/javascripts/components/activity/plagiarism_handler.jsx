@@ -7,7 +7,7 @@ import { fetchSuspectedPlagiarism, sortSuspectedPlagiarism } from '../../actions
 
 const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 165 } },
+      { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 180 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
       { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
     ];

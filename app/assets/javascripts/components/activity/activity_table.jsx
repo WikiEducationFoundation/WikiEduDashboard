@@ -108,7 +108,7 @@ const ActivityTable = createReactClass({
   _renderHeaders() {
     return this.props.headers.map((header) => {
       return (
-        <th style={header.style || {}} key={header.key} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
+        <th style={header.style || {}} key={header.key} onClick={this.sortItems} className="sortable asc" data-sort-key={header.key}>
           {header.title}
           <span className="sortable-indicator" />
         </th>

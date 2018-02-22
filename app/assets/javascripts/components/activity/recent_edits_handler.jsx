@@ -9,7 +9,7 @@ const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 
 const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
-      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 142 } },
+      { title: I18n.t('recent_activity.revision_score'), key: 'revision_score', style: { width: 180 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
       { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
 ];
