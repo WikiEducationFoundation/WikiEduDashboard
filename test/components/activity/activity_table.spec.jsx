@@ -4,7 +4,6 @@ import ReactTestUtils from 'react-dom/test-utils';
 
 import '../../testHelper';
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
-import { click } from '../../customUtils.js';
 
 describe('ActivityTable', () => {
   const activities = [{
