@@ -13,6 +13,10 @@ const UploadTable = createReactClass({
     headers: PropTypes.array
   },
 
+  sortItems(e) {
+    this.props.onSort(e.currentTarget.getAttribute("data-sort-key"));
+  },
+
   _renderUploads() {
     return this.props.uploads.map((upload) => {
       return (
@@ -24,7 +28,7 @@ const UploadTable = createReactClass({
   _renderHeaders() {
     return this.props.headers.map((header) => {
       return (
-        <th key={header.key} style={header.style || {}}>
+        <th key={header.key} style={header.style || {}} onClick={this.sortItems} className="sortable" data-sort-key={header.key}>
           {header.title}
         </th>
       );
