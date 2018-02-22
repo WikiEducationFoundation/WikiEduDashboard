@@ -120,8 +120,8 @@ bn:
     calendar:
       legend_class_canceled: ছুটি/বাতিল
     cancel: বাতিল
-    campaign_courses: '%{title} কোর্স'
     campaign_articles: '%{title} নিবন্ধগুলো'
+    campaign_courses: '%{title} কোর্স'
     campaign_users: '%{title} সম্পাদকবৃন্দ'
     course: পথ
     courses_taught: কোর্সের ধারণা
@@ -157,9 +157,14 @@ bn:
     join_successful: আপনি সফলভাবে %{title}-এ যোগ দিয়েছেন।
     my_articles: আমার নিবন্ধ
     new_week: নতুন সপ্তাহ যোগ করুন
+    new_account_email: ইমেইল ঠিকানা
+    new_account_email_placeholder: নাম@example.org
+    new_account_username_placeholder: উইকি সম্পাদক ১২৩
+    new_account_submit: অ্যাকাউন্ট অনুরোধ করুন
     nocourse: কোন কোর্সে অংশগ্রহণ করেননি।
     none: কোনটিই নয়
     overview: প্রধান পাতা
+    requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
     school: বিদ্যালয়
     school_and_term: প্রতিষ্ঠান/মেয়াদ
     start: শুরু করুন

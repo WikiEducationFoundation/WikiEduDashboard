@@ -134,6 +134,13 @@ describe AnalyticsController do
     end
   end
 
+  describe '#all_courses_csv' do
+    it 'returns a CSV' do
+      get 'all_courses_csv'
+      expect(response.body).to have_content('home_wiki')
+    end
+  end
+
   describe '#usage' do
     render_views
     it 'renders the stats page' do

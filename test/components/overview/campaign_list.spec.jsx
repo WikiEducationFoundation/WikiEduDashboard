@@ -25,6 +25,6 @@ describe('CampaignList', () => {
         editable={false}
       />
     );
-    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns container close');
+    ReactTestUtils.findRenderedDOMComponentWithClass(TestButton, 'campaigns');
   });
 });

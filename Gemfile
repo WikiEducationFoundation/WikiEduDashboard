@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '5.1.4'
+gem 'rails', '5.1.5'
 gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -33,6 +33,7 @@ gem 'browser'
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
 gem 'nokogiri' # expected by premailer-rails but not required
+gem 'mailgun-ruby' # email sending service
 
 ### Survey features, implemented as a rails engine
 # If you want to be able to hack locally on rapidfire,
@@ -104,6 +105,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem 'rubocop-rspec-focused', require: false
   gem 'timecop' # Test utility for setting the time
   gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests

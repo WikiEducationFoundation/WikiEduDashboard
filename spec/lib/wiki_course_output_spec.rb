@@ -5,23 +5,6 @@ require "#{Rails.root}/lib/wiki_course_output"
 
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
-    let(:templates) do
-      {
-        'default' => {
-          'editor' => 'student editor',
-          'instructor' => 'course instructor',
-          'course_assignment' => 'course assignment',
-          'table' => 'students table',
-          'table_row' => 'students table row',
-          'table_end' => 'end of students table',
-          'course' => 'course details',
-          'timeline' => 'start of course timeline',
-          'start_of_week' => 'start of course week',
-          'end_of_week' => 'end of course week'
-        }
-      }
-    end
-
     it 'returns a wikitext version of the course' do
       week1 = create(:week, id: 2)
       week2 = create(:week, id: 3)
@@ -74,7 +57,7 @@ describe WikiCourseOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiCourseOutput.new(course, templates).translate_course_to_wikitext
+      response = WikiCourseOutput.new(course).translate_course_to_wikitext
       expect(response).to include('The course description')
       expect(response).to include('{{start of course timeline')
       expect(response).to include('Block 1 title')
@@ -87,7 +70,7 @@ describe WikiCourseOutput do
 
     context 'when the course has no weeks' do
       let(:course) { create(:course) }
-      let(:subject) { WikiCourseOutput.new(course, templates).translate_course_to_wikitext }
+      let(:subject) { WikiCourseOutput.new(course).translate_course_to_wikitext }
 
       it 'excludes the timeline for a course with no weeks' do
         expect(subject).not_to include('{{start of course timeline')

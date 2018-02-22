@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 
 class CampaignCsvBuilder
   def initialize(campaign)
-    @campaign = campaign
+    @campaign = campaign || AllCourses
   end
 
   def courses_to_csv
@@ -28,5 +28,11 @@ class CampaignCsvBuilder
     end
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  class AllCourses
+    def self.courses
+      Course.all
+    end
   end
 end

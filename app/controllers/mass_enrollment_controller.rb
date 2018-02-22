@@ -9,11 +9,11 @@ class MassEnrollmentController < ApplicationController
   before_action :require_permissions
 
   def index
-    @course = Course.find_by_slug(params[:course_id])
+    @course = Course.find_by(slug: params[:course_id])
   end
 
   def add_users
-    @course = Course.find_by_slug(params[:course_id])
+    @course = Course.find_by(slug: params[:course_id])
 
     usernames_list = params[:usernames].lines.map(&:strip)
     @results = {}

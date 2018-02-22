@@ -15,6 +15,7 @@ eu:
       igo edo jaitsi egingo dute sartutakoa.
   application:
     cancel: Utzi
+    create_accounts: Wikipedia kontuak sortu
     dashboard: Wiki Hezkuntzako Arbela
     documentation: Dokumentazioa
     error: 'Errore bat gertatu da:'
@@ -35,9 +36,11 @@ eu:
     my_dashboard: Nire Arbela
     recent_activity: Azken aldiko jarduera
     report_problem: Arazo baten berri eman
+    request_account: Eskatu kontua
     search: Galdera egin
     search_results: 'Emaitzak honetarako: ''%{search_terms}'''
     sign_up_extended: Wikipediarekin kontua sortu
+    sign_up_wikipedia: Edo Wikipediako kontuan sartu
     sign_up_log_in_extended: Wikipedian
     sign_up: Kontua sortu
     submit: Bidali
@@ -234,6 +237,13 @@ eu:
   chat:
     label: Txata
   courses:
+    accounts_generation_enabled: Kontuen eskaera orokorra gaituta dago
+    accounts_generation_explanation: Horrek parte-hartzaileek beren helbide elektronikoa
+      eta nahi duten erabiltzaile izena sartu ahal izatea ahalbidetuko du, kontu berriak
+      sortzearen ordez. Orduan panel honetatik kontuak sortu ahal izango dituzu eta
+      aldi berean programa parte-hartzaile gisa gehitu. Eginbide hau erabiltzeko,
+      'kontu sortzailea' baimena izan behar duzu programa honetako wiki-orrian.
+    accounts_generation_confirm_message: Ziur zaude kontu eskaerak gaitu nahi dituzula?
     activity: Jarduera
     active_courses: '%{course_type} aktiboak'
     all_courses: Ikastaro guztiak
@@ -256,8 +266,9 @@ eu:
     character_doc: Ikastaro epealdian bertako ikasleek izen-tarte nagusiko artikuluetara
       gehitutako karaktereen batura
     campaigns: 'Kanpainak:'
-    campaign_courses: '%{title} ikastaroak'
     campaign_articles: '%{title} artikuluak'
+    campaign_courses: '%{title} ikastaroak'
+    campaign_select: Kanpainia bat hauta ezazu
     campaign_users: '%{title} editoreak'
     confirm_course_deletion: Ziur zaude %{title} izena duen ikastaroa ezabatu nahi
       duzula? Hala bada, tekleatu ikastaroaren izena aurrera egiteko.
@@ -373,6 +384,7 @@ eu:
     duration: Ikastaroaren iraupena
     edit_count: Aldatu zenbatzea
     edit_course_dates: Ikastaroaren datak aldatu
+    enable_account_requests: Kontu eskaerak gaitu
     enable_chat: Txata gaitu
     end: Amaitu
     ended: Ikastaroa amaituta dago.
@@ -419,6 +431,12 @@ eu:
     my_articles: Nire artikuluak
     needs_update: Datu eguneraketa programatu
     new_week: Aste Berria gehitu
+    new_account_check_username: Erabiltzaile izenaren erabilgarritasuna egiaztatu
+    new_account_email: Helbide elektronikoa
+    new_account_email_placeholder: izena@adibidea.org
+    new_account_info: Kontu bat eskatzeko, idatzi zure helbide elektronikoa eta zure
+      erabiltzaile izena. Pasahitz bat bidaliko zaizu, gure sortzaileetako batek kontua
+      sortu ondoren.
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
     nocourse: Ez duzu inongo ikastarotan parte hartu.
     none: Bat ere ez

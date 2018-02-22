@@ -21,6 +21,7 @@ class SurveyNotificationsManager
   private
 
   def build_notifications_for_(courses_user)
+    return unless courses_user.course.approved? # Do not send for unapproved courses
     return if any_existing_notifications_for_user?(courses_user)
     notification = SurveyNotification.new(
       courses_users_id: courses_user.id,

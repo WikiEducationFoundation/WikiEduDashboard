@@ -3,7 +3,7 @@
 class QuestionsController < Rapidfire::ApplicationController
   before_action :set_question
 
-  def get_question
+  def question
     render json: { question: @question,
                    question_type: @question.class.name.to_s.split('::').last.downcase }
   end

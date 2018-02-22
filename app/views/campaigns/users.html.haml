@@ -27,4 +27,4 @@
               = cu.revision_count
             %td
               %small
-                = link_to cu.course.title, course_path(cu.course)
+                = link_to cu.course.title, course_slug_path(cu.course.slug)

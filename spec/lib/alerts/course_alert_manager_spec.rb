@@ -24,14 +24,14 @@ describe CourseAlertManager do
 
   let(:enroll_admin) do
     create(:courses_user,
-           course_id: course.id,
-           user_id: admin.id,
+           course: course,
+           user: admin,
            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
   end
   let(:enroll_student) do
     create(:courses_user,
-           course_id: course.id,
-           user_id: user.id,
+           course: course,
+           user: user,
            role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
@@ -42,7 +42,7 @@ describe CourseAlertManager do
   describe '#create_no_students_alerts' do
     before :each do
       # These alerts are only created if the course is approved.
-      create(:campaigns_course, course_id: course.id, campaign_id: Campaign.first.id)
+      create(:campaigns_course, course: course, campaign: Campaign.first)
     end
 
     it 'creates an Alert record and emails a greeter' do
@@ -62,7 +62,7 @@ describe CourseAlertManager do
   end
 
   describe '#create_untrained_students_alerts' do
-    let(:course_start) { 2.month.ago }
+    let(:course_start) { 2.months.ago }
 
     context 'when a course has no students' do
       it 'does not create an alert' do
@@ -88,9 +88,10 @@ describe CourseAlertManager do
         week.blocks << Block.new(training_module_ids: [1, 2, 3])
         course.weeks << week
         create(:courses_user,
-               course_id: course.id,
-               user_id: user.id,
+               course: course,
+               user: user,
                role: CoursesUsers::Roles::STUDENT_ROLE)
+        create(:campaigns_course, course: course, campaign: Campaign.first)
         course.update_cache
       end
       it 'creates an alert' do

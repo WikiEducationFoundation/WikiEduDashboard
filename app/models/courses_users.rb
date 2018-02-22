@@ -24,7 +24,7 @@ require "#{Rails.root}/lib/utils"
 require "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model
-class CoursesUsers < ActiveRecord::Base
+class CoursesUsers < ApplicationRecord
   belongs_to :course
   belongs_to :user
   before_destroy :cleanup
@@ -38,6 +38,7 @@ class CoursesUsers < ActiveRecord::Base
 
   scope :current, -> { joins(:course).merge(Course.current).distinct }
   scope :ready_for_update, -> { joins(:course).merge(Course.ready_for_update).distinct }
+  scope :with_instructor_role, -> { where(role: Roles::INSTRUCTOR_ROLE) }
 
   ####################
   # CONSTANTS        #

@@ -22,13 +22,13 @@ class CreateSalesforceMediaRecord
 
   def create_salesforce_record
     # :create returns the Salesforce id of the new record
-    @salesforce_media_id = @client.create!('Media__c', salesforce_media_fields)
+    @salesforce_media_id = @client.create!('Engagement__c', salesforce_media_fields)
   end
 
   def salesforce_media_fields
     {
-      Name: @article.full_title,
-      Format__c: 'Wiki Contribution',
+      Title__c: @article.full_title,
+      Engagement_Type__c: 'Wiki contribution',
       Author_Wiki_Username_Optional__c: @user.username,
       Primary_Course__c: @salesforce_course_id,
       Link__c: @article.url,

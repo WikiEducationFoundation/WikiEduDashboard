@@ -21,6 +21,8 @@
             = t("metrics.view")
           %option{rel: 'asc', value: 'lang_project'}
             = t("articles.wiki")
+          %option{rel: 'asc', value: 'course_title'}
+            = t("#{@presenter.course_string_prefix}.courses")
 
     %table.table.table--hoverable.table--sortable
       %thead
@@ -45,8 +47,11 @@
           %th.sort.sortable{'data-sort' => 'lang_project'}
             = t('articles.wiki')
             %span.sortable-indicator
+          %th.sort.sortable{'data-sort' => 'course_title'}
+            = t("#{@presenter.course_string_prefix}.courses")
+            %span.sortable-indicator
 
-      - articles = @campaign.articles_courses.includes(article: :wiki).order(character_sum: :desc)
+      - articles = @campaign.articles_courses.includes(article: :wiki).includes(:course).order(character_sum: :desc)
 
       %tbody.list
         - if articles.empty?

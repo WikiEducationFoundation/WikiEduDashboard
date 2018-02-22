@@ -60,7 +60,7 @@ class UserProfilesController < ApplicationController
   def set_user
     # Per MediaWiki convention, underscores in username urls represent spaces
     username = params[:username].tr('_', ' ')
-    @user = User.find_by_username(username)
+    @user = User.find_by(username: username)
   end
 
   # Use callbacks to share common setup or constraints between actions.

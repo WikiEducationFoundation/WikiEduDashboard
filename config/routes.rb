@@ -19,6 +19,9 @@ Rails.application.routes.draw do
                           as: :true_destroy_user_session
   end
 
+  get '/settings/all_admins' => 'settings#all_admins'
+  post '/settings/upgrade_admin' => 'settings#upgrade_admin'
+  post '/settings/downgrade_admin' => 'settings#downgrade_admin'
   #UserProfilesController
   controller :user_profiles do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
@@ -159,7 +162,8 @@ Rails.application.routes.draw do
   get 'course_uploads_csv' => 'analytics#course_uploads_csv'
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
-
+  get 'all_courses_csv' => 'analytics#all_courses_csv'
+  
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do
@@ -256,7 +260,7 @@ Rails.application.routes.draw do
   put '/surveys/question_position' => 'questions#update_position'
   get '/survey/results/:id' => 'surveys#results', as: 'survey_results'
   get '/survey/question/results/:id' => 'questions#results', as: 'question_results'
-  get '/surveys/question_group_question/:id' => 'questions#get_question'
+  get '/surveys/question_group_question/:id' => 'questions#question'
   get '/surveys/:id/question_group' => 'surveys#edit_question_groups', :as => "edit_question_groups"
   post '/surveys/question_group/clone/:id' => 'surveys#clone_question_group'
   post '/surveys/question/clone/:id' => 'surveys#clone_question'
@@ -310,6 +314,7 @@ Rails.application.routes.draw do
 
   resources :admin
   resources :alerts_list
+  resources :settings, only: [:index]
 
   require 'sidekiq/web'
   authenticate :user, lambda { |u| u.admin? } do

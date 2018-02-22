@@ -94,7 +94,9 @@ class CourseCreationManager
     return unless Features.open_course_creation?
 
     @overrides[:campaigns] = if @initial_campaign_params.present?
-                               [Campaign.find_by_id(@initial_campaign_params[:initial_campaign_id])]
+                               # rubocop:disable Metrics/LineLength
+                               [Campaign.find_by(id: @initial_campaign_params[:initial_campaign_id])]
+                               # rubocop:enable Metrics/LineLength
                              else
                                [Campaign.default_campaign]
                              end
