@@ -97,7 +97,7 @@ class RequestedAccountsCampaignsController < ApplicationController
   end
 
   def set_campaign
-    @campaign = Campaign.find_by_slug(params[:campaign_slug])
+    @campaign = Campaign.find_by(slug: params[:campaign_slug])
   end
 
   # def redirect_if_passcode_invalid
