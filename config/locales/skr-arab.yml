@@ -210,6 +210,10 @@ skr-arab:
     title: عنوان
     view_on_wiki: وکی تے فرق ݙیکھو
     see_more: ٻئے ݙیکھو
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ورتݨ ناں
   timeline:
     add_week: ہفتہ شامل کرو
     block_milestone: سنگ میل

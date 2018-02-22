@@ -381,6 +381,20 @@ ko:
     title: 제목
     view_on_wiki: 위키에서 차이 보기
     see_more: 더 보기
+  settings:
+    admin_users:
+      new:
+        form_label: 관리자 권한 부여
+        form_placeholder: 사용자 이름
+        confirm_add_admin: 관리자 부여
+        confirm_remove_admin: '관리자 권한 제거:'
+        already_admin: '%{username}님은 이미 관리자입니다!'
+        elevate_success: '%{username}님이 관리자로 승격되었습니다.'
+      remove:
+        revoke_button: 관리자 철회
+        revoke_button_confirm: '%{username}님의 관리자 권한 철회'
+        revoking_button_working: 철회 중...
+        no_super_admin: 슈퍼 관리자로부터 관리자 상태를 철회할 수 없습니다
   suggestions:
     suggestion_docs:
       '?': 제안을 사용할 수 없습니다 - 이 글은 평가되지 않았거나 평가를 위해 제안을 사용할 수 없습니다.

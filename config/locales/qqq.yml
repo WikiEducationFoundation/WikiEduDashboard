@@ -62,6 +62,7 @@ qqq:
       {{Identical|Log out}}
     my_dashboard: My Dashboard link
     recent_activity: Link to recent activity (for registered users)
+    request_account: '{{Identical|Request an account}}'
     search: Input box for search on ask.wikiedu.org (Wiki Ed only)
     sign_up_extended: Short text (< 14 characters) to make clear that authentication
       is via wikipedia
@@ -624,6 +625,10 @@ qqq:
     title: |-
       Label for title of the article
       {{Identical|Title}}
+  settings:
+    admin_users:
+      new:
+        form_placeholder: '{{Identical|User name}}'
   tasks:
     conseq: Maintenance script message indicating that a task is already running
     constant: Maintenance script message indicating that a conflicting task is running

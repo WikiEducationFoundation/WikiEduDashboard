@@ -15,6 +15,7 @@
 # Author: Lizalizaufa
 # Author: Lugimax
 # Author: Mailman
+# Author: Mouse21
 # Author: Nzeemin
 # Author: Okras
 # Author: Putnik
@@ -110,6 +111,7 @@ ru:
     label: Статьи
     loading: Загрузка статей...
     new: (новая)
+    none: Этот курс не редактировал никаких статей.
     rating: Класс
     rating_doc: Рейтинг статьи был назначен Википедии ВикиПроектом. Эти рейтинги могут
       быть связаны с намного более старыми версиями, поэтому они являются лишь приблизительным
@@ -256,6 +258,7 @@ ru:
     nocourse: не участвовал в каких-либо курсах.
     overview: Обзор
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
+    private: Скрытый
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
     students: Студенты

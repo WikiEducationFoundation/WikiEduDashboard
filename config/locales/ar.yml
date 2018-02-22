@@ -388,6 +388,10 @@ ar:
     title: عنوان
     view_on_wiki: عرض الفرق على الويكي
     see_more: طالع المزيد
+  settings:
+    admin_users:
+      new:
+        form_placeholder: اسم المستخدم
   tasks:
     conseq: المهمة %{task} قيد التشغيل بالفعل!
     paused: المهمة %{task} لا يمكن تشغيلها لأنه قد تم إيقاف التحديثات المجدولة. شغِّل

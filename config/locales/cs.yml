@@ -49,7 +49,7 @@ cs:
     search: Zeptat se
     search_results: 'Výsledky pro: „%{search_terms}“'
     sign_up_extended: Zaregistrovat se skrze Wikipedii
-    sign_up_wikipedia: Nebo se přihlašte na Wikipedii
+    sign_up_wikipedia: Nebo se přihlaste na Wikipedii
     sign_up_log_in_extended: s Wikipedií
     sign_up: Registrace
     submit: Potvrdit
@@ -242,6 +242,11 @@ cs:
     label: Chat
   courses:
     accounts_generation_enabled: Povoleno posílání žádostí o účet
+    accounts_generation_explanation: Toto povolí účastníkům zadání jejich e-mailových
+      adres a zvoleného uživatelského jména místo zakládání vlastních účtů. Budete
+      pak schopni založit účty z této desky, a přidat je ve stejný čas jako účastníky
+      programu. Abyste mohli používat tuto funkci, musíte patřit na své domovské wiki
+      do skupiny 'zakladatelů účtů'.
     accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita
     active_courses: Aktivní %{course_type}
@@ -432,9 +437,9 @@ cs:
     new_account_email_placeholder: name@example.org
     new_account_info: Pro zažádání o účet zadejte svoji e-mailovou adresu a vámi zvolené
       uživatelské jméno. Heslo vám bude posláno e-mailem po založení účtu.
-    new_account_info_admin: Pro zažádání o studentský účet zadejte e-mailovou adresu
-      studenta a jím zvolené uživatelské jméno. Heslo mu bude posláno e-mailem ihned
-      po založení účtu.
+    new_account_info_admin: Pro zažádání o účet pro nového uživatele zadejte jeho
+      e-mailovou adresu a jím zvolené uživatelské jméno. Heslo mu bude posláno e-mailem
+      ihned po založení účtu.
     new_account_username: Požadované uživatelské jméno
     new_account_username_invalid: Toto není platné uživatelské jméno.
     new_account_username_placeholder: Wikieditor 123
@@ -694,6 +699,22 @@ cs:
     title: Název
     view_on_wiki: Zobrazit rozdíly na wiki
     see_more: Zobrazit více
+  settings:
+    admin_users:
+      new:
+        form_label: Přidělit práva správce
+        form_placeholder: Uživatelské jméno
+        confirm_add_admin: Udělit správce
+        confirm_remove_admin: Odebrat práva správce uživateli
+        already_admin: '%{username} je již správce!'
+        elevate_success: '%{username} byl povýšen na správce.'
+      remove:
+        revoke_button: Zrušit správce
+        revoke_button_confirm: Odebrat práva správce uživatele %{username}
+        revoking_button_working: Odstraňování...
+        already_instructor: '%{username} je již instruktor!'
+        demote_success: '%{username} byl povýšen na instruktora.'
+        no_super_admin: Není možné zrušit status správce ze super správce
   suggestions:
     editing: Návrhy k editaci
     suggestion_docs:

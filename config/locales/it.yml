@@ -478,6 +478,11 @@ it:
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nome utente
+        already_admin: '%{username} è già un amministratore!'
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.

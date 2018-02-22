@@ -128,6 +128,8 @@ lb:
   chat:
     label: Chat
   courses:
+    accounts_generation_confirm_message: Sidd Dir sécher datt Dir Ufroe fir Benotzerkonten
+      aktivéiere wëllt?
     activity: Aktivitéit
     active_courses: Aktiv %{course_type}
     all_courses: All Coursen
@@ -343,6 +345,12 @@ lb:
     title: Titel
     view_on_wiki: Ënnerscheed op der Wiki weisen
     see_more: Méi gesinn
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Benotzernumm
+        confirm_remove_admin: Administrateur-Rechter ewechhuele fir
+        already_admin: '%{username}ass schonn en Administrateur!'
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
