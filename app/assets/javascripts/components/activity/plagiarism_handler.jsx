@@ -9,7 +9,7 @@ const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
       { title: I18n.t('recent_activity.plagiarism_report'), key: 'report_url', style: { width: 165 } },
       { title: I18n.t('recent_activity.revision_author'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.revision_datetime'), key: 'revision_datetime', style: { width: 200 } },
+      { title: I18n.t('recent_activity.revision_datetime'), key: 'datetime', style: { width: 200 } },
     ];
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_plagiarism');
