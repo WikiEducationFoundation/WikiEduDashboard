@@ -40,9 +40,10 @@ class User < ApplicationRecord
     NONE  = 0
     ADMIN = 1
     INSTRUCTOR = 2
+    SUPER_ADMIN = 3
   end
   validates :permissions, inclusion: {
-    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR]
+    in: [Permissions::NONE, Permissions::ADMIN, Permissions::INSTRUCTOR, Permissions::SUPER_ADMIN]
   }
 
   # Include default devise modules. Others available are:
@@ -121,7 +122,15 @@ class User < ApplicationRecord
   end
 
   def admin?
-    permissions == Permissions::ADMIN
+    [Permissions::ADMIN, Permissions::SUPER_ADMIN].include? permissions
+  end
+
+  def super_admin?
+    permissions == Permissions::SUPER_ADMIN
+  end
+
+  def instructor_permissions?
+    permissions == Permissions::INSTRUCTOR
   end
 
   def course_instructor?

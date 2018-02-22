@@ -8,6 +8,10 @@ const Popover = (props) => {
     divClass += ' open';
   }
 
+  if (props.right) {
+    divClass += ' right';
+  }
+
   return (
     <div className={divClass}>
       <table>

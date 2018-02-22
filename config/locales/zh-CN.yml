@@ -197,6 +197,7 @@ zh-CN:
     label: 聊天
   courses:
     accounts_generation_enabled: 账户请求生成已启用
+    accounts_generation_explanation: 这将允许参与者输入其电子邮件地址以及想要的用户名，而不是让他们自己创建新账户。您稍后将从此面板创建账户，并同时添加为计划参与者。要使用此功能，您应在此计划的主wiki上具有“账户创建者”权限。
     accounts_generation_confirm_message: 您确定要启用帐户请求吗？
     activity: 活动
     active_courses: 激活%{course_type}
@@ -219,8 +220,9 @@ zh-CN:
     cancel: 取消
     character_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目的字符之和
     campaigns: 活动：
-    campaign_courses: '%{title}课程'
     campaign_articles: '%{title}个条目'
+    campaign_courses: '%{title}课程'
+    campaign_select: 选择一个活动
     campaign_users: '%{title}位编辑者'
     confirm_course_deletion: 您是否要删除标题为%{title}的课程？如果是，输入课程标题以进行。
     confirm_course_deletion_failed: “%{title}”不是此课程的标题。课程未被删除。
@@ -340,8 +342,8 @@ zh-CN:
     new_account_check_username: 检查用户名可用性
     new_account_email: 电子邮件地址
     new_account_email_placeholder: name@example.org
-    new_account_info: 要请求一个账户，请输入您的电子邮件地址以及您想要的用户名。一旦账户被创建，密码将通过电子邮件发送给您。
-    new_account_info_admin: 要请求一个学生账户，请输入其电子邮件地址以及想要的用户名。一旦账户被创建，密码将通过电子邮件发送给他。
+    new_account_info: 要请求一个账户，请输入您的电子邮件地址以及您想要的用户名。一旦账户被服务方之一创建，密码将通过电子邮件发送给您。
+    new_account_info_admin: 要为新编辑者创建账户，请输入其电子邮件地址以及想要的用户名。一旦账户被创建，密码将通过电子邮件发送给他。
     new_account_username: 请求的用户名
     new_account_username_invalid: 这不是有效的用户名。
     new_account_username_placeholder: Wiki编辑者123
@@ -359,6 +361,7 @@ zh-CN:
     passcode: 密码
     passcode_none: 无密码
     passcode_prompt: 输入密码以加入：
+    private: 私有
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
     requested_accounts: 请求的账户
@@ -573,6 +576,22 @@ zh-CN:
     title: 标题
     view_on_wiki: 在wiki上查看差异
     see_more: 查看更多
+  settings:
+    admin_users:
+      new:
+        form_label: 授予管理员特权
+        form_placeholder: 用户名
+        confirm_add_admin: 授予管理员
+        confirm_remove_admin: 移除该用户的管理员特权
+        already_admin: '%{username}已经是管理员！'
+        elevate_success: '%{username}被提升为管理员。'
+      remove:
+        revoke_button: 撤除管理员
+        revoke_button_confirm: 撤除%{username}的管理员权限
+        revoking_button_working: 正在撤除……
+        already_instructor: '%{username}已经是导师！'
+        demote_success: '%{username}已更改为导师。'
+        no_super_admin: 不能撤除超级管理员的管理员状态
   suggestions:
     editing: 编辑建议
     suggestion_docs:

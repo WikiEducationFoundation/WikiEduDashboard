@@ -249,6 +249,11 @@ pt-br:
     label: Bate-papo
   courses:
     accounts_generation_enabled: Geração de solicitação de contas ativada
+    accounts_generation_explanation: Isso permitirá que os participantes digitem seu
+      endereço de e-mail e nome de usuário desejado, em vez de criar novas contas.
+      Você poderá então criar as contas a partir deste Painel, e adicioná-las como
+      participantes do programa ao mesmo tempo. Para usar esse recurso, você deve
+      ter permissão de "criador de conta" no wiki de casa para este programa.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
       de contas?
     activity: Atividade
@@ -273,8 +278,9 @@ pt-br:
     character_doc: A soma dos caracteres adicionados a artigos no domínio prinicpal
       por estudantes do curso durante o prazo curso
     campaigns: 'Grupos:'
-    campaign_courses: Curso de "%{title}"
     campaign_articles: Artigos %{title}
+    campaign_courses: Curso de "%{title}"
+    campaign_select: Selecione uma campanha
     campaign_users: Editores de %{title}
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
@@ -444,9 +450,9 @@ pt-br:
     new_account_email: Endereço de e-mail
     new_account_email_placeholder: nome@exemplo.org
     new_account_info: Para solicitar uma conta, insira seu endereço de e-mail e seu
-      nome de usuário desejado. Uma vez que a conta foi criada, uma senha será enviada
-      por e-mail.
-    new_account_info_admin: Para solicitar a conta de um aluno, insira seu endereço
+      nome de usuário desejado. Uma senha será enviada por email uma vez que a conta
+      tenha sido criada por um dos facilitadores.
+    new_account_info_admin: Para criar uma conta para um novo editor, insira seu endereço
       de e-mail e o nome de usuário desejado. Uma vez que a conta foi criada, uma
       senha será enviada por e-mail.
     new_account_username: Nome de usuário solicitado
@@ -472,6 +478,7 @@ pt-br:
     passcode: Código de acesso
     passcode_none: Sem senha
     passcode_prompt: 'Digite a senha para entrar:'
+    private: Privado
     published: 'Seu curso foi publicado! Estudantes podem se matricular no curso visitando
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
@@ -722,6 +729,23 @@ pt-br:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Veja mais
+  settings:
+    admin_users:
+      new:
+        form_label: Conceder privilégios de administrador
+        form_placeholder: Nome de usuário
+        confirm_add_admin: administrador de Conceção
+        confirm_remove_admin: Remova privilégios de administrador para
+        already_admin: '%{username} já é um administrador!'
+        elevate_success: '%{username} elevado para admin.'
+      remove:
+        revoke_button: Revogar admin
+        revoke_button_confirm: Revogar os direitos de administrador de %{username}
+        revoking_button_working: Revogando ...
+        already_instructor: '%{username} já é um instrutor!'
+        demote_success: '%{username} mudou para instrutor.'
+        no_super_admin: Não consigo revogar o status do administrador de um super
+          admin
   suggestions:
     editing: Editando sugestões
     suggestion_docs:

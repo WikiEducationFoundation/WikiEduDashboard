@@ -207,8 +207,8 @@ nb:
     character_doc: Summen av tegn lagt til i artikler i hovednavnerommet av kursets
       studenter i løpet av kursterminen
     campaigns: 'Kohorter:'
-    campaign_courses: '%{title}-kurs'
     campaign_articles: '%{title}-artikler'
+    campaign_courses: '%{title}-kurs'
     campaign_users: '%{title}-bidragsytere'
     confirm_course_deletion: Er du sikker på at du vil slette kurset med navn %{title}?
       Hvis du er det, skriv inn kursets tittel for å fortsette.

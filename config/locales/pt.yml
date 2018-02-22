@@ -242,6 +242,12 @@ pt:
     label: Conversação
   courses:
     accounts_generation_enabled: Geração de pedidos de contas ativada
+    accounts_generation_explanation: Isto vai permitir que os participantes introduzam
+      o seu endereço de correio de eletrónico e o nome de utilizador desejado, em
+      vez de criarem as suas próprias contas recentes. Poderá então criar as novas
+      contas a partir do Painel de Controlo, e ao mesmo tempo poderá adicioná-las
+      no programa como participantes. Para utilizar esta funcionalidade, deve ter
+      o privilégio de 'criador de contas' na wiki de origem deste programa.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
       de contas?
     activity: Atividade
@@ -266,8 +272,9 @@ pt:
     character_doc: A soma dos carateres adicionados a artigos no domínio principal
       por estudantes do curso durante o prazo do curso
     campaigns: 'Grupos:'
-    campaign_courses: Cursos de %{title}
     campaign_articles: Artigos de %{title}
+    campaign_courses: Cursos de %{title}
+    campaign_select: Selecione uma campanha
     campaign_users: Editores de %{title}
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
@@ -441,8 +448,8 @@ pt:
     new_account_email_placeholder: nome@exemplo.org
     new_account_info: Para solicitar uma conta, introduza o seu endereço de correio
       eletrónico e o seu nome de utilizador desejado. Quando a conta tiver sido criada
-      ser-lhe-á enviada uma palavra-passe por correio eletrónico.
-    new_account_info_admin: Para solicitar uma conta de aluno, introduza o correio
+      por um dos facilitadores, ser-lhe-á enviada uma palavra-passe por correio eletrónico.
+    new_account_info_admin: Para criar uma conta a um novo editor, introduza o correio
       eletrónico e o nome de utilizador desejado. Quando a conta tiver sido criada
       será enviada uma palavra-passe ao aluno por correio eletrónico.
     new_account_username: Nome de utilizador solicitado
@@ -469,6 +476,7 @@ pt:
     passcode: Código de acesso
     passcode_none: Sem código de acesso
     passcode_prompt: 'Insira o código de acesso para participar:'
+    private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
@@ -718,6 +726,23 @@ pt:
     title: Título
     view_on_wiki: Ver diferenças na wiki
     see_more: Ver mais
+  settings:
+    admin_users:
+      new:
+        form_label: Conceder privilégios de administrador
+        form_placeholder: Nome de utilizador
+        confirm_add_admin: Conceder direitos de administrador
+        confirm_remove_admin: Remover privilégios de administrador de
+        already_admin: '%{username} já é um administrador!'
+        elevate_success: '%{username} foi elevado a administrador.'
+      remove:
+        revoke_button: Revogar administrador
+        revoke_button_confirm: Revogar os privilégios de administrador de %{username}
+        revoking_button_working: A revogar...
+        already_instructor: '%{username} já é um professor!'
+        demote_success: '%{username} foi alterado a professor.'
+        no_super_admin: Não foi possível revogar o estatuto de administrador de um
+          super administrador
   suggestions:
     editing: A editar sugestões
     suggestion_docs:

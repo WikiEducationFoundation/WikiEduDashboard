@@ -194,8 +194,8 @@ ne:
       legend_class_not_meeting: कुनै पनि बैठक तय गरिएको छैन
     cancel: रद्द गर्नुहोस्
     campaigns: 'अभियानहरू:'
-    campaign_courses: '%{title} पाठ्यक्रमहरू'
     campaign_articles: '%{title} लेखहरू'
+    campaign_courses: '%{title} पाठ्यक्रमहरू'
     campaign_users: '%{title} सम्पादकहरू'
     course: पाठ्यक्रम
     course_description: पाठ्यक्रम

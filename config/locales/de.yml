@@ -236,6 +236,12 @@ de:
     label: Chat
   courses:
     accounts_generation_enabled: Erzeugung von Benutzerkontenanträgen aktiviert
+    accounts_generation_explanation: Dies erlaubt Teilnehmern, ihre E-Mail-Adresse
+      und den gewünschten Benutzernamen einzugeben anstatt sich selbst neue Benutzerkonten
+      zu erstellen. Du wirst dann in der Lage sein, die Benutzerkonten von diesem
+      Dashboard aus zu erstellen und sie zur gleichen Zeit als Programmteilnehmer
+      hinzuzufügen. Um diese Funktion zu verwenden, solltest du die Berechtigung „Benutzerkontenersteller“
+      auf dem Heimatwiki für dieses Programm besitzen.
     accounts_generation_confirm_message: Bist du sicher, dass du die Benutzerkontoanfragen
       aktivieren möchtest?
     activity: Aktivität
@@ -260,8 +266,9 @@ de:
     character_doc: Die Summe der durch die Kursstudenten während der Kursdauer zu
       Hauptnamensraum-Artikeln hinzugefügten Zeichen
     campaigns: 'Kampagnen:'
-    campaign_courses: '%{title} Kurse'
     campaign_articles: '%{title} Artikel'
+    campaign_courses: '%{title} Kurse'
+    campaign_select: Eine Kampagne auswählen
     campaign_users: '%{title} Autoren'
     confirm_course_deletion: Bist du sicher, dass du den Kurs mit dem Titel „%{title}“
       löschen möchtest? Falls ja, gib zum Fortfahren den Kurstitel ein.
@@ -437,10 +444,10 @@ de:
     new_account_email_placeholder: name@beispiel.org
     new_account_info: Um ein Benutzerkonto zu beantragen, gib deine E-Mail-Adresse
       und den gewünschten Benutzernamen ein. Es wird ein Passwort per E-Mail an dich
-      versandt, sobald das Benutzerkonto erstellt wurde.
-    new_account_info_admin: Um ein Studenten-Benutzerkonto zu beantragen, gib ihre
-      E-Mail-Adressen und die gewünschten Benutzernamen ein. Ein Passwort wird per
-      E-Mail an sie versandt, sobald das Benutzerkonto erstellt wurde.
+      versandt, sobald das Benutzerkonto von einem der Vermittler erstellt wurde.
+    new_account_info_admin: Um ein Benutzerkonto für einen neuen Autor zu erstellen,
+      gib seine E-Mail-Adresse und den gewünschten Benutzernamen ein. Ein Passwort
+      wird per E-Mail an ihn versandt, sobald das Benutzerkonto erstellt wurde.
     new_account_username: Gewünschter Benutzername
     new_account_username_invalid: Dies ist kein gültiger Benutzername.
     new_account_username_placeholder: Wikiautor 123
@@ -466,6 +473,7 @@ de:
     passcode: Passcode
     passcode_none: Kein Passcode
     passcode_prompt: 'Gib zum Beitreten den Passcode ein:'
+    private: Privat
     published: 'Dein Kurs wurde veröffentlicht! Studenten können sich beim Aufrufen
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
@@ -719,6 +727,23 @@ de:
     title: Titel
     view_on_wiki: Unterschied auf dem Wiki ansehen
     see_more: Mehr sehen
+  settings:
+    admin_users:
+      new:
+        form_label: Administratorrechte gewähren
+        form_placeholder: Benutzername
+        confirm_add_admin: Administratorrechte vergeben
+        confirm_remove_admin: Administratorrechte entfernen für
+        already_admin: '%{username} ist bereits ein Administrator!'
+        elevate_success: '%{username} zum Administrator ernannt.'
+      remove:
+        revoke_button: Administratorrechte entziehen
+        revoke_button_confirm: Administratorrechte entziehen von %{username}
+        revoking_button_working: Entziehen …
+        already_instructor: '%{username} ist bereits ein Kursleiter!'
+        demote_success: '%{username} zum Kursleiter ernannt.'
+        no_super_admin: Einem Super-Administrator kann nicht der Administratorstatus
+          entzogen werden.
   suggestions:
     editing: Vorschläge bearbeiten
     suggestion_docs:

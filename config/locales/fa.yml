@@ -166,8 +166,8 @@ fa:
     character_doc: مجموع کاراکترهای افزوده‌شده به فضای اصلی مقاله‌ها توسط دانشجویان
       دوره در طول مدت دوره
     campaigns: 'گروه‌ها:'
-    campaign_courses: دوره‌های %{title}
     campaign_articles: مقالات %{title}
+    campaign_courses: دوره‌های %{title}
     campaign_users: ویرایشگران %{title}
     confirm_course_deletion: از حذف دورهٔ آموزشی تحت عنوان %{title} اطمینان دارید؟
       اگر بله، عنوان دوره را برای ادامهٔ فرآیند تایپ کنید.

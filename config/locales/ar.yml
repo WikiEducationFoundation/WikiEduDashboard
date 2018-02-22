@@ -40,6 +40,7 @@ ar:
     report_problem: أبلغ عن مشكلة
     search: طرح سؤال
     sign_up_extended: تسجيل الدخول إلى ويكيبيديا
+    sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
     sign_up_log_in_extended: مع ويكبيديا
     sign_up: أنشئ حسابًا
     submit: إرسال
@@ -387,6 +388,10 @@ ar:
     title: عنوان
     view_on_wiki: عرض الفرق على الويكي
     see_more: طالع المزيد
+  settings:
+    admin_users:
+      new:
+        form_placeholder: اسم المستخدم
   tasks:
     conseq: المهمة %{task} قيد التشغيل بالفعل!
     paused: المهمة %{task} لا يمكن تشغيلها لأنه قد تم إيقاف التحديثات المجدولة. شغِّل

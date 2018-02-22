@@ -188,6 +188,7 @@ it:
     character_doc: La somma dei caratteri aggiunti alle voci nel namespace principale
       dagli studenti del corso durante il periodo del corso
     campaigns: 'Campagne:'
+    campaign_select: Seleziona una campagna
     confirm_course_deletion: Cancellare il corso intitolato %{title}? Scrivi il titolo
       del corso per procedere.
     confirm_course_deletion_failed: '"%{title}" non è il titolo di questo corso. Il
@@ -290,6 +291,7 @@ it:
     ores_plot: ORES
     overview: Pagina principale
     passcode: Codice di accesso
+    private: Privato
     published: 'Il tuo corso è stato pubblicato! Gli studenti possono iscriversi al
       corso, visitando il seguente URL:'
     revisions_none: Questo corso non ha attività di modifica recente su Wikipedia.
@@ -476,6 +478,11 @@ it:
     loading: Caricamento revisioni...
     none: Questo corso non ha attività di modifica recenti.
     title: Titolo
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Nome utente
+        already_admin: '%{username} è già un amministratore!'
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.

@@ -120,8 +120,8 @@ bn:
     calendar:
       legend_class_canceled: ছুটি/বাতিল
     cancel: বাতিল
-    campaign_courses: '%{title} কোর্স'
     campaign_articles: '%{title} নিবন্ধগুলো'
+    campaign_courses: '%{title} কোর্স'
     campaign_users: '%{title} সম্পাদকবৃন্দ'
     course: পথ
     courses_taught: কোর্সের ধারণা

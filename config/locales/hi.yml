@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Anamdas
 # Author: Bhatakati aatma
+# Author: Nitin1485
 # Author: Rajat11
 # Author: Rajatkatiyar10
 # Author: Sachinkatiyar
@@ -41,6 +42,7 @@ hi:
     report_problem: समस्या के बारे में बताएं
     search: सवाल पूछें
     sign_up_extended: विकिपीडिया के साथ जुड़ें
+    sign_up_wikipedia: या विकिपीडिया पर साइन अप करें
     sign_up_log_in_extended: विकिपीडिया के साथ
     sign_up: साइन अप करें
     submit: जमा करें
@@ -236,8 +238,9 @@ hi:
     character_doc: पाठ्यक्रम अवधि के दौरान पाठ्यक्रम के छात्रों द्वारा वर्णों के योग
       को मुख्य जगह वाले लेखों में जोड़ा गया
     campaigns: अभियान
-    campaign_courses: '%{title} पाठ्यक्रम'
     campaign_articles: '%{title} लेख'
+    campaign_courses: '%{title} पाठ्यक्रम'
+    campaign_select: एक अभियान चुनें
     campaign_users: '%{title} संपादक'
     confirm_course_deletion: क्या आप वाकई "%{title}" नामक पाठ्यक्रम को हटाना चाहते
       हैं? यदि हां, तो आगे बढ़ने के लिए पाठ्यक्रम का शीर्षक टाइप करें।
@@ -280,6 +283,7 @@ hi:
     instructors: शिक्षक
     join_no_passcode: क्या आप वाकई इस पाठ्यक्रम में शामिल होना चाहते हैं?
     loading: लोड हो रहा है…
+    private: निजी
     school: विद्यालय
     start: आरम्भ
     start_typing: लिखना शुरू करें
@@ -288,6 +292,7 @@ hi:
     term: अवधि
     update_stats: आँकड़े सुधारे
   courses_generic:
+    add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम
     course: प्रोग्राम
     school: संस्थान
