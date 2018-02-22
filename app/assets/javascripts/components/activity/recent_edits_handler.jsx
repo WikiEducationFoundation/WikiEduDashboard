@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from './activity_table.jsx';
-import { fetchRecentEdits } from "../../actions/recent_edits_actions.js";
+import { fetchRecentEdits, sortRecentEdits } from "../../actions/recent_edits_actions.js";
 
 const NO_ACTIVITY_MESSAGE = I18n.t('recent_activity.no_edits');
 
@@ -19,6 +19,7 @@ const RecentEditsHandler = createReactClass({
 
   propTypes: {
     fetchRecentEdits: PropTypes.func,
+    sortRecentEdits: PropTypes.func,
     revisions: PropTypes.array,
     loading: PropTypes.bool
   },
@@ -44,6 +45,7 @@ const RecentEditsHandler = createReactClass({
           activity={this.props.revisions}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortRecentEdits}
         />
       </div>
     );
@@ -56,7 +58,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchRecentEdits: fetchRecentEdits
+  fetchRecentEdits: fetchRecentEdits,
+  sortRecentEdits: sortRecentEdits
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecentEditsHandler);
