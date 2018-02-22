@@ -102,23 +102,4 @@ describe('ActivityTable', () => {
     const firstRow = TestTable.querySelector('tbody tr:first-child');
     expect(firstRow.textContent).to.eq('No activity');
   });
-
-  it('can sort activities', (done) => {
-    const TestTable = ReactTestUtils.renderIntoDocument(
-      <div>
-        <ActivityTable
-          store={reduxStore}
-          loading={false}
-          activity={activities}
-          headers={headers}
-        />
-      </div>
-    );
-
-    expect(TestTable.querySelector('tbody tr:first-child td:first-child').textContent).to.eq('title2');
-    click(TestTable.querySelector('thead tr:first-child th:first-child')).then(() => {
-      expect(TestTable.querySelector('tbody tr:first-child td:first-child').textContent).to.eq('title');
-      done();
-    });
-  });
 });

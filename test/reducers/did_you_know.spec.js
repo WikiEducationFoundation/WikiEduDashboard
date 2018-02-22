@@ -6,6 +6,7 @@ describe("Did you know reducer menu reducer", () => {
   it("should return the initial state", () => {
     const initialState = {
       articles: [],
+      sortKey: null,
       loading: true
     };
 
@@ -18,6 +19,7 @@ describe("Did you know reducer menu reducer", () => {
 
     const initialState = {
       articles: oldArticles,
+      sortKey: null,
       loading: true
     };
 
@@ -30,6 +32,7 @@ describe("Did you know reducer menu reducer", () => {
       })
     ).to.deep.eq({
       articles: newArticles,
+      sortKey: null,
       loading: false
     });
   });
