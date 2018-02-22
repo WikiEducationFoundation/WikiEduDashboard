@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from './activity_table.jsx';
-import { fetchSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
+import { fetchSuspectedPlagiarism, sortSuspectedPlagiarism } from '../../actions/suspected_plagiarism_actions.js';
 
 const HEADERS = [
       { title: I18n.t('recent_activity.article_title'), key: 'title' },
@@ -45,6 +45,7 @@ const PlagiarismHandler = createReactClass({
           activity={this.props.revisions}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortSuspectedPlagiarism}
         />
       </div>
     );
@@ -58,7 +59,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchSuspectedPlagiarism: fetchSuspectedPlagiarism
+  fetchSuspectedPlagiarism: fetchSuspectedPlagiarism,
+  sortSuspectedPlagiarism: sortSuspectedPlagiarism
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlagiarismHandler);
