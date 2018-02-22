@@ -4,17 +4,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as ArticleActions from '../../actions/article_actions';
-
-import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Article from './article.jsx';
-import ArticleStore from '../../stores/article_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
-
-const getState = () => ({
-  articles: ArticleStore.getModels()
-});
 
 const ArticleList = ({
   articles,
@@ -70,7 +62,7 @@ const ArticleList = ({
       table_key="articles"
       className="table--expandable table--hoverable"
       none_message={CourseUtils.i18n('articles_none', course.string_prefix)}
-      store={ArticleStore}
+      store={reduxStore}
     />
   );
 };
@@ -91,7 +83,5 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...ArticleActions }, dispatch)
 });
 
-export default Editable(
-  connect(mapStateToProps, mapDispatchToProps)(ArticleList),
-  [ArticleStore], ServerActions.saveArticles, getState
-);
+
+connect(mapStateToProps, mapDispatchToProps)(ArticleList);

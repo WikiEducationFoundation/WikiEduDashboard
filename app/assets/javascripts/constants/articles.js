@@ -1,0 +1,1 @@
+export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES';

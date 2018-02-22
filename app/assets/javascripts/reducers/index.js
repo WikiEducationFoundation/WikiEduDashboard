@@ -20,7 +20,7 @@ import ui from './ui';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
 import users from './users';
-
+import articles from './articles';
 
 const reducer = combineReducers({
   articleDetails,
@@ -44,7 +44,8 @@ const reducer = combineReducers({
   ui,
   userCourses,
   userProfile,
-  users
+  users,
+  articles
 });
 
 export default reducer;
