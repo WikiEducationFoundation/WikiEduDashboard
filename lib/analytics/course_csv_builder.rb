@@ -15,6 +15,9 @@ class CourseCsvBuilder
     institution
     term
     home_wiki
+    created_at
+    start_date
+    end_date
     new_or_returning
     editors
     new_editors
@@ -39,6 +42,9 @@ class CourseCsvBuilder
     row << @course.school
     row << @course.term
     row << @course.home_wiki.domain
+    row << @course.created_at
+    row << @course.start
+    row << @course.end
     row << new_or_returning_tag
     row << @course.user_count
     row << new_editors.count
