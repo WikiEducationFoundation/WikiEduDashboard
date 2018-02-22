@@ -36,9 +36,9 @@ describe GANominationMonitor do
     before do
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:Good article nominees', 0)
-        .and_return(['Template:GA nominee/Be Here Now (George Harrison song)',
-                     'Template:GA nominee/2017–18 London & South East Premier',
-                     'Template:GA nominee/17776'])
+        .and_return(['Talk:Be Here Now (George Harrison song)',
+                     'Talk:2017–18 London & South East Premier',
+                     'Talk:17776'])
 
       articles_course && revision && courses_user
     end
@@ -50,7 +50,7 @@ describe GANominationMonitor do
       expect(alerted_article_ids).to include(article.id)
     end
 
-    it 'emails a greeter' do
+    it 'emails a content expert' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
       allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
       GANominationMonitor.create_alerts_for_course_articles

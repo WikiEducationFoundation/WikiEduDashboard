@@ -35,7 +35,7 @@ class GANominationMonitor
 
   def extract_page_titles_from_nominations
     @ga_article_titles = @ga_titles.map do |ga_title|
-      ga_title[%r{Template:GA nominee/(.*)}, 1]
+      ga_title[/Talk:(.*)/, 1]
     end
   end
 
