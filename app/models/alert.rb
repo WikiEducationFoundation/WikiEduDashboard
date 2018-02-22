@@ -39,6 +39,7 @@ class Alert < ApplicationRecord
     DeletedUploadsAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
+    GANominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
     ProductiveCourseAlert
@@ -53,6 +54,7 @@ class Alert < ApplicationRecord
     ContinuedCourseActivityAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
+    GANominationAlert
   ].freeze
 
   def course_url
