@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import UploadTable from './upload_table.jsx';
-import { fetchRecentUploads } from '../../actions/recent_uploads_actions.js';
+import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uploads_actions.js';
 
 const HEADERS = [
       { title: I18n.t('recent_activity.image'), key: 'image' },
@@ -18,6 +18,7 @@ export const RecentUploadsHandlerBase = createReactClass({
 
   propTypes: {
     fetchRecentUploads: PropTypes.func,
+    sortRecentUploads: PropTypes.func,
     uploads: PropTypes.array,
     loading: PropTypes.bool
    },
@@ -38,6 +39,7 @@ export const RecentUploadsHandlerBase = createReactClass({
           loading={this.props.loading}
           uploads={this.props.uploads}
           headers={HEADERS}
+          onSort={this.props.sortRecentUploads}
         />
       </div>
     );
@@ -50,7 +52,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchRecentUploads
+  fetchRecentUploads,
+  sortRecentUploads
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecentUploadsHandlerBase);
