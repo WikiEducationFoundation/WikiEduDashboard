@@ -3,6 +3,9 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
+    "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
+    "@bower_components/jquery.uls": "mattfordham/jquery.uls#*",
+    "@bower_components/lodash": "lodash/lodash#~3.9.0",
     "autosize": "^4.0.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
@@ -75,7 +78,6 @@
     "lodash.sorteduniqby": "^4.7.0",
     "lodash.throttle": "^4.1.1",
     "lodash.where": "^3.1.0",
-    "main-bower-files": "^2.0.0",
     "markdown-it": "^8.4.0",
     "markdown-it-footnote": "^3.0.1",
     "mcfly": "1.0.0",
@@ -141,7 +143,7 @@
     "start": "gulp dev",
     "hot": "gulp hot-dev",
     "build": "gulp build"
-  },
+    },
   "jest": {
     "collectCoverage": false,
     "roots": [
@@ -153,5 +155,8 @@
       "app/assets/javascripts",
       "node_modules"
     ]
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
   }
 }
