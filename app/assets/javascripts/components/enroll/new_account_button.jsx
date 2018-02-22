@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import NewAccountModal from './new_account_modal.jsx';
 import { INSTRUCTOR_ROLE } from '../../constants';
 
@@ -7,8 +8,8 @@ const NewAccountButton = createReactClass({
   displayName: 'NewAccountButton',
 
   propTypes: {
-    course: React.PropTypes.object.isRequired,
-    passcode: React.PropTypes.string
+    course: PropTypes.object.isRequired,
+    passcode: PropTypes.string
   },
 
   getInitialState() {
