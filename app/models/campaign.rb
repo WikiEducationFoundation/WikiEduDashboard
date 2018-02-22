@@ -76,6 +76,15 @@ class Campaign < ActiveRecord::Base
     CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
 
+  def account_requests_enabled
+    flags = []
+    pp courses
+    courses.each do |course|
+      flags << course.flags[:register_accounts]
+    end
+    return true if flags.all?(true)
+  end
+
   #################
   # Class methods #
   #################

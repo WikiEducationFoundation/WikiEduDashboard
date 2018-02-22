@@ -7,8 +7,6 @@ class RequestedAccountsCampaignsController < ApplicationController
   before_action :check_requested_account_permission
   before_action :check_creation_permissions,
                 only: %i[index create_accounts enable_account_requests destroy]
-
-  def new; end
   # This creates (or updates) a RequestedAccount, which is a username and email
   # for a user who wants to create a wiki account (but may not be able to do so
   # because of a shared IP that has hit the new account limit).
@@ -37,10 +35,23 @@ class RequestedAccountsCampaignsController < ApplicationController
 
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
   # modal instead of redirecting to the mediawiki account creation flow.
-  # def enable_account_requests
-  #   @campaign.flags[:register_accounts] = true
-  #   @campaign.save
-  # end
+  def enable_account_requests
+    @campaign.courses.each do |course|
+      course.flags[:register_accounts] = true
+      course.save
+    end
+    redirect_back(fallback_location: root_path)
+    return
+  end
+
+  def disable_account_requests
+    @campaign.courses.each do |course|
+      course.flags.delete(:register_accounts)
+      course.save
+    end
+    redirect_back(fallback_location: root_path)
+    return
+  end
 
   # List of requested accounts for a course.
   def index; end
@@ -48,7 +59,9 @@ class RequestedAccountsCampaignsController < ApplicationController
   def destroy
     # raise exception unless requestedaccount belongs to course
     requested_account = RequestedAccount.find_by(id: params[:id])
-    raise_unauthorized_exception unless @campaign.id == requested_account.campaign_id
+    requested_account_course = requested_account.course_id
+    campaigns_ids = Course.find_by(id: requested_account_course).campaigns.ids
+    raise_unauthorized_exception unless campaigns_ids.include?(@campaign.id)
     requested_account.delete
     redirect_back fallback_location: '/'
   end

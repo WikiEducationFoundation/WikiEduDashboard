@@ -44,11 +44,13 @@ Rails.application.routes.draw do
       constraints: { course_id: /.*/ }
 
   put 'requested_accounts_campaigns' => 'requested_accounts_campaigns#request_account'
-  delete '/requested_accounts_campaigns/*campaign_slug/*id/delete' => 'requested_accounts_campaings#destroy',
+  delete '/requested_accounts_campaigns/*campaign_slug/*id/delete' => 'requested_accounts_campaigns#destroy',
       constraints: { campaign_slug: /.*/ }
   get '/requested_accounts_campaigns/*campaign_slug/create' => 'requested_accounts_campaigns#create_accounts',
       constraints: { campaign_slug: /.*/ }
-  get '/requested_accounts_campaigns/*campaign_slug/enable_account_requests' => 'requested_accounts_campaigns#enable_account_requests',
+  put '/requested_accounts_campaigns/*campaign_slug/enable_account_requests' => 'requested_accounts_campaigns#enable_account_requests',
+      constraints: { campaign_slug: /.*/ }
+  put '/requested_accounts_campaigns/*campaign_slug/disable_account_requests' => 'requested_accounts_campaigns#disable_account_requests',
       constraints: { campaign_slug: /.*/ }
   get '/requested_accounts_campaigns/*campaign_slug' => 'requested_accounts_campaigns#index',
       constraints: { campaign_slug: /.*/ }
