@@ -43,8 +43,8 @@ class TrainingLoader
     slug = File.basename(yaml_file, '.yml')
     slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
 
-    content = YAML.load_file(yaml_file).to_hashugar
-    @content_class.new(content, slug)
+    content = YAML.load_file(yaml_file)
+    @content_class.inflate(content, slug)
   end
 
   #####################
@@ -92,10 +92,7 @@ class TrainingLoader
                 new_from_wikitext_page(wiki_page, wikitext)
               end
 
-    # TODO: Determine whether Hashr or OpenStruct might be more performant.
-    # These objects are long-lived, so Hashugar may not be the best option.
-    content = content.to_hashugar
-    @content_class.new(content, content.slug)
+    @content_class.inflate(content, content.slug)
   end
 
   # json pages have all the required data within the json content, but optionally

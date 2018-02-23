@@ -15,14 +15,14 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(slug_whitelist: nil)
-    loader = TrainingLoader.new(content_class: self, slug_whitelist: slug_whitelist)
-
+  def self.load(slug_whitelist: nil, content_class: self)
+    loader = TrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
     @all = if slug_whitelist
              merge_content loader.load_content
            else
              loader.load_content
            end
+    return if content_class.superclass.name == 'ApplicationRecord'
 
     check_for_duplicate_slugs
     check_for_duplicate_ids
@@ -45,7 +45,6 @@ class TrainingBase
   def self.load_all
     TrainingLibrary.flush
     TrainingModule.flush
-    TrainingSlide.flush
     if Features.wiki_trainings?
       TrainingModule.load
       TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
@@ -112,6 +111,11 @@ class TrainingBase
     end
   end
 
+  # called for each training unit in TrainingLoader
+  def self.inflate(content, slug)
+    new(content.to_hashugar, slug)
+  end
+
   class DuplicateSlugError < StandardError
   end
 
@@ -122,7 +126,6 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  # called for each training unit in TrainingLoader
   def initialize(content, slug)
     self.slug = slug
     content.each do |key, value|

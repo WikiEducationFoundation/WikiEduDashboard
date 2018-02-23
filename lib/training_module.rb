@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/training/training_base"
-require "#{Rails.root}/lib/training_slide"
 
 class TrainingModule < TrainingBase
   attr_accessor :name, :slides, :description, :estimated_ttc, :id
@@ -57,8 +56,8 @@ class TrainingModule < TrainingBase
   # #slides now returns the instances of TrainingSlide
   def slides
     return @sorted_slides unless @sorted_slides.nil?
-    slides = TrainingSlide.all.select { |slide| slide_slugs.include?(slide.slug) }
-    @sorted_slides = slides.sort { |a, b| slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug) }
+    selected_slides = TrainingSlide.where(slug: slide_slugs)
+    @sorted_slides = selected_slides.sort { |a, b| slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug) }
   end
 
   def valid?
