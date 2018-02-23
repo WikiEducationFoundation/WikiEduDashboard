@@ -92,7 +92,7 @@ class TrainingLoader
                 new_from_wikitext_page(wiki_page, wikitext)
               end
 
-    @content_class.inflate(content, content.slug)
+    @content_class.inflate(content, content['slug'])
   end
 
   # json pages have all the required data within the json content, but optionally
