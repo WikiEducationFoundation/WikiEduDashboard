@@ -9,7 +9,7 @@ describe TrainingProgressManager do
   let(:slides)   { [t_module.slides.first, t_module.slides.last] }
   let(:slide)    { slides.first }
   let(:last_slide_completed) { slides.first.slug }
-  let(:tmu) do
+  let!(:tmu) do
     create(:training_modules_users, user_id: user&.id, training_module_id: t_module.id,
                                     last_slide_completed: last_slide_completed,
                                     completed_at: completed_at)
@@ -22,7 +22,10 @@ describe TrainingProgressManager do
     create(:block, training_module_ids: ids, week_id: week.id)
   end
 
-  before  { tmu }
+  before(:all) do
+    TrainingSlide.load
+  end
+
   subject { described_class.new(user, t_module, slide) }
 
   describe '#slide_completed?' do

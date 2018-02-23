@@ -10,6 +10,10 @@ describe TrainingModulePresenter do
   let(:module_id)  { mod.slug }
   let(:mod_params) { { library_id: library_id, module_id: module_id } }
 
+  before(:all) do
+    TrainingSlide.load
+  end
+
   describe '#cta_button_text' do
     subject { described_class.new(user, mod_params).cta_button_text }
     context 'user has not started module' do
