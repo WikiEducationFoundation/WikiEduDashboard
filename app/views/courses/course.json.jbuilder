@@ -11,6 +11,7 @@ json.course do
             :cloned_status, :flags, :level)
 
   json.timeline_enabled @course.timeline_enabled?
+  json.account_requests_enabled @course.account_requests_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
   json.ended !current?(@course) && @course.start < Time.zone.now
