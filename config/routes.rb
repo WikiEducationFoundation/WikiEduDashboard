@@ -58,7 +58,7 @@ Rails.application.routes.draw do
   put 'requested_accounts' => 'requested_accounts#request_account'
   delete 'requested_accounts/*course_slug/*id/delete' => 'requested_accounts#destroy',
       constraints: { course_slug: /.*/ }
-  get 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
+  post 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
