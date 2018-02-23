@@ -8,6 +8,7 @@
 #  title_prefix :string(255)
 #  summary      :string(255)
 #  button_text  :string(255)
+#  wiki_page    :string(255)
 #  assessment   :text(65535)
 #  content      :text(65535)
 #  translations :text(16777215)
@@ -27,10 +28,6 @@ class TrainingSlide < ApplicationRecord
   #################
   # Class Methods #
   #################
-  def self.cache_key
-    'slides'
-  end
-
   def self.wiki_base_page
     ENV['training_slides_wiki_page']
   end

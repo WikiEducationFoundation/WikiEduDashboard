@@ -9,7 +9,7 @@ class CreateTrainingSlide < ActiveRecord::Migration[5.1]
       t.text :assessment, limit: 16_000
       t.text :content, limit: 16_000
       t.text :translations, limit: 2_000_000
-      t.string :slug, index: true
+      t.string :slug, index: { unique: true }
       t.timestamps null: false
     end
   end

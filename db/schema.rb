@@ -438,7 +438,7 @@ ActiveRecord::Schema.define(version: 20180222220757) do
     t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["slug"], name: "index_training_slides_on_slug"
+    t.index ["slug"], name: "index_training_slides_on_slug", unique: true
   end
 
   create_table "user_profiles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
