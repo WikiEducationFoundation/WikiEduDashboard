@@ -168,13 +168,13 @@ const AvailableActions = createReactClass({
     // Requested accounts
     if (Features.enableAccountRequests && (user.role === 1 || user.admin)) {
       // show a link to the requested accounts creation page if there are any
-      if (this.state.course.requestedAccounts && (this.state.course.flags.register_accounts === true || this.state.course.flags.register_accounts_campaigns === true)) {
+      if (this.state.course.requestedAccounts && this.state.course.account_requests_enabled) {
         const requestedAccountsLink = `/requested_accounts/${this.state.course.slug}`;
         controls.push((
           <p key="requested_accounts"><a href={requestedAccountsLink} className="button">{I18n.t('courses.requested_accounts')}</a></p>
         ));
       // show a button to enable new account requests, if it's not enabled already
-    } else if (this.state.course.flags.register_accounts !== true && this.state.course.flags.register_accounts_campaigns !== true) {
+    } else if (!this.state.course.account_requests_enabled) {
         controls.push((
           <p key="enable_account_requests"><button onClick={this.enableRequests} className="button">{I18n.t('courses.enable_account_requests')}</button></p>
         ));

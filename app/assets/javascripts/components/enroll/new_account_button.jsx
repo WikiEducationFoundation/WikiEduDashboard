@@ -26,9 +26,9 @@ const NewAccountButton = React.createClass({
 
   render() {
     const { course } = this.props;
-    // If register_accounts flag is set for the course, just link to the signup
+    // If account registration is not enabled for the course, just link to the signup
     // endpoint for the user to register an account on their own.
-    if (!course.flags || (!course.flags.register_accounts && !course.flags.register_accounts_campaigns)) {
+    if (!course.account_requests_enabled) {
       return (
         <a href={`/users/auth/mediawiki_signup?origin=${window.location}`} className="button auth signup border margin">
           <i className="icon icon-wiki-logo" />{I18n.t('application.sign_up_extended')}
