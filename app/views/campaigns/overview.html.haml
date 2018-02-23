@@ -30,8 +30,9 @@
       - if current_user && (Features.open_course_creation? || current_user&.admin?)
         = form_tag(course_creator_path, method: :get, enforce_utf8: false, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
-          %button.button.dark
+          %button.button.dark.green
             = t('courses_generic.creator.create_short')
+            %i.icon.icon-plus
       - if @editable
         = form_tag('./edit', method: :get, class: 'campaign-create') do
           = hidden_field_tag(:campaign_slug, @campaign.slug)
@@ -50,6 +51,7 @@
         = form_tag("/requested_accounts_campaigns/#{@campaign.slug}", method: :get, class: 'campaign-create') do
           %button.button.dark
             = t('campaign.requested_accounts')
+            %i.icon.icon-rt_arrow
       .module.campaign-details.rails_editable{class: @open_details ? 'rails_editable-editing' : ''}
         .section-header
           %h3
