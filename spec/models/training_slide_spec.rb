@@ -22,9 +22,9 @@ require 'rails_helper'
 describe TrainingSlide do
   describe '.inflate' do
     let(:slug) { 'slide-slug' }
-    let(:subject) {
+    let(:subject) do
       described_class.inflate({ id: 1, title: 'ohai', slug: slug }, slug)
-    }
+    end
 
     it 'prints an error message if a slide cannot be saved' do
       TrainingSlide.create!(id: 1000, title: 'foo', slug: slug)
