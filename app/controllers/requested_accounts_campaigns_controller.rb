@@ -46,7 +46,7 @@ class RequestedAccountsCampaignsController < ApplicationController
   end
 
   def check_creation_permissions
-    return if user_signed_in? && @campaign && current_user.can_edit?(@campaign)
+    return if user_signed_in? && @campaign && current_user.admin?
     raise_unauthorized_exception
   end
 
