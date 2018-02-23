@@ -62,7 +62,6 @@ const ArticleList = ({
       table_key="articles"
       className="table--expandable table--hoverable"
       none_message={CourseUtils.i18n('articles_none', course.string_prefix)}
-      store={reduxStore}
     />
   );
 };
@@ -84,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
-connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
