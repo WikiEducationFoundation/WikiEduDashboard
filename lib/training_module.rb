@@ -57,7 +57,9 @@ class TrainingModule < TrainingBase
   def slides
     return @sorted_slides unless @sorted_slides.nil?
     selected_slides = TrainingSlide.where(slug: slide_slugs)
-    @sorted_slides = selected_slides.sort { |a, b| slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug) }
+    @sorted_slides = selected_slides.sort do |a, b|
+      slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
+    end
   end
 
   def valid?
