@@ -11,6 +11,7 @@ import ValidationActions from '../../actions/validation_actions.js';
 import { fetchCampaign, updateCourse, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
+import { getCloneableCourses } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';
 import Modal from '../common/modal.jsx';
@@ -33,7 +34,7 @@ const CourseCreator = createReactClass({
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    user_courses: PropTypes.array.isRequired,
+    cloneableCourses: PropTypes.array.isRequired,
     fetchCoursesForUser: PropTypes.func.isRequired,
     courseCreator: PropTypes.object.isRequired,
     updateCourse: PropTypes.func.isRequired,
@@ -200,7 +201,7 @@ const CourseCreator = createReactClass({
     let showCloneChooser;
     let showNewOrClone;
     // If user has no courses, just open the CourseForm immediately because there are no cloneable courses.
-    if (this.props.user_courses.length === 0) {
+    if (this.props.cloneableCourses.length === 0) {
       showCourseForm = true;
     // If the creator was launched from a campaign, do not offer the cloning option.
     } else if (this.campaignParam()) {
@@ -234,7 +235,7 @@ const CourseCreator = createReactClass({
     const cloneOptions = showNewOrClone ? '' : ' hidden';
     const controlClass = `wizard__panel__controls ${courseFormClass}`;
     const selectClass = showCloneChooser ? '' : ' hidden';
-    const options = this.props.user_courses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
+    const options = this.props.cloneableCourses.map((course, i) => <option key={i} data-id-key={course.id}>{course.title}</option>);
     const selectClassName = `select-container ${selectClass}`;
     const eventFormClass = this.state.showEventDates ? '' : 'hidden';
     const eventClass = `${eventFormClass}`;
@@ -539,7 +540,7 @@ const CourseCreator = createReactClass({
 const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
-  user_courses: _.reject(state.userCourses.userCourses, { type: "LegacyCourse" }),
+  cloneableCourses: getCloneableCourses(state)
 });
 
 const mapDispatchToProps = ({

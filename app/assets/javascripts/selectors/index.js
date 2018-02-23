@@ -8,6 +8,7 @@ const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
 const getCourseCampaigns = state => state.campaigns.campaigns;
 const getAllCampaigns = state => state.campaigns.all_campaigns;
+const getUserCourses = state => state.userCourses.userCourses;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -54,5 +55,11 @@ export const getAvailableCampaigns = createSelector(
   [getCourseCampaigns, getAllCampaigns], (campaigns, allCampaigns) => {
     campaigns = campaigns.map(campaign => campaign.title);
     return _.difference(allCampaigns, campaigns);
+  }
+);
+
+export const getCloneableCourses = createSelector(
+  [getUserCourses], (userCourses) => {
+    return getFiltered(userCourses, { cloneable: true });
   }
 );
