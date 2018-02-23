@@ -4,15 +4,11 @@ require 'rails_helper'
 
 describe TrainingModulePresenter do
   let!(:user)      { create(:user) }
-  let(:lib)        { TrainingLibrary.all.first }
+  let(:lib)        { TrainingLibrary.find_by(slug: 'students') }
   let(:library_id) { lib.slug }
-  let(:mod)        { TrainingModule.all.first }
+  let(:mod)        { TrainingModule.find_by(slug: 'editing-basics') }
   let(:module_id)  { mod.slug }
   let(:mod_params) { { library_id: library_id, module_id: module_id } }
-
-  before(:all) do
-    TrainingSlide.load
-  end
 
   describe '#cta_button_text' do
     subject { described_class.new(user, mod_params).cta_button_text }

@@ -5,7 +5,7 @@ require 'rails_helper'
 describe TrainingProgressManager do
   let(:user)     { create(:user) }
   # first and last slide
-  let(:t_module) { TrainingModule.all.first }
+  let(:t_module) { TrainingModule.find_by(slug: 'editing-basics') }
   let(:slides)   { [t_module.slides.first, t_module.slides.last] }
   let(:slide)    { slides.first }
   let(:last_slide_completed) { slides.first.slug }
@@ -20,10 +20,6 @@ describe TrainingProgressManager do
   let(:course) { create(:course) }
   let!(:block) do
     create(:block, training_module_ids: ids, week_id: week.id)
-  end
-
-  before(:all) do
-    TrainingSlide.load
   end
 
   subject { described_class.new(user, t_module, slide) }

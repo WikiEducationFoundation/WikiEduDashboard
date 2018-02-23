@@ -3,13 +3,9 @@
 require 'rails_helper'
 
 describe TrainingModulesUsersController do
-  before do
-    TrainingSlide.load
-  end
-
   describe '#create_or_update' do
     let(:user) { create(:user) }
-    let(:training_module) { TrainingModule.all.first }
+    let(:training_module) { TrainingModule.find_by(slug: 'editing-basics') }
     let(:slide) { TrainingModule.find(training_module.id).slides.first }
     let!(:tmu) do
       TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
