@@ -32,12 +32,6 @@ yarn
 echo '[*] Installing phantomjs-prebuilt...'
 sudo yarn global add phantomjs-prebuilt
 
-echo '[*] Installing bower...'
-sudo yarn global add bower
-
-echo '[*] Installing bower modules...'
-bower install
-
 echo '[*] Installing pandoc...'
 brew install pandoc
 
