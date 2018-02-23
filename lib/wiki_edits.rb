@@ -136,7 +136,9 @@ class WikiEdits
 
     # Request a CSRF or other token for the user
     @access_token = oauth_access_token(current_user)
-    get_token = @access_token.get("#{@wiki.api_url}?action=query&meta=tokens&format=json&type=#{type}")
+    get_token = @access_token.get(
+      "#{@wiki.api_url}?action=query&meta=tokens&format=json&type=#{type}"
+    )
 
     # Handle 5XX response for when MediaWiki API is down
     handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }
