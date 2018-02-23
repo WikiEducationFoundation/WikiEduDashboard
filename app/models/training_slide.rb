@@ -16,6 +16,8 @@
 #  updated_at   :datetime         not null
 #
 
+require "#{Rails.root}/lib/training/training_base"
+
 #= Class representing an individual training slide
 class TrainingSlide < ApplicationRecord
   validates_presence_of :id, :slug, :title
@@ -60,6 +62,7 @@ class TrainingSlide < ApplicationRecord
       slide.send("#{key}=", value)
     end
     slide.save
+    slide
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e

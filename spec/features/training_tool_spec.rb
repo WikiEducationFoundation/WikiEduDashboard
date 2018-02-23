@@ -60,6 +60,7 @@ describe 'Training', type: :feature, js: true do
 
   describe 'module index page' do
     before do
+      TrainingSlide.load
       visit "/training/students/#{module_2.slug}"
     end
 
@@ -160,6 +161,7 @@ describe 'Training', type: :feature, js: true do
   DESIRED_TRAINING_MODULE_IDS.each do |module_id|
     training_module = TrainingModule.find(module_id)
     describe "'#{training_module.name}' module" do
+      before { TrainingSlide.load }
       training_module = TrainingModule.find(module_id)
       it 'lets the user go from start to finish' do
         go_through_module_from_start_to_finish(training_module)

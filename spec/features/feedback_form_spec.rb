@@ -10,6 +10,10 @@ describe 'feedback form' do
   let(:feedback_link_text) { 'Submit Feedback' }
 
   context 'from a training module', type: :feature, js: true do
+    before do
+      TrainingSlide.load
+    end
+
     let(:body) { 'It was great' }
     let(:user) { create(:user) }
     it 'submits successfully for a logged in user' do

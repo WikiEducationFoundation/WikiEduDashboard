@@ -431,6 +431,7 @@ ActiveRecord::Schema.define(version: 20180222220757) do
     t.string "title_prefix"
     t.string "summary"
     t.string "button_text"
+    t.string "wiki_page"
     t.text "assessment"
     t.text "content"
     t.text "translations", limit: 16777215

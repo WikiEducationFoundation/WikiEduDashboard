@@ -97,7 +97,7 @@ describe TrainingLoader do
       it 'imports slides with translated content' do
         VCR.use_cassette 'training/load_from_wiki' do
           slides = subject.load_content
-          spanish = slides.first.translations.es
+          spanish = slides.first.translations['es']
           expect(spanish).not_to be_empty
         end
       end
