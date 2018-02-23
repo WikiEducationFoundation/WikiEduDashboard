@@ -46,9 +46,6 @@ Rails.application.routes.draw do
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
       constraints: { course_id: /.*/ }
 
-  put 'requested_accounts_campaigns' => 'requested_accounts_campaigns#request_account'
-  delete '/requested_accounts_campaigns/*campaign_slug/*id/delete' => 'requested_accounts_campaigns#destroy',
-      constraints: { campaign_slug: /.*/ }
   get '/requested_accounts_campaigns/*campaign_slug/create' => 'requested_accounts_campaigns#create_accounts',
       constraints: { campaign_slug: /.*/ }
   put '/requested_accounts_campaigns/*campaign_slug/enable_account_requests' => 'requested_accounts_campaigns#enable_account_requests',
@@ -163,7 +160,7 @@ Rails.application.routes.draw do
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
-  
+
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do
