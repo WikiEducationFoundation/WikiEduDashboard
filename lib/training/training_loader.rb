@@ -65,7 +65,7 @@ class TrainingLoader
     end
     threads.each(&:join)
   rescue InvalidWikiContentError => e
-    Raven.capture e
+    Raven.capture_exception e
   end
 
   def add_trainings_to_collection(wiki_pages)
