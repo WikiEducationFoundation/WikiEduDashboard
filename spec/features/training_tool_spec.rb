@@ -159,10 +159,13 @@ describe 'Training', type: :feature, js: true do
   end
 
   DESIRED_TRAINING_MODULES.each do |module_slug|
-    training_module = TrainingModule.find_by(module_slug)
-    describe "'#{training_module.name}' module" do
-      before { TrainingSlide.load }
+    describe "'#{module_slug}' module" do
+      before do
+        TrainingSlide.load
+        TrainingModule.flush
+      end
       it 'lets the user go from start to finish' do
+        training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)
       end
     end

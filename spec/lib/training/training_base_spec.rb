@@ -124,5 +124,8 @@ describe TrainingBase do
   end
 
   # Make sure default trainings get reloaded
-  after(:all) { TrainingModule.load_all }
+  after(:all) do
+    TrainingModule.flush
+    TrainingLibrary.flush
+  end
 end
