@@ -57,6 +57,10 @@ class Replica
     api_get('articles.php', article_list)
   end
 
+  def post_existing_articles_by_title(articles)
+    api_post('articles.php', 'post_article_titles', articles)
+  end
+
   # Given a list of revisions, see which ones have not been deleted
   def get_existing_revisions_by_id(revisions)
     revision_list = compile_revision_ids_query(revisions)
@@ -128,9 +132,33 @@ class Replica
     report_exception e, endpoint, query
   end
 
+  def api_post(endpoint, key, data)
+    tries ||= 3
+    response = do_post(endpoint, key, data)
+    return if response.empty?
+    parsed = Oj.load(response.to_s)
+    return unless parsed['success']
+    parsed['data']
+  rescue StandardError => e
+    tries -= 1
+    sleep 2 && retry unless tries.zero?
+
+    report_exception e, endpoint, data
+  end
+
   def do_query(endpoint, query)
     url = compile_query_url(endpoint, query)
     Net::HTTP::get(URI.parse(url))
+  end
+
+  def do_post(endpoint, key, data)
+    url = "https://tools.wmflabs.org/wikiedudashboard/#{endpoint}"
+    database_params = project_database_params_post
+    Net::HTTP::post_form(URI.parse(url),
+                         'db' => database_params['db'],
+                         'lang' => database_params['lang'],
+                         'project' => database_params['project'],
+                         key => data)
   end
 
   # Query URL for the WikiEduDashboardTools repository
@@ -148,6 +176,14 @@ class Replica
     return "db=#{SPECIAL_DB_NAMES[@wiki.domain]}" if SPECIAL_DB_NAMES[@wiki.domain]
     # Otherwise, uses the language and project, and replica API infers the standard db name.
     "lang=#{@wiki.language}&project=#{@wiki.project}"
+  end
+
+  def project_database_params_post
+    db = ''
+    db = SPECIAL_DB_NAMES[@wiki.domain] if SPECIAL_DB_NAMES[@wiki.domain]
+    lang = @wiki.language
+    project = @wiki.project
+    { 'db' => db, 'lang' => lang, 'project' => project }
   end
 
   def compile_usernames_query(users)

@@ -140,16 +140,13 @@ class ArticleStatusManager
   # If so, update the Article to use the new id.
   def update_article_ids(deleted_page_ids)
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
-
     # These pages have titles that match Articles in our DB with deleted ids
-    same_title_pages = Utils.chunk_requests(maybe_deleted, articles_per_replica_query) do |block|
-      request_results = Replica.new(@wiki).get_existing_articles_by_title block
-      @failed_request_count += 1 if request_results.nil?
-      request_results
-    end
+
+    request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
+    @failed_request_count += 1 if request_results.nil?
 
     # Update articles whose IDs have changed (keyed on title and namespace)
-    same_title_pages.each do |stp|
+    request_results.each do |stp|
       resolve_page_id(stp, deleted_page_ids)
     end
   end
