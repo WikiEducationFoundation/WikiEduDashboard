@@ -62,7 +62,7 @@ echo '[*] Installing gulp...'
 sudo yarn global add gulp
 
 echo '[*] Installing R...'
-brew tap homebrew/science && brew install r
+brew install r
 
 echo '[*] Migrating databases...'
 rake db:migrate
