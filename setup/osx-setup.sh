@@ -1,63 +1,160 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+clear
+set -e
+trap ErrorMessage ERR
+
+ErrorMessage(){
+  echo "There was error while setting up your developmental environment!"
+  echo "Please check the log file in setup directory."
+  echo "For manual instruction for setting up the developmental environment, refer to:"
+  echo "https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/master/docs/setup.md"
+}
+
+CLEAR_LINE='\r\033[K'
+
+output_line()
+{
+  if [ -z ${2+x} ];then
+    while read -r line
+    do
+      printf "${CLEAR_LINE}$line"
+      echo $line >> setup/log.txt
+    done < <(eval $1)
+  else
+    while read -r line
+    do
+      printf "${CLEAR_LINE}$line"
+    done < <(eval $1 | $2)
+  fi
+}
 
 echo 'Setting up your developmental environment. This may take a while.'
 
-echo '[*] Installing GNUpg...'
-brew install gnupg
+echo '[+] Creating log file...'
+touch setup/log.txt
+echo '[+] Log File created'
 
-echo '[*] Checking for rvm...'
-if ! which rvm > /dev/null; then
-  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && echo '[*] Installing rvm...' && \curl -sSL https://get.rvm.io | bash -s stable
-  source /home/sage/.rvm/scripts/rvm
+printf '[*] Checking for Ruby-2.5.0...\n'
+if ruby -v | grep "ruby 2.5.0" >/dev/null; then
+  printf "${CLEAR_LINE}Ruby already installed\n"
+else
+  echo "Ruby-2.5.0 not found. Please install ruby-2.5.0 and run this script again."
+  echo "To install Ruby-2.5.0, run:"
+  echo "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
+  echo "curl -sSL https://get.rvm.io | bash -s stable"
+  echo "rvm install ruby-2.5.0"
+  exit 0;
 fi
 
-echo '[*] Installing Ruby-2.5.0...'
-rvm install ruby-2.5.0
+printf '[*] Checking for Curl... \n'
+if ! which curl >/dev/null; then
+  printf "${CLEAR_LINE}Curl Not Found\n"
+  printf '[*] Installing Curl... \n'
+  output_line "brew install curl" && printf "${CLEAR_LINE}[+] Curl installed \n"
+else
+  printf "${CLEAR_LINE}Curl Found\n"
+fi
 
-echo '[*] Install node.js...'
-brew install node
+printf '[*] Installing R... \n'
+if which R > /dev/null; then
+  printf "${CLEAR_LINE}R already installed\n"
+else
+  output_line "brew install r" && printf "${CLEAR_LINE}[+] R installed\n"
+fi
 
-echo '[*] Installing bundler...'
-gem install bundler
+printf '[*] Installing Node.js... \n'
+if which node >/dev/null;then
+  printf "${CLEAR_LINE}Node.js already installed\n"
+else
+  output_line "brew install node" &&\
+  printf "${CLEAR_LINE}[+] Node.js installed\n"
+fi
 
-echo '[*] Installing Gems and dependencies...'
-bundle install
+printf '[*] Installing yarn... \n'
+if which yarn >/dev/null; then
+  printf "${CLEAR_LINE}yarn already installed\n"
+else
+  output_line "brew install yarn" && printf "${CLEAR_LINE}[+] Yarn installed\n"
+fi
 
-echo '[*] Installing yarn...'
-brew install yarn
+printf '[*] Installing pandoc... \n'
+if which pandoc >/dev/null; then
+  printf "${CLEAR_LINE}pandoc already installed\n"
+else
+  output_line "brew install pandoc" && printf "${CLEAR_LINE}[+] Pandoc installed\n"
+fi
 
-echo '[*] Installing node_modules...'
-yarn
+printf '[*] Installing redis-server... \n'
+if which redis-server > /dev/null; then
+  printf "${CLEAR_LINE}redis-server already installed\n"
+else
+  output_line "brew install redis" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
+fi
 
-echo '[*] Installing phantomjs-prebuilt...'
-sudo yarn global add phantomjs-prebuilt
+printf '[*] Installing MariaDB-server... \n'
+if mysql -V | grep MariaDB > /dev/null; then
+  printf "${CLEAR_LINE}MariaDB already installed\n"
+else
+  output_line "brew install mariadb" && printf "${CLEAR_LINE}[+] MariaDB installed "
+fi
 
-echo '[*] Installing pandoc...'
-brew install pandoc
+printf '[*] Installing bundler... \n'
+if which bundler > /dev/null; then
+  printf "${CLEAR_LINE}bundler already installed\n"
+else
+  output_line "gem install bundler" && printf "${CLEAR_LINE}[+] Bundler installed\n"
+fi
 
-echo '[*] Creating configuration files...'
-cp config/application.example.yml config/application.yml
-cp config/database.example.yml config/database.yml
+printf '[*] Installing Gems... \n'
+output_line "bundle install" && printf "${CLEAR_LINE}[+] Gems installed\n"
 
-echo '[*] Installing Mysql-server...'
-brew install mysql
-mysql.server start
+printf '[*] Installing phantomjs-prebuilt... \n'
+output_line "sudo yarn global add phantomjs-prebuilt" && printf "${CLEAR_LINE}[+] phantomjs-prebuilt installed\n"
 
-echo '[*] Creating databases...'
-echo 'Enter password for Mysql root user'
-echo 'CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+printf '[*] Checking for application configurations... \n'
+if [ -f config/application.yml ]; then
+  printf "${CLEAR_LINE}Application configurations found\n"
+else
+  printf "${CLEAR_LINE}Application configurations not found\n"
+  printf '[*] Creating Application configurations... \n'
+  cp config/application.example.yml config/application.yml && printf "${CLEAR_LINE}Application configurations created\n"
+fi
+
+printf "[*] Creating Databases... \n"
+echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
       CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      exit' | sudo mysql -p
+      exit" | sudo mysql -p && printf "${CLEAR_LINE}[+] Databases created\n"
 
-echo '[*] Installing redis-server...'
-brew install redis
+printf '[*] Checking for Database configurations... \n'
+if [ -f config/database.yml ]; then
+  printf "${CLEAR_LINE}Database configurations found\n"
+  echo 'You would need to connect the database for your configured user '
+  echo 'After connecting your database kindly run migrations with'
+  echo '"rake db:migrate"'
+  echo '"rake db:migrate RAILS_ENV=test"'
+else
+  printf "${CLEAR_LINE}Database configurations not found\n"
+  printf '[*] Creating Database configurations... \n'
+  cp config/database.example.yml config/database.yml
+  printf "${CLEAR_LINE}Database configurations created\n"
 
-echo '[*] Installing gulp...'
-sudo yarn global add gulp
+  printf '[*] Creating User for Mysql... \n'
+  echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
+      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
+      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
+      exit" | sudo mysql -p > /dev/null && printf "${CLEAR_LINE}[+] User created\n"
+fi
 
-echo '[*] Installing R...'
-brew install r
+printf '[*] Migrating databases... \n'
+output_line "rake db:migrate" && \
+output_line "rake db:migrate RAILS_ENV=test"  && \
+printf "${CLEAR_LINE}[+] Database migration completed\n"
 
-echo '[*] Migrating databases...'
-rake db:migrate
-rake db:migrate RAILS_ENV=test
+printf '[*] Installing node_modules... \n'
+output_line "yarn" && printf "${CLEAR_LINE}[+] node_modules installed\n"
+
+printf '[*] Installing gulp... \n'
+output_line "sudo yarn global add gulp" && printf "${CLEAR_LINE}[+] Gulp installed\n"
+
+echo 'Your developmental environment setup is completed  If you have any errors try to refer to the docs for manual installation or ask for help '
