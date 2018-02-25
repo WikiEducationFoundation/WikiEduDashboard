@@ -27,7 +27,7 @@ def win_setup():
 
 def osx_setup():
     print ("Your system is found to be OSX")
-    subprocess.run("sudo chmod 775 setup/osx-setup.sh && setup/osx-setup.sh",
+    subprocess.run("sudo chmod 775 setup/macOS-setup.sh && setup/macOS-setup.sh",
                    shell=True, check=True)
 
 if platform.platform().lower().find('ubuntu') != -1 \
