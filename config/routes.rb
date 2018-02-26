@@ -46,10 +46,19 @@ Rails.application.routes.draw do
   post 'mass_enrollment/:course_id'  => 'mass_enrollment#add_users',
       constraints: { course_id: /.*/ }
 
+  get '/requested_accounts_campaigns/*campaign_slug/create' => 'requested_accounts_campaigns#create_accounts',
+      constraints: { campaign_slug: /.*/ }
+  put '/requested_accounts_campaigns/*campaign_slug/enable_account_requests' => 'requested_accounts_campaigns#enable_account_requests',
+      constraints: { campaign_slug: /.*/ }
+  put '/requested_accounts_campaigns/*campaign_slug/disable_account_requests' => 'requested_accounts_campaigns#disable_account_requests',
+      constraints: { campaign_slug: /.*/ }
+  get '/requested_accounts_campaigns/*campaign_slug' => 'requested_accounts_campaigns#index',
+      constraints: { campaign_slug: /.*/ }
+
   put 'requested_accounts' => 'requested_accounts#request_account'
   delete 'requested_accounts/*course_slug/*id/delete' => 'requested_accounts#destroy',
       constraints: { course_slug: /.*/ }
-  get 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
+  post 'requested_accounts/*course_slug/create' => 'requested_accounts#create_accounts',
       constraints: { course_slug: /.*/ }
   get 'requested_accounts/*course_slug/enable_account_requests' => 'requested_accounts#enable_account_requests',
       constraints: { course_slug: /.*/ }
@@ -151,7 +160,7 @@ Rails.application.routes.draw do
   get 'course_students_csv' => 'analytics#course_students_csv'
   get 'course_articles_csv' => 'analytics#course_articles_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
-  
+
   # Campaigns
   resources :campaigns, param: :slug, except: :show do
     member do

@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { INSTRUCTOR_ROLE } from '../../constants';
 
 import * as NewAccountActions from '../../actions/new_account_actions.js';
@@ -89,11 +90,11 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
 };
 
 NewAccountModal.propTypes = {
-  course: React.PropTypes.object,
-  passcode: React.PropTypes.string,
-  newAccount: React.PropTypes.object,
-  closeModal: React.PropTypes.func,
-  actions: React.PropTypes.object
+  course: PropTypes.object,
+  passcode: PropTypes.string,
+  newAccount: PropTypes.object,
+  closeModal: PropTypes.func,
+  actions: PropTypes.object
 };
 
 const mapStateToProps = state => ({

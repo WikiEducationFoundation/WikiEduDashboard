@@ -31,6 +31,7 @@ class CourseArticlesCsvBuilder
     wiki
     url
     edit_count
+    characters_added
     new
     deleted
     pageviews
@@ -44,6 +45,7 @@ class CourseArticlesCsvBuilder
     row << article.wiki.domain
     row << article.url
     row << article_stats.edit_count
+    row << article_stats.characters_added
     row << article_stats.new?
     row << article.deleted
     row << article_stats.pageviews
@@ -82,6 +84,10 @@ class CourseArticlesCsvBuilder
 
     def pageviews
       @course_article_revisions.maximum(:views)
+    end
+
+    def characters_added
+      @course_article_revisions.where('characters >= 0').sum(:characters)
     end
   end
 end

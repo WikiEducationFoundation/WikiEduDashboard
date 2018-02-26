@@ -39,7 +39,7 @@ describe('StudentList', () => {
     trained_count: 0,
     published: true,
     home_wiki: { language: 'en', project: 'wikipedia' },
-    flags: { register_accounts: true }
+    account_requests_enabled: true
   };
 
   const initialState = { users: { users } };

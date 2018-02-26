@@ -130,9 +130,6 @@ output_line "bundle install" && printf "${CLEAR_LINE}[+] Gems installed\n"
 printf '[*] Installing phantomjs-prebuilt... \n'
 output_line "sudo yarn global add phantomjs-prebuilt" && printf "${CLEAR_LINE}[+] phantomjs-prebuilt installed\n"
 
-printf '[*] Installing bower... \n'
-output_line "sudo yarn global add bower" && printf "${CLEAR_LINE}[+] bower installed\n"
-
 printf '[*] Checking for application configurations... \n'
 if [ -f config/application.yml ]; then
   printf "${CLEAR_LINE}Application configurations found\n"
@@ -174,9 +171,6 @@ printf "${CLEAR_LINE}[+] Database migration completed\n"
 
 printf '[*] Installing node_modules... \n'
 output_line "yarn" && printf "${CLEAR_LINE}[+] node_modules installed\n"
-
-printf '[*] Installing bower modules... \n'
-output_line "bower install" && printf "${CLEAR_LINE}[+] bower modules installed\n"
 
 printf '[*] Installing gulp... \n'
 output_line "sudo yarn global add gulp" && printf "${CLEAR_LINE}[+] Gulp installed\n"

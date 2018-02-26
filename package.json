@@ -3,6 +3,9 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
+    "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
+    "@bower_components/jquery.uls": "mattfordham/jquery.uls#*",
+    "@bower_components/lodash": "lodash/lodash#~3.9.0",
     "autosize": "^4.0.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
@@ -63,7 +66,6 @@
     "jest": "^21.2.1",
     "jquery": "3.3.1",
     "jquery-ui": "^1.10.5",
-    "jquery-ujs": "^1.2.2",
     "jquery.repeater": "^1.2.1",
     "jsdom": "^9.8.3",
     "json-loader": "^0.5.4",
@@ -76,7 +78,6 @@
     "lodash.sorteduniqby": "^4.7.0",
     "lodash.throttle": "^4.1.1",
     "lodash.where": "^3.1.0",
-    "main-bower-files": "^2.0.0",
     "markdown-it": "^8.4.0",
     "markdown-it-footnote": "^3.0.1",
     "mcfly": "1.0.0",
@@ -89,6 +90,7 @@
     "nouislider": "^8.3.0",
     "parsleyjs": "^2.8.0",
     "prop-types": "^15.6.0",
+    "rails-ujs": "^5.1.5",
     "rangeslider.js": "^2.3.0",
     "raven-js": "^3.19.1",
     "react": "^15.6.2",
@@ -141,7 +143,7 @@
     "start": "gulp dev",
     "hot": "gulp hot-dev",
     "build": "gulp build"
-  },
+    },
   "jest": {
     "collectCoverage": false,
     "roots": [
@@ -153,5 +155,8 @@
       "app/assets/javascripts",
       "node_modules"
     ]
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
   }
 }

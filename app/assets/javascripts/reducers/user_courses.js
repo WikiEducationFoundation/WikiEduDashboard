@@ -4,7 +4,7 @@ const initialState = {
   userCourses: []
 };
 
-export default (state = initialState, action) => {
+export default function userCourses(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_USER_COURSES: {
       return {
@@ -14,4 +14,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-};
+}

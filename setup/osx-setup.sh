@@ -32,12 +32,6 @@ yarn
 echo '[*] Installing phantomjs-prebuilt...'
 sudo yarn global add phantomjs-prebuilt
 
-echo '[*] Installing bower...'
-sudo yarn global add bower
-
-echo '[*] Installing bower modules...'
-bower install
-
 echo '[*] Installing pandoc...'
 brew install pandoc
 
@@ -62,7 +56,7 @@ echo '[*] Installing gulp...'
 sudo yarn global add gulp
 
 echo '[*] Installing R...'
-brew tap homebrew/science && brew install r
+brew install r
 
 echo '[*] Migrating databases...'
 rake db:migrate

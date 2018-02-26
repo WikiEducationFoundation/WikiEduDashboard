@@ -33,6 +33,7 @@ class Campaign < ApplicationRecord
   has_and_belongs_to_many :survey_assignments
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
+  has_many :requested_accounts, through: :courses
 
   before_validation :set_slug
 
