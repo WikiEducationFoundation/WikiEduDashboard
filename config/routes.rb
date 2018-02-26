@@ -272,6 +272,7 @@ Rails.application.routes.draw do
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
   put 'onboarding/onboard' => 'onboarding#onboard', as: :onboard
+  put 'onboarding/heard' => 'onboarding#heard', as: :heard
 
   # Update Locale Preference
   post '/update_locale/:locale' => 'users#update_locale', as: :update_locale
