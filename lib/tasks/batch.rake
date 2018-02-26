@@ -2,6 +2,7 @@
 
 require 'action_view'
 require "#{Rails.root}/lib/data_cycle/constant_update"
+require "#{Rails.root}/lib/data_cycle/short_update"
 require "#{Rails.root}/lib/data_cycle/daily_update"
 require "#{Rails.root}/lib/data_cycle/survey_update"
 require "#{Rails.root}/lib/data_cycle/views_update"
@@ -11,6 +12,12 @@ namespace :batch do
   task update_constantly: :environment do
     Rails.application.eager_load!
     ConstantUpdate.new
+  end
+
+  desc 'Short data updates'
+  task update_shortly: :environment do
+    Rails.application.eager_load!
+    ShortUpdate.new
   end
 
   desc 'Daily data updates'
