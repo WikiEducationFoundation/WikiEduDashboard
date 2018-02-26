@@ -63,14 +63,18 @@ const CampaignEditable = createReactClass({
         return { label: campaign, value: campaign };
       });
       campaignSelect = (
-        <Select
-          className="fixed-width"
-          ref="campaignSelect"
-          name="campaign"
-          placeholder={I18n.t('courses.campaign_select')}
-          onChange={this.handleChangeCampaign}
-          options={campaignOptions}
-        />
+        <tr>
+          <th>
+            <Select
+              className="fixed-width"
+              ref="campaignSelect"
+              name="campaign"
+              placeholder={I18n.t('courses.campaign_select')}
+              onChange={this.handleChangeCampaign}
+              options={campaignOptions}
+            />
+          </th>
+        </tr>
       );
     }
 
