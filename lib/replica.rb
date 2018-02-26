@@ -58,7 +58,8 @@ class Replica
   end
 
   def post_existing_articles_by_title(articles)
-    api_post('articles.php', 'post_article_titles', articles)
+    article_list = articles.map { |article| article["title"] }
+    api_post('articles.php', 'post_article_titles', article_list)
   end
 
   # Given a list of revisions, see which ones have not been deleted
