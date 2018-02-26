@@ -156,6 +156,10 @@ class Course < ApplicationRecord
 
   scope :ready_for_update, -> { current.or(where(needs_update: true)) }
 
+  scope :ready_for_short_update, lambda {
+    where(type: 'Editathon').where(needs_update: true)
+  }
+
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.now
