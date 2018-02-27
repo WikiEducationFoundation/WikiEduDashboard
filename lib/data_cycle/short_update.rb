@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/app/services/update_course_revisions"
 
 # Executes all the steps of 'update_constantly' data import task
 class ShortUpdate
@@ -21,7 +20,6 @@ class ShortUpdate
   def set_courses_to_update
     @courses = Course.ready_for_short_update.to_a
     log_message "Ready to update #{@courses.count} courses"
-    puts @courses.count
   end
 
   def run_update
