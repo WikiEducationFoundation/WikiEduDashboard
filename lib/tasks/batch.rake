@@ -16,7 +16,6 @@ namespace :batch do
 
   desc 'Short data updates'
   task update_shortly: :environment do
-    Rails.application.eager_load!
     ShortUpdate.new
   end
 
