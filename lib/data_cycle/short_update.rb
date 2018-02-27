@@ -9,8 +9,8 @@ class ShortUpdate
   def initialize
     setup_logger
     set_courses_to_update
-    run_update
     return if updates_paused?
+    return if conflicting_updates_running?
 
     run_update_with_pid_files(:short)
   end
@@ -40,5 +40,10 @@ class ShortUpdate
   def update_course_revisions
     log_message 'Importing revisions and articles for current editathons'
     Course.ready_for_short_update.each { |course| UpdateCourseRevisions.new(course) }
+  end
+
+  def conflicting_updates_running?
+    return true if update_running?(:short)
+    false
   end
 end
