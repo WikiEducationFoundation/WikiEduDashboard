@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "#{Rails.root}/lib/alerts/heard_from_alert_manager"
+
 #= Controller for onboarding
 class OnboardingController < ApplicationController
   respond_to :html, :json
@@ -24,8 +26,9 @@ class OnboardingController < ApplicationController
   end
 
   def heard
-    # Send email here.
-    # heard_from = params[:heardFrom]
+    user_name = params[:username]
+    heard_from = params[:heardFrom]
+    HeardFromAlertManager.new.create_alert(user_name, heard_from)
     head :no_content
   end
 

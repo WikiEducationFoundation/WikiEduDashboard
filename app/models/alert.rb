@@ -46,6 +46,7 @@ class Alert < ApplicationRecord
     SurveyResponseAlert
     UnsubmittedCourseAlert
     UntrainedStudentsAlert
+    HeardFromAlert
   ].freeze
   validates_inclusion_of :type, in: ALERT_TYPES
 

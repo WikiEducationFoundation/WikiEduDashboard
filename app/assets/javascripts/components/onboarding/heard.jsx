@@ -30,8 +30,11 @@ const HeardFrom = createReactClass({
     e.preventDefault();
     this.setState({ sending: true });
 
+    const user = $('#react_root').data('current_user');
+
     return API.heardFrom({
-      heardFrom: this.state.heardFrom
+      heardFrom: this.state.heardFrom,
+      user_name: user.name
     })
     .then(() => {
       return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
