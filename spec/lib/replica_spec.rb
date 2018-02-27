@@ -96,7 +96,7 @@ describe Replica do
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
-        response = Replica.new(en_wiki).get_existing_articles_by_title(article_titles)
+        response = Replica.new(en_wiki).post_existing_articles_by_title(article_titles)
         expect(response.size).to eq(15)
       end
     end
