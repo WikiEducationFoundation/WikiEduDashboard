@@ -59,7 +59,7 @@ class Replica
 
   def post_existing_articles_by_title(articles)
     article_list = articles.map { |article| article["title"] }
-    api_post('articles.php', 'post_article_titles', article_list)
+    api_post('articles.php', 'post_article_titles[]', article_list)
   end
 
   # Given a list of revisions, see which ones have not been deleted
@@ -136,8 +136,8 @@ class Replica
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
-    return if response.empty?
-    parsed = Oj.load(response.to_s)
+    return unless response.kind_of? Net::HTTPSuccess
+    parsed = Oj.load(response.body)
     return unless parsed['success']
     parsed['data']
   rescue StandardError => e
@@ -159,7 +159,7 @@ class Replica
                          'db' => database_params['db'],
                          'lang' => database_params['lang'],
                          'project' => database_params['project'],
-                         key => data)
+                          key => data)
   end
 
   # Query URL for the WikiEduDashboardTools repository
@@ -182,9 +182,7 @@ class Replica
   def project_database_params_post
     db = ''
     db = SPECIAL_DB_NAMES[@wiki.domain] if SPECIAL_DB_NAMES[@wiki.domain]
-    lang = @wiki.language
-    project = @wiki.project
-    { 'db' => db, 'lang' => lang, 'project' => project }
+    { 'db' => db, 'lang' => @wiki.language, 'project' => @wiki.project }
   end
 
   def compile_usernames_query(users)
