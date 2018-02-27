@@ -26,7 +26,7 @@ class OnboardingController < ApplicationController
   end
 
   def heard
-    user_name = params[:username]
+    user_name = params[:user_name]
     heard_from = params[:heardFrom]
     HeardFromAlertManager.new.create_alert(user_name, heard_from)
     head :no_content

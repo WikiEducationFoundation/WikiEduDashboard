@@ -23,7 +23,7 @@
 # Alert for from where the instructor learnt about Wiki Edu.
 class HeardFromAlert < Alert
   def main_subject
-  	"WikiEdu: Heard From"
+    'WikiEdu: Heard From'
   end
 
   def url

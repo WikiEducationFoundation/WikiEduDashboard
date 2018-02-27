@@ -34,7 +34,7 @@ const HeardFrom = createReactClass({
 
     return API.heardFrom({
       heardFrom: this.state.heardFrom,
-      user_name: user.name
+      user_name: user.username
     })
     .then(() => {
       return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
