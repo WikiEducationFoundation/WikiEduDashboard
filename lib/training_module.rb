@@ -55,7 +55,7 @@ class TrainingModule < TrainingBase
   # raw_slides can be called to access the string representation;
   # #slides now returns the instances of TrainingSlide
   def slides
-    return @sorted_slides unless @sorted_slides.nil?
+    return @sorted_slides unless @sorted_slides.blank?
     selected_slides = TrainingSlide.where(slug: slide_slugs)
     @sorted_slides = selected_slides.sort do |a, b|
       slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
