@@ -3,11 +3,11 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
 
-DESIRED_TRAINING_MODULE_IDS = [2].freeze
+DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
 describe 'Training', type: :feature, js: true do
   let(:user) { create(:user, id: 1) }
-  let(:module_2) { TrainingModule.find(2) } # Policies and Guidelines module
+  let(:module_2) { TrainingModule.find_by(slug: 'editing-basics') }
 
   before do
     login_as(user, scope: :user)
@@ -60,6 +60,7 @@ describe 'Training', type: :feature, js: true do
 
   describe 'module index page' do
     before do
+      TrainingSlide.load
       visit "/training/students/#{module_2.slug}"
     end
 
@@ -157,11 +158,14 @@ describe 'Training', type: :feature, js: true do
     end
   end
 
-  DESIRED_TRAINING_MODULE_IDS.each do |module_id|
-    training_module = TrainingModule.find(module_id)
-    describe "'#{training_module.name}' module" do
-      training_module = TrainingModule.find(module_id)
+  DESIRED_TRAINING_MODULES.each do |module_slug|
+    describe "'#{module_slug}' module" do
+      before do
+        TrainingSlide.load
+        TrainingModule.flush
+      end
       it 'lets the user go from start to finish' do
+        training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)
       end
     end

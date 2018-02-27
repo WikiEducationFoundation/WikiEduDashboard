@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training/training_loader"
-require "#{Rails.root}/lib/training_slide"
 
 describe TrainingLoader do
   describe '#load_content' do
@@ -98,7 +97,7 @@ describe TrainingLoader do
       it 'imports slides with translated content' do
         VCR.use_cassette 'training/load_from_wiki' do
           slides = subject.load_content
-          spanish = slides.first.translations.es
+          spanish = slides.first.translations['es']
           expect(spanish).not_to be_empty
         end
       end
