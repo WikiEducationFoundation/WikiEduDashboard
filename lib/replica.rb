@@ -52,11 +52,6 @@ class Replica
 
   # Given a list of articles *or* hashes of the form { 'title' => 'Something' },
   # see which ones have not been deleted.
-  def get_existing_articles_by_title(articles)
-    article_list = compile_article_titles_query(articles)
-    api_get('articles.php', article_list)
-  end
-
   def post_existing_articles_by_title(articles)
     article_list = articles.map { |article| article["title"] }
     api_post('articles.php', 'post_article_titles[]', article_list)

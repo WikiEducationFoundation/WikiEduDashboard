@@ -146,7 +146,7 @@ class ArticleStatusManager
     @failed_request_count += 1 if request_results.nil?
 
     # Update articles whose IDs have changed (keyed on title and namespace)
-    request_results.each do |stp|
+    request_results&.each do |stp|
       resolve_page_id(stp, deleted_page_ids)
     end
   end
