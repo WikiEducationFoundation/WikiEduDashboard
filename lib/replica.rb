@@ -53,7 +53,7 @@ class Replica
   # Given a list of articles *or* hashes of the form { 'title' => 'Something' },
   # see which ones have not been deleted.
   def post_existing_articles_by_title(articles)
-    article_list = articles.map { |article| article["title"] }
+    article_list = articles.map { |article| article['title'] }
     api_post('articles.php', 'post_article_titles[]', article_list)
   end
 
@@ -131,7 +131,7 @@ class Replica
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
-    return unless response.kind_of? Net::HTTPSuccess
+    return unless response.is_a? Net::HTTPSuccess
     parsed = Oj.load(response.body)
     return unless parsed['success']
     parsed['data']
@@ -154,7 +154,7 @@ class Replica
                          'db' => database_params['db'],
                          'lang' => database_params['lang'],
                          'project' => database_params['project'],
-                          key => data)
+                         key => data)
   end
 
   # Query URL for the WikiEduDashboardTools repository
@@ -189,14 +189,6 @@ class Replica
     return '' if oauth_ids.nil?
     oauth_id_tags = oauth_ids.split(',').map { |id| "OAuth CID: #{id}" }
     { oauth_tags: oauth_id_tags }.to_query
-  end
-
-  # Compile an article list to send to the replica endpoint, which might look
-  # something like this:
-  # "article_ids[]='Artist'&article_ids[]='Microsoft_Research'"
-  def compile_article_titles_query(articles)
-    quoted_titles = articles.map { |article| "'#{CGI.escape(article['title'])}'" }
-    { article_titles: quoted_titles }.to_query
   end
 
   # Compile an article list to send to the replica endpoint, which might look
