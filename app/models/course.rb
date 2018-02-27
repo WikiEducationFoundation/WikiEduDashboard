@@ -157,7 +157,7 @@ class Course < ApplicationRecord
   scope :ready_for_update, -> { current.or(where(needs_update: true)) }
 
   scope :ready_for_short_update, lambda {
-    where(type: 'Editathon').where(needs_update: true)
+    strictly_current.where(type: 'Editathon')
   }
 
   def self.will_be_ready_for_survey(opts)

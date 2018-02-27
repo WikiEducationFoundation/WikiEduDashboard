@@ -113,7 +113,6 @@ class ConstantUpdate
   end
 
   def conflicting_updates_running?
-    return true if update_running?(:short)
     return true if update_running?(:daily)
     return true if update_running?(:constant)
     return true if update_waiting_to_run?
