@@ -2,7 +2,7 @@
 
 class HeardFromAlertManager
   def create_alert(user_name, msg)
-    user = User.find_by_username(user_name)
+    user = User.find_by(username: user_name)
     unless Alert.exists?(user_id: user.id, type: 'HeardFromAlert')
       alert = Alert.create(type: 'HeardFromAlert',
                            user: user,
