@@ -202,7 +202,7 @@ describe Replica do
 
   describe 'post request error handling' do
     article_titles = []
-    let(:result) { Replica.new(en_wiki).post_existing_articles_by_title(article_titles)}
+    let(:result) { Replica.new(en_wiki).post_existing_articles_by_title(article_titles) }
 
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
