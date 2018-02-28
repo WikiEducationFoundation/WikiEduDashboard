@@ -21,7 +21,7 @@ describe TrainingBase do
   end
 
   describe '.load' do
-    let(:subject) { TrainingSlide.load }
+    let(:subject) { TrainingModule.load }
 
     context 'when a file is misformatted' do
       before do
@@ -37,6 +37,7 @@ describe TrainingBase do
 
     context 'when there are duplicate slugs' do
       before do
+        allow(TrainingModule).to receive(:trim_id_from_filename).and_return(true)
         allow(TrainingBase).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
       end
@@ -86,19 +87,16 @@ describe TrainingBase do
       before(:each) do
         TrainingLibrary.flush
         TrainingModule.flush
-        TrainingSlide.flush
       end
 
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
         expect(TrainingModule.all).not_to be_empty
-        expect(TrainingSlide.all).not_to be_empty
       end
       it 'returns an empty array instead of fetching from wiki' do
         allow(Features).to receive(:wiki_trainings?).and_return(true)
         expect(TrainingLibrary.all).to eq([])
         expect(TrainingModule.all).to eq([])
-        expect(TrainingSlide.all).to eq([])
       end
     end
   end
@@ -126,5 +124,8 @@ describe TrainingBase do
   end
 
   # Make sure default trainings get reloaded
-  after(:all) { TrainingModule.load_all }
+  after(:all) do
+    TrainingModule.flush
+    TrainingLibrary.flush
+  end
 end

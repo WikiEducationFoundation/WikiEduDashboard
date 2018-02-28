@@ -7,7 +7,6 @@ require "#{Rails.root}/lib/data_cycle/training_update"
 def flush_training_caches
   TrainingModule.flush
   TrainingLibrary.flush
-  TrainingSlide.flush
 end
 
 describe 'Training Translations', type: :feature, js: true do

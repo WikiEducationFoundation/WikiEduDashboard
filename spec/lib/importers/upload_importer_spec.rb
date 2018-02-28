@@ -39,7 +39,7 @@ describe UploadImporter do
         UploadImporter.import_uploads_for_current_users
       end
       VCR.use_cassette 'commons/update_usage_count' do
-        UploadImporter.update_usage_count_by_course(Course.all)
+        UploadImporter.update_usage_count_by_course(Course.current)
         peas_photo = CommonsUpload.find(543972)
         expect(peas_photo.usage_count).to be > 1
       end
@@ -51,7 +51,7 @@ describe UploadImporter do
       create(:commons_upload, id: 4)
       create(:commons_upload, id: 20523186)
       VCR.use_cassette 'commons/find_deleted_files' do
-        UploadImporter.find_deleted_files(CommonsUpload.all)
+        UploadImporter.find_deleted_files
       end
     end
 
