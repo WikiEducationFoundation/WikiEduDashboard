@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require "#{Rails.root}/app/services/update_course_revisions"
 
 # Executes all the steps of 'update_constantly' data import task
 class ShortUpdate
