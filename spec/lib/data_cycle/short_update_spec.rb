@@ -3,7 +3,7 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/short_update"
 
-describe ShortUpdate, focus: true do
+describe ShortUpdate do
   describe 'on initialization' do
     before do
       create(:course, start: 1.day.ago, end: 2.hours.from_now,
