@@ -45,6 +45,6 @@ export const fetchArticles = (courseId, limit) => dispatch => {
           data: resp,
           limit: limit
         }))
-      .catch(response => (dispatch({ type: API_FAIL, data: response })))
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
   );
 };
