@@ -183,7 +183,7 @@ describe ArticleStatusManager do
              namespace: 0)
       create(:revision, date: 1.day.ago, article_id: 1, user: user)
 
-      allow_any_instance_of(Replica).to receive(:get_existing_articles_by_title).and_return(nil)
+      allow_any_instance_of(Replica).to receive(:post_existing_articles_by_title).and_return(nil)
       described_class.update_article_status_for_course(course)
       expect(Article.find(848).deleted).to eq(false)
       expect(Article.find(1).deleted).to eq(false)

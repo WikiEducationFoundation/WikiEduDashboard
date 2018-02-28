@@ -96,7 +96,7 @@ describe Replica do
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
-        response = Replica.new(en_wiki).get_existing_articles_by_title(article_titles)
+        response = Replica.new(en_wiki).post_existing_articles_by_title(article_titles)
         expect(response.size).to eq(15)
       end
     end
@@ -197,6 +197,35 @@ describe Replica do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(subject).to be_empty
+    end
+  end
+
+  describe 'post request error handling' do
+    article_titles = []
+    let(:result) { Replica.new(en_wiki).post_existing_articles_by_title(article_titles) }
+
+    it 'handles timeout errors' do
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
+        .to_raise(Errno::ETIMEDOUT)
+      expect(result).to be_nil
+    end
+
+    it 'handles connection refused errors' do
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
+        .to_raise(Errno::ECONNREFUSED)
+      expect(result).to be_nil
+    end
+
+    it 'handles failed queries' do
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
+        .to_return(status: 200, body: '{ "success": false, "data": [] }', headers: {})
+      expect(result).to be_nil
+    end
+
+    it 'handles successful empty responses' do
+      stub_request(:any, %r{https://tools.wmflabs.org/.*})
+        .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
+      expect(result).to be_empty
     end
   end
 end
