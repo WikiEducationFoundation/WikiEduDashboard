@@ -124,18 +124,6 @@ class ArticleStatusManager
     true
   end
 
-  # This is limited by the URI length of the combined titles. For most languages,
-  # 100 titles per query is no problem, but languages with unicode titles hit the
-  # URI length limit.
-  # TODO: move the chunking to Replica and set the size dynamically depending on the
-  # length of the URI.
-  LONG_URI_LANGUAGES = %w[he ar ml mk].freeze
-  HIGH_REPLICA_LIMIT = 80
-  LOW_REPLICA_LIMIT = 20
-  def articles_per_replica_query
-    LONG_URI_LANGUAGES.include?(@wiki.language) ? LOW_REPLICA_LIMIT : HIGH_REPLICA_LIMIT
-  end
-
   # Check whether any deleted pages still exist with a different article_id.
   # If so, update the Article to use the new id.
   def update_article_ids(deleted_page_ids)

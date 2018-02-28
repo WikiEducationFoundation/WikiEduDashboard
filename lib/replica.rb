@@ -131,7 +131,7 @@ class Replica
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
-    return unless response.is_a? Net::HTTPSuccess
+    return if response.body.empty?
     parsed = Oj.load(response.body)
     return unless parsed['success']
     parsed['data']
