@@ -20,8 +20,8 @@
 #  role_description       :string(255)
 #
 
-require "#{Rails.root}/lib/utils"
-require "#{Rails.root}/lib/course_cleanup_manager"
+require_dependency "#{Rails.root}/lib/utils"
+require_dependency "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model
 class CoursesUsers < ApplicationRecord

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 # Fetches data about which wiki pages transclude a given page
 class TransclusionImporter

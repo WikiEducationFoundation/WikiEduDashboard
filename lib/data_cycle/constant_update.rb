@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/course_revision_updater"
-require "#{Rails.root}/lib/assignment_updater"
-require "#{Rails.root}/lib/importers/revision_score_importer"
-require "#{Rails.root}/lib/importers/plagiabot_importer"
-require "#{Rails.root}/lib/importers/upload_importer"
-require "#{Rails.root}/lib/importers/view_importer"
-require "#{Rails.root}/lib/importers/rating_importer"
-require "#{Rails.root}/lib/data_cycle/cache_updater"
-require "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
-require "#{Rails.root}/lib/student_greeting_checker"
+require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require_dependency "#{Rails.root}/lib/course_revision_updater"
+require_dependency "#{Rails.root}/lib/assignment_updater"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
+require_dependency "#{Rails.root}/lib/importers/upload_importer"
+require_dependency "#{Rails.root}/lib/importers/view_importer"
+require_dependency "#{Rails.root}/lib/importers/rating_importer"
+require_dependency "#{Rails.root}/lib/data_cycle/cache_updater"
+require_dependency "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
+require_dependency "#{Rails.root}/lib/student_greeting_checker"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate

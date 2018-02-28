@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 
 # Executes all the steps of 'update_views' data import task
 class TrainingUpdate

@@ -14,7 +14,7 @@
 #  new_article   :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/utils"
+require_dependency "#{Rails.root}/lib/utils"
 
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a

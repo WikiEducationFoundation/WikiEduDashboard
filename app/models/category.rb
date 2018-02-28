@@ -13,9 +13,9 @@
 #  source         :string(255)      default("category")
 #
 
-require "#{Rails.root}/lib/importers/category_importer"
-require "#{Rails.root}/lib/importers/transclusion_importer"
-require "#{Rails.root}/lib/article_utils"
+require_dependency "#{Rails.root}/lib/importers/category_importer"
+require_dependency "#{Rails.root}/lib/importers/transclusion_importer"
+require_dependency "#{Rails.root}/lib/article_utils"
 
 class Category < ApplicationRecord
   belongs_to :wiki

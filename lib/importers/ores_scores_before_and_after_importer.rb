@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 
 class OresScoresBeforeAndAfterImporter
   def self.import_all

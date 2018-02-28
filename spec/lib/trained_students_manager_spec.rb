@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/trained_students_manager"
 
 describe TrainedStudentsManager do
   let(:course)    { create(:course) }

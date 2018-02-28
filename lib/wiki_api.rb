@@ -2,7 +2,7 @@
 
 require 'mediawiki_api'
 require 'json'
-require "#{Rails.root}/lib/article_rating_extractor.rb"
+require_dependency "#{Rails.root}/lib/article_rating_extractor.rb"
 
 #= This class is for getting data directly from the MediaWiki API.
 class WikiApi

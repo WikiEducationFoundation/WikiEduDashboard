@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
-require "#{Rails.root}/lib/analytics/per_wiki_course_stats"
+require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 
 class CourseCsvBuilder
   def initialize(course, per_wiki: false)
