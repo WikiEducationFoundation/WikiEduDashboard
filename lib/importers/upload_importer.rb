@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/commons"
+require_dependency "#{Rails.root}/lib/commons"
 
 #= Importer for data about files uploaded to Wikimedia Commons
 class UploadImporter

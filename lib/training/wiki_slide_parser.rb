@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wikitext"
+require_dependency "#{Rails.root}/lib/wikitext"
 
 #= Takes wikitext for an on-wiki slide and extracts title and content
 class WikiSlideParser

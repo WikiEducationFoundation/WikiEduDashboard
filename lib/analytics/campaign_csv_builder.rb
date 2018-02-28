@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'csv'
-require "#{Rails.root}/lib/analytics/course_csv_builder"
-require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 
 class CampaignCsvBuilder
   def initialize(campaign)

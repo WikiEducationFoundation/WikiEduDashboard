@@ -48,11 +48,11 @@
 #  withdrawn             :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_training_progress_manager"
-require "#{Rails.root}/lib/trained_students_manager"
-require "#{Rails.root}/lib/word_count"
-require "#{Rails.root}/lib/training_module"
+require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency "#{Rails.root}/lib/course_training_progress_manager"
+require_dependency "#{Rails.root}/lib/trained_students_manager"
+require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/training_module"
 
 #= Course model
 class Course < ApplicationRecord
@@ -288,7 +288,6 @@ class Course < ApplicationRecord
   end
 
   def word_count
-    require "#{Rails.root}/lib/word_count"
     WordCount.from_characters(character_sum)
   end
 

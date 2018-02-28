@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_loader"
+require_dependency "#{Rails.root}/lib/training/training_loader"
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other

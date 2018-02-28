@@ -15,7 +15,7 @@
 #  wiki_id       :integer
 #
 
-require "#{Rails.root}/lib/article_utils"
+require_dependency "#{Rails.root}/lib/article_utils"
 
 #= Assignment model
 class Assignment < ApplicationRecord

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/importers/category_importer"
+require_dependency "#{Rails.root}/lib/importers/category_importer"
 
 # This class identifies articles involved in deletion processes on
 # English Wikipedia and creates alerts for them.

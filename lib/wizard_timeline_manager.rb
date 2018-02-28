@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager

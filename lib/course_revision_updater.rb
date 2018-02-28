@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-
-require "#{Rails.root}/lib/importers/revision_importer"
-require "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/importers/revision_importer"
 
 #= Fetches and imports new revisions for courses
 class CourseRevisionUpdater

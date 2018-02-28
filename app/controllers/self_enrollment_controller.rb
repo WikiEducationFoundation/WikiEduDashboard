@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/app/workers/update_course_worker"
-require "#{Rails.root}/app/workers/enroll_in_course_worker"
-
 #= Controller for students enrolling in courses
 class SelfEnrollmentController < ApplicationController
   respond_to :html, :json

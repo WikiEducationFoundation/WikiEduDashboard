@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/alerts/productive_course_alert_manager"
-require "#{Rails.root}/lib/alerts/active_course_alert_manager"
-require "#{Rails.root}/lib/alerts/no_students_alert_manager"
-require "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
-require "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
-require "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
-require "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/productive_course_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/active_course_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/no_students_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/untrained_students_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/continued_course_activity_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/deleted_uploads_alert_manager"
+require_dependency "#{Rails.root}/lib/alerts/unsubmitted_course_alert_manager"
 
 class CourseAlertManager
   def self.generate_course_alerts

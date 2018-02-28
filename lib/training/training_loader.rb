@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/wiki_slide_parser"
+require_dependency "#{Rails.root}/lib/training/wiki_slide_parser"
 
 # Loads any of the three types of training content:
 # TrainingLibrary, TrainingModule, TrainingSlide

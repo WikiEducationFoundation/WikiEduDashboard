@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training_module_due_date_manager"
+require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 
 class TrainingProgressManager
   def initialize(user, training_module, slide=nil)

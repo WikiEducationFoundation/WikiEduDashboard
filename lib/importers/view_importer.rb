@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_pageviews"
+require_dependency "#{Rails.root}/lib/wiki_pageviews"
 
 #= Imports and updates views for articles, revisions, and join tables
 class ViewImporter

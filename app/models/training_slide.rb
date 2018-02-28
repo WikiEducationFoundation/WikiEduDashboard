@@ -17,7 +17,7 @@
 #  updated_at   :datetime         not null
 #
 
-require "#{Rails.root}/lib/training/training_base"
+require_dependency "#{Rails.root}/lib/training/training_base"
 
 #= Class representing an individual training slide
 class TrainingSlide < ApplicationRecord
