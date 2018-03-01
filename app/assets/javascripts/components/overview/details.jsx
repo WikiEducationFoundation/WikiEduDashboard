@@ -17,6 +17,8 @@ import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
+import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
+import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -222,6 +224,8 @@ const Details = createReactClass({
     let courseLevelSelector;
     let timelineToggle;
     let withdrawnSelector;
+    let projectSelector;
+    let languageSelector;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -295,6 +299,22 @@ const Details = createReactClass({
       );
     }
 
+    if (this.props.editable) {
+      projectSelector = (
+        <HomeWikiProjectSelector
+          course={this.props.course}
+        />
+      );
+    }
+
+    if (this.props.editable) {
+      languageSelector = (
+        <HomeWikiLanguageSelector
+          course={this.props.course}
+        />
+      );
+    }
+
     return (
       <div className="module course-details">
         <div className="section-header">
@@ -347,6 +367,8 @@ const Details = createReactClass({
           {privacySelector}
           {timelineToggle}
           {withdrawnSelector}
+          {projectSelector}
+          {languageSelector}
         </div>
       </div>
     );
