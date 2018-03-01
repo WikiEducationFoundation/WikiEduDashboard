@@ -223,6 +223,8 @@ fr:
       campagne doivent avoir :'
     description: Description
     delete_campaign: Supprimer cette campagne
+    disable_account_requests: Désactiver les demandes de compte
+    enable_account_requests: Activer les demandes de compte
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
@@ -232,6 +234,7 @@ fr:
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un mot de passe aléatoire
+    requested_accounts: Comptes demandés
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:

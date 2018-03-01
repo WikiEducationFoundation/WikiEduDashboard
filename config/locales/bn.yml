@@ -7,6 +7,7 @@
 # Author: Kayser Ahmad
 # Author: Mohammed Galib Hasan
 # Author: Rasal Lia
+# Author: Sandipan
 # Author: আজিজ
 ---
 bn:
@@ -73,6 +74,8 @@ bn:
     loading: নিবন্ধ লোড হচ্ছে...
     new: (নতুন)
     rating: শ্রেণী
+    rating_docs:
+      does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।
     show_current_version: বর্তমান সংস্করণ দেখান
     title: শিরোনাম
     title_example: নিবন্ধের শিরোনাম
@@ -105,6 +108,7 @@ bn:
     campaign: প্রচারাভিযান
     no_passcode: কোন পাসকোড নেই
     none: কোনটিই নয়
+    requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
   categories:
     add_template: টেমপ্লেট যোগ করুন
     add_this_template: এই টেমপ্লেট যোগ করুন
@@ -164,6 +168,7 @@ bn:
     nocourse: কোন কোর্সে অংশগ্রহণ করেননি।
     none: কোনটিই নয়
     overview: প্রধান পাতা
+    private: ব্যক্তিগত
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
     school: বিদ্যালয়
     school_and_term: প্রতিষ্ঠান/মেয়াদ
@@ -246,6 +251,10 @@ bn:
     title: শিরোনাম
     view_on_wiki: উইকিতে পার্থক্য দেখুন
     see_more: আরো দেখুন
+  settings:
+    admin_users:
+      new:
+        form_placeholder: ব্যবহারকারী নাম
   suggestions:
     suggestion_docs:
       does_not_exist: এই নিবন্ধটি উইকিপিডিয়ায় বিদ্যমান নেই।

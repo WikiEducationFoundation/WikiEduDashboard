@@ -125,6 +125,8 @@ ko:
   campaign:
     default_passcode: 기본 비밀번호
     description: 설명
+    disable_account_requests: 계정 요청 비활성화
+    enable_account_requests: 계정 요청 활성화
     no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀

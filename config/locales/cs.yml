@@ -213,6 +213,8 @@ cs:
       měly mít:'
     description: Popis
     delete_campaign: Odstranit tento program
+    disable_account_requests: Zakázat žádosti o účet
+    enable_account_requests: Povolit žádosti o účet
     no_passcode: bez vstupního kódu
     none: Žádné
     organizers: Organizátoři
@@ -222,6 +224,7 @@ cs:
     program_template_tooltip: Když organizátor vytvoří program v této kampani, bude
       text v této oblasti zkopírován jako popis na stránce programu
     random_passcode: náhodný vstupní kód
+    requested_accounts: Požadované účty
     title: Název
     use_start_end_dates: Použijte počáteční a koncová data
   categories:
@@ -495,6 +498,9 @@ cs:
     suggestions_failed: Zpětnou vazbu se nepodařilo odeslat. Zkuste to znovu později.
     user_role: Role
     course_details: Podrobnosti kurzu
+    course_submitted: Odeslaný status se používá pro kurzy vzdělávacích programů,
+      u kterých musí být jejich plán schválen před zahájením projektu. Je relevantní
+      pouze pro kurzy typu ClassroomProgram.
     subject: Předmět
     submitted: Odevzdáno
     term: Semestr
@@ -564,6 +570,9 @@ cs:
       course_when: Přidejte něco do pole „Kdy“ (např. měsíc a rok) pro odlišení od
         původního programu.
       course_description: Popis projektu
+      course_description_placeholder: O čem je tento program a co budou jeho účastníci
+        dělat na wiki? Uveďte, prosím, dostatek podrobností, abyste ostatním editorům
+        poskytli kontext příspěvků, které budou účastníci dělat.
       course_school: Instituce
       course_term: Kdy
       course_term_placeholder: Kdy
@@ -671,6 +680,7 @@ cs:
     datetime: Datum/čas
     image: Obrázek
     file_name: Název souboru
+    no_dyk_eligible: V současnosti nejsou žádné články vhodné pro DYK.
     no_plagiarism: Nyní zde nejsou žádné nedávné revize podezřelé z plagiátorství.
     no_edits: Nejsou žádné nedávné změny.
     plagiarism_report: Zpráva o plagiátorství
@@ -718,8 +728,25 @@ cs:
   suggestions:
     editing: Návrhy k editaci
     suggestion_docs:
+      fa: Nemělo by být potřeba žádné další rozšiřování obsahu, dokud nebudou dostupné
+        nové informace; zlepšování kvality textu je možné
       a: Může být požadovaná pokročilá znalost, abyste mohl článek vylepšit. Mohou
         nastat stylistické problémy. Recenzní řízení může pomoci.
+      ga: Úpravy od odborníků na předmět nebo styl článku mohou být užitečné; srovnáním
+        s existujícím článkem na podobné téma může odhalit oblasti, kde je obsah slabší
+        nebo úplně chybí.
+      bplus: Může být vylepšen odborníky, kteří posoudí, kde chybí informace a také
+        pomocí ilustrací, historického pozadí a dodáním dalších referencí. Zvažte
+        podání žádosti o recenzi nebo nominaci na dobrý článek. Pokud není článek
+        plně wikifikován, je na to nyní vhodný čas.
+      c: Pro odstranění nedostatků v obsahu a vyřešení problémů s čištěním článku
+        je potřeba udělat velké změny.
+      list: Seznamy by měly obsahovat seznamy funkčních odkazů na články z Wikipedie,
+        vhodně pojmenované a organizované.
+      future: Přidaný materiál může být diskutabilní a měl by být pečlivě ozdrojován.
+      '?': Návrhy nejsou dostupné - článek buď nebyl dosud zhodnocen nebo k jeho hodnocení
+        neexistují návrhy.
+      does_not_exist: Tento článek na Wikipedii ještě není.
   tasks:
     conseq: Úkol %{task} je již spuštěn!
     constant: Úkol %{task} nelze spustit, zatímco běží úkol update_daily.
@@ -733,20 +760,29 @@ cs:
     block_in_class: Ve třídě
     block_milestone: Milník
     course_dates: Termíny kurzu
+    course_dates_instructions: Zvolte počáteční a konečné datum celého kurzu (nikoliv
+      pouze části týkající se Wikipedie).
     course_end: Konec kurzu
     course_start: Začátek kurzu
     delete_week_confirmation: |-
       Opravdu chcete odstranit tento týden? Tato akce odstraní celý týden a všechny přiřazené bloky.
 
       Tuto akci nelze vrátit zpět.
+    delete_weeks_confirmation: |-
+      Opravdu chcete smazat celou časovou osu a začít znovu?
+
+      Tento krok nelze vrátit zpět.
     discard_all_changes: Zrušit všechny změny
     delete_timeline_and_start_over: Smazat rozvrh
     due_default: Příští týden
     empty_week_1: Chcete-li začít,
     empty_week_2: začít editovat tento týden
     empty_week_3: nebo
+    empty_week_4: použijte průvodce přiřazením k vytvoření časové osy.
     first_week_title: První aktivní týden
     gradeable_value: Hodnota
+    gradeables_none: Tato časová osa nemá žádné úkoly označené jako "pro hodnocení".
+    grading_header: 'Hodnocení (Celkem: %{total}%)'
     move_block_down: Přesunout blok dolů
     move_block_up: Přesunout blok nahoru
     no_class_holidays: Třída nemá prázdniny
@@ -756,6 +792,8 @@ cs:
     save_all_changes: Uložit vše
     this_week_title_default: Tento týden
     title: Časová osa
+    unable_to_add_week: Pokud je časová osa plná, nemůžete přidávat nové týdny. Smažte
+      nejméně jeden týden nebo změňte datum přiřazení, abyste uvolnili místo pro nový.
     view_full_timeline: Zobrazit kompletní časovou osu
     week_number: '%{number}. týden'
   training:
@@ -766,6 +804,7 @@ cs:
     page: Stránka
     page_number: Strana %{number} z %{total}
     table_of_contents: Obsah
+    training_library: Cvičná knihovna
     logged_out: Byl jste odhlášen. Nebudete moci získat body za dokončení tohoto modulu,
       do té doby, než se opět přihlásíte.
     done: Hotovo!
@@ -833,6 +872,9 @@ cs:
     training_complete:
       one: je obeznámen s tréninkem
       other: jsou obeznámeni s tréninkem
+    training_complete_count:
+      one: '%{count} školení je aktuální'
+      other: '%{count} školení jsou aktuální'
     training_incomplete: Školení neukončeno
     training_module_name: Tréninkový modul
     training_module_status: Stav
@@ -856,6 +898,9 @@ cs:
     bio_placeholder: Přidejte informace o sobě (volitelné)
     location_placeholder: Přidejte informace, odkud jste (volitelné)
     institution_placeholder: Název vaší instituce (volitelný)
+  wiki_edits:
+    notify_overdue:
+      message: Dokončete prosím přiřazené [%{link} školící moduly].
   wizard:
     course_dates: Termíny kurzů
     select_one_option: Prosím vyberte 1 možnost.
@@ -900,6 +945,9 @@ cs:
   login_error:
     header: Chyba při přihlašování
   survey:
+    login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Ed nástěnky,
+      abyste se dostali k průzkumu.
+    follow_up_explanation: Nechte prázdné, pokud si nepřejete dostávat emaily s upozorněním.
     email:
       headline: Dobrý den, %{username}
       course: 'Kurz: %{course_info}'

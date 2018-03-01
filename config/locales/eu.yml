@@ -207,6 +207,8 @@ eu:
       izan beharko dute:'
     description: Deskribapena
     delete_campaign: Ezabatu kanpaina hau
+    disable_account_requests: Kontu eskaerak desgaitu
+    enable_account_requests: Kontu eskaerak gaitu
     no_passcode: Pasahitzik ez
     none: Bat ere ez
     organizers: Antolatzaileak
@@ -216,6 +218,7 @@ eu:
     program_template_tooltip: Antolatzaile batek kanpaina honetan programa bat sortzen
       duenean, arlo honetako testua deskribapen gisa kopiatuko da programako orrian
     random_passcode: Pasahitz aleatorioa
+    requested_accounts: Eskatutako kontuak
     title: Izenburua
     use_start_end_dates: Hasiera eta amaiera datak erabili
   categories:
@@ -437,6 +440,21 @@ eu:
     new_account_info: Kontu bat eskatzeko, idatzi zure helbide elektronikoa eta zure
       erabiltzaile izena. Pasahitz bat bidaliko zaizu, gure sortzaileetako batek kontua
       sortu ondoren.
+    new_account_info_admin: Editore berrirako kontua sortzeko, sartu helbide elektronikoa
+      eta nahi duzun erabiltzaile izena. Pasahitza haien emailera bidaliko zaie, kontua
+      behin sortuta.
+    new_account_username: Eskatutako erabiltzaile-izena
+    new_account_username_invalid: Erabiltzaile-izen hau ez da baliagarria.
+    new_account_username_placeholder: Wiki Editore 123
+    new_account_username_taken: Erabiltzaile izena dagoeneko hartu da. Mesedez, aukeratu
+      beste bat.
+    new_account_submit: Eskatu kontua
+    new_account_submitted: Konturako eskaera bidali da. Programa honetarako fazilitatzaileak
+      zure kontua sortzen amaitu dezake. Behin sortuta, emailez jasoko duzu kontu
+      berrirako pasahitza.
+    new_account_submitted_admin: Zure konturako eskaera sortu da. Mesedez, informa
+      iezaiezu zure ikasleei haien emailen sarrera ontzia ikusteko, pasahitz berria
+      eskuratzeko.
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
     nocourse: Ez duzu inongo ikastarotan parte hartu.
     none: Bat ere ez
@@ -449,9 +467,11 @@ eu:
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
     passcode_prompt: 'Sartu zure pasahitza:'
+    private: Pribatua
     published: 'Argitaratu da zure ikastaroa! Ikasleek ondorengo URLa bisitatuz eman
       dezakete izena ikastaroan:'
     rating_feedback: 'Aurreikusten den artikuluaren ebaluazioa:'
+    requested_accounts: Eskatu kontua
     review_timeline: Mesedez berrikusi kronograma hau eta egin aldaketak. Behin zure
       kronogramarekin pozik zaudenean, bidali Wiki Hezkuntzako lantaldeak onar dezan.
       Behin onartutakoan, ikasleek ikastaroan izena emateko erabil dezaketen URL bat
@@ -525,6 +545,7 @@ eu:
       notification_message: Egin ikastaro honi buruzko inkesta
       link: Bete inkesta
   courses_generic:
+    add_campaign: Kanpainia gehitu
     all_courses: Programa guztiak
     archived: Artxibatutako programak
     articles_none: Ez dago proiektu honi buruzko artikulurik oraindik.
@@ -590,6 +611,7 @@ eu:
     milestones_none: Proiektu honek ez du gaur egun mugarririk.
     published: 'Argitaratu da proiektu hau! Editoreek ondorengo URLa bisitatuz eman
       dezakete izena:'
+    request_accounts: Eskatu kontuak
     revisions_none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     school: Erakundea
     school_and_term: Erakundea/Noiz
@@ -690,6 +712,22 @@ eu:
     title: Izenburua
     view_on_wiki: Ikus ezb wikian
     see_more: Ikusi gehiago
+  settings:
+    admin_users:
+      new:
+        form_label: Admin pribilegioak egotzi
+        form_placeholder: Erabiltzaile izena
+        confirm_add_admin: Dirulaguntza admin
+        confirm_remove_admin: Hurrengorako admin pribilegioak kendu
+        already_admin: '%{username} jada administratzailea!'
+        elevate_success: '%{username} administratzaile kargura ido da.'
+      remove:
+        revoke_button: Admin ezeztatu
+        revoke_button_confirm: '%{username}-ri admin eskubideak kendu'
+        revoking_button_working: Ezeztatzen...
+        already_instructor: '%{username} jada instruktorea!'
+        demote_success: '%{username} instruktore izatera aldatu da.'
+        no_super_admin: Ezin duzu gaineko admin baten admin statusa ezeztatu
   suggestions:
     editing: Gomendioak aldatu
     suggestion_docs:
@@ -859,6 +897,7 @@ eu:
       other: '%{count} artikulu'
     recent_revisions: Azken Aldaketak
     remove_confirmation: Ziur zaude %{username} kendu nahi duzula?
+    request_confirmation: Ziur zaude kontu hau eskatu nahi duzula?
     revision_characters_and_views: 'Gehitutako Karaktereak:%{characters}, Ikustaldiak:
       %{views}'
     revisions_doc: Lankide honen azken 7 egunetan egindako aldaketa kopurua
@@ -880,6 +919,8 @@ eu:
     up_to_date_with_training: Trebakuntzarekin eguneratuta
     username: Erabiltzaile izena
     username_placeholder: Erabiltzaile izena
+    useremail_placeholder: Helbide elektronikoa
+    userpasscode_placeholder: Pasahitza
     role:
       description: Ikastaroko eginkizuna
       visitor: Bisitaria
@@ -1000,4 +1041,7 @@ eu:
         hobe laguntzeko balio digute.
   feedback_form_responses:
     no_responses: Oraindik ez dago iruzkin erantzunik.
+  wiki_api:
+    create_account_reason: Erabiltzaile hau %{event} ekitaldian parte hartzen ari
+      da.
 ...

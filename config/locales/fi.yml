@@ -15,6 +15,7 @@ fi:
       suurentavat ja pienentävät syötettä.
   application:
     cancel: Peruuta
+    create_accounts: Luo Wikipedia-tilit
     dashboard: Wiki Ed -ohjausnäkymä
     documentation: Ohjeet
     error: 'Tapahtui virhe:'
@@ -35,8 +36,10 @@ fi:
     my_dashboard: Oma ohjausnäkymä
     recent_activity: Tuoreet muutokset
     report_problem: Ilmoita ongelmasta
+    request_account: Pyydä tiliä
     search: esitä kysymys
     sign_up_extended: Luo tunnus Wikipedian kautta
+    sign_up_wikipedia: Tai kirjaudu sisään Wikipediassa
     sign_up_log_in_extended: Wikipedian kautta
     sign_up: Luo tunnus
     submit: Lähetä
@@ -82,10 +85,12 @@ fi:
     assigned_to: Käsittelijä
     character_doc: Ilmoittautuneiden muokkaajien lisäämät merkit aloitus- ja lopetuspäivämäärän
       välisenä aikana.
+    deleted: (poistettu)
     edited: Muokattuja artikkeleita
     edited_by: 'Muokannut:'
     edited_mobile: Artikkelit
     hide: Piilota
+    history: (historia)
     label: Artikkelit
     loading: Ladataan artikkeleita...
     new: (uusi)
@@ -119,6 +124,7 @@ fi:
     view_on_wiki: Näytä wikissä
     views_added: Lisätty %{count} uutta näyttökertaa artikkelille %{title}
     edit_size: Muokkaa kokoa
+    wiki: Wiki
     wp10: Rakenteellinen eheys
     wp10_doc: '''Rakenteellinen eheys'' -pisteytys kuvaa, kuinka hyvin artikkeli vastaa
       kehittyneitä Wikipedian artikkeleita, ja perustuu koneoppimiseen pohjautuvaa
@@ -184,6 +190,15 @@ fi:
       osiossa oleva teksti kopioidaan ohjelman kuvaukseen.
     title: Otsikko
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
+  categories:
+    add_category: Lisää luokka
+    add_template: Lisää malline
+    add_this_category: Lisää tämä luokka
+    add_this_template: Lisää tämä malline
+    name: Nimi
+    category_name: Luokan nimi
+    template_name: Mallineen nimi
+    remove: Poista
   chat:
     label: Keskustelu
   courses:
@@ -209,7 +224,9 @@ fi:
     character_doc: Osallistujien kurssin aikana päänimiavaruuteen lisäämien merkkien
       yhteenlaskettu määrä.
     campaigns: 'Joukot:'
+    campaign_articles: '%{title} artikkelit'
     campaign_courses: '%{title} kurssit'
+    campaign_users: '%{title} muokkaajat'
     confirm_course_deletion: Haluatko varmasti poistaa kurssin %{title}? Jos, niin
       kirjoita kurssin nimi jatkaaksesi.
     confirm_course_deletion_failed: '"%{title}" ei ole kurssin nimi. Kurssia ei poistettu.'
@@ -271,6 +288,7 @@ fi:
         tunti.
     current: Meneillään olevat kurssit
     delete_course: Poista kurssi
+    delete_suggestion: Poista
     dismiss_survey: Ohita
     dismiss_survey_confirm: Oletko varma, että haluat pysyvästi ohittaa tämän kyselyn?
     duration: Kurssin kesto
@@ -289,6 +307,7 @@ fi:
       invalid_slug: Tyhjä koulu/otsikko kurssille.
       duplicate_slug: Ohjelma nimeltä %{slug} on jo olemassa.
     expected_students: Odotetut osallistujat
+    feedback: Palaute
     gradeables_none: Kurssilla ei ole arvioitavia tehtäviä.
     instructor:
       one: ohjaaja
@@ -315,6 +334,10 @@ fi:
     my_articles: Omat artikkelit
     needs_update: Aikataulun tietojen päivitys
     new_week: Lisää uusi viikko
+    new_account_email: Sähköpostiosoite
+    new_account_username: Pyydetty käyttäjänimi
+    new_account_username_invalid: Tämä ei ole kelpaava käyttäjänimi.
+    new_account_submit: Pyydä tiliä
     nocourses: Et ole ilmoittautunut millekään kurssille.
     nocourse: ei ole osallistunut millekään kursseille.
     none: Ei mitään
@@ -325,6 +348,7 @@ fi:
     passcode: Salasana
     passcode_none: Ei salasanaa
     passcode_prompt: 'Syötä pääsykoodi liittyäksesi:'
+    private: Yksityinen
     published: 'Kurssisi on julkaistu! Opiskelijat voivat ilmoittautua kurssille tämän
       linkin kautta:'
     review_timeline: Tarkista aikajana ja tee muutokset. Kun olet tyytyväinen aikajanaasi,
@@ -350,6 +374,8 @@ fi:
       mikäli kysyttävää ilmenee.
     user_role: Rooli
     course_details: Kurssin tiedot
+    subject: Aihe
+    submitted: Lähetetty
     term: Lukukausi
     timeline: Tehtävän tiedot
     timeline_link: Aikajana
@@ -385,32 +411,43 @@ fi:
       notification_message: Vastaa kurssiin liittyvään kyselyyn.
       link: Vastaa kyselyyn
   courses_generic:
+    add_campaign: Lisää kampanja
     all_courses: Kaikki ohjelmat
     archived: Arkistoidut ohjelmat
     articles_none: Tämän projektin osallistujat eivät ole vielä muokanneet yhtään
       artikkelia.
-    assignment_end: Aikajanan loppu
+    assignment_end: Tapahtuman päättyyminen
     assignments_none: Tällä projektilla ei ole tehtäväksi annettuja artikkeleita.
-    assignment_start: Aikajanan alku
+    assignment_start: Tapahtuman alku
     cancel: Peruuta
+    course: Ohjelma
     courses: Ohjelmat
     courses_taught: Opetetut ohjelmat
     campaigns: 'Kampanjat:'
     campaign_courses: '%{title} Ohjelmat'
     creator:
+      assignment_end: Tapahtuma loppuu
+      assignment_end_placeholder: Tapahtuma loppuu (DD-MM-YYYY)
+      assignment_start: Tapahtuma alkaa
+      assignment_start_placeholder: Tapahtuma alkaa (DD-MM-YYYY)
       checking_for_uniqueness: Ohjelman ainutkertaisuutta tarkistetaan.
+      choose_clone: Valitse kloonattava ohjelma.
       clone_previous: Kopioi edellinen Ohjelma
       clone_this: Kopioi tämä ohjelma
+      clone_successful: Ohjelman kloonaus onnistui
       course_description: Ohjelman kuvaus
       course_school: Instituutio
+      course_term: Milloin
+      course_term_placeholder: Milloin
       course_title: Ohjelman nimi
       create_button: Luo oma ohjelma!
       create_label: Luo uusi ohjelma
-      create_new: Luo uusi ohjelma
+      create_new: Luo itsenäinen ohjelma
       create_short: Luo ohjelma
       find: Etsi ohjelma
       intro: Ohjelman nimi vaaditaan, kaiken muun voi täydentää myöhemmin. Klikkaa
         "Luo oma ohjelma" aloittaaksesi wikiohjelmasi sivun täydentämisen.
+      save_cloned_course: Tallenna
     delete_course: Poista ohjelma
     edit_course_dates: Muokkaa ohjelman päivämääriä
     enroll: Lisää muokkaaja
@@ -450,6 +487,7 @@ fi:
     save: Tallenna
     edit_description: Muokkaa kuvausta
     edit_details: Muokkaa yksityiskohtia
+    edit_template: Muokkaa mallinetta
   metrics:
     activity: Tuoreet muutokset
     are_trained: on suorittanut harjoituksen
@@ -516,6 +554,13 @@ fi:
     time_doc: Jokaisen version ajankohta paikallisessa ajassa
     title: Nimi
     view_on_wiki: Näytä ero wikissä
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Käyttäjänimi
+  suggestions:
+    suggestion_docs:
+      does_not_exist: Tätä artikkelia ei ole Wikipediassa
   tasks:
     conseq: Toimi %{task} on jo käynnissä!
     constant: Toimea %{task} ei voi suorittaa samaan aikaan kun toimi update_daily
@@ -547,6 +592,7 @@ fi:
     delete_week_confirmation: "Haluatko varmasti poistaa tämän viikon? Toiminto poistaa
       pysyvästi viikon ja kaikki siihen liittyvät lohkot. \n\nTätä ei voi peruuttaa."
     discard_all_changes: Hylkää kaikki muutokset
+    delete_timeline_and_start_over: Poista aikajana
     due_default: Ensi viikolla
     empty_week_1: Aloittaaksesi,
     empty_week_2: aloita muokkaaminen tällä viikolla
@@ -576,8 +622,11 @@ fi:
     view: Näytä
     next: Seuraava sivu
     page: Sivu
+    training_library: Koulutuskirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.
+    done: Tehty!
+    check_answer: Tarkista vastaus
   uploads:
     datetime: Päivämäärä
     file_name: Tiedostonimi
@@ -600,7 +649,7 @@ fi:
       johon lasketaan kaikkien sivun kokoa kasvattaneiden muokkausten merkkimäärät.
       Luku sisältää myös poistettua sisältöä palauttaneet muokkaukset, eikä se välttämättä
       vastaa käyttäjän lisäämän uuden sisällön määrää.
-    chars_added: Lisättyjä merkkejä<br>(päänimiavaruus|käyttäjänimiavaruus)
+    chars_added: Lisättyjä merkkejä<br>(artikkeli | käyttäjä | luonnos)
     contributions: Käyttäjän muokkaukset
     contributions_history_full: Näytä koko muokkaushistoria Wikipediassa
     contributions_more: Näytä lisää muokkauksia
@@ -627,6 +676,7 @@ fi:
       other: '%{count} artikkelia'
     recent_revisions: Tuoreet muutokset
     remove_confirmation: Haluatko varmasti poistaa muokkaajan %{username}?
+    request_confirmation: Haluatko varmasti pyytää tämän tilin?
     revision_characters_and_views: 'Lisättyjä merkkejä: %{characters}, Näyttökertoja:
       %{views}'
     revisions_doc: Muokkaajan tekemät muokkaukset edelliselstä seitsemältä päivältä
@@ -649,7 +699,10 @@ fi:
     up_to_date_with_training: on suorittanut harjoituksen
     username: Käyttäjätunnus
     username_placeholder: Käyttäjätunnus
+    useremail_placeholder: Sähköpostiosoite
+    userpasscode_placeholder: Pääsykoodi
     role:
+      description: Rooli kurssissa
       visitor: Vierailija
       student: Opiskelija
       instructor: Ohjaaja

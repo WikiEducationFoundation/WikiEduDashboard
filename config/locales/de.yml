@@ -204,6 +204,8 @@ de:
     default_passcode_explanation: 'Standardmäßig haben neue Programme in dieser Kampagne:'
     description: Beschreibung
     delete_campaign: Diese Kampagne löschen
+    disable_account_requests: Benutzerkontenanfragen deaktivieren
+    enable_account_requests: Benutzerkontenanfragen aktivieren
     no_passcode: kein Passcode
     none: Keine
     organizers: Organisatoren
@@ -214,6 +216,7 @@ de:
       erstellt, wird der Text in diesem Bereich als Beschreibung auf der Programmseite
       darüberkopiert.
     random_passcode: ein zufälliger Passcode
+    requested_accounts: Beantragte Benutzerkonten
     title: Titel
     use_start_end_dates: Start- und Enddaten verwenden
   categories:

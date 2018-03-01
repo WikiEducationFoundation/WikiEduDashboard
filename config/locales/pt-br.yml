@@ -218,6 +218,8 @@ pt-br:
       ter:'
     description: Descrição
     delete_campaign: Deletar essa campanha
+    disable_account_requests: Desativar solicitações de conta
+    enable_account_requests: Ativar as solicitações de contas
     no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
@@ -227,6 +229,7 @@ pt-br:
     program_template_tooltip: Quando um organizador criar um programa nessa campanha,
       o texto nessa área será copiado como descrição na página do programa
     random_passcode: um código de acesso aleatório
+    requested_accounts: Contas solicitadas
     title: Título
     use_start_end_dates: Use datas de início e fim
   categories:

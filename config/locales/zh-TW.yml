@@ -174,6 +174,8 @@ zh-TW:
     default_passcode_explanation: 預設情況下，此活動的新方案應有：
     description: 描述
     delete_campaign: 刪除此競賽
+    disable_account_requests: 停用帳號申請
+    enable_account_requests: 啟用帳號申請
     no_passcode: 沒有選課代碼
     none: 無
     organizers: 組織者
@@ -182,6 +184,7 @@ zh-TW:
     program_template: 方案模板
     program_template_tooltip: 當組織者建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
     random_passcode: 隨機選課代碼
+    requested_accounts: 申請的帳號
     title: 標題
     use_start_end_dates: 使用起始和結束時間
   categories:
