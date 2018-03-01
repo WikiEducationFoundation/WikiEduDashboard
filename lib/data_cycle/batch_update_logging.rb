@@ -6,6 +6,7 @@ module BatchUpdateLogging
   include ActionView::Helpers::DateHelper
 
   UPDATE_PID_FILES = {
+    short: 'tmp/batch_update_shortly.pid',
     daily: 'tmp/batch_update_daily.pid',
     constant: 'tmp/batch_update_constantly.pid',
     views: 'tmp/batch_update_views.pid',
