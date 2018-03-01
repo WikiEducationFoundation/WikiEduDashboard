@@ -29,6 +29,7 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+  let(:en_wikipedia) { create(:wiki, language: 'en', project: 'wikipedia') }
   before do
     stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
@@ -43,6 +44,7 @@ describe 'the course page', type: :feature, js: true do
                     timeline_end: course_end.to_date,
                     school: 'This university.foo',
                     term: 'term 2015',
+                    home_wiki_id: es_wiktionary.id,
                     description: 'This is a great course')
     campaign = create(:campaign)
     course.campaigns << campaign
@@ -223,6 +225,19 @@ describe 'the course page', type: :feature, js: true do
         click_button 'Save'
       end
       expect(Course.last.passcode).to eq(previous_passcode)
+    end
+
+    it 'allows edit in home_wiki_id' do
+      admin = create(:admin, id: User.last.id + 1)
+      login_as(admin)
+      js_visit "/courses/#{slug}"
+      within '.sidebar' do
+        click_button 'Edit Details'
+        find('div.home_wiki_language_selector').find('select').set 'en'
+        find('div.home_wiki_project_selector').find('select').set 'wikipedia'
+        click_button 'Save'
+      end
+      expect(course.home_wiki_id).to eq(en_wikipedia.id)
     end
   end
 
