@@ -6,8 +6,8 @@ require "#{Rails.root}/lib/data_cycle/short_update"
 describe ShortUpdate do
   describe 'on initialization' do
     before do
-      create(:course, start: 1.day.ago, end: 2.hours.from_now,
-                      slug: 'ArtFeminism/Test_Editathon')
+      create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
+                         slug: 'ArtFeminism/Test_Editathon')
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do
