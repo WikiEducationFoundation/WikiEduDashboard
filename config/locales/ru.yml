@@ -108,6 +108,7 @@ ru:
     edited_by: 'Под редакцией:'
     edited_mobile: Статьи
     hide: Скрыть
+    history: (история)
     label: Статьи
     loading: Загрузка статей...
     new: (новая)
@@ -139,6 +140,7 @@ ru:
     view_doc: Сумма всех Просмотров каждой статьи в рамках проекта
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
+    wiki: Вики
   assignments:
     article: Вам назначена статья %{title}.
     title_too_large: Название не должно превышать 255 символов
@@ -156,6 +158,7 @@ ru:
       title: Этапы
   campaign:
     active_campaigns: Активные кампании
+    add_organizer: Добавить организатора
     all_campaigns: Все кампании
     campaign: Кампания
     campaigns: Кампании
@@ -181,8 +184,10 @@ ru:
     add_category: Добавить категорию
     add_template: Добавить шаблон
     add_this_template: Добавить данный шаблон
+    depth: Глубина подкатегорий
     name: Имя
     category_name: Название категории
+    template_name: Имя шаблона
     remove: Удалить
   chat:
     label: Чат
@@ -191,16 +196,23 @@ ru:
     all_courses: Все курсы
     actions: Действия
     articles: Статьи
+    calendar:
+      legend: Легенда
     cancel: Отмена
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     campaigns: 'Кампании:'
     campaign_courses: Курсы %{title}
     campaign_users: Редакторы %{title}
+    course: Курс
     course_description: Курсы
     courses: Курсы
     creation_date: Дата создания
     creator:
+      checking_for_uniqueness: Этот курс проверяется на уникальность.
+      choose_clone: Выберите курс для клонирования.
+      clone_previous: Клонировать предыдущий курс
+      clone_this: Клонировать этот курс
       clone_successful_details: Ваш курс был клонирован, включая элементы графика
         времени (недели и блоки). Убедитесь, что вы добавили даты, так как они не
         переносятся. Если что-нибудь изменилось в вашем курсе, то теперь вы можете

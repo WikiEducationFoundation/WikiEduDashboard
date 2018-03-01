@@ -5,6 +5,7 @@
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: Rzuwig
 # Author: Tar Lócesilion
 # Author: The Polish
 # Author: Woytecr
@@ -195,6 +196,8 @@ pl:
       treść z tego pola zostanie skopiowana jako opis na jego stronę
     title: Tytuł
     use_start_end_dates: Użyć dat rozpoczęcia i zakończenia?
+  categories:
+    category_name: Nazwa kategorii
   chat:
     label: Czat
   courses:
@@ -625,6 +628,7 @@ pl:
     next: Następna strona
     page: Strona
     table_of_contents: Spis treści
+    training_library: Biblioteka Treningowa
     logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
     done: Gotowe!

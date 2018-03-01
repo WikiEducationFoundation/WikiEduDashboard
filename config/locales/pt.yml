@@ -210,6 +210,8 @@ pt:
       devem ter:'
     description: Descrição
     delete_campaign: Eliminar esta campanha
+    disable_account_requests: Desativar as solicitações de contas
+    enable_account_requests: Ativar as solicitações de contas
     no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
@@ -220,6 +222,7 @@ pt:
     program_template_tooltip: Quando um organizador criar um programa nesta campanha,
       o texto desta área será copiado como descrição na página do programa
     random_passcode: um código de acesso aleatório
+    requested_accounts: Contas solicitadas
     title: Título
     use_start_end_dates: Utilizar datas iniciais e finais
   categories:
@@ -243,11 +246,11 @@ pt:
   courses:
     accounts_generation_enabled: Geração de pedidos de contas ativada
     accounts_generation_explanation: Isto vai permitir que os participantes introduzam
-      o seu endereço de correio de eletrónico e o nome de utilizador desejado, em
-      vez de criarem as suas próprias contas recentes. Poderá então criar as novas
-      contas a partir do Painel de Controlo, e ao mesmo tempo poderá adicioná-las
-      no programa como participantes. Para utilizar esta funcionalidade, deve ter
-      o privilégio de 'criador de contas' na wiki de origem deste programa.
+      o seu endereço de correio eletrónico e o nome de utilizador desejado, em vez
+      de criarem contas novas. Poderá então criar as contas a partir do Painel de
+      Controlo e, ao mesmo tempo, adicioná-las como participantes do programa. Para
+      utilizar esta funcionalidade, deve ter o privilégio de 'criador de contas' na
+      wiki de origem deste programa.
     accounts_generation_confirm_message: Tem a certeza de que deseja ativar as solicitações
       de contas?
     activity: Atividade
@@ -274,7 +277,7 @@ pt:
     campaigns: 'Grupos:'
     campaign_articles: Artigos de %{title}
     campaign_courses: Cursos de %{title}
-    campaign_select: Selecione uma campanha
+    campaign_select: Selecionar uma campanha
     campaign_users: Editores de %{title}
     confirm_course_deletion: Tem certeza de que deseja excluir o curso intitulado
       %{title}? Se assim for, escreva o título do curso para prosseguir.
@@ -449,9 +452,9 @@ pt:
     new_account_info: Para solicitar uma conta, introduza o seu endereço de correio
       eletrónico e o seu nome de utilizador desejado. Quando a conta tiver sido criada
       por um dos facilitadores, ser-lhe-á enviada uma palavra-passe por correio eletrónico.
-    new_account_info_admin: Para criar uma conta a um novo editor, introduza o correio
-      eletrónico e o nome de utilizador desejado. Quando a conta tiver sido criada
-      será enviada uma palavra-passe ao aluno por correio eletrónico.
+    new_account_info_admin: Para criar uma conta para um novo editor, introduza o
+      correio eletrónico e o nome de utilizador desejado. Quando a conta tiver sido
+      criada será enviada uma palavra-passe ao aluno por correio eletrónico.
     new_account_username: Nome de utilizador solicitado
     new_account_username_invalid: Este não é um nome de utilizador válido.
     new_account_username_placeholder: Editor Wiki 123
@@ -740,7 +743,7 @@ pt:
         revoke_button_confirm: Revogar os privilégios de administrador de %{username}
         revoking_button_working: A revogar...
         already_instructor: '%{username} já é um professor!'
-        demote_success: '%{username} foi alterado a professor.'
+        demote_success: '%{username} foi alterado para professor.'
         no_super_admin: Não foi possível revogar o estatuto de administrador de um
           super administrador
   suggestions:

@@ -351,6 +351,8 @@ lb:
         form_placeholder: Benotzernumm
         confirm_remove_admin: Administrateur-Rechter ewechhuele fir
         already_admin: '%{username}ass schonn en Administrateur!'
+      remove:
+        revoking_button_working: Ewechhuelen...
   suggestions:
     editing: Virschléi änneren
     suggestion_docs:
