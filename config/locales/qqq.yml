@@ -383,6 +383,8 @@ qqq:
     feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
+    home_wiki_language: Label for Home Wiki Language Selector
+    home_wiki_project: Lable for Home Wiki Project Selector
     instructor:
       one: |-
         Label for a single instructor of a course (Wiki Ed only)

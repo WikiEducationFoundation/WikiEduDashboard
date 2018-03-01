@@ -431,6 +431,8 @@ en:
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     gradeables_none: This course has no gradeable assignments.
+    home_wiki_language: Home Wiki Language
+    home_wiki_project: Home Wiki Project
     instructor:
       one: Instructor
       other: Instructors

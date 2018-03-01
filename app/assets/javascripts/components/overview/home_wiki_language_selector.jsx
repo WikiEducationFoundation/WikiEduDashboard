@@ -29,7 +29,7 @@ const HomeWikiLanguageSelector = createReactClass({
 
     const selector = (
       <div className="form-group">
-        <label htmlFor={this.state.id}>Home Wiki Language:</label>
+        <label htmlFor={this.state.id}>{I18n.t('courses.home_wiki_language')}:</label>
         <select
           id={this.state.id}
           name="home_wiki_Language"
