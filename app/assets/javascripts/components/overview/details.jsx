@@ -299,15 +299,12 @@ const Details = createReactClass({
       );
     }
 
-    if (this.props.editable) {
+    if (this.props.editable && !Features.wikiEd) {
       projectSelector = (
         <HomeWikiProjectSelector
           course={this.props.course}
         />
       );
-    }
-
-    if (this.props.editable) {
       languageSelector = (
         <HomeWikiLanguageSelector
           course={this.props.course}
