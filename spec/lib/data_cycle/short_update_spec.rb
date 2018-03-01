@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/short_update"
-require "#{Rails.root}/app/services/update_course_revisions"
 
 describe ShortUpdate do
   describe 'on initialization' do
