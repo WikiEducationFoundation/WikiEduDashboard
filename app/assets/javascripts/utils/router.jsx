@@ -12,6 +12,7 @@ import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
 import OnboardingIntro from '../components/onboarding/intro.jsx';
 import OnboardingForm from '../components/onboarding/form.jsx';
+import OnboardingSupplementary from '../components/onboarding/form.jsx';
 import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
@@ -71,6 +72,7 @@ const routes = (
     <Route path="onboarding" component={Onboarding}>
       <IndexRoute component={OnboardingIntro} />
       <Route path="form" component={OnboardingForm} />
+      <Route path="supplementary" component={OnboardingSupplementary} />
       <Route path="permissions" component={OnboardingPermissions} />
       <Route path="finish" component={OnboardingFinished} />
     </Route>
