@@ -66,4 +66,15 @@ describe OnboardingController do
       expect(user.real_name).to eq('Name Surname')
     end
   end
+
+  describe '#supplementary' do
+    let(:user) { create(:user, onboarded: false, username: 'JonSnow') }
+
+    it 'should create an alert for instructor' do
+      params = { user_name: user.username, heardFrom: 'From Nights Watch' }
+      put 'supplementary', params: params
+      expect(response.status).to eq(204)
+      expect(Alert.exists?(user_id: user.id, type: 'OnboardingAlert')).to eq(true)
+    end
+  end
 end

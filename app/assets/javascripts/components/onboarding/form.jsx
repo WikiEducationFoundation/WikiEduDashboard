@@ -44,7 +44,8 @@ const Form = createReactClass({
       instructor: this.state.instructor === 'true'
     })
     .then(() => {
-      return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
+      const destination = this.state.instructor === 'true' ? 'supplementary' : 'permissions';
+      return browserHistory.push(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
     }
     )
     .catch(() => {

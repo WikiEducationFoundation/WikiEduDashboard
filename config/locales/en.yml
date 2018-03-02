@@ -1078,3 +1078,9 @@ en:
 
   wiki_api:
     create_account_reason: "This user is participating in %{event}."
+
+  onboarding:
+    supplementary:
+      headline: "Where did you hear about Wiki Ed?"
+      heard_from: "Tell us about how you learnt about Wiki Ed"
+      heard_from_helper: "It could be anything, like from a friend, through search results etc."
