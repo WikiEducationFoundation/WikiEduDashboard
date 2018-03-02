@@ -29,7 +29,8 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
-  let(:en_wikipedia) { create(:wiki, language: 'en', project: 'wikipedia') }
+  let(:admin) { create(:admin) }
+
   before do
     stub_wiki_validation
     page.current_window.resize_to(1920, 1080)
@@ -54,6 +55,7 @@ describe 'the course page', type: :feature, js: true do
              id: i.to_s,
              username: "Student #{i}",
              trained: i % 2)
+
       create(:courses_user,
              id: i.to_s,
              course_id: 10001,
@@ -177,44 +179,8 @@ describe 'the course page', type: :feature, js: true do
     end
   end
 
-  # Something is broken here. Need to fully investigate testing React-driven UI
-  # describe 'control bar' do
-  # describe 'control bar' do
-  #   it 'should allow sorting via dropdown', js: true do
-  #     visit "/courses/#{slug}/students"
-  #     selector = 'table.students > thead > tr > th'
-  #     select 'Name', from: 'sorts'
-  #     expect(page.all(selector)[0][:class]).to have_content 'asc'
-  #     select 'Assigned Article', from: 'sorts'
-  #     expect(page.all(selector)[1][:class]).to have_content 'asc'
-  #     select 'Reviewer', from: 'sorts'
-  #     expect(page.all(selector)[2][:class]).to have_content 'asc'
-  #     select 'MS Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[3][:class]).to have_content 'desc'
-  #     select 'US Chars Added', from: 'sorts'
-  #     expect(page.all(selector)[4][:class]).to expect 'desc'
-  #   end
-  # end
-
   describe 'overview details editing' do
-    it "doesn't allow null values for course start/end" do
-      admin = create(:admin, id: User.last.id + 1)
-      login_as(admin)
-      js_visit "/courses/#{slug}"
-      within '.sidebar' do
-        click_button 'Edit Details'
-      end
-      page.first('.date-input input').set('')
-      # fill_in 'Start:', with: ''
-      within 'input.start' do
-        # TODO: Capybara seems to be able to clear this field.
-        # expect(page).to have_text Course.first.start.strftime("%Y-%m-%d")
-      end
-      # expect(page).to have_css('button.dark[disabled="disabled"]')
-    end
-
     it "doesn't allow null values for passcode" do
-      admin = create(:admin, id: User.last.id + 1)
       previous_passcode = Course.last.passcode
       login_as(admin)
       sleep 5
@@ -227,17 +193,22 @@ describe 'the course page', type: :feature, js: true do
       expect(Course.last.passcode).to eq(previous_passcode)
     end
 
-    it 'allows edit in home_wiki_id' do
-      admin = create(:admin, id: User.last.id + 1)
-      login_as(admin)
-      js_visit "/courses/#{slug}"
-      within '.sidebar' do
-        click_button 'Edit Details'
-        find('div.home_wiki_language_selector').find('select').set 'en'
-        find('div.home_wiki_project_selector').find('select').set 'wikipedia'
-        click_button 'Save'
+    context 'allows edit in home_wiki_id' do
+      before { allow(Features).to receive(:wiki_ed?).and_return(false) }
+      it do
+        es_wikibooks = Wiki.get_or_create language: 'es', project: 'wikibooks'
+        login_as(admin)
+        js_visit "/courses/#{slug}"
+        within '.sidebar' do
+          click_button 'Edit Details'
+          select 'wikibooks', from: 'home_wiki_project'
+          select 'es', from: 'home_wiki_Language'
+          click_button 'Save'
+        end
+        sleep 2
+        home_wiki_id = Course.find_by(id: 10001).home_wiki_id
+        expect(home_wiki_id).to eq(es_wikibooks.id)
       end
-      expect(course.home_wiki_id).to eq(en_wikipedia.id)
     end
   end
 
@@ -259,7 +230,7 @@ describe 'the course page', type: :feature, js: true do
       new_first_rating = page.first(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
       title = page.first(:css, 'table.articles').first('td .title')
-      expect(title).to have_content 'es:wiktionary:Article'
+      expect(title).to have_content 'Article'
     end
 
     it 'includes a list of available articles' do
@@ -284,7 +255,6 @@ describe 'the course page', type: :feature, js: true do
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
@@ -294,7 +264,6 @@ describe 'the course page', type: :feature, js: true do
 
     it 'allow instructor to add an available article' do
       stub_info_query
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
@@ -312,7 +281,6 @@ describe 'the course page', type: :feature, js: true do
       stub_raw_action
       Assignment.destroy_all
       sleep 1
-      admin = create(:admin, id: User.last.id + 1)
       login_as(admin)
       stub_oauth_edit
       course = Course.first
