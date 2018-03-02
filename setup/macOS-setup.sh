@@ -89,14 +89,14 @@ printf '[*] Installing redis-server... \n'
 if which redis-server > /dev/null; then
   printf "${CLEAR_LINE}redis-server already installed\n"
 else
-  output_line "brew install redis" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
+  output_line "brew install redis" && output_line "brew services start redis" && printf "${CLEAR_LINE}[+] Redis-Server installed\n"
 fi
 
 printf '[*] Installing MariaDB-server... \n'
 if mysql -V | grep MariaDB > /dev/null; then
   printf "${CLEAR_LINE}MariaDB already installed\n"
 else
-  output_line "brew install mariadb" && printf "${CLEAR_LINE}[+] MariaDB installed "
+  output_line "brew install mariadb" && output_line "brew services start mariadb" && printf "${CLEAR_LINE}[+] MariaDB installed "
 fi
 
 printf '[*] Installing bundler... \n'
@@ -124,7 +124,7 @@ fi
 printf "[*] Creating Databases... \n"
 echo "CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
       CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      exit" | sudo mysql -p && printf "${CLEAR_LINE}[+] Databases created\n"
+      exit" | sudo mysql && printf "${CLEAR_LINE}[+] Databases created\n"
 
 printf '[*] Checking for Database configurations... \n'
 if [ -f config/database.yml ]; then
@@ -143,7 +143,7 @@ else
   echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
       GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
       GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
-      exit" | sudo mysql -p > /dev/null && printf "${CLEAR_LINE}[+] User created\n"
+      exit" | sudo mysql > /dev/null && printf "${CLEAR_LINE}[+] User created\n"
 fi
 
 printf '[*] Migrating databases... \n'
