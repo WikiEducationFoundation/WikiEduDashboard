@@ -76,15 +76,6 @@ class Campaign < ApplicationRecord
     CSV.generate { |csv| csv_data.uniq.each { |line| csv << line } }
   end
 
-  def alerts
-    alerts = []
-    course_ids.each do |course_id|
-      alert = Alert.find_by(course_id: course_id)
-      alerts << alert.id unless alert.nil?
-    end
-    alerts
-  end
-
   #################
   # Class methods #
   #################
