@@ -67,10 +67,10 @@ class CampaignsController < ApplicationController
   def alerts
     alerts = []
     @campaign.course_ids.each do |course_id|
-      alert = Alert.find_by(course_id: course_id)
-      alerts << alert.id unless alert.nil?
+      alert = Alert.where(course_id: course_id)
+      alert.each { |alert| alerts << alert.id unless alert.nil? }
     end
-    alerts
+    render json: { campaign_alerts: alerts }
   end
 
   def edit
