@@ -208,6 +208,17 @@ class CoursesController < ApplicationController
     end
   end
 
+  def set_course_edits_enabled
+    case params.dig(:course, :course_edits_enabled)
+    when true
+      @course.flags[:course_edits_enabled] = true
+      @course.save
+    when false
+      @course.flags[:course_edits_enabled] = false
+      @course.save
+    end
+  end
+
   def course_params
     params
       .require(:course)
