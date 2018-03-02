@@ -121,5 +121,4 @@ class Campaign < ApplicationRecord
     self.start = start.beginning_of_day if start
     self.end = self.end.end_of_day if self.end
   end
-
 end
