@@ -29,6 +29,7 @@ course_end = '2015-12-31'
 
 describe 'the course page', type: :feature, js: true do
   let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+  let(:home_wiki) { Wiki.get_or_create language: 'en', project: 'wikipedia' }
   let(:admin) { create(:admin) }
 
   before do
@@ -45,7 +46,7 @@ describe 'the course page', type: :feature, js: true do
                     timeline_end: course_end.to_date,
                     school: 'This university.foo',
                     term: 'term 2015',
-                    home_wiki_id: es_wiktionary.id,
+                    home_wiki_id: home_wiki.id,
                     description: 'This is a great course')
     campaign = create(:campaign)
     course.campaigns << campaign
@@ -193,21 +194,20 @@ describe 'the course page', type: :feature, js: true do
       expect(Course.last.passcode).to eq(previous_passcode)
     end
 
-    context 'allows edit in home_wiki_id' do
+    context 'when WikiEd Feature disabled' do
       before { allow(Features).to receive(:wiki_ed?).and_return(false) }
-      it do
-        es_wikibooks = Wiki.get_or_create language: 'es', project: 'wikibooks'
+      it 'allow edits for home_wiki' do
         login_as(admin)
         js_visit "/courses/#{slug}"
         within '.sidebar' do
           click_button 'Edit Details'
-          select 'wikibooks', from: 'home_wiki_project'
+          select 'wiktionary', from: 'home_wiki_project'
           select 'es', from: 'home_wiki_Language'
           click_button 'Save'
         end
         sleep 2
-        home_wiki_id = Course.find_by(id: 10001).home_wiki_id
-        expect(home_wiki_id).to eq(es_wikibooks.id)
+        home_wiki_id = Course.find_by(slug: slug).home_wiki_id
+        expect(home_wiki_id).to eq(es_wiktionary.id)
       end
     end
   end
@@ -230,7 +230,7 @@ describe 'the course page', type: :feature, js: true do
       new_first_rating = page.first(:css, 'table.articles').first('td .rating p')
       expect(new_first_rating).to have_content '-'
       title = page.first(:css, 'table.articles').first('td .title')
-      expect(title).to have_content 'Article'
+      expect(title).to have_content 'es:wiktionary:Article'
     end
 
     it 'includes a list of available articles' do
