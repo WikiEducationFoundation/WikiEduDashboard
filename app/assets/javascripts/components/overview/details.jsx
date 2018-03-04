@@ -10,6 +10,7 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
+import CourseEditToggle from './course_edit_toggle.jsx'
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -221,6 +222,7 @@ const Details = createReactClass({
     let privacySelector;
     let courseLevelSelector;
     let timelineToggle;
+    let courseEditToggle;
     let withdrawnSelector;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
@@ -295,6 +297,16 @@ const Details = createReactClass({
       );
     }
 
+    // Users who can rename a course are also allowed to toggle the course edits on/off.
+    if (canRename && !isClassroomProgramType) {
+      courseEditToggle = (
+        <CourseEditToggle
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+    }
+
     return (
       <div className="module course-details">
         <div className="section-header">
@@ -346,6 +358,7 @@ const Details = createReactClass({
           {submittedSelector}
           {privacySelector}
           {timelineToggle}
+          {courseEditToggle}
           {withdrawnSelector}
         </div>
       </div>
