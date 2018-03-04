@@ -28,10 +28,9 @@ class OnboardingController < ApplicationController
   def supplementary
     user_name = params[:user_name]
     heard_from = params[:heardFrom]
-    OnboardingAlertManager.new.create_alert(user_name, heard_from) unless heard_from.blank?
+    OnboardingAlertManager.new.create_alert(user_name, heard_from) if heard_from.present?
     head :no_content
   end
-
 
   private
 
