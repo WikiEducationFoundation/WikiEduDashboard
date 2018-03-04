@@ -61,7 +61,7 @@ const OnboardingSupplementary = createReactClass({
             <label>{I18n.t('onboarding.supplementary.heard_from')}</label>
             <textarea className="form-control" type="text" name="heardFrom" defaultValue={this.state.heardFrom} onChange={this._handleFieldChange.bind(this, 'heardFrom')} />
             <p className="form-help-text">
-                {I18n.t('onboarding.supplementary.heard_from_helper')}
+              {I18n.t('onboarding.supplementary.heard_from_helper')}
             </p>
           </div>
           <button disabled={disabled} type="submit" className="button dark right">

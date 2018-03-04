@@ -12,7 +12,7 @@ import Course from '../components/course.jsx';
 import Onboarding from '../components/onboarding/index.jsx';
 import OnboardingIntro from '../components/onboarding/intro.jsx';
 import OnboardingForm from '../components/onboarding/form.jsx';
-import OnboardingSupplementary from '../components/onboarding/form.jsx';
+import OnboardingSupplementary from '../components/onboarding/supplementary.jsx';
 import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
