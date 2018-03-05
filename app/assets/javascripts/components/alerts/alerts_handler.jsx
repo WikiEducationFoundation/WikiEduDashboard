@@ -3,6 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import AlertsList from './alerts_list.jsx';
 import { fetchAlerts } from '../../actions/alert_actions';
 
 const AlertsHandler = createReactClass({
@@ -10,7 +11,6 @@ const AlertsHandler = createReactClass({
 
 
   propTypes: {
-    params: PropTypes.object,
     fetchAlerts: PropTypes.func,
     alerts: PropTypes.array
   },
@@ -29,11 +29,22 @@ const AlertsHandler = createReactClass({
   },
 
   render() {
-    console.log(this.props.alerts);
+    let alertList;
+    if (this.props.alerts) {
+      alertList = (
+        <div id="alerts" className="campaign_main alerts container">
+          <div className="section-header">
+            <h3>{I18n.t('activity.label')}</h3>
+          </div>
+          <AlertsList alerts={this.props.alerts} />
+        </div>
+      );
+    }
     return (
-      <div>"Hola"</div>
-    );
-  }
+      <div>{alertList}</div>
+
+      );
+    }
 });
 
 const mapStateToProps = state => ({

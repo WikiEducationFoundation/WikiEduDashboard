@@ -1,20 +1,16 @@
-import {
-  RECEIVE_ALERTS
-} from '../constants/alert.js';
+import { RECEIVE_ALERTS } from "../constants";
 
-const initialState = {
-  alerts: []
-};
+const initialState = {};
 
 export default function alerts(state = initialState, action) {
-  switch (action.types) {
+  switch (action.type) {
     case RECEIVE_ALERTS: {
       const newState = {
         ...state,
-        alerts: data.alerts
+        alerts: action.data.alerts
         };
       return newState;
-      }
+    }
     default:
       return state;
   }
