@@ -52,14 +52,7 @@ class TrainingBase
   end
 
   def self.load_from_cache_or_rebuild
-    if Features.wiki_trainings?
-      # Only load explicitly, not on a cold cache, when loading from wiki.
-      # This prevents situations where many users are trying to load uncached
-      # trainings at once, causing major problems.
-      Rails.cache.read(cache_key) || []
-    else
-      Rails.cache.read(cache_key) || load
-    end
+    Rails.cache.read(cache_key) || load
   end
 
   # Clears both the class instance variable and the cache for the child class.
