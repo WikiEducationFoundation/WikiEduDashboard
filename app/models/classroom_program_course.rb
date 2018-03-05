@@ -49,10 +49,6 @@
 #
 
 class ClassroomProgramCourse < Course
-  def wiki_edits_enabled?
-    true
-  end
-
   # Allows us make automatic edits for a ClassroomProgramCourse if submitted
   def wiki_course_page_enabled?
     return true if submitted

@@ -55,10 +55,6 @@ class VisitingScholarship < Course
     .where(article_id: course.assignments.pluck(:article_id))
   end, through: :students)
 
-  def wiki_edits_enabled?
-    false
-  end
-
   def wiki_course_page_enabled?
     false
   end
