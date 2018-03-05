@@ -254,21 +254,23 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
         />
-    );
-      if (!Features.wikiEd && this.props.editable) {
-        privacySelector = (
-          <PrivacySelector
-            course={this.props.course}
-            editable={this.props.editable}
-          />
-        );
-      }
+      );
     }
 
     // Users who can rename a course are also allowed to change the type.
     if (canRename) {
       courseTypeSelector = (
         <CourseTypeSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+    }
+
+    // Users who can rename a course are also allowed to make it private.
+    if (canRename) {
+      privacySelector = (
+        <PrivacySelector
           course={this.props.course}
           editable={this.props.editable}
         />
