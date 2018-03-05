@@ -21,6 +21,10 @@ const AlertsList = ({ alerts }) => {
       label: I18n.t('campaign.course'),
       desktop_only: true
     },
+    user_id: {
+      label: I18n.t('campaign.user_id'),
+      desktop_only: true
+    },
     resolved: {
       label: I18n.t('campaign.resolved'),
       desktop_only: false
@@ -32,7 +36,7 @@ const AlertsList = ({ alerts }) => {
       elements={elements}
       keys={keys}
       table_key="alerts"
-      none_message="This course has no recent Wikipedia editing activity."
+      none_message={I18n.t('campaign.no_alerts')}
     />
   );
 };
