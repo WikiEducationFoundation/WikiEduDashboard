@@ -2,8 +2,9 @@
 const { environment } = require('@rails/webpacker');
 const config = require('./config')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 // scripts to run before and after build
 const onBuildStart = [];
@@ -50,10 +51,21 @@ environment.plugins.append(
 /*
 * STYLESHEETS
 */
+
+// add entry and output for each style sheet
+config.entryStyleSheets.forEach(function (sheetName) {
+  environment.entry[`stylesheet-${sheetName}`] = `./${config.sourcePath}/${config.stylesheetsDirectory}/${sheetName}.styl`;
+});
+
 environment.loaders.append('styl', {
   test: /\.styl$/,
-  loader: 'css-loader!stylus-loader?paths=node_modules/bootstrap-stylus/stylus/'
+  loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['style-loader', 'css-loader', 'stylus-loader'] }),
 });
+
+environment.plugins.append(
+  'ExtractText',
+  new ExtractTextPlugin(`[name].css`)
+);
 
 environment.loaders.append('images', {
   test: /\.(gif|png|jpe?g|svg)$/i,
@@ -66,10 +78,6 @@ environment.loaders.append('images', {
       },
     },
   ],
-});
-
-config.entryStyleSheets.forEach(function (sheetName) {
-  environment.entry[`stylesheet-${sheetName}`] = `./${config.sourcePath}/${config.stylesheetsDirectory}/${sheetName}.styl`;
 });
 
 // pre and post build scripts to run
