@@ -10,19 +10,19 @@ const AlertsList = ({ alerts }) => {
 
   const keys = {
     created_at: {
-      label: "Created_at",
+      label: I18n.t('campaign.created_at'),
       desktop_only: true
     },
     type: {
-      label: "Type",
+      label: I18n.t('campaign.type'),
       desktop_only: true
     },
-    user_id: {
-      label: "User_id",
+    course: {
+      label: I18n.t('campaign.course'),
       desktop_only: true
     },
     resolved: {
-      label: "Resolved",
+      label: I18n.t('campaign.resolved'),
       desktop_only: false
     }
   };

@@ -34,7 +34,7 @@ const AlertsHandler = createReactClass({
       alertList = (
         <div id="alerts" className="campaign_main alerts container">
           <div className="section-header">
-            <h3>{I18n.t('activity.label')}</h3>
+            <h3>{I18n.t('campaign.alert_label')}</h3>
           </div>
           <AlertsList alerts={this.props.alerts} />
         </div>
@@ -42,7 +42,6 @@ const AlertsHandler = createReactClass({
     }
     return (
       <div>{alertList}</div>
-
       );
     }
 });
