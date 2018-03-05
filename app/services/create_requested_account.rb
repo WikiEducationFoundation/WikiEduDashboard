@@ -16,7 +16,7 @@ class CreateRequestedAccount
     # rights on en.wiki, no matter what the home wiki of the project.
     @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     @username = requested_account.username
-    @email = requested_account.email
+    @email = requested_account.email.strip
     process_request
   end
 

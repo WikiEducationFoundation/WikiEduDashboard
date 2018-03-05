@@ -15,11 +15,16 @@
 class RequestedAccount < ApplicationRecord
   belongs_to :course
   belongs_to :campaign
-  before_validation :ensure_valid_email
+  validate :email_format
+
+  def invalid_email_message
+    "'#{email}' is not a valid email address."
+  end
 
   private
 
-  def ensure_valid_email
-    self.email = nil if ValidatesEmailFormatOf::validate_email_format(email)
+  def email_format
+    return unless ValidatesEmailFormatOf::validate_email_format(email)
+    errors.add(:email, invalid_email_message)
   end
 end
