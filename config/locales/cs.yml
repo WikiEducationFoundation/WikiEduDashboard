@@ -947,13 +947,23 @@ cs:
   survey:
     login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Ed nástěnky,
       abyste se dostali k průzkumu.
+    notification_schedule_explanation: Oznámení zahrnují oznámení v prohlížeči a emaily,
+      pokud je to povoleno výše.
     follow_up_explanation: Nechte prázdné, pokud si nepřejete dostávat emaily s upozorněním.
     email:
       headline: Dobrý den, %{username}
+      message_line1: Doufáme, že jste zažili super semestr. Wiki Ed vás žádá o zpětnou
+        vazbu, abychom mohli vylepšit naše zdroje a podpořit vaši práci na Wikipedii.
+        Vaše odpověď je pro nás důležitá.
+      message_line2: Jste ochotni věnovat 15 minut na vyplnění dotazníku? Klikněte
+        na tlačítko níže, pomůžete nám udělat učení s Wikipedií ještě více obohacující.
       course: 'Kurz: %{course_info}'
       closing: S pozdravem,
       signed: '- Wiki Ed tým'
       link: Spustit dotazník
+    follow_up:
+      message: Připomínáme vám žádost o vyplnění dotazníku ke kurzu %{course_title}.
+        Zpětná vazba nám pomáhá zlepšit tyto kurzy.
   feedback_form_responses:
     no_responses: Zatím zde není žádná zpětná vazba.
   wiki_api:
