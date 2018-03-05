@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_course_edits"
-require "#{Rails.root}/lib/importers/user_importer"
-require "#{Rails.root}/app/workers/remove_assignment_worker"
-require "#{Rails.root}/app/workers/update_course_worker"
+require_dependency "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency "#{Rails.root}/app/workers/remove_assignment_worker"
+require_dependency "#{Rails.root}/app/workers/update_course_worker"
 
 #= Controller for user functionality
 class UsersController < ApplicationController

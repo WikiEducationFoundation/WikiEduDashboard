@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/course_training_progress_manager"
 
 describe CourseTrainingProgressManager do
   let(:user)     { create(:user, trained: trained) }

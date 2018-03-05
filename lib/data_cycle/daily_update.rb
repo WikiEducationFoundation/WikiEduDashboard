@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/data_cycle/batch_update_logging"
-require "#{Rails.root}/lib/importers/user_importer"
-require "#{Rails.root}/lib/importers/assigned_article_importer"
-require "#{Rails.root}/lib/articles_courses_cleaner"
-require "#{Rails.root}/lib/importers/rating_importer"
-require "#{Rails.root}/lib/article_status_manager"
-require "#{Rails.root}/lib/importers/upload_importer"
-require "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
+require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require_dependency "#{Rails.root}/lib/importers/user_importer"
+require_dependency "#{Rails.root}/lib/importers/assigned_article_importer"
+require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
+require_dependency "#{Rails.root}/lib/importers/rating_importer"
+require_dependency "#{Rails.root}/lib/article_status_manager"
+require_dependency "#{Rails.root}/lib/importers/upload_importer"
+require_dependency "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
@@ -50,13 +50,13 @@ class DailyUpdate
 
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
-    UploadImporter.find_deleted_files(CommonsUpload.where(deleted: false))
+    UploadImporter.find_deleted_files
 
     log_message 'Updating Commons uploads for current students'
     UploadImporter.import_uploads_for_current_users
 
     log_message 'Updating Commons uploads usage counts'
-    UploadImporter.update_usage_count_by_course(Course.all)
+    UploadImporter.update_usage_count_by_course(Course.current)
 
     log_message 'Getting thumbnail urls for Commons uploads'
     UploadImporter.import_all_missing_urls

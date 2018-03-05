@@ -54,6 +54,7 @@ fr:
     search: poser une question
     search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
+    sign_up_wikipedia: Ou inscrivez-vous sur Wikipédia
     sign_up_log_in_extended: avec Wikipédia
     sign_up: S’inscrire
     submit: Soumettre
@@ -222,6 +223,8 @@ fr:
       campagne doivent avoir :'
     description: Description
     delete_campaign: Supprimer cette campagne
+    disable_account_requests: Désactiver les demandes de compte
+    enable_account_requests: Activer les demandes de compte
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
@@ -231,6 +234,7 @@ fr:
     program_template_tooltip: Quand un organisateur crée un programme dans cette campagne,
       le texte dans cette zone sera copié comme une description sur la page du programme
     random_passcode: un mot de passe aléatoire
+    requested_accounts: Comptes demandés
     title: Titre
     use_start_end_dates: Utiliser les dates de début et de fin
   categories:
@@ -253,6 +257,12 @@ fr:
     label: Clavardage
   courses:
     accounts_generation_enabled: Génération de demande de comptes activée
+    accounts_generation_explanation: Cela permet aux participants de saisir leur adresse
+      de courriel et leur nom d’utilisateur souhaité, au lieu de créer eux-mêmes de
+      nouveaux comptes. Vous pourrez alors créer les comptes depuis ce tableau de
+      bord, et les ajouter comme participants au programme en même temps. Pour utiliser
+      cette fonctionnalité, vous devez avoir le droit 'créateur de compte' sur le
+      wiki d’accueil de ce programme.
     accounts_generation_confirm_message: Êtes-vous sûr de vouloir activer les demandes
       de compte ?
     activity: Activité
@@ -278,8 +288,9 @@ fr:
     character_doc: Le nombre total de caractères ajoutés aux articles de l’espace
       de nom principal par les étudiants du cours durant son déroulement
     campaigns: 'Complices :'
-    campaign_courses: '%{title} Cours'
     campaign_articles: Articles %{title}
+    campaign_courses: '%{title} Cours'
+    campaign_select: Sélectionner une campagne
     campaign_users: Éditeurs %{title}
     confirm_course_deletion: Êtes-vous sûr de vouloir supprimer le cours intitulé
       %{title} ? Si oui, taper le titre du cours pour continuer.
@@ -458,10 +469,10 @@ fr:
     new_account_email_placeholder: nom@exemple.org
     new_account_info: Pour demander un compte, saisissez votre adresse de courriel
       et le nom d’utilisateur souhaité. Un mot de passe vous sera envoyé une fois
-      que le compte aura été créé.
-    new_account_info_admin: Pour demander un compte étudiant, saisissez son adresse
-      de courriel et le nom d’utilisateur souhaité. Un mot de passe lui sera envoyé
-      une fois le compte créé.
+      que le compte aura été créé par un des animateurs.
+    new_account_info_admin: Pour créer un compte pour un nouvel éditeur, saisissez
+      son adresse de courriel et le nom d’utilisateur souhaité. Un mot de passe lui
+      sera envoyé une fois le compte créé.
     new_account_username: Nom d’utilisateur demandé
     new_account_username_invalid: Ce n’est pas un nom d’utilisateur valide.
     new_account_username_placeholder: Éditeur Wiki 123
@@ -488,6 +499,7 @@ fr:
     passcode_none: Aucun mot de passe
     passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
       cours :'
+    private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
     rating_feedback: 'La note prévue pour cet article est :'
@@ -738,6 +750,23 @@ fr:
     title: Titre
     view_on_wiki: Afficher la différence sur le wiki
     see_more: Voir plus
+  settings:
+    admin_users:
+      new:
+        form_label: Accorder les droits d’administrateur
+        form_placeholder: Nom d’utilisateur
+        confirm_add_admin: Accorder l’administration
+        confirm_remove_admin: Supprimer les droits d’administration pour
+        already_admin: '%{username} est déjà un administrateur !'
+        elevate_success: '%{username} a été promu administrateur.'
+      remove:
+        revoke_button: Révoquer un administrateur
+        revoke_button_confirm: Révoquer les droits d’administration pour %{username}
+        revoking_button_working: Révocation…
+        already_instructor: '%{username} est déjà un moniteur !'
+        demote_success: '%{username} a été modifié en moniteur.'
+        no_super_admin: Impossible de révoquer un statut d’administrateur pour un
+          super-administrateur.
   suggestions:
     editing: Modification des suggestions
     suggestion_docs:

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wizard_timeline_manager"
+require_dependency "#{Rails.root}/lib/wizard_timeline_manager"
 
 #= Controller for timeline functionality
 class WizardController < ApplicationController

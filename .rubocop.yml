@@ -93,8 +93,6 @@ Rails/TimeZone:
   Enabled: false
 Rails/Date:
   Enabled: false
-Rails/PluralizationGrammar:
-  Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
 Rails/OutputSafety:
@@ -102,8 +100,6 @@ Rails/OutputSafety:
 Performance/UnfreezeString:
   Enabled: false
 Style/GuardClause:
-  Enabled: false
-Naming/AccessorMethodName:
   Enabled: false
 Rails/HasManyOrHasOneDependent:
   Enabled: false

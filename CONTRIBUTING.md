@@ -58,5 +58,5 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 ## Pull request checklist
 - Rebase your branch on master if it is behind.
 - Optionally, squash your work into a single commit.
-- If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`bower.json`, `package.json`, or `Gemfile`).
+- If you have added any external libraries via a package manager please ensure that you have updated the proper dependency list (`package.json`, or `Gemfile`).
 - After opening a PR, verify that the continuous integration tests pass; if not, add more commits to fix them.

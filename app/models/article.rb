@@ -20,9 +20,9 @@
 #  mw_page_id               :integer
 #
 
-require "#{Rails.root}/lib/utils"
-require "#{Rails.root}/lib/importers/view_importer"
-require "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/utils"
+require_dependency "#{Rails.root}/lib/importers/view_importer"
+require_dependency "#{Rails.root}/lib/importers/article_importer"
 
 #= Article model
 class Article < ApplicationRecord

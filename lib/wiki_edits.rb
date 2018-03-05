@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_response"
+require_dependency "#{Rails.root}/lib/wiki_response"
 
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
   def initialize(wiki = nil)
     wiki ||= Wiki.default_wiki
     @wiki = wiki
-    @api_url = "https://#{@wiki.language}.#{@wiki.project}.org/w/api.php"
   end
 
   #######################
@@ -122,7 +121,7 @@ class WikiEdits
     data[token_name] = tokens.action_token
 
     # Make the request
-    response = tokens.access_token.post(@api_url, data)
+    response = tokens.access_token.post(@wiki.api_url, data)
     response_data = Oj.load(response.body)
     WikiResponse.capture(response_data, current_user: current_user,
                                         post_data: data,
@@ -137,7 +136,9 @@ class WikiEdits
 
     # Request a CSRF or other token for the user
     @access_token = oauth_access_token(current_user)
-    get_token = @access_token.get("#{@api_url}?action=query&meta=tokens&format=json&type=#{type}")
+    get_token = @access_token.get(
+      "#{@wiki.api_url}?action=query&meta=tokens&format=json&type=#{type}"
+    )
 
     # Handle 5XX response for when MediaWiki API is down
     handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }

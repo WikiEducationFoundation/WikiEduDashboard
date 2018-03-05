@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/replica"
-require "#{Rails.root}/lib/importers/revision_score_importer"
-require "#{Rails.root}/lib/importers/article_importer"
-require "#{Rails.root}/lib/importers/average_views_importer"
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/replica"
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
+require_dependency "#{Rails.root}/lib/importers/article_importer"
+require_dependency "#{Rails.root}/lib/importers/average_views_importer"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports articles for a category, along with view data and revision scores
 class CategoryImporter

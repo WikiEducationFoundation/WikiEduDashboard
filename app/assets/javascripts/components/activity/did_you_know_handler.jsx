@@ -3,15 +3,15 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import ActivityTable from "./activity_table.jsx";
-import { fetchDYKArticles } from "../../actions/did_you_know_actions.js";
+import { fetchDYKArticles, sortDYKArticles } from "../../actions/did_you_know_actions.js";
 
 const NO_ACTIVITY_MESSAGE = I18n.t("recent_activity.no_dyk_eligible");
 
 const HEADERS = [
   { title: I18n.t("recent_activity.article_title"), key: "title" },
-  { title: I18n.t("recent_activity.revision_score"), key: "revision_score", style: { width: 142 } },
+  { title: I18n.t("recent_activity.revision_score"), key: "revision_score", style: { width: 180 } },
   { title: I18n.t("recent_activity.revision_author"), key: "username", style: { minWidth: 142 } },
-  { title: I18n.t("recent_activity.revision_datetime"), key: "revision_datetime", style: { width: 200 } }
+  { title: I18n.t("recent_activity.revision_datetime"), key: "datetime", style: { width: 200 } }
 ];
 
 const DidYouKnowHandler = createReactClass({
@@ -48,6 +48,7 @@ const DidYouKnowHandler = createReactClass({
           activity={this.props.articles}
           headers={HEADERS}
           noActivityMessage={NO_ACTIVITY_MESSAGE}
+          onSort={this.props.sortDYKArticles}
         />
       </div>
     );
@@ -60,7 +61,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchDYKArticles: fetchDYKArticles
+  fetchDYKArticles: fetchDYKArticles,
+  sortDYKArticles: sortDYKArticles
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DidYouKnowHandler);

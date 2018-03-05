@@ -102,8 +102,8 @@ lv:
       legend_class_meeting: Klases sapulce
     cancel: Atcelt
     campaigns: 'Kampaņas:'
-    campaign_courses: '%{title} kursi'
     campaign_articles: '%{title} raksti'
+    campaign_courses: '%{title} kursi'
     course: Kurss
     course_description: Kursi
     courses: Kursi

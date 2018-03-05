@@ -13,6 +13,7 @@
 # Author: Koavf
 # Author: Lemondoge
 # Author: Macofe
+# Author: MarcoAurelio
 # Author: Themasterriot
 # Author: Tusca
 # Author: Yllelder
@@ -45,9 +46,11 @@ es:
     my_dashboard: Panel de control
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
+    request_account: Solicitar una cuenta
     search: preguntar
     search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
+    sign_up_wikipedia: O regístrate en Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Registrarse
     submit: Enviar
@@ -235,6 +238,8 @@ es:
     label: Chat
   courses:
     accounts_generation_enabled: Generación de cuentas activada
+    accounts_generation_confirm_message: ¿Confirmas que quieres activar las solicitudes
+      de cuentas?
     activity: Actividad
     active_courses: '%{course_type} activos'
     all_courses: Todos los cursos
@@ -257,8 +262,9 @@ es:
     character_doc: La suma de caracteres agregados a los artículos del espacio principal
       por parte de los estudiantes durante el período del curso
     campaigns: 'Campañas:'
-    campaign_courses: Curso de «%{title}»
     campaign_articles: Artículos de %{title}
+    campaign_courses: Curso de «%{title}»
+    campaign_select: Selecciona una campaña
     campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Estás seguro de que quieres eliminar el curso titulado
       %{title}? Si es así, escribe el título del curso para continuar.
@@ -389,6 +395,9 @@ es:
     new_account_check_username: Comprobar disponibilidad de nombre de usuario
     new_account_email: Dirección de correo electrónico
     new_account_email_placeholder: nombre@ejemplo.org
+    new_account_info_admin: Para crear una cuenta para un editor nuevo, escribe su
+      dirección de correo y nombre de usuario deseado. Recibirá una contraseña por
+      correo una vez que se haya creado la cuenta.
     new_account_username: Nombre de usuario solicitado
     new_account_username_invalid: Este nombre de usuario no es válido.
     new_account_submit: Solicitar cuenta
@@ -404,6 +413,7 @@ es:
     passcode: Código de acceso
     passcode_none: Ningún código de acceso
     passcode_prompt: 'Escribe el código de acceso para unirte:'
+    private: Privado
     published: 'Se ha publicado tu curso. Los estudiantes podrán matricularse al visitar
       el URL siguiente:'
     requested_accounts: Cuentas solicitadas
@@ -475,6 +485,7 @@ es:
       notification_message: Participa en la encuesta de este curso.
       link: Completar la encuesta
   courses_generic:
+    add_campaign: Añadir campaña
     all_courses: Todos los programas
     archived: Programas archivados
     articles_none: No hay artículos editados para este proyecto aún.
@@ -625,6 +636,21 @@ es:
     title: Título
     view_on_wiki: Ver diferencias en wiki
     see_more: Ver más
+  settings:
+    admin_users:
+      new:
+        form_label: Otorgar permisos de administrador
+        form_placeholder: Nombre de usuario
+        confirm_add_admin: Otorgar permisos de administrador
+        confirm_remove_admin: Retirar los permisos de administrador a
+        already_admin: '%{username} ya es un administrador'
+        elevate_success: '%{username} ha sido elevado a administrador.'
+      remove:
+        revoke_button: Retirar permisos de administrador
+        revoke_button_confirm: Retirar los permisos de administrador de %{username}
+        revoking_button_working: Revocando...
+        already_instructor: '%{username} ya es un instructor'
+        demote_success: '%{username} pasó a ser instructor.'
   suggestions:
     editing: Editar sugerencias
     suggestion_docs:

@@ -56,7 +56,7 @@ const AssignCell = createReactClass({
 
     let isCurrentUser;
     if (this.props.student) { isCurrentUser = this.props.current_user.id === this.props.student.id; }
-    const instructorOrAdmin = this.props.current_user.role > 0 || this.props.current_user.admin;
+    const instructorOrAdmin = this.props.current_user.isInstructor || this.props.current_user.admin;
     const permitted = isCurrentUser || (instructorOrAdmin && this.props.editable);
 
     return (

@@ -3,14 +3,14 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import UploadTable from './upload_table.jsx';
-import { fetchRecentUploads } from '../../actions/recent_uploads_actions.js';
+import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uploads_actions.js';
 
 const HEADERS = [
       { title: I18n.t('recent_activity.image'), key: 'image' },
       { title: I18n.t('recent_activity.file_name'), key: 'file_name' },
-      { title: I18n.t('recent_activity.uploaded_by'), key: 'username', style: { minWidth: 142 } },
-      { title: I18n.t('recent_activity.usage_count'), key: 'usage_count', style: { width: 130 } },
-      { title: I18n.t('recent_activity.datetime'), key: 'date', style: { width: 200 } },
+      { title: I18n.t('recent_activity.uploaded_by'), key: 'username', style: { minWidth: 160 } },
+      { title: I18n.t('recent_activity.usage_count'), key: 'usage_count', style: { width: 160 } },
+      { title: I18n.t('recent_activity.datetime'), key: 'uploaded_at', style: { width: 200 } },
     ];
 
 export const RecentUploadsHandlerBase = createReactClass({
@@ -18,6 +18,7 @@ export const RecentUploadsHandlerBase = createReactClass({
 
   propTypes: {
     fetchRecentUploads: PropTypes.func,
+    sortRecentUploads: PropTypes.func,
     uploads: PropTypes.array,
     loading: PropTypes.bool
    },
@@ -38,6 +39,7 @@ export const RecentUploadsHandlerBase = createReactClass({
           loading={this.props.loading}
           uploads={this.props.uploads}
           headers={HEADERS}
+          onSort={this.props.sortRecentUploads}
         />
       </div>
     );
@@ -50,7 +52,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchRecentUploads
+  fetchRecentUploads,
+  sortRecentUploads
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecentUploadsHandlerBase);

@@ -12,7 +12,7 @@ describe('NewAccountButton', () => {
     home_wiki: { language: 'en', project: 'wikipedia' },
     passcode: 'passcode',
     course_id: "Course_school/Test_Course_(Course_term)",
-    flags: { register_accounts: true }
+    account_requests_enabled: true
   };
 
   it('renders a NewAccountModal when is clicked', () => {

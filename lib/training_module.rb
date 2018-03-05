@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_base"
-require "#{Rails.root}/lib/training_slide"
+require_dependency "#{Rails.root}/lib/training/training_base"
 
 class TrainingModule < TrainingBase
   attr_accessor :name, :slides, :description, :estimated_ttc, :id
@@ -56,9 +55,11 @@ class TrainingModule < TrainingBase
   # raw_slides can be called to access the string representation;
   # #slides now returns the instances of TrainingSlide
   def slides
-    return @sorted_slides unless @sorted_slides.nil?
-    slides = TrainingSlide.all.select { |slide| slide_slugs.include?(slide.slug) }
-    @sorted_slides = slides.sort { |a, b| slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug) }
+    return @sorted_slides if @sorted_slides.present?
+    selected_slides = TrainingSlide.where(slug: slide_slugs)
+    @sorted_slides = selected_slides.sort do |a, b|
+      slide_slugs.index(a.slug) <=> slide_slugs.index(b.slug)
+    end
   end
 
   def valid?

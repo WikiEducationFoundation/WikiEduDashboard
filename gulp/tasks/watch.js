@@ -12,10 +12,6 @@ gulp.task('watch', () => {
     return gulp.start('copy-images');
   });
 
-  plugins.watch('bower.json', () => {
-    return gulp.start('bower');
-  });
-
   plugins.livereload.listen();
 
   gulp.watch(`${config.outputPath}/${config.cssDirectory}/*.css`, (e) => {

@@ -21,10 +21,21 @@
 
 set :output, 'log/cron.log'
 
+# Short updates will pull in revisions and articles for courses that are ending
+# soon, so that short events get quick updates while they are going on.
+every 5.minutes do
+  rake 'batch:update_shortly'
+end
+
+# Constant updates are more thorough, pulling in revision metadata, generating
+# alerts, and doing other data and network-intensive tasks, for all current courses.
+# Having many long-running courses makes these take a while.
 every 4.minutes do
   rake 'batch:update_constantly'
 end
 
+# This pulls in additional data and performs other tasks that do not need to be
+# done many times per day.
 every 1.day, at: '4:30 am' do
   rake 'batch:update_daily'
 end

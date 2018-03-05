@@ -17,7 +17,7 @@
 #  training_module_ids :text(65535)
 #
 
-require "#{Rails.root}/lib/block_date_manager"
+require_dependency "#{Rails.root}/lib/block_date_manager"
 
 #= Block model
 class Block < ApplicationRecord

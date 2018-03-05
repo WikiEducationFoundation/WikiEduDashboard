@@ -37,7 +37,7 @@ describe('CourseCreator', () => {
       <CourseCreator
         courseCreator={{}}
         fetchCoursesForUser={() => {}}
-        user_courses={["some_course"]}
+        cloneableCourses={["some_course"]}
         course={reduxStore.getState().course}
         updateCourse={updateCourseSpy}
         fetchCampaign={fetchCampaignSpy}
@@ -62,7 +62,7 @@ describe('CourseCreator', () => {
       describe('state updated to show (and user has courses)', () => {
         it('shows', () => {
           TestCourseCreator.setState({ showCloneChooser: true });
-          TestCourseCreator.setState({ user_courses: ['some_course'] });
+          TestCourseCreator.setState({ cloneableCourses: ['some_course'] });
           expect(
             TestCourseCreator
               .find('.select-container')

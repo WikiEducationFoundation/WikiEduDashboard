@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_loader"
+require_dependency "#{Rails.root}/lib/training/training_loader"
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
@@ -15,14 +15,10 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(slug_whitelist: nil)
-    loader = TrainingLoader.new(content_class: self, slug_whitelist: slug_whitelist)
-
-    @all = if slug_whitelist
-             merge_content loader.load_content
-           else
-             loader.load_content
-           end
+  def self.load(slug_whitelist: nil, content_class: self)
+    loader = TrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
+    @all = loader.load_content
+    return if content_class.superclass.name == 'ApplicationRecord'
 
     check_for_duplicate_slugs
     check_for_duplicate_ids
@@ -31,21 +27,11 @@ class TrainingBase
     @all
   end
 
-  def self.merge_content(updated_content)
-    new_slugs = updated_content.map(&:slug)
-    # @all may be nil or an array of training objects
-    old_without_new = Array(@all).reject do |training_unit|
-      new_slugs.include? training_unit.slug
-    end
-    old_without_new + updated_content
-  end
-
   # Called during manual :training_reload action.
   # This should regenerate all training content from yml files and/or wiki.
   def self.load_all
     TrainingLibrary.flush
     TrainingModule.flush
-    TrainingSlide.flush
     if Features.wiki_trainings?
       TrainingModule.load
       TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
@@ -112,6 +98,11 @@ class TrainingBase
     end
   end
 
+  # called for each training unit in TrainingLoader
+  def self.inflate(content, slug)
+    new(content.to_hashugar, slug)
+  end
+
   class DuplicateSlugError < StandardError
   end
 
@@ -122,7 +113,6 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  # called for each training unit in TrainingLoader
   def initialize(content, slug)
     self.slug = slug
     content.each do |key, value|

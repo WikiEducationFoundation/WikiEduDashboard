@@ -14,6 +14,7 @@ gom-deva:
   courses:
     articles: लेख
     my_articles: म्हजें लेख
+    private: खासगी
     students: विद्यार्थी
     students_short: विद्यार्थी
     view_wiki: विकिपीडियाचेर पळेयात

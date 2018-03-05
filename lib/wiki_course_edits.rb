@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/wiki_course_output"
-require "#{Rails.root}/lib/wiki_assignment_output"
-require "#{Rails.root}/lib/wikitext"
-require "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_output"
+require_dependency "#{Rails.root}/lib/wiki_assignment_output"
+require_dependency "#{Rails.root}/lib/wikitext"
+require_dependency "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for making wiki edits for a particular course
 class WikiCourseEdits
@@ -20,8 +20,7 @@ class WikiCourseEdits
     @wiki_editor = WikiEdits.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
-    template_file_path = "config/templates/#{@dashboard_url}_#{@home_wiki.language}.yml"
-    @templates = YAML.load_file(Rails.root + template_file_path)
+    @templates = @home_wiki.edit_templates
     send(action, opts)
   end
 
@@ -30,7 +29,7 @@ class WikiCourseEdits
   # It simply overwrites the previous version.
   def update_course(delete: false)
     return unless @course.wiki_course_page_enabled?
-    wiki_text = delete ? '' : WikiCourseOutput.new(@course, @templates).translate_course_to_wikitext
+    wiki_text = delete ? '' : WikiCourseOutput.new(@course).translate_course_to_wikitext
 
     summary = "Updating course from #{@dashboard_url}"
 

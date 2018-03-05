@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/ores_api"
-require "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/ores_api"
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports revision scoring data from ores.wikimedia.org
 # As of July 2016, this only applies to English Wikipedia.

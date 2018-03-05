@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180216185532) do
+ActiveRecord::Schema.define(version: 20180222220757) do
 
   create_table "alerts", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "course_id"
@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 20180216185532) do
     t.text "template_description"
     t.string "default_course_type"
     t.string "default_passcode"
+    t.boolean "register_accounts", default: false
   end
 
   create_table "campaigns_courses", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
@@ -420,7 +421,24 @@ ActiveRecord::Schema.define(version: 20180216185532) do
     t.integer "training_module_id"
     t.string "last_slide_completed"
     t.datetime "completed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["user_id", "training_module_id"], name: "index_training_modules_users_on_user_id_and_training_module_id"
+  end
+
+  create_table "training_slides", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "title"
+    t.string "title_prefix"
+    t.string "summary"
+    t.string "button_text"
+    t.string "wiki_page"
+    t.text "assessment"
+    t.text "content"
+    t.text "translations", limit: 16777215
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_training_slides_on_slug", unique: true
   end
 
   create_table "user_profiles", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

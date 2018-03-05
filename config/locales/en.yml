@@ -233,6 +233,8 @@ en:
     default_passcode_explanation: "By default, new programs in this campaign should have:"
     description: Description
     delete_campaign: Delete this campaign
+    disable_account_requests: Disable account requests
+    enable_account_requests: Enable account requests
     no_passcode: no passcode
     none: None
     organizers: Organizers
@@ -243,6 +245,7 @@ en:
       When an organizer creates a program in this campaign,
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
+    requested_accounts: Requested accounts
     title: Title
     use_start_end_dates: Use start and end dates
 
@@ -739,6 +742,24 @@ en:
     title: Title
     view_on_wiki: View diff on wiki
     see_more: See more
+
+  settings:
+    admin_users:
+      new:
+        form_label: Grant admin privileges
+        form_placeholder: User Name
+        confirm_add_admin: "Grant admin"
+        confirm_remove_admin: "Remove admin privileges for"
+        already_admin: "%{username} is already an admin!"
+        elevate_success: "%{username} elevated to admin."
+      remove:
+        revoke_button: 'Revoke admin'
+        revoke_button_confirm: 'Revoke admin rights from %{username}'
+        revoking_button_working: 'Revoking...'
+        already_instructor: "%{username} is already an instructor!"
+        demote_success: "%{username} changed to instructor."
+        no_super_admin: "Can't revoke admin status from a super admin"
+
 
   # Suggestions source: https://en.wikipedia.org/wiki/Template:Grading_scheme
   suggestions:

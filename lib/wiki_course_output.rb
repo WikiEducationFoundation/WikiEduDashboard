@@ -1,21 +1,21 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wikitext"
-require "#{Rails.root}/lib/course_meetings_manager"
-require "#{Rails.root}/lib/wiki_output_templates"
+require_dependency "#{Rails.root}/lib/wikitext"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/wiki_output_templates"
 
 #= Class for generating wikitext from course information.
 class WikiCourseOutput
   include WikiOutputTemplates
 
-  def initialize(course, templates)
+  def initialize(course)
     @course = course
     @course_meetings_manager = CourseMeetingsManager.new(@course)
     @dashboard_url = ENV['dashboard_url']
     @first_instructor = @course.instructors.first
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
-    @templates = templates
+    @templates = @course.home_wiki.edit_templates
   end
 
   ###############

@@ -10,8 +10,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 * install R
 * `bundle install`
 * `rake db:migrate`
-* install bower and yarn
-* `bower install` for some javascript requirements
+* install yarn
 * `yarn` for more javascript requirements
 * `gulp` to build assets
 * `guard` or `rails s` to start a server
@@ -54,10 +53,6 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install PhantomJS:
     - $ `sudo yarn global add phantomjs-prebuilt`
 
-- Install Bower and Bower modules:
-    - $ `sudo yarn global add bower`
-    - $ `bower install`
-
 - Install Pandoc
     - See the Pandoc [installation guide](http://pandoc.org/installing.html) for your environment's specifics.
     - Only Pandoc itself is needed; no additional related components (eg, LaTeX) are required.
@@ -88,7 +83,7 @@ If you know your way around Rails, here's the very short version. Some additiona
 
 - Install R:
   - Debian: `sudo apt install r-base`
-  - OS X: `brew tap homebrew/science && brew install r`
+  - OS X: `brew install r`
   - Also you can refer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**

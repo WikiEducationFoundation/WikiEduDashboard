@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/importers/user_importer"
-require "#{Rails.root}/app/workers/update_course_worker"
+require_dependency "#{Rails.root}/lib/importers/user_importer"
 
 #= Controller for adding multiple users to a course at once
 class MassEnrollmentController < ApplicationController

@@ -494,7 +494,7 @@ sr-ec:
     image: Слика
     file_name: Назив датотеке
     no_dyk_eligible: Тренутно нема потенцијалних „Да ли сте знали” чланака.
-    no_plagiarism: Тренутно нема ниједне скорашње ревизије под сумњом да је плагијат.
+    no_plagiarism: Тренутно нема ниједне скорашње измене под сумњом да је плагијат.
     no_edits: Не постоје скорашње измене.
     plagiarism_report: Пријави плагијат
     possible_plagiarism: Могућ плагијат
@@ -502,7 +502,7 @@ sr-ec:
     recent_uploads: Скорашње отпреме
     revision_author: 'Аутор измене:'
     revision_datetime: Датум/време измене
-    revision_score: Оцена ревизије
+    revision_score: Оцена измене
     show_courses: Прикажи само моје курсеве
     uploaded_by: 'Отпремио:'
     usage_count: Број употреба

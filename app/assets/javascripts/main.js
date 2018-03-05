@@ -1,8 +1,9 @@
 // Polyfills
 import "babel-polyfill";
+import Rails from 'rails-ujs';
 require('location-origin');
 require('trix');
-require('jquery-ujs');
+Rails.start();
 
 $(() => {
   window.I18n = require('i18n-js');

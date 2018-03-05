@@ -93,7 +93,10 @@ ja:
     milestones:
       title: マイルストーン
   campaign:
+    disable_account_requests: アカウント開設を無効にする
+    enable_account_requests: アカウント開設を有効にする
     none: なし
+    requested_accounts: アカウント申請
   categories:
     add_category: カテゴリを追加
     add_this_category: このカテゴリに追加
