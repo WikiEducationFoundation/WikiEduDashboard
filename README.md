@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/WikiEducationFoundation/WikiEduDashboard.svg?branch=master)](https://travis-ci.org/WikiEducationFoundation/WikiEduDashboard)
 [![Test Coverage](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/coverage.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
 [![Code Climate](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard/badges/gpa.svg)](https://codeclimate.com/github/WikiEducationFoundation/WikiEduDashboard)
+[![Open Source Helpers](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard/badges/users.svg)](https://www.codetriage.com/wikieducationfoundation/wikiedudashboard)
 
 The Wiki Education Dashboard is a web application that supports Wikipedia education assignments, provides data and course management features for groups of Wikipedia users — instructors, students, and others — who are working on a common Wikipedia project. Users log in with their Wikipedia accounts (through OAuth) and allow the dashboard to make edits on their behalf. The dashboard automates many of the standard elements of organizing and participating in a Wikipedia classroom assignment.
 
