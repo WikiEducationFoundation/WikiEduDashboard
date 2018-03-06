@@ -65,6 +65,7 @@ class CampaignsController < ApplicationController
   end
 
   def alerts
+    pp @campaign.alerts
     respond_to do |format|
       format.html { render }
       format.json { render json: { alerts: @campaign.alerts } }

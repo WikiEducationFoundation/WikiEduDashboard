@@ -14,7 +14,7 @@ const AlertsList = ({ alerts }) => {
       desktop_only: true
     },
     type: {
-      label: I18n.t('campaign.type'),
+      label: I18n.t('campaign.alert_type'),
       desktop_only: true
     },
     course: {
@@ -22,7 +22,7 @@ const AlertsList = ({ alerts }) => {
       desktop_only: true
     },
     user_id: {
-      label: I18n.t('campaign.user_id'),
+      label: I18n.t('campaign.alert_user_id'),
       desktop_only: true
     },
     resolved: {
