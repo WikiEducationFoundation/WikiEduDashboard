@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update course_params
+    @course.update update_params
     set_timeline_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -215,6 +215,16 @@ class CoursesController < ApplicationController
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
               :no_day_exceptions, :cloned_status, :type, :level, :private)
+  end
+
+  def update_params
+    if params[:course].key?(:home_wiki)
+      home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
+                                     project: params.dig(:course, :home_wiki, :project)
+      course_params.merge!(home_wiki_id: home_wiki[:id])
+    else
+      course_params
+    end
   end
 
   def instructor_role_description

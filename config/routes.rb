@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'errors/login_error'
   get 'errors/internal_server_error'
   get 'errors/incorrect_passcode'
+  put 'errors/incorrect_passcode'
 
   # Sessions
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }

@@ -4,7 +4,7 @@ import subprocess
 
 print ("WARNING! This is a work in progress script. It has been tested to work for debian-based systems. \
   There are individual operating system dependent scripts being called from this one. \
-  You can find them in setup directory. The scripts for windows and OSX are still not complete. \
+  You can find them in setup directory. The script for windows is still not complete. \
   You can use them as a starting point or as a reference. If you run into any errors while running this script, \
   please comment with your issue on https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1709 \
   Please upload your logs for installation with your issue reports. \
@@ -27,13 +27,13 @@ def win_setup():
 
 def osx_setup():
     print ("Your system is found to be OSX")
-    subprocess.run("sudo chmod 775 setup/deb-setup.sh && setup/deb-setup.sh",
+    subprocess.run("sudo chmod 775 setup/macOS-setup.sh && setup/macOS-setup.sh",
                    shell=True, check=True)
 
 if platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('debian') != -1:
     deb_setup()
-elif platform.platform().lower().find('osx') != -1:
+elif platform.platform().lower().find('darwin') != -1:
     osx_setup()
 elif platform.platform().lower().find('windows') != -1:
     win_setup()

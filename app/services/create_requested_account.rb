@@ -12,9 +12,11 @@ class CreateRequestedAccount
     @creator = creator
     @requested_account = requested_account
     @course = requested_account.course
-    @wiki = @course.home_wiki
+    # FIXME: Temporary workaround for A+F 2018, where organizers have account creator
+    # rights on en.wiki, no matter what the home wiki of the project.
+    @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
     @username = requested_account.username
-    @email = requested_account.email
+    @email = requested_account.email.strip
     process_request
   end
 

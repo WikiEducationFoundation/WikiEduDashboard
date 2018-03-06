@@ -1,5 +1,45 @@
 [Back to README](../README.md)
+# Script Setup
+We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.) and MacOS.
 
+**Warning**: If you run this python script on Windows system, it will run a still in Development script, which is **not** tested fully and might **not** work properly.
+
+**Note**: We have a batch file for Windows which is still a **Work-in-progress**. If you are windows user, We would love your contribution in testing and developing the script for Windows platform. You can find the batch file under setup directory.
+
+## Prerequisite
+There are some basic requirements for the script to work:
+- git(to clone the repository)
+- python 3
+- ruby-2.5.0
+- apt(debian)/homebrew(MacOS)
+
+## Instructions
+- Clone the repository
+- From the repository directory, run `python3 setup.py`
+  - The python file checks for your operating system and runs the corresponding system dependent script
+- The script will ask for your root password and MySQL passwords.
+  - While installing MySQL, the MySQL installer might ask you to setup the root password
+  - In case of MacOS systems, the MySQL root password will be blank if the installer doesn't ask you to setup one.
+- Wait for the installation to complete
+- If you face any errors, you can find the log for the script in setup directory by the name of log.txt
+
+In case of any errors please post your error logs on: https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1709.
+You can also contact us on slack for any further queries.
+
+## Troubleshooting 
+- If you want to setup your own manual Database config(Advanced users)
+  - First, create your manual config file, `config/database.yml` from the sample file provided, `config/database.example.yml`
+  - Run the script
+  - Run Migrations if needed.
+- If you face issues related to MySQL default password on your system
+  - Please confirm your Password for MySQL
+  - Delete `config/Database.yml`
+  - Run the script again.
+- If you face the error that `Sorry! Your operating is not supported by this script`
+  - You can try running the system dependent scripts from setup directory, according to your system
+  - You can try manual installation
+
+# Manual Setup
 ## TL;DR bare minimum version
 If you know your way around Rails, here's the very short version. Some additional requirements are necessary to make all the tests pass and all the features work, but this should be enough to stand up the app quickly.
 
@@ -61,13 +101,13 @@ If you know your way around Rails, here's the very short version. Some additiona
     - Save `application.example.yml` and `database.example.yml` as `application.yml` and `database.yml`, respectively, in the `config` directory. The default settings in `database.yml` will suffice for a development environment.
 
 - Create mysql development and test database:
-    - Install mysql-server (or mariadb-server)
-        - Debian: `sudo apt install mysql-server`
-        - OSX: `brew install mysql`
+    - Install mariadb-server (or mysql-server)
+        - Debian: `sudo apt-get install -y mariadb-server`
+        - OSX: `brew install mariadb`
         - Windows: Install [XAMPP](https://www.apachefriends.org/index.html)
     - Start a mysql command line:
         - Debian: `sudo mysql`
-        - OSX: `mysql.server start` then `sudo mysql`
+        - OSX: `brew services start mariadb` then `sudo mysql`
         - Windows: `C:\xampp\mysql\bin\mysql -u root`
     - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
     - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
