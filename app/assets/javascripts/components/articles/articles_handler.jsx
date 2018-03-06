@@ -26,12 +26,12 @@ const ArticlesHandler = createReactClass({
   },
 
   componentWillMount() {
-    this.props.fetchArticles(this.props.course_id, this.props.limit);
     ServerActions.fetch('assignments', this.props.course_id);
+    return this.props.fetchArticles(this.props.course_id, this.props.limit);
   },
 
   showMore() {
-    this.props.fetchArticles(this.props.course_id, this.props.limit + 100);
+    return this.props.fetchArticles(this.props.course_id, this.props.limit + 100);
   },
 
   sortSelect(e) {

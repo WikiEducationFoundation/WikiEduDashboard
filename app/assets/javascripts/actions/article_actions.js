@@ -36,15 +36,14 @@ const fetchArticlesPromise = (courseId, limit) => {
   });
 };
 
-export const fetchArticles = (courseId, limit) => dispatch => {
-  return (
-    fetchArticlesPromise(courseId, limit)
-      .then(resp =>
-        dispatch({
+export function fetchArticles(courseId, limit) {
+  return function (dispatch) {
+    return fetchArticlesPromise(courseId, limit)
+      .then(resp => (dispatch({
           type: types.RECEIVE_ARTICLES,
           data: resp,
           limit: limit
-        }))
-      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
-  );
-};
+      })))
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })));
+  };
+}
