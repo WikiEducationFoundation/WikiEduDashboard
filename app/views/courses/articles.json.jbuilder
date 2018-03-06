@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.course do
-  json.articles @course.articles_courses.live.includes(article: :wiki) do |ac|
+  json.articles @course.articles_courses.live.includes(article: :wiki).limit(@limit) do |ac|
     article = ac.article
     json.call(ac, :character_sum, :view_count, :new_article)
     json.call(article, :id, :namespace, :rating)

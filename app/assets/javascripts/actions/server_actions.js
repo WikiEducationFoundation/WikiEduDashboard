@@ -6,9 +6,9 @@ const Flux = new McFly();
 const ServerActions = Flux.createActions({
 
   // General-purpose
-  fetch(model, courseId) {
+  fetch(model, courseId, args) {
     const actionType = `RECEIVE_${model.toUpperCase()}`;
-    return API.fetch(courseId, model)
+    return API.fetch(courseId, model, args)
       .then(resp => ({ actionType, data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },

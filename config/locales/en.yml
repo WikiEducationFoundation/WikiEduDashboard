@@ -171,6 +171,7 @@ en:
     views_added: "Added %{count} new views for %{title}"
     edit_size: Edit Size
     wiki: Wiki
+    see_more: See more
     wp10: Structural Completeness
     wp10_doc: >
       The 'Structural Completeness' score represents how closely an article fits
