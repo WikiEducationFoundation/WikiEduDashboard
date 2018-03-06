@@ -25,14 +25,9 @@ module Errors
       end
     end
 
-    NO_CAMPAIGNS_EXPLANATION =
-      'Error: There are no campaigns.' \
-      "\n\n" \
-      'Go to "/campaigns" to create one.'
     def self.rescue_from_no_campaigns(base)
       base.rescue_from CoursesPresenter::NoCampaignError do
-        render plain: NO_CAMPAIGNS_EXPLANATION,
-               status: 500
+        Campaign.create(title: "Default Campaign", slug: ENV['default_campaign'])
       end
     end
   end
