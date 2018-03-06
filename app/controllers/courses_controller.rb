@@ -241,7 +241,7 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    case params[:limit]
+    case params[:endpoint]
     when 'revisions', 'articles'
       @limit = params[:limit]
     end
