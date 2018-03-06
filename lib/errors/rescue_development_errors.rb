@@ -28,7 +28,7 @@ module Errors
     def self.rescue_from_no_campaigns(base)
       base.rescue_from CoursesPresenter::NoCampaignError do
         Campaign.create(title: 'Default Campaign', slug: ENV['default_campaign'])
-        redirect_to '/campaigns'
+        redirect_to '/'
       end
     end
   end
