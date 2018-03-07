@@ -477,7 +477,7 @@ slide_id=${opts.slide_id}`,
 
   saveCourse(data, courseId = null) {
     const append = (courseId != null) ? `/${courseId}` : '';
-    // append += '.json'
+    // append = '.json'
     const type = (courseId != null) ? 'PUT' : 'POST';
     RavenLogger.type = type;
     let req_data = { course: data.course };
@@ -662,6 +662,24 @@ slide_id=${opts.slide_id}`,
       $.ajax({
         type: 'PUT',
         url: '/onboarding/onboard',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success(data) {
+          return res(data);
+        }
+      })
+      .fail((obj) => {
+        logErrorMessage(obj);
+        return rej(obj);
+      })
+    );
+  },
+
+  supplement(data) {
+    return new Promise((res, rej) =>
+      $.ajax({
+        type: 'PUT',
+        url: '/onboarding/supplementary',
         contentType: 'application/json',
         data: JSON.stringify(data),
         success(data) {
