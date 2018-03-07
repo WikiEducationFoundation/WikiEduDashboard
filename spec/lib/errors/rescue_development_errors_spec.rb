@@ -32,11 +32,10 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
 
     before do
       Campaign.destroy_all
+      visit '/'
     end
 
     it 'creates a default campaign' do
-      visit '/'
-      sleep 1
       expect(Campaign.count).to eq(1) # The default campaign has been created
     end
   end
