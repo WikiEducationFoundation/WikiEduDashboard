@@ -9,8 +9,6 @@ const initialState = {
 };
 
 const SORT_DESCENDING = {
-  rating_num: true,
-  title: true,
   character_sum: true,
   view_count: true
 };
