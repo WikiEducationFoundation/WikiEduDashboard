@@ -3,13 +3,13 @@ import logErrorMessage from './log_error_message';
 const OnboardAPI = {
   /// GETTERS
 
-  onboard(data) {
+  onboard(args) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'PUT',
         url: '/onboarding/onboard',
         contentType: 'application/json',
-        data: JSON.stringify(data),
+        data: JSON.stringify(args),
         success(data) {
           return res(data);
         }
@@ -21,13 +21,13 @@ const OnboardAPI = {
     );
   },
 
-  supplement(data) {
+  supplement(args) {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'PUT',
         url: '/onboarding/supplementary',
         contentType: 'application/json',
-        data: JSON.stringify(data),
+        data: JSON.stringify(args),
         success(data) {
           return res(data);
         }
@@ -38,6 +38,6 @@ const OnboardAPI = {
       })
     );
   }
-}
+};
 
 export default OnboardAPI;
