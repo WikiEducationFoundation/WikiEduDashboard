@@ -47,3 +47,5 @@ export const fetchAlerts = (campaignSlug) => dispatch => {
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
   );
 };
+
+export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
