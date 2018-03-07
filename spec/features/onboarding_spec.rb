@@ -77,7 +77,7 @@ describe 'onboarding', type: :feature, js: true do
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       sleep 1
-      expect(page).to have_content 'etc.'
+      expect(page).to have_content 'us?'
     end
   end
 end
