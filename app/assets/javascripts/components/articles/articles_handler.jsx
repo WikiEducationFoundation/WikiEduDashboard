@@ -30,7 +30,7 @@ const ArticlesHandler = createReactClass({
   },
 
   showMore() {
-    return this.props.fetchArticles(this.props.course_id, this.props.limit + 100);
+    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
 
   sortSelect(e) {
