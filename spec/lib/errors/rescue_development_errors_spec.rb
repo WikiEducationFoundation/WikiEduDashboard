@@ -29,10 +29,9 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
   end
 
   describe 'when CoursesPresenter::NoCampaignError is raised' do
-
     before do
       Campaign.destroy_all
-      visit '/'
+      get '/'
     end
 
     it 'creates a default campaign' do
