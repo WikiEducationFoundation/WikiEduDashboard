@@ -42,6 +42,7 @@ class Alert < ApplicationRecord
     GANominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
+    OnboardingAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert

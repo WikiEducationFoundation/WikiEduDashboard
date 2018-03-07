@@ -1078,3 +1078,8 @@ en:
 
   wiki_api:
     create_account_reason: "This user is participating in %{event}."
+
+  onboarding:
+    supplementary:
+      header: "How did you hear about us?"
+      question_text: "Where, or from whom, did you first hear about Wiki Education?"

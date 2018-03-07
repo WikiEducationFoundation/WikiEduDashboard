@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/alerts/onboarding_alert_manager"
+
 #= Controller for onboarding
 class OnboardingController < ApplicationController
   respond_to :html, :json
@@ -20,6 +22,13 @@ class OnboardingController < ApplicationController
                             permissions: @permissions,
                             onboarded: true)
     CheckWikiEmailWorker.check(user: @user)
+    head :no_content
+  end
+
+  def supplementary
+    user_name = params[:user_name]
+    heard_from = params[:heardFrom]
+    OnboardingAlertManager.new.create_alert(user_name, heard_from) if heard_from.present?
     head :no_content
   end
 
