@@ -67,7 +67,9 @@ class CampaignsController < ApplicationController
   def alerts
     respond_to do |format|
       format.html { render }
-      format.json { render json: { alerts: @campaign.alerts } }
+      format.json do
+        @campaign = Campaign.find_by(slug: params[:slug]) if params[:slug]
+      end
     end
   end
 
