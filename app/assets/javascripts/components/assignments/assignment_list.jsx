@@ -7,7 +7,6 @@ import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
-import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
@@ -28,6 +27,22 @@ const AssignmentList = createReactClass({
     });
   },
 
+  getFilteredArticles(options) {
+    const filteredArticles = [];
+    const articles = this.props.articles;
+    for (let i = 0; i < articles.length; i++) {
+      const article = articles[i];
+      let add = true;
+      const keys = Object.keys(options);
+      for (let j = 0; j < keys.length; j++) {
+        const criterion = keys[j];
+        add = add && article[criterion] === options[criterion];
+      }
+      if (add) { filteredArticles.push(article); }
+    }
+    return filteredArticles;
+  }
+
   render() {
     const allAssignments = this.props.assignments;
     const sortedAssignments = _.sortBy(allAssignments, ass => ass.article_title);
@@ -35,7 +50,7 @@ const AssignmentList = createReactClass({
     let elements = Object.keys(grouped).map(title => {
       const group = grouped[title];
       if (!this.hasAssignedUser(group)) { return null; }
-      const article = ArticleStore.getFiltered({ title })[0];
+      const article = this.getFilteredArticles({ title })[0];
       return (
         <Assignment
           assignmentGroup={group}
@@ -81,4 +96,4 @@ const AssignmentList = createReactClass({
 }
 );
 
-export default Editable(AssignmentList, [ArticleStore, AssignmentStore], ServerActions.saveStudents, getState);
+export default Editable(AssignmentList, [AssignmentStore], ServerActions.saveStudents, getState);

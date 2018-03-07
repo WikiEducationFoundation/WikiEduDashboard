@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
-import ArticleStore from '../../stores/article_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
@@ -41,7 +40,7 @@ AvailableArticlesList.propTypes = {
 
 export default Editable(
   AvailableArticlesList,
-  [ArticleStore, AssignmentStore],
+  [AssignmentStore],
   ServerActions.saveStudents,
   getState
 );

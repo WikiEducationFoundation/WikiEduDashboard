@@ -5,7 +5,7 @@ const initialState = {
   articles: [],
   limit: 500,
   limitReached: false,
-  sortKey: null
+  sortKey: 'character_sum'
 };
 
 const isLimitReached = (revs, limit) => {
