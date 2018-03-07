@@ -1081,6 +1081,5 @@ en:
 
   onboarding:
     supplementary:
-      headline: "Where did you hear about Wiki Ed?"
-      heard_from: "Tell us about how you learnt about Wiki Ed"
-      heard_from_helper: "It could be anything, like from a friend, through search results etc."
+      header: "How did you hear about us?"
+      question_text: "Where, or from whom, did you first hear about Wiki Education?"
