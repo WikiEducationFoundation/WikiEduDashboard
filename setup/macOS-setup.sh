@@ -19,7 +19,7 @@ output_line()
     while read -r line
     do
       printf "${CLEAR_LINE}$line"
-      echo $line &>> setup/log.txt
+      echo $line >> setup/log.txt
     done < <(eval $1)
   else
     while read -r line
