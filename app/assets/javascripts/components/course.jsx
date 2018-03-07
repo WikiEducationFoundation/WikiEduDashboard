@@ -61,9 +61,12 @@ const Course = createReactClass({
   },
 
   showEnrollCard(course) {
+    const location = this.props.location;
+    // Only show it on the main url
+    if (!CourseUtils.onCourseIndex(location)) { return false; }
     // Show the enroll card if either the `enroll` or `enrolled` param is present.
     // The enroll param may be blank if the course has no passcode.
-    if (this.props.location.query.enroll !== undefined || this.props.location.query.enrolled) { return true; }
+    if (location.query.enroll !== undefined || location.query.enrolled) { return true; }
     // If the course has no passcode, then show the enroll card to unenrolled users
     if (this.props.currentUser.notEnrolled && course.passcode === '' && !course.ended) { return true; }
     return false;
