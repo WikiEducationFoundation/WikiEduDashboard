@@ -23,7 +23,7 @@
 # Alert for from where the instructor learnt about Wiki Edu.
 class OnboardingAlert < Alert
   def main_subject
-    "Onboarding Alert: [#{user.username}] / [#{user.real_name}]"
+    "Onboarding Alert: #{user.username} / #{user.real_name}"
   end
 
   def url
