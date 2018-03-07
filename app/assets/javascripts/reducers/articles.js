@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { sortByKey } from '../utils/model_utils';
 import { RECEIVE_ARTICLES, SORT_ARTICLES } from '../constants';
 
 const initialState = {
@@ -7,6 +7,14 @@ const initialState = {
   limitReached: false,
   sortKey: 'character_sum'
 };
+
+const SORT_DESCENDING = {
+  rating_num: true,
+  title: true,
+  character_sum: true,
+  view_count: true
+};
+
 
 const isLimitReached = (revs, limit) => {
   return (revs.length < limit);
@@ -22,13 +30,9 @@ export default function articles(state = initialState, action) {
       };
     case SORT_ARTICLES: {
       const newState = { ...state };
-      if (action.key === state.sortKey) {
-        newState.articles = _.sortBy(state.articles, action.key).reverse();
-        newState.sortKey = null;
-      } else {
-        newState.articles = _.sortBy(state.articles, action.key);
-        newState.sortKey = action.key;
-      }
+      const sorted = sortByKey(newState.articles, action.key, state.sortKey, SORT_DESCENDING[action.key]);
+      newState.users = sorted.newModels;
+      newState.sortKey = sorted.newKey;
       return newState;
     }
     default:
