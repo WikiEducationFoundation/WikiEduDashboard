@@ -56,7 +56,7 @@ const OnboardingSupplementary = createReactClass({
     return (
       <div className="form">
         <h1>{I18n.t('onboarding.supplementary.header')}</h1>
-        <form className="panel" onSubmit={this._handleSubmit} ref="form">
+        <form id="supplementary" className="panel" onSubmit={this._handleSubmit} ref="form">
           <div className="form-group">
             <label>{I18n.t('onboarding.supplementary.question_text')}</label>
             <textarea className="form-control" type="text" name="heardFrom" defaultValue={this.state.heardFrom} onChange={this._handleFieldChange.bind(this, 'heardFrom')} />
