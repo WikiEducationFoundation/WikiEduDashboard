@@ -9,7 +9,7 @@ import Assignment from './assignment.jsx';
 import AssignmentStore from '../../stores/assignment_store.js';
 import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
-import { getFiltered } from '../../utils/model_utils.js'
+import { getFiltered } from '../../utils/model_utils.js';
 
 const getState = () => ({ assignments: AssignmentStore.getModels() });
 
