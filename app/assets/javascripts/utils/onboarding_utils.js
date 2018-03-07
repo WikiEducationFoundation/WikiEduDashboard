@@ -39,3 +39,5 @@ const OnboardAPI = {
     );
   }
 }
+
+export default OnboardAPI;
