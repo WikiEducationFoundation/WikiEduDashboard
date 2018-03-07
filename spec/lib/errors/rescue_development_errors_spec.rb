@@ -29,17 +29,15 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
   end
 
   describe 'when CoursesPresenter::NoCampaignError is raised' do
-    controller(ApplicationController) do
-      include Errors::RescueDevelopmentErrors
 
-      def index
-        raise CoursesPresenter::NoCampaignError
-      end
+    before do
+      Campaign.destroy_all
     end
 
-    it 'renders an explanation with helpful advice' do
-      get :index
-      expect(response.body).not_to have_content('There are no campaigns')
+    it 'creates a default campaign' do
+      visit '/'
+      sleep 1
+      expect(Campaign.count).to eq(1) # The default campaign has been created
     end
   end
 end
