@@ -9,7 +9,7 @@ const Alert = ({ alert }) => {
       <td className="desktop-only-tc">{alert.type}</td>
       <td className="desktop-only-tc">{alert.course}</td>
       <td className="desktop-only-tc">{alert.user}</td>
-      <td className="desktop-only-tc">{alert.resolved ? I18n.t('campaign.alert_resolved') : I18n.t('campaign.alert_not_resolved')}</td>
+      <td className="desktop-only-tc">{alert.article}</td>
     </tr>
   );
 };

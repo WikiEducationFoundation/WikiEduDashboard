@@ -5,5 +5,5 @@ json.alerts @campaign.alerts do |alert|
   json.type alert.type
   json.user User.find_by(id: alert.user_id).username if alert.user_id
   json.course Course.find_by(id: alert.course_id).title if alert.course_id
-  json.resolved alert.resolved
+  json.article Article.find_by(id: alert.article_id).title if alert.article_id
 end

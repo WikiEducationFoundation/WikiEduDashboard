@@ -213,10 +213,9 @@ en:
   campaign:
     active_campaigns: Active Campaigns
     add_organizer: Add organizer
+    alert_article: Article title
     alert_label: Campaign Alerts
-    alert_not_resolved: Not resolved
     alert_type: Type
-    alert_resolved: Resolved
     alert_user_id: User
     all_campaigns: All Campaigns
     already_exists: That campaign already exists! Please try again with a different title or slug.
@@ -254,7 +253,6 @@ en:
       the text in this area will be copied over as a description on the program page
     random_passcode: a random passcode
     requested_accounts: Requested accounts
-    resolved: Resolved
     title: Title
     use_start_end_dates: Use start and end dates
 

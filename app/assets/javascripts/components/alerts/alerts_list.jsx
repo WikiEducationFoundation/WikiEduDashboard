@@ -25,8 +25,8 @@ const AlertsList = ({ alerts }) => {
       label: I18n.t('campaign.alert_user_id'),
       desktop_only: true
     },
-    resolved: {
-      label: I18n.t('campaign.resolved'),
+    article: {
+      label: I18n.t('campaign.alert_article'),
       desktop_only: false
     }
   };
