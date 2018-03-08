@@ -1,4 +1,4 @@
-import 'testHelper';
+import 'testHelper'; // eslint-disable-line import/no-extraneous-dependencies
 import React from 'react';
 import { mount } from 'enzyme';
 import FinalArticleChecklist from 'components/common/final_article_checklist';

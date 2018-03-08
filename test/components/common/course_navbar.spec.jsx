@@ -1,4 +1,4 @@
-import 'testHelper';
+import 'testHelper'; // eslint-disable-line import/no-extraneous-dependencies
 import React from 'react';
 import { shallow } from 'enzyme';
 import CourseNavbar from 'components/common/course_navbar';
