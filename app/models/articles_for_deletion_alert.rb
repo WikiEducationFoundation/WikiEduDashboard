@@ -32,4 +32,11 @@ class ArticlesForDeletionAlert < Alert
   def resolvable?
     !resolved
   end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolving this alert means the article is no longer up for deletion. A new
+      alert will be generated if it again nominated or tagged for deletion.
+    EXPLANATION
+  end
 end

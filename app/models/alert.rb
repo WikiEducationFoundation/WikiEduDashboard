@@ -125,6 +125,14 @@ class Alert < ApplicationRecord
     false
   end
 
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolving the alert should be done if the situation that caused it is no
+      longer going on. The Dashboard will create a new alert if it detects the
+      same situation again.
+    EXPLANATION
+  end
+
   def courses_user
     return unless course && user
     @courses_user ||= CoursesUsers.find_by(course_id: course.id, user_id: user.id)
