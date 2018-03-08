@@ -20,12 +20,17 @@ const fetchArticlesPromise = (courseId, limit) => {
 export const fetchArticles = (courseId, limit) => dispatch => {
   return (
     fetchArticlesPromise(courseId, limit)
-      .then(resp =>
-        dispatch({
-          type: types.RECEIVE_ARTICLES,
-          data: resp,
-          limit: limit
-        }))
+      .then(resp => {
+	    dispatch({
+	      type: types.RECEIVE_ARTICLES,
+	      data: resp,
+	      limit: limit
+	    });
+	    dispatch({
+	   		type: types.SORT_ARTICLES,
+	   		key: 'character_sum'
+	    });
+  	   })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
   );
 };

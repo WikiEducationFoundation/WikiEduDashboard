@@ -5,7 +5,7 @@ const initialState = {
   articles: [],
   limit: 500,
   limitReached: false,
-  sortKey: 'character_sum'
+  sortKey: null
 };
 
 const SORT_DESCENDING = {
@@ -29,7 +29,7 @@ export default function articles(state = initialState, action) {
     case SORT_ARTICLES: {
       const newState = { ...state };
       const sorted = sortByKey(newState.articles, action.key, state.sortKey, SORT_DESCENDING[action.key]);
-      newState.users = sorted.newModels;
+      newState.articles = sorted.newModels;
       newState.sortKey = sorted.newKey;
       return newState;
     }
