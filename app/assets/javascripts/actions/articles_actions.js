@@ -28,7 +28,7 @@ export const fetchArticles = (courseId, limit) => dispatch => {
         });
         dispatch({
           type: types.SORT_ARTICLES,
-       	  key: 'character_sum'
+          key: 'character_sum'
         });
        })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
