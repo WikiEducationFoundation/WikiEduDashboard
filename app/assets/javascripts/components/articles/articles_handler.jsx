@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import { connect } from "react-redux";
+
 import ArticleList from './article_list.jsx';
-import UIActions from '../../actions/ui_actions.js';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
+import { fetchArticles, sortArticles } from "../../actions/articles_actions.js";
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -15,22 +17,35 @@ const ArticlesHandler = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     current_user: PropTypes.object,
-    course: PropTypes.object
+    course: PropTypes.object,
+    fetchArticles: PropTypes.func,
+    limitReached: PropTypes.bool,
+    limit: PropTypes.number,
+    articles: PropTypes.array
   },
 
   componentWillMount() {
-    ServerActions.fetch('articles', this.props.course_id);
     ServerActions.fetch('assignments', this.props.course_id);
+    return this.props.fetchArticles(this.props.course_id, this.props.limit);
+  },
+
+  showMore() {
+    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
 
   sortSelect(e) {
-    return UIActions.sort('articles', e.target.value);
+    return this.props.sortArticles(e.target.value);
   },
 
   render() {
     // FIXME: These props should be required, and this component should not be
     // mounted in the first place if they are not available.
     if (!this.props.course || !this.props.course.home_wiki) { return <div />; }
+
+    let showMoreButton;
+    if (!this.props.limitReached) {
+      showMoreButton = <div><button className="button ghost stacked right" onClick={this.showMore}>{I18n.t('articles.see_more')}</button></div>;
+    }
 
     let header;
     if (Features.wikiEd) {
@@ -66,7 +81,8 @@ const ArticlesHandler = createReactClass({
               </select>
             </div>
           </div>
-          <ArticleList {...this.props} />
+          <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
+          {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
           <div className="section-header">
@@ -81,4 +97,15 @@ const ArticlesHandler = createReactClass({
   }
 });
 
-export default ArticlesHandler;
+const mapStateToProps = state => ({
+  limit: state.articles.limit,
+  articles: state.articles.articles,
+  limitReached: state.articles.limitReached
+});
+
+const mapDispatchToProps = {
+  fetchArticles,
+  sortArticles
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlesHandler);

@@ -1,5 +1,6 @@
 export * from "./api";
 export * from "./article_details";
+export * from "./articles.js";
 export * from "./campaigns";
 export * from "./categories";
 export * from "./chat";
@@ -19,4 +20,4 @@ export * from "./user_courses";
 export * from "./user_profile";
 export * from "./user_roles";
 export * from "./users";
-export * from './settings.js';
+export * from "./settings.js";

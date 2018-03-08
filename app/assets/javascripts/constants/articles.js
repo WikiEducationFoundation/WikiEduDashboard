@@ -1,0 +1,2 @@
+export const RECEIVE_ARTICLES = 'RECEIVE_ARTICLES';
+export const SORT_ARTICLES = 'SORT_ARTICLES';
