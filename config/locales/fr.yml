@@ -434,6 +434,8 @@ fr:
     feedback: Commentaire
     feedback_loading: Veuillez attendre pendant le chargement des suggestions…
     gradeables_none: Ce cours n’a aucune affectation notable.
+    home_wiki_language: Langue d’accueil du wiki
+    home_wiki_project: Projet d’accueil du wiki
     instructor:
       one: Instructeur
       other: Instructeurs
@@ -572,6 +574,7 @@ fr:
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
     wiki_staff: Équipe d’édition de wiki
+    withdrawn: Retiré
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
@@ -1098,4 +1101,9 @@ fr:
     no_responses: Il n’y a pas encore de réponses de commentaire.
   wiki_api:
     create_account_reason: Cet utilisateur participe à %{event}.
+  onboarding:
+    supplementary:
+      header: Comment avez-vous entendu parler de nous ?
+      question_text: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
+        pour la première fois ?
 ...

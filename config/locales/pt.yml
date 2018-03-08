@@ -15,8 +15,8 @@
 ---
 pt:
   accessibility:
-    number_field: Isto é um campo numérico. Os botões mostrados pela maioria dos navegadores
-      vão aumentar ou reduzir o resultado.
+    number_field: Este campo é numérico. Os botões mostrados pela maioria dos navegadores
+      aumentam ou reduzem a entrada.
   application:
     cancel: Cancelar
     create_accounts: Criar contas na Wikipédia
@@ -411,12 +411,14 @@ pt:
       user_exists: Desculpe, o(a) utilizador(a) %{username} não existe.
       invalid_language_or_project: Idioma/projeto inválido
       invalid_slug: Escola ou título em branco para o curso.
-      duplicate_slug: Outro programa designado por %{slug} já existe.
+      duplicate_slug: Já existe outro programa chamado %{slug}.
     expected_students: Estudantes esperados
     features_feedback: 'Sugestões automáticas:'
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão a ser carregadas...
     gradeables_none: Este curso não tem tarefas com classificação.
+    home_wiki_language: Língua da wiki de acolhimento
+    home_wiki_project: Projeto da wiki de acolhimento
     instructor:
       one: Professor
       other: Professores
@@ -429,15 +431,15 @@ pt:
     join: Participar
     join_course: Participar no curso
     join_prompt: Participar em '%{title}'?
-    join_successful: Inscreveu-se com sucesso em %{title}.
+    join_successful: Inscreveu-se em %{title}.
     join_failed: A matrícula falhou.
     join_failure_details:
-      cannot_join_twice: Os utilizadores não podem se matricular no mesmo curso duas
+      cannot_join_twice: Os utilizadores não se podem matricular no mesmo curso duas
         vezes.
-      not_yet_approved: Este curso ainda não foi aprovado para a matrícula.
+      not_yet_approved: Este curso ainda não foi aprovado para matrículas.
     join_details: Para entrar neste curso, precisa de uma palavra-passe — ou uma hiperligação
-      que inclua a palavra-passe — do professor. Se ainda não recebeu, contacte o
-      seu professor.
+      que inclua a palavra-passe — do professor. Se ainda não a recebeu, contacte
+      o seu professor.
     join_no_passcode: Tem a certeza de que deseja participar deste curso?
     leave_confirmation: Tem a certeza de que deseja sair deste curso?
     leave_course: Abandonar curso
@@ -552,6 +554,7 @@ pt:
       Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
     wiki_staff: Equipa Wiki Ed
+    withdrawn: Retirado
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Os seus cursos

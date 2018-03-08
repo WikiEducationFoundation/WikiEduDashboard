@@ -67,7 +67,7 @@ fi:
       noin 30 minuuttia.)
     review_orientation: Tarkastele opastusta
     start_orientation: Aloita opastus
-    blog_headline: Tuoreet uutiset Wiki Edistä
+    blog_headline: Tuoreet uutiset Wiki Educationista
   home:
     explore: Tutustu
     log_in: Kirjaudu sisään Wikipedian kautta
@@ -135,7 +135,7 @@ fi:
       mutta se ei kerro mitään artikkelin sisällöstä. (Pisteet ovat saatavilla vain
       englanninkielisen Wikipedian artikkeleille.)'
   assignments:
-    article: Artikkeli %{title} annettiin tehtäväksi
+    article: Artikkeli %{title} on nyt annettu tehtäväksi sinulle.
     already_exists: Tehtävä on jo luotu!
     title_too_large: Otsikon enimmäispituus on 255 merkkiä
     assignees: Tehtävän tekijät
