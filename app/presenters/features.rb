@@ -71,4 +71,9 @@ class Features
   def self.enable_account_requests?
     ENV['enable_account_requests'] == 'true'
   end
+
+  def self.celebrate?(current_user)
+    return false unless current_user&.admin?
+    ENV['celebrate'] == 'true'
+  end
 end
