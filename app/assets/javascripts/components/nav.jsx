@@ -234,7 +234,7 @@ const Nav = createReactClass({
 
     let confetti;
     if (Features.celebrate) {
-      confetti = <Confetti width={this.state.width} height={this.state.height} />;
+      confetti = <Confetti width={this.state.width} height={this.state.height} recycle={false} />;
     }
 
     return (
