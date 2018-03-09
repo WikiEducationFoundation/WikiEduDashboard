@@ -108,7 +108,7 @@ describe Course, type: :model do
 
     # Update caches
     ArticlesCourses.update_all_caches
-    CoursesUsers.update_all_caches
+    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 
     # Fetch the created CoursesUsers entry

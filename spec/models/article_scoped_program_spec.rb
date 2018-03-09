@@ -72,7 +72,7 @@ describe ArticleScopedProgram, type: :model do
     Article.update_all_caches
     ArticlesCourses.update_from_course(asp)
     ArticlesCourses.update_all_caches
-    CoursesUsers.update_all_caches
+    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
   end
 

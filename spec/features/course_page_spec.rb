@@ -120,7 +120,7 @@ describe 'the course page', type: :feature, js: true do
 
     ArticlesCourses.update_from_course(Course.last)
     ArticlesCourses.update_all_caches
-    CoursesUsers.update_all_caches
+    CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 
     stub_token_request
