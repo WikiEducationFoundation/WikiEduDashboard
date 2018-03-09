@@ -32,6 +32,7 @@ const Wizard = createReactClass({
     return getState();
   },
   componentWillMount() {
+    history.pushState({ index: 0 }, 'wizard', 'step-1'); // Initial States
     return ServerActions.fetchWizardIndex();
   },
   componentWillUnmount() {
@@ -111,5 +112,10 @@ const Wizard = createReactClass({
   }
 }
 );
+
+window.onpopstate = function (event) {
+  WizardActions.rewindWizard(event.state.index);
+};
+
 
 export default Wizard;

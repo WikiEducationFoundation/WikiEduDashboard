@@ -29,6 +29,13 @@ const Panel = createReactClass({
   },
 
   advance() {
+    const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
+    step[1] = +step[1] + 1; // Keeping the step in line with the UI
+    history.pushState(
+      { index: step[1] - 1 }, // Actual index to be rewinded to
+      step.join(' '),
+      step.join('-')
+    );
     if (this.props.saveCourse) {
       if (this.props.saveCourse()) { return WizardActions.advanceWizard(); }
     } else {
@@ -36,6 +43,13 @@ const Panel = createReactClass({
     }
   },
   rewind(e) {
+    const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
+    step[1] = +step[1] - 1; // Keeping the step in line with the UI
+    history.pushState(
+      { index: step[1] - 1 }, // Actual index to be rewinded to
+      step.join(' '),
+      step.join('-')
+    );
     e.preventDefault();
     if (this.props.saveCourse) {
       if (this.props.saveCourse()) { return WizardActions.rewindWizard(); }
