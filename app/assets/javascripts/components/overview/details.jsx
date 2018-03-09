@@ -10,7 +10,7 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
-import CourseEditToggle from './course_edit_toggle.jsx'
+import CourseEditToggle from './course_edit_toggle.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
