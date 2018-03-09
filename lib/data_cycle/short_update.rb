@@ -9,7 +9,7 @@ class ShortUpdate
 
   def initialize
     setup_logger
-    set_courses_to_update
+    log_message "Ready to update #{Course.ready_for_short_update.count} courses"
     return if updates_paused?
     return if conflicting_updates_running?
 
@@ -17,11 +17,6 @@ class ShortUpdate
   end
 
   private
-
-  def set_courses_to_update
-    @courses = Course.ready_for_short_update.to_a
-    log_message "Ready to update #{@courses.count} courses"
-  end
 
   def run_update
     log_start_of_update 'Short update tasks are beginning.'
@@ -39,7 +34,7 @@ class ShortUpdate
   ###############
 
   def update_course_revisions
-    log_message 'Importing revisions and articles for current editathons'
+    log_message 'Importing revisions and articles for soon-to-end courses'
     Course.ready_for_short_update.each { |course| UpdateCourseRevisions.new(course) }
   end
 

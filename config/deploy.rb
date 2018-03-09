@@ -24,6 +24,11 @@ set :ssh_options, forward_agent: true
 # Default value for :pty is false
 set :pty, false
 
+# Sidekiq settings
+set :sidekiq_processes, 2
+set :sidekiq_options_per_process, ["--queue default", "--queue short_update"]
+
+
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/database.yml',
