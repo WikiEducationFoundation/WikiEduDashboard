@@ -1,6 +1,6 @@
 import React from 'react';
-import CourseActions from '../../actions/course_actions.js';
 import uuid from 'uuid';
+import CourseActions from '../../actions/course_actions.js';
 
 const CourseEditToggle = React.createClass({
   propTypes: {
