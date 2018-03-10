@@ -23,6 +23,7 @@ class Wiki < ApplicationRecord
   validates_uniqueness_of :project, scope: :language
 
   PROJECTS = %w[
+    commons
     wikibooks
     wikidata
     wikimedia
@@ -58,7 +59,8 @@ class Wiki < ApplicationRecord
 
   MULTILINGUAL_PROJECTS = {
     'wikidata' => 'www.wikidata.org',
-    'wikisource' => 'wikisource.org'
+    'wikisource' => 'wikisource.org',
+    'commons' => 'commons.wikimedia.org'
   }.freeze
 
   #################
