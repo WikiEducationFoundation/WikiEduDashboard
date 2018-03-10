@@ -63,12 +63,12 @@ const Overview = createReactClass({
     return this.setState(getState());
   },
 
-  timeout: (function(){
+  timeout: (function () {
     if (this.state.course.level === 'Editathon') {
       return setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL);
     }
     return null;
-  })(),
+  }()),
 
   render() {
     if (this.state.course.cloned_status === 1) {
