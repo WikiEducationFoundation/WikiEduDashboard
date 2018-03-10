@@ -50,6 +50,7 @@ const Overview = createReactClass({
 
   componentDidMount() {
     ServerActions.fetch('timeline', this.props.course_id);
+    this.timeout = poll();
     return ServerActions.fetch('tags', this.props.course_id);
   },
 
@@ -63,12 +64,14 @@ const Overview = createReactClass({
     return this.setState(getState());
   },
 
-  timeout: (() => {
+  poll() {
     if (this.state.course.level === 'Editathon') {
       return setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL);
     }
     return null;
-  })(),
+  },
+
+  timeout: null,
 
   render() {
     if (this.state.course.cloned_status === 1) {
