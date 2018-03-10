@@ -457,8 +457,8 @@ en:
     join_prompt: Join '%{title}'?
     join_successful: >
      You’ve successfully joined %{title}.
-     The Dashboard shows all that you need to know and updates itself every 5 minutes or so.
-     However if need be, you could always refresh this page to get the latest data.
+     In case of an Editathon, the dashboard updates itself about every 5 minutes or so.
+     For other course levels, you could always refresh this page to get the latest data.
     join_failed: Enrollment failed.
     join_failure_details:
       cannot_join_twice: Users may not join the same course twice.

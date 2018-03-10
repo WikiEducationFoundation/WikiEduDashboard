@@ -54,14 +54,21 @@ const Overview = createReactClass({
   },
 
   componentWillUnmount() {
-    clearInterval(this.timeout);
+    if (this.timeout) {
+      clearInterval(this.timeout);
+    }
   },
 
   storeDidChange() {
     return this.setState(getState());
   },
 
-  timeout: setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL),
+  timeout: (function(){
+    if (this.state.course.level === 'Editathon') {
+      return setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL);
+    }
+    return null;
+  })(),
 
   render() {
     if (this.state.course.cloned_status === 1) {
