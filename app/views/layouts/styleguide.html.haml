@@ -1,9 +1,12 @@
 - content_for :head do
-  = dashboard_stylesheet_tag("main")
-  = dashboard_stylesheet_tag("styleguide")
+  -# = dashboard_stylesheet_tag("main")
+  = stylesheet_pack_tag 'stylesheet-main'
+  -# = dashboard_stylesheet_tag("styleguide")
+  = stylesheet_pack_tag 'stylesheet-styleguide'
 
 - content_for :javascripts do
-  = hot_javascript_tag("styleguide")
+  -# = hot_javascript_tag("styleguide")
+  = javascript_pack_tag 'styleguide'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }

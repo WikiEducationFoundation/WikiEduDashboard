@@ -6,14 +6,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-// scripts to run before and after build
-const onBuildStart = [];
-
-/*
-* I18N
-*/
-onBuildStart.push('bundle exec rake i18n:js:export');
-
 /*
 * CLEAN FILES BEFORE BUILD
 */
@@ -59,7 +51,7 @@ config.entryStyleSheets.forEach(function (sheetName) {
 
 environment.loaders.append('styl', {
   test: /\.styl$/,
-  loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['style-loader', 'css-loader', 'stylus-loader'] }),
+  loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'stylus-loader'] }),
 });
 
 environment.plugins.append(
@@ -84,7 +76,7 @@ environment.loaders.append('images', {
 environment.plugins.append(
   'WebpackShell',
   new WebpackShellPlugin({
-    onBuildStart: onBuildStart,
+    onBuildStart: ['bundle exec rake i18n:js:export'],
     onBuildEnd: []
   })
 );
