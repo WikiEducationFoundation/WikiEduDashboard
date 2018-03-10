@@ -50,7 +50,7 @@ const Overview = createReactClass({
 
   componentDidMount() {
     ServerActions.fetch('timeline', this.props.course_id);
-    this.timeout = poll();
+    this.timeout = this.poll();
     return ServerActions.fetch('tags', this.props.course_id);
   },
 
