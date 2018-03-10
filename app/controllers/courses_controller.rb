@@ -43,6 +43,7 @@ class CoursesController < ApplicationController
     slug_from_params if should_set_slug?
     @course.update course_params
     set_timeline_enabled
+    set_course_edits_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
