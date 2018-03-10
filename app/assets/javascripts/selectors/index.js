@@ -9,6 +9,8 @@ const getCurrentUserFromHtml = state => state.currentUserFromHtml;
 const getCourseCampaigns = state => state.campaigns.campaigns;
 const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
+const getAllEditedArticles = state => state.articles.articles;
+const getProjectFilter = state => state.articles.projectFilter;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -61,5 +63,14 @@ export const getAvailableCampaigns = createSelector(
 export const getCloneableCourses = createSelector(
   [getUserCourses], (userCourses) => {
     return getFiltered(userCourses, { cloneable: true });
+  }
+);
+
+export const getProjectArticles = createSelector(
+  [getAllEditedArticles, getProjectFilter], (editedArticles, projectFilter) => {
+    if (projectFilter === null) {
+      return editedArticles;
+    }
+    return getFiltered(editedArticles, { project: projectFilter });
   }
 );
