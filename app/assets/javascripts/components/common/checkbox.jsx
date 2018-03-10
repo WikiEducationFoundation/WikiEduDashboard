@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
 
 const Checkbox = createReactClass({
   displayName: 'Checkbox',
@@ -13,15 +13,9 @@ const Checkbox = createReactClass({
     editable: PropTypes.bool
   },
 
-  mixins: [InputMixin],
-
-  getInitialState() {
-    return { value: this.props.value };
-  },
-
   onCheckboxChange(e) {
     e.target.value = e.target.checked;
-    return this.onChange(e);
+    return this.props.onChange(e);
   },
 
   render() {
@@ -36,7 +30,7 @@ const Checkbox = createReactClass({
         {label}
         <input
           type="checkbox"
-          checked={this.state.value}
+          checked={this.props.value}
           onChange={this.onCheckboxChange}
           disabled={!this.props.editable}
         />
@@ -45,4 +39,4 @@ const Checkbox = createReactClass({
   }
 });
 
-export default Checkbox;
+export default InputHOC(Checkbox);
