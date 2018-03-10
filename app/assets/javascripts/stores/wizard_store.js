@@ -235,6 +235,9 @@ const WizardStore = Flux.createStore(
       case 'WIZARD_REWIND':
         moveWizard(true, data.toIndex);
         break;
+      case 'WIZARD_GOTO':
+        moveWizard(false, data.toIndex);
+        break;
       case 'WIZARD_RESET': case 'WIZARD_SUBMITTED':
         restore();
         // split off /wizard, go back to timeline and reload course

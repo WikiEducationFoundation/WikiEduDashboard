@@ -19,6 +19,24 @@ const getState = () =>
   })
 ;
 
+const persist = function () {
+  window.onbeforeunload = function () {
+      return "Data will be lost if you leave/refresh the page, are you sure?";
+  };
+  window.history.replaceState({ index: 0 }, 'wizard', '#step1'); // Initial States
+  document.title += ' — Step 1';
+  window.onpopstate = function (event) { // Listen to changes
+    if (event.state) {
+      WizardActions.goToWizard(event.state.index);
+    }
+  };
+};
+
+const unloadEvents = function () {
+    window.onpopstate = null;
+    window.onbeforeunload = null;
+};
+
 const Wizard = createReactClass({
   displayName: 'Wizard',
   propTypes: {
@@ -32,10 +50,11 @@ const Wizard = createReactClass({
     return getState();
   },
   componentWillMount() {
-    history.pushState({ index: 0 }, 'wizard', 'step-1'); // Initial States
+    persist();
     return ServerActions.fetchWizardIndex();
   },
   componentWillUnmount() {
+    unloadEvents();
     return WizardActions.resetWizard();
   },
   storeDidChange() {
@@ -61,6 +80,7 @@ const Wizard = createReactClass({
         return (
           <FormPanel
             panel={panel}
+            panelCount={panelCount}
             course={this.props.course}
             key={panel.key}
             index={i}
@@ -73,6 +93,7 @@ const Wizard = createReactClass({
         return (
           <Panel
             panel={panel}
+            panelCount={panelCount}
             parentPath={this.timelinePath()}
             key={panel.key}
             index={i}
@@ -87,6 +108,7 @@ const Wizard = createReactClass({
         <SummaryPanel
           panel={panel}
           parentPath={this.timelinePath()}
+          panelCount={panelCount}
           course={this.props.course}
           key={panel.key}
           index={i}
@@ -112,10 +134,6 @@ const Wizard = createReactClass({
   }
 }
 );
-
-window.onpopstate = function (event) {
-  WizardActions.rewindWizard(event.state.index);
-};
 
 
 export default Wizard;

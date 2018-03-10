@@ -25,32 +25,40 @@ const Panel = createReactClass({
     button_text: PropTypes.string,
     helperText: PropTypes.string,
     summary: PropTypes.bool,
-    step: PropTypes.string
+    step: PropTypes.string,
+    panelCount: PropTypes.number
+  },
+
+  persistState() {
+      const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
+      step[1] = +step[1] + 1; // Keeping the step in line with the UI
+      window.history.pushState(
+        { index: step[1] - 1 }, // Actual index to be rewinded to
+        `Step ${step[1]}`,
+        `#${step.join('')}`
+      );
+      document.title = document.title.replace(/\d+$/, step[1]);
+  },
+
+  handlePrevious() {
+    window.history.back();
   },
 
   advance() {
-    const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
-    step[1] = +step[1] + 1; // Keeping the step in line with the UI
-    history.pushState(
-      { index: step[1] - 1 }, // Actual index to be rewinded to
-      step.join(' '),
-      step.join('-')
-    );
+    if (this.props.summary) {
+      window.location.hash = `step${this.props.panelCount}`;
+    }
+    else { this.persistState(); }
     if (this.props.saveCourse) {
       if (this.props.saveCourse()) { return WizardActions.advanceWizard(); }
     } else {
       return WizardActions.advanceWizard();
     }
   },
+
   rewind(e) {
-    const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
-    step[1] = +step[1] - 1; // Keeping the step in line with the UI
-    history.pushState(
-      { index: step[1] - 1 }, // Actual index to be rewinded to
-      step.join(' '),
-      step.join('-')
-    );
     e.preventDefault();
+    this.handlePrevious();
     if (this.props.saveCourse) {
       if (this.props.saveCourse()) { return WizardActions.rewindWizard(); }
     } else {
