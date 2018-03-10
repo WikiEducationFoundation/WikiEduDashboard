@@ -9,7 +9,8 @@ import ServerActions from '../../actions/server_actions.js';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles } from "../../actions/articles_actions.js";
+import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
+import { getProjectArticles } from '../../selectors';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -27,6 +28,10 @@ const ArticlesHandler = createReactClass({
   componentWillMount() {
     ServerActions.fetch('assignments', this.props.course_id);
     return this.props.fetchArticles(this.props.course_id, this.props.limit);
+  },
+
+  onChangeFilter(e) {
+    return this.props.filterArticles(e.target.value);
   },
 
   showMore() {
@@ -66,12 +71,28 @@ const ArticlesHandler = createReactClass({
      categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
    }
 
+   let filterProjects;
+   if (this.props.projects.length > 1) {
+    const projectOptions = this.props.projects.map((project) => {
+      return (<option value={project}>{project}</option>);
+    });
+
+    filterProjects = (
+      <div className="filter-select">
+        <select className="filters" name="filters" onChange={this.onChangeFilter}>
+          <option value="all">All</option>
+          {projectOptions}
+        </select>
+      </div>
+    );
+   }
     return (
       <div>
         <div id="articles">
           <div className="section-header">
             {header}
             <CourseOresPlot course={this.props.course} />
+            {filterProjects}
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="rating_num">{I18n.t('articles.rating')}</option>
@@ -99,13 +120,15 @@ const ArticlesHandler = createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: state.articles.articles,
-  limitReached: state.articles.limitReached
+  articles: getProjectArticles(state),
+  limitReached: state.articles.limitReached,
+  projects: state.articles.projects,
 });
 
 const mapDispatchToProps = {
   fetchArticles,
-  sortArticles
+  sortArticles,
+  filterArticles
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlesHandler);
