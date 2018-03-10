@@ -538,6 +538,7 @@ en:
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
     timeline_link: Timeline
+    timeline_tooltip: Timeline help you to keep track of your course by breaking the course duration in weeks which have proper agendas and tasks associated with them.
     time_zone_message: Start and end times are displayed in your local time zone.
     title: Title
     training_due:

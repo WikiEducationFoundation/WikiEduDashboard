@@ -34,12 +34,23 @@ const TimelineToggle = createReactClass({
         <strong>{I18n.t("courses.timeline_enabled")}:</strong> {currentValue ? 'yes' : 'no'}
       </span>
     );
+    const tooltip = (
+      <div className="tooltip-trigger">
+        <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        <div className="tooltip large dark">
+          <p>
+            {I18n.t("courses.timeline_tooltip")}
+          </p>
+        </div>
+      </div>
+    );
     if (this.props.editable) {
       selector = (
         <div className="form-group">
           <span htmlFor={this.state.id}>
             <strong>{I18n.t("courses.timeline_enabled")}:</strong>
           </span>
+          {tooltip}
           <select
             id={this.state.id}
             name="timeline_enabled"
