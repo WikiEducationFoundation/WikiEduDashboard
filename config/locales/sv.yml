@@ -111,6 +111,8 @@ sv:
     create_my_campaign: Skapa min kampanj!
     description: Beskrivning
     delete_campaign: Radera denna kampanj
+    disable_account_requests: Inaktivera kontobegäran
+    enable_account_requests: Aktivera kontobegäran
     none: Ingen
     organizers: Arrangörer
     organizer_added: '%{user} är nu en arrangör av kampanjen "%{title}"'
@@ -118,6 +120,7 @@ sv:
     program_template: Programmall
     program_template_tooltip: När en arrangör etablerar ett program i denna kampanj
       kopieras texten i detta fält över som beskrivning på programsidan
+    requested_accounts: Begärda konton
     title: Titel
     use_start_end_dates: Använd start- och slutdatum
   categories:

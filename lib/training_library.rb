@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_base"
+require_dependency "#{Rails.root}/lib/training/training_base"
 
 class TrainingLibrary < TrainingBase
   attr_accessor :name, :modules, :introduction, :categories, :id

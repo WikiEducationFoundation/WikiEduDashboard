@@ -26,7 +26,7 @@
 #  first_login         :datetime
 #
 
-require "#{Rails.root}/lib/utils"
+require_dependency "#{Rails.root}/lib/utils"
 
 #= User model
 class User < ApplicationRecord

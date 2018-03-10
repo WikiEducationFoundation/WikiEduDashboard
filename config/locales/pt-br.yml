@@ -421,6 +421,8 @@ pt-br:
     feedback: Comentários
     feedback_loading: Por favor aguarde, enquanto as sugestões estão sendo carregadas...
     gradeables_none: Este curso não tem atribuições graduáveis.
+    home_wiki_language: Idioma da wiki de acolhimento
+    home_wiki_project: Projeto da wiki de acolhimento
     instructor:
       one: Instructor
       other: Instrutores
@@ -555,6 +557,7 @@ pt-br:
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
     wiki_staff: Equipe Wiki Ed
+    withdrawn: Retirado
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Seus cursos
@@ -1073,4 +1076,8 @@ pt-br:
     no_responses: Não há comentários/repostas ainda.
   wiki_api:
     create_account_reason: Este usuário está participando %{event}.
+  onboarding:
+    supplementary:
+      header: Como você ficou sabendo sobre nós?
+      question_text: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki Education?
 ...

@@ -20,7 +20,8 @@
 #  details        :text(65535)
 #
 
-# Alert for when an article has been nominated for DYK on English Wikipedia
+# Alert for when an article under discretionary sanctions on Wikipedia has been
+# edited.
 class DiscretionarySanctionsEditAlert < Alert
   def main_subject
     "#{article.title} — #{course&.slug}"
@@ -32,5 +33,13 @@ class DiscretionarySanctionsEditAlert < Alert
 
   def resolvable?
     !resolved
+  end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolve this alert if you want to be alerted again for future edits to
+      the article. The Dashboard will issue a new alert only if there edits to
+      this article that happen after the resolved alert was generated.
+    EXPLANATION
   end
 end

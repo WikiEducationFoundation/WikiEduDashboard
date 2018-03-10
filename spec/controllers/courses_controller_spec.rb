@@ -116,7 +116,8 @@ describe CoursesController do
         submitted: submitted_2,
         day_exceptions: '',
         weekdays: '0001000',
-        no_day_exceptions: true }
+        no_day_exceptions: true,
+        home_wiki_id: 1 }
     end
     before do
       allow(controller).to receive(:current_user).and_return(user)

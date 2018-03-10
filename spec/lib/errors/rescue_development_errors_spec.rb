@@ -37,9 +37,11 @@ describe Errors::RescueDevelopmentErrors, type: :controller do
       end
     end
 
-    it 'renders an explanation with helpful advice' do
+    it 'creates a default campaign' do
+      Campaign.destroy_all
+      expect(Campaign.count).to eq(0)
       get :index
-      expect(response.body).to match(/There are no campaigns/)
+      expect(Campaign.count).to eq(1) # The default campaign has been created
     end
   end
 end

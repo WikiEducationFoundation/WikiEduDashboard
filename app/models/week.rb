@@ -12,6 +12,8 @@
 #  order      :integer          default(1), not null
 #
 
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
+
 #= Week model
 class Week < ApplicationRecord
   belongs_to :course

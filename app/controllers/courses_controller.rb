@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require 'oauth'
-require "#{Rails.root}/lib/wiki_edits"
-require "#{Rails.root}/lib/list_course_manager"
-require "#{Rails.root}/lib/tag_manager"
-require "#{Rails.root}/lib/course_creation_manager"
-require "#{Rails.root}/app/workers/update_course_worker"
-require "#{Rails.root}/app/workers/notify_untrained_users_worker"
-require "#{Rails.root}/app/workers/announce_course_worker"
+require_dependency "#{Rails.root}/lib/wiki_edits"
+require_dependency "#{Rails.root}/lib/list_course_manager"
+require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/course_creation_manager"
+require_dependency "#{Rails.root}/app/workers/update_course_worker"
+require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
+require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update course_params
+    @course.update update_params
     set_timeline_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
@@ -217,11 +217,21 @@ class CoursesController < ApplicationController
               :no_day_exceptions, :cloned_status, :type, :level, :private)
   end
 
+  def update_params
+    if params[:course].key?(:home_wiki)
+      home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
+                                     project: params.dig(:course, :home_wiki, :project)
+      course_params.merge!(home_wiki_id: home_wiki[:id])
+    else
+      course_params
+    end
+  end
+
   def instructor_role_description
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles assignments campaigns categories check course
+  SHOW_ENDPOINTS = %w[articles article_count assignments campaigns categories check course
                       revisions tag tags timeline uploads users].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
@@ -231,7 +241,10 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    @limit = params[:limit] if (params[:endpoint] = 'revisions')
+    case params[:endpoint]
+    when 'revisions', 'articles'
+      @limit = params[:limit]
+    end
   end
 
   # If the user could make an edit to the course, this verifies that

@@ -60,6 +60,18 @@ const Course = createReactClass({
     return this.setState(getState());
   },
 
+  showEnrollCard(course) {
+    const location = this.props.location;
+    // Only show it on the main url
+    if (!CourseUtils.onCourseIndex(location)) { return false; }
+    // Show the enroll card if either the `enroll` or `enrolled` param is present.
+    // The enroll param may be blank if the course has no passcode.
+    if (location.query.enroll !== undefined || location.query.enrolled) { return true; }
+    // If the course has no passcode, then show the enroll card to unenrolled users
+    if (this.props.currentUser.notEnrolled && course.passcode === '' && !course.ended) { return true; }
+    return false;
+  },
+
   submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
@@ -80,7 +92,8 @@ const Course = createReactClass({
 
   render() {
     const courseId = this.getCourseID();
-    if (!courseId || !this.state.course || !this.state.course.home_wiki) { return <div />; }
+    const course = this.state.course;
+    if (!courseId || !course || !course.home_wiki) { return <div />; }
 
     const alerts = [];
     const userRoles = this.props.currentUser;
@@ -89,9 +102,9 @@ const Course = createReactClass({
     // //////////////////////////////////
 
     // For unpublished courses, when viewed by an instructor or admin
-    if (userRoles.isNonstudent && !this.state.course.legacy && !this.state.course.published) {
+    if (userRoles.isNonstudent && !course.legacy && !course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
-      const isUnsubmittedClassroomProgramCourse = CourseStore.isLoaded() && !(this.state.course.submitted || this.state.published) && this.state.course.type === 'ClassroomProgramCourse';
+      const isUnsubmittedClassroomProgramCourse = CourseStore.isLoaded() && !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
@@ -127,7 +140,7 @@ const Course = createReactClass({
       }
 
       // When the course has been submitted
-      if (this.state.course.submitted) {
+      if (course.submitted) {
         // Show instructors the 'submitted' notice.
         if (!userRoles.isAdmin) {
           alerts.push((
@@ -154,14 +167,14 @@ const Course = createReactClass({
 
     // For published courses with no students, highlight the enroll link
     const hasNoStudents = this.props.usersLoaded && this.props.studentCount === 0;
-    if (userRoles.isNonstudent && this.state.course.published && hasNoStudents && !this.state.course.legacy) {
+    if (userRoles.isNonstudent && course.published && hasNoStudents && !course.legacy) {
       const enrollEquals = '?enroll=';
-      const url = window.location.origin + this._courseLinkParams() + enrollEquals + this.state.course.passcode;
+      const url = window.location.origin + this._courseLinkParams() + enrollEquals + course.passcode;
       alerts.push((
         <div className="notification" key="enroll">
           <div className="container">
             <div>
-              <p>{CourseUtils.i18n('published', this.state.course.string_prefix)}</p>
+              <p>{CourseUtils.i18n('published', course.string_prefix)}</p>
               <a href={url}>{url}</a>
             </div>
           </div>
@@ -173,9 +186,9 @@ const Course = createReactClass({
     // ////////////////////////
     // Training notifications /
     // ////////////////////////
-    if (this.state.course.incomplete_assigned_modules && this.state.course.incomplete_assigned_modules.length) {
+    if (course.incomplete_assigned_modules && course.incomplete_assigned_modules.length) {
       // `table` key is because it comes back as an openstruct
-      const module = this.state.course.incomplete_assigned_modules[0].table;
+      const module = course.incomplete_assigned_modules[0].table;
       const messageKey = moment().isAfter(module.due_date, 'day') ? 'courses.training_overdue' : 'courses.training_due';
 
       alerts.push(
@@ -191,14 +204,14 @@ const Course = createReactClass({
     // //////////////////////
     // Survey notifications /
     // //////////////////////
-    if (this.state.course.survey_notifications && this.state.course.survey_notifications.length) {
-      this.state.course.survey_notifications.map(notification => {
+    if (course.survey_notifications && course.survey_notifications.length) {
+      course.survey_notifications.map(notification => {
         const dismissOnClick = () => this.dismissSurvey(notification.id);
         return alerts.push(
           <div className="notification notification--survey" key={"survey_notification_#{notification.id}"}>
             <div className="container">
-              <p>{notification.message || CourseUtils.i18n('survey.notification_message', this.state.course.string_prefix)}</p>
-              <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', this.state.course.string_prefix)}</a>
+              <p>{notification.message || CourseUtils.i18n('survey.notification_message', course.string_prefix)}</p>
+              <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', course.string_prefix)}</a>
               <button className="button small pull-right border inverse-border" onClick={dismissOnClick}>{I18n.t('courses.dismiss_survey')}</button>
             </div>
           </div>
@@ -210,22 +223,20 @@ const Course = createReactClass({
     // //////////////////////////
     // Experiment notifications /
     // //////////////////////////
-    if (this.state.course.experiment_notification) {
-      alerts.push(<OptInNotification notification={this.state.course.experiment_notification} key="opt_in" />);
+    if (course.experiment_notification) {
+      alerts.push(<OptInNotification notification={course.experiment_notification} key="opt_in" />);
     }
 
     // //////////////////
     // Enrollment modal /
     // //////////////////
     let enrollCard;
-    // Show the enroll card if either the `enroll` or `enrolled` param is present.
-    // The enroll param may be blank if the course has no passcode.
-    if (this.props.location.query.enroll !== undefined || this.props.location.query.enrolled) {
+    if (this.showEnrollCard(course)) {
       enrollCard = (
         <EnrollCard
           user={this.props.currentUser}
           userRoles={userRoles}
-          course={this.state.course}
+          course={course}
           courseLink={this._courseLinkParams()}
           passcode={this.props.location.query.enroll}
           enrolledParam={this.props.location.query.enrolled}
@@ -239,7 +250,7 @@ const Course = createReactClass({
         <div className="course-nav__wrapper">
           <Affix className="course_navigation" offset={57}>
             <CourseNavbar
-              course={this.state.course}
+              course={course}
               location={this.props.location}
               currentUser={this.props.currentUser}
               courseLink={this._courseLinkParams()}
@@ -253,7 +264,7 @@ const Course = createReactClass({
         <div className="course_main container">
           <Confirm />
           {enrollCard}
-          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.props.currentUser, course: this.state.course })}
+          {React.cloneElement(this.props.children, { course_id: courseId, current_user: this.props.currentUser, course })}
         </div>
       </div>
     );

@@ -20,6 +20,10 @@ pam:
     date_time: Petsa/Oras
     edited_by: Miyalilan nang
     title: Titulu
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Lagyu ning Talagamit
   users:
     name: Lagyu
 ...

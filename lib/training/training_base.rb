@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/training/training_loader"
+require_dependency "#{Rails.root}/lib/training/training_loader"
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
@@ -52,14 +52,7 @@ class TrainingBase
   end
 
   def self.load_from_cache_or_rebuild
-    if Features.wiki_trainings?
-      # Only load explicitly, not on a cold cache, when loading from wiki.
-      # This prevents situations where many users are trying to load uncached
-      # trainings at once, causing major problems.
-      Rails.cache.read(cache_key) || []
-    else
-      Rails.cache.read(cache_key) || load
-    end
+    Rails.cache.read(cache_key) || load
   end
 
   # Clears both the class instance variable and the cache for the child class.

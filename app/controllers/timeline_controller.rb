@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/app/workers/update_course_worker"
-
 #= Controller for timeline functionality
 class TimelineController < ApplicationController
   respond_to :html, :json

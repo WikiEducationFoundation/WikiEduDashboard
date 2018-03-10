@@ -63,4 +63,20 @@ describe 'onboarding', type: :feature, js: true do
       expect(user.permissions).to eq User::Permissions::INSTRUCTOR
     end
   end
+
+  describe 'onboarding supplement' do
+    let(:onboarded) { false }
+
+    before :each do
+      login_as(user, scope: :user)
+    end
+
+    it 'should go to supplementary' do
+      visit onboarding_path
+      find('.intro .button').click
+      find('input[type=radio][value=true]').click
+      find('form button[type=submit]').click
+      page.assert_selector('form#supplementary')
+    end
+  end
 end

@@ -93,7 +93,7 @@ describe CourseRevisionUpdater do
                course_id: 1,
                user_id: 5,
                role: 0)
-        CoursesUsers.update_all_caches
+        CoursesUsers.update_all_caches(CoursesUsers.all)
         CourseRevisionUpdater.import_new_revisions(Course.all)
         expect(Revision.all.count > 1).to be true
       end

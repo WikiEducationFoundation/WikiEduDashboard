@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/wiki_course_edits"
+require_dependency "#{Rails.root}/lib/wiki_course_edits"
 
 class RemoveAssignmentWorker
   include Sidekiq::Worker

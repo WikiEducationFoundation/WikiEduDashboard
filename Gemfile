@@ -3,7 +3,7 @@ ruby '2.5.0'
 
 ### Basic Framework
 gem 'rails', '5.1.5'
-gem 'jbuilder', '~> 2.0' # DSL for building JSON view template
+gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
 gem 'figaro' # easy access to ENV variables. Deprecated.
@@ -13,7 +13,7 @@ gem 'mysql2' # MySQL integration for ActiveRecord
 gem 'activerecord-import' # Used to save batches of new ActiveRecord objects
 # convenient cloning of ActiveRecord objects along with child records
 # Used for cloning surveys and courses.
-gem 'deep_cloneable', '~> 2.3.0'
+gem 'deep_cloneable'
 gem 'paper_trail' # Save histories of record changes related to surveys
 gem "paperclip" # used by Course and UserProfile for file attachments
 gem 'sidekiq' # Framework for running background worker jobs
@@ -97,7 +97,7 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-sidekiq'
   gem 'rails-erd'
-  gem 'annotate', '~> 2.7.1' # Generates automatic schema notations on model files
+  gem 'annotate' # Generates automatic schema notations on model files
 end
 
 group :development, :test do
@@ -119,6 +119,6 @@ group :test do
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests
   gem 'simplecov', require: false
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers'
   gem 'rails-controller-testing'
 end

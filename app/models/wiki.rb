@@ -8,6 +8,7 @@
 #  language :string(16)
 #  project  :string(16)
 #
+require_dependency "#{Rails.root}/lib/wiki_api"
 
 class Wiki < ApplicationRecord
   has_many :articles

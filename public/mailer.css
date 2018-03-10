@@ -23,6 +23,11 @@
   padding: 20px 0 0;
 }
 
+.link {
+  color: #676EB4;
+  text-decoration: underline;
+}
+
 .button_link {
   padding: 15px 20px;
   max-width: 600px;

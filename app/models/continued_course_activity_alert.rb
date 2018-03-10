@@ -33,4 +33,11 @@ class ContinuedCourseActivityAlert < Alert
   def resolvable?
     !resolved
   end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolve this alert if you've changed the end date for the course. The
+      Dashboard will create a new alert if there edits after the new end date.
+    EXPLANATION
+  end
 end

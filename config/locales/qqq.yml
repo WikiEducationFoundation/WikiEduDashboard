@@ -14,6 +14,7 @@
 # Author: Robby
 # Author: Vojtěch Dostál
 # Author: Андрей
+# Author: Ата
 ---
 qqq:
   accessibility:
@@ -159,6 +160,7 @@ qqq:
       '?': Explanation of what an unrated article is
       does_not_exist: Explanation of the Ø  symbol, which indicates than the article
         does not exist on Wikipedia
+    see_more: Message indicating that there are more articles to load
     title: |-
       Label for an article title.
       {{Identical|Title}}
@@ -268,6 +270,7 @@ qqq:
     active_courses: |-
       Heading for the list of active courses. 'course_type' is either the courses.courses or campaign.campaigns message.
       So in English, the message would say either 'Active Courses' or 'Active Campaigns'.
+      {{Identical|Active}}
     all_courses: Button to view the list of all courses
     already_enrolled: Message displayed when the user attempts to enroll in a course
       they have already joined.
@@ -367,7 +370,6 @@ qqq:
       {{Identical|Dismiss}}
     dismiss_survey_confirm: Confirmation message for dismissing survey (Wiki Ed only)
     duration: Label for duration of a course
-    edit_count: Ариашарақәа рхыҧхьаӡара
     end: |-
       Label for the end date of a course
       '{{Identical|End}}'
@@ -383,6 +385,8 @@ qqq:
     feedback: '{{Identical|Feedback}}'
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
+    home_wiki_language: Label for Home Wiki Language Selector
+    home_wiki_project: Lable for Home Wiki Project Selector
     instructor:
       one: |-
         Label for a single instructor of a course (Wiki Ed only)

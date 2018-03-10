@@ -7511,9 +7511,9 @@ moment-recur@^1.0.7:
   dependencies:
     moment "<3.0.0"
 
-moment@2.19.1, moment@<3.0.0:
-  version "2.19.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
+moment@2.21.0, moment@<3.0.0:
+  version "2.21.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -9290,6 +9290,10 @@ react-burger-menu@^2.1.4:
     eve "~0.5.1"
     prop-types "^15.5.8"
     snapsvg-cjs "0.0.6"
+
+react-confetti@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-confetti/-/react-confetti-2.0.2.tgz#c8aa88cad29c16498203a8c5f7cbbbc72f5f8dc3"
 
 react-day-picker@7.0.7:
   version "7.0.7"

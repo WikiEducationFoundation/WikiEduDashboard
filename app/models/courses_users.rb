@@ -20,8 +20,8 @@
 #  role_description       :string(255)
 #
 
-require "#{Rails.root}/lib/utils"
-require "#{Rails.root}/lib/course_cleanup_manager"
+require_dependency "#{Rails.root}/lib/utils"
+require_dependency "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model
 class CoursesUsers < ApplicationRecord
@@ -118,8 +118,8 @@ class CoursesUsers < ApplicationRecord
   #################
   # Class methods #
   #################
-  def self.update_all_caches(courses_users=nil)
-    Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
+  def self.update_all_caches(courses_users)
+    courses_users.each(&:update_cache)
   end
 
   def self.update_all_caches_concurrently(concurrency = 2)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
+require_dependency "#{Rails.root}/lib/experiments/spring2018_cmu_experiment"
 
 class ExperimentsPresenter
   def initialize(course)

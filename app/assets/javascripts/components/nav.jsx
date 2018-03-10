@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import Uls from './uls_box.jsx';
@@ -231,8 +232,14 @@ const Nav = createReactClass({
       );
     }
 
+    let confetti;
+    if (Features.celebrate) {
+      confetti = <Confetti width={this.state.width} height={this.state.height} recycle={false} />;
+    }
+
     return (
       <div>
+        {confetti}
         {navBar}
       </div>
     );

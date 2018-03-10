@@ -76,6 +76,17 @@ describe Alert do
       end
     end
 
+    it 'all implement #resolve_explanation' do
+      Alert::ALERT_TYPES.each do |type|
+        Alert.create(type: type,
+                     article_id: article.id,
+                     course_id: course.id,
+                     revision_id: revision.id,
+                     user_id: user.id)
+        expect(Alert.last.resolve_explanation).to be_a(String)
+      end
+    end
+
     it 'should be resolvable for resolvable alert types' do
       Alert::RESOLVABLE_ALERT_TYPES.each do |type|
         # Equals to ArticlesForDeletionAlert.new
@@ -86,8 +97,7 @@ describe Alert do
     end
 
     it 'should not be resolvable for certain types' do
-      unresolvable_alert_types =
-        Alert::ALERT_TYPES - Alert::RESOLVABLE_ALERT_TYPES
+      unresolvable_alert_types = Alert::ALERT_TYPES - Alert::RESOLVABLE_ALERT_TYPES
 
       unresolvable_alert_types.each do |type|
         alert = type.constantize.new

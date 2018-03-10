@@ -414,6 +414,8 @@ de:
     feedback: Rückmeldung
     feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
+    home_wiki_language: Sprache des Heimatwikis
+    home_wiki_project: Projekt des Heimatwikis
     instructor:
       one: Leiter
       other: Leiter
@@ -551,6 +553,7 @@ de:
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
     wiki_staff: Wiki-Ed-Mitarbeiter
+    withdrawn: Zurückgezogen
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse

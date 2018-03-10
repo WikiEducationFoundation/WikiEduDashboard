@@ -48,11 +48,11 @@
 #  withdrawn             :boolean          default(FALSE)
 #
 
-require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/course_training_progress_manager"
-require "#{Rails.root}/lib/trained_students_manager"
-require "#{Rails.root}/lib/word_count"
-require "#{Rails.root}/lib/training_module"
+require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency "#{Rails.root}/lib/course_training_progress_manager"
+require_dependency "#{Rails.root}/lib/trained_students_manager"
+require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/training_module"
 
 #= Course model
 class Course < ApplicationRecord
@@ -155,6 +155,10 @@ class Course < ApplicationRecord
   }
 
   scope :ready_for_update, -> { current.or(where(needs_update: true)) }
+
+  scope :ready_for_short_update, lambda {
+    strictly_current.where('end <= ?', 1.day.from_now)
+  }
 
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
@@ -284,7 +288,6 @@ class Course < ApplicationRecord
   end
 
   def word_count
-    require "#{Rails.root}/lib/word_count"
     WordCount.from_characters(character_sum)
   end
 

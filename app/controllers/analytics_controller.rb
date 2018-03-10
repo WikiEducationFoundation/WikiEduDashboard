@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/analytics/monthly_report"
-require "#{Rails.root}/lib/analytics/course_statistics"
-require "#{Rails.root}/lib/analytics/course_csv_builder"
-require "#{Rails.root}/lib/analytics/course_edits_csv_builder"
-require "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
-require "#{Rails.root}/lib/analytics/course_students_csv_builder"
-require "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require "#{Rails.root}/lib/analytics/campaign_csv_builder"
-require "#{Rails.root}/lib/analytics/ungreeted_list"
-require "#{Rails.root}/lib/analytics/histogram_plotter"
+require_dependency "#{Rails.root}/lib/analytics/monthly_report"
+require_dependency "#{Rails.root}/lib/analytics/course_statistics"
+require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_edits_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_uploads_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
+require_dependency "#{Rails.root}/lib/analytics/histogram_plotter"
 
 #= Controller for analytics tools
 class AnalyticsController < ApplicationController

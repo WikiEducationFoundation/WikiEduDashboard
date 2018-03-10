@@ -25,6 +25,6 @@ class AlertPreview < ActionMailer::Preview
   private
 
   def example_user
-    User.new(email: 'sage@example.com', username: 'Ragesoss')
+    User.new(email: 'sage@example.com', username: 'Ragesoss', permissions: 1)
   end
 end

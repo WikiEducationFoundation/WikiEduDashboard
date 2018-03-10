@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/course_cache_manager"
-require "#{Rails.root}/lib/chat/rocket_chat"
+require_dependency "#{Rails.root}/lib/course_cache_manager"
+require_dependency "#{Rails.root}/lib/chat/rocket_chat"
 
 #= Adds a user to a course
 class JoinCourse

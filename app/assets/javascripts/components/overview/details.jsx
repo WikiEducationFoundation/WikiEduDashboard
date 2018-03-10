@@ -17,6 +17,8 @@ import PrivacySelector from './privacy_selector.jsx';
 import WithdrawnSelector from './withdrawn_selector.jsx';
 import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
+import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
+import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -222,6 +224,8 @@ const Details = createReactClass({
     let courseLevelSelector;
     let timelineToggle;
     let withdrawnSelector;
+    let projectSelector;
+    let languageSelector;
     if (this.props.current_user.admin) {
       const tagsList = this.props.tags.length > 0 ?
         _.map(this.props.tags, 'tag').join(', ')
@@ -254,21 +258,23 @@ const Details = createReactClass({
           course={this.props.course}
           editable={this.props.editable}
         />
-    );
-      if (!Features.wikiEd && this.props.editable) {
-        privacySelector = (
-          <PrivacySelector
-            course={this.props.course}
-            editable={this.props.editable}
-          />
-        );
-      }
+      );
     }
 
     // Users who can rename a course are also allowed to change the type.
     if (canRename) {
       courseTypeSelector = (
         <CourseTypeSelector
+          course={this.props.course}
+          editable={this.props.editable}
+        />
+      );
+    }
+
+    // Users who can rename a course are also allowed to make it private.
+    if (canRename) {
+      privacySelector = (
+        <PrivacySelector
           course={this.props.course}
           editable={this.props.editable}
         />
@@ -291,6 +297,19 @@ const Details = createReactClass({
         <TimelineToggle
           course={this.props.course}
           editable={this.props.editable}
+        />
+      );
+    }
+
+    if (this.props.editable && !Features.wikiEd) {
+      projectSelector = (
+        <HomeWikiProjectSelector
+          course={this.props.course}
+        />
+      );
+      languageSelector = (
+        <HomeWikiLanguageSelector
+          course={this.props.course}
         />
       );
     }
@@ -347,6 +366,8 @@ const Details = createReactClass({
           {privacySelector}
           {timelineToggle}
           {withdrawnSelector}
+          {projectSelector}
+          {languageSelector}
         </div>
       </div>
     );

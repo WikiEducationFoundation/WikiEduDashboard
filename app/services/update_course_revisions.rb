@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "#{Rails.root}/lib/course_revision_updater"
+require_dependency "#{Rails.root}/lib/course_revision_updater"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseRevisions
