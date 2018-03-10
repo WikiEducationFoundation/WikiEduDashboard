@@ -11,8 +11,7 @@ namespace :batch do
 
   desc 'Short data updates'
   task update_shortly: :environment do
-    require "#{Rails.root}/lib/data_cycle/short_update"
-    ShortUpdate.new
+    ShortUpdateWorker.perform_async
   end
 
   desc 'Daily data updates'

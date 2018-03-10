@@ -25,7 +25,8 @@
     wikiEd: #{Features.wiki_ed?},
     enableChat: #{Features.enable_chat? && user_signed_in?},
     enableGetHelpButton: #{Features.enable_get_help_button? && user_signed_in?},
-    enableAccountRequests: #{Features.enable_account_requests?}
+    enableAccountRequests: #{Features.enable_account_requests?},
+    celebrate: #{Features.celebrate?(current_user)}
   }
 
   WikiProjects = document.getElementById("wikis").dataset.projects

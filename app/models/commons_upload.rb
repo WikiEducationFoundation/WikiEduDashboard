@@ -25,6 +25,6 @@ class CommonsUpload < ApplicationRecord
   # Instance methods #
   ####################
   def url
-    "https://commons.wikimedia.org/wiki/#{file_name}"
+    "https://commons.wikimedia.org/wiki/#{CGI.escape file_name.tr(' ', '_')}"
   end
 end
