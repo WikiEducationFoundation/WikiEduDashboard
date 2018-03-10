@@ -12,6 +12,7 @@ import CourseStore from '../../stores/course_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.js';
 import ServerActions from '../../actions/server_actions.js';
+import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
@@ -28,6 +29,8 @@ const getState = () =>
     current: CourseStore.getCurrentWeek()
   })
 ;
+
+const POLL_INTERVAL = 300000; // 5 minutes
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -50,9 +53,15 @@ const Overview = createReactClass({
     return ServerActions.fetch('tags', this.props.course_id);
   },
 
+  componentWillUnmount() {
+    clearInterval(this.timeout);
+  },
+
   storeDidChange() {
     return this.setState(getState());
   },
+
+  timeout: setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL),
 
   render() {
     if (this.state.course.cloned_status === 1) {
