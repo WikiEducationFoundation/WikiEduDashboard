@@ -53,12 +53,6 @@ const UploadTable = createReactClass({
 
     return (
       <table className="uploads table table--sortable">
-        <thead>
-          <tr>
-            {ths}
-            <th />
-          </tr>
-        </thead>
         <tbody>
           {uploads}
         </tbody>
