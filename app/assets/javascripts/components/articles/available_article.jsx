@@ -60,7 +60,7 @@ export const AvailableArticle = createReactClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
     const articleLink = <a onClick={this.stop} href={article.url} target="_blank" className="inline">{article.formatted_title}</a>;
 
-    let actionButton;
+    let actionCell;
     // Show 'Select' button to students
     if (this.props.current_user.role === 0) {
       actionCell = (
@@ -68,7 +68,7 @@ export const AvailableArticle = createReactClass({
           <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
         </td>
       );
-    // Show 'Remove' button to admins and facilitators
+    // Show both 'Select'and Remove' button to admins and facilitators
     } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
       actionCell = (
         <td className="table-action-cell">
