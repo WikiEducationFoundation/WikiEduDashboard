@@ -232,10 +232,11 @@ const Details = createReactClass({
           type="text"
           label={I18n.t('courses.salesforce_id')}
           placeholder={I18n.t('courses.salesforce_id_none')}
-          required={!!this.props.course.passcode_required}
+          required={false}
         />
       );
     }
+
     const campaigns = (
       <span className="campaigns" id="course_campaigns">
         <CampaignList {...this.props} />
@@ -382,8 +383,8 @@ const Details = createReactClass({
             />
             {timelineStart}
             {timelineEnd}
+            {salesforceId}
           </form>
-          {salesforceId}
           {campaigns}
           {subject}
           {courseLevelSelector}
