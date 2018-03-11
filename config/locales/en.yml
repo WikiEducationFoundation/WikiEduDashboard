@@ -1030,6 +1030,9 @@ en:
       The passcode for enrolling in this course in incorrect. Please ask the
       instructor for the current passcode to enroll in this course.
 
+  error_no_course:
+    header: "No such course %{slug} exists.  :-("
+
   error_404:
     header: "Page not found. :-("
     explanation: >

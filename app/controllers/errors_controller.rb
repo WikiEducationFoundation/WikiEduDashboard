@@ -35,7 +35,7 @@ class ErrorsController < ApplicationController
 
   def message
     if params[:endpoint] == 'overview'
-      return "No such course #{params[:school]}/#{params[:titleterm]} exists."
+      return I18n.t 'error_no_course.header', slug: "#{params[:school]}/#{params[:titleterm]}"
     else
       return I18n.t 'error_404.header'
     end
