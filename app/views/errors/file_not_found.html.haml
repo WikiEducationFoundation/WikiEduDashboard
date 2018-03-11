@@ -4,10 +4,5 @@
   %section#courses
     .container.narrow
       .section-header
-        %h3#heading404= t("error_404.header")
+        %h3#heading404= @message
         %p= t("error_404.explanation")
-  :javascript
-    const match = window.location.href.match(/courses?\/([^/]+\/[^/]+)/)[1];
-    if (match) {
-      $('#heading404').text(`No such course ${match} exists.`);
-    }
