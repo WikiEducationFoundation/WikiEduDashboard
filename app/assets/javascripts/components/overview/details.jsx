@@ -31,6 +31,10 @@ import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
+import ServerActions from '../../actions/server_actions.js';
+import { extractSalesforceId } from '../../utils/salesforce_utils.js';
+
+
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
@@ -61,6 +65,12 @@ const Details = createReactClass({
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     return CourseActions.updateCourse(updatedCourse);
+  },
+
+  updateSalesForceId(valueKey, value) {
+    const rawSalesforceId = value;
+    const salesforceId = extractSalesforceId(rawSalesforceId);
+    return ServerActions.linkToSalesforce(this.props.course.id, salesforceId);
   },
 
   updateSlugPart(valueKey, value) {
@@ -207,6 +217,22 @@ const Details = createReactClass({
           date_props={dateProps.timeline_end}
           showTime={this.props.course.use_start_and_end_times}
           required={true}
+        />
+      );
+    }
+
+    let salesforceId;
+    if (this.props.current_user.admin) {
+      salesforceId = (
+        <TextInput
+          onChange={this.updateSalesForceId}
+          value={this.props.course.flags.salesforce_id}
+          value_key="salesforce_id"
+          editable={this.props.editable}
+          type="text"
+          label={I18n.t('courses.salesforce_id')}
+          placeholder={I18n.t('courses.salesforce_id_none')}
+          required={!!this.props.course.passcode_required}
         />
       );
     }
@@ -357,6 +383,7 @@ const Details = createReactClass({
             {timelineStart}
             {timelineEnd}
           </form>
+          {salesforceId}
           {campaigns}
           {subject}
           {courseLevelSelector}
