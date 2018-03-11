@@ -63,13 +63,18 @@ export const AvailableArticle = createReactClass({
     let actionButton;
     // Show 'Select' button to students
     if (this.props.current_user.role === 0) {
-      actionButton = (
-        <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
+      actionCell = (
+        <td className="table-action-cell">
+          <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
+        </td>
       );
     // Show 'Remove' button to admins and facilitators
     } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
-      actionButton = (
-        <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
+      actionCell = (
+        <td className="table-action-cell">
+          <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
+          <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
+        </td>
       );
     }
 
@@ -88,9 +93,7 @@ export const AvailableArticle = createReactClass({
             {articleLink}
           </p>
         </td>
-        <td className="table-action-cell">
-          {actionButton}
-        </td>
+        {actionCell}
       </tr>
     );
   }
