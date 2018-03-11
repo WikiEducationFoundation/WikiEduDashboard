@@ -64,7 +64,10 @@ class ArticleScopedProgram < Course
   end
 
   def wiki_title
-    nil
+    return nil unless home_wiki.edits_enabled?
+    prefix = ENV['course_prefix'] + '/'
+    escaped_slug = slug.tr(' ', '_')
+    "#{prefix}#{escaped_slug}"
   end
 
   def string_prefix
