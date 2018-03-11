@@ -18,7 +18,7 @@ class ErrorsController < ApplicationController
   end
 
   def incorrect_passcode
-    @path = request.referer.split('?')[0]
+    @path = params[:retry] || ''
     render status: 401
   end
 

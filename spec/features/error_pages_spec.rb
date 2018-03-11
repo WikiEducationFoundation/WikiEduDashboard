@@ -43,7 +43,7 @@ describe 'error pages' do
 
   describe 'for incorrect passcode' do
     it 'describes the passcode problem' do
-      visit '/errors/incorrect_passcode'
+      visit '/errors/incorrect_passcode?retry=/courses/test/course'
       expect(page).to have_content 'Incorrect passcode'
       expect(page.status_code).to eq(401)
     end
