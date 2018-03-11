@@ -18,6 +18,7 @@ class ErrorsController < ApplicationController
   end
 
   def incorrect_passcode
+    @path = request.referrer.split('?')[0]
     render status: 401
   end
 
