@@ -195,7 +195,7 @@ describe 'the course page', type: :feature, js: true do
     end
 
     context 'when WikiEd Feature disabled' do
-      before { allow(Features).to receive(:wiki_ed?).and_return(false) }
+      before { allow(Features).to receive(:wikiEd).and_return(false) }
       it 'allow edits for home_wiki' do
         login_as(admin)
         js_visit "/courses/#{slug}"
