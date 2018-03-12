@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-json.alerts @campaign.public_alerts do |alert|
+json.alerts @campaign.public_alerts.includes(:course, :user, article: :wiki) do |alert|
   json.id alert.id
   json.type alert.type
   json.created_at alert.created_at
