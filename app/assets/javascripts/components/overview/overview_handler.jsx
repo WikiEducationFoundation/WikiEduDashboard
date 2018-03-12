@@ -65,7 +65,7 @@ const Overview = createReactClass({
   },
 
   poll() {
-    if (this.state.course.level === 'Editathon') {
+    if (this.state.course.type === 'Editathon') {
       return setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL);
     }
     return null;
