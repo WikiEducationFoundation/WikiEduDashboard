@@ -10,7 +10,7 @@ const getCourseCampaigns = state => state.campaigns.campaigns;
 const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
 const getAllEditedArticles = state => state.articles.articles;
-const getProjectFilter = state => state.articles.projectFilter;
+const getWikiFilter = state => state.articles.wikiFilter;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -66,11 +66,11 @@ export const getCloneableCourses = createSelector(
   }
 );
 
-export const getProjectArticles = createSelector(
-  [getAllEditedArticles, getProjectFilter], (editedArticles, projectFilter) => {
-    if (projectFilter === null) {
+export const getWikiArticles = createSelector(
+  [getAllEditedArticles, getWikiFilter], (editedArticles, wikiFilter) => {
+    if (wikiFilter === null) {
       return editedArticles;
     }
-    return getFiltered(editedArticles, { project: projectFilter });
+    return getFiltered(editedArticles, { ...wikiFilter });
   }
 );

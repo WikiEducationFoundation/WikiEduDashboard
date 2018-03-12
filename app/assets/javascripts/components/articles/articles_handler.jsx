@@ -10,7 +10,7 @@ import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
 import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
-import { getProjectArticles } from '../../selectors';
+import { getWikiArticles } from '../../selectors';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -31,7 +31,11 @@ const ArticlesHandler = createReactClass({
   },
 
   onChangeFilter(e) {
-    return this.props.filterArticles(e.target.value);
+    const value = e.target.value.split('.');
+    if (value.length > 1) {
+      return this.props.filterArticles({ language: value[0], project: value[1] });
+    }
+    return this.props.filterArticles({ language: null, project: value[0] });
   },
 
   showMore() {
@@ -66,33 +70,35 @@ const ArticlesHandler = createReactClass({
       );
     }
 
-   let categories;
-   if (this.props.course.type === 'ArticleScopedProgram') {
-     categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
-   }
+    let categories;
+    if (this.props.course.type === 'ArticleScopedProgram') {
+      categories = <CategoryHandler course={this.props.course} current_user={this.props.current_user} />;
+    }
 
-   let filterProjects;
-   if (this.props.projects.length > 1) {
-    const projectOptions = this.props.projects.map((project) => {
-      return (<option value={project}>{project}</option>);
-    });
+    let filterWikis;
+    if (this.props.wikis.length > 1) {
+      const wikiOptions = this.props.wikis.map((wiki) => {
+        const wikiString = `${wiki.language ? `${wiki.language}.` : ''}${wiki.project}`;
+        return (<option value={wikiString} key={wikiString}>{wikiString}</option>);
+      });
 
-    filterProjects = (
-      <div className="filter-select">
-        <select className="filters" name="filters" onChange={this.onChangeFilter}>
-          <option value="all">All</option>
-          {projectOptions}
-        </select>
-      </div>
-    );
-   }
+      filterWikis = (
+        <div className="filter-select">
+          <select className="filters" name="filters" onChange={this.onChangeFilter}>
+            <option value="all">All</option>
+            {wikiOptions}
+          </select>
+        </div>
+      );
+    }
+
     return (
       <div>
         <div id="articles">
           <div className="section-header">
             {header}
             <CourseOresPlot course={this.props.course} />
-            {filterProjects}
+            {filterWikis}
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="rating_num">{I18n.t('articles.rating')}</option>
@@ -120,9 +126,9 @@ const ArticlesHandler = createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: getProjectArticles(state),
+  articles: getWikiArticles(state),
   limitReached: state.articles.limitReached,
-  projects: state.articles.projects,
+  wikis: state.articles.wikis,
 });
 
 const mapDispatchToProps = {

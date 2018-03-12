@@ -37,4 +37,4 @@ export const fetchArticles = (courseId, limit) => dispatch => {
 
 export const sortArticles = key => ({ type: types.SORT_ARTICLES, key: key });
 
-export const filterArticles = project => ({ type: types.SET_PROJECT_FILTER, project: project });
+export const filterArticles = wiki => ({ type: types.SET_PROJECT_FILTER, wiki: wiki });

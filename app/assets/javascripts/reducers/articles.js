@@ -7,8 +7,8 @@ const initialState = {
   limit: 500,
   limitReached: false,
   sortKey: null,
-  projects: [],
-  projectFilter: null,
+  wikis: [],
+  wikiFilter: null,
 };
 
 const SORT_DESCENDING = {
@@ -21,16 +21,23 @@ const isLimitReached = (revs, limit) => {
   return (revs.length < limit);
 };
 
+const mapWikis = (article) => {
+  return {
+    language: article.language,
+    project: article.project
+  };
+};
+
 export default function articles(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES: {
-      const projects = _.uniq(_.map(action.data.course.articles, 'project'));
+      const wikis = _.uniqWith(_.map(action.data.course.articles, mapWikis), _.isEqual);
       return {
         articles: action.data.course.articles,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.articles, action.limit),
-        projects: projects,
-        projectFilter: state.projectFilter
+        wikis: wikis,
+        wikiFilter: state.wikiFilter
       };
     }
     case SORT_ARTICLES: {
@@ -38,15 +45,15 @@ export default function articles(state = initialState, action) {
       const sorted = sortByKey(newState.articles, action.key, state.sortKey, SORT_DESCENDING[action.key]);
       newState.articles = sorted.newModels;
       newState.sortKey = sorted.newKey;
-      newState.projectFilter = state.projectFilter;
-      newState.projects = state.projects;
+      newState.wikiFilter = state.wikiFilter;
+      newState.wikis = state.wikis;
       return newState;
     }
     case SET_PROJECT_FILTER: {
-      if (action.project === "all") {
-        return { ...state, projectFilter: null };
+      if (action.wiki.project === "all") {
+        return { ...state, wikiFilter: null };
       }
-      return { ...state, projectFilter: action.project };
+      return { ...state, wikiFilter: action.wiki };
     }
     default:
       return state;
