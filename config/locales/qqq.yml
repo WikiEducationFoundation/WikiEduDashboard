@@ -435,6 +435,8 @@ qqq:
     review_timeline: Message prompting user to review the timeline (Wiki Ed only)
     revisions_doc: Message explaining the meaning of "Recent edits" 'timeframe' is
       a number.
+    salesforce_id: Label for editing sales course id field
+    salesforce_id_none: Label for courses which don't have a salesforce ID.
     start: |-
       Label for the start date of a course
       '{{Identical|Start}}'

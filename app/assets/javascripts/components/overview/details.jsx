@@ -31,6 +31,10 @@ import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
+import ServerActions from '../../actions/server_actions.js';
+import { extractSalesforceId } from '../../utils/salesforce_utils.js';
+
+
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
@@ -61,6 +65,12 @@ const Details = createReactClass({
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     return CourseActions.updateCourse(updatedCourse);
+  },
+
+  updateSalesForceId(valueKey, value) {
+    const rawSalesforceId = value;
+    const salesforceId = extractSalesforceId(rawSalesforceId);
+    return ServerActions.linkToSalesforce(this.props.course.id, salesforceId);
   },
 
   updateSlugPart(valueKey, value) {
@@ -210,6 +220,23 @@ const Details = createReactClass({
         />
       );
     }
+
+    let salesforceId;
+    if (this.props.current_user.admin) {
+      salesforceId = (
+        <TextInput
+          onChange={this.updateSalesForceId}
+          value={this.props.course.flags.salesforce_id}
+          value_key="salesforce_id"
+          editable={this.props.editable}
+          type="text"
+          label={I18n.t('courses.salesforce_id')}
+          placeholder={I18n.t('courses.salesforce_id_none')}
+          required={false}
+        />
+      );
+    }
+
     const campaigns = (
       <span className="campaigns" id="course_campaigns">
         <CampaignList {...this.props} />
@@ -356,6 +383,7 @@ const Details = createReactClass({
             />
             {timelineStart}
             {timelineEnd}
+            {salesforceId}
           </form>
           {campaigns}
           {subject}

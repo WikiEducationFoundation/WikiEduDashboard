@@ -507,6 +507,8 @@ en:
       (You'll still be able to make edits later.)
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
+    salesforce_id: Salesforce Record ID
+    salesforce_id_none: No Salesforce ID/URL
     school: School
     school_and_term: Institution/Term
     start: Start
