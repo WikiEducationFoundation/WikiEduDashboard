@@ -60,7 +60,7 @@ class CampaignsController < ApplicationController
   def users
     set_presenter
     @courses_users = CoursesUsers.where(
-      course: @campaign.courses.nonprivate, role: CoursesUsers::Roles::STUDENT_ROLE
+      course: @campaign.nonprivate_courses, role: CoursesUsers::Roles::STUDENT_ROLE
     ).includes(:user, :course).order(revision_count: :desc)
   end
 

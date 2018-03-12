@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-json.alerts @campaign.alerts do |alert|
+json.alerts @campaign.public_alerts do |alert|
   json.id alert.id
   json.type alert.type
-  json.user User.find_by(id: alert.user_id).username if alert.user_id
-  json.course Course.find_by(id: alert.course_id).title if alert.course_id
-  json.article Article.find_by(id: alert.article_id).title if alert.article_id
+  json.created_at alert.created_at
+  json.user alert.user&.username
+  json.course alert.course.title
+  json.course_slug alert.course.slug
+  json.article alert.article&.title
+  json.article_url alert.article&.url
 end

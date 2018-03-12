@@ -58,6 +58,23 @@ class Alert < ApplicationRecord
     GANominationAlert
   ].freeze
 
+  PUBLIC_ALERT_TYPES = %w[
+    ActiveCourseAlert
+    ArticlesForDeletionAlert
+    BlockedEditsAlert
+    ContinuedCourseActivityAlert
+    DeletedUploadsAlert
+    DiscretionarySanctionsEditAlert
+    DYKNominationAlert
+    GANominationAlert
+    NoEnrolledStudentsAlert
+    ProductiveCourseAlert
+    UnsubmittedCourseAlert
+    UntrainedStudentsAlert
+  ].freeze
+
+  scope :nonprivate, -> { where(type: PUBLIC_ALERT_TYPES) }
+
   def course_url
     "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
   end

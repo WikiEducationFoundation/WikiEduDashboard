@@ -7,9 +7,9 @@ const Alert = ({ alert }) => {
     <tr className="alert">
       <td className="desktop-only-tc date">{moment(alert.created_at).format('YYYY-MM-DD   h:mm A')}</td>
       <td className="desktop-only-tc">{alert.type}</td>
-      <td className="desktop-only-tc">{alert.course}</td>
-      <td className="desktop-only-tc">{alert.user}</td>
-      <td className="desktop-only-tc">{alert.article}</td>
+      <td className="desktop-only-tc"><a target="_blank" href={`/courses/${alert.course_slug}`}>{alert.course}</a></td>
+      <td className="desktop-only-tc"><a target="_blank" href={`/users/${alert.user}`}>{alert.user}</a></td>
+      <td className="desktop-only-tc"><a target="_blank" href={alert.article_url}>{alert.article}</a></td>
     </tr>
   );
 };

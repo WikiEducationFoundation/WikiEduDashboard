@@ -44,7 +44,6 @@ const AlertsHandler = createReactClass({
                 <option value="type">{I18n.t('campaign.alert_type')}</option>
                 <option value="course">{I18n.t('campaign.course')}</option>
                 <option value="user">{I18n.t('campaign.alert_user_id')}</option>
-                <option value="resolved">{I18n.t('campaign.resolved')}</option>
                 <option value="created_at">{I18n.t('campaign.created_at')}</option>
               </select>
             </div>
