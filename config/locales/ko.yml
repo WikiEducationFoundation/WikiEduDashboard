@@ -97,6 +97,7 @@ ko:
       list: 목록 &mdash; 일반 글이 아닌 목록
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
       does_not_exist: 이 글은 위키백과에 존재하지 않습니다
+    see_more: 더 보기
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
@@ -130,6 +131,7 @@ ko:
     no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀
+    requested_accounts: 요청된 계정
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
   categories:
@@ -214,6 +216,8 @@ ko:
     feedback: 피드백
     feedback_loading: 제안을 불러오고 있으니 기다려 주십시오...
     gradeables_none: 등급을 매길 수 있는 과제가 없습니다.
+    home_wiki_language: 홈 위키 언어
+    home_wiki_project: 홈 위키 프로젝트
     instructor:
       other: 지도자
     instructors: 지침
@@ -284,6 +288,7 @@ ko:
     volunteer:
       other: 자원봉사자
     wiki_staff: 위키 에듀 임원
+    withdrawn: 탈퇴
     yourcourses: 내 과정
     survey:
       link: 설문 조사 참가
@@ -545,4 +550,8 @@ ko:
       link: 설문 조사 참가
   wiki_api:
     create_account_reason: 이 사용자는 %{event}에 참여하고 있습니다.
+  onboarding:
+    supplementary:
+      header: 어떻게 우리에 대해 들었습니까?
+      question_text: 위키 교육에 관해 어디서, 누구에게 처음 들었습니까?
 ...

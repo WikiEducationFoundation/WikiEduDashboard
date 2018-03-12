@@ -40,10 +40,7 @@ if ruby -v | grep "ruby 2.5.0" >/dev/null; then
   printf "${CLEAR_LINE}Ruby already installed\n"
 else
   echo "Ruby-2.5.0 not found. Please install ruby-2.5.0 and run this script again."
-  echo "To install Ruby-2.5.0, run:"
-  echo "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB"
-  echo "curl -sSL https://get.rvm.io | bash -s stable"
-  echo "rvm install ruby-2.5.0"
+  echo "One way to install ruby-2.5.0 is through RVM, Visit: https://rvm.io/"
   exit 0;
 fi
 

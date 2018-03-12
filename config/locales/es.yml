@@ -132,6 +132,7 @@ es:
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
       does_not_exist: Este artículo no existe en Wikipedia
+    see_more: Ver más
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
     show_current_version_with_authorship_highlighting: Versión actual con resalte
@@ -207,6 +208,8 @@ es:
       de esta campaña deben tener:'
     description: Descripción
     delete_campaign: Eliminar esta campaña
+    disable_account_requests: Desactivar solicitudes de cuentas
+    enable_account_requests: Activar solicitudes de cuentas
     no_passcode: ningún código de acceso
     none: Ninguno
     organizers: Organizadores
@@ -216,6 +219,7 @@ es:
     program_template_tooltip: Cuando un organizador crea un programa en esta campaña,
       el texto de esta área se copiará como una descripción en la página del programa
     random_passcode: un código de acceso al azar
+    requested_accounts: Cuentas solicitadas
     title: Título
     use_start_end_dates: Usar fechas de inicio y fin
   categories:
@@ -927,4 +931,9 @@ es:
         nuestro apoyo a tareas en la Wikipedia, como las tuyas.
   feedback_form_responses:
     no_responses: Todavía no hay respuestas/comentarios.
+  onboarding:
+    supplementary:
+      header: ¿Cómo te enteraste de nosotros?
+      question_text: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre Wiki
+        Education?
 ...

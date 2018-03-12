@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ans
+# Author: Pilarbini
 # Author: Pon44695
 # Author: TMo3289
 ---
@@ -32,6 +33,8 @@ th:
     change: ความเปลี่ยนแปลง
     details: รายละเอียด
     confirm: ตกลง
+    opt_in: ใช่
+    opt_out: ไม่
   dashboard:
     create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
     explore_course_pages: สำรวจหน้าหลักสูตร
@@ -49,10 +52,14 @@ th:
     edited_by: ถูกแก้ไขโดย
     label: กิจกรรม
   articles:
+    edited_by: 'ถูกแก้ไขโดย:'
     edited_mobile: บทความ
+    hide: ซ่อน
+    history: (ประวัติ)
     label: บทความ
     loading: กำลังโหลดบทความ...
     new: (ใหม่)
+    none: หลักสูตรนี้ยังไม่มีการแก้ไขบทความใด ๆ
     rating: ชั้นเรียน
     title: ชื่อเรื่อง
     title_example: ชื่อบทความ
@@ -60,6 +67,8 @@ th:
     view_all: ดูทั้งหมด
     view_doc: ผลรวมของการดูทั้งหมดแต่ละบทความระหว่างโครงการ
     views_added: เพิ่ม %{count} การดูใหม่สำหรับ %{title}
+    edit_size: ขนาดการแก้ไข
+    wiki: วิกิ
   assignments:
     assign_other: กำหนดบทความ
     add_available: เพิ่มบทความที่สามารถใช้ได้

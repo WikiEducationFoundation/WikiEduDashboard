@@ -54,7 +54,7 @@ class SettingsController < ApplicationController
     respond_to do |format|
       format.json do
         @user = User.find_by username: username_param[:username]
-        ensure_user_exists(params[:username]) { return } #
+        ensure_user_exists(params[:username]) { return }
         yield
       end
     end

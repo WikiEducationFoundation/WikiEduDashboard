@@ -20,7 +20,7 @@ zh-TW:
   application:
     cancel: 取消
     create_accounts: 創建維基百科帳號
-    dashboard: Wiki Ed 資訊看板
+    dashboard: 維基教育控制面板
     documentation: 文件
     error: 發生了錯誤：
     explore: 探索
@@ -110,6 +110,7 @@ zh-TW:
       list: 列表等級 — 並非傳統條目的一個列表
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
+    see_more: 查看更多
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
@@ -328,6 +329,8 @@ zh-TW:
     feedback: 意見回饋
     feedback_loading: 建議載入中請等待...
     gradeables_none: 此項課程沒有可批閱的分配作業。
+    home_wiki_language: 主維基語言
+    home_wiki_project: 主維基專案
     instructor:
       other: 導師
     instructors: 導師
@@ -438,6 +441,7 @@ zh-TW:
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
     wiki_staff: Wiki ED 工作人員
+    withdrawn: 撤回
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
     yourcourses: 您的課程
     survey:
@@ -842,7 +846,7 @@ zh-TW:
     header: 登入錯誤
     explanation: "登入過程似乎發生了一些問題 (抱歉，這種事情偶而會發生！) \n請嘗試再次登入或登記。"
   survey:
-    login_message: 感謝您挪出時間。請登入您的 Wiki Ed 資訊看板來填寫問卷。
+    login_message: 感謝您挪出時間。請登入您的維基教育控制面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。
     notification_schedule_explanation: 通知包含顯示在瀏覽器畫面上與發送電子郵件，若在上方有開啟功能的情況下。
     follow_up_explanation: 如果不需要後續的電子郵件通知請留空。
@@ -860,4 +864,8 @@ zh-TW:
     no_responses: 目前尚未有意見回饋反應。
   wiki_api:
     create_account_reason: 此使用者正在參與%{event}。
+  onboarding:
+    supplementary:
+      header: 您是如何知道我們的？
+      question_text: 您是在哪裡、或是從誰，來第一次聽到維基教育？
 ...

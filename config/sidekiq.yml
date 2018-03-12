@@ -22,3 +22,4 @@ test:
 
 :queues:
  - default
+ - short_update

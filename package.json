@@ -84,7 +84,7 @@
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
     "mocha-jsdom": "^1.0.0",
-    "moment": "2.19.1",
+    "moment": "2.21.0",
     "moment-recur": "^1.0.7",
     "nock": "^8.0.0",
     "nouislider": "^8.3.0",
@@ -98,6 +98,7 @@
     "react-addons-shallow-compare": "^15.6.2",
     "react-addons-test-utils": "^15.4.1",
     "react-burger-menu": "^2.1.4",
+    "react-confetti": "^2.0.2",
     "react-day-picker": "7.0.7",
     "react-dnd": "^2.5.4",
     "react-dnd-html5-backend": "^2.5.4",
@@ -143,7 +144,7 @@
     "start": "gulp dev",
     "hot": "gulp hot-dev",
     "build": "gulp build"
-    },
+  },
   "jest": {
     "collectCoverage": false,
     "roots": [

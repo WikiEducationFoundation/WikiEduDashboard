@@ -8,6 +8,7 @@
 # Author: Rajatkatiyar10
 # Author: Sachinkatiyar
 # Author: Sfic
+# Author: Smtchahal
 # Author: Suyash.dwivedi
 # Author: Swapnil.Karambelkar
 # Author: Upendradutt93
@@ -291,6 +292,7 @@ hi:
     subject: विषय
     term: अवधि
     update_stats: आँकड़े सुधारे
+    withdrawn: वापस ले लिया
   courses_generic:
     add_campaign: अभियान जोड़ें
     all_courses: सभी पाठ्यक्रम

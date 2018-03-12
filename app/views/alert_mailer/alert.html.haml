@@ -1,15 +1,15 @@
 %link{rel: 'stylesheet', href:'/mailer.css'}
 %p.paragraph
   Please investigate:
-  %a{ href: @alert.url }= @alert.main_subject
+  %a.link{ href: @alert.url }= @alert.main_subject
 
 - if @alert.course
   %p.paragraph
-    = link_to('Course page', @alert.course_url)
+    %a.link{href: @alert.course_url} Course page
 
 - if @alert.user_contributions_url
   %p.paragraph
-    = link_to('User contributions', @alert.user_contributions_url)
+    %a.link{href: @alert.user_contributions_url}= "#{@alert.user.username} contributions"
 
 - if @message
   %p.paragraph
@@ -20,11 +20,24 @@
     User email:
     = @alert.user.email
 
-- if @details
+- if @alert.article
+  %p.paragraph
+    Article:
+    %a.link{href: @alert.article.url}= @alert.article.title
+
+- if @alert.revision
+  %p.paragraph
+    %a.link{href: @alert.revision.url} diff
+
+- if @details.present?
   %p.paragraph
     Alert details:
     = @details
 
 - if @recipient.admin? && @resolvable
-  You can resolve this alert with the link below.
-  = link_to('Resolve', resolve_alert_url(@alert.id), method: :put)
+  %table.row
+    %tbody
+      %tr
+        %p.paragraph
+          = @alert.resolve_explanation
+          = link_to('Resolve.', resolve_alert_url(@alert.id), method: :put)

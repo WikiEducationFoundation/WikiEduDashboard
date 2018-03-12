@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/training_base"
+require "#{Rails.root}/lib/training_library"
 require "#{Rails.root}/lib/training_module"
 
 describe TrainingBase do
@@ -92,11 +92,6 @@ describe TrainingBase do
       it 'loads from yaml files' do
         expect(TrainingLibrary.all).not_to be_empty
         expect(TrainingModule.all).not_to be_empty
-      end
-      it 'returns an empty array instead of fetching from wiki' do
-        allow(Features).to receive(:wiki_trainings?).and_return(true)
-        expect(TrainingLibrary.all).to eq([])
-        expect(TrainingModule.all).to eq([])
       end
     end
   end

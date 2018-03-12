@@ -118,8 +118,8 @@ class CoursesUsers < ApplicationRecord
   #################
   # Class methods #
   #################
-  def self.update_all_caches(courses_users=nil)
-    Utils.run_on_all(CoursesUsers, :update_cache, courses_users)
+  def self.update_all_caches(courses_users)
+    courses_users.each(&:update_cache)
   end
 
   def self.update_all_caches_concurrently(concurrency = 2)

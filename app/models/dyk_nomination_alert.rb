@@ -33,4 +33,11 @@ class DYKNominationAlert < Alert
   def resolvable?
     !resolved
   end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolving this alert means the article no longer has an active DYK
+      nomination. A new alert will be generated if it nominated again.
+    EXPLANATION
+  end
 end

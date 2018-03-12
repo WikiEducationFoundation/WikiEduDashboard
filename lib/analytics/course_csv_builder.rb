@@ -98,7 +98,7 @@ class CourseCsvBuilder
   def retained_new_editors
     # An editor counts as retained if they make at least one revision 7 or more
     # days after_the end of the course.
-    new_editors.joins(:revisions).where('revisions.date > ?', @course.end + 7.days)
+    new_editors.joins(:revisions).where('revisions.date > ?', @course.end + 7.days).distinct
   end
 
   def revisions_by_namespace(namespace)

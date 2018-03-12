@@ -23,12 +23,15 @@ describe RequestedAccountsCampaignsController do
         :requested_account,
         course: course,
         username: 'username',
-        email: 'email'
+        email: 'email@example.com'
       )
     end
 
     describe '#create_accounts' do
-      before { RequestedAccount.create(course_id: course.id, username: 'username', email: 'email') }
+      before do
+        RequestedAccount.create(course_id: course.id, username: 'username',
+                                email: 'email@example.com')
+      end
 
       it 'does not create the accounts if user is not authorized' do
         allow(controller).to receive(:current_user).and_return(user)

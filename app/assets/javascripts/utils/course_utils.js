@@ -149,6 +149,12 @@ const CourseUtils = class {
     if (!weeks.length) { return false; }
     return Boolean(_.find(weeks, weekHasTrainings));
   }
+
+  // Is the location the main index of a course page, rather than one of the
+  // tabs?
+  onCourseIndex(location) {
+    return location.pathname.split('/').length === 4;
+  }
 };
 
 export default new CourseUtils();

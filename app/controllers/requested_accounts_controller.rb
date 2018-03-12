@@ -17,16 +17,18 @@ class RequestedAccountsController < ApplicationController
     # it's probably the same user who put in the wrong email the first time.
     # Just overwrite the email with the new one in this case.
     handle_existing_request { return }
-    requested = RequestedAccount.create(course: @course,
-                                        username: params[:username],
-                                        email: params[:email])
+    @requested = RequestedAccount.create(course: @course,
+                                         username: params[:username],
+                                         email: params[:email])
+    handle_invalid_request { return }
+
     unless params[:create_account_now] == 'true'
       render json: { message: I18n.t('courses.new_account_submitted') }
       return
     end
     # TODO: render relevant json to be handled on the frontend
     # { success: 'some message'} or { failure: 'some message' }
-    result = create_account(requested)
+    result = create_account(@requested)
     if result[:success] # TODO: handle both success and failure
       render json: { message: result.values.first }
     else
@@ -88,7 +90,13 @@ class RequestedAccountsController < ApplicationController
 
   def redirect_if_passcode_invalid
     return if passcode_valid?
-    redirect_to '/errors/incorrect_passcode'
+    redirect_to '/errors/incorrect_passcode.json'
+    yield
+  end
+
+  def handle_invalid_request
+    return if @requested.valid?
+    render json: { message: @requested.invalid_email_message }, status: 422
     yield
   end
 

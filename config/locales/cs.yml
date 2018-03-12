@@ -407,6 +407,8 @@ cs:
     feedback: Zpětná vazba
     feedback_loading: Prosím vyčkejte než se načtou návrhy...
     gradeables_none: V tomto kurzu nejsou žádné zadané úkoly, jež by šlo oznámkovat.
+    home_wiki_language: Jazyk domovské wiki
+    home_wiki_project: Projekt domovské wiki
     instructor:
       one: instruktur
       other: instruktoři
@@ -535,6 +537,7 @@ cs:
       vaším uživatelským účtem. Poté budou všechny editace tohoto kurzu změněny i
       na Wikipedii. \nJste si jist, že toto chcete udělat?"
     wiki_staff: Wiki Ed personál
+    withdrawn: Stáhnuté
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy
@@ -741,6 +744,7 @@ cs:
         plně wikifikován, je na to nyní vhodný čas.
       c: Pro odstranění nedostatků v obsahu a vyřešení problémů s čištěním článku
         je potřeba udělat velké změny.
+      fl: Není nutno přidávat další obsah, alespoň do doby, kdy se objeví nové informace.
       list: Seznamy by měly obsahovat seznamy funkčních odkazů na články z Wikipedie,
         vhodně pojmenované a organizované.
       future: Přidaný materiál může být diskutabilní a měl by být pečlivě ozdrojován.
@@ -947,13 +951,23 @@ cs:
   survey:
     login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Ed nástěnky,
       abyste se dostali k průzkumu.
+    notification_schedule_explanation: Oznámení zahrnují oznámení v prohlížeči a emaily,
+      pokud je to povoleno výše.
     follow_up_explanation: Nechte prázdné, pokud si nepřejete dostávat emaily s upozorněním.
     email:
       headline: Dobrý den, %{username}
+      message_line1: Doufáme, že jste zažili super semestr. Wiki Ed vás žádá o zpětnou
+        vazbu, abychom mohli vylepšit naše zdroje a podpořit vaši práci na Wikipedii.
+        Vaše odpověď je pro nás důležitá.
+      message_line2: Jste ochotni věnovat 15 minut na vyplnění dotazníku? Klikněte
+        na tlačítko níže, pomůžete nám udělat učení s Wikipedií ještě více obohacující.
       course: 'Kurz: %{course_info}'
       closing: S pozdravem,
       signed: '- Wiki Ed tým'
       link: Spustit dotazník
+    follow_up:
+      message: Připomínáme vám žádost o vyplnění dotazníku ke kurzu %{course_title}.
+        Zpětná vazba nám pomáhá zlepšit tyto kurzy.
   feedback_form_responses:
     no_responses: Zatím zde není žádná zpětná vazba.
   wiki_api:

@@ -124,6 +124,7 @@ de:
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
+    see_more: Weitere Artikel
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
     show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
@@ -414,6 +415,8 @@ de:
     feedback: Rückmeldung
     feedback_loading: Bitte warten, bis die Vorschläge geladen sind …
     gradeables_none: Dieser Kurs hat keine steigerbaren Zuweisungen.
+    home_wiki_language: Sprache des Heimatwikis
+    home_wiki_project: Projekt des Heimatwikis
     instructor:
       one: Leiter
       other: Leiter
@@ -551,6 +554,7 @@ de:
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
     wiki_staff: Wiki-Ed-Mitarbeiter
+    withdrawn: Zurückgezogen
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse
@@ -1079,4 +1083,8 @@ de:
     no_responses: Es gibt noch keine Rückmeldungsantworten.
   wiki_api:
     create_account_reason: Dieser Benutzer nimmt an %{event} teil.
+  onboarding:
+    supplementary:
+      header: Wie hast du von uns erfahren?
+      question_text: Wo oder von wem hast du zuerst von Wiki Education erfahren?
 ...

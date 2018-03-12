@@ -42,6 +42,7 @@ class Alert < ApplicationRecord
     GANominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert
+    OnboardingAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
@@ -122,6 +123,14 @@ class Alert < ApplicationRecord
 
   def resolvable?
     false
+  end
+
+  def resolve_explanation
+    <<~EXPLANATION
+      Resolving the alert should be done if the situation that caused it is no
+      longer going on. The Dashboard will create a new alert if it detects the
+      same situation again.
+    EXPLANATION
   end
 
   def courses_user

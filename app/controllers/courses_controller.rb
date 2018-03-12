@@ -41,7 +41,7 @@ class CoursesController < ApplicationController
     validate
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
-    @course.update course_params
+    @course.update update_params
     set_timeline_enabled
     set_course_edits_enabled
     ensure_passcode_set
@@ -229,11 +229,21 @@ class CoursesController < ApplicationController
               :no_day_exceptions, :cloned_status, :type, :level, :private)
   end
 
+  def update_params
+    if params[:course].key?(:home_wiki)
+      home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
+                                     project: params.dig(:course, :home_wiki, :project)
+      course_params.merge!(home_wiki_id: home_wiki[:id])
+    else
+      course_params
+    end
+  end
+
   def instructor_role_description
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles assignments campaigns categories check course
+  SHOW_ENDPOINTS = %w[articles article_count assignments campaigns categories check course
                       revisions tag tags timeline uploads users].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
@@ -243,7 +253,10 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    @limit = params[:limit] if (params[:endpoint] = 'revisions')
+    case params[:endpoint]
+    when 'revisions', 'articles'
+      @limit = params[:limit]
+    end
   end
 
   # If the user could make an edit to the course, this verifies that

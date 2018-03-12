@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'errors/login_error'
   get 'errors/internal_server_error'
   get 'errors/incorrect_passcode'
+  put 'errors/incorrect_passcode'
 
   # Sessions
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
@@ -272,6 +273,7 @@ Rails.application.routes.draw do
   # Onboarding
   get 'onboarding(/*any)' => 'onboarding#index', as: :onboarding
   put 'onboarding/onboard' => 'onboarding#onboard', as: :onboard
+  put 'onboarding/supplementary' => 'onboarding#supplementary', as: :supplementary
 
   # Update Locale Preference
   post '/update_locale/:locale' => 'users#update_locale', as: :update_locale

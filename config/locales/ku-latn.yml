@@ -4,6 +4,7 @@
 # Author: Bikarhêner
 # Author: Cûndûllah el-Kurdî
 # Author: George Animal
+# Author: Ghybu
 ---
 ku-latn:
   application:
@@ -40,6 +41,7 @@ ku-latn:
     activity: Çalakî
     actions: Çalakî
     articles: Gotar
+    cancel: Betal bike
     course_description: Qurs
     courses: Kurs
     creator:
@@ -65,6 +67,7 @@ ku-latn:
     view_wiki: Li ser Wîkîpediyayê bibîne
     yourcourses: Kursên Te
   courses_generic:
+    cancel: Betal bike
     courses: Bername
     creator:
       course_title: Sernavê bernameyê
@@ -102,11 +105,14 @@ ku-latn:
     save_all_changes: Hemûyan Tomar Bike
     this_week_title_default: Ev Hefte
     title: Demname
+  training:
+    page: Rûpel
   uploads:
     image: Wêne
     label: Barkirin
     loading: Barkirin tên bar kirin...
-    none: Pel nehatiye barkirin
+    none: Ev sinif ti wêne an jî dosyeyek medyayên din li Wikimedia Commonsê zêde
+      nekiriye.
     usages: Bikaranîn
   users:
     assign_articles_done: Çêbû

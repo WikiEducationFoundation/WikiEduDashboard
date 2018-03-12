@@ -16,8 +16,10 @@
 # Author: Lugimax
 # Author: Mailman
 # Author: Mouse21
+# Author: Movses
 # Author: Nzeemin
 # Author: Okras
+# Author: Patrick Star
 # Author: Putnik
 # Author: Redredsonia
 # Author: SmartNart12
@@ -173,6 +175,8 @@ ru:
     create_campaign: Создать новую кампанию
     description: Описание
     delete_campaign: Удалить эту кампанию
+    disable_account_requests: Отключить запросы учетной записи
+    enable_account_requests: Включить запросы учётной записи
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'

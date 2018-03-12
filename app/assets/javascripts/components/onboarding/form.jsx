@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import { connect } from "react-redux";
 
-import API from '../../utils/api.js';
+import OnboardAPI from '../../utils/onboarding_utils.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
 const Form = createReactClass({
@@ -38,13 +38,14 @@ const Form = createReactClass({
     this.state.user.instructor = this.state.instructor === 'true';
     $('#react_root').data('current_user', this.state.user);
 
-    return API.onboard({
+    return OnboardAPI.onboard({
       real_name: this.state.name,
       email: this.state.email,
       instructor: this.state.instructor === 'true'
     })
     .then(() => {
-      return browserHistory.push(`/onboarding/permissions?return_to=${decodeURIComponent(this.props.returnToParam)}`);
+      const destination = this.state.instructor === 'true' ? 'supplementary' : 'permissions';
+      return browserHistory.push(`/onboarding/${destination}?return_to=${decodeURIComponent(this.props.returnToParam)}`);
     }
     )
     .catch(() => {
