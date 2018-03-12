@@ -458,6 +458,7 @@ qqq:
     user_role: '{{Identical|Role}}'
     term: '{{Identical|Term}}'
     timeline_link: '{{Identical|Timeline}}'
+    timeline_tooltip: Message that explains what timeline is good for
     time_zone_message: Message explaining that times are shown to the user in their
       local time zone
     title: |-
