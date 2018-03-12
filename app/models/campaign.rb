@@ -34,6 +34,7 @@ class Campaign < ApplicationRecord
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
   has_many :requested_accounts, through: :courses
+  has_many :alerts, through: :courses
 
   before_validation :set_slug
 

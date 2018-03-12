@@ -1,5 +1,6 @@
 import * as types from '../constants';
 import API from '../utils/api.js';
+import logErrorMessage from '../utils/log_error_message';
 
 // This action uses the Thunk middleware pattern: instead of returning a plain
 // action object, it returns a function that takes the store dispatch fucntion —
@@ -17,3 +18,34 @@ export function submitNeedHelpAlert(data) {
 }
 
 export const resetNeedHelpAlert = () => ({ type: types.RESET_NEED_HELP_ALERT });
+
+const fetchAlertsPromise = (campaignSlug) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'GET',
+      url: `/campaigns/${campaignSlug}/alerts.json`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const fetchAlerts = (campaignSlug) => dispatch => {
+  return (
+    fetchAlertsPromise(campaignSlug)
+      .then(data => {
+        dispatch({
+          type: types.RECEIVE_ALERTS,
+          data
+        });
+      })
+      .catch(response => (dispatch({ type: types.API_FAIL, data: response })))
+  );
+};
+
+export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
