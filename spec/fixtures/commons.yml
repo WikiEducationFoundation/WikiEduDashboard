@@ -9,5 +9,5 @@
 
 default:
   id: 1
-  project: commons
-  language:
+  project: wikimedia
+  language: commons
