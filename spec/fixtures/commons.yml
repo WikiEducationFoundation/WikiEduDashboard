@@ -9,5 +9,5 @@
 
 default:
   id: 1
-  language: en
   project: commons
+  language:
