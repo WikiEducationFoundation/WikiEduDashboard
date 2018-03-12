@@ -112,7 +112,7 @@ class TrainingBase
       instance_variable_set("@#{key}", value)
     end
   rescue StandardError => e
-    puts "There's a problem with file '#{slug}'"
+    Rails.logger.info "There's a problem with file '#{slug}'"
     raise e
   end
 
