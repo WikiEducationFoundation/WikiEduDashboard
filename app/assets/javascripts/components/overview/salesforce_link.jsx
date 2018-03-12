@@ -10,6 +10,12 @@ const SalesforceLink = createReactClass({
     current_user: PropTypes.object
   },
 
+  updateSalesforceId() {
+    const rawSalesforceId = prompt('Update the Salesforce record ID or url for this course.');
+    const salesforceId = extractSalesforceId(rawSalesforceId);
+    ServerActions.linkToSalesforce(this.props.course.id, salesforceId);
+  },
+
   linkToSalesforce() {
     const rawSalesforceId = prompt('Enter the Salesforce record ID or url for this course.');
     const salesforceId = extractSalesforceId(rawSalesforceId);
@@ -32,6 +38,7 @@ const SalesforceLink = createReactClass({
       const openLink = SalesforceServer + this.props.course.flags.salesforce_id;
       return (
         <div>
+          <p key="edit_salesforce_id"><button onClick={this.updateSalesforceId} className="button">Update Salesforce ID</button></p>
           <p key="open_salesforce"><a href={openLink} className="button" target="_blank">Open in Salesforce</a></p>
           <p key="update_salesforce"><button onClick={this.updateSalesforceRecord} className="button" target="_blank">Update Salesforce record</button></p>
         </div>
