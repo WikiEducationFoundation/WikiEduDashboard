@@ -27,7 +27,8 @@ pt:
     field_required: Este campo é obrigatório
     field_invalid_characters: Este campo tem carateres inválidos
     field_invalid_date: Este campo requer uma data no formato AAAA-MM-DD
-    field_invalid_date_time: O fim deve ser após o início. (As horas vão de 0 a 23.)
+    field_invalid_date_time: O fim deve ser depois do início (as horas vão de 0 a
+      23).
     greeting2: Bem-vindo(a)!
     greeting_extended: Bem-vindo(a) à Wikipédia
     greeting: Olá!
@@ -43,7 +44,7 @@ pt:
     search: faça uma pergunta
     search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registar-se através da Wikipédia
-    sign_up_wikipedia: Ou registe-se na Wikipédia
+    sign_up_wikipedia: Ou registar-se na Wikipédia
     sign_up_log_in_extended: através da Wikipédia
     sign_up: Registar-se
     submit: Enviar
@@ -132,6 +133,7 @@ pt:
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade de Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
+    see_more: Ver mais
     show_cumulative_changes: Mostrar mudanças acumuladas
     show_current_version: Mostrar a versão atual
     show_current_version_with_authorship_highlighting: Versão atual com destaque de
@@ -487,9 +489,9 @@ pt:
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
     review_timeline: Por favor, reveja este cronograma e faça mudanças. Quando estiver
-      satisfeito com o seu cronograma, submeta-o para a aprovação da equipa do Wiki
-      Ed. Uma vez que o seu cronograma estiver aprovado, receberá uma URL de inscrição
-      que os alunos podem usar para participar do curso. (Poderá editá-lo depois.)
+      satisfeito com o cronograma, envie-o para aprovação da equipa da Wiki Educação.
+      Após a aprovação, receberá um URL de inscrição que os alunos podem usar para
+      participar do curso (poderá editá-lo depois.)
     revisions_doc: O número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
@@ -502,11 +504,11 @@ pt:
     student_editors: Editores estudantes
     students_none: Este curso não tem estudantes.
     students_short: Estudantes
-    submitted_admin: Este curso foi submetido para aprovação pelo seu criador. Para
+    submitted_admin: Este curso foi enviado para aprovação pelo seu criador. Para
       aprová-lo, adicione-o a uma campanha na página de resumo.
-    submitted_and_pending_heading: Submetido e pendente de aprovação
-    submitted_heading: Cursos submetidos
-    submitted_note: O seu curso foi submetido. A equipa do Wiki Ed irá analisá-lo
+    submitted_and_pending_heading: Enviado e pendente de aprovação
+    submitted_heading: Cursos enviados
+    submitted_note: O seu curso foi enviado. A equipa da Wiki Educação irá analisá-lo
       e entrar em contacto em caso de eventuais dúvidas.
     suggestions_feedback: Há algumas sugestões que queira fazer para melhorar esta
       funcionalidade? Informe-nos!
@@ -528,13 +530,13 @@ pt:
     time_zone_message: Os horários de início e fim são mostrados no seu fuso horário
       local.
     title: Título
-    training_due: O módulo de treinamento "%{title}" foi indicado para este curso
-      e deve ser realizado até %{date}.
-    training_nav: Ir ao treinamento
-    training_overdue: O módulo treinamento %{title} foi indicado para este curso e
+    training_due: O módulo de formação "%{title}" foi indicado para este curso e deve
+      ser realizado até %{date}.
+    training_nav: Ir à formação
+    training_overdue: O módulo de formação %{title} foi indicado para este curso e
       deveria ter sido realizado até %{date}
-    unsubmitted: Cursos Não Submetidos
-    untrained: Sem treinamento
+    unsubmitted: Cursos Não Enviados
+    untrained: Sem formação
     update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu com nenhuma imagem ou outros arquivos
       de mídia no Wikimedia Commons.
@@ -553,7 +555,7 @@ pt:
     warn_mirrored: |-
       Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
-    wiki_staff: Equipa Wiki Ed
+    wiki_staff: Equipa da Wiki Educação
     withdrawn: Retirado
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
@@ -666,7 +668,7 @@ pt:
     last_update: Última atualização das estatísticas
     next_update: Próxima atualização estimada
     activity: Atividade recente
-    are_trained: estão em dia com o treinamento
+    are_trained: estão em dia com a formação
     articles_created: Artigos criados
     articles_edited: Artigos editados
     characters: Caracteres
@@ -953,7 +955,7 @@ pt:
       instructor: Professor
       campus_volunteer: Voluntário da cidade universitária
       online_volunteer: Voluntário ativo
-      wiki_ed_staff: Equipa Wiki Ed
+      wiki_ed_staff: Equipa da Wiki Educação
   user_profiles:
     student_impact: Impacto total feito por %{username} como aluno
     instructor_impact: Impacto total feito por %{username} como professor
@@ -1045,8 +1047,8 @@ pt:
       por isto! Pode ocorrer por vezes.) Por favor, tente novamente iniciar a sessão
       ou matricular-se.
   survey:
-    login_message: Agradecemos pelo o seu tempo. Por favor, entre no seu painel de
-      controlo do Wiki Ed para participar do inquérito.
+    login_message: Agradecemos pelo o seu tempo. Por favor, entre no seu Painel do
+      Programa Educativo para participar do inquérito.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de
       poder ver as notificações no navegador. Se não a ativar, apenas serão mostradas
@@ -1057,16 +1059,16 @@ pt:
       por correio eletrónico.
     email:
       headline: Olá, %{username}
-      message_line1: Esperamos que tenha tido um ótimo semestre! A Wiki Ed aguarda
-        pelos os seus comentários para aperfeiçoar as suas funcionalidades e suporte
-        para as suas tarefas na Wikipédia. A sua resposta é crucial para aperfeiçoar
+      message_line1: Esperamos que tenha tido um ótimo semestre! A Wiki Educação aguarda
+        os seus comentários para aperfeiçoar as funcionalidades e o apoio que prestamos
+        às suas tarefas na Wikipédia. A sua resposta é crucial para aperfeiçoarmos
         os nossos serviços atuais.
       message_line2: Tem 15 minutos para completar o nosso inquérito de professor?
         Clique no botão abaixo para ajudar-nos a fazer o ensino com a Wikipédia uma
         experiência ainda mais gratificante e valiosa.
       course: 'Curso: %{course_info}'
       closing: Cordialmente,
-      signed: '- a equipa da Wiki Ed'
+      signed: '- a equipa da Wiki Educação'
       link: Responder o inquérito
     follow_up:
       message: Isto é uma anotação sobre o inquérito do seu curso, %{course_title}.
@@ -1076,4 +1078,9 @@ pt:
     no_responses: Não há comentários/repostas ainda.
   wiki_api:
     create_account_reason: Este utilizador está a participar de %{event}.
+  onboarding:
+    supplementary:
+      header: Como soube de nós?
+      question_text: Onde, ou através de quem, ouviu falar pela primeira vez da Wiki
+        Educação?
 ...

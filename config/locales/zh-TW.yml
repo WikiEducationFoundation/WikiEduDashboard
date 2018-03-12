@@ -110,6 +110,7 @@ zh-TW:
       list: 列表等級 — 並非傳統條目的一個列表
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
+    see_more: 查看更多
     show_cumulative_changes: 顯示累積更改次數
     show_current_version: 顯示目前版本
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯

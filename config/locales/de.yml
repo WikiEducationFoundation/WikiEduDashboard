@@ -124,6 +124,7 @@ de:
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
+    see_more: Weitere Artikel
     show_cumulative_changes: Kumulative Änderungen anzeigen
     show_current_version: Aktuelle Version anzeigen
     show_current_version_with_authorship_highlighting: Aktuelle Version mit Autorenhervorhebung
@@ -1082,4 +1083,8 @@ de:
     no_responses: Es gibt noch keine Rückmeldungsantworten.
   wiki_api:
     create_account_reason: Dieser Benutzer nimmt an %{event} teil.
+  onboarding:
+    supplementary:
+      header: Wie hast du von uns erfahren?
+      question_text: Wo oder von wem hast du zuerst von Wiki Education erfahren?
 ...

@@ -159,4 +159,8 @@ da:
     done: Færdig!
     check_answer: Kontrollér svar
     included_modules: Inkluderede moduler
+  onboarding:
+    supplementary:
+      header: Hvordan hørte du om os?
+      question_text: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
 ...

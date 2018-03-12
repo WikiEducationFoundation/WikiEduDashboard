@@ -128,6 +128,7 @@ uk:
       list: Список — список, а не звичайна стаття
       '?': Не оцінена — стаття, яку не було оцінено за шкалою якості Вікіпедії
       does_not_exist: Цієї статті немає у Вікіпедії
+    see_more: Див. більше
     show_cumulative_changes: Показати сукупні зміни
     show_current_version: Показати поточну версію
     show_current_version_with_authorship_highlighting: Поточна версія з підсвіткою
@@ -1048,4 +1049,8 @@ uk:
     no_responses: Ще немає жодних відгуків.
   wiki_api:
     create_account_reason: Цей користувач бере участь у %{event}.
+  onboarding:
+    supplementary:
+      header: Як ви про нас дізналися?
+      question_text: Де чи від кого ви вперше почули про Wiki Education?
 ...

@@ -141,6 +141,7 @@ pt-br:
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
+    see_more: Veja mais
     show_cumulative_changes: Mostrar Mudanças acumuladas
     show_current_version: Ver versão atual
     show_current_version_with_authorship_highlighting: Versão atual com destaque de

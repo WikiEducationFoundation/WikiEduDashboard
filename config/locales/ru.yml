@@ -16,6 +16,7 @@
 # Author: Lugimax
 # Author: Mailman
 # Author: Mouse21
+# Author: Movses
 # Author: Nzeemin
 # Author: Okras
 # Author: Patrick Star
@@ -175,7 +176,7 @@ ru:
     description: Описание
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учетной записи
-    enable_account_requests: Включить запросы учетной записи
+    enable_account_requests: Включить запросы учётной записи
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'

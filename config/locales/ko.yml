@@ -97,6 +97,7 @@ ko:
       list: 목록 &mdash; 일반 글이 아닌 목록
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
       does_not_exist: 이 글은 위키백과에 존재하지 않습니다
+    see_more: 더 보기
     show_current_version: 현재 버전 보기
     title: 제목
     title_example: 문서 제목
@@ -130,6 +131,7 @@ ko:
     no_passcode: 비밀코드 없음
     none: 없음
     program_template: 프로그램 틀
+    requested_accounts: 요청된 계정
     title: 제목
     use_start_end_dates: 시작 및 끝 날짜 사용
   categories:
@@ -286,6 +288,7 @@ ko:
     volunteer:
       other: 자원봉사자
     wiki_staff: 위키 에듀 임원
+    withdrawn: 탈퇴
     yourcourses: 내 과정
     survey:
       link: 설문 조사 참가

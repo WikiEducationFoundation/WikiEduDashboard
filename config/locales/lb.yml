@@ -1,6 +1,7 @@
 # Messages for Luxembourgish (Lëtzebuergesch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Les Meloures
 # Author: Robby
 ---
 lb:
@@ -82,6 +83,7 @@ lb:
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia
+    see_more: Méi gesinn
     show_cumulative_changes: Kumulativ Ännerunge weisen
     show_current_version: Aktuell Versioun weisen
     title: Titel
@@ -93,7 +95,7 @@ lb:
     wiki: Wiki
   assignments:
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
-    add_available: En disponibelen Artikel dobäisetzen
+    add_available: En disponibelen Artikel derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken
@@ -102,7 +104,7 @@ lb:
     milestones:
       title: Kilometersténg
   campaign:
-    add_organizer: Organisateur dobäisetzen
+    add_organizer: Organisateur derbäisetzen
     campaign: Campagne
     campaigns: Campagnen
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
@@ -117,10 +119,10 @@ lb:
     title: Titel
     use_start_end_dates: Ufanks- a Schlussdatumer benotzen
   categories:
-    add_category: Kategorie dobäisetzen
-    add_template: Schabloun dobäisetzen
+    add_category: Kategorie derbäisetzen
+    add_template: Schabloun derbäisetzen
     add_this_category: Dës Kategorie dobäisetzen
-    add_this_template: Dës Schabloun dobäisetzen
+    add_this_template: Dës Schabloun derbäisetzen
     name: Numm
     category_name: Numm vun der Kategorie
     template_name: Numm vun der Schabloun
@@ -191,6 +193,7 @@ lb:
       duplicate_slug: Et gëtt schonn e Programm mam Numm %{slug}.
     features_feedback: 'Automatiséiert Virschléi:'
     feedback: Feedback
+    home_wiki_language: Sprooch vun der Heemechtswiki
     instructor:
       one: Instrukter
       other: Instrukteren
@@ -251,6 +254,7 @@ lb:
       one: Fräiwëllegen
       other: Fräiwëlleger
     weeks_none: Dëse Cours huet nach keen Zäitplang.
+    withdrawn: Zréckgezunn
     yourcourses: Är Coursen
     survey:
       notification_message: Bedeelegt Iech un eiser Ëmfro zu dësem Cours.
@@ -281,7 +285,7 @@ lb:
       participate_in_campaign: Bei enger Campagne matmaachen
       save_cloned_course: Späicheren
     delete_course: Programm läschen
-    enroll: Auteur dobäisetzen
+    enroll: Auteur derbäisetzen
     enrollment: Participatioun
     join_course: Beim Programm matmaachen
     leave_course: Programm verloossen
@@ -358,7 +362,7 @@ lb:
     suggestion_docs:
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia.
   timeline:
-    add_week: Woch dobäisetzen
+    add_week: Woch derbäisetzen
     block_custom: Personaliséiert
     block_milestone: Kilometersteen
     course_dates: Datume vum Cours
@@ -448,7 +452,7 @@ lb:
     instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
     disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
     bio_placeholder: Är Biographie dobäisetzen (fakultativ)
-    location_placeholder: Setzt Är Plaz dobäi (fakultativ)
+    location_placeholder: Setzt d'Plaz wou Dir sidd, derbäi (fakultativ)
     institution_placeholder: Numm vun der Institutioun (fakultativ)
   wizard:
     course_dates: Datume vun de Coursen
@@ -482,4 +486,8 @@ lb:
       course: 'Cours: %{course_info}'
       closing: Mat beschte Gréiss
       link: Bei der Ëmfro matmaachen
+  onboarding:
+    supplementary:
+      header: Wéi hutt Dir vun eis héieren?
+      question_text: Wou oder vu wiem hutt Dir fir d'éischt vu WikiEducation héieren?
 ...
