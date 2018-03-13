@@ -2,7 +2,7 @@ import { TrixEditor } from 'react-trix';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
 // This is a flexible text input box. It switches between edit and read mode,
@@ -27,17 +27,10 @@ const TextAreaInput = createReactClass({
     className: PropTypes.string
   },
 
-  mixins: [InputMixin],
-
-  getInitialState() {
-    return { value: this.props.value };
-  },
-
   // react-trix passes html, text to the onChange handler.
   _handleTrixChange(html) {
     const e = { target: { value: html } };
-    this.onChange(e);
-    return this.setState({ value: html });
+    this.props.onChange(e);
   },
 
   render() {
@@ -49,7 +42,7 @@ const TextAreaInput = createReactClass({
     // ////////////
     if (this.props.editable) {
       let inputClass;
-      if (this.state.invalid) {
+      if (this.props.invalid) {
         inputClass = 'invalid';
       }
 
@@ -57,7 +50,7 @@ const TextAreaInput = createReactClass({
       if (this.props.wysiwyg) {
         inputElement = (
           <TrixEditor
-            value={this.state.value}
+            value={this.props.value}
             onChange={this._handleTrixChange}
             className={inputClass}
           />
@@ -66,13 +59,13 @@ const TextAreaInput = createReactClass({
         inputElement = (
           <textarea
             className={inputClass}
-            id={this.state.id}
+            id={this.props.id}
             rows={this.props.rows || '8'}
-            value={this.state.value || ''}
-            onChange={this.onChange}
+            value={this.props.value || ''}
+            onChange={this.props.onChange}
             autoFocus={this.props.focus}
-            onFocus={this.focus}
-            onBlur={this.blur}
+            onFocus={this.props.onFocus}
+            onBlur={this.props.onBlur}
             maxLength="30000"
             placeholder={this.props.placeholder}
           />
@@ -82,7 +75,7 @@ const TextAreaInput = createReactClass({
       if (this.props.autoExpand) {
         return (
           <div className="expandingArea active">
-            <pre><span>{this.state.value}</span><br /></pre>
+            <pre><span>{this.props.value}</span><br /></pre>
             {inputElement}
           </div>
         );
@@ -109,4 +102,4 @@ const TextAreaInput = createReactClass({
 }
 );
 
-export default TextAreaInput;
+export default InputHOC(TextAreaInput);

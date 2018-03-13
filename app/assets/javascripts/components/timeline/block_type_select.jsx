@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Conditional from '../high_order/conditional.jsx';
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
 
 const BlockTypeSelect = createReactClass({
   displayName: 'BlockTypeSelect',
@@ -13,10 +13,6 @@ const BlockTypeSelect = createReactClass({
     editable: PropTypes.bool,
   },
 
-  mixins: [InputMixin],
-  getInitialState() {
-    return { value: this.props.value };
-  },
   render() {
     const labelClass = 'tooltip-trigger';
     const label = 'Block type:';
@@ -32,11 +28,11 @@ const BlockTypeSelect = createReactClass({
 
     if (this.props.editable) {
       return (<div className="form-group">
-        <label htmlFor={this.state.id} className={labelClass}>{label}{tooltip}</label>
+        <label htmlFor={this.props.id} className={labelClass}>{label}{tooltip}</label>
         <select
-          id={this.state.id}
-          value={this.state.value}
-          onChange={this.onChange}
+          id={this.props.id}
+          value={this.props.value}
+          onChange={this.props.onChange}
         >
           {options}
         </select>
@@ -47,4 +43,4 @@ const BlockTypeSelect = createReactClass({
 }
 );
 
-export default Conditional(BlockTypeSelect);
+export default Conditional(InputHOC(BlockTypeSelect));
