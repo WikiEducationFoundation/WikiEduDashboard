@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
-// import List from '../common/list.jsx';
+import Gallery from '../common/gallery.jsx';
 import Upload from './upload.jsx';
 import UploadStore from '../../stores/upload_store.js';
 import ServerActions from '../../actions/server_actions.js';
-// import CourseUtils from '../../utils/course_utils.js';
+import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ uploads: UploadStore.getModels() });
 
-const UploadList = () => {
-//  const elements = uploads.map(upload => {
-//    return <Upload upload={upload} key={upload.id} />;
-//  });
+const UploadList = ({ uploads, course }) => {
+const elements = uploads.map(upload => {
+    return <Upload upload={upload} key={upload.id} />;
+  });
 
-/*
+
   const keys = {
     image: {
       label: I18n.t('uploads.image'),
@@ -40,7 +40,7 @@ const UploadList = () => {
   };
 
   return (
-    <List
+    <Gallery
       elements={elements}
       keys={keys}
       table_key="uploads"
@@ -48,19 +48,19 @@ const UploadList = () => {
       store={UploadStore}
     />
   );
-*/
 
-  return (
-    <table className={defaultClassName}>
-      <tbody>
-        <tr>
-          <td>
-            {Upload}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
+
+  // return (
+  //   <table className={defaultClassName}>
+  //     <tbody>
+  //       <tr>
+  //         <td>
+  //           {Upload}
+  //         </td>
+  //       </tr>
+  //     </tbody>
+  //   </table>
+  // );
 };
 
 UploadList.propTypes = {

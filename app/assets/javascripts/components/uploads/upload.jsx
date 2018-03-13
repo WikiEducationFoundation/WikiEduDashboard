@@ -35,7 +35,6 @@ const Upload = ({ upload, linkUsername }) => {
   }
 
   return (
-    <div className="gallery">
       <div className="upload">
         <a href={upload.url} target="_blank">
           <img src={imageFile} alt="" />
@@ -46,7 +45,7 @@ const Upload = ({ upload, linkUsername }) => {
           </div>
         </a>
       </div>
-    </div>
+    
   );
 };
 

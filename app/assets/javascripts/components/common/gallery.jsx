@@ -91,17 +91,9 @@ const Gallery = ({
   }
 
   return (
-    <table className={defaultClassName}>
-      <thead>
-        <tr>
-          {headers}
-          <th />
-        </tr>
-      </thead>
-      <tbody>
-        {elements}
-      </tbody>
-    </table>
+    <div className="gallery">
+      {elements}
+    </div>
   );
 };
 
