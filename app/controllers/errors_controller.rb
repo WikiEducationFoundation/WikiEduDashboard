@@ -36,6 +36,7 @@ class ErrorsController < ApplicationController
   def not_found_message
     if params[:endpoint] == 'overview' # only if it is a course
       return I18n.t 'error_no_course.explanation', slug: "#{params[:school]}/#{params[:titleterm]}"
+    end
     return I18n.t 'error_404.explanation'
   end
 end
