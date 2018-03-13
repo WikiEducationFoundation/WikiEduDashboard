@@ -18,7 +18,7 @@ describe 'error pages' do
   describe 'for non-existent courses' do
     it 'describes the 404 problem' do
       visit '/courses/this/course_is_not_(real)'
-      expect(page).to have_content 'Page not found'
+      expect(page).to have_content 'No such course'
       expect(page.status_code).to eq(404)
     end
   end

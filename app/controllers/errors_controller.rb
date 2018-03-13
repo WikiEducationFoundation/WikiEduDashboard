@@ -5,6 +5,7 @@ class ErrorsController < ApplicationController
   respond_to :html, :json
 
   def file_not_found
+    @message = not_found_message
     render status: 404
   end
 
@@ -28,5 +29,14 @@ class ErrorsController < ApplicationController
     else
       render status: 200
     end
+  end
+
+  private
+
+  def not_found_message
+    if params[:endpoint] == 'overview' # only if it is a course
+      return I18n.t 'error_no_course.explanation', slug: "#{params[:school]}/#{params[:titleterm]}"
+    end
+    return I18n.t 'error_404.explanation'
   end
 end
