@@ -690,4 +690,9 @@ ca:
       closing: Sincerament,
       signed: '- L''equip de Wiki Ed'
       link: Començeu l'enquesta
+  onboarding:
+    supplementary:
+      header: Com us heu enterat de nosaltres?
+      question_text: On, o de quins, vau sentir parlar sobre Wiki Education per primera
+        vegada?
 ...

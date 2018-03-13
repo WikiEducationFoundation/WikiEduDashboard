@@ -105,6 +105,7 @@ zh-CN:
       list: 列表级 — 一个列表，而不是一篇传统条目
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
       does_not_exist: 此条目在维基百科不存在
+    see_more: 查看更多
     show_cumulative_changes: 显示累计更改
     show_current_version: 显示当前版本
     show_current_version_with_authorship_highlighting: 当前版本w/作者高亮

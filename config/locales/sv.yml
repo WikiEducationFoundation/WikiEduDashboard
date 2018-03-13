@@ -67,6 +67,7 @@ sv:
     new: (ny)
     none: Den här kursen har inte redigerat några artiklar.
     rating: Klass
+    see_more: Se mer
     show_current_version: Visa aktuell version
     show_current_version_with_authorship_highlighting: Nuvarande version med författaren
       markerad
@@ -473,4 +474,8 @@ sv:
     no_responses: Det finns inga återkopplingssvar ännu.
   wiki_api:
     create_account_reason: Denna användare deltar i %{event}.
+  onboarding:
+    supplementary:
+      header: Hur fick du reda på om oss?
+      question_text: Var, eller från vem, fick du först reda på om Wiki Education?
 ...

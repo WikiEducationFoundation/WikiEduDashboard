@@ -1,7 +1,7 @@
-import 'testHelper'; // eslint-disable-line import/no-extraneous-dependencies
 import React from 'react';
 import { shallow } from 'enzyme';
 import NewAccountButton from '../../../app/assets/javascripts/components/enroll/new_account_button.jsx';
+import '../../testHelper';
 
 describe('NewAccountButton', () => {
   const currentUser = { admin: false, id: null, notEnrolled: true };

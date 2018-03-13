@@ -754,7 +754,7 @@ fi:
     form_errors: Tarkista onko lomakkeessa virheitä.
     invalid_assignment: Virheellinen tehtävä
     invalid_date: '%{key} päivämäärä on virheellinen'
-    invalid_file_format: Tiedostoa ei voitu tallentaa. Lataa joko Pdf- tai Word-tiedosto.
+    invalid_file_format: Tiedostoa ei voitu tallentaa. Lataa joko PDF- tai Word-tiedosto.
     oauth_invalid: Wikipedia-valtuutuksesi on päättynyt. Kirjaudu sisään uudestaan.
     start_date_before_end_date: Aloituspäivämäärän pitää olla ennen lopetuspäivämäärää
     unsupported_browser:

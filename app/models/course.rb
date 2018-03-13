@@ -100,6 +100,9 @@ class Course < ApplicationRecord
   has_many :categories_courses, class_name: 'CategoriesCourses', dependent: :destroy
   has_many :categories, through: :categories_courses
 
+  has_many :alerts
+  has_many :public_alerts, -> { nonprivate }, class_name: 'Alert'
+
   ############
   # Metadata #
   ############

@@ -24,6 +24,8 @@ class Campaign < ApplicationRecord
   has_many :campaigns_courses, class_name: 'CampaignsCourses', dependent: :destroy
   has_many :campaigns_users, class_name: 'CampaignsUsers', dependent: :destroy
   has_many :courses, through: :campaigns_courses
+  has_many :nonprivate_courses, -> { nonprivate },
+           through: :campaigns_courses, source: :course
   has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
   has_many :students, -> { distinct }, through: :courses
@@ -34,6 +36,8 @@ class Campaign < ApplicationRecord
   has_many :question_group_conditionals
   has_many :rapidfire_question_groups, through: :question_group_conditionals
   has_many :requested_accounts, through: :courses
+  has_many :alerts, through: :courses
+  has_many :public_alerts, through: :nonprivate_courses
 
   before_validation :set_slug
 

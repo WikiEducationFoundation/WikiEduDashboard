@@ -132,6 +132,7 @@ es:
       '?': 'Sin clasificación: un artículo que aún no ha sido clasificado en la escala
         de calidad de Wikipedia'
       does_not_exist: Este artículo no existe en Wikipedia
+    see_more: Ver más
     show_cumulative_changes: Mostrar cambios acumulados
     show_current_version: Mostrar la versión actual
     show_current_version_with_authorship_highlighting: Versión actual con resalte
@@ -930,4 +931,9 @@ es:
         nuestro apoyo a tareas en la Wikipedia, como las tuyas.
   feedback_form_responses:
     no_responses: Todavía no hay respuestas/comentarios.
+  onboarding:
+    supplementary:
+      header: ¿Cómo te enteraste de nosotros?
+      question_text: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre Wiki
+        Education?
 ...

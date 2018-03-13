@@ -11,20 +11,30 @@
     .section-header
       %h3
         = t("#{@presenter.course_string_prefix}.students")
-
-    %table.table
+      .sort-select
+        %select.sorts{rel: "users"}
+          %option{rel: "asc", value: "username"}= t('users.username')
+          %option{rel: "desc", value: "revision-count"}= t('courses.edit_count')
+          %option{rel: "desc", value: "title"}= t("#{@presenter.course_string_prefix}.course")
+    %table.table.table--hoverable.table--sortable
       %thead
         %tr
-          %th= t('users.username')
-          %th= t('courses.edit_count')
-          %th= t("#{@presenter.course_string_prefix}.course")
+          %th.sort.sortable.asc{"data-default-order" => "asc", "data-sort" => "username"}
+            = t('users.username')
+            %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "revision-count"}
+            = t('courses.edit_count')
+            %span.sortable-indicator
+          %th.sort.sortable{"data-default-order" => "asc", "data-sort" => "title"}
+            = t("#{@presenter.course_string_prefix}.course")
+            %span.sortable-indicator
       %tbody.list
         - @courses_users.each do |cu|
           %tr
-            %td
+            %td.username
               = link_to cu.user.username, "/users/#{cu.user.username}"
-            %td
+            %td.revision-count
               = cu.revision_count
-            %td
+            %td.title
               %small
                 = link_to cu.course.title, course_slug_path(cu.course.slug)

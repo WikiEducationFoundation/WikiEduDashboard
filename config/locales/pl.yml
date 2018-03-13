@@ -120,6 +120,7 @@ pl:
       list: Lista, czyli spis rzeczy lub tematów
       '?': Bez klasyfikacji, czyli artykuł (jeszcze) nie oceniony
       does_not_exist: Tego artykułu nie ma w Wikipedii
+    see_more: Zobacz więcej
     show_cumulative_changes: Pokaż zmiany skumulowane
     show_current_version: Pokaż aktualną wersję
     title: Tytuł
@@ -823,4 +824,7 @@ pl:
     no_responses: Nie ma jeszcze żadnych odpowiedzi.
   wiki_api:
     create_account_reason: Ten użytkownik uczestniczy w %{event}.
+  onboarding:
+    supplementary:
+      header: Jak się o nas dowiedziałeś?
 ...

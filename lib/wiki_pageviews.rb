@@ -90,7 +90,7 @@ class WikiPageviews
     tries ||= 3
     response = Net::HTTP::get(URI.parse(url))
     response
-  rescue Errno::ETIMEDOUT, Errno::ENETUNREACH, SocketError
+  rescue EOFError, Errno::ETIMEDOUT, Errno::ENETUNREACH, SocketError
     Rails.logger.info I18n.t('timeout', api: 'wikimedia.org/api/rest_v1', tries: (tries -= 1))
     retry unless tries.zero?
   end

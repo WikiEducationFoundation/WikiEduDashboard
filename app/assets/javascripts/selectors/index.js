@@ -9,6 +9,8 @@ const getCurrentUserFromHtml = state => state.currentUserFromHtml;
 const getCourseCampaigns = state => state.campaigns.campaigns;
 const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
+const getAllEditedArticles = state => state.articles.articles;
+const getWikiFilter = state => state.articles.wikiFilter;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -61,5 +63,14 @@ export const getAvailableCampaigns = createSelector(
 export const getCloneableCourses = createSelector(
   [getUserCourses], (userCourses) => {
     return getFiltered(userCourses, { cloneable: true });
+  }
+);
+
+export const getWikiArticles = createSelector(
+  [getAllEditedArticles, getWikiFilter], (editedArticles, wikiFilter) => {
+    if (wikiFilter === null) {
+      return editedArticles;
+    }
+    return getFiltered(editedArticles, { ...wikiFilter });
   }
 );
