@@ -11,3 +11,8 @@ default:
   id: 1
   language: en
   project: wikipedia
+
+commons:
+  id: 2
+  project: wikimedia
+  language: commons
