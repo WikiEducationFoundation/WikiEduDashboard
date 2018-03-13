@@ -24,6 +24,7 @@ const SummaryPanel = createReactClass({
   rewind(toIndex) {
     WizardActions.rewindWizard(toIndex);
     window.location.hash = `step${toIndex + 1}`; // Sync Step Changes
+    document.title = document.title.replace(/\d+$/, toIndex + 1); // Sync Title
   },
   render() {
     const rawOptions = WizardStore.getAnswers().map((answer, i) => {

@@ -28,6 +28,7 @@ const persist = function () {
   window.onpopstate = function (event) { // Listen to changes
     if (event.state) {
       WizardActions.goToWizard(event.state.index);
+      document.title = document.title.replace(/\d+$/, event.state.index + 1); // Sync Titles
     }
   };
 };
