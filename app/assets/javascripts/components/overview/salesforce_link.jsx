@@ -32,6 +32,7 @@ const SalesforceLink = createReactClass({
       const openLink = SalesforceServer + this.props.course.flags.salesforce_id;
       return (
         <div>
+          <p key="link_salesforce"><button onClick={this.linkToSalesforce} className="button">Update Salesforce ID</button></p>
           <p key="open_salesforce"><a href={openLink} className="button" target="_blank">Open in Salesforce</a></p>
           <p key="update_salesforce"><button onClick={this.updateSalesforceRecord} className="button" target="_blank">Update Salesforce record</button></p>
         </div>
