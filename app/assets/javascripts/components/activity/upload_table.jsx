@@ -49,17 +49,16 @@ const UploadTable = createReactClass({
     }
 
     const uploads = this._renderUploads();
-//    const ths = this._renderHeaders();
+    const ths = this._renderHeaders();
+
     return (
       <table className="uploads table table--sortable">
-        {/* ---remove table header---
         <thead>
           <tr>
             {ths}
             <th />
           </tr>
         </thead>
-        ------- */}
         <tbody>
           {uploads}
         </tbody>

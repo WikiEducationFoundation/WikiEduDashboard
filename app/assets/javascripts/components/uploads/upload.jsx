@@ -27,28 +27,26 @@ const Upload = ({ upload, linkUsername }) => {
   if (usageCount === 0) {
     usageCount = '';
   } else if (usageCount === 1) {
-    const usage = 'usage';
+    const usage = ' usage';
     usageCount += usage;
   } else {
-    const usages = 'usages';
+    const usages = ' usages';
     usageCount += usages;
   }
 
   return (
-    <tr><td>
-      <div className="gallery">
-        <div className="upload">
-          <a href={upload.url} target="_blank">
-            <img src={imageFile} alt="" />
-            <div className="info">
-              <p className="count">{usageCount}</p>
-              <p>{uploader}</p>
-              <p>{fileName}</p>
-            </div>
-          </a>
-        </div>
+    <div className="gallery">
+      <div className="upload">
+        <a href={upload.url} target="_blank">
+          <img src={imageFile} alt="" />
+          <div className="info">
+            <p className="count">{usageCount}</p>
+            <p>{uploader}</p>
+            <p>{fileName}</p>
+          </div>
+        </a>
       </div>
-    </td></tr>
+    </div>
   );
 };
 

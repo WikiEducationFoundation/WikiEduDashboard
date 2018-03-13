@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import UploadTable from './upload_table.jsx';
 import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uploads_actions.js';
 
-/*
 const HEADERS = [
       { title: I18n.t('recent_activity.image'), key: 'image' },
       { title: I18n.t('recent_activity.file_name'), key: 'file_name' },
@@ -13,7 +12,6 @@ const HEADERS = [
       { title: I18n.t('recent_activity.usage_count'), key: 'usage_count', style: { width: 160 } },
       { title: I18n.t('recent_activity.datetime'), key: 'uploaded_at', style: { width: 200 } },
     ];
-*/
 
 export const RecentUploadsHandlerBase = createReactClass({
   displayName: 'RecentUploadsHandler',
@@ -40,7 +38,7 @@ export const RecentUploadsHandlerBase = createReactClass({
         <UploadTable
           loading={this.props.loading}
           uploads={this.props.uploads}
-//        headers={HEADERS}
+          headers={HEADERS}
           onSort={this.props.sortRecentUploads}
         />
       </div>
