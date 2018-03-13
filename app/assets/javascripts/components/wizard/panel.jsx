@@ -47,6 +47,7 @@ const Panel = createReactClass({
   advance() {
     if (this.props.summary) {
       window.location.hash = `step${this.props.panelCount}`;
+      document.title = document.title.replace(/\d+$/, this.props.panelCount); // Sync Title
     }
     else { this.persistState(); }
     if (this.props.saveCourse) {
