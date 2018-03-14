@@ -1,17 +1,14 @@
-.table {
-  width: 100%;
-}
-
 .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 100%;
   padding: 3px;
-  margin-top: 30px;
+  margin-bottom: 50px;
 }
 
 .gallery .upload {
+  flex-grow: 1;
   height: 250px;
   position: relative;
   margin: 2px;
@@ -19,6 +16,9 @@
 
 .upload img {
   height: 250px;
+  object-fit: cover;
+  max-width: 100%;
+  min-width: 100%;
 }
 
 .upload .info {
