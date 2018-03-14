@@ -73,11 +73,11 @@ describe 'Admin users', type: :feature, js: true do
       expect(page).to have_content 'This course has been submitted for approval by its creator'
 
       # Edit details and add campaign
-      click_button('Edit Details')
+      click_button 'Edit Details'
       within '#course_campaigns' do
         page.find('.button.border.plus').click
         find('div.Select').send_keys('Fall 2015', :enter)
-        find('.pop button', visible: true).click
+        omniclick find('.pop button', visible: true)
       end
 
       expect(page).to have_content 'Your course has been published'
@@ -97,8 +97,8 @@ describe 'Admin users', type: :feature, js: true do
       # Edit details and remove campaign
       click_button('Edit Details')
       within '#course_campaigns' do
-        click_button '+'
-        click_button '-'
+        omniclick find('button', text: '+')
+        omniclick find('button', text: '-')
       end
       expect(page).to have_content 'This course has been submitted'
 
