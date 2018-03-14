@@ -10,13 +10,14 @@ const UploadTable = createReactClass({
   propTypes: {
     loading: PropTypes.bool,
     uploads: PropTypes.array,
-    headers: PropTypes.array
+//    headers: PropTypes.array
   },
 
+/*
   sortItems(e) {
     this.props.onSort(e.currentTarget.getAttribute("data-sort-key"));
   },
-
+*/
   _renderUploads() {
     return this.props.uploads.map((upload) => {
       return (
@@ -25,6 +26,7 @@ const UploadTable = createReactClass({
     });
   },
 
+/*
   _renderHeaders() {
     return this.props.headers.map((header) => {
       if (header.key !== 'image') {
@@ -42,6 +44,7 @@ const UploadTable = createReactClass({
       );
     });
   },
+*/
 
   render() {
     if (this.props.loading) {
@@ -49,22 +52,15 @@ const UploadTable = createReactClass({
     }
 
     const uploads = this._renderUploads();
-    const ths = this._renderHeaders();
+//    const ths = this._renderHeaders();
 
     return (
-      <table className="uploads table table--sortable">
-        <thead>
-          <tr>
-            {ths}
-            <th />
-          </tr>
-        </thead>
-        <tbody>
-          {uploads}
-        </tbody>
-      </table>
+      <div className="gallery">
+        {uploads}
+      </div>
     );
   }
 });
+
 
 export default UploadTable;
