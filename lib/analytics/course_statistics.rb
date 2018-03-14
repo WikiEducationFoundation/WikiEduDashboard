@@ -32,7 +32,8 @@ class CourseStatistics
       articles_deleted: @deleted_article_ids.count,
       file_uploads: @upload_ids.count,
       files_in_use: @used_count,
-      global_usages: @usage_count
+      global_usages: @usage_count,
+      cumulative_page_views_estimate: Course.where(id: @course_ids).sum(:view_sum)
     }
 
     report = { @opts[:campaign].to_sym => report } if @opts[:campaign]
