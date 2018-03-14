@@ -8,10 +8,6 @@ module CourseHelper
     return course
   end
 
-  def current?(course)
-    course.current?
-  end
-
   def pretty_course_title(course)
     "#{course.school} - #{course.title} (#{course.term})"
   end

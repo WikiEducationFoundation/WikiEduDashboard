@@ -231,10 +231,6 @@ class Course < ApplicationRecord
     true
   end
 
-  def current?
-    start < Time.zone.now && self.end > Time.zone.now - UPDATE_LENGTH
-  end
-
   def approved?
     campaigns.any? && !withdrawn
   end

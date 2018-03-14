@@ -14,7 +14,7 @@ json.course do
   json.account_requests_enabled @course.account_requests_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
-  json.ended !current?(@course) && @course.start < Time.zone.now
+  json.ended @course.end < Time.zone.now
   json.published CampaignsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
 
