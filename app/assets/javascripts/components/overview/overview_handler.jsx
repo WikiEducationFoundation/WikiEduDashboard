@@ -11,7 +11,6 @@ import ThisWeek from './this_week.jsx';
 import CourseStore from '../../stores/course_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
@@ -29,8 +28,6 @@ const getState = () =>
     current: CourseStore.getCurrentWeek()
   })
 ;
-
-const POLL_INTERVAL = 300000; // 5 minutes
 
 const Overview = createReactClass({
   displayName: 'Overview',
@@ -50,28 +47,12 @@ const Overview = createReactClass({
 
   componentDidMount() {
     ServerActions.fetch('timeline', this.props.course_id);
-    this.timeout = this.poll();
     return ServerActions.fetch('tags', this.props.course_id);
-  },
-
-  componentWillUnmount() {
-    if (this.timeout) {
-      clearInterval(this.timeout);
-    }
   },
 
   storeDidChange() {
     return this.setState(getState());
   },
-
-  poll() {
-    if (this.state.course.type === 'Editathon') {
-      return setInterval(() => CourseActions.updateCourse(), POLL_INTERVAL);
-    }
-    return null;
-  },
-
-  timeout: null,
 
   render() {
     if (this.state.course.cloned_status === 1) {

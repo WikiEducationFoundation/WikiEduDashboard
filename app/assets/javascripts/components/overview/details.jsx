@@ -25,6 +25,7 @@ import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import CourseActions from '../../actions/course_actions.js';
+import ServerActions from '../../actions/server_actions.js';
 
 import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
@@ -39,6 +40,8 @@ const getState = () =>
     error_message: ValidationStore.firstMessage()
   })
 ;
+
+const POLL_INTERVAL = 300000; // 5 minutes
 
 const Details = createReactClass({
   displayName: 'Details',
@@ -58,6 +61,15 @@ const Details = createReactClass({
     return getState();
   },
 
+  componentDidMount() {
+    this.timeout = this.poll(); // Start polling
+  },
+
+  componentWillUnmount() {
+    if (this.timeout) {
+      clearInterval(this.timeout); // End it
+    }
+  },
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
@@ -88,6 +100,15 @@ const Details = createReactClass({
     // On P&E Dashboard, anyone with edit rights for the course may rename it.
     return true;
   },
+
+  poll() {
+    if (this.state.course.type === 'Editathon') {
+      return setInterval(() => ServerActions.fetch('course', this.state.course.slug), POLL_INTERVAL);
+    }
+    return null;
+  },
+
+  timeout: null,
 
   render() {
     const canRename = this.canRename();
