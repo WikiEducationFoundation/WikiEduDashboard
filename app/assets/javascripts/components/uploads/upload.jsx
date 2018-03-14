@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 const Upload = ({ upload, linkUsername }) => {
   let fileName = upload.file_name;
-  if (fileName.length > 20) {
+  if (fileName.length > 30) {
     const ellipsis = '…';
-    fileName = upload.file_name.substr(0, 20) + ellipsis;
+    fileName = upload.file_name.substr(0, 30) + ellipsis;
   }
 
   let imageFile;
@@ -23,29 +23,22 @@ const Upload = ({ upload, linkUsername }) => {
     uploader = upload.uploader;
   }
 
-  let usageCount = upload.usage_count;
-  if (usageCount === 0) {
-    usageCount = '';
-  } else if (usageCount === 1) {
-    const usage = ' usage';
-    usageCount += usage;
-  } else {
-    const usages = ' usages';
-    usageCount += usages;
+  let usage = '';
+  if (upload.usage_count) {
+      usage = `${upload.usage_count} usage${upload.usage_count !== 1 ? 's' : ''}`;
   }
 
   return (
-      <div className="upload">
-        <a href={upload.url} target="_blank">
-          <img src={imageFile} alt="" />
-          <div className="info">
-            <p className="count">{usageCount}</p>
-            <p>{uploader}</p>
-            <p>{fileName}</p>
-          </div>
-        </a>
-      </div>
-    
+    <div className="upload">
+      <a href={upload.url} target="_blank">
+        <img src={imageFile} alt="" />
+        <div className="info">
+          <p className="usage">{usage}</p>
+          <p className="uploader">{uploader}</p>
+          <p>{fileName}</p>
+        </div>
+      </a>
+    </div>
   );
 };
 

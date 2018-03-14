@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Editable from '../high_order/editable.jsx';
-import Gallery from '../common/gallery.jsx';
 import Upload from './upload.jsx';
 import UploadStore from '../../stores/upload_store.js';
 import ServerActions from '../../actions/server_actions.js';
-import CourseUtils from '../../utils/course_utils.js';
+//import CourseUtils from '../../utils/course_utils.js';
 
 const getState = () => ({ uploads: UploadStore.getModels() });
 
-const UploadList = ({ uploads, course }) => {
+// remove course from UploadList para becasue it's not used
+const UploadList = ({ uploads }) => {
 const elements = uploads.map(upload => {
     return <Upload upload={upload} key={upload.id} />;
   });
-
-
+/*
   const keys = {
     image: {
       label: I18n.t('uploads.image'),
@@ -38,9 +37,16 @@ const elements = uploads.map(upload => {
       info_key: 'uploads.time_doc'
     }
   };
-
+*/
   return (
-    <Gallery
+    <div className="gallery">
+      {elements}
+    </div>
+  );
+};
+/*
+  return (
+    <List
       elements={elements}
       keys={keys}
       table_key="uploads"
@@ -48,20 +54,9 @@ const elements = uploads.map(upload => {
       store={UploadStore}
     />
   );
-
-
-  // return (
-  //   <table className={defaultClassName}>
-  //     <tbody>
-  //       <tr>
-  //         <td>
-  //           {Upload}
-  //         </td>
-  //       </tr>
-  //     </tbody>
-  //   </table>
-  // );
 };
+*/
+
 
 UploadList.propTypes = {
   uploads: PropTypes.array,
