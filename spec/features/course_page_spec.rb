@@ -278,18 +278,21 @@ describe 'the course page', type: :feature, js: true do
 
     it 'allows instructor to remove an available article' do
       stub_info_query
+      user = create(:user, id: user_count + 100, isNonStudent: true)
+      course = Course.second
+      create(:courses_user, course_id: course.id, user_id: user.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       stub_raw_action
       Assignment.destroy_all
       sleep 1
-      login_as(admin)
       stub_oauth_edit
-      course = Course.first
       wiki = Wiki.first
       AssignmentManager.new(user_id: nil,
                             course: course,
                             wiki: wiki,
                             title: 'Education',
                             role: 0).create_assignment
+      login_as(user, scope: :user)
       js_visit "/courses/#{slug}/articles"
       assigned_articles_section = page.first(:css, '#available-articles')
       expect(assigned_articles_section).to have_content 'Education'
@@ -305,8 +308,8 @@ describe 'the course page', type: :feature, js: true do
     it 'allows student to select an available article' do
       VCR.use_cassette 'assigned_articles_item' do
         stub_info_query
-        user = create(:user, id: user_count + 100)
-        course = Course.first
+        user = create(:user, id: user_count + 100, isStudent: true)
+        course = Course.second
         create(:courses_user, course_id: course.id, user_id: user.id,
                               role: CoursesUsers::Roles::STUDENT_ROLE)
         wiki = Wiki.first
