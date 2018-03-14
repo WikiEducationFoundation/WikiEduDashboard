@@ -197,7 +197,7 @@ const AvailableActions = createReactClass({
     }
 
     return (
-      <div className="module">
+      <div className="module actions">
         <div className="section-header">
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
