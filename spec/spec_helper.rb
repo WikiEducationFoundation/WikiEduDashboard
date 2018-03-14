@@ -15,6 +15,7 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
 )
 SimpleCov.start 'rails' do
   add_filter 'lib/tasks' # even though we test these, coverage doesn't work right.
+  add_filter 'setup'
 end
 
 require 'vcr'
