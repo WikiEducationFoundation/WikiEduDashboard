@@ -11,7 +11,6 @@ import ThisWeek from './this_week.jsx';
 import CourseStore from '../../stores/course_store.js';
 import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.js';
-import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
 import SyllabusUpload from './syllabus-upload.jsx';
