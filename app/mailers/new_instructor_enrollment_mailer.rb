@@ -4,6 +4,7 @@ class NewInstructorEnrollmentMailer < ApplicationMailer
   def self.send_staff_alert(course:, adder:, new_instructor:)
     return unless Features.email?
     staffer = SpecialUsers.classroom_program_manager
+    return unless staffer
     email(course, staffer, adder, new_instructor).deliver_now
   end
 
