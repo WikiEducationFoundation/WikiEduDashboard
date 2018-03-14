@@ -19,6 +19,7 @@ class CourseStatistics
 
   # For a set of course ids, generate a human-readable summary of what the users
   # in those courses contributed.
+  # rubocop:disable Metrics/MethodLength
   def report_statistics
     report = {
       course_count: @course_ids.uniq.count,
@@ -39,6 +40,7 @@ class CourseStatistics
     report = { @opts[:campaign].to_sym => report } if @opts[:campaign]
     report
   end
+  # rubocop:enable Metrics/MethodLength
 
   def articles_edited
     Article.where(namespace: 0, id: @page_ids)
