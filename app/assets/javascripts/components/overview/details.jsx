@@ -19,6 +19,7 @@ import TimelineToggle from './timeline_toggle.jsx';
 import CourseLevelSelector from '../course_creator/course_level_selector.jsx';
 import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
 import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
+import Modal from '../common/modal.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
@@ -314,7 +315,7 @@ const Details = createReactClass({
       );
     }
 
-    return (
+    const shared = (
       <div className="module course-details">
         <div className="section-header">
           <h3>{I18n.t('application.details')}</h3>
@@ -322,53 +323,75 @@ const Details = createReactClass({
         </div>
         <div className="module__data extra-line-height">
           <Instructors {...this.props} />
-          {online}
-          {campus}
-          {staff}
-          <div><p className="red">{this.state.error_message}</p></div>
-          {school}
-          {title}
-          {term}
-          <form>
-            {passcode}
-            {expectedStudents}
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.start}
-              value_key="start"
-              validation={CourseDateUtils.isDateValid}
-              editable={this.props.editable}
-              label={CourseUtils.i18n('start', this.props.course.string_prefix)}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            <DatePicker
-              onChange={this.updateCourseDates}
-              value={this.props.course.end}
-              value_key="end"
-              editable={this.props.editable}
-              validation={CourseDateUtils.isDateValid}
-              label={CourseUtils.i18n('end', this.props.course.string_prefix)}
-              date_props={dateProps.end}
-              enabled={Boolean(this.props.course.start)}
-              showTime={this.props.course.use_start_and_end_times}
-              required={true}
-            />
-            {timelineStart}
-            {timelineEnd}
-          </form>
+          <div className="details-form">
+            <div className="group-left">
+              {online}
+              {campus}
+              {staff}
+              <div><p className="red">{this.state.error_message}</p></div>
+              {school}
+              {title}
+              {term}
+              <form>
+                {passcode}
+                {expectedStudents}
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.start}
+                  value_key="start"
+                  validation={CourseDateUtils.isDateValid}
+                  editable={this.props.editable}
+                  label={CourseUtils.i18n('start', this.props.course.string_prefix)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+                <DatePicker
+                  onChange={this.updateCourseDates}
+                  value={this.props.course.end}
+                  value_key="end"
+                  editable={this.props.editable}
+                  validation={CourseDateUtils.isDateValid}
+                  label={CourseUtils.i18n('end', this.props.course.string_prefix)}
+                  date_props={dateProps.end}
+                  enabled={Boolean(this.props.course.start)}
+                  showTime={this.props.course.use_start_and_end_times}
+                  required={true}
+                />
+              </form>
+            </div>
+            <div className="group-right">
+              {timelineStart}
+              {timelineEnd}
+              {subject}
+              {courseLevelSelector}
+              {tags}
+              {courseTypeSelector}
+              {submittedSelector}
+              {privacySelector}
+              {timelineToggle}
+              {withdrawnSelector}
+              {projectSelector}
+              {languageSelector}
+            </div>
+          </div>
           {campaigns}
-          {subject}
-          {courseLevelSelector}
-          {tags}
-          {courseTypeSelector}
-          {submittedSelector}
-          {privacySelector}
-          {timelineToggle}
-          {withdrawnSelector}
-          {projectSelector}
-          {languageSelector}
         </div>
+      </div>
+    );
+
+    if (!this.props.editable) {
+      return (
+        <div>
+          {shared}
+        </div>
+      );
+    }
+
+    return (
+      <div className="modal-course-details">
+        <Modal>
+          {shared}
+        </Modal>
       </div>
     );
   }
