@@ -1,7 +1,7 @@
-import 'testHelper';
 import React from 'react';
 import { shallow } from 'enzyme';
 import CourseNavbar from 'components/common/course_navbar';
+import '../../testHelper';
 
 describe('CourseNavbar', () => {
   Features = { enableGetHelpButton: true };
