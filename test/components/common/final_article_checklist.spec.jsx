@@ -1,7 +1,7 @@
-import 'testHelper';
 import React from 'react';
 import { mount } from 'enzyme';
 import FinalArticleChecklist from 'components/common/final_article_checklist';
+import '../../testHelper';
 
 describe('FinalArticleChecklist', () => {
   it('renders checklist when button is clicked', () => {

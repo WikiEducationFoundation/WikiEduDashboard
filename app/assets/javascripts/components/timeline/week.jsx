@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
+import ReactCSSTG from 'react-addons-css-transition-group';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 import BlockActions from '../../actions/block_actions.js';

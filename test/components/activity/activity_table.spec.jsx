@@ -1,6 +1,7 @@
-
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
+//import { shallow } from 'enzyme';
+//import sinon from 'sinon';
 
 import '../../testHelper';
 import ActivityTable from '../../../app/assets/javascripts/components/activity/activity_table.jsx';
@@ -101,4 +102,9 @@ describe('ActivityTable', () => {
     const firstRow = TestTable.querySelector('tbody tr:first-child');
     expect(firstRow.textContent).to.eq('No activity');
   });
+  /*it ('sorts the activities alphabetically', () => {
+    const onSort = sinon.spy();
+    const wrapper = shallow(<ActivityTable store={reduxStore} loading={false} activity={activities} headers={headers} onSort={onSort} />);
+    wrapper.findWhere(node => node.innerText === 'title').simulate('click');
+  });*/
 });
