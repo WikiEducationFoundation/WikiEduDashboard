@@ -49,6 +49,10 @@
 #
 
 class Editathon < Course
+  def wiki_edits_enabled?
+    false
+  end
+
   def wiki_course_page_enabled?
     false
   end
