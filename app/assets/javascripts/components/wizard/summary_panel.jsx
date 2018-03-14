@@ -8,7 +8,6 @@ import WizardActions from '../../actions/wizard_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
 import Panel from './panel.jsx';
 
-
 const SummaryPanel = createReactClass({
   displayName: 'SummaryPanel',
 
@@ -23,7 +22,9 @@ const SummaryPanel = createReactClass({
     return browserHistory.push(`/courses/${this.props.courseId}/timeline`);
   },
   rewind(toIndex) {
-    return WizardActions.rewindWizard(toIndex);
+    WizardActions.rewindWizard(toIndex);
+    window.location.hash = `step${toIndex + 1}`; // Sync Step Changes
+    document.title = document.title.replace(/\d+$/, toIndex + 1); // Sync Title
   },
   render() {
     const rawOptions = WizardStore.getAnswers().map((answer, i) => {
@@ -32,7 +33,7 @@ const SummaryPanel = createReactClass({
       if (i === 0) {
         details = [
           <p key={'course_dates_summary'}>
-            {I18n.t('timeline.course_start')}— {this.props.course.start} <br />
+            {I18n.t('timeline.course_start')} — {this.props.course.start} <br />
             {I18n.t('timeline.course_end')} — {this.props.course.end} <br />
             {I18n.t('courses.assignment_start')} — {this.props.course.timeline_start} <br />
             {I18n.t('courses.assignment_end')} — {this.props.course.timeline_end}

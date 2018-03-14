@@ -35,6 +35,13 @@ const WizardActions = Flux.createActions({
 
   resetWizard() {
     return { actionType: 'WIZARD_RESET' };
+  },
+
+  goToWizard(toIndex = 0) {
+    return {
+      actionType: 'WIZARD_GOTO',
+      data: { toIndex }
+    };
   }
 });
 
