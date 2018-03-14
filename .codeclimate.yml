@@ -32,3 +32,4 @@ exclude_paths:
 - vendor/*
 - spec/*
 - docs/*
+- setup/*

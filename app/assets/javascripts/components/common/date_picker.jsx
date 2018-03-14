@@ -6,7 +6,7 @@ import OnClickOutside from 'react-onclickoutside';
 import _ from 'lodash';
 import moment from 'moment';
 
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
@@ -36,8 +36,6 @@ const DatePicker = createReactClass({
     date_props: PropTypes.object,
     showTime: PropTypes.bool
   },
-
-  mixins: [InputMixin],
 
   getDefaultProps() {
     return {
@@ -81,7 +79,8 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    this.props.onChange(this.props.value_key, this.getDate().format());
+    const e = { target: { value: this.getDate().format() } };
+    this.props.onChange(e);
   },
 
   /**
@@ -153,7 +152,6 @@ const DatePicker = createReactClass({
     if (this.isValidDate(value) && !this.isDayDisabled(value)) {
       this.setState({ value }, () => {
         this.onChangeHandler();
-        this.validate(); // make sure validations are set as valid
       });
     } else {
       this.setState({ value: this.getInitialState().value });
@@ -260,7 +258,7 @@ const DatePicker = createReactClass({
       let labelClass = '';
       let inputClass = (this.props.inline !== null) && this.props.inline ? ' inline' : '';
 
-      if (this.state.invalid) {
+      if (this.props.invalid) {
         labelClass += 'red';
         inputClass += 'invalid';
       }
@@ -291,7 +289,7 @@ const DatePicker = createReactClass({
       const dateInput = (
         <div className="date-input">
           <input
-            id={this.state.id}
+            id={this.props.id}
             ref="datefield"
             value={this.state.value || ''}
             className={`${inputClass} ${this.props.value_key}`}
@@ -319,7 +317,7 @@ const DatePicker = createReactClass({
 
       const timeControlNode = (
         <span className={`form-group time-picker--form-group ${inputClass}`}>
-          <label htmlFor={`${this.state.id}-hour`} className={labelClass}>
+          <label htmlFor={`${this.props.id}-hour`} className={labelClass}>
             {timeLabel}
           </label>
           <div className="time-input">
@@ -345,7 +343,7 @@ const DatePicker = createReactClass({
       return (
         <div className={`form-group datetime-control ${this.props.id}-datetime-control ${inputClass}`}>
           <span className={`form-group date-picker--form-group ${inputClass}`}>
-            <label htmlFor={this.state.id}className={labelClass}>{label}</label>
+            <label htmlFor={this.props.id}className={labelClass}>{label}</label>
             {dateInput}
           </span>
           {this.props.showTime ? timeControlNode : null}
@@ -370,4 +368,4 @@ const DatePicker = createReactClass({
   }
 });
 
-export default Conditional(OnClickOutside(DatePicker));
+export default Conditional(InputHOC(OnClickOutside(DatePicker)));

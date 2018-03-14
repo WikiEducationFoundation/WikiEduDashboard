@@ -93,9 +93,10 @@ class WikiApi
     @mediawiki = api_client
     @mediawiki.send(action, query)
   rescue MediawikiApi::ApiError => e
-    handle_api_error e, action, query
+    log_error e, action, query
   rescue StandardError => e
     tries -= 1
+    log_error e, action, query
     handle_non_api_error(e)
     retry if tries >= 0
     Raven.capture_exception e, level: 'warning'
@@ -106,7 +107,7 @@ class WikiApi
     MediawikiApi::Client.new @api_url
   end
 
-  def handle_api_error(e, action, query)
+  def log_error(e, action, query)
     Rails.logger.info "Caught #{e}"
     Raven.capture_exception e, level: 'warning',
                                extra: { action: action,

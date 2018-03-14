@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import InputMixin from '../../mixins/input_mixin.js';
+import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 
 const TextInput = createReactClass({
@@ -28,15 +28,9 @@ const TextInput = createReactClass({
     // required: bool used by Conditional
   },
 
-  mixins: [InputMixin],
-
-  getInitialState() {
-    return { value: this.props.value };
-  },
-
   dateChange(date) {
     const value = date ? date.format('YYYY-MM-DD') : '';
-    return this.onChange({ target: { value } });
+    return this.props.onChange({ target: { value } });
   },
 
   render() {
@@ -55,7 +49,7 @@ const TextInput = createReactClass({
     if (this.props.editable) {
       let labelClass = '';
       let inputClass = this.props.inline ? 'inline' : '';
-      if (this.state.invalid) {
+      if (this.props.invalid) {
         labelClass += 'red';
         inputClass += ' invalid';
       }
@@ -73,12 +67,12 @@ const TextInput = createReactClass({
       const input = (
         <input
           className={className}
-          id={this.state.id}
-          value={this.state.value || ''}
-          onChange={this.onChange}
+          id={this.props.id}
+          value={this.props.value || ''}
+          onChange={this.props.onChange}
           autoFocus={this.props.focus}
-          onFocus={this.focus}
-          onBlur={this.blur}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
           type={this.props.type || 'text'}
           max={this.props.max}
           maxLength={maxLength}
@@ -90,7 +84,7 @@ const TextInput = createReactClass({
 
       return (
         <div className="form-group">
-          <label htmlFor={this.state.id} className={labelClass}>{label}</label>
+          <label htmlFor={this.props.id} className={labelClass}>{label}</label>
           {input}
         </div>
       );
@@ -108,4 +102,4 @@ const TextInput = createReactClass({
 }
 );
 
-export default Conditional(TextInput);
+export default Conditional(InputHOC(TextInput));

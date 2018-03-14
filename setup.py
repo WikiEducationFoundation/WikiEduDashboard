@@ -2,7 +2,7 @@
 import platform
 import subprocess
 
-print ("WARNING! This is a work in progress script. It has been tested to work for debian-based systems. \
+print ("WARNING! This is a work in progress script. It has been tested to work for Fedora and debian-based systems. \
   There are individual operating system dependent scripts being called from this one. \
   You can find them in setup directory. The script for windows is still not complete. \
   You can use them as a starting point or as a reference. If you run into any errors while running this script, \
@@ -16,6 +16,12 @@ print ("Please install ruby-2.5.0 before running this script.")
 def deb_setup():
     print ("Your system is found to be debian-based.")
     subprocess.run("sudo chmod 775 setup/deb-setup.sh && setup/deb-setup.sh",
+                   shell=True, check=True)
+
+
+def dnf_setup():
+    print("Your system is found to be Fedora")
+    subprocess.run("sudo chmod 775 setup/dnf-setup.sh && setup/dnf-setup.sh",
                    shell=True, check=True)
 
 
@@ -33,6 +39,8 @@ def osx_setup():
 if platform.platform().lower().find('ubuntu') != -1 \
         or platform.platform().lower().find('debian') != -1:
     deb_setup()
+elif platform.platform().lower().find('fedora') != -1:
+    dnf_setup()
 elif platform.platform().lower().find('darwin') != -1:
     osx_setup()
 elif platform.platform().lower().find('windows') != -1:

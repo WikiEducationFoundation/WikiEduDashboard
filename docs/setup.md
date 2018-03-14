@@ -26,7 +26,7 @@ There are some basic requirements for the script to work:
 In case of any errors please post your error logs on: https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1709.
 You can also contact us on slack for any further queries.
 
-## Troubleshooting 
+## Troubleshooting
 - If you want to setup your own manual Database config(Advanced users)
   - First, create your manual config file, `config/database.yml` from the sample file provided, `config/database.example.yml`
   - Run the script
@@ -127,10 +127,22 @@ If you know your way around Rails, here's the very short version. Some additiona
   - Also you can refer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**
-      $ `rake db:migrate`
-      $ `rake db:migrate RAILS_ENV=test`
+  - $ `rake db:migrate`
+  - $ `rake db:migrate RAILS_ENV=test`
 
 ## [Set up OAuth integration](oauth.md) (optional — skip unless you are working on WikiEdits features)
+
+## Populate example data
+
+Running these tasks will take several minutes, and should populate your database
+with a few example events with editing activity.
+
+1. **Create courses with users**
+  - $ `rake dev:populate`
+
+2. **Import revision and upload data**
+  - $ `rake batch:update_constantly`
+  - $ `rake batch:update_daily`
 
 ## Develop
 1. **Start Redis** (if not already running as daemon)

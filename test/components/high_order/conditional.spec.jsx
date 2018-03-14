@@ -16,7 +16,7 @@ describe('Conditional', () => {
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput.type.displayName).to.eq('TextInput');
+    expect(textInput.type.displayName).to.eq('InputTextInput');
     expect(textInput.props.value).to.eq('foo');
   });
 

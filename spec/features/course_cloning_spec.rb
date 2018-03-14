@@ -19,11 +19,11 @@ describe 'cloning a course', js: true do
   end
 
   if (27..28).cover? Date.today.day
-    let(:course_end) { '25' }
-    let(:timeline_end) { '26' }
+    let(:course_end) { '26' }
+    let(:timeline_end) { '25' }
   else
-    let(:course_end) { '27' }
-    let(:timeline_end) { '28' }
+    let(:course_end) { '28' }
+    let(:timeline_end) { '27' }
   end
 
   let!(:course) do
