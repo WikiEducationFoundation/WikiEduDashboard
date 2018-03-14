@@ -303,7 +303,7 @@ class Course < ApplicationRecord
 
     # Overidden by ClassroomProgramCourse
   def wiki_edits_enabled?
-    flags[:wiki_edits_enabled].present?
+    flags[:wiki_edits_enabled].present? or true
   end
 
   # Overidden by ClassroomProgramCourse
