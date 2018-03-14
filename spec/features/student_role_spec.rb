@@ -144,9 +144,9 @@ describe 'Student users', type: :feature, js: true do
         find('input').set('passcode')
         click_button 'Enroll'
       end
-      sleep 1
-      click_button 'Join course'
       sleep 3
+      click_button 'Join course'
+      sleep 1
       visit "/courses/#{Course.first.slug}/students"
       expect(find('tbody', match: :first)).to have_content User.last.username
     end
