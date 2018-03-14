@@ -304,6 +304,11 @@ class Course < ApplicationRecord
     wiki_edits_enabled?
   end
 
+    # Overidden by ClassroomProgramCourse
+  def wiki_edits_enabled?
+    flags[:wiki_edits_enabled].present? or true
+  end
+
   # Overidden by ClassroomProgramCourse
   def timeline_enabled?
     flags[:timeline_enabled].present?

@@ -43,6 +43,7 @@ class CoursesController < ApplicationController
     slug_from_params if should_set_slug?
     @course.update update_params
     set_timeline_enabled
+    set_course_edits_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
@@ -204,6 +205,17 @@ class CoursesController < ApplicationController
       @course.save
     when false
       @course.flags[:timeline_enabled] = false
+      @course.save
+    end
+  end
+
+  def set_course_edits_enabled
+    case params.dig(:course, :course_edits_enabled)
+    when true
+      @course.flags[:course_edits_enabled] = true
+      @course.save
+    when false
+      @course.flags[:course_edits_enabled] = false
       @course.save
     end
   end
