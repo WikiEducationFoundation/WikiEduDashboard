@@ -368,9 +368,6 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'An Example Course'
     end
   end
-
-
-
   after do
     logout
   end
