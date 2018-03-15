@@ -60,7 +60,7 @@ describe ArticleStatusManager do
     end
 
     it 'deletes articles when id changed but new one already exists' do
-      VCR.use_cassette 'article_status_manager/main' do
+      VCR.use_cassette 'article_status_manager/deleted_new_exists' do
         create(:article,
                id: 100,
                mw_page_id: 100,
