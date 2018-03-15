@@ -116,39 +116,24 @@ describe 'Student users', type: :feature, js: true do
       expect(find('tbody', match: :first)).not_to have_content User.last.username
     end
 
-    it 'redirects to an error page if passcode is incorrect' do
+    it 'redirects to an error page if passcode is incorrect, with retry option' do
       login_as(user, scope: :user)
-      visit "/courses/#{Course.first.slug}"
-      sleep 1
+      visit "/courses/#{course.slug}"
       click_button 'Join course'
       within('.confirm-modal') do
         find('input').set('wrong_passcode')
         click_button 'OK'
       end
-      expect(page).to have_content 'Incorrect passcode'
-      sleep 5
-    end
-
-    it 'should enroll with correct retry passcode' do
-      login_as(user, scope: :user)
-      visit "/courses/#{Course.first.slug}"
-      sleep 1
-      click_button 'Join course'
-      within('.confirm-modal') do
-        find('input').set('wrong_passcode')
-        click_button 'OK'
-      end
-      sleep 1
       expect(page).to have_content 'Incorrect passcode'
       within '.section-header' do
         find('input').set('passcode')
         click_button 'Enroll'
       end
-      sleep 3
-      click_button 'Join course'
-      sleep 1
-      visit "/courses/#{Course.first.slug}/students"
-      expect(find('tbody', match: :first)).to have_content User.last.username
+      stub_oauth_edit
+      click_link 'Join'
+      expect(page).to have_content 'successfully joined'
+      click_link 'Students'
+      expect(find('tbody', match: :first)).to have_content user.username
     end
 
     it 'joins an Editathon without a passcode' do
