@@ -7,7 +7,7 @@ describe('AvailableArticle', () => {
   const props = {
     course: { home_wiki: { language: 'en', project: 'wikipedia' } },
     assignment: { article_title: 'two' },
-    current_user: { isStudent: true }, // student role
+    current_user: { role: 0 }, // student role
   };
 
   it('renders', () => {
