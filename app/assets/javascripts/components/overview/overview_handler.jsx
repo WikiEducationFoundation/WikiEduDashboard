@@ -17,6 +17,7 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
+import ServerActions from '../../actions/server_actions.js';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
