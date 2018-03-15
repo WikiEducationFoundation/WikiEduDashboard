@@ -43,13 +43,13 @@ describe ArticleStatusManager do
         create(:revision, date: 1.day.ago, article_id: 100, user: user)
 
         # es.wikipedia
-        create(:wiki, id: 3, language: 'es', project: 'wikipedia')
+        create(:wiki, id: 2, language: 'es', project: 'wikipedia')
         create(:article,
                id: 100000001,
                mw_page_id: 100000001,
                title: 'Audi',
                namespace: 0,
-               wiki_id: 3)
+               wiki_id: 2)
         create(:revision, date: 1.day.ago, article_id: 100000001, user: user)
 
         described_class.update_article_status_for_course(course)
