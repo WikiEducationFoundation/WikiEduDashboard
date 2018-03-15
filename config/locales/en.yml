@@ -1037,7 +1037,8 @@ en:
     header: "Incorrect passcode.  :-("
     explanation: >
       The passcode for enrolling in this course in incorrect. Please ask the
-      instructor for the current passcode to enroll in this course.
+      instructor for the current passcode to enroll in this course. You can
+      retry by entering the correct passcode below.
 
   error_no_course:
     explanation: "No such course %{slug} exists."

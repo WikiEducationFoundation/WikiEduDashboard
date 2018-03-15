@@ -18,6 +18,7 @@ class ErrorsController < ApplicationController
   end
 
   def incorrect_passcode
+    @path = params[:retry] || ''
     render status: 401
   end
 

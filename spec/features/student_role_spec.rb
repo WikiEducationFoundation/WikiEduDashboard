@@ -129,6 +129,28 @@ describe 'Student users', type: :feature, js: true do
       sleep 5
     end
 
+    it 'should enroll with correct retry passcode' do
+      login_as(user, scope: :user)
+      visit "/courses/#{Course.first.slug}"
+      sleep 1
+      click_button 'Join course'
+      within('.confirm-modal') do
+        find('input').set('wrong_passcode')
+        click_button 'OK'
+      end
+      sleep 1
+      expect(page).to have_content 'Incorrect passcode'
+      within '.section-header' do
+        find('input').set('passcode')
+        click_button 'Enroll'
+      end
+      sleep 3
+      click_button 'Join course'
+      sleep 1
+      visit "/courses/#{Course.first.slug}/students"
+      expect(find('tbody', match: :first)).to have_content User.last.username
+    end
+
     it 'joins an Editathon without a passcode' do
       login_as(user, scope: :user)
       stub_oauth_edit
@@ -346,7 +368,6 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'An Example Course'
     end
   end
-
   after do
     logout
   end

@@ -70,7 +70,7 @@ class SelfEnrollmentController < ApplicationController
 
   def redirect_if_passcode_invalid
     return if passcode_valid?
-    redirect_to '/errors/incorrect_passcode'
+    redirect_to "/errors/incorrect_passcode?retry=#{course_slug_path(@course.slug)}"
     yield
   end
 
