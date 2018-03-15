@@ -58,8 +58,7 @@ class Wiki < ApplicationRecord
 
   MULTILINGUAL_PROJECTS = {
     'wikidata' => 'www.wikidata.org',
-    'wikisource' => 'wikisource.org',
-    'commons' => 'commons.wikimedia.org'
+    'wikisource' => 'wikisource.org'
   }.freeze
 
   #################
@@ -84,7 +83,7 @@ class Wiki < ApplicationRecord
     when 'wikisource'
       language = nil if language == 'www'
     when 'wikimedia'
-      language = nil unless language == 'incubator'
+      language = nil unless language == 'incubator' || language == 'commons'
     end
     language
   end
