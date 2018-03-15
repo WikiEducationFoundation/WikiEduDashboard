@@ -103,7 +103,11 @@ const Details = createReactClass({
 
   poll() {
     if (this.state.course.type === 'Editathon') {
-      return setInterval(() => ServerActions.fetch('course', this.state.course.slug), POLL_INTERVAL);
+      return setInterval(() => {
+        if (!this.props.editable) {
+          ServerActions.fetch('course', this.state.course.slug);
+        }
+      }, POLL_INTERVAL);
     }
     return null;
   },
