@@ -199,6 +199,10 @@ fr:
   campaign:
     active_campaigns: Campagnes actives
     add_organizer: Ajouter un organisateur
+    alert_article: Titre de l’article
+    alert_label: Alertes des campagnes
+    alert_type: Type
+    alert_user_id: Utilisateur
     all_campaigns: Toutes les campagnes
     already_exists: Cette campagne existe déjà ! Veuillez réessayer avec un autre
       titre ou libellé court.
@@ -207,6 +211,7 @@ fr:
     campaign_deleted: La campagne « %{title} » a été supprimée
     campaign_not_updated: La campagne n’a pas pu être mise à jour
     campaign_updated: Campagne mise à jour
+    created_at: Date
     confirm_campaign_deletion: Êtes-vous sûr de vouloir supprimer la campagne appelée
       « %{title} » ? Si oui, saisissez le titre de la campagne pour continuer.
     confirm_campaign_deletion_failed: « %{title} » n’est pas le titre de cette campagne.
@@ -214,6 +219,7 @@ fr:
     confirm_course_removal: Êtes-vous sûr de vouloir supprimer « %{title} » de la
       campagne « %{campaign_title} » ?
     course_already_removed: « %{title} » a déjà été supprimé de la campagne « %{campaign_title} »
+    course: Cours
     course_removed: « %{title} » a été supprimé de la campagne « %{campaign_title} »
     create_campaign: Créer une nouvelle campagne
     create_my_campaign: Créer ma campagne !
@@ -226,6 +232,7 @@ fr:
     delete_campaign: Supprimer cette campagne
     disable_account_requests: Désactiver les demandes de compte
     enable_account_requests: Activer les demandes de compte
+    no_alerts: Cette campagne n'a pas d'alertes
     no_passcode: aucun mot de passe
     none: Aucun
     organizers: Organisateurs
@@ -268,6 +275,7 @@ fr:
       de compte ?
     activity: Activité
     active_courses: '%{course_type} actifs'
+    alerts: Alertes
     all_courses: Tous les cours
     already_enrolled: Vous faites déjà partie de '%{title}' !
     already_exists: Cela existe déjà pour ce cours !
@@ -1052,12 +1060,12 @@ fr:
     header: Mot de passe erroné. :-(
     explanation: Le mot de passe pour s’inscrire à ce cours n’est pas correct. Veuillez
       demander au formateur le mot de passe actuel pour s’inscrire à ce cours.
+  error_no_course:
+    explanation: Il n'existe pas de cours de type %{slug} .
   error_404:
     header: Page non trouvée. :-(
     explanation: Cette page n’existe pas. Si vous essayez d’atteindre le tableau de
       bord d’un cours, ce cours peut ne pas être inscrit dans ce tableau de bord.
-      S’il a été inscrit récemment, cela peut prendre un peu de temps pour que le
-      système l’ajoute.
   error_422:
     header: 422 — entité non traitable.  :-(
     explanation: Quelque chose s’est mal passé. Veuillez contacter les mainteneurs

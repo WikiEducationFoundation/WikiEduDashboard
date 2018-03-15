@@ -187,6 +187,10 @@ pt:
   campaign:
     active_campaigns: Campanhas ativas
     add_organizer: Adicionar organizador
+    alert_article: Título do artigo
+    alert_label: Alertas das campanhas
+    alert_type: Tipo
+    alert_user_id: Utilizador
     all_campaigns: Todas as campanhas
     already_exists: Esta campanha já existe! Por favor, tente novamente com um título
       ou linha composta diferentes.
@@ -195,6 +199,7 @@ pt:
     campaign_deleted: A campanha "%{title}" foi eliminada
     campaign_not_updated: A campanha não pode ser atualizada
     campaign_updated: Campanha atualizada
+    created_at: Data
     confirm_campaign_deletion: Tem a certeza de que deseja eliminar a campanha intitulada
       "%{title}"? Se assim for, escreva o título da campanha para prosseguir.
     confirm_campaign_deletion_failed: '"%{title}" não é o título desta campanha. A
@@ -202,6 +207,7 @@ pt:
     confirm_course_removal: Tem a certeza de que deseja remover "%{title}" da campanha
       "%{campaign_title}"?
     course_already_removed: '"%{title}" já foi removido da campanha "%{campaign_title}"'
+    course: Curso
     course_removed: '"%{title}" foi removido da campanha "%{campaign_title}"'
     create_campaign: Criar uma nova campanha
     create_my_campaign: Criar a minha campanha!
@@ -214,6 +220,7 @@ pt:
     delete_campaign: Eliminar esta campanha
     disable_account_requests: Desativar as solicitações de contas
     enable_account_requests: Ativar as solicitações de contas
+    no_alerts: Esta campanha não tem alertas
     no_passcode: sem código de acesso
     none: Nenhum
     organizers: Organizadores
@@ -257,6 +264,7 @@ pt:
       de contas?
     activity: Atividade
     active_courses: '%{course_type} ativos'
+    alerts: Alertas
     all_courses: Todos os cursos
     already_enrolled: Já faz parte de '%{title}'!
     already_exists: Isto já existe para este curso!
@@ -527,6 +535,9 @@ pt:
     timeline: Detalhes da tarefa
     timeline_enabled: Cronograma ativado
     timeline_link: Cronograma
+    timeline_tooltip: Ativar o cronograma permite-lhe especificar atividades semana
+      a semana e atribuir módulos de formação. É útil para cursos do Programa Educativo
+      e para outros programas que sejam longos e altamente estruturados.
     time_zone_message: Os horários de início e fim são mostrados no seu fuso horário
       local.
     title: Título

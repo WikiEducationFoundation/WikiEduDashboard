@@ -1,6 +1,7 @@
 # Messages for Norwegian Bokmål (norsk bokmål)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: JohSan65
 # Author: Jon Harald Søby
 # Author: Jon Harald Søby (WMNO)
 # Author: Kingu
@@ -153,6 +154,10 @@ nb:
   campaign:
     active_campaigns: Aktive kampanjer
     add_organizer: Legg til arrangør
+    alert_article: Artikkeltittel
+    alert_label: Kampanjealarmer
+    alert_type: Type
+    alert_user_id: Bruker
     all_campaigns: Alle kampanjer
     already_exists: Den kampanjen finnes allerede! Prøv igjen med en annen tittel
       eller «slug».
@@ -161,6 +166,7 @@ nb:
     campaign_deleted: Kampanjen «%{title}» har blitt slettet
     campaign_not_updated: Kampanjen kunne ikke oppdateres
     campaign_updated: Kampanje oppdatert
+    created_at: Dato
     confirm_campaign_deletion: Er du sikker på at du vil slette kampanjen «%{title}»?
       Hvis du er sikker, skriv inn kampanjens tittel for å fortsette.
     confirm_campaign_deletion_failed: «%{title}» er ikke denne kampanjens tittel.
@@ -168,6 +174,7 @@ nb:
     confirm_course_removal: Er du sikker på at du vil fjerne «%{title}» fra kampanjen
       «%{campaign_title}»?
     course_already_removed: «%{title}» har allerede blitt fjernet fra kampanjen «%{campaign_title}»
+    course: Kurs
     course_removed: «%{title}» har blitt fjernet fra kampanjen «%{campaign_title}»
     create_campaign: Opprett en ny kampanje
     create_my_campaign: Opprett kampanjen min!
@@ -187,6 +194,7 @@ nb:
   courses:
     activity: Aktivitet
     active_courses: Aktive %{course_type}
+    alerts: Varsler
     all_courses: Alle kurs
     already_enrolled: Du er allerede del av «%{title}»!
     already_exists: Dette finnes allerede for dette kurset!
@@ -381,6 +389,9 @@ nb:
     timeline: Oppgavedetaljer
     timeline_enabled: Tidslinje slått på
     timeline_link: Tidslinje
+    timeline_tooltip: Aktivering av tidslinjen vil la deg spesifisere ukentlige aktiviteter
+      og tildele treningsmoduler. Det er nyttig for utdanningsprogram-kurs og andre
+      lange, godt strukturerte programmer.
     time_zone_message: Start- og sluttider vises i din lokale tidssone.
     title: Tittel
     training_due: Treningsmodulen «%{title}» er tildelt dette kurset, og har frist

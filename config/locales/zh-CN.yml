@@ -150,6 +150,10 @@ zh-CN:
   campaign:
     active_campaigns: 活跃的活动
     add_organizer: 添加组织者
+    alert_article: 条目标题
+    alert_label: 活动提醒
+    alert_type: 类型
+    alert_user_id: 用户
     all_campaigns: 所有活动
     already_exists: 该活动已存在！请使用不同的标题或片段再试。
     campaign: 活动
@@ -157,10 +161,12 @@ zh-CN:
     campaign_deleted: 活动“%{title}”已被删除
     campaign_not_updated: 活动不能更新
     campaign_updated: 活动已更新
+    created_at: 日期
     confirm_campaign_deletion: 您确定要删除标题为“%{title}”的活动么？如果是，请输入活动标题以进行。
     confirm_campaign_deletion_failed: “%{title}”不是此活动的标题。活动未被删除。
     confirm_course_removal: 您确定要从“%{campaign_title}”活动中移除“%{title}”么？
     course_already_removed: “%{title}”已经从“%{campaign_title}”活动中移除
+    course: 课程
     course_removed: “%{title}”已从“%{campaign_title}”活动中被移除
     create_campaign: 创建新的运动
     create_my_campaign: 创建我的运动！
@@ -172,6 +178,7 @@ zh-CN:
     delete_campaign: 删除此运动
     disable_account_requests: 禁用帐户请求
     enable_account_requests: 启用帐户请求
+    no_alerts: 此活动没有提醒
     no_passcode: 无密码
     none: 无
     organizers: 组织者
@@ -205,6 +212,7 @@ zh-CN:
     accounts_generation_confirm_message: 您确定要启用帐户请求吗？
     activity: 活动
     active_courses: 激活%{course_type}
+    alerts: 提醒
     all_courses: 所有课程
     already_enrolled: 您已经是“%{title}”的一部分！
     already_exists: 已存在于该课程中！
@@ -401,6 +409,7 @@ zh-CN:
     timeline: 分配详细信息
     timeline_enabled: 已启用时间轴
     timeline_link: 时间轴
+    timeline_tooltip: 启用时间线将让您指定每周活动，并分配培训模块。这对教育计划课程及其他长期、高度结构化的计划很有帮助。
     time_zone_message: 开始和结束时间会以您的本地时区显示。
     title: 标题
     training_due: 培训模块“%{title}”已分配给该课程，并将于%{date}到期。

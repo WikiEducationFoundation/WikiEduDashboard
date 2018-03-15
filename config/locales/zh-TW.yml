@@ -155,6 +155,10 @@ zh-TW:
   campaign:
     active_campaigns: 活躍競賽
     add_organizer: 添加組織者
+    alert_article: 條目標題
+    alert_label: 競賽提醒
+    alert_type: 類型
+    alert_user_id: 使用者
     all_campaigns: 所有競賽
     already_exists: 此競賽已存在！請以不同標題或指向內容再重試看看。
     campaign: 競賽
@@ -162,10 +166,12 @@ zh-TW:
     campaign_deleted: 競賽「%{title}」已被刪除
     campaign_not_updated: 不能更新競賽
     campaign_updated: 競賽已更新
+    created_at: 日期
     confirm_campaign_deletion: 確定要刪除標題為「%{title}」的競賽嗎？如果是，請輸入該競賽的標題以進行處理。
     confirm_campaign_deletion_failed: 「%{title}」不是此競賽的標題。競賽未被刪除
     confirm_course_removal: 確定您要從競賽「%{campaign_title}」移除「%{title}」嗎？
     course_already_removed: '%{title}已從競賽「%{campaign_title}」移除'
+    course: 課程
     course_removed: '%{title}已從競賽「%{campaign_title}」移除'
     create_campaign: 創建新競賽
     create_my_campaign: 創建我的競賽！
@@ -177,6 +183,7 @@ zh-TW:
     delete_campaign: 刪除此競賽
     disable_account_requests: 停用帳號申請
     enable_account_requests: 啟用帳號申請
+    no_alerts: 此競賽沒有提醒
     no_passcode: 沒有選課代碼
     none: 無
     organizers: 組織者
@@ -211,6 +218,7 @@ zh-TW:
     accounts_generation_confirm_message: 您確定您要啟用帳號申請嗎？
     activity: 活躍度
     active_courses: 啟動%{course_type}
+    alerts: 提醒
     all_courses: 所有課程
     already_enrolled: 您已經成為「%{title}」課程的一份子！
     already_exists: 已存在於該課程中！
@@ -418,6 +426,7 @@ zh-TW:
     timeline: 分配作業細節
     timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
+    timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育方案課程以及其它長時間、高度結構化方案很有用。
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
     training_due: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
@@ -830,12 +839,11 @@ zh-TW:
     explanation: |-
       選課代碼錯誤，無法登記此課程。
       請向導師索取正確選課代碼後再登記此課程。
+  error_no_course:
+    explanation: 沒有%{slug}這樣的課程存在。
   error_404:
     header: 查無頁面。:-(
-    explanation: |-
-      此頁面不存在。
-      若您正試圖進入資訊看板的某項課程，該課程可能尚未在此資訊看板註冊。
-      若該課程最近才註冊，可能需要一些時間讓系統新增此課程。
+    explanation: 此頁面不存在。若您正試圖進入資訊看板的某項課程，該課程可能尚未在此資訊看板註冊。
   error_422:
     header: 422 — 無法處理的實體項目。 :-(
     explanation: 發生錯誤。請聯絡此資訊看板的維護人員，讓他們知道這個問題。

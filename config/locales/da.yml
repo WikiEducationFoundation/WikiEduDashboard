@@ -106,6 +106,9 @@ da:
       title: Milepæler
   campaign:
     active_campaigns: Aktive kampagner
+    alert_article: Artikeltitel
+    alert_label: Kampagnealarmer
+    alert_type: Type
     all_campaigns: Alle kampagner
     already_exists: Den kampagne findes allerede! Prøv igen med en anden titel eller
       »slug«.
@@ -114,6 +117,7 @@ da:
     campaign_deleted: Kampagnen »%{title}« er blevet slettet
     campaign_not_updated: Kampagne kunne ikke opdateres
     campaign_updated: Kampagne opdateret
+    created_at: Dato
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
     description: Beskrivelse
@@ -124,6 +128,7 @@ da:
     label: Diskussion
   courses:
     activity: Aktivitet
+    alerts: Alarmer
     actions: Handlinger
     articles: Artikler
     calendar:

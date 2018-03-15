@@ -105,10 +105,14 @@ lb:
       title: Kilometersténg
   campaign:
     add_organizer: Organisateur derbäisetzen
+    alert_type: Typ
+    alert_user_id: Benotzer
     campaign: Campagne
     campaigns: Campagnen
     campaign_not_updated: Campagne konnt net aktualiséiert ginn
     campaign_updated: Campagne aktualiséiert
+    created_at: Datum
+    course: Cours
     default_passcode: Standard-Passcode
     description: Beschreiwung
     delete_campaign: Dës Campagne läschen
@@ -121,7 +125,7 @@ lb:
   categories:
     add_category: Kategorie derbäisetzen
     add_template: Schabloun derbäisetzen
-    add_this_category: Dës Kategorie dobäisetzen
+    add_this_category: Dës Kategorie derbäisetzen
     add_this_template: Dës Schabloun derbäisetzen
     name: Numm
     category_name: Numm vun der Kategorie
@@ -134,6 +138,7 @@ lb:
       aktivéiere wëllt?
     activity: Aktivitéit
     active_courses: Aktiv %{course_type}
+    alerts: Meldungen
     all_courses: All Coursen
     archived: Archivéiert Coursen
     actions: Aktiounen
@@ -451,7 +456,7 @@ lb:
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
     instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
     disclaimer: D'Informatioun déi dir ugitt gëtt ëffentlech disponibel gemaach.
-    bio_placeholder: Är Biographie dobäisetzen (fakultativ)
+    bio_placeholder: Är Biographie derbäisetzen (fakultativ)
     location_placeholder: Setzt d'Plaz wou Dir sidd, derbäi (fakultativ)
     institution_placeholder: Numm vun der Institutioun (fakultativ)
   wizard:

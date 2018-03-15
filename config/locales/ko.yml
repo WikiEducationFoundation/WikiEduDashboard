@@ -124,6 +124,11 @@ ko:
     milestones:
       title: 이정표
   campaign:
+    alert_article: 문서 제목
+    alert_type: 유형
+    alert_user_id: 사용자
+    created_at: 날짜
+    course: 과정
     default_passcode: 기본 비밀번호
     description: 설명
     disable_account_requests: 계정 요청 비활성화
@@ -153,6 +158,7 @@ ko:
     accounts_generation_enabled: 계정 요청 생성이 활성화되었습니다
     accounts_generation_confirm_message: 계정 요청을 사용하시겠습니까?
     activity: 활동
+    alerts: 경보
     already_enrolled: 이미 %{title}에 참여하고 계세요!
     actions: 행동
     articles: 문서
@@ -277,6 +283,8 @@ ko:
     timeline: 숙제 상세사항
     timeline_enabled: 타임라인 사용 중
     timeline_link: 타임라인
+    timeline_tooltip: 타임라인을 사용하면 매주 활동을 지정하고 트레이닝 모듈을 할당할 수 있습니다. 교육 프로그램 과정 및 그 밖의
+      기간이 길고 매우 구조적인 프로그램에 유용합니다.
     title: 제목
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스

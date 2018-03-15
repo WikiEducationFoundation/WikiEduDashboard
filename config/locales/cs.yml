@@ -188,6 +188,10 @@ cs:
   campaign:
     active_campaigns: Aktivní programy
     add_organizer: Přidat organizátora
+    alert_article: Název článku
+    alert_label: Hlášení kampaně
+    alert_type: Typ
+    alert_user_id: Uživatel
     all_campaigns: Všechny programy
     already_exists: Tato kampaň již existuje! Prosím zkuste to znovu pod jiným názvem
       nebo s drobnou změnou
@@ -196,6 +200,7 @@ cs:
     campaign_deleted: Program „%{title}“ byl smazán
     campaign_not_updated: Kampaň nemůže být aktualizována
     campaign_updated: Program byl aktualizován
+    created_at: Datum
     confirm_campaign_deletion: Jste si jistý/á, že chcete smazat program s názevem
       „%{title}“? Pokud opravdu chcete pokračovat, vyplňte sem znovu název programu.
     confirm_campaign_deletion_failed: „%{title}“ není název tohoto programu. Program
@@ -203,6 +208,7 @@ cs:
     confirm_course_removal: Jste si jistý/á, že chcete smazat „%{title}“ z programu
       „%{campaign_title}“?
     course_already_removed: „%{title}“ byl úspěšně odebrán z programu „%{campaign_title}“
+    course: Kurz
     course_removed: „%{title}“ byl z programu „%{campaign_title}“ úspěšně smazán
     create_campaign: Vytvořit nový program
     create_my_campaign: Vytvořit můj program!
@@ -215,6 +221,7 @@ cs:
     delete_campaign: Odstranit tento program
     disable_account_requests: Zakázat žádosti o účet
     enable_account_requests: Povolit žádosti o účet
+    no_alerts: Tato kampaň nemá žádná hlášení
     no_passcode: bez vstupního kódu
     none: Žádné
     organizers: Organizátoři
@@ -253,6 +260,7 @@ cs:
     accounts_generation_confirm_message: Opravdu chcete povolit žádosti o účty?
     activity: Aktivita
     active_courses: Aktivní %{course_type}
+    alerts: Upozornění
     all_courses: Všechny kurzy
     already_enrolled: Již jste součástí kurzu '%{title}'!
     already_exists: To už pro tento kurz existuje!
@@ -509,6 +517,9 @@ cs:
     timeline: Detaily zadání
     timeline_enabled: Rozvrh je aktivován
     timeline_link: Časová osa
+    timeline_tooltip: Povolování časové osy vás nechá specifikovat týdenní aktivity
+      a přiřazuje trénovací moduly. Je to užitečné pro kurzy edukace a jiné dlouhé,
+      vysoce strukturované programy.
     time_zone_message: Časy začátku a konce jsou zobrazeny podle vašeho časového pásma.
     title: Název
     training_due: Výukový modul "%{title}" je přiřazen k tomuto kurzu; termín splnění

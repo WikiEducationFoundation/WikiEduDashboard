@@ -179,6 +179,10 @@ de:
   campaign:
     active_campaigns: Aktive Kampagnen
     add_organizer: Organisator hinzufügen
+    alert_article: Titel des Artikels
+    alert_label: Kampagnenbenachrichtigungen
+    alert_type: Typ
+    alert_user_id: Benutzer
     all_campaigns: Alle Kampagnen
     already_exists: Diese Kampagne ist bereits vorhanden! Bitte versuche es mit einem
       anderen Titel erneut.
@@ -187,6 +191,7 @@ de:
     campaign_deleted: Die Kampagne „%{title}“ wurde gelöscht
     campaign_not_updated: Die Kampagne konnte nicht aktualisiert werden
     campaign_updated: Kampagne aktualisiert
+    created_at: Datum
     confirm_campaign_deletion: Bist du sicher, dass du die Kampagne mit dem Namen
       „%{title}“ löschen möchtest? Falls ja, gib zum Fortfahren den Kampagnentitel
       ein.
@@ -196,6 +201,7 @@ de:
       entfernen möchtest?
     course_already_removed: „%{title}“ wurde bereits von der Kampagne „%{campaign_title}“
       entfernt
+    course: Kurs
     course_removed: „%{title}“ wurde von der Kampagne „%{campaign_title}“ entfernt
     create_campaign: Eine neue Kampagne erstellen
     create_my_campaign: Meine Kampagne erstellen!
@@ -207,6 +213,7 @@ de:
     delete_campaign: Diese Kampagne löschen
     disable_account_requests: Benutzerkontenanfragen deaktivieren
     enable_account_requests: Benutzerkontenanfragen aktivieren
+    no_alerts: Diese Kampagne hat keine Benachrichtigungen
     no_passcode: kein Passcode
     none: Keine
     organizers: Organisatoren
@@ -250,6 +257,7 @@ de:
       aktivieren möchtest?
     activity: Aktivität
     active_courses: Aktive %{course_type}
+    alerts: Benachrichtigungen
     all_courses: Alle Kurse
     already_enrolled: Du bist bereits ein Teil von „%{title}“!
     already_exists: Dies ist bereits für diesen Kurs vorhanden!
@@ -524,6 +532,9 @@ de:
     timeline: Einzelheiten zur Zuweisung
     timeline_enabled: Zeitleiste aktiviert
     timeline_link: Zeitleiste
+    timeline_tooltip: Mit der Aktivierung der Zeitleiste kannst du Woche für Woche
+      Aktivitäten angeben und Ausbildungsmodule zuweisen. Sie ist für Kurse des Bildungsprogramms
+      und andere lange, hoch strukturierte Programme nützlich.
     time_zone_message: Die Start- und Endzeiten werden in deiner lokalen Zeitzone
       angezeigt.
     title: Titel
@@ -1032,12 +1043,13 @@ de:
     header: Falscher Passcode. :-(
     explanation: Der Passcode für die Einschreibung in diesen Kurs ist falsch. Bitte
       den Kursleiter um den aktuellen Passcode, um sich in diesen Kurs einzuschreiben.
+  error_no_course:
+    explanation: Es ist kein Kurs namens %{slug} vorhanden.
   error_404:
     header: Seite nicht gefunden. :-(
     explanation: Diese Seite ist nicht vorhanden. Falls du versucht hast, das Dashboard
       für einen Kurs zu erreichen, könnte dieser Kurs für dieses Dashboard nicht registriert
-      sein. Falls der Kurs kürzlich registriert wurde, kann es eine Weile dauern,
-      bis das System den Kurs hinzugefügt hat.
+      sein.
   error_422:
     header: 422 – Nicht verarbeitbares Objekt. :-(
     explanation: Etwas ist schief gelaufen. Bitte kontaktiere die Instandhalter dieses

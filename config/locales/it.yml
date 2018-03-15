@@ -146,10 +146,14 @@ it:
   campaign:
     active_campaigns: Campagne attive
     add_organizer: Aggiungi organizzatore
+    alert_type: Tipo
+    alert_user_id: Utente
     all_campaigns: Tutte le campagne
     campaign: Campagna
     campaigns: Campagne
     campaign_updated: Campagna aggiornata
+    created_at: Data
+    course: Corso
     create_campaign: Crea una nuova campagna
     create_my_campaign: Crea la mia campagna!
     description: Descrizione
@@ -167,6 +171,7 @@ it:
   courses:
     activity: Attività
     active_courses: '%{course_type} attivo/a'
+    alerts: Avvisi
     all_courses: Tutti i corsi
     already_enrolled: Fai già parte di '%{title}'!
     already_exists: Quello che hai aggiunto esiste già per questo corso!
