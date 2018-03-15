@@ -83,7 +83,7 @@ class Wiki < ApplicationRecord
     when 'wikisource'
       language = nil if language == 'www'
     when 'wikimedia'
-      language = nil unless language == 'incubator' || language == 'commons'
+      language = nil unless %w[incubator commons].include? language
     end
     language
   end
