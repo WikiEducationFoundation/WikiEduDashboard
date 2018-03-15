@@ -33,9 +33,9 @@ const Upload = ({ upload, linkUsername }) => {
       <a href={upload.url} target="_blank">
         <img src={imageFile} alt="" />
         <div className="info">
-          <p className="usage">{usage}</p>
-          <p className="uploader">{uploader}</p>
-          <p>{fileName}</p>
+          <p className="usage"><b>{usage}</b></p>
+          <p><b>{fileName}</b></p>
+          <p className="uploader"><b>By <a>{uploader}</a></b></p>
         </div>
       </a>
     </div>
