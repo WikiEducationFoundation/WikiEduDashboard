@@ -62,13 +62,13 @@ export const AvailableArticle = createReactClass({
 
     let actionSelect;
     let actionRemove;
-    if (this.props.current_user.role === 0) {
+    if (this.props.current_user.isStudent) {
       actionSelect = (
         <button className="button dark" onClick={this.onSelectHandler}>{I18n.t('assignments.select')}</button>
       );
     }
 
-    if (this.props.current_user.role === 1 || this.props.current_user.admin) {
+    if (this.props.current_user.isNonstudent) {
       actionRemove = (
         <button className="button dark" onClick={this.onRemoveHandler}>{I18n.t('assignments.remove')}</button>
       );
