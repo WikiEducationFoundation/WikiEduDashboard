@@ -39,7 +39,7 @@ describe ViewImporter do
     let!(:articles_course) { create(:articles_course, id: 1, course_id: 10001, article_id: 1) }
     let!(:revision) { create(:revision, article_id: 1) }
     let(:en_wiki) { Wiki.default_wiki }
-    let(:es_wiki) { create(:wiki, id: 3, language: 'es', project: 'wikipedia') }
+    let(:es_wiki) { create(:wiki, id: 2, language: 'es', project: 'wikipedia') }
 
     it 'should get view data for all articles' do
       VCR.use_cassette 'article/update_all_views' do

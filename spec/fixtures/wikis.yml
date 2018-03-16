@@ -13,6 +13,6 @@ default:
   project: wikipedia
 
 commons:
-  id: 2
+  id: 666
   project: wikimedia
   language: commons
