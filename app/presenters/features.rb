@@ -6,48 +6,47 @@ class Features
   end
 
   def self.enable_get_help_button?
-    return true if ENV['wiki_education'] == 'true'
-    false
+    ENV['wiki_education'] == 'true'
   end
 
   def self.disable_help?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
+  end
+
+  def self.disable_help?
+    ENV['wiki_education'] != 'true'
   end
 
   def self.disable_onboarding?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.enable_language_switcher?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.disable_help?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.enable_account_requests?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
+  end
+
+  def self.wiki_trainings?
+    ENV['wiki_education'] != 'true'
   end
 
   def self.disable_wiki_output?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.enable_article_finder?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.open_course_creation?
-    return false if ENV['wiki_education'] == 'true'
-    true
+    ENV['wiki_education'] != 'true'
   end
 
   def self.default_course_type
