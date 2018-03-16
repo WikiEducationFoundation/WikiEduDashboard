@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/app/services/update_course_revisions"
 
 MILESTONE_BLOCK_KIND = 2
 
@@ -386,8 +387,8 @@ describe 'the course page', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
 
-      allow(CourseRevisionUpdater).to receive(:import_new_revisions)
-
+      expect(CourseRevisionUpdater).to receive(:import_new_revisions)
+      expect_any_instance_of(CourseUploadImporter).to receive(:run)
       visit "/courses/#{slug}/manual_update"
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
