@@ -406,9 +406,9 @@ qqq:
     join_prompt: |-
       Do you want to join this course?
       {{Identical|Join}}
-    join_successful: Message that join was successful and explains the functioning of Dashboard
-      with emphasis on how Editathons are updated every 5 minutes while other course level
-      users could refresh the page to bring in the latest data.
+    join_successful: |-
+      Message that joining a program was successful,
+      with an explanation of how the Dashboard will track contributions.
     leave_confirmation: Confirmation asking whether the user would like to unenroll
       from a course.
     leave_course: Button for a user to leave the course
