@@ -406,7 +406,9 @@ qqq:
     join_prompt: |-
       Do you want to join this course?
       {{Identical|Join}}
-    join_successful: Message that join was successful
+    join_successful: |-
+      Message that joining a program was successful,
+      with an explanation of how the Dashboard will track contributions.
     leave_confirmation: Confirmation asking whether the user would like to unenroll
       from a course.
     leave_course: Button for a user to leave the course

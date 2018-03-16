@@ -455,7 +455,9 @@ en:
     join: Join
     join_course: Join course
     join_prompt: Join '%{title}'?
-    join_successful: You’ve successfully joined %{title}.
+    join_successful: >
+      You’ve successfully joined %{title}.
+      The dashboard will automatically keep track of your contributions with periodic updates. Check back later to see what impact you've made!
     join_failed: Enrollment failed.
     join_failure_details:
       cannot_join_twice: Users may not join the same course twice.
