@@ -1,33 +1,53 @@
 # frozen_string_literal: true
 
 class Features
-  # Add methods which you want to be true for the respective configurations
-
-  PE = %i[
-    disable_help? disable_onboarding? wiki_trainings?
-    enable_language_switcher? enable_account_requests?
-    disable_wiki_output? enable_article_finder? open_course_creation?
-  ].freeze
-
-  WIKI_ED = %i[
-    enable_get_help_button?
-    wiki_ed?
-  ].freeze
-
-  is_ed = ENV['wiki_education'] == 'true'
-
-  PE.each do |method|
-    define_singleton_method method do
-      return false if is_ed
-      true
-    end
+  def self.wiki_ed?
+    ENV['wiki_education'] == 'true'
   end
 
-  WIKI_ED.each do |method|
-    define_singleton_method method do
-      return true if is_ed
-      false
-    end
+  def self.enable_get_help_button?
+    return true if ENV['wiki_education'] == 'true'
+    false
+  end
+
+  def self.disable_help?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.disable_onboarding?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.enable_language_switcher?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.disable_help?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.enable_account_requests?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.disable_wiki_output?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.enable_article_finder?
+    return false if ENV['wiki_education'] == 'true'
+    true
+  end
+
+  def self.open_course_creation?
+    return false if ENV['wiki_education'] == 'true'
+    true
   end
 
   def self.default_course_type
