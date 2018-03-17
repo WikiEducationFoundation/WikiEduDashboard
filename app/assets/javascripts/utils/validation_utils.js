@@ -1,5 +1,3 @@
-import { setInvalid } from '../actions/validation_actions.js';
-
 export const firstMessage = (validation) => {
   if (validation.errorQueue.length > 0) {
     return validation.validations[validation.errorQueue[0]].message;
@@ -7,7 +5,7 @@ export const firstMessage = (validation) => {
   return null;
 };
 
-export const isValid = (validations) => {
+export const isValid = (validations, setInvalid) => {
   let valid = true;
   const iterable = Object.keys(validations);
   for (let i = 0; i < iterable.length; i++) {
