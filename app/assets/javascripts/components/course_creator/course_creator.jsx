@@ -6,8 +6,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import ValidationStore from '../../stores/validation_store.js';
-import ValidationActions from '../../actions/validation_actions.js';
+import { setValid, setInvalid } from '../../actions/validation_actions.js';
 import { fetchCampaign, updateCourse, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
@@ -21,13 +20,7 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import CourseLevelSelector from './course_level_selector.jsx';
-
-
-const getState = () => {
-  return {
-    error_message: ValidationStore.firstMessage()
-  };
-};
+import { firstMessage, isValid, getValidation } from '../../utils/validation_utils.js';
 
 const CourseCreator = createReactClass({
   displayName: 'CourseCreator',
@@ -43,8 +36,6 @@ const CourseCreator = createReactClass({
     cloneCourse: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin],
-
   getInitialState() {
     const inits = {
       tempCourseId: '',
@@ -54,10 +45,11 @@ const CourseCreator = createReactClass({
       showEventDates: false,
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
-      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes
+      use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
+      error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })
     };
 
-    return { ...inits, ...getState() };
+    return { ...inits };
   },
 
   componentWillMount() {
@@ -70,6 +62,10 @@ const CourseCreator = createReactClass({
   },
 
   componentWillReceiveProps(nextProps) {
+    if ((nextProps.validations !== this.props.validations) || (nextProps.errorQueue !== this.props.errorQueue)) {
+      this.setState({ error_message: firstMessage({ validations: nextProps.validations, errorQueue: nextProps.errorQueue }) });
+    }
+
     if (nextProps.course.school !== '' && nextProps.course.title !== '') {
       this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
     }
@@ -87,15 +83,10 @@ const CourseCreator = createReactClass({
     }
   },
 
-  storeDidChange() {
-    this.setState(getState());
-    this.handleCourse(this.props.course);
-  },
-
   saveCourse() {
-    if (ValidationStore.isValid() && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+    if (isValid(this.props.validations) && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
-      ValidationActions.setInvalid(
+      this.props.setInvalid(
         'exists',
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
@@ -110,7 +101,7 @@ const CourseCreator = createReactClass({
       return this.setState({ shouldRedirect: false });
     }
     if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
-    if (ValidationStore.isValid()) {
+    if (isValid(this.props.validations)) {
       if (course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
@@ -128,7 +119,7 @@ const CourseCreator = createReactClass({
         const onSaveFailure = () => this.setState({ justSubmitted: false });
         this.props.submitCourse({ course }, onSaveFailure);
       }
-    } else if (!ValidationStore.getValidation('exists').valid) {
+    } else if (!getValidation('exists', this.props.validations).valid) {
       this.setState({ isSubmitting: false });
     }
   },
@@ -140,7 +131,7 @@ const CourseCreator = createReactClass({
   updateCourse(key, value) {
     this.props.updateCourse({ [key]: value });
     if (_.includes(['title', 'school', 'term'], key)) {
-      return ValidationActions.setValid('exists');
+      return this.props.setValid('exists');
     }
   },
 
@@ -157,7 +148,7 @@ const CourseCreator = createReactClass({
 
   expectedStudentsIsValid() {
     if (this.props.course.expected_students === '0' && this.state.default_course_type === 'ClassroomProgramCourse') {
-      ValidationActions.setInvalid('expected_students', I18n.t('application.field_required'));
+      this.prop.setInvalid('expected_students', I18n.t('application.field_required'));
       return false;
     }
     return true;
@@ -170,7 +161,7 @@ const CourseCreator = createReactClass({
     const endEventTime = new Date(this.props.timeline_end);
 
     if (startDateTime >= endDateTime || startEventTime >= endEventTime) {
-      ValidationActions.setInvalid('end', I18n.t('application.field_invalid_date_time'));
+      this.props.setInvalid('end', I18n.t('application.field_invalid_date_time'));
       return false;
     }
     return true;
@@ -540,7 +531,9 @@ const CourseCreator = createReactClass({
 const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
-  cloneableCourses: getCloneableCourses(state)
+  cloneableCourses: getCloneableCourses(state),
+  validations: state.validation.validations,
+  errorQueue: state.validation.errorQueue,
 });
 
 const mapDispatchToProps = ({
@@ -548,7 +541,9 @@ const mapDispatchToProps = ({
   fetchCoursesForUser,
   updateCourse,
   submitCourse,
-  cloneCourse
+  cloneCourse,
+  setValid,
+  setInvalid,
 });
 
 // exporting two difference ways as a testing hack.
