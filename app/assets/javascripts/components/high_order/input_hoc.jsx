@@ -29,9 +29,6 @@ const InputHOC = (Component) => {
     },
 
     componentWillReceiveProps(props) {
-      if ((props.validations !== this.props.validations) || (props.errorQueue !== this.props.errorQueue)) {
-        return this.setState({ invalid: !getValidation(props.value_key, props.validations) });
-      }
       return this.setState(
         {
           value: props.value,
@@ -93,7 +90,7 @@ const InputHOC = (Component) => {
     render() {
       // Don't allow uneccessary props to pass through
       const { value, validation, onChange, invalidMessage, required, ...passThroughProps } = this.props;
-      return (<Component {...passThroughProps} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} />);
+      return (<Component {...passThroughProps} {...this.state} onChange={this.onChange} onFocus={this.focus} onBlur={this.blur} invalid={!getValidation(this.props.value_key, this.props.validations)} />);
     }
   });
 

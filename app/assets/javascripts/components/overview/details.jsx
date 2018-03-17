@@ -59,13 +59,7 @@ const Details = createReactClass({
   },
 
   getInitialState() {
-    return { ...getState(), error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue }) };
-  },
-
-  componentWillReceiveProps(props) {
-    if ((props.validations !== this.props.validations) || (props.errorQueue !== this.props.errorQueue)) {
-      return this.setState({ error_message: firstMessage({ validations: props.validations, errorQueue: props.errorQueue }) });
-    }
+    return { ...getState() };
   },
 
   componentDidMount() {
@@ -356,7 +350,7 @@ const Details = createReactClass({
               {online}
               {campus}
               {staff}
-              <div><p className="red">{this.state.error_message}</p></div>
+              <div><p className="red">{firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })}</p></div>
               {school}
               {title}
               {term}

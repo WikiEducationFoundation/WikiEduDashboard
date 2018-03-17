@@ -8,6 +8,7 @@ import Calendar from '../common/calendar.jsx';
 import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { isValid } from '../../utils/validation_utils.js';
+import { setInvalid } from '../../actions/validation_actions.js';
 
 const FormPanel = createReactClass({
   displayName: 'FormPanel',
@@ -37,7 +38,7 @@ const FormPanel = createReactClass({
   },
 
   saveCourse() {
-    if (isValid(this.props.validations)) {
+    if (isValid(this.props.validations, this.props.setInvalid)) {
       CourseActions.persistCourse(this.props, this.props.course.slug);
       return true;
     }
@@ -142,7 +143,11 @@ const mapStateToProps = state => ({
   validations: state.validation.validations,
 });
 
-export default connect(mapStateToProps)(FormPanel);
+const mapDispatchToProps = ({
+  setInvalid,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormPanel);
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

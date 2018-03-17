@@ -9,6 +9,7 @@ import DatePicker from '../common/date_picker.jsx';
 import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { isValid } from '../../utils/validation_utils.js';
+import { setInvalid } from '../../actions/validation_actions.js';
 
 const Meetings = createReactClass({
   displayName: 'Meetings',
@@ -34,7 +35,7 @@ const Meetings = createReactClass({
   },
 
   saveCourse(e) {
-    if (isValid(this.props.validations)) {
+    if (isValid(this.props.validations, this.props.setInvalid)) {
       return CourseActions.persistCourse({ course: this.props.course }, this.props.course.slug);
     }
     e.preventDefault();
@@ -156,4 +157,8 @@ const mapStateToProps = state => ({
   validations: state.validation.validations,
 });
 
-export default connect(mapStateToProps)(Meetings);
+const mapDispatchToProps = ({
+  setInvalid,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Meetings);

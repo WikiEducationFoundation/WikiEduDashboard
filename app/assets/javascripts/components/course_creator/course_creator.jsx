@@ -46,7 +46,6 @@ const CourseCreator = createReactClass({
       default_course_type: this.props.courseCreator.defaultCourseType,
       course_string_prefix: this.props.courseCreator.courseStringPrefix,
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
-      error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })
     };
 
     return { ...inits };
@@ -62,10 +61,6 @@ const CourseCreator = createReactClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    if ((nextProps.validations !== this.props.validations) || (nextProps.errorQueue !== this.props.errorQueue)) {
-      this.setState({ error_message: firstMessage({ validations: nextProps.validations, errorQueue: nextProps.errorQueue }) });
-    }
-
     if (nextProps.course.school !== '' && nextProps.course.title !== '') {
       this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
     }
@@ -84,7 +79,7 @@ const CourseCreator = createReactClass({
   },
 
   saveCourse() {
-    if (isValid(this.props.validations) && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
+    if (isValid(this.props.validations, this.props.setInvalid) && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
       this.setState({ isSubmitting: true });
       this.props.setInvalid(
         'exists',
@@ -101,7 +96,7 @@ const CourseCreator = createReactClass({
       return this.setState({ shouldRedirect: false });
     }
     if (!this.state.isSubmitting && !this.state.justSubmitted) { return; }
-    if (isValid(this.props.validations)) {
+    if (isValid(this.props.validations, this.props.setInvalid)) {
       if (course.slug && this.state.justSubmitted) {
         // This has to be a window.location set due to our limited ReactJS scope
         if (this.state.default_course_type === 'ClassroomProgramCourse') {
@@ -515,7 +510,7 @@ const CourseCreator = createReactClass({
               <div className={controlClass}>
                 <div className="left"><p>{this.state.tempCourseId}</p></div>
                 <div className="right">
-                  <div><p className="red">{this.state.error_message}</p></div>
+                  <div><p className="red">{firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })}</p></div>
                   <Link className="button" to="/" id="course_cancel">{I18n.t('application.cancel')}</Link>
                   <button onClick={this.saveCourse} className="dark button button__submit">{CourseUtils.i18n('creator.create_button', this.state.course_string_prefix)}</button>
                 </div>

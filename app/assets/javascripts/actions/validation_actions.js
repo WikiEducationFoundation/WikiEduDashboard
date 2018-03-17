@@ -38,5 +38,5 @@ export const checkServer = (key, message) => {
       key: key,
       message: message
     }
-  }
-}
+  };
+};

@@ -78,7 +78,7 @@ const CourseClonedModal = createReactClass({
     });
   },
 
-  updatePersistingStatus(){
+  updatePersistingStatus() {
     return this.setState({ isPersisting: false });
   },
   saveCourse() {
