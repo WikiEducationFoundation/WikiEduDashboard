@@ -9,7 +9,7 @@ function __in__(needle, haystack) {
   return haystack.indexOf(needle) >= 0;
 }
 
-const setValidation = function (key, valid, message, changed = true, quiet = false, state) {
+const setValidation = function (key, valid, message, changed = true, state) {
   const newState = { ...state };
   if (!valid && changed && !(__in__(key, newState.errorQueue))) { // key is invalid
     newState.errorQueue.push(key);
@@ -31,18 +31,18 @@ export default function validation(state = initialState, action) {
   switch (action.type) {
       case INITIALIZE: {
         if (!state.validations[data.key]) {
-          return setValidation(data.key, false, data.message, false, true, state);
+          return setValidation(data.key, false, data.message, false, state);
         }
         return state;
       }
       case SET_VALID: {
-        return setValidation(data.key, true, null, true, data.quiet, state);
+        return setValidation(data.key, true, null, true, state);
       }
       case SET_INVALID: {
-        return setValidation(data.key, false, data.message, true, data.quiet, state);
+        return setValidation(data.key, false, data.message, true, state);
       }
       case CHECK_SERVER: {
-        return setValidation(data.key, !data.message, data.message, state);
+        return setValidation(data.key, !data.message, data.message, true, state);
       }
       default:
         return state;
