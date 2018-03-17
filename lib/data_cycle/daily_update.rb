@@ -51,15 +51,6 @@ class DailyUpdate
   def update_commons_uploads
     log_message 'Identifying deleted Commons uploads'
     UploadImporter.find_deleted_files
-
-    log_message 'Updating Commons uploads for current students'
-    UploadImporter.import_uploads_for_current_users
-
-    log_message 'Updating Commons uploads usage counts'
-    UploadImporter.update_usage_count_by_course(Course.current)
-
-    log_message 'Getting thumbnail urls for Commons uploads'
-    UploadImporter.import_all_missing_urls
   end
 
   def update_article_data
