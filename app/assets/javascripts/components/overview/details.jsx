@@ -23,7 +23,6 @@ import Modal from '../common/modal.jsx';
 
 import Editable from '../high_order/editable.jsx';
 import TextInput from '../common/text_input.jsx';
-import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 import CourseActions from '../../actions/course_actions.js';
@@ -417,7 +416,6 @@ const Details = createReactClass({
     return (
       <div className="modal-course-details">
         <Modal>
-          <Notifications />
           {shared}
         </Modal>
       </div>
