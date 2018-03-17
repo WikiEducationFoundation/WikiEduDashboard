@@ -1,4 +1,4 @@
-import { INITIALIZE, SET_VALID, SET_INVALID } from "../constants";
+import { INITIALIZE, SET_VALID, SET_INVALID, CHECK_SERVER } from "../constants";
 
 export const initialize = (key, message) => {
   return {
@@ -30,3 +30,13 @@ export const setInvalid = (key, message, quiet = false) => {
     }
   };
 };
+
+export const checkServer = (key, message) => {
+  return {
+    type: CHECK_SERVER,
+    data: {
+      key: key,
+      message: message
+    }
+  }
+}
