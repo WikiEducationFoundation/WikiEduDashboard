@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -31,15 +32,14 @@ import ServerActions from '../../actions/server_actions.js';
 
 import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
-import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { firstMessage } from '../../utils/validation_utils.js';
 
 const getState = () =>
   ({
     course: CourseStore.getCourse(),
     tags: TagStore.getModels(),
-    error_message: ValidationStore.firstMessage()
   })
 ;
 
@@ -58,9 +58,14 @@ const Details = createReactClass({
     allCampaigns: PropTypes.array
   },
 
-  mixins: [ValidationStore.mixin],
   getInitialState() {
-    return getState();
+    return { ...getState(), error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue }) };
+  },
+
+  componentWillReceiveProps(props) {
+    if ((props.validations !== this.props.validations) || (props.errorQueue !== this.props.errorQueue)) {
+      return this.setState({ error_message: firstMessage({ validations: props.validations, errorQueue: props.errorQueue }) });
+    }
   },
 
   componentDidMount() {
@@ -88,10 +93,6 @@ const Details = createReactClass({
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
     return CourseActions.updateCourse(updatedCourse);
-  },
-
-  storeDidChange() {
-    return this.setState({ error_message: ValidationStore.firstMessage() });
   },
 
   canRename() {
@@ -442,4 +443,10 @@ const saveCourseDetails = (data, courseId = null) => {
   }
 };
 
-export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+const mapStateToProps = state => ({
+  validations: state.validation.validations,
+  errorQueue: state.validation.errorQueue,
+});
+
+
+export default connect(mapStateToProps)(Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details')));
