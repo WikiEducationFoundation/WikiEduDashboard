@@ -13,8 +13,8 @@ class Commons
   ###################
 
   # Get user contribution data that corresponds to new file uploads.
-  def self.get_uploads(users)
-    upload_query = build_upload_query users
+  def self.get_uploads(users, start_date: nil, end_date: nil)
+    upload_query = build_upload_query(users, start_date, end_date)
     uploads = new(upload_query).fetch_all_uploads
     uploads
   end
@@ -44,7 +44,7 @@ class Commons
   # Query builders #
   ##################
 
-  def self.build_upload_query(users)
+  def self.build_upload_query(users, start_date, end_date)
     usernames = users.map(&:username)
     upload_query = { list: 'usercontribs',
                      ucuser: usernames,
@@ -52,6 +52,10 @@ class Commons
                      ucshow: 'new', # New pages ~= new uploads
                      uclimit: 500, # 500 is max for non-bots
                      continue: '' }
+    # The Mediawiki API starts from the 'ucstart' and works backwards to 'ucend'
+    # so we put the start_date for ucend and vice versa.
+    upload_query[:ucend] = start_date.strftime('%Y%m%d%H%M%S') if start_date
+    upload_query[:ucstart] = end_date.strftime('%Y%m%d%H%M%S') if end_date
     upload_query
   end
 

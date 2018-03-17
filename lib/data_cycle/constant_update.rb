@@ -13,7 +13,7 @@ require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/assignment_updater"
 require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
-require_dependency "#{Rails.root}/lib/importers/upload_importer"
+require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/importers/view_importer"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/cache_updater"
@@ -94,18 +94,14 @@ class ConstantUpdate
     StudentGreetingChecker.check_all_ungreeted_students
   end
 
-  # Uploads are normally imported only during the DailyUpdate for current courses.
-  # However, courses from the past that were marked for update need to have their
-  # uploads imported during the ConstantUpdate before their :needs_update flags
-  # are removed.
   def import_uploads_for_needs_update_courses
-    log_message 'Backfilling Commons uploads for needs_update courses'
-    UploadImporter.import_all_uploads User.joins(:courses).where(courses: { needs_update: true })
-                                          .distinct
-    UploadImporter.update_usage_count_by_course Course.where(needs_update: true)
+    log_message 'Updating Commons uploads for current courses'
+    CourseUploadImporter.update_courses @courses
   end
 
-  # As with commons uploads, this is done normally in DailyUpdate
+  # This is done normally in DailyUpdate for current courses.
+  # However, courses from the past that were marked for update need to have it
+  # done before their :needs_update flags are removed.
   def update_categories_for_needs_update_courses
     Category.refresh_categories_for(Course.where(needs_update: true))
   end

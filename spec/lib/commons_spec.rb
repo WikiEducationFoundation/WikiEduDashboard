@@ -18,6 +18,20 @@ describe Commons do
       end
     end
 
+    it 'gets upload data from a particular time period' do
+      VCR.use_cassette 'commons/get_uploads_time_limited' do
+        user = create(:user,
+                      username: 'Ragesoss')
+        response = Commons.get_uploads([user], start_date: '2017-01-01'.to_time,
+                                               end_date: '2018-01-01'.to_time)
+        expect(response.count).to eq(143)
+        expect(response[0]['timestamp']).not_to be_nil
+        expect(response[0]['title']).not_to be_nil
+        expect(response[0]['user']).not_to be_nil
+        expect(response[0]['pageid']).not_to be_nil
+      end
+    end
+
     it 'should handle a user with no uploads' do
       VCR.use_cassette 'commons/get_uploads_none' do
         user = create(:user,
