@@ -163,6 +163,7 @@ const StudentList = createReactClass({
           none_message={CourseUtils.i18n('students_none', this.props.course.string_prefix)}
           editable={this.props.editable}
           sortBy={this.props.sortUsers}
+          stickyHeader={true}
         />
       </div>
     );

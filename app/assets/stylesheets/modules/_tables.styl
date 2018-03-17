@@ -1,3 +1,32 @@
+.floatingHeader
+  position fixed
+  top 50px
+  visibility hidden
+  background-color white
+  z-index 2
+  border-bottom 1px solid lightgray
+
+  tr
+    width inherit
+
+    th
+      width inherit
+
+      &:first-child
+        span:first-of-type
+          padding-right 95px
+
+      &:nth-child(3)
+        padding-right 0px
+        padding-left 19px
+
+      &:nth-child(4)
+        padding-right 0px
+
+      &:last-child
+        padding unset
+
+
 .table
   width 100%
   border-collapse separate
