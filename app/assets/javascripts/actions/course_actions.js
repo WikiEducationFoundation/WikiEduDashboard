@@ -46,7 +46,7 @@ const CourseActions = Flux.createActions({
     };
   },
 
-  updateClonedCourse(data, courseId, tempId) {
+  updateClonedCourse(data, courseId, tempId, checkServer, updatePersistingStatus) {
     const redirectToNewSlug = () => {
       window.location = `/courses/${tempId}`;
     };
@@ -60,15 +60,14 @@ const CourseActions = Flux.createActions({
 
         // Invalidate if course name taken
         const message = 'This course already exists. Consider changing the name, school, or term to make it unique.';
+        checkServer('exists', message);
+        updatePersistingStatus();
         return {
-          actionType: 'CHECK_SERVER',
-          data: {
-            key: 'exists',
-            message
-          }
+          actionType: 'default'
         };
       })
       .catch(resp => {
+        updatePersistingStatus();
         return {
           actionType: 'API_FAIL',
           data: resp

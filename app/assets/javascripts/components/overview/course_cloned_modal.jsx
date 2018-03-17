@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Modal from '../common/modal.jsx';
 import CourseStore from '../../stores/course_store.js';
-import { setValid, setInvalid } from '../../actions/validation_actions.js';
+import { setValid, setInvalid, checkServer } from '../../actions/validation_actions.js';
 import CourseActions from '../../actions/course_actions.js';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -25,15 +25,8 @@ const CourseClonedModal = createReactClass({
 
   getInitialState() {
     return {
-      error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue }),
       course: this.props.course
     };
-  },
-
-  componentWillReceiveProps(props) {
-    if ((props.validations !== this.props.validations) || (props.errorQueue !== this.props.errorQueue)) {
-      return this.setState({ error_message: firstMessage({ validations: props.validations, errorQueue: props.errorQueue }) });
-    }
   },
 
   setAnyDatesSelected(bool) {
@@ -57,7 +50,6 @@ const CourseClonedModal = createReactClass({
     }
     return this.setState({
       isPersisting,
-      error_message: firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue }),
       tempCourseId: CourseUtils.generateTempId(this.state.course)
     });
   },
@@ -86,15 +78,18 @@ const CourseClonedModal = createReactClass({
     });
   },
 
+  updatePersistingStatus(){
+    return this.setState({ isPersisting: false });
+  },
   saveCourse() {
-    if (isValid(this.props.validations)) {
+    if (isValid(this.props.validations, this.props.setInvalid)) {
       this.props.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
       const updatedCourse = $.extend(true, {}, { course: this.state.course });
       updatedCourse.course.cloned_status = this.cloneCompletedStatus;
       const { slug } = this.state.course;
       const id = CourseUtils.generateTempId(this.state.course);
-      CourseActions.updateClonedCourse(updatedCourse, slug, id);
-      return this.setState({ isPersisting: true });
+      this.setState({ isPersisting: true });
+      CourseActions.updateClonedCourse(updatedCourse, slug, id, this.props.checkServer, this.updatePersistingStatus);
     }
   },
 
@@ -123,8 +118,8 @@ const CourseClonedModal = createReactClass({
     buttonClass += this.state.isPersisting ? ' working' : '';
 
     let errorMessage;
-    if (this.state.error_message) {
-      errorMessage = <div className="warning">{this.state.error_message}</div>;
+    if (firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })) {
+      errorMessage = <div className="warning">{firstMessage({ validations: this.props.validations, errorQueue: this.props.errorQueue })}</div>;
     }
 
     const dateProps = CourseDateUtils.dateProps(this.state.course);
@@ -363,6 +358,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setValid,
   setInvalid,
+  checkServer,
 };
 
 
