@@ -30,7 +30,7 @@ const InputHOC = (Component) => {
 
     componentWillReceiveProps(props) {
       if ((props.validations !== this.props.validations) || (props.errorQueue !== this.props.errorQueue)) {
-        return this.setState({ invalid: !getValidation(this.props.value_key, this.props.validations) });
+        return this.setState({ invalid: !getValidation(props.value_key, props.validations) });
       }
       return this.setState(
         {
