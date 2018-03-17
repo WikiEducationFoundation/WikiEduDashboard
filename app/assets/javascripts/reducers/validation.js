@@ -21,7 +21,7 @@ const setValidation = function (key, valid, message, changed = true, quiet = fal
     changed,
     message
   };
-  if (!quiet) { return newState; }
+  return newState;
 };
 
 

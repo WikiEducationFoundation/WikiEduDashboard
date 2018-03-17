@@ -1,6 +1,6 @@
 import { INITIALIZE, SET_VALID, SET_INVALID } from "../constants";
 
-export const initialize = (key, message) =>  {
+export const initialize = (key, message) => {
   return {
     type: INITIALIZE,
     data: {
@@ -8,7 +8,7 @@ export const initialize = (key, message) =>  {
       message: message
     }
   };
-}
+};
 
 export const setValid = (key, quiet = false) => {
   return {
@@ -18,7 +18,7 @@ export const setValid = (key, quiet = false) => {
       quiet: quiet
     }
   };
-}
+};
 
 export const setInvalid = (key, message, quiet = false) => {
   return {
@@ -29,4 +29,4 @@ export const setInvalid = (key, message, quiet = false) => {
       quiet: quiet
     }
   };
-}
+};
