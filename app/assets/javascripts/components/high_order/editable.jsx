@@ -3,10 +3,15 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ValidationStore from '../../stores/validation_store.js';
+import { connect } from 'react-redux';
+import { isValid } from '../../utils/validation_utils.js';
 
-const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) =>
-  createReactClass({
+const mapStateToProps = state => ({
+  validations: state.validation.validations,
+});
+
+const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly) => {
+  const editable = createReactClass({
     displayName: 'Editable',
     propTypes: {
       course_id: PropTypes.any,
@@ -30,7 +35,7 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
       return this.toggleEditable();
     },
     saveChanges() {
-      if (ValidationStore.isValid()) {
+      if (isValid(this.props.validations)) {
         Save($.extend(true, {}, this.state), this.props.course_id);
         return this.toggleEditable();
       }
@@ -84,8 +89,9 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     render() {
       return <Component {...this.props} {...this.state} disableSave={this.disableSave} controls={this.controls} />;
     }
-  }
-  )
-;
+  });
+
+  return connect(mapStateToProps)(editable);
+};
 
 export default Editable;
