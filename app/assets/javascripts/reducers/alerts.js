@@ -1,7 +1,11 @@
-import { RECEIVE_ALERTS, SORT_ALERTS } from "../constants";
+import { RECEIVE_ALERTS, SORT_ALERTS, FILTER_ALERTS } from "../constants";
 
 const initialState = {
-  sortKey: null
+  sortKey: null,
+  selectedFilters: [
+    'ArticlesForDeletionAlert',
+    'DiscretionarySanctionsEditAlert',
+  ],
 };
 
 export default function alerts(state = initialState, action) {
@@ -9,8 +13,12 @@ export default function alerts(state = initialState, action) {
     case RECEIVE_ALERTS: {
       const newState = {
         ...state,
-        alerts: action.data.alerts
+        alerts: action.data.alerts,
+        selectedAlerts: action.data.alerts,
         };
+      if (newState.selectedFilters) {
+          newState.selectedAlerts = newState.alerts.filter(alert => newState.selectedFilters.indexOf(alert.type) !== -1);
+      }
       return newState;
     }
     case SORT_ALERTS: {
@@ -21,6 +29,17 @@ export default function alerts(state = initialState, action) {
       } else {
         newState.alerts = _.sortBy(state.alerts, action.key);
         newState.sortKey = action.key;
+      }
+      return newState;
+    }
+    case FILTER_ALERTS: {
+      const newState = { ...state };
+      newState.selectedFilters = action.selectedFilters;
+      if (newState.selectedFilters) {
+        newState.selectedAlerts = newState.alerts.filter(alert => newState.selectedFilters.indexOf(alert.type) !== -1);
+      }
+      else {
+        newState.selectedAlerts = newState.alerts;
       }
       return newState;
     }
