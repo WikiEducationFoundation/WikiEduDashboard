@@ -49,3 +49,5 @@ export const fetchAlerts = (campaignSlug) => dispatch => {
 };
 
 export const sortAlerts = key => ({ type: types.SORT_ALERTS, key: key });
+
+export const filterAlerts = selectedFilters => ({ type: types.FILTER_ALERTS, selectedFilters: selectedFilters });
