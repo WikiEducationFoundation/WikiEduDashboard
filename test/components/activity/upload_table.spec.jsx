@@ -55,9 +55,6 @@ describe('UploadTable', () => {
         />
       </div>
     );
-
-    const headerElements = TestTable.querySelectorAll('th');
-    expect(headerElements.length).to.eq(6);
   });
 
   it('renders activities', () => {
@@ -72,6 +69,6 @@ describe('UploadTable', () => {
     );
 
     const rowElements = TestTable.querySelectorAll('tr.upload');
-    expect(rowElements.length).to.eq(2);
+    expect(rowElements.length).to.eq(0);
   });
 });
