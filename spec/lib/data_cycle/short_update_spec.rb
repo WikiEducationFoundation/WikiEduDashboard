@@ -8,14 +8,19 @@ describe ShortUpdate do
     before do
       create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
                          slug: 'ArtFeminism/Test_Editathon')
+      create(:course, start: 1.day.ago, end: 2.months.from_now,
+                      slug: 'Medium/Course')
+      create(:course, start: 1.day.ago, end: 1.year.from_now,
+                      slug: 'Long/Program')
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do
-      expect(UpdateCourseRevisions).to receive(:new)
+      expect(UpdateCourseRevisions).to receive(:new).thrice
       expect(Raven).to receive(:capture_message).and_call_original
       update = ShortUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
-      expect(sentry_logs.grep(/Importing revisions and articles/).any?).to eq(true)
+      pp sentry_logs
+      expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)
     end
 
     it 'reports logs to sentry even when it errors out' do

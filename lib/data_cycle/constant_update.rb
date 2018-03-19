@@ -16,14 +16,12 @@ require_dependency "#{Rails.root}/lib/importers/plagiabot_importer"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/importers/view_importer"
 require_dependency "#{Rails.root}/lib/importers/rating_importer"
-require_dependency "#{Rails.root}/lib/data_cycle/cache_updater"
 require_dependency "#{Rails.root}/lib/data_cycle/update_cycle_alert_generator"
 require_dependency "#{Rails.root}/lib/student_greeting_checker"
 
 # Executes all the steps of 'update_constantly' data import task
 class ConstantUpdate
   include BatchUpdateLogging
-  include CacheUpdater
   include UpdateCycleAlertGenerator
 
   def initialize
@@ -47,9 +45,7 @@ class ConstantUpdate
     update_revisions_and_articles
     update_new_article_views unless ENV['no_views'] == 'true'
     update_new_article_ratings
-    import_uploads_for_needs_update_courses
     update_categories_for_needs_update_courses
-    update_all_caches # from CacheUpdater
     remove_needs_update_flags
     update_status_of_ungreeted_students if Features.wiki_ed?
     generate_alerts # from UpdateCycleAlertGenerator
@@ -66,9 +62,6 @@ class ConstantUpdate
   ###############
 
   def update_revisions_and_articles
-    log_message 'Importing revisions and articles for all courses'
-    CourseRevisionUpdater.import_new_revisions_concurrently(@courses)
-
     log_message 'Matching assignments to articles and syncing titles'
     AssignmentUpdater.update_assignment_article_ids_and_titles
 
@@ -92,11 +85,6 @@ class ConstantUpdate
   def update_status_of_ungreeted_students
     log_message 'Updating greeting status of ungreeted students'
     StudentGreetingChecker.check_all_ungreeted_students
-  end
-
-  def import_uploads_for_needs_update_courses
-    log_message 'Updating Commons uploads for current courses'
-    CourseUploadImporter.update_courses @courses
   end
 
   # This is done normally in DailyUpdate for current courses.

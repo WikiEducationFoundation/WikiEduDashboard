@@ -25,8 +25,11 @@ set :ssh_options, forward_agent: true
 set :pty, false
 
 # Sidekiq settings
-set :sidekiq_processes, 2
-set :sidekiq_options_per_process, ["--queue default", "--queue short_update"]
+set :sidekiq_processes, 3
+set :sidekiq_options_per_process, ["--queue default",
+                                   "--queue short_update --concurrency 1",
+                                   "--queue medium_update --concurrency 1",
+                                   "--queue long_update --concurrency 1"]
 
 
 # Default value for :linked_files is []
