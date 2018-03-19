@@ -9,6 +9,10 @@ class Features
     ENV['wiki_education'] == 'true'
   end
 
+  def self.wiki_trainings?
+    ENV['wiki_education'] == 'true'
+  end
+
   def self.disable_help?
     ENV['wiki_education'] != 'true'
   end
@@ -30,10 +34,6 @@ class Features
   end
 
   def self.enable_account_requests?
-    ENV['wiki_education'] != 'true'
-  end
-
-  def self.wiki_trainings?
     ENV['wiki_education'] != 'true'
   end
 
