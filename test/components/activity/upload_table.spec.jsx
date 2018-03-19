@@ -68,7 +68,7 @@ describe('UploadTable', () => {
       </div>
     );
 
-    const rowElements = TestTable.querySelectorAll('div.gallery');
-    expect(rowElements.length).to.eq(1);
+    const bodyElements = TestTable.querySelectorAll('div.gallery');
+    expect(bodyElements.length).to.eq(1);
   });
 });
