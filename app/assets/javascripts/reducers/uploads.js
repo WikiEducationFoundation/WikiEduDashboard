@@ -7,17 +7,16 @@ const initialState = {
 };
 
 const SORT_DESCENDING = {
+  uploaded_at: true,
   usage_count: true,
-  date: true,
-  uploader: true
 };
 
 export default function uploads(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_UPLOADS: {
       const dataUploads = action.data.course.uploads;
-      //Intial sorting by file name
-      const sortedModel = sortByKey(dataUploads, 'file_name', state.sortKey, SORT_DESCENDING[action.key]);
+      //Intial sorting by upload date
+      const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
       return {
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,

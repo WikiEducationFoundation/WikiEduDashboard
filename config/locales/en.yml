@@ -877,6 +877,7 @@ en:
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
     time_doc: The time of each upload in your local time
+    uploaded_at: Uploaded At
     uploaded_by: Uploaded By
     usage_count: Usage Count
     usages: Usages

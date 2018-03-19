@@ -28,10 +28,17 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false) => 
     newKey = sortKey;
   }
 
+  function sort(model) {
+    if (model[sortKey] === null) {
+      return 0;
+    }
+    return model[sortKey];
+  }
+
   const reverse = !sameKey !== !desc; // sameKey OR desc is truthy, but not both
   let newModels;
   if (reverse) {
-    newModels = _.sortBy(models, sortKey).reverse();
+    newModels = _.sortBy(models, [sort]).reverse();
   } else {
     newModels = _.sortBy(models, sortKey);
   }

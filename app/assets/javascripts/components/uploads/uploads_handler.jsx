@@ -28,6 +28,7 @@ const UploadsHandler = createReactClass({
           <h3>{I18n.t('uploads.header')}</h3>
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
+              <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
               <option value="file_name">{I18n.t('uploads.file_name')}</option>
               <option value="uploader">{I18n.t('uploads.uploaded_by')}</option>
               <option value="usage_count">{I18n.t('uploads.usage_count')}</option>
