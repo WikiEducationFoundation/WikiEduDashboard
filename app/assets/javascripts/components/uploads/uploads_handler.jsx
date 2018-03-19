@@ -1,10 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import UIActions from '../../actions/ui_actions.js';
-import ServerActions from '../../actions/server_actions.js';
-
+import { receiveUploads, sortUploads } from '../../actions/uploads_actions.js';
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
@@ -15,11 +14,11 @@ const UploadsHandler = createReactClass({
   },
 
   componentWillMount() {
-    return ServerActions.fetch('uploads', this.props.course_id);
+    return this.props.receiveUploads(this.props.course_id);
   },
 
   sortSelect(e) {
-    return UIActions.sort('uploads', e.target.value);
+    return this.props.sortUploads(e.target.value);
   },
 
   render() {
@@ -35,11 +34,20 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <UploadList course={this.props.course} />
+        <UploadList course={this.props.course} uploads={this.props.uploads} />
       </div>
     );
   }
 }
 );
 
-export default UploadsHandler;
+const mapStateToProps = state => ({
+  uploads: state.uploads.uploads,
+});
+
+const mapDispatchToProps = {
+  receiveUploads,
+  sortUploads,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);
