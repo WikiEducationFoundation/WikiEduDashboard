@@ -136,6 +136,7 @@ cs:
       list: Článek seznamového typu
       '?': Neohodnocený článek — článek, jehož kvalita ještě nebyla ohodnocena
       does_not_exist: Tento článek na Wikipedii ještě není
+    see_more: Zobrazit více
     show_cumulative_changes: Zobrazit kumulované změny
     show_current_version: Zobrazit aktuální verzi
     show_current_version_with_authorship_highlighting: Aktuální verze se zvýrazněním
@@ -947,8 +948,12 @@ cs:
     explanation: Váš kód pro přihlášení se do tohoto kurzu je neplatný. Kontaktujte
       svého instruktora, který by vám měl poskytnout platný kód pro zapsání se do
       tohoto kurzu.
+  error_no_course:
+    explanation: Žádný kurz %{slug} neexistuje.
   error_404:
     header: Stránka nebyla nalezena. :-(
+    explanation: Tato stránka neexistuje. Pokud se pokoušíte získat přístrojovou desku
+      pro kurz, kurz nemusí být na této desce zaregistrován.
   error_422:
     header: 422 — entita nelze zpracovat.  :-(
     explanation: Došlo k chybě. Prosím kontaktujte správce této nástěnky a sdělte
@@ -983,4 +988,8 @@ cs:
     no_responses: Zatím zde není žádná zpětná vazba.
   wiki_api:
     create_account_reason: Tento uživatel se účastní %{event}.
+  onboarding:
+    supplementary:
+      header: Jak jste se o nás dozvěděl(a)?
+      question_text: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
 ...

@@ -169,6 +169,9 @@ pl:
   campaign:
     active_campaigns: Aktywne kampanie
     add_organizer: Dodaj organizatora
+    alert_article: Tytuł artykułu
+    alert_type: Typ
+    alert_user_id: Użytkownik
     all_campaigns: Wszystkie kampanie
     already_exists: Ta kampania już istnieje. Proszę spróbuj jeszcze raz z innym tytułem
       bądź opisem.
@@ -177,6 +180,7 @@ pl:
     campaign_deleted: Kampania „%{title}” została skasowana
     campaign_not_updated: Nie udało się zaktualizować kampanii
     campaign_updated: Kampania zaktualizowana
+    created_at: Data
     confirm_campaign_deletion: Czy na pewno chcesz usunąć kampanię „%{title}”? Jeśli
       tak, wpisz tytuł kampanii, aby kontynuować.
     confirm_campaign_deletion_failed: „%{title}” to nie jest tytuł tej kampanii. Nie

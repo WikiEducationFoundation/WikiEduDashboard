@@ -106,7 +106,12 @@ bn:
     milestones:
       title: মাইলফলক
   campaign:
+    alert_article: নিবন্ধের শিরোনাম
+    alert_type: ধরন
+    alert_user_id: ব্যবহারকারী
     campaign: প্রচারাভিযান
+    created_at: তারিখ
+    course: কোর্স
     no_passcode: কোন পাসকোড নেই
     none: কোনটিই নয়
     requested_accounts: অনুরোধকৃত অ্যাকাউন্ট
@@ -120,6 +125,7 @@ bn:
     label: চ্যাট
   courses:
     activity: কর্মকাণ্ড
+    alerts: অবহিতি
     actions: কার্যসমূহ
     articles: নিবন্ধসমূহ
     calendar:

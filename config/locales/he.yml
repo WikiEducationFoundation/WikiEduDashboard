@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Amire80
+# Author: Deborahjay
 # Author: Esh77
 # Author: Guycn2
 # Author: IKhitron
@@ -159,10 +160,12 @@ he:
     milestones:
       title: אבני דרך
   campaign:
+    alert_article: כותרת הערך
     all_campaigns: כל מסעות הפרסום
     campaign: מיזם \ פרויקט \ קמפיין
     campaigns: מסעות פרסום
     campaign_updated: מסע הפרסום עודכן
+    created_at: תאריך
     create_campaign: יצירת מסע פרסום חדש
     create_my_campaign: יצירת מסע הפרסום שלי!
     default_course_type: סוג הקורס כבררת מחדל

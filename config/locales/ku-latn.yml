@@ -20,6 +20,8 @@ ku-latn:
     sign_up: Têkeve
     submit: Tomar bike
     change: Biguherîne
+    opt_in: Erê
+    opt_out: Na
   activity:
     all: Çalakî
     edited_by: Hat Sererastkirin Ji Alî
@@ -48,6 +50,7 @@ ku-latn:
       start_date: Dema destpêkê
       subject: Mijar
     current: Kursên Nûjen
+    delete_suggestion: Jê bibe
     duration: Maweya Kursê
     end: Dawî
     error:
@@ -72,6 +75,7 @@ ku-latn:
     creator:
       course_title: Sernavê bernameyê
       find: Bernameyekê bibîne
+      save_cloned_course: Tomar bike
     enrollment: Tevlîbûn
   editable:
     edit: Biguherîne

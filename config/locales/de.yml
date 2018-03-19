@@ -437,7 +437,10 @@ de:
     join: Beitreten
     join_course: Dem Kurs beitreten
     join_prompt: „%{title}“ beitreten?
-    join_successful: Du bist %{title} erfolgreich beigetreten.
+    join_successful: Du bist %{title} erfolgreich beigetreten. Die Übersichtsseite
+      verfolgt automatisch deine Beiträge mit regelmäßigen Aktualisierungen. Gehe
+      später auf diese Seite zurück, um zu sehen, welche Bedeutung deine Bearbeitungen
+      haben!
     join_failed: Einschreiben fehlgeschlagen.
     join_failure_details:
       cannot_join_twice: Benutzer können sich nicht zweimal in den gleichen Kurs einschreiben.
@@ -1043,6 +1046,7 @@ de:
     header: Falscher Passcode. :-(
     explanation: Der Passcode für die Einschreibung in diesen Kurs ist falsch. Bitte
       den Kursleiter um den aktuellen Passcode, um sich in diesen Kurs einzuschreiben.
+      Du kannst es erneut versuchen, indem du den richtigen Passcode unten eingibst.
   error_no_course:
     explanation: Es ist kein Kurs namens %{slug} vorhanden.
   error_404:

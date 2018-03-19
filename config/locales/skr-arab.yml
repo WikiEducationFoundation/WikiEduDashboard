@@ -70,9 +70,14 @@ skr-arab:
     milestones:
       title: سنگ میل
   campaign:
+    alert_article: مضمون دا عنوان
+    alert_type: قسم
+    alert_user_id: ورتݨ آلا
     all_campaigns: ساریاں مہماں
     campaign: مہم
     campaigns: مہم
+    created_at: تاریخ
+    course: کورس
     description: تفصیل
     delete_campaign: ایݨ مہم کوں مٹاؤ
     no_passcode: پاس کوڈ کائنی
@@ -91,6 +96,7 @@ skr-arab:
     label: چیٹ
   courses:
     activity: سرگرمی
+    alerts: الرٹ
     all_courses: سارے کورس
     articles: مقالے
     cancel: منسوخ

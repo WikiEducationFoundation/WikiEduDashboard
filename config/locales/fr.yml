@@ -554,6 +554,10 @@ fr:
     timeline: Détails d'assignement
     timeline_enabled: Chronologie activée
     timeline_link: Calendrier
+    timeline_tooltip: L'activation de la chronologie vous permet de spécifier les
+      activités hebdomadaires et d'affecter les modules de formation. Elle est utile
+      pour les cours du programme d'éducation et d'autres programmes longs et très
+      structurés.
     time_zone_message: Les heures de début et de fin sont affichées dans votre fuseau
       horaire local.
     title: Titre

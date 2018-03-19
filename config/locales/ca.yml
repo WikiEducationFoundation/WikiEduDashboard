@@ -146,12 +146,17 @@ ca:
   campaign:
     active_campaigns: Campanyes actives
     add_organizer: Afegeix organitzador
+    alert_article: Títol de l’article
+    alert_type: Tipus
+    alert_user_id: Usuari
     all_campaigns: Totes les  Campanyes
     campaign: Campanya
     campaigns: Campanyes
     campaign_deleted: S’ha suprimit la campanya «%{title}»
     campaign_not_updated: No s’ha pogut actualitzar la campanya
     campaign_updated: Campanya actualitzada
+    created_at: Data
+    course: Curs
     create_campaign: Crea una campanya nova
     create_my_campaign: Crear la meva Campanya!
     default_course_type: Tipus de curs per defecte
@@ -178,6 +183,7 @@ ca:
     label: Xat
   courses:
     activity: Activitat
+    alerts: Alertes
     all_courses: Tots els cursos
     already_enrolled: Ja formeu part de la '%{title}'!
     already_exists: Això ja existeix per a aquest curs!
@@ -651,9 +657,8 @@ ca:
       pregunta al professor el codi correcte.
   error_404:
     header: Pàgina no trobada. :-(
-    explanation: Aquesta pàgina no existeix. Si estàs intentant accedir al panell
-      de control per al curs, potser aquest curs no ha estat registrat. Si ha estat
-      registrat recentment potser passa una mica de temps fins que el sistema l'afegeix.
+    explanation: Aquesta pàgina no existeix. Si esteu intentant accedir al panell
+      de control del curs, potser aquest curs no n’ha estat registrat.
   error_422:
     header: Error 422 — Entitat no processable
     explanation: Alguna cosa ha sortit malament. Si us plau contacta els usuaris que

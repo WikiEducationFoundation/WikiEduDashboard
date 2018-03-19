@@ -92,6 +92,10 @@ sv:
   campaign:
     active_campaigns: Aktiva kampanjer
     add_organizer: Lägg till organiserare
+    alert_article: Artikelns titel
+    alert_label: Kampanjmeddelanden
+    alert_type: Typ
+    alert_user_id: Användare
     all_campaigns: Alla kampanjer
     already_exists: Denna kampanjen finns redan! Försök igen med en annan titel eller
       slug.
@@ -100,6 +104,7 @@ sv:
     campaign_deleted: Kampanjen »%{title}« har raderats
     campaign_not_updated: Kampanjen kunde inte uppdateras
     campaign_updated: Kampanj uppdaterades
+    created_at: Datum
     confirm_campaign_deletion: Är du säker på att du vill radera kampanjen "%{title}"?
       Ifall du är säker, skriv in kampanjens titel för att fortsätta.
     confirm_campaign_deletion_failed: '"%{title}" är inte titeln för denna kampanj.
@@ -107,6 +112,7 @@ sv:
     confirm_course_removal: Är du säker på att du vill avlägsna "%{title}" från kampanjen
       "%{campaign_title}"?
     course_already_removed: '"%{title}" har redan tagits bort från kampanjen "%{campaign_title}"'
+    course: Kurs
     course_removed: '"%{title}" har tagits bort från kampanjen "%{campaign_title}"'
     create_campaign: Skapa en ny kampanj
     create_my_campaign: Skapa min kampanj!
@@ -144,6 +150,7 @@ sv:
   courses:
     activity: Aktivitet
     active_courses: Aktiva %{course_type}
+    alerts: Meddelanden
     all_courses: Alla kurser
     already_enrolled: Du är redan en del av '%{title}'!
     already_exists: Det finns redan för den här kursen!
@@ -454,6 +461,8 @@ sv:
       logga in och försök igen.
   error_incorrect_passcode:
     header: Felaktigt lösenord. :-(
+  error_no_course:
+    explanation: Kursen %{slug} finns inte.
   error_404:
     header: Sidan kunde inte hittas. :-(
   error_500:

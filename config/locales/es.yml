@@ -185,12 +185,16 @@ es:
   campaign:
     active_campaigns: Campañas activas
     add_organizer: Añadir organizador
+    alert_article: Título del artículo
+    alert_type: Tipo
+    alert_user_id: Usuario
     all_campaigns: Todas las campañas
     campaign: Campaña
     campaigns: Campañas
     campaign_deleted: Se eliminó la campaña «%{title}»
     campaign_not_updated: No se pudo actualizar la campaña
     campaign_updated: Campaña actualizada
+    created_at: Fecha
     confirm_campaign_deletion: ¿Confirmas que quieres eliminar la campaña titulada
       «%{title}»? Si es así, escribe el título de la campaña para continuar.
     confirm_campaign_deletion_failed: «%{title}» no es el título de esta campaña.
@@ -198,6 +202,7 @@ es:
     confirm_course_removal: ¿Confirmas que quieres quitar «%{title}» de la campaña
       «%{campaign_title}»?
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
+    course: Curso
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear mi campaña!
@@ -246,6 +251,7 @@ es:
       de cuentas?
     activity: Actividad
     active_courses: '%{course_type} activos'
+    alerts: Alertas
     all_courses: Todos los cursos
     already_enrolled: Ya eres parte de «%{title}».
     already_exists: ¡Eso ya existe para este curso!
@@ -888,8 +894,7 @@ es:
   error_404:
     header: No se encontró la página. :-(
     explanation: Esta página no existe. Si estás intentando acceder al panel de un
-      curso, puede que ese curso no esté registrado para este panel. Si se ha registrado
-      recientemente, puede tomar un poco de tiempo hasta que el sistema lo añada.
+      curso, puede que ese curso no esté registrado en este panel.
   error_422:
     header: 422 — entidad no procesable.  :-(
     explanation: Algo salió mal. Ponte en contacto con los responsables del mantenimiento

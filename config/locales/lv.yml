@@ -70,9 +70,14 @@ lv:
   campaign:
     active_campaigns: Aktīvās kampaņas
     add_organizer: Pievienot organizatoru
+    alert_article: Raksta nosaukums
+    alert_type: Veids
+    alert_user_id: Dalībnieks
     all_campaigns: Visas kampaņas
     campaign: Kampaņa
     campaigns: Kampaņas
+    created_at: Datums
+    course: Kurss
     create_campaign: Izveidot jaunu kampaņu
     create_my_campaign: Izveidot manu kampaņu!
     description: Apraksts
@@ -92,6 +97,7 @@ lv:
     label: Tērzētava
   courses:
     activity: Aktivitāte
+    alerts: Brīdinājumi
     all_courses: Visi kursi
     archived: Arhivētie kursi
     actions: Darbības

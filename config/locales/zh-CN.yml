@@ -293,7 +293,7 @@ zh-CN:
     data_articles_info: 条目数据包含每页面的编辑数、哪些页面较新以及页面浏览总数。这些页面浏览值对于已经结束的课程而言可能过时，所以也包括链接到维基媒体基金会工具实验室页面浏览工具的url。
     data_download_info: 下载数据为CSV格式。
     data_overview: 概览数据
-    data_overview_info: 概览数据为整个项目提供了累积统计数据。
+    data_overview_info: 概括数据提供整个项目的累计统计信息。
     data_edits: 编辑数据
     data_edits_info: 编辑数据显示项目期间每次编辑的详情。
     data_students: 编辑者数据
@@ -339,7 +339,7 @@ zh-CN:
     join: 加入
     join_course: 加入课程
     join_prompt: 加入“%{title}”么？
-    join_successful: 您已成功加入%{title}。
+    join_successful: 您已成功加入%{title}。控制面板将自动保持对您周期更新贡献的追踪。日后请回到这里查看您做出的影响！
     join_failed: 登记失败。
     join_failure_details:
       cannot_join_twice: 用户不可以2次加入同一课程。
@@ -816,10 +816,12 @@ zh-CN:
     json_explanation: 看起来您已经退出。请刷新登录并重试。
   error_incorrect_passcode:
     header: 密码不正确。:-(
-    explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。
+    explanation: 登记此课程的密码不正确。请向导师询问当前密码以登记此课程。您可以通过在下方输入正确密码重试。
+  error_no_course:
+    explanation: 不存在课程%{slug}。
   error_404:
     header: 找不到页面。:-(
-    explanation: 此页面不存在。如果您曾尝试到达一个课程的控制面板。那个课程可能没有为此控制面板注册。如果它刚刚注册，它可能需要一段时间以让系统添加它。
+    explanation: 此页面不存在。如果您曾尝试到达一个课程的控制面板。那个课程可能没有为此控制面板注册。
   error_422:
     header: 422 — 错误实体。:-(
     explanation: 出现一些错误。请联络此控制面板的维护人员以让他们得知有关问题。

@@ -10,6 +10,7 @@ ast:
       de los navegadores van amontar y decrementar la entrada.
   application:
     cancel: Encaboxar
+    create_accounts: Crear cuentes de Wikipedia
     dashboard: Tableru de Wiki Ed
     documentation: Documentación
     error: 'Hebo un error:'
@@ -30,9 +31,11 @@ ast:
     my_dashboard: El mio tableru
     recent_activity: Actividá recién
     report_problem: Informar d'un problema
+    request_account: Solicita una cuenta
     search: facer una entruga
     search_results: 'Resultancies de: ''%{search_terms}'''
     sign_up_extended: Rexístrate con Wikipedia
+    sign_up_wikipedia: O rexístrate'n Wikipedia
     sign_up_log_in_extended: con Wikipedia
     sign_up: Date d'alta
     submit: Unviar
@@ -77,6 +80,7 @@ ast:
     edited_by: Editáu por
     label: Actividá
   articles:
+    article_development: (desendolcu d'artículu)
     assigned: Artículos axudicaos
     available: Artículos disponibles
     assigned_to: Axudicáu a
@@ -87,6 +91,7 @@ ast:
     edited_by: 'Editáu por:'
     edited_mobile: Artículos
     hide: Anubrir
+    history: (historial)
     label: Artículos
     loading: Cargando artículos...
     new: (nuevu)
@@ -112,6 +117,7 @@ ast:
       '?': Sin calificar — un artículu qu'inda nun se calificó na escala de calidá
         de Wikipedia
       does_not_exist: Esti artículu nun esiste'n Wikipedia
+    see_more: Ver más
     show_cumulative_changes: Amosar cambeos acumulaos
     show_current_version: Amosar la versión actual
     show_current_version_with_authorship_highlighting: Versión actual con Resaltáu
@@ -163,12 +169,17 @@ ast:
   campaign:
     active_campaigns: Campañes actives
     add_organizer: Añadir organizador
+    alert_article: Títulu d'artículu
+    alert_label: Alertes de campaña
+    alert_type: Triba
+    alert_user_id: Usuariu
     all_campaigns: Toles campañes
     campaign: Campaña
     campaigns: Campañes
     campaign_deleted: Desanicióse la campaña «%{title}»
     campaign_not_updated: Nun pudo actualizase la campaña
     campaign_updated: Campaña actualizada
+    created_at: Data
     confirm_campaign_deletion: ¿Tas seguru de que quies desaniciar la campaña titulada
       "%{title}"? Si ye asina, escribe'l títulu de la campaña pa siguir.
     confirm_campaign_deletion_failed: «%{title}» nun ye'l títulu d'esta campaña. La
@@ -176,11 +187,21 @@ ast:
     confirm_course_removal: ¿Tas seguru de que quies desaniciar "%{title}" de la campaña
       "%{campaign_title}"?
     course_already_removed: '"%{title}" yá se desaniciara de la campaña "%{campaign_title}"'
+    course: Cursu
     course_removed: '"%{title}" desanicióse de la campaña "%{campaign_title}"'
     create_campaign: Crear una campaña nueva
     create_my_campaign: ¡Crear la mio campaña!
+    customize_passcode: un códigu d'accesu predetermináu
+    default_course_type: Tipu de cursu predetermináu
+    default_passcode: Códigu d'accesu predetermináu
+    default_passcode_explanation: 'De mou predetermináu, los programes nuevos d''esta
+      campaña tienen de tener:'
     description: Descripción
     delete_campaign: Desaniciar esta campaña
+    disable_account_requests: Desactivar les solicitúes de cuentes
+    enable_account_requests: Activar les solicitúes de cuentes
+    no_alerts: Esta campaña nun tien alertes
+    no_passcode: sin códigu d'accesu
     none: Nengunu
     organizers: Organizadores
     organizer_added: '%{user} agora ye un organizador de la campaña «%{title}»'
@@ -188,6 +209,8 @@ ast:
     program_template: Plantía de programa
     program_template_tooltip: Cuando un organizador crea un programa nesta campaña,
       el testu d'esta área va copiase como descripción na páxina del programa
+    random_passcode: un códigu d'accesu al debalu
+    requested_accounts: Cuentes solicitaes
     title: Títulu
     use_start_end_dates: Usar les feches de principiu y fin
   categories:
@@ -195,17 +218,24 @@ ast:
     add_template: Añadir plantía
     add_this_category: Añadir esta categoría
     add_this_template: Amestar esta plantía
+    confirm_category_addition: ¿Confirmes que quies siguir les contribuciones a la
+      categoría «%{name}»?
+    confirm_template_addition: ¿Confirmes que quies siguir les contribuciones a la
+      plantía «%{name}»?
     depth: Fondura de subcategoríes
     name: Nome
     category_name: Nome de la categoría
     template_name: Nome de la plantía
+    none: Nun hai nenguna categoría en siguimientu.
     remove: Desaniciar
     tracked_categories: Categoríes y plantíes siguíes
   chat:
     label: Charra
   courses:
+    accounts_generation_enabled: Xeneración de solicitúes de cuenta activada
     activity: Actividá
     active_courses: '%{course_type} activos'
+    alerts: Alertes
     all_courses: Tolos cursos
     already_enrolled: Yá yes parte de '%{title}'.
     already_exists: ¡Eso yá esiste pa esti cursu!
@@ -228,6 +258,7 @@ ast:
     campaigns: 'Campaignes:'
     campaign_articles: Artículos de %{title}
     campaign_courses: Cursos de %{title}
+    campaign_select: Seleiciona una campaña
     campaign_users: Editores de %{title}
     confirm_course_deletion: ¿Tas seguru de desaniciar el cursu tituláu %{title}?
       Si ye asina, escribe'l títulu del cursu pa siguir.
@@ -353,6 +384,11 @@ ast:
     my_articles: Los mios artículos
     needs_update: Actualización de datos de la programación
     new_week: Amestar una selmana más
+    new_account_email: Direición de corréu electrónicu
+    new_account_email_placeholder: nome@exemplu.ast
+    new_account_username: Nome d'usuariu solicitáu
+    new_account_username_invalid: Esti nome d'usuariu nun ye válidu.
+    new_account_username_placeholder: Wiki Editor 123
     nocourses: Nun participes en nengún cursu.
     nocourse: nun participó en nengún cursu.
     none: Nengunu
@@ -365,9 +401,11 @@ ast:
     passcode: Códigu d'accesu
     passcode_none: Sin códigu d'accesu
     passcode_prompt: 'Escribe''l códigu d''accesu pa xunite:'
+    private: Priváu
     published: '¡Publicóse''l cursu! Los estudiantes pueden inscribise nel cursu visitando
       la siguiente URL:'
     rating_feedback: 'La puntuación prevista pal artículu ye:'
+    requested_accounts: Cuentes solicitaes
     review_timeline: Revisa esti cronograma y fai cambeos. En tando satisfechu col
       cronograma, unvialu pa que lu apruebe'l personal de Wiki Ed. Cuando s'apruebe,
       vas recibir una URL d'inscripción que los estudiantes pueden utilizar pa xunise
@@ -430,6 +468,10 @@ ast:
     campaigns: 'Campañes:'
     campaign_courses: Programación de «%{title}»
     creator:
+      assignment_end: Fin d'actividá
+      assignment_end_placeholder: Fin d'actividá (AAAA-MM-DD)
+      assignment_start: Principiu d'actividá
+      assignment_start_placeholder: Principiu d'actividá (AAAA-MM-DD)
       checking_for_uniqueness: Ta comprobándose qu'esti programa sía únicu.
       choose_clone: Escueyi un programa pa clonar.
       clone_previous: Clonar el programa anterior
@@ -482,7 +524,11 @@ ast:
     save: Guardar
     edit_description: Editar la descripción
     edit_details: Editar los detalles
+    edit_template: Editar plantía
   metrics:
+    label: Actividá del cursu
+    last_update: Última actualización d'estadístiques
+    next_update: Siguiente anovamientu previstu
     activity: Actividá reciente
     are_trained: tán al día cola capacitación
     articles_created: Artículos creaos
@@ -550,6 +596,19 @@ ast:
     title: Títulu
     view_on_wiki: Ver les diferencies na wiki
     see_more: Ver más
+  settings:
+    admin_users:
+      new:
+        form_label: Dar permisos d'alministrador
+        form_placeholder: Nome d'usuariu
+        confirm_add_admin: Dar permisu d'alministrador
+        confirm_remove_admin: Retirar los permisos d'alministrador a
+        already_admin: '%{username} yá ye un alministrador'
+        elevate_success: '%{username} ascendió a alministrador.'
+      remove:
+        revoke_button: Retirar permisos d'alministrador
+        revoke_button_confirm: Retirar los permisos d'alministrador de %{username}
+        revoking_button_working: Retirando...
   suggestions:
     editing: Suxerencies d'edición
     suggestion_docs:
@@ -615,6 +674,10 @@ ast:
     continue: Siguir (%{progress})
     start: Principiar
     view: Ver
+    next: Páxina siguiente
+    page: Páxina
+    page_number: Páxina %{number} de %{total}
+    table_of_contents: Índiz
     logged_out: Zarróse la sesión. Nun vas recibir creitu por completar esti módulu
       mentanto nun anicies sesión.
   uploads:
@@ -689,6 +752,8 @@ ast:
     up_to_date_with_training: al día col entrenamientu
     username: Nome d'usuariu
     username_placeholder: Nome d'usuariu
+    useremail_placeholder: Corréu
+    userpasscode_placeholder: Códigu d'accesu
     role:
       visitor: Visitante
       student: Alumnu
@@ -762,9 +827,8 @@ ast:
       al monitor pol códigu d'accesu actual pa inscribise nesti cursu.
   error_404:
     header: Nun s'alcontró la páxina. :-(
-    explanation: Esta páxina nun esiste. Si intentabes entrar al tableru por un cursu,
-      seique'l mesmu nun tea rexistráu nesti tableru. Si se rexistró recientemente,
-      pué tardar un poco que'l sistema lu añada.
+    explanation: Esta páxina nun esiste. Si tentabes entrar al tableru pa un cursu,
+      seique'l mesmu nun tea rexistráu nesti tableru.
   error_422:
     header: 422 — la entidá nun pué procesase.  :-(
     explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de

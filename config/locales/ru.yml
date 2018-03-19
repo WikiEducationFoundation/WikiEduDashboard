@@ -162,6 +162,7 @@ ru:
   campaign:
     active_campaigns: Активные кампании
     add_organizer: Добавить организатора
+    alert_article: Название статьи
     alert_type: Тип
     alert_user_id: Участник
     all_campaigns: Все кампании
@@ -202,6 +203,7 @@ ru:
     label: Чат
   courses:
     activity: Деятельность
+    alerts: Оповещения
     all_courses: Все курсы
     actions: Действия
     articles: Статьи

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Acamicamacaraca
+# Author: BadDog
 # Author: Dungodung
 # Author: Macofe
 # Author: Milicevic01
@@ -19,6 +20,7 @@ sr-ec:
   application:
     cancel: Откажи
     dashboard: Контролна табла Вики Ед-а
+    documentation: Документација
     error: 'Дошло је до грешке:'
     explore: Истражи
     field_required: Ово поље је обавезно.
@@ -36,6 +38,8 @@ sr-ec:
     log_out: Одјави ме
     my_dashboard: Управљачка табла
     recent_activity: Скорашња активност
+    report_problem: Пријави проблем
+    request_account: Захтевај налог
     search: Постави питање
     sign_up_extended: Отвори налог са Википедијом
     sign_up_log_in_extended: са Википедијом
@@ -65,7 +69,7 @@ sr-ec:
       ће Вам помоћи у почецима. (Потребно је око 30 минута да је завршите.)
     review_orientation: Преглед оријентације
     start_orientation: Почетак оријентације
-    blog_headline: Последње вести са Вики еду
+    blog_headline: Скорашње вести са Вики образовања
   home:
     explore: Истражи
     log_in: Пријава са Википедијом
@@ -78,15 +82,18 @@ sr-ec:
     edited_by: Уредио корисник
     label: Активност
   articles:
+    article_development: (развој чланка)
     assigned: Додељени чланци
     available: Доступни чланци
     assigned_to: Додељено
     character_doc: Збир знакова додатих чланцима од стране пријављених уредника између
       почетног и крајњег датума
+    deleted: (обрисано)
     edited: Уређени чланци
     edited_by: 'Изменио/ла:'
     edited_mobile: Чланци
     hide: Сакриј
+    history: (историја)
     label: Чланци
     loading: Учитавам чланке...
     new: (ново)
@@ -110,6 +117,7 @@ sr-ec:
       list: Списак класа — списак уместо конвенционалног чланка
       '?': Нема оцене — чланак још није оцењен на Википедијиној лествици квалитета
       does_not_exist: Овај чланак не постоји на Википедији
+    see_more: Погледај више
     show_cumulative_changes: Прикажи кумулативне измене
     show_current_version: Прикажи тренутну верзију
     title: Наслов
@@ -121,6 +129,7 @@ sr-ec:
     views_added: '{{PLURAL:%{count}|Додат %{count} нови преглед|Додата %{count} нова
       прегледа|Додато %{count} нових прегледа}} за %{title}'
     edit_size: Величина измене
+    wiki: Вики
     wp10: Структурна потпуност
     wp10_doc: Оцена „Структурне потпуности” представља колико добро се чланак уклапа
       у калуп зрелих Википедијиних чланака, на основу ОРЕС сервиса базираног на машинском
@@ -130,7 +139,7 @@ sr-ec:
       чланка, али не узима у обзир сам садржај. (Ове оцене су доступне само за чланке
       на Википедији на енглеском језику.)
   assignments:
-    article: Чланак %{title} је био додељен
+    article: Чланак %{title} је сада додељен Вама.
     already_exists: Овај задатак већ постоји!
     title_too_large: Наслов не би требало да има више од 255 знакова
     assignees: Додељено
@@ -156,6 +165,10 @@ sr-ec:
   campaign:
     active_campaigns: Активне кампање
     add_organizer: Додај организатора
+    alert_article: Наслов чланка
+    alert_label: Упозорења кампања
+    alert_type: Врста
+    alert_user_id: Корисник
     all_campaigns: Све кампање
     already_exists: Та кампања већ постоји! Молимо покушајте поново са другачијим
       насловом.
@@ -164,6 +177,7 @@ sr-ec:
     campaign_deleted: Кампања „%{title}” је обрисана
     campaign_not_updated: Кампања не може да се ажурира
     campaign_updated: Кампања ажурирана
+    created_at: Датум
     confirm_campaign_deletion: Да ли сте сигурни да желите да обришете кампању под
       називом „%{title}”? Ако је тако, упишите назив кампање да наставите.
     confirm_campaign_deletion_failed: „%{title}” није наслов ове кампање. Кампања
@@ -171,11 +185,19 @@ sr-ec:
     confirm_course_removal: Да ли сте сигурни да желите да уклоните „%{title}” из
       кампање „%{campaign_title}”?
     course_already_removed: Наслов „%{title}” је већ уклоњен из кампање „%{campaign_title}”
+    course: Курс
     course_removed: Курс „%{title}” је уклоњен из кампање „%{campaign_title}”
     create_campaign: Направи нову кампању
     create_my_campaign: Направи моју кампању!
+    customize_passcode: подразумевана лозинка
+    default_course_type: Подразумевана врста курса
+    default_passcode: Подразумевана лозинка
     description: Опис
     delete_campaign: Обриши ову кампању
+    disable_account_requests: Онемогући захтевање налога
+    enable_account_requests: Омогући захтевање налога
+    no_alerts: Ова кампања нема упозорења
+    no_passcode: нема лозинке
     none: Ништа
     organizers: Организатори
     organizer_added: '%{user} је сада организатор кампање „%{title}”'
@@ -183,13 +205,25 @@ sr-ec:
     program_template: Шаблон програма
     program_template_tooltip: Кад организатор направи програм у овој кампањи, текст
       из ове површи ће бити искоришћен као опис на страници програма
+    random_passcode: случајна лозинка
+    requested_accounts: Захтевани налози
     title: Наслов
     use_start_end_dates: Користи почетни и крајњи датум
+  categories:
+    add_category: Додај категорију
+    add_template: Додај шаблон
+    add_this_category: Додај ову категорију
+    add_this_template: Додај овај шаблон
+    name: Назив
+    category_name: Назив категорије
+    template_name: Име шаблона
+    remove: Уклони
   chat:
     label: Ћаскање
   courses:
     activity: Активност
     active_courses: Активни %{course_type}
+    alerts: Упозорења
     all_courses: Сви курсеви
     already_enrolled: Већ сте део ’%{title}’!
     already_exists: Ово већ постоји за овај курс!
@@ -210,11 +244,15 @@ sr-ec:
     character_doc: Збир знакова додатих чланцима у главном именском простору студентских
       курсева током трајања курса
     campaigns: 'Кампање:'
+    campaign_articles: '%{title} Чланци'
     campaign_courses: '%{title} курсеви'
+    campaign_select: Изабери кампању
+    campaign_users: '%{title} Уредници'
     confirm_course_deletion: Да ли сте сигурни да желите да избришете курс под називом
       %{title}? Ако је тако, упишите назив курса да бисте наставили.
     confirm_course_deletion_failed: '"%{title}" није наслов овог курса. Курс још није
       избрисан.'
+    course: Курс
     course_dates_calendar_instructions: Одаберите датуме како бисте их додали или
       уклонили са распореда (нпр. празници, распусти). Кликните на датум да бисте
       променили стање између неселектованог, селектованог и празничног. Датуми активности
@@ -240,7 +278,7 @@ sr-ec:
         празнике, одаберите опцију „Немам празнике”. Клонирана временска линија ће
         аутоматски подесити датуме како би узела у обзир недеље које немају заказане
         састанке.
-      clone_successful: Курс је успешно копиран
+      clone_successful: Ажурирање информација за копиран курс
       clone_successful_details: Ваш курс је клониран, укључујући елементе временске
         линије (недеље и блокови). Не заборавите да додате датуме који нису пренети.
         Да ли се још нешто променило око Вашег курса? Слободно ажурирајте то сада.
@@ -272,11 +310,18 @@ sr-ec:
         тренутним програмима током следећег циклуса ажурирања. За ово је обично потребно
         неколико сати.
     current: Тренутни курсеви
+    data_articles: Подаци чланака
+    data_overview: Преглед података
     delete_course: Обриши курс
+    delete_suggestion: Обриши
+    delete_course_instructions: Можете обрисати ову страницу ако се пре тога уклоне
+      све кампање.
     dismiss_survey: Одбаци
     dismiss_survey_confirm: Да ли сте сигурни да желите да одбаците ову анкету?
     duration: Трајање курса
+    edit_count: Број измена
     edit_course_dates: Измени датуме курса
+    enable_account_requests: Омогући захтевање налога
     enable_chat: Омогући ћаскање
     end: Крај
     ended: Курс је завршен.
@@ -291,14 +336,17 @@ sr-ec:
       invalid_slug: Празна школа/наслов за курс.
       duplicate_slug: Већ постоји програм са називом „%{slug}”.
     expected_students: Очекивани студенти
+    features_feedback: 'Аутоматизовани предлози:'
+    feedback: Повратне информације
     gradeables_none: Овај курс нема задатке за оцењивање.
+    home_wiki_language: Језик почетног викија
+    home_wiki_project: Пројекат почетног викија
     instructor:
       one: инструктор
       other: инструктори
     instructors: Наставници
     invitation: Позвани сте да се прикључите курсу %{title}. Да бисте се прикључили
-      курсу, морате да се пријавите са својим налогом на Википедији. Ако још увек
-      немате налог на Википедији, можете да направите налог.
+      курсу, морате да се пријавите са својим налогом на Википедији.
     join: Прикључи се
     join_course: Прикључи се курсу
     join_prompt: Прикључи се курсу '%{title}'?
@@ -318,7 +366,10 @@ sr-ec:
     needs_update: Закажи ажурирање података
     new_week: Додај нову недељу
     new_account_email: Имејл адреса
+    new_account_email_placeholder: име@пример.org
     new_account_username: Жељено корисничко име
+    new_account_username_invalid: Ово није исправно корисничко име.
+    new_account_submit: Захтевај налог
     nocourses: Не учествујете ни у једном курсу.
     nocourse: није учествовао ни у једном курсу.
     none: Нема
@@ -326,12 +377,15 @@ sr-ec:
       свим студентима који касне са завршавањем задатих модула за тренинг. Да ли сте
       сигурни да желите ово да урадите?
     no_available_actions: Нема доступних активности
+    ores_plot: ORES
     overview: Почетна
     passcode: Лозинка
     passcode_none: Нема лозинке
     passcode_prompt: 'Унесите лозинку за приступ:'
+    private: Приватно
     published: 'Ваш курс је објављен! Студенти се могу уписати тако што ће посетити
       следећу адресу:'
+    requested_accounts: Захтевани налози
     review_timeline: Прегледајте ову временску линију и начините измене. Када сте
       задовољни својом временском линијом, пошаљите је на потврду запосленима у Вики
       еду. Када буде потврђена, добићете URL за упис који студенти могу да користе
@@ -353,8 +407,11 @@ sr-ec:
     submitted_heading: Поднети курсеви
     submitted_note: Ваш курс је послат. Запослени ће га прегледати и контактирати
       Вас уколико имају питања.
+    suggestions_sending: Шаљем повратне информације...
     user_role: Улога
     course_details: Детаљи курса
+    subject: Предмет
+    submitted: Послато
     term: Полугодиште
     timeline: Детаљи задатка
     timeline_link: Временска линија
@@ -368,6 +425,7 @@ sr-ec:
       био %{date}.
     unsubmitted: Неподнети курсеви
     untrained: Нетренирано
+    update_stats: Ажурирање статистика
     uploads_none: Овај разред није додао никакве слике или друге медијске датотеке
       на Оставу.
     view_other: Погледај остале кампање
@@ -391,23 +449,28 @@ sr-ec:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
   courses_generic:
+    add_campaign: Додај кампању
     all_courses: Сви програми
     archived: Архивирани програми
     articles_none: Још увек не постоје измењени чланци за овај пројекат.
-    assignment_end: Крај временске линије
+    assignment_end: Крај догађаја
     assignments_none: Овај курс не садржи додељене чланке.
-    assignment_start: Почетак временске линије
+    assignment_start: Почетак догађаја
     cancel: Откажи
+    course: Програм
     courses: Програми
     courses_taught: Предавани програми
     campaigns: 'Кампање:'
     campaign_courses: '%{title} програми'
     creator:
+      assignment_end: Крај догађаја
+      assignment_start: Почетак догађаја
       checking_for_uniqueness: Проверава се јединственост овог курса.
       clone_previous: Клонирај претходни програм
       clone_this: Клонирај овај програм
       course_description: Опис пројекта
       course_school: Установа
+      course_term: Када
       course_title: Назив пројекта
       create_button: Направи мој програм!
       create_label: Направи нови програм
@@ -416,6 +479,7 @@ sr-ec:
       find: Пронађи програм
       intro: Наслов програма је обавезан, све остало може бити попуњено касније. Кликните
         на "Направи мој програм!" за почетак изградње странице за Ваш вики програм.
+      save_cloned_course: Сачувај
     delete_course: Обриши програм
     edit_course_dates: Измени датуме пројекта
     enroll: Додај уредника
@@ -431,11 +495,13 @@ sr-ec:
     milestones_none: Овај пројекат тренутно нема ниједан миљоказ.
     published: 'Овај пројекат је објављен! Уредници могу да се упишу тако што ће посетити
       следећи URL:'
+    request_accounts: Захтевај налоге
     revisions_none: Овај пројекат не садржи недавну уређивачку активност.
     school: Установа
     school_and_term: Институција/када
     student_editors: Уредници
     students: Уредници
+    students_taught: Укупно уредника
     students_none: Овај курс нема уреднике.
     students_short: Уредници
     students_count: Број учесника
@@ -477,6 +543,7 @@ sr-ec:
       one: укупно коришћење на свим језицима
       other: укупна коришћења на свим језицима
     view_count_description: Прегледа чланака
+    view_data_unavailable: Нема података
     view: Прегледа
     word_count: Додате речи
     word_count_average: Просечан број речи
@@ -521,6 +588,13 @@ sr-ec:
     time_doc: Време сваке верзије у вашем локалном времену
     title: Наслов
     view_on_wiki: Види разлику на викију
+    see_more: Погледај више
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Корисничко име
+      remove:
+        revoking_button_working: Уклањам...
   tasks:
     conseq: Задатак %{task} је већ у току!
     constant: Задатак %{task} се не може покренути док је update_daily у току.
@@ -581,9 +655,13 @@ sr-ec:
     continue: Настави (%{progress})
     start: Започни
     view: Погледај
+    next: Следећа страница
+    page: Страница
+    table_of_contents: Табела садржаја
     logged_out: Одјављени сте. Нећете добити поене за завршавање овог модула уколико
       се не пријавите.
     done: Завршено!
+    check_answer: Провери одговоре
   uploads:
     datetime: Датум/време
     file_name: Назив датотеке
@@ -613,6 +691,7 @@ sr-ec:
     contribution_statistics: Статистике доприноса
     course_passcode: 'Лозинка:'
     editors: Уредници
+    edits_by: 'Уредници:'
     enroll_confirmation: Да ли сте сигурни да желите да додате %{username}?
     enroll_url: 'Корисници се могу прикључити кликом на:'
     enrolled_success: '%{username} је успешно додат/а!'
@@ -633,6 +712,7 @@ sr-ec:
       other: '%{count} чланака'
     recent_revisions: Скорашње измене
     remove_confirmation: Да ли сте сигурни да желите да уклоните %{username}?
+    request_confirmation: Желите ли да затражите овај налог?
     revision_characters_and_views: 'Знакова додато: %{characters}, Прегледа: %{views}'
     revisions_doc: Број измена које је овај уредник направио у протеклих 7 дана
     reviewers: Прегледач(и)
@@ -655,7 +735,9 @@ sr-ec:
     username: Корисничко име
     username_placeholder: Корисничко име
     useremail_placeholder: Имејл
+    userpasscode_placeholder: Лозинка
     role:
+      description: Права у курсу
       visitor: Посетилац
       student: Студент
       instructor: Наставник
@@ -686,7 +768,7 @@ sr-ec:
       другој недељи предавања, поставите почетни датум недељу дана након почетка курса.
       Ова алатка за осмишљавање задатака ће креирати прву верзију временске линије
       која се уклапа у одабране датуме са временске линије.
-    assignment_type: Врста задатка
+    assignment_type: Шта ће студенти завршити за њихов задатак на Википедији?
     calendar_instructions: Одаберите датуме како бисте их додали или уклонили са распореда
       (нпр. празници, распусти). Ово помаже алатки за креирање курса да прецизно распореди
       Ваше задатке. Кликните на датум да бисте променили стање између неселектованог,
@@ -735,8 +817,7 @@ sr-ec:
   error_404:
     header: Страница није пронађена. :-(
     explanation: Ова страница није пронађена. Ако покушавате да отворите контролну
-      таблу за курс, тај курс можда није регистрован на овој табли. Ако је недавно
-      регистрован, можда ће требати неко време да га систем дода.
+      таблу за курс, тај курс можда није регистрован на овој табли.
   error_422:
     header: 422 — необрадив ентитет. :-(
     explanation: Нешто није у реду. Молимо да контактирате одржаватеље ове контролне

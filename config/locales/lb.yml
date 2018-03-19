@@ -105,6 +105,7 @@ lb:
       title: Kilometersténg
   campaign:
     add_organizer: Organisateur derbäisetzen
+    alert_article: Titel vum Artikel
     alert_type: Typ
     alert_user_id: Benotzer
     campaign: Campagne
@@ -479,6 +480,8 @@ lb:
     header: Net autoriséiert.>:-(
     json_explanation: Et gesäit esou aus wéi wann Dir ausgeloggt gouf. Aktualiséiert
       w.e.g., loggt Iech an a probéiert nach eng Kéier.
+  error_no_course:
+    explanation: Et gëtt kee Cours %{slug}.
   error_404:
     header: Säit net fonnt. :-(
   error_500:

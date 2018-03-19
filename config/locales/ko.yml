@@ -539,6 +539,8 @@ ko:
     json_explanation: 로그아웃한 것으로 보입니다. 새로 고친 다음 로그인하고 다시 시도해 주십시오.
   error_incorrect_passcode:
     header: 패스코드가 잘못되었습니다.
+  error_no_course:
+    explanation: 해당 %{slug} 과정은 존재하지 않습니다.
   error_404:
     header: 페이지를 찾을 수 없습니다. :-(
   error_422:

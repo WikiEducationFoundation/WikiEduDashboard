@@ -275,7 +275,9 @@ it:
     instructors: Insegnanti
     join: Unisciti
     join_prompt: Unirsi a '%{title}'?
-    join_successful: Hai aderito con successo a %{title}.
+    join_successful: Hai aderito con successo a %{title}. Il cruscotto terrà automaticamente
+      traccia dei tuoi contributi con aggiornamenti periodici. Torna più tardi per
+      vedere quale impatto hai fatto!
     join_no_passcode: Sei sicuro di voler entrare in questo corso?
     leave_confirmation: Sei sicuro di voler lasciare questo corso?
     loading: Caricamento…
@@ -637,7 +639,8 @@ it:
   error_incorrect_passcode:
     header: Codice di accesso non corretto. :-(
     explanation: Il codice per iscriversi a questo corso non è corretto. Chiedi all'insegnate
-      il codice attuale per iscriversi a questo corso.
+      il codice attuale per iscriversi a questo corso. Puoi riprovare inserendo il
+      codice corretto sotto.
   error_404:
     header: Pagina non trovata. :-(
   error_422:

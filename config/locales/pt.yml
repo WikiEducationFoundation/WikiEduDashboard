@@ -1039,11 +1039,12 @@ pt:
     header: Código de acesso incorreto.  :-(
     explanation: O código de acesso para a matrícula neste curso está incorreto. Por
       favor, peça ao professor o código de acesso atual para matricular-se neste curso.
+  error_no_course:
+    explanation: Não existe nenhum curso %{slug}.
   error_404:
     header: Página não encontrada. :-(
-    explanation: Esta página não existe. Se estava tentando chegar ao painel de controlo
-      para um curso, este curso pode não estar registado no painel de controlo. Se
-      foi registado recentemente, pode demorar um pouco para que o sistema o acrescente.
+    explanation: Esta página não existe. Se estava a tentar chegar ao painel de controlo
+      de um curso, esse curso pode não estar registado neste painel.
   error_422:
     header: 422 — não foi possível processar a entidade.  :-(
     explanation: Ocorreu um erro. Por favor, entre em contacto com os responsáveis
