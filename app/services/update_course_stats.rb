@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
-class UpdateCourseRevisions
+class UpdateCourseStats
   def initialize(course)
     @course = course
     fetch_data

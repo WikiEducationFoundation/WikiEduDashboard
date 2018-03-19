@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_dependency "#{Rails.root}/app/services/update_course_revisions"
+require_dependency "#{Rails.root}/app/services/update_course_stats"
 
 class CourseDataUpdateWorker
   include Sidekiq::Worker
@@ -11,6 +11,6 @@ class CourseDataUpdateWorker
 
   def perform(course_id)
     course = Course.find(course_id)
-    UpdateCourseRevisions.new(course)
+    UpdateCourseStats.new(course)
   end
 end

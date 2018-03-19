@@ -9,10 +9,10 @@ namespace :batch do
     ConstantUpdate.new
   end
 
-  desc 'Short data updates'
-  task update_shortly: :environment do
-    require "#{Rails.root}/lib/data_cycle/short_update"
-    ShortUpdate.new
+  desc 'Course data updates'
+  task schedule_course_updates: :environment do
+    require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
+    ScheduleCourseUpdates.new
   end
 
   desc 'Daily data updates'

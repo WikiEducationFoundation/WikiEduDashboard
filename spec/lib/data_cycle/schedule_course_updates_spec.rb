@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/data_cycle/short_update"
+require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
 
-describe ShortUpdate do
+describe ScheduleCourseUpdates do
   describe 'on initialization' do
     before do
       create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
@@ -15,24 +15,24 @@ describe ShortUpdate do
     end
 
     it 'calls the revisions and articles updates on courses currently taking place' do
-      expect(UpdateCourseRevisions).to receive(:new).thrice
+      expect(UpdateCourseStats).to receive(:new).thrice
       expect(Raven).to receive(:capture_message).and_call_original
-      update = ShortUpdate.new
+      update = ScheduleCourseUpdates.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)
     end
 
     it 'clears the needs_update flag from courses' do
       expect(Course.where(needs_update: true).count).to eq(1)
-      ShortUpdate.new
+      ScheduleCourseUpdates.new
       expect(Course.where(needs_update: true).count).to eq(0)
     end
 
     it 'reports logs to sentry even when it errors out' do
       allow(Raven).to receive(:capture_message)
-      expect(UpdateCourseRevisions).to receive(:new)
+      expect(UpdateCourseStats).to receive(:new)
         .and_raise(StandardError)
-      expect { ShortUpdate.new }.to raise_error(StandardError)
+      expect { ScheduleCourseUpdates.new }.to raise_error(StandardError)
       expect(Raven).to have_received(:capture_message)
     end
   end

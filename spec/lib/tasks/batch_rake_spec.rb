@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/data_cycle/constant_update"
-require "#{Rails.root}/lib/data_cycle/short_update"
+require "#{Rails.root}/lib/data_cycle/schedule_course_updates"
 require "#{Rails.root}/lib/data_cycle/daily_update"
 require "#{Rails.root}/lib/data_cycle/survey_update"
 
@@ -18,10 +18,10 @@ describe 'batch:update_constantly' do
     end
   end
 
-  describe 'update_shortly' do
+  describe 'schedule_course_updates' do
     it 'initializes a ShortUpdate' do
-      expect(ShortUpdate).to receive(:new)
-      rake['batch:update_shortly'].invoke
+      expect(ScheduleCourseUpdates).to receive(:new)
+      rake['batch:schedule_course_updates'].invoke
     end
   end
 

@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
 require_dependency "#{Rails.root}/app/workers/course_data_update_worker"
 
 # Executes all the steps of 'update_constantly' data import task
-class ShortUpdate
+class ScheduleCourseUpdates
   include BatchUpdateLogging
 
   def initialize
