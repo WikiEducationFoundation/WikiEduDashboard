@@ -39,7 +39,7 @@ class Wiki < ApplicationRecord
   LANGUAGES = %w[
     aa ab ace af ak als am an ang ar arc arz as ast av ay az azb
     ba bar bat-smg bcl be be-tarask be-x-old bg bh bi bjn bm bn bo bpy br bs
-    bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co cr crh cs csb cu
+    bug bxr ca cbk-zam cdo ce ceb ch cho chr chy ckb cmn co commons cr crh cs csb cu
     cv cy cz da de diq dk dsb dv dz ee egl el eml en eo epo es et eu ext fa
     ff fi fiu-vro fj fo fr frp frr fur fy ga gag gan gd gl glk gn gom got gsw
     gu gv ha hak haw he hi hif ho hr hsb ht hu hy hz ia id ie ig ii ik ilo
@@ -83,7 +83,7 @@ class Wiki < ApplicationRecord
     when 'wikisource'
       language = nil if language == 'www'
     when 'wikimedia'
-      language = nil unless language == 'incubator'
+      language = nil unless %w[incubator commons].include? language
     end
     language
   end
