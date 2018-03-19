@@ -10,7 +10,7 @@ class Features
   end
 
   def self.wiki_trainings?
-    ENV['wiki_education'] == 'true'
+    ENV['wiki_education'] != 'true'
   end
 
   def self.disable_help?
