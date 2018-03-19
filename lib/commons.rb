@@ -134,6 +134,6 @@ class Commons
   private
 
   def api_get
-    WikiApi.new(Wiki.get_or_create(language: 'commons', project: 'wikimedia')).query(@query)
+    WikiApi.new(CommonsWiki.new).query(@query)
   end
 end
