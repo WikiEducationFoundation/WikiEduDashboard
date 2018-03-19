@@ -9,7 +9,7 @@ describe ShortUpdate do
       create(:editathon, start: 1.day.ago, end: 2.hours.from_now,
                          slug: 'ArtFeminism/Test_Editathon')
       create(:course, start: 1.day.ago, end: 2.months.from_now,
-                      slug: 'Medium/Course')
+                      slug: 'Medium/Course', needs_update: true)
       create(:course, start: 1.day.ago, end: 1.year.from_now,
                       slug: 'Long/Program')
     end
@@ -19,8 +19,13 @@ describe ShortUpdate do
       expect(Raven).to receive(:capture_message).and_call_original
       update = ShortUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
-      pp sentry_logs
       expect(sentry_logs.grep(/Short update latency/).any?).to eq(true)
+    end
+
+    it 'clears the needs_update flag from courses' do
+      expect(Course.where(needs_update: true).count).to eq(1)
+      ShortUpdate.new
+      expect(Course.where(needs_update: true).count).to eq(0)
     end
 
     it 'reports logs to sentry even when it errors out' do

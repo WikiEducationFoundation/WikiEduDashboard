@@ -32,7 +32,6 @@ describe ConstantUpdate do
       update = ConstantUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
       expect(sentry_logs.grep(/Generating AfD alerts/).any?).to eq(true)
-      expect(Course.where(needs_update: true).count).to eq(0)
     end
 
     it 'reports logs to sentry even when it errors out' do

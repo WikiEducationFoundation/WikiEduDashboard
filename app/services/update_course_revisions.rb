@@ -8,7 +8,9 @@ class UpdateCourseRevisions
   def initialize(course)
     @course = course
     fetch_data
+    update_categories if @course.needs_update
     update_caches
+    @course.update(needs_update: false)
   end
 
   private
@@ -16,6 +18,10 @@ class UpdateCourseRevisions
   def fetch_data
     CourseRevisionUpdater.import_new_revisions([@course])
     CourseUploadImporter.new(@course).run
+  end
+
+  def update_categories
+    Category.refresh_categories_for(@course)
   end
 
   def update_caches
