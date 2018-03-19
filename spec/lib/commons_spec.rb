@@ -44,7 +44,7 @@ describe Commons do
     it 'should handle a user with one upload' do
       VCR.use_cassette 'commons/get_uploads_one' do
         user = create(:user,
-                      username: 'Ameily radke')
+                      username: 'EDA2018')
         response = Commons.get_uploads [user]
         expect(response.count).to eq(1)
       end
