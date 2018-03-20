@@ -21,15 +21,17 @@
 
 set :output, 'log/cron.log'
 
-# Short updates will pull in revisions and articles for courses that are ending
-# soon, so that short events get quick updates while they are going on.
+# Course updates will pull in revisions and articles for courses that are ongoing
+# or still within the update window. They are sorted into queues depending on how
+# long they run, with short courses having their own queue and very long ones their
+# own as well.
 every 5.minutes do
-  rake 'batch:update_shortly'
+  rake 'batch:schedule_course_updates'
 end
 
-# Constant updates are more thorough, pulling in revision metadata, generating
-# alerts, and doing other data and network-intensive tasks, for all current courses.
-# Having many long-running courses makes these take a while.
+# Constant updates are independent of the main course stats, pulling in revision
+# metadata, generating alerts, and doing other data and network-intensive tasks,
+# for all current courses.
 every 4.minutes do
   rake 'batch:update_constantly'
 end

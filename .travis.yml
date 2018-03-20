@@ -16,6 +16,8 @@ addons:
     packages:
     - pandoc
     - r-base
+services:
+  - redis-server
 before_install:
 - rvm --default use 2.5.0
 - export PATH=$PATH:`yarn global bin`

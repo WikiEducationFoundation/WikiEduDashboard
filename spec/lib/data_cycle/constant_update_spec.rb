@@ -11,14 +11,9 @@ describe ConstantUpdate do
     end
 
     it 'calls lots of update routines and resets :needs_update flag on courses' do
-      expect(CourseRevisionUpdater).to receive(:import_new_revisions_concurrently)
       expect(AssignmentUpdater).to receive(:update_assignment_article_ids_and_titles)
       expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
-      expect(CourseUploadImporter).to receive(:update_courses)
-      expect(ArticlesCourses).to receive(:update_all_caches)
-      expect(CoursesUsers).to receive(:update_all_caches_concurrently)
-      expect(Course).to receive(:update_all_caches_concurrently)
       expect(StudentGreetingChecker).to receive(:check_all_ungreeted_students)
       expect(ArticlesForDeletionMonitor).to receive(:create_alerts_for_course_articles)
       expect(DiscretionarySanctionsMonitor).to receive(:create_alerts_for_course_articles)
@@ -36,16 +31,15 @@ describe ConstantUpdate do
       expect(Raven).to receive(:capture_message).and_call_original
       update = ConstantUpdate.new
       sentry_logs = update.instance_variable_get(:@sentry_logs)
-      expect(sentry_logs.grep(/Importing revisions and articles/).any?).to eq(true)
-      expect(Course.where(needs_update: true).count).to eq(0)
+      expect(sentry_logs.grep(/Generating AfD alerts/).any?).to eq(true)
     end
 
     it 'reports logs to sentry even when it errors out' do
       allow(Raven).to receive(:capture_message)
-      allow(CourseRevisionUpdater).to receive(:import_new_revisions_concurrently)
+      allow(PlagiabotImporter).to receive(:find_recent_plagiarism)
         .and_raise(StandardError)
       expect { ConstantUpdate.new }.to raise_error(StandardError)
-      expect(Raven).to have_received(:capture_message)
+      expect(Raven).to have_received(:capture_message).with('Constant update failed.', anything)
     end
   end
 end
