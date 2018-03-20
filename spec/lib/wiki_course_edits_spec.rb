@@ -53,7 +53,7 @@ describe WikiCourseEdits do
         expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           .with('User:Ragesock',
                 user,
-                "{{course instructor | course = [[#{course.wiki_title}]] }}\n",
+                "{{program instructor | course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
         WikiCourseEdits.new(action: :announce_course,
                             course:  course,
@@ -123,38 +123,40 @@ describe WikiCourseEdits do
     end
 
     context 'makes correct edits on P&E Outreach Dashboard' do
-      before :each do
-        @dashboard_url = ENV['dashboard_url']
-        ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
-      end
-
-      after do
-        ENV['dashboard_url'] = @dashboard_url
-      end
-
-      context 'for enabled projects' do
-        it 'posts to P&E Dashboard' do
-          # Only twice for outreachdashboard, for user page and talk page.
-          # Sandbox templates are skipped for non-Wiki Ed edits.
-          expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
-          WikiCourseEdits.new(action: :enroll_in_course,
-                              course: course,
-                              current_user: user,
-                              enrolling_user: enrolling_user)
+      unless Features.wiki_ed?
+        before :each do
+          @dashboard_url = ENV['dashboard_url']
+          ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
         end
-      end
 
-      context 'for disabled projects' do
-        before { stub_wiki_validation }
-        let(:wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
-        let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
+        after do
+          ENV['dashboard_url'] = @dashboard_url
+        end
 
-        it 'does not post to P&E Dashboard' do
-          expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top)
-          WikiCourseEdits.new(action: :enroll_in_course,
-                              course: course,
-                              current_user: user,
-                              enrolling_user: enrolling_user)
+        context 'for enabled projects' do
+          it 'posts to P&E Dashboard' do
+            # Only twice for outreachdashboard, for user page and talk page.
+            # Sandbox templates are skipped for non-Wiki Ed edits.
+            expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
+            WikiCourseEdits.new(action: :enroll_in_course,
+                                course: course,
+                                current_user: user,
+                                enrolling_user: enrolling_user)
+          end
+        end
+
+        context 'for disabled projects' do
+          before { stub_wiki_validation }
+          let(:wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
+          let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
+
+          it 'does not post to P&E Dashboard' do
+            expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top)
+            WikiCourseEdits.new(action: :enroll_in_course,
+                                course: course,
+                                current_user: user,
+                                enrolling_user: enrolling_user)
+          end
         end
       end
     end
