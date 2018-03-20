@@ -159,10 +159,6 @@ class Course < ApplicationRecord
 
   scope :ready_for_update, -> { current.or(where(needs_update: true)) }
 
-  scope :ready_for_short_update, lambda {
-    strictly_current.where('end <= ?', 1.day.from_now)
-  }
-
   def self.will_be_ready_for_survey(opts)
     days_offset, before, relative_to = opts.values_at(:days, :before, :relative_to)
     today = Time.zone.now
