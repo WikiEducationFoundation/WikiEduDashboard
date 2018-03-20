@@ -31,12 +31,12 @@ const ContributionStats = createReactClass({
   },
 
   componentDidMount() {
-    this.props.fetchStats(this.props.params.username);
+    this.props.fetchStats(encodeURIComponent(this.props.params.username));
     this.getData();
   },
 
   getData() {
-    const username = this.props.params.username;
+    const username = encodeURIComponent(this.props.params.username);
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
     $.ajax(
       {
