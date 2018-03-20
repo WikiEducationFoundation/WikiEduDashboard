@@ -53,7 +53,7 @@ describe WikiCourseEdits do
         expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           .with('User:Ragesock',
                 user,
-                "{{program instructor | course = [[#{course.wiki_title}]] }}\n",
+                "{{course instructor | course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
         WikiCourseEdits.new(action: :announce_course,
                             course:  course,
