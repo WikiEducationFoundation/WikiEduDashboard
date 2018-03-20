@@ -19,6 +19,7 @@ import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import ui from './ui';
+import uploads from './uploads';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
 import users from './users';
@@ -46,6 +47,7 @@ const reducer = combineReducers({
   suspectedPlagiarism,
   settings,
   ui,
+  uploads,
   userCourses,
   userProfile,
   users

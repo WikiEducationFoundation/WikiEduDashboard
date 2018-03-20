@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Editable from '../high_order/editable.jsx';
-
 import List from '../common/list.jsx';
 import Upload from './upload.jsx';
-import UploadStore from '../../stores/upload_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
-
-const getState = () => ({ uploads: UploadStore.getModels() });
 
 const UploadList = ({ uploads, course }) => {
   const elements = uploads.map(upload => {
@@ -45,7 +39,6 @@ const UploadList = ({ uploads, course }) => {
       keys={keys}
       table_key="uploads"
       none_message={CourseUtils.i18n('uploads_none', course.string_prefix)}
-      store={UploadStore}
     />
   );
 };
@@ -55,4 +48,4 @@ UploadList.propTypes = {
   course: PropTypes.object
 };
 
-export default Editable(UploadList, [UploadStore], ServerActions.saveUploads, getState);
+export default UploadList;

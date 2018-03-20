@@ -17,6 +17,7 @@ export * from "./recent_edits";
 export * from "./recent_uploads";
 export * from "./revisions";
 export * from "./suspected_plagiarism";
+export * from "./uploads";
 export * from "./user_courses";
 export * from "./user_profile";
 export * from "./user_roles";

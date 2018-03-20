@@ -28,10 +28,20 @@ export const sortByKey = (models, sortKey, previousKey = null, desc = false) => 
     newKey = sortKey;
   }
 
+  // Used to sort the models in descending order when some of the values can
+  // null. The desired order requires the null values to be in the end instead
+  // of beginning.
+  function sort(model) {
+    if (model[sortKey] === null) {
+      return 0;
+    }
+    return model[sortKey];
+  }
+
   const reverse = !sameKey !== !desc; // sameKey OR desc is truthy, but not both
   let newModels;
   if (reverse) {
-    newModels = _.sortBy(models, sortKey).reverse();
+    newModels = _.sortBy(models, [sort]).reverse();
   } else {
     newModels = _.sortBy(models, sortKey);
   }
