@@ -31,7 +31,7 @@ class CoursesController < ApplicationController
 
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
-             status: 404
+             status: :not_found
       return
     end
     @course = course_creation_manager.create
@@ -98,7 +98,7 @@ class CoursesController < ApplicationController
     unless campaign
       render json: {
         message: "Sorry, #{campaign_params[:title]} is not a valid campaign."
-      }, status: 404
+      }, status: :not_found
       return
     end
     ListCourseManager.new(@course, campaign, request).manage

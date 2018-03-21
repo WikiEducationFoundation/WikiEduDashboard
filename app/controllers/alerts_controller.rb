@@ -17,9 +17,10 @@ class AlertsController < ApplicationController
 
     if @alert.save
       email_target_user
-      render json: {}, status: 200
+      render json: {}, status: :ok
     else
-      render json: { errors: @alert.errors, message: 'unable to create alert' }, status: 500
+      render json: { errors: @alert.errors, message: 'unable to create alert' },
+             status: :internal_server_error
     end
   end
 
@@ -42,13 +43,13 @@ class AlertsController < ApplicationController
 
   def ensure_alerts_are_enabled
     return if Features.enable_get_help_button?
-    render json: {}, status: 400
+    render json: {}, status: :bad_request
     yield
   end
 
   def ensure_alert_is_resolvable
     return if @alert.resolvable?
-    render json: {}, status: 422
+    render json: {}, status: :unprocessable_entity
     yield
   end
 

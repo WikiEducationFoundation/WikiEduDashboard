@@ -99,7 +99,7 @@ class SettingsController < ApplicationController
   def ensure_user_exists(username)
     return unless @user.nil?
     render json: { message: I18n.t('courses.error.user_exists', username: username) },
-           status: 404
+           status: :not_found
     yield
   end
 end

@@ -32,7 +32,7 @@ class RequestedAccountsController < ApplicationController
     if result[:success] # TODO: handle both success and failure
       render json: { message: result.values.first }
     else
-      render json: { message: result.values.first }, status: 500
+      render json: { message: result.values.first }, status: :internal_server_error
     end
   end
 
@@ -96,7 +96,7 @@ class RequestedAccountsController < ApplicationController
 
   def handle_invalid_request
     return if @requested.valid?
-    render json: { message: @requested.invalid_email_message }, status: 422
+    render json: { message: @requested.invalid_email_message }, status: :unprocessable_entity
     yield
   end
 

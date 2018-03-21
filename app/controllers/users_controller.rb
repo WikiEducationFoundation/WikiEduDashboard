@@ -92,7 +92,7 @@ class UsersController < ApplicationController
     return unless @user.nil?
     username = enroll_params[:user_id] || enroll_params[:username]
     render json: { message: I18n.t('courses.error.user_exists', username: username) },
-           status: 404
+           status: :not_found
     yield
   end
 
@@ -119,7 +119,7 @@ class UsersController < ApplicationController
 
   def ensure_enrollment_success
     return unless @result[:failure]
-    render json: { message: @result[:failure] }, status: 404
+    render json: { message: @result[:failure] }, status: :not_found
     yield
   end
 

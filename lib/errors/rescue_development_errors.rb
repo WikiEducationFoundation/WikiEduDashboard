@@ -20,7 +20,7 @@ module Errors
         explanation << REV_MANIFEST_EXPLANATION
 
         render plain: explanation,
-               status: 500
+               status: :internal_server_error
         raise StandardError, explanation if Rails.env.test?
       end
     end
