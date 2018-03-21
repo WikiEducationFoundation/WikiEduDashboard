@@ -27,8 +27,6 @@ describe RequestedAccountsCampaignsController do
       )
     end
 
-
-
     describe '#create_accounts' do
       before do
         RequestedAccount.create(course_id: course.id, username: 'username',
