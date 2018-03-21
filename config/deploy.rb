@@ -27,7 +27,7 @@ set :pty, false
 # Sidekiq settings
 set :sidekiq_processes, 4
 set :sidekiq_options_per_process, ["--queue default",
-                                   "--queue short_update --concurrency 1",
+                                   "--queue short_update --queue medium_update --concurrency 1",
                                    "--queue medium_update --queue short_update --concurrency 1",
                                    "--queue long_update --queue medium_update --concurrency 1"]
 
