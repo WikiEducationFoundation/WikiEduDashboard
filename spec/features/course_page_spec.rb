@@ -121,7 +121,7 @@ describe 'the course page', type: :feature, js: true do
            content: 'blocky block')
 
     ArticlesCourses.update_from_course(Course.last)
-    ArticlesCourses.update_all_caches
+    ArticlesCourses.update_all_caches(Course.last.articles_courses)
     CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 

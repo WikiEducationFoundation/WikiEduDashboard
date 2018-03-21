@@ -70,7 +70,7 @@ describe ArticleScopedProgram, type: :model do
     create(:revision, id: 2, user_id: editor.id,
                       article_id: assigned_article.id, date: 1.day.ago)
     ArticlesCourses.update_from_course(asp)
-    ArticlesCourses.update_all_caches
+    ArticlesCourses.update_all_caches(asp.articles_courses)
     CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
   end

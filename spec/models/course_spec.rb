@@ -107,7 +107,7 @@ describe Course, type: :model do
           course_id: 1).save
 
     # Update caches
-    ArticlesCourses.update_all_caches
+    ArticlesCourses.update_all_caches(ArticlesCourses.all)
     CoursesUsers.update_all_caches(CoursesUsers.ready_for_update)
     Course.update_all_caches
 
