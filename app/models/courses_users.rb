@@ -20,7 +20,6 @@
 #  role_description       :string(255)
 #
 
-require_dependency "#{Rails.root}/lib/utils"
 require_dependency "#{Rails.root}/lib/course_cleanup_manager"
 
 #= Course + User join model

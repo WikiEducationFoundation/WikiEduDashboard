@@ -21,13 +21,4 @@ class Utils
     end
     data
   end
-
-  def self.run_on_all(model, method, array)
-    array = [array] if array.is_a? model
-    (array&.in_groups_of(200, false) ||
-      model.ready_for_update.find_in_batches(batch_size: 200)
-    ).each do |group|
-      model.transaction { group.each(&method) }
-    end
-  end
 end

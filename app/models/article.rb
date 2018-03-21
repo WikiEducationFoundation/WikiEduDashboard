@@ -20,7 +20,6 @@
 #  mw_page_id               :integer
 #
 
-require_dependency "#{Rails.root}/lib/utils"
 require_dependency "#{Rails.root}/lib/importers/view_importer"
 require_dependency "#{Rails.root}/lib/importers/article_importer"
 
@@ -94,13 +93,6 @@ class Article < ApplicationRecord
 
   def namespace_prefix
     NS_PREFIX[namespace]
-  end
-
-  #################
-  # Class methods #
-  #################
-  def self.update_all_caches(articles=nil)
-    Utils.run_on_all(Article, :update_cache, articles)
   end
 
   private
