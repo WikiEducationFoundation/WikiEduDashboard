@@ -33,7 +33,9 @@ const CourseCreator = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
-    cloneCourse: PropTypes.func.isRequired
+    cloneCourse: PropTypes.func.isRequired,
+    validations: PropTypes.array.isRequired,
+    errorQueue: PropTypes.array.isRequired
   },
 
   getInitialState() {

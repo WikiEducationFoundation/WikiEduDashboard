@@ -4,8 +4,6 @@ import React from 'react';
 
 import '../../testHelper';
 import CourseCreator from '../../../app/assets/javascripts/components/course_creator/course_creator.jsx';
-import ValidationActions from '../../../app/assets/javascripts/actions/validation_actions.js';
-import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 
 CourseCreator.__Rewire__('ValidationStore', {
   isValid() { return true; },
@@ -18,12 +16,6 @@ CourseCreator.__Rewire__('ValidationStore', {
     node (enzyme node) the node you would like to inspect
   returns empty string if no styles are found
 **/
-
-const getStyle = (node) => {
-  const rootTag = node.html().match(/(<.*?>)/)[1]; // grab the top tag
-  const styleMatch = rootTag.match(/style="([^"]*)"/i);
-  return styleMatch ? styleMatch[1] : '';
-};
 
 
 describe('CourseCreator', () => {
@@ -43,6 +35,8 @@ describe('CourseCreator', () => {
         fetchCampaign={fetchCampaignSpy}
         cloneCourse={cloneCourseSpy}
         submitCourse={submitCourseSpy}
+        validations={[]}
+        errorQueue={[]}
       />
     );
 
@@ -69,48 +63,6 @@ describe('CourseCreator', () => {
               .hasClass('hidden')
             ).to.eq(false);
         });
-      });
-    });
-    describe('formStyle', () => {
-      describe('submitting', () => {
-        it('includes pointerEvents and opacity', () => {
-          TestCourseCreator.setState({ isSubmitting: true });
-          const wizardPanel = TestCourseCreator.find('.wizard__panel').first();
-          expect(getStyle(wizardPanel)).to.eq('pointer-events:none;opacity:0.5;');
-          TestCourseCreator.setState({ isSubmitting: false });
-        });
-      });
-    });
-    describe('text inputs', () => {
-      TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-      const setValidSpy = sinon.spy(ValidationActions, 'setValid');
-
-      describe('subject', () => {
-        it('updates courseActions', () => {
-          TestCourseCreator.instance().updateCourse('subject', 'some subject');
-          expect(updateCourseSpy).to.have.been.called;
-          expect(setValidSpy).not.to.have.been.called;
-        });
-      });
-      describe('term', () => {
-        it('updates courseActions and validationActions', () => {
-          TestCourseCreator.setState({ default_course_type: 'ClassroomProgramCourse' });
-          TestCourseCreator.instance().updateCourse('term', 'this term');
-          expect(updateCourseSpy).to.have.been.called;
-          expect(setValidSpy).to.have.been.called;
-        });
-      });
-    });
-    describe('save course', () => {
-      sinon.stub(TestCourseCreator.instance(), 'expectedStudentsIsValid').callsFake(() => true);
-      sinon.stub(TestCourseCreator.instance(), 'dateTimesAreValid').callsFake(() => true);
-      const checkCourse = sinon.spy(ServerActions, 'checkCourse');
-      const setInvalid = sinon.spy(ValidationActions, 'setInvalid');
-      it('calls the appropriate methods on the actions', () => {
-        const button = TestCourseCreator.find('.button__submit');
-        button.simulate('click');
-        expect(checkCourse).to.have.been.called;
-        expect(setInvalid).to.have.been.called;
       });
     });
   });

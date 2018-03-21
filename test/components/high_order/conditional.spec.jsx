@@ -7,7 +7,7 @@ import TextInput from '../../../app/assets/javascripts/components/common/text_in
 import '../../testHelper';
 
 describe('Conditional', () => {
-  it('renders the wrapped component when show is true', () => {
+  it('renders a connected instance of the wrapped component when show is true', () => {
     const renderer = ShallowTestUtils.createRenderer();
     renderer.render(
       <TextInput
@@ -16,7 +16,7 @@ describe('Conditional', () => {
       />
     );
     const textInput = renderer.getRenderOutput();
-    expect(textInput.type.displayName).to.eq('InputTextInput');
+    expect(textInput.type.displayName).to.eq('Connect(InputTextInput)');
     expect(textInput.props.value).to.eq('foo');
   });
 

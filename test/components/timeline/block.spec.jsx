@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import ShallowTestUtils from 'react-test-renderer/shallow';
@@ -15,19 +16,21 @@ const createBlock = (opts) => {
   const noOp = () => {};
   const block = { id: 1, title: 'Bananas' };
   return TestUtils.renderIntoDocument(
-    <Block
-      toggleFocused={noOp}
-      cancelBlockEditable={noOp}
-      block={block}
-      key={block.id}
-      editPermissions={opts.editPermissions || false}
-      moveBlock={noOp}
-      week_index={1}
-      allTrainingModules={[]}
-      training_modules={opts.training_modules || []}
-      saveBlockChanges={noOp}
-      editableBlockIds={opts.editableBlockIds || []}
-    />
+    <Provider store={reduxStore}>
+      <Block
+        toggleFocused={noOp}
+        cancelBlockEditable={noOp}
+        block={block}
+        key={block.id}
+        editPermissions={opts.editPermissions || false}
+        moveBlock={noOp}
+        week_index={1}
+        allTrainingModules={[]}
+        training_modules={opts.training_modules || []}
+        saveBlockChanges={noOp}
+        editableBlockIds={opts.editableBlockIds || []}
+      />
+    </Provider>
   );
 };
 

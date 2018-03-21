@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { findDOMNode } from 'react-dom';
 import sinon from 'sinon';
 import TestUtils, { Simulate } from 'react-dom/test-utils';
@@ -20,6 +21,22 @@ const createWeek = (opts = {}) => {
       week={{ is_new: opts.is_new || false }}
       deleteWeek={opts.deleteWeek || noOp}
     />
+  );
+};
+
+const createProvisionedWeek = (opts = {}) => {
+  return TestUtils.renderIntoDocument(
+    <Provider store={reduxStore}>
+      <Week
+        index={1}
+        blocks={opts.blocks || []}
+        meetings={opts.meetings || null}
+        edit_permissions={opts.edit_permissions || false}
+        reorderable={opts.reorderable || false}
+        week={{ is_new: opts.is_new || false }}
+        deleteWeek={opts.deleteWeek || noOp}
+      />
+    </Provider>
   );
 };
 
@@ -156,7 +173,7 @@ describe('Week', () => {
 
   describe('week content', () => {
     describe('week has meetings', () => {
-      const TestWeek = createWeek({ meetings: '(W)', blocks: [{ id: 1 }] });
+      const TestWeek = createProvisionedWeek({ meetings: '(W)', blocks: [{ id: 1 }] });
       it('shows a week ul with meetings', () => {
         const ul = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__block-list')[0];
         const ulNode = findDOMNode(ul);
