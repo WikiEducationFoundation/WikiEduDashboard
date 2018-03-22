@@ -24,13 +24,6 @@ describe('UploadTable', () => {
     usage_count: 2
   }];
 
-  const headers = [
-    { title: 'Image', key: 'image' },
-    { title: 'File Name', key: 'file_name' },
-    { title: 'Uploaded By', key: 'username' },
-    { title: 'Usage Count', key: 'usage_count' },
-    { title: 'Date/Time', key: 'date' },
-  ];
 
   it('shows loading when loading attribute is true', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
@@ -45,17 +38,6 @@ describe('UploadTable', () => {
     expect(loading).to.exist;
   });
 
-  it('renders headers', () => {
-    const TestTable = ReactTestUtils.renderIntoDocument(
-      <div>
-        <UploadTable
-          loading={false}
-          uploads={uploads}
-          headers={headers}
-        />
-      </div>
-    );
-  });
 
   it('renders activities', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
@@ -63,12 +45,11 @@ describe('UploadTable', () => {
         <UploadTable
           loading={false}
           uploads={uploads}
-          headers={headers}
         />
       </div>
     );
 
-    const bodyElements = TestTable.querySelectorAll('div.gallery');
-    expect(bodyElements.length).to.eq(1);
+    const bodyElement = TestTable.querySelectorAll('div.upload');
+    expect(bodyElement).to.exist;
   });
 });
