@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Link } from 'react-router';
 import _ from 'lodash';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
 
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
