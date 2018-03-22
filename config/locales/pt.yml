@@ -441,7 +441,9 @@ pt:
     join: Participar
     join_course: Participar no curso
     join_prompt: Participar em '%{title}'?
-    join_successful: Inscreveu-se em %{title}.
+    join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
+      automático das suas contribuições, com atualizações periódicas. Regresse futuramente
+      para verificar o impacto que teve.
     join_failed: A matrícula falhou.
     join_failure_details:
       cannot_join_twice: Os utilizadores não se podem matricular no mesmo curso duas
@@ -889,15 +891,16 @@ pt:
     none: Esta classe não contribuiu com nenhuma imagem ou com outros ficheiros multimédia
       no Wikimedia Commons.
     time_doc: A hora de cada envio no seu horário local
+    uploaded_at: Enviado a
     uploaded_by: Enviado por
     usage_count: Contagem de utilização
     usages: Usos
   users:
-    already_enrolled: Aquele utilizador já está matriculado!
+    already_enrolled: Esse utilizador já está matriculado!
     assign_articles: Atribuir artigos
-    assign_articles_done: Feito
+    assign_articles_done: Concluído
     assigned: Artigos atribuídos
-    assignees: Atribuído(s)
+    assignees: Aluno(s)
     loading_authorship_data: a carregar dados de autoria
     authorship_data_not_fetched: não foi possível obter os dados de autoria
     character_doc: A quantidade total do conteúdo que um utilizador adicionou neste
@@ -1037,8 +1040,8 @@ pt:
       e tente entrar novamente.
   error_incorrect_passcode:
     header: Código de acesso incorreto.  :-(
-    explanation: O código de acesso para a matrícula neste curso está incorreto. Por
-      favor, peça ao professor o código de acesso atual para matricular-se neste curso.
+    explanation: O código de acesso para se matricular neste curso está incorreto.
+      Peça ao professor o código de acesso atual, por favor.
   error_no_course:
     explanation: Não existe nenhum curso %{slug}.
   error_404:

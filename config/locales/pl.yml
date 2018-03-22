@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrumps
+# Author: DeRudySoulStorm
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
@@ -646,6 +647,7 @@ pl:
     loading: Wczytuję przesłane pliki…
     none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
     time_doc: Czas przesłania plików w Twoim czasie lokalnym
+    uploaded_at: Przesłane przez
     uploaded_by: Przesłane przez
     usage_count: Licznik wykorzystania
     usages: Wykorzystanie

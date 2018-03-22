@@ -377,6 +377,8 @@ es:
     feedback: Comentarios
     feedback_loading: Espera mientras se cargan las sugerencias…
     gradeables_none: Este curso no tiene tareas calificables.
+    home_wiki_language: Idioma del wiki de origen
+    home_wiki_project: Proyecto del wiki de origen
     instructor:
       one: Docente
       other: Docentes

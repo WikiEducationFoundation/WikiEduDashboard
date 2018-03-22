@@ -463,6 +463,7 @@ ko:
     label: 파일 올리기
     loading: 업로드 불러오는 중
     none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    uploaded_at: 올린 곳
     uploaded_by: 올린이
     usage_count: 사용량 값
     usages: 사용

@@ -458,7 +458,9 @@ fr:
     join: Rejoindre
     join_course: Rejoindre le cours
     join_prompt: Rejoindre '%{title}' ?
-    join_successful: Vous avez bien rejoint %{title}.
+    join_successful: Vous avez bien rejoint %{title}. Le tableau de bord gardera automatiquement
+      la trace de vos contributions avec des mises à jour périodiques. Revenez vérifier
+      plus tard pour voir quel a été votre impact !
     join_failed: L'inscription a échoué.
     join_failure_details:
       cannot_join_twice: Les utilisateurs ne peuvent pas rejoindre le même cours deux
@@ -913,6 +915,7 @@ fr:
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
     time_doc: L’heure de chaque téléversement dans votre heure locale
+    uploaded_at: Téléchargé à
     uploaded_by: Téléversé par
     usage_count: Nombre d’utilisations
     usages: Utilisations
@@ -1063,7 +1066,8 @@ fr:
   error_incorrect_passcode:
     header: Mot de passe erroné. :-(
     explanation: Le mot de passe pour s’inscrire à ce cours n’est pas correct. Veuillez
-      demander au formateur le mot de passe actuel pour s’inscrire à ce cours.
+      demander au formateur le mot de passe actuel pour s’inscrire à ce cours. Vous
+      pouvez réessayer en entrant le bon mot de passe ci-dessous.
   error_no_course:
     explanation: Il n'existe pas de cours de type %{slug} .
   error_404:

@@ -520,7 +520,7 @@ zh-CN:
     edit_description: 编辑描述
     edit_details: 编辑详情
     edit_template: 编辑模板
-    rename_confirmation: 形成URL的过程字段已更改。这将更改URL并中断任何传入链接。您确定要这样做吗？
+    rename_confirmation: 组成URL一部分的课程字段已更改。这将更改URL，并破坏任何链入链接。您确定要这样做么？
   metrics:
     label: 课程活动
     last_update: 上次统计更新
@@ -697,6 +697,7 @@ zh-CN:
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     time_doc: 您本地时间的每次上传时间
+    uploaded_at: 上传于
     uploaded_by: 上传者
     usage_count: 使用计数
     usages: 用法

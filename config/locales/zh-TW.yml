@@ -349,7 +349,7 @@ zh-TW:
     join: 加入
     join_course: 加入課程
     join_prompt: 加入'%{title}'嗎？
-    join_successful: 您已成功加入 %{title}。
+    join_successful: 您已成功加入 %{title}。控制面板將會週期更新來自動追蹤您的貢獻，可讓您日後查看您做出了哪些重要影響！
     join_failed: 登記失敗。
     join_failure_details:
       cannot_join_twice: 用戶不可加入同一課程兩次。
@@ -716,6 +716,7 @@ zh-TW:
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
+    uploaded_at: 上傳於
     uploaded_by: 上傳者為
     usage_count: 使用量
     usages: 使用狀況
@@ -836,9 +837,7 @@ zh-TW:
     json_explanation: 看起來您似乎有退出。請重整、登入並再試一次。
   error_incorrect_passcode:
     header: 選課代碼錯誤。 :-(
-    explanation: |-
-      選課代碼錯誤，無法登記此課程。
-      請向導師索取正確選課代碼後再登記此課程。
+    explanation: 選課代碼錯誤，無法登記此課程。請向導師索取正確選課代碼後再登記此課程。您可以透過輸入以下正確代碼來重試。
   error_no_course:
     explanation: 沒有%{slug}這樣的課程存在。
   error_404:
