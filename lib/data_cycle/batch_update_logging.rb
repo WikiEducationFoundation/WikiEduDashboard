@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'action_view'
+require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 
 module BatchUpdateLogging
   include ActionView::Helpers::DateHelper
@@ -83,8 +84,8 @@ module BatchUpdateLogging
     total_time = distance_of_time_in_words(@start_time, @end_time)
     Rails.logger.debug "#{message} Time: #{total_time}."
     if self.class.to_s == 'ConstantUpdate'
-      UpdateLog.new.log_updates('start_time' => @start_time.to_datetime,
-                                'end_time' => @end_time.to_datetime)
+      UpdateLogger.update_settings_record('start_time' => @start_time.to_datetime,
+                                          'end_time' => @end_time.to_datetime)
     end
     Raven.capture_message message,
                           level: 'info',

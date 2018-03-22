@@ -2,15 +2,20 @@
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
+require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 
 #= Pulls in new revisions for a single course and updates the corresponding records
 class UpdateCourseStats
   def initialize(course)
     @course = course
+    @start_time = Time.zone.now
     fetch_data
     update_categories if @course.needs_update
     update_caches
     @course.update(needs_update: false)
+    @end_time = Time.zone.now
+    UpdateLogger.update_course(@course, 'start_time' => @start_time.to_datetime,
+                                        'end_time' => @end_time.to_datetime)
   end
 
   private
