@@ -24,7 +24,12 @@ class WikiApi
   # empty string if it's a 404 because the page is a redlink.
   def get_page_content(page_title)
     response = mediawiki('get_wikitext', page_title)
-    [200, 404].include?(response&.status) ? response.body : nil
+    case response&.status
+    when 200
+      response.body
+    when 404
+      ''
+    end
   end
 
   def get_user_id(username)

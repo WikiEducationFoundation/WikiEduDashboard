@@ -2,6 +2,8 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training/training_loader"
+require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_library"
 
 describe TrainingLoader do
   describe '#load_content' do
