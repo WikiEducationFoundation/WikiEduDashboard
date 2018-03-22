@@ -18,12 +18,12 @@ class ScheduleCourseUpdates
   private
 
   def run_update
-    log_start_of_update 'Short update tasks are beginning.'
+    log_start_of_update 'Schedule course updates starting.'
     enqueue_course_updates
-    log_end_of_update 'Short update finished.'
+    log_end_of_update 'Schedule course updates finished.'
   # rubocop:disable Lint/RescueException
   rescue Exception => e
-    log_end_of_update 'Short update failed.'
+    log_end_of_update 'Schedule course updates failed.'
     raise e
   end
   # rubocop:enable Lint/RescueException
