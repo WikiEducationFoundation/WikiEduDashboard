@@ -95,6 +95,6 @@ module BatchUpdateLogging
   end
 
   def debug?
-    ENV['update_debug'] == 'true'
+    ENV["update_debug_#{self.class}"] == 'true'
   end
 end
