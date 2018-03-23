@@ -13,7 +13,8 @@ const Article = createReactClass({
     article: PropTypes.object.isRequired,
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
-    articleDetails: PropTypes.object
+    articleDetails: PropTypes.object,
+    wikidataLabel: PropTypes.string
   },
 
   fetchArticleDetails() {
@@ -27,7 +28,7 @@ const Article = createReactClass({
     const ratingMobileClass = `${ratingClass} tablet-only`;
 
     // Uses Course Utils Helper
-    const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki);
+    const formattedTitle = CourseUtils.formattedArticleTitle(this.props.article, this.props.course.home_wiki, this.props.wikidataLabel);
     const historyUrl = `${this.props.article.url}?action=history`;
 
     return (

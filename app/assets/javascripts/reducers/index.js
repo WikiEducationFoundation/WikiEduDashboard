@@ -23,6 +23,7 @@ import uploads from './uploads';
 import userCourses from './user_courses';
 import userProfile from './user_profile';
 import users from './users';
+import wikidataLabels from './wikidata_labels';
 
 
 const reducer = combineReducers({
@@ -50,7 +51,8 @@ const reducer = combineReducers({
   uploads,
   userCourses,
   userProfile,
-  users
+  users,
+  wikidataLabels
 });
 
 export default reducer;

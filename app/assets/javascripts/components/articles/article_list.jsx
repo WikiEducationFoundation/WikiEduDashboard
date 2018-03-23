@@ -14,7 +14,8 @@ const ArticleList = ({
   current_user,
   actions,
   articleDetails,
-  sortBy
+  sortBy,
+  wikidataLabels
 }) => {
   const keys = {
     rating_num: {
@@ -48,6 +49,7 @@ const ArticleList = ({
       article={article}
       course={course}
       key={article.id}
+      wikidataLabel={wikidataLabels[article.title]}
       // eslint-disable-next-line
       current_user={current_user}
       fetchArticleDetails={actions.fetchArticleDetails}

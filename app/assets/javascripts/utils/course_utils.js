@@ -113,7 +113,7 @@ const CourseUtils = class {
     return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
 
-  formattedArticleTitle(article, defaultWiki) {
+  formattedArticleTitle(article, defaultWiki, wikidataLabel) {
     let languagePrefix = '';
     if (!defaultWiki || !article.language || article.language === defaultWiki.language) {
       languagePrefix = '';
@@ -128,7 +128,11 @@ const CourseUtils = class {
       projectPrefix = `${article.project}:`;
     }
 
-    return `${languagePrefix}${projectPrefix}${article.title}`;
+    let title = article.title;
+    if (article.project === 'wikidata' && wikidataLabel) {
+      title = wikidataLabel;
+    }
+    return `${languagePrefix}${projectPrefix}${title}`;
   }
 
   formattedCategoryName(category, defaultWiki) {

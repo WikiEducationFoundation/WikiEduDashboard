@@ -22,4 +22,5 @@ export * from "./user_courses";
 export * from "./user_profile";
 export * from "./user_roles";
 export * from "./users";
-export * from "./settings.js";
+export * from "./settings";
+export * from "./wikidata_labels";

@@ -129,6 +129,7 @@ const mapStateToProps = state => ({
   articles: getWikiArticles(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
+  wikidataLabels: state.wikidataLabels.labels
 });
 
 const mapDispatchToProps = {
