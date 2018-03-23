@@ -30,11 +30,11 @@ class ArticleStatusManager
   # Class helpers #
   #################
   def self.update_article_status_for_course(course)
-    course_articles = course.pages_edited
     Wiki.all.each do |wiki|
-      articles = course_articles.where(wiki_id: wiki.id)
-      next if articles.empty?
-      new(wiki).update_status(articles)
+      next unless course.pages_edited.exists?(wiki_id: wiki.id)
+      course.pages_edited.where(wiki_id: wiki.id).find_in_batches do |article_batch|
+        new(wiki).update_status(article_batch)
+      end
     end
   end
 
@@ -105,13 +105,18 @@ class ArticleStatusManager
 
   def update_deleted_articles(articles)
     return unless @failed_request_count.zero?
-    articles.where(mw_page_id: @deleted_page_ids).each do |article|
+    articles.each do |article|
+      next unless @deleted_page_ids.include? article.mw_page_id
+      # Reload to account for articles that have had their mw_page_id changed
+      # because the page was moved rather than deleted.
+      next unless @deleted_page_ids.include? article.reload.mw_page_id
       article.update_attribute(:deleted, true)
     end
   end
 
   def update_undeleted_articles(articles)
-    articles.where(mw_page_id: @synced_ids).each do |article|
+    articles.each do |article|
+      next unless @synced_ids.include? article.mw_page_id
       article.update_attribute(:deleted, false)
     end
   end
@@ -129,7 +134,6 @@ class ArticleStatusManager
   def update_article_ids(deleted_page_ids)
     maybe_deleted = Article.where(mw_page_id: deleted_page_ids, wiki_id: @wiki.id)
     # These pages have titles that match Articles in our DB with deleted ids
-
     request_results = Replica.new(@wiki).post_existing_articles_by_title maybe_deleted
     @failed_request_count += 1 if request_results.nil?
 

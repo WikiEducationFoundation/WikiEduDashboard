@@ -143,7 +143,7 @@ describe ArticleStatusManager do
     end
 
     it 'updates the mw_rev_id for revisions when article record changes' do
-      VCR.use_cassette 'article_status_manager/update_for_revisions  ' do
+      VCR.use_cassette 'article_status_manager/update_for_revisions' do
         create(:article,
                id: 2262715,
                mw_page_id: 2262715,
