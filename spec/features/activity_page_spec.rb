@@ -126,7 +126,8 @@ describe 'activity page', type: :feature, js: true do
 
       it 'displays a list of recent uploads' do
         visit '/recent-activity/recent-uploads'
-        assert_page_content 'Blowing a raspberry.ogv'
+        expect(page).to have_selector('div.upload')
+        find(div.info).hover have_content 'Blowing a raspberry.ogv'
       end
     end
   end
