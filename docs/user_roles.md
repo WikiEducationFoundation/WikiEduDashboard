@@ -63,8 +63,9 @@ on Wikipedia by the participants. You can add active users on Wikipedia to pull 
 arbitrary activity data.
 
 1. Go to Wikipedia and find a recently-active editors, for example by picking some usernames from https://en.wikipedia.org/wiki/Special:RecentChanges
-2. As an instructor or admin, go the Students tab, click Participation, and add them.
-3. Run the 'constant_update' and 'daily_update' routines (which run via cron job in production) to pull in activity from those users.
+2. For populating the Uploads, find users who have recently uploaded files by picking some usernames from https://en.wikipedia.org/wiki/Special:Log/upload
+3. As an instructor or admin, go the Students tab, click Participation, and add them.
+4. Run the 'constant_update' and 'daily_update' routines (which run via cron job in production) to pull in activity from those users. For Uploads, only the 'constant_update' step is necessary.
     * $ `rake batch:update_constantly`
     * $ `rake batch:update_daily`
 
