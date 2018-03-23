@@ -367,8 +367,7 @@ describe 'the course page', type: :feature, js: true do
              uploaded_at: '2015-06-01')
       js_visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
-#      find(div.info).hover have_content 'Example.jpg'
-#      expect(page).to have_content 'Example.jpg'
+      find(div.info).hover have_content 'Example.jpg'
     end
   end
 
