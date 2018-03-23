@@ -101,7 +101,7 @@ class RequestedAccountsController < ApplicationController
   end
 
   def passcode_valid?
-    return true if @course.passcode.nil?
+    return true if @course.passcode.blank?
     params[:passcode] == @course.passcode
   end
 
