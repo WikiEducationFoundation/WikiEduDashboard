@@ -5,7 +5,7 @@ import CourseUtils from '../../utils/course_utils.js';
 
 const UploadList = ({ uploads, course }) => {
   let elements;
-  if (uploads.length > 1) {
+  if (uploads.length > 0) {
       elements = uploads.map(upload => {
         return <Upload upload={upload} key={upload.id} />;
     });

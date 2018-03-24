@@ -364,10 +364,11 @@ describe 'the course page', type: :feature, js: true do
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg',
-             uploaded_at: '2015-06-01')
-      js_visit "/courses/#{slug}/uploads"
+             uploaded_at: '2015-06-01',
+             thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png')
+      visit "/courses/#{slug}/uploads"
       expect(page).to have_selector('div.upload')
-      find(div.info).hover have_content 'Example.jpg'
+      expect(page).not_to have_content I18n.t('uploads.none')
     end
   end
 

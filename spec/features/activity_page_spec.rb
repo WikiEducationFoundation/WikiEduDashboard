@@ -120,14 +120,17 @@ describe 'activity page', type: :feature, js: true do
 
     context 'recent uploads' do
       let!(:upload) do
-        create(:commons_upload, file_name: 'File:Blowing a raspberry.ogv',
-                                user_id: user.id)
+        create(:commons_upload,
+               file_name: 'File:Blowing a raspberry.ogv',
+               user_id: user.id)
       end
 
       it 'displays a list of recent uploads' do
         visit '/recent-activity/recent-uploads'
         expect(page).to have_selector('div.upload')
-        find(div.info).hover have_content 'Blowing a raspberry.ogv'
+        Capybara.ignore_hidden_elements = false
+        expect(page).to have_content 'Blowing a raspberry.ogv'
+        Capybara.ignore_hidden_elements = true
       end
     end
   end
