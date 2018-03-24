@@ -6,9 +6,8 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import { setValid, setInvalid } from '../../actions/validation_actions.js';
+import { setValid, setInvalid, checkCourse } from '../../actions/validation_actions.js';
 import { fetchCampaign, updateCourse, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
 import { getCloneableCourses } from '../../selectors';
 
@@ -34,7 +33,7 @@ const CourseCreator = createReactClass({
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
     cloneCourse: PropTypes.func.isRequired,
-    validations: PropTypes.array.isRequired,
+    validations: PropTypes.object.isRequired,
     errorQueue: PropTypes.array.isRequired
   },
 
@@ -50,7 +49,7 @@ const CourseCreator = createReactClass({
       use_start_and_end_times: this.props.courseCreator.useStartAndEndTimes,
     };
 
-    return { ...inits };
+    return inits;
   },
 
   componentWillMount() {
@@ -82,13 +81,13 @@ const CourseCreator = createReactClass({
 
   saveCourse() {
     if (isValid(this.props.validations, this.props.setInvalid) && this.expectedStudentsIsValid() && this.dateTimesAreValid()) {
-      this.setState({ isSubmitting: true });
-      this.props.setInvalid(
-        'exists',
-        CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
-        true
-      );
-      return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
+      this.setState({ isSubmitting: true }, () => {
+        this.props.setInvalid(
+          'exists',
+          CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
+        );
+        this.props.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
+      });
     }
   },
 
@@ -541,6 +540,7 @@ const mapDispatchToProps = ({
   cloneCourse,
   setValid,
   setInvalid,
+  checkCourse,
 });
 
 // exporting two difference ways as a testing hack.
