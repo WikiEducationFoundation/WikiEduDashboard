@@ -23,5 +23,6 @@
     // survey.js sometimes interferes with the rendering of results.
     = javascript_pack_tag("survey") unless page_class == 'surveys results'
     - if can_administer?
-      = hot_javascript_tag("survey_admin")
+      -# = hot_javascript_tag("survey_admin")
+      = javascript_pack_tag 'survey-admin'
     = content_for :additional_javascripts

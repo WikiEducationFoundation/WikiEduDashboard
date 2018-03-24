@@ -1,1 +1,1 @@
-import '../../assets/javascripts/raven';
+window.Raven = require('raven-js');

@@ -1,7 +1,7 @@
 /* eslint prefer-arrow-callback: 0 */
 const { environment } = require('@rails/webpacker');
-const config = require('./config')
-const webpack = require('webpack')
+const config = require('./config');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackShellPlugin = require('webpack-shell-plugin');
@@ -30,6 +30,15 @@ environment.plugins.append(
 * jQuery uls
 */
 
+environment.plugins.append(
+  'CommonChunks',
+  new webpack.optimize.CommonsChunkPlugin({
+    name: 'assets/javascripts/jquery-uls',
+    filename: 'jquery-uls.js',
+    minChunks: Infinity,
+  })
+);
+
 environment.entry['jquery-uls'] = [
   './node_modules/@bower_components/jquery/dist/jquery.js',
   './node_modules/@bower_components/lodash/lodash.js',
@@ -37,17 +46,8 @@ environment.entry['jquery-uls'] = [
   './node_modules/@bower_components/jquery.uls/src/jquery.uls.data.utils.js',
   './node_modules/@bower_components/jquery.uls/src/jquery.uls.lcd.js',
   './node_modules/@bower_components/jquery.uls/src/jquery.uls.languagefilter.js',
-  './node_modules/@bower_components/jquery.uls/src/jquery.uls.core.js'
+  './node_modules/@bower_components/jquery.uls/src/jquery.uls.core.js',
 ];
-
-environment.plugins.append(
-  'CommonChunks',
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'assets/javascripts/jquery-uls',
-    minChunks: Infinity,
-  })
-);
-
 
 /*
 * COPY IMAGES AND FONTS
@@ -55,7 +55,7 @@ environment.plugins.append(
 const copyOptions = ['images', 'fonts'].map(function (assetType) {
   return {
     from: `${config.sourcePath}/${assetType}`,
-    to: `${assetType}`,
+    to: `../assets/${assetType}`,
   };
 });
 
