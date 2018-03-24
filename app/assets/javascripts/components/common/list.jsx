@@ -18,44 +18,47 @@ const List = createReactClass({
     stickyHeader: PropTypes.bool
   },
 
-  componentDidMount() {
-    if ($('.persist-area').length !== 0) {
-      let clonedHeaderRow;
-      $(".persist-area").each(function () {
-          clonedHeaderRow = $(".persist-header", this);
-          clonedHeaderRow
-            .before(clonedHeaderRow.clone())
-            .css("width", clonedHeaderRow.width())
-            .addClass("floatingHeader");
-      });
-      return window.addEventListener('scroll', this._UpdateTableHeaders);
-    }
+  getInitialState() {
+    return { fixHeader: false };
   },
 
+  componentDidMount() {
+    if (this.props.stickyHeader) {
+      return window.addEventListener('scroll', this._UpdateTableHeaders);
+  }},
+
   componentWillUnmount() {
-    if ($('.persist-area').length !== 0) {
+    if (this.props.stickyHeader) {
       return window.removeEventListener('scroll', this._UpdateTableHeaders);
     }
   },
 
   _UpdateTableHeaders() {
-   $(".persist-area").each(function () {
-     const el = $(this);
-     const offset = el.offset();
-     const scrollTop = $(window).scrollTop();
-     const floatingHeader = $(".floatingHeader", this);
-
-       if ((scrollTop > offset.top) && (scrollTop < offset.top + el.height())) {
-           floatingHeader.css({
-            visibility: "visible"
-           });
-       } else {
-           floatingHeader.css({
-            visibility: "hidden"
-           });
-       }
-   });
-},
+    if (this.props.stickyHeader) {
+      const { fixHeader } = this.state;
+      const persistAreaElements = document.getElementsByClassName('persist-area');
+      for (let i = 0; i < persistAreaElements.length; i++) {
+        const persistAreaElement = persistAreaElements[i];
+        if (fixHeader) {
+          const floatingHeaderRow = persistAreaElements[i].getElementsByClassName('floatingHeader')[0];
+          const style = window.getComputedStyle(persistAreaElement);
+          const width = style.getPropertyValue('width');
+          floatingHeaderRow.style.width = width;
+        }
+        const offset = persistAreaElement.offsetTop;
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        if (!fixHeader && scrollTop > offset && scrollTop < offset + persistAreaElement.clientHeight) {
+          this.setState({ fixHeader: true });
+        }
+        if (fixHeader && scrollTop >= offset && scrollTop > offset + persistAreaElement.clientHeight) {
+           this.setState({ fixHeader: false });
+        }
+        if (fixHeader && scrollTop < offset) {
+           this.setState({ fixHeader: false });
+        }
+      }
+    }
+  },
 
   render() {
     const { store, keys, sortable, table_key, className, none_message, sortBy, loading, stickyHeader } = this.props;
@@ -135,11 +138,13 @@ const List = createReactClass({
         </tr>
       );
     }
-    let fixedArea;
     let fixedHeader;
+    let fixedArea;
     if (stickyHeader) {
       fixedArea = "persist-area";
+      const fixHeader = this.state.fixHeader === true ? 'floatingHeader' : '';
       fixedHeader = "persist-header";
+      fixedHeader += ` ${fixHeader}`;
     }
     return (
       <div className={fixedArea}>
