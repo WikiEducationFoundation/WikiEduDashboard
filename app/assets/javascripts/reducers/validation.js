@@ -10,7 +10,7 @@ function __in__(needle, haystack) {
 }
 
 const setValidation = function (key, valid, message, changed = true, state) {
-  const newState = { ...state };
+  const newState = { validations: { ...state.validations }, errorQueue: [...state.errorQueue] };
   if (!valid && changed && !(__in__(key, newState.errorQueue))) { // key is invalid
     newState.errorQueue.push(key);
   } else if (valid && __in__(key, newState.errorQueue)) {
