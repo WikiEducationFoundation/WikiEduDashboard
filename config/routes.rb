@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
 
   get '/settings/all_admins' => 'settings#all_admins'
+  get '/settings/special_users' => 'settings#special_users'
   post '/settings/upgrade_admin' => 'settings#upgrade_admin'
   post '/settings/downgrade_admin' => 'settings#downgrade_admin'
   #UserProfilesController
