@@ -2,27 +2,32 @@
 
 #= Presenter for Setting / special users
 class SpecialUsers
-  def self.special_users
-    Setting.find_or_create_by(key: 'special_users').value
+  POSITIONS = %i[
+    communications_manager
+    classroom_program_manager
+    outreach_manager
+    technical_help_staff
+    survey_alerts_recipient
+  ].freeze
+
+  class << self
+    def special_users
+      Setting.find_or_create_by(key: 'special_users').value
+    end
+
+    # Dynamically define class methods
+    POSITIONS.each do |position|
+      define_method position do
+        User.find_by(username: special_users[position])
+      end
+    end
   end
 
-  def self.communications_manager
-    User.find_by(username: special_users[:communications_manager])
-  end
-
-  def self.classroom_program_manager
-    User.find_by(username: special_users[:classroom_program_manager])
-  end
-
-  def self.outreach_manager
-    User.find_by(username: special_users[:outreach_manager])
-  end
-
-  def self.technical_help_staff
-    User.find_by(username: special_users[:technical_help_staff])
-  end
-
-  def self.survey_alerts_recipient
-    User.find_by(username: special_users[:survey_alerts_recipient])
+  def self.all_grouped
+    special_users = {}
+    POSITIONS.each do |position|
+      special_users[position] = send(position)
+    end
+    special_users
   end
 end
