@@ -54,6 +54,7 @@ const DiffViewer = createReactClass({
 
   showDiff() {
     this.setState({ showDiff: true });
+    $('.floatingHeader').css({ opacity: 0 });
     if (!this.props.editors) {
       this.props.fetchArticleDetails();
     } else if (!this.state.fetched) {
@@ -63,6 +64,7 @@ const DiffViewer = createReactClass({
 
   hideDiff() {
     this.setState({ showDiff: false });
+    $('.floatingHeader').css({ opacity: 1 });
   },
 
   handleClickOutside() {
