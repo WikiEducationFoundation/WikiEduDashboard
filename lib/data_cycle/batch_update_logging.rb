@@ -13,8 +13,7 @@ module BatchUpdateLogging
     views: 'tmp/batch_update_views.pid',
     survey: 'tmp/batch_update_surveys.pid',
     training: 'tmp/batch_update_trainings.pid',
-    pause: 'tmp/batch_pause.pid',
-    sleep: 'tmp/batch_sleep_10.pid'
+    pause: 'tmp/batch_pause.pid'
   }.freeze
 
   def setup_logger
@@ -61,10 +60,6 @@ module BatchUpdateLogging
 
   def update_running?(type)
     pid_file_process_running? UPDATE_PID_FILES[type]
-  end
-
-  def update_waiting_to_run?
-    pid_file_process_running? UPDATE_PID_FILES[:sleep]
   end
 
   def log_message(message)

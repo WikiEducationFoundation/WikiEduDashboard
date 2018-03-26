@@ -25,7 +25,7 @@ class ConstantUpdate
   def initialize
     setup_logger
     return if updates_paused?
-    return if conflicting_updates_running?
+    return if update_running?(:constant)
 
     run_update_with_pid_files(:constant)
   end
@@ -75,16 +75,5 @@ class ConstantUpdate
   def update_status_of_ungreeted_students
     log_message 'Updating greeting status of ungreeted students'
     StudentGreetingChecker.check_all_ungreeted_students
-  end
-
-  #################################
-  # Logging and process managment #
-  #################################
-
-  def conflicting_updates_running?
-    return true if update_running?(:daily)
-    return true if update_running?(:constant)
-    return true if update_waiting_to_run?
-    false
   end
 end
