@@ -280,6 +280,7 @@ bn:
     header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
     image: চিত্র
     label: আপলোডসমূহ
+    uploaded_at: আপলোডের তারিখ
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ

@@ -406,6 +406,7 @@ sv:
     label: Uppladdningar
     loading: Laddar uppladdning...
     none: Inga filer har laddats upp
+    uploaded_at: Laddades upp
     uploaded_by: Uppladdad av
     usage_count: Antal användningar
     usages: Användning

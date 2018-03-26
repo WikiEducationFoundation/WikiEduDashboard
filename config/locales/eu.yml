@@ -128,6 +128,7 @@ eu:
       list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
       '?': Balorazio gabekoa - Wikipedia kalitate eskalaren oraindik ez da oraindik
       does_not_exist: Artikulu hau ez da existitzen Wikipedian
+    see_more: Gehiago ikusi
     show_cumulative_changes: Erakutsi Aldaketa Metagarriak
     show_current_version: Erakutsi Oraingo Bertsioa
     show_current_version_with_authorship_highlighting: Azken bertsioa egile koloreztatuekin
@@ -181,6 +182,10 @@ eu:
   campaign:
     active_campaigns: Kanpaina aktiboak
     add_organizer: Antolatzailea gehitu
+    alert_article: Artikuluaren izenburua
+    alert_label: Kanpainia alertak
+    alert_type: Mota
+    alert_user_id: Erabiltzailea
     all_campaigns: Kanpaina Guztiak
     already_exists: Kanpaina hori dagoeneko existitzen da! Mesedez saiatu berriro
       izenburu desberdin batekin.
@@ -189,6 +194,7 @@ eu:
     campaign_deleted: '%{title} kanpaina ezabatua izan da'
     campaign_not_updated: Kanpaina ezin izan da eguneratu
     campaign_updated: Kanpaina eguneratua
+    created_at: Data
     confirm_campaign_deletion: Ziur zaude "%{title}" deitutako kanpaina ezabatu nahi
       duzula? Hala bada, tekleatu kanpainaren izena aurrera egiteko.
     confirm_campaign_deletion_failed: '"%{title}" ez da kanpaina honen izena. Kanpaina
@@ -197,6 +203,7 @@ eu:
       kendu nahi duzula?
     course_already_removed: '"%{title}" kenduta zegoen dagoeneko "%{campaign_title}"
       kanpainatik.'
+    course: Ikastaroa
     course_removed: '"%{title}" kendu egin da "%{campaign_title}" kanpainatik'
     create_campaign: Kanpaina berria sortu
     create_my_campaign: Sortu nire kanpaina!
@@ -209,6 +216,7 @@ eu:
     delete_campaign: Ezabatu kanpaina hau
     disable_account_requests: Kontu eskaerak desgaitu
     enable_account_requests: Kontu eskaerak gaitu
+    no_alerts: Kanpainia honek ez dauka alertarik
     no_passcode: Pasahitzik ez
     none: Bat ere ez
     organizers: Antolatzaileak
@@ -249,6 +257,7 @@ eu:
     accounts_generation_confirm_message: Ziur zaude kontu eskaerak gaitu nahi dituzula?
     activity: Jarduera
     active_courses: '%{course_type} aktiboak'
+    alerts: Alertak
     all_courses: Ikastaro guztiak
     already_enrolled: Dagoeneko %{title} ikastaroaren partaide zara!
     already_exists: Hori dagoeneko existitzen da ikastaro honetan!
@@ -406,6 +415,8 @@ eu:
     feedback: Iruzkina
     feedback_loading: Mesedez itxaron iradokizunak kargatu bitartean...
     gradeables_none: Ikastaro honek ez du nota jartzeko lanik.
+    home_wiki_language: Wiki Language orri nagusia
+    home_wiki_project: Wiki Project orri nagusia
     instructor:
       one: Irakaslea
       other: Irakasleak
@@ -418,7 +429,9 @@ eu:
     join: Bat egin
     join_course: Ikastaroan sartu
     join_prompt: Bat egin %{title}?
-    join_successful: Ondo bat egin duzu %{title} ikastaroarekin.
+    join_successful: '%{title}-ra batu zara! Taula honek automatikoki eguneratuko
+      ditu zure ekarpenen jarraipena. Berriro begiratu gero zer egin duen eragina
+      ikusteko.'
     join_failed: Izen-emateak huts egin du.
     join_failure_details:
       cannot_join_twice: Erabiltzaileek ezin dute bitan izena eman ikastaro berean.
@@ -509,6 +522,9 @@ eu:
     timeline: Esleipenaren xehetasunak
     timeline_enabled: Kronograma gaituta
     timeline_link: Kronograma
+    timeline_tooltip: Denbora-lerroa gaitzeak aste-asteko jarduerak zehaztu eta entrenamendu
+      moduluak esleitzea ahalbidetuko du. Oso baliagarria da hezkuntza Programarako
+      ikastaroentzat eta beste programa luze eta oso egituratuentzat.
     time_zone_message: Hasiera eta bukaera datak zure tokiko ordutegian erakusten
       dira.
     title: Izenburua
@@ -538,6 +554,7 @@ eu:
       Bidalitakoan, ikastaro hau automatikoki gehituko da Wikipediara zure lankide kontuarekin. Horren ondoren, kronogramako aldaketa berriak Wikipedian ere agertuko dira.
       Ziur zaude hori egin nahi duzula?
     wiki_staff: Wiki Hezkuntzako Lantaldea
+    withdrawn: Kendu
     word_count_doc: Ikastaroko ikasleek programako epealdian artikuluen izen-tartera
       gehitutako hitzen kopuru estimatua
     yourcourses: Zure ikastaroak
@@ -852,6 +869,7 @@ eu:
     none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu Wikimedia
       Commonsera
     time_doc: Igoera bakoitzaren ordua zure tokiko ordutegian
+    uploaded_at: Hurrengora kargatu da
     uploaded_by: Nork igota
     usage_count: Erabilera kontagailua
     usages: Erabilerak
@@ -995,12 +1013,14 @@ eu:
   error_incorrect_passcode:
     header: Pasahitz okerra. :-(
     explanation: Ikastaro honetan izena emateko pasahitza ez da zuzena. Mesedez eskatu
-      oraingo pasahitza irakasleari ikastaro honetan izena emateko.
+      oraingo pasahitza irakasleari ikastaro honetan izena emateko. Berriro saia zaitez
+      behealdean pasahitz zuzena jarriz.
+  error_no_course:
+    explanation: Ez da %{slug} delako kurtsorik existitzen.
   error_404:
     header: Orria ez da aurkitu :-(
-    explanation: Orri hau ez da existitzen. Arbelera ikastaro baten bila heldu bazara,
-      beharbada ikastaro hori ez dago arbel honetan erregistratuta. Berriki erregistratu
-      bada, sistemak denbora pixka bat beharko du hura gehitzeko.
+    explanation: Orri hau ez da existitzen. Ikastaro baten bila arbelera joan nahi
+      bazenuen, beharbada, kurtso hori ez da arbel honetan erregistratuta egongo.
   error_422:
     header: 422 — entitate prozesaezina.  :-(
     explanation: Zerbait gaizki joan da. Mesedez jarri harremanetan arbel honen zaintzaileekin
@@ -1044,4 +1064,9 @@ eu:
   wiki_api:
     create_account_reason: Erabiltzaile hau %{event} ekitaldian parte hartzen ari
       da.
+  onboarding:
+    supplementary:
+      header: Nola ezagutu gaituzu?
+      question_text: Non, edo noren ahotik entzun zenuen lehenengo aldiz Wiki Educationi
+        buruz?
 ...

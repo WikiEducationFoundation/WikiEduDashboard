@@ -105,6 +105,7 @@ el:
     all_campaigns: Όλες οι εκστρατείες
     campaign: Εκστρατεία
     campaigns: Ανακοινώσεις
+    created_at: Ημερομηνία
     course: Μάθημα
     description: Περιγραφή
     none: Κανένα
@@ -251,6 +252,8 @@ el:
   metrics:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών
+  uploads:
+    uploaded_at: Ανέβηκε στις
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:

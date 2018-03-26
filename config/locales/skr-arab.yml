@@ -6,6 +6,7 @@
 skr-arab:
   application:
     cancel: منسوخ
+    create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
     documentation: دستاویز
     error: 'اتھ غلطی ہائی:'
@@ -51,6 +52,7 @@ skr-arab:
     edited_by: 'لکھݨ آلا:'
     edited_mobile: مقالے
     hide: لُکاؤ
+    history: (تاریخ)
     label: مقالے
     new: (نواں)
     rating: جماعت
@@ -139,6 +141,7 @@ skr-arab:
     leave_course: کورس چھوڑو
     loading: لوڈ تھیدا پئے۔۔۔
     my_articles: میݙے مقالے
+    new_week: نواں ہفتہ شامل کرو
     new_account_email: ای میل پتہ
     none: کوئی وی کائنی
     ores_plot: اوآرای ایس

@@ -430,7 +430,9 @@ cs:
     join: Zapsat se
     join_course: Připojit se ke kurzu
     join_prompt: Zapsat se do '%{title}'?
-    join_successful: Úspěšně jste se zapsali do %{title}
+    join_successful: Úspěšně jste se zapsali do %{title}. Nástěnka bude automaticky
+      sledovat vaše příspěvky a periodicky bude aktualizovat informace. Můžete pravidelně
+      kontrolovat dopad vašich příspěvků!
     join_failed: Nešlo se zapsat.
     join_failure_details:
       cannot_join_twice: Uživatelé se nemohou do stejného kurzu zapsat dvakrát.
@@ -947,7 +949,7 @@ cs:
     header: Nesprávné heslo. :-(
     explanation: Váš kód pro přihlášení se do tohoto kurzu je neplatný. Kontaktujte
       svého instruktora, který by vám měl poskytnout platný kód pro zapsání se do
-      tohoto kurzu.
+      tohoto kurzu. Můžete zkusit znovu zadat platný kód.
   error_no_course:
     explanation: Žádný kurz %{slug} neexistuje.
   error_404:
