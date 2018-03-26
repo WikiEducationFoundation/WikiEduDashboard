@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require_relative '../decorators/user_decorator.rb'
 ##
 # controller actions for super users to interact with app wide settings
 class SettingsController < ApplicationController
@@ -51,10 +51,30 @@ class SettingsController < ApplicationController
     end
   end
 
+  def update_special_users
+    respond_to do |format|
+      format.json do
+        @user = UserDecorator.new(User.find_by(username: special_user_params[:username]))
+        ensure_user_exists(params[:username]) { return }
+        unless SpecialUsers::POSITIONS.include? special_users_params[:position]
+          return render json: { message: 'position is invalid' },
+                        status: :unprocessable_entity
+        end
+        @user.send(special_users_params[:position] + '!')
+        message = I18n.t('settings.special_user.update.success')
+        render json: { message: message }, status: :ok
+      end
+    end
+  end
+
   private
 
   def username_param
     params.require(:user).permit(:username)
+  end
+
+  def special_user_params
+    params.require(:special_user).permit(:username, :position)
   end
 
   ##
