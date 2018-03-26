@@ -47,7 +47,7 @@ const List = createReactClass({
         }
         const offset = persistAreaElement.offsetTop;
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        if (!fixHeader && scrollTop > offset && scrollTop < offset + persistAreaElement.clientHeight) {
+        if (!fixHeader && scrollTop >= offset && scrollTop < offset + persistAreaElement.clientHeight) {
           this.setState({ fixHeader: true });
         }
         if (fixHeader && scrollTop >= offset && scrollTop > offset + persistAreaElement.clientHeight) {

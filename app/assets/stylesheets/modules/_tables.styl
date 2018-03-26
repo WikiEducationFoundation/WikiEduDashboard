@@ -1,30 +1,21 @@
-.floatingHeader
-  position fixed
-  top 50px
-  background-color white
-  z-index 2
-  border-bottom 1px solid lightgray
+.persist-area
+  tbody
+    tr
+      td
+        width 20%
 
-  tr
-    width inherit
+  .floatingHeader
+    position fixed
+    top 50px
+    background-color white
+    z-index 2
+    border-bottom 1px solid lightgray
 
-    th
+    tr
       width inherit
 
-      &:first-child
-        span:first-of-type
-          padding-right 75px
-
-      &:nth-child(3)
-        padding-right 0px
-        padding-left 19px
-
-      &:nth-child(4)
-        padding-right 0px
-
-      &:last-child
-        padding unset
-
+      th
+        width 20%
 
 .table
   width 100%
