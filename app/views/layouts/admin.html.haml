@@ -1,9 +1,12 @@
 - content_for :head do
-  = dashboard_stylesheet_tag("main")
-  = dashboard_stylesheet_tag("surveys")
+  = stylesheet_pack_tag 'stylesheet-main'
+  = stylesheet_pack_tag 'stylesheet-surveys'
+  -# = dashboard_stylesheet_tag("main")
+  -# = dashboard_stylesheet_tag("surveys")
 
 - content_for :javascripts do
-  = hot_javascript_tag("main")
+  -# = hot_javascript_tag("main")
+  - javascript_pack_tag 'main'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}

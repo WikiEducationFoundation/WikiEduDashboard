@@ -46,8 +46,9 @@ before_script:
 - cp config/database.travis.yml config/database.yml
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
+- bundle exec rake assets:precompile
 script:
-  - gulp build && yarn test && bundle exec rspec --color --profile --format documentation
+  - yarn test && bundle exec rspec --color --profile --format documentation
     --tag $TEST_SUITE
   - rubocop --rails
 after_script:

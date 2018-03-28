@@ -2,7 +2,7 @@
 
 = render 'nav'
 
-= hot_javascript_tag 'campaigns'
+= javascript_pack_tag 'campaigns'
 
 - if @campaign.errors.any?
   .notice

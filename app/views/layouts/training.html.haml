@@ -1,8 +1,10 @@
 - content_for :head do
-  = dashboard_stylesheet_tag("training")
+  -# = dashboard_stylesheet_tag("training")
+  = stylesheet_pack_tag 'stylesheet-training'
 
 - content_for :javascripts do
-  = hot_javascript_tag("main")
+  -# = hot_javascript_tag("main")
+  = javascript_pack_tag 'main'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil }

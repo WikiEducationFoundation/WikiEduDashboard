@@ -36,7 +36,7 @@
   SalesforceServer = "#{ENV['SF_SERVER']}"
 
 - unless ENV['DISABLE_SENTRY']
-  = hot_javascript_tag("raven")
+  = javascript_pack_tag("raven")
   // Sentry logging
   %script
     Raven.config(SentryDsn).install();

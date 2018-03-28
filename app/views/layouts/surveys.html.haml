@@ -1,9 +1,12 @@
 - content_for :head do
-  = dashboard_stylesheet_tag("main")
-  = dashboard_stylesheet_tag("surveys")
+  -# = dashboard_stylesheet_tag("main")
+  -# = dashboard_stylesheet_tag("surveys")
+  = stylesheet_pack_tag 'stylesheet-main'
+  = stylesheet_pack_tag 'stylesheet-surveys'
 
 - content_for :javascripts do
-  = hot_javascript_tag("main")
+  -# = hot_javascript_tag("main")
+  = javascript_pack_tag 'main'
 
 !!!
 %html{ dir: rtl? ? "rtl" : nil, class: body_class(request)}
@@ -18,7 +21,8 @@
       .push
     = render "shared/foot"
     // survey.js sometimes interferes with the rendering of results.
-    = hot_javascript_tag("survey") unless page_class == 'surveys results'
+    = javascript_pack_tag("survey") unless page_class == 'surveys results'
     - if can_administer?
-      = hot_javascript_tag("survey_admin")
+      -# = hot_javascript_tag("survey_admin")
+      = javascript_pack_tag 'survey-admin'
     = content_for :additional_javascripts
