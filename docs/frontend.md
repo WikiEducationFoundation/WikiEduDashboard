@@ -4,11 +4,14 @@
 
 The dashboard front end is primary built using React.js, written in Javascript and JSX. What follows is an overview of how data moves through the app and some more general resources for understanding the stack. It was originally done with Flux (McFly), but as of May 2017, it is being gradually migrated to Redux.
 
+The stylesheet language used is Stylus along with its Rupture utility.
 ### Resources
 - [Thinking in React](https://facebook.github.io/react/docs/thinking-in-react.html)
 - [Redux docs](http://redux.js.org/)
 - [Getting Started with Redux](https://egghead.io/courses/getting-started-with-redux)
 - [React DnD](http://gaearon.github.io/react-dnd/) - The library used for drag-and-drop interactions on the timeline
+- [Stylus](https://github.com/stylus/stylus/)
+- [Rupture](https://jescalan.github.io/rupture/) - A utility for working with media queries in stylus.
 
 ### Actions
 Actions are exactly what they sound like: any impactful front end user action should trigger a Flux or Redux action that can be received and acted upon by a store. Think of a Flux action as being similar to an emitted event.
