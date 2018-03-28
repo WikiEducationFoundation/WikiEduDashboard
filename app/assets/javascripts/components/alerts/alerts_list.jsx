@@ -21,7 +21,7 @@ const AlertsList = ({ alerts, sortBy }) => {
       label: I18n.t('campaign.course'),
       desktop_only: true
     },
-    user_id: {
+    user: {
       label: I18n.t('campaign.alert_user_id'),
       desktop_only: true
     },

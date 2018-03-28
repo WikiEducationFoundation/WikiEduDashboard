@@ -9,18 +9,18 @@ import MultiSelectField from '../common/multi_select_field.jsx';
 import { getFilteredAlerts } from '../../selectors';
 
 const ALERTS = [
-  { label: 'ActiveCourseAlert', value: 'ActiveCourseAlert' },
-  { label: 'ArticlesForDeletionAlert', value: 'ArticlesForDeletionAlert' },
-  { label: 'BlockedEditsAlert', value: 'BlockedEditsAlert' },
-  { label: 'ContinuedCourseActivityAlert', value: 'ContinuedCourseActivityAlert' },
-  { label: 'DeletedUploadsAlert', value: 'DeletedUploadsAlert' },
-  { label: 'DiscretionarySanctionsEditAlert', value: 'DiscretionarySanctionsEditAlert' },
-  { label: 'DYKNominationAlert', value: 'DYKNominationAlert' },
-  { label: 'GANominationAlert', value: 'GANominationAlert' },
-  { label: 'NoEnrolledStudentsAlert', value: 'NoEnrolledStudentsAlert' },
-  { label: 'ProductiveCourseAlert', value: 'ProductiveCourseAlert' },
-  { label: 'UnsubmittedCourseAlert', value: 'UnsubmittedCourseAlert' },
-  { label: 'UntrainedStudentsAlert', value: 'UntrainedStudentsAlert' },
+  { label: 'Active Course', value: 'ActiveCourseAlert' },
+  { label: 'Articles For Deletion', value: 'ArticlesForDeletionAlert' },
+  { label: 'Blocked Edits', value: 'BlockedEditsAlert' },
+  { label: 'Continued Course Activity', value: 'ContinuedCourseActivityAlert' },
+  { label: 'Deleted Uploads', value: 'DeletedUploadsAlert' },
+  { label: 'Discretionary Sanctions Edit', value: 'DiscretionarySanctionsEditAlert' },
+  { label: 'DYK Nomination', value: 'DYKNominationAlert' },
+  { label: 'GA Nomination', value: 'GANominationAlert' },
+  { label: 'No Enrolled Students', value: 'NoEnrolledStudentsAlert' },
+  { label: 'Productive Course', value: 'ProductiveCourseAlert' },
+  { label: 'Unsubmitted Course', value: 'UnsubmittedCourseAlert' },
+  { label: 'Untrained Students', value: 'UntrainedStudentsAlert' },
 ];
 
 const AlertsHandler = createReactClass({
