@@ -19,7 +19,10 @@ class SuspectedPlagiarismMailer < ApplicationMailer
     @course = @courses_user.course
     @talk_page_new_section_url = @courses_user.talk_page_url + '?action=edit&section=new'
     @report_url = 'https://dashboard.wikiedu.org' + @revision.plagiarism_report_link
-    mail(to: content_expert.email, subject: "Suspected plagiarism from #{@course.title}")
+    mail(to: @course.instructors.pluck(:email),
+         cc: content_expert.email,
+         reply_to: content_expert.email,
+         subject: "Possible plagiarism from #{@course.title}")
   end
 
   def self.content_expert_for(revision)
