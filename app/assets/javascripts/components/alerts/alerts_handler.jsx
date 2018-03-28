@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import AlertsList from './alerts_list.jsx';
 import { fetchAlerts, sortAlerts, filterAlerts } from '../../actions/alert_actions';
 import MultiSelectField from '../common/multi_select_field.jsx';
+import { getFilteredAlerts } from '../../selectors';
 
 const ALERTS = [
   { label: 'ActiveCourseAlert', value: 'ActiveCourseAlert' },
@@ -68,7 +69,7 @@ const AlertsHandler = createReactClass({
               </select>
             </div>
           </div>
-          <AlertsList alerts={this.props.selectedAlerts} />
+          <AlertsList alerts={this.props.selectedAlerts} sortBy={this.props.sortAlerts} />
         </div>
       );
     }
@@ -81,7 +82,7 @@ const AlertsHandler = createReactClass({
 const mapStateToProps = state => ({
   alerts: state.alerts.alerts,
   selectedFilters: state.alerts.selectedFilters,
-  selectedAlerts: state.alerts.selectedAlerts,
+  selectedAlerts: getFilteredAlerts(state),
  });
 
 const mapDispatchToProps = { fetchAlerts, sortAlerts, filterAlerts };

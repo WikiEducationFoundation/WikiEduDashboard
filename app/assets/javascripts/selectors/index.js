@@ -11,6 +11,8 @@ const getAllCampaigns = state => state.campaigns.all_campaigns;
 const getUserCourses = state => state.userCourses.userCourses;
 const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
+const getAlerts = state => state.alerts.alerts;
+const getAlertFilters = state => state.alerts.selectedFilters;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -72,5 +74,12 @@ export const getWikiArticles = createSelector(
       return editedArticles;
     }
     return getFiltered(editedArticles, { ...wikiFilter });
+  }
+);
+
+export const getFilteredAlerts = createSelector(
+  [getAlerts, getAlertFilters], (alerts, alertFilters) => {
+    if (!alertFilters.length) { return alerts; }
+    return _.filter(alerts, (alert) => _.includes(alertFilters, alert.type));
   }
 );

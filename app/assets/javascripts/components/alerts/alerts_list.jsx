@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import List from '../common/list.jsx';
 import Alert from './alert.jsx';
 
-const AlertsList = ({ alerts }) => {
+const AlertsList = ({ alerts, sortBy }) => {
   const elements = alerts.map(alert => {
     return <Alert alert={alert} key={alert.id} />;
   });
@@ -37,6 +37,7 @@ const AlertsList = ({ alerts }) => {
       keys={keys}
       table_key="alerts"
       none_message={I18n.t('campaign.no_alerts')}
+      sortBy={sortBy}
     />
   );
 };
