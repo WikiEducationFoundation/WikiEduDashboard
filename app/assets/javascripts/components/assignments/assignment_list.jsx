@@ -20,7 +20,8 @@ const AssignmentList = createReactClass({
     articles: PropTypes.array,
     assignments: PropTypes.array,
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    wikidataLabels: PropTypes.object
   },
 
   hasAssignedUser(group) {
@@ -41,6 +42,7 @@ const AssignmentList = createReactClass({
         <Assignment
           assignmentGroup={group}
           article={article || null}
+          wikidataLabel={this.props.wikidataLabels[title]}
           course={this.props.course}
           key={group[0].id}
           current_user={this.props.current_user}
