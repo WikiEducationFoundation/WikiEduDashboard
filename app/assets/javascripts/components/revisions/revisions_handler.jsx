@@ -15,11 +15,14 @@ const RevisionHandler = createReactClass({
     limitReached: PropTypes.bool,
     limit: PropTypes.number,
     revisions: PropTypes.array,
-    wikidataLabels: PropTypes.object
+    wikidataLabels: PropTypes.object,
+    loadingRevisions: PropTypes.bool
   },
 
   componentWillMount() {
-    return this.props.fetchRevisions(this.props.course_id, this.props.limit);
+    if (this.props.loadingRevisions) {
+      this.props.fetchRevisions(this.props.course_id, this.props.limit);
+    }
   },
 
   sortSelect(e) {
@@ -65,7 +68,8 @@ const mapStateToProps = state => ({
   limit: state.revisions.limit,
   revisions: state.revisions.revisions,
   limitReached: state.revisions.limitReached,
-  wikidataLabels: state.wikidataLabels.labels
+  wikidataLabels: state.wikidataLabels.labels,
+  loadingRevisions: state.revisions.loading
 });
 
 const mapDispatchToProps = {

@@ -5,7 +5,8 @@ const initialState = {
   revisions: [],
   limit: 50,
   limitReached: false,
-  sortKey: null
+  sortKey: null,
+  loading: true
 };
 
 const isLimitReached = (revs, limit) => {
@@ -18,7 +19,8 @@ export default function revisions(state = initialState, action) {
       return {
         revisions: action.data.course.revisions,
         limit: action.limit,
-        limitReached: isLimitReached(action.data.course.revisions, action.limit)
+        limitReached: isLimitReached(action.data.course.revisions, action.limit),
+        loading: false
       };
     case SORT_REVISIONS: {
       const newState = { ...state };
