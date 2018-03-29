@@ -22,12 +22,15 @@ const ArticlesHandler = createReactClass({
     fetchArticles: PropTypes.func,
     limitReached: PropTypes.bool,
     limit: PropTypes.number,
-    articles: PropTypes.array
+    articles: PropTypes.array,
+    loadingArticles: PropTypes.bool
   },
 
   componentWillMount() {
     ServerActions.fetch('assignments', this.props.course_id);
-    return this.props.fetchArticles(this.props.course_id, this.props.limit);
+    if (this.props.loadingArticles) {
+      this.props.fetchArticles(this.props.course_id, this.props.limit);
+    }
   },
 
   onChangeFilter(e) {
@@ -129,7 +132,8 @@ const mapStateToProps = state => ({
   articles: getWikiArticles(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
-  wikidataLabels: state.wikidataLabels.labels
+  wikidataLabels: state.wikidataLabels.labels,
+  loadingArticles: state.articles.loading
 });
 
 const mapDispatchToProps = {

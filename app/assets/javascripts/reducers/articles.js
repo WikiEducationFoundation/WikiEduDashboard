@@ -9,13 +9,13 @@ const initialState = {
   sortKey: null,
   wikis: [],
   wikiFilter: null,
+  loading: true
 };
 
 const SORT_DESCENDING = {
   character_sum: true,
   view_count: true
 };
-
 
 const isLimitReached = (revs, limit) => {
   return (revs.length < limit);
@@ -37,7 +37,8 @@ export default function articles(state = initialState, action) {
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.articles, action.limit),
         wikis: wikis,
-        wikiFilter: state.wikiFilter
+        wikiFilter: state.wikiFilter,
+        loading: false
       };
     }
     case SORT_ARTICLES: {
