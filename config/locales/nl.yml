@@ -7,6 +7,7 @@
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
+# Author: Patio
 # Author: Ragesoss
 # Author: Romaine
 # Author: Siebrand
@@ -412,6 +413,7 @@ nl:
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
     time_doc: De tijd van iedere upload in je lokale tijd
+    uploaded_at: Opgeslagen bij
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!
@@ -491,8 +493,8 @@ nl:
   error_incorrect_passcode:
     header: Onjuist wachtwoord. :-(
     explanation: De toegangscode voor het inschrijven in deze cursus is onjuist. Gelieve
-      de instructeur om de huidige toegangscode te vragen om in te schrijven in deze
-      cursus.
+      de instructeur om de huidige inschrijftoegangscode te vragen. U kunt een nieuwe
+      poging wagen door de juiste code hieronder te tikken.
   error_404:
     header: Pagina niet gevonden.
     explanation: Deze pagina bestaat niet. Als je probeerde het dashboard van een
