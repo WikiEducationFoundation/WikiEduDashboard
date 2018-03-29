@@ -8,15 +8,13 @@ class AssignmentUpdater
   # with the exact title was found when the assignment was first created, but
   # the user edited the actual intended article and so it got imported later.
   def self.update_assignment_article_ids_and_titles
-    ActiveRecord::Base.transaction do
-      Assignment.where(article_id: nil).each do |assignment|
-        title = assignment.article_title.tr(' ', '_')
-        article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
-        next if article.nil?
-        assignment.article_id = article.id
-        assignment.article_title = article.title # update assignment to match case
-        assignment.save
-      end
+    Assignment.where(article_id: nil).find_each do |assignment|
+      title = assignment.article_title.tr(' ', '_')
+      article = Article.where(namespace: 0, wiki_id: assignment.wiki_id).find_by(title: title)
+      next if article.nil?
+      assignment.article_id = article.id
+      assignment.article_title = article.title # update assignment to match case
+      assignment.save
     end
   end
 end
