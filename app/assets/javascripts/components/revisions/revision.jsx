@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import DiffViewer from './diff_viewer.jsx';
+import CourseUtils from '../../utils/course_utils.js';
 
-
-const Revision = ({ revision }) => {
+const Revision = ({ revision, wikidataLabel, course }) => {
   const ratingClass = `rating ${revision.rating}`;
   const ratingMobileClass = `${ratingClass} tablet-only`;
+  const formattedTitle = CourseUtils.formattedArticleTitle({ title: revision.title, project: revision.wiki.project, language: revision.wiki.language }, course.home_wiki, wikidataLabel);
 
   return (
     <tr className="revision">
@@ -19,7 +20,7 @@ const Revision = ({ revision }) => {
       </td>
       <td>
         <div className={ratingMobileClass}><p>{revision.pretty_rating || '-'}</p></div>
-        <a href={revision.article_url} target="_blank" className="inline"><p className="title">{revision.title}</p></a>
+        <a href={revision.article_url} target="_blank" className="inline"><p className="title">{formattedTitle}</p></a>
       </td>
       <td className="desktop-only-tc">{revision.revisor}</td>
       <td className="desktop-only-tc">{revision.characters}</td>

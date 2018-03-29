@@ -4,9 +4,9 @@ import List from '../common/list.jsx';
 import Revision from './revision.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const RevisionList = ({ revisions, course, sortBy }) => {
+const RevisionList = ({ revisions, course, sortBy, wikidataLabels }) => {
   const elements = revisions.map(revision => {
-    return <Revision revision={revision} key={revision.id} />;
+    return <Revision revision={revision} key={revision.id} wikidataLabel={wikidataLabels[revision.title]} course={course} />;
   });
 
   const keys = {

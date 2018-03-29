@@ -1,4 +1,5 @@
 import { RECEIVE_REVISIONS, SORT_REVISIONS, API_FAIL } from "../constants";
+import { fetchWikidataLabelsForRevisions } from './wikidata_actions';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchRevisionsPromise = (courseId, limit) => {
@@ -20,12 +21,16 @@ const fetchRevisionsPromise = (courseId, limit) => {
 export const fetchRevisions = (courseId, limit) => dispatch => {
   return (
     fetchRevisionsPromise(courseId, limit)
-      .then(resp =>
+      .then(resp => {
         dispatch({
           type: RECEIVE_REVISIONS,
           data: resp,
           limit: limit
-        }))
+        });
+        // Now that we received the revisions data, query wikidata.org for the labels
+        // of any Wikidata entries that are among the revisions.
+        fetchWikidataLabelsForRevisions(resp.course.revisions, dispatch);
+      })
       .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );
 };

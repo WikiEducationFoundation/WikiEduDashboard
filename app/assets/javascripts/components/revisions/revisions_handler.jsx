@@ -14,7 +14,8 @@ const RevisionHandler = createReactClass({
     fetchRevisions: PropTypes.func,
     limitReached: PropTypes.bool,
     limit: PropTypes.number,
-    revisions: PropTypes.array
+    revisions: PropTypes.array,
+    wikidataLabels: PropTypes.object
   },
 
   componentWillMount() {
@@ -48,7 +49,12 @@ const RevisionHandler = createReactClass({
             </select>
           </div>
         </div>
-        <RevisionList revisions={this.props.revisions} course={this.props.course} sortBy={this.props.sortRevisions} />
+        <RevisionList
+          revisions={this.props.revisions}
+          course={this.props.course}
+          sortBy={this.props.sortRevisions}
+          wikidataLabels={this.props.wikidataLabels}
+        />
         {showMoreButton}
       </div>
     );
@@ -58,7 +64,8 @@ const RevisionHandler = createReactClass({
 const mapStateToProps = state => ({
   limit: state.revisions.limit,
   revisions: state.revisions.revisions,
-  limitReached: state.revisions.limitReached
+  limitReached: state.revisions.limitReached,
+  wikidataLabels: state.wikidataLabels.labels
 });
 
 const mapDispatchToProps = {
