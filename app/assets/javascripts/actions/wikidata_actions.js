@@ -26,9 +26,10 @@ const fetchWikidataLabelsPromise = (qNumbers) => {
   });
 };
 
-export const fetchWikidataLabels = (articles, dispatch) => {
-  const wikidataEntities = _.filter(articles, { project: 'wikidata' });
+
+const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   if (wikidataEntities.length === 0) { return; }
+
   const qNumbers = _.map(wikidataEntities, 'title');
   _.chunk(qNumbers, 30).forEach(someQNumbers => {
     fetchWikidataLabelsPromise(someQNumbers)
@@ -42,18 +43,12 @@ export const fetchWikidataLabels = (articles, dispatch) => {
   });
 };
 
+export const fetchWikidataLabelsForArticles = (articles, dispatch) => {
+  const wikidataEntities = _.filter(articles, { project: 'wikidata' });
+  fetchWikidataLabels(wikidataEntities, dispatch);
+};
+
 export const fetchWikidataLabelsForRevisions = (revisions, dispatch) => {
   const wikidataEntities = _.filter(revisions, { wiki: { project: 'wikidata' } });
-  if (wikidataEntities.length === 0) { return; }
-  const qNumbers = _.map(wikidataEntities, 'title');
-  _.chunk(qNumbers, 30).forEach(someQNumbers => {
-    fetchWikidataLabelsPromise(someQNumbers)
-      .then(resp => {
-        dispatch({
-          type: types.RECEIVE_WIKIDATA_LABELS,
-          data: resp,
-          language: I18n.locale
-        });
-      });
-  });
+  fetchWikidataLabels(wikidataEntities, dispatch);
 };

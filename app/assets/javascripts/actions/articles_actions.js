@@ -1,6 +1,6 @@
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import { fetchWikidataLabels } from './wikidata_actions';
+import { fetchWikidataLabelsForArticles } from './wikidata_actions';
 
 const fetchArticlesPromise = (courseId, limit) => {
   return new Promise((res, rej) => {
@@ -34,7 +34,7 @@ export const fetchArticles = (courseId, limit) => (dispatch) => {
         });
         // Now that we received the articles data, query wikidata.org for the labels
         // of any Wikidata entries that are among the articles.
-        fetchWikidataLabels(resp.course.articles, dispatch);
+        fetchWikidataLabelsForArticles(resp.course.articles, dispatch);
        })
       .catch(response => dispatch({ type: types.API_FAIL, data: response }))
   );
