@@ -3,7 +3,7 @@ env:
 # Run all tests in job 2
 - TEST_SUITE='~type:foo' AFTER_SUCCESS='' CC_TEST_REPORTER_ID=f0d5d763ddc6b3f980ba0fb0c38e7c27c0dffc4a5787cd7d5b8c2b0c3b2e27e2
 language: ruby
-rvm: 2.5
+rvm: 2.5.0
 sudo: required
 dist: trusty
 cache:
