@@ -39,6 +39,7 @@ class Alert < ApplicationRecord
     DeletedUploadsAlert
     DiscretionarySanctionsEditAlert
     DYKNominationAlert
+    FirstEnrolledStudentAlert
     GANominationAlert
     NeedHelpAlert
     NoEnrolledStudentsAlert

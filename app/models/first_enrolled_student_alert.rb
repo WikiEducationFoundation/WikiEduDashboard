@@ -20,24 +20,27 @@
 #  details        :text(65535)
 #
 
-# Alert for when an article has been nominated for DYK on English Wikipedia
-class DYKNominationAlert < Alert
+# Alert for when the first student enrolls in a classroom program course.
+class FirstEnrolledStudentAlert < Alert
   def main_subject
-    "#{article.title} — #{course&.slug}"
+    "The first student has joined #{course.slug} on the Dashboard!"
   end
 
   def url
-    article.url
+    course_url
   end
 
-  def resolvable?
-    !resolved
+  def send_email
+    return if emails_disabled?
+    FirstEnrolledStudentAlertMailer.email(self).deliver_now
+    update_attribute(:email_sent_at, Time.now)
   end
 
-  def resolve_explanation
-    <<~EXPLANATION
-      Resolving this alert means the article no longer has an active DYK
-      nomination. A new alert will be generated if it is nominated again.
-    EXPLANATION
+  def from_user
+    @from_user ||= SpecialUsers.classroom_program_manager
+  end
+
+  def reply_to
+    from_user&.email
   end
 end
