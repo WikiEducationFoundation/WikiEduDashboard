@@ -13,7 +13,7 @@ class CourseAlertManager
   def self.generate_course_alerts
     course_alert_manager = new
     course_alert_manager.create_no_students_alerts
-    course_alert_manager.create_first_students_alerts
+    course_alert_manager.create_first_student_alerts
     course_alert_manager.create_untrained_students_alerts
     course_alert_manager.create_productive_course_alerts
     course_alert_manager.create_active_course_alerts
