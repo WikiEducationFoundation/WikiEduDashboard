@@ -25,8 +25,8 @@ const Upload = ({ upload, linkUsername }) => {
 
   let usage = '';
   if (upload.usage_count) {
-      usage = `${upload.usage_count} usage${upload.usage_count !== 1 ? 's' : ''}`;
-  }
+      usage = `${upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+    }
 
   return (
     <div className="upload">
@@ -35,7 +35,7 @@ const Upload = ({ upload, linkUsername }) => {
         <div className="info">
           <p className="usage"><b>{usage}</b></p>
           <p><b>{fileName}</b></p>
-          <p className="uploader"><b>By <a>{uploader}</a></b></p>
+          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} <a>{uploader}</a></b></p>
         </div>
       </a>
     </div>
