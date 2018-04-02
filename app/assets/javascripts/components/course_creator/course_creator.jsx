@@ -40,7 +40,8 @@ const CourseCreator = createReactClass({
     updateCourse: PropTypes.func.isRequired,
     submitCourse: PropTypes.func.isRequired,
     fetchCampaign: PropTypes.func.isRequired,
-    cloneCourse: PropTypes.func.isRequired
+    cloneCourse: PropTypes.func.isRequired,
+    loadingUserCourses: PropTypes.bool.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -196,6 +197,9 @@ const CourseCreator = createReactClass({
   },
 
   render() {
+    if (this.props.loadingUserCourses) {
+      return <div />;
+    }
     // There are three fundamental states: NewOrClone, CourseForm, and CloneChooser
     let showCourseForm;
     let showCloneChooser;
@@ -540,7 +544,8 @@ const CourseCreator = createReactClass({
 const mapStateToProps = state => ({
   course: state.course,
   courseCreator: state.courseCreator,
-  cloneableCourses: getCloneableCourses(state)
+  cloneableCourses: getCloneableCourses(state),
+  loadingUserCourses: state.userCourses.loading
 });
 
 const mapDispatchToProps = ({

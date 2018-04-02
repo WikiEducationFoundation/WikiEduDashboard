@@ -5,7 +5,8 @@ import { RECEIVE_USER_COURSES } from "../../app/assets/javascripts/constants";
 describe("Did you know reducer menu reducer", () => {
   it("should return the initial state", () => {
     const initialState = {
-      userCourses: []
+      userCourses: [],
+      loading: true
     };
 
     expect(reducer(undefined, {})).to.deep.eq(initialState);
@@ -16,7 +17,8 @@ describe("Did you know reducer menu reducer", () => {
     const oldCourses = [{ id: 2, title: "Test - Test (test-2)" }];
 
     const initialState = {
-      userCourses: oldCourses
+      userCourses: oldCourses,
+      loading: false
     };
 
     expect(
@@ -27,7 +29,8 @@ describe("Did you know reducer menu reducer", () => {
         }
       })
     ).to.deep.eq({
-      userCourses: newCourses
+      userCourses: newCourses,
+      loading: false
     });
   });
 });
