@@ -1,4 +1,14 @@
 [Back to README](../README.md)
+# Dockerized Setup
+We have a Dockerfile which allows building and running the application easily with minimal setup. Only requirements are a slight familiarity with Docker.
+Make sure the Docker daemon is up and running then proceed as follows:
+
+Build and run the dashboard:
+- `$ docker build -t wiki-edu-dashboard .`
+- `$ docker run --net=host -it wiki-edu-dashboard`
+
+Open a browser and the dashboard should be accessible now at http://localhost:3000
+
 # Script Setup
 We have a script to automate the process of setting up your developmental environment. Right now, it supports Debian-based systems(Debian, Ubuntu etc.) and MacOS.
 
