@@ -16,6 +16,7 @@ import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
 import GradeableStore from '../../stores/gradeable_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
+import CourseStore from '../../stores/course_store.js';
 
 const getState = () =>
   ({
@@ -24,7 +25,8 @@ const getState = () =>
     blocks: BlockStore.getBlocks(),
     gradeables: GradeableStore.getGradeables(),
     all_training_modules: TrainingStore.getAllModules(),
-    editable_block_ids: BlockStore.getEditableBlockIds()
+    editable_block_ids: BlockStore.getEditableBlockIds(),
+    course: CourseStore.getCourse(),
   })
 ;
 
@@ -142,4 +144,4 @@ const TimelineHandler = createReactClass({
   }
 });
 
-export default Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);
+export default Editable(TimelineHandler, [CourseStore, WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);
