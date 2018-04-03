@@ -4,7 +4,7 @@
 #   - docker build -t wiki-edu-dashboard .
 #   - docker run --net=host -it wiki-edu-dashboard
 
-FROM ruby:2.5
+FROM ruby:2.5.0
 
 WORKDIR /usr/src/app
 
@@ -27,8 +27,12 @@ RUN yarn global add phantomjs-prebuilt
 COPY config/application.example.yml ./config/application.yml
 COPY config/database.example.yml ./config/database.yml
 COPY entrypoint.sh ./entrypoint.sh
+COPY db_init.sh ./db_init.sh
 COPY . .
 RUN yarn && yarn global add gulp
+
+# Setup and initialize DBs
+RUN ./db_init.sh
 
 EXPOSE 3000
 
