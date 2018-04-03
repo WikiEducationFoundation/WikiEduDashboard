@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import WizardActions from '../../actions/wizard_actions.js';
-import CourseLink from '../common/course_link.jsx';
 import Option from './option.jsx';
 
 const md = require('../../utils/markdown_it.js').default();
@@ -79,10 +78,8 @@ const Panel = createReactClass({
   },
   render() {
     let rewind;
-    let rewindTop;
     if (this.props.index > 0) {
       rewind = <button className="button" onClick={this.rewind}>Previous</button>;
-      rewindTop = <a href="" onClick={this.rewind} className="icon icon-left_arrow">Previous</a>;
     }
 
     const options1 = [];
@@ -139,18 +136,9 @@ const Panel = createReactClass({
     const helperText = this.props.helperText || '';
     const errorClass = this.props.panel.error ? 'red' : '';
     const nextDisabled = reqsMet && this.nextEnabled() ? '' : 'disabled';
-    const courseLink = `/courses/${this.props.course.slug}/timeline`;
 
     return (
       <div className={classes}>
-        <div className="wizard__controls">
-          <div className="left">
-            {rewindTop}
-          </div>
-          <div className="right">
-            <CourseLink to={courseLink} onClick={this.close}>Close</CourseLink>
-          </div>
-        </div>
         <h3>{this.props.panel.title}</h3>
         <div dangerouslySetInnerHTML={{ __html: md.render(this.props.panel.description) }} />
         <div className="wizard__panel__options">{options}</div>
