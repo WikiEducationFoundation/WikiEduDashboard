@@ -242,6 +242,10 @@
       tag: psychology
       logic: psychology_handout
     -
+      title: Science Communication
+      tag: science_communcation
+      logic: science_communication_handout
+    -
       title: Sociology
       tag: sociology
       logic: sociology_handout
