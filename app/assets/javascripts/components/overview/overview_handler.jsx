@@ -24,8 +24,7 @@ const getState = () =>
   ({
     course: CourseStore.getCourse(),
     loading: WeekStore.getLoadingStatus(),
-    weeks: WeekStore.getWeeks(),
-    current: CourseStore.getCurrentWeek()
+    weeks: WeekStore.getWeeks()
   })
 ;
 
@@ -81,7 +80,6 @@ const Overview = createReactClass({
         <ThisWeek
           course={this.state.course}
           weeks={this.state.weeks}
-          current={this.state.current}
         />
       );
     }

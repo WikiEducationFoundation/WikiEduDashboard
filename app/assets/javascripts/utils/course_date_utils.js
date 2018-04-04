@@ -190,10 +190,14 @@ const CourseDateUtils = {
     return moment(course.end, 'YYYY-MM-DD').isBefore();
   },
 
+  currentWeekIndex(timelineStart) {
+    return Math.max(moment().startOf('week').diff(moment(timelineStart).startOf('week'), 'weeks'), 0);
+  },
+
   currentWeekOrder(timelineStart) {
     // Week order is indexed from 1, so we add 1 to the number of weeks that have
     // passed since the start of the timeline to get the current week.
-    return Math.max(moment().startOf('week').diff(moment(timelineStart).startOf('week'), 'weeks'), 0) + 1;
+    return this.currentWeekIndex(timelineStart) + 1;
   }
 };
 

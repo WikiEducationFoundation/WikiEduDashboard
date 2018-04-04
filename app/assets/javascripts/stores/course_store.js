@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import moment from 'moment';
 import McFly from 'mcfly';
 import ServerActions from '../actions/server_actions.js';
 const Flux = new McFly();
@@ -68,9 +67,7 @@ const CourseStore = Flux.createStore(
     getCourse() {
       return _course;
     },
-    getCurrentWeek() {
-      return Math.max(moment().startOf('week').diff(moment(_course.timeline_start).startOf('week'), 'weeks'), 0);
-    },
+
     restore() {
       _course = $.extend(true, {}, _persisted);
       return CourseStore.emitChange();
