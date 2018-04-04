@@ -110,7 +110,7 @@ const Overview = createReactClass({
       <div className="sidebar">
         <Details {...this.props} />
         <AvailableActions {...this.props} />
-        <Milestones {...this.props} />
+        <Milestones timelineStart={this.state.course.timeline_start} weeks={this.state.weeks} />
       </div>
     ) : (
       <div className="sidebar" />
