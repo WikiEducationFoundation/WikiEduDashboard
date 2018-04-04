@@ -89,7 +89,11 @@ const Overview = createReactClass({
       <Loading />
     ) : (
       <div>
-        <Description {...this.props} />
+        <Description
+          course={course}
+          course_id={this.props.course_id}
+          current_user={this.props.current_user}
+        />
         {thisWeek}
       </div>
     );
