@@ -19,6 +19,7 @@ const SummaryPanel = createReactClass({
 
   submit() {
     ServerActions.submitWizard(this.props.courseId, this.props.wizardId, WizardStore.getOutput());
+    window.onbeforeunload = null;
     return browserHistory.push(`/courses/${this.props.courseId}/timeline`);
   },
   rewind(toIndex) {

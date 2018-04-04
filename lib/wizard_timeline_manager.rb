@@ -139,6 +139,7 @@ class WizardTimelineManager
     'medicine_handout' => ['Medicine', 'https://wikiedu.org/medicine'],
     'political_science_handout' => ['Political Science', 'https://wikiedu.org/political_science'],
     'psychology_handout' => ['Psychology', 'https://wikiedu.org/psychology'],
+    'science_communication_handout' => ['Science Communcation', 'https://wikiedu.org/science_communication'],
     'sociology_handout' => ['Sociology', 'https://wikiedu.org/sociology'],
     'species_handout' => ['Species', 'https://wikiedu.org/species'],
     'womens_studies_handout' => ["Women's Studies", 'https://wikiedu.org/womens_studies']
