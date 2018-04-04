@@ -30,6 +30,7 @@ This project welcomes contributions, and we try to be as newbie-friendly as poss
 ### Setup
 - [Dashboard Setup](docs/setup.md)
 - [Using the Dashboard in development](docs/user_roles.md)
+- [Using Docker for development](docs/docker.md)
 - [OAuth Setup](docs/oauth.md)
 - [Troubleshooting](docs/troubleshooting.md)
 
