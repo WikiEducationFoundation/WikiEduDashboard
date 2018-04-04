@@ -11,7 +11,7 @@ const userLink = (wiki, assignment) => {
     return <div key={`assignment_${assignment.id}`}>{assignment.username}</div>;
   }
   const link = `https://${wiki.language}.${wiki.project}.org/wiki/User:${assignment.username}`;
-  return <a key={`assignment_${assignment.id}`} href={link}>{assignment.username}</a>;
+  return <a key={`assignment_${assignment.id}`} href={link} target="_blank">{assignment.username}</a>;
 };
 
 const Assignment = createReactClass({
