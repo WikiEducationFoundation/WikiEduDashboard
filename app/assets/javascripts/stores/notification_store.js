@@ -3,7 +3,6 @@
 
 import McFly from 'mcfly';
 import _ from 'lodash';
-import CourseStore from './course_store.js';
 import ServerActions from '../actions/server_actions.js';
 const Flux = new McFly();
 
@@ -25,7 +24,7 @@ const removeNotification = function (notification) {
   _.pull(_notifications, notification);
 };
 
-const handleErrorNotification = function (data, actionType) {
+const handleErrorNotification = function (data, actionType, courseId) {
   const notification = {};
   notification.closable = true;
   notification.type = 'error';
@@ -44,7 +43,6 @@ const handleErrorNotification = function (data, actionType) {
   if (!notification.message) { notification.message = data.statusText; }
 
   if (actionType === 'SAVE_TIMELINE_FAIL') {
-    const courseId = CourseStore.getCourse().slug;
     ServerActions.fetch('course', courseId);
     ServerActions.fetch('timeline', courseId);
     notification.message = 'The changes you just submitted were not saved. ' +
@@ -86,7 +84,7 @@ const NotificationStore = Flux.createStore(storeMethods, (payload) => {
       // requests resolved. This is a benign error that should not cause a notification.
       if (data.readyState === 0) { return; }
 
-      handleErrorNotification(data, payload.actionType);
+      handleErrorNotification(data, payload.actionType, payload.courseId);
       NotificationStore.emitChange();
       break;
     case 'NEEDS_UPDATE':
