@@ -9,6 +9,7 @@
       %tr
         %th User
         %th Question Group
+        %th Submitted at
         %th action
 
     %tbody.list
@@ -16,6 +17,7 @@
         %tr
           %td= response[:user].username
           %td= response[:question_group].name
+          %td= response[:answer_group].created_at
           %td
             %a.button.danger{href: "responses/#{response[:answer_group].id}/delete", 'data-method' => :delete, 'data-confirm' => 'Are you sure?'}
               Delete

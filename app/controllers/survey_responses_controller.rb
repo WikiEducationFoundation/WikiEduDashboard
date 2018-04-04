@@ -6,7 +6,7 @@ class SurveyResponsesController < ApplicationController
 
   def index
     @responses = []
-    Rapidfire::AnswerGroup.last(100).each do |answer_group|
+    Rapidfire::AnswerGroup.order(created_at: :desc).last(100).each do |answer_group|
       @responses << { user: User.find(answer_group.user_id),
                       answer_group: answer_group,
                       question_group: answer_group.question_group }
