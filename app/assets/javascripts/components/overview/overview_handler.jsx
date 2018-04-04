@@ -54,10 +54,11 @@ const Overview = createReactClass({
   },
 
   render() {
-    if (this.state.course.cloned_status === 1) {
+    const course = this.state.course;
+    if (course.cloned_status === 1) {
       return (
         <CourseClonedModal
-          course={this.state.course}
+          course={course}
           updateCourse={this.updateCourse}
           valuesUpdated={this.state.valuesUpdated}
         />
@@ -75,10 +76,10 @@ const Overview = createReactClass({
 
     let thisWeek;
     const noWeeks = !this.state.weeks || this.state.weeks.length === 0;
-    if (!this.state.course.legacy && !noWeeks) {
+    if (!course.legacy && !noWeeks) {
       thisWeek = (
         <ThisWeek
-          course={this.state.course}
+          course={course}
           weeks={this.state.weeks}
         />
       );
@@ -94,21 +95,21 @@ const Overview = createReactClass({
     );
 
     let userArticles;
-    if (this.props.current_user.isStudent && this.state.course.id) {
+    if (this.props.current_user.isStudent && course.id) {
       userArticles = (
         <MyArticles
-          course={this.state.course}
+          course={course}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
         />
       );
     }
 
-    const sidebar = this.state.course.id ? (
+    const sidebar = course.id ? (
       <div className="sidebar">
         <Details {...this.props} />
         <AvailableActions {...this.props} />
-        <Milestones timelineStart={this.state.course.timeline_start} weeks={this.state.weeks} />
+        <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
       </div>
     ) : (
       <div className="sidebar" />
@@ -119,8 +120,8 @@ const Overview = createReactClass({
         { syllabusUpload }
         <h3 className="tooltip-trigger">{I18n.t('metrics.label')}
         </h3>
-        <CourseStats course={this.state.course} />
-        <StatisticsUpdateInfo course={this.state.course} />
+        <CourseStats course={course} />
+        <StatisticsUpdateInfo course={course} />
         {userArticles}
         <div className="primary">
           {primaryContent}
