@@ -7,7 +7,7 @@ import path from 'path';
 import config from '../config.js';
 const plugins = loadPlugins();
 
-gulp.task('webpack', ['jquery-uls'], (cb) => {
+gulp.task('webpack', (cb) => {
   const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const doHot = config.development && !config.watch_js;
   const appRoot = path.resolve('../../');
