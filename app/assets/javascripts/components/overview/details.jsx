@@ -425,19 +425,15 @@ const Details = createReactClass({
 }
 );
 
-const redirectToNewSlug = () => {
-  const newSlug = CourseUtils.generateTempId(CourseStore.getCourse());
-  window.location = `/courses/${newSlug}`;
-};
-
 // If the course has been renamed, we first warn the user that this is happening.
 const saveCourseDetails = (data, courseId = null) => {
   if (!CourseStore.isRenamed()) {
     return CourseActions.persistCourse(data, courseId);
   }
   if (confirm(I18n.t('editable.rename_confirmation'))) {
-    CourseUtils.cleanupCourseSlugComponents(data.course);
-    return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
+    data.course = CourseUtils.cleanupCourseSlugComponents(data.course);
+    const newSlug = CourseUtils.generateTempId(data.course);
+    return CourseActions.persistAndRedirectCourse(data, courseId, newSlug);
   }
 };
 
