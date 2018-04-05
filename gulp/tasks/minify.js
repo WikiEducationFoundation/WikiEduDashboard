@@ -5,6 +5,11 @@ import config from '../config.js';
 const plugins = loadPlugins();
 
 gulp.task('minify', () => {
+  // Compress Vendor JavaScript
+  const vendor = gulp.src(`${config.outputPath}/${config.jsDirectory}/jquery-uls.js`)
+    .pipe(plugins.uglify())
+    .pipe(gulp.dest(`${config.outputPath}/${config.jsDirectory}/`));
+
   // Minify CSS
   const css = gulp.src(`${config.outputPath}/${config.cssDirectory}/*.css`)
     .pipe(plugins.minifyCss())
