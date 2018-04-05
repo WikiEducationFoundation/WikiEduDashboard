@@ -14,6 +14,7 @@ import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import CourseActions from '../../actions/course_actions.js';
+import { needsUpdate } from '../../actions/course_actions_redux';
 
 const AvailableActions = createReactClass({
   displayName: 'Actions',
@@ -75,7 +76,7 @@ const AvailableActions = createReactClass({
   },
 
   needsUpdate() {
-    ServerActions.needsUpdate(this.props.course.slug);
+    this.props.needsUpdate(this.props.course.slug);
   },
 
   enableChat() {
@@ -203,6 +204,12 @@ const AvailableActions = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm, addNotification, enableAccountRequests, enableForCourse };
+const mapDispatchToProps = {
+  initiateConfirm,
+  addNotification,
+  enableAccountRequests,
+  enableForCourse,
+  needsUpdate
+};
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

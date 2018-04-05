@@ -570,22 +570,6 @@ slide_id=${opts.slide_id}`,
     );
   },
 
-  needsUpdate(courseId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${courseId}/needs_update.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        console.error('Couldn\'t request update');
-        rej(obj);
-      })
-    );
-  },
-
   notifyOverdue(courseId) {
     return new Promise((res, rej) =>
       $.ajax({

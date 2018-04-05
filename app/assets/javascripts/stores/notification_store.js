@@ -87,15 +87,6 @@ const NotificationStore = Flux.createStore(storeMethods, (payload) => {
       handleErrorNotification(data, payload.actionType, payload.courseId);
       NotificationStore.emitChange();
       break;
-    case 'NEEDS_UPDATE':
-      addNotification({
-        message: payload.data.result,
-        closable: true,
-        type: 'success'
-      });
-
-      NotificationStore.emitChange();
-      break;
     default:
       // no default
   }
