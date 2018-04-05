@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 
 import ServerActions from '../../actions/server_actions.js';
 import { enableForCourse } from '../../actions/chat_actions.js';
-import CourseStore from '../../stores/course_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
@@ -16,48 +15,39 @@ import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import CourseActions from '../../actions/course_actions.js';
 
-const getState = () => ({ course: CourseStore.getCourse() });
-
 const AvailableActions = createReactClass({
   displayName: 'Actions',
 
   propTypes: {
-    current_user: PropTypes.object
-  },
-
-  mixins: [CourseStore.mixin],
-
-  getInitialState() {
-    return ({
-      course: CourseStore.getCourse()
-    });
-  },
-
-  storeDidChange() {
-    return this.setState(getState());
+    course: PropTypes.object.isRequired,
+    current_user: PropTypes.object.isRequired,
+    initiateConfirm: PropTypes.func.isRequired,
+    addNotification: PropTypes.func.isRequired,
+    enableAccountRequests: PropTypes.func.isRequired,
+    enableForCourse: PropTypes.func.isRequired
   },
 
   join() {
-    if (this.state.course.passcode === '') {
-      const EnrollURL = this.state.course.enroll_url;
+    if (this.props.course.passcode === '') {
+      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function () {
         return window.location = EnrollURL;
       };
       const confirmMessage = CourseUtils.i18n('join_no_passcode');
       this.props.initiateConfirm(confirmMessage, onConfirm);
     } else {
-      const EnrollURL = this.state.course.enroll_url;
+      const EnrollURL = this.props.course.enroll_url;
       const onConfirm = function (passcode) {
       return window.location = EnrollURL + passcode;
       };
       const confirmMessage = I18n.t('courses.passcode_prompt');
-      const joinDescription = CourseUtils.i18n('join_details', this.state.course.string_prefix);
+      const joinDescription = CourseUtils.i18n('join_details', this.props.course.string_prefix);
       this.props.initiateConfirm(confirmMessage, onConfirm, true, joinDescription);
     }
   },
 
   updateStats() {
-    const updateUrl = `${window.location.origin}/courses/${this.state.course.slug}/manual_update`;
+    const updateUrl = `${window.location.origin}/courses/${this.props.course.slug}/manual_update`;
     const onConfirm = function () {
       return window.location = updateUrl;
     };
@@ -66,7 +56,7 @@ const AvailableActions = createReactClass({
   },
 
   leave() {
-    const course = this.state.course.slug;
+    const course = this.props.course.slug;
     const currentUserId = this.props.current_user.id;
     const onConfirm = function () {
       return ServerActions.remove('user', course, { user: { user_id: currentUserId, role: 0 } });
@@ -76,20 +66,20 @@ const AvailableActions = createReactClass({
   },
 
   delete() {
-    const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.state.course.title }));
-    if (enteredTitle === this.state.course.title) {
-      return ServerActions.deleteCourse(this.state.course.slug);
+    const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
+    if (enteredTitle === this.props.course.title) {
+      return ServerActions.deleteCourse(this.props.course.slug);
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
   },
 
   needsUpdate() {
-    ServerActions.needsUpdate(this.state.course.slug);
+    ServerActions.needsUpdate(this.props.course.slug);
   },
 
   enableChat() {
-    const course = this.state.course.id;
+    const course = this.props.course.id;
     const onConfirm = function () {
       return this.props.enableForCourse({ course });
     };
@@ -100,7 +90,7 @@ const AvailableActions = createReactClass({
   enableRequests() {
     const enableRequests = this.props.enableAccountRequests;
     const notify = this.props.addNotification;
-    const course = this.state.course;
+    const course = this.props.course;
     const onConfirm = function () {
       enableRequests(course);
       CourseActions.updateCourse(course);
@@ -116,7 +106,7 @@ const AvailableActions = createReactClass({
   },
 
   render() {
-    const course = this.state.course;
+    const course = this.props.course;
     const controls = [];
     const user = this.props.current_user;
     // If user has a role in the course or is an admin
