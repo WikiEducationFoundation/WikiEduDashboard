@@ -94,9 +94,6 @@ const CourseStore = Flux.createStore(
         break;
       case 'UPDATE_COURSE':
         setCourse(data.course);
-        if (data.save) {
-          ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug);
-        }
         break;
       case 'SYLLABUS_UPLOAD_SUCCESS':
         setCourse({

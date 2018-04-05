@@ -56,13 +56,7 @@ const Overview = createReactClass({
   render() {
     const course = this.state.course;
     if (course.cloned_status === 1) {
-      return (
-        <CourseClonedModal
-          course={course}
-          updateCourse={this.updateCourse}
-          valuesUpdated={this.state.valuesUpdated}
-        />
-      );
+      return <CourseClonedModal course={course} />;
     }
 
     let syllabusUpload;

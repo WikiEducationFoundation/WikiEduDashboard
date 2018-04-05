@@ -35,13 +35,10 @@ const CourseActions = Flux.createActions({
       });
   },
 
-  updateCourse(course, save = false) {
+  updateCourse(course) {
     return {
       actionType: 'UPDATE_COURSE',
-      data: {
-        course,
-        save
-      }
+      data: { course }
     };
   },
 

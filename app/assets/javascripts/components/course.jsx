@@ -75,9 +75,9 @@ const Course = createReactClass({
   submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    const toPass = $.extend(true, {}, this.state.course);
-    toPass.submitted = true;
-    return CourseActions.updateCourse(toPass, true);
+    const course = { ...this.state.course };
+    course.submitted = true;
+    CourseActions.persistCourse({ course }, course.slug);
   },
 
   dismissSurvey(surveyNotificationId) {
