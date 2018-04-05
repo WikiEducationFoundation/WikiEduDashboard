@@ -104,7 +104,7 @@ const Course = createReactClass({
     // For unpublished courses, when viewed by an instructor or admin
     if (userRoles.isNonstudent && !course.legacy && !course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
-      const isUnsubmittedClassroomProgramCourse = CourseStore.isLoaded() && !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
+      const isUnsubmittedClassroomProgramCourse = !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
