@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
 import Uls from './uls_box.jsx';
+import LanguagePicker from './language_picker.jsx';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -200,7 +201,6 @@ const Nav = createReactClass({
     } else {
       navBar = (
         <div>
-          <Uls />
           <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
@@ -223,6 +223,9 @@ const Nav = createReactClass({
               </ul>
               {helpEnabled}
               <ul className="top-nav__login-links">
+                <li>
+                  <LanguagePicker />
+                </li>
                 {languageSwitcherEnabled}
                 {loggingLinks}
               </ul>
