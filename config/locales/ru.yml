@@ -32,6 +32,7 @@ ru:
       можно увеличивать и уменьшать значение.
   application:
     cancel: Отмена
+    create_accounts: Создайте учётную запись в Википедии
     dashboard: Панель Wiki Ed
     documentation: Документация
     error: 'Произошла ошибка:'
@@ -55,6 +56,7 @@ ru:
     search: задать вопрос
     search_results: 'Результаты для: "%{search_terms}"'
     sign_up_extended: Зарегистрируйтесь в Википедии
+    sign_up_wikipedia: Или войдите в Википедию
     sign_up_log_in_extended: через Википедию
     sign_up: Зарегистрироваться
     submit: Отправить
@@ -193,6 +195,7 @@ ru:
   categories:
     add_category: Добавить категорию
     add_template: Добавить шаблон
+    add_this_category: Добавить эту категорию
     add_this_template: Добавить данный шаблон
     depth: Глубина подкатегорий
     name: Имя
@@ -281,6 +284,7 @@ ru:
     new_week: Добавить новую неделю
     new_account_check_username: Проверить доступность имени пользователя
     new_account_email: Адрес электронной почты
+    new_account_email_placeholder: name@example.org
     new_account_username_invalid: Введено недействительное имя пользователя.
     nocourses: Вы не участвуете ни в одном курсе.
     nocourse: не участвовал в каких-либо курсах.

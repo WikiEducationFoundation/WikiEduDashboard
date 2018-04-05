@@ -444,7 +444,9 @@ pt-br:
     join: Participar
     join_course: Participar do curso
     join_prompt: Participar de '%{title}'?
-    join_successful: Você está participando de %{title}.
+    join_successful: Inscreveu-se em %{title}. O painel de controlo mantém um registo
+      automático das suas contribuições, com atualizações periódicas. Regresse futuramente
+      para verificar o impacto que teve.
     join_failed: Inscrição falhou.
     join_failure_details:
       cannot_join_twice: Usuários não podem se inscrever no mesmo curso duas vezes.
@@ -890,6 +892,7 @@ pt-br:
     none: Esta classe não contribuiu com nenhuma imagem ou com outros arquivos de
       mídia no Wikimedia Commons.
     time_doc: Horário de cada envio em seu horário local
+    uploaded_at: Enviado a
     uploaded_by: Enviado Por
     usage_count: Total de Uso
     usages: Usos

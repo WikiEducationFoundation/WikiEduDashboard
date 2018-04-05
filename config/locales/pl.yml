@@ -514,8 +514,7 @@ pl:
       other: pliki użyte w artykułach
     upload_usages_count:
       one: wykorzystany we wszystkich wersjach językowych
-      few: wykorzystane we wszystkich wersjach językowych
-      many: wykorzystanych we wszystkich wersjach językowych
+      other: wykorzystane we wszystkich wersjach językowych
     view_count_description: Statystyka oglądalności stron
     view_data_unavailable: Nie są dostępne dane wizualne
     view: Odsłony
