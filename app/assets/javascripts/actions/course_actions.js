@@ -42,12 +42,6 @@ const CourseActions = Flux.createActions({
     };
   },
 
-  addCourse() {
-    return {
-      actionType: 'ADD_COURSE'
-    };
-  },
-
   updateClonedCourse(data, courseId, tempId) {
     // Ensure course name is unique
     return API.fetch(tempId, 'check')

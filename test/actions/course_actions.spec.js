@@ -12,13 +12,6 @@ describe('CourseActions', () => {
     $.ajax.restore();
   });
 
-  it('.addCourse initializes a minimal course in the store', (done) => {
-    CourseActions.addCourse().then(() => {
-      expect(CourseStore.getCourse().weekdays).to.eq('0000000');
-      done();
-    });
-  });
-
   it('.updateCourse sets course data in the store but not the persisted version', (done) => {
     const course = { title: 'Foo' };
     CourseActions.updateCourse(course).then(() => {
