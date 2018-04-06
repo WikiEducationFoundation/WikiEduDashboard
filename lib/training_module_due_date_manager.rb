@@ -67,8 +67,8 @@ class TrainingModuleDueDateManager
   end
 
   def course_block_for_module
-    @block ||= Block.joins(week: :course)
-                    .where(weeks: { course: @course })
-                    .find { |block| block.training_module_ids.include?(@training_module.id) }
+    @block ||= @course.blocks.find do |block|
+      block.training_module_ids.include?(@training_module.id)
+    end
   end
 end
