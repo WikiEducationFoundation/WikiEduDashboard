@@ -13,7 +13,6 @@ class TrainingModuleDueDateManager
         training_module_id: @training_module.id
       )
     end
-    @meetings_manager = opts[:course_meetings_manager]
   end
 
   DEADLINE_STATUSES = {

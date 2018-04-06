@@ -53,6 +53,7 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/training_module"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
@@ -304,6 +305,10 @@ class Course < ApplicationRecord
   def account_requests_enabled?
     return true if flags[:register_accounts].present?
     campaigns.exists?(register_accounts: true)
+  end
+
+  def meetings_manager
+    @meetings_manager ||= CourseMeetingsManager.new(self)
   end
 
   #################

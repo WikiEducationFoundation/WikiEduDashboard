@@ -95,7 +95,6 @@ class CourseTrainingProgressManager
   end
 
   def meetings_manager
-    @meetings_manager ||= CourseMeetingsManager.new(@course)
-    @meetings_manager
+    @meetings_manager ||= @course.meetings_manager
   end
 end

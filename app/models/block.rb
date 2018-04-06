@@ -25,6 +25,7 @@ class Block < ApplicationRecord
   has_one :course, through: :week
   has_one :gradeable, as: :gradeable_item, dependent: :destroy
   serialize :training_module_ids, Array
+  default_scope { includes(:week, :course) }
 
   KINDS = {
     'in_class'   => 0,

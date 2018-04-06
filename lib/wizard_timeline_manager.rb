@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/course_meetings_manager"
-
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
   ###############
@@ -54,7 +52,7 @@ class WizardTimelineManager
   private
 
   def build_timeline(content_groups)
-    available_weeks = CourseMeetingsManager.new(@course).open_weeks
+    available_weeks = @course.meetings_manager.open_weeks
     return if available_weeks.zero?
     @timeline = initial_weeks_and_weights(content_groups)
     shorten_timeline_by_one_week until @timeline.size <= available_weeks

@@ -36,6 +36,6 @@ class BlockDateManager
   end
 
   def meetings_manager
-    @meetings_manager ||= CourseMeetingsManager.new(@block.course)
+    @meetings_manager ||= @course.meetings_manager
   end
 end
