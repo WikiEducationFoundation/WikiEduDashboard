@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
-import { UploadTable, RecentUploadsHandlerBase } from '../../../app/assets/javascripts/components/activity/recent_uploads_handler.jsx';
+import { UploadList, RecentUploadsHandlerBase } from '../../../app/assets/javascripts/components/activity/recent_uploads_handler.jsx';
 
 
 describe('RecentUploadsHandler', () => {
@@ -18,7 +18,7 @@ describe('RecentUploadsHandler', () => {
 });
 
 
-describe('UploadTable', () => {
+describe('UploadList', () => {
   const uploads = [{
     id: 123,
     file_name: 'Paper prototype of website user interface, 2015-04-16.jpg',
@@ -38,24 +38,10 @@ describe('UploadTable', () => {
   }];
 
 
-  it('shows loading when loading attribute is true', () => {
-    const TestTable = ReactTestUtils.renderIntoDocument(
-      <div>
-        <UploadTable
-          loading={true}
-        />
-      </div>
-    );
-
-    const loading = TestTable.querySelector('.loading');
-    expect(loading).to.exist;
-  });
-
   it('renders activities', () => {
     const TestTable = ReactTestUtils.renderIntoDocument(
       <div>
-        <UploadTable
-          loading={false}
+        <UploadList
           uploads={uploads}
         />
       </div>

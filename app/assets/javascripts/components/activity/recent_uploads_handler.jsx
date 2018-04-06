@@ -3,40 +3,8 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uploads_actions.js';
-import Loading from '../common/loading.jsx';
-import Upload from '../uploads/upload.jsx';
+import UploadList from '../uploads/upload_list.jsx';
 
-
-export const UploadTable = createReactClass({
-  displayName: 'UploadTable',
-
-  propTypes: {
-    loading: PropTypes.bool,
-    uploads: PropTypes.array,
-  },
-
-  _renderUploads() {
-    return this.props.uploads.map((upload) => {
-      return (
-        <Upload upload={upload} key={upload.id} linkUsername={true} />
-      );
-    });
-  },
-
-  render() {
-    if (this.props.loading) {
-      return <Loading />;
-    }
-
-    const uploads = this._renderUploads();
-
-    return (
-      <div className="gallery">
-        {uploads}
-      </div>
-    );
-  }
-});
 
 export const RecentUploadsHandlerBase = createReactClass({
   displayName: 'RecentUploadsHandler',
@@ -52,27 +20,35 @@ export const RecentUploadsHandlerBase = createReactClass({
     return this.props.fetchRecentUploads();
   },
 
-  // setCourseScope(e) {
-  //   const scoped = e.target.checked;
-  //   return ServerActions.fetchRecentEdits({ scoped });
-  // },
-
   render() {
     return (
-      <div>
-        <UploadTable
-          loading={this.props.loading}
-          uploads={this.props.uploads}
-          onSort={this.props.sortRecentUploads}
-        />
+      <div id="uploads">
+        <div className="section-header">
+          <h3>{I18n.t('uploads.header')}</h3>
+          <div className="sort-select">
+            <select className="sorts" name="sorts" onChange={this.props.sortRecentUploads}>
+              <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
+              <option value="file_name">{I18n.t('uploads.file_name')}</option>
+              <option value="uploader">{I18n.t('uploads.uploaded_by')}</option>
+              <option value="usage_count">{I18n.t('uploads.usage_count')}</option>
+            </select>
+          </div>
+        </div>
+        <UploadList uploads={this.props.uploads} />
       </div>
+
+      // <div>
+      //   <UploadList
+      //     uploads={this.props.uploads}
+      //     onSort={this.props.sortRecentUploads}
+      //   />
+      // </div>
     );
   }
 });
 
 const mapStateToProps = state => ({
-  uploads: state.recentUploads.uploads,
-  loading: state.recentUploads.loading
+  uploads: state.recentUploads.uploads
 });
 
 const mapDispatchToProps = {

@@ -35,7 +35,7 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <UploadList course={this.props.course} uploads={this.props.uploads} />
+        <UploadList uploads={this.props.uploads} />
       </div>
     );
   }
