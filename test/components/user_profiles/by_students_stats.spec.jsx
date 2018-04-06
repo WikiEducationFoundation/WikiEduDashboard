@@ -4,10 +4,10 @@ import { expect } from 'chai';
 import ByStudentsStats from '../../../app/assets/javascripts/components/user_profiles/by_students_stats.jsx';
 import '../../testHelper';
 
-describe('ByStudentsStats', () => {
+describe('<ByStudentsStats />', () => {
     let wrapper;
     it('renders username and statistics', () => {
-        const fakestats = { 
+        const fakestats = {
           word_count: 100,
           view_sum: 10,
           article_count: 6,
@@ -16,7 +16,7 @@ describe('ByStudentsStats', () => {
           uploads_in_use_count: 2,
           upload_usage_count: 4
         };
-        wrapper = shallow(<ByStudentsStats username ="Ted" stats={fakestats}/>);
+        wrapper = shallow(<ByStudentsStats username ="Ted" stats={fakestats} />);
         expect(wrapper.text()).to.contain('Ted');
         expect(wrapper.text()).to.contain(100);
         expect(wrapper.text()).to.contain(10);
