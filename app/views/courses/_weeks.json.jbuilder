@@ -25,14 +25,13 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
         # Programs & Events Dashboard where wiki trainings are enabled.
         # For modules that aren't found, simply skip sending info.
         next unless tm
-        progress_manager = TrainingProgressManager.new(current_user, tm)
         due_date_manager = TrainingModuleDueDateManager.new(
           course: course,
           training_module: tm,
           user: current_user
         )
         json.call(tm, :slug, :id, :name)
-        json.module_progress progress_manager.module_progress
+        json.module_progress due_date_manager.module_progress
         json.due_date due_date_manager.computed_due_date.strftime('%Y/%m/%d')
         json.overdue due_date_manager.overdue?
         json.deadline_status due_date_manager.deadline_status

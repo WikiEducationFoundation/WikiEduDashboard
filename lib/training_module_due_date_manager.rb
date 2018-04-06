@@ -7,12 +7,9 @@ class TrainingModuleDueDateManager
     @course = opts[:course]
     @training_module = opts[:training_module]
     @user = opts[:user]
-    if @user.present?
-      @tmu = TrainingModulesUsers.find_by(
-        user_id: @user.id,
-        training_module_id: @training_module.id
-      )
-    end
+    return unless @user.present?
+    @tmu = TrainingModulesUsers.find_by(user_id: @user.id,
+                                        training_module_id: @training_module.id)
   end
 
   DEADLINE_STATUSES = {
@@ -46,6 +43,10 @@ class TrainingModuleDueDateManager
     end
   end
 
+  def module_progress
+    progress_manager.module_progress
+  end
+
   private
 
   def blocks_with_training_modules_for_user
@@ -61,8 +62,8 @@ class TrainingModuleDueDateManager
   end
 
   def progress_manager
-    @pm ||= TrainingProgressManager.new(@user, @training_module)
-    @pm
+    @pm ||= TrainingProgressManager.new(@user, @training_module,
+                                        training_module_user: @tmu || :none)
   end
 
   def course_block_for_module
