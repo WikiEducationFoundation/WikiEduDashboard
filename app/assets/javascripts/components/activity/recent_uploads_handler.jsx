@@ -36,13 +36,6 @@ export const RecentUploadsHandlerBase = createReactClass({
         </div>
         <UploadList uploads={this.props.uploads} />
       </div>
-
-      // <div>
-      //   <UploadList
-      //     uploads={this.props.uploads}
-      //     onSort={this.props.sortRecentUploads}
-      //   />
-      // </div>
     );
   }
 });
