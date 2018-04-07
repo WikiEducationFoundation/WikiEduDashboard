@@ -3,7 +3,8 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 import ReactTestUtils from 'react-dom/test-utils';
 import '../../testHelper';
-import { UploadList, RecentUploadsHandlerBase } from '../../../app/assets/javascripts/components/activity/recent_uploads_handler.jsx';
+import UploadList from '../../../app/assets/javascripts/components/uploads/upload_list.jsx';
+import { RecentUploadsHandlerBase } from '../../../app/assets/javascripts/components/activity/recent_uploads_handler.jsx';
 
 
 describe('RecentUploadsHandler', () => {
