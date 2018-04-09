@@ -7,6 +7,7 @@
 # Author: Edible Melon
 # Author: Facenapalm
 # Author: Gehhrr
+# Author: Happy13241
 # Author: INS Pirat
 # Author: Iniquity
 # Author: Irus
@@ -82,6 +83,7 @@ ru:
     opt_out: Просьба отказаться от ориентации
     orientation_notice: Прежде чем создать курс, давайте пройдемся по ориентации,
       чтобы помочь вам начать работу. (Она занимает около 30 минут.)
+    start_orientation: Начать ориентацию
     blog_headline: Последние новости Wiki Education
     about_programs: Этот сайт отслеживает вики-активность через т.н. «программы» —
       отдельные мероприятия, такие как семинары по совместному редактированию (edit-a-thon)
@@ -223,6 +225,10 @@ ru:
     courses: Курсы
     creation_date: Дата создания
     creator:
+      assignment_end: Конец задания
+      assignment_end_placeholder: Конец задания (ГГГГ-ММ-ДД)
+      assignment_start: Начало задания
+      assignment_start_placeholder: Начало задания (ГГГГ-ММ-ДД)
       checking_for_uniqueness: Этот курс проверяется на уникальность.
       choose_clone: Выберите курс для клонирования.
       clone_previous: Клонировать предыдущий курс
@@ -288,7 +294,10 @@ ru:
     new_account_username_invalid: Введено недействительное имя пользователя.
     nocourses: Вы не участвуете ни в одном курсе.
     nocourse: не участвовал в каких-либо курсах.
+    ores_plot: ORES
     overview: В начало
+    passcode: Парольный код
+    passcode_none: Нету парольного коду
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
     private: Скрытый
     revisions_doc: Число правок за последние %{timeframe} дней
@@ -316,12 +325,14 @@ ru:
       other: Добровольцы
     weeks_none: У этого курса ещё нет расписания.
     wiki_staff: Сотрудники Wiki Ed
+    withdrawn: Снято
     yourcourses: Ваши курсы
   courses_generic:
     all_courses: Все программы
     assignment_end: Конец события
     assignment_start: Начало события
     cancel: Отмена
+    course: Программа
     courses: Программы
     campaigns: 'Кампании:'
     campaign_courses: Программы %{title}
@@ -347,6 +358,7 @@ ru:
     join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника
       код доступа или ссылку, которая включает пароль.
     leave_course: Покинуть программу
+    request_accounts: Запрос учётной записи
     school: Учреждение
     student_editors: Редакторы
     students: Редакторы
@@ -360,6 +372,7 @@ ru:
     save: Сохранить
     edit_description: Редактирование описание
     edit_details: Редактировать подробности
+    edit_template: Редактировать шаблон
   metrics:
     last_update: Последнее обновление
     activity: Недавние действия
