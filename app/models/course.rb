@@ -311,6 +311,10 @@ class Course < ApplicationRecord
     @meetings_manager ||= CourseMeetingsManager.new(self)
   end
 
+  def training_progress_manager
+    @training_progress_manager ||= CourseTrainingProgressManager.new(self)
+  end
+
   #################
   # Cache methods #
   #################

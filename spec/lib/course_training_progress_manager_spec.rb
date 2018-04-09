@@ -22,7 +22,7 @@ describe CourseTrainingProgressManager do
       create_block_with_tm_ids
     end
 
-    subject { described_class.new(user, course).course_training_progress }
+    subject { described_class.new(course).course_training_progress(user) }
 
     context 'course begins before December 1, 2015' do
       let(:start) { Date.new(2015, 1, 1) }
@@ -81,7 +81,7 @@ describe CourseTrainingProgressManager do
   end
 
   describe '#incomplete_assigned_modules' do
-    subject { described_class.new(user, course).incomplete_assigned_modules }
+    subject { described_class.new(course).incomplete_assigned_modules(user) }
 
     context 'when there are no assigned modules' do
       it 'returns an empty array' do
