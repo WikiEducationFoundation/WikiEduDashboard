@@ -29,13 +29,12 @@ const UploadsHandler = createReactClass({
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
-              <option value="file_name">{I18n.t('uploads.file_name')}</option>
               <option value="uploader">{I18n.t('uploads.uploaded_by')}</option>
               <option value="usage_count">{I18n.t('uploads.usage_count')}</option>
             </select>
           </div>
         </div>
-        <UploadList course={this.props.course} uploads={this.props.uploads} />
+        <UploadList uploads={this.props.uploads} />
       </div>
     );
   }

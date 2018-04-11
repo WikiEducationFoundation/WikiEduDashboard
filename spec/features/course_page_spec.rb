@@ -360,13 +360,15 @@ describe 'the course page', type: :feature, js: true do
     it 'should display a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
-      expect(page).to have_content I18n.t('uploads.none')
+      expect(page).to have_content I18n.t('courses_generic.uploads_none')
       create(:commons_upload,
              user_id: 1,
              file_name: 'File:Example.jpg',
-             uploaded_at: '2015-06-01')
-      js_visit "/courses/#{slug}/uploads"
-      expect(page).to have_content 'Example.jpg'
+             uploaded_at: '2015-06-01',
+             thumburl: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Real_Grottolella.png')
+      visit "/courses/#{slug}/uploads"
+      expect(page).to have_selector('div.upload')
+      expect(page).not_to have_content I18n.t('courses_generic.uploads_none')
     end
   end
 
