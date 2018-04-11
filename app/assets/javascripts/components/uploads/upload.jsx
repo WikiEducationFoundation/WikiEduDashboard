@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Upload = ({ upload, linkUsername }) => {
-  let fileName = upload.file_name;
-  if (fileName.length > 30) {
-    const ellipsis = '…';
-    fileName = upload.file_name.substr(0, 30) + ellipsis;
-  }
+  const fileName = upload.file_name;
 
   let imageFile;
   if (upload.deleted) {
@@ -18,7 +14,7 @@ const Upload = ({ upload, linkUsername }) => {
   let uploader;
   if (linkUsername) {
     const profileLink = `/users/${encodeURIComponent(upload.uploader)}`;
-    uploader = <a href={profileLink}>{upload.uploader}</a>;
+    uploader = <a href={profileLink} target="_blank">{upload.uploader}</a>;
   } else {
     uploader = upload.uploader;
   }
@@ -30,14 +26,12 @@ const Upload = ({ upload, linkUsername }) => {
 
   return (
     <div className="upload">
-      <a href={upload.url} target="_blank">
-        <img src={imageFile} alt="" />
-        <div className="info">
-          <p className="usage"><b>{usage}</b></p>
-          <p><b>{fileName}</b></p>
-          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} <a>{uploader}</a></b></p>
-        </div>
-      </a>
+      <img src={imageFile} alt="" />
+      <div className="info">
+        <p className="usage"><b>{usage}</b></p>
+        <p><b><a href={upload.url} target="_blank">{fileName}</a></b></p>
+        <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+      </div>
     </div>
   );
 };

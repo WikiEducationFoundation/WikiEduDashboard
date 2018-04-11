@@ -6,12 +6,12 @@ import Upload from './upload.jsx';
 const UploadList = ({ uploads }) => {
   let elements;
   if (uploads.length > 0) {
-      elements = uploads.map(upload => {
-        return <Upload upload={upload} key={upload.id} />;
+    elements = uploads.map(upload => {
+      return <Upload upload={upload} key={upload.id} linkUsername={true} />;
     });
   } else {
-      elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
-}
+    elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
+  }
 
   return (
     <div className="gallery">
@@ -19,7 +19,6 @@ const UploadList = ({ uploads }) => {
     </div>
   );
 };
-
 
 UploadList.propTypes = {
   uploads: PropTypes.array
