@@ -81,9 +81,11 @@ const Nav = createReactClass({
     if (this.state.languageSwitcherEnabled)
     {
       languageSwitcherEnabled = (
-        <li>
-          <LanguagePicker />
-        </li>
+        <span>
+          <li>
+            <LanguagePicker />
+          </li>
+        </span>
       );
     }
     if (this.state.userSignedIn)

@@ -1,10 +1,37 @@
 .language-picker	
+
   .Select
   	width 100px	
+  	border none
+
   .Select.is-open
     z-index 1 !important
+
+  img
+  	width 22px
+
+  .Select-control
+  	background none
+  	border none
+  	padding 0px
+  	padding-top 5px
+
+  .Select-control:hover
+  	box-shadow none
+
+  .is-focused:not(.is-open) > .Select-control
+  	box-shadow none
+
+  .Select-placeholder
+  	position absolute
+  	top -5px
+
   .Select-menu 
     position fixed !important
-    width 100px !important
+    width 150px !important
     border 1px solid #cccccc
     background-color #e6e6e6
+    margin-right 5px
+
+  .Select-arrow-zone
+  	display none
