@@ -57,9 +57,12 @@ ko:
     opt_in: 예
     opt_out: 아니오
   dashboard:
+    create_note: 코스 만들기 버튼을 클릭해 새 코스를 만들어 보세요.
+    explore_course_pages: 코스 문서 둘러보기
+    explore_examples: 예시 둘러보기
     no_courses_instructor: 당신은 아무 코스도 가지고 있지 않습니다.
     no_courses_student: 아직 코스에 가입하지 않으셨네요.
-    blog_headline: Wiki Ed의 최근 뉴스
+    blog_headline: Wiki Education의 최근 뉴스
   home:
     explore: 찾아보기
     log_in: 위키백과에 로그인하기
@@ -184,7 +187,7 @@ ko:
       assignment_start: 과제 시작
       assignment_start_placeholder: 과제 시작 (YYYY-MM-DD)
       choose_clone: 복제할 과정을 선택하십시오.
-      clone_successful: 과정이 성공적으로 복제되었습니다
+      clone_successful: 복제된 과정의 세부사항 업데이트하기
       course_language: 주 언어
       course_private: 비공개 프로그램 (관리자와 조력자만 볼 수 있음)
       course_project: 주 프로젝트
