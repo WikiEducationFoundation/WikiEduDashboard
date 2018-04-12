@@ -6,7 +6,7 @@ import _ from 'lodash';
 class LanguagePicker extends React.Component {
   selectLanguage(locale) {
     const name = locale.value;
-    if(name == "help_translate") {
+    if (name === "help_translate") {
       window.open("https://translatewiki.net/");
       return;
     }
@@ -30,7 +30,7 @@ class LanguagePicker extends React.Component {
     ];
 
     const translateLink = [
-      { label: "Help translate", value: 'help_translate'},
+      { label: "Help translate", value: 'help_translate' },
     ];
 
     const allLocales = _.compact(I18n.availableLocales).map(code => {
@@ -43,7 +43,7 @@ class LanguagePicker extends React.Component {
 
     const defLocales = _.without(allLocales, undefined);
     const newLocales = translateLink.concat(popularLocales).concat(defLocales);
-    const curLocale = <span><img src="../../assets/images/icon-language.png"/> {I18n.locale} </span>;
+    const curLocale = <span><img src="../../assets/images/icon-language.png" alt="Translate this page" /> {I18n.locale} </span>;
 
     return (
       <div className="language-picker">
