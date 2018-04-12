@@ -83,7 +83,7 @@ describe CoursesController do
 
       it 'returns success' do
         delete :destroy, params: { id: "#{course.slug}.json" }, as: :json
-        expect(response).to be_success
+        expect(response.status).to eq(200)
       end
 
       it 'deletes the course' do

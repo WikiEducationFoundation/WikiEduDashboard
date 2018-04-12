@@ -247,7 +247,7 @@ class Course < ApplicationRecord
   end
 
   def wiki_ids
-    ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
+    ([home_wiki_id] + revisions.pluck(Arel.sql('DISTINCT wiki_id'))).uniq
   end
 
   def scoped_article_ids
