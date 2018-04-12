@@ -4,18 +4,13 @@ import iso from 'iso-639-1';
 import _ from 'lodash';
 
 class LanguagePicker extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      curLocale: iso.getNativeName(I18n.locale)
-    };
-    this.selectLanguage = this.selectLanguage.bind(this);
-    this.render = this.render.bind(this);
-  }
   selectLanguage(locale) {
+    const name = locale.value;
+    if(name == "help_translate") {
+      window.open("https://translatewiki.net/");
+      return;
+    }
     if (window.currentUser.id !== '') {
-      const name = locale.value;
-      this.setState({ curLocale: name });
       $.post(`/update_locale/${name}`, () => {
         location.reload();
       });
@@ -34,6 +29,10 @@ class LanguagePicker extends React.Component {
       { label: frN, value: "fr" },
     ];
 
+    const translateLink = [
+      { label: "Help translate", value: 'help_translate'},
+    ];
+
     const allLocales = _.compact(I18n.availableLocales).map(code => {
       const nativeName = iso.getNativeName(code);
       if (nativeName && (nativeName !== enN && nativeName !== esN && nativeName !== frN)) {
@@ -43,16 +42,18 @@ class LanguagePicker extends React.Component {
     });
 
     const defLocales = _.without(allLocales, undefined);
-    const newLocales = popularLocales.concat(defLocales);
+    const newLocales = translateLink.concat(popularLocales).concat(defLocales);
+    const curLocale = <span><img src="../../assets/images/icon-language.png"/> {I18n.locale} </span>;
 
     return (
       <div className="language-picker">
         <Select
           name="language-picker"
-          value={this.state.curLocale}
-          placeholder={this.state.curLocale}
+          placeholder={curLocale}
           options={newLocales}
           onChange={this.selectLanguage}
+          searchable={false}
+          clearable={false}
         />
       </div>
     );
