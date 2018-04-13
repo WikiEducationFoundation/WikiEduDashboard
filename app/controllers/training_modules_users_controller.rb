@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_module"
-require_dependency "#{Rails.root}/lib/training_progress_manager"
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
@@ -10,8 +9,6 @@ class TrainingModulesUsersController < ApplicationController
     set_and_render_slide
     return if @slide.nil?
     @training_module_user = find_or_create_tmu(params)
-    @progress_manager = TrainingProgressManager.new(current_user, @training_module, @slide,
-                                                    training_module_user: @training_module_user)
     complete_slide if should_set_slide_completed?
     complete_module if last_slide?
   end
@@ -45,8 +42,6 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def should_set_slide_completed?
-    return true if @training_module_user.last_slide_completed.nil?
-    last = @training_module_user.last_slide_completed
-    @progress_manager.current_slide_further_than_previous?(last)
+    @training_module_user.furthest_slide?(@slide.slug)
   end
 end

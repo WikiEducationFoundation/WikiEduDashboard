@@ -3,10 +3,9 @@
 require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 
 class TrainingProgressManager
-  def initialize(user, training_module, slide=nil, training_module_user: nil)
+  def initialize(user, training_module, training_module_user: nil)
     @user = user
     @training_module = training_module
-    @slide = slide
     return unless @user.present?
     return if training_module_user == :none
     @tmu = training_module_user
@@ -14,15 +13,14 @@ class TrainingProgressManager
                                           training_module_id: @training_module&.id)
   end
 
-  def slide_completed?
-    last_slide = @tmu.present? ? TrainingSlide.find_by(slug: @tmu.last_slide_completed) : nil
-    return false unless last_slide.present?
-    slug_index(last_slide) >= slug_index(@slide)
+  def slide_completed?(slide)
+    return false unless last_completed_slide_slug.present?
+    slug_index(last_completed_slide_slug) >= slug_index(slide.slug)
   end
 
-  def slide_enabled?
-    return true if slide_completed? || @user.nil?
-    return true if slug_index(@slide).zero?
+  def slide_enabled?(slide)
+    return true if slide_completed?(slide) || @user.nil?
+    return true if slug_index(slide.slug).zero?
     false
   end
 
@@ -60,8 +58,8 @@ class TrainingProgressManager
     return 'Completed' if module_completed?
   end
 
-  def current_slide_further_than_previous?(previous_slug)
-    slug_index(@slide) > slug_index(previous_slug)
+  def slide_further_than_previous?(slide_slug, previous_slug)
+    slug_index(slide_slug) > slug_index(previous_slug)
   end
 
   def module_progress
@@ -74,6 +72,10 @@ class TrainingProgressManager
   end
 
   private
+
+  def last_completed_slide_slug
+    @last_completed_slide_slug ||= @tmu&.last_slide_completed
+  end
 
   def due_date_manager
     @due_date_manager ||= TrainingModuleDueDateManager.new(course: nil,
@@ -92,9 +94,8 @@ class TrainingProgressManager
     @user && @tmu && @tmu.last_slide_completed.present? && @training_module.slides
   end
 
-  def slug_index(entity)
+  def slug_index(slug)
     # it's either a slide or a slug
-    slug = entity.respond_to?(:slug) ? entity.slug : entity
     index = @training_module.slides.collect(&:slug).index(slug)
     # If passed a slug that isn't part of the module — which may happen because
     # of changes to the module content — then return 0, representing the beginning
