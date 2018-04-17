@@ -46,7 +46,7 @@ class LanguagePicker extends React.Component {
     const curLocale = <span><img src="../../assets/images/icon-language.png" alt="Translate this page" /> {I18n.locale} </span>;
 
     return (
-      <div className="language-picker">
+      <span className="language-picker">
         <Select
           name="language-picker"
           placeholder={curLocale}
@@ -55,7 +55,7 @@ class LanguagePicker extends React.Component {
           searchable={false}
           clearable={false}
         />
-      </div>
+      </span>
     );
   }
 }
