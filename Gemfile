@@ -71,6 +71,7 @@ gem 'simple_form' # Alternative to basic rails form helpers
 gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQuestionGroups
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
 gem 'will_paginate' # Used for pagination for Campaign Articles
+gem 'chartkick' # Used for plots in Rails views
 
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions

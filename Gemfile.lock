@@ -137,6 +137,7 @@ GEM
     capybara-screenshot (1.0.19)
       capybara (>= 1.0, < 4)
       launchy
+    chartkick (2.3.4)
     choice (0.2.0)
     chronic (0.10.2)
     climate_control (0.2.0)
@@ -514,6 +515,7 @@ DEPENDENCIES
   capistrano-sidekiq
   capybara
   capybara-screenshot
+  chartkick
   connection_pool
   dalli
   database_cleaner
