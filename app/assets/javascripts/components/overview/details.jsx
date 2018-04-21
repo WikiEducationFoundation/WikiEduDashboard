@@ -193,7 +193,7 @@ const Details = createReactClass({
     }
 
     let expectedStudents;
-    if (this.props.course.expected_students || this.props.course.expected_students === 0) {
+    if (this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) {
       expectedStudents = (
         <TextInput
           onChange={this.updateDetails}
