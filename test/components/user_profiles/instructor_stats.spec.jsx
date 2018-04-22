@@ -8,12 +8,17 @@ import ByStudentsStats from '../../../app/assets/javascripts/components/user_pro
 import '../../testHelper';
 
 describe('describe InstructorStats', () => {
-    it('renders by students stats', () => {
-        const fake_props = { 
+    const fake_props = { 
             username: 'shin',
             stats: { by_students: {}, courses_count: 10, as_instructor: {} },
-        };
+    };
+    it('renders by students stats', () => {
         const wrapper = shallow(<InstructorStats {...fake_props} />);
         expect(wrapper.find(ByStudentsStats)).to.have.length(1);
+    });
+    
+    it('renders CoursesTaughtGraph when selectedGraph is courses count', () => {
+        const wrapper = shallow(<InstructorStats {...fake_props} />);
+        wrapper.setProps({ stats: { selectedGraph: 'students_count' } });
     });
 });
