@@ -13,7 +13,7 @@ describe('ContributionStats', () => {
     };
     it('calls componentDidMount', () => {
         sinon.spy(ContributionStats.prototype, 'componentDidMount');
-        const wrapper = mount(<ContributionStats {...props} store={reduxStore} />);
+        mount(<ContributionStats {...props} store={reduxStore} />);
         expect(ContributionStats.prototype.componentDidMount).to.have.property('callCount', 1);
         ContributionStats.prototype.componentDidMount.restore();
     });
