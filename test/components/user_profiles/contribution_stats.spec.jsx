@@ -12,7 +12,6 @@ describe('ContributionStats', () => {
             params: { username: "nol" },
     };
     const wrapper = mount(<ContributionStats {...props} store={reduxStore} />);
-    
     it('calls componentDidMount', () => {
         sinon.spy(ContributionStats.prototype, 'componentDidMount');
         mount(<ContributionStats {...props} store={reduxStore} />);
