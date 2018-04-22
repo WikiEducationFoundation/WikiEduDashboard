@@ -1,0 +1,19 @@
+import React from 'react';
+import sinon from 'sinon';
+import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import { expect } from 'chai';
+import InstructorStats from '../../../app/assets/javascripts/components/user_profiles/instructor_stats.jsx';
+import ByStudentsStats from '../../../app/assets/javascripts/components/user_profiles/by_students_stats.jsx';
+import '../../testHelper';
+
+describe('describe InstructorStats', () => {
+    it('renders by students stats', () => {
+        const fake_props = { 
+            username: 'shin',
+            stats: { by_students: {}, courses_count: 10, as_instructor: {} },
+        };
+        const wrapper = shallow(<InstructorStats {...fake_props} />);
+        expect(wrapper.find(ByStudentsStats)).to.have.length(1);
+    });
+});
