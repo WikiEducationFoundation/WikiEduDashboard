@@ -29,8 +29,8 @@ json.course do
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
   if user_role.zero? # student role
-    ctpm = CourseTrainingProgressManager.new(current_user, @course)
-    json.incomplete_assigned_modules ctpm.incomplete_assigned_modules
+    json.incomplete_assigned_modules @course.training_progress_manager
+                                            .incomplete_assigned_modules(current_user)
   end
 
   if user_role >= 0 # user enrolled in course

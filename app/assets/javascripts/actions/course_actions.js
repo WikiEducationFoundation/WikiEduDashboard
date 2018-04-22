@@ -1,6 +1,11 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
+
 const Flux = new McFly();
+
+const redirectToNewSlug = (newSlug) => {
+  window.location = `/courses/${newSlug}`;
+};
 
 const CourseActions = Flux.createActions({
   persistCourse(data, courseId = null) {
@@ -19,9 +24,9 @@ const CourseActions = Flux.createActions({
       });
   },
 
-  persistAndRedirectCourse(data, courseId, redirect) {
+  persistAndRedirectCourse(data, courseId, newSlug) {
     return API.saveCourse(data, courseId)
-      .then(() => redirect())
+      .then(() => redirectToNewSlug(newSlug))
       .catch(resp => {
         return {
           actionType: 'API_FAIL',
@@ -30,32 +35,20 @@ const CourseActions = Flux.createActions({
       });
   },
 
-  updateCourse(course, save = false) {
+  updateCourse(course) {
     return {
       actionType: 'UPDATE_COURSE',
-      data: {
-        course,
-        save
-      }
-    };
-  },
-
-  addCourse() {
-    return {
-      actionType: 'ADD_COURSE'
+      data: { course }
     };
   },
 
   updateClonedCourse(data, courseId, tempId) {
-    const redirectToNewSlug = () => {
-      window.location = `/courses/${tempId}`;
-    };
     // Ensure course name is unique
     return API.fetch(tempId, 'check')
       .then(resp => {
         // Course name is all good... save it
         if (!resp.course_exists) {
-          return CourseActions.persistAndRedirectCourse(data, courseId, redirectToNewSlug);
+          return CourseActions.persistAndRedirectCourse(data, courseId, tempId);
         }
 
         // Invalidate if course name taken

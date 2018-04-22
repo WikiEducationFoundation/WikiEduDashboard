@@ -12,28 +12,27 @@ const Description = createReactClass({
   displayName: 'Description',
 
   propTypes: {
-    course: PropTypes.object,
+    description: PropTypes.string,
+    title: PropTypes.string,
     editable: PropTypes.bool,
     controls: PropTypes.any
   },
 
-  updateDescription(valueKey, value) {
-    const toPass = this.props.course;
-    toPass[valueKey] = value;
-    return CourseActions.updateCourse(toPass);
+  updateDescription(_valueKey, value) {
+    return CourseActions.updateCourse({ description: value });
   },
 
   render() {
     return (
       <div className="module course-description">
         <div className="section-header">
-          <h3>{this.props.course.title}</h3>
+          <h3>{this.props.title}</h3>
           {this.props.controls()}
         </div>
         <div className="module__data">
           <TextAreaInput
             onChange={this.updateDescription}
-            value={this.props.course.description}
+            value={this.props.description}
             placeholder={I18n.t('courses.creator.course_description')}
             value_key={'description'}
             editable={this.props.editable}

@@ -162,6 +162,21 @@ describe Replica do
         expect(response.count).to eq(1)
       end
     end
+
+    it 'functions identically on Wikimedia Commons' do
+      VCR.use_cassette 'replica/wikimedia_commons_revisions' do
+        all_users = [
+          build(:user, username: 'Oursana')
+        ]
+
+        rev_start = 2018_04_08_000000
+        rev_end = 2018_04_10_000000
+
+        commons = Wiki.new(language: 'commons', project: 'wikimedia')
+        response = Replica.new(commons).get_revisions(all_users, rev_start, rev_end)
+        expect(response.count).to eq(1)
+      end
+    end
   end
 
   describe 'error handling' do

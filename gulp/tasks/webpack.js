@@ -19,7 +19,8 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
     survey: [`${jsSource}/surveys/survey.js`],
     survey_admin: [`${jsSource}/surveys/survey-admin.js`],
     survey_results: [`${jsSource}/surveys/survey-results.jsx`],
-    campaigns: [`${jsSource}/campaigns.js`]
+    campaigns: [`${jsSource}/campaigns.js`],
+    charts: [`${jsSource}/charts.js`]
   };
 
   // Set up plugins based on dev/prod mode

@@ -43,6 +43,7 @@ describe('CourseCreator', () => {
         fetchCampaign={fetchCampaignSpy}
         cloneCourse={cloneCourseSpy}
         submitCourse={submitCourseSpy}
+        loadingUserCourses={false}
       />
     );
 

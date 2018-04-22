@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.5.0'
 
 ### Basic Framework
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.0'
 gem 'jbuilder' # DSL for building JSON view template
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -70,6 +70,8 @@ gem 'hashugar' # Users to make yaml/json based training objects easy to access
 gem 'simple_form' # Alternative to basic rails form helpers
 gem 'acts_as_list' # ActiveRecord plugin for ordered records, used in SurveysQuestionGroups
 gem 'sentimental' # Used sparingly for sentiment analysis of Survey results
+gem 'will_paginate' # Used for pagination for Campaign Articles
+gem 'chartkick' # Used for plots in Rails views
 
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions

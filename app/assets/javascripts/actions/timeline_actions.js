@@ -6,7 +6,7 @@ const TimelineActions = Flux.createActions({
   persistTimeline(data, courseId) {
     return API.saveTimeline(courseId, data)
       .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'SAVE_TIMELINE_FAIL', data: resp }));
+      .catch(resp => ({ actionType: 'SAVE_TIMELINE_FAIL', data: resp, courseId }));
   }
 });
 

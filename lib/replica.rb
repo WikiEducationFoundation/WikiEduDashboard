@@ -165,7 +165,8 @@ class Replica
 
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
                        'wikisource.org' => 'sourceswiki',
-                       'incubator.wikimedia.org' => 'incubatorwiki' }.freeze
+                       'incubator.wikimedia.org' => 'incubatorwiki',
+                       'commons.wikimedia.org' => 'commonswiki' }.freeze
   def project_database_params
     # Returns special Labs database names as parameters for databases not meeting
     # project/language naming conventions

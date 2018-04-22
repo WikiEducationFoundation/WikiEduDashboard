@@ -1,28 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 
 const Upload = ({ upload, linkUsername }) => {
-  let details;
-  if (upload.usages > 0) {
-    details = (
-      <p className="tablet-only">
-        <span>{upload.uploader}</span>
-        <span>&nbsp;|&nbsp;</span>
-        <span>Usages: {upload.usages}</span>
-      </p>
-    );
-  } else {
-    details = (
-      <p className="tablet-only"><span>{upload.uploader}</span></p>
-    );
-  }
-
-  let fileName = upload.file_name;
-  if (fileName.length > 60) {
-    const ellipsis = '…';
-    fileName = upload.file_name.substr(0, 60) + ellipsis;
-  }
+  const fileName = upload.file_name;
 
   let imageFile;
   if (upload.deleted) {
@@ -34,27 +14,25 @@ const Upload = ({ upload, linkUsername }) => {
   let uploader;
   if (linkUsername) {
     const profileLink = `/users/${encodeURIComponent(upload.uploader)}`;
-    uploader = <a href={profileLink}>{upload.uploader}</a>;
+    uploader = <a href={profileLink} target="_blank">{upload.uploader}</a>;
   } else {
     uploader = upload.uploader;
   }
 
+  let usage = '';
+  if (upload.usage_count) {
+      usage = `${upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+    }
+
   return (
-    <tr className="upload">
-      <td>
-        <a href={upload.url} target="_blank">
-          <img src={imageFile} alt="" />
-        </a>
-        {details}
-      </td>
-      <td className="desktop-only-tc">
-        <a href={upload.url} target="_blank">{fileName}</a>
-      </td>
-      <td className="desktop-only-tc">{uploader}</td>
-      <td className="desktop-only-tc">{upload.usage_count}</td>
-      <td className="desktop-only-tc">{moment(upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
-      <td />
-    </tr>
+    <div className="upload">
+      <img src={imageFile} alt="" />
+      <div className="info">
+        <p className="usage"><b>{usage}</b></p>
+        <p><b><a href={upload.url} target="_blank">{fileName}</a></b></p>
+        <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+      </div>
+    </div>
   );
 };
 

@@ -837,6 +837,7 @@ cs:
     loading: Načítání nahrávek...
     none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia Commons.
     time_doc: Čas každého nahraného souboru v místním čase
+    uploaded_at: Nahráno
     uploaded_by: Načteno uživatelem
     usage_count: Počet užití
     usages: Použití
@@ -893,7 +894,12 @@ cs:
     training_complete_count:
       one: '%{count} školení je aktuální'
       other: '%{count} školení jsou aktuální'
+    training_doc: Editoři, kteří ukončili všechny přiřazené tréninkové moduly, jsou
+      považováni za editory s aktuálním vzděláním.
     training_incomplete: Školení neukončeno
+    training_modules_completed:
+      one: '%{completed_count}/%{count} tréninkový modul dokončen'
+      other: '%{completed_count}/%{count} tréninkových modulů dokončeny'
     training_module_name: Tréninkový modul
     training_module_status: Stav
     username: Uživatelské jméno
@@ -920,10 +926,21 @@ cs:
     notify_overdue:
       message: Dokončete prosím přiřazené [%{link} školící moduly].
   wizard:
+    confirm_dates: Zvolte data začátku a konce kurzu, týdenních setkáni a prázdnin
+      pro váš kurz.
     course_dates: Termíny kurzů
+    min_weeks: Toto zadání vyžaduje alespoň %{min_weeks} dostupných týdnů. Upravte,
+      prosím, datum začátku a konce úlohy, pokud chcete použít tento typ zadání.
     select_one_option: Prosím vyberte 1 možnost.
+    minimum_options:
+      one: Prosím zvolte %{count} nebo více možností.
+      other: Prosím zvolte %{count} nebo více možností.
     read_less: Zobrazit méně
     read_more: Číst dál
+    review_selections: Zkontrolujte prosím váš výběr dole. Kliknutím můžete editovat
+      vybranou položku. Když skončíte, klikněte na 'Odeslat' k ukončení průvodce a
+      vytvoření vašeho rozvrhu.
+    select_assignment: Zvolte druh úlohy, kterou chcete vložit do vašeho rozvrhu.
     summary: Shrnutí
   error:
     form_errors: Prosím, zkontrolujte chybné položky ve formuláři.
@@ -966,9 +983,14 @@ cs:
       jim, k čemu konkrétně došlo.
   login_error:
     header: Chyba při přihlašování
+    explanation: Zdá se, že se vyskytl problém s přihlášením. (Omlouváme se, občas
+      se to stane.) Zkuste to prosím znovu.
   survey:
     login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Ed nástěnky,
       abyste se dostali k průzkumu.
+    notification_explanation: Pokud je pole dole zaškrtnuto, uživatel bude, mimo upozornění
+      v prohlížeči, dostávat i emaily, v závislosti na nastavení upozornění. Pokud
+      ne, budou se zobrazovat pouze upozornění v prohlížeči.
     notification_schedule_explanation: Oznámení zahrnují oznámení v prohlížeči a emaily,
       pokud je to povoleno výše.
     follow_up_explanation: Nechte prázdné, pokud si nepřejete dostávat emaily s upozorněním.

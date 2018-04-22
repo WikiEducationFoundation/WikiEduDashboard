@@ -83,7 +83,7 @@ class CoursesUsers < ApplicationRecord
   end
 
   def live_revisions
-    course.revisions.joins(:article).where(user_id: user.id).live
+    course.revisions.joins(:article).where(user_id: user_id).live
   end
 
   def update_cache
@@ -93,7 +93,7 @@ class CoursesUsers < ApplicationRecord
     self.character_sum_draft = character_sum(revisions, Article::Namespaces::DRAFT)
     self.revision_count = revisions.where(articles: { deleted: false }).size || 0
     self.recent_revisions = RevisionStat.recent_revisions_for_courses_user(self).count
-    assignments = user.assignments.where(course_id: course.id)
+    assignments = user.assignments.where(course_id: course_id)
     self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
     save
   end
@@ -118,7 +118,7 @@ class CoursesUsers < ApplicationRecord
   # Class methods #
   #################
   def self.update_all_caches(courses_users)
-    courses_users.each(&:update_cache)
+    courses_users.includes(:user).each(&:update_cache)
   end
 
   def self.update_all_caches_concurrently(concurrency = 2)

@@ -1,4 +1,6 @@
 - content_for :after_title, ' - Usage Stats'
+= hot_javascript_tag("charts")
+
 %header.main-page
   .container
     %h1 Usage Stats
@@ -15,6 +17,12 @@
         = "Unique project home wikis: #{@home_wiki_count}"
         %br
         = "Unique wikis interacted with: #{@total_wikis_touched}"
+      %div.section-header
+        Courses / Programs over time
+        - i = 0
+        - data = Course.all.order(:created_at).map { |c| i += 1; [c.created_at, i.to_i] }
+        = line_chart([{ name: 'count', data: data }], legend: false)
+
   %section
     .section-header
       Courses / Programs per wiki:

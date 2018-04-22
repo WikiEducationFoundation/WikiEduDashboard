@@ -53,6 +53,7 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/training_module"
+require_dependency "#{Rails.root}/lib/course_meetings_manager"
 
 #= Course model
 class Course < ApplicationRecord
@@ -246,7 +247,7 @@ class Course < ApplicationRecord
   end
 
   def wiki_ids
-    ([home_wiki_id] + revisions.pluck('DISTINCT wiki_id')).uniq
+    ([home_wiki_id] + revisions.pluck(Arel.sql('DISTINCT wiki_id'))).uniq
   end
 
   def scoped_article_ids
@@ -304,6 +305,14 @@ class Course < ApplicationRecord
   def account_requests_enabled?
     return true if flags[:register_accounts].present?
     campaigns.exists?(register_accounts: true)
+  end
+
+  def meetings_manager
+    @meetings_manager ||= CourseMeetingsManager.new(self)
+  end
+
+  def training_progress_manager
+    @training_progress_manager ||= CourseTrainingProgressManager.new(self)
   end
 
   #################

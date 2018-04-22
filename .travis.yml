@@ -47,9 +47,11 @@ before_script:
 - sudo mysql -e "CREATE DATABASE test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 - bundle exec rake db:migrate RAILS_ENV=test
 script:
-  - gulp build && yarn test && bundle exec rspec --color --profile --format documentation
+  - gulp build
+  - yarn test
+  - bundle exec rspec --color --profile --format documentation
     --tag $TEST_SUITE
-  - rubocop --rails
+  - bundle exec rubocop --rails
 after_script:
 - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
 after_success:

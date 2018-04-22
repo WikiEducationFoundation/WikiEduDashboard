@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-course_meetings_manager = CourseMeetingsManager.new(course)
-
 json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
   # 0 index the array and offset according to blackout weeks prior
-  week_array_index = week.order - 1 + course_meetings_manager.blackout_weeks_prior_to(week)
+  week_array_index = week.order - 1 + course.meetings_manager.blackout_weeks_prior_to(week)
   if course.timeline_start
     start_date = course.timeline_start.beginning_of_week(:sunday) + (7 * week_array_index).days
   end
@@ -27,15 +25,13 @@ json.weeks course.weeks.eager_load(blocks: [:gradeable]) do |week|
         # Programs & Events Dashboard where wiki trainings are enabled.
         # For modules that aren't found, simply skip sending info.
         next unless tm
-        progress_manager = TrainingProgressManager.new(current_user, tm)
         due_date_manager = TrainingModuleDueDateManager.new(
           course: course,
           training_module: tm,
-          user: current_user,
-          course_meetings_manager: course_meetings_manager
+          user: current_user
         )
         json.call(tm, :slug, :id, :name)
-        json.module_progress progress_manager.module_progress
+        json.module_progress due_date_manager.module_progress
         json.due_date due_date_manager.computed_due_date.strftime('%Y/%m/%d')
         json.overdue due_date_manager.overdue?
         json.deadline_status due_date_manager.deadline_status

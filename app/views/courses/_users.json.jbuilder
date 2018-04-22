@@ -10,8 +10,8 @@ json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.enrolled_at cu.created_at
   json.admin cu.user.admin?
 
-  ctp_manager = CourseTrainingProgressManager.new(cu.user, cu.course)
-  json.course_training_progress ctp_manager.course_training_progress
+  json.course_training_progress cu.course.training_progress_manager
+                                  .course_training_progress(cu.user)
 
   # Email and real names of participants are only shown to admins or
   # an instructor of the course.

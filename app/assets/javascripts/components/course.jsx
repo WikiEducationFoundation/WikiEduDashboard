@@ -75,9 +75,9 @@ const Course = createReactClass({
   submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    const toPass = $.extend(true, {}, this.state.course);
-    toPass.submitted = true;
-    return CourseActions.updateCourse(toPass, true);
+    const course = { ...this.state.course };
+    course.submitted = true;
+    CourseActions.persistCourse({ course }, course.slug);
   },
 
   dismissSurvey(surveyNotificationId) {
@@ -104,7 +104,7 @@ const Course = createReactClass({
     // For unpublished courses, when viewed by an instructor or admin
     if (userRoles.isNonstudent && !course.legacy && !course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
-      const isUnsubmittedClassroomProgramCourse = CourseStore.isLoaded() && !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
+      const isUnsubmittedClassroomProgramCourse = !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {

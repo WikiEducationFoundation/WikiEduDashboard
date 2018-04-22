@@ -177,12 +177,6 @@ const ServerActions = Flux.createActions({
       .then(resp => ({ actionType: 'DELETED_COURSE', data: resp }));
   },
 
-  needsUpdate(courseId) {
-    return API.needsUpdate(courseId)
-      .then(resp => ({ actionType: 'NEEDS_UPDATE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   linkToSalesforce(courseId, salesforceId) {
     return API.linkToSalesforce(courseId, salesforceId)
       .then(resp => ({ actionType: 'LINKED_TO_SALESFORCE', data: resp }))

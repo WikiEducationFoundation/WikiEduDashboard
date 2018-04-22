@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import moment from 'moment';
 import McFly from 'mcfly';
-import ServerActions from '../actions/server_actions.js';
 const Flux = new McFly();
 
 // Data
@@ -34,21 +32,6 @@ const updateCourseValue = function (key, value) {
   return CourseStore.emitChange();
 };
 
-const addCourse = () =>
-  setCourse({
-    title: '',
-    description: '',
-    school: '',
-    term: '',
-    level: '',
-    subject: '',
-    expected_students: '0',
-    start: null,
-    end: null,
-    day_exceptions: '',
-    weekdays: '0000000',
-    editingSyllabus: false
-  });
 const _dismissNotification = function (payload) {
   const notifications = _course.survey_notifications;
   const { id } = payload.data;
@@ -68,9 +51,7 @@ const CourseStore = Flux.createStore(
     getCourse() {
       return _course;
     },
-    getCurrentWeek() {
-      return Math.max(moment().startOf('week').diff(moment(_course.timeline_start).startOf('week'), 'weeks'), 0);
-    },
+
     restore() {
       _course = $.extend(true, {}, _persisted);
       return CourseStore.emitChange();
@@ -97,9 +78,6 @@ const CourseStore = Flux.createStore(
         break;
       case 'UPDATE_COURSE':
         setCourse(data.course);
-        if (data.save) {
-          ServerActions.saveCourse($.extend(true, {}, { course: _course }), data.course.slug);
-        }
         break;
       case 'SYLLABUS_UPLOAD_SUCCESS':
         setCourse({
@@ -113,9 +91,6 @@ const CourseStore = Flux.createStore(
         break;
       case 'TOGGLE_EDITING_SYLLABUS':
         setCourse({ editingSyllabus: data.bool });
-        break;
-      case 'ADD_COURSE':
-        addCourse();
         break;
       case 'RECEIVE_INITIAL_CAMPAIGN':
         setCourse({

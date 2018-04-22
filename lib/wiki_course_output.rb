@@ -10,7 +10,7 @@ class WikiCourseOutput
 
   def initialize(course)
     @course = course
-    @course_meetings_manager = CourseMeetingsManager.new(@course)
+    @course_meetings_manager = @course.meetings_manager
     @dashboard_url = ENV['dashboard_url']
     @first_instructor = @course.instructors.first
     @first_support_staff = @course.nonstudents.where(greeter: true).first

@@ -12,8 +12,6 @@
 #  order      :integer          default(1), not null
 #
 
-require_dependency "#{Rails.root}/lib/course_meetings_manager"
-
 #= Week model
 class Week < ApplicationRecord
   belongs_to :course
@@ -21,6 +19,6 @@ class Week < ApplicationRecord
   has_many :gradeables, through: :blocks
 
   def meeting_dates
-    CourseMeetingsManager.new(course).meeting_dates_of(self)
+    course.meetings_manager.meeting_dates_of(self)
   end
 end

@@ -7,9 +7,7 @@ export const fetchRecentUploads = (opts = {}) => dispatch => {
       .then(resp =>
         dispatch({
           type: RECEIVE_RECENT_UPLOADS,
-          payload: {
-            data: resp,
-          }
+          data: resp,
         }))
         .catch(response => (dispatch({ type: API_FAIL, data: response })))
   );

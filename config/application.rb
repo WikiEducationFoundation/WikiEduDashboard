@@ -53,5 +53,8 @@ module WikiEduDashboard
 
     # Rails cache with dalli / memcached
     config.cache_store = :dalli_store, nil, { pool_size: 5, expires_in: 7.days, compress: false, value_max_bytes: 1024 * 1024 * 4 }
+
+    # Skylight performance monitoring
+    config.skylight.environments += ['staging']
   end
 end
