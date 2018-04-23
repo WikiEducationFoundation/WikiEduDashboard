@@ -50,6 +50,12 @@ describe ArticlesForDeletionMonitor do
     end
 
     before do
+      ArticlesForDeletionMonitor.enable_for(Wiki.find(1),
+                                            afd: 'Category:AfD debates',
+                                            afd_prefix: 'Wikipedia:Articles for deletion/',
+                                            prod: 'Category:All articles proposed for deletion',
+                                            speedy: 'Category:Speedy deletion')
+
       allow_any_instance_of(CategoryImporter).to receive(:page_titles_for_category)
         .with('Category:AfD debates', 2)
         .and_return(['Wikipedia:Articles for deletion/One page',
