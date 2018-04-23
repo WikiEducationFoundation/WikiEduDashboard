@@ -10,6 +10,7 @@ ce:
     log_in: Системин довзийтар
     log_out: Болх дӀаберзор
     recent_activity: Дукха хан йоцуш дийнарг
+    report_problem: Проблемех хаам бар
     sign_up: ДӀаяздар кхоллар
   articles:
     wiki: Вики
@@ -18,6 +19,7 @@ ce:
   courses:
     creator:
       start_date: Долина терахь
+    feedback: ЗӀе
   courses_generic:
     creator:
       course_school: Институт
