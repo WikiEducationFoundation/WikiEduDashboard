@@ -53,13 +53,13 @@ const MyAssignment = createReactClass({
         sandbox = <div><a className="button dark small" href={`https://en.wikipedia.org/wiki/User:${this.props.username}/sandbox`} target="_blank">Sandbox</a></div>;
         sandboxTalk = <div><a className="button dark small" href={`https://en.wikipedia.org/wiki/User_talk:${this.props.username}/sandbox`} target="_blank">Sandbox talk</a></div>;
       }
-    // Assigned articel that already exists
+    // Assigned article that already exists
     } else if (this.props.assignment.role === 0) {
+      assignmentType = 'Improving: ';
       if (isEnglishWikipedia) {
         checklist = <FinalArticleChecklist />;
         feedback = <Feedback assignment={this.props.assignment} username={this.props.username} current_user={this.props.current_user} />;
       }
-      assignmentType = 'Improving: ';
     // Review assignment
     } else {
       assignmentType = 'Reviewing: ';
