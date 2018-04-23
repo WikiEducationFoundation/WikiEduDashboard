@@ -62,8 +62,10 @@ const MyAssignment = createReactClass({
       assignmentType = 'Improving: ';
     // Review assignment
     } else {
-      checklist = <PeerReviewChecklist />;
       assignmentType = 'Reviewing: ';
+      if (isEnglishWikipedia) {
+        checklist = <PeerReviewChecklist />;
+      }
     }
 
     let divider;
