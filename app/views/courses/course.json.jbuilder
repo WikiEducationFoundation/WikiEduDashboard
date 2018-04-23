@@ -7,8 +7,8 @@ json.course do
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
             :timeline_end, :day_exceptions, :weekdays, :no_day_exceptions,
             :updated_at, :string_prefix, :use_start_and_end_times, :type,
-            :home_wiki, :upload_count, :uploads_in_use_count, :upload_usages_count,
-            :cloned_status, :flags, :level, :private)
+            :home_wiki, :character_sum, :upload_count, :uploads_in_use_count,
+            :upload_usages_count, :cloned_status, :flags, :level, :private)
 
   json.timeline_enabled @course.timeline_enabled?
   json.account_requests_enabled @course.account_requests_enabled?

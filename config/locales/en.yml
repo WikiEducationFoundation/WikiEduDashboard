@@ -690,6 +690,7 @@ en:
     are_trained: are up-to-date with training
     articles_created: Articles Created
     articles_edited: Articles Edited
+    bytes_added: Bytes Added
     characters: Characters
     char_added: Chars Added
     char_changed: Characters Changed
