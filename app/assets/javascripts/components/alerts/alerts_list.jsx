@@ -15,7 +15,6 @@ const AlertsList = ({ alerts, sortBy }) => {
     },
     type: {
       label: I18n.t('campaign.alert_type'),
-      desktop_only: true
     },
     course: {
       label: I18n.t('campaign.course'),
