@@ -43,7 +43,7 @@ class LanguagePicker extends React.Component {
 
     const defLocales = _.without(allLocales, undefined);
     const newLocales = translateLink.concat(popularLocales).concat(defLocales);
-    const curLocale = <span><img src="../../assets/images/icon-language.png" alt="Translate this page" /> {I18n.locale} </span>;
+    const curLocale = <span><img src="/assets/images/icon-language.png" alt="Translate this page" /> {I18n.locale} </span>;
 
     return (
       <span className="language-picker">
