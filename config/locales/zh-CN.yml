@@ -120,7 +120,7 @@ zh-CN:
     edit_size: 编辑大小
     wiki: Wiki
     wp10: 结构完整性
-    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些成绩是基于文章的大小计算，参考文献和wikilinks数，和其他基本的文本特征。高分通常意味着一篇文章遵循维基百科关于一篇优秀文章结构的惯例，但它并没有考虑到内容本身。（这些分数只适用于英文维基百科文章）。
+    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
   assignments:
     article: 条目%{title}已分配给您。
     already_exists: 此分配已存在！
@@ -142,7 +142,7 @@ zh-CN:
     reviewers: 复核员
     review_other: 分配一次复核
     review_self: 复核一个条目
-    review_tooltip: 这是为了跟踪你计划同行评审或提供反馈的文章(s)。
+    review_tooltip: 这是要保持追踪您计划同行评审，或是提供反馈的条目。
     select: 选择
   blocks:
     milestones:
@@ -299,7 +299,7 @@ zh-CN:
     data_students: 编辑者数据
     data_students_info: 编辑数据列举所有登记的编辑者、他们的编辑数量及他们是否在项目期间注册了其帐户。
     data_uploads: 共享资源上传数据
-    data_uploads_info: 共享上传数据显示每个媒体上传的名称和使用计数。
+    data_uploads_info: 共享资源上传数据显示每个媒体上传的名称和使用数。
     delete_course: 删除课程
     delete_suggestion: 删除
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
@@ -529,6 +529,7 @@ zh-CN:
     are_trained: 最近培训
     articles_created: 创建的条目
     articles_edited: 编辑的条目
+    bytes_added: 添加的字节数
     characters: 字符
     char_added: 添加的字符
     char_changed: 更改的字符
@@ -612,7 +613,7 @@ zh-CN:
     editing: 编辑建议
     suggestion_docs:
       fa: 不需要进一步内容添加，除非新信息可用；对散文质量的进一步改进经常可用。
-      a: 可能需要专家知识来调整文章，而风格问题可能需要解决。同行评议可能会有所帮助。
+      a: 可能需要专家知识来对条目微调，且可能需要解决样式问题。同行评审会有帮助。
       ga: 主题和风格专家的一些编辑是有帮助的；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
       bplus: 可以通过输入来自专家的意见进行改进，以访问覆盖范围仍然缺乏的领域，也可以由插图、历史背景及更多参考资料来补充。考虑同行评审或提名优良条目状态。如果条目尚未完全维基化，现在就是改进的时间。
       b: 内容和风格的几个方面需要加以解决。可能需要专家知识。如果实用的话，应考虑支持材料的加入，并检查一般是否符合手册手册和相关风格指南。

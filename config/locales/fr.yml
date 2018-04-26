@@ -705,6 +705,7 @@ fr:
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés
     articles_edited: Articles modifiés
+    bytes_added: Octets ajoutés
     characters: Caractères
     char_added: Caractères ajoutés
     char_changed: Caractères modifiés

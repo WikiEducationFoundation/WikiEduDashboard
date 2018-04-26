@@ -549,6 +549,7 @@ zh-TW:
     are_trained: 最近培訓
     articles_created: 已建立的條目
     articles_edited: 已編輯的條目
+    bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元
     char_changed: 變更的字元

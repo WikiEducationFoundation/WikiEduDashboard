@@ -252,6 +252,7 @@ el:
   metrics:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών
+    bytes_added: Μπάιτ που προστέθηκαν
   uploads:
     uploaded_at: Ανέβηκε στις
   user_profiles:

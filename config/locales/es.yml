@@ -586,6 +586,7 @@ es:
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
     articles_edited: Artículos editados
+    bytes_added: Bytes añadidos
     characters: Caracteres
     char_added: Caracteres añadidos
     char_changed: Caracteres cambiados

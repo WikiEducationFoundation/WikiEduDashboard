@@ -686,6 +686,7 @@ pt-br:
     are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
     articles_edited: Artigos editados
+    bytes_added: Bytes Adicionado
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres alterados

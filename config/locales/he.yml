@@ -452,6 +452,7 @@ he:
     are_trained: משתתפים אשר השלימו הדרכה
     articles_created: מס' ערכים שנוצרו
     articles_edited: מס' ערכים שנערכו
+    bytes_added: כמות הבייטים שנוספו
     characters: תווים
     char_added: תווים שנוספו
     char_changed: תווים ששונו
