@@ -7,7 +7,7 @@ gulp.task('clean', () => {
     `${config.outputPath}/fonts/*`,
     `${config.outputPath}/images/*`,
     `${config.outputPath}/stylesheets/*`,
-    `${config.outputPath}/javascripts/*`,
-    `!${config.outputPath}/javascripts/jquery-uls.js`
+    `!${config.outputPath}/javascripts/jquery-uls.js`,
+    `${config.outputPath}/javascripts/*`
   ]);
 });

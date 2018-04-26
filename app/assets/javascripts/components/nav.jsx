@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
-import Uls from './uls_box.jsx';
+import LanguagePicker from './language_picker.jsx';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -82,9 +82,7 @@ const Nav = createReactClass({
     {
       languageSwitcherEnabled = (
         <li>
-          <button className="uls-trigger">
-            {I18n.locale}
-          </button>
+          <LanguagePicker />
         </li>
       );
     }
@@ -177,7 +175,6 @@ const Nav = createReactClass({
     {
       navBar = (
         <div>
-          <Uls />
           <HamburgerMenu
             rootUrl = {this.state.rootUrl}
             logoPath = {this.state.logoPath}
@@ -200,7 +197,6 @@ const Nav = createReactClass({
     } else {
       navBar = (
         <div>
-          <Uls />
           <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
