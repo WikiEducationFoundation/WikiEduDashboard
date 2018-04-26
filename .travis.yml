@@ -31,7 +31,7 @@ install:
 - yarn global add gulp
 - yarn global add phantomjs-prebuilt@latest
 - yarn global add codeclimate-test-reporter
-- yarn install
+- yarn install --ignore-engines
 - gem install bundler
 - gem install rubocop
 - gem install rubocop-rspec-focused
