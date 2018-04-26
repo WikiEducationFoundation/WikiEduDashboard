@@ -64,7 +64,6 @@
     "gulp-watch": "^4.3.11",
     "gulp-webserver": "^0.9.1",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc14.tar.gz",
-    "iso-639-1": "^2.0.3",
     "jeet": "^6.1.2",
     "jest": "^21.2.1",
     "jquery": "3.3.1",

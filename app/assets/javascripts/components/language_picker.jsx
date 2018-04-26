@@ -1,7 +1,13 @@
 import React from 'react';
 import Select from 'react-select-plus';
-import iso from 'iso-639-1';
 import _ from 'lodash';
+import languageNames from '../utils/language_names';
+
+const getNativeName = (code) => {
+  const language = languageNames[code];
+  if (!language) { return ''; }
+  return language.nativeName;
+};
 
 class LanguagePicker extends React.Component {
   selectLanguage(locale) {
@@ -19,9 +25,9 @@ class LanguagePicker extends React.Component {
     }
   }
   render() {
-    const enN = iso.getNativeName("en");
-    const esN = iso.getNativeName("es");
-    const frN = iso.getNativeName("fr");
+    const enN = getNativeName("en");
+    const esN = getNativeName("es");
+    const frN = getNativeName("fr");
 
     const popularLocales = [
       { label: enN, value: "en" },
@@ -34,7 +40,7 @@ class LanguagePicker extends React.Component {
     ];
 
     const allLocales = _.compact(I18n.availableLocales).map(code => {
-      const nativeName = iso.getNativeName(code);
+      const nativeName = getNativeName(code);
       if (nativeName && (nativeName !== enN && nativeName !== esN && nativeName !== frN)) {
         return { label: nativeName, value: code };
       }
