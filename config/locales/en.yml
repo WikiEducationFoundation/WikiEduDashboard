@@ -1097,4 +1097,5 @@ en:
   onboarding:
     supplementary:
       header: "How did you hear about us?"
-      question_text: "Where, or from whom, did you first hear about Wiki Education?"
+      where_did_you_hear: "Where, or from whom, did you first hear about Wiki Education?"
+      why_are_you_here: "What are you here for?"

@@ -27,8 +27,13 @@ class OnboardingController < ApplicationController
 
   def supplementary
     user_name = params[:user_name]
-    heard_from = params[:heardFrom]
-    OnboardingAlertManager.new.create_alert(user_name, heard_from) if heard_from.present?
+    response = <<-RESPONSE
+      \n
+      Heard from: #{params[:heardFrom]}\n
+      Why here: #{params[:whyHere]}\n
+      Other: #{params[:otherReason]}\n
+    RESPONSE
+    OnboardingAlertManager.new.create_alert(user_name, response) if response.present?
     head :no_content
   end
 

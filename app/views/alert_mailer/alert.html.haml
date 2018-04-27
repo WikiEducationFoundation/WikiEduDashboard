@@ -12,7 +12,7 @@
     %a.link{href: @alert.user_contributions_url}= "#{@alert.user.username} contributions"
 
 - if @message
-  %p.paragraph
+  %p.paragraph.preserve-whitespace
     = "Message from #{@alert.user.username}:"
     = @message
 
@@ -30,7 +30,7 @@
     %a.link{href: @alert.revision.url} diff
 
 - if @details.present?
-  %p.paragraph
+  %p.paragraph.preserve-whitespace
     Alert details:
     = @details
 
