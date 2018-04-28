@@ -112,7 +112,6 @@
     "react-redux": "^5.0.6",
     "react-router": "3.2.0",
     "react-select": "^1.0.0-rc.10",
-    "react-select-plus": "^1.2.0",
     "react-test-renderer": "^15.6.2",
     "react-trix": "^0.2.2",
     "react-typeahead": "^2.0.0-alpha.6",

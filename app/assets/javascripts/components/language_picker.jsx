@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select-plus';
+import Select from 'react-select';
 import _ from 'lodash';
 import languageNames from '../utils/language_names';
 
@@ -13,7 +13,7 @@ class LanguagePicker extends React.Component {
   selectLanguage(locale) {
     const name = locale.value;
     if (name === "help_translate") {
-      window.open("https://translatewiki.net/");
+      window.open("https://translatewiki.net/wiki/Translating:Wiki_Ed_Dashboard");
       return;
     }
     if (window.currentUser.id !== '') {
