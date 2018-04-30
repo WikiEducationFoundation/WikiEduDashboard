@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
+import LanguagePicker from './language_picker.jsx';
 
 const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedIn, ifAdmin, trainingUrl, helpDisabled, askUrl, wikiEd, userPermissions, languageSwitcherEnabled, currentUser, destroyUrl, omniauthUrl }) => {
   let myDashboard;
@@ -16,9 +17,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
   {
     languageSwitcher = (
       <li>
-        <button className="uls-trigger">
-          {I18n.locale}
-        </button>
+        <LanguagePicker />
       </li>
     );
   }
