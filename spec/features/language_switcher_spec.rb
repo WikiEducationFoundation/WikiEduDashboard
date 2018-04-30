@@ -32,7 +32,7 @@ describe 'language_switcher', type: :feature, js: true do
       page.driver.restart if defined?(page.driver.restart)
       @user = create(:user)
       login_as(@user, scope: :user)
-      page.current_window.resize_to(1920, 1080)
+      page.current_window.resize_to(3000, 1080) # Workaround for PhantomJS layout bug
     end
 
     it 'should default to English' do
