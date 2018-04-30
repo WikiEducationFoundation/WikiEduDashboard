@@ -1095,5 +1095,6 @@ pt-br:
   onboarding:
     supplementary:
       header: Como você ficou sabendo sobre nós?
-      question_text: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki Education?
+      where_did_you_hear: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki
+        Education?
 ...

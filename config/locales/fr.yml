@@ -1122,6 +1122,6 @@ fr:
   onboarding:
     supplementary:
       header: Comment avez-vous entendu parler de nous ?
-      question_text: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
+      where_did_you_hear: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
         pour la première fois ?
 ...

@@ -1067,5 +1067,5 @@ uk:
   onboarding:
     supplementary:
       header: Як ви про нас дізналися?
-      question_text: Де чи від кого ви вперше почули про Wiki Education?
+      where_did_you_hear: Де чи від кого ви вперше почули про Wiki Education?
 ...

@@ -46,6 +46,7 @@ el:
     opt_in: Ναι
     opt_out: Όχι
   dashboard:
+    explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
     explore_examples: Εξερεύνηση παραδειγμάτων
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
   home:

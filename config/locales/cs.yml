@@ -664,6 +664,7 @@ cs:
     are_trained: účastníků projektu
     articles_created: Vytvořené stránky
     articles_edited: Editované stránky
+    bytes_added: Přidáno bajtů
     characters: Znaky
     char_added: Přidáno znaků
     char_changed: Změněno znaků
@@ -926,6 +927,10 @@ cs:
     notify_overdue:
       message: Dokončete prosím přiřazené [%{link} školící moduly].
   wizard:
+    calendar_instructions: Vyberte data pro vložení nebo vyjmutí z rozvrhu (např.
+      prázdniny, volné dny). To pomůže nástroji pro tvorbu kurzů ve správném rozvržení
+      vašeho kurzu. Kliknutím měníte stav data (nevybráno, vybráno a prázdniny). Pokud
+      nemáte žádné prázdniny, zatrhněte dole "Nemám žádné prázdniny".
     confirm_dates: Zvolte data začátku a konce kurzu, týdenních setkáni a prázdnin
       pro váš kurz.
     course_dates: Termíny kurzů
@@ -1015,5 +1020,5 @@ cs:
   onboarding:
     supplementary:
       header: Jak jste se o nás dozvěděl(a)?
-      question_text: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
+      where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
 ...

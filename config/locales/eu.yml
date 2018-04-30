@@ -19,7 +19,7 @@ eu:
     dashboard: Wiki Hezkuntzako Arbela
     documentation: Dokumentazioa
     error: 'Errore bat gertatu da:'
-    explore: Esploratu
+    explore: Arakatu
     field_required: Eremu hau beharrezkoa da
     field_invalid_characters: Eremu honek karaktere baliogabeak ditu
     field_invalid_date: Eremu honek data UUUU-HH-EE formatuan behar du
@@ -68,7 +68,7 @@ eu:
       egiten hasten laguntza izateko (30 bat minutu behar dituzu bukatzeko).
     review_orientation: Orientazioa berrikusi
     start_orientation: Orientazioa hasi
-    blog_headline: Wiki Hezkuntzako azken berriak
+    blog_headline: Hezkuntza Programako azken berriak
     about_programs: Webgune honek programetako wikijardueren jarraipena egiten du
       (banakako ekintzak, adibidez, editatoi bat edo eskola ikastaro bat). Programa
       bakoitza kanpaina bat edo gehiagotan kokatzen da eta, beraz, programen arteko
@@ -600,7 +600,7 @@ eu:
       create_label: Proiektu berria sortu
       create_new: Programa independente bat sortu
       create_short: Programa sortu
-      end_date: Aktibitate jarraipenaren amaiera
+      end_date: Jarduera jarraipenaren amaiera
       find: Programa bat bilatu
       intro: Programaren izenburuak eta erakundeak osatzen dute URLa. Hasierako wikia
         parte-hartzaileek lan egingo duten wiki nagusia da, eta wiki honetako aldaketei
@@ -614,7 +614,7 @@ eu:
       start_date: Aktibitate jarraipenaren hasiera
     delete_course: Programa ezabatu
     edit_course_dates: Proiektuaren datak aldatu
-    end: Aktibitate jarraipenaren amaiera
+    end: Jarduera jarraipenaren amaiera
     enroll: Editorea gehitu
     enrollment: Parte-hartzea
     explore: Programak bilatu
@@ -632,7 +632,7 @@ eu:
     revisions_none: Ikastaro honek ez du edizio jarduerarik izan azkenaldian.
     school: Erakundea
     school_and_term: Erakundea/Noiz
-    start: Aktibitate jarraipenaren hasiera
+    start: Jarduera jarraipenaren hasiera
     student_editors: Editoreak
     students: Editoreak
     students_taught: Editoreak guztira
@@ -665,6 +665,7 @@ eu:
     are_trained: trebakuntzarekin eguneratuak
     articles_created: Sortutako artikuluak
     articles_edited: Editatutako artikuluak
+    bytes_added: Gehitutako byteak
     characters: Karaktereak
     char_added: Gehitutako karaktereak
     char_changed: Aldatutako karaktereak
@@ -709,7 +710,7 @@ eu:
     recent_uploads: Azken igoerak
     revision_author: Berrikuspen-egilea
     revision_datetime: Data/ordua berrikusi
-    revision_score: Berrikuspenarenaren puntuazioa
+    revision_score: Berrikuspeneko puntuazioa
     show_courses: Nire ikastaroak bakarrik erakutsi
     uploaded_by: Nork igota
     usage_count: Erabilera kontagailua
@@ -732,18 +733,18 @@ eu:
   settings:
     admin_users:
       new:
-        form_label: Admin pribilegioak egotzi
+        form_label: Admin pribilegioak esleitu
         form_placeholder: Erabiltzaile izena
         confirm_add_admin: Dirulaguntza admin
         confirm_remove_admin: Hurrengorako admin pribilegioak kendu
-        already_admin: '%{username} jada administratzailea!'
-        elevate_success: '%{username} administratzaile kargura ido da.'
+        already_admin: '%{username} administratzailea da jada!'
+        elevate_success: '%{username} administratzailea da orain.'
       remove:
         revoke_button: Admin ezeztatu
-        revoke_button_confirm: '%{username}-ri admin eskubideak kendu'
+        revoke_button_confirm: '%{username}(r)i admin eskubideak kendu'
         revoking_button_working: Ezeztatzen...
-        already_instructor: '%{username} jada instruktorea!'
-        demote_success: '%{username} instruktore izatera aldatu da.'
+        already_instructor: '%{username} irakaslea da jada!'
+        demote_success: '%{username} irakaslea da orain.'
         no_super_admin: Ezin duzu gaineko admin baten admin statusa ezeztatu
   suggestions:
     editing: Gomendioak aldatu
@@ -824,7 +825,7 @@ eu:
     delete_timeline_and_start_over: Kronograma ezabatu
     due_default: Hurrengo asterako
     empty_week_1: Egiten hasteko,
-    empty_week_2: hasi aldatzen aste hau
+    empty_week_2: hasi aldatzen aste honetan
     empty_week_3: edo
     empty_week_4: erabili lan morroia kronograma bat sortzeko.
     first_week_title: Lehen aste aktiboa
@@ -852,7 +853,7 @@ eu:
     next: Hurrengo orria
     page: Orria
     page_number: '%{number}. orria %{total}(e)tik'
-    table_of_contents: Eduki-taula
+    table_of_contents: Eduki taula
     training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko
       saioa hasita ez bada.
@@ -880,7 +881,7 @@ eu:
     assigned: Esleitutako artikuluak
     assignees: Esleitua(k)
     loading_authorship_data: Egile datuak kargatzen
-    authorship_data_not_fetched: Ezin izan da lortu egile daturuik
+    authorship_data_not_fetched: Ezin izan da lortu egile daturik
     character_doc: Erabiltzaile batek izen-tarte honetara gehitutako eduki kopuru
       osoa, orri tamaina handitu duten aldaketa guztietarako gehitutako karaktere
       gutziak gehituz kalkulatua. Kopuru horrek ez du nahitaez adierazten erabiltzaileak
@@ -888,12 +889,12 @@ eu:
       kopurua.
     chars_added: Gehitutako karaktereak<br>(artikulua | lankidea | zirriborroa)
     contributions: Lankidearen ekarpenak
-    contributions_history_full: Ikusi Wikipedian egindako ekarpenen historia osoa
+    contributions_history_full: Ikus Wikipedian egindako ekarpenen historia osoa
     contributions_more: Ekarpen gehiago ikusi
     contribution_statistics: Ekarpenen estatistikak
     course_passcode: 'Pasahitza:'
     editors: Editoreak
-    edits_by: 'Aldaketak egin ditu:'
+    edits_by: 'Aldaketen egilea:'
     enroll_confirmation: Ziur zaude %{username} gehitu nahi duzula?
     enroll_url: 'Lankideek URL hau bisitatuz eman dezakete izena:'
     enrolled_success: '%{username} behar bezala gehitu da!'
@@ -1067,6 +1068,6 @@ eu:
   onboarding:
     supplementary:
       header: Nola ezagutu gaituzu?
-      question_text: Non, edo noren ahotik entzun zenuen lehenengo aldiz Wiki Educationi
-        buruz?
+      where_did_you_hear: Non, edo noren ahotik entzun zenuen lehenengo aldiz Hezkuntza
+        Programari buruz?
 ...

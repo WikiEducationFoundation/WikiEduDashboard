@@ -597,5 +597,5 @@ sv:
   onboarding:
     supplementary:
       header: Hur fick du reda på om oss?
-      question_text: Var, eller från vem, fick du först reda på om Wiki Education?
+      where_did_you_hear: Var, eller från vem, fick du först reda på om Wiki Education?
 ...

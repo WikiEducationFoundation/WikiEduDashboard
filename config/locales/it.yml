@@ -12,6 +12,7 @@
 # Author: Nemo bis
 # Author: NumaPompilius3
 # Author: S4b1nuz E.656
+# Author: Sarah Bernabei
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -434,6 +435,7 @@ it:
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate
+    bytes_added: Bytes aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati

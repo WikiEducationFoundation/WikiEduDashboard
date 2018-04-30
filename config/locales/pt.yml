@@ -684,6 +684,7 @@ pt:
     are_trained: estão em dia com a formação
     articles_created: Artigos criados
     articles_edited: Artigos editados
+    bytes_added: Bytes acrescentados
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres modificados
@@ -1096,6 +1097,6 @@ pt:
   onboarding:
     supplementary:
       header: Como soube de nós?
-      question_text: Onde, ou através de quem, ouviu falar pela primeira vez da Wiki
-        Educação?
+      where_did_you_hear: Onde, ou através de quem, ouviu falar pela primeira vez
+        da Wiki Educação?
 ...

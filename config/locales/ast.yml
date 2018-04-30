@@ -373,7 +373,9 @@ ast:
     join: Xunise
     join_course: Xunite al cursu
     join_prompt: ¿Xunise a '%{title}'?
-    join_successful: Te xunisti correutamente a %{title}.
+    join_successful: Te xunisti correutamente a %{title}. El tableru  rexistrará automáticamente
+      les tos contribuciones con actualizaciones periódiques. Visítalu sero pa ver
+      l'impactu que ficisti.
     join_failed: Falló la inscripción.
     join_failure_details:
       cannot_join_twice: Los usuarios nun pueden matriculase dos veces nel mesmu cursu.
@@ -824,7 +826,8 @@ ast:
   error_incorrect_passcode:
     header: Códigu d'accesu incorreutu. :-(
     explanation: El códigu d'accesu pa matriculase nesti cursu, ye incorreutu. Entruga
-      al monitor pol códigu d'accesu actual pa inscribise nesti cursu.
+      al monitor pol códigu d'accesu actual pa inscribise nesti cursu. Puedes volver
+      a tentar escribiendo'l códigu correutu más abaxo.
   error_404:
     header: Nun s'alcontró la páxina. :-(
     explanation: Esta páxina nun esiste. Si tentabes entrar al tableru pa un cursu,

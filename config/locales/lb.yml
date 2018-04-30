@@ -318,6 +318,7 @@ lb:
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
+    bytes_added: Byten derbäigesat
     characters: Buschtawen
     char_changed: Geännert Buschtawen
     date_time: Datum/Zäit
@@ -499,5 +500,6 @@ lb:
   onboarding:
     supplementary:
       header: Wéi hutt Dir vun eis héieren?
-      question_text: Wou oder vu wiem hutt Dir fir d'éischt vu WikiEducation héieren?
+      where_did_you_hear: Wou oder vu wiem hutt Dir fir d'éischt vu WikiEducation
+        héieren?
 ...

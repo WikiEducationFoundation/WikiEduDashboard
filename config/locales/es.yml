@@ -943,6 +943,6 @@ es:
   onboarding:
     supplementary:
       header: ¿Cómo te enteraste de nosotros?
-      question_text: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre Wiki
-        Education?
+      where_did_you_hear: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre
+        Wiki Education?
 ...
