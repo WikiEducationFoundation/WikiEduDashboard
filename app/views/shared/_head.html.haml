@@ -15,6 +15,7 @@
 :javascript
   I18n.defaultLocale = "#{I18n.default_locale}";
   I18n.locale = "#{I18n.locale}";
+  I18n.availableLocales = #{I18n.available_locales.to_json.html_safe}
 
   currentUser = {
     id: "#{current_user&.id || ''}",
