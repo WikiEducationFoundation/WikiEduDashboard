@@ -26,6 +26,8 @@ class OnboardingController < ApplicationController
   end
 
   def supplementary
+    head :no_content
+    return unless supplementary_response?
     user_name = params[:user_name]
     response = <<~RESPONSE
       HEARD FROM:
@@ -37,11 +39,14 @@ class OnboardingController < ApplicationController
       OTHER:
       #{params[:otherReason]}
     RESPONSE
-    OnboardingAlertManager.new.create_alert(user_name, response) if response.present?
-    head :no_content
+    OnboardingAlertManager.new.create_alert(user_name, response)
   end
 
   private
+
+  def supplementary_response?
+    params[:heardFrom].present? || params[:whyHere].present? || params[:otherReason].present?
+  end
 
   def set_new_permissions
     @permissions = @user.permissions
