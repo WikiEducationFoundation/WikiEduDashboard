@@ -1,6 +1,7 @@
 .language-picker	
   margin-top -5px
   margin-bottom -5px
+  text-align left
 
   .Select
   	width 100px	
@@ -12,10 +13,13 @@
     width 200px 
     right 0px
 
-  .Select-option 
+  .Select-option
+    &.is-focused
+      background $brand_primary
     &:first-child
       padding 10px 0px 10px 10px
       border-bottom 1px solid #cccccc
+    
 
 @media only screen and (max-width: 920px)
   .language-picker
@@ -26,6 +30,3 @@
 
     .Select
       width 120px
-
-    .Select-menu-outer
-      text-align left    
