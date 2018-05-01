@@ -9,9 +9,7 @@ set -x
 
 # Start dashboard
 service mysql start
-sleep 5
 redis-server --daemonize yes
-sleep 10
-rails s -d
-sleep 10
+rails s -d -b 0.0.0.0
+yarn
 gulp
