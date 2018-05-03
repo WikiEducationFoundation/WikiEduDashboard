@@ -490,6 +490,7 @@ es:
       Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
       ¿Estás seguro de que quieres hacer esto?
     wiki_staff: Personal de Wiki Ed
+    withdrawn: No hizo los deberes
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
@@ -945,4 +946,5 @@ es:
       header: ¿Cómo te enteraste de nosotros?
       where_did_you_hear: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre
         Wiki Education?
+      why_are_you_here: ¿Qué quieres hacer?
 ...

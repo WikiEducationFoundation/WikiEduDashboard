@@ -568,7 +568,7 @@ de:
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
     wiki_staff: Wiki-Ed-Mitarbeiter
-    withdrawn: Zurückgezogen
+    withdrawn: Hat keine Zuweisung gemacht
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse
@@ -1105,4 +1105,5 @@ de:
     supplementary:
       header: Wie hast du von uns erfahren?
       where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
+      why_are_you_here: Was möchtest du tun?
 ...

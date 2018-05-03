@@ -348,7 +348,7 @@ it:
       other: Volontari
     weeks_none: Questo corso non ha ancora una linea temporale.
     wiki_staff: Staff Wiki Ed
-    withdrawn: Ritirato
+    withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
@@ -676,4 +676,7 @@ it:
       link: Rispondi sondaggio
   wiki_api:
     create_account_reason: Questo utente sta partecipando a %{event}.
+  onboarding:
+    supplementary:
+      why_are_you_here: Cosa ti piacerebbe fare?
 ...

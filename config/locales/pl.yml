@@ -7,6 +7,7 @@
 # Author: InternerowyGołąb
 # Author: Mazab IZW
 # Author: Rzuwig
+# Author: Stojex
 # Author: Tar Lócesilion
 # Author: The Polish
 # Author: Woytecr
@@ -413,6 +414,7 @@ pl:
       jako edycja z Twojego konta użytkownika. Kolejne zmiany w harmonogramie zostaną
       również skopiowane do Wikipedii. \nCzy na pewno chcesz to zrobić?"
     wiki_staff: Pracownicy Wiki Ed
+    withdrawn: Nie wykonałem zadania
     word_count_doc: Przybliżona liczba słów dodanych do przestrzeni głównej (artykułów)
       przez uczestników w trakcie trwania kursu
     yourcourses: Twoje Kursy
@@ -832,4 +834,5 @@ pl:
   onboarding:
     supplementary:
       header: Jak się o nas dowiedziałeś?
+      why_are_you_here: Co chciałbyś robić?
 ...

@@ -260,4 +260,7 @@ el:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:
     assignment_type: Τι θα ολοκληρώσουν οι σπουδαστές για την ανάθεση τους από Wikipedia?
+  onboarding:
+    supplementary:
+      why_are_you_here: Τι θα θέλατε να κάνετε;
 ...

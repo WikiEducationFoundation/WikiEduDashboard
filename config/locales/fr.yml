@@ -589,7 +589,7 @@ fr:
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
     wiki_staff: Équipe d’édition de wiki
-    withdrawn: Retiré
+    withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
@@ -1124,4 +1124,5 @@ fr:
       header: Comment avez-vous entendu parler de nous ?
       where_did_you_hear: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
         pour la première fois ?
+      why_are_you_here: Qu’aimeriez-vous faire ?
 ...
