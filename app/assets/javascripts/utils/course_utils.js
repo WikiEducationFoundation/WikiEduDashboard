@@ -2,6 +2,8 @@ import _ from 'lodash';
 const I18n = require('i18n-js');
 
 const CourseUtils = class {
+  // Given a course object with title, school and term properties,
+  // generate the standard 'slug' that is used as the course URL.
   generateTempId(course) {
     const title = this.slugify(course.title.trim());
     const school = this.slugify(course.school.trim());
@@ -19,6 +21,7 @@ const CourseUtils = class {
     }
   }
 
+  // Regex of allowed characters for a course slug.
   courseSlugRegex() {
   // This regex is intended to match ascii word characters, dash,
   // whitespace, comma, apostrophe, and any unicode "letter".
@@ -28,6 +31,9 @@ const CourseUtils = class {
     return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
   }
 
+  // Given a course object with title, school and term properties,
+  // return a new course object with sanitized versions of those properties,
+  // in particular by removing excess whitespace.
   cleanupCourseSlugComponents(course) {
     const cleanedCourse = { ...course };
     cleanedCourse.title = course.title.trim().split(/\s+/).join(' ');
@@ -43,6 +49,9 @@ const CourseUtils = class {
     });
   }
 
+  // Takes user input — either a URL or the title of an article —
+  // and returns an article object, including the project and language
+  // if that can be pattern matched from URL input.
   articleFromTitleInput(articleTitleInput) {
     const articleTitle = articleTitleInput;
     if (!/http/.test(articleTitle)) {
@@ -89,6 +98,8 @@ const CourseUtils = class {
     };
   }
 
+  // Given an assignment object and a wiki object,
+  // return a corresponding article object
   articleFromAssignment(assignment, defaultWiki) {
     const language = assignment.language || defaultWiki.language || 'en';
     const project = assignment.project || defaultWiki.project || 'wikipedia';
@@ -108,11 +119,15 @@ const CourseUtils = class {
     return article;
   }
 
+  // Return the MediaWiki page URL, given title, language, and project.
   urlFromTitleAndWiki(title, language, project) {
     const underscoredTitle = title.replace(/ /g, '_');
     return `https://${language}.${project}.org/wiki/${underscoredTitle}`;
   }
 
+  // Construct the best possible human-readable title for an article.
+  // This means showing the language and/or project if it's not the
+  // default one.
   formattedArticleTitle(article, defaultWiki, wikidataLabel) {
     let languagePrefix = '';
     if (!defaultWiki || !article.language || article.language === defaultWiki.language) {
@@ -142,6 +157,8 @@ const CourseUtils = class {
     return this.formattedArticleTitle(category, defaultWiki);
   }
 
+  // Given an array of weeks (ie, a timeline), return true if the timeline
+  // includes any training modules.
   hasTrainings(weeks) {
     function blockHasTrainings(block) {
       return Boolean(block.training_module_ids && block.training_module_ids.length);

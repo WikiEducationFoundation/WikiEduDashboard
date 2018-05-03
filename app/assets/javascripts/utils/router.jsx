@@ -42,6 +42,9 @@ import ContributionStats from '../components/user_profiles/contribution_stats.js
 import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
+// The navbar is its own React element, independent of the
+// main React Router-based component tree.
+// `nav_root` is present throughout the app, via the Rails view layouts.
 const navBar = document.getElementById('nav_root');
 if (navBar) {
   ReactDOM.render((<Nav />), navBar);
@@ -112,8 +115,13 @@ const routes = (
   </Route>
 );
 
+// The main `react_root` is only present in some Rails views, corresponding
+// to the routes above.
 const reactRoot = document.getElementById('react_root');
 if (reactRoot) {
+  // This is basic, minimal state info extracted from the HTML,
+  // used for initial rendering before React fetches all the specific
+  // data it needs via API calls.
   const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
   const preloadedState = {
     courseCreator: {
