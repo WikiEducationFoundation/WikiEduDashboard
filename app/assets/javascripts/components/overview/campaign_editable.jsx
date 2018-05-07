@@ -43,6 +43,13 @@ const CampaignEditable = createReactClass({
     }
   },
 
+  openPopover(e) {
+    if (!this.props.is_open) {
+      this.refs.campaignSelect.focus();
+    }
+    return this.props.open(e);
+  },
+
   removeCampaign(campaignId) {
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
@@ -89,7 +96,6 @@ const CampaignEditable = createReactClass({
                 placeholder={I18n.t('courses.campaign_select')}
                 onChange={this.handleChangeCampaign}
                 options={campaignOptions}
-                autoFocus={true}
               />
               <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
                 Add
@@ -102,7 +108,7 @@ const CampaignEditable = createReactClass({
 
     return (
       <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
-        <button className="button border plus open" onClick={this.props.open}>+</button>
+        <button className="button border plus open" onClick={this.openPopover}>+</button>
         <Popover
           is_open={this.props.is_open}
           edit_row={campaignSelect}
