@@ -88,6 +88,11 @@ class Course < ApplicationRecord
     where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
 
+  # Same as revisions, but isn't bounded by the course end date
+  has_many(:recent_revisions, lambda do |course|
+    where('date >= ?', course.start)
+  end, through: :students, source: :revisions)
+
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)
   end, through: :students)
