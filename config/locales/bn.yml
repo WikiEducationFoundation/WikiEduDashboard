@@ -319,4 +319,7 @@ bn:
   survey:
     email:
       headline: প্রিয়, %{username}
+  onboarding:
+    supplementary:
+      why_are_you_here: আপনি কী করতে চান?
 ...

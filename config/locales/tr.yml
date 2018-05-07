@@ -25,6 +25,7 @@ tr:
       girişi artırır ve azaltır.
   application:
     cancel: İptal
+    create_accounts: Vikipedi hesabı oluştur
     dashboard: Wiki Ed Deneme Tahtası
     documentation: Belgelendirme
     error: 'Bir hata oluştu:'
@@ -45,9 +46,11 @@ tr:
     my_dashboard: Gösterge Panelim
     recent_activity: Son Etkinlik
     report_problem: Bir sorunu bildir
+    request_account: Hesap iste
     search: soru sor
     search_results: '%{search_terms} için sonuçlar'
     sign_up_extended: Vikipedi'yle Kaydol
+    sign_up_wikipedia: Veya Vikipedi'ye kaydolun
     sign_up_log_in_extended: Vikipedi ile
     sign_up: Kaydol
     submit: Gönder
@@ -95,6 +98,7 @@ tr:
     edited_by: Düzenleyen
     label: Etkinlik
   articles:
+    article_development: (madde geliştirme)
     assigned: Atanmış Makaleler
     available: Kullanılabilir Makaleler
     assigned_to: Atanan
@@ -109,6 +113,7 @@ tr:
     edited_by: 'Düzenleyen:'
     edited_mobile: Makaleler
     hide: Gizle
+    history: (geçmiş)
     label: Makaleler
     loading: Makaleler yükleniyor...
     new: (yeni)
@@ -121,7 +126,43 @@ tr:
       fa: Seçkin makale — Vikipedi'nin en yüksek reytingli ve muhtelemen yeni bir
         editörün ana projesi için oldukça olgun bir maddesidir
       fl: Seçkin liste — Vikipedi'nin listeler için en yüksek reytingli sayfalarıdır
+      a: 'A sınıf: yeni bir editörün ana projesi için çok olgun olabilecek çok gelişmiş
+        bir madde'
+      ga: 'Kaliteli madde: yeni bir editörün ana projesi için çok olgun olabilecek
+        iyi geliştirilmiş bir madde'
+      b: 'B sınıf: orta gelişmiş bir madde'
+      c: 'C sınıf: iyileştirilebilecek içeriğe sahip orta düzeyde bir madde'
+      start: 'Başlangıç-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
+        bir madde'
+      stub: 'Taslak-sınıf: Daha fazla içeriğe ihtiyaç duyan bir maddenin kısa bir
+        başlangıcı'
+      list: 'Liste-sınıf: geleneksel bir yazı yerine bir liste'
+      '?': 'Değerlendirilmemiş: Vikipedi''nin kalite ölçeğinde henüz değerlendirilmemiş
+        bir madde'
+      does_not_exist: Bu makale Vikipedi'de mevcut değil
+    see_more: Daha fazla gör
+    show_cumulative_changes: Birikmiş Değişiklikleri Göster
+    show_current_version: Mevcut Sürümü Göster
+    show_current_version_with_authorship_highlighting: Yazar Vurgulamalı Güncel Versiyon
+    title: Başlık
+    title_example: Madde başlığı
+    tools: Değerlendirme araçları
+    view: Maddeyi Göster
+    view_all: Hepsini Göster
+    view_doc: Proje boyunca her bir maddenin tüm görünümlerinin toplamı
+    view_on_wiki: Viki'de göster
+    views_added: '%{title} için %{count} yeni görüntüleme eklendi'
+    edit_size: Boyutu Düzenle
     wiki: Wiki
+    wp10: Yapısal Bütünlük
+  assignments:
+    article: '%{title} maddesi artık size devredilmiştir.'
+    already_exists: Bu devir işlemi zaten yapılmış!
+    title_too_large: Başlık, 255 karakteri geçmemelidir
+    assignees: Devredilen(ler)
+    assign_other: Bir maddeyi devredin
+    add_available: Mevcut bir madde ekle
+    assign_self: Kendime bir madde devredeyim
   blocks:
     milestones:
       title: Kilometre taşları
