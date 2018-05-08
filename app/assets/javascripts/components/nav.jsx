@@ -76,7 +76,7 @@ const Nav = createReactClass({
     let Sandbox;
     let wikiEd;
     let languageSwitcherEnabled;
-    let loggingLinks;
+    let loginLinks;
     let helpEnabled;
     if (this.state.languageSwitcherEnabled)
     {
@@ -88,10 +88,10 @@ const Nav = createReactClass({
     }
     if (this.state.userSignedIn)
     {
-      loggingLinks = (
+      loginLinks = (
         <span>
           <li>
-            <b><a href={this.state.rootUrl} className="current-user">{this.state.currentUser}</a></b>
+            <b><a href={`/users/${this.state.currentUser}`} className="current-user">{this.state.currentUser}</a></b>
           </li>
           <li>
             <a href={this.state.destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
@@ -113,7 +113,7 @@ const Nav = createReactClass({
       );
       }
     } else {
-      loggingLinks = (
+      loginLinks = (
         <li>
           <a href={this.state.omniauthUrl}>
             <i className="icon icon-wiki-logo" />
@@ -220,7 +220,7 @@ const Nav = createReactClass({
               {helpEnabled}
               <ul className="top-nav__login-links">
                 {languageSwitcherEnabled}
-                {loggingLinks}
+                {loginLinks}
               </ul>
             </div>
           </nav>
