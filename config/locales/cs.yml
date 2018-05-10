@@ -551,7 +551,7 @@ cs:
       vaším uživatelským účtem. Poté budou všechny editace tohoto kurzu změněny i
       na Wikipedii. \nJste si jist, že toto chcete udělat?"
     wiki_staff: Wiki Ed personál
-    withdrawn: Stáhnuté
+    withdrawn: Nerealizované zadání
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
     yourcourses: Vaše kurzy
@@ -1021,4 +1021,5 @@ cs:
     supplementary:
       header: Jak jste se o nás dozvěděl(a)?
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
+      why_are_you_here: Co byste chtěli dělat?
 ...

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Fitoschido
+# Author: KuboF
 # Author: Lucas
 # Author: Ochilov
 # Author: Rafaneta
@@ -12,7 +13,7 @@ eo:
   application:
     cancel: Nuligi
     greeting: Saluton!
-    help: Helpon!
+    help: Helpo
     home: Hejmo
     log_out: Elsaluti
     change: Ŝanĝi
@@ -90,7 +91,9 @@ eo:
     assign_articles_done: Farita
     name: Nomo
     no_articles: Neniuj artikoloj
-    number_of_articles: '%{number} artikoloj'
+    number_of_articles:
+      one: '%{count} artikolo'
+      other: '%{count} artikoloj'
     username: Uzantnomo
     username_placeholder: Uzantnomo
     role:
