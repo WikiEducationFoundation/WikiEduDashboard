@@ -328,6 +328,12 @@ sv:
     volunteer:
       other: en=Volontär
     weeks_none: Detta kurs har ännu inte en tidslinje.
+    wiki_staff: Wiki Ed-anställda
+    withdrawn: Gjorde inte uppgiften
+    yourcourses: Dina kurser
+    survey:
+      notification_message: Delta i vår undersökning för denna kurs.
+      link: Delta i undersökningen
   courses_generic:
     add_campaign: Lägg till kampanj
     all_courses: Alla program
@@ -515,9 +521,13 @@ sv:
     assignees: Tilldelat till
     loading_authorship_data: läser in författarskapsdata
     contributions: Användarbidrag
+    contributions_more: Se fler bidrag
+    contribution_statistics: Bidragstatistik
     editors: Redigerare
     edits_by: 'Redigeringar av:'
     enroll_confirmation: Är du säker på att du vill lägga till %{username}?
+    enroll_url: 'Användare kan gå med genom att besöka denna URL:'
+    enrolled_success: '%{username} lades framgångsrikt till!'
     first_name: Förnamn
     last_name: Efternamn
     loading: Laddar användare...
@@ -533,6 +543,8 @@ sv:
     recent_revisions: Senaste redigeringar
     remove_confirmation: Är du säker på att du vill ta bort %{username}?
     request_confirmation: Är du säker på att du vill begära detta konto?
+    revisions_doc: Antal redigeringar som gjorts av denna bidragsgivare de sista 7
+      dagarna
     reviewers: Granskare
     reviewing: Granskar
     training_module_name: Träningsmodul
@@ -548,6 +560,7 @@ sv:
       instructor: Instruktör
       campus_volunteer: '{{SITENAME}}ambassadör'
       online_volunteer: Onlineambassadör
+      wiki_ed_staff: Wiki Ed-anställda
   user_profiles:
     disclaimer: Informationen du uppger kommer att vara offentlig.
     bio_placeholder: Lägg till din bio (valfritt)

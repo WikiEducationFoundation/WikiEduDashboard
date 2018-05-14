@@ -79,9 +79,9 @@ tr:
     review_orientation: İnceleme Oryantasyonu
     start_orientation: Başlangıç Oryantasyonu
     blog_headline: Wiki Eğitimi'nden Son Haberler
-    about_programs: Bu site, Programlar vasıtasıyla viki etkinliklerini izler - bir
-      edit-a-thon veya okul kursu gibi bireysel etkinlikler. Her Program, Programlar
-      arasında toplam istatistikler sağlayan bir veya daha fazla Kampanya'nın parçasıdır.
+    about_programs: Bu site, programlar (bir edit-a-thon veya okul kursu gibi bireysel
+      etkinlikler) vasıtasıyla viki etkinliklerini izler. Her program, programlar
+      arasında toplam istatistikler sağlayan bir veya daha fazla kampanyanın parçasıdır.
     about_creating_programs: Bağımsız tek bir etkinlik yürütüyorsanız şimdi bir Program
       oluşturabilirsiniz. Etkinliğiniz daha büyük bir şeyin parçasıysa bunun için
       Kampanya'yı bulun veya yaratın. Ardından Kampanya sayfasından yeni bir Program
@@ -319,6 +319,10 @@ tr:
         tatilim yok" seçeneğini işaretleyin. Klonlanmış zaman çizelgesi, tarihleri,
         zamanlanmış toplantıları olmayan haftalar için otomatik olarak ayarlar.
       clone_successful: Klonlanmış Kurs için Detayları Güncelle
+      clone_successful_details: Zaman çizelgesinin unsurları (haftalar ve bloklar)
+        dahil olmak üzere dersiniz klonlanmıştır. Taşınmayan tarihleri eklediğinizden
+        emin olun. Kursunuz hakkında başka bir şey değişti mi? Güncellemeyi şimdi
+        yapmak için çekinmeyin.
       course_description: Kurs açıklaması
       course_description_placeholder: Kursunuzda neler var ve Vikipedi'de öğrenciler
         ne yapacak? Lütfen diğer Vikipedi editörlerine öğrencilerinizin yapacağı katkılar
@@ -857,11 +861,87 @@ tr:
       header: Gecikmiş bir eğitim göreviniz var.
   wizard:
     course_dates: Kurs günleri
+    read_less: Az oku
+    read_more: Daha fazla oku
+    review_selections: Lütfen aşağıdaki seçimlerinizi gözden geçirin. Bir seçimi düzenlemek
+      için tıklayın. Bittiğinde sihirbazı bitirip zaman çizelgenizi oluşturmak için
+      'Gönder' seçeneğine tıklayın.
+    select_assignment: Zaman çizelgenize eklemek istediğiniz ödevi seçin.
     summary: Özet
+  error:
+    form_errors: Lütfen hatalar için formu kontrol edin.
+    invalid_date: 'Geçersiz tarih: %{key}'
+    invalid_file_format: Dosya kaydedilemedi. Lütfen bir PDF veya Word belgesi yükleyin.
+    oauth_invalid: Vikipedi yetkinizin süresi doldu. Lütfen tekrar giriş yapın.
+    start_date_before_end_date: Başlangıç tarihi bitiş tarihinden önce olmalıdır
+    unsupported_browser:
+      header: Desteklenmeyen tarayıcı. :-(
+      explanation: Kontrol paneliyle uyumlu olmayan bir tarayıcı kullanıyorsunuz.
+        Bu site, Internet Explorer 11 veya sonraki sürümlerinde, Chrome ve Firefox'un
+        son sürümlerinde ve diğer modern tarayıcılarda iyi çalışır.
+  error_401:
+    header: Yetkisiz. >:-(
+    explanation: Bu isteği yürütme yetkiniz yok. Bu bildirime yanlışlıkla ulaştığınızı
+      düşünüyorsanız sorun hakkında bilgi vermek için lütfen bu gösterge panosundaki
+      bakım görevlilerine başvurun.
+    json_explanation: Çıkış yapmışsınız gibi görünüyor. Lütfen sayfayı yenileyin,
+      giriş yapın ve tekrar deneyin.
   error_incorrect_passcode:
     header: Yanlış parola. :-(
     explanation: Bu derse kayıt parolası doğru değildir. Lütfen bu derse kaydolmak
-      için güncel parola kodunu eğitmenden isteyin.
+      için güncel parola kodunu eğitmenden isteyin. Aşağıdaki doğru şifreyi girerek
+      tekrar deneyebilirsiniz.
+  error_no_course:
+    explanation: '%{slug} gibi bir kurs mevcut değil.'
   error_404:
     header: Sayfa bulunamadı. :-(
+    explanation: Bu sayfa mevcut değil. Bir kurs için kontrol paneline ulaşmaya çalışıyorsanız
+      bu kurs,  bu gösterge tablosuna kayıtlı olmayabilir.
+  error_422:
+    header: 422 — işlenemez varlık.  :-(
+    explanation: Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
+      bu gösterge panosundaki bakım görevlilerine başvurun.
+  error_500:
+    header: 500 — İç Sunucu Hatası.  :-(
+    explanation: Bir şeyler yanlış gitti. Sorun hakkında bilgi vermek için lütfen
+      bu gösterge panosundaki bakım görevlilerine başvurun.
+  login_error:
+    header: Oturum Açma Hatası
+    explanation: Oturum açma sürecinde bir sorun varmış gibi görünüyor. (Bu konuda
+      üzgünüm! Böyle şeyler bazen olur.) Lütfen tekrar giriş yapmayı veya kayıt olmayı
+      deneyin.
+  survey:
+    login_message: Zaman ayırdığın için teşekkürler. Ankete katılmak için lütfen Wiki
+      Ed gösterge paneline giriş yapın.
+    notification_explanation: Aşağı kontrol edilirse kullanıcılar tarayıcı içi bildirimlerin
+      yanı sıra bildirim zamanlamasına göre de e-posta alırlar. Yapılmazsa yalnızca
+      tarayıcı içi bildirimler gösterilecektir.
+    notification_schedule_explanation: Bildirimler, yukarıda etkinleştirildiyse tarayıcı
+      içi bildirimleri ve e-postaları içerir.
+    follow_up_explanation: Herhangi bir izleme e-postası istenmiyorsa boş bırakın.
+    email:
+      headline: Selam %{username},
+      message_line1: Umarız harika bir dönem geçirdiniz! Wiki Ed, kaynaklarımızı geliştirmek
+        ve Vikipedi ödevlerinize destek olmak için geri bildiriminizi bekliyor. Yanıtınız
+        mevcut tekliflerimizi iyileştirmek için çok önemli.
+      message_line2: Eğitmen anketimizi doldurmak için 15 dakikanızı harcamaya istekli
+        misiniz? Vikipedi ile öğretimi daha da faydalı ve değerli bir deneyim haline
+        getirmemize yardımcı olmak için aşağıdaki butona tıklayın.
+      course: 'Kurs: %{course_info}'
+      closing: İçtenlikle,
+      signed: '- Wiki Ed ekibi'
+      link: Anketi Doldur
+    follow_up:
+      message: Bu, %{course_title} adlı kursunuzun anketi hakkında bir hatırlatmadır.
+        Bu anketten aldığımız geri bildirimler, sizinki gibi Vikipedi ödevlerine verdiğimiz
+        desteği geliştirmemize yardımcı oluyor.
+  feedback_form_responses:
+    no_responses: Henüz geri bildirim yanıtı yok.
+  wiki_api:
+    create_account_reason: Bu kullanıcı, %{event} etkinliğine katılıyor.
+  onboarding:
+    supplementary:
+      header: Bizden nasıl haberin oldu?
+      where_did_you_hear: Wiki Eğitim'i ilk defa nerede veya kimlerden duydun?
+      why_are_you_here: Ne yapmak istiyorsun?
 ...
