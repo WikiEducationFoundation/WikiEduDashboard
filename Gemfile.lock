@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/ejholmes/restforce.git
-  revision: 467be4f6db4db10c64b1ec7fa48cb47de46f548a
+  revision: e5af1a3d625237fd84924fe727ee66d5f77ae707
   specs:
     restforce (2.5.3)
       faraday (>= 0.9.0, <= 1.0)
@@ -172,7 +172,7 @@ GEM
     factory_bot_rails (4.8.2)
       factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
-    faraday (0.14.0)
+    faraday (0.15.1)
       multipart-post (>= 1.2, < 3)
     faraday-cookie_jar (0.0.6)
       faraday (>= 0.7.4)
@@ -228,7 +228,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_accept_language (2.1.1)
-    i18n (1.0.0)
+    i18n (1.0.1)
       concurrent-ruby (~> 1.0)
     i18n-js (3.0.5)
       i18n (>= 0.6.6, < 2)
@@ -276,8 +276,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.2.0)
     netrc (0.11.0)
-    newrelic_rpm (5.0.0.342)
-    nio4r (2.3.0)
+    newrelic_rpm (5.1.0.344)
+    nio4r (2.3.1)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     nokogiri (1.8.2-x64-mingw32)
@@ -286,7 +286,7 @@ GEM
       nenv (~> 0.1)
       shellany (~> 0.0)
     oauth (0.5.4)
-    oj (3.5.0)
+    oj (3.6.0)
     omniauth (1.8.1)
       hashie (>= 3.4.6, < 3.6.0)
       rack (>= 1.6.2, < 3)
@@ -295,7 +295,7 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
     pandoc-ruby (2.0.2)
-    paper_trail (9.0.0)
+    paper_trail (9.0.2)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
     paperclip (6.0.0)
@@ -448,8 +448,10 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
-    skylight (1.6.0)
-      activesupport (>= 3.0.0)
+    skylight (2.0.1)
+      skylight-core (= 2.0.1)
+    skylight-core (2.0.1)
+      activesupport (>= 4.2.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
