@@ -84,7 +84,7 @@ describe 'Training', type: :feature, js: true do
       expect(TrainingModulesUsers.find_by(
                user_id: user.id,
                training_module_id: module_2.id
-      )).not_to be_nil
+             )).not_to be_nil
     end
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do

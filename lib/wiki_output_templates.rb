@@ -2,7 +2,7 @@
 
 module WikiOutputTemplates
   def template_name(templates_hash, key)
-    raise InvalidKeyError unless templates_hash['default'].keys.include?(key)
+    raise InvalidKeyError unless templates_hash['default'].key?(key)
     templates_hash['default'][key]
   end
 
