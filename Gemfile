@@ -114,6 +114,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'puma'
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'

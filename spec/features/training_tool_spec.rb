@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_library"
 
 DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
@@ -159,7 +160,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   DESIRED_TRAINING_MODULES.each do |module_slug|
-    describe "'#{module_slug}' module" do
+    describe "'#{module_slug[:slug]}' module" do
       before do
         TrainingSlide.load
         TrainingModule.flush
@@ -201,7 +202,7 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  button = page.first('button.ghost-button')
+  button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
   page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').trigger('click')
 end

@@ -21,7 +21,7 @@ describe 'sitenotice', type: :feature do
 
     it 'does not display a flash notice' do
       visit root_path
-      expect(first('.notification')).to be_nil
+      expect(first('.notification', minimum: 0)).to be_nil
     end
   end
 end

@@ -127,13 +127,13 @@ GEM
     capistrano-sidekiq (1.0.1)
       capistrano (>= 3.9.0)
       sidekiq (>= 3.4)
-    capybara (2.18.0)
+    capybara (3.1.0)
       addressable
       mini_mime (>= 0.1.3)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (>= 2.0, < 4.0)
+      nokogiri (~> 1.8)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      xpath (~> 3.0)
     capybara-screenshot (1.0.19)
       capybara (>= 1.0, < 4)
       launchy
@@ -307,8 +307,8 @@ GEM
     parallel (1.12.1)
     parser (2.5.0.5)
       ast (~> 2.4.0)
-    poltergeist (1.17.0)
-      capybara (~> 2.1)
+    poltergeist (1.18.0)
+      capybara (>= 2.1, < 4)
       cliver (~> 0.3.1)
       websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
@@ -325,7 +325,8 @@ GEM
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     public_suffix (3.0.2)
-    rack (2.0.4)
+    puma (3.11.4)
+    rack (2.0.5)
     rack-protection (2.0.1)
       rack
     rack-test (1.0.0)
@@ -546,6 +547,7 @@ DEPENDENCIES
   poltergeist
   premailer-rails
   pry-rails
+  puma
   rails (= 5.2.0)
   rails-controller-testing
   rails-erd
