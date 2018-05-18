@@ -30,9 +30,9 @@ describe RequestedAccountsController do
 
       it 'returns an error if the email is invalid' do
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: username,
-                                          email: 'invalidemail' }
+                                         course_slug: course.slug,
+                                         username: username,
+                                         email: 'invalidemail' }
         expect(response.status).to eq(422)
         expect(response.body).to include('invalidemail')
       end
@@ -40,26 +40,26 @@ describe RequestedAccountsController do
       it 'adds new requested accounts to the course' do
         expect(course.requested_accounts.count).to eq(0)
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: username, email: email }
+                                         course_slug: course.slug,
+                                         username: username, email: email }
         expect(course.requested_accounts.count).to eq(1)
       end
 
       it 'updates an attribute if the request already exist' do
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: requested_account.username,
-                                          email: 'newemail@example.com' }
+                                         course_slug: course.slug,
+                                         username: requested_account.username,
+                                         email: 'newemail@example.com' }
         expect(course.requested_accounts.count).to eq(1)
         expect(course.requested_accounts.last.email).to eq('newemail@example.com')
       end
 
       it 'returns a 500 if user is not authorized create accounts now' do
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: username,
-                                          email: 'newemail@example.com',
-                                          create_account_now: true }
+                                         course_slug: course.slug,
+                                         username: username,
+                                         email: 'newemail@example.com',
+                                         create_account_now: true }
         expect(response.status).to eq(500)
       end
 
@@ -68,10 +68,10 @@ describe RequestedAccountsController do
         stub_account_creation
         allow(UserImporter).to receive(:new_from_username).and_return(user)
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: 'MyUsername',
-                                          email: 'myemail@me.net',
-                                          create_account_now: true }
+                                         course_slug: course.slug,
+                                         username: 'MyUsername',
+                                         email: 'myemail@me.net',
+                                         create_account_now: true }
         expect(response.status).to eq(200)
         expect(response.body).to have_content('Created account for MyUsername')
       end
@@ -79,8 +79,8 @@ describe RequestedAccountsController do
       it 'raises an error if account requests are not enabled' do
         allow(Features).to receive(:enable_account_requests?).and_return(false)
         post :request_account, params: { passcode: course.passcode,
-                                          course_slug: course.slug,
-                                          username: 'username', email: 'email' }
+                                         course_slug: course.slug,
+                                         username: 'username', email: 'email' }
         expect(response.status).to eq(401)
       end
     end
