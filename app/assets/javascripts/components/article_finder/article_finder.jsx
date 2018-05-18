@@ -3,8 +3,11 @@ import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 
 import TextInput from '../common/text_input.jsx';
-// import { getDataForCategory } from '../../utils/article_finder_utils.js';
+import ArticleFinderRow from './article_finder_row.jsx';
+import List from '../common/list.jsx';
+
 import { fetchCategoryResults } from '../../actions/article_finder_action.js';
+
 const ArticleFinder = createReactClass({
   getInitialState() {
     return {
@@ -72,6 +75,40 @@ const ArticleFinder = createReactClass({
         label="Max Completeness(0-100)"
         placeholder="Completeness"
       />);
+    const keys = {
+      title: {
+        label: I18n.t('articles.title'),
+        desktop_only: false
+      },
+      average_views: {
+        label: 'Views per day',
+        desktop_only: false,
+      },
+      tools: {
+        label: 'Completeness Estimate',
+        desktop_only: false,
+      }
+    };
+    let list;
+    if (this.props.articles.length > 0) {
+      const elements = this.props.articles.map((article) => {
+        return (
+          <ArticleFinderRow
+            article={article}
+          />
+          );
+      });
+      list = (
+        <List
+          elements={elements}
+          keys={keys}
+          sortable={false}
+          table_key="category-articles"
+          className="table--expandable table--hoverable"
+          none_message="No articles found in this category"
+        />
+        );
+    }
     return (
       <div className="container">
         <header>
@@ -85,13 +122,14 @@ const ArticleFinder = createReactClass({
         {minimumViews}
         {maxCompleteness}
         <button className="button dark" onClick={this.searchCategory}>Submit</button>
+        {list}
       </div>
       );
   }
 });
 
 const mapStateToProps = state => ({
-  article: state.articleFinder.articles
+  articles: state.articleFinder.articles
 });
 
 const mapDispatchToProps = {
