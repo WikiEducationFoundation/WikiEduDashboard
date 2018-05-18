@@ -14,7 +14,8 @@ const Article = createReactClass({
     course: PropTypes.object.isRequired,
     fetchArticleDetails: PropTypes.func.isRequired,
     articleDetails: PropTypes.object,
-    wikidataLabel: PropTypes.string
+    wikidataLabel: PropTypes.string,
+    showOnMount: PropTypes.bool
   },
 
   fetchArticleDetails() {
@@ -58,6 +59,7 @@ const Article = createReactClass({
             users={this.props.articleDetails && this.props.articleDetails.editors}
             fetchArticleDetails={this.fetchArticleDetails}
             showButtonClass="pull-left"
+            showOnMount={this.props.showOnMount}
           />
           <DiffViewer
             fetchArticleDetails={this.fetchArticleDetails}
