@@ -117,7 +117,7 @@ const GetHelpButton = createReactClass({
       );
 
       // Show the program help button only to instructors and other non-students.
-      if (this.props.currentUser.role > 0) {
+      if (this.props.currentUser.isNonstudent) {
         const programHelpUser = this.programHelpUser();
         programHelpButton = (
           <span className="contact-program-help" key={`${programHelpUser.username}-program-help`}>
