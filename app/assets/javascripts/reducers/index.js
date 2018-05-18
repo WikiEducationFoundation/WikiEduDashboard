@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import alerts from './alerts';
 import articleDetails from './article_details';
+import articleFinder from './article_finder';
 import articles from './articles';
 import campaigns from './campaigns';
 import categories from './categories';
@@ -29,6 +30,7 @@ import wikidataLabels from './wikidata_labels';
 const reducer = combineReducers({
   alerts,
   articleDetails,
+  articleFinder,
   articles,
   campaigns,
   categories,
