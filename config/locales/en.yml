@@ -58,6 +58,7 @@ en:
     recent_activity: Recent Activity
     report_problem: Report a problem
     request_account: Request an account
+    request_account_create: Create an account
     search: ask a question
     search_results: "Results for: '%{search_terms}'"
     sign_up_extended: Sign up with Wikipedia

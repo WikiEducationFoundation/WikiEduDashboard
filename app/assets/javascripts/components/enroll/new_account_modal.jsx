@@ -2,14 +2,13 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { INSTRUCTOR_ROLE } from '../../constants';
 
 import * as NewAccountActions from '../../actions/new_account_actions.js';
 import TextInput from '../common/text_input.jsx';
 
 const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount, actions }) => {
   const checkAvailability = () => (actions.checkAvailability(newAccount));
-  const createRequestedAccountImmediately = currentUser.role === INSTRUCTOR_ROLE;
+  const createRequestedAccountImmediately = currentUser.isInstructor;
   const requestAccount = () => {
     actions.requestAccount(passcode, course, newAccount, createRequestedAccountImmediately);
     closeModal();
@@ -38,7 +37,7 @@ const NewAccountModal = ({ course, passcode, currentUser, closeModal, newAccount
 
   let newAccountInfo;
   let wikipediaAccountCreation;
-  if (currentUser.role === INSTRUCTOR_ROLE) {
+  if (createRequestedAccountImmediately) {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info_admin')}</p></div>;
   } else {
     newAccountInfo = <div><p>{I18n.t('courses.new_account_info')}</p></div>;
