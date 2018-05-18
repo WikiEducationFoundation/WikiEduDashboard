@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 describe 'language_switcher', type: :feature, js: true do
+  before { allow(Features).to receive(:enable_language_switcher?).and_return(true) }
+
   context 'user logged out' do
     it 'should default to English' do
       visit root_path
