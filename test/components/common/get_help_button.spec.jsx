@@ -16,7 +16,7 @@ const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMidd
 
 describe('GetHelpButton', () => {
   describe('Content', () => {
-    const currentUser = { role: 1 };
+    const currentUser = { isNonstudent: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
@@ -38,7 +38,7 @@ describe('GetHelpButton', () => {
   });
 
   describe('Interactions', () => {
-    const currentUser = { role: 1 };
+    const currentUser = { isNonstudent: 1 };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
@@ -75,7 +75,7 @@ describe('GetHelpButton', () => {
   });
 
   describe('As an instructor', () => {
-    const currentUser = { role: 1 };
+    const currentUser = { isNonstudent: true };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
@@ -92,7 +92,7 @@ describe('GetHelpButton', () => {
   });
 
   describe('As a student', () => {
-    const currentUser = { role: 0 };
+    const currentUser = { isStudent: true };
 
     const TestGetHelpButton = ReactTestUtils.renderIntoDocument(
       <GetHelpButton currentUser={currentUser} key="get_help" store={reduxStoreWithUsers} />
