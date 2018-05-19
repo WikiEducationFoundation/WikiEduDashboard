@@ -95,6 +95,7 @@ const ArticleFinder = createReactClass({
         return (
           <ArticleFinderRow
             article={article}
+            key={article.pageid}
           />
           );
       });

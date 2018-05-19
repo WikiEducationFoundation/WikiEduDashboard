@@ -9,7 +9,7 @@ const ArticleFinderRow = createReactClass({
           {this.props.article.title}
         </td>
         <td>
-          Views per day
+          {this.props.article.pageviews}
         </td>
         <td>
           Completeness Estimate
