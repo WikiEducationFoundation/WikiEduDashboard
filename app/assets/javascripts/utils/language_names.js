@@ -1,6 +1,6 @@
 // adapted from https://github.com/meikidd/iso-639-1/blob/master/src/data.js
 
-let LanguageNames = {
+const LanguageNames = {
     aa: {
       name: 'Afar',
       nativeName: 'Afaraf',
@@ -257,7 +257,7 @@ let LanguageNames = {
       name: 'Goan Konkani (Devanagari script)',
       nativeName: 'गोंयची कोंकणी',
     },
-    'gom-deva': {
+    'gom-latn': {
       name: 'Goan Konkani (Latin script)',
       nativeName: 'Gõychi Konknni',
     },
