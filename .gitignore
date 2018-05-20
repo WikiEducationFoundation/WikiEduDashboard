@@ -8,6 +8,7 @@
 .nyc_output
 .idea/
 .vscode/
+/dump.rdb
 
 *.rbc
 capybara-*.html
