@@ -115,7 +115,7 @@ const LanguageNames = {
     },
     btm: {
       name: 'Mandailing',
-      nativeName: 'Saro Mandailing', // to be checked
+      nativeName: 'Saro Mandailing',
     },
     ca: {
       name: 'Catalan',
@@ -671,7 +671,7 @@ const LanguageNames = {
     },
     sat: {
       name: 'Santali language',
-      nativeName: 'সাঁওতালি', // to be checked
+      nativeName: 'ᱥᱟᱱᱛᱟᱲᱤ',
     },
     sc: {
       name: 'Sardinian',
@@ -697,17 +697,13 @@ const LanguageNames = {
       name: 'Sinhala',
       nativeName: 'සිංහල',
     },
-//    'simple_form.en': { // does it have to be there?
-//      name: 'Simple English',
-//      nativeName: 'Simple English',
-//    },
     sk: {
       name: 'Slovak',
       nativeName: 'slovenčina',
     },
     'skr-arab': {
       name: 'Saraiki',
-      nativeName: 'سرائیکی', // to be checked
+      nativeName: 'سرائیکی',
     },
     sl: {
       name: 'Slovene',
