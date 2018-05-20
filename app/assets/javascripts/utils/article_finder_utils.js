@@ -2,12 +2,30 @@ import logErrorMessage from './log_error_message';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const pageviewBaseUrl = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/';
+const pageAssesssmentBaseUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageassessments';
 
 export const queryMediaWiki = (query) => {
   return new Promise((res, rej) => {
     return $.ajax({
       dataType: 'jsonp',
       url: mediawikiApiBase,
+      data: query,
+      success: (data) => {
+        return res(data);
+      },
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const queryPageAssessment = (query) => {
+  return new Promise((res, rej) => {
+    return $.ajax({
+      dataType: 'jsonp',
+      url: pageAssesssmentBaseUrl,
       data: query,
       success: (data) => {
         return res(data);
@@ -46,6 +64,15 @@ export const categoryQueryGenerator = (category, namespace) => {
   };
 };
 
+export const pageAssessmentQueryGenerator = (titles) => {
+  let titlesQuery = '';
+  titles.forEach((title) => {
+    titlesQuery += `${title}|`;
+  });
+  titlesQuery = titlesQuery.substr(0, titlesQuery.length - 1);
+  return { titles: titlesQuery };
+};
+
 export const findSubcategories = (category) => {
   const subcatQuery = categoryQueryGenerator(category, 14);
   return queryMediaWiki(subcatQuery)
@@ -60,7 +87,7 @@ const formatDate = (date) => {
   if (month < 10) {
     month = `0${month}`;
   }
-  let day = date.getUTCDate() + 1;
+  let day = date.getUTCDate();
   if (day < 10) {
     day = `0${day}`;
   }

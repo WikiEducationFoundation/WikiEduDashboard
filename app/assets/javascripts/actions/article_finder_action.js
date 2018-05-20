@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, API_FAIL } from "../constants";
-import { queryMediaWiki, categoryQueryGenerator, findSubcategories, pageviewQueryGenerator, queryPageviews } from '../utils/article_finder_utils.js';
+import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, API_FAIL } from "../constants";
+import { queryMediaWiki, categoryQueryGenerator, findSubcategories, pageviewQueryGenerator, queryPageviews, pageAssessmentQueryGenerator, queryPageAssessment } from '../utils/article_finder_utils.js';
 
 export const fetchCategoryResults = (category, depth) => dispatch => {
   dispatch({
@@ -26,6 +26,7 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
   })
   .then((data) => {
     fetchPageViews(data, dispatch);
+    fetchPageAssessment(data, dispatch);
   });
 };
 
@@ -55,4 +56,36 @@ const fetchPageViews = (articles, dispatch) => {
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
   });
+};
+
+const fetchPageAssessment = (articles, dispatch) => {
+  const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
+  // console.log('query', query);
+  queryPageAssessment(query)
+  .then((data) => data.query.pages)
+  .then((data) => {
+    // console.log('DATA:', data);
+    _.forEach(data, (value) => {
+      // console.log('VALUE', value);
+      const title = value.title;
+      const classGrade = extractClassGrade(value.pageassessments);
+      // console.log('Dispatched object:', { title: title, classGrade: classGrade });
+      dispatch({
+        type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+        data: { title: title, classGrade: classGrade }
+      });
+    });
+  })
+  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+};
+
+const extractClassGrade = (pageAssessments) => {
+  let classGrade = '';
+  _.forEach(pageAssessments, (pageAssessment) => {
+    if (pageAssessment.class) {
+      classGrade = pageAssessment.class;
+      return false;
+    }
+  });
+  return classGrade;
 };

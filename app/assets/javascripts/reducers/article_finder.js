@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS } from "../constants";
+import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT } from "../constants";
 
 const initialState = {
   articles: [],
@@ -27,6 +27,15 @@ export default function articleFinder(state = initialState, action) {
       const title = action.data.title.replace(/_/g, ' ');
       const article = _.find(newStateArticles, { title: title });
       article.pageviews = action.data.pageviews;
+      return {
+        articles: newStateArticles,
+        loading: false
+      };
+    }
+    case RECEIVE_ARTICLE_PAGEASSESSMENT: {
+      const newStateArticles = state.articles.map(article => ({ ...article }));
+      const article = _.find(newStateArticles, { title: action.data.title });
+      article.grade = action.data.classGrade;
       return {
         articles: newStateArticles,
         loading: false

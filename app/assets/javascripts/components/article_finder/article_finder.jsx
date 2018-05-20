@@ -84,8 +84,12 @@ const ArticleFinder = createReactClass({
         label: 'Views per day',
         desktop_only: false,
       },
-      tools: {
+      completeness_estimate: {
         label: 'Completeness Estimate',
+        desktop_only: false,
+      },
+      pageassessment_grade: {
+        label: 'PageAssessment Grade',
         desktop_only: false,
       }
     };

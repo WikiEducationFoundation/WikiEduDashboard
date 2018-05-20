@@ -14,6 +14,9 @@ const ArticleFinderRow = createReactClass({
         <td>
           Completeness Estimate
         </td>
+        <td>
+          {this.props.article.grade}
+        </td>
       </tr>);
   }
 });
