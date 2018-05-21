@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 
 const Upload = ({ upload, linkUsername }) => {
   const fileName = upload.file_name;
-
   let imageFile;
   if (upload.deleted) {
     imageFile = '/assets/images/deleted_image.svg';
   } else {
     imageFile = upload.thumburl;
+  }
+
+  let uploadDivStyle = {};
+  if (upload.thumbwidth && upload.thumbheight) {
+    uploadDivStyle = {
+      width: upload.thumbwidth * 250 / upload.thumbheight,
+      flexGrow: upload.thumbwidth * 250 / upload.thumbheight
+    };
   }
 
   let uploader;
@@ -25,12 +32,13 @@ const Upload = ({ upload, linkUsername }) => {
     }
 
   return (
-    <div className="upload">
+    <div className="upload" style={uploadDivStyle} >
       <img src={imageFile} alt="" />
       <div className="info">
         <p className="usage"><b>{usage}</b></p>
         <p><b><a href={upload.url} target="_blank">{fileName}</a></b></p>
         <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+        <p>{upload.uploaded_at}</p>
       </div>
     </div>
   );
