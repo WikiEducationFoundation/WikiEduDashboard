@@ -29,27 +29,34 @@ export const categoryQueryGenerator = (category, namespace) => {
   };
 };
 
-export const titlesQueryGenerator = (titles) => {
-  let titlesQuery = '';
-  titles.forEach((title) => {
-    titlesQuery += `${title}|`;
+export const multipleQueryGenerator = (params) => {
+  let query = '';
+  params.forEach((param) => {
+    query += `${param}|`;
   });
-  titlesQuery = titlesQuery.substr(0, titlesQuery.length - 1);
-  return titlesQuery;
+  query = query.substr(0, query.length - 1);
+  return query;
 };
 
 export const pageAssessmentQueryGenerator = (titles) => {
   return {
     prop: 'pageassessments',
-    titles: titlesQueryGenerator(titles)
+    titles: multipleQueryGenerator(titles)
   };
 };
 
 export const pageRevisionQueryGenerator = (titles) => {
   return {
     prop: 'revisions',
-    titles: titlesQueryGenerator(titles),
+    titles: multipleQueryGenerator(titles),
     rvprop: 'userid|ids|timestamp'
+  };
+};
+
+export const pageRevisionScoreQueryGenerator = (revids) => {
+  return {
+    models: 'wp10',
+    revids: multipleQueryGenerator(revids)
   };
 };
 

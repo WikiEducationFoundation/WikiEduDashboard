@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, API_FAIL } from "../constants";
-import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator } from '../utils/article_finder_utils.js';
+import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
+import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
-
+const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
 export const fetchCategoryResults = (category, depth) => dispatch => {
   dispatch({
     type: CLEAR_FINDER_STATE
@@ -102,17 +102,37 @@ const fetchPageRevision = (articles, dispatch) => {
   queryUrl(mediawikiApiBase, query)
   .then((data) => data.query.pages)
   .then((data) => {
-    const revIds = _.map(data, (page) => {
+    const revids = _.map(data, (page) => {
       return { title: page.title, revid: page.revisions[0].revid };
     });
     dispatch({
       type: RECEIVE_ARTICLE_REVISION,
-      data: revIds
+      data: revids
     });
-    return revIds;
+    return revids;
   })
-  // .then((revIds) => {
-  //   // fetchPageRevisionScore(revIds);
-  // })
+  .then((revids) => {
+    fetchPageRevisionScore(revids, dispatch);
+  })
+  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+};
+
+const fetchPageRevisionScore = (revids, dispatch) => {
+  const query = pageRevisionScoreQueryGenerator(_.map(revids, 'revid'));
+  queryUrl(oresApiBase, query)
+  .then((data) => data.enwiki.scores)
+  .then((data) => {
+    const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };
+    const revScores = _.map(data, (scores, revid) => {
+      const revScore = _.reduce(WP10Weights, (result, value, key) => {
+        return result + value * scores.wp10.score.probability[key];
+      }, 0);
+      return { revid: revid, revScore: Math.round(revScore * 100) / 100 };
+    });
+    dispatch({
+      type: RECEIVE_ARTICLE_REVISIONSCORE,
+      data: revScores
+    });
+  })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };

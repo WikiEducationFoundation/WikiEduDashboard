@@ -12,7 +12,7 @@ const ArticleFinderRow = createReactClass({
           {this.props.article.pageviews}
         </td>
         <td>
-          Completeness Estimate
+          {this.props.article.revScore}
         </td>
         <td>
           {this.props.article.grade}
