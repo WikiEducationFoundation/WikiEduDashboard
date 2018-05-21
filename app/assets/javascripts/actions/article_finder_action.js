@@ -1,6 +1,8 @@
 import _ from 'lodash';
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, API_FAIL } from "../constants";
-import { queryMediaWiki, categoryQueryGenerator, findSubcategories, pageviewQueryGenerator, queryPageviews, pageAssessmentQueryGenerator, queryPageAssessment } from '../utils/article_finder_utils.js';
+import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, API_FAIL } from "../constants";
+import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator } from '../utils/article_finder_utils.js';
+
+const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 
 export const fetchCategoryResults = (category, depth) => dispatch => {
   dispatch({
@@ -12,7 +14,7 @@ export const fetchCategoryResults = (category, depth) => dispatch => {
 
 const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
   const query = categoryQueryGenerator(category, namespace);
-  return queryMediaWiki(query)
+  return queryUrl(mediawikiApiBase, query)
   .then((data) => {
     if (depth > 0) {
         depth -= 1;
@@ -27,6 +29,15 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
   .then((data) => {
     fetchPageViews(data, dispatch);
     fetchPageAssessment(data, dispatch);
+    fetchPageRevision(data, dispatch);
+  });
+};
+
+export const findSubcategories = (category) => {
+  const subcatQuery = categoryQueryGenerator(category, 14);
+  return queryUrl(mediawikiApiBase, subcatQuery)
+  .then((data) => {
+    return data.query.categorymembers;
   });
 };
 
@@ -41,8 +52,8 @@ const getDataForSubCategories = (category, depth, namespace, dispatch) => {
 
 const fetchPageViews = (articles, dispatch) => {
   articles.forEach((article) => {
-    const queryUrl = pageviewQueryGenerator(article.title);
-    queryPageviews(queryUrl)
+    const url = pageviewQueryGenerator(article.title);
+    queryUrl(url, {}, 'json')
     .then((data) => data.items)
     .then((data) => {
       const averagePageviews = Math.round((_.sumBy(data, (o) => { return o.views; }) / data.length) * 100) / 100;
@@ -60,16 +71,12 @@ const fetchPageViews = (articles, dispatch) => {
 
 const fetchPageAssessment = (articles, dispatch) => {
   const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
-  // console.log('query', query);
-  queryPageAssessment(query)
+  queryUrl(mediawikiApiBase, query)
   .then((data) => data.query.pages)
   .then((data) => {
-    // console.log('DATA:', data);
     _.forEach(data, (value) => {
-      // console.log('VALUE', value);
       const title = value.title;
       const classGrade = extractClassGrade(value.pageassessments);
-      // console.log('Dispatched object:', { title: title, classGrade: classGrade });
       dispatch({
         type: RECEIVE_ARTICLE_PAGEASSESSMENT,
         data: { title: title, classGrade: classGrade }
@@ -88,4 +95,24 @@ const extractClassGrade = (pageAssessments) => {
     }
   });
   return classGrade;
+};
+
+const fetchPageRevision = (articles, dispatch) => {
+  const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
+  queryUrl(mediawikiApiBase, query)
+  .then((data) => data.query.pages)
+  .then((data) => {
+    const revIds = _.map(data, (page) => {
+      return { title: page.title, revid: page.revisions[0].revid };
+    });
+    dispatch({
+      type: RECEIVE_ARTICLE_REVISION,
+      data: revIds
+    });
+    return revIds;
+  })
+  // .then((revIds) => {
+  //   // fetchPageRevisionScore(revIds);
+  // })
+  .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };

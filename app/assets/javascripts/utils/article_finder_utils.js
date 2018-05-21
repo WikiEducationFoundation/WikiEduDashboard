@@ -1,48 +1,13 @@
 import logErrorMessage from './log_error_message';
 
-const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const pageviewBaseUrl = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/';
-const pageAssesssmentBaseUrl = 'https://en.wikipedia.org/w/api.php?action=query&format=json&prop=pageassessments';
 
-export const queryMediaWiki = (query) => {
+export const queryUrl = (url, query = {}, dataType = 'jsonp') => {
   return new Promise((res, rej) => {
     return $.ajax({
-      dataType: 'jsonp',
-      url: mediawikiApiBase,
+      dataType: dataType,
+      url: url,
       data: query,
-      success: (data) => {
-        return res(data);
-      },
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
-};
-
-export const queryPageAssessment = (query) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      dataType: 'jsonp',
-      url: pageAssesssmentBaseUrl,
-      data: query,
-      success: (data) => {
-        return res(data);
-      },
-    })
-    .fail((obj) => {
-      logErrorMessage(obj);
-      return rej(obj);
-    });
-  });
-};
-
-export const queryPageviews = (queryUrl) => {
-  return new Promise((res, rej) => {
-    return $.ajax({
-      dataType: 'json',
-      url: queryUrl,
       success: (data) => {
         return res(data);
       },
@@ -64,21 +29,28 @@ export const categoryQueryGenerator = (category, namespace) => {
   };
 };
 
-export const pageAssessmentQueryGenerator = (titles) => {
+export const titlesQueryGenerator = (titles) => {
   let titlesQuery = '';
   titles.forEach((title) => {
     titlesQuery += `${title}|`;
   });
   titlesQuery = titlesQuery.substr(0, titlesQuery.length - 1);
-  return { titles: titlesQuery };
+  return titlesQuery;
 };
 
-export const findSubcategories = (category) => {
-  const subcatQuery = categoryQueryGenerator(category, 14);
-  return queryMediaWiki(subcatQuery)
-  .then((data) => {
-    return data.query.categorymembers;
-  });
+export const pageAssessmentQueryGenerator = (titles) => {
+  return {
+    prop: 'pageassessments',
+    titles: titlesQueryGenerator(titles)
+  };
+};
+
+export const pageRevisionQueryGenerator = (titles) => {
+  return {
+    prop: 'revisions',
+    titles: titlesQueryGenerator(titles),
+    rvprop: 'userid|ids|timestamp'
+  };
 };
 
 const formatDate = (date) => {
@@ -101,4 +73,3 @@ export const pageviewQueryGenerator = (title) => {
   const queryParams = `${title}/daily/${startDateString}00/${endDateString}00`;
   return pageviewBaseUrl + queryParams;
 };
-
