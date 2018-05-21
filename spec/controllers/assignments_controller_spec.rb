@@ -62,7 +62,7 @@ describe AssignmentsController do
           delete :destroy, params: { id: 'undefined' }.merge(params)
         end
         # This happens when an assignment is deleted right after it has been created.
-        # The version in the AssignmentStore will not have an assignment_id until
+        # The React frontend will not have an assignment_id until
         # it gets refreshed from the server.
         it 'deletes the assignment' do
           expect(Assignment.count).to eq(0)
@@ -96,7 +96,7 @@ describe AssignmentsController do
         delete :destroy, params: { id: 'undefined' }.merge(params)
       end
       # This happens when an assignment is deleted right after it has been created.
-      # The version in the AssignmentStore will not have an assignment_id until
+      # The React frontend will not will not have an assignment_id until
       # it gets refreshed from the server.
       it 'renders a 404' do
         expect(response.status).to eq(404)

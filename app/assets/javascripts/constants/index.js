@@ -2,6 +2,7 @@ export * from "./alert";
 export * from "./api";
 export * from "./article_details";
 export * from "./articles.js";
+export * from "./assignments.js";
 export * from "./campaigns";
 export * from "./categories";
 export * from "./chat";

@@ -1,22 +1,19 @@
 import '../testHelper';
-import AssignmentActions from '../../app/assets/javascripts/actions/assignment_actions.js';
-import AssignmentStore from '../../app/assets/javascripts/stores/assignment_store.js';
+import { addAssignment, deleteAssignment } from '../../app/assets/javascripts/actions/assignment_actions.js';
 
 describe('AssignmentActions', () => {
-  it('.addAssignment sets a new assignment', (done) => {
-    expect(AssignmentStore.getModels().length).to.eq(0);
-    AssignmentActions.addAssignment({ title: 'Foo', id: 1 }).then(() => {
-      expect(AssignmentStore.getModels().length).to.eq(1);
-      done();
-    });
-  });
+  const testAssignment = { title: 'Foo', user_id: 1 };
+  const initialAssignments = [];
+  it('.addAssignment sets a new assignment and .deleteAssignment removes one', () => {
+    expect(reduxStore.getState().assignments.assignments).to.deep.eq(initialAssignments);
+    reduxStore.dispatch(addAssignment(testAssignment));
+    const updatedAssignments = reduxStore.getState().assignments.assignments;
+    expect(updatedAssignments[0].article_title).to.eq(testAssignment.title);
+    expect(updatedAssignments[0].user_id).to.eq(testAssignment.user_id);
+    expect(updatedAssignments.length).to.eq(1);
 
-  it('.deleteAssignment removes the specified assignment', (done) => {
-    expect(AssignmentStore.getModels().length).to.eq(1);
-    const assignment = AssignmentStore.getModels()[0];
-    AssignmentActions.deleteAssignment(assignment).then(() => {
-      expect(AssignmentStore.getModels().length).to.eq(0);
-      done();
-    });
+    reduxStore.dispatch(deleteAssignment(updatedAssignments[0]));
+    const assignmentsAfterDelete = reduxStore.getState().assignments.assignments;
+    expect(assignmentsAfterDelete.length).to.eq(0);
   });
 });

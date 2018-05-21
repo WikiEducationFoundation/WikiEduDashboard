@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import CourseUtils from '../../utils/course_utils.js';
 import ServerActions from '../../actions/server_actions.js';
-import AssignmentActions from '../../actions/assignment_actions.js';
+import { deleteAssignment } from '../../actions/assignment_actions.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
 export const AvailableArticle = createReactClass({
@@ -15,7 +15,8 @@ export const AvailableArticle = createReactClass({
     assignment: PropTypes.object,
     current_user: PropTypes.object,
     course: PropTypes.object,
-    addNotification: PropTypes.func
+    addNotification: PropTypes.func,
+    deleteAssignment: PropTypes.func
   },
 
   onSelectHandler() {
@@ -48,7 +49,7 @@ export const AvailableArticle = createReactClass({
     };
 
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    AssignmentActions.deleteAssignment(assignment);
+    this.props.deleteAssignment(assignment);
     return ServerActions.deleteAssignment(assignment);
   },
 
@@ -99,6 +100,9 @@ export const AvailableArticle = createReactClass({
 }
 );
 
-const mapDispatchToProps = { addNotification };
+const mapDispatchToProps = {
+  addNotification,
+  deleteAssignment
+};
 
 export default connect(null, mapDispatchToProps)(AvailableArticle);

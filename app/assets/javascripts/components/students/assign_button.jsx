@@ -9,9 +9,9 @@ import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import ServerActions from '../../actions/server_actions.js';
-import AssignmentActions from '../../actions/assignment_actions.js';
-import AssignmentStore from '../../stores/assignment_store.js';
+import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
+import { getFiltered } from '../../utils/model_utils';
 
 const AssignButton = createReactClass({
   displayName: 'AssignButton',
@@ -28,7 +28,9 @@ const AssignButton = createReactClass({
     assignments: PropTypes.array,
     open: PropTypes.func.isRequired,
     tooltip_message: PropTypes.string,
-    initiateConfirm: PropTypes.func
+    initiateConfirm: PropTypes.func,
+    addAssignment: PropTypes.func,
+    deleteAssignment: PropTypes.func
   },
 
   getInitialState() {
@@ -114,8 +116,8 @@ const AssignButton = createReactClass({
     const articleTitle = assignment.title;
 
     // Check if the assignment exists
-    if (this.props.student && AssignmentStore.getFiltered({
-      articleTitle,
+    if (this.props.student && getFiltered(this.props.assignments, {
+      article_title: articleTitle,
       user_id: this.props.student.id,
       role: this.props.role
     }).length !== 0) {
@@ -127,14 +129,16 @@ const AssignButton = createReactClass({
     const closePopup = this.props.open;
     // While adding other assignments, popup can remain open to assign multiple assignments at once
     const closeOnConfirm = this.props.add_available;
+    const addAssignmentAction = this.props.addAssignment;
 
     const onConfirm = function () {
       // Close the popup after confirmation
       if (closeOnConfirm) {
         closePopup(e);
       }
+      // TODO: the addAssignment action should handle both server request and redux state
       // Update the store
-      AssignmentActions.addAssignment(assignment);
+      addAssignmentAction(assignment);
       // Post the new assignment to the server
       ServerActions.addAssignment(assignment);
     };
@@ -157,8 +161,9 @@ const AssignButton = createReactClass({
 
   unassign(assignment) {
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
+    // TODO: the deleteAssignment action should handle both server request and redux state
     // Update the store
-    AssignmentActions.deleteAssignment(assignment);
+    this.props.deleteAssignment(assignment);
     // Send the delete request to the server
     return ServerActions.deleteAssignment(assignment);
   },
@@ -317,7 +322,11 @@ const AssignButton = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm };
+const mapDispatchToProps = {
+  initiateConfirm,
+  addAssignment,
+  deleteAssignment
+};
 
 export default connect(null, mapDispatchToProps)(
   PopoverExpandable(AssignButton)

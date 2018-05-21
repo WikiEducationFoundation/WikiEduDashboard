@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import alerts from './alerts';
 import articleDetails from './article_details';
 import articles from './articles';
+import assignments from './assignments';
 import campaigns from './campaigns';
 import categories from './categories';
 import chat from './chat';
@@ -30,6 +31,7 @@ const reducer = combineReducers({
   alerts,
   articleDetails,
   articles,
+  assignments,
   campaigns,
   categories,
   chat,

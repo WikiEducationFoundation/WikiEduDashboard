@@ -17,6 +17,7 @@ describe('MyArticles', () => {
   it('renders the My Articles header', () => {
     const TestMyArticles = ReactTestUtils.renderIntoDocument(
       <MyArticles
+        store={reduxStore}
         course={course}
         course_id={courseId}
         current_user={currentUser}

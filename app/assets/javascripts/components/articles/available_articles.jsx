@@ -6,13 +6,6 @@ import _ from 'lodash';
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
-import AssignmentStore from '../../stores/assignment_store.js';
-
-function getState() {
-  return {
-    assignments: AssignmentStore.getModels()
-  };
-}
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -20,17 +13,8 @@ const AvailableArticles = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object,
-    current_user: PropTypes.object
-  },
-
-  mixins: [AssignmentStore.mixin],
-
-  getInitialState() {
-    return getState();
-  },
-
-  storeDidChange() {
-    this.setState(getState());
+    current_user: PropTypes.object,
+    assignments: PropTypes.array
   },
 
   render() {
@@ -47,8 +31,8 @@ const AvailableArticles = createReactClass({
       );
     }
 
-    if (this.state.assignments.length > 0) {
-      elements = this.state.assignments.map((assignment) => {
+    if (this.props.assignments.length > 0) {
+      elements = this.props.assignments.map((assignment) => {
         if (assignment.user_id === null && !assignment.deleted) {
           return (
             <ConnectedAvailableArticle
