@@ -50,6 +50,7 @@ pt-br:
     recent_activity: Atividade recente
     report_problem: Informar um problema
     request_account: Pedir uma conta
+    request_account_create: Criar uma conta
     search: perguntar
     search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registrar-se na Wikipédia

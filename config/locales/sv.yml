@@ -35,6 +35,7 @@ sv:
     recent_activity: Senaste aktivitet
     report_problem: Rapportera ett problem
     request_account: Begär ett konto
+    request_account_create: Skapa ett konto
     search: ställ en fråga
     search_results: 'Resultat för: "%{search_terms}"'
     sign_up_extended: Skapa ett konto med Wikipedia

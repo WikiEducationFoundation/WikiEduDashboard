@@ -27,6 +27,7 @@ lb:
     recent_activity: Rezent Aktivitéit
     report_problem: E Problem mellen
     request_account: E Benotzerkont ufroen
+    request_account_create: E Benotzerkont opmaachen
     search: eng Fro stellen
     search_results: 'Resultater fir: %{search_terms}'
     sign_up_extended: Mat Wikipedia umellen

@@ -38,6 +38,7 @@ uk:
     recent_activity: Останні дії
     report_problem: Повідомити про проблему
     request_account: Подати запит на обліковий запис
+    request_account_create: Створити обліковий запис
     search: поставити запитання
     search_results: 'Результати для: «%{search_terms}»'
     sign_up_extended: Зареєструватися через Вікіпедію

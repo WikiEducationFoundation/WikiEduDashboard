@@ -43,6 +43,7 @@ ko:
     recent_activity: 최근 활동
     report_problem: 문제점 보고
     request_account: 계정 요청
+    request_account_create: 계정 만들기
     search: 질문하기
     search_results: '다음 결과: ''%{search_terms}'''
     sign_up_extended: 위키백과에 로그인하기

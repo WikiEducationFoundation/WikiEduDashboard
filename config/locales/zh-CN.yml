@@ -37,6 +37,7 @@ zh-CN:
     recent_activity: 最近活动
     report_problem: 报告问题
     request_account: 请求账户
+    request_account_create: 创建账户
     search: 提问
     search_results: “%{search_terms}”的结果
     sign_up_extended: 注册维基百科

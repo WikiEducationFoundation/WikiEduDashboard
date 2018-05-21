@@ -46,6 +46,7 @@ cs:
     recent_activity: Nedávná aktivita
     report_problem: Nahlásit problém
     request_account: Požádat o účet
+    request_account_create: Vytvořit účet
     search: Zeptat se
     search_results: 'Výsledky pro: „%{search_terms}“'
     sign_up_extended: Zaregistrovat se skrze Wikipedii

@@ -47,6 +47,7 @@ es:
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
     request_account: Solicitar una cuenta
+    request_account_create: Crear una cuenta
     search: preguntar
     search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia

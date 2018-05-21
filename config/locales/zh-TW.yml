@@ -41,6 +41,7 @@ zh-TW:
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
+    request_account_create: 建立帳號
     search: 提出問題
     search_results: 結果：「%{search_terms}」
     sign_up_extended: 註冊維基百科
@@ -451,7 +452,7 @@ zh-TW:
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
     wiki_staff: Wiki ED 工作人員
-    withdrawn: 撤回
+    withdrawn: 沒有做出分配
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
     yourcourses: 您的課程
     survey:
