@@ -12,6 +12,10 @@ import { addAssignment, deleteAssignment } from '../../actions/assignment_action
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils';
 
+const resetState = (component) => () => {
+  component.setState(component.getInitialState());
+};
+
 const AssignButton = createReactClass({
   displayName: 'AssignButton',
 
@@ -23,7 +27,7 @@ const AssignButton = createReactClass({
     course_id: PropTypes.string.isRequired,
     is_open: PropTypes.bool,
     permitted: PropTypes.bool,
-    add_available: PropTypes.bool,
+    addAvailable: PropTypes.bool,
     assignments: PropTypes.array,
     open: PropTypes.func.isRequired,
     tooltip_message: PropTypes.string,
@@ -47,10 +51,6 @@ const AssignButton = createReactClass({
       return tag + this.props.student.id;
     }
     return tag;
-  },
-
-  resetState() {
-    return this.setState(this.getInitialState());
   },
 
   stop(e) {
@@ -127,13 +127,15 @@ const AssignButton = createReactClass({
     // Close the popup after adding an available article
     const closePopup = this.props.open;
     // While adding other assignments, popup can remain open to assign multiple assignments at once
-    const closeOnConfirm = this.props.add_available;
+    const closeOnConfirm = this.props.addAvailable;
     const addAssignmentAction = this.props.addAssignment;
 
+    const resetStateFunction = resetState(this);
     const onConfirm = function () {
       // Close the popup after confirmation
       if (closeOnConfirm) {
         closePopup(e);
+        resetStateFunction();
       }
       addAssignmentAction(assignment);
     };
@@ -181,7 +183,7 @@ const AssignButton = createReactClass({
     } else if (this.props.permitted) {
       let assignText;
       let reviewText;
-      if (this.props.add_available) {
+      if (this.props.addAvailable) {
         assignText = I18n.t('assignments.add_available');
       } else if (this.props.student && this.props.current_user.id === this.props.student.id) {
         assignText = I18n.t('assignments.assign_self');
