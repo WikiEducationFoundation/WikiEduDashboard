@@ -25,7 +25,7 @@ class AssignmentsController < ApplicationController
     remove_assignment_template
     @assignment.destroy
     update_onwiki_course_and_assignments
-    render json: { article: @id }
+    render json: { assignmentId: @assignment.id }
   end
 
   def create
@@ -33,7 +33,7 @@ class AssignmentsController < ApplicationController
     set_wiki { return }
     set_new_assignment
     update_onwiki_course_and_assignments
-    render json: @assignment
+    render partial: 'assignment', locals: { assignment: @assignment, course: @assignment.course }
   rescue AssignmentManager::DuplicateAssignmentError => e
     render json: { errors: e }, status: :internal_server_error
   end

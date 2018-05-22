@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import CourseUtils from '../../utils/course_utils.js';
-import ServerActions from '../../actions/server_actions.js';
-import { deleteAssignment } from '../../actions/assignment_actions.js';
+import { deleteAssignment, updateAssignment } from '../../actions/assignment_actions.js';
 import { addNotification } from '../../actions/notification_actions.js';
 
 export const AvailableArticle = createReactClass({
@@ -16,7 +15,8 @@ export const AvailableArticle = createReactClass({
     current_user: PropTypes.object,
     course: PropTypes.object,
     addNotification: PropTypes.func,
-    deleteAssignment: PropTypes.func
+    deleteAssignment: PropTypes.func,
+    updateAssignment: PropTypes.func
   },
 
   onSelectHandler() {
@@ -33,7 +33,7 @@ export const AvailableArticle = createReactClass({
       type: 'success'
     });
 
-    return ServerActions.updateAssignment(assignment);
+    return this.props.updateAssignment(assignment);
   },
 
   onRemoveHandler(e) {
@@ -49,8 +49,7 @@ export const AvailableArticle = createReactClass({
     };
 
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    this.props.deleteAssignment(assignment);
-    return ServerActions.deleteAssignment(assignment);
+    return this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -102,7 +101,8 @@ export const AvailableArticle = createReactClass({
 
 const mapDispatchToProps = {
   addNotification,
-  deleteAssignment
+  deleteAssignment,
+  updateAssignment
 };
 
 export default connect(null, mapDispatchToProps)(AvailableArticle);

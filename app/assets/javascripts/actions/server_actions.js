@@ -86,24 +86,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  deleteAssignment(assignment) {
-    return API.deleteAssignment(assignment)
-      .then(resp => ({ actionType: 'DELETE_USER_ASSIGNMENT', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  addAssignment(opts) {
-    return API.createAssignment(opts)
-      .then(resp => ({ actionType: 'CREATE_USER_ASSIGNMENT', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  updateAssignment(opts) {
-    return API.updateAssignment(opts)
-      .then(resp => ({ actionType: 'UPDATE_ASSIGNMENT', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchAllTrainingModules() {
     return API.fetchAllTrainingModules()
       .then(resp => ({ actionType: 'RECEIVE_ALL_TRAINING_MODULES', data: resp }))

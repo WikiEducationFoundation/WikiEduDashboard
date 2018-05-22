@@ -8,7 +8,6 @@ import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import ServerActions from '../../actions/server_actions.js';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils';
@@ -136,11 +135,7 @@ const AssignButton = createReactClass({
       if (closeOnConfirm) {
         closePopup(e);
       }
-      // TODO: the addAssignment action should handle both server request and redux state
-      // Update the store
       addAssignmentAction(assignment);
-      // Post the new assignment to the server
-      ServerActions.addAssignment(assignment);
     };
 
     let confirmMessage;
@@ -161,11 +156,7 @@ const AssignButton = createReactClass({
 
   unassign(assignment) {
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    // TODO: the deleteAssignment action should handle both server request and redux state
-    // Update the store
     this.props.deleteAssignment(assignment);
-    // Send the delete request to the server
-    return ServerActions.deleteAssignment(assignment);
   },
 
   render() {
