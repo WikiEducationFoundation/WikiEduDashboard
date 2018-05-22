@@ -94,11 +94,12 @@ const ArticleFinder = createReactClass({
       }
     };
     let list;
-    if (this.props.articles.length > 0) {
-      const elements = this.props.articles.map((article) => {
+    if (!_.isEmpty(this.props.articles)) {
+      const elements = _.map(this.props.articles, (article, title) => {
         return (
           <ArticleFinderRow
             article={article}
+            title={title}
             key={article.pageid}
           />
           );

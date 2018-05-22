@@ -6,7 +6,7 @@ const ArticleFinderRow = createReactClass({
     return (
       <tr>
         <td>
-          {this.props.article.title}
+          {this.props.title}
         </td>
         <td>
           {this.props.article.pageviews}
