@@ -189,7 +189,9 @@ en:
     title_too_large: The title shouldn't exceed 255 characters
     assignees: Assignee(s)
     assign_other: Assign an article
-    add_available: Add an available article
+    add_available: Add available articles
+    add_available_placeholder: Add one article title or URL per line
+    add_available_submit: Add articles
     assign_self: Assign myself an article
     assign_tooltip: An assigned article is one that you plan to create or improve.
     confirm_add_available: Are you sure you want to add %{title}?

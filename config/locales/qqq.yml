@@ -180,7 +180,7 @@ qqq:
       prevent mysql error
     assignees: '{{Identical|Assignee}}'
     assign_other: Button to assign an article to a student
-    add_available: Button to add an article title to the list of articles available
+    add_available: Button to add article titles to the list of articles available
       for program participants to work on
     assign_self: Button to assign an article to self
     confirm_add_available: Confirmation message for adding an article as an assignment

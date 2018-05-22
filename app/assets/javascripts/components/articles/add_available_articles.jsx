@@ -72,9 +72,9 @@ const AddAvailableArticles = createReactClass({
           value={this.state.assignments}
           value_key="assignments"
           editable
-          placeholder="Add one article title or URL per line"
+          placeholder={I18n.t('assignments.add_available_placeholder')}
         />
-        <button className="button border pull-right" onClick={this.submit}>Add articles</button>
+        <button className="button border pull-right" onClick={this.submit}>{I18n.t('assignments.add_available_submit')}</button>
       </div>
     );
   }
