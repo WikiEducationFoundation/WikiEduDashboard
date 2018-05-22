@@ -58,7 +58,6 @@ class LanguagePicker extends React.Component {
           placeholder={curLocale}
           options={newLocales}
           onChange={this.selectLanguage}
-          searchable={false}
           clearable={false}
         />
       </span>
