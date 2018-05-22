@@ -255,6 +255,7 @@ const AssignButton = createReactClass({
               onChange={this.handleChangeLanguage}
               value={this.state.language}
               options={languageOptions}
+              clearable={false}
             />
             <Select
               name="project"
@@ -264,6 +265,7 @@ const AssignButton = createReactClass({
               placeholder="Project"
               value={this.state.project}
               options={projectOptions}
+              clearable={false}
             />
           </fieldset>
         );
