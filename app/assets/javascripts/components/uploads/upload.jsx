@@ -1,52 +1,74 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const Upload = ({ upload, linkUsername }) => {
-  const fileName = upload.file_name;
-  let imageFile;
-  if (upload.deleted) {
-    imageFile = '/assets/images/deleted_image.svg';
-  } else {
-    imageFile = upload.thumburl;
-  }
+const Upload = createReactClass({
+  displayName: 'Upload',
 
-  let uploadDivStyle = {};
-  if (upload.thumbwidth && upload.thumbheight) {
-    uploadDivStyle = {
-      width: upload.thumbwidth * 250 / upload.thumbheight,
-      flexGrow: upload.thumbwidth * 250 / upload.thumbheight
+  propTypes: {
+    upload: PropTypes.object,
+    linkUsername: PropTypes.bool
+  },
+
+  getInitialState() {
+    return {
+      width: null,
+      height: null
     };
-  }
+  },
 
-  let uploader;
-  if (linkUsername) {
-    const profileLink = `/users/${encodeURIComponent(upload.uploader)}`;
-    uploader = <a href={profileLink} target="_blank">{upload.uploader}</a>;
-  } else {
-    uploader = upload.uploader;
-  }
+  componentWillMount() {
+    this.getImageDimensions(this.props.upload.thumburl);
+  },
 
-  let usage = '';
-  if (upload.usage_count) {
-      usage = `${upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+  getImageDimensions(imageUrl) {
+    const img = new Image();
+    img.src = imageUrl;
+    const component = this;
+    img.onload = function () {
+      component.setState({ width: this.width, height: this.height });
+    };
+  },
+
+  render() {
+    const fileName = this.props.upload.file_name;
+    let imageFile;
+    if (this.props.upload.deleted) {
+      imageFile = '/assets/images/deleted_image.svg';
+    } else {
+      imageFile = this.props.upload.thumburl;
     }
 
-  return (
-    <div className="upload" style={uploadDivStyle} >
-      <img src={imageFile} alt="" />
-      <div className="info">
-        <p className="usage"><b>{usage}</b></p>
-        <p><b><a href={upload.url} target="_blank">{fileName}</a></b></p>
-        <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-        <p>{upload.uploaded_at}</p>
-      </div>
-    </div>
-  );
-};
+    let uploader;
+    if (this.props.linkUsername) {
+      const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
+      uploader = <a href={profileLink} target="_blank">{this.props.upload.uploader}</a>;
+    } else {
+      uploader = this.props.upload.uploader;
+    }
 
-Upload.propTypes = {
-  upload: PropTypes.object,
-  linkUsername: PropTypes.bool
-};
+    let usage = '';
+    if (this.props.upload.usage_count) {
+        usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+      }
+
+    const uploadDivStyle = {
+        width: this.state.width * 250 / this.state.height,
+        flexGrow: this.state.width * 250 / this.state.height,
+      };
+
+    return (
+      <div className="upload" style={uploadDivStyle} >
+        <img src={imageFile} alt="" />
+        <div className="info">
+          <p className="usage"><b>{usage}</b></p>
+          <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+          <p>{this.props.upload.uploaded_at}</p>
+        </div>
+      </div>
+    );
+  },
+});
 
 export default Upload;
