@@ -11,6 +11,7 @@ import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils';
+import AddAvailableArticles from '../articles/add_available_articles';
 
 const resetState = (component) => () => {
   component.setState(component.getInitialState());
@@ -126,17 +127,12 @@ const AssignButton = createReactClass({
 
     // Close the popup after adding an available article
     const closePopup = this.props.open;
-    // While adding other assignments, popup can remain open to assign multiple assignments at once
-    const closeOnConfirm = this.props.addAvailable;
     const addAssignmentAction = this.props.addAssignment;
 
     const resetStateFunction = resetState(this);
     const onConfirm = function () {
-      // Close the popup after confirmation
-      if (closeOnConfirm) {
-        closePopup(e);
-        resetStateFunction();
-      }
+      closePopup(e);
+      resetStateFunction();
       addAssignmentAction(assignment);
     };
 
@@ -279,8 +275,18 @@ const AssignButton = createReactClass({
         );
       }
 
-      editRow = (
-        <tr className="edit">
+      let assignmentInput;
+      // Add multiple at once via AddAvailableArticles
+      if (this.props.addAvailable) {
+        assignmentInput = (
+          <td>
+            <AddAvailableArticles {...this.props} {...this.state} />
+            {options}
+          </td>
+        );
+      // Add a single assignment
+      } else {
+        assignmentInput = (
           <td>
             <form onSubmit={this.assign}>
               <Lookup
@@ -296,6 +302,12 @@ const AssignButton = createReactClass({
               {options}
             </form>
           </td>
+        );
+      }
+
+      editRow = (
+        <tr className="edit">
+          {assignmentInput}
         </tr>
       );
     }
