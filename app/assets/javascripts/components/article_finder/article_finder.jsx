@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
+import Loading from '../common/loading.jsx';
 
 import { fetchCategoryResults } from '../../actions/article_finder_action.js';
 
@@ -16,7 +17,6 @@ const ArticleFinder = createReactClass({
       min_views: "0",
       max_completeness: "100",
       isSubmitted: false,
-      isSubmitting: false,
     };
   },
 
@@ -27,6 +27,9 @@ const ArticleFinder = createReactClass({
   },
 
   searchCategory() {
+    this.setState({
+      isSubmitted: true,
+    });
     return this.props.fetchCategoryResults(this.state.category, this.state.depth);
   },
 
@@ -94,7 +97,7 @@ const ArticleFinder = createReactClass({
       }
     };
     let list;
-    if (!_.isEmpty(this.props.articles)) {
+    if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
         return (
           <ArticleFinderRow
@@ -115,6 +118,11 @@ const ArticleFinder = createReactClass({
         />
         );
     }
+    let loader;
+    if (this.state.isSubmitted && this.props.loading) {
+      loader = <Loading />;
+    }
+
     return (
       <div className="container">
         <header>
@@ -128,6 +136,7 @@ const ArticleFinder = createReactClass({
         {minimumViews}
         {maxCompleteness}
         <button className="button dark" onClick={this.searchCategory}>Submit</button>
+        {loader}
         {list}
       </div>
       );
@@ -135,7 +144,8 @@ const ArticleFinder = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  articles: state.articleFinder.articles
+  articles: state.articleFinder.articles,
+  loading: state.articleFinder.loading
 });
 
 const mapDispatchToProps = {

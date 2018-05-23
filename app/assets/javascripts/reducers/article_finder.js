@@ -11,7 +11,7 @@ export default function articleFinder(state = initialState, action) {
     case CLEAR_FINDER_STATE: {
       return {
         articles: {},
-        loading: false
+        loading: true,
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
@@ -31,8 +31,6 @@ export default function articleFinder(state = initialState, action) {
       const newStateArticles = _.cloneDeep(state.articles);
       const title = action.data.title.replace(/_/g, ' ');
       newStateArticles[title].pageviews = action.data.pageviews;
-      // const article = _.find(newStateArticles, { title: title });
-      // article.pageviews = action.data.pageviews;
       return {
         articles: newStateArticles,
         loading: false
@@ -49,7 +47,6 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_REVISION: {
       const newStateArticles = _.cloneDeep(state.articles);
       action.data.forEach((data) => {
-        // const article = _.find(newStateArticles, { title: data.title });
         newStateArticles[data.title].revid = data.revid;
       });
       return {
