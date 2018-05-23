@@ -4,6 +4,7 @@ import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmen
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
+
 export const fetchCategoryResults = (category, depth) => dispatch => {
   dispatch({
     type: CLEAR_FINDER_STATE
@@ -28,8 +29,6 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
   })
   .then((data) => {
     fetchPageViews(data, dispatch);
-    fetchPageAssessment(data, dispatch);
-    fetchPageRevision(data, dispatch);
   });
 };
 
@@ -51,9 +50,9 @@ const getDataForSubCategories = (category, depth, namespace, dispatch) => {
 };
 
 const fetchPageViews = (articles, dispatch) => {
-  articles.forEach((article) => {
+  const promises = articles.map((article) => {
     const url = pageviewQueryGenerator(article.title);
-    queryUrl(url, {}, 'json')
+    return queryUrl(url, {}, 'json')
     .then((data) => data.items)
     .then((data) => {
       const averagePageviews = Math.round((_.sumBy(data, (o) => { return o.views; }) / data.length) * 100) / 100;
@@ -67,23 +66,36 @@ const fetchPageViews = (articles, dispatch) => {
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
   });
+
+  Promise.all(promises)
+  .then(() => {
+    fetchPageAssessment(articles, dispatch);
+  });
 };
 
-const fetchPageAssessment = (articles, dispatch) => {
-  const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
-  queryUrl(mediawikiApiBase, query)
-  .then((data) => data.query.pages)
-  .then((data) => {
-    _.forEach(data, (value) => {
-      const title = value.title;
-      const classGrade = extractClassGrade(value.pageassessments);
-      dispatch({
-        type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-        data: { title: title, classGrade: classGrade }
+const fetchPageAssessment = (articlesList, dispatch) => {
+  const promises = _.chunk(articlesList, 20).map((articles) => {
+    const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
+
+    return queryUrl(mediawikiApiBase, query)
+    .then((data) => data.query.pages)
+    .then((data) => {
+      _.forEach(data, (value) => {
+        const title = value.title;
+        const classGrade = extractClassGrade(value.pageassessments);
+        dispatch({
+          type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+          data: { title: title, classGrade: classGrade }
+        });
       });
-    });
-  })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    })
+    .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  });
+
+  Promise.all(promises)
+  .then(() => {
+    fetchPageRevision(articlesList, dispatch);
+  });
 };
 
 const extractClassGrade = (pageAssessments) => {
@@ -97,42 +109,44 @@ const extractClassGrade = (pageAssessments) => {
   return classGrade;
 };
 
-const fetchPageRevision = (articles, dispatch) => {
-  const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
-  queryUrl(mediawikiApiBase, query)
-  .then((data) => data.query.pages)
-  .then((data) => {
-    const revids = _.map(data, (page) => {
-      return { title: page.title, revid: page.revisions[0].revid };
-    });
-    dispatch({
-      type: RECEIVE_ARTICLE_REVISION,
-      data: revids
-    });
-    return revids;
-  })
-  .then((revids) => {
-    fetchPageRevisionScore(revids, dispatch);
-  })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+const fetchPageRevision = (articlesList, dispatch) => {
+  _.chunk(articlesList, 20).forEach((articles) => {
+    const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
+    queryUrl(mediawikiApiBase, query)
+    .then((data) => data.query.pages)
+    .then((data) => {
+      const revids = _.map(data, (page) => {
+        return { title: page.title, revid: page.revisions[0].revid };
+      });
+      dispatch({
+        type: RECEIVE_ARTICLE_REVISION,
+        data: revids
+      });
+      return revids;
+    })
+    .then((revids) => {
+      fetchPageRevisionScore(revids, dispatch);
+    })
+    .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  });
 };
 
 const fetchPageRevisionScore = (revids, dispatch) => {
-  const query = pageRevisionScoreQueryGenerator(_.map(revids, 'revid'));
-  queryUrl(oresApiBase, query)
-  .then((data) => data.enwiki.scores)
-  .then((data) => {
-    const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };
-    const revScores = _.map(data, (scores, revid) => {
-      const revScore = _.reduce(WP10Weights, (result, value, key) => {
-        return result + value * scores.wp10.score.probability[key];
-      }, 0);
-      return { revid: revid, revScore: Math.round(revScore * 100) / 100 };
-    });
-    dispatch({
-      type: RECEIVE_ARTICLE_REVISIONSCORE,
-      data: revScores
-    });
-  })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    const query = pageRevisionScoreQueryGenerator(_.map(revids, 'revid'));
+    queryUrl(oresApiBase, query)
+    .then((data) => data.enwiki.scores)
+    .then((data) => {
+      const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };
+      const revScores = _.map(data, (scores, revid) => {
+        const revScore = _.reduce(WP10Weights, (result, value, key) => {
+          return result + value * scores.wp10.score.probability[key];
+        }, 0);
+        return { revid: revid, revScore: Math.round(revScore * 100) / 100 };
+      });
+      dispatch({
+        type: RECEIVE_ARTICLE_REVISIONSCORE,
+        data: revScores
+      });
+    })
+    .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
