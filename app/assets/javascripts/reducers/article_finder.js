@@ -20,6 +20,7 @@ export default function articleFinder(state = initialState, action) {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
+          fetchState: 1
         };
       });
       return {
@@ -31,6 +32,7 @@ export default function articleFinder(state = initialState, action) {
       const newStateArticles = _.cloneDeep(state.articles);
       const title = action.data.title.replace(/_/g, ' ');
       newStateArticles[title].pageviews = action.data.pageviews;
+      newStateArticles[title].fetchState = 5;
       return {
         articles: newStateArticles,
         loading: false
@@ -38,7 +40,10 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
       const newStateArticles = _.cloneDeep(state.articles);
-      newStateArticles[action.data.title].grade = action.data.classGrade;
+      action.data.forEach((data) => {
+        newStateArticles[data.title].grade = data.classGrade;
+        newStateArticles[data.title].fetchState = 2;
+      });
       return {
         articles: newStateArticles,
         loading: false
@@ -48,6 +53,7 @@ export default function articleFinder(state = initialState, action) {
       const newStateArticles = _.cloneDeep(state.articles);
       action.data.forEach((data) => {
         newStateArticles[data.title].revid = data.revid;
+        newStateArticles[data.title].fetchState = 3;
       });
       return {
         articles: newStateArticles,
@@ -59,6 +65,7 @@ export default function articleFinder(state = initialState, action) {
       action.data.forEach((data) => {
         const article = _.find(newStateArticles, { revid: parseInt(data.revid) });
         article.revScore = data.revScore;
+        article.fetchState = 4;
       });
       return {
         articles: newStateArticles,

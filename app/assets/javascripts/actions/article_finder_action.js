@@ -78,13 +78,14 @@ const fetchPageAssessment = (articlesList, dispatch) => {
     return limit(() => queryUrl(mediawikiApiBase, query))
     .then((data) => data.query.pages)
     .then((data) => {
-      _.forEach(data, (value) => {
+      const pageAssessments = _.map(data, (value) => {
         const title = value.title;
         const classGrade = extractClassGrade(value.pageassessments);
-        dispatch({
-          type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-          data: { title: title, classGrade: classGrade }
-        });
+        return { title: title, classGrade: classGrade };
+      });
+      dispatch({
+        type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+        data: pageAssessments
       });
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
