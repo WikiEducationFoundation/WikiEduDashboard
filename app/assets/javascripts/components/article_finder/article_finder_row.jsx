@@ -23,13 +23,13 @@ const ArticleFinderRow = createReactClass({
           {this.props.title}
         </td>
         <td>
-          {pageviews}
+          {grade}
         </td>
         <td>
           {revScore}
         </td>
         <td>
-          {grade}
+          {pageviews}
         </td>
       </tr>);
   }

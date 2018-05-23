@@ -31,7 +31,7 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
     return data.query.categorymembers;
   })
   .then((data) => {
-    fetchPageViews(data, dispatch);
+    fetchPageAssessment(data, dispatch);
   });
 };
 
@@ -53,9 +53,9 @@ const getDataForSubCategories = (category, depth, namespace, dispatch) => {
 };
 
 const fetchPageViews = (articles, dispatch) => {
-  const promises = articles.map((article) => {
+  articles.forEach((article) => {
     const url = pageviewQueryGenerator(article.title);
-    return limit(() => queryUrl(url, {}, 'json'))
+    limit(() => queryUrl(url, {}, 'json'))
     .then((data) => data.items)
     .then((data) => {
       const averagePageviews = Math.round((_.sumBy(data, (o) => { return o.views; }) / data.length) * 100) / 100;
@@ -68,11 +68,6 @@ const fetchPageViews = (articles, dispatch) => {
       });
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
-  });
-
-  Promise.all(promises)
-  .then(() => {
-    fetchPageAssessment(articles, dispatch);
   });
 };
 
@@ -113,9 +108,9 @@ const extractClassGrade = (pageAssessments) => {
 };
 
 const fetchPageRevision = (articlesList, dispatch) => {
-  _.chunk(articlesList, 20).forEach((articles) => {
+  const promises = _.chunk(articlesList, 20).map((articles) => {
     const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
-    limit(() => queryUrl(mediawikiApiBase, query))
+    return limit(() => queryUrl(mediawikiApiBase, query))
     .then((data) => data.query.pages)
     .then((data) => {
       const revids = _.map(data, (page) => {
@@ -128,15 +123,19 @@ const fetchPageRevision = (articlesList, dispatch) => {
       return revids;
     })
     .then((revids) => {
-      fetchPageRevisionScore(revids, dispatch);
+      return fetchPageRevisionScore(revids, dispatch);
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  });
+  Promise.all(promises)
+  .then(() => {
+    fetchPageViews(articlesList, dispatch);
   });
 };
 
 const fetchPageRevisionScore = (revids, dispatch) => {
     const query = pageRevisionScoreQueryGenerator(_.map(revids, 'revid'));
-    limit(() => queryUrl(oresApiBase, query))
+    return limit(() => queryUrl(oresApiBase, query))
     .then((data) => data.enwiki.scores)
     .then((data) => {
       const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };

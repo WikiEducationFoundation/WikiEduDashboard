@@ -83,18 +83,18 @@ const ArticleFinder = createReactClass({
         label: I18n.t('articles.title'),
         desktop_only: false
       },
-      average_views: {
-        label: 'Views per day',
+      pageassessment_grade: {
+        label: 'PageAssessment Grade',
         desktop_only: false,
       },
       completeness_estimate: {
         label: 'Completeness Estimate',
         desktop_only: false,
       },
-      pageassessment_grade: {
-        label: 'PageAssessment Grade',
+      average_views: {
+        label: 'Views per day',
         desktop_only: false,
-      }
+      },
     };
     let list;
     if (this.state.isSubmitted && !this.props.loading) {

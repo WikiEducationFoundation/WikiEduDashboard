@@ -41,7 +41,8 @@ export const multipleQueryGenerator = (params) => {
 export const pageAssessmentQueryGenerator = (titles) => {
   return {
     prop: 'pageassessments',
-    titles: multipleQueryGenerator(titles)
+    titles: multipleQueryGenerator(titles),
+    palimit: 500
   };
 };
 
