@@ -1,9 +1,12 @@
 import _ from 'lodash';
+import promiseLimit from 'promise-limit';
 import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
+
+const limit = promiseLimit(10);
 
 export const fetchCategoryResults = (category, depth) => dispatch => {
   dispatch({
@@ -15,7 +18,7 @@ export const fetchCategoryResults = (category, depth) => dispatch => {
 
 const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
   const query = categoryQueryGenerator(category, namespace);
-  return queryUrl(mediawikiApiBase, query)
+  return limit(() => queryUrl(mediawikiApiBase, query))
   .then((data) => {
     if (depth > 0) {
         depth -= 1;
@@ -34,7 +37,7 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
 
 export const findSubcategories = (category) => {
   const subcatQuery = categoryQueryGenerator(category, 14);
-  return queryUrl(mediawikiApiBase, subcatQuery)
+  return limit(() => queryUrl(mediawikiApiBase, subcatQuery))
   .then((data) => {
     return data.query.categorymembers;
   });
@@ -52,7 +55,7 @@ const getDataForSubCategories = (category, depth, namespace, dispatch) => {
 const fetchPageViews = (articles, dispatch) => {
   const promises = articles.map((article) => {
     const url = pageviewQueryGenerator(article.title);
-    return queryUrl(url, {}, 'json')
+    return limit(() => queryUrl(url, {}, 'json'))
     .then((data) => data.items)
     .then((data) => {
       const averagePageviews = Math.round((_.sumBy(data, (o) => { return o.views; }) / data.length) * 100) / 100;
@@ -77,7 +80,7 @@ const fetchPageAssessment = (articlesList, dispatch) => {
   const promises = _.chunk(articlesList, 20).map((articles) => {
     const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
 
-    return queryUrl(mediawikiApiBase, query)
+    return limit(() => queryUrl(mediawikiApiBase, query))
     .then((data) => data.query.pages)
     .then((data) => {
       _.forEach(data, (value) => {
@@ -112,7 +115,7 @@ const extractClassGrade = (pageAssessments) => {
 const fetchPageRevision = (articlesList, dispatch) => {
   _.chunk(articlesList, 20).forEach((articles) => {
     const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
-    queryUrl(mediawikiApiBase, query)
+    limit(() => queryUrl(mediawikiApiBase, query))
     .then((data) => data.query.pages)
     .then((data) => {
       const revids = _.map(data, (page) => {
@@ -133,7 +136,7 @@ const fetchPageRevision = (articlesList, dispatch) => {
 
 const fetchPageRevisionScore = (revids, dispatch) => {
     const query = pageRevisionScoreQueryGenerator(_.map(revids, 'revid'));
-    queryUrl(oresApiBase, query)
+    limit(() => queryUrl(oresApiBase, query))
     .then((data) => data.enwiki.scores)
     .then((data) => {
       const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };
