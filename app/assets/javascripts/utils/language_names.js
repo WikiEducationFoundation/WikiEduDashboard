@@ -37,6 +37,14 @@ const LanguageNames = {
       name: 'Assamese',
       nativeName: 'অসমীয়া',
     },
+    ast: {
+      name: 'Asturian',
+      nativeName: 'Asturianu',
+    },
+    atj: {
+      name: 'Atikamekw',
+      nativeName: 'Atikamekw iriniwok',
+    },
     av: {
       name: 'Avaric',
       nativeName: 'авар мацӀ',
@@ -49,6 +57,10 @@ const LanguageNames = {
       name: 'Azerbaijani',
       nativeName: 'azərbaycan dili',
     },
+    azb: {
+      name: 'South Azerbaijani',
+      nativeName: 'تۆرکجه',
+    },
     ba: {
       name: 'Bashkir',
       nativeName: 'башҡорт теле',
@@ -57,12 +69,24 @@ const LanguageNames = {
       name: 'Belarusian',
       nativeName: 'беларуская мова',
     },
+    'be-tarask': {
+      name: 'Belarusian (Taraškievica orthography)',
+      nativeName: 'беларуская мова (тарашкевіца)‎',
+    },
     bg: {
       name: 'Bulgarian',
       nativeName: 'български език',
     },
+    bgn: {
+      name: 'Western Balochi',
+      nativeName: 'روچ کپتین بلوچی',
+    },
     bh: {
       name: 'Bihari',
+      nativeName: 'भोजपुरी',
+    },
+    bho: {
+      name: 'Bhojpuri',
       nativeName: 'भोजपुरी',
     },
     bi: {
@@ -88,6 +112,10 @@ const LanguageNames = {
     bs: {
       name: 'Bosnian',
       nativeName: 'bosanski jezik',
+    },
+    btm: {
+      name: 'Mandailing',
+      nativeName: 'Saro Mandailing',
     },
     ca: {
       name: 'Catalan',
@@ -133,6 +161,14 @@ const LanguageNames = {
       name: 'German',
       nativeName: 'Deutsch',
     },
+    diq: {
+      name: 'Zazaki',
+      nativeName: 'Dımılki',
+    },
+    dty: {
+      name: 'Doteli',
+      nativeName: 'डोटेली',
+    },
     dv: {
       name: 'Divehi',
       nativeName: 'Dhivehi',
@@ -152,6 +188,10 @@ const LanguageNames = {
     en: {
       name: 'English',
       nativeName: 'English',
+    },
+    'en-gb': {
+      name: 'British English',
+      nativeName: 'British English',
     },
     eo: {
       name: 'Esperanto',
@@ -209,9 +249,25 @@ const LanguageNames = {
       name: 'Galician',
       nativeName: 'galego',
     },
+    glk: {
+      name: 'Gilaki',
+      nativeName: 'گیلکی',
+    },
+    'gom-deva': {
+      name: 'Goan Konkani (Devanagari script)',
+      nativeName: 'गोंयची कोंकणी',
+    },
+    'gom-latn': {
+      name: 'Goan Konkani (Latin script)',
+      nativeName: 'Gõychi Konknni',
+    },
     gn: {
       name: 'Guaraní',
       nativeName: "Avañe'ẽ",
+    },
+    got: {
+      name: 'Gothic',
+      nativeName: '𐌲𐌿𐍄𐌹𐍃𐌺',
     },
     gu: {
       name: 'Gujarati',
@@ -241,6 +297,10 @@ const LanguageNames = {
       name: 'Croatian',
       nativeName: 'hrvatski jezik',
     },
+    hsn: {
+      name: 'Xiang Chinese',
+      nativeName: '湘语',
+    },
     ht: {
       name: 'Haitian',
       nativeName: 'Kreyòl ayisyen',
@@ -264,6 +324,10 @@ const LanguageNames = {
     id: {
       name: 'Indonesian',
       nativeName: 'Indonesian',
+    },
+    inh: {
+      name: 'Ingush',
+      nativeName: 'ГӀалгӀай',
     },
     ie: {
       name: 'Interlingue',
@@ -301,6 +365,10 @@ const LanguageNames = {
       name: 'Japanese',
       nativeName: '日本語',
     },
+    jbo: {
+      name: 'Lojban',
+      nativeName: 'a .lojban.',
+    },
     jv: {
       name: 'Javanese',
       nativeName: 'basa Jawa',
@@ -308,6 +376,10 @@ const LanguageNames = {
     ka: {
       name: 'Georgian',
       nativeName: 'ქართული',
+    },
+    kab: {
+      name: 'Kabyle',
+      nativeName: 'Taqbaylit',
     },
     kg: {
       name: 'Kongo',
@@ -341,6 +413,10 @@ const LanguageNames = {
       name: 'Korean',
       nativeName: '한국어',
     },
+    ksh: {
+      name: 'Colognian',
+      nativeName: 'Kölnisch',
+    },
     kr: {
       name: 'Kanuri',
       nativeName: 'Kanuri',
@@ -352,6 +428,10 @@ const LanguageNames = {
     ku: {
       name: 'Kurdish',
       nativeName: 'Kurdî',
+    },
+    'ku-latn': {
+      name: 'Kurdish (Latin script)',
+      nativeName: 'kurdî (latînî)',
     },
     kv: {
       name: 'Komi',
@@ -441,6 +521,10 @@ const LanguageNames = {
       name: 'Burmese',
       nativeName: 'ဗမာစာ',
     },
+    nah: {
+      name: 'Nāhuatl',
+      nativeName: 'Nahuatlahtolli',
+    },
     na: {
       name: 'Nauru',
       nativeName: 'Ekakairũ Naoero',
@@ -464,6 +548,10 @@ const LanguageNames = {
     nl: {
       name: 'Dutch',
       nativeName: 'Nederlands',
+    },
+    nqo: {
+      name: 'N’Ko',
+      nativeName: 'ߒߞߏ',
     },
     nn: {
       name: 'Norwegian Nynorsk',
@@ -489,6 +577,10 @@ const LanguageNames = {
       name: 'Occitan',
       nativeName: 'occitan',
     },
+    olo: {
+      name: 'Livvi-Karelian',
+      nativeName: 'Livvinkarjala',
+    },
     oj: {
       name: 'Ojibwe',
       nativeName: 'ᐊᓂᔑᓈᐯᒧᐎᓐ',
@@ -509,6 +601,10 @@ const LanguageNames = {
       name: 'Panjabi',
       nativeName: 'ਪੰਜਾਬੀ',
     },
+    pam: {
+      name: 'Pampanga language',
+      nativeName: 'Kapampangan',
+    },
     pi: {
       name: 'Pāli',
       nativeName: 'पाऴि',
@@ -517,6 +613,10 @@ const LanguageNames = {
       name: 'Polish',
       nativeName: 'język polski',
     },
+    pnb: {
+      name: 'Western Punjabi',
+      nativeName: 'پنجابی',
+    },
     ps: {
       name: 'Pashto',
       nativeName: 'پښتو',
@@ -524,6 +624,10 @@ const LanguageNames = {
     pt: {
       name: 'Portuguese',
       nativeName: 'Português',
+    },
+    'pt-br': {
+      name: 'Brazilian Portuguese',
+      nativeName: 'português do Brasil',
     },
     qu: {
       name: 'Quechua',
@@ -541,6 +645,14 @@ const LanguageNames = {
       name: 'Romanian',
       nativeName: 'limba română',
     },
+    'roa-tara': {
+      name: 'Tarantino dialect',
+      nativeName: 'tarandíne',
+    },
+    roa: {
+      name: 'Romance language',
+      nativeName: 'Romanic',
+    },
     ru: {
       name: 'Russian',
       nativeName: 'Русский',
@@ -553,6 +665,14 @@ const LanguageNames = {
       name: 'Sanskrit',
       nativeName: 'संस्कृतम्',
     },
+    sah: {
+      name: 'Yakut language',
+      nativeName: 'Саха тыла',
+    },
+    sat: {
+      name: 'Santali language',
+      nativeName: 'ᱥᱟᱱᱛᱟᱲᱤ',
+    },
     sc: {
       name: 'Sardinian',
       nativeName: 'sardu',
@@ -560,6 +680,10 @@ const LanguageNames = {
     sd: {
       name: 'Sindhi',
       nativeName: 'सिन्धी',
+    },
+    shn: {
+      name: 'Shan',
+      nativeName: 'လိၵ်ႈတႆး',
     },
     se: {
       name: 'Northern Sami',
@@ -576,6 +700,10 @@ const LanguageNames = {
     sk: {
       name: 'Slovak',
       nativeName: 'slovenčina',
+    },
+    'skr-arab': {
+      name: 'Saraiki',
+      nativeName: 'سرائیکی',
     },
     sl: {
       name: 'Slovene',
@@ -600,6 +728,14 @@ const LanguageNames = {
     sr: {
       name: 'Serbian',
       nativeName: 'српски језик',
+    },
+    'sr-ec': {
+      name: 'Serbian (Cyrillic script)',
+      nativeName: 'српски језик (ћирилица)‎',
+    },
+    'sr-el': {
+      name: 'Serbian (Latin script)',
+      nativeName: 'srpski (latinica)',
     },
     ss: {
       name: 'Swati',
@@ -631,6 +767,10 @@ const LanguageNames = {
     },
     tg: {
       name: 'Tajik',
+      nativeName: 'тоҷикӣ',
+    },
+    'tg-cyrl': {
+      name: 'Tajik (Cyrillic script)',
       nativeName: 'тоҷикӣ',
     },
     th: {
@@ -669,6 +809,10 @@ const LanguageNames = {
       name: 'Tatar',
       nativeName: 'татар теле',
     },
+    'tt-cyrl': {
+      name: 'Tatar (Cyrillic script)',
+      nativeName: 'татар теле',
+    },
     tw: {
       name: 'Twi',
       nativeName: 'Twi',
@@ -677,8 +821,16 @@ const LanguageNames = {
       name: 'Tahitian',
       nativeName: 'Reo Tahiti',
     },
+    udm: {
+      name: 'Udmurt',
+      nativeName: 'Удмурт кыл',
+    },
     ug: {
       name: 'Uyghur',
+      nativeName: 'ئۇيغۇرچە‎',
+    },
+    'ug-arab': {
+      name: 'Uyghur (Arabic script)',
       nativeName: 'ئۇيغۇرچە‎',
     },
     uk: {
@@ -717,9 +869,17 @@ const LanguageNames = {
       name: 'Xhosa',
       nativeName: 'isiXhosa',
     },
+    xmf: {
+      name: 'Mingrelian',
+      nativeName: 'მარგალური ნინა',
+    },
     yi: {
       name: 'Yiddish',
       nativeName: 'ייִדיש',
+    },
+    yue: {
+      name: 'Cantonese',
+      nativeName: '廣州話',
     },
     yo: {
       name: 'Yoruba',
@@ -729,14 +889,35 @@ const LanguageNames = {
       name: 'Zhuang',
       nativeName: 'Saɯ cueŋƅ',
     },
+    zgh: {
+      name: 'Standard Moroccan Tamazight',
+      nativeName: 'ⵜⴰⵎⴰⵣⵉⵖⵜ',
+    },
     zh: {
       name: 'Chinese',
       nativeName: '中文',
+    },
+    'zh-CN': {
+      name: 'Simplified Chinese (Continental)',
+      nativeName: '中文（大陆简体）',
+    },
+    'zh-hans': {
+      name: 'Simplified Chinese',
+      nativeName: '中文（简体）',
+    },
+    'zh-hant': {
+      name: 'Traditional Chinese',
+      nativeName: '中文（繁體）',
+    },
+    'zh-TW': {
+      name: 'Traditional Chinese (Taiwanese)',
+      nativeName: '中文（台灣正體）',
     },
     zu: {
       name: 'Zulu',
       nativeName: 'isiZulu',
     },
+
   };
 
   export default LanguageNames;
