@@ -253,7 +253,7 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
-      expect(page).to_not have_content 'Add an available article'
+      expect(page).to_not have_content 'Add available articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
@@ -261,7 +261,7 @@ describe 'the course page', type: :feature, js: true do
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
-      expect(assigned_articles_section).to have_content 'Add an available article'
+      expect(assigned_articles_section).to have_content 'Add available articles'
     end
 
     it 'allow instructor to add an available article' do
@@ -270,9 +270,10 @@ describe 'the course page', type: :feature, js: true do
       stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
-      click_button 'Add an available article'
+      click_button 'Add available articles'
       page.first(:css, '#available-articles .pop.open').first('textarea').set('Education')
       click_button 'Add articles'
+      sleep 1
       assigned_articles_table = page.first(:css, '#available-articles table.articles')
       expect(assigned_articles_table).to have_content 'Education'
     end
