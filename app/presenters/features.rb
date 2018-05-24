@@ -46,7 +46,7 @@ class Features
   end
 
   def self.default_course_string_prefix
-    default_course_type.constantize.new.string_prefix
+    @default_course_string_prefix ||= default_course_type.constantize.new.string_prefix
   end
 
   def self.hot_loading?

@@ -88,6 +88,15 @@ class Campaign < ApplicationRecord
     find_by(slug: ENV['default_campaign']) || first
   end
 
+  ####################
+  # Instance methods #
+  ####################
+
+  def course_string_prefix
+    return Features.default_course_string_prefix if default_course_type.blank?
+    @course_string_prefix ||= default_course_type.constantize.new.string_prefix
+  end
+
   private
 
   def validate_dates

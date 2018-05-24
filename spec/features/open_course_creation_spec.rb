@@ -31,7 +31,7 @@ describe 'open course creation', type: :feature, js: true do
     allow(Features).to receive(:open_course_creation?).and_return(true)
     allow(Features).to receive(:disable_wiki_output?).and_return(true)
     allow(Features).to receive(:default_course_type).and_return('BasicCourse')
-
+    allow(Features).to receive(:default_course_string_prefix).and_return('courses_generic')
     login_as(user)
   end
 

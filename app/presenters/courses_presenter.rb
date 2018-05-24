@@ -68,7 +68,7 @@ class CoursesPresenter
   end
 
   def course_string_prefix
-    Features.default_course_string_prefix
+    @campaign&.course_string_prefix || Features.default_course_string_prefix
   end
 
   def uploads_in_use_count
