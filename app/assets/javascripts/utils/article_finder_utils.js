@@ -81,3 +81,14 @@ export const pageviewQueryGenerator = (title) => {
   const queryParams = `${title}/daily/${startDateString}00/${endDateString}00`;
   return pageviewBaseUrl + queryParams;
 };
+
+export const extractClassGrade = (pageAssessments) => {
+  let classGrade = '';
+  _.forEach(pageAssessments, (pageAssessment) => {
+    if (pageAssessment.class) {
+      classGrade = pageAssessment.class;
+      return false;
+    }
+  });
+  return classGrade;
+};
