@@ -297,6 +297,12 @@ class Course < ApplicationRecord
     word_count / user_count
   end
 
+  # Overridden for some course types
+  def wiki_edits_enabled?
+    return true unless flags.key?(:wiki_edits_enabled)
+    flags[:wiki_edits_enabled]
+  end
+
   # Overidden by ClassroomProgramCourse
   def assignment_edits_enabled?
     wiki_edits_enabled?

@@ -55,10 +55,6 @@ class ArticleScopedProgram < Course
     .where(article_id: course.scoped_article_ids)
   end, through: :students)
 
-  def wiki_edits_enabled?
-    true
-  end
-
   def wiki_course_page_enabled?
     true
   end
