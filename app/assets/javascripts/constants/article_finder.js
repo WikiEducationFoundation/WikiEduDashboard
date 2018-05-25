@@ -10,5 +10,14 @@ export const fetchStates = {
  PAGEASSESSMENT_RECEIVED: 2,
  REVISION_RECEIVED: 3,
  REVISIONSCORE_RECEIVED: 4,
- PAGEVIEWS_RECEICED: 5
+ PAGEVIEWS_RECEIVED: 5
+};
+
+export const WP10Weights = {
+  FA: 100,
+  GA: 80,
+  B: 60,
+  C: 40,
+  Start: 20,
+  Stub: 0
 };

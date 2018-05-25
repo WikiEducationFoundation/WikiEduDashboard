@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE } from '../constants';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, WP10Weights } from '../constants';
 import UserUtils from '../utils/user_utils.js';
 
 const getUsers = state => state.users.users;
@@ -13,6 +13,7 @@ const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
+const getArticleFinderState = state => state.articleFinder;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -81,5 +82,58 @@ export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
     return _.filter(alerts, (alert) => _.includes(alertFilters, alert.type));
+  }
+);
+
+export const getFilteredArticleFinderByGrade = createSelector(
+  [getArticleFinderState], (articleFinder) => {
+    return _.pickBy(articleFinder.articles, (article) => {
+      if (!WP10Weights[article.grade]) {
+        return true;
+      }
+      if (article.fetchState === "PAGEASSESSMENT_RECEIVED" && WP10Weights[articleFinder.grade] >= WP10Weights[article.grade]) {
+        return true;
+      }
+      return false;
+    });
+  }
+);
+
+export const getFilteredArticleFinderByRevisionScore = createSelector(
+  [getArticleFinderState], (articleFinder) => {
+    return _.pickBy(articleFinder.articles, (article) => {
+      if (article.fetchState === "REVISIONSCORE_RECEIVED" && article.revScore <= articleFinder.max_completeness) {
+        return true;
+      }
+      return false;
+    });
+  }
+);
+
+export const getFilteredArticleFinderByViews = createSelector(
+  [getArticleFinderState], (articleFinder) => {
+    return _.pickBy(articleFinder.articles, (article) => {
+      if (article.fetchState === "PAGEVIEWS_RECEIVED" && article.pageviews >= articleFinder.min_views) {
+        return true;
+      }
+      return false;
+    });
+  }
+);
+
+export const getFilteredArticleFinder = createSelector(
+  [getArticleFinderState], (articleFinder) => {
+    return _.pickBy(articleFinder.articles, (article) => {
+      if (article.fetchState === "PAGEVIEWS_RECEIVED" && article.pageviews < articleFinder.min_views) {
+        return false;
+      }
+      if (article.fetchState === "REVISIONSCORE_RECEIVED" && article.revScore > articleFinder.max_completeness) {
+        return false;
+      }
+      if (article.fetchState === "PAGEASSESSMENT_RECEIVED" && WP10Weights[articleFinder.grade] < WP10Weights[article.grade]) {
+        return false;
+      }
+      return true;
+    });
   }
 );

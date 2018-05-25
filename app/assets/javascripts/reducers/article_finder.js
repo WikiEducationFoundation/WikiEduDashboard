@@ -1,20 +1,35 @@
 import _ from 'lodash';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS,
- RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION,
- RECEIVE_ARTICLE_REVISIONSCORE } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
+  RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, WP10Weights } from "../constants";
 
 const initialState = {
   articles: {},
+  category: "",
+  depth: "",
+  min_views: "0",
+  max_completeness: "100",
+  grade: "FA",
   loading: false
 };
 
 export default function articleFinder(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_FIELD: {
+      const newState = { ...state };
+      newState[action.data.key] = action.data.value;
+      return newState;
+    }
     case CLEAR_FINDER_STATE: {
       return {
         articles: {},
+        category: action.data.category,
+        depth: action.data.depth,
+        min_views: action.data.min_views,
+        max_completeness: action.data.max_completeness,
+        grade: action.data.grade,
         loading: true,
       };
     }
@@ -24,10 +39,12 @@ export default function articleFinder(state = initialState, action) {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
-          fetchState: "TITLE_RECEIVED"
+          fetchState: "TITLE_RECEIVED",
+          title: data.title,
         };
       });
       return {
+        ...state,
         articles: newStateArticles,
         loading: false
       };
@@ -38,10 +55,10 @@ export default function articleFinder(state = initialState, action) {
       const averagePageviews = Math.round((_.sumBy(action.data, (o) => { return o.views; }) / action.data.length) * 100) / 100;
 
       newStateArticles[title].pageviews = averagePageviews;
-      newStateArticles[title].fetchState = "PAGEVIEWS_RECEICED";
+      newStateArticles[title].fetchState = "PAGEVIEWS_RECEIVED";
       return {
+        ...state,
         articles: newStateArticles,
-        loading: false
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
@@ -54,8 +71,8 @@ export default function articleFinder(state = initialState, action) {
       });
 
       return {
+        ...state,
         articles: newStateArticles,
-        loading: false
       };
     }
     case RECEIVE_ARTICLE_REVISION: {
@@ -65,13 +82,12 @@ export default function articleFinder(state = initialState, action) {
         newStateArticles[value.title].fetchState = "REVISION_RECEIVED";
       });
       return {
+        ...state,
         articles: newStateArticles,
-        loading: false
       };
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const WP10Weights = { FA: 100, GA: 80, B: 60, C: 40, Start: 20, Stub: 0 };
       _.forEach(action.data, (scores, revid) => {
         const revScore = _.reduce(WP10Weights, (result, value, key) => {
           return result + value * scores.wp10.score.probability[key];
@@ -81,8 +97,8 @@ export default function articleFinder(state = initialState, action) {
         article.fetchState = "REVISIONSCORE_RECEIVED";
       });
       return {
+        ...state,
         articles: newStateArticles,
-        loading: false
       };
     }
     default:

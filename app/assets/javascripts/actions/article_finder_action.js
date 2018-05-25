@@ -2,27 +2,29 @@ import _ from 'lodash';
 import promiseLimit from 'promise-limit';
 import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
+import { getFilteredArticleFinderByRevisionScore, getFilteredArticleFinderByGrade } from '../selectors';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
 
 const limit = promiseLimit(10);
 
-export const fetchCategoryResults = (category, depth) => dispatch => {
+export const fetchCategoryResults = (state) => (dispatch, getState) => {
   dispatch({
-    type: CLEAR_FINDER_STATE
+    type: CLEAR_FINDER_STATE,
+    data: state,
   });
-  return getDataForCategory(`Category:${category}`, depth, 0, dispatch)
+  return getDataForCategory(`Category:${state.category}`, state.depth, 0, dispatch, getState)
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
-const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
+const getDataForCategory = (category, depth, namespace = 0, dispatch, getState) => {
   const query = categoryQueryGenerator(category, namespace);
   return limit(() => queryUrl(mediawikiApiBase, query))
   .then((data) => {
     if (depth > 0) {
         depth -= 1;
-        getDataForSubCategories(category, depth, namespace, dispatch);
+        getDataForSubCategories(category, depth, namespace, dispatch, getState);
       }
     dispatch({
       type: RECEIVE_CATEGORY_RESULTS,
@@ -31,7 +33,7 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch) => {
     return data.query.categorymembers;
   })
   .then((data) => {
-    fetchPageAssessment(data, dispatch);
+    fetchPageAssessment(data, dispatch, getState);
   });
 };
 
@@ -43,17 +45,18 @@ export const findSubcategories = (category) => {
   });
 };
 
-const getDataForSubCategories = (category, depth, namespace, dispatch) => {
+const getDataForSubCategories = (category, depth, namespace, dispatch, getState) => {
   return findSubcategories(category)
   .then((subcats) => {
     subcats.forEach((subcat) => {
-      getDataForCategory(subcat.title, depth, namespace, dispatch);
+      getDataForCategory(subcat.title, depth, namespace, dispatch, getState);
     });
   });
 };
 
-const fetchPageViews = (articles, dispatch) => {
-  articles.forEach((article) => {
+const fetchPageViews = (dispatch, getState) => {
+  const articles = getFilteredArticleFinderByRevisionScore(getState());
+  _.forEach(articles, (article) => {
     const url = pageviewQueryGenerator(article.title);
     limit(() => queryUrl(url, {}, 'json'))
     .then((data) => data.items)
@@ -67,7 +70,7 @@ const fetchPageViews = (articles, dispatch) => {
   });
 };
 
-const fetchPageAssessment = (articlesList, dispatch) => {
+const fetchPageAssessment = (articlesList, dispatch, getState) => {
   const promises = _.chunk(articlesList, 20).map((articles) => {
     const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
 
@@ -84,11 +87,12 @@ const fetchPageAssessment = (articlesList, dispatch) => {
 
   Promise.all(promises)
   .then(() => {
-    fetchPageRevision(articlesList, dispatch);
+    fetchPageRevision(dispatch, getState);
   });
 };
 
-const fetchPageRevision = (articlesList, dispatch) => {
+const fetchPageRevision = (dispatch, getState) => {
+  const articlesList = Object.values(getFilteredArticleFinderByGrade(getState()));
   const promises = _.chunk(articlesList, 20).map((articles) => {
     const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
     return limit(() => queryUrl(mediawikiApiBase, query))
@@ -107,7 +111,7 @@ const fetchPageRevision = (articlesList, dispatch) => {
   });
   Promise.all(promises)
   .then(() => {
-    fetchPageViews(articlesList, dispatch);
+    fetchPageViews(dispatch, getState);
   });
 };
 

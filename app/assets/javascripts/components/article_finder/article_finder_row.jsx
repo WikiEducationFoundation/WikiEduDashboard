@@ -12,7 +12,7 @@ const ArticleFinderRow = createReactClass({
     if (this.props.article.pageviews) {
       pageviews = this.props.article.pageviews;
     }
-    else if (this.props.article.fetchState === "PAGEVIEWS_RECEICED") {
+    else if (this.props.article.fetchState === "PAGEVIEWS_RECEIVED") {
       pageviews = (<div>Page Views not found!</div>);
     }
 
