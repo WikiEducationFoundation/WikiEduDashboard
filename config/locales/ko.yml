@@ -116,6 +116,8 @@ ko:
     title_too_large: 제목은 255자를 초과해서는 안 됩니다
     assignees: 담당자
     add_available: 이용 가능한 글 추가
+    add_available_placeholder: 줄마다 문서 제목이나 URL을 추가합니다
+    add_available_submit: 문서 추가
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     label: 할당
     none_short: 할당된 글이 없습니다

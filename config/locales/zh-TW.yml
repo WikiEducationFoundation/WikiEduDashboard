@@ -134,7 +134,9 @@ zh-TW:
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配條目
-    add_available: 加入一篇可用的條目
+    add_available: 加入可用的條目
+    add_available_placeholder: 在每行添加一個條目標題或 URL
+    add_available_submit: 添加條目
     assign_self: 指定自己一個條目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     confirm_add_available: 確定要加入 %{title} 嗎？

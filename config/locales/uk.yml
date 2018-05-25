@@ -159,7 +159,10 @@ uk:
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити статтю
-    add_available: Додати доступну статтю
+    add_available: Додати доступні статті
+    add_available_placeholder: Додавання однієї назви статті або URL-посилання в одному
+      рядку
+    add_available_submit: Додати статті
     assign_self: Призначити собі статтю
     assign_tooltip: Задана стаття — це та, яку ви плануєте створити чи покращити.
     confirm_add_available: Ви дійсно хочете додати %{title}?

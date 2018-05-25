@@ -124,7 +124,7 @@ ca:
     title_too_large: El títol no hauria de superar 255 caràcters
     assignees: Alumne(s)
     assign_other: Assignar un article
-    add_available: Afegir un article disponible
+    add_available: Afegeix articles disponibles
     assign_self: Assignar-me un article
     assign_tooltip: Un article assignat és un que planeges crear o millorar.
     confirm_add_available: Esteu segurs que voleu afegir %{title}?

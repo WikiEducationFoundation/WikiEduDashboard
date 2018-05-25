@@ -96,7 +96,8 @@ lb:
     wiki: Wiki
   assignments:
     title_too_large: Den Titel däerf net méi wéi 255 Zeechen hunn
-    add_available: En disponibelen Artikel derbäisetzen
+    add_available: Disponibel Artikelen derbäisetzen
+    add_available_submit: Artikelen derbäisetzen
     no_available: Dëse Cours huet keng disponibel Artikelen.
     remove: Ewechhuelen
     review_self: En Artikel nokucken

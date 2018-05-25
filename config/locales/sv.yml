@@ -97,7 +97,9 @@ sv:
   assignments:
     article: Artikeln %{title} har tilldelats dig
     assign_other: Tilldela en artikel
-    add_available: Lägg till en tillgänglig artikel
+    add_available: Lägg till tillgängliga artiklar
+    add_available_placeholder: Lägg till en artikeltitel eller webbadress per rad
+    add_available_submit: Lägg till artikel
     assign_self: Tilldela en artikel till mig själv
     confirm_add_available: Är du säker på att du vill lägga till %{title}?
     label: Tilldela

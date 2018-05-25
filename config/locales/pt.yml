@@ -164,7 +164,9 @@ pt:
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Aluno(s)
     assign_other: Atribuir um artigo
-    add_available: Adicionar um artigo disponível
+    add_available: Adicionar artigos disponíveis
+    add_available_placeholder: Adicionar um título de artigo ou URL por linha
+    add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?

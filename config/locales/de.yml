@@ -155,7 +155,9 @@ de:
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
-    add_available: Einen verfügbaren Artikel hinzufügen
+    add_available: Verfügbare Artikel hinzufügen
+    add_available_placeholder: Einen Artikelnamen oder eine URL pro Zeile hinzufügen
+    add_available_submit: Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
       oder zu verbessern.

@@ -37,6 +37,7 @@ eu:
     recent_activity: Azken aldiko jarduera
     report_problem: Arazo baten berri eman
     request_account: Eskatu kontua
+    request_account_create: Kontua sortu
     search: Galdera egin
     search_results: 'Emaitzak honetarako: ''%{search_terms}'''
     sign_up_extended: Wikipediarekin kontua sortu
@@ -159,6 +160,8 @@ eu:
     assignees: Artikulu-egilea(k)
     assign_other: Artikulu bat esleitu
     add_available: Gehitu artikulu erabilgarri bat
+    add_available_placeholder: Gehitu artikulu izenburu bat edo URL linea bakoitzeko
+    add_available_submit: Artikuluak gehitu
     assign_self: Neure buruari artikulu bat esleitu
     assign_tooltip: Esleitutako artikulua da zuk sortu edo hobetzeko asmoa duzun bat.
     confirm_add_available: Ziur zaude %{title} gehitu nahi duzula?
@@ -554,7 +557,7 @@ eu:
       Bidalitakoan, ikastaro hau automatikoki gehituko da Wikipediara zure lankide kontuarekin. Horren ondoren, kronogramako aldaketa berriak Wikipedian ere agertuko dira.
       Ziur zaude hori egin nahi duzula?
     wiki_staff: Wiki Hezkuntzako Lantaldea
-    withdrawn: Kendu
+    withdrawn: Ez da eginkizuna edo esleipena egin
     word_count_doc: Ikastaroko ikasleek programako epealdian artikuluen izen-tartera
       gehitutako hitzen kopuru estimatua
     yourcourses: Zure ikastaroak
@@ -1070,4 +1073,5 @@ eu:
       header: Nola ezagutu gaituzu?
       where_did_you_hear: Non, edo noren ahotik entzun zenuen lehenengo aldiz Hezkuntza
         Programari buruz?
+      why_are_you_here: Zer egin nahiko zenuke?
 ...

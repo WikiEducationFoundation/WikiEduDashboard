@@ -142,7 +142,9 @@ he:
     title_too_large: הכותרת לא אמורה לחרוג מ־255 תווים
     assignees: משתתפים שהוקצה להם ערך
     assign_other: שיוך ערך
-    add_available: הוספת ערך הזמין לעבודה במסגת התוכנית \ הקורס \ המיזם
+    add_available: הוספת ערכים זמינים
+    add_available_placeholder: יש להוסיף שם אחד או כתובת URL אחת של ערך בכל שורה
+    add_available_submit: הוספת הערכים
     assign_self: הקצאת ערך לעצמי
     confirm_add_available: האם ברצונך באמת להוסיף את %{title}?
     confirm_addition: האם ברצונך באמת להקצות את %{title} למשתמש %{username}?

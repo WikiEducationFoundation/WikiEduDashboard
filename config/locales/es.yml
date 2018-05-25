@@ -164,7 +164,8 @@ es:
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
-    add_available: Añadir un artículo disponible
+    add_available: Añadir artículos disponibles
+    add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?

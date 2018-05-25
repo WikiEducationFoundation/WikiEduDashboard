@@ -128,7 +128,9 @@ zh-CN:
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配一个条目
-    add_available: 添加一个可用条目
+    add_available: 添加可用条目
+    add_available_placeholder: 添加条目标题或URL（每行一个）
+    add_available_submit: 添加条目
     assign_self: 给我自己分配一个条目
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     confirm_add_available: 您确定要添加%{title}么？
@@ -278,7 +280,7 @@ zh-CN:
       expected_number: 预计学生人数
       find: 找到您的课程
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
-      new_or_clone: 现在可以使用任务设计向导创建一个新的课程。如果你有一个高度定制的时间表，从以前的课程，你想重新使用，你可以复制它的副本与新的日期。（如果您以前没有大量定制您的时间线，我们建议开始一个新课程，这样您将拥有最新版本的赋值选项。）您还可以使用克隆选项为您已经设置的课程创建额外的部分。
+      new_or_clone: 您现在可以使用分配设计向导创建新课程。如果您在上一个课程中有高优先级的自定义时间线，并且您希望复用的话，您可以克隆一份它的拷贝，并指明新的日期。（如果您此前没有明显自定义您的时间线，我们建议您开始新的课程，这样您将有分配选项的最新版本。）您也可以使用克隆选项为您已经配置的课程创建额外章节。
       no_class_holidays: 我没有班级假日
       role_description: 您在课程中的角色
       role_description_placeholder: 导师、教学助理等

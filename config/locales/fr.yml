@@ -175,7 +175,9 @@ fr:
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter un article
-    add_available: Ajouter un article disponible
+    add_available: Ajouter des articles disponibles
+    add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
+    add_available_submit: Ajouter des articles
     assign_self: M’affecter un article
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.

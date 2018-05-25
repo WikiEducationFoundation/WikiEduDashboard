@@ -72,6 +72,8 @@ el:
     loading: Φόρτωση λημμάτων...
     new: (Νέο)
     rating: Κλάση
+    rating_docs:
+      b: Τάξη Β — ένα μέτρια ανεπτυγμένο άρθρο
     see_more: Δείτε περισσότερα
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
     title: Τίτλος
@@ -85,7 +87,8 @@ el:
     wp10: Δομική Ολοκληρωτικότητα
   assignments:
     assign_other: Αναθέστε ένα άρθρο
-    add_available: Προσθήκη ενός διαθέσιμου άρθρου
+    add_available: Προσθήκη διαθέσιμων άρθρων
+    add_available_submit: Προσθήκη λήμματος
     label: Ανάθεση
     loading: Φόρτωση αναθέσεων...
     none_short: Δεν ανατέθηκαν άρθρα

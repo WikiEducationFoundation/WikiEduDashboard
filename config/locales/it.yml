@@ -131,7 +131,9 @@ it:
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna una voce
-    add_available: Aggiungi una voce disponibile
+    add_available: Aggiungi voci disponibili
+    add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
+    add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
