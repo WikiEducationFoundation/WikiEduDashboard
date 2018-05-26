@@ -1,5 +1,6 @@
 # Page titles on Wikipedia may include dots, so this constraint is needed.
-
+require './lib/course_show_constraints'
+require './lib/course_show_endpoints'
 Rails.application.routes.draw do
   get 'errors/file_not_found'
   get 'errors/unprocessable'
@@ -70,7 +71,16 @@ Rails.application.routes.draw do
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
 
-  # Courses
+    # Courses
+
+    # the various show actions for courses are handled here. Each has its own constraint defined in     #lib/course_show_constraints
+    namespace :courses do
+        CourseShowEndPoints::ENDPOINTS.each do |endpoint|
+            get '/:school/:titleterm(/:endpoint(/*any))' => "show##{endpoint}",
+            constraints: CourseShowConstraints.const_get(endpoint.camelize).new
+        end
+    end
+
   controller :courses do
     get 'courses/new' => 'courses#new',
         constraints: { id: /.*/ } # repeat of resources
@@ -92,12 +102,12 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
-    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
-        defaults: { endpoint: 'overview' }, :as => 'show',
-        constraints: {
-          school: /[^\/]*/,
-          titleterm: /[^\/]*/
-        }
+    # get 'courses/:school/:titleterm(/:endpoint(/*any))' => "courses#show",
+    #     defaults: { endpoint: 'overview' }, :as => 'show',
+    #     constraints: {
+    #       school: /[^\/]*/,
+    #       titleterm: /[^\/]*/
+    #     }
     post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses#update_syllabus'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',

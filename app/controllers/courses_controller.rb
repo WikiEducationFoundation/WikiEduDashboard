@@ -231,39 +231,4 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles article_count assignments campaigns categories check course
-                      revisions tag tags timeline uploads users].freeze
-  # Show responds to multiple endpoints to provide different sets of json data
-  # about a course. Checking for a valid endpoint prevents an arbitrary render
-  # vulnerability.
-  def set_endpoint
-    @endpoint = params[:endpoint] if SHOW_ENDPOINTS.include?(params[:endpoint])
-  end
-
-  def set_limit
-    case params[:endpoint]
-    when 'revisions', 'articles'
-      @limit = params[:limit]
-    end
-  end
-
-  # If the user could make an edit to the course, this verifies that
-  # their tokens are working. If their credentials are found to be invalid,
-  # they get logged out immediately, and this method redirects them to the home
-  # page, so that they don't make edits that fail upon save.
-  # We don't need to do this too often, though.
-  def verify_edit_credentials
-    return if Features.disable_wiki_output?
-    return unless current_user&.can_edit?(@course)
-    return if current_user.wiki_token && current_user.updated_at > 12.hours.ago
-    return if WikiEdits.new.oauth_credentials_valid?(current_user)
-    redirect_to root_path
-    yield
-  end
-
-  def protect_privacy
-    return unless @course.private
-    return if current_user&.can_edit?(@course)
-    raise ActionController::RoutingError, 'not found'
-  end
 end
