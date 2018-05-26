@@ -7,37 +7,30 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
-import { fetchCategoryResults } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, updateFields } from '../../actions/article_finder_action.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
   getInitialState() {
     return {
-      category: "",
-      depth: "",
-      min_views: "0",
-      max_completeness: "100",
-      grade: "FA",
       isSubmitted: false,
     };
   },
 
   updateFields(key, value) {
-    const state = { ...this.state };
-    state[key] = value;
-    return this.setState(state);
+    return this.props.updateFields(key, value);
   },
 
   searchCategory() {
     this.setState({
       isSubmitted: true,
     });
-    return this.props.fetchCategoryResults(this.state);
+    return this.props.fetchCategoryResults(this.props.category, this.props.depth);
   },
 
   handleChange(e) {
     const grade = e.target.value;
-    return this.setState({ grade: grade });
+    return this.props.updateFields("grade", grade);
   },
 
   render() {
@@ -45,7 +38,7 @@ const ArticleFinder = createReactClass({
       <TextInput
         id="category"
         onChange={this.updateFields}
-        value={this.state.category}
+        value={this.props.category}
         value_key="category"
         required
         editable
@@ -56,7 +49,7 @@ const ArticleFinder = createReactClass({
       <TextInput
         id="depth"
         onChange={this.updateFields}
-        value={this.state.depth}
+        value={this.props.depth}
         value_key="depth"
         required
         editable
@@ -67,7 +60,7 @@ const ArticleFinder = createReactClass({
       <TextInput
         id="min_views"
         onChange={this.updateFields}
-        value={this.state.min_views}
+        value={this.props.min_views}
         value_key="min_views"
         required
         editable
@@ -78,7 +71,7 @@ const ArticleFinder = createReactClass({
       <TextInput
         id="max_completeness"
         onChange={this.updateFields}
-        value={this.state.max_completeness}
+        value={this.props.max_completeness}
         value_key="max_completeness"
         required
         editable
@@ -89,7 +82,7 @@ const ArticleFinder = createReactClass({
       <select
         id="grade_selector"
         name="grade_value"
-        value={this.state.grade}
+        value={this.props.grade}
         onChange={this.handleChange}
       >
         <option disabled value=""> — select one —</option>
@@ -178,6 +171,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchCategoryResults: fetchCategoryResults,
+  updateFields: updateFields,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);

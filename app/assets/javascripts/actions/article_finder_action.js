@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
 import { getFilteredArticleFinderByRevisionScore, getFilteredArticleFinderByGrade } from '../selectors';
 
@@ -9,13 +9,26 @@ const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
 
 const limit = promiseLimit(10);
 
-export const fetchCategoryResults = (state) => (dispatch, getState) => {
+export const updateFields = (key, value) => (dispatch, getState) => {
+  dispatch({
+    type: UPDATE_FIELD,
+    data: {
+      key: key,
+      value: value,
+    },
+  });
+
+  const filters = ["min_views", "max_completeness", "grade"];
+  if (_.includes(filters, key)) {
+    fetchPageRevision(dispatch, getState);
+  }
+};
+
+export const fetchCategoryResults = (category, depth) => (dispatch, getState) => {
   dispatch({
     type: CLEAR_FINDER_STATE,
-    data: state,
   });
-  return getDataForCategory(`Category:${state.category}`, state.depth, 0, dispatch, getState)
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  return getDataForCategory(`Category:${category}`, depth, 0, dispatch, getState);
 };
 
 const getDataForCategory = (category, depth, namespace = 0, dispatch, getState) => {
@@ -34,7 +47,8 @@ const getDataForCategory = (category, depth, namespace = 0, dispatch, getState) 
   })
   .then((data) => {
     fetchPageAssessment(data, dispatch, getState);
-  });
+  })
+  .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
 export const findSubcategories = (category) => {

@@ -24,12 +24,8 @@ export default function articleFinder(state = initialState, action) {
     }
     case CLEAR_FINDER_STATE: {
       return {
+        ...state,
         articles: {},
-        category: action.data.category,
-        depth: action.data.depth,
-        min_views: action.data.min_views,
-        max_completeness: action.data.max_completeness,
-        grade: action.data.grade,
         loading: true,
       };
     }
