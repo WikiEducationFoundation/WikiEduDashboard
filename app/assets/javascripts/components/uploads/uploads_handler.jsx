@@ -31,17 +31,15 @@ const UploadsHandler = createReactClass({
     this.setState({ data: data, pageCount: nextProps.uploads.length / this.state.perPage });
   },
 
-  setUploadData() {
-    const data = this.props.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-    this.setState({ data: data });
+  setUploadData(offset) {
+    const data = this.props.uploads.slice(offset, offset + this.state.perPage);
+    this.setState({ offset: offset, data: data });
   },
 
   handlePageClick(data) {
     const selectedPage = data.selected;
     const offset = Math.ceil(selectedPage * this.state.perPage);
-    this.setState({ offset: offset }, () => {
-      this.setUploadData();
-    });
+    this.setUploadData(offset);
   },
 
   sortSelect(e) {
