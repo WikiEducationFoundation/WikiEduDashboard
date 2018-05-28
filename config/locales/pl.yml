@@ -151,7 +151,8 @@ pl:
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
     assign_other: Zadaj artykuł
-    add_available: Dodaj dostępny artykuł
+    add_available: Dodaj dostępne artykuły
+    add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?

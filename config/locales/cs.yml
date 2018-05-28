@@ -167,6 +167,9 @@ cs:
     assignees: Přiřazení
     assign_other: Přiřadit článek
     add_available: Přidat dostupný článek
+    add_available_placeholder: Přidejte na každý řádek jeden název článku nebo jednu
+      URL
+    add_available_submit: Přidejte články
     assign_self: Přiřadit článek sobě
     assign_tooltip: Přiřazený článek je ten, který plánujete vytvořit nebo vylepšit.
     confirm_add_available: Jste si jistý, že chcete přidat %{title}?

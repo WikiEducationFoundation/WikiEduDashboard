@@ -165,6 +165,7 @@ es:
     assignees: Asignado(s)
     assign_other: Asignar un artículo
     add_available: Añadir artículos disponibles
+    add_available_placeholder: Añade un título de artículo o un URL por renglón
     add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.

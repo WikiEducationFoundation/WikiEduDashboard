@@ -54,6 +54,7 @@ ru:
     recent_activity: Недавние действия
     report_problem: Сообщить о проблеме
     request_account: Запросить учётную запись
+    request_account_create: Создать учётную запись
     search: задать вопрос
     search_results: 'Результаты для: "%{search_terms}"'
     sign_up_extended: Зарегистрируйтесь в Википедии
@@ -153,6 +154,8 @@ ru:
     article: Вам назначена статья %{title}.
     title_too_large: Название не должно превышать 255 символов
     assignees: Назначенный(е)
+    add_available: Добавить доступные статьи
+    add_available_submit: Добавить статьи
     confirm_add_available: Вы уверены, что хотите добавить %{title}?
     confirm_addition: Вы уверены, что хотите назначить %{username} для работы с %{title}?
     confirm_deletion: Вы уверены, что хотите удалить это задание?
