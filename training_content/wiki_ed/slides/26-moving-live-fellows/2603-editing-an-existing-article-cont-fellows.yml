@@ -10,8 +10,8 @@ content: |
   3.  Open the original article in Edit mode and add your content into the
       article.
   4.  Add an edit summary that says it copied from your sandbox, and click
-      'Publish changes'. (Include a link to your sandbox by typing \[
-      \[User:Your Username/sandbox\] \] in the edit summary.)
+      'Publish changes'. (Include a link to your sandbox by typing
+      `[[User:Your Username/sandbox]]` in the edit summary.)
   5.  Repeat this process for any other parts of the article you worked
       on.
   6.  Make sure that the lead section reflects the new content you've
