@@ -1,12 +1,12 @@
 # Take wikitext for a training module, convert it into yml files.
+require "#{Rails.root}/lib/training/wiki_slide_parser"
 
-module_number = 21
+module_number = 22
 suffix = 'fellows'
-module_slug = 'wikipedia-policies-fellows'
+module_slug = 'sandboxes-talk-watchlists-fellows'
+base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 # input = <<-STUFF
 
-require "#{Rails.root}/lib/training/wiki_slide_parser"
-base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 
 # Write to a .yml file, return the id and slug base for populating the module.
 def to_yml(wikitext, slide_id, suffix, base_path)
