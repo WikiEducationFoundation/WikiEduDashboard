@@ -5,10 +5,8 @@ content: |
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Books_in_a_shopping_cart_in_a_library_-_8457.jpg/325px-Books_in_a_shopping_cart_in_a_library_-_8457.jpg" />
 
   <figcaption class="image-credit">
-  <a href="https://commons.wikimedia.org/wiki/File:Books in a shopping cart in a library - 8457.jpg">[Photo
-  by Jorge
-  Royan](https://commons.wikimedia.org/wiki/File:Books_in_a_shopping_cart_in_a_library_-_8457.jpg),
-  CC-BY-SA</a>
+  <a href="https://commons.wikimedia.org/wiki/File:Books_in_a_shopping_cart_in_a_library_-_8457.jpg">Photo
+  by Jorge Royan, CC-BY-SA</a>
 
   </figcaption>
   </figure>
@@ -30,6 +28,6 @@ content: |
   Some Wikipedia articles have stricter guidelines around sourcing,
   especially when it comes to medical or psychology topics. If you will be
   editing in these areas, take a look at this [student
-  training](https://wikiedu.org/wiki/index.php/Programs_team/Projects/Timeline_revamp/training_text/Editing_Medical_Topics)
+  training](/training/students/editing-medical-topics)
   to familiarize yourself with these restrictions.
 id: 2108
