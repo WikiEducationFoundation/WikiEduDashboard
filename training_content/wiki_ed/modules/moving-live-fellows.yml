@@ -1,0 +1,18 @@
+name: Moving work out of the sandbox (Fellows)
+id: 26
+description: In this tutorial, we'll show you the practical steps for moving your work to Wikipedia.
+estimated_ttc: 10 minutes
+slides:
+  - slug: moving-your-work-into-wikipedia-s-mainspace-fellows # 2601
+  - slug: adding-content-to-an-existing-article-fellows # 2602
+  - slug: editing-an-existing-article-cont-fellows # 2603
+  - slug: creating-a-new-article-fellows # 2604
+  - slug: name-your-article-fellows # 2605
+  - slug: moving-a-new-article-out-of-the-sandbox-fellows # 2606
+  - slug: move-your-page-fellows # 2607
+  - slug: did-it-work-fellows # 2608
+  - slug: whoops-i-made-a-mistake-fellows # 2609
+  - slug: what-happens-now-fellows # 2610
+  - slug: did-you-get-patrolled-fellows # 2611
+  - slug: my-work-was-reverted-fellows # 2612
+  - slug: that-s-all-fellows # 2613
