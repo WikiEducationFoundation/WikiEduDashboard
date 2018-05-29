@@ -1,0 +1,18 @@
+name: Evaluating articles and sources (Fellows)
+id: 24
+description: In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
+estimated_ttc: 10 minutes
+slides:
+  - slug: evaluating-sources-and-articles-fellows # 2401
+  - slug: what-makes-a-good-article-fellows # 2402
+  - slug: evaluating-article-quality-fellows # 2403
+  - slug: elements-of-quality-articles-fellows # 2404
+  - slug: elements-of-not-so-great-articles-fellows # 2405
+  - slug: sources-and-citations-fellows # 2406
+  - slug: why-cite-fellows # 2407
+  - slug: when-should-you-cite-fellows # 2408
+  - slug: what-s-a-good-source-fellows # 2409
+  - slug: what-s-not-a-good-source-fellows # 2410
+  - slug: reading-history-fellows # 2411
+  - slug: past-versions-fellows # 2412
+  - slug: you-re-all-done-fellows # 2413
