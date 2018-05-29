@@ -1,0 +1,26 @@
+name: Wikipedia policies (Fellows)
+id: 21
+description: |  
+  This module will provide a basic overview of Wikipedia’s core policies and guidelines.
+
+  When you finish, you should be able to answer:
+
+  * What are Wikipedia’s core policies and guidelines?
+  * What are copyright and plagiarism in the context of Wikipedia?
+  * What does "notability" mean on Wikipedia?
+estimated_ttc: 25 minutes
+slides:
+  - slug: policies-and-guidelines-basic-overview-fellows # 2101
+  - slug: five-pillars-fellows # 2102
+  - slug: pillar-one-fellows # 2103
+  - slug: pillar-two-fellows # 2104
+  - slug: pillar-three-fellows # 2105
+  - slug: pillar-four-fellows # 2106
+  - slug: pillar-five-fellows # 2107
+  - slug: verifiability-fellows # 2108
+  - slug: notability-fellows # 2109
+  - slug: notability-continued-fellows # 2110
+  - slug: no-original-research-fellows # 2111
+  - slug: plagiarism-fellows # 2112
+  - slug: copyright-fellows # 2113
+  - slug: that-s-it-fellows # 2114
