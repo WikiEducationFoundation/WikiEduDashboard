@@ -1,6 +1,7 @@
 export * from "./alert";
 export * from "./api";
 export * from "./article_details";
+export * from "./article_finder";
 export * from "./articles.js";
 export * from "./assignments.js";
 export * from "./campaigns";
