@@ -1,9 +1,9 @@
 # Take wikitext for a training module, convert it into yml files.
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 
-module_number = 22
+module_number = 23
 suffix = 'fellows'
-module_slug = 'sandboxes-talk-watchlists-fellows'
+module_slug = 'how-to-edit-fellows'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 # input = <<-STUFF
 

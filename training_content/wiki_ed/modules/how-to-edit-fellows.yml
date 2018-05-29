@@ -1,0 +1,24 @@
+name: "How to edit: Wikicode vs Visual Editor (Fellows)"
+id: 23
+description: In this tutorial, you'll be given practical advice on navigating and editing Wikipedia.
+estimated_ttc: 20 minutes
+slides:
+  - slug: welcome-editing-fellows # 2301
+  - slug: get-started-by-getting-started-fellows # 2302
+  - slug: what-we-ll-review-fellows # 2303
+  - slug: your-wikipedia-account-fellows # 2304
+  - slug: visual-editor-vs-source-editing-fellows # 2305
+  - slug: editing-wikipedia-using-the-visual-editor-fellows # 2306
+  - slug: visual-editor-buttons-fellows # 2307
+  - slug: adding-citations-fellows # 2308
+  - slug: adding-citations-using-wikicode-fellows # 2309
+  - slug: leaving-an-edit-summary-fellows # 2310
+  - slug: let-s-try-it-fellows # 2311
+  - slug: video-boldly-linking-where-no-one-has-linked-before-fellows # 2312
+  - slug: take-control-of-the-text-fellows # 2313
+  - slug: how-to-edit-a-talk-page-fellows # 2314
+  - slug: video-talk-pages-fellows # 2315
+  - slug: responding-on-a-talk-page-fellows # 2316
+  - slug: talk-page-tutorial-fellows # 2317
+  - slug: pinging-another-wikipedian-fellows # 2318
+  - slug: thats-it-editing-fellows # 2319
