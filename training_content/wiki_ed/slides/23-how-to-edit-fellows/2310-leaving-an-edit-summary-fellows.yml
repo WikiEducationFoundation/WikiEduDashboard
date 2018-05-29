@@ -4,10 +4,8 @@ content: |
   <figure class="alt-layout-40-right">
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Wikipedia_Edit_Summary_dialog_in_VisualEditor.png" />
 
-  <figcaption class="image-credit">
-  <a href="https://commons.wikimedia.org/wiki/File:Wikipedia_Edit_Summary_dialog_in_VisualEditor.png">Edit
-  summary dialog in the visual editor</a>
-
+  <figcaption>
+  Edit summary dialog in the visual editor
   </figcaption>
   </figure>
 
@@ -23,10 +21,8 @@ content: |
   <figure class="alt-layout-40-right">
   <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Wikipedia_Edit_Summary_input_field_in_Edit_Source_mode.png" />
 
-  <figcaption class="image-credit">
-  <a href="https://commons.wikimedia.org/wiki/File:Wikipedia_Edit_Summary_input_field_in_Edit_Source_mode.png">Edit
-  summary input for WikiCode mode</a>
-
+  <figcaption>
+  Edit summary input for WikiCode mode
   </figcaption>
   </figure>
 

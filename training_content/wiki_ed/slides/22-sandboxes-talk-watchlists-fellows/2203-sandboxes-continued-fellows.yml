@@ -5,8 +5,8 @@ content: |
   sandbox page was automatically set up.
 
   You'll see a section at the top — a *template* — that says “this is a
-  user sandbox”. In source editing mode, you can see the WikiCode for that
-  template, something like { { dashboard.wikiedu.org sandbox } }. That's a
+  user sandbox”. In source editing mode, you can see the Wikicode for that
+  template, something like `{{dashboard.wikiedu.org sandbox}}`. That's a
   good thing to leave there.
 
   In the next training, you'll learn how to edit in [your
