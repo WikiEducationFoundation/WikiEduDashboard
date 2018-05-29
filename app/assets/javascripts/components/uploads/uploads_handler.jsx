@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
@@ -13,8 +14,32 @@ const UploadsHandler = createReactClass({
     course: PropTypes.object
   },
 
+  getInitialState() {
+    return {
+      offset: 0,
+      data: [],
+      perPage: 100,
+    };
+  },
+
   componentWillMount() {
     return this.props.receiveUploads(this.props.course_id);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
+    this.setState({ data: data, pageCount: nextProps.uploads.length / this.state.perPage });
+  },
+
+  setUploadData(offset) {
+    const data = this.props.uploads.slice(offset, offset + this.state.perPage);
+    this.setState({ offset: offset, data: data });
+  },
+
+  handlePageClick(data) {
+    const selectedPage = data.selected;
+    const offset = Math.ceil(selectedPage * this.state.perPage);
+    this.setUploadData(offset);
   },
 
   sortSelect(e) {
@@ -34,7 +59,21 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <UploadList uploads={this.props.uploads} />
+        <UploadList uploads={this.state.data} />
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={6}
+          onPageChange={this.handlePageClick}
+          containerClassName={"pagination"}
+          previousLinkClassName={"previous_page"}
+          nextLinkClassName={"next_page"}
+          disabledClassName={"disabled"}
+          activeClassName={"active"}
+        />
       </div>
     );
   }

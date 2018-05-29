@@ -1,29 +1,40 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const Upload = createReactClass({
   displayName: 'Upload',
 
   propTypes: {
     upload: PropTypes.object,
-    linkUsername: PropTypes.bool
+    linkUsername: PropTypes.bool,
   },
 
   getInitialState() {
     return {
       width: null,
-      height: null
+      height: null,
     };
   },
 
   componentWillMount() {
-    this.getImageDimensions(this.props.upload.thumburl);
+    this.setImageFile();
   },
 
-  getImageDimensions(imageUrl) {
+  setImageFile() {
+    let imageFile = this.props.upload.thumburl;
+    if (this.props.upload.deleted) {
+      imageFile = '/assets/images/deleted_image.svg';
+    }
+    this.setState({ imageFile: imageFile }, () => {
+      this.setImageDimensions();
+    });
+  },
+
+  setImageDimensions() {
     const img = new Image();
-    img.src = imageUrl;
+    img.src = this.state.imageFile;
     const component = this;
     img.onload = function () {
       component.setState({ width: this.width, height: this.height });
@@ -32,13 +43,6 @@ const Upload = createReactClass({
 
   render() {
     const fileName = this.props.upload.file_name;
-    let imageFile;
-    if (this.props.upload.deleted) {
-      imageFile = '/assets/images/deleted_image.svg';
-    } else {
-      imageFile = this.props.upload.thumburl;
-    }
-
     let uploader;
     if (this.props.linkUsername) {
       const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
@@ -53,18 +57,18 @@ const Upload = createReactClass({
       }
 
     const uploadDivStyle = {
-        width: this.state.width * 250 / this.state.height,
-        flexGrow: this.state.width * 250 / this.state.height,
-      };
+      width: this.state.width * 250 / this.state.height,
+      flexGrow: this.state.width * 250 / this.state.height,
+    };
 
     return (
       <div className="upload" style={uploadDivStyle} >
-        <img src={imageFile} alt="" />
+        <img src={this.state.imageFile} alt={fileName} />
         <div className="info">
           <p className="usage"><b>{usage}</b></p>
           <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
           <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-          <p>{this.props.upload.uploaded_at}</p>
+          <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
         </div>
       </div>
     );

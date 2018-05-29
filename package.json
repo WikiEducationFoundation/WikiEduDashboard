@@ -110,6 +110,7 @@
     "react-dropzone": "^4.2.1",
     "react-motion": "^0.5.2",
     "react-onclickoutside": "^6.6.2",
+    "react-paginate": "^5.2.3",
     "react-redux": "^5.0.6",
     "react-router": "3.2.0",
     "react-select": "^1.0.0-rc.10",
