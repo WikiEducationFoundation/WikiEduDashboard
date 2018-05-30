@@ -1,9 +1,37 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-
 import { fetchStates } from "../../constants";
 
 const ArticleFinderRow = createReactClass({
+  getInitialState() {
+    return {
+      isAdding: false,
+    };
+  },
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.isAdding && (this.props.isAdded !== nextProps.isAdded)) {
+      this.setState({
+        isAdding: false,
+      });
+    }
+  },
+
+  addAvailableArticle() {
+    const assignment = {
+      title: decodeURIComponent(this.props.title).trim(),
+      project: this.props.course.home_wiki.project,
+      language: this.props.course.home_wiki.language,
+      course_id: this.props.courseSlug,
+      user_id: null,
+      role: 0,
+    };
+    this.setState({
+      isAdding: true,
+    });
+    return this.props.addAssignment(assignment);
+  },
+
   render() {
     let pageviews;
     if (this.props.article.fetchState === "REVISIONSCORE_RECEIVED") {
@@ -37,6 +65,24 @@ const ArticleFinderRow = createReactClass({
     else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
       grade = (<div>Not rated</div>);
     }
+    let button;
+    if (this.props.courseSlug) {
+      if (this.props.isAdded) {
+        button = (
+          <td>
+            <button className="button small disabled">Already added to available articles</button>
+          </td>
+        );
+      }
+      else {
+        const className = `button small add-available-article ${this.state.isAdding ? 'disabled' : 'dark'}`;
+        button = (
+          <td>
+            <button className={className} onClick={this.addAvailableArticle}> Add as available article</button>
+          </td>
+          );
+      }
+    }
     return (
       <tr>
         <td>
@@ -51,8 +97,10 @@ const ArticleFinderRow = createReactClass({
         <td>
           {pageviews}
         </td>
+        {button}
       </tr>);
   }
 });
+
 
 export default ArticleFinderRow;

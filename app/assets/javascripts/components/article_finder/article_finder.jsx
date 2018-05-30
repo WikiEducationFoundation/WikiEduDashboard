@@ -8,6 +8,7 @@ import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
 import { fetchCategoryResults, updateFields } from '../../actions/article_finder_action.js';
+import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
@@ -15,6 +16,12 @@ const ArticleFinder = createReactClass({
     return {
       isSubmitted: false,
     };
+  },
+
+  componentWillMount() {
+    if (this.props.course_id) {
+      return this.props.fetchAssignments(this.props.course_id);
+    }
   },
 
   updateFields(key, value) {
@@ -114,11 +121,16 @@ const ArticleFinder = createReactClass({
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
+        const isAdded = Boolean(_.find(this.props.assignments, { article_title: title }));
         return (
           <ArticleFinderRow
             article={article}
             title={title}
             key={article.pageid}
+            courseSlug={this.props.course_id}
+            course={this.props.course}
+            isAdded={isAdded}
+            addAssignment={this.props.addAssignment}
           />
           );
       });
@@ -167,11 +179,14 @@ const mapStateToProps = state => ({
   grade: state.articleFinder.grade,
   max_completeness: state.articleFinder.max_completeness,
   depth: state.articleFinder.depth,
+  assignments: state.assignments.assignments,
 });
 
 const mapDispatchToProps = {
   fetchCategoryResults: fetchCategoryResults,
   updateFields: updateFields,
+  addAssignment: addAssignment,
+  fetchAssignments: fetchAssignments
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);

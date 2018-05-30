@@ -21,7 +21,6 @@ const AvailableArticles = createReactClass({
     let assignCell;
     let availableArticles;
     let elements = [];
-
     let findingArticlesTraining;
     if (Features.wikiEd && this.props.current_user.isNonstudent) {
       findingArticlesTraining = (
