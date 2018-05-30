@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/lib/training/training_base"
 
 class TrainingLibrary < TrainingBase
-  attr_accessor :name, :modules, :introduction, :categories, :id
+  attr_accessor :name, :modules, :introduction, :categories, :id, :exclude_from_index
   alias raw_modules modules
   alias raw_categories categories
 
@@ -28,6 +28,10 @@ class TrainingLibrary < TrainingBase
   ####################
   # Instance methods #
   ####################
+
+  def exclude_from_index?
+    exclude_from_index
+  end
 
   # transform categories hash into nested objects for view simplicity
   def categories
