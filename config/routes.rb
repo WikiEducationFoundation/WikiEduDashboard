@@ -145,10 +145,7 @@ Rails.application.routes.draw do
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
-  if Features.enable_article_finder?
-    get 'article_finder(/*any)' => 'article_finder#index'
-    post 'article_finder(/*any)' => 'article_finder#results'
-  end
+  get 'article_finder' => 'article_finder#index'
 
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'

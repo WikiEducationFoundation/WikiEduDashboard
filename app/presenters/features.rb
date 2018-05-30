@@ -33,10 +33,6 @@ class Features
     ENV['disable_wiki_output'] == 'true'
   end
 
-  def self.enable_article_finder?
-    ENV['enable_article_finder'] == 'true'
-  end
-
   def self.open_course_creation?
     ENV['wiki_education'] != 'true'
   end
