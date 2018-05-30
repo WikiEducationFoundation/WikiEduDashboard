@@ -132,7 +132,6 @@
     "striptags": "^3.1.1",
     "stylus": "0.54.5",
     "trix": "0.10.2",
-    "url-parse": "^1.1.9",
     "uuid": "^3.1.0",
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",

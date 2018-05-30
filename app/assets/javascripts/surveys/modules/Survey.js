@@ -3,7 +3,6 @@
 //--------------------------------------------------------
 import _throttle from 'lodash.throttle';
 import _assign from 'lodash.assign';
-import urlParse from 'url-parse';
 
 //--------------------------------------------------------
 // Required Internal Modules
@@ -268,8 +267,9 @@ const Survey = {
   },
 
   getUrlParam() {
-    const urlParams = urlParse(window.location.href, true).query;
-    if (urlParams.preview !== undefined) {
+    // Set preview mode based on presence of URL parameter
+    const preview = location.search.indexOf('preview') > -1;
+    if (preview) {
       this.previewMode = true;
     }
   },
