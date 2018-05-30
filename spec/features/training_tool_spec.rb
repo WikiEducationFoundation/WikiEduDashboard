@@ -16,7 +16,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   describe 'root library' do
-    library_names = TrainingLibrary.all.map(&:slug)
+    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:slug)
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
