@@ -1,6 +1,6 @@
 name: Wikipedia Fellows Training Modules
 id: 3
-exclude_from_index: true
+exclude_from_index: false
 introduction: |
   This set of modules covers the basics of contributing to Wikipedia as a Wikipedia Fellow.
 categories:
