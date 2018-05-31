@@ -19,7 +19,7 @@ const ArticleFinder = createReactClass({
   },
 
   componentWillMount() {
-    if (this.props.course_id) {
+    if (this.props.course_id && this.props.loadingAssignments) {
       return this.props.fetchAssignments(this.props.course_id);
     }
   },
@@ -49,8 +49,8 @@ const ArticleFinder = createReactClass({
         value_key="category"
         required
         editable
-        label="Category"
-        placeholder="Category"
+        label={I18n.t('article_finder.category')}
+        placeholder={I18n.t('article_finder.category')}
       />);
     const depth = (
       <TextInput
@@ -60,8 +60,8 @@ const ArticleFinder = createReactClass({
         value_key="depth"
         required
         editable
-        label="Depth"
-        placeholder="Depth"
+        label={I18n.t('article_finder.depth')}
+        placeholder={I18n.t('article_finder.depth')}
       />);
     const minimumViews = (
       <TextInput
@@ -71,8 +71,8 @@ const ArticleFinder = createReactClass({
         value_key="min_views"
         required
         editable
-        label="Minimum Views"
-        placeholder="Minimum Views"
+        label={I18n.t('article_finder.minimum_views_label')}
+        placeholder={I18n.t('article_finder.minimum_views_label')}
       />);
     const maxCompleteness = (
       <TextInput
@@ -82,8 +82,8 @@ const ArticleFinder = createReactClass({
         value_key="max_completeness"
         required
         editable
-        label="Max Completeness(0-100)"
-        placeholder="Completeness"
+        label={I18n.t('article_finder.max_completeness_label')}
+        placeholder={I18n.t('article_finder.max_completeness_label')}
       />);
     const grade = (
       <select
@@ -106,15 +106,15 @@ const ArticleFinder = createReactClass({
         desktop_only: false
       },
       pageassessment_grade: {
-        label: 'PageAssessment Grade',
+        label: I18n.t('article_finder.page_assessment_grade'),
         desktop_only: false,
       },
       completeness_estimate: {
-        label: 'Completeness Estimate',
+        label: I18n.t('article_finder.completeness_estimate'),
         desktop_only: false,
       },
       average_views: {
-        label: 'Views per day',
+        label: I18n.t('article_finder.average_views'),
         desktop_only: false,
       },
     };
@@ -141,7 +141,7 @@ const ArticleFinder = createReactClass({
           sortable={false}
           table_key="category-articles"
           className="table--expandable table--hoverable"
-          none_message="No articles found in this category"
+          none_message={I18n.t('article_finder.no_article_found')}
         />
         );
     }
@@ -180,6 +180,7 @@ const mapStateToProps = state => ({
   max_completeness: state.articleFinder.max_completeness,
   depth: state.articleFinder.depth,
   assignments: state.assignments.assignments,
+  loadingAssignments: state.assignments.loading,
 });
 
 const mapDispatchToProps = {

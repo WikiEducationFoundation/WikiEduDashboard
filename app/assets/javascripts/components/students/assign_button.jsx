@@ -12,6 +12,7 @@ import { addAssignment, deleteAssignment } from '../../actions/assignment_action
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils';
 import AddAvailableArticles from '../articles/add_available_articles';
+import { ASSIGNED_ROLE } from '../../constants';
 
 const resetState = (component) => () => {
   component.setState(component.getInitialState());
@@ -47,7 +48,7 @@ const AssignButton = createReactClass({
   },
 
   getKey() {
-    const tag = this.props.role === 0 ? 'assign_' : 'review_';
+    const tag = this.props.role === ASSIGNED_ROLE ? 'assign_' : 'review_';
     if (this.props.student) {
       return tag + this.props.student.id;
     }
@@ -188,7 +189,7 @@ const AssignButton = createReactClass({
         assignText = I18n.t('assignments.assign_other');
         reviewText = I18n.t('assignments.review_other');
       }
-      const finalText = this.props.role === 0 ? assignText : reviewText;
+      const finalText = this.props.role === ASSIGNED_ROLE ? assignText : reviewText;
       if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
           <span className="tooltip-indicator" />

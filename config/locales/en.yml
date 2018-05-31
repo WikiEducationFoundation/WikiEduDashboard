@@ -1102,3 +1102,15 @@ en:
       header: "How did you hear about us?"
       where_did_you_hear: "Where, or from whom, did you first hear about Wiki Education?"
       why_are_you_here: "What would you like to do?"
+
+  article_finder:
+    page_assessment_grade: "Assessment Grade"
+    completeness_estimate: "Completeness Score"
+    average_views: "Average views/Day"
+    add_available_article: "Add as available article"
+    already_added: "Already added to available articles"
+    max_completeness_label: "Max Completeness(0-100)"
+    minimum_views_label: "Minimum Views"
+    depth: "Depth"
+    category: "Category"
+    no_article_found: "No articles found in this category"

@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { fetchStates } from "../../constants";
+import { fetchStates, ASSIGNED_ROLE } from "../../constants";
 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
@@ -24,7 +24,7 @@ const ArticleFinderRow = createReactClass({
       language: this.props.course.home_wiki.language,
       course_id: this.props.courseSlug,
       user_id: null,
-      role: 0,
+      role: ASSIGNED_ROLE,
     };
     this.setState({
       isAdding: true,
@@ -70,7 +70,7 @@ const ArticleFinderRow = createReactClass({
       if (this.props.isAdded) {
         button = (
           <td>
-            <button className="button small disabled">Already added to available articles</button>
+            <button className="button small disabled add-available-article">{I18n.t('article_finder.already_added')}</button>
           </td>
         );
       }
@@ -78,7 +78,7 @@ const ArticleFinderRow = createReactClass({
         const className = `button small add-available-article ${this.state.isAdding ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={this.addAvailableArticle}> Add as available article</button>
+            <button className={className} onClick={this.addAvailableArticle}>{I18n.t('article_finder.add_available_article')}</button>
           </td>
           );
       }

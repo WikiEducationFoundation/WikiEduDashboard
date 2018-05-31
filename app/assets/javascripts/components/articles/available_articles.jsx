@@ -6,6 +6,7 @@ import _ from 'lodash';
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
+import { ASSIGNED_ROLE } from '../../constants';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -50,7 +51,7 @@ const AvailableArticles = createReactClass({
       assignCell = (
         <AssignCell
           course={this.props.course}
-          role={0}
+          role={ASSIGNED_ROLE}
           editable
           addAvailable={true}
           course_id={this.props.course_id}
