@@ -16,10 +16,6 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@bower_components/jquery.uls@mattfordham/jquery.uls#*":
-  version "0.1.0"
-  resolved "https://codeload.github.com/mattfordham/jquery.uls/tar.gz/701e9147cf720c0336c13fe0ecf8b6e77759e077"
-
 "@bower_components/jquery@jquery/jquery-dist#3.3.1":
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"

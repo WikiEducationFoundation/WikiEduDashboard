@@ -4,7 +4,6 @@
   "license": "MIT",
   "dependencies": {
     "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
-    "@bower_components/jquery.uls": "mattfordham/jquery.uls#*",
     "@bower_components/lodash": "lodash/lodash#~3.9.0",
     "autosize": "^4.0.2",
     "babel-core": "^6.26.3",
