@@ -2,11 +2,11 @@ import API from '../utils/api.js';
 import * as types from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
-const fetchAssignmentsPromise = (courseId) => {
+const fetchAssignmentsPromise = (courseSlug) => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/courses/${courseId}/assignments.json`,
+      url: `/courses/${courseSlug}/assignments.json`,
       success(data) {
         return res(data);
       }
@@ -18,9 +18,9 @@ const fetchAssignmentsPromise = (courseId) => {
   });
 };
 
-export const fetchAssignments = (courseId) => (dispatch) => {
+export const fetchAssignments = (courseSlug) => (dispatch) => {
   return (
-    fetchAssignmentsPromise(courseId)
+    fetchAssignmentsPromise(courseSlug)
       .then(resp => {
         dispatch({
           type: types.RECEIVE_ASSIGNMENTS,
