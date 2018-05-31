@@ -47,6 +47,7 @@ tr:
     recent_activity: Son Etkinlik
     report_problem: Bir sorunu bildir
     request_account: Hesap iste
+    request_account_create: Bir hesap oluştur
     search: soru sor
     search_results: '%{search_terms} için sonuçlar'
     sign_up_extended: Vikipedi'yle Kaydol
@@ -161,7 +162,9 @@ tr:
     title_too_large: Başlık, 255 karakteri geçmemelidir
     assignees: Devredilen(ler)
     assign_other: Bir makaleyi devredin
-    add_available: Mevcut bir makale ekleyin
+    add_available: Mevcut makaleleri ekleyin
+    add_available_placeholder: Satır başına bir makale başlığı veya URL ekleyin
+    add_available_submit: Makale ekle
     assign_self: Bir makaleyi kendime devredeyim
     assign_tooltip: Atanan bir makale, oluşturmayı veya geliştirmeyi planladığınız
       bir makaledir.

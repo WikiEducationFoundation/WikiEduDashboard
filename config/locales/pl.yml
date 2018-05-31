@@ -6,6 +6,7 @@
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: Railfail536
 # Author: Rzuwig
 # Author: Stojex
 # Author: Tar Lócesilion
@@ -152,6 +153,7 @@ pl:
     assignees: Przypisani
     assign_other: Zadaj artykuł
     add_available: Dodaj dostępne artykuły
+    add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
     add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
     confirm_add_available: Czy na pewno chcesz dodać %{title}?

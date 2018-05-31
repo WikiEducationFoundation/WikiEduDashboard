@@ -16,7 +16,7 @@ ne:
     documentation: मिसिलिकरण
     error: 'त्रुटी भयो:'
     explore: अन्वेषण
-    field_required: यो फिल्ड आवस्यक छ
+    field_required: यो फाँट आवश्यक छ
     field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
     field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
     field_invalid_date_time: The end must be after the start. (समय 0 देखि 23 सम्म
@@ -124,6 +124,7 @@ ne:
     assignees: निर्दिष्ट गरिएका(हरू)
     assign_other: लेख निर्दिष्ट गर्नुहोस्
     add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available_submit: लेखहरू थप्नुहोस्
     assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
     assign_tooltip: निर्दिष्ट गरेको लेख त्यो हो जुन तपाईँले सुधार गर्ने या बनाउने
       योजना बनाउनु भएको हुन्छ।
