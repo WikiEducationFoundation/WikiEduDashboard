@@ -113,8 +113,8 @@ const ArticleFinder = createReactClass({
     let filters;
     if (this.state.isSubmitted) {
       filters = (
-        <div className="form-container">
-          <h3>Filter your results:</h3>
+        <div className="form-container mb2">
+          <h4>Filter your results:</h4>
           <div className="horizontal-form">
             {minimumViews}
             {maxCompleteness}
@@ -184,9 +184,13 @@ const ArticleFinder = createReactClass({
             Let&#39;s find an article which fits your needs.
           </div>
         </header>
-        {category}
-        {depth}
-        <button className="button dark" onClick={this.searchCategory}>Submit</button>
+        <div className="article-finder-form">
+          {category}
+          {depth}
+          <div className="text-center">
+            <button className="button dark" onClick={this.searchCategory}>Submit</button>
+          </div>
+        </div>
         {filters}
         {loader}
         {list}
