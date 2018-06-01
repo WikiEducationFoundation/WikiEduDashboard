@@ -52,6 +52,7 @@ const ArticleFinder = createReactClass({
         label={I18n.t('article_finder.category')}
         placeholder={I18n.t('article_finder.category')}
       />);
+
     const depth = (
       <TextInput
         id="depth"
@@ -63,6 +64,7 @@ const ArticleFinder = createReactClass({
         label={I18n.t('article_finder.depth')}
         placeholder={I18n.t('article_finder.depth')}
       />);
+
     const minimumViews = (
       <TextInput
         id="min_views"
@@ -74,6 +76,7 @@ const ArticleFinder = createReactClass({
         label={I18n.t('article_finder.minimum_views_label')}
         placeholder={I18n.t('article_finder.minimum_views_label')}
       />);
+
     const maxCompleteness = (
       <TextInput
         id="max_completeness"
@@ -85,21 +88,42 @@ const ArticleFinder = createReactClass({
         label={I18n.t('article_finder.max_completeness_label')}
         placeholder={I18n.t('article_finder.max_completeness_label')}
       />);
+
     const grade = (
-      <select
-        id="grade_selector"
-        name="grade_value"
-        value={this.props.grade}
-        onChange={this.handleChange}
-      >
-        <option disabled value=""> — select one —</option>
-        <option value="FA">FA</option>
-        <option value="GA">GA</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="Start">Start</option>
-        <option value="Stub">Stub</option>
-      </select>);
+      <div className="form-group">
+        <label>
+          Max Grade
+        </label>
+        <select
+          id="grade_selector"
+          name="grade_value"
+          value={this.props.grade}
+          onChange={this.handleChange}
+        >
+          <option disabled value=""> — select one —</option>
+          <option value="FA">FA</option>
+          <option value="GA">GA</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="Start">Start</option>
+          <option value="Stub">Stub</option>
+        </select>
+      </div>);
+
+    let filters;
+    if (this.state.isSubmitted) {
+      filters = (
+        <div className="form-container">
+          <h3>Filter your results:</h3>
+          <div className="horizontal-form">
+            {minimumViews}
+            {maxCompleteness}
+            {grade}
+          </div>
+        </div>
+        );
+    }
+
     const keys = {
       title: {
         label: I18n.t('articles.title'),
@@ -118,6 +142,7 @@ const ArticleFinder = createReactClass({
         desktop_only: false,
       },
     };
+
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
@@ -145,6 +170,7 @@ const ArticleFinder = createReactClass({
         />
         );
     }
+
     let loader;
     if (this.state.isSubmitted && this.props.loading) {
       loader = <Loading />;
@@ -160,10 +186,8 @@ const ArticleFinder = createReactClass({
         </header>
         {category}
         {depth}
-        {minimumViews}
-        {maxCompleteness}
-        {grade}
         <button className="button dark" onClick={this.searchCategory}>Submit</button>
+        {filters}
         {loader}
         {list}
       </div>
