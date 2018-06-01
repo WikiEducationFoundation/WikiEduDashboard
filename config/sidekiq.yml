@@ -23,3 +23,5 @@ test:
 :queues:
  - default
  - short_update
+ - medium_update
+ - long_update
