@@ -85,24 +85,12 @@ export const getFilteredAlerts = createSelector(
   }
 );
 
-export const getFilteredArticleFinderByGrade = createSelector(
+export const getFilteredArticleFinderByQuality = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      if (!WP10Weights[article.grade]) {
-        return true;
-      }
-      if (article.fetchState === "PAGEASSESSMENT_RECEIVED" && WP10Weights[articleFinder.grade] >= WP10Weights[article.grade]) {
-        return true;
-      }
-      return false;
-    });
-  }
-);
-
-export const getFilteredArticleFinderByRevisionScore = createSelector(
-  [getArticleFinderState], (articleFinder) => {
-    return _.pickBy(articleFinder.articles, (article) => {
-      if (article.fetchState === "REVISIONSCORE_RECEIVED" && article.revScore <= articleFinder.max_completeness) {
+      const quality = Math.max(article.revScore, WP10Weights[article.grade]);
+      const qualityFilter = articleFinder.article_quality;
+      if (article.fetchState === "REVISIONSCORE_RECEIVED" && quality <= qualityFilter) {
         return true;
       }
       return false;
@@ -124,13 +112,12 @@ export const getFilteredArticleFinderByViews = createSelector(
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
+      const quality = Math.max(article.revScore, WP10Weights[article.grade]);
+      const qualityFilter = articleFinder.article_quality;
       if (fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED && article.pageviews < articleFinder.min_views) {
         return false;
       }
-      if (fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED && article.revScore > articleFinder.max_completeness) {
-        return false;
-      }
-      if (fetchStates[article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED && WP10Weights[articleFinder.grade] < WP10Weights[article.grade]) {
+      if (fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED && quality > qualityFilter) {
         return false;
       }
       return true;

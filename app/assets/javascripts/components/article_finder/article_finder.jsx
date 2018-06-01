@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
+import InputRange from 'react-input-range';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
@@ -77,52 +78,28 @@ const ArticleFinder = createReactClass({
         placeholder={I18n.t('article_finder.minimum_views_label')}
       />);
 
-    const maxCompleteness = (
-      <TextInput
-        id="max_completeness"
-        onChange={this.updateFields}
-        value={this.props.max_completeness}
-        value_key="max_completeness"
-        required
-        editable
-        label={I18n.t('article_finder.max_completeness_label')}
-        placeholder={I18n.t('article_finder.max_completeness_label')}
-      />);
+    const articleQuality = (
+      <div className="form-group range-container">
+        <label className="mb2">Article Quality(0-100)</label>
+        <InputRange
+          maxValue={100}
+          minValue={0}
+          value={this.props.article_quality}
+          onChange={value => this.updateFields('article_quality', value)}
+          step={1}
+        />
+      </div>
+      );
 
-    const grade = (
-      <div className="form-group">
-        <label>
-          Max Grade
-        </label>
-        <select
-          id="grade_selector"
-          name="grade_value"
-          value={this.props.grade}
-          onChange={this.handleChange}
-        >
-          <option disabled value=""> — select one —</option>
-          <option value="FA">FA</option>
-          <option value="GA">GA</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="Start">Start</option>
-          <option value="Stub">Stub</option>
-        </select>
-      </div>);
-
-    let filters;
-    if (this.state.isSubmitted) {
-      filters = (
-        <div className="form-container mb2">
-          <h4>Filter your results:</h4>
-          <div className="horizontal-form">
-            {minimumViews}
-            {maxCompleteness}
-            {grade}
-          </div>
+    const filters = (
+      <div className="form-container mb2">
+        <h4>Filter your results:</h4>
+        <div className="horizontal-form">
+          {minimumViews}
+          {articleQuality}
         </div>
-        );
-    }
+      </div>
+    );
 
     const keys = {
       title: {
@@ -204,8 +181,7 @@ const mapStateToProps = state => ({
   loading: state.articleFinder.loading,
   category: state.articleFinder.category,
   min_views: state.articleFinder.min_views,
-  grade: state.articleFinder.grade,
-  max_completeness: state.articleFinder.max_completeness,
+  article_quality: state.articleFinder.article_quality,
   depth: state.articleFinder.depth,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,

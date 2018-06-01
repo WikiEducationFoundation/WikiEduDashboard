@@ -2,7 +2,7 @@ import _ from 'lodash';
 import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
-import { getFilteredArticleFinderByRevisionScore, getFilteredArticleFinderByGrade } from '../selectors';
+import { getFilteredArticleFinderByQuality } from '../selectors';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
@@ -69,7 +69,7 @@ const getDataForSubCategories = (category, depth, namespace, dispatch, getState)
 };
 
 const fetchPageViews = (dispatch, getState) => {
-  const articles = getFilteredArticleFinderByRevisionScore(getState());
+  const articles = getFilteredArticleFinderByQuality(getState());
   _.forEach(articles, (article) => {
     const url = pageviewQueryGenerator(article.title);
     limit(() => queryUrl(url, {}, 'json'))
@@ -101,12 +101,11 @@ const fetchPageAssessment = (articlesList, dispatch, getState) => {
 
   Promise.all(promises)
   .then(() => {
-    fetchPageRevision(dispatch, getState);
+    fetchPageRevision(articlesList, dispatch, getState);
   });
 };
 
-const fetchPageRevision = (dispatch, getState) => {
-  const articlesList = Object.values(getFilteredArticleFinderByGrade(getState()));
+const fetchPageRevision = (articlesList, dispatch, getState) => {
   const promises = _.chunk(articlesList, 20).map((articles) => {
     const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
     return limit(() => queryUrl(mediawikiApiBase, query))

@@ -10,8 +10,7 @@ const initialState = {
   category: "",
   depth: "",
   min_views: "0",
-  max_completeness: "100",
-  grade: "FA",
+  article_quality: 100,
   loading: false
 };
 
