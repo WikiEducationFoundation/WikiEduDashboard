@@ -88,7 +88,10 @@ export const getFilteredAlerts = createSelector(
 export const getFilteredArticleFinderByQuality = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      const quality = Math.max(article.revScore, WP10Weights[article.grade]);
+      let quality = article.revScore;
+      if (article.grade) {
+        quality = Math.max(article.revScore, WP10Weights[article.grade]);
+      }
       const qualityFilter = articleFinder.article_quality;
       if (article.fetchState === "REVISIONSCORE_RECEIVED" && quality <= qualityFilter) {
         return true;
@@ -114,7 +117,7 @@ export const getFilteredArticleFinder = createSelector(
     return _.pickBy(articleFinder.articles, (article) => {
       const quality = Math.max(article.revScore, WP10Weights[article.grade]);
       const qualityFilter = articleFinder.article_quality;
-      if (!_.includes(Object.keys(WP10Weights), article.grade)) {
+      if (article.grade && !_.includes(Object.keys(WP10Weights), article.grade)) {
         return false;
       }
       if (fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED && article.pageviews < articleFinder.min_views) {
