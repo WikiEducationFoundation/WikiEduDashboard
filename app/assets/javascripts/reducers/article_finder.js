@@ -66,9 +66,17 @@ export default function articleFinder(state = initialState, action) {
 
       newStateArticles[title].pageviews = averagePageviews;
       newStateArticles[title].fetchState = "PAGEVIEWS_RECEIVED";
+
+      const newArticles = sortByKey(Object.values(newStateArticles), "pageviews", null, true);
+      const newArticlesObject = {};
+      newArticles.newModels.forEach((article) => {
+        newArticlesObject[article.title] = article;
+      });
+
       return {
         ...state,
-        articles: newStateArticles,
+        articles: newArticlesObject,
+        sortKey: "pageviews"
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
