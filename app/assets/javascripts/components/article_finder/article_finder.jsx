@@ -8,7 +8,7 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
-import { fetchCategoryResults, updateFields } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
@@ -106,15 +106,15 @@ const ArticleFinder = createReactClass({
         label: I18n.t('articles.title'),
         desktop_only: false
       },
-      pageassessment_grade: {
+      grade: {
         label: I18n.t('article_finder.page_assessment_grade'),
         desktop_only: false,
       },
-      completeness_estimate: {
+      revScore: {
         label: I18n.t('article_finder.completeness_estimate'),
         desktop_only: false,
       },
-      average_views: {
+      pageviews: {
         label: I18n.t('article_finder.average_views'),
         desktop_only: false,
       },
@@ -140,10 +140,11 @@ const ArticleFinder = createReactClass({
         <List
           elements={elements}
           keys={keys}
-          sortable={false}
+          sortable={true}
           table_key="category-articles"
           className="table--expandable table--hoverable"
           none_message={I18n.t('article_finder.no_article_found')}
+          sortBy={this.props.sortArticleFinder}
         />
         );
     }
@@ -191,7 +192,8 @@ const mapDispatchToProps = {
   fetchCategoryResults: fetchCategoryResults,
   updateFields: updateFields,
   addAssignment: addAssignment,
-  fetchAssignments: fetchAssignments
+  fetchAssignments: fetchAssignments,
+  sortArticleFinder: sortArticleFinder
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);

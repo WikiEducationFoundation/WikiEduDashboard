@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
 import { getFilteredArticleFinderByQuality } from '../selectors';
 
@@ -22,6 +22,13 @@ export const updateFields = (key, value) => (dispatch, getState) => {
   if (_.includes(filters, key)) {
     fetchPageRevision(dispatch, getState);
   }
+};
+
+export const sortArticleFinder = (key) => {
+  return {
+    type: SORT_ARTICLE_FINDER,
+    key: key,
+  };
 };
 
 export const fetchCategoryResults = (category, depth) => (dispatch, getState) => {
