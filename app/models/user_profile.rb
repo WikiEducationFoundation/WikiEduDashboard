@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: user_profiles
@@ -13,6 +12,7 @@
 #  image_updated_at   :datetime
 #  location           :string(255)
 #  institution        :string(255)
+#  email_preferences  :text(65535)
 #
 
 class UserProfile < ApplicationRecord

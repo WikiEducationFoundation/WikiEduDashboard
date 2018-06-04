@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: articles_courses
@@ -9,7 +8,7 @@
 #  updated_at    :datetime
 #  article_id    :integer
 #  course_id     :integer
-#  view_count    :integer          default(0)
+#  view_count    :bigint(8)        default(0)
 #  character_sum :integer          default(0)
 #  new_article   :boolean          default(FALSE)
 #

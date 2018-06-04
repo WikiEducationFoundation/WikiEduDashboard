@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: requested_accounts
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  course_id  :integer
 #  username   :string(255)
 #  email      :string(255)
