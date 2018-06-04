@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, API_FAIL } from "../constants";
-import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator } from '../utils/article_finder_utils.js';
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
+import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { getFilteredArticleFinderByQuality } from '../selectors';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
@@ -149,3 +149,26 @@ const fetchPageRevisionScore = (revids, dispatch) => {
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
+
+
+export const fetchKeywordResults = (keyword, offset, continueResults = false) => (dispatch, getState) => {
+  if (!continueResults) {
+    dispatch({
+      type: CLEAR_FINDER_STATE
+    });
+  }
+  const query = keywordQueryGenerator(keyword, offset);
+  return limit(() => queryUrl(mediawikiApiBase, query))
+  .then((data) => {
+    dispatch({
+      type: RECEIVE_KEYWORD_RESULTS,
+      data: data,
+    });
+    return data.query.search;
+  })
+  .then((articles) => {
+    return fetchPageAssessment(articles, dispatch, getState);
+  })
+  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+};
+

@@ -61,6 +61,17 @@ export const pageRevisionScoreQueryGenerator = (revids) => {
   };
 };
 
+export const keywordQueryGenerator = (keyword, offset) => {
+  return {
+    list: 'search',
+    srsearch: keyword,
+    srlimit: 50,
+    srinfo: 'totalhits',
+    srprop: '',
+    sroffset: offset
+  };
+};
+
 const formatDate = (date) => {
   const year = date.getUTCFullYear();
   let month = date.getUTCMonth() + 1;
