@@ -34,9 +34,16 @@ const ArticleFinder = createReactClass({
       isSubmitted: true,
     });
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.offset, false);
+      return this.props.fetchKeywordResults(this.props.search_term);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.depth);
+    return this.props.fetchCategoryResults(this.props.search_term);
+  },
+
+  fetchMoreResults() {
+    if (this.props.search_type === 'keyword') {
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.offset, true);
+    }
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
@@ -56,20 +63,6 @@ const ArticleFinder = createReactClass({
         label={I18n.t('article_finder.category')}
         placeholder={I18n.t('article_finder.category')}
       />);
-    let depth;
-    if (this.props.search_type === 'category') {
-      depth = (
-        <TextInput
-          id="depth"
-          onChange={this.updateFields}
-          value={this.props.depth}
-          value_key="depth"
-          required
-          editable
-          label={I18n.t('article_finder.depth')}
-          placeholder={I18n.t('article_finder.depth')}
-        />);
-    }
 
     const searchType = (
       <div>
@@ -177,8 +170,8 @@ const ArticleFinder = createReactClass({
     }
 
     let fetchMoreButton;
-    if (this.props.search_type === "keyword" && this.props.continue_results) {
-      fetchMoreButton = (<button className="button dark text-center" onClick={() => this.props.fetchKeywordResults(this.props.search_term, this.props.offset, true)}>More Results</button>);
+    if (this.props.continue_results) {
+      fetchMoreButton = (<button className="button dark text-center" onClick={this.fetchMoreResults}>More Results</button>);
     }
 
     return (
@@ -192,7 +185,6 @@ const ArticleFinder = createReactClass({
         <div className="article-finder-form">
           {searchTerm}
           {searchType}
-          {depth}
           <div className="text-center">
             <button className="button dark" onClick={this.searchArticles}>Submit</button>
           </div>
@@ -216,6 +208,7 @@ const mapStateToProps = state => ({
   search_type: state.articleFinder.search_type,
   continue_results: state.articleFinder.continue_results,
   offset: state.articleFinder.offset,
+  cmcontinue: state.articleFinder.cmcontinue,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
 });

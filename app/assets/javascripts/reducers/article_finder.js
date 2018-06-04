@@ -17,6 +17,7 @@ const initialState = {
   sortKey: null,
   continue_results: false,
   offset: 0,
+  cmcontinue: '',
   totalhits: 0,
 };
 
@@ -52,7 +53,7 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.forEach((data) => {
+      action.data.query.categorymembers.forEach((data) => {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
@@ -60,9 +61,17 @@ export default function articleFinder(state = initialState, action) {
           title: data.title,
         };
       });
+      let continueResults = false;
+      let cmcontinue = '';
+      if (action.data.continue) {
+        continueResults = true;
+        cmcontinue = action.data.continue.cmcontinue;
+      }
       return {
         ...state,
         articles: newStateArticles,
+        continue_results: continueResults,
+        cmcontinue: cmcontinue,
         loading: false
       };
     }

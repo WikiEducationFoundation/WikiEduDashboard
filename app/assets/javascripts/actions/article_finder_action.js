@@ -31,49 +31,51 @@ export const sortArticleFinder = (key) => {
   };
 };
 
-export const fetchCategoryResults = (category, depth) => (dispatch, getState) => {
-  dispatch({
-    type: CLEAR_FINDER_STATE,
-  });
-  return getDataForCategory(`Category:${category}`, depth, 0, dispatch, getState);
+export const fetchCategoryResults = (category, cmcontinue = '', continueResults = false) => (dispatch, getState) => {
+  if (!continueResults) {
+    dispatch({
+      type: CLEAR_FINDER_STATE,
+    });
+  }
+  return getDataForCategory(`Category:${category}`, cmcontinue, 0, dispatch, getState);
 };
 
-const getDataForCategory = (category, depth, namespace = 0, dispatch, getState) => {
-  const query = categoryQueryGenerator(category, namespace);
+const getDataForCategory = (category, cmcontinue, namespace = 0, dispatch, getState) => {
+  const query = categoryQueryGenerator(category, cmcontinue, namespace);
   return limit(() => queryUrl(mediawikiApiBase, query))
   .then((data) => {
-    if (depth > 0) {
-        depth -= 1;
-        getDataForSubCategories(category, depth, namespace, dispatch, getState);
-      }
+    // if (depth > 0) {
+    //     depth -= 1;
+    //     getDataForSubCategories(category, depth, namespace, dispatch, getState);
+    //   }
     dispatch({
       type: RECEIVE_CATEGORY_RESULTS,
-      data: data.query.categorymembers
+      data: data,
     });
     return data.query.categorymembers;
   })
   .then((data) => {
-    fetchPageAssessment(data, dispatch, getState);
+    return fetchPageAssessment(data, dispatch, getState);
   })
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
-export const findSubcategories = (category) => {
-  const subcatQuery = categoryQueryGenerator(category, 14);
-  return limit(() => queryUrl(mediawikiApiBase, subcatQuery))
-  .then((data) => {
-    return data.query.categorymembers;
-  });
-};
+// export const findSubcategories = (category) => {
+//   const subcatQuery = categoryQueryGenerator(category, 14);
+//   return limit(() => queryUrl(mediawikiApiBase, subcatQuery))
+//   .then((data) => {
+//     return data.query.categorymembers;
+//   });
+// };
 
-const getDataForSubCategories = (category, depth, namespace, dispatch, getState) => {
-  return findSubcategories(category)
-  .then((subcats) => {
-    subcats.forEach((subcat) => {
-      getDataForCategory(subcat.title, depth, namespace, dispatch, getState);
-    });
-  });
-};
+// const getDataForSubCategories = (category, depth, namespace, dispatch, getState) => {
+//   return findSubcategories(category)
+//   .then((subcats) => {
+//     subcats.forEach((subcat) => {
+//       getDataForCategory(subcat.title, depth, namespace, dispatch, getState);
+//     });
+//   });
+// };
 
 const fetchPageViews = (dispatch, getState) => {
   const articles = getFilteredArticleFinderByQuality(getState());
@@ -151,7 +153,7 @@ const fetchPageRevisionScore = (revids, dispatch) => {
 };
 
 
-export const fetchKeywordResults = (keyword, offset, continueResults = false) => (dispatch, getState) => {
+export const fetchKeywordResults = (keyword, offset = 0, continueResults = false) => (dispatch, getState) => {
   if (!continueResults) {
     dispatch({
       type: CLEAR_FINDER_STATE
