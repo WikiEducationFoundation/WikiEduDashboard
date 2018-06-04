@@ -55,15 +55,38 @@ const ArticleFinderRow = createReactClass({
       revScore = (<div>Estimation Score not found!</div>);
     }
 
+    const prettyGrades = {
+      Start: 's',
+      Stub: 's',
+      B: 'b',
+      C: 'c',
+      GA: 'ga',
+      FA: 'fa',
+    };
     let grade;
     if (this.props.article.fetchState === "TITLE_RECEIVED") {
-      grade = (<div className="results-loading"> &nbsp; &nbsp; </div>);
+      grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
     }
     if (this.props.article.grade) {
-      grade = this.props.article.grade;
+      const gradeClass = `rating ${this.props.article.grade.toLowerCase()}`;
+      grade = (
+        <td className="tooltip-trigger">
+          <div className={gradeClass}><p>{prettyGrades[this.props.article.grade] || '-'}</p></div>
+          <div className="tooltip dark">
+            <p>{I18n.t(`articles.rating_docs.${this.props.article.grade.toLowerCase() || '?'}`)}</p>
+          </div>
+        </td>
+        );
     }
     else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
-      grade = (<div>Not rated</div>);
+      grade = (
+        <td className="tooltip-trigger">
+          <div className="rating null"><p>-</p></div>
+          <div className="tooltip dark">
+            <p>{I18n.t(`articles.rating_docs.?`)}</p>
+          </div>
+        </td>
+        );
     }
     let button;
     if (this.props.courseSlug) {
@@ -88,9 +111,7 @@ const ArticleFinderRow = createReactClass({
         <td>
           {this.props.title}
         </td>
-        <td>
-          {grade}
-        </td>
+        {grade}
         <td>
           {revScore}
         </td>
