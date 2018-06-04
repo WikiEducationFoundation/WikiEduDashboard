@@ -18,13 +18,13 @@ json.course do
   json.published CampaignsCourses.exists?(course_id: @course.id)
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
 
-  json.created_count number_to_human @course.new_article_count
-  json.edited_count number_to_human @course.article_count
-  json.edit_count number_to_human @course.revision_count
+  json.created_count @course.new_article_count
+  json.edited_count @course.article_count
+  json.edit_count @course.revision_count
   json.student_count @course.user_count
   json.trained_count @course.trained_count
-  json.word_count number_to_human @course.word_count
-  json.view_count number_to_human @course.view_sum
+  json.word_count @course.word_count
+  json.view_count @course.view_sum
   json.syllabus @course.syllabus.url if @course.syllabus.file?
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
