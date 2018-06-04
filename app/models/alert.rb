@@ -44,6 +44,7 @@ class Alert < ApplicationRecord
     NeedHelpAlert
     NoEnrolledStudentsAlert
     OnboardingAlert
+    OverdueTrainingAlert
     ProductiveCourseAlert
     SurveyResponseAlert
     UnsubmittedCourseAlert
@@ -141,6 +142,10 @@ class Alert < ApplicationRecord
 
   def resolvable?
     false
+  end
+
+  def opt_out_link
+    nil
   end
 
   def resolve_explanation
