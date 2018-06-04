@@ -860,4 +860,15 @@ zh-CN:
       header: 您是怎么知道我们的？
       where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
       why_are_you_here: 您想做什么？
+  article_finder:
+    page_assessment_grade: 评定等级
+    completeness_estimate: 完整分数
+    average_views: 每天平均访问
+    add_available_article: 添加为可用条目
+    already_added: 已添加到可用条目
+    max_completeness_label: 最高完整（0~100）
+    minimum_views_label: 最低访问
+    depth: 深度
+    category: 分类
+    no_article_found: 此分类中找不到条目
 ...

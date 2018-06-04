@@ -1128,4 +1128,11 @@ fr:
       where_did_you_hear: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
+  article_finder:
+    average_views: Nombre moyen de vues par jour
+    already_added: Déja ajouté aux articles disponibles
+    minimum_views_label: Nombre minimum de vues
+    depth: Profondeur
+    category: Catégorie
+    no_article_found: Aucun article trouvé dans cette catégorie
 ...

@@ -1,6 +1,7 @@
 # Messages for Belarusian (беларуская)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Artsiom91
 # Author: Helaku
 # Author: Ihar Dorinel
 # Author: Kevit
@@ -142,6 +143,7 @@ be:
     none: Нічога
   courses:
     activity: Актыўнасць
+    alerts: Папярэджанні
     already_enrolled: Вы ўжо з'яўляецеся часткай '%{title}'!
     already_exists: Гэта ўжо ёсць у курсе!
     archived: Архіваваныя курсы

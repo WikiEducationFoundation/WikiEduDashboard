@@ -285,4 +285,14 @@ el:
   onboarding:
     supplementary:
       why_are_you_here: Τι θα θέλατε να κάνετε;
+  article_finder:
+    completeness_estimate: Σκορ ολοκληρωτικότητας
+    average_views: Μέσος όρος προβολών ανά ημέρα
+    add_available_article: Προσθήκη ως διαθέσιμο άρθρο
+    already_added: Έχει προστεθεί ήδη στα διαθέσιμα άρθρα
+    max_completeness_label: Μέγιστη ολοκληρωτικότητα (0-100)
+    minimum_views_label: Ελάχιστες προβολές
+    depth: Βάθος
+    category: Κατηγορία
+    no_article_found: Δεν βρέθηκαν άρθρα σε αυτή τη κατηγορία
 ...

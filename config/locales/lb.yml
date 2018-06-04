@@ -505,4 +505,11 @@ lb:
       where_did_you_hear: Wou oder vu wiem hutt Dir fir d'éischt vu WikiEducation
         héieren?
       why_are_you_here: Wat wëllt Dir maachen?
+  article_finder:
+    average_views: Duerchschnëttlech gekuckt pro Dag
+    add_available_article: Als disponibelen Artikel derbäisetzen
+    already_added: Scho bei déi disponibel Artikelen derbäigesat
+    depth: Déift
+    category: Kategorie
+    no_article_found: Keng Artikelen an dëser Kategorie fonnt
 ...

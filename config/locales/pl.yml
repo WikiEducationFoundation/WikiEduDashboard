@@ -839,4 +839,8 @@ pl:
     supplementary:
       header: Jak się o nas dowiedziałeś?
       why_are_you_here: Co chciałbyś robić?
+  article_finder:
+    depth: Głębokość
+    category: Kategoria
+    no_article_found: Nie znaleziono artykułów w tej kategorii
 ...

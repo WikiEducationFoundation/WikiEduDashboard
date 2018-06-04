@@ -1101,4 +1101,15 @@ pt-br:
       where_did_you_hear: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki
         Education?
       why_are_you_here: O que você gostaria de fazer?
+  article_finder:
+    page_assessment_grade: Grade de avaliação
+    completeness_estimate: Pontuação de integridade
+    average_views: Média de visualizações por dia
+    add_available_article: Adicionar como artigo disponível
+    already_added: Já adicionado aos artigos disponíveis
+    max_completeness_label: Completude máximas(0-100)
+    minimum_views_label: Visualizações mínimas
+    depth: Profundidade
+    category: Categoria
+    no_article_found: Nenhum artigo encontrado nesta categoria
 ...

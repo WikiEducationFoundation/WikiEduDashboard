@@ -32,6 +32,7 @@ ast:
     recent_activity: Actividá recién
     report_problem: Informar d'un problema
     request_account: Solicita una cuenta
+    request_account_create: Crear una cuenta
     search: facer una entruga
     search_results: 'Resultancies de: ''%{search_terms}'''
     sign_up_extended: Rexístrate con Wikipedia
@@ -148,7 +149,9 @@ ast:
     title_too_large: El títulu nun tendría de pasar los 255 caráuteres
     assignees: Encargáu(os)
     assign_other: Asinar un artículu
-    add_available: Añadir un artículu disponible
+    add_available: Añadir artículos disponibles
+    add_available_placeholder: Añade un títulu d'artículu o una URL per llinia
+    add_available_submit: Amestar artículos
     assign_self: Asiname un artículu
     confirm_add_available: ¿Tas seguru de que quieres añadir %{title}?
     confirm_addition: ¿Tas seguru de que quies encargar de %{title} a %{username}?
@@ -346,6 +349,7 @@ ast:
     duration: Duración del cursu
     edit_count: Recuentu d'ediciones
     edit_course_dates: Editar les Dates del cursu
+    enable_account_requests: Activar les solicitúes de cuentes
     enable_chat: Activar el chat
     end: Fin
     ended: El cursu terminó.
@@ -364,6 +368,8 @@ ast:
     feedback: La to opinión
     feedback_loading: Espera mientres se carguen les suxerencies...
     gradeables_none: Esti cursu nun tien xeres calificables.
+    home_wiki_language: Idioma de la wiki d'orixe
+    home_wiki_project: Proyectu de la wiki d'orixe
     instructor:
       one: Profesor
       other: Profesores
@@ -391,6 +397,7 @@ ast:
     new_account_username: Nome d'usuariu solicitáu
     new_account_username_invalid: Esti nome d'usuariu nun ye válidu.
     new_account_username_placeholder: Wiki Editor 123
+    new_account_submit: Solicitar una cuenta
     nocourses: Nun participes en nengún cursu.
     nocourse: nun participó en nengún cursu.
     none: Nengunu
@@ -502,6 +509,7 @@ ast:
     instructors: Facilitadores
     join_course: Xunise al programa
     leave_course: Dexar el programa
+    request_accounts: Solicitar cuentes
     revisions_none: Esti proyeutu nun tien actividá editorial recien.
     school: Institución
     school_and_term: Institución/Cuando
@@ -682,6 +690,9 @@ ast:
     table_of_contents: Índiz
     logged_out: Zarróse la sesión. Nun vas recibir creitu por completar esti módulu
       mentanto nun anicies sesión.
+    done: ¡Fecho!
+    check_answer: Comprobar la respuesta
+    included_modules: Módulos incluyíos
   uploads:
     datetime: Data/Hora
     file_name: Nome del ficheru
@@ -692,6 +703,7 @@ ast:
     none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
       Commons.
     time_doc: La hora de cada xuba n'hora llocal
+    uploaded_at: Xubíu el
     uploaded_by: Xubíu por
     usage_count: Númberu d'usos
     usages: Usos
@@ -701,6 +713,7 @@ ast:
     assign_articles_done: Fecho
     assigned: Artículos axudicaos
     assignees: Encargáu(os)
+    loading_authorship_data: cargando datos d'autoría
     character_doc: La cantidá total de conteníu qu'un usuariu amestó a esti espaciu
       de nomes, calculada sumando los caráuteres añadíos de toles ediciones qu'aumentaron
       el tamañu de la páxina. Esti númberu nun espeya necesariamente la cantidá de
@@ -713,6 +726,7 @@ ast:
     contribution_statistics: Estadístiques de contribución
     course_passcode: 'Códigu d''accesu:'
     editors: Editores estudiantes
+    edits_by: 'Ediciones de:'
     enroll_confirmation: ¿Tas seguru de que quies añadir a %{username}?
     enroll_url: 'Los usuarios pueden xunise visitando esta URL:'
     enrolled_success: '%{username} añadióse correutamente'
@@ -872,4 +886,8 @@ ast:
         como les tuyes na Wikipedia.
   feedback_form_responses:
     no_responses: Inda nun hai comentarios de respuesta.
+  article_finder:
+    minimum_views_label: Visites mínimes
+    depth: Fondura
+    category: Categoría
 ...

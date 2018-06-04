@@ -950,4 +950,8 @@ es:
       where_did_you_hear: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre
         Wiki Education?
       why_are_you_here: ¿Qué quieres hacer?
+  article_finder:
+    depth: Profundidad
+    category: Categoría
+    no_article_found: No se encontró ningún artículo en esta categoría
 ...

@@ -1109,4 +1109,15 @@ de:
       header: Wie hast du von uns erfahren?
       where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
       why_are_you_here: Was möchtest du tun?
+  article_finder:
+    page_assessment_grade: Bewertungsgrad
+    completeness_estimate: Vervollständigungs-Punktestand
+    average_views: Durchschnittliche Aufrufe pro Tag
+    add_available_article: Als verfügbaren Artikel hinzufügen
+    already_added: Bereits zu den verfügbaren Artikeln hinzugefügt
+    max_completeness_label: Maximale Vervollständigung (0-100)
+    minimum_views_label: Mindestaufrufe
+    depth: Tiefe
+    category: Kategorie
+    no_article_found: Keine Artikel in dieser Kategorie gefunden
 ...

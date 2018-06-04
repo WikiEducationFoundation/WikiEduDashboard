@@ -881,4 +881,15 @@ zh-TW:
       header: 您是如何知道我們的？
       where_did_you_hear: 您是在哪裡、或是從誰，來第一次聽到維基教育？
       why_are_you_here: 您想要做什麼？
+  article_finder:
+    page_assessment_grade: 評估分級
+    completeness_estimate: 完整性分數
+    average_views: 每日平均檢視
+    add_available_article: 添加為可用條目
+    already_added: 已添加至可用條目裡
+    max_completeness_label: 最大完整性（0 至 100）
+    minimum_views_label: 最小檢視數
+    depth: 層度
+    category: 分類
+    no_article_found: 此分類裡沒有條目
 ...
