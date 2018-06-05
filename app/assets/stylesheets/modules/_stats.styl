@@ -15,6 +15,8 @@
     margin 0 20px 20px 20px
     text-align center
     width calc(50% - 40px)
+    display flex
+    flex-direction column
 
     +above(desktop)
       margin 0 0 20px 0
@@ -44,6 +46,8 @@
       color #666
       font-size 1em
       line-height 1
+      align-self flex-end
+      margin auto
 
   .tooltip
     left -15%
@@ -64,6 +68,47 @@
 
       .stat-display__stat
         margin 0 20px 0 20px
+
+.hide
+  display none
+
+.spinner
+  margin auto
+  width 50px
+  height 50px
+  position relative
+
+.double-bounce1, .double-bounce2
+  width 100%
+  height 100%
+  border-radius 50%
+  background-color rgba(107, 102, 182, 0.8)
+  opacity 0.6
+  position absolute
+  top 0
+  left 0
+  -webkit-animation sk-bounce 2.0s infinite ease-in-out
+  animation sk-bounce 2.0s infinite ease-in-out
+
+.double-bounce2
+  -webkit-animation-delay -1.0s
+  animation-delay -1.0s
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
 
 @media only screen and (max-width: 910px)
   .stat-display
