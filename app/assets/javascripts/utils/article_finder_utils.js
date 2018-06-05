@@ -1,7 +1,5 @@
 import logErrorMessage from './log_error_message';
 
-const pageviewBaseUrl = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/';
-
 export const queryUrl = (url, query = {}, dataType = 'jsonp') => {
   return new Promise((res, rej) => {
     return $.ajax({
@@ -72,25 +70,11 @@ export const keywordQueryGenerator = (keyword, offset) => {
   };
 };
 
-const formatDate = (date) => {
-  const year = date.getUTCFullYear();
-  let month = date.getUTCMonth() + 1;
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  let day = date.getUTCDate();
-  if (day < 10) {
-    day = `0${day}`;
-  }
-  return `${year}${month}${day}`;
-};
-
-export const pageviewQueryGenerator = (title) => {
-  const startDateString = formatDate(new Date(new Date() - 50 * 24 * 60 * 60 * 1000));
-  const endDateString = formatDate(new Date(new Date() - 1 * 24 * 60 * 60 * 1000));
-  title = title.replace(/ /g, '_');
-  const queryParams = `${title}/daily/${startDateString}00/${endDateString}00`;
-  return pageviewBaseUrl + queryParams;
+export const pageviewQueryGenerator = (pageids) => {
+  return {
+    prop: 'pageviews',
+    pageids: multipleQueryGenerator(pageids)
+  };
 };
 
 export const extractClassGrade = (pageAssessments) => {
