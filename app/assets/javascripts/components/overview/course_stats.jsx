@@ -1,6 +1,8 @@
+import CountUp from 'react-countup';
 import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
+//import numFormat from '../../numbers.js';
 
 const CourseStats = ({ course }) => {
   let viewData;
@@ -11,7 +13,9 @@ const CourseStats = ({ course }) => {
   if (course.home_wiki.language === 'en') {
     contentCount = (
       <div className="stat-display__stat" id="word-count">
-        <div className="stat-display__value">{course.word_count}</div>
+        <div className="stat-display__value">
+          <CountUp stat={0} end={course.word_count} duration={2} />
+        </div>
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
     );
