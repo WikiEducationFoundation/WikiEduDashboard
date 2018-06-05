@@ -171,7 +171,27 @@ const ArticleFinder = createReactClass({
 
     let fetchMoreButton;
     if (this.props.continue_results) {
-      fetchMoreButton = (<button className="button dark text-center" onClick={this.fetchMoreResults}>More Results</button>);
+      fetchMoreButton = (<button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>);
+    }
+
+    let searchStats;
+    if (!this.props.loading && this.state.isSubmitted) {
+      const fetchedCount = Object.keys(this.props.unfilteredArticles).length;
+      const filteredCount = Object.keys(this.props.articles).length;
+      searchStats = (
+        <div>
+          <div className="justify-space-around stat-display">
+            <div className="stat-display__stat" id="articles-fetched">
+              <div className="stat-display__value">{fetchedCount}</div>
+              <small>Fetched Articles</small>
+            </div>
+            <div className="stat-display__stat" id="articles-filtered">
+              <div className="stat-display__value">{filteredCount}</div>
+              <small>Filtered Articles</small>
+            </div>
+          </div>
+        </div>
+        );
     }
 
     return (
@@ -186,13 +206,19 @@ const ArticleFinder = createReactClass({
           {searchTerm}
           {searchType}
           <div className="text-center">
-            <button className="button dark" onClick={this.searchArticles}>Submit</button>
+            <button className="button dark py2" onClick={this.searchArticles}>Submit</button>
           </div>
         </div>
         {filters}
+        <div className="article-finder-stats horizontal-flex">
+          {searchStats}
+          {fetchMoreButton}
+        </div>
         {loader}
         {list}
-        {fetchMoreButton}
+        <div className="py2 text-center">
+          {fetchMoreButton}
+        </div>
       </div>
       );
   }
@@ -200,6 +226,7 @@ const ArticleFinder = createReactClass({
 
 const mapStateToProps = state => ({
   articles: getFilteredArticleFinder(state),
+  unfilteredArticles: state.articleFinder.articles,
   loading: state.articleFinder.loading,
   search_term: state.articleFinder.search_term,
   min_views: state.articleFinder.min_views,
