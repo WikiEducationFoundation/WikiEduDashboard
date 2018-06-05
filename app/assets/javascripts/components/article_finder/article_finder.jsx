@@ -109,7 +109,7 @@ const ArticleFinder = createReactClass({
     const filters = (
       <div className="form-container mb2">
         <h4>Filter your results:</h4>
-        <div className="horizontal-form">
+        <div className="horizontal-flex">
           {minimumViews}
           {articleQuality}
         </div>
