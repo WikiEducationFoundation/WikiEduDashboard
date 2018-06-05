@@ -19,13 +19,13 @@ export const queryUrl = (url, query = {}, dataType = 'jsonp') => {
   });
 };
 
-export const categoryQueryGenerator = (category, namespace) => {
+export const categoryQueryGenerator = (category, cmcontinue, namespace) => {
   return {
     list: 'categorymembers',
     cmtitle: category,
-    cmlimit: 500,
+    cmlimit: 50,
     cmnamespace: namespace,
-    continue: ''
+    cmcontinue: cmcontinue
   };
 };
 
@@ -58,6 +58,17 @@ export const pageRevisionScoreQueryGenerator = (revids) => {
   return {
     models: 'wp10',
     revids: multipleQueryGenerator(revids)
+  };
+};
+
+export const keywordQueryGenerator = (keyword, offset) => {
+  return {
+    list: 'search',
+    srsearch: keyword,
+    srlimit: 50,
+    srinfo: 'totalhits',
+    srprop: '',
+    sroffset: offset
   };
 };
 

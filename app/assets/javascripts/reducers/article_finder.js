@@ -4,16 +4,21 @@ import { sortByKey } from '../utils/model_utils';
 
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, WP10Weights } from "../constants";
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, WP10Weights, RECEIVE_KEYWORD_RESULTS } from "../constants";
 
 const initialState = {
   articles: {},
-  category: "",
+  search_type: "category",
+  search_term: "",
   depth: "",
   min_views: "0",
   article_quality: 100,
   loading: false,
-  sortKey: null
+  sortKey: null,
+  continue_results: false,
+  offset: 0,
+  cmcontinue: '',
+  totalhits: 0,
 };
 
 export default function articleFinder(state = initialState, action) {
@@ -41,11 +46,14 @@ export default function articleFinder(state = initialState, action) {
         ...state,
         articles: {},
         loading: true,
+        continue_results: false,
+        offset: 0,
+        totalhits: 0,
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.forEach((data) => {
+      action.data.query.categorymembers.forEach((data) => {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
@@ -53,9 +61,42 @@ export default function articleFinder(state = initialState, action) {
           title: data.title,
         };
       });
+      let continueResults = false;
+      let cmcontinue = '';
+      if (action.data.continue) {
+        continueResults = true;
+        cmcontinue = action.data.continue.cmcontinue;
+      }
       return {
         ...state,
         articles: newStateArticles,
+        continue_results: continueResults,
+        cmcontinue: cmcontinue,
+        loading: false
+      };
+    }
+    case RECEIVE_KEYWORD_RESULTS: {
+      const newStateArticles = { ...state.articles };
+      action.data.query.search.forEach((article) => {
+        newStateArticles[article.title] = {
+          pageid: article.pageid,
+          ns: article.ns,
+          fetchState: "TITLE_RECEIVED",
+          title: article.title,
+        };
+      });
+      let continueResults = false;
+      let offset = 0;
+      if (action.data.continue) {
+        continueResults = true;
+        offset = action.data.continue.sroffset;
+      }
+      return {
+        ...state,
+        articles: newStateArticles,
+        totalhits: action.data.query.searchinfo.totalhits,
+        continue_results: continueResults,
+        offset: offset,
         loading: false
       };
     }
@@ -67,16 +108,9 @@ export default function articleFinder(state = initialState, action) {
       newStateArticles[title].pageviews = averagePageviews;
       newStateArticles[title].fetchState = "PAGEVIEWS_RECEIVED";
 
-      const newArticles = sortByKey(Object.values(newStateArticles), "pageviews", null, true);
-      const newArticlesObject = {};
-      newArticles.newModels.forEach((article) => {
-        newArticlesObject[article.title] = article;
-      });
-
       return {
         ...state,
-        articles: newArticlesObject,
-        sortKey: "pageviews"
+        articles: newStateArticles,
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {

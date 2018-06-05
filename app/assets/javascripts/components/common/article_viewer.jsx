@@ -17,7 +17,13 @@ const ArticleViewer = createReactClass({
     showButtonClass: PropTypes.string,
     users: PropTypes.array,
     showOnMount: PropTypes.bool,
-    fetchArticleDetails: PropTypes.func.isRequired
+    fetchArticleDetails: PropTypes.func,
+    showArticleLegend: PropTypes.bool,
+  },
+  getDefaultProps() {
+    return {
+      showArticleFinder: false,
+    };
   },
 
   getInitialState() {
@@ -47,6 +53,9 @@ const ArticleViewer = createReactClass({
   },
 
   showButtonLabel() {
+    if (this.props.showArticleFinder) {
+      return 'Brief preview of Article';
+    }
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
@@ -62,9 +71,9 @@ const ArticleViewer = createReactClass({
       this.fetchParsedArticle();
     }
 
-    if (!this.props.users) {
+    if (!this.props.users && !this.props.showArticleFinder) {
       this.props.fetchArticleDetails();
-    } else if (!this.state.userIdsFetched) {
+    } else if (!this.state.userIdsFetched && !this.props.showArticleFinder) {
       this.fetchUserIds(this.props.users);
     }
     // WhoColor is only available for some languages
@@ -267,6 +276,18 @@ const ArticleViewer = createReactClass({
       legendStatus = 'loading';
     }
 
+    let articleViewerLegend;
+    if (!this.props.showArticleFinder) {
+      articleViewerLegend = (
+        <ArticleViewerLegend
+          article={this.props.article}
+          users={this.state.users}
+          colors={this.colors}
+          status={legendStatus}
+          failureMessage={this.state.failureMessage}
+        />
+        );
+    }
     return (
       <div>
         <div className={className}>
@@ -282,13 +303,7 @@ const ArticleViewer = createReactClass({
             {article}
           </div>
           <div className="article-footer">
-            <ArticleViewerLegend
-              article={this.props.article}
-              users={this.state.users}
-              colors={this.colors}
-              status={legendStatus}
-              failureMessage={this.state.failureMessage}
-            />
+            {articleViewerLegend}
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>

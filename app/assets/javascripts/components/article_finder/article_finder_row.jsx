@@ -1,5 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+
+import ArticleViewer from '../common/article_viewer.jsx';
+
 import { fetchStates, ASSIGNED_ROLE } from "../../constants";
 
 const ArticleFinderRow = createReactClass({
@@ -106,10 +109,30 @@ const ArticleFinderRow = createReactClass({
           );
       }
     }
+
+    const article = {
+      ...this.props.article,
+      language: 'en',
+      project: 'wikipedia',
+      url: `https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+    };
+    const articleViewer = (
+      <ArticleViewer
+        article={article}
+        showButtonClass="pull-left"
+        showArticleFinder={true}
+      />
+    );
+
     return (
       <tr>
         <td>
-          {this.props.title}
+          <div className="horizontal-flex">
+            <a href={`https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
+            <div>
+              {articleViewer}
+            </div>
+          </div>
         </td>
         {grade}
         <td>
