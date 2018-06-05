@@ -16,30 +16,30 @@ const UploadsHandler = createReactClass({
 
   getInitialState() {
     return {
-      offset: 0,
+      limit: 100,
       data: [],
+      selectedPage: 1,
       perPage: 100,
     };
   },
 
   componentWillMount() {
-    return this.props.receiveUploads(this.props.course_id);
+    this.props.receiveUploads(this.props.course_id, this.state.limit);
+    this.setState({ data: this.props.uploads });
   },
 
   componentWillReceiveProps(nextProps) {
-    const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-    this.setState({ data: data, pageCount: nextProps.uploads.length / this.state.perPage });
-  },
-
-  setUploadData(offset) {
-    const data = this.props.uploads.slice(offset, offset + this.state.perPage);
-    this.setState({ offset: offset, data: data });
+    const offset = (this.state.selectedPage - 1) * this.state.perPage;
+    const uploads = nextProps.uploads.slice(offset, offset + 100);
+    this.setState({ data: uploads });
   },
 
   handlePageClick(data) {
-    const selectedPage = data.selected;
-    const offset = Math.ceil(selectedPage * this.state.perPage);
-    this.setUploadData(offset);
+    const selectedPage = data.selected + 1;
+    const limit = selectedPage * this.state.perPage;
+    this.setState({ limit: limit, selectedPage: selectedPage }, () => {
+      this.props.receiveUploads(this.props.course_id, this.state.limit);
+    });
   },
 
   sortSelect(e) {
@@ -47,6 +47,7 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
+    const pageCount = Math.ceil(this.props.count / 100);
     return (
       <div id="uploads">
         <div className="section-header">
@@ -64,9 +65,10 @@ const UploadsHandler = createReactClass({
           previousLabel={"← Previous"}
           nextLabel={"Next →"}
           breakLabel={<span className="gap">...</span>}
-          pageCount={this.state.pageCount}
+          pageCount={pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={6}
+          forcepage={this.state.currentPage}
           onPageChange={this.handlePageClick}
           containerClassName={"pagination"}
           previousLinkClassName={"previous_page"}
@@ -82,6 +84,7 @@ const UploadsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   uploads: state.uploads.uploads,
+  count: state.uploads.count
 });
 
 const mapDispatchToProps = {

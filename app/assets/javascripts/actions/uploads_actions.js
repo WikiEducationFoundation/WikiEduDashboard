@@ -1,11 +1,11 @@
 import { RECEIVE_UPLOADS, SORT_UPLOADS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
-const fetchUploads = (courseId) => {
+const fetchUploads = (courseId, limit = 100) => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/courses/${courseId}/uploads.json`,
+      url: `/courses/${courseId}/uploads.json?limit=` + limit,
       success(data) {
         return res(data);
       }
@@ -17,9 +17,9 @@ const fetchUploads = (courseId) => {
   });
 };
 
-export const receiveUploads = (courseId) => dispatch => {
+export const receiveUploads = (courseId, limit) => dispatch => {
   return (
-    fetchUploads(courseId)
+    fetchUploads(courseId, limit)
       .then(resp => dispatch({
         type: RECEIVE_UPLOADS,
         data: resp,

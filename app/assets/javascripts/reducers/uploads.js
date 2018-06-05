@@ -4,6 +4,7 @@ import { sortByKey } from '../utils/model_utils';
 const initialState = {
   uploads: [],
   sortKey: null,
+  count: null,
 };
 
 const SORT_DESCENDING = {
@@ -15,11 +16,10 @@ export default function uploads(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_UPLOADS: {
       const dataUploads = action.data.course.uploads;
-      //Intial sorting by upload date
-      const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
       return {
-        uploads: sortedModel.newModels,
-        sortKey: sortedModel.newKey,
+        uploads: dataUploads,
+        sortKey: null,
+        count: action.data.course.count,
       };
     }
     case SORT_UPLOADS: {
@@ -27,6 +27,7 @@ export default function uploads(state = initialState, action) {
       return {
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
+        count: state.count,
       };
     }
     default:
