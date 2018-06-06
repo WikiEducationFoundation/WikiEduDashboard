@@ -36,6 +36,15 @@ export const fetchCategoryResults = (category, cmcontinue = '', continueResults 
       type: CLEAR_FINDER_STATE,
     });
   }
+  else {
+    dispatch({
+      type: UPDATE_FIELD,
+      data: {
+        key: 'fetchState',
+        value: "ARTICLES_LOADING",
+      }
+    });
+  }
   return getDataForCategory(`Category:${category}`, cmcontinue, 0, dispatch, getState);
 };
 
@@ -172,6 +181,15 @@ export const fetchKeywordResults = (keyword, offset = 0, continueResults = false
   if (!continueResults) {
     dispatch({
       type: CLEAR_FINDER_STATE
+    });
+  }
+  else {
+    dispatch({
+      type: UPDATE_FIELD,
+      data: {
+        key: 'fetchState',
+        value: "ARTICLES_LOADING",
+      }
     });
   }
   const query = keywordQueryGenerator(keyword, offset);

@@ -171,7 +171,9 @@ const ArticleFinder = createReactClass({
 
     let fetchMoreButton;
     if (this.props.continue_results) {
-      fetchMoreButton = (<button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>);
+      fetchMoreButton = (
+        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>
+      );
     }
 
     let searchStats;
@@ -180,7 +182,7 @@ const ArticleFinder = createReactClass({
       const filteredCount = Object.keys(this.props.articles).length;
       searchStats = (
         <div>
-          <div className="justify-space-around stat-display">
+          <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
               <small>Fetched Articles</small>
@@ -190,6 +192,24 @@ const ArticleFinder = createReactClass({
               <small>Filtered Articles</small>
             </div>
           </div>
+        </div>
+        );
+    }
+
+    const loaderMessage = {
+      ARTICLES_LOADING: 'Searching Articles',
+      TITLE_RECEIVED: 'Fetching Page Assessments',
+      PAGEASSESSMENT_RECEIVED: 'Fetching Page Revisions',
+      REVISION_RECEIVED: "Fetching Completeness Score",
+      REVISIONSCORE_RECEIVED: "Fetching Page Views",
+    };
+
+    let fetchingLoader;
+    if (this.props.fetchState !== "PAGEVIEWS_RECEIVED" && !this.props.loading) {
+      fetchingLoader = (
+        <div className="text-center">
+          <div className="loading__spinner__small" />
+          {loaderMessage[this.props.fetchState]}
         </div>
         );
     }
@@ -212,7 +232,12 @@ const ArticleFinder = createReactClass({
         {filters}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
-          {fetchMoreButton}
+          <div>
+            {fetchingLoader}
+          </div>
+          <div>
+            {fetchMoreButton}
+          </div>
         </div>
         {loader}
         {list}
@@ -238,6 +263,7 @@ const mapStateToProps = state => ({
   cmcontinue: state.articleFinder.cmcontinue,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
+  fetchState: state.articleFinder.fetchState,
 });
 
 const mapDispatchToProps = {

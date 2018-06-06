@@ -14,6 +14,7 @@ const initialState = {
   min_views: "0",
   article_quality: 100,
   loading: false,
+  fetchState: "PAGEVIEWS_RECEIVED",
   sort: {
     sortKey: null,
     key: null,
@@ -67,7 +68,8 @@ export default function articleFinder(state = initialState, action) {
         sort: {
           sortKey: null,
           key: null
-        }
+        },
+        fetchState: "ARTICLES_LOADING",
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
@@ -91,7 +93,8 @@ export default function articleFinder(state = initialState, action) {
         articles: newStateArticles,
         continue_results: continueResults,
         cmcontinue: cmcontinue,
-        loading: false
+        loading: false,
+        fetchState: "TITLE_RECEIVED",
       };
     }
     case RECEIVE_KEYWORD_RESULTS: {
@@ -116,7 +119,8 @@ export default function articleFinder(state = initialState, action) {
         totalhits: action.data.query.searchinfo.totalhits,
         continue_results: continueResults,
         offset: offset,
-        loading: false
+        loading: false,
+        fetchState: "TITLE_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
@@ -130,6 +134,7 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
+        fetchState: "PAGEVIEWS_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
@@ -144,6 +149,7 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
+        fetchState: "PAGEASSESSMENT_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_REVISION: {
@@ -155,6 +161,7 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
+        fetchState: "REVISION_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
@@ -170,6 +177,7 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
+        fetchState: "REVISIONSCORE_RECEIVED",
       };
     }
     default:
