@@ -85,33 +85,6 @@ export const getFilteredAlerts = createSelector(
   }
 );
 
-export const getFilteredArticleFinderByQuality = createSelector(
-  [getArticleFinderState], (articleFinder) => {
-    return _.pickBy(articleFinder.articles, (article) => {
-      let quality = article.revScore;
-      if (article.grade) {
-        quality = Math.max(article.revScore, WP10Weights[article.grade]);
-      }
-      const qualityFilter = articleFinder.article_quality;
-      if (article.fetchState === "REVISIONSCORE_RECEIVED" && quality <= qualityFilter) {
-        return true;
-      }
-      return false;
-    });
-  }
-);
-
-export const getFilteredArticleFinderByViews = createSelector(
-  [getArticleFinderState], (articleFinder) => {
-    return _.pickBy(articleFinder.articles, (article) => {
-      if (article.fetchState === "PAGEVIEWS_RECEIVED" && article.pageviews >= articleFinder.min_views) {
-        return true;
-      }
-      return false;
-    });
-  }
-);
-
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {

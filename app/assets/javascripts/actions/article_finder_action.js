@@ -2,7 +2,6 @@ import _ from 'lodash';
 import promiseLimit from 'promise-limit';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
-import { getFilteredArticleFinderByQuality } from '../selectors';
 
 const mediawikiApiBase = 'https://en.wikipedia.org/w/api.php?action=query&format=json';
 const oresApiBase = 'https://ores.wikimedia.org/v3/scores/enwiki';
@@ -77,12 +76,11 @@ const getDataForCategory = (category, cmcontinue, namespace = 0, dispatch, getSt
 //   });
 // };
 
-const fetchPageViews = (dispatch, getState) => {
-  const articles = getFilteredArticleFinderByQuality(getState());
-  _.forEach(articles, (article) => {
-    const url = pageviewQueryGenerator(article.title);
-    limit(() => queryUrl(url, {}, 'json'))
-    .then((data) => data.items)
+const fetchPageViews = (articlesList, dispatch) => {
+  const promises = _.chunk(articlesList, 5).map((articles) => {
+    const query = pageviewQueryGenerator(_.map(articles, 'pageid'));
+    return limit(() => queryUrl(mediawikiApiBase, query))
+    .then((data) => data.query.pages)
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_PAGEVIEWS,
@@ -90,6 +88,15 @@ const fetchPageViews = (dispatch, getState) => {
       });
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  });
+
+  Promise.all(promises)
+  .then(() => {
+    dispatch({
+      type: SORT_ARTICLE_FINDER,
+      key: 'pageviews',
+      initial: true,
+    });
   });
 };
 
@@ -133,7 +140,7 @@ const fetchPageRevision = (articlesList, dispatch, getState) => {
   });
   Promise.all(promises)
   .then(() => {
-    fetchPageViews(dispatch, getState);
+    fetchPageViews(articlesList, dispatch, getState);
   });
 };
 

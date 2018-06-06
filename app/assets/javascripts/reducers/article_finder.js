@@ -29,7 +29,13 @@ export default function articleFinder(state = initialState, action) {
       return newState;
     }
     case SORT_ARTICLE_FINDER: {
-      const newArticles = sortByKey(Object.values(state.articles), action.key, state.sortKey);
+      let newArticles;
+      if (action.initial) {
+        newArticles = sortByKey(Object.values(state.articles), action.key, null, true);
+      }
+      else {
+        newArticles = sortByKey(Object.values(state.articles), action.key, state.sortKey);
+      }
       const newArticlesObject = {};
       newArticles.newModels.forEach((article) => {
         newArticlesObject[article.title] = article;
@@ -102,11 +108,11 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const title = action.data[0].article.replace(/_/g, ' ');
-      const averagePageviews = Math.round((_.sumBy(action.data, (o) => { return o.views; }) / action.data.length) * 100) / 100;
-
-      newStateArticles[title].pageviews = averagePageviews;
-      newStateArticles[title].fetchState = "PAGEVIEWS_RECEIVED";
+      _.forEach(action.data, (article) => {
+        const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
+        newStateArticles[article.title].pageviews = averagePageviews;
+        newStateArticles[article.title].fetchState = "PAGEVIEWS_RECEIVED";
+      });
 
       return {
         ...state,
