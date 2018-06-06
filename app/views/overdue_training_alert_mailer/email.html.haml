@@ -1,0 +1,39 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Hi #{@alert.user.username}."
+                It looks like you're overdue for completing some training for your Wikipedia assignment.
+              %p.paragraph
+                Here's where you're at with the assigned training modules:
+            %td.expander
+          %tr
+            %td
+              %table
+                %tr
+                  %th.trainings-table Module
+                  %th.trainings-table Status
+                  %th.trainings-table Due Date
+                - @alert.details.each do |slug, module_details|
+                  - training = TrainingModule.find_by(slug: slug)
+                  %tr
+                    %td.trainings-table-cell
+                      %a.link.training{href: "https://#{ENV['dashboard_url']}/training/students/#{slug}"}
+                        = training.name
+                    %td{class: "trainings-table-cell #{module_details[:status]}"}= module_details[:status]
+                    %td.trainings-table-cell= module_details[:due_date]
+
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+              %p.paragraph
+                We'll send you another reminder in about 10 days if you still have overdue training modules.
+                If you don't want to receive any more training reminders,
+                %a{href: @alert.opt_out_link} click here
+                opt out.

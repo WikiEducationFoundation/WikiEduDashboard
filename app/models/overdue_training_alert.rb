@@ -23,11 +23,11 @@
 # Alert for when a student has an assigned training that is overdue
 class OverdueTrainingAlert < Alert
   def main_subject
-    "#{user.username} / #{course.slug}"
+    "Overdue training module for #{course.slug}"
   end
 
   def url
-    "https://#{ENV['dashboard_url']}/training/students/#{training_module_slug}"
+    "https://#{ENV['dashboard_url']}/courses/#{course.slug}"
   end
 
   def opt_out_link
@@ -37,24 +37,21 @@ class OverdueTrainingAlert < Alert
   def send_email
     return if emails_disabled?
     return if opted_out?
-    # send
+    OverdueTrainingAlertMailer.email(self).deliver_now
+    update_attribute(:email_sent_at, Time.now)
   end
 
   private
 
   def opted_out?
-    user_profile.email_allowed?('OverdueTrainingAlert')
+    !user_profile.email_allowed?('OverdueTrainingAlert')
   end
 
   def opt_out_params
-    "?type=OverdueTrainingAlert&token=#{user_profile.email_preferences_token}"
+    "?type=OverdueTrainingAlert&token=#{user.email_preferences_token}"
   end
 
   def user_profile
     user.user_profile || user.create_user_profile
-  end
-
-  def training_module_slug
-    details[:training_module_slug]
   end
 end
