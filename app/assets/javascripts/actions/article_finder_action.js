@@ -76,7 +76,7 @@ const getDataForCategory = (category, cmcontinue, namespace = 0, dispatch, getSt
 //   });
 // };
 
-const fetchPageViews = (articlesList, dispatch) => {
+const fetchPageViews = (articlesList, dispatch, getState) => {
   const promises = _.chunk(articlesList, 5).map((articles) => {
     const query = pageviewQueryGenerator(_.map(articles, 'pageid'));
     return limit(() => queryUrl(mediawikiApiBase, query))
@@ -89,13 +89,21 @@ const fetchPageViews = (articlesList, dispatch) => {
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
   });
-
+  const sort = getState().articleFinder.sort;
+  let desc = false;
+  if (!sort.sortKey) {
+    desc = true;
+  }
+  if (!sort.key) {
+    sort.key = 'pageviews';
+  }
   Promise.all(promises)
   .then(() => {
     dispatch({
       type: SORT_ARTICLE_FINDER,
-      key: 'pageviews',
+      key: sort.key,
       initial: true,
+      desc: desc,
     });
   });
 };

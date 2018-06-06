@@ -14,7 +14,10 @@ const initialState = {
   min_views: "0",
   article_quality: 100,
   loading: false,
-  sortKey: null,
+  sort: {
+    sortKey: null,
+    key: null,
+  },
   continue_results: false,
   offset: 0,
   cmcontinue: '',
@@ -30,11 +33,14 @@ export default function articleFinder(state = initialState, action) {
     }
     case SORT_ARTICLE_FINDER: {
       let newArticles;
+      let newKey;
       if (action.initial) {
-        newArticles = sortByKey(Object.values(state.articles), action.key, null, true);
+        newArticles = sortByKey(Object.values(state.articles), action.key, null, action.desc);
+        newKey = action.desc ? null : action.key;
       }
       else {
-        newArticles = sortByKey(Object.values(state.articles), action.key, state.sortKey);
+        newArticles = sortByKey(Object.values(state.articles), action.key, state.sort.sortKey);
+        newKey = newArticles.newKey;
       }
       const newArticlesObject = {};
       newArticles.newModels.forEach((article) => {
@@ -44,7 +50,10 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newArticlesObject,
-        sortKey: newArticles.newKey,
+        sort: {
+          sortKey: newKey,
+          key: action.key,
+        },
       };
     }
     case CLEAR_FINDER_STATE: {
@@ -55,6 +64,10 @@ export default function articleFinder(state = initialState, action) {
         continue_results: false,
         offset: 0,
         totalhits: 0,
+        sort: {
+          sortKey: null,
+          key: null
+        }
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
