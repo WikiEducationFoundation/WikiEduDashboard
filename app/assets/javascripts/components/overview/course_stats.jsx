@@ -18,7 +18,7 @@ const CourseStats = ({ course }) => {
   } else {
     contentCount = (
       <div className="stat-display__stat" id="bytes-added">
-        <div className="stat-display__value">{course.character_sum}</div>
+        <div className="stat-display__value">{course.character_sum_human}</div>
         <small>{I18n.t('metrics.bytes_added')}</small>
       </div>
     );
