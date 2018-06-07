@@ -7,9 +7,14 @@ class OverdueTrainingAlertManager
     @courses = courses
   end
 
+  # To avoid flooding students in nearly-over courses with alert emails,
+  # we'll only send them for course that start near the launch date
+  # of this feature, or later.
+  START_DATE = '2018-06-01'.to_date
   def create_alerts
     @courses.each do |course|
       next unless course.type == 'ClassroomProgramCourse'
+      next unless course.start > START_DATE
       course.students.each { |student| manage_alert(course, student) }
     end
   end
