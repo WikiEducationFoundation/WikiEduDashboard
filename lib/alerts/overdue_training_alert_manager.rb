@@ -3,7 +3,6 @@
 # In contrast to UntrainedStudentsAlertManager, this creates alerts for individual students
 # who have overdue trainings, and emails them to remind them to complete the trainings.
 class OverdueTrainingAlertManager
-  # TODO: Call this as part of the DailyUpdate, for strictly current courses
   def initialize(courses)
     @courses = courses
   end
@@ -18,8 +17,8 @@ class OverdueTrainingAlertManager
   private
 
   def manage_alert(course, student)
-    # TODO: Return instead if last alert was less that 10? days ago.
-    return if Alert.exists?(course: course, user: student, type: 'OverdueTrainingAlert')
+    return if any_recent_alerts?(course, student)
+
     status = {}
     overdue = false
     course.training_modules.each do |training_module|
@@ -37,5 +36,11 @@ class OverdueTrainingAlertManager
                          course: course, details: status)
     # OverdueTrainingAlert will not send the email if user has opted out of this email type
     alert.send_email
+  end
+
+  def any_recent_alerts?(course, student)
+    earliest_date = OverdueTrainingAlert::MINIMUM_DAYS_BETWEEN_ALERTS.days.ago
+    Alert.where(course: course, user: student, type: 'OverdueTrainingAlert')
+         .where('created_at < ?', earliest_date).exists?
   end
 end

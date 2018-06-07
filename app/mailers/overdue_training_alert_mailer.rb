@@ -3,13 +3,19 @@
 require_dependency "#{Rails.root}/lib/training_module"
 
 class OverdueTrainingAlertMailer < ApplicationMailer
-  def email(alert)
+  def self.send_email(alert)
     return unless Features.email?
-    @alert = alert
-    user_email = @alert.user.email
-    return if user_email.blank?
+    return if alert.user.email.blank?
 
-    params = { to: user_email,
+    email(alert).deliver_now
+    alert.update(email_sent_at: Time.now)
+  end
+
+  def email(alert)
+    @alert = alert
+    @course_url = @alert.url
+    @days_until_next_alert = OverdueTrainingAlert::MINIMUM_DAYS_BETWEEN_ALERTS
+    params = { to: @alert.user.email,
                subject: @alert.main_subject }
     params[:reply_to] = @alert.reply_to unless @alert.reply_to.nil?
     mail(params)

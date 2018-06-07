@@ -22,6 +22,8 @@
 
 # Alert for when a student has an assigned training that is overdue
 class OverdueTrainingAlert < Alert
+  MINIMUM_DAYS_BETWEEN_ALERTS = 10
+
   def main_subject
     "Overdue training module for #{course.slug}"
   end
@@ -37,8 +39,7 @@ class OverdueTrainingAlert < Alert
   def send_email
     return if emails_disabled?
     return if opted_out?
-    OverdueTrainingAlertMailer.email(self).deliver_now
-    update_attribute(:email_sent_at, Time.now)
+    OverdueTrainingAlertMailer.send_email(self)
   end
 
   private

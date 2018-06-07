@@ -8,7 +8,9 @@
             %td.main-content
               %p.paragraph
                 = "Hi #{@alert.user.username}."
-                Here are all the assigned training modules, with your status for each one:
+                Here are all the assigned training modules for&nbsp;
+                %a.link{href: @course_url}> your course
+                , with your status for each one:
             %td.expander
           %tr
             %td
@@ -31,7 +33,9 @@
             %td.main-content
               %p.paragraph
               %p.paragraph
-                We'll send you another reminder in about 10 days if you still have overdue training modules.
+                We'll send you another reminder in about
+                = @days_until_next_alert
+                days if you still have overdue training modules.
                 If you don't want to receive any more training reminders,
                 %a{href: @alert.opt_out_link} click here
                 to opt out.
