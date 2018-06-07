@@ -34,4 +34,24 @@ describe OverdueTrainingAlertManager do
       expect(OverdueTrainingAlert.count).to eq(0)
     end
   end
+
+  describe 'when training is overdue but a recent alert exists' do
+    let(:due_date) { 5.days.ago }
+    it 'does not create a new alert' do
+      create(:overdue_training_alert, user: user, course: course, created_at: 5.days.ago)
+      expect(OverdueTrainingAlert.count).to eq(1)
+      subject
+      expect(OverdueTrainingAlert.count).to eq(1)
+    end
+  end
+
+  describe 'when training is overdue and an 10-plus day old alert exists' do
+    let(:due_date) { 11.day.ago }
+    it 'creates another alert' do
+      create(:overdue_training_alert, user: user, course: course, created_at: 11.days.ago)
+      expect(OverdueTrainingAlert.count).to eq(1)
+      subject
+      expect(OverdueTrainingAlert.count).to eq(2)
+    end
+  end
 end
