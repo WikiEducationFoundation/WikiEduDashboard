@@ -60,3 +60,29 @@
   text-align:left;
   font-weight: 300;
 }
+
+.trainings-table-cell {
+  border: 1px solid #999999;
+  padding: 10px;
+}
+
+th.trainings-table, td.trainings-table {
+  padding: 10px;
+  color: #666666;
+}
+
+td.overdue {
+  background: #F2D2D2 !important;
+}
+
+td.complete {
+  background: #75dfc0 !important;
+}
+
+td.trainings-table {
+  background: #eeeeee;
+}
+
+a.training {
+  font-weight: bolder;
+}

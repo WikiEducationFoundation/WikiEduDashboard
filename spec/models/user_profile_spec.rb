@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_profiles
@@ -14,8 +15,14 @@
 #  institution        :string(255)
 #  email_preferences  :text(65535)
 #
+require 'rails_helper'
 
-FactoryBot.define do
-  factory :user_profile do
+describe UserProfile do
+  let(:user_profile) { create(:user_profile) }
+  describe '#email_opt_out' do
+    let(:subject) { user_profile.email_opt_out('InvalidType') }
+    it 'raises an error if the type is invalid' do
+      expect { subject }.to raise_error(UserProfile::InvalidEmailPreferencesType)
+    end
   end
 end

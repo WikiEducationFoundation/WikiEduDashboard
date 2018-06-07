@@ -18,6 +18,7 @@ describe DailyUpdate do
       expect(ArticleStatusManager).to receive(:update_article_status)
       expect(OresScoresBeforeAndAfterImporter).to receive(:import_all)
       expect(UploadImporter).to receive(:find_deleted_files)
+      expect_any_instance_of(OverdueTrainingAlertManager).to receive(:create_alerts)
       expect(PushCourseToSalesforce).to receive(:new)
       expect(Raven).to receive(:capture_message).and_call_original
       update = DailyUpdate.new

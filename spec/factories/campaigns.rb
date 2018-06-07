@@ -15,6 +15,7 @@
 #  template_description :text(65535)
 #  default_course_type  :string(255)
 #  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
 #
 
 FactoryBot.define do
