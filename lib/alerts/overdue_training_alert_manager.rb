@@ -37,6 +37,7 @@ class OverdueTrainingAlertManager
     end
 
     return unless overdue
+    status = status.sort_by { |_slug, details| details[:due_date] }.to_h
     alert = Alert.create(type: 'OverdueTrainingAlert', user: student,
                          course: course, details: status)
     # OverdueTrainingAlert will not send the email if user has opted out of this email type
