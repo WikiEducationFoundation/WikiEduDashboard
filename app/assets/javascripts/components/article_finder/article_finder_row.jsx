@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 
 import ArticleViewer from '../common/article_viewer.jsx';
 
-import { fetchStates, ASSIGNED_ROLE } from "../../constants";
+import { fetchStates, ASSIGNED_ROLE, ORESSupportedWiki } from "../../constants";
 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
@@ -48,14 +48,16 @@ const ArticleFinderRow = createReactClass({
     }
 
     let revScore;
-    if (this.props.article.fetchState === "PAGEASSESSMENT_RECEIVED" || this.props.article.fetchState === "REVISION_RECEIVED") {
-     revScore = (<div className="results-loading"> &nbsp; &nbsp; </div>);
-    }
-    if (this.props.article.revScore) {
-      revScore = this.props.article.revScore;
-    }
-    else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
-      revScore = (<div>Estimation Score not found!</div>);
+    if (_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
+      if (this.props.article.fetchState === "PAGEASSESSMENT_RECEIVED" || this.props.article.fetchState === "REVISION_RECEIVED") {
+       revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
+      }
+      if (this.props.article.revScore) {
+        revScore = (<td>{this.props.article.revScore}</td>);
+      }
+      else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
+        revScore = (<td><div>Estimation Score not found!</div></td>);
+      }
     }
 
     const prettyGrades = {
@@ -135,9 +137,7 @@ const ArticleFinderRow = createReactClass({
           </div>
         </td>
         {grade}
-        <td>
-          {revScore}
-        </td>
+        {revScore}
         <td>
           {pageviews}
         </td>

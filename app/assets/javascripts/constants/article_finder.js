@@ -25,3 +25,8 @@ export const WP10Weights = {
   Start: 20,
   Stub: 0
 };
+
+export const ORESSupportedWiki = {
+  projects: 'wikipedia',
+  languages: ['en', 'fr', 'simple', 'tr', 'ru']
+};

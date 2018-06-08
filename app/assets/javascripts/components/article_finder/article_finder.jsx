@@ -8,11 +8,23 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
+import { ORESSupportedWiki } from '../../constants';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
+  getDefaultProps() {
+    return {
+      course: {
+        home_wiki: {
+          language: 'en',
+          project: 'wikipedia'
+        }
+      }
+    };
+  },
+
   getInitialState() {
     return {
       isSubmitted: false,
@@ -34,16 +46,16 @@ const ArticleFinder = createReactClass({
       isSubmitted: true,
     });
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
     }
-    return this.props.fetchCategoryResults(this.props.search_term);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.course);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.offset, true);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.course, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.cmcontinue, true);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.course, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
@@ -134,6 +146,10 @@ const ArticleFinder = createReactClass({
         desktop_only: false,
       },
     };
+
+    if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+      delete keys.revScore;
+    }
 
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
