@@ -29,7 +29,7 @@ const UploadsHandler = createReactClass({
 
   componentWillReceiveProps(nextProps) {
     const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-    this.setState({ data: data, pageCount: nextProps.uploads.length / this.state.perPage });
+    this.setState({ data: data, pageCount: Math.ceil(nextProps.uploads.length / this.state.perPage) });
   },
 
   setUploadData(offset, selectedPage) {
