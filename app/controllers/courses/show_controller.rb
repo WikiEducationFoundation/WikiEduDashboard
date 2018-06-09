@@ -4,9 +4,10 @@ class Courses::ShowController < ApplicationController
   include CourseHelper
   include CourseShowConstraints
   include CourseShowEndPoints
-  # this defines a controller action for each endpoint defined in lib/course_show_constraints. They all do
-  # they all do the same thing at the controller level. 
-  ENDPOINTS.each do |endpoint|
+  # this defines a controller action for each endpoint defined in lib/course_show_constraints.
+  # they all do the same thing at the controller level.
+  # we are also supporting the default endpoint `overview`.
+  (ENDPOINTS + ['overview']).each do |endpoint|
     define_method(endpoint) do
       @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
       verify_edit_credentials { return }
@@ -14,9 +15,10 @@ class Courses::ShowController < ApplicationController
       set_endpoint
       set_limit
 
+      view_to_render = endpoint == 'overview' ? "courses/#{endpoint}" : nil
       respond_to do |format|
-        format.html { render }
-        format.json { render "courses/#{@endpoint}" }
+        format.html { render 'courses/show' }
+        format.json { render view_to_render }
       end
     end
   end

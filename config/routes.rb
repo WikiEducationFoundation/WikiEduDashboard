@@ -79,6 +79,7 @@ Rails.application.routes.draw do
             get '/:school/:titleterm(/:endpoint(/*any))' => "show##{endpoint}",
             constraints: CourseShowConstraints.const_get(endpoint.camelize).new
         end
+        get '/:school/:titleterm' => 'show#overview'
     end
 
   controller :courses do
