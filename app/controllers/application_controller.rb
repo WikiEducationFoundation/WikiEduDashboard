@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
 
   def course_slug_path(slug, args={})
     slug_parts = slug.split('/')
-    show_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
+    courses_path(args.merge(school: slug_parts[0], titleterm: slug_parts[1]))
   end
   helper_method :course_slug_path
 
