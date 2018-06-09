@@ -4,29 +4,6 @@ require 'rails_helper'
 
 describe CoursesController do
   before { stub_wiki_validation }
-  describe '#show' do
-    let(:course) { create(:course) }
-    let(:slug) { course.slug }
-    let(:school) { slug.split('/')[0] }
-    let(:titleterm) { slug.split('/')[1] }
-
-    context 'for an valid course path' do
-      it 'renders a 200' do
-        course_params = { school: school, titleterm: titleterm }
-        get :show, params: course_params
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context 'when a spider tries index.php' do
-      it 'renders a plain text 404' do
-        course_params = { school: school, titleterm: titleterm, endpoint: 'index' }
-        get :show, params: course_params, format: 'php'
-        expect(response.status).to eq(404)
-        expect(response.headers['Content-Type']).to match %r{text/plain}
-      end
-    end
-  end
 
   describe '#destroy' do
     let!(:course)           { create(:course) }
