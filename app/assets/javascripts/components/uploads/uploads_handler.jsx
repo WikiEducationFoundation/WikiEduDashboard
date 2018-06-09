@@ -19,6 +19,7 @@ const UploadsHandler = createReactClass({
       offset: 0,
       data: [],
       perPage: 100,
+      currentPage: 0,
     };
   },
 
@@ -31,15 +32,15 @@ const UploadsHandler = createReactClass({
     this.setState({ data: data, pageCount: nextProps.uploads.length / this.state.perPage });
   },
 
-  setUploadData(offset) {
+  setUploadData(offset, selectedPage) {
     const data = this.props.uploads.slice(offset, offset + this.state.perPage);
-    this.setState({ offset: offset, data: data });
+    this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
   handlePageClick(data) {
     const selectedPage = data.selected;
     const offset = Math.ceil(selectedPage * this.state.perPage);
-    this.setUploadData(offset);
+    this.setUploadData(offset, selectedPage);
   },
 
   sortSelect(e) {
@@ -47,6 +48,26 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={6}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          containerClassName={"pagination"}
+          previousLinkClassName={"previous_page"}
+          nextLinkClassName={"next_page"}
+          disabledClassName={"disabled"}
+          activeClassName={"active"}
+        />
+      );
+    }
     return (
       <div id="uploads">
         <div className="section-header">
@@ -59,21 +80,9 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
+        {paginationElement}
         <UploadList uploads={this.state.data} />
-        <ReactPaginate
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
-          breakLabel={<span className="gap">...</span>}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={6}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          previousLinkClassName={"previous_page"}
-          nextLinkClassName={"next_page"}
-          disabledClassName={"disabled"}
-          activeClassName={"active"}
-        />
+        {paginationElement}
       </div>
     );
   }
