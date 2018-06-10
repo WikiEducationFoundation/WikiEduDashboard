@@ -3,7 +3,6 @@
 require 'rails_helper'
 require './lib/course_show_endpoints'
 
-
 describe Courses::ShowController do
   let(:course) { create(:course) }
   let(:slug) { course.slug }
