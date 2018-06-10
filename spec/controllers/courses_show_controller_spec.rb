@@ -17,14 +17,14 @@ describe Courses::ShowController do
           expect(response.status).to eq(200)
         end
       end
-      # context 'when a spider tries index.php' do
-      #   it 'renders a plain text 404' do
-      #     course_params = { school: school, titleterm: titleterm, endpoint: 'index' }
-      #     get :show, params: course_params, format: 'php'
-      #     expect(response.status).to eq(404)
-      #     expect(response.headers['Content-Type']).to match %r{text/plain}
-      #   end
-      # end
+      context 'when a spider tries index.php' do
+        it 'renders a plain text 404' do
+          course_params = { school: school, titleterm: titleterm, endpoint: 'index' }
+          get endpoint, params: course_params, format: 'php'
+          expect(response.status).to eq(404)
+          expect(response.headers['Content-Type']).to match %r{text/plain}
+        end
+      end
     end
   end
 end
