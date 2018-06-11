@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
-
+import { WP10Weights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, WP10Weights, RECEIVE_KEYWORD_RESULTS } from "../constants";
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS } from "../constants";
 
 const initialState = {
   articles: {},
@@ -22,7 +22,10 @@ const initialState = {
   continue_results: false,
   offset: 0,
   cmcontinue: '',
-  totalhits: 0,
+  home_wiki: {
+    language: 'en',
+    project: 'wikipedia'
+  }
 };
 
 export default function articleFinder(state = initialState, action) {
@@ -116,7 +119,6 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
-        totalhits: action.data.query.searchinfo.totalhits,
         continue_results: continueResults,
         offset: offset,
         loading: false,
@@ -166,8 +168,8 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
       const newStateArticles = _.cloneDeep(state.articles);
-      _.forEach(action.data, (scores, revid) => {
-        const revScore = _.reduce(WP10Weights, (result, value, key) => {
+      _.forEach(action.data.data, (scores, revid) => {
+        const revScore = _.reduce(WP10Weights[action.data.language], (result, value, key) => {
           return result + value * scores.wp10.score.probability[key];
         }, 0);
         const article = _.find(newStateArticles, { revid: parseInt(revid) });

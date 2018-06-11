@@ -16,17 +16,3 @@ export const fetchStates = {
   REVISIONSCORE_RECEIVED: 4,
   PAGEVIEWS_RECEIVED: 5
 };
-
-export const WP10Weights = {
-  FA: 100,
-  GA: 80,
-  B: 60,
-  C: 40,
-  Start: 20,
-  Stub: 0
-};
-
-export const ORESSupportedWiki = {
-  projects: 'wikipedia',
-  languages: ['en', 'fr', 'simple', 'tr', 'ru']
-};

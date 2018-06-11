@@ -8,7 +8,7 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
-import { ORESSupportedWiki } from '../../constants';
+import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
@@ -33,8 +33,9 @@ const ArticleFinder = createReactClass({
 
   componentWillMount() {
     if (this.props.course_id && this.props.loadingAssignments) {
-      return this.props.fetchAssignments(this.props.course_id);
+      this.props.fetchAssignments(this.props.course_id);
     }
+    return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
   updateFields(key, value) {
@@ -145,10 +146,18 @@ const ArticleFinder = createReactClass({
         label: I18n.t('article_finder.average_views'),
         desktop_only: false,
       },
+      tools: {
+        label: 'Tools',
+        desktop_only: false,
+      }
     };
 
     if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
       delete keys.revScore;
+    }
+
+    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+      delete keys.grade;
     }
 
     let list;

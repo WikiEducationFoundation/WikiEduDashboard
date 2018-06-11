@@ -1,14 +1,15 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, ORESSupportedWiki, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
+import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 
 const mediawikiApiBase = (language, project) => (`https://${language}.${project}.org/w/api.php?action=query&format=json`);
 const oresApiBase = (language) => (`https://ores.wikimedia.org/v3/scores/${language}wiki`);
 
 const limit = promiseLimit(10);
 
-export const updateFields = (key, value) => (dispatch, getState) => {
+export const updateFields = (key, value) => (dispatch) => {
   dispatch({
     type: UPDATE_FIELD,
     data: {
@@ -16,11 +17,6 @@ export const updateFields = (key, value) => (dispatch, getState) => {
       value: value,
     },
   });
-
-  const filters = ["min_views", "max_completeness", "grade"];
-  if (_.includes(filters, key)) {
-    fetchPageRevision(dispatch, getState);
-  }
 };
 
 export const sortArticleFinder = (key) => {
@@ -118,52 +114,57 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
 };
 
 const fetchPageAssessment = (articlesList, course, dispatch, getState) => {
-  const promises = _.chunk(articlesList, 20).map((articles) => {
-    const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
+  if (_.includes(PageAssessmentSupportedWiki.languages, course.home_wiki.language) && course.home_wiki.project === 'wikipedia') {
+    const promises = _.chunk(articlesList, 20).map((articles) => {
+      const query = pageAssessmentQueryGenerator(_.map(articles, 'title'));
 
-    return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
-    .then((data) => data.query.pages)
-    .then((data) => {
-      dispatch({
-        type: RECEIVE_ARTICLE_PAGEASSESSMENT,
-        data: data
-      });
-    })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
-  });
+      return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
+      .then((data) => data.query.pages)
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_ARTICLE_PAGEASSESSMENT,
+          data: data
+        });
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    });
 
-  Promise.all(promises)
-  .then(() => {
-    if (_.includes(ORESSupportedWiki.languages, course.home_wiki.language) && course.home_wiki.project === 'wikipedia') {
+    Promise.all(promises)
+    .then(() => {
       fetchPageRevision(articlesList, course, dispatch, getState);
-    }
-    else {
-      fetchPageViews(articlesList, course, dispatch, getState);
-    }
-  });
+    });
+  }
+  else {
+    fetchPageRevision(articlesList, course, dispatch, getState);
+  }
 };
 
 const fetchPageRevision = (articlesList, course, dispatch, getState) => {
-  const promises = _.chunk(articlesList, 20).map((articles) => {
-    const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
-    return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
-    .then((data) => data.query.pages)
-    .then((data) => {
-      dispatch({
-        type: RECEIVE_ARTICLE_REVISION,
-        data: data
-      });
-      return data;
-    })
-    .then((data) => {
-      return fetchPageRevisionScore(data, course, dispatch);
-    })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
-  });
-  Promise.all(promises)
-  .then(() => {
+  if (_.includes(ORESSupportedWiki.languages, course.home_wiki.language) && course.home_wiki.project === 'wikipedia') {
+    const promises = _.chunk(articlesList, 20).map((articles) => {
+      const query = pageRevisionQueryGenerator(_.map(articles, 'title'));
+      return limit(() => queryUrl(mediawikiApiBase(course.home_wiki.language, course.home_wiki.project), query))
+      .then((data) => data.query.pages)
+      .then((data) => {
+        dispatch({
+          type: RECEIVE_ARTICLE_REVISION,
+          data: data
+        });
+        return data;
+      })
+      .then((data) => {
+        return fetchPageRevisionScore(data, course, dispatch);
+      })
+      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    });
+    Promise.all(promises)
+    .then(() => {
+      fetchPageViews(articlesList, course, dispatch, getState);
+    });
+  }
+  else {
     fetchPageViews(articlesList, course, dispatch, getState);
-  });
+  }
 };
 
 const fetchPageRevisionScore = (revids, course, dispatch) => {
@@ -171,11 +172,14 @@ const fetchPageRevisionScore = (revids, course, dispatch) => {
       return revid.revisions[0].revid;
     }));
     return limit(() => queryUrl(oresApiBase(course.home_wiki.language), query))
-    .then((data) => data.enwiki.scores)
+    .then((data) => data[`${course.home_wiki.language}wiki`].scores)
     .then((data) => {
       dispatch({
         type: RECEIVE_ARTICLE_REVISIONSCORE,
-        data: data
+        data: {
+          data: data,
+          language: course.home_wiki.language
+        }
       });
     })
     .catch(response => (dispatch({ type: API_FAIL, data: response })));
