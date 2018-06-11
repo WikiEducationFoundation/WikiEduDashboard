@@ -45,7 +45,7 @@ class Assignment < ApplicationRecord
   ####################
   # Instance methods #
   ####################
-  def page_url
+  def article_url
     "#{wiki.base_url}/wiki/#{article_title}"
   end
 

@@ -3,15 +3,10 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 
-import Editable from '../high_order/editable.jsx';
 import List from '../common/list.jsx';
 import Assignment from './assignment.jsx';
-import AssignmentStore from '../../stores/assignment_store.js';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils.js';
-
-const getState = () => ({ assignments: AssignmentStore.getModels() });
 
 const AssignmentList = createReactClass({
   displayName: 'AssignmentList',
@@ -76,7 +71,6 @@ const AssignmentList = createReactClass({
         keys={keys}
         table_key={'assignments'}
         none_message={CourseUtils.i18n('assignments_none', this.props.course.string_prefix)}
-        store={AssignmentStore}
         sortable={false}
       />
     );
@@ -84,4 +78,4 @@ const AssignmentList = createReactClass({
 }
 );
 
-export default Editable(AssignmentList, [AssignmentStore], ServerActions.saveStudents, getState);
+export default AssignmentList;

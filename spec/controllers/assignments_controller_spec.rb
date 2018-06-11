@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe AssignmentsController do
+  render_views
+
   let!(:course) { create(:course, id: 1) }
   let!(:user) { create(:user) }
   before do
@@ -48,8 +50,7 @@ describe AssignmentsController do
         end
 
         it 'renders a json response' do
-          id = assignment.id.to_s
-          expect(response.body).to eq({ article: id }.to_json)
+          expect(response.body).to eq({ assignmentId: assignment.id }.to_json)
         end
       end
 
@@ -62,7 +63,7 @@ describe AssignmentsController do
           delete :destroy, params: { id: 'undefined' }.merge(params)
         end
         # This happens when an assignment is deleted right after it has been created.
-        # The version in the AssignmentStore will not have an assignment_id until
+        # The React frontend will not have an assignment_id until
         # it gets refreshed from the server.
         it 'deletes the assignment' do
           expect(Assignment.count).to eq(0)
@@ -96,7 +97,7 @@ describe AssignmentsController do
         delete :destroy, params: { id: 'undefined' }.merge(params)
       end
       # This happens when an assignment is deleted right after it has been created.
-      # The version in the AssignmentStore will not have an assignment_id until
+      # The React frontend will not will not have an assignment_id until
       # it gets refreshed from the server.
       it 'renders a 404' do
         expect(response.status).to eq(404)
@@ -118,7 +119,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, params: assignment_params
+            put :create, params: assignment_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('Pizza')
@@ -141,7 +142,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, params: wiktionary_params
+            put :create, params: wiktionary_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('selfie')
@@ -165,7 +166,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, params: wikisource_params
+            put :create, params: wikisource_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('Heyder_Cansa')
@@ -189,7 +190,7 @@ describe AssignmentsController do
           VCR.use_cassette 'assignment_import' do
             expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
             expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-            put :create, params: wikimedia_params
+            put :create, params: wikimedia_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.article.title).to eq('Wp/kiu/Heyder_Cansa')
@@ -207,7 +208,7 @@ describe AssignmentsController do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
           VCR.use_cassette 'assignment_import' do
-            put :create, params: assignment_params
+            put :create, params: assignment_params, format: :json
             assignment = assigns(:assignment)
             expect(assignment).to be_a_kind_of(Assignment)
             expect(assignment.wiki.language).to eq('en')
@@ -219,9 +220,10 @@ describe AssignmentsController do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
           VCR.use_cassette 'assignment_import' do
-            put :create, params: assignment_params
+            put :create, params: assignment_params, format: :json
           end
           json_response = Oj.load(response.body)
+
           # response makes created_at differ by milliseconds, which is weird,
           # so test attrs that actually matter rather than whole record
           expect(json_response['article_title'])
@@ -243,7 +245,7 @@ describe AssignmentsController do
         it 'sets the wiki based on language and project params' do
           expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
           expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
-          put :create, params: assignment_params_with_language_and_project
+          put :create, params: assignment_params_with_language_and_project, format: :json
           assignment = assigns(:assignment)
           expect(assignment).to be_a_kind_of(Assignment)
           expect(assignment.wiki_id).to eq(es_wikibooks.id)
@@ -276,7 +278,7 @@ describe AssignmentsController do
           language: 'en', project: 'bulbapedia' }
       end
       let(:subject) do
-        put :create, params: invalid_wiki_params
+        put :create, params: invalid_wiki_params, format: :json
       end
       it 'returns a 404 error message' do
         expect(subject.body).to have_content('Invalid assignment')
@@ -294,7 +296,7 @@ describe AssignmentsController do
       end
       before do
         VCR.use_cassette 'assignment_import' do
-          put :create, params: duplicate_assignment_params
+          put :create, params: duplicate_assignment_params, format: :json
         end
       end
 
@@ -317,7 +319,7 @@ describe AssignmentsController do
         expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
         expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
         VCR.use_cassette 'assignment_import' do
-          put :create, params: case_variant_assignment_params
+          put :create, params: case_variant_assignment_params, format: :json
         end
       end
 

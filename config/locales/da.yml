@@ -167,5 +167,5 @@ da:
   onboarding:
     supplementary:
       header: Hvordan hørte du om os?
-      question_text: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
+      where_did_you_hear: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
 ...

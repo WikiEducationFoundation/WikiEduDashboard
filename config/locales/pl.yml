@@ -6,7 +6,9 @@
 # Author: Halibutt
 # Author: InternerowyGołąb
 # Author: Mazab IZW
+# Author: Railfail536
 # Author: Rzuwig
+# Author: Stojex
 # Author: Tar Lócesilion
 # Author: The Polish
 # Author: Woytecr
@@ -37,6 +39,7 @@ pl:
     my_dashboard: Moje Centrum
     recent_activity: Ostatnia aktywność
     report_problem: Zgłoś problem
+    request_account_create: Utwórz konto
     search: zadaj pytanie
     sign_up_extended: Zarejestruj się w Wikipedii
     sign_up_log_in_extended: z Wikipedią
@@ -149,7 +152,9 @@ pl:
     title_too_large: Nazwa nie może przekraczać 255 znaków
     assignees: Przypisani
     assign_other: Zadaj artykuł
-    add_available: Dodaj dostępny artykuł
+    add_available: Dodaj dostępne artykuły
+    add_available_placeholder: Dodaj jedną nazwę artykułu, lub adres URL na linię
+    add_available_submit: Dodaj artykuły
     assign_self: Zadaj artykuł sobie
     confirm_add_available: Czy na pewno chcesz dodać %{title}?
     confirm_addition: Czy na pewno chcesz przypisać %{title} do %{username}?
@@ -413,6 +418,7 @@ pl:
       jako edycja z Twojego konta użytkownika. Kolejne zmiany w harmonogramie zostaną
       również skopiowane do Wikipedii. \nCzy na pewno chcesz to zrobić?"
     wiki_staff: Pracownicy Wiki Ed
+    withdrawn: Nie wykonałem zadania
     word_count_doc: Przybliżona liczba słów dodanych do przestrzeni głównej (artykułów)
       przez uczestników w trakcie trwania kursu
     yourcourses: Twoje Kursy
@@ -832,4 +838,9 @@ pl:
   onboarding:
     supplementary:
       header: Jak się o nas dowiedziałeś?
+      why_are_you_here: Co chciałbyś robić?
+  article_finder:
+    depth: Głębokość
+    category: Kategoria
+    no_article_found: Nie znaleziono artykułów w tej kategorii
 ...

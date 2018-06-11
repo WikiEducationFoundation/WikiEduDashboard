@@ -46,6 +46,7 @@ el:
     opt_in: Ναι
     opt_out: Όχι
   dashboard:
+    explore_course_pages: Εξερεύνηση των σελίδων μαθήματος
     explore_examples: Εξερεύνηση παραδειγμάτων
     blog_headline: Πρόσφατα Νέα από την Εκπαίδευση Wiki
   home:
@@ -71,6 +72,8 @@ el:
     loading: Φόρτωση λημμάτων...
     new: (Νέο)
     rating: Κλάση
+    rating_docs:
+      b: Τάξη Β — ένα μέτρια ανεπτυγμένο άρθρο
     see_more: Δείτε περισσότερα
     show_current_version: Εμφάνιση τρέχουσας έκδοσης
     title: Τίτλος
@@ -84,12 +87,14 @@ el:
     wp10: Δομική Ολοκληρωτικότητα
   assignments:
     assign_other: Αναθέστε ένα άρθρο
-    add_available: Προσθήκη ενός διαθέσιμου άρθρου
+    add_available: Προσθήκη διαθέσιμων άρθρων
+    add_available_submit: Προσθήκη λήμματος
     label: Ανάθεση
     loading: Φόρτωση αναθέσεων...
     none_short: Δεν ανατέθηκαν άρθρα
     remove: Αφαίρεση
     reviewers: Θεωρητής(-ές)
+    review_other: Ανάθεση αναθεώρησης
     review_self: Αναθεώρηση ενός άρθρου
     select: Διαλέξτε
   blocks:
@@ -107,10 +112,24 @@ el:
     campaigns: Ανακοινώσεις
     created_at: Ημερομηνία
     course: Μάθημα
+    create_campaign: Δημιουργία νέας εκστρατείας
+    create_my_campaign: Δημιουργία της εκστρατείας μου!
+    customize_passcode: ένας προεπιλεγμένος κωδικός πρόσβασης
+    default_course_type: προεπιλεγμένος τύπος μαθήματος
+    default_passcode: Προεπιλεγμένος κωδικός πρόσβασης
+    default_passcode_explanation: 'Από προεπιλογή, τα νέα προγράμματα σε αυτή την
+      εκστρατεία πρέπει να έχουν:'
     description: Περιγραφή
+    delete_campaign: Διαγραφή αυτής της εκστρατείας
+    disable_account_requests: Απενεργοποίηση αιτήσεων λογαριασμών
+    enable_account_requests: Ενεργοποίηση αιτήσεων λογαριασμών
+    no_alerts: Αυτή η εκστρατεία δεν έχει ειδοποιήσεις
+    no_passcode: Χωρίς κωδικό πρόσβασης
     none: Κανένα
     organizers: Οργανωτές
     program_template: Πρότυπο προγράμματος
+    random_passcode: ένας τυχαίος κωδικός πρόσβασης
+    requested_accounts: Αιτούμενοι λογαριασμοί
     title: Τίτλος
     use_start_end_dates: Χρησιμοποιήστε ημερομηνίες αρχής και τέλους
   categories:
@@ -119,7 +138,7 @@ el:
     add_this_category: Προσθήκη αυτής της κατηγορίας
     add_this_template: Προσθήκη αυτού του προτύπου
     confirm_category_addition: Είστε βέβαιοι ότι θέλετε να παρακολουθείτε τις συνεισφορές
-      στην κατηγορία ''%{όνομα}'';
+      στην κατηγορία ''%{name}'';
     depth: Βάθος υποκατηγορίας
     name: Όνομα
     category_name: Όνομα κατηγορίας
@@ -151,7 +170,9 @@ el:
     courses_taught: Μαθήματα που διδάχτηκαν
     creation_date: Ημερομηνία δημιουργίας
     creator:
+      course_description: Περιγραφή μαθήματος
       course_language: Γλώσσα
+      course_project: Αρχικό εγχείρημα
       course_term_placeholder: Όρος
       course_title: Τίτλος μαθήματος
       create_button: Δημιουργία του μαθήματός μου!
@@ -196,7 +217,9 @@ el:
     instructors: Καθηγητές
     join: μπείτε
     join_course: μπείτε στο μάθημα
+    join_prompt: Προσχώρηση στο '%{title}';
     join_failed: Η εγγραφή απέτυχε.
+    leave_course: Εγκατάλειψη του μαθήματος
     loading: Φόρτωση σε εξέλιξη...
     my_articles: Τα λήμματά μου
     new_week: Πρόσθεση νέας εβδομάδας
@@ -252,10 +275,24 @@ el:
   metrics:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών
+    bytes_added: Μπάιτ που προστέθηκαν
   uploads:
     uploaded_at: Ανέβηκε στις
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:
     assignment_type: Τι θα ολοκληρώσουν οι σπουδαστές για την ανάθεση τους από Wikipedia?
+  onboarding:
+    supplementary:
+      why_are_you_here: Τι θα θέλατε να κάνετε;
+  article_finder:
+    completeness_estimate: Σκορ ολοκληρωτικότητας
+    average_views: Μέσος όρος προβολών ανά ημέρα
+    add_available_article: Προσθήκη ως διαθέσιμο άρθρο
+    already_added: Έχει προστεθεί ήδη στα διαθέσιμα άρθρα
+    max_completeness_label: Μέγιστη ολοκληρωτικότητα (0-100)
+    minimum_views_label: Ελάχιστες προβολές
+    depth: Βάθος
+    category: Κατηγορία
+    no_article_found: Δεν βρέθηκαν άρθρα σε αυτή τη κατηγορία
 ...

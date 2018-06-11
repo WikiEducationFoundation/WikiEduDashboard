@@ -25,7 +25,7 @@ import StudentsHandler from '../components/students/students_handler.jsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.jsx';
 import AlertsHandler from '../components/alerts/alerts_handler.jsx';
-
+import ArticleFinder from '../components/article_finder/article_finder.jsx';
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
 import PlagiarismHandler from '../components/activity/plagiarism_handler.jsx';
@@ -42,6 +42,9 @@ import ContributionStats from '../components/user_profiles/contribution_stats.js
 import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
+// The navbar is its own React element, independent of the
+// main React Router-based component tree.
+// `nav_root` is present throughout the app, via the Rails view layouts.
 const navBar = document.getElementById('nav_root');
 if (navBar) {
   ReactDOM.render((<Nav />), navBar);
@@ -99,6 +102,7 @@ const routes = (
         <Route path="articles" component={ArticlesHandler} />
         <Route path="uploads" component={UploadsHandler} />
         <Route path="chat" component={RocketChat} />
+        <Route path="article_finder" component={ArticleFinder} />
       </Route>
     </Route>
     <Route path="course_creator" component={ConnectedCourseCreator} />
@@ -109,11 +113,17 @@ const routes = (
     <Route path="users/:username" component={ContributionStats} />
     <Route path="campaigns/:campaign_slug/alerts" component={AlertsHandler} />
     <Route path="settings" component={SettingsHandler} />
+    <Route path="article_finder" component={ArticleFinder} />
   </Route>
 );
 
+// The main `react_root` is only present in some Rails views, corresponding
+// to the routes above.
 const reactRoot = document.getElementById('react_root');
 if (reactRoot) {
+  // This is basic, minimal state info extracted from the HTML,
+  // used for initial rendering before React fetches all the specific
+  // data it needs via API calls.
   const currentUserFromHtml = JSON.parse(reactRoot.getAttribute('data-current_user'));
   const preloadedState = {
     courseCreator: {

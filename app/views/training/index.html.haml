@@ -2,6 +2,7 @@
   %h1 Training Libraries
   %ul.training-libraries.no-bullets.no-margin
     - @libraries.each do |library|
+      - next if library.exclude_from_index?
       %li.training-libraries__individual-library.no-left-margin
         %a.action-card.action-card-index{href: "/training/#{library.slug}"}
           %header.action-card-header

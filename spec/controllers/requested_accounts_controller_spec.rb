@@ -4,6 +4,8 @@ require 'rails_helper'
 require "#{Rails.root}/lib/importers/user_importer"
 
 describe RequestedAccountsController do
+  before { allow(Features).to receive(:enable_account_requests?).and_return(true) }
+
   describe '#request_account' do
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:user) { create(:user) }

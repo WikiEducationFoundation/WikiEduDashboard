@@ -50,6 +50,7 @@ pt-br:
     recent_activity: Atividade recente
     report_problem: Informar um problema
     request_account: Pedir uma conta
+    request_account_create: Criar uma conta
     search: perguntar
     search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registrar-se na Wikipédia
@@ -171,7 +172,9 @@ pt-br:
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Assinante(s)
     assign_other: Atribuir um artigo
-    add_available: Adicionar um artigo disponível
+    add_available: Adicionar artigos disponíveis
+    add_available_placeholder: Adicionar um título de artigo ou URL por linha
+    add_available_submit: Adicionar artigos
     assign_self: Atribuir um artigo a mim mesmo
     assign_tooltip: Um artigo designado é aquele que você planeja criar ou melhorar.
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
@@ -571,7 +574,7 @@ pt-br:
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
     wiki_staff: Equipe Wiki Ed
-    withdrawn: Retirado
+    withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Seus cursos
@@ -686,6 +689,7 @@ pt-br:
     are_trained: estão em dia com o treinamento
     articles_created: Artigos criados
     articles_edited: Artigos editados
+    bytes_added: Bytes Adicionado
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres alterados
@@ -1094,5 +1098,18 @@ pt-br:
   onboarding:
     supplementary:
       header: Como você ficou sabendo sobre nós?
-      question_text: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki Education?
+      where_did_you_hear: Onde, ou de quem, você ouviu pela primeira vez sobre Wiki
+        Education?
+      why_are_you_here: O que você gostaria de fazer?
+  article_finder:
+    page_assessment_grade: Grade de avaliação
+    completeness_estimate: Pontuação de integridade
+    average_views: Média de visualizações por dia
+    add_available_article: Adicionar como artigo disponível
+    already_added: Já adicionado aos artigos disponíveis
+    max_completeness_label: Completude máximas(0-100)
+    minimum_views_label: Visualizações mínimas
+    depth: Profundidade
+    category: Categoria
+    no_article_found: Nenhum artigo encontrado nesta categoria
 ...

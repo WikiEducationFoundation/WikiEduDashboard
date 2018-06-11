@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.10.1'
+lock '3.10.2'
 
 set :application, 'wiki_edu_dashboard'
 set :repo_url, 'git@github.com:WikiEducationFoundation/WikiEduDashboard.git'
@@ -26,7 +26,7 @@ set :pty, false
 
 # Sidekiq settings
 set :sidekiq_processes, 4
-set :sidekiq_options_per_process, ["--queue default",
+set :sidekiq_options_per_process, ["--queue default --concurrency 2",
                                    "--queue short_update --queue medium_update --concurrency 1",
                                    "--queue medium_update --queue short_update --concurrency 1",
                                    "--queue long_update --queue medium_update --concurrency 1"]

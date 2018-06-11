@@ -8,11 +8,11 @@ class ArticleStatusManager
     @wiki = wiki || Wiki.default_wiki
   end
 
-  ###############
-  # Entry point #
-  ###############
+  ################
+  # Entry points #
+  ################
 
-  # Queries deleted state and namespace for all articles
+  # Queries deleted state and namespace for all articles from current courses.
   def self.update_article_status
     threads = Course.current
                     .in_groups(Replica::CONCURRENCY_LIMIT, false)
@@ -26,9 +26,6 @@ class ArticleStatusManager
     threads.each(&:join)
   end
 
-  #################
-  # Class helpers #
-  #################
   def self.update_article_status_for_course(course)
     Wiki.all.each do |wiki|
       next unless course.pages_edited.exists?(wiki_id: wiki.id)

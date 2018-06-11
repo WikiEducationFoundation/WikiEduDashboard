@@ -43,6 +43,10 @@ class PushCourseToSalesforce
   def course_salesforce_fields
     salesforce_fields = base_salesforce_fields
     salesforce_fields[:Course_Level__c] = @course.level if @course.level.present?
+    if @course.withdrawn
+      salesforce_fields[:Did_not_do_assignment__c] = true
+      salesforce_fields[:Status__c] = 'Complete'
+    end
     salesforce_fields
   end
 

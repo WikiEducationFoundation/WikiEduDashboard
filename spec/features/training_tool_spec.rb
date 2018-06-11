@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/training_module"
+require "#{Rails.root}/lib/training_library"
 
 DESIRED_TRAINING_MODULES = [{ slug: 'editing-basics' }].freeze
 
@@ -15,7 +16,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   describe 'root library' do
-    library_names = TrainingLibrary.all.map(&:slug)
+    library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:slug)
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
@@ -83,7 +84,7 @@ describe 'Training', type: :feature, js: true do
       expect(TrainingModulesUsers.find_by(
                user_id: user.id,
                training_module_id: module_2.id
-      )).not_to be_nil
+             )).not_to be_nil
     end
 
     it 'updates the last_slide_completed upon viewing a slide (not after clicking `next`)' do
@@ -159,7 +160,7 @@ describe 'Training', type: :feature, js: true do
   end
 
   DESIRED_TRAINING_MODULES.each do |module_slug|
-    describe "'#{module_slug}' module" do
+    describe "'#{module_slug[:slug]}' module" do
       before do
         TrainingSlide.load
         TrainingModule.flush
@@ -201,7 +202,7 @@ def check_slide_contents(slide, slide_number, slide_count)
 end
 
 def proceed_to_next_slide
-  button = page.first('button.ghost-button')
+  button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
   page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').trigger('click')
 end

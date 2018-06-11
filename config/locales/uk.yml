@@ -38,6 +38,7 @@ uk:
     recent_activity: Останні дії
     report_problem: Повідомити про проблему
     request_account: Подати запит на обліковий запис
+    request_account_create: Створити обліковий запис
     search: поставити запитання
     search_results: 'Результати для: «%{search_terms}»'
     sign_up_extended: Зареєструватися через Вікіпедію
@@ -158,7 +159,10 @@ uk:
     title_too_large: Довжина назви не повинна перевищувати 255 символів
     assignees: Той (ті), кому задано
     assign_other: Призначити статтю
-    add_available: Додати доступну статтю
+    add_available: Додати доступні статті
+    add_available_placeholder: Додавання однієї назви статті або URL-посилання в одному
+      рядку
+    add_available_submit: Додати статті
     assign_self: Призначити собі статтю
     assign_tooltip: Задана стаття — це та, яку ви плануєте створити чи покращити.
     confirm_add_available: Ви дійсно хочете додати %{title}?
@@ -557,7 +561,7 @@ uk:
       По надсиланню цей курс буде автоматично записано до Вікіпедії з використанням Вашого облікового запису. Після цього нові редагування в розкладі будуть віддзеркалюватись у Вікіпедії.
       Ви дійсно хочете це зробити?
     wiki_staff: Штатні працівники Wiki Ed
-    withdrawn: Відкликання
+    withdrawn: Завдання не зроблено
     word_count_doc: Приблизне число символів, доданих до статей в основному просторі
       назв студентами курсу впродовж курсу
     yourcourses: Ваші курси
@@ -670,6 +674,7 @@ uk:
     are_trained: без запізнень у навчанні
     articles_created: Створені статті
     articles_edited: Редаговані статті
+    bytes_added: Байтів додано
     characters: Символи
     char_added: Додано символів
     char_changed: Змінено символів
@@ -1066,5 +1071,6 @@ uk:
   onboarding:
     supplementary:
       header: Як ви про нас дізналися?
-      question_text: Де чи від кого ви вперше почули про Wiki Education?
+      where_did_you_hear: Де чи від кого ви вперше почули про Wiki Education?
+      why_are_you_here: Що б ви хотіли зробити?
 ...

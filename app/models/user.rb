@@ -184,6 +184,10 @@ class User < ApplicationRecord
     REAL_NAME_ROLES.include? role(course)
   end
 
+  def email_preferences_token
+    (user_profile || create_user_profile).email_preferences_token
+  end
+
   # Exclude tokens/secrets from json output
   def to_json(options={})
     options[:except] ||= %i[wiki_token wiki_secret remember_token]

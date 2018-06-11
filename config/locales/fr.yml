@@ -51,6 +51,7 @@ fr:
     recent_activity: Activité récente
     report_problem: Signaler un problème
     request_account: Demander un compte
+    request_account_create: Créer un compte
     search: poser une question
     search_results: 'Résultats pour : ''%{search_terms}'''
     sign_up_extended: S’inscrire avec Wikipédia
@@ -174,7 +175,9 @@ fr:
     title_too_large: Le titre ne doit pas dépasser 255 caractères
     assignees: Affectation(s)
     assign_other: Affecter un article
-    add_available: Ajouter un article disponible
+    add_available: Ajouter des articles disponibles
+    add_available_placeholder: Ajouter un titre d’article ou une URL par ligne
+    add_available_submit: Ajouter des articles
     assign_self: M’affecter un article
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
@@ -589,7 +592,7 @@ fr:
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
     wiki_staff: Équipe d’édition de wiki
-    withdrawn: Retiré
+    withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement
     yourcourses: Vos cours
@@ -705,6 +708,7 @@ fr:
     are_trained: sont à jour dans leur formation
     articles_created: Articles créés
     articles_edited: Articles modifiés
+    bytes_added: Octets ajoutés
     characters: Caractères
     char_added: Caractères ajoutés
     char_changed: Caractères modifiés
@@ -1121,6 +1125,14 @@ fr:
   onboarding:
     supplementary:
       header: Comment avez-vous entendu parler de nous ?
-      question_text: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
+      where_did_you_hear: Où, ou bien de qui avez-vous eu connaissance de Wiki Education
         pour la première fois ?
+      why_are_you_here: Qu’aimeriez-vous faire ?
+  article_finder:
+    average_views: Nombre moyen de vues par jour
+    already_added: Déja ajouté aux articles disponibles
+    minimum_views_label: Nombre minimum de vues
+    depth: Profondeur
+    category: Catégorie
+    no_article_found: Aucun article trouvé dans cette catégorie
 ...

@@ -6,13 +6,7 @@ import _ from 'lodash';
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
-import AssignmentStore from '../../stores/assignment_store.js';
-
-function getState() {
-  return {
-    assignments: AssignmentStore.getModels()
-  };
-}
+import { ASSIGNED_ROLE } from '../../constants';
 
 const AvailableArticles = createReactClass({
   displayName: 'AvailableArticles',
@@ -20,24 +14,14 @@ const AvailableArticles = createReactClass({
   propTypes: {
     course_id: PropTypes.string,
     course: PropTypes.object,
-    current_user: PropTypes.object
-  },
-
-  mixins: [AssignmentStore.mixin],
-
-  getInitialState() {
-    return getState();
-  },
-
-  storeDidChange() {
-    this.setState(getState());
+    current_user: PropTypes.object,
+    assignments: PropTypes.array
   },
 
   render() {
     let assignCell;
     let availableArticles;
     let elements = [];
-
     let findingArticlesTraining;
     if (Features.wikiEd && this.props.current_user.isNonstudent) {
       findingArticlesTraining = (
@@ -47,8 +31,8 @@ const AvailableArticles = createReactClass({
       );
     }
 
-    if (this.state.assignments.length > 0) {
-      elements = this.state.assignments.map((assignment) => {
+    if (this.props.assignments.length > 0) {
+      elements = this.props.assignments.map((assignment) => {
         if (assignment.user_id === null && !assignment.deleted) {
           return (
             <ConnectedAvailableArticle
@@ -67,9 +51,9 @@ const AvailableArticles = createReactClass({
       assignCell = (
         <AssignCell
           course={this.props.course}
-          role={0}
+          role={ASSIGNED_ROLE}
           editable
-          add_available={true}
+          addAvailable={true}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
           assignments={[]}

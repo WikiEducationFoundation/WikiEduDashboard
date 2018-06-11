@@ -41,6 +41,7 @@ pt:
     recent_activity: Atividade recente
     report_problem: Reportar um problema
     request_account: Pedir uma conta
+    request_account_create: Criar uma conta
     search: faça uma pergunta
     search_results: 'Resultados para: ''%{search_terms}'''
     sign_up_extended: Registar-se através da Wikipédia
@@ -56,11 +57,11 @@ pt:
     opt_out: Não
   dashboard:
     create_note: Clique em "Criar curso" para criar o seu primeiro curso.
-    create_preparation_note: Certifique-se de ter o seu calendário académico à mão
-      antes de começar; a atribuição de uma ferramenta de projeto usará as datas de
-      encontro com a sua turma — inclusive férias e feriados escolares — para ajustar
-      o seu cronograma no intervalo de datas da sua preferência. Lembre-se que pode
-      sempre editar o cronograma de acordo com as suas necessidades.
+    create_preparation_note: Verifique que tem o seu calendário académico à mão antes
+      de começar; a ferramenta de atribuição de tarefas usará as datas de encontros
+      com a sua turma — incluindo férias e feriados escolares — para ajustar o seu
+      cronograma no intervalo de datas da sua preferência. Lembre-se que pode sempre
+      editar o cronograma de acordo com as suas necessidades.
     explore_course_pages: Explorar as páginas do curso
     explore_examples: Explorar exemplos
     join_note: Quando receber um código de acesso do seu instrutor, clique em "Localizar
@@ -158,12 +159,14 @@ pt:
       mas não leva em conta o conteúdo em si. (Estas notas só estão disponíveis para
       os artigos da Wikipédia em inglês.)
   assignments:
-    article: O artigo %{title} foi atribuído agora a si.
+    article: O artigo %{title} está atribuído agora a si.
     already_exists: Esta tarefa já existe!
     title_too_large: O título não deve exceder 255 caracteres
     assignees: Aluno(s)
     assign_other: Atribuir um artigo
-    add_available: Adicionar um artigo disponível
+    add_available: Adicionar artigos disponíveis
+    add_available_placeholder: Adicionar um título de artigo ou URL por linha
+    add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.
     confirm_add_available: Tem certeza de que deseja adicionar %{title}?
@@ -273,7 +276,7 @@ pt:
     articles: Artigos
     articles_none: Este curso não editou nenhum artigo.
     assignment_end: Fim da tarefa
-    assignments_none: Este curso não possui artigos atribuídos.
+    assignments_none: Este curso não tem artigos atribuídos.
     assignment_start: Início da tarefa
     calendar:
       legend: Legenda
@@ -351,13 +354,13 @@ pt:
         página do seu curso; isto não pode ser alterado. Pode editar tudo o resto
         depois. Clique em "Criar o meu curso!" para começar a construir o cronograma
         da sua tarefa na Wikipédia.
-      new_or_clone: Pode criar um novo curso agora, utilizando o assistente estético
-        de atribuição. Se possuir um cronograma fortemente personalizado de um curso
-        anterior que deseja reutilizar, pode duplicá-lo com novas datas. (Se não personalizou
-        significativamente o seu cronograma anteriormente, nós recomendamos que inicie
-        um novo curso para que tenha as versões mais atualizadas das opções de atribuição.)
-        Também pode utilizar a opção de duplicar para criar secções adicionais para
-        um curso que já definiu.
+      new_or_clone: Pode criar um curso novo agora, usando o assistente de atribuição
+        de tarefas. Se pretende reutilizar um cronograma fortemente personalizado
+        de um curso anterior, pode duplicá-lo e atribuir novas datas (se não personalizou
+        significativamente o seu cronograma, recomendamos que inicie um novo curso
+        para que tenha as versões mais atualizadas das opções de tarefas). Também
+        pode usar a opção de duplicação para criar secções adicionais para um curso
+        que já tenha definido.
       no_class_holidays: Não há férias
       role_description: A sua função no curso
       role_description_placeholder: Professor, professor assistente, etc
@@ -569,7 +572,7 @@ pt:
       Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
     wiki_staff: Equipa da Wiki Educação
-    withdrawn: Retirado
+    withdrawn: Não realizou a tarefa
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
     yourcourses: Os seus cursos
@@ -623,7 +626,7 @@ pt:
         inicial é a principal wiki onde os participantes estão a trabalhar, e as edições
         nesta serão registadas por omissão. Se o seu programa abrange várias línguas
         ou projetos, as contribuições serão registadas em qualquer wiki que tenha
-        um 'Artigo Disponível' ou uma 'Atribuição' para aquela wiki. Clique em "Criar
+        um 'Artigo Disponível' ou uma 'Tarefa' para aquela wiki. Clique em "Criar
         o meu Programa!" para começar a construir a página do seu programa na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
         copiar outro programa que tenha participado.
@@ -684,6 +687,7 @@ pt:
     are_trained: estão em dia com a formação
     articles_created: Artigos criados
     articles_edited: Artigos editados
+    bytes_added: Bytes acrescentados
     characters: Caracteres
     char_added: Caracteres adicionados
     char_changed: Caracteres modificados
@@ -848,7 +852,7 @@ pt:
     empty_week_1: Para começar,
     empty_week_2: começar a editar esta semana
     empty_week_3: ou
-    empty_week_4: utilize o assistente de atribuição para criar um cronograma.
+    empty_week_4: utilize o assistente de tarefas para criar um cronograma.
     first_week_title: Primeira semana ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
@@ -988,11 +992,11 @@ pt:
       summary: atraso no treino do aluno
   wizard:
     assignment_dates: Datas da tarefa
-    assignment_description: Selecione as datas de início e fim do seu cronograma de
-      tarefas. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
-      semana da classe, marque a data de início da tarefa para uma semana após a data
-      de início do curso. A ferramenta do projeto de tarefas criará um esboço de cronograma
-      que corresponde à datas do cronograma que escolher.
+    assignment_description: Selecione as datas de início e fim do cronograma da sua
+      tarefa. Por exemplo, se quiser começar o seu projeto na Wikipédia na segunda
+      semana de aulas, marque a data de início da tarefa para uma semana após a data
+      de início do curso. A ferramenta de atribuição de tarefas criará um cronograma
+      provisório que encaixe nas datas que escolher.
     assignment_type: O que conduziu os alunos para a sua tarefa da Wikipédia?
     calendar_instructions: Selecione as datas para adicioná-las ou removê-las do cronograma
       (por exemplo, as férias, quando não houver aulas). Isto ajudará a ferramenta
@@ -1096,6 +1100,18 @@ pt:
   onboarding:
     supplementary:
       header: Como soube de nós?
-      question_text: Onde, ou através de quem, ouviu falar pela primeira vez da Wiki
-        Educação?
+      where_did_you_hear: Onde, ou através de quem, ouviu falar pela primeira vez
+        da Wiki Educação?
+      why_are_you_here: O que gostaria de fazer?
+  article_finder:
+    page_assessment_grade: Nota de avaliação
+    completeness_estimate: Classificação de integridade
+    average_views: Média de visitas por dia
+    add_available_article: Adicionar como artigo disponível
+    already_added: Já adicionado aos artigos disponíveis
+    max_completeness_label: Integridade máxima (0-100)
+    minimum_views_label: Número mínimo de visitas
+    depth: Profundidade
+    category: Categoria
+    no_article_found: Não foi encontrado nenhum artigo nesta categoria
 ...

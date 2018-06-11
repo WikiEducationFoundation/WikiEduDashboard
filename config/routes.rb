@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences'
     post 'users/update/:username' => 'user_profiles#update'
   end
 
@@ -145,10 +146,7 @@ Rails.application.routes.draw do
   put 'greeting' => 'greeting#greet_course_students'
 
   # Article Finder
-  if Features.enable_article_finder?
-    get 'article_finder(/*any)' => 'article_finder#index'
-    post 'article_finder(/*any)' => 'article_finder#results'
-  end
+  get 'article_finder' => 'article_finder#index'
 
   # Reports and analytics
   get 'analytics(/*any)' => 'analytics#index'

@@ -37,6 +37,7 @@ zh-CN:
     recent_activity: 最近活动
     report_problem: 报告问题
     request_account: 请求账户
+    request_account_create: 创建账户
     search: 提问
     search_results: “%{search_terms}”的结果
     sign_up_extended: 注册维基百科
@@ -120,14 +121,16 @@ zh-CN:
     edit_size: 编辑大小
     wiki: Wiki
     wp10: 结构完整性
-    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些成绩是基于文章的大小计算，参考文献和wikilinks数，和其他基本的文本特征。高分通常意味着一篇文章遵循维基百科关于一篇优秀文章结构的惯例，但它并没有考虑到内容本身。（这些分数只适用于英文维基百科文章）。
+    wp10_doc: “结构完整性”分数是以采用基于机器阅读的目标修订评估服务ORES（https://ores.wikimedia.org/ ）为基础，代表某个条目符合成熟的维基百科条目的程度。这些分数基于条目大小、参考文献和wiki链接数、以及其他基本文本功能计算。高分通常表明一个条目遵守维基百科有关优良条目结构的惯例，但它并未考虑认为是内容本身。（这些分数只适用于英语维基百科条目。）
   assignments:
     article: 条目%{title}已分配给您。
     already_exists: 此分配已存在！
     title_too_large: 标题不应超过255个字符
     assignees: 委托人
     assign_other: 分配一个条目
-    add_available: 添加一个可用条目
+    add_available: 添加可用条目
+    add_available_placeholder: 添加条目标题或URL（每行一个）
+    add_available_submit: 添加条目
     assign_self: 给我自己分配一个条目
     assign_tooltip: 一个分配的条目时您计划创建或改进的条目。
     confirm_add_available: 您确定要添加%{title}么？
@@ -142,7 +145,7 @@ zh-CN:
     reviewers: 复核员
     review_other: 分配一次复核
     review_self: 复核一个条目
-    review_tooltip: 这是为了跟踪你计划同行评审或提供反馈的文章(s)。
+    review_tooltip: 这是要保持追踪您计划同行评审，或是提供反馈的条目。
     select: 选择
   blocks:
     milestones:
@@ -277,7 +280,7 @@ zh-CN:
       expected_number: 预计学生人数
       find: 找到您的课程
       intro: 标题、学校和学期会创建您课程页面的URL，并且不能更改。除这些以外，您可以日后编辑。点击“创建我的课程！”以开始构造用于您维基百科任务分配的时间轴。
-      new_or_clone: 现在可以使用任务设计向导创建一个新的课程。如果你有一个高度定制的时间表，从以前的课程，你想重新使用，你可以复制它的副本与新的日期。（如果您以前没有大量定制您的时间线，我们建议开始一个新课程，这样您将拥有最新版本的赋值选项。）您还可以使用克隆选项为您已经设置的课程创建额外的部分。
+      new_or_clone: 您现在可以使用分配设计向导创建新课程。如果您在上一个课程中有高优先级的自定义时间线，并且您希望复用的话，您可以克隆一份它的拷贝，并指明新的日期。（如果您此前没有明显自定义您的时间线，我们建议您开始新的课程，这样您将有分配选项的最新版本。）您也可以使用克隆选项为您已经配置的课程创建额外章节。
       no_class_holidays: 我没有班级假日
       role_description: 您在课程中的角色
       role_description_placeholder: 导师、教学助理等
@@ -299,7 +302,7 @@ zh-CN:
     data_students: 编辑者数据
     data_students_info: 编辑数据列举所有登记的编辑者、他们的编辑数量及他们是否在项目期间注册了其帐户。
     data_uploads: 共享资源上传数据
-    data_uploads_info: 共享上传数据显示每个媒体上传的名称和使用计数。
+    data_uploads_info: 共享资源上传数据显示每个媒体上传的名称和使用数。
     delete_course: 删除课程
     delete_suggestion: 删除
     delete_course_instructions: 在所有活动都首先被移除后，您可以删除该页面。
@@ -432,7 +435,7 @@ zh-CN:
     weeks_none: 此课程尚无时间线。
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
     wiki_staff: Wiki Ed职员
-    withdrawn: 撤回
+    withdrawn: 没有进行分配
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
     yourcourses: 您的课程
     survey:
@@ -529,6 +532,7 @@ zh-CN:
     are_trained: 最近培训
     articles_created: 创建的条目
     articles_edited: 编辑的条目
+    bytes_added: 添加的字节数
     characters: 字符
     char_added: 添加的字符
     char_changed: 更改的字符
@@ -612,14 +616,14 @@ zh-CN:
     editing: 编辑建议
     suggestion_docs:
       fa: 不需要进一步内容添加，除非新信息可用；对散文质量的进一步改进经常可用。
-      a: 可能需要专家知识来调整文章，而风格问题可能需要解决。同行评议可能会有所帮助。
+      a: 可能需要专家知识来对条目微调，且可能需要解决样式问题。同行评审会有帮助。
       ga: 主题和风格专家的一些编辑是有帮助的；与现有类似话题的典范条目相比较也会突显内容的薄弱或缺失之处。
       bplus: 可以通过输入来自专家的意见进行改进，以访问覆盖范围仍然缺乏的领域，也可以由插图、历史背景及更多参考资料来补充。考虑同行评审或提名优良条目状态。如果条目尚未完全维基化，现在就是改进的时间。
-      b: 内容和风格的几个方面需要加以解决。可能需要专家知识。如果实用的话，应考虑支持材料的加入，并检查一般是否符合手册手册和相关风格指南。
+      b: 内容的一些方面和样式需要处理，或需要专业知识。实用的支持材料应考虑包含，且条目已检查确认遵守格式手册及相关格式指引。
       c: 需要相当大的编辑以关闭内容缺口，并解决清理问题。
       start: 首先应提供参考资料至可靠来源；条目同样需要对内容和组织作实质性改进。并改进语法、拼写、书写样式及提高术语的使用。
       stub: 任何编辑或额外材料都有帮助。有意义内容的规定应为优先级。对于小作品级条目而言，提升到初级条目的最佳解决方案是添加进为什么话题具有显著意义的引用原因。
-      fl: 除非新的信息可用，否则不需要增加内容。
+      fl: 没有确实需要添加的更多内容，除非新信息可用。
       list: 列表应为正常链至维基百科条目的链接列表，并应适当命名和组织。
       future: 添加的材料可能存在投机炒作，并应仔细检查来源。
       disambig: 附加物应制作为要创建名称的新条目。密切注意这类页面的适当名称，这是因为它们不需要将“（消歧义）”附加在标题上。
@@ -854,5 +858,17 @@ zh-CN:
   onboarding:
     supplementary:
       header: 您是怎么知道我们的？
-      question_text: 何处、来自谁、还是您第一次听说维基教育计划？
+      where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
+      why_are_you_here: 您想做什么？
+  article_finder:
+    page_assessment_grade: 评定等级
+    completeness_estimate: 完整分数
+    average_views: 每天平均访问
+    add_available_article: 添加为可用条目
+    already_added: 已添加到可用条目
+    max_completeness_label: 最高完整（0~100）
+    minimum_views_label: 最低访问
+    depth: 深度
+    category: 分类
+    no_article_found: 此分类中找不到条目
 ...

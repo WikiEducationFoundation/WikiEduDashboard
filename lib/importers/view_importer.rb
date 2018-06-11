@@ -104,7 +104,7 @@ class ViewImporter
 
   def views_last_updated(since, views)
     last = since
-    last = views.sort_by { |(d)| d }.last.first.to_date unless views.empty?
+    last = views.max_by { |(d)| d }.first.to_date unless views.empty?
     last
   end
 

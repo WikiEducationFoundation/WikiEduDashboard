@@ -7,9 +7,9 @@
       %nav
         %ul.campaign-nav__ul
           = nav_link(t('courses.overview'), overview_campaign_path(@campaign.slug))
-          = nav_link(t("#{Features.default_course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
+          = nav_link(t("#{@campaign.course_string_prefix}.courses"), programs_campaign_path(@campaign.slug))
           = nav_link(t('courses.articles'), articles_campaign_path(@campaign.slug))
-          = nav_link(t("#{Features.default_course_string_prefix}.students"), users_campaign_path(@campaign.slug))
+          = nav_link(t("#{@campaign.course_string_prefix}.students"), users_campaign_path(@campaign.slug))
           = nav_link(t('courses.ores_plot'), ores_plot_campaign_path(@campaign.slug))
           = nav_link(t('courses.alerts'), alerts_campaign_path(@campaign.slug))
         .campaign-nav__search

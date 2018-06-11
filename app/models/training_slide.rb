@@ -3,7 +3,7 @@
 #
 # Table name: training_slides
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  title        :string(255)
 #  title_prefix :string(255)
 #  summary      :string(255)

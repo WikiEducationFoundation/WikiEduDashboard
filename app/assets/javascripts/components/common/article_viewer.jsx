@@ -16,13 +16,26 @@ const ArticleViewer = createReactClass({
     showButtonLabel: PropTypes.string,
     showButtonClass: PropTypes.string,
     users: PropTypes.array,
-    fetchArticleDetails: PropTypes.func.isRequired
+    showOnMount: PropTypes.bool,
+    fetchArticleDetails: PropTypes.func,
+    showArticleLegend: PropTypes.bool,
+  },
+  getDefaultProps() {
+    return {
+      showArticleFinder: false,
+    };
   },
 
   getInitialState() {
     return {
       showArticle: false
     };
+  },
+
+  componentDidMount() {
+    if (this.props.showOnMount) {
+      this.showArticle();
+    }
   },
 
   // When 'show' is clicked, this component may or may not already have
@@ -40,6 +53,9 @@ const ArticleViewer = createReactClass({
   },
 
   showButtonLabel() {
+    if (this.props.showArticleFinder) {
+      return 'Brief preview of Article';
+    }
     if (this.props.showButtonLabel) {
       return this.props.showButtonLabel;
     }
@@ -55,9 +71,9 @@ const ArticleViewer = createReactClass({
       this.fetchParsedArticle();
     }
 
-    if (!this.props.users) {
+    if (!this.props.users && !this.props.showArticleFinder) {
       this.props.fetchArticleDetails();
-    } else if (!this.state.userIdsFetched) {
+    } else if (!this.state.userIdsFetched && !this.props.showArticleFinder) {
       this.fetchUserIds(this.props.users);
     }
     // WhoColor is only available for some languages
@@ -260,12 +276,25 @@ const ArticleViewer = createReactClass({
       legendStatus = 'loading';
     }
 
+    let articleViewerLegend;
+    if (!this.props.showArticleFinder) {
+      articleViewerLegend = (
+        <ArticleViewerLegend
+          article={this.props.article}
+          users={this.state.users}
+          colors={this.colors}
+          status={legendStatus}
+          failureMessage={this.state.failureMessage}
+        />
+        );
+    }
     return (
       <div>
         <div className={className}>
           <div className="article-header">
             <p>
               <span className="article-viewer-title">{trunc(this.props.article.title, 56)}</span>
+              <span><a className="icon-link" href={`?showArticle=${this.props.article.id}`} /></span>
               {closeButton}
               <a className="button small pull-right article-viewer-button" href={`/feedback?subject=Article Viewer — ${this.props.article.title}`} target="_blank">How did the article viewer work for you?</a>
             </p>
@@ -274,13 +303,7 @@ const ArticleViewer = createReactClass({
             {article}
           </div>
           <div className="article-footer">
-            <ArticleViewerLegend
-              article={this.props.article}
-              users={this.state.users}
-              colors={this.colors}
-              status={legendStatus}
-              failureMessage={this.state.failureMessage}
-            />
+            {articleViewerLegend}
             <a className="button dark small pull-right article-viewer-button" href={this.props.article.url} target="_blank">{I18n.t('articles.view_on_wiki')}</a>
           </div>
         </div>

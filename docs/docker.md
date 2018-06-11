@@ -17,7 +17,7 @@ Make sure the docker daemon is running. Else, `service docker status`. Then, fro
  This builds the `wiki-edu-dashboard` container image using the Dockerfile. The dashboard container image is based on the official `ruby:2.5.0` [base image](https://hub.docker.com/_/ruby/). The container image contains all the necessary dependencies as well as an initialized MariaDB database as required by the Wiki Edu Dashboard. 
 
 ## Run
-The current docker image can be used for testing, local deploys or development purposes. `docker run` initializes the setup and spawns a container which starts serving the dashboard on `http://localhost:3000`. Do note that the following setup uses [Docker host networking](https://docs.docker.com/network/network-tutorial-host/) which is currently only supported on Linux. Also, this requires port `3000` to be open on the host.
+The current docker image can be used for testing, local deploys or development purposes. `docker run` initializes the setup and spawns a container which starts serving the dashboard on `http://localhost:3000`. Also, this requires port `3000` to be open on the host.
 
 ### Development Setup
 For a developer's ease of use, it is desirable to have the container auto update as the source code changes in the development directory. Therefore, we use Docker volumes to mount the local directory and have its real-time changes accessible inside the container. Run the container with the `-v` option as follows:
@@ -27,10 +27,8 @@ For a developer's ease of use, it is desirable to have the container auto update
 This starts the container with host networking and allows `/path/to/WikiEduDashboard` (developer's working directory) to be accessible from the `WORKDIR` of container. For WikiEduDashboard Docker image, the working directory has been set as `/usr/src/app`. Once the container starts, you should start expecting the following prompts and `gulp` to have started with its status messages waiting for live changes.
 ```
 [ ok ] Starting MariaDB database server: mysqld ..
-+ sleep 5
 + redis-server --daemonize yes
-+ sleep 10
-+ rails s -d
++ rails s -d -b 0.0.0.0
 => Booting WEBrick
 => Rails 5.1.6 application starting in development on http://localhost:3000
 => Run `rails server -h` for more startup options

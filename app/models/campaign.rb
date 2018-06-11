@@ -17,6 +17,7 @@ require 'csv'
 #  template_description :text(65535)
 #  default_course_type  :string(255)
 #  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
 #
 
 #= Campaign model
@@ -86,6 +87,15 @@ class Campaign < ApplicationRecord
 
   def self.default_campaign
     find_by(slug: ENV['default_campaign']) || first
+  end
+
+  ####################
+  # Instance methods #
+  ####################
+
+  def course_string_prefix
+    return Features.default_course_string_prefix if default_course_type.blank?
+    @course_string_prefix ||= default_course_type.constantize.new.string_prefix
   end
 
   private

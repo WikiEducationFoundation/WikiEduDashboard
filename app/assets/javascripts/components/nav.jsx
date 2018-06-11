@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import Confetti from 'react-confetti';
 import CustomLink from './CustomLink.jsx';
 import HamburgerMenu from './hamburger_menu.jsx';
-import Uls from './uls_box.jsx';
+import LanguagePicker from './language_picker.jsx';
 
 const Nav = createReactClass({
   displayName: 'Nav',
@@ -76,24 +76,22 @@ const Nav = createReactClass({
     let Sandbox;
     let wikiEd;
     let languageSwitcherEnabled;
-    let loggingLinks;
+    let loginLinks;
     let helpEnabled;
     if (this.state.languageSwitcherEnabled)
     {
       languageSwitcherEnabled = (
         <li>
-          <button className="uls-trigger">
-            {I18n.locale}
-          </button>
+          <LanguagePicker />
         </li>
       );
     }
     if (this.state.userSignedIn)
     {
-      loggingLinks = (
+      loginLinks = (
         <span>
           <li>
-            <b><a href={this.state.rootUrl} className="current-user">{this.state.currentUser}</a></b>
+            <b><a href={`/users/${this.state.currentUser}`} className="current-user">{this.state.currentUser}</a></b>
           </li>
           <li>
             <a href={this.state.destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
@@ -115,7 +113,7 @@ const Nav = createReactClass({
       );
       }
     } else {
-      loggingLinks = (
+      loginLinks = (
         <li>
           <a href={this.state.omniauthUrl}>
             <i className="icon icon-wiki-logo" />
@@ -177,7 +175,6 @@ const Nav = createReactClass({
     {
       navBar = (
         <div>
-          <Uls />
           <HamburgerMenu
             rootUrl = {this.state.rootUrl}
             logoPath = {this.state.logoPath}
@@ -200,7 +197,6 @@ const Nav = createReactClass({
     } else {
       navBar = (
         <div>
-          <Uls />
           <nav className= {navClass}>
             <div className="container">
               <div className="top-nav__site-logo">
@@ -224,7 +220,7 @@ const Nav = createReactClass({
               {helpEnabled}
               <ul className="top-nav__login-links">
                 {languageSwitcherEnabled}
-                {loggingLinks}
+                {loginLinks}
               </ul>
             </div>
           </nav>

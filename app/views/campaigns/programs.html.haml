@@ -1,4 +1,4 @@
-- content_for :before_title, t("#{Features.default_course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
+- content_for :before_title, t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title) + ' — '
 
 = render 'nav'
 
@@ -10,7 +10,7 @@
   %section#courses
     .section-header
       %h3
-        = t("#{Features.default_course_string_prefix}.campaign_courses", title: @campaign.title)
+        = t("#{@presenter.course_string_prefix}.campaign_courses", title: @campaign.title)
       .sort-select
         %select.sorts{rel: 'courses'}
           %option{rel: 'asc', value: 'title'}

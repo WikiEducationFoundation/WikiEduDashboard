@@ -103,14 +103,11 @@ const Details = createReactClass({
   },
 
   poll() {
-    if (this.props.course.type === 'Editathon') {
-      return setInterval(() => {
-        if (!this.props.editable) {
-          ServerActions.fetch('course', this.props.course.slug);
-        }
-      }, POLL_INTERVAL);
-    }
-    return null;
+    return setInterval(() => {
+      if (!this.props.editable) {
+        ServerActions.fetch('course', this.props.course.slug);
+      }
+    }, POLL_INTERVAL);
   },
 
   timeout: null,
@@ -193,7 +190,7 @@ const Details = createReactClass({
     }
 
     let expectedStudents;
-    if (this.props.course.expected_students || this.props.course.expected_students === 0) {
+    if (this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) {
       expectedStudents = (
         <TextInput
           onChange={this.updateDetails}

@@ -1,8 +1,18 @@
 .pagination
   text-align center
   margin 30px 10px
+  display flex
+  list-style none
+  cursor pointer
 
-  .previous_page, .next_page, a, .current
+  li
+    margin 0
+    &.disabled > a, &.disabled > a:hover
+      background-color transparent
+      border 1px solid #e7e7e7
+      color #6a6a6a
+
+  .previous_page, .next_page, .current, a
     border-radius 3px
     font-size 14px
     line-height 1.5
@@ -22,7 +32,7 @@
       border 1px solid #e7e7e7
       color #6a6a6a
 
-  .current
+  .current, .active > a
     color #6a6a6a
     background #e7e7e7
 

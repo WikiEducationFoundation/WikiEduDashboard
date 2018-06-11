@@ -57,6 +57,7 @@ lv:
   assignments:
     assign_other: Piešķirt rakstu
     add_available: Pievienot pieejamu rakstu
+    add_available_submit: Pievienot rakstus
     assign_self: Piešķirt sev rakstu
     label: Piešķirt
     loading: Ielādē uzdevumus...
@@ -231,6 +232,7 @@ lv:
     activity: Nesenās darbības
     articles_created: Izveidotie raksti
     articles_edited: Labotie raksti
+    bytes_added: Pievienotie baiti
     char_added: Rakstzīmes pievienotas
     char: Rakstzīmes pievienotas
     date_time: Datums/laiks

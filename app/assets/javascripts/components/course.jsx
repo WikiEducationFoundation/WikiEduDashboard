@@ -43,6 +43,7 @@ const Course = createReactClass({
     return getState();
   },
 
+  // Fetch all the data needed to render a course page
   componentWillMount() {
     const courseID = this.getCourseID();
     ServerActions.fetch('course', courseID);

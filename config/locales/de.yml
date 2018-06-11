@@ -32,6 +32,7 @@ de:
     recent_activity: Letzte Aktivitäten
     report_problem: Ein Problem melden
     request_account: Ein Benutzerkonto beantragen
+    request_account_create: Ein Benutzerkonto erstellen
     search: eine Frage stellen
     search_results: 'Ergebnisse für: „%{search_terms}“'
     sign_up_extended: Mit Wikipedia registrieren
@@ -154,7 +155,9 @@ de:
     title_too_large: Der Titel sollte 255 Zeichen nicht überschreiten
     assignees: Zugeordnete/r Benutzer/in(nen)
     assign_other: Einen Artikel zuweisen
-    add_available: Einen verfügbaren Artikel hinzufügen
+    add_available: Verfügbare Artikel hinzufügen
+    add_available_placeholder: Einen Artikelnamen oder eine URL pro Zeile hinzufügen
+    add_available_submit: Artikel hinzufügen
     assign_self: Einen Artikel selbst zuweisen
     assign_tooltip: Ein zugewiesener Artikel ist ein Artikel, den du planst zu erstellen
       oder zu verbessern.
@@ -568,7 +571,7 @@ de:
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
     wiki_staff: Wiki-Ed-Mitarbeiter
-    withdrawn: Zurückgezogen
+    withdrawn: Hat keine Zuweisung gemacht
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
     yourcourses: Deine Kurse
@@ -684,6 +687,7 @@ de:
     are_trained: sind mit der Ausbildung auf dem Laufenden
     articles_created: Erstellte Artikel
     articles_edited: Bearbeitete Artikel
+    bytes_added: Hinzugefügte Bytes
     characters: Zeichen
     char_added: Zeichen hinzugefügt
     char_changed: Zeichen geändert
@@ -1103,5 +1107,17 @@ de:
   onboarding:
     supplementary:
       header: Wie hast du von uns erfahren?
-      question_text: Wo oder von wem hast du zuerst von Wiki Education erfahren?
+      where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
+      why_are_you_here: Was möchtest du tun?
+  article_finder:
+    page_assessment_grade: Bewertungsgrad
+    completeness_estimate: Vervollständigungs-Punktestand
+    average_views: Durchschnittliche Aufrufe pro Tag
+    add_available_article: Als verfügbaren Artikel hinzufügen
+    already_added: Bereits zu den verfügbaren Artikeln hinzugefügt
+    max_completeness_label: Maximale Vervollständigung (0-100)
+    minimum_views_label: Mindestaufrufe
+    depth: Tiefe
+    category: Kategorie
+    no_article_found: Keine Artikel in dieser Kategorie gefunden
 ...

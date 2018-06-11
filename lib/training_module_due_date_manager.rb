@@ -34,7 +34,7 @@ class TrainingModuleDueDateManager
   # courses where module is assigned)
   def overall_due_date
     blocks = blocks_with_module_assigned(@training_module)
-    blocks.collect(&:calculated_due_date).sort.first
+    blocks.collect(&:calculated_due_date).min
   end
 
   def blocks_with_module_assigned(training_module)

@@ -6,6 +6,24 @@ const CourseStats = ({ course }) => {
   let viewData;
   let infoImg;
   let trainedTooltip;
+
+  let contentCount;
+  if (course.home_wiki.language === 'en') {
+    contentCount = (
+      <div className="stat-display__stat" id="word-count">
+        <div className="stat-display__value">{course.word_count}</div>
+        <small>{I18n.t('metrics.word_count')}</small>
+      </div>
+    );
+  } else {
+    contentCount = (
+      <div className="stat-display__stat" id="bytes-added">
+        <div className="stat-display__value">{course.character_sum}</div>
+        <small>{I18n.t('metrics.bytes_added')}</small>
+      </div>
+    );
+  }
+
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display" />;
   }
@@ -56,10 +74,7 @@ const CourseStats = ({ course }) => {
         <small>{CourseUtils.i18n('student_editors', course.string_prefix)}</small>
         {trainedTooltip}
       </div>
-      <div className="stat-display__stat" id="word-count">
-        <div className="stat-display__value">{course.word_count}</div>
-        <small>{I18n.t('metrics.word_count')}</small>
-      </div>
+      {contentCount}
       <div className="stat-display__stat" id="view-count">
         {viewData}
         <small>{I18n.t('metrics.view_count_description')}</small>

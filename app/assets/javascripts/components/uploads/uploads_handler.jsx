@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
@@ -13,8 +14,33 @@ const UploadsHandler = createReactClass({
     course: PropTypes.object
   },
 
+  getInitialState() {
+    return {
+      offset: 0,
+      data: [],
+      perPage: 100,
+      currentPage: 0,
+    };
+  },
+
   componentWillMount() {
     return this.props.receiveUploads(this.props.course_id);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
+    this.setState({ data: data, pageCount: Math.ceil(nextProps.uploads.length / this.state.perPage) });
+  },
+
+  setUploadData(offset, selectedPage) {
+    const data = this.props.uploads.slice(offset, offset + this.state.perPage);
+    this.setState({ offset: offset, data: data, currentPage: selectedPage });
+  },
+
+  handlePageClick(data) {
+    const selectedPage = data.selected;
+    const offset = Math.ceil(selectedPage * this.state.perPage);
+    this.setUploadData(offset, selectedPage);
   },
 
   sortSelect(e) {
@@ -22,6 +48,26 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
+    let paginationElement;
+    if (this.state.pageCount > 1) {
+      paginationElement = (
+        <ReactPaginate
+          previousLabel={"← Previous"}
+          nextLabel={"Next →"}
+          breakLabel={<span className="gap">...</span>}
+          pageCount={this.state.pageCount}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={6}
+          onPageChange={this.handlePageClick}
+          forcePage={this.state.currentPage}
+          containerClassName={"pagination"}
+          previousLinkClassName={"previous_page"}
+          nextLinkClassName={"next_page"}
+          disabledClassName={"disabled"}
+          activeClassName={"active"}
+        />
+      );
+    }
     return (
       <div id="uploads">
         <div className="section-header">
@@ -34,7 +80,9 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <UploadList uploads={this.props.uploads} />
+        {paginationElement}
+        <UploadList uploads={this.state.data} />
+        {paginationElement}
       </div>
     );
   }

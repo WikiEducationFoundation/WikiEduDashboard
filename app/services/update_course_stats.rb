@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/course_revision_updater"
+require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/course_upload_importer"
 require_dependency "#{Rails.root}/lib/data_cycle/update_logger"
 
@@ -11,6 +12,7 @@ class UpdateCourseStats
     @start_time = Time.zone.now
     fetch_data
     update_categories if @course.needs_update
+    update_article_stats if @course.needs_update
     update_caches
     @course.update(needs_update: false)
     @end_time = Time.zone.now
@@ -27,6 +29,10 @@ class UpdateCourseStats
 
   def update_categories
     Category.refresh_categories_for(@course)
+  end
+
+  def update_article_stats
+    ArticleStatusManager.update_article_status_for_course(@course)
   end
 
   def update_caches

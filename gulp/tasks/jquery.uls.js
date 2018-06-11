@@ -9,12 +9,7 @@ const plugins = loadPlugins();
 //--------------------------------------------------------
 const jqueryUlsPath = [
   'node_modules/@bower_components/jquery/dist/jquery.js',
-  'node_modules/@bower_components/lodash/lodash.js',
-  'node_modules/@bower_components/jquery.uls/src/jquery.uls.data.js',
-  'node_modules/@bower_components/jquery.uls/src/jquery.uls.data.utils.js',
-  'node_modules/@bower_components/jquery.uls/src/jquery.uls.lcd.js',
-  'node_modules/@bower_components/jquery.uls/src/jquery.uls.languagefilter.js',
-  'node_modules/@bower_components/jquery.uls/src/jquery.uls.core.js'
+  'node_modules/@bower_components/lodash/lodash.js'
   ];
 
 gulp.task('jquery-uls', () => {

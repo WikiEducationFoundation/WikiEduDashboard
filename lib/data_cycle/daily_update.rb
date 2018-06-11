@@ -8,6 +8,7 @@ require_dependency "#{Rails.root}/lib/importers/rating_importer"
 require_dependency "#{Rails.root}/lib/article_status_manager"
 require_dependency "#{Rails.root}/lib/importers/upload_importer"
 require_dependency "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
+require_dependency "#{Rails.root}/lib/alerts/overdue_training_alert_manager"
 
 # Executes all the steps of 'update_constantly' data import task
 class DailyUpdate
@@ -29,6 +30,7 @@ class DailyUpdate
     update_commons_uploads
     update_article_data
     update_category_data
+    generate_overdue_training_alerts if Features.wiki_ed?
     push_course_data_to_salesforce if Features.wiki_ed?
     log_end_of_update 'Daily update finished.'
   # rubocop:disable Lint/RescueException
@@ -72,6 +74,14 @@ class DailyUpdate
   def update_category_data
     log_message 'Updating tracked categories'
     Category.refresh_categories_for(Course.current)
+  end
+
+  ##########
+  # Alerts #
+  ##########
+  def generate_overdue_training_alerts
+    log_message 'Generating alerts for overdue trainings'
+    OverdueTrainingAlertManager.new(Course.strictly_current).create_alerts
   end
 
   ###############

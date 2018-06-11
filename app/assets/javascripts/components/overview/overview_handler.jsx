@@ -9,7 +9,6 @@ import Milestones from './milestones.jsx';
 import Details from './details.jsx';
 import ThisWeek from './this_week.jsx';
 import CourseStore from '../../stores/course_store.js';
-import AssignmentStore from '../../stores/assignment_store.js';
 import WeekStore from '../../stores/week_store.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
@@ -38,7 +37,7 @@ const Overview = createReactClass({
     students: PropTypes.array
   },
 
-  mixins: [WeekStore.mixin, CourseStore.mixin, AssignmentStore.mixin],
+  mixins: [WeekStore.mixin, CourseStore.mixin],
 
   getInitialState() {
     return getState();

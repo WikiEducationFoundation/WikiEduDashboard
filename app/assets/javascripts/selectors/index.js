@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE } from '../constants';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, WP10Weights, fetchStates } from '../constants';
 import UserUtils from '../utils/user_utils.js';
 
 const getUsers = state => state.users.users;
@@ -13,6 +13,7 @@ const getAllEditedArticles = state => state.articles.articles;
 const getWikiFilter = state => state.articles.wikiFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
+const getArticleFinderState = state => state.articleFinder;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -81,5 +82,24 @@ export const getFilteredAlerts = createSelector(
   [getAlerts, getAlertFilters], (alerts, alertFilters) => {
     if (!alertFilters.length) { return alerts; }
     return _.filter(alerts, (alert) => _.includes(alertFilters, alert.type));
+  }
+);
+
+export const getFilteredArticleFinder = createSelector(
+  [getArticleFinderState], (articleFinder) => {
+    return _.pickBy(articleFinder.articles, (article) => {
+      const quality = Math.max(article.revScore, WP10Weights[article.grade]);
+      const qualityFilter = articleFinder.article_quality;
+      if (article.grade && !_.includes(Object.keys(WP10Weights), article.grade)) {
+        return false;
+      }
+      if (fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED && article.pageviews < articleFinder.min_views) {
+        return false;
+      }
+      if (fetchStates[article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED && quality > qualityFilter) {
+        return false;
+      }
+      return true;
+    });
   }
 );

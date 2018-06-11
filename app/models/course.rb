@@ -12,7 +12,7 @@
 #  school                :string(255)
 #  term                  :string(255)
 #  character_sum         :integer          default(0)
-#  view_sum              :integer          default(0)
+#  view_sum              :bigint(8)        default(0)
 #  user_count            :integer          default(0)
 #  article_count         :integer          default(0)
 #  revision_count        :integer          default(0)
@@ -87,6 +87,11 @@ class Course < ApplicationRecord
   has_many(:all_revisions, lambda do |course|
     where('date >= ?', course.start).where('date <= ?', course.end)
   end, through: :students)
+
+  # Same as revisions, but isn't bounded by the course end date
+  has_many(:recent_revisions, lambda do |course|
+    where('date >= ?', course.start)
+  end, through: :students, source: :revisions)
 
   has_many(:uploads, lambda do |course|
     where('uploaded_at >= ?', course.start).where('uploaded_at <= ?', course.end)

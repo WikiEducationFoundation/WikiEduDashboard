@@ -41,6 +41,7 @@ zh-TW:
     recent_activity: 最近活動
     report_problem: 回報問題
     request_account: 申請帳號
+    request_account_create: 建立帳號
     search: 提出問題
     search_results: 結果：「%{search_terms}」
     sign_up_extended: 註冊維基百科
@@ -133,7 +134,9 @@ zh-TW:
     title_too_large: 標題不可超出 255 個字元
     assignees: 被分配者
     assign_other: 分配條目
-    add_available: 加入一篇可用的條目
+    add_available: 加入可用的條目
+    add_available_placeholder: 在每行添加一個條目標題或 URL
+    add_available_submit: 添加條目
     assign_self: 指定自己一個條目
     assign_tooltip: 一個是您計劃創建、或改善的已分配條目
     confirm_add_available: 確定要加入 %{title} 嗎？
@@ -451,7 +454,7 @@ zh-TW:
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
     wiki_staff: Wiki ED 工作人員
-    withdrawn: 撤回
+    withdrawn: 沒有做出分配
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
     yourcourses: 您的課程
     survey:
@@ -549,6 +552,7 @@ zh-TW:
     are_trained: 最近培訓
     articles_created: 已建立的條目
     articles_edited: 已編輯的條目
+    bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元
     char_changed: 變更的字元
@@ -875,5 +879,17 @@ zh-TW:
   onboarding:
     supplementary:
       header: 您是如何知道我們的？
-      question_text: 您是在哪裡、或是從誰，來第一次聽到維基教育？
+      where_did_you_hear: 您是在哪裡、或是從誰，來第一次聽到維基教育？
+      why_are_you_here: 您想要做什麼？
+  article_finder:
+    page_assessment_grade: 評估分級
+    completeness_estimate: 完整性分數
+    average_views: 每日平均檢視
+    add_available_article: 添加為可用條目
+    already_added: 已添加至可用條目裡
+    max_completeness_label: 最大完整性（0 至 100）
+    minimum_views_label: 最小檢視數
+    depth: 層度
+    category: 分類
+    no_article_found: 此分類裡沒有條目
 ...

@@ -47,6 +47,7 @@ es:
     recent_activity: Actividad reciente
     report_problem: Informar sobre un problema
     request_account: Solicitar una cuenta
+    request_account_create: Crear una cuenta
     search: preguntar
     search_results: 'Resultados de: «%{search_terms}»'
     sign_up_extended: Regístrate con Wikipedia
@@ -163,7 +164,9 @@ es:
     title_too_large: El título no debería exceder los 255 caracteres
     assignees: Asignado(s)
     assign_other: Asignar un artículo
-    add_available: Añadir un artículo disponible
+    add_available: Añadir artículos disponibles
+    add_available_placeholder: Añade un título de artículo o un URL por renglón
+    add_available_submit: Añadir artículos
     assign_self: Asignarme un artículo
     assign_tooltip: Un artículo asignado es aquel que planeas crear o mejorar.
     confirm_add_available: ¿Confirmas que quieres añadir %{title}?
@@ -490,6 +493,7 @@ es:
       Tras la presentación, este curso se enviará automáticamente a Wikipedia con tu cuenta de usuario. Después de eso, las ediciones nuevas al cronograma se reflejarán en Wikipedia.
       ¿Estás seguro de que quieres hacer esto?
     wiki_staff: Personal de Wiki Ed
+    withdrawn: No hizo los deberes
     word_count_doc: Una estimación del número de palabras agregadas a los artículos
       del espacio principal por parte de los estudiantes durante el período del curso
     yourcourses: Tus cursos
@@ -586,6 +590,7 @@ es:
     are_trained: están al día con la capacitación
     articles_created: Artículos creados
     articles_edited: Artículos editados
+    bytes_added: Bytes añadidos
     characters: Caracteres
     char_added: Caracteres añadidos
     char_changed: Caracteres cambiados
@@ -942,6 +947,11 @@ es:
   onboarding:
     supplementary:
       header: ¿Cómo te enteraste de nosotros?
-      question_text: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre Wiki
-        Education?
+      where_did_you_hear: ¿Dónde, o de quiénes, oíste hablar por primera vez sobre
+        Wiki Education?
+      why_are_you_here: ¿Qué quieres hacer?
+  article_finder:
+    depth: Profundidad
+    category: Categoría
+    no_article_found: No se encontró ningún artículo en esta categoría
 ...

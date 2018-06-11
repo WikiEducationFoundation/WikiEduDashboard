@@ -77,6 +77,8 @@ describe 'onboarding', type: :feature, js: true do
       find('input[type=radio][value=true]').click
       find('form button[type=submit]').click
       page.assert_selector('form#supplementary')
+      fill_in 'heardFrom', with: 'twitter'
+      click_button 'Submit'
     end
   end
 end

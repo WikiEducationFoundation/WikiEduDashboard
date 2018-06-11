@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
 import { sortUsers } from '../../actions/user_actions';
+import { fetchAssignments } from '../../actions/assignment_actions';
 import StudentList from './student_list.jsx';
-import ServerActions from '../../actions/server_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 
 const StudentsHandler = createReactClass({
@@ -15,15 +15,22 @@ const StudentsHandler = createReactClass({
     course_id: PropTypes.string,
     current_user: PropTypes.object,
     course: PropTypes.object,
-    children: PropTypes.node
+    children: PropTypes.node,
+    sortUsers: PropTypes.func.isRequired,
+    fetchAssignments: PropTypes.func.isRequired,
+    loadingAssignments: PropTypes.bool
   },
 
   componentWillMount() {
-    return ServerActions.fetch('assignments', this.props.course_id);
+    if (this.props.loadingAssignments) {
+      this.props.fetchAssignments(this.props.course_id);
+    }
   },
+
   sortSelect(e) {
     return this.props.sortUsers(e.target.value);
   },
+
   render() {
     let firstNameSorting;
     let lastNameSorting;
@@ -59,8 +66,13 @@ const StudentsHandler = createReactClass({
 }
 );
 
+const mapStateToProps = state => ({
+  loadingAssignments: state.assignments.loading
+});
+
 const mapDispatchToProps = {
-  sortUsers
+  sortUsers,
+  fetchAssignments
 };
 
-export default connect(null, mapDispatchToProps)(StudentsHandler);
+export default connect(mapStateToProps, mapDispatchToProps)(StudentsHandler);

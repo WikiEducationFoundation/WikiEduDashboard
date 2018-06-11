@@ -12,6 +12,7 @@
 # Author: Nemo bis
 # Author: NumaPompilius3
 # Author: S4b1nuz E.656
+# Author: Sarah Bernabei
 # Author: Statix64
 # Author: Wikitoni
 ---
@@ -130,7 +131,9 @@ it:
     title_too_large: Il titolo non deve superare i 255 caratteri
     assignees: Assegnatario/i
     assign_other: Assegna una voce
-    add_available: Aggiungi una voce disponibile
+    add_available: Aggiungi voci disponibili
+    add_available_placeholder: Aggiungi il titolo di una voce o un URL per riga
+    add_available_submit: Aggiungi voci
     assign_self: Assegnami una voce
     confirm_add_available: Sei sicuro di voler aggiungere %{title}?
     confirm_addition: Sei sicuro di voler assegnare %{title} a %{username}?
@@ -347,7 +350,7 @@ it:
       other: Volontari
     weeks_none: Questo corso non ha ancora una linea temporale.
     wiki_staff: Staff Wiki Ed
-    withdrawn: Ritirato
+    withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
     yourcourses: Tuoi corsi
@@ -434,6 +437,7 @@ it:
     activity: Attività recente
     articles_created: Voci create
     articles_edited: Voci modificate
+    bytes_added: Bytes aggiunti
     characters: Caratteri
     char_added: Caratteri aggiunti
     char_changed: Caratteri Modificati
@@ -674,4 +678,7 @@ it:
       link: Rispondi sondaggio
   wiki_api:
     create_account_reason: Questo utente sta partecipando a %{event}.
+  onboarding:
+    supplementary:
+      why_are_you_here: Cosa ti piacerebbe fare?
 ...

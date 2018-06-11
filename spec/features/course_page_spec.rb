@@ -11,7 +11,7 @@ MILESTONE_BLOCK_KIND = 2
 # Remove this after implementing server-side rendering
 def js_visit(path, count=3)
   visit path
-  expect(page).to have_content 'Explore'
+  expect(page).to have_content('Explore').or have_content('Find Programs')
 
 # This is a workaround for some of the intermittent errors that occur when
 # running capybara with xvfb, which we do on travis-ci and in vagrant.
@@ -253,7 +253,7 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
-      expect(page).to_not have_content 'Add an available article'
+      expect(page).to_not have_content 'Add available articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
@@ -261,7 +261,7 @@ describe 'the course page', type: :feature, js: true do
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
       assigned_articles_section = page.first(:css, '#available-articles')
-      expect(assigned_articles_section).to have_content 'Add an available article'
+      expect(assigned_articles_section).to have_content 'Add available articles'
     end
 
     it 'allow instructor to add an available article' do
@@ -270,10 +270,10 @@ describe 'the course page', type: :feature, js: true do
       stub_oauth_edit
       js_visit "/courses/#{slug}/articles"
       expect(page).to have_content 'Available Articles'
-      click_button 'Add an available article'
-      page.first(:css, '#available-articles .pop.open').first('input').set('Education')
-      click_button 'Assign'
-      click_button 'OK'
+      click_button 'Add available articles'
+      page.first(:css, '#available-articles .pop.open').first('textarea').set('Education')
+      click_button 'Add articles'
+      sleep 1
       assigned_articles_table = page.first(:css, '#available-articles table.articles')
       expect(assigned_articles_table).to have_content 'Education'
     end
@@ -395,7 +395,7 @@ describe 'the course page', type: :feature, js: true do
       visit "/courses/#{slug}/manual_update"
       js_visit "/courses/#{slug}"
       updated_user_count = user_count + 1
-      expect(page).to have_content "#{updated_user_count} Student Editors"
+      expect(page).to have_content "#{updated_user_count}\nStudent Editors"
     end
   end
 

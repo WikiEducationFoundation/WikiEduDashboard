@@ -15,6 +15,7 @@
 #  template_description :text(65535)
 #  default_course_type  :string(255)
 #  default_passcode     :string(255)
+#  register_accounts    :boolean          default(FALSE)
 #
 
 require 'rails_helper'
@@ -130,6 +131,22 @@ describe Campaign do
       campaign.save
       expect(campaign.start).to eq(Time.new(2016, 1, 10, 0, 0, 0, '+00:00'))
       expect(campaign.end).to eq(Time.new(2016, 2, 10, 23, 59, 59, '+00:00'))
+    end
+  end
+
+  describe '#course_string_prefix' do
+    it 'is the dashboard default when default_course_type is not set' do
+      result = Campaign.new(title: 'no default').course_string_prefix
+      expect(result).to eq('courses')
+    end
+
+    it 'is based on default_course_type when there is one' do
+      result = Campaign.new(title: 'generic default',
+                            default_course_type: 'BasicCourse').course_string_prefix
+      expect(result).to eq('courses_generic')
+      result = Campaign.new(title: 'classroom default',
+                            default_course_type: 'ClassroomProgramCourse').course_string_prefix
+      expect(result).to eq('courses')
     end
   end
 end

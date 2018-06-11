@@ -8,10 +8,15 @@ import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
 import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
-import ServerActions from '../../actions/server_actions.js';
-import AssignmentActions from '../../actions/assignment_actions.js';
-import AssignmentStore from '../../stores/assignment_store.js';
+import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
+import { getFiltered } from '../../utils/model_utils';
+import AddAvailableArticles from '../articles/add_available_articles';
+import { ASSIGNED_ROLE } from '../../constants';
+
+const resetState = (component) => () => {
+  component.setState(component.getInitialState());
+};
 
 const AssignButton = createReactClass({
   displayName: 'AssignButton',
@@ -24,11 +29,13 @@ const AssignButton = createReactClass({
     course_id: PropTypes.string.isRequired,
     is_open: PropTypes.bool,
     permitted: PropTypes.bool,
-    add_available: PropTypes.bool,
+    addAvailable: PropTypes.bool,
     assignments: PropTypes.array,
     open: PropTypes.func.isRequired,
     tooltip_message: PropTypes.string,
-    initiateConfirm: PropTypes.func
+    initiateConfirm: PropTypes.func,
+    addAssignment: PropTypes.func,
+    deleteAssignment: PropTypes.func
   },
 
   getInitialState() {
@@ -41,15 +48,11 @@ const AssignButton = createReactClass({
   },
 
   getKey() {
-    const tag = this.props.role === 0 ? 'assign_' : 'review_';
+    const tag = this.props.role === ASSIGNED_ROLE ? 'assign_' : 'review_';
     if (this.props.student) {
       return tag + this.props.student.id;
     }
     return tag;
-  },
-
-  resetState() {
-    return this.setState(this.getInitialState());
   },
 
   stop(e) {
@@ -114,8 +117,8 @@ const AssignButton = createReactClass({
     const articleTitle = assignment.title;
 
     // Check if the assignment exists
-    if (this.props.student && AssignmentStore.getFiltered({
-      articleTitle,
+    if (this.props.student && getFiltered(this.props.assignments, {
+      article_title: articleTitle,
       user_id: this.props.student.id,
       role: this.props.role
     }).length !== 0) {
@@ -125,18 +128,13 @@ const AssignButton = createReactClass({
 
     // Close the popup after adding an available article
     const closePopup = this.props.open;
-    // While adding other assignments, popup can remain open to assign multiple assignments at once
-    const closeOnConfirm = this.props.add_available;
+    const addAssignmentAction = this.props.addAssignment;
 
+    const resetStateFunction = resetState(this);
     const onConfirm = function () {
-      // Close the popup after confirmation
-      if (closeOnConfirm) {
-        closePopup(e);
-      }
-      // Update the store
-      AssignmentActions.addAssignment(assignment);
-      // Post the new assignment to the server
-      ServerActions.addAssignment(assignment);
+      closePopup(e);
+      resetStateFunction();
+      addAssignmentAction(assignment);
     };
 
     let confirmMessage;
@@ -157,10 +155,7 @@ const AssignButton = createReactClass({
 
   unassign(assignment) {
     if (!confirm(I18n.t('assignments.confirm_deletion'))) { return; }
-    // Update the store
-    AssignmentActions.deleteAssignment(assignment);
-    // Send the delete request to the server
-    return ServerActions.deleteAssignment(assignment);
+    this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -185,7 +180,7 @@ const AssignButton = createReactClass({
     } else if (this.props.permitted) {
       let assignText;
       let reviewText;
-      if (this.props.add_available) {
+      if (this.props.addAvailable) {
         assignText = I18n.t('assignments.add_available');
       } else if (this.props.student && this.props.current_user.id === this.props.student.id) {
         assignText = I18n.t('assignments.assign_self');
@@ -194,7 +189,7 @@ const AssignButton = createReactClass({
         assignText = I18n.t('assignments.assign_other');
         reviewText = I18n.t('assignments.review_other');
       }
-      const finalText = this.props.role === 0 ? assignText : reviewText;
+      const finalText = this.props.role === ASSIGNED_ROLE ? assignText : reviewText;
       if (this.props.tooltip_message && !this.props.is_open) {
         tooltipIndicator = (
           <span className="tooltip-indicator" />
@@ -261,6 +256,7 @@ const AssignButton = createReactClass({
               onChange={this.handleChangeLanguage}
               value={this.state.language}
               options={languageOptions}
+              clearable={false}
             />
             <Select
               name="project"
@@ -270,6 +266,7 @@ const AssignButton = createReactClass({
               placeholder="Project"
               value={this.state.project}
               options={projectOptions}
+              clearable={false}
             />
           </fieldset>
         );
@@ -281,8 +278,18 @@ const AssignButton = createReactClass({
         );
       }
 
-      editRow = (
-        <tr className="edit">
+      let assignmentInput;
+      // Add multiple at once via AddAvailableArticles
+      if (this.props.addAvailable) {
+        assignmentInput = (
+          <td>
+            <AddAvailableArticles {...this.props} {...this.state} />
+            {options}
+          </td>
+        );
+      // Add a single assignment
+      } else {
+        assignmentInput = (
           <td>
             <form onSubmit={this.assign}>
               <Lookup
@@ -298,6 +305,12 @@ const AssignButton = createReactClass({
               {options}
             </form>
           </td>
+        );
+      }
+
+      editRow = (
+        <tr className="edit">
+          {assignmentInput}
         </tr>
       );
     }
@@ -317,7 +330,11 @@ const AssignButton = createReactClass({
 }
 );
 
-const mapDispatchToProps = { initiateConfirm };
+const mapDispatchToProps = {
+  initiateConfirm,
+  addAssignment,
+  deleteAssignment
+};
 
 export default connect(null, mapDispatchToProps)(
   PopoverExpandable(AssignButton)

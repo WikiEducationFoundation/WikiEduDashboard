@@ -3,16 +3,52 @@
 require_dependency "#{Rails.root}/lib/importers/category_importer"
 
 # This class identifies articles involved in deletion processes on
-# English Wikipedia and creates alerts for them.
+# enabled wikis and creates alerts for them.
 # It works by first finding all the article titles, and then matching those
 # up with articles edited by students (ie, ArticlesCourses).
 class ArticlesForDeletionMonitor
-  def self.create_alerts_for_course_articles
-    new.create_alerts_from_page_titles
+  # To monitor for deletion on a new wiki, we need to know which categories to
+  # check for speedy deletion, proposed deletion, and deletion discussions, along
+  # with the prefix for deletion discussion pages so that we can extract the
+  # article title.
+  # This will require adjustment for wikis that don't follow the English Wikipedia
+  # deletion process example.
+  def self.enable_for(wiki, afd:, afd_prefix:, prod:, speedy:)
+    settings_record.value[{ language: wiki.language, project: wiki.project }] =
+      { AFD: afd,
+        AFD_PREFIX: afd_prefix,
+        PROD: prod,
+        SPEEDY: speedy }
+    settings_record.save
   end
 
-  def initialize
-    @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
+  def self.create_alerts_for_course_articles
+    enabled_wikis.each do |wiki_settings|
+      new(wiki_settings).create_alerts_from_page_titles
+    end
+  end
+
+  #################
+  # Class helpers #
+  #################
+  def self.settings_record
+    @settings_record ||= Setting.find_or_create_by(key: 'deletion_monitoring')
+  end
+
+  def self.enabled_wikis
+    settings_record.value.map do |wiki, settings|
+      { wiki: wiki, settings: settings }
+    end
+  end
+
+  ########################################
+  # Alert routine for an individual wiki #
+  ########################################
+
+  def initialize(wiki_settings)
+    @wiki = Wiki.find_by(wiki_settings[:wiki])
+    @settings = wiki_settings[:settings]
+
     find_deletion_discussions
     extract_page_titles_from_deletion_discussions
     find_proposed_deletions
@@ -31,19 +67,19 @@ class ArticlesForDeletionMonitor
   private
 
   def find_deletion_discussions
-    category = 'Category:AfD debates'
+    category = @settings[:AFD]
     depth = 2
     @afd_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
   def find_proposed_deletions
-    category = 'Category:All articles proposed for deletion'
+    category = @settings[:PROD]
     depth = 0
     @prod_article_titles = CategoryImporter.new(@wiki).page_titles_for_category(category, depth)
   end
 
   def find_candidates_for_speedy_deletion
-    category = 'Category:Speedy deletion'
+    category = @settings[:SPEEDY]
     # This captures the main CSD categories, but excludes more complicated things
     # that are further down the category tree.
     depth = 1
@@ -52,7 +88,7 @@ class ArticlesForDeletionMonitor
 
   def extract_page_titles_from_deletion_discussions
     @afd_article_titles = @afd_titles.map do |afd_title|
-      afd_title[%r{Wikipedia:Articles for deletion/(.*)}, 1]
+      afd_title[/#{@settings[:AFD_PREFIX]}(.*)/, 1]
     end
   end
 

@@ -16,7 +16,7 @@ ne:
     documentation: मिसिलिकरण
     error: 'त्रुटी भयो:'
     explore: अन्वेषण
-    field_required: यो फिल्ड आवस्यकता छ
+    field_required: यो फाँट आवश्यक छ
     field_invalid_characters: यस फिल्डले अवैध क्यारेक्टर समावेस गर्दछ
     field_invalid_date: यहाँ YYYY-MM-DD ढाँचामा मिति आवश्यक हुन्छ
     field_invalid_date_time: The end must be after the start. (समय 0 देखि 23 सम्म
@@ -32,8 +32,11 @@ ne:
     my_dashboard: मेरो ड्यसबोर्ड
     recent_activity: हालको कृयाकलाप
     report_problem: समस्या प्रतिवेदन पठाउनुहोस्
+    request_account: एउटा खाता अनुरोध गर्नुहोस्
     search: प्रश्न सोध्नुहोस्
+    search_results: '%{search_terms} का नतिजाहरू:'
     sign_up_extended: विकिपिडिया प्रयोग गरेर साइन अप गर्नुहोस्
+    sign_up_wikipedia: या विकिपिडियामा साइन अप गर्नुहोस्
     sign_up_log_in_extended: विकिपेडिया संग
     sign_up: साइन अप गर्नुहोस्
     submit: पेश गर्नुहोस्
@@ -62,7 +65,7 @@ ne:
       बनाउन अभिमुखीकरणका केही कुरा बिचार गरौँ। (यो पूरा गर्न ३० मिनेट लाग्छ।)
     review_orientation: अभिमुखिकरण पुनरावलोकन गर्नुहोस्
     start_orientation: अभिमुखिकरण सुरु गर्नुहोस्
-    blog_headline: Wiki Ed बाट नयाँ खबरहरू
+    blog_headline: विकी एजुकेसनबाट नयाँ खबरहरू
   home:
     explore: अन्वेषण
     log_in: विकिपिडियाले लग इन गर्नुहोस्
@@ -72,6 +75,7 @@ ne:
     edited_by: सम्पादनकर्ता
     label: क्रियाकलाप
   articles:
+    article_development: (लेख विकासक्रम)
     assigned: निर्दिष्ट गरिएका लेखहरू
     available: उपलब्ध लेखहरू
     assigned_to: निर्दिष्ट गरिएको
@@ -92,6 +96,7 @@ ne:
       start: Start-class — सुरुवातहुँदै गरेको लेख जसमा सुधारको धेरै सम्भावना छ
       stub: Stub-class — छोटो सुरुवाती लेख सजमा थप सामग्रीको आवश्यकता छ
       '?': Unrated — कुनै पनि स्तर निर्धारण नभएको
+    see_more: थप हेर्नुहोस्
     show_cumulative_changes: सम्पूर्ण क्युमुलेटिभ परिवर्तनहरू
     show_current_version: हालको संस्करण देखाउनुहोस्
     title: शीर्षक
@@ -119,6 +124,7 @@ ne:
     assignees: निर्दिष्ट गरिएका(हरू)
     assign_other: लेख निर्दिष्ट गर्नुहोस्
     add_available: एक उपलब्ध लेख थप्नुहोस्
+    add_available_submit: लेखहरू थप्नुहोस्
     assign_self: आफूलाई एक लेख असाइन गर्नुहोस्
     assign_tooltip: निर्दिष्ट गरेको लेख त्यो हो जुन तपाईँले सुधार गर्ने या बनाउने
       योजना बनाउनु भएको हुन्छ।
@@ -143,6 +149,8 @@ ne:
   campaign:
     active_campaigns: सक्रिय अभियानहरू
     add_organizer: आयोजक थप्नुहपस्
+    alert_type: प्रकार
+    alert_user_id: प्रयोगकर्ता
     all_campaigns: अभियान थप्नुहोस्
     already_exists: यो अभियान पहिले देखि नै छ! फरक शीर्षक या स्लगको साथमा पुनः प्रयास
       गर्नुहोस।
@@ -151,11 +159,15 @@ ne:
     campaign_deleted: '"%{title}" शीर्षक भएको अभियान मेटियो'
     campaign_not_updated: अभियान अद्यावधिक गर्न सकिएन
     campaign_updated: अभियान अद्यावधिक गर्नुहोस्
+    created_at: मिति
     confirm_campaign_deletion: '"%{title}" शीर्षक भएको अभियान मेट्न निश्चित हुनुहुन्छ?
       यदि हो भने, अभियानको शीर्षक लेख्नुहोस्'
     confirm_campaign_deletion_failed: '"%{title}" अभियानको शीर्षक हैन अभियान मेटिएन।'
+    course: पाठ्यक्रम
     create_campaign: नयाँ अभियान बनाउनुहोस्
     create_my_campaign: मेरो अभियान बनाउनुहोस्!
+    customize_passcode: पूर्वनिर्धारित पासकोड
+    default_passcode: पूर्वनिर्धारित पासकोड
     description: वर्णन
     delete_campaign: यो अभियान मेट्नुहोस्
     no_passcode: कुनै पनि पासकोड छैन
@@ -178,6 +190,7 @@ ne:
   courses:
     activity: क्रियाकलाप
     active_courses: सक्रिय %{course_type}
+    alerts: सुचनाहरू
     all_courses: सबै पाठ्यक्रमहरू
     already_enrolled: तपाईँ  पहिले नै '%{title}' मा सहभागी हुनुहुन्छ!
     archived: अभिलेख गरिएका पाठ्यक्रमहरू
@@ -196,6 +209,7 @@ ne:
     campaigns: 'अभियानहरू:'
     campaign_articles: '%{title} लेखहरू'
     campaign_courses: '%{title} पाठ्यक्रमहरू'
+    campaign_select: एक अभियानमा सहभागीहुनुहोस्
     campaign_users: '%{title} सम्पादकहरू'
     course: पाठ्यक्रम
     course_description: पाठ्यक्रम
@@ -249,7 +263,9 @@ ne:
     dismiss_survey: खारेज गर्नुहोस्
     download_stats_data: डाउनलोड तथ्याङ्क
     duration: पाठ्यक्रम अवधि
+    edit_count: सम्पादन गणना
     edit_course_dates: पाठ्यक्रम मितिहरू सम्पादन गर्नुहोस्
+    enable_account_requests: खाता अनुरोधहरू सक्षम पार्नुहोस्
     enable_chat: च्याट सक्षम पार्नुहोस्
     end: अन्तिम
     ended: यो पाठ्यक्रम समाप्त भयो।
@@ -286,6 +302,9 @@ ne:
     new_week: नयाँ साता थप्नुहोस्
     new_account_email: इमेल ठेगाना
     new_account_email_placeholder: name@example.org
+    new_account_username: अनुरोध गरिएको प्रयोगकर्तानाम
+    new_account_username_invalid: यो मान्य प्रयोगकर्तानाम हैन।
+    new_account_submit: खाता अनुरोध गर्नुहोस्
     nocourse: कुनै पनि पाठ्यक्रममा भाग लिएको छैन।
     none: कुनै पनि होइन
     no_available_actions: कुनै पनि काम बाँकी छैन
@@ -293,6 +312,7 @@ ne:
     passcode: 'पासकोड:'
     passcode_none: कुनै पनि पासकोड छैन
     passcode_prompt: सामेल हुन पासकोड थप्नुहोस्
+    private: निजी
     requested_accounts: अनुरोध गरिएका खाताहरू
     school: विद्यालय
     school_and_term: संस्था/सत्र
@@ -460,6 +480,18 @@ ne:
     title: शीर्षक
     view_on_wiki: विकीमा डिफ हेर्नुहोस्
     see_more: थप हेर्नुहोस्
+  settings:
+    admin_users:
+      new:
+        form_placeholder: प्रयोगकर्ता नाम
+        confirm_add_admin: प्रबन्धक बनाउनुहोस्
+        confirm_remove_admin: प्रबन्धक अधिकार हटाउनुहोस्
+        already_admin: '%{username} पहिले नै प्रबन्धक छन्!'
+        elevate_success: '%{username} लाई प्रबन्धकमा बढुवा गरियो ।'
+      remove:
+        revoke_button: प्रबन्धक अधिकार हटाउनुहोस्
+        revoke_button_confirm: '%{username} बाट प्रबन्धक अधिकार हटाइयो'
+        revoking_button_working: हटाउँदै...
   suggestions:
     editing: सम्पादन सुझावहरू
     suggestion_docs:

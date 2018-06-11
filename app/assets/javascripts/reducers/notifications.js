@@ -20,6 +20,9 @@ const handleErrorNotification = function (data) {
   }
 
   if (!notification.message) { notification.message = data.statusText; }
+  if (_.isEmpty(data)) {
+    console.error("Error: ", data); // eslint-disable-line no-console
+  }
   return notification;
 };
 

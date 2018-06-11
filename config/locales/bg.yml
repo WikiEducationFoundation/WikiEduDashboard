@@ -195,6 +195,7 @@ bg:
   editable:
     cancel: Отказ
     save: Съхраняване
+    edit_description: Редактиране на описанието
   metrics:
     activity: Последна активност
     articles_created: Създадени статии

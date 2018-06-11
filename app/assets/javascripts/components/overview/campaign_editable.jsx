@@ -17,6 +17,10 @@ import { removeCampaign, fetchAllCampaigns, addCampaign } from '../../actions/ca
 const CampaignEditable = createReactClass({
   displayName: 'CampaignEditable',
 
+  getInitialState() {
+    return {};
+  },
+
   componentDidMount() {
     return this.props.fetchAllCampaigns();
   },
@@ -32,15 +36,27 @@ const CampaignEditable = createReactClass({
   },
 
   handleChangeCampaign(val) {
-    return this.props.addCampaign(this.props.course_id, val.value);
+    if (val) {
+      this.setState({ selectedCampaignId: val.value });
+    } else {
+      this.setState({ selectedCampaignId: null });
+    }
+  },
+
+  openPopover(e) {
+    if (!this.props.is_open) {
+      this.refs.campaignSelect.focus();
+    }
+    return this.props.open(e);
   },
 
   removeCampaign(campaignId) {
     this.props.removeCampaign(this.props.course_id, campaignId);
   },
 
-  addCampaign(campaignId) {
-    this.props.addCampaign(this.props.course_id, campaignId);
+  addCampaign() {
+    this.props.addCampaign(this.props.course_id, this.state.selectedCampaignId);
+    this.setState({ selectedCampaignId: null });
   },
 
   render() {
@@ -62,17 +78,29 @@ const CampaignEditable = createReactClass({
       const campaignOptions = this.props.availableCampaigns.map(campaign => {
         return { label: campaign, value: campaign };
       });
+
+      let addCampaignButtonDisabled = true;
+      if (this.state.selectedCampaignId) {
+        addCampaignButtonDisabled = false;
+      }
+
       campaignSelect = (
         <tr>
           <th>
-            <Select
-              className="fixed-width"
-              ref="campaignSelect"
-              name="campaign"
-              placeholder={I18n.t('courses.campaign_select')}
-              onChange={this.handleChangeCampaign}
-              options={campaignOptions}
-            />
+            <div className="select-with-button">
+              <Select
+                className="fixed-width"
+                ref="campaignSelect"
+                name="campaign"
+                value={this.state.selectedCampaignId}
+                placeholder={I18n.t('courses.campaign_select')}
+                onChange={this.handleChangeCampaign}
+                options={campaignOptions}
+              />
+              <button type="submit" className="button dark" disabled={addCampaignButtonDisabled} onClick={this.addCampaign}>
+                Add
+              </button>
+            </div>
           </th>
         </tr>
       );
@@ -80,7 +108,7 @@ const CampaignEditable = createReactClass({
 
     return (
       <div key="campaigns" className="pop__container campaigns open" onClick={this.stop}>
-        <button className="button border plus open" onClick={this.props.open}>+</button>
+        <button className="button border plus open" onClick={this.openPopover}>+</button>
         <Popover
           is_open={this.props.is_open}
           edit_row={campaignSelect}
