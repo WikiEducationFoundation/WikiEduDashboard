@@ -43,8 +43,11 @@ class TrainingLoader
   def new_from_file(yaml_file)
     slug = File.basename(yaml_file, '.yml')
     slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
-
-    content = YAML.load_file(yaml_file)
+    begin
+      content = YAML.load_file(yaml_file)
+    rescue StandardError => e
+      raise InvalidYamlError, "Looks like there is a problem with #{yaml_file}. #{e}"
+    end
     @content_class.inflate(content, slug)
   end
 
@@ -57,8 +60,7 @@ class TrainingLoader
     source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
     Raven.capture_message "Loading #{@content_class}s from wiki",
-                          level: 'info',
-                          extra: { wiki_pages: source_pages }
+                          level: 'info', extra: { wiki_pages: source_pages }
 
     thread_count = [CONCURRENCY, source_pages.count].min
     threads = source_pages.in_groups(thread_count, false).map.with_index do |wiki_page_group, i|
@@ -74,8 +76,7 @@ class TrainingLoader
       content = new_from_wiki_page(wiki_page)
       unless content&.valid?
         Raven.capture_message 'Invalid wiki training content',
-                              level: 'warn',
-                              extra: { content: content, wiki_page: wiki_page }
+                              level: 'warn', extra: { content: content, wiki_page: wiki_page }
         next
       end
       @collection << content
@@ -192,6 +193,7 @@ class TrainingLoader
     raise NoMatchingWikiPagesFound, message
   end
 
+  class InvalidYamlError < StandardError; end
   class InvalidWikiContentError < StandardError; end
   class NoMatchingWikiPagesFound < StandardError; end
 end

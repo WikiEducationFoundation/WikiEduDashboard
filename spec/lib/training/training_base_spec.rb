@@ -23,7 +23,7 @@ describe TrainingBase do
   describe '.load' do
     let(:subject) { TrainingModule.load }
 
-    context 'when a file is misformatted' do
+    context 'when a module file is misformatted' do
       before do
         allow(TrainingBase).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/bad_yaml")
@@ -32,6 +32,19 @@ describe TrainingBase do
       it 'raises an error and outputs the filename the bad file' do
         expect(STDOUT).to receive(:puts).with(/.*bad_yaml_file.*/)
         expect { subject }.to raise_error(NoMethodError)
+      end
+    end
+
+    context 'when a slide file is misformatted' do
+      let(:subject) { TrainingSlide.load }
+      before do
+        allow(TrainingBase).to receive(:base_path)
+          .and_return("#{Rails.root}/spec/support/bad_yaml_slide")
+      end
+
+      it 'raises an error that includes the filename of the bad file' do
+        expect { subject }.to raise_error(TrainingLoader::InvalidYamlError,
+                                          /.*bad_yaml_slide.*/)
       end
     end
 
