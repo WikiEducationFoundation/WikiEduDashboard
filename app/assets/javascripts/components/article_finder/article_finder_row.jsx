@@ -115,9 +115,9 @@ const ArticleFinderRow = createReactClass({
 
     const article = {
       ...this.props.article,
-      language: 'en',
-      project: 'wikipedia',
-      url: `https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+      language: this.props.course.home_wiki.language,
+      project: this.props.course.home_wiki.project,
+      url: `https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
     };
     const articleViewer = (
       <ArticleViewer
@@ -131,7 +131,7 @@ const ArticleFinderRow = createReactClass({
       <tr>
         <td>
           <div className="horizontal-flex">
-            <a href={`https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
+            <a href={`https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
             <div>
               {articleViewer}
             </div>
