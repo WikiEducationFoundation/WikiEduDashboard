@@ -212,12 +212,8 @@ essentials:
         graded: true
         points: 5
         content: |
-          <p>
-            Choose an article. Read through it, thinking about ways to improve
-            the language, such as fixing grammatical mistakes. Then, make the
-            appropriate changes. You don’t need to contribute new information to
-            the article.
-          </p>
+          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Exercise</a>
+
 
   - # Week four
     weight: 6
