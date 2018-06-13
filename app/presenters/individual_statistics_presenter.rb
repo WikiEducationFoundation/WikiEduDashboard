@@ -39,8 +39,8 @@ class IndividualStatisticsPresenter
 
   def individual_article_count
     article_ids = []
-    individual_courses.each do |c|
-      article_ids += c.all_revisions.where(user_id: @user.id).pluck(:article_id).uniq
+    individual_courses.each do |course|
+      article_ids += individual_mainspace_edits(course).pluck(:article_id).uniq
     end
     article_ids.uniq.count
   end
@@ -79,6 +79,8 @@ class IndividualStatisticsPresenter
     end
     new_article_count
   end
+
+  private
 
   def individual_mainspace_edits(course)
     course.all_revisions
