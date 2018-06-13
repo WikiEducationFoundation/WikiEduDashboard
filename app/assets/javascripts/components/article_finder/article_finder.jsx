@@ -80,8 +80,8 @@ const ArticleFinder = createReactClass({
         value_key="search_term"
         required
         editable
-        label="Search"
-        placeholder="Enter your keyword"
+        label={I18n.t('article_finder.search')}
+        placeholder={I18n.t('article_finder.search_placeholder')}
       />);
 
     const searchType = (
@@ -89,13 +89,13 @@ const ArticleFinder = createReactClass({
         <div>
           <label>
             <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Keyword Search
+            {I18n.t('article_finder.keyword_search')}
           </label>
         </div>
         <div>
           <label>
             <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Category Search
+            {I18n.t('article_finder.category_search')}
           </label>
         </div>
       </div>
@@ -115,7 +115,7 @@ const ArticleFinder = createReactClass({
 
     const articleQuality = (
       <div className="form-group range-container">
-        <label className="mb2">Article Quality(0-100)</label>
+        <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
         <InputRange
           maxValue={100}
           minValue={0}
@@ -138,12 +138,12 @@ const ArticleFinder = createReactClass({
     let filterButton;
     if (!this.state.showFilters) {
       filterButton = (
-        <button className="button dark" onClick={this.toggleFilter}>Show Filters</button>
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_filters')}</button>
       );
     }
     else {
       filterButton = (
-        <button className="button" onClick={this.toggleFilter}>Hide Filters</button>
+        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_filters')}</button>
       );
     }
 
@@ -163,7 +163,7 @@ const ArticleFinder = createReactClass({
         desktop_only: false
       },
       grade: {
-        label: 'Class',
+        label: I18n.t('article_finder.page_assessment_class'),
         desktop_only: false,
         sortable: true,
       },
@@ -178,7 +178,7 @@ const ArticleFinder = createReactClass({
         sortable: true,
       },
       tools: {
-        label: 'Tools',
+        label: I18n.t('article_finder.tools'),
         desktop_only: false,
         sortable: false,
       }
@@ -232,7 +232,7 @@ const ArticleFinder = createReactClass({
     let fetchMoreButton;
     if (this.props.continue_results) {
       fetchMoreButton = (
-        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>
+        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>{I18n.t('article_finder.more_results')}</button>
       );
     }
 
@@ -245,11 +245,11 @@ const ArticleFinder = createReactClass({
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
-              <small>Fetched Articles</small>
+              <small>{I18n.t('article_finder.fetched_articles')}</small>
             </div>
             <div className="stat-display__stat" id="articles-filtered">
               <div className="stat-display__value">{filteredCount}</div>
-              <small>Filtered Articles</small>
+              <small>{I18n.t('article_finder.filtered_articles')}</small>
             </div>
           </div>
         </div>
@@ -257,11 +257,11 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: 'Searching Articles',
-      TITLE_RECEIVED: 'Fetching Page Assessments',
-      PAGEASSESSMENT_RECEIVED: 'Fetching Page Revisions',
-      REVISION_RECEIVED: "Fetching Completeness Score",
-      REVISIONSCORE_RECEIVED: "Fetching Page Views",
+      ARTICLES_LOADING: I18n.t('article_finder.searching_articles'),
+      TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
+      PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
+      REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
+      REVISIONSCORE_RECEIVED: I18n.t('article_finder.fetching_pageviews'),
     };
 
     let fetchingLoader;
@@ -277,9 +277,9 @@ const ArticleFinder = createReactClass({
     return (
       <div className="container">
         <header>
-          <h1 className="title">Article Finder</h1>
+          <h1 className="title">{I18n.t('article_finder.article_finder')}</h1>
           <div>
-            Let&#39;s find an article which fits your needs.
+            {I18n.t('article_finder.subheading_message')}
           </div>
         </header>
         <div className="article-finder-form">
@@ -288,7 +288,7 @@ const ArticleFinder = createReactClass({
               {searchTerm}
               {searchType}
             </div>
-            <button className="button dark" onClick={this.searchArticles}>Submit</button>
+            <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
         {filterBlock}
