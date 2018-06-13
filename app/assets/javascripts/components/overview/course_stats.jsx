@@ -6,20 +6,28 @@ const CourseStats = ({ course }) => {
   let viewData;
   let infoImg;
   let trainedTooltip;
-
   let contentCount;
+
   if (course.home_wiki.language === 'en') {
     contentCount = (
       <div className="stat-display__stat" id="word-count">
-        <div className="stat-display__value">{course.word_count}</div>
+        <div className="stat-display__value" id="word-count__value">{course.word_count}</div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
         <small>{I18n.t('metrics.word_count')}</small>
       </div>
     );
   } else {
     contentCount = (
       <div className="stat-display__stat" id="bytes-added">
-        <div className="stat-display__value">{course.character_sum}</div>
-        <small>{I18n.t('metrics.bytes_added')}</small>
+        <div className="stat-display__value hide" id="bytes-added__value">{course.character_sum}</div>
+        <div className="spinner">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
+        <small className="hide">{I18n.t('metrics.bytes_added')}</small>
       </div>
     );
   }
@@ -27,6 +35,7 @@ const CourseStats = ({ course }) => {
   if (course.upload_usages_count === undefined) {
     return <div className="stat-display" />;
   }
+
   if (course.view_count === '0' && course.edited_count !== '0') {
     viewData = (
       <div className="stat-display__data">
@@ -35,11 +44,12 @@ const CourseStats = ({ course }) => {
     );
   } else {
     viewData = (
-      <div className="stat-display__value">
+      <div className="stat-display__value" id="view-data__value">
         {course.view_count}
       </div>
     );
   }
+
   if (course.timeline_enabled) {
     infoImg = (
       <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
@@ -54,35 +64,66 @@ const CourseStats = ({ course }) => {
 
   return (
     <div className="stat-display">
+
       <div className="stat-display__stat" id="articles-created">
-        <div className="stat-display__value">{course.created_count}</div>
+        <div className="stat-display__value" id="articles-created__value">{course.created_count}</div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
         <small>{I18n.t('metrics.articles_created')}</small>
       </div>
+
       <div className="stat-display__stat" id="articles-edited">
-        <div className="stat-display__value">{course.edited_count}</div>
-        <small>{I18n.t('metrics.articles_edited')}</small>
+        <div className="stat-display__value" id="articles-edited__value">{course.edited_count}</div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
+        <small>{I18n.t('metrics.articles_created')}</small>
       </div>
+
       <div className="stat-display__stat" id="total-edits">
-        <div className="stat-display__value">{course.edit_count}</div>
-        <small>{I18n.t('metrics.edit_count_description')}</small>
+        <div className="stat-display__value" id="total-edits__value">{course.edit_count}</div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
+        <small>{I18n.t('metrics.articles_created')}</small>
       </div>
+
       <div className="stat-display__stat tooltip-trigger" id="student-editors">
-        <div className="stat-display__value">
+        <div className="stat-display__value" id="student-editors__value">
           {course.student_count}
           {infoImg}
+        </div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
         </div>
         <small>{CourseUtils.i18n('student_editors', course.string_prefix)}</small>
         {trainedTooltip}
       </div>
+
       {contentCount}
+
       <div className="stat-display__stat" id="view-count">
         {viewData}
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
+        </div>
         <small>{I18n.t('metrics.view_count_description')}</small>
       </div>
+
       <div className="stat-display__stat tooltip-trigger" id="upload-count">
-        <div className="stat-display__value">
+        <div className="stat-display__value" id="upload-count__value">
           {course.upload_count}
           <img src ="/assets/images/info.svg" alt = "tooltip default logo" />
+        </div>
+        <div className="spinner hide">
+          <div className="double-bounce1"><p /></div>
+          <div className="double-bounce2"><p /></div>
         </div>
         <small>{I18n.t('metrics.upload_count')}</small>
         <div className="tooltip dark" id="upload-usage">
@@ -92,6 +133,7 @@ const CourseStats = ({ course }) => {
           <p>{I18n.t('metrics.upload_usages_count', { count: course.upload_usages_count })}</p>
         </div>
       </div>
+
     </div>
   );
 };
