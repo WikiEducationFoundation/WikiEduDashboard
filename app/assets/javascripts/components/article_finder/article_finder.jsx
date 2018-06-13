@@ -8,11 +8,23 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
+import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
+  getDefaultProps() {
+    return {
+      course: {
+        home_wiki: {
+          language: 'en',
+          project: 'wikipedia'
+        }
+      }
+    };
+  },
+
   getInitialState() {
     return {
       isSubmitted: false,
@@ -21,8 +33,9 @@ const ArticleFinder = createReactClass({
 
   componentWillMount() {
     if (this.props.course_id && this.props.loadingAssignments) {
-      return this.props.fetchAssignments(this.props.course_id);
+      this.props.fetchAssignments(this.props.course_id);
     }
+    return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
   updateFields(key, value) {
@@ -34,16 +47,16 @@ const ArticleFinder = createReactClass({
       isSubmitted: true,
     });
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.course);
     }
-    return this.props.fetchCategoryResults(this.props.search_term);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.course);
   },
 
   fetchMoreResults() {
     if (this.props.search_type === 'keyword') {
-      return this.props.fetchKeywordResults(this.props.search_term, this.props.offset, true);
+      return this.props.fetchKeywordResults(this.props.search_term, this.props.course, this.props.offset, true);
     }
-    return this.props.fetchCategoryResults(this.props.search_term, this.props.cmcontinue, true);
+    return this.props.fetchCategoryResults(this.props.search_term, this.props.course, this.props.cmcontinue, true);
   },
 
   handleChange(e) {
@@ -133,7 +146,19 @@ const ArticleFinder = createReactClass({
         label: I18n.t('article_finder.average_views'),
         desktop_only: false,
       },
+      tools: {
+        label: 'Tools',
+        desktop_only: false,
+      }
     };
+
+    if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+      delete keys.revScore;
+    }
+
+    if (!_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
+      delete keys.grade;
+    }
 
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
@@ -171,7 +196,9 @@ const ArticleFinder = createReactClass({
 
     let fetchMoreButton;
     if (this.props.continue_results) {
-      fetchMoreButton = (<button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>);
+      fetchMoreButton = (
+        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>
+      );
     }
 
     let searchStats;
@@ -180,7 +207,7 @@ const ArticleFinder = createReactClass({
       const filteredCount = Object.keys(this.props.articles).length;
       searchStats = (
         <div>
-          <div className="justify-space-around stat-display">
+          <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
               <small>Fetched Articles</small>
@@ -190,6 +217,24 @@ const ArticleFinder = createReactClass({
               <small>Filtered Articles</small>
             </div>
           </div>
+        </div>
+        );
+    }
+
+    const loaderMessage = {
+      ARTICLES_LOADING: 'Searching Articles',
+      TITLE_RECEIVED: 'Fetching Page Assessments',
+      PAGEASSESSMENT_RECEIVED: 'Fetching Page Revisions',
+      REVISION_RECEIVED: "Fetching Completeness Score",
+      REVISIONSCORE_RECEIVED: "Fetching Page Views",
+    };
+
+    let fetchingLoader;
+    if (this.props.fetchState !== "PAGEVIEWS_RECEIVED" && !this.props.loading) {
+      fetchingLoader = (
+        <div className="text-center">
+          <div className="loading__spinner__small" />
+          {loaderMessage[this.props.fetchState]}
         </div>
         );
     }
@@ -212,7 +257,12 @@ const ArticleFinder = createReactClass({
         {filters}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
-          {fetchMoreButton}
+          <div>
+            {fetchingLoader}
+          </div>
+          <div>
+            {fetchMoreButton}
+          </div>
         </div>
         {loader}
         {list}
@@ -238,6 +288,7 @@ const mapStateToProps = state => ({
   cmcontinue: state.articleFinder.cmcontinue,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
+  fetchState: state.articleFinder.fetchState,
 });
 
 const mapDispatchToProps = {

@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 import _ from 'lodash';
 import { getFiltered } from '../utils/model_utils';
-import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, WP10Weights, fetchStates } from '../constants';
+import { STUDENT_ROLE, INSTRUCTOR_ROLE, ONLINE_VOLUNTEER_ROLE, CAMPUS_VOLUNTEER_ROLE, STAFF_ROLE, fetchStates } from '../constants';
 import UserUtils from '../utils/user_utils.js';
+import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
@@ -88,11 +89,23 @@ export const getFilteredAlerts = createSelector(
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
     return _.pickBy(articleFinder.articles, (article) => {
-      const quality = Math.max(article.revScore, WP10Weights[article.grade]);
-      const qualityFilter = articleFinder.article_quality;
-      if (article.grade && !_.includes(Object.keys(WP10Weights), article.grade)) {
+      if (article.grade && !_.includes(Object.keys(PageAssessmentGrades[articleFinder.home_wiki.language]), article.grade)) {
         return false;
       }
+      let quality;
+      if (article.grade && article.revScore) {
+        quality = Math.max(article.revScore, PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score);
+      }
+      else if (article.grade) {
+        quality = PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score;
+      }
+      else if (article.revScore) {
+        quality = article.revScore;
+      }
+      else {
+        quality = 0;
+      }
+      const qualityFilter = articleFinder.article_quality;
       if (fetchStates[article.fetchState] >= fetchStates.PAGEVIEWS_RECEIVED && article.pageviews < articleFinder.min_views) {
         return false;
       }

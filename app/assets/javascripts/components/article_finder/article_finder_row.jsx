@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import ArticleViewer from '../common/article_viewer.jsx';
 
 import { fetchStates, ASSIGNED_ROLE } from "../../constants";
+import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
@@ -48,48 +49,50 @@ const ArticleFinderRow = createReactClass({
     }
 
     let revScore;
-    if (this.props.article.fetchState === "PAGEASSESSMENT_RECEIVED" || this.props.article.fetchState === "REVISION_RECEIVED") {
-     revScore = (<div className="results-loading"> &nbsp; &nbsp; </div>);
-    }
-    if (this.props.article.revScore) {
-      revScore = this.props.article.revScore;
-    }
-    else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
-      revScore = (<div>Estimation Score not found!</div>);
+    if (_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
+      if (this.props.article.fetchState === "PAGEASSESSMENT_RECEIVED" || this.props.article.fetchState === "REVISION_RECEIVED") {
+       revScore = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
+      }
+      else if (this.props.article.revScore) {
+        revScore = (<td>{this.props.article.revScore}</td>);
+      }
+      else if (fetchStates[this.props.article.fetchState] >= fetchStates.REVISIONSCORE_RECEIVED) {
+        revScore = (<td><div>Estimation Score not found!</div></td>);
+      }
+      else {
+        revScore = (<td />);
+      }
     }
 
-    const prettyGrades = {
-      Start: 's',
-      Stub: 's',
-      B: 'b',
-      C: 'c',
-      GA: 'ga',
-      FA: 'fa',
-    };
     let grade;
-    if (this.props.article.fetchState === "TITLE_RECEIVED") {
-      grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
-    }
-    if (this.props.article.grade) {
-      const gradeClass = `rating ${this.props.article.grade.toLowerCase()}`;
-      grade = (
-        <td className="tooltip-trigger">
-          <div className={gradeClass}><p>{prettyGrades[this.props.article.grade] || '-'}</p></div>
-          <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${this.props.article.grade.toLowerCase() || '?'}`)}</p>
-          </div>
-        </td>
-        );
-    }
-    else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
-      grade = (
-        <td className="tooltip-trigger">
-          <div className="rating null"><p>-</p></div>
-          <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.?`)}</p>
-          </div>
-        </td>
-        );
+    if (_.includes(PageAssessmentSupportedWiki.languages, this.props.course.home_wiki.language) && this.props.course.home_wiki.project === 'wikipedia') {
+      if (this.props.article.fetchState === "TITLE_RECEIVED") {
+        grade = (<td><div className="results-loading"> &nbsp; &nbsp; </div></td>);
+      }
+      else if (this.props.article.grade) {
+        const gradeClass = `rating ${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class}`;
+        grade = (
+          <td className="tooltip-trigger">
+            <div className={gradeClass}><p>{PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
+            <div className="tooltip dark">
+              <p>{I18n.t(`articles.rating_docs.${this.props.article.grade.toLowerCase() || '?'}`)}</p>
+            </div>
+          </td>
+          );
+      }
+      else if (fetchStates[this.props.article.fetchState] >= fetchStates.PAGEASSESSMENT_RECEIVED) {
+        grade = (
+          <td className="tooltip-trigger">
+            <div className="rating null"><p>-</p></div>
+            <div className="tooltip dark">
+              <p>{I18n.t(`articles.rating_docs.?`)}</p>
+            </div>
+          </td>
+          );
+      }
+      else {
+        grade = (<td />);
+      }
     }
     let button;
     if (this.props.courseSlug) {
@@ -112,9 +115,9 @@ const ArticleFinderRow = createReactClass({
 
     const article = {
       ...this.props.article,
-      language: 'en',
-      project: 'wikipedia',
-      url: `https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
+      language: this.props.course.home_wiki.language,
+      project: this.props.course.home_wiki.project,
+      url: `https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`,
     };
     const articleViewer = (
       <ArticleViewer
@@ -128,16 +131,14 @@ const ArticleFinderRow = createReactClass({
       <tr>
         <td>
           <div className="horizontal-flex">
-            <a href={`https://${'en'}.${'wikipedia'}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
+            <a href={`https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>
             <div>
               {articleViewer}
             </div>
           </div>
         </td>
         {grade}
-        <td>
-          {revScore}
-        </td>
+        {revScore}
         <td>
           {pageviews}
         </td>
