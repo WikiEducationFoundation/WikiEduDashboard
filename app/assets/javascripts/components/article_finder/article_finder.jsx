@@ -28,6 +28,7 @@ const ArticleFinder = createReactClass({
   getInitialState() {
     return {
       isSubmitted: false,
+      showFilters: false,
     };
   },
 
@@ -40,6 +41,12 @@ const ArticleFinder = createReactClass({
 
   updateFields(key, value) {
     return this.props.updateFields(key, value);
+  },
+
+  toggleFilter() {
+    return this.setState({
+      showFilters: !this.state.showFilters
+    });
   },
 
   searchArticles() {
@@ -73,22 +80,22 @@ const ArticleFinder = createReactClass({
         value_key="search_term"
         required
         editable
-        label={I18n.t('article_finder.category')}
-        placeholder={I18n.t('article_finder.category')}
+        label="Search"
+        placeholder="Enter your keyword"
       />);
 
     const searchType = (
-      <div>
+      <div className="search-type">
         <div>
           <label>
-            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Category Based Search
+            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            Keyword Search
           </label>
         </div>
         <div>
           <label>
-            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Keyword Based Search
+            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            Category Search
           </label>
         </div>
       </div>
@@ -118,16 +125,37 @@ const ArticleFinder = createReactClass({
         />
       </div>
       );
-
-    const filters = (
-      <div className="form-container mb2">
-        <h4>Filter your results:</h4>
-        <div className="horizontal-flex">
+    let filters;
+    if (this.state.showFilters) {
+      filters = (
+        <div className="filters">
           {minimumViews}
           {articleQuality}
         </div>
-      </div>
-    );
+      );
+    }
+
+    let filterButton;
+    if (!this.state.showFilters) {
+      filterButton = (
+        <button className="button dark" onClick={this.toggleFilter}>Show Filters</button>
+      );
+    }
+    else {
+      filterButton = (
+        <button className="button" onClick={this.toggleFilter}>Hide Filters</button>
+      );
+    }
+
+    let filterBlock;
+    if (this.state.isSubmitted && !this.props.loading) {
+      filterBlock = (
+        <div className="filter-block">
+          {filterButton}
+          {filters}
+        </div>
+      );
+    }
 
     const keys = {
       title: {
@@ -135,23 +163,30 @@ const ArticleFinder = createReactClass({
         desktop_only: false
       },
       grade: {
-        label: I18n.t('article_finder.page_assessment_grade'),
+        label: 'Class',
         desktop_only: false,
+        sortable: true,
       },
       revScore: {
         label: I18n.t('article_finder.completeness_estimate'),
         desktop_only: false,
+        sortable: true,
       },
       pageviews: {
         label: I18n.t('article_finder.average_views'),
         desktop_only: false,
+        sortable: true,
       },
       tools: {
         label: 'Tools',
         desktop_only: false,
+        sortable: false,
       }
     };
-
+    if (this.props.sort.key) {
+      const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
+      keys[this.props.sort.key].order = order;
+    }
     if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
       delete keys.revScore;
     }
@@ -248,13 +283,15 @@ const ArticleFinder = createReactClass({
           </div>
         </header>
         <div className="article-finder-form">
-          {searchTerm}
-          {searchType}
-          <div className="text-center">
-            <button className="button dark py2" onClick={this.searchArticles}>Submit</button>
+          <div className="search-bar">
+            <div>
+              {searchTerm}
+              {searchType}
+            </div>
+            <button className="button dark" onClick={this.searchArticles}>Submit</button>
           </div>
         </div>
-        {filters}
+        {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
           <div>
@@ -289,6 +326,7 @@ const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
   fetchState: state.articleFinder.fetchState,
+  sort: state.articleFinder.sort,
 });
 
 const mapDispatchToProps = {

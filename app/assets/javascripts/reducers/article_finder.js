@@ -8,7 +8,7 @@ import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
 
 const initialState = {
   articles: {},
-  search_type: "category",
+  search_type: "keyword",
   search_term: "",
   depth: "",
   min_views: "0",
