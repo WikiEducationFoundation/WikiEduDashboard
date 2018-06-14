@@ -1026,4 +1026,11 @@ cs:
       header: Jak jste se o nás dozvěděl(a)?
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
       why_are_you_here: Co byste chtěli dělat?
+  article_finder:
+    add_available_article: Přidat jako dostupný článek
+    already_added: Již vloženo do dostupných článků
+    minimum_views_label: Minimální počet zobrazení
+    depth: Hloubka
+    category: Kategorie
+    no_article_found: V této kategorii nebyl nalezen žádný článek
 ...

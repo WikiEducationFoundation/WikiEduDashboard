@@ -1129,8 +1129,12 @@ fr:
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
+    page_assessment_grade: Niveau d’évaluation
+    completeness_estimate: Note de complétude
     average_views: Nombre moyen de vues par jour
+    add_available_article: Ajouter comme un article disponible
     already_added: Déja ajouté aux articles disponibles
+    max_completeness_label: Complétude maximale (0-100)
     minimum_views_label: Nombre minimum de vues
     depth: Profondeur
     category: Catégorie

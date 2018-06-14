@@ -1074,4 +1074,10 @@ eu:
       where_did_you_hear: Non, edo noren ahotik entzun zenuen lehenengo aldiz Hezkuntza
         Programari buruz?
       why_are_you_here: Zer egin nahiko zenuke?
+  article_finder:
+    average_views: Eguneko ikustaldi kopurua
+    add_available_article: Gehitu artikulu erabilgarri gisa
+    depth: Sakonera
+    category: Kategoria
+    no_article_found: Ez da artikulurik aurkitu kategoria honetan
 ...

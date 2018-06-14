@@ -112,7 +112,7 @@ be-tarask:
     already_exists: Заданьне ўжо існуе!
     assignees: Выканаўца(-ы)
     assign_other: Прызначыць артыкул
-    add_available: Дадаць даступны артыкул
+    add_available: Дадаць даступныя артыкулы
     assign_self: Прызначыць артыкул сабе
     confirm_add_available: Вы ўпэўненыя, што жадаеце дадаць %{title}?
     confirm_addition: Вы ўпэўненыя, што хочаце прызначыць %{title} карыстальніку %{username}?
