@@ -172,6 +172,7 @@ Rails.application.routes.draw do
       get 'courses'
       get 'ores_plot'
       get 'articles_csv'
+      get 'all_edits'
       get 'alerts'
       put 'add_organizer'
       put 'remove_organizer'

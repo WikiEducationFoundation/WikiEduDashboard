@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/campaign_edits_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ores_diff_csv_builder"
 
 #= Controller for campaign data
@@ -8,7 +9,7 @@ class CampaignsController < ApplicationController
   layout 'admin', only: %i[index create]
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
-                                        remove_course courses ores_plot articles_csv alerts]
+                                        remove_course courses ores_plot articles_csv all_edits alerts]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
                                                      remove_organizer remove_course edit]
@@ -176,6 +177,15 @@ class CampaignsController < ApplicationController
     end
   end
 
+  def all_edits
+    filename = "#{@campaign.slug}-edits-#{Time.zone.today}.csv"
+    respond_to do |format|
+      format.csv do
+        send_data CampaignEditsCsvBuilder.new(@campaign).generate_csv,
+                  filename: filename
+      end
+    end
+  end
   private
 
   def require_create_permissions
