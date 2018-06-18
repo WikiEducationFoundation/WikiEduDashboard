@@ -882,14 +882,30 @@ zh-TW:
       where_did_you_hear: 您是在哪裡、或是從誰，來第一次聽到維基教育？
       why_are_you_here: 您想要做什麼？
   article_finder:
-    page_assessment_grade: 評估分級
+    page_assessment_class: 等級
     completeness_estimate: 完整性分數
     average_views: 每日平均檢視
     add_available_article: 添加為可用條目
     already_added: 已添加至可用條目裡
-    max_completeness_label: 最大完整性（0 至 100）
     minimum_views_label: 最小檢視數
-    depth: 層度
-    category: 分類
     no_article_found: 此分類裡沒有條目
+    search_placeholder: 輸入您的關鍵詞
+    search: 搜尋
+    tools: 工具
+    show_filters: 顯示篩選
+    hide_filters: 隱藏篩選
+    keyword_search: 關鍵詞搜尋
+    category_search: 分類搜尋
+    article_quality: 條目品質（0 - 100）
+    more_results: 更多結果
+    fetched_articles: 索取的條目
+    filtered_articles: 篩選出的條目
+    searching_articles: 搜尋條目中
+    fetching_assessments: 索取頁面評估中
+    fetching_revisions: 索取頁面修訂中
+    fetching_scores: 索取完整性分數中
+    fetching_pageviews: 索取頁面檢視次數中
+    subheading_message: 讓我們來找出符合您需求的條目
+    article_finder: 條目查找
+    submit: 提交
 ...

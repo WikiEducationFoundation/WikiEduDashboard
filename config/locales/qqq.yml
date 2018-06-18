@@ -806,30 +806,42 @@ qqq:
     follow_up:
       message: Survey invitation email text. (Wiki Ed only)
   article_finder:
+    page_assessment_class: |-
+      Table header label for page assessment class of articles
+      {{Identical|Class}}
+    completeness_estimate: Table header label for ORES estimation scores of articles
+    average_views: Table header label for average page views of articles
+    add_available_article: Button label to add an article finder result to available
+      articles
+    already_added: Button label for an article which is already present in available
+      articles
+    minimum_views_label: Input label for minimum views filter
     no_article_found: Message indicating no search results
-    subheading_message: Subheading message for the article finder tool
     search_placeholder: Article finder search bar placeholder
-    add_available_article: Button label to add an article finder result to available articles
-    already_added: Button label for an article which is already present in available articles
-    searching_articles: Loading spinner label indicating fetching of articles
-    fetching_assessments: Loading spinner label indicating fetching of Page Assessment grades for found articles
-    fetching_revisions: Loading spinner label indicating fetching of Page revisions for found articles
-    fetching_scores: Loading spinner label indicating fetching of ORES estimation scores for found articles
-    fetching_pageviews: Loading spinner label indicating fetching of Pageviews for found articles
     search: Label for search bar in Article Finder {{Identical|Search}}
     tools: Label for tools table column {{Identical|Tools}}
     show_filters: Button label for displaying articles {{Identical|Show Filters}}
     hide_filters: Button label for hiding articles {{Identical|Hide Filters}}
-    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword Search}}
-    category_search: Radio Button label for selecting category based search {{Identical|Category Search}}
+    keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
+      Search}}
+    category_search: Radio Button label for selecting category based search {{Identical|Category
+      Search}}
+    article_quality: Slider lable for article quality filter
     more_results: Button label for fetching more search results {{Identical|More Results}}
-    fetched_articles: Label indicating count of fetched results {{Identical|Fetched Articles}}
-    filtered_articles: Label indicating count of filtered results {{Identical|Filtered Articles}}
-    page_assessment_class: Table header label for page assessment class of articles
-    completeness_estimate: Table header label for ORES estimation scores of articles
-    average_views: Table header label for average page views of articles
-    minimum_views_label: Input label for minimum views filter
+    fetched_articles: Label indicating count of fetched results {{Identical|Fetched
+      Articles}}
+    filtered_articles: Label indicating count of filtered results {{Identical|Filtered
+      Articles}}
+    searching_articles: Loading spinner label indicating fetching of articles
+    fetching_assessments: Loading spinner label indicating fetching of Page Assessment
+      grades for found articles
+    fetching_revisions: Loading spinner label indicating fetching of Page revisions
+      for found articles
+    fetching_scores: Loading spinner label indicating fetching of ORES estimation
+      scores for found articles
+    fetching_pageviews: Loading spinner label indicating fetching of Pageviews for
+      found articles
+    subheading_message: Subheading message for the article finder tool
     article_finder: Title heading for article finder {{Identical|Article Finder}}
     submit: Submit button label {{Identical|Submit}}
-    article_quality: Slider lable for article quality filter
 ...

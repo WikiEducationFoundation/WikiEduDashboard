@@ -1077,7 +1077,5 @@ eu:
   article_finder:
     average_views: Eguneko ikustaldi kopurua
     add_available_article: Gehitu artikulu erabilgarri gisa
-    depth: Sakonera
-    category: Kategoria
     no_article_found: Ez da artikulurik aurkitu kategoria honetan
 ...

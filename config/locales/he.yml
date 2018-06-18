@@ -737,4 +737,26 @@ he:
   onboarding:
     supplementary:
       why_are_you_here: מה ברצונך לעשות?
+  article_finder:
+    page_assessment_class: מחלקה
+    average_views: ממוצע צפיות ביום
+    search_placeholder: יש להקליד מילת מפתח
+    search: חיפוש
+    tools: כלים
+    show_filters: הצגת מסננים
+    hide_filters: הסתרת מסננים
+    keyword_search: חיפוש לפי מילת מפתח
+    category_search: חיפוש לפי קטגוריה
+    article_quality: איכות הערך (0–100)
+    more_results: תוצאות נוספות
+    fetched_articles: ערכים שאוחזרו
+    filtered_articles: ערכים שסוננו
+    searching_articles: חיפוש ערכים
+    fetching_assessments: אחזור הערכות דפים
+    fetching_revisions: אחזור גרסאות של דפים
+    fetching_scores: אחזור דירוג השלמוּת
+    fetching_pageviews: אחזור צפיות בדף
+    subheading_message: באפשרותך למצוא ערך שעונה על הצרכים שלך
+    article_finder: מציאת ערך
+    submit: חיפוש
 ...

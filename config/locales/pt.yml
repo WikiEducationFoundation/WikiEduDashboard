@@ -69,10 +69,10 @@ pt:
     no_courses_instructor: Parece que não tem nenhum curso.
     no_courses_student: Parece que ainda não se juntou a um curso.
     opt_out: Solicitar a saída da orientação
-    orientation_notice: Antes de criar um curso, passemos por uma orientação para
-      ajudá-lo(a) a começar. (Demora cerca de 30 minutos para ser concluída.)
-    review_orientation: Analisar orientação
-    start_orientation: Começar a orientação
+    orientation_notice: Antes de criar um curso, façamos uma introdução para ajudá-lo
+      a começar (dura cerca de 30 minutos).
+    review_orientation: Rever a introdução
+    start_orientation: Começar a introdução
     blog_headline: Notícias recentes da Wiki Educação
     about_programs: Este sítio acompanha as atividades da wiki através dos programas
       — de eventos individuais de maratonas de edição ou de um curso académico. Cada
@@ -98,8 +98,8 @@ pt:
     assigned: Artigos atribuídos
     available: Artigos disponíveis
     assigned_to: Atribuído a
-    character_doc: A soma de carateres adicionados a artigos por editores inscritos
-      entre as datas de começo e fim
+    character_doc: A soma do número de carateres adicionados a artigos por editores
+      inscritos, entre as datas de começo e fim
     cross_wiki_tracking: As páginas do domínio principal editadas entre as datas de
       início e fim são listadas abaixo. O painel analisa as contribuições da wiki
       principal deste programa, assim como as outras wiki para as quais houver um
@@ -115,7 +115,7 @@ pt:
     new: (novo)
     none: Este curso não editou nenhum artigo.
     rating: Qualidade
-    rating_doc: A avaliação que um artigo recebeu por um WikiProjeto na Wikipédia.
+    rating_doc: A avaliação que um artigo recebeu por Projetos Wiki na Wikipédia.
       Estas avaliações podem corresponder a versões muito mais antigas, logo são apenas
       um indicador da maturidade de um artigo.
     rating_docs:
@@ -169,8 +169,8 @@ pt:
     add_available_submit: Adicionar artigos
     assign_self: Atribuir-me um artigo
     assign_tooltip: Um artigo atribuído é aquele que planeia criar ou melhorar.
-    confirm_add_available: Tem certeza de que deseja adicionar %{title}?
-    confirm_addition: Tem a certeza que quer atribuir %{title} para %{username}?
+    confirm_add_available: Tem a certeza de que deseja adicionar %{title}?
+    confirm_addition: Tem a certeza que quer atribuir %{title} a %{username}?
     confirm_deletion: Tem certeza de que deseja eliminar esta atribuição a um artigo?
     label: Atribuir
     loading: A carregar tarefas...
@@ -395,9 +395,9 @@ pt:
     data_students: Dados dos editores
     data_students_info: Os dados dos editores listam todos os editores matriculados,
       o número das suas edições, e se registaram as suas contas durante o projeto.
-    data_uploads: Dados dos envios no Commons
-    data_uploads_info: Os dados dos envios ao Commons mostra o nome e a contagem da
-      utilização de cada média carregada.
+    data_uploads: Dados dos carregamentos na wiki Commons
+    data_uploads_info: Os dados dos carregamentos na wiki Commons mostram o nome e
+      a contagem da utilização de cada ficheiro multimédia carregado.
     delete_course: Eliminar curso
     delete_suggestion: Eliminar
     delete_course_instructions: Para poder excluir esta página, deve primeiramente
@@ -550,12 +550,12 @@ pt:
       ser realizado até %{date}.
     training_nav: Ir à formação
     training_overdue: O módulo de formação %{title} foi indicado para este curso e
-      deveria ter sido realizado até %{date}
+      devia ter sido realizado até %{date}
     unsubmitted: Cursos Não Enviados
     untrained: Sem formação
     update_stats: Atualizar as estatísticas
-    uploads_none: Esta classe não contribuiu com nenhuma imagem ou outros arquivos
-      de mídia no Wikimedia Commons.
+    uploads_none: Esta classe não contribuiu com nenhuma imagem nem outro ficheiro
+      multimédia para a wiki Wikimedia Commons.
     user_suggestions: 'Sugestões do utilizador:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
@@ -598,7 +598,7 @@ pt:
       assignment_end_placeholder: Fim do evento (AAAA-MM-DD)
       assignment_start: Início do evento
       assignment_start_placeholder: Início do evento (AAAA-MM-DD)
-      checking_for_uniqueness: Verificando se este curso é único.
+      checking_for_uniqueness: A verificar se este curso é único.
       choose_clone: Escolha um programa para clonar.
       clone_previous: Clonar programa anterior
       clone_this: Clonar este programa
@@ -608,20 +608,20 @@ pt:
       course_when: Acrescente qualquer coisa no campo 'Quando' (por exemplo, o mês
         e o ano) para diferenciá-lo do original.
       course_description: Descrição do programa
-      course_description_placeholder: Que tipo de programa é este, e o que os participantes
-        estarão a fazer na(s) wiki(s)? Por favor, inclua todos os detalhes para atribuir
-        aos outros editores uma ideia de contexto das contribuições que os participantes
-        estarão a fazer.
+      course_description_placeholder: Que tipo de programa é este e que estarão os
+        participantes a fazer na(s) wiki(s)? Inclua todos os detalhes, por favor,
+        para dar aos outros editores uma noção do contexto das contribuições que os
+        participantes farão.
       course_school: Instituição
       course_term: Quando
       course_term_placeholder: Quando
       course_title: Título do programa
-      create_button: Criar meu Programa!
-      create_label: Criar Novo Programa
+      create_button: Criar o meu programa!
+      create_label: Criar novo programa
       create_new: Criar um programa independente
-      create_short: Criar Programa
-      end_date: Fim da atividade de monitorização
-      find: Encontrar um Programa
+      create_short: Criar programa
+      end_date: Fim da monitorização da atividade
+      find: Encontrar um programa
       intro: O título do programa e a instituição formam o URL do programa. A wiki
         inicial é a principal wiki onde os participantes estão a trabalhar, e as edições
         nesta serão registadas por omissão. Se o seu programa abrange várias línguas
@@ -629,14 +629,14 @@ pt:
         um 'Artigo Disponível' ou uma 'Tarefa' para aquela wiki. Clique em "Criar
         o meu Programa!" para começar a construir a página do seu programa na wiki.
       new_or_clone: Crie um novo programa agora, ou utilize a opção 'clonar' para
-        copiar outro programa que tenha participado.
+        copiar outro programa em que tenha participado.
       participate_in_campaign: Participar numa campanha
       save_cloned_course: Gravar
-      start_date: Início da atividade de monitorização
+      start_date: Início da monitorização da atividade
     delete_course: Eliminar programa
-    edit_course_dates: Editar Datas do Projeto
+    edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
-    enroll: Adicionar Editor
+    enroll: Adicionar editor
     enrollment: Participação
     explore: Encontrar programas
     courses_enrolled: Programas em que participou
@@ -645,25 +645,25 @@ pt:
     join_course: Entrar no programa
     join_details: Para entrar neste programa, necessita de uma palavra-passe — ou
       de uma hiperligação que inclua a palavra-passe — do facilitador.
-    leave_course: Deixar o programa
+    leave_course: Sair do programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
-    published: 'Este projeto foi publicado! Editores podem inscrever-se ao visitar
-      a seguinte URL:'
-    request_accounts: Solicitar contas
+    published: 'Este projeto foi publicado! Possíveis editores podem inscrever-se
+      visitando o seguinte URL:'
+    request_accounts: Pedir contas
     revisions_none: Este projeto não tem nenhuma atividade de edição recente.
     school: Instituição
     school_and_term: Instituição/Quando
-    start: Início da atividade de monitorização
+    start: Início da monitorização da atividade
     student_editors: Editores
     students: Editores
-    students_taught: Editores totais
+    students_taught: Total de editores
     students_none: Este projeto não tem editores registados.
     students_short: Editores
     students_count: Número de participantes
     term: Quando
     unsubmitted: Programas não enviados
-    uploads_none: Este projeto não contribuiu com nenhuma imagem ou outro ficheiro
-      multimédia no Wikimedia Commons.
+    uploads_none: Este projeto não contribuiu com nenhuma imagem nem outro ficheiro
+      multimédia para a wiki Wikimedia Commons.
     view_other: Ver outras campanhas
     view_page: Ver a página do programa
     word_count_doc: Uma estimativa do número de palavras acrescentadas ao domínio
@@ -697,7 +697,7 @@ pt:
     per_user: '%{number}/utilizador'
     revisions: Edições Recentes
     tags: Etiquetas
-    upload_count: Envios ao Commons
+    upload_count: Carregamentos na wiki Commons
     uploads_in_use_count:
       one: arquivo usado em um artigo
       other: arquivos usados em artigos
@@ -892,8 +892,8 @@ pt:
     image: Imagem
     label: Carregamentos
     loading: A carregar os envios...
-    none: Esta classe não contribuiu com nenhuma imagem ou com outros ficheiros multimédia
-      no Wikimedia Commons.
+    none: Esta classe não contribuiu com nenhuma imagem nem outros ficheiros multimédia
+      para a wiki Wikimedia Commons.
     time_doc: A hora de cada envio no seu horário local
     uploaded_at: Enviado a
     uploaded_by: Enviado por
@@ -1104,14 +1104,10 @@ pt:
         da Wiki Educação?
       why_are_you_here: O que gostaria de fazer?
   article_finder:
-    page_assessment_grade: Nota de avaliação
     completeness_estimate: Classificação de integridade
     average_views: Média de visitas por dia
     add_available_article: Adicionar como artigo disponível
     already_added: Já adicionado aos artigos disponíveis
-    max_completeness_label: Integridade máxima (0-100)
     minimum_views_label: Número mínimo de visitas
-    depth: Profundidade
-    category: Categoria
     no_article_found: Não foi encontrado nenhum artigo nesta categoria
 ...

@@ -1102,14 +1102,30 @@ pt-br:
         Education?
       why_are_you_here: O que você gostaria de fazer?
   article_finder:
-    page_assessment_grade: Grade de avaliação
+    page_assessment_class: Classe
     completeness_estimate: Pontuação de integridade
     average_views: Média de visualizações por dia
     add_available_article: Adicionar como artigo disponível
     already_added: Já adicionado aos artigos disponíveis
-    max_completeness_label: Completude máximas(0-100)
     minimum_views_label: Visualizações mínimas
-    depth: Profundidade
-    category: Categoria
     no_article_found: Nenhum artigo encontrado nesta categoria
+    search_placeholder: Digite sua palavra-chave
+    search: Pesquisar
+    tools: Ferramentas
+    show_filters: Mostrar filtros
+    hide_filters: Ocultar filtros
+    keyword_search: Pesquisa por palavra-chave
+    category_search: Pesquisar por categoria
+    article_quality: Qualidade do Artigo(0-100)
+    more_results: Mais resultados
+    fetched_articles: Artigos buscados
+    filtered_articles: Artigos filtrados
+    searching_articles: Pesquisando artigos
+    fetching_assessments: Buscando avaliações de página
+    fetching_revisions: Buscando revisões de página
+    fetching_scores: Buscando Pontuação de Completude
+    fetching_pageviews: Buscando vistas de página
+    subheading_message: Vamos encontrar um artigo que atenda às suas necessidades
+    article_finder: Localizador de artigos
+    submit: Enviar
 ...

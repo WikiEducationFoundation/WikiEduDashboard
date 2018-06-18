@@ -713,7 +713,7 @@ zh-CN:
     assignees: 委托人
     loading_authorship_data: 正在加载作者数据
     authorship_data_not_fetched: 无法检索作者数据
-    character_doc: 用户添加至此名字空间的内容总数，通过将所有添加的字符添加到增加页面大小的编辑中计算。这个数字并不一定反映用户添加的新内容的数量。恢复删除的内容也会增加这个总数。
+    character_doc: 用户添加至此名字空间的内容总数，计算方式是将所有增长页面大小的编辑中，添加的字符加起来。此数字未必反应用户添加的新内容数量。恢复移除的内容也将会增长这个总数。
     chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
     contributions: 用户贡献
     contributions_history_full: 在维基百科查看完整贡献历史
@@ -861,14 +861,30 @@ zh-CN:
       where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
       why_are_you_here: 您想做什么？
   article_finder:
-    page_assessment_grade: 评定等级
+    page_assessment_class: 等级
     completeness_estimate: 完整分数
     average_views: 每天平均访问
     add_available_article: 添加为可用条目
     already_added: 已添加到可用条目
-    max_completeness_label: 最高完整（0~100）
     minimum_views_label: 最低访问
-    depth: 深度
-    category: 分类
     no_article_found: 此分类中找不到条目
+    search_placeholder: 输入您的密码
+    search: 搜索
+    tools: 工具
+    show_filters: 显示过滤器
+    hide_filters: 隐藏过滤器
+    keyword_search: 关键词搜索
+    category_search: 分类搜索
+    article_quality: 条目质量（0~100）
+    more_results: 更多结果
+    fetched_articles: 检索的条目
+    filtered_articles: 过滤的条目
+    searching_articles: 正在搜索条目
+    fetching_assessments: 正在检索页面评价
+    fetching_revisions: 正在检索页面修订版本
+    fetching_scores: 正在检索完整度分数
+    fetching_pageviews: 正在检索页面浏览
+    subheading_message: 让我们查找符合您的需求的条目
+    article_finder: 条目查找器
+    submit: 提交
 ...

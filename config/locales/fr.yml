@@ -1129,14 +1129,30 @@ fr:
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
-    page_assessment_grade: Niveau d’évaluation
+    page_assessment_class: Classe
     completeness_estimate: Note de complétude
     average_views: Nombre moyen de vues par jour
     add_available_article: Ajouter comme un article disponible
     already_added: Déja ajouté aux articles disponibles
-    max_completeness_label: Complétude maximale (0-100)
     minimum_views_label: Nombre minimum de vues
-    depth: Profondeur
-    category: Catégorie
     no_article_found: Aucun article trouvé dans cette catégorie
+    search_placeholder: Saisir votre mot de passe
+    search: Rechercher
+    tools: Outils
+    show_filters: Afficher les filtres
+    hide_filters: Masquer les filtres
+    keyword_search: Recherche de mot-clé
+    category_search: Recherche de catégorie
+    article_quality: Qualité de l’article (0-100)
+    more_results: Plus de résultats
+    fetched_articles: Articles en vedette
+    filtered_articles: Articles filtrés
+    searching_articles: Recherche d’articles
+    fetching_assessments: Récupération des déclarations de page
+    fetching_revisions: Récupération des révisions de page
+    fetching_scores: Récupération de la note de complétude
+    fetching_pageviews: Récupération des compteurs de vue de page
+    subheading_message: Trouvons un article qui correspond à vos besoins
+    article_finder: Découvreur d’article
+    submit: Soumettre
 ...

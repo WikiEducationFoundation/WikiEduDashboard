@@ -1110,14 +1110,30 @@ de:
       where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
       why_are_you_here: Was möchtest du tun?
   article_finder:
-    page_assessment_grade: Bewertungsgrad
+    page_assessment_class: Klasse
     completeness_estimate: Vervollständigungs-Punktestand
     average_views: Durchschnittliche Aufrufe pro Tag
     add_available_article: Als verfügbaren Artikel hinzufügen
     already_added: Bereits zu den verfügbaren Artikeln hinzugefügt
-    max_completeness_label: Maximale Vervollständigung (0-100)
     minimum_views_label: Mindestaufrufe
-    depth: Tiefe
-    category: Kategorie
     no_article_found: Keine Artikel in dieser Kategorie gefunden
+    search_placeholder: Gib dein Schlüsselwort ein
+    search: Suchen
+    tools: Werkzeuge
+    show_filters: Filter anzeigen
+    hide_filters: Filter ausblenden
+    keyword_search: Schlüsselwortsuche
+    category_search: Kategoriesuche
+    article_quality: Artikelqualität (0–100)
+    more_results: Weitere Ergebnisse
+    fetched_articles: Abgerufene Artikel
+    filtered_articles: Gefilterte Artikel
+    searching_articles: Artikel suchen
+    fetching_assessments: Abrufen der Seitenbewertungen
+    fetching_revisions: Abrufen der Seitenversionen
+    fetching_scores: Abrufen des Vervollständigungs-Punktestandes
+    fetching_pageviews: Abrufen der Seitenaufrufe
+    subheading_message: Lass uns einen Artikel finden, der deinen Bedürfnissen entspricht.
+    article_finder: Artikelfinder
+    submit: Absenden
 ...

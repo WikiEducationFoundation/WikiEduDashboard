@@ -681,4 +681,14 @@ it:
   onboarding:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
+  article_finder:
+    page_assessment_class: Classe
+    search: Cerca
+    tools: Strumenti
+    show_filters: Mostra filtri
+    hide_filters: Nascondi filtri
+    keyword_search: Ricerca per parole chiave
+    category_search: Ricerca per categoria
+    subheading_message: Troviamo una voce che si adatta alle tue esigenze
+    submit: Invia
 ...

@@ -888,6 +888,4 @@ ast:
     no_responses: Inda nun hai comentarios de respuesta.
   article_finder:
     minimum_views_label: Visites mínimes
-    depth: Fondura
-    category: Categoría
 ...

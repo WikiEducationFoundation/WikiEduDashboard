@@ -1030,7 +1030,5 @@ cs:
     add_available_article: Přidat jako dostupný článek
     already_added: Již vloženo do dostupných článků
     minimum_views_label: Minimální počet zobrazení
-    depth: Hloubka
-    category: Kategorie
     no_article_found: V této kategorii nebyl nalezen žádný článek
 ...

@@ -323,4 +323,10 @@ bn:
   onboarding:
     supplementary:
       why_are_you_here: আপনি কী করতে চান?
+  article_finder:
+    page_assessment_class: শ্রেণী
+    search: অনুসন্ধান
+    tools: সরঞ্জাম
+    more_results: আরও ফলাফল
+    submit: জমা দিন
 ...
