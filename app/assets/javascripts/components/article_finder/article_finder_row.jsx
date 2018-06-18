@@ -9,14 +9,14 @@ import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
     return {
-      isAdding: false,
+      isLoading: false,
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.isAdding && (this.props.isAdded !== nextProps.isAdded)) {
+    if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
       this.setState({
-        isAdding: false,
+        isLoading: false,
       });
     }
   },
@@ -31,9 +31,24 @@ const ArticleFinderRow = createReactClass({
       role: ASSIGNED_ROLE,
     };
     this.setState({
-      isAdding: true,
+      isLoading: true,
     });
     return this.props.addAssignment(assignment);
+  },
+
+  deleteAvailableArticle() {
+    const assignment = {
+      article_title: decodeURIComponent(this.props.title).trim(),
+      project: this.props.assignment.project,
+      language: this.props.assignment.language,
+      course_id: this.props.courseSlug,
+      role: ASSIGNED_ROLE,
+      id: this.props.assignment.id,
+    };
+    this.setState({
+      isLoading: true,
+    });
+    return this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -96,15 +111,16 @@ const ArticleFinderRow = createReactClass({
     }
     let button;
     if (this.props.courseSlug) {
-      if (this.props.isAdded) {
+      if (this.props.assignment) {
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className="button small disabled add-available-article">{I18n.t('article_finder.already_added')}</button>
+            <button className={className} onClick={this.deleteAvailableArticle}>{I18n.t('article_finder.remove_article')}</button>
           </td>
         );
       }
       else {
-        const className = `button small add-available-article ${this.state.isAdding ? 'disabled' : 'dark'}`;
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
             <button className={className} onClick={this.addAvailableArticle}>{I18n.t('article_finder.add_available_article')}</button>

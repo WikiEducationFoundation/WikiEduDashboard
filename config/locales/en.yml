@@ -1110,7 +1110,7 @@ en:
     completeness_estimate: "Completeness Score"
     average_views: "Average views per day"
     add_available_article: "Add as available article"
-    already_added: "Already added to available articles"
+    remove_article: "Remove article"
     minimum_views_label: "Minimum Views"
     no_article_found: "No articles found in this category"
     search_placeholder: "Enter your keyword"
