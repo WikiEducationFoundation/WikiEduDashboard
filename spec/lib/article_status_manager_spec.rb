@@ -94,6 +94,21 @@ describe ArticleStatusManager do
       end
     end
 
+    context 'when a title is a unicode dump' do
+      let(:zh_wiki) { create(:wiki, language: 'zh', project: 'wikipedia') }
+      # https://zh.wikipedia.org/wiki/%E9%BB%83%F0%A8%A5%88%E7%91%A9
+      let(:title) { URI.encode('黃𨥈瑩') }
+      let(:article) { create(:article, wiki: zh_wiki, title: title, mw_page_id: 420741) }
+
+      it 'skips updates when the title is a unicode dumps' do
+        stub_wiki_validation
+        VCR.use_cassette 'article_status_manager/unicode_dump' do
+          described_class.new(zh_wiki).update_status([article])
+          expect(Article.last.title).to eq(title)
+        end
+      end
+    end
+
     it 'handles cases of space vs. underscore' do
       VCR.use_cassette 'article_status_manager/main' do
         # This page was first moved from a sandbox to "Yōji Sakate", then
