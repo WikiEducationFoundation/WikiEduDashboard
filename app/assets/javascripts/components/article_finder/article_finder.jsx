@@ -274,6 +274,12 @@ const ArticleFinder = createReactClass({
         );
     }
 
+    let feedbackButton;
+    if (this.state.isSubmitted && !this.props.loading) {
+      feedbackButton = (
+        <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
+      );
+    }
     return (
       <div className="container">
         <header>
@@ -291,6 +297,7 @@ const ArticleFinder = createReactClass({
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
+        {feedbackButton}
         {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
