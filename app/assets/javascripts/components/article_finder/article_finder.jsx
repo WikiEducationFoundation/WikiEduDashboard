@@ -10,7 +10,7 @@ import Loading from '../common/loading.jsx';
 
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
-import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
+import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
@@ -198,7 +198,7 @@ const ArticleFinder = createReactClass({
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
-        const isAdded = Boolean(_.find(this.props.assignments, { article_title: title }));
+        const assignment = _.find(this.props.assignments, { article_title: title });
         return (
           <ArticleFinderRow
             article={article}
@@ -206,8 +206,9 @@ const ArticleFinder = createReactClass({
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
-            isAdded={isAdded}
+            assignment={assignment}
             addAssignment={this.props.addAssignment}
+            deleteAssignment={this.props.deleteAssignment}
           />
           );
       });
@@ -343,6 +344,7 @@ const mapDispatchToProps = {
   fetchAssignments: fetchAssignments,
   sortArticleFinder: sortArticleFinder,
   fetchKeywordResults: fetchKeywordResults,
+  deleteAssignment: deleteAssignment,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);
