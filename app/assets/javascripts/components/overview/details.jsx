@@ -234,10 +234,14 @@ const Details = createReactClass({
         />
       );
     }
+    let campaignEditable;
+    if (canRename) {
+      campaignEditable = <CampaignEditable {...this.props} show={this.props.editable} />;
+    }
     const campaigns = (
       <span className="campaigns" id="course_campaigns">
         <CampaignList {...this.props} />
-        <CampaignEditable {...this.props} show={this.props.editable} />
+        {campaignEditable}
       </span>
     );
     let subject;
