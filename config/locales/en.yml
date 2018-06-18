@@ -934,6 +934,7 @@ en:
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
       other: "are up-to-date with training"
@@ -950,6 +951,7 @@ en:
     training_module_name: Training module
     training_module_status: Status
     up_to_date_with_training: 'up-to-date with training'
+    uploads_doc: 'Number of file uploads to Wikimedia Commons'
     username: Username
     username_placeholder: Username
     useremail_placeholder: Email
