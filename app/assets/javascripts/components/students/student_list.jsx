@@ -104,7 +104,6 @@ const StudentList = createReactClass({
       );
     });
     const elements = _.flatten(_.zip(students, drawers));
-
     let controls;
     if (this.props.current_user.isNonstudent) {
       let assignArticlesButton;
@@ -164,6 +163,12 @@ const StudentList = createReactClass({
         desktop_only: true,
         sortable: true,
         info_key: 'users.character_doc'
+      },
+      total_uploads: {
+        label: I18n.t('users.total_uploads'),
+        desktop_only: true,
+        sortable: true,
+        info_key: 'users.uploads_doc'
       }
     };
     return (
