@@ -80,7 +80,7 @@ export const AvailableArticle = createReactClass({
           <p className="rating_num hidden">{article.rating_num}</p>
           <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${assignment.article_rating || '?'}`, { class: assignment.article_rating || '' })}</p>
           </div>
         </td>
         <td>
