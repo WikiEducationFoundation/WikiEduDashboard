@@ -90,7 +90,7 @@ const ArticleFinderRow = createReactClass({
           <td className="tooltip-trigger">
             <div className={gradeClass}><p>{PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${this.props.article.grade.toLowerCase() || '?'}`)}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
           );
