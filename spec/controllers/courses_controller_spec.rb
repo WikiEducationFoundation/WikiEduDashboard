@@ -399,11 +399,12 @@ describe CoursesController do
   describe '#list' do
     let(:course) { create(:course) }
     let(:campaign) { Campaign.last }
-    let(:user) { create(:admin) }
+    let(:user) { create(:admin, email: 'user@example.edu') }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
+      allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
     end
 
     context 'when campaign is not found' do

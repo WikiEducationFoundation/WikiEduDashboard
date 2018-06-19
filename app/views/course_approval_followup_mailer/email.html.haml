@@ -1,0 +1,52 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                = "Dear #{@instructor.username},"
+              %p.paragraph
+                I'd like to share some resources with you as you begin your Wikipedia assignment.
+              %ol
+                %li
+                  %p.paragraph
+                    Please remember to share your enrollment link with your students
+                    right away so they can register on the dashboard:
+                  %p.paragraph
+                    %a.link{href: @enroll_link}= @enroll_link
+                %li
+                  %p.paragraph
+                    Setting expectations for your Wikipedia assignment is crucial, so
+                    %a.link{href: 'https://wikiedu.org/blog/2018/01/24/setting-expectations-for-your-wikipedia-assignment/'} here
+                    are some tips to share with your students.
+                %li
+                  %p.paragraph
+                    Students sometimes struggle with what constitutes plagiarism on Wikipedia, so be sure to share
+                    %a.link{href: 'https://wikiedu.org/blog/2018/05/18/how-plagiarism-is-different-on-wikipedia-and-how-to-help-your-students-avoid-it/'} this post
+                    with them that clarifies many common points of confusion.
+                %li
+                  %p.paragraph
+                    While you're just getting started, I'm sure you and your students are already thinking about grading. Please check out
+                    %a.link{href: 'https://wikiedu.org/blog/2017/11/15/tips-for-grading-a-wikipedia-assignment/'} this post
+                    on grading a Wikipedia assignment as well as our
+                    %a.link{href: 'https://wikiedu.org/gradingrubric'} sample assessment rubric.   
+                %li
+                  %p.paragraph
+                    Remember, Wiki Education has a wealth of
+                    = succeed ',' do
+                      %a.link{href: 'https://wikiedu.org/for-instructors/'} resources
+                    = succeed ',' do
+                      %a.link{href: 'https://dashboard.wikiedu.org/training'} training modules
+                    as well as an
+                    %a.link{href: 'https://ask.wikiedu.org/questions/'} FAQ
+                    site.
+              %p.paragraph
+                Good luck this term!
+              %p.paragraph
+                Best,
+                %br
+                %em
+                  =@staffer.real_name
