@@ -5,8 +5,9 @@ content: |
   *Everything* you write on Wikipedia must be attributable to a reliable source.
 
   Wikipedians are working to create an accurate encyclopedia. Adding sources
-  means that your work can be fact-checked by these editors.
+  means other editors and readers can fact-check the claims.
 
   Editors (yourself included) can challenge unreferenced statements by adding a
-  `{{fact}}` tag in wikicode, which adds a *[citation needed]* tag to the
-  statement. Some editors remove unreferenced material on sight.
+  `{{fact}}` tag in Wikicode, which adds a *[citation needed]* tag to the
+  statement. Remember, editors may remove unreferenced material on sight, so
+  adding a citation helps prevent your work from being deleted.
