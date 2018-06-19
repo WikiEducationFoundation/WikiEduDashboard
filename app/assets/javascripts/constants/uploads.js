@@ -1,2 +1,3 @@
 export const RECEIVE_UPLOADS = 'RECEIVE_UPLOADS';
 export const SORT_UPLOADS = 'SORT_UPLOADS';
+export const SET_TABULAR_VIEW = 'SET_TABULAR_VIEW';
