@@ -42,8 +42,8 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
-    set_boolean_flag :timeline_enabled
-    set_boolean_flag :wiki_edits_enabled
+    update_boolean_flag :timeline_enabled
+    update_boolean_flag :wiki_edits_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
@@ -198,7 +198,7 @@ class CoursesController < ApplicationController
       .permit(:language, :project)
   end
 
-  def set_boolean_flag(flag)
+  def update_boolean_flag(flag)
     case params.dig(:course, flag)
     when true
       @course.flags[flag] = true

@@ -377,6 +377,32 @@ describe Course, type: :model do
     end
   end
 
+  describe '#wiki_edits_enabled?' do
+    let(:course) { build(:basic_course, flags: flags) }
+    let(:subject) { course.wiki_edits_enabled? }
+
+    context 'when the :wiki_edits_enabled flag is set false' do
+      let(:flags) { { wiki_edits_enabled: false } }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'when the :wiki_edits_enabled flag is set true' do
+      let(:flags) { { wiki_edits_enabled: true } }
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'when the :wiki_edits_enabled flag is not set' do
+      let(:flags) { nil }
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+  end
+
   describe 'callbacks' do
     let(:course) { create(:course) }
 
