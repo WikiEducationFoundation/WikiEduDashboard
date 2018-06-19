@@ -1,5 +1,4 @@
 import _ from 'lodash';
-const I18n = require('i18n-js');
 
 const CourseUtils = class {
   // Given a course object with title, school and term properties,
