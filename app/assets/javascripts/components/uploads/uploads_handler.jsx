@@ -96,7 +96,7 @@ const UploadsHandler = createReactClass({
           </div>
         </div>
         {paginationElement}
-        <UploadList uploads={this.state.data} />
+        <UploadList uploads={this.state.data} sortBy={this.props.sortUploads} />
         {paginationElement}
       </div>
     );

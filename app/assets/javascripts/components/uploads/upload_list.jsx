@@ -58,6 +58,7 @@ const UploadList = createReactClass({
           elements={elements}
           keys={keys}
           table_key="uploads"
+          sortBy={this.props.sortBy}
         />
       );
     }
