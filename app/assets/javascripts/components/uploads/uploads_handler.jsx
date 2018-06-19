@@ -30,6 +30,14 @@ const UploadsHandler = createReactClass({
   componentWillReceiveProps(nextProps) {
     const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
     this.setState({ data: data, pageCount: Math.ceil(nextProps.uploads.length / this.state.perPage) });
+    if (nextProps.isTabularView) {
+      document.getElementById("tabular-view").classList.add("dark");
+      document.getElementById("gallery-view").classList.remove("dark");
+    }
+    else {
+      document.getElementById("gallery-view").classList.add("dark");
+      document.getElementById("tabular-view").classList.remove("dark");
+    }
   },
 
   setUploadData(offset, selectedPage) {
@@ -37,15 +45,8 @@ const UploadsHandler = createReactClass({
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
-  setTabularView(e, isTabularView) {
+  setTabularView(isTabularView) {
     this.props.setTabularView(isTabularView);
-    e.target.classList.add("dark");
-    if (isTabularView) {
-      document.getElementById("gallery-view").classList.remove("dark");
-    }
-    else {
-      document.getElementById("tabular-view").classList.remove("dark");
-    }
   },
 
   handlePageClick(data) {
@@ -84,8 +85,8 @@ const UploadsHandler = createReactClass({
       <div id="uploads">
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
-          <button id="tabular-view" className="button border" onClick={(e) => {this.setTabularView(e, true);}}>Tabular View</button>
-          <button id="gallery-view" className="button border dark" onClick={(e) => {this.setTabularView(e, false);}}>Gallery View</button>
+          <button id="tabular-view" className="button border" onClick={() => {this.setTabularView(true);}}>Tabular View</button>
+          <button id="gallery-view" className="button border" onClick={() => {this.setTabularView(false);}}>Gallery View</button>
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
@@ -105,6 +106,7 @@ const UploadsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   uploads: state.uploads.uploads,
+  isTabularView: state.uploads.isTabularView,
 });
 
 const mapDispatchToProps = {
