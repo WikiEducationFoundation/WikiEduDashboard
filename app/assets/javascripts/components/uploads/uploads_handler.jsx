@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import { receiveUploads, sortUploads } from '../../actions/uploads_actions.js';
+import { receiveUploads, sortUploads, setTabularView } from '../../actions/uploads_actions.js';
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
@@ -35,6 +35,10 @@ const UploadsHandler = createReactClass({
   setUploadData(offset, selectedPage) {
     const data = this.props.uploads.slice(offset, offset + this.state.perPage);
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
+  },
+
+  setTabularView(isTabularView) {
+    this.props.setTabularView(isTabularView);
   },
 
   handlePageClick(data) {
@@ -72,6 +76,8 @@ const UploadsHandler = createReactClass({
       <div id="uploads">
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
+          <button className="button border" onClick={() => {this.setTabularView(true);}}>Tabular View</button>
+          <button className="button border" onClick={() => {this.setTabularView(false);}}>Gallery View</button>
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
@@ -96,6 +102,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   receiveUploads,
   sortUploads,
+  setTabularView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);

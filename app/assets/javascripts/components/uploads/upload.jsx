@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -61,18 +62,58 @@ const Upload = createReactClass({
       flexGrow: this.state.width * 250 / this.state.height,
     };
 
-    return (
-      <div className="upload" style={uploadDivStyle} >
-        <img src={this.state.imageFile} alt={fileName} />
-        <div className="info">
-          <p className="usage"><b>{usage}</b></p>
-          <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
-          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-          <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+    let details;
+    if (this.props.upload.usage_count > 0) {
+      details = (
+        <p className="tablet-only">
+          <span>{this.props.upload.uploader}</span>
+          <span>&nbsp;|&nbsp;</span>
+          <span>Usages: {this.props.upload.usage_count}</span>
+        </p>
+      );
+    } else {
+      details = (
+        <p className="tablet-only"><span>{this.props.upload.uploader}</span></p>
+      );
+    }
+
+    if (this.props.isTabularView) {
+      return (
+        <tr className="upload">
+          <td>
+            <a href={this.props.upload.url} target="_blank">
+              <img src={this.state.imageFile} alt={fileName} />
+            </a>
+            {details}
+          </td>
+          <td className="desktop-only-tc">
+            <a href={this.props.upload.url} target="_blank">{fileName}</a>
+          </td>
+          <td className="desktop-only-tc">{uploader}</td>
+          <td className="desktop-only-tc">{usage}</td>
+          <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
+        </tr>
+      );
+    }
+
+    else {
+      return (
+        <div className="upload" style={uploadDivStyle} >
+          <img src={this.state.imageFile} alt={fileName} />
+          <div className="info">
+            <p className="usage"><b>{usage}</b></p>
+            <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+            <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+            <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   },
 });
 
-export default Upload;
+const mapStateToProps = state => ({
+  isTabularView: state.uploads.isTabularView,
+});
+
+export default connect(mapStateToProps)(Upload);
