@@ -2,22 +2,24 @@ id: 705
 title: Elements of not-so-great articles
 summary:
 content: |
-  You'll want to read Wikipedia critically to decide for yourself if you trust
-  it. Here's some signs that the article may not be so great:
+  You should read Wikipedia critically to decide for yourself if you trust
+  its information. Here are signs the article may not be so great:
 
-  * Are there warning banners? Often these make a statement about the article's
-  reliability, though sometimes it's simply a suggestion for improvement. Make a
+  * **Warning banners**: Often these banners make a statement about the article's
+  reliability, though sometimes it's a minor suggestion for improvement. Make a
   note and read accordingly.
-  * Are there language problems in the lead? For example, a very short lead
-  might indicate that the article was written through staggered contributions,
+  * **Fragmented lead section**: A short lead (or one with a lot of mistakes)
+  might indicate that the article was written through staggered contributions
   and could use a rewrite to tie it together.
-  * Are there value statements, such as "the best" or "the most important"?
-  Those are flags that it's written to persuade, or at least, not properly
-  referenced.
-  * Are there references to unnamed sources of information, such as "some people
-  say," or "many believe"? Can you answer the question, "Who said that?"
-  * Are there very few references or citations? Are the citations from good,
-  reliable publishers, or are they from questionable websites or publishers with
-  a clear bias?
-  * Are some sections longer than others, despite being equally (or less)
-  important? Are relevant sections missing completely?
+  * **Value statements**: Statements like "the best" or "the most important"
+  are red flags that the article is either written to persuade or isn't well referenced.
+  * **Gaps in sourcing**: Are there references to unnamed sources of information,
+  such as "some people say," or "many believe"? If you can't answer the question,
+  "Who said that?", chances are that a reliable source isn't cited.
+  * **Under-developed reference section, few citations**: There should be a good
+  number of citations, relative to how much information is included in the article.
+  Those citations should be from reliable publishers, not questionable websites
+  or publishers who might like to push an agenda.
+  * **Imbalanced sections**: Sections about an important aspect of the topic
+  shouldn't be shorter than sections about a less important aspect. This sort of
+  imbalance might mean relevant sections are missing entirely.

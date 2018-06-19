@@ -3,9 +3,9 @@ title_prefix: "How to:"
 title: Add a citation with WikiCode
 summary:
 content: |
-  You can also add a citation using wikicode.
+  You can also add a citation using Wikicode.
 
-  You can access wikicode from edit mode by clicking the pencil icon and selecting
+  You can access Wikicode from edit mode by clicking the pencil icon and selecting
   "Source editing".
 
   Then, follow these instructions:
@@ -16,5 +16,5 @@ content: |
   references will appear on the page.
   3. Now click after the text you would like to create a reference for.
   4. Now type in the `<ref>` tag before your reference and type `</ref>` after
-  your reference. Wiki software will automatically add your inline reference
+  your reference. Wikipedia's software will automatically add your inline reference
   number.
