@@ -11,6 +11,8 @@ json.course do
             :upload_usages_count, :cloned_status, :flags, :level, :private)
 
   json.timeline_enabled @course.timeline_enabled?
+  json.home_wiki_edits_enabled @course.home_wiki.edits_enabled?
+  json.wiki_edits_enabled @course.wiki_edits_enabled?
   json.account_requests_enabled @course.account_requests_enabled?
   json.term @course.cloned_status == 1 ? '' : @course.term
   json.legacy @course.legacy?
