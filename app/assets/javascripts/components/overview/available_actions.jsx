@@ -67,6 +67,11 @@ const AvailableActions = createReactClass({
   },
 
   delete() {
+    // The action is only available once a course has been removed from all campaigns.
+    if (this.props.course.published) {
+      return alert(I18n.t('courses.delete_course_instructions'));
+    }
+
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
     if (enteredTitle === this.props.course.title) {
       return ServerActions.deleteCourse(this.props.course.slug);
@@ -122,11 +127,9 @@ const AvailableActions = createReactClass({
       // Show a disabled version of it on P&E Dashboard even if a course is published,
       // so that users can see the instructions for how to enable deletion.
       if ((user.role === 1 || user.admin) && (!course.published || !Features.wikiEd)) {
-        // The action is only available once a course has been removed from all campaigns.
-        const disabled = course.published;
         controls.push((
           <p title={I18n.t('courses.delete_course_instructions')} key="delete">
-            <button disabled={disabled} className="button danger" onClick={this.delete}>
+            <button className="button danger" onClick={this.delete}>
               {CourseUtils.i18n('delete_course', course.string_prefix)}
             </button>
           </p>
