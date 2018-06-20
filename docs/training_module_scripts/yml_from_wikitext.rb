@@ -2,9 +2,12 @@
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 require 'fileutils'
 
-module_number = 29
+module_number = 30
+name = "Drafting in the sandbox"
+ttc = "5 minutes"
+description = "In this module, you'll learn how and where to start drafting."
 suffix = '-v2'
-module_slug = 'sandboxes-talk-watchlists'
+module_slug = 'drafting-in-sandbox'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 # input = <<-STUFF
 FileUtils.mkdir_p base_path
@@ -26,12 +29,12 @@ def to_yml(wikitext, slide_id, suffix, base_path)
 end
 
 # manually construct the module .yml file
-def write_module_file(slide_slugs, module_number, module_slug)
+def write_module_file(slide_slugs, module_number, module_slug, name, ttc, description)
   lines = []
-  lines << "name:"
+  lines << "name: #{name}"
   lines << "id: #{module_number}"
-  lines << "description:"
-  lines << "estimated_ttc:"
+  lines << "description: #{description}"
+  lines << "estimated_ttc: #{ttc}"
   lines << "slides:"
   slide_slugs.each do |slug|
     lines << "  - slug: #{slug[1]} # #{slug[0]}"
@@ -57,6 +60,6 @@ slide_wikitexts.each do |slide_wikitext|
 end;
 
 # write the module yml file
-write_module_file(slide_slugs, module_number, module_slug)
+write_module_file(slide_slugs, module_number, module_slug, name, ttc, description)
 
 # Now fill in the missing fields in the module .yml file and reload the trainings
