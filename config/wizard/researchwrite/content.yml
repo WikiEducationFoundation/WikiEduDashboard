@@ -280,33 +280,7 @@ essentials:
         title: Choose your topic / Find your sources
         kind: 1
         content: |
-          <p>It's time to choose an article and assign it to yourself.</p>
-          <ul>
-            <li>Review page 6 of your <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>
-            <li>
-              Find an article from the list of "Available Articles" on the
-              <strong>Articles</strong> tab on this course page. When you find
-              the one you want to work on, click <strong>Select</strong> to
-              assign it to yourself.
-            </li>
-            <li>
-              In <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>,
-              write a few sentences about what you plan to contribute to the selected article.
-              <ul>
-                <li>
-                  Think back to when you did an article critique. What can you add?
-                  Post some of your ideas to the article's talk page.
-                </li>
-                <li>
-                  Compile a list of relevant, reliable books, journal articles,
-                  or other sources. Post that bibliography to the talk page of
-                  the article you'll be working on, and in your sandbox. Make
-                  sure to check in on the Talk page to see if anyone has advice
-                  on your bibliography.
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Exercise</a>
 
       -
         if: choose_articles_from_list
