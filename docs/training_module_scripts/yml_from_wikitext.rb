@@ -2,12 +2,12 @@
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 require 'fileutils'
 
-module_number = 31
-name = "Drafting as a group"
+module_number = 32
+name = "Moving work out of the sandbox"
 ttc = "10 minutes"
-description = "In this module, you'll learn how and where to start drafting with your group."
-suffix = '-group'
-module_slug = 'drafting-in-sandbox-group'
+description = "This module will guide you in moving your draft into Wikipedia proper."
+suffix = '-v2'
+module_slug = 'moving-to-mainspace'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 FileUtils.mkdir_p base_path
 
