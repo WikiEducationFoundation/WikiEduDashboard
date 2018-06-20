@@ -2,9 +2,9 @@
 require "#{Rails.root}/lib/training/wiki_slide_parser"
 require 'fileutils'
 
-module_number = 28
+module_number = 29
 suffix = '-v2'
-module_slug = 'how-to-edit'
+module_slug = 'sandboxes-talk-watchlists'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 # input = <<-STUFF
 FileUtils.mkdir_p base_path
