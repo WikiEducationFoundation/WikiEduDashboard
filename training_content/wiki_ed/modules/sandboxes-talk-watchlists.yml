@@ -1,0 +1,15 @@
+name: Sandboxes, talk pages, and watchlists
+id: 29
+description: In this tutorial, you'll become familiar with the different types of pages found on Wikipedia and how to interact with each of them.
+estimated_ttc: 15 minutes
+slides:
+  - slug: sandboxes-welcome # 2901
+  - slug: getting-to-know-your-sandbox-v2 # 2902
+  - slug: sandboxes-continued-v2 # 2903
+  - slug: help-i-ve-been-patrolled-v2 # 2904
+  - slug: talk-pages-v2 # 2905
+  - slug: watchlists-v2 # 2906
+  - slug: video-watchlists-v2 # 2907
+  - slug: wikiprojects-v2 # 2908
+  - slug: sandbox-quiz-v2 # 2909
+  - slug: that-s-it-sandboxes # 2910
