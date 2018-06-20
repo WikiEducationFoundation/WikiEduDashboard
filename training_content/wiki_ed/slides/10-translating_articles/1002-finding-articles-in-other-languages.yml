@@ -2,7 +2,7 @@ id: 1002
 title: Finding Wikipedia articles in other languages
 summary:
 content: |
-  There are 280 Wikipedias. Each has its own language, and within those
+  There are 290 Wikipedias. Each has its own language, and within those
   Wikipedias, the content is unique.
 
   For example, the English Wikipedia has more than five million articles. The
@@ -11,6 +11,6 @@ content: |
 
   Because each Wikipedia is unique, so are the articles it creates. That means
   there's likely to be high-quality articles in another language's Wikipedia
-  than you might find on the English Wikipedia.
+  that you might not find on the English Wikipedia.
 
   How can you find high-quality articles in other languages?
