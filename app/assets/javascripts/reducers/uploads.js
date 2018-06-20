@@ -1,10 +1,10 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_TABULAR_VIEW } from '../constants';
+import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, GALLERY_VIEW } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   uploads: [],
   sortKey: null,
-  isTabularView: false,
+  view: GALLERY_VIEW,
 };
 
 const SORT_DESCENDING = {
@@ -32,12 +32,12 @@ export default function uploads(state = initialState, action) {
         sortKey: sortedModel.newKey,
       };
     }
-    case SET_TABULAR_VIEW: {
+    case SET_VIEW: {
       return {
         ...state,
-        isTabularView: action.isTabularView,
+        view: action.view,
       };
-    }
+      }
     default:
       return state;
   }

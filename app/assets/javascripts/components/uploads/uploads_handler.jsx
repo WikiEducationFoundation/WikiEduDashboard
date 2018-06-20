@@ -4,7 +4,8 @@ import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import { receiveUploads, sortUploads, setTabularView } from '../../actions/uploads_actions.js';
+import { receiveUploads, sortUploads, setView } from '../../actions/uploads_actions.js';
+import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
@@ -30,13 +31,20 @@ const UploadsHandler = createReactClass({
   componentWillReceiveProps(nextProps) {
     const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
     this.setState({ data: data, pageCount: Math.ceil(nextProps.uploads.length / this.state.perPage) });
-    if (nextProps.isTabularView) {
-      document.getElementById("tabular-view").classList.add("dark");
+    if (nextProps.view === LIST_VIEW) {
+      document.getElementById("list-view").classList.add("dark");
       document.getElementById("gallery-view").classList.remove("dark");
+      document.getElementById("tile-view").classList.remove("dark");
+    }
+    else if (nextProps.view === GALLERY_VIEW) {
+      document.getElementById("gallery-view").classList.add("dark");
+      document.getElementById("list-view").classList.remove("dark");
+      document.getElementById("tile-view").classList.remove("dark");
     }
     else {
-      document.getElementById("gallery-view").classList.add("dark");
-      document.getElementById("tabular-view").classList.remove("dark");
+      document.getElementById("gallery-view").classList.remove("dark");
+      document.getElementById("list-view").classList.remove("dark");
+      document.getElementById("tile-view").classList.add("dark");
     }
   },
 
@@ -45,8 +53,8 @@ const UploadsHandler = createReactClass({
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
-  setTabularView(isTabularView) {
-    this.props.setTabularView(isTabularView);
+  setView(view) {
+    this.props.setView(view);
   },
 
   handlePageClick(data) {
@@ -85,8 +93,17 @@ const UploadsHandler = createReactClass({
       <div id="uploads">
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
-          <button id="tabular-view" className="button border" onClick={() => {this.setTabularView(true);}}>Tabular View</button>
-          <button id="gallery-view" className="button border" onClick={() => {this.setTabularView(false);}}>Gallery View</button>
+          <div className="view-buttons">
+            <button id="list-view" className="button border icon-list_view icon tooltip-trigger" onClick={() => {this.setView(LIST_VIEW);}}>
+              <p className="tooltip dark">List View</p>
+            </button>
+            <button id="gallery-view" className="button border icon-gallery_view icon tooltip-trigger" onClick={() => {this.setView(GALLERY_VIEW);}}>
+              <p className="tooltip dark">Gallery View</p>
+            </button>
+            <button id="tile-view" className="button border icon-tile_view icon tooltip-trigger" onClick={() => {this.setView(TILE_VIEW);}}>
+              <p className="tooltip dark">Tile View</p>
+            </button>
+          </div>
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
@@ -96,7 +113,7 @@ const UploadsHandler = createReactClass({
           </div>
         </div>
         {paginationElement}
-        <UploadList uploads={this.state.data} sortBy={this.props.sortUploads} />
+        <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
         {paginationElement}
       </div>
     );
@@ -106,13 +123,13 @@ const UploadsHandler = createReactClass({
 
 const mapStateToProps = state => ({
   uploads: state.uploads.uploads,
-  isTabularView: state.uploads.isTabularView,
+  view: state.uploads.view,
 });
 
 const mapDispatchToProps = {
-  receiveUploads,
-  sortUploads,
-  setTabularView,
+  receiveUploads: receiveUploads,
+  sortUploads: sortUploads,
+  setView: setView,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);
