@@ -1,0 +1,15 @@
+name: Drafting as a group
+id: 31
+description: In this module, you'll learn how and where to start drafting with your group.
+estimated_ttc: 10 minutes
+slides:
+  - slug: using-a-sandbox-group # 3101
+  - slug: what-s-a-sandbox-group # 3102
+  - slug: how-to-find-a-sandbox-group # 3103
+  - slug: starting-a-draft-as-a-group # 3104
+  - slug: linking-to-a-sandbox-group # 3105
+  - slug: avoiding-edit-conflicts-group # 3106
+  - slug: how-to-create-a-new-sandbox-page-group # 3107
+  - slug: editing-an-existing-article-group # 3108
+  - slug: drafting-a-new-article-group # 3109
+  - slug: that-s-it-group # 3110

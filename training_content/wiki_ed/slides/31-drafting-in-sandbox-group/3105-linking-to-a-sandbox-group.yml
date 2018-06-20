@@ -1,0 +1,24 @@
+---
+title: Linking to a sandbox
+content: |
+  If you are working in a sandbox that is not yours, it can be a good idea
+  to link to that other sandbox from your own so you can easily return to
+  it. Here's how to do that:
+
+  For example, if you were trying to link to **Samantha (Wiki Ed)**'s
+  sandbox in the Visual Editor, type **User:Samantha (Wiki Ed)/sandbox**,
+  highlight the text, and then click the **link** icon (represented by the
+  chain).
+
+  <figure class="alt-layout-30-right">
+  <img src="https://commons.wikimedia.org/wiki/File:Linking_a_sandbox_in_your_own_sandbox.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:Linking a sandbox in your own sandbox.png"></a>
+
+  </figcaption>
+  </figure>
+
+  If you are in source editing mode, linking to another sandbox is as
+  simple as adding this code: `[[User:Samantha (Wiki Ed)/sandbox]]`
+id: 3105
