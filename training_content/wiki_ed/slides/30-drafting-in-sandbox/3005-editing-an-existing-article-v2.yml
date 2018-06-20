@@ -1,0 +1,24 @@
+---
+title: Editing an existing article?
+content: |+
+  If you're editing an existing article, a sandbox is a great place to
+  prepare your first updates by copying a *small portion* of the article
+  that you want to change or expand. Do not try to overhaul an entire
+  article from the sandbox.
+
+  Identify what's missing from the current form of the article. Keep
+  reading your sources as you prepare to write the body of the article.
+
+  When you're ready to make edits:
+
+  1.  Open the article you want to change in **Edit** mode. (References
+      and other templates will break if you copy from **Read** mode.)
+  2.  Select the portion you want to work on — a few paragraphs at most —
+      and copy it.
+  3.  Open your sandbox in Edit mode and paste the copied article content.
+  4.  Add an edit summary that says copied from `[[article]]` with the
+      name of the original article, then save it.
+  5.  Re-enter Edit mode in your sandbox, make your changes, and publish
+      them.
+
+id: 3005
