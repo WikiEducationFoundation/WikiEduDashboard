@@ -154,18 +154,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <p>Familiarize yourself with editing Wikipedia by adding a citation to an article. There are two ways you can do this:</p>
-          <ul>
-            <li>Add 1-2 sentences to a course-related article, and cite that statement to a reliable source, as you learned in the online training.</li>
-            <li>
-              The <a href="https://tools.wmflabs.org/citationhunt/en">Citation Hunt</a>
-              tool shows unreferenced statements from articles. First, evaluate
-              whether the statement in question is true! An uncited statement
-              could just be lacking a reference or it could be inaccurate or
-              misleading. Reliable sources on the subject will help you choose
-              whether to add it or correct the statement.
-            </li>
-          </ul>
+          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Exercise</a>
 
       -
         if: copyedit
