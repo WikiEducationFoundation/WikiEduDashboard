@@ -1,21 +1,28 @@
 # Take wikitext for a training module, convert it into yml files.
 require "#{Rails.root}/lib/training/wiki_slide_parser"
+require 'fileutils'
 
-module_number = 26
-suffix = 'fellows'
-module_slug = 'moving-live-fellows'
+module_number = 28
+suffix = '-v2'
+module_slug = 'how-to-edit'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
 # input = <<-STUFF
-
+FileUtils.mkdir_p base_path
 
 # Write to a .yml file, return the id and slug base for populating the module.
 def to_yml(wikitext, slide_id, suffix, base_path)
   parser = WikiSlideParser.new(wikitext)
   slug_base = parser.title.downcase.split(/\W+/).join('-')
-  slug = "#{slide_id}-#{slug_base}-#{suffix}"
+  slug = "#{slide_id}-#{slug_base}#{suffix}"
   filename = "#{base_path}/#{slug}.yml"
-  File.write filename, { 'title' => parser.title, 'content' => parser.content, 'id' => slide_id }.to_yaml
-  return [slide_id, "#{slug_base}-#{suffix}"]
+  content = {
+    'title' => parser.title,
+    'content' => parser.content,
+    'id' => slide_id
+  }
+  content.merge!({'assessment' => parser.quiz}) unless parser.quiz.blank?
+  File.write filename, content.to_yaml
+  return [slide_id, "#{slug_base}#{suffix}"]
 end
 
 # manually construct the module .yml file
