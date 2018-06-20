@@ -1,4 +1,4 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_TABULAR_VIEW, API_FAIL } from '../constants';
+import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchUploads = (courseId) => {
@@ -33,7 +33,4 @@ export const receiveUploads = (courseId) => dispatch => {
 
 export const sortUploads = key => ({ type: SORT_UPLOADS, key: key });
 
-export const setTabularView = isTabularView => ({
-  type: SET_TABULAR_VIEW,
-  isTabularView: isTabularView
-});
+export const setView = view => ({ type: SET_VIEW, view: view });

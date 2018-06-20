@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 
 const Upload = createReactClass({
   displayName: 'Upload',
@@ -43,7 +44,10 @@ const Upload = createReactClass({
   },
 
   render() {
-    const fileName = this.props.upload.file_name;
+    let fileName = this.props.upload.file_name;
+    if (fileName.length > 50) {
+      fileName = `${fileName.substring(0, 50)}...`;
+    }
     let uploader;
     if (this.props.linkUsername) {
       const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
@@ -77,7 +81,7 @@ const Upload = createReactClass({
       );
     }
 
-    if (this.props.isTabularView) {
+    if (this.props.view === LIST_VIEW) {
       return (
         <tr className="upload">
           <td>
@@ -90,13 +94,13 @@ const Upload = createReactClass({
             <a href={this.props.upload.url} target="_blank">{fileName}</a>
           </td>
           <td className="desktop-only-tc">{uploader}</td>
-          <td className="desktop-only-tc">{usage}</td>
+          <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
           <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
         </tr>
       );
     }
 
-    else {
+    else if (this.props.view === GALLERY_VIEW) {
       return (
         <div className="upload" style={uploadDivStyle} >
           <img src={this.state.imageFile} alt={fileName} />
@@ -109,11 +113,27 @@ const Upload = createReactClass({
         </div>
       );
     }
+
+    else if (this.props.view === TILE_VIEW) {
+      return (
+        <div className="tile-container" >
+          <div className="tile">
+            <img src={this.state.imageFile} alt={fileName} />
+            <div className="info">
+              <p className="usage"><b>{usage}</b></p>
+              <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+              <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+              <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
   },
 });
 
 const mapStateToProps = state => ({
-  isTabularView: state.uploads.isTabularView,
+  view: state.uploads.view,
 });
 
 export default connect(mapStateToProps)(Upload);

@@ -1,16 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Upload from './upload.jsx';
-
+import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import List from '../common/list.jsx';
 
 const UploadList = createReactClass({
   displayName: 'UploadList',
 
   propTypes: {
-    uploads: PropTypes.array
+    uploads: PropTypes.array,
+    view: PropTypes.string,
+    sortBy: PropTypes.func,
   },
 
   render() {
@@ -46,20 +47,33 @@ const UploadList = createReactClass({
       elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
     }
 
-    let uploadsView = (
-      <div className="gallery">
-        {elements}
-      </div>
-    );
+    let uploadsView;
 
-    if (this.props.isTabularView) {
+    if (this.props.view === GALLERY_VIEW) {
+      uploadsView = (
+        <div className="gallery">
+          {elements}
+        </div>
+      );
+    }
+
+    if (this.props.view === LIST_VIEW) {
       uploadsView = (
         <List
           elements={elements}
           keys={keys}
           table_key="uploads"
           sortBy={this.props.sortBy}
+          none_message={I18n.t('courses_generic.uploads_none')}
         />
+      );
+    }
+
+    if (this.props.view === TILE_VIEW) {
+      uploadsView = (
+        <div className="tile-view">
+          {elements}
+        </div>
       );
     }
 
@@ -71,8 +85,4 @@ const UploadList = createReactClass({
   }
 });
 
-const mapStateToProps = state => ({
-  isTabularView: state.uploads.isTabularView,
-});
-
-export default connect(mapStateToProps)(UploadList);
+export default UploadList;

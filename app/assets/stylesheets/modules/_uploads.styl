@@ -5,57 +5,90 @@
   padding 3px
   margin-bottom 50px
   overflow hidden
+  .upload
+    position relative
+    margin 2px
+
+  .upload img
+    object-fit cover
+    vertical-align bottom
+    width 100%
+
+  .upload .info
+    display flex
+    flex-direction column
+    justify-content center
+    height 100%
+    width 100%
+    position absolute
+    bottom 2px
+    background rgba(0, 0, 0, 0.5)
+    color rgba(255, 255, 255, 0.9)
+    overflow hidden
+
+  .info p
+    margin 2px 20px
+    text-shadow 0px 4px 3px rgba(0,0,0,0.4),
+               0px 8px 13px rgba(0,0,0,0.1),
+               0px 18px 23px rgba(0,0,0,0.1)
+
+  .info p.usage
+    font-size 1.5em
+    color rgb(190, 151, 225)
+
+  .upload .info
+    display none
+
+  .upload:hover .info
+    display flex
+
+  .info p a
+    color rgb(255, 255, 255)
+
+  .none
+    display flex
+    width 100%
+    height 49px
+    background-color rgb(255, 255, 255)
+    border 1px solid rgb(221, 221, 221)
+
+  .none p
+    margin auto
 
 .gallery::after
   content ''
   flex-grow 999999999
 
-.upload
-  position relative
-  margin 2px
+.tile-view
+  .tile-container
+    width 25%
+    height 350px
+    display inline-block
+    text-align center
+    vertical-align top
+    margin-top 10px
 
-.upload img
-  object-fit cover
-  vertical-align bottom
-  width 100%
+    .tile
+      margin 5px
+      padding 10px
+      background white
+      border 1px solid #ddd
+      height 100%
+      border-radius 3px
 
-.upload .info
-  display flex
-  flex-direction column
-  justify-content center
-  height 100%
-  width 100%
+    img
+      height 150px
+
+    .info
+      text-align left
+
+.view-buttons
   position absolute
-  bottom 2px
-  background rgba(0, 0, 0, 0.5)
-  color rgba(255, 255, 255, 0.9)
-  overflow hidden
+  top 20px
+  right 80px
 
-.info p
-  margin 2px 20px
-  text-shadow 0px 4px 3px rgba(0,0,0,0.4),
-             0px 8px 13px rgba(0,0,0,0.1),
-             0px 18px 23px rgba(0,0,0,0.1)
-
-.info p.usage
-  font-size 1.5em
-  color rgb(190, 151, 225)
-
-.upload .info
-  display none
-
-.upload:hover .info
-  display flex
-
-.info p a
-  color rgb(255, 255, 255)
-
-.none
-  display flex
-  width 100%
-  height 49px
-  background-color rgb(255, 255, 255)
-  border 1px solid rgb(221, 221, 221)
-
-.none p
-  margin auto
+  button
+    padding 0
+    width 40px
+    height 40px
+    border-radius 50%
