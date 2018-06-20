@@ -1,0 +1,28 @@
+---
+title: Visual editing vs Source editing
+content: |
+  Wikipedia gives you two options for editing. The **Visual Editor** lets
+  you edit the text on the screen just as it appears on a Wikipedia page,
+  similar to other word processing applications and websites. **Source
+  editing** lets you see the underlying Wikicode, which resembles HTML.
+
+  When you're using the Visual Editor, you can switch to source editing
+  (and back to visual editing) by clicking the **pencil icon** at the top
+  right.
+
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Visual_editing_and_Source_editing_toggle.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:Visual_editing_and_Source_editing_toggle.png"></a>
+
+  </figcaption>
+  </figure>
+
+  The Visual Editor simplifies the process of adding text, citing sources,
+  linking to other Wikipedia articles, and formatting your article. Wiki
+  Education highly recommends you use the Visual Editor when writing
+  Wikipedia articles. However, this tool is only available for
+  **articles**. To talk to other Wikipedians on Talk pages, you'll use
+  Wikicode.
+id: 2805

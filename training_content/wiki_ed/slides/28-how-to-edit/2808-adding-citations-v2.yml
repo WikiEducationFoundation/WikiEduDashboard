@@ -1,0 +1,56 @@
+---
+title: Adding citations
+content: |
+  Adding references and citations is an important part of improving an
+  article. It lets other editors verify that the information you've added
+  is accurate.
+
+  <figure class="alt-layout-30-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/VisualEditor_citoid_Cite_button.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_citoid_Cite_button.png"></a>
+
+  </figcaption>
+  </figure>
+
+  We'll go into more detail about how to add citations and what sources
+  are good ones to cite later on in the [Adding
+  Citations](Programs_team/Projects/Timeline_revamp/training_text/Sources_and_Citations "wikilink")
+  training.
+
+  For now, take a look at this illustration of how to add a citation in
+  the Visual Editor:
+
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/87/Auto-citing_a_source_using_VisualEditor%2C_small.gif" />
+
+  <figcaption class="image-credit">
+  <a href="https://commons.wikimedia.org/wiki/File:Auto-citing_a_source_using_VisualEditor,_small.gif">Photo
+  by Neil P. Quinn, CC BY-SA.</a>
+
+  </figcaption>
+  </figure>
+
+  The gif shows the citation tool automatically creating a citation from a
+  URL. You can also manually enter fields for a citation and one will be
+  generated for you. Once you've created it, you can re-use it throughout
+  the article.
+
+  <figure class="alt-layout-40-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/VisualEditor_references_more.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_references_more.png"></a>
+
+  </figcaption>
+  </figure>
+
+  To re-use an existing reference, place your cursor in the body of the
+  text where you want to add the new reference for that citation. Then
+  open the “Cite” menu and find the “Re-use” item.
+
+  The Visual Editor will also automatically generate a “Reference” section
+  at the bottom of the page from the citations you've entered, keeping
+  track of all the sources you've cited so far.
+id: 2808
