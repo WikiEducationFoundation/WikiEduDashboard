@@ -6,7 +6,14 @@ require "#{Rails.root}/lib/analytics/campaign_edits_csv_builder"
 describe CampaignEditsCsvBuilder do
   let(:campaign) { create(:campaign) }
   let(:course) { create(:course) }
-  let(:edits) { CampaignEditsCsvBuilder.new(campaign).generate_csv }
+  let(:user) { create(:user) }
+  let(:article) { create(:article) }
+  let!(:revision) { create(:revision, article: article, user: user, date: course.start + 1.hour) }
+  before do
+    campaign.courses << course
+    create(:courses_user, course: course, user: user)
+  end
+  let(:edits) { described_class.new(campaign).generate_csv }
 
   it 'creates a CSV with a header' do
     expect(edits).to include("revision_id")
@@ -21,4 +28,12 @@ describe CampaignEditsCsvBuilder do
     expect(edits).to include("dashboard_edit")
   end
 
+  it 'creates a CSV with a header and a row of data for a course revision' do
+    expect(edits.split("\n").count).to eq(2)
+  end
+
+  it 'creates a CSV with a header and a row of data for a course revision' do
+    expect(edits).to include(course.title)
+    expect(edits).to include(article.title)
+  end
 end
