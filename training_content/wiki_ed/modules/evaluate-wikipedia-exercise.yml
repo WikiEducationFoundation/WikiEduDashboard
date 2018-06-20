@@ -1,0 +1,12 @@
+name: 'Exercise: Evaluate Wikipedia'
+id: 34
+description: |
+  This exercise will guide you in evaluating a Wikipedia article.
+slides:
+  - slug: where-to-start # 3401
+  - slug: take-notes-in-sandbox #3402
+  - slug: evaluating-content #3403
+  - slug: evaluating-tone #3404
+  - slug: evaluating-sources #3405
+  - slug: checking-talk-page #3406
+  - slug: option-activity #3407
