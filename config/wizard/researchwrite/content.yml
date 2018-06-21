@@ -329,12 +329,7 @@ essentials:
         title: "Discussion: Thinking about Wikipedia"
         kind: 0
         content: |
-          <ul>
-            <li>What do you think of Wikipedia's definition of "neutrality"?</li>
-            <li>What are the impacts and limits of Wikipedia as a source of information?</li>
-            <li>On Wikipedia, all material must be attributable to reliable, published sources. What kinds of sources does this exclude?  Can you think of any problems that might create?</li>
-            <li>If Wikipedia was written 100 years ago, how might its content (and contributors) be different? What about 100 years from now?</li>
-          </ul>
+          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">In-class discussion</a>
 
       -
         title: Expand your draft
