@@ -9,4 +9,4 @@ default:
   timeline: "Nástěnka/Harmonogram/Začátek"
   start_of_week: Nástěnka/Harmonogram/Začátek týdne
   end_of_week: "Nástěnka/Harmonogram/Konec týdne"
-  user_talk: "Účastník kurzu Nástěnky"
+  user_talk: "Nástěnka/Účastník"
