@@ -5,6 +5,12 @@ content: |
   Talk page on Wikipedia and walk you through replying — which you do by
   making an edit, using Wikicode.
 
+  <div class="training__button-container">
+    <a target="_blank" class="btn btn-primary" href="https://en.wikipedia.org/wiki/Special:MyTalk/talk_page_tutorial?tour=wikiedtalkpage">
+      Launch "Talk Page" tutorial.
+    </a>
+  </div>
+
   When you're finished, you can return here to continue this training
   module.
 id: 2817
