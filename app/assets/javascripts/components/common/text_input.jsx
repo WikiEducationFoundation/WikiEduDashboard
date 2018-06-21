@@ -23,9 +23,14 @@ const TextInput = createReactClass({
     focus: PropTypes.func,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    append: PropTypes.node
+    append: PropTypes.node,
+    onKeyDown: PropTypes.func
     // validation: Regex used by Conditional
     // required: bool used by Conditional
+  },
+
+  onKeyDown(e) {
+    this.props.onKeyDown(e.keyCode, this.refs.inputbox);
   },
 
   dateChange(date) {
@@ -73,12 +78,14 @@ const TextInput = createReactClass({
           autoFocus={this.props.focus}
           onFocus={this.props.onFocus}
           onBlur={this.props.onBlur}
+          onKeyDown={this.onKeyDown}
           type={this.props.type || 'text'}
           max={this.props.max}
           maxLength={maxLength}
           placeholder={this.props.placeholder}
           title={title}
           min={0}
+          ref="inputbox"
         />
       );
 
