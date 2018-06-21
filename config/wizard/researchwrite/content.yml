@@ -165,12 +165,7 @@ essentials:
         title: "Discussion: Thinking about sources and plagiarism"
         kind: 0
         content: |
-          <ul>
-            <li>Blog posts and press releases are considered poor sources of reliable information. Why?</li>
-            <li>What are some reasons you might not want to use a company's website as the main source of information about that company?</li>
-            <li>What is the difference between a copyright violation and plagiarism?</li>
-            <li>What are some good techniques to avoid close paraphrasing and plagiarism?</li>
-          </ul>
+          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">In-class discussion</a>
 
       -
         if: medical_topics
