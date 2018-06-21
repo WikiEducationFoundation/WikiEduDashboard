@@ -500,11 +500,7 @@ essentials:
         title: Did You Know
         kind: 1
         content: |
-          <ul>
-            <li>Optional: For new articles or qualifying expansions of stubs, compose a one-sentence “hook,” nominate it for “Did you know,” (see the DYK instructions handout) and monitor the nomination for any issues identified by other editors. Wiki Education staff can provide support for this process.</li>
-          </ul>
-          <hr />
-          <p>Handout: <a href="https://commons.wikimedia.org/wiki/File:%22Did_You_Know%22_submissions.pdf">"Did You Know" submissions</a></p>
+          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Exercise</a>
 
 
   - # Week nine
