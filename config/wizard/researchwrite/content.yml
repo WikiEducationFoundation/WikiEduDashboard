@@ -260,20 +260,8 @@ essentials:
         training_module_ids: [17] # Find Your Article
         content: |
           <ul>
-            <li>Review page 6 of your <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> guidebook.</li>
-            <li>
-              Look up 3-5 potential topics related to the course that you might
-              want to update on Wikipedia. Review the content of the article and
-              check the Talk page to see what other Wikipedians are already
-              contributing. Identify one or two areas from each that you could improve.
-            </li>
-            <li>
-              Choose 2-3 potential articles from that list that you can tackle,
-              and post links to the articles and your notes about what you might
-              improve in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
-            </li>
-            <li>Finally, present your choices to your instructor for feedback.</li>
-          </ul>
+            <li>Resource:<a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</li>
+            <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Exercise</a>
 
       -
         if: choose_articles_from_list
