@@ -283,26 +283,7 @@ essentials:
         title: Finalize your topic / Find your sources
         kind: 1
         content: |
-          <ul>
-            <li>On the <strong>Students</strong> tab, assign your chosen topic to yourself.</li>
-            <li>
-              In <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>,
-              write a few sentences about what you plan to contribute to the selected article.
-              <ul>
-                <li>
-                  Think back to when you did an article critique. What can you add?
-                  Post some of your ideas to the article's talk page, too.
-                </li>
-                <li>
-                  Compile a list of relevant, reliable books, journal articles,
-                  or other sources. Post that bibliography to the talk page of
-                  the article you'll be working on, and in your sandbox. Make
-                  sure to check in on the Talk page to see if anyone has advice
-                  on your bibliography.
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Exercise</a>
 
       -
         if: explore_to_find_articles
