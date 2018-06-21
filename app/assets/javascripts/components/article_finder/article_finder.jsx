@@ -39,6 +39,13 @@ const ArticleFinder = createReactClass({
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
+  onKeyDown(keyCode, ref) {
+    if (keyCode === 13) {
+      ref.blur();
+      this.searchArticles();
+    }
+  },
+
   updateFields(key, value) {
     return this.props.updateFields(key, value);
   },
@@ -82,6 +89,8 @@ const ArticleFinder = createReactClass({
         editable
         label={I18n.t('article_finder.search')}
         placeholder={I18n.t('article_finder.search_placeholder')}
+        onKeyDown={this.onKeyDown}
+        ref="searchbox"
       />);
 
     const searchType = (
