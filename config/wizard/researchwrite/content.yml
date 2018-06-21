@@ -578,38 +578,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <p>Write a reflective essay (2–5 pages) on your Wikipedia contributions.</p>
-          <p>Consider the following questions as you reflect on your Wikipedia assignment:</p>
-          <ul>
-            <li>
-              <strong>Critiquing articles:</strong> What did you learn about Wikipedia during
-              the article evaluation? How did you approach critiquing the article
-              you selected for this assignment? How did you decide what to add
-              to your chosen article?
-            </li>
-            <li>
-              <strong>Summarizing your contributions:</strong> include a summary of your edits
-              and why you felt they were a valuable addition to the article. How
-              does your article compare to earlier versions?
-            </li>
-            <li>
-              <strong>Peer Review:</strong> If your class did peer review, include information
-              about the peer review process. What did you contribute in your
-              review of your peers article? What did your peers recommend you
-              change on your article?
-            </li>
-            <li>
-              <strong>Feedback:</strong> Did you receive feedback from other Wikipedia editors,
-              and if so, how did you respond to and handle that feedback?
-            </li>
-            <li>
-              <strong>Wikipedia generally:</strong> What did you learn from contributing to
-              Wikipedia? How does a Wikipedia assignment compare to other
-              assignments you've done in the past? How can Wikipedia be used to
-              improve public understanding of our field/your topic? Why is this
-              important?
-            </li>
-          </ul>
+          <a href="/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Exercise</a>
       -
         if: original_analytical_paper
         title: Original analytical paper
