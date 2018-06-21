@@ -8,8 +8,7 @@ content: |
   For example, to create a new page titled “New sandbox”, first click on
   your username in the upper right when you're logged in. Now edit the end
   of the URL to look like this:
-
-  :   en.wikipedia.org/wiki/User:Username**/New sandbox**
+  <code><pre>en.wikipedia.org/wiki/User:Username/<b>New_sandbox</b></pre></code>
 
   Click **Create source** in the upper right to make the new page.
 
