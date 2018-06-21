@@ -509,9 +509,10 @@ lb:
     page_assessment_class: Klass
     average_views: Duerchschnëttlech gekuckt pro Dag
     add_available_article: Als disponibelen Artikel derbäisetzen
-    already_added: Scho bei déi disponibel Artikelen derbäigesat
+    remove_article: Artikel ewechhuelen
     no_article_found: Keng Artikelen an dëser Kategorie fonnt
     search: Sichen
+    tools: Geschirkëscht
     show_filters: Filtere weisen
     hide_filters: Filtere verstoppen
     category_search: Kategorie Sichen

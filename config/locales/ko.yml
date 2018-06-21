@@ -501,7 +501,9 @@ ko:
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     reviewers: 검토자
     reviewing: 검토 중
+    total_uploads: 총 업로드
     training_module_status: 상태
+    uploads_doc: 위키미디어 공용에 올린 파일 수
     username: 사용자 이름
     username_placeholder: 사용자 이름
     useremail_placeholder: 이메일
@@ -575,7 +577,6 @@ ko:
   article_finder:
     average_views: 일일 평균 조회수
     add_available_article: 읽을 수 있는 글로 추가
-    already_added: 사용 가능한 문서에 이미 추가되었습니다
     minimum_views_label: 최소 조회수
     no_article_found: 이 분류에 문서가 없습니다
     search_placeholder: 키워드를 입력하십시오

@@ -374,6 +374,10 @@ he:
     warn_mirrored: |-
       ברגע השליחה, קורס זה יישלח באופן אוטומטי לויקיפדיה עם המשתמש שלך. לאחר מכן, עריכות חדשות לציר הזמן יועברו לויקיפדיה.
       האם ברצונך לעשות זאת?
+    wiki_edits_enabled: עריכות ויקי מופעלות
+    wiki_edits_enabled_tooltip: אם עריכות ויקי מופעלות, עריכות אוטומטיות באתר הוויקי
+      יבוצעו עבור תוכנית זו. באפשרותך לבטל את עריכות הוויקי אם אין ברצונך לכלול תבניות
+      שנוספות לדפי משתמש, דפי שיחה המשויכים לערכים וכדומה.
     wiki_staff: סגל ויקי השכלה
     withdrawn: המשימה לא נעשתה
     word_count_doc: מספר המלים, בקירוב, שנוספו לערכים במרחב הראשי ע"י תלמידי הקורס
@@ -622,6 +626,7 @@ he:
     revisions_doc: מספר העריכות שעשה העורך הזה בשבע הימים האחרונים
     reviewers: סוקרים
     reviewing: מתבצעת סקירה
+    total_uploads: סך כל ההעלאות
     training_complete:
       one: מעודכן עם ההכשרה
       other: מעודכנים עם ההכשרה
@@ -635,6 +640,7 @@ he:
     training_module_name: יחידת הדרכה
     training_module_status: מצב
     up_to_date_with_training: משתתפים שהשלימו את ההדרכה
+    uploads_doc: מספר העלאות הקבצים לוויקישיתוף
     username: שם משתמש
     username_placeholder: שם משתמש
     role:
@@ -740,6 +746,7 @@ he:
   article_finder:
     page_assessment_class: מחלקה
     average_views: ממוצע צפיות ביום
+    remove_article: הסרת ערך
     search_placeholder: יש להקליד מילת מפתח
     search: חיפוש
     tools: כלים

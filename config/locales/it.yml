@@ -585,6 +585,7 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    total_uploads: Totale caricamenti
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione
@@ -599,6 +600,7 @@ it:
       other: '%{completed_count}/%{count} moduli formativi completati'
     training_module_status: Stato
     up_to_date_with_training: aggiornato con la formazione
+    uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
     username_placeholder: Nome utente
     useremail_placeholder: Email
@@ -683,6 +685,7 @@ it:
       why_are_you_here: Cosa ti piacerebbe fare?
   article_finder:
     page_assessment_class: Classe
+    remove_article: Rimuovi voce
     search: Cerca
     tools: Strumenti
     show_filters: Mostra filtri

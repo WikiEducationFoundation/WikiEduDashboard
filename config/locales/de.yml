@@ -570,6 +570,11 @@ de:
     warn_mirrored: |-
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
+    wiki_edits_enabled: Wikibearbeitungen aktiviert
+    wiki_edits_enabled_tooltip: Falls Wikibearbeitungen aktiviert sind, werden automatisierte
+      In-Wiki-Bearbeitungen für dieses Programm erzeugt. Deaktiviere Wikibearbeitungen,
+      falls du keine hinzugefügten Vorlagen in Benutzer- oder Diskussionsseiten etc.
+      zugewiesener Artikel haben möchtest.
     wiki_staff: Wiki-Ed-Mitarbeiter
     withdrawn: Hat keine Zuweisung gemacht
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
@@ -953,6 +958,7 @@ de:
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
+    total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
       other: sind mit der Ausbildung auf dem Laufenden
@@ -968,6 +974,7 @@ de:
     training_module_name: Ausbildungsmodul
     training_module_status: Status
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
+    uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
     username: Benutzername
     username_placeholder: Benutzername
     useremail_placeholder: E-Mail-Adresse
@@ -1114,7 +1121,7 @@ de:
     completeness_estimate: Vervollständigungs-Punktestand
     average_views: Durchschnittliche Aufrufe pro Tag
     add_available_article: Als verfügbaren Artikel hinzufügen
-    already_added: Bereits zu den verfügbaren Artikeln hinzugefügt
+    remove_article: Artikel entfernen
     minimum_views_label: Mindestaufrufe
     no_article_found: Keine Artikel in dieser Kategorie gefunden
     search_placeholder: Gib dein Schlüsselwort ein

@@ -813,6 +813,7 @@ qqq:
     average_views: Table header label for average page views of articles
     add_available_article: Button label to add an article finder result to available
       articles
+    remove_article: Button label for removing an article
     minimum_views_label: Input label for minimum views filter
     no_article_found: Message indicating no search results
     search_placeholder: Article finder search bar placeholder
@@ -842,5 +843,4 @@ qqq:
     subheading_message: Subheading message for the article finder tool
     article_finder: Title heading for article finder {{Identical|Article Finder}}
     submit: Submit button label {{Identical|Submit}}
-    remove_article: Button label for removing an article
 ...

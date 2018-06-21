@@ -434,6 +434,8 @@ zh-CN:
       other: 志愿者
     weeks_none: 此课程尚无时间线。
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
+    wiki_edits_enabled: 启用了Wiki编辑
+    wiki_edits_enabled_tooltip: 如果启用wiki编辑，那么将为此计划自动安排wiki编辑。如果您不希望模板添加到用户页、已获分配条目的讨论页等的话，请禁用wiki编辑。
     wiki_staff: Wiki Ed职员
     withdrawn: 没有进行分配
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
@@ -748,6 +750,7 @@ zh-CN:
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
+    total_uploads: 总计上传
     training_complete:
       one: 是最新的培训
       other: 是最新的培训
@@ -762,6 +765,7 @@ zh-CN:
     training_module_name: 培训模块
     training_module_status: 状态
     up_to_date_with_training: 最近培训
+    uploads_doc: 上传到维基共享资源的文件数量
     username: 用户名
     username_placeholder: 用户名
     useremail_placeholder: 电子邮件
@@ -865,7 +869,7 @@ zh-CN:
     completeness_estimate: 完整分数
     average_views: 每天平均访问
     add_available_article: 添加为可用条目
-    already_added: 已添加到可用条目
+    remove_article: 移除条目
     minimum_views_label: 最低访问
     no_article_found: 此分类中找不到条目
     search_placeholder: 输入您的密码

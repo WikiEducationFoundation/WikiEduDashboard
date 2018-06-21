@@ -115,13 +115,13 @@ pt:
     new: (novo)
     none: Este curso não editou nenhum artigo.
     rating: Qualidade
-    rating_doc: A avaliação que um artigo recebeu por Projetos Wiki na Wikipédia.
-      Estas avaliações podem corresponder a versões muito mais antigas, logo são apenas
-      um indicador da maturidade de um artigo.
+    rating_doc: A avaliação que um artigo recebeu de Projetos Wiki na Wikipédia. Estas
+      avaliações podem corresponder a versões muito mais antigas, logo são apenas
+      um indicador grosseiro da maturidade dos artigos.
     rating_docs:
-      fa: Artigo destacado — Classificação mais alta da Wikipédia, provavelmente um
-        artigo muito desenvolvido para ser o projeto principal de um novo editor.
-      fl: Lista destacada — a mais alta classificação da Wikipédia para listas
+      fa: Artigo destacado — a classificação mais alta da Wikipédia, provavelmente
+        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.
+      fl: Lista destacada — a classificação mais alta da Wikipédia para listas
       a: 'Classe A: um artigo muito desenvolvido que pode ser maduro demais para ser
         o projeto principal de um editor novo'
       ga: 'Artigo bom: um artigo bem desenvolvido que pode ser maduro demais para
@@ -1107,7 +1107,6 @@ pt:
     completeness_estimate: Classificação de integridade
     average_views: Média de visitas por dia
     add_available_article: Adicionar como artigo disponível
-    already_added: Já adicionado aos artigos disponíveis
     minimum_views_label: Número mínimo de visitas
     no_article_found: Não foi encontrado nenhum artigo nesta categoria
 ...

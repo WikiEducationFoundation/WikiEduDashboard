@@ -5,6 +5,7 @@
 # Author: Indus Asia
 # Author: Macofe
 # Author: Mehtab ahmed
+# Author: Tweety
 ---
 sd:
   application:
@@ -162,6 +163,7 @@ sd:
     view: ڪورس ڏسو
     view_wiki: وڪي‌پيڊيا تي ڏسو
     weeks_none: اڃان هن ڪورس کي اوقاتي خط نہ آهي.
+    wiki_edits_enabled: وڪي سوارڻ کيل آهي
     wiki_staff: وڪي ايڊيٽر عملو
     yourcourses: توهان جا ڪورسز
   courses_generic:

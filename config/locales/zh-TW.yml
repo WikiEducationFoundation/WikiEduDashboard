@@ -453,6 +453,9 @@ zh-TW:
     warn_mirrored: |-
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
+    wiki_edits_enabled: 已啟用 wiki 編輯
+    wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
+      wiki 編輯。
     wiki_staff: Wiki ED 工作人員
     withdrawn: 沒有做出分配
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
@@ -741,7 +744,7 @@ zh-TW:
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
-    edits_by: 編輯者們：
+    edits_by: 編輯由：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
     enrolled_success: '%{username}成功增加！'
@@ -768,6 +771,7 @@ zh-TW:
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     reviewers: 審查者
     reviewing: 審查中
+    total_uploads: 上傳總數
     training_complete:
       one: 最新培訓
       other: 最新培訓
@@ -782,6 +786,7 @@ zh-TW:
     training_module_name: 培訓模組
     training_module_status: 狀態
     up_to_date_with_training: 最近培訓
+    uploads_doc: 上傳到維基共享資源的檔案數量
     username: 使用者名稱
     username_placeholder: 使用者名稱
     useremail_placeholder: 電子郵件
@@ -886,7 +891,7 @@ zh-TW:
     completeness_estimate: 完整性分數
     average_views: 每日平均檢視
     add_available_article: 添加為可用條目
-    already_added: 已添加至可用條目裡
+    remove_article: 移除條目
     minimum_views_label: 最小檢視數
     no_article_found: 此分類裡沒有條目
     search_placeholder: 輸入您的關鍵詞

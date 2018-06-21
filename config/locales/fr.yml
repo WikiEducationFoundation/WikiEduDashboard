@@ -972,6 +972,7 @@ fr:
       derniers jours
     reviewers: Relecteur(s)
     reviewing: Relecture
+    total_uploads: Nombre total de téléchargements
     training_complete:
       one: est à jour avec la formation
       other: sont à jour avec la formation
@@ -987,6 +988,7 @@ fr:
     training_module_name: Module de formation
     training_module_status: État
     up_to_date_with_training: formation à jour
+    uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
     useremail_placeholder: Courriel
@@ -1133,7 +1135,7 @@ fr:
     completeness_estimate: Note de complétude
     average_views: Nombre moyen de vues par jour
     add_available_article: Ajouter comme un article disponible
-    already_added: Déja ajouté aux articles disponibles
+    remove_article: Supprimer l’article
     minimum_views_label: Nombre minimum de vues
     no_article_found: Aucun article trouvé dans cette catégorie
     search_placeholder: Saisir votre mot de passe
@@ -1141,8 +1143,8 @@ fr:
     tools: Outils
     show_filters: Afficher les filtres
     hide_filters: Masquer les filtres
-    keyword_search: Recherche de mot-clé
-    category_search: Recherche de catégorie
+    keyword_search: Recherche par mot-clé
+    category_search: Recherche par catégorie
     article_quality: Qualité de l’article (0-100)
     more_results: Plus de résultats
     fetched_articles: Articles en vedette

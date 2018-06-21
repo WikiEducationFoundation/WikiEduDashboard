@@ -1028,7 +1028,6 @@ cs:
       why_are_you_here: Co byste chtěli dělat?
   article_finder:
     add_available_article: Přidat jako dostupný článek
-    already_added: Již vloženo do dostupných článků
     minimum_views_label: Minimální počet zobrazení
     no_article_found: V této kategorii nebyl nalezen žádný článek
 ...

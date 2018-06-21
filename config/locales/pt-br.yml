@@ -18,6 +18,7 @@
 # Author: Luk3
 # Author: Macofe
 # Author: Maxan
+# Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
 # Author: Rukasuoribera
@@ -948,6 +949,7 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
+    total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento
       other: estão em dia com o treinamento
@@ -963,6 +965,7 @@ pt-br:
     training_module_name: Módulo de treinamento
     training_module_status: Status
     up_to_date_with_training: em dia com o treinamento
+    uploads_doc: Número de pastas enviadas para Wikimedia Commons
     username: Nome de usuário
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail
@@ -1106,7 +1109,7 @@ pt-br:
     completeness_estimate: Pontuação de integridade
     average_views: Média de visualizações por dia
     add_available_article: Adicionar como artigo disponível
-    already_added: Já adicionado aos artigos disponíveis
+    remove_article: Remover artigo
     minimum_views_label: Visualizações mínimas
     no_article_found: Nenhum artigo encontrado nesta categoria
     search_placeholder: Digite sua palavra-chave

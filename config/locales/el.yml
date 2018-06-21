@@ -255,6 +255,7 @@ el:
     time_zone_message: Οι χρόνοι αρχής και τέλους εμφανίζονται στην τοπική ζώνη ώρας
       σας.
     title: Τίτλος
+    wiki_edits_enabled: Οι επεξεργασίες βίκι είναι ενεργοποιημένες
   courses_generic:
     all_courses: Όλα τα προγράμματα.
     cancel: Ακύρωση
@@ -278,6 +279,8 @@ el:
     bytes_added: Μπάιτ που προστέθηκαν
   uploads:
     uploaded_at: Ανέβηκε στις
+  users:
+    total_uploads: Συνολικές μεταφορτώσεις
   user_profiles:
     location_placeholder: Πρόσθεσε την τοποθεσία σου (προαιρετικό)
   wizard:
@@ -286,10 +289,24 @@ el:
     supplementary:
       why_are_you_here: Τι θα θέλατε να κάνετε;
   article_finder:
+    page_assessment_class: Κλάση
     completeness_estimate: Σκορ ολοκληρωτικότητας
     average_views: Μέσος όρος προβολών ανά ημέρα
     add_available_article: Προσθήκη ως διαθέσιμο άρθρο
-    already_added: Έχει προστεθεί ήδη στα διαθέσιμα άρθρα
+    remove_article: Κατάργηση άρθρου
     minimum_views_label: Ελάχιστες προβολές
     no_article_found: Δεν βρέθηκαν άρθρα σε αυτή τη κατηγορία
+    search_placeholder: Εισαγάγετε τη λέξη κλειδιού σας
+    search: Αναζήτηση
+    tools: Εργαλεία
+    show_filters: Εμφάνιση φίλτρων
+    hide_filters: Απόκρυψη φίλτρων
+    keyword_search: Αναζήτηση πληκτρολογίου
+    category_search: Αναζήτηση κατηγοριών
+    article_quality: Ποιότητα Λήμματος (0-100)
+    more_results: Περισσότερα αποτελέσματα
+    filtered_articles: Φιλτραρισμένα άρθρα
+    searching_articles: Αναζήτηση λημμάτων
+    article_finder: Ευρητής λημμάτων
+    submit: Υποβολή
 ...

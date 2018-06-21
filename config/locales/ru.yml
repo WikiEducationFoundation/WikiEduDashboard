@@ -189,7 +189,7 @@ ru:
     create_campaign: Создать новую кампанию
     description: Описание
     delete_campaign: Удалить эту кампанию
-    disable_account_requests: Отключить запросы учетной записи
+    disable_account_requests: Отключить запросы учётной записи
     enable_account_requests: Включить запросы учётной записи
     none: Нет
     organizers: Организаторы
