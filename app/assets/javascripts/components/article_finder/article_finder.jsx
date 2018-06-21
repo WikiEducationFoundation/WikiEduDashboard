@@ -195,6 +195,10 @@ const ArticleFinder = createReactClass({
       delete keys.grade;
     }
 
+    if (!this.props.course_id) {
+      delete keys.tools;
+    }
+
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
