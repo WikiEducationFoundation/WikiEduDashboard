@@ -85,10 +85,8 @@ class WikiAssignmentOutput
     end
 
     # Check for existing tags and replace
-    old_tag_ex = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
-    new_tag_ex = "{{#{@dashboard_url} assignment | course = #{@course_page}"
-    page_content.gsub!(/#{Regexp.quote(old_tag_ex)}[^\}]*\}\}/, new_tag)
-    page_content.gsub!(/#{Regexp.quote(new_tag_ex)}[^\}]*\}\}/, new_tag)
+    existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
+    page_content.gsub!(/#{Regexp.quote(existing_tag)}[^\}]*\}\}/, new_tag)
 
     # Add new tag at top (if there wasn't an existing tag already)
     unless page_content.include?(new_tag)
