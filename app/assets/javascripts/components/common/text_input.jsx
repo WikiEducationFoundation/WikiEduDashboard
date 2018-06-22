@@ -30,6 +30,7 @@ const TextInput = createReactClass({
   },
 
   onKeyDown(e) {
+    if (!this.props.onKeyDown) { return; }
     this.props.onKeyDown(e.keyCode, this.refs.inputbox);
   },
 
