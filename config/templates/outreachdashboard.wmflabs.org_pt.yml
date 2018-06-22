@@ -10,3 +10,4 @@ default:
   start_of_week: "início do programa da semana"
   end_of_week: "fim do programa da semana"
   user_talk: "discussão de usuário do outreachdashboard.wmflabs.org"
+course_prefix: 'Project:Outreach_Dashboard'

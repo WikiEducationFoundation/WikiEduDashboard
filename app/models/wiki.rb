@@ -117,7 +117,7 @@ class Wiki < ApplicationRecord
   end
 
   def course_prefix
-    ENV["course_prefix_#{domain}"] || ENV['course_prefix']
+    edit_templates['course_prefix']
   end
 
   private

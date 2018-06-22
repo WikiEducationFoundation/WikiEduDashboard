@@ -10,3 +10,4 @@ default:
   start_of_week: Nástěnka/Harmonogram/Začátek týdne
   end_of_week: "Nástěnka/Harmonogram/Konec týdne"
   user_talk: "Nástěnka/Účastník"
+course_prefix: 'Project:Nástěnka'
