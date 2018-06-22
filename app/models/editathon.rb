@@ -57,10 +57,6 @@ class Editathon < Course
     false
   end
 
-  def wiki_title
-    nil
-  end
-
   def string_prefix
     'courses_generic'
   end

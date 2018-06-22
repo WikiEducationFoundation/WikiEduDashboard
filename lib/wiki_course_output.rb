@@ -60,7 +60,7 @@ class WikiCourseOutput
      | end_date = #{@course.end}
      | institution = #{@course.school}
      | expected_students = #{@course.expected_students}
-     | assignment_page = #{course_prefix}/#{@course.slug}
+     | assignment_page = #{@course.wiki_title}
      | #{@dashboard_url} = yes
     }}"
   end
@@ -75,10 +75,6 @@ class WikiCourseOutput
 
   def support_staff_username
     @first_support_staff&.username
-  end
-
-  def course_prefix
-    ENV['course_prefix']
   end
 
   def course_timeline

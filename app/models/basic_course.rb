@@ -53,13 +53,6 @@ class BasicCourse < Course
     true
   end
 
-  def wiki_title
-    return nil unless home_wiki.edits_enabled?
-    prefix = ENV['course_prefix'] + '/'
-    escaped_slug = slug.tr(' ', '_')
-    "#{prefix}#{escaped_slug}"
-  end
-
   def string_prefix
     'courses_generic'
   end

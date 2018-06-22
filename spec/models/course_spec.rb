@@ -159,7 +159,8 @@ describe Course, type: :model do
       prefix = Figaro.env.course_prefix
       course = build(:legacy_course,
                      id: 618,
-                     slug: 'UW Bothell/Conservation Biology (Winter 2015)')
+                     slug: 'UW Bothell/Conservation Biology (Winter 2015)',
+                     submitted: true)
       url = course.url
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
@@ -168,11 +169,20 @@ describe Course, type: :model do
       # A new course
       new_course = build(:course,
                          id: 10618,
-                         slug: 'UW Bothell/Conservation Biology (Winter 2016)')
+                         slug: 'UW Bothell/Conservation Biology (Winter 2016)',
+                         submitted: true)
       url = new_course.url
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
+
+      # A course that hasn't been submitted so has no on-wiki course page yet
+      new_course = build(:course, submitted: false)
+      expect(new_course.url).to be_nil
+
+      # A course type without edits enabled
+      new_course = build(:editathon)
+      expect(new_course.url).to be_nil
     end
   end
 
