@@ -22,22 +22,14 @@ essentials:
         content: |
           <p>
             Welcome to your Wikipedia project's course timeline. This page will
-            guide you through the Wikipedia project for your course. Be sure to
-            check with your instructor to see if there are other pages you should
-            be following as well.
+            guide you through the steps you'll need to complete for your Wikipedia assignment.
           </p>
           <p>
-            This page breaks down writing a Wikipedia article into a series of
-            steps, or milestones. These steps include online trainings to help
-            you get started on Wikipedia.
+            Your course has also been assigned a Wikipedia Expert. You can reach
+            them through the "<strong>Get Help</strong>" button on this page.
           </p>
           <p>
-            Your course has also been assigned a Wikipedia Expert. Check
-            your Talk page for notes from them. You can also reach them through
-            the "<strong>Get Help</strong>" button on this page.
-          </p>
-          <p>
-            To get started, please review the following handouts:
+            Resources:
           </p>
           <ul>
             <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
@@ -49,7 +41,7 @@ essentials:
         title: Get started on Wikipedia
         kind: 1
         graded: true
-        training_module_ids: [1,2] # Wikipedia essentials, Editing basics
+        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
         points: 5
         content: |
           <ul>
@@ -59,24 +51,12 @@ essentials:
               creation limits, this is best done outside of class. Only 6 new accounts
               may be created per day from the same IP address.)
             </li>
-            <li>
-              It's time to dive into Wikipedia. Below, you'll find the first set
-              of online trainings you'll need to take. New modules will appear
-              on this timeline as you get to new milestones. Be sure to check
-              back and complete them! Incomplete trainings will be reflected in
-              your grade.
-            </li>
-            <li>
-              When you finish the trainings, practice by introducing yourself to
-              a classmate on that classmate’s Talk page.
-            </li>
-          </ul>
 
       -
         if: ungraded_training
         title: Get started on Wikipedia
         kind: 1
-        training_module_ids: [1,2] # Wikipedia essentials, Editing basics
+        training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
         content: |
           <ul>
             <li>
@@ -85,17 +65,6 @@ essentials:
               creation limits, this is best done outside of class. Only 6 new accounts
               may be created per day from the same IP address.)
             </li>
-            <li>
-              It's time to dive into Wikipedia. Below, you'll find the first set
-              of online trainings you'll need to take. New modules will appear
-              on this timeline as you get to new milestones. Be sure to check
-              back and complete them! These trainings are required for your course.
-            </li>
-            <li>
-              When you finish the trainings, practice by introducing yourself to
-              a classmate on that classmate's Talk page.
-            </li>
-          </ul>
 
       -
         if: blog_or_discussion_assignment
@@ -121,7 +90,7 @@ essentials:
       -
         title: Evaluate Wikipedia
         kind: 1
-        training_module_ids: [7] # Evaluate an article
+        training_module_ids: [28,7] # How to edit, Evaluate an article
         graded: true
         points: 10
         content: |
@@ -133,6 +102,13 @@ essentials:
         kind: 0
         content: |
           <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">In-class discussion</a>
+
+      -
+        if: sources_and_plagiarism_discussion
+        title: "Discussion: Thinking about sources and plagiarism"
+        kind: 0
+        content: |
+          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">In-class discussion</a>
 
   - # Week three
     weight: 4
@@ -160,12 +136,6 @@ essentials:
   - # Week four
     weight: 6
     blocks:
-      -
-        if: sources_and_plagiarism_discussion
-        title: "Discussion: Thinking about sources and plagiarism"
-        kind: 0
-        content: |
-          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">In-class discussion</a>
 
       -
         if: medical_topics
