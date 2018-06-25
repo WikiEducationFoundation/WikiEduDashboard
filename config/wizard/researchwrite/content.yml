@@ -110,40 +110,17 @@ essentials:
         content: |
           <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">In-class discussion</a>
 
+
   - # Week three
-    weight: 4
-    blocks:
-      -
-        if: add_to_article
-        title: Add to an article
-        kind: 1
-        training_module_ids: [8] # Sources and Citations
-        graded: true
-        points: 10
-        content: |
-          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Exercise</a>
-
-      -
-        if: copyedit
-        title: Copyedit an article
-        kind: 1
-        graded: true
-        points: 5
-        content: |
-          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Exercise</a>
-
-
-  - # Week four
     weight: 6
     blocks:
 
       -
         if: medical_topics
-        title: Review the rules for medical topics
+        title: Review the rules for health topics
         kind: 1
-        training_module_ids: [11] # Editing Medical topics
+        training_module_ids: [11] # Editing health and psychology topics
         content: |
-          <p>Review Wikipedia's rules for topics related to medicine, human health, and psychology.</p>
 
       -
         if: illustrate
@@ -177,39 +154,6 @@ essentials:
           </ul>
 
       -
-        if: working_in_groups
-        title: Best practices for working in groups
-        kind: 3
-        content: |
-          <ul>
-            <li>
-              Once your group has a Wikipedia article to work on, make sure
-              everyone in the group is assigned to that article on the Students
-              tab of this course page.
-            </li>
-            <li>
-              Select one group member whose Sandbox space you'll all share to
-              draft your article. (It will be titled something like
-              <code>User:Diderot/sandbox</code>.) Each person should link to
-              that shared Sandbox from their own Sandbox page. A sandbox is like
-              any other page on Wikipedia, and anyone can edit it.
-            </li>
-            <li>
-              Wikipedia doesn't handle multiple people editing from different
-              devices at the same time very well. If you're working together in
-              person, one person should add the work to the Sandbox. If you are
-              all working independently, make small edits and save often to avoid
-              "editing conflicts" with classmates. Make sure that you're logged
-              in under your own Wikipedia account while editing in your
-              classmate's sandbox to ensure your edits are recorded.
-            </li>
-            <li>
-              Don't create a group account for your project. Group accounts are
-              prohibited.
-            </li>
-          </ul>
-
-      -
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
@@ -231,6 +175,28 @@ essentials:
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
 
+  - # Week four
+    weight: 4
+    blocks:
+      -
+        if: add_to_article
+        title: Add to an article
+        kind: 1
+        training_module_ids: [8] # Adding citations
+        graded: true
+        points: 10
+        content: |
+          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Exercise</a>
+
+      -
+        if: copyedit
+        title: Copyedit an article
+        kind: 1
+        graded: true
+        points: 5
+        content: |
+          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Exercise</a>
+
   - # Week five
     weight: 4
     blocks:
@@ -247,44 +213,25 @@ essentials:
         kind: 4 # Special subject-specific guides block
 
       -
+        if: working_individually
         title: Draft your article
         kind: 1
         graded: true
         points: 20
-        training_module_ids: [9,15] # Sandboxes, Plagiarism
+        training_module_ids: [30,15] # Drafting, Plagiarism
         content: |
-          <p>You've picked a topic and found your sources. Now it's time to start writing.</p>
-          <p><strong>Creating a new article?</strong></p>
-          <ul>
-            <li>
-              Write an outline of that topic in the form
-              of a standard Wikipedia article's "lead section." Write it in
-              <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
-              <ul>
-                <li>
-                  A "lead" section is not a traditional introduction. It should
-                  summarize, very briefly, what the rest of the article will say
-                  in detail. The first paragraph should include important, broad
-                  facts about the subject. A good example is
-                  <a href="https://en.wikipedia.org/wiki/Ada_Lovelace">Ada Lovelace</a>.
-                  See <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>
-                  page 9 for more ideas.
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <p><strong>Improving an existing article?</strong></p>
-          <ul>
-            <li>
-              Identify what's missing from the current form of the article. Think
-              back to the skills you learned while critiquing an article. Make
-              notes for improvement in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a>.
-            </li>
-          </ul>
-          <hr />
-          <p>Keep reading your sources, too, as you prepare to write the body of the article.</p>
-          <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 7–9</p>
+          <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
+      -
+        if: working_in_groups
+        title: Draft your article
+        kind: 1
+        graded: true
+        points: 20
+        training_module_ids: [31,15] # Drafting in groups, Plagiarism
+        content: |
+          <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
+          
       -
         title: Everyone has started writing
         kind: 2
@@ -301,18 +248,6 @@ essentials:
         content: |
           <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">In-class discussion</a>
 
-      -
-        title: Expand your draft
-        kind: 1
-        content: |
-          <ul>
-            <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
-            <li>
-              If you'd like a Wikipedia Expert to review your draft, now is the time!
-              Click the "Get Help" button in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a> to request notes.
-            </li>
-          </ul>
-
       - # 1 peer review
         if: 1_peer_reviewers
         title: Peer review and copy edit
@@ -320,22 +255,10 @@ essentials:
         training_module_ids: [12] # Peer review
         content: |
           <ul>
-            <li>First, take the "Peer Review" online training.</li>
+            <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
             <li>
-              Select a classmate’s article that you will peer review and copyedit.
-              On the <strong>Articles</strong> tab, find the article that you want
-              to review. Then in the "My Articles" section of the <strong>Home</strong>
-              tab, assign it to yourself to review.
-            </li>
-            <li>
-              Peer review your classmate's draft. Leave suggestions on the
-              Talk page of the article, or sandbox, that your fellow student is
-              working on. Other editors may be reviewing your work, so look for
-              their comments! Be sure to acknowledge feedback from other Wikipedians.
-            </li>
-            <li>
-               As you review, make spelling, grammar, and other adjustments. Pay
-               attention to the tone of the article. Is it encyclopedic?
+              If you'd like a Wikipedia Expert to review your draft, now is the time!
+              Click the "Get Help" button in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a> to request notes.
             </li>
           </ul>
 
