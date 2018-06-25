@@ -32,7 +32,7 @@ essentials:
             Resources:
           </p>
           <ul>
-            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 1–5</li>
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 1–5</li>
             <li><a href="https://wikiedu.org/evaluatingwikipedia">Evaluating Wikipedia</a></li>
           </ul>
 
@@ -44,13 +44,12 @@ essentials:
         training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
         points: 5
         content: |
-          <ul>
-            <li>
-              Create an account and join this course page, using the  enrollment
-              link your instructor sent you. (To avoid hitting Wikipedia's account
-              creation limits, this is best done outside of class. Only 6 new accounts
-              may be created per day from the same IP address.)
-            </li>
+          <p>
+            Create an account and join this course page, using the  enrollment
+            link your instructor sent you. (To avoid hitting Wikipedia's account
+            creation limits, this is best done outside of class. Only 6 new accounts
+            may be created per day from the same IP address.)
+            </p>
 
       -
         if: ungraded_training
@@ -123,44 +122,12 @@ essentials:
         content: |
 
       -
-        if: illustrate
-        title: Illustrate an article
-        kind: 1
-        graded: true
-        points: 5
-        training_module_ids: [6] # Images and multimedia
-        content: |
-          <p>You'll want to find or create an appropriate photo, illustration, or piece of video/audio to add to an article.</p>
-          <ul>
-            <li>
-              Before you start, review the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook,
-              or see <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 10–11.
-            </li>
-            <li>When you've reviewed those pages, take the training linked below.</li>
-            <li>
-              When you're ready to start finding images, remember: <strong>Never</strong>
-              grab images you find through an image search, or those found on
-              Instagram, Tumblr, Reddit, Imgur, or even so-called "Free image" or
-              "free stock photo" websites. Instead, you'll want to find images
-              with clear proof that the creator has given permission to use their
-              work. Many of these images can be found on
-              <a href="https://search.creativecommons.org/">search.creativecommons.org</a>.
-            </li>
-            <li>
-               Don't just upload an image to Wikipedia. Instead, upload it to
-               Wikipedia's sister site for images, Wikimedia Commons. For
-               instructions, read through the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook.
-            </li>
-          </ul>
-
-      -
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
         training_module_ids: [17] # Find Your Article
         content: |
-          <ul>
-            <li>Resource:<a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</li>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</p>
             <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Exercise</a>
 
       -
@@ -220,7 +187,7 @@ essentials:
         points: 20
         training_module_ids: [30,15] # Drafting, Plagiarism
         content: |
-          <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
       -
         if: working_in_groups
@@ -230,7 +197,7 @@ essentials:
         points: 20
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
-          <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
       -
         title: Everyone has started writing
@@ -254,9 +221,8 @@ essentials:
         kind: 1
         training_module_ids: [12] # Peer review
         content: |
-          <ul>
-            <li>Keep working on transforming your article into a complete first draft. Get a draft ready for peer-review. </li>
-          </ul>
+          <p>
+            Keep working on transforming your article into a complete first draft. Get a draft ready for peer-review. </p>
 
       - # 2 peer reviews
         if: 2_peer_reviewers
@@ -264,10 +230,9 @@ essentials:
         kind: 1
         training_module_ids: [12] # Peer review
         content: |
-          <ul>
-            <li>Keep working on transforming your article into a complete first
-            draft. Get ready to peer review two of your classmates' articles. </li>
-          </ul>
+          <p>
+            Keep working on transforming your article into a complete first
+            draft. Get ready to peer review two of your classmates' articles. </p>
 
       - # 3 peer reviews
         if: 3_peer_reviewers
@@ -275,10 +240,9 @@ essentials:
         kind: 1
         training_module_ids: [12] # Peer review
         content: |
-          <ul>
-            <li>Keep working on transforming your article into a complete first
-            draft. Get ready to peer review three of your classmates' articles. </li>
-          </ul>
+          <p>
+            Keep working on transforming your article into a complete first
+            draft. Get ready to peer review three of your classmates' articles. </p>
 
       -
         title: Peer reviews are complete
@@ -301,8 +265,8 @@ essentials:
             Resources:
           </p>
           <ul>
-            <li>* <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 12 and 14</li>
-            <li>* Reach out to your Wikipedia Expert if you have any questions.
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 12 and 14</li>
+            <li>Reach out to your Wikipedia Expert if you have any questions.
           </ul>
 
   - # Week eight
@@ -365,6 +329,38 @@ essentials:
               training before you upload an image.
             </li>
           </ul>
+
+      -
+        if: illustrate
+        title: Illustrate an article
+        kind: 1
+        graded: true
+        points: 5
+        training_module_ids: [6] # Images and multimedia
+        content: |
+          <p>You'll want to find or create an appropriate photo, illustration, or piece of video/audio to add to an article.</p>
+          <ul>
+            <li>
+              Before you start, review the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook,
+              or see <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 10–11.
+            </li>
+            <li>When you've reviewed those pages, take the training linked below.</li>
+            <li>
+              When you're ready to start finding images, remember: <strong>Never</strong>
+              grab images you find through an image search, or those found on
+              Instagram, Tumblr, Reddit, Imgur, or even so-called "Free image" or
+              "free stock photo" websites. Instead, you'll want to find images
+              with clear proof that the creator has given permission to use their
+              work. Many of these images can be found on
+              <a href="https://search.creativecommons.org/">search.creativecommons.org</a>.
+            </li>
+            <li>
+               Don't just upload an image to Wikipedia. Instead, upload it to
+               Wikipedia's sister site for images, Wikimedia Commons. For
+               instructions, read through the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook.
+            </li>
+          </ul>
+
 
   - # Week ten
     weight: 2
