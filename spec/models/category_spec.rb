@@ -38,7 +38,7 @@ RSpec.describe Category, type: :model do
     end
 
     context 'for template-source Category' do
-      let(:category) { create(:category, name: '2016-Olympic-stub', source: 'template') }
+      let(:category) { create(:category, name: 'Malaysia-sport-bio-stub', source: 'template') }
       let(:course) { create(:course) }
       let!(:article) { create(:article, title: 'Nur_Shazrin_Mohd_Latif') }
 
