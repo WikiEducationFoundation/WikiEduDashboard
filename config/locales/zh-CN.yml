@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Assoc
 # Author: Camilali0609
+# Author: Deathkon
 # Author: Fanjiayi
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
@@ -95,15 +96,15 @@ zh-CN:
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
-      fa: 典范条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
-      fl: 特色列表 — 维基百科用于列表的最高评级
-      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
-      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
-      b: 乙级 — 一个适度发展的条目
-      c: 丙级 — 一个有改进空间的中等条目
-      start: 初级 — 一个有很大改进空间的初等条目
-      stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
-      list: 列表级 — 一个列表，而不是一篇传统条目
+      fa: '%{class}（典范条目） — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      fl: '%{class}（特色列表） — 维基百科用于列表的最高评级'
+      a: '%{class}级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      ga: '%{class}（优良条目） — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      b: '%{class}级 — 一个质量适中的条目'
+      c: '%{class}级 — 一个有改进空间的中等条目'
+      start: '%{class}级 — 一个有很大改进空间的初等条目'
+      stub: '%{class}级 — 一篇条目的短小开始，它需要更多内容'
+      list: '%{class}级 — 一个列表，而不是一篇传统条目'
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
       does_not_exist: 此条目在维基百科不存在
     see_more: 查看更多
@@ -875,8 +876,8 @@ zh-CN:
     search_placeholder: 输入您的密码
     search: 搜索
     tools: 工具
-    show_filters: 显示过滤器
-    hide_filters: 隐藏过滤器
+    show_filters: 显示过滤条件
+    hide_filters: 隐藏过滤条件
     keyword_search: 关键词搜索
     category_search: 分类搜索
     article_quality: 条目质量（0~100）
@@ -886,7 +887,7 @@ zh-CN:
     searching_articles: 正在搜索条目
     fetching_assessments: 正在检索页面评价
     fetching_revisions: 正在检索页面修订版本
-    fetching_scores: 正在检索完整度分数
+    fetching_scores: 获取完整性评分
     fetching_pageviews: 正在检索页面浏览
     subheading_message: 让我们查找符合您的需求的条目
     article_finder: 条目查找器

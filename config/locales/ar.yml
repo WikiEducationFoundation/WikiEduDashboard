@@ -561,4 +561,7 @@ ar:
       link: المشاركة في استبيان
   wiki_api:
     create_account_reason: يشارك هذا المستخدم في %{event}
+  article_finder:
+    tools: الأدوات
+    article_quality: جودة المقالة (0-100)
 ...

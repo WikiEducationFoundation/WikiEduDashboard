@@ -574,6 +574,11 @@ pt-br:
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    wiki_edits_enabled: Edições do Wiki ativadas
+    wiki_edits_enabled_tooltip: Se as edições do wiki estiverem ativadas, as edições
+      automatizadas on-wiki serão feitas para este programa. Desative as edições do
+      wiki se você não quiser que os modelos sejam adicionados às páginas do usuário,
+      às páginas de discussão dos artigos atribuídos, etc.
     wiki_staff: Equipe Wiki Ed
     withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal

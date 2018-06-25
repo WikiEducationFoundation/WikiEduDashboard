@@ -90,15 +90,15 @@ ko:
     none: 이 코스는 어느 문서도 편집하지 않았습니다.
     rating: 클래스
     rating_docs:
-      fa: 알찬 글 &mdash; 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다
-      fl: 알찬 목록 &mdash; 위키백과의 최고품질 리스트
-      a: A급 문서 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
-      ga: 좋은 글 &mdash; 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다
-      b: B 클래스 &mdash; 적절하게 쓰여진 글
-      c: C 클래스 &mdash; 발전의 여지가 있는 중간 정도의 글
-      start: 시작 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글
-      stub: 토막글 &mdash; 더 많은 내용이 필요한 시작 단계의 글
-      list: 목록 &mdash; 일반 글이 아닌 목록
+      fa: '%{class} (알찬 글) — 위키백과의 최고 품질의 글로서, 새 편집자가 프로젝트로 편집하기에는 지나치게 복잡할 수 있습니다'
+      fl: '%{class} (알찬 목록) — 위키백과의 최고 등급의 목록'
+      a: '%{class} 등급 — 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다'
+      ga: '%{class} (좋은 글) — 잘 쓰여진 글로, 신입 편집자가 주요 프로젝트의 문서로 편집하기에는 좀 부족할 수 있습니다'
+      b: '%{class} 등급 — 적절하게 쓰여진 글'
+      c: '%{class} 등급 — 발전의 여지가 있는 중간 정도의 글'
+      start: '%{class} 등급 &mdash; 발전의 여지가 충분한 준비 단계의 글'
+      stub: '%{class} 등급 — 더 많은 내용이 필요한 시작 단계의 짧은 글'
+      list: '%{class} 등급 — 일반 글이 아닌 목록'
       '?': 등급 없음 &mdash; 아직 위키백과의 품질 등급에 따라 분류되지 않은 글
       does_not_exist: 이 글은 위키백과에 존재하지 않습니다
     see_more: 더 보기
@@ -301,6 +301,7 @@ ko:
     view_wiki: 위키백과에서 보기
     volunteer:
       other: 자원봉사자
+    wiki_edits_enabled: 위키 편집 사용
     wiki_staff: 위키 에듀 임원
     withdrawn: 탈퇴
     yourcourses: 내 과정
@@ -577,6 +578,7 @@ ko:
   article_finder:
     average_views: 일일 평균 조회수
     add_available_article: 읽을 수 있는 글로 추가
+    remove_article: 문서 제거
     minimum_views_label: 최소 조회수
     no_article_found: 이 분류에 문서가 없습니다
     search_placeholder: 키워드를 입력하십시오

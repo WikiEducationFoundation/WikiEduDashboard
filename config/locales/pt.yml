@@ -20,7 +20,7 @@ pt:
   application:
     cancel: Cancelar
     create_accounts: Criar contas na Wikipédia
-    dashboard: Painel do Programa Educativo
+    dashboard: Painel da Wiki Educação
     documentation: Documentação
     error: 'Ocorreu um erro:'
     explore: Explorar
@@ -67,25 +67,25 @@ pt:
     join_note: Quando receber um código de acesso do seu instrutor, clique em "Localizar
       o seu curso" para encontrá-lo e inscrever-se.
     no_courses_instructor: Parece que não tem nenhum curso.
-    no_courses_student: Parece que ainda não se juntou a um curso.
-    opt_out: Solicitar a saída da orientação
+    no_courses_student: Parece que ainda não se inscreveu num curso.
+    opt_out: Pedir para ser excluído da introdução
     orientation_notice: Antes de criar um curso, façamos uma introdução para ajudá-lo
       a começar (dura cerca de 30 minutos).
     review_orientation: Rever a introdução
     start_orientation: Começar a introdução
     blog_headline: Notícias recentes da Wiki Educação
     about_programs: Este sítio acompanha as atividades da wiki através dos programas
-      — de eventos individuais de maratonas de edição ou de um curso académico. Cada
+      — eventos individuais como uma maratona de edição ou um curso académico. Cada
       programa faz parte de uma ou mais campanhas, que fornecem as estatísticas agregadas
       em todos os programas.
     about_creating_programs: Se estiver a coordenar um único evento independente,
       pode criar um programa agora. Se o seu evento for parte de algo maior, encontre
-      ou crie a campanha para ele. E então, poderá criar um novo programa a partir
-      da página de campanha.
+      ou crie a campanha para ele. Então, poderá criar um novo programa a partir da
+      página da campanha.
   home:
     explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
-    sign_up: Inscrever-se através da Wikipédia
+    sign_up: Registar-se através da Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -119,18 +119,19 @@ pt:
       avaliações podem corresponder a versões muito mais antigas, logo são apenas
       um indicador grosseiro da maturidade dos artigos.
     rating_docs:
-      fa: Artigo destacado — a classificação mais alta da Wikipédia, provavelmente
-        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.
-      fl: Lista destacada — a classificação mais alta da Wikipédia para listas
-      a: 'Classe A: um artigo muito desenvolvido que pode ser maduro demais para ser
-        o projeto principal de um editor novo'
-      ga: 'Artigo bom: um artigo bem desenvolvido que pode ser maduro demais para
-        ser o projeto principal de um editor novo'
-      b: 'Classe B: um artigo moderadamente desenvolvido'
-      c: 'Classe C: um artigo intermediário com possibilidades de melhora'
-      start: 'Esboço: um artigo preliminar com muitas possibilidades de melhorias'
-      stub: 'Mínimo: um artigo em estágio inicial, que precisa de mais conteúdo'
-      list: 'Lista: uma lista em vez de um artigo convencional'
+      fa: '%{class} (Artigo destacado) — a classificação mais alta da Wikipédia, provavelmente
+        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.'
+      fl: '%{class} (Lista destacada) — a classificação mais alta da Wikipédia para
+        listas'
+      a: Classe %{class} — um artigo muito desenvolvido que pode ser demasiado maduro
+        para ser o projeto principal de um editor novo
+      ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demasiado
+        maduro para ser o projeto principal de um editor novo'
+      b: Classe %{class} — um artigo moderadamente desenvolvido
+      c: Classe %{class} — um artigo intermédio com possibilidades de melhoramento
+      start: Classe %{class} — um artigo preliminar com muitas possibilidades de melhoramento
+      stub: Classe %{class} — um artigo em estágio inicial, que precisa de mais conteúdo
+      list: Classe %{class} — uma lista em vez de um artigo convencional
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade de Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
@@ -349,7 +350,7 @@ pt:
       end_date: Data de término
       end_date_placeholder: Data de término (AAAA-MM-DD)
       expected_number: Número estimado de estudantes
-      find: Encontre o seu curso
+      find: Localizar o seu curso
       intro: O título, a escola e o semestre criam o endereço eletrónico (URL) da
         página do seu curso; isto não pode ser alterado. Pode editar tudo o resto
         depois. Clique em "Criar o meu curso!" para começar a construir o cronograma
@@ -571,6 +572,11 @@ pt:
     warn_mirrored: |-
       Ao ser enviado, este curso será publicado automaticamente na Wikipédia com a sua conta de utilizador. A partir daí, as novas edições no cronograma serão refletidas na Wikipédia.
       Tem a certeza de que deseja prosseguir?
+    wiki_edits_enabled: Edições da wiki ativadas
+    wiki_edits_enabled_tooltip: Se as edições da wiki estiverem ativadas, serão feitas
+      edições automatizadas para este programa. Desative as edições da wiki se não
+      quiser que sejam adicionadas predefinições às páginas de utilizador, às páginas
+      de discussão dos artigos atribuídos, etc.
     wiki_staff: Equipa da Wiki Educação
     withdrawn: Não realizou a tarefa
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
@@ -714,7 +720,7 @@ pt:
     main_char_added: Caracteres adicionados ao domínio principal
     user: Domínio Utilizador
     user_char_added: Caracteres adicionados ao espaço nominal de utilizador
-    user_ns: Utilizador(a)
+    user_ns: Utilizador
   recent_activity:
     active_courses: O artigo está ativo em
     article_title: Título do Artigo
@@ -947,6 +953,7 @@ pt:
     revisions_doc: O número de edições feitas por este editor nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: A revisar
+    total_uploads: Total de carregamentos
     training_complete:
       one: está em dia com a capacitação
       other: estão em dia com a capacitação
@@ -962,6 +969,7 @@ pt:
     training_module_name: Módulo de formação
     training_module_status: Estado
     up_to_date_with_training: em dia com a formação
+    uploads_doc: Número de carregamentos de ficheiros na wiki Wikimedia Commons
     username: Nome de utilizador
     username_placeholder: Nome de utilizador
     useremail_placeholder: Correio eletrónico
@@ -1066,8 +1074,8 @@ pt:
       por isto! Pode ocorrer por vezes.) Por favor, tente novamente iniciar a sessão
       ou matricular-se.
   survey:
-    login_message: Agradecemos pelo o seu tempo. Por favor, entre no seu Painel do
-      Programa Educativo para participar do inquérito.
+    login_message: Obrigado pelo seu tempo. Entre no seu Painel da Wiki Educação para
+      participar do inquérito, por favor.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de
       poder ver as notificações no navegador. Se não a ativar, apenas serão mostradas
@@ -1104,9 +1112,30 @@ pt:
         da Wiki Educação?
       why_are_you_here: O que gostaria de fazer?
   article_finder:
+    page_assessment_class: Classe
     completeness_estimate: Classificação de integridade
     average_views: Média de visitas por dia
     add_available_article: Adicionar como artigo disponível
+    remove_article: Remover artigo
     minimum_views_label: Número mínimo de visitas
     no_article_found: Não foi encontrado nenhum artigo nesta categoria
+    search_placeholder: Introduza a sua palavra-chave
+    search: Pesquisar
+    tools: Ferramentas
+    show_filters: Mostrar filtros
+    hide_filters: Esconder filtros
+    keyword_search: Pesquisa por palavra-chave
+    category_search: Pesquisa por categoria
+    article_quality: Qualidade do artigo (0-100)
+    more_results: Mais resultados
+    fetched_articles: Artigos obtidos
+    filtered_articles: Artigos filtrados
+    searching_articles: A pesquisar artigos
+    fetching_assessments: A obter classificações de páginas
+    fetching_revisions: A obter revisões de páginas
+    fetching_scores: A obter classificações de integridade
+    fetching_pageviews: A obter visitas de páginas
+    subheading_message: Vamos procurar um artigo que satisfaz as suas necessidades
+    article_finder: Pesquisa de artigos
+    submit: Enviar
 ...

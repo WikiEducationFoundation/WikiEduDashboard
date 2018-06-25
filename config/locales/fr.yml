@@ -129,19 +129,20 @@ fr:
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
-      fa: Article en vedette — Plus haute notation de Wikipédia, probablement un article
-        trop mature pour être le projet principal d’un nouvel éditeur
-      fl: Liste en vedette — Plus haute notation de Wikipédia pour les listes
-      a: Classe A — article très développé qui pourrait être trop mature pour être
-        le projet principal d’un nouvel éditeur
-      ga: Bon article — un article bien développé qui pourrait être trop mature pour
-        être le projet principal d’un nouvel éditeur
-      b: Classe B — un article modérément développé
-      c: Classe C — un article intermédiaire, avec des possibilités d’amélioration
-      start: Classe démarrage — un article préliminaire avec beaucoup de possibilités
-        d’amélioration
-      stub: Classe squelette — le court début d’un article qui nécessite plus de contenu
-      list: Classe liste — une liste plutôt qu’un article habituel
+      fa: '%{class} (Article vedette) — La plus haute notation de Wikipédia, probablement
+        un article trop mature pour être le projet principal d’un nouvel éditeur'
+      fl: '%{class} (Liste vedette) — La plus haute notation de Wikipédia pour les
+        listes'
+      a: '%{class}-class — article très développé qui pourrait être trop mature pour
+        être le projet principal d’un nouvel éditeur'
+      ga: '%{class} (Bon article) — un article bien développé qui pourrait être trop
+        mature pour être le projet principal d’un nouvel éditeur'
+      b: '%{class}-classe — un article modérément développé'
+      c: '%{class}-classe — un article intermédiaire, avec des possibilités d’amélioration'
+      start: '%{class}-classe — un article préliminaire avec beaucoup de possibilités
+        d’amélioration'
+      stub: '%{class}-classe — court début d’un article qui nécessite plus de contenu'
+      list: '%{class}-classe — une liste plutôt qu’un article habituel'
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
       does_not_exist: Cet article n'existe pas sur Wikipédia
@@ -591,6 +592,11 @@ fr:
     warn_mirrored: |-
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
+    wiki_edits_enabled: Modifications du wiki activées
+    wiki_edits_enabled_tooltip: Si les modifications du wiki sont activées, alors
+      les modifications automatisées dans le wiki seront faites pour ce programme.
+      Désactivez les modifications du wiki si vous ne voulez pas de modèles ajoutés
+      aux pages utilisateur, de pages de discussion pour les articles affectés, etc.
     wiki_staff: Équipe d’édition de wiki
     withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace

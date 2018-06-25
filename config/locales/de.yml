@@ -110,18 +110,18 @@ de:
       Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
       grobes Anzeichen der Artikelreife sind.
     rating_docs:
-      fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
-        für ein Hauptprojekt eines neuen Autoren.
-      fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen.
-      a: A-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt ist für
-        ein Hauptprojekt eines neuen Autoren.
-      ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
-        für ein Hauptprojekt eines neuen Autoren.
-      b: B-Klasse – Ein mäßig entwickelter Artikel.
-      c: C-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.
-      start: Start-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.
-      stub: Stub-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.
-      list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
+      fa: '%{class} (Exzellenter Artikel) – Wikipedias höchste Bewertung, vermutlich
+        zu gewagt für ein Hauptprojekt eines neuen Autoren.'
+      fl: '%{class} (Exzellente Liste) – Wikipedias höchste Bewertung für Listen.'
+      a: '%{class}-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt
+        ist für ein Hauptprojekt eines neuen Autoren.'
+      ga: '%{class} (Guter Artikel) – Ein gut entwickelter Artikel, der vermutlich
+        zu gewagt ist für ein Hauptprojekt eines neuen Autoren.'
+      b: '%{class}-Klasse – Ein mäßig entwickelter Artikel.'
+      c: '%{class}-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.'
+      start: '%{class}-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.'
+      stub: '%{class}-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.'
+      list: '%{class}-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.'
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden

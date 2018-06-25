@@ -89,18 +89,19 @@ it:
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
-      fa: Voce in vetrina — la più alta valutazione di Wikipedia, probabilmente una
-        voce troppo matura per un nuovo editor del progetto principale
-      fl: Elenco in vetrina — la più alta valutazione di Wikipedia per le liste
-      a: Prima classe — una voce molto sviluppata che potrebbe essere  troppo matura
+      fa: '%{class} (Voce in vetrina) — la più alta valutazione di Wikipedia, probabilmente
+        una voce troppo matura per un nuovo editor del progetto principale'
+      fl: '%{class} (Elenco in vetrina) — la più alta valutazione di Wikipedia per
+        le liste'
+      a: Classe %{class} — una voce molto sviluppata che potrebbe essere  troppo matura
         per un nuovo editor del progetto principale
-      ga: Voce di qualità — una voce ben sviluppata che potrebbe essere  troppo matura
-        per un nuovo editor del progetto principale
-      b: Classe B — una voce moderatamente sviluppata
-      c: Classe C — una voce di livello intermedio con margini di miglioramento
-      start: Classe iniziale — una voce preliminare con un sacco di spazio per migliorare
-      stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
-      list: Elenco di classe — un elenco piuttosto che una voce tradizionale
+      ga: '%{class} (Voce di qualità) — una voce ben sviluppata che potrebbe essere  troppo
+        matura per un nuovo editor del progetto principale'
+      b: Classe %{class} — una voce moderatamente sviluppata
+      c: Classe %{class} — una voce di livello intermedio con margini di miglioramento
+      start: Classe %{class} — una voce preliminare con un sacco di spazio per migliorare
+      stub: Classe %{class} — un breve inizio di una voce che necessita di più contenuto
+      list: Classe %{class} — un elenco piuttosto che una voce tradizionale
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
       does_not_exist: Questa voce non esiste su Wikipedia

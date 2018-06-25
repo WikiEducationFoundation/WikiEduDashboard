@@ -413,6 +413,9 @@ tr:
     instructors: Eğitmenler
     invitation: '%{title} kursuna katılmaya davetlisiniz. Kursa katılmak için bir
       Vikipedi hesabıyla giriş yapmanız gerekmektedir.'
+    invitation_username_advice: Henüz bir Vikipedi hesabınız yoksa hemen kaydolun.
+      Kullanıcı adınız, istediğiniz gibi anonim veya kişisel olarak tanımlanabilir.
+      (Paylaşılan hesaplara izin verilmez.)
     join: Katıl
     join_course: Kursa katıl
     join_prompt: '''%{title}'' kursuna katılmak ister misin?'
@@ -642,6 +645,8 @@ tr:
     word_count: Eklenen Kelime
     word_count_average: Ortalama Kelime Sayısı
   namespace:
+    main: Mainspace
+    user: Kullanıcı alanı
     user_ns: Kullanıcı
   recent_activity:
     article_title: Makale Başlığı
@@ -765,14 +770,24 @@ tr:
     empty_week_4: bir zaman çizelgesi oluşturmak için atama sihirbazını kullanın.
     first_week_title: İlk Aktif Hafta
     gradeable_value: Değer
+    no_class_holidays: Sınıf tatilim yok
+    no_timeline: Bu dersin zaman çizelgesi yok.
+    no_activity_this_week: Bu hafta planlanmış toplantı yok
+    nothing_this_week: Bu hafta için programda bir şey yok.
+    save_all_changes: Tümünü Kaydet
     this_week_title_default: Bu Hafta
     title: Zaman çizelgesi
+    unable_to_add_week: Zaman çizelgeniz dolduğunda yeni hafta ekleyemezsiniz. En
+      az bir haftayı silin veya yeni bir tarihe yer açmak için ödevlerinizi değiştirin.
     view_full_timeline: Tam Zaman Çizelgesini Görüntüle
+    week_number: Hafta %{number}
   training:
+    continue: Devam et (%{progress})
     start: Başla
     view: Görüntüle
     next: Sonraki Sayfa
     page: Sayfa
+    page_number: '%{total} sayfadan %{number}. sayfa'
     table_of_contents: İçindekiler
     training_library: Eğitim Kütüphanesi
     logged_out: Çıkış yaptınız. Giriş yapmadığınız sürece bu modülü tamamlamak için
@@ -802,6 +817,10 @@ tr:
     assignees: Devredilen(ler)
     loading_authorship_data: yazarlık verileri yükleniyor
     authorship_data_not_fetched: yazarlık verileri alınamadı
+    character_doc: Bir kullanıcının bu ad alanına eklediği toplam sayfa miktarı, sayfa
+      boyutunu artıran tüm düzenlemeler için eklenen karakterler eklenerek hesaplanır.
+      Bu sayı, kullanıcının eklediği yeni içerik miktarını yansıtmaz. Kaldırılan içeriğin
+      geri yüklenmesi de bu toplamı artıracaktır.
     chars_added: Karakterler eklendi<br>(makale | kullanıcı | taslak)
     contributions: Kullanıcı Katkısı
     contributions_history_full: Vikipedi'deki tüm katkı geçmişini görüntüle
@@ -836,6 +855,7 @@ tr:
     training_module_name: Eğitim modülü
     training_module_status: Durum
     up_to_date_with_training: eğitim ile güncel
+    uploads_doc: Wikimedia Commons'a yüklenen dosya sayısı
     username: Kullanıcı adı
     username_placeholder: Kullanıcı adı
     useremail_placeholder: E-posta
@@ -862,7 +882,16 @@ tr:
       confirm: Bu, gecikmiş eğitim alan tüm öğrencilerin mesaj sayfalarında bir hatırlatma
         yayınlayacaktır. Bunu yapmak istediğine emin misin?
       header: Gecikmiş bir eğitim göreviniz var.
+      message: Lütfen tahsis edilmiş [%{link} eğitim modüllerini] tamamlayın
+      summary: öğrenci eğitimi gecikmiş
   wizard:
+    assignment_dates: Atama Tarihleri
+    assignment_description: Ödev zaman çizelgenizin başlangıç ve bitiş tarihlerini
+      seçin. Örneğin, Wikipedia projenize sınıfın ikinci haftasını başlatmak istiyorsanız
+      ödev başlangıç tarihini kursun başlangıç tarihinden sonraki bir haftaya ayarlayın.
+      Bu atama tasarım aracı, seçtiğiniz zaman çizelgesi tarihlerine uyan bir taslak
+      zaman çizelgesi oluşturur.
+    assignment_type: Öğrenciler Vikipedi ödevi için ne tamamlayacak?
     course_dates: Kurs günleri
     read_less: Az oku
     read_more: Daha fazla oku
@@ -947,4 +976,26 @@ tr:
       header: Bizden nasıl haberin oldu?
       where_did_you_hear: Wiki Eğitim'i ilk defa nerede veya kimlerden duydun?
       why_are_you_here: Ne yapmak istiyorsun?
+  article_finder:
+    page_assessment_class: Sınıf
+    completeness_estimate: Bütünlük Puanı
+    average_views: Günlük ortalama görüntüleme sayısı
+    add_available_article: Kullanılabilir makaleyi ekle
+    remove_article: Makaleyi çıkar
+    minimum_views_label: Minimum Görünümler
+    no_article_found: Bu kategoride hiç makale bulunamadı
+    search_placeholder: Anahtar kelimenizi girin
+    search: Arama
+    tools: Araçlar
+    show_filters: Filtreleri Göster
+    hide_filters: Filtreleri Gizle
+    keyword_search: Anahtar Kelime Arama
+    category_search: Kategori Arama
+    article_quality: Makale Kalitesi(0-100)
+    more_results: Daha fazla sonuç
+    fetched_articles: Getirilen Makaleler
+    filtered_articles: Filtrelenen Makaleler
+    subheading_message: Haydi, ihtiyaçlarınıza uygun bir makale bulalım
+    article_finder: Makale Bulucu
+    submit: Gönder
 ...
