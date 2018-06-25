@@ -231,7 +231,7 @@ essentials:
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
           <p><strong>Resources:</strong> <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
-          
+
       -
         title: Everyone has started writing
         kind: 2
@@ -255,11 +255,7 @@ essentials:
         training_module_ids: [12] # Peer review
         content: |
           <ul>
-            <li>Keep working on transforming your article into a complete first draft. Get draft ready for peer-review. </li>
-            <li>
-              If you'd like a Wikipedia Expert to review your draft, now is the time!
-              Click the "Get Help" button in <a href="https://en.wikipedia.org/wiki/Special:MyPage/sandbox">your sandbox</a> to request notes.
-            </li>
+            <li>Keep working on transforming your article into a complete first draft. Get a draft ready for peer-review. </li>
           </ul>
 
       - # 2 peer reviews
@@ -269,23 +265,8 @@ essentials:
         training_module_ids: [12] # Peer review
         content: |
           <ul>
-            <li>First, take the "Peer Review" online training.</li>
-            <li>
-              Select two classmates’ articles that you will peer review and copyedit.
-              On the <strong>Articles</strong> tab, find the articles that you want
-              to review. Then in the "My Articles" section of the <strong>Home</strong>
-              tab, assign them to yourself to review.
-            </li>
-            <li>
-              Peer review your classmates' drafts. Leave suggestions on the
-              Talk page of the article, or sandbox, that your fellow student is
-              working on. Other editors may be reviewing your work, so look for
-              their comments! Be sure to acknowledge feedback from other Wikipedians.
-            </li>
-            <li>
-               As you review, make spelling, grammar, and other adjustments. Pay
-               attention to the tone of the article. Is it encyclopedic?
-            </li>
+            <li>Keep working on transforming your article into a complete first
+            draft. Get ready to peer review two of your classmates' articles. </li>
           </ul>
 
       - # 3 peer reviews
@@ -295,23 +276,8 @@ essentials:
         training_module_ids: [12] # Peer review
         content: |
           <ul>
-            <li>First, take the "Peer Review" online training.</li>
-            <li>
-              Select three classmates’ articles that you will peer review and copyedit.
-              On the <strong>Articles</strong> tab, find the articles that you want
-              to review. Then in the "My Articles" section of the <strong>Home</strong>
-              tab, assign them to yourself to review.
-            </li>
-            <li>
-              Peer review your classmates' drafts. Leave suggestions on the
-              Talk page of the article, or sandbox, that your fellow student is
-              working on. Other editors may be reviewing your work, so look for
-              their comments! Be sure to acknowledge feedback from other Wikipedians.
-            </li>
-            <li>
-               As you review, make spelling, grammar, and other adjustments. Pay
-               attention to the tone of the article. Is it encyclopedic?
-            </li>
+            <li>Keep working on transforming your article into a complete first
+            draft. Get ready to peer review three of your classmates' articles. </li>
           </ul>
 
       -
@@ -331,12 +297,12 @@ essentials:
         content: |
           <p>You probably have some feedback from other students and possibly other Wikipedians. It's time to work with that feedback to improve your article!</p>
           <ul>
-            <li>Read <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 12 and 14.</li>
-            <li>
-              Return to your draft or article and think about the suggestions.
-              Decide which ones to start implementing. Reach out to your instructor
-              or your Wikipedia Expert if you have any questions.
-            </li>
+          <p>
+            Resources:
+          </p>
+          <ul>
+            <li>* <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 12 and 14</li>
+            <li>* Reach out to your Wikipedia Expert if you have any questions.
           </ul>
 
   - # Week eight
