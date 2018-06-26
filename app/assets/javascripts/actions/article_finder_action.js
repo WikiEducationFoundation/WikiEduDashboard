@@ -100,7 +100,7 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
     desc = true;
   }
   if (!sort.key) {
-    sort.key = 'pageviews';
+    sort.key = 'relevance';
   }
   Promise.all(promises)
   .then(() => {

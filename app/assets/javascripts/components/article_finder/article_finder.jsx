@@ -78,6 +78,10 @@ const ArticleFinder = createReactClass({
     return this.props.updateFields("grade", grade);
   },
 
+  sortSelect(e) {
+    this.props.sortArticleFinder(e.target.value);
+  },
+
   render() {
     const searchTerm = (
       <TextInput
@@ -192,7 +196,7 @@ const ArticleFinder = createReactClass({
         sortable: false,
       }
     };
-    if (this.props.sort.key) {
+    if (this.props.sort.key && this.props.sort.key !== 'relevance') {
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
@@ -294,6 +298,21 @@ const ArticleFinder = createReactClass({
         <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
       );
     }
+
+    let sortSelect;
+    if (this.state.isSubmitted && !this.props.loading) {
+      sortSelect = (
+        <div className="sort-select">
+          <select className="sorts" name="sorts" onChange={this.sortSelect}>
+            <option value="title">{I18n.t('articles.title')}</option>
+            <option value="relevance">{I18n.t('article_finder.relevance')}</option>
+            <option value="grade">{I18n.t('article_finder.page_assessment_class')}</option>
+            <option value="revScore">{I18n.t('article_finder.completeness_estimate')}</option>
+            <option value="pageviews">{I18n.t('article_finder.average_views')}</option>
+          </select>
+        </div>
+      );
+    }
     return (
       <div className="container">
         <header>
@@ -323,6 +342,7 @@ const ArticleFinder = createReactClass({
           </div>
         </div>
         {loader}
+        {sortSelect}
         {list}
         <div className="py2 text-center">
           {fetchMoreButton}
