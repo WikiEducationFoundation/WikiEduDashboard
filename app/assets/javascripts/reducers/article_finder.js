@@ -8,7 +8,6 @@ import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
 
 const initialState = {
   articles: {},
-  articleResults: {},
   search_type: "keyword",
   search_term: "",
   depth: "",
@@ -26,7 +25,8 @@ const initialState = {
   home_wiki: {
     language: 'en',
     project: 'wikipedia'
-  }
+  },
+  lastRelevanceIndex: 0,
 };
 
 export default function articleFinder(state = initialState, action) {
@@ -39,18 +39,6 @@ export default function articleFinder(state = initialState, action) {
     case SORT_ARTICLE_FINDER: {
       let newArticles;
       let newKey;
-      if (action.key === 'relevance') {
-        newArticles = state.articleResults;
-        newKey = null;
-        return {
-          ...state,
-          articles: newArticles,
-          sort: {
-            sortKey: newKey,
-            key: action.key,
-          },
-        };
-      }
       if (action.initial) {
         newArticles = sortByKey(Object.values(state.articles), action.key, null, action.desc);
         newKey = action.desc ? null : action.key;
@@ -90,19 +78,14 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
-      const newResultArticles = { ...state.articleResults };
-      action.data.query.categorymembers.forEach((data) => {
+      // const lastRelevanceIndex = Object.keys(state.articles).length;
+      action.data.query.categorymembers.forEach((data, i) => {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
           fetchState: "TITLE_RECEIVED",
           title: data.title,
-        };
-        newResultArticles[data.title] = {
-          pageid: data.pageid,
-          ns: data.ns,
-          fetchState: "TITLE_RECEIVED",
-          title: data.title,
+          relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
       let continueResults = false;
@@ -114,28 +97,24 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         continue_results: continueResults,
         cmcontinue: cmcontinue,
         loading: false,
         fetchState: "TITLE_RECEIVED",
+        lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
     case RECEIVE_KEYWORD_RESULTS: {
       const newStateArticles = { ...state.articles };
-      const newResultArticles = { ...state.articleResults };
-      action.data.query.search.forEach((article) => {
+      // const lastRelevanceIndex = Object.keys(state.articles).length;
+      // console.log(lastRelevanceIndex);
+      action.data.query.search.forEach((article, i) => {
         newStateArticles[article.title] = {
           pageid: article.pageid,
           ns: article.ns,
           fetchState: "TITLE_RECEIVED",
           title: article.title,
-        };
-        newResultArticles[article.title] = {
-          pageid: article.pageid,
-          ns: article.ns,
-          fetchState: "TITLE_RECEIVED",
-          title: article.title,
+          relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
       let continueResults = false;
@@ -147,69 +126,56 @@ export default function articleFinder(state = initialState, action) {
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         continue_results: continueResults,
         offset: offset,
         loading: false,
         fetchState: "TITLE_RECEIVED",
+        lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const newResultArticles = _.cloneDeep(state.articleResults);
       _.forEach(action.data, (article) => {
         const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
         newStateArticles[article.title].pageviews = averagePageviews;
         newStateArticles[article.title].fetchState = "PAGEVIEWS_RECEIVED";
-        newResultArticles[article.title].pageviews = averagePageviews;
-        newResultArticles[article.title].fetchState = "PAGEVIEWS_RECEIVED";
       });
 
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         fetchState: "PAGEVIEWS_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const newResultArticles = _.cloneDeep(state.articleResults);
       _.forEach(action.data, (article) => {
         const grade = extractClassGrade(article.pageassessments);
 
         newStateArticles[article.title].grade = grade;
         newStateArticles[article.title].fetchState = "PAGEASSESSMENT_RECEIVED";
-        newResultArticles[article.title].grade = grade;
-        newResultArticles[article.title].fetchState = "PAGEASSESSMENT_RECEIVED";
       });
 
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         fetchState: "PAGEASSESSMENT_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_REVISION: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const newResultArticles = _.cloneDeep(state.articleResults);
       _.forEach(action.data, (value) => {
         newStateArticles[value.title].revid = value.revisions[0].revid;
         newStateArticles[value.title].fetchState = "REVISION_RECEIVED";
-        newResultArticles[value.title].revid = value.revisions[0].revid;
-        newResultArticles[value.title].fetchState = "REVISION_RECEIVED";
       });
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         fetchState: "REVISION_RECEIVED",
       };
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
       const newStateArticles = _.cloneDeep(state.articles);
-      const newResultArticles = _.cloneDeep(state.articleResults);
       _.forEach(action.data.data, (scores, revid) => {
         const revScore = _.reduce(WP10Weights[action.data.language], (result, value, key) => {
           return result + value * scores.wp10.score.probability[key];
@@ -217,14 +183,10 @@ export default function articleFinder(state = initialState, action) {
         const article = _.find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
         article.fetchState = "REVISIONSCORE_RECEIVED";
-        const articleResult = _.find(newResultArticles, { revid: parseInt(revid) });
-        articleResult.revScore = Math.round(revScore * 100) / 100;
-        articleResult.fetchState = "REVISIONSCORE_RECEIVED";
       });
       return {
         ...state,
         articles: newStateArticles,
-        articleResults: newResultArticles,
         fetchState: "REVISIONSCORE_RECEIVED",
       };
     }

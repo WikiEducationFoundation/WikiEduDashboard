@@ -843,5 +843,5 @@ qqq:
     subheading_message: Subheading message for the article finder tool
     article_finder: Title heading for article finder {{Identical|Article Finder}}
     submit: Submit button label {{Identical|Submit}}
-    relevance: Relevance sort label {{Identical|Relevance}}
+    relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
 ...
