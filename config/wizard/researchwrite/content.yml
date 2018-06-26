@@ -181,7 +181,7 @@ essentials:
 
       -
         if: working_individually
-        title: Draft your article
+        title: Start drafting your article
         kind: 1
         graded: true
         points: 20
@@ -191,7 +191,7 @@ essentials:
 
       -
         if: working_in_groups
-        title: Draft your article
+        title: Start drafting your article
         kind: 1
         graded: true
         points: 20
@@ -322,14 +322,15 @@ essentials:
             </li>
             <li>
               Consider adding an image to your article. Wikipedia has strict rules
-              about what media can be added, so make sure to take <em>[Contributing Images and Media Files](https://dashboard.wikiedu.org/training/students/images-and-media)</em>
+              about what media can be added, so make sure to take
+              <em><a href="https://dashboard.wikiedu.org/training/students/images-and-media">Contributing Images and Media Files</a></em>
               training before you upload an image.
             </li>
           </ul>
 
       -
         if: illustrate
-        title: Illustrate an article
+        title: Illustrate your article
         kind: 1
         graded: true
         points: 5
