@@ -273,31 +273,28 @@ essentials:
     weight: 6
     blocks:
       -
+        if: working_individually
         title: Begin moving your work to Wikipedia
         kind: 1 # Assignment
+        training_module_ids: [32] # Moving work out of the sandbox
         content: |
           <p>
             Once you've made improvements to your article based on peer review
             feedback, it's time to move your work to Wikipedia proper - the "mainspace."
           </p>
-          <p><strong>Editing an existing article?</strong></p>
-          <ul>
-            <li>NEVER copy and paste your draft of an article over the entire article. Instead, edit small sections at a time.</li>
-            <li>
-              Copy your edits into the article. Make many small edits, saving
-              each time, and leaving an edit summary. Never replace more than one
-              to two sentences without saving!
-            </li>
-            <li>
-              Be sure to copy text from your sandbox while the sandbox page is in
-              'Edit' mode. This ensures that the formatting is transferred correctly.
-            </li>
-          </ul>
-          <p><strong>Creating a new article?</strong></p>
-          <ul>
-            <li>Read <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 13, and follow those steps to move your article from your Sandbox to Mainspace.</li>
-            <li>You can also review the <a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a> online training.</li>
-          </ul>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13</p>
+
+      -
+        if: working_in_groups
+        title: Begin moving your work to Wikipedia
+        kind: 1 # Assignment
+        training_module_ids: [33] # Moving work out of the sandbox
+        content: |
+          <p>
+            Once you've made improvements to your article based on peer review
+            feedback, it's time to move your work to Wikipedia proper - the "mainspace."
+          </p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13</p>
 
       -
         if: did_you_know
@@ -325,7 +322,7 @@ essentials:
             </li>
             <li>
               Consider adding an image to your article. Wikipedia has strict rules
-              about what media can be added, so make sure to take <em>Contributing Images and Media Files</em>
+              about what media can be added, so make sure to take <em>[Contributing Images and Media Files](https://dashboard.wikiedu.org/training/students/images-and-media)</em>
               training before you upload an image.
             </li>
           </ul>
@@ -338,29 +335,13 @@ essentials:
         points: 5
         training_module_ids: [6] # Images and multimedia
         content: |
-          <p>You'll want to find or create an appropriate photo, illustration, or piece of video/audio to add to an article.</p>
+          <p>
+            Resources:
+          </p>
           <ul>
-            <li>
-              Before you start, review the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook,
-              or see <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> pages 10–11.
-            </li>
-            <li>When you've reviewed those pages, take the training linked below.</li>
-            <li>
-              When you're ready to start finding images, remember: <strong>Never</strong>
-              grab images you find through an image search, or those found on
-              Instagram, Tumblr, Reddit, Imgur, or even so-called "Free image" or
-              "free stock photo" websites. Instead, you'll want to find images
-              with clear proof that the creator has given permission to use their
-              work. Many of these images can be found on
-              <a href="https://search.creativecommons.org/">search.creativecommons.org</a>.
-            </li>
-            <li>
-               Don't just upload an image to Wikipedia. Instead, upload it to
-               Wikipedia's sister site for images, Wikimedia Commons. For
-               instructions, read through the <a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a> handbook.
-            </li>
+            <li><a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a></li>
+            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 10–11</li>
           </ul>
-
 
   - # Week ten
     weight: 2
