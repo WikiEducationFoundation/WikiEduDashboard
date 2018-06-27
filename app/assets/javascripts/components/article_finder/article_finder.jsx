@@ -172,7 +172,7 @@ const ArticleFinder = createReactClass({
 
     const keys = {
       relevanceIndex: {
-        label: I18n.t('articleFinder.relevanceIndex'),
+        label: I18n.t('article_finder.relevanceIndex'),
         desktop_only: false
       },
       title: {

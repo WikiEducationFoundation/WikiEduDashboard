@@ -78,7 +78,6 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
-      // const lastRelevanceIndex = Object.keys(state.articles).length;
       action.data.query.categorymembers.forEach((data, i) => {
         newStateArticles[data.title] = {
           pageid: data.pageid,
@@ -106,8 +105,6 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_KEYWORD_RESULTS: {
       const newStateArticles = { ...state.articles };
-      // const lastRelevanceIndex = Object.keys(state.articles).length;
-      // console.log(lastRelevanceIndex);
       action.data.query.search.forEach((article, i) => {
         newStateArticles[article.title] = {
           pageid: article.pageid,
