@@ -4,13 +4,12 @@ import { sortByKey } from '../utils/model_utils';
 import { WP10Weights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS } from "../constants";
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH } from "../constants";
 
 const initialState = {
   articles: {},
   search_type: "keyword",
   search_term: "",
-  depth: "",
   min_views: "0",
   article_quality: 100,
   loading: false,
@@ -62,18 +61,22 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case CLEAR_FINDER_STATE: {
+      return { ...initialState };
+    }
+    case INITIATE_SEARCH: {
       return {
         ...state,
         articles: {},
         loading: true,
         continue_results: false,
         offset: 0,
-        totalhits: 0,
+        cmcontinue: '',
         sort: {
           sortKey: null,
           key: null
         },
         fetchState: "ARTICLES_LOADING",
+        lastRelevanceIndex: 0,
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
@@ -93,13 +96,17 @@ export default function articleFinder(state = initialState, action) {
         continueResults = true;
         cmcontinue = action.data.continue.cmcontinue;
       }
+      let fetchState = 'TITLE_RECEIVED';
+      if (!action.data.query.categorymembers.length) {
+        fetchState = 'PAGEVIEWS_RECEIVED';
+      }
       return {
         ...state,
         articles: newStateArticles,
         continue_results: continueResults,
         cmcontinue: cmcontinue,
         loading: false,
-        fetchState: "TITLE_RECEIVED",
+        fetchState: fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
@@ -120,13 +127,17 @@ export default function articleFinder(state = initialState, action) {
         continueResults = true;
         offset = action.data.continue.sroffset;
       }
+      let fetchState = 'TITLE_RECEIVED';
+      if (!action.data.query.search.length) {
+        fetchState = 'PAGEVIEWS_RECEIVED';
+      }
       return {
         ...state,
         articles: newStateArticles,
         continue_results: continueResults,
         offset: offset,
         loading: false,
-        fetchState: "TITLE_RECEIVED",
+        fetchState: fetchState,
         lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }

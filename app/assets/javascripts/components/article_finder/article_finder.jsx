@@ -9,7 +9,7 @@ import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
+import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
@@ -37,6 +37,10 @@ const ArticleFinder = createReactClass({
       this.props.fetchAssignments(this.props.course_id);
     }
     return this.updateFields('home_wiki', this.props.course.home_wiki);
+  },
+
+  componentWillUnmount() {
+    return this.props.resetArticleFinder();
   },
 
   onKeyDown(keyCode, ref) {
@@ -252,7 +256,7 @@ const ArticleFinder = createReactClass({
     }
 
     let fetchMoreButton;
-    if (this.props.continue_results) {
+    if (this.props.continue_results && this.state.isSubmitted) {
       fetchMoreButton = (
         <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>{I18n.t('article_finder.more_results')}</button>
       );
@@ -367,6 +371,7 @@ const mapDispatchToProps = {
   sortArticleFinder: sortArticleFinder,
   fetchKeywordResults: fetchKeywordResults,
   deleteAssignment: deleteAssignment,
+  resetArticleFinder: resetArticleFinder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);
