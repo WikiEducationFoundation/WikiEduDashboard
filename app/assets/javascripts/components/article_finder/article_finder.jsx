@@ -78,6 +78,10 @@ const ArticleFinder = createReactClass({
     return this.props.updateFields("grade", grade);
   },
 
+  sortSelect(e) {
+    this.props.sortArticleFinder(e.target.value);
+  },
+
   render() {
     const searchTerm = (
       <TextInput
@@ -167,6 +171,10 @@ const ArticleFinder = createReactClass({
     }
 
     const keys = {
+      relevanceIndex: {
+        label: I18n.t('article_finder.relevanceIndex'),
+        desktop_only: false
+      },
       title: {
         label: I18n.t('articles.title'),
         desktop_only: false
@@ -294,6 +302,7 @@ const ArticleFinder = createReactClass({
         <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
       );
     }
+
     return (
       <div className="container">
         <header>

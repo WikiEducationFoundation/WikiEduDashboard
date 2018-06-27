@@ -25,7 +25,8 @@ const initialState = {
   home_wiki: {
     language: 'en',
     project: 'wikipedia'
-  }
+  },
+  lastRelevanceIndex: 0,
 };
 
 export default function articleFinder(state = initialState, action) {
@@ -77,12 +78,13 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.query.categorymembers.forEach((data) => {
+      action.data.query.categorymembers.forEach((data, i) => {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
           fetchState: "TITLE_RECEIVED",
           title: data.title,
+          relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
       let continueResults = false;
@@ -98,16 +100,18 @@ export default function articleFinder(state = initialState, action) {
         cmcontinue: cmcontinue,
         loading: false,
         fetchState: "TITLE_RECEIVED",
+        lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
     case RECEIVE_KEYWORD_RESULTS: {
       const newStateArticles = { ...state.articles };
-      action.data.query.search.forEach((article) => {
+      action.data.query.search.forEach((article, i) => {
         newStateArticles[article.title] = {
           pageid: article.pageid,
           ns: article.ns,
           fetchState: "TITLE_RECEIVED",
           title: article.title,
+          relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
       });
       let continueResults = false;
@@ -123,6 +127,7 @@ export default function articleFinder(state = initialState, action) {
         offset: offset,
         loading: false,
         fetchState: "TITLE_RECEIVED",
+        lastRelevanceIndex: state.lastRelevanceIndex + 50,
       };
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {

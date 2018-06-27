@@ -96,11 +96,11 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
   });
   const sort = getState().articleFinder.sort;
   let desc = false;
-  if (!sort.sortKey) {
-    desc = true;
-  }
   if (!sort.key) {
-    sort.key = 'pageviews';
+    sort.key = 'relevanceIndex';
+  }
+  else if (!sort.sortKey) {
+    desc = true;
   }
   Promise.all(promises)
   .then(() => {
