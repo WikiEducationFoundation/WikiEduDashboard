@@ -4,8 +4,10 @@ import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import { receiveUploads, sortUploads, setView } from '../../actions/uploads_actions.js';
+import { receiveUploads, sortUploads, setView, setUploadFilters } from '../../actions/uploads_actions.js';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
+import MultiSelectField from '../common/multi_select_field.jsx';
+import { getStudentUsers, getFilteredUploads } from '../../selectors';
 
 const UploadsHandler = createReactClass({
   displayName: 'UploadsHandler',
@@ -17,6 +19,7 @@ const UploadsHandler = createReactClass({
 
   getInitialState() {
     return {
+      options: [],
       offset: 0,
       data: [],
       perPage: 100,
@@ -29,8 +32,15 @@ const UploadsHandler = createReactClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const data = nextProps.uploads.slice(this.state.offset, this.state.offset + this.state.perPage);
-    this.setState({ data: data, pageCount: Math.ceil(nextProps.uploads.length / this.state.perPage) });
+    const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
+    const options = nextProps.students.map(student => {
+      return { label: student.username, value: student.username };
+    });
+    this.setState({
+      data: data,
+      pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
+      options: options,
+     });
     if (nextProps.view === LIST_VIEW) {
       document.getElementById("list-view").classList.add("dark");
       document.getElementById("gallery-view").classList.remove("dark");
@@ -49,12 +59,18 @@ const UploadsHandler = createReactClass({
   },
 
   setUploadData(offset, selectedPage) {
-    const data = this.props.uploads.slice(offset, offset + this.state.perPage);
+    const data = this.props.selectedUploads.slice(offset, offset + this.state.perPage);
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
   setView(view) {
     this.props.setView(view);
+  },
+
+  setUploadFilters(selectedFilters) {
+    this.setState({ offset: 0, currentPage: 0 }, () => {
+      this.props.setUploadFilters(selectedFilters);
+    });
   },
 
   handlePageClick(data) {
@@ -112,6 +128,7 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
+        <MultiSelectField options={this.state.options} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
         {paginationElement}
         <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
         {paginationElement}
@@ -124,12 +141,16 @@ const UploadsHandler = createReactClass({
 const mapStateToProps = state => ({
   uploads: state.uploads.uploads,
   view: state.uploads.view,
+  students: getStudentUsers(state),
+  selectedFilters: state.uploads.selectedFilters,
+  selectedUploads: getFilteredUploads(state),
 });
 
 const mapDispatchToProps = {
-  receiveUploads: receiveUploads,
-  sortUploads: sortUploads,
-  setView: setView,
+  receiveUploads,
+  sortUploads,
+  setView,
+  setUploadFilters,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);

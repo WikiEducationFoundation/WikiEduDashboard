@@ -15,6 +15,8 @@ const getWikiFilter = state => state.articles.wikiFilter;
 const getAlerts = state => state.alerts.alerts;
 const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
+const getUploads = state => state.uploads.uploads;
+const getUploadFilters = state => state.uploads.selectedFilters;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -114,5 +116,12 @@ export const getFilteredArticleFinder = createSelector(
       }
       return true;
     });
+  }
+);
+
+export const getFilteredUploads = createSelector(
+  [getUploads, getUploadFilters], (uploads, uploadFilters) => {
+    if (!uploadFilters.length) { return uploads; }
+    return _.filter(uploads, (upload) => _.includes(uploadFilters, upload.uploader));
   }
 );
