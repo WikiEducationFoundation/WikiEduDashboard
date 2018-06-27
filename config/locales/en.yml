@@ -876,7 +876,6 @@ en:
     included_modules: Included Modules
 
   uploads:
-    datetime: Date/Time
     file_name: File Name
     header: Files Uploaded to Wikimedia Commons
     image: Image
@@ -884,9 +883,13 @@ en:
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
     time_doc: The time of each upload in your local time
-    uploaded_at: Uploaded At
+    uploaded_at: Upload Time
+    uploader: Uploader
     uploaded_by: Uploaded By
+    uploaded_on: Uploaded On
     usage_count: Usage Count
+    usage_doc: Number of Wikipedia articles that this image appears in.
+    usage_count_gallery_tile: Used in %{usage_count} articles
     usages: Usages
 
   users:

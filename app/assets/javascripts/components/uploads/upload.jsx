@@ -58,7 +58,7 @@ const Upload = createReactClass({
 
     let usage = '';
     if (this.props.upload.usage_count) {
-        usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+        usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: this.props.upload.usage_count })}`;
       }
 
     const uploadDivStyle = {
@@ -82,6 +82,7 @@ const Upload = createReactClass({
     }
 
     if (this.props.view === LIST_VIEW) {
+      usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
       return (
         <tr className="upload">
           <td>
@@ -108,7 +109,7 @@ const Upload = createReactClass({
             <p className="usage"><b>{usage}</b></p>
             <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-            <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_on).format('YYYY/MM/DD h:mm a')}</p>
           </div>
         </div>
       );
@@ -118,12 +119,14 @@ const Upload = createReactClass({
       return (
         <div className="tile-container" >
           <div className="tile">
-            <img src={this.state.imageFile} alt={fileName} />
+            <a href={this.props.upload.url} target="_blank">
+              <img src={this.state.imageFile} alt={fileName} />
+            </a>
             <div className="info">
               <p className="usage"><b>{usage}</b></p>
               <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
               <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-              <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+              <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_on).format('YYYY/MM/DD h:mm a')}</p>
             </div>
           </div>
         </div>
