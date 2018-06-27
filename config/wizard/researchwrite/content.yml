@@ -362,9 +362,9 @@ essentials:
         title: Prepare for in-class presentation
         kind: 1
         content: |
-          <ul>
-            <li>Prepare for an in-class presentation about your Wikipedia editing experience.</li>
-          </ul>
+          <p>
+            Prepare for an in-class presentation about your Wikipedia editing experience.
+          </p>
 
   - # Week eleven
     weight: 5
