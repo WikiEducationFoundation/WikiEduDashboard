@@ -25,15 +25,16 @@ const UploadList = createReactClass({
         desktop_only: true
       },
       uploaded_by: {
-        label: I18n.t('uploads.uploaded_by'),
+        label: I18n.t('uploads.uploader'),
         desktop_only: true
       },
       usage_count: {
         label: I18n.t('uploads.usage_count'),
-        desktop_only: true
+        desktop_only: true,
+        info_key: 'uploads.usage_doc'
       },
       date: {
-        label: I18n.t('uploads.datetime'),
+        label: I18n.t('uploads.uploaded_at'),
         desktop_only: true,
         info_key: 'uploads.time_doc'
       }

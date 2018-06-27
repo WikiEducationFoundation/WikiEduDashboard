@@ -110,11 +110,11 @@ const UploadsHandler = createReactClass({
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
           <div className="view-buttons">
-            <button id="list-view" className="button border icon-list_view icon tooltip-trigger" onClick={() => {this.setView(LIST_VIEW);}}>
-              <p className="tooltip dark">List View</p>
-            </button>
             <button id="gallery-view" className="button border icon-gallery_view icon tooltip-trigger" onClick={() => {this.setView(GALLERY_VIEW);}}>
               <p className="tooltip dark">Gallery View</p>
+            </button>
+            <button id="list-view" className="button border icon-list_view icon tooltip-trigger" onClick={() => {this.setView(LIST_VIEW);}}>
+              <p className="tooltip dark">List View</p>
             </button>
             <button id="tile-view" className="button border icon-tile_view icon tooltip-trigger" onClick={() => {this.setView(TILE_VIEW);}}>
               <p className="tooltip dark">Tile View</p>
@@ -123,7 +123,7 @@ const UploadsHandler = createReactClass({
           <div className="sort-select">
             <select className="sorts" name="sorts" onChange={this.sortSelect}>
               <option value="uploaded_at">{I18n.t('uploads.uploaded_at')}</option>
-              <option value="uploader">{I18n.t('uploads.uploaded_by')}</option>
+              <option value="uploader">{I18n.t('uploads.uploader')}</option>
               <option value="usage_count">{I18n.t('uploads.usage_count')}</option>
             </select>
           </div>
