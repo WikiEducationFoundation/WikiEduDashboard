@@ -1,10 +1,11 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, GALLERY_VIEW } from '../constants';
+import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, GALLERY_VIEW, FILTER_UPLOADS } from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   uploads: [],
   sortKey: null,
   view: GALLERY_VIEW,
+  selectedFilters: [],
 };
 
 const SORT_DESCENDING = {
@@ -37,7 +38,13 @@ export default function uploads(state = initialState, action) {
         ...state,
         view: action.view,
       };
-      }
+    }
+    case FILTER_UPLOADS: {
+      return {
+        ...state,
+        selectedFilters: action.selectedFilters,
+      };
+    }
     default:
       return state;
   }
