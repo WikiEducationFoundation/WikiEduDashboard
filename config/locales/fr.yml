@@ -595,8 +595,9 @@ fr:
     wiki_edits_enabled: Modifications du wiki activées
     wiki_edits_enabled_tooltip: Si les modifications du wiki sont activées, alors
       les modifications automatisées dans le wiki seront faites pour ce programme.
-      Désactivez les modifications du wiki si vous ne voulez pas de modèles ajoutés
-      aux pages utilisateur, de pages de discussion pour les articles affectés, etc.
+      Désactivez les modifications du wiki si vous ne voulez pas que les modèles soient
+      ajoutés aux pages utilisateur, aux pages de discussion des articles affectés,
+      etc.
     wiki_staff: Équipe d’édition de wiki
     withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
@@ -1152,15 +1153,15 @@ fr:
     keyword_search: Recherche par mot-clé
     category_search: Recherche par catégorie
     article_quality: Qualité de l’article (0-100)
-    more_results: Plus de résultats
-    fetched_articles: Articles en vedette
+    more_results: Davantage de résultats
+    fetched_articles: Articles cherchés
     filtered_articles: Articles filtrés
     searching_articles: Recherche d’articles
     fetching_assessments: Récupération des déclarations de page
     fetching_revisions: Récupération des révisions de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération des compteurs de vue de page
-    subheading_message: Trouvons un article qui correspond à vos besoins
+    subheading_message: Trouvons un article qui corresponde à vos besoins
     article_finder: Découvreur d’article
     submit: Soumettre
 ...

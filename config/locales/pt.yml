@@ -1138,4 +1138,5 @@ pt:
     subheading_message: Vamos procurar um artigo que satisfaz as suas necessidades
     article_finder: Pesquisa de artigos
     submit: Enviar
+    relevanceIndex: Índice de relevância
 ...

@@ -77,10 +77,11 @@ lb:
       ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
         säin Haaptprojet eventuell ze räif ass.
       b: B-Klass - e moderat entwéckelten Artikel
-      c: C-Klass - En duerchschnëttlechen Artikel mat Méiglechkeete fir en ze verbesseren
+      c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
+        ze verbesseren'
       start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
         ginn
-      list: Klass Lëscht - éischter eng Lëscht wéi e konventionellen Artikel
+      list: '%{class}-Klass - éischter eng Lëscht wéi e konventionellen Artikel'
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia
@@ -517,4 +518,7 @@ lb:
     hide_filters: Filtere verstoppen
     category_search: Kategorie Sichen
     more_results: Méi Resultater
+    filtered_articles: Gefiltert Artikelen
+    searching_articles: Artikele sichen
+    submit: Schécken
 ...

@@ -128,18 +128,19 @@ pt-br:
       Essas avaliações podem corresponder a versões muito antigas, então elas são
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
-      fa: Artigo destacado — Classificação mais alta da Wikipédia, provavelmente é
-        um artigo maduro demais para ser o projeto principal de um novo editor.
-      fl: Lista destacada — a mais alta classificação da Wikipedia para listas
-      a: 'Classe A: um artigo muito desenvolvido que pode ser maduro demais para ser
-        o projeto principal de um editor novo'
-      ga: 'Artigo bom: um artigo bem desenvolvido que pode ser maduro demais para
-        ser o projeto principal de um editor novo'
-      b: 'Classe B: um artigo moderadamente desenvolvido'
-      c: 'Classe C: um artigo intermediário com possibilidades de melhora'
-      start: 'Classe inicial: um artigo preliminar com muitas possibilidades de melhorias'
-      stub: 'Classe esboço: um artigo em estágio inicial, que precisa de mais conteúdo'
-      list: 'Lista: uma lista em vez de um artigo convencional'
+      fa: '%{class} (Artigo destacado) — a classificação mais alta da Wikipédia, provavelmente
+        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.'
+      fl: '%{class} (Lista destacada) — a classificação mais alta da Wikipédia para
+        listas'
+      a: Classe %{class} — um artigo muito desenvolvido que pode ser demasiado maduro
+        para ser o projeto principal de um editor novo
+      ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demasiado
+        maduro para ser o projeto principal de um editor novo'
+      b: Classe %{class} — um artigo moderadamente desenvolvido
+      c: Classe %{class} — um artigo intermédio com possibilidades de melhoramento
+      start: Classe %{class} — um artigo preliminar com muitas possibilidades de melhoramento
+      stub: Classe %{class} — um artigo em estágio inicial, que precisa de mais conteúdo
+      list: Classe %{class} — uma lista em vez de um artigo convencional
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
@@ -1136,4 +1137,5 @@ pt-br:
     subheading_message: Vamos encontrar um artigo que atenda às suas necessidades
     article_finder: Localizador de artigos
     submit: Enviar
+    relevanceIndex: Índice de Relevância
 ...
