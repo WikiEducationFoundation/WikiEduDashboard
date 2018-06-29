@@ -4,7 +4,7 @@ import List from '../common/list.jsx';
 import Revision from './revision.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
-const RevisionList = ({ revisions, course, sortBy, wikidataLabels }) => {
+const RevisionList = ({ revisions, course, sortBy, wikidataLabels, sort }) => {
   const elements = revisions.map(revision => {
     return <Revision revision={revision} key={revision.id} wikidataLabel={wikidataLabels[revision.title]} course={course} />;
   });
@@ -32,7 +32,10 @@ const RevisionList = ({ revisions, course, sortBy, wikidataLabels }) => {
       info_key: 'revisions.time_doc'
     }
   };
-
+  if (sort.key) {
+    const order = (sort.sortKey) ? 'asc' : 'desc';
+    keys[sort.key].order = order;
+  }
   return (
     <List
       elements={elements}
@@ -40,6 +43,7 @@ const RevisionList = ({ revisions, course, sortBy, wikidataLabels }) => {
       table_key="revisions"
       none_message={CourseUtils.i18n('revisions_none', course.string_prefix)}
       sortBy={sortBy}
+      sortable={true}
     />
   );
 };

@@ -15,7 +15,8 @@ const ArticleList = ({
   actions,
   articleDetails,
   sortBy,
-  wikidataLabels
+  wikidataLabels,
+  sort
 }) => {
   const keys = {
     rating_num: {
@@ -43,7 +44,10 @@ const ArticleList = ({
       sortable: false
     }
   };
-
+  if (sort.key) {
+    const order = (sort.sortKey) ? 'asc' : 'desc';
+    keys[sort.key].order = order;
+  }
   // If a parameter like ?showArticle=123 is present,
   // the ArticleViewer should go into show mode immediately.
   // this allows for links to directly view a specific article.
@@ -84,7 +88,8 @@ ArticleList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  articleDetails: state.articleDetails
+  articleDetails: state.articleDetails,
+  sort: state.articles.sort,
 });
 
 const mapDispatchToProps = dispatch => ({
