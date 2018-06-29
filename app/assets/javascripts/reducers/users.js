@@ -3,7 +3,10 @@ import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
   users: [],
-  sortKey: null,
+  sort: {
+    sortKey: null,
+    key: null,
+  },
   isLoaded: false
 };
 
@@ -20,16 +23,17 @@ export default function users(state = initialState, action) {
     case ADD_USER:
     case REMOVE_USER:
       return {
+        ...state,
         users: action.data.course.users,
-        sortKey: null,
         isLoaded: true
       };
 
     case SORT_USERS: {
       const newState = { ...state };
-      const sorted = sortByKey(newState.users, action.key, state.sortKey, SORT_DESCENDING[action.key]);
+      const sorted = sortByKey(newState.users, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
       newState.users = sorted.newModels;
-      newState.sortKey = sorted.newKey;
+      newState.sort.sortKey = sorted.newKey;
+      newState.sort.key = action.key;
       return newState;
     }
 

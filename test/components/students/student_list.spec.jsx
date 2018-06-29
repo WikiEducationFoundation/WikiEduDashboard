@@ -42,7 +42,7 @@ describe('StudentList', () => {
     account_requests_enabled: true
   };
 
-  const initialState = { users: { users } };
+  const initialState = { users: { users, sort: { sortKey: null, key: null } } };
   const reduxStoreWithUsers = createStore(reducer, initialState, compose(applyMiddleware(thunk)));
 
   it('displays \'Name\' column', () => {

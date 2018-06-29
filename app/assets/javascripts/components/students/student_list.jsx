@@ -140,7 +140,8 @@ const StudentList = createReactClass({
     const keys = {
       username: {
         label: I18n.t('users.name'),
-        desktop_only: false
+        desktop_only: false,
+        sortable: true,
       },
       assignment_title: {
         label: I18n.t('users.assigned'),
@@ -171,6 +172,10 @@ const StudentList = createReactClass({
         info_key: 'users.uploads_doc'
       }
     };
+    if (this.props.sort.key) {
+      const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
+      keys[this.props.sort.key].order = order;
+    }
     return (
       <div className="list__wrapper">
         {controls}
@@ -183,6 +188,7 @@ const StudentList = createReactClass({
           editable={this.state.editAssignments}
           sortBy={this.props.sortUsers}
           stickyHeader={true}
+          sortable={true}
         />
       </div>
     );
@@ -192,7 +198,8 @@ const StudentList = createReactClass({
 const mapStateToProps = state => ({
   openKey: state.ui.openKey,
   students: getStudentUsers(state),
-  assignments: state.assignments.assignments
+  assignments: state.assignments.assignments,
+  sort: state.users.sort,
 });
 
 const mapDispatchToProps = {
