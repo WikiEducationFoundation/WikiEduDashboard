@@ -1,0 +1,9 @@
+name: 'Exercise: Choose your article'
+id: 36
+description: |
+  Your instructor has prepared a list of articles for you. It's time to select
+  one of these articles.
+slides:
+  - slug: assign-yourself-article #3601
+  - slug: evaluate-your-article #3602
+  - slug: think-about-sources #3603
