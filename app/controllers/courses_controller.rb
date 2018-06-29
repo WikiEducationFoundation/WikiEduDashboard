@@ -39,13 +39,12 @@ class CoursesController < ApplicationController
 
   def update
     validate
+    handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
     update_boolean_flag :timeline_enabled
     update_boolean_flag :wiki_edits_enabled
     ensure_passcode_set
-    # this must happen after course record is updated
-    handle_course_announcement(@course.instructors.first)
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   end
@@ -165,6 +164,8 @@ class CoursesController < ApplicationController
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
+    # Needs to be switched to submitted before the announcement edits are made
+    @course.update(submitted: true)
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
