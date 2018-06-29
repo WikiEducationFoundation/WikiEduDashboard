@@ -128,7 +128,7 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <MultiSelectField options={this.state.options} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
+        <MultiSelectField options={this.state.options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
         {paginationElement}
         <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
         {paginationElement}

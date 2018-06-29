@@ -61,10 +61,13 @@ const Upload = createReactClass({
         usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: this.props.upload.usage_count })}`;
       }
 
-    const uploadDivStyle = {
-      width: this.state.width * 250 / this.state.height,
-      flexGrow: this.state.width * 250 / this.state.height,
-    };
+    let uploadDivStyle;
+    if (this.state.width && this.state.height) {
+      uploadDivStyle = {
+        width: this.state.width * 250 / this.state.height,
+        flexGrow: this.state.width * 250 / this.state.height,
+      };
+    }
 
     let details;
     if (this.props.upload.usage_count > 0) {
