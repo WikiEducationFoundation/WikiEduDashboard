@@ -218,6 +218,7 @@ en:
     add_organizer: Add organizer
     alert_article: Article title
     alert_label: Campaign Alerts
+    alert_select_label: Filter by alert type
     alert_type: Type
     alert_user_id: User
     all_campaigns: All Campaigns
@@ -882,6 +883,7 @@ en:
     label: Uploads
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
+    select_label: Filter by uploader
     time_doc: The time of each upload in your local time
     uploaded_at: Upload Time
     uploader: Uploader
