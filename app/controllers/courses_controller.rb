@@ -39,12 +39,13 @@ class CoursesController < ApplicationController
 
   def update
     validate
-    handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
     update_boolean_flag :timeline_enabled
     update_boolean_flag :wiki_edits_enabled
     ensure_passcode_set
+    # this must happen after course record is updated
+    handle_course_announcement(@course.instructors.first)
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
   end
