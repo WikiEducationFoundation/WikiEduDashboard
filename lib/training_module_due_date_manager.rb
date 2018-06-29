@@ -22,7 +22,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    !module_completed? && Date.today > computed_due_date
+    !module_completed? && Time.zone.now.to_date > computed_due_date
   end
 
   def deadline_status
