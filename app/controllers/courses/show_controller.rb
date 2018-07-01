@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require './lib/course_show_endpoints'
+require_dependency "#{Rails.root}/lib/course_show_endpoints"
+require_dependency "#{Rails.root}/lib/wiki_edits"
 # requests to courses/:school/:titleterm(/:endpoint(/*any)) should come here
 
 module Courses
@@ -18,10 +19,12 @@ module Courses
         set_endpoint
         set_limit
 
-        view_to_render = endpoint == 'overview' ? "courses/#{endpoint}" : nil
         respond_to do |format|
-          format.html { render 'courses/show' }
-          format.json { render view_to_render }
+          format.html { render '/courses/show' }
+          format.json do
+            view = endpoint == 'overview' ? 'courses/show' : "/courses/#{endpoint}"
+            render view
+          end
         end
       end
     end
