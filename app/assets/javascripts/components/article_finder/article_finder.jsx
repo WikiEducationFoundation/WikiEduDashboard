@@ -216,14 +216,20 @@ const ArticleFinder = createReactClass({
       delete keys.grade;
     }
 
-    if (!this.props.course_id) {
+    if (!this.props.course_id || !this.props.current_user.id) {
       delete keys.tools;
     }
 
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
-        const assignment = _.find(this.props.assignments, { article_title: title });
+        let assignment;
+        if (this.props.current_user.isInstructor) {
+          assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
+        }
+        else {
+          assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
+        }
         return (
           <ArticleFinderRow
             article={article}
@@ -234,6 +240,7 @@ const ArticleFinder = createReactClass({
             assignment={assignment}
             addAssignment={this.props.addAssignment}
             deleteAssignment={this.props.deleteAssignment}
+            current_user={this.props.current_user}
           />
           );
       });

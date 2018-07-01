@@ -844,4 +844,6 @@ qqq:
     article_finder: Title heading for article finder {{Identical|Article Finder}}
     submit: Submit button label {{Identical|Submit}}
     relevanceIndex: Relevance Index table header {{Identical|Relevance Index}}
+    assign_article_self: Button label to assign an article to self
+    unassign_article_self: Button label to unassign an article to self
 ...
