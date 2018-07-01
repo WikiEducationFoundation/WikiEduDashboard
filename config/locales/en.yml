@@ -1142,3 +1142,5 @@ en:
     article_finder: "Article Finder"
     submit: "Submit"
     relevanceIndex: "Relevance Index"
+    assign_article_self: "Assign yourself"
+    unassign_article_self: "Unassign Article"
