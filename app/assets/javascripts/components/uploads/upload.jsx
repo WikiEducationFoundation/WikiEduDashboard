@@ -112,7 +112,7 @@ const Upload = createReactClass({
             <p className="usage"><b>{usage}</b></p>
             <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
             <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_on).format('YYYY/MM/DD h:mm a')}</p>
+            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
           </div>
         </div>
       );
@@ -129,7 +129,7 @@ const Upload = createReactClass({
               <p className="usage"><b>{usage}</b></p>
               <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
               <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-              <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_on).format('YYYY/MM/DD h:mm a')}</p>
+              <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
             </div>
           </div>
         </div>
