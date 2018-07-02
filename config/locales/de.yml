@@ -894,7 +894,6 @@ de:
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
   uploads:
-    datetime: Datum/Zeit
     file_name: Dateiname
     header: Auf Wikimedia Commons hochgeladene Dateien
     image: Bild
@@ -903,9 +902,13 @@ de:
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
-    uploaded_at: Hochgeladen bei
+    uploaded_at: Hochgeladen um
+    uploader: Hochlader
     uploaded_by: Hochgeladen von
+    uploaded_on: Hochgeladen am
     usage_count: Verwendungszähler
+    usage_doc: Anzahl der Wikipedia-Artikel, in denen dieses Bild erscheint.
+    usage_count_gallery_tile: In %{usage_count} Artikeln verwendet
     usages: Verwendungen
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!

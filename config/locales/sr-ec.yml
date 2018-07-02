@@ -663,7 +663,6 @@ sr-ec:
     done: Завршено!
     check_answer: Провери одговоре
   uploads:
-    datetime: Датум/време
     file_name: Назив датотеке
     header: Датотеке отпремљене на Оставу
     image: Слика

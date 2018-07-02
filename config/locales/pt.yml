@@ -892,7 +892,6 @@ pt:
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
   uploads:
-    datetime: Data/Horário
     file_name: Nome do ficheiro
     header: Os ficheiros enviados ao Wikimedia Commons
     image: Imagem
@@ -902,8 +901,12 @@ pt:
       para a wiki Wikimedia Commons.
     time_doc: A hora de cada envio no seu horário local
     uploaded_at: Enviado a
+    uploader: Enviado por
     uploaded_by: Enviado por
+    uploaded_on: Enviado em
     usage_count: Contagem de utilização
+    usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
+    usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
   users:
     already_enrolled: Esse utilizador já está matriculado!

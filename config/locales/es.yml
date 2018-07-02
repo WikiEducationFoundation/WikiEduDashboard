@@ -744,7 +744,6 @@ es:
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
   uploads:
-    datetime: Fecha/hora
     file_name: Nombre del archivo
     header: Archivos subidos a Wikimedia Commons
     image: Imagen

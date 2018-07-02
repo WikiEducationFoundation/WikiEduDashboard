@@ -236,7 +236,6 @@ bg:
   training:
     start: Начало
   uploads:
-    datetime: Дата/Час
     header: Качени файлове в Общомедия
     label: Качвания
     loading: Зареждане на качвания...

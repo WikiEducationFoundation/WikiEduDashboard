@@ -644,7 +644,6 @@ pl:
       chyba że się zalogujesz.
     done: Gotowe!
   uploads:
-    datetime: Data/Czas
     file_name: Nazwa pliku
     header: Pliki przesłane na Wikimedia Commons
     image: Obraz

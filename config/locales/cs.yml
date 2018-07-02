@@ -834,7 +834,6 @@ cs:
     check_answer: Zkontrolovat odpověď
     included_modules: Přidané moduly
   uploads:
-    datetime: Datum/Čas
     file_name: Název souboru
     header: Soubory nahrané na Wikimedia Commons
     image: Obrázek

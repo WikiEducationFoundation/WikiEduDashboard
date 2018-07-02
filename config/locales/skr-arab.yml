@@ -247,10 +247,11 @@ skr-arab:
     page: ورقہ
     done: مکمل!
   uploads:
-    datetime: تریخ/ویلا
     file_name: فائل دا ناں
     image: تصویر
     label: اپلوڈ کردہ
+    uploaded_at: اپ لوڈ ویلا
+    uploader: اپلوڈ کرݨ آلا
   users:
     assign_articles_done: مکمل
     loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
@@ -268,4 +269,9 @@ skr-arab:
     userpasscode_placeholder: پاس کوڈ
   wizard:
     summary: خلاصہ
+  article_finder:
+    page_assessment_class: جماعت
+    search: ڳولو
+    tools: آوزار
+    submit: جمع کرواؤ
 ...

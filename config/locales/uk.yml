@@ -862,7 +862,6 @@ uk:
     check_answer: Перевірити відповідь
     included_modules: Включені модулі
   uploads:
-    datetime: Дата та час
     file_name: Назва файлу
     header: Файли, завантажені у Вікісховище
     image: Зображення

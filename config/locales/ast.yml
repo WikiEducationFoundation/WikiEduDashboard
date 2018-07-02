@@ -694,7 +694,6 @@ ast:
     check_answer: Comprobar la respuesta
     included_modules: Módulos incluyíos
   uploads:
-    datetime: Data/Hora
     file_name: Nome del ficheru
     header: Ficheros xubíos a Wikimedia Commons
     image: Imaxe

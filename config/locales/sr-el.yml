@@ -571,7 +571,6 @@ sr-el:
     logged_out: Odjavljeni ste. Nećete dobiti poene za završavanje ovog modula ukoliko
       se ne prijavite.
   uploads:
-    datetime: Datum/vreme
     file_name: Naziv datoteke
     header: Datoteke otpremljene na Ostavu
     image: Slika

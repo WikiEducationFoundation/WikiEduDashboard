@@ -523,7 +523,6 @@ sq:
     logged_out: Jeni ç'regjistruar. Nuk do t'ju njihet përfundimi i këtij moduli,
       nëse nuk kyçeni.
   uploads:
-    datetime: Data/Koha
     file_name: Emri i Skedarit
     header: Skedarët Ngarkuar në Wikimedia Commons
     image: Imazhi

@@ -236,7 +236,6 @@ sd:
   training:
     view: ڏسو
   uploads:
-    datetime: تاريخ/وقت
     file_name: فائيل جو نالو
     header: وڪيپيڊيا العام تي فائيل چاڙهيا ويا
     image: عڪس

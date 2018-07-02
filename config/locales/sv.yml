@@ -506,16 +506,18 @@ sv:
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
   uploads:
-    datetime: Datum/tid
     file_name: Filnamn
     header: Filer som har laddats upp till Wikimedia Commons
     image: Bild
     label: Uppladdningar
     loading: Laddar uppladdning...
     none: Inga filer har laddats upp
-    uploaded_at: Laddades upp
+    uploaded_at: Uppladdningstid
+    uploader: Uppladdare
     uploaded_by: Uppladdad av
+    uploaded_on: Uppladdningsdatum
     usage_count: Antal användningar
+    usage_count_gallery_tile: Används  i %{usage_count} artiklar
     usages: Användning
   users:
     assign_articles: Tilldela artiklar

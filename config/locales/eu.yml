@@ -864,7 +864,6 @@ eu:
     check_answer: Erantzunak egiaztatu
     included_modules: Sartutako moduluak
   uploads:
-    datetime: Data/Ordua
     file_name: Fitxategiaren izena
     header: Wikimedia Commonsera Igotako Fitxategiak
     image: Irudia

@@ -474,7 +474,6 @@ be:
     view: Прагляд
     logged_out: Вы выйшлі. Вы не зможаце змяняць гэты модуль пакуль не залагініцеся.
   uploads:
-    datetime: Дата/Час
     file_name: Назва файла
     header: Файлы загружаныя на Вікісховішча (Wikimedia Commons)
     image: Выява

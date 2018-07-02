@@ -894,7 +894,6 @@ pt-br:
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
   uploads:
-    datetime: Data/Horário
     file_name: Nome do Arquivo
     header: Arquivos Enviados ao Wikimedia Commons
     image: Imagem
@@ -903,9 +902,13 @@ pt-br:
     none: Esta classe não contribuiu com nenhuma imagem ou com outros arquivos de
       mídia no Wikimedia Commons.
     time_doc: Horário de cada envio em seu horário local
-    uploaded_at: Enviado a
+    uploaded_at: Carregado a
+    uploader: Carregado por
     uploaded_by: Enviado Por
+    uploaded_on: Carregado em
     usage_count: Total de Uso
+    usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
+    usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
   users:
     already_enrolled: Aquele usuário já está inscrito!

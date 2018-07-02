@@ -406,7 +406,6 @@ lb:
     done: Fäerdeg!
     check_answer: Äntwert nokucken
   uploads:
-    datetime: Datum/Zäit
     file_name: Numm vum Fichier
     image: Bild
     label: Eropgeluede Fichieren
@@ -414,6 +413,8 @@ lb:
       bäigedroe.
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit
     uploaded_by: Eropgeluede vum
+    uploaded_on: Eropgelueden de(n)
+    usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg

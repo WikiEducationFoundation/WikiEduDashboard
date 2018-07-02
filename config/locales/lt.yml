@@ -400,7 +400,6 @@ lt:
     logged_out: Esate neprisijungę. Negausite kredito atlikdami šio modulio užduotys,
       jei neprisijungsite.
   uploads:
-    datetime: Data/Laikas
     file_name: Failo Pavadinimas
     header: Failai Įkelti į Vikimedija Commons
     image: Paveikslėlis

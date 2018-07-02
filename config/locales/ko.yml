@@ -463,7 +463,6 @@ ko:
     done: 끝났습니다!
     included_modules: 포함된 모듈
   uploads:
-    datetime: 날짜/시간
     file_name: 파일 이름
     header: 위키미디어 공용에 올린 파일
     image: 그림

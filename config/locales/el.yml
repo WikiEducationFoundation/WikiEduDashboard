@@ -278,7 +278,11 @@ el:
     last_update: Τελευταία ενημέρωση στατιστικών
     bytes_added: Μπάιτ που προστέθηκαν
   uploads:
-    uploaded_at: Ανέβηκε στις
+    uploaded_at: Ώρα ανεβάσματος
+    uploader: Ανεβαστής
+    uploaded_on: Ανέβηκε στις
+    usage_doc: Αριθμός λημμάτων Βικιπαίδειας στα οποία εμφανίζεται η φωτογραφία.
+    usage_count_gallery_tile: Χρησιμοποιήθηκε σε %{usage_count} λήμματα
   users:
     total_uploads: Συνολικές μεταφορτώσεις
   user_profiles:

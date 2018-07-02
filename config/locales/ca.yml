@@ -551,7 +551,6 @@ ca:
     check_answer: Comprova la resposta
     included_modules: Mòduls inclosos
   uploads:
-    datetime: Data/Hora
     file_name: Nom del fitxer
     header: Fitxers carregats a Wikimedia Commons
     image: Imatge

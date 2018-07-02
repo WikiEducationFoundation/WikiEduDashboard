@@ -315,7 +315,6 @@ ga:
     start: Tosaigh
     view: Amharc
   uploads:
-    datetime: Dáta/Am
     file_name: Ainm an Chomhaid
     image: Íomhá
     label: Uaslódálacha

@@ -796,7 +796,6 @@ tr:
     check_answer: Yanıtları Kontrol Et
     included_modules: Dahil Modüller
   uploads:
-    datetime: Tarih/Saat
     file_name: Dosya Adı
     header: Wikimedia Commons'a Yüklenen Dosyalar
     image: Resim

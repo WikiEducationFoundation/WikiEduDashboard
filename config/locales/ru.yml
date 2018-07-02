@@ -450,7 +450,6 @@ ru:
     done: Готово!
     check_answer: Проверить ответ
   uploads:
-    datetime: Дата/время
     file_name: Имя файла
     image: Изображение
     label: Загрузки

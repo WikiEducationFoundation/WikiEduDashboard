@@ -576,7 +576,6 @@ he:
     view: צפייה
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
-    datetime: תאריך/שעה
     file_name: שם הקובץ
     header: קבצים שהועלו לוויקישיתוף
     image: תמונה
@@ -584,8 +583,13 @@ he:
     loading: טעינת העלאות...
     none: הכיתה הזאת לא תרמה שום תמונות או קובצי מדיה אחרים לוויקישיתוף.
     time_doc: הזמן של כל העלאה לפי השעון המקומי שלך
+    uploaded_at: מועד ההעלאה
+    uploader: מעלה
     uploaded_by: הועלה על־ידי
+    uploaded_on: הועלה ב־
     usage_count: מונה שימוש
+    usage_doc: מספר הערכים בוויקיפדיה שהתמונה הזו מופיעה בהם.
+    usage_count_gallery_tile: בשימוש ב־%{usage_count} ערכים
     usages: שימושים
   users:
     already_enrolled: המשתמש הזה כבר רשום!

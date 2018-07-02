@@ -4,6 +4,7 @@
 # Author: Assoc
 # Author: Camilali0609
 # Author: Deathkon
+# Author: Endermoon
 # Author: Fanjiayi
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
@@ -696,7 +697,6 @@ zh-CN:
     check_answer: 检查答案
     included_modules: 包含的模块
   uploads:
-    datetime: 日期/时间
     file_name: 文件名
     header: 上传至维基共享资源的文件
     image: 图像
@@ -704,9 +704,13 @@ zh-CN:
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     time_doc: 您本地时间的每次上传时间
-    uploaded_at: 上传于
+    uploaded_at: 上传时间
+    uploader: 上传者
     uploaded_by: 上传者
+    uploaded_on: 上传于
     usage_count: 使用计数
+    usage_doc: 此图片显示维基百科文章数量。
+    usage_count_gallery_tile: 在 %{usage_count} 篇文章中使用
     usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！

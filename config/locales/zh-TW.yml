@@ -1,6 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: A2093064
 # Author: Aa10240tw
 # Author: Assoc
 # Author: Cwlin0416
@@ -162,7 +163,7 @@ zh-TW:
     alert_article: 條目標題
     alert_label: 競賽提醒
     alert_type: 類型
-    alert_user_id: 用戶
+    alert_user_id: 使用者
     all_campaigns: 所有競賽
     already_exists: 此競賽已存在！請以不同標題或指向內容再重試看看。
     campaign: 競賽
@@ -562,7 +563,7 @@ zh-TW:
     char: 新增的字元
     date_time: 日期/時間
     edit_count_description: 總編輯數
-    per_user: '%{number}/用戶'
+    per_user: '%{number}/使用者'
     revisions: 近期編輯
     tags: 標籤
     upload_count: 維基共享資源上傳
@@ -580,9 +581,9 @@ zh-TW:
   namespace:
     main: 主空間
     main_char_added: 主空間字元以加入
-    user: 用戶名字空間
+    user: 使用者命名空間
     user_char_added: 使用者空間字元以加入
-    user_ns: 用戶
+    user_ns: 使用者
   recent_activity:
     active_courses: 條目使用於
     article_title: 文章標題
@@ -716,7 +717,6 @@ zh-TW:
     check_answer: 檢查答案
     included_modules: 已包含模組
   uploads:
-    datetime: 日期/時間
     file_name: 檔案名稱
     header: 上傳到維基共享資源的檔案
     image: 圖片
@@ -724,9 +724,13 @@ zh-TW:
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
-    uploaded_at: 上傳於
+    uploaded_at: 上傳時間
+    uploader: 上傳者
     uploaded_by: 上傳者為
+    uploaded_on: 上傳於
     usage_count: 使用量
+    usage_doc: 有出現此圖片的維基百科條目數量。
+    usage_count_gallery_tile: 使用在 %{usage_count} 個條目
     usages: 使用狀況
   users:
     already_enrolled: 這位使用者已經登記！
@@ -738,7 +742,7 @@ zh-TW:
     authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
     chars_added: 字數的增加<br> (條目|使用者|草稿)
-    contributions: 用戶貢獻
+    contributions: 使用者貢獻
     contributions_history_full: 在維基百科上檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
     contribution_statistics: 貢獻統計

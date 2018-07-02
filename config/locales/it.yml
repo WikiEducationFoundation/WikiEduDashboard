@@ -543,7 +543,6 @@ it:
       modulo a meno che non accedi.
     done: Fatto!
   uploads:
-    datetime: Data/Ora
     file_name: Nome del file
     header: File caricati su Wikimedia Commons
     image: Immagine
@@ -551,9 +550,13 @@ it:
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
-    uploaded_at: Caricato il
+    uploaded_at: Ora caricamento
+    uploader: Caricato da
     uploaded_by: Caricato da
+    uploaded_on: Caricato il
     usage_count: Numero di utilizzi
+    usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
+    usage_count_gallery_tile: Usata in %{usage_count} voci
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!

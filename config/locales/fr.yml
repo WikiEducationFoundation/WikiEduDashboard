@@ -917,7 +917,6 @@ fr:
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
   uploads:
-    datetime: Horodatage
     file_name: Nom de fichier
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
@@ -926,9 +925,13 @@ fr:
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
     time_doc: L’heure de chaque téléversement dans votre heure locale
-    uploaded_at: Téléchargé à
+    uploaded_at: Heure de téléchargement
+    uploader: Téléchargeur
     uploaded_by: Téléversé par
+    uploaded_on: Téléversé le
     usage_count: Nombre d’utilisations
+    usage_doc: Nombre d’articles de Wikipédia où cette image apparaît.
+    usage_count_gallery_tile: Utilisé dans %{usage_count} articles
     usages: Utilisations
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
@@ -1164,4 +1167,5 @@ fr:
     subheading_message: Trouvons un article qui corresponde à vos besoins
     article_finder: Découvreur d’article
     submit: Soumettre
+    relevanceIndex: Indice de pertinence
 ...
