@@ -17,7 +17,6 @@ class CoursesController < ApplicationController
                                                update
                                                destroy
                                                notify_untrained
-                                               update_syllabus
                                                delete_all_weeks]
 
   ################
@@ -69,17 +68,6 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html { render }
       format.json { render @endpoint }
-    end
-  end
-
-  def update_syllabus
-    @course = Course.find(params[:id])
-    handle_syllabus_params
-    if @course.save
-      render json: { success: true, url: @course.syllabus.url }
-    else
-      render json: { message: I18n.t('error.invalid_file_format') },
-             status: :unprocessable_entity
     end
   end
 
@@ -140,16 +128,6 @@ class CoursesController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit(:title)
-  end
-
-  def handle_syllabus_params
-    syllabus = params['syllabus']
-    if syllabus == 'null'
-      @course.syllabus.destroy
-      @course.syllabus = nil
-    else
-      @course.syllabus = params['syllabus']
-    end
   end
 
   def validate

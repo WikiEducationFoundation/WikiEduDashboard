@@ -61,6 +61,8 @@ Metrics/ModuleLength:
 
 Layout/SpaceAroundEqualsInParameterDefault:
   Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
 Style/ColonMethodCall:
   Enabled: false
 Style/NumericLiterals:
