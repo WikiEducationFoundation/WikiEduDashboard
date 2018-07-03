@@ -2,11 +2,11 @@
 title: How to create a new sandbox page
 content: |
   The beauty of sandboxes is that you can create as many as you need.
-  Create another page off of your user page by editing the URL after your
+  Create another page off of your Wikipedia user page by editing the URL after your
   username with the name of a new page you want to create.
 
   For example, to create a new page titled “New sandbox”, first click on
-  your username in the upper right when you're logged in. Now edit the end
+  your username in the upper right when you're logged into en.wikipedia.org. Now edit the end
   of the URL to look like this:
   <code><pre>en.wikipedia.org/wiki/User:Username/<b>New_sandbox</b></pre></code>
 

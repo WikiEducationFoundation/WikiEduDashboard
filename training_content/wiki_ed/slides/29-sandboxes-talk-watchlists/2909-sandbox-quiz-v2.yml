@@ -20,9 +20,8 @@ assessment:
     :text: A place to draft your article, or experiment with layout and structuring
       a page.
     :explanation: CORRECT! You can do whatever you want, formatting-wise, on your
-      Sandbox page. It's a great place to practice WikiCode or VisualEditor, and to
-      play with structuring a new article. Wikipedians concerning any changes you
-      want to make to an article.
+      Sandbox page. It's a great place to practice Wikicode or Visual Editor, and to
+      play with structuring a new article.
   - :id: 4
     :text: A place to copy and paste an article to make changes to it.
     :explanation: INCORRECT! Don't copy and paste an entire article into your Sandbox.
