@@ -224,7 +224,7 @@ const ArticleFinder = createReactClass({
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
         let assignment;
-        if (this.props.current_user.isInstructor) {
+        if (this.props.current_user.isNonstudent) {
           assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
         }
         else {
