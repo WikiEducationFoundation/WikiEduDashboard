@@ -1,9 +1,9 @@
 ---
 title: Editing Wikipedia using the Visual Editor
 content: |
-  If you're following along on another page right now, click the “Edit”
-  button. If you're in source editing mode, switch to visual editing using
-  the **pencil icon** at the top right.
+  Consider following along on another page to try this out. Open [your sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox?veaction=edit)
+  and click the “Edit” button. If you're in source editing mode, switch to the
+  Visual Editor using the **pencil icon** at the top right.
 
   You'll see a toolbar with a few different options:
 
