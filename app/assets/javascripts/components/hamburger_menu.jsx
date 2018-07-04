@@ -35,8 +35,8 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
     );
     if (!helpDisabled) {
       helpEnabled = (
-        <div className="top-nav__faq-search">
-          <form target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
+        <div>
+          <form className="top-nav__faq-search" target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
             <input name="utf8" type="hidden" defaultValue="✓" />
             <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
             <input name="source" type="hidden" defaultValue="nav_ask_form" />
