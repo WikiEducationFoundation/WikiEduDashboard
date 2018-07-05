@@ -628,7 +628,6 @@ fi:
     done: Tehty!
     check_answer: Tarkista vastaus
   uploads:
-    datetime: Päivämäärä
     file_name: Tiedostonimi
     header: Wikimedia Commonsiin tallennetut tiedostot
     image: Kuva

@@ -9,6 +9,7 @@
 # Author: Rasal Lia
 # Author: Sandipan
 # Author: আজিজ
+# Author: আফতাবুজ্জামান
 ---
 bn:
   application:
@@ -276,12 +277,14 @@ bn:
     done: সম্পন্ন!
     check_answer: উত্তর যাচাই করুন
   uploads:
-    datetime: তারিখ/সময়
     file_name: ফাইলের নাম
     header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
     image: চিত্র
     label: আপলোডসমূহ
-    uploaded_at: আপলোডের তারিখ
+    uploaded_at: আপলোডের সময়
+    uploader: আপলোডকারী
+    uploaded_on: আপলোডের তারিখ
+    usage_count_gallery_tile: '%{usage_count}টি নিবন্ধে ব্যবহৃত হয়েছে'
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ
@@ -294,6 +297,7 @@ bn:
     recent_revisions: সাম্প্রতিক সম্পাদনাসমূহ
     reviewers: নিরীক্ষক(গণ)
     reviewing: নিরীক্ষণ চলছে
+    total_uploads: মোট আপলোড
     training_module_status: অবস্থা
     username: ব্যবহারকারী নাম
     username_placeholder: ব্যবহারকারী নাম
@@ -323,4 +327,10 @@ bn:
   onboarding:
     supplementary:
       why_are_you_here: আপনি কী করতে চান?
+  article_finder:
+    page_assessment_class: শ্রেণী
+    search: অনুসন্ধান
+    tools: সরঞ্জাম
+    more_results: আরও ফলাফল
+    submit: জমা দিন
 ...

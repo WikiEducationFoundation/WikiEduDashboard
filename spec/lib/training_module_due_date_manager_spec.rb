@@ -91,7 +91,7 @@ describe TrainingModuleDueDateManager do
         end
       end
       context "today's date is computed_due_date" do
-        let(:due_date) { Date.today }
+        let(:due_date) { Time.zone.now.to_date }
         it 'returns false' do
           expect(subject).to eq(false)
         end

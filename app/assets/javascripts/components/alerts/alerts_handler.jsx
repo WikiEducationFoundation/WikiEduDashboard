@@ -59,7 +59,7 @@ const AlertsHandler = createReactClass({
         <div id="alerts" className="campaign_main alerts container">
           <div className="section-header">
             <h3>{I18n.t('campaign.alert_label')}</h3>
-            <MultiSelectField options={ALERTS} selected={this.props.selectedFilters} setSelectedFilters={this.filterAlerts} />
+            <MultiSelectField options={ALERTS} label={I18n.t('campaign.alert_select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.filterAlerts} />
             <div className="sort-select">
               <select className="sorts" name="sorts" onChange={this.sortSelect}>
                 <option value="type">{I18n.t('campaign.alert_type')}</option>

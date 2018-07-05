@@ -89,18 +89,19 @@ it:
     none: Questo corso non ha modificato alcuna voce.
     rating: Classe
     rating_docs:
-      fa: Voce in vetrina — la più alta valutazione di Wikipedia, probabilmente una
-        voce troppo matura per un nuovo editor del progetto principale
-      fl: Elenco in vetrina — la più alta valutazione di Wikipedia per le liste
-      a: Prima classe — una voce molto sviluppata che potrebbe essere  troppo matura
+      fa: '%{class} (Voce in vetrina) — la più alta valutazione di Wikipedia, probabilmente
+        una voce troppo matura per un nuovo editor del progetto principale'
+      fl: '%{class} (Elenco in vetrina) — la più alta valutazione di Wikipedia per
+        le liste'
+      a: Classe %{class} — una voce molto sviluppata che potrebbe essere  troppo matura
         per un nuovo editor del progetto principale
-      ga: Voce di qualità — una voce ben sviluppata che potrebbe essere  troppo matura
-        per un nuovo editor del progetto principale
-      b: Classe B — una voce moderatamente sviluppata
-      c: Classe C — una voce di livello intermedio con margini di miglioramento
-      start: Classe iniziale — una voce preliminare con un sacco di spazio per migliorare
-      stub: Abbozzo di classe — un breve inizio di una voce che necessita di più contenuto
-      list: Elenco di classe — un elenco piuttosto che una voce tradizionale
+      ga: '%{class} (Voce di qualità) — una voce ben sviluppata che potrebbe essere  troppo
+        matura per un nuovo editor del progetto principale'
+      b: Classe %{class} — una voce moderatamente sviluppata
+      c: Classe %{class} — una voce di livello intermedio con margini di miglioramento
+      start: Classe %{class} — una voce preliminare con un sacco di spazio per migliorare
+      stub: Classe %{class} — un breve inizio di una voce che necessita di più contenuto
+      list: Classe %{class} — un elenco piuttosto che una voce tradizionale
       '?': Non classificato — una voce che non è stata ancora valutata sulla scala
         di qualità di Wikipedia
       does_not_exist: Questa voce non esiste su Wikipedia
@@ -542,7 +543,6 @@ it:
       modulo a meno che non accedi.
     done: Fatto!
   uploads:
-    datetime: Data/Ora
     file_name: Nome del file
     header: File caricati su Wikimedia Commons
     image: Immagine
@@ -550,9 +550,13 @@ it:
     loading: Caricando gli upload...
     none: Questa classe non ha contribuito con alcuna immagine o altri file multimediali
       su Wikimedia Commons.
-    uploaded_at: Caricato il
+    uploaded_at: Ora caricamento
+    uploader: Caricato da
     uploaded_by: Caricato da
+    uploaded_on: Caricato il
     usage_count: Numero di utilizzi
+    usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
+    usage_count_gallery_tile: Usata in %{usage_count} voci
     usages: Usi
   users:
     already_enrolled: Quell'utente è già iscritto!
@@ -585,6 +589,7 @@ it:
     revisions_doc: Il numero di modifiche effettuate da questo contributore negli
       ultimi 7 giorni
     reviewers: Revisori
+    total_uploads: Totale caricamenti
     training_complete:
       one: è aggiornato con la formazione
       other: sono aggiornati con la formazione
@@ -599,6 +604,7 @@ it:
       other: '%{completed_count}/%{count} moduli formativi completati'
     training_module_status: Stato
     up_to_date_with_training: aggiornato con la formazione
+    uploads_doc: Numero di file caricati su Wikimedia Commons
     username: Nome utente
     username_placeholder: Nome utente
     useremail_placeholder: Email
@@ -681,4 +687,15 @@ it:
   onboarding:
     supplementary:
       why_are_you_here: Cosa ti piacerebbe fare?
+  article_finder:
+    page_assessment_class: Classe
+    remove_article: Rimuovi voce
+    search: Cerca
+    tools: Strumenti
+    show_filters: Mostra filtri
+    hide_filters: Nascondi filtri
+    keyword_search: Ricerca per parole chiave
+    category_search: Ricerca per categoria
+    subheading_message: Troviamo una voce che si adatta alle tue esigenze
+    submit: Invia
 ...

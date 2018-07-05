@@ -110,6 +110,7 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>
+        <td className="desktop-only-tc">{this.props.student.total_uploads}</td>
         <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );

@@ -98,10 +98,11 @@ const List = createReactClass({
           <span key="ttindicator" className="tooltip-indicator" />
         )];
       }
+      const order = (keyObj.order) ? keyObj.order : '';
       headers.push((
-        <th onClick={headerOnClick} className={headerClass} key={key}>
+        <th onClick={headerOnClick} className={`${headerClass} ${order}`} key={key}>
           <span dangerouslySetInnerHTML={{ __html: keyObj.label }} />
-          <span className="sortable-indicator" />
+          <span className={`sortable-indicator ${order}`} />
           {tooltip}
         </th>
       ));

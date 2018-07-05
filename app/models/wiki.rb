@@ -116,6 +116,10 @@ class Wiki < ApplicationRecord
     @templates ||= YAML.load_file(Rails.root + template_file_path)
   end
 
+  def course_prefix
+    edit_templates['course_prefix']
+  end
+
   private
 
   def template_file_path

@@ -551,7 +551,6 @@ ca:
     check_answer: Comprova la resposta
     included_modules: Mòduls inclosos
   uploads:
-    datetime: Data/Hora
     file_name: Nom del fitxer
     header: Fitxers carregats a Wikimedia Commons
     image: Imatge
@@ -701,4 +700,15 @@ ca:
       where_did_you_hear: On, o de quins, vau sentir parlar sobre Wiki Education per
         primera vegada?
       why_are_you_here: Què voleu fer?
+  article_finder:
+    search_placeholder: Introduïu la paraula clau
+    search: Cerca
+    tools: Eines
+    show_filters: Mostra els filtres
+    hide_filters: Amaga els filtres
+    keyword_search: Cerca per paraules clau
+    category_search: Cerca per categories
+    more_results: Més resultats
+    filtered_articles: Articles filtrats
+    searching_articles: S’estan cercant els articles
 ...

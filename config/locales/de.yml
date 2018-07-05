@@ -110,18 +110,18 @@ de:
       Diese Bewertungen entsprechen zu stark älteren Versionen, so dass sie nur ein
       grobes Anzeichen der Artikelreife sind.
     rating_docs:
-      fa: Exzellenter Artikel – Wikipedias höchste Bewertung, vermutlich zu gewagt
-        für ein Hauptprojekt eines neuen Autoren.
-      fl: Exzellente Liste – Wikipedias höchste Bewertung für Listen.
-      a: A-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt ist für
-        ein Hauptprojekt eines neuen Autoren.
-      ga: Guter Artikel – Ein gut entwickelter Artikel, der vermutlich zu gewagt ist
-        für ein Hauptprojekt eines neuen Autoren.
-      b: B-Klasse – Ein mäßig entwickelter Artikel.
-      c: C-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.
-      start: Start-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.
-      stub: Stub-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.
-      list: Listen-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.
+      fa: '%{class} (Exzellenter Artikel) – Wikipedias höchste Bewertung, vermutlich
+        zu gewagt für ein Hauptprojekt eines neuen Autoren.'
+      fl: '%{class} (Exzellente Liste) – Wikipedias höchste Bewertung für Listen.'
+      a: '%{class}-Klasse – Ein sehr entwickelter Artikel, der vermutlich zu gewagt
+        ist für ein Hauptprojekt eines neuen Autoren.'
+      ga: '%{class} (Guter Artikel) – Ein gut entwickelter Artikel, der vermutlich
+        zu gewagt ist für ein Hauptprojekt eines neuen Autoren.'
+      b: '%{class}-Klasse – Ein mäßig entwickelter Artikel.'
+      c: '%{class}-Klasse – Ein dazwischenliegender Artikel mit Raum für Verbesserungen.'
+      start: '%{class}-Klasse – Ein vorläufiger Artikel mit Spielraum für Verbesserungen.'
+      stub: '%{class}-Klasse – Ein kurzer Anfang eines Artikels, der mehr Inhalt benötigt.'
+      list: '%{class}-Klasse – Eher eine Liste als ein gewöhnlicher Artikel.'
       '?': Nicht bewertet – Ein Artikel, der noch nicht auf einer Wikipedia-Qualitätsskala
         bewertet wurde.
       does_not_exist: Dieser Artikel ist nicht auf Wikipedia vorhanden
@@ -184,6 +184,7 @@ de:
     add_organizer: Organisator hinzufügen
     alert_article: Titel des Artikels
     alert_label: Kampagnenbenachrichtigungen
+    alert_select_label: Nach Benachrichtigungstyp filtern
     alert_type: Typ
     alert_user_id: Benutzer
     all_campaigns: Alle Kampagnen
@@ -570,6 +571,11 @@ de:
     warn_mirrored: |-
       Mit der Einreichung wird dieser Kurs mit deinem Benutzerkonto automatisch auf Wikipedia gepostet. Danach werden neue Bearbeitungen auf der Wikipedia-Zeitleiste gespiegelt.
       Möchtest du fortfahren?
+    wiki_edits_enabled: Wikibearbeitungen aktiviert
+    wiki_edits_enabled_tooltip: Falls Wikibearbeitungen aktiviert sind, werden automatisierte
+      In-Wiki-Bearbeitungen für dieses Programm erzeugt. Deaktiviere Wikibearbeitungen,
+      falls du keine hinzugefügten Vorlagen in Benutzer- oder Diskussionsseiten etc.
+      zugewiesener Artikel haben möchtest.
     wiki_staff: Wiki-Ed-Mitarbeiter
     withdrawn: Hat keine Zuweisung gemacht
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
@@ -889,7 +895,6 @@ de:
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
   uploads:
-    datetime: Datum/Zeit
     file_name: Dateiname
     header: Auf Wikimedia Commons hochgeladene Dateien
     image: Bild
@@ -897,10 +902,15 @@ de:
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
+    select_label: Nach Uploader filtern
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
-    uploaded_at: Hochgeladen bei
+    uploaded_at: Hochgeladen um
+    uploader: Hochlader
     uploaded_by: Hochgeladen von
+    uploaded_on: Hochgeladen am
     usage_count: Verwendungszähler
+    usage_doc: Anzahl der Wikipedia-Artikel, in denen dieses Bild erscheint.
+    usage_count_gallery_tile: In %{usage_count} Artikeln verwendet
     usages: Verwendungen
   users:
     already_enrolled: Dieser Benutzer ist bereits eingeschrieben!
@@ -953,6 +963,7 @@ de:
       7 Tagen gemacht wurden.
     reviewers: Überprüfer
     reviewing: Überprüft
+    total_uploads: Gesamtanzahl der hochgeladenen Dateien
     training_complete:
       one: ist mit der Ausbildung auf dem Laufenden
       other: sind mit der Ausbildung auf dem Laufenden
@@ -968,6 +979,7 @@ de:
     training_module_name: Ausbildungsmodul
     training_module_status: Status
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
+    uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
     username: Benutzername
     username_placeholder: Benutzername
     useremail_placeholder: E-Mail-Adresse
@@ -1110,14 +1122,33 @@ de:
       where_did_you_hear: Wo oder von wem hast du zuerst von Wiki Education erfahren?
       why_are_you_here: Was möchtest du tun?
   article_finder:
-    page_assessment_grade: Bewertungsgrad
+    page_assessment_class: Klasse
     completeness_estimate: Vervollständigungs-Punktestand
     average_views: Durchschnittliche Aufrufe pro Tag
     add_available_article: Als verfügbaren Artikel hinzufügen
-    already_added: Bereits zu den verfügbaren Artikeln hinzugefügt
-    max_completeness_label: Maximale Vervollständigung (0-100)
+    remove_article: Artikel entfernen
     minimum_views_label: Mindestaufrufe
-    depth: Tiefe
-    category: Kategorie
     no_article_found: Keine Artikel in dieser Kategorie gefunden
+    search_placeholder: Gib dein Schlüsselwort ein
+    search: Suchen
+    tools: Werkzeuge
+    show_filters: Filter anzeigen
+    hide_filters: Filter ausblenden
+    keyword_search: Schlüsselwortsuche
+    category_search: Kategoriesuche
+    article_quality: Artikelqualität (0–100)
+    more_results: Weitere Ergebnisse
+    fetched_articles: Abgerufene Artikel
+    filtered_articles: Gefilterte Artikel
+    searching_articles: Artikel suchen
+    fetching_assessments: Abrufen der Seitenbewertungen
+    fetching_revisions: Abrufen der Seitenversionen
+    fetching_scores: Abrufen des Vervollständigungs-Punktestandes
+    fetching_pageviews: Abrufen der Seitenaufrufe
+    subheading_message: Lass uns einen Artikel finden, der deinen Bedürfnissen entspricht.
+    article_finder: Artikelfinder
+    submit: Absenden
+    relevanceIndex: Relevanzindex
+    assign_article_self: Dir selbst zuweisen
+    unassign_article_self: Zuweisung des Artikels entfernen
 ...

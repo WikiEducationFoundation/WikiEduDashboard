@@ -399,11 +399,12 @@ describe CoursesController do
   describe '#list' do
     let(:course) { create(:course) }
     let(:campaign) { Campaign.last }
-    let(:user) { create(:admin) }
+    let(:user) { create(:admin, email: 'user@example.edu') }
 
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
+      allow(SpecialUsers).to receive(:classroom_program_manager).and_return(user)
     end
 
     context 'when campaign is not found' do
@@ -556,43 +557,6 @@ describe CoursesController do
         expect_any_instance_of(WikiEdits).not_to receive(:notify_untrained)
         expect(subject.status).to eq(401)
       end
-    end
-  end
-
-  describe '#update_syllabus' do
-    let(:course) { create(:course) }
-    let(:instructor) do
-      create(:user, id: 5)
-      create(:courses_user, user_id: 5,
-                            course_id: course.id,
-                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
-      User.find(5)
-    end
-
-    before do
-      allow(controller).to receive(:current_user).and_return(instructor)
-    end
-
-    it 'saves a pdf' do
-      file = fixture_file_upload('syllabus.pdf', 'application/pdf')
-      post :update_syllabus, params: { id: course.id, syllabus: file }
-      expect(response.status).to eq(200)
-      expect(course.syllabus).not_to be_nil
-    end
-
-    it 'deletes a saved file' do
-      file = fixture_file_upload('syllabus.pdf', 'application/pdf')
-      course.syllabus = file
-      course.save
-      expect(course.syllabus.exists?).to eq(true)
-      post :update_syllabus, params: { id: course.id, syllabus: 'null' }
-      expect(course.syllabus.exists?).to eq(false)
-    end
-
-    it 'renders an error for disallowed file types' do
-      file = fixture_file_upload('syllabus.torrent', 'application/x-bittorrent')
-      post :update_syllabus, params: { id: course.id, syllabus: file }
-      expect(response.status).to eq(422)
     end
   end
 

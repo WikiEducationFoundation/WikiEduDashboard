@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 
 const Upload = createReactClass({
   displayName: 'Upload',
@@ -42,7 +44,10 @@ const Upload = createReactClass({
   },
 
   render() {
-    const fileName = this.props.upload.file_name;
+    let fileName = this.props.upload.file_name;
+    if (fileName.length > 50) {
+      fileName = `${fileName.substring(0, 50)}...`;
+    }
     let uploader;
     if (this.props.linkUsername) {
       const profileLink = `/users/${encodeURIComponent(this.props.upload.uploader)}`;
@@ -53,26 +58,88 @@ const Upload = createReactClass({
 
     let usage = '';
     if (this.props.upload.usage_count) {
-        usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+        usage = `${I18n.t('uploads.usage_count_gallery_tile', { usage_count: this.props.upload.usage_count })}`;
       }
 
-    const uploadDivStyle = {
-      width: this.state.width * 250 / this.state.height,
-      flexGrow: this.state.width * 250 / this.state.height,
-    };
+    let uploadDivStyle;
+    if (this.state.width && this.state.height) {
+      uploadDivStyle = {
+        width: this.state.width * 250 / this.state.height,
+        flexGrow: this.state.width * 250 / this.state.height,
+      };
+    }
 
-    return (
-      <div className="upload" style={uploadDivStyle} >
-        <img src={this.state.imageFile} alt={fileName} />
-        <div className="info">
-          <p className="usage"><b>{usage}</b></p>
-          <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
-          <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
-          <p>{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+    let details;
+    if (this.props.upload.usage_count > 0) {
+      details = (
+        <p className="tablet-only">
+          <span>{this.props.upload.uploader}</span>
+          <span>&nbsp;|&nbsp;</span>
+          <span>Usages: {this.props.upload.usage_count}</span>
+        </p>
+      );
+    } else {
+      details = (
+        <p className="tablet-only"><span>{this.props.upload.uploader}</span></p>
+      );
+    }
+
+    if (this.props.view === LIST_VIEW) {
+      usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
+      return (
+        <tr className="upload">
+          <td>
+            <a href={this.props.upload.url} target="_blank">
+              <img src={this.state.imageFile} alt={fileName} />
+            </a>
+            {details}
+          </td>
+          <td className="desktop-only-tc">
+            <a href={this.props.upload.url} target="_blank">{fileName}</a>
+          </td>
+          <td className="desktop-only-tc">{uploader}</td>
+          <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
+          <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
+        </tr>
+      );
+    }
+
+    else if (this.props.view === GALLERY_VIEW) {
+      return (
+        <div className="upload" style={uploadDivStyle} >
+          <img src={this.state.imageFile} alt={fileName} />
+          <div className="info">
+            <p className="usage"><b>{usage}</b></p>
+            <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+            <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+            <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
+
+    else if (this.props.view === TILE_VIEW) {
+      return (
+        <div className="tile-container" >
+          <div className="tile">
+            <a href={this.props.upload.url} target="_blank">
+              <img src={this.state.imageFile} alt={fileName} />
+            </a>
+            <div className="info">
+              <p className="usage"><b>{usage}</b></p>
+              <p><b><a href={this.props.upload.url} target="_blank">{fileName}</a></b></p>
+              <p className="uploader"><b>{I18n.t('uploads.uploaded_by')} {uploader}</b></p>
+              <p><b>{I18n.t('uploads.uploaded_on')}</b>&nbsp;{moment(this.props.upload.uploaded_at).format('YYYY/MM/DD h:mm a')}</p>
+            </div>
+          </div>
+        </div>
+      );
+    }
   },
 });
 
-export default Upload;
+const mapStateToProps = state => ({
+  view: state.uploads.view,
+});
+
+export default connect(mapStateToProps)(Upload);

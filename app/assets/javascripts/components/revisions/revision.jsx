@@ -15,7 +15,7 @@ const Revision = ({ revision, wikidataLabel, course }) => {
         <p className="rating_num hidden">{revision.rating_num}</p>
         <div className={ratingClass}><p>{revision.pretty_rating || '-'}</p></div>
         <div className="tooltip dark">
-          <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`)}</p>
+          <p>{I18n.t(`articles.rating_docs.${revision.rating || '?'}`, { class: revision.rating || '' })}</p>
         </div>
       </td>
       <td>

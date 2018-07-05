@@ -1,0 +1,13 @@
+default:
+  editor: "Nástěnka/Účastník"
+  instructor: "Nástěnka/Instruktor"
+  course_assignment: "Nástěnka/Článek"
+  table: "Nástěnka/Seznam účastníků/Začátek tabulky"
+  table_row: "Nástěnka/Seznam účastníků/Řádek tabulky"
+  table_end: "Nástěnka/Seznam účastníků/Konec tabulky"
+  course: "Nástěnka/Kurz"
+  timeline: "Nástěnka/Harmonogram/Začátek"
+  start_of_week: Nástěnka/Harmonogram/Začátek týdne
+  end_of_week: "Nástěnka/Harmonogram/Konec týdne"
+  user_talk: "Nástěnka/Účastník"
+course_prefix: 'Project:Nástěnka'

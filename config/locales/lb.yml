@@ -77,10 +77,11 @@ lb:
       ga: Gudden Artikel - e gutt-developpéierten Artikel dee fir engem neien Editeur
         säin Haaptprojet eventuell ze räif ass.
       b: B-Klass - e moderat entwéckelten Artikel
-      c: C-Klass - En duerchschnëttlechen Artikel mat Méiglechkeete fir en ze verbesseren
+      c: '%{class}-Klass - en duerchschnëttlechen Artikel mat Méiglechkeete fir en
+        ze verbesseren'
       start: Start-Klass - E provisoreschen Artikel wou nach vill kann dru verbessert
         ginn
-      list: Klass Lëscht - éischter eng Lëscht wéi e konventionellen Artikel
+      list: '%{class}-Klass - éischter eng Lëscht wéi e konventionellen Artikel'
       '?': Net bewäert - En Artikel deen nach net no der Wikipedia-Qualitéitsskala
         bewäert gouf
       does_not_exist: Dësen Artikel gëtt et net op Wikipedia
@@ -405,7 +406,6 @@ lb:
     done: Fäerdeg!
     check_answer: Äntwert nokucken
   uploads:
-    datetime: Datum/Zäit
     file_name: Numm vum Fichier
     image: Bild
     label: Eropgeluede Fichieren
@@ -413,6 +413,8 @@ lb:
       bäigedroe.
     time_doc: D'Zäit vun all Eroplueden an Ärer lokaler Zäit
     uploaded_by: Eropgeluede vum
+    uploaded_on: Eropgelueden de(n)
+    usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg
@@ -506,10 +508,19 @@ lb:
         héieren?
       why_are_you_here: Wat wëllt Dir maachen?
   article_finder:
+    page_assessment_class: Klass
     average_views: Duerchschnëttlech gekuckt pro Dag
     add_available_article: Als disponibelen Artikel derbäisetzen
-    already_added: Scho bei déi disponibel Artikelen derbäigesat
-    depth: Déift
-    category: Kategorie
+    remove_article: Artikel ewechhuelen
     no_article_found: Keng Artikelen an dëser Kategorie fonnt
+    search: Sichen
+    tools: Geschirkëscht
+    show_filters: Filtere weisen
+    hide_filters: Filtere verstoppen
+    category_search: Kategorie Sichen
+    more_results: Méi Resultater
+    filtered_articles: Gefiltert Artikelen
+    searching_articles: Artikele sichen
+    submit: Schécken
+    relevanceIndex: Relevanzindex
 ...

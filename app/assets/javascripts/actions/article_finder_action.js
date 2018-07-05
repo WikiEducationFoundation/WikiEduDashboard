@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 
@@ -29,7 +29,7 @@ export const sortArticleFinder = (key) => {
 export const fetchCategoryResults = (category, course, cmcontinue = '', continueResults = false) => (dispatch, getState) => {
   if (!continueResults) {
     dispatch({
-      type: CLEAR_FINDER_STATE,
+      type: INITIATE_SEARCH,
     });
   }
   else {
@@ -96,11 +96,11 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
   });
   const sort = getState().articleFinder.sort;
   let desc = false;
-  if (!sort.sortKey) {
-    desc = true;
-  }
   if (!sort.key) {
-    sort.key = 'pageviews';
+    sort.key = 'relevanceIndex';
+  }
+  else if (!sort.sortKey) {
+    desc = true;
   }
   Promise.all(promises)
   .then(() => {
@@ -189,7 +189,7 @@ const fetchPageRevisionScore = (revids, course, dispatch) => {
 export const fetchKeywordResults = (keyword, course, offset = 0, continueResults = false) => (dispatch, getState) => {
   if (!continueResults) {
     dispatch({
-      type: CLEAR_FINDER_STATE
+      type: INITIATE_SEARCH
     });
   }
   else {
@@ -216,3 +216,8 @@ export const fetchKeywordResults = (keyword, course, offset = 0, continueResults
   .catch(response => (dispatch({ type: API_FAIL, data: response })));
 };
 
+export const resetArticleFinder = () => {
+  return {
+    type: CLEAR_FINDER_STATE,
+  };
+};

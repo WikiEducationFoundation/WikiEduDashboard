@@ -65,7 +65,7 @@ const Assignment = createReactClass({
           <p className="rating_num hidden">{article.rating_num}</p>
           <div className={ratingClass}><p>{article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${article.rating || '?'}`, { class: article.rating || '' })}</p>
           </div>
         </td>
         <td>

@@ -129,19 +129,20 @@ fr:
       Ces notes peuvent correspondre à des versions plus anciennes ; elles sont donc
       simplement un indicateur approximatif de la maturité de l’article.
     rating_docs:
-      fa: Article en vedette — Plus haute notation de Wikipédia, probablement un article
-        trop mature pour être le projet principal d’un nouvel éditeur
-      fl: Liste en vedette — Plus haute notation de Wikipédia pour les listes
-      a: Classe A — article très développé qui pourrait être trop mature pour être
-        le projet principal d’un nouvel éditeur
-      ga: Bon article — un article bien développé qui pourrait être trop mature pour
-        être le projet principal d’un nouvel éditeur
-      b: Classe B — un article modérément développé
-      c: Classe C — un article intermédiaire, avec des possibilités d’amélioration
-      start: Classe démarrage — un article préliminaire avec beaucoup de possibilités
-        d’amélioration
-      stub: Classe squelette — le court début d’un article qui nécessite plus de contenu
-      list: Classe liste — une liste plutôt qu’un article habituel
+      fa: '%{class} (Article vedette) — La plus haute notation de Wikipédia, probablement
+        un article trop mature pour être le projet principal d’un nouvel éditeur'
+      fl: '%{class} (Liste vedette) — La plus haute notation de Wikipédia pour les
+        listes'
+      a: '%{class}-class — article très développé qui pourrait être trop mature pour
+        être le projet principal d’un nouvel éditeur'
+      ga: '%{class} (Bon article) — un article bien développé qui pourrait être trop
+        mature pour être le projet principal d’un nouvel éditeur'
+      b: '%{class}-classe — un article modérément développé'
+      c: '%{class}-classe — un article intermédiaire, avec des possibilités d’amélioration'
+      start: '%{class}-classe — un article préliminaire avec beaucoup de possibilités
+        d’amélioration'
+      stub: '%{class}-classe — court début d’un article qui nécessite plus de contenu'
+      list: '%{class}-classe — une liste plutôt qu’un article habituel'
       '?': Non classé — un article qui n’a pas encore été noté sur l’échelle de qualité
         de Wikipédia
       does_not_exist: Cet article n'existe pas sur Wikipédia
@@ -204,6 +205,7 @@ fr:
     add_organizer: Ajouter un organisateur
     alert_article: Titre de l’article
     alert_label: Alertes des campagnes
+    alert_select_label: Filtrer par type d'alerte
     alert_type: Type
     alert_user_id: Utilisateur
     all_campaigns: Toutes les campagnes
@@ -591,6 +593,12 @@ fr:
     warn_mirrored: |-
       Lors de la soumission, le cours sera automatiquement publié sur Wikipédia avec votre compte utilisateur. Après cela, les nouvelles modifications au calendrier seront répercutées sur Wikipédia.
       Êtes-vous sûr de vouloir faire cela ?
+    wiki_edits_enabled: Modifications du wiki activées
+    wiki_edits_enabled_tooltip: Si les modifications du wiki sont activées, alors
+      les modifications automatisées dans le wiki seront faites pour ce programme.
+      Désactivez les modifications du wiki si vous ne voulez pas que les modèles soient
+      ajoutés aux pages utilisateur, aux pages de discussion des articles affectés,
+      etc.
     wiki_staff: Équipe d’édition de wiki
     withdrawn: Assignation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
@@ -910,7 +918,6 @@ fr:
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
   uploads:
-    datetime: Horodatage
     file_name: Nom de fichier
     header: Fichiers téléversés sur Wikimedia Commons
     image: Image
@@ -918,10 +925,15 @@ fr:
     loading: Chargement des téléversements…
     none: Cette classe n'a contribué avec aucune image ou autre fichier média à Wikimedia
       Commons.
+    select_label: Filtrer par téléverseur
     time_doc: L’heure de chaque téléversement dans votre heure locale
-    uploaded_at: Téléchargé à
+    uploaded_at: Heure de téléchargement
+    uploader: Téléchargeur
     uploaded_by: Téléversé par
+    uploaded_on: Téléversé le
     usage_count: Nombre d’utilisations
+    usage_doc: Nombre d’articles de Wikipédia où cette image apparaît.
+    usage_count_gallery_tile: Utilisé dans %{usage_count} articles
     usages: Utilisations
   users:
     already_enrolled: Cet utilisateur est déjà inscrit !
@@ -972,6 +984,7 @@ fr:
       derniers jours
     reviewers: Relecteur(s)
     reviewing: Relecture
+    total_uploads: Nombre total de téléchargements
     training_complete:
       one: est à jour avec la formation
       other: sont à jour avec la formation
@@ -987,6 +1000,7 @@ fr:
     training_module_name: Module de formation
     training_module_status: État
     up_to_date_with_training: formation à jour
+    uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
     username: Nom d’utilisateur
     username_placeholder: Nom d’utilisateur
     useremail_placeholder: Courriel
@@ -1129,10 +1143,33 @@ fr:
         pour la première fois ?
       why_are_you_here: Qu’aimeriez-vous faire ?
   article_finder:
+    page_assessment_class: Classe
+    completeness_estimate: Note de complétude
     average_views: Nombre moyen de vues par jour
-    already_added: Déja ajouté aux articles disponibles
+    add_available_article: Ajouter comme un article disponible
+    remove_article: Supprimer l’article
     minimum_views_label: Nombre minimum de vues
-    depth: Profondeur
-    category: Catégorie
     no_article_found: Aucun article trouvé dans cette catégorie
+    search_placeholder: Saisir votre mot de passe
+    search: Rechercher
+    tools: Outils
+    show_filters: Afficher les filtres
+    hide_filters: Masquer les filtres
+    keyword_search: Recherche par mot-clé
+    category_search: Recherche par catégorie
+    article_quality: Qualité de l’article (0-100)
+    more_results: Davantage de résultats
+    fetched_articles: Articles cherchés
+    filtered_articles: Articles filtrés
+    searching_articles: Recherche d’articles
+    fetching_assessments: Récupération des déclarations de page
+    fetching_revisions: Récupération des révisions de page
+    fetching_scores: Récupération de la note de complétude
+    fetching_pageviews: Récupération des compteurs de vue de page
+    subheading_message: Trouvons un article qui corresponde à vos besoins
+    article_finder: Découvreur d’article
+    submit: Soumettre
+    relevanceIndex: Indice de pertinence
+    assign_article_self: Auto-assignation
+    unassign_article_self: Désassigner un article
 ...

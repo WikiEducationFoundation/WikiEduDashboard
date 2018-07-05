@@ -6,7 +6,10 @@ const initialState = {
   articles: [],
   limit: 500,
   limitReached: false,
-  sortKey: null,
+  sort: {
+    key: null,
+    sortKey: null,
+  },
   wikis: [],
   wikiFilter: null,
   loading: true
@@ -33,6 +36,7 @@ export default function articles(state = initialState, action) {
     case RECEIVE_ARTICLES: {
       const wikis = _.uniqWith(_.map(action.data.course.articles, mapWikis), _.isEqual);
       return {
+        ...state,
         articles: action.data.course.articles,
         limit: action.limit,
         limitReached: isLimitReached(action.data.course.articles, action.limit),
@@ -43,9 +47,10 @@ export default function articles(state = initialState, action) {
     }
     case SORT_ARTICLES: {
       const newState = { ...state };
-      const sorted = sortByKey(newState.articles, action.key, state.sortKey, SORT_DESCENDING[action.key]);
+      const sorted = sortByKey(newState.articles, action.key, state.sort.sortKey, SORT_DESCENDING[action.key]);
       newState.articles = sorted.newModels;
-      newState.sortKey = sorted.newKey;
+      newState.sort.sortKey = sorted.newKey;
+      newState.sort.key = action.key;
       newState.wikiFilter = state.wikiFilter;
       newState.wikis = state.wikis;
       return newState;

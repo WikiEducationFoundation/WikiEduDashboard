@@ -33,7 +33,6 @@ gom-deva:
     save_all_changes: सगळें सांबाळात
     this_week_title_default: ह्या सप्तकात
   uploads:
-    datetime: तारीक/वेळ
     file_name: फायलीचें नांव
     image: चित्र
   users:

@@ -273,7 +273,6 @@ lv:
     next: Nākamā lapa
     page: Lapa
   uploads:
-    datetime: Datums/laiks
     file_name: Faila nosaukums
     header: Wikimedia Commons augšupielādētie faili
     image: Attēls

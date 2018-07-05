@@ -77,7 +77,5 @@ yi:
   users:
     assign_articles_done: ערליידיקט
   article_finder:
-    depth: טיף
-    category: קאַטעגאָריע
     no_article_found: קיין אַרטיקל נישט געפונען אין דער דאָזיקער קאַטעגאָריע
 ...

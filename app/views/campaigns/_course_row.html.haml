@@ -9,12 +9,14 @@
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       = course.school + "/" + course.term
   - if Features.wiki_ed?
-    %td{:class => "table-link-cell first_instructor"}
+    %td{:class => "table-link-cell"}
       %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-        = course.courses_users.where(role: 1).first&.real_name
-  %td{:class => "table-link-cell revisions"}
+        %span.first_instructor
+          = course.courses_users.where(role: 1).first&.real_name
+  %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
-      = course.recent_revision_count
+      %span.revisions
+        = course.recent_revision_count
   %td{:class => "table-link-cell"}
     %a.course-link{:href => "#{course_slug_path(course.slug)}"}
       %span.characters-human

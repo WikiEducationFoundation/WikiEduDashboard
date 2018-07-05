@@ -1,6 +1,7 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: A2093064
 # Author: Aa10240tw
 # Author: Assoc
 # Author: Cwlin0416
@@ -101,15 +102,15 @@ zh-TW:
     rating: 等級
     rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
     rating_docs:
-      fa: 典範條目— 維基百科的最高評級，但可能過於優秀而不適合作為新編輯者的主要專案。
-      fl: 特色列表 — 維基百科中用於列表的最高評級
-      a: 甲級－十分完善的條目，對於新手編輯可能太完整所以並不適合作為的主要專案
-      ga: 優良條目－一個高度完整的條目，對於新手編輯可能太完整所以並不適合作為的主要專案
-      b: 乙級－一個中度完整的條目
-      c: 丙級－一個有改善空間的中等條目
-      start: 初級－一個有很大改進空間的初等條目
-      stub: 小作品等級 — 剛開始、還需要更多內容的短小條目。
-      list: 列表等級 — 並非傳統條目的一個列表
+      fa: '%{class}（典範條目） — 維基百科的最高評級，但可能過於完善而不適合作為新編輯者的主要專案。'
+      fl: '%{class}（特色列表） — 維基百科中用於列表的最高評級'
+      a: '%{class}級 － 十分完整的條目，對於新手編輯可能太完善所以並不適合作為的主要專案'
+      ga: '%{class}（優良條目）－ 一個高度完整的條目，對於新手編輯可能太完善所以並不適合作為的主要專案'
+      b: '%{class}級 － 一個中度完整的條目'
+      c: '%{class}級 － 一個有改善空間的中等條目'
+      start: '%{class}級 － 一個有很大改進空間的初等條目'
+      stub: '%{class}級 — 一個剛開始，還需要更多內容的短小條目。'
+      list: '%{class}級 — 非一般條目的列表內容'
       '?': 未評級 — 未在維基百科的品質等級評量的條目。
       does_not_exist: 維基百科無此條目
     see_more: 查看更多
@@ -161,8 +162,9 @@ zh-TW:
     add_organizer: 添加組織者
     alert_article: 條目標題
     alert_label: 競賽提醒
+    alert_select_label: 依警告類型篩選
     alert_type: 類型
-    alert_user_id: 用戶
+    alert_user_id: 使用者
     all_campaigns: 所有競賽
     already_exists: 此競賽已存在！請以不同標題或指向內容再重試看看。
     campaign: 競賽
@@ -453,6 +455,9 @@ zh-TW:
     warn_mirrored: |-
       在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發佈之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。
       您確定想要執行嗎？
+    wiki_edits_enabled: 已啟用 wiki 編輯
+    wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
+      wiki 編輯。
     wiki_staff: Wiki ED 工作人員
     withdrawn: 沒有做出分配
     word_count_doc: 在課程學期間由選課學生所添增到主命名空間條目的字元增加估計量
@@ -559,7 +564,7 @@ zh-TW:
     char: 新增的字元
     date_time: 日期/時間
     edit_count_description: 總編輯數
-    per_user: '%{number}/用戶'
+    per_user: '%{number}/使用者'
     revisions: 近期編輯
     tags: 標籤
     upload_count: 維基共享資源上傳
@@ -577,9 +582,9 @@ zh-TW:
   namespace:
     main: 主空間
     main_char_added: 主空間字元以加入
-    user: 用戶名字空間
+    user: 使用者命名空間
     user_char_added: 使用者空間字元以加入
-    user_ns: 用戶
+    user_ns: 使用者
   recent_activity:
     active_courses: 條目使用於
     article_title: 文章標題
@@ -713,17 +718,21 @@ zh-TW:
     check_answer: 檢查答案
     included_modules: 已包含模組
   uploads:
-    datetime: 日期/時間
     file_name: 檔案名稱
     header: 上傳到維基共享資源的檔案
     image: 圖片
     label: 上傳
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    select_label: 依上傳者篩選
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
-    uploaded_at: 上傳於
+    uploaded_at: 上傳時間
+    uploader: 上傳者
     uploaded_by: 上傳者為
+    uploaded_on: 上傳於
     usage_count: 使用量
+    usage_doc: 有出現此圖片的維基百科條目數量。
+    usage_count_gallery_tile: 使用在 %{usage_count} 個條目
     usages: 使用狀況
   users:
     already_enrolled: 這位使用者已經登記！
@@ -735,13 +744,13 @@ zh-TW:
     authorship_data_not_fetched: 無法索取作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
     chars_added: 字數的增加<br> (條目|使用者|草稿)
-    contributions: 用戶貢獻
+    contributions: 使用者貢獻
     contributions_history_full: 在維基百科上檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
     contribution_statistics: 貢獻統計
     course_passcode: 選課代碼：
     editors: 編輯者
-    edits_by: 編輯者們：
+    edits_by: 編輯由：
     enroll_confirmation: 您確定要增加 %{username}？
     enroll_url: 使用者可透過此 URL 位址加入：
     enrolled_success: '%{username}成功增加！'
@@ -768,6 +777,7 @@ zh-TW:
     revisions_doc: 此編輯者在過去 7 天的編輯次數
     reviewers: 審查者
     reviewing: 審查中
+    total_uploads: 上傳總數
     training_complete:
       one: 最新培訓
       other: 最新培訓
@@ -782,6 +792,7 @@ zh-TW:
     training_module_name: 培訓模組
     training_module_status: 狀態
     up_to_date_with_training: 最近培訓
+    uploads_doc: 上傳到維基共享資源的檔案數量
     username: 使用者名稱
     username_placeholder: 使用者名稱
     useremail_placeholder: 電子郵件
@@ -882,14 +893,33 @@ zh-TW:
       where_did_you_hear: 您是在哪裡、或是從誰，來第一次聽到維基教育？
       why_are_you_here: 您想要做什麼？
   article_finder:
-    page_assessment_grade: 評估分級
+    page_assessment_class: 等級
     completeness_estimate: 完整性分數
     average_views: 每日平均檢視
     add_available_article: 添加為可用條目
-    already_added: 已添加至可用條目裡
-    max_completeness_label: 最大完整性（0 至 100）
+    remove_article: 移除條目
     minimum_views_label: 最小檢視數
-    depth: 層度
-    category: 分類
     no_article_found: 此分類裡沒有條目
+    search_placeholder: 輸入您的關鍵詞
+    search: 搜尋
+    tools: 工具
+    show_filters: 顯示篩選
+    hide_filters: 隱藏篩選
+    keyword_search: 關鍵詞搜尋
+    category_search: 分類搜尋
+    article_quality: 條目品質（0 - 100）
+    more_results: 更多結果
+    fetched_articles: 索取的條目
+    filtered_articles: 篩選出的條目
+    searching_articles: 搜尋條目中
+    fetching_assessments: 索取頁面評估中
+    fetching_revisions: 索取頁面修訂中
+    fetching_scores: 索取完整性分數中
+    fetching_pageviews: 索取頁面檢視次數中
+    subheading_message: 讓我們來找出符合您需求的條目
+    article_finder: 條目查找
+    submit: 提交
+    relevanceIndex: 關聯索引
+    assign_article_self: 分配給您自己
+    unassign_article_self: 取消分配條目
 ...

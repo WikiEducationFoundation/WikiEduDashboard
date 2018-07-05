@@ -438,7 +438,6 @@ ar:
     logged_out: قمت بتسجيل الخروج. لن تتلقى الائتمان لإكمال هذه الوحدة إلا إذا قمت
       بتسجيل الدخول.
   uploads:
-    datetime: تاريخ/وقت
     file_name: اسم الملف
     header: الملفات التي تم تحميلها على ويكيميديا ​​كومنز
     label: المرفوعات
@@ -561,4 +560,9 @@ ar:
       link: المشاركة في استبيان
   wiki_api:
     create_account_reason: يشارك هذا المستخدم في %{event}
+  article_finder:
+    search_placeholder: أدخل كلمة البحث
+    tools: الأدوات
+    article_quality: جودة المقالة (0-100)
+    more_results: نتائج أكثر
 ...

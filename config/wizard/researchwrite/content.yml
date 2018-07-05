@@ -17,15 +17,17 @@ essentials:
   - # Week one
     weight: 6
     blocks:
-      - title: Introduction to the Wikipedia project
+      - title: Introduction to the Wikipedia assignment
         kind: 0
         content: |
           <p>
-            Welcome to your Wikipedia project's course timeline. This page will
-            guide you through the steps you'll need to complete for your Wikipedia assignment.
+            Welcome to your Wikipedia assignment's course timeline. This page
+            guides you through the steps you'll need to complete for your
+            Wikipedia assignment, with links to training modules and your
+            classmates' work spaces.
           </p>
           <p>
-            Your course has also been assigned a Wikipedia Expert. You can reach
+            Your course has been assigned a Wikipedia Expert. You can reach
             them through the <strong>Get Help</strong> button at the top of this page.
           </p>
           <p>
@@ -45,10 +47,10 @@ essentials:
         points: 5
         content: |
           <p>
-            Create an account and join this course page, using the  enrollment
-            link your instructor sent you. (To avoid hitting Wikipedia's account
-            creation limits, this is best done outside of class. Only 6 new accounts
-            may be created per day from the same IP address.)
+            Create an account and join this course page, using the enrollment
+            link your instructor sent you. (Because of Wikipedia's technical
+            restraints, you may receive a message that you cannot create an
+            account. To resolve this, please try again off campus or the next day.)
           </p>
 
       -
@@ -58,10 +60,10 @@ essentials:
         training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
         content: |
           <p>
-            Create an account and join this course page, using the  enrollment
-            link your instructor sent you. (To avoid hitting Wikipedia's account
-            creation limits, this is best done outside of class. Only 6 new accounts
-            may be created per day from the same IP address.)
+            Create an account and join this course page, using the enrollment
+            link your instructor sent you. (Because of Wikipedia's technical
+            restraints, you may receive a message that you cannot create an
+            account. To resolve this, please try again off campus or the next day.)
           </p>
 
       -
@@ -92,7 +94,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <h4 class=“timeline-exercise”>Exercise</h4>
+          <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
 
       -
@@ -122,7 +124,7 @@ essentials:
           <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
 
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=6">Editing Wikipedia</a>, page 6</p>
 
       -
         if: choose_articles_from_list
@@ -132,16 +134,16 @@ essentials:
           <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose your topic / Find your sources</a>
 
       -
-        if: choose_articles_from_list
-        title: Guide(s) for writing articles in your topic area
-        kind: 4 # Special subject-specific guides block
-
-      -
         if: content_gaps_discussion
         title: "Discussion"
         kind: 0
         content: |
           <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">What's a content gap?</a>
+
+      -
+        if: choose_articles_from_list
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
 
   - # Week four
     weight: 4
@@ -181,7 +183,7 @@ essentials:
           Reach out to your Wikipedia Expert if you have questions using the
           <strong>Get Help</strong> button at the top of this page.
           </p>
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
         if: working_in_groups
@@ -191,7 +193,7 @@ essentials:
         points: 20
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
         if: explore_to_find_articles
@@ -266,13 +268,15 @@ essentials:
         graded: true
         points: 10
         content: |
-          <p>You probably have some feedback from other students and possibly other Wikipedians. It's time to work with that feedback to improve your article!</p>
+          <p>You probably have some feedback from other students and possibly
+          other Wikipedians. Consider their suggestions, decide whether it makes
+          your work more accurate and complete, and edit your draft to make those changes.</p>
           <ul>
           <p>
             Resources:
           </p>
           <ul>
-            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 12 and 14</li>
+            <li><a href="https://wikiedu.org/editingwikipedia#page=12">Editing Wikipedia</a>, pages 12 and 14</li>
             <li>Reach out to your Wikipedia Expert if you have any questions.
           </ul>
 
@@ -281,27 +285,27 @@ essentials:
     blocks:
       -
         if: working_individually
-        title: Begin moving your work to Wikipedia
+        title: Begin moving your work live on Wikipedia
         kind: 1 # Assignment
         training_module_ids: [32] # Moving work out of the sandbox
         content: |
           <p>
-            Once you've made improvements to your article based on peer review
-            feedback, it's time to move your work to Wikipedia proper - the "mainspace."
+            Now that you've improved your draft based on others' feedback, it's
+            time to move your work live — to the "mainspace."
           </p>
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
 
       -
         if: working_in_groups
-        title: Begin moving your work to Wikipedia
+        title: Begin moving your work live on Wikipedia
         kind: 1 # Assignment
         training_module_ids: [33] # Moving work out of the sandbox
         content: |
           <p>
-            Once you've made improvements to your article based on peer review
-            feedback, it's time to move your work to Wikipedia proper - the "mainspace."
+            Now that you've improved your draft based on others' feedback, it's
+            time to move your work live — to the "mainspace."
           </p>
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 13</p>
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=13">Editing Wikipedia</a>, page 13</p>
 
       -
         if: did_you_know
@@ -322,23 +326,10 @@ essentials:
           <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
 
-          <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
-
-      -
-        if: illustrate
-        title: Illustrate your article
-        kind: 1
-        graded: true
-        points: 5
-        training_module_ids: [6] # Images and multimedia
-        content: |
-          <p>
-            Resources:
-          </p>
-          <ul>
-            <li><a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a></li>
-            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 10–11</li>
-          </ul>
+          <p>Now's the time to revisit your text and refine your work. You may
+          do more research and find missing information; rewrite the lead section
+          to represent all major points; reorganize the text to communicate the
+          information better; or add images and other media. </p>
 
   - # Week ten
     weight: 2
@@ -373,7 +364,7 @@ essentials:
         content: |
           <p>It's the final week to develop your article.</p>
           <ul>
-            <li>Read <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
+            <li>Read <a href="https://wikiedu.org/editingwikipedia#page=15">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
             <li>Don't forget that you can ask for help from your Wikipedia Expert at any time!</li>
           </ul>
 
@@ -407,7 +398,7 @@ essentials:
     weight: 3
     blocks:
       -
-        title: All article edits are complete
+        title: You've finished your Wikipedia assignment!
         kind: 2
         content: |
           <p>Everyone should have finished all of the work they'll do on Wikipedia, and be ready for grading.</p>

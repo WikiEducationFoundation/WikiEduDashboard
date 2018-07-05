@@ -694,7 +694,6 @@ ast:
     check_answer: Comprobar la respuesta
     included_modules: Módulos incluyíos
   uploads:
-    datetime: Data/Hora
     file_name: Nome del ficheru
     header: Ficheros xubíos a Wikimedia Commons
     image: Imaxe
@@ -888,6 +887,4 @@ ast:
     no_responses: Inda nun hai comentarios de respuesta.
   article_finder:
     minimum_views_label: Visites mínimes
-    depth: Fondura
-    category: Categoría
 ...

@@ -39,8 +39,8 @@ class IndividualStatisticsPresenter
 
   def individual_article_count
     article_ids = []
-    individual_courses.each do |c|
-      article_ids += c.all_revisions.where(user_id: @user.id).pluck(:article_id).uniq
+    individual_courses.each do |course|
+      article_ids += individual_mainspace_edits(course).pluck(:article_id).uniq
     end
     article_ids.uniq.count
   end
@@ -74,9 +74,18 @@ class IndividualStatisticsPresenter
 
   def individual_articles_created
     new_article_count = 0
-    individual_courses.each do |c|
-      new_article_count += c.all_revisions.where(user_id: @user.id).where(new_article: true).count
+    individual_courses.each do |course|
+      new_article_count += individual_mainspace_edits(course).where(new_article: true).count
     end
     new_article_count
+  end
+
+  private
+
+  def individual_mainspace_edits(course)
+    course.all_revisions
+          .joins(:article)
+          .where(articles: { namespace: Article::Namespaces::MAINSPACE })
+          .where(user: @user, deleted: false)
   end
 end

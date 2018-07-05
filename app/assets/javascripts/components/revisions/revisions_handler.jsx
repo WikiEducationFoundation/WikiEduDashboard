@@ -57,6 +57,7 @@ const RevisionHandler = createReactClass({
           course={this.props.course}
           sortBy={this.props.sortRevisions}
           wikidataLabels={this.props.wikidataLabels}
+          sort={this.props.sort}
         />
         {showMoreButton}
       </div>
@@ -69,7 +70,8 @@ const mapStateToProps = state => ({
   revisions: state.revisions.revisions,
   limitReached: state.revisions.limitReached,
   wikidataLabels: state.wikidataLabels.labels,
-  loadingRevisions: state.revisions.loading
+  loadingRevisions: state.revisions.loading,
+  sort: state.revisions.sort,
 });
 
 const mapDispatchToProps = {

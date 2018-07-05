@@ -38,7 +38,6 @@ gom-latn:
     save_all_changes: Sogllem Samballat
     this_week_title_default: Hea sumanan
   uploads:
-    datetime: Tarik/Vell
     file_name: Faylichem Nanv
     image: Chitr
   users:

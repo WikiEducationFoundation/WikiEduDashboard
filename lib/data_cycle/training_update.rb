@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/data_cycle/batch_update_logging"
+require_dependency "#{Rails.root}/lib/training_module"
 
 # Executes all the steps of 'update_views' data import task
 class TrainingUpdate
@@ -11,10 +12,6 @@ class TrainingUpdate
     @module_slug = module_slug
 
     setup_logger
-    if updates_paused?
-      @result = 'Training not updated. Updates are currently paused.'
-      return
-    end
     if update_running?(:training)
       @result = 'Another training update process is already in progress. Try again later.'
       return

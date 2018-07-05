@@ -18,6 +18,7 @@
 # Author: Luk3
 # Author: Macofe
 # Author: Maxan
+# Author: Pedrofariasm
 # Author: Peter Fernando
 # Author: Raphaelras
 # Author: Rukasuoribera
@@ -127,18 +128,19 @@ pt-br:
       Essas avaliações podem corresponder a versões muito antigas, então elas são
       apenas um indicador raso da maturidade de um artigo.
     rating_docs:
-      fa: Artigo destacado — Classificação mais alta da Wikipédia, provavelmente é
-        um artigo maduro demais para ser o projeto principal de um novo editor.
-      fl: Lista destacada — a mais alta classificação da Wikipedia para listas
-      a: 'Classe A: um artigo muito desenvolvido que pode ser maduro demais para ser
-        o projeto principal de um editor novo'
-      ga: 'Artigo bom: um artigo bem desenvolvido que pode ser maduro demais para
-        ser o projeto principal de um editor novo'
-      b: 'Classe B: um artigo moderadamente desenvolvido'
-      c: 'Classe C: um artigo intermediário com possibilidades de melhora'
-      start: 'Classe inicial: um artigo preliminar com muitas possibilidades de melhorias'
-      stub: 'Classe esboço: um artigo em estágio inicial, que precisa de mais conteúdo'
-      list: 'Lista: uma lista em vez de um artigo convencional'
+      fa: '%{class} (Artigo destacado) — a classificação mais alta da Wikipédia, provavelmente
+        um artigo demasiado desenvolvido para ser o projeto principal de um novo editor.'
+      fl: '%{class} (Lista destacada) — a classificação mais alta da Wikipédia para
+        listas'
+      a: Classe %{class} — um artigo muito desenvolvido que pode ser demasiado maduro
+        para ser o projeto principal de um editor novo
+      ga: '%{class} (Artigo bom) — um artigo bem desenvolvido que pode ser demasiado
+        maduro para ser o projeto principal de um editor novo'
+      b: Classe %{class} — um artigo moderadamente desenvolvido
+      c: Classe %{class} — um artigo intermédio com possibilidades de melhoramento
+      start: Classe %{class} — um artigo preliminar com muitas possibilidades de melhoramento
+      stub: Classe %{class} — um artigo em estágio inicial, que precisa de mais conteúdo
+      list: Classe %{class} — uma lista em vez de um artigo convencional
       '?': 'Sem classificação: um artigo que ainda não foi classificado na escala
         de qualidade da Wikipédia'
       does_not_exist: Este artigo não existe na Wikipédia
@@ -200,6 +202,7 @@ pt-br:
     add_organizer: Adicionar um organizador
     alert_article: Título do artigo
     alert_label: Alertas das campanhas
+    alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Usuário
     all_campaigns: Todas as campanhas
@@ -573,6 +576,11 @@ pt-br:
     warn_mirrored: A partir da submissão, este curso será enviado automaticamente
       à Wikipédia com sua conta de usuário. Depois disso, novas edições no cronograma
       serão refletidas na Wikipédia. Você tem certeza de que deseja prosseguir?
+    wiki_edits_enabled: Edições do Wiki ativadas
+    wiki_edits_enabled_tooltip: Se as edições do wiki estiverem ativadas, as edições
+      automatizadas on-wiki serão feitas para este programa. Desative as edições do
+      wiki se você não quiser que os modelos sejam adicionados às páginas do usuário,
+      às páginas de discussão dos artigos atribuídos, etc.
     wiki_staff: Equipe Wiki Ed
     withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
@@ -887,7 +895,6 @@ pt-br:
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
   uploads:
-    datetime: Data/Horário
     file_name: Nome do Arquivo
     header: Arquivos Enviados ao Wikimedia Commons
     image: Imagem
@@ -895,10 +902,15 @@ pt-br:
     loading: Carregando atualizações...
     none: Esta classe não contribuiu com nenhuma imagem ou com outros arquivos de
       mídia no Wikimedia Commons.
+    select_label: Filtrar por quem enviou
     time_doc: Horário de cada envio em seu horário local
-    uploaded_at: Enviado a
+    uploaded_at: Carregado a
+    uploader: Carregado por
     uploaded_by: Enviado Por
+    uploaded_on: Carregado em
     usage_count: Total de Uso
+    usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
+    usage_count_gallery_tile: Usada em %{usage_count} artigos
     usages: Usos
   users:
     already_enrolled: Aquele usuário já está inscrito!
@@ -948,6 +960,7 @@ pt-br:
     revisions_doc: O número de edições feitas por este usuário nos últimos 7 dias
     reviewers: Revisor(es)
     reviewing: Revisando
+    total_uploads: Total de envios
     training_complete:
       one: está em dia com o treinamento
       other: estão em dia com o treinamento
@@ -963,6 +976,7 @@ pt-br:
     training_module_name: Módulo de treinamento
     training_module_status: Status
     up_to_date_with_training: em dia com o treinamento
+    uploads_doc: Número de pastas enviadas para Wikimedia Commons
     username: Nome de usuário
     username_placeholder: Nome de usuário
     useremail_placeholder: E-mail
@@ -1102,14 +1116,33 @@ pt-br:
         Education?
       why_are_you_here: O que você gostaria de fazer?
   article_finder:
-    page_assessment_grade: Grade de avaliação
+    page_assessment_class: Classe
     completeness_estimate: Pontuação de integridade
     average_views: Média de visualizações por dia
     add_available_article: Adicionar como artigo disponível
-    already_added: Já adicionado aos artigos disponíveis
-    max_completeness_label: Completude máximas(0-100)
+    remove_article: Remover artigo
     minimum_views_label: Visualizações mínimas
-    depth: Profundidade
-    category: Categoria
     no_article_found: Nenhum artigo encontrado nesta categoria
+    search_placeholder: Digite sua palavra-chave
+    search: Pesquisar
+    tools: Ferramentas
+    show_filters: Mostrar filtros
+    hide_filters: Ocultar filtros
+    keyword_search: Pesquisa por palavra-chave
+    category_search: Pesquisar por categoria
+    article_quality: Qualidade do Artigo(0-100)
+    more_results: Mais resultados
+    fetched_articles: Artigos buscados
+    filtered_articles: Artigos filtrados
+    searching_articles: Pesquisando artigos
+    fetching_assessments: Buscando avaliações de página
+    fetching_revisions: Buscando revisões de página
+    fetching_scores: Buscando Pontuação de Completude
+    fetching_pageviews: Buscando vistas de página
+    subheading_message: Vamos encontrar um artigo que atenda às suas necessidades
+    article_finder: Localizador de artigos
+    submit: Enviar
+    relevanceIndex: Índice de Relevância
+    assign_article_self: Atribuir a si
+    unassign_article_self: Remover atribuição de artigo
 ...

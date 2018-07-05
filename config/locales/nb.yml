@@ -641,7 +641,6 @@ nb:
     logged_out: Du er logget ut. Du vil ikke få poeng for å fullføre denne modulen
       med mindre du logger inn.
   uploads:
-    datetime: Dato/tid
     file_name: Filnavn
     header: Filer lastet opp til Wikimedia Commons
     image: Bilde

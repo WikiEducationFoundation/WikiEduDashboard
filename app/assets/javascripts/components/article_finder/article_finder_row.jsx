@@ -3,37 +3,54 @@ import createReactClass from 'create-react-class';
 
 import ArticleViewer from '../common/article_viewer.jsx';
 
-import { fetchStates, ASSIGNED_ROLE } from "../../constants";
+import { fetchStates, ASSIGNED_ROLE, STUDENT_ROLE } from "../../constants";
 import { PageAssessmentGrades, ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 
 const ArticleFinderRow = createReactClass({
   getInitialState() {
     return {
-      isAdding: false,
+      isLoading: false,
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.isAdding && (this.props.isAdded !== nextProps.isAdded)) {
+    if (this.state.isLoading && (this.props.assignment !== nextProps.assignment)) {
       this.setState({
-        isAdding: false,
+        isLoading: false,
       });
     }
   },
 
-  addAvailableArticle() {
+  assignArticle(userId = null) {
     const assignment = {
       title: decodeURIComponent(this.props.title).trim(),
       project: this.props.course.home_wiki.project,
       language: this.props.course.home_wiki.language,
       course_id: this.props.courseSlug,
-      user_id: null,
+      user_id: userId,
       role: ASSIGNED_ROLE,
     };
     this.setState({
-      isAdding: true,
+      isLoading: true,
     });
     return this.props.addAssignment(assignment);
+  },
+
+  unassignArticle(userId = null) {
+    const assignment = {
+      article_title: decodeURIComponent(this.props.title).trim(),
+      project: this.props.assignment.project,
+      language: this.props.assignment.language,
+      course_id: this.props.courseSlug,
+      role: ASSIGNED_ROLE,
+      id: this.props.assignment.id,
+      assignment_id: this.props.assignment.assignment_id,
+      user_id: userId,
+    };
+    this.setState({
+      isLoading: true,
+    });
+    return this.props.deleteAssignment(assignment);
   },
 
   render() {
@@ -75,7 +92,7 @@ const ArticleFinderRow = createReactClass({
           <td className="tooltip-trigger">
             <div className={gradeClass}><p>{PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].pretty || '-'}</p></div>
             <div className="tooltip dark">
-              <p>{I18n.t(`articles.rating_docs.${this.props.article.grade.toLowerCase() || '?'}`)}</p>
+              <p>{I18n.t(`articles.rating_docs.${PageAssessmentGrades[this.props.course.home_wiki.language][this.props.article.grade].class || '?'}`, { class: this.props.article.grade || '' })}</p>
             </div>
           </td>
           );
@@ -95,19 +112,38 @@ const ArticleFinderRow = createReactClass({
       }
     }
     let button;
-    if (this.props.courseSlug) {
-      if (this.props.isAdded) {
+    if (this.props.courseSlug && this.props.current_user.isNonstudent) {
+      if (this.props.assignment) {
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
         button = (
           <td>
-            <button className="button small disabled add-available-article">{I18n.t('article_finder.already_added')}</button>
+            <button className={className} onClick={() => this.unassignArticle()}>{I18n.t('article_finder.remove_article')}</button>
           </td>
         );
       }
       else {
-        const className = `button small add-available-article ${this.state.isAdding ? 'disabled' : 'dark'}`;
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
         button = (
           <td>
-            <button className={className} onClick={this.addAvailableArticle}>{I18n.t('article_finder.add_available_article')}</button>
+            <button className={className} onClick={() => this.assignArticle()}>{I18n.t('article_finder.add_available_article')}</button>
+          </td>
+          );
+      }
+    }
+    else if (this.props.courseSlug && this.props.current_user.role === STUDENT_ROLE) {
+      if (this.props.assignment) {
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : ''}`;
+        button = (
+          <td>
+            <button className={className} onClick={() => this.unassignArticle(this.props.current_user.id)}>{I18n.t('article_finder.unassign_article_self')}</button>
+          </td>
+        );
+      }
+      else {
+        const className = `button small add-available-article ${this.state.isLoading ? 'disabled' : 'dark'}`;
+        button = (
+          <td>
+            <button className={className} onClick={() => this.assignArticle(this.props.current_user.id)}>{I18n.t('article_finder.assign_article_self')}</button>
           </td>
           );
       }
@@ -129,6 +165,9 @@ const ArticleFinderRow = createReactClass({
 
     return (
       <tr>
+        <td>
+          {this.props.article.relevanceIndex}
+        </td>
         <td>
           <div className="horizontal-flex">
             <a href={`https://${this.props.course.home_wiki.language}.${this.props.course.home_wiki.project}.org/wiki/${this.props.article.title.replace(/ /g, '_')}`} className="inline" target="_blank">{this.props.title}</a>

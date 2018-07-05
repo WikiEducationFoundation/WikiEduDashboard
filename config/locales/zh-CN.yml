@@ -3,6 +3,8 @@
 # Export driver: phpyaml
 # Author: Assoc
 # Author: Camilali0609
+# Author: Deathkon
+# Author: Endermoon
 # Author: Fanjiayi
 # Author: Hanyanbo98
 # Author: Liuxinyu970226
@@ -95,15 +97,15 @@ zh-CN:
     rating: 等级
     rating_doc: 条目的等级由维基百科的对应专题分配。这些等级可能与旧有版本相对应，因此这些评级只是粗略的条目成熟度指标。
     rating_docs:
-      fa: 典范条目 — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标
-      fl: 特色列表 — 维基百科用于列表的最高评级
-      a: 甲级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
-      ga: 优良条目 — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标
-      b: 乙级 — 一个适度发展的条目
-      c: 丙级 — 一个有改进空间的中等条目
-      start: 初级 — 一个有很大改进空间的初等条目
-      stub: 小条目级 — 一篇条目的短小开始，它需要更多内容
-      list: 列表级 — 一个列表，而不是一篇传统条目
+      fa: '%{class}（典范条目） — 维基百科的最高评级，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      fl: '%{class}（特色列表） — 维基百科用于列表的最高评级'
+      a: '%{class}级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      ga: '%{class}（优良条目） — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
+      b: '%{class}级 — 一个质量适中的条目'
+      c: '%{class}级 — 一个有改进空间的中等条目'
+      start: '%{class}级 — 一个有很大改进空间的初等条目'
+      stub: '%{class}级 — 一篇条目的短小开始，它需要更多内容'
+      list: '%{class}级 — 一个列表，而不是一篇传统条目'
       '?': 未评级 — 一篇未被维基百科质量等级体系评级的条目
       does_not_exist: 此条目在维基百科不存在
     see_more: 查看更多
@@ -434,6 +436,8 @@ zh-CN:
       other: 志愿者
     weeks_none: 此课程尚无时间线。
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
+    wiki_edits_enabled: 启用了Wiki编辑
+    wiki_edits_enabled_tooltip: 如果启用wiki编辑，那么将为此计划自动安排wiki编辑。如果您不希望模板添加到用户页、已获分配条目的讨论页等的话，请禁用wiki编辑。
     wiki_staff: Wiki Ed职员
     withdrawn: 没有进行分配
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
@@ -693,7 +697,6 @@ zh-CN:
     check_answer: 检查答案
     included_modules: 包含的模块
   uploads:
-    datetime: 日期/时间
     file_name: 文件名
     header: 上传至维基共享资源的文件
     image: 图像
@@ -701,9 +704,13 @@ zh-CN:
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
     time_doc: 您本地时间的每次上传时间
-    uploaded_at: 上传于
+    uploaded_at: 上传时间
+    uploader: 上传者
     uploaded_by: 上传者
+    uploaded_on: 上传于
     usage_count: 使用计数
+    usage_doc: 此图片显示维基百科文章数量。
+    usage_count_gallery_tile: 在 %{usage_count} 篇文章中使用
     usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！
@@ -713,7 +720,7 @@ zh-CN:
     assignees: 委托人
     loading_authorship_data: 正在加载作者数据
     authorship_data_not_fetched: 无法检索作者数据
-    character_doc: 用户添加至此名字空间的内容总数，通过将所有添加的字符添加到增加页面大小的编辑中计算。这个数字并不一定反映用户添加的新内容的数量。恢复删除的内容也会增加这个总数。
+    character_doc: 用户添加至此名字空间的内容总数，计算方式是将所有增长页面大小的编辑中，添加的字符加起来。此数字未必反应用户添加的新内容数量。恢复移除的内容也将会增长这个总数。
     chars_added: 添加的字符<br>（条目 | 用户 | 草稿）
     contributions: 用户贡献
     contributions_history_full: 在维基百科查看完整贡献历史
@@ -748,6 +755,7 @@ zh-CN:
     revisions_doc: 此编辑者在过去7天内的编辑次数
     reviewers: 复核员
     reviewing: 正在复核
+    total_uploads: 总计上传
     training_complete:
       one: 是最新的培训
       other: 是最新的培训
@@ -762,6 +770,7 @@ zh-CN:
     training_module_name: 培训模块
     training_module_status: 状态
     up_to_date_with_training: 最近培训
+    uploads_doc: 上传到维基共享资源的文件数量
     username: 用户名
     username_placeholder: 用户名
     useremail_placeholder: 电子邮件
@@ -861,14 +870,30 @@ zh-CN:
       where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
       why_are_you_here: 您想做什么？
   article_finder:
-    page_assessment_grade: 评定等级
+    page_assessment_class: 等级
     completeness_estimate: 完整分数
     average_views: 每天平均访问
     add_available_article: 添加为可用条目
-    already_added: 已添加到可用条目
-    max_completeness_label: 最高完整（0~100）
+    remove_article: 移除条目
     minimum_views_label: 最低访问
-    depth: 深度
-    category: 分类
     no_article_found: 此分类中找不到条目
+    search_placeholder: 输入您的密码
+    search: 搜索
+    tools: 工具
+    show_filters: 显示过滤条件
+    hide_filters: 隐藏过滤条件
+    keyword_search: 关键词搜索
+    category_search: 分类搜索
+    article_quality: 条目质量（0~100）
+    more_results: 更多结果
+    fetched_articles: 检索的条目
+    filtered_articles: 过滤的条目
+    searching_articles: 正在搜索条目
+    fetching_assessments: 正在检索页面评价
+    fetching_revisions: 正在检索页面修订版本
+    fetching_scores: 获取完整性评分
+    fetching_pageviews: 正在检索页面浏览
+    subheading_message: 让我们查找符合您的需求的条目
+    article_finder: 条目查找器
+    submit: 提交
 ...

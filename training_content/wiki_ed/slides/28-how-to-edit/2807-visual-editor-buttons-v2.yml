@@ -1,0 +1,57 @@
+---
+title: Visual Editor buttons
+content: |
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/VisualEditor_toolbar_isolated-en.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_toolbar_isolated-en.png"></a>
+
+  </figcaption>
+  </figure>
+
+  It can be helpful to copy and paste the text below into [a
+  sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox?veaction=edit),
+  and apply all of the options directly to this text to see what it does.
+
+  <figure class="alt-layout-30-right">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/VisualEditor_Toolbar_Formatting-en.png" />
+
+  <figcaption class="">
+  <a href="https://commons.wikimedia.org/wiki/File:VisualEditor_Toolbar_Formatting-en.png"></a>
+
+  </figcaption>
+  </figure>
+
+  **Paragraph**: Set the style of your text. For example, make a header or
+  plain paragraph text. You can also use it to offset block quotes.
+
+  <u>***A***</u> : Highlight your text, then click here to format it with
+  bold, italics, etc. The “More” options allows you to underline
+  (<u>U</u>), cross-out text (~~S~~), add code snippets ( { } ), change
+  language keyboards (Aあ), and clear all formatting ( ⃠ ).
+
+  **Links**: Highlight text and push this button to make it a link. The
+  Visual Editor will automatically suggest related Wikipedia articles for
+  that word or phrase. This is a great way to connect your article to more
+  Wikipedia content. You only have to link important words once, usually
+  during the first time they appear. If you want to link to pages outside
+  of Wikipedia (for an “external links” section, for example) click on the
+  “External link” tab.
+
+  **Cite**: The citation tool in the Visual Editor helps format your
+  citations. You can simply paste a DOI or URL, and the Visual Editor will
+  try to sort out all of the fields you need. Be sure to review it,
+  however, and apply missing fields manually (if you know them). You can
+  also add books, journals, news, and websites manually. That opens up a
+  quick guide for inputting your citations. Once you've added a source,
+  you can click the “re-use” tab to cite it again.
+
+  **Bullets**: To add bullet points or a numbered list, click here.
+
+  **Insert**: This tab lets you add media, images, or tables.
+
+  **Ω**: This tab allows you to add special characters, such as those
+  found in non-English words, scientific notation, and a handful of
+  language extensions.
+id: 2807

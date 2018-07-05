@@ -38,7 +38,7 @@ const Article = createReactClass({
           <p className="rating_num hidden">{this.props.article.rating_num}</p>
           <div className={ratingClass}><p>{this.props.article.pretty_rating || '-'}</p></div>
           <div className="tooltip dark">
-            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`)}</p>
+            <p>{I18n.t(`articles.rating_docs.${this.props.article.rating || '?'}`, { class: this.props.article.rating || '' })}</p>
           </div>
         </td>
         <td>

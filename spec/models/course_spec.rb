@@ -159,7 +159,8 @@ describe Course, type: :model do
       prefix = Figaro.env.course_prefix
       course = build(:legacy_course,
                      id: 618,
-                     slug: 'UW Bothell/Conservation Biology (Winter 2015)')
+                     slug: 'UW Bothell/Conservation Biology (Winter 2015)',
+                     submitted: true)
       url = course.url
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/Education_Program:UW_Bothell/Conservation_Biology_(Winter_2015)")
@@ -168,11 +169,20 @@ describe Course, type: :model do
       # A new course
       new_course = build(:course,
                          id: 10618,
-                         slug: 'UW Bothell/Conservation Biology (Winter 2016)')
+                         slug: 'UW Bothell/Conservation Biology (Winter 2016)',
+                         submitted: true)
       url = new_course.url
       # rubocop:disable Metrics/LineLength
       expect(url).to eq("https://#{lang}.wikipedia.org/wiki/#{prefix}/UW_Bothell/Conservation_Biology_(Winter_2016)")
       # rubocop:enable Metrics/LineLength
+
+      # A course that hasn't been submitted so has no on-wiki course page yet
+      new_course = build(:course, submitted: false)
+      expect(new_course.url).to be_nil
+
+      # A course type without edits enabled
+      new_course = build(:editathon)
+      expect(new_course.url).to be_nil
     end
   end
 
@@ -374,6 +384,32 @@ describe Course, type: :model do
       course = Course.find(1)
       expect(course.uploads).not_to include(CommonsUpload.find(2))
       expect(course.uploads).not_to include(CommonsUpload.find(3))
+    end
+  end
+
+  describe '#wiki_edits_enabled?' do
+    let(:course) { build(:basic_course, flags: flags) }
+    let(:subject) { course.wiki_edits_enabled? }
+
+    context 'when the :wiki_edits_enabled flag is set false' do
+      let(:flags) { { wiki_edits_enabled: false } }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'when the :wiki_edits_enabled flag is set true' do
+      let(:flags) { { wiki_edits_enabled: true } }
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'when the :wiki_edits_enabled flag is not set' do
+      let(:flags) { nil }
+      it 'returns true' do
+        expect(subject).to be true
+      end
     end
   end
 

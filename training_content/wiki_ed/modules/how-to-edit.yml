@@ -1,0 +1,24 @@
+name: "How to edit: Wikicode vs Visual Editor"
+id: 28
+description: In this tutorial, you'll be given practical advice on navigating and editing Wikipedia.
+estimated_ttc: 20 minutes 
+slides:
+  - slug: how-to-edit-welcome # 2801
+  - slug: get-started-by-getting-started-v2 # 2802
+  - slug: what-we-ll-review-v2 # 2803
+  - slug: your-wikipedia-account-v2 # 2804
+  - slug: visual-editing-vs-source-editing-v2 # 2805
+  - slug: editing-wikipedia-using-the-visual-editor-v2 # 2806
+  - slug: visual-editor-buttons-v2 # 2807
+  - slug: adding-citations-v2 # 2808
+  - slug: leaving-an-edit-summary-v2 # 2809
+  - slug: let-s-try-it-v2 # 2810
+  - slug: video-boldly-linking-where-no-one-has-linked-before-v2 # 2811
+  - slug: take-control-of-the-text-v2 # 2812
+  - slug: how-to-edit-a-talk-page-v2 # 2813
+  - slug: video-talk-pages-v2 # 2814
+  - slug: responding-on-a-talk-page-v2 # 2815
+  - slug: pinging-another-wikipedian-v2 # 2816
+  - slug: talk-page-tutorial-v2 # 2817
+  - slug: preparing-to-edit-quiz-v2 # 2818
+  - slug: that-s-it-v2 # 2819

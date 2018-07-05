@@ -2,9 +2,8 @@ id: 719
 title: Reading history
 summary:
 content: |
-  So now you know how to contribute good citations to an article. Let's quickly
-  look at what happens if you come back, and see that someone has made an edit
-  to your page.
+  Let's look at what happens if you see someone has made an edit to an article
+  you're working on.
 
   <figure class="alt-layout-40-right">
     <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/View_history_button_on_English_Wikipedia.png" />
@@ -17,8 +16,8 @@ content: |
     <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Multiple_revisions_in_Nellie_Bly_article_history.png" />
   </figure>
 
-  When you open the "View History" page, you'll see a list of recent changes to
-  the article, with some comments about what other editors have done.
+  On the "View history" page, you'll see a list of recent changes to the article,
+  with edit summaries describing what other editors have done.
 
   In this example, on the page for Nellie Bly, you'll see that on July 15, an
   editor made a change to the "Asylum expose" section of her article. Others

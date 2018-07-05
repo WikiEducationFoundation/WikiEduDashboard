@@ -2,14 +2,19 @@ id: 1212
 title: Getting started
 summary:
 content: |
+  Select the classmate's article that you will peer review and copyedit.
+  On the '''Articles''' tab, find that article. Then in the "My Articles"
+  section of the '''Home''' tab, assign it to yourself to review.
+  (Repeat the process if you have been assigned to review more than one article).
+
   Where are you going to leave your peer review?
 
   To get started, navigate to the page where your classmate is drafting their
   contribution to Wikipedia. This will usually be their sandbox, but if you
-  aren't sure, ask. Use the talk pages of that page to leave feedback.
+  aren't sure, ask. Use the Talk page of that page to leave feedback.
 
   If your class is drafting their work in sandboxes, follow these steps:
-  * Find your peers' sandbox (navigate there from the Students tab of your
+  * Find your peers' sandbox (navigate there from the **Students** tab of your
   Course page...or just ask them).
   * Go to the talk page of their sandbox.
   * Click "New section".
@@ -22,4 +27,5 @@ content: |
   </figure>
 
   Visual editing is not available when using Talk pages. For tips on using
-  wikicode, see the back page of your [Editing Wikipedia brochure](https://wikiedu.org/editingwikipedia).
+  Wikicode, see the back page of your [Editing Wikipedia brochure](https://wikiedu.org/editingwikipedia)
+  or revisit the [editing training](https://dashboard.wikiedu.org/training/students/how-to-edit).

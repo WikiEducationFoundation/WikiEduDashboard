@@ -267,11 +267,16 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  # Overridden for LegacyCourse
+  def wiki_title
+    return nil unless wiki_course_page_enabled? && home_wiki.edits_enabled?
+    escaped_slug = slug.tr(' ', '_')
+    "#{home_wiki.course_prefix}/#{escaped_slug}"
+  end
+
   # The url for the on-wiki version of the course.
   def url
-    # wiki_title is implemented by the specific course type.
-    # Some types do not have corresponding on-wiki pages, so they have no
-    # wiki_title or url.
+    # Some courses do not have corresponding on-wiki pages, so they have no wiki_title or url.
     return unless wiki_title
     "#{home_wiki.base_url}/wiki/#{wiki_title}"
   end
@@ -295,6 +300,12 @@ class Course < ApplicationRecord
   def average_word_count
     return 0 if user_count.zero?
     word_count / user_count
+  end
+
+  # Overridden for some course types
+  def wiki_edits_enabled?
+    return true unless flags.key?(:wiki_edits_enabled)
+    flags[:wiki_edits_enabled]
   end
 
   # Overidden by ClassroomProgramCourse

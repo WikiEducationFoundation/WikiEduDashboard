@@ -94,6 +94,13 @@ class ArticleStatusManager
     synced_articles.each do |article_data|
       article = Article.find_by(wiki_id: @wiki.id, mw_page_id: article_data['page_id'])
       next if data_matches_article?(article_data, article)
+
+      # FIXME: Workaround for four-byte unicode characters in article titles,
+      # until we fix the database to handle them.
+      # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+      # These titles are saved as their URL-encoded equivalents.
+      next if article.title[0] == '%'
+
       article.update!(title: article_data['page_title'],
                       namespace: article_data['page_namespace'],
                       deleted: false)

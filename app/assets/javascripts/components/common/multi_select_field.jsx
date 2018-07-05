@@ -36,7 +36,7 @@ const MultiSelectField = createClass({
           multi
           onChange={this.handleSelectChange}
           options={options}
-          placeholder="Select"
+          placeholder={this.props.label}
           removeSelected={this.state.removeSelected}
           rtl={this.state.rtl}
           simpleValue

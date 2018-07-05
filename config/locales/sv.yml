@@ -120,6 +120,7 @@ sv:
     add_organizer: Lägg till organiserare
     alert_article: Artikelns titel
     alert_label: Kampanjmeddelanden
+    alert_select_label: Filtrera efter alarmtyp
     alert_type: Typ
     alert_user_id: Användare
     all_campaigns: Alla kampanjer
@@ -506,16 +507,20 @@ sv:
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
   uploads:
-    datetime: Datum/tid
     file_name: Filnamn
     header: Filer som har laddats upp till Wikimedia Commons
     image: Bild
     label: Uppladdningar
     loading: Laddar uppladdning...
     none: Inga filer har laddats upp
-    uploaded_at: Laddades upp
+    select_label: Filtrera efter uppladdare
+    uploaded_at: Uppladdningstid
+    uploader: Uppladdare
     uploaded_by: Uppladdad av
+    uploaded_on: Uppladdningsdatum
     usage_count: Antal användningar
+    usage_doc: Antal Wikipediaartiklar som denna sida finns på.
+    usage_count_gallery_tile: Används  i %{usage_count} artiklar
     usages: Användning
   users:
     assign_articles: Tilldela artiklar
@@ -615,4 +620,6 @@ sv:
       header: Hur fick du reda på om oss?
       where_did_you_hear: Var, eller från vem, fick du först reda på om Wiki Education?
       why_are_you_here: Vad vill du göra?
+  article_finder:
+    assign_article_self: Tilldela dig själv
 ...

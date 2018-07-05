@@ -146,15 +146,15 @@ en:
     rating: Class
     rating_doc: The rating an article has been assigned by WikiProjects on Wikipedia. These ratings may corresponds to much older versions, so they are just a rough indicator of article maturity.
     rating_docs:
-      fa: Featured article — Wikipedia's highest rating, probably too mature an article for a new editor's main project
-      fl: Featured list — Wikipedia's highest rating for lists
-      a: A-class — very developed article that may be too mature an article for a new editor's main project
-      ga: Good article — a well-developed article that may be too mature an article for a new editor's main project
-      b: B-class — a moderately developed article
-      c: C-class — an intermediate article with room for improvement
-      start: Start-class — a preliminary article with plenty of room for improvement
-      stub: Stub-class — a short beginning of an article that needs more content
-      list: List-class — a list rather than a conventional article
+      fa: "%{class} (Featured article) — Wikipedia's highest rating, probably too mature an article for a new editor's main project"
+      fl: "%{class} (Featured list) — Wikipedia's highest rating for lists"
+      a: "%{class}-class — very developed article that may be too mature an article for a new editor's main project"
+      ga: "%{class} (Good article) — a well-developed article that may be too mature an article for a new editor's main project"
+      b: "%{class}-class — a moderately developed article"
+      c: "%{class}-class — an intermediate article with room for improvement"
+      start: "%{class}-class — a preliminary article with plenty of room for improvement"
+      stub: "%{class}-class — a short beginning of an article that needs more content"
+      list: "%{class}-class — a list rather than a conventional article"
       ?: Unrated — an article that hasn't yet been rated on Wikipedia's quality scale
       does_not_exist: This article does not exist on Wikipedia
     see_more: See more
@@ -218,6 +218,7 @@ en:
     add_organizer: Add organizer
     alert_article: Article title
     alert_label: Campaign Alerts
+    alert_select_label: Filter by alert type
     alert_type: Type
     alert_user_id: User
     all_campaigns: All Campaigns
@@ -513,10 +514,11 @@ en:
     rating_feedback: "Predicted rating for the article is: "
     requested_accounts: Requested accounts
     review_timeline: >
-      Please review this timeline and make changes. Once you're satisfied with
-      your timeline, submit it for approval by Wiki Ed staff. Once approved, you
-      will be given an enrollment URL that students can use to join the course.
-      (You'll still be able to make edits later.)
+      Now, review your assignment timeline, customizing it to fit your needs.
+      Once you're satisfied, submit it for approval by Wiki Education staff.
+      Once approved, you'll receive an enrollment URL that students can use to
+      join the course and access the trainings. (Note: You'll still be able to
+      make edits later.)
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
@@ -535,7 +537,7 @@ en:
     submitted_and_pending_heading: Submitted & Pending Approval
     submitted_heading: Submitted Courses
     submitted_note: >
-      Your course has been submitted. Wiki Ed staff will review it and get in
+      Your course has been submitted. Wiki Education staff will review it and get in
       touch with any questions.
     suggestions_feedback: Have any suggestions to improve this feature? Let us know!
     suggestions_sending: Sending Feedback...
@@ -578,7 +580,11 @@ en:
       After that, new edits to the timeline will be mirrored to Wikipedia.
 
       Are you sure you want to do this?
-    wiki_staff: Wiki Ed Staff
+    wiki_edits_enabled: Wiki edits enabled
+    wiki_edits_enabled_tooltip: >
+      If wiki edits are enabled, then automated on-wiki edits will be made for this program. Disable wiki edits
+      if you don't want templates added to user pages, the talk pages of assigned articles, etc.
+    wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     yourcourses: Your Courses
@@ -872,17 +878,21 @@ en:
     included_modules: Included Modules
 
   uploads:
-    datetime: Date/Time
     file_name: File Name
     header: Files Uploaded to Wikimedia Commons
     image: Image
     label: Uploads
     loading: Loading uploads...
     none: This class has not contributed any images or other media files to Wikimedia Commons.
+    select_label: Filter by uploader
     time_doc: The time of each upload in your local time
-    uploaded_at: Uploaded At
+    uploaded_at: Upload Time
+    uploader: Uploader
     uploaded_by: Uploaded By
+    uploaded_on: Uploaded On
     usage_count: Usage Count
+    usage_doc: Number of Wikipedia articles that this image appears in.
+    usage_count_gallery_tile: Used in %{usage_count} articles
     usages: Usages
 
   users:
@@ -934,6 +944,7 @@ en:
     revisions_doc: The number of edits made by this editor in the past 7 days
     reviewers: Reviewer(s)
     reviewing: Reviewing
+    total_uploads: "Total Uploads"
     training_complete:
       one: "is up-to-date with training"
       other: "are up-to-date with training"
@@ -950,6 +961,7 @@ en:
     training_module_name: Training module
     training_module_status: Status
     up_to_date_with_training: 'up-to-date with training'
+    uploads_doc: 'Number of file uploads to Wikimedia Commons'
     username: Username
     username_placeholder: Username
     useremail_placeholder: Email
@@ -962,7 +974,7 @@ en:
       instructor: Instructor
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
-      wiki_ed_staff: Wiki Ed Staff
+      wiki_ed_staff: Wiki Education Staff
 
   user_profiles:
     student_impact: Total impact made by %{username} as a student
@@ -1076,17 +1088,17 @@ en:
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
-    login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
+    login_message: 'Thank you for your time. Please log in to your Wiki Education Dashboard to take the survey.'
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
     notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
     follow_up_explanation: Leave blank if no follow-up notification emails are desired.
     email:
       headline: "Hello, %{username}"
-      message_line1: "We hope you had a great term! Wiki Ed is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
+      message_line1: "We hope you had a great term! Wiki Education is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
       message_line2: "Are you willing to take 15 minutes to fill out our instructor survey? Click the button below to help us make teaching with Wikipedia an even more rewarding and valuable experience."
       course: "Course: %{course_info}"
       closing: "Sincerely,"
-      signed: "- the Wiki Ed team"
+      signed: "- the Wiki Education team"
       link: "Take Survey"
     follow_up:
       message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."
@@ -1104,13 +1116,32 @@ en:
       why_are_you_here: "What would you like to do?"
 
   article_finder:
-    page_assessment_grade: "Assessment Grade"
+    page_assessment_class: "Class"
     completeness_estimate: "Completeness Score"
-    average_views: "Average views/Day"
+    average_views: "Average views per day"
     add_available_article: "Add as available article"
-    already_added: "Already added to available articles"
-    max_completeness_label: "Max Completeness(0-100)"
+    remove_article: "Remove article"
     minimum_views_label: "Minimum Views"
-    depth: "Depth"
-    category: "Category"
     no_article_found: "No articles found in this category"
+    search_placeholder: "Enter your keyword"
+    search: "Search"
+    tools: "Tools"
+    show_filters: "Show Filters"
+    hide_filters: "Hide Filters"
+    keyword_search: "Keyword Search"
+    category_search: "Category Search"
+    article_quality: "Article Quality(0-100)"
+    more_results: "More Results"
+    fetched_articles: "Fetched Articles"
+    filtered_articles: "Filtered Articles"
+    searching_articles: "Searching Articles"
+    fetching_assessments: "Fetching Page Assessments"
+    fetching_revisions: "Fetching Page Revisions"
+    fetching_scores: "Fetching Completeness Score"
+    fetching_pageviews: "Fetching Page Views"
+    subheading_message: "Let's find an article which fits your needs"
+    article_finder: "Article Finder"
+    submit: "Submit"
+    relevanceIndex: "Relevance Index"
+    assign_article_self: "Assign yourself"
+    unassign_article_self: "Unassign Article"

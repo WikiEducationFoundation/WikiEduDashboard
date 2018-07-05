@@ -331,7 +331,7 @@ cs:
         viděli souvislost s příspěvky vašich studentů.
       course_language: Domovský jazyk
       course_private: Soukromý program (prohlížet ho mohou jen administrátoři nebo
-        facilitátoři)
+        instruktoři)
       course_project: Domácí projekt
       course_school: Kurzová instituce
       course_subject: Předmět kurzu
@@ -834,7 +834,6 @@ cs:
     check_answer: Zkontrolovat odpověď
     included_modules: Přidané moduly
   uploads:
-    datetime: Datum/Čas
     file_name: Název souboru
     header: Soubory nahrané na Wikimedia Commons
     image: Obrázek
@@ -980,8 +979,8 @@ cs:
     explanation: Žádný kurz %{slug} neexistuje.
   error_404:
     header: Stránka nebyla nalezena. :-(
-    explanation: Tato stránka neexistuje. Pokud se pokoušíte získat přístrojovou desku
-      pro kurz, kurz nemusí být na této desce zaregistrován.
+    explanation: Tato stránka neexistuje. Pokud se pokoušíte navštívit stránku kurzu,
+      ten zde nemusí existovat.
   error_422:
     header: 422 — entita nelze zpracovat.  :-(
     explanation: Došlo k chybě. Prosím kontaktujte správce této nástěnky a sdělte
@@ -1026,4 +1025,8 @@ cs:
       header: Jak jste se o nás dozvěděl(a)?
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
       why_are_you_here: Co byste chtěli dělat?
+  article_finder:
+    add_available_article: Přidat jako dostupný článek
+    minimum_views_label: Minimální počet zobrazení
+    no_article_found: V této kategorii nebyl nalezen žádný článek
 ...

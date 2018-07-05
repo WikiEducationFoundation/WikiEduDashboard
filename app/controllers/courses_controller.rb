@@ -17,7 +17,6 @@ class CoursesController < ApplicationController
                                                update
                                                destroy
                                                notify_untrained
-                                               update_syllabus
                                                delete_all_weeks]
 
   ################
@@ -42,7 +41,8 @@ class CoursesController < ApplicationController
     handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
     @course.update update_params
-    set_timeline_enabled
+    update_boolean_flag :timeline_enabled
+    update_boolean_flag :wiki_edits_enabled
     ensure_passcode_set
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
     render json: { course: @course }
@@ -68,17 +68,6 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html { render }
       format.json { render @endpoint }
-    end
-  end
-
-  def update_syllabus
-    @course = Course.find(params[:id])
-    handle_syllabus_params
-    if @course.save
-      render json: { success: true, url: @course.syllabus.url }
-    else
-      render json: { message: I18n.t('error.invalid_file_format') },
-             status: :unprocessable_entity
     end
   end
 
@@ -141,16 +130,6 @@ class CoursesController < ApplicationController
     params.require(:campaign).permit(:title)
   end
 
-  def handle_syllabus_params
-    syllabus = params['syllabus']
-    if syllabus == 'null'
-      @course.syllabus.destroy
-      @course.syllabus = nil
-    else
-      @course.syllabus = params['syllabus']
-    end
-  end
-
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
@@ -163,6 +142,8 @@ class CoursesController < ApplicationController
     return unless Features.wiki_ed?
     newly_submitted = !@course.submitted? && course_params[:submitted] == true
     return unless newly_submitted
+    # Needs to be switched to submitted before the announcement edits are made
+    @course.update(submitted: true)
     CourseSubmissionMailerWorker.schedule_email(@course, instructor)
     AnnounceCourseWorker.schedule_announcement(course: @course,
                                                editing_user: current_user,
@@ -197,13 +178,13 @@ class CoursesController < ApplicationController
       .permit(:language, :project)
   end
 
-  def set_timeline_enabled
-    case params.dig(:course, :timeline_enabled)
+  def update_boolean_flag(flag)
+    case params.dig(:course, flag)
     when true
-      @course.flags[:timeline_enabled] = true
+      @course.flags[flag] = true
       @course.save
     when false
-      @course.flags[:timeline_enabled] = false
+      @course.flags[flag] = false
       @course.save
     end
   end

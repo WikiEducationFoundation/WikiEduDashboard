@@ -543,7 +543,6 @@ ne:
     check_answer: उत्तरको जाँच
     included_modules: समावेस मोड्युलहरू
   uploads:
-    datetime: मिति/समय
     file_name: फाइल नाम
     header: विकिमिडिया कमन्समा अपलोड गरिएका फाइलहरू
     image: चित्र

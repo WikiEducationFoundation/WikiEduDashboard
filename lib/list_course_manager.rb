@@ -45,6 +45,9 @@ class ListCourseManager
     @course.nonstudents.each do |user|
       CourseApprovalMailer.send_approval_notification(@course, user)
     end
+    @course.instructors.each do |user|
+      CourseApprovalFollowupWorker.schedule_followup_email(course: @course, instructor: user)
+    end
   end
 
   def handle_delete

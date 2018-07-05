@@ -9,8 +9,8 @@ import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
-import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder } from '../../actions/article_finder_action.js';
-import { fetchAssignments, addAssignment } from '../../actions/assignment_actions.js';
+import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
+import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
 import { getFilteredArticleFinder } from '../../selectors';
 
 const ArticleFinder = createReactClass({
@@ -28,6 +28,7 @@ const ArticleFinder = createReactClass({
   getInitialState() {
     return {
       isSubmitted: false,
+      showFilters: false,
     };
   },
 
@@ -38,8 +39,25 @@ const ArticleFinder = createReactClass({
     return this.updateFields('home_wiki', this.props.course.home_wiki);
   },
 
+  componentWillUnmount() {
+    return this.props.resetArticleFinder();
+  },
+
+  onKeyDown(keyCode, ref) {
+    if (keyCode === 13) {
+      ref.blur();
+      this.searchArticles();
+    }
+  },
+
   updateFields(key, value) {
     return this.props.updateFields(key, value);
+  },
+
+  toggleFilter() {
+    return this.setState({
+      showFilters: !this.state.showFilters
+    });
   },
 
   searchArticles() {
@@ -64,6 +82,10 @@ const ArticleFinder = createReactClass({
     return this.props.updateFields("grade", grade);
   },
 
+  sortSelect(e) {
+    this.props.sortArticleFinder(e.target.value);
+  },
+
   render() {
     const searchTerm = (
       <TextInput
@@ -73,22 +95,24 @@ const ArticleFinder = createReactClass({
         value_key="search_term"
         required
         editable
-        label={I18n.t('article_finder.category')}
-        placeholder={I18n.t('article_finder.category')}
+        label={I18n.t('article_finder.search')}
+        placeholder={I18n.t('article_finder.search_placeholder')}
+        onKeyDown={this.onKeyDown}
+        ref="searchbox"
       />);
 
     const searchType = (
-      <div>
+      <div className="search-type">
         <div>
           <label>
-            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Category Based Search
+            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            {I18n.t('article_finder.keyword_search')}
           </label>
         </div>
         <div>
           <label>
-            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
-            Keyword Based Search
+            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            {I18n.t('article_finder.category_search')}
           </label>
         </div>
       </div>
@@ -108,7 +132,7 @@ const ArticleFinder = createReactClass({
 
     const articleQuality = (
       <div className="form-group range-container">
-        <label className="mb2">Article Quality(0-100)</label>
+        <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
         <InputRange
           maxValue={100}
           minValue={0}
@@ -118,40 +142,72 @@ const ArticleFinder = createReactClass({
         />
       </div>
       );
-
-    const filters = (
-      <div className="form-container mb2">
-        <h4>Filter your results:</h4>
-        <div className="horizontal-flex">
+    let filters;
+    if (this.state.showFilters) {
+      filters = (
+        <div className="filters">
           {minimumViews}
           {articleQuality}
         </div>
-      </div>
-    );
+      );
+    }
+
+    let filterButton;
+    if (!this.state.showFilters) {
+      filterButton = (
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_filters')}</button>
+      );
+    }
+    else {
+      filterButton = (
+        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_filters')}</button>
+      );
+    }
+
+    let filterBlock;
+    if (this.state.isSubmitted && !this.props.loading) {
+      filterBlock = (
+        <div className="filter-block">
+          {filterButton}
+          {filters}
+        </div>
+      );
+    }
 
     const keys = {
+      relevanceIndex: {
+        label: I18n.t('article_finder.relevanceIndex'),
+        desktop_only: false
+      },
       title: {
         label: I18n.t('articles.title'),
         desktop_only: false
       },
       grade: {
-        label: I18n.t('article_finder.page_assessment_grade'),
+        label: I18n.t('article_finder.page_assessment_class'),
         desktop_only: false,
+        sortable: true,
       },
       revScore: {
         label: I18n.t('article_finder.completeness_estimate'),
         desktop_only: false,
+        sortable: true,
       },
       pageviews: {
         label: I18n.t('article_finder.average_views'),
         desktop_only: false,
+        sortable: true,
       },
       tools: {
-        label: 'Tools',
+        label: I18n.t('article_finder.tools'),
         desktop_only: false,
+        sortable: false,
       }
     };
-
+    if (this.props.sort.key) {
+      const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
+      keys[this.props.sort.key].order = order;
+    }
     if (!_.includes(ORESSupportedWiki.languages, this.props.course.home_wiki.language) || !this.props.course.home_wiki.project === 'wikipedia') {
       delete keys.revScore;
     }
@@ -160,10 +216,20 @@ const ArticleFinder = createReactClass({
       delete keys.grade;
     }
 
+    if (!this.props.course_id || !this.props.current_user.id) {
+      delete keys.tools;
+    }
+
     let list;
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
-        const isAdded = Boolean(_.find(this.props.assignments, { article_title: title }));
+        let assignment;
+        if (this.props.current_user.isNonstudent) {
+          assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
+        }
+        else {
+          assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
+        }
         return (
           <ArticleFinderRow
             article={article}
@@ -171,8 +237,10 @@ const ArticleFinder = createReactClass({
             key={article.pageid}
             courseSlug={this.props.course_id}
             course={this.props.course}
-            isAdded={isAdded}
+            assignment={assignment}
             addAssignment={this.props.addAssignment}
+            deleteAssignment={this.props.deleteAssignment}
+            current_user={this.props.current_user}
           />
           );
       });
@@ -195,9 +263,9 @@ const ArticleFinder = createReactClass({
     }
 
     let fetchMoreButton;
-    if (this.props.continue_results) {
+    if (this.props.continue_results && this.state.isSubmitted) {
       fetchMoreButton = (
-        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>More Results</button>
+        <button className="button dark text-center fetch-more" onClick={this.fetchMoreResults}>{I18n.t('article_finder.more_results')}</button>
       );
     }
 
@@ -210,11 +278,11 @@ const ArticleFinder = createReactClass({
           <div className="stat-display">
             <div className="stat-display__stat" id="articles-fetched">
               <div className="stat-display__value">{fetchedCount}</div>
-              <small>Fetched Articles</small>
+              <small>{I18n.t('article_finder.fetched_articles')}</small>
             </div>
             <div className="stat-display__stat" id="articles-filtered">
               <div className="stat-display__value">{filteredCount}</div>
-              <small>Filtered Articles</small>
+              <small>{I18n.t('article_finder.filtered_articles')}</small>
             </div>
           </div>
         </div>
@@ -222,11 +290,11 @@ const ArticleFinder = createReactClass({
     }
 
     const loaderMessage = {
-      ARTICLES_LOADING: 'Searching Articles',
-      TITLE_RECEIVED: 'Fetching Page Assessments',
-      PAGEASSESSMENT_RECEIVED: 'Fetching Page Revisions',
-      REVISION_RECEIVED: "Fetching Completeness Score",
-      REVISIONSCORE_RECEIVED: "Fetching Page Views",
+      ARTICLES_LOADING: I18n.t('article_finder.searching_articles'),
+      TITLE_RECEIVED: I18n.t('article_finder.fetching_assessments'),
+      PAGEASSESSMENT_RECEIVED: I18n.t('article_finder.fetching_revisions'),
+      REVISION_RECEIVED: I18n.t('article_finder.fetching_scores'),
+      REVISIONSCORE_RECEIVED: I18n.t('article_finder.fetching_pageviews'),
     };
 
     let fetchingLoader;
@@ -239,22 +307,32 @@ const ArticleFinder = createReactClass({
         );
     }
 
+    let feedbackButton;
+    if (this.state.isSubmitted && !this.props.loading) {
+      feedbackButton = (
+        <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
+      );
+    }
+
     return (
       <div className="container">
         <header>
-          <h1 className="title">Article Finder</h1>
+          <h1 className="title">{I18n.t('article_finder.article_finder')}</h1>
           <div>
-            Let&#39;s find an article which fits your needs.
+            {I18n.t('article_finder.subheading_message')}
           </div>
         </header>
         <div className="article-finder-form">
-          {searchTerm}
-          {searchType}
-          <div className="text-center">
-            <button className="button dark py2" onClick={this.searchArticles}>Submit</button>
+          <div className="search-bar">
+            <div>
+              {searchTerm}
+              {searchType}
+            </div>
+            <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
-        {filters}
+        {feedbackButton}
+        {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
           <div>
@@ -289,6 +367,7 @@ const mapStateToProps = state => ({
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
   fetchState: state.articleFinder.fetchState,
+  sort: state.articleFinder.sort,
 });
 
 const mapDispatchToProps = {
@@ -298,6 +377,8 @@ const mapDispatchToProps = {
   fetchAssignments: fetchAssignments,
   sortArticleFinder: sortArticleFinder,
   fetchKeywordResults: fetchKeywordResults,
+  deleteAssignment: deleteAssignment,
+  resetArticleFinder: resetArticleFinder,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticleFinder);

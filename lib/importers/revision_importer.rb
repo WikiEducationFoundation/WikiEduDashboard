@@ -110,6 +110,16 @@ class RevisionImporter
     article.update!(title: article_data['article']['title'],
                     namespace: article_data['article']['namespace'])
     article
+  # FIXME: Workaround for four-byte unicode characters in article titles,
+  # until we fix the database to handle them.
+  # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+  rescue ActiveRecord::StatementInvalid => e
+    Raven.capture_exception e
+    # Use the RUI encoding instead of the unicode string, if
+    # the unicode itself can't be saved.
+    article.update!(title: URI.encode(article_data['article']['title']),
+                    namespace: article_data['article']['namespace'])
+    article
   end
 
   def push_revision_record(rev_data, article)

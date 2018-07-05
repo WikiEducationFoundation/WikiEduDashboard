@@ -29,4 +29,9 @@ ce:
   users:
     training_module_name: Дешаран модуль
     training_module_status: Статус
+  article_finder:
+    page_assessment_class: Класс
+    search: Лахар
+    tools: ГӀирсаш
+    hide_filters: Литтарш къайладаха
 ...

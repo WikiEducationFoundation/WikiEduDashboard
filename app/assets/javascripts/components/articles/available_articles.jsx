@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { Link } from 'react-router';
 
 import AssignCell from '../students/assign_cell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
@@ -72,6 +73,7 @@ const AvailableArticles = createReactClass({
             <div className="section-header__actions">
               {findingArticlesTraining}
               {assignCell}
+              <Link to={`/courses/${this.props.course_id}/article_finder`}><button className="button border small ml2">Find Articles</button></Link>
             </div>
           </div>
           <AvailableArticlesList {...this.props} elements={elements} />

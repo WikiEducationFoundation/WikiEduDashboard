@@ -10,7 +10,6 @@ import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
-import { getFiltered } from '../../utils/model_utils';
 import AddAvailableArticles from '../articles/add_available_articles';
 import { ASSIGNED_ROLE } from '../../constants';
 
@@ -115,16 +114,6 @@ const AssignButton = createReactClass({
     }
 
     const articleTitle = assignment.title;
-
-    // Check if the assignment exists
-    if (this.props.student && getFiltered(this.props.assignments, {
-      article_title: articleTitle,
-      user_id: this.props.student.id,
-      role: this.props.role
-    }).length !== 0) {
-      alert(I18n.t('assignments.already_exists'));
-      return;
-    }
 
     // Close the popup after adding an available article
     const closePopup = this.props.open;

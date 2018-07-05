@@ -133,7 +133,7 @@ const Course = createReactClass({
             <div className="notification" key="submit">
               <div className="container">
                 <p>Please create a timeline for your course. You can build one from scratch from the Timeline tab, or use the Assignment Wizard to create a custom timeline based on Wiki Ed&apos;s best practices.</p>
-                <a href={`${this._courseLinkParams()}/timeline`} className="button">Launch the Wizard</a>
+                <a href={`${this._courseLinkParams()}/timeline/wizard`} className="button">Launch the Wizard</a>
               </div>
             </div>
           ));

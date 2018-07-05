@@ -140,6 +140,7 @@ const Block = createReactClass({
 
     const content = (
       <div className="block__editor-container">
+        {modules}
         <TextAreaInput
           onChange={this.updateBlock}
           value={this.props.block.content}
@@ -151,7 +152,7 @@ const Block = createReactClass({
           wysiwyg={true}
           className="block__block-content"
         />
-        {modules}
+
       </div>
     );
 
@@ -175,7 +176,7 @@ const Block = createReactClass({
         {blockActions}
         {editButton}
         <div className="block__edit-container">
-          <h4 className={headerClass}>
+          <h3 className={headerClass}>
             <TextInput
               onChange={this.updateBlock}
               value={this.props.block.title}
@@ -201,7 +202,7 @@ const Block = createReactClass({
               onFocus={this.props.toggleFocused}
               onBlur={this.props.toggleFocused}
             />
-          </h4>
+          </h3>
           <div className={blockTypeClassName}>
             <BlockTypeSelect
               onChange={this.updateBlock}

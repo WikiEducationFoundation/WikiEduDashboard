@@ -160,7 +160,7 @@ const Nav = createReactClass({
             <CustomLink to="https://meta.wikimedia.org/wiki/Special:MyLanguage/Programs_%26_Events_Dashboard" name={I18n.t('application.documentation')} target="_blank" />
           </li>
           <li>
-            <CustomLink to="/feedback" name={I18n.t('application.report_problem')} target="_blank" />
+            <CustomLink to="https://meta.wikimedia.org/w/index.php?title=Talk:Programs_%26_Events_Dashboard&action=edit&section=new" name={I18n.t('application.report_problem')} target="_blank" />
           </li>
         </span>
       );
