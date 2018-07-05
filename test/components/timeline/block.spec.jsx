@@ -59,9 +59,9 @@ describe('Block', () => {
     describe('title', () => {
       it('Has a title', () => {
         const TestBlock = createBlock({ editPermissions: false });
-        const headline = TestUtils.scryRenderedDOMComponentsWithTag(TestBlock, 'h4')[0];
-        const h4 = findDOMNode(headline);
-        const title = h4.getElementsByTagName('span')[0].textContent;
+        const headline = TestUtils.scryRenderedDOMComponentsWithTag(TestBlock, 'h3')[0];
+        const header = findDOMNode(headline);
+        const title = header.getElementsByTagName('span')[0].textContent;
         expect(title).to.eq(block.title);
       });
     });
