@@ -26,7 +26,7 @@ essentials:
           </p>
           <p>
             Your course has also been assigned a Wikipedia Expert. You can reach
-            them through the "<strong>Get Help</strong>" button on this page.
+            them through the <strong>Get Help</strong> button on this page.
           </p>
           <p>
             Resources:
@@ -98,10 +98,10 @@ essentials:
 
       -
         if: sources_and_plagiarism_discussion
-        title: "Discussion: Thinking about sources and plagiarism"
+        title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">In-class discussion</a>
+          <a href="/training/students/sources-and-plagiarism-discussion/thinking-about-sources-and-plagiarism" class="timeline-exercise">Thinking about sources and plagiarism</a>
 
 
   - # Week three
@@ -142,10 +142,10 @@ essentials:
 
       -
         if: content_gaps_discussion
-        title: "Discussion: What's a content gap?"
+        title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">In-class discussion</a>
+          <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">What's a content gap?</a>
 
   - # Week four
     weight: 4
@@ -196,7 +196,7 @@ essentials:
         training_module_ids: [30,15] # Drafting, Plagiarism
         content: |
           Reach out to your Wikipedia Expert if you have questions using the
-          Get Help button at the top of this page.
+          <strong>Get Help</strong> button at the top of this page.
 
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
@@ -221,10 +221,10 @@ essentials:
     blocks:
       -
         if: thinking_about_wikipedia_discussion
-        title: "Discussion: Thinking about Wikipedia"
+        title: "Discussion"
         kind: 0
         content: |
-          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">In-class discussion</a>
+          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
 
       - # 1 peer review
         if: 1_peer_reviewers
@@ -313,7 +313,7 @@ essentials:
         kind: 1
         content: |
           <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for *Did You Know*</a>
+          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for Did You Know</a>
 
 
   - # Week nine
