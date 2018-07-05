@@ -8,6 +8,7 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
+import { STUDENT_ROLE } from "../../constants";
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
@@ -216,7 +217,7 @@ const ArticleFinder = createReactClass({
       delete keys.grade;
     }
 
-    if (!this.props.course_id || !this.props.current_user.id) {
+    if (!this.props.course_id || !this.props.current_user.id || this.props.current_user.notEnrolled) {
       delete keys.tools;
     }
 
@@ -224,11 +225,13 @@ const ArticleFinder = createReactClass({
     if (this.state.isSubmitted && !this.props.loading) {
       const elements = _.map(this.props.articles, (article, title) => {
         let assignment;
-        if (this.props.current_user.isNonstudent) {
-          assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
-        }
-        else {
-          assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
+        if (this.props.course_id) {
+          if (this.props.current_user.isNonstudent) {
+            assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
+          }
+          else if (this.props.current_user.role === STUDENT_ROLE) {
+            assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
+          }
         }
         return (
           <ArticleFinderRow
