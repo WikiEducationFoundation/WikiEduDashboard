@@ -281,7 +281,10 @@ bn:
     header: উইকিমিডিয়া কমন্সে আপলোডকৃত ফাইল
     image: চিত্র
     label: আপলোডসমূহ
-    uploaded_at: আপলোডের তারিখ
+    uploaded_at: আপলোডের সময়
+    uploader: আপলোডকারী
+    uploaded_on: আপলোডের তারিখ
+    usage_count_gallery_tile: '%{usage_count}টি নিবন্ধে ব্যবহৃত হয়েছে'
   users:
     assign_articles_done: সম্পন্ন
     contributions: ব্যবহারকারীর অবদানসমূহ

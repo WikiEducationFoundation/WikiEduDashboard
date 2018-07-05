@@ -202,6 +202,7 @@ pt-br:
     add_organizer: Adicionar um organizador
     alert_article: Título do artigo
     alert_label: Alertas das campanhas
+    alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Usuário
     all_campaigns: Todas as campanhas
@@ -901,6 +902,7 @@ pt-br:
     loading: Carregando atualizações...
     none: Esta classe não contribuiu com nenhuma imagem ou com outros arquivos de
       mídia no Wikimedia Commons.
+    select_label: Filtrar por quem enviou
     time_doc: Horário de cada envio em seu horário local
     uploaded_at: Carregado a
     uploader: Carregado por
@@ -1141,4 +1143,6 @@ pt-br:
     article_finder: Localizador de artigos
     submit: Enviar
     relevanceIndex: Índice de Relevância
+    assign_article_self: Atribuir a si
+    unassign_article_self: Remover atribuição de artigo
 ...

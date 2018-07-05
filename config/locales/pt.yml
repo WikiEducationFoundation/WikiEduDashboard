@@ -9,6 +9,7 @@
 # Author: Hamilton Abreu
 # Author: Jkb8
 # Author: Joalpe
+# Author: Ldacosta
 # Author: Macofe
 # Author: MokaAkashiyaPT
 # Author: Vitorvicentevalente
@@ -71,7 +72,7 @@ pt:
     opt_out: Pedir para ser excluído da introdução
     orientation_notice: Antes de criar um curso, façamos uma introdução para ajudá-lo
       a começar (dura cerca de 30 minutos).
-    review_orientation: Rever a introdução
+    review_orientation: Rever a orientação
     start_orientation: Começar a introdução
     blog_headline: Notícias recentes da Wiki Educação
     about_programs: Este sítio acompanha as atividades da wiki através dos programas
@@ -85,7 +86,7 @@ pt:
   home:
     explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
-    sign_up: Registar-se através da Wikipédia
+    sign_up: Registar-se com Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -193,6 +194,7 @@ pt:
     add_organizer: Adicionar organizador
     alert_article: Título do artigo
     alert_label: Alertas das campanhas
+    alert_select_label: Filtrar por tipo de alerta
     alert_type: Tipo
     alert_user_id: Utilizador
     all_campaigns: Todas as campanhas
@@ -899,11 +901,12 @@ pt:
     loading: A carregar os envios...
     none: Esta classe não contribuiu com nenhuma imagem nem outros ficheiros multimédia
       para a wiki Wikimedia Commons.
+    select_label: Filtrar por quem carregou
     time_doc: A hora de cada envio no seu horário local
     uploaded_at: Enviado a
-    uploader: Enviado por
+    uploader: Carregado por
     uploaded_by: Enviado por
-    uploaded_on: Enviado em
+    uploaded_on: Carregado em
     usage_count: Contagem de utilização
     usage_doc: Número de artigos da Wikipédia em que esta imagem aparece.
     usage_count_gallery_tile: Usada em %{usage_count} artigos
@@ -1142,4 +1145,6 @@ pt:
     article_finder: Pesquisa de artigos
     submit: Enviar
     relevanceIndex: Índice de relevância
+    assign_article_self: Atribuir a si
+    unassign_article_self: Remover atribuição de artigo
 ...

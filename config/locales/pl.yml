@@ -176,6 +176,7 @@ pl:
     active_campaigns: Aktywne kampanie
     add_organizer: Dodaj organizatora
     alert_article: Tytuł artykułu
+    alert_select_label: Filtruj według typu alertu
     alert_type: Typ
     alert_user_id: Użytkownik
     all_campaigns: Wszystkie kampanie
@@ -650,6 +651,7 @@ pl:
     label: Przesłane pliki
     loading: Wczytuję przesłane pliki…
     none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    select_label: Filtruj według przesyłającego
     time_doc: Czas przesłania plików w Twoim czasie lokalnym
     uploaded_at: Przesłane przez
     uploaded_by: Przesłane przez
@@ -848,4 +850,6 @@ pl:
     hide_filters: Ukryj filtry
     more_results: Więcej wyników
     submit: Wyślij
+    assign_article_self: Przydziel się
+    unassign_article_self: Usuń przypisanie artykułu
 ...

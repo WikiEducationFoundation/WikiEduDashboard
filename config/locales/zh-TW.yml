@@ -162,6 +162,7 @@ zh-TW:
     add_organizer: 添加組織者
     alert_article: 條目標題
     alert_label: 競賽提醒
+    alert_select_label: 依警告類型篩選
     alert_type: 類型
     alert_user_id: 使用者
     all_campaigns: 所有競賽
@@ -723,6 +724,7 @@ zh-TW:
     label: 上傳
     loading: 上傳載入中⋯⋯
     none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    select_label: 依上傳者篩選
     time_doc: 每個上傳檔案的時間 (顯示為您使用的本地時間)
     uploaded_at: 上傳時間
     uploader: 上傳者
@@ -918,4 +920,6 @@ zh-TW:
     article_finder: 條目查找
     submit: 提交
     relevanceIndex: 關聯索引
+    assign_article_self: 分配給您自己
+    unassign_article_self: 取消分配條目
 ...

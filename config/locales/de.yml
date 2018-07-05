@@ -184,6 +184,7 @@ de:
     add_organizer: Organisator hinzufügen
     alert_article: Titel des Artikels
     alert_label: Kampagnenbenachrichtigungen
+    alert_select_label: Nach Benachrichtigungstyp filtern
     alert_type: Typ
     alert_user_id: Benutzer
     all_campaigns: Alle Kampagnen
@@ -901,6 +902,7 @@ de:
     loading: Lade Uploads …
     none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia Commons
       beigetragen.
+    select_label: Nach Uploader filtern
     time_doc: Die Zeit jedes Uploads in deiner Ortszeit
     uploaded_at: Hochgeladen um
     uploader: Hochlader
@@ -1147,4 +1149,6 @@ de:
     article_finder: Artikelfinder
     submit: Absenden
     relevanceIndex: Relevanzindex
+    assign_article_self: Dir selbst zuweisen
+    unassign_article_self: Zuweisung des Artikels entfernen
 ...

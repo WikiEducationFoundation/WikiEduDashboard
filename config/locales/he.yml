@@ -164,6 +164,7 @@ he:
       title: אבני דרך
   campaign:
     alert_article: כותרת הערך
+    alert_select_label: סינון לפי סוג ההתראה
     all_campaigns: כל מסעות הפרסום
     campaign: מיזם \ פרויקט \ קמפיין
     campaigns: מסעות פרסום
@@ -582,6 +583,7 @@ he:
     label: העלאות
     loading: טעינת העלאות...
     none: הכיתה הזאת לא תרמה שום תמונות או קובצי מדיה אחרים לוויקישיתוף.
+    select_label: סינון לפי מעלה
     time_doc: הזמן של כל העלאה לפי השעון המקומי שלך
     uploaded_at: מועד ההעלאה
     uploader: מעלה
@@ -771,4 +773,6 @@ he:
     article_finder: מציאת ערך
     submit: חיפוש
     relevanceIndex: מדד רלוונטיות
+    assign_article_self: שיוך עצמך
+    unassign_article_self: ביטול שיוך של ערך
 ...

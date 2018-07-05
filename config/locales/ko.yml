@@ -131,6 +131,7 @@ ko:
       title: 이정표
   campaign:
     alert_article: 문서 제목
+    alert_select_label: 경고 유형별 필터
     alert_type: 유형
     alert_user_id: 사용자
     created_at: 날짜
@@ -469,9 +470,14 @@ ko:
     label: 파일 올리기
     loading: 업로드 불러오는 중
     none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
-    uploaded_at: 올린 곳
+    select_label: 올린이별 필터
+    uploaded_at: 올린 시간
+    uploader: 올린이
     uploaded_by: 올린이
+    uploaded_on: 올린 곳
     usage_count: 사용량 값
+    usage_doc: 이 그림이 표시되는 위키백과 문서의 수입니다.
+    usage_count_gallery_tile: '%{usage_count}개 문서에 사용됨'
     usages: 사용
   users:
     assign_articles_done: 완료
@@ -594,4 +600,5 @@ ko:
     subheading_message: 필요에 맞는 문서를 찾아봅시다
     article_finder: 문서 검색기
     submit: 제출
+    unassign_article_self: 문서 할당 해제
 ...
