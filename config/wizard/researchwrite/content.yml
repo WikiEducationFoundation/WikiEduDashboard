@@ -49,7 +49,7 @@ essentials:
             link your instructor sent you. (To avoid hitting Wikipedia's account
             creation limits, this is best done outside of class. Only 6 new accounts
             may be created per day from the same IP address.)
-            </p>
+          </p>
 
       -
         if: ungraded_training
@@ -57,13 +57,12 @@ essentials:
         kind: 1
         training_module_ids: [1,29] # Wikipedia policies, Sandboxes talk pages and watchlists
         content: |
-          <ul>
-            <li>
-              Create an account and join this course page, using the  enrollment
-              link your instructor sent you. (To avoid hitting Wikipedia's account
-              creation limits, this is best done outside of class. Only 6 new accounts
-              may be created per day from the same IP address.)
-            </li>
+          <p>
+            Create an account and join this course page, using the  enrollment
+            link your instructor sent you. (To avoid hitting Wikipedia's account
+            creation limits, this is best done outside of class. Only 6 new accounts
+            may be created per day from the same IP address.)
+          </p>
 
       -
         if: blog_or_discussion_assignment
@@ -114,26 +113,23 @@ essentials:
         kind: 1
         training_module_ids: [11] # Editing health and psychology topics
         content: |
-
       -
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
         training_module_ids: [17] # Find Your Article
         content: |
-          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</p>
-
           <h4 class="timeline-exercise">Exercise</h4>
-            <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
+          <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
 
+          <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</p>
 
       -
         if: choose_articles_from_list
-        title: Choose your topic / Find your sources
+        title: Exercise
         kind: 1
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose a topic</a>
+          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose your topic / Find your sources</a>
 
       -
         if: choose_articles_from_list
@@ -163,12 +159,11 @@ essentials:
 
       -
         if: copyedit
-        title: Copyedit an article
+        title: Exercise
         kind: 1
         graded: true
         points: 5
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
 
   - # Week five
@@ -176,11 +171,10 @@ essentials:
     blocks:
       -
         if: explore_to_find_articles
-        title: Finalize your topic / Find your sources
+        title: Exercise
         kind: 1
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
-          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic</a>
+          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
 
       -
         if: explore_to_find_articles
@@ -309,10 +303,9 @@ essentials:
 
       -
         if: did_you_know
-        title: Did You Know
+        title: Exercise
         kind: 1
         content: |
-          <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for Did You Know</a>
 
 
@@ -324,10 +317,10 @@ essentials:
         kind: 1
         training_module_ids: [6] # Images and multimedia
         content: |
-          <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
-
           <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
+
+          <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
 
       -
         if: illustrate
@@ -405,9 +398,7 @@ essentials:
         graded: true
         points: 20
         content: |
-          <ul>
-            <li>Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.</li>
-          </ul>
+          <p>Write a paper going beyond your Wikipedia article to advance your own ideas, arguments, and original research about your topic.</p>
 
   - # Week twelve
     weight: 3
