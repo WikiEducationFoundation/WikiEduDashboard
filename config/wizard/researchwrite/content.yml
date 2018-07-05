@@ -26,7 +26,7 @@ essentials:
           </p>
           <p>
             Your course has also been assigned a Wikipedia Expert. You can reach
-            them through the <strong>Get Help</strong> button on this page.
+            them through the <strong>Get Help</strong> button at the top of this page.
           </p>
           <p>
             Resources:
@@ -170,18 +170,6 @@ essentials:
     weight: 4
     blocks:
       -
-        if: explore_to_find_articles
-        title: Exercise
-        kind: 1
-        content: |
-          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
-
-      -
-        if: explore_to_find_articles
-        title: Guide(s) for writing articles in your topic area
-        kind: 4 # Special subject-specific guides block
-
-      -
         if: working_individually
         title: Start drafting your article
         kind: 1
@@ -189,9 +177,10 @@ essentials:
         points: 20
         training_module_ids: [30,15] # Drafting, Plagiarism
         content: |
+          <p>
           Reach out to your Wikipedia Expert if you have questions using the
           <strong>Get Help</strong> button at the top of this page.
-
+          </p>
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
       -
@@ -205,6 +194,18 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
       -
+        if: explore_to_find_articles
+        title: Exercise
+        kind: 1
+        content: |
+          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
+
+      -
+        if: explore_to_find_articles
+        title: Guide(s) for writing articles in your topic area
+        kind: 4 # Special subject-specific guides block
+
+      -
         title: Everyone has started writing
         kind: 2
         content: |
@@ -213,12 +214,6 @@ essentials:
   - # Week six
     weight: 3
     blocks:
-      -
-        if: thinking_about_wikipedia_discussion
-        title: "Discussion"
-        kind: 0
-        content: |
-          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
 
       - # 1 peer review
         if: 1_peer_reviewers
@@ -248,6 +243,13 @@ essentials:
           <p>
             Keep working on transforming your article into a complete first
             draft. Get ready to peer review three of your classmates' articles. </p>
+
+      -
+        if: thinking_about_wikipedia_discussion
+        title: "Discussion"
+        kind: 0
+        content: |
+          <a href="/training/students/thinking-about-wikipedia-discussion/thinking-about-wikipedia" class="timeline-exercise">Thinking about Wikipedia</a>
 
       -
         title: Peer reviews are complete
@@ -364,14 +366,6 @@ essentials:
     weight: 5
     blocks:
       -
-        if: presentation
-        title: In-class presentation
-        kind: 0
-        graded: true
-        points: 10
-        content: |
-          <a href="/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
-      -
         title: Final article
         kind: 1
         graded: true
@@ -382,6 +376,15 @@ essentials:
             <li>Read <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a> page 15 to review a final check-list before completing your assignment.</li>
             <li>Don't forget that you can ask for help from your Wikipedia Expert at any time!</li>
           </ul>
+
+      -
+        if: presentation
+        title: In-class presentation
+        kind: 0
+        graded: true
+        points: 10
+        content: |
+          <a href="/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
 
       -
         if: reflective_essay
