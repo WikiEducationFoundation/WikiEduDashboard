@@ -172,7 +172,7 @@ const StudentList = createReactClass({
         info_key: 'users.uploads_doc'
       }
     };
-    if (this.props.sort.key) {
+    if (this.props.sort.key && keys[this.props.sort.key]) {
       const order = (this.props.sort.sortKey) ? 'asc' : 'desc';
       keys[this.props.sort.key].order = order;
     }
