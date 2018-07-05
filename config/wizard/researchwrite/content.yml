@@ -92,7 +92,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <h4 class=“timeline-exercise”>Exercise</h4>
+          <h4 class="timeline-exercise">Exercise</h4>
           <a href="/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
 
       -
