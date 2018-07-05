@@ -93,14 +93,8 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Exercise</a>
-
-      -
-        if: content_gaps_discussion
-        title: "Discussion: What's a content gap?"
-        kind: 0
-        content: |
-          <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">In-class discussion</a>
+          <h4 class=“timeline-exercise”>Exercise</h4>
+          <a href="/training/students/evaluate-wikipedia-exercise" class="timeline-exercise">Evaluate an article</a>
 
       -
         if: sources_and_plagiarism_discussion
@@ -128,19 +122,30 @@ essentials:
         training_module_ids: [17] # Find Your Article
         content: |
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, page 6</p>
-            <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Exercise</a>
+
+          <h4 class="timeline-exercise">Exercise</h4>
+            <a href="/training/students/choose-topic-exercise" class="timeline-exercise">Choose a topic</a>
+
 
       -
         if: choose_articles_from_list
         title: Choose your topic / Find your sources
         kind: 1
         content: |
-          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Exercise</a>
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/choose-topic-from-list-exercise" class="timeline-exercise">Choose a topic</a>
 
       -
         if: choose_articles_from_list
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
+
+      -
+        if: content_gaps_discussion
+        title: "Discussion: What's a content gap?"
+        kind: 0
+        content: |
+          <a href="/training/students/content-gap-discussion/what-is-a-content-gap" class="timeline-exercise">In-class discussion</a>
 
   - # Week four
     weight: 4
@@ -153,7 +158,8 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Exercise</a>
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/add-to-article-exercise" class="timeline-exercise">Add a citation</a>
 
       -
         if: copyedit
@@ -162,7 +168,8 @@ essentials:
         graded: true
         points: 5
         content: |
-          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Exercise</a>
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
 
   - # Week five
     weight: 4
@@ -172,7 +179,8 @@ essentials:
         title: Finalize your topic / Find your sources
         kind: 1
         content: |
-          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Exercise</a>
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic</a>
 
       -
         if: explore_to_find_articles
@@ -187,6 +195,9 @@ essentials:
         points: 20
         training_module_ids: [30,15] # Drafting, Plagiarism
         content: |
+          Reach out to your Wikipedia Expert if you have questions using the
+          Get Help button at the top of this page.
+
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 7–9</p>
 
       -
@@ -301,7 +312,8 @@ essentials:
         title: Did You Know
         kind: 1
         content: |
-          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Exercise</a>
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/did-you-know-exercise/nominating" class="timeline-exercise">Nominating your article for *Did You Know*</a>
 
 
   - # Week nine
@@ -313,20 +325,9 @@ essentials:
         training_module_ids: [6] # Images and multimedia
         content: |
           <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
-          <ul>
-            <li>
-              Read <a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>
-              page 12 to see how to create links from your article to others,
-              and from other articles to your own. Try to link to 3–5 articles,
-              and link to your article from 2–3 other articles.
-            </li>
-            <li>
-              Consider adding an image to your article. Wikipedia has strict rules
-              about what media can be added, so make sure to take
-              <em><a href="https://dashboard.wikiedu.org/training/students/images-and-media">Contributing Images and Media Files</a></em>
-              training before you upload an image.
-            </li>
-          </ul>
+
+          <h4 class="timeline-exercise">Exercise</h4>
+          <a href="/training/students/continue-improving-exercise/link-articles" class="timeline-exercise">Add links to your article</a>
 
       -
         if: illustrate
@@ -376,7 +377,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Exercise</a>
+          <a href="/training/students/in-class-presentation-exercise/guiding-questions" class="timeline-exercise">Guiding questions</a>
       -
         title: Final article
         kind: 1
@@ -396,7 +397,7 @@ essentials:
         graded: true
         points: 10
         content: |
-          <a href="/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Exercise</a>
+          <a href="/training/students/reflective-essay-exercise/essay-questions" class="timeline-exercise">Guiding questions</a>
       -
         if: original_analytical_paper
         title: Original analytical paper
