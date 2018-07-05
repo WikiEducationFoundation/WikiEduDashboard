@@ -1,0 +1,6 @@
+name: 'Exercise: Did You Know'
+id: 39
+description: |
+  Nominate your article for the "Did You Know" section of Wikipedia's main page.
+slides:
+  - slug: nominating #3901
