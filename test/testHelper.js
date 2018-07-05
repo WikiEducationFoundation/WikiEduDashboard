@@ -12,6 +12,7 @@ global.document = new JSDOM(`<!doctype html><html><body><div data-current_user='
   skipWindowCheck: true
 });
 global.window = document.defaultView;
+global.window.scrollTo = jest.fn(); // scrollTo is not implemented by JSDOM, so we mock it.
 global.navigator = global.window.navigator;
 
 configure({ adapter: new Adapter() });
