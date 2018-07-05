@@ -322,21 +322,6 @@ essentials:
 
           <p>Do additional research and writing to make further improvements to your article, based on suggestions and your own critique.</p>
 
-      -
-        if: illustrate
-        title: Illustrate your article
-        kind: 1
-        graded: true
-        points: 5
-        training_module_ids: [6] # Images and multimedia
-        content: |
-          <p>
-            Resources:
-          </p>
-          <ul>
-            <li><a href="https://wikiedu.org/illustratingwikipedia">Illustrating Wikipedia</a></li>
-            <li><a href="https://wikiedu.org/editingwikipedia">Editing Wikipedia</a>, pages 10–11</li>
-          </ul>
 
   - # Week ten
     weight: 2
