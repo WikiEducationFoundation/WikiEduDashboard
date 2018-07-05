@@ -1,0 +1,14 @@
+---
+title: Sandboxes (continued)
+content: |
+  If you're enrolled in a course on the Dashboard, your sandbox page was
+  set up automatically.
+
+  You'll see a section at the top — a *template* — that says “this is a
+  user sandbox”. In source editing mode, you can see the Wikicode for that
+  template, something like `{{dashboard.wikiedu.org sandbox}}`. That's a
+  good thing to leave there.
+
+  In the next training, you'll learn how to edit in [your
+  sandbox](https://en.wikipedia.org/wiki/Special:MyPage/sandbox).
+id: 2903
