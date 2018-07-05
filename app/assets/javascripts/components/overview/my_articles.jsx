@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import AssignCell from '../students/assign_cell.jsx';
 import MyAssignment from './my_assignment.jsx';
 import { fetchAssignments } from '../../actions/assignment_actions';
@@ -84,6 +85,7 @@ const MyArticles = createReactClass({
               prefix={I18n.t('users.my_reviewing')}
               tooltip_message={I18n.t('assignments.review_tooltip')}
             />
+            <Link to={`/courses/${this.props.course_id}/article_finder`}><button className="button border small ml1">Find Articles</button></Link>
           </div>
         </div>
         {assignments}
