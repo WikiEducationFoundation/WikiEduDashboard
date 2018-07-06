@@ -10,43 +10,55 @@ categories:
       These modules cover the basic rules of Wikipedia.
     modules:
       - slug: wikipedia-essentials
-        name: Wikipedia Essentials
+        name: Wikipedia policies
         description: An overview of Wikipedia's main rules
-      - slug: editing-basics
-        name: Editing Basics
-        description: An introduction to editing Wikipedia pages
+      - slug: sandboxes-talk-watchlists
+        name: Sandboxes, talk pages, and watchlists
+        description: A guide to the different types of pages on Wikipedia
+      - slug: how-to-edit
+        name: "How to edit: Wikicode vs Visual Editor"
+        description: An introduction to editing Wikipedia
       - slug: evaluating-articles
-        name: Evaluating Articles and Sources
+        name: Evaluating articles and sources
         description: Advice for thinking critically about Wikipedia article quality
       - slug: finding-your-article
-        name: Finding Your Article
+        name: Finding your article
         description: How to find a good article to work on
   - title: Special topics
     description: |
       These modules are for special class projects.
     modules:
       - slug: editing-medical-topics
-        name: Editing Medical Topics
+        name: Editing health and psychology topics
         description: Special rules and advice for working on content related to medicine or human health (including psychology topics)
       - slug: images-and-media
-        name: Contributing Images and Media Files
+        name: Contributing images and media files
         description: How to contribute images, video, diagrams, sound files, and other multimedia
       - slug: translating-articles
-        name: Translating Articles
+        name: Translating articles
         description: How to translate an article from Wikipedia in another language into English
   - title: How-to refreshers
     description: |
       These modules cover specific topics, in-depth, with how-to instructions.
     modules:
-      - slug: sandboxes
-        name: Sandboxes and Mainspace
-        description: How to use sandboxes effectly to draft articles, and how to move a sandbox article live
       - slug: sources
-        name: Sources and Citations
+        name: Adding citations
         description: What makes a good source, and how to create citations
+      - slug: drafting-in-sandbox
+        name: Drafting in the sandbox
+        description: How to use sandboxes effectly to draft articles
+      - slug: drafting-in-sandbox-group
+        name: Drafting in the sandbox (as a group)
+        description: How to use sandboxes effectly to draft articles as a group
+      - slug: moving-to-mainspace
+        name: Moving work out of the sandbox
+        description: How to move a draft into Wikipedia proper
+      - slug: moving-to-mainspace-group
+        name: Moving work out of the sandbox (as a group)
+        description: How to move a draft into Wikipedia proper as a group
       - slug: peer-review
-        name: Peer Review
+        name: Peer review
         description: Tips for getting the most out of the peer review process
       - slug: plagiarism
-        name: Plagiarism and Copyright Violation
+        name: Plagiarism and copyright violation
         description: A detailed review of plagiarism and how to avoid it

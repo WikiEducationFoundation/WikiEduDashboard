@@ -235,12 +235,13 @@ button.week__add-block
 
 .block__training-modules
   margin-bottom 1.5em
-  padding-bottom 1em
 
 .block__training-modules .table
   table-layout fixed
 
-.block__training-modules h4
+.block__training-modules h4,
+h4.timeline-exercise
+  margin-bottom 8px
   font-weight 400
 
 .block__training-modules-table__module-name
@@ -495,3 +496,19 @@ p.graded
 .timeline-warning
   padding 10px
   border solid $warning_text 3px
+
+a.timeline-exercise
+  padding 6px 12px
+  margin-bottom 12px
+  width 100%
+  color #6a6a6a
+  display table
+  border 1px solid #ddd
+  text-decoration none
+  &:hover
+    border solid 1px $brand_primary
+  &:after
+    font-family 'icons'
+    color $brand_primary
+    content " \EA0A"
+    float right

@@ -116,7 +116,7 @@ describe 'New course creation and editing', type: :feature do
   end
 
   describe 'course workflow', js: true do
-    let(:expected_course_blocks) { 23 }
+    let(:expected_course_blocks) { 21 }
     let(:module_name) { 'Get started on Wikipedia' }
 
     it 'should allow the user to create a course' do
@@ -361,7 +361,7 @@ describe 'New course creation and editing', type: :feature do
       expect(page).not_to have_content 'Week 7'
       expect(Course.first.blocks.count).to eq(expected_course_blocks)
 
-      within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      within '.week-1' do
         expect(page).to have_content module_name
       end
     end

@@ -1,0 +1,10 @@
+name: 'Exercise: Choose your article'
+id: 37
+description: |
+  It's time to look up 3-5 potential topics related to your course that you might
+  want to improve on Wikipedia.
+slides:
+  - slug: where-to-start-2 #3701
+  - slug: writing-new-article #3702
+  - slug: begin-critique #3703
+  - slug: present-articles #3704
