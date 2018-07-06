@@ -491,6 +491,11 @@ describe Course, type: :model do
       expect(Course.last.class).to eq(Editathon)
     end
 
+    it 'allows FellowsCohort type' do
+      course.update_attributes(type: 'FellowsCohort')
+      expect(Course.last.class).to eq(FellowsCohort)
+    end
+
     let(:arbitrary_course_type) { create(:course, type: 'Foo') }
     it 'does not allow creation of arbitrary types' do
       expect { arbitrary_course_type }.to raise_error(ActiveRecord::RecordInvalid)

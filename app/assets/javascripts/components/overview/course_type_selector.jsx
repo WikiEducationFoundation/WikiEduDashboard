@@ -37,7 +37,8 @@ const CourseTypeSelector = createReactClass({
       VisitingScholarship: 'Visiting Scholarship',
       Editathon: 'Edit-a-thon',
       BasicCourse: 'Generic Course',
-      ArticleScopedProgram: 'Article Scoped Program'
+      ArticleScopedProgram: 'Article Scoped Program',
+      FellowsCohort: 'Wikipedia Fellows Cohort'
     }[type];
   },
 
@@ -52,9 +53,11 @@ const CourseTypeSelector = createReactClass({
     if (this.props.editable && currentType !== 'LegacyCourse') {
       let classroomProgramCourseOption;
       let visitingScholarshipOption;
+      let fellowsCohortOption;
       if (Features.wikiEd) {
         classroomProgramCourseOption = <option value="ClassroomProgramCourse">{this._getFormattedCourseType('ClassroomProgramCourse')}</option>;
         visitingScholarshipOption = <option value="VisitingScholarship">{this._getFormattedCourseType('VisitingScholarship')}</option>;
+        fellowsCohortOption = <option value="FellowsCohort">{this._getFormattedCourseType('FellowsCohort')}</option>;
       }
 
       selector = (
@@ -68,6 +71,7 @@ const CourseTypeSelector = createReactClass({
           >
             {classroomProgramCourseOption}
             {visitingScholarshipOption}
+            {fellowsCohortOption}
             <option value="BasicCourse">{this._getFormattedCourseType('BasicCourse')}</option>
             <option value="Editathon">{this._getFormattedCourseType('Editathon')}</option>
             <option value="ArticleScopedProgram">{this._getFormattedCourseType('ArticleScopedProgram')}</option>

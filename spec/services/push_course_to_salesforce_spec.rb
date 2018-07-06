@@ -30,6 +30,13 @@ describe PushCourseToSalesforce do
       expect(subject.result).to eq(true)
     end
 
+    it 'works for a FellowsCohort' do
+      expect_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+      fellows_cohort = create(:fellows_cohort, flags: flags)
+      subject = described_class.new(fellows_cohort)
+      expect(subject.result).to eq(true)
+    end
+
     it 'handles Salesforce API downtime gracefully' do
       expect_any_instance_of(Restforce::Data::Client).to receive(:update!)
         .and_raise(Faraday::ParsingError.new('Salesforce is down'))

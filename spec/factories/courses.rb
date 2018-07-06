@@ -102,7 +102,7 @@ FactoryBot.define do
     title 'Legacy basket-weaving'
     school 'PBR'
     term 'spring 2013'
-    slug 'PRB/Legacy_basket-weaving_edit-a-thon_(spring_2013)'
+    slug 'PBR/Legacy_basket-weaving_edit-a-thon_(spring_2013)'
     passcode 'pizza'
     type 'LegacyCourse'
     home_wiki_id 1
@@ -117,6 +117,18 @@ FactoryBot.define do
     slug 'WMIT/Only_basket-weaving_edit-a-thon_(spring_2013)'
     passcode 'pizza'
     type 'ArticleScopedProgram'
+    home_wiki_id 1
+  end
+
+  factory :fellows_cohort, class: 'FellowsCohort' do
+    start Date.new(2018, 6, 1)
+    self.end Date.new(2018, 12, 1)
+    title 'Basket-weaving fellows'
+    school 'Wikipedia Fellows'
+    term 'summer 2018'
+    slug 'Wikipedia_Fellows/Basket-weaving_fellows_(summer_2018)'
+    passcode 'pizza'
+    type 'FellowsCohort'
     home_wiki_id 1
   end
 end

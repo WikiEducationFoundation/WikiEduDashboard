@@ -196,12 +196,13 @@ class Course < ApplicationRecord
   validates :home_wiki_id, presence: true
 
   COURSE_TYPES = %w[
-    LegacyCourse
-    ClassroomProgramCourse
-    VisitingScholarship
-    Editathon
-    BasicCourse
     ArticleScopedProgram
+    BasicCourse
+    ClassroomProgramCourse
+    Editathon
+    FellowsCohort
+    LegacyCourse
+    VisitingScholarship
   ].freeze
   validates_inclusion_of :type, in: COURSE_TYPES
 
