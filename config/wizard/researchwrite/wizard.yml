@@ -191,74 +191,92 @@
       title: Biographies
       tag: biographies
       logic: biographies_handout
+      small: true
     -
       title: Books
       tag: books
       logic: books_handout
+      small: true
     -
       title: Chemistry
       tag: chemistry
       logic: chemistry_handout
+      small: true
     -
       title: Cultural Anthropology
       tag: cultural_anthropology
       logic: cultural_anthropology_handout
+      small: true
     -
       title: Ecology
       tag: ecology
       logic: ecology_handout
+      small: true
     -
       title: Environmental Sciences
       tag: environmental_sciences
       logic: environmental_sciences_handout
+      small: true
     -
       title: Films
       tag: films
       logic: films_handout
+      small: true
     -
       title: Genes and Proteins
       tag: genes_and_proteins
       logic: genes_and_proteins_handout
+      small: true
     -
       title: History
       tag: history
       logic: history_handout
+      small: true
     -
       title: LGBT+ Studies
       tag: LGBTplus_studies
       logic: LGBTplus_studies_handout
+      small: true
     -
       title: Linguistics
       tag: linguistics
       logic: linguistics_handout
+      small: true
     -
       title: Medicine
       tag: medicine
       logic: medicine_handout
+      small: true
     -
       title: Political Science
       tag: political_science
       logic: political_science_handout
+      small: true
     -
       title: Psychology
       tag: psychology
       logic: psychology_handout
+      small: true
     -
       title: Science Communication
       tag: science_communication
       logic: science_communication_handout
+      small: true
     -
       title: Sociology
       tag: sociology
       logic: sociology_handout
+      small: true
     -
       title: Species
       tag: species
       logic: species_handout
+      small: true
     -
       title: Women's Studies
       tag: womens_studies
       logic: womens_studies_handout
+      small: true
 
 -
   key: peer_feedback

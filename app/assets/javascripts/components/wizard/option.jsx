@@ -28,6 +28,9 @@ const Option = createReactClass({
   render() {
     const disabled = this.props.option.min_weeks && this.props.option.min_weeks > this.props.open_weeks;
     let className = 'wizard__option section-header';
+    if (this.props.option.small) {
+      className += ' wizard__option__small';
+    }
     if (this.props.option.selected) { className += ' selected'; }
     if (disabled) { className += ' disabled'; }
 

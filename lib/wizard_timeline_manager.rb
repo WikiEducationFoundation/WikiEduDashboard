@@ -160,7 +160,7 @@ class WizardTimelineManager
     url = HANDOUTS[logic_key][1]
     <<~LINK
       <p>
-        <a href="#{url}">#{link_text}</a>
+        <a class="handout-link" href="#{url}" target="_blank">#{link_text}</a>
       </p>
     LINK
   end
