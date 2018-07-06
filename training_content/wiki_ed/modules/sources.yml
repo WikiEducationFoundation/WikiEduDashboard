@@ -1,12 +1,17 @@
-name: 'Sources and Citations'
+name: 'Adding citations'
 id: 8
 description: |
-  How do you find good sources, and cite them on Wikipedia? This tutorial will show you how.
+  In this tutorial, you'll learn how to add citations to an article using the Visual Editor and Wikicode.
 estimated_ttc: 10 minutes
 slides:
   - slug: citations-review # 801
   - slug: why-verify # 802
   - slug: examples-of-reliable-sources # 803
   - slug: gather-your-sources # 804
-  - slug: add-a-citation-refresher # 805
+  - slug: add-a-citation # 728
+  - slug: add-a-citation-continued # 729
+  - slug: add-a-citation-tutorial # 730
+  - slug: wikicode-citations # 715
+    # - slug: citations-video # 718
+    # - slug: citations-video-part-two # 727
   - slug: sources-and-citations-complete # 806

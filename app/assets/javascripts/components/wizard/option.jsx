@@ -16,6 +16,7 @@ const Option = createReactClass({
   },
 
   select() {
+    if (this.props.option.required) { return; }
     return WizardActions.toggleOptionSelected(this.props.panel_index, this.props.index);
   },
 
@@ -70,8 +71,6 @@ const Option = createReactClass({
       );
     }
 
-    const title = `${this.props.option.title}${this.props.option.recommended ? ' (recommended)' : ''}`;
-
     let onClick;
     if (!disabled) { onClick = this.select; }
 
@@ -80,7 +79,7 @@ const Option = createReactClass({
         <button onClick={onClick} role="checkbox" aria-checked={this.props.option.selected || false}>
           {checkbox}
           {notice}
-          <h3>{title}</h3>
+          <h3>{this.props.option.title}</h3>
           {blurb}
           {expand}
         </button>

@@ -44,29 +44,23 @@
   minimum: 0
   options:
     -
-      title: Evaluate an article
-      recommended: true
+      title: Evaluate an article (required)
+      required: true # cannot be unselected
       blurb: Students critically evaluate a Wikipedia article related to their class, and leave suggestions for improving it on that article's talk page.
       # description:
       logic: critique
       selected: true # selected by default
     -
-      title: Add to an article
-      recommended: true
+      title: Add to an article (recommended)
       blurb: Students use course readings or other relevant secondary sources to add 1-2 sentences to a Wikipedia article related to the class. They see how to integrate their new information, and how to include a citation for their source.
       # description:
       logic: add_to_article
       selected: true # selected by default
     -
-      title: Copyedit an article
+      title: Copyedit an article (optional)
       blurb: Students browse Wikipedia until they find an article they'd like to improve. They make edits to improve the language or formatting.
       # description:
       logic: copyedit
-    -
-      title: Illustrate an article
-      blurb: Students improve an article by uploading one of their own photographs.
-      # description:
-      logic: illustrate
 
 -
   key: working_in_groups

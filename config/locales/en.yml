@@ -514,10 +514,10 @@ en:
     rating_feedback: "Predicted rating for the article is: "
     requested_accounts: Requested accounts
     review_timeline: >
-      Please review this timeline and make changes. Once you're satisfied with
-      your timeline, submit it for approval by Wiki Ed staff. Once approved, you
-      will be given an enrollment URL that students can use to join the course.
-      (You'll still be able to make edits later.)
+      Now, review your assignment timeline, customizing it to fit your needs.
+      Once you're satisfied, you can submit it for approval by Wiki Education staff.
+      Once approved, you'll receive an enrollment URL that students can use to
+      join the course and access the trainings. (Note: You'll still be able to make edits later.)
     revisions_doc: The number of edits in the past %{timeframe} days
     revisions_none: This course has no recent Wikipedia editing activity.
     school: School
@@ -536,7 +536,7 @@ en:
     submitted_and_pending_heading: Submitted & Pending Approval
     submitted_heading: Submitted Courses
     submitted_note: >
-      Your course has been submitted. Wiki Ed staff will review it and get in
+      Your course has been submitted. Wiki Education staff will review it and get in
       touch with any questions.
     suggestions_feedback: Have any suggestions to improve this feature? Let us know!
     suggestions_sending: Sending Feedback...
@@ -583,7 +583,7 @@ en:
     wiki_edits_enabled_tooltip: >
       If wiki edits are enabled, then automated on-wiki edits will be made for this program. Disable wiki edits
       if you don't want templates added to user pages, the talk pages of assigned articles, etc.
-    wiki_staff: Wiki Ed Staff
+    wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
     yourcourses: Your Courses
@@ -973,7 +973,7 @@ en:
       instructor: Instructor
       campus_volunteer: Campus Volunteer
       online_volunteer: Online Volunteer
-      wiki_ed_staff: Wiki Ed Staff
+      wiki_ed_staff: Wiki Education Staff
 
   user_profiles:
     student_impact: Total impact made by %{username} as a student
@@ -1087,17 +1087,17 @@ en:
   timeout: "A request to the %{api} API has timed out and will be retried %{tries} times."
 
   survey:
-    login_message: 'Thank you for your time. Please log in to your Wiki Ed dashboard to take the survey.'
+    login_message: 'Thank you for your time. Please log in to your Wiki Education dashboard to take the survey.'
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
     notification_schedule_explanation: Notifications include in-brower notifications and emails, if enabled above.
     follow_up_explanation: Leave blank if no follow-up notification emails are desired.
     email:
       headline: "Hello, %{username}"
-      message_line1: "We hope you had a great term! Wiki Ed is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
+      message_line1: "We hope you had a great term! Wiki Education is seeking your feedback to improve our resources and support for your Wikipedia assignments. Your response is crucial to improving our current offerings."
       message_line2: "Are you willing to take 15 minutes to fill out our instructor survey? Click the button below to help us make teaching with Wikipedia an even more rewarding and valuable experience."
       course: "Course: %{course_info}"
       closing: "Sincerely,"
-      signed: "- the Wiki Ed team"
+      signed: "- the Wiki Education team"
       link: "Take Survey"
     follow_up:
       message: "This is a reminder about the survey for your course, %{course_title}. Feedback from this survey helps us to improve our support for Wikipedia assignments like yours."

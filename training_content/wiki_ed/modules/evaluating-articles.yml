@@ -1,4 +1,4 @@
-name: 'Evaluating Articles and Sources'
+name: 'Evaluating articles and sources'
 id: 7
 description: |
   In this tutorial, we'll explore how to read Wikipedia articles, and potential sources, with a critical eye.
@@ -10,6 +10,7 @@ slides:
   - slug: elements-of-quality-articles # 704
   - slug: elements-of-not-so-great-articles # 705
   - slug: citations # 706
+  - slug: finding-sources #731
   - slug: why-cite # 707
   - slug: when-should-you-cite # 708
   - slug: what-is-a-good-source # 709
@@ -18,12 +19,6 @@ slides:
   - slug: close-paraphrasing-example # 712
   - slug: copyright # 713
   - slug: tips-on-plagiarism # 714
-  - slug: add-a-citation # 728
-  - slug: add-a-citation-continued # 729
-  - slug: add-a-citation-tutorial # 730
-  - slug: wikicode-citations # 715
-  # - slug: citations-video # 718
-  # - slug: citations-video-part-two # 727
   - slug: reading-history # 719
   - slug: past-versions # 720
   - slug: evaluating-sources-and-articles-review # 721

@@ -1,10 +1,16 @@
 # Take wikitext for a training module, convert it into yml files.
 require "#{Rails.root}/lib/training/wiki_slide_parser"
+require 'fileutils'
 
-module_number = 26
-suffix = 'fellows'
-module_slug = 'moving-live-fellows'
+module_number = 33
+name = "Moving group work live"
+ttc = "10 minutes"
+description = "This module will guide you in moving your group's draft into Wikipedia proper."
+suffix = '-group'
+module_slug = 'moving-to-mainspace-group'
 base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{module_slug}"
+FileUtils.mkdir_p base_path
+
 # input = <<-STUFF
 
 
@@ -12,19 +18,25 @@ base_path = "#{Rails.root}/training_content/wiki_ed/slides/#{module_number}-#{mo
 def to_yml(wikitext, slide_id, suffix, base_path)
   parser = WikiSlideParser.new(wikitext)
   slug_base = parser.title.downcase.split(/\W+/).join('-')
-  slug = "#{slide_id}-#{slug_base}-#{suffix}"
+  slug = "#{slide_id}-#{slug_base}#{suffix}"
   filename = "#{base_path}/#{slug}.yml"
-  File.write filename, { 'title' => parser.title, 'content' => parser.content, 'id' => slide_id }.to_yaml
-  return [slide_id, "#{slug_base}-#{suffix}"]
+  content = {
+    'title' => parser.title,
+    'content' => parser.content,
+    'id' => slide_id
+  }
+  content.merge!({'assessment' => parser.quiz}) unless parser.quiz.blank?
+  File.write filename, content.to_yaml
+  return [slide_id, "#{slug_base}#{suffix}"]
 end
 
 # manually construct the module .yml file
-def write_module_file(slide_slugs, module_number, module_slug)
+def write_module_file(slide_slugs, module_number, module_slug, name, ttc, description)
   lines = []
-  lines << "name:"
+  lines << "name: #{name}"
   lines << "id: #{module_number}"
-  lines << "description:"
-  lines << "estimated_ttc:"
+  lines << "description: #{description}"
+  lines << "estimated_ttc: #{ttc}"
   lines << "slides:"
   slide_slugs.each do |slug|
     lines << "  - slug: #{slug[1]} # #{slug[0]}"
@@ -50,6 +62,6 @@ slide_wikitexts.each do |slide_wikitext|
 end;
 
 # write the module yml file
-write_module_file(slide_slugs, module_number, module_slug)
+write_module_file(slide_slugs, module_number, module_slug, name, ttc, description)
 
 # Now fill in the missing fields in the module .yml file and reload the trainings
