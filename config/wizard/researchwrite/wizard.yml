@@ -200,6 +200,10 @@
       tag: chemistry
       logic: chemistry_handout
     -
+      title: Cultural Anthropology
+      tag: cultural_anthropology
+      logic: cultural_anthropology_handout
+    -
       title: Ecology
       tag: ecology
       logic: ecology_handout
@@ -219,6 +223,10 @@
       title: History
       tag: history
       logic: history_handout
+    -
+      title: LGBT+ Studies
+      tag: LGBTplus_studies
+      logic: LGBTplus_studies_handout
     -
       title: Linguistics
       tag: linguistics
