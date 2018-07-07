@@ -35,7 +35,7 @@ export const receiveUploads = (courseId) => dispatch => {
 const fetchUploadMetadata = (uploads) => {
   let url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&titles=`;
   _.forEach(uploads, upload => {
-    url = `${url}File:${upload.file_name}|`;
+    url = `${url}File:${encodeURIComponent(upload.file_name)}|`;
   });
   url = url.slice(0, -1);
   return new Promise((res, rej) => {
@@ -53,8 +53,8 @@ const fetchUploadMetadata = (uploads) => {
   });
 };
 
-export const setUploadMetadata = (uploads) => dispatch => {
-  const promises = _.chunk(uploads, 25).map(uploads => fetchUploadMetadata(uploads));
+export const setUploadMetadata = (uploadsList) => dispatch => {
+  const promises = _.chunk(uploadsList, 25).map(uploads => fetchUploadMetadata(uploads));
   return (
     Promise.all(promises)
     .then(resp => dispatch({
