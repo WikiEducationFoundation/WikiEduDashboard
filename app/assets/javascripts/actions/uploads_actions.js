@@ -1,4 +1,5 @@
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, API_FAIL } from '../constants';
+import _ from 'lodash';
+import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchUploads = (courseId) => {
@@ -28,6 +29,42 @@ export const receiveUploads = (courseId) => dispatch => {
         type: API_FAIL,
         data: resp
       }))
+  );
+};
+
+const fetchUploadMetadata = (uploads) => {
+  let url = `https://commons.wikimedia.org/w/api.php?action=query&format=json&titles=`;
+  _.forEach(uploads, upload => {
+    url = `${url}File:${upload.file_name}|`;
+  });
+  url = url.slice(0, -1);
+  return new Promise((res, rej) => {
+    return $.ajax({
+      type: 'GET',
+      url: `${url}&prop=imageinfo&iiprop=extmetadata|url&iiextmetadatafilter=Credit&iiurlwidth=640px`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    });
+  });
+};
+
+export const setUploadMetadata = (uploads) => dispatch => {
+  const promises = _.chunk(uploads, 25).map(uploads => fetchUploadMetadata(uploads));
+  return (
+    Promise.all(promises)
+    .then(resp => dispatch({
+      type: SET_UPLOAD_METADATA,
+      data: resp,
+    }))
+    .catch(resp => dispatch({
+      type: API_FAIL,
+      data: resp
+    }))
   );
 };
 

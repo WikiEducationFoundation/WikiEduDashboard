@@ -24,6 +24,12 @@ const Upload = createReactClass({
     this.setImageFile();
   },
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.imageFile) {
+      this.setState({ imageFile: nextProps.thumburl });
+    }
+  },
+
   setImageFile() {
     let imageFile = this.props.upload.thumburl;
     if (this.props.upload.deleted) {
@@ -83,11 +89,10 @@ const Upload = createReactClass({
         <p className="tablet-only"><span>{this.props.upload.uploader}</span></p>
       );
     }
-
     if (this.props.view === LIST_VIEW) {
       usage = `${this.props.upload.usage_count} ${I18n.t('uploads.usage_count')}`;
       return (
-        <tr className="upload">
+        <tr className="upload list-view">
           <td>
             <a href={this.props.upload.url} target="_blank">
               <img src={this.state.imageFile} alt={fileName} />
@@ -100,6 +105,7 @@ const Upload = createReactClass({
           <td className="desktop-only-tc">{uploader}</td>
           <td className="desktop-only-tc">{this.props.upload.usage_count}</td>
           <td className="desktop-only-tc">{moment(this.props.upload.uploaded_at).format('YYYY-MM-DD   h:mm A')}</td>
+          <td className="desktop-only-tc" dangerouslySetInnerHTML={{ __html: this.props.credit }} />
         </tr>
       );
     }

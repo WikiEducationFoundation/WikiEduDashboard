@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import UploadList from './upload_list.jsx';
-import { receiveUploads, sortUploads, setView, setUploadFilters } from '../../actions/uploads_actions.js';
+import { receiveUploads, sortUploads, setView, setUploadFilters, setUploadMetadata } from '../../actions/uploads_actions.js';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import MultiSelectField from '../common/multi_select_field.jsx';
 import { getStudentUsers, getFilteredUploads } from '../../selectors';
@@ -32,10 +32,12 @@ const UploadsHandler = createReactClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
     const options = nextProps.students.map(student => {
       return { label: student.username, value: student.username };
     });
+
+    const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
+    this.setUploadMetadata(data);
     this.setState({
       data: data,
       pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
@@ -60,6 +62,7 @@ const UploadsHandler = createReactClass({
 
   setUploadData(offset, selectedPage) {
     const data = this.props.selectedUploads.slice(offset, offset + this.state.perPage);
+    this.setUploadMetadata(data);
     this.setState({ offset: offset, data: data, currentPage: selectedPage });
   },
 
@@ -71,6 +74,10 @@ const UploadsHandler = createReactClass({
     this.setState({ offset: 0, currentPage: 0 }, () => {
       this.props.setUploadFilters(selectedFilters);
     });
+  },
+
+  setUploadMetadata(uploads) {
+    return this.props.setUploadMetadata(uploads);
   },
 
   handlePageClick(data) {
@@ -151,6 +158,7 @@ const mapDispatchToProps = {
   sortUploads,
   setView,
   setUploadFilters,
+  setUploadMetadata,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadsHandler);

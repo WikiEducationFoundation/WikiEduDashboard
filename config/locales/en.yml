@@ -877,6 +877,7 @@ en:
     included_modules: Included Modules
 
   uploads:
+    credit: Credit
     file_name: File Name
     header: Files Uploaded to Wikimedia Commons
     image: Image
