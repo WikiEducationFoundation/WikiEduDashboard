@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import _ from 'lodash';
 import Upload from './upload.jsx';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import List from '../common/list.jsx';
@@ -28,6 +29,9 @@ const UploadList = createReactClass({
         let credit;
         if (nextProps.updatedUploads[upload.id] && nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit) {
           credit = nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit.value;
+        }
+        if (nextProps.updatedUploads != this.props.updatedUploads && !nextProps.updatedUploads[upload.id]) {
+          credit = "Not Found";
         }
         let thumburl;
         if (!upload.thumburl && nextProps.updatedUploads[upload.id]) {
