@@ -7,7 +7,7 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
-  updatedUploads: {},
+  updatedUploads: null,
 };
 
 const SORT_DESCENDING = {

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Upload from './upload.jsx';
@@ -26,15 +25,17 @@ const UploadList = createReactClass({
     if (nextProps.uploads.length > 0) {
       elements = nextProps.uploads.map(upload => {
         let credit;
-        if (nextProps.updatedUploads[upload.id] && nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit) {
-          credit = nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit.value;
-        }
-        if (nextProps.updatedUploads !== this.props.updatedUploads && !nextProps.updatedUploads[upload.id]) {
-          credit = "Not Found";
-        }
         let thumburl;
-        if (!upload.thumburl && nextProps.updatedUploads[upload.id]) {
-          thumburl = nextProps.updatedUploads[upload.id].imageinfo[0].thumburl;
+        if (nextProps.updatedUploads) {
+          if (nextProps.updatedUploads[upload.id] && nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit) {
+            credit = nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit.value;
+          }
+          if (nextProps.updatedUploads !== this.props.updatedUploads && !nextProps.updatedUploads[upload.id]) {
+            credit = "Not Found";
+          }
+          if (!upload.thumburl && nextProps.updatedUploads[upload.id]) {
+            thumburl = nextProps.updatedUploads[upload.id].imageinfo[0].thumburl;
+          }
         }
         return <Upload upload={upload} key={upload.id} credit={credit} thumburl={thumburl} linkUsername={true} />;
       });
@@ -112,8 +113,4 @@ const UploadList = createReactClass({
   }
 });
 
-const mapStateToProps = state => ({
-  updatedUploads: state.uploads.updatedUploads,
-});
-
-export default connect(mapStateToProps)(UploadList);
+export default UploadList;
