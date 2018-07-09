@@ -26,7 +26,7 @@ My list:
 * first
       MEDIAWIKI
       output = subject.markdown_to_mediawiki(list)
-      expect(output).to include(expected)
+      expect(output).to include(expected.chomp)
     end
   end
 
