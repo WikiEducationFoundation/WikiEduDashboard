@@ -1,8 +1,8 @@
 name: 'Exercise: Choose your article'
 id: 37
 description: |
-  It's time to look up 3-5 potential topics related to your course that you might
-  want to improve on Wikipedia.
+  It's time to look up 3 – 5 potential topics on Wikipedia related to your
+  course that you might want to improve.
 slides:
   - slug: where-to-start-2 #3701
   - slug: writing-new-article #3702
