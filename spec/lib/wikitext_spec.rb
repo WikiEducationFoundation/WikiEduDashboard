@@ -24,7 +24,6 @@ My list:
 My list:
 
 * first
-* second
       MEDIAWIKI
       output = subject.markdown_to_mediawiki(list)
       expect(output).to include(expected)
