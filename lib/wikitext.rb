@@ -8,7 +8,7 @@ class Wikitext
   # wikitext formatting methods #
   ################################
   def self.markdown_to_mediawiki(item)
-    wikitext = PandocRuby.convert(item, from: :markdown, to: :mediawiki)
+    wikitext = PandocRuby.convert(item, from: :markdown_github, to: :mediawiki)
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
@@ -24,7 +24,7 @@ class Wikitext
   end
 
   def self.mediawiki_to_markdown(item)
-    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown)
+    markdown = PandocRuby.convert(item, from: :mediawiki, to: :markdown_github)
     markdown
   end
 
