@@ -163,7 +163,7 @@ class CoursesController < ApplicationController
 
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
-    @course.update_attribute(:passcode, Course.generate_passcode)
+    @course.update_attribute(:passcode, GeneratePasscode.call)
   end
 
   def initial_campaign_params

@@ -40,7 +40,7 @@ class UserProfile < ApplicationRecord
   private
 
   def set_email_preferences_token
-    email_preferences[:token] = Course.generate_passcode + Course.generate_passcode
+    email_preferences[:token] = GeneratePasscode.call(length: 16)
     save
   end
 

@@ -210,7 +210,7 @@ class Course < ApplicationRecord
   # Callbacks #
   #############
   before_save :ensure_required_params
-  before_save :order_weeks
+  before_save :reorder_weeks
   before_save :set_default_times
   before_save :check_course_times
 
@@ -356,30 +356,21 @@ class Course < ApplicationRecord
     threads.each(&:join)
   end
 
-  RANDOM_PASSCODE_LENGTH = 8
-  def self.generate_passcode
-    ('a'..'z').to_a.sample(RANDOM_PASSCODE_LENGTH).join
-  end
-
+  # Ensures weeks for a course have order 1..weeks.count
+  # This is dangerous if creating or reordering timeline content except via
+  # TimelineController, where every week is processed from the submitted params,
+  # and blocks get resorted to the appropriate week if necessary.
+  # Weeks are expected to have the same order as their ids.
   def reorder_weeks
-    order_weeks
+    weeks.each_with_index do |week, i|
+      week.update_attribute(:order, i + 1)
+    end
   end
 
   private
 
   def trained_students_manager
     TrainedStudentsManager.new(self)
-  end
-
-  # Ensures weeks for a course have order 1..weeks.count
-  # This is dangerous if creating or reordering timeline content except via
-  # TimelineController, where every week is processed from the submitted params,
-  # and blocks get resorted to the appropriate week if necessary.
-  # Weeks are expected to have the same order as their ids.
-  def order_weeks
-    weeks.each_with_index do |week, i|
-      week.update_attribute(:order, i + 1)
-    end
   end
 
   def ensure_required_params

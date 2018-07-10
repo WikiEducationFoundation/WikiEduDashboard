@@ -40,7 +40,7 @@ class CourseCloneManager
     @clone.term = "CLONED FROM #{@course.term}"
     @clone.cloned_status = Course::ClonedStatus::PENDING
     @clone.slug = course_slug(@clone)
-    @clone.passcode = Course.generate_passcode
+    @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
     @clone.flags = {}
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
@@ -58,7 +58,7 @@ class CourseCloneManager
   end
 
   def duplicate_timeline
-    # Be sure to create them in the correct order, to ensure that Course#order_weeks
+    # Be sure to create them in the correct order, to ensure that Course#reorder_weeks
     # does not misorder them on save. deep_clone does not necessarily create records
     # in the original order, so we clone each week rather than deep_clone the whole
     # course.
