@@ -219,32 +219,24 @@ essentials:
 
       - # 1 peer review
         if: 1_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review an article
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first draft. Get a draft ready for peer-review. </p>
+          <a href="/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 2 peer reviews
         if: 2_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review two articles
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first
-            draft. Get ready to peer review two of your classmates' articles. </p>
+          <a href="/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 3 peer reviews
         if: 3_peer_reviewers
-        title: Peer review and copy edit
+        title: Peer review three articles
         kind: 1
-        training_module_ids: [12] # Peer review
         content: |
-          <p>
-            Keep working on transforming your article into a complete first
-            draft. Get ready to peer review three of your classmates' articles. </p>
+          <a href="/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       -
         if: thinking_about_wikipedia_discussion
