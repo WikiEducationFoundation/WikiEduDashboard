@@ -43,7 +43,7 @@ describe TrainingBase do
       end
 
       it 'raises an error that includes the filename of the bad file' do
-        expect { subject }.to raise_error(TrainingLoader::InvalidYamlError,
+        expect { subject }.to raise_error(YamlTrainingLoader::InvalidYamlError,
                                           /.*bad_yaml_slide.*/)
       end
     end

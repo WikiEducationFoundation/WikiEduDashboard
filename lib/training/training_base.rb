@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training/training_loader"
+require_dependency "#{Rails.root}/lib/training/yaml_training_loader"
+require_dependency "#{Rails.root}/lib/training/wiki_training_loader"
 
 class TrainingBase
   # cattr_accessor would be cause children's implementations to conflict w/each other
@@ -16,7 +17,7 @@ class TrainingBase
 
   # called for each child class in initializers/training_content.rb
   def self.load(slug_whitelist: nil, content_class: self)
-    loader = TrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
+    loader = training_loader_class.new(content_class: content_class, slug_whitelist: slug_whitelist)
     @all = loader.load_content
     return if content_class.superclass.name == 'ApplicationRecord'
 
@@ -94,6 +95,10 @@ class TrainingBase
   # called for each training unit in TrainingLoader
   def self.inflate(content, slug)
     new(content.to_hashugar, slug)
+  end
+
+  def self.training_loader_class
+    Features.wiki_trainings? ? WikiTrainingLoader : YamlTrainingLoader
   end
 
   class DuplicateSlugError < StandardError

@@ -6,14 +6,10 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # Loads any of the three types of training content:
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
-class TrainingLoader
+class WikiTrainingLoader
   def initialize(content_class:, slug_whitelist: nil)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
-
     @slug_whitelist = slug_whitelist # limited list of slugs to process (optional)
-
-    @path_to_yaml = content_class.path_to_yaml # a sub-directory of training_content
-
     # Index page that links to all the libraries, modules or slides to be loaded
     @wiki_base_page = content_class.wiki_base_page
 
@@ -21,35 +17,11 @@ class TrainingLoader
   end
 
   def load_content
-    if Features.wiki_trainings?
-      load_from_wiki
-    else
-      load_from_yaml
-    end
+    load_from_wiki
     return @collection
   end
 
   private
-
-  ########################
-  # YAML-based trainings #
-  ########################
-  def load_from_yaml
-    Dir.glob(@path_to_yaml) do |yaml_file|
-      @collection << new_from_file(yaml_file)
-    end
-  end
-
-  def new_from_file(yaml_file)
-    slug = File.basename(yaml_file, '.yml')
-    slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
-    begin
-      content = YAML.load_file(yaml_file)
-    rescue StandardError => e
-      raise InvalidYamlError, "Looks like there is a problem with #{yaml_file}. #{e}"
-    end
-    @content_class.inflate(content, slug)
-  end
 
   #####################
   # On-wiki trainings #
@@ -193,7 +165,6 @@ class TrainingLoader
     raise NoMatchingWikiPagesFound, message
   end
 
-  class InvalidYamlError < StandardError; end
   class InvalidWikiContentError < StandardError; end
   class NoMatchingWikiPagesFound < StandardError; end
 end

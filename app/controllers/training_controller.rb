@@ -42,8 +42,8 @@ class TrainingController < ApplicationController
   def reload
     render plain: TrainingUpdate.new(module_slug: params[:module]).result
   rescue TrainingBase::DuplicateIdError, TrainingBase::DuplicateSlugError,
-         TrainingModule::ModuleNotFound, TrainingLoader::NoMatchingWikiPagesFound,
-         TrainingLoader::InvalidYamlError => e
+         TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
+         YamlTrainingLoader::InvalidYamlError => e
     render plain: e.message
   end
 

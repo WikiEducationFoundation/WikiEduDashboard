@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require "#{Rails.root}/lib/training/training_loader"
+require "#{Rails.root}/lib/training/wiki_training_loader"
 require "#{Rails.root}/lib/training_module"
 require "#{Rails.root}/lib/training_library"
 
-describe TrainingLoader do
+describe WikiTrainingLoader do
   describe '#load_content' do
     before do
       allow(Features).to receive(:wiki_trainings?).and_return(true)
-      no_yaml = "#{Rails.root}/training_content/none/*.yml"
-      allow(TrainingSlide).to receive(:path_to_yaml).and_return(no_yaml)
-      allow(TrainingModule).to receive(:path_to_yaml).and_return(no_yaml)
-      allow(TrainingLibrary).to receive(:path_to_yaml).and_return(no_yaml)
     end
 
     let(:subject) do
-      TrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
+      WikiTrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
     end
     let(:slug_whitelist) { nil }
 
@@ -53,7 +49,8 @@ describe TrainingLoader do
         let(:slug_whitelist) { ['this-is-not-a-slug-listed-on-meta'] }
         it 'raises an error' do
           VCR.use_cassette 'training/load_from_wiki' do
-            expect { subject.load_content }.to raise_error(TrainingLoader::NoMatchingWikiPagesFound)
+            expect { subject.load_content }
+              .to raise_error(WikiTrainingLoader::NoMatchingWikiPagesFound)
           end
         end
       end

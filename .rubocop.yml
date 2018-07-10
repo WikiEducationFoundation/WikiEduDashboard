@@ -23,7 +23,7 @@ Metrics/LineLength:
   Max: 100
 
 Metrics/ClassLength:
-  Max: 140 # We should bring this down, ideally to the default of 100
+  Max: 134 # We should bring this down, ideally to the default of 100
   Exclude: # These are too big, and should be shrunk if feasible.
     - 'lib/importers/category_importer.rb'
     - 'app/models/course.rb'
