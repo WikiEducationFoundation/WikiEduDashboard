@@ -345,15 +345,6 @@ essentials:
             Wikipedia Expert at any time if you need further help!
           </p>
 
-      -
-        if: presentation
-        title: Prepare for in-class presentation
-        kind: 1
-        content: |
-          <p>
-            Prepare for an in-class presentation about your Wikipedia editing experience.
-          </p>
-
   - # Week eleven
     weight: 5
     blocks:
