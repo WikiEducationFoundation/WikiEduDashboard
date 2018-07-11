@@ -172,4 +172,4 @@ output_line "yarn" && printf "${CLEAR_LINE}[+] node_modules installed\n"
 printf '[*] Installing gulp... \n'
 output_line "sudo yarn global add gulp" && printf "${CLEAR_LINE}[+] Gulp installed\n"
 
-echo 'Your developmental environment setup is completed  If you have any errors try to refer to the docs for manual installation or ask for help '
+echo 'Your developmental environment setup is complete. If you there are any errors, please refer to the docs for manual installation, or ask for help.'
