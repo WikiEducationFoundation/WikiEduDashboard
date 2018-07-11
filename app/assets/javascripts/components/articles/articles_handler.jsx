@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { connect } from "react-redux";
+import _ from 'lodash';
 
 import ArticleList from './article_list.jsx';
 import AssignmentList from '../assignments/assignment_list.jsx';
@@ -46,7 +47,7 @@ const ArticlesHandler = createReactClass({
   },
 
   componentDidMount() {
-    return window.addEventListener('scroll', this.handleScroll);
+    return window.addEventListener('scroll', _.throttle(this.handleScroll, 150));
   },
 
   onChangeFilter(e) {
@@ -127,6 +128,16 @@ const ArticlesHandler = createReactClass({
         </div>
       );
     }
+
+    let availableArticlesNav;
+    if (this.props.assignments.length > 0 || this.props.current_user.isNonstudent) {
+      availableArticlesNav = (
+        <li key="available-articles" className={this.state.currentElement === 'available-articles' ? 'is-current' : ''}>
+          <a href="#available-articles" data-key="available-articles" onClick={this.onNavClick}>{I18n.t('articles.available')}</a>
+        </li>
+        );
+    }
+
     return (
       <div className="articles-content">
         <div className="articles-list">
@@ -171,9 +182,7 @@ const ArticlesHandler = createReactClass({
                 <li key="articles-assigned" className={this.state.currentElement === 'articles-assigned' ? 'is-current' : ''}>
                   <a href="#articles-assigned" data-key="articles-assigned" onClick={this.onNavClick}>{I18n.t('articles.assigned')}</a>
                 </li>
-                <li key="available-articles" className={this.state.currentElement === 'available-articles' ? 'is-current' : ''}>
-                  <a href="#available-articles" data-key="available-articles" onClick={this.onNavClick}>{I18n.t('articles.available')}</a>
-                </li>
+                {availableArticlesNav}
               </ol>
             </div>
           </Affix>
