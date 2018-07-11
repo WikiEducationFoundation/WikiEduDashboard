@@ -8,6 +8,8 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
+import Affix from '../common/affix.jsx';
+
 import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getWikiArticles } from '../../selectors';
@@ -28,6 +30,12 @@ const ArticlesHandler = createReactClass({
     loadingAssignments: PropTypes.bool
   },
 
+  getInitialState() {
+    return {
+      currentElement: 'articles-edited'
+    };
+  },
+
   componentWillMount() {
     if (this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
@@ -35,6 +43,10 @@ const ArticlesHandler = createReactClass({
     if (this.props.loadingArticles) {
       this.props.fetchArticles(this.props.course_id, this.props.limit);
     }
+  },
+
+  componentDidMount() {
+    return window.addEventListener('scroll', this.handleScroll);
   },
 
   onChangeFilter(e) {
@@ -45,12 +57,29 @@ const ArticlesHandler = createReactClass({
     return this.props.filterArticles({ language: null, project: value[0] });
   },
 
+  onNavClick(e) {
+    return this.setState({ currentElement: e.target.getAttribute('data-key') });
+  },
+
   showMore() {
     return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
 
   sortSelect(e) {
     return this.props.sortArticles(e.target.value);
+  },
+
+  handleScroll() {
+    const editedArticles = this.refs.articlesEdited.getBoundingClientRect();
+    const assignedArticles = this.refs.articlesAssigned.getBoundingClientRect();
+    const body = document.body.getBoundingClientRect();
+    if (editedArticles.bottom + 150 > body.height) {
+      return this.setState({ currentElement: 'articles-edited' });
+    }
+    else if (assignedArticles.bottom + 150 > body.height) {
+      return this.setState({ currentElement: 'articles-assigned' });
+    }
+    return this.setState({ currentElement: 'available-articles' });
   },
 
   render() {
@@ -98,34 +127,57 @@ const ArticlesHandler = createReactClass({
         </div>
       );
     }
-
     return (
-      <div>
-        <div id="articles">
-          <div className="section-header">
-            {header}
-            <CourseOresPlot course={this.props.course} />
-            {filterWikis}
-            <div className="sort-select">
-              <select className="sorts" name="sorts" onChange={this.sortSelect}>
-                <option value="rating_num">{I18n.t('articles.rating')}</option>
-                <option value="title">{I18n.t('articles.title')}</option>
-                <option value="character_sum">{I18n.t('metrics.char_added')}</option>
-                <option value="view_count">{I18n.t('metrics.view')}</option>
-              </select>
+      <div className="articles-content">
+        <div className="articles-list">
+          <div id="articles" ref="articlesEdited">
+            <a name="articles-edited" />
+            <div className="section-header">
+              {header}
+              <CourseOresPlot course={this.props.course} />
+              {filterWikis}
+              <div className="sort-select">
+                <select className="sorts" name="sorts" onChange={this.sortSelect}>
+                  <option value="rating_num">{I18n.t('articles.rating')}</option>
+                  <option value="title">{I18n.t('articles.title')}</option>
+                  <option value="character_sum">{I18n.t('metrics.char_added')}</option>
+                  <option value="view_count">{I18n.t('metrics.view')}</option>
+                </select>
+              </div>
             </div>
+            <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
+            {showMoreButton}
           </div>
-          <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
-          {showMoreButton}
-        </div>
-        <div id="assignments" className="mt4">
-          <div className="section-header">
-            <h3>{I18n.t('articles.assigned')}</h3>
+          <div id="assignments" ref="articlesAssigned">
+            <a name="articles-assigned" />
+            <div className="section-header">
+              <h3>{I18n.t('articles.assigned')}</h3>
+            </div>
+            <AssignmentList {...this.props} />
           </div>
-          <AssignmentList {...this.props} />
+          <div ref="availableArticles">
+            <a name="available-articles" />
+            <AvailableArticles {...this.props} />
+          </div>
+          {categories}
         </div>
-        <AvailableArticles {...this.props} />
-        {categories}
+        <div className="articles-nav">
+          <Affix offset={100}>
+            <div className="panel">
+              <ol>
+                <li key="articles-edited" className={this.state.currentElement === 'articles-edited' ? 'is-current' : ''}>
+                  <a href="#articles-edited" data-key="articles-edited" onClick={this.onNavClick}>{I18n.t('metrics.articles_edited')}</a>
+                </li>
+                <li key="articles-assigned" className={this.state.currentElement === 'articles-assigned' ? 'is-current' : ''}>
+                  <a href="#articles-assigned" data-key="articles-assigned" onClick={this.onNavClick}>{I18n.t('articles.assigned')}</a>
+                </li>
+                <li key="available-articles" className={this.state.currentElement === 'available-articles' ? 'is-current' : ''}>
+                  <a href="#available-articles" data-key="available-articles" onClick={this.onNavClick}>{I18n.t('articles.available')}</a>
+                </li>
+              </ol>
+            </div>
+          </Affix>
+        </div>
       </div>
     );
   }

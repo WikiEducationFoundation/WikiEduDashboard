@@ -1,0 +1,53 @@
+.articles-content
+  col(12/12)
+
+.articles-nav
+  col(3/12)
+  .panel
+    margin-top 20px
+    list-style none
+    padding 10px
+    background #FFF
+    border 1px solid $border_med
+    height auto
+    max-height calc(100vh - 220px)
+    min-height 122px
+    overflow-y auto
+  ol
+    list-style none
+  li
+    border-bottom 1px solid $border_lt
+    margin-left 0
+    padding 10px 8px 2px 8px
+    &.is-current
+      a
+        font-weight bold
+      span
+        color $text
+      &:before
+        content '► '
+        float left
+        width 0
+        position relative
+        right 17px
+        color $border_med
+        font-size 12px
+        top 3px
+        height 0px
+  a
+    color $text
+    width 200px
+    font-size 15px
+    text-decoration none
+    white-space nowrap
+    text-overflow ellipsis
+    display inline-block
+  span
+    color $text_med
+
+.articles-list
+  col(9/12)
+
+.articles-nav .affix
+  width 250px
+  top $nav_height
