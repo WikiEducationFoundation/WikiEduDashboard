@@ -38,15 +38,15 @@ const UploadsHandler = createReactClass({
 
     const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
 
-    if (!this.props.updatedUploads) {
-      this.setUploadMetadata(data);
-    }
-
     this.setState({
       data: data,
       pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
       options: options,
      });
+
+     if (!nextProps.fetchState) {
+       this.setUploadMetadata(data);
+     }
 
     if (nextProps.view === LIST_VIEW) {
       document.getElementById("list-view").classList.add("dark");
@@ -142,7 +142,7 @@ const UploadsHandler = createReactClass({
         </div>
         <MultiSelectField options={this.state.options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
         {paginationElement}
-        <UploadList uploads={this.state.data} updatedUploads={this.props.updatedUploads} view={this.props.view} sortBy={this.props.sortUploads} />
+        <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
         {paginationElement}
       </div>
     );
@@ -156,7 +156,7 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   selectedFilters: state.uploads.selectedFilters,
   selectedUploads: getFilteredUploads(state),
-  updatedUploads: state.uploads.updatedUploads,
+  fetchState: state.uploads.fetchState,
 });
 
 const mapDispatchToProps = {

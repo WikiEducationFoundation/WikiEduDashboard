@@ -54,7 +54,8 @@ const fetchUploadMetadata = (uploads) => {
 };
 
 export const setUploadMetadata = (uploadsList) => dispatch => {
-  const promises = _.chunk(uploadsList, 25).map(uploads => fetchUploadMetadata(uploads));
+  const list = uploadsList.filter(upload => !upload.fetchState);
+  const promises = _.chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
   return (
     Promise.all(promises)
     .then(resp => dispatch({

@@ -7,7 +7,8 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
-  updatedUploads: null,
+  fetchState: false,
+
 };
 
 const SORT_DESCENDING = {
@@ -33,18 +34,35 @@ export default function uploads(state = initialState, action) {
         ...state,
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
+        fetchState: false,
       };
     }
     case SET_UPLOAD_METADATA: {
-      let updatedUploads;
+      let fetchedData;
       _.forEach(action.data, data => {
         if (data.query) {
-          updatedUploads = { ...updatedUploads, ...data.query.pages };
+          fetchedData = { ...fetchedData, ...data.query.pages };
         }
+      });
+      const updatedUploads = state.uploads.map(upload => {
+        if (fetchedData && fetchedData[upload.id]) {
+          if (fetchedData[upload.id].imageinfo[0].extmetadata.Credit) {
+            upload.credit = fetchedData[upload.id].imageinfo[0].extmetadata.Credit.value;
+          }
+          if (!fetchedData[upload.id].imageinfo[0].extmetadata.Credit) {
+            upload.credit = "Not Found";
+          }
+          if (!upload.thumburl) {
+            upload.thumburl = fetchedData[upload.id].imageinfo[0].thumburl;
+          }
+          upload.fetchState = true;
+        }
+        return upload;
       });
       return {
         ...state,
-        updatedUploads: updatedUploads,
+        uploads: updatedUploads,
+        fetchState: true,
       };
     }
     case SET_VIEW: {
