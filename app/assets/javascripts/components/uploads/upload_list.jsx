@@ -24,20 +24,7 @@ const UploadList = createReactClass({
     let elements;
     if (nextProps.uploads.length > 0) {
       elements = nextProps.uploads.map(upload => {
-        let credit;
-        let thumburl;
-        if (nextProps.updatedUploads) {
-          if (nextProps.updatedUploads[upload.id] && nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit) {
-            credit = nextProps.updatedUploads[upload.id].imageinfo[0].extmetadata.Credit.value;
-          }
-          if (nextProps.updatedUploads !== this.props.updatedUploads && !nextProps.updatedUploads[upload.id]) {
-            credit = "Not Found";
-          }
-          if (!upload.thumburl && nextProps.updatedUploads[upload.id]) {
-            thumburl = nextProps.updatedUploads[upload.id].imageinfo[0].thumburl;
-          }
-        }
-        return <Upload upload={upload} key={upload.id} credit={credit} thumburl={thumburl} linkUsername={true} />;
+        return <Upload upload={upload} view={nextProps.view} key={upload.id} linkUsername={true} />;
       });
     } else {
       elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
