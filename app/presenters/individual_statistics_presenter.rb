@@ -25,7 +25,9 @@ class IndividualStatisticsPresenter
 
   def individual_character_count
     @articles_edited.values.sum do |article|
-      article[:characters].values.sum
+      article[:characters].values.inject(0) do |sum, characters|
+        characters.positive? ? sum + characters : sum
+      end
     end
   end
 
