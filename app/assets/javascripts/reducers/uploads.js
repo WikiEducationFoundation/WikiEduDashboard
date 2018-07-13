@@ -7,6 +7,7 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
+  loading: true
 
 };
 
@@ -25,6 +26,7 @@ export default function uploads(state = initialState, action) {
         ...state,
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
+        loading: false
       };
     }
     case SORT_UPLOADS: {

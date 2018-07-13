@@ -14,25 +14,17 @@ const UploadList = createReactClass({
     sortBy: PropTypes.func,
   },
 
-  getInitialState() {
-    return {
-      elements: [],
-    };
-  },
-
-  componentWillReceiveProps(nextProps) {
+  render() {
+    const uploads = this.props.uploads;
     let elements;
-    if (nextProps.uploads.length > 0) {
-      elements = nextProps.uploads.map(upload => {
-        return <Upload upload={upload} view={nextProps.view} key={upload.id} linkUsername={true} />;
+    if (uploads.length > 0) {
+      elements = uploads.map(upload => {
+        return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
       });
     } else {
       elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
     }
-    this.setState({ elements: elements });
-  },
 
-  render() {
     const keys = {
       image: {
         label: I18n.t('uploads.image'),
@@ -67,7 +59,7 @@ const UploadList = createReactClass({
     if (this.props.view === GALLERY_VIEW) {
       uploadsView = (
         <div className="gallery">
-          {this.state.elements}
+          {elements}
         </div>
       );
     }
@@ -75,7 +67,7 @@ const UploadList = createReactClass({
     if (this.props.view === LIST_VIEW) {
       uploadsView = (
         <List
-          elements={this.state.elements}
+          elements={elements}
           keys={keys}
           table_key="uploads"
           sortBy={this.props.sortBy}
@@ -87,7 +79,7 @@ const UploadList = createReactClass({
     if (this.props.view === TILE_VIEW) {
       uploadsView = (
         <div className="tile-view">
-          {this.state.elements}
+          {elements}
         </div>
       );
     }
