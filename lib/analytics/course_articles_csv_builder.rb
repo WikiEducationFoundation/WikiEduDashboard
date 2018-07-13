@@ -81,7 +81,7 @@ class CourseArticlesCsvBuilder
 
   def character_sum(article_data)
     article_data[:characters].values.inject(0) do |sum, characters|
-      characters.positive? ? sum + characters : sum
+      characters&.positive? ? sum + characters : sum
     end
   end
 
