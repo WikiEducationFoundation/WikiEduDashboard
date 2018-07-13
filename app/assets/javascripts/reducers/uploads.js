@@ -7,7 +7,6 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
-  fetchState: false,
 
 };
 
@@ -34,7 +33,6 @@ export default function uploads(state = initialState, action) {
         ...state,
         uploads: sortedModel.newModels,
         sortKey: sortedModel.newKey,
-        fetchState: false,
       };
     }
     case SET_UPLOAD_METADATA: {
@@ -46,14 +44,9 @@ export default function uploads(state = initialState, action) {
       });
       const updatedUploads = state.uploads.map(upload => {
         if (fetchedData && fetchedData[upload.id]) {
-          if (fetchedData[upload.id].imageinfo[0].extmetadata.Credit) {
-            upload.credit = fetchedData[upload.id].imageinfo[0].extmetadata.Credit.value;
-          }
-          if (!fetchedData[upload.id].imageinfo[0].extmetadata.Credit) {
-            upload.credit = "Not Found";
-          }
+          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, `Not found`);
           if (!upload.thumburl) {
-            upload.thumburl = fetchedData[upload.id].imageinfo[0].thumburl;
+            upload.thumburl = _.get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
           }
           upload.fetchState = true;
         }
@@ -62,7 +55,6 @@ export default function uploads(state = initialState, action) {
       return {
         ...state,
         uploads: updatedUploads,
-        fetchState: true,
       };
     }
     case SET_VIEW: {

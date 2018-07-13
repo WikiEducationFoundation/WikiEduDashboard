@@ -44,7 +44,7 @@ const UploadsHandler = createReactClass({
       options: options,
      });
 
-     if (!nextProps.fetchState) {
+     if (this.state.currentPage === 0) {
        this.setUploadMetadata(data);
      }
 
@@ -156,7 +156,6 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   selectedFilters: state.uploads.selectedFilters,
   selectedUploads: getFilteredUploads(state),
-  fetchState: state.uploads.fetchState,
 });
 
 const mapDispatchToProps = {
