@@ -313,4 +313,6 @@ el:
     searching_articles: Αναζήτηση λημμάτων
     article_finder: Ευρητής λημμάτων
     submit: Υποβολή
+    assign_article_self: Ανάθεση του εαυτού σας
+    unassign_article_self: Ξεανάθεση άρθρου
 ...

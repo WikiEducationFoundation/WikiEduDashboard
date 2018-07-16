@@ -796,6 +796,7 @@ tr:
     check_answer: Yanıtları Kontrol Et
     included_modules: Dahil Modüller
   uploads:
+    credit: Katkılar
     file_name: Dosya Adı
     header: Wikimedia Commons'a Yüklenen Dosyalar
     image: Resim
@@ -804,9 +805,13 @@ tr:
     none: Bu sınıf, herhangi bir resim veya diğer medya dosyası yükleyerek Wikimedia
       Commons'a katkıda bulunmamıştır.
     time_doc: Yerel saatinizdeki her yükleme saati
-    uploaded_at: Yüklenen Yer
+    uploaded_at: Yükleme zamanı
+    uploader: Yükleyen
     uploaded_by: Yükleyen
+    uploaded_on: Yüklenen yer
     usage_count: Kullanım Sayısı
+    usage_doc: Bu görselin kullanıldığı Vikipedi maddesi sayısı.
+    usage_count_gallery_tile: '%{usage_count} maddede kullanıldı'
     usages: Kullanım
   users:
     already_enrolled: Bu kullanıcı zaten kayıtlı!

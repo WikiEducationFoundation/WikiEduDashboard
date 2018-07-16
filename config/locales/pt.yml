@@ -72,7 +72,7 @@ pt:
     opt_out: Pedir para ser excluído da introdução
     orientation_notice: Antes de criar um curso, façamos uma introdução para ajudá-lo
       a começar (dura cerca de 30 minutos).
-    review_orientation: Rever a orientação
+    review_orientation: Rever a introdução
     start_orientation: Começar a introdução
     blog_headline: Notícias recentes da Wiki Educação
     about_programs: Este sítio acompanha as atividades da wiki através dos programas
@@ -86,7 +86,7 @@ pt:
   home:
     explore: Explorar
     log_in: Iniciar sessão através da Wikipédia
-    sign_up: Registar-se com Wikipédia
+    sign_up: Registar-se através da Wikipédia
     sign_up_help: Para utilizar o painel de controlo, precisará de iniciar sessão
       na Wikipédia para ter acesso à sua conta. Autentique-se com uma conta já existente
       na Wikipédia ou crie uma nova.
@@ -504,10 +504,11 @@ pt:
       através do seguinte endereço (URL):'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
-    review_timeline: Por favor, reveja este cronograma e faça mudanças. Quando estiver
-      satisfeito com o cronograma, envie-o para aprovação da equipa da Wiki Educação.
-      Após a aprovação, receberá um URL de inscrição que os alunos podem usar para
-      participar do curso (poderá editá-lo depois.)
+    review_timeline: 'Agora, reveja o seu calendário de tarefas e faça as alterações
+      necessárias. Quando estiver satisfeito, pode enviá-lo para aprovação da equipa
+      da Wiki Educação. Após a aprovação, receberá um URL de inscrição que os alunos
+      podem usar para participar no curso e aceder aos materiais (nota: poderá editar
+      o calendário mais tarde.)'
     revisions_doc: O número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
@@ -894,6 +895,7 @@ pt:
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
   uploads:
+    credit: Créditos
     file_name: Nome do ficheiro
     header: Os ficheiros enviados ao Wikimedia Commons
     image: Imagem
@@ -901,7 +903,7 @@ pt:
     loading: A carregar os envios...
     none: Esta classe não contribuiu com nenhuma imagem nem outros ficheiros multimédia
       para a wiki Wikimedia Commons.
-    select_label: Filtrar por quem carregou
+    select_label: Filtrar por quem enviou
     time_doc: A hora de cada envio no seu horário local
     uploaded_at: Enviado a
     uploader: Carregado por
@@ -1080,7 +1082,7 @@ pt:
       por isto! Pode ocorrer por vezes.) Por favor, tente novamente iniciar a sessão
       ou matricular-se.
   survey:
-    login_message: Obrigado pelo seu tempo. Entre no seu Painel da Wiki Educação para
+    login_message: Obrigado pelo seu tempo. Entre no seu painel da Wiki Educação para
       participar do inquérito, por favor.
     notification_explanation: Ao ativar a opção abaixo, os utilizadores vão receber
       os correios eletrónicos de acordo com a agenda de notificações, para além de

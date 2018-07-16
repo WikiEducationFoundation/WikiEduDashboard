@@ -843,6 +843,7 @@ pl:
   article_finder:
     page_assessment_class: Klasa
     average_views: Średnia dzienna liczba wyświetleń
+    remove_article: Usuń artykuł
     no_article_found: Nie znaleziono artykułów w tej kategorii
     search_placeholder: Wpisz słowo kluczowe
     tools: Narzędzia

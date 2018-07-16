@@ -647,7 +647,7 @@ sr-el:
       instructor: Nastavnik
       campus_volunteer: Univerzitetski volonter
       online_volunteer: Onlajn volonter
-      wiki_ed_staff: Osoblje Viki eda
+      wiki_ed_staff: Osoblje Viki Edukacije
   user_profiles:
     student_impact: Ukupni učinak koji je ostvario %{username} kao student
     instructor_impact: Ukupni učinak koji je ostvario %{username} kao nastavnik
@@ -737,7 +737,7 @@ sr-el:
       toga! Dešava se ponekad.) Pokušajte da se prijavite ponovo.
   survey:
     login_message: Hvala Vam na izdvojenom vremenu. Ulogujte se na kontrolnu tablu
-      Viki eda kako biste popunili anketu.
+      Viki Edukacije kako biste popunili anketu.
     notification_explanation: Ukoliko je polje ispod označeno, korisnici će primati
       imejlove prema rasporedu obaveštenja, uz obaveštenja koja vide u pretraživaču.
       Ako polje nije označeno, dobijaće obaveštenja samo u pretraživaču.
@@ -747,9 +747,10 @@ sr-el:
       putem imejla.
     email:
       headline: Zdravo, %{username}
-      message_line1: Nadamo se da ste imali uspešno polugodište! Viki ed traži povratne
-        informacije od Vas, kako bismo poboljšali naše resurse i podržali svoje zadatke
-        na Vikipediji. Vaši odgovori su ključni za popravljanje našeg rada.
+      message_line1: Nadamo se da ste imali uspešno polugodište! Viki Edukacija traži
+        povratne informacije od Vas, kako bismo poboljšali naše resurse i podržali
+        svoje zadatke na Vikipediji. Vaši odgovori su ključni za popravljanje našeg
+        rada.
       message_line2: Da li možete da izdvojite 15 minuta da popunite anketu? Kliknite
         na dugme ispod kako bismo učenje sa Vikipedijom učinili korisnijim i vrednijim
         iskustvom.

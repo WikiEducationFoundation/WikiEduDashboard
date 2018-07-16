@@ -561,6 +561,7 @@ ar:
   wiki_api:
     create_account_reason: يشارك هذا المستخدم في %{event}
   article_finder:
+    remove_article: أزل المقالة
     search_placeholder: أدخل كلمة البحث
     tools: الأدوات
     article_quality: جودة المقالة (0-100)

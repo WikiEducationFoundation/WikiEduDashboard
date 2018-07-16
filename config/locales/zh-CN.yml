@@ -11,6 +11,7 @@
 # Author: Macofe
 # Author: NeverBehave
 # Author: Shizhao
+# Author: Yanjiazhang
 # Author: Yfdyh000
 ---
 zh-CN:
@@ -101,7 +102,7 @@ zh-CN:
       fl: '%{class}（特色列表） — 维基百科用于列表的最高评级'
       a: '%{class}级 — 十分完善的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
       ga: '%{class}（优良条目） — 一个组织良好的条目，可能过于成熟而不适合作为新编辑者的主要项目目标'
-      b: '%{class}级 — 一个质量适中的条目'
+      b: '%{class}级 — 一个适度开发的条目'
       c: '%{class}级 — 一个有改进空间的中等条目'
       start: '%{class}级 — 一个有很大改进空间的初等条目'
       stub: '%{class}级 — 一篇条目的短小开始，它需要更多内容'
@@ -157,6 +158,7 @@ zh-CN:
     add_organizer: 添加组织者
     alert_article: 条目标题
     alert_label: 活动提醒
+    alert_select_label: 按提醒类型过滤
     alert_type: 类型
     alert_user_id: 用户
     all_campaigns: 所有活动
@@ -384,7 +386,7 @@ zh-CN:
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
     requested_accounts: 请求的账户
-    review_timeline: 请检查该时间表，并作出更改。一旦您对您的时间表感到满意，将其提交给Wiki Ed职员以待批准。一旦获得批准，您将得到一个登记URL，学生可以使用它加入课程。（您仍然可以稍后编辑。）
+    review_timeline: 现在请检查您的分配时间表，自定义它以符合您的需求。一旦您感到满意，您可以将其提交给维基教育职员以待批准。一旦获得批准，您将收到一个登记URL，学生可以使用它加入课程并访问培训。（注意：您仍然可以稍后编辑。）
     revisions_doc: 过去%{timeframe}天内的编辑数
     revisions_none: 此课程最近没有活跃编辑维基百科。
     school: 学校
@@ -400,7 +402,7 @@ zh-CN:
     submitted_admin: 该课程已由创建者提交待通过。要通过它，将其添加至概述页面的运动中。
     submitted_and_pending_heading: 已提交并等待批准
     submitted_heading: 提交的课程
-    submitted_note: 您的课程已提交。Wiki Ed职员将复核它，并与您在任何问题上取得联系。
+    submitted_note: 您的课程已提交。维基教育职员将复核它，并与您在任何问题上取得联系。
     suggestions_feedback: 有任何改进该功能的建议么？让我们知道！
     suggestions_sending: 正在发送反馈...
     suggestions_sent: 反馈已发送。感谢您输入的内容。
@@ -438,7 +440,7 @@ zh-CN:
     warn_mirrored: 一经提交，此课程将自动使用您的用户账户发布在维基百科上。在此之后，对时间轴的编辑将自动镜像到维基百科。您确定要这样做么？
     wiki_edits_enabled: 启用了Wiki编辑
     wiki_edits_enabled_tooltip: 如果启用wiki编辑，那么将为此计划自动安排wiki编辑。如果您不希望模板添加到用户页、已获分配条目的讨论页等的话，请禁用wiki编辑。
-    wiki_staff: Wiki Ed职员
+    wiki_staff: 维基教育职员
     withdrawn: 没有进行分配
     word_count_doc: 在课程的学期期间，由课程的学生添加至主名字空间条目字数的估计
     yourcourses: 您的课程
@@ -697,20 +699,22 @@ zh-CN:
     check_answer: 检查答案
     included_modules: 包含的模块
   uploads:
+    credit: 制作人员
     file_name: 文件名
     header: 上传至维基共享资源的文件
     image: 图像
     label: 上传
     loading: 正在加载上传...
     none: 此班级没有贡献任何图片或其他媒体文件至维基共享资源。
+    select_label: 按上传者过滤
     time_doc: 您本地时间的每次上传时间
     uploaded_at: 上传时间
     uploader: 上传者
     uploaded_by: 上传者
     uploaded_on: 上传于
     usage_count: 使用计数
-    usage_doc: 此图片显示维基百科文章数量。
-    usage_count_gallery_tile: 在 %{usage_count} 篇文章中使用
+    usage_doc: 出现此图片的维基百科条目数量。
+    usage_count_gallery_tile: 用于%{usage_count}个条目中
     usages: 用法
   users:
     already_enrolled: 那位用户已经登记了！
@@ -782,7 +786,7 @@ zh-CN:
       instructor: 导师
       campus_volunteer: 校园志愿者
       online_volunteer: 在线志愿者
-      wiki_ed_staff: Wiki Ed职员
+      wiki_ed_staff: 维基教育职员
   user_profiles:
     student_impact: 由%{username}作为学生做出的总影响
     instructor_impact: 由%{username}作为导师做出的总影响
@@ -846,17 +850,17 @@ zh-CN:
     header: 登录错误
     explanation: 看起来登录过程中遇到了问题。（很抱歉！它偶尔发生。）请尝试重新登录或登记。
   survey:
-    login_message: 感谢您抽出时间。请登录您的Wiki Ed控制面板以接受调查。
+    login_message: 感谢您抽出时间。请登录您的维基教育控制面板以接受调查。
     notification_explanation: 如果下面被勾选，用户将根据通知安排接收电子邮件，此外还可以在浏览器看见通知。如果不勾选，将只在浏览器上显示通知。
     notification_schedule_explanation: 通知包含浏览器内通知和电子邮件，如果在上方启用了的话。
     follow_up_explanation: 如果不要求跟随电子邮件通知则留空。
     email:
       headline: 您好，%{username}
-      message_line1: 我们希望您有一个伟大的学期！Wiki Ed正在寻求您的反馈，以改进我们的资源，并支持您的维基百科作业。您的响应对于改进我们当前的产品至关重要。
+      message_line1: 我们希望您有一个极好的学期！维基教育正在寻求您的反馈，以改进我们的资源，并支持您的维基百科作业。您的响应对于改进我们当前的产品至关重要。
       message_line2: 您愿意花费15分钟以填写我们的导师调查表么？点击下面的按钮以帮助我们使通过维基百科教学回报更多，及获得宝贵的经验。
       course: 课程：%{course_info}
       closing: 真诚地感谢您
-      signed: '- Wiki Ed团队'
+      signed: '- 维基教育团队'
       link: 接受调查
     follow_up:
       message: 这是有关对您的课程（%{course_title}）调查的提示。来自该调查的反馈会帮助我们改进我们对像您一样的维基百科作业的支持。
@@ -880,8 +884,8 @@ zh-CN:
     search_placeholder: 输入您的密码
     search: 搜索
     tools: 工具
-    show_filters: 显示过滤条件
-    hide_filters: 隐藏过滤条件
+    show_filters: 显示过滤器
+    hide_filters: 隐藏过滤器
     keyword_search: 关键词搜索
     category_search: 分类搜索
     article_quality: 条目质量（0~100）
@@ -891,9 +895,12 @@ zh-CN:
     searching_articles: 正在搜索条目
     fetching_assessments: 正在检索页面评价
     fetching_revisions: 正在检索页面修订版本
-    fetching_scores: 获取完整性评分
+    fetching_scores: 正在取得完整性分数
     fetching_pageviews: 正在检索页面浏览
     subheading_message: 让我们查找符合您的需求的条目
     article_finder: 条目查找器
     submit: 提交
+    relevanceIndex: 相关性索引
+    assign_article_self: 分配您自己
+    unassign_article_self: 取消分配条目
 ...

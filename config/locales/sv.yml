@@ -507,6 +507,7 @@ sv:
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
   uploads:
+    credit: Erkännande
     file_name: Filnamn
     header: Filer som har laddats upp till Wikimedia Commons
     image: Bild
@@ -621,5 +622,6 @@ sv:
       where_did_you_hear: Var, eller från vem, fick du först reda på om Wiki Education?
       why_are_you_here: Vad vill du göra?
   article_finder:
+    remove_article: Ta bort artikel
     assign_article_self: Tilldela dig själv
 ...

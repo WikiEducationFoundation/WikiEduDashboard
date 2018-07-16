@@ -466,7 +466,7 @@ cs:
     new_account_username_taken: Toto uživatelské jméno se již používá. Zvolte si prosím
       jiné.
     new_account_submit: Požádat o účet
-    new_account_submitted: Váš požadavek na účet byl uložen. Facilitátor tohoto programu
+    new_account_submitted: Váš požadavek na účet byl uložen. Instruktor tohoto programu
       vám nyní může založit účet. Po založení účtu získáte pomocí e-mailu heslo nového
       účtu.
     new_account_submitted_admin: Vaše žádost o účet byla vytvořena. Informujte prosím
@@ -1029,4 +1029,5 @@ cs:
     add_available_article: Přidat jako dostupný článek
     minimum_views_label: Minimální počet zobrazení
     no_article_found: V této kategorii nebyl nalezen žádný článek
+    search: Hledat
 ...

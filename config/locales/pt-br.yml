@@ -505,11 +505,11 @@ pt-br:
       a seguinte URL:'
     rating_feedback: 'A avaliação prevista para o artigo é:'
     requested_accounts: Contas solicitadas
-    review_timeline: Por favor, reveja esta linha do tempo e faça alterações. Quando
-      estiver satisfeito com a sua linha do tempo, submeta à aprovação da equipe Wiki
-      Ed. Uma vez aprovada, você receberá uma URL de inscrição onde os alunos podem
-      usar para participar do curso. (Você ainda será capaz de fazer edições mais
-      tarde.)
+    review_timeline: 'Agora, revise o cronograma da sua atribuição, personalizando-o
+      para atender às suas necessidades. Quando estiver satisfeito, você pode enviá-lo
+      para aprovação pela equipe da Wiki Education. Depois de aprovado, você receberá
+      um URL de inscrição que os alunos podem usar para participar do curso e acessar
+      os treinamentos. (Nota: você ainda poderá fazer edições mais tarde.)'
     revisions_doc: Número de edições nos últimos %{timeframe} dias
     revisions_none: Este curso não tem atividade recente de edição na Wikipédia.
     school: Escola
@@ -526,8 +526,8 @@ pt-br:
       aprová-lo, adicione-o a uma turma na página de Visão geral.
     submitted_and_pending_heading: Submetido e pendente de aprovação
     submitted_heading: Cursos Submetidos
-    submitted_note: Seu curso foi submetido. A equipe do Wiki Ed irá analisá-lo e
-      entrar em contato em caso de eventuais dúvidas.
+    submitted_note: Seu curso foi submetido. A equipe da Wiki Education irá analisá-lo
+      e entrar em contato com qualquer dúvida.
     suggestions_feedback: Há algumas sugestões que você queira fazer para melhorar
       esta funcionalidade? Informe-nos!
     suggestions_sending: Enviando comentário...
@@ -581,7 +581,7 @@ pt-br:
       automatizadas on-wiki serão feitas para este programa. Desative as edições do
       wiki se você não quiser que os modelos sejam adicionados às páginas do usuário,
       às páginas de discussão dos artigos atribuídos, etc.
-    wiki_staff: Equipe Wiki Ed
+    wiki_staff: Equipe de Educação da Wiki
     withdrawn: Não fez atribuição
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
@@ -895,6 +895,7 @@ pt-br:
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
   uploads:
+    credit: Crédito
     file_name: Nome do Arquivo
     header: Arquivos Enviados ao Wikimedia Commons
     image: Imagem
@@ -988,7 +989,7 @@ pt-br:
       instructor: Instrutor
       campus_volunteer: Voluntário de campus
       online_volunteer: Voluntário online
-      wiki_ed_staff: Equipe Wiki Ed
+      wiki_ed_staff: Equipe de Educação da Wiki
   user_profiles:
     student_impact: Impacto total feito pelo usuário %{username} como estudante
     instructor_impact: Impacto total de %{username} como instrutor
@@ -1081,7 +1082,7 @@ pt-br:
       a autentificação.
   survey:
     login_message: Obrigado por seu tempo. Por favor, inicie a sessão em seu painel
-      de controle do Wiki Ed para participar do questionário.
+      de controle do Wiki Educação para participar da pesquisa.
     notification_explanation: Ao ativar a opção abaixo, usuários receberão correios
       eletrônicos de acordo com a programação de notificações, além de ver notificações
       no navegador. Se não a ativar, apenas serão mostradas notificações no navegador.
@@ -1091,15 +1092,15 @@ pt-br:
       eletrônicos de acompanhamento.
     email:
       headline: Olá, %{username}
-      message_line1: Esperamos que tenha tido um ótimo semestre! Wiki Ed aguarda por
-        seus comentários para aperfeiçoar seus recursos e suporte para suas tarefas
-        na Wikipédia. Sua resposta é crucial para aperfeiçoar nossos serviços atuais.
+      message_line1: Esperamos que você tenha um ótimo termo! A Wiki Education está
+        buscando seu feedback para melhorar nossos recursos e suporte para suas atribuições
+        na Wikipédia. Sua resposta é crucial para melhorar nossas ofertas atuais.
       message_line2: Você tem 15 minutos para completar nosso questionário de professor?
         Clique no botão abaixo para ajudar-nos a fazer o ensino com a Wikipédia uma
         experiência ainda mais gratificante e valiosa.
       course: 'Curso: %{course_info}'
       closing: Cordialmente,
-      signed: '- a equipe Wiki Ed'
+      signed: '- a equipe da Wiki Education'
       link: Responder o Questionário
     follow_up:
       message: Isto é um lembrete sobre o questionário de seu curso, %{course_title}.

@@ -5,6 +5,7 @@
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
 # Author: Pierpao
+# Author: Sau226
 ---
 en-gb:
   application:
@@ -254,4 +255,6 @@ en-gb:
     active_courses: Artículo es activo en
     datetime: La fecha/El tiempo
     image: La imagen
+  article_finder:
+    assign_article_self: Assign yourself
 ...

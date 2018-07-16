@@ -499,11 +499,12 @@ de:
       der folgenden URL in den Kurs einschreiben:'
     rating_feedback: 'Die vorhergesagte Bewertung für den Artikel ist:'
     requested_accounts: Beantragte Benutzerkonten
-    review_timeline: Bitte überprüfe diese Zeitleiste und führe Änderungen durch.
-      Wenn du mit deiner Zeitleiste zufrieden bist, reiche sie zur Zulassung durch
-      die Mitarbeiter von Wiki Ed ein. Wenn sie zugelassen wurde, erhältst du eine
-      Einschreibungs-URL, die Studenten verwenden können, um dem Kurs beizutreten.
-      Du kannst später Bearbeitungen durchführen.
+    review_timeline: 'Überprüfe jetzt deine Zuweisungs-Zeitleiste und passe sie deinen
+      Bedürfnissen an. Sobald du zufrieden bist, kannst du sie zur Bestätigung durch
+      die Mitarbeiter von Wiki Education einreichen. Sobald sie bestätigt ist, erhältst
+      du eine Einschreibungs-URL, die Studenten zum Beitritt in den Kurs und zum Zugriff
+      auf die Ausbildungen verwenden können (Anmerkung: Du wirst später noch Bearbeitungen
+      machen können).'
     revisions_doc: Die Anzahl der Bearbeitungen in den letzten %{timeframe} Tagen
     revisions_none: Dieser Kurs hat keine letzte Wikipedia-Bearbeitungsaktivität.
     school: Schule
@@ -520,8 +521,8 @@ de:
       Um ihn zuzulassen, füge ihn auf der Übersichtsseite zur Kampagne hinzu.
     submitted_and_pending_heading: Eingereicht & Zulassung ausstehend
     submitted_heading: Eingereichte Kurse
-    submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Ed werden ihn
-      überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
+    submitted_note: Dein Kurs wurde eingereicht. Mitarbeiter von Wiki Education werden
+      ihn überprüfen und sich mit dir und einigen Fragen in Verbindung setzen.
     suggestions_feedback: Hast du Vorschläge zur Verbesserung dieser Funktion? Lass
       es uns wissen!
     suggestions_sending: Die Rückmeldung wird gesendet …
@@ -576,7 +577,7 @@ de:
       In-Wiki-Bearbeitungen für dieses Programm erzeugt. Deaktiviere Wikibearbeitungen,
       falls du keine hinzugefügten Vorlagen in Benutzer- oder Diskussionsseiten etc.
       zugewiesener Artikel haben möchtest.
-    wiki_staff: Wiki-Ed-Mitarbeiter
+    wiki_staff: Wiki-Education-Mitarbeiter
     withdrawn: Hat keine Zuweisung gemacht
     word_count_doc: Eine Schätzung der Anzahl der durch die Kursstudenten während
       der Kursdauer hinzugefügten Wörter in Hauptnamensraum-Artikeln.
@@ -895,6 +896,7 @@ de:
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
   uploads:
+    credit: Danksagung
     file_name: Dateiname
     header: Auf Wikimedia Commons hochgeladene Dateien
     image: Bild
@@ -991,7 +993,7 @@ de:
       instructor: Kursleiter
       campus_volunteer: Campus-Volontär
       online_volunteer: Online-Volontär
-      wiki_ed_staff: Mitarbeiter von Wiki Ed
+      wiki_ed_staff: Mitarbeiter von Wiki Education
   user_profiles:
     student_impact: Gesamtauswirkung durch %{username} als Student
     instructor_impact: Gesamtauswirkung durch %{username} als Kursleiter
@@ -1085,8 +1087,8 @@ de:
       Entschuldigung! Dies tritt gelegentlich auf. Bitte versuche die Anmeldung oder
       Einschreibung erneut.
   survey:
-    login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Ed Dashboard
-      an, um an der Umfrage teilzunehmen.
+    login_message: Vielen Dank für deine Zeit. Bitte melde dich beim Wiki Education
+      Dashboard an, um an der Umfrage teilzunehmen.
     notification_explanation: Falls unten ausgewählt, erhalten Benutzer übereinstimmend
       mit dem Benachrichtigungszeitplan E-Mails, außerdem sehen sie Benachrichtigungen
       im Browser. Falls nicht, werden nur Benachrichtigungen im Browser angezeigt.
@@ -1096,7 +1098,7 @@ de:
       gewünscht sind.
     email:
       headline: Hallo %{username}
-      message_line1: Wir hoffen, dass du einen tollen Kurs hast! Wiki Ed benötigt
+      message_line1: Wir hoffen, dass du einen tollen Kurs hast! Wiki Education benötigt
         deine Rückmeldung, um unsere Ressourcen und die Unterstützung für deine Wikipedia-Zuweisungen
         zu verbessern. Deine Antwort ist für die Verbesserung unserer aktuellen Angebote
         entscheidend.
@@ -1106,7 +1108,7 @@ de:
         zu machen.
       course: 'Kurs: %{course_info}'
       closing: Mit freundlichen Grüßen
-      signed: – das Team von Wiki Ed
+      signed: – das Team von Wiki Education
       link: An der Umfrage teilnehmen
     follow_up:
       message: Dies ist eine Erinnerung an die Umfrage für deinen Kurs „%{course_title}“.

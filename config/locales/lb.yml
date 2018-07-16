@@ -415,6 +415,7 @@ lb:
     uploaded_by: Eropgeluede vum
     uploaded_on: Eropgelueden de(n)
     usage_doc: Zuel vu Wikipedia-Artikelen an deenen dës Bild ze gesinn ass.
+    usage_count_gallery_tile: A(n) %{usage_count} Artikele benotzt
   users:
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg

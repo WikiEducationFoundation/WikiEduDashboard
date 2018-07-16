@@ -5,6 +5,7 @@
 # Author: Aram1985
 # Author: Av6
 # Author: Edible Melon
+# Author: Evs
 # Author: Facenapalm
 # Author: Gehhrr
 # Author: Happy13241
@@ -317,6 +318,8 @@ ru:
     students_count: '# Студенты'
     students_none: У этого курса пока нет студентов.
     students_short: Студенты
+    submitted_note: Ваш курс был отправлен. Сотрудники Wiki Education рассмотрят его
+      и свяжутся с Вами в случае вопросов.
     suggestions_sending: Отправка отзыва...
     suggestions_failed: Невозможно отправить отзыв. Попробуйте позже ещё раз.
     user_role: Роль
@@ -335,7 +338,7 @@ ru:
       one: Доброволец
       other: Добровольцы
     weeks_none: У этого курса ещё нет расписания.
-    wiki_staff: Сотрудники Wiki Ed
+    wiki_staff: Сотрудники Wiki Education
     withdrawn: Задание не сделано
     yourcourses: Ваши курсы
   courses_generic:
@@ -451,6 +454,7 @@ ru:
     done: Готово!
     check_answer: Проверить ответ
   uploads:
+    credit: Создатели
     file_name: Имя файла
     image: Изображение
     label: Загрузки
@@ -458,9 +462,11 @@ ru:
     none: Этот класс не добавлял никакие изображения или иные медиафайлы на Викисклад.
     time_doc: Время загрузки каждого дополнения по вашему местному времени.
     uploaded_at: Время загрузки
+    uploader: Загружающий
     uploaded_by: Загрузил
     uploaded_on: Загружено
     usage_count: Использовано
+    usage_doc: Число статей Википедии, в которых используется это изображение.
     usage_count_gallery_tile: Используется в %{usage_count} статьях
     usages: Использование
   users:
@@ -498,6 +504,7 @@ ru:
       visitor: Посетитель
       student: Студент
       instructor: Инструктор
+      wiki_ed_staff: Сотрудники Wiki Education
   user_profiles:
     disclaimer: Предоставленная Вами информация будет доступна публично.
     bio_placeholder: Добавьте свою биографию (необязательно)
@@ -544,10 +551,22 @@ ru:
       headline: Здравствуйте, %{username}
       course: 'Курс: %{course_info}'
       closing: С уважением,
-      signed: '- Команда Wiki Ed'
+      signed: '- Команда Wiki Education'
       link: Принять участие в опросе
   wiki_api:
     create_account_reason: Этот пользователь учавствует в %{event}.
   article_finder:
+    page_assessment_class: Класс
+    average_views: В среднем просмотров в день
+    search: Найти
+    tools: Инструменты
+    show_filters: Показать фильтры
+    hide_filters: Скрыть фильтры
+    category_search: Поиск по категории
+    article_quality: Качество статьи(0-100)
+    more_results: Ещё результаты
+    submit: Отправить
     relevanceIndex: Индекс релевантности
+    assign_article_self: Назначить себя
+    unassign_article_self: Отменить назначение статьи
 ...

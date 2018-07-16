@@ -303,7 +303,7 @@ ko:
     volunteer:
       other: 자원봉사자
     wiki_edits_enabled: 위키 편집 사용
-    wiki_staff: 위키 에듀 임원
+    wiki_staff: 위키 교육 직원
     withdrawn: 탈퇴
     yourcourses: 내 과정
     survey:
@@ -520,7 +520,7 @@ ko:
       instructor: 강사
       campus_volunteer: 캠퍼스 지원자
       online_volunteer: 온라인 지원자
-      wiki_ed_staff: 위키 에듀 임원
+      wiki_ed_staff: 위키 교육 직원
   user_profiles:
     disclaimer: 입력한 정보는 공개됩니다.
     bio_placeholder: 자기소개 추가 (선택 사항)
@@ -567,11 +567,11 @@ ko:
   login_error:
     header: 로그인 오류
   survey:
-    login_message: 시간을 내 주셔서 감사합니다. Wiki Ed 대시보드로 로그인하여 설문 조사에 응해 주세요.
+    login_message: 시간을 내 주셔서 감사합니다. Wiki 교육 대시보드로 로그인하여 설문 조사에 응해 주세요.
     follow_up_explanation: 알림 이메일을 더 이상 원치 않으면 빈 칸으로 두십시오.
     email:
       headline: 안녕하세요, %{username}님
-      signed: '- Wiki Ed 팀'
+      signed: '- Wiki 교육 팀'
       link: 설문 조사 참가
   wiki_api:
     create_account_reason: 이 사용자는 %{event}에 참여하고 있습니다.

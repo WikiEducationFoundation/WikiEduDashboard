@@ -318,8 +318,8 @@ it:
       suo creatore. Per approvarlo, aggiungerlo a una campagna nella pagina panoramica.
     submitted_and_pending_heading: Presentato e in attesa di approvazione
     submitted_heading: Corsi presentati
-    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Ed lo controllerà
-      e si metterà in contatto per tutte le domande.
+    submitted_note: Il tuo corso è stato presentato. Il personale di Wiki Education
+      lo controllerà e si metterà in contatto per tutte le domande.
     suggestions_feedback: Hai suggerimenti per migliorare questa funzionalità? Facci
       sapere!
     user_role: Ruolo
@@ -350,7 +350,7 @@ it:
       one: Volontario
       other: Volontari
     weeks_none: Questo corso non ha ancora una linea temporale.
-    wiki_staff: Staff Wiki Ed
+    wiki_staff: Staff Wiki Education
     withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
       principale dagli studenti del corso durante il periodo del corso
@@ -616,7 +616,7 @@ it:
       instructor: Insegnante
       campus_volunteer: Volontario del campus
       online_volunteer: Volontario online
-      wiki_ed_staff: Staff Wiki Ed
+      wiki_ed_staff: Staff Wiki Education
   user_profiles:
     bio_placeholder: Aggiungi la tua biografia (opzionale)
     location_placeholder: Aggiungi la tua posizione (opzionale)
@@ -667,20 +667,20 @@ it:
     explanation: Sembra che ci sia un problema con il processo di accesso. (Ci dispiace!
       Succede di tanto in tanto.) Riprova la registrazione o l'iscrizione.
   survey:
-    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Ed per partecipare
-      al sondaggio.
+    login_message: Grazie per il tuo tempo. Accedi al tuo cruscotto Wiki Education
+      per partecipare al sondaggio.
     email:
       headline: Ciao, %{username}
-      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Ed sta cercando
-        il tuo feedback per migliorare le nostre risorse e il supporto per le assegnazioni
-        di Wikipedia. La tua risposta è fondamentale per migliorare le nostre attuali
-        offerte.
+      message_line1: Ci auguriamo che hai avuto un grande termine! Wiki Education
+        sta cercando il tuo feedback per migliorare le nostre risorse e il supporto
+        per le assegnazioni di Wikipedia. La tua risposta è fondamentale per migliorare
+        le nostre attuali offerte.
       message_line2: Siete disposti a prendere 15 minuti per compilare il nostro sondaggio
         sull'istruttore? Clicca sul pulsante qui sotto per aiutarci a rendere la didattica
         con Wikipedia un'esperienza ancora più gratificante e preziosa.
       course: 'Corso: %{course_info}'
       closing: Cordiali saluti,
-      signed: '- il team Wiki Ed'
+      signed: '- il team Wiki Education'
       link: Rispondi sondaggio
   wiki_api:
     create_account_reason: Questo utente sta partecipando a %{event}.
