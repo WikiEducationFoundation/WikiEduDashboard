@@ -21,7 +21,6 @@ const UploadsHandler = createReactClass({
 
   getInitialState() {
     return {
-      options: [],
       offset: 0,
       data: this.props.selectedUploads.slice(0, UPLOADS_PER_PAGE),
       perPage: UPLOADS_PER_PAGE,
@@ -36,16 +35,11 @@ const UploadsHandler = createReactClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    const options = nextProps.students.map(student => {
-      return { label: student.username, value: student.username };
-    });
-
     const data = nextProps.selectedUploads.slice(this.state.offset, this.state.offset + this.state.perPage);
 
     this.setState({
       data: data,
       pageCount: Math.ceil(nextProps.selectedUploads.length / this.state.perPage),
-      options: options,
      });
 
      if (this.state.currentPage === 0) {
@@ -84,6 +78,10 @@ const UploadsHandler = createReactClass({
   },
 
   render() {
+    const options = this.props.students.map(student => {
+      return { label: student.username, value: student.username };
+    });
+
     let galleryClass = "button border icon-gallery_view icon tooltip-trigger";
     let listClass = "button border icon-list_view icon tooltip-trigger";
     let tileClass = "button border icon-tile_view icon tooltip-trigger";
@@ -141,7 +139,7 @@ const UploadsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <MultiSelectField options={this.state.options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
+        <MultiSelectField options={options} label={I18n.t('uploads.select_label')} selected={this.props.selectedFilters} setSelectedFilters={this.setUploadFilters} />
         {paginationElement}
         <UploadList uploads={this.state.data} view={this.props.view} sortBy={this.props.sortUploads} />
         {paginationElement}

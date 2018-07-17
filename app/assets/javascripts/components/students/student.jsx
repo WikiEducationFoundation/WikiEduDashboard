@@ -1,13 +1,17 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
+import { setUploadFilters } from '../../actions/uploads_actions.js';
 
 import AssignCell from './assign_cell.jsx';
 
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import { trunc } from '../../utils/strings';
+import CourseUtils from '../../utils/course_utils.js';
 
 const Student = createReactClass({
   displayName: 'Student',
@@ -21,6 +25,10 @@ const Student = createReactClass({
     reviewing: PropTypes.array,
     isOpen: PropTypes.bool,
     toggleDrawer: PropTypes.func
+  },
+
+  setUploadFilters(selectedFilters) {
+    this.props.setUploadFilters(selectedFilters);
   },
 
   stop(e) {
@@ -45,7 +53,6 @@ const Student = createReactClass({
     if (!this.props.student.real_name) { return false; }
     return this.props.current_user && (this.props.current_user.admin || this.props.current_user.role > studentRole);
   },
-
 
   render() {
     let className = 'students';
@@ -91,6 +98,8 @@ const Student = createReactClass({
       );
     }
 
+    const uploadsLink = `/courses/${CourseUtils.generateTempId(this.props.course)}/uploads`;
+
     return (
       <tr onClick={this.openDrawer} className={className}>
         <td>
@@ -110,7 +119,9 @@ const Student = createReactClass({
         <td className="desktop-only-tc">
           {this.props.student.character_sum_ms} | {this.props.student.character_sum_us} | {this.props.student.character_sum_draft}
         </td>
-        <td className="desktop-only-tc">{this.props.student.total_uploads}</td>
+        <td className="desktop-only-tc">
+          <Link to={uploadsLink} onClick={() => { this.setUploadFilters(this.props.student.username); }}>{this.props.student.total_uploads}</Link>
+        </td>
         <td><button className="icon icon-arrow table-expandable-indicator" /></td>
       </tr>
     );
@@ -118,4 +129,8 @@ const Student = createReactClass({
 }
 );
 
-export default Student;
+const mapDispatchToProps = {
+  setUploadFilters,
+};
+
+export default connect(null, mapDispatchToProps)(Student);

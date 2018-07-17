@@ -22,6 +22,7 @@ export default function uploads(state = initialState, action) {
       const dataUploads = action.data.course.uploads;
       //Intial sorting by upload date
       const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
+
       return {
         ...state,
         uploads: sortedModel.newModels,
