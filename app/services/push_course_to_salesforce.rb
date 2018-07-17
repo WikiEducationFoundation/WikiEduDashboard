@@ -93,7 +93,7 @@ class PushCourseToSalesforce
   end
 
   def editing_in_sandbox_block
-    title_matcher = /Draft your article/
+    title_matcher = Regexp.union [/Draft your article/, /Start drafting your/]
     @sandbox_block ||= @course.blocks.find { |block| block.title =~ title_matcher }
   end
 

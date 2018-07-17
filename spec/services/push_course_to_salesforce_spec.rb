@@ -46,7 +46,7 @@ describe PushCourseToSalesforce do
     context 'when the course has sandbox and mainspace blocks' do
       before do
         # These are used for generate date for some optional fields.
-        create(:block, week: week, title: 'Draft your article')
+        create(:block, week: week, title: 'Start drafting your contributions')
         create(:block, week: week, title: 'Begin moving your work to Wikipedia')
       end
 
