@@ -11,7 +11,6 @@ import AssignCell from './assign_cell.jsx';
 import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import { trunc } from '../../utils/strings';
-import CourseUtils from '../../utils/course_utils.js';
 
 const Student = createReactClass({
   displayName: 'Student',
@@ -98,7 +97,7 @@ const Student = createReactClass({
       );
     }
 
-    const uploadsLink = `/courses/${CourseUtils.generateTempId(this.props.course)}/uploads`;
+    const uploadsLink = `/courses/${this.props.course.slug}/uploads`;
 
     return (
       <tr onClick={this.openDrawer} className={className}>
