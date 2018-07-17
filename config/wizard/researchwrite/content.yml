@@ -173,7 +173,7 @@ essentials:
     blocks:
       -
         if: working_individually
-        title: Start drafting your article
+        title: Start drafting your contributions
         kind: 1
         graded: true
         points: 20
@@ -187,7 +187,7 @@ essentials:
 
       -
         if: working_in_groups
-        title: Start drafting your article
+        title: Start drafting your contributions
         kind: 1
         graded: true
         points: 20
