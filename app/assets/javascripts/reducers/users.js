@@ -14,7 +14,9 @@ const SORT_DESCENDING = {
   character_sum_ms: true,
   character_sum_us: true,
   character_sum_draft: true,
-  recent_edits: true
+  recent_revisions: true,
+  total_uploads: true,
+
 };
 
 export default function users(state = initialState, action) {

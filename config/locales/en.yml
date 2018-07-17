@@ -924,10 +924,10 @@ en:
     first_name: First name
     last_name: Last name
     loading: Loading users...
-    characters_added_mainspace: MS Chars Added
+    characters_added_mainspace: Characters Added (article)
     characters_added_short: "MS: %{mainspace}, US: %{userspace}"
-    characters_added_userspace: US Chars Added
-    characters_added_draftspace: DS Chars Added
+    characters_added_userspace: Characters Added (user)
+    characters_added_draftspace: Characters Added (draft)
     my_assigned: "Assigned: "
     my_reviewing: "Reviewing: "
     name: Name
