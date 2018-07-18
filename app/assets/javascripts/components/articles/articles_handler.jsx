@@ -9,7 +9,7 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import Affix from '../common/affix.jsx';
+import ArticlesNavbar from './articlesNavbar.jsx';
 
 import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
 import { fetchAssignments } from '../../actions/assignment_actions';
@@ -74,7 +74,7 @@ const ArticlesHandler = createReactClass({
     const editedArticles = this.refs.articlesEdited.getBoundingClientRect();
     const assignedArticles = this.refs.articlesAssigned.getBoundingClientRect();
     const body = document.body.getBoundingClientRect();
-    if (editedArticles.bottom + 150 > body.height) {
+    if (editedArticles.bottom + 150 > body.height || window.pageYoffset === 0) {
       return this.setState({ currentElement: 'articles-edited' });
     }
     else if (assignedArticles.bottom + 150 > body.height) {
@@ -172,21 +172,12 @@ const ArticlesHandler = createReactClass({
           </div>
           {categories}
         </div>
-        <div className="articles-nav">
-          <Affix offset={100}>
-            <div className="panel">
-              <ol>
-                <li key="articles-edited" className={this.state.currentElement === 'articles-edited' ? 'is-current' : ''}>
-                  <a href="#articles-edited" data-key="articles-edited" onClick={this.onNavClick}>{I18n.t('metrics.articles_edited')}</a>
-                </li>
-                <li key="articles-assigned" className={this.state.currentElement === 'articles-assigned' ? 'is-current' : ''}>
-                  <a href="#articles-assigned" data-key="articles-assigned" onClick={this.onNavClick}>{I18n.t('articles.assigned')}</a>
-                </li>
-                {availableArticlesNav}
-              </ol>
-            </div>
-          </Affix>
-        </div>
+        <ArticlesNavbar
+          currentElement={this.state.currentElement}
+          assignments={this.props.assignments}
+          current_user={this.props.current_user}
+          onNavClick={this.onNavClick}
+        />
       </div>
     );
   }
