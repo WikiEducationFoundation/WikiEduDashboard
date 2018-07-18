@@ -22,7 +22,9 @@ const UploadList = createReactClass({
       elements = uploads.map(upload => {
         return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
       });
-    } else if (uploads.length === 0 && !this.props.loadingUploads) {
+    } else if (!this.props.loadingUploads && this.props.totalUploadsCount > 0 && uploads.length === 0) {
+      elements = (<div className="none"><p>{I18n.t('courses_generic.user_uploads_none')}</p></div>);
+    } else if (!this.props.loadingUploads && uploads.length === 0) {
       elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
     } else {
       elements = (<div style={{ width: '100%' }}><Loading /></div>);
