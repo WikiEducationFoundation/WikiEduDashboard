@@ -168,6 +168,13 @@ essentials:
         content: |
           <a href="/training/students/copyedit-exercise/copyedit-an-article" class="timeline-exercise">Copyedit an article</a>
 
+      -
+        if: explore_to_find_articles
+        title: Exercise
+        kind: 1
+        content: |
+          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
+
   - # Week five
     weight: 4
     blocks:
@@ -194,14 +201,6 @@ essentials:
         training_module_ids: [31,15] # Drafting in groups, Plagiarism
         content: |
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
-
-      -
-        if: explore_to_find_articles
-        title: Exercise
-        kind: 1
-        content: |
-          <a href="/training/students/finalize-topic-exercise" class="timeline-exercise">Finalize your topic / Find your sources</a>
-
       -
         if: explore_to_find_articles
         title: Guide(s) for writing articles in your topic area
