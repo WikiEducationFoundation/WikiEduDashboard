@@ -676,6 +676,7 @@ en:
     term: When
     unsubmitted: Unsubmitted Programs
     uploads_none: This project has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Program Page
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
