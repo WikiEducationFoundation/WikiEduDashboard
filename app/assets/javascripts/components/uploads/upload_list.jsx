@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import Upload from './upload.jsx';
 import { LIST_VIEW, GALLERY_VIEW, TILE_VIEW } from '../../constants';
 import List from '../common/list.jsx';
+import Loading from '../common/loading.jsx';
 
 const UploadList = createReactClass({
   displayName: 'UploadList',
@@ -21,8 +22,10 @@ const UploadList = createReactClass({
       elements = uploads.map(upload => {
         return <Upload upload={upload} view={this.props.view} key={upload.id} linkUsername={true} />;
       });
-    } else {
+    } else if (uploads.length === 0 && !this.props.loadingUploads) {
       elements = (<div className="none"><p>{I18n.t('courses_generic.uploads_none')}</p></div>);
+    } else {
+      elements = (<div style={{ width: '100%' }}><Loading /></div>);
     }
 
     const keys = {
