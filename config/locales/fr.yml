@@ -693,6 +693,8 @@ fr:
     unsubmitted: Programmes non soumis
     uploads_none: Ce projet n'a importé aucune image ni aucun fichier media sur Wikimedia
       Commons.
+    user_uploads_none: Les utilisateurs sélectionnés non apporté aucune image ni autre
+      fichier média pour ce projet.
     view_other: Afficher les autres campagnes
     view_page: Afficher la page du programme
     word_count_doc: Estimé du nombre de mots ajoutés aux articles de l’espace principal
@@ -964,10 +966,10 @@ fr:
     first_name: Prénom
     last_name: Nom
     loading: Chargement des utilisateurs…
-    characters_added_mainspace: Caractères MS ajoutés
+    characters_added_mainspace: Caractères ajoutés (article)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caractères US ajoutés
-    characters_added_draftspace: Caractères espaces d’ébauche ajoutés
+    characters_added_userspace: Caractères ajoutés (utilisateur)
+    characters_added_draftspace: Caractères ajoutés (brouillon)
     my_assigned: 'Assigné :'
     my_reviewing: 'En cours de revue :'
     name: Nom

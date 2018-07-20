@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alebecerrasj
+# Author: Astroemi
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Dgstranz
@@ -570,6 +571,8 @@ es:
     unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
+    user_uploads_none: Los usuarios seleccionados no han contribuido ninguna imagen
+      u otros archivos multimedia a este proyecto.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos
@@ -783,9 +786,10 @@ es:
     first_name: Nombre
     last_name: Apellido
     loading: Cargando usuarios...
-    characters_added_mainspace: Caracteres añadidos en el espacio principal
+    characters_added_mainspace: Caracteres añadidos (artículo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caracteres añadidos en el espacio de usuario
+    characters_added_userspace: Caracteres añadidos (usuario)
+    characters_added_draftspace: Caracteres añadidos (borrador)
     my_assigned: 'Asignados:'
     my_reviewing: 'En revisión:'
     name: Nombre

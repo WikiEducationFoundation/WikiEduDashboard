@@ -739,10 +739,10 @@ zh-CN:
     first_name: 名
     last_name: 姓
     loading: 正在加载用户...
-    characters_added_mainspace: 添加的主空间字符
+    characters_added_mainspace: 添加的字符（条目）
     characters_added_short: 主空间：%{mainspace}，用户空间：%{userspace}
-    characters_added_userspace: 添加的用户空间字符
-    characters_added_draftspace: 添加的草稿空间字符
+    characters_added_userspace: 添加的字符（用户）
+    characters_added_draftspace: 添加的字符（草稿）
     my_assigned: 已分配：
     my_reviewing: 正在复核：
     name: 名字

@@ -102,19 +102,20 @@ ast:
       Estes calificaciones puen corresponder a versiones muncho más antigues, de mou
       que son sólo un indicador aproximáu de la madurez del artículu.
     rating_docs:
-      fa: Artículu destacáu — Calificación más alta de Wikipedia, probablemente ye
-        un artículu demasiao maduru como para ser el proyeutu principal d'un editor
-        nuevu
-      fl: Llista destacada — Calificación más alta de Wikipedia pa les llistes
-      a: Clase A — artículu desendolcáu enforma que pué ser demasiao maduru como para
-        ser el proyeutu principal d'un editor nuevu
-      ga: Artículu bonu — artículu bien desendolcáu que pué ser demasiao maduru como
-        para ser el proyeutu principal d'un editor nuevu
-      b: Clase B — un artículu moderadamente desendolcáu
-      c: Clase C — un artículu intermediu con espaciu pal ameyoramientu
-      start: Clase principiu — un artículu preliminar con munchu espaciu pal ameyoramientu
-      stub: Clase entamu — un entamu curtiu d'un artículu que necesita más conteníu
-      list: Clase llista — una llista, más qu'un artículu convencional
+      fa: '%{class} (Artículu destacáu) — Calificación más alta de Wikipedia, probablemente
+        ye un artículu demasiao maduru como para ser el proyeutu principal d''un editor
+        nuevu'
+      fl: '%{class} (Llista destacada) — Calificación más alta de Wikipedia pa les
+        llistes'
+      a: Clase %{class} — artículu desendolcáu enforma que puede ser demasiao maduru
+        como para ser el proyeutu principal d'un editor nuevu
+      ga: '%{class} (Artículu bonu) — artículu bien desendolcáu que puede ser demasiao
+        maduru como para ser el proyeutu principal d''un editor nuevu'
+      b: Clase %{class} — un artículu moderadamente desendolcáu
+      c: Clase %{class} — un artículu intermediu con posibilidá d'ameyoramientu
+      start: Clase %{class} — un pre-artículu con muncha posibilidá d'ameyoramientu
+      stub: Clase %{class} — un entamu curtiu d'artículu que necesita más conteníu
+      list: Clase %{class} — una llista, más qu'un artículu convencional
       '?': Sin calificar — un artículu qu'inda nun se calificó na escala de calidá
         de Wikipedia
       does_not_exist: Esti artículu nun esiste'n Wikipedia
@@ -415,10 +416,11 @@ ast:
       la siguiente URL:'
     rating_feedback: 'La puntuación prevista pal artículu ye:'
     requested_accounts: Cuentes solicitaes
-    review_timeline: Revisa esti cronograma y fai cambeos. En tando satisfechu col
-      cronograma, unvialu pa que lu apruebe'l personal de Wiki Ed. Cuando s'apruebe,
-      vas recibir una URL d'inscripción que los estudiantes pueden utilizar pa xunise
-      al cursu. (Entá vas poder faer cambeos más alantre.)
+    review_timeline: 'Agora, revisa''l cronograma de trabayu, y personalízalu según
+      necesites. En tando satisfechu col cronograma, puedes unvialu pa que lu apruebe''l
+      personal de Wiki Education. Cuando s''apruebe, recibirás una URL d''inscripción
+      que los estudiantes pueden utilizar pa xunise al cursu y tener accesu a la formación.
+      (Nota: Entá podrás faer cambeos más alantre.)'
     revisions_doc: El númberu d'ediciones nos pasaos %{timeframe} díes
     revisions_none: Esti cursu nun tien actividá editorial en Wikipedia recien.
     school: Escuela
@@ -432,8 +434,8 @@ ast:
     students_short: Estudiantes
     submitted_and_pending_heading: Presentáu y pendiente d'aprobación
     submitted_heading: Cursos presentaos
-    submitted_note: Unvióse'l to cursu. El personal de Wiki Ed revisarálu y comunicaráse
-      contigo si tien cualquier entruga.
+    submitted_note: Unvióse'l to cursu. El personal de Wiki Education revisarálu y
+      comunicaráse contigo si tien cualquier entruga.
     suggestions_sending: Unviando comentariu...
     suggestions_sent: Comentariu unviáu. Gracies pola comunicación.
     suggestions_failed: Nun pudo unviase'l comentariu. Tenta sero.
@@ -456,7 +458,7 @@ ast:
       one: Voluntariu
       other: Voluntarios
     weeks_none: Esti cursu entá nun tien un cronograma.
-    wiki_staff: Personal de Wiki Ed
+    wiki_staff: Personal de Wiki Education
     word_count_doc: Una estimación del númberu de palabres amestaes polos estudiantes
       a los artículos del espaciu principal nel periodu del cursu
     yourcourses: Los tos cursos
@@ -625,10 +627,10 @@ ast:
       does_not_exist: Esti artículu nun esiste na Wikipedia
   tasks:
     conseq: La xera %{task} yá ta n'execución
-    constant: Nun pué executase la xera %{task} mentanto tea executándose la xera
+    constant: La xera %{task} nun puede executase mentanto tea executándose la xera
       update_daily.
-    paused: La xera %{task} nun pué executase porque tán posaos los anovamientos programaos.
-      Executa 'rake batch:resume' pa siguir colos anovamientos.
+    paused: La xera %{task} nun puede executase porque tán posaos los anovamientos
+      programaos. Executa 'rake batch:resume' pa siguir colos anovamientos.
   timeline:
     add_week: Añadir selmana
     arrange_timeline: Organizar cronograma
@@ -702,7 +704,7 @@ ast:
     none: Esta clase nun contribuyó con nenguna imaxe o ficheru multimedia a Wikimedia
       Commons.
     time_doc: La hora de cada xuba n'hora llocal
-    uploaded_at: Xubíu el
+    uploaded_at: Fecha de xubida
     uploaded_by: Xubíu por
     usage_count: Númberu d'usos
     usages: Usos
@@ -775,7 +777,7 @@ ast:
       instructor: Monitor
       campus_volunteer: Voluntariu de campus
       online_volunteer: Voluntariu en llinia
-      wiki_ed_staff: Personal de Wiki Ed
+      wiki_ed_staff: Personal de Wiki Education
   user_profiles:
     student_impact: Impactu total de %{username} como alumnu
     instructor_impact: Impactu total de %{username} como monitor
@@ -846,7 +848,7 @@ ast:
     explanation: Esta páxina nun esiste. Si tentabes entrar al tableru pa un cursu,
       seique'l mesmu nun tea rexistráu nesti tableru.
   error_422:
-    header: 422 — la entidá nun pué procesase.  :-(
+    header: 422 — la entidá nun puede procesase. :-(
     explanation: Daqué salió mal. Comunícate colos encargaos del mantenimientu de
       esti tableru pa informa-yos del problema.
   error_500:
@@ -858,7 +860,7 @@ ast:
     explanation: Paez qu'hai un problema col procesu d'aniciu de sesión (pasa dacuando;
       sentímoslo muncho). Intenta volver a aniciar sesión o volver a inscribite.
   survey:
-    login_message: Gracies pol to tiempu. Anicia sesión nel to tableru de Wiki Ed
+    login_message: Gracies pol to tiempu. Anicia sesión nel to tableru de Wiki Education
       pa facer la encuesta.
     notification_explanation: Si se marca más abaxo, los usuarios recibirán correos
       electrónicos acordies cola programación d'avisos, amás de ver los avisos nel
@@ -869,15 +871,16 @@ ast:
       corréu electrónicu.
     email:
       headline: Hola, %{username}
-      message_line1: ¡Esperamos qu'esfrutares del cursu! En Wiki Ed queremos recibir
-        los tos comentarios p'ameyorar los nuesos recursos y sofitu pa les xeres de
-        Wikipedia. La to respuesta ye fundamental p'ameyorar la nuesa ufierta actual.
+      message_line1: ¡Esperamos qu'esfrutares del cursu! En Wiki Education queremos
+        recibir los tos comentarios p'ameyorar los nuesos recursos y sofitu pa les
+        xeres de Wikipedia. La to respuesta ye fundamental p'ameyorar la nuesa ufierta
+        actual.
       message_line2: ¿Querríes tomate 15 minutos pa contestar la nuesa encuesta pa
         monitores? Fai clic nel botón de más abaxo p'ayudar a faer de la enseñanza
         con Wikipedia una esperiencia entá más agradable y valoratible.
       course: 'Cursu: %{course_info}'
       closing: Candialmente,
-      signed: '- l''equipu de Wiki Ed'
+      signed: '- l''equipu de Wiki Education'
       link: Contestar la encuesta
     follow_up:
       message: Esti ye un recordatoriu sobre la encuesta pal to cursu, %{course_title}.

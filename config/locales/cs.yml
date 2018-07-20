@@ -122,19 +122,20 @@ cs:
       mohou patřit k mnohem starší verzi článku, takže jsou jen hrubým ukazatelem
       kvality článku.
     rating_docs:
-      fa: Nejlepší článek — nejvyšší hodnocení Wikipedie, přiřazené k článkům, které
-        pravděpodobně nejsou nejlepším námětem na první editovaný článek pro nové
-        editory
-      fl: Nejlepší seznam — nejvyšší hodnocení seznamů na Wikipedii
-      a: Článek 1. třídy — velmi propracovaný článek, jehož další vylepšování by pro
-        nové editory mohlo být velmi komplikované
-      ga: Dobrý článek — propracovaný článek, jehož další vylepšování by pro nové
-        editory mohlo být komplikované
-      b: Článek 2. třídy — středně propracovaný článek
-      c: Článek 3. třídy — středně rozvinutý článek s značným prostorem pro rozšiřování
-      start: Stručný článek — základní článek s velkým prostorem pro vylepšování
-      stub: Příliš stručný článek — krátký úvod k tématu vyžadující rozpracování
-      list: Článek seznamového typu
+      fa: '%{class}Nejlepší článek — nejvyšší hodnocení Wikipedie, přiřazené k článkům,
+        které pravděpodobně nejsou nejlepším námětem na první editovaný článek pro
+        nové editory'
+      fl: '%{class}Nejlepší seznam — nejvyšší hodnocení seznamů na Wikipedii'
+      a: Článek %{class}. třídy — velmi propracovaný článek, jehož další vylepšování
+        by pro nové editory mohlo být velmi komplikované
+      ga: '%{class} Dobrý článek — propracovaný článek, jehož další vylepšování by
+        pro nové editory mohlo být komplikované'
+      b: Článek %{class}. třídy — středně propracovaný článek
+      c: Článek %{class} třídy — středně rozvinutý článek s značným prostorem pro
+        rozšiřování
+      start: '%{class}. třída — základní článek s velkým prostorem pro vylepšování'
+      stub: '%{class}. třída — krátký úvod k tématu vyžadující rozpracování'
+      list: '%{class}. třída - spíše seznam než běžný článek'
       '?': Neohodnocený článek — článek, jehož kvalita ještě nebyla ohodnocena
       does_not_exist: Tento článek na Wikipedii ještě není
     see_more: Zobrazit více
@@ -195,6 +196,7 @@ cs:
     add_organizer: Přidat organizátora
     alert_article: Název článku
     alert_label: Hlášení kampaně
+    alert_select_label: Filtrovat podle typu alertu
     alert_type: Typ
     alert_user_id: Uživatel
     all_campaigns: Všechny programy
@@ -487,10 +489,10 @@ cs:
       navštíví následující adresu URL:'
     rating_feedback: 'Předpokládané hodnocení článku je:'
     requested_accounts: Požadované účty
-    review_timeline: Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
+    review_timeline: 'Prosím zkontrolujte časový plán a provádějte v něm úpravy podle
       svých představ. Až budete spokojeni, podejte ho ke schválení. Až bude schválen,
-      dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. Změny
-      v kurzu budete moci dělat i potom.
+      dostanete URL adresu, přes níž se budou studenti moci zapsat do kurzu. (Pozn.:
+      Editovat kurz budete moci i po schválení.)'
     revisions_doc: Počet editací během uplynulých %{timeframe} dní.
     revisions_none: V tomto kurzu v poslední době neprobíhala žádná editační aktivita.
     school: Škola
@@ -507,8 +509,8 @@ cs:
       že ho přidáte do programu na stránce "Přehled".
     submitted_and_pending_heading: Podáno ke schválení
     submitted_heading: Kurzy podané ke schválení
-    submitted_note: Kurz byl podán ke schválení. Brzy ho zkontrolujeme a případně
-      vás zkontaktujeme s dotazy.
+    submitted_note: Kurz byl podán ke schválení. Pracovník Wiki Education ho zkontroluje
+      a případně vás zkontaktuje s dotazy.
     suggestions_feedback: Máte nějaké návrhy ke zlepšení této funkce? Dejte nám vědět!
     suggestions_sending: Odesílání zpětné vazby...
     suggestions_sent: Zpětná vazba odeslána. Děkujeme za pomoc.
@@ -554,7 +556,8 @@ cs:
     warn_mirrored: "Po potvrzení, kurz bude automaticky publikován na Wikipedii pod
       vaším uživatelským účtem. Poté budou všechny editace tohoto kurzu změněny i
       na Wikipedii. \nJste si jist, že toto chcete udělat?"
-    wiki_staff: Wiki Ed personál
+    wiki_edits_enabled: Editování wikipedie povoleno
+    wiki_staff: Wiki Education personál
     withdrawn: Nerealizované zadání
     word_count_doc: Odhadovaný počet slov, které byly přidány do hlavního jmenného
       prostoru studenty kurzu během jeho průběhu
@@ -834,16 +837,20 @@ cs:
     check_answer: Zkontrolovat odpověď
     included_modules: Přidané moduly
   uploads:
+    credit: Zásluhy
     file_name: Název souboru
     header: Soubory nahrané na Wikimedia Commons
     image: Obrázek
     label: Načtené soubory
     loading: Načítání nahrávek...
     none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia Commons.
+    select_label: Filtrovat podle uživatele
     time_doc: Čas každého nahraného souboru v místním čase
-    uploaded_at: Nahráno
+    uploaded_at: Doba nahrávání
     uploaded_by: Načteno uživatelem
     usage_count: Počet užití
+    usage_doc: Počet článků ve wikipedii, které obsahují tento obrázek.
+    usage_count_gallery_tile: Použito v %{usage_count} článcích
     usages: Použití
   users:
     already_enrolled: Tento uživatel již byl zapsán
@@ -892,6 +899,7 @@ cs:
     revisions_doc: Počet editací provedených tímto editorem v posledních 7 dnech
     reviewers: Recenzent(i)
     reviewing: Recenzuje
+    total_uploads: Celkový počet uploadů
     training_complete:
       one: je obeznámen s tréninkem
       other: jsou obeznámeni s tréninkem
@@ -906,6 +914,7 @@ cs:
       other: '%{completed_count}/%{count} tréninkových modulů dokončeny'
     training_module_name: Tréninkový modul
     training_module_status: Stav
+    uploads_doc: Počet nahraných souborů do Wikimedia Commons
     username: Uživatelské jméno
     username_placeholder: Uživatelské jméno
     useremail_placeholder: E-mail
@@ -917,7 +926,7 @@ cs:
       instructor: Instruktor
       campus_volunteer: Dobrovolník dostupný osobně
       online_volunteer: Online dobrovolník
-      wiki_ed_staff: Wiki Ed personál
+      wiki_ed_staff: Wiki Education personál
   user_profiles:
     student_impact: Celkový vliv uživatele %{username} jako studenta
     instructor_impact: Celkový vliv %{username} jako instruktora
@@ -928,6 +937,8 @@ cs:
     institution_placeholder: Název vaší instituce (volitelný)
   wiki_edits:
     notify_overdue:
+      confirm: Toto přidá upozornění do diskusní stránky všem studentům, kteří ještě
+        nedokončili přiřazené trénovací moduly. Jste si jist, že to chcete provést?
       message: Dokončete prosím přiřazené [%{link} školící moduly].
   wizard:
     calendar_instructions: Vyberte data pro vložení nebo vyjmutí z rozvrhu (např.
@@ -994,8 +1005,8 @@ cs:
     explanation: Zdá se, že se vyskytl problém s přihlášením. (Omlouváme se, občas
       se to stane.) Zkuste to prosím znovu.
   survey:
-    login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Ed nástěnky,
-      abyste se dostali k průzkumu.
+    login_message: Děkujeme za váš čas. Přihlaste se prosím do vaší Wiki Education
+      nástěnky, abyste se dostali k průzkumu.
     notification_explanation: Pokud je pole dole zaškrtnuto, uživatel bude, mimo upozornění
       v prohlížeči, dostávat i emaily, v závislosti na nastavení upozornění. Pokud
       ne, budou se zobrazovat pouze upozornění v prohlížeči.
@@ -1004,14 +1015,14 @@ cs:
     follow_up_explanation: Nechte prázdné, pokud si nepřejete dostávat emaily s upozorněním.
     email:
       headline: Dobrý den, %{username}
-      message_line1: Doufáme, že jste zažili super semestr. Wiki Ed vás žádá o zpětnou
-        vazbu, abychom mohli vylepšit naše zdroje a podpořit vaši práci na Wikipedii.
-        Vaše odpověď je pro nás důležitá.
+      message_line1: Doufáme, že jste zažili super semestr. Wiki Education vás žádá
+        o zpětnou vazbu, abychom mohli vylepšit naše zdroje a podpořit vaši práci
+        na Wikipedii. Vaše odpověď je pro nás důležitá.
       message_line2: Jste ochotni věnovat 15 minut na vyplnění dotazníku? Klikněte
         na tlačítko níže, pomůžete nám udělat učení s Wikipedií ještě více obohacující.
       course: 'Kurz: %{course_info}'
       closing: S pozdravem,
-      signed: '- Wiki Ed tým'
+      signed: '- Wiki Education tým'
       link: Spustit dotazník
     follow_up:
       message: Připomínáme vám žádost o vyplnění dotazníku ke kurzu %{course_title}.
@@ -1027,7 +1038,18 @@ cs:
       why_are_you_here: Co byste chtěli dělat?
   article_finder:
     add_available_article: Přidat jako dostupný článek
+    remove_article: Odstranit článek
     minimum_views_label: Minimální počet zobrazení
     no_article_found: V této kategorii nebyl nalezen žádný článek
     search: Hledat
+    tools: Nástroje
+    show_filters: Zobrazit filtry
+    hide_filters: Skrýt filtry
+    keyword_search: Vyhledávání klíčových slov
+    category_search: Vyhledávání kategorií
+    article_quality: Kvalita článku (0-100)
+    more_results: Více výsledků
+    article_finder: Vyhledávač článků
+    submit: Odeslat
+    relevanceIndex: Shoda
 ...

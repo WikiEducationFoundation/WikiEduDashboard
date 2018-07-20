@@ -901,10 +901,10 @@ uk:
     first_name: Ім'я
     last_name: Прізвище
     loading: Завантаження користувачів…
-    characters_added_mainspace: (Основ.Прост.) Додано символів
+    characters_added_mainspace: Додано символів (до статей)
     characters_added_short: 'ОП: %{mainspace}, ПК %{userspace}'
-    characters_added_userspace: (Прост.Корис.) Додано символів
-    characters_added_draftspace: (Прост.Черн.) Додано символів
+    characters_added_userspace: Додано символів (до сторінок користувачів)
+    characters_added_draftspace: Додано символів (до чернеток)
     my_assigned: 'Призначено:'
     my_reviewing: 'Перевіряються:'
     name: Ім'я

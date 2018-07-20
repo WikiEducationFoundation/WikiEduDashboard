@@ -671,6 +671,8 @@ de:
     unsubmitted: Nicht eingereichte Programme
     uploads_none: Dieses Projekt hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    user_uploads_none: Die ausgewählten Benutzer haben in diesem Projekt keine Bilder
+      oder andere Mediendateien hochgeladen.
     view_other: Weitere Kampagnen ansehen
     view_page: Programmseite ansehen
     word_count_doc: Eine Schätzung der Anzahl der während der Programmdauer durch
@@ -942,10 +944,10 @@ de:
     first_name: Vorname
     last_name: Nachname
     loading: Lade Benutzer …
-    characters_added_mainspace: Hinzugefügte Zeichen im ANR
+    characters_added_mainspace: Hinzugefügte Zeichen (Artikel)
     characters_added_short: 'ANR: %{mainspace}, BNR: %{userspace}'
-    characters_added_userspace: Hinzugefügte Zeichen im BNR
-    characters_added_draftspace: Zeichen im EN hinzugefügt
+    characters_added_userspace: Hinzugefügte Zeichen (Benutzer)
+    characters_added_draftspace: Hinzugefügte Zeichen (Entwurf)
     my_assigned: 'Zugewiesen:'
     my_reviewing: 'In Überprüfung:'
     name: Name

@@ -350,6 +350,7 @@ ko:
     students: 편집자
     students_short: 편집자
     term: 날짜
+    user_uploads_none: 선택된 사용자는 이 프로젝트에 어떠한 그림이나 그 밖의 미디어 파일을 기여하지 않았습니다.
   editable:
     edit: 편집
     cancel: 취소
