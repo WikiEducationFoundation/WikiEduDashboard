@@ -32,12 +32,6 @@ const ArticlesHandler = createReactClass({
     loadingAssignments: PropTypes.bool
   },
 
-  getInitialState() {
-    return {
-      scrollDebounce: false,
-    };
-  },
-
   componentWillMount() {
     if (this.props.loadingAssignments) {
       this.props.fetchAssignments(this.props.course_id);
@@ -68,11 +62,9 @@ const ArticlesHandler = createReactClass({
   },
 
   handleScroll() {
-    if (this.refs.articlesEdited && !this.state.scrollDebounce) {
+    if (this.refs.articlesEdited && !this.props.articlesUi.scrollDebounce) {
         const editedArticles = this.refs.articlesEdited.getBoundingClientRect();
         const assignedArticles = this.refs.articlesAssigned.getBoundingClientRect();
-        // const body = document.body.getBoundingClientRect();
-
         if (editedArticles.bottom - 100 > 0) {
           return this.props.updateArticlesCurrent('articles-edited');
         }
@@ -81,13 +73,6 @@ const ArticlesHandler = createReactClass({
         }
         return this.props.updateArticlesCurrent('available-articles');
     }
-  },
-
-  toggleDebounce() {
-    this.setState({ scrollDebounce: true });
-    setTimeout(() => {
-        this.setState({ scrollDebounce: false });
-    }, 100);
   },
 
   render() {
@@ -171,8 +156,6 @@ const ArticlesHandler = createReactClass({
           {categories}
         </div>
         <ArticlesNavbar
-          currentElement={this.props.articlesCurrent}
-          assignments={this.props.assignments}
           current_user={this.props.current_user}
           course_id={this.props.course_id}
           toggleDebounce={this.toggleDebounce}
@@ -191,7 +174,7 @@ const mapStateToProps = state => ({
   loadingArticles: state.articles.loading,
   assignments: state.assignments.assignments,
   loadingAssignments: state.assignments.loading,
-  articlesCurrent: state.ui.articlesCurrent,
+  articlesUi: state.ui.articles,
 });
 
 const mapDispatchToProps = {

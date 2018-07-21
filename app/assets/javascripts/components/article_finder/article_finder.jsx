@@ -357,8 +357,6 @@ const ArticleFinder = createReactClass({
           </div>
         </div>
         <ArticlesNavbar
-          currentElement={this.props.articlesCurrent}
-          assignments={this.props.assignments}
           current_user={this.props.current_user}
           course_id={this.props.course_id}
         />
@@ -383,7 +381,6 @@ const mapStateToProps = state => ({
   loadingAssignments: state.assignments.loading,
   fetchState: state.articleFinder.fetchState,
   sort: state.articleFinder.sort,
-  articlesCurrent: state.ui.articlesCurrent,
 });
 
 const mapDispatchToProps = {

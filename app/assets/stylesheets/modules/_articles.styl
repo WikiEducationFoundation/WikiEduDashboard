@@ -2,7 +2,7 @@
   col(12/12)
 
 .articles-nav
-  col(2/12)
+  col(2.5/12)
   .panel
     margin-top 20px
     list-style none
@@ -38,18 +38,29 @@
     text-decoration none
     white-space nowrap
     text-overflow ellipsis
-    display inline-block
+    display flex
+    width 170px
+    justify-content space-between
   span
     color $text_med
 
 .articles-list
-  col(10/12)
+  col(9.5/12)
 
 .articles-nav .affix
-  width 155.85px
+  width 203px
   top $nav_height
 
 .articles__anchor
   display inline-block
   padding-top 60px
   margin-top -60px
+
+.articles-count
+  display inline-flex
+  width 25px
+  height 25px
+  border-radius 50%
+  background-color #E8E8E8
+  justify-content center
+  align-items center
