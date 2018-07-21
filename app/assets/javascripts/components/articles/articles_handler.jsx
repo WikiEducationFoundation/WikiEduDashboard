@@ -9,10 +9,11 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import ArticlesNavbar from './articlesNavbar.jsx';
+import ArticlesNavbar from './articles_navbar.jsx';
 
 import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
 import { fetchAssignments } from '../../actions/assignment_actions';
+import { updateArticlesCurrent } from '../../actions/ui_actions_redux.js';
 import { getWikiArticles } from '../../selectors';
 
 const ArticlesHandler = createReactClass({
@@ -33,7 +34,7 @@ const ArticlesHandler = createReactClass({
 
   getInitialState() {
     return {
-      currentElement: 'articles-edited'
+      scrollDebounce: false,
     };
   },
 
@@ -58,10 +59,6 @@ const ArticlesHandler = createReactClass({
     return this.props.filterArticles({ language: null, project: value[0] });
   },
 
-  onNavClick(e) {
-    return this.setState({ currentElement: e.target.getAttribute('data-key') });
-  },
-
   showMore() {
     return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
@@ -71,16 +68,26 @@ const ArticlesHandler = createReactClass({
   },
 
   handleScroll() {
-    const editedArticles = this.refs.articlesEdited.getBoundingClientRect();
-    const assignedArticles = this.refs.articlesAssigned.getBoundingClientRect();
-    const body = document.body.getBoundingClientRect();
-    if (editedArticles.bottom + 150 > body.height || window.pageYoffset === 0) {
-      return this.setState({ currentElement: 'articles-edited' });
+    if (this.refs.articlesEdited && !this.state.scrollDebounce) {
+        const editedArticles = this.refs.articlesEdited.getBoundingClientRect();
+        const assignedArticles = this.refs.articlesAssigned.getBoundingClientRect();
+        // const body = document.body.getBoundingClientRect();
+
+        if (editedArticles.bottom - 100 > 0) {
+          return this.props.updateArticlesCurrent('articles-edited');
+        }
+        else if (assignedArticles.bottom - 100 > 0) {
+          return this.props.updateArticlesCurrent('articles-assigned');
+        }
+        return this.props.updateArticlesCurrent('available-articles');
     }
-    else if (assignedArticles.bottom + 150 > body.height) {
-      return this.setState({ currentElement: 'articles-assigned' });
-    }
-    return this.setState({ currentElement: 'available-articles' });
+  },
+
+  toggleDebounce() {
+    this.setState({ scrollDebounce: true });
+    setTimeout(() => {
+        this.setState({ scrollDebounce: false });
+    }, 100);
   },
 
   render() {
@@ -129,20 +136,11 @@ const ArticlesHandler = createReactClass({
       );
     }
 
-    let availableArticlesNav;
-    if (this.props.assignments.length > 0 || this.props.current_user.isNonstudent) {
-      availableArticlesNav = (
-        <li key="available-articles" className={this.state.currentElement === 'available-articles' ? 'is-current' : ''}>
-          <a href="#available-articles" data-key="available-articles" onClick={this.onNavClick}>{I18n.t('articles.available')}</a>
-        </li>
-        );
-    }
-
     return (
       <div className="articles-content">
         <div className="articles-list">
           <div id="articles" ref="articlesEdited">
-            <a name="articles-edited" />
+            <a id="articles-edited" className="articles__anchor" />
             <div className="section-header">
               {header}
               <CourseOresPlot course={this.props.course} />
@@ -160,23 +158,24 @@ const ArticlesHandler = createReactClass({
             {showMoreButton}
           </div>
           <div id="assignments" ref="articlesAssigned">
-            <a name="articles-assigned" />
+            <a id="articles-assigned" className="articles__anchor" />
             <div className="section-header">
               <h3>{I18n.t('articles.assigned')}</h3>
             </div>
             <AssignmentList {...this.props} />
           </div>
           <div ref="availableArticles">
-            <a name="available-articles" />
+            <a id="available-articles" className="articles__anchor" />
             <AvailableArticles {...this.props} />
           </div>
           {categories}
         </div>
         <ArticlesNavbar
-          currentElement={this.state.currentElement}
+          currentElement={this.props.articlesCurrent}
           assignments={this.props.assignments}
           current_user={this.props.current_user}
-          onNavClick={this.onNavClick}
+          course_id={this.props.course_id}
+          toggleDebounce={this.toggleDebounce}
         />
       </div>
     );
@@ -191,14 +190,16 @@ const mapStateToProps = state => ({
   wikidataLabels: state.wikidataLabels.labels,
   loadingArticles: state.articles.loading,
   assignments: state.assignments.assignments,
-  loadingAssignments: state.assignments.loading
+  loadingAssignments: state.assignments.loading,
+  articlesCurrent: state.ui.articlesCurrent,
 });
 
 const mapDispatchToProps = {
   fetchArticles,
   sortArticles,
   filterArticles,
-  fetchAssignments
+  fetchAssignments,
+  updateArticlesCurrent,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlesHandler);
