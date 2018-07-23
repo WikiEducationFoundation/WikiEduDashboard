@@ -11,6 +11,7 @@
 # Author: Patio
 # Author: Ragesoss
 # Author: Romaine
+# Author: SPQRobin
 # Author: Siebrand
 # Author: Sjoerddebruin
 ---
@@ -413,8 +414,13 @@ nl:
     loading: Bezig met het laden van uploads...
     none: Voor deze klasse zijn geen afbeeldingen of andere mediabestanden bijgedragen
       aan Wikimedia Commons.
+    select_label: Filteren op uploader
     time_doc: De tijd van iedere upload in je lokale tijd
-    uploaded_at: Opgeslagen bij
+    uploaded_at: Uploadtijd
+    uploader: Uploader
+    uploaded_on: Geüpload op
+    usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
+    usage_count_gallery_tile: Gebruikt op %{usage_count} artikels
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!

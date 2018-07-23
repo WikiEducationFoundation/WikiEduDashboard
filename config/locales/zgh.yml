@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amara-Amaziɣ
 # Author: Aslmad mohamed belarhzali
+# Author: Mdb897
 # Author: YesIn
 ---
 zgh:
@@ -21,6 +22,8 @@ zgh:
     title: ⴰⵣⵡⵍ
   courses_generic:
     courses: ⵉⵖⴰⵡⴰⵙⵏ
+    user_uploads_none: ⵉⵏⵙⵙⵎⵔⵙⵏ ⵉⵜⵡⴰⵙⵜⵉⵏ ⵓⵔ ⴷ ⵉⵡⵉⵏ ⵜⵜⴰ ⴽⵔⴰ ⵏ ⵜⵓⵡⵍⴰⴼⵜ ⵡⴰⵍⴰ ⴽⵔⴰ ⵏ ⵓⴼⴰⵢⵍⵓ
+      ⵢⴰⴹⵏ ⵙ ⵓⵙⵏⴼⴰⵔ ⴰⴷ.
   recent_activity:
     article_title: ⴰⵣⵡⵍ ⵏ ⵓⵎⴳⵔⴰⴷ
     image: ⵜⴰⵡⵍⴰⴼⵜ

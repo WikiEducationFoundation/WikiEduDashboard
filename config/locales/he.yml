@@ -577,6 +577,7 @@ he:
     view: צפייה
     logged_out: יצאת מהחשבון. לא יינתן לך קרדיט על השלמת המודול הזה ללא כניסה לחשבון.
   uploads:
+    credit: קרדיט
     file_name: שם הקובץ
     header: קבצים שהועלו לוויקישיתוף
     image: תמונה
@@ -614,9 +615,10 @@ he:
     first_name: שם פרטי
     last_name: שם משפחה
     loading: טעינת משתמשים...
-    characters_added_mainspace: תווים שנוספו
+    characters_added_mainspace: תווים שנוספו (ערכים)
     characters_added_short: 'המרחב הראשי: %{mainspace}, מרחב המשתמש: %{userspace}'
-    characters_added_userspace: תווים שנוספו
+    characters_added_userspace: תווים שנוספו (משתמש)
+    characters_added_draftspace: תווים שנוספו (טיוטה)
     my_assigned: משוייך
     my_reviewing: 'בבדיקה:'
     name: שם
