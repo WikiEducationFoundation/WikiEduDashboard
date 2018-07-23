@@ -46,6 +46,7 @@ class UpdateCourseStats
     CoursesUsers.update_all_caches(@course.courses_users)
     log_update_progress :courses_users_updated
     @course.update_cache
+    log_update_progress :course_cache_updated
   end
 
   def log_update_progress(step)
