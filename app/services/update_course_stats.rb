@@ -52,7 +52,7 @@ class UpdateCourseStats
     return unless debug?
     @sentry_logs ||= {}
     @sentry_logs[step] = Time.zone.now
-    Raven.capture_message(message, level: 'warn', extra: { logs: @sentry_logs })
+    Raven.capture_message("#{@course.title} update: #{step}", level: 'warn', extra: { logs: @sentry_logs })
   end
 
   def debug?
