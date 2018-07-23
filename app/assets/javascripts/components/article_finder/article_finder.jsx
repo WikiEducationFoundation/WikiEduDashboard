@@ -320,10 +320,17 @@ const ArticleFinder = createReactClass({
         <a className="button small pull-right" href={`/feedback?subject=Article Finder — ${this.props.search_term}`} target="_blank">How did the article finder work for you?</a>
       );
     }
+    let articlesNavbar;
+    if (this.props.course_id) {
+      articlesNavbar = (<ArticlesNavbar
+        current_user={this.props.current_user}
+        course_id={this.props.course_id}
+      />);
+    }
 
     return (
       <div className="article-finder">
-        <div className="container">
+        <div className={`container ${this.props.course_id ? 'smaller-finder' : ''}`}>
           <header>
             <h1 className="title">{I18n.t('article_finder.article_finder')}</h1>
             <div>
@@ -356,10 +363,7 @@ const ArticleFinder = createReactClass({
             {fetchMoreButton}
           </div>
         </div>
-        <ArticlesNavbar
-          current_user={this.props.current_user}
-          course_id={this.props.course_id}
-        />
+        {articlesNavbar}
       </div>
       );
   }
