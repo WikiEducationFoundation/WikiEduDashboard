@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import moment from 'moment';
 
-import * as UIActions from '../../actions';
+import * as UIActions from '../../actions/ui_actions_redux.js';
 import ActivityTableRow from './activity_table_row.jsx';
 import Loading from '../common/loading.jsx';
 

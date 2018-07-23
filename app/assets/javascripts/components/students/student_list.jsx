@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 
-import { toggleUI, resetUI } from '../../actions';
+import { toggleUI, resetUI } from '../../actions/ui_actions_redux.js';
 import { getStudentUsers } from '../../selectors';
 
 import List from '../common/list.jsx';

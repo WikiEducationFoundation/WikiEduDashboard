@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import OnClickOutside from 'react-onclickoutside';
-import { toggleUI } from '../../actions';
+import { toggleUI } from '../../actions/ui_actions_redux.js';
 import Conditional from '../high_order/conditional.jsx';
 
 // This is a variant version of Expandable which closes upon

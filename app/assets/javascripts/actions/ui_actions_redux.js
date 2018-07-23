@@ -1,5 +1,8 @@
 import { UPDATE_ARTICLES_CURRENT, TOGGLE_SCROLL_DEBOUNCE } from '../constants';
 
+export const toggleUI = key => ({ type: types.TOGGLE_UI, key });
+export const resetUI = key => ({ type: types.RESET_UI, key });
+
 export const updateArticlesCurrent = (key) => {
   return {
     type: UPDATE_ARTICLES_CURRENT,
