@@ -316,12 +316,12 @@ nav.profile-nav
 .bm-menu
   a
     text-decoration none
-    color #b8b7ad
     font-weight 700
+    color #fff
   a:hover
-    color #676EB4
+    color #D3D3D3
 .bm-item-list
-  background: #373a47;
+  background: #3b4175
   text-align left
   li
     margin-left unset
@@ -343,8 +343,7 @@ nav.profile-nav
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 24px;
-  width: 24px;
+  display none
 }
 
 /* Color/shape of close button cross */
@@ -354,8 +353,7 @@ nav.profile-nav
 
 /* General sidebar styles */
 .bm-menu {
-  background: #373a47;
-  padding: 2.5em 1.5em 0;
+  background: #3b4175;
   font-size: 1.15em;
 }
 
@@ -365,9 +363,8 @@ nav.profile-nav
 }
 
 /* Wrapper for item list */
-.bm-item-list {
+.bm-item-list
   padding: 0.8em;
-}
 
 /* Styling of overlay */
 .bm-overlay {
@@ -376,10 +373,12 @@ nav.profile-nav
   z-index 2 !important
 }
 
-.bm-menu-wrap {
-  top: 0px;
-  z-index: 10000 !important;
-}
+.bm-menu-wrap
+  top 55px
+  width 100% !important
+  z-index 1 !important
+  // z-index: 10000 !important;
+
 
 // making navBar responsive
 @media only screen and (max-width: 920px)
@@ -391,8 +390,11 @@ nav.profile-nav
         list-style none
   .bm-menu
     li
-      margin-top 30px
       list-style none
+      padding 18px
+      border-bottom 1px solid #808080
+      margin-left 10px
+      margin-right 10px
   .ham-nav__site-logo
     line-height 0
 

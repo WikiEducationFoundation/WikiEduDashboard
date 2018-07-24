@@ -112,7 +112,9 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
           {languageSwitcher}
           <div className="hamburger_menu_wrapper">
             <Menu right>
-              <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
+              <li>
+                <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
+              </li>
               {myDashboard}
               {forAdmin}
               <li>

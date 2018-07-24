@@ -1,17 +1,19 @@
 %section.dark.hero
   .container
     %h1= ENV['dashboard_title']
+    // %h6= "Manage and track wikimedia programs from one place with ease"
 
-    = link_to user_mediawiki_omniauth_authorize_path, {class: 'button auth'} do
-      %i.icon.icon-wiki-logo
-      = t('home.log_in')
+    .button-container
+      = link_to user_mediawiki_omniauth_authorize_path, {class: 'button auth'} do
+        %i.icon.icon-wiki-logo
+        = t('home.log_in')
 
-    = link_to user_mediawiki_signup_omniauth_authorize_path, {class: 'button button-ghost button-inverse auth signup'} do
-      %i.icon.icon-wiki-logo
-      = t('home.sign_up')
+      = link_to user_mediawiki_signup_omniauth_authorize_path, {class: 'button button-inverse auth signup'} do
+        %i.icon.icon-wiki-logo
+        = t('home.sign_up')
 
-    %span.help{data: { title: t('home.sign_up_help') } }
-      ?
+      %span.help{data: { title: t('home.sign_up_help') } }
+        ?
 
 %section
   .container.text-center
@@ -24,5 +26,5 @@
     = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
 
 #impact
-  - if Features.wiki_ed?
+  - if !Features.wiki_ed?
     = render :partial => "wiki_ed_impact"
