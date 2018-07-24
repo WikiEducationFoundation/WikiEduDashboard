@@ -1,0 +1,32 @@
+---
+title: User pages
+id: 2210
+content: |
+  Everyone with a Wikipedia account has a User page. And all User pages have
+  their own Talk pages. This is where you can engage directly with a particular
+  editor. They will be notified if you leave a message for them on their
+  personal Talk page.
+
+  Your User page can be found in the upper right menu bar on Wikipedia whenever
+  you're logged in. It's likely that yours is a red link right now. That means
+  that you have yet to create the page attached to your username.
+
+  <figure class="alt-layout-100">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Upper_menu_on_English_Wikipedia.png" />
+  </figure>
+
+
+  Open Wikipedia in another tab, log in, and click on that red link. This will
+  open up an editing window to create the new page. Try copying and pasting this
+  sentence into the editor:
+
+  <p style="margin-left: 40px">
+  <code>
+  I am excited to be part of the Wikipedia Fellows program which is designed
+  to train subject-area experts how to contribute to Wikipedia. Wiki Education
+  facilitates this program. Learn more at http://fellows.wikiedu.org. All of my
+  contributions are my own and I take responsibility for them.
+  </code>
+  </p>
+
+  Now click "Publish changes".
