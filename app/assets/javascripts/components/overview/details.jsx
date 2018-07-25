@@ -191,7 +191,11 @@ const Details = createReactClass({
     }
   
     let expectedStudents;
+<<<<<<< 4db9fd28449b110305f55fee5ce5394589cf4c63
     //Changed line lies below
+=======
+    ////Changed line lies below
+>>>>>>> update
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
         <TextInput
