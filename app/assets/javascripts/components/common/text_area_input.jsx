@@ -1,4 +1,4 @@
-import { TrixEditor } from 'react-trix';
+import { Editor } from '@tinymce/tinymce-react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -22,15 +22,15 @@ const TextAreaInput = createReactClass({
     placeholder: PropTypes.string,
     autoExpand: PropTypes.bool, // start with one line and expand as needed — plain text only
     rows: PropTypes.string, // set the number of rows — plain text only
-    wysiwyg: PropTypes.bool, // use Trix editor instead of plain text
+    wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
     markdown: PropTypes.bool, // render value as Markdown when in read mode
     className: PropTypes.string
   },
 
-  // react-trix passes html, text to the onChange handler.
-  _handleTrixChange(html) {
-    const e = { target: { value: html } };
-    this.props.onChange(e);
+  handleRichTextEditorChange(e) {
+    this.props.onChange(
+      { target: { value: e.target.getContent() } }
+    );
   },
 
   render() {
@@ -46,13 +46,19 @@ const TextAreaInput = createReactClass({
         inputClass = 'invalid';
       }
 
-      // Use Trix if props.wysiwyg, otherwise, use a basic textarea.
+      // Use TinyMCE if props.wysiwyg, otherwise, use a basic textarea.
       if (this.props.wysiwyg) {
         inputElement = (
-          <TrixEditor
-            value={this.props.value}
-            onChange={this._handleTrixChange}
+          <Editor
+            initialValue={this.props.value}
+            onChange={this.handleRichTextEditorChange}
             className={inputClass}
+            init={{
+              height: 250,
+              plugins: 'code',
+              branding: false,
+              inline: true
+            }}
           />
         );
       } else {
