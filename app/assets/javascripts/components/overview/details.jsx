@@ -191,7 +191,7 @@ const Details = createReactClass({
     }
 
     let expectedStudents;
-    ////Chnaged line lies below
+    ////Changed line lies below
     if ((this.props.course.expected_students || this.props.course.expected_students === 0 || this.props.editable) && isClassroomProgramType) {
       expectedStudents = (
         <TextInput
