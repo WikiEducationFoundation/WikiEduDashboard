@@ -1,7 +1,7 @@
 import React from 'react';
 import YesNoSelector from './yes_no_selector';
 
-const TimelineToggle = ({ course, editable }) => {
+const TimelineToggle = ({ course, editable, updateCourse }) => {
   return (
     <YesNoSelector
       courseProperty="timeline_enabled"
@@ -9,6 +9,7 @@ const TimelineToggle = ({ course, editable }) => {
       tooltip={I18n.t("courses.timeline_tooltip")}
       course={course}
       editable={editable}
+      updateCourse={updateCourse}
     />
   );
 };

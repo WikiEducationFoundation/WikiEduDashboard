@@ -1,7 +1,7 @@
 import React from 'react';
 import YesNoSelector from './yes_no_selector';
 
-const WikiEditsToggle = ({ course, editable }) => {
+const WikiEditsToggle = ({ course, editable, updateCourse }) => {
   return (
     <YesNoSelector
       courseProperty="wiki_edits_enabled"
@@ -9,6 +9,7 @@ const WikiEditsToggle = ({ course, editable }) => {
       tooltip={I18n.t("courses.wiki_edits_enabled_tooltip")}
       course={course}
       editable={editable}
+      updateCourse={updateCourse}
     />
   );
 };

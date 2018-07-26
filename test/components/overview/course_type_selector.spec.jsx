@@ -15,6 +15,7 @@ describe('CourseTypeSelector', () => {
       <CourseTypeSelector
         course={course}
         editable={false}
+        updateCourse={sinon.spy()}
       />
     );
     const typeListing = ReactTestUtils.findRenderedDOMComponentWithTag(NonEditableCourseTypeSelector, 'div');
@@ -22,18 +23,21 @@ describe('CourseTypeSelector', () => {
   });
 
   it('calls updateCourse when selection changes', () => {
+    const fluxSpy = sinon.spy();
     const spy = sinon.spy();
     CourseTypeSelector.__Rewire__('CourseActions', {
-      updateCourse: spy
+      updateCourse: fluxSpy
     });
     const EditableCourseTypeSelector = ReactTestUtils.renderIntoDocument(
       <CourseTypeSelector
         course={course}
         editable={true}
+        updateCourse={spy}
       />
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');
     Simulate.change(selector, { target: { value: 'VisitingScholarship' } });
+    expect(fluxSpy.callCount).to.eq(1);
     expect(spy.callCount).to.eq(1);
   });
 
@@ -48,6 +52,7 @@ describe('CourseTypeSelector', () => {
       <CourseTypeSelector
         course={basicCourse}
         editable={true}
+        updateCourse={sinon.spy()}
       />
     );
     const selector = ReactTestUtils.findRenderedDOMComponentWithTag(EditableCourseTypeSelector, 'select');

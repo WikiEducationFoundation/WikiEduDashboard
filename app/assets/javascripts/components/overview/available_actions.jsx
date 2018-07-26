@@ -25,7 +25,8 @@ const AvailableActions = createReactClass({
     initiateConfirm: PropTypes.func.isRequired,
     addNotification: PropTypes.func.isRequired,
     enableAccountRequests: PropTypes.func.isRequired,
-    enableForCourse: PropTypes.func.isRequired
+    enableForCourse: PropTypes.func.isRequired,
+    updateCourse: PropTypes.func.isRequired
   },
 
   join() {
@@ -97,8 +98,10 @@ const AvailableActions = createReactClass({
     const enableRequests = this.props.enableAccountRequests;
     const notify = this.props.addNotification;
     const course = this.props.course;
+    const updateCourse = this.props.updateCourse;
     const onConfirm = function () {
       enableRequests(course);
+      updateCourse(course);
       CourseActions.updateCourse(course);
       notify({
         message: I18n.t('courses.accounts_generation_enabled'),

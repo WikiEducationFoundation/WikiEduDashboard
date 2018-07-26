@@ -17,6 +17,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
+import { updateCourse } from '../../actions/course_actions_redux';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -34,7 +35,8 @@ const Overview = createReactClass({
     current_user: PropTypes.object,
     course_id: PropTypes.string,
     location: PropTypes.object,
-    students: PropTypes.array
+    students: PropTypes.array,
+    updateCourse: PropTypes.func.isRequired
   },
 
   mixins: [WeekStore.mixin, CourseStore.mixin],
@@ -87,6 +89,7 @@ const Overview = createReactClass({
           title={course.title}
           course_id={this.props.course_id}
           current_user={this.props.current_user}
+          updateCourse={this.props.updateCourse}
         />
         {thisWeek}
       </div>
@@ -136,5 +139,9 @@ const mapStateToProps = state => ({
   campaigns: state.campaigns.campaigns
  });
 
+const mapDispatchToProps = {
+  updateCourse
+};
 
-export default connect(mapStateToProps)(Overview);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);

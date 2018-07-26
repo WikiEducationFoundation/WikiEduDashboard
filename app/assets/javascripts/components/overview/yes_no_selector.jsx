@@ -9,7 +9,8 @@ const YesNoSelector = createReactClass({
     label: PropTypes.string.isRequired,
     tooltip: PropTypes.string,
     course: PropTypes.object.isRequired,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   _handleChange(e) {
@@ -20,6 +21,7 @@ const YesNoSelector = createReactClass({
     } else if (value === 'no') {
       course[this.props.courseProperty] = false;
     }
+    this.props.updateCourse(course);
     CourseActions.updateCourse(course);
   },
 

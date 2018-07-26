@@ -55,7 +55,8 @@ const Details = createReactClass({
     campaigns: PropTypes.array,
     tags: PropTypes.array,
     controls: PropTypes.func,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -75,6 +76,7 @@ const Details = createReactClass({
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
+    this.props.updateCourse(updatedCourse);
     return CourseActions.updateCourse(updatedCourse);
   },
 
@@ -82,11 +84,13 @@ const Details = createReactClass({
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
+    this.props.updateCourse(updatedCourse);
     return CourseActions.updateCourse(updatedCourse);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
+    this.props.updateCourse(updatedCourse);
     return CourseActions.updateCourse(updatedCourse);
   },
 
@@ -281,12 +285,14 @@ const Details = createReactClass({
         <SubmittedSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
       withdrawnSelector = (
         <WithdrawnSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -307,6 +313,7 @@ const Details = createReactClass({
         <PrivacySelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -327,6 +334,7 @@ const Details = createReactClass({
         <TimelineToggle
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -338,6 +346,7 @@ const Details = createReactClass({
         <WikiEditsToggle
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }
@@ -346,11 +355,13 @@ const Details = createReactClass({
       projectSelector = (
         <HomeWikiProjectSelector
           course={this.props.course}
+          updateCourse={this.props.updateCourse}
         />
       );
       languageSelector = (
         <HomeWikiLanguageSelector
           course={this.props.course}
+          updateCourse={this.props.updateCourse}
         />
       );
     }

@@ -15,10 +15,12 @@ const Description = createReactClass({
     description: PropTypes.string,
     title: PropTypes.string,
     editable: PropTypes.bool,
-    controls: PropTypes.any
+    controls: PropTypes.any,
+    updateCourse: PropTypes.func.isRequired
   },
 
   updateDescription(_valueKey, value) {
+    this.props.updateCourse({ description: value });
     return CourseActions.updateCourse({ description: value });
   },
 

@@ -20,7 +20,8 @@ const Calendar = createReactClass({
     weeks: PropTypes.array,
     calendarInstructions: PropTypes.string,
     editable: PropTypes.bool,
-    shouldShowSteps: PropTypes.bool
+    shouldShowSteps: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   getInitialState() {
@@ -64,6 +65,7 @@ const Calendar = createReactClass({
 
     course.day_exceptions = exceptions.join(',');
     course.no_day_exceptions = (_.compact(exceptions).length === 0);
+    this.props.updateCourse(course);
     return CourseActions.updateCourse(course);
   },
   selectWeekday(e, weekday) {
@@ -77,6 +79,7 @@ const Calendar = createReactClass({
     }
     weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
     toPass.weekdays = weekdays.join('');
+    this.props.updateCourse(toPass);
     return CourseActions.updateCourse(toPass);
   },
   inrange(day) {

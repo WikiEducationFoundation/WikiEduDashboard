@@ -13,7 +13,8 @@ const FormPanel = createReactClass({
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    shouldShowSteps: PropTypes.bool
+    shouldShowSteps: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   setAnyDatesSelected(bool) {

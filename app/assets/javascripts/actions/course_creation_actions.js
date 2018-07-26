@@ -1,5 +1,5 @@
 import API from '../utils/api.js';
-import { RECEIVE_INITIAL_CAMPAIGN, UPDATE_COURSE, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
+import { RECEIVE_INITIAL_CAMPAIGN, CREATED_COURSE, RECEIVE_COURSE_CLONE, API_FAIL } from '../constants';
 
 const fetchCampaignPromise = slug => {
   return new Promise((res, rej) =>
@@ -19,8 +19,6 @@ export const fetchCampaign = slug => dispatch => {
     .then(resp => dispatch({ type: RECEIVE_INITIAL_CAMPAIGN, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
-
-export const updateCourse = course => ({ type: UPDATE_COURSE, course });
 
 export const submitCourse = (course, failureCallback) => dispatch => {
   return API.saveCourse(course, null)
