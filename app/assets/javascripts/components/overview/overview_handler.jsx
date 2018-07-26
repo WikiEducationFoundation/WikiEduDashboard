@@ -8,7 +8,6 @@ import Description from './description.jsx';
 import Milestones from './milestones.jsx';
 import Details from './details.jsx';
 import ThisWeek from './this_week.jsx';
-import CourseStore from '../../stores/course_store.js';
 import WeekStore from '../../stores/week_store.js';
 import Loading from '../common/loading.jsx';
 import CourseClonedModal from './course_cloned_modal.jsx';
@@ -22,7 +21,6 @@ import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
   ({
-    course: CourseStore.getCourse(),
     loading: WeekStore.getLoadingStatus(),
     weeks: WeekStore.getWeeks()
   })
@@ -32,6 +30,7 @@ const Overview = createReactClass({
   displayName: 'Overview',
 
   propTypes: {
+    course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     course_id: PropTypes.string,
     location: PropTypes.object,
@@ -39,7 +38,7 @@ const Overview = createReactClass({
     updateCourse: PropTypes.func.isRequired
   },
 
-  mixins: [WeekStore.mixin, CourseStore.mixin],
+  mixins: [WeekStore.mixin],
 
   getInitialState() {
     return getState();
@@ -55,9 +54,9 @@ const Overview = createReactClass({
   },
 
   render() {
-    const course = this.state.course;
+    const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} />;
+      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} />;
     }
 
     let syllabusUpload;
@@ -109,7 +108,7 @@ const Overview = createReactClass({
     const sidebar = course.id ? (
       <div className="sidebar">
         <Details {...this.props} />
-        <AvailableActions course={course} current_user={this.props.current_user} />
+        <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
         <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
       </div>
     ) : (

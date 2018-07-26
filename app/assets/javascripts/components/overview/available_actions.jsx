@@ -17,7 +17,7 @@ import CourseActions from '../../actions/course_actions.js';
 import { needsUpdate } from '../../actions/course_actions_redux';
 
 const AvailableActions = createReactClass({
-  displayName: 'Actions',
+  displayName: 'AvailableActions',
 
   propTypes: {
     course: PropTypes.object.isRequired,

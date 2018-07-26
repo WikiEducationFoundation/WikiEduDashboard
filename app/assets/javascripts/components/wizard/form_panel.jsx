@@ -28,12 +28,12 @@ const FormPanel = createReactClass({
     const { checked } = this.noDates;
     const toPass = this.props.course;
     toPass.no_day_exceptions = checked;
-    return CourseActions.updateCourse(toPass);
+    return this.props.updateCourse(toPass);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   saveCourse() {
@@ -117,7 +117,8 @@ const FormPanel = createReactClass({
             save={true}
             setAnyDatesSelected={this.setAnyDatesSelected}
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
-            calendarInstructions= {I18n.t('wizard.calendar_instructions')}
+            calendarInstructions={I18n.t('wizard.calendar_instructions')}
+            updateCourse={this.props.updateCourse}
           />
           <label> I have no class holidays
             <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />

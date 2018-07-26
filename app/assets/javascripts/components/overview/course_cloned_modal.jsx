@@ -17,7 +17,8 @@ const CourseClonedModal = createReactClass({
   displayName: 'CourseClonedModal',
 
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object.isRequired,
+    updateCourse: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin, CourseStore.mixin],
@@ -221,6 +222,7 @@ const CourseClonedModal = createReactClass({
             setBlackoutDatesSelected={this.setBlackoutDatesSelected}
             shouldShowSteps={false}
             calendarInstructions={I18n.t('courses.creator.cloned_course_calendar_instructions')}
+            updateCourse={this.props.updateCourse}
           />
           <label> {I18n.t('courses.creator.no_class_holidays')}
             <input id="no_holidays" type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />

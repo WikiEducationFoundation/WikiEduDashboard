@@ -76,22 +76,19 @@ const Details = createReactClass({
   updateDetails(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
-    this.props.updateCourse(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateSlugPart(valueKey, value) {
     const updatedCourse = this.props.course;
     updatedCourse[valueKey] = value;
     updatedCourse.slug = CourseUtils.generateTempId(updatedCourse);
-    this.props.updateCourse(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    this.props.updateCourse(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   storeDidChange() {
@@ -303,6 +300,7 @@ const Details = createReactClass({
         <CourseTypeSelector
           course={this.props.course}
           editable={this.props.editable}
+          updateCourse={this.props.updateCourse}
         />
       );
     }

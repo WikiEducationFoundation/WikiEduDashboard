@@ -8,6 +8,10 @@ const redirectToNewSlug = (newSlug) => {
 };
 
 const CourseActions = Flux.createActions({
+  receiveCourse(response) {
+    return { actionType: 'RECEIVE_COURSE', data: response };
+  },
+
   persistCourse(data, courseId = null) {
     return API.saveCourse(data, courseId)
       .then(resp => {

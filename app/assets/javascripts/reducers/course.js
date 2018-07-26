@@ -1,4 +1,12 @@
-import { RECEIVE_INITIAL_CAMPAIGN, RECEIVE_COURSE_CLONE, UPDATE_COURSE, CREATED_COURSE } from "../constants";
+import {
+  RECEIVE_INITIAL_CAMPAIGN,
+  RECEIVE_COURSE_CLONE,
+  RECEIVE_COURSE,
+  UPDATE_COURSE,
+  CREATED_COURSE,
+  ADD_CAMPAIGN,
+  DELETE_CAMPAIGN
+} from "../constants";
 
 const initialState = {
   title: '',
@@ -20,6 +28,8 @@ const initialState = {
 
 export default function course(state = initialState, action) {
   switch (action.type) {
+    case RECEIVE_COURSE:
+      return { ...action.data.course };
     case UPDATE_COURSE:
       return { ...state, ...action.course };
     case CREATED_COURSE:
@@ -36,6 +46,9 @@ export default function course(state = initialState, action) {
       };
       return newState;
     }
+    case ADD_CAMPAIGN:
+    case DELETE_CAMPAIGN:
+      return { ...state, published: action.data.course.published };
     case RECEIVE_COURSE_CLONE:
       return { ...action.data.course };
     default:

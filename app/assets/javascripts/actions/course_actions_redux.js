@@ -1,4 +1,8 @@
-import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE } from '../constants';
+import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE } from '../constants';
+import API from '../utils/api.js';
+import CourseActions from './course_actions';
+
+export const updateCourse = course => ({ type: UPDATE_COURSE, course });
 
 const needsUpdatePromise = (courseId) => {
   return new Promise((res, rej) =>
@@ -27,7 +31,15 @@ export function needsUpdate(courseId) {
   return function (dispatch) {
     return needsUpdatePromise(courseId)
       .then(resp => dispatch({ type: ADD_NOTIFICATION, notification: needsUpdateNotification(resp) }))
-      .catch(resp => dispatch({ type: API_FAIL, data: resp }));
+      .catch(data => dispatch({ type: API_FAIL, data }));
   };
 }
-export const updateCourse = course => ({ type: UPDATE_COURSE, course });
+
+export const fetchCourse = (courseId) => (dispatch) => {
+  return API.fetch(courseId, 'course')
+    .then(data => {
+      dispatch({ type: RECEIVE_COURSE, data });
+      return CourseActions.receiveCourse(data);
+    })
+    .catch(data => ({ type: API_FAIL, data }));
+};
