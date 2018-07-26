@@ -8,10 +8,6 @@ const redirectToNewSlug = (newSlug) => {
 };
 
 const CourseActions = Flux.createActions({
-  receiveCourse(response) {
-    return { actionType: 'RECEIVE_COURSE', data: response };
-  },
-
   persistCourse(data, courseId = null) {
     return API.saveCourse(data, courseId)
       .then(resp => {
@@ -37,13 +33,6 @@ const CourseActions = Flux.createActions({
           data: resp
         };
       });
-  },
-
-  updateCourse(course) {
-    return {
-      actionType: 'UPDATE_COURSE',
-      data: { course }
-    };
   },
 
   updateClonedCourse(data, courseId, tempId) {

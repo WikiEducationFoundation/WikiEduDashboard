@@ -2,7 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
-import CourseStore from '../../stores/course_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import CourseActions from '../../actions/course_actions.js';
@@ -21,7 +20,7 @@ const CourseClonedModal = createReactClass({
     updateCourse: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin, CourseStore.mixin],
+  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return {

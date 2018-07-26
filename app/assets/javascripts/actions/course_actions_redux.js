@@ -1,8 +1,26 @@
-import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE } from '../constants';
+import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE } from '../constants';
 import API from '../utils/api.js';
-import CourseActions from './course_actions';
+
+export const fetchCourse = (courseId) => (dispatch) => {
+  return API.fetch(courseId, 'course')
+    .then(data => dispatch({ type: RECEIVE_COURSE, data }))
+    .catch(data => ({ type: API_FAIL, data }));
+};
+
 
 export const updateCourse = course => ({ type: UPDATE_COURSE, course });
+
+export const resetCourse = () => (dispatch, getState) => {
+  const persistedCourse = getState().persistedCourse;
+  dispatch({ type: UPDATE_COURSE, course: { ...persistedCourse } });
+};
+
+export const persistCourse = (courseId = null) => (dispatch, getState) => {
+  const course = getState().course;
+  return API.saveCourse({ course }, courseId)
+    .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
+    .catch(data => ({ type: API_FAIL, data }));
+};
 
 const needsUpdatePromise = (courseId) => {
   return new Promise((res, rej) =>
@@ -35,11 +53,3 @@ export function needsUpdate(courseId) {
   };
 }
 
-export const fetchCourse = (courseId) => (dispatch) => {
-  return API.fetch(courseId, 'course')
-    .then(data => {
-      dispatch({ type: RECEIVE_COURSE, data });
-      return CourseActions.receiveCourse(data);
-    })
-    .catch(data => ({ type: API_FAIL, data }));
-};

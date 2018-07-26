@@ -38,7 +38,6 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = () =>
   ({
-    course: CourseStore.getCourse(),
     tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
@@ -461,4 +460,4 @@ const saveCourseDetails = (data, courseId = null) => {
   }
 };
 
-export default Editable(Details, [CourseStore, TagStore], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default Editable(Details, [], saveCourseDetails, getState, I18n.t('editable.edit_details'));

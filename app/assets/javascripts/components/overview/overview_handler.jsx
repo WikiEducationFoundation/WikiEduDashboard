@@ -16,7 +16,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
-import { updateCourse } from '../../actions/course_actions_redux';
+import { updateCourse, resetCourse, persistCourse } from '../../actions/course_actions_redux';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -35,7 +35,8 @@ const Overview = createReactClass({
     course_id: PropTypes.string,
     location: PropTypes.object,
     students: PropTypes.array,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    resetCourse: PropTypes.func.isRequired
   },
 
   mixins: [WeekStore.mixin],
@@ -89,6 +90,8 @@ const Overview = createReactClass({
           course_id={this.props.course_id}
           current_user={this.props.current_user}
           updateCourse={this.props.updateCourse}
+          resetState={this.props.resetCourse}
+          persistCourse={this.props.persistCourse}
         />
         {thisWeek}
       </div>
@@ -139,7 +142,9 @@ const mapStateToProps = state => ({
  });
 
 const mapDispatchToProps = {
-  updateCourse
+  updateCourse,
+  resetCourse,
+  persistCourse
 };
 
 

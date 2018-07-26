@@ -11,18 +11,31 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
     propTypes: {
       course_id: PropTypes.any,
       current_user: PropTypes.object,
-      editable: PropTypes.bool
+      editable: PropTypes.bool,
+      resetState: PropTypes.func,
+      persistCourse: PropTypes.func
     },
 
     mixins: Stores.map(store => store.mixin),
 
     getInitialState() {
-      const newState = GetState();
-      newState.editable = this.state ? this.state.editable : false;
-      return newState;
+      if (GetState) {
+        const newState = GetState();
+        newState.editable = this.state ? this.state.editable : false;
+        return newState;
+      }
+      return { editable: this.state ? this.state.editable : false };
     },
 
     cancelChanges() {
+      if (this.props.resetState) {
+        this.props.resetState();
+        return this.toggleEditable();
+      }
+      this.cancelFluxChanges();
+    },
+
+    cancelFluxChanges() {
       for (let i = 0; i < Stores.length; i++) {
         const store = Stores[i];
         store.restore();
@@ -30,6 +43,10 @@ const Editable = (Component, Stores, Save, GetState, Label, SaveLabel, SaveOnly)
       return this.toggleEditable();
     },
     saveChanges() {
+      if (Stores.length === 0) {
+        this.props.persistCourse(this.props.course_id);
+        return this.toggleEditable();
+      }
       if (ValidationStore.isValid()) {
         Save($.extend(true, {}, this.state), this.props.course_id);
         return this.toggleEditable();
