@@ -124,20 +124,21 @@ tr:
       atanmıştır. Bu derecelendirmeler daha eski sürümlere karşılık gelebilir, bu
       nedenle bunlar yalnızca makale olgunluğunun kaba bir göstergesidir.
     rating_docs:
-      fa: Seçkin makale — Vikipedi'nin en yüksek reytingli ve muhtelemen yeni bir
-        editörün ana projesi için oldukça olgun bir makalesidir
-      fl: Seçkin liste — Vikipedi'nin listeler için en yüksek reytingli sayfalarıdır
-      a: 'A sınıf: yeni bir editörün ana projesi için çok olgun olabilecek çok gelişmiş
+      fa: '%{class} (Seçkin makale) — Vikipedi''nin en yüksek reytingli ve muhtelemen
+        yeni bir editörün ana projesi için oldukça olgun bir makalesidir'
+      fl: '%{class} (Seçkin liste) — Vikipedi''nin listeler için en yüksek reytingli
+        sayfalarıdır'
+      a: '%{class}-sınıf: yeni bir editörün ana projesi için çok olgun olabilecek
+        çok gelişmiş bir makale'
+      ga: '%{class} (Kaliteli makale): yeni bir editörün ana projesi için çok olgun
+        olabilecek iyi geliştirilmiş bir makale'
+      b: '%{class}-sınıf: orta gelişmiş bir makale'
+      c: '%{class}-sınıf: iyileştirilebilecek içeriğe sahip orta düzeyde bir makale'
+      start: '%{class}-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
         bir makale'
-      ga: 'Kaliteli makale: yeni bir editörün ana projesi için çok olgun olabilecek
-        iyi geliştirilmiş bir makale'
-      b: 'B sınıf: orta gelişmiş bir makale'
-      c: 'C sınıf: iyileştirilebilecek içeriğe sahip orta düzeyde bir makale'
-      start: 'Başlangıç-sınıf: iyileştirilmesi için birçok eksiği olan başlangıç düzeyindeki
-        bir makale'
-      stub: 'Taslak-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
+      stub: '%{class}-sınıf: Daha fazla içeriğe ihtiyaç duyan bir makalenin kısa bir
         başlangıcı'
-      list: 'Liste-sınıf: geleneksel bir yazı yerine bir liste'
+      list: '%{class}-sınıf: geleneksel bir yazı yerine bir liste'
       '?': 'Değerlendirilmemiş: Vikipedi''nin kalite ölçeğinde henüz değerlendirilmemiş
         bir makalesi'
       does_not_exist: Bu makale Vikipedi'de mevcut değil

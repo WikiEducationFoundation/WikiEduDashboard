@@ -3,7 +3,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactDOM from 'react-dom';
-import TrixEditor from 'react-trix';
+import TextAreaInput from '../components/common/text_area_input';
 import DatePicker from '../components/common/date_picker.jsx';
 import Calendar from '../components/common/calendar.jsx';
 import Popover from '../components/common/popover.jsx';
@@ -50,9 +50,11 @@ const StyleguideExamples = {
 
   richText() {
     ReactDOM.render((
-      <TrixEditor
+      <TextAreaInput
         value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        onChange={(e) => {console.log(e);}}
+        editable={true}
+        onChange={() => { return null; }}
+        wysiwyg={true}
       />
     ), document.getElementById('rich-text'));
   },

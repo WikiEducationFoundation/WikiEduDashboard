@@ -47,6 +47,14 @@
   dependencies:
     samsam "1.3.0"
 
+"@tinymce/tinymce-react@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.2.5.tgz#1f71e4305f7a771dafd5d44f2a9adae5a35abdbb"
+  dependencies:
+    prop-types "^15.6.0"
+    react "^16.2.0"
+    react-dom "^16.2.0"
+
 "@types/node@*":
   version "8.0.53"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
@@ -8402,6 +8410,15 @@ react-dom@^15.6.2:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
+react-dom@^16.2.0:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.1.tgz#7f8b0223b3a5fbe205116c56deb85de32685dad6"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
 react-dropzone@^4.2.10:
   version "4.2.10"
   resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.10.tgz#49de76346f5f56bc3e76aeab5604f4cddd0e87fb"
@@ -8495,12 +8512,6 @@ react-transition-group@^1.2.0:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react-trix@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/react-trix/-/react-trix-0.2.2.tgz#c11eecc74db0898fb6ce0d4a24e200a4e27236f2"
-  dependencies:
-    trix "^0.10.1"
-
 react-typeahead@^2.0.0-alpha.8:
   version "2.0.0-alpha.8"
   resolved "https://registry.yarnpkg.com/react-typeahead/-/react-typeahead-2.0.0-alpha.8.tgz#7f025f8ee74202f04fa8427cafea2732d514f58a"
@@ -8519,6 +8530,15 @@ react@^15.6.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react@^16.2.0:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -10273,10 +10293,6 @@ trim-x@^3.0.0:
   dependencies:
     trim-left-x "^3.0.0"
     trim-right-x "^3.0.0"
-
-trix@0.10.2, trix@^0.10.1:
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/trix/-/trix-0.10.2.tgz#85fc61bfed5d29676e400cc70cbd9040b753f5b6"
 
 tryit@^1.0.1:
   version "1.0.3"

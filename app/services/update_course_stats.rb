@@ -23,21 +23,42 @@ class UpdateCourseStats
   private
 
   def fetch_data
+    log_update_progress :start
     CourseRevisionUpdater.import_new_revisions([@course])
+    log_update_progress :revisions_imported
     CourseUploadImporter.new(@course).run
+    log_update_progress :uploads_imported
   end
 
   def update_categories
     Category.refresh_categories_for(@course)
+    log_update_progress :categories_updated
   end
 
   def update_article_stats
     ArticleStatusManager.update_article_status_for_course(@course)
+    log_update_progress :article_status_updated
   end
 
   def update_caches
     ArticlesCourses.update_all_caches(@course.articles_courses)
+    log_update_progress :articles_courses_updated
     CoursesUsers.update_all_caches(@course.courses_users)
+    log_update_progress :courses_users_updated
     @course.update_cache
+    log_update_progress :course_cache_updated
+  end
+
+  def log_update_progress(step)
+    return unless debug?
+    @sentry_logs ||= {}
+    @sentry_logs[step] = Time.zone.now
+    Raven.capture_message "#{@course.title} update: #{step}",
+                          level: 'warn',
+                          extra: { logs: @sentry_logs }
+  end
+
+  def debug?
+    @course.flags[:debug_updates]
   end
 end

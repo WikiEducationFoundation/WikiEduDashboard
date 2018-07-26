@@ -102,7 +102,7 @@ describe WikiApi do
           'THIS_IS_NOT_A_REAL_ARTICLE_TITLE', # does not exist
           '1804_Snow_hurricane', # a
           'Barton_S._Alexander', # a
-          'Bell_number', # bplus
+          'Bell_number', # b, formerly bplus
           'List_of_Canadian_plants_by_family_S', # sl
           'Antarctica_(disambiguation)', # disambig
           '2015_Pacific_typhoon_season', # start
@@ -114,7 +114,7 @@ describe WikiApi do
         expect(response['History_of_biology']).to eq('fa')
         expect(response['THIS_IS_NOT_A_REAL_ARTICLE_TITLE']).to eq(nil)
         expect(response['American_Civil_War_prison_camps']).to eq('cl')
-        expect(response['Bell_number']).to eq('bplus')
+        expect(response['Bell_number']).to eq('b')
         expect(response['Nansenflua']).to eq(nil)
       end
     end

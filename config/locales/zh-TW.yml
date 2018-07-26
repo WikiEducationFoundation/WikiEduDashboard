@@ -537,6 +537,7 @@ zh-TW:
     term: 何時
     unsubmitted: 未提交方案
     uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
+    user_uploads_none: 所選使用者尚未對此專案貢獻任何圖片或其它多媒體檔案。
     view_other: 檢視其它競賽
     view_page: 檢視方案頁面
     word_count_doc: 一個由條目編輯者在方案學期期間增加至條目主空間的估計數量
@@ -758,10 +759,10 @@ zh-TW:
     first_name: 名
     last_name: 姓
     loading: 使用者載入中...
-    characters_added_mainspace: 主空間新增的字元
+    characters_added_mainspace: 新增的字元（條目）
     characters_added_short: 主空間：%{mainspace}，使用者空間：%{userspace}
-    characters_added_userspace: 使用者空間新增的字元
-    characters_added_draftspace: 增加的草稿空間字元
+    characters_added_userspace: 新增的字元（使用者）
+    characters_added_draftspace: 新增的字元（草稿）
     my_assigned: 已分配：
     my_reviewing: 審查中：
     name: 名稱

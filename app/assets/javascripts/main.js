@@ -7,7 +7,6 @@
 import "babel-polyfill";
 import Rails from 'rails-ujs';
 require('location-origin');
-require('trix'); // Trix WYSIWYG editor, used for editing Timeline content
 Rails.start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
 
 $(() => {

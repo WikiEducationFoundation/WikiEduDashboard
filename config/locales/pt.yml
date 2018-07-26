@@ -673,6 +673,8 @@ pt:
     unsubmitted: Programas não enviados
     uploads_none: Este projeto não contribuiu com nenhuma imagem nem outro ficheiro
       multimédia para a wiki Wikimedia Commons.
+    user_uploads_none: Os utilizadores selecionados não contribuíram com nenhuma imagem
+      nem outro ficheiro multimédia para este projeto.
     view_other: Ver outras campanhas
     view_page: Ver a página do programa
     word_count_doc: Uma estimativa do número de palavras acrescentadas ao domínio
@@ -940,10 +942,10 @@ pt:
     first_name: Primeiro nome
     last_name: Apelido
     loading: A carregar os utilizadores...
-    characters_added_mainspace: Os caracteres foram acrescentados no espaço principal
+    characters_added_mainspace: Caracteres acrescentados (artigo)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Os caracteres foram acrescentados no espaço do utilizador
-    characters_added_draftspace: Os caracteres foram acrescentados no espaço do rascunho
+    characters_added_userspace: Caracteres acrescentados (utilizador)
+    characters_added_draftspace: Caracteres acrescentados (rascunho)
     my_assigned: 'Atribuição:'
     my_reviewing: 'A revisar:'
     name: Nome

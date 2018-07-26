@@ -5,6 +5,7 @@
   "dependencies": {
     "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
     "@bower_components/lodash": "lodash/lodash#~3.9.0",
+    "@tinymce/tinymce-react": "^2.2.5",
     "autosize": "^4.0.2",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.1",
@@ -113,7 +114,6 @@
     "react-router": "3.2.0",
     "react-select": "1.2.1",
     "react-test-renderer": "^15.6.2",
-    "react-trix": "^0.2.2",
     "react-typeahead": "^2.0.0-alpha.8",
     "redux": "^4.0.0",
     "redux-mock-store": "^1.5.1",
@@ -130,7 +130,6 @@
     "slick-carousel": "git+https://github.com/cfoehrdes/slick.git#a4d85536c42951933e1d887bcc013615e25b03e7",
     "striptags": "^3.1.1",
     "stylus": "0.54.5",
-    "trix": "0.10.2",
     "uuid": "^3.2.1",
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",

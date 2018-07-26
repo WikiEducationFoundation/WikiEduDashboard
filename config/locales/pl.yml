@@ -680,9 +680,9 @@ pl:
     first_name: Imię
     last_name: Nazwisko
     loading: Wczytywanie użytkowników...
-    characters_added_mainspace: Znaki dodane w PG
+    characters_added_mainspace: Znaki dodane (artykuł)
     characters_added_short: 'PG: %{mainspace}, PU: %{userspace}'
-    characters_added_userspace: Znaki dodane w PU
+    characters_added_userspace: Znaki dodane (użytkownik)
     my_assigned: 'Przypisane:'
     my_reviewing: 'Recenzuje:'
     name: Nazwa
