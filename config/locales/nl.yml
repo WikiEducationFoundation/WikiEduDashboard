@@ -8,6 +8,7 @@
 # Author: Mbch331
 # Author: Milenej
 # Author: MrLeopold
+# Author: Optilete
 # Author: Patio
 # Author: Ragesoss
 # Author: Romaine
@@ -420,7 +421,7 @@ nl:
     uploader: Uploader
     uploaded_on: Geüpload op
     usage_doc: Aantal Wikipedia-artikelen waarin deze afbeelding voorkomt.
-    usage_count_gallery_tile: Gebruikt op %{usage_count} artikels
+    usage_count_gallery_tile: Gebruikt op %{usage_count} artikelen.
     usages: Gebruik
   users:
     already_enrolled: Deze gebruiker is al ingeschreven!

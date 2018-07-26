@@ -747,6 +747,7 @@ es:
     check_answer: Comprobar respuesta
     included_modules: Módulos incluidos
   uploads:
+    credit: Crédito
     file_name: Nombre del archivo
     header: Archivos subidos a Wikimedia Commons
     image: Imagen
@@ -758,6 +759,7 @@ es:
     uploaded_at: Cargado el
     uploaded_by: Subido por
     usage_count: Total de usos
+    usage_count_gallery_tile: Se utiliza en %{usage_count} artículos
     usages: Usos
   users:
     already_enrolled: Ese usuario ya está inscrito.
