@@ -8,7 +8,7 @@ import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
-import { fetchCourse } from '../actions/course_actions_redux';
+import { fetchCourse, updateCourse, persistCourse } from '../actions/course_actions_redux';
 import CourseActions from '../actions/course_actions.js';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
@@ -33,7 +33,9 @@ const Course = createReactClass({
     params: PropTypes.object,
     location: PropTypes.object,
     children: PropTypes.node,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    updateCourse: PropTypes.func.isRequired,
+    persistCourse: PropTypes.func.isRequired
   },
 
   mixins: [WeekStore.mixin],
@@ -74,9 +76,8 @@ const Course = createReactClass({
   submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    const course = { ...this.props.course };
-    course.submitted = true;
-    CourseActions.persistCourse({ course }, course.slug);
+    this.props.updateCourse({ submitted: true });
+    return this.props.persistCourse(this.props.course.slug);
   },
 
   dismissSurvey(surveyNotificationId) {
@@ -281,7 +282,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchUsers,
   fetchCampaigns,
-  fetchCourse
+  fetchCourse,
+  updateCourse,
+  persistCourse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);

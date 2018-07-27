@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import Calendar from '../common/calendar.jsx';
-import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import ValidationStore from '../../stores/validation_store.js';
 
@@ -38,7 +37,7 @@ const FormPanel = createReactClass({
 
   saveCourse() {
     if (ValidationStore.isValid()) {
-      CourseActions.persistCourse(this.props, this.props.course.slug);
+      this.props.persistCourse(this.props.course.slug);
       return true;
     }
     alert(I18n.t('error.form_errors'));

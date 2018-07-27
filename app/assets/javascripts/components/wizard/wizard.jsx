@@ -11,7 +11,7 @@ import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
-import { updateCourse } from '../../actions/course_actions_redux';
+import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
 
 const getState = () =>
   ({
@@ -91,6 +91,7 @@ const Wizard = createReactClass({
             weeks={this.props.weeks.length}
             summary={this.state.summary}
             updateCourse={this.props.updateCourse}
+            persistCourse={this.props.persistCourse}
           />
         );
       } else if (i !== 0 && i < panelCount - 1) {
@@ -140,7 +141,8 @@ const Wizard = createReactClass({
 );
 
 const mapDispatchToProps = {
-  updateCourse
+  updateCourse,
+  persistCourse
 };
 
 export default connect(null, mapDispatchToProps)(Wizard);
