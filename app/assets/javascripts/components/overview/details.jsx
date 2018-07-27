@@ -22,7 +22,7 @@ import HomeWikiProjectSelector from './home_wiki_project_selector.jsx';
 import HomeWikiLanguageSelector from './home_wiki_language_selector.jsx';
 import Modal from '../common/modal.jsx';
 
-import Editable from '../high_order/editable.jsx';
+import EditableRedux from '../high_order/editable_redux.jsx';
 import TextInput from '../common/text_input.jsx';
 import Notifications from '../common/notifications.jsx';
 
@@ -58,7 +58,8 @@ const Details = createReactClass({
     updateCourse: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin],
+  mixins: [ValidationStore.mixin, TagStore.mixin],
+
   getInitialState() {
     return getState();
   },
@@ -91,7 +92,7 @@ const Details = createReactClass({
   },
 
   storeDidChange() {
-    return this.setState({ error_message: ValidationStore.firstMessage() });
+    return this.setState(getState());
   },
 
   canRename() {
@@ -257,8 +258,8 @@ const Details = createReactClass({
     let projectSelector;
     let languageSelector;
     if (this.props.current_user.admin) {
-      const tagsList = this.props.tags.length > 0 ?
-        _.map(this.props.tags, 'tag').join(', ')
+      const tagsList = this.state.tags.length > 0 ?
+        _.map(this.state.tags, 'tag').join(', ')
       : I18n.t('courses.none');
 
       subject = (
@@ -274,7 +275,7 @@ const Details = createReactClass({
       tags = (
         <div className="tags">
           <span><strong>Tags:</strong> {tagsList}</span>
-          <TagButton {...this.props} show={this.props.editable} />
+          <TagButton {...this.props} {...this.state} show={this.props.editable} />
         </div>
       );
       submittedSelector = (
@@ -460,4 +461,4 @@ const saveCourseDetails = (data, courseId = null) => {
   }
 };
 
-export default Editable(Details, [], saveCourseDetails, getState, I18n.t('editable.edit_details'));
+export default EditableRedux(Details, I18n.t('editable.edit_details'));

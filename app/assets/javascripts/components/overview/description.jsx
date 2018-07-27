@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import Editable from '../high_order/editable.jsx';
+import EditableRedux from '../high_order/editable_redux.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 
 const Description = createReactClass({
@@ -12,9 +12,9 @@ const Description = createReactClass({
     title: PropTypes.string,
     editable: PropTypes.bool,
     controls: PropTypes.any,
-    updateCourse: PropTypes.func.isRequired,
-    resetState: PropTypes.func.isRequired,
-    persistCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired, // used by EditableRedux
+    resetState: PropTypes.func.isRequired, // used by EditableRedux
+    persistCourse: PropTypes.func.isRequired // used by EditableRedux
   },
 
   updateDescription(_valueKey, value) {
@@ -46,5 +46,4 @@ const Description = createReactClass({
 }
 );
 
-const getState = () => { return {}; };
-export default Editable(Description, [], null, getState, I18n.t('editable.edit_description'));
+export default EditableRedux(Description, I18n.t('editable.edit_description'));

@@ -110,7 +110,12 @@ const Overview = createReactClass({
 
     const sidebar = course.id ? (
       <div className="sidebar">
-        <Details {...this.props} />
+        <Details
+          {...this.props}
+          updateCourse={this.props.updateCourse}
+          resetState={this.props.resetCourse}
+          persistCourse={this.props.persistCourse}
+        />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
         <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
       </div>
