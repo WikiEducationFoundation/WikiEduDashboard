@@ -133,10 +133,12 @@ nav.top-nav
       color $text_md
     &::-webkit-input-placeholder
       color $text_md
-
+    +below(desktop)
+      width 88%
   +below(desktop)
-    display none
-
+    display block
+    background #fff
+    text-align left
 
 
 body.fixed-nav
@@ -209,11 +211,18 @@ nav.ham-nav
   -webkit-font-smoothing antialiased
   line-height 1
 
+  +below(desktop)
+    position fixed
+
   .container
     height $nav_height
     display flex
     align-items center
     justify-content space-around
+
+    li
+     +below(desktop)
+      list-style none
 
 .ham-nav__site-logo
   line-height 0
@@ -229,6 +238,9 @@ nav.ham-nav
 .course-nav__wrapper,
 .campaign-nav__wrapper
   height $nav_height
+
+  +below(desktop)
+    margin-top 50px
 
 .course_navigation,
 .campaign_navigation
@@ -327,14 +339,6 @@ nav.profile-nav
     margin-left unset
 
 
-/* Position and sizing of burger button */
-.bm-burger-button {
-  position: absolute;
-  width: 36px;
-  height: 30px;
-  right: 3%;
-  top: 13px;
-}
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
@@ -351,11 +355,7 @@ nav.profile-nav
   background: #bdc3c7;
 }
 
-/* General sidebar styles */
-.bm-menu {
-  background: #3b4175;
-  font-size: 1.15em;
-}
+
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
@@ -373,46 +373,61 @@ nav.profile-nav
   z-index 2 !important
 }
 
-.bm-menu-wrap
-  top 55px
-  width 100% !important
-  z-index 1 !important
-  // z-index: 10000 !important;
+// ----------------------NEW BURGER MENU IMPLEMENTATION -----------------------------------
 
+.hamburger_menu_wrapper
+  width 100%
+  height 100%
+  cursor pointer
 
-// making navBar responsive
-@media only screen and (max-width: 920px)
-  nav.ham-nav
+  /* Position and sizing of burger button */
+  .bm-burger-button
+    position absolute
+    width 36px
+    height 30px
+    right 3%
+    top 9px
+
+    .bar1, .bar2, .bar3
+      width inherit
+      height 5px
+      background #3b4175
+      transition 0.3s
+      margin 6px 0
+
+  .bm-menu-wrap
     position fixed
-  .ham-nav
-    .container
+    top 55px
+    width 100% !important
+    z-index 1 !important
+    height 100%
+    right 0px
+    text-align left
+    // z-index: 10000 !important;
+    display none
+
+    &.hidden
+      display block !important
+
+    .bm-menu
+      background #3b4175
+      font-size 1.15em
+      height 100%
+
       li
         list-style none
-  .bm-menu
-    li
-      list-style none
-      padding 18px
-      border-bottom 1px solid #808080
-      margin-left 10px
-      margin-right 10px
-  .ham-nav__site-logo
-    line-height 0
+        padding 18px
+        border-bottom 1px solid #808080
+        margin-left 10px
+        margin-right 10px
 
-  .top-nav__faq-search
-    background aliceblue
-    border-left unset
-    border-right unset
-    margin-top 30px
-    text-align left
-    display block
+.change .bar1
+    -webkit-transform rotate(-45deg) translate(-9px, 6px)
+    transform rotate(-45deg) translate(-9px, 6px)
 
-  .icon-search
-    padding-left 12px
+.change .bar2
+  opacity 0
 
-  .hamburger_menu_wrapper
-    width 100%
-    height 100%
-
-  .course-nav__wrapper,
-  .campaign-nav__wrapper
-    margin-top 50px
+.change .bar3
+    -webkit-transform rotate(45deg) translate(-8px, -8px)
+    transform rotate(45deg) translate(-8px, -8px)

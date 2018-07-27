@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { slide as Menu } from 'react-burger-menu';
 import CustomLink from './CustomLink.jsx';
 import LanguagePicker from './language_picker.jsx';
 
@@ -35,7 +34,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
     );
     if (!helpDisabled) {
       helpEnabled = (
-        <div>
+        <li>
           <form className="top-nav__faq-search" target="_blank" action="/ask" acceptCharset="UTF-8" method="get">
             <input name="utf8" type="hidden" defaultValue="✓" />
             <input type="text" name="q" id="q" defaultValue="" placeholder={I18n.t('application.search')} />
@@ -44,7 +43,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
               <i className="icon icon-search" />
             </button>
           </form>
-        </div>
+        </li>
     );
     }
   } else {
@@ -111,28 +110,34 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
           </div>
           {languageSwitcher}
           <div className="hamburger_menu_wrapper">
-            <Menu right>
-              <li>
-                <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
-              </li>
-              {myDashboard}
-              {forAdmin}
-              <li>
-                <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
-              </li>
-              {sandbox}
-              {help}
-              {programsDashboard}
-              {helpEnabled}
-              {loggingLinks}
-            </Menu>
+            <div className ="bm-burger-button">
+              <div className = "bar1" />
+              <div className = "bar2" />
+              <div className = "bar3" />
+            </div>
+            <div className = "bm-menu-wrap">
+              <div className= "bm-menu">
+                <li>
+                  <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
+                </li>
+                {myDashboard}
+                {forAdmin}
+                <li>
+                  <CustomLink to={trainingUrl} name={I18n.t('application.training')} clickedElement="training" />
+                </li>
+                {sandbox}
+                {help}
+                {programsDashboard}
+                {helpEnabled}
+                {loggingLinks}
+              </div>
+            </div>
           </div>
         </div>
       </nav>
     </div>
   );
 };
-
 
 HamburgerMenu.propTypes = {
   rootUrl: PropTypes.string,
