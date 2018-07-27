@@ -7,7 +7,10 @@ import {
   CREATED_COURSE,
   ADD_CAMPAIGN,
   DELETE_CAMPAIGN,
-  DISMISS_SURVEY_NOTIFICATION
+  DISMISS_SURVEY_NOTIFICATION,
+  TOGGLE_EDITING_SYLLABUS,
+  START_SYLLABUS_UPLOAD,
+  SYLLABUS_UPLOAD_SUCCESS
 } from "../constants";
 
 const initialState = {
@@ -60,6 +63,17 @@ export default function course(state = initialState, action) {
       newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
       return newState;
     }
+    case TOGGLE_EDITING_SYLLABUS:
+      return { ...state, editingSyllabus: !state.editingSyllabus };
+    case START_SYLLABUS_UPLOAD:
+      return { ...state, uploadingSyllabus: true };
+    case SYLLABUS_UPLOAD_SUCCESS:
+      return {
+        ...state,
+        uploadingSyllabus: false,
+        editingSyllabus: false,
+        syllabus: action.syllabus
+      };
     default:
       return state;
   }

@@ -1,4 +1,8 @@
-import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION } from '../constants';
+import {
+  ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE,
+  DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS, START_SYLLABUS_UPLOAD,
+  SYLLABUS_UPLOAD_SUCCESS
+} from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
 import ValidationActions from './validation_actions';
@@ -100,5 +104,16 @@ export function needsUpdate(courseSlug) {
 export const dismissNotification = id => dispatch => {
   return API.dismissNotification(id)
     .then(() => dispatch({ type: DISMISS_SURVEY_NOTIFICATION, id }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const toggleEditingSyllabus = () => {
+  return { type: TOGGLE_EDITING_SYLLABUS };
+};
+
+export const uploadSyllabus = payload => dispatch => {
+  dispatch({ type: START_SYLLABUS_UPLOAD });
+  return API.uploadSyllabus(payload)
+    .then(data => dispatch({ type: SYLLABUS_UPLOAD_SUCCESS, syllabus: data.url }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
