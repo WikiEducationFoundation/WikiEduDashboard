@@ -12,8 +12,9 @@ const EditableRedux = (Component, Label) =>
       course_id: PropTypes.any,
       current_user: PropTypes.object,
       editable: PropTypes.bool,
-      resetState: PropTypes.func,
-      persistCourse: PropTypes.func
+      resetState: PropTypes.func.isRequired,
+      persistCourse: PropTypes.func.isRequired,
+      nameHasChanged: PropTypes.func.isRequired
     },
 
     getInitialState() {
@@ -27,11 +28,22 @@ const EditableRedux = (Component, Label) =>
     },
 
     saveChanges() {
-      if (ValidationStore.isValid()) {
+      // If there are validation problems, show error message
+      if (!ValidationStore.isValid()) {
+        return alert(I18n.t('error.form_errors'));
+      }
+
+      // If the course slug has not changed, persist the data and exit edit mode
+      if (!this.props.nameHasChanged()) {
         this.props.persistCourse(this.props.course_id);
         return this.toggleEditable();
       }
-      return alert(I18n.t('error.form_errors'));
+
+      // If the course has been renamed, we first warn the user that this is happening.
+      if (confirm(I18n.t('editable.rename_confirmation'))) {
+        return this.props.persistCourse(this.props.course_id, true);
+      }
+      return this.cancelChanges();
     },
 
     toggleEditable() {

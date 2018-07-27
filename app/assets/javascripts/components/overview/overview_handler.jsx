@@ -16,7 +16,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
-import { updateCourse, resetCourse, persistCourse } from '../../actions/course_actions_redux';
+import { updateCourse, resetCourse, persistCourse, nameHasChanged } from '../../actions/course_actions_redux';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -92,6 +92,7 @@ const Overview = createReactClass({
           updateCourse={this.props.updateCourse}
           resetState={this.props.resetCourse}
           persistCourse={this.props.persistCourse}
+          nameHasChanged={this.props.nameHasChanged}
         />
         {thisWeek}
       </div>
@@ -115,6 +116,7 @@ const Overview = createReactClass({
           updateCourse={this.props.updateCourse}
           resetState={this.props.resetCourse}
           persistCourse={this.props.persistCourse}
+          nameHasChanged={this.props.nameHasChanged}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
         <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
@@ -149,7 +151,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   updateCourse,
   resetCourse,
-  persistCourse
+  persistCourse,
+  nameHasChanged
 };
 
 

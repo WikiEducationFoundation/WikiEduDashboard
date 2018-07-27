@@ -27,10 +27,8 @@ import TextInput from '../common/text_input.jsx';
 import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
-import CourseActions from '../../actions/course_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 
-import CourseStore from '../../stores/course_store.js';
 import TagStore from '../../stores/tag_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -448,17 +446,5 @@ const Details = createReactClass({
   }
 }
 );
-
-// If the course has been renamed, we first warn the user that this is happening.
-const saveCourseDetails = (data, courseId = null) => {
-  if (!CourseStore.isRenamed()) {
-    return CourseActions.persistCourse(data, courseId);
-  }
-  if (confirm(I18n.t('editable.rename_confirmation'))) {
-    data.course = CourseUtils.cleanupCourseSlugComponents(data.course);
-    const newSlug = CourseUtils.generateTempId(data.course);
-    return CourseActions.persistAndRedirectCourse(data, courseId, newSlug);
-  }
-};
 
 export default EditableRedux(Details, I18n.t('editable.edit_details'));

@@ -1,12 +1,12 @@
 import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE } from '../constants';
 import API from '../utils/api.js';
+import CourseUtils from '../utils/course_utils';
 
 export const fetchCourse = (courseId) => (dispatch) => {
   return API.fetch(courseId, 'course')
     .then(data => dispatch({ type: RECEIVE_COURSE, data }))
     .catch(data => ({ type: API_FAIL, data }));
 };
-
 
 export const updateCourse = course => ({ type: UPDATE_COURSE, course });
 
@@ -15,10 +15,32 @@ export const resetCourse = () => (dispatch, getState) => {
   dispatch({ type: UPDATE_COURSE, course: { ...persistedCourse } });
 };
 
-export const persistCourse = (courseId = null) => (dispatch, getState) => {
-  const course = getState().course;
+export const nameHasChanged = () => (_dispatch, getState) => {
+  const { course, persistedCourse } = getState();
+  if (course.title !== persistedCourse.title) { return true; }
+  if (course.term !== persistedCourse.term) { return true; }
+  if (course.school !== persistedCourse.school) { return true; }
+  return false;
+};
+
+const redirectCourse = newSlug => {
+  if (!newSlug) { return; }
+  window.location = `/courses/${newSlug}`;
+};
+
+export const persistCourse = (courseId = null, redirect = false) => (dispatch, getState) => {
+  let course = getState().course;
+
+  let newSlug;
+  if (redirect) {
+    course = CourseUtils.cleanupCourseSlugComponents(course);
+    newSlug = CourseUtils.generateTempId(course);
+    course.slug = newSlug;
+  }
+
   return API.saveCourse({ course }, courseId)
     .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
+    .then(() => redirectCourse(newSlug))
     .catch(data => ({ type: API_FAIL, data }));
 };
 
@@ -52,4 +74,3 @@ export function needsUpdate(courseId) {
       .catch(data => dispatch({ type: API_FAIL, data }));
   };
 }
-
