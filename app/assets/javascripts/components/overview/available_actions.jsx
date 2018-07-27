@@ -14,7 +14,7 @@ import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import CourseActions from '../../actions/course_actions.js';
-import { needsUpdate } from '../../actions/course_actions_redux';
+import { needsUpdate, linkToSalesforce } from '../../actions/course_actions_redux';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',
@@ -26,7 +26,8 @@ const AvailableActions = createReactClass({
     addNotification: PropTypes.func.isRequired,
     enableAccountRequests: PropTypes.func.isRequired,
     enableForCourse: PropTypes.func.isRequired,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    linkToSalesforce: PropTypes.func.isRequired
   },
 
   join() {
@@ -202,7 +203,7 @@ const AvailableActions = createReactClass({
         <div className="module__data">
           <GreetStudentsButton course={course} current_user={this.props.current_user} />
           {controls}
-          <SalesforceLink course={course} current_user={this.props.current_user} />
+          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} />
         </div>
       </div>
     );
@@ -215,7 +216,8 @@ const mapDispatchToProps = {
   addNotification,
   enableAccountRequests,
   enableForCourse,
-  needsUpdate
+  needsUpdate,
+  linkToSalesforce
 };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

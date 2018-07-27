@@ -10,7 +10,8 @@ import {
   DISMISS_SURVEY_NOTIFICATION,
   TOGGLE_EDITING_SYLLABUS,
   START_SYLLABUS_UPLOAD,
-  SYLLABUS_UPLOAD_SUCCESS
+  SYLLABUS_UPLOAD_SUCCESS,
+  LINKED_TO_SALESFORCE
 } from "../constants";
 
 const initialState = {
@@ -74,6 +75,8 @@ export default function course(state = initialState, action) {
         editingSyllabus: false,
         syllabus: action.syllabus
       };
+    case LINKED_TO_SALESFORCE:
+      return { ...state, flags: action.data.flags };
     default:
       return state;
   }
