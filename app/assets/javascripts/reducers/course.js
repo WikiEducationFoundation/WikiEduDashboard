@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   RECEIVE_INITIAL_CAMPAIGN,
   RECEIVE_COURSE_CLONE,
