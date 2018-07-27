@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE } from '../constants';
+import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
 import ValidationActions from './validation_actions';
@@ -96,3 +96,9 @@ export function needsUpdate(courseSlug) {
       .catch(data => dispatch({ type: API_FAIL, data }));
   };
 }
+
+export const dismissNotification = id => dispatch => {
+  return API.dismissNotification(id)
+    .then(() => dispatch({ type: DISMISS_SURVEY_NOTIFICATION, id }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};

@@ -6,7 +6,8 @@ import {
   UPDATE_COURSE,
   CREATED_COURSE,
   ADD_CAMPAIGN,
-  DELETE_CAMPAIGN
+  DELETE_CAMPAIGN,
+  DISMISS_SURVEY_NOTIFICATION
 } from "../constants";
 
 const initialState = {
@@ -54,6 +55,11 @@ export default function course(state = initialState, action) {
       return { ...state, published: action.data.course.published };
     case RECEIVE_COURSE_CLONE:
       return { ...action.data.course };
+    case DISMISS_SURVEY_NOTIFICATION: {
+      const newState = { ...state };
+      newState.survey_notifications = _.reject(state.survey_notifications, { id: action.id });
+      return newState;
+    }
     default:
       return state;
   }

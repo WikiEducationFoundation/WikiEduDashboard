@@ -8,8 +8,7 @@ import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
-import { fetchCourse, updateCourse, persistCourse } from '../actions/course_actions_redux';
-import CourseActions from '../actions/course_actions.js';
+import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../actions/course_actions_redux';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
@@ -82,7 +81,7 @@ const Course = createReactClass({
 
   dismissSurvey(surveyNotificationId) {
     if (confirm(I18n.t('courses.dismiss_survey_confirm'))) {
-      return CourseActions.dismissNotification(surveyNotificationId);
+      return this.props.dismissNotification(surveyNotificationId);
     }
   },
 
@@ -284,7 +283,8 @@ const mapDispatchToProps = {
   fetchCampaigns,
   fetchCourse,
   updateCourse,
-  persistCourse
+  persistCourse,
+  dismissNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);
