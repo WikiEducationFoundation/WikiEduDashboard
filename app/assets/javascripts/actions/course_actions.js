@@ -4,7 +4,6 @@ import API from '../utils/api.js';
 const Flux = new McFly();
 
 const CourseActions = Flux.createActions({
-
   deleteAllWeeks(courseId) {
     return API.deleteAllWeeks(courseId)
       .then((data) => {
