@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import CourseActions from '../../actions/course_actions.js';
 import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
@@ -17,7 +16,8 @@ const CourseClonedModal = createReactClass({
 
   propTypes: {
     course: PropTypes.object.isRequired,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    updateClonedCourse: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -82,11 +82,12 @@ const CourseClonedModal = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid()) {
       ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
-      const updatedCourse = $.extend(true, {}, { course: this.state.course });
-      updatedCourse.course.cloned_status = this.cloneCompletedStatus;
+      const updatedCourse = $.extend(true, {}, this.state.course);
+      updatedCourse.cloned_status = this.cloneCompletedStatus;
       const { slug } = this.state.course;
-      const id = CourseUtils.generateTempId(this.state.course);
-      CourseActions.updateClonedCourse(updatedCourse, slug, id);
+      const newSlug = CourseUtils.generateTempId(this.state.course);
+      updatedCourse.slug = newSlug;
+      this.props.updateClonedCourse(updatedCourse, slug, newSlug);
       return this.setState({ isPersisting: true });
     }
   },

@@ -5,7 +5,7 @@ import CourseUtils from '../utils/course_utils';
 export const fetchCourse = (courseSlug) => (dispatch) => {
   return API.fetch(courseSlug, 'course')
     .then(data => dispatch({ type: RECEIVE_COURSE, data }))
-    .catch(data => ({ type: API_FAIL, data }));
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
 export const updateCourse = course => ({ type: UPDATE_COURSE, course });
@@ -28,6 +28,13 @@ const redirectCourse = newSlug => {
   window.location = `/courses/${newSlug}`;
 };
 
+const persistAndRedirect = (course, courseSlug, newSlug, dispatch) => {
+  return API.saveCourse({ course }, courseSlug)
+    .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
+    .then(() => redirectCourse(newSlug))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
 export const persistCourse = (courseSlug = null, redirect = false) => (dispatch, getState) => {
   let course = getState().course;
 
@@ -37,10 +44,21 @@ export const persistCourse = (courseSlug = null, redirect = false) => (dispatch,
     newSlug = CourseUtils.generateTempId(course);
     course.slug = newSlug;
   }
+  return persistAndRedirect(course, courseSlug, newSlug, dispatch);
+};
 
-  return API.saveCourse({ course }, courseSlug)
-    .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
-    .then(() => redirectCourse(newSlug))
+export const updateClonedCourse = (course, courseSlug, newSlug) => dispatch => {
+  // Ensure course name is unique
+  return API.fetch(newSlug, 'check')
+    .then(resp => {
+      // Course name is all good, so save it.
+      if (!resp.course_exists) {
+        return persistAndRedirect(course, courseSlug, newSlug, dispatch);
+      }
+      // Course name is taken, so show a warning.
+      const message = 'This course already exists. Consider changing the name, school, or term to make it unique.';
+      return dispatch({ type: 'CHECK_SERVER', data: { key: 'exists', message } });
+    })
     .catch(data => ({ type: API_FAIL, data }));
 };
 

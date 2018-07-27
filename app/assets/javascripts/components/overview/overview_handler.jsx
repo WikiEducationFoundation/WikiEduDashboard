@@ -16,7 +16,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
-import { updateCourse, resetCourse, persistCourse, nameHasChanged } from '../../actions/course_actions_redux';
+import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse } from '../../actions/course_actions_redux';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -36,7 +36,8 @@ const Overview = createReactClass({
     location: PropTypes.object,
     students: PropTypes.array,
     updateCourse: PropTypes.func.isRequired,
-    resetCourse: PropTypes.func.isRequired
+    resetCourse: PropTypes.func.isRequired,
+    updateClonedCourse: PropTypes.func.isRequired
   },
 
   mixins: [WeekStore.mixin],
@@ -57,7 +58,7 @@ const Overview = createReactClass({
   render() {
     const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} />;
+      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} />;
     }
 
     let syllabusUpload;
@@ -152,7 +153,8 @@ const mapDispatchToProps = {
   updateCourse,
   resetCourse,
   persistCourse,
-  nameHasChanged
+  nameHasChanged,
+  updateClonedCourse
 };
 
 
