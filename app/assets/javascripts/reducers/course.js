@@ -2,6 +2,7 @@ import {
   RECEIVE_INITIAL_CAMPAIGN,
   RECEIVE_COURSE_CLONE,
   RECEIVE_COURSE,
+  PERSISTED_COURSE,
   UPDATE_COURSE,
   CREATED_COURSE,
   ADD_CAMPAIGN,
@@ -30,6 +31,8 @@ export default function course(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_COURSE:
       return { ...action.data.course };
+    case PERSISTED_COURSE:
+      return { ...state, ...action.data.course };
     case UPDATE_COURSE:
       return { ...state, ...action.course };
     case CREATED_COURSE:
