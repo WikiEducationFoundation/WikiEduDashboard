@@ -50,26 +50,21 @@ const Editable = (Component, Stores, Save, GetState) =>
         let cancel;
         if (!saveOnly) {
           className = 'controls';
-          if (!SaveOnly) {
-            cancel = (
-              <button onClick={this.cancelChanges} className="button">{I18n.t('editable.cancel')}</button>
-            );
-          }
+          cancel = (
+            <button onClick={this.cancelChanges} className="button">{I18n.t('editable.cancel')}</button>
+          );
         }
 
         return (
           <div className={className}>
             {cancel}
-            <button onClick={this.saveChanges} className="dark button">{SaveLabel || I18n.t('editable.save')}</button>
+            <button onClick={this.saveChanges} className="dark button">{I18n.t('editable.save')}</button>
             {extraControls}
           </div>
         );
       } else if (permissions && (this.props.editable === undefined || this.props.editable)) {
         let edit;
-        let editLabel = I18n.t('editable.edit');
-        if (Label !== undefined) {
-          editLabel = Label;
-        }
+        const editLabel = I18n.t('editable.edit');
         if (!hideEdit) {
           edit = <button onClick={this.toggleEditable} className="dark button">{editLabel}</button>;
         }

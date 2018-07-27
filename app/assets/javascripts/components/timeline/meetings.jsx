@@ -9,7 +9,7 @@ import DatePicker from '../common/date_picker.jsx';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { updateCourse } from '../../actions/course_actions_redux';
+import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
 
 const Meetings = createReactClass({
   displayName: 'Meetings',
@@ -17,7 +17,8 @@ const Meetings = createReactClass({
   propTypes: {
     weeks: PropTypes.array, // Comes indirectly from TimelineHandler
     course: PropTypes.object,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    persistCourse: PropTypes.func.isRequired
   },
 
   disableSave(bool) {
@@ -39,7 +40,7 @@ const Meetings = createReactClass({
 
   saveCourse(e) {
     if (ValidationStore.isValid()) {
-      return CourseActions.persistCourse({ course: this.props.course }, this.props.course.slug);
+      return this.props.persistCourse(this.props.course.slug);
     }
     e.preventDefault();
     return alert(I18n.t('error.form_errors'));
@@ -158,7 +159,8 @@ const Meetings = createReactClass({
 );
 
 const mapDispatchToProps = {
-  updateCourse
+  updateCourse,
+  persistCourse
 };
 
 export default connect(null, mapDispatchToProps)(Meetings);

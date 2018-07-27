@@ -2,8 +2,8 @@ import { ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_CO
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
 
-export const fetchCourse = (courseId) => (dispatch) => {
-  return API.fetch(courseId, 'course')
+export const fetchCourse = (courseSlug) => (dispatch) => {
+  return API.fetch(courseSlug, 'course')
     .then(data => dispatch({ type: RECEIVE_COURSE, data }))
     .catch(data => ({ type: API_FAIL, data }));
 };
@@ -28,7 +28,7 @@ const redirectCourse = newSlug => {
   window.location = `/courses/${newSlug}`;
 };
 
-export const persistCourse = (courseId = null, redirect = false) => (dispatch, getState) => {
+export const persistCourse = (courseSlug = null, redirect = false) => (dispatch, getState) => {
   let course = getState().course;
 
   let newSlug;
@@ -38,17 +38,17 @@ export const persistCourse = (courseId = null, redirect = false) => (dispatch, g
     course.slug = newSlug;
   }
 
-  return API.saveCourse({ course }, courseId)
+  return API.saveCourse({ course }, courseSlug)
     .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
     .then(() => redirectCourse(newSlug))
     .catch(data => ({ type: API_FAIL, data }));
 };
 
-const needsUpdatePromise = (courseId) => {
+const needsUpdatePromise = (courseSlug) => {
   return new Promise((res, rej) =>
     $.ajax({
       type: 'GET',
-      url: `/courses/${courseId}/needs_update.json`,
+      url: `/courses/${courseSlug}/needs_update.json`,
       success(data) {
         return res(data);
       }
@@ -67,9 +67,9 @@ const needsUpdateNotification = response => {
   };
 };
 
-export function needsUpdate(courseId) {
+export function needsUpdate(courseSlug) {
   return function (dispatch) {
-    return needsUpdatePromise(courseId)
+    return needsUpdatePromise(courseSlug)
       .then(resp => dispatch({ type: ADD_NOTIFICATION, notification: needsUpdateNotification(resp) }))
       .catch(data => dispatch({ type: API_FAIL, data }));
   };
