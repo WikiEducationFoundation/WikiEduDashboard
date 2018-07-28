@@ -323,56 +323,6 @@ nav.profile-nav
 #highlight
   display none
 
-
-// burger menu stylings to be merged once finalised
-.bm-menu
-  a
-    text-decoration none
-    font-weight 700
-    color #fff
-  a:hover
-    color #D3D3D3
-.bm-item-list
-  background: #3b4175
-  text-align left
-  li
-    margin-left unset
-
-
-
-/* Color/shape of burger icon bars */
-.bm-burger-bars {
-  background: #373a47;
-}
-
-/* Position and sizing of clickable cross button */
-.bm-cross-button {
-  display none
-}
-
-/* Color/shape of close button cross */
-.bm-cross {
-  background: #bdc3c7;
-}
-
-
-
-/* Morph shape necessary with bubble or elastic */
-.bm-morph-shape {
-  fill: #373a47;
-}
-
-/* Wrapper for item list */
-.bm-item-list
-  padding: 0.8em;
-
-/* Styling of overlay */
-.bm-overlay {
-  overflow visible
-  width 0% !important
-  z-index 2 !important
-}
-
 // ----------------------NEW BURGER MENU IMPLEMENTATION -----------------------------------
 
 .hamburger_menu_wrapper
@@ -423,10 +373,18 @@ nav.profile-nav
 
         a
           display block
+          outline none
+          text-decoration none
+          font-weight 700
+          color #fff
+        a:hover
+          color #D3D3D3
+        a:active
+          background-color #3b4175 !important
 
 .change .bar1
-    -webkit-transform rotate(-45deg) translate(-9px, 6px)
-    transform rotate(-45deg) translate(-9px, 6px)
+    -webkit-transform rotate(-45deg) translate(-8px, 6px)
+    transform rotate(-45deg) translate(-8px, 6px)
 
 .change .bar2
   opacity 0
