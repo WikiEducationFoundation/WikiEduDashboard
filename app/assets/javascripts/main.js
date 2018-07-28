@@ -19,5 +19,4 @@ $(() => {
   require('events').EventEmitter.defaultMaxListeners = 30;
   require('./utils/editable.js');
   require('./utils/users_profile.js');
-  require('./utils/burger_menu.js');
 });

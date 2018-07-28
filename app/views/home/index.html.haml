@@ -26,5 +26,5 @@
     = link_to t('home.explore'), '/explore', {class: 'button button-ghost'}
 
 #impact
-  - if !Features.wiki_ed?
+  - if Features.wiki_ed?
     = render :partial => "wiki_ed_impact"
