@@ -16,6 +16,7 @@
 # Author: Macofe
 # Author: MarcoAurelio
 # Author: Themasterriot
+# Author: Tiberius1701
 # Author: Tusca
 # Author: Yllelder
 # Author: YoViajo
@@ -571,8 +572,8 @@ es:
     unsubmitted: Programas no presentados
     uploads_none: Este proyecto no ha contribuido con ninguna imagen o archivo multimedia
       a Wikimedia Commons.
-    user_uploads_none: Los usuarios seleccionados no han contribuido ninguna imagen
-      u otros archivos multimedia a este proyecto.
+    user_uploads_none: Los usuarios seleccionados no han contribuido con ninguna imagen
+      u otro archivo multimedia a este proyecto.
     view_other: Ver otras campañas
     view_page: Ver la página del programa
     word_count_doc: Una estimación del número de palabras añadió a mainspace artículos

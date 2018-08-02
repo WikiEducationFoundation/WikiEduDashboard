@@ -4,6 +4,7 @@
 # Author: Adamw
 # Author: Base
 # Author: Beta16
+# Author: Hamilton Abreu
 # Author: Ixocactus
 # Author: Liuxinyu970226
 # Author: Macofe
@@ -315,7 +316,6 @@ qqq:
     courses: |-
       Label for the number of courses in a campaign
       {{Identical|Course}}
-    creation_date: Data de criação
     creator:
       already_exists: Message indicating that a course with the same details already
         exists

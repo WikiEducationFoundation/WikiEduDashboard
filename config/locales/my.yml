@@ -1,6 +1,7 @@
 # Messages for Burmese (မြန်မာဘာသာ)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dr Lotus Black
 # Author: Khinelay
 # Author: Ninjastrikers
 ---
@@ -51,6 +52,39 @@ my:
     explore_course_pages: သင်ခန်းစာများကို ကြည့်ရှုပါ
   home:
     sign_up: ဝီကီပီးဒီးယားနှင့် မှတ်ပုံတင်ရန်
+  articles:
+    available: ရရှိနိုင်သော ဆောင်းပါးများ
+    edited_mobile: ဆောင်းပါးများ
+    hide: ဝှက်
+    history: (ရာဇဝင်)
+    label: ဆောင်းပါးများ
+    new: (အသစ်)
+    rating: အတန်း
+    see_more: ပို၍ ကြည့်ရန်
+    title: ခေါင်းစဉ်
+    title_example: ဆောင်းပါး ခေါင်းစဉ်
+    view: ဆောင်းပါး ကြည့်ရန်
+    view_all: အကုန် ကြည့်ရန်
+  assignments:
+    add_available_submit: ဆောင်းပါး ပေါင်းထည့်ရန်
+    remove: ဖယ်ရှားရန်
+    select: ရွေးချယ်
+  campaign:
+    alert_article: ဆောင်းပါး ခေါင်းစဉ်
+    alert_type: အမျိုးအစား
+    alert_user_id: အသုံးပြုသူ
+    created_at: ရက်စွဲ
+    course: သင်တန်း
+    description: ဖော်ပြချက်
+    program_template: ပရိုဂရမ် တမ်းပလိပ်
+    requested_accounts: တောင်းဆိုထားသော အကောင့်များ
+    title: ခေါင်းစဉ်
+  categories:
+    add_category: ကဏ္ဍပေါင်းထည့်ရန်
+    add_template: တမ်းပလိတ် ပေါင်းထည့်ရန်
+  courses:
+    articles: ဆောင်းပါးများ
+    cancel: ပယ်ဖျက်
   article_finder:
     submit: ထည့်သွင်းရန်
 ...
