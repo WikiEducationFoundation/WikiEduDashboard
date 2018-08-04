@@ -90,7 +90,7 @@ Rails.application.routes.draw do
           constraints: { id: /.*/ }, via: [:post, :delete]
     match 'courses/*id/tag' => 'courses#tag',
           constraints: { id: /.*/ }, via: [:post, :delete]
-    match 'courses/*id/user' => 'users#enroll',
+    match 'courses/*id/user' => 'users/enrollment#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
