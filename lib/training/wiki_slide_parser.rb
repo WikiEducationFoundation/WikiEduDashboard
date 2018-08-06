@@ -19,7 +19,8 @@ class WikiSlideParser
   # The first translated line is the slide title
   def title
     return '' if @wikitext.blank?
-    title = @wikitext.lines.first.chomp
+    # get the first non-blank line
+    title = @wikitext.strip.lines.first.chomp
     # remove header markup for level 2 or lower
     title.gsub(/==+/, '').strip
   end

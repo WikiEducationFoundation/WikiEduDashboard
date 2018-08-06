@@ -151,6 +151,37 @@ describe WikiSlideParser do
     WIKISLIDE
   end
 
+  # https://meta.wikimedia.org/w/index.php?title=Training_modules/dashboard/slides/12102-introduction/eu&action=edit
+  let(:translated_wikitext_with_leading_whitespace) do
+    <<~WIKISLIDE
+
+      == Edizio ekintzei buruzko sarrera ==
+
+      {{Training module video|
+      video =  File:Esto es un editatón de Wikipedia.webm
+      |source = https://www.youtube.com/embed/94KtOE39Hyw
+      |caption = Mexiko DFko Museo Soumayan egindako 72 orduko editatoia irudikatzen duen bideoa}}
+
+      Wikipediako edizio ekintzak, askotan izendapen bera erabiliagatik, askotarikoak izan daitezke, eta helburu desberdinak dituzte, adibidez:
+      * ''Editatoiak'': gai jakin baten inguruko ekintza, Wikipedian dauden zuloei buruz kontzientzia areagotzeko eta gai horretan lankide gehiago izatera bultzatzeko.
+      * ''Barrualderako baimenak'': ikerketa edo kultura erakunde bateko bildumak, prozesuak edo ezagutza espezializatuari erreparatu edo horiek erakusten dituzten ekintzak.
+      * ''Edizio lantegiak/trebakuntza tailerrak'': parte-hartzaileak edizioan trebatzea da garrantzitsuagoa edukia sortzea baino.
+      * ''Edizio topaketak'': eskarmentua duten editoreak edukiak sortzera bultzatzeko ekintzak, maiztasunez ordu edo toki jakin batean antolatutakoak askotan.
+      * ''Mikroekarpenen ekintzak'': bertaratze bidezko ekintza hauetan, ahalegina egiten da  arazo jakin bat konpontzeko edo ekarpen txiki errepikatuak egiteko.
+
+      Trebakuntza honek arlo jakin bati eta eduki sorrerari buruzko ekintzei erreparatzen die batez ere, maiz 'editatoi' deitutakoei, nahiz eta beste edizio ekintzetarako egokiak diren gomendioak eta jarraibideak ematen diren. Editatoiek forma eta tamaina desberdinak izaten dituzte, hasi parte-hartzaile gutxi batzuetako ordubeteko ekintza txikietatik eta dozenaka lankide biltzen dituzten 72 orduko ekintzetara. Ekintza horiek askotariko gaiak biltzen dituzte, adibidez (baina ez bakarrik):
+      * [[w:eu:Wikipedia:Genero_oreka|Generoko zuloa]] berdindu, emakume zientzialari eta artistak landuz.
+      * Interneteko joera sistemikoa berdintzeko jatorrizko herrien edo hizkuntza gutxituen agerpen txikia garatuz.
+      * Adituengandik edo erakundeengandik ezagutza sakona partekatu.
+      * Tokiko historia edo ondare lekuei buruzko zuloa berdindu.
+
+      Editatoi bat eta beste edizio ekintzak muntatzeko, zenbait elementu behar dira: denbora, elkartzeko espazio bat, Wikimediako proiektuei buruzko ulermena eskain dezaketen ekintzen gidariak, eta Wikimedia proiektuetan ekarpenak nola egin ikasi nahi duen jendea. Horrelako bilkurak antolatzea erronka izan daiteke, hainbat detaile kontuan hartzea eska dezakeena.
+      <noinclude>
+      [[Category:Editathon training slides]]
+      </noinclude>
+    WIKISLIDE
+  end
+
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
       output = WikiSlideParser.new(source_wikitext.dup).title
@@ -167,6 +198,10 @@ describe WikiSlideParser do
     it 'extracts only the title from variant translation markup formats' do
       output = WikiSlideParser.new(translate_markup_variant.dup).title
       expect(output).to eq('Five Pillars: The core rules of Wikipedia')
+    end
+    it 'extracts the title from translated wikitext with leading whitespace' do
+      output = WikiSlideParser.new(translated_wikitext_with_leading_whitespace.dup).title
+      expect(output).to eq('Edizio ekintzei buruzko sarrera')
     end
   end
 
