@@ -7,6 +7,7 @@
 # Author: Pitke
 # Author: Pyscowicz
 # Author: Silvonen
+# Author: Surjection
 # Author: Valtlait
 ---
 fi:
@@ -661,9 +662,9 @@ fi:
     first_name: Etunimi
     last_name: Sukunimi
     loading: Ladataan käyttäjiä...
-    characters_added_mainspace: Lis. merkit päänimiavaruuteen
+    characters_added_mainspace: Lisätyt merkit (artikkeli)
     characters_added_short: 'Päänimiavaruus: %{mainspace}, Käyttäjänimiavaruus: %{userspace}'
-    characters_added_userspace: Lis. merkit käyttäjänimiavaruuteen
+    characters_added_userspace: Lisätyt merkit (käyttäjä)
     my_assigned: 'Tehtävänä:'
     my_reviewing: 'Arvioitavana:'
     name: Nimi

@@ -384,6 +384,8 @@ sv:
     students_short: Redigerare
     students_count: Antal deltagare
     term: När
+    user_uploads_none: Valda användare har inte bidragit några bilder eller mediafiler
+      i detta projekt.
     view_other: Visa andra kampanjer
     view_page: Visa programsida
     yourcourses: Dina program
@@ -540,6 +542,9 @@ sv:
     first_name: Förnamn
     last_name: Efternamn
     loading: Laddar användare...
+    characters_added_mainspace: Tecken som lades till (artikel)
+    characters_added_userspace: Tecken som lades till (användare)
+    characters_added_draftspace: Tecken som lades till (skiss)
     my_assigned: 'Tilldelade:'
     my_reviewing: 'Granskar:'
     name: Namn
