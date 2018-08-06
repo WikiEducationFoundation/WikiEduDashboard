@@ -18,7 +18,6 @@ const Description = createReactClass({
   },
 
   updateDescription(_valueKey, value) {
-    this.props.updateCourse({ description: value });
     return this.props.updateCourse({ description: value });
   },
 
