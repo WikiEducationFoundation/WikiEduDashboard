@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -10,6 +11,7 @@ import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
+import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
 
 const getState = () =>
   ({
@@ -88,6 +90,8 @@ const Wizard = createReactClass({
             step={step}
             weeks={this.props.weeks.length}
             summary={this.state.summary}
+            updateCourse={this.props.updateCourse}
+            persistCourse={this.props.persistCourse}
           />
         );
       } else if (i !== 0 && i < panelCount - 1) {
@@ -136,5 +140,9 @@ const Wizard = createReactClass({
 }
 );
 
+const mapDispatchToProps = {
+  updateCourse,
+  persistCourse
+};
 
-export default Wizard;
+export default connect(null, mapDispatchToProps)(Wizard);

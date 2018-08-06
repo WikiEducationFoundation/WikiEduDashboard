@@ -6,7 +6,8 @@ import CourseActions from '../../actions/course_actions.js';
 
 const HomeWikiProjectSelector = createReactClass({
   propTypes: {
-    course: PropTypes.object
+    course: PropTypes.object,
+    updateCourse: PropTypes.func.isRequired
   },
 
   componentWillMount() {
@@ -19,6 +20,7 @@ const HomeWikiProjectSelector = createReactClass({
     const course = this.props.course;
     const homeWikiProject = e.target.value;
     course.home_wiki.project = homeWikiProject;
+    this.props.updateCourse(course);
     CourseActions.updateCourse(course);
   },
 

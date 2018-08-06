@@ -2,8 +2,8 @@ import McFly from 'mcfly';
 const Flux = new McFly();
 
 // Data
-const _validations = {};
-const _errorQueue = [];
+let _validations = {};
+let _errorQueue = [];
 
 // Utilities
 const setValidation = function (key, valid, message, changed = true, quiet = false) {
@@ -50,6 +50,11 @@ const ValidationStore = Flux.createStore(
         return _validations[_errorQueue[0]].message;
       }
       return null;
+    },
+    reset() {
+      _validations = {};
+      _errorQueue = [];
+      return ValidationStore.emitChange();
     }
   }
   , (payload) => {

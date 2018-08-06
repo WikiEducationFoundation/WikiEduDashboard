@@ -14,10 +14,10 @@ import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import CourseActions from '../../actions/course_actions.js';
-import { needsUpdate } from '../../actions/course_actions_redux';
+import { needsUpdate, linkToSalesforce } from '../../actions/course_actions_redux';
 
 const AvailableActions = createReactClass({
-  displayName: 'Actions',
+  displayName: 'AvailableActions',
 
   propTypes: {
     course: PropTypes.object.isRequired,
@@ -25,7 +25,9 @@ const AvailableActions = createReactClass({
     initiateConfirm: PropTypes.func.isRequired,
     addNotification: PropTypes.func.isRequired,
     enableAccountRequests: PropTypes.func.isRequired,
-    enableForCourse: PropTypes.func.isRequired
+    enableForCourse: PropTypes.func.isRequired,
+    updateCourse: PropTypes.func.isRequired,
+    linkToSalesforce: PropTypes.func.isRequired
   },
 
   join() {
@@ -97,8 +99,10 @@ const AvailableActions = createReactClass({
     const enableRequests = this.props.enableAccountRequests;
     const notify = this.props.addNotification;
     const course = this.props.course;
+    const updateCourse = this.props.updateCourse;
     const onConfirm = function () {
       enableRequests(course);
+      updateCourse(course);
       CourseActions.updateCourse(course);
       notify({
         message: I18n.t('courses.accounts_generation_enabled'),
@@ -199,7 +203,7 @@ const AvailableActions = createReactClass({
         <div className="module__data">
           <GreetStudentsButton course={course} current_user={this.props.current_user} />
           {controls}
-          <SalesforceLink course={course} current_user={this.props.current_user} />
+          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} />
         </div>
       </div>
     );
@@ -212,7 +216,8 @@ const mapDispatchToProps = {
   addNotification,
   enableAccountRequests,
   enableForCourse,
-  needsUpdate
+  needsUpdate,
+  linkToSalesforce
 };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

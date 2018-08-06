@@ -1,26 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-import CourseActions from '../../actions/course_actions.js';
 import Loading from '../common/loading.jsx';
+import { toggleEditingSyllabus, uploadSyllabus } from '../../actions/course_actions_redux';
 
-export default class SyllabusUpload extends React.Component {
+class SyllabusUpload extends React.Component {
   constructor() {
     super();
     this.onDrop = this._onDrop.bind(this);
-    this.toggleEditing = this._toggleEditing.bind(this);
     this.removeSyllabus = this._removeSyllabus.bind(this);
   }
   _onDrop(files) {
-    CourseActions.startUploadSyllabus();
-    CourseActions.uploadSyllabus({
+    this.props.uploadSyllabus({
       courseId: this.props.course.id,
       file: files[0]
     });
   }
   _uploader() {
     const { uploadingSyllabus } = this.props;
-    const cancelButton = <button className="link-button" onClick={() => { this.toggleEditing(false); }}>cancel</button>;
+    const cancelButton = <button className="link-button" onClick={this.props.toggleEditingSyllabus}>cancel</button>;
     const loadingAnimation = <Loading message={false} />;
     const dropzone = (
       <Dropzone onDrop={this.onDrop} multiple={false} className="course-syllabus__uploader">
@@ -34,9 +33,7 @@ export default class SyllabusUpload extends React.Component {
       </div>
     );
   }
-  _toggleEditing(bool) {
-    CourseActions.toggleEditingSyllabus(bool);
-  }
+
   _syllabusLink() {
     const { syllabus } = this.props.course;
     let link = <span>No syllabus has been added.</span>;
@@ -47,14 +44,14 @@ export default class SyllabusUpload extends React.Component {
     return link;
   }
   _removeSyllabus() {
-    CourseActions.uploadSyllabus({
+    this.props.uploadSyllabus({
       courseId: this.props.course.id,
       file: null
     });
   }
   render() {
     const { syllabus, canUploadSyllabus, editingSyllabus } = this.props.course;
-    const editButton = canUploadSyllabus ? <button className="link-button" onClick={() => { this.toggleEditing(true); }}>edit</button> : null;
+    const editButton = canUploadSyllabus ? <button className="link-button" onClick={this.props.toggleEditingSyllabus}>edit</button> : null;
     return (
       <div className="module course-description course__syllabus-upload__inner">
         <div className="module__data">
@@ -79,5 +76,13 @@ SyllabusUpload.propTypes = {
   course: PropTypes.object.isRequired,
   syllabus: PropTypes.string,
   editingSyllabus: PropTypes.bool,
-  uploadingSyllabus: PropTypes.bool
+  uploadingSyllabus: PropTypes.bool,
+  toggleEditingSyllabus: PropTypes.func.isRequired
 };
+
+const mapDispathToProps = {
+  toggleEditingSyllabus,
+  uploadSyllabus
+};
+
+export default connect(null, mapDispathToProps)(SyllabusUpload);

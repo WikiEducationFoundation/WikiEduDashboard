@@ -44,6 +44,7 @@ const StyleguideExamples = {
         course={{ start: '2016-06-01', end: '2016-06-30' }}
         editable={true}
         calendarInstructions="Edit the dates of your course"
+        updateCourse={() => { return null; }}
       />
     ), document.getElementById('calendar'));
   },

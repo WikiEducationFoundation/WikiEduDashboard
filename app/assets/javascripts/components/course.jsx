@@ -6,11 +6,9 @@ import moment from 'moment';
 
 import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
-import ServerActions from '../actions/server_actions.js';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
-import CourseActions from '../actions/course_actions.js';
-import CourseStore from '../stores/course_store.js';
+import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../actions/course_actions_redux';
 import WeekStore from '../stores/week_store.js';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
@@ -22,7 +20,6 @@ import { getStudentCount, getCurrentUser } from '../selectors';
 
 const getState = function () {
   return {
-    course: CourseStore.getCourse(),
     weeks: WeekStore.getWeeks()
   };
 };
@@ -31,24 +28,26 @@ const Course = createReactClass({
   displayName: 'Course',
 
   propTypes: {
+    course: PropTypes.object.isRequired,
     params: PropTypes.object,
     location: PropTypes.object,
     children: PropTypes.node,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    updateCourse: PropTypes.func.isRequired,
+    persistCourse: PropTypes.func.isRequired
   },
 
-  mixins: [CourseStore.mixin, WeekStore.mixin],
+  mixins: [WeekStore.mixin],
 
   getInitialState() {
     return getState();
   },
 
   // Fetch all the data needed to render a course page
-  componentWillMount() {
+  componentDidMount() {
     const courseID = this.getCourseID();
-    ServerActions.fetch('course', courseID);
+    this.props.fetchCourse(courseID);
     this.props.fetchUsers(courseID);
-    ServerActions.fetch('users', courseID);
     return this.props.fetchCampaigns(courseID);
   },
 
@@ -76,14 +75,13 @@ const Course = createReactClass({
   submit(e) {
     e.preventDefault();
     if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    const course = { ...this.state.course };
-    course.submitted = true;
-    CourseActions.persistCourse({ course }, course.slug);
+    this.props.updateCourse({ submitted: true });
+    return this.props.persistCourse(this.props.course.slug);
   },
 
   dismissSurvey(surveyNotificationId) {
     if (confirm(I18n.t('courses.dismiss_survey_confirm'))) {
-      return CourseActions.dismissNotification(surveyNotificationId);
+      return this.props.dismissNotification(surveyNotificationId);
     }
   },
 
@@ -93,7 +91,7 @@ const Course = createReactClass({
 
   render() {
     const courseId = this.getCourseID();
-    const course = this.state.course;
+    const course = this.props.course;
     if (!courseId || !course || !course.home_wiki) { return <div />; }
 
     const alerts = [];
@@ -105,7 +103,7 @@ const Course = createReactClass({
     // For unpublished courses, when viewed by an instructor or admin
     if (userRoles.isNonstudent && !course.legacy && !course.published) {
       // If it's an unsubmitted ClassroomProgramCourse
-      const isUnsubmittedClassroomProgramCourse = !(course.submitted || this.state.published) && course.type === 'ClassroomProgramCourse';
+      const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
         if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
@@ -273,6 +271,7 @@ const Course = createReactClass({
 });
 
 const mapStateToProps = state => ({
+  course: state.course,
   users: state.users.users,
   usersLoaded: state.users.isLoaded,
   studentCount: getStudentCount(state),
@@ -281,7 +280,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchUsers,
-  fetchCampaigns
+  fetchCampaigns,
+  fetchCourse,
+  updateCourse,
+  persistCourse,
+  dismissNotification
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Course);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
@@ -8,13 +9,16 @@ import DatePicker from '../common/date_picker.jsx';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
+import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
 
 const Meetings = createReactClass({
   displayName: 'Meetings',
 
   propTypes: {
     weeks: PropTypes.array, // Comes indirectly from TimelineHandler
-    course: PropTypes.object
+    course: PropTypes.object,
+    updateCourse: PropTypes.func.isRequired,
+    persistCourse: PropTypes.func.isRequired
   },
 
   disableSave(bool) {
@@ -24,17 +28,19 @@ const Meetings = createReactClass({
   updateCourse(valueKey, value) {
     const toPass = this.props.course;
     toPass[valueKey] = value;
+    this.props.updateCourse(toPass);
     return CourseActions.updateCourse(toPass);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
+    this.props.updateCourse(updatedCourse);
     return CourseActions.updateCourse(updatedCourse);
   },
 
   saveCourse(e) {
     if (ValidationStore.isValid()) {
-      return CourseActions.persistCourse({ course: this.props.course }, this.props.course.slug);
+      return this.props.persistCourse(this.props.course.slug);
     }
     e.preventDefault();
     return alert(I18n.t('error.form_errors'));
@@ -121,6 +127,7 @@ const Meetings = createReactClass({
               editable={true}
               calendarInstructions={I18n.t('courses.course_dates_calendar_instructions')}
               weeks={this.props.weeks}
+              updateCourse={this.props.updateCourse}
             />
             <label> {I18n.t('timeline.no_class_holidays')}
               <input
@@ -151,4 +158,9 @@ const Meetings = createReactClass({
 }
 );
 
-export default Meetings;
+const mapDispatchToProps = {
+  updateCourse,
+  persistCourse
+};
+
+export default connect(null, mapDispatchToProps)(Meetings);

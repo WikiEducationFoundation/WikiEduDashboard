@@ -7,7 +7,8 @@ import CourseActions from '../../actions/course_actions.js';
 const CourseTypeSelector = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateCourse: PropTypes.func.isRequired
   },
 
   componentWillMount() {
@@ -28,6 +29,7 @@ const CourseTypeSelector = createReactClass({
         course.timeline_end = course.end;
       }
     }
+    this.props.updateCourse(course);
     CourseActions.updateCourse(course);
   },
 
