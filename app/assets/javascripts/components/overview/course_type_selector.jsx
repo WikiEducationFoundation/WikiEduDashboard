@@ -2,7 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
-import CourseActions from '../../actions/course_actions.js';
 
 const CourseTypeSelector = createReactClass({
   propTypes: {
@@ -29,8 +28,7 @@ const CourseTypeSelector = createReactClass({
         course.timeline_end = course.end;
       }
     }
-    this.props.updateCourse(course);
-    CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
 
   _getFormattedCourseType(type) {

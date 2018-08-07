@@ -7,7 +7,6 @@ import Calendar from '../common/calendar.jsx';
 import Modal from '../common/modal.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import ValidationStore from '../../stores/validation_store.js';
-import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
 
@@ -28,14 +27,12 @@ const Meetings = createReactClass({
   updateCourse(valueKey, value) {
     const toPass = this.props.course;
     toPass[valueKey] = value;
-    this.props.updateCourse(toPass);
-    return CourseActions.updateCourse(toPass);
+    return this.props.updateCourse(toPass);
   },
 
   updateCourseDates(valueKey, value) {
     const updatedCourse = CourseDateUtils.updateCourseDates(this.props.course, valueKey, value);
-    this.props.updateCourse(updatedCourse);
-    return CourseActions.updateCourse(updatedCourse);
+    return this.props.updateCourse(updatedCourse);
   },
 
   saveCourse(e) {

@@ -2,7 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import uuid from 'uuid';
-import CourseActions from '../../actions/course_actions.js';
 
 const HomeWikiLanguageSelector = createReactClass({
   propTypes: {
@@ -20,8 +19,7 @@ const HomeWikiLanguageSelector = createReactClass({
     const course = this.props.course;
     const homeWikiLanguage = e.target.value;
     course.home_wiki.language = homeWikiLanguage;
-    this.props.updateCourse(course);
-    CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
 
   render() {

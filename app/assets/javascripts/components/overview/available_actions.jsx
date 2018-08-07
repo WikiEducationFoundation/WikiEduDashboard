@@ -13,7 +13,6 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import CourseActions from '../../actions/course_actions.js';
 import { needsUpdate, linkToSalesforce } from '../../actions/course_actions_redux';
 
 const AvailableActions = createReactClass({
@@ -103,7 +102,6 @@ const AvailableActions = createReactClass({
     const onConfirm = function () {
       enableRequests(course);
       updateCourse(course);
-      CourseActions.updateCourse(course);
       notify({
         message: I18n.t('courses.accounts_generation_enabled'),
         closable: true,

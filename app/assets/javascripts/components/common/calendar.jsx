@@ -6,7 +6,6 @@ import _ from 'lodash';
 import moment from 'moment';
 
 import WeekdayPicker from './weekday_picker.jsx';
-import CourseActions from '../../actions/course_actions.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 function __in__(needle, haystack) {
@@ -65,8 +64,7 @@ const Calendar = createReactClass({
 
     course.day_exceptions = exceptions.join(',');
     course.no_day_exceptions = (_.compact(exceptions).length === 0);
-    this.props.updateCourse(course);
-    return CourseActions.updateCourse(course);
+    return this.props.updateCourse(course);
   },
   selectWeekday(e, weekday) {
     let weekdays;
@@ -79,8 +77,7 @@ const Calendar = createReactClass({
     }
     weekdays[weekday] = weekdays[weekday] === '1' ? '0' : '1';
     toPass.weekdays = weekdays.join('');
-    this.props.updateCourse(toPass);
-    return CourseActions.updateCourse(toPass);
+    return this.props.updateCourse(toPass);
   },
   inrange(day) {
     const { course } = this.props;
