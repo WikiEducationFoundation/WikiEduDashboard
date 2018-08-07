@@ -11,7 +11,7 @@
       - if @user.course_instructor? || @user.course_student?
         #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
 
-      - if @courses_users.blank?
+      - unless @last_courses_user
         %br/
         %h4
           #{@user.username}

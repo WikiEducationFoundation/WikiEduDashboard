@@ -134,7 +134,7 @@ class User < ApplicationRecord
   end
 
   def course_instructor?
-    courses.any? { |course| instructor?(course) }
+    @course_instructor ||= courses_users.where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).any?
   end
 
   def instructor?(course)
@@ -152,7 +152,7 @@ class User < ApplicationRecord
   end
 
   def course_student?
-    courses.any? { |course| student?(course) }
+    @course_student ||= courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE).any?
   end
 
   def role(course)

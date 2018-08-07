@@ -17,6 +17,10 @@ const UserProfile = createReactClass({
     isLoading: PropTypes.bool.isRequired
   },
 
+  getInitialState() {
+    return {};
+  },
+
   componentDidMount() {
     this.props.fetchStats(encodeURIComponent(this.props.params.username));
     this.getData();

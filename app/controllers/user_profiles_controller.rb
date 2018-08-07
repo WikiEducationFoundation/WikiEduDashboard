@@ -9,7 +9,8 @@ class UserProfilesController < ApplicationController
 
   def show
     if @user
-      @courses_users = @user.courses_users.includes(:course).where(courses: { private: false })
+      @last_courses_user = @user.courses_users.includes(:course)
+                                .where(courses: { private: false }).last
       @user_profile = UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
