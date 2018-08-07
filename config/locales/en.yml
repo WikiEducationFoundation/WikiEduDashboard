@@ -563,6 +563,8 @@ en:
     untrained: Untrained
     update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
+    user_uploads_none: This user has not contributed any images or other media files to Wikimedia Commons.
+    user_recent_uploads: Recent Uploads
     user_suggestions: 'User Suggestions:'
     user_suggestions_prompt: 'Your suggestions for the editors of the article'
     view_other: View other campaigns

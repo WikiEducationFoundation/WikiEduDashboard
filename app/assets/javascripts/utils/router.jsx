@@ -38,7 +38,7 @@ import TrainingSlideHandler from '../training/components/training_slide_handler.
 
 import RocketChat from '../components/common/rocket_chat.jsx';
 
-import ContributionStats from '../components/user_profiles/contribution_stats.jsx';
+import UserProfile from '../components/user_profiles/user_profile.jsx';
 import SettingsHandler from '../components/settings/settings_handler.jsx';
 import Nav from '../components/nav.jsx';
 
@@ -110,7 +110,7 @@ const routes = (
       <Route path=":library_id/:module_id" component={TrainingModuleHandler} />
       <Route path="/training/:library_id/:module_id/:slide_id" component={TrainingSlideHandler} />
     </Route>
-    <Route path="users/:username" component={ContributionStats} />
+    <Route path="users/:username" component={UserProfile} />
     <Route path="campaigns/:campaign_slug/alerts" component={AlertsHandler} />
     <Route path="settings" component={SettingsHandler} />
     <Route path="article_finder" component={ArticleFinder} />
