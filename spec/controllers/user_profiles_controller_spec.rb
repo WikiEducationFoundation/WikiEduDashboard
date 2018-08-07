@@ -13,19 +13,6 @@ describe UserProfilesController do
       end
     end
 
-    context 'when the user is enrolled in a course' do
-      let(:course) { create(:course) }
-      let(:user) { create(:user) }
-      let!(:courses_user) do
-        create(:courses_user, course_id: course.id,
-                              user_id: user.id)
-      end
-      it 'lists the course' do
-        get :show, params: { username: user.username }
-        expect(response.body).to have_content course.title
-      end
-    end
-
     context 'when current_user is same user' do
       let(:user) { create(:user, email: 'fake_email@gmail.com') }
       it 'shows the email id' do
