@@ -3,12 +3,11 @@
     = render 'user_profiles/user_form'
 
     #userprofile_navbar
-      - if @user.course_instructor? || @user.course_student?
+      - if @last_courses_user
         = render 'user_profiles/profile_nav'
 
     #profile_details
-
-      - if @user.course_instructor? || @user.course_student?
+      - if @last_courses_user
         #react_root{"data-isstudent" =>  @user.course_student? ? '{ "student": true }' : '{ "student": false }' , "data-isinstructor" =>  @user.course_instructor? ? '{ "instructor": true }' : '{ "instructor": false }'}
 
       - unless @last_courses_user
