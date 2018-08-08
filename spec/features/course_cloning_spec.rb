@@ -45,6 +45,7 @@ describe 'cloning a course', js: true do
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
   let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
+  let!(:tag) { create(:tag, tag: 'cloneable', course_id: course.id) }
 
   it 'copies relevant attributes of an existing course' do
     login_as user, scope: :user, run_callbacks: false

@@ -375,6 +375,7 @@ describe 'New course creation and editing', type: :feature do
              user_id: 1,
              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       create(:campaigns_course, course_id: 1, campaign_id: Campaign.first.id)
+      create(:tag, tag: 'cloneable', course_id: 1)
     end
 
     it 'should have the option of starting with no timeline' do
