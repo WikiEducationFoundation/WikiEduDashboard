@@ -317,7 +317,7 @@ Rails.application.routes.draw do
   resources :alerts_list
   resources :settings, only: [:index]
 
-  require 'sidekiq/web'
+  require 'sidekiq_unique_jobs/web'
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
