@@ -79,4 +79,8 @@ class ClassroomProgramCourse < Course
   def timeline_enabled?
     true
   end
+
+  def cloneable?
+    tag?('cloneable')
+  end
 end

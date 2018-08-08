@@ -319,6 +319,11 @@ class Course < ApplicationRecord
     flags[:timeline_enabled].present?
   end
 
+  # Overridden for some course types
+  def cloneable?
+    !tag?('no_clone')
+  end
+
   def account_requests_enabled?
     return true if flags[:register_accounts].present?
     campaigns.exists?(register_accounts: true)
