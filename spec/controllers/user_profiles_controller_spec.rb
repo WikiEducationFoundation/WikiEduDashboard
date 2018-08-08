@@ -70,14 +70,9 @@ describe UserProfilesController do
       end
     end
 
-    context 'when user is neither a student nor an instructor' do
+    context 'when user has participated in zero courses' do
       let(:course) { create(:course) }
       let(:user) { create(:user) }
-      let!(:courses_user) do
-        create(:courses_user, course_id: course.id,
-                              user_id: user.id,
-                              role: CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE)
-      end
       it 'does not display the profile navbar' do
         get :show, params: { username: user.username }
         expect(response).not_to render_template(partial: '_profile_nav')
