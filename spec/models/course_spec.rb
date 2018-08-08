@@ -413,6 +413,47 @@ describe Course, type: :model do
     end
   end
 
+  describe '#cloneable?' do
+    let(:subject) { course.cloneable? }
+
+    context 'for a LegacyCourse' do
+      let(:course) { build(:legacy_course) }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'for a BasicCourse without the no_clone tag' do
+      let(:course) { build(:basic_course) }
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'for a BasicCourse with the no_clone tag' do
+      let(:course) { build(:basic_course) }
+      let!(:tag) { create(:tag, tag: 'no_clone', course: course) }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+
+    context 'for a ClassroomProgramCourse with the cloneable tag' do
+      let(:course) { build(:course) }
+      let!(:tag) { create(:tag, tag: 'cloneable', course: course) }
+      it 'returns true' do
+        expect(subject).to be true
+      end
+    end
+
+    context 'for a ClassroomProgramCourse without the cloneable tag' do
+      let(:course) { build(:course) }
+      it 'returns false' do
+        expect(subject).to be false
+      end
+    end
+  end
+
   describe 'callbacks' do
     let(:course) { create(:course) }
 
