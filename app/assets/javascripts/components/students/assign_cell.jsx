@@ -22,9 +22,7 @@ const AssignCell = createReactClass({
   stop(e) {
     return e.stopPropagation();
   },
-  open(e) {
-    return this.refs.button.open(e);
-  },
+
   render() {
     let link;
     if (this.props.assignments.length > 0) {
@@ -32,7 +30,7 @@ const AssignCell = createReactClass({
       if (this.props.assignments.length > 1) {
         const articleCount = I18n.t('users.number_of_articles', { count: this.props.assignments.length });
         link = (
-          <span onClick={this.open}>
+          <span>
             {this.props.prefix}
             {articleCount}
           </span>
