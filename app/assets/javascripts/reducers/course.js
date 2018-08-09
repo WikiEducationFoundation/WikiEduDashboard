@@ -3,6 +3,7 @@ import {
   RECEIVE_INITIAL_CAMPAIGN,
   RECEIVE_COURSE_CLONE,
   RECEIVE_COURSE,
+  RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE,
   UPDATE_COURSE,
   CREATED_COURSE,
@@ -14,6 +15,7 @@ import {
   SYLLABUS_UPLOAD_SUCCESS,
   LINKED_TO_SALESFORCE
 } from "../constants";
+import CourseUtils from "../utils/course_utils";
 
 const initialState = {
   title: '',
@@ -37,6 +39,8 @@ export default function course(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_COURSE:
       return { ...action.data.course };
+    case RECEIVE_COURSE_UPDATE:
+      return { ...action.data.course, newStats: CourseUtils.newCourseStats(state, action.data.course) };
     case PERSISTED_COURSE:
       return { ...state, ...action.data.course };
     case UPDATE_COURSE:

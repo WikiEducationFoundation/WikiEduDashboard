@@ -16,7 +16,7 @@ import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
-import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse } from '../../actions/course_actions_redux';
+import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions_redux';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -118,6 +118,7 @@ const Overview = createReactClass({
           resetState={this.props.resetCourse}
           persistCourse={this.props.persistCourse}
           nameHasChanged={this.props.nameHasChanged}
+          refetchCourse={this.props.refetchCourse}
         />
         <AvailableActions course={course} current_user={this.props.current_user} updateCourse={this.props.updateCourse} />
         <Milestones timelineStart={course.timeline_start} weeks={this.state.weeks} />
@@ -154,7 +155,8 @@ const mapDispatchToProps = {
   resetCourse,
   persistCourse,
   nameHasChanged,
-  updateClonedCourse
+  updateClonedCourse,
+  refetchCourse
 };
 
 

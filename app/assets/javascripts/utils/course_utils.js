@@ -175,6 +175,15 @@ const CourseUtils = class {
   onCourseIndex(location) {
     return location.pathname.split('/').length === 4;
   }
+
+  newCourseStats(oldCourse, newCourse) {
+    if (oldCourse.edit_count !== newCourse.edit_count) {
+      return true;
+    } else if (oldCourse.upload_count !== newCourse.upload_count) {
+      return true;
+    }
+    return false;
+  }
 };
 
 export default new CourseUtils();

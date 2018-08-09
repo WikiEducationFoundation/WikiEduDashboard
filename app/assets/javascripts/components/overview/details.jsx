@@ -27,7 +27,6 @@ import TextInput from '../common/text_input.jsx';
 import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
-import ServerActions from '../../actions/server_actions.js';
 
 import TagStore from '../../stores/tag_store.js';
 import ValidationStore from '../../stores/validation_store.js';
@@ -41,7 +40,7 @@ const getState = () =>
   })
 ;
 
-const POLL_INTERVAL = 300000; // 5 minutes
+const POLL_INTERVAL = 120000; // 2 minutes
 
 const Details = createReactClass({
   displayName: 'Details',
@@ -53,7 +52,8 @@ const Details = createReactClass({
     tags: PropTypes.array,
     controls: PropTypes.func,
     editable: PropTypes.bool,
-    updateCourse: PropTypes.func.isRequired
+    updateCourse: PropTypes.func.isRequired,
+    refetchCourse: PropTypes.func.isRequired
   },
 
   mixins: [ValidationStore.mixin, TagStore.mixin],
@@ -105,7 +105,7 @@ const Details = createReactClass({
   poll() {
     return setInterval(() => {
       if (!this.props.editable) {
-        ServerActions.fetch('course', this.props.course.slug);
+        this.props.refetchCourse(this.props.course.slug);
       }
     }, POLL_INTERVAL);
   },

@@ -52,8 +52,10 @@ const CourseStats = ({ course }) => {
     );
   }
 
+  const className = course.newStats ? 'stat-display stat-change' : 'stat-display';
+
   return (
-    <div className="stat-display">
+    <div className={className}>
       <div className="stat-display__stat" id="articles-created">
         <div className="stat-display__value">{course.created_count}</div>
         <small>{I18n.t('metrics.articles_created')}</small>

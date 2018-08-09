@@ -1,7 +1,7 @@
 import {
-  ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, PERSISTED_COURSE,
-  DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS, START_SYLLABUS_UPLOAD,
-  SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE
+  ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
+  PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
@@ -10,6 +10,12 @@ import ValidationActions from './validation_actions';
 export const fetchCourse = (courseSlug) => (dispatch) => {
   return API.fetch(courseSlug, 'course')
     .then(data => dispatch({ type: RECEIVE_COURSE, data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const refetchCourse = (courseSlug) => (dispatch) => {
+  return API.fetch(courseSlug, 'course')
+    .then(data => dispatch({ type: RECEIVE_COURSE_UPDATE, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 

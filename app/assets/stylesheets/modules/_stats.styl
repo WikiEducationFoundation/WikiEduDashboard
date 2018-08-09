@@ -1,3 +1,15 @@
+@keyframes STAT-CHANGE
+  0% {
+    opacity 0
+    transform scale(1.4)
+  }
+  50% {
+    opacity 1
+  }
+  100% {
+    opacity 1
+  }
+
 .main-page
   h1
     font-weight 300
@@ -10,6 +22,10 @@
   display flex
   justify-content space-between
   flex-flow wrap
+
+  &.stat-change
+    .stat-display__value
+      animation STAT-CHANGE 3s;
 
   .stat-display__stat
     margin 0 20px 20px 20px
