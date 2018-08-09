@@ -20,7 +20,7 @@ describe TrainingController do
     context 'not a real library' do
       let(:library_id) { 'lolnotareallibrary' }
       it 'raises a module not found error' do
-        expect { subject }.to raise_error TrainingController::ModuleNotFound
+        expect { subject }.to raise_error ActionController::RoutingError
       end
     end
   end
@@ -43,7 +43,7 @@ describe TrainingController do
     context 'not a real module' do
       let(:module_id) { 'lolnotarealmodule' }
       it 'raises a module not found error' do
-        expect { subject }.to raise_error TrainingController::ModuleNotFound
+        expect { subject }.to raise_error ActionController::RoutingError
       end
     end
   end

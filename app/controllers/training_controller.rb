@@ -62,8 +62,7 @@ class TrainingController < ApplicationController
   end
 
   def fail_if_entity_not_found(entity, finder)
-    raise ModuleNotFound, "#{entity}: #{finder}" unless entity.find_by(slug: finder).present?
+    return if entity.find_by(slug: finder).present?
+    raise ActionController::RoutingError, 'not found'
   end
-
-  class ModuleNotFound < StandardError; end
 end
