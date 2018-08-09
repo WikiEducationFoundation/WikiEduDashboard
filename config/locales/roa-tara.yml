@@ -37,6 +37,7 @@ roa-tara:
     view_all: '''Ndruche tutte'
   courses:
     update_stats: Aggiorne le statisteche
+    user_recent_uploads: Urteme carecaminde
   editable:
     edit_template: Cange 'u template
 ...

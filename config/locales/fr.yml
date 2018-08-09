@@ -578,6 +578,9 @@ fr:
     update_stats: Mettre à jour les statistiques
     uploads_none: Cette classe n'a importé aucune image ni aucun fichier media sur
       Wikimedia Commons.
+    user_uploads_none: Cet utilisateur n’a contribué à aucune image ni autre fichier
+      de média de Wikimédia Communs.
+    user_recent_uploads: Téléchargements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes

@@ -255,6 +255,7 @@ el:
     time_zone_message: Οι χρόνοι αρχής και τέλους εμφανίζονται στην τοπική ζώνη ώρας
       σας.
     title: Τίτλος
+    user_recent_uploads: Πρόσφατες φορτώσεις
     wiki_edits_enabled: Οι επεξεργασίες βίκι είναι ενεργοποιημένες
   courses_generic:
     all_courses: Όλα τα προγράμματα.

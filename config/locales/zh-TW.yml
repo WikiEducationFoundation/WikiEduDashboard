@@ -442,6 +442,8 @@ zh-TW:
     untrained: 未受訓
     update_stats: 更新統計內容
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
+    user_uploads_none: 此使用者未上傳任何圖片或媒體檔案至維基共享資源。
+    user_recent_uploads: 最新上傳
     user_suggestions: 使用者建議：
     user_suggestions_prompt: 您給予條目編輯者的建議
     view_other: 檢視其它競賽

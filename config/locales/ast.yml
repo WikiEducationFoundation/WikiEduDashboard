@@ -734,9 +734,9 @@ ast:
     first_name: Nome
     last_name: Apellíu
     loading: Cargando usuarios...
-    characters_added_mainspace: Caráuteres añadíos al espaciu principal
+    characters_added_mainspace: Caráuteres añadíos (artículu)
     characters_added_short: 'EP: %{mainspace}, EU: %{userspace}'
-    characters_added_userspace: Caráuteres añadíos al espaciu d'usuariu
+    characters_added_userspace: Caráuteres añadíos (usuariu)
     my_assigned: 'Axudicaos:'
     my_reviewing: 'En revisión:'
     name: Nome

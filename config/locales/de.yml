@@ -556,6 +556,9 @@ de:
     update_stats: Statistiken aktualisieren
     uploads_none: Diese Klasse hat keine Bilder oder andere Mediendateien für Wikimedia
       Commons beigetragen.
+    user_uploads_none: Dieser Benutzer hat keine Bilder oder andere Mediendateien
+      auf Wikimedia Commons hochgeladen.
+    user_recent_uploads: Zuletzt hochgeladene Dateien
     user_suggestions: 'Benutzervorschläge:'
     user_suggestions_prompt: Deine Vorschläge für die Autoren des Artikels
     view_other: Weitere Kampagnen ansehen

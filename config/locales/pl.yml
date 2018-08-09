@@ -405,6 +405,9 @@ pl:
     unsubmitted: Niezgłoszone kursy
     untrained: Nieprzeszkoleni
     uploads_none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
+    user_uploads_none: Ten użytkownik nie dodał żadnych zdjęć ani innych plików multimedialnych
+      do Wikimedia Commons.
+    user_recent_uploads: Niedawno przesłane
     view_other: Zobacz inne kampanie
     view: Zobacz Kursy
     view_doc: Suma wszystkich wyświetleń artykułów współtworzonych przez uczestników

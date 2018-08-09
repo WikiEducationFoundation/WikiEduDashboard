@@ -4,9 +4,12 @@
 # Author: Joedalton
 # Author: Jorn Ari
 # Author: Palnatoke
+# Author: Saederup92
 ---
 da:
   application:
+    create_accounts: Opret Wikipedia konti
+    dashboard: Wiki Ed betjeningspanel
     documentation: Dokumentation
     error: 'Der opstod en fejl:'
     explore: Udforsk
@@ -26,8 +29,12 @@ da:
     my_dashboard: Mit instrumentbræt
     recent_activity: Seneste aktivitet
     report_problem: Rapporter et problem
+    request_account: Anmod om en konto
+    request_account_create: Opret en konto
     search: stil et spørgsmål
+    search_results: 'Resultater for: ''%{search_terms}'''
     sign_up_extended: Registrer dig med Wikipedia
+    sign_up_wikipedia: Eller tilmeld dig på Wikipedia
     sign_up_log_in_extended: med Wikipedia
     sign_up: Opret en konto
     submit: Send
@@ -35,6 +42,8 @@ da:
     change: Ændr
     details: Detaljer
     confirm: O.k.
+    opt_in: Ja
+    opt_out: Nej
   dashboard:
     create_note: Klik på Opret kursus for at oprette dit første kursus.
     create_preparation_note: Sørg for, at du har din akademiske kalender tilgængelig
@@ -44,8 +53,9 @@ da:
     explore_course_pages: Udforsk kursussiderne
     no_courses_instructor: Der ser ud til, at du ikke har nogen kurser.
     no_courses_student: Det ser ud til, at du endnu ikke har valgt et kursus.
-    blog_headline: Seneste nyheder fra Wiki Ed
+    blog_headline: Seneste nyheder fra Wiki Education
   home:
+    explore: Udforsk
     log_in: Log på med Wikipedia
     sign_up: Registrer dig hos Wikipedia
   activity:
@@ -56,10 +66,12 @@ da:
     assigned: Tildelte artikler
     available: Tilgængelige artikler
     assigned_to: Tildelt til
+    deleted: (slettet)
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
     edited_mobile: Artikler
     hide: Skjul
+    history: (historik)
     label: Artikler
     loading: Indlæser artikler ...
     new: (ny)
@@ -67,6 +79,7 @@ da:
     rating: Klasse
     rating_docs:
       does_not_exist: Denne artikel findes ikke på Wikipedia
+    see_more: Se mere
     show_cumulative_changes: Vis kumulative ændringer
     show_current_version: Vis nuværende version
     show_current_version_with_authorship_highlighting: Nuværende version med forfatterskabfremhævelse
@@ -92,6 +105,8 @@ da:
     already_exists: Denne tildeling findes allerede!
     title_too_large: Titlen bør ikke være længere end 255 tegn
     assign_other: Tildel en artikel
+    add_available: Tilføj tilgængelige artikler
+    add_available_submit: Tilføj artikler
     assign_self: Tildel mig selv en artikel
     loading: Indlæser tildelinger ...
     none_short: Ingen artikler tildelt
@@ -109,6 +124,7 @@ da:
     alert_article: Artikeltitel
     alert_label: Kampagnealarmer
     alert_type: Type
+    alert_user_id: Bruger
     all_campaigns: Alle kampagner
     already_exists: Den kampagne findes allerede! Prøv igen med en anden titel eller
       »slug«.
@@ -118,45 +134,167 @@ da:
     campaign_not_updated: Kampagne kunne ikke opdateres
     campaign_updated: Kampagne opdateret
     created_at: Dato
+    course: Kursus
     create_campaign: Opret en ny kampagne
     create_my_campaign: Opret min kampagne!
     description: Beskrivelse
     delete_campaign: Slet denne kampagne
     none: Ingen
     program_template: Programskabelon
+    title: Titel
+  categories:
+    add_category: Tilføj kategori
+    add_template: Tilføj skabelon
+    add_this_category: Tilføj denne kategori
+    add_this_template: Tilføj denne skabelon
+    name: Navn
+    category_name: Kategorinavn
+    template_name: Skabelonnavn
+    remove: Fjern
   chat:
     label: Diskussion
   courses:
     activity: Aktivitet
     alerts: Alarmer
+    all_courses: Alle kurser
     actions: Handlinger
     articles: Artikler
     calendar:
       legend_class_meeting: Klassetræf
       legend_class_not_meeting: Ingen møder planlagt
       select_meeting_days: Vælg ugedagene klassen mødes på.
+    cancel: Annullér
     campaigns: 'Kampagner:'
+    campaign_articles: '%{title} artikler'
+    campaign_select: Vælg en kampagne
     course: Kursus
     course_description: Kurser
     courses: Kurser
+    creation_date: Oprettelsesdato
     creator:
+      course_description: Beskrivelse af kursus
       course_description_placeholder: Hvad er dækket i dit kursus, og hvad vil studenterne
         lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
         en ide om konteksten for bidragene dine studenter udfører.
+      end_date: Slutdato
+      find: Find dit kursus
       role_description: Din rolle i kursuset
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
+      start_date: Startdato
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
+    edit_count: Antal redigeringer
+    edit_course_dates: Rediger kursusdatoer
+    ended: Kurset er afsluttet.
+    error:
+      invalid_language_or_project: Ugyldigt sprog/projekt
+    instructors: Undervisere
+    loading: Indlæser...
+    my_articles: Mine artikler
+    new_week: Tilføj ny uge
+    new_account_email: E-mailadresse
+    new_account_username_invalid: Dette er ikke et gyldigt brugernavn.
+    none: Ingen
+    overview: Hjem
+    private: Privat
+    school: Skole
+    students: Studerende
+    students_taught: Underviste studenter
+    students_count: '# Studerende'
+    students_short: Studerende
+    user_role: Rolle
+    timeline_enabled: Tidslinje aktiveret
+    timeline_link: Tidslinje
+    title: Titel
+    training_nav: Gå til træning
+    view: Vis kursus
+    view_page: Vis kursusside
+    view_wiki: Vis på Wikipedia
+    yourcourses: Dine kurser
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
   courses_generic:
+    add_campaign: Tilføj en kampagne
+    all_courses: Alle programmer
+    course: Program
+    courses: Programmer
+    campaigns: 'Kampagner:'
     creator:
       course_description_placeholder: Hvad er dette for et program, og hvad vil deltagerne
         udføre på wikierne? Inkluder nok med detaljer til at give brugerne en ide
         om konteksten for bidragene, som deltagerne laver.
+      course_school: Institution
+      course_term: Hvornår
+      course_term_placeholder: Hvornår
+      course_title: Programtitel
+      create_button: Opret mit program!
+      create_label: Opret et nyt program
+      create_short: Opret program
+      find: Find et program
+      participate_in_campaign: Deltag i en kampagne
+      save_cloned_course: Gem
+    delete_course: Slet program
+    enrollment: Deltagelse
+    explore: Find programmer
+    school: Institution
+    student_editors: Skribenter
+    students: Skribenter
+    students_short: Skribenter
+    term: Hvornår
+    yourcourses: Dine programmer
+  editable:
+    edit: Rediger
+    cancel: Annullér
+    save: Gem
+    edit_description: Rediger beskrivelse
+    edit_details: Redigér detaljer
+    edit_template: Rediger skabelon
+  metrics:
+    activity: Seneste aktivitet
+    are_trained: er ajour med træningen
+    articles_created: Artikler oprettet
+    articles_edited: Artikler redigeret
+    bytes_added: Bytes tilføjet
+    characters: Tegn
+    char_added: Tegn tilføjet
+    date_time: Dato/tid
+    edit_count_description: Totalt antal ændringer
+    view_count_description: Artikel visninger
+    view: Visninger
+    word_count: Ord tilføjet
+  namespace:
+    user: Brugerrum
+    user_ns: Bruger
+  recent_activity:
+    article_title: Artikeltitel
+    image: Billede
+    file_name: Filnavn
+  revisions:
+    class: Klasse
+    diff_show: Vis
+    diff_hide: Skjul
+    edited_by: Redigeret af
+    edited_on: Blev redigeret den %{edit_date}
+    title: Titel
+    see_more: Se mere
+  settings:
+    admin_users:
+      new:
+        form_placeholder: Brugernavn
+  timeline:
+    add_week: Tilføj uge
+    block_milestone: Milepæl
+    delete_timeline_and_start_over: Slet tidslinje
+    empty_week_3: eller
+    first_week_title: Første aktive uge
+    this_week_title_default: Denne uge
+    title: Tidslinje
+    view_full_timeline: Se hele tidslinjen
+    week_number: Uge %{number}
   training:
+    view: Vis
     next: Næste side
     page: Side
     page_number: Side %{number} af %{total}
@@ -164,8 +302,42 @@ da:
     done: Færdig!
     check_answer: Kontrollér svar
     included_modules: Inkluderede moduler
+  uploads:
+    file_name: Filnavn
+    image: Billede
+    uploaded_by: Uploaded af
+  users:
+    assign_articles_done: Udført
+    first_name: Fornavn
+    last_name: Efternavn
+    loading: Laster brugere ...
+    name: Navn
+    no_articles: Ingen artikler
+    training_module_status: Status
+    username: Brugernavn
+    username_placeholder: Brugernavn
+    role:
+      visitor: Besøgende
+      student: Studerende
+      instructor: Underviser
+  wizard:
+    read_less: Læs mindre
+    read_more: Læs mere
+  error_404:
+    header: Siden blev ikke fundet. :-(
+  login_error:
+    header: Loginfejl
+  survey:
+    email:
+      headline: Halløj, %{username}
   onboarding:
     supplementary:
       header: Hvordan hørte du om os?
       where_did_you_hear: Hvor, eller fra hvem, hørte du første gang om Wiki Education?
+  article_finder:
+    page_assessment_class: Klasse
+    remove_article: Fjern artikel
+    search: Søg
+    tools: Værktøjer
+    more_results: Flere resultater
 ...

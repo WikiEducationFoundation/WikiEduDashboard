@@ -447,6 +447,7 @@ sr-ec:
     update_stats: Ажурирање статистика
     uploads_none: Овај разред није додао никакве слике или друге медијске датотеке
       на Оставу.
+    user_recent_uploads: Скорашња отпремања
     user_suggestions: 'Предлози корисника:'
     user_suggestions_prompt: Ваши предлози за уреднике чланка
     view_other: Погледај остале кампање

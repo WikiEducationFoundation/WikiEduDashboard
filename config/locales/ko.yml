@@ -296,6 +296,8 @@ ko:
     training_nav: 연습해 보기
     unsubmitted: 보내지 않은 코스
     uploads_none: 이 수업은 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_uploads_none: 이 사용자는 위키미디어 공용에 어떠한 그림이나 미디어 파일도 기여하지 않았습니다.
+    user_recent_uploads: 최근 업로드
     user_suggestions: '사용자 제안:'
     view: 과정 보기
     view_page: 코스 문서 보기

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Aktron
+# Author: Clon
 # Author: Dominikmatus
 # Author: Dvorapa
 # Author: Frettie
@@ -541,6 +542,9 @@ cs:
     update_stats: Aktualizace statistik
     uploads_none: Účastníci nepřispěli žádnými obrázky či jinými médii na Wikimedia
       Commons.
+    user_uploads_none: Tento uživatel nepřispěl žádnými obrázky či jinými médii na
+      Wikimedia Commons.
+    user_recent_uploads: Poslední nahrané soubory
     user_suggestions: 'Uživatelův návrh:'
     user_suggestions_prompt: Vaše návrhy pro editory článku
     view_other: Zobrazit další programy

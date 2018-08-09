@@ -5,6 +5,7 @@
 # Author: Ayatun
 # Author: Azouz.anis
 # Author: Haytham morsy
+# Author: Hhaboh162002
 # Author: Maroen1990
 # Author: Mido
 # Author: Moud hosny
@@ -22,8 +23,10 @@ ar:
     cancel: ألغ
     create_accounts: إنشاء حسابات ويكيبيديا
     dashboard: لوحة ويكي إد
+    documentation: التوثيق
     error: يوجد خطأ
     explore: استكشف
+    field_required: هذا الحقل مطلوب
     field_invalid_characters: هذا الحقل به أحرف غير صالحة
     field_invalid_date: يتطلب هذا الحقل تاريخ بالشكل YYYY-MM-DD
     field_invalid_date_time: يجب أن تكون النهاية بعد البداية. (الساعات من 0 إلى 23.)
@@ -38,7 +41,10 @@ ar:
     my_dashboard: لوحتي
     recent_activity: النشاطات الحديثة
     report_problem: أبلغ عن مشكلة
+    request_account: اطلب حساب
+    request_account_create: إنشاء حساب
     search: طرح سؤال
+    search_results: 'نتائج البحث عن: ''%{search_terms}'''
     sign_up_extended: تسجيل الدخول إلى ويكيبيديا
     sign_up_wikipedia: أو أنشئ حسابًا على ويكيبيديا
     sign_up_log_in_extended: مع ويكبيديا
@@ -47,8 +53,15 @@ ar:
     training: تدريب
     change: تغيير
     details: التفاصيل
+    confirm: موافق
+    opt_in: نعم
+    opt_out: لا
   dashboard:
     create_note: انقر فوق إنشاء ملعب لإنشاء الدورة الأولى الخاصة بك.
+    create_preparation_note: تأكد من توفر رزنامتك الدراسية في متناول يديك قبل أن تشرع
+      في أي شيء؛ حيث أن أداة تصميم المهمة الدراسية سوف يستعين بتواريخ تجمع صفك — ويشمل
+      ذلك أية إجازات وعطلات رسمية — وذلك كي تلائم جدولك الزمني مع نطاق التواريخ الذي
+      ستختاره. تذكر أنه يمكنك دائما تعديل الجدول الزمني كي يلائم احتياجاتك.
     explore_course_pages: استكشاف صفحات الدورات
     explore_examples: استكشاف أمثلة
     join_note: مرة واحدة تتلقى رمز مرور من معلمك، انقر على البحث عن دورتك لإيجادها
@@ -60,112 +73,226 @@ ar:
       (تستغرق حوالي 30 دقيقة لإكمالها.)
     review_orientation: مراجعة التوجيه
     start_orientation: بدء التوجيه
-    blog_headline: آخر الأخبار من ويكي إد
+    blog_headline: آخر الأخبار من ويكي التعليم
+    about_programs: يتتبع هذا الموقع الأنشطة على مواقع الويكي عن طريق البرامج وهي
+      فعاليات منفردة مثل منافسات التعديل أو المواد المدرسية. يشكل كل برنامج جزءا من
+      حملة واحدة أو أكثر من حملة واحدة وهو ما يقدم إحصاءات مجمعة تشمل كافة البرامج.
+    about_creating_programs: لو كنت تنظم فعالية منفردة مستقلة، يمكنك تأسيس برنامج
+      الآن. أما لو كانت فعاليتك جزءا من شيء ما أكبر، فعليك أن تبحث عن الحملة المناسبة
+      لها أو إنشاء حملة مناسبة، ومن ثم يمكنك إنشاء برنامج جديد من صفحة البرامج.
   home:
+    explore: استكشف
     log_in: تسجيل الدخول عبر ويكيبيديا
     sign_up: تسجيل الدخول إلى ويكيبيديا
+    sign_up_help: كي تستخدم لوحة التحكم، سوف تحتاج لتسجيل الدخول عن طريق ويكيبيديا
+      ومنحه الإذن للوصول إلى حسابك. يمكنك تسجيل الدخول مستخدما حسا ويكيبيديا قائم
+      أو إنشاء حساب جديد.
   activity:
     all: النشاط
     edited_by: عدل بواسطة
     label: النشاط
   articles:
+    article_development: (تصميم المقالات وتحسينها)
     assigned: المقالات المخصصة
     available: المواد المتاحة
     assigned_to: 'مُسندة إلى:'
     character_doc: مجموع الأحرف تضاف إلى المقالات من قبل المحررين المسجلين بين تاريخي
       البدء والانتهاء
+    cross_wiki_tracking: المقالات الموجودة في نطاق الاسم العام التي عدلت في الفترة
+      بين تاريخ البدء وتاريخ الانتهاء مسجلة تاليا. تجمع لوحة التحكم مساهمات من موقع
+      الويكي الرئيسي لهذا البرنامج بالإضافة إلى أية مواقع ويكي أخرى التي يوجد لها
+      مهمة مدرسية أو مقالة متاحة.
+    deleted: (المحذوفة)
     edited: المقالات التي تم تعديلها
     edited_by: عُدِّلت بواسطة
     edited_mobile: المقالات
+    hide: أخف
+    history: (السابق)
     label: المقالات
     loading: تحميل المقالات ...
+    new: (جديد)
     none: هذه الدورة لم تحرر أية مقالات.
     rating: رتبة
+    rating_doc: التقييم الذي حصلت عليه أحد المقالات من مشاريع الويكي على ويكيبيديا.
+      قد تتماشى هذه التقييمات مع نسخ قديمة، لذا فهي ليست إلا مؤشر عام على مستوى اكتمال
+      المقالة.
     rating_docs:
-      fa: مقالة مختارة - أعلى تصنيف ويكيبيديا، ربما مقالة ناضجة جدا للمشروع الرئيسي
-        لمحرر جديد
-      fl: قائمة مختارة - أعلى تصنيف لقوائم ويكيبيديا
-      a: الفئة أ- ربما تكون مقالة ناضجة جدا للمشروع الرئيسي لمحرر جديد
-      ga: مقالة جيدة - مقالة متطورة قد تكون أيضا ناضجة لمقال للمشروع الرئيسي لمحرر
-        جديد
-      b: الفئة ب — مقالة متطورة متوسطة
-      c: الفئة ج - مقالة متوسطة في مجال التحسين
-      start: فئة البداية - مقالة أولية في مجال للتحسين الكثير
-      stub: فئة البذرة - بداية قصيرة لمقال يحتاج المزيد من المحتوى
-      list: فئة القائمة - قائمة بدلا من المقالة التقليدية
+      fa: '%{class} (مقالة مختارة) — أعلى تصنيفات ويكيبيديا، وربما تكون مقالة ناضجة
+        نضجا لا يلائم استخدامها مشروعا رئيسيا لمحرر جديد'
+      fl: '%{class} (قائمة مختارة) — أعلى تصنيف لقوائم على ويكيبيديا'
+      a: '%{class} (الفئة أ) — مقالة متطورة جدا بمستوى يجعلها ناضجة نضجا لا يلائم
+        استخدامها مشروعا رئيسيا لمحرر جديد'
+      ga: '%{class} (مقالة جيدة) — مقالة متطورة قد تكون أيضا ناضجة نضجا لا يلائم استخدامها
+        مشروعا رئيسيا لمحرر جديد'
+      b: '%{class} الفئة ب — مقالة تتمتع بمستوى نضج متوسط'
+      c: '%{class} الفئة ج — مقالة متوسطة المستوى يوجد فيها مساحة للتحسين والتطوير'
+      start: '%{class} فئة البداية — مقالة أولية المستوى يوجد فيها واسعة للتحسين والتطوير'
+      stub: '%{class} فئة البذرة — بداية قصيرة لمقالة تحتاج المزيد من المحتوى'
+      list: '%{class} فئة القائمة - قائمة وليست مقالة معتادة'
       '?': غير مصنفة - مقالة غير مصنفة على أساس جودة ويكيبيديا
       does_not_exist: هذه المقالة غير موجودة على ويكيبيديا
+    see_more: طالع المزيد
     show_cumulative_changes: أظهر التغييرات التراكمية
+    show_current_version: عرض النسخة الحالية
+    show_current_version_with_authorship_highlighting: النسخة الحالية دون تظليل المؤلف
     title: العنوان
     title_example: عنوان المقال
     tools: أدوات التقييم
     view: عرض المقالة
     view_all: عرض الكل
     view_doc: مجموع وجهات النظر حول كل مقالة من خلال المشروع
+    view_on_wiki: العرض على موقع الويكي
     views_added: أضيفت %{count} وجهات نظر جديدة ل %{title}
     edit_size: تعديل الحجم
     wiki: ويكي
     wp10: اكتمال هيكلي
+    wp10_doc: يبين مجموع نقاط 'اكتمال البنية' مقدار اقتراب مقالة ما من قالب المقالات
+      الناضجة على ويكيبيديا استنادا إلى خدمة تقييم مراجعة الأغراض التي تستعين بتعلم
+      الآلة (https://ores.wikimedia.org/). تحسب هذه النقاط بناء على حجم المقالة وعدد
+      المراجع وروابط الويكي وسمات نصية أساسية أخرى. يشير في العادة مجموع النقاط المرتفع
+      إلى أن المقالة تتبع أعراف ويكيبيديا الخاصة ببنية المقالة الجيدة إلا أنه لا ينظر
+      بعين الاعتبار للمحتوى ذاته. (هذه النقاط متاحة فقط لمقالات ويكيبيديا الإنجليزية).
   assignments:
+    article: المقالة التي تحمل العنوان %{title} خصصت لك.
     already_exists: هذه المهمة موجودة بالفعل!
+    title_too_large: يجب أن لا يزيد العنوان عن عدد 255 محرف
+    assignees: المخصص له (لهم)
     assign_other: تعيين مقال
-    add_available: إضافة مقالة متاحة
+    add_available: إضافة مقالات متاحة
+    add_available_placeholder: أضف عنوان مقالة واحدة أو رابط شبكي واحد لكل سطر
+    add_available_submit: إضافة مقالات
     assign_self: تعيين مقالة لنفسي
+    assign_tooltip: المقالة المخصصة هو مقالة تعتزم إنشاؤها أو تحسين مستواها.
     confirm_add_available: هل أنت متأكد أنك تريد إضافة %{title}?
     confirm_addition: هل أنت متأكد أنك تريد إضافة %{title} ل %{username}?
+    confirm_deletion: هل أنت متأكد أنك تريد حذف هذه المقالة المعينة؟
+    label: تعيين
     loading: تحميل الواجبات...
     none_short: لا توجد مقالات معينة
     none: هذه الدورة ليست بها مقالات معينة.
     no_available: هذه الدورة ليست بها مواد متاحة.
+    remove: إزالة
+    reviewers: المراجع(ون)
     review_other: تعيين مراجعة
     review_self: مراجعة مقال
+    review_tooltip: هذا الجزء مخصص لمتابعة أي مقالة أو مقالات تعتزم مراجعة زملاء لها
+      أو تقديم آراء وملاحظات عليها.
     select: اختر
   blocks:
     milestones:
       title: معالم
   campaign:
+    active_campaigns: الحملات الناشطة
     add_organizer: أضف منظمًا
+    alert_article: عنوان المقالة
+    alert_label: إشعارات الحملة
+    alert_select_label: ترشيح عن طريق نوع الإشعار
+    alert_type: النوع
+    alert_user_id: المستخدم
+    all_campaigns: كافة الحملات
+    already_exists: هذه الحملة موجودة بالفعل! حاول مرة أخرى مستخدما عنوان مختلف أو
+      شعار مختلف.
+    campaign: حملة
     campaigns: الحملات
     campaign_deleted: أزيلت حملة "%{title}"
+    campaign_not_updated: تعذر تحديث الحملة
     campaign_updated: تم تجديد الحملة
+    created_at: التاريخ
+    confirm_campaign_deletion: هل أنت متأكد أنك تريد حذف الحملة بعنوان "%{title}"؟
+      إذا كان الأمر كذلك، اكتب عنوان الحملة للقيام بذلك.
+    confirm_campaign_deletion_failed: '"%{title}" ليس عنوان هذه الحملة. لم يتم حذفه
+      الحملة.'
+    confirm_course_removal: هل أنت متأكد أنك تريد رفع "%{title}" من حملة "%{campaign_title}"؟
+    course_already_removed: '"%{title}" رفع بالفعل من حملة "%{campaign_title}"'
+    course: مقرر
+    course_removed: '"%{title}" رفع بالفعل من حملة "%{campaign_title}"'
+    create_campaign: إنشاء حملة جديدة
+    create_my_campaign: أنشئ حملتي!
+    customize_passcode: كلمة مرور قياسية
+    default_course_type: نوع مقرر افتراضي
+    default_passcode: كلمة مرور قياسية
+    default_passcode_explanation: 'البرامج الجديدة في هذه الحملة يجب أن تحتوي قياسا
+      على ما يلي:'
+    description: وصف
+    delete_campaign: حذف هذه الحملة
+    disable_account_requests: تعطيل طلبات الحسابات
+    enable_account_requests: تمكين طلبات الحسابات
+    no_alerts: هذه الحملة لا تحتوي على إشعارات
+    no_passcode: لا توجد كلمة مرور
     none: لا شيء
     organizers: المنظمون
+    organizer_added: '%{user} الآن منظم لحملة "%{title}"'
+    organizer_removed: '%{user} لم يعد منظما لحملة "%{title}"'
+    program_template: قالب البرامج
+    program_template_tooltip: حينما ينشئ منظم برنامج في هذه الحملة، سوف ينسخ النص
+      الموجود في هذه المساحة ليكون وصفا على صفحة البرنامج
+    random_passcode: كلمة مرور عشوائية
+    requested_accounts: الحسابات المطلوبة
     title: العنوان
+    use_start_end_dates: استخدام تاريخ بدء وتاريخ نهاية
   categories:
     add_category: أضف تصنيفًا
     add_template: أضف القالب
     add_this_category: أضف هذا التصنيف
     add_this_template: أضف هذا القالب
+    confirm_category_addition: هل أنت متأكد من أنك تريد تتبع المساهمات في تصنيف "%{name}"؟
     confirm_template_addition: هل أنت متأكد من أنك تريد تتبع المساهمات في قالب "%{name}"؟
     depth: عمق التصنيف الفرعي
     name: الاسم
     category_name: اسم التصنيف
     template_name: اسم القالب
+    none: لا توجد تصنيفات يجري تتبعها.
+    remove: حذف
     tracked_categories: التصنيفات والقوالب المتابعة
   chat:
     label: دردشة
   courses:
+    accounts_generation_enabled: تم تمكين استحداث طلبات حسابات
+    accounts_generation_explanation: سوف يمكن هذا الأمر المشاركين من إدخال عنوان بريدهم
+      الإلكتروني واسم المستخدم المرغوب، بدلا من إنشاء حسابات جديدة بأنفسهم. سيمكنك
+      بعد ذلك إنشاء حسابات من لوحة التحكم وإضافتها بصفة مشاركين في ذات الوقت. كي تستخدم
+      هذه السمة يجب أن تتمتع بإذن 'منشئ حساب' على موقع الويكي الرئيسي لهذا البرنامج.
+    accounts_generation_confirm_message: هل أنت متأكد أنك ترغب في تمكين طلبات الحسابات؟
     activity: النشاط
+    active_courses: '%{course_type} الناشطة'
+    alerts: الإشعارات
+    all_courses: كافة المقررات
     already_enrolled: أنت بالفعل جزء من '%{title}'!
     already_exists: موجود بالفعل لهذه الدورة!
     archived: دورات مؤرشفة
+    actions: الإجراءات
     articles: المقالات
     articles_none: هذه الدورة لم تحرر أية مقالات.
+    assignment_end: نهاية التخصيص
     assignments_none: هذه الدورة ليست بها مقالات معينة.
     assignment_start: بدء التعيين
     calendar:
+      legend: مفتاح الشكل
       legend_class_canceled: عطلة/تم الإلغاء
       legend_class_meeting: اجتماع فئة
       legend_class_not_meeting: لا يوجد اجتماع مقرر
       select_meeting_days: تحديد أيام الأسبوع التي يجتمع فيها صفك.
+    cancel: إلغاء
+    character_doc: مجموع المحارف التي أضافها الطلاب المسجلين في المقرر إلى مقالات
+      نطاق الاسم الرئيسي أثناء فترة تقديم المقرر الدراسي
     campaigns: 'الحملات:'
     campaign_articles: مقالات %{title}
+    campaign_courses: مقررات %{title}
+    campaign_select: اختر حملة
     campaign_users: محرري %{title}
     confirm_course_deletion: هل أنت متأكد أنك تريد حذف الدورة بعنوان %{title}؟ إذا
       كان الأمر كذلك، اكتب عنوان الدورة للقيام بذلك.
     confirm_course_deletion_failed: '"%{title}" ليس عنوا هذه الدورة. لم يتم حذفه الدورة.'
+    confirm_manual_update: هل أنت متأكد أنك ترغب في تشغيل تحديث يدوي؟ سوف تستورد أحدث
+      المراجعات ومن ثم سوف يعاد تحميل الصفحة. قد تستغرق هذه العملية بعض الوقت.
     course: دورة
+    course_dates_calendar_instructions: اختر التواريخ كي تضيفها أو تحذفها من الجدول
+      الزمني (على سبيل المثال العطلات الرسمية والإجازات). اضغط على التاريخ كي تتنقل
+      بين حالة غير مختار أو مختار أو عطلة. سوف تتغير تواريخ أنشطة المقرر كي تأخذ في
+      الاعتبار الأسابيع التي لا يوجد فيها اجتماعات مقررة.
+    course_description: المقررات الدراسية
     courses: الدورات
+    courses_taught: المقررات الدراسية التي شرحت
     creation_date: تاريخ الإنشاء
     creator:
       already_exists: هذه الدورة موجودة بالفعل. جرب تغيير الاسم، أوالمدرسة، أو المصطلح
@@ -175,6 +302,7 @@ ar:
       assignment_start: بداية التعيين
       assignment_start_placeholder: بداية التعيين (YYYY-MM-DD)
       checking_for_uniqueness: يتم التحقق من هذه الدورة من حيث التفرد.
+      choose_clone: اختر مقرر دراسي كي تستنسخه.
       clone_previous: استنساخ دورة سابقة
       clone_this: استنساخ هذه الدورة
       clone_successful: تم استنساخ الدورة بنجاح
@@ -183,6 +311,8 @@ ar:
       course_project: المشروع الرئيسي
       course_school: مدرسة المساق
       course_subject: موضوع المساق
+      course_term: مدة المقرر الدراسي
+      course_term_placeholder: المدة
       course_title: عنوان المساق
       create_button: أنشئ مساقي
       create_label: لإنشاء مساق جديد
@@ -197,19 +327,54 @@ ar:
       save_cloned_course: حفظ دورة جديدة
       start_date: تاريخ البدء
       start_date_placeholder: تاريخ البدء (YYYY-MM-DD)
+      subject: الموضوع
     current: الدورات الحالية
+    data_articles: بيانات المقالات
+    data_download_info: تنزيل البيانات في صيغة CSV.
+    data_overview: بيانات عامة
+    data_overview_info: تقدم البيانات العامة إحصاءات تراكمية للمشروع كاملا.
+    data_edits: بيانات حالات التعديل
+    data_edits_info: تبين بيانات حالات التعديل تفاصيل كل تعديل جرى أثناء المشروع.
+    data_students: بيانات المحررين
+    data_students_info: تدرج بيانات المحررين كافة المحررين المسجلين ومقدار ما حرروه
+      وما ذا كانوا قد سجلوا حساباتهم أثناء المشروع أم لا.
+    data_uploads: بيانات الرفع إلى كومنز
+    data_uploads_info: تبين بيانات الرفع إلى كومنز اسم كل ملف وسائط رفع وعدد حالات
+      استخدامه.
     delete_course: حذف دورة
+    delete_suggestion: حذف
+    delete_course_instructions: يمكنك حذف هذه الصفحة لو كانت كافة الحملات قد حذفت
+      أولا.
+    dismiss_survey: تجاهل
     dismiss_survey_confirm: هل أنت متأكد أنك تريد رفض هذا المسح بشكل دائم؟
+    download_stats_data: بيانات التنزيل
+    does_not_exist: هذه المقالة غير موجودة. أنشئ صفحة ملعب وعين نفسك لها لتتلقى اقتراحات
+      بشأنها.
     duration: مدة الدورة
+    edit_count: عدد التعديلات
     edit_course_dates: تواريخ دورة التحرير
     enable_account_requests: تمكين طلبات الحساب
     enable_chat: تفعيل الدردشة
     end: نهاية
+    ended: لقد انتهى تاريخ المقرر الدراسي.
+    enroll: سجل نفسك
     enrollment: تسجيل
+    courses_enrolled: المقررات الدراسية المسجل فيها
     error:
+      exists: هذا المقرر الدراسي موجود بالفعل! حاول مرة أخرى مستخدما عنوان مختلف أو
+        مدرسة مختلفة أو فصل دراسي مختلف.
       user_exists: عذرا، %{username} ليس مستخدما موجودا.
       invalid_language_or_project: لغة/مشروع غير صالح
+      invalid_slug: اسم مدرسة أو عنوان مقرر دراسي فارغ.
+      duplicate_slug: يوجد برنامج آخر يحمل الاسم %{slug} بالفعل.
     expected_students: الطلاب المتوقعون
+    features_feedback: 'اقتراحات آلية:'
+    feedback: آراء وملاحظات
+    feedback_loading: يرجى الانتظار بينما يجري تحميل الاقتراحات...
+    gradeables_none: هذا المقرر الدراسي لا يحتوي على فروض يمكن تقييمها رقميا.
+    home_wiki_language: لغة موقع الويكي الرئيسي
+    home_wiki_project: مشروع موقع الويكي الرئيسي
+    instructors: المدربون
     join: انضم
     join_course: انضم للدورة
     join_successful: لقد انضممت بنجاح %{title}.

@@ -24,6 +24,7 @@
 # Author: Patrick Star
 # Author: Putnik
 # Author: Redredsonia
+# Author: Shaleych
 # Author: SmartNart12
 # Author: Vlad5250
 # Author: Туллук
@@ -328,6 +329,9 @@ ru:
     time_zone_message: Начало и окончание программы отображается с учётом вашего часового
       пояса.
     title: Название
+    user_uploads_none: Этот участник не добавлял никакие изображения или иные медиафайлы
+      на Викисклад.
+    user_recent_uploads: Недавние загрузки
     view_other: Посмотреть другие кампании
     view: Просмотр курса
     view_doc: Общее число просмотров статей, редактированных участниками, начиная
@@ -501,7 +505,10 @@ ru:
     training_incomplete: Тренинг не завершён
     training_module_name: Учебный модуль
     training_module_status: Состояние
+    username: Имя участника
+    username_placeholder: Имя участника
     useremail_placeholder: Эл. почта
+    userpasscode_placeholder: Код доступа
     role:
       visitor: Посетитель
       student: Студент
@@ -567,6 +574,7 @@ ru:
     category_search: Поиск по категории
     article_quality: Качество статьи(0-100)
     more_results: Ещё результаты
+    article_finder: Поиск статьи
     submit: Отправить
     relevanceIndex: Индекс релевантности
     assign_article_self: Назначить себя

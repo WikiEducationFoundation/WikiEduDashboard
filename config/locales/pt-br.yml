@@ -561,6 +561,9 @@ pt-br:
     update_stats: Atualizar as estatísticas
     uploads_none: Esta classe não contribuiu nenhuma imagem ou outros arquivos de
       mídia no Wikimedia Commons.
+    user_uploads_none: Este usuário não contribuiu com nenhuma imagem ou outros arquivos
+      de mídia para o Wikimedia Commons.
+    user_recent_uploads: Últimos Envios
     user_suggestions: 'Sugestões do usuário:'
     user_suggestions_prompt: As suas sugestões para os editores do artigo
     view_other: Ver outras campanhas
