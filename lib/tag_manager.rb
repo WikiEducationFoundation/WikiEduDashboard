@@ -32,13 +32,18 @@ class TagManager
             # user#returning_instructor?.
             creator.returning_instructor? ? 'returning_instructor' : 'first_time_instructor'
           end
-    create_attrs = { course_id: @course.id,
-                     tag: tag,
-                     key: 'course_creator' }
-    Tag.create(create_attrs)
+    add(tag: tag, key: 'course_creator')
+
+    add(tag: 'cloneable') if cloneable?
   end
 
   private
+
+  # Starting in Summer 2018, Wiki Education courses must be white-listed to be cloneable,
+  # but all newly-created courses will be whitelisted by default.
+  def cloneable?
+    @course.type == 'ClassroomProgramCourse'
+  end
 
   def handle_post
     return if Tag.find_by(@tag_params).present?
