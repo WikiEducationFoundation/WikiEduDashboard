@@ -177,12 +177,15 @@ const CourseUtils = class {
   }
 
   newCourseStats(oldCourse, newCourse) {
-    if (oldCourse.edit_count !== newCourse.edit_count) {
-      return true;
-    } else if (oldCourse.upload_count !== newCourse.upload_count) {
-      return true;
-    }
-    return false;
+    return {
+      createdCount: oldCourse.created_count !== newCourse.created_count,
+      editedCount: oldCourse.edited_count !== newCourse.edited_count,
+      editCount: oldCourse.edit_count !== newCourse.edit_count,
+      studentCount: oldCourse.student_count !== newCourse.student_count,
+      wordCount: oldCourse.character_sum_human !== newCourse.character_sum_human,
+      viewCount: oldCourse.view_count !== newCourse.view_count,
+      uploadCount: oldCourse.upload_count !== newCourse.upload_count
+    };
   }
 };
 

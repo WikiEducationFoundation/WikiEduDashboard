@@ -23,10 +23,6 @@
   justify-content space-between
   flex-flow wrap
 
-  &.stat-change
-    .stat-display__value
-      animation STAT-CHANGE 3s;
-
   .stat-display__stat
     margin 0 20px 20px 20px
     text-align center
@@ -42,6 +38,9 @@
       font-size 38px
       margin 0
       font-weight 300
+
+      &.stat-change
+        animation STAT-CHANGE 3s;
 
       img
         max-width 13%
