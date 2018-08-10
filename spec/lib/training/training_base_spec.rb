@@ -11,7 +11,7 @@ describe TrainingBase do
 
   describe 'abstract parent class' do
     it 'raises errors for required template instance methods' do
-      subject = TrainingBase.new({}, 'foo')
+      subject = TrainingBase.inflate({}, 'foo')
       expect { subject.valid? }.to raise_error(NotImplementedError)
     end
 
@@ -114,18 +114,31 @@ describe TrainingBase do
       before do
         allow(Features).to receive(:wiki_trainings?).and_return(false)
       end
-      it 'runs without error with wiki' do
+      it 'sets wiki_slide to nil for training content' do
         TrainingBase.load_all
+        expect(TrainingLibrary.all.last.wiki_page).to be_nil
+        expect(TrainingModule.all.last.wiki_page).to be_nil
+        expect(TrainingSlide.last.wiki_page).to be_nil
       end
     end
 
     context 'with wiki trainings enabled' do
       before do
+        TrainingSlide.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
-      it 'runs without error with wiki' do
+      it 'loads libraries, modules and slides that include the source wiki_page' do
         VCR.use_cassette 'wiki_trainings' do
           TrainingBase.load_all
+        end
+        TrainingLibrary.all.each do |library|
+          expect(library.wiki_page).to match(%r{/dashboard libraries/.*json})
+        end
+        TrainingModule.all.each do |training_module|
+          expect(training_module.wiki_page).to match(%r{Training_modules/.+})
+        end
+        TrainingSlide.all.each do |slide|
+          expect(slide.wiki_page).to match(%r{Training modules/dashboard/slides/.+})
         end
       end
     end

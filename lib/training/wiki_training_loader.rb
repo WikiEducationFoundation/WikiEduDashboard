@@ -66,7 +66,7 @@ class WikiTrainingLoader
                 new_from_wikitext_page(wiki_page, wikitext)
               end
 
-    @content_class.inflate(content, content['slug'])
+    @content_class.inflate(content, content['slug'], wiki_page)
   end
 
   # json pages have all the required data within the json content, but optionally
@@ -87,7 +87,7 @@ class WikiTrainingLoader
 
   # Gets the training hashes for the page itself and any translations that exist.
   def training_content_and_translations(content:, base_page:, wikitext:)
-    full_content = content.merge training_hash_from(wikitext: wikitext)
+    full_content = content.merge training_hash_from(wiki_page: base_page, wikitext: wikitext)
     full_content['translations'] = {}
     translated_pages(base_page: base_page, base_page_wikitext: wikitext).each do |translated_page|
       language = translated_page.split('/').last
@@ -132,7 +132,7 @@ class WikiTrainingLoader
 
   # Given either a wiki page title or some wikitext, parses the content
   # into training data.
-  def training_hash_from(wiki_page: nil, wikitext: nil)
+  def training_hash_from(wiki_page:, wikitext: nil)
     wikitext ||= WikiApi.new(MetaWiki.new).get_page_content(wiki_page)
     parser = WikiSlideParser.new(wikitext)
     case @content_class.to_s

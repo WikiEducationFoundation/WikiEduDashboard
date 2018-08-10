@@ -52,9 +52,10 @@ class TrainingSlide < ApplicationRecord
   # Instance methods #
   ####################
 
-  def self.inflate(all_content, slug)
+  def self.inflate(all_content, slug, wiki_page = nil)
     slide = TrainingSlide.find_or_initialize_by(id: all_content['id'])
     slide.slug = slug
+    slide.wiki_page = wiki_page
     all_content.each do |key, value|
       slide.send("#{key}=", value)
     end

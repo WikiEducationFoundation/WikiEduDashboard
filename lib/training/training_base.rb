@@ -9,7 +9,7 @@ class TrainingBase
     attr_accessor :path_to_yaml
   end
 
-  attr_accessor :slug, :id
+  attr_accessor :slug, :id, :wiki_page
 
   #################
   # Class methods #
@@ -93,8 +93,8 @@ class TrainingBase
   end
 
   # called for each training unit in TrainingLoader
-  def self.inflate(content, slug)
-    new(content.to_hashugar, slug)
+  def self.inflate(content, slug, wiki_page = nil)
+    new(content.to_hashugar, slug, wiki_page)
   end
 
   def self.training_loader_class
@@ -111,8 +111,9 @@ class TrainingBase
   # Instance methods #
   ####################
 
-  def initialize(content, slug)
+  def initialize(content, slug, wiki_page)
     self.slug = slug
+    self.wiki_page = wiki_page
     content.each do |key, value|
       instance_variable_set("@#{key}", value)
     end
