@@ -160,7 +160,7 @@ const TrainingSlideHandler = createReactClass({
       previousLink = (
         <SlideLink
           slideId={this.state.previousSlide.slug}
-          direction="< Previous"
+          buttonText={I18n.t('training.previous')}
           params={this.props.params}
         />
       );
@@ -207,6 +207,11 @@ const TrainingSlideHandler = createReactClass({
       );
     }
 
+   let sourceLink;
+   if (this.state.currentSlide.wiki_page) {
+     sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${this.state.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   }
+
     return (
       <div>
         <header>
@@ -238,6 +243,7 @@ const TrainingSlideHandler = createReactClass({
           {quiz}
           <footer className="training__slide__footer">
             <span className="pull-left">{previousLink}</span>
+            {sourceLink}
             <span className="pull-right">{nextLink}</span>
           </footer>
         </article>
