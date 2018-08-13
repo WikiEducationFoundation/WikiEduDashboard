@@ -879,6 +879,8 @@ en:
     done: Done!
     check_answer: Check Answer
     included_modules: Included Modules
+    view_module_source: view module source
+    reload_from_source: reload from source
 
   uploads:
     credit: Credit

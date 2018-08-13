@@ -135,7 +135,7 @@ describe TrainingBase do
           expect(library.wiki_page).to match(%r{/dashboard libraries/.*json})
         end
         TrainingModule.all.each do |training_module|
-          expect(training_module.wiki_page).to match(%r{Training_modules/.+})
+          expect(training_module.wiki_page).to match(%r{User:.*/.*.json})
         end
         TrainingSlide.all.each do |slide|
           expect(slide.wiki_page).to match(%r{Training modules/dashboard/slides/.+})

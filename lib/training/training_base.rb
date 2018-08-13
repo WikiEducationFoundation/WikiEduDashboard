@@ -113,10 +113,10 @@ class TrainingBase
 
   def initialize(content, slug, wiki_page)
     self.slug = slug
-    self.wiki_page = wiki_page
     content.each do |key, value|
       instance_variable_set("@#{key}", value)
     end
+    self.wiki_page = wiki_page
   rescue StandardError => e
     puts "There's a problem with file '#{slug}'"
     raise e
