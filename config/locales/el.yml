@@ -278,6 +278,8 @@ el:
     label: Μαθήματα
     last_update: Τελευταία ενημέρωση στατιστικών
     bytes_added: Μπάιτ που προστέθηκαν
+  training:
+    previous: < Προηγούμενο
   uploads:
     uploaded_at: Ώρα ανεβάσματος
     uploader: Ανεβαστής

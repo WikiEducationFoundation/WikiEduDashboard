@@ -892,6 +892,7 @@ pt-br:
     next: Próxima Página
     page: Página
     page_number: Página %{number} de %{total}
+    previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formação
     logged_out: Sua sessão de usuário não está aberta. Você não receberá crédito ao

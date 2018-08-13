@@ -892,6 +892,7 @@ pt:
     next: Página seguinte
     page: Página
     page_number: Página %{number} de %{total}
+    previous: < Anterior
     table_of_contents: Tabela de conteúdos
     training_library: Biblioteca de formação
     logged_out: Não está autenticado. Não será creditado por completar este módulo,

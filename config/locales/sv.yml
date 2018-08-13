@@ -324,6 +324,7 @@ sv:
     title: Titel
     training_nav: Gå till träning
     update_stats: Uppdatera statistik
+    user_recent_uploads: Senaste uppladdningar
     user_suggestions: 'Användarförslag:'
     view_other: Visa andra kampanjer
     view: Visa kurs
@@ -503,6 +504,7 @@ sv:
     next: Nästa sida
     page: Sida
     page_number: Sida %{number} av %{total}
+    previous: < Föregående
     table_of_contents: Innehållsförteckning
     training_library: Träningsbibliotek
     done: Klar!

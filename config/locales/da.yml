@@ -8,6 +8,7 @@
 ---
 da:
   application:
+    cancel: Annullér
     create_accounts: Opret Wikipedia konti
     dashboard: Wiki Ed betjeningspanel
     documentation: Dokumentation
@@ -51,6 +52,7 @@ da:
       – inklusive fridage og ferier – for at tilpasse din tidslinje i dine valgte
       datointervaller. Husk at du altid kan ændre tidslinjen til dine behov.
     explore_course_pages: Udforsk kursussiderne
+    explore_examples: Udforsk eksempler
     no_courses_instructor: Der ser ud til, at du ikke har nogen kurser.
     no_courses_student: Det ser ud til, at du endnu ikke har valgt et kursus.
     blog_headline: Seneste nyheder fra Wiki Education
@@ -89,6 +91,7 @@ da:
     view_all: Vis alle
     view_doc: Summen af alle artikelvisninger i løbet af projektet
     view_on_wiki: Vis på wikien
+    views_added: Tilføjede %{count} nye visninger for %{title}
     edit_size: Redigeringsstørrelse
     wiki: Wiki
     wp10: Strukturel fuldstændighed
@@ -142,6 +145,7 @@ da:
     none: Ingen
     program_template: Programskabelon
     title: Titel
+    use_start_end_dates: Brug start- og slutningdatoer
   categories:
     add_category: Tilføj kategori
     add_template: Tilføj skabelon
@@ -155,6 +159,7 @@ da:
     label: Diskussion
   courses:
     activity: Aktivitet
+    active_courses: Aktive %{course_type}
     alerts: Alarmer
     all_courses: Alle kurser
     actions: Handlinger
@@ -170,17 +175,28 @@ da:
     course: Kursus
     course_description: Kurser
     courses: Kurser
+    courses_taught: Underviste kurser
     creation_date: Oprettelsesdato
     creator:
+      clone_previous: Klon tidligere kursus
+      clone_this: Klon dette kursus
       course_description: Beskrivelse af kursus
       course_description_placeholder: Hvad er dækket i dit kursus, og hvad vil studenterne
         lave på Wikipedia? Inkluder nok med detaljer så andre Wikipediabrugere får
         en ide om konteksten for bidragene dine studenter udfører.
+      course_language: Hjemsprog
+      course_title: Titel på kursus
+      create_button: Opret mit kursus!
+      create_label: Opret nyt kursus
+      create_new: Opret et nyt kursus
+      create_short: Opret kursus
       end_date: Slutdato
       find: Find dit kursus
       role_description: Din rolle i kursuset
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
+      save_cloned_course: Gem nyt kursus
       start_date: Startdato
+      start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
@@ -191,6 +207,10 @@ da:
     error:
       invalid_language_or_project: Ugyldigt sprog/projekt
     instructors: Undervisere
+    join: Tilslut
+    join_course: Tilslut kursus
+    join_prompt: Tilslut '%{title}'?
+    leave_course: Forlad kursus
     loading: Indlæser...
     my_articles: Mine artikler
     new_week: Tilføj ny uge
@@ -205,23 +225,32 @@ da:
     students_count: '# Studerende'
     students_short: Studerende
     user_role: Rolle
+    submitted: Indsendt
     timeline_enabled: Tidslinje aktiveret
     timeline_link: Tidslinje
     title: Titel
     training_nav: Gå til træning
+    untrained: Utrænet
     view: Vis kursus
     view_page: Vis kursusside
     view_wiki: Vis på Wikipedia
     yourcourses: Dine kurser
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
+      link: Tag undersøgelse
   courses_generic:
     add_campaign: Tilføj en kampagne
     all_courses: Alle programmer
+    cancel: Annullér
     course: Program
     courses: Programmer
     campaigns: 'Kampagner:'
     creator:
+      choose_clone: Vælg et program der skal klones.
+      clone_previous: Klon forrige program
+      clone_this: Klon dette program
+      clone_successful: Programmet blev klonet
+      course_description: Programbeskrivelse
       course_description_placeholder: Hvad er dette for et program, og hvad vil deltagerne
         udføre på wikierne? Inkluder nok med detaljer til at give brugerne en ide
         om konteksten for bidragene, som deltagerne laver.
@@ -236,13 +265,19 @@ da:
       participate_in_campaign: Deltag i en kampagne
       save_cloned_course: Gem
     delete_course: Slet program
+    edit_course_dates: Rediger projektdatoer
+    enroll: Tilføj skribent
     enrollment: Deltagelse
     explore: Find programmer
+    join_course: Tilslut program
+    leave_course: Forlad program
     school: Institution
     student_editors: Skribenter
     students: Skribenter
     students_short: Skribenter
+    students_count: Antal deltagere
     term: Hvornår
+    view_other: Vis andre kampagner
     yourcourses: Dine programmer
   editable:
     edit: Rediger
@@ -259,6 +294,8 @@ da:
     bytes_added: Bytes tilføjet
     characters: Tegn
     char_added: Tegn tilføjet
+    char_changed: Tegn ændrede
+    char: Tegn tilføjet
     date_time: Dato/tid
     edit_count_description: Totalt antal ændringer
     view_count_description: Artikel visninger
@@ -268,11 +305,17 @@ da:
     user: Brugerrum
     user_ns: Bruger
   recent_activity:
+    active_courses: Artiklen er aktiv på
     article_title: Artikeltitel
+    datetime: Dato/tid
     image: Billede
     file_name: Filnavn
+    possible_plagiarism: Muligt plagiat
+    uploaded_by: Uploaded af
   revisions:
+    chars_added: Tegn tilføjet
     class: Klasse
+    date_time: Dato/tid
     diff_show: Vis
     diff_hide: Skjul
     edited_by: Redigeret af
@@ -289,6 +332,8 @@ da:
     delete_timeline_and_start_over: Slet tidslinje
     empty_week_3: eller
     first_week_title: Første aktive uge
+    gradeable_value: Værdi
+    save_all_changes: Gem alle
     this_week_title_default: Denne uge
     title: Tidslinje
     view_full_timeline: Se hele tidslinjen
@@ -298,25 +343,33 @@ da:
     next: Næste side
     page: Side
     page_number: Side %{number} af %{total}
+    previous: < Forrige
     table_of_contents: Indholdsfortegnelse
+    training_library: Træning bibliotek
     done: Færdig!
     check_answer: Kontrollér svar
     included_modules: Inkluderede moduler
   uploads:
     file_name: Filnavn
+    header: Filer uploadet til Wikimedia Commons
     image: Billede
     uploaded_by: Uploaded af
   users:
     assign_articles_done: Udført
+    editors: Skribenter
+    edits_by: 'Redigeringer af:'
+    enroll_confirmation: Er du sikker på du vil tilføje %{username}?
     first_name: Fornavn
     last_name: Efternavn
     loading: Laster brugere ...
     name: Navn
     no_articles: Ingen artikler
+    training_incomplete: Træning ikke færdiggjord
     training_module_status: Status
     username: Brugernavn
     username_placeholder: Brugernavn
     role:
+      description: Rolle i kursus
       visitor: Besøgende
       student: Studerende
       instructor: Underviser
@@ -340,4 +393,5 @@ da:
     search: Søg
     tools: Værktøjer
     more_results: Flere resultater
+    submit: Indsend
 ...

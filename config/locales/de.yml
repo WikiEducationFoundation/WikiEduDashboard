@@ -893,6 +893,7 @@ de:
     next: Nächste Seite
     page: Seite
     page_number: Seite %{number} von %{total}
+    previous: < Vorherige
     table_of_contents: Inhaltsverzeichnis
     training_library: Ausbildungsbibliothek
     logged_out: Du bist abgemeldet. Du erhältst keine Anerkennung für das Vervollständigen

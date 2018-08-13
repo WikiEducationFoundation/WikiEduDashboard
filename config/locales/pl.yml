@@ -209,7 +209,14 @@ pl:
     title: Tytuł
     use_start_end_dates: Użyć dat rozpoczęcia i zakończenia?
   categories:
+    add_category: Dodaj kategorię
+    add_template: Dodaj szablon
+    add_this_category: Dodaj tę kategorię
+    add_this_template: Dodaj ten szablon
+    depth: Głębokość podkategorii
     category_name: Nazwa kategorii
+    template_name: Nazwa szablonu
+    remove: Usuń
   chat:
     label: Czat
   courses:
@@ -300,6 +307,7 @@ pl:
         programy zostaną zaktualizowane podczas najbliższego cyklu aktualizacji. Potrwa
         to kilka godzin.
     current: Aktualne kursy
+    data_download_info: Pobierz dane w formacie CSV.
     delete_course: Usuń kurs
     delete_suggestion: Usuń
     delete_course_instructions: Możesz usunąć tę stronę jeśli najpierw usuniesz ją
@@ -343,6 +351,7 @@ pl:
       not_yet_approved: Kurs nie został jeszcze zaaprobowany.
     join_details: By zapisać się na ten kurs musisz mieć hasło lub zawierający je
       link. Jeśli jeszcze ich nie masz, poproś prowadzącego.
+    join_no_passcode: Czy na pewno chcesz dołączyć do tego kursu?
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
@@ -362,6 +371,7 @@ pl:
       wszystkim uczestnikom, którzy nie ukończyli na czas wymaganych modułów szkoleniowych.
       Czy chcesz wykonać tę operację?
     no_available_actions: Brak dostępnych akcji
+    ores_plot: ORES
     overview: Strona główna
     passcode: Kod dostępu
     passcode_none: Brak kodu dostępu
@@ -443,6 +453,10 @@ pl:
     campaigns: 'Kampanie:'
     campaign_courses: Programy %{title}
     creator:
+      assignment_end: Koniec wydarzenia
+      assignment_end_placeholder: Koniec wydarzenia (RRRR-MM-DD)
+      assignment_start: Rozpoczęcie wydarzenia
+      assignment_start_placeholder: Rozpoczęcie wydarzenia (RRRR-MM-DD)
       checking_for_uniqueness: Ten program jest sprawdzany pod kątem niepowtarzalności.
       clone_previous: Sklonuj poprzedni program
       clone_this: Sklonuj ten program

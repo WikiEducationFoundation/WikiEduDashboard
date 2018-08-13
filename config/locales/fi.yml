@@ -623,6 +623,7 @@ fi:
     view: Näytä
     next: Seuraava sivu
     page: Sivu
+    previous: < Edellinen
     training_library: Koulutuskirjasto
     logged_out: Olet kirjautunut ulos. Et saa pisteitä tämän moduulin suorittamisesta,
       ellet kirjaudu sisään.

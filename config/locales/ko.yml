@@ -463,6 +463,7 @@ ko:
     view: 보기
     next: 다음 페이지
     page: 페이지
+    previous: < 이전
     table_of_contents: 목차
     done: 끝났습니다!
     included_modules: 포함된 모듈
