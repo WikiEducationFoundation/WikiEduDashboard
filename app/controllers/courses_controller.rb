@@ -239,7 +239,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[categories check course tag tags timeline uploads].freeze
+  SHOW_ENDPOINTS = %w[categories check course tags timeline uploads].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
   # vulnerability.
