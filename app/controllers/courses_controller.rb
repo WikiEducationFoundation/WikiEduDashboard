@@ -60,8 +60,8 @@ class CoursesController < ApplicationController
 
   def show
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
+    protect_privacy
     verify_edit_credentials { return }
-    protect_privacy { return }
     set_endpoint
     set_limit
 
@@ -69,6 +69,28 @@ class CoursesController < ApplicationController
       format.html { render }
       format.json { render @endpoint }
     end
+  end
+
+  def articles
+    set_course
+    set_limit
+  end
+
+  def revisions
+    set_course
+    set_limit
+  end
+
+  def users
+    set_course
+  end
+
+  def assignments
+    set_course
+  end
+
+  def campaigns
+    set_course
   end
 
   ##################
@@ -125,6 +147,11 @@ class CoursesController < ApplicationController
   end
 
   private
+
+  def set_course
+    @course = find_course_by_slug(params[:slug])
+    protect_privacy
+  end
 
   def campaign_params
     params.require(:campaign).permit(:title)
@@ -212,8 +239,7 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:role_description)[:role_description]
   end
 
-  SHOW_ENDPOINTS = %w[articles article_count assignments campaigns categories check course
-                      revisions tag tags timeline uploads users].freeze
+  SHOW_ENDPOINTS = %w[categories check course tag tags timeline uploads].freeze
   # Show responds to multiple endpoints to provide different sets of json data
   # about a course. Checking for a valid endpoint prevents an arbitrary render
   # vulnerability.
@@ -222,10 +248,7 @@ class CoursesController < ApplicationController
   end
 
   def set_limit
-    case params[:endpoint]
-    when 'revisions', 'articles'
-      @limit = params[:limit]
-    end
+    @limit = params[:limit]
   end
 
   # If the user could make an edit to the course, this verifies that

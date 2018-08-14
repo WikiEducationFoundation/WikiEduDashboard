@@ -93,12 +93,25 @@ Rails.application.routes.draw do
     match 'courses/*id/user' => 'users#enroll',
           constraints: { id: /.*/ }, via: [:post, :delete]
 
+    # show-type actions: first all the specific json endpoints,
+    # then the catchall show endpoint
+    get 'courses/:slug/articles.json' => 'courses#articles',
+         constraints: { slug: /.*/ }
+    get 'courses/:slug/revisions.json' => 'courses#revisions',
+         constraints: { slug: /.*/ }
+    get 'courses/:slug/users.json' => 'courses#users',
+         constraints: { slug: /.*/ }
+    get 'courses/:slug/assignments.json' => 'courses#assignments',
+         constraints: { slug: /.*/ }
+    get 'courses/:slug/campaigns.json' => 'courses#campaigns',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
         defaults: { endpoint: 'overview' }, :as => 'show',
         constraints: {
           school: /[^\/]*/,
           titleterm: /[^\/]*/
         }
+
     post 'clone_course/:id' => 'course_clone#clone'
     post 'courses/:id/update_syllabus' => 'courses/syllabuses#update'
     delete 'courses/:id/delete_all_weeks' => 'courses#delete_all_weeks',
