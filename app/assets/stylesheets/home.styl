@@ -10,9 +10,14 @@ $h1_font = "Source Sans Pro", "Open Sans", sans-serif
 body.home
   color $body_color
   font-family $body_font
-
   .notification
     text-align center
+
+  +below(desktop)
+    .button-container
+      position relative
+      border 1px solid white
+      border-radius 3px
 
   /* Base button */
   .button
@@ -52,7 +57,8 @@ body.home
   /* Help icon button */
   .help
     border 1px solid #fff
-    color #fff
+    color $brand-primary
+    background-color #fff
     border-radius: 50%
     font-size 16px
     font-weight 600
@@ -84,14 +90,15 @@ body.home
       padding 15px
       position absolute
       z-index 98
-      width 220px
+      width 280px
       left 50%
-      top 100%
+      top 50%
       pointer-events none
 
+      +below(desktop)
+        left -600%
+
     &:hover, &:focus
-      background-color #fff
-      color $brand-primary
 
       &:after
         visibility visible
@@ -108,7 +115,7 @@ body.home
 
     .button
       +below(desktop)
-        margin 24px auto
+        margin 24px 40px 24px 15px
         display block
         text-align center
 
@@ -116,6 +123,10 @@ body.home
       +below(desktop)
         margin 0 auto
         display block
+        position absolute
+        top 6px
+        right 6px
+
 
     h1
       color #fff
@@ -123,6 +134,7 @@ body.home
 
       +below(desktop)
         margin-bottom 40px
+        text-align center
 
 
   /* Basic sections and variants */
@@ -131,7 +143,7 @@ body.home
       padding 60px 30px 60px 30px
 
       +below(desktop)
-        padding 55px
+        padding 60px 10px 20px 10px
 
     &.light
       background-color #fff
