@@ -146,13 +146,13 @@ const HamburgerMenu = createReactClass({
             {languageSwitcher}
             <div className="hamburger_menu_wrapper">
               <div className ="bm-burger-button" onClick={this.toggleClass}>
-                <div className ={(this.state.isActive) ? 'change' : ''}>
+                <div className ={(this.state.isActive) ? 'bm-menu-active' : ''}>
                   <div className = "bar1" />
                   <div className = "bar2" />
                   <div className = "bar3" />
                 </div>
               </div>
-              <div className = {`bm-menu-wrap ${(this.state.isActive) ? 'show' : ''}`}>
+              <div className = {`bm-menu-wrap ${(this.state.isActive) ? 'bm-menu-visible' : ''}`}>
                 <div className= "bm-menu">
                   <li>
                     <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
