@@ -4,6 +4,7 @@
   "rules": {
     # This makes it easier for Windows users to work on the project. Git automatically
     # converts between linebreak styles to unix-style should end up in the repo.
+    "camelcase": 0,
     "func-names": 0,
     "comma-dangle": 0,
     "consistent-return": 0,
