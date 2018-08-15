@@ -95,18 +95,28 @@ Rails.application.routes.draw do
 
     # show-type actions: first all the specific json endpoints,
     # then the catchall show endpoint
+    get 'courses/:slug/course.json' => 'courses#course',
+        constraints: { slug: /.*/ }
     get 'courses/:slug/articles.json' => 'courses#articles',
-         constraints: { slug: /.*/ }
+        constraints: { slug: /.*/ }
     get 'courses/:slug/revisions.json' => 'courses#revisions',
-         constraints: { slug: /.*/ }
+        constraints: { slug: /.*/ }
     get 'courses/:slug/users.json' => 'courses#users',
-         constraints: { slug: /.*/ }
+        constraints: { slug: /.*/ }
     get 'courses/:slug/assignments.json' => 'courses#assignments',
-         constraints: { slug: /.*/ }
+        constraints: { slug: /.*/ }
     get 'courses/:slug/campaigns.json' => 'courses#campaigns',
-         constraints: { slug: /.*/ }
-    get 'courses/:school/:titleterm(/:endpoint(/*any))' => 'courses#show',
-        defaults: { endpoint: 'overview' }, :as => 'show',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/categories.json' => 'courses#categories',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/tags.json' => 'courses#tags',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/timeline.json' => 'courses#timeline',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/uploads.json' => 'courses#uploads',
+        constraints: { slug: /.*/ }
+    get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage))' => 'courses#show',
+        :as => 'show',
         constraints: {
           school: /[^\/]*/,
           titleterm: /[^\/]*/
@@ -250,7 +260,6 @@ Rails.application.routes.draw do
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
-  # get 'courses/*id' => 'courses#show', :as => :show, constraints: { id: /.*/ }
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
