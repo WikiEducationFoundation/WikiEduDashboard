@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Notify New Relic of deployments, if configured in a deploy file.
+require 'new_relic/recipes'
+
 # Load DSL and set up stages
 require 'capistrano/setup'
 
