@@ -85,6 +85,8 @@ my:
   courses:
     articles: ဆောင်းပါးများ
     cancel: ပယ်ဖျက်
+  training:
+    previous: « ယခင်က
   article_finder:
     submit: ထည့်သွင်းရန်
 ...

@@ -6,6 +6,7 @@
 # Author: Otokoume
 # Author: Sudachi
 # Author: Sujiniku
+# Author: Suyama
 # Author: Thibaut120094
 # Author: Yusuke1109
 ---
@@ -146,6 +147,7 @@ ja:
     timeline_link: タイムライン
     title: タイトル
     update_stats: 使用統計
+    user_recent_uploads: 最近のアップロード
     view_page: コースのページを見る
   courses_generic:
     school: 施設
@@ -180,6 +182,7 @@ ja:
   training:
     start: 開始
     view: 表示
+    view_module_source: モジュールのソースを表示
   uploads:
     label: アップロード
     usages: 使用法

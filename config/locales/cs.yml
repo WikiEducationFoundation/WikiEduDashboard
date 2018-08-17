@@ -653,6 +653,8 @@ cs:
     unsubmitted: Neschválené programy
     uploads_none: Účastníci tohoto projektu nepřispěli žádnými obrázky anebo jinými
       mediálními soubory do Wikimedia Commons.
+    user_uploads_none: Zvolený uživatel nepřispěl žadným obrázkem, ani jiným médiem
+      k tomuto projektu.
     view_other: Zobrazit další programy
     view_page: Zobrazit stránku projektu
     word_count_doc: Odhadované množství slov přidaných do hlavního jmenného prostoru
@@ -882,10 +884,10 @@ cs:
     first_name: Křestní jméno
     last_name: Příjmení
     loading: Načítám uživatele...
-    characters_added_mainspace: Přidáno znaků v HP
+    characters_added_mainspace: Přidáno znaků (článek)
     characters_added_short: 'HP: %{mainspace}, UP: %{userspace}'
-    characters_added_userspace: Přidáno znaků v UP
-    characters_added_draftspace: Přidány znaky DS
+    characters_added_userspace: Přidáno znaků (uživatel)
+    characters_added_draftspace: Přidáno znaků (koncept)
     my_assigned: 'Přiřazeno:'
     my_reviewing: 'Kontroluje:'
     name: Jméno
@@ -1041,10 +1043,12 @@ cs:
       where_did_you_hear: Kde nebo od koho jste poprvé slyšel(a) o Wiki Education?
       why_are_you_here: Co byste chtěli dělat?
   article_finder:
+    page_assessment_class: Třída
     add_available_article: Přidat jako dostupný článek
     remove_article: Odstranit článek
     minimum_views_label: Minimální počet zobrazení
     no_article_found: V této kategorii nebyl nalezen žádný článek
+    search_placeholder: Vložte klíčové slovo
     search: Hledat
     tools: Nástroje
     show_filters: Zobrazit filtry
@@ -1053,7 +1057,12 @@ cs:
     category_search: Vyhledávání kategorií
     article_quality: Kvalita článku (0-100)
     more_results: Více výsledků
+    filtered_articles: Filtrované články
+    searching_articles: Vyhledávání článků
+    subheading_message: Najděte článek, který odpovídá vašim představám
     article_finder: Vyhledávač článků
     submit: Odeslat
     relevanceIndex: Shoda
+    assign_article_self: Přiřaďte se
+    unassign_article_self: Nepřiřazený článek
 ...

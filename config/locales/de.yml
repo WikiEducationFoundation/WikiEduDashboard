@@ -901,6 +901,8 @@ de:
     done: Fertig!
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
+    view_module_source: Modulquelle ansehen
+    reload_from_source: Von Quelle neu laden
   uploads:
     credit: Danksagung
     file_name: Dateiname

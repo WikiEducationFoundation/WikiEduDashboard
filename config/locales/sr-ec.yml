@@ -695,6 +695,8 @@ sr-ec:
       се не пријавите.
     done: Завршено!
     check_answer: Провери одговоре
+    view_module_source: изворник модула
+    reload_from_source: поново учитај из изворника
   uploads:
     file_name: Назив датотеке
     header: Датотеке отпремљене на Оставу

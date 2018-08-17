@@ -68,6 +68,12 @@ da:
     assigned: Tildelte artikler
     available: Tilgængelige artikler
     assigned_to: Tildelt til
+    character_doc: Summen af antal tegn som er lagt til i artikler af indmeldte brugere
+      mellem start- og slutningdatoerne.
+    cross_wiki_tracking: Hovedrums artikler redigerede mellem start- og slutdatoerne
+      vises forneden. Instrumentbrættet henter bidrag fra hjemmewikien for dette program,
+      lige så vel som med alle andre wikier hvor der er en aflevering eller en tilgængelig
+      artikel.
     deleted: (slettet)
     edited: Artikler redigeret
     edited_by: 'Redigeret af:'
@@ -162,6 +168,7 @@ da:
     active_courses: Aktive %{course_type}
     alerts: Alarmer
     all_courses: Alle kurser
+    already_enrolled: Du er allerede del af «%{title}»!
     actions: Handlinger
     articles: Artikler
     calendar:
@@ -171,6 +178,7 @@ da:
     cancel: Annullér
     campaigns: 'Kampagner:'
     campaign_articles: '%{title} artikler'
+    campaign_courses: '%{title} Kurser'
     campaign_select: Vælg en kampagne
     course: Kursus
     course_description: Kurser
@@ -191,6 +199,7 @@ da:
       create_new: Opret et nyt kursus
       create_short: Opret kursus
       end_date: Slutdato
+      end_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
       find: Find dit kursus
       role_description: Din rolle i kursuset
       role_description_placeholder: Instruktør, undervisningsassistent, etc.
@@ -216,6 +225,8 @@ da:
     new_week: Tilføj ny uge
     new_account_email: E-mailadresse
     new_account_username_invalid: Dette er ikke et gyldigt brugernavn.
+    new_account_submit: Anmod om konto
+    nocourses: Du deltager ikke i nogen kurser.
     none: Ingen
     overview: Hjem
     private: Privat
@@ -225,6 +236,7 @@ da:
     students_count: '# Studerende'
     students_short: Studerende
     user_role: Rolle
+    course_details: Kursusdetaljer
     submitted: Indsendt
     timeline_enabled: Tidslinje aktiveret
     timeline_link: Tidslinje
@@ -241,6 +253,7 @@ da:
   courses_generic:
     add_campaign: Tilføj en kampagne
     all_courses: Alle programmer
+    archived: Arkiverede programmer
     cancel: Annullér
     course: Program
     courses: Programmer
@@ -328,6 +341,7 @@ da:
         form_placeholder: Brugernavn
   timeline:
     add_week: Tilføj uge
+    arrange_timeline: Organiser tidslinjen
     block_milestone: Milepæl
     delete_timeline_and_start_over: Slet tidslinje
     empty_week_3: eller
@@ -365,9 +379,12 @@ da:
     name: Navn
     no_articles: Ingen artikler
     training_incomplete: Træning ikke færdiggjord
+    training_module_name: Træningsmodul
     training_module_status: Status
+    up_to_date_with_training: ajour med træning
     username: Brugernavn
     username_placeholder: Brugernavn
+    useremail_placeholder: E-mail
     role:
       description: Rolle i kursus
       visitor: Besøgende
@@ -383,6 +400,7 @@ da:
   survey:
     email:
       headline: Halløj, %{username}
+      course: 'Kursus: %{course_info}'
   onboarding:
     supplementary:
       header: Hvordan hørte du om os?
@@ -392,6 +410,8 @@ da:
     remove_article: Fjern artikel
     search: Søg
     tools: Værktøjer
+    show_filters: Vis filtre
+    hide_filters: Skjul filtre
     more_results: Flere resultater
     submit: Indsend
 ...

@@ -580,7 +580,7 @@ fr:
       Wikimedia Commons.
     user_uploads_none: Cet utilisateur n’a contribué à aucune image ni autre fichier
       de média de Wikimédia Communs.
-    user_recent_uploads: Téléchargements récents
+    user_recent_uploads: Téléversements récents
     user_suggestions: 'Suggestions de l’utilisateur :'
     user_suggestions_prompt: Vos suggestions pour les éditeurs de l’article
     view_other: Afficher les autres campaignes
@@ -915,6 +915,7 @@ fr:
     next: Page suivante
     page: Page
     page_number: Page %{number} sur %{total}
+    previous: < Précédent
     table_of_contents: Table des matières
     training_library: Bibliothèque de formation
     logged_out: Vous êtes déconnecté. Vous ne recevrez pas de crédit pour l’achèvement
@@ -922,6 +923,8 @@ fr:
     done: Terminé !
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
+    view_module_source: afficher la source du module
+    reload_from_source: recharger depuis la source
   uploads:
     credit: Crédit
     file_name: Nom de fichier

@@ -280,6 +280,8 @@ el:
     bytes_added: Μπάιτ που προστέθηκαν
   training:
     previous: < Προηγούμενο
+    view_module_source: προβολή πηγής δομοστοιχείου
+    reload_from_source: επαναφόρτωση από πηγή
   uploads:
     uploaded_at: Ώρα ανεβάσματος
     uploader: Ανεβαστής

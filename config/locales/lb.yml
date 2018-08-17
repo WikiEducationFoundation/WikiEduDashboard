@@ -317,7 +317,7 @@ lb:
     edit_details: Detailer änneren
     edit_template: Schabloun änneren
   metrics:
-    last_update: Lescht Aktualisatioun vun de Statistiken
+    last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
     articles_edited: Geännert Artikelen
@@ -401,6 +401,7 @@ lb:
     next: Nächst Säit
     page: Säit
     page_number: Säit %{number} vu(n) %{total}
+    previous: < Vireg
     table_of_contents: Inhaltsverzeechnes
     training_library: Formatiouns-Bibliothéik
     done: Fäerdeg!
