@@ -35,12 +35,12 @@ echo '[+] Creating log file...'
 touch setup/log.txt
 echo '[+] Log File created'
 
-printf '[*] Checking for Ruby-2.5.0...\n'
-if ruby -v | grep "ruby 2.5.0" >/dev/null; then
+printf '[*] Checking for Ruby-2.5.1...\n'
+if ruby -v | grep "ruby 2.5.1" >/dev/null; then
   printf "${CLEAR_LINE}Ruby already installed\n"
 else
-  echo "Ruby-2.5.0 not found. Please install ruby-2.5.0 and run this script again."
-  echo "One way to install ruby-2.5.0 is through RVM, Visit: https://rvm.io/"
+  echo "Ruby-2.5.1 not found. Please install ruby-2.5.1 and run this script again."
+  echo "One way to install ruby-2.5.1 is through RVM, Visit: https://rvm.io/"
   exit 0;
 fi
 

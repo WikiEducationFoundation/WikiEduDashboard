@@ -4,7 +4,7 @@
 #   - docker build -t wiki-edu-dashboard .
 #   - docker run -p 3000:3000 -it wiki-edu-dashboard
 
-FROM ruby:2.5.0
+FROM ruby:2.5.1
 
 WORKDIR /usr/src/app
 
