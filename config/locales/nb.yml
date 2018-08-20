@@ -641,8 +641,11 @@ nb:
     continue: Fortsett (%{progress})
     start: Start
     view: Vis
+    previous: < Forrige
     logged_out: Du er logget ut. Du vil ikke få poeng for å fullføre denne modulen
       med mindre du logger inn.
+    view_module_source: vis modulkilde
+    reload_from_source: last inn igjen fra kilde
   uploads:
     file_name: Filnavn
     header: Filer lastet opp til Wikimedia Commons
