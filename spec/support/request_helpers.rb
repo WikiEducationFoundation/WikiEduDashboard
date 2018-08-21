@@ -235,6 +235,27 @@ module RequestHelpers
     end
   end
 
+  def stub_block_log_query
+    response =
+      '{"batchcomplete":"",
+        "continue":{"lecontinue":"20180821221509|92647450","continue":"-||"},
+        "query":{"logevents":[
+          {"logid":92647503,
+          "ns":2,
+          "title":"User:Verdantpowerinc",
+          "pageid":0,
+          "logpage":0,
+          "params":{"duration":"infinite","flags":["noautoblock"]},
+          "type":"block",
+          "action":"block",
+          "user":"Drmies",
+          "timestamp":"2018-08-21T22:19:01Z",
+          "comment":"{{uw-softerblock}} <!-- Promotional username, soft block -->"}]}}'
+
+    stub_request(:get, /.*wikipedia.*/)
+      .to_return(status: 200, body: response, headers: {})
+  end
+
   ###################
   # Rocket.Chat API #
   ###################

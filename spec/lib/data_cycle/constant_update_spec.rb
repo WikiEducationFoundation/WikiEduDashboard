@@ -19,6 +19,7 @@ describe ConstantUpdate do
       expect(DiscretionarySanctionsMonitor).to receive(:create_alerts_for_course_articles)
       expect(DYKNominationMonitor).to receive(:create_alerts_for_course_articles)
       expect(GANominationMonitor).to receive(:create_alerts_for_course_articles)
+      expect(BlockedUserMonitor).to receive(:create_alerts_for_recently_blocked_users)
       expect_any_instance_of(CourseAlertManager).to receive(:create_no_students_alerts)
       expect_any_instance_of(CourseAlertManager).to receive(:create_untrained_students_alerts)
       expect_any_instance_of(CourseAlertManager).to receive(:create_productive_course_alerts)

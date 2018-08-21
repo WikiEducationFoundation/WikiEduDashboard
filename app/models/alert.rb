@@ -35,6 +35,7 @@ class Alert < ApplicationRecord
     ActiveCourseAlert
     ArticlesForDeletionAlert
     BlockedEditsAlert
+    BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
     DiscretionarySanctionsEditAlert
@@ -64,6 +65,7 @@ class Alert < ApplicationRecord
     ActiveCourseAlert
     ArticlesForDeletionAlert
     BlockedEditsAlert
+    BlockedUserAlert
     ContinuedCourseActivityAlert
     DeletedUploadsAlert
     DiscretionarySanctionsEditAlert
@@ -91,6 +93,7 @@ class Alert < ApplicationRecord
 
   def email_content_expert
     return if emails_disabled?
+    return if course.nil?
     content_expert = course.nonstudents.find_by(greeter: true)
     return if content_expert.nil?
     AlertMailer.alert(self, content_expert).deliver_now
