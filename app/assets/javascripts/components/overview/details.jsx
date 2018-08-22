@@ -40,7 +40,7 @@ const getState = () =>
   })
 ;
 
-const POLL_INTERVAL = 120000; // 2 minutes
+const POLL_INTERVAL = 60000; // 1 minute
 
 const Details = createReactClass({
   displayName: 'Details',
