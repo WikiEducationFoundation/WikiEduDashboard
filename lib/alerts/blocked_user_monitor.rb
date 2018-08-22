@@ -57,7 +57,7 @@ class BlockedUserMonitor
   end
 
   def blocked_username(block)
-    block['title'].gsub('User:', '')
+    block['title']&.gsub('User:', '')
   end
 
   def alert_exists?(block, user)
