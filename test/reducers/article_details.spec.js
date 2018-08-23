@@ -3,7 +3,6 @@ import { RECEIVE_ARTICLE_DETAILS } from "../../app/assets/javascripts/constants/
 import '../testHelper';
 
 describe('article_details reducer', () => {
-
   it('Should return initial state if no action type matches', () => {
     const mockAction = {
       type: 'NO_TYPE'
