@@ -661,6 +661,8 @@ pl:
     logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
     done: Gotowe!
+    view_module_source: zobacz źródło modułu
+    reload_from_source: załaduj ponownie ze źródła
   uploads:
     file_name: Nazwa pliku
     header: Pliki przesłane na Wikimedia Commons
