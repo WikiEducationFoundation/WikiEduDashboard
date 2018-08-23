@@ -224,7 +224,8 @@ module RequestHelpers
       'en.wikivoyage.org',
       'wikisource.org',
       'www.wikidata.org',
-      'zh.wikipedia.org'
+      'zh.wikipedia.org',
+      'mr.wikipedia.org'
     ]
 
     wikis.each do |wiki|
