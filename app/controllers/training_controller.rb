@@ -21,6 +21,10 @@ class TrainingController < ApplicationController
 
   def training_module
     fail_if_entity_not_found(TrainingModule, params[:module_id])
+    # Save the return-to source, typically a course page, so that
+    # at the end of the training we can return the user to where they
+    # started from.
+    session[:training_return_to] = request.referer
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb

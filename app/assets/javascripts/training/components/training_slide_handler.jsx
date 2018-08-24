@@ -96,6 +96,10 @@ const TrainingSlideHandler = createReactClass({
     return Boolean(this.state.currentSlide.assessment) && !this.state.currentSlide.answeredCorrectly;
   },
 
+  returnToLink() {
+    return document.getElementById('react_root').getAttribute('data-return-to');
+  },
+
   trainingUrl(params) {
     return `/training/${params.library_id}/${params.module_id}/${params.slide_id}`;
   },
@@ -140,7 +144,10 @@ const TrainingSlideHandler = createReactClass({
         />
       );
     } else {
-      const nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+      let nextHref = this.returnToLink();
+      if (!nextHref) {
+        nextHref = this.userLoggedIn() ? '/' : `/training/${this.props.params.library_id}`;
+      }
       nextLink = <a href={nextHref} className="btn btn-primary pull-right"> {I18n.t('training.done')} </a>;
     }
 
