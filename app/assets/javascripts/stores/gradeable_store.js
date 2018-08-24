@@ -16,7 +16,7 @@ const setGradeables = function (data, persisted = false) {
       const block = week.blocks[ib];
       if (block.gradeable !== undefined) {
         const { gradeable } = block;
-        gradeable.order = `${iw}${block.order}`;
+        gradeable.order = `${week.order}${block.order}`;
         _gradeables[gradeable.id] = gradeable;
         if (persisted) { _persisted[gradeable.id] = $.extend(true, {}, gradeable); }
       }
