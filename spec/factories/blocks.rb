@@ -19,8 +19,8 @@
 
 FactoryBot.define do
   factory :block do
-    kind Block::KINDS['assignment']
-    content 'MyString'
-    order 0
+    kind { Block::KINDS['assignment'] }
+    content { 'MyString' }
+    order { 0 }
   end
 end

@@ -10,6 +10,7 @@ describe TrainingUpdate do
     before do
       allow_any_instance_of(described_class).to receive(:update_running?).and_return(true)
     end
+
     it 'returns with a relevant message' do
       expect(subject).to match(/Try again later/)
     end

@@ -108,6 +108,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', require: false
   gem 'rubocop-rspec-focused', require: false
+  gem 'rubocop-rspec', require: false
   gem 'timecop' # Test utility for setting the time
   gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Rapidfire::Question do
   describe 'Answer Options Validation' do
-    it "should raise an error if answer_options aren't specified and no course data is set" do
+    it "raises an error if answer_options aren't specified and no course data is set" do
       invalid_question = build(:q_radio, answer_options: '')
       invalid_question.valid?
       expect(invalid_question.errors[:answer_options].size).to eq(1)
@@ -25,12 +25,12 @@ describe Rapidfire::Question do
   end
 
   describe 'Matrix Question Creation' do
-    it 'should create create a question' do
+    it 'creates create a question' do
       create(:matrix_question)
-      expect(Rapidfire::Question.last.question_text).to eq('Question?')
+      expect(described_class.last.question_text).to eq('Question?')
     end
 
-    it 'should raise an error if the question type is not an available type for matrix questions' do
+    it 'raises an error if the question type is not an available type for matrix questions' do
       invalid_question = build(:matrix_question, type: 'Rapidfire::Questions::Long')
       invalid_question.valid?
       expect(invalid_question.errors[:type].size).to eq(1)
@@ -38,16 +38,17 @@ describe Rapidfire::Question do
   end
 
   describe 'Reordering Questions' do
-    before(:each) do
+    before do
       @question_group = create(:question_group)
       @question1 = create(:q_short, question_group: @question_group)
       @question2 = create(:q_short, question_group: @question_group)
       @question3 = create(:q_short, question_group: @question_group)
     end
-    it 'should be placed at the bottom of the list on create' do
+
+    it 'is placed at the bottom of the list on create' do
       expect(@question3.position).to eq(3)
     end
-    it 'should have position 1 if move to top of list' do
+    it 'has position 1 if move to top of list' do
       @question3.insert_at(1)
       expect(@question3.position).to eq(1)
     end

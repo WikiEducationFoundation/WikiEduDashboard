@@ -8,21 +8,21 @@ describe WikiCourseEdits do
   let(:user) { create(:user) }
   let(:enrolling_user) { create(:user, username: 'EnrollingUser') }
 
-  before :each do
+  before do
     stub_oauth_edit
   end
 
   describe '#update_course' do
     it 'edits a Wikipedia page representing a course' do
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: course,
                           current_user: user)
     end
 
     it 'edits the course page with the delete option' do
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: course,
                           current_user: user,
                           delete: true)
@@ -31,7 +31,7 @@ describe WikiCourseEdits do
     it 'reposts a clean version after hitting the spamblacklist' do
       stub_oauth_edit_spamblacklist
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: course,
                           current_user: user)
     end
@@ -42,7 +42,7 @@ describe WikiCourseEdits do
     it 'posts to the userpage of the instructor and a noticeboard' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top) # userpage edit
       expect_any_instance_of(WikiEdits).to receive(:add_new_section) # noticeboard edit
-      WikiCourseEdits.new(action: :announce_course,
+      described_class.new(action: :announce_course,
                           course:  course,
                           current_user: user,
                           instructor: nil) # defaults to current user
@@ -55,7 +55,7 @@ describe WikiCourseEdits do
                 user,
                 "{{course instructor | course = [[#{course.wiki_title}]] }}\n",
                 "New course announcement: [[#{course.wiki_title}]].")
-        WikiCourseEdits.new(action: :announce_course,
+        described_class.new(action: :announce_course,
                             course:  course,
                             current_user: user,
                             instructor: nil)
@@ -63,12 +63,12 @@ describe WikiCourseEdits do
     end
 
     context 'makes correct edits on P&E Outreach Dashboard' do
-      before :each do
+      before do
         @dashboard_url = ENV['dashboard_url']
         ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
       end
 
-      after :each do
+      after do
         ENV['dashboard_url'] = @dashboard_url
       end
 
@@ -76,7 +76,7 @@ describe WikiCourseEdits do
         it 'posts to P&E Dashboard' do
           expect_any_instance_of(WikiEdits).to receive(:add_to_page_top)
           expect_any_instance_of(WikiEdits).to receive(:add_new_section)
-          WikiCourseEdits.new(action: :announce_course,
+          described_class.new(action: :announce_course,
                               course:  course,
                               current_user: user,
                               instructor: nil)
@@ -88,7 +88,7 @@ describe WikiCourseEdits do
                   user,
                   "{{program instructor | course = [[#{course.wiki_title}]] }}\n",
                   "New course announcement: [[#{course.wiki_title}]].")
-          WikiCourseEdits.new(action: :announce_course,
+          described_class.new(action: :announce_course,
                               course:  course,
                               current_user: user,
                               instructor: nil)
@@ -97,13 +97,14 @@ describe WikiCourseEdits do
 
       context 'for disabled projects' do
         before { stub_wiki_validation }
+
         let(:wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
         let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
 
         it 'does not post to P&E Dashboard' do
-          expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top)
-          expect_any_instance_of(WikiEdits).to_not receive(:add_new_section)
-          WikiCourseEdits.new(action: :announce_course,
+          expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
+          expect_any_instance_of(WikiEdits).not_to receive(:add_new_section)
+          described_class.new(action: :announce_course,
                               course:  course,
                               current_user: user,
                               instructor: nil)
@@ -116,7 +117,7 @@ describe WikiCourseEdits do
     # Posts to the Wiki Education dashboard by default in tests
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).thrice
-      WikiCourseEdits.new(action: :enroll_in_course,
+      described_class.new(action: :enroll_in_course,
                           course: course,
                           current_user: user,
                           enrolling_user: enrolling_user)
@@ -124,7 +125,7 @@ describe WikiCourseEdits do
 
     context 'makes correct edits on P&E Outreach Dashboard' do
       unless Features.wiki_ed?
-        before :each do
+        before do
           @dashboard_url = ENV['dashboard_url']
           ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
         end
@@ -138,7 +139,7 @@ describe WikiCourseEdits do
             # Only twice for outreachdashboard, for user page and talk page.
             # Sandbox templates are skipped for non-Wiki Ed edits.
             expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
-            WikiCourseEdits.new(action: :enroll_in_course,
+            described_class.new(action: :enroll_in_course,
                                 course: course,
                                 current_user: user,
                                 enrolling_user: enrolling_user)
@@ -147,12 +148,13 @@ describe WikiCourseEdits do
 
         context 'for disabled projects' do
           before { stub_wiki_validation }
+
           let(:wiki) { create(:wiki, language: 'pt', project: 'wikipedia') }
           let(:course) { create(:course, id: 1, submitted: true, home_wiki_id: wiki.id) }
 
           it 'does not post to P&E Dashboard' do
-            expect_any_instance_of(WikiEdits).to_not receive(:add_to_page_top)
-            WikiCourseEdits.new(action: :enroll_in_course,
+            expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
+            described_class.new(action: :enroll_in_course,
                                 course: course,
                                 current_user: user,
                                 enrolling_user: enrolling_user)
@@ -164,6 +166,7 @@ describe WikiCourseEdits do
 
   describe '#update_assignments' do
     before { stub_wiki_validation }
+
     let(:selfie) { create(:article, title: 'Selfie') }
     let(:selfie_talk) { create(:article, title: 'Selfie', namespace: Article::Namespaces::TALK) }
     let(:redirect) { create(:article, title: 'Athletics_in_Epic_Poetry') }
@@ -183,7 +186,7 @@ describe WikiCourseEdits do
                article_title: 'Talk:Selfie',
                article_id: selfie_talk.id,
                role: Assignment::Roles::REVIEWING_ROLE)
-        WikiCourseEdits.new(action: :update_assignments,
+        described_class.new(action: :update_assignments,
                             course: course,
                             current_user: user)
       end
@@ -196,7 +199,7 @@ describe WikiCourseEdits do
       end
 
       context 'posts are made' do
-        before :each do
+        before do
           stub_raw_action
           allow_any_instance_of(WikiApi).to receive(:redirect?).and_return(false)
           create(:assignment,
@@ -216,13 +219,13 @@ describe WikiCourseEdits do
         # Posts to the Wiki Education dashboard by default in tests
         it 'updates talk pages and course page with assignment info' do
           expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
-          WikiCourseEdits.new(action: :update_assignments,
+          described_class.new(action: :update_assignments,
                               course: course,
                               current_user: user)
         end
 
         context 'makes correct edits on P&E Outreach Dashboard' do
-          before :each do
+          before do
             @dashboard_url = ENV['dashboard_url']
             ENV['dashboard_url'] = 'outreachdashboard.wmflabs.org'
           end
@@ -234,7 +237,7 @@ describe WikiCourseEdits do
           context 'for enabled projects' do
             it 'posts to P&E Dashboard' do
               expect_any_instance_of(WikiEdits).to receive(:post_whole_page).at_least(:once)
-              WikiCourseEdits.new(action: :update_assignments,
+              described_class.new(action: :update_assignments,
                                   course: course,
                                   current_user: user)
             end
@@ -245,8 +248,8 @@ describe WikiCourseEdits do
             let(:course) { create(:course, submitted: true, home_wiki_id: wiki.id) }
 
             it 'does not post to P&E Dashboard' do
-              expect_any_instance_of(WikiEdits).to_not receive(:post_whole_page)
-              WikiCourseEdits.new(action: :update_assignments,
+              expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
+              described_class.new(action: :update_assignments,
                                   course: course,
                                   current_user: user)
             end
@@ -264,7 +267,7 @@ describe WikiCourseEdits do
                  article_title: 'Athletics_in_Epic_Poetry',
                  article_id: redirect.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
-          WikiCourseEdits.new(action: :update_assignments,
+          described_class.new(action: :update_assignments,
                               course: course,
                               current_user: user)
         end
@@ -277,7 +280,7 @@ describe WikiCourseEdits do
                  article_title: 'Selfie',
                  article_id: nil,
                  role: Assignment::Roles::ASSIGNED_ROLE)
-          WikiCourseEdits.new(action: :update_assignments,
+          described_class.new(action: :update_assignments,
                               course: course,
                               current_user: user)
         end
@@ -290,7 +293,7 @@ describe WikiCourseEdits do
                  article_title: 'Selfie',
                  article_id: selfie.id,
                  role: Assignment::Roles::ASSIGNED_ROLE)
-          WikiCourseEdits.new(action: :update_assignments,
+          described_class.new(action: :update_assignments,
                               course: course,
                               current_user: user)
         end
@@ -305,13 +308,13 @@ describe WikiCourseEdits do
 
     it 'returns immediately without making any edits' do
       expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: visiting_scholarship,
                           current_user: user)
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: editathon,
                           current_user: user)
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: legacy_course,
                           current_user: user)
     end
@@ -322,7 +325,7 @@ describe WikiCourseEdits do
 
     it 'makes edits' do
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).and_call_original
-      WikiCourseEdits.new(action: :update_course,
+      described_class.new(action: :update_course,
                           course: basic_course,
                           current_user: user)
     end

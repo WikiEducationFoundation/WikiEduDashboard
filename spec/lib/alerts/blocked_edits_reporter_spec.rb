@@ -39,13 +39,13 @@ describe BlockedEditsReporter do
     end
 
     it 'creates an Alert record for a blocked edit' do
-      BlockedEditsReporter.create_alerts_for_blocked_edits(student, response_data)
+      described_class.create_alerts_for_blocked_edits(student, response_data)
       expect(Alert.count).to eq(1)
     end
 
     it 'does not create multiple alerts' do
-      BlockedEditsReporter.create_alerts_for_blocked_edits(student, response_data)
-      BlockedEditsReporter.create_alerts_for_blocked_edits(student2, response_data)
+      described_class.create_alerts_for_blocked_edits(student, response_data)
+      described_class.create_alerts_for_blocked_edits(student2, response_data)
       expect(Alert.count).to eq(1)
     end
   end

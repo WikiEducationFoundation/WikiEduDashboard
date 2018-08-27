@@ -76,7 +76,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   Warden.test_mode!
 
-  config.before(:each) do
+  config.before do
     stub_request(:get, 'https://wikiedu.org/feed')
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: '<rss version="2.0" />', headers: {})

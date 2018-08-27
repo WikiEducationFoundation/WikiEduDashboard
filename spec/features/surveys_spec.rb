@@ -12,6 +12,10 @@ describe 'Surveys', type: :feature, js: true do
     page.current_window.resize_to(1920, 1080)
   end
 
+  after do
+    logout
+  end
+
   describe 'Instructor takes survey' do
     before do
       @instructor = create(:user)
@@ -246,7 +250,7 @@ describe 'Surveys', type: :feature, js: true do
       Capybara.current_driver = :poltergeist
     end
 
-    before(:each) do
+    before do
       @user = create(:user)
       @admin = create(:admin)
 
@@ -301,9 +305,5 @@ describe 'Surveys', type: :feature, js: true do
       visit survey_path(@survey)
       expect(current_path).to eq(root_path)
     end
-  end
-
-  after do
-    logout
   end
 end

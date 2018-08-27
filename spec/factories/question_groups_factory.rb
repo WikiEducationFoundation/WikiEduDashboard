@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :question_group, class: 'Rapidfire::QuestionGroup' do
-    name  'Survey'
-    tags ''
+    name  { 'Survey' }
+    tags { '' }
   end
 end

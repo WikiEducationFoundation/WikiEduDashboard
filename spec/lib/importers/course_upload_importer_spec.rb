@@ -8,6 +8,7 @@ describe CourseUploadImporter do
     create(:course, start: '2018-03-07'.to_date, end: '2018-03-11'.to_date)
   end
   let(:user) { create(:user, username: 'Kippelboy') }
+
   before do
     create(:courses_user, user: user, course: course)
   end
@@ -15,7 +16,7 @@ describe CourseUploadImporter do
   describe '.update_courses' do
     it 'imports uploads with thumburls and usage counts for the courses' do
       VCR.use_cassette 'course_upload_importer/kippleboy' do
-        CourseUploadImporter.update_courses([course])
+        described_class.update_courses([course])
         expect(course.reload.uploads.count).to eq(5)
         # https://commons.wikimedia.org/wiki/File%3AVaga_feminista_8M_2018_a_Sabadell_02.jpg
         upload = course.uploads.third

@@ -57,7 +57,7 @@ describe WikiCourseOutput do
              course_id: 1,
              role: 1,
              article_title: 'Your article')
-      response = WikiCourseOutput.new(course).translate_course_to_wikitext
+      response = described_class.new(course).translate_course_to_wikitext
       expect(response).to include('The course description')
       expect(response).to include('{{start of course timeline')
       expect(response).to include('Block 1 title')
@@ -70,7 +70,7 @@ describe WikiCourseOutput do
 
     context 'when the course has no weeks' do
       let(:course) { create(:course) }
-      let(:subject) { WikiCourseOutput.new(course).translate_course_to_wikitext }
+      let(:subject) { described_class.new(course).translate_course_to_wikitext }
 
       it 'excludes the timeline for a course with no weeks' do
         expect(subject).not_to include('{{start of course timeline')

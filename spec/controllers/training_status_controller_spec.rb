@@ -13,6 +13,7 @@ describe TrainingStatusController do
       create(:courses_user, course_id: course.id, user_id: user.id,
                             role: CoursesUsers::Roles::STUDENT_ROLE)
     end
+
     context 'when the training is incomplete' do
       it 'includes the not completed status for a user' do
         get :show, params: { user_id: user.id, course_id: course.id }, format: :json
@@ -21,12 +22,15 @@ describe TrainingStatusController do
         expect(response_data['course']['training_modules'][0]['completion_date']).to be_nil
       end
     end
+
     context 'when the training is complete' do
       let(:completion_date) { Time.now }
+
       before do
         create(:training_modules_users, training_module_id: 1,
                                         completed_at: completion_date, user_id: user.id)
       end
+
       it 'includes the completion date' do
         get :show, params: { user_id: user.id, course_id: course.id }, format: :json
         response_data = Oj.load(response.body)

@@ -15,14 +15,14 @@ describe BlockedUserMonitor do
 
     it 'creates an Alert record for a blocked user' do
       expect(Alert.count).to eq(0)
-      BlockedUserMonitor.create_alerts_for_recently_blocked_users
+      described_class.create_alerts_for_recently_blocked_users
       expect(Alert.count).to eq(1)
     end
 
     it 'does not create multiple alerts for the same block' do
       expect(Alert.count).to eq(0)
-      BlockedUserMonitor.create_alerts_for_recently_blocked_users
-      BlockedUserMonitor.create_alerts_for_recently_blocked_users
+      described_class.create_alerts_for_recently_blocked_users
+      described_class.create_alerts_for_recently_blocked_users
       expect(Alert.count).to eq(1)
     end
   end

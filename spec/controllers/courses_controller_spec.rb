@@ -4,6 +4,7 @@ require 'rails_helper'
 
 describe CoursesController do
   before { stub_wiki_validation }
+
   describe '#show' do
     let(:course) { create(:course) }
     let(:slug) { course.slug }
@@ -119,6 +120,7 @@ describe CoursesController do
         no_day_exceptions: true,
         home_wiki_id: 1 }
     end
+
     before do
       allow(controller).to receive(:current_user).and_return(user)
       allow(controller).to receive(:user_signed_in?).and_return(true)
@@ -142,6 +144,7 @@ describe CoursesController do
 
     context 'setting passcode' do
       let(:course) { create(:course) }
+
       before { course.update_attribute(:passcode, nil) }
 
       it 'sets if it is nil and not in params' do
@@ -185,6 +188,7 @@ describe CoursesController do
     context 'course is not new' do
       let(:submitted_1) { true }
       let(:submitted_2) { true }
+
       it 'does not announce course' do
         expect_any_instance_of(WikiCourseEdits).not_to receive(:announce_course)
         params = { id: course.slug, course: course_params }
@@ -194,6 +198,7 @@ describe CoursesController do
 
     context 'course is new' do
       let(:submitted_2) { true }
+
       it 'announces course and emails the instructor' do
         # FIXME: Remove workaround after Rails 5.0.1
         # See https://github.com/rails/rails/issues/26075
@@ -227,6 +232,7 @@ describe CoursesController do
             role_description: role_description,
             passcode: 'passcode' }
         end
+
         it 'sets slug correctly' do
           post :create, params: { course: course_params }, as: :json
           expect(Course.last.slug).to eq(expected_slug)
@@ -265,6 +271,7 @@ describe CoursesController do
           { school: 'Wiki University',
             title: 'How to Wiki' }
         end
+
         it 'does not set slug (and does not create course)' do
           post :create, params: { course: course_params }, as: :json
           expect(Course.all).to be_empty
@@ -356,6 +363,7 @@ describe CoursesController do
             start: '2015-01-05',
             end: '2015-12-20' }
         end
+
         before do
           post :create, params: { course: course_params }, as: :json
         end
@@ -387,6 +395,7 @@ describe CoursesController do
             weekdays: '0001000',
             no_day_exceptions: true }
         end
+
         it 'sets timeline start/end to course start/end if not in params' do
           put :create, params: { course: course_params }, as: :json
           expect(Course.last.timeline_start).to eq(course_params[:start])
@@ -478,6 +487,7 @@ describe CoursesController do
 
     context 'post request' do
       let(:tag) { 'pizza' }
+
       it 'creates a tag' do
         params = { id: course.slug, tag: { tag: tag } }
         post :tag, params: params, as: :json
@@ -488,6 +498,7 @@ describe CoursesController do
 
     context 'delete request' do
       let(:tag) { Tag.create(tag: 'pizza', course_id: course.id) }
+
       it 'deletes the tag' do
         params = { id: course.slug, tag: { tag: tag.tag } }
         delete :tag, params: params, as: :json
@@ -499,9 +510,11 @@ describe CoursesController do
   describe '#needs_update' do
     render_views
     let(:course) { create(:course, needs_update: false) }
+
     before do
       allow(controller).to receive(:user_signed_in?).and_return(true)
     end
+
     it 'sets "needs_update" to true' do
       get :needs_update, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)

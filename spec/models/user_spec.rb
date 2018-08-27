@@ -145,7 +145,7 @@ describe User do
   describe 'email validation' do
     context 'when email is valid' do
       it 'saves the email' do
-        user = User.new(username: 'foo', email: 'me@foo.com')
+        user = described_class.new(username: 'foo', email: 'me@foo.com')
         user.save
         expect(user.email).to eq('me@foo.com')
       end
@@ -153,7 +153,7 @@ describe User do
 
     context 'when email is not valid' do
       it 'sets email to nil and saves' do
-        user = User.new(username: 'foo', email: 'me@foo')
+        user = described_class.new(username: 'foo', email: 'me@foo')
         user.save
         expect(user.email).to be_nil
       end
@@ -186,6 +186,7 @@ describe User do
       before do
         add_user_as_instructor
       end
+
       it 'returns false' do
         expect(subject).to eq(false)
       end
@@ -196,15 +197,18 @@ describe User do
         approve_course
         add_user_as_student
       end
+
       it 'returns false' do
         expect(subject).to eq(false)
       end
     end
+
     context 'when user is an instructor in an approved course' do
       before do
         approve_course
         add_user_as_instructor
       end
+
       it 'returns true' do
         expect(subject).to eq(true)
       end
@@ -216,19 +220,19 @@ describe User do
     let(:similar_search_user) { create(:user, username: 'similar', email: 'find@example.com') }
 
     it 'returns user(s) with given email address' do
-      result = User.search_by_email(search_user.email)
+      result = described_class.search_by_email(search_user.email)
 
       expect(result).to eq([search_user])
     end
 
     it 'returns user(s) with given full name' do
-      result = User.search_by_real_name(search_user.real_name)
+      result = described_class.search_by_real_name(search_user.real_name)
       expect(result).to eq([search_user])
     end
 
     it 'returns user(s) without full email' do
       # The word 'find' is present in both emails.
-      result = User.search_by_email('find')
+      result = described_class.search_by_email('find')
 
       expect(result).to eq([search_user, similar_search_user])
     end

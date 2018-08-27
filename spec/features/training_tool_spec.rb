@@ -17,6 +17,10 @@ describe 'Training', type: :feature, js: true do
 
   describe 'root library' do
     library_names = TrainingLibrary.all.reject(&:exclude_from_index?).map(&:slug)
+    after do
+      login_as(user, scope: :user)
+    end
+
     it 'loads for a logged-in user' do
       visit '/training'
       library_names.each do |library_name|
@@ -31,10 +35,6 @@ describe 'Training', type: :feature, js: true do
         expect(page).to have_content library_name.humanize.titleize
       end
     end
-
-    after do
-      login_as(user, scope: :user)
-    end
   end
 
   describe 'libraries' do
@@ -47,15 +47,15 @@ describe 'Training', type: :feature, js: true do
       end
     end
 
+    after do
+      login_as(user, scope: :user)
+    end
+
     it 'load for a logged out user' do
       logout(:user)
       first_library = TrainingLibrary.all[0]
       visit "/training/#{first_library.slug}"
       expect(page).to have_content first_library.name
-    end
-
-    after do
-      login_as(user, scope: :user)
     end
   end
 
@@ -63,6 +63,10 @@ describe 'Training', type: :feature, js: true do
     before do
       TrainingSlide.load
       visit "/training/students/#{module_2.slug}"
+    end
+
+    after do
+      login_as(user, scope: :user)
     end
 
     it 'describes the module' do
@@ -125,10 +129,6 @@ describe 'Training', type: :feature, js: true do
       expect(page).to have_content module_2.slides[0].title
       expect(page).to have_content module_2.slides[-1].title
     end
-
-    after do
-      login_as(user, scope: :user)
-    end
   end
 
   describe 'finish module button' do
@@ -165,6 +165,7 @@ describe 'Training', type: :feature, js: true do
         TrainingSlide.load
         TrainingModule.flush
       end
+
       it 'lets the user go from start to finish' do
         training_module = TrainingModule.find_by(module_slug)
         go_through_module_from_start_to_finish(training_module)

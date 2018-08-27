@@ -62,9 +62,11 @@ RSpec.describe Category, type: :model do
       create(:category, name: 'साचा:स्वातंत्र्यलढा_अभियान_२०१८',
                         wiki: mr_wiki, source: 'template')
     end
+
     before do
       stub_wiki_validation
     end
+
     it 'works without error' do
       VCR.use_cassette 'categories/mr_wiki' do
         category.refresh_titles

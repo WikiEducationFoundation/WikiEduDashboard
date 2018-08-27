@@ -19,6 +19,7 @@ require 'rails_helper'
 
 describe Assignment do
   before { stub_wiki_validation }
+
   describe 'assignment creation' do
     context 'when no similar assignments exist' do
       it 'creates Assignment objects' do
@@ -40,9 +41,9 @@ describe Assignment do
       end
 
       it 'creates the new assignment' do
-        Assignment.create(user_id: 1, course_id: 1, wiki_id: es_wiki.id,
-                          article_title: 'Selfie', role: 0)
-        expect(Assignment.count).to eq(2)
+        described_class.create(user_id: 1, course_id: 1, wiki_id: es_wiki.id,
+                               article_title: 'Selfie', role: 0)
+        expect(described_class.count).to eq(2)
       end
     end
 
@@ -51,9 +52,10 @@ describe Assignment do
         create(:assignment, user_id: 1, course_id: 1, wiki_id: 1,
                             article_title: 'Selfie', role: 0)
       end
+
       let(:subject) do
-        Assignment.create!(user_id: 1, course_id: 1, wiki_id: 1,
-                           article_title: 'Selfie', role: 0)
+        described_class.create!(user_id: 1, course_id: 1, wiki_id: 1,
+                                article_title: 'Selfie', role: 0)
       end
 
       it 'does not create a duplicate' do

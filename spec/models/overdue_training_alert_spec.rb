@@ -28,6 +28,7 @@ describe OverdueTrainingAlert do
   before do
     create(:user_profile, user: student, email_preferences: email_preferences)
   end
+
   let(:alert) do
     create(:overdue_training_alert,
            user: student, course: course,
@@ -35,11 +36,13 @@ describe OverdueTrainingAlert do
                                         status: 'overdue',
                                         progress: '85% Complete' } })
   end
+
   describe '#send_email' do
     let(:subject) { alert.send_email }
 
     context 'when the user has not opted out' do
       let(:email_preferences) { {} }
+
       it 'sends an email' do
         expect(alert.email_sent_at).to be_nil
         subject
@@ -49,6 +52,7 @@ describe OverdueTrainingAlert do
 
     context 'when the user has opted out' do
       let(:email_preferences) { { 'OverdueTrainingAlert' => false } }
+
       it 'does not send an email' do
         expect(OverdueTrainingAlertMailer).not_to receive(:send_email)
         subject

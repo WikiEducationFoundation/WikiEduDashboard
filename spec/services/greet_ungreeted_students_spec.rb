@@ -7,6 +7,7 @@ describe GreetUngreetedStudents do
   let(:student) { create(:user) }
   let(:course) { create(:course) }
   let(:subject) { described_class.new(course, greeter) }
+
   before do
     create(:courses_user, user: student, course: course)
     stub_raw_action

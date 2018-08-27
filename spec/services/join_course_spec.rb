@@ -19,7 +19,7 @@ describe JoinCourse do
                         role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
   end
 
-  before(:each) do
+  before do
     course.campaigns << Campaign.first
     enroll_as_instructor
   end
@@ -31,10 +31,11 @@ describe JoinCourse do
                           role: CoursesUsers::Roles::STUDENT_ROLE,
                           real_name: 'student name')
     end
+
     it 'allows a course to be joined' do
       result = subject.result
       expect(result[:failure]).to be_nil
-      expect(result[:success]).to_not be_nil
+      expect(result[:success]).not_to be_nil
     end
   end
 
@@ -45,15 +46,17 @@ describe JoinCourse do
                           role: CoursesUsers::Roles::STUDENT_ROLE,
                           real_name: nil)
     end
+
     it 'allows a course to be joined' do
       result = subject.result
       expect(result[:failure]).to be_nil
-      expect(result[:success]).to_not be_nil
+      expect(result[:success]).not_to be_nil
     end
   end
 
   context 'for a ClassroomProgramCourse' do
     let(:course) { classroom_program_course }
+
     it 'does not allow joining with multiple roles' do
       result = subject.result
       expect(result[:failure]).not_to be_nil
@@ -63,6 +66,7 @@ describe JoinCourse do
 
   context 'for an Editathon' do
     let(:course) { editathon }
+
     it 'allows joining with multiple roles' do
       result = subject.result
       expect(result[:failure]).to be_nil
@@ -72,6 +76,7 @@ describe JoinCourse do
 
   context 'for a BasicCourse' do
     let(:course) { basic_course }
+
     it 'allows joining with multiple roles' do
       result = subject.result
       expect(result[:failure]).to be_nil
@@ -81,6 +86,7 @@ describe JoinCourse do
 
   context 'for a LegacyCourse' do
     let(:course) { legacy_course }
+
     it 'allows joining with multiple roles' do
       result = subject.result
       expect(result[:failure]).to be_nil
@@ -90,6 +96,7 @@ describe JoinCourse do
 
   context 'for a VisitingScholarship' do
     let(:course) { visiting_scholarship }
+
     it 'allows joining with multiple roles' do
       result = subject.result
       expect(result[:failure]).to be_nil

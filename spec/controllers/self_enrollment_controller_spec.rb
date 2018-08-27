@@ -4,6 +4,8 @@ require 'rails_helper'
 
 describe SelfEnrollmentController do
   describe '#enroll_self' do
+    subject { response.status }
+
     let(:course) { create(:course, end: Time.zone.today + 1.week) }
     let(:request_params) do
       { course_id: course.slug, passcode: course.passcode, titleterm: 'foobar' }
@@ -15,8 +17,6 @@ describe SelfEnrollmentController do
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow(controller).to receive(:current_user).and_return(user)
     end
-
-    subject { response.status }
 
     context 'GET' do
       context 'when the course is not approved' do

@@ -44,7 +44,7 @@ describe GANominationMonitor do
     end
 
     it 'creates an Alert record for the edited article' do
-      GANominationMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
       alerted_article_ids = Alert.all.pluck(:article_id)
       expect(alerted_article_ids).to include(article.id)
@@ -53,14 +53,14 @@ describe GANominationMonitor do
     it 'emails a content expert' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
       allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-      GANominationMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
     it 'does not create a second Alert for the same articles' do
       Alert.create(type: 'GANominationAlert', article_id: article.id, course_id: course.id)
       expect(Alert.count).to eq(1)
-      GANominationMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
     end
 
@@ -68,7 +68,7 @@ describe GANominationMonitor do
       Alert.create(type: 'GANominationAlert', article_id: article.id,
                    course_id: course.id, resolved: true)
       expect(Alert.count).to eq(1)
-      GANominationMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(2)
     end
   end

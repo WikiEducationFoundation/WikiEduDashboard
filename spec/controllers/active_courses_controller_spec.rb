@@ -10,7 +10,7 @@ describe ActiveCoursesController do
       create(:course, title: 'My awesome course', end: 1.day.from_now)
     end
 
-    it 'should list a soon-ending course' do
+    it 'lists a soon-ending course' do
       get :index
       expect(response.body).to have_content(course.title)
     end

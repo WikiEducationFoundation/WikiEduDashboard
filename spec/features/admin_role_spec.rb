@@ -8,7 +8,7 @@ describe 'Admin users', type: :feature, js: true do
     page.driver.browser.url_blacklist = ['https://wikiedu.org']
   end
 
-  before :each do
+  before do
     create(:user,
            id: 100,
            username: 'Professor Sage')
@@ -55,8 +55,12 @@ describe 'Admin users', type: :feature, js: true do
     login_as(user, scope: :user)
   end
 
+  after do
+    logout
+  end
+
   describe 'visiting the dashboard' do
-    it 'should see submitted courses awaiting approval' do
+    it 'sees submitted courses awaiting approval' do
       visit root_path
       sleep 1
       expect(page).to have_content 'Submitted & Pending Approval'
@@ -65,7 +69,7 @@ describe 'Admin users', type: :feature, js: true do
   end
 
   describe 'adding a course to a campaign' do
-    it 'should make the course live' do
+    it 'makes the course live' do
       pending 'This sometimes fails on travis.'
 
       stub_oauth_edit
@@ -112,7 +116,7 @@ describe 'Admin users', type: :feature, js: true do
   end
 
   describe 'adding a tag to a course' do
-    it 'should work' do
+    it 'works' do
       pending 'This sometimes fails on travis.'
 
       stub_token_request
@@ -164,9 +168,5 @@ describe 'Admin users', type: :feature, js: true do
 
       pass_pending_spec
     end
-  end
-
-  after do
-    logout
   end
 end

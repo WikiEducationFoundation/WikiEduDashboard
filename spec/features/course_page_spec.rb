@@ -198,6 +198,7 @@ describe 'the course page', type: :feature, js: true do
 
     context 'when WikiEd Feature disabled' do
       before { allow(Features).to receive(:wiki_ed?).and_return(false) }
+
       it 'allow edits for home_wiki' do
         login_as(admin)
         js_visit "/courses/#{slug}"
@@ -253,7 +254,7 @@ describe 'the course page', type: :feature, js: true do
     it 'does not show an "Add an available article" button for students' do
       js_visit "/courses/#{slug}/articles"
       expect(page).not_to have_content 'Available Articles'
-      expect(page).to_not have_content 'Add available articles'
+      expect(page).not_to have_content 'Add available articles'
     end
 
     it 'shows an "Add an available article" button for instructors/admins' do
@@ -298,7 +299,7 @@ describe 'the course page', type: :feature, js: true do
       expect(Assignment.count).to eq(1)
       expect(assigned_articles_section).to have_content 'Remove'
       click_button 'Remove'
-      expect(assigned_articles_section).to_not have_content 'Education'
+      expect(assigned_articles_section).not_to have_content 'Education'
       sleep 1
       # FIXME: This is a common intermittent failure on travis-ci
       # expect(Assignment.count).to eq(0)
@@ -342,6 +343,7 @@ describe 'the course page', type: :feature, js: true do
       )
       CoursesUsers.update_all_caches CoursesUsers.all
     end
+
     it 'shows a number of most recent revisions for a student' do
       js_visit "/courses/#{slug}/students"
       sleep 1
@@ -357,7 +359,7 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'uploads view' do
-    it 'should display a list of uploads' do
+    it 'displays a list of uploads' do
       # First, visit it no uploads
       visit "/courses/#{slug}/uploads"
       expect(page).to have_content I18n.t('courses_generic.uploads_none')
@@ -373,14 +375,14 @@ describe 'the course page', type: :feature, js: true do
   end
 
   describe 'activity view' do
-    it 'should display a list of edits' do
+    it 'displays a list of edits' do
       js_visit "/courses/#{slug}/activity"
       expect(page).to have_content 'Article 1'
     end
   end
 
   describe '/manual_update' do
-    it 'should update the course cache' do
+    it 'updates the course cache' do
       user = create(:user, id: user_count + 100)
       course = Course.find(10001)
       create(:courses_user,

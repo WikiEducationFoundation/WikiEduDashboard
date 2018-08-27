@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/article_status_manager"
 
 describe ArticleStatusManager do
   before { stub_wiki_validation }
+
   let(:course) { create(:course, start: 1.year.ago, end: 1.year.from_now) }
   let(:user) { create(:user) }
   let!(:courses_user) { create(:courses_user, course: course, user: user) }

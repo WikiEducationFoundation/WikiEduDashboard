@@ -5,11 +5,12 @@ require_relative '../../app/presenters/individual_statistics_presenter'
 
 describe IndividualStatisticsPresenter do
   describe 'individual_article_views' do
+    subject { described_class.new(user: user) }
+
     let(:course1) { create(:course) }
     let(:course2) { create(:course, slug: 'foo/2') }
     let(:user) { create(:user) }
     let(:article) { create(:article) }
-    subject { described_class.new(user: user) }
 
     context 'when a user is in two courses that overlap' do
       before do
@@ -23,6 +24,7 @@ describe IndividualStatisticsPresenter do
         ArticlesCourses.update_from_course(course2)
         CoursesUsers.update_all_caches(CoursesUsers.all)
       end
+
       it 'does\'t double count the same articles or revisions in multiple courses' do
         expect(course1.revisions.count).to eq(1)
         expect(course2.revisions.count).to eq(1)
@@ -51,6 +53,7 @@ describe IndividualStatisticsPresenter do
         ArticlesCourses.update_from_course(course1)
         ArticlesCourses.update_from_course(course2)
       end
+
       it 'only counts views for revisions that happen during a course' do
         expect(course1.revisions.count).to eq(1)
         expect(course2.revisions.count).to eq(1)

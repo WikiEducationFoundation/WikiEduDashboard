@@ -6,6 +6,7 @@ require "#{Rails.root}/lib/importers/ores_scores_before_and_after_importer"
 describe OresScoresBeforeAndAfterImporter do
   let(:course) { create(:course) }
   let(:article) { create(:article) }
+
   before do
     course.articles << article
   end

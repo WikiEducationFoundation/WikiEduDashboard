@@ -36,7 +36,7 @@ describe 'Student users', type: :feature, js: true do
            end: '2020-01-01'.to_date)
   end
 
-  before :each do
+  before do
     create(:courses_user,
            user: instructor,
            course: course,
@@ -52,6 +52,10 @@ describe 'Student users', type: :feature, js: true do
            course: course,
            role: CoursesUsers::Roles::STUDENT_ROLE)
     stub_add_user_to_channel_success
+  end
+
+  after do
+    logout
   end
 
   describe 'clicking log out' do
@@ -352,8 +356,5 @@ describe 'Student users', type: :feature, js: true do
       expect(page).to have_content 'My Dashboard'
       expect(page).to have_content 'An Example Course'
     end
-  end
-  after do
-    logout
   end
 end

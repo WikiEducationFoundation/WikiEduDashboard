@@ -9,8 +9,9 @@ describe Features do
       before do
         allow(ENV).to receive(:[]).with('wiki_education').and_return('true')
       end
+
       it 'returns true' do
-        expect(Features.wiki_ed?).to eq(true)
+        expect(described_class.wiki_ed?).to eq(true)
       end
     end
   end

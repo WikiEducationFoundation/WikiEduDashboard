@@ -10,6 +10,7 @@ describe 'cloning a course', js: true do
   # This is super hacky to work around a combination of bugginess in the modal
   # and bugginess in the Capybara drivers. We want to avoid setting a date the
   # same as today's date.
+
   if (11..12).cover? Date.today.day
     let(:course_start) { '13' }
     let(:timeline_start) { '14' }
@@ -46,6 +47,10 @@ describe 'cloning a course', js: true do
   let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
   let!(:tag) { create(:tag, tag: 'cloneable', course_id: course.id) }
+
+  after do
+    logout
+  end
 
   it 'copies relevant attributes of an existing course' do
     login_as user, scope: :user, run_callbacks: false
@@ -104,9 +109,5 @@ describe 'cloning a course', js: true do
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero
     expect(new_course.article_count).to be_zero
-  end
-
-  after do
-    logout
   end
 end

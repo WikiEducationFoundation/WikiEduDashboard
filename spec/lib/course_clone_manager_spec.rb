@@ -48,7 +48,7 @@ describe CourseCloneManager do
 
   context 'newly cloned course' do
     before do
-      CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+      described_class.new(Course.find(1), User.find(1)).clone!
     end
 
     it 'has creating instructor carried over' do
@@ -116,7 +116,7 @@ describe CourseCloneManager do
   context 'when open course creation is enabled' do
     before do
       allow(Features).to receive(:open_course_creation?).and_return(true)
-      CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+      described_class.new(Course.find(1), User.find(1)).clone!
     end
 
     it 'carries over campaigns' do
@@ -125,10 +125,11 @@ describe CourseCloneManager do
   end
 
   context 'when a course with the same temporary slug already exists' do
-    before { CourseCloneManager.new(Course.find(1), User.find(1)).clone! }
+    before { described_class.new(Course.find(1), User.find(1)).clone! }
+
     it 'returns the existing clone' do
       existing_clone = Course.last
-      reclone = CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+      reclone = described_class.new(Course.find(1), User.find(1)).clone!
       expect(reclone).to eq(existing_clone)
     end
   end
@@ -136,7 +137,7 @@ describe CourseCloneManager do
   context 'cloned LegacyCourse' do
     before do
       Course.find(1).update_attributes(type: 'LegacyCourse')
-      CourseCloneManager.new(Course.find(1), User.find(1)).clone!
+      described_class.new(Course.find(1), User.find(1)).clone!
     end
 
     it 'sets the new course type to ClassroomProgramCourse' do

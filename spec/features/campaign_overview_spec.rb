@@ -79,7 +79,7 @@ describe 'campaign overview page', type: :feature, js: true do
       Course.update_all_caches
     end
 
-    it 'should display stats accurately' do
+    it 'displays stats accurately' do
       visit "/campaigns/#{campaign.slug}/overview"
 
       # Number of courses
@@ -107,7 +107,7 @@ describe 'campaign overview page', type: :feature, js: true do
     describe 'non-default locales' do
       include ResetLocale
 
-      it 'should switch languages' do
+      it 'switches languages' do
         visit "/campaigns/#{campaign.slug}/overview?locale=qqq"
         expect(page.find('.stat-display')).to have_content 'Long label for the number'
       end
@@ -127,7 +127,7 @@ describe 'campaign overview page', type: :feature, js: true do
   end
 
   context 'as an user' do
-    it 'should not show the edit buttons' do
+    it 'does not show the edit buttons' do
       login_as(user, scope: user)
       visit "/campaigns/#{campaign.slug}"
       expect(page).to have_no_css('.rails_editable-edit')

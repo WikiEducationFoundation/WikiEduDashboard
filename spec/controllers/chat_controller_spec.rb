@@ -8,6 +8,7 @@ describe ChatController do
 
     context 'when the user is signed in' do
       let(:user) { create(:user) }
+
       before do
         allow(controller).to receive(:current_user).and_return(user)
         stub_chat_login_success
@@ -47,12 +48,14 @@ describe ChatController do
   describe 'enable_for_course' do
     let(:course) { create(:course) }
     let(:user) { create(:user) }
+
     before do
       create(:courses_user, user_id: user.id, course_id: course.id)
     end
 
     context 'when the user is an admin' do
       let(:admin) { create(:admin) }
+
       before do
         allow(controller).to receive(:current_user).and_return(admin)
         stub_chat_login_success

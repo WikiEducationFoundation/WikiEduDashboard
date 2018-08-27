@@ -13,7 +13,7 @@ describe AssignedArticleImporter do
            article_id: nil,
            course_id: 1)
     VCR.use_cassette 'assignments_importer' do
-      AssignedArticleImporter.import_articles_for_assignments
+      described_class.import_articles_for_assignments
     end
     article = Article.find_by(title: 'Selfie')
     expect(article.mw_page_id).to eq(38956275)

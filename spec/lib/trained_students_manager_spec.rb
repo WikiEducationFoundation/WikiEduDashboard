@@ -24,25 +24,32 @@ describe TrainedStudentsManager do
 
   describe '#students_up_to_date_with_training' do
     subject { described_class.new(course).students_up_to_date_with_training }
+
     context 'no trainings assigned' do
       let(:ids) { nil }
+
       it 'returns all students' do
         expect(subject).not_to be_empty
       end
     end
+
     context 'no students in course' do
       let(:course_id) { nil }
+
       it 'returns empty array' do
         expect(subject).to be_empty
       end
     end
+
     context 'no overdue trainings' do
       it 'includes the user' do
         expect(subject).to include(user)
       end
     end
+
     context 'training is overdue' do
       let(:completed_at) { nil }
+
       it 'does not include user' do
         expect(subject).not_to include(user)
       end

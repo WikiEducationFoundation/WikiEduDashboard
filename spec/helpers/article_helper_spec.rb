@@ -14,7 +14,7 @@ describe ArticleHelper, type: :helper do
   end
 
   describe '.article_url' do
-    it 'should get the url for an article' do
+    it 'gets the url for an article' do
       # rubocop:disable Metrics/LineLength
       expect(@article.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/Selfie")
       expect(@sandbox.url).to eq("https://#{Figaro.env.wiki_language}.wikipedia.org/wiki/User:Ragesoss/sandbox")
@@ -24,7 +24,7 @@ describe ArticleHelper, type: :helper do
   end
 
   describe '.full_title' do
-    it 'should get the title including namespace prefix for an article' do
+    it 'gets the title including namespace prefix for an article' do
       expect(@article.full_title).to eq('Selfie')
       expect(@sandbox.full_title).to eq('User:Ragesoss/sandbox')
       expect(@draft.full_title).to eq('Draft:My Awesome Draft!!!')

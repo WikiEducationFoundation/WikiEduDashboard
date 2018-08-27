@@ -184,67 +184,67 @@ describe WikiSlideParser do
 
   describe '#title' do
     it 'extracts title from translation-enabled source wikitext' do
-      output = WikiSlideParser.new(source_wikitext.dup).title
+      output = described_class.new(source_wikitext.dup).title
       expect(output).to eq('E3: Situations you might encounter')
     end
     it 'extracts title from translation-enabled source wikitext' do
-      output = WikiSlideParser.new(translated_wikitext.dup).title
+      output = described_class.new(translated_wikitext.dup).title
       expect(output).to eq('E3: Situaciones que podrías enfrentar')
     end
     it 'handles nil input' do
-      output = WikiSlideParser.new(+'').title
+      output = described_class.new(+'').title
       expect(output).to eq('')
     end
     it 'extracts only the title from variant translation markup formats' do
-      output = WikiSlideParser.new(translate_markup_variant.dup).title
+      output = described_class.new(translate_markup_variant.dup).title
       expect(output).to eq('Five Pillars: The core rules of Wikipedia')
     end
     it 'extracts the title from translated wikitext with leading whitespace' do
-      output = WikiSlideParser.new(translated_wikitext_with_leading_whitespace.dup).title
+      output = described_class.new(translated_wikitext_with_leading_whitespace.dup).title
       expect(output).to eq('Edizio ekintzei buruzko sarrera')
     end
   end
 
   describe '#content' do
     it 'converts wiki markup to markdown' do
-      output = WikiSlideParser.new(source_wikitext.dup).content
+      output = described_class.new(source_wikitext.dup).content
       expect(output).to match(/\*\*Minor to moderate safe spaces violations\*\*/)
-      output = WikiSlideParser.new(translated_wikitext.dup).content
+      output = described_class.new(translated_wikitext.dup).content
       expect(output).to match(/\*\*Transgresiones sutiles o moderadas a los espacios seguros\*\*/)
     end
     it 'converts an image template into figure markup' do
-      output = WikiSlideParser.new(image_wikitext.dup).content
+      output = described_class.new(image_wikitext.dup).content
       expect(output).to match(/Eryk Salvaggio/)
     end
     it 'converts multiple image templates into distinct figure markups' do
-      output = WikiSlideParser.new(multi_image_wikitext.dup).content
+      output = described_class.new(multi_image_wikitext.dup).content
       expect(output).to include('five_pillars.jpg')
       expect(output).to include('Find_a_program.png')
     end
     it 'converts a video template into iframe markup' do
-      output = WikiSlideParser.new(video_wikitext.dup).content
+      output = described_class.new(video_wikitext.dup).content
       expect(output).to include('iframe>')
     end
     it 'includes a forced newline after figure markup' do
       # Markdown conversion outputs just one newline after figure markup, which
       # can result in the next line getting misparsed. Two newlines ensures that
       # the following content gets parsed as a new paragraph.
-      output = WikiSlideParser.new(image_wikitext.dup).content
+      output = described_class.new(image_wikitext.dup).content
       expect(output).to include("figure>\n\n")
     end
     it 'removes leading newlines' do
-      output = WikiSlideParser.new(source_wikitext.dup).content
+      output = described_class.new(source_wikitext.dup).content
       expect(output[0..10]).to eq('Even though')
     end
     it 'handles nil input' do
-      output = WikiSlideParser.new(''.dup).content
+      output = described_class.new(''.dup).content
       expect(output).to eq('')
     end
   end
 
   describe '#quiz' do
     it 'converts a wiki template into a hash representing a quiz' do
-      output = WikiSlideParser.new(quiz_wikitext.dup).quiz
+      output = described_class.new(quiz_wikitext.dup).quiz
       expect(output[:correct_answer_id]).to eq(1)
       expect(output[:answers].count).to eq(2)
     end

@@ -4,7 +4,7 @@ require 'rails_helper'
 require "#{Rails.root}/lib/analytics/histogram_plotter"
 
 describe 'ORES plots', type: :feature do
-  before(:each) do
+  before do
     allow(HistogramPlotter).to receive(:plot).and_return(file_path)
   end
 

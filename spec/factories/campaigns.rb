@@ -20,11 +20,11 @@
 
 FactoryBot.define do
   factory :campaign do
-    title 'Spring 2016'
+    title { 'Spring 2016' }
   end
 
   factory :campaign_two, class: Campaign do
-    title 'Fall 2014'
-    url 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids'
+    title { 'Fall 2014' }
+    url { 'Wikipedia:Education_program/Dashboard/Fall_2014_course_ids' }
   end
 end

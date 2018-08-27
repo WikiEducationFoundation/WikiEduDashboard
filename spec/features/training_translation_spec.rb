@@ -24,6 +24,8 @@ describe 'Training Translations', type: :feature, js: true do
 
   after { flush_training_caches }
 
+  after(:all) { TrainingModule.load_all }
+
   it 'shows the translated text of a quiz' do
     visit '/training/editing-wikipedia/wikipedia-essentials/five-pillars-quiz-1'
     expect(page).to have_content 'Wikipedia artikulu batek'
@@ -37,5 +39,4 @@ describe 'Training Translations', type: :feature, js: true do
   end
 
   # Make sure default trainings get reloaded
-  after(:all) { TrainingModule.load_all }
 end

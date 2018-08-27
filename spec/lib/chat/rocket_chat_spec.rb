@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/chat/rocket_chat"
 describe RocketChat do
   let(:user) { nil }
   let(:course) { nil }
-  let(:subject) { RocketChat.new(user: user, course: course) }
+  let(:subject) { described_class.new(user: user, course: course) }
 
   describe '#login_credentials' do
     let(:user) { create(:user, chat_password: chat_password, chat_id: chat_id) }
@@ -14,6 +14,7 @@ describe RocketChat do
     context 'when the user already has a Rocket.Chat account' do
       let(:chat_id) { 'chatIdForUser' }
       let(:chat_password) { 'random_password' }
+
       before { stub_chat_login_success }
 
       it 'returns an authToken and userId' do
@@ -81,7 +82,9 @@ describe RocketChat do
 
     context 'when the Rocket.Chat API returns an error' do
       let(:course) { create(:course, flags: { enable_chat: true }) }
+
       before { stub_chat_error }
+
       it 'raises RocketChatAPIError' do
         expect { subject.create_channel_for_course }.to raise_error(RocketChat::RocketChatAPIError)
       end

@@ -34,7 +34,7 @@ describe Article, type: :model do
   end
 
   describe '#url' do
-    it 'should get the url for an article' do
+    it 'gets the url for an article' do
       expect(@article.url).to eq('https://en.wikipedia.org/wiki/Selfie')
       expect(@sandbox.url).to eq('https://en.wikipedia.org/wiki/User:Ragesoss/sandbox')
       expect(@draft.url).to eq('https://en.wikipedia.org/wiki/Draft:My_Awesome_Draft!!!')
@@ -42,7 +42,7 @@ describe Article, type: :model do
   end
 
   describe '#full_title' do
-    it 'should get the title including namespace prefix for an article' do
+    it 'gets the title including namespace prefix for an article' do
       expect(@article.full_title).to eq('Selfie')
       expect(@sandbox.full_title).to eq('User:Ragesoss/sandbox')
       expect(@draft.full_title).to eq('Draft:My Awesome Draft!!!')

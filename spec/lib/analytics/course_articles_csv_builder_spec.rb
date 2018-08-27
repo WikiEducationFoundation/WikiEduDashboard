@@ -12,6 +12,7 @@ describe CourseArticlesCsvBuilder do
   let(:article2) { create(:article, title: 'Second_Article') }
   let(:revision_count) { 5 }
   let(:subject) { described_class.new(course).generate_csv }
+
   before do
     # multiple revisions for first article
     revision_count.times do |i|

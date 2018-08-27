@@ -111,6 +111,7 @@ describe CoursesUsers, type: :model do
 
     context 'when the username has spaces in it' do
       let(:user) { create(:user, username: 'Alaura Hopper') }
+
       it 'converts spaces to underscores to match mediawiki convention' do
         courses_user = create(:courses_user, user_id: user.id, course_id: en_wiki_course.id)
         expect(courses_user.contribution_url).to eq('https://en.wikipedia.org/wiki/Special:Contributions/Alaura_Hopper')

@@ -12,12 +12,13 @@ describe WikiTrainingLoader do
     end
 
     let(:subject) do
-      WikiTrainingLoader.new(content_class: content_class, slug_whitelist: slug_whitelist)
+      described_class.new(content_class: content_class, slug_whitelist: slug_whitelist)
     end
     let(:slug_whitelist) { nil }
 
     describe 'for basic slides' do
       let(:content_class) { TrainingSlide }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/slides-test')
@@ -36,6 +37,7 @@ describe WikiTrainingLoader do
         # This slug needs to be linked on Meta:
         # https://meta.wikimedia.org/wiki/Training_modules/dashboard/slides-test
         let(:slug_whitelist) { ['using-media'] }
+
         it 'returns an array of just the whitelisted content' do
           VCR.use_cassette 'training/load_from_wiki' do
             slides = subject.load_content
@@ -47,6 +49,7 @@ describe WikiTrainingLoader do
 
       context 'with a bad slug whitelist' do
         let(:slug_whitelist) { ['this-is-not-a-slug-listed-on-meta'] }
+
         it 'raises an error' do
           VCR.use_cassette 'training/load_from_wiki' do
             expect { subject.load_content }
@@ -58,6 +61,7 @@ describe WikiTrainingLoader do
 
     describe 'for invalid content' do
       let(:content_class) { TrainingLibrary }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/libraries-invalid')
@@ -74,10 +78,12 @@ describe WikiTrainingLoader do
 
     describe 'for invalid base pages' do
       let(:content_class) { TrainingLibrary }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/does-not-exist')
       end
+
       it 'returns an empty collection' do
         VCR.use_cassette 'training/load_from_wiki' do
           modules = subject.load_content
@@ -88,6 +94,7 @@ describe WikiTrainingLoader do
 
     describe 'for slides with translations' do
       let(:content_class) { TrainingSlide }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/slides-example')
@@ -104,6 +111,7 @@ describe WikiTrainingLoader do
 
     describe 'for modules' do
       let(:content_class) { TrainingModule }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/modules-test')
@@ -119,6 +127,7 @@ describe WikiTrainingLoader do
 
     describe 'for libraries' do
       let(:content_class) { TrainingLibrary }
+
       before do
         allow(content_class).to receive(:wiki_base_page)
           .and_return('Training modules/dashboard/libraries-test')

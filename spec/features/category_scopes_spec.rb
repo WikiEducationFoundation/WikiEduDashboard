@@ -5,6 +5,7 @@ require 'rails_helper'
 describe 'Tracked categories and template', js: true do
   let(:course) { create(:course, type: 'ArticleScopedProgram') }
   let(:user) { create(:user) }
+
   before do
     JoinCourse.new(course: course, user: user, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user

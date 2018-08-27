@@ -13,7 +13,7 @@ describe 'dashboard', type: :feature, js: true do
     describe 'for students' do
       let(:permissions) { User::Permissions::NONE }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -26,7 +26,7 @@ describe 'dashboard', type: :feature, js: true do
     describe 'for instructors' do
       let(:permissions) { User::Permissions::INSTRUCTOR }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -50,7 +50,7 @@ describe 'dashboard', type: :feature, js: true do
     context 'for returning instructors' do
       let(:permissions) { User::Permissions::INSTRUCTOR }
 
-      before :each do
+      before do
         login_as(user, scope: :user)
       end
 
@@ -80,7 +80,7 @@ describe 'dashboard', type: :feature, js: true do
   context 'archived courses' do
     let(:permissions) { User::Permissions::INSTRUCTOR }
 
-    before :each do
+    before do
       login_as(user, scope: :user)
     end
 
@@ -156,12 +156,12 @@ describe 'dashboard', type: :feature, js: true do
       login_as(user, scope: :user)
     end
 
-    it "should not show a campaigns section if the user isn't organizing any campaigns" do
+    it "does not show a campaigns section if the user isn't organizing any campaigns" do
       visit root_path
-      expect(page).to_not have_content(I18n.t('campaign.campaigns'))
+      expect(page).not_to have_content(I18n.t('campaign.campaigns'))
     end
 
-    it 'should list campaigns the user organizes' do
+    it 'lists campaigns the user organizes' do
       campaign = create(:campaign, title: 'My awesome campaign')
       create(:campaigns_user, user_id: user.id,
                               campaign_id: campaign.id,

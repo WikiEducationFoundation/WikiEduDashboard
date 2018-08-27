@@ -47,7 +47,7 @@ describe RevisionScoreImporter do
     pending 'This may fail if the ORES api is having trouble.'
 
     VCR.use_cassette 'revision_scores/by_revisions' do
-      RevisionScoreImporter.new.update_revision_scores
+      described_class.new.update_revision_scores
       early_revision = Revision.find_by(mw_rev_id: 641962088)
       later_revision = Revision.find_by(mw_rev_id: 675892696)
       early_score = early_revision.wp10.to_f
@@ -63,8 +63,8 @@ describe RevisionScoreImporter do
   it 'saves wp10 scores by article' do
     VCR.use_cassette 'revision_scores/by_article' do
       articles = Article.all
-      RevisionScoreImporter.new
-                           .update_all_revision_scores_for_articles(articles)
+      described_class.new
+                     .update_all_revision_scores_for_articles(articles)
       early_score = Revision.find_by(mw_rev_id: 46745264).wp10.to_f
       later_score = Revision.find_by(mw_rev_id: 662106477).wp10.to_f
       expect(early_score).to be > 0
@@ -84,7 +84,7 @@ describe RevisionScoreImporter do
              mw_rev_id: 708326238,
              article_id: article.id,
              mw_page_id: 49505160)
-      RevisionScoreImporter.new.update_all_revision_scores_for_articles([article])
+      described_class.new.update_all_revision_scores_for_articles([article])
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
@@ -103,7 +103,7 @@ describe RevisionScoreImporter do
              mw_rev_id: 753277075,
              article_id: article.id,
              mw_page_id: 123456)
-      RevisionScoreImporter.new.update_all_revision_scores_for_articles([article])
+      described_class.new.update_all_revision_scores_for_articles([article])
       revision = article.revisions.first
       expect(revision.deleted).to eq(true)
       expect(revision.wp10).to be_nil
@@ -112,14 +112,14 @@ describe RevisionScoreImporter do
   end
 
   it 'does not try to query deleted revisions' do
-    revisions = RevisionScoreImporter.new.send(:unscored_mainspace_userspace_and_draft_revisions)
+    revisions = described_class.new.send(:unscored_mainspace_userspace_and_draft_revisions)
     expect(revisions.where(mw_rev_id: 1).count).to eq(0)
   end
 
   it 'handles network errors gracefully' do
     stub_request(:any, %r{https://ores.wikimedia.org/.*})
       .to_raise(Errno::ECONNREFUSED)
-    RevisionScoreImporter.new.update_revision_scores(Revision.all)
+    described_class.new.update_revision_scores(Revision.all)
     expect(Revision.find_by(mw_rev_id: 662106477).wp10).to be_nil
   end
 
@@ -135,14 +135,14 @@ describe RevisionScoreImporter do
              article_id: 1,
              mw_rev_id: 712439107)
       # see https://ores.wmflabs.org/v1/scores/enwiki/wp10/?revids=712439107
-      RevisionScoreImporter.new.update_revision_scores
+      described_class.new.update_revision_scores
     end
   end
 
   describe '#update_previous_wp10_scores' do
     it 'saves the wp10_previous score for a set of revisions' do
       VCR.use_cassette 'revision_scores/wp10_previous' do
-        RevisionScoreImporter.new.update_previous_wp10_scores Revision.where(article_id: 1538038)
+        described_class.new.update_previous_wp10_scores Revision.where(article_id: 1538038)
         expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be > 0
       end
     end

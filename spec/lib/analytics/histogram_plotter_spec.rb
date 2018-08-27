@@ -31,7 +31,7 @@ describe HistogramPlotter do
     create(:revision, article: article, date: 1.day.ago, wp10: 70, wp10_previous: 1)
   end
 
-  before(:each) do
+  before do
     FileUtils.rm_rf "#{Rails.root}/public/assets/system"
     stub_const('R', MockR.new)
   end
@@ -49,6 +49,7 @@ describe HistogramPlotter do
 
     context 'histogram type' do
       let(:opts) { { type: 'histogram' } }
+
       it 'returns an image path string' do
         expect(subject).to match(/.*png/)
       end

@@ -9,9 +9,14 @@ describe TrainingBase do
     allow(Features).to receive(:wiki_trainings?).and_return(false)
   end
 
+  after(:all) do
+    TrainingModule.flush
+    TrainingLibrary.flush
+  end
+
   describe 'abstract parent class' do
     it 'raises errors for required template instance methods' do
-      subject = TrainingBase.inflate({}, 'foo')
+      subject = described_class.inflate({}, 'foo')
       expect { subject.valid? }.to raise_error(NotImplementedError)
     end
 
@@ -25,7 +30,7 @@ describe TrainingBase do
 
     context 'when a module file is misformatted' do
       before do
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/bad_yaml")
       end
 
@@ -37,8 +42,9 @@ describe TrainingBase do
 
     context 'when a slide file is misformatted' do
       let(:subject) { TrainingSlide.load }
+
       before do
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/bad_yaml_slide")
       end
 
@@ -51,7 +57,7 @@ describe TrainingBase do
     context 'when there are duplicate slugs' do
       before do
         allow(TrainingModule).to receive(:trim_id_from_filename).and_return(true)
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/duplicate_yaml_slugs")
       end
 
@@ -63,7 +69,7 @@ describe TrainingBase do
 
     context 'when there are duplicate ids' do
       before do
-        allow(TrainingBase).to receive(:base_path)
+        allow(described_class).to receive(:base_path)
           .and_return("#{Rails.root}/spec/support/duplicate_yaml_ids")
       end
 
@@ -77,6 +83,7 @@ describe TrainingBase do
         allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return('training_content/wiki_ed')
       end
+
       it 'loads trainings from that path' do
         TrainingSlide.load
         expect(TrainingSlide.all).not_to be_empty
@@ -88,6 +95,7 @@ describe TrainingBase do
         allow(ENV).to receive(:[]).and_call_original
         allow(ENV).to receive(:[]).with('training_path').and_return(nil)
       end
+
       it 'loads trainings from the default path' do
         TrainingSlide.load
         expect(TrainingSlide.all).not_to be_empty
@@ -97,7 +105,7 @@ describe TrainingBase do
 
   describe '.all' do
     context 'when the cache is empty' do
-      before(:each) do
+      before do
         TrainingLibrary.flush
         TrainingModule.flush
       end
@@ -114,8 +122,9 @@ describe TrainingBase do
       before do
         allow(Features).to receive(:wiki_trainings?).and_return(false)
       end
+
       it 'sets wiki_slide to nil for training content' do
-        TrainingBase.load_all
+        described_class.load_all
         expect(TrainingLibrary.all.last.wiki_page).to be_nil
         expect(TrainingModule.all.last.wiki_page).to be_nil
         expect(TrainingSlide.last.wiki_page).to be_nil
@@ -127,9 +136,10 @@ describe TrainingBase do
         TrainingSlide.destroy_all
         allow(Features).to receive(:wiki_trainings?).and_return(true)
       end
+
       it 'loads libraries, modules and slides that include the source wiki_page' do
         VCR.use_cassette 'wiki_trainings' do
-          TrainingBase.load_all
+          described_class.load_all
         end
         TrainingLibrary.all.each do |library|
           expect(library.wiki_page).to match(%r{/dashboard libraries/.*json})
@@ -145,8 +155,4 @@ describe TrainingBase do
   end
 
   # Make sure default trainings get reloaded
-  after(:all) do
-    TrainingModule.flush
-    TrainingLibrary.flush
-  end
 end

@@ -1,6 +1,6 @@
 require:
   - rubocop/rspec/focused
-
+  - rubocop-rspec
 Documentation:
   Enabled: false
 AllCops:
@@ -140,3 +140,49 @@ Style/ExpandPathArguments:
   Enabled: false
 Layout/ClosingHeredocIndentation:
   Enabled: false # buggy in 0.57.2: https://github.com/rubocop-hq/rubocop/issues/6009
+RSpec/InstanceVariable:
+  Enabled: false
+RSpec/ExampleLength:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/ContextWording:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/VerifiedDoubles:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/BeforeAfterAll:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Enabled: false
+RSpec/FilePath:
+  Enabled: false
+RSpec/ScatteredLet:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
+RSpec/RepeatedDescription:
+  Enabled: false
+RSpec/MessageSpies:
+  Enabled: false
+Capybara/CurrentPathExpectation:
+  Enabled: false
+RSpec/DescribeClass:
+  Enabled: false
+RSpec/ExpectInHook:
+  Enabled: false
+RSpec/ScatteredSetup:
+  Enabled: false
+RSpec/MultipleDescribes:
+  Enabled: false
+RSpec/ExampleWording:
+  Enabled: false
+RSpec/Be:
+  Enabled: false
+RSpec/OverwritingSetup:
+  Enabled: false

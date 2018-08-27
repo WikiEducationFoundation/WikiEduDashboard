@@ -13,21 +13,26 @@ describe FeedbackFormResponsesController do
       describe 'subject' do
         context 'referer in query params' do
           let(:referer) { 'wikipedia.org' }
+
           it 'sets referer from params' do
             get :new, params: { referer: referer }
             expect(assigns(:subject)).to eq(referer)
           end
         end
+
         context 'referer on request object' do
           let(:referer) { 'bananas.com' }
           # workaround for https://github.com/rspec/rspec-rails/issues/1655
+
           before { request.env['HTTP_REFERER'] = referer }
+
           it 'sets referer from request object' do
             get :new
             expect(assigns(:subject)).to eq(referer)
           end
         end
       end
+
       describe 'feedback_form_response' do
         it 'sets ivar to a new FeedbackFormResponse' do
           get :new
@@ -39,6 +44,7 @@ describe FeedbackFormResponsesController do
 
   describe '#index' do
     let(:user) { create(:admin) }
+
     before { allow(controller).to receive(:current_user).and_return(user) }
 
     describe 'ivars' do
@@ -56,6 +62,7 @@ describe FeedbackFormResponsesController do
 
       context 'not-signed in' do
         let(:user) { create(:user) }
+
         it "doesn't allow" do
           get :index
           expect(response.status).to eq(302)
@@ -68,6 +75,7 @@ describe FeedbackFormResponsesController do
   describe '#show' do
     let!(:form) { FeedbackFormResponse.create(body: 'bananas') }
     let(:user)  { create(:admin) }
+
     before { allow(controller).to receive(:current_user).and_return(user) }
 
     describe 'ivars' do
@@ -85,6 +93,7 @@ describe FeedbackFormResponsesController do
 
       context 'not-signed in' do
         let(:user) { create(:user) }
+
         it "doesn't allow" do
           get :index
           expect(response.status).to eq(302)
@@ -96,9 +105,12 @@ describe FeedbackFormResponsesController do
 
   describe '#create' do
     let(:user) { create(:user) }
+
     before { allow(controller).to receive(:current_user).and_return(user) }
+
     context 'non-admin' do
       let(:body) { 'bananas' }
+
       it 'creates successfully' do
         post :create, params: { feedback_form_response: { body: body } }
         expect(FeedbackFormResponse.last.body).to eq(body)

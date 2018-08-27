@@ -42,7 +42,7 @@ describe DiscretionarySanctionsMonitor do
     end
 
     it 'creates Alert records for edited articles under discretionary sanctions' do
-      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
       alerted_article_ids = Alert.all.pluck(:article_id)
       expect(alerted_article_ids).to include(article.id)
@@ -51,7 +51,7 @@ describe DiscretionarySanctionsMonitor do
     it 'emails a greeter' do
       create(:courses_user, user_id: content_expert.id, course_id: course.id, role: 4)
       allow_any_instance_of(AlertMailer).to receive(:alert).and_return(mock_mailer)
-      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.last.email_sent_at).not_to be_nil
     end
 
@@ -59,7 +59,7 @@ describe DiscretionarySanctionsMonitor do
       Alert.create(type: 'DiscretionarySanctionsEditAlert',
                    article_id: article.id, course_id: course.id)
       expect(Alert.count).to eq(1)
-      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
     end
 
@@ -67,7 +67,7 @@ describe DiscretionarySanctionsMonitor do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
                    course_id: course.id, resolved: true, created_at: revision.date + 1.hour)
       expect(Alert.count).to eq(1)
-      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(1)
     end
 
@@ -75,7 +75,7 @@ describe DiscretionarySanctionsMonitor do
       Alert.create(type: 'DiscretionarySanctionsEditAlert', article_id: article.id,
                    course_id: course.id, resolved: true, created_at: revision.date - 1.hour)
       expect(Alert.count).to eq(1)
-      DiscretionarySanctionsMonitor.create_alerts_for_course_articles
+      described_class.create_alerts_for_course_articles
       expect(Alert.count).to eq(2)
     end
   end

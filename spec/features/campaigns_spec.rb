@@ -6,14 +6,14 @@ describe 'campaigns page', type: :feature, js: true do
   let(:user) { create(:user) }
 
   context 'hiding campaign creation' do
-    it 'should not show the create button if the feature flag is off' do
+    it 'does not show the create button if the feature flag is off' do
       allow(Features).to receive(:open_course_creation?).and_return(false)
       login_as(user, scope: :user)
       visit '/campaigns'
       expect(page).to have_no_css('.create-campaign-button')
     end
 
-    it 'should not show the create button if the user is logged out' do
+    it 'does not show the create button if the user is logged out' do
       allow(Features).to receive(:open_course_creation?).and_return(false)
       visit '/campaigns'
       expect(page).to have_no_css('.create-campaign-button')
@@ -21,7 +21,7 @@ describe 'campaigns page', type: :feature, js: true do
   end
 
   context 'campaigns list' do
-    it 'should list the campaigns' do
+    it 'lists the campaigns' do
       campaign = create(:campaign, id: 10001,
                                    title: 'My awesome Spring 2016 campaign',
                                    slug: 'spring_2016',

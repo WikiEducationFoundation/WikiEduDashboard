@@ -11,8 +11,8 @@ describe CategoryImporter do
 
   it 'imports data for articles in a category' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter.new(wiki)
-                      .import_category(category)
+      described_class.new(wiki)
+                     .import_category(category)
       expect(Article.exists?(title: article_in_cat))
         .to be true # depth 0
       expect(Article.exists?(title: article_in_subcat))
@@ -24,8 +24,8 @@ describe CategoryImporter do
     VCR.use_cassette 'category_importer/import' do
       pending 'This sometimes fails on travis for database timeout reasons.'
 
-      CategoryImporter.new(wiki, depth: 1)
-                      .import_category(category)
+      described_class.new(wiki, depth: 1)
+                     .import_category(category)
       expect(Article.exists?(title: article_in_cat))
         .to be true # depth 0
       expect(Article.exists?(title: article_in_subcat))
@@ -37,26 +37,26 @@ describe CategoryImporter do
 
   it 'outputs filtered data about a category' do
     VCR.use_cassette 'category_importer/import' do
-      CategoryImporter.new(wiki, depth: 1)
-                      .import_category(category)
+      described_class.new(wiki, depth: 1)
+                     .import_category(category)
     end
     VCR.use_cassette 'category_importer/report_on_category' do
-      output = CategoryImporter.new(wiki)
-                               .report_on_category(category)
+      output = described_class.new(wiki)
+                              .report_on_category(category)
       expect(output).to include article_in_cat
     end
   end
 
   it 'imports missing data for category' do
     VCR.use_cassette 'category_importer/report_on_category_incomplete' do
-      output = CategoryImporter.new(wiki)
-                               .report_on_category(category)
+      output = described_class.new(wiki)
+                              .report_on_category(category)
       expect(output).to include article_in_cat
     end
   end
 
   describe '.show_category' do
-    it 'should return the articles in a category' do
+    it 'returns the articles in a category' do
       # Create an article ahead of time, to make sure we handle both articles
       # that we already have and ones we don't.
       create(:article,
@@ -64,8 +64,8 @@ describe CategoryImporter do
              mw_page_id: 10670306,
              title: 'Michael_"Crocodile"_Dundee')
       VCR.use_cassette 'category_importer/import' do
-        results = CategoryImporter.new(wiki, depth: 1)
-                                  .show_category(category)
+        results = described_class.new(wiki, depth: 1)
+                                 .show_category(category)
         article = Article.find_by(title: article_in_cat)
         expect(results).to include article
       end

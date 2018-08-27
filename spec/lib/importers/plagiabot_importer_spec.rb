@@ -5,7 +5,7 @@ require "#{Rails.root}/lib/importers/plagiabot_importer"
 
 describe PlagiabotImporter do
   describe '.check_recent_revisions' do
-    it 'should save ithenticate_id for recent suspect revisions' do
+    it 'saves ithenticate_id for recent suspect revisions' do
       # This is a revision in the plagiabot database, although the date is not
       # 1.day.ago
       create(:revision,
@@ -21,7 +21,7 @@ describe PlagiabotImporter do
                             'page_title': 'Prasad_karmarkar',
                             'ithenticate_id': '19201081',
                             'diff_timestamp': '20150831135151'}]")
-      PlagiabotImporter.check_recent_revisions
+      described_class.check_recent_revisions
       rev = Revision.find_by(mw_rev_id: 678763820)
       expect(rev.ithenticate_id).to eq(19201081)
     end
@@ -32,7 +32,7 @@ describe PlagiabotImporter do
       stub_request(:get, /tools.wmflabs.org.*/)
         .to_return(body: '[https://api.ithenticate.com/view_report/'\
                          '85261B20-0B70-11E7-992A-907D4A89A445]')
-      report_url = PlagiabotImporter.api_get_url(ithenticate_id: 19201081)
+      report_url = described_class.api_get_url(ithenticate_id: 19201081)
       url_match = report_url.include?('https://api.ithenticate.com/')
       # plagiabot may have an authentication error with ithenticate, in
       # which case it returns ';-(' as an error message in place of a url.
@@ -46,13 +46,13 @@ describe PlagiabotImporter do
 
     it 'redirects to a 404 page if no url is available' do
       stub_request(:get, /tools.wmflabs.org.*/).to_return(body: '[;(]')
-      report_url = PlagiabotImporter.api_get_url(ithenticate_id: 19201081999)
+      report_url = described_class.api_get_url(ithenticate_id: 19201081999)
       expect(report_url).to eq('/not_found')
     end
   end
 
   describe '.find_recent_plagiarism' do
-    it 'should save ithenticate_id for recent suspect revisions' do
+    it 'saves ithenticate_id for recent suspect revisions' do
       suspected_diffs_array = <<~DIFFS
         [{'lang': 'en', 'page_ns': '0', 'page_title': 'Kai_Hibbard', 'diff_timestamp': '20170318001557', 'ithenticate_id': '27714232', 'project': 'wikipedia', 'diff': '770854173'},
         {'lang': 'en', 'page_ns': '0', 'page_title': 'Bicycle_trainer', 'diff_timestamp': '20170317235741', 'ithenticate_id': '27714172', 'project': 'wikipedia', 'diff': '770851994'},
@@ -109,7 +109,7 @@ describe PlagiabotImporter do
 
       # This is tricky to test, because we don't know what the recent revisions
       # will be. So, first we have to get one of those revisions.
-      suspected_diff = PlagiabotImporter
+      suspected_diff = described_class
                        .api_get('suspected_diffs')[0]['diff'].to_i
       create(:revision,
              mw_rev_id: suspected_diff,
@@ -118,20 +118,20 @@ describe PlagiabotImporter do
       create(:article,
              id: 123332,
              namespace: 0)
-      PlagiabotImporter.find_recent_plagiarism
+      described_class.find_recent_plagiarism
       expect(Revision.find_by(mw_rev_id: suspected_diff).ithenticate_id).not_to be_nil
     end
 
     it 'handles API failures gracefully' do
       stub_request(:any, /.*wmflabs.org.*/).and_raise(Oj::ParseError)
-      expect { PlagiabotImporter.find_recent_plagiarism }.not_to raise_error
+      expect { described_class.find_recent_plagiarism }.not_to raise_error
     end
   end
 
   describe 'error handling' do
     it 'handles connectivity problems gracefully' do
       stub_request(:any, /.*wmflabs.org.*/).and_raise(Errno::ETIMEDOUT)
-      expect(PlagiabotImporter.api_get('suspected_diffs')).to be_empty
+      expect(described_class.api_get('suspected_diffs')).to be_empty
     end
   end
 end

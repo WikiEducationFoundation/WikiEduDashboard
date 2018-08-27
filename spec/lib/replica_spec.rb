@@ -5,6 +5,7 @@ require "#{Rails.root}/lib/replica"
 
 describe Replica do
   let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
   describe 'API requests' do
     it 'returns revisions from this term' do
       VCR.use_cassette 'replica/revisions' do
@@ -16,7 +17,7 @@ describe Replica do
         rev_start = 2014_01_01_003430
         rev_end = 2014_12_31_003430
 
-        response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
 
         # This count represents the number of pages in a subset of namespaces
         # edited by the users, not the number of revisions. Revisions are child
@@ -27,13 +28,13 @@ describe Replica do
         # Make sure we handle the case of zero revisions.
         rev_start = 2015_05_05
         rev_end = 2015_05_06
-        response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(0)
 
         # Make sure we handle the case of one revision.
         rev_start = 2015_05_08
         rev_end = 2015_05_09
-        response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
@@ -45,19 +46,19 @@ describe Replica do
                            username: 'JRicker,PhD')
         rev_start = 2015_01_01
         rev_end = 2016_01_01
-        response = Replica.new(en_wiki).get_revisions([comma_user], rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions([comma_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         ampersand_user = build(:user,
                                id: 22403865,
                                username: 'Evol&Glass')
-        response = Replica.new(en_wiki).get_revisions([ampersand_user], rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions([ampersand_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         apostrophe_user = build(:user,
                                 id: 26211578,
                                 username: "Jack's nomadic mind")
-        response = Replica.new(en_wiki).get_revisions([apostrophe_user], rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions([apostrophe_user], rev_start, rev_end)
         expect(response.count).to be > 1
 
         rev_start = 2008_01_01
@@ -65,7 +66,8 @@ describe Replica do
         exclamation_user = build(:user,
                                  id: 11274650,
                                  username: '!!Aaapplesauce')
-        response = Replica.new(en_wiki).get_revisions([exclamation_user], rev_start, rev_end)
+        response = described_class.new(en_wiki)
+                                  .get_revisions([exclamation_user], rev_start, rev_end)
         expect(response.count).to be > 1
       end
     end
@@ -77,7 +79,7 @@ describe Replica do
         ]
         rev_start = 2016_09_20_003430
         rev_end = 2016_09_22_003430
-        response = Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end)
         dashboard_edit_system_status = response.dig('51688052', 'revisions', 0, 'system')
         expect(dashboard_edit_system_status).to eq('true')
       end
@@ -96,7 +98,7 @@ describe Replica do
           { 'title' => 'Mmilldev/sandbox' }, # exists in namespace 2
           { 'title' => 'THIS_ARTICLE_DOES_NOT_EXIST' }
         ]
-        response = Replica.new(en_wiki).post_existing_articles_by_title(article_titles)
+        response = described_class.new(en_wiki).post_existing_articles_by_title(article_titles)
         expect(response.size).to eq(15)
       end
     end
@@ -113,7 +115,7 @@ describe Replica do
         rev_end = 2015_03_10_003430
 
         es_wiki = Wiki.new(language: 'es', project: 'wikipedia')
-        response = Replica.new(es_wiki).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(es_wiki).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(22)
       end
     end
@@ -128,7 +130,7 @@ describe Replica do
         rev_end = 2016_12_02_003430
 
         wikidata = Wiki.new(language: nil, project: 'wikidata')
-        response = Replica.new(wikidata).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(wikidata).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(12)
       end
     end
@@ -143,7 +145,7 @@ describe Replica do
         rev_end = 2017_03_28_000000
 
         wikisource = Wiki.new(language: nil, project: 'wikisource')
-        response = Replica.new(wikisource).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(wikisource).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(28)
       end
     end
@@ -158,7 +160,7 @@ describe Replica do
         rev_end = 2017_03_17_000000
 
         incubator = Wiki.new(language: 'incubator', project: 'wikimedia')
-        response = Replica.new(incubator).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(incubator).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
@@ -173,7 +175,7 @@ describe Replica do
         rev_end = 2018_04_10_000000
 
         commons = Wiki.new(language: 'commons', project: 'wikimedia')
-        response = Replica.new(commons).get_revisions(all_users, rev_start, rev_end)
+        response = described_class.new(commons).get_revisions(all_users, rev_start, rev_end)
         expect(response.count).to eq(1)
       end
     end
@@ -187,7 +189,7 @@ describe Replica do
     end
     let(:rev_start) { 2014_01_01_003430 }
     let(:rev_end) { 2014_12_31_003430 }
-    let(:subject) { Replica.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
+    let(:subject) { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
 
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
@@ -217,7 +219,7 @@ describe Replica do
 
   describe 'post request error handling' do
     article_titles = []
-    let(:result) { Replica.new(en_wiki).post_existing_articles_by_title(article_titles) }
+    let(:result) { described_class.new(en_wiki).post_existing_articles_by_title(article_titles) }
 
     it 'handles timeout errors' do
       stub_request(:any, %r{https://tools.wmflabs.org/.*})
