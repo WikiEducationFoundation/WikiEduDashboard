@@ -1,0 +1,56 @@
+# Messages for Mon (ဘာသာ မန်)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Htawmonzel
+# Author: Ninjastrikers
+---
+mnw:
+  application:
+    cancel: တးပဲါ
+    create_accounts: ခၞံကၠောန် အကံက် ဝဳကဳပဳယာ
+    dashboard: ဒၞာဲခတဵုဒေသ်ဗတ် ပလေဝ် ဝဳကဳ
+    documentation: လိက်ပရူပရာ
+    error: အရာမဗၠေတ်ဗၠေင်မွဲ နွံဒၟံင် -
+    explore: စဳစောတ်
+    field_required: တင်ဏအ်ဂှ် ဒးဗပေင်ကဵု ရောင်၊၊
+    field_invalid_characters: မအက္ခရ် ဟွံလုပ်အဝေါင် ပါလုပ်ဒၟံင်
+    field_invalid_date: တင်ဏအ် ဒးဗပေင်စုတ် စၟတ်တ္ၚဲ နကဵုမဂၞန် ဗီုပြင် ၂၀၁၈-၀၈-၂၄၊၊
+      YYYY-MM-DD
+    field_invalid_date_time: ကၞောတ်ဂှ် ဒးနွံ လက္ကရဴ အစ၊၊ (နာဍဳ ဂှ် စနူ ၀ စဵုကဵု ၂၃)
+    greeting2: ဒုင်တၠုင်ရအဴ
+    greeting_extended: ဒုင်တၠုင်ဏာ နူဝဳကဳပဳဒဳယာ၊၊
+    greeting: မ္ၚဵုရအဴ
+    help: ရီု
+    home: မုက်လိက်တမ်
+    log_in_extended: လုပ်လံက်အေန် နကဵု ဝဳကဳပဳဒဳယာ
+    log_in: လုပ်လံက်အေန်
+    log_out: တိတ်
+    my_dashboard: ဒၞာဲခတဵုဒေတ်ဗတ် အဲ
+    recent_activity: အရာမကၠောန်လဝ် ခြာဟွံလအ်
+    report_problem: ပတိုန်ထ္ၜး ပြသၞာ
+    request_account: အာတ်မိက် အကံက်
+    request_account_create: ခၞံကၠောန် အကံက်
+    search: သၟာန် သမာန်မွဲ
+    search_results: သွဟ် မဂွံဆဵုကေတ်ဂမၠိုင် - '%{search_terms}'
+    sign_up_extended: ပတိုန်စၟတ်သမ္တီ နကဵု ဝဳကဳပဳဒဳယာ
+    sign_up_wikipedia: ဟွံသေင်မ္ဂး ပတိုန်စၟတ်သမ္တီ ပ္ဍဲ ဝဳကဳပဳယာ
+    sign_up_log_in_extended: နကဵု ဝဳကဳပဳဒဳယာ
+    sign_up: ပတိုန် စၟတ်သမ္တီ
+    submit: ဗပေင်
+    training: ခန်လ္ၚတ်
+    change: ပြံင်လှာဲ
+    details: ဗွဲမစုင်လေင်
+    confirm: ခိုဟ်
+    opt_in: ယွံ
+    opt_out: ဟအှ်ေ
+  dashboard:
+    create_note: ဍဵု ပ္ဍဲ ခၞံဗဒှ် တန်ဗ္တောန် သွက်ဂွံ ခၞံဗဒှ် တန်ဗ္တောန်မၞး ကိုပ်ကၠာ
+    explore_course_pages: ဂၠာဲသ္ၚေဝ် မုက်လိက် တန်ဗ္တောန်ဂမၠိုင်
+    explore_examples: ဂၠာဲသ္ၚေဝ် ဥပမာဂမၠိုင်
+    join_note: ကာလ မၞး ကလိဂွံဒုင်တဲ မလိက်ဓလုက်/passcode နူ အစာမထ္ၜးနဲမၞးမ္ဂး ဍဵု ပ္ဍဲ
+      ဂၠာဲတန်ဗ္တောန်မၞး (Find Your Course) သွက်ဂွံဂၠာဲ တုဲ ဂွံပံင်တောဲ၊၊
+    no_courses_instructor: တုပ်ညံင်ကဵု မၞး ဟွံကလိဂွံ တန်ဗ္တောန် မွဲမွဲဏီရ၊၊
+    no_courses_student: တုပ်ညံင် မၞးဟွံဂွံပံင်တောဲ တန်ဗ္တောန်မွဲမွဲဏီ ဖိုဟ်ရ၊၊
+  courses:
+    overview: ဗဟိုစာမျက်နှာ
+...

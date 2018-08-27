@@ -900,6 +900,7 @@ pt-br:
     done: Concluído!
     check_answer: Verificar resposta
     included_modules: Módulos incluídos
+    view_library_source: ver fonte da biblioteca
     view_module_source: ver a fonte do módulo
     reload_from_source: recarregar da fonte
   uploads:

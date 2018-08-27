@@ -721,6 +721,7 @@ zh-TW:
     done: 完成！
     check_answer: 檢查答案
     included_modules: 已包含模組
+    view_library_source: 檢視圖書館來源
     view_module_source: 檢視模組來源
     reload_from_source: 從來源重新載入
   uploads:

@@ -280,6 +280,7 @@ el:
     bytes_added: Μπάιτ που προστέθηκαν
   training:
     previous: < Προηγούμενο
+    view_library_source: προβολή πηγής βιβλιοθήκης
     view_module_source: προβολή πηγής δομοστοιχείου
     reload_from_source: επαναφόρτωση από πηγή
   uploads:

@@ -901,6 +901,7 @@ de:
     done: Fertig!
     check_answer: Antwort prüfen
     included_modules: Enthaltene Module
+    view_library_source: Bibliotheksquelle ansehen
     view_module_source: Modulquelle ansehen
     reload_from_source: Von Quelle neu laden
   uploads:

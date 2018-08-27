@@ -923,6 +923,7 @@ fr:
     done: Terminé !
     check_answer: Vérifier la réponse
     included_modules: Modules inclus
+    view_library_source: afficher la source de la bibliothèque
     view_module_source: afficher la source du module
     reload_from_source: recharger depuis la source
   uploads:
