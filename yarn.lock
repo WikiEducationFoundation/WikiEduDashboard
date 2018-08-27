@@ -4947,8 +4947,8 @@ https-browserify@0.0.1:
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
 i18n-js@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.8.tgz#3f15aa1bc63fdec9dd3c6feb48ffc89c51a00442"
+  version "3.0.11"
+  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-3.0.11.tgz#f9e96bdb641c5b9d6be12759d7c422089987ef02"
 
 iconv-lite@0.4.13:
   version "0.4.13"
