@@ -51,7 +51,7 @@
 FactoryBot.define do
   factory :course, class: 'ClassroomProgramCourse' do
     start { Date.new(2015, 1, 1) }
-    self.end Date.new(2015, 6, 1)
+    self.end { Date.new(2015, 6, 1) }
     title { 'Underwater basket-weaving' }
     school { 'WINTR' }
     term { 'spring 2015' }
@@ -62,7 +62,7 @@ FactoryBot.define do
 
   factory :basic_course, class: 'BasicCourse' do
     start { Date.new(2015, 1, 1) }
-    self.end Date.new(2015, 6, 1)
+    self.end { Date.new(2015, 6, 1) }
     title { 'Black life matters' }
     school { 'none' }
     term { 'none' }
@@ -74,7 +74,7 @@ FactoryBot.define do
 
   factory :visiting_scholarship, class: 'VisitingScholarship' do
     start { Date.new(2015, 1, 1) }
-    self.end Date.new(2015, 6, 1)
+    self.end { Date.new(2015, 6, 1) }
     title { 'Basket-weaving scholarship' }
     school { 'UNR' }
     term { 'spring 2015' }
@@ -86,7 +86,7 @@ FactoryBot.define do
 
   factory :editathon, class: 'Editathon' do
     start { Date.new(2015, 1, 1) }
-    self.end Date.new(2015, 6, 1)
+    self.end { Date.new(2015, 6, 1) }
     title { 'Basket-weaving edit-a-thon' }
     school { 'NARA' }
     term { 'spring 2015' }
@@ -98,7 +98,7 @@ FactoryBot.define do
 
   factory :legacy_course, class: 'LegacyCourse' do
     start { Date.new(2013, 1, 1) }
-    self.end Date.new(2013, 6, 1)
+    self.end { Date.new(2013, 6, 1) }
     title { 'Legacy basket-weaving' }
     school { 'PBR' }
     term { 'spring 2013' }
@@ -110,7 +110,7 @@ FactoryBot.define do
 
   factory :article_scoped_program, class: 'ArticleScopedProgram' do
     start { Date.new(2013, 1, 1) }
-    self.end Date.new(2013, 6, 1)
+    self.end { Date.new(2013, 6, 1) }
     title { 'Only basket-weaving' }
     school { 'WMIT' }
     term { 'spring 2013' }
@@ -122,7 +122,7 @@ FactoryBot.define do
 
   factory :fellows_cohort, class: 'FellowsCohort' do
     start { Date.new(2018, 6, 1) }
-    self.end Date.new(2018, 12, 1)
+    self.end { Date.new(2018, 12, 1) }
     title { 'Basket-weaving fellows' }
     school { 'Wikipedia Fellows' }
     term { 'summer 2018' }
