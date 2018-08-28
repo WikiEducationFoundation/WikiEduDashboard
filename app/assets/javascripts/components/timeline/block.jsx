@@ -8,7 +8,8 @@ import TrainingModules from './training_modules.jsx';
 import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
 import BlockActions from '../../actions/block_actions.js';
-import GradeableActions from '../../actions/gradeable_actions.js';
+
+const DEFAULT_POINTS = 10;
 
 const Block = createReactClass({
   displayName: 'Block',
@@ -56,16 +57,17 @@ const Block = createReactClass({
     return false;
   },
 
-  updateGradeable(valueKey, value) {
-    if (value === 'true') {
-      return GradeableActions.addGradeable(this.props.block);
+  updateGradeable(_valueKey, value) {
+    if (value) {
+      this.updateBlock('points', DEFAULT_POINTS);
+    } else {
+      this.updateBlock('points', null);
     }
-    return GradeableActions.deleteGradeable(this.props.gradeable.id);
   },
 
   render() {
     const isEditable = this._isEditable();
-    const isGraded = this.props.gradeable !== undefined && !this.props.gradeable.deleted;
+    const isGraded = !!this.props.block.points;
     let className = 'block';
     className += ` block-kind-${this.props.block.kind}`;
 
