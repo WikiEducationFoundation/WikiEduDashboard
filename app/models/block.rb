@@ -35,6 +35,8 @@ class Block < ApplicationRecord
     'handouts'   => 4
   }.freeze
 
+  DEFAULT_POINTS = 10
+
   def training_modules
     training_module_ids.collect { |id| TrainingModule.find(id) }
   end

@@ -88,9 +88,7 @@ class TimelineController < ApplicationController
     @permitted = { weeks: [
       :id, :deleted, :title,
       { blocks: [:id, :title, :kind, :content, :weekday, :week_id, :deleted,
-                 :order, :gradeable_id, :due_date,
-                 { gradeable: %i[id gradeable_item_id gradeable_item_type
-                                 title points deleted] }] }
+                 :order, :gradeable_id, :due_date, :points] }
     ] }
   end
 

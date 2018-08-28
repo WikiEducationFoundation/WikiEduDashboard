@@ -14,7 +14,6 @@ import TimelineActions from '../../actions/timeline_actions.js';
 
 import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
-import GradeableStore from '../../stores/gradeable_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
 
 const getState = () =>
@@ -22,7 +21,6 @@ const getState = () =>
     loading: WeekStore.getLoadingStatus(),
     weeks: WeekStore.getWeeks(),
     blocks: BlockStore.getBlocks(),
-    gradeables: GradeableStore.getGradeables(),
     all_training_modules: TrainingStore.getAllModules(),
     editable_block_ids: BlockStore.getEditableBlockIds()
   })
@@ -38,7 +36,7 @@ const TimelineHandler = createReactClass({
     children: PropTypes.node,
     controls: PropTypes.func,
     weeks: PropTypes.array,
-    gradeables: PropTypes.array,
+    blocks: PropTypes.array,
     loading: PropTypes.bool,
     editable_block_ids: PropTypes.array,
     all_training_modules: PropTypes.array
@@ -101,14 +99,10 @@ const TimelineHandler = createReactClass({
     let showGrading;
     if (this.state.reorderable) {
       showGrading = false;
-    } else if (this.props.current_user.admin || this.props.current_user.role > 0) {
-      showGrading = true;
-    } else if (this.props.gradeables.length === 0) {
-      showGrading = false;
     } else {
       showGrading = true;
     }
-    const grading = showGrading ? <Grading {...this.props} /> : null;
+    const grading = showGrading ? <Grading blocks={this.props.blocks} editable={this.props.editable} controls={this.props.controls} /> : null;
 
     return (
       <div>
@@ -142,4 +136,4 @@ const TimelineHandler = createReactClass({
   }
 });
 
-export default Editable(TimelineHandler, [WeekStore, BlockStore, GradeableStore, TrainingStore], TimelineActions.persistTimeline, getState);
+export default Editable(TimelineHandler, [WeekStore, BlockStore, TrainingStore], TimelineActions.persistTimeline, getState);

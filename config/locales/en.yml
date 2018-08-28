@@ -849,7 +849,7 @@ en:
     first_week_title: First Active Week
     gradeable_value: Value
     gradeables_none: This timeline has no assignments marked as graded.
-    grading_header: 'Grading (Total: %{total}%)'
+    grading_header: 'Grading (Total: %{total})'
     move_block_down: Move block down
     move_block_up: Move block up
     no_class_holidays: I have no class holidays
