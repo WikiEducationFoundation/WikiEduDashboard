@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: courses_users
@@ -18,6 +17,7 @@
 #  character_sum_draft    :integer          default(0)
 #  real_name              :string(255)
 #  role_description       :string(255)
+#  total_uploads          :integer
 #
 
 require 'rails_helper'

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: blocks
@@ -15,6 +14,7 @@
 #  order               :integer
 #  due_date            :date
 #  training_module_ids :text(65535)
+#  points              :integer
 #
 
 require_dependency "#{Rails.root}/lib/block_date_manager"
