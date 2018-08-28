@@ -16,7 +16,6 @@ const Block = createReactClass({
 
   propTypes: {
     block: PropTypes.object,
-    gradeable: PropTypes.object,
     editableBlockIds: PropTypes.array,
     editPermissions: PropTypes.bool,
     saveBlockChanges: PropTypes.func,

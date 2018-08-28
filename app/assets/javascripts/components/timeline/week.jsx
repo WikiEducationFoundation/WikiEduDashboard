@@ -6,8 +6,6 @@ import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
 import BlockActions from '../../actions/block_actions.js';
-import GradeableStore from '../../stores/gradeable_store.js';
-
 
 import DateCalculator from '../../utils/date_calculator.js';
 
@@ -127,7 +125,6 @@ const Week = createReactClass({
           block={block}
           key={block.id}
           editPermissions={this.props.edit_permissions}
-          gradeable={GradeableStore.getGradeableByBlock(block.id)}
           deleteBlock={this.deleteBlock.bind(this, block.id)}
           week_index={this.props.index}
           weekStart={dateCalc.startDate()}

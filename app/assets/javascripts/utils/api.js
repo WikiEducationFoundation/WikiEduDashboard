@@ -428,24 +428,16 @@ slide_id=${opts.slide_id}`,
 
       const { weeks } = data;
       const { blocks } = data;
-      const { gradeables } = data;
 
       _.forEach(weeks, (week) => {
         week.blocks = [];
         _.forEach(blocks, (block) => {
           if (block.week_id === week.id) { week.blocks.push(block); }
-          _.forEach(gradeables, (gradeable) => {
-            if (gradeable.gradeable_item_id === block.id) {
-              block.gradeable = gradeable;
-              if (block.is_new) { delete gradeable.gradeable_item_id; }
-            }
-          });
         });
       });
 
       cleanup(weeks);
       cleanup(blocks);
-      cleanup(gradeables);
 
       const req_data = { weeks };
       RavenLogger.type = 'POST';

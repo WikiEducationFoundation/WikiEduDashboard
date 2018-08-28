@@ -47,10 +47,10 @@ const addBlock = function (weekId) {
     kind: 0,
     title: '',
     content: '',
-    gradeable_id: null,
     week_id: weekId,
     order: weekBlocks.length,
-    duration: null
+    duration: null,
+    points: null
   };
   setBlock(block);
   return setEditableBlockId(block.id);

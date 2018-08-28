@@ -63,7 +63,7 @@ class CourseCloneManager
     # in the original order, so we clone each week rather than deep_clone the whole
     # course.
     @course.weeks.sort_by(&:order).each do |week|
-      clone_week = week.deep_clone include: [{ blocks: :gradeable }]
+      clone_week = week.deep_clone include: [:blocks]
       clone_week.course_id = @clone.id
       clone_week.save!
     end
