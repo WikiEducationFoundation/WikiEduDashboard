@@ -102,7 +102,7 @@ const TimelineHandler = createReactClass({
     } else {
       showGrading = true;
     }
-    const grading = showGrading ? <Grading blocks={this.props.blocks} editable={this.props.editable} controls={this.props.controls} /> : null;
+    const grading = showGrading ? <Grading weeks={this.props.weeks} blocks={this.props.blocks} editable={this.props.editable} controls={this.props.controls} /> : null;
 
     return (
       <div>

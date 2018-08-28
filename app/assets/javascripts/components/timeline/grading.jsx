@@ -9,14 +9,42 @@ const Grading = createReactClass({
   displayName: 'Grading',
 
   propTypes: {
+    weeks: PropTypes.array,
     blocks: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func
   },
 
   render() {
-    const total = _.sumBy(this.props.blocks, 'points');
-    const gradeableBlocks = this.props.blocks.filter(block => block.points);
+    const gradeableBlocks = [];
+    // The weeks prop has the order of the weeks, and the blocks within it.
+    // However, the blocks within the weeks prop are not updated except when
+    // the timeline is received from the server.
+    // So to re-render when block details are changed, we need to use the weeks
+    // prop to determine the order, but use the blocks prop to actually build
+    // the rendered elements.
+    // FIXME: when the Timeline gets converted to Redux, we can handle this kind
+    // of thing in the reducers and/or via selectors.
+    this.props.weeks.forEach(week => {
+      week.blocks.forEach(block => {
+        if (!block.points) { return; }
+        const blocksPropBlock = this.props.blocks.find(propsBlock => block.id === propsBlock.id);
+        blocksPropBlock.grading_order = `${week.order}${block.order}`;
+        gradeableBlocks.push(blocksPropBlock);
+      });
+    });
+
+    if (!gradeableBlocks.length) {
+      return <div />;
+    }
+
+    gradeableBlocks.sort((a, b) => {
+      if (!a.grading_order || !b.grading_order) { return 1; }
+      return a.grading_order - b.grading_order;
+    });
+
+    const total = _.sumBy(gradeableBlocks, 'points');
+
     const gradeables = gradeableBlocks.map((block) => {
       return (
         <Gradeable
@@ -26,10 +54,6 @@ const Grading = createReactClass({
         />
       );
     });
-
-    if (!gradeables.length) {
-      return <div />;
-    }
 
     return (
       <div className="grading__grading-container">
