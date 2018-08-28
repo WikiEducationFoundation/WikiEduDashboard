@@ -21,11 +21,7 @@ def create_course
          kind: Block::KINDS['assignment'],
          title: 'Block Title',
          order: 0,
-         gradeable_id: 1)
-  create(:gradeable,
-         id: 1,
-         gradeable_item_id: 1,
-         gradeable_item_type: 'block')
+         points: 50)
   create(:block,
          id: 2,
          week_id: 1,
@@ -125,6 +121,7 @@ describe 'timeline editing', type: :feature, js: true do
 
   it 'lets users remove grading from a block' do
     visit "/courses/#{Course.last.slug}/timeline"
+    expect(Block.find(1).points).to eq(50)
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
     sleep 0.5
@@ -136,7 +133,7 @@ describe 'timeline editing', type: :feature, js: true do
     end
     click_button 'Save'
     sleep 1
-    expect(Gradeable.all).to be_empty
+    expect(Block.find(1).points).to eq(nil)
   end
 
   it 'lets users add a block' do

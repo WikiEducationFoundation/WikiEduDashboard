@@ -245,7 +245,7 @@ describe 'New course creation and editing', type: :feature do
         sleep 1
         click_button 'Save'
         sleep 1
-        expect(page).to have_content 'Value: 50%'
+        expect(page).to have_content 'Value: 50'
       end
 
       # Navigate back to overview, check relevant data, then delete course

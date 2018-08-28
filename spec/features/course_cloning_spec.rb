@@ -38,10 +38,7 @@ describe 'cloning a course', js: true do
                     expected_students: 0)
   end
   let!(:week)      { create(:week, course_id: course.id) }
-  let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months) }
-  let!(:gradeable) do
-    create(:gradeable, gradeable_item_type: 'block', gradeable_item_id: block.id, points: 10)
-  end
+  let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
   let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
   let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
   let(:new_term) { 'Spring2016' }
@@ -102,9 +99,7 @@ describe 'cloning a course', js: true do
     expect(new_course.blocks.first.content).to eq(course.blocks.first.content)
     expect(new_course.blocks.first.due_date)
       .to be_nil
-    expect(new_course.blocks.first.gradeable.points).to eq(gradeable.points)
-    expect(new_course.blocks.first.gradeable.gradeable_item_id)
-      .to eq(new_course.blocks.first.id)
+    expect(new_course.blocks.first.points).to eq(15)
     expect(new_course.instructors.first).to eq(user)
     expect(new_course.submitted).to eq(false)
     expect(new_course.user_count).to be_zero

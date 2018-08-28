@@ -29,6 +29,8 @@ const Grading = createReactClass({
       week.blocks.forEach(block => {
         if (!block.points) { return; }
         const blocksPropBlock = this.props.blocks.find(propsBlock => block.id === propsBlock.id);
+        // Handle blocks that got deleted.
+        if (!blocksPropBlock) { return; }
         blocksPropBlock.grading_order = `${week.order}${block.order}`;
         gradeableBlocks.push(blocksPropBlock);
       });

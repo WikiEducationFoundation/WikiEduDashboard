@@ -34,7 +34,7 @@ const Gradeable = createReactClass({
         </h4>
         <TextInput
           onChange={this.updateGradeable}
-          value={this.props.block.points.toString()}
+          value={(this.props.block.points || '').toString()}
           value_key={'points'}
           editable={this.props.editable}
           label={I18n.t('timeline.gradeable_value')}
