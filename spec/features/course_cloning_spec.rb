@@ -37,10 +37,10 @@ describe 'cloning a course', js: true do
                     end: 2.years.from_now.to_date, submitted: true,
                     expected_students: 0)
   end
-  let!(:week)      { create(:week, course_id: course.id) }
-  let!(:block)     { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
-  let!(:user)      { create(:user, permissions: User::Permissions::ADMIN) }
-  let!(:c_user)    { create(:courses_user, course_id: course.id, user_id: user.id) }
+  let!(:week) { create(:week, course_id: course.id) }
+  let!(:block) { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
+  let!(:user) { create(:user, permissions: User::Permissions::ADMIN) }
+  let!(:c_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
   let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
   let!(:tag) { create(:tag, tag: 'cloneable', course_id: course.id) }
