@@ -53,6 +53,27 @@ class Wikitext
     wikitext
   end
 
+  def self.assignments_to_wikilinks(assignments, home_wiki)
+    return '' if assignments.blank?
+    formatted_titles = assignments.map do |assignment|
+      format_assignment_title(assignment, home_wiki)
+    end
+    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
+    wikitext
+  end
+
+  def self.format_assignment_title(assignment, home_wiki)
+    # If a page is on the same wiki, no prefix is needed.
+    # For other wikis (but the same project) a language prefix is required.
+    prefix = if assignment.wiki_id == home_wiki.id
+               ''
+             else
+               ":#{assignment.wiki.language}:"
+             end
+
+    prefix + format_title(assignment.article_title)
+  end
+
   # converts page title to a format suitable for on-wiki use
   def self.format_title(title)
     title

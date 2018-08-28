@@ -133,10 +133,8 @@ class WikiCourseOutput
   def student_row(student)
     username = student.username
     assignments = student.assignments.where(course_id: @course.id)
-    assigned_titles = assignments.assigned.pluck(:article_title)
-    assigned = Wikitext.titles_to_wikilinks(assigned_titles)
-    reviewing_titles = assignments.reviewing.pluck(:article_title)
-    reviewing = Wikitext.titles_to_wikilinks(reviewing_titles)
+    assigned = Wikitext.assignments_to_wikilinks(assignments.assigned, @course.home_wiki)
+    reviewing = Wikitext.assignments_to_wikilinks(assignments.reviewing, @course.home_wiki)
 
     "{{#{template_name(@templates, 'table_row')}|#{username}|#{assigned}|#{reviewing}}}\r"
   end

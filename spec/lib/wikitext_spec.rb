@@ -64,13 +64,26 @@ My list:
     end
   end
 
-  describe '.titles_to_wikilinks' do
-    it 'converts an array of titles into wikilink format' do
-      titles = ['Selfie', 'Category:Photography', 'Bishnu_Priya']
-      output = subject.titles_to_wikilinks(titles)
-      expect(output).to include('[[Selfie]],')
+  describe '.assignments_to_wikilinks' do
+    let(:en_wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
+    let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+    let(:assignments) do
+      [
+        create(:assignment, article_title: 'Selfie'),
+        create(:assignment, article_title: 'Category:Photography'),
+        create(:assignment, article_title: 'Bishnu Priya'),
+        create(:assignment, article_title: 'Blanca de Beaulieu', wiki: es_wiki)
+      ]
+    end
+
+    before { stub_wiki_validation }
+
+    it 'converts a set of assignments into wikilink format' do
+      output = subject.assignments_to_wikilinks(assignments, en_wiki)
+      expect(output).to include('[[Selfie]], ')
       expect(output).to include('[[:Category:Photography]]')
       expect(output).to include('[[Bishnu Priya]]')
+      expect(output).to include('[[:es:Blanca de Beaulieu]]')
     end
   end
 end
