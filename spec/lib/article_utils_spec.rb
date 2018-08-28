@@ -3,6 +3,12 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/article_utils"
 
+class MockWiktionary
+  def self.project
+    'wiktionary'
+  end
+end
+
 describe ArticleUtils do
   describe '.format_article_title' do
     it 'capitalizes the first letter and replace spaces with underscores' do
@@ -22,6 +28,12 @@ describe ArticleUtils do
       formatted_title = described_class.format_article_title title
       expect(formatted_title).to eq('Ábcde')
       expect(title).to eq('ábcde')
+    end
+
+    it 'does not capitalize wiktionary titles' do
+      title = 'derívense'
+      formatted_title = described_class.format_article_title title, MockWiktionary
+      expect(formatted_title).to eq('derívense')
     end
   end
 end

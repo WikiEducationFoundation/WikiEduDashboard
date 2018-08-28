@@ -64,14 +64,18 @@ class Wikitext
 
   def self.format_assignment_title(assignment, home_wiki)
     # If a page is on the same wiki, no prefix is needed.
-    # For other wikis (but the same project) a language prefix is required.
-    prefix = if assignment.wiki_id == home_wiki.id
-               ''
-             else
-               ":#{assignment.wiki.language}:"
-             end
+    title = format_title(assignment.article_title)
+    return title if assignment.wiki_id == home_wiki.id
 
-    prefix + format_title(assignment.article_title)
+    project = assignment.wiki.project
+    language = assignment.wiki.language
+
+    # For other wikis a language prefix is required, except for wikidata where the language is nil
+    language_prefix = language ? ":#{language}:" : ''
+    # If the project is different, a project prefix is also necessary.
+    project_prefix = project == home_wiki.project ? '' : "#{project}:"
+
+    language_prefix + project_prefix + title
   end
 
   # converts page title to a format suitable for on-wiki use

@@ -67,12 +67,16 @@ My list:
   describe '.assignments_to_wikilinks' do
     let(:en_wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
     let(:es_wiki) { create(:wiki, language: 'es', project: 'wikipedia') }
+    let(:es_wiktionary) { create(:wiki, language: 'es', project: 'wiktionary') }
+    let(:wikidata) { create(:wiki, project: 'wikidata') }
     let(:assignments) do
       [
         create(:assignment, article_title: 'Selfie'),
         create(:assignment, article_title: 'Category:Photography'),
         create(:assignment, article_title: 'Bishnu Priya'),
-        create(:assignment, article_title: 'Blanca de Beaulieu', wiki: es_wiki)
+        create(:assignment, article_title: 'Blanca de Beaulieu', wiki: es_wiki),
+        create(:assignment, article_title: 'agrazarías', wiki: es_wiktionary),
+        create(:assignment, article_title: 'Q60', wiki: wikidata)
       ]
     end
 
@@ -84,6 +88,8 @@ My list:
       expect(output).to include('[[:Category:Photography]]')
       expect(output).to include('[[Bishnu Priya]]')
       expect(output).to include('[[:es:Blanca de Beaulieu]]')
+      expect(output).to include('[[:es:wiktionary:agrazarías]]')
+      expect(output).to include('[[wikidata:Q60]]')
     end
   end
 end

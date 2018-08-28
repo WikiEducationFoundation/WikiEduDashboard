@@ -61,7 +61,8 @@ class Assignment < ApplicationRecord
   private
 
   def set_defaults_and_normalize
-    self.article_title = ArticleUtils.format_article_title(article_title) unless article_title.nil?
     self.wiki_id ||= course.home_wiki.id
+    return if article_title.nil?
+    self.article_title = ArticleUtils.format_article_title(article_title, wiki)
   end
 end
