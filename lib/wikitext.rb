@@ -46,13 +46,6 @@ class Wikitext
     text
   end
 
-  def self.titles_to_wikilinks(titles)
-    return '' if titles.blank?
-    formatted_titles = titles.map { |title| format_title(title) }
-    wikitext = '[[' + formatted_titles.join(']], [[') + ']]'
-    wikitext
-  end
-
   def self.assignments_to_wikilinks(assignments, home_wiki)
     return '' if assignments.blank?
     formatted_titles = assignments.map do |assignment|
