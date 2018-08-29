@@ -29,7 +29,8 @@ const addWeek = () =>
   setWeek({
     id: Date.now(), // could THEORETICALLY collide but highly unlikely
     is_new: true, // remove ids from objects with is_new when persisting
-    blocks: []
+    blocks: [],
+    order: WeekStore.getWeeks().length + 1
   });
 const removeWeek = function (weekId) {
   delete _weeks[weekId];
