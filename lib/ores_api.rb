@@ -38,8 +38,8 @@ class OresApi
   private
 
   def query_url(rev_id)
-    base_url = "/v2/scores/#{@project_code}/wp10/"
-    url = base_url + rev_id.to_s + '/?features'
+    base_url = "/v3/scores/#{@project_code}/"
+    url = base_url + rev_id.to_s + '/articlequality?features'
     url = URI.encode url
     url
   end

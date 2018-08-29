@@ -19,9 +19,8 @@ class RevisionScoreImporter
   # assumes a mediawiki rev_id from English Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data(rev_id)
-    features = extract_features(ores_data)[rev_id.to_s]
-    scores = extract_score(ores_data)
-    rating = scores.dig(rev_id.to_s, 'prediction') unless scores.nil?
+    features = ores_data.dig('enwiki', 'scores', rev_id.to_s, 'articlequality', 'features')
+    rating = ores_data.dig('enwiki', 'scores', rev_id.to_s, 'score', 'prediction')
     return { features: features, rating: rating }
   end
 
@@ -64,16 +63,15 @@ class RevisionScoreImporter
 
   # This should take up to OresApi::CONCURRENCY rev_ids per batch
   def get_and_save_scores(rev_batch)
-    scores, features = {}, {}
+    scores = {}
     threads = rev_batch.each_with_index.map do |revision, i|
       Thread.new(i) do
         ores_data = @ores_api.get_revision_data(revision.mw_rev_id)
-        scores.merge!(extract_score(ores_data))
-        features.merge!(extract_features(ores_data))
+        scores.merge!(ores_data&.dig('enwiki', 'scores') || {})
       end
     end
     threads.each(&:join)
-    save_scores(scores, features)
+    save_scores(scores)
   end
 
   def update_wp10_previous_batch(rev_batch)
@@ -91,10 +89,9 @@ class RevisionScoreImporter
     parent_id = get_parent_id revision
     return unless parent_id
     ores_data = @ores_api.get_revision_data(parent_id)
-    score = extract_score ores_data
-    return unless score[parent_id.to_s]&.key?('probability')
-    probability = score[parent_id.to_s]['probability']
-    en_wiki_weighted_mean_score(probability)
+    return unless ores_data
+    score = ores_data.dig('enwiki', 'scores', parent_id.to_s)
+    en_wiki_weighted_mean_score(score)
   end
 
   def unscored_mainspace_userspace_and_draft_revisions
@@ -103,13 +100,12 @@ class RevisionScoreImporter
             .where(articles: { namespace: [0, 2, 118] })
   end
 
-  DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
-  def save_scores(scores, features)
+  def save_scores(scores)
     scores.each do |mw_rev_id, score|
       revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
-      revision.wp10 = en_wiki_weighted_mean_score score['probability']
-      revision.features = features[mw_rev_id]
-      revision.deleted = true if DELETED_REVISION_ERRORS.include? score.dig('error', 'type')
+      revision.wp10 = en_wiki_weighted_mean_score(score)
+      revision.features = score.dig('articlequality', 'features')
+      revision.deleted = true if deleted?(score)
       revision.save
     end
   end
@@ -141,7 +137,8 @@ class RevisionScoreImporter
                      'C'     => 40,
                      'Start' => 20,
                      'Stub'  => 0 }.freeze
-  def en_wiki_weighted_mean_score(probability)
+  def en_wiki_weighted_mean_score(score)
+    probability = score.dig('articlequality', 'score', 'probability')
     return unless probability
     mean = 0
     WP10_WEIGHTING.each do |rating, weight|
@@ -150,15 +147,8 @@ class RevisionScoreImporter
     mean
   end
 
-  def extract_score(ores_data)
-    return ores_data if ores_data.blank?
-    scores = ores_data.dig('scores', 'enwiki', 'wp10', 'scores')
-    scores || {}
-  end
-
-  def extract_features(ores_data)
-    return ores_data if ores_data.blank?
-    features = ores_data.dig('scores', 'enwiki', 'wp10', 'features')
-    features || {}
+  DELETED_REVISION_ERRORS = %w[TextDeleted RevisionNotFound].freeze
+  def deleted?(score)
+    DELETED_REVISION_ERRORS.include? score.dig('articlequality', 'error', 'type')
   end
 end
