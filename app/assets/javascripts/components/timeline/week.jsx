@@ -50,10 +50,10 @@ const Week = createReactClass({
   },
   _scrollToAddedBlock() {
     const wk = document.getElementsByClassName(`week-${this.props.index}`)[0];
-    const scrollTop = window.scrollTop || document.body.scrollTop;
+    const scrollTop = window.scrollY || document.body.scrollTop;
     const bottom = Math.abs(__guard__(wk, x => x.getBoundingClientRect().bottom));
     const elBottom = (bottom + scrollTop) - 50;
-    return window.scrollTo(0, elBottom);
+    return window.scrollTo({ top: elBottom, behavior: 'smooth' });
   },
   render() {
     let style;
