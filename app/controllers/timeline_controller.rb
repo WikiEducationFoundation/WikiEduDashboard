@@ -75,7 +75,7 @@ class TimelineController < ApplicationController
   end
 
   def permit_training_module_ids(block)
-    blocks_index = 3
+    blocks_index = 2 # this is the index of the blocks array within the weeks array
     @permitted[:weeks][blocks_index][:blocks] << if block[:training_module_ids].nil?
                                                    :training_module_ids
                                                  else
