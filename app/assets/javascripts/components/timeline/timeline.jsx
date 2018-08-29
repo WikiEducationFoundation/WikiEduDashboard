@@ -61,6 +61,11 @@ const Timeline = createReactClass({
   },
 
   addWeek() {
+    const lastWeek = document.getElementsByClassName(`week-${this.props.weeks.length}`)[0];
+    const scrollTop = window.scrollY || document.body.scrollTop;
+    const bottom = Math.abs(__guard__(lastWeek, x => x.getBoundingClientRect().bottom));
+    const elBottom = (bottom + scrollTop) - 50;
+    window.scrollTo({ top: elBottom, behavior: 'smooth' });
     return WeekActions.addWeek();
   },
 
