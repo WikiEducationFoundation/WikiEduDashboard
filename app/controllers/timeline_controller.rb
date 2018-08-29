@@ -30,7 +30,7 @@ class TimelineController < ApplicationController
     @week = update_util Week, week
     @week.course.reorder_weeks
 
-    return if week['deleted'] || blocks.blank?
+    return if blocks.blank?
     blocks.each { |block| update_block(block) }
   end
 
@@ -42,10 +42,7 @@ class TimelineController < ApplicationController
   def update_util(model, object)
     if object['id'].nil?
       model.create object
-    elsif object.key?(:deleted) && object['deleted']
-      model.destroy object['id']
     else
-      object.delete('deleted') if object['deleted'] == false
       model.update object['id'], object
     end
   end
@@ -71,8 +68,8 @@ class TimelineController < ApplicationController
 
   def set_permitted_params_baseline
     @permitted = { weeks: [
-      :id, :deleted, :title,
-      { blocks: [:id, :title, :kind, :content, :weekday, :week_id, :deleted,
+      :id, :title,
+      { blocks: [:id, :title, :kind, :content, :weekday, :week_id,
                  :order, :due_date, :points] }
     ] }
   end

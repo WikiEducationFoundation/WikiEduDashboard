@@ -295,7 +295,7 @@ const API = {
     return new Promise((res, rej) =>
       $.ajax({
         type: 'DELETE',
-        url: `/assignments/${assignment.assignment_id}?${queryString}`,
+        url: `/assignments/${assignment.id}?${queryString}`,
         success(data) {
           return res(data);
         }

@@ -8,7 +8,7 @@ export const getFiltered = (models, options) => {
     const iterable1 = Object.keys(options);
     for (let j = 0; j < iterable1.length; j++) {
       const criterion = iterable1[j];
-      add = add && model[criterion] === options[criterion] && !model.deleted;
+      add = add && model[criterion] === options[criterion];
     }
     if (add) { filteredModels.push(model); }
   }

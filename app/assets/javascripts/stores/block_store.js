@@ -39,8 +39,7 @@ const setEditableBlockId = function (blockId) {
 };
 
 const addBlock = function (weekId) {
-  let weekBlocks = BlockStore.getBlocksInWeek(weekId);
-  weekBlocks = $.grep(weekBlocks, block => !block.deleted);
+  const weekBlocks = BlockStore.getBlocksInWeek(weekId);
   const block = {
     id: Date.now(),
     is_new: true,

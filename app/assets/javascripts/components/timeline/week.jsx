@@ -76,9 +76,6 @@ const Week = createReactClass({
 
 
     const blocks = this.props.blocks.map((block, i) => {
-      if (block.deleted) {
-        return null;
-      }
       // If in reorderable mode
       if (this.props.reorderable) {
         const orderableBlock = value => {
