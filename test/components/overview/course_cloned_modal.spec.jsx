@@ -15,6 +15,8 @@ describe('CourseClonedModal', () => {
   const TestModal = mount(
     <CourseClonedModal
       course={course}
+      updateCourse={jest.fn()}
+      updateClonedCourse={jest.fn()}
     />
     );
 
