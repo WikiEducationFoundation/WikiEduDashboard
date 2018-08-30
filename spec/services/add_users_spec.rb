@@ -7,10 +7,10 @@ describe AddUsers do
   let(:existing_user) { create(:user, username: 'Ragesoss') }
   let(:normalized_username) { 'John of Reading' }
   let(:nonnormalized_username) { 'ursos_clio_herodoto' }
-  let(:nonexistent_username) { 'This Is Not a Real User'}
-  let(:usernames_list) {
+  let(:nonexistent_username) { 'This Is Not a Real User' }
+  let(:usernames_list) do
     [existing_user.username, normalized_username, nonnormalized_username, nonexistent_username]
-  }
+  end
 
   before do
     course.campaigns << Campaign.first
