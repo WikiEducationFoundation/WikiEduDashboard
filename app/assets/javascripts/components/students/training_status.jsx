@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 const TrainingStatus = ({ trainingModules }) => {
-  if (!trainingModules.length) {
+  if (!trainingModules) {
     return <div />;
   }
   const moduleRows = trainingModules.map((trainingModule) => {

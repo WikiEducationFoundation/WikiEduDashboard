@@ -61,25 +61,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchRevisions(studentId, courseId) {
-    return API.fetchRevisions(studentId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_REVISIONS', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchCourseRevisions(courseId, limit) {
-    const actionType = 'RECEIVE_REVISIONS';
-    return API.fetchCourseRevisions(courseId, limit)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchTrainingStatus(studentId, courseId) {
-    return API.fetchTrainingStatus(studentId, courseId)
-      .then(resp => ({ actionType: 'RECEIVE_TRAINING_MODULES', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchSuspectedPlagiarism(opts = {}) {
     return API.fetchSuspectedPlagiarism(opts)
       .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))

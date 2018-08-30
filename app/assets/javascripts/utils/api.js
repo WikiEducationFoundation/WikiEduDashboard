@@ -144,23 +144,6 @@ const API = {
     );
   },
 
-  fetchTrainingStatus(studentId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/training_status.json?user_id=${studentId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-    });
-  },
-
   fetchUserProfileStats(username){
     return new Promise((res, rej) =>
       $.ajax({

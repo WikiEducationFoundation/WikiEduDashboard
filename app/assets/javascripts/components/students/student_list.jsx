@@ -30,7 +30,9 @@ const StudentList = createReactClass({
     openKey: PropTypes.string,
     toggleUI: PropTypes.func,
     resetUI: PropTypes.func,
-    sortUsers: PropTypes.func
+    sortUsers: PropTypes.func,
+    userRevisions: PropTypes.object.isRequired,
+    trainingStatus: PropTypes.object.isRequired
   },
 
   getInitialState() {
@@ -101,6 +103,7 @@ const StudentList = createReactClass({
           ref={drawerKey}
           isOpen={isOpen}
           revisions={this.props.userRevisions[student.id]}
+          trainingModules={this.props.trainingStatus[student.id]}
         />
       );
     });
@@ -201,7 +204,8 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   assignments: state.assignments.assignments,
   sort: state.users.sort,
-  userRevisions: state.userRevisions
+  userRevisions: state.userRevisions,
+  trainingStatus: state.trainingStatus
 });
 
 const mapDispatchToProps = {

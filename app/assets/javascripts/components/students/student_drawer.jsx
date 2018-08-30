@@ -2,11 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
-
-const getTrainingStatus = () => TrainingStatusStore.getModels();
 
 const StudentDrawer = createReactClass({
   displayName: 'StudentDrawer',
@@ -14,21 +11,8 @@ const StudentDrawer = createReactClass({
   propTypes: {
     student: PropTypes.object,
     isOpen: PropTypes.bool,
-    revisions: PropTypes.array
-  },
-
-  mixins: [TrainingStatusStore.mixin],
-
-  getInitialState() {
-    return {
-      trainingModules: getTrainingStatus()
-    };
-  },
-
-  storeDidChange() {
-    return this.setState({
-      trainingModules: getTrainingStatus()
-    });
+    revisions: PropTypes.array,
+    trainingModules: PropTypes.array
   },
 
   render() {
@@ -76,7 +60,7 @@ const StudentDrawer = createReactClass({
     return (
       <tr className="drawer">
         <td colSpan="7">
-          <TrainingStatus trainingModules={this.state.trainingModules} />
+          <TrainingStatus trainingModules={this.props.trainingModules || []} />
           <table className="table">
             <thead>
               <tr>

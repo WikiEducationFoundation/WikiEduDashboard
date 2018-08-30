@@ -21,6 +21,7 @@ import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
+import trainingStatus from './training_status';
 import ui from './ui';
 import uploads from './uploads';
 import userCourses from './user_courses';
@@ -54,6 +55,7 @@ const reducer = combineReducers({
   revisions,
   suspectedPlagiarism,
   settings,
+  trainingStatus,
   ui,
   uploads,
   userCourses,
