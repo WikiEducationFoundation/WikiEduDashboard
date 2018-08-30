@@ -7,7 +7,6 @@
 #  kind                :integer
 #  content             :text(65535)
 #  week_id             :integer
-#  gradeable_id        :integer
 #  created_at          :datetime
 #  updated_at          :datetime
 #  title               :string(255)
