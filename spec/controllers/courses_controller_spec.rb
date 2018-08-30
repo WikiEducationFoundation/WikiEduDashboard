@@ -42,10 +42,6 @@ describe CoursesController do
     let!(:campaigns_courses) { create(:campaigns_course, course_id: course.id) }
     let!(:week) { create(:week, course_id: course.id) }
 
-    let!(:gradeable) do
-      create(:gradeable, gradeable_item_type: 'Course', gradeable_item_id: course.id)
-    end
-
     let!(:admin) { create(:admin, id: 2) }
 
     before do
@@ -74,7 +70,7 @@ describe CoursesController do
           end.to raise_error(ActiveRecord::RecordNotFound), "#{model} did not raise"
         end
 
-        %i[assignment week gradeable].each do |model|
+        %i[assignment week].each do |model|
           expect do
             # metaprogramming for: Assigment.find(assignment.id)
             model.to_s.classify.constantize.send(:find, send(model).id)

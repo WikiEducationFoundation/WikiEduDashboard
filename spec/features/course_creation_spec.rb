@@ -226,7 +226,7 @@ describe 'New course creation and editing', type: :feature do
       # There should now be 4 weeks
       expect(page).not_to have_content 'Week 5'
 
-      # Click edit, mark a gradeable and save it.
+      # Click edit, mark it graded and save it.
       find('.week-1').hover
       sleep 0.5
       within('.week-1') do
@@ -237,7 +237,7 @@ describe 'New course creation and editing', type: :feature do
       end
       sleep 1
 
-      # Edit the gradeable.
+      # Edit the points.
       within('.grading__grading-container') do
         click_button 'Edit'
         sleep 1

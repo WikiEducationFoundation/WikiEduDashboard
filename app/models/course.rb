@@ -184,7 +184,6 @@ class Course < ApplicationRecord
   ##################
   has_many :weeks, dependent: :destroy
   has_many :blocks, through: :weeks, dependent: :destroy
-  has_many :gradeables, as: :gradeable_item, dependent: :destroy
 
   has_attached_file :syllabus
   validates_attachment_content_type :syllabus,

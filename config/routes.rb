@@ -145,7 +145,6 @@ Rails.application.routes.draw do
   end
   resources :weeks, only: [:index, :show, :edit, :update, :destroy]
   resources :blocks, only: [:show, :edit, :update, :destroy]
-  resources :gradeables, collection: { update_multiple: :put }
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
        constraints: { course_id: /.*/ }
   post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
