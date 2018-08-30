@@ -100,6 +100,7 @@ const StudentList = createReactClass({
           key={drawerKey}
           ref={drawerKey}
           isOpen={isOpen}
+          revisions={this.props.userRevisions[student.id]}
         />
       );
     });
@@ -200,6 +201,7 @@ const mapStateToProps = state => ({
   students: getStudentUsers(state),
   assignments: state.assignments.assignments,
   sort: state.users.sort,
+  userRevisions: state.userRevisions
 });
 
 const mapDispatchToProps = {

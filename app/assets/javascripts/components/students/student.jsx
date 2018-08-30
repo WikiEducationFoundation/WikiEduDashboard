@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ServerActions from '../../actions/server_actions.js';
 import { setUploadFilters } from '../../actions/uploads_actions.js';
+import { fetchUserRevisions } from '../../actions/user_revisions_actions.js';
 
 import AssignCell from './assign_cell.jsx';
 
-import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import { trunc } from '../../utils/strings';
 
@@ -23,7 +23,8 @@ const Student = createReactClass({
     assigned: PropTypes.array,
     reviewing: PropTypes.array,
     isOpen: PropTypes.bool,
-    toggleDrawer: PropTypes.func
+    toggleDrawer: PropTypes.func,
+    fetchUserRevisions: PropTypes.func.isRequired
   },
 
   setUploadFilters(selectedFilters) {
@@ -35,10 +36,11 @@ const Student = createReactClass({
   },
 
   openDrawer() {
-    RevisionStore.clear();
-    TrainingStatusStore.clear();
-    ServerActions.fetchRevisions(this.props.student.id, this.props.course.id);
-    ServerActions.fetchTrainingStatus(this.props.student.id, this.props.course.id);
+    if (!this.props.isOpen) {
+      TrainingStatusStore.clear();
+      this.props.fetchUserRevisions(this.props.course.id, this.props.student.id);
+      ServerActions.fetchTrainingStatus(this.props.student.id, this.props.course.id);
+    }
     return this.props.toggleDrawer(`drawer_${this.props.student.id}`);
   },
 
@@ -130,6 +132,7 @@ const Student = createReactClass({
 
 const mapDispatchToProps = {
   setUploadFilters,
+  fetchUserRevisions
 };
 
 export default connect(null, mapDispatchToProps)(Student);

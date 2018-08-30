@@ -2,12 +2,10 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import RevisionStore from '../../stores/revision_store.js';
 import TrainingStatusStore from '../../stores/training_status_store.js';
 import TrainingStatus from './training_status.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 
-const getRevisions = studentId => RevisionStore.getFiltered({ user_id: studentId });
 const getTrainingStatus = () => TrainingStatusStore.getModels();
 
 const StudentDrawer = createReactClass({
@@ -15,21 +13,20 @@ const StudentDrawer = createReactClass({
 
   propTypes: {
     student: PropTypes.object,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool,
+    revisions: PropTypes.array
   },
 
-  mixins: [RevisionStore.mixin, TrainingStatusStore.mixin],
+  mixins: [TrainingStatusStore.mixin],
 
   getInitialState() {
     return {
-      revisions: getRevisions(this.props.student.id),
       trainingModules: getTrainingStatus()
     };
   },
 
   storeDidChange() {
     return this.setState({
-      revisions: getRevisions(this.props.student.id),
       trainingModules: getTrainingStatus()
     });
   },
@@ -37,7 +34,7 @@ const StudentDrawer = createReactClass({
   render() {
     if (!this.props.isOpen) { return <tr />; }
 
-    const revisionsRows = (this.state.revisions || []).map((rev) => {
+    const revisionsRows = (this.props.revisions || []).map((rev) => {
       const details = I18n.t('users.revision_characters_and_views', { characters: rev.characters, views: rev.views });
       return (
         <tr key={rev.id}>
