@@ -871,7 +871,7 @@ de:
     gradeable_value: Wert
     gradeables_none: Diese Zeitleiste hat keine Zuweisungen, die als eingeteilt markiert
       wurden.
-    grading_header: 'Eingeteilt (Gesamt: %{total}%)'
+    grading_header: 'Eingeteilt (Gesamt: %{total})'
     move_block_down: Block nach unten verschieben
     move_block_up: Block nach oben verschieben
     no_class_holidays: Ich habe keine Ferien

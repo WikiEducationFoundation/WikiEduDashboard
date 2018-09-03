@@ -22,6 +22,7 @@
 # Author: Nzeemin
 # Author: Okras
 # Author: Patrick Star
+# Author: Pplex.vhs
 # Author: Putnik
 # Author: Redredsonia
 # Author: Shaleych
@@ -152,6 +153,7 @@ ru:
     view_doc: Сумма всех Просмотров каждой статьи в рамках проекта
     view_on_wiki: Посмотреть на Вики
     views_added: '%{count} новых просмотров статьи %{title}'
+    edit_size: Изменить размер
     wiki: Вики
   assignments:
     article: Вам назначена статья %{title}.
@@ -194,11 +196,13 @@ ru:
     delete_campaign: Удалить эту кампанию
     disable_account_requests: Отключить запросы учётной записи
     enable_account_requests: Включить запросы учётной записи
+    no_passcode: Нет кода доступа
     none: Нет
     organizers: Организаторы
     organizer_added: '%{user} теперь является организатором "%{title}" кампании'
     organizer_removed: '%{user} был удален как организатор "%{title}" кампании'
     program_template: Шаблон программы
+    random_passcode: Случайный код доступа
     title: Название
     use_start_end_dates: Использовать даты начала и окончания
   categories:
@@ -227,7 +231,9 @@ ru:
     character_doc: Сумма символов, добавленных к статьям основного пространства студентами
       курса в течение семестра
     campaigns: 'Кампании:'
+    campaign_articles: '%{title} Статьи'
     campaign_courses: Курсы %{title}
+    campaign_select: Выберите компанию
     campaign_users: Редакторы %{title}
     course: Курс
     course_description: Курсы
@@ -398,6 +404,7 @@ ru:
     activity: Недавние действия
     articles_created: Статей создано
     articles_edited: Статей отредактировано
+    bytes_added: Байт добавлено
     characters: Символов
     char_added: Символов добавлено
     char_changed: Символов изменено

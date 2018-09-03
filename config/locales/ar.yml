@@ -838,6 +838,7 @@ ar:
     done: تم!
     check_answer: تحقق من الإجابة
     included_modules: الوحدات المشمولة
+    view_library_source: عرض مصدر المكتبة
     view_module_source: عرض مصدر الوحدة
     reload_from_source: إعادة تحميل من المصدر
   uploads:

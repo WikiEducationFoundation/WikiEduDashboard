@@ -870,7 +870,7 @@ pt-br:
     first_week_title: Primeira Semana Ativa
     gradeable_value: Valor
     gradeables_none: Este cronograma não tem tarefas marcadas com nota.
-    grading_header: 'Avaliação (Total: %{total}%)'
+    grading_header: 'Avaliação (Total: %{total})'
     move_block_down: Mover bloco para baixo
     move_block_up: Mover bloco para cima
     no_class_holidays: Não há férias

@@ -893,7 +893,7 @@ fr:
     first_week_title: Première semaine active
     gradeable_value: Valeur
     gradeables_none: Ce planning n’a aucune affectation marquée comme évaluée.
-    grading_header: 'Évaluation (Total : %{total}%)'
+    grading_header: 'Évaluation (Total : %{total})'
     move_block_down: Faire descendre le bloc
     move_block_up: Faire monter le bloc
     no_class_holidays: Je n’ai pas de congés scolaires
