@@ -102,4 +102,21 @@ describe 'the explore page', type: :feature, js: true do
       expect(page.find('#courses .table tbody tr:first-child .revisions').text).to eq('1')
     end
   end
+
+  describe 'search bar' do
+    it 'allows user to search for courses by title' do
+      course1 = create(:course,
+                        title: 'Sceances',
+                        slug: 'WINTR/Underwater_sceances_(fall_2018)')
+      course2 = create(:course,
+                        title: 'Natural Sciences',
+                        slug: 'WINTR/Underwater_natural-sciences_(fall_2018)')
+
+      fill_in :q, with: 'scean'
+      click_on :search
+
+      #Number of courses
+      expect(page.find('#courses .table tbody').count).to eq(1)
+    end
+  end
 end
