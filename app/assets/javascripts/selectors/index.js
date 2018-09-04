@@ -17,6 +17,8 @@ const getAlertFilters = state => state.alerts.selectedFilters;
 const getArticleFinderState = state => state.articleFinder;
 const getUploads = state => state.uploads.uploads;
 const getUploadFilters = state => state.uploads.selectedFilters;
+const getTags = state => state.tags.tags;
+const getAllTags = state => state.tags.allTags;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -65,6 +67,15 @@ export const getAvailableCampaigns = createSelector(
     return _.difference(allCampaigns, campaigns);
   }
 );
+
+export const getAvailableTags = createSelector(
+  [getTags, getAllTags], (tags, allTags) => {
+    tags = tags.map(tag => tag.tag);
+    allTags = _.uniq(allTags);
+    return _.difference(allTags, tags);
+  }
+);
+
 
 export const getCloneableCourses = createSelector(
   [getUserCourses], (userCourses) => {

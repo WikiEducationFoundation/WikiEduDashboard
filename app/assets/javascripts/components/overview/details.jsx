@@ -10,6 +10,7 @@ import WikiEdStaff from './wiki_ed_staff';
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
 import TagList from './tag_list.jsx';
+import TagEditable from './tag_editable';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -269,7 +270,7 @@ const Details = createReactClass({
       tags = (
         <div className="tags">
           <TagList tags={this.props.tags} course={this.props.course} />
-          <TagButton {...this.props} {...this.state} show={this.props.editable} />
+          <TagEditable {...this.props} show={this.props.editable} />
         </div>
       );
       submittedSelector = (
