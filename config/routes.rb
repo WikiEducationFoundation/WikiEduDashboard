@@ -28,8 +28,8 @@ Rails.application.routes.draw do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences'
-    post 'users/update/:username' => 'user_profiles#update'
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
   # Users
