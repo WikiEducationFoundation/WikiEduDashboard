@@ -17,6 +17,7 @@ import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
 import ServerActions from '../../actions/server_actions.js';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions_redux';
+import { fetchTags } from '../../actions/tag_actions';
 import { getStudentUsers } from '../../selectors';
 
 const getState = () =>
@@ -35,6 +36,7 @@ const Overview = createReactClass({
     course_id: PropTypes.string,
     location: PropTypes.object,
     students: PropTypes.array,
+    fetchTags: PropTypes.func.isRequired,
     updateCourse: PropTypes.func.isRequired,
     resetCourse: PropTypes.func.isRequired,
     updateClonedCourse: PropTypes.func.isRequired
@@ -48,6 +50,9 @@ const Overview = createReactClass({
 
   componentDidMount() {
     ServerActions.fetch('timeline', this.props.course_id);
+    if (this.props.current_user.admin) {
+      this.props.fetchTags(this.props.course_id);
+    }
     return ServerActions.fetch('tags', this.props.course_id);
   },
 
@@ -156,6 +161,7 @@ const mapDispatchToProps = {
   persistCourse,
   nameHasChanged,
   updateClonedCourse,
+  fetchTags,
   refetchCourse
 };
 

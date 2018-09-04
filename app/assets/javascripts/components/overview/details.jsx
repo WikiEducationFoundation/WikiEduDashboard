@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -10,6 +9,7 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
+import TagList from './tag_list.jsx';
 import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
@@ -256,10 +256,6 @@ const Details = createReactClass({
     let projectSelector;
     let languageSelector;
     if (this.props.current_user.admin) {
-      const tagsList = this.state.tags.length > 0 ?
-        _.map(this.state.tags, 'tag').join(', ')
-      : I18n.t('courses.none');
-
       subject = (
         <TextInput
           onChange={this.updateDetails}
@@ -272,7 +268,7 @@ const Details = createReactClass({
       );
       tags = (
         <div className="tags">
-          <span><strong>Tags:</strong> {tagsList}</span>
+          <TagList tags={this.props.tags} course={this.props.course} />
           <TagButton {...this.props} {...this.state} show={this.props.editable} />
         </div>
       );
