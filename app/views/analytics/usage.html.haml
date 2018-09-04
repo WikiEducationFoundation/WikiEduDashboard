@@ -28,7 +28,7 @@
       Courses / Programs per wiki:
       - Wiki.all.order(:language, :project).each do |wiki|
         %li
-          = "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
+          %a{href: "/courses_by_wiki/#{wiki.domain}"}= "#{wiki.domain}: #{Course.where(home_wiki: wiki).count}"
 
   %section
     .section-header

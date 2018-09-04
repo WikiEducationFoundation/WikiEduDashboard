@@ -260,6 +260,7 @@ Rails.application.routes.draw do
   get 'explore' => 'explore#index'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
+  get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'
