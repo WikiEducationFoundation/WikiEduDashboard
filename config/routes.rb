@@ -259,6 +259,7 @@ Rails.application.routes.draw do
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
+  get 'explore' => 'explore#search'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
 
