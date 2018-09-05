@@ -18,7 +18,7 @@ class ExploreController < ApplicationController
   def search
     @presenter = CoursesPresenter.new(current_user: current_user,
                                       campaign_param: ENV['default_campaign'])
-                                      byebug
+
     @courses = @presenter.search_courses(params[:search])
   end
 end
