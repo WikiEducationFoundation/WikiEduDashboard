@@ -105,18 +105,34 @@ describe 'the explore page', type: :feature, js: true do
 
   describe 'search bar' do
     it 'allows user to search for courses by title' do
+      campaign = create(:campaign) { Campaign.default_campaign }
+
       course1 = create(:course,
                         title: 'Sceances',
                         slug: 'WINTR/Underwater_sceances_(fall_2018)')
       course2 = create(:course,
                         title: 'Natural Sciences',
                         slug: 'WINTR/Underwater_natural-sciences_(fall_2018)')
+      CampaignsCourses.create(campaign_id: campaign.id, course_id: course1.id)
+      CampaignsCourses.create(campaign_id: campaign.id, course_id: course2.id)
+      create(:courses_user,
+             course_id: course1.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
 
-      fill_in :q, with: 'scean'
+      create(:courses_user,
+             course_id: course2.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::STUDENT_ROLE)
+
+      visit '/explore'
+      fill_in('search', with: 'Sceances')
       click_on :search
 
       #Number of courses
-      expect(page.find('#courses .table tbody').count).to eq(1)
+      expect(page).to have_css('#courses .table tbody', count: 1)
+      expect(page).to have_content(course1.title)
+      expect(page).to_not have_content(course2.title)
     end
   end
 end
