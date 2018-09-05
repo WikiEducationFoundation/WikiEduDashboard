@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 
 import PopoverExpandable from '../high_order/popover_expandable.jsx';
 import Popover from '../common/popover.jsx';
-import Lookup from '../common/lookup.jsx';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import { addAssignment, deleteAssignment } from '../../actions/assignment_actions';
 import CourseUtils from '../../utils/course_utils.js';
@@ -281,14 +280,11 @@ const AssignButton = createReactClass({
         assignmentInput = (
           <td>
             <form onSubmit={this.assign}>
-              <Lookup
-                model="article"
+              <input
                 placeholder={I18n.t('articles.title_example')}
-                ref="lookup"
                 value={this.state.title}
                 onSubmit={this.assign}
                 onChange={this.handleChangeTitle}
-                disabled={true}
               />
               <button className="button border" type="submit">{I18n.t('assignments.label')}</button>
               {options}

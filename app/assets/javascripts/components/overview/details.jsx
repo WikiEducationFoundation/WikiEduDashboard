@@ -11,7 +11,6 @@ import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
 import TagList from './tag_list.jsx';
 import TagEditable from './tag_editable';
-import TagButton from './tag_button.jsx';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
@@ -29,14 +28,12 @@ import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
-import TagStore from '../../stores/tag_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = () =>
   ({
-    tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
 ;
@@ -50,14 +47,13 @@ const Details = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     campaigns: PropTypes.array,
-    tags: PropTypes.array,
     controls: PropTypes.func,
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired,
     refetchCourse: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin, TagStore.mixin],
+  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return getState();
@@ -269,7 +265,7 @@ const Details = createReactClass({
       );
       tags = (
         <div className="tags">
-          <TagList tags={this.props.tags} course={this.props.course} />
+          <TagList course={this.props.course} />
           <TagEditable {...this.props} show={this.props.editable} />
         </div>
       );
