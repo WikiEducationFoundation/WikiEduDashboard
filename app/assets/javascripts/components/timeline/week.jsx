@@ -35,6 +35,13 @@ const Week = createReactClass({
   getInitialState() {
     return { focusedBlockId: null };
   },
+  componentDidMount() {
+    const hash = location.hash.substring(1);
+    if (hash.indexOf('week') === 0) {
+      const week = document.getElementsByName(hash)[0];
+      week.scrollIntoView();
+    }
+  },
   addBlock() {
     this._scrollToAddedBlock();
     return BlockActions.addBlock(this.props.week.id);
