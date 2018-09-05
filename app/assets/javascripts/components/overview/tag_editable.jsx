@@ -18,7 +18,7 @@ const TagEditable = createReactClass({
   displayName: 'TagEditable',
 
   getInitialState() {
-    return {};
+    return { createdTagOption: [] };
   },
 
   componentDidMount() {
@@ -38,9 +38,15 @@ const TagEditable = createReactClass({
 
   handleChangeTag(val) {
     if (val) {
-      this.setState({ selectedTagId: val.value });
+      const { value, className } = val;
+      // The value includes a className of Select-create-option-placeholder if it's a user-created option.
+      // In that case, we need to add it to the list of options, so that it shows up as selected.
+      if (className) {
+        this.setState({ createdTagOption: [{ value, label: value }] });
+      }
+      this.setState({ selectedTag: value });
     } else {
-      this.setState({ selectedTagId: null });
+      this.setState({ selectedTag: null });
     }
   },
 
@@ -56,13 +62,12 @@ const TagEditable = createReactClass({
   },
 
   addTag() {
-    this.props.addTag(this.props.course_id, this.state.selectedTagId);
-    this.setState({ selectedTagId: null });
+    this.props.addTag(this.props.course_id, this.state.selectedTag);
+    this.setState({ selectedTag: null });
   },
 
   render() {
     // In editable mode we'll show a list of tags and a remove button plus a selector to add new tags
-
     const tagList = this.props.tags.map(tag => {
       const removeButton = (
         <button className="button border plus" onClick={this.removeTag.bind(this, tag.tag)}>-</button>
@@ -76,24 +81,23 @@ const TagEditable = createReactClass({
 
     let tagSelect;
     if (this.props.availableTags.length > 0) {
-      const tagOptions = this.props.availableTags.map(tag => {
+      const availableOptions = this.props.availableTags.map(tag => {
         return { label: tag, value: tag };
       });
-
+      const tagOptions = [...this.state.createdTagOption, ...availableOptions];
       let addTagButtonDisabled = true;
-      if (this.state.selectedTagId) {
+      if (this.state.selectedTag) {
         addTagButtonDisabled = false;
       }
-
       tagSelect = (
         <tr>
           <th>
             <div className="select-with-button">
-              <Select
+              <Select.Creatable
                 className="fixed-width"
                 ref="tagSelect"
                 name="tag"
-                value={this.state.selectedTagId}
+                value={this.state.selectedTag}
                 placeholder={I18n.t('courses.tag_select')}
                 onChange={this.handleChangeTag}
                 options={tagOptions}
