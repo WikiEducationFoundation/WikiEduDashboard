@@ -9,23 +9,6 @@ const API = {
   // /////////
   // Getters /
   // /////////
-  fetchLookups(model) {
-    return new Promise((res, rej) => {
-      return $.ajax({
-        type: 'GET',
-        url: `/lookups/${model}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      });
-    }
-    );
-  },
-
   fetchWizardIndex() {
     return new Promise((res, rej) =>
       $.ajax({
