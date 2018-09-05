@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 json.training_modules do
-  json.array! @training_modules, :name, :id
+  json.array! @training_modules, :name, :id, :status
 end
