@@ -6,7 +6,7 @@ require "#{Rails.root}/lib/wiki_course_output"
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
     let(:student) { create(:user, username: 'StudentUser') }
-    let(:instructor) { create(:user, username: 'InstructorUser')}
+    let(:instructor) { create(:user, username: 'InstructorUser') }
 
     it 'returns a wikitext version of the course' do
       week1 = create(:week, id: 2)
