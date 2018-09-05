@@ -136,7 +136,6 @@ Rails.application.routes.draw do
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'
   get 'lookups/tag(.:format)' => 'lookups#tag'
-  get 'lookups/article(.:format)' => 'lookups#article'
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
