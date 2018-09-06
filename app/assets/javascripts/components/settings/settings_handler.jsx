@@ -28,7 +28,7 @@ const SettingsHandler = createReactClass({
     return (
       <div className="mt4 container">
         <Notifications />
-        <h1 className="mx2" style={{ display: "inline-block", maring: 0 }}>All Admin Users</h1>
+        <h1 className="mx2" style={{ display: 'inline-block', maring: 0 }}>All Admin Users</h1>
         <AddAdminButton />
         <AdminUserList adminUsers={this.props.adminUsers} />
       </div>

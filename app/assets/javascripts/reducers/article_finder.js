@@ -4,16 +4,16 @@ import { sortByKey } from '../utils/model_utils';
 import { WP10Weights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH } from "../constants";
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH } from '../constants';
 
 const initialState = {
   articles: {},
-  search_type: "keyword",
-  search_term: "",
-  min_views: "0",
+  search_type: 'keyword',
+  search_term: '',
+  min_views: '0',
   article_quality: 100,
   loading: false,
-  fetchState: "PAGEVIEWS_RECEIVED",
+  fetchState: 'PAGEVIEWS_RECEIVED',
   sort: {
     sortKey: null,
     key: null,
@@ -75,7 +75,7 @@ export default function articleFinder(state = initialState, action) {
           sortKey: null,
           key: null
         },
-        fetchState: "ARTICLES_LOADING",
+        fetchState: 'ARTICLES_LOADING',
         lastRelevanceIndex: 0,
       };
     }
@@ -85,7 +85,7 @@ export default function articleFinder(state = initialState, action) {
         newStateArticles[data.title] = {
           pageid: data.pageid,
           ns: data.ns,
-          fetchState: "TITLE_RECEIVED",
+          fetchState: 'TITLE_RECEIVED',
           title: data.title,
           relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
@@ -116,7 +116,7 @@ export default function articleFinder(state = initialState, action) {
         newStateArticles[article.title] = {
           pageid: article.pageid,
           ns: article.ns,
-          fetchState: "TITLE_RECEIVED",
+          fetchState: 'TITLE_RECEIVED',
           title: article.title,
           relevanceIndex: i + state.lastRelevanceIndex + 1,
         };
@@ -146,13 +146,13 @@ export default function articleFinder(state = initialState, action) {
       _.forEach(action.data, (article) => {
         const averagePageviews = Math.round((_.reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
         newStateArticles[article.title].pageviews = averagePageviews;
-        newStateArticles[article.title].fetchState = "PAGEVIEWS_RECEIVED";
+        newStateArticles[article.title].fetchState = 'PAGEVIEWS_RECEIVED';
       });
 
       return {
         ...state,
         articles: newStateArticles,
-        fetchState: "PAGEVIEWS_RECEIVED",
+        fetchState: 'PAGEVIEWS_RECEIVED',
       };
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
@@ -161,25 +161,25 @@ export default function articleFinder(state = initialState, action) {
         const grade = extractClassGrade(article.pageassessments);
 
         newStateArticles[article.title].grade = grade;
-        newStateArticles[article.title].fetchState = "PAGEASSESSMENT_RECEIVED";
+        newStateArticles[article.title].fetchState = 'PAGEASSESSMENT_RECEIVED';
       });
 
       return {
         ...state,
         articles: newStateArticles,
-        fetchState: "PAGEASSESSMENT_RECEIVED",
+        fetchState: 'PAGEASSESSMENT_RECEIVED',
       };
     }
     case RECEIVE_ARTICLE_REVISION: {
       const newStateArticles = _.cloneDeep(state.articles);
       _.forEach(action.data, (value) => {
         newStateArticles[value.title].revid = value.revisions[0].revid;
-        newStateArticles[value.title].fetchState = "REVISION_RECEIVED";
+        newStateArticles[value.title].fetchState = 'REVISION_RECEIVED';
       });
       return {
         ...state,
         articles: newStateArticles,
-        fetchState: "REVISION_RECEIVED",
+        fetchState: 'REVISION_RECEIVED',
       };
     }
     case RECEIVE_ARTICLE_REVISIONSCORE: {
@@ -190,12 +190,12 @@ export default function articleFinder(state = initialState, action) {
         }, 0);
         const article = _.find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
-        article.fetchState = "REVISIONSCORE_RECEIVED";
+        article.fetchState = 'REVISIONSCORE_RECEIVED';
       });
       return {
         ...state,
         articles: newStateArticles,
-        fetchState: "REVISIONSCORE_RECEIVED",
+        fetchState: 'REVISIONSCORE_RECEIVED',
       };
     }
     default:

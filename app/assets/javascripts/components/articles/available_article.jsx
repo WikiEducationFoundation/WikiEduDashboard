@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import CourseUtils from '../../utils/course_utils.js';
 import { deleteAssignment, updateAssignment } from '../../actions/assignment_actions.js';

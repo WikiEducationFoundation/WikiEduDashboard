@@ -1,4 +1,4 @@
-import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from "../constants";
+import { RECEIVE_CATEGORIES, ADD_CATEGORY, DELETE_CATEGORY, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCategoriesPromise = (courseSlug) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import { sortUsers } from '../../actions/user_actions';
 import { fetchAssignments } from '../../actions/assignment_actions';

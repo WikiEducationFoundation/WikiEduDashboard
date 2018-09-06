@@ -122,7 +122,7 @@ describe('courseUtils.articleFromTitleInput', () => {
     expect(output.article_url).to.eq(input);
   });
 
-  it("correctly parses the wikimedia incubator url", () => {
+  it('correctly parses the wikimedia incubator url', () => {
     const input = 'https://incubator.wikimedia.org/wiki/Wp/kiu/Heyder_Cansa';
     const output = courseUtils.articleFromTitleInput(input);
     expect(output.title).to.eq('Wp/kiu/Heyder Cansa');

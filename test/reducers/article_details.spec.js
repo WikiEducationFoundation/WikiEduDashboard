@@ -1,5 +1,5 @@
 import article_details from '../../app/assets/javascripts/reducers/article_details';
-import { RECEIVE_ARTICLE_DETAILS } from "../../app/assets/javascripts/constants/article_details";
+import { RECEIVE_ARTICLE_DETAILS } from '../../app/assets/javascripts/constants/article_details';
 import '../testHelper';
 
 describe('article_details reducer', () => {

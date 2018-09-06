@@ -1,4 +1,4 @@
-import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from "../constants";
+import { RECEIVE_CAMPAIGNS, SORT_CAMPAIGNS, DELETE_CAMPAIGN, API_FAIL, RECEIVE_ALL_CAMPAIGNS, ADD_CAMPAIGN } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchCampaignsPromise = (courseId) => {
@@ -96,7 +96,7 @@ const fetchAllCampaignsPromise = () => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/lookups/campaign.json`,
+      url: '/lookups/campaign.json',
       success(data) {
         return res(data);
       }

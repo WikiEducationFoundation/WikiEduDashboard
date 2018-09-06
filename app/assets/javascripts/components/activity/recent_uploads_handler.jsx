@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { fetchRecentUploads, sortRecentUploads } from '../../actions/recent_uploads_actions.js';
 import { GALLERY_VIEW } from '../../constants';
 import UploadList from '../uploads/upload_list.jsx';

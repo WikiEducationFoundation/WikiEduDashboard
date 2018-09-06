@@ -5,8 +5,8 @@ const SubmittedSelector = ({ course, editable, updateCourse }) => {
   return (
     <YesNoSelector
       courseProperty="submitted"
-      label={I18n.t("courses.submitted")}
-      tooltip={I18n.t("courses.course_submitted")}
+      label={I18n.t('courses.submitted')}
+      tooltip={I18n.t('courses.course_submitted')}
       course={course}
       editable={editable}
       updateCourse={updateCourse}

@@ -47,7 +47,7 @@ export default function uploads(state = initialState, action) {
       });
       const updatedUploads = state.uploads.map(upload => {
         if (fetchedData && fetchedData[upload.id]) {
-          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, `Not found`);
+          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
           if (!upload.thumburl) {
             upload.thumburl = _.get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
           }

@@ -82,9 +82,9 @@ const UploadsHandler = createReactClass({
       return { label: student.username, value: student.username };
     });
 
-    let galleryClass = "button border icon-gallery_view icon tooltip-trigger";
-    let listClass = "button border icon-list_view icon tooltip-trigger";
-    let tileClass = "button border icon-tile_view icon tooltip-trigger";
+    let galleryClass = 'button border icon-gallery_view icon tooltip-trigger';
+    let listClass = 'button border icon-list_view icon tooltip-trigger';
+    let tileClass = 'button border icon-tile_view icon tooltip-trigger';
     if (this.props.view === GALLERY_VIEW) {
       galleryClass += ' dark';
     }
@@ -99,19 +99,19 @@ const UploadsHandler = createReactClass({
     if (this.state.pageCount > 1) {
       paginationElement = (
         <ReactPaginate
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
+          previousLabel={'← Previous'}
+          nextLabel={'Next →'}
           breakLabel={<span className="gap">...</span>}
           pageCount={this.state.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={6}
           onPageChange={this.handlePageClick}
           forcePage={this.state.currentPage}
-          containerClassName={"pagination"}
-          previousLinkClassName={"previous_page"}
-          nextLinkClassName={"next_page"}
-          disabledClassName={"disabled"}
-          activeClassName={"active"}
+          containerClassName={'pagination'}
+          previousLinkClassName={'previous_page'}
+          nextLinkClassName={'next_page'}
+          disabledClassName={'disabled'}
+          activeClassName={'active'}
         />
       );
     }

@@ -1,4 +1,4 @@
-import { RECEIVE_ARTICLE_DETAILS } from "../constants";
+import { RECEIVE_ARTICLE_DETAILS } from '../constants';
 
 const initialState = {};
 

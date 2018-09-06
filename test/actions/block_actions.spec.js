@@ -6,7 +6,7 @@ describe('BlockActions', () => {
   let stubbedAjax;
 
   beforeAll(() => {
-    stubbedAjax = sinon.stub($, "ajax");
+    stubbedAjax = sinon.stub($, 'ajax');
   });
   afterAll(() => {
     $.ajax.restore();
@@ -54,7 +54,7 @@ describe('BlockActions', () => {
   it('.deleteBlock removes the specified block by ID', (done) => {
     expect(BlockStore.getBlocks().length).to.eq(2);
     const blockId = BlockStore.getBlocks()[0].id;
-    stubbedAjax.onCall(0).yieldsTo("success", { block_id: blockId });
+    stubbedAjax.onCall(0).yieldsTo('success', { block_id: blockId });
     BlockActions.deleteBlock(blockId).then(() => {
       expect(BlockStore.getBlocks().length).to.eq(1);
       done();

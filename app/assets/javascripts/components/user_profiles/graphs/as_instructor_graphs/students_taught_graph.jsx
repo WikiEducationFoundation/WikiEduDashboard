@@ -103,7 +103,7 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
         properties: { enter: {
           x: { scale: 'x', field: 'created_at=' },
           y: { scale: 'y', field: 'index' },
-          stroke: { value: "#575d99" },
+          stroke: { value: '#575d99' },
           strokeWidth: { value: 1 }
         }
         }

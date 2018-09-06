@@ -1,4 +1,4 @@
-import { CONFIRMATION_INITIATED, ACTION_CONFIRMED, ACTION_CANCELLED } from "../constants";
+import { CONFIRMATION_INITIATED, ACTION_CONFIRMED, ACTION_CANCELLED } from '../constants';
 
 export const initiateConfirm = (confirmMessage, onConfirm, showInput, explanation) => ({
   type: CONFIRMATION_INITIATED,

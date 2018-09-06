@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import ServerActions from '../../actions/server_actions.js';
 import { enableForCourse } from '../../actions/chat_actions.js';

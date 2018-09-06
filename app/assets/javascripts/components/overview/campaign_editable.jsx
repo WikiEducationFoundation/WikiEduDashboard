@@ -26,7 +26,7 @@ const CampaignEditable = createReactClass({
   },
 
   getKey() {
-    return `add_campaign`;
+    return 'add_campaign';
   },
 
   PropTypes: {

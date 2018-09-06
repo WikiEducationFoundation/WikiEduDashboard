@@ -23,7 +23,7 @@ const getState = () =>
 
 const persist = function () {
   window.onbeforeunload = function () {
-      return "Data will be lost if you leave/refresh the page, are you sure?";
+      return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
   window.history.replaceState({ index: 0 }, 'wizard', '#step1'); // Initial States
   document.title += ' — Step 1';

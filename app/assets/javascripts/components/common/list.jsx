@@ -142,9 +142,9 @@ const List = createReactClass({
     let fixedHeader;
     let fixedArea;
     if (stickyHeader) {
-      fixedArea = "persist-area";
+      fixedArea = 'persist-area';
       const fixHeader = this.state.fixHeader === true ? 'floatingHeader' : '';
-      fixedHeader = "persist-header";
+      fixedHeader = 'persist-header';
       fixedHeader += ` ${fixHeader}`;
     }
     return (

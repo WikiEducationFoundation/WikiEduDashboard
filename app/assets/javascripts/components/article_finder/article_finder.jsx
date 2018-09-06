@@ -8,7 +8,7 @@ import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
 
-import { STUDENT_ROLE } from "../../constants";
+import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
 import { fetchCategoryResults, fetchKeywordResults, updateFields, sortArticleFinder, resetArticleFinder } from '../../actions/article_finder_action.js';
 import { fetchAssignments, addAssignment, deleteAssignment } from '../../actions/assignment_actions.js';
@@ -80,7 +80,7 @@ const ArticleFinder = createReactClass({
 
   handleChange(e) {
     const grade = e.target.value;
-    return this.props.updateFields("grade", grade);
+    return this.props.updateFields('grade', grade);
   },
 
   sortSelect(e) {
@@ -106,13 +106,13 @@ const ArticleFinder = createReactClass({
       <div className="search-type">
         <div>
           <label>
-            <input type="radio" value="keyword" checked={this.props.search_type === "keyword"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
             {I18n.t('article_finder.keyword_search')}
           </label>
         </div>
         <div>
           <label>
-            <input type="radio" value="category" checked={this.props.search_type === "category"} onChange={(e) => this.updateFields("search_type", e.target.value)} />
+            <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
             {I18n.t('article_finder.category_search')}
           </label>
         </div>
@@ -301,7 +301,7 @@ const ArticleFinder = createReactClass({
     };
 
     let fetchingLoader;
-    if (this.props.fetchState !== "PAGEVIEWS_RECEIVED" && !this.props.loading) {
+    if (this.props.fetchState !== 'PAGEVIEWS_RECEIVED' && !this.props.loading) {
       fetchingLoader = (
         <div className="text-center">
           <div className="loading__spinner__small" />

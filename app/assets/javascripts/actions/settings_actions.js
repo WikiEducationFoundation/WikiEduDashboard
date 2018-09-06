@@ -7,7 +7,7 @@ const fetchAdminUsersPromise = () => {
   return new Promise((accept, reject) => {
     return $.ajax({
       type: 'GET',
-      url: `settings/all_admins`,
+      url: 'settings/all_admins',
       success(data) {
         return accept(data);
       }

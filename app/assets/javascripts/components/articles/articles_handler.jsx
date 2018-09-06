@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import ArticleList from './article_list.jsx';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles, filterArticles } from "../../actions/articles_actions.js";
+import { fetchArticles, sortArticles, filterArticles } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getWikiArticles } from '../../selectors';
 

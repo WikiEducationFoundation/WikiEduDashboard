@@ -106,7 +106,7 @@ const InstructorStats = createReactClass({
                   %
                 </h4>
                 <p>
-                  {I18n.t("users.up_to_date_with_training")}
+                  {I18n.t('users.up_to_date_with_training')}
                 </p>
               </div>
             </div>

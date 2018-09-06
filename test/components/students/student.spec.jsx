@@ -10,19 +10,19 @@ describe('Student', () => {
   const studentUser = {
     role: 0,
     id: 3,
-    username: "Adam",
+    username: 'Adam',
     admin: false,
-    course_training_progress: "0/3 training modules completed",
+    course_training_progress: '0/3 training modules completed',
     real_name: null
   };
   const assigned = [
     {
       id: 9,
-      article_title: "Foo",
-      course_id: "Couse_school/Foo_(Couse_term)",
+      article_title: 'Foo',
+      course_id: 'Couse_school/Foo_(Couse_term)',
       assignment_id: 9,
-      article_url: "https://en.wikipedia.org/wiki/Foo",
-      username: "Adam"
+      article_url: 'https://en.wikipedia.org/wiki/Foo',
+      username: 'Adam'
     }
   ];
   const course = {
