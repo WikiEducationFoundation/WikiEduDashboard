@@ -7,3 +7,5 @@ export const WIZARD_REWIND = 'WIZARD_REWIND';
 export const WIZARD_GOTO = 'WIZARD_GOTO';
 export const WIZARD_RESET = 'WIZARD_RESET';
 export const WIZARD_SUBMITTED = 'WIZARD_SUBMITTED';
+
+export const ASSIGNMENTS_PANEL_INDEX = 1;

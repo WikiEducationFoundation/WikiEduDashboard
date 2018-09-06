@@ -12,12 +12,13 @@ const Option = createReactClass({
     panel_index: PropTypes.number.isRequired,
     option: PropTypes.object.isRequired,
     open_weeks: PropTypes.number.isRequired,
-    multiple: PropTypes.bool
+    multiple: PropTypes.bool,
+    selectWizardOption: PropTypes.func.isRequired
   },
 
   select() {
     if (this.props.option.required) { return; }
-    return WizardActions.toggleOptionSelected(this.props.panel_index, this.props.index);
+    return this.props.selectWizardOption(this.props.panel_index, this.props.index);
   },
 
   expand() {

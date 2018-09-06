@@ -14,21 +14,25 @@ const Panel = createReactClass({
   propTypes: {
     course: PropTypes.object,
     panel: PropTypes.object,
+    active: PropTypes.bool.isRequired,
     saveCourse: PropTypes.func,
     nextEnabled: PropTypes.func,
     index: PropTypes.number,
     rewind: PropTypes.func,
     open_weeks: PropTypes.number,
     raw_options: PropTypes.node,
-    advance: PropTypes.func,
+    advance: PropTypes.func.isRequired,
+    rewindWizard: PropTypes.func.isRequired,
     button_text: PropTypes.string,
     helperText: PropTypes.string,
     summary: PropTypes.bool,
     step: PropTypes.string,
-    panelCount: PropTypes.number
+    panelCount: PropTypes.number,
+    selectWizardOption: PropTypes.func.isRequired
   },
 
   persistState() {
+      console.log('PERSISTING STATE')
       const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
       step[1] = +step[1] + 1; // Keeping the step in line with the UI
       window.history.pushState(
@@ -50,9 +54,9 @@ const Panel = createReactClass({
     }
     else { this.persistState(); }
     if (this.props.saveCourse) {
-      if (this.props.saveCourse()) { return WizardActions.advanceWizard(); }
+      if (this.props.saveCourse()) { return this.props.advance(); }
     } else {
-      return WizardActions.advanceWizard();
+      return this.props.advance();
     }
   },
 
@@ -60,9 +64,9 @@ const Panel = createReactClass({
     e.preventDefault();
     this.handlePrevious();
     if (this.props.saveCourse) {
-      if (this.props.saveCourse()) { return WizardActions.rewindWizard(); }
+      if (this.props.saveCourse()) { return this.props.rewindWizard(); }
     } else {
-      return WizardActions.rewindWizard();
+      return this.props.rewindWizard();
     }
   },
   reset(e) {
@@ -95,6 +99,7 @@ const Panel = createReactClass({
             index={i}
             multiple={this.props.panel.type === 0}
             open_weeks={this.props.open_weeks}
+            selectWizardOption={this.props.selectWizardOption}
           />
         );
         if (i % 2 === 0) { return options1.push(option); }
@@ -109,8 +114,7 @@ const Panel = createReactClass({
       </div>
     );
     let classes = 'wizard__panel';
-    if (this.props.panel.active) { classes += ' active'; }
-    const advance = this.props.advance || this.advance;
+    if (this.props.active) { classes += ' active'; }
 
     const nextText = this.props.button_text || (this.props.summary ? 'Summary' : 'Next');
 
@@ -150,7 +154,7 @@ const Panel = createReactClass({
             <div><p className={errorClass}>{this.props.panel.error || reqs}</p></div>
             {rewind}
             <div><p>{helperText}</p></div>
-            <button className="button dark" onClick={advance} disabled={nextDisabled}>{nextText}</button>
+            <button className="button dark" onClick={this.advance} disabled={nextDisabled}>{nextText}</button>
           </div>
         </div>
       </div>

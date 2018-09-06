@@ -1,6 +1,5 @@
 import McFly from 'mcfly';
 import _ from 'lodash';
-import ServerActions from '../actions/server_actions.js';
 const Flux = new McFly();
 
 
@@ -36,15 +35,11 @@ const _panels = [{
 // Utilities
 const setIndex = function (index) {
   // index of the assignment panel
-  console.log({index})
   _panels[1].options = index;
-  console.log({_panels})
   return WizardStore.emitChange();
 };
 
 const setPanels = function (panels) {
-  console.log('SETTING PANELS')
-  console.log({panels})
   // 3 hard-coded panels: course dates, assignments, summary
   // _panels.length will change when more are inserted
   const toRemove = _panels.length - 3;
@@ -92,7 +87,7 @@ const moveWizard = function (backwards = false, toIndex = null) {
       const selectedWizard = _.find(_panels[_activeIndex].options, o => o.selected);
       if (selectedWizard.key !== _wizardKey) {
         _wizardKey = selectedWizard.key;
-        ServerActions.fetchWizardPanels(selectedWizard.key);
+        // ServerActions.fetchWizardPanels(selectedWizard.key);
         increment = 0;
       }
     }
@@ -222,27 +217,37 @@ const WizardStore = Flux.createStore(
     const { data } = payload;
     switch (payload.actionType) {
       case 'RECEIVE_WIZARD_INDEX':
+        console.log('RECEIVE PANELS STORE')
         setIndex(data.wizard_index);
         break;
       case 'RECEIVE_WIZARD_PANELS':
+      console.log('RECEIVE PANELS')
+        console.log(data)
         setPanels(data.wizard_panels);
         break;
       case 'SELECT_OPTION':
+        console.log('SELECT OPTION STORE')
+        console.log(data)
         selectOption(data.panel_index, data.option_index);
         break;
       case 'EXPAND_OPTION':
+        console.log('EXPAND OPTION STORE')
         expandOption(data.panel_index, data.option_index);
         break;
       case 'WIZARD_ADVANCE':
+        console.log('WIZARD ADVANCE STORE')
         moveWizard();
         break;
       case 'WIZARD_REWIND':
+        console.log('WIZARD REWIND STORE')
         moveWizard(true, data.toIndex);
         break;
       case 'WIZARD_GOTO':
+        console.log('WIZARD GOTO STORE')
         moveWizard(false, data.toIndex);
         break;
       case 'WIZARD_RESET': case 'WIZARD_SUBMITTED':
+        console.log(payload.actionType)
         restore();
         // split off /wizard, go back to timeline and reload course
         window.location = `/${window.location.pathname.split('/').splice(1, 4).join('/')}`;

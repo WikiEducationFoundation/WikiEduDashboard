@@ -15,7 +15,6 @@ const assignmentsPanel = (options = []) => {
   return {
     title: I18n.t('wizard.assignment_type'),
     description: I18n.t('wizard.select_assignment'),
-    active: false,
     options,
     type: 1,
     minimum: 1,
@@ -26,7 +25,6 @@ const assignmentsPanel = (options = []) => {
 const datesPanel = {
   title: I18n.t('wizard.course_dates'),
   description: '',
-  active: true,
   options: [],
   type: -1,
   minimum: 0,
@@ -36,7 +34,6 @@ const datesPanel = {
 const summaryPanel = {
   title: I18n.t('wizard.summary'),
   description: I18n.t('wizard.review_selections'),
-  active: false,
   options: [],
   type: -1,
   minimum: 0,
@@ -50,6 +47,16 @@ const panels = (assignmentOptions = [], extraPanels = []) => {
     ...extraPanels,
     summaryPanel
   ];
+};
+
+const updatedPanelSelections = (oldPanels, panelIndex, optionIndex) => {
+  const newPanels = [...oldPanels];
+  const updatedPanel = { ...newPanels[panelIndex] };
+  const updatedOptions = [...updatedPanel.options];
+  updatedOptions[optionIndex].selected = !updatedOptions[optionIndex].selected;
+  updatedPanel.options = updatedOptions;
+  newPanels[panelIndex] = updatedPanel;
+  return newPanels;
 };
 
 const initialState = {
@@ -70,9 +77,14 @@ export default function wizard(state = initialState, action) {
       const extraPanels = action.extraPanels;
       return { ...state, panels: panels(state.assignmentOptions, extraPanels) };
     }
+    case SELECT_WIZARD_OPTION: {
+      return { ...state, panels: updatedPanelSelections(state.panels, action.panelIndex, action.optionIndex) };
+    }
     case WIZARD_ADVANCE: {
-      // oh my
       return { ...state, activeIndex: state.activeIndex + 1 };
+    }
+    case WIZARD_REWIND: {
+      return { ...state, activeIndex: state.activeIndex - 1 };
     }
     default:
       return state;

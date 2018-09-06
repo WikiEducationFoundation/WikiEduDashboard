@@ -1,6 +1,18 @@
-import { RECEIVE_WIZARD_ASSIGNMENT_OPTIONS, API_FAIL } from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import McFly from 'mcfly';
+import _ from 'lodash';
+import {
+  ASSIGNMENTS_PANEL_INDEX,
+  RECEIVE_WIZARD_ASSIGNMENT_OPTIONS,
+  SELECT_WIZARD_OPTION,
+  WIZARD_ADVANCE,
+  WIZARD_REWIND,
+  RECEIVE_WIZARD_PANELS,
+  API_FAIL
+} from '../constants';
+
+import logErrorMessage from '../utils/log_error_message';
+import WizardStore from '../stores/wizard_store';
+
 const Flux = new McFly();
 
 const WizardActions = Flux.createActions({
@@ -52,6 +64,14 @@ const WizardActions = Flux.createActions({
         wizard_index: resp
       }
     };
+  },
+  receiveWizardPanels(resp) {
+    return {
+      actionType: 'RECEIVE_WIZARD_PANELS',
+      data: {
+        wizard_panels: resp
+      }
+    };
   }
 });
 
@@ -101,19 +121,34 @@ const fetchWizardPanelsPromise = (wizardId) => {
 export const fetchWizardPanels = (wizardId) => dispatch => {
   return fetchWizardPanelsPromise(wizardId)
     .then(data => {
-      WizardActions.receiveWizardIndex(data);
+      // WizardActions.receiveWizardPanels(data);
       dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 
-export const wizardAdvance = () => (dispatch, getState) => {
-  WizardActions.wizardAdvance(data);
-  dispatch({ type: WIZARD_ADVANCE });
+export const advanceWizard = () => (dispatch, getState) => {
   const state = getState();
-  // if (state.wizard.activeIndex == 1) {
+  // WizardActions.advanceWizard();
+  dispatch({ type: WIZARD_ADVANCE });
+  // If we're advancing from the Assignments panel,
+  // we need to fetch the specific wizard panel for the selected
+  // assignment option.
+  if (state.wizard.activeIndex === ASSIGNMENTS_PANEL_INDEX) {
+    const assignmentOptions = state.wizard.panels[ASSIGNMENTS_PANEL_INDEX].options;
+    const selectedWizard = _.find(assignmentOptions, option => option.selected);
+    fetchWizardPanels(selectedWizard.key)(dispatch);
+  }
+};
 
-  // }
+export const selectWizardOption = (panelIndex, optionIndex) => {
+  // WizardActions.toggleOptionSelected(panelIndex, optionIndex);
+  return { type: SELECT_WIZARD_OPTION, panelIndex, optionIndex };
+};
+
+export const rewindWizard = () => {
+  // WizardActions.rewindWizard();
+  return { type: WIZARD_REWIND };
 };
 
 export default WizardActions;
