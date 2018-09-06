@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/wiki_course_edits"
+require "#{Rails.root}/lib/wiki_preferences_manager"
 
 describe SelfEnrollmentController do
   describe '#enroll_self' do
