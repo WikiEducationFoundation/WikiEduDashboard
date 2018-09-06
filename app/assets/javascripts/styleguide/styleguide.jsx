@@ -18,7 +18,7 @@ const StyleguideExamples = {
         value_key="start"
         label="Start Date"
         date_props={{ minDate: '2016-06-10', maxDate: '2016-06-29' }}
-        onChange={(key, date) => {console.log(key, date);}}
+        onChange={(key, date) => { console.log(key, date); }}
         value="2016-06-22"
         placeholder="Please choose a date"
       />
@@ -31,7 +31,7 @@ const StyleguideExamples = {
         value_key="start"
         label="Start Date"
         date_props={{ minDate: '2016-06-10', maxDate: '2016-06-29' }}
-        onChange={(key, date) => {console.log(key, date);}}
+        onChange={(key, date) => { console.log(key, date); }}
         value="2016-06-22"
         placeholder="Please choose a date"
       />

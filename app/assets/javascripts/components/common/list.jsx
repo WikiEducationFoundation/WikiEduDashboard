@@ -25,7 +25,7 @@ const List = createReactClass({
   componentDidMount() {
     if (this.props.stickyHeader) {
       return window.addEventListener('scroll', this._UpdateTableHeaders);
-  }},
+  } },
 
   componentWillUnmount() {
     if (this.props.stickyHeader) {
