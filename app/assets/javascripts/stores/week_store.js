@@ -11,7 +11,7 @@ let _isLoading = true;
 
 // Utilities
 const setWeeks = function (data, persisted = false) {
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < data.length; i += 1) {
     const week = data[i];
     _weeks[week.id] = week;
     if (persisted) { _persisted[week.id] = $.extend(true, {}, week); }
@@ -54,7 +54,7 @@ const WeekStore = Flux.createStore(
     getWeeks() {
       const weekList = [];
       const iterable = Object.keys(_weeks);
-      for (let i = 0; i < iterable.length; i++) {
+      for (let i = 0; i < iterable.length; i += 1) {
         const weekId = iterable[i];
         weekList.push(_weeks[weekId]);
       }

@@ -19,11 +19,11 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
       getFiltered(options) {
         const filteredModels = [];
         const iterable = this.getModels();
-        for (let i = 0; i < iterable.length; i++) {
+        for (let i = 0; i < iterable.length; i += 1) {
           const model = iterable[i];
           let add = true;
           const iterable1 = Object.keys(options);
-          for (let j = 0; j < iterable1.length; j++) {
+          for (let j = 0; j < iterable1.length; j += 1) {
             const criterion = iterable1[j];
             add = add && model[criterion] === options[criterion] && !model.deleted;
           }
@@ -40,7 +40,7 @@ const StockStore = function (helper, modelKey, defaultModel, triggers) {
       getModels() {
         const modelList = [];
         const iterable = Object.keys(helper.models);
-        for (let i = 0; i < iterable.length; i++) {
+        for (let i = 0; i < iterable.length; i += 1) {
           const modelId = iterable[i];
           modelList.push(helper.models[modelId]);
         }
@@ -115,7 +115,7 @@ class Store {
     this.models = {};
     if (persisted) { this.persisted = {}; }
     if (data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < data.length; i += 1) {
         const model = data[i];
         this.models[this.getKey(model)] = model;
         if (persisted) { this.persisted[this.getKey(model)] = $.extend(true, {}, model); }

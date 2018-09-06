@@ -95,10 +95,10 @@ const Timeline = createReactClass({
   },
 
   _handleMoveBlock(moveUp, blockId) {
-    for (let i = 0; i < this.props.weeks.length; i++) {
+    for (let i = 0; i < this.props.weeks.length; i += 1) {
       const week = this.props.weeks[i];
       const blocks = BlockStore.getBlocksInWeek(week.id);
-      for (let j = 0; j < blocks.length; j++) {
+      for (let j = 0; j < blocks.length; j += 1) {
         const block = blocks[j];
         if (blockId === block.id) {
           let atIndex;
@@ -213,7 +213,7 @@ const Timeline = createReactClass({
           </div>
         )
         );
-        i++;
+        i += 1;
       }
 
       const weekAnchorName = `week-${i + 1 + weeksBeforeTimeline}`;
@@ -245,7 +245,7 @@ const Timeline = createReactClass({
         </div>
       )
       );
-      return i++;
+      return i += 1;
     }
     );
 

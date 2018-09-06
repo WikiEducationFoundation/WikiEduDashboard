@@ -37,7 +37,7 @@ const List = createReactClass({
     if (this.props.stickyHeader) {
       const { fixHeader } = this.state;
       const persistAreaElements = document.getElementsByClassName('persist-area');
-      for (let i = 0; i < persistAreaElements.length; i++) {
+      for (let i = 0; i < persistAreaElements.length; i += 1) {
         const persistAreaElement = persistAreaElements[i];
         if (fixHeader) {
           const floatingHeaderRow = persistAreaElements[i].getElementsByClassName('floatingHeader')[0];
@@ -77,7 +77,7 @@ const List = createReactClass({
       return UIActions.sort.bind(null, tableKey, key);
     };
 
-    for (let i = 0; i < iterable.length; i++) {
+    for (let i = 0; i < iterable.length; i += 1) {
       const key = iterable[i];
       const keyObj = keys[key];
       let headerOnClick;

@@ -23,7 +23,7 @@ const Editable = (Component, Stores, Save, GetState) =>
     },
 
     cancelChanges() {
-      for (let i = 0; i < Stores.length; i++) {
+      for (let i = 0; i < Stores.length; i += 1) {
         const store = Stores[i];
         store.restore();
       }

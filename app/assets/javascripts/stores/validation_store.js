@@ -27,7 +27,7 @@ const ValidationStore = Flux.createStore(
     isValid() {
       let valid = true;
       const iterable = Object.keys(_validations);
-      for (let i = 0; i < iterable.length; i++) {
+      for (let i = 0; i < iterable.length; i += 1) {
         const key = iterable[i];
         if (!_validations[key].changed && !_validations[key].valid) {
           setValidation(key, false, _validations[key].message, true);

@@ -13,9 +13,9 @@ let _editingAddedBlock = false;
 
 // Utilities
 const setBlocks = function (data, persisted = false) {
-  for (let j = 0; j < data.length; j++) {
+  for (let j = 0; j < data.length; j += 1) {
     const week = data[j];
-    for (let i = 0; i < week.blocks.length; i++) {
+    for (let i = 0; i < week.blocks.length; i += 1) {
       const block = week.blocks[i];
       _blocks[block.id] = block;
       if (persisted) { _persisted[block.id] = $.extend(true, {}, block); }
@@ -101,7 +101,7 @@ const storeMethods = {
   getBlocks() {
     const blockList = [];
     const iterable = Object.keys(_blocks);
-    for (let i = 0; i < iterable.length; i++) {
+    for (let i = 0; i < iterable.length; i += 1) {
       const blockId = iterable[i];
       blockList.push(_blocks[blockId]);
     }
