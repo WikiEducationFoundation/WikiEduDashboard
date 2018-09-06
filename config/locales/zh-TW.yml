@@ -428,6 +428,8 @@ zh-TW:
     course_submitted: 提交狀態是用於教育方案課程裡，必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
     subject: 主題
     submitted: 已提交
+    tag_select: 選擇或建立一個標籤
+    tags: 標籤：
     term: 學期
     timeline: 分配作業細節
     timeline_enabled: 時間軸已啟用
@@ -694,7 +696,7 @@ zh-TW:
     first_week_title: 活躍首週
     gradeable_value: 數值
     gradeables_none: 此時間軸上沒有分配作業被標註分級。
-    grading_header: 分級中 (總計： %{total}%)
+    grading_header: 分級中（總計：%{total}）
     move_block_down: 區塊下移
     move_block_up: 區塊上移
     no_class_holidays: 我的開課時段沒有遭遇假日

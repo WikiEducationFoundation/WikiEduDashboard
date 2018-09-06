@@ -510,6 +510,7 @@ sv:
     done: Klar!
     check_answer: Kontrollera svar
     included_modules: Inkluderade moduler
+    view_library_source: via bibliotekskälla
   uploads:
     credit: Erkännande
     file_name: Filnamn

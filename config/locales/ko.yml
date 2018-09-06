@@ -286,6 +286,8 @@ ko:
     user_role: 역할
     subject: 제목
     submitted: 제출됨
+    tag_select: 태그를 선택하거나 만듭니다
+    tags: '태그:'
     term: 기간
     timeline: 숙제 상세사항
     timeline_enabled: 타임라인 사용 중

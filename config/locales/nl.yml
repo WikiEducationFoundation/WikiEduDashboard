@@ -265,6 +265,7 @@ nl:
       waar een cursusplan moet worden goedgekeurd voordat het project begint. Het
       is alleen relevant voor het cursus type klaslokaalProgramma.
     submitted: Verzonden
+    tags: 'Labels:'
     term: Periode
     timeline: Opdrachtdetails
     timeline_link: Tijdlijn
