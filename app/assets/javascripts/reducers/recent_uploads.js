@@ -16,7 +16,7 @@ export default function recentUploads(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_RECENT_UPLOADS: {
       const dataUploads = action.data.uploads;
-      //Initial sorting by upload date
+      // Initial sorting by upload date
       const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
       return {
         uploads: sortedModel.newModels,

@@ -64,7 +64,6 @@
     "function-paren-newline": 0,
     "react/no-find-dom-node": 0,
     "object-curly-newline": 0,
-    "spaced-comment": 0,
     "react/jsx-curly-brace-presence": 0,
     "react/require-default-props": 0,
     "react/no-unused-prop-types": 0,
