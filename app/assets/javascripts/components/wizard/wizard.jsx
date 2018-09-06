@@ -9,9 +9,9 @@ import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
-import ServerActions from '../../actions/server_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
+import { fetchWizardIndex } from '../../actions/wizard_actions';
 
 const getState = () =>
   ({
@@ -54,7 +54,7 @@ const Wizard = createReactClass({
   },
   componentWillMount() {
     persist();
-    return ServerActions.fetchWizardIndex();
+    return this.props.fetchWizardIndex();
   },
   componentWillUnmount() {
     unloadEvents();
@@ -142,7 +142,8 @@ const Wizard = createReactClass({
 
 const mapDispatchToProps = {
   updateCourse,
-  persistCourse
+  persistCourse,
+  fetchWizardIndex
 };
 
 export default connect(null, mapDispatchToProps)(Wizard);

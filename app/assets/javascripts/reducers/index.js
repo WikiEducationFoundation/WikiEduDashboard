@@ -30,7 +30,7 @@ import userProfile from './user_profile';
 import userRevisions from './user_revisions';
 import users from './users';
 import wikidataLabels from './wikidata_labels';
-
+import wizard from './wizard';
 
 const reducer = combineReducers({
   alerts,
@@ -64,7 +64,8 @@ const reducer = combineReducers({
   userProfile,
   userRevisions,
   users,
-  wikidataLabels
+  wikidataLabels,
+  wizard
 });
 
 export default reducer;

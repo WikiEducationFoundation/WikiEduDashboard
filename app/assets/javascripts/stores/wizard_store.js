@@ -36,11 +36,15 @@ const _panels = [{
 // Utilities
 const setIndex = function (index) {
   // index of the assignment panel
+  console.log({index})
   _panels[1].options = index;
+  console.log({_panels})
   return WizardStore.emitChange();
 };
 
 const setPanels = function (panels) {
+  console.log('SETTING PANELS')
+  console.log({panels})
   // 3 hard-coded panels: course dates, assignments, summary
   // _panels.length will change when more are inserted
   const toRemove = _panels.length - 3;

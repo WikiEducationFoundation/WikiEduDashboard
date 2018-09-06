@@ -20,17 +20,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchWizardIndex() {
-    return API.fetchWizardIndex()
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_INDEX',
-        data: {
-          wizard_index: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchWizardPanels(wizardId) {
     return API.fetchWizardPanels(wizardId)
       .then(resp => ({

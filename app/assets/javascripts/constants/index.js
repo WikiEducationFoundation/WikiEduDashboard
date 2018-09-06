@@ -29,3 +29,4 @@ export * from './settings';
 export * from './tags';
 export * from './training_status';
 export * from './wikidata_labels';
+export * from './wizard';

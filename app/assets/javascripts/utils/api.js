@@ -9,22 +9,6 @@ const API = {
   // /////////
   // Getters /
   // /////////
-  fetchWizardIndex() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/wizards.json',
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchRevisions(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/revisions.json?user_id=${studentId}&course_id=${courseId}`;
