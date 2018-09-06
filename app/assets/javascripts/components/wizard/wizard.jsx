@@ -11,7 +11,7 @@ import Modal from '../common/modal.jsx';
 import WizardActions from '../../actions/wizard_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
-import { fetchWizardIndex, advanceWizard, rewindWizard, selectWizardOption } from '../../actions/wizard_actions';
+import { fetchWizardIndex, advanceWizard, rewindWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
 
 const getState = () =>
   ({
@@ -20,15 +20,16 @@ const getState = () =>
   })
 ;
 
-const persist = function () {
+const persist = function (goToWizard) {
   window.onbeforeunload = function () {
       return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
   window.history.replaceState({ index: 0 }, 'wizard', '#step1'); // Initial States
   document.title += ' — Step 1';
   window.onpopstate = function (event) { // Listen to changes
+    console.log(event)
     if (event.state) {
-      WizardActions.goToWizard(event.state.index);
+      goToWizard(event.state.index);
       document.title = document.title.replace(/\d+$/, event.state.index + 1); // Sync Titles
     }
   };
@@ -48,6 +49,7 @@ const Wizard = createReactClass({
     open_weeks: PropTypes.number,
     advanceWizard: PropTypes.func.isRequired,
     rewindWizard: PropTypes.func.isRequired,
+    goToWizard: PropTypes.func.isRequired,
     panels: PropTypes.array.isRequired
   },
   mixins: [WizardStore.mixin],
@@ -55,7 +57,7 @@ const Wizard = createReactClass({
     return getState();
   },
   componentWillMount() {
-    persist();
+    persist(this.props.goToWizard);
     return this.props.fetchWizardIndex();
   },
   componentWillUnmount() {
@@ -71,7 +73,7 @@ const Wizard = createReactClass({
     return routes.join('/');
   },
   render() {
-    console.log(this.props.panels)
+    console.log(this.props.activePanelIndex)
     const panelCount = this.props.panels.length;
     const panels = this.props.panels.map((panel, i) => {
       const active = this.props.activePanelIndex === i;
@@ -169,6 +171,7 @@ const mapDispatchToProps = {
   fetchWizardIndex,
   advanceWizard,
   rewindWizard,
+  goToWizard,
   selectWizardOption
 };
 

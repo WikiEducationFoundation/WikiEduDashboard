@@ -6,12 +6,12 @@ import {
   SELECT_WIZARD_OPTION,
   WIZARD_ADVANCE,
   WIZARD_REWIND,
+  WIZARD_GOTO,
   RECEIVE_WIZARD_PANELS,
   API_FAIL
 } from '../constants';
 
 import logErrorMessage from '../utils/log_error_message';
-import WizardStore from '../stores/wizard_store';
 
 const Flux = new McFly();
 
@@ -95,7 +95,6 @@ const fetchWizardIndexPromise = () => {
 export const fetchWizardIndex = () => dispatch => {
   return fetchWizardIndexPromise()
     .then(data => {
-      WizardActions.receiveWizardIndex(data);
       dispatch({ type: RECEIVE_WIZARD_ASSIGNMENT_OPTIONS, assignmentOptions: data });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
@@ -121,7 +120,6 @@ const fetchWizardPanelsPromise = (wizardId) => {
 export const fetchWizardPanels = (wizardId) => dispatch => {
   return fetchWizardPanelsPromise(wizardId)
     .then(data => {
-      // WizardActions.receiveWizardPanels(data);
       dispatch({ type: RECEIVE_WIZARD_PANELS, extraPanels: data });
     })
     .catch(data => dispatch({ type: API_FAIL, data }));
@@ -129,7 +127,6 @@ export const fetchWizardPanels = (wizardId) => dispatch => {
 
 export const advanceWizard = () => (dispatch, getState) => {
   const state = getState();
-  // WizardActions.advanceWizard();
   dispatch({ type: WIZARD_ADVANCE });
   // If we're advancing from the Assignments panel,
   // we need to fetch the specific wizard panel for the selected
@@ -142,13 +139,16 @@ export const advanceWizard = () => (dispatch, getState) => {
 };
 
 export const selectWizardOption = (panelIndex, optionIndex) => {
-  // WizardActions.toggleOptionSelected(panelIndex, optionIndex);
   return { type: SELECT_WIZARD_OPTION, panelIndex, optionIndex };
 };
 
 export const rewindWizard = () => {
-  // WizardActions.rewindWizard();
   return { type: WIZARD_REWIND };
 };
+
+export const goToWizard = (toPanelIndex) => {
+  return { type: WIZARD_GOTO, toPanelIndex };
+};
+
 
 export default WizardActions;

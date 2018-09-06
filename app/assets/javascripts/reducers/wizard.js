@@ -86,6 +86,9 @@ export default function wizard(state = initialState, action) {
     case WIZARD_REWIND: {
       return { ...state, activeIndex: state.activeIndex - 1 };
     }
+    case WIZARD_GOTO: {
+      return { ...state, activeIndex: action.toPanelIndex };
+    }
     default:
       return state;
   }
