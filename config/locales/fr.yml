@@ -557,6 +557,8 @@ fr:
       n’est significatif que pour le type de cours ClassroomProgram.
     subject: Sujet
     submitted: Soumis
+    tag_select: Sélectionner ou créer une balise
+    tags: 'Balises :'
     term: Période
     timeline: Détails d'assignement
     timeline_enabled: Chronologie activée

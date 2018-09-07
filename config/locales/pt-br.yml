@@ -541,6 +541,8 @@ pt-br:
       relevante para o tipo de curso ClassroomProgram.
     subject: Assunto
     submitted: Enviado
+    tag_select: Selecione ou crie uma etiqueta
+    tags: 'Etiquetas:'
     term: Prazo
     timeline: Detalhes da atribuição
     timeline_enabled: Cronograma ativado

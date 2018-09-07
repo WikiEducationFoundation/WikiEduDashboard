@@ -37,7 +37,8 @@ const TrainingModules = createReactClass({
   },
 
   trainingSelector() {
-    const options = _.compact(this.props.all_modules).map(module => ({ value: module.id, label: module.name }));
+    const options = _.filter(_.compact(this.props.all_modules), module => module.status !== 'deprecated')
+                    .map(module => ({ value: module.id, label: module.name }));
     return (
       <div className="block__training-modules">
         <div>

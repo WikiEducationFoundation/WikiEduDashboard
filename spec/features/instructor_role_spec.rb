@@ -88,8 +88,7 @@ describe 'Instructor users', type: :feature, js: true do
         'name' => 'Risker', 'userid' => 123, 'centralids' => { 'CentralAuth' => 456 }
       )
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('Risker') }
       click_button 'Enroll'
       click_button 'OK'
@@ -100,8 +99,7 @@ describe 'Instructor users', type: :feature, js: true do
     it 'is not able to add nonexistent users as students' do
       allow_any_instance_of(WikiApi).to receive(:get_user_id).and_return(nil)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       within('#users') { all('input')[1].set('NotARealUser') }
       click_button 'Enroll'
       click_button 'OK'
@@ -110,10 +108,7 @@ describe 'Instructor users', type: :feature, js: true do
 
     it 'is able to remove students' do
       visit "/courses/#{Course.first.slug}/students"
-      sleep 1
-
-      # Click the Enrollment button
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       sleep 1
       # Remove a user
       page.all('button.border.plus')[1].click
@@ -174,7 +169,7 @@ describe 'Instructor users', type: :feature, js: true do
 
       visit "/courses/#{Course.first.slug}/students"
 
-      click_button 'Enrollment'
+      click_button 'Add/Remove Students'
       find('button.border.plus', text: '-', match: :first).click
       click_button 'OK'
       sleep 1

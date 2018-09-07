@@ -430,7 +430,7 @@ en:
     end: End
     ended: The course has ended.
     enroll: Enroll
-    enrollment: Enrollment
+    enrollment: Add/Remove Students
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
@@ -547,6 +547,8 @@ en:
     course_submitted: Submitted status is used for education program courses where a course plan must be approved before the project begins. It is only relevant for the ClassroomProgram course type.
     subject: Subject
     submitted: Submitted
+    tag_select: 'Select or create a tag'
+    tags: 'Tags: '
     term: Term
     timeline: Assignment Details
     timeline_enabled: Timeline enabled
@@ -654,7 +656,7 @@ en:
     edit_course_dates: Edit Project Dates
     end: Activity tracking end
     enroll: Add Editor
-    enrollment: Participation
+    enrollment: Add/Remove Editors
     explore: Find Programs
     courses_enrolled: Programs participated
     expected_students: Expected Editors

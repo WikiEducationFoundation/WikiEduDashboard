@@ -28,8 +28,8 @@ Rails.application.routes.draw do
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
     get 'user_stats' => 'user_profiles#stats'
     get 'stats_graphs' => 'user_profiles#stats_graphs'
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences'
-    post 'users/update/:username' => 'user_profiles#update'
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
   # Users
@@ -136,7 +136,6 @@ Rails.application.routes.draw do
 
   get 'lookups/campaign(.:format)' => 'lookups#campaign'
   get 'lookups/tag(.:format)' => 'lookups#tag'
-  get 'lookups/article(.:format)' => 'lookups#article'
 
   # Timeline
   resources :courses, constraints: { id: /.*/ } do
@@ -260,6 +259,7 @@ Rails.application.routes.draw do
   get 'explore' => 'explore#index'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
+  get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
   # ask.wikiedu.org search box
   get 'ask' => 'ask#search'

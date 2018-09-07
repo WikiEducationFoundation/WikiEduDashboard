@@ -12,7 +12,10 @@ class WikiCourseOutput
     @course = course
     @course_meetings_manager = @course.meetings_manager
     @dashboard_url = ENV['dashboard_url']
-    @first_instructor = @course.instructors.first
+    @first_instructor_course_user = @course
+                                    .courses_users
+                                    .where(role: CoursesUsers::Roles::INSTRUCTOR_ROLE).first
+    @first_instructor = @first_instructor_course_user&.user
     @first_support_staff = @course.nonstudents.where(greeter: true).first
     @output = ''
     @templates = @course.home_wiki.edit_templates
@@ -70,7 +73,7 @@ class WikiCourseOutput
   end
 
   def instructor_realname
-    @first_instructor&.real_name
+    @first_instructor_course_user&.real_name
   end
 
   def support_staff_username

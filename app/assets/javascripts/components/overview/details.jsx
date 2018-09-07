@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
 
 import Instructors from './instructors';
 import OnlineVolunteers from './online_volunteers';
@@ -10,7 +9,8 @@ import WikiEdStaff from './wiki_ed_staff';
 
 import CampaignEditable from './campaign_editable.jsx';
 import CampaignList from './campaign_list.jsx';
-import TagButton from './tag_button.jsx';
+import TagList from './tag_list.jsx';
+import TagEditable from './tag_editable';
 import CourseTypeSelector from './course_type_selector.jsx';
 import SubmittedSelector from './submitted_selector.jsx';
 import PrivacySelector from './privacy_selector.jsx';
@@ -28,14 +28,12 @@ import Notifications from '../common/notifications.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
 
-import TagStore from '../../stores/tag_store.js';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const getState = () =>
   ({
-    tags: TagStore.getModels(),
     error_message: ValidationStore.firstMessage()
   })
 ;
@@ -49,14 +47,13 @@ const Details = createReactClass({
     course: PropTypes.object,
     current_user: PropTypes.object,
     campaigns: PropTypes.array,
-    tags: PropTypes.array,
     controls: PropTypes.func,
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired,
     refetchCourse: PropTypes.func.isRequired
   },
 
-  mixins: [ValidationStore.mixin, TagStore.mixin],
+  mixins: [ValidationStore.mixin],
 
   getInitialState() {
     return getState();
@@ -256,10 +253,6 @@ const Details = createReactClass({
     let projectSelector;
     let languageSelector;
     if (this.props.current_user.admin) {
-      const tagsList = this.state.tags.length > 0 ?
-        _.map(this.state.tags, 'tag').join(', ')
-      : I18n.t('courses.none');
-
       subject = (
         <TextInput
           onChange={this.updateDetails}
@@ -272,8 +265,8 @@ const Details = createReactClass({
       );
       tags = (
         <div className="tags">
-          <span><strong>Tags:</strong> {tagsList}</span>
-          <TagButton {...this.props} {...this.state} show={this.props.editable} />
+          <TagList course={this.props.course} />
+          <TagEditable {...this.props} show={this.props.editable} />
         </div>
       );
       submittedSelector = (

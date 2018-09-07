@@ -31,7 +31,7 @@ def create_course
 end
 
 describe 'timeline editing', type: :feature, js: true do
-  let(:unassigned_module_name) { 'Editing Basics' }
+  let(:unassigned_module_name) { 'Peer review' }
 
   before do
     include type: :feature

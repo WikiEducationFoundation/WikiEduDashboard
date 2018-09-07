@@ -4,7 +4,8 @@ require_dependency "#{Rails.root}/lib/training/training_base"
 require_dependency "#{Rails.root}/lib/training_library"
 
 class TrainingModule < TrainingBase
-  attr_accessor :name, :slides, :description, :estimated_ttc, :id, :wiki_page
+  attr_accessor :name, :slides, :description, :estimated_ttc, :id,
+                :wiki_page, :status
   alias raw_slides slides
 
   #################
@@ -70,6 +71,10 @@ class TrainingModule < TrainingBase
 
   def slide_slugs
     @slide_slugs ||= raw_slides.map(&:slug)
+  end
+
+  def deprecated?
+    status == 'deprecated'
   end
 
   class ModuleNotFound < StandardError; end

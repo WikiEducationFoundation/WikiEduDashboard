@@ -5,6 +5,9 @@ require "#{Rails.root}/lib/wiki_course_output"
 
 describe WikiCourseOutput do
   describe '.translate_course_to_wikitext' do
+    let(:student) { create(:user, username: 'StudentUser') }
+    let(:instructor) { create(:user, username: 'InstructorUser') }
+
     it 'returns a wikitext version of the course' do
       week1 = create(:week, id: 2)
       week2 = create(:week, id: 3)
@@ -42,19 +45,20 @@ describe WikiCourseOutput do
                       timeline_end: '2016-04-24',
                       weeks: [week1, week2])
       create(:courses_user,
-             user_id: 1,
-             course_id: 1,
+             user: student,
+             course: course,
              role: 0)
+      create(:courses_user, user: instructor, course: course, role: 1, real_name: 'Jacque')
       create(:assignment,
              id: 1,
-             user_id: 1,
-             course_id: 1,
+             user: student,
+             course: course,
              role: 0,
              article_title: 'My article')
       create(:assignment,
              id: 2,
-             user_id: 1,
-             course_id: 1,
+             user: student,
+             course: course,
              role: 1,
              article_title: 'Your article')
       response = described_class.new(course).translate_course_to_wikitext
@@ -66,9 +70,10 @@ describe WikiCourseOutput do
       expect(response).to include('[[My article]]')
       expect(response).to include('[[Your article]]')
       expect(response).to include('{{start of course week|2016-01-11|2016-01-13|2016-01-15}}')
+      expect(response).to include('Jacque')
     end
 
-    context 'when the course has no weeks' do
+    context 'when the course has no weeks or users or anything' do
       let(:course) { create(:course) }
       let(:subject) { described_class.new(course).translate_course_to_wikitext }
 

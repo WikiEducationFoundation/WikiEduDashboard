@@ -536,6 +536,8 @@ de:
       ist nur für den Kurstyp „Klassenzimmerprogramm“ relevant.
     subject: Thema
     submitted: Eingereicht
+    tag_select: Wähle eine Markierung aus oder erstelle eine
+    tags: 'Markierungen:'
     term: Dauer
     timeline: Einzelheiten zur Zuweisung
     timeline_enabled: Zeitleiste aktiviert

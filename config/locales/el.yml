@@ -249,6 +249,7 @@ el:
     course_details: Λεπτομέρειες μαθήματος
     subject: Θέμα
     submitted: Υποβεβλημμένα
+    tags: 'Ετικέτες:'
     term: Περίοδος
     timeline_enabled: Το χρονολόγιο ενεργοποιήθηκε
     timeline_link: Χρονολόγιο

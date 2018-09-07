@@ -22,15 +22,4 @@ class LookupsController < ApplicationController
     @values = Tag.all.pluck(:tag)
     render 'index'
   end
-
-  # FIXME: called by AssignButton, but the result is not used for anything.
-  # It's been stubbed out for now, but the AssignButton should be modified to
-  # not make this lookup at all.
-  # See https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/399
-  def article
-    @model = 'article'
-    @key = 'title'
-    @values = nil
-    render 'index'
-  end
 end

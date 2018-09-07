@@ -35,6 +35,14 @@ const Week = createReactClass({
   getInitialState() {
     return { focusedBlockId: null };
   },
+  componentDidMount() {
+    const hash = location.hash.substring(1);
+    const weekNo = this.weekNumber();
+    if (hash === `week-${weekNo}`) {
+      const week = document.getElementsByName(hash)[0];
+      week.scrollIntoView();
+    }
+  },
   addBlock() {
     this._scrollToAddedBlock();
     return BlockActions.addBlock(this.props.week.id);
@@ -54,6 +62,9 @@ const Week = createReactClass({
     const bottom = Math.abs(__guard__(wk, x => x.getBoundingClientRect().bottom));
     const elBottom = (bottom + scrollTop) - 50;
     return window.scrollTo({ top: elBottom, behavior: 'smooth' });
+  },
+  weekNumber() {
+    return this.props.index + this.props.weeksBeforeTimeline;
   },
   render() {
     let style;
@@ -169,13 +180,12 @@ const Week = createReactClass({
       weekClassName += ' timeline-warning';
     }
 
-    const weekNumber = this.props.index + this.props.weeksBeforeTimeline;
     return (
       <li className={weekClassName}>
         <div className="week__week-header">
           {weekAddDelete}
           {weekDates}
-          <p className="week-index">{I18n.t('timeline.week_number', { number: weekNumber })}</p>
+          <p className="week-index">{I18n.t('timeline.week_number', { number: this.weekNumber() })}</p>
         </div>
         {weekContent}
       </li>

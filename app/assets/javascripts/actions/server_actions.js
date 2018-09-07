@@ -13,29 +13,10 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  add(model, courseId, data) {
-    const actionType = `${model.toUpperCase()}_MODIFIED`;
-    return API.modify(model, courseId, data, true)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   remove(model, courseId, data) {
     const actionType = `${model.toUpperCase()}_MODIFIED`;
     return API.modify(model, courseId, data, false)
       .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchLookups(key) {
-    return API.fetchLookups(key)
-      .then(resp => ({
-        actionType: 'RECEIVE_LOOKUPS',
-        data: {
-          model: resp.model,
-          values: resp.values
-        }
-      }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
