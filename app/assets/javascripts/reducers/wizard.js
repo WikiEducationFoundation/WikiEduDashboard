@@ -1,3 +1,4 @@
+import I18n from 'i18n-js';
 import {
   RECEIVE_WIZARD_ASSIGNMENT_OPTIONS,
   RECEIVE_WIZARD_PANELS,
@@ -9,7 +10,6 @@ import {
   // WIZARD_RESET,
   // WIZARD_SUBMITTED
 } from '../constants';
-
 
 const assignmentsPanel = (options = []) => {
   return {
