@@ -15,7 +15,7 @@ import logErrorMessage from '../utils/log_error_message';
 
 const Flux = new McFly();
 
-const WizardActions = Flux.createActions({
+export const WizardActions = Flux.createActions({
   toggleOptionSelected(panelIndex, optionIndex) {
     return {
       actionType: 'SELECT_OPTION',
@@ -149,6 +149,3 @@ export const rewindWizard = () => {
 export const goToWizard = (toPanelIndex) => {
   return { type: WIZARD_GOTO, toPanelIndex };
 };
-
-
-export default WizardActions;

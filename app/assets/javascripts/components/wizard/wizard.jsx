@@ -8,10 +8,9 @@ import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
-import WizardActions from '../../actions/wizard_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
-import { fetchWizardIndex, advanceWizard, rewindWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
+import { WizardActions, fetchWizardIndex, advanceWizard, rewindWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
 
 const getState = () =>
   ({
@@ -20,16 +19,15 @@ const getState = () =>
   })
 ;
 
-const persist = function (goToWizard) {
+const persist = function (goToWizardFunc) {
   window.onbeforeunload = function () {
       return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
   window.history.replaceState({ index: 0 }, 'wizard', '#step1'); // Initial States
   document.title += ' — Step 1';
   window.onpopstate = function (event) { // Listen to changes
-    console.log(event)
     if (event.state) {
-      goToWizard(event.state.index);
+      goToWizardFunc(event.state.index);
       document.title = document.title.replace(/\d+$/, event.state.index + 1); // Sync Titles
     }
   };
@@ -73,7 +71,6 @@ const Wizard = createReactClass({
     return routes.join('/');
   },
   render() {
-    console.log(this.props.activePanelIndex)
     const panelCount = this.props.panels.length;
     const panels = this.props.panels.map((panel, i) => {
       const active = this.props.activePanelIndex === i;

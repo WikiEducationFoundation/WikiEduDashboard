@@ -3,7 +3,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import WizardActions from '../../actions/wizard_actions.js';
+import { WizardActions } from '../../actions/wizard_actions.js';
 import Option from './option.jsx';
 
 const md = require('../../utils/markdown_it.js').default();
@@ -32,7 +32,6 @@ const Panel = createReactClass({
   },
 
   persistState() {
-      console.log('PERSISTING STATE')
       const step = this.props.step.toLowerCase().split(' ').slice(0, 2);
       step[1] = +step[1] + 1; // Keeping the step in line with the UI
       window.history.pushState(

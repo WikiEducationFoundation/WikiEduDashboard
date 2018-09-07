@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import ServerActions from '../../actions/server_actions.js';
-import WizardActions from '../../actions/wizard_actions.js';
+import { WizardActions } from '../../actions/wizard_actions.js';
 import WizardStore from '../../stores/wizard_store.js';
 import Panel from './panel.jsx';
 
