@@ -33,7 +33,7 @@ export const receiveUploads = (courseId) => dispatch => {
 };
 
 const fetchUploadMetadata = (uploads) => {
-  let url = `https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&pageids=`;
+  let url = 'https://commons.wikimedia.org/w/api.php?action=query&origin=*&format=json&pageids=';
   _.forEach(uploads, upload => {
     url = `${url}${upload.id}|`;
   });

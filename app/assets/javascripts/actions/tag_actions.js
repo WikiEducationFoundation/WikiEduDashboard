@@ -1,4 +1,4 @@
-import { RECEIVE_TAGS, RECEIVE_ALL_TAGS, ADD_TAG, REMOVE_TAG, API_FAIL } from "../constants";
+import { RECEIVE_TAGS, RECEIVE_ALL_TAGS, ADD_TAG, REMOVE_TAG, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchTagsPromise = (courseId) => {
@@ -34,7 +34,7 @@ const fetchAllTagsPromise = () => {
   return new Promise((res, rej) => {
     return $.ajax({
       type: 'GET',
-      url: `/lookups/tag.json`,
+      url: '/lookups/tag.json',
       success(data) {
         return res(data);
       }

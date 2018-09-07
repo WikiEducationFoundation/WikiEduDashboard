@@ -82,9 +82,9 @@ const UploadsHandler = createReactClass({
       return { label: student.username, value: student.username };
     });
 
-    let galleryClass = "button border icon-gallery_view icon tooltip-trigger";
-    let listClass = "button border icon-list_view icon tooltip-trigger";
-    let tileClass = "button border icon-tile_view icon tooltip-trigger";
+    let galleryClass = 'button border icon-gallery_view icon tooltip-trigger';
+    let listClass = 'button border icon-list_view icon tooltip-trigger';
+    let tileClass = 'button border icon-tile_view icon tooltip-trigger';
     if (this.props.view === GALLERY_VIEW) {
       galleryClass += ' dark';
     }
@@ -99,19 +99,19 @@ const UploadsHandler = createReactClass({
     if (this.state.pageCount > 1) {
       paginationElement = (
         <ReactPaginate
-          previousLabel={"← Previous"}
-          nextLabel={"Next →"}
+          previousLabel={'← Previous'}
+          nextLabel={'Next →'}
           breakLabel={<span className="gap">...</span>}
           pageCount={this.state.pageCount}
           marginPagesDisplayed={2}
           pageRangeDisplayed={6}
           onPageChange={this.handlePageClick}
           forcePage={this.state.currentPage}
-          containerClassName={"pagination"}
-          previousLinkClassName={"previous_page"}
-          nextLinkClassName={"next_page"}
-          disabledClassName={"disabled"}
-          activeClassName={"active"}
+          containerClassName={'pagination'}
+          previousLinkClassName={'previous_page'}
+          nextLinkClassName={'next_page'}
+          disabledClassName={'disabled'}
+          activeClassName={'active'}
         />
       );
     }
@@ -121,13 +121,13 @@ const UploadsHandler = createReactClass({
         <div className="section-header">
           <h3>{I18n.t('uploads.header')}</h3>
           <div className="view-buttons">
-            <button id="gallery-view" className={galleryClass} onClick={() => {this.setView(GALLERY_VIEW);}}>
+            <button id="gallery-view" className={galleryClass} onClick={() => { this.setView(GALLERY_VIEW); }}>
               <p className="tooltip dark">Gallery View</p>
             </button>
-            <button id="list-view" className={listClass} onClick={() => {this.setView(LIST_VIEW);}}>
+            <button id="list-view" className={listClass} onClick={() => { this.setView(LIST_VIEW); }}>
               <p className="tooltip dark">List View</p>
             </button>
-            <button id="tile-view" className={tileClass} onClick={() => {this.setView(TILE_VIEW);}}>
+            <button id="tile-view" className={tileClass} onClick={() => { this.setView(TILE_VIEW); }}>
               <p className="tooltip dark">Tile View</p>
             </button>
           </div>

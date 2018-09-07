@@ -8,7 +8,7 @@ const WithdrawnSelector = ({ course, editable, updateCourse }) => {
   return (
     <YesNoSelector
       courseProperty="withdrawn"
-      label={I18n.t("courses.withdrawn")}
+      label={I18n.t('courses.withdrawn')}
       course={course}
       editable={editable}
       updateCourse={updateCourse}

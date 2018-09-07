@@ -20,7 +20,7 @@ export default function uploads(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_UPLOADS: {
       const dataUploads = action.data.course.uploads;
-      //Intial sorting by upload date
+      // Intial sorting by upload date
       const sortedModel = sortByKey(dataUploads, 'uploaded_at', state.sortKey, SORT_DESCENDING.uploaded_at);
 
       return {
@@ -47,7 +47,7 @@ export default function uploads(state = initialState, action) {
       });
       const updatedUploads = state.uploads.map(upload => {
         if (fetchedData && fetchedData[upload.id]) {
-          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, `Not found`);
+          upload.credit = _.get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
           if (!upload.thumburl) {
             upload.thumburl = _.get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
           }

@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 import CourseLink from './common/course_link.jsx';
@@ -207,7 +207,7 @@ const Course = createReactClass({
       course.survey_notifications.map(notification => {
         const dismissOnClick = () => this.dismissSurvey(notification.id);
         return alerts.push(
-          <div className="notification notification--survey" key={"survey_notification_#{notification.id}"}>
+          <div className="notification notification--survey" key={'survey_notification_#{notification.id}'}>
             <div className="container">
               <p>{notification.message || CourseUtils.i18n('survey.notification_message', course.string_prefix)}</p>
               <a href={notification.survey_url} className="button pull-right">{CourseUtils.i18n('survey.link', course.string_prefix)}</a>

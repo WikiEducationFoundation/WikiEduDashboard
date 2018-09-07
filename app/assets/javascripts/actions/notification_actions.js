@@ -1,5 +1,5 @@
 import McFly from 'mcfly';
-import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "../constants";
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from '../constants';
 const Flux = new McFly();
 
 

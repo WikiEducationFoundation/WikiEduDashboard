@@ -7,7 +7,7 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const emptyWeeksAtBeginning = function (weekMeetings) {
   let count = 0;
-  for (let i = 0; i < weekMeetings.length; i++) {
+  for (let i = 0; i < weekMeetings.length; i += 1) {
     const week = weekMeetings[i];
     if (week !== '()') { return count; }
     count += 1;
@@ -17,7 +17,7 @@ const emptyWeeksAtBeginning = function (weekMeetings) {
 const emptyWeeksUntil = function (weekMeetings, weekIndex) {
   let count = 0;
   const iterable = weekMeetings.slice(0, weekIndex);
-  for (let i = 0; i < iterable.length; i++) {
+  for (let i = 0; i < iterable.length; i += 1) {
     const week = iterable[i];
     if (week === '()') { count += 1; }
   }

@@ -18,6 +18,4 @@ gulp.task('watch', () => {
     return plugins.livereload.changed(e.path);
   });
   plugins.livereload.listen();
-
-  return;
 });

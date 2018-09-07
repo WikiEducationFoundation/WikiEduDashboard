@@ -132,7 +132,7 @@ const Feedback = createReactClass({
       rating = data.rating;
       customMessages = data.custom;
 
-      for (let i = 0; i < messages.length; i++) {
+      for (let i = 0; i < messages.length; i += 1) {
         feedbackList.push(<li key={i.toString()}>{messages[i].message}</li>);
       }
 
@@ -165,7 +165,7 @@ const Feedback = createReactClass({
         );
       }
 
-      for (let i = 0; i < customMessages.length; i++) {
+      for (let i = 0; i < customMessages.length; i += 1) {
         let deleteButton;
         if (customMessages[i].userId === this.props.current_user.id) {
           deleteButton = <a className="button dark small" onClick={() => this.handleRemove(customMessages[i].messageId, i)}>{I18n.t('courses.delete_suggestion')}</a>;

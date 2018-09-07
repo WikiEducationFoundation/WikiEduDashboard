@@ -15,22 +15,22 @@ describe('StudentList', () => {
   const users = [{
     role: 0,
     id: 3,
-    username: "Adam",
+    username: 'Adam',
     admin: false,
-    course_training_progress: "0/3 training modules completed",
+    course_training_progress: '0/3 training modules completed',
     real_name: null
   }];
-  const params = { course_school: "Foobar", course_id: "asd" };
+  const params = { course_school: 'Foobar', course_id: 'asd' };
   const assignments = [{
     article_id: 7,
-    article_title: "Foo",
-    article_url: "https://en.wikipedia.org/wiki/Foo",
+    article_title: 'Foo',
+    article_url: 'https://en.wikipedia.org/wiki/Foo',
     assignment_id: 10,
-    course_id: "Couse_school/Test_Course_(Couse_term)",
+    course_id: 'Couse_school/Test_Course_(Couse_term)',
     id: 10,
     role: 1,
     user_id: 3,
-    username: "Adam",
+    username: 'Adam',
     admin: false
   }
   ];

@@ -7,7 +7,7 @@ import TrainingModules from '../../../app/assets/javascripts/components/timeline
 describe('TrainingModules', () => {
   const fakeModules = [{ id: 1, name: 'test1' }, { id: 2, name: 'test2' }, { id: 3, name: 'test3' }];
   describe('render (machine tests)', () => {
-    const TrainingModulesM = mount(<TrainingModules block_modules={fakeModules} all_modules={["module1", "module2", "module3"]} />);
+    const TrainingModulesM = mount(<TrainingModules block_modules={fakeModules} all_modules={['module1', 'module2', 'module3']} />);
 
     describe('Initial State', () => {
       it('should map array block_modules with their ids', () => {
@@ -37,13 +37,13 @@ describe('TrainingModules', () => {
   describe('render (human-like tests)', () => {
     describe('tests without edit-mode', () => {
       const test1 = {
-        deadline_status: "complete",
-        due_date: "2017/12/09",
+        deadline_status: 'complete',
+        due_date: '2017/12/09',
         id: 15,
-        module_progress: "Complete",
-        name: "Let it test",
+        module_progress: 'Complete',
+        name: 'Let it test',
         overdue: false,
-        slug: "let-it-test"
+        slug: 'let-it-test'
       };
 
       const TrainingModulesH = mount(<TrainingModules block_modules={[test1]} editable={false} />);
@@ -67,13 +67,13 @@ describe('TrainingModules', () => {
               });
               it('in-progress', () => {
                 const testTemp = {
-                  deadline_status: "complete",
-                  due_date: "2017/12/09",
+                  deadline_status: 'complete',
+                  due_date: '2017/12/09',
                   id: 15,
-                  module_progress: "in-progress",
-                  name: "Let it test",
+                  module_progress: 'in-progress',
+                  name: 'Let it test',
                   overdue: false,
-                  slug: "let-it-test"
+                  slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.block__training-modules-table__module-progress')).to.have.length(1);
@@ -82,26 +82,26 @@ describe('TrainingModules', () => {
               });
               it('overdue (Complete)', () => {
                 const testTemp = {
-                  deadline_status: "complete",
-                  due_date: "2017/12/09",
+                  deadline_status: 'complete',
+                  due_date: '2017/12/09',
                   id: 15,
-                  module_progress: "Complete",
-                  name: "Let it test",
+                  module_progress: 'Complete',
+                  name: 'Let it test',
                   overdue: true,
-                  slug: "let-it-test"
+                  slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                 expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue')).to.have.length(1);
               });
               it('overdue (in-progress)', () => {
                 const testTemp = {
-                  deadline_status: "complete",
-                  due_date: "2017/12/09",
+                  deadline_status: 'complete',
+                  due_date: '2017/12/09',
                   id: 15,
-                  module_progress: "in-progress",
-                  name: "Let it test",
+                  module_progress: 'in-progress',
+                  name: 'Let it test',
                   overdue: true,
-                  slug: "let-it-test"
+                  slug: 'let-it-test'
                 };
                 const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                 expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue')).to.have.length(1);
@@ -110,26 +110,26 @@ describe('TrainingModules', () => {
                 describe('complete', () => {
                   it('without overdue', () => {
                     const testTemp = {
-                      deadline_status: "complete",
-                      due_date: "2017/12/09",
+                      deadline_status: 'complete',
+                      due_date: '2017/12/09',
                       id: 15,
-                      module_progress: "Complete",
-                      name: "Let it test",
+                      module_progress: 'Complete',
+                      name: 'Let it test',
                       overdue: false,
-                      slug: "let-it-test"
+                      slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.complete')).to.have.length(1);
                   });
                   it('with overdue', () => {
                     const testTemp = {
-                      deadline_status: "complete",
-                      due_date: "2017/12/09",
+                      deadline_status: 'complete',
+                      due_date: '2017/12/09',
                       id: 15,
-                      module_progress: "Complete",
-                      name: "Let it test",
+                      module_progress: 'Complete',
+                      name: 'Let it test',
                       overdue: true,
-                      slug: "let-it-test"
+                      slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                     expect(TrainingModulesTEMP.find('td.timeline-module__progress-complete.overdue.complete')).to.have.length(1);
@@ -138,26 +138,26 @@ describe('TrainingModules', () => {
                 describe('in-progress', () => {
                   it('without overdue', () => {
                     const testTemp = {
-                      deadline_status: "complete",
-                      due_date: "2017/12/09",
+                      deadline_status: 'complete',
+                      due_date: '2017/12/09',
                       id: 15,
-                      module_progress: "in-progress",
-                      name: "Let it test",
+                      module_progress: 'in-progress',
+                      name: 'Let it test',
                       overdue: false,
-                      slug: "let-it-test"
+                      slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.complete')).to.have.length(1);
                   });
                   it('with overdue', () => {
                     const testTemp = {
-                      deadline_status: "complete",
-                      due_date: "2017/12/09",
+                      deadline_status: 'complete',
+                      due_date: '2017/12/09',
                       id: 15,
-                      module_progress: "in-progress",
-                      name: "Let it test",
+                      module_progress: 'in-progress',
+                      name: 'Let it test',
                       overdue: true,
-                      slug: "let-it-test"
+                      slug: 'let-it-test'
                     };
                     const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                     expect(TrainingModulesTEMP.find('td.timeline-module__in-progress.overdue.complete')).to.have.length(1);
@@ -168,13 +168,13 @@ describe('TrainingModules', () => {
             describe('deadline_status', () => {
                it('overdue', () => {
                  const testTemp = {
-                   deadline_status: "overdue",
-                   due_date: "2017/12/09",
+                   deadline_status: 'overdue',
+                   due_date: '2017/12/09',
                    id: 15,
-                   module_progress: "in-progress",
-                   name: "Let it test",
+                   module_progress: 'in-progress',
+                   name: 'Let it test',
                    overdue: true,
-                   slug: "let-it-test"
+                   slug: 'let-it-test'
                  };
                  const TrainingModulesTEMP = mount(<TrainingModules block_modules={[testTemp]} editable={false} />);
                  expect(TrainingModulesTEMP.find('td.overdue').text()).to.match(/due on 2017\/12\/09/i);
@@ -186,22 +186,22 @@ describe('TrainingModules', () => {
     });
     describe('tests with edit-mode', () => {
       const test1 = {
-        deadline_status: "complete",
-        due_date: "2017/12/09",
+        deadline_status: 'complete',
+        due_date: '2017/12/09',
         id: 15,
-        module_progress: "Complete",
-        name: "Let it test",
+        module_progress: 'Complete',
+        name: 'Let it test',
         overdue: false,
-        slug: "let-it-test"
+        slug: 'let-it-test'
       };
       const test2 = {
-        deadline_status: "complete",
-        due_date: "2017/12/09",
+        deadline_status: 'complete',
+        due_date: '2017/12/09',
         id: 16,
-        module_progress: "Complete",
-        name: "Let it change",
+        module_progress: 'Complete',
+        name: 'Let it change',
         overdue: false,
-        slug: "let-it-change"
+        slug: 'let-it-change'
       };
       const onChangeSpy = sinon.spy();
       const TrainingModulesEM = mount(<TrainingModules block_modules={[test1]} editable={true} all_modules={[test1, test2]} onChange={onChangeSpy} />);

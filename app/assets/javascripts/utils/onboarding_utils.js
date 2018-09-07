@@ -1,7 +1,7 @@
 import logErrorMessage from './log_error_message';
 
 const OnboardAPI = {
-  /// GETTERS
+  // /  GETTERS
 
   onboard(args) {
     return new Promise((res, rej) =>

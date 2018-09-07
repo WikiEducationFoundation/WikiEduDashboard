@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from "../constants";
+import { UPDATE_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 
@@ -37,7 +37,7 @@ export const fetchCategoryResults = (category, course, cmcontinue = '', continue
       type: UPDATE_FIELD,
       data: {
         key: 'fetchState',
-        value: "ARTICLES_LOADING",
+        value: 'ARTICLES_LOADING',
       }
     });
   }
@@ -197,7 +197,7 @@ export const fetchKeywordResults = (keyword, course, offset = 0, continueResults
       type: UPDATE_FIELD,
       data: {
         key: 'fetchState',
-        value: "ARTICLES_LOADING",
+        value: 'ARTICLES_LOADING',
       }
     });
   }

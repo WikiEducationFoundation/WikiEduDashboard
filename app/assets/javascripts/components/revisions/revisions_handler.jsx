@@ -1,9 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import RevisionList from './revision_list.jsx';
-import { fetchRevisions, sortRevisions } from "../../actions/revisions_actions.js";
+import { fetchRevisions, sortRevisions } from '../../actions/revisions_actions.js';
 
 const RevisionHandler = createReactClass({
   displayName: 'RevisionHandler',

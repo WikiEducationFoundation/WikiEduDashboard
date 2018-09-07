@@ -1,7 +1,7 @@
 import {
   RECEIVE_COURSE,
   PERSISTED_COURSE
-} from "../constants";
+} from '../constants';
 
 export default function persistedCourse(state = {}, action) {
   switch (action.type) {

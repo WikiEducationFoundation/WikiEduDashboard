@@ -2,11 +2,11 @@ import _ from 'lodash';
 
 export const getFiltered = (models, options) => {
   const filteredModels = [];
-  for (let i = 0; i < models.length; i++) {
+  for (let i = 0; i < models.length; i += 1) {
     const model = models[i];
     let add = true;
     const iterable1 = Object.keys(options);
-    for (let j = 0; j < iterable1.length; j++) {
+    for (let j = 0; j < iterable1.length; j += 1) {
       const criterion = iterable1[j];
       add = add && model[criterion] === options[criterion];
     }

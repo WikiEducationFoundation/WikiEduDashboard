@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -11,7 +11,7 @@ import ValidationActions from '../../actions/validation_actions.js';
 import { updateCourse } from '../../actions/course_actions_redux';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
-import { fetchCoursesForUser } from "../../actions/user_courses_actions.js";
+import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { getCloneableCourses } from '../../selectors';
 
 import Notifications from '../common/notifications.jsx';

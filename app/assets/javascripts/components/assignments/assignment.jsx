@@ -36,7 +36,7 @@ const Assignment = createReactClass({
     const assignees = [];
     const reviewers = [];
     const iterable = _.sortBy(this.props.assignmentGroup, 'username');
-    for (let i = 0; i < iterable.length; i++) {
+    for (let i = 0; i < iterable.length; i += 1) {
       const assignment = iterable[i];
       if (assignment.role === 0 && assignment.user_id && assignment.username) {
         const usernameLink = userLink(this.props.course.home_wiki, assignment);

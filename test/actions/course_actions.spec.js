@@ -4,7 +4,7 @@ import '../testHelper';
 import { updateCourse, persistCourse } from '../../app/assets/javascripts/actions/course_actions_redux.js';
 describe('CourseActions', () => {
   beforeEach(() => {
-    sinon.stub($, "ajax").yieldsTo("success", { course: { title: 'Bar' } });
+    sinon.stub($, 'ajax').yieldsTo('success', { course: { title: 'Bar' } });
   });
   afterEach(() => {
     $.ajax.restore();

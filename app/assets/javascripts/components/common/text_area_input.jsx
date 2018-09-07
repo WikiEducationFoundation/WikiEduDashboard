@@ -58,7 +58,7 @@ const TextAreaInput = createReactClass({
               plugins: 'code link',
               branding: false,
               inline: true,
-              default_link_target: "_blank",
+              default_link_target: '_blank',
               relative_urls: false
             }}
           />

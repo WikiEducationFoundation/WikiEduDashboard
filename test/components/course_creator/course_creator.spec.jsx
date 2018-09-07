@@ -17,7 +17,7 @@ CourseCreator.__Rewire__('ValidationStore', {
   params:
     node (enzyme node) the node you would like to inspect
   returns empty string if no styles are found
-**/
+* */
 
 const getStyle = (node) => {
   const rootTag = node.html().match(/(<.*?>)/)[1]; // grab the top tag
@@ -37,7 +37,7 @@ describe('CourseCreator', () => {
       <CourseCreator
         courseCreator={{}}
         fetchCoursesForUser={() => {}}
-        cloneableCourses={["some_course"]}
+        cloneableCourses={['some_course']}
         course={reduxStore.getState().course}
         updateCourse={updateCourseSpy}
         fetchCampaign={fetchCampaignSpy}

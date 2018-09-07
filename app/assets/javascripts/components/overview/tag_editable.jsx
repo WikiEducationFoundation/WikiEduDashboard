@@ -26,7 +26,7 @@ const TagEditable = createReactClass({
   },
 
   getKey() {
-    return `add_tag`;
+    return 'add_tag';
   },
 
   PropTypes: {

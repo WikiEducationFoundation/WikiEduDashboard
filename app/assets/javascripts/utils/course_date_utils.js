@@ -214,7 +214,7 @@ function __range__(left, right, inclusive) {
     endOfRange = right - 1;
   }
 
-  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i++ : i--) {
+  for (let i = left; ascending ? i < endOfRange : i > endOfRange; ascending ? i += 1 : i -= 1) {
     range.push(i);
   }
   return range;

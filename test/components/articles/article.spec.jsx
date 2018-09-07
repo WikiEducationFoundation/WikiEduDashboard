@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactTestUtils from "react-dom/test-utils";
+import ReactTestUtils from 'react-dom/test-utils';
 
 import '../../testHelper';
 import Article from '../../../app/assets/javascripts/components/articles/article.jsx';

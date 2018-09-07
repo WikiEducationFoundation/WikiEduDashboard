@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL } from "../constants";
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION, API_FAIL } from '../constants';
 
 const initialState = [];
 
@@ -21,7 +21,7 @@ const handleErrorNotification = function (data) {
 
   if (!notification.message) { notification.message = data.statusText; }
   if (_.isEmpty(data)) {
-    console.error("Error: ", data); // eslint-disable-line no-console
+    console.error('Error: ', data); // eslint-disable-line no-console
   }
   return notification;
 };

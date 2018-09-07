@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { getInstructorUsers } from '../../selectors';
 import InlineUsers from './inline_users.jsx';
 import CourseUtils from '../../utils/course_utils.js';

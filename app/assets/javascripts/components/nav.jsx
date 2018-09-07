@@ -53,10 +53,10 @@ const Nav = createReactClass({
   },
 
   componentDidMount() {
-    window.addEventListener("resize", this.updateDimensions);
+    window.addEventListener('resize', this.updateDimensions);
   },
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
+    window.removeEventListener('resize', this.updateDimensions);
   },
 
   updateDimensions() {
@@ -167,9 +167,9 @@ const Nav = createReactClass({
     }
     if (this.state.fluid)
     {
-      navClass = "top-nav fluid";
+      navClass = 'top-nav fluid';
     } else {
-      navClass = "top-nav";
+      navClass = 'top-nav';
     }
     if (this.state.width < 920)
     {

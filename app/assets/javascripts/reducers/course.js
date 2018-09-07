@@ -14,8 +14,8 @@ import {
   START_SYLLABUS_UPLOAD,
   SYLLABUS_UPLOAD_SUCCESS,
   LINKED_TO_SALESFORCE
-} from "../constants";
-import CourseUtils from "../utils/course_utils";
+} from '../constants';
+import CourseUtils from '../utils/course_utils';
 
 const initialState = {
   title: '',

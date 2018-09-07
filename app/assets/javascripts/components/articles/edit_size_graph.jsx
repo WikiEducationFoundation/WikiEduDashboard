@@ -96,13 +96,13 @@ const EditSizeGraph = createReactClass({
       // //////////////
       marks: [
         {
-          type: "rule",
+          type: 'rule',
           properties: {
             update: {
               x: { value: 0 },
               x2: { value: this.props.graphWidth },
-              y: { scale: "y", value: 0 },
-              stroke: { value: "#000000" },
+              y: { scale: 'y', value: 0 },
+              stroke: { value: '#000000' },
               strokeWidth: { value: 1 },
               strokeOpacity: { value: 0.5 }
             }
@@ -110,25 +110,25 @@ const EditSizeGraph = createReactClass({
         },
 
         {
-          type: "rule",
+          type: 'rule',
           from: {
-            data: "characters_edited",
+            data: 'characters_edited',
             transform: [{ type: 'sort', by: '-date' }]
           },
           properties:
           {
             update: {
-              x: { scale: "x", field: "date" },
-              y: { scale: "y", field: "characters" },
-              y2: { scale: "y", value: 0 },
+              x: { scale: 'x', field: 'date' },
+              y: { scale: 'y', field: 'characters' },
+              y2: { scale: 'y', value: 0 },
               strokeWidth: { value: 2 },
               strokeOpacity: { value: 0.3 },
               stroke: [
                 {
-                  test: "datum.characters > 0",
-                  value: "#0000ff"
+                  test: 'datum.characters > 0',
+                  value: '#0000ff'
                 },
-                { value: "#ff0000" }
+                { value: '#ff0000' }
               ]
             }
           }
@@ -152,7 +152,7 @@ const EditSizeGraph = createReactClass({
               shape: { value: 'circle' },
               fill: [
                 {
-                  test: "datum.characters > 0",
+                  test: 'datum.characters > 0',
                   value: '#0000ff'
                 },
                 { value: '#ff0000' }
@@ -167,12 +167,12 @@ const EditSizeGraph = createReactClass({
           },
           properties: {
             enter: {
-              x: { signal: "width", mult: 0.68 },
+              x: { signal: 'width', mult: 0.68 },
               y: { value: -10 },
-              text: { template: "Additions" },
-              fill: { value: "#0000ff" },
+              text: { template: 'Additions' },
+              fill: { value: '#0000ff' },
               fontSize: { value: 13 },
-              align: { value: "right" },
+              align: { value: 'right' },
               fillOpacity: { value: 0.2 }
             }
           }
@@ -184,12 +184,12 @@ const EditSizeGraph = createReactClass({
           },
           properties: {
             enter: {
-              x: { signal: "width", mult: 0.73 },
+              x: { signal: 'width', mult: 0.73 },
               y: { value: -10 },
-              text: { template: "and" },
-              fill: { value: "#A9A9A9" },
+              text: { template: 'and' },
+              fill: { value: '#A9A9A9' },
               fontSize: { value: 13 },
-              align: { value: "right" },
+              align: { value: 'right' },
               fillOpacity: { value: 1 }
             }
           }
@@ -201,12 +201,12 @@ const EditSizeGraph = createReactClass({
           },
           properties: {
             enter: {
-              x: { signal: "width", mult: 0.86 },
+              x: { signal: 'width', mult: 0.86 },
               y: { value: -10 },
-              text: { template: "Deletions" },
-              fill: { value: "#ff0000" },
+              text: { template: 'Deletions' },
+              fill: { value: '#ff0000' },
               fontSize: { value: 13 },
-              align: { value: "right" },
+              align: { value: 'right' },
               fillOpacity: { value: 0.2 }
             }
           }
@@ -218,12 +218,12 @@ const EditSizeGraph = createReactClass({
           },
           properties: {
             enter: {
-              x: { signal: "width", mult: 0.99 },
+              x: { signal: 'width', mult: 0.99 },
               y: { value: -10 },
-              text: { template: "over time" },
-              fill: { value: "#A9A9A9" },
+              text: { template: 'over time' },
+              fill: { value: '#A9A9A9' },
               fontSize: { value: 13 },
-              align: { value: "right" },
+              align: { value: 'right' },
               fillOpacity: { value: 1 }
             }
           }

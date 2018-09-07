@@ -9,21 +9,21 @@ describe('CourseDetails', () => {
   it('lists the course', () => {
     const courses = [{
       course_id: 6,
-      course_school: "Test",
-      course_slug: "Test/Test",
-      course_term: "",
-      course_title: "courseTitle1",
+      course_school: 'Test',
+      course_slug: 'Test/Test',
+      course_term: '',
+      course_title: 'courseTitle1',
       user_count: 17,
-      user_role: "Student",
+      user_role: 'Student',
     },
     {
       course_id: 3,
-      course_school: "Test",
-      course_slug: "Test/Test",
-      course_term: "",
-      course_title: "courseTitle2",
+      course_school: 'Test',
+      course_slug: 'Test/Test',
+      course_term: '',
+      course_title: 'courseTitle2',
       user_count: 10,
-      user_role: "Instructor",
+      user_role: 'Instructor',
     }];
 
     const TestCourseDetails = ReactTestUtils.renderIntoDocument(

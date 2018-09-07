@@ -1,4 +1,4 @@
-import { RECEIVE_USER_REVISIONS, API_FAIL } from "../constants";
+import { RECEIVE_USER_REVISIONS, API_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const fetchUserRevisionsPromise = (courseId, userId) => {

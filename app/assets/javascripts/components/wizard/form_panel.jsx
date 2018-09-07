@@ -120,7 +120,7 @@ const FormPanel = createReactClass({
             updateCourse={this.props.updateCourse}
           />
           <label> I have no class holidays
-            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => {this.noDates = checkbox;}} />
+            <input type="checkbox" onChange={this.setNoBlackoutDatesChecked} ref={(checkbox) => { this.noDates = checkbox; }} />
           </label>
         </div>
       </div>

@@ -5,7 +5,7 @@ const PrivacySelector = ({ course, editable, updateCourse }) => {
   return (
     <YesNoSelector
       courseProperty="private"
-      label={I18n.t("courses.private")}
+      label={I18n.t('courses.private')}
       course={course}
       editable={editable}
       updateCourse={updateCourse}

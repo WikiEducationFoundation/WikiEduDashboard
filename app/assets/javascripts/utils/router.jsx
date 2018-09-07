@@ -17,7 +17,7 @@ import OnboardingPermissions from '../components/onboarding/permissions.jsx';
 import OnboardingFinished from '../components/onboarding/finished.jsx';
 import Wizard from '../components/wizard/wizard.jsx';
 import Meetings from '../components/timeline/meetings.jsx';
-import { ConnectedCourseCreator } from "../components/course_creator/course_creator.jsx";
+import { ConnectedCourseCreator } from '../components/course_creator/course_creator.jsx';
 import OverviewHandler from '../components/overview/overview_handler.jsx';
 import TimelineHandler from '../components/timeline/timeline_handler.jsx';
 import RevisionsHandler from '../components/revisions/revisions_handler.jsx';

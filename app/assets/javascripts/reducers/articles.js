@@ -56,7 +56,7 @@ export default function articles(state = initialState, action) {
       return newState;
     }
     case SET_PROJECT_FILTER: {
-      if (action.wiki.project === "all") {
+      if (action.wiki.project === 'all') {
         return { ...state, wikiFilter: null };
       }
       return { ...state, wikiFilter: action.wiki };

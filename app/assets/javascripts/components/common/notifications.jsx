@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import { removeNotification, NotificationActions } from '../../actions/notification_actions.js';
 import NotificationStore from '../../stores/notification_store.js';
