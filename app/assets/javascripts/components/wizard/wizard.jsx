@@ -10,11 +10,10 @@ import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
 import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
-import { WizardActions, fetchWizardIndex, advanceWizard, rewindWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
+import { WizardActions, fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
 
 const getState = () =>
   ({
-    summary: WizardStore.getSummary(),
     wizard_id: WizardStore.getWizardKey()
   })
 ;
@@ -46,7 +45,6 @@ const Wizard = createReactClass({
     weeks: PropTypes.array,
     open_weeks: PropTypes.number,
     advanceWizard: PropTypes.func.isRequired,
-    rewindWizard: PropTypes.func.isRequired,
     goToWizard: PropTypes.func.isRequired,
     panels: PropTypes.array.isRequired
   },
@@ -93,11 +91,10 @@ const Wizard = createReactClass({
             index={i}
             step={step}
             weeks={this.props.weeks.length}
-            summary={this.state.summary}
+            summary={this.props.summary}
             updateCourse={this.props.updateCourse}
             persistCourse={this.props.persistCourse}
             advance={this.props.advanceWizard}
-            rewindWizard={this.props.rewindWizard}
             selectWizardOption={this.props.selectWizardOption}
           />
         );
@@ -111,11 +108,11 @@ const Wizard = createReactClass({
             key={panel.key}
             index={i}
             step={step}
-            summary={this.state.summary}
+            summary={this.props.summary}
             open_weeks={this.props.open_weeks}
             course={this.props.course}
             advance={this.props.advanceWizard}
-            rewindWizard={this.props.rewindWizard}
+            goToWizard={this.props.goToWizard}
             selectWizardOption={this.props.selectWizardOption}
           />
         );
@@ -123,6 +120,7 @@ const Wizard = createReactClass({
       return (
         <SummaryPanel
           panel={panel}
+          panels={this.props.panels}
           active={active}
           parentPath={this.timelinePath()}
           panelCount={panelCount}
@@ -133,7 +131,7 @@ const Wizard = createReactClass({
           courseId={this.props.course.slug}
           wizardId={this.state.wizard_id}
           advance={this.props.advanceWizard}
-          rewindWizard={this.props.rewindWizard}
+          goToWizard={this.props.goToWizard}
           selectWizardOption={this.props.selectWizardOption}
         />
       );
@@ -167,7 +165,6 @@ const mapDispatchToProps = {
   persistCourse,
   fetchWizardIndex,
   advanceWizard,
-  rewindWizard,
   goToWizard,
   selectWizardOption
 };

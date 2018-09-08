@@ -7,6 +7,8 @@ import {
   WIZARD_ADVANCE,
   WIZARD_REWIND,
   WIZARD_GOTO,
+  WIZARD_ENABLE_SUMMARY_MODE,
+  WIZARD_DISABLE_SUMMARY_MODE
   // WIZARD_RESET,
   // WIZARD_SUBMITTED
 } from '../constants';
@@ -89,6 +91,10 @@ export default function wizard(state = initialState, action) {
     case WIZARD_GOTO: {
       return { ...state, activeIndex: action.toPanelIndex };
     }
+    case WIZARD_ENABLE_SUMMARY_MODE:
+      return { ...state, summary: true };
+    case WIZARD_DISABLE_SUMMARY_MODE:
+      return { ...state, summary: false };
     default:
       return state;
   }

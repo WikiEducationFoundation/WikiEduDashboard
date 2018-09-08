@@ -7,6 +7,8 @@ import {
   WIZARD_ADVANCE,
   WIZARD_REWIND,
   WIZARD_GOTO,
+  WIZARD_ENABLE_SUMMARY_MODE,
+  WIZARD_DISABLE_SUMMARY_MODE,
   RECEIVE_WIZARD_PANELS,
   API_FAIL
 } from '../constants';
@@ -135,11 +137,21 @@ export const advanceWizard = () => (dispatch, getState) => {
     const assignmentOptions = state.wizard.panels[ASSIGNMENTS_PANEL_INDEX].options;
     const selectedWizard = _.find(assignmentOptions, option => option.selected);
     fetchWizardPanels(selectedWizard.key)(dispatch);
+  // If we're advancing from the second-to-last panel to the final summary panel,
+  // enable summary mode.
+  } else if (state.wizard.activeIndex === state.wizard.panels.length - 2) {
+    dispatch({ type: WIZARD_ENABLE_SUMMARY_MODE });
   }
 };
 
-export const selectWizardOption = (panelIndex, optionIndex) => {
-  return { type: SELECT_WIZARD_OPTION, panelIndex, optionIndex };
+export const selectWizardOption = (panelIndex, optionIndex) => dispatch => {
+  dispatch({ type: SELECT_WIZARD_OPTION, panelIndex, optionIndex });
+  // If an assignment selection is made, disable summary mode.
+  // Changing the selected assignment clears the wizard, so you can't
+  // return directly to the summary.
+  if (panelIndex === ASSIGNMENTS_PANEL_INDEX) {
+    dispatch({ type: WIZARD_DISABLE_SUMMARY_MODE });
+  }
 };
 
 export const rewindWizard = () => {
@@ -148,4 +160,12 @@ export const rewindWizard = () => {
 
 export const goToWizard = (toPanelIndex) => {
   return { type: WIZARD_GOTO, toPanelIndex };
+};
+
+export const enableSummaryMode = () => {
+  return { type: WIZARD_ENABLE_SUMMARY_MODE };
+};
+
+export const disableSummaryMode = () => {
+  return { type: WIZARD_DISABLE_SUMMARY_MODE };
 };

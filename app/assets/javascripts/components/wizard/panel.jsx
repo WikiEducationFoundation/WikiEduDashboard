@@ -18,11 +18,10 @@ const Panel = createReactClass({
     saveCourse: PropTypes.func,
     nextEnabled: PropTypes.func,
     index: PropTypes.number,
-    rewind: PropTypes.func,
     open_weeks: PropTypes.number,
     raw_options: PropTypes.node,
     advance: PropTypes.func.isRequired,
-    rewindWizard: PropTypes.func.isRequired,
+    rewind: PropTypes.func,
     button_text: PropTypes.string,
     helperText: PropTypes.string,
     summary: PropTypes.bool,
@@ -42,16 +41,13 @@ const Panel = createReactClass({
       document.title = document.title.replace(/\d+$/, step[1]);
   },
 
-  handlePrevious() {
-    window.history.back();
-  },
-
   advance() {
     if (this.props.summary) {
       window.location.hash = `step${this.props.panelCount}`;
       document.title = document.title.replace(/\d+$/, this.props.panelCount); // Sync Title
+      return this.props.goToWizard(this.props.panelCount - 1);
     }
-    else { this.persistState(); }
+    this.persistState();
     if (this.props.saveCourse) {
       if (this.props.saveCourse()) { return this.props.advance(); }
     } else {
@@ -59,13 +55,11 @@ const Panel = createReactClass({
     }
   },
 
-  rewind(e) {
-    e.preventDefault();
-    this.handlePrevious();
-    if (this.props.saveCourse) {
-      if (this.props.saveCourse()) { return this.props.rewindWizard(); }
+  rewind() {
+    if (this.props.rewind) {
+      this.props.rewind();
     } else {
-      return this.props.rewindWizard();
+      window.history.back();
     }
   },
   reset(e) {
@@ -159,7 +153,6 @@ const Panel = createReactClass({
       </div>
     );
   }
-}
-);
+});
 
 export default Panel;
