@@ -48,7 +48,7 @@ if (!config.development) {
 const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
 
 module.exports = {
-  mode: 'development', //   config.development ? 'development' : 'production',
+  mode: config.development ? 'development' : 'production',
   entry: entries,
   output: {
     path: outputPath,
