@@ -419,7 +419,7 @@ pt:
     end: Fim
     ended: O curso terminou.
     enroll: Inscreva-se
-    enrollment: Inscrição
+    enrollment: Adicionar ou remover alunos
     courses_enrolled: Cursos matriculados
     error:
       exists: Esse curso já existe! Por favor, tente novamente com um título, escola
@@ -651,7 +651,7 @@ pt:
     edit_course_dates: Editar datas do projeto
     end: Fim da atividade de monitorização
     enroll: Adicionar editor
-    enrollment: Participação
+    enrollment: Adicionar ou remover editores
     explore: Encontrar programas
     courses_enrolled: Programas em que participou
     expected_students: Editores Esperados

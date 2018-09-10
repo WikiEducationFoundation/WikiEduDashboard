@@ -412,7 +412,7 @@ de:
     end: Ende
     ended: Der Kurs ist beendet.
     enroll: Einschreiben
-    enrollment: Einschreibung
+    enrollment: Studenten hinzufügen/entfernen
     courses_enrolled: Eingeschriebene Kurse
     error:
       exists: Dieser Kurs ist bereits vorhanden! Bitte versuche es erneut mit einem
@@ -649,7 +649,7 @@ de:
     edit_course_dates: Projektdaten bearbeiten
     end: Ende der Aktivitätsverfolgung
     enroll: Autor hinzufügen
-    enrollment: Teilnahme
+    enrollment: Autoren hinzufügen/entfernen
     explore: Programme finden
     courses_enrolled: Teilgenommene Programme
     expected_students: Erwartete Autoren

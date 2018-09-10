@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Botansahin
+# Author: By erdo can
 # Author: Chansey
 # Author: Elftrkn
 # Author: HakanIST
@@ -193,6 +194,7 @@ tr:
     add_organizer: Organizatör ekle
     alert_article: Makale başlığı
     alert_label: Kampanya Uyarıları
+    alert_select_label: Uyarı türüne göre filtre
     alert_type: Tür
     alert_user_id: Kullanıcı
     all_campaigns: Tüm Kampanyalar
@@ -503,6 +505,7 @@ tr:
       türü ile ilgilidir.
     subject: Konu
     submitted: Gönderilen
+    tags: 'Etiketler:'
     term: Dönem
     timeline: Atama Detayları
     timeline_enabled: Zaman çizelgesi etkin
@@ -513,6 +516,7 @@ tr:
     unsubmitted: Gönderilmeyen Kurslar
     untrained: Eğitimsiz
     update_stats: İstatistikleri güncelle
+    user_recent_uploads: Son Yüklenenler
     user_suggestions: 'Kullanıcı Önerileri:'
     user_suggestions_prompt: Makalenin editörleri için önerileriniz
     view_other: Diğer kampanyaları görüntüle
@@ -523,7 +527,8 @@ tr:
       one: Gönüllü
       other: Gönüllü
     weeks_none: Bu kursun henüz bir zaman çizelgesi yok.
-    wiki_staff: Wiki Ed Ekibi
+    wiki_edits_enabled: Viki düzenlemeleri etkinleştirildi
+    wiki_staff: Viki Eğitim ekibi
     yourcourses: Kurslarınız
     survey:
       notification_message: Bu kurs için anketimize katılın.
@@ -576,7 +581,7 @@ tr:
     edit_course_dates: Proje Tarihini Düzenle
     end: Etkinlik izleme sonu
     enroll: Editör Ekle
-    enrollment: Katılım
+    enrollment: Editörleri ekle/kaldır
     explore: Program bul
     courses_enrolled: Katılınan programlar
     expected_students: Beklenen Editörler

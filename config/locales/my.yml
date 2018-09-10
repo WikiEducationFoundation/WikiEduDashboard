@@ -116,6 +116,7 @@ my:
       course_language: ပင်မ ဘာသာစကား
       course_project: ပင်မ ပရောဂျက်
       course_title: သင်တန်းခေါင်းစဉ်
+      end_date: ပြီးဆုံးရက်
       subject: အကြောင်းအရာ
     delete_suggestion: ဖျက်ရန်
     features_feedback: 'အလိုအလျောက် အကြံပေးချက်များ:'
@@ -125,6 +126,7 @@ my:
     new_account_email: အီးမေးလ် လိပ်စာ
     new_account_email_placeholder: name@example.org
     new_account_submit: အကောင့် တောင်းဆိုရန်
+    overview: ပင်မ
   courses_generic:
     cancel: မလုပ်တော့ပါ
   editable:

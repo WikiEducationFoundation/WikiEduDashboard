@@ -233,7 +233,7 @@ ru:
     campaigns: 'Кампании:'
     campaign_articles: '%{title} Статьи'
     campaign_courses: Курсы %{title}
-    campaign_select: Выберите компанию
+    campaign_select: Выберите кампанию
     campaign_users: Редакторы %{title}
     course: Курс
     course_description: Курсы
@@ -284,6 +284,7 @@ ru:
     end: Завершение
     ended: Курс завершен.
     enroll: Записаться
+    enrollment: Добавить/удалить студентов
     error:
       exists: Такой курс уже существует! Пожалуйста, попробуйте ещё раз с другим заголовком,
         школой или семестром.
@@ -378,7 +379,7 @@ ru:
       save_cloned_course: Сохранить
     delete_course: Удалить программу
     enroll: Добавить редактора
-    enrollment: Участие
+    enrollment: Добавить/удалить редакторов
     explore: Найти программы
     join_course: Присоединиться к программе
     join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника

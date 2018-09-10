@@ -335,7 +335,7 @@ sr-ec:
     end: Крај
     ended: Курс је завршен.
     enroll: Упиши ме
-    enrollment: Упис
+    enrollment: Додај/уклони студенте
     courses_enrolled: Уписани курсеви
     error:
       exists: Овај курс већ постоји! Молимо да покушате поново с другим насловом,
@@ -506,7 +506,7 @@ sr-ec:
     delete_course: Обриши програм
     edit_course_dates: Измени датуме пројекта
     enroll: Додај уредника
-    enrollment: Учествовање
+    enrollment: Додај/уклони уреднике
     explore: Пронађи програме
     courses_enrolled: Програми са учешћем
     expected_students: Очекивани уредници

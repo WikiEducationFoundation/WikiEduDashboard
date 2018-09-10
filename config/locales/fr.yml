@@ -434,7 +434,7 @@ fr:
     end: Fin
     ended: Le cours est terminé.
     enroll: S’inscrire
-    enrollment: Inscription
+    enrollment: Ajouter/Supprimer des étudiants
     courses_enrolled: Inscrit aux cours
     error:
       exists: Ce cours existe déjà ! Veuillez réessayer avec un autre titre, école,
@@ -671,7 +671,7 @@ fr:
     edit_course_dates: Modifier les dates du projet
     end: Fin du suivi d’activité
     enroll: Ajouter éditeur
-    enrollment: Participation
+    enrollment: Ajouter/Supprimer des contributeurs
     explore: Trouver des programmes
     courses_enrolled: Participé aux programmes
     expected_students: Éditeurs attendus

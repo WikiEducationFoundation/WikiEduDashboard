@@ -221,6 +221,7 @@ ko:
     enable_account_requests: 계정 요청 활성화
     enable_chat: 채팅 사용하기
     end: 종료
+    enrollment: 학생 추가/제거
     error:
       user_exists: 죄송합니다, %{username}님은 존재하는 사용자가 아닙니다.
       invalid_language_or_project: 유효하지 않은 언어/프로젝트
@@ -345,7 +346,7 @@ ko:
     delete_course: 프로그램 삭제
     edit_course_dates: 프로젝트 날짜 편집하기
     enroll: 편집자 추가
-    enrollment: 참여
+    enrollment: 편집자 추가/제거
     join_course: 프로그램 참가
     request_accounts: 계정 요청
     revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
@@ -449,7 +450,7 @@ ko:
     empty_week_4: 미리 지정된 과제부터 시작하세요.
     first_week_title: 첫 활동적인 주
     gradeable_value: 값
-    grading_header: '점수 (총: %{total}%)'
+    grading_header: '점수 (총: %{total})'
     no_class_holidays: 휴일 수업이 없습니다
     no_timeline: 이 과정에는 타임라인이 없습니다.
     no_activity_this_week: 이 주에 예정된 미팅 없음

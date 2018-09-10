@@ -8,6 +8,7 @@
 # Author: Macofe
 # Author: Movses
 # Author: Piramidion
+# Author: Vlad5250
 # Author: Ата
 ---
 uk:
@@ -405,7 +406,7 @@ uk:
     end: Кінець
     ended: Курс завершено.
     enroll: Записатись
-    enrollment: Запис
+    enrollment: Додати/вилучити студентів
     courses_enrolled: Записано на курси
     error:
       exists: Такий курс уже існує! Будь ласка, спробуйте знову з іншою назвою, навчальним
@@ -625,7 +626,7 @@ uk:
     edit_course_dates: Редагувати дати проекту
     end: Кінець відслідковування активності
     enroll: Додати редактора
-    enrollment: Участь
+    enrollment: Додати/вилучити редакторів
     explore: Знайти програми
     courses_enrolled: Участь у програмах
     expected_students: Очікувані редактори

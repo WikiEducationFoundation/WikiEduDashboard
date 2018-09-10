@@ -265,7 +265,7 @@ it:
     end: Fine
     ended: Il corso si è concluso.
     enroll: Iscriversi
-    enrollment: Iscrizione
+    enrollment: Aggiungi/rimuovi studenti
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
@@ -404,7 +404,7 @@ it:
     delete_course: Cancella programma
     edit_course_dates: Modifica date del progetto
     enroll: Aggiungi editor
-    enrollment: Partecipazione
+    enrollment: Aggiungi/rimuovi editori
     explore: Trova programmi
     expected_students: Editori previsti
     instructors: Facilitatori

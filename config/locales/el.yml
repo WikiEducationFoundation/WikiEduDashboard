@@ -207,7 +207,7 @@ el:
     end: Τέλος
     ended: Το μάθημα έχει τελειώσει.
     enroll: Εγγραφή
-    enrollment: Εγγραφή
+    enrollment: Προσθήκη/Αφαίρεση Μαθητών
     error:
       user_exists: Λυπούμαστε, ο χρήστης %{username} δεν υπάρχει.
       invalid_language_or_project: Μη έγκυρη γλώσσα/εγχείρημα
@@ -273,7 +273,7 @@ el:
       course_title: Τίτλος προγράμματος
       save_cloned_course: Αποθήκευση
     delete_course: Διαγραφή προγράμματος
-    enrollment: Συμμετοχή
+    enrollment: Προσθήκη/Αφαίρεση Συντακτών
     view_page: Δείτε τη Σελίδα του Προγράμματος
   metrics:
     label: Μαθήματα
