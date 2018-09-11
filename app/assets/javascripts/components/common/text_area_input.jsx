@@ -55,7 +55,7 @@ const TextAreaInput = createReactClass({
             className={inputClass}
             init={{
               height: 250,
-              plugins: 'code link',
+              plugins: 'code link lists',
               branding: false,
               inline: true,
               default_link_target: '_blank',
