@@ -135,7 +135,7 @@ const getWizardOutput = (state) => {
   const logic = [];
   const tags = [];
   state.panels.forEach((panel) => {
-    if ($.isArray(panel.output)) {
+    if (Array.isArray(panel.output)) {
       output = output.concat(panel.output);
     } else {
       output.push(panel.output);
@@ -144,7 +144,7 @@ const getWizardOutput = (state) => {
       return panel.options.forEach((option) => {
         if (!option.selected) { return; }
         if (option.output) {
-          if ($.isArray(option.output)) {
+          if (Array.isArray(option.output)) {
             output = output.concat(option.output);
           } else {
             output.push(option.output);
