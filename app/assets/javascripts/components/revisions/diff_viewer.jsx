@@ -27,12 +27,6 @@ const DiffViewer = createReactClass({
     fetchArticleDetails: PropTypes.func
   },
 
-  getInitialState() {
-    return {
-      showDiff: false,
-    };
-  },
-
   // When 'show' is clicked, this component may or may not already have
   // users data (a list of usernames) in its props. If it does, then 'show' will
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
@@ -40,7 +34,14 @@ const DiffViewer = createReactClass({
   // first in that case. In that case, componentWillReceiveProps fetches the
   // user ids as soon as usernames are avaialable.
   componentWillReceiveProps(nextProps) {
-    if (!this.props.editors && nextProps.editors && this.state.showDiff) {
+    if (this.props.showDiffView) {
+      this.showDiff();
+    }
+    if (nextProps.revision.id !== this.props.revision.id) {
+      this.setState({ diffFetchInitiated: false, fetched: false, comment: '' }, () => {
+        this.initiateDiffFetch(nextProps);
+      });
+    } else if (!this.props.editors && nextProps.editors && this.props.showDiffView) {
       this.initiateDiffFetch(nextProps);
     }
   },
@@ -53,7 +54,6 @@ const DiffViewer = createReactClass({
   },
 
   showDiff() {
-    this.setState({ showDiff: true });
     if (!this.props.editors) {
       this.props.fetchArticleDetails();
     } else if (!this.state.fetched) {
@@ -61,12 +61,9 @@ const DiffViewer = createReactClass({
     }
   },
 
-  hideDiff() {
-    this.setState({ showDiff: false });
-  },
 
   handleClickOutside() {
-    this.hideDiff();
+    this.props.hideDiff();
   },
 
   // If a first and current revision are provided, find the parent of the first revision
@@ -174,10 +171,9 @@ const DiffViewer = createReactClass({
   },
 
   render() {
-    if (!this.state.showDiff || !this.props.revision) {
+    if (!this.props.showDiffView || !this.props.revision) {
       return (
         <div className={`tooltip-trigger ${this.props.showButtonClass}`}>
-          <button onClick={this.showDiff} className="icon icon-diff-viewer" />
           <div className="tooltip tooltip-center dark large">
             <p>{this.showButtonLabel()}</p>
           </div>
@@ -186,7 +182,7 @@ const DiffViewer = createReactClass({
     }
 
     let style = 'hidden';
-    if (this.state.showDiff) {
+    if (this.props.showDiffView) {
       style = '';
     }
     const className = `diff-viewer ${style}`;
@@ -246,11 +242,18 @@ const DiffViewer = createReactClass({
     }
 
     return (
-      <div>
+      <div className="modal">
+        {
+          this.props.handlePrevious &&
+          <div>
+            <button onClick={this.props.handlePrevious} className="previous button dark small">Previous</button>
+            <button onClick={this.props.handleNext} className="next button dark small">Next</button>
+          </div>
+        }
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
-            <button onClick={this.hideDiff} className="pull-right icon-close" />
+            <button onClick={this.props.hideDiff} className="pull-right icon-close" />
             <a className="pull-right button small diff-viewer-feedback" href="/feedback?subject=Diff Viewer" target="_blank">How did the diff viewer work for you?</a>
           </div>
           {salesforceButtons}
