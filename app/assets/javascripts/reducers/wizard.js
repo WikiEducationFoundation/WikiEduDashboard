@@ -57,10 +57,11 @@ const updatedPanelSelections = (oldPanels, panelIndex, optionIndex) => {
   const updatedPanel = { ...newPanels[panelIndex] };
   const updatedOptions = updatedPanel.options.map((option, index) => {
     const updatedOption = { ...option };
-    if (index === optionIndex) {
-      updatedOption.selected = !option.selected;
-    } else if (updatedPanel.type === SINGLE_CHOICE_PANEL) {
+    if (updatedPanel.type === SINGLE_CHOICE_PANEL) {
       updatedOption.selected = false;
+    }
+    if (index === optionIndex) {
+      updatedOption.selected = !updatedOption.selected;
     }
     return updatedOption;
   });
