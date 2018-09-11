@@ -4,6 +4,7 @@ import {
   ASSIGNMENTS_PANEL_INDEX,
   RECEIVE_WIZARD_ASSIGNMENT_OPTIONS,
   SELECT_WIZARD_OPTION,
+  SELECT_WIZARD_ASSIGNMENT,
   WIZARD_ADVANCE,
   WIZARD_REWIND,
   WIZARD_GOTO,
@@ -150,6 +151,7 @@ export const selectWizardOption = (panelIndex, optionIndex) => dispatch => {
   // Changing the selected assignment clears the wizard, so you can't
   // return directly to the summary.
   if (panelIndex === ASSIGNMENTS_PANEL_INDEX) {
+    dispatch({ type: SELECT_WIZARD_ASSIGNMENT, optionIndex });
     dispatch({ type: WIZARD_DISABLE_SUMMARY_MODE });
   }
 };
