@@ -20,17 +20,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchWizardPanels(wizardId) {
-    return API.fetchWizardPanels(wizardId)
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_PANELS',
-        data: {
-          wizard_panels: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchSuspectedPlagiarism(opts = {}) {
     return API.fetchSuspectedPlagiarism(opts)
       .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))
@@ -79,12 +68,6 @@ const ServerActions = Flux.createActions({
   saveTimeline(data, courseId) {
     return API.saveTimeline(courseId, data)
       .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  submitWizard(courseId, wizardId, data) {
-    return API.submitWizard(courseId, wizardId, data)
-      .then(resp => ({ actionType: 'WIZARD_SUBMITTED', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

@@ -208,22 +208,6 @@ const API = {
     );
   },
 
-  fetchWizardPanels(wizardId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/wizards/${wizardId}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchUserCourses(userId) {
     return new Promise((res, rej) =>
       $.ajax({
@@ -541,24 +525,6 @@ slide_id=${opts.slide_id}`,
       })
       .fail((obj) => {
         logErrorMessage(obj, 'There was an error with the greetings! ');
-        return rej(obj);
-      })
-    );
-  },
-
-  submitWizard(courseId, wizardId, data) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/courses/${courseId}/wizard/${wizardId}.json`,
-        contentType: 'application/json',
-        data: JSON.stringify({ wizard_output: data }),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
         return rej(obj);
       })
     );

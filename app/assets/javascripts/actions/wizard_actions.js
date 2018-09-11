@@ -1,4 +1,3 @@
-import McFly from 'mcfly';
 import _ from 'lodash';
 import {
   ASSIGNMENTS_PANEL_INDEX,
@@ -15,69 +14,6 @@ import {
 } from '../constants';
 
 import logErrorMessage from '../utils/log_error_message';
-
-const Flux = new McFly();
-
-export const WizardActions = Flux.createActions({
-  toggleOptionSelected(panelIndex, optionIndex) {
-    return {
-      actionType: 'SELECT_OPTION',
-      data: {
-        panel_index: panelIndex,
-        option_index: optionIndex
-      }
-    };
-  },
-
-  toggleOptionExpanded(panelIndex, optionIndex) {
-    return {
-      actionType: 'EXPAND_OPTION',
-      data: {
-        panel_index: panelIndex,
-        option_index: optionIndex
-      }
-    };
-  },
-
-  rewindWizard(toIndex = null) {
-    return {
-      actionType: 'WIZARD_REWIND',
-      data: { toIndex }
-    };
-  },
-
-  advanceWizard() {
-    return { actionType: 'WIZARD_ADVANCE' };
-  },
-
-  resetWizard() {
-    return { actionType: 'WIZARD_RESET' };
-  },
-
-  goToWizard(toIndex = 0) {
-    return {
-      actionType: 'WIZARD_GOTO',
-      data: { toIndex }
-    };
-  },
-  receiveWizardIndex(resp) {
-    return {
-      actionType: 'RECEIVE_WIZARD_INDEX',
-      data: {
-        wizard_index: resp
-      }
-    };
-  },
-  receiveWizardPanels(resp) {
-    return {
-      actionType: 'RECEIVE_WIZARD_PANELS',
-      data: {
-        wizard_panels: resp
-      }
-    };
-  }
-});
-
 
 const fetchWizardIndexPromise = () => {
   return new Promise((res, rej) =>
@@ -135,9 +71,8 @@ export const advanceWizard = () => (dispatch, getState) => {
   // we need to fetch the specific wizard panel for the selected
   // assignment option.
   if (state.wizard.activeIndex === ASSIGNMENTS_PANEL_INDEX) {
-    const assignmentOptions = state.wizard.panels[ASSIGNMENTS_PANEL_INDEX].options;
-    const selectedWizard = _.find(assignmentOptions, option => option.selected);
-    fetchWizardPanels(selectedWizard.key)(dispatch);
+    const wizardKey = getWizardKey(state.wizard);
+    fetchWizardPanels(wizardKey)(dispatch);
   // If we're advancing from the second-to-last panel to the final summary panel,
   // enable summary mode.
   } else if (state.wizard.activeIndex === state.wizard.panels.length - 2) {
@@ -170,4 +105,64 @@ export const enableSummaryMode = () => {
 
 export const disableSummaryMode = () => {
   return { type: WIZARD_DISABLE_SUMMARY_MODE };
+};
+
+const submitWizardPromise = (courseSlug, wizardId, wizardOutput) => {
+  return new Promise((res, rej) =>
+    $.ajax({
+      type: 'POST',
+      url: `/courses/${courseSlug}/wizard/${wizardId}.json`,
+      contentType: 'application/json',
+      data: JSON.stringify({ wizard_output: wizardOutput }),
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
+      return rej(obj);
+    })
+  );
+};
+
+const getWizardKey = state => {
+  const assignmentOptions = state.assignmentOptions;
+  return _.find(assignmentOptions, option => option.selected).key;
+};
+
+const getWizardOutput = (state) => {
+  let output = [];
+  const logic = [];
+  const tags = [];
+  state.panels.forEach((panel) => {
+    if ($.isArray(panel.output)) {
+      output = output.concat(panel.output);
+    } else {
+      output.push(panel.output);
+    }
+    if (panel.options !== undefined && panel.options.length > 0) {
+      return panel.options.forEach((option) => {
+        if (!option.selected) { return; }
+        if (option.output) {
+          if ($.isArray(option.output)) {
+            output = output.concat(option.output);
+          } else {
+            output.push(option.output);
+          }
+        }
+        if (option.logic) { logic.push(option.logic); }
+        if (option.tag) { return tags.push({ key: panel.key, tag: option.tag }); }
+      });
+    }
+  });
+  return { output, logic, tags };
+};
+
+export const submitWizard = (courseSlug) => (_dispatch, getState) => {
+  const wizardState = getState().wizard;
+  submitWizardPromise(courseSlug, getWizardKey(wizardState), getWizardOutput(wizardState))
+    .then(() => {
+      // reload the timeline tab with the new timeline
+      window.location = `/${window.location.pathname.split('/').splice(1, 4).join('/')}`;
+    });
 };

@@ -11,8 +11,6 @@ import {
   WIZARD_DISABLE_SUMMARY_MODE,
   ASSIGNMENTS_PANEL_INDEX,
   SINGLE_CHOICE_PANEL
-  // WIZARD_RESET,
-  // WIZARD_SUBMITTED
 } from '../constants';
 
 const assignmentsPanel = (options = []) => {

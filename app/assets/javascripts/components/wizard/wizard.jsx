@@ -8,15 +8,8 @@ import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
-import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
-import { WizardActions, fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption } from '../../actions/wizard_actions';
-
-const getState = () =>
-  ({
-    wizard_id: WizardStore.getWizardKey()
-  })
-;
+import { fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption, submitWizard } from '../../actions/wizard_actions';
 
 const persist = function (goToWizardFunc) {
   window.onbeforeunload = function () {
@@ -48,7 +41,7 @@ const Wizard = createReactClass({
     goToWizard: PropTypes.func.isRequired,
     panels: PropTypes.array.isRequired
   },
-  mixins: [WizardStore.mixin],
+
   getInitialState() {
     return getState();
   },
@@ -58,10 +51,6 @@ const Wizard = createReactClass({
   },
   componentWillUnmount() {
     unloadEvents();
-    return WizardActions.resetWizard();
-  },
-  storeDidChange() {
-    return this.setState(getState());
   },
   timelinePath() {
     const routes = this.props.location.pathname.split('/');
@@ -129,8 +118,7 @@ const Wizard = createReactClass({
           index={i}
           step={step}
           courseId={this.props.course.slug}
-          wizardId={this.state.wizard_id}
-          advance={this.props.advanceWizard}
+          submitWizard={this.props.submitWizard}
           goToWizard={this.props.goToWizard}
           selectWizardOption={this.props.selectWizardOption}
         />
@@ -156,7 +144,6 @@ const Wizard = createReactClass({
 const mapStateToProps = state => ({
   summary: state.wizard.summary,
   panels: state.wizard.panels,
-  wizardId: state.wizard.wizardKey,
   activePanelIndex: state.wizard.activeIndex
 });
 
@@ -166,7 +153,8 @@ const mapDispatchToProps = {
   fetchWizardIndex,
   advanceWizard,
   goToWizard,
-  selectWizardOption
+  selectWizardOption,
+  submitWizard
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wizard);

@@ -3,7 +3,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { WizardActions } from '../../actions/wizard_actions.js';
 import Option from './option.jsx';
 
 const md = require('../../utils/markdown_it.js').default();
@@ -62,10 +61,7 @@ const Panel = createReactClass({
       window.history.back();
     }
   },
-  reset(e) {
-    e.preventDefault();
-    return WizardActions.resetWizard();
-  },
+
   close() {
     return confirm('This will close the wizard without saving your progress. Are you sure you want to do this?');
   },

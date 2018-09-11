@@ -1,12 +1,8 @@
-// use WizardStore.getPanels() for answers
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import ServerActions from '../../actions/server_actions.js';
-import WizardStore from '../../stores/wizard_store.js';
 import Panel from './panel.jsx';
-
 
 const answersFromPanels = panels => {
   const answers = [];
@@ -31,12 +27,11 @@ const SummaryPanel = createReactClass({
   propTypes: {
     courseId: PropTypes.string,
     course: PropTypes.object.isRequired,
-    wizardId: PropTypes.string,
     panels: PropTypes.array.isRequired
   },
 
   submit() {
-    ServerActions.submitWizard(this.props.courseId, this.props.wizardId, WizardStore.getOutput());
+    this.props.submitWizard(this.props.courseId);
     window.onbeforeunload = null;
     return browserHistory.push(`/courses/${this.props.courseId}/timeline`);
   },
