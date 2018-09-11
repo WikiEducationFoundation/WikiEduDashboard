@@ -78,7 +78,8 @@ def go_through_researchwrite_wizard
   click_button 'Next'
   sleep 1
 
-  find('.wizard__option', match: :first).find('button', match: :first).click # Biographies handout
+  # Choose the first handout
+  omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
   sleep 1
 
