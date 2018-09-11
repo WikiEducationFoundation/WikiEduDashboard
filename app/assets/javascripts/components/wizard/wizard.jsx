@@ -42,13 +42,16 @@ const Wizard = createReactClass({
     panels: PropTypes.array.isRequired
   },
 
-  getInitialState() {
-    return getState();
-  },
-  componentWillMount() {
+  componentDidMount() {
     persist(this.props.goToWizard);
     return this.props.fetchWizardIndex();
   },
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activePanelIndex === this.props.activePanelIndex) { return; }
+    document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
+  },
+
   componentWillUnmount() {
     unloadEvents();
   },
@@ -84,6 +87,7 @@ const Wizard = createReactClass({
             updateCourse={this.props.updateCourse}
             persistCourse={this.props.persistCourse}
             advance={this.props.advanceWizard}
+            goToWizard={this.props.goToWizard}
             selectWizardOption={this.props.selectWizardOption}
           />
         );
