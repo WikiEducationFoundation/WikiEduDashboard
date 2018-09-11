@@ -8,7 +8,8 @@ import {
   WIZARD_REWIND,
   WIZARD_GOTO,
   WIZARD_ENABLE_SUMMARY_MODE,
-  WIZARD_DISABLE_SUMMARY_MODE
+  WIZARD_DISABLE_SUMMARY_MODE,
+  SINGLE_CHOICE_PANEL
   // WIZARD_RESET,
   // WIZARD_SUBMITTED
 } from '../constants';
@@ -54,8 +55,16 @@ const panels = (assignmentOptions = [], extraPanels = []) => {
 const updatedPanelSelections = (oldPanels, panelIndex, optionIndex) => {
   const newPanels = [...oldPanels];
   const updatedPanel = { ...newPanels[panelIndex] };
-  const updatedOptions = [...updatedPanel.options];
-  updatedOptions[optionIndex].selected = !updatedOptions[optionIndex].selected;
+  const updatedOptions = updatedPanel.options.map((option, index) => {
+    const updatedOption = { ...option };
+    if (index === optionIndex) {
+      updatedOption.selected = !option.selected;
+    } else if (updatedPanel.type === SINGLE_CHOICE_PANEL) {
+      updatedOption.selected = false;
+    }
+    return updatedOption;
+  });
+
   updatedPanel.options = updatedOptions;
   newPanels[panelIndex] = updatedPanel;
   return newPanels;
