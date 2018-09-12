@@ -99,6 +99,7 @@ const TimelineHandler = createReactClass({
       editable={this.props.editable}
       current_user={this.props.current_user}
       persistCourse={this.saveTimeline}
+      updateBlock={this.props.updateBlock}
       resetState={() => {}}
       nameHasChanged={() => false}
     /> : null;

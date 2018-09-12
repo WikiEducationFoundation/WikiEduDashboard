@@ -14,7 +14,8 @@ const Grading = createReactClass({
     blocks: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func,
-    current_user: PropTypes.object.isRequired
+    current_user: PropTypes.object.isRequired,
+    updateBlock: PropTypes.func.isRequired
   },
 
   render() {
@@ -55,6 +56,7 @@ const Grading = createReactClass({
           key={block.id}
           block={block}
           editable={this.props.editable}
+          updateBlock={this.props.updateBlock}
         />
       );
     });
