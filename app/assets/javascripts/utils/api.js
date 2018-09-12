@@ -349,19 +349,19 @@ slide_id=${opts.slide_id}`,
     const promise = new Promise((res, rej) => {
       const cleanup = function (array) {
         const result = [];
-        _.forEach(array, (obj) => {
-          let item;
-          if (obj.is_new) {
-            delete obj.id;
-            item = delete obj.is_new;
+        array.forEach(obj => {
+          const newObject = { ...obj }
+          if (newObject.is_new) {
+            delete newObject.id;
+            delete newObject.is_new;
           }
-          result.push(item);
+          result.push(newObject);
         });
         return result;
       }
 
-      const { weeks } = data;
-      const { blocks } = data;
+      const weeks = cleanup(data.weeks)
+      const blocks = cleanup(data.blocks)
 
       _.forEach(weeks, (week) => {
         week.blocks = [];

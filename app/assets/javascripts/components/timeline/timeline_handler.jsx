@@ -12,7 +12,7 @@ import ServerActions from '../../actions/server_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
-import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable, updateBlock } from '../../actions/timeline_actions';
+import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable, updateBlock, addBlock } from '../../actions/timeline_actions';
 import { getWeeksArray, getBlocksArray } from '../../selectors';
 
 
@@ -57,14 +57,10 @@ const TimelineHandler = createReactClass({
     return this.setState({ reorderable: true });
   },
 
-  saveTimeline(editableBlockId = 0) {
+  saveTimeline() {
     this.setState({ reorderable: false });
     const toSave = { weeks: this.props.weeks, blocks: this.props.blocks };
     this.props.persistTimeline(toSave, this.props.course_id);
-    if (editableBlockId > 0) {
-      return BlockStore.cancelBlockEditable(editableBlockId);
-    }
-    return BlockStore.clearEditableBlockIds();
   },
 
   render() {
@@ -132,6 +128,7 @@ const TimelineHandler = createReactClass({
           enableReorderable={this._enableReorderable}
           all_training_modules={TrainingStore.getAllModules()}
           addWeek={this.props.addWeek}
+          addBlock={this.props.addBlock}
           deleteWeek={this.props.deleteWeek}
           setBlockEditable={this.props.setBlockEditable}
           resetState={() => {}}
@@ -155,6 +152,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   addWeek,
   deleteWeek,
+  addBlock,
   persistTimeline,
   setBlockEditable,
   cancelBlockEditable,

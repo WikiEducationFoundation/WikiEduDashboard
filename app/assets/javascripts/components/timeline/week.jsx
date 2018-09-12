@@ -28,6 +28,7 @@ const Week = createReactClass({
     canBlockMoveDown: PropTypes.func,
     saveBlockChanges: PropTypes.func,
     cancelBlockEditable: PropTypes.func,
+    addBlock: PropTypes.func.isRequired,
     deleteWeek: PropTypes.func,
     all_training_modules: PropTypes.array,
     weeksBeforeTimeline: PropTypes.number
@@ -45,7 +46,7 @@ const Week = createReactClass({
   },
   addBlock() {
     this._scrollToAddedBlock();
-    return BlockActions.addBlock(this.props.week.id);
+    return this.props.addBlock(this.props.week.id);
   },
   deleteBlock(blockId) {
     return BlockActions.deleteBlock(blockId);

@@ -5,7 +5,8 @@ import {
   DELETE_WEEK,
   SET_BLOCK_EDITABLE,
   CANCEL_BLOCK_EDITABLE,
-  UPDATE_BLOCK
+  UPDATE_BLOCK,
+  ADD_BLOCK
 } from '../constants';
 
 const initialState = {
@@ -23,6 +24,31 @@ const newWeek = (tempId, state) => ({
   blocks: [],
   order: Object.keys(state.weeks).length + 1
 });
+
+const blocksInWeek = (blocks, weekId) => {
+  let count = 0;
+  const blockIds = Object.keys(blocks);
+  blockIds.forEach(blockId => {
+    if (blocks[blockId].week_id === weekId) {
+      count += 1;
+    }
+  });
+  return count;
+};
+
+const newBlock = (tempId, weekId, state) => {
+  return {
+    id: tempId,
+    is_new: true,
+    kind: 0,
+    title: '',
+    content: '',
+    week_id: weekId,
+    order: blocksInWeek(state.blocks),
+    duration: null,
+    points: null
+  };
+};
 
 const weeksFromTimeline = data => {
   const weeks = {};
@@ -88,6 +114,11 @@ export default function timeline(state = initialState, action) {
       const updatedBlocks = { ...state.blocks };
       updatedBlocks[action.block.id] = action.block;
       return { ...state, blocks: updatedBlocks };
+    }
+    case ADD_BLOCK: {
+      const updatedBlocks = { ...state.blocks };
+      updatedBlocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
+      return { ...state, blocks: updatedBlocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
     }
     default:
       return state;

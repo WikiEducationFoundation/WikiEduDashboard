@@ -2,7 +2,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
-import WeekActions from '../../actions/week_actions.js';
 import DateCalculator from '../../utils/date_calculator.js';
 
 const EmptyWeek = createReactClass({
@@ -15,11 +14,8 @@ const EmptyWeek = createReactClass({
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
     index: PropTypes.number,
-    weeksBeforeTimeline: PropTypes.number
-  },
-
-  addWeek() {
-    WeekActions.addWeek();
+    weeksBeforeTimeline: PropTypes.number,
+    addWeek: PropTypes.func.isRequired
   },
 
   render() {
@@ -39,7 +35,7 @@ const EmptyWeek = createReactClass({
       week = (
         <p className="week__no-activity__get-started">
           {I18n.t('timeline.empty_week_1')}&nbsp;
-          <span className="empty-week-clickable" onClick={this.addWeek}>{I18n.t('timeline.empty_week_2')}</span>&nbsp;
+          <span className="empty-week-clickable" onClick={this.props.addWeek}>{I18n.t('timeline.empty_week_2')}</span>&nbsp;
           {wizardLinkTransition}&nbsp;
           {wizardLink}
         </p>);

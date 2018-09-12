@@ -4,6 +4,7 @@ import {
   SET_BLOCK_EDITABLE,
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
+  ADD_BLOCK,
   ADD_WEEK,
   DELETE_WEEK,
   API_FAIL,
@@ -65,4 +66,8 @@ export const cancelBlockEditable = blockId => {
 
 export const updateBlock = block => {
   return { type: UPDATE_BLOCK, block };
+};
+
+export const addBlock = weekId => {
+  return { type: ADD_BLOCK, weekId, tempId: Date.now() };
 };

@@ -35,6 +35,7 @@ const Timeline = createReactClass({
     editable: PropTypes.bool,
     controls: PropTypes.func,
     addWeek: PropTypes.func.isRequired,
+    addBlock: PropTypes.func.isRequired,
     deleteWeek: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
@@ -211,6 +212,7 @@ const Timeline = createReactClass({
               timeline_start={this.props.course.timeline_start}
               timeline_end={this.props.course.timeline_end}
               weeksBeforeTimeline={weeksBeforeTimeline}
+              addWeek={this.props.addWeek}
             />
           </div>
         )
@@ -238,6 +240,7 @@ const Timeline = createReactClass({
             setBlockEditable={this.props.setBlockEditable}
             cancelBlockEditable={this.props.cancelBlockEditable}
             updateBlock={this.props.updateBlock}
+            addBlock={this.props.addBlock}
             saveGlobalChanges={this.props.saveGlobalChanges}
             canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
             canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}
@@ -265,6 +268,7 @@ const Timeline = createReactClass({
           timeline_start={this.props.course.timeline_start}
           timeline_end={this.props.course.timeline_end}
           edit_permissions={this.props.edit_permissions}
+          addWeek={this.props.addWeek}
         />
       );
     }
