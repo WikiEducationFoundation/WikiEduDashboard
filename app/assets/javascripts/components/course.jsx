@@ -9,20 +9,14 @@ import Confirm from './common/confirm.jsx';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
 import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../actions/course_actions_redux';
-import WeekStore from '../stores/week_store.js';
+import { fetchTimeline } from '../actions/timeline_actions';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';
 import EnrollCard from './enroll/enroll_card.jsx';
 import CourseNavbar from './common/course_navbar.jsx';
 import Notifications from './common/notifications.jsx';
 import OptInNotification from './common/opt_in_notification';
-import { getStudentCount, getCurrentUser } from '../selectors';
-
-const getState = function () {
-  return {
-    weeks: WeekStore.getWeeks()
-  };
-};
+import { getStudentCount, getCurrentUser, getWeeksArray } from '../selectors';
 
 const Course = createReactClass({
   displayName: 'Course',
@@ -34,13 +28,8 @@ const Course = createReactClass({
     children: PropTypes.node,
     currentUser: PropTypes.object,
     updateCourse: PropTypes.func.isRequired,
-    persistCourse: PropTypes.func.isRequired
-  },
-
-  mixins: [WeekStore.mixin],
-
-  getInitialState() {
-    return getState();
+    persistCourse: PropTypes.func.isRequired,
+    fetchTimeline: PropTypes.func.isRequired
   },
 
   // Fetch all the data needed to render a course page
@@ -48,6 +37,7 @@ const Course = createReactClass({
     const courseID = this.getCourseID();
     this.props.fetchCourse(courseID);
     this.props.fetchUsers(courseID);
+    this.props.fetchTimeline(courseID);
     return this.props.fetchCampaigns(courseID);
   },
 
@@ -106,7 +96,7 @@ const Course = createReactClass({
       const isUnsubmittedClassroomProgramCourse = !course.submitted && course.type === 'ClassroomProgramCourse';
       if (isUnsubmittedClassroomProgramCourse) {
         // Show submit button if there is a timeline with trainings, or user is admin.
-        if (CourseUtils.hasTrainings(this.state.weeks) || userRoles.isAdmin) {
+        if (CourseUtils.hasTrainings(this.props.weeks) || userRoles.isAdmin) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -116,7 +106,7 @@ const Course = createReactClass({
             </div>
           ));
         // Show 'add trainings' message if there is a timeline with no trainings
-        } else if (this.state.weeks.length) {
+        } else if (this.props.weeks.length) {
           alerts.push((
             <div className="notification" key="submit">
               <div className="container">
@@ -273,6 +263,7 @@ const Course = createReactClass({
 const mapStateToProps = state => ({
   course: state.course,
   users: state.users.users,
+  weeks: getWeeksArray(state),
   usersLoaded: state.users.isLoaded,
   studentCount: getStudentCount(state),
   currentUser: getCurrentUser(state)
@@ -282,6 +273,7 @@ const mapDispatchToProps = {
   fetchUsers,
   fetchCampaigns,
   fetchCourse,
+  fetchTimeline,
   updateCourse,
   persistCourse,
   dismissNotification

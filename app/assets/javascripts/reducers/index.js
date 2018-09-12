@@ -22,6 +22,7 @@ import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import tags from './tags';
+import timeline from './timeline';
 import trainingStatus from './training_status';
 import ui from './ui';
 import uploads from './uploads';
@@ -57,6 +58,7 @@ const reducer = combineReducers({
   suspectedPlagiarism,
   settings,
   tags,
+  timeline,
   trainingStatus,
   ui,
   uploads,

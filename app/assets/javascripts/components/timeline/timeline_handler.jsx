@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -15,11 +16,11 @@ import TimelineActions from '../../actions/timeline_actions.js';
 import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
+import { getWeeksArray } from '../../selectors';
 
 const getState = () =>
   ({
     loading: WeekStore.getLoadingStatus(),
-    weeks: WeekStore.getWeeks(),
     blocks: BlockStore.getBlocks(),
     all_training_modules: TrainingStore.getAllModules(),
     editable_block_ids: BlockStore.getEditableBlockIds()
@@ -136,4 +137,8 @@ const TimelineHandler = createReactClass({
   }
 });
 
-export default Editable(TimelineHandler, [WeekStore, BlockStore, TrainingStore], TimelineActions.persistTimeline, getState);
+const mapStateToProps = state => ({
+  weeks: getWeeksArray(state)
+});
+
+export default connect(mapStateToProps)(Editable(TimelineHandler, [WeekStore, BlockStore, TrainingStore], TimelineActions.persistTimeline, getState));

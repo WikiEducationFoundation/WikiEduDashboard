@@ -1,0 +1,1 @@
+export const RECEIVE_TIMELINE = 'RECEIVE_TIMELINE';
