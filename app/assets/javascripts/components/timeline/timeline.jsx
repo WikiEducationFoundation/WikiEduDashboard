@@ -11,6 +11,7 @@ import EmptyWeek from './empty_week.jsx';
 import Loading from '../common/loading.jsx';
 import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
+import EditableRedux from '../high_order/editable_redux';
 
 import BlockActions from '../../actions/block_actions.js';
 import CourseActions from '../../actions/course_actions.js';
@@ -394,7 +395,7 @@ const Timeline = createReactClass({
   }
 });
 
-export default DragDropContext(Touch({ enableMouseEvents: true }))(Timeline);
+export default EditableRedux(DragDropContext(Touch({ enableMouseEvents: true }))(Timeline));
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

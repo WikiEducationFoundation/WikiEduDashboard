@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import EditableRedux from '../high_order/editable_redux';
 
 import Gradeable from './gradeable.jsx';
 
@@ -12,7 +13,8 @@ const Grading = createReactClass({
     weeks: PropTypes.array,
     blocks: PropTypes.array,
     editable: PropTypes.bool,
-    controls: PropTypes.func
+    controls: PropTypes.func,
+    current_user: PropTypes.object.isRequired
   },
 
   render() {
@@ -73,4 +75,4 @@ const Grading = createReactClass({
 }
 );
 
-export default Grading;
+export default EditableRedux(Grading, I18n.t('editable.edit'));

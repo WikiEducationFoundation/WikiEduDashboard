@@ -1,4 +1,4 @@
-import { RECEIVE_TIMELINE, ADD_WEEK, DELETE_WEEK } from '../constants';
+import { RECEIVE_TIMELINE, SAVED_TIMELINE, ADD_WEEK, DELETE_WEEK } from '../constants';
 
 const initialState = {
   blocks: {},
@@ -35,6 +35,7 @@ const blocksFromTimeline = data => {
 
 export default function timeline(state = initialState, action) {
   switch (action.type) {
+    case SAVED_TIMELINE:
     case RECEIVE_TIMELINE: {
       const weeks = weeksFromTimeline(action.data);
       const blocks = blocksFromTimeline(action.data);

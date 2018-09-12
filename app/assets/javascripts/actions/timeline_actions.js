@@ -1,6 +1,6 @@
 import McFly from 'mcfly';
 import API from '../utils/api.js';
-import { RECEIVE_TIMELINE, ADD_WEEK, DELETE_WEEK, API_FAIL } from '../constants';
+import { RECEIVE_TIMELINE, ADD_WEEK, DELETE_WEEK, API_FAIL, SAVED_TIMELINE, SAVE_TIMELINE_FAIL } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
 const Flux = new McFly();
@@ -49,4 +49,10 @@ export const deleteWeek = weekId => dispatch => {
       weekId: data.week_id
     }))
     .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const persistTimeline = (timelineData, courseSlug) => dispatch => {
+  return API.saveTimeline(courseSlug, timelineData)
+    .then(data => dispatch({ type: SAVED_TIMELINE, data }))
+    .catch(data => dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug }));
 };
