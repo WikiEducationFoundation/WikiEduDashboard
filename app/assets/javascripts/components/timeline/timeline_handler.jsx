@@ -13,14 +13,13 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 import ServerActions from '../../actions/server_actions.js';
 import TimelineActions from '../../actions/timeline_actions.js';
 
-import WeekStore from '../../stores/week_store.js';
 import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
+import { addWeek, deleteWeek } from '../../actions/timeline_actions';
 import { getWeeksArray } from '../../selectors';
 
 const getState = () =>
   ({
-    loading: WeekStore.getLoadingStatus(),
     blocks: BlockStore.getBlocks(),
     all_training_modules: TrainingStore.getAllModules(),
     editable_block_ids: BlockStore.getEditableBlockIds()
@@ -36,7 +35,8 @@ const TimelineHandler = createReactClass({
     current_user: PropTypes.object,
     children: PropTypes.node,
     controls: PropTypes.func,
-    weeks: PropTypes.array,
+    weeks: PropTypes.array.isRequired,
+    weeksObject: PropTypes.object.isRequired,
     blocks: PropTypes.array,
     loading: PropTypes.bool,
     editable_block_ids: PropTypes.array,
@@ -119,6 +119,7 @@ const TimelineHandler = createReactClass({
           loading={this.props.loading}
           course={this.props.course}
           weeks={this.props.weeks}
+          weeksObject={this.props.weeksObject}
           week_meetings={weekMeetings}
           editable_block_ids={this.props.editable_block_ids}
           reorderable={this.state.reorderable}
@@ -129,6 +130,8 @@ const TimelineHandler = createReactClass({
           cancelGlobalChanges={this._cancelGlobalChanges}
           enableReorderable={this._enableReorderable}
           all_training_modules={this.props.all_training_modules}
+          addWeek={this.props.addWeek}
+          deleteWeek={this.props.deleteWeek}
           edit_permissions={this.props.current_user.admin || this.props.current_user.role > 0}
         />
         {grading}
@@ -138,7 +141,14 @@ const TimelineHandler = createReactClass({
 });
 
 const mapStateToProps = state => ({
-  weeks: getWeeksArray(state)
+  weeks: getWeeksArray(state),
+  weeksObject: state.timeline.weeks,
+  loading: state.timeline.loading
 });
 
-export default connect(mapStateToProps)(Editable(TimelineHandler, [WeekStore, BlockStore, TrainingStore], TimelineActions.persistTimeline, getState));
+const mapDispatchToProps = {
+  addWeek,
+  deleteWeek
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editable(TimelineHandler, [BlockStore, TrainingStore], TimelineActions.persistTimeline, getState));

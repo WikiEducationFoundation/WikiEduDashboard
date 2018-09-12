@@ -12,12 +12,10 @@ import Loading from '../common/loading.jsx';
 import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 
-import WeekActions from '../../actions/week_actions.js';
 import BlockActions from '../../actions/block_actions.js';
 import CourseActions from '../../actions/course_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
-import WeekStore from '../../stores/week_store.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -30,10 +28,13 @@ const Timeline = createReactClass({
     loading: PropTypes.bool,
     course: PropTypes.object.isRequired,
     weeks: PropTypes.array,
+    weeksObject: PropTypes.object.isRequired,
     week_meetings: PropTypes.array,
     editable_block_ids: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func,
+    addWeek: PropTypes.func.isRequired,
+    deleteWeek: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
     saveBlockChanges: PropTypes.func,
@@ -66,12 +67,12 @@ const Timeline = createReactClass({
     const bottom = Math.abs(__guard__(lastWeek, x => x.getBoundingClientRect().bottom));
     const elBottom = (bottom + scrollTop) - 50;
     window.scrollTo({ top: elBottom, behavior: 'smooth' });
-    return WeekActions.addWeek();
+    return this.props.addWeek();
   },
 
   deleteWeek(weekId) {
     if (confirm(I18n.t('timeline.delete_week_confirmation'))) {
-      return WeekActions.deleteWeek(weekId);
+      return this.props.deleteWeek(weekId);
     }
   },
 
@@ -85,7 +86,7 @@ const Timeline = createReactClass({
   _handleBlockDrag(targetIndex, block, target) {
     const originalIndexCheck = BlockStore.getBlocksInWeek(block.week_id).indexOf(block);
     if (originalIndexCheck !== targetIndex || block.week_id !== target.week_id) {
-      const toWeek = WeekStore.getWeek(target.week_id);
+      const toWeek = this.props.weeksObject[target.week_id];
       return this._moveBlock(block, toWeek, targetIndex);
     }
   },

@@ -1,4 +1,4 @@
-import { RECEIVE_TIMELINE } from '../constants';
+import { RECEIVE_TIMELINE, ADD_WEEK, DELETE_WEEK } from '../constants';
 
 const initialState = {
   blocks: {},
@@ -8,6 +8,12 @@ const initialState = {
   loading: true
 };
 
+const newWeek = (tempId, state) => ({
+  id: tempId,
+  is_new: true, // remove ids from objects with is_new when persisting
+  blocks: [],
+  order: Object.keys(state.weeks).length + 1
+});
 
 const weeksFromTimeline = data => {
   const weeks = {};
@@ -40,6 +46,16 @@ export default function timeline(state = initialState, action) {
         blocksPersisted: { ...blocks },
         loading: false
       };
+    }
+    case ADD_WEEK: {
+      const updatedWeeks = { ...state.weeks };
+      updatedWeeks[action.tempId] = newWeek(action.tempId, state);
+      return { ...state, weeks: updatedWeeks };
+    }
+    case DELETE_WEEK: {
+      const updatedWeeks = { ...state.weeks };
+      delete updatedWeeks[action.weekId];
+      return { ...state, weeks: updatedWeeks };
     }
     default:
       return state;
