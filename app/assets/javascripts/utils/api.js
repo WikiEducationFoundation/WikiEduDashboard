@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 
@@ -346,32 +345,26 @@ slide_id=${opts.slide_id}`,
   // Setters #
   // /////////
   saveTimeline(courseId, data) {
-    const promise = new Promise((res, rej) => {
-      const cleanup = function (array) {
-        const result = [];
-        array.forEach(obj => {
-          const newObject = { ...obj }
-          if (newObject.is_new) {
-            delete newObject.id;
-            delete newObject.is_new;
-          }
-          result.push(newObject);
-        });
-        return result;
+    const cleanObject = object => {
+      if (object.is_new) {
+        delete object.id;
+        delete object.is_new;
       }
-
-      const weeks = cleanup(data.weeks)
-      const blocks = cleanup(data.blocks)
-
-      _.forEach(weeks, (week) => {
-        week.blocks = [];
-        _.forEach(blocks, (block) => {
-          if (block.week_id === week.id) { week.blocks.push(block); }
+    };
+    const promise = new Promise((res, rej) => {
+      const weeks = []
+      data.weeks.forEach(week => {
+        const cleanWeek = { ...week };
+        const cleanBlocks = [];
+        cleanWeek.blocks.forEach(block => {
+          const cleanBlock = { ...block }
+          cleanObject(cleanBlock);
+          cleanBlocks.push(cleanBlock);
         });
+        cleanWeek.blocks = cleanBlocks;
+        cleanObject(cleanWeek);
+        weeks.push(cleanWeek);
       });
-
-      cleanup(weeks);
-      cleanup(blocks);
 
       const req_data = { weeks };
       RavenLogger.type = 'POST';
