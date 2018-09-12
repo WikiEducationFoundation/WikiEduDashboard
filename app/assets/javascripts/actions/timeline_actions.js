@@ -1,18 +1,16 @@
-import McFly from 'mcfly';
 import API from '../utils/api.js';
-import { RECEIVE_TIMELINE, ADD_WEEK, DELETE_WEEK, API_FAIL, SAVED_TIMELINE, SAVE_TIMELINE_FAIL } from '../constants';
+import {
+  RECEIVE_TIMELINE,
+  SET_BLOCK_EDITABLE,
+  CANCEL_BLOCK_EDITABLE,
+  UPDATE_BLOCK,
+  ADD_WEEK,
+  DELETE_WEEK,
+  API_FAIL,
+  SAVED_TIMELINE,
+  SAVE_TIMELINE_FAIL
+} from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-
-const Flux = new McFly();
-const TimelineActions = Flux.createActions({
-  persistTimeline(data, courseId) {
-    return API.saveTimeline(courseId, data)
-      .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'SAVE_TIMELINE_FAIL', data: resp, courseId }));
-  }
-});
-
-export default TimelineActions;
 
 const fetchTimelinePromise = courseSlug => {
   return new Promise((res, rej) =>
@@ -55,4 +53,16 @@ export const persistTimeline = (timelineData, courseSlug) => dispatch => {
   return API.saveTimeline(courseSlug, timelineData)
     .then(data => dispatch({ type: SAVED_TIMELINE, data }))
     .catch(data => dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug }));
+};
+
+export const setBlockEditable = blockId => {
+ return { type: SET_BLOCK_EDITABLE, blockId };
+};
+
+export const cancelBlockEditable = blockId => {
+  return { type: CANCEL_BLOCK_EDITABLE, blockId };
+ };
+
+export const updateBlock = block => {
+  return { type: UPDATE_BLOCK, block };
 };

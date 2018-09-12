@@ -139,19 +139,6 @@ export const getFilteredUploads = createSelector(
   }
 );
 
-export const getWeeksArray = createSelector(
-  [getWeeks], (weeks) => {
-    const weeksArray = [];
-    const weekIds = Object.keys(weeks);
-
-    weekIds.forEach(weekId => {
-      weeksArray.push(weeks[weekId]);
-    });
-
-    return weeksArray;
-  }
-);
-
 export const getBlocksArray = createSelector(
   [getBlocks], (blocks) => {
     const blocksArray = [];
@@ -165,3 +152,25 @@ export const getBlocksArray = createSelector(
   }
 );
 
+export const getWeeksArray = createSelector(
+  [getWeeks, getBlocksArray], (weeks, blocks) => {
+    const weeksArray = [];
+    const weekIds = Object.keys(weeks);
+    const blocksByWeek = {};
+    blocks.forEach(block => {
+      if (blocksByWeek[block.week_id]) {
+        blocksByWeek[block.week_id].push(block);
+      } else {
+        blocksByWeek[block.week_id] = [block];
+      }
+    });
+
+    weekIds.forEach(weekId => {
+      const newWeek = weeks[weekId];
+      newWeek.blocks = blocksByWeek[weekId] || [];
+      weeksArray.push(newWeek);
+    });
+
+    return weeksArray;
+  }
+);

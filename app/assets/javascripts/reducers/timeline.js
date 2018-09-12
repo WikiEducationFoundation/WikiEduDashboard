@@ -1,10 +1,19 @@
-import { RECEIVE_TIMELINE, SAVED_TIMELINE, ADD_WEEK, DELETE_WEEK } from '../constants';
+import {
+  RECEIVE_TIMELINE,
+  SAVED_TIMELINE,
+  ADD_WEEK,
+  DELETE_WEEK,
+  SET_BLOCK_EDITABLE,
+  CANCEL_BLOCK_EDITABLE,
+  UPDATE_BLOCK
+} from '../constants';
 
 const initialState = {
   blocks: {},
   blocksPersisted: {},
   weeks: {},
   weeksPersisted: {},
+  editableBlockIds: [],
   loading: true
 };
 
@@ -33,6 +42,16 @@ const blocksFromTimeline = data => {
   return blocks;
 };
 
+const removeBlockId = (blockIdsArray, blockId) => {
+  const newArray = [];
+  blockIdsArray.forEach(id => {
+    if (id !== blockId) {
+      newArray.push(id);
+    }
+  });
+  return newArray;
+};
+
 export default function timeline(state = initialState, action) {
   switch (action.type) {
     case SAVED_TIMELINE:
@@ -45,7 +64,8 @@ export default function timeline(state = initialState, action) {
         weeksPersisted: { ...weeks },
         blocks,
         blocksPersisted: { ...blocks },
-        loading: false
+        loading: false,
+        editableBlockIds: []
       };
     }
     case ADD_WEEK: {
@@ -57,6 +77,17 @@ export default function timeline(state = initialState, action) {
       const updatedWeeks = { ...state.weeks };
       delete updatedWeeks[action.weekId];
       return { ...state, weeks: updatedWeeks };
+    }
+    case SET_BLOCK_EDITABLE: {
+      return { ...state, editableBlockIds: [...state.editableBlockIds, action.blockId] };
+    }
+    case CANCEL_BLOCK_EDITABLE: {
+      return { ...state, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
+    }
+    case UPDATE_BLOCK: {
+      const updatedBlocks = { ...state.blocks };
+      updatedBlocks[action.block.id] = action.block;
+      return { ...state, blocks: updatedBlocks };
     }
     default:
       return state;

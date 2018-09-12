@@ -18,8 +18,9 @@ const Block = createReactClass({
     block: PropTypes.object,
     editableBlockIds: PropTypes.array,
     editPermissions: PropTypes.bool,
-    saveBlockChanges: PropTypes.func,
-    cancelBlockEditable: PropTypes.func,
+    saveBlockChanges: PropTypes.func.isRequired,
+    cancelBlockEditable: PropTypes.func.isRequired,
+    updateBlock: PropTypes.func.isRequired,
     toggleFocused: PropTypes.func,
     isDragging: PropTypes.bool,
     all_training_modules: PropTypes.array,
@@ -27,10 +28,10 @@ const Block = createReactClass({
   },
 
   updateBlock(valueKey, value) {
-    const toPass = $.extend(true, {}, this.props.block);
+    const toPass = { ...this.props.block };
     toPass[valueKey] = value;
     delete toPass.deleteBlock;
-    return BlockActions.updateBlock(toPass);
+    return this.props.updateBlock(toPass);
   },
 
   passedUpdateBlock(selectedIds) {
@@ -46,7 +47,7 @@ const Block = createReactClass({
   },
 
   _setEditable() {
-    return BlockActions.setEditable(this.props.block.id);
+    return this.props.setBlockEditable(this.props.block.id);
   },
 
   _isEditable() {

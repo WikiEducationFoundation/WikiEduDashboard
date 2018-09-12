@@ -12,7 +12,7 @@ import ServerActions from '../../actions/server_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
-import { addWeek, deleteWeek, persistTimeline } from '../../actions/timeline_actions';
+import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable, updateBlock } from '../../actions/timeline_actions';
 import { getWeeksArray, getBlocksArray } from '../../selectors';
 
 
@@ -29,7 +29,7 @@ const TimelineHandler = createReactClass({
     weeksObject: PropTypes.object.isRequired,
     blocks: PropTypes.array,
     loading: PropTypes.bool,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     all_training_modules: PropTypes.array
   },
 
@@ -43,8 +43,8 @@ const TimelineHandler = createReactClass({
   },
 
   _cancelBlockEditable(blockId) {
-    BlockStore.restore();
-    return BlockStore.cancelBlockEditable(blockId);
+    // TODO: Restore to persisted state for this block only
+    return this.props.cancelBlockEditable(blockId);
   },
 
   _cancelGlobalChanges() {
@@ -59,7 +59,7 @@ const TimelineHandler = createReactClass({
 
   saveTimeline(editableBlockId = 0) {
     this.setState({ reorderable: false });
-    const toSave = { ...this.props };
+    const toSave = { weeks: this.props.weeks, blocks: this.props.blocks };
     this.props.persistTimeline(toSave, this.props.course_id);
     if (editableBlockId > 0) {
       return BlockStore.cancelBlockEditable(editableBlockId);
@@ -119,7 +119,7 @@ const TimelineHandler = createReactClass({
           weeks={this.props.weeks}
           weeksObject={this.props.weeksObject}
           week_meetings={weekMeetings}
-          editable_block_ids={BlockStore.getEditableBlockIds()}
+          editableBlockIds={this.props.editableBlockIds}
           reorderable={this.state.reorderable}
           controls={this.props.controls}
           persistCourse={this.props.persistTimeline}
@@ -127,10 +127,12 @@ const TimelineHandler = createReactClass({
           saveBlockChanges={this.saveTimeline}
           cancelBlockEditable={this._cancelBlockEditable}
           cancelGlobalChanges={this._cancelGlobalChanges}
+          updateBlock={this.props.updateBlock}
           enableReorderable={this._enableReorderable}
           all_training_modules={TrainingStore.getAllModules()}
           addWeek={this.props.addWeek}
           deleteWeek={this.props.deleteWeek}
+          setBlockEditable={this.props.setBlockEditable}
           resetState={() => {}}
           nameHasChanged={() => false}
           edit_permissions={this.props.current_user.admin || this.props.current_user.role > 0}
@@ -145,13 +147,17 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   weeksObject: state.timeline.weeks,
   loading: state.timeline.loading,
-  blocks: getBlocksArray(state)
+  blocks: getBlocksArray(state),
+  editableBlockIds: state.timeline.editableBlockIds
 });
 
 const mapDispatchToProps = {
   addWeek,
   deleteWeek,
-  persistTimeline
+  persistTimeline,
+  setBlockEditable,
+  cancelBlockEditable,
+  updateBlock
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);

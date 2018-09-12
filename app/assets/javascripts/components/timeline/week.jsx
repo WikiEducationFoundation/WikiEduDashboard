@@ -19,7 +19,7 @@ const Week = createReactClass({
     meetings: PropTypes.string,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     reorderable: PropTypes.bool,
     onBlockDrag: PropTypes.func,
     onMoveBlockUp: PropTypes.func,
@@ -137,9 +137,11 @@ const Week = createReactClass({
           week_index={this.props.index}
           weekStart={dateCalc.startDate()}
           all_training_modules={this.props.all_training_modules}
-          editableBlockIds={this.props.editable_block_ids}
+          editableBlockIds={this.props.editableBlockIds}
           saveBlockChanges={this.props.saveBlockChanges}
+          setBlockEditable={this.props.setBlockEditable}
           cancelBlockEditable={this.props.cancelBlockEditable}
+          updateBlock={this.props.updateBlock}
         />
       );
     });

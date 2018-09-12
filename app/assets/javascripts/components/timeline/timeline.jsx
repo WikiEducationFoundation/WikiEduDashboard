@@ -31,7 +31,7 @@ const Timeline = createReactClass({
     weeks: PropTypes.array,
     weeksObject: PropTypes.object.isRequired,
     week_meetings: PropTypes.array,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func,
     addWeek: PropTypes.func.isRequired,
@@ -226,16 +226,18 @@ const Timeline = createReactClass({
             week={week}
             index={i + 1}
             reorderable={this.props.reorderable}
-            blocks={BlockStore.getBlocksInWeek(week.id)}
+            blocks={week.blocks}
             deleteWeek={this.deleteWeek.bind(this, week.id)}
             meetings={this.props.week_meetings[i]}
             timeline_start={this.props.course.timeline_start}
             timeline_end={this.props.course.timeline_end}
             all_training_modules={this.props.all_training_modules}
-            editable_block_ids={this.props.editable_block_ids}
+            editableBlockIds={this.props.editableBlockIds}
             edit_permissions={this.props.edit_permissions}
             saveBlockChanges={this.props.saveBlockChanges}
+            setBlockEditable={this.props.setBlockEditable}
             cancelBlockEditable={this.props.cancelBlockEditable}
+            updateBlock={this.props.updateBlock}
             saveGlobalChanges={this.props.saveGlobalChanges}
             canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
             canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}
@@ -273,7 +275,7 @@ const Timeline = createReactClass({
       wizardLink = <CourseLink to={wizardUrl} className="button dark button--block timeline__add-assignment">Add Assignment</CourseLink>;
     }
 
-    const controls = this.props.reorderable || __guard__(this.props, x => x.editable_block_ids.length) > 1 ? (
+    const controls = this.props.reorderable || __guard__(this.props, x => x.editableBlockIds.length) > 1 ? (
       <div>
         <button className="button dark button--block" onClick={this.props.saveGlobalChanges}>
           {I18n.t('timeline.save_all_changes')}
@@ -295,7 +297,7 @@ const Timeline = createReactClass({
             <p className="muted">{I18n.t('timeline.arrange_timeline_instructions')}</p>
           </div>
         );
-      } else if (this.props.editable_block_ids.length === 0) {
+      } else if (this.props.editableBlockIds.length === 0) {
         reorderableControls = (
           <div className="reorderable-controls">
             <button className="button border button--block" onClick={this.props.enableReorderable}>Arrange Timeline</button>
