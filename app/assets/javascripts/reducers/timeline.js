@@ -90,7 +90,7 @@ const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
 
   const blocksInOldWeek = [];
   const blocksInNewWeek = [];
-  Object.keys(blocks).forEach(blockId => {
+  Object.keys(updatedBlocks).forEach(blockId => {
     const block = blocks[blockId];
     if (block.week_id === newWeekId) {
       blocksInNewWeek.push(block);
@@ -103,11 +103,13 @@ const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
 
   blocksInOldWeek.sort((a, b) => a.order > b.order);
   blocksInNewWeek.sort((a, b) => a.order > b.order);
+
   blocksInNewWeek.splice(targetIndex, 0, movedBlock);
   blocksInOldWeek.forEach((block, i) => {
     const updatedBlock = { ...block, order: i };
     updatedBlocks[block.id] = updatedBlock;
   });
+
   blocksInNewWeek.forEach((block, i) => {
     const updatedBlock = { ...block, order: i };
     updatedBlocks[block.id] = updatedBlock;
