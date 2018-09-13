@@ -5,7 +5,6 @@ import { Motion, spring } from 'react-motion';
 import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import BlockActions from '../../actions/block_actions.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 
@@ -19,7 +18,7 @@ const Week = createReactClass({
     meetings: PropTypes.string,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
-    editable_block_ids: PropTypes.array,
+    editableBlockIds: PropTypes.array,
     reorderable: PropTypes.bool,
     onBlockDrag: PropTypes.func,
     onMoveBlockUp: PropTypes.func,
@@ -28,6 +27,7 @@ const Week = createReactClass({
     canBlockMoveDown: PropTypes.func,
     saveBlockChanges: PropTypes.func,
     cancelBlockEditable: PropTypes.func,
+    addBlock: PropTypes.func.isRequired,
     deleteWeek: PropTypes.func,
     all_training_modules: PropTypes.array,
     weeksBeforeTimeline: PropTypes.number
@@ -45,10 +45,7 @@ const Week = createReactClass({
   },
   addBlock() {
     this._scrollToAddedBlock();
-    return BlockActions.addBlock(this.props.week.id);
-  },
-  deleteBlock(blockId) {
-    return BlockActions.deleteBlock(blockId);
+    return this.props.addBlock(this.props.week.id);
   },
   toggleFocused(blockId) {
     if (this.state.focusedBlockId === blockId) {
@@ -133,13 +130,15 @@ const Week = createReactClass({
           block={block}
           key={block.id}
           editPermissions={this.props.edit_permissions}
-          deleteBlock={this.deleteBlock.bind(this, block.id)}
+          deleteBlock={this.props.deleteBlock}
           week_index={this.props.index}
           weekStart={dateCalc.startDate()}
           all_training_modules={this.props.all_training_modules}
-          editableBlockIds={this.props.editable_block_ids}
+          editableBlockIds={this.props.editableBlockIds}
           saveBlockChanges={this.props.saveBlockChanges}
+          setBlockEditable={this.props.setBlockEditable}
           cancelBlockEditable={this.props.cancelBlockEditable}
+          updateBlock={this.props.updateBlock}
         />
       );
     });

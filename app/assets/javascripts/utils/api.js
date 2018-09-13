@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 
@@ -9,22 +8,6 @@ const API = {
   // /////////
   // Getters /
   // /////////
-  fetchWizardIndex() {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: '/wizards.json',
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchRevisions(studentId, courseId) {
     return new Promise((res, rej) => {
       const url = `/revisions.json?user_id=${studentId}&course_id=${courseId}`;
@@ -224,22 +207,6 @@ const API = {
     );
   },
 
-  fetchWizardPanels(wizardId) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/wizards/${wizardId}.json`,
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
-  },
-
   fetchUserCourses(userId) {
     return new Promise((res, rej) =>
       $.ajax({
@@ -378,32 +345,26 @@ slide_id=${opts.slide_id}`,
   // Setters #
   // /////////
   saveTimeline(courseId, data) {
-    const promise = new Promise((res, rej) => {
-      const cleanup = function (array) {
-        const result = [];
-        _.forEach(array, (obj) => {
-          let item;
-          if (obj.is_new) {
-            delete obj.id;
-            item = delete obj.is_new;
-          }
-          result.push(item);
-        });
-        return result;
+    const cleanObject = object => {
+      if (object.is_new) {
+        delete object.id;
+        delete object.is_new;
       }
-
-      const { weeks } = data;
-      const { blocks } = data;
-
-      _.forEach(weeks, (week) => {
-        week.blocks = [];
-        _.forEach(blocks, (block) => {
-          if (block.week_id === week.id) { week.blocks.push(block); }
+    };
+    const promise = new Promise((res, rej) => {
+      const weeks = []
+      data.weeks.forEach(week => {
+        const cleanWeek = { ...week };
+        const cleanBlocks = [];
+        cleanWeek.blocks.forEach(block => {
+          const cleanBlock = { ...block }
+          cleanObject(cleanBlock);
+          cleanBlocks.push(cleanBlock);
         });
+        cleanWeek.blocks = cleanBlocks;
+        cleanObject(cleanWeek);
+        weeks.push(cleanWeek);
       });
-
-      cleanup(weeks);
-      cleanup(blocks);
 
       const req_data = { weeks };
       RavenLogger.type = 'POST';
@@ -557,24 +518,6 @@ slide_id=${opts.slide_id}`,
       })
       .fail((obj) => {
         logErrorMessage(obj, 'There was an error with the greetings! ');
-        return rej(obj);
-      })
-    );
-  },
-
-  submitWizard(courseId, wizardId, data) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/courses/${courseId}/wizard/${wizardId}.json`,
-        contentType: 'application/json',
-        data: JSON.stringify({ wizard_output: data }),
-        success(data) {
-          return res(data);
-        }
-      })
-      .fail((obj) => {
-        logErrorMessage(obj, 'Couldn\'t submit wizard answers! ');
         return rej(obj);
       })
     );

@@ -20,28 +20,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchWizardIndex() {
-    return API.fetchWizardIndex()
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_INDEX',
-        data: {
-          wizard_index: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  fetchWizardPanels(wizardId) {
-    return API.fetchWizardPanels(wizardId)
-      .then(resp => ({
-        actionType: 'RECEIVE_WIZARD_PANELS',
-        data: {
-          wizard_panels: resp
-        }
-      }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchSuspectedPlagiarism(opts = {}) {
     return API.fetchSuspectedPlagiarism(opts)
       .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))
@@ -63,39 +41,6 @@ const ServerActions = Flux.createActions({
   setSlideCompleted(opts) {
     return API.setSlideCompleted(opts)
       .then(resp => ({ actionType: 'SLIDE_COMPLETED', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  // Save
-  saveCourse(data, courseId = null, failureCallback) {
-    const actionType = courseId === null ? 'CREATED_COURSE' : 'SAVED_COURSE';
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType, data: resp }))
-      .catch((resp) => {
-        if (failureCallback) { failureCallback(); }
-        return { actionType: 'API_FAIL', data: resp };
-      });
-  },
-
-  updateClone(data, courseId) {
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType: 'UPDATE_CLONE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  saveStudents() {
-    return null;
-  },
-
-  saveTimeline(data, courseId) {
-    return API.saveTimeline(courseId, data)
-      .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  submitWizard(courseId, wizardId, data) {
-    return API.submitWizard(courseId, wizardId, data)
-      .then(resp => ({ actionType: 'WIZARD_SUBMITTED', data: resp }))
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 

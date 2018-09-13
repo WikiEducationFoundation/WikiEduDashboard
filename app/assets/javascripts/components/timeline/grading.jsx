@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import EditableRedux from '../high_order/editable_redux';
 
 import Gradeable from './gradeable.jsx';
 
@@ -10,29 +11,19 @@ const Grading = createReactClass({
 
   propTypes: {
     weeks: PropTypes.array,
-    blocks: PropTypes.array,
     editable: PropTypes.bool,
-    controls: PropTypes.func
+    controls: PropTypes.func,
+    current_user: PropTypes.object.isRequired,
+    updateBlock: PropTypes.func.isRequired
   },
 
   render() {
     const gradeableBlocks = [];
-    // The weeks prop has the order of the weeks, and the blocks within it.
-    // However, the blocks within the weeks prop are not updated except when
-    // the timeline is received from the server.
-    // So to re-render when block details are changed, we need to use the weeks
-    // prop to determine the order, but use the blocks prop to actually build
-    // the rendered elements.
-    // FIXME: when the Timeline gets converted to Redux, we can handle this kind
-    // of thing in the reducers and/or via selectors.
     this.props.weeks.forEach(week => {
       week.blocks.forEach(block => {
         if (!block.points) { return; }
-        const blocksPropBlock = this.props.blocks.find(propsBlock => block.id === propsBlock.id);
-        // Handle blocks that got deleted.
-        if (!blocksPropBlock) { return; }
-        blocksPropBlock.grading_order = `${week.order}${block.order}`;
-        gradeableBlocks.push(blocksPropBlock);
+        block.grading_order = `${week.order}${block.order}`;
+        gradeableBlocks.push(block);
       });
     });
 
@@ -53,6 +44,7 @@ const Grading = createReactClass({
           key={block.id}
           block={block}
           editable={this.props.editable}
+          updateBlock={this.props.updateBlock}
         />
       );
     });
@@ -73,4 +65,4 @@ const Grading = createReactClass({
 }
 );
 
-export default Grading;
+export default EditableRedux(Grading, I18n.t('editable.edit'));

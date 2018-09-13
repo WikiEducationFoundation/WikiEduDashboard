@@ -27,5 +27,7 @@ export * from './user_roles';
 export * from './users';
 export * from './settings';
 export * from './tags';
+export * from './timeline';
 export * from './training_status';
 export * from './wikidata_labels';
+export * from './wizard';

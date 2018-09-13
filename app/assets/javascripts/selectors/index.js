@@ -19,6 +19,8 @@ const getUploads = state => state.uploads.uploads;
 const getUploadFilters = state => state.uploads.selectedFilters;
 const getTags = state => state.tags.tags;
 const getAllTags = state => state.tags.allTags;
+const getWeeks = state => state.timeline.weeks;
+const getBlocks = state => state.timeline.blocks;
 
 export const getInstructorUsers = createSelector(
   [getUsers], (users) => _.sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -134,5 +136,29 @@ export const getFilteredUploads = createSelector(
   [getUploads, getUploadFilters], (uploads, uploadFilters) => {
     if (!uploadFilters.length) { return uploads; }
     return _.filter(uploads, (upload) => _.includes(uploadFilters, upload.uploader));
+  }
+);
+
+export const getWeeksArray = createSelector(
+  [getWeeks, getBlocks], (weeks, blocks) => {
+    const weeksArray = [];
+    const weekIds = Object.keys(weeks);
+    const blocksByWeek = {};
+    Object.keys(blocks).forEach(blockId => {
+      const block = blocks[blockId];
+      if (blocksByWeek[block.week_id]) {
+        blocksByWeek[block.week_id].push(block);
+      } else {
+        blocksByWeek[block.week_id] = [block];
+      }
+    });
+
+    weekIds.forEach(weekId => {
+      const newWeek = weeks[weekId];
+      newWeek.blocks = blocksByWeek[weekId] || [];
+      weeksArray.push(newWeek);
+    });
+
+    return weeksArray;
   }
 );

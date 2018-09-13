@@ -22,6 +22,7 @@ import revisions from './revisions';
 import suspectedPlagiarism from './suspected_plagiarism';
 import settings from './settings';
 import tags from './tags';
+import timeline from './timeline';
 import trainingStatus from './training_status';
 import ui from './ui';
 import uploads from './uploads';
@@ -30,7 +31,7 @@ import userProfile from './user_profile';
 import userRevisions from './user_revisions';
 import users from './users';
 import wikidataLabels from './wikidata_labels';
-
+import wizard from './wizard';
 
 const reducer = combineReducers({
   alerts,
@@ -57,6 +58,7 @@ const reducer = combineReducers({
   suspectedPlagiarism,
   settings,
   tags,
+  timeline,
   trainingStatus,
   ui,
   uploads,
@@ -64,7 +66,8 @@ const reducer = combineReducers({
   userProfile,
   userRevisions,
   users,
-  wikidataLabels
+  wikidataLabels,
+  wizard
 });
 
 export default reducer;

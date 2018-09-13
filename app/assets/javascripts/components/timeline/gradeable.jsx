@@ -2,20 +2,20 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TextInput from '../common/text_input.jsx';
-import BlockActions from '../../actions/block_actions.js';
 
 const Gradeable = createReactClass({
   displayName: 'Gradeable',
 
   propTypes: {
     block: PropTypes.object,
-    editable: PropTypes.bool
+    editable: PropTypes.bool,
+    updateBlock: PropTypes.func.isRequired
   },
 
   updateGradeable(valueKey, value) {
-    const toPass = $.extend(true, {}, this.props.block);
+    const toPass = { ...this.props.block };
     toPass[valueKey] = parseInt(value);
-    return BlockActions.updateBlock(toPass);
+    return this.props.updateBlock(toPass);
   },
 
   render() {
@@ -42,7 +42,6 @@ const Gradeable = createReactClass({
       </li>
     );
   }
-}
-);
+});
 
 export default Gradeable;

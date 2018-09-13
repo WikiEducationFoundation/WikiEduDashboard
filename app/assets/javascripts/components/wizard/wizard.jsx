@@ -8,20 +8,10 @@ import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
-import WizardActions from '../../actions/wizard_actions.js';
-import ServerActions from '../../actions/server_actions.js';
-import WizardStore from '../../stores/wizard_store.js';
 import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
+import { fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption, submitWizard } from '../../actions/wizard_actions';
 
-const getState = () =>
-  ({
-    summary: WizardStore.getSummary(),
-    panels: WizardStore.getPanels(),
-    wizard_id: WizardStore.getWizardKey()
-  })
-;
-
-const persist = function () {
+const persist = function (goToWizardFunc) {
   window.onbeforeunload = function () {
       return 'Data will be lost if you leave/refresh the page, are you sure?';
   };
@@ -29,7 +19,7 @@ const persist = function () {
   document.title += ' — Step 1';
   window.onpopstate = function (event) { // Listen to changes
     if (event.state) {
-      WizardActions.goToWizard(event.state.index);
+      goToWizardFunc(event.state.index);
       document.title = document.title.replace(/\d+$/, event.state.index + 1); // Sync Titles
     }
   };
@@ -46,22 +36,24 @@ const Wizard = createReactClass({
     location: PropTypes.object,
     course: PropTypes.object,
     weeks: PropTypes.array,
-    open_weeks: PropTypes.number
+    open_weeks: PropTypes.number,
+    advanceWizard: PropTypes.func.isRequired,
+    goToWizard: PropTypes.func.isRequired,
+    panels: PropTypes.array.isRequired
   },
-  mixins: [WizardStore.mixin],
-  getInitialState() {
-    return getState();
+
+  componentDidMount() {
+    persist(this.props.goToWizard);
+    return this.props.fetchWizardIndex();
   },
-  componentWillMount() {
-    persist();
-    return ServerActions.fetchWizardIndex();
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activePanelIndex === this.props.activePanelIndex) { return; }
+    document.querySelector('.wizard').scrollTo({ top: 0, behavior: 'smooth' });
   },
+
   componentWillUnmount() {
     unloadEvents();
-    return WizardActions.resetWizard();
-  },
-  storeDidChange() {
-    return this.setState(getState());
   },
   timelinePath() {
     const routes = this.props.location.pathname.split('/');
@@ -69,8 +61,9 @@ const Wizard = createReactClass({
     return routes.join('/');
   },
   render() {
-    const panels = this.state.panels.map((panel, i) => {
-      const panelCount = this.state.panels.length;
+    const panelCount = this.props.panels.length;
+    const panels = this.props.panels.map((panel, i) => {
+      const active = this.props.activePanelIndex === i;
       const stepNumber = i + 1;
       let outOf;
       if (i > 1) {
@@ -83,35 +76,45 @@ const Wizard = createReactClass({
         return (
           <FormPanel
             panel={panel}
+            active={active}
             panelCount={panelCount}
             course={this.props.course}
             key={panel.key}
             index={i}
             step={step}
             weeks={this.props.weeks.length}
-            summary={this.state.summary}
+            summary={this.props.summary}
             updateCourse={this.props.updateCourse}
             persistCourse={this.props.persistCourse}
+            advance={this.props.advanceWizard}
+            goToWizard={this.props.goToWizard}
+            selectWizardOption={this.props.selectWizardOption}
           />
         );
       } else if (i !== 0 && i < panelCount - 1) {
         return (
           <Panel
             panel={panel}
+            active={active}
             panelCount={panelCount}
             parentPath={this.timelinePath()}
             key={panel.key}
             index={i}
             step={step}
-            summary={this.state.summary}
+            summary={this.props.summary}
             open_weeks={this.props.open_weeks}
             course={this.props.course}
+            advance={this.props.advanceWizard}
+            goToWizard={this.props.goToWizard}
+            selectWizardOption={this.props.selectWizardOption}
           />
         );
       }
       return (
         <SummaryPanel
           panel={panel}
+          panels={this.props.panels}
+          active={active}
           parentPath={this.timelinePath()}
           panelCount={panelCount}
           course={this.props.course}
@@ -119,7 +122,9 @@ const Wizard = createReactClass({
           index={i}
           step={step}
           courseId={this.props.course.slug}
-          wizardId={this.state.wizard_id}
+          submitWizard={this.props.submitWizard}
+          goToWizard={this.props.goToWizard}
+          selectWizardOption={this.props.selectWizardOption}
         />
       );
     });
@@ -140,9 +145,20 @@ const Wizard = createReactClass({
 }
 );
 
+const mapStateToProps = state => ({
+  summary: state.wizard.summary,
+  panels: state.wizard.panels,
+  activePanelIndex: state.wizard.activeIndex
+});
+
 const mapDispatchToProps = {
   updateCourse,
-  persistCourse
+  persistCourse,
+  fetchWizardIndex,
+  advanceWizard,
+  goToWizard,
+  selectWizardOption,
+  submitWizard
 };
 
-export default connect(null, mapDispatchToProps)(Wizard);
+export default connect(mapStateToProps, mapDispatchToProps)(Wizard);

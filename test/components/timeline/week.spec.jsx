@@ -6,7 +6,6 @@ import ShallowTestUtils from 'react-test-renderer/shallow';
 
 import '../../testHelper';
 import Week from '../../../app/assets/javascripts/components/timeline/week.jsx';
-import BlockActions from '../../../app/assets/javascripts/actions/block_actions.js';
 
 const noOp = () => {};
 const createWeek = (opts = {}) => {
@@ -19,6 +18,11 @@ const createWeek = (opts = {}) => {
       reorderable={opts.reorderable || false}
       week={{ is_new: opts.is_new || false }}
       deleteWeek={opts.deleteWeek || noOp}
+      addBlock={opts.addBlock || noOp}
+      saveBlockChanges={noOp}
+      cancelBlockChanges={noOp}
+      updateBlock={noOp}
+      cancelBlockEditable={noOp}
     />
   );
 };
@@ -31,6 +35,8 @@ describe('Week', () => {
           index={1}
           blocks={[]}
           week={{ is_new: false }}
+          addBlock={noOp}
+          cancelBlockEditable={noOp}
         />
       );
       // Shallow rendering. See
@@ -91,23 +97,21 @@ describe('Week', () => {
       });
     });
     describe('click handler', () => {
-      const opts = { reorderable: false };
+      const addBlock = jest.fn();
+      const opts = { reorderable: false, addBlock };
       const TestWeek = createWeek(Object.assign(opts, permissionsOpts));
       let method;
-      let action;
       beforeAll(() => {
         method = sinon.spy(TestWeek, '_scrollToAddedBlock');
-        action = sinon.spy(BlockActions, 'addBlock');
       });
       afterAll(() => {
         TestWeek._scrollToAddedBlock.restore();
-        BlockActions.addBlock.restore();
       });
       const span = TestUtils.scryRenderedDOMComponentsWithClass(TestWeek, 'week__add-block')[0];
       it('calls the appropriate functions', () => {
         Simulate.click(span);
         expect(method).to.have.been.calledOnce;
-        expect(action).to.have.been.calledOnce;
+        expect(addBlock.mock.calls.length).to.eq(1);
       });
     });
   });
