@@ -83,9 +83,8 @@ const removeBlockId = (blockIdsArray, blockId) => {
 
 // Returns a new blocks object with updates to a single block's week and order within
 // that week, along with updated order for any other blocks affected by the move.
-const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
+const updateBlockPosition = (movingBlock, newWeekId, targetIndex, blocks) => {
   const oldWeekId = movingBlock.id;
-  const newWeekId = toWeek.id;
   const movedBlock = { ...movingBlock };
   movedBlock.week_id = newWeekId;
   const weekChanged = newWeekId !== oldWeekId;
@@ -188,7 +187,7 @@ export default function timeline(state = initialState, action) {
       return { ...state, blocks, persistedBlocks, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
     }
     case INSERT_BLOCK: {
-      const blocks = updateBlockPosition(action.block, action.toWeek, action.afterBlock, state.blocks);
+      const blocks = updateBlockPosition(action.block, action.newWeekId, action.afterBlock, state.blocks);
       return { ...state, blocks };
     }
     case RESTORE_TIMELINE: {

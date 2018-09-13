@@ -85,8 +85,8 @@ export const addBlock = weekId => {
   return { type: ADD_BLOCK, weekId, tempId: Date.now() };
 };
 
-export const insertBlock = (block, toWeek, afterBlock) => {
-  return { type: INSERT_BLOCK, block, toWeek, afterBlock };
+export const insertBlock = (block, newWeekId, afterBlock) => {
+  return { type: INSERT_BLOCK, block, newWeekId, afterBlock };
 };
 
 export const restoreTimeline = () => {

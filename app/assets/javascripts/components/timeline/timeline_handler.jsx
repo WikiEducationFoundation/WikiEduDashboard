@@ -25,7 +25,6 @@ const TimelineHandler = createReactClass({
     children: PropTypes.node,
     controls: PropTypes.func,
     weeks: PropTypes.array.isRequired,
-    weeksObject: PropTypes.object.isRequired,
     blocks: PropTypes.array,
     loading: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -112,7 +111,6 @@ const TimelineHandler = createReactClass({
           loading={this.props.loading}
           course={this.props.course}
           weeks={this.props.weeks}
-          weeksObject={this.props.weeksObject}
           week_meetings={weekMeetings}
           editableBlockIds={this.props.editableBlockIds}
           reorderable={this.state.reorderable}
@@ -143,7 +141,6 @@ const TimelineHandler = createReactClass({
 
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
-  weeksObject: state.timeline.weeks,
   loading: state.timeline.loading,
   blocks: getBlocksArray(state),
   editableBlockIds: state.timeline.editableBlockIds

@@ -26,7 +26,6 @@ const Timeline = createReactClass({
     loading: PropTypes.bool,
     course: PropTypes.object.isRequired,
     weeks: PropTypes.array,
-    weeksObject: PropTypes.object.isRequired,
     week_meetings: PropTypes.array,
     editableBlockIds: PropTypes.array,
     editable: PropTypes.bool,
@@ -91,8 +90,7 @@ const Timeline = createReactClass({
   _handleBlockDrag(targetIndex, block, target) {
     const originalIndexCheck = this.getBlocksInWeek(block.week_id).indexOf(block);
     if (originalIndexCheck !== targetIndex || block.week_id !== target.week_id) {
-      const toWeek = this.props.weeksObject[target.week_id];
-      return this._moveBlock(block, toWeek, targetIndex);
+      return this._moveBlock(block, target.week_id, targetIndex);
     }
   },
 
