@@ -7,7 +7,6 @@ import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './training_modules.jsx';
 import Checkbox from '../common/checkbox.jsx';
 import BlockTypeSelect from './block_type_select.jsx';
-import BlockActions from '../../actions/block_actions.js';
 
 const DEFAULT_POINTS = 10;
 

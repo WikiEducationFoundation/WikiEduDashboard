@@ -65,12 +65,6 @@ const ServerActions = Flux.createActions({
     return null;
   },
 
-  saveTimeline(data, courseId) {
-    return API.saveTimeline(courseId, data)
-      .then(resp => ({ actionType: 'SAVED_TIMELINE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   checkCourse(key, courseId) {
     return API.fetch(courseId, 'check')
       .then(resp => {

@@ -5,7 +5,6 @@ import { Motion, spring } from 'react-motion';
 import ReactCSSTG from 'react-transition-group/CSSTransitionGroup';
 import Block from './block.jsx';
 import OrderableBlock from './orderable_block.jsx';
-import BlockActions from '../../actions/block_actions.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 

@@ -8,3 +8,4 @@ export const UPDATE_BLOCK = 'UPDATE_BLOCK';
 export const ADD_BLOCK = 'ADD_BLOCK';
 export const DELETE_BLOCK = 'DELETE_BLOCK';
 export const INSERT_BLOCK = 'INSERT_BLOCK';
+export const RESTORE_TIMELINE = 'RESTORE_TIMELINE';

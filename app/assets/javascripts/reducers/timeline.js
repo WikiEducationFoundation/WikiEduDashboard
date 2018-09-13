@@ -8,7 +8,8 @@ import {
   UPDATE_BLOCK,
   ADD_BLOCK,
   DELETE_BLOCK,
-  INSERT_BLOCK
+  INSERT_BLOCK,
+  RESTORE_TIMELINE
 } from '../constants';
 
 const initialState = {
@@ -55,7 +56,7 @@ const newBlock = (tempId, weekId, state) => {
 const weeksFromTimeline = data => {
   const weeks = {};
   data.course.weeks.forEach(week => {
-    weeks[week.id] = week;
+    weeks[week.id] = { ...week };
   });
   return weeks;
 };
@@ -64,7 +65,7 @@ const blocksFromTimeline = data => {
   const blocks = {};
   data.course.weeks.forEach(week => {
     week.blocks.forEach(block => {
-      blocks[block.id] = block;
+      blocks[block.id] = { ...block };
     });
   });
   return blocks;
@@ -138,14 +139,12 @@ export default function timeline(state = initialState, action) {
   switch (action.type) {
     case SAVED_TIMELINE:
     case RECEIVE_TIMELINE: {
-      const weeks = weeksFromTimeline(action.data);
-      const blocks = blocksFromTimeline(action.data);
       return {
         ...state,
-        weeks,
-        weeksPersisted: { ...weeks },
-        blocks,
-        blocksPersisted: { ...blocks },
+        weeks: weeksFromTimeline(action.data),
+        weeksPersisted: weeksFromTimeline(action.data),
+        blocks: blocksFromTimeline(action.data),
+        blocksPersisted: blocksFromTimeline(action.data),
         loading: false,
         editableBlockIds: []
       };
@@ -156,9 +155,11 @@ export default function timeline(state = initialState, action) {
       return { ...state, weeks: updatedWeeks };
     }
     case DELETE_WEEK: {
-      const updatedWeeks = { ...state.weeks };
-      delete updatedWeeks[action.weekId];
-      return { ...state, weeks: updatedWeeks };
+      const weeks = { ...state.weeks };
+      const persistedWeeks = { ...state.persistedWeeks };
+      delete weeks[action.weekId];
+      delete persistedWeeks[action.weekId];
+      return { ...state, weeks, persistedWeeks };
     }
     case SET_BLOCK_EDITABLE: {
       return { ...state, editableBlockIds: [...state.editableBlockIds, action.blockId] };
@@ -172,18 +173,23 @@ export default function timeline(state = initialState, action) {
       return { ...state, blocks: updatedBlocks };
     }
     case ADD_BLOCK: {
-      const updatedBlocks = { ...state.blocks };
-      updatedBlocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
-      return { ...state, blocks: updatedBlocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
+      const blocks = { ...state.blocks };
+      blocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
+      return { ...state, blocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
     }
     case DELETE_BLOCK: {
-      const updatedBlocks = { ...state.blocks };
-      delete updatedBlocks[action.blockId];
-      return { ...state, blocks: updatedBlocks, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
+      const blocks = { ...state.blocks };
+      const persistedBlocks = { ...state.persistedBlocks };
+      delete blocks[action.blockId];
+      delete persistedBlocks[action.blockId];
+      return { ...state, blocks, persistedBlocks, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
     }
     case INSERT_BLOCK: {
-      const updatedBlocks = updateBlockPosition(action.block, action.toWeek, action.afterBlock, state.blocks);
-      return { ...state, blocks: updatedBlocks };
+      const blocks = updateBlockPosition(action.block, action.toWeek, action.afterBlock, state.blocks);
+      return { ...state, blocks };
+    }
+    case RESTORE_TIMELINE: {
+      return { ...state, blocks: { ...state.blocksPersisted }, weeks: { ...state.weeksPersisted }, editableBlockIds: [] };
     }
     default:
       return state;

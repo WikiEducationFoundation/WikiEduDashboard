@@ -11,7 +11,8 @@ import {
   DELETE_WEEK,
   API_FAIL,
   SAVED_TIMELINE,
-  SAVE_TIMELINE_FAIL
+  SAVE_TIMELINE_FAIL,
+  RESTORE_TIMELINE
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
 
@@ -86,4 +87,8 @@ export const addBlock = weekId => {
 
 export const insertBlock = (block, toWeek, afterBlock) => {
   return { type: INSERT_BLOCK, block, toWeek, afterBlock };
+};
+
+export const restoreTimeline = () => {
+  return { type: RESTORE_TIMELINE };
 };

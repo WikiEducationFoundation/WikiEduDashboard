@@ -10,12 +10,10 @@ import CourseDateUtils from '../../utils/course_date_utils.js';
 
 import ServerActions from '../../actions/server_actions.js';
 
-import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
-  updateBlock, addBlock, deleteBlock, insertBlock } from '../../actions/timeline_actions';
+  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline } from '../../actions/timeline_actions';
 import { getWeeksArray, getBlocksArray } from '../../selectors';
-
 
 const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
@@ -50,8 +48,7 @@ const TimelineHandler = createReactClass({
 
   _cancelGlobalChanges() {
     this.setState({ reorderable: false });
-    BlockStore.restore();
-    return BlockStore.clearEditableBlockIds();
+    this.props.restoreTimeline();
   },
 
   _enableReorderable() {
@@ -161,7 +158,8 @@ const mapDispatchToProps = {
   setBlockEditable,
   cancelBlockEditable,
   updateBlock,
-  insertBlock
+  insertBlock,
+  restoreTimeline
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
