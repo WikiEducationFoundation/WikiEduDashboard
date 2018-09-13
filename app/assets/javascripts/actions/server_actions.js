@@ -44,27 +44,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  // Save
-  saveCourse(data, courseId = null, failureCallback) {
-    const actionType = courseId === null ? 'CREATED_COURSE' : 'SAVED_COURSE';
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType, data: resp }))
-      .catch((resp) => {
-        if (failureCallback) { failureCallback(); }
-        return { actionType: 'API_FAIL', data: resp };
-      });
-  },
-
-  updateClone(data, courseId) {
-    return API.saveCourse(data, courseId)
-      .then(resp => ({ actionType: 'UPDATE_CLONE', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
-  saveStudents() {
-    return null;
-  },
-
   checkCourse(key, courseId) {
     return API.fetch(courseId, 'check')
       .then(resp => {
