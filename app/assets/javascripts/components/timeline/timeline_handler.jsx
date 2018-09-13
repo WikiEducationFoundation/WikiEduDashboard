@@ -13,7 +13,7 @@ import ServerActions from '../../actions/server_actions.js';
 import TrainingStore from '../../training/stores/training_store.js';
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline } from '../../actions/timeline_actions';
-import { getWeeksArray, getBlocksArray } from '../../selectors';
+import { getWeeksArray } from '../../selectors';
 
 const TimelineHandler = createReactClass({
   displayName: 'TimelineHandler',
@@ -25,7 +25,6 @@ const TimelineHandler = createReactClass({
     children: PropTypes.node,
     controls: PropTypes.func,
     weeks: PropTypes.array.isRequired,
-    blocks: PropTypes.array,
     loading: PropTypes.bool,
     editableBlockIds: PropTypes.array,
     all_training_modules: PropTypes.array
@@ -56,7 +55,7 @@ const TimelineHandler = createReactClass({
 
   saveTimeline() {
     this.setState({ reorderable: false });
-    const toSave = { weeks: this.props.weeks, blocks: this.props.blocks };
+    const toSave = { weeks: this.props.weeks };
     this.props.persistTimeline(toSave, this.props.course_id);
   },
 
@@ -88,7 +87,6 @@ const TimelineHandler = createReactClass({
     }
     const grading = showGrading ? <Grading
       weeks={this.props.weeks}
-      blocks={this.props.blocks}
       editable={this.props.editable}
       current_user={this.props.current_user}
       persistCourse={this.saveTimeline}
@@ -142,7 +140,6 @@ const TimelineHandler = createReactClass({
 const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   loading: state.timeline.loading,
-  blocks: getBlocksArray(state),
   editableBlockIds: state.timeline.editableBlockIds
 });
 

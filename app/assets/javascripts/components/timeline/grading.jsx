@@ -11,7 +11,6 @@ const Grading = createReactClass({
 
   propTypes: {
     weeks: PropTypes.array,
-    blocks: PropTypes.array,
     editable: PropTypes.bool,
     controls: PropTypes.func,
     current_user: PropTypes.object.isRequired,
@@ -20,22 +19,11 @@ const Grading = createReactClass({
 
   render() {
     const gradeableBlocks = [];
-    // The weeks prop has the order of the weeks, and the blocks within it.
-    // However, the blocks within the weeks prop are not updated except when
-    // the timeline is received from the server.
-    // So to re-render when block details are changed, we need to use the weeks
-    // prop to determine the order, but use the blocks prop to actually build
-    // the rendered elements.
-    // FIXME: when the Timeline gets converted to Redux, we can handle this kind
-    // of thing in the reducers and/or via selectors.
     this.props.weeks.forEach(week => {
       week.blocks.forEach(block => {
         if (!block.points) { return; }
-        const blocksPropBlock = this.props.blocks.find(propsBlock => block.id === propsBlock.id);
-        // Handle blocks that got deleted.
-        if (!blocksPropBlock) { return; }
-        blocksPropBlock.grading_order = `${week.order}${block.order}`;
-        gradeableBlocks.push(blocksPropBlock);
+        block.grading_order = `${week.order}${block.order}`;
+        gradeableBlocks.push(block);
       });
     });
 
