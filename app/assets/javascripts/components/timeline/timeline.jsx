@@ -13,10 +13,7 @@ import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
 
-import BlockActions from '../../actions/block_actions.js';
 import CourseActions from '../../actions/course_actions.js';
-
-import BlockStore from '../../stores/block_store.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -36,6 +33,7 @@ const Timeline = createReactClass({
     controls: PropTypes.func,
     addWeek: PropTypes.func.isRequired,
     addBlock: PropTypes.func.isRequired,
+    insertBlock: PropTypes.func.isRequired,
     deleteWeek: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
@@ -57,6 +55,11 @@ const Timeline = createReactClass({
 
   componentWillUnmount() {
     return window.removeEventListener('scroll', this._handleScroll);
+  },
+
+  getBlocksInWeek(weekId) {
+    const week = this.props.weeks.find(thisWeek => thisWeek.id === weekId);
+    return week.blocks;
   },
 
   hasTimeline() {
@@ -86,7 +89,7 @@ const Timeline = createReactClass({
   },
 
   _handleBlockDrag(targetIndex, block, target) {
-    const originalIndexCheck = BlockStore.getBlocksInWeek(block.week_id).indexOf(block);
+    const originalIndexCheck = this.getBlocksInWeek(block.week_id).indexOf(block);
     if (originalIndexCheck !== targetIndex || block.week_id !== target.week_id) {
       const toWeek = this.props.weeksObject[target.week_id];
       return this._moveBlock(block, toWeek, targetIndex);
@@ -94,13 +97,13 @@ const Timeline = createReactClass({
   },
 
   _moveBlock(block, toWeek, afterBlock) {
-    return BlockActions.insertBlock(block, toWeek, afterBlock);
+    return this.props.insertBlock(block, toWeek, afterBlock);
   },
 
   _handleMoveBlock(moveUp, blockId) {
     for (let i = 0; i < this.props.weeks.length; i += 1) {
       const week = this.props.weeks[i];
-      const blocks = BlockStore.getBlocksInWeek(week.id);
+      const blocks = this.getBlocksInWeek(week.id);
       for (let j = 0; j < blocks.length; j += 1) {
         const block = blocks[j];
         if (blockId === block.id) {
@@ -109,7 +112,7 @@ const Timeline = createReactClass({
             // Move to adjacent week
             const toWeek = this.props.weeks[moveUp ? i - 1 : i + 1];
             if (moveUp) {
-              const toWeekBlocks = BlockStore.getBlocksInWeek(toWeek.id);
+              const toWeekBlocks = this.getBlocksInWeek(toWeek.id);
               atIndex = toWeekBlocks.length - 1;
             }
             this._moveBlock(block, toWeek, atIndex);
@@ -125,7 +128,7 @@ const Timeline = createReactClass({
   },
 
   _canBlockMoveDown(week, weekIndexInTimeline, block, blockIndexInWeek) {
-    if (weekIndexInTimeline === this.props.weeks.length - 1 && blockIndexInWeek === BlockStore.getBlocksInWeek(week.id).length - 1) { return false; }
+    if (weekIndexInTimeline === this.props.weeks.length - 1 && blockIndexInWeek === this.getBlocksInWeek(week.id).length - 1) { return false; }
     // TODO: return false if it's the last block in the last non-blackout week
     return true;
   },

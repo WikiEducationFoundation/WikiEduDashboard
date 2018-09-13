@@ -6,7 +6,8 @@ import {
   SET_BLOCK_EDITABLE,
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
-  ADD_BLOCK
+  ADD_BLOCK,
+  INSERT_BLOCK
 } from '../constants';
 
 const initialState = {
@@ -78,6 +79,44 @@ const removeBlockId = (blockIdsArray, blockId) => {
   return newArray;
 };
 
+const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
+  const oldWeekId = movingBlock.id;
+  const newWeekId = toWeek.id;
+  const movedBlock = { ...movingBlock };
+  movedBlock.week_id = newWeekId;
+  const weekChanged = newWeekId !== oldWeekId;
+  const updatedBlocks = { ...blocks };
+  delete updatedBlocks[movingBlock.id];
+
+  const blocksInOldWeek = [];
+  const blocksInNewWeek = [];
+  Object.keys(blocks).forEach(blockId => {
+    const block = blocks[blockId];
+    if (block.week_id === newWeekId) {
+      blocksInNewWeek.push(block);
+    }
+    if (!weekChanged) { return; }
+    if (block.week_id === oldWeekId) {
+      blocksInOldWeek.push(block);
+    }
+  });
+
+  blocksInOldWeek.sort((a, b) => a.order > b.order);
+  blocksInNewWeek.sort((a, b) => a.order > b.order);
+  blocksInNewWeek.splice(targetIndex, 0, movedBlock);
+  blocksInOldWeek.forEach((block, i) => {
+    const updatedBlock = { ...block, order: i };
+    updatedBlocks[block.id] = updatedBlock;
+  });
+  blocksInNewWeek.forEach((block, i) => {
+    const updatedBlock = { ...block, order: i };
+    updatedBlocks[block.id] = updatedBlock;
+  });
+
+  return updatedBlocks;
+};
+
+
 export default function timeline(state = initialState, action) {
   switch (action.type) {
     case SAVED_TIMELINE:
@@ -119,6 +158,10 @@ export default function timeline(state = initialState, action) {
       const updatedBlocks = { ...state.blocks };
       updatedBlocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
       return { ...state, blocks: updatedBlocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
+    }
+    case INSERT_BLOCK: {
+      const updatedBlocks = updateBlockPosition(action.block, action.toWeek, action.afterBlock, state.blocks);
+      return { ...state, blocks: updatedBlocks };
     }
     default:
       return state;

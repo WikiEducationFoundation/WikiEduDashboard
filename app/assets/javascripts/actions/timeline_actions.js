@@ -5,6 +5,7 @@ import {
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
   ADD_BLOCK,
+  INSERT_BLOCK,
   ADD_WEEK,
   DELETE_WEEK,
   API_FAIL,
@@ -70,4 +71,8 @@ export const updateBlock = block => {
 
 export const addBlock = weekId => {
   return { type: ADD_BLOCK, weekId, tempId: Date.now() };
+};
+
+export const insertBlock = (block, toWeek, afterBlock) => {
+  return { type: INSERT_BLOCK, block, toWeek, afterBlock };
 };
