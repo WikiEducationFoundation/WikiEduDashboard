@@ -9,7 +9,7 @@ const TagList = ({ tags, course }) => {
   const renderedTags = (tags.length > 0 ?
     _.map(tags, (tag, index) => {
       const comma = (index !== lastIndex) ? ', ' : '';
-      return <span key={tag.tag}>{tag.tag}{comma}</span>;
+      return <span key={`${tag.tag}${tag.id}`}>{tag.tag}{comma}</span>;
     })
     : I18n.t('courses.none'));
 

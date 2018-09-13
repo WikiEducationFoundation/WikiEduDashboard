@@ -15,6 +15,7 @@ import {
   RESTORE_TIMELINE
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import { fetchCourse } from './course_actions_redux';
 
 const fetchTimelinePromise = courseSlug => {
   return new Promise((res, rej) =>
@@ -66,7 +67,11 @@ export const deleteBlock = blockId => dispatch => {
 export const persistTimeline = (timelineData, courseSlug) => dispatch => {
   return API.saveTimeline(courseSlug, timelineData)
     .then(data => dispatch({ type: SAVED_TIMELINE, data }))
-    .catch(data => dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug }));
+    .catch(data => {
+      dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug });
+      fetchCourse(courseSlug)(dispatch);
+      fetchTimeline(courseSlug)(dispatch);
+    });
 };
 
 export const setBlockEditable = blockId => {
