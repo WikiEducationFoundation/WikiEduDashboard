@@ -94,8 +94,8 @@ const Timeline = createReactClass({
     }
   },
 
-  _moveBlock(block, toWeek, afterBlock) {
-    return this.props.insertBlock(block, toWeek, afterBlock);
+  _moveBlock(block, newWeekId, targetIndex) {
+    return this.props.insertBlock(block, newWeekId, targetIndex);
   },
 
   _handleMoveBlock(moveUp, blockId) {
@@ -113,11 +113,11 @@ const Timeline = createReactClass({
               const toWeekBlocks = this.getBlocksInWeek(toWeek.id);
               atIndex = toWeekBlocks.length;
             }
-            this._moveBlock(block, toWeek, atIndex);
+            this._moveBlock(block, toWeek.id, atIndex);
           } else {
             // Swap places with the adjacent block
             atIndex = moveUp ? j - 1 : j + 1;
-            this._moveBlock(block, week, atIndex);
+            this._moveBlock(block, week.id, atIndex);
           }
           return;
         }
