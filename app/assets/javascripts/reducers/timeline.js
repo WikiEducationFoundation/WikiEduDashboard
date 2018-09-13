@@ -79,6 +79,8 @@ const removeBlockId = (blockIdsArray, blockId) => {
   return newArray;
 };
 
+// Returns a new blocks object with updates to a single block's week and order within
+// that week, along with updated order for any other blocks affected by the move.
 const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
   const oldWeekId = movingBlock.id;
   const newWeekId = toWeek.id;
@@ -86,10 +88,18 @@ const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
   movedBlock.week_id = newWeekId;
   const weekChanged = newWeekId !== oldWeekId;
   const updatedBlocks = { ...blocks };
+
+  // Remove the updated block, so that we can calculate the relative order of the
+  // remaining blocks.
   delete updatedBlocks[movingBlock.id];
 
+  // We only care about blocks in the week(s) the moved block is going
+  // from or to. Collect those into arrays for sorting.
   const blocksInOldWeek = [];
   const blocksInNewWeek = [];
+  // The moved block in not included in updatedBlocks, only the
+  // other blocks from the week that the moved block is going to be inserted
+  // into or removed from.
   Object.keys(updatedBlocks).forEach(blockId => {
     const block = blocks[blockId];
     if (block.week_id === newWeekId) {
@@ -101,15 +111,19 @@ const updateBlockPosition = (movingBlock, toWeek, targetIndex, blocks) => {
     }
   });
 
+  // Sort the unmoved blocks in the affected weeks by block order.
   blocksInOldWeek.sort((a, b) => a.order > b.order);
   blocksInNewWeek.sort((a, b) => a.order > b.order);
 
+  // Insert the moved block into the desired position in the target week.
   blocksInNewWeek.splice(targetIndex, 0, movedBlock);
+
+  // Now, replace all the affected blocks with cloned objects,
+  // with the order based on the sorting index.
   blocksInOldWeek.forEach((block, i) => {
     const updatedBlock = { ...block, order: i };
     updatedBlocks[block.id] = updatedBlock;
   });
-
   blocksInNewWeek.forEach((block, i) => {
     const updatedBlock = { ...block, order: i };
     updatedBlocks[block.id] = updatedBlock;
