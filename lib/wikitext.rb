@@ -12,6 +12,7 @@ class Wikitext
     wikitext = replace_code_with_nowiki(wikitext)
     wikitext = reformat_image_links(wikitext)
     wikitext = replace_at_sign_with_template(wikitext)
+    wikitext = reformat_links(wikitext)
     wikitext
   end
 
@@ -78,10 +79,10 @@ class Wikitext
       .sub(/^Category:/, ':Category:') # Proper linking of categories
   end
 
-  # Fix full urls that have been formatted like wikilinks.
+  # Fix full urls, with or without quote marks, that have been formatted like wikilinks.
   # [["https://foo.com"|Foo]] -> [https://foo.com Foo]
   def self.reformat_links(text)
-    text = text.gsub(/\[\["(http.*?)"\|(.*?)\]\]/, '[\1 \2]')
+    text = text.gsub(/\[\["?(http.*?)"?\|(.*?)\]\]/, '[\1 \2]')
     text
   end
 

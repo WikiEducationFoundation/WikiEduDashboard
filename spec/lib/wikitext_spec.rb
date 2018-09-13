@@ -28,6 +28,19 @@ My list:
       output = subject.markdown_to_mediawiki(list)
       expect(output).to include(expected.chomp)
     end
+
+    it 'handles raw links with unicode characters correctly' do
+      # Pandoc behaves differently for raw links that include unicode characters,
+      # converting them to wikilinks when similar input without the unicode would
+      # be left as a raw link.
+      # Here, we're making sure they get converted back to a format that works on-wiki.
+      input = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
+      # rubocop:disable Metrics/LineLength
+      expected = '[https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice]'
+      # rubocop:enable Metrics/LineLength
+      output = subject.markdown_to_mediawiki(input)
+      expect(output).to include(expected)
+    end
   end
 
   describe '.replace_code_with_nowiki' do
