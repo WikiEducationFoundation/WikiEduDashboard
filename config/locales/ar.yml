@@ -7,6 +7,7 @@
 # Author: Haytham morsy
 # Author: Hhaboh162002
 # Author: Maroen1990
+# Author: Meno25
 # Author: Mido
 # Author: Moud hosny
 # Author: Shbib Al-Subaie
@@ -390,7 +391,7 @@ ar:
     end: نهاية
     ended: لقد انتهى تاريخ المقرر الدراسي.
     enroll: سجل نفسك
-    enrollment: تسجيل
+    enrollment: إضافة/إزالة الطلاب
     courses_enrolled: المقررات الدراسية المسجل فيها
     error:
       exists: هذا المقرر الدراسي موجود بالفعل! حاول مرة أخرى مستخدما عنوان مختلف أو
@@ -503,6 +504,8 @@ ar:
       برنامج الفصل الدراسي.
     subject: الموضوع
     submitted: قُدِّمت
+    tag_select: اختر أو أنشيء وسما
+    tags: 'الوسوم:'
     term: المصطلح
     timeline: تفاصيل المهمة
     timeline_enabled: الخط الزمني ممكن
@@ -605,7 +608,7 @@ ar:
     edit_course_dates: عدل مواعيد المشروع
     end: نهاية تتبع النشاط
     enroll: إضافة محرر
-    enrollment: مشاركة
+    enrollment: إضافة/إزالة المحررين
     explore: البحث عن برنامج
     courses_enrolled: البرامج التي شاركت فيها
     expected_students: المحررون المتوقعون
@@ -808,7 +811,7 @@ ar:
     first_week_title: الأسبوع النشط الأول
     gradeable_value: القيمة
     gradeables_none: هذا الجدول الزمني ليست به مهام عُلِّمَت كمتدرجة.
-    grading_header: 'التدريج (مجموع: %{total}%)'
+    grading_header: 'التدريج (مجموع: %{total})'
     move_block_down: حرك كتلة لأسفل
     move_block_up: حرك كتلة لأعلى
     no_class_holidays: ليست لدي عطل

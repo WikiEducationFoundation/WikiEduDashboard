@@ -115,18 +115,18 @@ eu:
       horiek bertsio askoz zaharragoei buruzkoak izan daitezke eta, beraz, artikulu
       baten umotasunari buruzko gutxi gorabeherako adierazle bat besterik ez dira.
     rating_docs:
-      fa: 'Artikulu nabarmendua: Wikipediako balorazio onena du, segur aski artikulu
-        helduegia, umoegia da editore berri baten proiektu nagusia izateko.'
-      fl: 'Nabarmenduen zerrenda: Wikipediako balorazio onena zerrendetarako'
-      a: Artikulu ona — arretaz prestatutako artikulu bat, baina editore berri bataren
-        proiektu nagusirako artikulua gisa helduegia gerta daiteke
-      ga: Artikulu ona — arretaz prestatutako artikulu bat, baina nabarmendua izateko
-        artean gabezi batzuk dituena
-      b: B-klasea - moderatuki garatutako artikulua
-      c: C-klasea — Erdi mailako artikulua, hobetu daitekeena
-      start: Oinarrizko artikulua — Aurretiazko artikulu, asko hobetu daitekeena
-      stub: 'Zirriborroa: hasitako artikulu laburra eta eduki gehiago behar duena'
-      list: 'Zerrenda: zerrenda bat gehiago ohiko artikulu bat baino'
+      fa: '%{class} (Artikulu nabarmendua) — Wikipediako balorazio onena du, segur
+        aski artikulu osatuegia da editore berri baten proiektu nagusia izateko'
+      fl: '%{class} (Nabarmenduen zerrenda) — Wikipediako balorazio onena zerrendetarako'
+      a: '%{class}-Artikulu ona — garatutako artikulua, baina editore berri baten
+        proiektu nagusirako artikulua gisa osatuegia izan daiteke'
+      ga: '{class} (Artikulu ona) — arretaz prestatutako artikulua, baina nabarmendua
+        izateko artean gabezi batzuk dituena'
+      b: '%{class}-klasea — moderatuki garatutako artikulua'
+      c: '%{class}-klasea —  erdi-mailako artikulua, hobetu daitekeena'
+      start: '%{class}-klasea — Oinarrizko artikulua, asko hobetu daitekeena'
+      stub: '%{class}-klasea — hasitako artikulu laburra eta eduki gehiago behar duena'
+      list: '%{class}-klasea — zerrenda bat gehiago ohiko artikulu bat baino'
       '?': Balorazio gabekoa - Wikipedia kalitate eskalaren oraindik ez da oraindik
       does_not_exist: Artikulu hau ez da existitzen Wikipedian
     see_more: Gehiago ikusi
@@ -404,7 +404,7 @@ eu:
     end: Amaitu
     ended: Ikastaroa amaituta dago.
     enroll: Izena eman
-    enrollment: Izena eman
+    enrollment: Ikasleak gehitu/kendu
     courses_enrolled: Izena emandako ikastaroak
     error:
       exists: Ikastaro hori dagoeneko existitzen da! Mesedez saiatu berriro izenburu,
@@ -488,10 +488,11 @@ eu:
       dezakete izena ikastaroan:'
     rating_feedback: 'Aurreikusten den artikuluaren ebaluazioa:'
     requested_accounts: Eskatu kontua
-    review_timeline: Mesedez berrikusi kronograma hau eta egin aldaketak. Behin zure
-      kronogramarekin pozik zaudenean, bidali Wiki Hezkuntzako lantaldeak onar dezan.
-      Behin onartutakoan, ikasleek ikastaroan izena emateko erabil dezaketen URL bat
-      emango zaizu (artean aldaketak egin ahal izango dituzu geroago).
+    review_timeline: 'Orain, berrikusi kronograma hau eta zure beharretara egokitu.
+      Behin zure kronogramarekin eroso zaudenean, bidali Wiki Hezkuntzako lantaldeak
+      onar dezan. Behin onartutakoan, ikasleek ikastaroan izena emateko erabil dezaketen
+      URL bat emango zaizu kurtsora sartzeko (oharra: aldaketak egin ahal izango dituzu
+      geroago).'
     revisions_doc: Azken %{timeframe} egunetan egindako aldaketa kopurua
     revisions_none: Ikastaro honek ez du Wikipediako edizio jarduera berririk.
     school: Eskola
@@ -508,8 +509,8 @@ eu:
       gehitu Orri orokorreko kanpaina batera.
     submitted_and_pending_heading: Bidalia eta onartua izateko zain
     submitted_heading: Bidalitako ikastaroak
-    submitted_note: Zure ikastaroa bidalia izan da. Wiki Hezkuntzako lantaldeak berrikusi
-      egingo du, eta harremanetan jarriko da galderak egiteko.
+    submitted_note: Zure ikastaroa bidali da. Wiki Hezkuntza lantaldeak berrikusi
+      egingo du eta harremanetan jarriko da galderarik egiteko.
     suggestions_feedback: Gomendio hauek lagungarri dira? Jakinarazi!
     suggestions_sending: Iruzkina bidaltzen...
     suggestions_sent: Oharra bidali da. Eskerrik asko zure laguntzagatik.
@@ -521,6 +522,7 @@ eu:
       "ClassroomProgram" ikastaro motarako baino ez da garrantzitsua.
     subject: Gaia
     submitted: Bidalita
+    tags: 'Etiketak:'
     term: Epealdia
     timeline: Esleipenaren xehetasunak
     timeline_enabled: Kronograma gaituta
@@ -541,6 +543,7 @@ eu:
     update_stats: Estatistikak eguneratu
     uploads_none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu
       Wikimedia Commonsera
+    user_recent_uploads: Azken igoerak
     user_suggestions: 'Lankide iradokizunak:'
     user_suggestions_prompt: Artikulu honen editoreentzako zure iradokizunak
     view_other: Beste kanpainak ikusi
@@ -556,7 +559,7 @@ eu:
     warn_mirrored: |-
       Bidalitakoan, ikastaro hau automatikoki gehituko da Wikipediara zure lankide kontuarekin. Horren ondoren, kronogramako aldaketa berriak Wikipedian ere agertuko dira.
       Ziur zaude hori egin nahi duzula?
-    wiki_staff: Wiki Hezkuntzako Lantaldea
+    wiki_staff: Wiki Hezkuntza Lantaldea
     withdrawn: Ez da eginkizuna edo esleipena egin
     word_count_doc: Ikastaroko ikasleek programako epealdian artikuluen izen-tartera
       gehitutako hitzen kopuru estimatua
@@ -619,7 +622,7 @@ eu:
     edit_course_dates: Proiektuaren datak aldatu
     end: Jarduera jarraipenaren amaiera
     enroll: Editorea gehitu
-    enrollment: Parte-hartzea
+    enrollment: Partehartzaileak gehitu/kendu
     explore: Programak bilatu
     courses_enrolled: Parte hartutako programak
     expected_students: Espero diren editoreak
@@ -834,7 +837,7 @@ eu:
     first_week_title: Lehen aste aktiboa
     gradeable_value: Balioa
     gradeables_none: Kronograma honek ez du nota jarri zaion lanik markatuta.
-    grading_header: 'Nota (Guztira: %{total}%)'
+    grading_header: 'Nota (Guztira: %{total})'
     move_block_down: Bloke bat behera mugitu
     move_block_up: Bloke bat gora mugitu
     no_class_holidays: Ez dut klaseko oporrik
@@ -856,6 +859,7 @@ eu:
     next: Hurrengo orria
     page: Orria
     page_number: '%{number}. orria %{total}(e)tik'
+    previous: < Aurrekoa
     table_of_contents: Eduki taula
     training_library: Trebakuntzaren liburutegia
     logged_out: Saioa bukatu duzu. Ez duzu modulua bukatu izanaren egiaztagirik jasoko
@@ -863,7 +867,9 @@ eu:
     done: Egina!
     check_answer: Erantzunak egiaztatu
     included_modules: Sartutako moduluak
+    view_library_source: Ikusi liburutegi-iturria
   uploads:
+    credit: Kreditua
     file_name: Fitxategiaren izena
     header: Wikimedia Commonsera Igotako Fitxategiak
     image: Irudia
@@ -871,9 +877,12 @@ eu:
     loading: Igoerak kargatzen...
     none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu Wikimedia
       Commonsera
+    select_label: Igotzailearen arabera iragazi
     time_doc: Igoera bakoitzaren ordua zure tokiko ordutegian
-    uploaded_at: Hurrengora kargatu da
+    uploaded_at: Igoera Denbora
+    uploader: Igotzailea
     uploaded_by: Nork igota
+    uploaded_on: Noiz Igoa
     usage_count: Erabilera kontagailua
     usages: Erabilerak
   users:
@@ -903,10 +912,10 @@ eu:
     first_name: Izena
     last_name: Abizena
     loading: Erabiltzaileak kargatzen...
-    characters_added_mainspace: IT Nagusira gehitutako karaktereak
+    characters_added_mainspace: Gehitutako karaktereak (artikulua)
     characters_added_short: 'I-T Nag: %{mainspace}, Lank Or: %{userspace}'
-    characters_added_userspace: Lank Or gehitutako karaktereak
-    characters_added_draftspace: IT Nagusira gehitutako karaktereak
+    characters_added_userspace: Gehitutako karaktereak (erabiltzailea)
+    characters_added_draftspace: Gehitutako karaktereak (zirriborroa)
     my_assigned: 'Esleitua:'
     my_reviewing: 'Berrikusten:'
     name: Izena
@@ -924,6 +933,7 @@ eu:
     revisions_doc: Lankide honen azken 7 egunetan egindako aldaketa kopurua
     reviewers: Berrikuslea(k)
     reviewing: Berrikusten
+    total_uploads: Igoerak Guztira
     training_complete:
       other: bat=trebakuntzarekin eguneratua
     training_complete_count:
@@ -949,7 +959,7 @@ eu:
       instructor: Irakaslea
       campus_volunteer: Campuseko boluntarioa
       online_volunteer: Online boluntarioa
-      wiki_ed_staff: Wiki Hezkuntzako Lantaldea
+      wiki_ed_staff: Wiki Hezkuntza Lantaldea
   user_profiles:
     student_impact: '%{username}(e)k ikasle gisa edukitako eragina guztira'
     instructor_impact: '%{username}(e)k hezitzaile gisa edukitako eragina guztira'
@@ -1048,9 +1058,9 @@ eu:
       nahi ez baduzu.
     email:
       headline: Kaixo, %{username}
-      message_line1: Espero dugu hiruhileko itzala izan duzula! Wiki Hezkuntzak zure
+      message_line1: Espero dugu hiruhileko itzela izan duzula! Wiki Hezkuntzak zure
         feedback iruzkin bat nahiko luke zure Wikipedia lanetarako baliabideak eta
-        laguntza hobetzeko. Zure erantzuna ezin bestekoa zaigu gure eskaintza hobetzeko.
+        laguntza hobetzeko. Zure erantzuna ezinbestekoa da gure eskaintza hobetzeko.
       message_line2: Baduzu 15 minutuko irakaslearen inkesta egiterik? Klikatu beheko
         botoian Wikipediaren bidez ikastea esperientzia are gogobetegarri eta baliagarriagoa
         bihurtzeko.
@@ -1074,7 +1084,19 @@ eu:
         Programari buruz?
       why_are_you_here: Zer egin nahiko zenuke?
   article_finder:
-    average_views: Eguneko ikustaldi kopurua
+    page_assessment_class: Klasea
+    average_views: Eguneko batez besteko ikustaldiak
     add_available_article: Gehitu artikulu erabilgarri gisa
+    remove_article: Artikulua ezabatu
     no_article_found: Ez da artikulurik aurkitu kategoria honetan
+    search: Bilatu
+    tools: Tresnak
+    show_filters: Erakutsi iragazkiak
+    hide_filters: Ezkutatu iragazkiak
+    keyword_search: Hitz gako Bilaketa
+    category_search: Kategoria Bilaketa
+    article_quality: Artikulu kalitatea (0-100)
+    more_results: Emaitza gehiago
+    article_finder: Artikulu bilatzailea
+    submit: Bidali
 ...
