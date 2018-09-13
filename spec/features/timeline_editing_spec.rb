@@ -28,6 +28,13 @@ def create_course
          kind: Block::KINDS['in_class'],
          title: 'Another Title',
          order: 1)
+  create(:block,
+         id: 3,
+         week_id: 1,
+         kind: Block::KINDS['milestone'],
+         title: 'Third Title',
+         points: 7,
+         order: 2)
 end
 
 describe 'timeline editing', type: :feature, js: true do
@@ -101,6 +108,13 @@ describe 'timeline editing', type: :feature, js: true do
       find('.block__edit-block', match: :first).click
     end
 
+    # Open edit mode for the third block
+    find(".week-1 .block-kind-#{Block::KINDS['milestone']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['milestone']}" do
+      find('.block__edit-block', match: :first).click
+    end
+
     # Open edit mode for the second block and delete it
     find(".week-1 .block-kind-#{Block::KINDS['in_class']}").hover
     sleep 0.5
@@ -115,6 +129,7 @@ describe 'timeline editing', type: :feature, js: true do
     # click Save All
     click_button 'Save All'
     expect(page).to have_content 'Block Title'
+    expect(page).to have_content 'Third Title'
     expect(page).not_to have_content 'Another Title'
     sleep 1
   end
@@ -138,10 +153,63 @@ describe 'timeline editing', type: :feature, js: true do
 
   it 'lets users add a block' do
     visit "/courses/#{Course.first.slug}/timeline"
-    expect(Block.count).to eq(2)
+    expect(Block.count).to eq(3)
     find('button.week__add-block').click
     click_button 'Save'
     sleep 1
-    expect(Block.count).to eq(3)
+    expect(Block.count).to eq(4)
+  end
+
+  it 'restores original content for a block upon cancelling edit mode' do
+    visit "/courses/#{Course.first.slug}/timeline"
+
+    # Open edit mode for the first block
+    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      find('.block__edit-block', match: :first).click
+    end
+
+    # Change the content
+    find('input.title').set 'My New Title'
+    expect(page).not_to have_content 'Block Title'
+    expect(page).to have_content 'My New Title'
+
+    # Cancel the change
+    find('span', text: 'Cancel').click
+    expect(page).to have_content 'Block Title'
+    expect(page).not_to have_content 'My New Title'
+  end
+
+  it 'restores content for all blocks with "Discard All Changes"' do
+    visit "/courses/#{Course.first.slug}/timeline"
+
+    # Change the first block
+    find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      find('.block__edit-block', match: :first).click
+      find('input.title').set 'My New Title'
+    end
+
+    # Change the third block
+    find(".week-1 .block-kind-#{Block::KINDS['milestone']}").hover
+    sleep 0.5
+    within ".week-1 .block-kind-#{Block::KINDS['milestone']}" do
+      find('.block__edit-block', match: :first).click
+      find('input.title').set 'My Other New Title'
+    end
+
+    expect(page).to have_content 'My New Title'
+    expect(page).to have_content 'My Other New Title'
+    expect(page).not_to have_content 'Block Title'
+    expect(page).not_to have_content 'Third Title'
+
+    # Reset the changes
+    click_button 'Discard All Changes'
+    expect(page).not_to have_content 'My New Title'
+    expect(page).not_to have_content 'My Other New Title'
+    expect(page).to have_content 'Block Title'
+    expect(page).to have_content 'Third Title'
   end
 end

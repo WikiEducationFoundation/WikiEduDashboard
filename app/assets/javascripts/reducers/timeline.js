@@ -165,7 +165,10 @@ export default function timeline(state = initialState, action) {
       return { ...state, editableBlockIds: [...state.editableBlockIds, action.blockId] };
     }
     case CANCEL_BLOCK_EDITABLE: {
-      return { ...state, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
+      const canceledBlock = { ...state.blocksPersisted[action.blockId] };
+      const blocks = { ...state.blocks };
+      blocks[action.blockId] = canceledBlock;
+      return { ...state, blocks, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
     }
     case UPDATE_BLOCK: {
       const updatedBlocks = { ...state.blocks };
