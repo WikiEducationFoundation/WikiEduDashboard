@@ -113,7 +113,7 @@ const Timeline = createReactClass({
             const toWeek = this.props.weeks[moveUp ? i - 1 : i + 1];
             if (moveUp) {
               const toWeekBlocks = this.getBlocksInWeek(toWeek.id);
-              atIndex = toWeekBlocks.length - 1;
+              atIndex = toWeekBlocks.length;
             }
             this._moveBlock(block, toWeek, atIndex);
           } else {
