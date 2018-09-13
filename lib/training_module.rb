@@ -73,9 +73,5 @@ class TrainingModule < TrainingBase
     @slide_slugs ||= raw_slides.map(&:slug)
   end
 
-  def deprecated?
-    status == 'deprecated'
-  end
-
   class ModuleNotFound < StandardError; end
 end
