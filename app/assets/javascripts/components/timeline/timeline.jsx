@@ -244,6 +244,7 @@ const Timeline = createReactClass({
             cancelBlockEditable={this.props.cancelBlockEditable}
             updateBlock={this.props.updateBlock}
             addBlock={this.props.addBlock}
+            deleteBlock={this.props.deleteBlock}
             saveGlobalChanges={this.props.saveGlobalChanges}
             canBlockMoveUp={this._canBlockMoveUp.bind(this, week, weekIndex)}
             canBlockMoveDown={this._canBlockMoveDown.bind(this, week, weekIndex)}

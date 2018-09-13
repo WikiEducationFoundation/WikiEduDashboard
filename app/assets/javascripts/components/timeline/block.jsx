@@ -37,12 +37,12 @@ const Block = createReactClass({
   passedUpdateBlock(selectedIds) {
     const newBlock = $.extend(true, {}, this.props.block);
     newBlock.training_module_ids = selectedIds;
-    return BlockActions.updateBlock(newBlock);
+    return this.props.updateBlock(newBlock);
   },
 
   deleteBlock() {
     if (confirm('Are you sure you want to delete this block? This will delete the block and all of its content.\n\nThis cannot be undone.')) {
-      return BlockActions.deleteBlock(this.props.block.id);
+      return this.props.deleteBlock(this.props.block.id);
     }
   },
 

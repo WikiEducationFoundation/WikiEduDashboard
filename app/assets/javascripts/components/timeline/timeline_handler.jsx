@@ -12,7 +12,8 @@ import ServerActions from '../../actions/server_actions.js';
 
 import BlockStore from '../../stores/block_store.js';
 import TrainingStore from '../../training/stores/training_store.js';
-import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable, updateBlock, addBlock, insertBlock } from '../../actions/timeline_actions';
+import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
+  updateBlock, addBlock, deleteBlock, insertBlock } from '../../actions/timeline_actions';
 import { getWeeksArray, getBlocksArray } from '../../selectors';
 
 
@@ -129,6 +130,7 @@ const TimelineHandler = createReactClass({
           all_training_modules={TrainingStore.getAllModules()}
           addWeek={this.props.addWeek}
           addBlock={this.props.addBlock}
+          deleteBlock={this.props.deleteBlock}
           insertBlock={this.props.insertBlock}
           deleteWeek={this.props.deleteWeek}
           setBlockEditable={this.props.setBlockEditable}
@@ -154,6 +156,7 @@ const mapDispatchToProps = {
   addWeek,
   deleteWeek,
   addBlock,
+  deleteBlock,
   persistTimeline,
   setBlockEditable,
   cancelBlockEditable,

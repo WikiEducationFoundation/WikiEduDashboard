@@ -5,6 +5,7 @@ import {
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
   ADD_BLOCK,
+  DELETE_BLOCK,
   INSERT_BLOCK,
   ADD_WEEK,
   DELETE_WEEK,
@@ -48,6 +49,16 @@ export const deleteWeek = weekId => dispatch => {
       type: DELETE_WEEK,
       weekId: data.week_id
     }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+const deleteBlockPromise = blockId => {
+  return API.deleteBlock(blockId);
+};
+
+export const deleteBlock = blockId => dispatch => {
+  return deleteBlockPromise(blockId)
+    .then(data => dispatch({ type: DELETE_BLOCK, blockId: data.block_id }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
 

@@ -48,9 +48,6 @@ const Week = createReactClass({
     this._scrollToAddedBlock();
     return this.props.addBlock(this.props.week.id);
   },
-  deleteBlock(blockId) {
-    return BlockActions.deleteBlock(blockId);
-  },
   toggleFocused(blockId) {
     if (this.state.focusedBlockId === blockId) {
       return this.setState({ focusedBlockId: null });
@@ -134,7 +131,7 @@ const Week = createReactClass({
           block={block}
           key={block.id}
           editPermissions={this.props.edit_permissions}
-          deleteBlock={this.deleteBlock.bind(this, block.id)}
+          deleteBlock={this.props.deleteBlock}
           week_index={this.props.index}
           weekStart={dateCalc.startDate()}
           all_training_modules={this.props.all_training_modules}

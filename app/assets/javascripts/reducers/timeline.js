@@ -7,6 +7,7 @@ import {
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
   ADD_BLOCK,
+  DELETE_BLOCK,
   INSERT_BLOCK
 } from '../constants';
 
@@ -174,6 +175,11 @@ export default function timeline(state = initialState, action) {
       const updatedBlocks = { ...state.blocks };
       updatedBlocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
       return { ...state, blocks: updatedBlocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
+    }
+    case DELETE_BLOCK: {
+      const updatedBlocks = { ...state.blocks };
+      delete updatedBlocks[action.blockId];
+      return { ...state, blocks: updatedBlocks, editableBlockIds: removeBlockId(state.editableBlockIds, action.blockId) };
     }
     case INSERT_BLOCK: {
       const updatedBlocks = updateBlockPosition(action.block, action.toWeek, action.afterBlock, state.blocks);
