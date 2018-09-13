@@ -37,9 +37,12 @@ My list:
       input = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
       # rubocop:disable Metrics/LineLength
       expected = '[https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice]'
+      # Some versions of Pandoc don't have this bug and treat it as raw text, so that's
+      # an acceptable alternative
+      alternative_expected = 'Více na: https://cs.wikipedia.org/wiki/Wikipedie:WikiMěsto_Kopřivnice'
       # rubocop:enable Metrics/LineLength
       output = subject.markdown_to_mediawiki(input)
-      expect(output).to include(expected)
+      expect(output).to include(expected).or(include(alternative_expected))
     end
   end
 
