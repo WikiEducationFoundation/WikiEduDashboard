@@ -82,10 +82,11 @@ const CourseClonedModal = createReactClass({
   saveCourse() {
     if (ValidationStore.isValid()) {
       ValidationActions.setInvalid('exists', I18n.t('courses.creator.checking_for_uniqueness'), true);
-      const updatedCourse = $.extend(true, {}, this.state.course);
-      updatedCourse.cloned_status = this.cloneCompletedStatus;
       const { slug } = this.state.course;
-      const newSlug = CourseUtils.generateTempId(this.state.course);
+      const updatedCourse = CourseUtils.cleanupCourseSlugComponents(this.state.course);
+      updatedCourse.cloned_status = this.cloneCompletedStatus;
+
+      const newSlug = CourseUtils.generateTempId(updatedCourse);
       updatedCourse.slug = newSlug;
       this.props.updateClonedCourse(updatedCourse, slug, newSlug);
       return this.setState({ isPersisting: true });
