@@ -84,6 +84,8 @@ Layout/EmptyLineAfterMagicComment:
   Enabled: false # These get removed whenever 'annotate' updates a file anyway.
 Naming/UncommunicativeMethodParamName:
   Enabled: false # This is too restrictive. Calling errors `e` is fine, for example.
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false # Not very helpful
 ########################
 # Temporary exceptions #
 ########################

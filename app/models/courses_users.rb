@@ -119,7 +119,7 @@ class CoursesUsers < ApplicationRecord
   # Class methods #
   #################
   def self.update_all_caches(courses_users)
-    courses_users.includes(:user).each(&:update_cache)
+    courses_users.includes(:user).find_each(&:update_cache)
   end
 
   def self.update_all_caches_concurrently(concurrency = 2)
