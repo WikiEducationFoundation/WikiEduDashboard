@@ -55,7 +55,7 @@ class TimelineController < ApplicationController
     set_permitted_params_baseline
     # If the API sends [] as training_module_ids (which it will when they're cleared)
     # then permit :training_module_ids in a way that'll accept a nil value
-    # (if not, ActiveRecord converts it to nil, and it doesn't get whitelisted;
+    # (if not, ActiveRecord converts it to nil, and it doesn't get allowed;
     # see http://guides.rubyonrails.org/security.html#unsafe-query-generation and
     # https://github.com/rails/rails/issues/13766#issuecomment-32730118).
     weeks = params[:weeks]

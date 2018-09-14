@@ -16,8 +16,8 @@ class TrainingBase
   #################
 
   # called for each child class in initializers/training_content.rb
-  def self.load(slug_whitelist: nil, content_class: self)
-    loader = training_loader_class.new(content_class: content_class, slug_whitelist: slug_whitelist)
+  def self.load(slug_list: nil, content_class: self)
+    loader = training_loader_class.new(content_class: content_class, slug_list: slug_list)
     @all = loader.load_content
     return if content_class.superclass.name == 'ApplicationRecord'
 
@@ -35,7 +35,7 @@ class TrainingBase
     TrainingModule.flush
     if Features.wiki_trainings?
       TrainingModule.load
-      TrainingModule.all.each { |tm| TrainingSlide.load(slug_whitelist: tm.slide_slugs) }
+      TrainingModule.all.each { |tm| TrainingSlide.load(slug_list: tm.slide_slugs) }
       TrainingModule.flush
       TrainingModule.load
       TrainingLibrary.load

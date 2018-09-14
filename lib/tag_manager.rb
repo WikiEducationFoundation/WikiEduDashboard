@@ -39,8 +39,8 @@ class TagManager
 
   private
 
-  # Starting in Summer 2018, Wiki Education courses must be white-listed to be cloneable,
-  # but all newly-created courses will be whitelisted by default.
+  # Starting in Summer 2018, old Wiki Education courses must be explicitly tagged to be cloneable,
+  # but all newly-created courses will be tagged cloneable by default.
   def cloneable?
     @course.type == 'ClassroomProgramCourse'
   end

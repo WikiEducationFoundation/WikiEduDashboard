@@ -7,9 +7,9 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 # TrainingLibrary, TrainingModule, TrainingSlide
 # Source of content is training_content yaml files and/or wiki pages.
 class WikiTrainingLoader
-  def initialize(content_class:, slug_whitelist: nil)
+  def initialize(content_class:, slug_list: nil)
     @content_class = content_class # TrainingLibrary, TrainingModule, or TrainingSlide
-    @slug_whitelist = slug_whitelist # limited list of slugs to process (optional)
+    @slug_list = slug_list # limited list of slugs to process (optional)
     # Index page that links to all the libraries, modules or slides to be loaded
     @wiki_base_page = content_class.wiki_base_page
 
@@ -29,7 +29,7 @@ class WikiTrainingLoader
 
   CONCURRENCY = 10 # Maximum simultaneous requests to mediawiki
   def load_from_wiki
-    source_pages = @slug_whitelist ? whitelisted_wiki_source_pages : wiki_source_pages
+    source_pages = @slug_list ? listed_wiki_source_pages : wiki_source_pages
     raise_no_matching_wiki_pages_error if source_pages.empty?
     Raven.capture_message "Loading #{@content_class}s from wiki",
                           level: 'info', extra: { wiki_pages: source_pages }
@@ -109,8 +109,8 @@ class WikiTrainingLoader
     end
   end
 
-  def whitelisted_wiki_source_pages
-    wiki_source_pages.select { |page| @slug_whitelist.include? slug_from(page) }
+  def listed_wiki_source_pages
+    wiki_source_pages.select { |page| @slug_list.include? slug_from(page) }
   end
 
   def translated_pages(base_page:, base_page_wikitext:)
@@ -158,7 +158,7 @@ class WikiTrainingLoader
 
   def raise_no_matching_wiki_pages_error
     message = <<~ERROR
-      Error: no wiki pages found from among #{@slug_whitelist}.
+      Error: no wiki pages found from among #{@slug_list}.
 
       Link them from '#{@wiki_base_page}'.
     ERROR

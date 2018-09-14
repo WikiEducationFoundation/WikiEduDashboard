@@ -43,7 +43,7 @@ class TrainingModule < TrainingBase
     # Reload the requested module's slides
     training_module = TrainingModule.find_by(slug: slug)
     raise ModuleNotFound, "No module #{slug} found!" unless training_module
-    TrainingSlide.load(slug_whitelist: training_module.slide_slugs)
+    TrainingSlide.load(slug_list: training_module.slide_slugs)
 
     # After updating the module's slides, we must flush and update the module
     # cache again so that it includes the updated slides.
