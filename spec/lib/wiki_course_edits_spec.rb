@@ -28,8 +28,8 @@ describe WikiCourseEdits do
                           delete: true)
     end
 
-    it 'reposts a clean version after hitting the spamblacklist' do
-      stub_oauth_edit_spamblacklist
+    it 'reposts a clean version after hitting the spam filter' do
+      stub_oauth_edit_spamblock
       expect_any_instance_of(WikiEdits).to receive(:post_whole_page).twice.and_call_original
       described_class.new(action: :update_course,
                           course: course,

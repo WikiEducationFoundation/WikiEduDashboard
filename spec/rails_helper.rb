@@ -13,9 +13,9 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 require 'capybara/poltergeist'
 
-url_blacklist = ['https://wikiedu.org', 'https://fonts.googleapis.com', 'http://sentry.example.com']
+url_blocklist = ['https://wikiedu.org', 'https://fonts.googleapis.com', 'http://sentry.example.com']
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blacklist, timeout: 60)
+  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blocklist, timeout: 60)
 end
 
 Capybara.configure do |config|

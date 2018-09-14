@@ -136,7 +136,7 @@ module RequestHelpers
       .to_return(status: 200, body: failure, headers: {})
   end
 
-  def stub_oauth_edit_spamblacklist
+  def stub_oauth_edit_spamblock
     stub_token_request
     failure = '{"edit":{"result":"Failure",
               "spamblacklist":"ur1.ca|bit.ly/foo"}}'
