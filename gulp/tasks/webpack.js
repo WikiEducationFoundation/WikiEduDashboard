@@ -1,17 +1,16 @@
 import gulp from 'gulp';
 import loadPlugins from 'gulp-load-plugins';
-import ManifestPlugin from 'webpack-manifest-plugin';
 import webpack from 'webpack';
-import WebpackDevServer from 'webpack-dev-server';
 import path from 'path';
+import ManifestPlugin from 'webpack-manifest-plugin';
+import WebpackDevServer from 'webpack-dev-server';
 import config from '../config.js';
 const plugins = loadPlugins();
 
 gulp.task('webpack', ['jquery-uls'], (cb) => {
-  const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const doHot = config.development && !config.watch_js;
+  const jsSource = `./${config.sourcePath}/${config.jsDirectory}`;
   const appRoot = path.resolve('../../');
-
   const entries = {
     main: [`${jsSource}/main.js`],
     raven: [`${jsSource}/raven.js`],
@@ -49,50 +48,47 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
         NODE_ENV: JSON.stringify('production')
       }
     }));
-
-    // Minify
-    wpPlugins.push(new webpack.optimize.UglifyJsPlugin({
-      compress: { warnings: false }
-    }));
   }
 
+  const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
   const wpConf = {
+    mode: config.development ? 'development' : 'production',
     entry: entries,
-    stats: 'errors-only',
     output: {
-      path: doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`),
-      filename: doHot ? '[name].js' : '[name].[hash].js'
+      path: outputPath,
+      filename: doHot ? '[name].js' : '[name].[hash].js',
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.js', '.jsx'],
     },
     module: {
-      loaders: [{
-        test: /\.jsx?$/,
-        exclude: [/vendor/, /node_modules(?!\/striptags)/],
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true
+      rules: [
+        {
+          test: /\.jsx?$/,
+          exclude: [/vendor/, /node_modules(?!\/striptags)/],
+          use: {
+            loader: 'babel-loader',
+            query: {
+              cacheDirectory: true
+            }
+          }
         }
-      }, {
-        test: /\.json$/,
-        loader: 'json-loader'
-      }]
+      ]
     },
     externals: {
       jquery: 'jQuery',
       'i18n-js': 'I18n'
     },
+    watch: config.watch_js,
     plugins: wpPlugins,
     devtool: config.development ? 'eval' : 'source-map'
   };
-
   const wp = webpack(wpConf);
-
   if (doHot) {
     // If hot mode, start webpack with dev server
     new WebpackDevServer(wp, {
-      stats: 'errors-only'
+      stats: 'errors-only',
     }).listen(8080, 'localhost', (err) => {
       if (err) throw new plugins.util.PluginError('webpack-dev-server', err);
       return plugins.util.log('[webpack-dev-server] Running');
@@ -100,15 +96,18 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
   } else {
     if (config.watch_js) {
       // Start webpack in watch mode
-      wp.watch({}, (err, stats) => {
-        if (err) throw new plugins.util.PluginError('webpack-dev-server', err);
-        plugins.util.log('[webpack-dev-server]', stats.toString({ chunks: false }));
+      wp.watch({
+        ignored: /node_modules/,
+        poll: true
+      }, (err, stats) => {
+        if (err) throw new plugins.util.PluginError('webpack-watch', err);
+        plugins.util.log('[webpack-watch]', stats.toString({ chunks: false }));
       });
     } else {
       // Run webpack once
       wp.run((err, stats) => {
-        if (err) throw new plugins.util.PluginError('webpack-dev-server', err);
-        plugins.util.log('[webpack-dev-server]', stats.toString({ chunks: false }));
+        if (err) throw new plugins.util.PluginError('webpack', err);
+        plugins.util.log('[webpack]', stats.toString({ chunks: false }));
         cb();
       });
     }
