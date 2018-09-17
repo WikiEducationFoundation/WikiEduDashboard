@@ -2,42 +2,39 @@
 
 require 'rails_helper'
 
-def create_course
-  start_date = '2025-02-10'.to_date # a Monday
-  create(:course,
-         id: 10001,
-         start: start_date,
-         end: start_date + 2.months,
-         timeline_start: start_date,
-         timeline_end: start_date + 2.months,
-         weekdays: '0101010',
-         submitted: true)
-  create(:week,
-         id: 1,
-         course_id: 10001)
-  create(:block,
-         id: 1,
-         week_id: 1,
-         kind: Block::KINDS['assignment'],
-         title: 'Block Title',
-         order: 0,
-         points: 50)
-  create(:block,
-         id: 2,
-         week_id: 1,
-         kind: Block::KINDS['in_class'],
-         title: 'Another Title',
-         order: 1)
-  create(:block,
-         id: 3,
-         week_id: 1,
-         kind: Block::KINDS['milestone'],
-         title: 'Third Title',
-         points: 7,
-         order: 2)
-end
-
 describe 'timeline editing', type: :feature, js: true do
+  let(:start_date) { '2025-02-10'.to_date } # a Monday
+  let(:submitted) { true }
+
+  let(:course_with_timeline) do
+    course = create(:course,
+                    start: start_date,
+                    end: start_date + 2.months,
+                    timeline_start: start_date,
+                    timeline_end: start_date + 2.months,
+                    weekdays: '0101010',
+                    submitted: submitted)
+    week = create(:week, course: course)
+    create(:block, week: week,
+                   id: 1,
+                   kind: Block::KINDS['assignment'],
+                   title: 'Block Title',
+                   order: 0,
+                   points: 50)
+    create(:block, week: week,
+                   id: 2,
+                   kind: Block::KINDS['in_class'],
+                   title: 'Another Title',
+                   order: 1)
+    create(:block, week: week,
+                   id: 3,
+                   kind: Block::KINDS['milestone'],
+                   title: 'Third Title',
+                   points: 7,
+                   order: 2)
+    return course
+  end
+
   let(:unassigned_module_name) { 'Peer review' }
 
   before do
@@ -45,13 +42,12 @@ describe 'timeline editing', type: :feature, js: true do
     include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
-    create_course
     login_as create(:admin)
     stub_oauth_edit
   end
 
   it 'lets users add a training to an assignment block' do
-    visit "/courses/#{Course.last.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Interact with training modules within a block
     find('.week-1').hover
@@ -73,7 +69,7 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'lets users delete a week' do
-    visit "/courses/#{Course.first.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(page).not_to have_content 'Add Assignment'
     accept_confirm do
       find('button.week__delete-week').click
@@ -83,7 +79,7 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'lets users delete a block' do
-    visit "/courses/#{Course.first.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(page).to have_content 'Block Title'
     find('.week-1').hover
     sleep 0.5
@@ -99,7 +95,7 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'handles cases of "save all" after blocks have been deleted' do
-    visit "/courses/#{Course.last.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
@@ -135,7 +131,7 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'lets users remove grading from a block' do
-    visit "/courses/#{Course.last.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(Block.find(1).points).to eq(50)
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
@@ -152,16 +148,16 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'lets users add a block' do
-    visit "/courses/#{Course.first.slug}/timeline"
-    expect(Block.count).to eq(3)
+    visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(course_with_timeline.blocks.count).to eq(3)
     find('button.week__add-block').click
     click_button 'Save'
     sleep 1
-    expect(Block.count).to eq(4)
+    expect(course_with_timeline.blocks.count).to eq(4)
   end
 
   it 'restores original content for a block upon cancelling edit mode' do
-    visit "/courses/#{Course.first.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Open edit mode for the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
@@ -182,7 +178,7 @@ describe 'timeline editing', type: :feature, js: true do
   end
 
   it 'restores content for all blocks with "Discard All Changes"' do
-    visit "/courses/#{Course.first.slug}/timeline"
+    visit "/courses/#{course_with_timeline.slug}/timeline"
 
     # Change the first block
     find(".week-1 .block-kind-#{Block::KINDS['assignment']}").hover
@@ -211,5 +207,15 @@ describe 'timeline editing', type: :feature, js: true do
     expect(page).not_to have_content 'My Other New Title'
     expect(page).to have_content 'Block Title'
     expect(page).to have_content 'Third Title'
+  end
+
+  context 'when the course is not submitted' do
+    let(:submitted) { false }
+
+    it 'lets users delete the whole timeline' do
+      visit "/courses/#{course_with_timeline.slug}/timeline"
+      accept_confirm { click_button 'Delete Timeline' }
+      expect(page).to have_content 'Add Assignment'
+    end
   end
 end
