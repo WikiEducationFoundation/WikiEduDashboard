@@ -469,7 +469,7 @@ tr:
     no_available_actions: Kullanılabilir işlem yok
     ores_plot: ORES
     overview: Anasayfa
-    passcode: Şifre Kodu
+    passcode: Parola Kodu
     passcode_none: Şifre yok
     passcode_prompt: 'Katılmak için şifreyi girin:'
     private: Özel

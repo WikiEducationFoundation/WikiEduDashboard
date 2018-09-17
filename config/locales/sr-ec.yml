@@ -419,8 +419,8 @@ sr-ec:
       додајте га у кампању на страници Прегледа.
     submitted_and_pending_heading: Послато и чека одобрење
     submitted_heading: Поднети курсеви
-    submitted_note: Ваш курс је послат. Запослени ће га прегледати и контактирати
-      Вас уколико имају питања.
+    submitted_note: Ваш курс је поднет. Особље Вики едукације ће га прегледати и ступити
+      у контакт са било којим питањима.
     suggestions_feedback: Да ли имате предлоге за побољшање ове алатке? Уколико их
       имате, обавестите нас!
     suggestions_sending: Шаљем повратне информације...
@@ -733,9 +733,9 @@ sr-ec:
     first_name: Име
     last_name: Презиме
     loading: Учитавам кориснике...
-    characters_added_mainspace: Додатно знакова у ГИП
+    characters_added_mainspace: Додатно знакова (чланак)
     characters_added_short: 'ГИП: %{mainspace}, КИП: %{userspace}'
-    characters_added_userspace: Знакова додато у КИП
+    characters_added_userspace: Додато знакова (корисник)
     my_assigned: 'Додељено:'
     my_reviewing: 'Прегледање:'
     name: Име

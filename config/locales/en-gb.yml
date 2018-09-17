@@ -5,6 +5,7 @@
 # Author: Chase me ladies, I'm the Cavalry
 # Author: Codynguyen1116
 # Author: Pierpao
+# Author: Samwilson
 # Author: Sau226
 ---
 en-gb:
@@ -201,7 +202,7 @@ en-gb:
     edit_course_dates: Edit Course Dates
     end: End
     enroll: Enroll
-    enrollment: Enrollment
+    enrollment: Add/Remove Students
     error:
       exists: That course already exists! Please try again with a different title,
         school, or term.

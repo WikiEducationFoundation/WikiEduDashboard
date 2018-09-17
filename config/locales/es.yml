@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Alebecerrasj
 # Author: Astroemi
+# Author: Cgalindo
 # Author: Codynguyen1116
 # Author: Copper12
 # Author: Dgstranz
@@ -463,6 +464,7 @@ es:
     user_role: Oficio
     course_details: Detalles del curso
     subject: Asignatura
+    tag_select: Selecciona o crea una etiqueta
     term: Término
     timeline: Detalles de la tarea
     timeline_link: Cronograma
