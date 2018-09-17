@@ -10,7 +10,7 @@ describe ConstantUpdate do
                       flags: { salesforce_id: 'a0f1a9063a1Wyad' })
     end
 
-    it 'calls lots of update routines and resets :needs_update flag on courses' do
+    it 'calls lots of update routines' do
       expect(AssignmentUpdater).to receive(:update_assignment_article_ids_and_titles)
       expect_any_instance_of(RevisionScoreImporter).to receive(:update_revision_scores)
       expect(PlagiabotImporter).to receive(:find_recent_plagiarism)
