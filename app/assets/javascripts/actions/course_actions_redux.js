@@ -1,7 +1,7 @@
 import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
-  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE
+  START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, DELETE_ALL_WEEKS
 } from '../constants';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
@@ -127,5 +127,11 @@ export const uploadSyllabus = payload => dispatch => {
 export const linkToSalesforce = (courseId, salesforceId) => dispatch => {
   return API.linkToSalesforce(courseId, salesforceId)
     .then(data => dispatch({ type: LINKED_TO_SALESFORCE, data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
+};
+
+export const deleteAllWeeks = courseId => dispatch => {
+  return API.deleteAllWeeks(courseId)
+    .then(data => dispatch({ type: DELETE_ALL_WEEKS, data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };
