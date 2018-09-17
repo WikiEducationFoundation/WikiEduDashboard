@@ -13,7 +13,7 @@ import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
 
-import CourseActions from '../../actions/course_actions.js';
+import { deleteAllWeeks } from '../../actions/course_actions_redux.js';
 
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
@@ -82,7 +82,7 @@ const Timeline = createReactClass({
 
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
-      return CourseActions.deleteAllWeeks(this.props.course.slug)
+      return deleteAllWeeks(this.props.course.slug)
                .then(() => { return window.location.reload(); });
     }
   },
