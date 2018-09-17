@@ -3,8 +3,6 @@
 // including the available locales and wikis, the Features enabled,
 // and other static (from a JavaScript perspective) data objects.
 
-// Polyfills
-import 'babel-polyfill';
 import Rails from 'rails-ujs';
 require('location-origin');
 Rails.start(); // Enables rails-ujs, which adds JavaScript enhancement to some Rails views
