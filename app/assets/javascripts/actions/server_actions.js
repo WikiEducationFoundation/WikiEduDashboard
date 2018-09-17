@@ -6,13 +6,6 @@ const Flux = new McFly();
 const ServerActions = Flux.createActions({
 
   // General-purpose
-  fetch(model, courseId) {
-    const actionType = `RECEIVE_${model.toUpperCase()}`;
-    return API.fetch(courseId, model)
-      .then(resp => ({ actionType, data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   remove(model, courseId, data) {
     const actionType = `${model.toUpperCase()}_MODIFIED`;
     return API.modify(model, courseId, data, false)
