@@ -13,12 +13,6 @@ const ServerActions = Flux.createActions({
       .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
   },
 
-  fetchSuspectedPlagiarism(opts = {}) {
-    return API.fetchSuspectedPlagiarism(opts)
-      .then(resp => ({ actionType: 'RECEIVE_SUSPECTED_PLAGIARISM', data: resp }))
-      .catch(resp => ({ actionType: 'API_FAIL', data: resp }));
-  },
-
   fetchAllTrainingModules() {
     return API.fetchAllTrainingModules()
       .then(resp => ({ actionType: 'RECEIVE_ALL_TRAINING_MODULES', data: resp }))
