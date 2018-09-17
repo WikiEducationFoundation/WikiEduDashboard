@@ -45,7 +45,7 @@ const Overview = createReactClass({
   render() {
     const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} />;
+      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} currentUser={this.props.current_user} />;
     }
 
     let syllabusUpload;

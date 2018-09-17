@@ -17,7 +17,8 @@ const CourseClonedModal = createReactClass({
   propTypes: {
     course: PropTypes.object.isRequired,
     updateCourse: PropTypes.func.isRequired,
-    updateClonedCourse: PropTypes.func.isRequired
+    updateClonedCourse: PropTypes.func.isRequired,
+    currentUser: PropTypes.object.isRequired
   },
 
   mixins: [ValidationStore.mixin],
@@ -99,6 +100,9 @@ const CourseClonedModal = createReactClass({
   },
 
   saveEnabled() {
+    // You must be logged in and have permission to edit the course.
+    // This will be the case if you created it (and are therefore the instructor) or if you are an admin.
+    if (!this.props.currentUser.isNonstudent) { return false; }
     // ClassroomProgramCourse conditions
     if (this.props.course.type === 'ClassroomProgramCourse') {
       if (!this.state.valuesUpdated || !this.state.dateValuesUpdated) { return false; }
@@ -120,6 +124,10 @@ const CourseClonedModal = createReactClass({
     let errorMessage;
     if (this.state.error_message) {
       errorMessage = <div className="warning">{this.state.error_message}</div>;
+    } else if (!this.props.currentUser.id) {
+      errorMessage = <div className="warning">{I18n.t('courses.please_log_in')}</div>;
+    } else if (!this.props.currentUser.isNonstudent) {
+      errorMessage = <div className="warning">{CourseUtils.i18n('not_permitted', i18nPrefix)}</div>;
     }
 
     const dateProps = CourseDateUtils.dateProps(this.state.course);

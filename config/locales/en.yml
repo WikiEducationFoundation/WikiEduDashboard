@@ -500,6 +500,7 @@ en:
     nocourses: You are not participating in any courses.
     nocourse: has not participated in any courses.
     none: None
+    not_permitted: You are not permitted to edit this course.
     notify_untrained_confirmation: >
       This will post a reminder on the talk pages for all students who overdue
       for completing assigned training modules. Are you sure you want to do this?
@@ -509,6 +510,7 @@ en:
     passcode: Passcode
     passcode_none: No passcode
     passcode_prompt: "Enter the passcode to join:"
+    please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
     rating_feedback: "Predicted rating for the article is: "
@@ -665,6 +667,7 @@ en:
     join_details: To join this program, you need to get the passcode — or link that includes the passcode — from the facilitator.
     leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
+    not_permitted: You are not permitted to edit this program.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     request_accounts: Request accounts
     revisions_none: This project has no recent editing activity.
