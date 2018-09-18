@@ -186,5 +186,3 @@ RSpec/ExampleWording:
   Enabled: false
 RSpec/Be:
   Enabled: false
-RSpec/OverwritingSetup:
-  Enabled: false
