@@ -8,7 +8,7 @@ import CourseLink from './common/course_link.jsx';
 import Confirm from './common/confirm.jsx';
 import { fetchUsers } from '../actions/user_actions.js';
 import { fetchCampaigns } from '../actions/campaign_actions.js';
-import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../actions/course_actions_redux';
+import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../actions/course_actions';
 import { fetchTimeline } from '../actions/timeline_actions';
 import Affix from './common/affix.jsx';
 import CourseUtils from '../utils/course_utils.js';

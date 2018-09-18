@@ -13,7 +13,7 @@ import SalesforceLink from './salesforce_link.jsx';
 import GreetStudentsButton from './greet_students_button.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce } from '../../actions/course_actions_redux';
+import { needsUpdate, linkToSalesforce } from '../../actions/course_actions';
 
 const AvailableActions = createReactClass({
   displayName: 'AvailableActions',

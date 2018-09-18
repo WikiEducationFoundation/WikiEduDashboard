@@ -12,10 +12,11 @@ import {
   API_FAIL,
   SAVED_TIMELINE,
   SAVE_TIMELINE_FAIL,
-  RESTORE_TIMELINE
+  RESTORE_TIMELINE,
+  DELETE_ALL_WEEKS,
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import { fetchCourse } from './course_actions_redux';
+import { fetchCourse } from './course_actions';
 
 const fetchTimelinePromise = courseSlug => {
   return new Promise((res, rej) =>
@@ -96,4 +97,10 @@ export const insertBlock = (block, newWeekId, afterBlock) => {
 
 export const restoreTimeline = () => {
   return { type: RESTORE_TIMELINE };
+};
+
+export const deleteAllWeeks = courseId => dispatch => {
+  return API.deleteAllWeeks(courseId)
+    .then(data => dispatch({ type: DELETE_ALL_WEEKS, data }))
+    .catch(data => dispatch({ type: API_FAIL, data }));
 };
