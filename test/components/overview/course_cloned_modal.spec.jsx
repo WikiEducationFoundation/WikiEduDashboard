@@ -12,13 +12,19 @@ describe('CourseClonedModal', () => {
     title: 'bar',
     expected_students: 0
   };
+  const currentUser = {
+    admin: false,
+    id: 123,
+    isNonstudent: true
+  };
   const TestModal = mount(
     <CourseClonedModal
       course={course}
       updateCourse={jest.fn()}
       updateClonedCourse={jest.fn()}
+      currentUser={currentUser}
     />
-    );
+  );
 
   it('renders a Modal', () => {
     const renderedModal = TestModal.find('.cloned-course');

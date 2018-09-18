@@ -34,8 +34,7 @@ const TimelineHandler = createReactClass({
     return { reorderable: false };
   },
 
-  componentWillMount() {
-    ServerActions.fetch('timeline', this.props.course_id);
+  componentDidMount() {
     return ServerActions.fetchAllTrainingModules();
   },
 

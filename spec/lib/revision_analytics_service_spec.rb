@@ -17,9 +17,6 @@ describe RevisionAnalyticsService do
   let(:user)       { create(:user, id: 1, username: 'Student_1') }
   let!(:c_user)    { create(:courses_user, user_id: user.id, course_id: course.id, role: 0) }
   let!(:article)   { create(:article, id: 1, title: 'Student_1/A_great_draft', namespace: 2) }
-  let!(:revision5) do
-    create(:revision, id: 5, user_id: 1, article_id: 1, date: 1.week.ago, wp10: 59)
-  end
 
   let(:course2) do
     create(:course, id: 10002, start: 1.month.ago, end: 1.month.from_now, slug: 'foo/2')

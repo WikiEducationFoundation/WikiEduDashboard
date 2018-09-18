@@ -15,6 +15,15 @@ describe UpdateCourseStats do
     end
   end
 
+  context 'when the course has :needs_update set "true"' do
+    let(:course) { create(:course, needs_update: true) }
+
+    it 'updates it to "false"' do
+      subject
+      expect(course.reload.needs_update).to eq(false)
+    end
+  end
+
   context 'when :debug_updates flag is set' do
     let(:flags) { { debug_updates: true } }
 

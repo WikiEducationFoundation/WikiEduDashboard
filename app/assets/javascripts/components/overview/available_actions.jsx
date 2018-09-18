@@ -74,7 +74,7 @@ const AvailableActions = createReactClass({
     }
 
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
-    if (enteredTitle === this.props.course.title) {
+    if (enteredTitle.trim() === this.props.course.title.trim()) {
       return ServerActions.deleteCourse(this.props.course.slug);
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));

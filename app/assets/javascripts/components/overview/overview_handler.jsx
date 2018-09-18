@@ -14,7 +14,6 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
-import ServerActions from '../../actions/server_actions.js';
 import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { getStudentUsers, getWeeksArray } from '../../selectors';
@@ -39,13 +38,12 @@ const Overview = createReactClass({
     if (this.props.current_user.admin) {
       this.props.fetchTags(this.props.course_id);
     }
-    return ServerActions.fetch('tags', this.props.course_id);
   },
 
   render() {
     const course = this.props.course;
     if (course.cloned_status === 1) {
-      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} />;
+      return <CourseClonedModal course={course} updateCourse={this.props.updateCourse} updateClonedCourse={this.props.updateClonedCourse} currentUser={this.props.current_user} />;
     }
 
     let syllabusUpload;
