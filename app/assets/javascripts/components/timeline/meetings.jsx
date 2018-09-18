@@ -8,7 +8,7 @@ import Modal from '../common/modal.jsx';
 import DatePicker from '../common/date_picker.jsx';
 import ValidationStore from '../../stores/validation_store.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
+import { updateCourse, persistCourse } from '../../actions/course_actions';
 
 const Meetings = createReactClass({
   displayName: 'Meetings',

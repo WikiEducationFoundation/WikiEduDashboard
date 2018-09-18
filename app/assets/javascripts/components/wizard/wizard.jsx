@@ -8,7 +8,7 @@ import Panel from './panel.jsx';
 import FormPanel from './form_panel.jsx';
 import SummaryPanel from './summary_panel.jsx';
 import Modal from '../common/modal.jsx';
-import { updateCourse, persistCourse } from '../../actions/course_actions_redux';
+import { updateCourse, persistCourse } from '../../actions/course_actions';
 import { fetchWizardIndex, advanceWizard, goToWizard, selectWizardOption, submitWizard } from '../../actions/wizard_actions';
 
 const persist = function (goToWizardFunc) {

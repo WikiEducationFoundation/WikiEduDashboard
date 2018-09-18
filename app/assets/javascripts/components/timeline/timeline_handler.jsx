@@ -12,7 +12,7 @@ import ServerActions from '../../actions/server_actions.js';
 
 import TrainingStore from '../../training/stores/training_store.js';
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
-  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline } from '../../actions/timeline_actions';
+  updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';
 import { getWeeksArray } from '../../selectors';
 
 const TimelineHandler = createReactClass({
@@ -125,6 +125,7 @@ const TimelineHandler = createReactClass({
           deleteBlock={this.props.deleteBlock}
           insertBlock={this.props.insertBlock}
           deleteWeek={this.props.deleteWeek}
+          deleteAllWeeks={this.props.deleteAllWeeks}
           setBlockEditable={this.props.setBlockEditable}
           resetState={() => {}}
           nameHasChanged={() => false}
@@ -152,7 +153,8 @@ const mapDispatchToProps = {
   cancelBlockEditable,
   updateBlock,
   insertBlock,
-  restoreTimeline
+  restoreTimeline,
+  deleteAllWeeks
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);
