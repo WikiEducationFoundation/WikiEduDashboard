@@ -4,23 +4,32 @@ require_dependency "#{Rails.root}/lib/ores_api"
 require_dependency "#{Rails.root}/lib/wiki_api"
 
 #= Imports revision scoring data from ores.wikimedia.org
-# As of July 2016, this only applies to English Wikipedia.
-# French and other Wikipedias also have wp10 models for ORES, they don't match
-# enwiki version.
 class RevisionScoreImporter
+  # All the wikis with an articlequality model as of 2018-09-18
+  # https://ores.wikimedia.org/v3/scores/
+  AVAILABLE_WIKIS = [
+    { language: 'en', project: 'wikipedia' },
+    { language: 'eu', project: 'wikipedia' },
+    { language: 'fa', project: 'wikipedia' },
+    { language: 'fr', project: 'wikipedia' },
+    { language: 'ru', project: 'wikipedia' },
+    { language: 'simple', project: 'wikipedia' },
+    # { language: 'test', project: 'wikipedia' }, # not a dashboard-supported wiki
+    { language: 'tr', project: 'wikipedia' }
+  ].freeze
   ################
   # Entry points #
   ################
-  def initialize
-    @wiki = Wiki.find_by(language: 'en', project: 'wikipedia')
+  def initialize(wiki = nil)
+    @wiki = wiki || Wiki.find_by(language: 'en', project: 'wikipedia')
     @ores_api = OresApi.new(@wiki)
   end
 
   # assumes a mediawiki rev_id from English Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data(rev_id)
-    features = ores_data.dig('enwiki', 'scores', rev_id.to_s, 'articlequality', 'features')
-    rating = ores_data.dig('enwiki', 'scores', rev_id.to_s, 'score', 'prediction')
+    features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'features')
+    rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'score', 'prediction')
     return { features: features, rating: rating }
   end
 
@@ -61,13 +70,20 @@ class RevisionScoreImporter
   ##################
   private
 
+  # The top-level key representing the wiki in ORES data
+  def wiki_key
+    # This assumes the project is Wikipedia, which is true for all wikis with the articlequality
+    # model as of 2018-09.
+    @wiki_key ||= "#{@wiki.language}wiki"
+  end
+
   # This should take up to OresApi::CONCURRENCY rev_ids per batch
   def get_and_save_scores(rev_batch)
     scores = {}
     threads = rev_batch.each_with_index.map do |revision, i|
       Thread.new(i) do
         ores_data = @ores_api.get_revision_data(revision.mw_rev_id)
-        scores.merge!(ores_data&.dig('enwiki', 'scores') || {})
+        scores.merge!(ores_data&.dig(wiki_key, 'scores') || {})
       end
     end
     threads.each(&:join)
@@ -90,8 +106,8 @@ class RevisionScoreImporter
     return unless parent_id
     ores_data = @ores_api.get_revision_data(parent_id)
     return unless ores_data
-    score = ores_data.dig('enwiki', 'scores', parent_id.to_s)
-    en_wiki_weighted_mean_score(score)
+    score = ores_data.dig(wiki_key, 'scores', parent_id.to_s)
+    weighted_mean_score(score)
   end
 
   def unscored_mainspace_userspace_and_draft_revisions
@@ -103,7 +119,7 @@ class RevisionScoreImporter
   def save_scores(scores)
     scores.each do |mw_rev_id, score|
       revision = Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki_id: @wiki.id)
-      revision.wp10 = en_wiki_weighted_mean_score(score)
+      revision.wp10 = weighted_mean_score(score)
       revision.features = score.dig('articlequality', 'features')
       revision.deleted = true if deleted?(score)
       revision.save
@@ -131,17 +147,52 @@ class RevisionScoreImporter
       rvprop: 'ids' }
   end
 
-  WP10_WEIGHTING = { 'FA'    => 100,
-                     'GA'    => 80,
-                     'B'     => 60,
-                     'C'     => 40,
-                     'Start' => 20,
-                     'Stub'  => 0 }.freeze
-  def en_wiki_weighted_mean_score(score)
+  # ORES articlequality ratings are often derived from the en.wiki system,
+  # so this is the fallback scheme.
+  ENWIKI_WEIGHTING = { 'FA'    => 100,
+                       'GA'    => 80,
+                       'B'     => 60,
+                       'C'     => 40,
+                       'Start' => 20,
+                       'Stub'  => 0 }.freeze
+  FRWIKI_WEIGHTING = { 'adq' => 100,
+                       'ba' => 80,
+                       'a' => 60,
+                       'b' => 40,
+                       'bd' => 20,
+                       'e' => 0 }.freeze
+  TRWIKI_WEIGHTING = { 'sm' => 100,
+                       'km' => 80,
+                       'b' => 60,
+                       'c' => 40,
+                       'baslagıç' => 20,
+                       'taslak' => 0 }.freeze
+  RUWIKI_WEIGHTING = { 'ИС' => 100,
+                       'ДС' => 80,
+                       'ХС' => 80,
+                       'I' => 60,
+                       'II' => 40,
+                       'III' => 20,
+                       'IV' => 0 }.freeze
+  WEIGHTING_BY_LANGUAGE = {
+    'en' => ENWIKI_WEIGHTING,
+    'simple' => ENWIKI_WEIGHTING,
+    'fa' => ENWIKI_WEIGHTING,
+    'eu' => ENWIKI_WEIGHTING,
+    'fr' => FRWIKI_WEIGHTING,
+    'tr' => TRWIKI_WEIGHTING,
+    'ru' => RUWIKI_WEIGHTING
+  }.freeze
+
+  def weighting
+    @weighting ||= WEIGHTING_BY_LANGUAGE[@wiki.language]
+  end
+
+  def weighted_mean_score(score)
     probability = score.dig('articlequality', 'score', 'probability')
     return unless probability
     mean = 0
-    WP10_WEIGHTING.each do |rating, weight|
+    weighting.each do |rating, weight|
       mean += probability[rating] * weight
     end
     mean

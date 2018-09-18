@@ -225,7 +225,13 @@ module RequestHelpers
       'wikisource.org',
       'www.wikidata.org',
       'zh.wikipedia.org',
-      'mr.wikipedia.org'
+      'mr.wikipedia.org',
+      'eu.wikipedia.org',
+      'fa.wikipedia.org',
+      'fr.wikipedia.org',
+      'ru.wikipedia.org',
+      'simple.wikipedia.org',
+      'tr.wikipedia.org'
     ]
 
     wikis.each do |wiki|

@@ -52,8 +52,8 @@ describe RevisionScoreImporter do
       later_revision = Revision.find_by(mw_rev_id: 675892696)
       early_score = early_revision.wp10.to_f
       later_score = later_revision.wp10.to_f
-      expect(early_score).to be > 0
-      expect(later_score).to be > early_score
+      expect(early_score).to be_between(0, 100)
+      expect(later_score).to be_between(early_score, 100)
       expect(later_revision.features['feature.wikitext.revision.external_links']).to eq(12)
     end
 
@@ -67,8 +67,8 @@ describe RevisionScoreImporter do
                      .update_all_revision_scores_for_articles(articles)
       early_score = Revision.find_by(mw_rev_id: 46745264).wp10.to_f
       later_score = Revision.find_by(mw_rev_id: 662106477).wp10.to_f
-      expect(early_score).to be > 0
-      expect(later_score).to be > early_score
+      expect(early_score).to be_between(0, 100)
+      expect(later_score).to be_between(early_score, 100)
     end
   end
 
@@ -143,7 +143,31 @@ describe RevisionScoreImporter do
     it 'saves the wp10_previous score for a set of revisions' do
       VCR.use_cassette 'revision_scores/wp10_previous' do
         described_class.new.update_previous_wp10_scores Revision.where(article_id: 1538038)
-        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be > 0
+        expect(Revision.find_by(mw_rev_id: 662106477).wp10_previous).to be_between(0, 100)
+      end
+    end
+  end
+
+  context 'for all wikis with the articlequality model' do
+    before do
+      stub_wiki_validation
+      RevisionScoreImporter::AVAILABLE_WIKIS.each do |lang_and_project|
+        wiki = Wiki.get_or_create(lang_and_project)
+        article = create(:article, wiki: wiki)
+        create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
+      end
+    end
+
+    it 'imports data and calcuates an article completeness score' do
+      VCR.use_cassette 'revision_scores/multiwiki' do
+        RevisionScoreImporter::AVAILABLE_WIKIS.each do |lang_and_project|
+          stub_wiki_validation
+          wiki = Wiki.get_or_create(lang_and_project)
+          described_class.new(wiki).update_revision_scores
+          # This is fragile, because it assumes every available wiki has an existing
+          # revision 12345. But it works so far.
+          expect(wiki.revisions.first.wp10).to be_between(0, 100)
+        end
       end
     end
   end
