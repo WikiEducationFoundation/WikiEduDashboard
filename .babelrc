@@ -9,7 +9,8 @@
   "env": {
     "test": {
       "plugins": [
-        "babel-plugin-rewire"
+        "babel-plugin-rewire",
+        "@babel/plugin-transform-modules-commonjs"
       ],
       "ignore": [
         "i18n/*.js"

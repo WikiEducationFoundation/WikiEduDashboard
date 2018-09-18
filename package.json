@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -17,7 +18,7 @@
     "babel-jest": "^23.0.1",
     "babel-loader": "^8.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-rewire": "^1.0.0",
+    "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.1.2",
     "chart.js": "^2.7.2",
     "chartkick": "^3.0.1",
@@ -164,5 +165,8 @@
   },
   "devDependencies": {
     "webpack-cli": "^3.1.0"
+  },
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
   }
 }
