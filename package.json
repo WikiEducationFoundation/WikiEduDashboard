@@ -3,19 +3,22 @@
   "repository": "https://github.com/WikiEducationFoundation/WikiEduDashboard",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.1.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.0.0",
     "@bower_components/jquery": "jquery/jquery-dist#3.3.1",
     "@bower_components/lodash": "lodash/lodash#~3.9.0",
     "@tinymce/tinymce-react": "^2.2.5",
     "autosize": "^4.0.2",
-    "babel-core": "^6.26.3",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
-    "babel-loader": "^7.1.4",
+    "babel-loader": "^8.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-rewire": "^1.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
+    "babel-plugin-rewire": "^1.2.0",
     "chai": "^4.1.2",
     "chart.js": "^2.7.2",
     "chartkick": "^3.0.1",
@@ -162,5 +165,8 @@
   },
   "devDependencies": {
     "webpack-cli": "^3.1.0"
+  },
+  "resolutions": {
+    "babel-core": "7.0.0-bridge.0"
   }
 }

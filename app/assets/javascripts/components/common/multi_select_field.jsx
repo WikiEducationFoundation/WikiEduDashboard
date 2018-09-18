@@ -47,4 +47,4 @@ const MultiSelectField = createClass({
   }
 });
 
-module.exports = MultiSelectField;
+export default MultiSelectField;
