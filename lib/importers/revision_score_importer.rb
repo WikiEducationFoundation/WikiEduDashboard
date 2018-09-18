@@ -11,9 +11,15 @@ class RevisionScoreImporter
   ################
   # Entry points #
   ################
-  def initialize(wiki = nil)
-    @wiki = wiki || Wiki.find_by(language: 'en', project: 'wikipedia')
-    validate_wiki
+  def self.update_revision_scores_for_all_wikis
+    AVAILABLE_WIKIPEDIAS.each do |language|
+      new(language).update_revision_scores
+    end
+  end
+
+  def initialize(language = 'en')
+    validate_wiki(language)
+    @wiki = Wiki.find_by(language: language, project: 'wikipedia')
     @ores_api = OresApi.new(@wiki)
   end
 
@@ -62,9 +68,9 @@ class RevisionScoreImporter
   ##################
   private
 
-  def validate_wiki
-    return if AVAILABLE_WIKIPEDIAS.include?(@wiki.language) && @wiki.project == 'wikipedia'
-    raise InvalidWikiError, @wiki.as_json
+  def validate_wiki(language)
+    return if AVAILABLE_WIKIPEDIAS.include?(language)
+    raise InvalidWikiError, language
   end
 
   # The top-level key representing the wiki in ORES data
