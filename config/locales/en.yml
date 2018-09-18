@@ -1139,6 +1139,7 @@ en:
     search: "Search"
     tools: "Tools"
     show_filters: "Show Filters"
+    advanced_filters: "Advanced Options"
     hide_filters: "Hide Filters"
     keyword_search: "Keyword Search"
     category_search: "Category Search"

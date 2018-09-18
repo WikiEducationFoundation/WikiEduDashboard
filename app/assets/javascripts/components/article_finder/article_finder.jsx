@@ -149,6 +149,7 @@ const ArticleFinder = createReactClass({
         <div className="filters">
           {minimumViews}
           {articleQuality}
+          {searchType}
         </div>
       );
     }
@@ -156,7 +157,7 @@ const ArticleFinder = createReactClass({
     let filterButton;
     if (!this.state.showFilters) {
       filterButton = (
-        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_filters')}</button>
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.advanced_filters')}</button>
       );
     }
     else {
@@ -329,7 +330,6 @@ const ArticleFinder = createReactClass({
           <div className="search-bar">
             <div>
               {searchTerm}
-              {searchType}
             </div>
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
