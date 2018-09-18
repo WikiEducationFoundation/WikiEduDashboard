@@ -99,7 +99,7 @@ class CategoryImporter
     import_latest_revision missing_revisions unless missing_revisions.empty?
 
     missing_revision_scores = Revision.where(mw_page_id: article_ids, wiki_id: @wiki.id, wp10: nil)
-    RevisionScoreImporter.new.update_revision_scores missing_revision_scores
+    RevisionScoreImporter.new(@wiki).update_revision_scores missing_revision_scores
   end
 
   def articles_with_outdated_views(article_ids)

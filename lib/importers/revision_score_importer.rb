@@ -7,25 +7,17 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 class RevisionScoreImporter
   # All the wikis with an articlequality model as of 2018-09-18
   # https://ores.wikimedia.org/v3/scores/
-  AVAILABLE_WIKIS = [
-    { language: 'en', project: 'wikipedia' },
-    { language: 'eu', project: 'wikipedia' },
-    { language: 'fa', project: 'wikipedia' },
-    { language: 'fr', project: 'wikipedia' },
-    { language: 'ru', project: 'wikipedia' },
-    { language: 'simple', project: 'wikipedia' },
-    # { language: 'test', project: 'wikipedia' }, # not a dashboard-supported wiki
-    { language: 'tr', project: 'wikipedia' }
-  ].freeze
+  AVAILABLE_WIKIPEDIAS = %w[en eu fa fr ru simple tr].freeze
   ################
   # Entry points #
   ################
   def initialize(wiki = nil)
     @wiki = wiki || Wiki.find_by(language: 'en', project: 'wikipedia')
+    validate_wiki
     @ores_api = OresApi.new(@wiki)
   end
 
-  # assumes a mediawiki rev_id from English Wikipedia
+  # assumes a mediawiki rev_id from the correct Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data(rev_id)
     features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'features')
@@ -69,6 +61,11 @@ class RevisionScoreImporter
   # Helper methods #
   ##################
   private
+
+  def validate_wiki
+    return if AVAILABLE_WIKIPEDIAS.include?(@wiki.language) && @wiki.project == 'wikipedia'
+    raise InvalidWikiError, @wiki.as_json
+  end
 
   # The top-level key representing the wiki in ORES data
   def wiki_key
@@ -202,4 +199,6 @@ class RevisionScoreImporter
   def deleted?(score)
     DELETED_REVISION_ERRORS.include? score.dig('articlequality', 'error', 'type')
   end
+
+  class InvalidWikiError < StandardError; end
 end

@@ -151,8 +151,8 @@ describe RevisionScoreImporter do
   context 'for all wikis with the articlequality model' do
     before do
       stub_wiki_validation
-      RevisionScoreImporter::AVAILABLE_WIKIS.each do |lang_and_project|
-        wiki = Wiki.get_or_create(lang_and_project)
+      RevisionScoreImporter::AVAILABLE_WIKIPEDIAS.each do |lang|
+        wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
         article = create(:article, wiki: wiki)
         create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
       end
@@ -160,15 +160,29 @@ describe RevisionScoreImporter do
 
     it 'imports data and calcuates an article completeness score' do
       VCR.use_cassette 'revision_scores/multiwiki' do
-        RevisionScoreImporter::AVAILABLE_WIKIS.each do |lang_and_project|
-          stub_wiki_validation
-          wiki = Wiki.get_or_create(lang_and_project)
+        RevisionScoreImporter::AVAILABLE_WIKIPEDIAS.each do |lang|
+          wiki = Wiki.get_or_create(language: lang, project: 'wikipedia')
           described_class.new(wiki).update_revision_scores
           # This is fragile, because it assumes every available wiki has an existing
           # revision 12345. But it works so far.
           expect(wiki.revisions.first.wp10).to be_between(0, 100)
         end
       end
+    end
+  end
+
+  context 'for a wiki without the articlequality model' do
+    before do
+      stub_wiki_validation
+      wiki = Wiki.get_or_create(language: 'zh', project: 'wikipedia')
+      article = create(:article, wiki: wiki)
+      create(:revision, article: article, wiki: wiki, mw_rev_id: 12345)
+    end
+
+    it 'raises an error' do
+      wiki = Wiki.get_or_create(language: 'zh', project: 'wikipedia')
+      expect { described_class.new(wiki).update_revision_scores }
+        .to raise_error(RevisionScoreImporter::InvalidWikiError)
     end
   end
 end
