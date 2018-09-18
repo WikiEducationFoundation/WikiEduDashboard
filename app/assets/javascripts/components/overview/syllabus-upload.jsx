@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import Loading from '../common/loading.jsx';
-import { toggleEditingSyllabus, uploadSyllabus } from '../../actions/course_actions_redux';
+import { toggleEditingSyllabus, uploadSyllabus } from '../../actions/course_actions';
 
 class SyllabusUpload extends React.Component {
   constructor() {

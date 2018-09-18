@@ -14,7 +14,7 @@ import SyllabusUpload from './syllabus-upload.jsx';
 import MyArticles from './my_articles.jsx';
 import Modal from '../common/modal.jsx';
 import StatisticsUpdateInfo from './statistics_update_info.jsx';
-import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions_redux';
+import { updateCourse, resetCourse, persistCourse, nameHasChanged, updateClonedCourse, refetchCourse } from '../../actions/course_actions';
 import { fetchTags } from '../../actions/tag_actions';
 import { getStudentUsers, getWeeksArray } from '../../selectors';
 

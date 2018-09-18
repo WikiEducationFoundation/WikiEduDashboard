@@ -15,7 +15,7 @@ import {
   RESTORE_TIMELINE
 } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
-import { fetchCourse } from './course_actions_redux';
+import { fetchCourse } from './course_actions';
 
 const fetchTimelinePromise = courseSlug => {
   return new Promise((res, rej) =>
