@@ -18,6 +18,17 @@
 # Author: Ата
 ---
 qqq:
+  number:
+    human:
+      decimal_units:
+        format: Format for abbreviating a large number. 'n' represents the number and 'u' represents the units.
+        units:
+          unit: ""
+          thousand: short abbreviation for thousand
+          million: short abbreviation for million (1000000)
+          billion: short abbreviation for billion (1000000000)
+          trillion: short abbreviation for trillion (1000000000000)
+          quadrillion: short abbreviation for quadrillion (1000000000000000)
   accessibility:
     number_field: Descriptive text for screen readers to explain how the number field
       works
