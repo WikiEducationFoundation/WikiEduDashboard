@@ -13,8 +13,6 @@ import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
 
-import CourseActions from '../../actions/course_actions.js';
-
 import DateCalculator from '../../utils/date_calculator.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -34,6 +32,7 @@ const Timeline = createReactClass({
     addBlock: PropTypes.func.isRequired,
     insertBlock: PropTypes.func.isRequired,
     deleteWeek: PropTypes.func.isRequired,
+    deleteAllWeeks: PropTypes.func.isRequired,
     saveGlobalChanges: PropTypes.func,
     cancelGlobalChanges: PropTypes.func,
     saveBlockChanges: PropTypes.func,
@@ -82,7 +81,7 @@ const Timeline = createReactClass({
 
   deleteAllWeeks() {
     if (confirm(I18n.t('timeline.delete_weeks_confirmation'))) {
-      return CourseActions.deleteAllWeeks(this.props.course.slug)
+      return this.props.deleteAllWeeks(this.props.course.slug)
                .then(() => { return window.location.reload(); });
     }
   },

@@ -8,7 +8,7 @@ import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
-import { updateCourse } from '../../actions/course_actions_redux';
+import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
 import ServerActions from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
