@@ -161,15 +161,20 @@ export const PageAssessmentGrades = {
   },
 };
 
+// Most common, reused weighting scheme
+const EnWikiWeights = {
+  FA: 100,
+  GA: 80,
+  B: 60,
+  C: 40,
+  Start: 20,
+  Stub: 0
+};
+
 export const WP10Weights = {
-  en: {
-    FA: 100,
-    GA: 80,
-    B: 60,
-    C: 40,
-    Start: 20,
-    Stub: 0
-  },
+  en: EnWikiWeights,
+  eu: EnWikiWeights,
+  fa: EnWikiWeights,
   fr: {
     adq: 100,
     ba: 80,
@@ -186,14 +191,7 @@ export const WP10Weights = {
     baslagıç: 20,
     taslak: 0,
   },
-  simple: {
-    FA: 100,
-    GA: 80,
-    B: 60,
-    C: 40,
-    Start: 20,
-    Stub: 0
-  },
+  simple: EnWikiWeights,
   ru: {
     ИС: 100,
     ДС: 80,
@@ -207,7 +205,7 @@ export const WP10Weights = {
 
 export const ORESSupportedWiki = {
   projects: 'wikipedia',
-  languages: ['en', 'fr', 'simple', 'tr', 'ru']
+  languages: ['en', 'fr', 'simple', 'tr', 'ru', 'eu', 'fa']
 };
 
 export const PageAssessmentSupportedWiki = {

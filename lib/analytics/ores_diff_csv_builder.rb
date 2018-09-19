@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'csv'
+require_dependency "#{Rails.root}/lib/importers/revision_score_importer"
 
 class OresDiffCsvBuilder
   include ArticleHelper
@@ -21,7 +22,7 @@ class OresDiffCsvBuilder
   def articles_to_csv
     csv_data = [CSV_HEADERS]
     @courses.each do |course|
-      course.articles_courses.includes(:article).where(articles: { wiki_id: en_wiki_id })
+      course.articles_courses.includes(:article).where(articles: { wiki_id: supported_wiki_ids })
             .each do |articles_course|
         csv_data << article_row(articles_course, course)
       end
@@ -45,7 +46,8 @@ class OresDiffCsvBuilder
     ]
   end
 
-  def en_wiki_id
-    @en_wiki_id ||= Wiki.get_or_create(language: 'en', project: 'wikipedia').id
+  def supported_wiki_ids
+    @ids ||= Wiki.where(language: RevisionScoreImporter::AVAILABLE_WIKIPEDIAS,
+                        project: 'wikipedia').pluck(:id)
   end
 end

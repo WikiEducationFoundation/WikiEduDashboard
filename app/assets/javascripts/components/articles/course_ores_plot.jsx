@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
+import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
 
 const CourseOresPlot = createReactClass({
   displayName: 'CourseOresPlot',
@@ -13,7 +14,8 @@ const CourseOresPlot = createReactClass({
   getInitialState() {
     return {
       show: false,
-      filePath: null
+      filePath: null,
+      loading: true
     };
   },
 
@@ -28,22 +30,22 @@ const CourseOresPlot = createReactClass({
     return this.setState({ show: false });
   },
 
-  isEnwiki() {
+  isSupportedWiki() {
     const wiki = this.props.course.home_wiki;
     if (!wiki) { return false; }
-    return wiki.language === 'en' && wiki.project === 'wikipedia';
+    return ORESSupportedWiki.languages.includes(wiki.language) && wiki.project === 'wikipedia';
   },
 
   shouldShowButton() {
     // Do not show it if there are zero articles edited, or it's not an en-wiki course.
-    return this.isEnwiki() && this.props.course.edited_count !== '0';
+    return this.isSupportedWiki() && this.props.course.edited_count !== '0';
   },
 
   fetchFilePath() {
     $.ajax({
       url: `/courses/${this.props.course.slug}/ores_plot.json`,
       success: (data) => {
-        this.setState({ filePath: data.plot_path });
+        this.setState({ filePath: data.plot_path, loading: false });
       }
     });
   },
@@ -66,7 +68,10 @@ const CourseOresPlot = createReactClass({
           </div>
         );
       }
-      return <div onClick={this.hide}><Loading /></div>;
+      if (this.state.loading) {
+        return <div onClick={this.hide}><Loading /></div>;
+      }
+      return <div>No Structural Completeness data available</div>;
     }
     return (<button className="button small" onClick={this.show}>Change in Structural Completeness</button>);
   }
