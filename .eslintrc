@@ -48,7 +48,6 @@
     "no-useless-computed-key": 0,
     "newline-per-chained-call": 0,
     "class-methods-use-this": 0,
-    "brace-style": 1,
     "no-prototype-builtins": 0,
     "no-restricted-syntax": 0,
     "space-unary-ops": 0,
