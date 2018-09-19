@@ -32,7 +32,7 @@ const UploadViewer = createReactClass({
     let size = _.get(metadata, 'imageinfo[0].size');
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(size) / Math.log(1024));
-    size = `${parseFloat((size / 1024 ** i).toFixed(2))} ${sizes[i]}`;
+    size = `${parseFloat((size / (1024 ** i)).toFixed(2))} ${sizes[i]}`;
 
     const imageUrl = _.get(metadata, 'imageinfo[0].url');
 
