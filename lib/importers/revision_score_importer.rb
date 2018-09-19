@@ -192,7 +192,7 @@ class RevisionScoreImporter
   end
 
   def weighted_mean_score(score)
-    probability = score.dig('articlequality', 'score', 'probability')
+    probability = score&.dig('articlequality', 'score', 'probability')
     return unless probability
     mean = 0
     weighting.each do |rating, weight|
