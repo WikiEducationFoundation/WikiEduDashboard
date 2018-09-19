@@ -18,7 +18,7 @@ import { notifyOverdue } from '../../actions/server_actions_redux.js';
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils.js';
 
-const StudentList = createReactClass({
+export const StudentList = createReactClass({
   displayName: 'StudentList',
 
   propTypes: {

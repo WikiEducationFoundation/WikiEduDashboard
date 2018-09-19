@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import reducer from '../../../app/assets/javascripts/reducers';
 
 import '../../testHelper';
-import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
+import { StudentList } from '../../../app/assets/javascripts/components/students/student_list.jsx';
 
 describe('StudentList', () => {
   const currentUser = { id: 1, admin: true, role: 1, isNonstudent: true };
@@ -55,6 +55,9 @@ describe('StudentList', () => {
           editable={true}
           current_user ={currentUser}
           assignments={assignments}
+          sort={{ sortKey: null, key: null }}
+          trainingStatus={{}}
+          userRevisions={{}}
         />
       </div>
     );
@@ -76,6 +79,9 @@ describe('StudentList', () => {
         course_id="Couse_school/Test_Course_(Couse_term)"
         current_user={currentUser}
         assignments={assignments}
+        sort={{ sortKey: null, key: null }}
+        trainingStatus={{}}
+        userRevisions={{}}
         notifyOverdue={notifyOverdueSpy}
       />
     );
