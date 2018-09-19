@@ -69,8 +69,8 @@ const Upload = createReactClass({
     let uploadDivStyle;
     if (this.state.width && this.state.height) {
       uploadDivStyle = {
-        width: this.state.width * 250 / this.state.height,
-        flexGrow: this.state.width * 250 / this.state.height,
+        width: (this.state.width * 250) / this.state.height,
+        flexGrow: (this.state.width * 250) / this.state.height,
       };
     }
 

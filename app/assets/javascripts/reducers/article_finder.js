@@ -186,7 +186,7 @@ export default function articleFinder(state = initialState, action) {
       const newStateArticles = _.cloneDeep(state.articles);
       _.forEach(action.data.data, (scores, revid) => {
         const revScore = _.reduce(WP10Weights[action.data.language], (result, value, key) => {
-          return result + value * scores.wp10.score.probability[key];
+          return result + (value * scores.wp10.score.probability[key]);
         }, 0);
         const article = _.find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
