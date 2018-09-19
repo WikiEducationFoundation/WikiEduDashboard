@@ -87,11 +87,9 @@ const UploadsHandler = createReactClass({
     let tileClass = 'button border icon-tile_view icon tooltip-trigger';
     if (this.props.view === GALLERY_VIEW) {
       galleryClass += ' dark';
-    }
-    else if (this.props.view === LIST_VIEW) {
+    } else if (this.props.view === LIST_VIEW) {
       listClass += ' dark';
-    }
-    else if (this.props.view === TILE_VIEW) {
+    } else if (this.props.view === TILE_VIEW) {
       tileClass += ' dark';
     }
 

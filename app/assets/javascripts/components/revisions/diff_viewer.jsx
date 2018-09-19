@@ -144,15 +144,13 @@ const DiffViewer = createReactClass({
           let firstRevisionData;
           try {
             firstRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[0];
-          }
-          catch (_err) {
+          } catch (_err) {
             firstRevisionData = {};
           }
           let lastRevisionData;
           try {
             lastRevisionData = data.query.pages[this.props.revision.mw_page_id].revisions[1];
-          }
-          catch (_err) { /* noop */ }
+          } catch (_err) { /* noop */ }
 
           // Data may or may not include the diff.
           let diff;

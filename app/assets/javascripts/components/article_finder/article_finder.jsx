@@ -166,8 +166,7 @@ const ArticleFinder = createReactClass({
       filterButton = (
         <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_options')}</button>
       );
-    }
-    else {
+    } else {
       filterButton = (
         <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
       );
@@ -240,8 +239,7 @@ const ArticleFinder = createReactClass({
         if (this.props.course_id) {
           if (this.props.current_user.isNonstudent) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: null });
-          }
-          else if (this.props.current_user.role === STUDENT_ROLE) {
+          } else if (this.props.current_user.role === STUDENT_ROLE) {
             assignment = _.find(this.props.assignments, { article_title: title, user_id: this.props.current_user.id });
           }
         }

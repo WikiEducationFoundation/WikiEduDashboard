@@ -110,14 +110,11 @@ export const getFilteredArticleFinder = createSelector(
       let quality;
       if (article.grade && article.revScore) {
         quality = Math.max(article.revScore, PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score);
-      }
-      else if (article.grade) {
+      } else if (article.grade) {
         quality = PageAssessmentGrades[articleFinder.home_wiki.language][article.grade].score;
-      }
-      else if (article.revScore) {
+      } else if (article.revScore) {
         quality = article.revScore;
-      }
-      else {
+      } else {
         quality = 0;
       }
       const qualityFilter = articleFinder.article_quality;

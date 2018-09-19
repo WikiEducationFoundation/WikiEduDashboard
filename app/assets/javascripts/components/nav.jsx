@@ -78,16 +78,14 @@ const Nav = createReactClass({
     let languageSwitcherEnabled;
     let loginLinks;
     let helpEnabled;
-    if (this.state.languageSwitcherEnabled)
-    {
+    if (this.state.languageSwitcherEnabled) {
       languageSwitcherEnabled = (
         <li>
           <LanguagePicker />
         </li>
       );
     }
-    if (this.state.userSignedIn)
-    {
+    if (this.state.userSignedIn) {
       loginLinks = (
         <span>
           <li>
@@ -165,14 +163,12 @@ const Nav = createReactClass({
         </span>
       );
     }
-    if (this.state.fluid)
-    {
+    if (this.state.fluid) {
       navClass = 'top-nav fluid';
     } else {
       navClass = 'top-nav';
     }
-    if (this.state.width < 920)
-    {
+    if (this.state.width < 920) {
       navBar = (
         <div>
           <HamburgerMenu

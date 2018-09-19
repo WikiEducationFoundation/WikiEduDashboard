@@ -101,8 +101,7 @@ const ArticleGraphs = createReactClass({
             </div>
           </div>
         );
-        if (this.state.selectedRadio === 'wp10_score')
-        {
+        if (this.state.selectedRadio === 'wp10_score') {
           graph = (
             <Wp10Graph
               graphid = {this.graphId()}
@@ -111,8 +110,7 @@ const ArticleGraphs = createReactClass({
               articleData = {this.state.articleData}
             />
           );
-        }
-        else {
+        } else {
           graph = (
             <EditSizeGraph
               graphid ={this.graphId()}
@@ -122,8 +120,7 @@ const ArticleGraphs = createReactClass({
             />
           );
         }
-      }
-      else {
+      } else {
         editSize = (
           <p>{I18n.t('articles.edit_size')}</p>
         );
@@ -135,10 +132,8 @@ const ArticleGraphs = createReactClass({
             articleData = {this.state.articleData}
           />
         );
-      }
-    }
-    // Display the loading element if articleData is not available
-    else {
+      } // Display the loading element if articleData is not available
+     } else {
       graph = <Loading />;
     }
 

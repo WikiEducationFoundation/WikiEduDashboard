@@ -31,8 +31,7 @@ export const fetchCategoryResults = (category, course, cmcontinue = '', continue
     dispatch({
       type: INITIATE_SEARCH,
     });
-  }
-  else {
+  } else {
     dispatch({
       type: UPDATE_FIELD,
       data: {
@@ -98,8 +97,7 @@ const fetchPageViews = (articlesList, course, dispatch, getState) => {
   let desc = false;
   if (!sort.key) {
     sort.key = 'relevanceIndex';
-  }
-  else if (!sort.sortKey) {
+  } else if (!sort.sortKey) {
     desc = true;
   }
   Promise.all(promises)
@@ -133,8 +131,7 @@ const fetchPageAssessment = (articlesList, course, dispatch, getState) => {
     .then(() => {
       fetchPageRevision(articlesList, course, dispatch, getState);
     });
-  }
-  else {
+  } else {
     fetchPageRevision(articlesList, course, dispatch, getState);
   }
 };
@@ -161,8 +158,7 @@ const fetchPageRevision = (articlesList, course, dispatch, getState) => {
     .then(() => {
       fetchPageViews(articlesList, course, dispatch, getState);
     });
-  }
-  else {
+  } else {
     fetchPageViews(articlesList, course, dispatch, getState);
   }
 };
@@ -191,8 +187,7 @@ export const fetchKeywordResults = (keyword, course, offset = 0, continueResults
     dispatch({
       type: INITIATE_SEARCH
     });
-  }
-  else {
+  } else {
     dispatch({
       type: UPDATE_FIELD,
       data: {

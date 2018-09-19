@@ -61,8 +61,7 @@ const Confirm = createReactClass({
           {this.props.confirmMessage}
         </div>
       );
-    }
-    else {
+    } else {
       confirmMessage = (
         <p>{this.props.confirmMessage}</p>
       );

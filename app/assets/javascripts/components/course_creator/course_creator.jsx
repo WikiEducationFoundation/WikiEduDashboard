@@ -74,8 +74,7 @@ const CourseCreator = createReactClass({
   componentWillReceiveProps(nextProps) {
     if (nextProps.course.school !== '' && nextProps.course.title !== '') {
       this.state.tempCourseId = CourseUtils.generateTempId(nextProps.course);
-    }
-    else {
+    } else {
       this.state.tempCourseId = '';
     }
     return this.handleCourse(nextProps.course);

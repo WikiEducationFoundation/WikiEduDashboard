@@ -49,14 +49,12 @@ const HamburgerMenu = createReactClass({
     let languageSwitcher;
     let loggingLinks;
     let helpEnabled;
-    if (languageSwitcherEnabled)
-    {
+    if (languageSwitcherEnabled) {
       languageSwitcher = (
         <LanguagePicker />
       );
     }
-    if (userSignedIn)
-    {
+    if (userSignedIn) {
       loggingLinks = (
         <span>
           <li>
