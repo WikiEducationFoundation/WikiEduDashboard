@@ -28,7 +28,7 @@
     "react/no-string-refs": 0,
     "react/jsx-equals-spacing": 0,
     "react/jsx-no-target-blank": 0,
-    "react/jsx-wrap-multilines": 0,
+    "react/jsx-wrap-multilines": 1,
     "jsx-a11y/no-static-element-interactions": 0,
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/aria-role": 0,
