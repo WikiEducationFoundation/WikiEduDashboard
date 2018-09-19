@@ -1141,6 +1141,7 @@ en:
     show_filters: "Show Filters"
     advanced_filters: "Advanced Options"
     hide_filters: "Hide Filters"
+    show_advanced_filters: "Advanced Filters"
     keyword_search: "Keyword Search"
     category_search: "Category Search"
     article_quality: "Article Quality(0-100)"
