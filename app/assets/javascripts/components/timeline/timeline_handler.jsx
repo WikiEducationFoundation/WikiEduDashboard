@@ -84,7 +84,7 @@ const TimelineHandler = createReactClass({
     } else {
       showGrading = true;
     }
-    const grading = showGrading ? <Grading
+    const grading = showGrading ? (<Grading
       weeks={this.props.weeks}
       editable={this.props.editable}
       current_user={this.props.current_user}
@@ -92,7 +92,7 @@ const TimelineHandler = createReactClass({
       updateBlock={this.props.updateBlock}
       resetState={() => {}}
       nameHasChanged={() => false}
-    /> : null;
+    />) : null;
 
     return (
       <div>
