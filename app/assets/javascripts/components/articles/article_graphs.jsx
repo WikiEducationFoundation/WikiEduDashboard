@@ -75,9 +75,8 @@ const ArticleGraphs = createReactClass({
     const className = `vega-graph ${style}`;
 
     if (this.state.articleData != null) {
-      // Only render the wp10 graph radio button if it is an en.wikipedia article, since only
-      // those articles have wp10 scores.
-      if (this.props.article.url.match(/en.wikipedia/)) {
+      // Only render the wp10 graph radio button if the data includes wp10 / article completeness scores
+      if (this.state.articleData[0].wp10) {
         radioInput = (
           <div>
             <div className="input-row">
