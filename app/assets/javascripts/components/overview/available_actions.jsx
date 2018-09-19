@@ -3,7 +3,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import ServerActions from '../../actions/server_actions.js';
+import { deleteCourse, remove, greetStudents, updateSalesforceRecord } from '../../actions/server_actions.js';
 import { enableForCourse } from '../../actions/chat_actions.js';
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -61,7 +61,7 @@ const AvailableActions = createReactClass({
     const course = this.props.course.slug;
     const currentUserId = this.props.current_user.id;
     const onConfirm = function () {
-      return ServerActions.remove('user', course, { user: { user_id: currentUserId, role: 0 } });
+      return this.props.remove('user', course, { user: { user_id: currentUserId, role: 0 } });
     };
     const confirmMessage = I18n.t('courses.leave_confirmation');
     this.props.initiateConfirm(confirmMessage, onConfirm);
@@ -75,7 +75,7 @@ const AvailableActions = createReactClass({
 
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: this.props.course.title }));
     if (enteredTitle.trim() === this.props.course.title.trim()) {
-      return ServerActions.deleteCourse(this.props.course.slug);
+      return this.props.deleteCourse(this.props.course.slug);
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
@@ -199,9 +199,9 @@ const AvailableActions = createReactClass({
           <h3>{I18n.t('courses.actions')}</h3>
         </div>
         <div className="module__data">
-          <GreetStudentsButton course={course} current_user={this.props.current_user} />
+          <GreetStudentsButton course={course} current_user={this.props.current_user} greetStudents={this.props.greetStudents} />
           {controls}
-          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} />
+          <SalesforceLink course={course} current_user={this.props.current_user} linkToSalesforce={this.props.linkToSalesforce} updateSalesforceRecord={this.props.updateSalesforceRecord} />
         </div>
       </div>
     );
@@ -215,7 +215,11 @@ const mapDispatchToProps = {
   enableAccountRequests,
   enableForCourse,
   needsUpdate,
-  linkToSalesforce
+  linkToSalesforce,
+  deleteCourse,
+  remove,
+  greetStudents,
+  updateSalesforceRecord
 };
 
 export default connect(null, mapDispatchToProps)(AvailableActions);

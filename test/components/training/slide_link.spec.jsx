@@ -1,26 +1,35 @@
 import React from 'react';
+import configureMockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
+
+import thunk from 'redux-thunk';
 
 import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
-import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
-global.sinon.stub(ServerActions, 'fetchTrainingModule');
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 describe('SlideLink', () => {
+  const store = mockStore({
+  });
   const TestLink = mount(
-    <TrainingSlideHandler
-      loading={false}
-      params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
-    >
-      <SlideLink
-        slideId="foobar"
-        buttonText="Next Page"
-        disabled={false}
-        button={true}
-        params={{ library_id: 'foo', module_id: 'bar' }}
-      />
-    </TrainingSlideHandler>
+    <Provider store={store}>
+      <TrainingSlideHandler
+        loading={false}
+        params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
+      >
+        <SlideLink
+          slideId="foobar"
+          buttonText="Next Page"
+          disabled={false}
+          button={true}
+          params={{ library_id: 'foo', module_id: 'bar' }}
+        />
+      </TrainingSlideHandler>
+    </Provider>
   );
 
   let domBtn;

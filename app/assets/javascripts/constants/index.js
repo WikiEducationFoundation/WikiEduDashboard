@@ -25,6 +25,7 @@ export * from './user_profile';
 export * from './user_revisions';
 export * from './user_roles';
 export * from './users';
+export * from './server';
 export * from './settings';
 export * from './tags';
 export * from './timeline';

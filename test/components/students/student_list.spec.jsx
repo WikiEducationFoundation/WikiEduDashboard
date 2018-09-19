@@ -8,7 +8,6 @@ import reducer from '../../../app/assets/javascripts/reducers';
 
 import '../../testHelper';
 import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
-import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
 
 describe('StudentList', () => {
   const currentUser = { id: 1, admin: true, role: 1, isNonstudent: true };
@@ -66,7 +65,7 @@ describe('StudentList', () => {
   it('triggers a server action when notify button is clicked', () => {
     global.Features = { wikiEd: true };
     global.confirm = function () { return true; };
-    const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
+    const notifyOverdueSpy = sinon.spy();
 
     const studentList = ReactTestUtils.renderIntoDocument(
       <StudentList
@@ -78,13 +77,14 @@ describe('StudentList', () => {
         course_id="Couse_school/Test_Course_(Couse_term)"
         current_user={currentUser}
         assignments={assignments}
+        notifyOverdue={notifyOverdueSpy}
       />
     );
     studentList.setState({ assignments: assignments });
 
     const button = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'notify_overdue');
     ReactTestUtils.Simulate.click(button);
-    expect(notifyOverdue.callCount).to.eq(1);
+    expect(notifyOverdueSpy.callCount).to.eq(1);
 
     ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'request_accounts');
   });
