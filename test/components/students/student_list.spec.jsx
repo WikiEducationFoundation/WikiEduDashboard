@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import reducer from '../../../app/assets/javascripts/reducers';
 
 import '../../testHelper';
-import { StudentList } from '../../../app/assets/javascripts/components/students/student_list.jsx';
+import { ConnectedStudentList } from '../../../app/assets/javascripts/components/students/student_list.jsx';
 
 describe('StudentList', () => {
   const currentUser = { id: 1, admin: true, role: 1, isNonstudent: true };
@@ -46,7 +46,7 @@ describe('StudentList', () => {
   it('displays \'Name\' column', () => {
     const studentList = ReactTestUtils.renderIntoDocument(
       <div>
-        <StudentList
+        <ConnectedStudentList
           store={reduxStoreWithUsers}
           params={params}
           students={users}
@@ -70,7 +70,7 @@ describe('StudentList', () => {
     const notifyOverdueSpy = jest.fn();
 
     const studentList = ReactTestUtils.renderIntoDocument(
-      <StudentList
+      <ConnectedStudentList
         store={reduxStoreWithUsers}
         params={params}
         editable={true}
