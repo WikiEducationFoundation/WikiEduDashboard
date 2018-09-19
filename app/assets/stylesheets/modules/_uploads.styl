@@ -8,6 +8,7 @@
   .upload
     position relative
     margin 2px
+    cursor pointer
 
   .upload img
     object-fit cover
@@ -60,6 +61,7 @@
   flex-grow 999999999
 
 .list-view
+  cursor pointer
   img
     min-width 250px
     max-width 250px
@@ -80,6 +82,7 @@
       border 1px solid #ddd
       height 100%
       border-radius 3px
+      cursor pointer
 
     img
       height 150px
@@ -100,3 +103,44 @@
 
 #uploads .Select
   width 33%
+
+.upload-viewer
+  width 50%
+  box-shadow 0 0 20px 0 rgba(0, 0, 0, .6)
+  text-align left
+  padding 0
+
+  .modal-header
+    border-bottom 1px solid #ddd
+    padding 10px 20px 0px 20px
+
+  .modal-body
+    display grid
+    grid-template-columns 1fr 1fr
+    grid-column-gap 3rem
+    padding 20px
+
+    h4
+      margin 2rem 0 1rem 0
+
+    img
+      width 100%;
+
+    table
+      width 100%
+
+    table, td, th
+      border 1px solid #ddd
+      border-collapse collapse
+      padding 6px
+
+      .bg-grey, th
+        background-color #f5f5f5
+        font-weight 900
+
+  .modal-footer
+    height 50px
+    border-top 1px solid #ddd
+
+    .upload-viewer-button
+      margin 10px

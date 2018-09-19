@@ -1,5 +1,13 @@
 import _ from 'lodash';
-import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, GALLERY_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA } from '../constants';
+import {
+  RECEIVE_UPLOADS,
+  SORT_UPLOADS,
+  SET_VIEW,
+  GALLERY_VIEW,
+  FILTER_UPLOADS,
+  SET_UPLOAD_METADATA,
+  SET_UPLOAD_VIEWER_METADATA
+} from '../constants';
 import { sortByKey } from '../utils/model_utils';
 
 const initialState = {
@@ -7,7 +15,8 @@ const initialState = {
   sortKey: null,
   view: GALLERY_VIEW,
   selectedFilters: [],
-  loading: true
+  loading: true,
+  uploadMetadata: {}
 
 };
 
@@ -70,6 +79,12 @@ export default function uploads(state = initialState, action) {
       return {
         ...state,
         selectedFilters: action.selectedFilters,
+      };
+    }
+    case SET_UPLOAD_VIEWER_METADATA: {
+      return {
+        ...state,
+        uploadMetadata: action.data,
       };
     }
     default:
