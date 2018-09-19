@@ -103,44 +103,51 @@ const ArticleFinder = createReactClass({
       />);
 
     const searchType = (
-      <div className="search-type">
-        <div>
-          <label>
-            <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
-            {I18n.t('article_finder.keyword_search')}
-          </label>
-        </div>
-        <div>
-          <label>
-            <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
-            {I18n.t('article_finder.category_search')}
-          </label>
+      <div>
+        <div className="search-type">
+          <div>
+            <label>
+              <input type="radio" value="keyword" checked={this.props.search_type === 'keyword'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              {I18n.t('article_finder.keyword_search')}
+            </label>
+          </div>
+          <div>
+            <label>
+              <input type="radio" value="category" checked={this.props.search_type === 'category'} onChange={(e) => this.updateFields('search_type', e.target.value)} />
+              {I18n.t('article_finder.category_search')}
+            </label>
+          </div>
         </div>
       </div>
       );
 
     const minimumViews = (
-      <TextInput
-        id="min_views"
-        onChange={this.updateFields}
-        value={this.props.min_views}
-        value_key="min_views"
-        required
-        editable
-        label={I18n.t('article_finder.minimum_views_label')}
-        placeholder={I18n.t('article_finder.minimum_views_label')}
-      />);
+      <div>
+        <TextInput
+          id="min_views"
+          onChange={this.updateFields}
+          value={this.props.min_views}
+          value_key="min_views"
+          required
+          editable
+          label={I18n.t('article_finder.minimum_views_label')}
+          placeholder={I18n.t('article_finder.minimum_views_label')}
+        />
+      </div>
+      );
 
     const articleQuality = (
-      <div className="form-group range-container">
-        <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
-        <InputRange
-          maxValue={100}
-          minValue={0}
-          value={this.props.article_quality}
-          onChange={value => this.updateFields('article_quality', value)}
-          step={1}
-        />
+      <div>
+        <div className="form-group range-container">
+          <label className="mb2">{I18n.t('article_finder.article_quality')}</label>
+          <InputRange
+            maxValue={100}
+            minValue={0}
+            value={this.props.article_quality}
+            onChange={value => this.updateFields('article_quality', value)}
+            step={1}
+          />
+        </div>
       </div>
       );
     let filters;
@@ -157,7 +164,7 @@ const ArticleFinder = createReactClass({
     let filterButton;
     if (!this.state.showFilters) {
       filterButton = (
-        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.advanced_filters')}</button>
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_advanced_filters')}</button>
       );
     }
     else {
@@ -170,8 +177,12 @@ const ArticleFinder = createReactClass({
     if (this.state.isSubmitted && !this.props.loading) {
       filterBlock = (
         <div className="filter-block">
-          {filterButton}
-          {filters}
+          <div className="filter-button-block">
+            {filterButton}
+          </div>
+          <div className="filter-items">
+            {filters}
+          </div>
         </div>
       );
     }
@@ -334,7 +345,9 @@ const ArticleFinder = createReactClass({
             <button className="button dark" onClick={this.searchArticles}>{I18n.t('article_finder.submit')}</button>
           </div>
         </div>
-        {feedbackButton}
+        <div className="feedback-button">
+          {feedbackButton}
+        </div>
         {filterBlock}
         <div className="article-finder-stats horizontal-flex">
           {searchStats}
