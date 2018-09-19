@@ -167,7 +167,7 @@ const fetchPageRevisionScore = (revids, course, dispatch) => {
     const query = pageRevisionScoreQueryGenerator(_.map(revids, (revid) => {
       return revid.revisions[0].revid;
     }));
-    return limit(() => queryUrl(oresApiBase(course.home_wiki.language), query))
+    return promiseLimit(4)(() => queryUrl(oresApiBase(course.home_wiki.language), query))
     .then((data) => data[`${course.home_wiki.language}wiki`].scores)
     .then((data) => {
       dispatch({

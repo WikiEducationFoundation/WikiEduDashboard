@@ -4,8 +4,9 @@
 # https://meta.wikimedia.org/wiki/Objective_Revision_Evaluation_Service
 class OresApi
   # This is the maximum number of concurrent requests the app should make.
-  # The ORES team suggested this as a safe number in ~2016.
-  CONCURRENCY = 50
+  # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
+  # https://lists.wikimedia.org/pipermail/wikitech-l/2018-September/090835.html
+  CONCURRENCY = 4
 
   def initialize(wiki)
     raise InvalidProjectError unless wiki.project == 'wikipedia'
@@ -13,7 +14,6 @@ class OresApi
   end
 
   def get_revision_data(rev_id)
-    # TODO: i18n
     response = ores_server.get query_url(rev_id)
     ores_data = Oj.load(response.body)
     ores_data
