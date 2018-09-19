@@ -44,7 +44,6 @@
     "no-underscore-dangle": 0,
     "arrow-parens": 0,
     "no-undef": 0,
-    "no-lonely-if": 0,
     "no-empty-pattern": 0,
     "object-shorthand": 0,
     "no-useless-computed-key": 0,
