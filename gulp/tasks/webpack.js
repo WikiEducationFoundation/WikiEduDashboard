@@ -93,8 +93,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
       if (err) throw new plugins.util.PluginError('webpack-dev-server', err);
       return plugins.util.log('[webpack-dev-server] Running');
     });
-  } else {
-    if (config.watch_js) {
+  } else if (config.watch_js) {
       // Start webpack in watch mode
       wp.watch({
         ignored: /node_modules/,
@@ -111,5 +110,4 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
         cb();
       });
     }
-  }
 });
