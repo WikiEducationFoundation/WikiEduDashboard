@@ -164,12 +164,12 @@ const ArticleFinder = createReactClass({
     let filterButton;
     if (!this.state.showFilters) {
       filterButton = (
-        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_advanced_filters')}</button>
+        <button className="button dark" onClick={this.toggleFilter}>{I18n.t('article_finder.show_options')}</button>
       );
     }
     else {
       filterButton = (
-        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_filters')}</button>
+        <button className="button" onClick={this.toggleFilter}>{I18n.t('article_finder.hide_options')}</button>
       );
     }
 
