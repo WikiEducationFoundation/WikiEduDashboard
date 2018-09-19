@@ -8,6 +8,7 @@ describe OresScoresBeforeAndAfterImporter do
   let(:article) { create(:article) }
 
   before do
+    stub_wiki_validation
     course.articles << article
   end
 
