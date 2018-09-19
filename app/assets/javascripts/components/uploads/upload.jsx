@@ -113,9 +113,7 @@ const Upload = createReactClass({
           <td className="desktop-only-tc" dangerouslySetInnerHTML={{ __html: credit }} />
         </tr>
       );
-    }
-
-    else if (this.props.view === GALLERY_VIEW) {
+    } else if (this.props.view === GALLERY_VIEW) {
       return (
         <div className="upload" style={uploadDivStyle} >
           <img src={this.state.imageFile} alt={fileName} />
@@ -127,9 +125,7 @@ const Upload = createReactClass({
           </div>
         </div>
       );
-    }
-
-    else if (this.props.view === TILE_VIEW) {
+    } else if (this.props.view === TILE_VIEW) {
       return (
         <div className="tile-container" >
           <div className="tile">

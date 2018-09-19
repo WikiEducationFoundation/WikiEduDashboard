@@ -41,8 +41,7 @@ export default function articleFinder(state = initialState, action) {
       if (action.initial) {
         newArticles = sortByKey(Object.values(state.articles), action.key, null, action.desc);
         newKey = action.desc ? null : action.key;
-      }
-      else {
+      } else {
         newArticles = sortByKey(Object.values(state.articles), action.key, state.sort.sortKey);
         newKey = newArticles.newKey;
       }

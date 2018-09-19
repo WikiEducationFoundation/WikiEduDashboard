@@ -40,8 +40,7 @@ const ContributionStats = createReactClass({
           graphHeight = {graphHeight}
         />
       );
-    }
-    else if (this.state.isStudent.student) {
+    } else if (this.state.isStudent.student) {
       contriStats = (
         <StudentStats
           username = {this.props.params.username}

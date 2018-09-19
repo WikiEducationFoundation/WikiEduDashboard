@@ -12,8 +12,7 @@ $(() => {
           position: 'fixed', top: '50px', 'z-index': 1, width: '100%', right: 0
         });
         $('#highlight').css({ display: 'unset' });
-      }
-      else {
+      } else {
         $('#userprofile_navbar').css({ position: 'static', top: 'stickyHeaderTop' });
         $('#highlight').css({ display: 'none' });
       }
