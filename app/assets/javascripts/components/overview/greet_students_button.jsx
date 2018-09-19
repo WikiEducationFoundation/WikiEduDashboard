@@ -1,16 +1,16 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ServerActions from '../../actions/server_actions.js';
 
 const GreetStudentsButton = createReactClass({
   propTypes: {
     course: PropTypes.object,
-    current_user: PropTypes.object
+    current_user: PropTypes.object,
+    greetStudents: PropTypes.func.isRequired
   },
 
   greetStudents() {
-    ServerActions.greetStudents(this.props.course.id);
+    this.props.greetStudents(this.props.course.id);
   },
 
   render() {
