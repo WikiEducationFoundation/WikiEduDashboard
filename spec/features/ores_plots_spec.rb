@@ -12,9 +12,9 @@ describe 'ORES plots', type: :feature do
     let(:course) { create(:course) }
     let(:file_path) { 'assets/system/analytics/School—Title_(Term)-ores-0.png' }
 
-    it 'returns a file path' do
+    it 'returns a json array' do
       visit "/courses/#{course.slug}/ores_plot.json"
-      expect(page).to have_text(file_path)
+      expect(JSON.parse(page.body)).to eq('ores_plot' => [])
     end
   end
 
