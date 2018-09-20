@@ -21,7 +21,7 @@ const Wp10Graph = createReactClass({
     const vegaSpec = {
       width: this.props.graphWidth,
       height: this.props.graphHeight,
-      padding: { top: 40, left: 70, right: 20, bottom: 35 },
+      padding: 5,
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -34,14 +34,14 @@ const Wp10Graph = createReactClass({
             field: 'date',
             sort: { field: 'date', op: 'min' }
           },
-          range: [0, this.props.graphWidth],
+          range: 'width',
           round: true
         },
         {
           name: 'y',
           type: 'linear',
           domain: [0, 100, 0, 100],
-          range: [this.props.graphHeight, 0],
+          range: 'height',
           round: true,
           nice: true,
           zero: false
@@ -83,22 +83,22 @@ const Wp10Graph = createReactClass({
       // //////////////
       marks: [
         // Step graph fill area below scores
-        // {
-        //   name: 'area_marks',
-        //   type: 'area',
-        //   from: {
-        //     data: 'wp10_scores'
-        //   },
-        //   encode: { enter: {
-        //     orient: { value: 'vertical' },
-        //     x: { scale: 'x', field: 'date' },
-        //     y: { scale: 'y', field: 'wp10' },
-        //     y2: { scale: 'y', value: 0 },
-        //     fill: { value: '#676EB4' },
-        //     opacity: { value: 0.7 },
-        //     interpolate: { value: 'step-before' }
-        //   } }
-        // },
+        {
+          name: 'area_marks',
+          type: 'area',
+          from: {
+            data: 'wp10_scores'
+          },
+          encode: { enter: {
+            orient: { value: 'vertical' },
+            x: { scale: 'x', field: 'date' },
+            y: { scale: 'y', field: 'wp10' },
+            y2: { scale: 'y', value: 0 },
+            fill: { value: '#676EB4' },
+            opacity: { value: 0.7 },
+            interpolate: { value: 'step-after' }
+          } }
+        },
         // Revision point marks
         {
           name: 'circle_marks',
@@ -113,70 +113,22 @@ const Wp10Graph = createReactClass({
               size: { value: 100 },
               shape: { value: 'circle' },
               fill: { value: '#359178' },
-              opacity: { value: 0.7 }
+              opacity: { value: 0.7 },
+              tooltip: { field: 'username' }
             },
-            // update: {
-            //   fill: {
-            //     rule: [
-            //       {
-            //         predicate: { name: 'ifRevisionDetails', id: { field: '_id' } },
-            //         value: '#333',
-            //       },
-            //       { value: '#359178' }
-            //     ]
-            //   }
-            // }
-          }
-        },
-        // Labels on revision mouseover
-        {
-          name: 'revision_detail_marks',
-          type: 'text',
-          properties: {
-            enter: {
-              x: { value: 70 },
-              y: { value: -15 },
-              align: { value: 'center' },
-              fill: { value: '#333' },
-              fontSize: { value: 28 }
-            },
+            hover: { fill: { value: '#333' }, opacity: { value: 1 } },
             update: {
-              text: { signal: 'revisionDetails.username' },
-              fillOpacity: {
-                rule: [
-                  {
-                    predicate: { name: 'ifRevisionDetails', id: { value: null } },
-                    value: 0
-                  },
-                  { value: 1 }
-                ]
-              }
+              fill: { value: '#359178' },
+              opacity: { value: 0.7 }
             }
           }
-        }
+        },
+
       ],
-      // ///////////////
-      // Interactions //
-      // ///////////////
-      signals: [
-        {
-          name: 'revisionDetails',
-          on: [
-            { events: 'symbol:mouseover', update: 'datum' },
-            { events: 'symbol:mouseout', update: '{}' }
-          ]
-        }
-      ],
-      predicates: [
-        {
-          name: 'ifRevisionDetails',
-          type: '==',
-          operands: [{ signal: 'revisionDetails._id' }, { arg: 'id' }]
-        }
-      ]
+
     };
 
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: true });
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: false });
   },
 
   render() {

@@ -21,7 +21,7 @@ const EditSizeGraph = createReactClass({
     const vegaSpec = {
       width: this.props.graphWidth,
       height: this.props.graphHeight,
-      padding: { top: 40, left: 70, right: 20, bottom: 35 },
+      padding: 5,
       // //////////////////
       // Scales and Axes //
       // //////////////////
@@ -30,11 +30,9 @@ const EditSizeGraph = createReactClass({
           name: 'x',
           type: 'time',
           domain: {
-            fields: [{
-              data: 'characters_edited',
-              field: 'date',
-              sort: { field: 'date', op: 'min' }
-            }]
+            data: 'characters_edited',
+            field: 'date',
+            sort: { field: 'date', op: 'min' }
           },
           range: [0, this.props.graphWidth],
           round: true
@@ -57,23 +55,14 @@ const EditSizeGraph = createReactClass({
           orient: 'bottom',
           scale: 'x',
           grid: true,
-          layer: 'back',
-          ticks: 5,
-          title: 'Date',
-          properties: {
-            labels: {
-              text: { template: '{{datum["data"] | time:\'%b\'%d/%y\'}}' },
-              angle: { value: 0 },
-              fontSize: { value: 9 }
-            }
-          }
+          ticks: true,
+          title: 'Date'
         },
         {
           orient: 'left',
           scale: 'y',
           format: 's',
           grid: true,
-          layer: 'back',
           offset: 10,
           title: I18n.t('metrics.characters')
         }
@@ -99,7 +88,7 @@ const EditSizeGraph = createReactClass({
       marks: [
         {
           type: 'rule',
-          properties: {
+          encode: {
             update: {
               x: { value: 0 },
               x2: { value: this.props.graphWidth },
@@ -110,14 +99,13 @@ const EditSizeGraph = createReactClass({
             }
           }
         },
-
         {
           type: 'rule',
           from: {
             data: 'characters_edited',
             transform: [{ type: 'sort', by: '-date' }]
           },
-          properties:
+          encode:
           {
             update: {
               x: { scale: 'x', field: 'date' },
@@ -142,7 +130,7 @@ const EditSizeGraph = createReactClass({
             data: 'characters_edited',
             transform: [{ type: 'sort', by: '-date' }]
           },
-          properties: { enter: {
+          encode: { enter: {
             orient: { value: 'vertical' },
             opacity: { value: 0.5 }
           },
@@ -161,80 +149,12 @@ const EditSizeGraph = createReactClass({
               ]
             }
           }
-        },
-        {
-          type: 'text',
-          from: {
-            data: 'characters_edited'
-          },
-          properties: {
-            enter: {
-              x: { signal: 'width', mult: 0.68 },
-              y: { value: -10 },
-              text: { template: 'Additions' },
-              fill: { value: '#0000ff' },
-              fontSize: { value: 13 },
-              align: { value: 'right' },
-              fillOpacity: { value: 0.2 }
-            }
-          }
-        },
-        {
-          type: 'text',
-          from: {
-            data: 'characters_edited'
-          },
-          properties: {
-            enter: {
-              x: { signal: 'width', mult: 0.73 },
-              y: { value: -10 },
-              text: { template: 'and' },
-              fill: { value: '#A9A9A9' },
-              fontSize: { value: 13 },
-              align: { value: 'right' },
-              fillOpacity: { value: 1 }
-            }
-          }
-        },
-        {
-          type: 'text',
-          from: {
-            data: 'characters_edited'
-          },
-          properties: {
-            enter: {
-              x: { signal: 'width', mult: 0.86 },
-              y: { value: -10 },
-              text: { template: 'Deletions' },
-              fill: { value: '#ff0000' },
-              fontSize: { value: 13 },
-              align: { value: 'right' },
-              fillOpacity: { value: 0.2 }
-            }
-          }
-        },
-        {
-          type: 'text',
-          from: {
-            data: 'characters_edited'
-          },
-          properties: {
-            enter: {
-              x: { signal: 'width', mult: 0.99 },
-              y: { value: -10 },
-              text: { template: 'over time' },
-              fill: { value: '#A9A9A9' },
-              fontSize: { value: 13 },
-              align: { value: 'right' },
-              fillOpacity: { value: 1 }
-            }
-          }
         }
       ]
     };
 
     // emded the visualization in the container with id vega-graph-article_id
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: true }); // Callback receiving View instance and parsed Vega spec
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: false }); // Callback receiving View instance and parsed Vega spec
   },
 
 

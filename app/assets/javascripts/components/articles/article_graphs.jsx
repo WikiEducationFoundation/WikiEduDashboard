@@ -22,6 +22,8 @@ const ArticleGraphs = createReactClass({
   },
 
   getData() {
+    if (this.state.articleData) { return; }
+
     const articleId = this.props.article.id;
     const articledataUrl = `/articles/article_data.json?article_id=${articleId}`;
     $.ajax(
@@ -37,12 +39,11 @@ const ArticleGraphs = createReactClass({
   },
 
   showGraph() {
-    this.state.selectedRadio = 'wp10_score';
     this.getData();
     this.setState({ showGraph: true });
   },
 
-  handleRadioChange: function (event) {
+  handleRadioChange(event) {
     this.setState({
       selectedRadio: event.currentTarget.value
     });
