@@ -78,6 +78,7 @@
     "list.js": "git+https://github.com/WikiEducationFoundation/list.js.git",
     "location-origin": "^1.1.4",
     "lodash": "^4.17.10",
+    "lodash-webpack-plugin": "^0.11.5",
     "lodash.map": "^4.6.0",
     "lodash.reject": "^4.6.0",
     "lodash.sorteduniqby": "^4.7.0",

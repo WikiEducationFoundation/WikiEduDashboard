@@ -3,6 +3,7 @@ import loadPlugins from 'gulp-load-plugins';
 import webpack from 'webpack';
 import path from 'path';
 import ManifestPlugin from 'webpack-manifest-plugin';
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../config.js';
 const plugins = loadPlugins();
@@ -48,6 +49,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
         NODE_ENV: JSON.stringify('production')
       }
     }));
+    wpPlugins.push(new LodashModuleReplacementPlugin());
   }
 
   const outputPath = doHot ? path.resolve(appRoot, `${config.outputPath}/${config.jsDirectory}`) : path.resolve(`${config.outputPath}/${config.jsDirectory}`);
@@ -69,9 +71,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
           exclude: [/vendor/, /node_modules(?!\/striptags)/],
           use: {
             loader: 'babel-loader',
-            query: {
-              cacheDirectory: true
-            }
+            query: { cacheDirectory: true }
           }
         }
       ]
