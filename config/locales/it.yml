@@ -295,6 +295,7 @@ it:
     new_account_username_taken: Quel nome utente è già stato preso. Scegline un altro.
     nocourses: Non stai partecipando ad alcun corso.
     none: Nessuno
+    not_permitted: Non sei autorizzato a modificare questo corso.
     notify_untrained_confirmation: Pubblicare un promemoria sulle pagine di discussione
       di tutti gli studenti che sono in ritardo nel completare i moduli di formazione
       assegnati?
@@ -411,6 +412,7 @@ it:
     join_course: Partecipa al programma
     leave_course: Lascia il programma
     milestones_none: Questo progetto attualmente non ha pietre miliari.
+    not_permitted: Non sei autorizzato a modificare questo programma.
     published: 'Questo progetto è stato pubblicato! Gli editori possono iscriversi,
       visitando il seguente URL:'
     revisions_none: Questo progetto non ha attività di modifica recenti.
@@ -693,10 +695,10 @@ it:
     remove_article: Rimuovi voce
     search: Cerca
     tools: Strumenti
-    show_filters: Mostra filtri
-    hide_filters: Nascondi filtri
+    show_options: Mostra opzioni
+    hide_options: Nascondi opzioni
     keyword_search: Ricerca per parole chiave
     category_search: Ricerca per categoria
-    subheading_message: Troviamo una voce che si adatta alle tue esigenze
+    subheading_message: Troviamo una voce di Wikipedia su cui lavorare.
     submit: Invia
 ...

@@ -263,12 +263,14 @@ ko:
       지시해 주십시오
     nocourses: 어떤 과정에도 참여하고 있지 않습니다.
     none: 없음
+    not_permitted: 이 강의를 편집할 권한이 없습니다.
     no_available_actions: 취할 수 있는 행동 없음
     ores_plot: ORES
     overview: 홈
     passcode: 패스코드
     passcode_none: 비밀코드 없음
     passcode_prompt: '참여를 위해 비밀번호를 입력하십시오:'
+    please_log_in: 로그인해 주십시오.
     private: 비공개
     rating_feedback: '이 글의 예측된 평가는 다음과 같습니다:'
     school: 학교
@@ -348,6 +350,7 @@ ko:
     enroll: 편집자 추가
     enrollment: 편집자 추가/제거
     join_course: 프로그램 참가
+    not_permitted: 이 프로그램을 편집할 권한이 없습니다.
     request_accounts: 계정 요청
     revisions_none: 본 프로젝트는 최근 편집 활동이 없습니다.
     school: 기관
@@ -598,15 +601,15 @@ ko:
     search_placeholder: 키워드를 입력하십시오
     search: 검색
     tools: 도구
-    show_filters: 필터 보이기
-    hide_filters: 필터 숨기기
+    show_options: 옵션 보기
+    hide_options: 옵션 숨기기
     keyword_search: 키워드 검색
     category_search: 분류 검색
     article_quality: 문서 품질(0-100)
     more_results: 더 많은 결과
     filtered_articles: 필터링된 문서
     searching_articles: 문서 검색 중
-    subheading_message: 필요에 맞는 문서를 찾아봅시다
+    subheading_message: 작업할 위키백과 문서를 찾아봅시다.
     article_finder: 문서 검색기
     submit: 제출
     unassign_article_self: 문서 할당 해제

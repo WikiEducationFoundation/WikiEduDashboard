@@ -885,8 +885,6 @@ zh-CN:
     search_placeholder: 输入您的密码
     search: 搜索
     tools: 工具
-    show_filters: 显示过滤器
-    hide_filters: 隐藏过滤器
     keyword_search: 关键词搜索
     category_search: 分类搜索
     article_quality: 条目质量（0~100）

@@ -48,6 +48,7 @@ roa-tara:
     view: '''Ndruche ''a vôsce'
     view_all: '''Ndruche tutte'
   courses:
+    please_log_in: Tràse.
     update_stats: Aggiorne le statisteche
     user_recent_uploads: Urteme carecaminde
   editable:

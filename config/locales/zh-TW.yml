@@ -330,7 +330,7 @@ zh-TW:
     end: 結束
     ended: 課程已結束。
     enroll: 登記
-    enrollment: 登記
+    enrollment: 添加/移除學生
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
@@ -384,6 +384,7 @@ zh-TW:
     nocourses: 您尚未參加任何課程。
     nocourse: 未參與任何課程。
     none: 無
+    not_permitted: 您不被允許編輯此課程。
     notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
@@ -391,6 +392,7 @@ zh-TW:
     passcode: 選課代碼
     passcode_none: 沒有選課代碼
     passcode_prompt: 請輸入選課代碼來加入：
+    please_log_in: 請先登入。
     private: 非公開
     published: |-
       您的課程已經發布！
@@ -517,7 +519,7 @@ zh-TW:
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束
     enroll: 增加編輯者
-    enrollment: 參與
+    enrollment: 添加/移除編者
     explore: 尋找方案
     courses_enrolled: 方案已參與
     expected_students: 預期編輯者
@@ -526,6 +528,7 @@ zh-TW:
     join_details: 要加入此方案，您需要獲得課程代碼 — 或來自主持者的包含選課代碼連結。
     leave_course: 退出方案
     milestones_none: 此專案裡目前沒有任何里程碑。
+    not_permitted: 您不被允許編輯此方案。
     published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
     request_accounts: 申請帳號
     revisions_none: 此專案目前沒有編輯活動。
@@ -913,8 +916,6 @@ zh-TW:
     search_placeholder: 輸入您的關鍵詞
     search: 搜尋
     tools: 工具
-    show_filters: 顯示篩選
-    hide_filters: 隱藏篩選
     keyword_search: 關鍵詞搜尋
     category_search: 分類搜尋
     article_quality: 條目品質（0 - 100）

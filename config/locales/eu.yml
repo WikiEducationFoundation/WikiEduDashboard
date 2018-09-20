@@ -120,7 +120,7 @@ eu:
       fl: '%{class} (Nabarmenduen zerrenda) — Wikipediako balorazio onena zerrendetarako'
       a: '%{class}-Artikulu ona — garatutako artikulua, baina editore berri baten
         proiektu nagusirako artikulua gisa osatuegia izan daiteke'
-      ga: '{class} (Artikulu ona) — arretaz prestatutako artikulua, baina nabarmendua
+      ga: '%{class} (Artikulu ona) — arretaz prestatutako artikulua, baina nabarmendua
         izateko artean gabezi batzuk dituena'
       b: '%{class}-klasea — moderatuki garatutako artikulua'
       c: '%{class}-klasea —  erdi-mailako artikulua, hobetu daitekeena'
@@ -187,6 +187,7 @@ eu:
     add_organizer: Antolatzailea gehitu
     alert_article: Artikuluaren izenburua
     alert_label: Kanpainia alertak
+    alert_select_label: Iragazi alerta motaren arabera
     alert_type: Mota
     alert_user_id: Erabiltzailea
     all_campaigns: Kanpaina Guztiak
@@ -474,6 +475,7 @@ eu:
     nocourses: Ez duzu inongo ikastarotan parte hartzen.
     nocourse: Ez duzu inongo ikastarotan parte hartu.
     none: Bat ere ez
+    not_permitted: Ez duzu baimenik ikastaro hau aldatzeko.
     notify_untrained_confirmation: Honek ohar bat utziko du esleitutako trebakuntza
       moduluan atzeratuta dabiltzan ikasle guztien Eztabaida orrietan. Seguru hori
       egin nahi duzula?
@@ -483,6 +485,7 @@ eu:
     passcode: Pasahitza
     passcode_none: Pasahitzik ez
     passcode_prompt: 'Sartu zure pasahitza:'
+    please_log_in: Mesedez, izena eman.
     private: Pribatua
     published: 'Argitaratu da zure ikastaroa! Ikasleek ondorengo URLa bisitatuz eman
       dezakete izena ikastaroan:'
@@ -522,6 +525,7 @@ eu:
       "ClassroomProgram" ikastaro motarako baino ez da garrantzitsua.
     subject: Gaia
     submitted: Bidalita
+    tag_select: Etiketa bat aukeratu edo sortu
     tags: 'Etiketak:'
     term: Epealdia
     timeline: Esleipenaren xehetasunak
@@ -543,6 +547,8 @@ eu:
     update_stats: Estatistikak eguneratu
     uploads_none: Klase honek ez du irudirik edo beste multimedia fitxategirik gehitu
       Wikimedia Commonsera
+    user_uploads_none: Erabiltzaile honek ez du irudirik edo beste multimedia fitxategirik
+      gehitu Wikimedia Commonsera.
     user_recent_uploads: Azken igoerak
     user_suggestions: 'Lankide iradokizunak:'
     user_suggestions_prompt: Artikulu honen editoreentzako zure iradokizunak
@@ -559,6 +565,7 @@ eu:
     warn_mirrored: |-
       Bidalitakoan, ikastaro hau automatikoki gehituko da Wikipediara zure lankide kontuarekin. Horren ondoren, kronogramako aldaketa berriak Wikipedian ere agertuko dira.
       Ziur zaude hori egin nahi duzula?
+    wiki_edits_enabled: Wiki edizioak gaituta
     wiki_staff: Wiki Hezkuntza Lantaldea
     withdrawn: Ez da eginkizuna edo esleipena egin
     word_count_doc: Ikastaroko ikasleek programako epealdian artikuluen izen-tartera
@@ -1085,18 +1092,21 @@ eu:
       why_are_you_here: Zer egin nahiko zenuke?
   article_finder:
     page_assessment_class: Klasea
+    completeness_estimate: Osotasun Emaitza
     average_views: Eguneko batez besteko ikustaldiak
     add_available_article: Gehitu artikulu erabilgarri gisa
     remove_article: Artikulua ezabatu
+    minimum_views_label: Gutxieneko ikustaldiak
     no_article_found: Ez da artikulurik aurkitu kategoria honetan
+    search_placeholder: Sartu zure bilaketa testua
     search: Bilatu
     tools: Tresnak
-    show_filters: Erakutsi iragazkiak
-    hide_filters: Ezkutatu iragazkiak
     keyword_search: Hitz gako Bilaketa
     category_search: Kategoria Bilaketa
     article_quality: Artikulu kalitatea (0-100)
     more_results: Emaitza gehiago
     article_finder: Artikulu bilatzailea
     submit: Bidali
+    assign_article_self: Zure buruari esleitu
+    unassign_article_self: Artikulua desesleitu
 ...

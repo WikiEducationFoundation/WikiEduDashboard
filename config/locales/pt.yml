@@ -490,6 +490,7 @@ pt:
     nocourses: Não está inscrito em nenhum curso.
     nocourse: não participou de nenhum curso.
     none: Nenhum
+    not_permitted: Não lhe é permitido editar este curso.
     notify_untrained_confirmation: Isto colocará um lembrete nas páginas de discussão
       de todos os estudantes que não completaram os módulos indicados. Tem certeza
       de que deseja prosseguir?
@@ -499,6 +500,7 @@ pt:
     passcode: Código de acesso
     passcode_none: Sem código de acesso
     passcode_prompt: 'Insira o código de acesso para participar:'
+    please_log_in: Inicie uma sessão, por favor.
     private: Privado
     published: 'O seu curso foi publicado! Os estudantes podem matricular-se no curso
       através do seguinte endereço (URL):'
@@ -661,6 +663,7 @@ pt:
       de uma hiperligação que inclua a palavra-passe — do facilitador.
     leave_course: Sair do programa
     milestones_none: Este projeto não tem atualmente nenhum marco de realização.
+    not_permitted: Não lhe é permitido editar este programa.
     published: 'Este projeto foi publicado! Possíveis editores podem inscrever-se
       visitando o seguinte URL:'
     request_accounts: Pedir contas
@@ -1141,8 +1144,6 @@ pt:
     search_placeholder: Introduza a sua palavra-chave
     search: Pesquisar
     tools: Ferramentas
-    show_filters: Mostrar filtros
-    hide_filters: Esconder filtros
     keyword_search: Pesquisa por palavra-chave
     category_search: Pesquisa por categoria
     article_quality: Qualidade do artigo (0-100)

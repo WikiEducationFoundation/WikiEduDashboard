@@ -1051,8 +1051,6 @@ cs:
     search_placeholder: Vložte klíčové slovo
     search: Hledat
     tools: Nástroje
-    show_filters: Zobrazit filtry
-    hide_filters: Skrýt filtry
     keyword_search: Vyhledávání klíčových slov
     category_search: Vyhledávání kategorií
     article_quality: Kvalita článku (0-100)

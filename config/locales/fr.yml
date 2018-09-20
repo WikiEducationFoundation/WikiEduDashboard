@@ -507,6 +507,7 @@ fr:
     nocourses: Vous ne participez à aucun cours.
     nocourse: a participé à aucun cours.
     none: Aucun
+    not_permitted: Vous n'êtes pas autorisé à modifier ce cours.
     notify_untrained_confirmation: Cela publiera un rappel sur les pages de discussion
       de tous les étudiants en retard dans l’achèvement de leurs modules de formation
       affectés. Êtes-vous sûr de vouloir faire cela ?
@@ -517,6 +518,7 @@ fr:
     passcode_none: Aucun mot de passe
     passcode_prompt: 'Entrer le code d’accès qui vous a été donné pour rejoindre le
       cours :'
+    please_log_in: Veuillez vous connecter.
     private: Privé
     published: 'Votre cours a été publié ! Les étudiants peuvent s’inscrire au cours
       via l’URL suivante :'
@@ -681,6 +683,7 @@ fr:
       — ou un lien qui l’inclut — de la part de l’animateur.
     leave_course: Quitter le programme
     milestones_none: Ce projet n’a actuellement aucun jalon.
+    not_permitted: Vous n'êtes pas autorisé à modifier ce programme.
     published: 'Ce projet a été publié ! Les éditeurs peuvent s’inscrire en allant
       sur l’URL suivante :'
     request_accounts: Demander des comptes
@@ -1165,8 +1168,8 @@ fr:
     search_placeholder: Saisir votre mot de passe
     search: Rechercher
     tools: Outils
-    show_filters: Afficher les filtres
-    hide_filters: Masquer les filtres
+    show_options: Afficher les options
+    hide_options: Masquer les options
     keyword_search: Recherche par mot-clé
     category_search: Recherche par catégorie
     article_quality: Qualité de l’article (0-100)
@@ -1178,7 +1181,7 @@ fr:
     fetching_revisions: Récupération des révisions de page
     fetching_scores: Récupération de la note de complétude
     fetching_pageviews: Récupération des compteurs de vue de page
-    subheading_message: Trouvons un article qui corresponde à vos besoins
+    subheading_message: Trouvons un article de Wikipédia sur lequel travailler.
     article_finder: Découvreur d’article
     submit: Soumettre
     relevanceIndex: Indice de pertinence

@@ -313,11 +313,13 @@ ru:
     new_account_username_invalid: Введено недействительное имя пользователя.
     nocourses: Вы не участвуете ни в одном курсе.
     nocourse: не участвовал в каких-либо курсах.
+    not_permitted: У вас нет разрешения на правку этого курса.
     ores_plot: ORES
     overview: В начало
     passcode: Код доступа
     passcode_none: Нет кода доступа
     passcode_prompt: 'Введите пароль, чтобы присоединиться:'
+    please_log_in: Представьтесь, пожалуйста.
     private: Скрытый
     revisions_doc: Число правок за последние %{timeframe} дней
     school: Школа
@@ -385,6 +387,7 @@ ru:
     join_details: Чтобы присоединиться к этой программе, вам нужно получить от посредника
       код доступа или ссылку, которая включает пароль.
     leave_course: Покинуть программу
+    not_permitted: У вас нет разрешения на правку этой программы.
     request_accounts: Запрос учётных записей
     school: Учреждение
     student_editors: Редакторы
@@ -580,8 +583,8 @@ ru:
     average_views: В среднем просмотров в день
     search: Найти
     tools: Инструменты
-    show_filters: Показать фильтры
-    hide_filters: Скрыть фильтры
+    show_options: Показать параметры
+    hide_options: Скрыть параметры
     category_search: Поиск по категории
     article_quality: Качество статьи(0-100)
     more_results: Ещё результаты

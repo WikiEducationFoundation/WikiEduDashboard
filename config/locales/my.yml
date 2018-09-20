@@ -127,8 +127,10 @@ my:
     new_account_email_placeholder: name@example.org
     new_account_submit: အကောင့် တောင်းဆိုရန်
     overview: ပင်မ
+    please_log_in: ကျေးဇူးပြု၍ အကောင့်ထဲဝင်ပါ။
   courses_generic:
     cancel: မလုပ်တော့ပါ
+    not_permitted: ဤပရိုဂရမ်ကိုတည်းဖြတ်ရန် ခွင့်ပြုချက်မရှိပါ။
   editable:
     cancel: မလုပ်တော့ပါ
   training:

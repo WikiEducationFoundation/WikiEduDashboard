@@ -310,8 +310,6 @@ el:
     search_placeholder: Εισαγάγετε τη λέξη κλειδιού σας
     search: Αναζήτηση
     tools: Εργαλεία
-    show_filters: Εμφάνιση φίλτρων
-    hide_filters: Απόκρυψη φίλτρων
     keyword_search: Αναζήτηση πληκτρολογίου
     category_search: Αναζήτηση κατηγοριών
     article_quality: Ποιότητα Λήμματος (0-100)

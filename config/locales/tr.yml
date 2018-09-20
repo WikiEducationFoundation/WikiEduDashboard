@@ -472,6 +472,7 @@ tr:
     passcode: Parola Kodu
     passcode_none: Şifre yok
     passcode_prompt: 'Katılmak için şifreyi girin:'
+    please_log_in: Lütfen giriş yapın.
     private: Özel
     published: 'Kursunuz yayınlandı! Öğrenciler aşağıdaki URL’yi ziyaret ederek kursa
       kayıt olabilirler:'
@@ -591,6 +592,7 @@ tr:
       kolaylaştırıcıdan almanız gerekmektedir.
     leave_course: Programdan ayrıl
     milestones_none: Bu projenin şu anda herhangi bir dönüm noktası bulunmamaktadır.
+    not_permitted: Bu programı düzenleme yetkiniz yok.
     published: 'Bu proje yayınlandı! Editörler aşağıdaki URL’yi ziyaret ederek kayıt
       olabilirler:'
     request_accounts: Hesap iste
@@ -997,8 +999,6 @@ tr:
     search_placeholder: Anahtar kelimenizi girin
     search: Arama
     tools: Araçlar
-    show_filters: Filtreleri Göster
-    hide_filters: Filtreleri Gizle
     keyword_search: Anahtar Kelime Arama
     category_search: Kategori Arama
     article_quality: Makale Kalitesi(0-100)

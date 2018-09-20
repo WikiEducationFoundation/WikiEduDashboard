@@ -292,10 +292,12 @@ sv:
     nocourses: Du deltar inte i alla kurser.
     nocourse: har inte deltagit i några kurser.
     none: Ingen
+    not_permitted: Du har inte behörighet att redigera denna kurs.
     no_available_actions: Inga tillgängliga åtgärder
     ores_plot: ORES
     overview: Hem
     passcode_none: Inget lösenord
+    please_log_in: Var god logga in.
     private: Privat
     rating_feedback: 'Förutsägelsebetyget för artikeln är:'
     requested_accounts: Begärda konton
@@ -379,6 +381,7 @@ sv:
     expected_students: Förväntade redigerare
     join_course: Gå med i program
     leave_course: Lämna program
+    not_permitted: Du har inte behörighet att redigera detta program.
     request_accounts: Begär konton
     student_editors: Redigerare
     students: Redigerare
@@ -631,5 +634,7 @@ sv:
       why_are_you_here: Vad vill du göra?
   article_finder:
     remove_article: Ta bort artikel
+    show_options: Visa alternativ
+    hide_options: Dölj alternativ
     assign_article_self: Tilldela dig själv
 ...

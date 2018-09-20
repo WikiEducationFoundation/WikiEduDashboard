@@ -490,6 +490,7 @@ pl:
       hasło od prowadzącego lub współpracownika.
     leave_course: Opuść program
     milestones_none: Ten projekt aktualnie nie posiada ustalonych kamieni milowych.
+    not_permitted: Nie masz uprawnień do edytowania tego programu.
     published: 'Projekt został opublikowany. Uczestnicy mogą dopisać się za pomocą
       następującego adresu URL:'
     revisions_none: W tym projekcie nie było ostatnio aktywności.
@@ -866,8 +867,6 @@ pl:
     no_article_found: Nie znaleziono artykułów w tej kategorii
     search_placeholder: Wpisz słowo kluczowe
     tools: Narzędzia
-    show_filters: Pokaż filtry
-    hide_filters: Ukryj filtry
     more_results: Więcej wyników
     submit: Wyślij
     assign_article_self: Przydziel się

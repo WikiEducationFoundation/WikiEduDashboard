@@ -21,9 +21,9 @@ qqq:
   number:
     human:
       decimal_units:
-        format: Format for abbreviating a large number. 'n' represents the number and 'u' represents the units.
+        format: Format for abbreviating a large number. 'n' represents the number
+          and 'u' represents the units.
         units:
-          unit: ""
           thousand: short abbreviation for thousand
           million: short abbreviation for million (1000000)
           billion: short abbreviation for billion (1000000000)
@@ -830,8 +830,6 @@ qqq:
     search_placeholder: Article finder search bar placeholder
     search: Label for search bar in Article Finder {{Identical|Search}}
     tools: Label for tools table column {{Identical|Tools}}
-    show_filters: Button label for displaying articles {{Identical|Show Filters}}
-    hide_filters: Button label for hiding articles {{Identical|Hide Filters}}
     keyword_search: Radio Button label for selecting keyword based search {{Identical|Keyword
       Search}}
     category_search: Radio Button label for selecting category based search {{Identical|Category

@@ -457,6 +457,7 @@ ar:
     nocourses: إنك لم تشارك في أي دورة.
     nocourse: لم يشارك في أية دورات.
     none: لا شيء
+    not_permitted: أنت غير مسموح لك بتعديل هذا الدرس.
     notify_untrained_confirmation: هذا سوف ينشر رسالة تذكير على صفحات نقاش جميع الطلاب
       الذين تأخروا عن إكمال وحدات التدريب المخصصة، هل أنت متأكد من أنك تريد أن تفعل
       هذا؟
@@ -466,6 +467,7 @@ ar:
     passcode: رمز المرور
     passcode_none: لا يوجد رمز مرور
     passcode_prompt: 'أدخل رمز المرور للانضمام:'
+    please_log_in: من فضلك سجل الدخول.
     private: خاص
     published: 'قد تم نشر دورتك! يمكن للطلاب التسجيل في الدورة من خلال زيارة الرابط
       التالي:'
@@ -618,6 +620,7 @@ ar:
       الرابط الذي يتضمن رمز المرور - من الميسر.
     leave_course: اترك البرنامج
     milestones_none: هذا المشروع ليست به أية معالم حاليا.
+    not_permitted: أنت غير مسموح لك بتعديل هذا البرنامج.
     published: 'تم نشر هذا المشروع! المحررون يمكنهم التسجيل عن طريق زيارة الرابط التالي:'
     request_accounts: طلب الحسابات
     revisions_none: هذا المشروع ليس لديه نشاط تحريري مؤخرا.
@@ -1063,8 +1066,8 @@ ar:
     search_placeholder: أدخل كلمة البحث
     search: بحث
     tools: الأدوات
-    show_filters: إظهار المرشحات
-    hide_filters: إخفاء المرشحات
+    show_options: عرض الخيارات
+    hide_options: إخفاء الخيارات
     keyword_search: الكلمة الرئيسية للبحث
     category_search: تصنيف البحث
     article_quality: جودة المقالة (0-100)
@@ -1076,7 +1079,7 @@ ar:
     fetching_revisions: جارٍ جلب مراجعات الصفحة
     fetching_scores: جارٍ جلب درجة الاكتمال
     fetching_pageviews: جارٍ جلب مشاهدات الصفحة
-    subheading_message: دعونا نجد مقالة تلبي احتياجاتك
+    subheading_message: دعنا نجد مقالة ويكيبيديا للعمل عليها.
     article_finder: الباحث عن المقالات
     submit: إرسال
     relevanceIndex: مؤشر الصلة

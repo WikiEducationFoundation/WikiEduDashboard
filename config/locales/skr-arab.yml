@@ -78,7 +78,7 @@ skr-arab:
     all_campaigns: ساریاں مہماں
     campaign: مہم
     campaigns: مہم
-    created_at: تاریخ
+    created_at: تریخ
     course: کورس
     description: تفصیل
     delete_campaign: ایݨ مہم کوں مٹاؤ
@@ -110,7 +110,7 @@ skr-arab:
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
-    creation_date: بݨاوݨ دی تاریخ
+    creation_date: بݨاوݨ دی تریخ
     creator:
       course_language: گھر دی زبان
       course_subject: کورس مضمون
@@ -120,10 +120,10 @@ skr-arab:
       create_label: نواں کورس بݨاؤ
       create_new: نواں کورس بݨاؤ
       create_short: کورس بݨاؤ
-      end_date: ختم کرݨ دی تاریخ
+      end_date: ختم کرݨ دی تریخ
       find: آپݨاں کورس ڳولو
       save_cloned_course: نواں کورس محفوظ کرو
-      start_date: شروع کرݨ دی تاریخ
+      start_date: شروع کرݨ دی تریخ
       subject: موضوع
     current: حالیہ کورس
     delete_course: کورس مٹاؤ
@@ -149,6 +149,7 @@ skr-arab:
     passcode: 'پاس کوڈ:'
     passcode_none: پاس کوڈ کائنی
     passcode_prompt: 'رلݨ کیتے پاس کوڈ لکھو:'
+    please_log_in: لاگ تھیوو مہربانی ہوسی۔
     private: ذاتی
     school: سکول
     start: شروع
@@ -273,5 +274,7 @@ skr-arab:
     page_assessment_class: جماعت
     search: ڳولو
     tools: آوزار
+    show_options: اختیارات ݙکھاؤ
+    hide_options: اختیارات لُکاؤ
     submit: جمع کرواؤ
 ...
