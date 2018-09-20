@@ -15,7 +15,7 @@ const CourseOresPlot = createReactClass({
   getInitialState() {
     return {
       show: false,
-      filePath: null,
+      articleData: null,
       loading: true
     };
   },
@@ -46,7 +46,7 @@ const CourseOresPlot = createReactClass({
     $.ajax({
       url: `/courses/${this.props.course.slug}/ores_plot.json`,
       success: (data) => {
-        this.setState({ filePath: data.plot_path, loading: false });
+        this.setState({ articleData: data.ores_plot, loading: false });
       }
     });
   },
@@ -55,7 +55,7 @@ const CourseOresPlot = createReactClass({
     if (!this.shouldShowButton()) { return <div />; }
 
     if (this.state.show) {
-      if (this.state.filePath) {
+      if (this.state.articleData) {
         return (
           <div className="ores-plot">
             <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={900} graphHeight={400} articleData={this.state.articleData} />

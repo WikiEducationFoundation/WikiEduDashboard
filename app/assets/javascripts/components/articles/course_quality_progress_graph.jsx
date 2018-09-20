@@ -3,21 +3,6 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 
-const exampleData = [
-  { ores_before: 31.6881, ores_after: 32.4583 },
-  { ores_before: 16.8636, ores_after: 23.0991 },
-  { ores_before: 4.91801, ores_after: 17.0304 },
-  { ores_before: 23.4096, ores_after: 29.25 },
-  { ores_before: 17.5069, ores_after: 26.3541 },
-  { ores_before: 24.7242, ores_after: 28.4812 },
-  { ores_before: 11.3788, ores_after: 23.0004 },
-  { ores_before: 12.7192, ores_after: 26.9184 },
-  { ores_before: 10.8967, ores_after: 23.5062 },
-  { ores_before: 23.3852, ores_after: 23.712 },
-  { ores_before: 17.5069, ores_after: 22.6992 },
-  { ores_before: 23.5062, ores_after: 26.154 }
-];
-
 const CourseQualityProgressGraph = createReactClass({
   displayName: 'CourseQualityProgressGraph',
 
@@ -47,7 +32,7 @@ const CourseQualityProgressGraph = createReactClass({
       data: [
         {
           name: 'points',
-          values: exampleData
+          values: this.props.articleData
         },
         {
           name: 'before',

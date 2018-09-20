@@ -11,20 +11,26 @@ class HistogramPlotter
     return nil
   end
 
+  def self.csv(course:)
+    new(course: course).csv_path
+  end
+
   def initialize(campaign: nil, course: nil, csv: nil)
     @campaign_or_course = campaign || course
     @csv = csv || csv_path
     build_csv unless csv
-    initialize_r
-    load_dataframe
   end
 
+  # rubocop:disable Metrics/MethodLength
   def major_edits_plot(minimum_bytes: 0, existing_only: false, type: 'density',
                        minimum_improvement: nil, simple: false)
     @minimum_bytes = minimum_bytes
     @existing_only = existing_only
     @minimum_improvement = minimum_improvement
     @simple = simple
+
+    initialize_r
+    load_dataframe
 
     filter_by_bytes_added
     filter_out_new_articles if existing_only
@@ -39,6 +45,11 @@ class HistogramPlotter
     end
 
     return public_plot_path
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def csv_path
+    "#{analytics_path}/#{csv_filename}"
   end
 
   private
@@ -58,8 +69,8 @@ class HistogramPlotter
     @campaign_or_course.slug.tr('/', '—').tr("'", '-')
   end
 
-  def csv_path
-    "#{analytics_path}/#{slug_filename}-#{Date.today}.csv"
+  def csv_filename
+    "#{slug_filename}-#{Date.today}.csv"
   end
 
   def plot_path
