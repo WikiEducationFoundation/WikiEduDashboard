@@ -179,11 +179,25 @@ const CourseQualityProgressGraph = createReactClass({
           encode: {
             enter: {
               x: { scale: 'xscale', field: 'ores_before' },
-              width: { value: 1 },
+              width: { value: 2 },
               y: { value: 25, offset: { signal: 'height' } },
               height: { value: 5 },
-              fill: { value: 'steelblue' },
-              fillOpacity: { value: 0.4 }
+              fill: { signal: "scale('color', 'before')" },
+              fillOpacity: { value: 0.8 }
+            }
+          }
+        },
+        {
+          type: 'rect',
+          from: { data: 'points' },
+          encode: {
+            enter: {
+              x: { scale: 'xscale', field: 'ores_after' },
+              width: { value: 2 },
+              y: { value: 25, offset: { signal: 'height' } },
+              height: { value: 5 },
+              fill: { signal: "scale('color', 'after')" },
+              fillOpacity: { value: 0.8 }
             }
           }
         }
