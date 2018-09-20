@@ -1,4 +1,4 @@
-/* global vg */
+/* global vegaEmbed */
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
@@ -11,6 +11,10 @@ const EditSizeGraph = createReactClass({
     graphWidth: PropTypes.number,
     graphHeight: PropTypes.number,
     articleData: PropTypes.array
+  },
+
+  componentDidMount() {
+    this.renderGraph();
   },
 
   renderGraph() {
@@ -32,8 +36,7 @@ const EditSizeGraph = createReactClass({
               sort: { field: 'date', op: 'min' }
             }]
           },
-          rangeMin: 0,
-          rangeMax: this.props.graphWidth,
+          range: [0, this.props.graphWidth],
           round: true
         },
         {
@@ -43,8 +46,7 @@ const EditSizeGraph = createReactClass({
             data: 'characters_edited',
             field: 'characters'
           },
-          rangeMin: this.props.graphHeight,
-          rangeMax: 0,
+          range: [this.props.graphHeight, 0],
           round: true,
           nice: true,
           zero: true
@@ -52,7 +54,7 @@ const EditSizeGraph = createReactClass({
       ],
       axes: [
         {
-          type: 'x',
+          orient: 'bottom',
           scale: 'x',
           grid: true,
           layer: 'back',
@@ -67,7 +69,7 @@ const EditSizeGraph = createReactClass({
           }
         },
         {
-          type: 'y',
+          orient: 'left',
           scale: 'y',
           format: 's',
           grid: true,
@@ -86,7 +88,7 @@ const EditSizeGraph = createReactClass({
           format: { type: 'json', parse: { date: 'date', characters: 'number' } },
           transform: [{
             type: 'filter',
-            test: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters !== 0'
+            expr: 'datum.date !== null && !isNaN(datum.date) && datum.characters!== null && !isNaN(datum.characters) && datum.characters !== 0'
           }
           ]
         }
@@ -230,18 +232,13 @@ const EditSizeGraph = createReactClass({
         }
       ]
     };
-    const embedSpec = {
-      mode: 'vega', // instruct Vega-Embed to use vega compiler.
-      spec: vegaSpec,
-      actions: false
-    };
+
     // emded the visualization in the container with id vega-graph-article_id
-    vg.embed(`#${this.props.graphid}`, embedSpec); // Callback receiving View instance and parsed Vega spec
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: true }); // Callback receiving View instance and parsed Vega spec
   },
 
 
   render() {
-    this.renderGraph();
     return (
       <div>
         <div id={this.props.graphid} />
