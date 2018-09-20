@@ -6,7 +6,9 @@ class OresApi
   # This is the maximum number of concurrent requests the app should make.
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
   # https://lists.wikimedia.org/pipermail/wikitech-l/2018-September/090835.html
-  CONCURRENCY = 4
+  # Use this if we need to make parallel threaded requests.
+  # CONCURRENCY = 4
+
   REVS_PER_REQUEST = 50
 
   def initialize(wiki)

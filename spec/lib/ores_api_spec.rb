@@ -16,7 +16,7 @@ describe OresApi do
   end
 
   describe '#get_revision_data' do
-    let(:rev_ids) { [64196208800, 12345] }
+    let(:rev_ids) { [641962088, 12345] }
     let(:subject) { described_class.new(Wiki.find(1)).get_revision_data(rev_ids) }
 
     let(:first_id) { 641962088 }

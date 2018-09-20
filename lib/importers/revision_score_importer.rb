@@ -35,8 +35,8 @@ class RevisionScoreImporter
     revisions = revisions&.select { |rev| rev.wiki_id == @wiki.id }
     revisions ||= unscored_mainspace_userspace_and_draft_revisions
 
-    batches = revisions.count / OresApi::CONCURRENCY + 1
-    revisions.each_slice(OresApi::CONCURRENCY).with_index do |rev_batch, i|
+    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
+    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
       Rails.logger.debug "Pulling revisions: batch #{i + 1} of #{batches}"
       get_and_save_scores rev_batch
     end
@@ -56,7 +56,7 @@ class RevisionScoreImporter
   end
 
   def update_previous_wp10_scores(revisions)
-    batches = revisions.count / OresApi::CONCURRENCY + 1
+    batches = revisions.count / OresApi::REVS_PER_REQUEST + 1
     revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
       Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
       update_wp10_previous_batch rev_batch
@@ -88,23 +88,20 @@ class RevisionScoreImporter
   end
 
   def update_wp10_previous_batch(rev_batch)
-    wp10_previous_scores = {}
-    threads = rev_batch.each_with_index.map do |revision, i|
-      Thread.new(i) do
-        wp10_previous_scores[revision.id] = wp10_previous(revision)
-      end
-    end
-    threads.each(&:join)
-    save_wp10_previous(wp10_previous_scores)
+    parent_revisions = get_parent_revisions(rev_batch)
+    return unless parent_revisions
+    parent_quality_data = @ores_api.get_revision_data parent_revisions.values
+    scores = parent_quality_data.dig(wiki_key, 'scores') || {}
+    save_parent_scores(parent_revisions, scores)
   end
 
-  def wp10_previous(revision)
-    parent_id = get_parent_id revision
-    return unless parent_id
-    ores_data = @ores_api.get_revision_data([parent_id])
-    return unless ores_data
-    score = ores_data.dig(wiki_key, 'scores', parent_id.to_s)
-    weighted_mean_score(score)
+  def save_parent_scores(parent_revisions, scores)
+    parent_revisions.each do |mw_rev_id, parent_id|
+      next unless scores.key? parent_id
+      article_completeness = weighted_mean_score(scores[parent_id])
+      Revision.find_by(mw_rev_id: mw_rev_id.to_i, wiki: @wiki)
+              .update(wp10_previous: article_completeness)
+    end
   end
 
   def unscored_mainspace_userspace_and_draft_revisions
@@ -123,24 +120,27 @@ class RevisionScoreImporter
     end
   end
 
-  def save_wp10_previous(scores)
-    scores.each do |rev_id, wp10_prev|
-      Revision.find(rev_id).update(wp10_previous: wp10_prev)
-    end
-  end
-
-  def get_parent_id(revision)
-    rev_id = revision.mw_rev_id
-    rev_query = parent_revision_query(rev_id)
+  def get_parent_revisions(rev_batch)
+    revisions = {}
+    rev_query = parent_revisions_query rev_batch.map(&:mw_rev_id)
     response = WikiApi.new(@wiki).query rev_query
     return unless response.data['pages']
-    prev_id = response.data['pages'].values[0]['revisions'][0]['parentid']
-    prev_id
+    response.data['pages'].each do |_page_id, page_data|
+      rev_data = page_data['revisions']
+      next unless rev_data
+      rev_data.each do |rev_datum|
+        mw_rev_id = rev_datum['revid']
+        parent_id = rev_datum['parentid']
+        revisions[mw_rev_id] = parent_id.to_s
+      end
+    end
+
+    revisions
   end
 
-  def parent_revision_query(rev_id)
+  def parent_revisions_query(rev_ids)
     { prop: 'revisions',
-      revids: rev_id,
+      revids: rev_ids,
       rvprop: 'ids' }
   end
 
