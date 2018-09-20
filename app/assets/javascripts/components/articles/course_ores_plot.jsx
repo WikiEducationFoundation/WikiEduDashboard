@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Loading from '../common/loading.jsx';
+import CourseQualityProgressGraph from './course_quality_progress_graph';
 import { ORESSupportedWiki } from '../../utils/article_finder_language_mappings';
 
 const CourseOresPlot = createReactClass({
@@ -57,7 +58,7 @@ const CourseOresPlot = createReactClass({
       if (this.state.filePath) {
         return (
           <div className="ores-plot">
-            <img className="ores-plot" src={`/${this.state.filePath}`} onClick={this.hide} alt="ORES plot" />
+            <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={900} graphHeight={400} articleData={this.state.articleData} />
             <p>
               This graph visualizes, in aggregate, how much articles developed from
               when students first edited them until now. The <em>Structural Completeness </em>
