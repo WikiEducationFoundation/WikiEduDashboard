@@ -25,7 +25,7 @@ class RevisionScoreImporter
 
   # assumes a mediawiki rev_id from the correct Wikipedia
   def fetch_ores_data_for_revision_id(rev_id)
-    ores_data = @ores_api.get_revision_data(rev_id)
+    ores_data = @ores_api.get_revision_data([rev_id])
     features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'features')
     rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'score', 'prediction')
     return { features: features, rating: rating }
@@ -57,7 +57,7 @@ class RevisionScoreImporter
 
   def update_previous_wp10_scores(revisions)
     batches = revisions.count / OresApi::CONCURRENCY + 1
-    revisions.each_slice(OresApi::CONCURRENCY).with_index do |rev_batch, i|
+    revisions.each_slice(OresApi::REVS_PER_REQUEST).with_index do |rev_batch, i|
       Rails.logger.debug "Getting wp10_previous: batch #{i + 1} of #{batches}"
       update_wp10_previous_batch rev_batch
     end
@@ -82,14 +82,8 @@ class RevisionScoreImporter
 
   # This should take up to OresApi::CONCURRENCY rev_ids per batch
   def get_and_save_scores(rev_batch)
-    scores = {}
-    threads = rev_batch.each_with_index.map do |revision, i|
-      Thread.new(i) do
-        ores_data = @ores_api.get_revision_data(revision.mw_rev_id)
-        scores.merge!(ores_data&.dig(wiki_key, 'scores') || {})
-      end
-    end
-    threads.each(&:join)
+    scores_data = @ores_api.get_revision_data rev_batch.map(&:mw_rev_id)
+    scores = scores_data.dig(wiki_key, 'scores') || {}
     save_scores(scores)
   end
 
@@ -107,7 +101,7 @@ class RevisionScoreImporter
   def wp10_previous(revision)
     parent_id = get_parent_id revision
     return unless parent_id
-    ores_data = @ores_api.get_revision_data(parent_id)
+    ores_data = @ores_api.get_revision_data([parent_id])
     return unless ores_data
     score = ores_data.dig(wiki_key, 'scores', parent_id.to_s)
     weighted_mean_score(score)

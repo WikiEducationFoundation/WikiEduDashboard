@@ -7,14 +7,15 @@ class OresApi
   # As of 2018-09-19, ORES policy is a max of 4 parallel connections per IP:
   # https://lists.wikimedia.org/pipermail/wikitech-l/2018-September/090835.html
   CONCURRENCY = 4
+  REVS_PER_REQUEST = 50
 
   def initialize(wiki)
     raise InvalidProjectError unless wiki.project == 'wikipedia'
     @project_code = wiki.language + 'wiki'
   end
 
-  def get_revision_data(rev_id)
-    response = ores_server.get query_url(rev_id)
+  def get_revision_data(rev_ids)
+    response = ores_server.get query_url(rev_ids)
     ores_data = Oj.load(response.body)
     ores_data
   rescue StandardError => error
@@ -37,11 +38,10 @@ class OresApi
 
   private
 
-  def query_url(rev_id)
-    base_url = "/v3/scores/#{@project_code}/"
-    url = base_url + rev_id.to_s + '/articlequality?features'
-    url = URI.encode url
-    url
+  def query_url(rev_ids)
+    base_url = "/v3/scores/#{@project_code}/?models=articlequality&features&revids="
+    url = base_url + rev_ids.join('|')
+    URI.encode url
   end
 
   def ores_server
