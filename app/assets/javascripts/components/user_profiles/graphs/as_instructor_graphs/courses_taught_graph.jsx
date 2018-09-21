@@ -98,7 +98,7 @@ const renderGraph = (statsData, graphWidth, graphHeight, courseStringPrefix) => 
     ]
   };
   // emded the visualization in the container with id vega-graph-article_id
-  vegaEmbed('#CoursesTaughtGraph', vegaSpec, { actions: false }); // Callback receiving View instance and parsed Vega spec
+  vegaEmbed('#CoursesTaughtGraph', vegaSpec, { defaultStyle: true, actions: { source: false } });
 };
 
 const CoursesTaughtGraph = createReactClass({

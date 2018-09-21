@@ -209,7 +209,7 @@ const CourseQualityProgressGraph = createReactClass({
         }
       ]
     };
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: false });
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   },
 
   render() {

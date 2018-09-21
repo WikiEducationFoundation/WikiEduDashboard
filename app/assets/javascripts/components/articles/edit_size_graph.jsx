@@ -154,7 +154,7 @@ const EditSizeGraph = createReactClass({
     };
 
     // emded the visualization in the container with id vega-graph-article_id
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { actions: false }); // Callback receiving View instance and parsed Vega spec
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   },
 
 
