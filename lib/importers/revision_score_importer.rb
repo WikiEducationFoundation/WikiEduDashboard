@@ -89,7 +89,7 @@ class RevisionScoreImporter
 
   def update_wp10_previous_batch(rev_batch)
     parent_revisions = get_parent_revisions(rev_batch)
-    return unless parent_revisions
+    return unless parent_revisions&.any?
     parent_quality_data = @ores_api.get_revision_data parent_revisions.values
     scores = parent_quality_data.dig(wiki_key, 'scores') || {}
     save_parent_scores(parent_revisions, scores)
@@ -131,6 +131,7 @@ class RevisionScoreImporter
       rev_data.each do |rev_datum|
         mw_rev_id = rev_datum['revid']
         parent_id = rev_datum['parentid']
+        next if parent_id.zero? # parentid 0 means there is no parent.
         revisions[mw_rev_id] = parent_id.to_s
       end
     end

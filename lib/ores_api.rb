@@ -43,7 +43,7 @@ class OresApi
   def query_url(rev_ids)
     base_url = "/v3/scores/#{@project_code}/?models=articlequality&features&revids="
     url = base_url + rev_ids.join('|')
-    URI.encode url
+    url
   end
 
   def ores_server
