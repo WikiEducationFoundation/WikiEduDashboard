@@ -13,12 +13,12 @@ import StudentDrawer from './student_drawer.jsx';
 import EnrollButton from './enroll_button.jsx';
 import NewAccountButton from '../enroll/new_account_button.jsx';
 
-import ServerActions from '../../actions/server_actions.js';
+import { notifyOverdue } from '../../actions/server_actions_redux.js';
 
 import CourseUtils from '../../utils/course_utils.js';
 import { getFiltered } from '../../utils/model_utils.js';
 
-const StudentList = createReactClass({
+export const StudentList = createReactClass({
   displayName: 'StudentList',
 
   propTypes: {
@@ -31,6 +31,7 @@ const StudentList = createReactClass({
     toggleUI: PropTypes.func,
     resetUI: PropTypes.func,
     sortUsers: PropTypes.func,
+    notifyOverdue: PropTypes.func,
     userRevisions: PropTypes.object.isRequired,
     trainingStatus: PropTypes.object.isRequired
   },
@@ -60,7 +61,7 @@ const StudentList = createReactClass({
 
   notify() {
     if (confirm(I18n.t('wiki_edits.notify_overdue.confirm'))) {
-      return ServerActions.notifyOverdue(this.props.course_id);
+      return this.props.notifyOverdue(this.props.course_id);
     }
   },
 
@@ -126,9 +127,9 @@ const StudentList = createReactClass({
         requestAccountsButton = <NewAccountButton key="request_accounts" course={this.props.course} passcode={this.props.course.passcode} currentUser={this.props.current_user} />;
       }
 
-      let notifyOverdue;
+      let notifyOverdueButton;
       if (Features.wikiEd && this.props.students.length > 0 && (this.props.course.student_count - this.props.course.trained_count) > 0) {
-        notifyOverdue = <button className="notify_overdue" onClick={this.notify} key="notify" />;
+        notifyOverdueButton = <button className="notify_overdue" onClick={this.notify} key="notify" />;
       }
 
       controls = (
@@ -136,7 +137,7 @@ const StudentList = createReactClass({
           {assignArticlesButton}
           {addStudent}
           {requestAccountsButton}
-          {notifyOverdue}
+          {notifyOverdueButton}
         </div>
       );
     }
@@ -210,7 +211,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   toggleUI,
-  resetUI
+  resetUI,
+  notifyOverdue
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentList);

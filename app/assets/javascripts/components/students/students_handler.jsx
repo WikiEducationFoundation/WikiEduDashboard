@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { sortUsers } from '../../actions/user_actions';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import StudentList from './student_list.jsx';
+import ConnectedStudentList from './student_list.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
 const StudentsHandler = createReactClass({
@@ -57,7 +57,7 @@ const StudentsHandler = createReactClass({
             </select>
           </div>
         </div>
-        <StudentList {...this.props} />
+        <ConnectedStudentList {...this.props} />
       </div>
     );
   }

@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -7,8 +6,7 @@ import thunk from 'redux-thunk';
 import reducer from '../../../app/assets/javascripts/reducers';
 
 import '../../testHelper';
-import StudentList from '../../../app/assets/javascripts/components/students/student_list.jsx';
-import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
+import { StudentList } from '../../../app/assets/javascripts/components/students/student_list.jsx';
 
 describe('StudentList', () => {
   const currentUser = { id: 1, admin: true, role: 1, isNonstudent: true };
@@ -57,6 +55,9 @@ describe('StudentList', () => {
           editable={true}
           current_user ={currentUser}
           assignments={assignments}
+          sort={{ sortKey: null, key: null }}
+          trainingStatus={{}}
+          userRevisions={{}}
         />
       </div>
     );
@@ -66,7 +67,7 @@ describe('StudentList', () => {
   it('triggers a server action when notify button is clicked', () => {
     global.Features = { wikiEd: true };
     global.confirm = function () { return true; };
-    const notifyOverdue = sinon.spy(ServerActions, 'notifyOverdue');
+    const notifyOverdueSpy = jest.fn();
 
     const studentList = ReactTestUtils.renderIntoDocument(
       <StudentList
@@ -78,13 +79,17 @@ describe('StudentList', () => {
         course_id="Couse_school/Test_Course_(Couse_term)"
         current_user={currentUser}
         assignments={assignments}
+        sort={{ sortKey: null, key: null }}
+        trainingStatus={{}}
+        userRevisions={{}}
+        notifyOverdue={notifyOverdueSpy}
       />
     );
     studentList.setState({ assignments: assignments });
 
     const button = ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'notify_overdue');
     ReactTestUtils.Simulate.click(button);
-    expect(notifyOverdue.callCount).to.eq(1);
+    expect(notifyOverdueSpy.mock.calls.length).to.eq(1);
 
     ReactTestUtils.findRenderedDOMComponentWithClass(studentList, 'request_accounts');
   });
