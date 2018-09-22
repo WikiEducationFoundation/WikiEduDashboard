@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 import TrainingStore from '../stores/training_store.js';
 import TrainingActions from '../actions/training_actions.js';
-import ServerActions from '../../actions/server_actions.js';
+import { fetchTrainingModule, setSlideCompleted } from '../../actions/server_actions.js';
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
@@ -39,7 +40,7 @@ const TrainingSlideHandler = createReactClass({
 
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
-    ServerActions.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
+    this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
     return this.setSlideCompleted(slideId);
   },
 
@@ -61,7 +62,7 @@ const TrainingSlideHandler = createReactClass({
   setSlideCompleted(slideId) {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
-    return ServerActions.setSlideCompleted({
+    return this.props.setSlideCompleted({
       slide_id: slideId,
       module_id: this.moduleId(),
       user_id: userId
@@ -259,7 +260,12 @@ const TrainingSlideHandler = createReactClass({
   }
 });
 
-export default TrainingSlideHandler;
+const mapDispatchToProps = {
+  fetchTrainingModule,
+  setSlideCompleted
+};
+
+export default connect(() => {}, mapDispatchToProps)(TrainingSlideHandler);
 
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;

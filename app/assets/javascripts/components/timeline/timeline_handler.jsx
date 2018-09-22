@@ -8,7 +8,7 @@ import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-import ServerActions from '../../actions/server_actions.js';
+import { fetchAllTrainingModules } from '../../actions/server_actions.js';
 
 import TrainingStore from '../../training/stores/training_store.js';
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
@@ -35,7 +35,7 @@ const TimelineHandler = createReactClass({
   },
 
   componentDidMount() {
-    return ServerActions.fetchAllTrainingModules();
+    return this.props.fetchAllTrainingModules();
   },
 
   _cancelBlockEditable(blockId) {
@@ -154,7 +154,8 @@ const mapDispatchToProps = {
   updateBlock,
   insertBlock,
   restoreTimeline,
-  deleteAllWeeks
+  deleteAllWeeks,
+  fetchAllTrainingModules
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimelineHandler);

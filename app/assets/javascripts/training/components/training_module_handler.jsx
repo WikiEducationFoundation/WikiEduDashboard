@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
 import TrainingStore from '../stores/training_store.js';
-import ServerActions from '../../actions/server_actions.js';
+import { fetchTrainingModule } from '../../actions/server_actions.js';
 
 const getState = () => ({ training_module: TrainingStore.getTrainingModule() });
 
@@ -16,7 +17,7 @@ const TrainingModuleHandler = createReactClass({
 
   componentWillMount() {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
-    return ServerActions.fetchTrainingModule({ module_id: moduleId });
+    return this.props.fetchTrainingModule({ module_id: moduleId });
   },
 
   storeDidChange() {
@@ -73,4 +74,8 @@ const TrainingModuleHandler = createReactClass({
   }
 });
 
-export default TrainingModuleHandler;
+const mapDispatchToProps = {
+  fetchTrainingModule
+};
+
+export default connect(() => {}, mapDispatchToProps)(TrainingModuleHandler);

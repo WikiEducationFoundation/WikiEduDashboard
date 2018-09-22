@@ -10,7 +10,7 @@ import ValidationStore from '../../stores/validation_store.js';
 import ValidationActions from '../../actions/validation_actions.js';
 import { updateCourse } from '../../actions/course_actions';
 import { fetchCampaign, submitCourse, cloneCourse } from '../../actions/course_creation_actions.js';
-import ServerActions from '../../actions/server_actions.js';
+import { checkCourse } from '../../actions/server_actions.js';
 import { fetchCoursesForUser } from '../../actions/user_courses_actions.js';
 import { getCloneableCourses } from '../../selectors';
 
@@ -101,7 +101,7 @@ const CourseCreator = createReactClass({
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
-      return ServerActions.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
+      return this.props.checkCourse('exists', CourseUtils.generateTempId(this.props.course));
     }
   },
 
@@ -553,7 +553,8 @@ const mapDispatchToProps = ({
   fetchCoursesForUser,
   updateCourse,
   submitCourse,
-  cloneCourse
+  cloneCourse,
+  checkCourse
 });
 
 // exporting two difference ways as a testing hack.
