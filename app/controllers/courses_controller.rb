@@ -60,6 +60,8 @@ class CoursesController < ApplicationController
     @course = find_course_by_slug("#{params[:school]}/#{params[:titleterm]}")
     protect_privacy
     verify_edit_credentials { return }
+    set_enrollment_details_in_session
+
     # Only responds to HTML, so spiders fetching index.php will get a 404.
     respond_to do |format|
       format.html { render }
@@ -286,5 +288,16 @@ class CoursesController < ApplicationController
     return unless @course.private
     return if current_user&.can_edit?(@course)
     raise ActionController::RoutingError, 'not found'
+  end
+
+  # If this is an enroll link, save the slug and enroll code
+  # in the session so that it can be used upon successful
+  # oauth login.
+  # The session data will be used in
+  # OmniauthCallbacksController.
+  def set_enrollment_details_in_session
+    return unless params.key? 'enroll'
+    session['course_slug'] = @course.slug
+    session['enroll_code'] = params['enroll'] || ''
   end
 end
