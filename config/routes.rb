@@ -245,6 +245,7 @@ Rails.application.routes.draw do
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
+  get 'user_training_status' => 'training_status#user'
 
   # for React
   get 'training/:library_id/:module_id(/*any)' => 'training#slide_view'
