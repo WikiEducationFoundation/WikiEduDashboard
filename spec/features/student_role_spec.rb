@@ -193,8 +193,8 @@ describe 'Student users', type: :feature, js: true do
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       find(:link, 'Log in with Wikipedia', match: :first).click
       expect(page).to have_content 'Ragesock'
-      click_link 'Join'
-      sleep 1
+      # User should be automatically redirected to the enroll link
+      # upon login.
       click_link 'Students'
       expect(find('tbody', match: :first)).to have_content 'Ragesock'
     end
@@ -222,8 +222,8 @@ describe 'Student users', type: :feature, js: true do
       fill_in 'email', with: 'sage@example.com'
       click_button 'Submit'
       click_link 'Finish'
-      click_link 'Join'
-      sleep 1
+      # User should be redirected to enroll URL upon completion of
+      # onboarding form.
       click_link 'Students'
       expect(find('tbody', match: :first)).to have_content 'Ragesoss'
     end

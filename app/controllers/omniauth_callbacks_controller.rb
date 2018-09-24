@@ -5,7 +5,6 @@ require_dependency "#{Rails.root}/lib/importers/user_importer"
 #= Controller for OmniAuth authentication callbacks
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
-  before_action :set_user_from_auth_hash, only: :mediawiki
 
   def mediawiki
     set_user_from_auth_hash { return }
