@@ -145,6 +145,18 @@ describe RevisionScoreImporter do
     end
   end
 
+  describe '#fetch_ores_data_for_revision_id' do
+    let(:rev_id) { 860858080 } # https://en.wikipedia.org/w/index.php?title=Hamlin_Park&oldid=860858080
+    let(:subject) { described_class.new.fetch_ores_data_for_revision_id(rev_id) }
+
+    it 'returns a hash with a predicted rating and features' do
+      VCR.use_cassette 'revision_scores/single_revision' do
+        expect(subject[:features]).to have_key('feature.wikitext.revision.wikilinks')
+        expect(subject[:rating]).to eq('Stub')
+      end
+    end
+  end
+
   context '.update_revision_scores_for_all_wikis' do
     before do
       stub_wiki_validation

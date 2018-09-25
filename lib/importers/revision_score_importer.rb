@@ -27,7 +27,7 @@ class RevisionScoreImporter
   def fetch_ores_data_for_revision_id(rev_id)
     ores_data = @ores_api.get_revision_data([rev_id])
     features = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'features')
-    rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'score', 'prediction')
+    rating = ores_data.dig(wiki_key, 'scores', rev_id.to_s, 'articlequality', 'score', 'prediction')
     return { features: features, rating: rating }
   end
 
