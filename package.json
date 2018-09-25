@@ -138,9 +138,9 @@
     "velocity-animate": "^1.5.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "webpack": "^4.17.2",
-    "webpack-dev-server": "^3.1.8",
-    "webpack-manifest-plugin": "2.0.0-rc.2",
+    "webpack": "^4.20.2",
+    "webpack-dev-server": "^3.1.9",
+    "webpack-manifest-plugin": "2.0.4",
     "wnumb": "^1.1.0"
   },
   "scripts": {
@@ -165,7 +165,7 @@
     "yarn": ">= 1.0.0"
   },
   "devDependencies": {
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.1"
   },
   "resolutions": {
     "babel-core": "7.0.0-bridge.0"
