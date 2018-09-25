@@ -88,7 +88,6 @@
     "mcfly": "1.0.0",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
-    "mocha-jsdom": "^1.0.0",
     "moment": "2.21.0",
     "moment-recur": "^1.0.7",
     "nock": "^8.0.0",
