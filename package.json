@@ -34,7 +34,6 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
-    "event-stream": "^3.3.4",
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-cached": "^1.1.1",
