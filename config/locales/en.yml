@@ -972,6 +972,8 @@ en:
       other: "%{completed_count}/%{count} training modules completed"
     training_module_name: Training module
     training_module_status: Status
+    user_training_status: Training Status
+    user_no_training_status: You have not started any training modules yet.
     up_to_date_with_training: 'up-to-date with training'
     uploads_doc: 'Number of file uploads to Wikimedia Commons'
     username: Username

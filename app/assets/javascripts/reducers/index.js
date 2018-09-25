@@ -24,6 +24,7 @@ import settings from './settings';
 import tags from './tags';
 import timeline from './timeline';
 import trainingStatus from './training_status';
+import userTrainingStatus from './user_training_status';
 import ui from './ui';
 import uploads from './uploads';
 import userCourses from './user_courses';
@@ -65,6 +66,7 @@ const reducer = combineReducers({
   userCourses,
   userProfile,
   userRevisions,
+  userTrainingStatus,
   users,
   wikidataLabels,
   wizard

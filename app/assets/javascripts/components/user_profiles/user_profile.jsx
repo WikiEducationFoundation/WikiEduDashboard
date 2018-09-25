@@ -8,7 +8,7 @@ import UserUploads from './user_uploads.jsx';
 import { fetchStats } from '../../actions/user_profile_actions.js';
 import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
-import TrainingStatus from '../students/training_status.jsx';
+import UserTrainingStatus from './user_training_status.jsx';
 
 const UserProfile = createReactClass({
   propTypes: {
@@ -55,11 +55,7 @@ const UserProfile = createReactClass({
         <ContributionStats params={this.props.params} stats={this.props.stats} statsGraphsData={this.state.statsGraphsData} />
         <CourseDetails courses={this.props.stats.courses_details} />
         <UserUploads uploads={this.props.stats.user_recent_uploads} />
-        <div>
-          <br />
-          <h3>Training Status</h3>
-          <TrainingStatus trainingModules={this.props.trainingStatus} />
-        </div>
+        <UserTrainingStatus trainingModules={this.props.trainingStatus} />
       </div>
     );
   }
@@ -68,7 +64,7 @@ const UserProfile = createReactClass({
 const mapStateToProps = state => ({
   stats: state.userProfile.stats,
   isLoading: state.userProfile.isLoading,
-  trainingStatus: state.trainingStatus.user
+  trainingStatus: state.userTrainingStatus
 });
 
 const mapDispatchToProps = ({
