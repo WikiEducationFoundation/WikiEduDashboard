@@ -678,10 +678,6 @@
   version "3.3.1"
   resolved "https://codeload.github.com/jquery/jquery-dist/tar.gz/9e8ec3d10fad04748176144f108d7355662ae75e"
 
-"@bower_components/lodash@lodash/lodash#~3.9.0":
-  version "3.9.3"
-  resolved "https://codeload.github.com/lodash/lodash/tar.gz/2ecdedd5b48b20f5ae786147fff4fd16749e83c8"
-
 "@gulp-sourcemaps/identity-map@1.X":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-1.0.1.tgz#cfa23bc5840f9104ce32a65e74db7e7a974bbee1"
