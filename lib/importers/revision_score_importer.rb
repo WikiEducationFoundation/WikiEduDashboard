@@ -19,7 +19,7 @@ class RevisionScoreImporter
 
   def initialize(language = 'en')
     validate_wiki(language)
-    @wiki = Wiki.find_by(language: language, project: 'wikipedia')
+    @wiki = Wiki.get_or_create(language: language, project: 'wikipedia')
     @ores_api = OresApi.new(@wiki)
   end
 
