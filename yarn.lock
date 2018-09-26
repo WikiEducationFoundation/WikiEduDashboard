@@ -3856,7 +3856,7 @@ enzyme-adapter-utils@^1.6.0:
     object.assign "^4.1.0"
     prop-types "^15.6.2"
 
-enzyme@^3.3.0:
+enzyme@3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-3.3.0.tgz#0971abd167f2d4bf3f5bd508229e1c4b6dc50479"
   integrity sha512-l8csyPyLmtxskTz6pX9W8eDOyH1ckEtDttXk/vlFWCjv00SkjTjtoUrogqp4yEvMyneU9dUJoOLnqFoiHb8IHA==
@@ -5009,16 +5009,7 @@ function-bind@^1.1.0, function-bind@^1.1.1:
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
-function.prototype.name@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/function.prototype.name/-/function.prototype.name-1.0.3.tgz#0099ae5572e9dd6f03c97d023fd92bcc5e639eac"
-  integrity sha512-5EblxZUdioXi2JiMZ9FUbwYj40eQ9MFHyzFLBSPdlRl3SO8l7SLWuAnQ/at/1Wi4hjJwME/C5WpF2ZfAc8nGNw==
-  dependencies:
-    define-properties "^1.1.2"
-    function-bind "^1.1.0"
-    is-callable "^1.1.3"
-
-function.prototype.name@^1.1.0:
+function.prototype.name@^1.0.3, function.prototype.name@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/function.prototype.name/-/function.prototype.name-1.1.0.tgz#8bd763cc0af860a859cc5d49384d74b932cd2327"
   integrity sha512-Bs0VRrTz4ghD8pTmbJQD1mZ8A/mN0ur/jGz+A6FBxPDUPkm1tNfF6bhTYPA7i7aF4lZJVr+OXTNNrnnIl58Wfg==
