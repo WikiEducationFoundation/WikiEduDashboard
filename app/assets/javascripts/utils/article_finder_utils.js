@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import logErrorMessage from './log_error_message';
 
 export const queryUrl = (url, query = {}, dataType = 'jsonp') => {
