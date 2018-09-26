@@ -10,7 +10,7 @@ class TrainingStatusController < ApplicationController
 
   def user
     @user = User.find_by(username: params[:username])
-    training_module_ids = @user.training_modules_users.pluck(:training_module_id)
-    @training_modules = TrainingModule.all.select { |tm| training_module_ids.include?(tm.id) }
+    tm = TrainingProgressManager.new(@user, nil, training_module_user: @user.training_modules_users)
+    @tmu = tm.tmu
   end
 end
