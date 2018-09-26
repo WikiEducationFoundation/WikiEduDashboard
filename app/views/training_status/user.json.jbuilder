@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.user do
-  json.training_modules @tmu do |tmu|
+  json.training_modules @user.training_modules_users do |tmu|
     training_module = TrainingModule.find(tmu.training_module_id)
     if training_module
       json.id training_module.id

@@ -10,7 +10,5 @@ class TrainingStatusController < ApplicationController
 
   def user
     @user = User.find_by(username: params[:username])
-    tm = TrainingProgressManager.new(@user, nil, training_module_user: @user.training_modules_users)
-    @tmu = tm.tmu
   end
 end
