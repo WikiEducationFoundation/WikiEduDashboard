@@ -6,9 +6,9 @@ json.user do
     if training_module
       json.id training_module.id
       json.module_name training_module.name
-      training_progress_manager = TrainingProgressManager.new(@user, training_module, training_module_user: tmu)
-      json.status training_progress_manager.status
-      json.completion_date training_progress_manager.completion_date
+      tp_manager = TrainingProgressManager.new(@user, training_module, training_module_user: tmu)
+      json.status tp_manager.status
+      json.completion_date tp_manager.completion_date
     end
   end
 end

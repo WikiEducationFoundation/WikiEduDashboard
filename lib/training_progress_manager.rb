@@ -3,7 +3,6 @@
 require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 
 class TrainingProgressManager
-  
   def initialize(user, training_module, training_module_user: nil)
     @user = user
     @training_module = training_module
