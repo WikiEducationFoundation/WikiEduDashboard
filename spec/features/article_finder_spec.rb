@@ -2,7 +2,6 @@
 
 require 'rails_helper'
 
-
 describe 'article finder', type: :feature, js: true do
   let(:course) { create(:course) }
   let(:admin) { create(:admin) }
