@@ -11,16 +11,12 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
 
-url_blocklist = ['https://wikiedu.org', 'https://fonts.googleapis.com', 'http://sentry.example.com']
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blocklist, timeout: 60)
-end
-
-Capybara.configure do |config|
-  config.javascript_driver = :poltergeist
-  config.default_max_wait_time = 10
+Capybara.register_driver :selenium do |app|
+  options = Selenium::WebDriver::Chrome::Options.new(
+    args: %w[headless disable-gpu no-sandbox --window-size=1024,768]
+  )
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Rails.cache.clear
