@@ -56,7 +56,7 @@ describe 'campaigns page', type: :feature, js: true do
       find('.create-campaign-button').click
       fill_in('campaign_title', with: 'My Campaign Test')
       find('#use_dates').click
-      fill_in('campaign_start', with: '2016-01-10') # end date not supplied
+      fill_in('campaign_start', with: '2016-01-10'.to_date) # end date not supplied
       find('.wizard__form .button__submit').click
       find('.wizard__panel', visible: true)
       expect(page).to have_content(I18n.t('error.invalid_date', key: 'End'))
@@ -69,8 +69,8 @@ describe 'campaigns page', type: :feature, js: true do
       fill_in('campaign_title', with: title)
       fill_in('campaign_description', with: description)
       find('#use_dates').click
-      fill_in('campaign_start', with: '2016-01-10')
-      fill_in('campaign_end', with: '2016-02-10')
+      fill_in('campaign_start', with: '2016-01-10'.to_date)
+      fill_in('campaign_end', with: '2016-02-10'.to_date)
       find('.wizard__form .button__submit').click
       expect(Campaign.last.title).to eq(title)
       expect(Campaign.last.description).to eq(description)
