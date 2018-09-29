@@ -315,14 +315,12 @@ describe 'Student users', type: :feature, js: true do
              article_id: nil,
              role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/students"
-      sleep 3
-
       # Remove the assignment
-      page.all('button.border')[0].click
+      click_button '+/-'
       accept_confirm do
-        page.all('button.border')[2].click
+        click_button '-'
       end
-      page.all('button.border')[0].click
+      sleep 0.5
       visit "/courses/#{Course.first.slug}/students"
       sleep 1
       expect(page).not_to have_content 'Selfie'
