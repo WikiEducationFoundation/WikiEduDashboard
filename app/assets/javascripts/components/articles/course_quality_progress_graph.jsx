@@ -18,21 +18,51 @@ const CourseQualityProgressGraph = createReactClass({
   },
 
   renderGraph() {
+    const max_bytes_added = Math.max(...this.props.articleData.map(o => o.bytes_added), 0);
+    const max_score = Math.max(...this.props.articleData.map(o => o.ores_after - o.ores_before), 0);
     const vegaSpec = {
       width: 1000,
       height: 200,
       padding: 5,
-
       signals: [
         { name: 'bandwidth', value: 1 },
         { name: 'steps', value: 1000 },
-        { name: 'method', value: 'pdf' }
+        { name: 'method', value: 'pdf' },
+        {
+          name: 'articles',
+          value: 'both',
+          bind: { input: 'radio', options: ['new', 'existing', 'both'], name: 'Articles' }
+        },
+        {
+          name: 'bytes_added',
+          value: 0,
+          bind: { input: 'range', min: 0, max: max_bytes_added, name: 'Bytes Added' }
+        },
+        {
+          name: 'score',
+          value: 0,
+          bind: { input: 'range', min: 0, max: max_score, name: 'Change in ORES Score' }
+        }
       ],
 
       data: [
         {
           name: 'points',
-          values: this.props.articleData
+          values: this.props.articleData,
+          transform: [
+            {
+              type: 'filter',
+              expr: "(articles === 'both') ? true : (articles === 'new' ? (datum.ores_before === 0) : (datum.ores_before > 0))"
+            },
+            {
+              type: 'filter',
+              expr: 'datum.bytes_added >= bytes_added'
+            },
+            {
+              type: 'filter',
+              expr: '(datum.ores_after - datum.ores_before) >= score'
+            }
+          ]
         },
         {
           name: 'before',
