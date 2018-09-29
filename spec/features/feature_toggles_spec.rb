@@ -11,17 +11,6 @@ rescue Errno::ENOENT
 end
 
 describe 'Feature toggles', type: :feature, js: true do
-  # The main point is to exercise the Ruby hot_loading code path.
-  # It doesn't work flawlessly in poltergeist, but that's okay.
-  # We can work around that by disabling javascript errors breaking the test.
-  before do
-    page.driver.browser.js_errors = false
-  end
-
-  after do
-    page.driver.browser.js_errors = true
-  end
-
   describe 'hot_loading?' do
     context 'when enabled' do
       before { allow(Features).to receive(:hot_loading?).and_return(true) }
