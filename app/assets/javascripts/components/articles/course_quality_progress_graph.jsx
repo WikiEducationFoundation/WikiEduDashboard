@@ -145,7 +145,7 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'xscale',
           type: 'linear',
           range: 'width',
-          domain: { data: 'points', fields: ['ores_before', 'ores_after'] },
+          domain: [0, 100],
           nice: true
         },
         {
