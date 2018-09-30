@@ -11,7 +11,7 @@ rescue Errno::ENOENT
 end
 
 describe 'Feature toggles', type: :feature, js: true do
-  describe 'hot_loading?' do
+  describe 'hot_loading?', js_error_expected: true do
     context 'when enabled' do
       before { allow(Features).to receive(:hot_loading?).and_return(true) }
 
