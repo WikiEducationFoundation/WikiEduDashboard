@@ -83,18 +83,16 @@ RSpec.configure do |config|
 
   # fail on javascript errors in feature specs
   config.after(:each, type: :feature, js: true) do |example|
+    errors = page.driver.browser.manage.logs.get(:browser)
     # pass `js_error_expected: true` to skip JS error checking
     next if example.metadata[:js_error_expected]
 
-    errors = page.driver.browser.manage.logs.get(:browser)
     if errors.present?
       aggregate_failures 'javascript errrors' do
         errors.each do |error|
           # some specs test behavior for 4xx responses and other errors.
           # Don't fail on these.
           next if error.message =~ /Failed to load resource/
-          # Weird order-dependent error that I can't get to the bottom of
-          next if error.message =~ /Raven is not defined/
 
           expect(error.level).not_to eq('SEVERE'), error.message
           next unless error.level == 'WARNING'
