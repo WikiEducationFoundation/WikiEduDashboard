@@ -21,7 +21,6 @@ const Grading = createReactClass({
     const gradeableBlocks = [];
     this.props.weeks.forEach(week => {
       week.blocks.forEach(block => {
-        console.log(block.points)
         if (block.points === null) { return; }
         block.grading_order = `${week.order}${block.order}`;
         gradeableBlocks.push(block);
