@@ -25,6 +25,7 @@ import StudentsHandler from '../components/students/students_handler.jsx';
 import ArticlesHandler from '../components/articles/articles_handler.jsx';
 import UploadsHandler from '../components/uploads/uploads_handler.jsx';
 import AlertsHandler from '../components/alerts/alerts_handler.jsx';
+import CampaignOresPlot from '../components/campaign/campaign_ores_plot.jsx';
 import ArticleFinder from '../components/article_finder/article_finder.jsx';
 import RecentActivityHandler from '../components/activity/recent_activity_handler.jsx';
 import DidYouKnowHandler from '../components/activity/did_you_know_handler.jsx';
@@ -112,6 +113,7 @@ const routes = (
     </Route>
     <Route path="users/:username" component={UserProfile} />
     <Route path="campaigns/:campaign_slug/alerts" component={AlertsHandler} />
+    <Route path="campaigns/:campaign_slug/ores_plot" component={CampaignOresPlot} />
     <Route path="settings" component={SettingsHandler} />
     <Route path="article_finder" component={ArticleFinder} />
   </Route>

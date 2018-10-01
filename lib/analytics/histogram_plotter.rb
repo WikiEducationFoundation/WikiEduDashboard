@@ -11,8 +11,8 @@ class HistogramPlotter
     return nil
   end
 
-  def self.csv(course:)
-    new(course: course).csv_path
+  def self.csv(course: nil, campaign: nil)
+    new(course: course, campaign: campaign).csv_path
   end
 
   def initialize(campaign: nil, course: nil, csv: nil)
