@@ -49,7 +49,7 @@ const CampaignOresPlot = createReactClass({
       if (this.state.articleData) {
         return (
           <div className="ores-plot">
-            <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={900} graphHeight={400} articleData={this.state.articleData} />
+            <CourseQualityProgressGraph graphid={'vega-graph-ores-plot'} graphWidth={1000} graphHeight={400} articleData={this.state.articleData} />
             <p>
               This graph visualizes, in aggregate, how much articles developed from
               when campaign participants first edited them until now. The <em>Structural Completeness </em>

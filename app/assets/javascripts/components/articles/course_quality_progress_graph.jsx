@@ -23,8 +23,8 @@ const CourseQualityProgressGraph = createReactClass({
     const max_bytes_added = Math.max(...this.props.articleData.map(o => o.bytes_added), 0);
     const max_score = Math.max(...this.props.articleData.map(o => o.ores_after - o.ores_before), 0);
     const vegaSpec = {
-      width: 1000,
-      height: 200,
+      width: this.props.graphWidth,
+      height: this.props.graphHeight,
       padding: 5,
       signals: [
         { name: 'bandwidth', value: 1 },
