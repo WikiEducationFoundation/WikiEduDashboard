@@ -18,6 +18,8 @@ const CourseQualityProgressGraph = createReactClass({
   },
 
   renderGraph() {
+    if (this.props.articleData.length === 0) { return; }
+
     const max_bytes_added = Math.max(...this.props.articleData.map(o => o.bytes_added), 0);
     const max_score = Math.max(...this.props.articleData.map(o => o.ores_after - o.ores_before), 0);
     const vegaSpec = {
