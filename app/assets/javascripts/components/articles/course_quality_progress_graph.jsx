@@ -31,17 +31,17 @@ const CourseQualityProgressGraph = createReactClass({
         {
           name: 'articles',
           value: 'both',
-          bind: { input: 'radio', options: ['new', 'existing', 'both'], name: 'Articles' }
+          bind: { input: 'radio', options: ['new', 'existing', 'both'], name: 'Articles:' }
         },
         {
           name: 'bytes_added',
           value: 0,
-          bind: { input: 'range', min: 0, max: max_bytes_added, name: 'Bytes Added' }
+          bind: { input: 'range', min: 0, max: max_bytes_added, name: 'Minimum bytes added:' }
         },
         {
           name: 'score',
           value: 0,
-          bind: { input: 'range', min: 0, max: max_score, name: 'Change in ORES Score' }
+          bind: { input: 'range', min: 0, max: max_score, name: 'Minimum change in score:' }
         }
       ],
 
