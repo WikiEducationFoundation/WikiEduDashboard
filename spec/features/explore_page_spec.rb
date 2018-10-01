@@ -43,25 +43,25 @@ describe 'the explore page', type: :feature, js: true do
 
       # Sortable by title
       expect(page).to have_selector('#courses [data-sort="title"].sort.asc')
-      find('#courses [data-sort="title"].sort').trigger('click')
+      find('#courses [data-sort="title"].sort').click
       expect(page).to have_selector('#courses [data-sort="title"].sort.desc')
 
       # Sortable by character count
-      find('#courses [data-sort="characters"].sort').trigger('click')
+      find('#courses [data-sort="characters"].sort').click
       expect(page).to have_selector('#courses [data-sort="characters"].sort.desc')
-      find('#courses [data-sort="characters"].sort').trigger('click')
+      find('#courses [data-sort="characters"].sort').click
       expect(page).to have_selector('#courses [data-sort="characters"].sort.asc')
 
       # Sortable by view count
-      find('#courses [data-sort="views"].sort').trigger('click')
+      find('#courses [data-sort="views"].sort').click
       expect(page).to have_selector('#courses [data-sort="views"].sort.desc')
-      find('#courses [data-sort="views"].sort').trigger('click')
+      find('#courses [data-sort="views"].sort').click
       expect(page).to have_selector('#courses [data-sort="views"].sort.asc')
 
       # Sortable by student count
-      find('#courses [data-sort="students"].sort').trigger('click')
+      find('#courses [data-sort="students"].sort').click
       expect(page).to have_selector('#courses [data-sort="students"].sort.desc')
-      find('#courses [data-sort="students"].sort').trigger('click')
+      find('#courses [data-sort="students"].sort').click
       expect(page).to have_selector('#courses [data-sort="students"].sort.asc')
     end
   end

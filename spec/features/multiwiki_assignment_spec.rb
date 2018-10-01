@@ -36,8 +36,6 @@ describe 'multiwiki assignments', type: :feature, js: true do
   end
 
   it 'creates a valid assignment from an article and an alternative project and language' do
-    pending 'This sometimes fails on travis.'
-
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students"
       click_button 'Assign Articles'
@@ -48,12 +46,12 @@ describe 'multiwiki assignments', type: :feature, js: true do
         click_link 'Change'
         find('div.language-select').click
         within('.language-select') do
-          find('div.Select--single div.Select-value').send_keys('es', :enter)
+          find('input').send_keys('es', :enter)
         end
 
         find('div.project-select').click
         within('.project-select') do
-          find('div.Select--single div.Select-value').send_keys('wikisource', :enter)
+          find('input').send_keys('wikisource', :enter)
         end
       end
 
@@ -63,11 +61,9 @@ describe 'multiwiki assignments', type: :feature, js: true do
       visit "/courses/#{course.slug}/students"
 
       within('#users') do
-        expect(page).to have_content 'es:wikisource:No le des prisa, dolor'
+        expect(page).to have_content 'es:wikisource:No le des prisa'
       end
     end
-
-    pass_pending_spec
   end
 
   it 'will create a valid assignment for multilingual wikisource projects' do
@@ -101,7 +97,7 @@ describe 'multiwiki assignments', type: :feature, js: true do
       visit "/courses/#{course.slug}/students"
 
       within('#users') do
-        expect(page).to have_content 'incubator:wikimedia:Wp/kiu/Heyder Cansa'
+        expect(page).to have_content 'incubator:wikimedia:Wp/kiu/Hey'
       end
     end
   end

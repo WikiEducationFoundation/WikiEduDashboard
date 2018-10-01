@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { initiateConfirm } from '../../actions/confirm_actions';
 import TextInput from '../common/text_input';
 import Popover from '../common/popover.jsx';
-import PopoverExpandable from '../high_order/popover_expandable.jsx';
+import Expandable from '../high_order/expandable.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 
 const AddCategoryButton = createReactClass({
@@ -210,5 +210,5 @@ const AddCategoryButton = createReactClass({
 const mapDispatchToProps = { initiateConfirm };
 
 export default connect(null, mapDispatchToProps)(
-  PopoverExpandable(AddCategoryButton)
+  Expandable(AddCategoryButton)
 );

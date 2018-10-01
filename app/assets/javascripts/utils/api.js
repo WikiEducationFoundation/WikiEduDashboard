@@ -416,7 +416,6 @@ slide_id=${opts.slide_id}`,
       .fail(function (obj, status) {
         this.obj = obj;
         this.status = status;
-        console.error('Couldn\'t save course!');
         RavenLogger.obj = this.obj;
         RavenLogger.status = this.status;
         Raven.captureMessage('saveCourse failed', {

@@ -12,7 +12,6 @@ describe 'Training', type: :feature, js: true do
 
   before do
     login_as(user, scope: :user)
-    page.driver.browser.url_blacklist = ['https://www.youtube.com', 'https://upload.wikimedia.org']
   end
 
   describe 'root library' do
@@ -205,7 +204,7 @@ end
 def proceed_to_next_slide
   button = page.first('button.ghost-button', minimum: 0)
   find_correct_answer_by_trial_and_error unless button.nil?
-  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').trigger('click')
+  page.first('a.slide-nav.btn.btn-primary.icon-rt_arrow').click
 end
 
 def find_correct_answer_by_trial_and_error
