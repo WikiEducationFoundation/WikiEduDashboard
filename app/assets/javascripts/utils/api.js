@@ -1,5 +1,6 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
+import fetch from 'isomorphic-fetch';
 
 const RavenLogger = {};
 
@@ -275,19 +276,19 @@ const API = {
   },
 
   fetch(courseId, endpoint) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'GET',
-        url: `/courses/${courseId}/${endpoint}.json`,
-        success(data) {
-          return res(data);
+    return fetch(`/courses/${courseId}/${endpoint}.json`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   fetchAllTrainingModules() {
