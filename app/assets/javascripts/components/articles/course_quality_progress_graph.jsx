@@ -195,8 +195,8 @@ const CourseQualityProgressGraph = createReactClass({
               method: { signal: 'method' },
               distribution: {
                 function: 'normal',
-                mean: { signal: "data('before')[0].mean" },
-                stdev: { signal: "data('before')[0].stdev" }
+                mean: { signal: "data('before')[0] && data('before')[0].mean" },
+                stdev: { signal: "data('before')[0] && data('before')[0].stdev" }
               }
             }
           ]
