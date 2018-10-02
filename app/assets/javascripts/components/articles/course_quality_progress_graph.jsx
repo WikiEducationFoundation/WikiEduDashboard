@@ -70,18 +70,18 @@ const CourseQualityProgressGraph = createReactClass({
         {
           name: 'articleCount',
           value: 0,
-          update: "'No. of Articles: ' + data('points').length"
+          update: "'Article count: ' + data('points').length"
         },
         {
           name: 'mean_ores_before',
           value: 0,
           update:
-            "'Mean ORES Before: ' + data('mean_before')[0].mean_ores_before"
+            "'Mean score before: ' + data('mean_before')[0].mean_ores_before"
         },
         {
           name: 'mean_ores_after',
           value: 0,
-          update: "'Mean ORES After: ' + data('mean_after')[0].mean_ores_after"
+          update: "'Mean score after: ' + data('mean_after')[0].mean_ores_after"
         }
       ],
 
@@ -256,6 +256,8 @@ const CourseQualityProgressGraph = createReactClass({
               y: { value: 60 }
             },
             update: {
+              limit: { value: 155 },
+              ellipsis: { value: ' ' },
               text: { signal: 'mean_ores_before' }
             }
           }
@@ -268,6 +270,8 @@ const CourseQualityProgressGraph = createReactClass({
               y: { value: 80 }
             },
             update: {
+              limit: { value: 145 },
+              ellipsis: { value: ' ' },
               text: { signal: 'mean_ores_after' }
             }
           }
