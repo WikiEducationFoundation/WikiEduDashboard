@@ -65,6 +65,7 @@
     "gulp-watch": "^5.0.1",
     "gulp-webserver": "^0.9.1",
     "i18n-js": "^3.0.8",
+    "isomorphic-fetch": "^2.2.1",
     "jeet": "^6.1.2",
     "jest": "^23.6.0",
     "jquery": "3.3.1",
