@@ -106,6 +106,28 @@ const CourseQualityProgressGraph = createReactClass({
           ]
         },
         {
+          name: 'mean_before',
+          source: 'points',
+          transform: [
+              {
+                type: 'aggregate',
+                fields: ['ores_before'],
+                ops: ['mean']
+              }
+          ]
+        },
+        {
+          name: 'mean_after',
+          source: 'points',
+          transform: [
+              {
+                type: 'aggregate',
+                fields: ['ores_after'],
+                ops: ['mean']
+              }
+          ]
+        },
+        {
           name: 'before',
           source: 'points',
           transform: [
