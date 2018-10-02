@@ -16,7 +16,6 @@ addons:
   apt:
     packages:
     - pandoc
-    - r-base
 services:
   - redis-server
 before_install:

@@ -54,5 +54,3 @@
           = render :partial => 'monthly_report', :locals => { :monthly_report => @monthly_report }
         - if params[:campaign_intersection]
           = render :partial => 'campaign_stats', :locals => { :campaign_stats => @campaign_stats }
-        - if params[:ores_changes]
-          = render :partial => 'ores_changes', :locals => { :ores_changes_plot => @ores_changes_plot }

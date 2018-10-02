@@ -75,7 +75,6 @@ gem 'chartkick' # Used for plots in Rails views
 
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
-gem 'rinruby' # R plots!
 
 ### Platform-specific fixes
 # TZ information is not available on Windows, needs to be installed separately
