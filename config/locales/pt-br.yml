@@ -990,6 +990,8 @@ pt-br:
       other: '%{completed_count}/%{count} módulos de treinamento completados'
     training_module_name: Módulo de treinamento
     training_module_status: Status
+    user_training_status: Status de treinamento
+    user_no_training_status: Este usuário não concluiu nenhum módulo de treinamento.
     up_to_date_with_training: em dia com o treinamento
     uploads_doc: Número de pastas enviadas para Wikimedia Commons
     username: Nome de usuário

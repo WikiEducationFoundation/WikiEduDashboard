@@ -24,6 +24,16 @@
 # Author: Zetud
 ---
 fr:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: k
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Ceci est un champ numérique. Les boutons générés sur la plupart
       des navigateurs incrémenteront et décrémenteront cette entrée.
@@ -1014,6 +1024,8 @@ fr:
       other: '%{completed_count}/%{count} modules de formation terminés'
     training_module_name: Module de formation
     training_module_status: État
+    user_training_status: Etat de la formation
+    user_no_training_status: Cet utilisateur n'a terminé aucun des modules de formation.
     up_to_date_with_training: formation à jour
     uploads_doc: Nombre de fichiers téléchargés sur Wikimédia Communs
     username: Nom d’utilisateur

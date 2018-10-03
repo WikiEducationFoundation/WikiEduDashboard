@@ -206,12 +206,14 @@ da:
       save_cloned_course: Gem nyt kursus
       start_date: Startdato
       start_date_placeholder: Startdato (ÅÅÅÅ-MM-DD)
+    current: Nuværende kurser
     delete_course: Slet kursus
     delete_suggestion: Slet
     delete_course_instructions: Du kan slette denne side, hvis alle kampagner fjernes
       først.
     edit_count: Antal redigeringer
     edit_course_dates: Rediger kursusdatoer
+    enable_chat: Aktiver chat
     ended: Kurset er afsluttet.
     error:
       invalid_language_or_project: Ugyldigt sprog/projekt
@@ -235,6 +237,7 @@ da:
     students_taught: Underviste studenter
     students_count: '# Studerende'
     students_short: Studerende
+    suggestions_sending: Sender tilbagemelding…
     user_role: Rolle
     course_details: Kursusdetaljer
     submitted: Indsendt
@@ -258,6 +261,7 @@ da:
     course: Program
     courses: Programmer
     campaigns: 'Kampagner:'
+    campaign_courses: '%{title}-programmer'
     creator:
       choose_clone: Vælg et program der skal klones.
       clone_previous: Klon forrige program
@@ -280,7 +284,7 @@ da:
     delete_course: Slet program
     edit_course_dates: Rediger projektdatoer
     enroll: Tilføj skribent
-    enrollment: Deltagelse
+    enrollment: Tilføj/Fjern skribenter
     explore: Find programmer
     join_course: Tilslut program
     leave_course: Forlad program
@@ -353,6 +357,7 @@ da:
     view_full_timeline: Se hele tidslinjen
     week_number: Uge %{number}
   training:
+    continue: Fortsæt (%{progress})
     view: Vis
     next: Næste side
     page: Side
@@ -391,8 +396,11 @@ da:
       student: Studerende
       instructor: Underviser
   wizard:
+    course_dates: Kursus datoer
     read_less: Læs mindre
     read_more: Læs mere
+  error:
+    invalid_date: Datoen %{key} er ugyldig
   error_404:
     header: Siden blev ikke fundet. :-(
   login_error:

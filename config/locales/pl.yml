@@ -376,6 +376,7 @@ pl:
     passcode: Kod dostępu
     passcode_none: Brak kodu dostępu
     passcode_prompt: 'Wprowadź kod dostępu/hasło by dołączyć:'
+    please_log_in: Zaloguj się.
     published: 'Twój kurs został opublikowany. Uczestnicy mogą się na niego zapisywać
       pod następującym adresem URL:'
     review_timeline: Skontroluj harmonogram i wprowadź poprawki. Gdy już będziesz

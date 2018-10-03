@@ -12,9 +12,20 @@
 # Author: Ldacosta
 # Author: Macofe
 # Author: MokaAkashiyaPT
+# Author: Ruila
 # Author: Vitorvicentevalente
 ---
 pt:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: G
+          trillion: T
+          quadrillion: P
   accessibility:
     number_field: Este campo é numérico. Os botões mostrados pela maioria dos navegadores
       aumentam ou reduzem a entrada.
@@ -990,6 +1001,8 @@ pt:
       other: '%{completed_count}/%{count} módulos de capacitações concluídos'
     training_module_name: Módulo de formação
     training_module_status: Estado
+    user_training_status: Estado de formação
+    user_no_training_status: Este utilizador não completou nenhum módulo de formação.
     up_to_date_with_training: em dia com a formação
     uploads_doc: Número de carregamentos de ficheiros na wiki Wikimedia Commons
     username: Nome de utilizador
@@ -1144,6 +1157,8 @@ pt:
     search_placeholder: Introduza a sua palavra-chave
     search: Pesquisar
     tools: Ferramentas
+    show_options: Mostrar opções
+    hide_options: Ocultar opções
     keyword_search: Pesquisa por palavra-chave
     category_search: Pesquisa por categoria
     article_quality: Qualidade do artigo (0-100)
@@ -1155,7 +1170,7 @@ pt:
     fetching_revisions: A obter revisões de páginas
     fetching_scores: A obter classificações de integridade
     fetching_pageviews: A obter visitas de páginas
-    subheading_message: Vamos procurar um artigo que satisfaz as suas necessidades
+    subheading_message: Vamos procurar um artigo da Wikipédia para trabalhar nele.
     article_finder: Pesquisa de artigos
     submit: Enviar
     relevanceIndex: Índice de relevância
