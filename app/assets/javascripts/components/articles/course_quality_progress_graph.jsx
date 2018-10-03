@@ -76,12 +76,12 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'mean_ores_before',
           value: 0,
           update:
-            "'Mean score before: ' + data('mean_before')[0].mean_ores_before"
+            "'Mean score before: ' + format(data('mean_before')[0].mean_ores_before, '.1f')"
         },
         {
           name: 'mean_ores_after',
           value: 0,
-          update: "'Mean score after: ' + data('mean_after')[0].mean_ores_after"
+          update: "'Mean score after: ' + format(data('mean_after')[0].mean_ores_after, '.1f')"
         }
       ],
 
