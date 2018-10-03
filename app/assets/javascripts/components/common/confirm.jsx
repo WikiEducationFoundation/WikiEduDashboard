@@ -82,7 +82,7 @@ const Confirm = createReactClass({
 
     return (
       <Modal modalClass="confirm-modal-overlay">
-        <div className="confirm-modal">
+        <div className="confirm-modal" role="alert">
           {description}
           {confirmMessage}
           {textInput}
