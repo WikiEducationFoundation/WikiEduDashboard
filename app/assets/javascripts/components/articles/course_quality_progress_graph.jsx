@@ -76,12 +76,13 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'mean_ores_before',
           value: 0,
           update:
-            "'Mean score before: ' + data('mean_before')[0].mean_ores_before"
+            "'Mean score before: ' + format(data('mean_before')[0].mean_ores_before, '.1f')"
         },
         {
           name: 'mean_ores_after',
           value: 0,
-          update: "'Mean score after: ' + data('mean_after')[0].mean_ores_after"
+          update:
+            "'Mean score after: ' + format(data('mean_after')[0].mean_ores_after, '.1f')"
         }
       ],
 
@@ -109,22 +110,22 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'mean_before',
           source: 'points',
           transform: [
-              {
-                type: 'aggregate',
-                fields: ['ores_before'],
-                ops: ['mean']
-              }
+            {
+              type: 'aggregate',
+              fields: ['ores_before'],
+              ops: ['mean']
+            }
           ]
         },
         {
           name: 'mean_after',
           source: 'points',
           transform: [
-              {
-                type: 'aggregate',
-                fields: ['ores_after'],
-                ops: ['mean']
-              }
+            {
+              type: 'aggregate',
+              fields: ['ores_after'],
+              ops: ['mean']
+            }
           ]
         },
         {
@@ -196,7 +197,9 @@ const CourseQualityProgressGraph = createReactClass({
               distribution: {
                 function: 'normal',
                 mean: { signal: "data('before')[0] && data('before')[0].mean" },
-                stdev: { signal: "data('before')[0] && data('before')[0].stdev" }
+                stdev: {
+                  signal: "data('before')[0] && data('before')[0].stdev"
+                }
               }
             }
           ]
@@ -233,49 +236,28 @@ const CourseQualityProgressGraph = createReactClass({
 
       axes: [{ orient: 'bottom', scale: 'xscale', zindex: 1 }],
 
-      legends: [{ orient: 'top-left', fill: 'color', offset: 0, zindex: 1 }],
+      legends: [
+        { orient: 'right', fill: 'color', offset: 0, zindex: 1 },
+        {
+          orient: 'right',
+          fill: 'color',
+          offset: -15,
+          zindex: 1,
+          values: [
+            {
+              signal: 'articleCount'
+            },
+            {
+              signal: 'mean_ores_before'
+            },
+            {
+              signal: 'mean_ores_after'
+            }
+          ]
+        }
+      ],
 
       marks: [
-        {
-          type: 'text',
-          encode: {
-            enter: {
-              x: { value: 0 },
-              y: { value: 40 }
-            },
-            update: {
-              text: { signal: 'articleCount' }
-            }
-          }
-        },
-        {
-          type: 'text',
-          encode: {
-            enter: {
-              x: { value: 0 },
-              y: { value: 60 }
-            },
-            update: {
-              limit: { value: 155 },
-              ellipsis: { value: ' ' },
-              text: { signal: 'mean_ores_before' }
-            }
-          }
-        },
-        {
-          type: 'text',
-          encode: {
-            enter: {
-              x: { value: 0 },
-              y: { value: 80 }
-            },
-            update: {
-              limit: { value: 145 },
-              ellipsis: { value: ' ' },
-              text: { signal: 'mean_ores_after' }
-            }
-          }
-        },
         {
           type: 'area',
           from: { data: 'density' },
