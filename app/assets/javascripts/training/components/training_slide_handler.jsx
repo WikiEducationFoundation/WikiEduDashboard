@@ -18,19 +18,6 @@ const TrainingSlideHandler = createReactClass({
     params: PropTypes.object
   },
 
-  getInitialState() {
-    return {
-      slide: {},
-      menuIsOpen: false,
-      currentSlide: {},
-      nextSlide: {},
-      previousSlide: {},
-      slides: [],
-      loading: true,
-      enabledSlides: []
-    };
-  },
-
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
     this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
@@ -45,7 +32,6 @@ const TrainingSlideHandler = createReactClass({
     const { slide_id } = newProps.params;
     this.props.setCurrentSlide(slide_id);
     this.setSlideCompleted(slide_id);
-    return this.setState(this.props.training);
   },
 
   componentWillUnmount() {
@@ -66,11 +52,11 @@ const TrainingSlideHandler = createReactClass({
   },
   toggleMenuOpen(e) {
     e.stopPropagation();
-    return this.props.toggleMenuOpen({ currently: this.state.menuIsOpen });
+    return this.props.toggleMenuOpen({ currently: this.props.training.menuIsOpen });
   },
 
   closeMenu(e) {
-    if (this.state.menuIsOpen) {
+    if (this.props.training.menuIsOpen) {
       e.stopPropagation();
       return this.props.toggleMenuOpen({ currently: true });
     }
@@ -82,7 +68,7 @@ const TrainingSlideHandler = createReactClass({
   keys: { rightKey: 39, leftKey: 37 },
 
   disableNext() {
-    return Boolean(this.state.currentSlide.assessment) && !this.state.currentSlide.answeredCorrectly;
+    return Boolean(this.props.training.currentSlide.assessment) && !this.props.training.currentSlide.answeredCorrectly;
   },
 
   returnToLink() {
@@ -95,19 +81,19 @@ const TrainingSlideHandler = createReactClass({
 
   handleKeyPress(e) {
     const navParams = { library_id: this.props.params.library_id, module_id: this.props.params.module_id };
-    if (e.which === this.keys.leftKey && this.state.previousSlide) {
-      const params = _.extend(navParams, { slide_id: this.state.previousSlide.slug });
+    if (e.which === this.keys.leftKey && this.props.training.previousSlide) {
+      const params = _.extend(navParams, { slide_id: this.props.training.previousSlide.slug });
       browserHistory.push(this.trainingUrl(params));
     }
-    if (e.which === this.keys.rightKey && this.state.nextSlide) {
+    if (e.which === this.keys.rightKey && this.props.training.nextSlide) {
       if (this.disableNext()) { return; }
-      const params = _.extend(navParams, { slide_id: this.state.nextSlide.slug });
+      const params = _.extend(navParams, { slide_id: this.props.training.nextSlide.slug });
       return browserHistory.push(this.trainingUrl(params));
     }
   },
 
   render() {
-    if (this.state.loading === true) {
+    if (this.props.training.loading === true) {
       return (
         <div className="training-loader">
           <h1 className="h2">Loading…</h1>
@@ -116,17 +102,17 @@ const TrainingSlideHandler = createReactClass({
       );
     }
 
-    if (this.state.loading === false && !__guard__(this.state.currentSlide, x => x.id)) {
+    if (this.props.training.loading === false && !__guard__(this.props.training.currentSlide, x => x.id)) {
       window.location = '/errors/file_not_found';
       return <div />;
     }
 
     let nextLink;
-    if (__guard__(this.state.nextSlide, x1 => x1.slug)) {
+    if (__guard__(this.props.training.nextSlide, x1 => x1.slug)) {
       nextLink = (
         <SlideLink
-          slideId={this.state.nextSlide.slug}
-          buttonText={this.state.currentSlide.buttonText || I18n.t('training.next')}
+          slideId={this.props.training.nextSlide.slug}
+          buttonText={this.props.training.currentSlide.buttonText || I18n.t('training.next')}
           disabled={this.disableNext()}
           button={true}
           params={this.props.params}
@@ -152,10 +138,10 @@ const TrainingSlideHandler = createReactClass({
     }
 
     let previousLink;
-    if (__guard__(this.state.previousSlide, x2 => x2.slug)) {
+    if (__guard__(this.props.training.previousSlide, x2 => x2.slug)) {
       previousLink = (
         <SlideLink
-          slideId={this.state.previousSlide.slug}
+          slideId={this.props.training.previousSlide.slug}
           buttonText={I18n.t('training.previous')}
           params={this.props.params}
         />
@@ -166,46 +152,46 @@ const TrainingSlideHandler = createReactClass({
     let assessment;
     let rawHtml;
     const locale = I18n.locale;
-    if (this.state.currentSlide.translations && this.state.currentSlide.translations[locale]) {
-      slideTitle = this.state.currentSlide.translations[locale].title;
-      rawHtml = md.render(this.state.currentSlide.translations[locale].content);
-      if (this.state.currentSlide.translations[locale].assessment) {
-        assessment = this.state.currentSlide.translations[locale].assessment;
+    if (this.props.training.currentSlide.translations && this.props.training.currentSlide.translations[locale]) {
+      slideTitle = this.props.training.currentSlide.translations[locale].title;
+      rawHtml = md.render(this.props.training.currentSlide.translations[locale].content);
+      if (this.props.training.currentSlide.translations[locale].assessment) {
+        assessment = this.props.training.currentSlide.translations[locale].assessment;
       }
     } else {
-      slideTitle = this.state.currentSlide.title;
-      if (this.state.currentSlide.content) {
-        rawHtml = md.render(this.state.currentSlide.content);
+      slideTitle = this.props.training.currentSlide.title;
+      if (this.props.training.currentSlide.content) {
+        rawHtml = md.render(this.props.training.currentSlide.content);
       }
-      if (this.state.currentSlide.assessment) {
-        assessment = this.state.currentSlide.assessment;
+      if (this.props.training.currentSlide.assessment) {
+        assessment = this.props.training.currentSlide.assessment;
       }
     }
 
-    const menuClass = this.state.menuIsOpen === false ? 'hidden' : 'shown';
+    const menuClass = this.props.training.menuIsOpen === false ? 'hidden' : 'shown';
 
     let quiz;
-    if (this.state.currentSlide.assessment) {
+    if (this.props.training.currentSlide.assessment) {
       quiz = (
         <Quiz
           question={assessment.question}
           answers={assessment.answers}
-          selectedAnswer={this.state.currentSlide.selectedAnswer}
-          correctAnswer={this.state.currentSlide.assessment.correct_answer_id}
+          selectedAnswer={this.props.training.currentSlide.selectedAnswer}
+          correctAnswer={this.props.training.currentSlide.assessment.correct_answer_id}
         />
       );
     }
 
     let titlePrefix;
-    if (this.state.currentSlide.title_prefix) {
+    if (this.props.training.currentSlide.title_prefix) {
       titlePrefix = (
-        <h2 className="training__slide__title-prefix">{this.state.currentSlide.title_prefix}</h2>
+        <h2 className="training__slide__title-prefix">{this.props.training.currentSlide.title_prefix}</h2>
       );
     }
 
    let sourceLink;
-   if (this.state.currentSlide.wiki_page) {
-     sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${this.state.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
+   if (this.props.training.currentSlide.wiki_page) {
+     sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${this.props.training.currentSlide.wiki_page}`} target="_blank">wiki source</a></span>;
    }
 
     return (
@@ -218,17 +204,17 @@ const TrainingSlideHandler = createReactClass({
               <span className="hamburger__bar" />
             </div>
             <h3 className="pull-right">
-              <a href="" onFocus={this.toggleMenuOpen}>{I18n.t('training.page_number', { number: this.state.currentSlide.index, total: this.state.slides.length })}</a>
+              <a href="" onFocus={this.toggleMenuOpen}>{I18n.t('training.page_number', { number: this.props.training.currentSlide.index, total: this.props.training.slides.length })}</a>
             </h3>
           </div>
           <SlideMenu
             closeMenu={this.closeMenu}
             onClick={this.toggleMenuOpen}
             menuClass={menuClass}
-            currentSlide={this.state.currentSlide}
+            currentSlide={this.props.training.currentSlide}
             params={this.props.params}
-            enabledSlides={this.state.enabledSlides}
-            slides={this.state.slides}
+            enabledSlides={this.props.training.enabledSlides}
+            slides={this.props.training.slides}
           />
         </header>
         {loginWarning}

@@ -18,7 +18,7 @@ const setCurrentSlide = function (state, slideId) {
   if (!state.module.slides) { return state.currentSlide; }
   const slideIndex = _.findIndex(state.module.slides, slide => slide.slug === slideId);
   state.currentSlide = state.module.slides[slideIndex];
-  state.isLoading = false;
+  state.loading = false;
   return state;
 };
 
