@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
+import { Provider } from 'react-redux';
 import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
@@ -9,18 +9,20 @@ global.sinon.stub(ServerActions, 'fetchTrainingModule');
 
 describe('SlideLink', () => {
   const TestLink = mount(
-    <TrainingSlideHandler
-      loading={false}
-      params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
-    >
-      <SlideLink
-        slideId="foobar"
-        buttonText="Next Page"
-        disabled={false}
-        button={true}
-        params={{ library_id: 'foo', module_id: 'bar' }}
-      />
-    </TrainingSlideHandler>
+    <Provider store={reduxStore}>
+      <TrainingSlideHandler
+        loading={false}
+        params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
+      >
+        <SlideLink
+          slideId="foobar"
+          buttonText="Next Page"
+          disabled={false}
+          button={true}
+          params={{ library_id: 'foo', module_id: 'bar' }}
+        />
+      </TrainingSlideHandler>
+    </Provider>
   );
 
   let domBtn;

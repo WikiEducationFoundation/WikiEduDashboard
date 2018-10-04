@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-
+import { Provider } from 'react-redux';
 import '../../testHelper';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 import SlideMenu from '../../../app/assets/javascripts/training/components/slide_menu.jsx';
@@ -10,12 +10,14 @@ describe('SlideMenu', () => {
   const params = { library_id: 'foo', module_id: 'bar', slide_id: 'kittens' };
   const slide = { id: 1, enabled: true, title: 'How to Kitten', slug: 'kittens' };
   const TestMenu = mount(
-    <TrainingSlideHandler
-      loading={false}
-      params={params}
-    >
-      <SlideMenu params={params} closeMenu={emptyFunction} onClick={emptyFunction} />
-    </TrainingSlideHandler>
+    <Provider store={reduxStore}>
+      <TrainingSlideHandler
+        loading={false}
+        params={params}
+      >
+        <SlideMenu params={params} closeMenu={emptyFunction} onClick={emptyFunction} />
+      </TrainingSlideHandler>
+    </Provider>
   );
 
   global.beforeEach(() =>
