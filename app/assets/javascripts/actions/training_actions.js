@@ -5,7 +5,7 @@ import {
   SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 
-import API from '../utils/api.js';
+import API from '../utils/api';
 
 export const fetchAllTrainingModules = () => (dispatch) => {
   return API.fetchAllTrainingModules()

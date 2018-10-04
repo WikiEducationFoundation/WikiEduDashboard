@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import TrainingActions from '../actions/training_actions.js';
+import { setSelectedAnswer } from '../../actions/training_actions.js';
 const md = require('../../utils/markdown_it.js').default();
 
 const Quiz = createReactClass({

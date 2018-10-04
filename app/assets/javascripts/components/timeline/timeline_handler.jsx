@@ -8,7 +8,7 @@ import Timeline from './timeline.jsx';
 import Grading from './grading.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
-import { fetchAllTrainingModules } from '../../actions/training_action.js';
+import { fetchAllTrainingModules } from '../../actions/training_actions';
 
 import { addWeek, deleteWeek, persistTimeline, setBlockEditable, cancelBlockEditable,
   updateBlock, addBlock, deleteBlock, insertBlock, restoreTimeline, deleteAllWeeks } from '../../actions/timeline_actions';

@@ -2,7 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
-import { fetchTrainingModule } from '../../actions/training_action.js';
+import { fetchTrainingModule } from '../../actions/training_actions.js';
 
 
 const TrainingModuleHandler = createReactClass({
