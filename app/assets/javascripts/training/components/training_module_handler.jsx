@@ -8,25 +8,17 @@ import { fetchTrainingModule } from '../../actions/training_actions.js';
 const TrainingModuleHandler = createReactClass({
   displayName: 'TrainingModuleHandler',
 
-  getInitialState() {
-    return { training_module: this.props.training.module };
-  },
-
   componentWillMount() {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
     return this.props.fetchTrainingModule({ module_id: moduleId });
   },
 
-  storeDidChange() {
-    return this.setState(getState());
-  },
-
   render() {
     const locale = I18n.locale;
-    const slidesAry = _.compact(this.state.training_module.slides);
+    const slidesAry = _.compact(this.props.training.module.slides);
     const slides = slidesAry.map((slide, i) => {
       const disabled = !slide.enabled;
-      const slideLink = `${this.state.training_module.slug}/${slide.slug}`;
+      const slideLink = `${this.props.training.module.slug}/${slide.slug}`;
       let liClassName;
       if (disabled) { liClassName = 'disabled'; }
       let summary;
@@ -48,7 +40,7 @@ const TrainingModuleHandler = createReactClass({
     }
     );
     let moduleSource;
-    if (this.state.training_module.wiki_page) {
+    if (this.props.training.module.wiki_page) {
       moduleSource = (
         <div className="training-module-source">
           <a href={`https://meta.wikimedia.org/wiki/${this.state.training_module.wiki_page}`} target="_blank">{I18n.t('training.view_module_source')}</a>

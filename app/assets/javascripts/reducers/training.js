@@ -78,6 +78,7 @@ const initialState = {
 
 export default function training(state = initialState, action) {
   let newState = {};
+  const data = action.data;
   switch (action.type) {
     case RECEIVE_TRAINING_MODULE: {
       const temp = { ...state, module: data.training_module };
