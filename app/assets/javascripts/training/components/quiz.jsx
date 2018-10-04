@@ -24,7 +24,7 @@ const Quiz = createReactClass({
   },
 
   setSelectedAnswer(id) {
-    return TrainingActions.setSelectedAnswer(id);
+    return this.props.setSelectedAnswer(id);
   },
 
   setAnswer(e) {
@@ -94,4 +94,10 @@ const Quiz = createReactClass({
   }
 });
 
-export default Quiz;
+const mapStateToProps = {};
+
+const mapDispatchToProps = {
+  setSelectedAnswer
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
