@@ -2,21 +2,19 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
-import TrainingStore from '../stores/training_store.js';
-import ServerActions from '../../actions/server_actions.js';
+import { fetchTrainingModule } from '../../actions/training_action.js';
 
-const getState = () => ({ training_module: TrainingStore.getTrainingModule() });
 
 const TrainingModuleHandler = createReactClass({
   displayName: 'TrainingModuleHandler',
-  mixins: [TrainingStore.mixin],
+
   getInitialState() {
-    return getState();
+    return { training_module: this.props.training.module };
   },
 
   componentWillMount() {
     const moduleId = document.getElementById('react_root').getAttribute('data-module-id');
-    return ServerActions.fetchTrainingModule({ module_id: moduleId });
+    return this.props.fetchTrainingModule({ module_id: moduleId });
   },
 
   storeDidChange() {
@@ -73,4 +71,12 @@ const TrainingModuleHandler = createReactClass({
   }
 });
 
-export default TrainingModuleHandler;
+const mapStateToProps = state => ({
+  training: state.training
+});
+
+const mapDispatchToProps = {
+  fetchTrainingModule
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainingModuleHandler);

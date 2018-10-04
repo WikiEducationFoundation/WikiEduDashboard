@@ -4,16 +4,12 @@ import createReactClass from 'create-react-class';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
-import TrainingStore from '../stores/training_store.js';
-import TrainingActions from '../actions/training_actions.js';
-import ServerActions from '../../actions/server_actions.js';
+import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_action.js';
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
-
-const getState = () => TrainingStore.getState();
 
 const TrainingSlideHandler = createReactClass({
   displayName: 'TrainingSlideHandler',
@@ -21,8 +17,6 @@ const TrainingSlideHandler = createReactClass({
   propTypes: {
     params: PropTypes.object
   },
-
-  mixins: [TrainingStore.mixin],
 
   getInitialState() {
     return {
@@ -39,7 +33,7 @@ const TrainingSlideHandler = createReactClass({
 
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
-    ServerActions.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
+    this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
     return this.setSlideCompleted(slideId);
   },
 
@@ -49,9 +43,9 @@ const TrainingSlideHandler = createReactClass({
 
   componentWillReceiveProps(newProps) {
     const { slide_id } = newProps.params;
-    TrainingActions.setCurrentSlide(slide_id);
+    this.props.setCurrentSlide(slide_id);
     this.setSlideCompleted(slide_id);
-    return this.setState(getState(newProps));
+    return this.setState(this.props.training);
   },
 
   componentWillUnmount() {
@@ -61,29 +55,24 @@ const TrainingSlideHandler = createReactClass({
   setSlideCompleted(slideId) {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
     if (!userId) { return; }
-    return ServerActions.setSlideCompleted({
+    return this.props.setSlideCompleted({
       slide_id: slideId,
       module_id: this.moduleId(),
       user_id: userId
     });
   },
-
-  storeDidChange() {
-    return this.setState(getState());
-  },
-
   moduleId() {
     return __guard__(this.props.params, x => x.module_id);
   },
   toggleMenuOpen(e) {
     e.stopPropagation();
-    return TrainingActions.toggleMenuOpen({ currently: this.state.menuIsOpen });
+    return this.props.toggleMenuOpen({ currently: this.state.menuIsOpen });
   },
 
   closeMenu(e) {
     if (this.state.menuIsOpen) {
       e.stopPropagation();
-      return TrainingActions.toggleMenuOpen({ currently: true });
+      return this.props.toggleMenuOpen({ currently: true });
     }
   },
   userLoggedIn() {
@@ -259,8 +248,19 @@ const TrainingSlideHandler = createReactClass({
   }
 });
 
-export default TrainingSlideHandler;
-
 function __guard__(value, transform) {
   return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
 }
+
+const mapStateToProps = state => ({
+  training: state.training
+});
+
+const mapDispatchToProps = {
+  fetchTrainingModule,
+  setSlideCompleted,
+  setCurrentSlide,
+  toggleMenuOpen
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TrainingSlideHandler);

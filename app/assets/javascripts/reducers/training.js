@@ -63,13 +63,17 @@ const initialState = {
   modules: [],
   module: {},
   slides: [],
-  currentSlide: {},
+  currentSlide: {
+    id: null,
+    title: '',
+    content: ''
+  },
   previousSlide: {},
   nextSlide: {},
   menuIsOpen: false,
   enabledSlides: [],
   loading: true,
-  isFirstSlide: true
+  isFirstSlide: false
 };
 
 export default function training(state = initialState, action) {
