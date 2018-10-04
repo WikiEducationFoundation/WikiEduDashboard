@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
-import { setUploadViewerMetadata } from '../../actions/uploads_actions.js';
+import { setUploadViewerMetadata, setUploadPageViews } from '../../actions/uploads_actions.js';
 
 const UploadViewer = createReactClass({
   displayName: 'UploadViewer',
@@ -15,13 +15,50 @@ const UploadViewer = createReactClass({
     closeUploadViewer: PropTypes.func,
   },
 
+  getInitialState() {
+    return {
+      loadingViews: true,
+      uploadViews: []
+    };
+  },
+
   componentWillMount() {
     this.props.setUploadViewerMetadata(this.props.upload);
+  },
+
+  componentWillReceiveProps(newProps) {
+    if ((this.props.pageViews !== '') || (newProps.pageViews !== '') || (newProps.pageViews !== this.props.pageViews)) {
+      this.setState({
+        uploadViews: [...this.state.uploadViews, this.props.pageViews, newProps.pageViews]
+      });
+    }
+  },
+
+  componentDidUpdate() {
+    const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
+    const fileUsage = _.get(metadata, 'globalusage', []);
+    if (fileUsage) {
+      const createdAt = _.get(metadata, 'imageinfo[0].extmetadata.DateTime.value');
+      if (this.state.loadingViews) {
+      this.handleGetFileViews(fileUsage, createdAt);
+      }
+    }
+  },
+
+  handleGetFileViews(files, createdAt) {
+    if (createdAt !== undefined) {
+      const createdDate = createdAt.split(' ');
+      this.props.setUploadPageViews(files, createdDate[0]);
+    }
+    this.setState({
+      loadingViews: false
+    });
   },
 
   handleClickOutside() {
     this.props.closeUploadViewer();
   },
+
 
   render() {
     const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
@@ -41,16 +78,25 @@ const UploadViewer = createReactClass({
     const source = _.get(metadata, 'imageinfo[0].extmetadata.Credit.value');
     const license = _.get(metadata, 'imageinfo[0].extmetadata.LicenseShortName.value');
 
+    const eyeIcon = <span><img className="eye-icon" src="/assets/images/icon-eye.png" alt="View icon" /></span>;
+
     const globalUsage = _.get(metadata, 'globalusage', []);
     let usageTableElements;
     if (globalUsage) {
-      usageTableElements = globalUsage.map(usage => {
-        return (
-          <tr>
-            <td>{usage.wiki}</td>
-            <td><a href={usage.url}>{usage.title}</a></td>
-          </tr>
-        );
+      usageTableElements = globalUsage.map((usage, key) => {
+       return this.state.uploadViews.slice(0).reverse()
+       .filter((value, j) => { if (j % 2 === 0) { return value; } })
+       .map((views, index) => {
+         if ((key === index)) {
+          return (
+            <tr>
+              <td>{usage.wiki}</td>
+              <td><a href={usage.url}>{usage.title}</a></td>
+              <td>{views}</td>
+            </tr>
+          );
+         }          
+        });        
       });
     }
 
@@ -64,6 +110,7 @@ const UploadViewer = createReactClass({
               <tr>
                 <th>Wiki</th>
                 <th>Article Name</th>
+                <th>{eyeIcon}</th>
               </tr>
             </thead>
             <tbody>
@@ -73,7 +120,6 @@ const UploadViewer = createReactClass({
         </div>
       );
     }
-
     let categoriesList = '';
     let categories;
     _.forEach(_.get(metadata, 'categories', []), category => categoriesList = `${categoriesList} | ${category.title}`);
@@ -135,10 +181,12 @@ const UploadViewer = createReactClass({
 
 const mapStateToProps = state => ({
   uploadMetadata: state.uploads.uploadMetadata,
+  pageViews: state.uploads.pageViews
 });
 
 const mapDispatchToProps = {
-  setUploadViewerMetadata
+  setUploadViewerMetadata,
+  setUploadPageViews
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(UploadViewer));
