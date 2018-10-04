@@ -109,5 +109,6 @@ export default function training(state = initialState, action) {
   newState.previousSlide = getPreviousSlide(newState);
   newState.nextSlide = getNextSlide(newState);
   newState.isFirstSlide = isFirstSlide(newState);
+  newState.slides = newState.module.slides;
   return newState;
 }
