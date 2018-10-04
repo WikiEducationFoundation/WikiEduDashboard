@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
-
+import { connect } from 'react-redux';
 import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';

@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import _ from 'lodash';
-
+import { connect } from 'react-redux';
 import { fetchTrainingModule } from '../../actions/training_actions.js';
 
 
