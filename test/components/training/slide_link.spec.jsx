@@ -4,8 +4,7 @@ import { Provider } from 'react-redux';
 import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
-import ServerActions from '../../../app/assets/javascripts/actions/server_actions.js';
-global.sinon.stub(ServerActions, 'fetchTrainingModule');
+
 
 describe('SlideLink', () => {
   const TestLink = mount(
