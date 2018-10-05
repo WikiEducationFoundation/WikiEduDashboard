@@ -26,55 +26,62 @@ const API = {
   },
 
   fetchCourseRevisions(courseId, limit) {
-    return new Promise((res, rej) => {
-      const url = `/courses/${courseId}/revisions.json?limit=${limit}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
+    return fetch(`/courses/${courseId}/reviions.json?limit=${limit}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   fetchFeedback(articleTitle, assignmentId) {
-    return new Promise((res, rej) => {
-      const url = `/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        dataType: 'json',
-        success(data) {
-          return res(data);
+    return fetch(`/revision_feedback?title=${articleTitle}&assignment_id=${assignmentId}`, {
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   postFeedbackFormResponse(subject, body) {
-    return new Promise((res, rej) =>
-      $.ajax({
-        type: 'POST',
-        url: `/feedback_form_responses`,
-        data: {feedback_form_response: {subject: subject, body: body}},
-        success(data) {
-          return res(data);
+    return fetch(`/feedback_form_responses`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({feedback_form_response: {subject: subject, body: body}}),
+
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
-      })
-    );
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
+      });
   },
 
   createCustomFeedback(assignmentId, text, userId) {
