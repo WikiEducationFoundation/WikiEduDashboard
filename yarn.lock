@@ -9436,10 +9436,10 @@ normalize-space-x@^3.0.0:
     trim-x "^3.0.0"
     white-space-x "^3.0.0"
 
-nouislider@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-11.1.0.tgz#1768eb5b854917325d41b96f2dc4eb3757d73381"
-  integrity sha512-nD+Fgc8A8j6hnGvR5AaV+OBuLF446z4H2fmcEJ/6U6CJr6rAnFnionMXu7dmdghZ+bhgePvL3wrDRbu+0ux7Jg==
+nouislider@^12.0.0:
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/nouislider/-/nouislider-12.0.0.tgz#dd0dcee2de5865e242712c4d59bc31fc58e58ee3"
+  integrity sha512-wUr7AJwDQ2oraHgNjLnELjvghTJrKskELowAhdyk01zN6jpXegoyVQJL2Tzt/hp9qwnx+E5KwWS4RNbIMizVcw==
 
 npm-bundled@^1.0.1:
   version "1.0.3"
