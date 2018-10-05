@@ -3,11 +3,11 @@ id: 25
 description: In this tutorial, we'll show you the practical steps for working in a sandbox, and beginning to draft of an article.
 estimated_ttc: 10 minutes
 slides:
-  - slug: using-a-sandbox-fellows # 2501
-  - slug: what-s-a-sandbox-fellows # 2502
-  - slug: how-to-find-a-sandbox-fellows # 2503
-  - slug: how-to-create-a-new-sandbox-fellows # 2504
-  - slug: editing-an-existing-article-fellows # 2505
-  - slug: drafting-a-new-article-fellows # 2506
-  - slug: avoiding-edit-conflicts-fellows # 2507
-  - slug: thats-it-drafting-fellows # 2508
+  - slug: using-a-sandbox-scholars # 2501
+  - slug: what-s-a-sandbox-scholars # 2502
+  - slug: how-to-find-a-sandbox-scholars # 2503
+  - slug: how-to-create-a-new-sandbox-scholars # 2504
+  - slug: editing-an-existing-article-scholars # 2505
+  - slug: drafting-a-new-article-scholars # 2506
+  - slug: avoiding-edit-conflicts-scholars # 2507
+  - slug: thats-it-drafting-scholars # 2508
