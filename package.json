@@ -88,7 +88,7 @@
     "mkdirp": "^0.5.1",
     "moment": "2.21.0",
     "moment-recur": "^1.0.7",
-    "nock": "^8.0.0",
+    "nock": "^10.0.0",
     "nouislider": "^11.1.0",
     "parsleyjs": "^2.8.1",
     "promise-limit": "^2.6.0",
