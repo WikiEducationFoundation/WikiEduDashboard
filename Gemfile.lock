@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/ejholmes/restforce.git
-  revision: 7012e1dca95cb6953123620535144fb41011db82
+  revision: 8744f3c4d2461e7eaf9f7d0f6963c2ce6b0ab33f
   specs:
     restforce (3.1.0)
       faraday (>= 0.9.0, <= 1.0)
