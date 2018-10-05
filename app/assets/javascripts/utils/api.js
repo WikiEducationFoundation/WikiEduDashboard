@@ -10,20 +10,19 @@ const API = {
   // Getters /
   // /////////
   fetchRevisions(studentId, courseId) {
-    return new Promise((res, rej) => {
-      const url = `/revisions.json?user_id=${studentId}&course_id=${courseId}`;
-      return $.ajax({
-        type: 'GET',
-        url,
-        success(data) {
-          return res(data);
+    return fetch(`/revisions.json?user_id=${studentId}&course_id=${courseId}`)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        else {
+          return Promise.reject({statusText: res.statusText});
         }
       })
-      .fail((obj) => {
-        logErrorMessage(obj);
-        return rej(obj);
+      .catch(error => {
+        logErrorMessage(error);
+        return Promise.reject({error});
       });
-    });
   },
 
   fetchCourseRevisions(courseId, limit) {
