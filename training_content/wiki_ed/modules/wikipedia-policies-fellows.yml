@@ -1,6 +1,6 @@
 name: Wikipedia policies (Fellows)
 id: 21
-description: |  
+description: |
   This module will provide a basic overview of Wikipedia’s core policies and guidelines.
 
   When you finish, you should be able to answer:
@@ -10,17 +10,17 @@ description: |
   * What does "notability" mean on Wikipedia?
 estimated_ttc: 25 minutes
 slides:
-  - slug: policies-and-guidelines-basic-overview-fellows # 2101
-  - slug: five-pillars-fellows # 2102
-  - slug: pillar-one-fellows # 2103
-  - slug: pillar-two-fellows # 2104
-  - slug: pillar-three-fellows # 2105
-  - slug: pillar-four-fellows # 2106
-  - slug: pillar-five-fellows # 2107
-  - slug: verifiability-fellows # 2108
-  - slug: notability-fellows # 2109
-  - slug: notability-continued-fellows # 2110
-  - slug: no-original-research-fellows # 2111
-  - slug: plagiarism-fellows # 2112
-  - slug: copyright-fellows # 2113
-  - slug: that-s-it-fellows # 2114
+  - slug: policies-and-guidelines-basic-overview-scholars # 2101
+  - slug: five-pillars-scholars # 2102
+  - slug: pillar-one-scholars # 2103
+  - slug: pillar-two-scholars # 2104
+  - slug: pillar-three-scholars # 2105
+  - slug: pillar-four-scholars # 2106
+  - slug: pillar-five-scholars # 2107
+  - slug: verifiability-scholars # 2108
+  - slug: notability-scholars # 2109
+  - slug: notability-continued-scholars # 2110
+  - slug: no-original-research-scholars # 2111
+  - slug: plagiarism-scholars # 2112
+  - slug: copyright-scholars # 2113
+  - slug: that-s-it-scholars # 2114
