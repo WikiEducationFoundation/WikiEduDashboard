@@ -1,0 +1,18 @@
+name: Moving work out of the sandbox (Wiki Scholars)
+id: 51
+description: In this tutorial, we'll show you the practical steps for moving your work to Wikipedia.
+estimated_ttc: 10 minutes
+slides:
+  - slug: moving-your-work-into-wikipedia-s-mainspace-scholars # 2601
+  - slug: adding-content-to-an-existing-article-scholars # 2602
+  - slug: editing-an-existing-article-cont-scholars # 2603
+  - slug: creating-a-new-article-scholars # 2604
+  - slug: name-your-article-scholars # 2605
+  - slug: moving-a-new-article-out-of-the-sandbox-scholars # 2606
+  - slug: move-your-page-scholars # 2607
+  - slug: did-it-work-scholars # 2608
+  - slug: whoops-i-made-a-mistake-scholars # 2609
+  - slug: what-happens-now-scholars # 2610
+  - slug: did-you-get-patrolled-scholars # 2611
+  - slug: my-work-was-reverted-scholars # 2612
+  - slug: that-s-all-scholars # 2613
