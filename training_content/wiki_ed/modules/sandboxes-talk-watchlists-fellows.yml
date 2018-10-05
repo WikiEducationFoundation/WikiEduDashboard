@@ -5,13 +5,13 @@ description: |
   found on Wikipedia and how to interact with each of them.
 estimated_ttc: 10 minutes
 slides:
-  - slug: welcome-fellows # 2201
-  - slug: getting-to-know-your-sandbox-fellows # 2202
-  - slug: sandboxes-continued-fellows # 2203
-  - slug: help-i-ve-been-patrolled-fellows # 2204
-  - slug: talk-pages-fellows # 2205
-  - slug: watchlists-fellows # 2206
-  - slug: video-watchlists-fellows # 2207
-  - slug: wikiprojects-fellows # 2208
-  - slug: user-pages-fellows # 2210
-  - slug: thats-it-sandboxes-fellows # 2209
+  - slug: welcome-scholars # 2201
+  - slug: getting-to-know-your-sandbox-scholars # 2202
+  - slug: sandboxes-continued-scholars # 2203
+  - slug: help-i-ve-been-patrolled-scholars # 2204
+  - slug: talk-pages-scholars # 2205
+  - slug: watchlists-scholars # 2206
+  - slug: video-watchlists-scholars # 2207
+  - slug: wikiprojects-scholars # 2208
+  - slug: user-pages-scholars # 2210
+  - slug: thats-it-sandboxes-scholars # 2209

@@ -7,21 +7,21 @@ categories:
   - title: ''
     description: ''
     modules:
-      - slug: wikipedia-policies-scholars
+      - slug: wikipedia-policies-fellows
         name: Wikipedia policies
         description: An overview of Wikipedia's main rules
-      - slug: sandboxes-talk-watchlists-scholars
+      - slug: sandboxes-talk-watchlists-fellows
         name: Sandboxes, talk pages, and watchlists
         description: The different types of pages found on Wikipedia and how to interact with each of them
-      - slug: how-to-edit-scholars
+      - slug: how-to-edit-fellows
         name: "How to edit: Wikicode vs Visual Editor"
         description: An introduction to editing Wikipedia pages
-      - slug: evaluating-articles-scholars
+      - slug: evaluating-articles-fellows
         name: Evaluating articles and sources
         description: How to read Wikipedia articles, and potential sources, with a critical eye
-      - slug: drafting-scholars
+      - slug: drafting-fellows
         name: Drafting in the sandbox
         description: Practical steps for working in a sandbox, and beginning to draft of an article
-      - slug: moving-live-scholars
+      - slug: moving-live-fellows
         name: Moving work out of the sandbox
         description: Practical steps for moving your work to Wikipedia
