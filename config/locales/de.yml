@@ -5,6 +5,16 @@
 # Author: Taresi
 ---
 de:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
+        units:
+          thousand: T
+          million: M
+          billion: Mrd
+          trillion: B
+          quadrillion: Brd
   accessibility:
     number_field: Dies ist ein Zahlenfeld. Die von den meisten Browsern dargestellten
       Schaltflächen erhöhen und vermindern die Eingabe.
@@ -994,6 +1004,8 @@ de:
       other: '%{completed_count}/%{count} abgeschlossene Ausbildungsmodule'
     training_module_name: Ausbildungsmodul
     training_module_status: Status
+    user_training_status: Ausbildungsstatus
+    user_no_training_status: Dieser Benutzer hat keine Ausbildungsmodule vervollständigt.
     up_to_date_with_training: mit der Ausbildung auf dem Laufenden
     uploads_doc: Anzahl der auf Wikimedia Commons hochgeladenen Dateien
     username: Benutzername

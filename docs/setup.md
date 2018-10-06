@@ -47,7 +47,6 @@ If you know your way around Rails, here's the very short version. Some additiona
 * copy `config/database.example.yml` to `config/database.yml`
 * create a MySQL database, `dashboard`
 * install ruby 2.5.0 and nodejs
-* install R
 * `bundle install`
 * `rake db:migrate`
 * install yarn
@@ -121,10 +120,6 @@ If you know your way around Rails, here's the very short version. Some additiona
 - Install Gulp (if not already installed)
   - `sudo yarn global add gulp`
 
-- Install R:
-  - Debian: `sudo apt install r-base`
-  - OS X: `brew install r`
-  - Also you can refer to this [install R](https://cran.r-project.org/)
 ## Initialize
 1. **Migrate the development and test databases**
   - $ `rake db:migrate`

@@ -4,14 +4,19 @@
 # Author: Joetaras
 ---
 roa-tara:
+  accessibility:
+    number_field: Quiste jè 'nu cambe numereche. Le buttone 'ndrucate da 'a maggiore
+      parte de le browser aumendane e diminuiscene 'u numere sckaffate.
   application:
     cancel: Annulle
+    create_accounts: Ccreje le cunde de Uicchipèdie
     dashboard: Wiki Ed Dashboard
     documentation: Documendazione
     error: 'Ha assute ''n''errore:'
     explore: Esplore
     field_required: Stu cambe jè richieste
     field_invalid_characters: Stu cambe tène carattere non valide
+    field_invalid_date: Stu cambe vole 'na date cu 'u formate YYYY-MM-DD
     greeting2: Bovègne!
     greeting_extended: Bovègne sus a Uicchipèdie
     greeting: Cià
@@ -53,4 +58,8 @@ roa-tara:
     user_recent_uploads: Urteme carecaminde
   editable:
     edit_template: Cange 'u template
+  article_finder:
+    show_options: Fà 'ndrucà le opziune
+    hide_options: Scunne le opziune
+    subheading_message: Acchiame 'na vôsce de Uicchipèdie pe fatià.
 ...

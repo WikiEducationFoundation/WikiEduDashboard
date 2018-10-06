@@ -208,6 +208,7 @@ Rails.application.routes.draw do
       controller: :campaigns,
       action: :programs,
       to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
+  get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
 
   # Recent Activity
   get 'recent-activity/plagiarism/report' => 'recent_activity#plagiarism_report'

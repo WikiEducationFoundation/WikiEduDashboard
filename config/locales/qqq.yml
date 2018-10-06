@@ -739,7 +739,8 @@ qqq:
     user_training_status: |-
       Link anchor for viewing training status of a user
       '{{Identical|Training Status}}'
-    user_no_training_status: Explanation that the user hasn't started any training module yet.
+    user_no_training_status: Explanation that the user hasn't started any training
+      module yet.
     username: '{{Identical|Username}}'
     username_placeholder: '{{Identical|Username}}'
     role:

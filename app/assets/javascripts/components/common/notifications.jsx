@@ -30,14 +30,14 @@ const Notifications = createReactClass({
     let className = 'notice';
     if (notification.type === 'error') {
       message = (
-        <p>
+        <p role="alert">
           <strong>{I18n.t('application.error')}</strong> {notification.message}
         </p>
       );
     } else if (notification.type === 'success') {
       className = 'notification';
       message = (
-        <p>
+        <p role="alert">
           {notification.message}
         </p>
       );

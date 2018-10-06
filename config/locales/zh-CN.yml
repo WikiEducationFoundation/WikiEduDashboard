@@ -10,6 +10,7 @@
 # Author: Liuxinyu970226
 # Author: Macofe
 # Author: NeverBehave
+# Author: Phenolla
 # Author: Shizhao
 # Author: Yanjiazhang
 # Author: Yfdyh000
@@ -382,6 +383,7 @@ zh-CN:
     passcode: 密码
     passcode_none: 无密码
     passcode_prompt: 输入密码以加入：
+    please_log_in: 请登录
     private: 私有
     published: 您的课程已发布！学生们可以通过下面的URL报名课程：
     rating_feedback: 条目预测的评级为：
@@ -504,6 +506,7 @@ zh-CN:
     join_details: 要加入此计划，您需要获取密码——或包含密码的链接——来自引导者。
     leave_course: 离开计划
     milestones_none: 此项目目前没有任何里程碑。
+    not_permitted: 您没有权限编辑此程序。
     published: 此项目已经发布！编辑者可以通过访问下面的URL登记：
     request_accounts: 请求账户
     revisions_none: 此项目没有最近编辑活动。
@@ -774,6 +777,7 @@ zh-CN:
       other: '%{completed_count}/%{count}培训模块已完成'
     training_module_name: 培训模块
     training_module_status: 状态
+    user_training_status: 培训状态
     up_to_date_with_training: 最近培训
     uploads_doc: 上传到维基共享资源的文件数量
     username: 用户名
@@ -885,6 +889,8 @@ zh-CN:
     search_placeholder: 输入您的密码
     search: 搜索
     tools: 工具
+    show_options: 显示选项
+    hide_options: 隐藏选项
     keyword_search: 关键词搜索
     category_search: 分类搜索
     article_quality: 条目质量（0~100）
@@ -896,7 +902,7 @@ zh-CN:
     fetching_revisions: 正在检索页面修订版本
     fetching_scores: 正在取得完整性分数
     fetching_pageviews: 正在检索页面浏览
-    subheading_message: 让我们查找符合您的需求的条目
+    subheading_message: 让我们查找需要操作的条目
     article_finder: 条目查找器
     submit: 提交
     relevanceIndex: 相关性索引

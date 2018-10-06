@@ -10,6 +10,16 @@
 # Author: Theklan
 ---
 eu:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: Hau zenbakizko eremu bat da. Nabigatzaile gehienek dakartzaten botoiek
       igo edo jaitsi egingo dute sartutakoa.

@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import _ from 'lodash';
 
 import ArticleViewer from '../common/article_viewer.jsx';
 

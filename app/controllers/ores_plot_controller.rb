@@ -9,4 +9,11 @@ class OresPlotController < ApplicationController
     json_data = CSV.table(@ores_changes_csv).map(&:to_hash)
     render json: json_data
   end
+
+  def campaign_plot
+    @campaign = Campaign.find_by slug: params[:slug]
+    @ores_changes_csv = HistogramPlotter.csv(campaign: @campaign)
+    json_data = CSV.table(@ores_changes_csv).map(&:to_hash)
+    render json: json_data
+  end
 end

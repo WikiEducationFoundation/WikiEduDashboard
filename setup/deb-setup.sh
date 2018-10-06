@@ -64,13 +64,6 @@ printf "${CLEAR_LINE}[+] Added keys for required repositries\n"
 printf '[*] Updating Package lists... \n'
 output_line "sudo apt-get update" && printf "${CLEAR_LINE}[+] Updated Package lists\n"
 
-printf '[*] Installing R... \n'
-if which R > /dev/null; then
-  printf "${CLEAR_LINE}R already installed\n"
-else
-  output_line "sudo apt install -y r-base" && printf "${CLEAR_LINE}[+] R installed\n"
-fi
-
 printf '[*] Installing node.js... \n'
 if which node >/dev/null;then
   printf "${CLEAR_LINE}Node already installed\n"

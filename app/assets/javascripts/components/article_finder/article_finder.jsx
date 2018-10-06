@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
+import _ from 'lodash';
 
 import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';

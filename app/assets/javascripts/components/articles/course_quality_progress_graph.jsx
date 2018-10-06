@@ -18,21 +18,115 @@ const CourseQualityProgressGraph = createReactClass({
   },
 
   renderGraph() {
-    const vegaSpec = {
-      width: 1000,
-      height: 200,
-      padding: 5,
+    if (this.props.articleData.length === 0) {
+      return;
+    }
 
+    const max_bytes_added = Math.max(
+      ...this.props.articleData.map(o => o.bytes_added),
+      0
+    );
+    const max_score = Math.max(
+      ...this.props.articleData.map(o => o.ores_after - o.ores_before),
+      0
+    );
+    const vegaSpec = {
+      width: this.props.graphWidth,
+      height: this.props.graphHeight,
+      padding: 5,
       signals: [
         { name: 'bandwidth', value: 1 },
         { name: 'steps', value: 1000 },
-        { name: 'method', value: 'pdf' }
+        { name: 'method', value: 'pdf' },
+        {
+          name: 'articles',
+          value: 'both',
+          bind: {
+            input: 'radio',
+            options: ['new', 'existing', 'both'],
+            name: 'Articles:'
+          }
+        },
+        {
+          name: 'bytes_added',
+          value: 0,
+          bind: {
+            input: 'range',
+            min: 0,
+            max: max_bytes_added,
+            name: 'Minimum bytes added:'
+          }
+        },
+        {
+          name: 'score',
+          value: 0,
+          bind: {
+            input: 'range',
+            min: 0,
+            max: max_score,
+            name: 'Minimum change in score:'
+          }
+        },
+        {
+          name: 'articleCount',
+          value: 0,
+          update: "'Article count: ' + data('points').length"
+        },
+        {
+          name: 'mean_ores_before',
+          value: 0,
+          update:
+            "'Mean score before: ' + format(data('mean_before')[0].mean_ores_before, '.1f')"
+        },
+        {
+          name: 'mean_ores_after',
+          value: 0,
+          update:
+            "'Mean score after: ' + format(data('mean_after')[0].mean_ores_after, '.1f')"
+        }
       ],
 
       data: [
         {
           name: 'points',
-          values: this.props.articleData
+          values: this.props.articleData,
+          transform: [
+            {
+              type: 'filter',
+              expr:
+                "(articles === 'both') ? true : (articles === 'new' ? (datum.ores_before === 0) : (datum.ores_before > 0))"
+            },
+            {
+              type: 'filter',
+              expr: 'datum.bytes_added >= bytes_added'
+            },
+            {
+              type: 'filter',
+              expr: '(datum.ores_after - datum.ores_before) >= score'
+            }
+          ]
+        },
+        {
+          name: 'mean_before',
+          source: 'points',
+          transform: [
+            {
+              type: 'aggregate',
+              fields: ['ores_before'],
+              ops: ['mean']
+            }
+          ]
+        },
+        {
+          name: 'mean_after',
+          source: 'points',
+          transform: [
+            {
+              type: 'aggregate',
+              fields: ['ores_after'],
+              ops: ['mean']
+            }
+          ]
         },
         {
           name: 'before',
@@ -102,8 +196,10 @@ const CourseQualityProgressGraph = createReactClass({
               method: { signal: 'method' },
               distribution: {
                 function: 'normal',
-                mean: { signal: "data('before')[0].mean" },
-                stdev: { signal: "data('before')[0].stdev" }
+                mean: { signal: "data('before')[0] && data('before')[0].mean" },
+                stdev: {
+                  signal: "data('before')[0] && data('before')[0].stdev"
+                }
               }
             }
           ]
@@ -115,7 +211,7 @@ const CourseQualityProgressGraph = createReactClass({
           name: 'xscale',
           type: 'linear',
           range: 'width',
-          domain: { data: 'points', fields: ['ores_before', 'ores_after'] },
+          domain: [0, 100],
           nice: true
         },
         {
@@ -138,12 +234,27 @@ const CourseQualityProgressGraph = createReactClass({
         }
       ],
 
-      axes: [
-        { orient: 'bottom', scale: 'xscale', zindex: 1 }
-      ],
+      axes: [{ orient: 'bottom', scale: 'xscale', zindex: 1 }],
 
       legends: [
-        { orient: 'top-left', fill: 'color', offset: 0, zindex: 1 }
+        { orient: 'right', fill: 'color', offset: 0, zindex: 1 },
+        {
+          orient: 'right',
+          fill: 'color',
+          offset: -15,
+          zindex: 1,
+          values: [
+            {
+              signal: 'articleCount'
+            },
+            {
+              signal: 'mean_ores_before'
+            },
+            {
+              signal: 'mean_ores_after'
+            }
+          ]
+        }
       ],
 
       marks: [
@@ -209,7 +320,10 @@ const CourseQualityProgressGraph = createReactClass({
         }
       ]
     };
-    vegaEmbed(`#${this.props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
+    vegaEmbed(`#${this.props.graphid}`, vegaSpec, {
+      defaultStyle: true,
+      actions: { source: false }
+    });
   },
 
   render() {

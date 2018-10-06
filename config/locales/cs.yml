@@ -20,6 +20,10 @@
 # Author: Walter Klosse
 ---
 cs:
+  number:
+    human:
+      decimal_units:
+        format: '%n %u'
   accessibility:
     number_field: Toto je číselné pole. Tlačítka možná zobrazená prohlížečem mohou
       zvýšit nebo snížit hodnotu.
@@ -409,7 +413,7 @@ cs:
     end: Konec
     ended: Kurz již skončil.
     enroll: Zapsat se
-    enrollment: Zápis
+    enrollment: Přidat/Odebrat studenty
     courses_enrolled: Účastníci kurzů
     error:
       exists: Tento kurz již existujeǃ Zkuste prosím zadat jiný název kurzu, školu,
@@ -626,7 +630,7 @@ cs:
     edit_course_dates: Upravit data projektu
     end: Konec sledování aktivity
     enroll: Přidat editora
-    enrollment: Účastníci
+    enrollment: Přidat/Odebrat editory
     explore: Aktuální projekty
     courses_enrolled: Programy, jichž jste se zúčastnil(a)
     expected_students: Očekávaní editoři
@@ -814,7 +818,7 @@ cs:
     first_week_title: První aktivní týden
     gradeable_value: Hodnota
     gradeables_none: Tato časová osa nemá žádné úkoly označené jako "pro hodnocení".
-    grading_header: 'Hodnocení (Celkem: %{total}%)'
+    grading_header: 'Hodnocení (Celkem: %{total})'
     move_block_down: Přesunout blok dolů
     move_block_up: Přesunout blok nahoru
     no_class_holidays: Třída nemá prázdniny
@@ -1057,7 +1061,7 @@ cs:
     more_results: Více výsledků
     filtered_articles: Filtrované články
     searching_articles: Vyhledávání článků
-    subheading_message: Najděte článek, který odpovídá vašim představám
+    subheading_message: Najděte si článek na Wikipedii, na kterém chcete pracovat.
     article_finder: Vyhledávač článků
     submit: Odeslat
     relevanceIndex: Shoda

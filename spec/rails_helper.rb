@@ -11,16 +11,12 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
 
-url_blocklist = ['https://wikiedu.org', 'https://fonts.googleapis.com', 'http://sentry.example.com']
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: true, url_blacklist: url_blocklist, timeout: 60)
-end
-
-Capybara.configure do |config|
-  config.javascript_driver = :poltergeist
-  config.default_max_wait_time = 10
+Capybara.register_driver :selenium do |app|
+  options = Selenium::WebDriver::Chrome::Options.new(
+    args: %w[headless no-sandbox disable-gpu --window-size=1024,1024]
+  )
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
 end
 
 Rails.cache.clear
@@ -83,6 +79,28 @@ RSpec.configure do |config|
     stub_request(:get, /fonts.googleapis.com/)
       .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Ruby' })
       .to_return(status: 200, body: +'@font-face {}', headers: {})
+  end
+
+  # fail on javascript errors in feature specs
+  config.after(:each, type: :feature, js: true) do |example|
+    errors = page.driver.browser.manage.logs.get(:browser)
+    # pass `js_error_expected: true` to skip JS error checking
+    next if example.metadata[:js_error_expected]
+
+    if errors.present?
+      aggregate_failures 'javascript errrors' do
+        errors.each do |error|
+          # some specs test behavior for 4xx responses and other errors.
+          # Don't fail on these.
+          next if error.message =~ /Failed to load resource/
+
+          expect(error.level).not_to eq('SEVERE'), error.message
+          next unless error.level == 'WARNING'
+          STDERR.puts 'WARN: javascript warning'
+          STDERR.puts error.message
+        end
+      end
+    end
   end
 end
 

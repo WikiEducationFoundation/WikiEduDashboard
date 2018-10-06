@@ -79,37 +79,34 @@ const TagEditable = createReactClass({
       );
     });
 
-    let tagSelect;
-    if (this.props.availableTags.length > 0) {
-      const availableOptions = this.props.availableTags.map(tag => {
-        return { label: tag, value: tag };
-      });
-      const tagOptions = [...this.state.createdTagOption, ...availableOptions];
-      let addTagButtonDisabled = true;
-      if (this.state.selectedTag) {
-        addTagButtonDisabled = false;
-      }
-      tagSelect = (
-        <tr>
-          <th>
-            <div className="select-with-button">
-              <Select.Creatable
-                className="fixed-width"
-                ref="tagSelect"
-                name="tag"
-                value={this.state.selectedTag}
-                placeholder={I18n.t('courses.tag_select')}
-                onChange={this.handleChangeTag}
-                options={tagOptions}
-              />
-              <button type="submit" className="button dark" disabled={addTagButtonDisabled} onClick={this.addTag}>
-                Add
-              </button>
-            </div>
-          </th>
-        </tr>
-      );
+    const availableOptions = this.props.availableTags.map(tag => {
+      return { label: tag, value: tag };
+    });
+    const tagOptions = [...this.state.createdTagOption, ...availableOptions];
+    let addTagButtonDisabled = true;
+    if (this.state.selectedTag) {
+      addTagButtonDisabled = false;
     }
+    const tagSelect = (
+      <tr>
+        <th>
+          <div className="select-with-button">
+            <Select.Creatable
+              className="fixed-width"
+              ref="tagSelect"
+              name="tag"
+              value={this.state.selectedTag}
+              placeholder={I18n.t('courses.tag_select')}
+              onChange={this.handleChangeTag}
+              options={tagOptions}
+            />
+            <button type="submit" className="button dark" disabled={addTagButtonDisabled} onClick={this.addTag}>
+              Add
+            </button>
+          </div>
+        </th>
+      </tr>
+    );
 
     return (
       <div key="tags" className="pop__container tags open" onClick={this.stop}>
@@ -122,7 +119,6 @@ const TagEditable = createReactClass({
       </div>
     );
   }
-
 });
 
 const mapStateToProps = state => ({

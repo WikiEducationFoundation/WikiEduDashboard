@@ -16,7 +16,6 @@ import NewAccountButton from '../enroll/new_account_button.jsx';
 import ServerActions from '../../actions/server_actions.js';
 
 import CourseUtils from '../../utils/course_utils.js';
-import { getFiltered } from '../../utils/model_utils.js';
 
 const StudentList = createReactClass({
   displayName: 'StudentList',
@@ -67,8 +66,6 @@ const StudentList = createReactClass({
   render() {
     const toggleDrawer = this.props.toggleUI;
     const students = this.props.students.map(student => {
-      const assignOptions = { user_id: student.id, role: 0 };
-      const reviewOptions = { user_id: student.id, role: 1 };
       if (student.real_name) {
         const nameParts = student.real_name.trim().toLowerCase().split(' ');
         student.first_name = nameParts[0];
@@ -78,14 +75,12 @@ const StudentList = createReactClass({
       const isOpen = this.props.openKey === `drawer_${student.id}`;
       return (
         <Student
-          {...this.props}
           student={student}
           course={this.props.course}
           current_user={this.props.current_user}
           editable={this.state.editAssignments}
           key={student.id}
-          assigned={getFiltered(this.props.assignments, assignOptions)}
-          reviewing={getFiltered(this.props.assignments, reviewOptions)}
+          assignments={this.props.assignments}
           isOpen={isOpen}
           toggleDrawer={toggleDrawer}
         />

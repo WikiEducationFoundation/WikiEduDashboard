@@ -12,10 +12,10 @@ cache:
   - vendor
   - node_modules
 addons:
+  chrome: stable
   apt:
     packages:
     - pandoc
-    - r-base
 services:
   - redis-server
 before_install:

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amire80
 # Author: Deborahjay
+# Author: Drorsnir
 # Author: Esh77
 # Author: Guycn2
 # Author: IKhitron
@@ -324,6 +325,7 @@ he:
     passcode: קוד הרשמה
     passcode_none: אין קוד הרשמה
     passcode_prompt: נא להקליד את קוד ההרשמה שקיבלת מהמנחה שלך
+    please_log_in: אנא התחברו
     published: 'התוכנית \ הקורס \ המיזם שלך פורסם ופעיל! כעת משתתפים יכולים להירשם
       אליו ע"י ביקור בכתובת האינטרנט הבאה:'
     review_timeline: יש לעבור על לוח הזמנים הזה ולבצע בו שינויים על פי הצורך. בסיום,

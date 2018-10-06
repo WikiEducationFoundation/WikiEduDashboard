@@ -17,6 +17,16 @@
 # Author: Wwycheuk
 ---
 zh-TW:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
   application:
@@ -385,7 +395,7 @@ zh-TW:
     nocourse: 未參與任何課程。
     none: 無
     not_permitted: 您不被允許編輯此課程。
-    notify_untrained_confirmation: 這將會在所有沒有完成已經交派訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
+    notify_untrained_confirmation: 這將會在所有沒有完成已經交派培訓模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
     no_available_actions: 沒有可執行的項目
     ores_plot: 客觀性修訂版本評估服務（Objective Revision Evaluation Service、ORES）
     overview: 首頁
@@ -439,9 +449,9 @@ zh-TW:
     timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育方案課程以及其它長時間、高度結構化方案很有用。
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
-    training_due: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_due: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
     training_nav: 前往培訓
-    training_overdue: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_overdue: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
     unsubmitted: 尚未送出的課程。
     untrained: 未受訓
     update_stats: 更新統計內容
@@ -797,13 +807,15 @@ zh-TW:
     training_complete_count:
       one: '%{count}最近的培訓'
       other: '%{count}最近的培訓'
-    training_doc: 完成所有已到期的分配教育模組之編輯者可視為完成最近培訓。
+    training_doc: 完成所有已到期的分配培訓模組之編輯者可視為完成最近培訓。
     training_incomplete: 未完成的培訓
     training_modules_completed:
       one: '%{completed_count}/%{count}培訓模組完成'
       other: '%{completed_count}/%{count}培訓模組完成'
     training_module_name: 培訓模組
     training_module_status: 狀態
+    user_training_status: 培訓狀態
+    user_no_training_status: 此使用者尚未完成任何培訓模組
     up_to_date_with_training: 最近培訓
     uploads_doc: 上傳到維基共享資源的檔案數量
     username: 使用者名稱
@@ -830,7 +842,7 @@ zh-TW:
     notify_overdue:
       confirm: 這將會在所有逾期培訓學生的討論頁上發表通知。您確定要執行嗎？
       header: 您有一項過期的培訓分配作業。
-      message: 請完成分配的[%{link}訓練模組]。
+      message: 請完成分配的[%{link}培訓模組]。
       summary: 學生培訓逾期
   wizard:
     assignment_dates: 分配作業日期
@@ -916,6 +928,8 @@ zh-TW:
     search_placeholder: 輸入您的關鍵詞
     search: 搜尋
     tools: 工具
+    show_options: 顯示選項
+    hide_options: 隱藏選項
     keyword_search: 關鍵詞搜尋
     category_search: 分類搜尋
     article_quality: 條目品質（0 - 100）
@@ -927,7 +941,7 @@ zh-TW:
     fetching_revisions: 索取頁面修訂中
     fetching_scores: 索取完整性分數中
     fetching_pageviews: 索取頁面檢視次數中
-    subheading_message: 讓我們來找出符合您需求的條目
+    subheading_message: 讓我們來找出影響的維基百科條目
     article_finder: 條目查找
     submit: 提交
     relevanceIndex: 關聯索引
