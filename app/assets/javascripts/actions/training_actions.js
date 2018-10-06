@@ -5,22 +5,72 @@ import {
   SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 
-import API from '../utils/api';
+const fetchAllTrainingModulesPromise = () => {
+  return new Promise((res, rej) =>
+    $.ajax({
+      type: 'GET',
+      url: '/training_modules.json',
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    })
+  );
+};
+
+const fetchTrainingModulePromise = (opts) => {
+  return new Promise((res, rej) =>
+    $.ajax({
+      type: 'GET',
+      url: `/training_module.json?module_id=${opts.module_id}`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    })
+  );
+};
+
+const setSlideCompletedPromise = (opts) => {
+  return new Promise((res, rej) =>
+    $.ajax({
+      type: 'POST',
+      url: `/training_modules_users.json?\
+module_id=${opts.module_id}&\
+user_id=${opts.user_id}&\
+slide_id=${opts.slide_id}`,
+      success(data) {
+        return res(data);
+      }
+    })
+    .fail((obj) => {
+      logErrorMessage(obj);
+      return rej(obj);
+    })
+  );
+};
+
 
 export const fetchAllTrainingModules = () => (dispatch) => {
-  return API.fetchAllTrainingModules()
+  return fetchAllTrainingModulesPromise()
     .then(resp => dispatch({ type: RECEIVE_ALL_TRAINING_MODULES, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
 export const fetchTrainingModule = (opts = {}) => (dispatch) => {
-  return API.fetchTrainingModule(opts)
+  return fetchTrainingModulePromise(opts)
     .then(resp => dispatch({ type: RECEIVE_TRAINING_MODULE, data: _.extend(resp, { slide: opts.current_slide_id }) }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };
 
 export const setSlideCompleted = (opts) => (dispatch) => {
-  return API.setSlideCompleted(opts)
+  return setSlideCompletedPromise(opts)
     .then(resp => dispatch({ type: SLIDE_COMPLETED, data: resp }))
     .catch(resp => dispatch({ type: API_FAIL, data: resp }));
 };

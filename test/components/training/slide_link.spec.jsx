@@ -1,14 +1,26 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import configureMockStore from 'redux-mock-store';
 import '../../testHelper';
 import SlideLink from '../../../app/assets/javascripts/training/components/slide_link.jsx';
 import TrainingSlideHandler from '../../../app/assets/javascripts/training/components/training_slide_handler.jsx';
 
-
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 describe('SlideLink', () => {
+  const store = mockStore({
+    training: {
+      loading: false,
+      currentSlide: { content: 'hello', id: 1 },
+      slides: ['a'],
+      enabledSlides: [],
+      nextSlide: { slug: 'foobar' }
+    }
+  });
   const TestLink = mount(
-    <Provider store={reduxStore}>
+    <Provider store={store}>
       <TrainingSlideHandler
         loading={false}
         params={{ library_id: 'foo', module_id: 'bar', slide_id: 'foobar' }}
@@ -26,14 +38,6 @@ describe('SlideLink', () => {
 
   let domBtn;
   global.beforeEach(() => {
-    TestLink.setState({
-      loading: false,
-      currentSlide: { content: 'hello', id: 1 },
-      slides: ['a'],
-      enabledSlides: [],
-      nextSlide: { slug: 'foobar' }
-    });
-
     domBtn = TestLink.find('.slide-nav').first();
   });
 
