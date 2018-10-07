@@ -8,6 +8,7 @@ import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen
 import SlideLink from './slide_link.jsx';
 import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
+import slugs from './slugs.js';
 
 const md = require('../../utils/markdown_it.js').default({ openLinksExternally: true });
 
@@ -20,6 +21,10 @@ const TrainingSlideHandler = createReactClass({
 
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
+    if (!slugs[slideId]) {
+       window.location = '/errors/file_not_found';
+       return;
+    }
     this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
     this.setSlideCompleted(slideId);
   },
@@ -102,10 +107,6 @@ const TrainingSlideHandler = createReactClass({
           <div className="training-loader__spinner" />
         </div>
       );
-    }
-    if (this.props.training.loading === false && !__guard__(this.props.training.currentSlide, x => x.id)) {
-      window.location = '/errors/file_not_found';
-      return <div />;
     }
 
     let nextLink;
