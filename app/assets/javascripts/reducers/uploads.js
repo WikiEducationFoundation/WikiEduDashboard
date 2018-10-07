@@ -95,7 +95,7 @@ export default function uploads(state = initialState, action) {
       });
       return {
         ...state,
-        pageViews: fileViews,
+        pageViews: fileViews, 
       };
     }
     default:
