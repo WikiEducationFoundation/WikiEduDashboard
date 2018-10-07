@@ -5,7 +5,7 @@ import _ from 'lodash';
 import moment from 'moment';
 import OnClickOutside from 'react-onclickoutside';
 import { connect } from 'react-redux';
-import { setUploadViewerMetadata } from '../../actions/uploads_actions.js';
+import { setUploadViewerMetadata, setUploadPageViews } from '../../actions/uploads_actions.js';
 
 const UploadViewer = createReactClass({
   displayName: 'UploadViewer',
@@ -15,13 +15,37 @@ const UploadViewer = createReactClass({
     closeUploadViewer: PropTypes.func,
   },
 
+  getInitialState() {
+    return {
+      loadingViews: true
+    };
+  },
+
   componentWillMount() {
     this.props.setUploadViewerMetadata(this.props.upload);
+  },
+
+  componentDidUpdate() {
+    const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
+    const fileUsage = _.get(metadata, 'globalusage', []);
+    if (fileUsage) {
+      if (this.state.loadingViews) {
+        this.handleGetFileViews(fileUsage);
+      }
+    }
+  },
+
+  handleGetFileViews(files) {
+    this.props.setUploadPageViews(files);
+    this.setState({
+      loadingViews: false
+    });
   },
 
   handleClickOutside() {
     this.props.closeUploadViewer();
   },
+
 
   render() {
     const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
@@ -40,17 +64,17 @@ const UploadViewer = createReactClass({
     const author = <a href={profileLink} target="_blank">{this.props.upload.uploader}</a>;
     const source = _.get(metadata, 'imageinfo[0].extmetadata.Credit.value');
     const license = _.get(metadata, 'imageinfo[0].extmetadata.LicenseShortName.value');
-
     const globalUsage = _.get(metadata, 'globalusage', []);
     let usageTableElements;
-    if (globalUsage) {
-      usageTableElements = globalUsage.map(usage => {
-        return (
-          <tr>
-            <td>{usage.wiki}</td>
-            <td><a href={usage.url}>{usage.title}</a></td>
-          </tr>
-        );
+    if (globalUsage && (this.props.pageViews !== undefined)) {
+      usageTableElements = globalUsage.map((usage, key) => {
+          return (
+            <tr>
+              <td>{usage.wiki}</td>
+              <td><a href={usage.url}>{usage.title}</a></td>
+              <td>{this.props.pageViews[key]}</td>
+            </tr>
+          );
       });
     }
 
@@ -64,6 +88,7 @@ const UploadViewer = createReactClass({
               <tr>
                 <th>Wiki</th>
                 <th>Article Name</th>
+                <th>Average Views</th>
               </tr>
             </thead>
             <tbody>
@@ -73,7 +98,6 @@ const UploadViewer = createReactClass({
         </div>
       );
     }
-
     let categoriesList = '';
     let categories;
     _.forEach(_.get(metadata, 'categories', []), category => categoriesList = `${categoriesList} | ${category.title}`);
@@ -135,10 +159,12 @@ const UploadViewer = createReactClass({
 
 const mapStateToProps = state => ({
   uploadMetadata: state.uploads.uploadMetadata,
+  pageViews: state.uploads.averageViews
 });
 
 const mapDispatchToProps = {
-  setUploadViewerMetadata
+  setUploadViewerMetadata,
+  setUploadPageViews
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OnClickOutside(UploadViewer));
