@@ -21,11 +21,18 @@ const TrainingSlideHandler = createReactClass({
   componentWillMount() {
     const slideId = __guard__(this.props.params, x => x.slide_id);
     this.props.fetchTrainingModule({ module_id: this.moduleId(), current_slide_id: slideId });
-    return this.setSlideCompleted(slideId);
+    this.setSlideCompleted(slideId);
   },
 
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeyPress);
+  },
+
+  componentWillReceiveProps(newProps) {
+    const { slide_id } = newProps.params;
+    if (this.props.training.currentSlide.slug !== slide_id) {
+      this.props.setCurrentSlide(slide_id);
+    }
   },
 
   componentWillUnmount() {
