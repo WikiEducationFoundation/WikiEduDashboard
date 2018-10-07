@@ -17,8 +17,7 @@ const initialState = {
   view: GALLERY_VIEW,
   selectedFilters: [],
   loading: true,
-  uploadMetadata: {},
-  pageViews: ''
+  uploadMetadata: {}
 };
 
 const SORT_DESCENDING = {
@@ -89,13 +88,17 @@ export default function uploads(state = initialState, action) {
       };
     }
     case SET_UPLOAD_PAGEVIEWS: {
-      let fileViews = 0;
-      _.forEach(action.data.items, fileView => {
-        fileViews += _.get(fileView, 'views');
+      const averageViews = [];
+      _.forEach(action.data, fileView => {
+        let fileViews = 0;
+        _.forEach(fileView.items, article => {
+          fileViews += _.get(article, 'views');
+        });
+        averageViews.push(Math.round((fileViews / 60) * 10) / 10);
       });
       return {
         ...state,
-        pageViews: fileViews, 
+        averageViews: averageViews,
       };
     }
     default:
