@@ -7,23 +7,21 @@ import {
 
 const setSelectedAnswer = function (state, answer) {
   const answerId = parseInt(answer);
-  state.currentSlide.selectedAnswer = answerId;
+  const temp = { ...state, currentSlide: { ...state.currentSlide, selectedAnswer: answerId } };
   if (state.currentSlide.assessment.correct_answer_id === answerId) {
-    state.currentSlide.answeredCorrectly = true;
+    return { ...temp, currentSlide: { ...temp.currentSlide, answeredCorrectly: true } };
   }
-  return state;
+  return { ...temp, currentSlide: { ...temp.currentSlide, answeredCorrectly: false } };
 };
 
 const setCurrentSlide = function (state, slideId) {
   if (!state.module.slides) { return state.currentSlide; }
   const slideIndex = _.findIndex(state.module.slides, slide => slide.slug === slideId);
-  state.currentSlide = state.module.slides[slideIndex];
-  state.loading = false;
-  return state;
+  return { ...state, currentSlide: { ...state.module.slides[slideIndex] }, loading: false };
 };
 
 const setEnabledSlides = function (state, slide) {
-  if (slide) {
+  if (slide && slide.id !== (state.currentSlide.id || slide.id)) {
     state.enabledSlides.push(slide.id);
   }
   return state;

@@ -28,12 +28,6 @@ const TrainingSlideHandler = createReactClass({
     window.addEventListener('keyup', this.handleKeyPress);
   },
 
-  componentWillReceiveProps(newProps) {
-    const { slide_id } = newProps.params;
-    this.props.setCurrentSlide(slide_id);
-    this.setSlideCompleted(slide_id);
-  },
-
   componentWillUnmount() {
     return window.removeEventListener('keyup', this.handleKeyPress);
   },

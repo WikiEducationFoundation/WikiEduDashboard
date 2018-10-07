@@ -95,8 +95,12 @@ const Quiz = createReactClass({
   }
 });
 
+const mapStateToProps = (state) => ({
+  training: state.training
+});
+
 const mapDispatchToProps = {
   setSelectedAnswer
 };
 
-export default connect(null, mapDispatchToProps)(Quiz);
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
