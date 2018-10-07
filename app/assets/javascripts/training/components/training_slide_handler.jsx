@@ -32,6 +32,7 @@ const TrainingSlideHandler = createReactClass({
     const { slide_id } = newProps.params;
     if (this.props.training.currentSlide.slug !== slide_id) {
       this.props.setCurrentSlide(slide_id);
+      this.setSlideCompleted(slide_id);
     }
   },
 
@@ -102,7 +103,6 @@ const TrainingSlideHandler = createReactClass({
         </div>
       );
     }
-
     if (this.props.training.loading === false && !__guard__(this.props.training.currentSlide, x => x.id)) {
       window.location = '/errors/file_not_found';
       return <div />;

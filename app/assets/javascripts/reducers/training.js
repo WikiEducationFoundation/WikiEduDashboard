@@ -21,8 +21,8 @@ const setCurrentSlide = function (state, slideId) {
 };
 
 const setEnabledSlides = function (state, slide) {
-  if (slide && slide.id !== (state.currentSlide.id || slide.id)) {
-    state.enabledSlides.push(slide.id);
+  if (slide) {
+    return { ...state, enabledSlides: [...state.enabledSlides, slide.id] };
   }
   return state;
 };
@@ -104,9 +104,11 @@ export default function training(state = initialState, action) {
     default:
       newState = state;
   }
-  newState.previousSlide = getPreviousSlide(newState);
-  newState.nextSlide = getNextSlide(newState);
-  newState.isFirstSlide = isFirstSlide(newState);
-  newState.slides = newState.module.slides;
-  return newState;
+  return {
+    ...newState,
+    previousSlide: getPreviousSlide(newState),
+    nextSlide: getNextSlide(newState),
+    isFirstSlide: isFirstSlide(newState),
+    slides: newState.module.slides
+  };
 }
