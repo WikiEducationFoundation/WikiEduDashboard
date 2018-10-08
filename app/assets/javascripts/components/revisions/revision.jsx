@@ -26,7 +26,7 @@ const Revision = ({ revision, wikidataLabel, course }) => {
       <td className="desktop-only-tc">{revision.characters}</td>
       <td className="desktop-only-tc date"><a href={revision.url}>{moment(revision.date).format('YYYY-MM-DD   h:mm A')}</a></td>
       <td>
-        <DiffViewer revision={revision} editors={[revision.revisor]} />
+        <DiffViewer revision={revision} editors={[revision.revisor]} showNextAndPrevButton/>
       </td>
     </tr>
   );

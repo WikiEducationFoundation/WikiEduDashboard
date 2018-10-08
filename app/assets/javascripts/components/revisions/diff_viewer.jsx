@@ -245,6 +245,13 @@ const DiffViewer = createReactClass({
 
     return (
       <div>
+        {
+          this.props.showNextAndPrevButton &&
+          <div>
+            <button onClick={this.props.handlePrevious} className="previous button dark small">Previous</button>
+            <button onClick={this.props.handleNext} className="next button dark small">Next</button>
+          </div>
+        }
         <div className={className}>
           <div className="diff-viewer-header">
             <a className="button dark small" href={wikiDiffUrl} target="_blank">{I18n.t('revisions.view_on_wiki')}</a>
