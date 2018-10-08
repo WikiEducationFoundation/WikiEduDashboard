@@ -32,4 +32,15 @@ describe TrainingSlide do
       expect { subject }.to raise_error ActiveRecord::RecordNotUnique
     end
   end
+
+  it 'does not contain duplicate slide IDs in the .yml source' do
+    described_class.destroy_all
+
+    # there should be one TrainingSlide created for reach yaml file.
+    # If fewer get created, it means that some were invalid or overwrote another one.
+    yaml_file_count = Dir.glob(described_class.path_to_yaml).count
+    described_class.load
+
+    expect(described_class.count).to eq(yaml_file_count)
+  end
 end
