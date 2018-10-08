@@ -25,10 +25,18 @@ class YamlTrainingLoader
     slug.gsub!(/^[0-9]+-/, '') if @content_class.trim_id_from_filename
     begin
       content = YAML.load_file(yaml_file)
+      validate_id(yaml_file, content)
     rescue StandardError => e
       raise InvalidYamlError, "Looks like there is a problem with #{yaml_file}. #{e}"
     end
+
     @content_class.inflate(content, slug)
+  end
+
+  def validate_id(yaml_file, content)
+    return unless @content_class.trim_id_from_filename
+    filename_id = File.basename(yaml_file, '.yml')[/^[0-9]+(?=-)/]
+    raise InvalidYamlError unless content['id'] == filename_id.to_i
   end
 
   class InvalidYamlError < StandardError; end
