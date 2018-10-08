@@ -67,12 +67,12 @@ const UploadViewer = createReactClass({
     const globalUsage = _.get(metadata, 'globalusage', []);
     let usageTableElements;
     if (globalUsage && (this.props.pageViews !== undefined)) {
-      usageTableElements = globalUsage.map((usage, key) => {
+      usageTableElements = globalUsage.map((usage, index) => {
           return (
             <tr>
               <td>{usage.wiki}</td>
               <td><a href={usage.url}>{usage.title}</a></td>
-              <td>{this.props.pageViews[key]}</td>
+              <td>{this.props.pageViews[index]}</td>
             </tr>
           );
       });
