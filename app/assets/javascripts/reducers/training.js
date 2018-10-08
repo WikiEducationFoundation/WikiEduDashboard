@@ -102,7 +102,7 @@ export default function training(state = initialState, action) {
       redirectTo(data);
       break;
     default:
-      newState = state;
+      return state;
   }
   return {
     ...newState,
