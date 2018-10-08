@@ -94,7 +94,7 @@ export default function uploads(state = initialState, action) {
         _.forEach(fileView.items, article => {
           fileViews += _.get(article, 'views');
         });
-        averageViews.push(Math.round((fileViews / 60) * 10) / 10);
+        averageViews.push(Math.round((fileViews / fileView.items.length) * 10) / 10);
       });
       return {
         ...state,

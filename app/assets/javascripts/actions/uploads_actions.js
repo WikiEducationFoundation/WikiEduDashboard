@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { RECEIVE_UPLOADS, SORT_UPLOADS, SET_VIEW, FILTER_UPLOADS, SET_UPLOAD_METADATA, API_FAIL, SET_UPLOAD_VIEWER_METADATA, SET_UPLOAD_PAGEVIEWS } from '../constants';
 import logErrorMessage from '../utils/log_error_message';
+import pageViewDateString from '../utils/uploads_pageviews_utils';
 
 const fetchUploads = (courseId) => {
   return new Promise((res, rej) => {
@@ -111,14 +112,16 @@ export const setUploadViewerMetadata = (upload) => dispatch => {
 
 const fetchUploadPageViews = (articleList) => {
   const viewPerArticle = [];
-  // set the start date to 60 days form today
-  const rawDate = new Date();
-  rawDate.setDate(rawDate.getDate() - 60);
-  const startDate = new Date(rawDate).toJSON().slice(0, 10).replace(/-/g, '');
-  const endDate = new Date().toJSON().slice(0, 10).replace(/-/g, '');
+  // To obtain the start date, decalare a date const, calculate 60 days from the date of today
+  // and then format the date to YYYYMMDD
+  // To obtain the end date format the date of today to YYYYMMDD
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - 60);
+  const formattedStartDate = pageViewDateString(startDate);
+  const endDate = pageViewDateString(new Date());
   articleList.map(article => {
     const title = encodeURIComponent(article.title);
-    const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${startDate}/${endDate}`;
+    const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/${article.wiki}/all-access/all-agents/${title}/daily/${formattedStartDate}/${endDate}`;
     viewPerArticle.push(new Promise((res, rej) => {
       return $.ajax({
         type: 'GET',
