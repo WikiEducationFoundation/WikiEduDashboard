@@ -810,10 +810,10 @@
   dependencies:
     array-from "^2.1.1"
 
-"@tinymce/tinymce-react@^2.2.5":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.2.6.tgz#8e3d8dc65e9b9ae1f5232e1e53453039f5afa2f4"
-  integrity sha512-/fFnxeKfY3ed7l2El7l7gNs5HcMBVHM1eKrpA4vgp73oyHuFkJ4qLlrfPekt2bBszSpSY13CkcSdNIRuGE2Y1A==
+"@tinymce/tinymce-react@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.3.0.tgz#2ba3b91828246ab365e1fff25e134d4936f4d430"
+  integrity sha512-sQpjNqEoKqTtmn8xnVnDAgtZKBIS2t6zwUDUcOEfEM3nem4nSkgKtFa8qwwtwiNP4ELuqCSizuoXLjx7r8Uohg==
   dependencies:
     prop-types "^15.6.0"
     react "^16.2.0"
