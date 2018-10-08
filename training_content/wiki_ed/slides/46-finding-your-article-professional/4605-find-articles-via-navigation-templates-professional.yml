@@ -1,0 +1,18 @@
+id: 1705
+title: Using navigation templates to find content gaps
+summary:
+content: |
+  Sometimes articles have navigation templates, like <a href="https://en.wikipedia.org/wiki/HIV/AIDS_in_Angola" target="_blank">this one</a>
+  shown below. Usually found at the bottom of an article, they give a quick
+  overview of a category and may also highlight missing articles.
+
+  <figure>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/HIV-template.png" />
+    <figcaption>
+      Navigation templates may be collapsed by default. Click 'show' to expand them.
+    </figcaption>
+  </figure>
+
+  The red links you see are articles that don't exist, but should! These red
+  links can also be seen in the body of an article, not just the navigation
+  template.
