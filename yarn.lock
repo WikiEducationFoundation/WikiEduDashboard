@@ -810,10 +810,10 @@
   dependencies:
     array-from "^2.1.1"
 
-"@tinymce/tinymce-react@^2.2.5":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.2.6.tgz#8e3d8dc65e9b9ae1f5232e1e53453039f5afa2f4"
-  integrity sha512-/fFnxeKfY3ed7l2El7l7gNs5HcMBVHM1eKrpA4vgp73oyHuFkJ4qLlrfPekt2bBszSpSY13CkcSdNIRuGE2Y1A==
+"@tinymce/tinymce-react@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tinymce/tinymce-react/-/tinymce-react-2.3.0.tgz#2ba3b91828246ab365e1fff25e134d4936f4d430"
+  integrity sha512-sQpjNqEoKqTtmn8xnVnDAgtZKBIS2t6zwUDUcOEfEM3nem4nSkgKtFa8qwwtwiNP4ELuqCSizuoXLjx7r8Uohg==
   dependencies:
     prop-types "^15.6.0"
     react "^16.2.0"
@@ -7103,7 +7103,7 @@ isobject@^3.0.0, isobject@^3.0.1:
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha1-TkMekrEalzFjaqH5yNHMvP2reN8=
 
-isomorphic-fetch@^2.1.1:
+isomorphic-fetch@^2.1.1, isomorphic-fetch@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/isomorphic-fetch/-/isomorphic-fetch-2.2.1.tgz#611ae1acf14f5e81f729507472819fe9733558a9"
   integrity sha1-YRrhrPFPXoH3KVB0coGf6XM1WKk=
