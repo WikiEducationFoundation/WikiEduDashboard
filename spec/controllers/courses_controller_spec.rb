@@ -143,10 +143,22 @@ describe CoursesController do
 
       before { course.update_attribute(:passcode, nil) }
 
-      it 'sets if it is nil and not in params' do
+      it 'sets randomly if it is nil and not in params' do
         params = { id: course.slug, course: { title: 'foo' } }
         put :update, params: params, as: :json
         expect(course.reload.passcode).to match(/[a-z]{8}/)
+      end
+
+      it 'does not update it if placeholder passcode is received' do
+        params = { id: course.slug, course: { title: 'foo', passcode: '****' } }
+        put :update, params: params, as: :json
+        expect(course.reload.passcode).to be_nil
+      end
+
+      it 'updates it if new passcode is received' do
+        params = { id: course.slug, course: { title: 'foo', passcode: 'newpasscode' } }
+        put :update, params: params, as: :json
+        expect(course.reload.passcode).to eq('newpasscode')
       end
     end
 

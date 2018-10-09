@@ -253,13 +253,17 @@ class CoursesController < ApplicationController
   end
 
   def update_params
+    course_attributes = course_params.to_h
+
     if params[:course].key?(:home_wiki)
       home_wiki = Wiki.get_or_create language: params.dig(:course, :home_wiki, :language),
                                      project: params.dig(:course, :home_wiki, :project)
-      course_params.merge!(home_wiki_id: home_wiki[:id])
-    else
-      course_params
+      course_attributes[:home_wiki_id] = home_wiki[:id]
     end
+
+    course_attributes.delete(:passcode) if params[:course][:passcode] == '****'
+
+    course_attributes
   end
 
   def instructor_role_description
