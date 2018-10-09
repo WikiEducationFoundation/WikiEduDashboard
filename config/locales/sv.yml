@@ -569,6 +569,7 @@ sv:
     reviewing: Granskar
     training_module_name: Träningsmodul
     training_module_status: Status
+    user_training_status: Träningsstatus
     username: Användarnamn
     username_placeholder: Användarnamn
     useremail_placeholder: E-post
